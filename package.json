@@ -6,7 +6,6 @@
     "url": "https://github.com/fastmonkeys/respa-ui.git"
   },
   "dependencies": {
-    "bootstrap": "^3.3.5",
     "history": "^1.9.1",
     "humps": "^0.7.0",
     "immutable": "^3.7.5",
