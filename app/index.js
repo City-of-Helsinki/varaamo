@@ -7,7 +7,7 @@ import {ReduxRouter} from 'redux-react-router';
 
 import configureStore from 'store/configureStore';
 
-import 'styles/app.less';
+import 'assets/styles/app.less';
 
 const store = configureStore();
 

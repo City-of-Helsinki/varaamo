@@ -49,7 +49,7 @@ module.exports = merge(common, {
     }),
     new ExtractTextPlugin('app.[hash].css'),
     new HtmlWebpackPlugin({
-      favicon: './app/images/favicon.ico',
+      favicon: './app/assets/images/favicon.ico',
       hash: true,
       inject: true,
       production: true,

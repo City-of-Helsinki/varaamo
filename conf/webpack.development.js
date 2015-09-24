@@ -49,7 +49,7 @@ module.exports = merge(common, {
       __DEVTOOLS__: true,
     }),
     new HtmlWebpackPlugin({
-      favicon: './app/images/favicon.ico',
+      favicon: './app/assets/images/favicon.ico',
       inject: true,
       template: './conf/template.html',
     }),
