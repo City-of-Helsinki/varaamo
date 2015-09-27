@@ -1,30 +1,42 @@
 import React, {Component, PropTypes} from 'react';
 import DocumentTitle from 'react-document-title';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
-class SearchPage extends Component {
+import {fetchResources} from 'actions/resourceActions';
+import SearchResults from 'components/search-page/SearchResults';
+import {searchPageSelectors} from 'selectors/searchPageSelectors';
+
+export class UnconnectedSearchPage extends Component {
+  componentDidMount() {
+    this.props.fetchResources();
+  }
+
   render() {
-    const {category} = this.props;
+    const {category, results} = this.props;
 
     return (
       <DocumentTitle title='Haku - Respa'>
         <div>
           <h1>Haku</h1>
           <p>Kategoria: {category}</p>
+          <h2>Hakutulokset</h2>
+          <SearchResults results={results} />
         </div>
       </DocumentTitle>
     );
   }
 }
 
-SearchPage.propTypes = {
+UnconnectedSearchPage.propTypes = {
   category: PropTypes.string.isRequired,
+  fetchResources: PropTypes.func.isRequired,
+  results: ImmutablePropTypes.list.isRequired,
 };
 
-function mapStateToProps(state) {
-  return {
-    category: state.search.get('category'),
-  };
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({fetchResources}, dispatch);
 }
 
-export default connect(mapStateToProps)(SearchPage);
+export default connect(searchPageSelectors, mapDispatchToProps)(UnconnectedSearchPage);
