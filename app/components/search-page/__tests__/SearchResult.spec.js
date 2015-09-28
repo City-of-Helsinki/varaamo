@@ -3,6 +3,7 @@ import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 
 import {fromJS} from 'immutable';
+import {Link} from 'react-router';
 
 import SearchResult from 'components/search-page/SearchResult';
 
@@ -42,14 +43,26 @@ describe('Component: SearchResult', () => {
       });
     });
 
-    it('first table cell should contain name of the result', () => {
-      const td = output.props.children[0];
-      expect(td.props.children).to.equal('Some resource');
+    describe('the first table cell', () => {
+      it('should contain a link to resources page', () => {
+        const td = output.props.children[0];
+        const link = td.props.children;
+        expect(TestUtils.isElementOfType(link, Link)).to.be.true;
+        expect(link.props.to).to.contain('resources');
+      });
+
+      it('should display the name of the result', () => {
+        const td = output.props.children[0];
+        const link = td.props.children;
+        expect(link.props.children).to.equal('Some resource');
+      });
     });
 
-    it('second table cell should contain unit of the result', () => {
-      const td = output.props.children[1];
-      expect(td.props.children).to.equal('u-1');
+    describe('the second table cell', () => {
+      it('should contain unit of the result', () => {
+        const td = output.props.children[1];
+        expect(td.props.children).to.equal('u-1');
+      });
     });
   });
 });

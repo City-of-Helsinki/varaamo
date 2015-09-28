@@ -1,9 +1,9 @@
 import chai, {expect} from 'chai';
 import chaiImmutable from 'chai-immutable';
 
-import {Map} from 'immutable';
+import {fromJS, Map} from 'immutable';
 
-import {fetchResourcesSuccess} from 'actions/resourceActions';
+import {fetchResourceSuccess, fetchResourcesSuccess} from 'actions/resourceActions';
 import {resources as reducer} from 'reducers/resources';
 
 chai.use(chaiImmutable);
@@ -17,6 +17,51 @@ describe('Reducer: resources', () => {
   });
 
   describe('handling actions', () => {
+    describe('FETCH_RESOURCE_SUCCESS', () => {
+      it('should index the given resource by id and add it to state', () => {
+        const initialState = Map();
+        const resource = {id: 'r-1', name: 'some resource'};
+        const expectedState = fromJS({
+          'r-1': {id: 'r-1', name: 'some resource'},
+        });
+        const action = fetchResourceSuccess(resource);
+
+        expect(reducer(initialState, action)).to.equal(expectedState);
+      });
+
+      it('should not remove other resources from the state', () => {
+        const initialState = fromJS({
+          'r-1': {id: 'r-1', name: 'some resource'},
+          'r-2': {id: 'r-2', name: 'other resource'},
+        });
+        const resource = {id: 'r-3', name: 'new resource'};
+        const expectedState = fromJS({
+          'r-1': {id: 'r-1', name: 'some resource'},
+          'r-2': {id: 'r-2', name: 'other resource'},
+          'r-3': {id: 'r-3', name: 'new resource'},
+        });
+        const action = fetchResourceSuccess(resource);
+
+        expect(reducer(initialState, action)).to.equal(expectedState);
+      });
+
+      it('should overwrite previous resource with the same id', () => {
+        const previousResource = {
+          id: 'r-1',
+          name: 'old name',
+        };
+        const resource = {
+          id: 'r-1',
+          name: 'some resource',
+        };
+        const initialState = fromJS({'r-1': previousResource});
+        const expectedState = fromJS({'r-1': resource});
+        const action = fetchResourceSuccess(resource);
+
+        expect(reducer(initialState, action)).to.equal(expectedState);
+      });
+    });
+
     describe('FETCH_RESOURCES_SUCCESS', () => {
       it('should return the state as Map', () => {
         const resources = [
