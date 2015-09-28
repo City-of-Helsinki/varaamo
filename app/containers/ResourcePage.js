@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import DocumentTitle from 'react-document-title';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import Loader from 'react-loader';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
@@ -18,9 +19,11 @@ export class UnconnectedResourcePage extends Component {
     const name = resource.getIn(['name', 'fi']);
     return (
       <DocumentTitle title={`${name} - Respa`}>
-        <div>
-          <h1>{name}</h1>
-        </div>
+        <Loader loaded={Boolean(resource.size)}>
+          <div>
+            <h1>{name}</h1>
+          </div>
+        </Loader>
       </DocumentTitle>
     );
   }
