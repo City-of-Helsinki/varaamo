@@ -4,11 +4,11 @@ import chaiImmutable from 'chai-immutable';
 import {List, Map} from 'immutable';
 
 import {fetchResourcesStart, fetchResourcesSuccess} from 'actions/resourceActions';
-import {search as reducer} from 'reducers/search';
+import {searchReducer as reducer} from 'reducers/search';
 
 chai.use(chaiImmutable);
 
-describe('Reducer: search', () => {
+describe('Reducer: searchReducer', () => {
   describe('initial state', () => {
     let initialState;
 

@@ -3,7 +3,7 @@ import {Map} from 'immutable';
 
 import ActionTypes from 'constants/ActionTypes';
 
-export function resources(state = Map(), action) {
+export function resourcesReducer(state = Map(), action) {
   switch (action.type) {
 
   case ActionTypes.FETCH_RESOURCE_SUCCESS:

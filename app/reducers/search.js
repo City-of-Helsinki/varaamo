@@ -29,7 +29,7 @@ function searchResults(state, action) {
   }
 }
 
-export function search(state = initialState, action) {
+export function searchReducer(state = initialState, action) {
   switch (action.type) {
 
   case ActionTypes.FETCH_RESOURCES_START:

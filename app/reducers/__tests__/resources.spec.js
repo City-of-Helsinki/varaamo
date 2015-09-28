@@ -4,11 +4,11 @@ import chaiImmutable from 'chai-immutable';
 import {fromJS, Map} from 'immutable';
 
 import {fetchResourceSuccess, fetchResourcesSuccess} from 'actions/resourceActions';
-import {resources as reducer} from 'reducers/resources';
+import {resourcesReducer as reducer} from 'reducers/resources';
 
 chai.use(chaiImmutable);
 
-describe('Reducer: resources', () => {
+describe('Reducer: resourcesReducer', () => {
   describe('initial state', () => {
     it('should be an empty Map', () => {
       const expected = Map();

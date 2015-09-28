@@ -1,11 +1,11 @@
 import {combineReducers} from 'redux';
 import {routerStateReducer as router} from 'redux-react-router';
 
-import {search} from 'reducers/search';
-import {resources} from 'reducers/resources';
+import {searchReducer} from 'reducers/search';
+import {resourcesReducer} from 'reducers/resources';
 
 export default combineReducers({
-  resources,
+  resources: resourcesReducer,
   router,
-  search,
+  search: searchReducer,
 });
