@@ -43,6 +43,10 @@ describe('Reducer: searchReducer', () => {
       it('searchResults.isFetching should be false', () => {
         expect(searchResults.get('isFetching')).to.be.false;
       });
+
+      it('searchResults.shouldFetch should be true', () => {
+        expect(searchResults.get('shouldFetch')).to.be.true;
+      });
     });
   });
 
@@ -80,6 +84,19 @@ describe('Reducer: searchReducer', () => {
         });
         const newState = reducer(initialState, action);
         expect(newState.getIn(['searchResults', 'isFetching'])).to.be.false;
+      });
+
+      it('should set searchResults.shouldFetch to false', () => {
+        const action = fetchResourcesSuccess(resources);
+        const initialState = Map({
+          searchResults: Map({
+            ids: List(),
+            isFetching: true,
+            shouldFetch: true,
+          }),
+        });
+        const newState = reducer(initialState, action);
+        expect(newState.getIn(['searchResults', 'shouldFetch'])).to.be.false;
       });
 
       it('should set the given resource ids to searchResults.ids', () => {

@@ -8,6 +8,7 @@ const initialState = Map({
   searchResults: Map({
     ids: List(),
     isFetching: false,
+    shouldFetch: true,
   }),
 });
 
@@ -22,6 +23,7 @@ function searchResults(state, action) {
     return state.merge({
       ids: List(_.pluck(resources, 'id')),
       isFetching: false,
+      shouldFetch: false,
     });
 
   default:
