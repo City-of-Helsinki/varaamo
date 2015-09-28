@@ -18,7 +18,7 @@ function searchResults(state, action) {
     return state.set('isFetching', true);
 
   case ActionTypes.FETCH_RESOURCES_SUCCESS:
-    const {resources} = action.payload;
+    const resources = _.values(action.payload);
     return state.merge({
       ids: List(_.pluck(resources, 'id')),
       isFetching: false,

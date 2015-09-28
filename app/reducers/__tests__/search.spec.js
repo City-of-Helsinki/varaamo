@@ -2,8 +2,9 @@ import chai, {expect} from 'chai';
 import chaiImmutable from 'chai-immutable';
 
 import {List, Map} from 'immutable';
+import {createAction} from 'redux-actions';
 
-import {fetchResourcesStart, fetchResourcesSuccess} from 'actions/resourceActions';
+import * as types from 'constants/ActionTypes';
 import {searchReducer as reducer} from 'reducers/search';
 
 chai.use(chaiImmutable);
@@ -47,6 +48,8 @@ describe('Reducer: searchReducer', () => {
 
   describe('handling actions', () => {
     describe('FETCH_RESOURCES_START', () => {
+      const fetchResourcesStart = createAction(types.FETCH_RESOURCES_START);
+
       it('should set searchResults.isFetching to true', () => {
         const action = fetchResourcesStart();
         const initialState = Map({
@@ -61,6 +64,7 @@ describe('Reducer: searchReducer', () => {
     });
 
     describe('FETCH_RESOURCES_SUCCESS', () => {
+      const fetchResourcesSuccess = createAction(types.FETCH_RESOURCES_SUCCESS);
       const resources = [
         {id: 'r-1', name: 'some resource'},
         {id: 'r-2', name: 'other resource'},

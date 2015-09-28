@@ -7,11 +7,12 @@ export function resourcesReducer(state = Map(), action) {
   switch (action.type) {
 
   case ActionTypes.FETCH_RESOURCE_SUCCESS:
-    const {resource} = action.payload;
+    const resource = action.payload;
     return state.merge({[resource.id]: resource});
 
   case ActionTypes.FETCH_RESOURCES_SUCCESS:
-    return state.merge(_.indexBy(action.payload.resources, 'id'));
+    const resources = _.values(action.payload);
+    return state.merge(_.indexBy(resources, 'id'));
 
   default:
     return state;

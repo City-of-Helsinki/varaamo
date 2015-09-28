@@ -1,63 +1,37 @@
-import fetch from 'isomorphic-fetch';
+import {CALL_API} from 'redux-api-middleware';
 
 import {API_URL} from 'constants/AppConstants';
 import types from 'constants/ActionTypes';
 
 export default {
   fetchResource,
-  fetchResourceStart,
-  fetchResourceSuccess,
   fetchResources,
-  fetchResourcesStart,
-  fetchResourcesSuccess,
 };
 
-function fetchResourceStart() {
-  return {
-    type: types.FETCH_RESOURCE_START,
-  };
-}
-
-function fetchResourceSuccess(resource) {
-  return {
-    type: types.FETCH_RESOURCE_SUCCESS,
-    payload: {resource},
-  };
-}
-
 function fetchResource(id) {
-  return (dispatch) => {
-    dispatch(fetchResourceStart());
-
-    return fetch(`${API_URL}/resource/${id}`)
-      .then((response) => response.json())
-      .then((json) => {
-        dispatch(fetchResourceSuccess(json));
-      });
-  };
-}
-
-function fetchResourcesStart() {
   return {
-    type: types.FETCH_RESOURCES_START,
-  };
-}
-
-function fetchResourcesSuccess(resources) {
-  return {
-    type: types.FETCH_RESOURCES_SUCCESS,
-    payload: {resources},
+    [CALL_API]: {
+      types: [
+        types.FETCH_RESOURCE_START,
+        types.FETCH_RESOURCE_SUCCESS,
+        types.FETCH_RESOURCE_ERROR,
+      ],
+      endpoint: `${API_URL}/resource/${id}`,
+      method: 'GET',
+    },
   };
 }
 
 function fetchResources() {
-  return (dispatch) => {
-    dispatch(fetchResourcesStart());
-
-    return fetch(`${API_URL}/resource`)
-      .then((response) => response.json())
-      .then((json) => {
-        dispatch(fetchResourcesSuccess(json));
-      });
+  return {
+    [CALL_API]: {
+      types: [
+        types.FETCH_RESOURCES_START,
+        types.FETCH_RESOURCES_SUCCESS,
+        types.FETCH_RESOURCES_ERROR,
+      ],
+      endpoint: `${API_URL}/resource`,
+      method: 'GET',
+    },
   };
 }
