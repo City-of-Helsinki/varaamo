@@ -1,3 +1,4 @@
+import {Map} from 'immutable';
 import {createSelector} from 'reselect';
 
 const idSelector = (state) => state.router.params.id;
@@ -8,7 +9,8 @@ export const resourcePageSelectors = createSelector(
   resourcesSelector,
   (id, resources) => {
     return {
-      resource: resources.get(id),
+      id,
+      resource: resources.get(id, Map()),
     };
   }
 );
