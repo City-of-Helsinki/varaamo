@@ -6,7 +6,7 @@ module.exports = function(options) {
   var karmaConfig = {
     frameworks: ['mocha', 'chai'],
 
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS2'],
 
     autoWatch: true,
 
@@ -42,7 +42,7 @@ module.exports = function(options) {
 
     plugins: [
       'karma-chai',
-      'karma-chrome-launcher',
+      'karma-phantomjs2-launcher',
       'karma-mocha',
       'karma-mocha-reporter',
       'karma-webpack',
