@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 
 class HomePage extends Component {
   render() {
     return (
-      <DocumentTitle title='Etusivu - Respa'>
+      <DocumentTitle title="Etusivu - Respa">
         <div>
           <h1>Etusivu</h1>
         </div>

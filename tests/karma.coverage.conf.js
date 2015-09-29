@@ -1,4 +1,4 @@
-/* eslint-disable no-var */
+/* eslint-disable func-names, no-var */
 
 var karmaFactory = require('./make-karma-config');
 

@@ -1,4 +1,4 @@
-/* eslint-disable no-var */
+/* eslint-disable func-names, no-var */
 
 var webpackConfig = require('../conf/webpack.tests');
 
@@ -11,8 +11,8 @@ module.exports = function(options) {
     autoWatch: true,
 
     files: [
-      {pattern: '../node_modules/babel-core/browser-polyfill.js', watched: false},
-      {pattern: '../app/**/__tests__/*.js', watched: false},
+      { pattern: '../node_modules/babel-core/browser-polyfill.js', watched: false },
+      { pattern: '../app/**/__tests__/*.js', watched: false },
     ],
 
     preprocessors: {
@@ -64,8 +64,8 @@ module.exports = function(options) {
     karmaConfig.coverageReporter = {
       dir: '../coverage',
       reporters: options.coverageReporters || [
-        {type: 'text'},
-        {type: 'text-summary'},
+        { type: 'text' },
+        { type: 'text-summary' },
       ],
     };
 

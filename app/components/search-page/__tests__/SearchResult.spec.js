@@ -1,9 +1,9 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 
-import {fromJS} from 'immutable';
-import {Link} from 'react-router';
+import { fromJS } from 'immutable';
+import { Link } from 'react-router';
 
 import SearchResult from 'components/search-page/SearchResult';
 
@@ -11,7 +11,7 @@ function setup() {
   const props = {
     result: fromJS({
       id: 'r-1',
-      name: {fi: 'Some resource'},
+      name: { fi: 'Some resource' },
       unit: 'u-1',
     }),
   };

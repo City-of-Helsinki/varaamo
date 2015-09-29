@@ -1,9 +1,9 @@
-import chai, {expect} from 'chai';
+import chai, { expect } from 'chai';
 import chaiImmutable from 'chai-immutable';
 
-import {fromJS} from 'immutable';
+import { fromJS } from 'immutable';
 
-import {searchPageSelectors} from 'selectors/searchPageSelectors';
+import { searchPageSelectors } from 'selectors/searchPageSelectors';
 
 chai.use(chaiImmutable);
 
@@ -17,8 +17,8 @@ describe('Selectors: searchPageSelectors', () => {
       },
     }),
     resources: fromJS({
-      'r-1': {id: 'r-1', name: 'Some resource'},
-      'r-2': {id: 'r-2', name: 'Other resource'},
+      'r-1': { id: 'r-1', name: 'Some resource' },
+      'r-2': { id: 'r-2', name: 'Other resource' },
     }),
   };
 

@@ -1,11 +1,11 @@
-import chai, {expect} from 'chai';
+import chai, { expect } from 'chai';
 import chaiImmutable from 'chai-immutable';
 
-import {List, Map} from 'immutable';
-import {createAction} from 'redux-actions';
+import { List, Map } from 'immutable';
+import { createAction } from 'redux-actions';
 
 import * as types from 'constants/ActionTypes';
-import {searchReducer as reducer} from 'reducers/search';
+import { searchReducer as reducer } from 'reducers/search';
 
 chai.use(chaiImmutable);
 
@@ -70,8 +70,8 @@ describe('Reducer: searchReducer', () => {
     describe('FETCH_RESOURCES_SUCCESS', () => {
       const fetchResourcesSuccess = createAction(types.FETCH_RESOURCES_SUCCESS);
       const resources = [
-        {id: 'r-1', name: 'some resource'},
-        {id: 'r-2', name: 'other resource'},
+        { id: 'r-1', name: 'some resource' },
+        { id: 'r-2', name: 'other resource' },
       ];
 
       it('should set searchResults.isFetching to false', () => {

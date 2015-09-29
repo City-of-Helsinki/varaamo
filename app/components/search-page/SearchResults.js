@@ -1,5 +1,5 @@
-import React, {Component, PropTypes} from 'react';
-import {Table} from 'react-bootstrap';
+import React, { Component, PropTypes } from 'react';
+import { Table } from 'react-bootstrap';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Loader from 'react-loader';
 
@@ -11,7 +11,7 @@ export class SearchResults extends Component {
   }
 
   render() {
-    const {isFetching, results} = this.props;
+    const { isFetching, results } = this.props;
 
     return (
       <Loader loaded={!isFetching}>

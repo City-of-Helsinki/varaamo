@@ -1,12 +1,12 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import DocumentTitle from 'react-document-title';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import {fetchResources} from 'actions/resourceActions';
+import { fetchResources } from 'actions/resourceActions';
 import SearchResults from 'components/search-page/SearchResults';
-import {searchPageSelectors} from 'selectors/searchPageSelectors';
+import { searchPageSelectors } from 'selectors/searchPageSelectors';
 
 export class UnconnectedSearchPage extends Component {
   componentDidMount() {
@@ -14,10 +14,10 @@ export class UnconnectedSearchPage extends Component {
   }
 
   render() {
-    const {category, isFetchingSearchResults, results} = this.props;
+    const { category, isFetchingSearchResults, results } = this.props;
 
     return (
-      <DocumentTitle title='Haku - Respa'>
+      <DocumentTitle title="Haku - Respa">
         <div>
           <h1>Haku</h1>
           <p>Kategoria: {category}</p>
@@ -40,7 +40,7 @@ UnconnectedSearchPage.propTypes = {
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({fetchResources}, dispatch);
+  return bindActionCreators({ fetchResources }, dispatch);
 }
 
 export default connect(searchPageSelectors, mapDispatchToProps)(UnconnectedSearchPage);
