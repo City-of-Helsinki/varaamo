@@ -2,13 +2,14 @@ import chai, {expect} from 'chai';
 import chaiImmutable from 'chai-immutable';
 
 import {List, Map} from 'immutable';
+import {createAction} from 'redux-actions';
 
-import {fetchResourcesStart, fetchResourcesSuccess} from 'actions/resourceActions';
-import {search as reducer} from 'reducers/search';
+import * as types from 'constants/ActionTypes';
+import {searchReducer as reducer} from 'reducers/search';
 
 chai.use(chaiImmutable);
 
-describe('Reducer: search', () => {
+describe('Reducer: searchReducer', () => {
   describe('initial state', () => {
     let initialState;
 
@@ -42,11 +43,17 @@ describe('Reducer: search', () => {
       it('searchResults.isFetching should be false', () => {
         expect(searchResults.get('isFetching')).to.be.false;
       });
+
+      it('searchResults.shouldFetch should be true', () => {
+        expect(searchResults.get('shouldFetch')).to.be.true;
+      });
     });
   });
 
   describe('handling actions', () => {
     describe('FETCH_RESOURCES_START', () => {
+      const fetchResourcesStart = createAction(types.FETCH_RESOURCES_START);
+
       it('should set searchResults.isFetching to true', () => {
         const action = fetchResourcesStart();
         const initialState = Map({
@@ -61,6 +68,7 @@ describe('Reducer: search', () => {
     });
 
     describe('FETCH_RESOURCES_SUCCESS', () => {
+      const fetchResourcesSuccess = createAction(types.FETCH_RESOURCES_SUCCESS);
       const resources = [
         {id: 'r-1', name: 'some resource'},
         {id: 'r-2', name: 'other resource'},
@@ -76,6 +84,19 @@ describe('Reducer: search', () => {
         });
         const newState = reducer(initialState, action);
         expect(newState.getIn(['searchResults', 'isFetching'])).to.be.false;
+      });
+
+      it('should set searchResults.shouldFetch to false', () => {
+        const action = fetchResourcesSuccess(resources);
+        const initialState = Map({
+          searchResults: Map({
+            ids: List(),
+            isFetching: true,
+            shouldFetch: true,
+          }),
+        });
+        const newState = reducer(initialState, action);
+        expect(newState.getIn(['searchResults', 'shouldFetch'])).to.be.false;
       });
 
       it('should set the given resource ids to searchResults.ids', () => {

@@ -2,13 +2,14 @@ import chai, {expect} from 'chai';
 import chaiImmutable from 'chai-immutable';
 
 import {fromJS, Map} from 'immutable';
+import {createAction} from 'redux-actions';
 
-import {fetchResourceSuccess, fetchResourcesSuccess} from 'actions/resourceActions';
-import {resources as reducer} from 'reducers/resources';
+import * as types from 'constants/ActionTypes';
+import {resourcesReducer as reducer} from 'reducers/resources';
 
 chai.use(chaiImmutable);
 
-describe('Reducer: resources', () => {
+describe('Reducer: resourcesReducer', () => {
   describe('initial state', () => {
     it('should be an empty Map', () => {
       const expected = Map();
@@ -18,6 +19,19 @@ describe('Reducer: resources', () => {
 
   describe('handling actions', () => {
     describe('FETCH_RESOURCE_SUCCESS', () => {
+      const fetchResourceSuccess = createAction(
+        types.FETCH_RESOURCE_SUCCESS,
+        (resource) => {
+          return {
+            entities: {
+              resources: {
+                [resource.id]: resource,
+              },
+            },
+          };
+        }
+      );
+
       it('should index the given resource by id and add it to state', () => {
         const initialState = Map();
         const resource = {id: 'r-1', name: 'some resource'};
@@ -63,6 +77,8 @@ describe('Reducer: resources', () => {
     });
 
     describe('FETCH_RESOURCES_SUCCESS', () => {
+      const fetchResourcesSuccess = createAction(types.FETCH_RESOURCES_SUCCESS);
+
       it('should return the state as Map', () => {
         const resources = [
           {id: 'r-1', name: 'some resource'},

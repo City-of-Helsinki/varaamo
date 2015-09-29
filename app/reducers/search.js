@@ -8,6 +8,7 @@ const initialState = Map({
   searchResults: Map({
     ids: List(),
     isFetching: false,
+    shouldFetch: true,
   }),
 });
 
@@ -18,10 +19,11 @@ function searchResults(state, action) {
     return state.set('isFetching', true);
 
   case ActionTypes.FETCH_RESOURCES_SUCCESS:
-    const {resources} = action.payload;
+    const resources = _.values(action.payload);
     return state.merge({
       ids: List(_.pluck(resources, 'id')),
       isFetching: false,
+      shouldFetch: false,
     });
 
   default:
@@ -29,7 +31,7 @@ function searchResults(state, action) {
   }
 }
 
-export function search(state = initialState, action) {
+export function searchReducer(state = initialState, action) {
   switch (action.type) {
 
   case ActionTypes.FETCH_RESOURCES_START:
