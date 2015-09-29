@@ -19,7 +19,18 @@ describe('Reducer: resourcesReducer', () => {
 
   describe('handling actions', () => {
     describe('FETCH_RESOURCE_SUCCESS', () => {
-      const fetchResourceSuccess = createAction(types.FETCH_RESOURCE_SUCCESS);
+      const fetchResourceSuccess = createAction(
+        types.FETCH_RESOURCE_SUCCESS,
+        (resource) => {
+          return {
+            entities: {
+              resources: {
+                [resource.id]: resource,
+              },
+            },
+          };
+        }
+      );
 
       it('should index the given resource by id and add it to state', () => {
         const initialState = Map();
