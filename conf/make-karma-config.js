@@ -1,6 +1,6 @@
 /* eslint-disable func-names, no-var */
 
-var webpackConfig = require('../conf/webpack.tests');
+var webpackConfig = require('./webpack.tests');
 
 module.exports = function(options) {
   var karmaConfig = {

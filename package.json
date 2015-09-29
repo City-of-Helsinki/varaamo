@@ -71,10 +71,10 @@
     "start": "node dev-server.js",
     "start:production": "node production-server.js",
     "build": "./node_modules/.bin/webpack --config conf/webpack.production.js",
-    "test": "npm run lint && ./node_modules/karma/bin/karma start tests/karma.conf.js --single-run",
-    "test:watch": "npm run lint && ./node_modules/karma/bin/karma start tests/karma.conf.js",
-    "test:coverage": "npm run lint && ./node_modules/karma/bin/karma start tests/karma.coverage.conf.js --single-run",
-    "test:ci": "./node_modules/karma/bin/karma start tests/karma.ci.conf.js --single-run",
+    "test": "npm run lint && ./node_modules/karma/bin/karma start conf/karma.conf.js --single-run",
+    "test:watch": "npm run lint && ./node_modules/karma/bin/karma start conf/karma.conf.js",
+    "test:coverage": "npm run lint && ./node_modules/karma/bin/karma start conf/karma.coverage.conf.js --single-run",
+    "test:ci": "./node_modules/karma/bin/karma start conf/karma.ci.conf.js --single-run",
     "lint": "./node_modules/.bin/eslint ."
   }
 }
