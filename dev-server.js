@@ -1,4 +1,10 @@
-/* eslint-disable no-var, prefer-arrow-callback, prefer-template */
+/* eslint-disable
+  func-names,
+  no-console,
+  no-var,
+  prefer-arrow-callback,
+  prefer-template
+*/
 
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');

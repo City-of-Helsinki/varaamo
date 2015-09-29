@@ -10,7 +10,7 @@ class App extends Component {
     const {children} = this.props;
 
     return (
-      <DocumentTitle title='Respa'>
+      <DocumentTitle title="Respa">
         <div>
           <Navbar />
           <Grid>

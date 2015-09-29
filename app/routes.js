@@ -8,8 +8,8 @@ import SearchPage from 'containers/SearchPage';
 
 export default (
   <Route component={App}>
-    <Route component={HomePage} path='/' />
-    <Route component={ResourcePage} path='/resources/:id' />
-    <Route component={SearchPage} path='/search' />
+    <Route component={HomePage} path="/" />
+  <Route component={ResourcePage} path="/resources/:id" />
+<Route component={SearchPage} path="/search" />
   </Route>
 );

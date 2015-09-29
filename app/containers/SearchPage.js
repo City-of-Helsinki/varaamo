@@ -17,7 +17,7 @@ export class UnconnectedSearchPage extends Component {
     const {category, isFetchingSearchResults, results} = this.props;
 
     return (
-      <DocumentTitle title='Haku - Respa'>
+      <DocumentTitle title="Haku - Respa">
         <div>
           <h1>Haku</h1>
           <p>Kategoria: {category}</p>

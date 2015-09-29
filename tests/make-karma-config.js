@@ -1,4 +1,4 @@
-/* eslint-disable no-var */
+/* eslint-disable func-names, no-var */
 
 var webpackConfig = require('../conf/webpack.tests');
 

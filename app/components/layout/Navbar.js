@@ -12,7 +12,7 @@ export class Navbar extends React.Component {
     return (
       <RBNavbar brand={<Link to={'/'}>Respa</Link>} toggleNavKey={0}>
         <Nav eventKey={0} right>
-          <LinkContainer to='/search'>
+          <LinkContainer to="/search">
             <NavItem>Haku</NavItem>
           </LinkContainer>
         </Nav>
