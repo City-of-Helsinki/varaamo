@@ -16,7 +16,6 @@ module.exports = function(options) {
     ],
 
     preprocessors: {
-      './testBootstrap.js': ['webpack'],
       '../app/**/__tests__/*.js': ['webpack'],
     },
 
@@ -54,7 +53,7 @@ module.exports = function(options) {
     webpackConfig.module.preLoaders = [
       {
         test: /\.js$/,
-        exclude: /(__tests__|node_modules|vendor)/,
+        exclude: /(__tests__|node_modules)/,
         loader: 'isparta-instrumenter-loader',
       },
     ].concat(webpackConfig.module.preLoaders);
