@@ -1,4 +1,4 @@
-import {Schema} from 'normalizr';
+import { Schema } from 'normalizr';
 
 const resourceSchema = new Schema('resources');
 const unitSchema = new Schema('units');

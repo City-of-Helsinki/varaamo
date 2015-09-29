@@ -1,8 +1,8 @@
 import createHistory from 'history/lib/createBrowserHistory';
-import {compose, createStore, applyMiddleware} from 'redux';
-import {apiMiddleware} from 'redux-api-middleware';
+import { compose, createStore, applyMiddleware } from 'redux';
+import { apiMiddleware } from 'redux-api-middleware';
 import loggerMiddleware from 'redux-logger';
-import {reduxReactRouter} from 'redux-react-router';
+import { reduxReactRouter } from 'redux-react-router';
 
 import routes from 'app/routes';
 import rootReducer from 'reducers/index';
@@ -10,10 +10,10 @@ import rootReducer from 'reducers/index';
 let finalCreateStore;
 
 if (__DEVTOOLS__) {
-  const {devTools, persistState} = require('redux-devtools');
+  const { devTools, persistState } = require('redux-devtools');
   finalCreateStore = compose(
     applyMiddleware(apiMiddleware),
-    reduxReactRouter({routes, createHistory}),
+    reduxReactRouter({ routes, createHistory }),
     applyMiddleware(loggerMiddleware),
     devTools(),
     persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))

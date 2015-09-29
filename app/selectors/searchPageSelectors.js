@@ -1,4 +1,4 @@
-import {createSelector} from 'reselect';
+import { createSelector } from 'reselect';
 
 const categorySelector = (state) => state.search.get('category');
 const resourcesSelector = (state) => state.resources;

@@ -1,5 +1,5 @@
-import {Map} from 'immutable';
-import {createSelector} from 'reselect';
+import { Map } from 'immutable';
+import { createSelector } from 'reselect';
 
 const idSelector = (state) => state.router.params.id;
 const resourcesSelector = (state) => state.resources;

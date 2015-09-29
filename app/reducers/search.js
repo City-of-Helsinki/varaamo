@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {List, Map} from 'immutable';
+import { List, Map } from 'immutable';
 
 import ActionTypes from 'constants/ActionTypes';
 

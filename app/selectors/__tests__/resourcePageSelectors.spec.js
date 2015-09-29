@@ -1,9 +1,9 @@
-import chai, {expect} from 'chai';
+import chai, { expect } from 'chai';
 import chaiImmutable from 'chai-immutable';
 
-import {fromJS, Map} from 'immutable';
+import { fromJS, Map } from 'immutable';
 
-import {resourcePageSelectors} from 'selectors/resourcePageSelectors';
+import { resourcePageSelectors } from 'selectors/resourcePageSelectors';
 
 chai.use(chaiImmutable);
 
@@ -18,8 +18,8 @@ describe('Selectors: resourcePageSelectors', () => {
         },
       },
       resources: fromJS({
-        'r-1': {id: 'r-1', name: 'Some resource'},
-        'r-2': {id: 'r-2', name: 'Other resource'},
+        'r-1': { id: 'r-1', name: 'Some resource' },
+        'r-2': { id: 'r-2', name: 'Other resource' },
       }),
     };
   });

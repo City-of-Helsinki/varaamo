@@ -1,11 +1,11 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 
-import {List} from 'immutable';
+import { List } from 'immutable';
 
 import SearchResults from 'components/search-page/SearchResults';
-import {UnconnectedSearchPage as SearchPage} from 'containers/SearchPage';
+import { UnconnectedSearchPage as SearchPage } from 'containers/SearchPage';
 
 describe('Container: SearchPage', () => {
   let fetchResourcesWasCalled = false;

@@ -1,11 +1,11 @@
-import chai, {expect} from 'chai';
+import chai, { expect } from 'chai';
 import chaiImmutable from 'chai-immutable';
 
-import {fromJS, Map} from 'immutable';
-import {createAction} from 'redux-actions';
+import { fromJS, Map } from 'immutable';
+import { createAction } from 'redux-actions';
 
 import * as types from 'constants/ActionTypes';
-import {resourcesReducer as reducer} from 'reducers/resources';
+import { resourcesReducer as reducer } from 'reducers/resources';
 
 chai.use(chaiImmutable);
 
@@ -34,9 +34,9 @@ describe('Reducer: resourcesReducer', () => {
 
       it('should index the given resource by id and add it to state', () => {
         const initialState = Map();
-        const resource = {id: 'r-1', name: 'some resource'};
+        const resource = { id: 'r-1', name: 'some resource' };
         const expectedState = fromJS({
-          'r-1': {id: 'r-1', name: 'some resource'},
+          'r-1': { id: 'r-1', name: 'some resource' },
         });
         const action = fetchResourceSuccess(resource);
 
@@ -45,14 +45,14 @@ describe('Reducer: resourcesReducer', () => {
 
       it('should not remove other resources from the state', () => {
         const initialState = fromJS({
-          'r-1': {id: 'r-1', name: 'some resource'},
-          'r-2': {id: 'r-2', name: 'other resource'},
+          'r-1': { id: 'r-1', name: 'some resource' },
+          'r-2': { id: 'r-2', name: 'other resource' },
         });
-        const resource = {id: 'r-3', name: 'new resource'};
+        const resource = { id: 'r-3', name: 'new resource' };
         const expectedState = fromJS({
-          'r-1': {id: 'r-1', name: 'some resource'},
-          'r-2': {id: 'r-2', name: 'other resource'},
-          'r-3': {id: 'r-3', name: 'new resource'},
+          'r-1': { id: 'r-1', name: 'some resource' },
+          'r-2': { id: 'r-2', name: 'other resource' },
+          'r-3': { id: 'r-3', name: 'new resource' },
         });
         const action = fetchResourceSuccess(resource);
 
@@ -68,8 +68,8 @@ describe('Reducer: resourcesReducer', () => {
           id: 'r-1',
           name: 'some resource',
         };
-        const initialState = fromJS({'r-1': previousResource});
-        const expectedState = fromJS({'r-1': resource});
+        const initialState = fromJS({ 'r-1': previousResource });
+        const expectedState = fromJS({ 'r-1': resource });
         const action = fetchResourceSuccess(resource);
 
         expect(reducer(initialState, action)).to.equal(expectedState);
@@ -81,7 +81,7 @@ describe('Reducer: resourcesReducer', () => {
 
       it('should return the state as Map', () => {
         const resources = [
-          {id: 'r-1', name: 'some resource'},
+          { id: 'r-1', name: 'some resource' },
         ];
         const initialState = Map();
         const action = fetchResourcesSuccess(resources);
@@ -92,7 +92,7 @@ describe('Reducer: resourcesReducer', () => {
 
       it('should save resources as Maps', () => {
         const resources = [
-          {id: 'r-1', name: 'some resource'},
+          { id: 'r-1', name: 'some resource' },
         ];
         const initialState = Map();
         const action = fetchResourcesSuccess(resources);
@@ -103,8 +103,8 @@ describe('Reducer: resourcesReducer', () => {
 
       it('should index the given resources by id and add them to state', () => {
         const resources = [
-          {id: 'r-1', name: 'some resource'},
-          {id: 'r-2', name: 'other resource'},
+          { id: 'r-1', name: 'some resource' },
+          { id: 'r-2', name: 'other resource' },
         ];
         const initialState = Map();
         const expectedState = Map({
@@ -118,17 +118,17 @@ describe('Reducer: resourcesReducer', () => {
 
       it('should not remove previous resources from the state', () => {
         const resources = [
-          {id: 'r-1', name: 'some resource'},
-          {id: 'r-2', name: 'other resource'},
+          { id: 'r-1', name: 'some resource' },
+          { id: 'r-2', name: 'other resource' },
         ];
-        const previousResource = {id: 'r-3', name: 'previous resource'};
+        const previousResource = { id: 'r-3', name: 'previous resource' };
         const initialState = Map({
-          'r-3': Map({previousResource}),
+          'r-3': Map({ previousResource }),
         });
         const expectedState = Map({
           'r-1': Map(resources[0]),
           'r-2': Map(resources[1]),
-          'r-3': Map({previousResource}),
+          'r-3': Map({ previousResource }),
         });
         const action = fetchResourcesSuccess(resources);
 
@@ -137,12 +137,12 @@ describe('Reducer: resourcesReducer', () => {
 
       it('should overwrite previous resources with the same id', () => {
         const resources = [
-          {id: 'r-1', name: 'some resource'},
-          {id: 'r-2', name: 'other resource'},
+          { id: 'r-1', name: 'some resource' },
+          { id: 'r-2', name: 'other resource' },
         ];
-        const previousResource = {id: 'r-1', name: 'old name'};
+        const previousResource = { id: 'r-1', name: 'old name' };
         const initialState = Map({
-          'r-1': Map({previousResource}),
+          'r-1': Map({ previousResource }),
         });
         const expectedState = Map({
           'r-1': Map(resources[0]),

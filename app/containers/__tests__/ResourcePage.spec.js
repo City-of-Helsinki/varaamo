@@ -1,11 +1,11 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 import React from 'react';
-import {findDOMNode} from 'react-dom';
+import { findDOMNode } from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
 
-import {fromJS} from 'immutable';
+import { fromJS } from 'immutable';
 
-import {UnconnectedResourcePage as ResourcePage} from 'containers/ResourcePage';
+import { UnconnectedResourcePage as ResourcePage } from 'containers/ResourcePage';
 
 describe('Container: ResourcePage', () => {
   let fetchResourceWasCalled = false;
@@ -14,7 +14,7 @@ describe('Container: ResourcePage', () => {
   }
   const name = 'Some resource';
   const props = {
-    actions: {fetchResource: fetchResourceMock},
+    actions: { fetchResource: fetchResourceMock },
     id: 'r-1',
     resource: fromJS({
       name: {

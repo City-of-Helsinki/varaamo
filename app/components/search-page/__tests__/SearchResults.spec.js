@@ -1,9 +1,9 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 
-import {fromJS} from 'immutable';
-import {Table} from 'react-bootstrap';
+import { fromJS } from 'immutable';
+import { Table } from 'react-bootstrap';
 
 import SearchResult from 'components/search-page/SearchResult';
 import SearchResults from 'components/search-page/SearchResults';
@@ -12,8 +12,8 @@ describe('Component: SearchResults', () => {
   let element;
   const props = {
     results: fromJS([
-      {id: 'r-1'},
-      {id: 'r-2'},
+      { id: 'r-1' },
+      { id: 'r-2' },
     ]),
   };
 

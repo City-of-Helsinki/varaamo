@@ -19,6 +19,9 @@
     // lodash is required with '_'
     "id-length": [2, {"min": 2, "properties": "never", "exceptions": ["_"]}],
 
+    // require padding inside curly braces to enforce airbnb style guide
+    "object-curly-spacing": [2, "always"],
+
     // allow use of constructors without new,
     // makes working with Immutable.js easier
     "new-cap": [2, {"capIsNew": false, "newIsCap": true}],

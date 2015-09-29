@@ -37,7 +37,7 @@ module.exports = {
     ],
   },
   postcss: [
-    autoprefixer({browsers: ['last 2 version', 'ie 9']}),
+    autoprefixer({ browsers: ['last 2 version', 'ie 9'] }),
   ],
   resolve: {
     alias: {

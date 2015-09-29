@@ -1,8 +1,8 @@
-import {CALL_API} from 'redux-api-middleware';
+import { CALL_API } from 'redux-api-middleware';
 
-import {API_URL} from 'constants/AppConstants';
+import { API_URL } from 'constants/AppConstants';
 import types from 'constants/ActionTypes';
-import {resourceSchema} from 'middleware/Schemas';
+import { resourceSchema } from 'middleware/Schemas';
 
 export default {
   fetchResource,
