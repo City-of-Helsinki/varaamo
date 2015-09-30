@@ -1,12 +1,12 @@
 /* eslint-disable func-names, no-var */
 
-var webpackConfig = require('../conf/webpack.tests');
+var webpackConfig = require('./webpack.tests');
 
 module.exports = function(options) {
   var karmaConfig = {
     frameworks: ['mocha', 'chai'],
 
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS2'],
 
     autoWatch: true,
 
@@ -16,7 +16,6 @@ module.exports = function(options) {
     ],
 
     preprocessors: {
-      './testBootstrap.js': ['webpack'],
       '../app/**/__tests__/*.js': ['webpack'],
     },
 
@@ -42,7 +41,7 @@ module.exports = function(options) {
 
     plugins: [
       'karma-chai',
-      'karma-chrome-launcher',
+      'karma-phantomjs2-launcher',
       'karma-mocha',
       'karma-mocha-reporter',
       'karma-webpack',
@@ -54,7 +53,7 @@ module.exports = function(options) {
     webpackConfig.module.preLoaders = [
       {
         test: /\.js$/,
-        exclude: /(__tests__|node_modules|vendor)/,
+        exclude: /(__tests__|node_modules)/,
         loader: 'isparta-instrumenter-loader',
       },
     ].concat(webpackConfig.module.preLoaders);
