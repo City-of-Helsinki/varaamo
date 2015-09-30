@@ -1,5 +1,5 @@
-import { Map } from 'immutable';
 import { createSelector } from 'reselect';
+import Immutable from 'seamless-immutable';
 
 const idSelector = (state) => state.router.params.id;
 const resourcesSelector = (state) => state.resources;
@@ -10,7 +10,7 @@ export const resourcePageSelectors = createSelector(
   (id, resources) => {
     return {
       id,
-      resource: resources.get(id, Map()),
+      resource: resources[id] || Immutable({}),
     };
   }
 );

@@ -35,7 +35,7 @@ function fetchResources() {
       endpoint: `${API_URL}/resource`,
       method: 'GET',
       bailout: (state) => {
-        return !state.search.getIn(['searchResults', 'shouldFetch']);
+        return !state.search.searchResults.shouldFetch;
       },
     },
   };

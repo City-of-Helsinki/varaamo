@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import DocumentTitle from 'react-document-title';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -36,7 +35,7 @@ UnconnectedSearchPage.propTypes = {
   category: PropTypes.string.isRequired,
   fetchResources: PropTypes.func.isRequired,
   isFetchingSearchResults: PropTypes.bool,
-  results: ImmutablePropTypes.list.isRequired,
+  results: PropTypes.array.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {

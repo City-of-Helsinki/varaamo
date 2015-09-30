@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 
-import { List } from 'immutable';
+import Immutable from 'seamless-immutable';
 
 import SearchResults from 'components/search-page/SearchResults';
 import { UnconnectedSearchPage as SearchPage } from 'containers/SearchPage';
@@ -15,7 +15,7 @@ describe('Container: SearchPage', () => {
   const props = {
     category: 'Some category',
     fetchResources: fetchResourcesMock,
-    results: List(),
+    results: Immutable([]),
   };
   let page;
 
@@ -34,6 +34,7 @@ describe('Container: SearchPage', () => {
 
     it('should render SearchResults component', () => {
       const searchResults = TestUtils.findRenderedComponentWithType(page, SearchResults);
+
       expect(searchResults).to.exist;
     });
   });

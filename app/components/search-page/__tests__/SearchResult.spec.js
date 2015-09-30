@@ -2,14 +2,14 @@ import { expect } from 'chai';
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 
-import { fromJS } from 'immutable';
+import Immutable from 'seamless-immutable';
 import { Link } from 'react-router';
 
 import SearchResult from 'components/search-page/SearchResult';
 
 function setup() {
   const props = {
-    result: fromJS({
+    result: Immutable({
       id: 'r-1',
       name: { fi: 'Some resource' },
       unit: 'u-1',

@@ -1,11 +1,8 @@
-import chai, { expect } from 'chai';
-import chaiImmutable from 'chai-immutable';
+import { expect } from 'chai';
 
-import { fromJS, Map } from 'immutable';
+import Immutable from 'seamless-immutable';
 
 import { resourcePageSelectors } from 'selectors/resourcePageSelectors';
-
-chai.use(chaiImmutable);
 
 describe('Selectors: resourcePageSelectors', () => {
   let state;
@@ -17,7 +14,7 @@ describe('Selectors: resourcePageSelectors', () => {
           id: 'r-2',
         },
       },
-      resources: fromJS({
+      resources: Immutable({
         'r-1': { id: 'r-1', name: 'Some resource' },
         'r-2': { id: 'r-2', name: 'Other resource' },
       }),
@@ -28,20 +25,23 @@ describe('Selectors: resourcePageSelectors', () => {
     it('should return the id in router.params.id', () => {
       const selected = resourcePageSelectors(state);
       const expected = state.router.params.id;
+
       expect(selected.id).to.equal(expected);
     });
 
     it('should return the resource corresponding to the router.params.id', () => {
       const selected = resourcePageSelectors(state);
-      const expected = state.resources.get('r-2');
+      const resourceId = state.router.params.id;
+      const expected = state.resources[resourceId];
+
       expect(selected.resource).to.deep.equal(expected);
     });
 
-    it('should return empty Map as resource if resource with given id is not fetched', () => {
+    it('should return an empty object as resource if resource with given id is not fetched', () => {
       state.router.params.id = 'r-9999';
       const selected = resourcePageSelectors(state);
-      const expected = Map();
-      expect(selected.resource).to.deep.equal(expected);
+
+      expect(selected.resource).to.deep.equal({});
     });
   });
 });
