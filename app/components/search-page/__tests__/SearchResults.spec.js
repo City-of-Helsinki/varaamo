@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 
-import { fromJS } from 'immutable';
+import Immutable from 'seamless-immutable';
 import { Table } from 'react-bootstrap';
 
 import SearchResult from 'components/search-page/SearchResult';
@@ -11,9 +11,9 @@ import SearchResults from 'components/search-page/SearchResults';
 describe('Component: SearchResults', () => {
   let element;
   const props = {
-    results: fromJS([
-      { id: 'r-1' },
-      { id: 'r-2' },
+    results: Immutable([
+      { id: 'r-1', name: { fi: 'Some resource' } },
+      { id: 'r-2', name: { fi: 'Other resource' } },
     ]),
   };
 
@@ -60,7 +60,7 @@ describe('Component: SearchResults', () => {
     });
 
     it('should render a SearchResult for every result in props', () => {
-      expect(resultComponents).to.have.length(props.results.size);
+      expect(resultComponents).to.have.length(props.results.length);
     });
   });
 });

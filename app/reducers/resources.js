@@ -1,9 +1,9 @@
 import _ from 'lodash';
-import { Map } from 'immutable';
+import Immutable from 'seamless-immutable';
 
 import ActionTypes from 'constants/ActionTypes';
 
-export function resourcesReducer(state = Map(), action) {
+export function resourcesReducer(state = Immutable({}), action) {
   let resources;
 
   switch (action.type) {

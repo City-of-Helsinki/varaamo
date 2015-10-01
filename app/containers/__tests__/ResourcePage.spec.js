@@ -3,7 +3,7 @@ import React from 'react';
 import { findDOMNode } from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
 
-import { fromJS } from 'immutable';
+import Immutable from 'seamless-immutable';
 
 import { UnconnectedResourcePage as ResourcePage } from 'containers/ResourcePage';
 
@@ -16,7 +16,7 @@ describe('Container: ResourcePage', () => {
   const props = {
     actions: { fetchResource: fetchResourceMock },
     id: 'r-1',
-    resource: fromJS({
+    resource: Immutable({
       name: {
         fi: name,
       },
@@ -40,6 +40,7 @@ describe('Container: ResourcePage', () => {
     it('should display resource name inside h1 tags', () => {
       const headerComponent = TestUtils.findRenderedDOMComponentWithTag(page, 'h1');
       const headerDOM = findDOMNode(headerComponent);
+
       expect(headerDOM.textContent).to.equal(name);
     });
   });

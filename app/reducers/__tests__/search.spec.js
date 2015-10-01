@@ -1,13 +1,10 @@
-import chai, { expect } from 'chai';
-import chaiImmutable from 'chai-immutable';
+import { expect } from 'chai';
 
-import { List, Map } from 'immutable';
 import { createAction } from 'redux-actions';
+import Immutable from 'seamless-immutable';
 
 import * as types from 'constants/ActionTypes';
 import { searchReducer as reducer } from 'reducers/search';
-
-chai.use(chaiImmutable);
 
 describe('Reducer: searchReducer', () => {
   describe('initial state', () => {
@@ -17,35 +14,31 @@ describe('Reducer: searchReducer', () => {
       initialState = reducer(undefined, {});
     });
 
-    it('should be a Map', () => {
-      expect(Map.isMap(initialState)).to.be.true;
-    });
-
     it('category should be "all"', () => {
-      expect(initialState.get('category')).to.equal('all');
+      expect(initialState.category).to.equal('all');
     });
 
     describe('searchResults', () => {
       let searchResults;
 
       before(() => {
-        searchResults = initialState.get('searchResults');
+        searchResults = initialState.searchResults;
       });
 
-      it('should be a Map', () => {
-        expect(Map.isMap(searchResults)).to.be.true;
+      it('should be an object', () => {
+        expect(typeof searchResults).to.equal('object');
       });
 
-      it('searchResults.ids as an empty List', () => {
-        expect(searchResults.get('ids')).to.equal(List());
+      it('searchResults.ids should be an empty array', () => {
+        expect(searchResults.ids).to.deep.equal([]);
       });
 
       it('searchResults.isFetching should be false', () => {
-        expect(searchResults.get('isFetching')).to.be.false;
+        expect(searchResults.isFetching).to.be.false;
       });
 
       it('searchResults.shouldFetch should be true', () => {
-        expect(searchResults.get('shouldFetch')).to.be.true;
+        expect(searchResults.shouldFetch).to.be.true;
       });
     });
   });
@@ -56,14 +49,15 @@ describe('Reducer: searchReducer', () => {
 
       it('should set searchResults.isFetching to true', () => {
         const action = fetchResourcesStart();
-        const initialState = Map({
-          searchResults: Map({
+        const initialState = Immutable({
+          searchResults: {
             isFetching: false,
-            ids: List(),
-          }),
+            ids: [],
+          },
         });
         const newState = reducer(initialState, action);
-        expect(newState.getIn(['searchResults', 'isFetching'])).to.be.true;
+
+        expect(newState.searchResults.isFetching).to.be.true;
       });
     });
 
@@ -76,53 +70,57 @@ describe('Reducer: searchReducer', () => {
 
       it('should set searchResults.isFetching to false', () => {
         const action = fetchResourcesSuccess(resources);
-        const initialState = Map({
-          searchResults: Map({
+        const initialState = Immutable({
+          searchResults: {
             isFetching: true,
-            ids: List(),
-          }),
+            ids: [],
+          },
         });
         const newState = reducer(initialState, action);
-        expect(newState.getIn(['searchResults', 'isFetching'])).to.be.false;
+
+        expect(newState.searchResults.isFetching).to.be.false;
       });
 
       it('should set searchResults.shouldFetch to false', () => {
         const action = fetchResourcesSuccess(resources);
-        const initialState = Map({
-          searchResults: Map({
-            ids: List(),
+        const initialState = Immutable({
+          searchResults: {
+            ids: [],
             isFetching: true,
             shouldFetch: true,
-          }),
+          },
         });
         const newState = reducer(initialState, action);
-        expect(newState.getIn(['searchResults', 'shouldFetch'])).to.be.false;
+
+        expect(newState.searchResults.shouldFetch).to.be.false;
       });
 
       it('should set the given resource ids to searchResults.ids', () => {
         const action = fetchResourcesSuccess(resources);
-        const initialState = Map({
-          searchResults: Map({
+        const initialState = Immutable({
+          searchResults: {
             isFetching: true,
-            ids: List(),
-          }),
+            ids: [],
+          },
         });
-        const expectedIds = List(['r-1', 'r-2']);
+        const expectedIds = ['r-1', 'r-2'];
         const newState = reducer(initialState, action);
-        expect(newState.getIn(['searchResults', 'ids'])).to.be.equal(expectedIds);
+
+        expect(newState.searchResults.ids).to.deep.equal(expectedIds);
       });
 
       it('should replace the old ids in searchResults.ids', () => {
         const action = fetchResourcesSuccess(resources);
-        const initialState = Map({
-          searchResults: Map({
+        const initialState = Immutable({
+          searchResults: {
             isFetching: true,
-            ids: List(['replace-this']),
-          }),
+            ids: ['replace-this'],
+          },
         });
-        const expectedIds = List(['r-1', 'r-2']);
+        const expectedIds = ['r-1', 'r-2'];
         const newState = reducer(initialState, action);
-        expect(newState.getIn(['searchResults', 'ids'])).to.be.equal(expectedIds);
+
+        expect(newState.searchResults.ids).to.deep.equal(expectedIds);
       });
     });
   });

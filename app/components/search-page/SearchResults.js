@@ -1,13 +1,13 @@
+import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 import { Table } from 'react-bootstrap';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import Loader from 'react-loader';
 
 import SearchResult from 'components/search-page/SearchResult';
 
 export class SearchResults extends Component {
   renderSearchResult(result) {
-    return <SearchResult key={result.get('id')} result={result} />;
+    return <SearchResult key={result.id} result={result} />;
   }
 
   render() {
@@ -23,7 +23,7 @@ export class SearchResults extends Component {
             </tr>
           </thead>
           <tbody>
-            {results.map(this.renderSearchResult)}
+            {_.map(results, this.renderSearchResult)}
           </tbody>
         </Table>
       </Loader>
@@ -33,7 +33,7 @@ export class SearchResults extends Component {
 
 SearchResults.propTypes = {
   isFetching: PropTypes.bool,
-  results: ImmutablePropTypes.list.isRequired,
+  results: PropTypes.array.isRequired,
 };
 
 export default SearchResults;

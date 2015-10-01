@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 
-const categorySelector = (state) => state.search.get('category');
+const categorySelector = (state) => state.search.category;
 const resourcesSelector = (state) => state.resources;
-const searchResultsSelector = (state) => state.search.get('searchResults');
+const searchResultsSelector = (state) => state.search.searchResults;
 
 export const searchPageSelectors = createSelector(
   categorySelector,
@@ -11,8 +11,8 @@ export const searchPageSelectors = createSelector(
   (category, searchResults, resources) => {
     return {
       category,
-      isFetchingSearchResults: searchResults.get('isFetching'),
-      results: searchResults.get('ids').map((resourceId) => resources.get(resourceId)),
+      isFetchingSearchResults: searchResults.isFetching,
+      results: searchResults.ids.map(resourceId => resources[resourceId]),
     };
   }
 );

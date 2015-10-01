@@ -1,27 +1,27 @@
 import _ from 'lodash';
-import { List, Map } from 'immutable';
+import Immutable from 'seamless-immutable';
 
 import ActionTypes from 'constants/ActionTypes';
 
-const initialState = Map({
+const initialState = Immutable({
   category: 'all',
-  searchResults: Map({
-    ids: List(),
+  searchResults: {
+    ids: [],
     isFetching: false,
     shouldFetch: true,
-  }),
+  },
 });
 
-function searchResults(state, action) {
+function searchResultsReducer(state, action) {
   switch (action.type) {
 
   case ActionTypes.FETCH_RESOURCES_START:
-    return state.set('isFetching', true);
+    return state.merge({ 'isFetching': true });
 
   case ActionTypes.FETCH_RESOURCES_SUCCESS:
     const resources = _.values(action.payload);
     return state.merge({
-      ids: List(_.pluck(resources, 'id')),
+      ids: _.pluck(resources, 'id'),
       isFetching: false,
       shouldFetch: false,
     });
@@ -36,7 +36,8 @@ export function searchReducer(state = initialState, action) {
 
   case ActionTypes.FETCH_RESOURCES_START:
   case ActionTypes.FETCH_RESOURCES_SUCCESS:
-    return state.set('searchResults', searchResults(state.get('searchResults'), action));
+    const searchResults = searchResultsReducer(state.searchResults, action);
+    return state.merge({ searchResults });
 
   default:
     return state;

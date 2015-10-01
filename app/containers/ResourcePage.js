@@ -1,6 +1,6 @@
+import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 import DocumentTitle from 'react-document-title';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -16,10 +16,11 @@ export class UnconnectedResourcePage extends Component {
 
   render() {
     const { resource } = this.props;
-    const name = resource.getIn(['name', 'fi']);
+    const name = resource.name ? resource.name.fi : '';
+
     return (
       <DocumentTitle title={`${name} - Respa`}>
-        <Loader loaded={Boolean(resource.size)}>
+        <Loader loaded={!_.isEmpty(resource)}>
           <div>
             <h1>{name}</h1>
           </div>
@@ -32,7 +33,7 @@ export class UnconnectedResourcePage extends Component {
 UnconnectedResourcePage.propTypes = {
   actions: PropTypes.object.isRequired,
   id: PropTypes.string.isRequired,
-  resource: ImmutablePropTypes.map.isRequired,
+  resource: PropTypes.object.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {

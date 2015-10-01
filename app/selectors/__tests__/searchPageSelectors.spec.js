@@ -1,22 +1,20 @@
-import chai, { expect } from 'chai';
-import chaiImmutable from 'chai-immutable';
+import { expect } from 'chai';
 
-import { fromJS } from 'immutable';
+import _ from 'lodash';
+import Immutable from 'seamless-immutable';
 
 import { searchPageSelectors } from 'selectors/searchPageSelectors';
 
-chai.use(chaiImmutable);
-
 describe('Selectors: searchPageSelectors', () => {
   const state = {
-    search: fromJS({
+    search: Immutable({
       category: 'some-category',
       searchResults: {
         ids: ['r-1', 'r-2'],
         isFetching: true,
       },
     }),
-    resources: fromJS({
+    resources: Immutable({
       'r-1': { id: 'r-1', name: 'Some resource' },
       'r-2': { id: 'r-2', name: 'Other resource' },
     }),
@@ -25,17 +23,21 @@ describe('Selectors: searchPageSelectors', () => {
   describe('selected values', () => {
     it('should return category from the state', () => {
       const selected = searchPageSelectors(state);
+
       expect(selected.category).to.equal('some-category');
     });
 
     it('should return isFetchingSearchResults from the state', () => {
       const selected = searchPageSelectors(state);
-      expect(selected.isFetchingSearchResults).to.be.true;
+      const expected = state.search.searchResults.isFetching;
+
+      expect(selected.isFetchingSearchResults).to.equal(expected);
     });
 
     it('should return resources corresponding to searchResults.ids as results', () => {
       const selected = searchPageSelectors(state);
-      const expected = state.resources.toList();
+      const expected = _.values(state.resources);
+
       expect(selected.results).to.deep.equal(expected);
     });
   });
