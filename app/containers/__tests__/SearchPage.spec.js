@@ -10,8 +10,8 @@ import { UnconnectedSearchPage as SearchPage } from 'containers/SearchPage';
 
 describe('Container: SearchPage', () => {
   const props = {
+    actions: { fetchResources: simple.stub() },
     category: 'Some category',
-    fetchResources: simple.stub(),
     results: Immutable([]),
   };
   let page;
@@ -38,7 +38,7 @@ describe('Container: SearchPage', () => {
 
   describe('fetching data', () => {
     it('should fetch resources when component mounts', () => {
-      expect(props.fetchResources.callCount).to.equal(1);
+      expect(props.actions.fetchResources.callCount).to.equal(1);
     });
   });
 });
