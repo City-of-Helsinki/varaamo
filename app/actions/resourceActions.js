@@ -3,6 +3,7 @@ import { CALL_API } from 'redux-api-middleware';
 import { API_URL } from 'constants/AppConstants';
 import types from 'constants/ActionTypes';
 import { resourceSchema } from 'middleware/Schemas';
+import { createTransformFunction } from 'utils/APIUtils';
 
 export default {
   fetchResource,
@@ -19,7 +20,7 @@ function fetchResource(id) {
       ],
       endpoint: `${API_URL}/resource/${id}`,
       method: 'GET',
-      schema: resourceSchema,
+      transform: createTransformFunction(resourceSchema),
     },
   };
 }
@@ -34,6 +35,7 @@ function fetchResources() {
       ],
       endpoint: `${API_URL}/resource`,
       method: 'GET',
+      transform: createTransformFunction(),
       bailout: (state) => {
         return !state.search.searchResults.shouldFetch;
       },
