@@ -23,7 +23,7 @@
     "react-router-bootstrap": "^0.19.0",
     "redux": "^3.0.0",
     "redux-actions": "^0.8.0",
-    "redux-api-middleware": "git://github.com/lraivio/redux-api-middleware.git#55743706938c2911b5bb5b1d87e8f7358a598d09",
+    "redux-api-middleware": "^0.6.0",
     "redux-logger": "^0.0.1",
     "redux-react-router": "^1.0.0-beta3",
     "reselect": "^1.1.0",
