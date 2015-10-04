@@ -7,13 +7,14 @@ import { Table } from 'react-bootstrap';
 
 import SearchResult from 'components/search-page/SearchResult';
 import SearchResults from 'components/search-page/SearchResults';
+import Resource from 'fixtures/Resource';
 
 describe('Component: SearchResults', () => {
   let element;
   const props = {
     results: Immutable([
-      { id: 'r-1', name: { fi: 'Some resource' } },
-      { id: 'r-2', name: { fi: 'Other resource' } },
+      Resource.build(),
+      Resource.build(),
     ]),
   };
 

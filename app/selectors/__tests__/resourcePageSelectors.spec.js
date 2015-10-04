@@ -2,21 +2,26 @@ import { expect } from 'chai';
 
 import Immutable from 'seamless-immutable';
 
+import Resource from 'fixtures/Resource';
 import { resourcePageSelectors } from 'selectors/resourcePageSelectors';
 
 describe('Selectors: resourcePageSelectors', () => {
+  const resources = [
+    Resource.build(),
+    Resource.build(),
+  ];
   let state;
 
   beforeEach(() => {
     state = {
       router: {
         params: {
-          id: 'r-2',
+          id: resources[0].id,
         },
       },
       resources: Immutable({
-        'r-1': { id: 'r-1', name: 'Some resource' },
-        'r-2': { id: 'r-2', name: 'Other resource' },
+        [resources[0].id]: resources[0],
+        [resources[1].id]: resources[1],
       }),
     };
   });
@@ -38,7 +43,7 @@ describe('Selectors: resourcePageSelectors', () => {
     });
 
     it('should return an empty object as resource if resource with given id is not fetched', () => {
-      state.router.params.id = 'r-9999';
+      state.router.params.id = 'unfetched-resource-id';
       const selected = resourcePageSelectors(state);
 
       expect(selected.resource).to.deep.equal({});

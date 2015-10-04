@@ -7,17 +7,15 @@ import simple from 'simple-mock';
 import Immutable from 'seamless-immutable';
 
 import { UnconnectedResourcePage as ResourcePage } from 'containers/ResourcePage';
+import Resource from 'fixtures/Resource';
 
 describe('Container: ResourcePage', () => {
-  const name = 'Some resource';
+  const resource = Resource.build();
+  const name = resource.name.fi;
   const props = {
     actions: { fetchResource: simple.stub() },
-    id: 'r-1',
-    resource: Immutable({
-      name: {
-        fi: name,
-      },
-    }),
+    id: resource.id,
+    resource: Immutable(resource),
   };
   let page;
 

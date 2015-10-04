@@ -4,6 +4,7 @@ import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
 import * as types from 'constants/ActionTypes';
+import Resource from 'fixtures/Resource';
 import { searchReducer as reducer } from 'reducers/search';
 
 describe('Reducer: searchReducer', () => {
@@ -55,17 +56,17 @@ describe('Reducer: searchReducer', () => {
             ids: [],
           },
         });
-        const newState = reducer(initialState, action);
+        const nextState = reducer(initialState, action);
 
-        expect(newState.searchResults.isFetching).to.be.true;
+        expect(nextState.searchResults.isFetching).to.be.true;
       });
     });
 
     describe('FETCH_RESOURCES_SUCCESS', () => {
       const fetchResourcesSuccess = createAction(types.FETCH_RESOURCES_SUCCESS);
       const resources = [
-        { id: 'r-1', name: 'some resource' },
-        { id: 'r-2', name: 'other resource' },
+        Resource.build(),
+        Resource.build(),
       ];
 
       it('should set searchResults.isFetching to false', () => {
@@ -76,9 +77,9 @@ describe('Reducer: searchReducer', () => {
             ids: [],
           },
         });
-        const newState = reducer(initialState, action);
+        const nextState = reducer(initialState, action);
 
-        expect(newState.searchResults.isFetching).to.be.false;
+        expect(nextState.searchResults.isFetching).to.be.false;
       });
 
       it('should set searchResults.shouldFetch to false', () => {
@@ -90,9 +91,9 @@ describe('Reducer: searchReducer', () => {
             shouldFetch: true,
           },
         });
-        const newState = reducer(initialState, action);
+        const nextState = reducer(initialState, action);
 
-        expect(newState.searchResults.shouldFetch).to.be.false;
+        expect(nextState.searchResults.shouldFetch).to.be.false;
       });
 
       it('should set the given resource ids to searchResults.ids', () => {
@@ -103,10 +104,10 @@ describe('Reducer: searchReducer', () => {
             ids: [],
           },
         });
-        const expectedIds = ['r-1', 'r-2'];
-        const newState = reducer(initialState, action);
+        const expectedIds = [resources[0].id, resources[1].id];
+        const nextState = reducer(initialState, action);
 
-        expect(newState.searchResults.ids).to.deep.equal(expectedIds);
+        expect(nextState.searchResults.ids).to.deep.equal(expectedIds);
       });
 
       it('should replace the old ids in searchResults.ids', () => {
@@ -117,10 +118,10 @@ describe('Reducer: searchReducer', () => {
             ids: ['replace-this'],
           },
         });
-        const expectedIds = ['r-1', 'r-2'];
-        const newState = reducer(initialState, action);
+        const expectedIds = [resources[0].id, resources[1].id];
+        const nextState = reducer(initialState, action);
 
-        expect(newState.searchResults.ids).to.deep.equal(expectedIds);
+        expect(nextState.searchResults.ids).to.deep.equal(expectedIds);
       });
     });
   });

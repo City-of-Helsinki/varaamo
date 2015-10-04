@@ -4,6 +4,7 @@ import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
 import * as types from 'constants/ActionTypes';
+import Resource from 'fixtures/Resource';
 import { resourcesReducer as reducer } from 'reducers/resources';
 
 describe('Reducer: resourcesReducer', () => {
@@ -30,44 +31,54 @@ describe('Reducer: resourcesReducer', () => {
       );
 
       it('should index the given resource by id and add it to state', () => {
-        const initialState = Immutable({});
-        const resource = { id: 'r-1', name: 'some resource' };
-        const expectedState = Immutable({ 'r-1': resource });
-        const action = fetchResourceSuccess(resource);
+        const resource = Resource.build();
 
-        expect(reducer(initialState, action)).to.deep.equal(expectedState);
+        const initialState = Immutable({});
+        const expectedState = Immutable({ [resource.id]: resource });
+
+        const action = fetchResourceSuccess(resource);
+        const nextState = reducer(initialState, action);
+
+        expect(nextState).to.deep.equal(expectedState);
       });
 
       it('should not remove other resources from the state', () => {
-        const initialState = Immutable({
-          'r-1': { id: 'r-1', name: 'some resource' },
-          'r-2': { id: 'r-2', name: 'other resource' },
-        });
-        const resource = { id: 'r-3', name: 'new resource' };
-        const expectedState = Immutable({
-          'r-1': { id: 'r-1', name: 'some resource' },
-          'r-2': { id: 'r-2', name: 'other resource' },
-          'r-3': { id: 'r-3', name: 'new resource' },
-        });
-        const action = fetchResourceSuccess(resource);
+        const resources = [
+          Resource.build(),
+          Resource.build(),
+        ];
 
-        expect(reducer(initialState, action)).to.deep.equal(expectedState);
+        const initialState = Immutable({
+          [resources[0].id]: resources[0],
+        });
+        const expectedState = Immutable({
+          [resources[0].id]: resources[0],
+          [resources[1].id]: resources[1],
+        });
+
+        const action = fetchResourceSuccess(resources[1]);
+        const nextState = reducer(initialState, action);
+
+        expect(nextState).to.deep.equal(expectedState);
       });
 
       it('should overwrite previous resource with the same id', () => {
-        const previousResource = {
-          id: 'r-1',
-          name: 'old name',
-        };
-        const resource = {
-          id: 'r-1',
-          name: 'some resource',
-        };
-        const initialState = Immutable({ 'r-1': previousResource });
-        const expectedState = Immutable({ 'r-1': resource });
-        const action = fetchResourceSuccess(resource);
+        const resources = [
+          Resource.build({ id: 'r-1' }),
+          Resource.build({ id: 'r-1' }),
+        ];
 
-        expect(reducer(initialState, action)).to.deep.equal(expectedState);
+        const initialState = Immutable({
+          [resources[0].id]: resources[0],
+        });
+        const expectedState = Immutable({
+          [resources[1].id]: resources[1],
+        });
+
+        const action = fetchResourceSuccess(resources[1]);
+        const nextState = reducer(initialState, action);
+
+        expect(nextState).to.deep.equal(expectedState);
       });
     });
 
@@ -76,54 +87,59 @@ describe('Reducer: resourcesReducer', () => {
 
       it('should index the given resources by id and add them to state', () => {
         const resources = [
-          { id: 'r-1', name: 'some resource' },
-          { id: 'r-2', name: 'other resource' },
+          Resource.build(),
+          Resource.build(),
         ];
+
         const initialState = Immutable({});
         const expectedState = Immutable({
-          'r-1': resources[0],
-          'r-2': resources[1],
+          [resources[0].id]: resources[0],
+          [resources[1].id]: resources[1],
         });
-        const action = fetchResourcesSuccess(resources);
 
-        expect(reducer(initialState, action)).to.deep.equal(expectedState);
+        const action = fetchResourcesSuccess(resources);
+        const nextState = reducer(initialState, action);
+
+        expect(nextState).to.deep.equal(expectedState);
       });
 
       it('should not remove previous resources from the state', () => {
         const resources = [
-          { id: 'r-1', name: 'some resource' },
-          { id: 'r-2', name: 'other resource' },
+          Resource.build(),
+          Resource.build(),
         ];
-        const previousResource = { id: 'r-3', name: 'previous resource' };
+
         const initialState = Immutable({
-          'r-3': previousResource,
+          [resources[0].id]: resources[0],
         });
         const expectedState = Immutable({
-          'r-1': resources[0],
-          'r-2': resources[1],
-          'r-3': previousResource,
+          [resources[0].id]: resources[0],
+          [resources[1].id]: resources[1],
         });
-        const action = fetchResourcesSuccess(resources);
 
-        expect(reducer(initialState, action)).to.deep.equal(expectedState);
+        const action = fetchResourcesSuccess([resources[1]]);
+        const nextState = reducer(initialState, action);
+
+        expect(nextState).to.deep.equal(expectedState);
       });
 
       it('should overwrite previous resources with the same id', () => {
         const resources = [
-          { id: 'r-1', name: 'some resource' },
-          { id: 'r-2', name: 'other resource' },
+          Resource.build({ id: 'r-1' }),
+          Resource.build({ id: 'r-1' }),
         ];
-        const previousResource = { id: 'r-1', name: 'old name' };
+
         const initialState = Immutable({
-          'r-1': previousResource,
+          [resources[0].id]: resources[0],
         });
         const expectedState = Immutable({
-          'r-1': resources[0],
-          'r-2': resources[1],
+          [resources[1].id]: resources[1],
         });
-        const action = fetchResourcesSuccess(resources);
 
-        expect(reducer(initialState, action)).to.deep.equal(expectedState);
+        const action = fetchResourcesSuccess([resources[1]]);
+        const nextState = reducer(initialState, action);
+
+        expect(nextState).to.deep.equal(expectedState);
       });
     });
   });

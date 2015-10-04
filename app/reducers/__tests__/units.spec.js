@@ -4,6 +4,7 @@ import Immutable from 'seamless-immutable';
 import { createAction } from 'redux-actions';
 
 import * as types from 'constants/ActionTypes';
+import Unit from 'fixtures/Unit';
 import { unitsReducer as reducer } from 'reducers/units';
 
 describe('Reducer: unitsReducer', () => {
@@ -30,46 +31,56 @@ describe('Reducer: unitsReducer', () => {
       );
 
       it('should index the given unit by id and add it to state', () => {
-        const initialState = Immutable({});
-        const unit = { id: 'u-1', name: 'some unit' };
-        const expectedState = Immutable({
-          'u-1': { id: 'u-1', name: 'some unit' },
-        });
-        const action = fetchResourceSuccess(unit);
+        const unit = Unit.build();
 
-        expect(reducer(initialState, action)).to.deep.equal(expectedState);
+        const initialState = Immutable({});
+        const expectedState = Immutable({
+          [unit.id]: unit,
+        });
+
+        const action = fetchResourceSuccess(unit);
+        const nextState = reducer(initialState, action);
+
+        expect(nextState).to.deep.equal(expectedState);
       });
 
       it('should not remove other units from the state', () => {
-        const initialState = Immutable({
-          'u-1': { id: 'u-1', name: 'some unit' },
-          'u-2': { id: 'u-2', name: 'other unit' },
-        });
-        const unit = { id: 'u-3', name: 'new unit' };
-        const expectedState = Immutable({
-          'u-1': { id: 'u-1', name: 'some unit' },
-          'u-2': { id: 'u-2', name: 'other unit' },
-          'u-3': { id: 'u-3', name: 'new unit' },
-        });
-        const action = fetchResourceSuccess(unit);
+        const units = [
+          Unit.build(),
+          Unit.build(),
+        ];
 
-        expect(reducer(initialState, action)).to.deep.equal(expectedState);
+        const initialState = Immutable({
+          [units[0].id]: units[0],
+        });
+        const expectedState = Immutable({
+          [units[0].id]: units[0],
+          [units[1].id]: units[1],
+        });
+
+        const action = fetchResourceSuccess(units[1]);
+        const nextState = reducer(initialState, action);
+
+        expect(nextState).to.deep.equal(expectedState);
       });
 
       it('should overwrite previous unit with the same id', () => {
-        const previousUnit = {
-          id: 'u-1',
-          name: 'old name',
-        };
-        const unit = {
-          id: 'u-1',
-          name: 'some unit',
-        };
-        const initialState = Immutable({ 'u-1': previousUnit });
-        const expectedState = Immutable({ 'u-1': unit });
-        const action = fetchResourceSuccess(unit);
+        const units = [
+          Unit.build({ id: 'u-1' }),
+          Unit.build({ id: 'u-1' }),
+        ];
 
-        expect(reducer(initialState, action)).to.deep.equal(expectedState);
+        const initialState = Immutable({
+          [units[0].id]: units[0],
+        });
+        const expectedState = Immutable({
+          [units[1].id]: units[1],
+        });
+
+        const action = fetchResourceSuccess(units[1]);
+        const nextState = reducer(initialState, action);
+
+        expect(nextState).to.deep.equal(expectedState);
       });
     });
   });
