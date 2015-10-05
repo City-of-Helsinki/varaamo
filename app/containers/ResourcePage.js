@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchResource } from 'actions/resourceActions';
+import ResourceDetails from 'components/resource/ResourceDetails';
 import ResourceHeader from 'components/resource/ResourceHeader';
 import { resourcePageSelectors } from 'selectors/resourcePageSelectors';
 import {
@@ -34,8 +35,11 @@ export class UnconnectedResourcePage extends Component {
               address={getAddressWithName(unit)}
               name={resourceName}
             />
-            <p>{getType(resource)} {getPeopleCapacityString(resource.peopleCapacity)}</p>
-            <p>{getDescription(resource)}</p>
+            <ResourceDetails
+              capacityString={getPeopleCapacityString(resource.peopleCapacity)}
+              description={getDescription(resource)}
+              type={getType(resource)}
+            />
           </div>
         </Loader>
       </DocumentTitle>
