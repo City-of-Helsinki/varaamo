@@ -13,7 +13,7 @@ export function resourcesReducer(state = Immutable({}), action) {
     return state.merge(resources);
 
   case ActionTypes.FETCH_RESOURCES_SUCCESS:
-    resources = _.values(action.payload);
+    resources = action.payload.entities.resources;
     return state.merge(_.indexBy(resources, 'id'));
 
   default:

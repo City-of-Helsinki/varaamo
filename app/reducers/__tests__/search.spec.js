@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 
+import _ from 'lodash';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
@@ -63,7 +64,15 @@ describe('Reducer: searchReducer', () => {
     });
 
     describe('FETCH_RESOURCES_SUCCESS', () => {
-      const fetchResourcesSuccess = createAction(types.FETCH_RESOURCES_SUCCESS);
+      const fetchResourcesSuccess = createAction(
+        types.FETCH_RESOURCES_SUCCESS,
+        (resources) => {
+          return {
+            entities: { resources },
+            result: _.pluck(resources, 'id'),
+          };
+        }
+      );
       const resources = [
         Resource.build(),
         Resource.build(),

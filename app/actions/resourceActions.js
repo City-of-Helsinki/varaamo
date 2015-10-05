@@ -1,3 +1,4 @@
+import { arrayOf } from 'normalizr';
 import { CALL_API } from 'redux-api-middleware';
 
 import { API_URL } from 'constants/AppConstants';
@@ -35,7 +36,7 @@ function fetchResources() {
       ],
       endpoint: `${API_URL}/resource`,
       method: 'GET',
-      transform: createTransformFunction(),
+      transform: createTransformFunction(arrayOf(resourceSchema)),
       bailout: (state) => {
         return !state.search.searchResults.shouldFetch;
       },

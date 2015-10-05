@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import Immutable from 'seamless-immutable';
 
 import ActionTypes from 'constants/ActionTypes';
@@ -19,9 +18,9 @@ function searchResultsReducer(state, action) {
     return state.merge({ 'isFetching': true });
 
   case ActionTypes.FETCH_RESOURCES_SUCCESS:
-    const resources = _.values(action.payload);
+    const results = action.payload.result;
     return state.merge({
-      ids: _.pluck(resources, 'id'),
+      ids: results,
       isFetching: false,
       shouldFetch: false,
     });

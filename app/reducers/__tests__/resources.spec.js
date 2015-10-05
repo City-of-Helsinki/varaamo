@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 
+import _ from 'lodash';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
@@ -83,7 +84,15 @@ describe('Reducer: resourcesReducer', () => {
     });
 
     describe('FETCH_RESOURCES_SUCCESS', () => {
-      const fetchResourcesSuccess = createAction(types.FETCH_RESOURCES_SUCCESS);
+      const fetchResourcesSuccess = createAction(
+        types.FETCH_RESOURCES_SUCCESS,
+        (resources) => {
+          return {
+            entities: { resources },
+            result: _.pluck(resources, 'id'),
+          };
+        }
+      );
 
       it('should index the given resources by id and add them to state', () => {
         const resources = [
