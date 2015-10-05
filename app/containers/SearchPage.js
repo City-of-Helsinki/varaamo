@@ -9,7 +9,7 @@ import { searchPageSelectors } from 'selectors/searchPageSelectors';
 
 export class UnconnectedSearchPage extends Component {
   componentDidMount() {
-    this.props.fetchResources();
+    this.props.actions.fetchResources();
   }
 
   render() {
@@ -33,13 +33,13 @@ export class UnconnectedSearchPage extends Component {
 
 UnconnectedSearchPage.propTypes = {
   category: PropTypes.string.isRequired,
-  fetchResources: PropTypes.func.isRequired,
+  actions: PropTypes.object.isRequired,
   isFetchingSearchResults: PropTypes.bool,
   results: PropTypes.array.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchResources }, dispatch);
+  return { actions: bindActionCreators({ fetchResources }, dispatch) };
 }
 
 export default connect(searchPageSelectors, mapDispatchToProps)(UnconnectedSearchPage);

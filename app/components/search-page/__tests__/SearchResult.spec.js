@@ -1,67 +1,73 @@
 import { expect } from 'chai';
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import sd from 'skin-deep';
 
 import Immutable from 'seamless-immutable';
-import { Link } from 'react-router';
 
 import SearchResult from 'components/search-page/SearchResult';
-
-function setup() {
-  const props = {
-    result: Immutable({
-      id: 'r-1',
-      name: { fi: 'Some resource' },
-      unit: 'u-1',
-    }),
-  };
-
-  const renderer = TestUtils.createRenderer();
-  renderer.render(<SearchResult {...props} />);
-  const output = renderer.getRenderOutput();
-
-  return output;
-}
+import Resource from 'fixtures/Resource';
 
 describe('Component: SearchResult', () => {
   describe('rendering', () => {
-    let output;
+    const props = {
+      result: Immutable(Resource.build()),
+    };
+    let tree;
+    let vdom;
 
     before(() => {
-      output = setup();
+      tree = sd.shallowRender(<SearchResult {...props} />);
+      vdom = tree.getRenderOutput();
     });
 
     it('should render a table row', () => {
-      expect(output.type).to.equal('tr');
+      expect(vdom.type).to.equal('tr');
     });
 
-    it('should render 2 table cells', () => {
-      const tds = output.props.children;
-      expect(tds).to.have.length(2);
-      tds.forEach((td) => {
-        expect(td.type).to.equal('td');
-      });
-    });
+    describe('table cells', () => {
+      let tdTrees;
 
-    describe('the first table cell', () => {
-      it('should contain a link to resources page', () => {
-        const td = output.props.children[0];
-        const link = td.props.children;
-        expect(TestUtils.isElementOfType(link, Link)).to.be.true;
-        expect(link.props.to).to.contain('resources');
+      before(() => {
+        tdTrees = tree.everySubTree('td');
       });
 
-      it('should display the name of the result', () => {
-        const td = output.props.children[0];
-        const link = td.props.children;
-        expect(link.props.children).to.equal('Some resource');
+      it('should render 2 table cells', () => {
+        expect(tdTrees).to.have.length(2);
       });
-    });
 
-    describe('the second table cell', () => {
-      it('should contain unit of the result', () => {
-        const td = output.props.children[1];
-        expect(td.props.children).to.equal('u-1');
+      describe('the first table cell', () => {
+        let tdTree;
+
+        before(() => {
+          tdTree = tdTrees[0];
+        });
+
+        it('should contain a link to resources page', () => {
+          const linkTree = tdTree.subTree('Link');
+          const linkVdom = linkTree.getRenderOutput();
+
+          expect(linkVdom.props.to).to.contain('resources');
+        });
+
+        it('should display the name of the result', () => {
+          const expected = props.result.name.fi;
+
+          expect(tdTree.toString()).to.contain(expected);
+        });
+      });
+
+      describe('the second table cell', () => {
+        let tdTree;
+
+        before(() => {
+          tdTree = tdTrees[1];
+        });
+
+        it('should display the unit of the result', () => {
+          const expected = props.result.unit;
+
+          expect(tdTree.text()).to.equal(expected);
+        });
       });
     });
   });

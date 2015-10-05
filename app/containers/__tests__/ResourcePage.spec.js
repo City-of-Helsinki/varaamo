@@ -2,25 +2,20 @@ import { expect } from 'chai';
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import TestUtils from 'react/lib/ReactTestUtils';
+import simple from 'simple-mock';
 
 import Immutable from 'seamless-immutable';
 
 import { UnconnectedResourcePage as ResourcePage } from 'containers/ResourcePage';
+import Resource from 'fixtures/Resource';
 
 describe('Container: ResourcePage', () => {
-  let fetchResourceWasCalled = false;
-  function fetchResourceMock() {
-    fetchResourceWasCalled = true;
-  }
-  const name = 'Some resource';
+  const resource = Resource.build();
+  const name = resource.name.fi;
   const props = {
-    actions: { fetchResource: fetchResourceMock },
-    id: 'r-1',
-    resource: Immutable({
-      name: {
-        fi: name,
-      },
-    }),
+    actions: { fetchResource: simple.stub() },
+    id: resource.id,
+    resource: Immutable(resource),
   };
   let page;
 
@@ -46,8 +41,8 @@ describe('Container: ResourcePage', () => {
   });
 
   describe('fetching data', () => {
-    it('should fetch resources when component mounts', () => {
-      expect(fetchResourceWasCalled).to.be.true;
+    it('should fetch resource data when component mounts', () => {
+      expect(props.actions.fetchResource.callCount).to.equal(1);
     });
   });
 });

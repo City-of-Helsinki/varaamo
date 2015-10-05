@@ -1,30 +1,35 @@
 import { expect } from 'chai';
 
-import _ from 'lodash';
 import Immutable from 'seamless-immutable';
 
+import Resource from 'fixtures/Resource';
 import { searchPageSelectors } from 'selectors/searchPageSelectors';
 
 describe('Selectors: searchPageSelectors', () => {
+  const resources = [
+    Resource.build(),
+    Resource.build(),
+  ];
   const state = {
     search: Immutable({
       category: 'some-category',
       searchResults: {
-        ids: ['r-1', 'r-2'],
+        ids: [resources[0].id, resources[1].id],
         isFetching: true,
       },
     }),
     resources: Immutable({
-      'r-1': { id: 'r-1', name: 'Some resource' },
-      'r-2': { id: 'r-2', name: 'Other resource' },
+      [resources[0].id]: resources[0],
+      [resources[1].id]: resources[1],
     }),
   };
 
   describe('selected values', () => {
     it('should return category from the state', () => {
       const selected = searchPageSelectors(state);
+      const expected = state.search.category;
 
-      expect(selected.category).to.equal('some-category');
+      expect(selected.category).to.equal(expected);
     });
 
     it('should return isFetchingSearchResults from the state', () => {
@@ -36,7 +41,7 @@ describe('Selectors: searchPageSelectors', () => {
 
     it('should return resources corresponding to searchResults.ids as results', () => {
       const selected = searchPageSelectors(state);
-      const expected = _.values(state.resources);
+      const expected = [resources[0], resources[1]];
 
       expect(selected.results).to.deep.equal(expected);
     });

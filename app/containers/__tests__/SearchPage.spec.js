@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
+import simple from 'simple-mock';
 
 import Immutable from 'seamless-immutable';
 
@@ -8,13 +9,9 @@ import SearchResults from 'components/search-page/SearchResults';
 import { UnconnectedSearchPage as SearchPage } from 'containers/SearchPage';
 
 describe('Container: SearchPage', () => {
-  let fetchResourcesWasCalled = false;
-  function fetchResourcesMock() {
-    fetchResourcesWasCalled = true;
-  }
   const props = {
+    actions: { fetchResources: simple.stub() },
     category: 'Some category',
-    fetchResources: fetchResourcesMock,
     results: Immutable([]),
   };
   let page;
@@ -41,7 +38,7 @@ describe('Container: SearchPage', () => {
 
   describe('fetching data', () => {
     it('should fetch resources when component mounts', () => {
-      expect(fetchResourcesWasCalled).to.be.true;
+      expect(props.actions.fetchResources.callCount).to.equal(1);
     });
   });
 });
