@@ -38,7 +38,7 @@ function fetchResources() {
       method: 'GET',
       transform: createTransformFunction(arrayOf(resourceSchema)),
       bailout: (state) => {
-        return !state.search.searchResults.shouldFetch;
+        return !state.api.shouldFetchSearchResults;
       },
     },
   };

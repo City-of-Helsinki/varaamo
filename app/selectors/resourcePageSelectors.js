@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 
 const idSelector = (state) => state.router.params.id;
-const resourcesSelector = (state) => state.resources;
-const unitsSelector = (state) => state.units;
+const resourcesSelector = (state) => state.data.resources;
+const unitsSelector = (state) => state.data.units;
 
 export const resourcePageSelectors = createSelector(
   idSelector,

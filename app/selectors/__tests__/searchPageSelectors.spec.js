@@ -11,30 +11,34 @@ describe('Selectors: searchPageSelectors', () => {
     Resource.build(),
   ];
   const state = {
-    search: Immutable({
-      category: 'some-category',
-      searchResults: {
-        ids: [resources[0].id, resources[1].id],
-        isFetching: true,
+    api: Immutable({
+      isFetchingSearchResults: false,
+    }),
+    data: Immutable({
+      resources: {
+        [resources[0].id]: resources[0],
+        [resources[1].id]: resources[1],
       },
     }),
-    resources: Immutable({
-      [resources[0].id]: resources[0],
-      [resources[1].id]: resources[1],
+    ui: Immutable({
+      search: {
+        category: 'some-category',
+        results: [resources[0].id, resources[1].id],
+      },
     }),
   };
 
   describe('selected values', () => {
     it('should return category from the state', () => {
       const selected = searchPageSelectors(state);
-      const expected = state.search.category;
+      const expected = state.ui.search.category;
 
       expect(selected.category).to.equal(expected);
     });
 
     it('should return isFetchingSearchResults from the state', () => {
       const selected = searchPageSelectors(state);
-      const expected = state.search.searchResults.isFetching;
+      const expected = state.api.isFetchingSearchResults;
 
       expect(selected.isFetchingSearchResults).to.equal(expected);
     });

@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 import { routerStateReducer as router } from 'redux-react-router';
 
-import { searchReducer } from 'reducers/search';
-import { resourcesReducer } from 'reducers/resources';
-import { unitsReducer } from 'reducers/units';
+import { apiReducer } from 'reducers/apiReducer';
+import { dataReducer } from 'reducers/dataReducer';
+import { uiReducer } from 'reducers/uiReducer';
 
 export default combineReducers({
-  resources: resourcesReducer,
+  api: apiReducer,
+  data: dataReducer,
   router,
-  search: searchReducer,
-  units: unitsReducer,
+  ui: uiReducer,
 });

@@ -16,18 +16,20 @@ describe('Selectors: resourcePageSelectors', () => {
 
   beforeEach(() => {
     state = {
+      data: Immutable({
+        resources: {
+          [resources[0].id]: resources[0],
+          [resources[1].id]: resources[1],
+        },
+        units: {
+          [unit.id]: unit,
+        },
+      }),
       router: {
         params: {
           id: resources[0].id,
         },
       },
-      resources: Immutable({
-        [resources[0].id]: resources[0],
-        [resources[1].id]: resources[1],
-      }),
-      units: Immutable({
-        [unit.id]: unit,
-      }),
     };
   });
 
@@ -42,7 +44,7 @@ describe('Selectors: resourcePageSelectors', () => {
     it('should return the resource corresponding to the router.params.id', () => {
       const selected = resourcePageSelectors(state);
       const resourceId = state.router.params.id;
-      const expected = state.resources[resourceId];
+      const expected = state.data.resources[resourceId];
 
       expect(selected.resource).to.deep.equal(expected);
     });
