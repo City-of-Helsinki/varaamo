@@ -4,12 +4,15 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchResources } from 'actions/resourceActions';
+import { fetchUnits } from 'actions/unitActions';
 import SearchResults from 'components/search-page/SearchResults';
 import { searchPageSelectors } from 'selectors/searchPageSelectors';
 
 export class UnconnectedSearchPage extends Component {
   componentDidMount() {
-    this.props.actions.fetchResources();
+    const { actions } = this.props;
+    actions.fetchResources();
+    actions.fetchUnits();
   }
 
   render() {
@@ -39,7 +42,7 @@ UnconnectedSearchPage.propTypes = {
 };
 
 function mapDispatchToProps(dispatch) {
-  return { actions: bindActionCreators({ fetchResources }, dispatch) };
+  return { actions: bindActionCreators({ fetchResources, fetchUnits }, dispatch) };
 }
 
 export default connect(searchPageSelectors, mapDispatchToProps)(UnconnectedSearchPage);

@@ -21,6 +21,9 @@ function fetchUnits() {
       endpoint: `${API_URL}/unit`,
       method: 'GET',
       transform: createTransformFunction(arrayOf(unitSchema)),
+      bailout: (state) => {
+        return !state.api.shouldFetchUnits;
+      },
     },
   };
 }

@@ -17,6 +17,10 @@ describe('Reducer: apiReducer', () => {
     it('shouldFetchSearchResults should be true', () => {
       expect(initialState.shouldFetchSearchResults).to.equal(true);
     });
+
+    it('shouldFetchUnits should be true', () => {
+      expect(initialState.shouldFetchUnits).to.equal(true);
+    });
   });
 
   describe('handling actions', () => {
@@ -49,6 +53,18 @@ describe('Reducer: apiReducer', () => {
         const nextState = reducer(initialState, action);
 
         expect(nextState.shouldFetchSearchResults).to.equal(false);
+      });
+    });
+
+    describe('FETCH_UNITS_SUCCESS', () => {
+      const fetchUnitsSuccess = createAction(types.FETCH_UNITS_SUCCESS);
+
+      it('should set shouldFetchUnits to false', () => {
+        const action = fetchUnitsSuccess();
+        const initialState = Immutable({ shouldFetchUnits: true });
+        const nextState = reducer(initialState, action);
+
+        expect(nextState.shouldFetchUnits).to.equal(false);
       });
     });
   });

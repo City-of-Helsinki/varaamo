@@ -5,6 +5,7 @@ import ActionTypes from 'constants/ActionTypes';
 const initialState = Immutable({
   isFetchingSearchResults: false,
   shouldFetchSearchResults: true,
+  shouldFetchUnits: true,
 });
 
 export function apiReducer(state = initialState, action) {
@@ -17,6 +18,11 @@ export function apiReducer(state = initialState, action) {
     return state.merge({
       isFetchingSearchResults: false,
       shouldFetchSearchResults: false,
+    });
+
+  case ActionTypes.FETCH_UNITS_SUCCESS:
+    return state.merge({
+      shouldFetchUnits: false,
     });
 
   default:
