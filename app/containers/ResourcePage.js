@@ -7,6 +7,13 @@ import { bindActionCreators } from 'redux';
 
 import { fetchResource } from 'actions/resourceActions';
 import { resourcePageSelectors } from 'selectors/resourcePageSelectors';
+import {
+  getAddressWithName,
+  getDescription,
+  getName,
+  getType,
+  getPeopleCapacityString,
+} from 'utils/DataUtils';
 
 export class UnconnectedResourcePage extends Component {
   componentDidMount() {
@@ -15,14 +22,17 @@ export class UnconnectedResourcePage extends Component {
   }
 
   render() {
-    const { resource } = this.props;
-    const name = resource.name ? resource.name.fi : '';
+    const { resource, unit } = this.props;
+    const resourceName = getName(resource);
 
     return (
-      <DocumentTitle title={`${name} - Respa`}>
+      <DocumentTitle title={`${resourceName} - Respa`}>
         <Loader loaded={!_.isEmpty(resource)}>
           <div>
-            <h1>{name}</h1>
+            <h1>{resourceName}</h1>
+            <address>{getAddressWithName(unit)}</address>
+            <p>{getType(resource)} {getPeopleCapacityString(resource.peopleCapacity)}</p>
+            <p>{getDescription(resource)}</p>
           </div>
         </Loader>
       </DocumentTitle>
@@ -34,6 +44,7 @@ UnconnectedResourcePage.propTypes = {
   actions: PropTypes.object.isRequired,
   id: PropTypes.string.isRequired,
   resource: PropTypes.object.isRequired,
+  unit: PropTypes.object.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {

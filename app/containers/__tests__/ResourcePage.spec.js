@@ -8,15 +8,19 @@ import Immutable from 'seamless-immutable';
 
 import { UnconnectedResourcePage as ResourcePage } from 'containers/ResourcePage';
 import Resource from 'fixtures/Resource';
+import Unit from 'fixtures/Unit';
 
 describe('Container: ResourcePage', () => {
-  const resource = Resource.build();
-  const name = resource.name.fi;
+  const unit = Unit.build();
+  const resource = Resource.build({ unit: Unit.id });
+  const resourceName = resource.name.fi;
   const props = {
     actions: { fetchResource: simple.stub() },
     id: resource.id,
     resource: Immutable(resource),
+    unit: Immutable(unit),
   };
+
   let page;
 
   before(() => {
@@ -29,14 +33,14 @@ describe('Container: ResourcePage', () => {
     });
 
     it('should set a correct page title', () => {
-      expect(document.title).to.equal(`${name} - Respa`);
+      expect(document.title).to.equal(`${resourceName} - Respa`);
     });
 
     it('should display resource name inside h1 tags', () => {
       const headerComponent = TestUtils.findRenderedDOMComponentWithTag(page, 'h1');
       const headerDOM = findDOMNode(headerComponent);
 
-      expect(headerDOM.textContent).to.equal(name);
+      expect(headerDOM.textContent).to.equal(resourceName);
     });
   });
 
