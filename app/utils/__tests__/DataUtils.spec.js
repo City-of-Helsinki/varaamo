@@ -1,10 +1,12 @@
 import { expect } from 'chai';
 
+import { RESOURCE_TYPES } from 'constants/AppConstants';
 import {
   getAddress,
   getAddressWithName,
   getDescription,
   getName,
+  getType,
   getPeopleCapacityString,
 } from 'utils/DataUtils';
 
@@ -95,6 +97,34 @@ describe('Utils: DataUtils', () => {
       const item = { name: { fi: 'Some name' } };
 
       expect(getName(item)).to.equal('Some name');
+    });
+  });
+
+  describe('getType', () => {
+    it('should return default type if item is undefined', () => {
+      const item = undefined;
+
+      expect(getType(item)).to.equal(RESOURCE_TYPES.default);
+    });
+
+    it('should return default type if item.type is undefined', () => {
+      const item = {};
+
+      expect(getType(item)).to.equal(RESOURCE_TYPES.default);
+    });
+
+    it('should return default type if RESOURCE_TYPES does not include item.type', () => {
+      const item = { type: 'unknown-type' };
+
+      expect(getType(item)).to.equal(RESOURCE_TYPES.default);
+    });
+
+    it('should return included type from RESOURCE_TYPES', () => {
+      const validType = Object.keys(RESOURCE_TYPES)[0];
+      const item = { type: validType };
+      const expected = RESOURCE_TYPES[validType];
+
+      expect(getType(item)).to.equal(expected);
     });
   });
 

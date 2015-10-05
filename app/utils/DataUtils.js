@@ -1,8 +1,11 @@
+import { RESOURCE_TYPES } from 'constants/AppConstants';
+
 export default {
   getAddress,
   getAddressWithName,
   getDescription,
   getName,
+  getType,
   getPeopleCapacityString,
 };
 
@@ -37,6 +40,14 @@ function getName(item) {
   const hasName = item && item.name && item.name.fi;
 
   return hasName ? item.name.fi : '';
+}
+
+function getType(item) {
+  if (item && item.type && item.type in RESOURCE_TYPES) {
+    return RESOURCE_TYPES[item.type];
+  }
+
+  return RESOURCE_TYPES.default;
 }
 
 function getPeopleCapacityString(capacity) {
