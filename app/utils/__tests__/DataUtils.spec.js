@@ -18,6 +18,12 @@ describe('Utils: DataUtils', () => {
       expect(getAddress(item)).to.equal('');
     });
 
+    it('should return an empty string if given item is empty', () => {
+      const item = {};
+
+      expect(getAddress(item)).to.equal('');
+    });
+
     it('should return the address in proper format', () => {
       const item = {
         addressZip: '12345',
@@ -32,6 +38,12 @@ describe('Utils: DataUtils', () => {
   describe('getAddressWithName', () => {
     it('should return an empty string if given item is undefined', () => {
       const item = undefined;
+
+      expect(getAddressWithName(item)).to.equal('');
+    });
+
+    it('should return an empty string if given item is empty', () => {
+      const item = {};
 
       expect(getAddressWithName(item)).to.equal('');
     });

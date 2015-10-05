@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import { RESOURCE_TYPES } from 'constants/AppConstants';
 
 export default {
@@ -10,7 +12,7 @@ export default {
 };
 
 function getAddress(item) {
-  if (!item) {
+  if (!item || _.isEmpty(item)) {
     return '';
   }
 
