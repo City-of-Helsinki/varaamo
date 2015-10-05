@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchResource } from 'actions/resourceActions';
+import ResourceHeader from 'components/resource/ResourceHeader';
 import { resourcePageSelectors } from 'selectors/resourcePageSelectors';
 import {
   getAddressWithName,
@@ -29,8 +30,10 @@ export class UnconnectedResourcePage extends Component {
       <DocumentTitle title={`${resourceName} - Respa`}>
         <Loader loaded={!_.isEmpty(resource)}>
           <div>
-            <h1>{resourceName}</h1>
-            <address>{getAddressWithName(unit)}</address>
+            <ResourceHeader
+              address={getAddressWithName(unit)}
+              name={resourceName}
+            />
             <p>{getType(resource)} {getPeopleCapacityString(resource.peopleCapacity)}</p>
             <p>{getDescription(resource)}</p>
           </div>
