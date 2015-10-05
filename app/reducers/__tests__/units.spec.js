@@ -1,7 +1,8 @@
 import { expect } from 'chai';
 
-import Immutable from 'seamless-immutable';
+import _ from 'lodash';
 import { createAction } from 'redux-actions';
+import Immutable from 'seamless-immutable';
 
 import * as types from 'constants/ActionTypes';
 import Unit from 'fixtures/Unit';
@@ -78,6 +79,75 @@ describe('Reducer: unitsReducer', () => {
         });
 
         const action = fetchResourceSuccess(units[1]);
+        const nextState = reducer(initialState, action);
+
+        expect(nextState).to.deep.equal(expectedState);
+      });
+    });
+
+    describe('FETCH_UNITS_SUCCESS', () => {
+      const fetchUnitsSuccess = createAction(
+        types.FETCH_UNITS_SUCCESS,
+        (units) => {
+          return {
+            entities: { units },
+            result: _.pluck(units, 'id'),
+          };
+        }
+      );
+
+      it('should index the given units by id and add them to state', () => {
+        const units = [
+          Unit.build(),
+          Unit.build(),
+        ];
+
+        const initialState = Immutable({});
+        const expectedState = Immutable({
+          [units[0].id]: units[0],
+          [units[1].id]: units[1],
+        });
+
+        const action = fetchUnitsSuccess(units);
+        const nextState = reducer(initialState, action);
+
+        expect(nextState).to.deep.equal(expectedState);
+      });
+
+      it('should not remove previous units from the state', () => {
+        const units = [
+          Unit.build(),
+          Unit.build(),
+        ];
+
+        const initialState = Immutable({
+          [units[0].id]: units[0],
+        });
+        const expectedState = Immutable({
+          [units[0].id]: units[0],
+          [units[1].id]: units[1],
+        });
+
+        const action = fetchUnitsSuccess([units[1]]);
+        const nextState = reducer(initialState, action);
+
+        expect(nextState).to.deep.equal(expectedState);
+      });
+
+      it('should overwrite previous units with the same id', () => {
+        const units = [
+          Unit.build({ id: 'u-1' }),
+          Unit.build({ id: 'u-1' }),
+        ];
+
+        const initialState = Immutable({
+          [units[0].id]: units[0],
+        });
+        const expectedState = Immutable({
+          [units[1].id]: units[1],
+        });
+
+        const action = fetchUnitsSuccess([units[1]]);
         const nextState = reducer(initialState, action);
 
         expect(nextState).to.deep.equal(expectedState);
