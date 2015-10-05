@@ -6,8 +6,21 @@ import Loader from 'react-loader';
 import SearchResult from 'components/search-page/SearchResult';
 
 export class SearchResults extends Component {
+  constructor(props) {
+    super(props);
+    this.renderSearchResult = this.renderSearchResult.bind(this);
+  }
+
   renderSearchResult(result) {
-    return <SearchResult key={result.id} result={result} />;
+    const unit = this.props.units[result.unit] || {};
+
+    return (
+      <SearchResult
+        key={result.id}
+        result={result}
+        unit={unit}
+      />
+    );
   }
 
   render() {
@@ -18,8 +31,8 @@ export class SearchResults extends Component {
         <Table striped>
           <thead>
             <tr>
-              <th>Nimi</th>
-              <th>Yksikkö</th>
+              <th>Tila</th>
+              <th>Sijainti</th>
             </tr>
           </thead>
           <tbody>
@@ -34,6 +47,7 @@ export class SearchResults extends Component {
 SearchResults.propTypes = {
   isFetching: PropTypes.bool,
   results: PropTypes.array.isRequired,
+  units: PropTypes.object.isRequired,
 };
 
 export default SearchResults;

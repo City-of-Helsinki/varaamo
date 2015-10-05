@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import Immutable from 'seamless-immutable';
 
 import Resource from 'fixtures/Resource';
+import Unit from 'fixtures/Unit';
 import { searchPageSelectors } from 'selectors/searchPageSelectors';
 
 describe('Selectors: searchPageSelectors', () => {
@@ -10,6 +11,7 @@ describe('Selectors: searchPageSelectors', () => {
     Resource.build(),
     Resource.build(),
   ];
+  const unit = Unit.build();
   const state = {
     api: Immutable({
       isFetchingSearchResults: false,
@@ -18,6 +20,9 @@ describe('Selectors: searchPageSelectors', () => {
       resources: {
         [resources[0].id]: resources[0],
         [resources[1].id]: resources[1],
+      },
+      units: {
+        [unit.id]: unit,
       },
     }),
     ui: Immutable({
@@ -48,6 +53,13 @@ describe('Selectors: searchPageSelectors', () => {
       const expected = [resources[0], resources[1]];
 
       expect(selected.results).to.deep.equal(expected);
+    });
+
+    it('should return units from the state', () => {
+      const selected = searchPageSelectors(state);
+      const expected = state.data.units;
+
+      expect(selected.units).to.deep.equal(expected);
     });
   });
 });

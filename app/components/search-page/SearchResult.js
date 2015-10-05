@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
+import { getName } from 'utils/DataUtils';
+
 export class SearchResult extends Component {
   render() {
-    const { result } = this.props;
+    const { result, unit } = this.props;
 
     return (
       <tr>
@@ -12,7 +14,7 @@ export class SearchResult extends Component {
             {result.name.fi}
           </Link>
         </td>
-        <td>{result.unit}</td>
+        <td>{getName(unit)}</td>
       </tr>
     );
   }
@@ -20,6 +22,7 @@ export class SearchResult extends Component {
 
 SearchResult.propTypes = {
   result: PropTypes.object.isRequired,
+  unit: PropTypes.object.isRequired,
 };
 
 export default SearchResult;

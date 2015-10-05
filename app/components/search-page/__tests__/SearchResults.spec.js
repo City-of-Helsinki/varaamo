@@ -6,13 +6,18 @@ import Immutable from 'seamless-immutable';
 
 import SearchResults from 'components/search-page/SearchResults';
 import Resource from 'fixtures/Resource';
+import Unit from 'fixtures/Unit';
 
 describe('Component: SearchResults', () => {
+  const unit = Unit.build();
   const props = {
     results: Immutable([
-      Resource.build(),
-      Resource.build(),
+      Resource.build({ unit: unit.id }),
+      Resource.build({ unit: 'unfetched-unit' }),
     ]),
+    units: Immutable({
+      [unit.id]: unit,
+    }),
   };
   let tree;
 
@@ -39,12 +44,12 @@ describe('Component: SearchResults', () => {
       expect(thTrees.length).to.equal(2);
     });
 
-    it('first th element should contain text "Nimi"', () => {
-      expect(thTrees[0].text()).to.equal('Nimi');
+    it('first th element should contain text "Tila"', () => {
+      expect(thTrees[0].text()).to.equal('Tila');
     });
 
-    it('second th element should contain text "Yksikkö"', () => {
-      expect(thTrees[1].text()).to.equal('Yksikkö');
+    it('second th element should contain text "Sijainti"', () => {
+      expect(thTrees[1].text()).to.equal('Sijainti');
     });
   });
 
@@ -57,6 +62,26 @@ describe('Component: SearchResults', () => {
 
     it('should render a SearchResult for every result in props', () => {
       expect(resultTrees.length).to.equal(props.results.length);
+    });
+
+    it('should pass result as a prop to SearchResult', () => {
+      resultTrees.forEach((resultTree, index) => {
+        const resultVdom = resultTree.getRenderOutput();
+
+        expect(resultVdom.props.result).to.deep.equal(props.results[index]);
+      });
+    });
+
+    it('should pass unit corresponding to result.unit as a prop to SearchResult', () => {
+      const resultVdom = resultTrees[0].getRenderOutput();
+
+      expect(resultVdom.props.unit).to.deep.equal(unit);
+    });
+
+    it('should pass empty object as unit prop to SearchResult if unit is unfetched', () => {
+      const resultVdom = resultTrees[1].getRenderOutput();
+
+      expect(resultVdom.props.unit).to.deep.equal({});
     });
   });
 });

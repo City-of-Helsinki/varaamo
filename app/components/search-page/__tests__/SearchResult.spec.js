@@ -6,11 +6,13 @@ import Immutable from 'seamless-immutable';
 
 import SearchResult from 'components/search-page/SearchResult';
 import Resource from 'fixtures/Resource';
+import Unit from 'fixtures/Unit';
 
 describe('Component: SearchResult', () => {
   describe('rendering', () => {
     const props = {
       result: Immutable(Resource.build()),
+      unit: Immutable(Unit.build()),
     };
     let tree;
     let vdom;
@@ -63,8 +65,8 @@ describe('Component: SearchResult', () => {
           tdTree = tdTrees[1];
         });
 
-        it('should display the unit of the result', () => {
-          const expected = props.result.unit;
+        it('should display the name of the given in props', () => {
+          const expected = props.unit.name.fi;
 
           expect(tdTree.text()).to.equal(expected);
         });
