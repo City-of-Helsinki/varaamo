@@ -5,7 +5,7 @@ import simple from 'simple-mock';
 
 import Immutable from 'seamless-immutable';
 
-import SearchResults from 'components/search-page/SearchResults';
+import SearchResults from 'components/search/SearchResults';
 import { UnconnectedSearchPage as SearchPage } from 'containers/SearchPage';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';

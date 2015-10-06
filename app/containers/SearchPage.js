@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import { fetchResources } from 'actions/resourceActions';
 import { fetchUnits } from 'actions/unitActions';
-import SearchResults from 'components/search-page/SearchResults';
+import SearchResults from 'components/search/SearchResults';
 import { searchPageSelectors } from 'selectors/searchPageSelectors';
 
 export class UnconnectedSearchPage extends Component {
