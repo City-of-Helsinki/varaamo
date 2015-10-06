@@ -1,6 +1,8 @@
 Respa-ui
 ========
 
+[![Circle CI](https://circleci.com/gh/fastmonkeys/respa-ui.svg?style=svg)](https://circleci.com/gh/fastmonkeys/respa-ui)
+
 Requirements
 ------------
 
