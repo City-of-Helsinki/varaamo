@@ -1,9 +1,12 @@
 import _ from 'lodash';
 
+import { PURPOSE_MAIN_TYPES } from 'constants/AppConstants';
+
 export default {
   getAddress,
   getAddressWithName,
   getDescription,
+  humanizeMainType,
   getName,
   getPeopleCapacityString,
 };
@@ -33,6 +36,14 @@ function getDescription(item) {
   const hasDescription = item && item.description && item.description.fi;
 
   return hasDescription ? item.description.fi : '';
+}
+
+function humanizeMainType(mainType) {
+  if (!mainType) {
+    return '';
+  }
+
+  return mainType in PURPOSE_MAIN_TYPES ? PURPOSE_MAIN_TYPES[mainType] : mainType;
 }
 
 function getName(item) {
