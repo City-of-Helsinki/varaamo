@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 
 export class ResourceDetails extends Component {
@@ -6,7 +7,7 @@ export class ResourceDetails extends Component {
 
     return (
       <div>
-        <p>{type} {capacityString}</p>
+        <p>{_.capitalize(type)} {capacityString}</p>
         <p>{description}</p>
       </div>
     );
