@@ -7,12 +7,21 @@ import Immutable from 'seamless-immutable';
 
 import SearchResults from 'components/search-page/SearchResults';
 import { UnconnectedSearchPage as SearchPage } from 'containers/SearchPage';
+import Resource from 'fixtures/Resource';
+import Unit from 'fixtures/Unit';
 
 describe('Container: SearchPage', () => {
+  const unit = Unit.build();
+  const resource = Resource.build();
   const props = {
-    actions: { fetchResources: simple.stub() },
+    actions: {
+      fetchResources: simple.stub(),
+      fetchUnits: simple.stub(),
+    },
     category: 'Some category',
-    results: Immutable([]),
+    isFetchingSearchResults: false,
+    results: Immutable([resource]),
+    units: Immutable({ [unit.id]: unit }),
   };
   let page;
 
@@ -34,11 +43,23 @@ describe('Container: SearchPage', () => {
 
       expect(searchResults).to.exist;
     });
+
+    it('should pass correct props to SearchResults component', () => {
+      const searchResults = TestUtils.findRenderedComponentWithType(page, SearchResults);
+
+      expect(searchResults.props.isFetching).to.equal(props.isFetchingSearchResults);
+      expect(searchResults.props.results).to.deep.equal(props.results);
+      expect(searchResults.props.units).to.deep.equal(props.units);
+    });
   });
 
   describe('fetching data', () => {
     it('should fetch resources when component mounts', () => {
       expect(props.actions.fetchResources.callCount).to.equal(1);
+    });
+
+    it('should fetch units when component mounts', () => {
+      expect(props.actions.fetchUnits.callCount).to.equal(1);
     });
   });
 });
