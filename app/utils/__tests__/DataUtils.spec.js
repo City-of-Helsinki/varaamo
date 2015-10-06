@@ -1,13 +1,13 @@
 import { expect } from 'chai';
 
-import { RESOURCE_TYPES } from 'constants/AppConstants';
+import { PURPOSE_MAIN_TYPES } from 'constants/AppConstants';
 import {
   getAddress,
   getAddressWithName,
   getDescription,
   getName,
-  getType,
   getPeopleCapacityString,
+  humanizeMainType,
 } from 'utils/DataUtils';
 
 describe('Utils: DataUtils', () => {
@@ -112,34 +112,6 @@ describe('Utils: DataUtils', () => {
     });
   });
 
-  describe('getType', () => {
-    it('should return default type if item is undefined', () => {
-      const item = undefined;
-
-      expect(getType(item)).to.equal(RESOURCE_TYPES.default);
-    });
-
-    it('should return default type if item.type is undefined', () => {
-      const item = {};
-
-      expect(getType(item)).to.equal(RESOURCE_TYPES.default);
-    });
-
-    it('should return default type if RESOURCE_TYPES does not include item.type', () => {
-      const item = { type: 'unknown-type' };
-
-      expect(getType(item)).to.equal(RESOURCE_TYPES.default);
-    });
-
-    it('should return included type from RESOURCE_TYPES', () => {
-      const validType = Object.keys(RESOURCE_TYPES)[0];
-      const item = { type: validType };
-      const expected = RESOURCE_TYPES[validType];
-
-      expect(getType(item)).to.equal(expected);
-    });
-  });
-
   describe('getPeopleCapacityString', () => {
     it('should return an empty string if capacity is undefined', () => {
       const capacity = undefined;
@@ -168,6 +140,28 @@ describe('Utils: DataUtils', () => {
       const expected = `max ${capacity} hengelle.`;
 
       expect(capacityString).to.equal(expected);
+    });
+  });
+
+  describe('humanizeMainType', () => {
+    it('should return empty string if the given mainType is undefined', () => {
+      const mainType = undefined;
+
+      expect(humanizeMainType(mainType)).to.equal('');
+    });
+
+    it('should return the given mainType if it is not included in PURPOSE_MAIN_TYPES', () => {
+      const mainType = 'unknown-mainType';
+
+      expect(humanizeMainType(mainType)).to.equal(mainType);
+    });
+
+    it('should return included mainType from RESOURCE_TYPES', () => {
+      const validType = Object.keys(PURPOSE_MAIN_TYPES)[0];
+      const mainType = validType;
+      const expected = PURPOSE_MAIN_TYPES[validType];
+
+      expect(humanizeMainType(mainType)).to.equal(expected);
     });
   });
 });

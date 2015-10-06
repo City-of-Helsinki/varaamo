@@ -1,13 +1,13 @@
 import _ from 'lodash';
 
-import { RESOURCE_TYPES } from 'constants/AppConstants';
+import { PURPOSE_MAIN_TYPES } from 'constants/AppConstants';
 
 export default {
   getAddress,
   getAddressWithName,
   getDescription,
+  humanizeMainType,
   getName,
-  getType,
   getPeopleCapacityString,
 };
 
@@ -38,18 +38,18 @@ function getDescription(item) {
   return hasDescription ? item.description.fi : '';
 }
 
+function humanizeMainType(mainType) {
+  if (!mainType) {
+    return '';
+  }
+
+  return mainType in PURPOSE_MAIN_TYPES ? PURPOSE_MAIN_TYPES[mainType] : mainType;
+}
+
 function getName(item) {
   const hasName = item && item.name && item.name.fi;
 
   return hasName ? item.name.fi : '';
-}
-
-function getType(item) {
-  if (item && item.type && item.type in RESOURCE_TYPES) {
-    return RESOURCE_TYPES[item.type];
-  }
-
-  return RESOURCE_TYPES.default;
 }
 
 function getPeopleCapacityString(capacity) {

@@ -13,7 +13,6 @@ import {
   getAddressWithName,
   getDescription,
   getName,
-  getType,
   getPeopleCapacityString,
 } from 'utils/DataUtils';
 
@@ -38,7 +37,7 @@ export class UnconnectedResourcePage extends Component {
             <ResourceDetails
               capacityString={getPeopleCapacityString(resource.peopleCapacity)}
               description={getDescription(resource)}
-              type={getType(resource)}
+              type={getName(resource.type)}
             />
           </div>
         </Loader>

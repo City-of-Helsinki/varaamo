@@ -10,8 +10,16 @@ describe('Reducer: apiReducer', () => {
   describe('initial state', () => {
     const initialState = reducer(undefined, {});
 
+    it('isFetchingPurposes should be false', () => {
+      expect(initialState.isFetchingPurposes).to.equal(false);
+    });
+
     it('isFetchingSearchResults should be false', () => {
       expect(initialState.isFetchingSearchResults).to.equal(false);
+    });
+
+    it('shouldFetchPurposes should be true', () => {
+      expect(initialState.shouldFetchPurposes).to.equal(true);
     });
 
     it('shouldFetchSearchResults should be true', () => {
@@ -24,6 +32,38 @@ describe('Reducer: apiReducer', () => {
   });
 
   describe('handling actions', () => {
+    describe('FETCH_PURPOSES_START', () => {
+      const fetchPurposesStart = createAction(types.FETCH_PURPOSES_START);
+
+      it('should set isFetchingPurposes to true', () => {
+        const action = fetchPurposesStart();
+        const initialState = Immutable({ isFetchingPurposes: false });
+        const nextState = reducer(initialState, action);
+
+        expect(nextState.isFetchingPurposes).to.equal(true);
+      });
+    });
+
+    describe('FETCH_PURPOSES_SUCCESS', () => {
+      const fetchPurposesSuccess = createAction(types.FETCH_PURPOSES_SUCCESS);
+
+      it('should set isFetchingPurposes to false', () => {
+        const action = fetchPurposesSuccess();
+        const initialState = Immutable({ isFetchingPurposes: true });
+        const nextState = reducer(initialState, action);
+
+        expect(nextState.isFetchingPurposes).to.equal(false);
+      });
+
+      it('should set shouldFetchPurposes to false', () => {
+        const action = fetchPurposesSuccess();
+        const initialState = Immutable({ shouldFetchPurposes: true });
+        const nextState = reducer(initialState, action);
+
+        expect(nextState.shouldFetchPurposes).to.equal(false);
+      });
+    });
+
     describe('FETCH_RESOURCES_START', () => {
       const fetchResourcesStart = createAction(types.FETCH_RESOURCES_START);
 
