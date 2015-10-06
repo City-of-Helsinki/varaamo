@@ -1,0 +1,13 @@
+machine:
+  node:
+    version: 0.12.2
+
+dependencies:
+  override:
+    - npm install
+    - ./node_modules/.bin/selenium-standalone install --version=2.47.1 --drivers.chrome.version=2.19
+
+test:
+  override:
+    - npm run lint
+    - npm run test:ci
