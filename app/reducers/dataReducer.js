@@ -20,6 +20,7 @@ function handleData(state, action) {
 function dataReducer(state = initialState, action) {
   switch (action.type) {
 
+  case ActionTypes.FETCH_PURPOSES_SUCCESS:
   case ActionTypes.FETCH_RESOURCE_SUCCESS:
   case ActionTypes.FETCH_RESOURCES_SUCCESS:
   case ActionTypes.FETCH_UNITS_SUCCESS:
