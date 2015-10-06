@@ -7,6 +7,7 @@ module.exports = function(config) {
     browsers: ['Chrome'],
     coverage: true,
     coverageReporters: [
+      { type: 'html' },
       { type: 'text' },
       { type: 'text-summary' },
     ],

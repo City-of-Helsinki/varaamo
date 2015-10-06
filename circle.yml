@@ -2,6 +2,10 @@ machine:
   node:
     version: 0.12.2
 
+general:
+  artifacts:
+    - "./coverage"
+
 dependencies:
   override:
     - npm install
