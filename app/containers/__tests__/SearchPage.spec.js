@@ -1,11 +1,10 @@
 import { expect } from 'chai';
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import sd from 'skin-deep';
 import simple from 'simple-mock';
 
 import Immutable from 'seamless-immutable';
 
-import SearchResults from 'components/search/SearchResults';
 import { UnconnectedSearchPage as SearchPage } from 'containers/SearchPage';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
@@ -22,37 +21,31 @@ describe('Container: SearchPage', () => {
     results: Immutable([resource]),
     units: Immutable({ [unit.id]: unit }),
   };
-  let page;
+  const tree = sd.shallowRender(<SearchPage {...props} />);
 
-  before(() => {
-    page = TestUtils.renderIntoDocument(<SearchPage {...props} />);
-  });
-
-  describe('rendering', () => {
-    it('should render without problems', () => {
-      expect(page).to.be.ok;
-    });
-
-    it('should set a correct page title', () => {
-      expect(document.title).to.equal('Haku - Respa');
-    });
+  describe('rendering SearchResults', () => {
+    const searchResultsTrees = tree.everySubTree('SearchResults');
 
     it('should render SearchResults component', () => {
-      const searchResults = TestUtils.findRenderedComponentWithType(page, SearchResults);
-
-      expect(searchResults).to.exist;
+      expect(searchResultsTrees.length).to.equal(1);
     });
 
     it('should pass correct props to SearchResults component', () => {
-      const searchResults = TestUtils.findRenderedComponentWithType(page, SearchResults);
+      const searchResultsVdom = searchResultsTrees[0].getRenderOutput();
+      const actualProps = searchResultsVdom.props;
 
-      expect(searchResults.props.isFetching).to.equal(props.isFetchingSearchResults);
-      expect(searchResults.props.results).to.deep.equal(props.results);
-      expect(searchResults.props.units).to.deep.equal(props.units);
+      expect(actualProps.isFetching).to.equal(props.isFetchingSearchResults);
+      expect(actualProps.results).to.deep.equal(props.results);
+      expect(actualProps.units).to.deep.equal(props.units);
     });
   });
 
   describe('fetching data', () => {
+    before(() => {
+      const instance = tree.getMountedInstance();
+      instance.componentDidMount();
+    });
+
     it('should fetch resources when component mounts', () => {
       expect(props.actions.fetchResources.callCount).to.equal(1);
     });

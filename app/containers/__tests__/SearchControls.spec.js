@@ -26,28 +26,18 @@ describe('Container: SearchControls', () => {
   describe('rendering SearchFilters', () => {
     const searchFiltersTrees = tree.everySubTree('SearchFilters');
 
-    it('should render a SearchFilters', () => {
+    it('should render SearchFilters component', () => {
       expect(searchFiltersTrees.length).to.equal(1);
     });
 
-    describe('passing props', () => {
+    it('should pass correct props to SearchFilters component', () => {
       const searchFiltersVdom = searchFiltersTrees[0].getRenderOutput();
+      const actualProps = searchFiltersVdom.props;
 
-      it('should pass isFetchingPurposes', () => {
-        expect(searchFiltersVdom.props.isFetchingPurposes).to.equal(props.isFetchingPurposes);
-      });
-
-      it('should pass changePurposeFilter as onPurposeFilterChange', () => {
-        expect(searchFiltersVdom.props.onPurposeFilterChange).to.equal(props.actions.changePurposeFilter);
-      });
-
-      it('should pass purposeOptions', () => {
-        expect(searchFiltersVdom.props.purposeOptions).to.deep.equal(props.purposeOptions);
-      });
-
-      it('should pass purposeFilter', () => {
-        expect(searchFiltersVdom.props.purposeFilter).to.equal(props.purposeFilter);
-      });
+      expect(actualProps.isFetchingPurposes).to.equal(props.isFetchingPurposes);
+      expect(actualProps.onPurposeFilterChange).to.equal(props.actions.changePurposeFilter);
+      expect(actualProps.purposeOptions).to.deep.equal(props.purposeOptions);
+      expect(actualProps.purposeFilter).to.equal(props.purposeFilter);
     });
   });
 
