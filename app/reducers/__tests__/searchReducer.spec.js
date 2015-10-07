@@ -10,6 +10,21 @@ import { searchReducer as reducer } from 'reducers/searchReducer';
 
 describe('Reducer: searchReducer', () => {
   describe('handling actions', () => {
+    describe('CHANGE_PURPOSE_FILTER', () => {
+      const changePurposeFilter = createAction(types.CHANGE_PURPOSE_FILTER);
+
+      it('should set the given value to purposeFilter', () => {
+        const value = 'some-purpose';
+        const action = changePurposeFilter(value);
+        const initialState = Immutable({
+          purposeFilter: '',
+        });
+        const nextState = reducer(initialState, action);
+
+        expect(nextState.purposeFilter).to.equal(value);
+      });
+    });
+
     describe('FETCH_RESOURCES_SUCCESS', () => {
       const fetchResourcesSuccess = createAction(
         types.FETCH_RESOURCES_SUCCESS,
