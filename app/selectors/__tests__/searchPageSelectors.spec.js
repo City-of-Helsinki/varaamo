@@ -27,20 +27,12 @@ describe('Selectors: searchPageSelectors', () => {
     }),
     ui: Immutable({
       search: {
-        category: 'some-category',
         results: [resources[0].id, resources[1].id],
       },
     }),
   };
 
   describe('selected values', () => {
-    it('should return category from the state', () => {
-      const selected = searchPageSelectors(state);
-      const expected = state.ui.search.category;
-
-      expect(selected.category).to.equal(expected);
-    });
-
     it('should return isFetchingSearchResults from the state', () => {
       const selected = searchPageSelectors(state);
       const expected = state.api.isFetchingSearchResults;

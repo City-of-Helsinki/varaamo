@@ -5,7 +5,6 @@ import { searchReducer } from 'reducers/searchReducer';
 
 const initialState = Immutable({
   search: {
-    category: 'all',
     results: [],
   },
 });

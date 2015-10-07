@@ -18,7 +18,6 @@ describe('Container: SearchPage', () => {
       fetchResources: simple.stub(),
       fetchUnits: simple.stub(),
     },
-    category: 'Some category',
     isFetchingSearchResults: false,
     results: Immutable([resource]),
     units: Immutable({ [unit.id]: unit }),

@@ -16,13 +16,12 @@ export class UnconnectedSearchPage extends Component {
   }
 
   render() {
-    const { category, isFetchingSearchResults, results, units } = this.props;
+    const { isFetchingSearchResults, results, units } = this.props;
 
     return (
       <DocumentTitle title="Haku - Respa">
         <div>
           <h1>Haku</h1>
-          <p>Kategoria: {category}</p>
           <h2>Hakutulokset</h2>
           <SearchResults
             isFetching={isFetchingSearchResults}
@@ -36,7 +35,6 @@ export class UnconnectedSearchPage extends Component {
 }
 
 UnconnectedSearchPage.propTypes = {
-  category: PropTypes.string.isRequired,
   actions: PropTypes.object.isRequired,
   isFetchingSearchResults: PropTypes.bool,
   results: PropTypes.array.isRequired,
