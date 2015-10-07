@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { fetchResources } from 'actions/resourceActions';
 import { fetchUnits } from 'actions/unitActions';
 import SearchResults from 'components/search/SearchResults';
+import SearchControls from 'containers/SearchControls';
 import { searchPageSelectors } from 'selectors/searchPageSelectors';
 
 export class UnconnectedSearchPage extends Component {
@@ -22,6 +23,7 @@ export class UnconnectedSearchPage extends Component {
       <DocumentTitle title="Haku - Respa">
         <div>
           <h1>Haku</h1>
+          <SearchControls />
           <h2>Hakutulokset</h2>
           <SearchResults
             isFetching={isFetchingSearchResults}
