@@ -11,8 +11,8 @@ import { searchPageSelectors } from 'selectors/searchPageSelectors';
 
 export class UnconnectedSearchPage extends Component {
   componentDidMount() {
-    const { actions, purposeFilter } = this.props;
-    actions.fetchResources({ purpose: purposeFilter });
+    const { actions, filters } = this.props;
+    actions.fetchResources(filters);
     actions.fetchUnits();
   }
 
@@ -39,7 +39,7 @@ export class UnconnectedSearchPage extends Component {
 UnconnectedSearchPage.propTypes = {
   actions: PropTypes.object.isRequired,
   isFetchingSearchResults: PropTypes.bool,
-  purposeFilter: PropTypes.string.isRequired,
+  filters: PropTypes.object.isRequired,
   results: PropTypes.array.isRequired,
   units: PropTypes.object.isRequired,
 };

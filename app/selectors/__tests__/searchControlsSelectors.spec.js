@@ -22,7 +22,9 @@ describe('Selectors: searchControlsSelectors', () => {
     }),
     ui: Immutable({
       search: {
-        purposeFilter: 'some-filter',
+        filters: {
+          purpose: 'some-purpose',
+        },
       },
     }),
   };
@@ -45,11 +47,11 @@ describe('Selectors: searchControlsSelectors', () => {
       expect(selected.purposeOptions).to.deep.equal(expected);
     });
 
-    it('should return purposeFilter from the state', () => {
+    it('should return filters from the state', () => {
       const selected = searchControlsSelectors(state);
-      const expected = state.ui.search.purposeFilter;
+      const expected = state.ui.search.filters;
 
-      expect(selected.purposeFilter).to.deep.equal(expected);
+      expect(selected.filters).to.deep.equal(expected);
     });
   });
 });

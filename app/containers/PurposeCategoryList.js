@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { pushState } from 'redux-react-router';
 
 import { fetchPurposes } from 'actions/purposeActions';
-import { changePurposeFilter } from 'actions/uiActions';
+import { changeSearchFilters } from 'actions/uiActions';
 import PurposeCategory from 'components/purpose/PurposeCategory';
 import { purposeCategoryListSelectors } from 'selectors/purposeCategoryListSelectors';
 
@@ -23,7 +23,7 @@ export class UnconnectedPurposeCategoryList extends Component {
 
   onItemClick(item) {
     const { actions } = this.props;
-    actions.changePurposeFilter(item);
+    actions.changeSearchFilters(item);
     actions.pushState(null, '/search');
   }
 
@@ -60,7 +60,7 @@ UnconnectedPurposeCategoryList.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
-    changePurposeFilter,
+    changeSearchFilters,
     fetchPurposes,
     pushState,
   };

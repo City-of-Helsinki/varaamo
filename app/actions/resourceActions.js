@@ -5,6 +5,7 @@ import { API_URL } from 'constants/AppConstants';
 import types from 'constants/ActionTypes';
 import { resourceSchema } from 'middleware/Schemas';
 import { buildAPIUrl, createTransformFunction } from 'utils/APIUtils';
+import { pickSupportedFilters } from 'utils/DataUtils';
 
 export default {
   fetchResource,
@@ -26,8 +27,8 @@ function fetchResource(id) {
   };
 }
 
-function fetchResources(params = {}) {
-  const url = buildAPIUrl('resource', params);
+function fetchResources(filters = {}) {
+  const url = buildAPIUrl('resource', pickSupportedFilters(filters));
 
   return {
     [CALL_API]: {

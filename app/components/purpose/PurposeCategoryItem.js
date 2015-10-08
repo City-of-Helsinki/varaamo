@@ -12,7 +12,8 @@ export class PurposeCategoryItem extends Component {
 
   handleClick(event) {
     event.preventDefault();
-    this.props.onItemClick(this.props.purpose.id);
+    const searchFilters = { purpose: this.props.purpose.id };
+    this.props.onItemClick(searchFilters);
   }
 
   render() {

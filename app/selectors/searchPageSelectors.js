@@ -1,21 +1,21 @@
 import { createSelector } from 'reselect';
 
+const filtersSelector = (state) => state.ui.search.filters;
 const isFetchingSearchResultsSelector = (state) => state.api.isFetchingSearchResults;
-const purposeFilterSelector = (state) => state.ui.search.purposeFilter;
 const resourcesSelector = (state) => state.data.resources;
 const searchResultsSelector = (state) => state.ui.search.results;
 const unitsSelector = (state) => state.data.units;
 
 export const searchPageSelectors = createSelector(
+  filtersSelector,
   isFetchingSearchResultsSelector,
-  purposeFilterSelector,
   resourcesSelector,
   searchResultsSelector,
   unitsSelector,
-  (isFetchingSearchResults, purposeFilter, resources, searchResults, units) => {
+  (filters, isFetchingSearchResults, resources, searchResults, units) => {
     return {
+      filters,
       isFetchingSearchResults,
-      purposeFilter,
       results: searchResults.map(resourceId => resources[resourceId]),
       units,
     };

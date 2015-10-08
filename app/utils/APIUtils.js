@@ -13,8 +13,10 @@ export default {
 function buildAPIUrl(endpoint, params) {
   let url = `${API_URL}/${endpoint}/`;
 
-  if (!_.isEmpty(params)) {
-    url = `${url}?${getSearchParamsString(params)}`;
+  const nonEmptyParams = _.pick(params, (value) => value !== '');
+
+  if (!_.isEmpty(nonEmptyParams)) {
+    url = `${url}?${getSearchParamsString(nonEmptyParams)}`;
   }
 
   return url;

@@ -27,7 +27,7 @@ describe('Selectors: searchPageSelectors', () => {
     }),
     ui: Immutable({
       search: {
-        purposeFilter: 'some-filter',
+        filters: { purpose: 'some-purpose' },
         results: [resources[0].id, resources[1].id],
       },
     }),
@@ -41,11 +41,11 @@ describe('Selectors: searchPageSelectors', () => {
       expect(selected.isFetchingSearchResults).to.equal(expected);
     });
 
-    it('should return purposeFilter from the state', () => {
+    it('should return filters from the state', () => {
       const selected = searchPageSelectors(state);
-      const expected = state.ui.search.purposeFilter;
+      const expected = state.ui.search.filters;
 
-      expect(selected.purposeFilter).to.equal(expected);
+      expect(selected.filters).to.deep.equal(expected);
     });
 
 

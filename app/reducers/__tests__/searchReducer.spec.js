@@ -10,18 +10,63 @@ import { searchReducer as reducer } from 'reducers/searchReducer';
 
 describe('Reducer: searchReducer', () => {
   describe('handling actions', () => {
-    describe('CHANGE_PURPOSE_FILTER', () => {
-      const changePurposeFilter = createAction(types.CHANGE_PURPOSE_FILTER);
+    describe('CHANGE_SEARCH_FILTERS', () => {
+      const changeSearchFilters = createAction(types.CHANGE_SEARCH_FILTERS);
 
-      it('should set the given value to purposeFilter', () => {
-        const value = 'some-purpose';
-        const action = changePurposeFilter(value);
+      it('should set the given filters to filters', () => {
+        const filters = { purpose: 'some-purpose' };
+        const action = changeSearchFilters(filters);
         const initialState = Immutable({
-          purposeFilter: '',
+          filters: {},
+        });
+        const expected = Immutable(filters);
+        const nextState = reducer(initialState, action);
+
+        expect(nextState.filters).to.deep.equal(expected);
+      });
+
+      it('should override previous values of same filters', () => {
+        const filters = { purpose: 'some-purpose' };
+        const action = changeSearchFilters(filters);
+        const initialState = Immutable({
+          filters: { purpose: 'old-value' },
+        });
+        const expected = Immutable(filters);
+        const nextState = reducer(initialState, action);
+
+        expect(nextState.filters).to.deep.equal(expected);
+      });
+
+      it('should not override unspecified filters', () => {
+        const filters = { purpose: 'some-purpose' };
+        const action = changeSearchFilters(filters);
+        const initialState = Immutable({
+          filters: { search: 'search-query' },
+        });
+        const expected = Immutable({
+          purpose: 'some-purpose',
+          search: 'search-query',
         });
         const nextState = reducer(initialState, action);
 
-        expect(nextState.purposeFilter).to.equal(value);
+        expect(nextState.filters).to.deep.equal(expected);
+      });
+
+      it('should only save supported filters', () => {
+        const filters = {
+          purpose: 'some-purpose',
+          search: 'search-query',
+          unsupported: 'invalid',
+        };
+        const action = changeSearchFilters(filters);
+        const initialState = Immutable({ filters: {} });
+        const expected = Immutable({
+          purpose: 'some-purpose',
+          search: 'search-query',
+        });
+        const nextState = reducer(initialState, action);
+
+        expect(nextState.filters).to.deep.equal(expected);
       });
     });
 

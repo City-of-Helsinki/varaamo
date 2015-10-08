@@ -13,8 +13,14 @@ describe('Reducer: uiReducer', () => {
         expect(typeof search).to.equal('object');
       });
 
-      it('purposeFilter should be an empty string', () => {
-        expect(search.purposeFilter).to.equal('');
+      describe('filters', () => {
+        it('should be an object', () => {
+          expect(typeof search.filters).to.equal('object');
+        });
+
+        it('purpose should be an empty string', () => {
+          expect(search.filters.purpose).to.equal('');
+        });
       });
 
       it('results should be an empty array', () => {

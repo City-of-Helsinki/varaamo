@@ -18,6 +18,13 @@ describe('Utils: APIUtils', () => {
       expect(buildAPIUrl(endpoint)).to.equal(expected);
     });
 
+    it('should reject params with empty values', () => {
+      const params = { empty: '' };
+      const expected = `${API_URL}/${endpoint}/`;
+
+      expect(buildAPIUrl(endpoint, params)).to.equal(expected);
+    });
+
     it('should append search params at the end if params is not empty', () => {
       const params = { param: 'hello_world' };
       const expected = `${API_URL}/${endpoint}/?param=hello_world`;

@@ -5,7 +5,9 @@ import { searchReducer } from 'reducers/searchReducer';
 
 const initialState = Immutable({
   search: {
-    purposeFilter: '',
+    filters: {
+      purpose: '',
+    },
     results: [],
   },
 });
@@ -13,7 +15,7 @@ const initialState = Immutable({
 export function uiReducer(state = initialState, action) {
   switch (action.type) {
 
-  case ActionTypes.CHANGE_PURPOSE_FILTER:
+  case ActionTypes.CHANGE_SEARCH_FILTERS:
   case ActionTypes.FETCH_RESOURCES_SUCCESS:
     const search = searchReducer(state.search, action);
     return state.merge({ search });

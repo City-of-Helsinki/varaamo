@@ -8,4 +8,8 @@ export default {
     watch_and_listen: 'Katsoa tai kuunnella',
     events_and_exhibitions: 'Pitää yleisötilaisuuden',
   },
+  SUPPORTED_SEARCH_FILTERS: [
+    'purpose',
+    'search',
+  ],
 };

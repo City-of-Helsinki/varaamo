@@ -32,11 +32,11 @@ describe('Reducer: apiReducer', () => {
   });
 
   describe('handling actions', () => {
-    describe('CHANGE_PURPOSE_FILTER', () => {
-      const changePurposeFilter = createAction(types.CHANGE_PURPOSE_FILTER);
+    describe('CHANGE_SEARCH_FILTERS', () => {
+      const changeSearchFilters = createAction(types.CHANGE_SEARCH_FILTERS);
 
       it('should set shouldFetchSearchResults to true', () => {
-        const action = changePurposeFilter('some-filter');
+        const action = changeSearchFilters('some-filter');
         const initialState = Immutable({ shouldFetchSearchResults: false });
         const nextState = reducer(initialState, action);
 
