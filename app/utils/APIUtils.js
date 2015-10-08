@@ -1,9 +1,24 @@
-import { camelizeKeys } from 'humps';
+import { camelizeKeys, decamelizeKeys } from 'humps';
+import _ from 'lodash';
 import { normalize } from 'normalizr';
 
+import { API_URL } from 'constants/AppConstants';
+
 export default {
+  buildAPIUrl,
   createTransformFunction,
+  getSearchParamsString,
 };
+
+function buildAPIUrl(endpoint, params) {
+  let url = `${API_URL}/${endpoint}/`;
+
+  if (!_.isEmpty(params)) {
+    url = `${url}?${getSearchParamsString(params)}`;
+  }
+
+  return url;
+}
 
 function createTransformFunction(schema) {
   return (json) => {
@@ -13,4 +28,15 @@ function createTransformFunction(schema) {
     }
     return camelizedJson;
   };
+}
+
+function getSearchParamsString(params) {
+  const decamelized = decamelizeKeys(params);
+  const parts = [];
+
+  Object.keys(decamelized).forEach(key => {
+    parts.push(`${encodeURIComponent(key)}=${encodeURIComponent(decamelized[key])}`);
+  });
+
+  return parts.join('&');
 }
