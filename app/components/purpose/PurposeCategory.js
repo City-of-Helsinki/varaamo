@@ -6,10 +6,16 @@ import PurposeCategoryItem from 'components/purpose/PurposeCategoryItem';
 import { humanizeMainType } from 'utils/DataUtils';
 
 export class PurposeCategoryList extends Component {
+  constructor(props) {
+    super(props);
+    this.renderPurposeCategoryItem = this.renderPurposeCategoryItem.bind(this);
+  }
+
   renderPurposeCategoryItem(purpose) {
     return (
       <PurposeCategoryItem
         key={purpose.id}
+        onItemClick={this.props.onItemClick}
         purpose={purpose}
       />
     );
@@ -34,6 +40,7 @@ export class PurposeCategoryList extends Component {
 
 PurposeCategoryList.propTypes = {
   mainType: PropTypes.string,
+  onItemClick: PropTypes.func.isRequired,
   purposes: PropTypes.array.isRequired,
 };
 

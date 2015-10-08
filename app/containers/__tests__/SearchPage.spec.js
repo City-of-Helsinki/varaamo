@@ -18,6 +18,7 @@ describe('Container: SearchPage', () => {
       fetchUnits: simple.stub(),
     },
     isFetchingSearchResults: false,
+    purposeFilter: 'some-filter',
     results: Immutable([resource]),
     units: Immutable({ [unit.id]: unit }),
   };
@@ -48,6 +49,13 @@ describe('Container: SearchPage', () => {
 
     it('should fetch resources when component mounts', () => {
       expect(props.actions.fetchResources.callCount).to.equal(1);
+    });
+
+    it('should fetch resources witch correct filters', () => {
+      const actual = props.actions.fetchResources.lastCall.args[0];
+      const expected = { purpose: props.purposeFilter };
+
+      expect(actual).to.deep.equal(expected);
     });
 
     it('should fetch units when component mounts', () => {
