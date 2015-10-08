@@ -4,7 +4,7 @@ import { CALL_API } from 'redux-api-middleware';
 import { API_URL } from 'constants/AppConstants';
 import types from 'constants/ActionTypes';
 import { resourceSchema } from 'middleware/Schemas';
-import { createTransformFunction } from 'utils/APIUtils';
+import { buildAPIUrl, createTransformFunction } from 'utils/APIUtils';
 
 export default {
   fetchResource,
@@ -26,7 +26,9 @@ function fetchResource(id) {
   };
 }
 
-function fetchResources() {
+function fetchResources(params = {}) {
+  const url = buildAPIUrl('resource', params);
+
   return {
     [CALL_API]: {
       types: [
@@ -34,7 +36,7 @@ function fetchResources() {
         types.FETCH_RESOURCES_SUCCESS,
         types.FETCH_RESOURCES_ERROR,
       ],
-      endpoint: `${API_URL}/resource`,
+      endpoint: url,
       method: 'GET',
       transform: createTransformFunction(arrayOf(resourceSchema)),
       bailout: (state) => {

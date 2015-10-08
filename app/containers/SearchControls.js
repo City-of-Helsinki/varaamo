@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchPurposes } from 'actions/purposeActions';
+import { fetchResources } from 'actions/resourceActions';
 import { changePurposeFilter } from 'actions/uiActions';
 import SearchFilters from 'components/search/SearchFilters';
 import { searchControlsSelectors } from 'selectors/searchControlsSelectors';
@@ -20,11 +21,16 @@ export class UnconnectedSearchControls extends Component {
       purposeOptions,
     } = this.props;
 
+    function onPurposeFilterChange(value) {
+      actions.changePurposeFilter(value);
+      actions.fetchResources({ purpose: value });
+    }
+
     return (
       <div>
         <SearchFilters
           isFetchingPurposes={isFetchingPurposes}
-          onPurposeFilterChange={actions.changePurposeFilter}
+          onPurposeFilterChange={onPurposeFilterChange}
           purposeOptions={purposeOptions}
           purposeFilter={purposeFilter}
         />
@@ -41,7 +47,13 @@ UnconnectedSearchControls.propTypes = {
 };
 
 function mapDispatchToProps(dispatch) {
-  return { actions: bindActionCreators({ changePurposeFilter, fetchPurposes }, dispatch) };
+  const actionCreators = {
+    changePurposeFilter,
+    fetchPurposes,
+    fetchResources,
+  };
+
+  return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
 export default connect(searchControlsSelectors, mapDispatchToProps)(UnconnectedSearchControls);

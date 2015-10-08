@@ -32,6 +32,18 @@ describe('Reducer: apiReducer', () => {
   });
 
   describe('handling actions', () => {
+    describe('CHANGE_PURPOSE_FILTER', () => {
+      const changePurposeFilter = createAction(types.CHANGE_PURPOSE_FILTER);
+
+      it('should set shouldFetchSearchResults to true', () => {
+        const action = changePurposeFilter('some-filter');
+        const initialState = Immutable({ shouldFetchSearchResults: false });
+        const nextState = reducer(initialState, action);
+
+        expect(nextState.shouldFetchSearchResults).to.equal(true);
+      });
+    });
+
     describe('FETCH_PURPOSES_START', () => {
       const fetchPurposesStart = createAction(types.FETCH_PURPOSES_START);
 
