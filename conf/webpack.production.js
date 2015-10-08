@@ -37,6 +37,7 @@ module.exports = merge(common, {
   plugins: [
     // Important to keep React file size down
     new webpack.DefinePlugin({
+      __DEVTOOLS__: false,
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
       },
@@ -49,7 +50,7 @@ module.exports = merge(common, {
     }),
     new ExtractTextPlugin('app.[hash].css'),
     new HtmlWebpackPlugin({
-      favicon: './app/assets/images/favicon.ico',
+      favicon: path.resolve(__dirname, '../app/assets/images/favicon.ico'),
       hash: true,
       inject: true,
       production: true,

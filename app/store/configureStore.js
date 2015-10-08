@@ -19,7 +19,10 @@ if (__DEVTOOLS__) {
     persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
   )(createStore);
 } else {
-  finalCreateStore = applyMiddleware(apiMiddleware)(createStore);
+  finalCreateStore = compose(
+    applyMiddleware(apiMiddleware),
+    reduxReactRouter({ routes, createHistory })
+  )(createStore);
 }
 
 export default function configureStore(initialState) {
