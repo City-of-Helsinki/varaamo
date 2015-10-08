@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import { Table } from 'react-bootstrap';
 import Loader from 'react-loader';
 
-import SearchResult from 'components/search-page/SearchResult';
+import SearchResult from 'components/search/SearchResult';
 
 export class SearchResults extends Component {
   constructor(props) {

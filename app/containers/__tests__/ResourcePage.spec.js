@@ -1,10 +1,8 @@
 import { expect } from 'chai';
 import React from 'react';
-import { findDOMNode } from 'react-dom';
-import TestUtils from 'react/lib/ReactTestUtils';
-import simple from 'simple-mock';
-
 import Immutable from 'seamless-immutable';
+import simple from 'simple-mock';
+import sd from 'skin-deep';
 
 import { UnconnectedResourcePage as ResourcePage } from 'containers/ResourcePage';
 import Resource from 'fixtures/Resource';
@@ -13,38 +11,53 @@ import Unit from 'fixtures/Unit';
 describe('Container: ResourcePage', () => {
   const unit = Unit.build();
   const resource = Resource.build({ unit: Unit.id });
-  const resourceName = resource.name.fi;
   const props = {
     actions: { fetchResource: simple.stub() },
     id: resource.id,
     resource: Immutable(resource),
     unit: Immutable(unit),
   };
+  const tree = sd.shallowRender(<ResourcePage {...props} />);
 
-  let page;
+  describe('rendering ResourceHeader', () => {
+    const resourceHeaderTrees = tree.everySubTree('ResourceHeader');
 
-  before(() => {
-    page = TestUtils.renderIntoDocument(<ResourcePage {...props} />);
+    it('should render ResourceHeader component', () => {
+      expect(resourceHeaderTrees.length).to.equal(1);
+    });
+
+    it('should pass correct props to ResourceHeader component', () => {
+      const resourceHeaderVdom = resourceHeaderTrees[0].getRenderOutput();
+      const actualProps = resourceHeaderVdom.props;
+
+      expect(actualProps.name).to.equal(props.resource.name.fi);
+      expect(typeof actualProps.address).to.equal('string');
+    });
   });
 
-  describe('rendering', () => {
-    it('should render without problems', () => {
-      expect(page).to.be.ok;
+  describe('rendering ResourceDetails', () => {
+    const resourceDetailsTrees = tree.everySubTree('ResourceDetails');
+
+    it('should render ResourceDetails component', () => {
+      expect(resourceDetailsTrees.length).to.equal(1);
     });
 
-    it('should set a correct page title', () => {
-      expect(document.title).to.equal(`${resourceName} - Respa`);
-    });
+    it('should pass correct props to ResourceDetails component', () => {
+      const resourceDetailsVdom = resourceDetailsTrees[0].getRenderOutput();
+      const actualProps = resourceDetailsVdom.props;
 
-    it('should display resource name inside h1 tags', () => {
-      const headerComponent = TestUtils.findRenderedDOMComponentWithTag(page, 'h1');
-      const headerDOM = findDOMNode(headerComponent);
-
-      expect(headerDOM.textContent).to.equal(resourceName);
+      expect(typeof actualProps.capacityString).to.equal('string');
+      expect(typeof actualProps.description).to.equal('string');
+      expect(typeof actualProps.type).to.equal('string');
     });
   });
 
   describe('fetching data', () => {
+    before(() => {
+      const instance = tree.getMountedInstance();
+      instance.componentDidMount();
+    });
+
     it('should fetch resource data when component mounts', () => {
       expect(props.actions.fetchResource.callCount).to.equal(1);
     });

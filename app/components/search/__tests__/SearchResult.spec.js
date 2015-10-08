@@ -4,7 +4,7 @@ import sd from 'skin-deep';
 
 import Immutable from 'seamless-immutable';
 
-import SearchResult from 'components/search-page/SearchResult';
+import SearchResult from 'components/search/SearchResult';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
 

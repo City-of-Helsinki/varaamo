@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import React from 'react';
 import sd from 'skin-deep';
+import simple from 'simple-mock';
 
 import Immutable from 'seamless-immutable';
 
@@ -9,6 +10,7 @@ import Purpose from 'fixtures/Purpose';
 
 describe('Component: PurposeCategory', () => {
   const props = {
+    onItemClick: simple.stub(),
     purposes: Immutable([
       Purpose.build(),
       Purpose.build(),
@@ -52,11 +54,13 @@ describe('Component: PurposeCategory', () => {
       expect(purposeTrees.length).to.equal(props.purposes.length);
     });
 
-    it('should pass purpose as a prop to PurposeCategoryItem', () => {
+    it('should pass correct props to PurposeCategoryItem', () => {
       purposeTrees.forEach((purposeTree, index) => {
         const purposeVdom = purposeTree.getRenderOutput();
+        const actualProps = purposeVdom.props;
 
-        expect(purposeVdom.props.purpose).to.deep.equal(props.purposes[index]);
+        expect(actualProps.purpose).to.deep.equal(props.purposes[index]);
+        expect(actualProps.onItemClick).to.deep.equal(props.onItemClick);
       });
     });
   });
