@@ -14,7 +14,7 @@ export class SearchFilters extends Component {
       <div>
         <h4>Käyttötarkoitus</h4>
         <Select
-          clearable={true}
+          clearable
           isLoading={isFetchingPurposes}
           name="purpose-filter-select"
           onChange={onPurposeFilterChange}

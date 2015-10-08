@@ -30,7 +30,10 @@
     "no-unused-expressions": 0,
 
     // allow functions to be used before they are defined
-    "no-use-before-define": [2, "nofunc"]
+    "no-use-before-define": [2, "nofunc"],
+
+    // Enforce omitting truthy boolean attributes in JSX
+    "react/jsx-boolean-value": [2, "never"]
 
   }
 }
