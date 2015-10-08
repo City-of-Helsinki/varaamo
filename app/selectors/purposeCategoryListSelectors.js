@@ -4,7 +4,7 @@ import { createSelector } from 'reselect';
 const isFetchingPurposesSelector = (state) => state.api.isFetchingPurposes;
 const purposesSelector = (state) => state.data.purposes;
 
-export const homePageSelectors = createSelector(
+export const purposeCategoryListSelectors = createSelector(
   isFetchingPurposesSelector,
   purposesSelector,
   (isFetchingPurposes, purposes) => {

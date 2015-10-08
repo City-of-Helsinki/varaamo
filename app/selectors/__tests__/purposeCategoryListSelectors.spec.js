@@ -4,9 +4,9 @@ import _ from 'lodash';
 import Immutable from 'seamless-immutable';
 
 import Purpose from 'fixtures/Purpose';
-import { homePageSelectors } from 'selectors/homePageSelectors';
+import { purposeCategoryListSelectors } from 'selectors/purposeCategoryListSelectors';
 
-describe('Selectors: homePageSelectors', () => {
+describe('Selectors: purposeCategoryListSelectors', () => {
   const purposes = [
     Purpose.build({ mainType: 'some-type' }),
     Purpose.build({ mainType: 'other-type' }),
@@ -23,14 +23,14 @@ describe('Selectors: homePageSelectors', () => {
 
   describe('selected values', () => {
     it('should return isFetchingPurposes from the state', () => {
-      const selected = homePageSelectors(state);
+      const selected = purposeCategoryListSelectors(state);
       const expected = state.api.isFetchingPurposes;
 
       expect(selected.isFetchingPurposes).to.equal(expected);
     });
 
     it('should return purposes grouped by mainType from the state', () => {
-      const selected = homePageSelectors(state);
+      const selected = purposeCategoryListSelectors(state);
       const expected = Immutable({
         [purposes[0].mainType]: [
           purposes[0],
