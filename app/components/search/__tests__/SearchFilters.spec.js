@@ -10,8 +10,8 @@ import SearchFilters from 'components/search/SearchFilters';
 describe('Component: SearchFilters', () => {
   const props = {
     isFetchingPurposes: false,
-    onPurposeFilterChange: simple.stub(),
-    purposeFilter: 'some-filter',
+    onFiltersChange: simple.stub(),
+    filters: { purpose: 'some-filter' },
     purposeOptions: Immutable([
       { value: 'filter-1', label: 'Label 1' },
       { value: 'filter-2', label: 'Label 2' },
@@ -38,8 +38,8 @@ describe('Component: SearchFilters', () => {
         expect(selectVdom.props.isLoading).to.equal(props.isFetchingPurposes);
       });
 
-      it('should pass onPurposeFilterChange as onChange', () => {
-        expect(selectVdom.props.onChange).to.equal(props.onPurposeFilterChange);
+      it('should pass a function to onChange', () => {
+        expect(typeof selectVdom.props.onChange).to.equal('function');
       });
 
       it('should pass purposeOptions as options', () => {
@@ -50,8 +50,27 @@ describe('Component: SearchFilters', () => {
         expect(selectVdom.props.placeholder).to.be.ok;
       });
 
-      it('should pass purposeFilter as value', () => {
-        expect(selectVdom.props.value).to.equal(props.purposeFilter);
+      it('should pass filters.purpose as value', () => {
+        expect(selectVdom.props.value).to.equal(props.filters.purpose);
+      });
+    });
+
+    describe('onChange', () => {
+      const selectVdom = selectTrees[0].getRenderOutput();
+      const filterValue = 'new-value';
+
+      before(() => {
+        selectVdom.props.onChange(filterValue);
+      });
+
+      it('should call onFiltersChange ', () => {
+        expect(props.onFiltersChange.callCount).to.equal(1);
+      });
+
+      it('should call onFiltersChange with correct arguments', () => {
+        const expected = { purpose: filterValue };
+
+        expect(props.onFiltersChange.lastCall.args[0]).to.deep.equal(expected);
       });
     });
   });

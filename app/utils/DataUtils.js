@@ -1,11 +1,12 @@
 import _ from 'lodash';
 
-import { PURPOSE_MAIN_TYPES } from 'constants/AppConstants';
+import { PURPOSE_MAIN_TYPES, SUPPORTED_SEARCH_FILTERS } from 'constants/AppConstants';
 
 export default {
   getAddress,
   getAddressWithName,
   getDescription,
+  pickSupportedFilters,
   humanizeMainType,
   getName,
   getPeopleCapacityString,
@@ -57,4 +58,8 @@ function getPeopleCapacityString(capacity) {
     return '';
   }
   return `max ${capacity} hengelle.`;
+}
+
+function pickSupportedFilters(filters) {
+  return _.pick(filters, SUPPORTED_SEARCH_FILTERS);
 }

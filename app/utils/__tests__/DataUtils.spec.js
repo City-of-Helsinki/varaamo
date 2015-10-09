@@ -8,6 +8,7 @@ import {
   getName,
   getPeopleCapacityString,
   humanizeMainType,
+  pickSupportedFilters,
 } from 'utils/DataUtils';
 
 describe('Utils: DataUtils', () => {
@@ -162,6 +163,22 @@ describe('Utils: DataUtils', () => {
       const expected = PURPOSE_MAIN_TYPES[validType];
 
       expect(humanizeMainType(mainType)).to.equal(expected);
+    });
+  });
+
+  describe('pickSupportedFilters', () => {
+    it('should only return supported filters', () => {
+      const filters = {
+        purpose: 'some-purpose',
+        search: 'search-query',
+        unsupported: 'invalid',
+      };
+      const expected = {
+        purpose: 'some-purpose',
+        search: 'search-query',
+      };
+
+      expect(pickSupportedFilters(filters)).to.deep.equal(expected);
     });
   });
 });

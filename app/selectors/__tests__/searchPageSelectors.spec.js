@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 
+import _ from 'lodash';
 import Immutable from 'seamless-immutable';
 
 import Resource from 'fixtures/Resource';
@@ -27,7 +28,7 @@ describe('Selectors: searchPageSelectors', () => {
     }),
     ui: Immutable({
       search: {
-        purposeFilter: 'some-filter',
+        filters: { purpose: 'some-purpose' },
         results: [resources[0].id, resources[1].id],
       },
     }),
@@ -41,16 +42,25 @@ describe('Selectors: searchPageSelectors', () => {
       expect(selected.isFetchingSearchResults).to.equal(expected);
     });
 
-    it('should return purposeFilter from the state', () => {
+    it('should return filters from the state', () => {
       const selected = searchPageSelectors(state);
-      const expected = state.ui.search.purposeFilter;
+      const expected = state.ui.search.filters;
 
-      expect(selected.purposeFilter).to.equal(expected);
+      expect(selected.filters).to.deep.equal(expected);
     });
-
 
     it('should return resources corresponding to searchResults.ids as results', () => {
       const selected = searchPageSelectors(state);
+      const expected = [resources[0], resources[1]];
+
+      expect(selected.results).to.deep.equal(expected);
+    });
+
+    it('should return the results in alphabetical order', () => {
+      const unsortedResults = [resources[1].id, resources[0].id];
+      const unSortedState = _.merge({}, state, { ui: { search: { results: unsortedResults } } });
+
+      const selected = searchPageSelectors(unSortedState);
       const expected = [resources[0], resources[1]];
 
       expect(selected.results).to.deep.equal(expected);

@@ -5,8 +5,8 @@ export class SearchFilters extends Component {
   render() {
     const {
       isFetchingPurposes,
-      onPurposeFilterChange,
-      purposeFilter,
+      onFiltersChange,
+      filters,
       purposeOptions,
     } = this.props;
 
@@ -17,10 +17,10 @@ export class SearchFilters extends Component {
           clearable
           isLoading={isFetchingPurposes}
           name="purpose-filter-select"
-          onChange={onPurposeFilterChange}
+          onChange={(value) => onFiltersChange({ purpose: value })}
           options={purposeOptions}
           placeholder="Rajaa hakutuloksia käyttötarkoituksen mukaan"
-          value={purposeFilter}
+          value={filters.purpose}
         />
       </div>
     );
@@ -29,8 +29,8 @@ export class SearchFilters extends Component {
 
 SearchFilters.propTypes = {
   isFetchingPurposes: PropTypes.bool,
-  onPurposeFilterChange: PropTypes.func.isRequired,
-  purposeFilter: PropTypes.string.isRequired,
+  onFiltersChange: PropTypes.func.isRequired,
+  filters: PropTypes.object.isRequired,
   purposeOptions: PropTypes.array.isRequired,
 };
 

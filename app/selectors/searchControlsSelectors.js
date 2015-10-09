@@ -5,14 +5,14 @@ import Immutable from 'seamless-immutable';
 import { getName } from 'utils/DataUtils';
 
 const isFetchingPurposesSelector = (state) => state.api.isFetchingPurposes;
-const purposeFilterSelector = (state) => state.ui.search.purposeFilter;
+const filtersSelector = (state) => state.ui.search.filters;
 const purposesSelector = (state) => state.data.purposes;
 
 export const searchControlsSelectors = createSelector(
   isFetchingPurposesSelector,
-  purposeFilterSelector,
+  filtersSelector,
   purposesSelector,
-  (isFetchingPurposes, purposeFilter, purposes) => {
+  (isFetchingPurposes, filters, purposes) => {
     const purposeOptions = _.values(purposes).map(purpose => {
       return {
         value: purpose.id,
@@ -22,7 +22,7 @@ export const searchControlsSelectors = createSelector(
 
     return {
       isFetchingPurposes,
-      purposeFilter,
+      filters,
       purposeOptions: Immutable(purposeOptions),
     };
   }

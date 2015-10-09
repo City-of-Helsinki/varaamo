@@ -18,7 +18,7 @@ describe('Container: SearchPage', () => {
       fetchUnits: simple.stub(),
     },
     isFetchingSearchResults: false,
-    purposeFilter: 'some-filter',
+    filters: { purpose: 'some-purpose' },
     results: Immutable([resource]),
     units: Immutable({ [unit.id]: unit }),
   };
@@ -53,7 +53,7 @@ describe('Container: SearchPage', () => {
 
     it('should fetch resources witch correct filters', () => {
       const actual = props.actions.fetchResources.lastCall.args[0];
-      const expected = { purpose: props.purposeFilter };
+      const expected = props.filters;
 
       expect(actual).to.deep.equal(expected);
     });

@@ -4,8 +4,9 @@ import { bindActionCreators } from 'redux';
 
 import { fetchPurposes } from 'actions/purposeActions';
 import { fetchResources } from 'actions/resourceActions';
-import { changePurposeFilter } from 'actions/uiActions';
+import { changeSearchFilters } from 'actions/uiActions';
 import SearchFilters from 'components/search/SearchFilters';
+import SearchInput from 'components/search/SearchInput';
 import { searchControlsSelectors } from 'selectors/searchControlsSelectors';
 
 export class UnconnectedSearchControls extends Component {
@@ -16,23 +17,28 @@ export class UnconnectedSearchControls extends Component {
   render() {
     const {
       actions,
+      filters,
       isFetchingPurposes,
-      purposeFilter,
       purposeOptions,
     } = this.props;
 
-    function onPurposeFilterChange(value) {
-      actions.changePurposeFilter(value);
-      actions.fetchResources({ purpose: value });
+    function onFiltersChange(newFilters) {
+      actions.changeSearchFilters(newFilters);
+      const allFilters = Object.assign({}, filters, newFilters);
+      actions.fetchResources(allFilters);
     }
 
     return (
       <div>
+        <SearchInput
+          onSubmit={(searchValue) => onFiltersChange({ search: searchValue })}
+          initialValue={filters.search}
+        />
         <SearchFilters
           isFetchingPurposes={isFetchingPurposes}
-          onPurposeFilterChange={onPurposeFilterChange}
+          onFiltersChange={onFiltersChange}
           purposeOptions={purposeOptions}
-          purposeFilter={purposeFilter}
+          filters={filters}
         />
       </div>
     );
@@ -41,14 +47,14 @@ export class UnconnectedSearchControls extends Component {
 
 UnconnectedSearchControls.propTypes = {
   actions: PropTypes.object.isRequired,
+  filters: PropTypes.object.isRequired,
   isFetchingPurposes: PropTypes.bool,
-  purposeFilter: PropTypes.string.isRequired,
   purposeOptions: PropTypes.array.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
-    changePurposeFilter,
+    changeSearchFilters,
     fetchPurposes,
     fetchResources,
   };

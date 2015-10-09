@@ -13,7 +13,7 @@ const initialState = Immutable({
 export function apiReducer(state = initialState, action) {
   switch (action.type) {
 
-  case ActionTypes.CHANGE_PURPOSE_FILTER:
+  case ActionTypes.CHANGE_SEARCH_FILTERS:
     return state.merge({
       shouldFetchSearchResults: true,
     });

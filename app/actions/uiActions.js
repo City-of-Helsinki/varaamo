@@ -2,8 +2,8 @@ import { createAction } from 'redux-actions';
 
 import types from 'constants/ActionTypes';
 
-const changePurposeFilter = createAction(types.CHANGE_PURPOSE_FILTER);
+const changeSearchFilters = createAction(types.CHANGE_SEARCH_FILTERS);
 
 export default {
-  changePurposeFilter,
+  changeSearchFilters,
 };

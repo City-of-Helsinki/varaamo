@@ -28,17 +28,21 @@ export class SearchResults extends Component {
 
     return (
       <Loader loaded={!isFetching}>
-        <Table striped>
-          <thead>
-            <tr>
-              <th>Tila</th>
-              <th>Sijainti</th>
-            </tr>
-          </thead>
-          <tbody>
-            {_.map(results, this.renderSearchResult)}
-          </tbody>
-        </Table>
+        {results.length ? (
+          <Table striped>
+            <thead>
+              <tr>
+                <th>Tila</th>
+                <th>Sijainti</th>
+              </tr>
+            </thead>
+            <tbody>
+              {_.map(results, this.renderSearchResult)}
+            </tbody>
+          </Table>
+        ) : (
+          <p>Yhtään hakutulosta ei löytynyt.</p>
+        )}
       </Loader>
     );
   }
