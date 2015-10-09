@@ -19,6 +19,29 @@ describe('Container: ResourcePage', () => {
   };
   const tree = sd.shallowRender(<ResourcePage {...props} />);
 
+  describe('rendering a link to reservation page', () => {
+    const linkTree = tree.subTree('LinkContainer');
+
+    it('should display a link to this resources reservation page', () => {
+      const linkVdom = linkTree.getRenderOutput();
+      const expected = `/resources/${props.resource.id}/reservation`;
+
+      expect(linkVdom.props.to).to.equal(expected);
+    });
+
+    it('should display the link as a Button', () => {
+      const buttonTrees = linkTree.everySubTree('Button');
+
+      expect(buttonTrees.length).to.equal(1);
+    });
+
+    it('the link button should have text "Varaa tila"', () => {
+      const buttonVdom = linkTree.subTree('Button').getRenderOutput();
+
+      expect(buttonVdom.props.children).to.equal('Varaa tila');
+    });
+  });
+
   describe('rendering ResourceHeader', () => {
     const resourceHeaderTrees = tree.everySubTree('ResourceHeader');
 
