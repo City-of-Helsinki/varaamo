@@ -1,8 +1,10 @@
 import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
+import { Button } from 'react-bootstrap';
 import DocumentTitle from 'react-document-title';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
+import { LinkContainer } from 'react-router-bootstrap';
 import { bindActionCreators } from 'redux';
 
 import { fetchResource } from 'actions/resourceActions';
@@ -20,13 +22,22 @@ export class UnconnectedReservationPage extends Component {
   }
 
   render() {
-    const { resource, unit } = this.props;
+    const { id, resource, unit } = this.props;
     const resourceName = getName(resource);
 
     return (
       <DocumentTitle title={`${resourceName} varaaminen - Respa`}>
         <Loader loaded={!_.isEmpty(resource)}>
           <div>
+            <LinkContainer to={`/resources/${id}`}>
+              <Button
+                bsSize="large"
+                bsStyle="primary"
+                style={{ float: 'right' }}
+              >
+                Tilan tiedot
+              </Button>
+            </LinkContainer>
             <ResourceHeader
               address={getAddressWithName(unit)}
               name={resourceName}
