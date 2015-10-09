@@ -6,6 +6,7 @@ import { fetchPurposes } from 'actions/purposeActions';
 import { fetchResources } from 'actions/resourceActions';
 import { changeSearchFilters } from 'actions/uiActions';
 import SearchFilters from 'components/search/SearchFilters';
+import SearchInput from 'components/search/SearchInput';
 import { searchControlsSelectors } from 'selectors/searchControlsSelectors';
 
 export class UnconnectedSearchControls extends Component {
@@ -29,6 +30,10 @@ export class UnconnectedSearchControls extends Component {
 
     return (
       <div>
+        <SearchInput
+          onSubmit={(searchValue) => onFiltersChange({ search: searchValue })}
+          initialValue={filters.search}
+        />
         <SearchFilters
           isFetchingPurposes={isFetchingPurposes}
           onFiltersChange={onFiltersChange}
