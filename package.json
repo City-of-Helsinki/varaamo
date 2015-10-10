@@ -28,7 +28,7 @@
     "redux-actions": "^0.8.0",
     "redux-api-middleware": "^0.6.2",
     "redux-logger": "^0.0.1",
-    "redux-react-router": "^1.0.0-beta3",
+    "redux-router": "^1.0.0-beta3",
     "reselect": "^2.0.0",
     "seamless-immutable": "^4.0.0"
   },
