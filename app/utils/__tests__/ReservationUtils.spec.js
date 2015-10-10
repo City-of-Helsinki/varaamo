@@ -2,6 +2,7 @@ import { expect } from 'chai';
 
 import moment from 'moment';
 
+import { TIME_FORMAT } from 'constants/AppConstants';
 import { getTimeSlots } from 'utils/ReservationUtils';
 
 describe('Utils: ReservationUtils', () => {
@@ -82,12 +83,12 @@ describe('Utils: ReservationUtils', () => {
           expect(slots[0].asString).to.exist;
         });
 
-        it('the first time slot should be "8:00-8:30" as a string', () => {
-          expect(slots[0].asString).to.equal('8:00\u20138:30');
-        });
+        it('should show the slot time range in local time', () => {
+          const startLocal = moment(start);
+          const endLocal = moment(startLocal).add(duration);
+          const expected = `${startLocal.format(TIME_FORMAT)}\u2013${endLocal.format(TIME_FORMAT)}`;
 
-        it('the last time slot should be "9:30-10:00" as a string', () => {
-          expect(slots[3].asString).to.equal('9:30\u201310:00');
+          expect(slots[0].asString).to.equal(expected);
         });
       });
     });
