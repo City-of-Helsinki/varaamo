@@ -6,6 +6,7 @@ import {
   getAddressWithName,
   getDescription,
   getName,
+  getOpeningHours,
   getPeopleCapacityString,
   humanizeMainType,
   pickSupportedFilters,
@@ -110,6 +111,38 @@ describe('Utils: DataUtils', () => {
       const item = { name: { fi: 'Some name' } };
 
       expect(getName(item)).to.equal('Some name');
+    });
+  });
+
+  describe('getOpeningHours', () => {
+    it('should return an empty object if given item is undefined', () => {
+      const item = undefined;
+
+      expect(getOpeningHours(item)).to.deep.equal({});
+    });
+
+    it('should return an empty object if given item is empty', () => {
+      const item = {};
+
+      expect(getOpeningHours(item)).to.deep.equal({});
+    });
+
+    it('should return an empty object if item.openingHours is empty', () => {
+      const item = { openingHours: [] };
+
+      expect(getOpeningHours(item)).to.deep.equal({});
+    });
+
+    it('should return closes and opens from the first openingHours object', () => {
+      const item = {
+        openingHours: [
+          { closes: 'first-closes', opens: 'first-opens' },
+          { closes: 'second-closes', opens: 'second-opens' },
+        ],
+      };
+      const expected = { closes: 'first-closes', opens: 'first-opens' };
+
+      expect(getOpeningHours(item)).to.deep.equal(expected);
     });
   });
 
