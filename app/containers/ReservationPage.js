@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 
 import { fetchResource } from 'actions/resourceActions';
 import ResourceHeader from 'components/resource/ResourceHeader';
+import ReservationForm from 'containers/ReservationForm';
 import { resourcePageSelectors } from 'selectors/resourcePageSelectors';
 import {
   getAddressWithName,
@@ -43,6 +44,7 @@ export class UnconnectedReservationPage extends Component {
               name={resourceName}
             />
           <h2>Varaa tila</h2>
+          <ReservationForm />
           </div>
         </Loader>
       </DocumentTitle>
