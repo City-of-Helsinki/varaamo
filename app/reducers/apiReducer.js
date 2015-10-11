@@ -5,6 +5,7 @@ import ActionTypes from 'constants/ActionTypes';
 const initialState = Immutable({
   isFetchingSearchResults: false,
   isFetchingPurposes: false,
+  isFetchingResource: false,
   shouldFetchPurposes: true,
   shouldFetchSearchResults: true,
   shouldFetchUnits: true,
@@ -28,6 +29,12 @@ export function apiReducer(state = initialState, action) {
       isFetchingPurposes: false,
       shouldFetchPurposes: false,
     });
+
+  case ActionTypes.FETCH_RESOURCE_START:
+    return state.merge({ 'isFetchingResource': true });
+
+  case ActionTypes.FETCH_RESOURCE_SUCCESS:
+    return state.merge({ isFetchingResource: false });
 
   case ActionTypes.FETCH_RESOURCES_START:
     return state.merge({ 'isFetchingSearchResults': true });
