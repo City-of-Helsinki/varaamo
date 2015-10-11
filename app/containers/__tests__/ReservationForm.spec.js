@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import React from 'react';
 import sd from 'skin-deep';
+import simple from 'simple-mock';
 
 import Immutable from 'seamless-immutable';
 
@@ -9,6 +10,10 @@ import { UnconnectedReservationForm as ReservationForm } from 'containers/Reserv
 
 describe('Container: ReservationForm', () => {
   const props = {
+    actions: {
+      changeReservationDate: simple.stub(),
+    },
+    date: '2015-10-11',
     isFetchingResource: false,
     timeSlots: Immutable([
       TimeSlot.build(),
@@ -18,15 +23,31 @@ describe('Container: ReservationForm', () => {
 
   const tree = sd.shallowRender(<ReservationForm {...props} />);
 
+  describe('rendering DatePicker', () => {
+    const datePickerTrees = tree.everySubTree('DatePicker');
+    const datePickerVdom = datePickerTrees[0].getRenderOutput();
+
+    it('should render DatePicker component', () => {
+      expect(datePickerTrees.length).to.equal(1);
+    });
+
+    it('should pass correct props to DatePicker component', () => {
+      const actualProps = datePickerVdom.props;
+
+      expect(actualProps.date).to.equal(props.date);
+      expect(actualProps.onChange).to.equal(props.actions.changeReservationDate);
+    });
+  });
+
   describe('rendering TimeSlots', () => {
     const timeSlotsTrees = tree.everySubTree('TimeSlots');
     const timeSlotsVdom = timeSlotsTrees[0].getRenderOutput();
 
-    it('should render TimeSLots component', () => {
+    it('should render TimeSlots component', () => {
       expect(timeSlotsTrees.length).to.equal(1);
     });
 
-    it('should pass correct props to TimeSLots component', () => {
+    it('should pass correct props to TimeSlots component', () => {
       const actualProps = timeSlotsVdom.props;
 
       expect(actualProps.isFetching).to.equal(props.isFetchingResource);

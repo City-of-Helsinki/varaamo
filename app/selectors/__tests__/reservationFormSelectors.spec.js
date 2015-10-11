@@ -24,6 +24,11 @@ describe('Selectors: reservationFormSelectors', () => {
           id: resource.id,
         },
       },
+      ui: Immutable({
+        reservation: {
+          date: '2015-10-10',
+        },
+      }),
     };
   });
 
@@ -33,6 +38,13 @@ describe('Selectors: reservationFormSelectors', () => {
       const expected = state.router.params.id;
 
       expect(selected.id).to.equal(expected);
+    });
+
+    it('should return the reservation date from the state', () => {
+      const selected = reservationFormSelectors(state);
+      const expected = state.ui.reservation.date;
+
+      expect(selected.date).to.equal(expected);
     });
 
     describe('when resource is found from the state', () => {

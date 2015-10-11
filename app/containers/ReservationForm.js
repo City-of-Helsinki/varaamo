@@ -1,15 +1,22 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
+import { changeReservationDate } from 'actions/uiActions';
+import DatePicker from 'components/common/DatePicker';
 import TimeSlots from 'components/reservation/TimeSlots';
 import { reservationFormSelectors } from 'selectors/reservationFormSelectors';
 
 export class UnconnectedReservationForm extends Component {
   render() {
-    const { isFetchingResource, timeSlots } = this.props;
+    const { actions, date, isFetchingResource, timeSlots } = this.props;
 
     return (
       <div>
+        <DatePicker
+          date={date}
+          onChange={actions.changeReservationDate}
+        />
         <TimeSlots
           isFetching={isFetchingResource}
           slots={timeSlots}
@@ -20,8 +27,18 @@ export class UnconnectedReservationForm extends Component {
 }
 
 UnconnectedReservationForm.propTypes = {
+  actions: PropTypes.object.isRequired,
+  date: PropTypes.string.isRequired,
   isFetchingResource: PropTypes.bool,
   timeSlots: PropTypes.array.isRequired,
 };
 
-export default connect(reservationFormSelectors)(UnconnectedReservationForm);
+function mapDispatchToProps(dispatch) {
+  const actionCreators = {
+    changeReservationDate,
+  };
+
+  return { actions: bindActionCreators(actionCreators, dispatch) };
+}
+
+export default connect(reservationFormSelectors, mapDispatchToProps)(UnconnectedReservationForm);
