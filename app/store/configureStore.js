@@ -1,8 +1,7 @@
 import createHistory from 'history/lib/createHashHistory';
 import { compose, createStore, applyMiddleware } from 'redux';
 import { apiMiddleware } from 'redux-api-middleware';
-import loggerMiddleware from 'redux-logger';
-import { reduxReactRouter } from 'redux-react-router';
+import { reduxReactRouter } from 'redux-router';
 
 import routes from 'app/routes';
 import rootReducer from 'reducers/index';
@@ -11,6 +10,9 @@ let finalCreateStore;
 
 if (__DEVTOOLS__) {
   const { devTools, persistState } = require('redux-devtools');
+  const createLogger = require('redux-logger');
+  const loggerMiddleware = createLogger();
+
   finalCreateStore = compose(
     applyMiddleware(apiMiddleware),
     reduxReactRouter({ routes, createHistory }),

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar as RBNavbar, Nav, NavItem } from 'react-bootstrap';
+import { Navbar as RBNavbar, Nav, NavBrand, NavItem } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
 
@@ -10,7 +10,8 @@ export class Navbar extends React.Component {
 
   render() {
     return (
-      <RBNavbar brand={<Link to={'/'}>Respa</Link>} toggleNavKey={0}>
+      <RBNavbar toggleNavKey={0}>
+        <NavBrand><Link to={'/'}>Respa</Link></NavBrand>
         <Nav eventKey={0} right>
           <LinkContainer to="/search">
             <NavItem>Haku</NavItem>
