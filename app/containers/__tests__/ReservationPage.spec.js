@@ -4,11 +4,11 @@ import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 import sd from 'skin-deep';
 
-import { UnconnectedResourcePage as ResourcePage } from 'containers/ResourcePage';
+import { UnconnectedReservationPage as ReservationPage } from 'containers/ReservationPage';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
 
-describe('Container: ResourcePage', () => {
+describe('Container: ReservationPage', () => {
   const unit = Unit.build();
   const resource = Resource.build({ unit: Unit.id });
   const props = {
@@ -17,14 +17,14 @@ describe('Container: ResourcePage', () => {
     resource: Immutable(resource),
     unit: Immutable(unit),
   };
-  const tree = sd.shallowRender(<ResourcePage {...props} />);
+  const tree = sd.shallowRender(<ReservationPage {...props} />);
 
-  describe('rendering a link to reservation page', () => {
+  describe('rendering a link to resource page', () => {
     const linkTree = tree.subTree('LinkContainer');
 
-    it('should display a link to this resources reservation page', () => {
+    it('should display a link to this resources page', () => {
       const linkVdom = linkTree.getRenderOutput();
-      const expected = `/resources/${props.resource.id}/reservation`;
+      const expected = `/resources/${props.resource.id}`;
 
       expect(linkVdom.props.to).to.equal(expected);
     });
@@ -35,10 +35,10 @@ describe('Container: ResourcePage', () => {
       expect(buttonTrees.length).to.equal(1);
     });
 
-    it('the link button should have text "Varaa tila"', () => {
+    it('the link button should have text "Tilan tiedot"', () => {
       const buttonVdom = linkTree.subTree('Button').getRenderOutput();
 
-      expect(buttonVdom.props.children).to.equal('Varaa tila');
+      expect(buttonVdom.props.children).to.equal('Tilan tiedot');
     });
   });
 
@@ -55,23 +55,6 @@ describe('Container: ResourcePage', () => {
 
       expect(actualProps.name).to.equal(props.resource.name.fi);
       expect(typeof actualProps.address).to.equal('string');
-    });
-  });
-
-  describe('rendering ResourceDetails', () => {
-    const resourceDetailsTrees = tree.everySubTree('ResourceDetails');
-
-    it('should render ResourceDetails component', () => {
-      expect(resourceDetailsTrees.length).to.equal(1);
-    });
-
-    it('should pass correct props to ResourceDetails component', () => {
-      const resourceDetailsVdom = resourceDetailsTrees[0].getRenderOutput();
-      const actualProps = resourceDetailsVdom.props;
-
-      expect(typeof actualProps.capacityString).to.equal('string');
-      expect(typeof actualProps.description).to.equal('string');
-      expect(typeof actualProps.type).to.equal('string');
     });
   });
 

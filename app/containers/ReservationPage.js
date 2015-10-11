@@ -8,17 +8,15 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { bindActionCreators } from 'redux';
 
 import { fetchResource } from 'actions/resourceActions';
-import ResourceDetails from 'components/resource/ResourceDetails';
 import ResourceHeader from 'components/resource/ResourceHeader';
+import ReservationForm from 'containers/ReservationForm';
 import { resourcePageSelectors } from 'selectors/resourcePageSelectors';
 import {
   getAddressWithName,
-  getDescription,
   getName,
-  getPeopleCapacityString,
 } from 'utils/DataUtils';
 
-export class UnconnectedResourcePage extends Component {
+export class UnconnectedReservationPage extends Component {
   componentDidMount() {
     const { actions, id } = this.props;
     actions.fetchResource(id);
@@ -29,27 +27,24 @@ export class UnconnectedResourcePage extends Component {
     const resourceName = getName(resource);
 
     return (
-      <DocumentTitle title={`${resourceName} - Respa`}>
+      <DocumentTitle title={`${resourceName} varaaminen - Respa`}>
         <Loader loaded={!_.isEmpty(resource)}>
           <div>
-            <LinkContainer to={`/resources/${id}/reservation`}>
+            <LinkContainer to={`/resources/${id}`}>
               <Button
                 bsSize="large"
                 bsStyle="primary"
                 style={{ float: 'right' }}
               >
-                Varaa tila
+                Tilan tiedot
               </Button>
             </LinkContainer>
             <ResourceHeader
               address={getAddressWithName(unit)}
               name={resourceName}
             />
-            <ResourceDetails
-              capacityString={getPeopleCapacityString(resource.peopleCapacity)}
-              description={getDescription(resource)}
-              type={getName(resource.type)}
-            />
+          <h2>Varaa tila</h2>
+          <ReservationForm />
           </div>
         </Loader>
       </DocumentTitle>
@@ -57,7 +52,7 @@ export class UnconnectedResourcePage extends Component {
   }
 }
 
-UnconnectedResourcePage.propTypes = {
+UnconnectedReservationPage.propTypes = {
   actions: PropTypes.object.isRequired,
   id: PropTypes.string.isRequired,
   resource: PropTypes.object.isRequired,
@@ -68,4 +63,4 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators({ fetchResource }, dispatch) };
 }
 
-export default connect(resourcePageSelectors, mapDispatchToProps)(UnconnectedResourcePage);
+export default connect(resourcePageSelectors, mapDispatchToProps)(UnconnectedReservationPage);

@@ -12,4 +12,5 @@ export default {
     'purpose',
     'search',
   ],
+  TIME_FORMAT: 'H:mm',
 };

@@ -9,6 +9,7 @@ export default {
   pickSupportedFilters,
   humanizeMainType,
   getName,
+  getOpeningHours,
   getPeopleCapacityString,
 };
 
@@ -51,6 +52,17 @@ function getName(item) {
   const hasName = item && item.name && item.name.fi;
 
   return hasName ? item.name.fi : '';
+}
+
+function getOpeningHours(item) {
+  if (item && item.openingHours && item.openingHours.length) {
+    return {
+      closes: item.openingHours[0].closes,
+      opens: item.openingHours[0].opens,
+    };
+  }
+
+  return {};
 }
 
 function getPeopleCapacityString(capacity) {
