@@ -10,16 +10,19 @@ import { bindActionCreators } from 'redux';
 import { fetchResource } from 'actions/resourceActions';
 import ResourceHeader from 'components/resource/ResourceHeader';
 import ReservationForm from 'containers/ReservationForm';
-import { resourcePageSelectors } from 'selectors/resourcePageSelectors';
+import { reservationPageSelectors } from 'selectors/reservationPageSelectors';
 import {
   getAddressWithName,
+  getDateStartAndEndTimes,
   getName,
 } from 'utils/DataUtils';
 
 export class UnconnectedReservationPage extends Component {
   componentDidMount() {
-    const { actions, id } = this.props;
-    actions.fetchResource(id);
+    const { actions, id, date } = this.props;
+    const fetchParams = getDateStartAndEndTimes(date);
+
+    actions.fetchResource(id, fetchParams);
   }
 
   render() {
@@ -54,6 +57,7 @@ export class UnconnectedReservationPage extends Component {
 
 UnconnectedReservationPage.propTypes = {
   actions: PropTypes.object.isRequired,
+  date: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   resource: PropTypes.object.isRequired,
   unit: PropTypes.object.isRequired,
@@ -63,4 +67,4 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators({ fetchResource }, dispatch) };
 }
 
-export default connect(resourcePageSelectors, mapDispatchToProps)(UnconnectedReservationPage);
+export default connect(reservationPageSelectors, mapDispatchToProps)(UnconnectedReservationPage);
