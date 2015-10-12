@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
 import { getOpeningHours } from 'utils/DataUtils';
-import { getTimeSlots } from 'utils/ReservationUtils';
+import { getTimeSlots } from 'utils/TimeUtils';
 
 const dateSelector = (state) => state.ui.reservation.date;
 const idSelector = (state) => state.router.params.id;

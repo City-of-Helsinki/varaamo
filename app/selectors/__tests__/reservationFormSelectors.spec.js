@@ -5,7 +5,7 @@ import simple from 'simple-mock';
 
 import Resource, { openingHours } from 'fixtures/Resource';
 import { reservationFormSelectors } from 'selectors/reservationFormSelectors';
-import ReservationUtils from 'utils/ReservationUtils';
+import TimeUtils from 'utils/TimeUtils';
 
 describe('Selectors: reservationFormSelectors', () => {
   const resource = Resource.build({
@@ -68,9 +68,9 @@ describe('Selectors: reservationFormSelectors', () => {
 
       it('should use resource properties to calculate correct time slots', () => {
         const mockSlots = ['slot-1', 'slot-2'];
-        simple.mock(ReservationUtils, 'getTimeSlots').returnWith(mockSlots);
+        simple.mock(TimeUtils, 'getTimeSlots').returnWith(mockSlots);
         const selected = reservationFormSelectors(state);
-        const actualArgs = ReservationUtils.getTimeSlots.lastCall.args;
+        const actualArgs = TimeUtils.getTimeSlots.lastCall.args;
 
         expect(actualArgs[0]).to.equal(resource.openingHours[0].opens);
         expect(actualArgs[1]).to.equal(resource.openingHours[0].closes);

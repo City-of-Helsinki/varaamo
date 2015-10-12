@@ -3,9 +3,9 @@ import { expect } from 'chai';
 import moment from 'moment';
 
 import { TIME_FORMAT } from 'constants/AppConstants';
-import { getTimeSlots } from 'utils/ReservationUtils';
+import { getTimeSlots } from 'utils/TimeUtils';
 
-describe('Utils: ReservationUtils', () => {
+describe('Utils: TimeUtils', () => {
   describe('getTimeSlots', () => {
     describe('When critical info is missing', () => {
       const start = '2015-10-09T08:00:00+03:00';
