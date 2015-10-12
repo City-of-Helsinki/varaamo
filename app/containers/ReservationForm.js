@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import DatePicker from 'react-date-picker';
 
 import { fetchResource } from 'actions/resourceActions';
 import { changeReservationDate } from 'actions/uiActions';
-import DatePicker from 'components/common/DatePicker';
 import TimeSlots from 'components/reservation/TimeSlots';
 import { reservationFormSelectors } from 'selectors/reservationFormSelectors';
 import { getDateStartAndEndTimes } from 'utils/DataUtils';
@@ -30,7 +30,10 @@ export class UnconnectedReservationForm extends Component {
       <div>
         <DatePicker
           date={date}
+          hideFooter
+          gotoSelectedText="Mene valittuun"
           onChange={this.onDateChange}
+          todayText="Tänään"
         />
         <TimeSlots
           isFetching={isFetchingResource}

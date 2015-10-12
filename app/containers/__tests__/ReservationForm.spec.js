@@ -38,6 +38,7 @@ describe('Container: ReservationForm', () => {
       const actualProps = datePickerVdom.props;
 
       expect(actualProps.date).to.equal(props.date);
+      expect(actualProps.hideFooter).to.equal(true);
       expect(actualProps.onChange).to.equal(instance.onDateChange);
     });
   });
