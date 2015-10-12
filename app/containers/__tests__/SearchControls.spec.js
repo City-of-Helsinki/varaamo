@@ -15,7 +15,10 @@ describe('Container: SearchControls', () => {
       fetchResources: simple.stub(),
     },
     isFetchingPurposes: false,
-    filters: { purpose: 'some-purpose' },
+    filters: {
+      purpose: 'some-purpose',
+      search: '',
+    },
     purposeOptions: Immutable([
       { value: 'filter-1', label: 'Label 1' },
       { value: 'filter-2', label: 'Label 2' },
