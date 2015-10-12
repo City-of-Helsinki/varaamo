@@ -73,6 +73,14 @@ describe('Utils: TimeUtils', () => {
 
         expect(actual.length).to.equal(4);
       });
+
+      it('should use empty array as default reservations if no reservations is given', () => {
+        const timeSlots = getTimeSlots(start, end, period);
+
+        timeSlots.forEach(timeSlot => {
+          expect(timeSlot.reserved).to.equal(false);
+        });
+      });
     });
 
     describe('When dividing 2 hours into 30 min slots', () => {
@@ -133,6 +141,56 @@ describe('Utils: TimeUtils', () => {
           const expected = `${startLocal.format(TIME_FORMAT)}\u2013${endLocal.format(TIME_FORMAT)}`;
 
           expect(slots[0].asString).to.equal(expected);
+        });
+      });
+    });
+
+    describe('slot reserved property', () => {
+      const start = '2015-10-09T08:00:00+03:00';
+      const end = '2015-10-09T10:00:00+03:00';
+      const period = '00:30:00';
+
+      describe('with one reservation', () => {
+        const reservations = [
+          {
+            begin: '2015-10-09T08:30:00+03:00',
+            end: '2015-10-09T09:30:00+03:00',
+          },
+        ];
+        const slots = getTimeSlots(start, end, period, reservations);
+
+        it('slot should not be marked reserved if reservation starts when slot ends', () => {
+          expect(slots[0].reserved).to.equal(false);
+        });
+
+        it('should mark all the slots that are during reservation as reserved', () => {
+          expect(slots[1].reserved).to.equal(true);
+          expect(slots[2].reserved).to.equal(true);
+        });
+
+        it('slot should not be marked reserved if slots starts when reservation ends', () => {
+          expect(slots[3].reserved).to.equal(false);
+        });
+      });
+
+      describe('with multiple reservations', () => {
+        const reservations = [
+          {
+            begin: '2015-10-09T08:30:00+03:00',
+            end: '2015-10-09T09:00:00+03:00',
+          },
+          {
+            begin: '2015-10-09T09:30:00+03:00',
+            end: '2015-10-09T10:00:00+03:00',
+          },
+        ];
+        const slots = getTimeSlots(start, end, period, reservations);
+
+        it('should use all reservations to find reserved slots', () => {
+          expect(slots[0].reserved).to.equal(false);
+          expect(slots[1].reserved).to.equal(true);
+          expect(slots[2].reserved).to.equal(false);
+          expect(slots[3].reserved).to.equal(true);
         });
       });
     });
