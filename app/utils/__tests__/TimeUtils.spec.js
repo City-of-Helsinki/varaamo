@@ -2,10 +2,32 @@ import { expect } from 'chai';
 
 import moment from 'moment';
 
-import { TIME_FORMAT } from 'constants/AppConstants';
-import { getTimeSlots } from 'utils/TimeUtils';
+import { DATE_FORMAT, TIME_FORMAT } from 'constants/AppConstants';
+import { getDateString, getTimeSlots } from 'utils/TimeUtils';
 
 describe('Utils: TimeUtils', () => {
+  describe('getDateString', () => {
+    it('should return current date string if date is undefined', () => {
+      const date = undefined;
+      const expected = moment().format(DATE_FORMAT);
+
+      expect(getDateString(date)).to.equal(expected);
+    });
+
+    it('should return current date string if date is an empty string', () => {
+      const date = '';
+      const expected = moment().format(DATE_FORMAT);
+
+      expect(getDateString(date)).to.equal(expected);
+    });
+
+    it('should return the date unchanged', () => {
+      const date = '2015-10-11';
+
+      expect(getDateString(date)).to.equal(date);
+    });
+  });
+
   describe('getTimeSlots', () => {
     describe('When critical info is missing', () => {
       const start = '2015-10-09T08:00:00+03:00';
