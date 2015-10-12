@@ -18,17 +18,6 @@ module.exports = merge(common, {
         ],
         loaders: ['babel'],
       },
-      {
-        test: /\.css$/,
-        loader: 'style!css!postcss-loader',
-      },
-      {
-        test: /\.scss$/,
-        loader: 'style!css!postcss-loader!sass',
-      },
-    ],
-    noParse: [
-      /\/sinon.js/,
     ],
   },
   plugins: [
