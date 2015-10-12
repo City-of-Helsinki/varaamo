@@ -5,6 +5,7 @@ import { PURPOSE_MAIN_TYPES, SUPPORTED_SEARCH_FILTERS } from 'constants/AppConst
 export default {
   getAddress,
   getAddressWithName,
+  getDateStartAndEndTimes,
   getDescription,
   pickSupportedFilters,
   humanizeMainType,
@@ -32,6 +33,17 @@ function getAddressWithName(item) {
   ];
 
   return parts.filter(part => part !== '').join(', ');
+}
+
+function getDateStartAndEndTimes(date) {
+  if (!date) {
+    return {};
+  }
+
+  const start = `${date}T00:00:00Z`;
+  const end = `${date}T23:59:59Z`;
+
+  return { start, end };
 }
 
 function getDescription(item) {

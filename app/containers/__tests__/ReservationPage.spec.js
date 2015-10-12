@@ -13,6 +13,7 @@ describe('Container: ReservationPage', () => {
   const resource = Resource.build({ unit: Unit.id });
   const props = {
     actions: { fetchResource: simple.stub() },
+    date: '2015-10-10',
     id: resource.id,
     resource: Immutable(resource),
     unit: Immutable(unit),
@@ -66,6 +67,14 @@ describe('Container: ReservationPage', () => {
 
     it('should fetch resource data when component mounts', () => {
       expect(props.actions.fetchResource.callCount).to.equal(1);
+    });
+
+    it('should fetch resource with correct arguments', () => {
+      const actualArgs = props.actions.fetchResource.lastCall.args;
+
+      expect(actualArgs[0]).to.equal(props.id);
+      expect(actualArgs[1].start).to.contain(props.date);
+      expect(actualArgs[1].end).to.contain(props.date);
     });
   });
 });

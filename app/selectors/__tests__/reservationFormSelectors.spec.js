@@ -5,7 +5,7 @@ import simple from 'simple-mock';
 
 import Resource, { openingHours } from 'fixtures/Resource';
 import { reservationFormSelectors } from 'selectors/reservationFormSelectors';
-import ReservationUtils from 'utils/ReservationUtils';
+import TimeUtils from 'utils/TimeUtils';
 
 describe('Selectors: reservationFormSelectors', () => {
   const resource = Resource.build({
@@ -16,6 +16,9 @@ describe('Selectors: reservationFormSelectors', () => {
 
   beforeEach(() => {
     state = {
+      api: Immutable({
+        isFetchingResource: false,
+      }),
       data: Immutable({
         resources: { [resource.id]: resource },
       }),
@@ -24,6 +27,11 @@ describe('Selectors: reservationFormSelectors', () => {
           id: resource.id,
         },
       },
+      ui: Immutable({
+        reservation: {
+          date: '2015-10-10',
+        },
+      }),
     };
   });
 
@@ -33,6 +41,20 @@ describe('Selectors: reservationFormSelectors', () => {
       const expected = state.router.params.id;
 
       expect(selected.id).to.equal(expected);
+    });
+
+    it('should return isFetchingResource from the state', () => {
+      const selected = reservationFormSelectors(state);
+      const expected = state.api.isFetchingResource;
+
+      expect(selected.isFetchingResource).to.equal(expected);
+    });
+
+    it('should return the reservation date from the state', () => {
+      const selected = reservationFormSelectors(state);
+      const expected = state.ui.reservation.date;
+
+      expect(selected.date).to.equal(expected);
     });
 
     describe('when resource is found from the state', () => {
@@ -46,9 +68,9 @@ describe('Selectors: reservationFormSelectors', () => {
 
       it('should use resource properties to calculate correct time slots', () => {
         const mockSlots = ['slot-1', 'slot-2'];
-        simple.mock(ReservationUtils, 'getTimeSlots').returnWith(mockSlots);
+        simple.mock(TimeUtils, 'getTimeSlots').returnWith(mockSlots);
         const selected = reservationFormSelectors(state);
-        const actualArgs = ReservationUtils.getTimeSlots.lastCall.args;
+        const actualArgs = TimeUtils.getTimeSlots.lastCall.args;
 
         expect(actualArgs[0]).to.equal(resource.openingHours[0].opens);
         expect(actualArgs[1]).to.equal(resource.openingHours[0].closes);

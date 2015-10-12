@@ -1,11 +1,27 @@
 import moment from 'moment';
 import 'moment-range';
 
-import { TIME_FORMAT } from 'constants/AppConstants';
+import { DATE_FORMAT, TIME_FORMAT } from 'constants/AppConstants';
 
 export default {
+  getDateString,
+  addToDate,
   getTimeSlots,
 };
+
+function getDateString(date) {
+  if (!date) {
+    return moment().format(DATE_FORMAT);
+  }
+
+  return date;
+}
+
+function addToDate(date, daysToIncrement) {
+  const newDate = moment(date).add(daysToIncrement, 'days');
+
+  return newDate.format(DATE_FORMAT);
+}
 
 function getTimeSlots(start, end, period = '00:30:00') {
   if (!start || !end) {

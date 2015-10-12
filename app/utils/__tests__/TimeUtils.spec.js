@@ -2,10 +2,54 @@ import { expect } from 'chai';
 
 import moment from 'moment';
 
-import { TIME_FORMAT } from 'constants/AppConstants';
-import { getTimeSlots } from 'utils/ReservationUtils';
+import { DATE_FORMAT, TIME_FORMAT } from 'constants/AppConstants';
+import {
+  addToDate,
+  getDateString,
+  getTimeSlots,
+} from 'utils/TimeUtils';
 
-describe('Utils: ReservationUtils', () => {
+describe('Utils: TimeUtils', () => {
+  describe('addToDate', () => {
+    it('should add days to given date if daysToIncrement is positive', () => {
+      const date = '2015-10-10';
+      const actual = addToDate(date, 3);
+      const expected = '2015-10-13';
+
+      expect(actual).to.equal(expected);
+    });
+
+    it('should subtract days from given date if daysToIncrement is negative', () => {
+      const date = '2015-10-10';
+      const actual = addToDate(date, -3);
+      const expected = '2015-10-07';
+
+      expect(actual).to.equal(expected);
+    });
+  });
+
+  describe('getDateString', () => {
+    it('should return current date string if date is undefined', () => {
+      const date = undefined;
+      const expected = moment().format(DATE_FORMAT);
+
+      expect(getDateString(date)).to.equal(expected);
+    });
+
+    it('should return current date string if date is an empty string', () => {
+      const date = '';
+      const expected = moment().format(DATE_FORMAT);
+
+      expect(getDateString(date)).to.equal(expected);
+    });
+
+    it('should return the date unchanged', () => {
+      const date = '2015-10-11';
+
+      expect(getDateString(date)).to.equal(date);
+    });
+  });
+
   describe('getTimeSlots', () => {
     describe('When critical info is missing', () => {
       const start = '2015-10-09T08:00:00+03:00';

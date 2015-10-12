@@ -14,6 +14,10 @@ describe('Reducer: apiReducer', () => {
       expect(initialState.isFetchingPurposes).to.equal(false);
     });
 
+    it('isFetchingResource should be false', () => {
+      expect(initialState.isFetchingResource).to.equal(false);
+    });
+
     it('isFetchingSearchResults should be false', () => {
       expect(initialState.isFetchingSearchResults).to.equal(false);
     });
@@ -73,6 +77,30 @@ describe('Reducer: apiReducer', () => {
         const nextState = reducer(initialState, action);
 
         expect(nextState.shouldFetchPurposes).to.equal(false);
+      });
+    });
+
+    describe('FETCH_RESOURCE_START', () => {
+      const fetchResourceStart = createAction(types.FETCH_RESOURCE_START);
+
+      it('should set isFetchingResource to true', () => {
+        const action = fetchResourceStart();
+        const initialState = Immutable({ isFetchingResource: false });
+        const nextState = reducer(initialState, action);
+
+        expect(nextState.isFetchingResource).to.equal(true);
+      });
+    });
+
+    describe('FETCH_RESOURCE_SUCCESS', () => {
+      const fetchResourceSuccess = createAction(types.FETCH_RESOURCE_SUCCESS);
+
+      it('should set isFetchingResource to false', () => {
+        const action = fetchResourceSuccess();
+        const initialState = Immutable({ isFetchingResource: true });
+        const nextState = reducer(initialState, action);
+
+        expect(nextState.isFetchingResource).to.equal(false);
       });
     });
 

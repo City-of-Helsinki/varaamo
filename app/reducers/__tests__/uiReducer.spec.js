@@ -6,6 +6,18 @@ describe('Reducer: uiReducer', () => {
   describe('initial state', () => {
     const initialState = reducer(undefined, {});
 
+    describe('reservation', () => {
+      const reservation = initialState.reservation;
+
+      it('should be an object', () => {
+        expect(typeof reservation).to.equal('object');
+      });
+
+      it('date should be an empty string', () => {
+        expect(reservation.date).to.equal('');
+      });
+    });
+
     describe('search', () => {
       const search = initialState.search;
 
