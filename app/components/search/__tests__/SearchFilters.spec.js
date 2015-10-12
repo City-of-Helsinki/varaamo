@@ -22,41 +22,24 @@ describe('Component: search/SearchFilters', () => {
 
   describe('purpose filter', () => {
     const selectTrees = tree.everySubTree('Select');
+    const selectVdom = selectTrees[0].getRenderOutput();
 
     it('should render a Select component', () => {
       expect(selectTrees.length).to.equal(1);
     });
 
-    describe('Select props', () => {
-      const selectVdom = selectTrees[0].getRenderOutput();
+    it('should pass correct props to the Select component', () => {
+      const actualProps = selectVdom.props;
 
-      it('should pass clearable = true', () => {
-        expect(selectVdom.props.clearable).to.equal(true);
-      });
-
-      it('should pass isFetchingPurposes as isLoading', () => {
-        expect(selectVdom.props.isLoading).to.equal(props.isFetchingPurposes);
-      });
-
-      it('should pass a function to onChange', () => {
-        expect(typeof selectVdom.props.onChange).to.equal('function');
-      });
-
-      it('should pass purposeOptions as options', () => {
-        expect(selectVdom.props.options).to.deep.equal(props.purposeOptions);
-      });
-
-      it('should pass a placeholder text', () => {
-        expect(selectVdom.props.placeholder).to.be.ok;
-      });
-
-      it('should pass filters.purpose as value', () => {
-        expect(selectVdom.props.value).to.equal(props.filters.purpose);
-      });
+      expect(actualProps.clearable).to.equal(true);
+      expect(actualProps.isLoading).to.equal(props.isFetchingPurposes);
+      expect(typeof actualProps.onChange).to.equal('function');
+      expect(actualProps.options).to.deep.equal(props.purposeOptions);
+      expect(typeof actualProps.placeholder).to.equal('string');
+      expect(actualProps.value).to.equal(props.filters.purpose);
     });
 
     describe('onChange', () => {
-      const selectVdom = selectTrees[0].getRenderOutput();
       const filterValue = 'new-value';
 
       before(() => {
