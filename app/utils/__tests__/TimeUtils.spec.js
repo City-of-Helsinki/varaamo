@@ -3,9 +3,31 @@ import { expect } from 'chai';
 import moment from 'moment';
 
 import { DATE_FORMAT, TIME_FORMAT } from 'constants/AppConstants';
-import { getDateString, getTimeSlots } from 'utils/TimeUtils';
+import {
+  addToDate,
+  getDateString,
+  getTimeSlots,
+} from 'utils/TimeUtils';
 
 describe('Utils: TimeUtils', () => {
+  describe('addToDate', () => {
+    it('should add days to given date if daysToIncrement is positive', () => {
+      const date = '2015-10-10';
+      const actual = addToDate(date, 3);
+      const expected = '2015-10-13';
+
+      expect(actual).to.equal(expected);
+    });
+
+    it('should subtract days from given date if daysToIncrement is negative', () => {
+      const date = '2015-10-10';
+      const actual = addToDate(date, -3);
+      const expected = '2015-10-07';
+
+      expect(actual).to.equal(expected);
+    });
+  });
+
   describe('getDateString', () => {
     it('should return current date string if date is undefined', () => {
       const date = undefined;
