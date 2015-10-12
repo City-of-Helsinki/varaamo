@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Label } from 'react-bootstrap';
 
 export class TimeSlot extends Component {
   render() {
@@ -11,7 +12,11 @@ export class TimeSlot extends Component {
             {slot.asString}
           </time>
         </td>
-        <td>{slot.reserved ? 'Varattu' : 'Vapaa'}</td>
+        <td>
+          <Label bsStyle={slot.reserved ? 'danger' : 'success'}>
+            {slot.reserved ? 'Varattu' : 'Vapaa'}
+          </Label>
+        </td>
       </tr>
     );
   }

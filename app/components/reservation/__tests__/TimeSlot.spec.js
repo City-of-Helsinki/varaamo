@@ -41,12 +41,48 @@ describe('Component: TimeSlot', () => {
     });
 
     describe('the second table cell', () => {
-      const tdTree = tdTrees[1];
+      describe('when the slot is available', () => {
+        const tdTree = tdTrees[1];
+        const labelTrees = tdTree.everySubTree('Label');
+        const labelVdom = labelTrees[0].getRenderOutput();
 
-      it('should show whether the slot is reserved or not', () => {
-        const expected = 'Vapaa';
+        it('should render a label', () => {
+          expect(labelTrees.length).to.equal(1);
+        });
 
-        expect(tdTree.text()).to.equal(expected);
+        it('should give proper props to the label', () => {
+          expect(labelVdom.props.bsStyle).to.equal('success');
+        });
+
+        it('should display a text whether the slot is reserved or not', () => {
+          const expected = 'Vapaa';
+
+          expect(labelVdom.props.children).to.equal(expected);
+        });
+      });
+
+      describe('when the slot is reserved', () => {
+        const reservedProps = {
+          slot: Immutable(TimeSlotFixture.build({ reserved: true })),
+        };
+        const reservedTree = sd.shallowRender(<TimeSlot {...reservedProps} />);
+        const tdTree = reservedTree.everySubTree('td')[1];
+        const labelTrees = tdTree.everySubTree('Label');
+        const labelVdom = labelTrees[0].getRenderOutput();
+
+        it('should render a label', () => {
+          expect(labelTrees.length).to.equal(1);
+        });
+
+        it('should give proper props to the label', () => {
+          expect(labelVdom.props.bsStyle).to.equal('danger');
+        });
+
+        it('should display a text whether the slot is reserved or not', () => {
+          const expected = 'Varattu';
+
+          expect(labelVdom.props.children).to.equal(expected);
+        });
       });
     });
   });
