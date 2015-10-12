@@ -7,7 +7,7 @@ import Immutable from 'seamless-immutable';
 
 import SearchFilters from 'components/search/SearchFilters';
 
-describe('Component: SearchFilters', () => {
+describe('Component: search/SearchFilters', () => {
   const props = {
     isFetchingPurposes: false,
     onFiltersChange: simple.stub(),

@@ -4,7 +4,7 @@ import sd from 'skin-deep';
 
 import ResourceHeader from 'components/resource/ResourceHeader';
 
-describe('Component: ResourceHeader', () => {
+describe('Component: resource/ResourceHeader', () => {
   const props = {
     address: 'Some address',
     name: 'Some name',

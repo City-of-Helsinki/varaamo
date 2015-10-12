@@ -8,7 +8,7 @@ import SearchResults from 'components/search/SearchResults';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
 
-describe('Component: SearchResults', () => {
+describe('Component: search/SearchResults', () => {
   describe('with results', () => {
     const unit = Unit.build();
     const props = {

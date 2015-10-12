@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 import ResourceDetails from 'components/resource/ResourceDetails';
 
-describe('Component: ResourceDetails', () => {
+describe('Component: resource/ResourceDetails', () => {
   const props = {
     capacityString: 'for 10 people maximum.',
     description: 'Some description.',

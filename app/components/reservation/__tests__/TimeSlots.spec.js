@@ -7,7 +7,7 @@ import Immutable from 'seamless-immutable';
 import TimeSlots from 'components/reservation/TimeSlots';
 import TimeSlot from 'fixtures/TimeSlot';
 
-describe('Component: TimeSlots', () => {
+describe('Component: reservation/TimeSlots', () => {
   describe('with timeslots', () => {
     const props = {
       isFetching: false,

@@ -5,7 +5,7 @@ import sd from 'skin-deep';
 
 import SearchInput from 'components/search/SearchInput';
 
-describe('Component: SearchInput', () => {
+describe('Component: search/SearchInput', () => {
   const props = {
     initialValue: 'query',
     onSubmit: simple.stub(),

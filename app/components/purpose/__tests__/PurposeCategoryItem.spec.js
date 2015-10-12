@@ -8,7 +8,7 @@ import _ from 'lodash';
 import PurposeCategoryItem from 'components/purpose/PurposeCategoryItem';
 import Purpose from 'fixtures/Purpose';
 
-describe('Component: PurposeCategoryItem', () => {
+describe('Component: purpose/PurposeCategoryItem', () => {
   const props = {
     onItemClick: simple.stub(),
     purpose: Purpose.build(),
