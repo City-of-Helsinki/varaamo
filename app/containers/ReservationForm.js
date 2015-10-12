@@ -5,6 +5,7 @@ import DatePicker from 'react-date-picker';
 
 import { fetchResource } from 'actions/resourceActions';
 import { changeReservationDate } from 'actions/uiActions';
+import DateHeader from 'components/common/DateHeader';
 import TimeSlots from 'components/reservation/TimeSlots';
 import { reservationFormSelectors } from 'selectors/reservationFormSelectors';
 import { getDateStartAndEndTimes } from 'utils/DataUtils';
@@ -35,6 +36,10 @@ export class UnconnectedReservationForm extends Component {
           gotoSelectedText="Mene valittuun"
           onChange={this.onDateChange}
           todayText="Tänään"
+        />
+        <DateHeader
+          date={date}
+          onChange={this.onDateChange}
         />
         <TimeSlots
           isFetching={isFetchingResource}

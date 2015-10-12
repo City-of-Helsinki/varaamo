@@ -43,6 +43,22 @@ describe('Container: ReservationForm', () => {
     });
   });
 
+  describe('rendering DateHeader', () => {
+    const dateHeaderTrees = tree.everySubTree('DateHeader');
+
+    it('should render DateHeader component', () => {
+      expect(dateHeaderTrees.length).to.equal(1);
+    });
+
+    it('should pass correct props to DateHeader component', () => {
+      const dateHeaderVdom = dateHeaderTrees[0].getRenderOutput();
+      const actualProps = dateHeaderVdom.props;
+
+      expect(actualProps.date).to.equal(props.date);
+      expect(actualProps.onChange).to.equal(instance.onDateChange);
+    });
+  });
+
   describe('rendering TimeSlots', () => {
     const timeSlotsTrees = tree.everySubTree('TimeSlots');
     const timeSlotsVdom = timeSlotsTrees[0].getRenderOutput();
