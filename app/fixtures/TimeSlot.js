@@ -9,6 +9,7 @@ const TimeSlot = new Factory()
     return `${start}:00-${start + 1}:00`;
   })
   .sequence('start', (index) => moment(BASE_DATE).set('hour', (index + 2) % 24).toISOString())
-  .sequence('end', (index) => moment(BASE_DATE).set('hour', (index + 3) % 24).toISOString());
+  .sequence('end', (index) => moment(BASE_DATE).set('hour', (index + 3) % 24).toISOString())
+  .attr('reserved', false);
 
 export default TimeSlot;

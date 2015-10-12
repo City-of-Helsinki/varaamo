@@ -63,7 +63,6 @@ describe('Component: TimeSlots', () => {
         timeSlotTrees.forEach((timeSlotTree, index) => {
           const timeSlotVdom = timeSlotTree.getRenderOutput();
 
-          expect(timeSlotVdom.props.isReserved).to.equal(false);
           expect(timeSlotVdom.props.slot).to.deep.equal(props.slots[index]);
         });
       });

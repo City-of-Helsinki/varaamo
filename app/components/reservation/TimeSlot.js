@@ -2,23 +2,22 @@ import React, { Component, PropTypes } from 'react';
 
 export class TimeSlot extends Component {
   render() {
-    const { slot, isReserved } = this.props;
+    const { slot } = this.props;
 
     return (
-      <tr className={isReserved ? 'reserved' : ''}>
+      <tr className={slot.reserved ? 'reserved' : ''}>
         <td>
           <time dateTime={`${slot.start}/${slot.end}`}>
             {slot.asString}
           </time>
         </td>
-        <td>{isReserved ? 'Varattu' : 'Vapaa'}</td>
+        <td>{slot.reserved ? 'Varattu' : 'Vapaa'}</td>
       </tr>
     );
   }
 }
 
 TimeSlot.propTypes = {
-  isReserved: PropTypes.bool,
   slot: PropTypes.object.isRequired,
 };
 

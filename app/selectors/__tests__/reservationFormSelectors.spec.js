@@ -11,6 +11,12 @@ describe('Selectors: reservationFormSelectors', () => {
   const resource = Resource.build({
     minPeriod: '01:00:00',
     openingHours,
+    reservations: [
+      {
+        opens: '2015-10-10T12:00:00+03:00',
+        closes: '2015-10-10T18:00:00+03:00',
+      },
+    ],
   });
   let state;
 
@@ -75,6 +81,7 @@ describe('Selectors: reservationFormSelectors', () => {
         expect(actualArgs[0]).to.equal(resource.openingHours[0].opens);
         expect(actualArgs[1]).to.equal(resource.openingHours[0].closes);
         expect(actualArgs[2]).to.equal(resource.minPeriod);
+        expect(actualArgs[3]).to.deep.equal(resource.reservations);
         expect(selected.timeSlots).to.deep.equal(mockSlots);
         simple.restore();
       });

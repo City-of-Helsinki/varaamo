@@ -9,7 +9,6 @@ import TimeSlotFixture from 'fixtures/TimeSlot';
 
 describe('Component: TimeSlot', () => {
   const props = {
-    isReserved: false,
     slot: Immutable(TimeSlotFixture.build()),
   };
   const tree = sd.shallowRender(<TimeSlot {...props} />);
