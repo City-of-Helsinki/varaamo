@@ -10,33 +10,40 @@ import SearchInput from 'components/search/SearchInput';
 import { searchControlsSelectors } from 'selectors/searchControlsSelectors';
 
 export class UnconnectedSearchControls extends Component {
+  constructor(props) {
+    super(props);
+    this.onFiltersChange = this.onFiltersChange.bind(this);
+  }
+
   componentDidMount() {
     this.props.actions.fetchPurposes();
   }
 
+  onFiltersChange(newFilters) {
+    const { actions, filters } = this.props;
+    const allFilters = Object.assign({}, filters, newFilters);
+
+    actions.changeSearchFilters(newFilters);
+    actions.fetchResources(allFilters);
+  }
+
   render() {
     const {
-      actions,
       filters,
       isFetchingPurposes,
       purposeOptions,
     } = this.props;
 
-    function onFiltersChange(newFilters) {
-      actions.changeSearchFilters(newFilters);
-      const allFilters = Object.assign({}, filters, newFilters);
-      actions.fetchResources(allFilters);
-    }
 
     return (
       <div>
         <SearchInput
-          onSubmit={(searchValue) => onFiltersChange({ search: searchValue })}
+          onSubmit={(searchValue) => this.onFiltersChange({ search: searchValue })}
           initialValue={filters.search}
         />
         <SearchFilters
           isFetchingPurposes={isFetchingPurposes}
-          onFiltersChange={onFiltersChange}
+          onFiltersChange={this.onFiltersChange}
           purposeOptions={purposeOptions}
           filters={filters}
         />

@@ -26,6 +26,7 @@ describe('Container: SearchControls', () => {
   };
 
   const tree = sd.shallowRender(<SearchControls {...props} />);
+  const instance = tree.getMountedInstance();
 
   describe('rendering SearchFilters', () => {
     const searchFiltersTrees = tree.everySubTree('SearchFilters');
@@ -39,32 +40,40 @@ describe('Container: SearchControls', () => {
       const actualProps = searchFiltersVdom.props;
 
       expect(actualProps.isFetchingPurposes).to.equal(props.isFetchingPurposes);
-      expect(typeof actualProps.onFiltersChange).to.equal('function');
+      expect(actualProps.onFiltersChange).to.equal(instance.onFiltersChange);
       expect(actualProps.purposeOptions).to.deep.equal(props.purposeOptions);
       expect(actualProps.filters).to.deep.equal(props.filters);
     });
+  });
 
-    describe('passed property onFiltersChange', () => {
-      it('should fire correct actions when called', () => {
-        searchFiltersVdom.props.onFiltersChange({ purpose: 'new-purpose' });
+  describe('onFiltersChange', () => {
+    const newFilters = { purpose: 'new-purpose' };
 
-        expect(props.actions.changeSearchFilters.callCount).to.equal(1);
-        expect(props.actions.fetchResources.callCount).to.equal(1);
-      });
+    before(() => {
+      instance.onFiltersChange(newFilters);
+    });
 
-      it('should pass correct params to the fired actions', () => {
-        searchFiltersVdom.props.onFiltersChange({ purpose: 'new-purpose' });
-        const actual = props.actions.changeSearchFilters.lastCall.args[0];
-        const expected = { purpose: 'new-purpose' };
+    it('should call changeSearchFilters with correct arguments', () => {
+      const action = props.actions.changeSearchFilters;
 
-        expect(actual).to.deep.equal(expected);
-      });
+      expect(action.callCount).to.equal(1);
+      expect(action.lastCall.args[0]).to.deep.equal(newFilters);
+    });
+
+    it('should call fetchResources with correct arguments', () => {
+      const action = props.actions.fetchResources;
+      const expectedArgs = {
+        search: props.filters.search,
+        purpose: newFilters.purpose,
+      };
+
+      expect(action.callCount).to.equal(1);
+      expect(action.lastCall.args[0]).to.deep.equal(expectedArgs);
     });
   });
 
   describe('fetching data', () => {
     it('should fetch resources when component mounts', () => {
-      const instance = tree.getMountedInstance();
       instance.componentDidMount();
 
       expect(props.actions.fetchPurposes.callCount).to.equal(1);
