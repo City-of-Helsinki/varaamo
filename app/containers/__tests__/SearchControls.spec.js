@@ -17,7 +17,7 @@ describe('Container: SearchControls', () => {
     isFetchingPurposes: false,
     filters: {
       purpose: 'some-purpose',
-      search: '',
+      search: 'search-query',
     },
     purposeOptions: Immutable([
       { value: 'filter-1', label: 'Label 1' },
@@ -27,6 +27,22 @@ describe('Container: SearchControls', () => {
 
   const tree = sd.shallowRender(<SearchControls {...props} />);
   const instance = tree.getMountedInstance();
+
+  describe('rendering SearchInput', () => {
+    const searchInputTrees = tree.everySubTree('SearchInput');
+    const searchInputVdom = searchInputTrees[0].getRenderOutput();
+
+    it('should render SearchInput component', () => {
+      expect(searchInputTrees.length).to.equal(1);
+    });
+
+    it('should pass correct props to SearchInput component', () => {
+      const actualProps = searchInputVdom.props;
+
+      expect(actualProps.initialValue).to.equal(props.filters.search);
+      expect(typeof actualProps.onSubmit).to.equal('function');
+    });
+  });
 
   describe('rendering SearchFilters', () => {
     const searchFiltersTrees = tree.everySubTree('SearchFilters');
