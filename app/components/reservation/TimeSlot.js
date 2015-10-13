@@ -1,24 +1,28 @@
 import React, { Component, PropTypes } from 'react';
+import { Label } from 'react-bootstrap';
 
 export class TimeSlot extends Component {
   render() {
-    const { slot, isReserved } = this.props;
+    const { slot } = this.props;
 
     return (
-      <tr className={isReserved ? 'reserved' : ''}>
+      <tr className={slot.reserved ? 'reserved' : ''}>
         <td>
           <time dateTime={`${slot.start}/${slot.end}`}>
             {slot.asString}
           </time>
         </td>
-        <td>{isReserved ? 'Varattu' : 'Vapaa'}</td>
+        <td>
+          <Label bsStyle={slot.reserved ? 'danger' : 'success'}>
+            {slot.reserved ? 'Varattu' : 'Vapaa'}
+          </Label>
+        </td>
       </tr>
     );
   }
 }
 
 TimeSlot.propTypes = {
-  isReserved: PropTypes.bool,
   slot: PropTypes.object.isRequired,
 };
 

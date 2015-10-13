@@ -17,7 +17,8 @@ export const reservationFormSelectors = createSelector(
     const resource = resources[id] || {};
     const { closes, opens } = getOpeningHours(resource);
     const period = resource.minPeriod ? resource.minPeriod : undefined;
-    const timeSlots = getTimeSlots(opens, closes, period);
+    const reservations = resource.reservations || undefined;
+    const timeSlots = getTimeSlots(opens, closes, period, reservations);
 
     return {
       date,

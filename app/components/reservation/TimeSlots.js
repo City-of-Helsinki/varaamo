@@ -14,7 +14,6 @@ export class TimeSlots extends Component {
   renderTimeSlot(slot) {
     return (
       <TimeSlot
-        isReserved={false}
         key={slot.start}
         slot={slot}
       />
