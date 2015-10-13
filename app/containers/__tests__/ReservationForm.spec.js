@@ -9,18 +9,21 @@ import TimeSlot from 'fixtures/TimeSlot';
 import { UnconnectedReservationForm as ReservationForm } from 'containers/ReservationForm';
 
 describe('Container: ReservationForm', () => {
+  const timeSlots = [
+    TimeSlot.build(),
+    TimeSlot.build(),
+  ];
   const props = {
     actions: {
       changeReservationDate: simple.stub(),
       fetchResource: simple.stub(),
+      toggleTimeSlot: simple.stub(),
     },
     date: '2015-10-11',
     id: 'r-1',
     isFetchingResource: false,
-    timeSlots: Immutable([
-      TimeSlot.build(),
-      TimeSlot.build(),
-    ]),
+    timeSlots: Immutable(timeSlots),
+    selected: [timeSlots[0].asISOString],
   };
 
   const tree = sd.shallowRender(<ReservationForm {...props} />);
@@ -71,6 +74,8 @@ describe('Container: ReservationForm', () => {
       const actualProps = timeSlotsVdom.props;
 
       expect(actualProps.isFetching).to.equal(props.isFetchingResource);
+      expect(actualProps.onChange).to.deep.equal(props.actions.toggleTimeSlot);
+      expect(actualProps.selected).to.deep.equal(props.selected);
       expect(actualProps.slots).to.deep.equal(props.timeSlots);
     });
   });

@@ -7,17 +7,20 @@ const dateSelector = (state) => state.ui.reservation.date;
 const idSelector = (state) => state.router.params.id;
 const isFetchingResourceSelector = (state) => state.api.isFetchingResource;
 const resourcesSelector = (state) => state.data.resources;
+const selectedSelector = (state) => state.ui.reservation.selected;
 
 export const reservationFormSelectors = createSelector(
   dateSelector,
   idSelector,
   isFetchingResourceSelector,
   resourcesSelector,
+  selectedSelector,
   (
     date,
     id,
     isFetchingResource,
-    resources
+    resources,
+    selected
   ) => {
     const resource = resources[id] || {};
     const { closes, opens } = getOpeningHours(resource);
@@ -30,6 +33,7 @@ export const reservationFormSelectors = createSelector(
       id,
       isFetchingResource,
       resource,
+      selected,
       timeSlots,
     };
   }
