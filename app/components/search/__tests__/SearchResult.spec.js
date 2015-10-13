@@ -8,7 +8,7 @@ import SearchResult from 'components/search/SearchResult';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
 
-describe('Component: SearchResult', () => {
+describe('Component: search/SearchResult', () => {
   describe('rendering', () => {
     const props = {
       result: Immutable(Resource.build()),

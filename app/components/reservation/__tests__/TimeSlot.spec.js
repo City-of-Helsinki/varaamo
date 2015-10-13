@@ -7,7 +7,7 @@ import Immutable from 'seamless-immutable';
 import TimeSlot from 'components/reservation/TimeSlot';
 import TimeSlotFixture from 'fixtures/TimeSlot';
 
-describe('Component: TimeSlot', () => {
+describe('Component: reservation/TimeSlot', () => {
   const props = {
     slot: Immutable(TimeSlotFixture.build()),
   };

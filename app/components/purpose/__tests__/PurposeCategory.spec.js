@@ -8,7 +8,7 @@ import Immutable from 'seamless-immutable';
 import PurposeCategory from 'components/purpose/PurposeCategory';
 import Purpose from 'fixtures/Purpose';
 
-describe('Component: PurposeCategory', () => {
+describe('Component: purpose/PurposeCategory', () => {
   const props = {
     onItemClick: simple.stub(),
     purposes: Immutable([

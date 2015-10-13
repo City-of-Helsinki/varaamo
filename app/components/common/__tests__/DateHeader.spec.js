@@ -5,7 +5,7 @@ import sd from 'skin-deep';
 
 import DateHeader from 'components/common/DateHeader';
 
-describe('Component: DateHeader', () => {
+describe('Component: common/DateHeader', () => {
   const props = {
     date: '2015-10-11',
     onChange: simple.stub(),
