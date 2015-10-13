@@ -8,7 +8,7 @@ export class TimeSlot extends Component {
     return (
       <tr className={slot.reserved ? 'reserved' : ''}>
         <td>
-          <time dateTime={`${slot.start}/${slot.end}`}>
+          <time dateTime={slot.asISOString}>
             {slot.asString}
           </time>
         </td>
