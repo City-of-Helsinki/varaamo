@@ -45,7 +45,12 @@ UnconnectedSearchPage.propTypes = {
 };
 
 function mapDispatchToProps(dispatch) {
-  return { actions: bindActionCreators({ fetchResources, fetchUnits }, dispatch) };
+  const actionCreators = {
+    fetchResources,
+    fetchUnits,
+  };
+
+  return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
 export default connect(searchPageSelectors, mapDispatchToProps)(UnconnectedSearchPage);
