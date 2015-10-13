@@ -64,7 +64,11 @@ UnconnectedReservationPage.propTypes = {
 };
 
 function mapDispatchToProps(dispatch) {
-  return { actions: bindActionCreators({ fetchResource }, dispatch) };
+  const actionCreators = {
+    fetchResource,
+  };
+
+  return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
 export default connect(reservationPageSelectors, mapDispatchToProps)(UnconnectedReservationPage);

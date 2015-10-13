@@ -55,7 +55,7 @@ export class UnconnectedSearchControls extends Component {
 UnconnectedSearchControls.propTypes = {
   actions: PropTypes.object.isRequired,
   filters: PropTypes.object.isRequired,
-  isFetchingPurposes: PropTypes.bool,
+  isFetchingPurposes: PropTypes.bool.isRequired,
   purposeOptions: PropTypes.array.isRequired,
 };
 

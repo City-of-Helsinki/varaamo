@@ -12,18 +12,22 @@ export const searchControlsSelectors = createSelector(
   isFetchingPurposesSelector,
   filtersSelector,
   purposesSelector,
-  (isFetchingPurposes, filters, purposes) => {
-    const purposeOptions = _.values(purposes).map(purpose => {
+  (
+    isFetchingPurposes,
+    filters,
+    purposes
+  ) => {
+    const purposeOptions = Immutable(_.values(purposes).map(purpose => {
       return {
         value: purpose.id,
         label: getName(purpose),
       };
-    });
+    }));
 
     return {
       isFetchingPurposes,
       filters,
-      purposeOptions: Immutable(purposeOptions),
+      purposeOptions,
     };
   }
 );

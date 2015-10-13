@@ -12,6 +12,7 @@ describe('Component: search/SearchResults', () => {
   describe('with results', () => {
     const unit = Unit.build();
     const props = {
+      isFetching: false,
       results: Immutable([
         Resource.build({ unit: unit.id }),
         Resource.build({ unit: 'unfetched-unit' }),
@@ -87,6 +88,7 @@ describe('Component: search/SearchResults', () => {
 
   describe('without results', () => {
     const props = {
+      isFetching: false,
       results: [],
       units: {},
     };

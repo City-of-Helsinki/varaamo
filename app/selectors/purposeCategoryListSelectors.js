@@ -7,10 +7,15 @@ const purposesSelector = (state) => state.data.purposes;
 export const purposeCategoryListSelectors = createSelector(
   isFetchingPurposesSelector,
   purposesSelector,
-  (isFetchingPurposes, purposes) => {
+  (
+    isFetchingPurposes,
+    purposes
+  ) => {
+    const purposeCategories = _.groupBy(purposes, 'mainType');
+
     return {
       isFetchingPurposes,
-      purposeCategories: _.groupBy(purposes, 'mainType'),
+      purposeCategories,
     };
   }
 );

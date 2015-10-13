@@ -5,10 +5,16 @@ import 'moment-range';
 import { DATE_FORMAT, TIME_FORMAT } from 'constants/AppConstants';
 
 export default {
-  getDateString,
   addToDate,
+  getDateString,
   getTimeSlots,
 };
+
+function addToDate(date, daysToIncrement) {
+  const newDate = moment(date).add(daysToIncrement, 'days');
+
+  return newDate.format(DATE_FORMAT);
+}
 
 function getDateString(date) {
   if (!date) {
@@ -16,12 +22,6 @@ function getDateString(date) {
   }
 
   return date;
-}
-
-function addToDate(date, daysToIncrement) {
-  const newDate = moment(date).add(daysToIncrement, 'days');
-
-  return newDate.format(DATE_FORMAT);
 }
 
 function getTimeSlots(start, end, period = '00:30:00', reservations = []) {

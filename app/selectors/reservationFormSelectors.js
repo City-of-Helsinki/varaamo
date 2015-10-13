@@ -13,7 +13,12 @@ export const reservationFormSelectors = createSelector(
   idSelector,
   isFetchingResourceSelector,
   resourcesSelector,
-  (date, id, isFetchingResource, resources) => {
+  (
+    date,
+    id,
+    isFetchingResource,
+    resources
+  ) => {
     const resource = resources[id] || {};
     const { closes, opens } = getOpeningHours(resource);
     const period = resource.minPeriod ? resource.minPeriod : undefined;

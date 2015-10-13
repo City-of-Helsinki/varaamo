@@ -8,12 +8,18 @@ export const resourcePageSelectors = createSelector(
   idSelector,
   resourcesSelector,
   unitsSelector,
-  (id, resources, units) => {
+  (
+    id,
+    resources,
+    units
+  ) => {
     const resource = resources[id] || {};
+    const unit = units[resource.unit] || {};
+
     return {
       id,
       resource,
-      unit: units[resource.unit] || {},
+      unit,
     };
   }
 );

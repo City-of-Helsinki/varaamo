@@ -7,11 +7,11 @@ export default {
   getAddressWithName,
   getDateStartAndEndTimes,
   getDescription,
-  pickSupportedFilters,
-  humanizeMainType,
   getName,
   getOpeningHours,
   getPeopleCapacityString,
+  humanizeMainType,
+  pickSupportedFilters,
 };
 
 function getAddress(item) {
@@ -52,14 +52,6 @@ function getDescription(item) {
   return hasDescription ? item.description.fi : '';
 }
 
-function humanizeMainType(mainType) {
-  if (!mainType) {
-    return '';
-  }
-
-  return mainType in PURPOSE_MAIN_TYPES ? PURPOSE_MAIN_TYPES[mainType] : mainType;
-}
-
 function getName(item) {
   const hasName = item && item.name && item.name.fi;
 
@@ -82,6 +74,14 @@ function getPeopleCapacityString(capacity) {
     return '';
   }
   return `max ${capacity} hengelle.`;
+}
+
+function humanizeMainType(mainType) {
+  if (!mainType) {
+    return '';
+  }
+
+  return mainType in PURPOSE_MAIN_TYPES ? PURPOSE_MAIN_TYPES[mainType] : mainType;
 }
 
 function pickSupportedFilters(filters) {
