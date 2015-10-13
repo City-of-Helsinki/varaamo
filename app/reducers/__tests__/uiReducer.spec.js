@@ -16,6 +16,10 @@ describe('Reducer: uiReducer', () => {
       it('date should be an empty string', () => {
         expect(reservation.date).to.equal('');
       });
+
+      it('selected should be an empty array', () => {
+        expect(reservation.selected).to.deep.equal([]);
+      });
     });
 
     describe('search', () => {
