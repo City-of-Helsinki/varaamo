@@ -54,7 +54,7 @@ UnconnectedReservationForm.propTypes = {
   actions: PropTypes.object.isRequired,
   date: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  isFetchingResource: PropTypes.bool,
+  isFetchingResource: PropTypes.bool.isRequired,
   timeSlots: PropTypes.array.isRequired,
 };
 

@@ -28,7 +28,7 @@ export class SearchFilters extends Component {
 }
 
 SearchFilters.propTypes = {
-  isFetchingPurposes: PropTypes.bool,
+  isFetchingPurposes: PropTypes.bool.isRequired,
   onFiltersChange: PropTypes.func.isRequired,
   filters: PropTypes.object.isRequired,
   purposeOptions: PropTypes.array.isRequired,

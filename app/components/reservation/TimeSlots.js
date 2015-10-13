@@ -46,7 +46,7 @@ export class TimeSlots extends Component {
 }
 
 TimeSlots.propTypes = {
-  isFetching: PropTypes.bool,
+  isFetching: PropTypes.bool.isRequired,
   slots: PropTypes.array.isRequired,
 };
 

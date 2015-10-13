@@ -49,7 +49,7 @@ export class SearchResults extends Component {
 }
 
 SearchResults.propTypes = {
-  isFetching: PropTypes.bool,
+  isFetching: PropTypes.bool.isRequired,
   results: PropTypes.array.isRequired,
   units: PropTypes.object.isRequired,
 };

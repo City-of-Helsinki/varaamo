@@ -39,7 +39,7 @@ export class PurposeCategoryList extends Component {
 }
 
 PurposeCategoryList.propTypes = {
-  mainType: PropTypes.string,
+  mainType: PropTypes.string.isRequired,
   onItemClick: PropTypes.func.isRequired,
   purposes: PropTypes.array.isRequired,
 };

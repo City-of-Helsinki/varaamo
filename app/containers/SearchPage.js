@@ -38,7 +38,7 @@ export class UnconnectedSearchPage extends Component {
 
 UnconnectedSearchPage.propTypes = {
   actions: PropTypes.object.isRequired,
-  isFetchingSearchResults: PropTypes.bool,
+  isFetchingSearchResults: PropTypes.bool.isRequired,
   filters: PropTypes.object.isRequired,
   results: PropTypes.array.isRequired,
   units: PropTypes.object.isRequired,
