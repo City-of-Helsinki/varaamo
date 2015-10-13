@@ -13,7 +13,13 @@ export const searchPageSelectors = createSelector(
   resourcesSelector,
   searchResultsSelector,
   unitsSelector,
-  (filters, isFetchingSearchResults, resources, searchResults, units) => {
+  (
+    filters,
+    isFetchingSearchResults,
+    resources,
+    searchResults,
+    units
+  ) => {
     const results = _.sortBy(
       searchResults.map(resourceId => resources[resourceId]),
       (result) => result.name.fi

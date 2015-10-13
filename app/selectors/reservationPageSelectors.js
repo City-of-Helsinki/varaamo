@@ -10,13 +10,20 @@ export const reservationPageSelectors = createSelector(
   idSelector,
   resourcesSelector,
   unitsSelector,
-  (date, id, resources, units) => {
+  (
+    date,
+    id,
+    resources,
+    units
+  ) => {
     const resource = resources[id] || {};
+    const unit = units[resource.unit] || {};
+
     return {
       date,
       id,
       resource,
-      unit: units[resource.unit] || {},
+      unit,
     };
   }
 );
