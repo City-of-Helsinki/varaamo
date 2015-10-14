@@ -48,6 +48,7 @@ export class UnconnectedReservationForm extends Component {
       actions,
       date,
       isFetchingResource,
+      isMakingReservations,
       selected,
       timeSlots,
     } = this.props;
@@ -74,10 +75,10 @@ export class UnconnectedReservationForm extends Component {
         <Button
           block
           bsStyle="primary"
-          disabled={!selected.length}
+          disabled={!selected.length || isMakingReservations}
           onClick={this.handleReservation}
         >
-          Varaa
+          {isMakingReservations ? 'Varaamassa...' : 'Varaa'}
         </Button>
       </div>
     );
@@ -89,6 +90,7 @@ UnconnectedReservationForm.propTypes = {
   date: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   isFetchingResource: PropTypes.bool.isRequired,
+  isMakingReservations: PropTypes.bool.isRequired,
   selected: PropTypes.array.isRequired,
   timeSlots: PropTypes.array.isRequired,
 };

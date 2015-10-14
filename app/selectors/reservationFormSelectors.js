@@ -6,6 +6,7 @@ import { getTimeSlots } from 'utils/TimeUtils';
 const dateSelector = (state) => state.ui.reservation.date;
 const idSelector = (state) => state.router.params.id;
 const isFetchingResourceSelector = (state) => state.api.isFetchingResource;
+const pendingReservationsCountSelector = (state) => state.api.pendingReservationsCount;
 const resourcesSelector = (state) => state.data.resources;
 const selectedSelector = (state) => state.ui.reservation.selected;
 
@@ -13,12 +14,14 @@ export const reservationFormSelectors = createSelector(
   dateSelector,
   idSelector,
   isFetchingResourceSelector,
+  pendingReservationsCountSelector,
   resourcesSelector,
   selectedSelector,
   (
     date,
     id,
     isFetchingResource,
+    pendingReservationsCount,
     resources,
     selected
   ) => {
@@ -32,6 +35,7 @@ export const reservationFormSelectors = createSelector(
       date,
       id,
       isFetchingResource,
+      isMakingReservations: Boolean(pendingReservationsCount),
       resource,
       selected,
       timeSlots,

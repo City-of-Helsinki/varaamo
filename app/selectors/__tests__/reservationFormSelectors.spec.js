@@ -24,6 +24,7 @@ describe('Selectors: reservationFormSelectors', () => {
     state = {
       api: Immutable({
         isFetchingResource: false,
+        pendingReservationsCount: 0,
       }),
       data: Immutable({
         resources: { [resource.id]: resource },
@@ -55,6 +56,21 @@ describe('Selectors: reservationFormSelectors', () => {
       const expected = state.api.isFetchingResource;
 
       expect(selected.isFetchingResource).to.equal(expected);
+    });
+
+    describe('isMakingReservations', () => {
+      it('should be false if pendingReservationsCount is 0', () => {
+        const selected = reservationFormSelectors(state);
+
+        expect(selected.isMakingReservations).to.equal(false);
+      });
+
+      it('should be true if pendingReservationsCount is more than 0', () => {
+        state.api.pendingReservationsCount = 1;
+        const selected = reservationFormSelectors(state);
+
+        expect(selected.isMakingReservations).to.equal(true);
+      });
     });
 
     it('should return the reservation date from the state', () => {

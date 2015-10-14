@@ -23,6 +23,7 @@ describe('Container: ReservationForm', () => {
     date: '2015-10-11',
     id: 'r-1',
     isFetchingResource: false,
+    isMakingReservations: false,
     timeSlots: Immutable(timeSlots),
     selected: [timeSlots[0].asISOString, timeSlots[1].asISOString],
   };
