@@ -22,6 +22,10 @@ describe('Reducer: apiReducer', () => {
       expect(initialState.isFetchingSearchResults).to.equal(false);
     });
 
+    it('isMakingReservation should be false', () => {
+      expect(initialState.isMakingReservation).to.equal(false);
+    });
+
     it('shouldFetchPurposes should be true', () => {
       expect(initialState.shouldFetchPurposes).to.equal(true);
     });
@@ -145,6 +149,30 @@ describe('Reducer: apiReducer', () => {
         const nextState = reducer(initialState, action);
 
         expect(nextState.shouldFetchUnits).to.equal(false);
+      });
+    });
+
+    describe('MAKE_RESERVATION_START', () => {
+      const makeReservationStart = createAction(types.MAKE_RESERVATION_START);
+
+      it('should set isMakingReservation to true', () => {
+        const action = makeReservationStart();
+        const initialState = Immutable({ isMakingReservation: false });
+        const nextState = reducer(initialState, action);
+
+        expect(nextState.isMakingReservation).to.equal(true);
+      });
+    });
+
+    describe('MAKE_RESERVATION_SUCCESS', () => {
+      const makeReservationSuccess = createAction(types.MAKE_RESERVATION_SUCCESS);
+
+      it('should set isMakingReservation to false', () => {
+        const action = makeReservationSuccess();
+        const initialState = Immutable({ isMakingReservation: true });
+        const nextState = reducer(initialState, action);
+
+        expect(nextState.isMakingReservation).to.equal(false);
       });
     });
   });

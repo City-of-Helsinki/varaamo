@@ -1,12 +1,14 @@
 import { expect } from 'chai';
 
+import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
-import { reservationReducer as reducer } from 'reducers/reservationReducer';
 import {
   changeReservationDate,
   toggleTimeSlot,
 } from 'actions/uiActions';
+import * as types from 'constants/ActionTypes';
+import { reservationReducer as reducer } from 'reducers/reservationReducer';
 
 describe('Reducer: reservationReducer', () => {
   describe('handling actions', () => {
@@ -20,6 +22,20 @@ describe('Reducer: reservationReducer', () => {
         const nextState = reducer(initialState, action);
 
         expect(nextState.date).to.equal(date);
+      });
+    });
+
+    describe('MAKE_RESERVATION_SUCCESS', () => {
+      const makeReservationSuccess = createAction(types.MAKE_RESERVATION_SUCCESS);
+
+      it('should clear the selected slots', () => {
+        const action = makeReservationSuccess();
+        const initialState = Immutable({
+          selected: ['some-selected'],
+        });
+        const nextState = reducer(initialState, action);
+
+        expect(nextState.selected).to.deep.equal([]);
       });
     });
 

@@ -9,6 +9,9 @@ export function reservationReducer(state, action) {
     const date = action.payload;
     return state.merge({ date });
 
+  case ActionTypes.MAKE_RESERVATION_SUCCESS:
+    return state.merge({ selected: [] });
+
   case ActionTypes.TOGGLE_TIME_SLOT:
     const slot = action.payload;
     if (_.includes(state.selected, slot)) {

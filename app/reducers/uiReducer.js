@@ -22,6 +22,7 @@ export function uiReducer(state = initialState, action) {
   switch (action.type) {
 
   case ActionTypes.CHANGE_RESERVATION_DATE:
+  case ActionTypes.MAKE_RESERVATION_SUCCESS:
   case ActionTypes.TOGGLE_TIME_SLOT:
     const reservation = reservationReducer(state.reservation, action);
     return state.merge({ reservation });
