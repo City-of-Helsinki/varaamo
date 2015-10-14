@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
+import { Button } from 'react-bootstrap';
+import DatePicker from 'react-date-picker';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import DatePicker from 'react-date-picker';
 
+import { makeReservation } from 'actions/reservationActions';
 import { fetchResource } from 'actions/resourceActions';
 import { changeReservationDate, toggleTimeSlot } from 'actions/uiActions';
 import DateHeader from 'components/common/DateHeader';
@@ -14,6 +16,7 @@ import { getDateString } from 'utils/TimeUtils';
 export class UnconnectedReservationForm extends Component {
   constructor(props) {
     super(props);
+    this.handleReservation = this.handleReservation.bind(this);
     this.onDateChange = this.onDateChange.bind(this);
   }
 
@@ -23,6 +26,21 @@ export class UnconnectedReservationForm extends Component {
 
     actions.changeReservationDate(newDate);
     actions.fetchResource(id, fetchParams);
+  }
+
+  handleReservation() {
+    const { actions, id, selected } = this.props;
+    const reservations = selected.map(current => {
+      return {
+        begin: current.split('/')[0],
+        end: current.split('/')[1],
+        resource: id,
+      };
+    });
+
+    reservations.forEach(reservation => {
+      actions.makeReservation(reservation);
+    });
   }
 
   render() {
@@ -53,6 +71,14 @@ export class UnconnectedReservationForm extends Component {
           selected={selected}
           slots={timeSlots}
         />
+        <Button
+          block
+          bsStyle="primary"
+          disabled={!selected.length}
+          onClick={this.handleReservation}
+        >
+          Varaa
+        </Button>
       </div>
     );
   }
@@ -71,6 +97,7 @@ function mapDispatchToProps(dispatch) {
   const actionCreators = {
     changeReservationDate,
     fetchResource,
+    makeReservation,
     toggleTimeSlot,
   };
 

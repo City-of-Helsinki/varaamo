@@ -16,6 +16,7 @@ describe('Container: ReservationForm', () => {
   const props = {
     actions: {
       changeReservationDate: simple.stub(),
+      makeReservation: simple.stub(),
       fetchResource: simple.stub(),
       toggleTimeSlot: simple.stub(),
     },
@@ -23,7 +24,7 @@ describe('Container: ReservationForm', () => {
     id: 'r-1',
     isFetchingResource: false,
     timeSlots: Immutable(timeSlots),
-    selected: [timeSlots[0].asISOString],
+    selected: [timeSlots[0].asISOString, timeSlots[1].asISOString],
   };
 
   const tree = sd.shallowRender(<ReservationForm {...props} />);
@@ -80,6 +81,25 @@ describe('Container: ReservationForm', () => {
     });
   });
 
+  describe('rendering reservation Button', () => {
+    const buttonTrees = tree.everySubTree('Button');
+    const buttonVdom = buttonTrees[0].getRenderOutput();
+
+    it('should render a Button component', () => {
+      expect(buttonTrees.length).to.equal(1);
+    });
+
+    it('should pass correct props to Button component', () => {
+      const actualProps = buttonVdom.props;
+
+      expect(actualProps.onClick).to.equal(instance.handleReservation);
+    });
+
+    it('the button should have text "Varaa"', () => {
+      expect(buttonVdom.props.children).to.equal('Varaa');
+    });
+  });
+
   describe('onDateChange', () => {
     const newDate = '2015-12-24';
 
@@ -101,6 +121,27 @@ describe('Container: ReservationForm', () => {
       expect(actualArgs[0]).to.equal(props.id);
       expect(actualArgs[1].start).to.contain(newDate);
       expect(actualArgs[1].end).to.contain(newDate);
+    });
+  });
+
+  describe('handleReservation', () => {
+    before(() => {
+      instance.handleReservation();
+    });
+
+    it('should call makeReservation for each reservation in selected', () => {
+      expect(props.actions.makeReservation.callCount).to.equal(props.selected.length);
+    });
+
+    it('should call makeReservation with correcte arguments', () => {
+      const actualArgs = props.actions.makeReservation.lastCall.args;
+      const expected = {
+        begin: timeSlots[1].start,
+        end: timeSlots[1].end,
+        resource: props.id,
+      };
+
+      expect(actualArgs[0]).to.deep.equal(expected);
     });
   });
 });
