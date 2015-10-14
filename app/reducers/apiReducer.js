@@ -6,7 +6,7 @@ const initialState = Immutable({
   isFetchingSearchResults: false,
   isFetchingPurposes: false,
   isFetchingResource: false,
-  isMakingReservation: false,
+  pendingReservationsCount: 0,
   shouldFetchPurposes: true,
   shouldFetchSearchResults: true,
   shouldFetchUnits: true,
@@ -52,10 +52,11 @@ export function apiReducer(state = initialState, action) {
     });
 
   case ActionTypes.MAKE_RESERVATION_START:
-    return state.merge({ 'isMakingReservation': true });
+    return state.merge({ 'pendingReservationsCount': state.pendingReservationsCount + 1 });
 
   case ActionTypes.MAKE_RESERVATION_SUCCESS:
-    return state.merge({ isMakingReservation: false });
+  case ActionTypes.MAKE_RESERVATION_ERROR:
+    return state.merge({ 'pendingReservationsCount': state.pendingReservationsCount - 1 });
 
   default:
     return state;

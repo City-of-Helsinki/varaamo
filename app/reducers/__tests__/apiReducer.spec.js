@@ -22,8 +22,8 @@ describe('Reducer: apiReducer', () => {
       expect(initialState.isFetchingSearchResults).to.equal(false);
     });
 
-    it('isMakingReservation should be false', () => {
-      expect(initialState.isMakingReservation).to.equal(false);
+    it('pendingReservationsCount should be 0', () => {
+      expect(initialState.pendingReservationsCount).to.equal(0);
     });
 
     it('shouldFetchPurposes should be true', () => {
@@ -155,24 +155,36 @@ describe('Reducer: apiReducer', () => {
     describe('MAKE_RESERVATION_START', () => {
       const makeReservationStart = createAction(types.MAKE_RESERVATION_START);
 
-      it('should set isMakingReservation to true', () => {
+      it('should increment pendingReservationsCount by one', () => {
         const action = makeReservationStart();
-        const initialState = Immutable({ isMakingReservation: false });
+        const initialState = Immutable({ pendingReservationsCount: 0 });
         const nextState = reducer(initialState, action);
 
-        expect(nextState.isMakingReservation).to.equal(true);
+        expect(nextState.pendingReservationsCount).to.equal(1);
       });
     });
 
     describe('MAKE_RESERVATION_SUCCESS', () => {
       const makeReservationSuccess = createAction(types.MAKE_RESERVATION_SUCCESS);
 
-      it('should set isMakingReservation to false', () => {
+      it('should decrement pendingReservationsCount by one', () => {
         const action = makeReservationSuccess();
-        const initialState = Immutable({ isMakingReservation: true });
+        const initialState = Immutable({ pendingReservationsCount: 2 });
         const nextState = reducer(initialState, action);
 
-        expect(nextState.isMakingReservation).to.equal(false);
+        expect(nextState.pendingReservationsCount).to.equal(1);
+      });
+    });
+
+    describe('MAKE_RESERVATION_ERROR', () => {
+      const makeReservationError = createAction(types.MAKE_RESERVATION_ERROR);
+
+      it('should decrement pendingReservationsCount by one', () => {
+        const action = makeReservationError();
+        const initialState = Immutable({ pendingReservationsCount: 2 });
+        const nextState = reducer(initialState, action);
+
+        expect(nextState.pendingReservationsCount).to.equal(1);
       });
     });
   });
