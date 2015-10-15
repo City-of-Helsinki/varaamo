@@ -16,10 +16,13 @@ describe('Container: ReservationForm', () => {
   const props = {
     actions: {
       changeReservationDate: simple.stub(),
-      makeReservation: simple.stub(),
+      closeConfirmReservationModal: simple.stub(),
       fetchResource: simple.stub(),
+      makeReservation: simple.stub(),
+      openConfirmReservationModal: simple.stub(),
       toggleTimeSlot: simple.stub(),
     },
+    confirmReservationModalIsOpen: false,
     date: '2015-10-11',
     id: 'r-1',
     isFetchingResource: false,
@@ -93,11 +96,29 @@ describe('Container: ReservationForm', () => {
     it('should pass correct props to Button component', () => {
       const actualProps = buttonVdom.props;
 
-      expect(actualProps.onClick).to.equal(instance.handleReservation);
+      expect(actualProps.onClick).to.equal(props.actions.openConfirmReservationModal);
     });
 
     it('the button should have text "Varaa"', () => {
       expect(buttonVdom.props.children).to.equal('Varaa');
+    });
+  });
+
+  describe('rendering ConfirmReservationModal', () => {
+    const modalTrees = tree.everySubTree('ConfirmReservationModal');
+    const modalVdom = modalTrees[0].getRenderOutput();
+
+    it('should render ConfirmReservationModal component', () => {
+      expect(modalTrees.length).to.equal(1);
+    });
+
+    it('should pass correct props to ConfirmReservationModal component', () => {
+      const actualProps = modalVdom.props;
+
+      expect(actualProps.isMakingReservations).to.equal(props.isMakingReservations);
+      expect(actualProps.onClose).to.equal(props.actions.closeConfirmReservationModal);
+      expect(actualProps.onConfirm).to.equal(instance.handleReservation);
+      expect(actualProps.show).to.equal(props.confirmReservationModalIsOpen);
     });
   });
 

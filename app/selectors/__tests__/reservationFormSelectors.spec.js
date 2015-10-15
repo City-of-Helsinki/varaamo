@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
+import ModalTypes from 'constants/ModalTypes';
 import Resource, { openingHours } from 'fixtures/Resource';
 import { reservationFormSelectors } from 'selectors/reservationFormSelectors';
 import TimeUtils from 'utils/TimeUtils';
@@ -35,6 +36,9 @@ describe('Selectors: reservationFormSelectors', () => {
         },
       },
       ui: Immutable({
+        modals: {
+          open: [],
+        },
         reservation: {
           date: '2015-10-10',
           selected: ['mock-selected'],
@@ -44,6 +48,21 @@ describe('Selectors: reservationFormSelectors', () => {
   });
 
   describe('selected values', () => {
+    describe('confirmReservationModalIsOpen', () => {
+      it('should return true if "CONFIRM_RESERVATION" is in open modals', () => {
+        state.ui.modals.open = [ModalTypes.CONFIRM_RESERVATION];
+        const selected = reservationFormSelectors(state);
+
+        expect(selected.confirmReservationModalIsOpen).to.equal(true);
+      });
+
+      it('should return false if "CONFIRM_RESERVATION" is not in open modals', () => {
+        const selected = reservationFormSelectors(state);
+
+        expect(selected.confirmReservationModalIsOpen).to.equal(false);
+      });
+    });
+
     it('should return the id in router.params.id', () => {
       const selected = reservationFormSelectors(state);
       const expected = state.router.params.id;

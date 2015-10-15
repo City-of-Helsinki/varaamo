@@ -6,8 +6,14 @@ import { bindActionCreators } from 'redux';
 
 import { makeReservation } from 'actions/reservationActions';
 import { fetchResource } from 'actions/resourceActions';
-import { changeReservationDate, toggleTimeSlot } from 'actions/uiActions';
+import {
+  changeReservationDate,
+  closeConfirmReservationModal,
+  openConfirmReservationModal,
+  toggleTimeSlot,
+} from 'actions/uiActions';
 import DateHeader from 'components/common/DateHeader';
+import ConfirmReservationModal from 'components/reservation/ConfirmReservationModal';
 import TimeSlots from 'components/reservation/TimeSlots';
 import { reservationFormSelectors } from 'selectors/reservationFormSelectors';
 import { getDateStartAndEndTimes } from 'utils/DataUtils';
@@ -46,6 +52,7 @@ export class UnconnectedReservationForm extends Component {
   render() {
     const {
       actions,
+      confirmReservationModalIsOpen,
       date,
       isFetchingResource,
       isMakingReservations,
@@ -76,10 +83,16 @@ export class UnconnectedReservationForm extends Component {
           block
           bsStyle="primary"
           disabled={!selected.length || isMakingReservations}
-          onClick={this.handleReservation}
+          onClick={actions.openConfirmReservationModal}
         >
           {isMakingReservations ? 'Varaamassa...' : 'Varaa'}
         </Button>
+        <ConfirmReservationModal
+          isMakingReservations={isMakingReservations}
+          onClose={actions.closeConfirmReservationModal}
+          onConfirm={this.handleReservation}
+          show={confirmReservationModalIsOpen}
+        />
       </div>
     );
   }
@@ -87,6 +100,7 @@ export class UnconnectedReservationForm extends Component {
 
 UnconnectedReservationForm.propTypes = {
   actions: PropTypes.object.isRequired,
+  confirmReservationModalIsOpen: PropTypes.bool.isRequired,
   date: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   isFetchingResource: PropTypes.bool.isRequired,
@@ -98,8 +112,10 @@ UnconnectedReservationForm.propTypes = {
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
     changeReservationDate,
+    closeConfirmReservationModal,
     fetchResource,
     makeReservation,
+    openConfirmReservationModal,
     toggleTimeSlot,
   };
 
