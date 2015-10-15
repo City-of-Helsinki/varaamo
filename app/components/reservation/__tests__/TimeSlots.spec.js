@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import React from 'react';
 import sd from 'skin-deep';
+import simple from 'simple-mock';
 
 import Immutable from 'seamless-immutable';
 
@@ -9,12 +10,15 @@ import TimeSlot from 'fixtures/TimeSlot';
 
 describe('Component: reservation/TimeSlots', () => {
   describe('with timeslots', () => {
+    const timeSlots = [
+      TimeSlot.build(),
+      TimeSlot.build(),
+    ];
     const props = {
       isFetching: false,
-      slots: Immutable([
-        TimeSlot.build(),
-        TimeSlot.build(),
-      ]),
+      onChange: simple.stub(),
+      selected: [timeSlots[0].asISOString],
+      slots: Immutable(timeSlots),
     };
     let tree;
 
@@ -35,16 +39,20 @@ describe('Component: reservation/TimeSlots', () => {
         thTrees = tree.everySubTree('th');
       });
 
-      it('should render 2 th elements', () => {
-        expect(thTrees.length).to.equal(2);
+      it('should render 3 th elements', () => {
+        expect(thTrees.length).to.equal(3);
       });
 
-      it('first th element should contain text "Aika"', () => {
-        expect(thTrees[0].text()).to.equal('Aika');
+      it('first th element should be empty', () => {
+        expect(thTrees[0].text()).to.equal('');
       });
 
-      it('second th element should contain text "Varaustilanne"', () => {
-        expect(thTrees[1].text()).to.equal('Varaustilanne');
+      it('second th element should contain text "Aika"', () => {
+        expect(thTrees[1].text()).to.equal('Aika');
+      });
+
+      it('third th element should contain text "Varaustilanne"', () => {
+        expect(thTrees[2].text()).to.equal('Varaustilanne');
       });
     });
 
@@ -59,12 +67,18 @@ describe('Component: reservation/TimeSlots', () => {
         expect(timeSlotTrees.length).to.equal(props.slots.length);
       });
 
-      it('should pass correct props to TimeSlot', () => {
+      it('should pass correct props to TimeSlots', () => {
         timeSlotTrees.forEach((timeSlotTree, index) => {
           const timeSlotVdom = timeSlotTree.getRenderOutput();
 
+          expect(timeSlotVdom.props.onChange).to.equal(props.onChange);
           expect(timeSlotVdom.props.slot).to.deep.equal(props.slots[index]);
         });
+      });
+
+      it('should pass correct selected as a prop to TimeSlot', () => {
+        expect(timeSlotTrees[0].getRenderOutput().props.selected).to.equal(true);
+        expect(timeSlotTrees[1].getRenderOutput().props.selected).to.equal(false);
       });
     });
   });
@@ -72,6 +86,8 @@ describe('Component: reservation/TimeSlots', () => {
   describe('without timeslots', () => {
     const props = {
       isFetching: false,
+      onChange: simple.stub(),
+      selected: [],
       slots: [],
     };
     let tree;

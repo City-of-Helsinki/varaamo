@@ -22,6 +22,10 @@ describe('Reducer: apiReducer', () => {
       expect(initialState.isFetchingSearchResults).to.equal(false);
     });
 
+    it('pendingReservationsCount should be 0', () => {
+      expect(initialState.pendingReservationsCount).to.equal(0);
+    });
+
     it('shouldFetchPurposes should be true', () => {
       expect(initialState.shouldFetchPurposes).to.equal(true);
     });
@@ -145,6 +149,42 @@ describe('Reducer: apiReducer', () => {
         const nextState = reducer(initialState, action);
 
         expect(nextState.shouldFetchUnits).to.equal(false);
+      });
+    });
+
+    describe('MAKE_RESERVATION_START', () => {
+      const makeReservationStart = createAction(types.MAKE_RESERVATION_START);
+
+      it('should increment pendingReservationsCount by one', () => {
+        const action = makeReservationStart();
+        const initialState = Immutable({ pendingReservationsCount: 0 });
+        const nextState = reducer(initialState, action);
+
+        expect(nextState.pendingReservationsCount).to.equal(1);
+      });
+    });
+
+    describe('MAKE_RESERVATION_SUCCESS', () => {
+      const makeReservationSuccess = createAction(types.MAKE_RESERVATION_SUCCESS);
+
+      it('should decrement pendingReservationsCount by one', () => {
+        const action = makeReservationSuccess();
+        const initialState = Immutable({ pendingReservationsCount: 2 });
+        const nextState = reducer(initialState, action);
+
+        expect(nextState.pendingReservationsCount).to.equal(1);
+      });
+    });
+
+    describe('MAKE_RESERVATION_ERROR', () => {
+      const makeReservationError = createAction(types.MAKE_RESERVATION_ERROR);
+
+      it('should decrement pendingReservationsCount by one', () => {
+        const action = makeReservationError();
+        const initialState = Immutable({ pendingReservationsCount: 2 });
+        const nextState = reducer(initialState, action);
+
+        expect(nextState.pendingReservationsCount).to.equal(1);
       });
     });
   });

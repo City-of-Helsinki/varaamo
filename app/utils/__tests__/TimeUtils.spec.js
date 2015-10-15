@@ -130,6 +130,20 @@ describe('Utils: TimeUtils', () => {
         });
       });
 
+      describe('slot asISOString property', () => {
+        it('returned slots should contain asISOString property', () => {
+          expect(slots[0].asISOString).to.exist;
+        });
+
+        it('should be proper ISO format range representation', () => {
+          const startUTC = moment.utc(start);
+          const endUTC = moment.utc(startUTC).add(duration);
+          const expected = `${startUTC.toISOString()}/${endUTC.toISOString()}`;
+
+          expect(slots[0].asISOString).to.equal(expected);
+        });
+      });
+
       describe('slot asString property', () => {
         it('returned slots should contain asString property', () => {
           expect(slots[0].asString).to.exist;

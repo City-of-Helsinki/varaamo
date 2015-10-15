@@ -1,7 +1,10 @@
 import { expect } from 'chai';
 
+import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
+import * as types from 'constants/ActionTypes';
+import Resource from 'fixtures/Resource';
 import { dataReducer as reducer, handleData } from 'reducers/dataReducer';
 
 describe('Reducer: dataReducer', () => {
@@ -19,12 +22,8 @@ describe('Reducer: dataReducer', () => {
 
   describe('handling data', () => {
     const data = {
-      payload: {
-        entities: {
-          resources: {
-            'r-1': { value: 'some-value' },
-          },
-        },
+      resources: {
+        'r-1': { value: 'some-value' },
       },
     };
 
@@ -94,6 +93,49 @@ describe('Reducer: dataReducer', () => {
 
       expect(nextState).to.deep.equal(expectedState);
       expect(nextState.units).to.equal(initialState.units);
+    });
+  });
+
+  describe('handling actions', () => {
+    describe('MAKE_RESERVATION_SUCCESS', () => {
+      const makeReservationSuccess = createAction(types.MAKE_RESERVATION_SUCCESS);
+      const reservations = [
+        {
+          begin: 'old-begin',
+          end: 'new-begin',
+        },
+      ];
+      const resource = Resource.build({
+        reservations,
+        otherValue: 'whatever',
+      });
+      const reservation = {
+        begind: 'some-begin',
+        end: 'some-end',
+        resource: resource.id,
+      };
+      const initialState = Immutable({
+        resources: { [resource.id]: resource },
+      });
+      const action = makeReservationSuccess(reservation);
+      const nextState = reducer(initialState, action);
+
+      it('should add the given reservation to correct resource', () => {
+        const expectedReservations = Immutable([
+          reservations[0],
+          reservation,
+        ]);
+        const actualReservations = nextState.resources[resource.id].reservations;
+
+        expect(actualReservations).to.deep.equal(expectedReservations);
+      });
+
+      it('should not touch other resource values', () => {
+        const expectedValue = resource.otherValue;
+        const actualvalue = nextState.resources[resource.id].otherValue;
+
+        expect(expectedValue).to.deep.equal(actualvalue);
+      });
     });
   });
 });

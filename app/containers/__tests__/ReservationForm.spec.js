@@ -9,18 +9,23 @@ import TimeSlot from 'fixtures/TimeSlot';
 import { UnconnectedReservationForm as ReservationForm } from 'containers/ReservationForm';
 
 describe('Container: ReservationForm', () => {
+  const timeSlots = [
+    TimeSlot.build(),
+    TimeSlot.build(),
+  ];
   const props = {
     actions: {
       changeReservationDate: simple.stub(),
+      makeReservation: simple.stub(),
       fetchResource: simple.stub(),
+      toggleTimeSlot: simple.stub(),
     },
     date: '2015-10-11',
     id: 'r-1',
     isFetchingResource: false,
-    timeSlots: Immutable([
-      TimeSlot.build(),
-      TimeSlot.build(),
-    ]),
+    isMakingReservations: false,
+    timeSlots: Immutable(timeSlots),
+    selected: [timeSlots[0].asISOString, timeSlots[1].asISOString],
   };
 
   const tree = sd.shallowRender(<ReservationForm {...props} />);
@@ -71,7 +76,28 @@ describe('Container: ReservationForm', () => {
       const actualProps = timeSlotsVdom.props;
 
       expect(actualProps.isFetching).to.equal(props.isFetchingResource);
+      expect(actualProps.onChange).to.deep.equal(props.actions.toggleTimeSlot);
+      expect(actualProps.selected).to.deep.equal(props.selected);
       expect(actualProps.slots).to.deep.equal(props.timeSlots);
+    });
+  });
+
+  describe('rendering reservation Button', () => {
+    const buttonTrees = tree.everySubTree('Button');
+    const buttonVdom = buttonTrees[0].getRenderOutput();
+
+    it('should render a Button component', () => {
+      expect(buttonTrees.length).to.equal(1);
+    });
+
+    it('should pass correct props to Button component', () => {
+      const actualProps = buttonVdom.props;
+
+      expect(actualProps.onClick).to.equal(instance.handleReservation);
+    });
+
+    it('the button should have text "Varaa"', () => {
+      expect(buttonVdom.props.children).to.equal('Varaa');
     });
   });
 
@@ -96,6 +122,27 @@ describe('Container: ReservationForm', () => {
       expect(actualArgs[0]).to.equal(props.id);
       expect(actualArgs[1].start).to.contain(newDate);
       expect(actualArgs[1].end).to.contain(newDate);
+    });
+  });
+
+  describe('handleReservation', () => {
+    before(() => {
+      instance.handleReservation();
+    });
+
+    it('should call makeReservation for each reservation in selected', () => {
+      expect(props.actions.makeReservation.callCount).to.equal(props.selected.length);
+    });
+
+    it('should call makeReservation with correcte arguments', () => {
+      const actualArgs = props.actions.makeReservation.lastCall.args;
+      const expected = {
+        begin: timeSlots[1].start,
+        end: timeSlots[1].end,
+        resource: props.id,
+      };
+
+      expect(actualArgs[0]).to.deep.equal(expected);
     });
   });
 });

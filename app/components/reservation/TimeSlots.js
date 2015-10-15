@@ -12,9 +12,13 @@ export class TimeSlots extends Component {
   }
 
   renderTimeSlot(slot) {
+    const { onChange, selected } = this.props;
+
     return (
       <TimeSlot
         key={slot.start}
+        onChange={onChange}
+        selected={_.includes(selected, slot.asISOString)}
         slot={slot}
       />
     );
@@ -29,6 +33,7 @@ export class TimeSlots extends Component {
           <Table striped>
             <thead>
               <tr>
+                <th />
                 <th>Aika</th>
                 <th>Varaustilanne</th>
               </tr>
@@ -47,6 +52,8 @@ export class TimeSlots extends Component {
 
 TimeSlots.propTypes = {
   isFetching: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
+  selected: PropTypes.array.isRequired,
   slots: PropTypes.array.isRequired,
 };
 

@@ -1,14 +1,24 @@
+import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 import { Label } from 'react-bootstrap';
 
 export class TimeSlot extends Component {
   render() {
-    const { slot } = this.props;
+    const { onChange, selected, slot } = this.props;
+    const disabled = slot.reserved || moment(slot.end) < moment();
 
     return (
       <tr className={slot.reserved ? 'reserved' : ''}>
+        <td style={{ textAlign: 'center' }}>
+          <input
+            checked={slot.reserved || selected}
+            disabled={disabled}
+            onChange={() => onChange(slot.asISOString)}
+            type="checkbox"
+          />
+        </td>
         <td>
-          <time dateTime={`${slot.start}/${slot.end}`}>
+          <time dateTime={slot.asISOString}>
             {slot.asString}
           </time>
         </td>
@@ -23,6 +33,8 @@ export class TimeSlot extends Component {
 }
 
 TimeSlot.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  selected: PropTypes.bool.isRequired,
   slot: PropTypes.object.isRequired,
 };
 

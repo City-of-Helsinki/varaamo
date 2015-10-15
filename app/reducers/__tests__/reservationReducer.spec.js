@@ -1,9 +1,14 @@
 import { expect } from 'chai';
 
+import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
+import {
+  changeReservationDate,
+  toggleTimeSlot,
+} from 'actions/uiActions';
+import * as types from 'constants/ActionTypes';
 import { reservationReducer as reducer } from 'reducers/reservationReducer';
-import { changeReservationDate } from 'actions/uiActions';
 
 describe('Reducer: reservationReducer', () => {
   describe('handling actions', () => {
@@ -17,6 +22,77 @@ describe('Reducer: reservationReducer', () => {
         const nextState = reducer(initialState, action);
 
         expect(nextState.date).to.equal(date);
+      });
+    });
+
+    describe('MAKE_RESERVATION_SUCCESS', () => {
+      const makeReservationSuccess = createAction(types.MAKE_RESERVATION_SUCCESS);
+
+      it('should clear the selected slots', () => {
+        const action = makeReservationSuccess();
+        const initialState = Immutable({
+          selected: ['some-selected'],
+        });
+        const nextState = reducer(initialState, action);
+
+        expect(nextState.selected).to.deep.equal([]);
+      });
+    });
+
+    describe('TOGGLE_TIME_SLOT', () => {
+      describe('if slot is not already selected', () => {
+        it('should add the given slot to selected', () => {
+          const initialState = Immutable({
+            selected: [],
+          });
+          const slot = '2015-10-11T10:00:00Z/2015-10-11T11:00:00Z';
+          const action = toggleTimeSlot(slot);
+          const nextState = reducer(initialState, action);
+          const expected = Immutable([slot]);
+
+          expect(nextState.selected).to.deep.equal(expected);
+        });
+
+        it('should not affect other selected slots ', () => {
+          const initialState = Immutable({
+            selected: ['2015-12-12T10:00:00Z/2015-12-12T11:00:00Z'],
+          });
+          const slot = '2015-10-11T10:00:00Z/2015-10-11T11:00:00Z';
+          const action = toggleTimeSlot(slot);
+          const nextState = reducer(initialState, action);
+          const expected = Immutable([...initialState.selected, slot]);
+
+          expect(nextState.selected).to.deep.equal(expected);
+        });
+      });
+
+      describe('if slot is already selected', () => {
+        it('should remove the given slot from selected', () => {
+          const slot = '2015-10-11T10:00:00Z/2015-10-11T11:00:00Z';
+          const action = toggleTimeSlot(slot);
+          const initialState = Immutable({
+            selected: ['2015-10-11T10:00:00Z/2015-10-11T11:00:00Z'],
+          });
+          const nextState = reducer(initialState, action);
+          const expected = Immutable([]);
+
+          expect(nextState.selected).to.deep.equal(expected);
+        });
+
+        it('should not affect other selected slots ', () => {
+          const slot = '2015-10-11T10:00:00Z/2015-10-11T11:00:00Z';
+          const action = toggleTimeSlot(slot);
+          const initialState = Immutable({
+            selected: [
+              '2015-12-12T10:00:00Z/2015-12-12T11:00:00Z',
+              '2015-10-11T10:00:00Z/2015-10-11T11:00:00Z',
+            ],
+          });
+          const nextState = reducer(initialState, action);
+          const expected = Immutable([initialState.selected[0]]);
+
+          expect(nextState.selected).to.deep.equal(expected);
+        });
       });
     });
   });

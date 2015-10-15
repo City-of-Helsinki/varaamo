@@ -41,13 +41,17 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = []) {
     const endUTC = moment.utc(startMoment).add(duration);
     const startLocal = startUTC.local();
     const endLocal = endUTC.local();
+
+    const asISOString = `${startUTC.toISOString()}/${endUTC.toISOString()}`;
     const asString = `${startLocal.format(TIME_FORMAT)}\u2013${endLocal.format(TIME_FORMAT)}`;
+
     const slotRange = moment.range(startLocal, endLocal);
     const reserved = reservationRanges.some(
       reservationRange => reservationRange.overlaps(slotRange)
     );
 
     slots.push({
+      asISOString,
       asString,
       reserved,
       start: startUTC.toISOString(),
