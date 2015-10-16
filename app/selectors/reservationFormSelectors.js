@@ -1,7 +1,11 @@
 import _ from 'lodash';
 import { createSelector } from 'reselect';
+import Immutable from 'seamless-immutable';
 
-import { getOpeningHours } from 'utils/DataUtils';
+import {
+  combineReservations,
+  getOpeningHours,
+} from 'utils/DataUtils';
 import { getTimeSlots } from 'utils/TimeUtils';
 import ModalTypes from 'constants/ModalTypes';
 
@@ -37,6 +41,15 @@ export const reservationFormSelectors = createSelector(
     const reservations = resource.reservations || undefined;
     const timeSlots = getTimeSlots(opens, closes, period, reservations);
 
+    const selectedSlots = selected.map(current => {
+      return {
+        begin: current.split('/')[0],
+        end: current.split('/')[1],
+        resource: id,
+      };
+    });
+    const selectedReservations = Immutable(combineReservations(selectedSlots));
+
     return {
       confirmReservationModalIsOpen,
       date,
@@ -45,6 +58,7 @@ export const reservationFormSelectors = createSelector(
       isMakingReservations: Boolean(pendingReservationsCount),
       resource,
       selected,
+      selectedReservations,
       timeSlots,
     };
   }

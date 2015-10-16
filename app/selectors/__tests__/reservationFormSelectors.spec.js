@@ -41,7 +41,9 @@ describe('Selectors: reservationFormSelectors', () => {
         },
         reservation: {
           date: '2015-10-10',
-          selected: ['mock-selected'],
+          selected: [
+            '2015-12-12T12:00:00+03:00/2015-12-12T13:00:00+03:00',
+          ],
         },
       }),
     };
@@ -104,6 +106,19 @@ describe('Selectors: reservationFormSelectors', () => {
       const expected = state.ui.reservation.selected;
 
       expect(selected.selected).to.equal(expected);
+    });
+
+    it('should return selectedReservations in correct form', () => {
+      const selected = reservationFormSelectors(state);
+      const expected = [
+        {
+          begin: '2015-12-12T12:00:00+03:00',
+          end: '2015-12-12T13:00:00+03:00',
+          resource: resource.id,
+        },
+      ];
+
+      expect(selected.selectedReservations).to.deep.equal(expected);
     });
 
     describe('when resource is found from the state', () => {

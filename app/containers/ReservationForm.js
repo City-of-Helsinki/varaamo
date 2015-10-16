@@ -35,16 +35,9 @@ export class UnconnectedReservationForm extends Component {
   }
 
   handleReservation() {
-    const { actions, id, selected } = this.props;
-    const reservations = selected.map(current => {
-      return {
-        begin: current.split('/')[0],
-        end: current.split('/')[1],
-        resource: id,
-      };
-    });
+    const { actions, selectedReservations } = this.props;
 
-    reservations.forEach(reservation => {
+    selectedReservations.forEach(reservation => {
       actions.makeReservation(reservation);
     });
   }
@@ -57,6 +50,7 @@ export class UnconnectedReservationForm extends Component {
       isFetchingResource,
       isMakingReservations,
       selected,
+      selectedReservations,
       timeSlots,
     } = this.props;
 
@@ -91,6 +85,7 @@ export class UnconnectedReservationForm extends Component {
           isMakingReservations={isMakingReservations}
           onClose={actions.closeConfirmReservationModal}
           onConfirm={this.handleReservation}
+          selectedReservations={selectedReservations}
           show={confirmReservationModalIsOpen}
         />
       </div>
@@ -106,6 +101,7 @@ UnconnectedReservationForm.propTypes = {
   isFetchingResource: PropTypes.bool.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,
   selected: PropTypes.array.isRequired,
+  selectedReservations: PropTypes.array.isRequired,
   timeSlots: PropTypes.array.isRequired,
 };
 

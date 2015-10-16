@@ -5,6 +5,7 @@ import simple from 'simple-mock';
 
 import Immutable from 'seamless-immutable';
 
+import Reservation from 'fixtures/Reservation';
 import TimeSlot from 'fixtures/TimeSlot';
 import { UnconnectedReservationForm as ReservationForm } from 'containers/ReservationForm';
 
@@ -29,6 +30,10 @@ describe('Container: ReservationForm', () => {
     isMakingReservations: false,
     timeSlots: Immutable(timeSlots),
     selected: [timeSlots[0].asISOString, timeSlots[1].asISOString],
+    selectedReservations: [
+      Reservation.build(),
+      Reservation.build(),
+    ],
   };
 
   const tree = sd.shallowRender(<ReservationForm {...props} />);
@@ -118,6 +123,7 @@ describe('Container: ReservationForm', () => {
       expect(actualProps.isMakingReservations).to.equal(props.isMakingReservations);
       expect(actualProps.onClose).to.equal(props.actions.closeConfirmReservationModal);
       expect(actualProps.onConfirm).to.equal(instance.handleReservation);
+      expect(actualProps.selectedReservations).to.deep.equal(props.selectedReservations);
       expect(actualProps.show).to.equal(props.confirmReservationModalIsOpen);
     });
   });
@@ -151,17 +157,13 @@ describe('Container: ReservationForm', () => {
       instance.handleReservation();
     });
 
-    it('should call makeReservation for each reservation in selected', () => {
-      expect(props.actions.makeReservation.callCount).to.equal(props.selected.length);
+    it('should call makeReservation for each selected reservation', () => {
+      expect(props.actions.makeReservation.callCount).to.equal(props.selectedReservations.length);
     });
 
     it('should call makeReservation with correcte arguments', () => {
       const actualArgs = props.actions.makeReservation.lastCall.args;
-      const expected = {
-        begin: timeSlots[1].start,
-        end: timeSlots[1].end,
-        resource: props.id,
-      };
+      const expected = props.selectedReservations[1];
 
       expect(actualArgs[0]).to.deep.equal(expected);
     });
