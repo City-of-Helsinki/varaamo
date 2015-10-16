@@ -1,7 +1,7 @@
 import { CALL_API } from 'redux-api-middleware';
 
 import types from 'constants/ActionTypes';
-import { buildAPIUrl } from 'utils/APIUtils';
+import { buildAPIUrl, getHeaders } from 'utils/APIUtils';
 
 export default {
   makeReservation,
@@ -19,10 +19,7 @@ function makeReservation(reservation) {
       ],
       endpoint: url,
       method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
+      headers: getHeaders(),
       body: JSON.stringify(reservation),
     },
   };
