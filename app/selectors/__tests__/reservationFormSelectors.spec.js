@@ -121,15 +121,7 @@ describe('Selectors: reservationFormSelectors', () => {
       expect(selected.selectedReservations).to.deep.equal(expected);
     });
 
-    describe('when resource is found from the state', () => {
-      it('should return the resource corresponding to the router.params.id', () => {
-        const selected = reservationFormSelectors(state);
-        const resourceId = state.router.params.id;
-        const expected = state.data.resources[resourceId];
-
-        expect(selected.resource).to.deep.equal(expected);
-      });
-
+    describe('timeSlots', () => {
       it('should use resource properties to calculate correct time slots', () => {
         const mockSlots = ['slot-1', 'slot-2'];
         simple.mock(TimeUtils, 'getTimeSlots').returnWith(mockSlots);
@@ -143,17 +135,8 @@ describe('Selectors: reservationFormSelectors', () => {
         expect(selected.timeSlots).to.deep.equal(mockSlots);
         simple.restore();
       });
-    });
 
-    describe('when resource is not found from the state', () => {
-      it('should return an empty object as resource', () => {
-        state.router.params.id = 'unfetched-resource-id';
-        const selected = reservationFormSelectors(state);
-
-        expect(selected.resource).to.deep.equal({});
-      });
-
-      it('should return timeSlots as an empty array', () => {
+      it('should return timeSlots as an empty array when resource is not found', () => {
         state.router.params.id = 'unfetched-resource-id';
         const selected = reservationFormSelectors(state);
 

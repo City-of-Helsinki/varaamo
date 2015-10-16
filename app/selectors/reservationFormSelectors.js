@@ -56,7 +56,6 @@ export const reservationFormSelectors = createSelector(
       id,
       isFetchingResource,
       isMakingReservations: Boolean(pendingReservationsCount),
-      resource,
       selected,
       selectedReservations,
       timeSlots,
