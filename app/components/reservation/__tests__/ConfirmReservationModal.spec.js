@@ -3,13 +3,20 @@ import React from 'react';
 import sd from 'skin-deep';
 import simple from 'simple-mock';
 
+import Immutable from 'seamless-immutable';
+
 import ConfirmReservationModal from 'components/reservation/ConfirmReservationModal';
+import Reservation from 'fixtures/Reservation';
 
 describe('Component: reservation/ConfirmReservationModal', () => {
   const props = {
     isMakingReservations: false,
     onClose: simple.stub(),
     onConfirm: simple.stub(),
+    selectedReservations: Immutable([
+      Reservation.build(),
+      Reservation.build(),
+    ]),
     show: true,
   };
   const tree = sd.shallowRender(<ConfirmReservationModal {...props} />);
@@ -49,6 +56,18 @@ describe('Component: reservation/ConfirmReservationModal', () => {
 
     it('should render a ModalBody component', () => {
       expect(modalBodyTrees.length).to.equal(1);
+    });
+
+    it('should render a list for selected reservations', () => {
+      const listTrees = modalBodyTrees[0].everySubTree('ul');
+
+      expect(listTrees.length).to.equal(1);
+    });
+
+    it('should render a list element for each selected reservation', () => {
+      const listElementTrees = modalBodyTrees[0].everySubTree('li');
+
+      expect(listElementTrees.length).to.equal(props.selectedReservations.length);
     });
   });
 

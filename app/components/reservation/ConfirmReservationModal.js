@@ -1,3 +1,5 @@
+import _ from 'lodash';
+import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 
@@ -13,10 +15,26 @@ export class ConfirmReservationModal extends Component {
     onClose();
   }
 
+  renderReservation(reservation) {
+    const beginMoment = moment(reservation.begin);
+    const endMoment = moment(reservation.end);
+    const timeString = `${beginMoment.format('LLLL')}\u2013${endMoment.format('H:mm')}`;
+    const ISORangeString = `${reservation.begin}/${reservation.end}`;
+
+    return (
+      <li key={reservation.begin}>
+        <time dateTime={ISORangeString}>
+          {_.capitalize(timeString)}
+        </time>
+      </li>
+    );
+  }
+
   render() {
     const {
       isMakingReservations,
       onClose,
+      selectedReservations,
       show,
     } = this.props;
 
@@ -28,9 +46,14 @@ export class ConfirmReservationModal extends Component {
         <Modal.Header closeButton>
           <Modal.Title>Varauksen varmistus</Modal.Title>
         </Modal.Header>
+
         <Modal.Body>
           <p>Oletko varma että haluat tehdä seuraavat varaukset?</p>
+          <ul>
+            {_.map(selectedReservations, this.renderReservation)}
+          </ul>
         </Modal.Body>
+
         <Modal.Footer>
           <Button
             bsStyle="default"
@@ -55,6 +78,7 @@ ConfirmReservationModal.propTypes = {
   isMakingReservations: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
+  selectedReservations: PropTypes.array.isRequired,
   show: PropTypes.bool.isRequired,
 };
 
