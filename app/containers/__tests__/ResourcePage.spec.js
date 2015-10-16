@@ -14,6 +14,7 @@ describe('Container: ResourcePage', () => {
   const props = {
     actions: { fetchResource: simple.stub() },
     id: resource.id,
+    isFetchingResource: false,
     resource: Immutable(resource),
     unit: Immutable(unit),
   };
