@@ -2,6 +2,7 @@ import { expect } from 'chai';
 
 import { PURPOSE_MAIN_TYPES } from 'constants/AppConstants';
 import {
+  combineReservations,
   getAddress,
   getAddressWithName,
   getDateStartAndEndTimes,
@@ -14,6 +15,84 @@ import {
 } from 'utils/DataUtils';
 
 describe('Utils: DataUtils', () => {
+  describe('combineReservations', () => {
+    const slots = [
+      {
+        begin: '2015-10-16T08:00:00.000Z',
+        end: '2015-10-16T09:00:00.000Z',
+      },
+      {
+        begin: '2015-10-16T09:00:00.000Z',
+        end: '2015-10-16T10:00:00.000Z',
+      },
+      {
+        begin: '2015-10-16T10:00:00.000Z',
+        end: '2015-10-16T11:00:00.000Z',
+      },
+      {
+        begin: '2015-10-16T11:00:00.000Z',
+        end: '2015-10-16T12:00:00.000Z',
+      },
+    ];
+
+    it('should return an empty array if reservations is undefined', () => {
+      const reservations = undefined;
+
+      expect(combineReservations(reservations)).to.deep.equal([]);
+    });
+
+    it('should return an empty array if reservations is empty', () => {
+      const reservations = [];
+
+      expect(combineReservations(reservations)).to.deep.equal([]);
+    });
+
+    it('should return the reservations unchanged if it contains only one element', () => {
+      const reservations = ['mock reservation'];
+
+      expect(combineReservations(reservations)).to.deep.equal(reservations);
+    });
+
+    it('should combine two reservations if they are continual', () => {
+      const reservations = [slots[0], slots[1]];
+      const expected = [{
+        begin: slots[0].begin,
+        end: slots[1].end,
+      }];
+
+      expect(combineReservations(reservations)).to.deep.equal(expected);
+    });
+
+    it('should not combine two reservations if they are not continual', () => {
+      const reservations = [slots[0], slots[2]];
+
+      expect(combineReservations(reservations)).to.deep.equal(reservations);
+    });
+
+    it('should combine three reservations if they are continual', () => {
+      const reservations = [slots[0], slots[1], slots[2]];
+      const expected = [{
+        begin: slots[0].begin,
+        end: slots[2].end,
+      }];
+
+      expect(combineReservations(reservations)).to.deep.equal(expected);
+    });
+
+    it('should only combine reservations that are continual', () => {
+      const reservations = [slots[0], slots[1], slots[3]];
+      const expected = [
+        {
+          begin: slots[0].begin,
+          end: slots[1].end,
+        },
+        slots[3],
+      ];
+
+      expect(combineReservations(reservations)).to.deep.equal(expected);
+    });
+  });
+
   describe('getAddress', () => {
     it('should return an empty string if given item is undefined', () => {
       const item = undefined;
