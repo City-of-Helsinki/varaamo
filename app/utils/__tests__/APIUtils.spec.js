@@ -1,10 +1,11 @@
 import { expect } from 'chai';
 
-import { API_URL } from 'constants/AppConstants';
+import { API_URL, REQUIRED_API_HEADERS } from 'constants/AppConstants';
 import { resourceSchema } from 'middleware/Schemas';
 import {
   buildAPIUrl,
   createTransformFunction,
+  getHeaders,
   getSearchParamsString,
 } from 'utils/APIUtils';
 
@@ -78,6 +79,25 @@ describe('Utils: APIUtils', () => {
 
           expect(transformFunction(initialResourceData)).to.deep.equal(expectedResourceData);
         });
+      });
+    });
+  });
+
+  describe('getHeaders', () => {
+    describe('if no additional headers are specified', () => {
+      it('should return just the required headers', () => {
+        expect(getHeaders()).to.deep.equal(REQUIRED_API_HEADERS);
+      });
+    });
+
+    describe('if additional headers are specified', () => {
+      it('should return the required headers and the additional headers', () => {
+        const additionalHeaders = {
+          header: 'value',
+        };
+        const expected = Object.assign({}, REQUIRED_API_HEADERS, additionalHeaders);
+
+        expect(getHeaders(additionalHeaders)).to.deep.equal(expected);
       });
     });
   });

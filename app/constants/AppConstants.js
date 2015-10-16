@@ -9,6 +9,10 @@ export default {
     watch_and_listen: 'Katsoa tai kuunnella',
     events_and_exhibitions: 'Pitää yleisötilaisuuden',
   },
+  REQUIRED_API_HEADERS: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  },
   SUPPORTED_SEARCH_FILTERS: [
     'purpose',
     'search',

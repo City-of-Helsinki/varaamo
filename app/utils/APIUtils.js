@@ -2,11 +2,12 @@ import { camelizeKeys, decamelizeKeys } from 'humps';
 import _ from 'lodash';
 import { normalize } from 'normalizr';
 
-import { API_URL } from 'constants/AppConstants';
+import { API_URL, REQUIRED_API_HEADERS } from 'constants/AppConstants';
 
 export default {
   buildAPIUrl,
   createTransformFunction,
+  getHeaders,
   getSearchParamsString,
 };
 
@@ -30,6 +31,10 @@ function createTransformFunction(schema) {
     }
     return camelizedJson;
   };
+}
+
+function getHeaders(headers) {
+  return Object.assign({}, REQUIRED_API_HEADERS, headers);
 }
 
 function getSearchParamsString(params) {

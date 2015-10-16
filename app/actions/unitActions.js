@@ -3,7 +3,11 @@ import { CALL_API } from 'redux-api-middleware';
 
 import types from 'constants/ActionTypes';
 import { unitSchema } from 'middleware/Schemas';
-import { buildAPIUrl, createTransformFunction } from 'utils/APIUtils';
+import {
+  buildAPIUrl,
+  createTransformFunction,
+  getHeaders,
+} from 'utils/APIUtils';
 
 export default {
   fetchUnits,
@@ -19,6 +23,7 @@ function fetchUnits() {
       ],
       endpoint: buildAPIUrl('unit'),
       method: 'GET',
+      headers: getHeaders(),
       transform: createTransformFunction(arrayOf(unitSchema)),
       bailout: (state) => {
         return !state.api.shouldFetchUnits;
