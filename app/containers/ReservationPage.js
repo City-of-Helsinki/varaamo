@@ -17,12 +17,10 @@ import {
   getDateStartAndEndTimes,
   getName,
 } from 'utils/DataUtils';
-import { getDateString } from 'utils/TimeUtils';
 
 export class UnconnectedReservationPage extends Component {
   componentDidMount() {
-    const { actions, id } = this.props;
-    const date = getDateString(this.props.date);
+    const { actions, date, id } = this.props;
     const fetchParams = getDateStartAndEndTimes(date);
 
     actions.fetchResource(id, fetchParams);

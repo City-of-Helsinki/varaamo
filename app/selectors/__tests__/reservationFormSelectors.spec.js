@@ -1,8 +1,10 @@
 import { expect } from 'chai';
 
+import moment from 'moment';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
+import { DATE_FORMAT } from 'constants/AppConstants';
 import ModalTypes from 'constants/ModalTypes';
 import Resource, { openingHours } from 'fixtures/Resource';
 import { reservationFormSelectors } from 'selectors/reservationFormSelectors';
@@ -94,11 +96,21 @@ describe('Selectors: reservationFormSelectors', () => {
       });
     });
 
-    it('should return the reservation date from the state', () => {
-      const selected = reservationFormSelectors(state);
-      const expected = state.ui.reservation.date;
+    describe('reservation date', () => {
+      it('should return the date if it is selected', () => {
+        const selected = reservationFormSelectors(state);
+        const expected = state.ui.reservation.date;
 
-      expect(selected.date).to.equal(expected);
+        expect(selected.date).to.equal(expected);
+      });
+
+      it('should return current date string if date is not selected', () => {
+        state.ui.reservation.date = '';
+        const selected = reservationFormSelectors(state);
+        const expected = moment().format(DATE_FORMAT);
+
+        expect(selected.date).to.equal(expected);
+      });
     });
 
     it('should return the reservation.selected from the state', () => {

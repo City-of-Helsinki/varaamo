@@ -5,12 +5,11 @@ import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 import { Glyphicon } from 'react-bootstrap';
 
-import { addToDate, getDateString } from 'utils/TimeUtils';
+import { addToDate } from 'utils/TimeUtils';
 
 export class DateHeader extends Component {
   render() {
-    const { onChange } = this.props;
-    const date = getDateString(this.props.date);
+    const { date, onChange } = this.props;
     const dateString = moment(date).format('dddd, LL');
 
     const iconButtonStyles = {
