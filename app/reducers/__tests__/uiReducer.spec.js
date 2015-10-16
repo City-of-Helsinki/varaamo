@@ -6,6 +6,18 @@ describe('Reducer: uiReducer', () => {
   describe('initial state', () => {
     const initialState = reducer(undefined, {});
 
+    describe('modals', () => {
+      const modals = initialState.modals;
+
+      it('should be an object', () => {
+        expect(typeof modals).to.equal('object');
+      });
+
+      it('open should be an empty array', () => {
+        expect(modals.open).to.deep.equal([]);
+      });
+    });
+
     describe('reservation', () => {
       const reservation = initialState.reservation;
 

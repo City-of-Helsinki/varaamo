@@ -5,6 +5,7 @@ import simple from 'simple-mock';
 
 import Immutable from 'seamless-immutable';
 
+import Reservation from 'fixtures/Reservation';
 import TimeSlot from 'fixtures/TimeSlot';
 import { UnconnectedReservationForm as ReservationForm } from 'containers/ReservationForm';
 
@@ -16,16 +17,23 @@ describe('Container: ReservationForm', () => {
   const props = {
     actions: {
       changeReservationDate: simple.stub(),
-      makeReservation: simple.stub(),
+      closeConfirmReservationModal: simple.stub(),
       fetchResource: simple.stub(),
+      makeReservation: simple.stub(),
+      openConfirmReservationModal: simple.stub(),
       toggleTimeSlot: simple.stub(),
     },
+    confirmReservationModalIsOpen: false,
     date: '2015-10-11',
     id: 'r-1',
     isFetchingResource: false,
     isMakingReservations: false,
     timeSlots: Immutable(timeSlots),
     selected: [timeSlots[0].asISOString, timeSlots[1].asISOString],
+    selectedReservations: [
+      Reservation.build(),
+      Reservation.build(),
+    ],
   };
 
   const tree = sd.shallowRender(<ReservationForm {...props} />);
@@ -93,11 +101,30 @@ describe('Container: ReservationForm', () => {
     it('should pass correct props to Button component', () => {
       const actualProps = buttonVdom.props;
 
-      expect(actualProps.onClick).to.equal(instance.handleReservation);
+      expect(actualProps.onClick).to.equal(props.actions.openConfirmReservationModal);
     });
 
     it('the button should have text "Varaa"', () => {
       expect(buttonVdom.props.children).to.equal('Varaa');
+    });
+  });
+
+  describe('rendering ConfirmReservationModal', () => {
+    const modalTrees = tree.everySubTree('ConfirmReservationModal');
+    const modalVdom = modalTrees[0].getRenderOutput();
+
+    it('should render ConfirmReservationModal component', () => {
+      expect(modalTrees.length).to.equal(1);
+    });
+
+    it('should pass correct props to ConfirmReservationModal component', () => {
+      const actualProps = modalVdom.props;
+
+      expect(actualProps.isMakingReservations).to.equal(props.isMakingReservations);
+      expect(actualProps.onClose).to.equal(props.actions.closeConfirmReservationModal);
+      expect(actualProps.onConfirm).to.equal(instance.handleReservation);
+      expect(actualProps.selectedReservations).to.deep.equal(props.selectedReservations);
+      expect(actualProps.show).to.equal(props.confirmReservationModalIsOpen);
     });
   });
 
@@ -130,17 +157,13 @@ describe('Container: ReservationForm', () => {
       instance.handleReservation();
     });
 
-    it('should call makeReservation for each reservation in selected', () => {
-      expect(props.actions.makeReservation.callCount).to.equal(props.selected.length);
+    it('should call makeReservation for each selected reservation', () => {
+      expect(props.actions.makeReservation.callCount).to.equal(props.selectedReservations.length);
     });
 
     it('should call makeReservation with correcte arguments', () => {
       const actualArgs = props.actions.makeReservation.lastCall.args;
-      const expected = {
-        begin: timeSlots[1].start,
-        end: timeSlots[1].end,
-        resource: props.id,
-      };
+      const expected = props.selectedReservations[1];
 
       expect(actualArgs[0]).to.deep.equal(expected);
     });

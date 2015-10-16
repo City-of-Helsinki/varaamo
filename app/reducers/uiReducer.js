@@ -3,8 +3,12 @@ import Immutable from 'seamless-immutable';
 import ActionTypes from 'constants/ActionTypes';
 import { reservationReducer } from 'reducers/reservationReducer';
 import { searchReducer } from 'reducers/searchReducer';
+import { modalsReducer } from 'reducers/modalsReducer';
 
 const initialState = Immutable({
+  modals: {
+    open: [],
+  },
   reservation: {
     date: '',
     selected: [],
@@ -31,6 +35,11 @@ export function uiReducer(state = initialState, action) {
   case ActionTypes.FETCH_RESOURCES_SUCCESS:
     const search = searchReducer(state.search, action);
     return state.merge({ search });
+
+  case ActionTypes.CLOSE_MODAL:
+  case ActionTypes.OPEN_MODAL:
+    const modals = modalsReducer(state.modals, action);
+    return state.merge({ modals });
 
   default:
     return state;

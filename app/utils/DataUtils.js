@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { PURPOSE_MAIN_TYPES, SUPPORTED_SEARCH_FILTERS } from 'constants/AppConstants';
 
 export default {
+  combineReservations,
   getAddress,
   getAddressWithName,
   getDateStartAndEndTimes,
@@ -13,6 +14,24 @@ export default {
   humanizeMainType,
   pickSupportedFilters,
 };
+
+function combineReservations(reservations) {
+  if (!reservations || !reservations.length) {
+    return [];
+  }
+
+  const sorted = _.sortBy(reservations, 'begin');
+  const initialValue = [_.clone(sorted[0])];
+
+  return _.rest(sorted).reduce((previous, current) => {
+    if (current.begin === _.last(previous).end) {
+      _.last(previous).end = current.end;
+    } else {
+      previous.push(_.clone(current));
+    }
+    return previous;
+  }, initialValue);
+}
 
 function getAddress(item) {
   if (!item || _.isEmpty(item)) {
