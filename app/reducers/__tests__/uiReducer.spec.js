@@ -46,6 +46,10 @@ describe('Reducer: uiReducer', () => {
           expect(typeof search.filters).to.equal('object');
         });
 
+        it('date should be an empty string', () => {
+          expect(search.filters.date).to.equal('');
+        });
+
         it('purpose should be an empty string', () => {
           expect(search.filters.purpose).to.equal('');
         });

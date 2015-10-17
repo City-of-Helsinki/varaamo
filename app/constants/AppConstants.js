@@ -14,6 +14,7 @@ export default {
     'Content-Type': 'application/json',
   },
   SUPPORTED_SEARCH_FILTERS: [
+    'date',
     'purpose',
     'search',
   ],
