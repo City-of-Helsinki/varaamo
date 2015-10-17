@@ -33,8 +33,8 @@ describe('Component: search/SearchResult', () => {
         tdTrees = tree.everySubTree('td');
       });
 
-      it('should render 2 table cells', () => {
-        expect(tdTrees).to.have.length(2);
+      it('should render 3 table cells', () => {
+        expect(tdTrees).to.have.length(3);
       });
 
       describe('the first table cell', () => {
@@ -67,6 +67,20 @@ describe('Component: search/SearchResult', () => {
 
         it('should display the name of the given in props', () => {
           const expected = props.unit.name.fi;
+
+          expect(tdTree.text()).to.equal(expected);
+        });
+      });
+
+      describe('the third table cell', () => {
+        let tdTree;
+
+        before(() => {
+          tdTree = tdTrees[2];
+        });
+
+        it('should display the available hours', () => {
+          const expected = '0 tuntia';
 
           expect(tdTree.text()).to.equal(expected);
         });

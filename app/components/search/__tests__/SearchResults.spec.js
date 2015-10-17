@@ -40,8 +40,8 @@ describe('Component: search/SearchResults', () => {
         thTrees = tree.everySubTree('th');
       });
 
-      it('should render 2 th elements', () => {
-        expect(thTrees.length).to.equal(2);
+      it('should render 3 th elements', () => {
+        expect(thTrees.length).to.equal(3);
       });
 
       it('first th element should contain text "Tila"', () => {
@@ -50,6 +50,10 @@ describe('Component: search/SearchResults', () => {
 
       it('second th element should contain text "Sijainti"', () => {
         expect(thTrees[1].text()).to.equal('Sijainti');
+      });
+
+      it('third th element should contain text "Vapaata"', () => {
+        expect(thTrees[2].text()).to.equal('Vapaata');
       });
     });
 

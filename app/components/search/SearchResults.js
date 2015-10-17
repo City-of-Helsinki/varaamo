@@ -34,6 +34,7 @@ export class SearchResults extends Component {
               <tr>
                 <th>Tila</th>
                 <th>Sijainti</th>
+                <th>Vapaata</th>
               </tr>
             </thead>
             <tbody>
