@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { fetchPurposes } from 'actions/purposeActions';
 import { fetchResources } from 'actions/resourceActions';
 import { changeSearchFilters } from 'actions/uiActions';
+import DateHeader from 'components/common/DateHeader';
 import SearchFilters from 'components/search/SearchFilters';
 import SearchInput from 'components/search/SearchInput';
 import { searchControlsSelectors } from 'selectors/searchControlsSelectors';
@@ -49,6 +50,10 @@ export class UnconnectedSearchControls extends Component {
           onFiltersChange={this.onFiltersChange}
           purposeOptions={purposeOptions}
           filters={filters}
+        />
+        <DateHeader
+          date={filters.date}
+          onChange={(newDate) => this.onFiltersChange({ date: newDate })}
         />
         <DatePicker
           date={filters.date}

@@ -84,6 +84,40 @@ describe('Container: SearchControls', () => {
     });
   });
 
+  describe('rendering DateHeader', () => {
+    let dateHeaderTrees;
+    let dateHeaderVdom;
+
+    beforeEach(() => {
+      dateHeaderTrees = tree.everySubTree('DateHeader');
+      dateHeaderVdom = dateHeaderTrees[0].getRenderOutput();
+    });
+
+    it('should render DateHeader component', () => {
+      expect(dateHeaderTrees.length).to.equal(1);
+    });
+
+    it('should pass correct props to DateHeader component', () => {
+      const actualProps = dateHeaderVdom.props;
+
+      expect(actualProps.date).to.equal(props.filters.date);
+      expect(typeof actualProps.onChange).to.equal('function');
+    });
+
+    it('DateHeader onChange should call onFiltersChange with correct arguments', () => {
+      simple.mock(instance, 'onFiltersChange');
+      const newDate = 'some-date';
+      dateHeaderVdom.props.onChange(newDate);
+      const expected = { date: newDate };
+      const actualCallCount = instance.onFiltersChange.callCount;
+      const actualArgs = instance.onFiltersChange.lastCall.args[0];
+      simple.restore();
+
+      expect(actualCallCount).to.equal(1);
+      expect(actualArgs).to.deep.equal(expected);
+    });
+  });
+
   describe('rendering DatePicker', () => {
     let datePickerTrees;
     let datePickerVdom;
