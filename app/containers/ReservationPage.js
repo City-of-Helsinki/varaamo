@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 
 import { fetchResource } from 'actions/resourceActions';
 import ResourceHeader from 'components/resource/ResourceHeader';
+import NotFoundPage from 'containers/NotFoundPage';
 import ReservationForm from 'containers/ReservationForm';
 import { reservationPageSelectors } from 'selectors/reservationPageSelectors';
 import {
@@ -28,8 +29,17 @@ export class UnconnectedReservationPage extends Component {
   }
 
   render() {
-    const { id, resource, unit } = this.props;
+    const {
+      id,
+      isFetchingResource,
+      resource,
+      unit,
+    } = this.props;
     const resourceName = getName(resource);
+
+    if (_.isEmpty(resource) && !isFetchingResource) {
+      return <NotFoundPage />;
+    }
 
     return (
       <DocumentTitle title={`${resourceName} varaaminen - Respa`}>
@@ -61,6 +71,7 @@ UnconnectedReservationPage.propTypes = {
   actions: PropTypes.object.isRequired,
   date: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  isFetchingResource: PropTypes.bool.isRequired,
   resource: PropTypes.object.isRequired,
   unit: PropTypes.object.isRequired,
 };

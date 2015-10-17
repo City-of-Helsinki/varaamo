@@ -10,6 +10,7 @@ import { bindActionCreators } from 'redux';
 import { fetchResource } from 'actions/resourceActions';
 import ResourceDetails from 'components/resource/ResourceDetails';
 import ResourceHeader from 'components/resource/ResourceHeader';
+import NotFoundPage from 'containers/NotFoundPage';
 import { resourcePageSelectors } from 'selectors/resourcePageSelectors';
 import {
   getAddressWithName,
@@ -25,8 +26,17 @@ export class UnconnectedResourcePage extends Component {
   }
 
   render() {
-    const { id, resource, unit } = this.props;
+    const {
+      id,
+      isFetchingResource,
+      resource,
+      unit,
+    } = this.props;
     const resourceName = getName(resource);
+
+    if (_.isEmpty(resource) && !isFetchingResource) {
+      return <NotFoundPage />;
+    }
 
     return (
       <DocumentTitle title={`${resourceName} - Respa`}>
@@ -60,6 +70,7 @@ export class UnconnectedResourcePage extends Component {
 UnconnectedResourcePage.propTypes = {
   actions: PropTypes.object.isRequired,
   id: PropTypes.string.isRequired,
+  isFetchingResource: PropTypes.bool.isRequired,
   resource: PropTypes.object.isRequired,
   unit: PropTypes.object.isRequired,
 };

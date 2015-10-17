@@ -108,6 +108,19 @@ describe('Reducer: apiReducer', () => {
       });
     });
 
+    describe('FETCH_RESOURCE_ERROR', () => {
+      const fetchResourceError = createAction(types.FETCH_RESOURCE_ERROR);
+
+      it('should set isFetchingResource to false', () => {
+        const action = fetchResourceError();
+        const initialState = Immutable({ isFetchingResource: true });
+        const nextState = reducer(initialState, action);
+
+        expect(nextState.isFetchingResource).to.equal(false);
+      });
+    });
+
+
     describe('FETCH_RESOURCES_START', () => {
       const fetchResourcesStart = createAction(types.FETCH_RESOURCES_START);
 

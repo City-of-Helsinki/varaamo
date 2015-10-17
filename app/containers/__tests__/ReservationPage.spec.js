@@ -15,6 +15,7 @@ describe('Container: ReservationPage', () => {
     actions: { fetchResource: simple.stub() },
     date: '2015-10-10',
     id: resource.id,
+    isFetchingResource: false,
     resource: Immutable(resource),
     unit: Immutable(unit),
   };

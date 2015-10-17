@@ -35,6 +35,7 @@ export function apiReducer(state = initialState, action) {
     return state.merge({ 'isFetchingResource': true });
 
   case ActionTypes.FETCH_RESOURCE_SUCCESS:
+  case ActionTypes.FETCH_RESOURCE_ERROR:
     return state.merge({ isFetchingResource: false });
 
   case ActionTypes.FETCH_RESOURCES_START:

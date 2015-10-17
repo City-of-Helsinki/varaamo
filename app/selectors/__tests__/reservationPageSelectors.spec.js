@@ -16,6 +16,9 @@ describe('Selectors: reservationPageSelectors', () => {
 
   beforeEach(() => {
     state = {
+      api: Immutable({
+        isFetchingResource: false,
+      }),
       data: Immutable({
         resources: {
           [resources[0].id]: resources[0],
@@ -51,6 +54,13 @@ describe('Selectors: reservationPageSelectors', () => {
       const expected = state.router.params.id;
 
       expect(selected.id).to.equal(expected);
+    });
+
+    it('should return isFetchingResource from the state', () => {
+      const selected = reservationPageSelectors(state);
+      const expected = state.api.isFetchingResource;
+
+      expect(selected.isFetchingResource).to.equal(expected);
     });
 
     it('should return the resource corresponding to the router.params.id', () => {
