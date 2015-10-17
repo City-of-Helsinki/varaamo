@@ -1,8 +1,10 @@
 import { expect } from 'chai';
 
 import _ from 'lodash';
+import moment from 'moment';
 import Immutable from 'seamless-immutable';
 
+import { DATE_FORMAT } from 'constants/AppConstants';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
 import { searchPageSelectors } from 'selectors/searchPageSelectors';
@@ -35,7 +37,10 @@ describe('Selectors: searchPageSelectors', () => {
       }),
       ui: Immutable({
         search: {
-          filters: { purpose: 'some-purpose' },
+          filters: {
+            date: '2015-10-10',
+            purpose: 'some-purpose',
+          },
           results: [resources[0].id, resources[1].id],
         },
       }),
@@ -49,11 +54,23 @@ describe('Selectors: searchPageSelectors', () => {
     expect(selected.isFetchingSearchResults).to.equal(expected);
   });
 
-  it('should return filters from the state', () => {
-    const selected = searchPageSelectors(state);
-    const expected = state.ui.search.filters;
+  describe('filters', () => {
+    it('should return filters from the state', () => {
+      const selected = searchPageSelectors(state);
+      const expected = state.ui.search.filters;
 
-    expect(selected.filters).to.deep.equal(expected);
+      expect(selected.filters).to.deep.equal(expected);
+    });
+
+    it('should return current date as date filter if date is an empty string in state', () => {
+      state.ui.search.filters.date = '';
+      const selected = searchPageSelectors(state);
+      const filters = state.ui.search.filters;
+      const expectedDate = moment().format(DATE_FORMAT);
+      const expected = Object.assign({}, filters, { date: expectedDate });
+
+      expect(selected.filters).to.deep.equal(expected);
+    });
   });
 
   it('should return resources corresponding to searchResults.ids as results', () => {

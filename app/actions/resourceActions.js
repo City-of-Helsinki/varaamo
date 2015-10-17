@@ -8,7 +8,6 @@ import {
   createTransformFunction,
   getHeaders,
 } from 'utils/APIUtils';
-import { pickSupportedFilters } from 'utils/SearchUtils';
 
 export default {
   fetchResource,
@@ -33,8 +32,8 @@ function fetchResource(id, params = {}) {
   };
 }
 
-function fetchResources(filters = {}) {
-  const url = buildAPIUrl('resource', pickSupportedFilters(filters));
+function fetchResources(params = {}) {
+  const url = buildAPIUrl('resource', params);
 
   return {
     [CALL_API]: {
