@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import moment from 'moment';
 
 import { PURPOSE_MAIN_TYPES } from 'constants/AppConstants';
 
@@ -6,6 +7,7 @@ export default {
   combineReservations,
   getAddress,
   getAddressWithName,
+  getAvailableTime,
   getDescription,
   getName,
   getOpeningHours,
@@ -50,6 +52,24 @@ function getAddressWithName(item) {
   ];
 
   return parts.filter(part => part !== '').join(', ');
+}
+
+function getAvailableTime(openingHours = {}, reservations = []) {
+  const { closes, opens } = openingHours;
+
+  if (!closes || !opens) {
+    return '0 tuntia';
+  }
+
+  let total = moment(closes) - moment(opens);
+
+  _.forEach(reservations, (reservation) => {
+    total = total - moment(reservation.end) + moment(reservation.begin);
+  });
+
+  const asHours = moment.duration(total).asHours();
+
+  return asHours === 1 ? `${asHours} tunti` : `${asHours} tuntia`;
 }
 
 function getDescription(item) {

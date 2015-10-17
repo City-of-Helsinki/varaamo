@@ -5,6 +5,7 @@ import {
   combineReservations,
   getAddress,
   getAddressWithName,
+  getAvailableTime,
   getDescription,
   getName,
   getOpeningHours,
@@ -137,6 +138,49 @@ describe('Utils: DataUtils', () => {
       const expected = 'Some Unit, Example street 3, 12345 Helsinki';
 
       expect(getAddressWithName(item)).to.equal(expected);
+    });
+  });
+
+  describe('getAvailableTime', () => {
+    it('should return "0 tuntia" if openingHours is empty', () => {
+      const openingHours = {};
+
+      expect(getAvailableTime(openingHours)).to.equal('0 tuntia');
+    });
+
+    describe('if there are no reservations', () => {
+      const openingHours = {
+        opens: '2015-10-10T12:00:00+03:00',
+        closes: '2015-10-10T18:00:00+03:00',
+      };
+      const reservations = [];
+      const availableTime = getAvailableTime(openingHours, reservations);
+
+      it('should return the time between opening hours', () => {
+        expect(availableTime).to.equal('6 tuntia');
+      });
+    });
+
+    describe('if there are reservations', () => {
+      const openingHours = {
+        opens: '2015-10-10T12:00:00+03:00',
+        closes: '2015-10-10T18:00:00+03:00',
+      };
+      const reservations = [
+        {
+          begin: '2015-10-10T13:00:00+03:00',
+          end: '2015-10-10T14:00:00+03:00',
+        },
+        {
+          begin: '2015-10-10T16:00:00+03:00',
+          end: '2015-10-10T16:30:00+03:00',
+        },
+      ];
+      const availableTime = getAvailableTime(openingHours, reservations);
+
+      it('should return the time between opening hours minus reservation times', () => {
+        expect(availableTime).to.equal('4.5 tuntia');
+      });
     });
   });
 
