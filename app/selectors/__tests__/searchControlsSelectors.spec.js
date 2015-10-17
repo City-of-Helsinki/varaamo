@@ -29,29 +29,27 @@ describe('Selectors: searchControlsSelectors', () => {
     }),
   };
 
-  describe('selected values', () => {
-    it('should return isFetchingPurposes from the state', () => {
-      const selected = searchControlsSelectors(state);
-      const expected = state.api.isFetchingPurposes;
+  it('should return isFetchingPurposes from the state', () => {
+    const selected = searchControlsSelectors(state);
+    const expected = state.api.isFetchingPurposes;
 
-      expect(selected.isFetchingPurposes).to.equal(expected);
-    });
+    expect(selected.isFetchingPurposes).to.equal(expected);
+  });
 
-    it('should return objects containing values and labels as purposeOptions', () => {
-      const selected = searchControlsSelectors(state);
-      const expected = Immutable([
-        { value: purposes[0].id, label: purposes[0].name.fi },
-        { value: purposes[1].id, label: purposes[1].name.fi },
-      ]);
+  it('should return objects containing values and labels as purposeOptions', () => {
+    const selected = searchControlsSelectors(state);
+    const expected = Immutable([
+      { value: purposes[0].id, label: purposes[0].name.fi },
+      { value: purposes[1].id, label: purposes[1].name.fi },
+    ]);
 
-      expect(selected.purposeOptions).to.deep.equal(expected);
-    });
+    expect(selected.purposeOptions).to.deep.equal(expected);
+  });
 
-    it('should return filters from the state', () => {
-      const selected = searchControlsSelectors(state);
-      const expected = state.ui.search.filters;
+  it('should return filters from the state', () => {
+    const selected = searchControlsSelectors(state);
+    const expected = state.ui.search.filters;
 
-      expect(selected.filters).to.deep.equal(expected);
-    });
+    expect(selected.filters).to.deep.equal(expected);
   });
 });

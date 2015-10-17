@@ -21,27 +21,25 @@ describe('Selectors: purposeCategoryListSelectors', () => {
     }),
   };
 
-  describe('selected values', () => {
-    it('should return isFetchingPurposes from the state', () => {
-      const selected = purposeCategoryListSelectors(state);
-      const expected = state.api.isFetchingPurposes;
+  it('should return isFetchingPurposes from the state', () => {
+    const selected = purposeCategoryListSelectors(state);
+    const expected = state.api.isFetchingPurposes;
 
-      expect(selected.isFetchingPurposes).to.equal(expected);
+    expect(selected.isFetchingPurposes).to.equal(expected);
+  });
+
+  it('should return purposes grouped by mainType from the state', () => {
+    const selected = purposeCategoryListSelectors(state);
+    const expected = Immutable({
+      [purposes[0].mainType]: [
+        purposes[0],
+        purposes[2],
+      ],
+      [purposes[1].mainType]: [
+        purposes[1],
+      ],
     });
 
-    it('should return purposes grouped by mainType from the state', () => {
-      const selected = purposeCategoryListSelectors(state);
-      const expected = Immutable({
-        [purposes[0].mainType]: [
-          purposes[0],
-          purposes[2],
-        ],
-        [purposes[1].mainType]: [
-          purposes[1],
-        ],
-      });
-
-      expect(selected.purposeCategories).to.deep.equal(expected);
-    });
+    expect(selected.purposeCategories).to.deep.equal(expected);
   });
 });
