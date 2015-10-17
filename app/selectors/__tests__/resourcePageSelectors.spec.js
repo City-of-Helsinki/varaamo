@@ -7,14 +7,18 @@ import Unit from 'fixtures/Unit';
 import { resourcePageSelectors } from 'selectors/resourcePageSelectors';
 
 describe('Selectors: resourcePageSelectors', () => {
-  const unit = Unit.build();
-  const resources = [
-    Resource.build({ unit: unit.id }),
-    Resource.build({ unit: 'unfetched-id' }),
-  ];
+  let resources;
+  let unit;
   let state;
 
   beforeEach(() => {
+    unit = Unit.build();
+
+    resources = [
+      Resource.build({ unit: unit.id }),
+      Resource.build({ unit: 'unfetched-id' }),
+    ];
+
     state = {
       api: Immutable({
         isFetchingResource: false,

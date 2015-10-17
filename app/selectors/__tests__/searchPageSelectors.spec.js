@@ -8,31 +8,39 @@ import Unit from 'fixtures/Unit';
 import { searchPageSelectors } from 'selectors/searchPageSelectors';
 
 describe('Selectors: searchPageSelectors', () => {
-  const resources = [
-    Resource.build(),
-    Resource.build(),
-  ];
-  const unit = Unit.build();
-  const state = {
-    api: Immutable({
-      isFetchingSearchResults: false,
-    }),
-    data: Immutable({
-      resources: {
-        [resources[0].id]: resources[0],
-        [resources[1].id]: resources[1],
-      },
-      units: {
-        [unit.id]: unit,
-      },
-    }),
-    ui: Immutable({
-      search: {
-        filters: { purpose: 'some-purpose' },
-        results: [resources[0].id, resources[1].id],
-      },
-    }),
-  };
+  let unit;
+  let resources;
+  let state;
+
+  beforeEach(() => {
+    resources = [
+      Resource.build(),
+      Resource.build(),
+    ];
+
+    unit = Unit.build();
+
+    state = {
+      api: Immutable({
+        isFetchingSearchResults: false,
+      }),
+      data: Immutable({
+        resources: {
+          [resources[0].id]: resources[0],
+          [resources[1].id]: resources[1],
+        },
+        units: {
+          [unit.id]: unit,
+        },
+      }),
+      ui: Immutable({
+        search: {
+          filters: { purpose: 'some-purpose' },
+          results: [resources[0].id, resources[1].id],
+        },
+      }),
+    };
+  });
 
   it('should return isFetchingSearchResults from the state', () => {
     const selected = searchPageSelectors(state);

@@ -7,19 +7,25 @@ import Purpose from 'fixtures/Purpose';
 import { purposeCategoryListSelectors } from 'selectors/purposeCategoryListSelectors';
 
 describe('Selectors: purposeCategoryListSelectors', () => {
-  const purposes = [
-    Purpose.build({ mainType: 'some-type' }),
-    Purpose.build({ mainType: 'other-type' }),
-    Purpose.build({ mainType: 'some-type' }),
-  ];
-  const state = {
-    api: Immutable({
-      isFetchingPurposes: false,
-    }),
-    data: Immutable({
-      purposes: _.indexBy(purposes, 'id'),
-    }),
-  };
+  let purposes;
+  let state;
+
+  beforeEach(() => {
+    purposes = [
+      Purpose.build({ mainType: 'some-type' }),
+      Purpose.build({ mainType: 'other-type' }),
+      Purpose.build({ mainType: 'some-type' }),
+    ];
+
+    state = {
+      api: Immutable({
+        isFetchingPurposes: false,
+      }),
+      data: Immutable({
+        purposes: _.indexBy(purposes, 'id'),
+      }),
+    };
+  });
 
   it('should return isFetchingPurposes from the state', () => {
     const selected = purposeCategoryListSelectors(state);

@@ -11,19 +11,21 @@ import { reservationFormSelectors } from 'selectors/reservationFormSelectors';
 import TimeUtils from 'utils/TimeUtils';
 
 describe('Selectors: reservationFormSelectors', () => {
-  const resource = Resource.build({
-    minPeriod: '01:00:00',
-    openingHours,
-    reservations: [
-      {
-        opens: '2015-10-10T12:00:00+03:00',
-        closes: '2015-10-10T18:00:00+03:00',
-      },
-    ],
-  });
+  let resource;
   let state;
 
   beforeEach(() => {
+    resource = Resource.build({
+      minPeriod: '01:00:00',
+      openingHours,
+      reservations: [
+        {
+          opens: '2015-10-10T12:00:00+03:00',
+          closes: '2015-10-10T18:00:00+03:00',
+        },
+      ],
+    });
+
     state = {
       api: Immutable({
         isFetchingResource: false,

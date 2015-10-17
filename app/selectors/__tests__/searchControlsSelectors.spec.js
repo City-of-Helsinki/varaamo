@@ -6,28 +6,34 @@ import Purpose from 'fixtures/Purpose';
 import { searchControlsSelectors } from 'selectors/searchControlsSelectors';
 
 describe('Selectors: searchControlsSelectors', () => {
-  const purposes = [
-    Purpose.build(),
-    Purpose.build(),
-  ];
-  const state = {
-    api: Immutable({
-      isFetchingPurposes: false,
-    }),
-    data: Immutable({
-      purposes: {
-        [purposes[0].id]: purposes[0],
-        [purposes[1].id]: purposes[1],
-      },
-    }),
-    ui: Immutable({
-      search: {
-        filters: {
-          purpose: 'some-purpose',
+  let purposes;
+  let state;
+
+  beforeEach(() => {
+    purposes = [
+      Purpose.build(),
+      Purpose.build(),
+    ];
+
+    state = {
+      api: Immutable({
+        isFetchingPurposes: false,
+      }),
+      data: Immutable({
+        purposes: {
+          [purposes[0].id]: purposes[0],
+          [purposes[1].id]: purposes[1],
         },
-      },
-    }),
-  };
+      }),
+      ui: Immutable({
+        search: {
+          filters: {
+            purpose: 'some-purpose',
+          },
+        },
+      }),
+    };
+  });
 
   it('should return isFetchingPurposes from the state', () => {
     const selected = searchControlsSelectors(state);
