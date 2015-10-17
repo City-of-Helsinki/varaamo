@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import DatePicker from 'react-date-picker';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -8,6 +9,7 @@ import { changeSearchFilters } from 'actions/uiActions';
 import SearchFilters from 'components/search/SearchFilters';
 import SearchInput from 'components/search/SearchInput';
 import { searchControlsSelectors } from 'selectors/searchControlsSelectors';
+import { getFetchParamsFromFilters } from 'utils/SearchUtils';
 
 export class UnconnectedSearchControls extends Component {
   constructor(props) {
@@ -22,9 +24,10 @@ export class UnconnectedSearchControls extends Component {
   onFiltersChange(newFilters) {
     const { actions, filters } = this.props;
     const allFilters = Object.assign({}, filters, newFilters);
+    const fetchParams = getFetchParamsFromFilters(allFilters);
 
     actions.changeSearchFilters(newFilters);
-    actions.fetchResources(allFilters);
+    actions.fetchResources(fetchParams);
   }
 
   render() {
@@ -46,6 +49,13 @@ export class UnconnectedSearchControls extends Component {
           onFiltersChange={this.onFiltersChange}
           purposeOptions={purposeOptions}
           filters={filters}
+        />
+        <DatePicker
+          date={filters.date}
+          hideFooter
+          gotoSelectedText="Mene valittuun"
+          onChange={(newDate) => this.onFiltersChange({ date: newDate })}
+          todayText="Tänään"
         />
       </div>
     );

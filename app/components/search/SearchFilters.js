@@ -11,7 +11,7 @@ export class SearchFilters extends Component {
     } = this.props;
 
     return (
-      <div>
+      <div style={{ marginBottom: '20px' }}>
         <h4>Käyttötarkoitus</h4>
         <Select
           clearable

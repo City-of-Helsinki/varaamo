@@ -6,31 +6,48 @@ import sd from 'skin-deep';
 import Immutable from 'seamless-immutable';
 
 import { UnconnectedSearchControls as SearchControls } from 'containers/SearchControls';
+import { getFetchParamsFromFilters } from 'utils/SearchUtils';
 
 describe('Container: SearchControls', () => {
-  const props = {
-    actions: {
-      changeSearchFilters: simple.stub(),
-      fetchPurposes: simple.stub(),
-      fetchResources: simple.stub(),
-    },
-    isFetchingPurposes: false,
-    filters: {
-      purpose: 'some-purpose',
-      search: 'search-query',
-    },
-    purposeOptions: Immutable([
-      { value: 'filter-1', label: 'Label 1' },
-      { value: 'filter-2', label: 'Label 2' },
-    ]),
-  };
+  let props;
+  let tree;
+  let instance;
 
-  const tree = sd.shallowRender(<SearchControls {...props} />);
-  const instance = tree.getMountedInstance();
+  beforeEach(() => {
+    props = {
+      actions: {
+        changeSearchFilters: simple.stub(),
+        fetchPurposes: simple.stub(),
+        fetchResources: simple.stub(),
+      },
+      isFetchingPurposes: false,
+      filters: {
+        date: '2015-10-10',
+        purpose: 'some-purpose',
+        search: 'search-query',
+      },
+      purposeOptions: Immutable([
+        { value: 'filter-1', label: 'Label 1' },
+        { value: 'filter-2', label: 'Label 2' },
+      ]),
+    };
+
+    tree = sd.shallowRender(<SearchControls {...props} />);
+    instance = tree.getMountedInstance();
+  });
+
+  afterEach(() => {
+    simple.restore();
+  });
 
   describe('rendering SearchInput', () => {
-    const searchInputTrees = tree.everySubTree('SearchInput');
-    const searchInputVdom = searchInputTrees[0].getRenderOutput();
+    let searchInputTrees;
+    let searchInputVdom;
+
+    beforeEach(() => {
+      searchInputTrees = tree.everySubTree('SearchInput');
+      searchInputVdom = searchInputTrees[0].getRenderOutput();
+    });
 
     it('should render SearchInput component', () => {
       expect(searchInputTrees.length).to.equal(1);
@@ -45,8 +62,13 @@ describe('Container: SearchControls', () => {
   });
 
   describe('rendering SearchFilters', () => {
-    const searchFiltersTrees = tree.everySubTree('SearchFilters');
-    const searchFiltersVdom = searchFiltersTrees[0].getRenderOutput();
+    let searchFiltersTrees;
+    let searchFiltersVdom;
+
+    beforeEach(() => {
+      searchFiltersTrees = tree.everySubTree('SearchFilters');
+      searchFiltersVdom = searchFiltersTrees[0].getRenderOutput();
+    });
 
     it('should render SearchFilters component', () => {
       expect(searchFiltersTrees.length).to.equal(1);
@@ -62,10 +84,46 @@ describe('Container: SearchControls', () => {
     });
   });
 
-  describe('onFiltersChange', () => {
-    const newFilters = { purpose: 'new-purpose' };
+  describe('rendering DatePicker', () => {
+    let datePickerTrees;
+    let datePickerVdom;
 
-    before(() => {
+    beforeEach(() => {
+      datePickerTrees = tree.everySubTree('DatePicker');
+      datePickerVdom = datePickerTrees[0].getRenderOutput();
+    });
+
+    it('should render DatePicker component', () => {
+      expect(datePickerTrees.length).to.equal(1);
+    });
+
+    it('should pass correct props to DatePicker component', () => {
+      const actualProps = datePickerVdom.props;
+
+      expect(actualProps.date).to.equal(props.filters.date);
+      expect(actualProps.hideFooter).to.equal(true);
+      expect(typeof actualProps.onChange).to.equal('function');
+    });
+
+    it('DatePicker onChange should call onFiltersChange with correct arguments', () => {
+      simple.mock(instance, 'onFiltersChange');
+      const newDate = 'some-date';
+      datePickerVdom.props.onChange(newDate);
+      const expected = { date: newDate };
+      const actualCallCount = instance.onFiltersChange.callCount;
+      const actualArgs = instance.onFiltersChange.lastCall.args[0];
+      simple.restore();
+
+      expect(actualCallCount).to.equal(1);
+      expect(actualArgs).to.deep.equal(expected);
+    });
+  });
+
+  describe('onFiltersChange', () => {
+    let newFilters;
+
+    beforeEach(() => {
+      newFilters = { purpose: 'new-purpose' };
       instance.onFiltersChange(newFilters);
     });
 
@@ -78,13 +136,11 @@ describe('Container: SearchControls', () => {
 
     it('should call fetchResources with correct arguments', () => {
       const action = props.actions.fetchResources;
-      const expectedArgs = {
-        search: props.filters.search,
-        purpose: newFilters.purpose,
-      };
+      const allFilters = Object.assign({}, props.filters, newFilters);
+      const expected = getFetchParamsFromFilters(allFilters);
 
       expect(action.callCount).to.equal(1);
-      expect(action.lastCall.args[0]).to.deep.equal(expectedArgs);
+      expect(action.lastCall.args[0]).to.deep.equal(expected);
     });
   });
 
