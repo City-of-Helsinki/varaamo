@@ -8,7 +8,7 @@ import {
   createTransformFunction,
   getHeaders,
 } from 'utils/APIUtils';
-import { pickSupportedFilters } from 'utils/DataUtils';
+import { pickSupportedFilters } from 'utils/SearchUtils';
 
 export default {
   fetchResource,

@@ -1,5 +1,5 @@
 import ActionTypes from 'constants/ActionTypes';
-import { pickSupportedFilters } from 'utils/DataUtils';
+import { pickSupportedFilters } from 'utils/SearchUtils';
 
 export function searchReducer(state, action) {
   switch (action.type) {

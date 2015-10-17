@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { PURPOSE_MAIN_TYPES, SUPPORTED_SEARCH_FILTERS } from 'constants/AppConstants';
+import { PURPOSE_MAIN_TYPES } from 'constants/AppConstants';
 
 export default {
   combineReservations,
@@ -11,7 +11,6 @@ export default {
   getOpeningHours,
   getPeopleCapacityString,
   humanizeMainType,
-  pickSupportedFilters,
 };
 
 function combineReservations(reservations) {
@@ -89,8 +88,4 @@ function humanizeMainType(mainType) {
   }
 
   return mainType in PURPOSE_MAIN_TYPES ? PURPOSE_MAIN_TYPES[mainType] : mainType;
-}
-
-function pickSupportedFilters(filters) {
-  return _.pick(filters, SUPPORTED_SEARCH_FILTERS);
 }
