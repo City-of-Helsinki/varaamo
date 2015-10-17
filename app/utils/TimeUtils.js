@@ -6,6 +6,7 @@ import { DATE_FORMAT, TIME_FORMAT } from 'constants/AppConstants';
 
 export default {
   addToDate,
+  getDateStartAndEndTimes,
   getDateString,
   getTimeSlots,
 };
@@ -14,6 +15,17 @@ function addToDate(date, daysToIncrement) {
   const newDate = moment(date).add(daysToIncrement, 'days');
 
   return newDate.format(DATE_FORMAT);
+}
+
+function getDateStartAndEndTimes(date) {
+  if (!date) {
+    return {};
+  }
+
+  const start = `${date}T00:00:00Z`;
+  const end = `${date}T23:59:59Z`;
+
+  return { start, end };
 }
 
 function getDateString(date) {

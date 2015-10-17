@@ -6,7 +6,6 @@ export default {
   combineReservations,
   getAddress,
   getAddressWithName,
-  getDateStartAndEndTimes,
   getDescription,
   getName,
   getOpeningHours,
@@ -52,17 +51,6 @@ function getAddressWithName(item) {
   ];
 
   return parts.filter(part => part !== '').join(', ');
-}
-
-function getDateStartAndEndTimes(date) {
-  if (!date) {
-    return {};
-  }
-
-  const start = `${date}T00:00:00Z`;
-  const end = `${date}T23:59:59Z`;
-
-  return { start, end };
 }
 
 function getDescription(item) {

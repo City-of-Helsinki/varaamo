@@ -5,6 +5,7 @@ import moment from 'moment';
 import { DATE_FORMAT, TIME_FORMAT } from 'constants/AppConstants';
 import {
   addToDate,
+  getDateStartAndEndTimes,
   getDateString,
   getTimeSlots,
 } from 'utils/TimeUtils';
@@ -25,6 +26,36 @@ describe('Utils: TimeUtils', () => {
       const expected = '2015-10-07';
 
       expect(actual).to.equal(expected);
+    });
+  });
+
+  describe('getDateStartAndEndTimes', () => {
+    it('should return an empty object if date is undefined', () => {
+      const date = undefined;
+
+      expect(getDateStartAndEndTimes(date)).to.deep.equal({});
+    });
+
+    it('should return an empty object if date is an empty string', () => {
+      const date = '';
+
+      expect(getDateStartAndEndTimes(date)).to.deep.equal({});
+    });
+
+    it('should return an object with start and end properties', () => {
+      const date = '2015-10-10';
+      const actual = getDateStartAndEndTimes(date);
+
+      expect(actual.start).to.exist;
+      expect(actual.end).to.exist;
+    });
+
+    it('returned start and end times should be in correct form ', () => {
+      const date = '2015-10-10';
+      const actual = getDateStartAndEndTimes(date);
+
+      expect(actual.start).to.equal(`${date}T00:00:00Z`);
+      expect(actual.end).to.equal(`${date}T23:59:59Z`);
     });
   });
 

@@ -16,7 +16,7 @@ import DateHeader from 'components/common/DateHeader';
 import ConfirmReservationModal from 'components/reservation/ConfirmReservationModal';
 import TimeSlots from 'components/reservation/TimeSlots';
 import { reservationFormSelectors } from 'selectors/reservationFormSelectors';
-import { getDateStartAndEndTimes } from 'utils/DataUtils';
+import { getDateStartAndEndTimes } from 'utils/TimeUtils';
 
 export class UnconnectedReservationForm extends Component {
   constructor(props) {

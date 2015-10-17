@@ -5,7 +5,6 @@ import {
   combineReservations,
   getAddress,
   getAddressWithName,
-  getDateStartAndEndTimes,
   getDescription,
   getName,
   getOpeningHours,
@@ -139,36 +138,6 @@ describe('Utils: DataUtils', () => {
       const expected = 'Some Unit, Example street 3, 12345 Helsinki';
 
       expect(getAddressWithName(item)).to.equal(expected);
-    });
-  });
-
-  describe('getDateStartAndEndTimes', () => {
-    it('should return an empty object if date is undefined', () => {
-      const date = undefined;
-
-      expect(getDateStartAndEndTimes(date)).to.deep.equal({});
-    });
-
-    it('should return an empty object if date is an empty string', () => {
-      const date = '';
-
-      expect(getDateStartAndEndTimes(date)).to.deep.equal({});
-    });
-
-    it('should return an object with start and end properties', () => {
-      const date = '2015-10-10';
-      const actual = getDateStartAndEndTimes(date);
-
-      expect(actual.start).to.exist;
-      expect(actual.end).to.exist;
-    });
-
-    it('returned start and end times should be in correct form ', () => {
-      const date = '2015-10-10';
-      const actual = getDateStartAndEndTimes(date);
-
-      expect(actual.start).to.equal(`${date}T00:00:00Z`);
-      expect(actual.end).to.equal(`${date}T23:59:59Z`);
     });
   });
 

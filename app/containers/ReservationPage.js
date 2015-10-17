@@ -12,11 +12,8 @@ import ResourceHeader from 'components/resource/ResourceHeader';
 import NotFoundPage from 'containers/NotFoundPage';
 import ReservationForm from 'containers/ReservationForm';
 import { reservationPageSelectors } from 'selectors/reservationPageSelectors';
-import {
-  getAddressWithName,
-  getDateStartAndEndTimes,
-  getName,
-} from 'utils/DataUtils';
+import { getAddressWithName, getName } from 'utils/DataUtils';
+import { getDateStartAndEndTimes } from 'utils/TimeUtils';
 
 export class UnconnectedReservationPage extends Component {
   componentDidMount() {
