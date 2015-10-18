@@ -1,8 +1,7 @@
-import { arrayOf } from 'normalizr';
 import { CALL_API } from 'redux-api-middleware';
 
 import types from 'constants/ActionTypes';
-import { resourceSchema } from 'middleware/Schemas';
+import { paginatedResourcesSchema, resourceSchema } from 'middleware/Schemas';
 import {
   buildAPIUrl,
   createTransformFunction,
@@ -15,8 +14,6 @@ export default {
 };
 
 function fetchResource(id, params = {}) {
-  const url = buildAPIUrl(`resource/${id}`, params);
-
   return {
     [CALL_API]: {
       types: [
@@ -24,7 +21,7 @@ function fetchResource(id, params = {}) {
         types.FETCH_RESOURCE_SUCCESS,
         types.FETCH_RESOURCE_ERROR,
       ],
-      endpoint: url,
+      endpoint: buildAPIUrl(`resource/${id}`, params),
       method: 'GET',
       headers: getHeaders(),
       transform: createTransformFunction(resourceSchema),
@@ -33,7 +30,7 @@ function fetchResource(id, params = {}) {
 }
 
 function fetchResources(params = {}) {
-  const url = buildAPIUrl('resource', params);
+  const fetchParams = Object.assign({}, params, { pageSize: 100 });
 
   return {
     [CALL_API]: {
@@ -42,10 +39,10 @@ function fetchResources(params = {}) {
         types.FETCH_RESOURCES_SUCCESS,
         types.FETCH_RESOURCES_ERROR,
       ],
-      endpoint: url,
+      endpoint: buildAPIUrl('resource', fetchParams),
       method: 'GET',
       headers: getHeaders(),
-      transform: createTransformFunction(arrayOf(resourceSchema)),
+      transform: createTransformFunction(paginatedResourcesSchema),
       bailout: (state) => {
         return !state.api.shouldFetchSearchResults;
       },

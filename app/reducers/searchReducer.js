@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import ActionTypes from 'constants/ActionTypes';
 import { pickSupportedFilters } from 'utils/SearchUtils';
 
@@ -9,7 +11,7 @@ export function searchReducer(state, action) {
     return state.merge({ filters }, { deep: true });
 
   case ActionTypes.FETCH_RESOURCES_SUCCESS:
-    const results = action.payload.result;
+    const results = _.keys(action.payload.entities.resources);
     return state.merge({ results });
 
   default:
