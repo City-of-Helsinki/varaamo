@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import { createSelector } from 'reselect';
 
+import { getDateString } from 'utils/TimeUtils';
+
 const filtersSelector = (state) => state.ui.search.filters;
 const isFetchingSearchResultsSelector = (state) => state.api.isFetchingSearchResults;
 const resourcesSelector = (state) => state.data.resources;
@@ -26,7 +28,7 @@ export const searchPageSelectors = createSelector(
     );
 
     return {
-      filters,
+      filters: Object.assign({}, filters, { date: getDateString(filters.date) }),
       isFetchingSearchResults,
       results,
       units,

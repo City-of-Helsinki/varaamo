@@ -1,18 +1,18 @@
 import _ from 'lodash';
+import moment from 'moment';
 
-import { PURPOSE_MAIN_TYPES, SUPPORTED_SEARCH_FILTERS } from 'constants/AppConstants';
+import { PURPOSE_MAIN_TYPES } from 'constants/AppConstants';
 
 export default {
   combineReservations,
   getAddress,
   getAddressWithName,
-  getDateStartAndEndTimes,
+  getAvailableTime,
   getDescription,
   getName,
   getOpeningHours,
   getPeopleCapacityString,
   humanizeMainType,
-  pickSupportedFilters,
 };
 
 function combineReservations(reservations) {
@@ -54,15 +54,22 @@ function getAddressWithName(item) {
   return parts.filter(part => part !== '').join(', ');
 }
 
-function getDateStartAndEndTimes(date) {
-  if (!date) {
-    return {};
+function getAvailableTime(openingHours = {}, reservations = []) {
+  const { closes, opens } = openingHours;
+
+  if (!closes || !opens) {
+    return '0 tuntia';
   }
 
-  const start = `${date}T00:00:00Z`;
-  const end = `${date}T23:59:59Z`;
+  let total = moment(closes) - moment(opens);
 
-  return { start, end };
+  _.forEach(reservations, (reservation) => {
+    total = total - moment(reservation.end) + moment(reservation.begin);
+  });
+
+  const asHours = moment.duration(total).asHours();
+
+  return asHours === 1 ? `${asHours} tunti` : `${asHours} tuntia`;
 }
 
 function getDescription(item) {
@@ -101,8 +108,4 @@ function humanizeMainType(mainType) {
   }
 
   return mainType in PURPOSE_MAIN_TYPES ? PURPOSE_MAIN_TYPES[mainType] : mainType;
-}
-
-function pickSupportedFilters(filters) {
-  return _.pick(filters, SUPPORTED_SEARCH_FILTERS);
 }

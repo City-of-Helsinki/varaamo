@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
 
+import { getDateString } from 'utils/TimeUtils';
+
 const dateSelector = (state) => state.ui.reservation.date;
 const idSelector = (state) => state.router.params.id;
 const isFetchingResourceSelector = (state) => state.api.isFetchingResource;
@@ -23,7 +25,7 @@ export const reservationPageSelectors = createSelector(
     const unit = units[resource.unit] || {};
 
     return {
-      date,
+      date: getDateString(date),
       id,
       isFetchingResource,
       resource,

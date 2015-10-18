@@ -6,7 +6,7 @@ import {
   combineReservations,
   getOpeningHours,
 } from 'utils/DataUtils';
-import { getTimeSlots } from 'utils/TimeUtils';
+import { getDateString, getTimeSlots } from 'utils/TimeUtils';
 import ModalTypes from 'constants/ModalTypes';
 
 const dateSelector = (state) => state.ui.reservation.date;
@@ -52,7 +52,7 @@ export const reservationFormSelectors = createSelector(
 
     return {
       confirmReservationModalIsOpen,
-      date,
+      date: getDateString(date),
       id,
       isFetchingResource,
       isMakingReservations: Boolean(pendingReservationsCount),

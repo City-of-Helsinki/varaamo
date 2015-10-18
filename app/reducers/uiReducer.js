@@ -15,6 +15,7 @@ const initialState = Immutable({
   },
   search: {
     filters: {
+      date: '',
       purpose: '',
       search: '',
     },

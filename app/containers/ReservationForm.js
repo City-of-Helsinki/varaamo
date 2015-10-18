@@ -16,8 +16,7 @@ import DateHeader from 'components/common/DateHeader';
 import ConfirmReservationModal from 'components/reservation/ConfirmReservationModal';
 import TimeSlots from 'components/reservation/TimeSlots';
 import { reservationFormSelectors } from 'selectors/reservationFormSelectors';
-import { getDateStartAndEndTimes } from 'utils/DataUtils';
-import { getDateString } from 'utils/TimeUtils';
+import { getDateStartAndEndTimes } from 'utils/TimeUtils';
 
 export class UnconnectedReservationForm extends Component {
   constructor(props) {
@@ -57,7 +56,7 @@ export class UnconnectedReservationForm extends Component {
     return (
       <div>
         <DatePicker
-          date={getDateString(date)}
+          date={date}
           hideFooter
           gotoSelectedText="Mene valittuun"
           onChange={this.onDateChange}

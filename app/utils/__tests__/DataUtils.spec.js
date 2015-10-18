@@ -5,13 +5,12 @@ import {
   combineReservations,
   getAddress,
   getAddressWithName,
-  getDateStartAndEndTimes,
+  getAvailableTime,
   getDescription,
   getName,
   getOpeningHours,
   getPeopleCapacityString,
   humanizeMainType,
-  pickSupportedFilters,
 } from 'utils/DataUtils';
 
 describe('Utils: DataUtils', () => {
@@ -142,33 +141,46 @@ describe('Utils: DataUtils', () => {
     });
   });
 
-  describe('getDateStartAndEndTimes', () => {
-    it('should return an empty object if date is undefined', () => {
-      const date = undefined;
+  describe('getAvailableTime', () => {
+    it('should return "0 tuntia" if openingHours is empty', () => {
+      const openingHours = {};
 
-      expect(getDateStartAndEndTimes(date)).to.deep.equal({});
+      expect(getAvailableTime(openingHours)).to.equal('0 tuntia');
     });
 
-    it('should return an empty object if date is an empty string', () => {
-      const date = '';
+    describe('if there are no reservations', () => {
+      const openingHours = {
+        opens: '2015-10-10T12:00:00+03:00',
+        closes: '2015-10-10T18:00:00+03:00',
+      };
+      const reservations = [];
+      const availableTime = getAvailableTime(openingHours, reservations);
 
-      expect(getDateStartAndEndTimes(date)).to.deep.equal({});
+      it('should return the time between opening hours', () => {
+        expect(availableTime).to.equal('6 tuntia');
+      });
     });
 
-    it('should return an object with start and end properties', () => {
-      const date = '2015-10-10';
-      const actual = getDateStartAndEndTimes(date);
+    describe('if there are reservations', () => {
+      const openingHours = {
+        opens: '2015-10-10T12:00:00+03:00',
+        closes: '2015-10-10T18:00:00+03:00',
+      };
+      const reservations = [
+        {
+          begin: '2015-10-10T13:00:00+03:00',
+          end: '2015-10-10T14:00:00+03:00',
+        },
+        {
+          begin: '2015-10-10T16:00:00+03:00',
+          end: '2015-10-10T16:30:00+03:00',
+        },
+      ];
+      const availableTime = getAvailableTime(openingHours, reservations);
 
-      expect(actual.start).to.exist;
-      expect(actual.end).to.exist;
-    });
-
-    it('returned start and end times should be in correct form ', () => {
-      const date = '2015-10-10';
-      const actual = getDateStartAndEndTimes(date);
-
-      expect(actual.start).to.equal(`${date}T00:00:00Z`);
-      expect(actual.end).to.equal(`${date}T23:59:59Z`);
+      it('should return the time between opening hours minus reservation times', () => {
+        expect(availableTime).to.equal('4.5 tuntia');
+      });
     });
   });
 
@@ -306,22 +318,6 @@ describe('Utils: DataUtils', () => {
       const expected = PURPOSE_MAIN_TYPES[validType];
 
       expect(humanizeMainType(mainType)).to.equal(expected);
-    });
-  });
-
-  describe('pickSupportedFilters', () => {
-    it('should only return supported filters', () => {
-      const filters = {
-        purpose: 'some-purpose',
-        search: 'search-query',
-        unsupported: 'invalid',
-      };
-      const expected = {
-        purpose: 'some-purpose',
-        search: 'search-query',
-      };
-
-      expect(pickSupportedFilters(filters)).to.deep.equal(expected);
     });
   });
 });

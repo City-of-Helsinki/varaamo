@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 
 import { getName } from 'utils/DataUtils';
+import { getDateString } from 'utils/TimeUtils';
 
 const isFetchingPurposesSelector = (state) => state.api.isFetchingPurposes;
 const filtersSelector = (state) => state.ui.search.filters;
@@ -26,7 +27,7 @@ export const searchControlsSelectors = createSelector(
 
     return {
       isFetchingPurposes,
-      filters,
+      filters: Object.assign({}, filters, { date: getDateString(filters.date) }),
       purposeOptions,
     };
   }

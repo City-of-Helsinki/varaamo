@@ -12,17 +12,12 @@ import ResourceHeader from 'components/resource/ResourceHeader';
 import NotFoundPage from 'containers/NotFoundPage';
 import ReservationForm from 'containers/ReservationForm';
 import { reservationPageSelectors } from 'selectors/reservationPageSelectors';
-import {
-  getAddressWithName,
-  getDateStartAndEndTimes,
-  getName,
-} from 'utils/DataUtils';
-import { getDateString } from 'utils/TimeUtils';
+import { getAddressWithName, getName } from 'utils/DataUtils';
+import { getDateStartAndEndTimes } from 'utils/TimeUtils';
 
 export class UnconnectedReservationPage extends Component {
   componentDidMount() {
-    const { actions, id } = this.props;
-    const date = getDateString(this.props.date);
+    const { actions, date, id } = this.props;
     const fetchParams = getDateStartAndEndTimes(date);
 
     actions.fetchResource(id, fetchParams);

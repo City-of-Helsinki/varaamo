@@ -8,11 +8,14 @@ import { fetchUnits } from 'actions/unitActions';
 import SearchResults from 'components/search/SearchResults';
 import SearchControls from 'containers/SearchControls';
 import { searchPageSelectors } from 'selectors/searchPageSelectors';
+import { getFetchParamsFromFilters } from 'utils/SearchUtils';
 
 export class UnconnectedSearchPage extends Component {
   componentDidMount() {
     const { actions, filters } = this.props;
-    actions.fetchResources(filters);
+    const fetchParams = getFetchParamsFromFilters(filters);
+
+    actions.fetchResources(fetchParams);
     actions.fetchUnits();
   }
 

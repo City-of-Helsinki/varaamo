@@ -1,7 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
-import { getName } from 'utils/DataUtils';
+import {
+  getAvailableTime,
+  getName,
+  getOpeningHours,
+} from 'utils/DataUtils';
 
 export class SearchResult extends Component {
   render() {
@@ -15,6 +19,7 @@ export class SearchResult extends Component {
           </Link>
         </td>
         <td>{getName(unit)}</td>
+        <td>{getAvailableTime(getOpeningHours(result), result.reservations)}</td>
       </tr>
     );
   }

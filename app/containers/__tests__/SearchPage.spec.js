@@ -8,6 +8,7 @@ import Immutable from 'seamless-immutable';
 import { UnconnectedSearchPage as SearchPage } from 'containers/SearchPage';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
+import { getFetchParamsFromFilters } from 'utils/SearchUtils';
 
 describe('Container: SearchPage', () => {
   const unit = Unit.build();
@@ -18,7 +19,10 @@ describe('Container: SearchPage', () => {
       fetchUnits: simple.stub(),
     },
     isFetchingSearchResults: false,
-    filters: { purpose: 'some-purpose' },
+    filters: {
+      date: '2015-10-10',
+      purpose: 'some-purpose',
+    },
     results: Immutable([resource]),
     units: Immutable({ [unit.id]: unit }),
   };
@@ -53,7 +57,7 @@ describe('Container: SearchPage', () => {
 
     it('should fetch resources witch correct filters', () => {
       const actual = props.actions.fetchResources.lastCall.args[0];
-      const expected = props.filters;
+      const expected = getFetchParamsFromFilters(props.filters);
 
       expect(actual).to.deep.equal(expected);
     });
