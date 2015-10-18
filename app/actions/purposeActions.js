@@ -1,8 +1,7 @@
-import { arrayOf } from 'normalizr';
 import { CALL_API } from 'redux-api-middleware';
 
 import types from 'constants/ActionTypes';
-import { purposeSchema } from 'middleware/Schemas';
+import { paginatedPurposesSchema } from 'middleware/Schemas';
 import {
   buildAPIUrl,
   createTransformFunction,
@@ -24,7 +23,7 @@ function fetchPurposes() {
       endpoint: buildAPIUrl('purpose'),
       method: 'GET',
       headers: getHeaders(),
-      transform: createTransformFunction(arrayOf(purposeSchema)),
+      transform: createTransformFunction(paginatedPurposesSchema),
       bailout: (state) => {
         return !state.api.shouldFetchPurposes;
       },

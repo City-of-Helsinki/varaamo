@@ -75,8 +75,9 @@ describe('Reducer: searchReducer', () => {
         types.FETCH_RESOURCES_SUCCESS,
         (resources) => {
           return {
-            entities: { resources },
-            result: _.pluck(resources, 'id'),
+            entities: {
+              resources: _.indexBy(resources, 'id'),
+            },
           };
         }
       );
