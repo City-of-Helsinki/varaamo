@@ -3,7 +3,7 @@ import { compose, createStore, applyMiddleware } from 'redux';
 import { apiMiddleware } from 'redux-api-middleware';
 import { reduxReactRouter } from 'redux-router';
 
-import routes from 'app/routes';
+import getRoutes from 'app/routes';
 import rootReducer from 'reducers/index';
 
 let finalCreateStore;
@@ -15,7 +15,7 @@ if (__DEVTOOLS__) {
 
   finalCreateStore = compose(
     applyMiddleware(apiMiddleware),
-    reduxReactRouter({ routes, createHistory }),
+    reduxReactRouter({ getRoutes, createHistory }),
     applyMiddleware(loggerMiddleware),
     devTools(),
     persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
@@ -23,7 +23,7 @@ if (__DEVTOOLS__) {
 } else {
   finalCreateStore = compose(
     applyMiddleware(apiMiddleware),
-    reduxReactRouter({ routes, createHistory })
+    reduxReactRouter({ getRoutes, createHistory })
   )(createStore);
 }
 
