@@ -1,5 +1,7 @@
+import Radium from 'radium';
 import React, { Component, PropTypes } from 'react';
 import {
+  Glyphicon,
   MenuItem,
   Navbar as RBNavbar,
   Nav,
@@ -9,6 +11,9 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
+
+import styles from './Navbar.styles';
+import logoSrc from 'assets/images/helsinki-coat-of-arms-white.png';
 
 export class Navbar extends Component {
   constructor(props) {
@@ -39,13 +44,28 @@ export class Navbar extends Component {
   }
 
   render() {
+    const RadiumNav = Radium(Nav);
+
     return (
-      <RBNavbar toggleNavKey={0}>
-        <NavBrand><Link to={'/'}>Respa</Link></NavBrand>
-        <Nav eventKey={0} right>
+      <RBNavbar inverse toggleNavKey={0}>
+        <NavBrand>
+          <Link style={styles.navBrand} to={'/'}>
+            <img
+              alt="Helsingin vaakuna"
+              src={logoSrc}
+              style={styles.logo}
+            />
+            Respa
+          </Link>
+        </NavBrand>
+        <RadiumNav left style={styles.searchNav}>
           <LinkContainer to="/search">
-            <NavItem>Haku</NavItem>
+            <NavItem>
+              <Glyphicon glyph="search" />
+            </NavItem>
           </LinkContainer>
+        </RadiumNav>
+        <Nav eventKey={0} right>
           {this.renderUserNav()}
         </Nav>
       </RBNavbar>
@@ -58,4 +78,4 @@ Navbar.propTypes = {
   user: PropTypes.object.isRequired,
 };
 
-export default Navbar;
+export default Radium(Navbar);

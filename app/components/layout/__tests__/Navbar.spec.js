@@ -34,10 +34,16 @@ describe('Component: purpose/Navbar', () => {
         expect(linkVdom.props.to).to.equal('/');
       });
 
-      it('should contain text "Respa"', () => {
+      it('should display the logo of the service', () => {
+        const imgTrees = navBrandTrees[0].everySubTree('img');
+
+        expect(imgTrees.length).to.equal(1);
+      });
+
+      it('should display text "Respa"', () => {
         const linkVdom = navBrandTrees[0].subTree('Link').getRenderOutput();
 
-        expect(linkVdom.props.children).to.equal('Respa');
+        expect(linkVdom.props.children).to.contain('Respa');
       });
     });
 
