@@ -7,9 +7,17 @@ export default {
   handleData,
 };
 
+const mockUsersData = {
+  'u-1': {
+    id: 'u-1',
+    name: 'Luke Skywalker',
+  },
+};
+
 const initialState = Immutable({
   resources: {},
   units: {},
+  users: mockUsersData,
 });
 
 function handleData(state, data) {

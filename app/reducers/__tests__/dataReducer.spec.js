@@ -18,6 +18,17 @@ describe('Reducer: dataReducer', () => {
     it('units should be an empty object', () => {
       expect(initialState.units).to.deep.equal({});
     });
+
+    it('users should contain mock user data', () => {
+      const expected = Immutable({
+        'u-1': {
+          id: 'u-1',
+          name: 'Luke Skywalker',
+        },
+      });
+
+      expect(initialState.users).to.deep.equal(expected);
+    });
   });
 
   describe('handling data', () => {
