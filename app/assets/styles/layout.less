@@ -1,0 +1,23 @@
+@footerHeight: 60px;
+@footerPadding: 30px;
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: @footerHeight + 3 * @footerPadding;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  height: @footerHeight + 2 * @footerPadding;
+  width: 100%;
+
+  .container {
+    padding-top: @footerPadding;
+    padding-bottom: @footerPadding;
+  }
+}
