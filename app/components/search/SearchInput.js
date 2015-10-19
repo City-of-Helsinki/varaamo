@@ -22,6 +22,7 @@ export class SearchInput extends Component {
       <form onSubmit={this.handleSubmit}>
         <Input
           addonBefore={searchGlyphicon}
+          autoFocus
           buttonAfter={submitButton}
           defaultValue={initialValue}
           placeholder="Etsi tilan nimellä"
