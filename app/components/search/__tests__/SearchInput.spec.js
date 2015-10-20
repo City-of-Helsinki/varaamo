@@ -29,6 +29,7 @@ describe('Component: search/SearchInput', () => {
       const inputVdom = inputTrees[0].getRenderOutput();
       const actualProps = inputVdom.props;
 
+      expect(actualProps.autoFocus).to.equal(true);
       expect(actualProps.defaultValue).to.equal(props.initialValue);
       expect(actualProps.type).to.equal('text');
       expect(actualProps.placeholder).to.equal('Etsi tilan nimellä');
