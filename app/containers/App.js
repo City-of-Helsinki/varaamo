@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { pushState } from 'redux-router';
 
 import { logout } from 'actions/authActions';
+import Footer from 'components/layout/Footer';
 import Navbar from 'components/layout/Navbar';
 import { appSelectors } from 'selectors/appSelectors';
 
@@ -35,6 +36,7 @@ export class UnconnectedApp extends Component {
           <Grid>
             {children}
           </Grid>
+          <Footer />
         </div>
       </DocumentTitle>
     );

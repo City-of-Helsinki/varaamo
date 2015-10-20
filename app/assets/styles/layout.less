@@ -1,0 +1,32 @@
+@footerHeight: 105px;
+@footerMobileHeight: 230px;
+@footerPadding: 30px;
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: @footerMobileHeight + 3 * @footerPadding;
+
+  @media (min-width: 992px) {
+    margin-bottom: @footerHeight + 3 * @footerPadding;
+  }
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  height: auto;
+  width: 100%;
+
+  @media (min-width: 992px) {
+    height: @footerHeight + 2 * @footerPadding;
+  }
+
+  .container {
+    padding-top: @footerPadding;
+    padding-bottom: @footerPadding;
+  }
+}

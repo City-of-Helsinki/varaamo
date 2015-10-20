@@ -44,6 +44,11 @@ describe('Container: App', () => {
     });
   });
 
+  it('should render Footer component', () => {
+    const footerTrees = tree.everySubTree('Footer');
+    expect(footerTrees.length).to.equal(1);
+  });
+
   describe('handleLogout', () => {
     instance.handleLogout();
 
