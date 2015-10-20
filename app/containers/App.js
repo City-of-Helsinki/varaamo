@@ -28,14 +28,16 @@ export class UnconnectedApp extends Component {
 
     return (
       <DocumentTitle title="Respa">
-        <div>
+        <div className="app">
           <Navbar
             logout={this.handleLogout}
             user={user}
           />
-          <Grid>
-            {children}
-          </Grid>
+          <div className="app-content">
+            <Grid>
+              {children}
+            </Grid>
+          </div>
           <Footer />
         </div>
       </DocumentTitle>
