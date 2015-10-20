@@ -12,11 +12,9 @@ import 'assets/styles/app.less';
 const store = configureStore();
 
 render(
-  <div>
-    <Provider store={store}>
-      <ReduxRouter />
-    </Provider>
-  </div>,
+  <Provider store={store}>
+    <ReduxRouter />
+  </Provider>,
   document.getElementById('root')
 );
 
