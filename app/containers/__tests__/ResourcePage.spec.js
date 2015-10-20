@@ -10,7 +10,11 @@ import Unit from 'fixtures/Unit';
 
 describe('Container: ResourcePage', () => {
   const unit = Unit.build();
-  const resource = Resource.build({ unit: Unit.id });
+  const images = [{ url: 'some-url', caption: 'some caption' }];
+  const resource = Resource.build({
+    images,
+    unit: Unit.id,
+  });
   const props = {
     actions: { fetchResource: simple.stub() },
     id: resource.id,
@@ -73,6 +77,23 @@ describe('Container: ResourcePage', () => {
       expect(typeof actualProps.capacityString).to.equal('string');
       expect(typeof actualProps.description).to.equal('string');
       expect(typeof actualProps.type).to.equal('string');
+    });
+  });
+
+  describe('rendering ImagePanel', () => {
+    const imagePanelTrees = tree.everySubTree('ImagePanel');
+
+    it('should render ImagePanel component', () => {
+      expect(imagePanelTrees.length).to.equal(1);
+    });
+
+    it('should pass correct props to ImagePanel component', () => {
+      const imagePanelVdom = imagePanelTrees[0].getRenderOutput();
+      const actualProps = imagePanelVdom.props;
+      const expectedAltText = `Kuva ${resource.name.fi} tilasta`;
+
+      expect(actualProps.altText).to.equal(expectedAltText);
+      expect(actualProps.images).to.deep.equal(resource.images);
     });
   });
 

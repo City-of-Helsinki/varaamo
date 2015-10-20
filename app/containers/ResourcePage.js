@@ -8,6 +8,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { bindActionCreators } from 'redux';
 
 import { fetchResource } from 'actions/resourceActions';
+import ImagePanel from 'components/common/ImagePanel';
 import ResourceDetails from 'components/resource/ResourceDetails';
 import ResourceHeader from 'components/resource/ResourceHeader';
 import NotFoundPage from 'containers/NotFoundPage';
@@ -59,6 +60,10 @@ export class UnconnectedResourcePage extends Component {
               capacityString={getPeopleCapacityString(resource.peopleCapacity)}
               description={getDescription(resource)}
               type={getName(resource.type)}
+            />
+            <ImagePanel
+              altText={`Kuva ${resourceName} tilasta`}
+              images={resource.images || []}
             />
           </div>
         </Loader>
