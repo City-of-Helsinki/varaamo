@@ -61,11 +61,23 @@ function getAvailableTime(openingHours = {}, reservations = []) {
     return '0 tuntia';
   }
 
-  let total = moment(closes) - moment(opens);
+  const nowMoment = moment();
+  const opensMoment = moment(opens);
+  const closesMoment = moment(closes);
 
-  _.forEach(reservations, (reservation) => {
-    total = total - moment(reservation.end) + moment(reservation.begin);
-  });
+  if (nowMoment > closesMoment) {
+    return '0 tuntia';
+  }
+
+  const beginMoment = nowMoment > opensMoment ? nowMoment : opensMoment;
+  let total = closesMoment - beginMoment;
+
+  _.forEach(
+    reservations.filter(reservation => moment(reservation.end) > nowMoment),
+    (reservation) => {
+      total = total - moment(reservation.end) + moment(reservation.begin);
+    }
+  );
 
   const asHours = moment.duration(total).asHours();
 

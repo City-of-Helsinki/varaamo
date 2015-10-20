@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import MockDate from 'mockdate';
 
 import { PURPOSE_MAIN_TYPES } from 'constants/AppConstants';
 import {
@@ -148,38 +149,130 @@ describe('Utils: DataUtils', () => {
       expect(getAvailableTime(openingHours)).to.equal('0 tuntia');
     });
 
-    describe('if there are no reservations', () => {
-      const openingHours = {
-        opens: '2015-10-10T12:00:00+03:00',
-        closes: '2015-10-10T18:00:00+03:00',
-      };
-      const reservations = [];
-      const availableTime = getAvailableTime(openingHours, reservations);
+    describe('if current time is before opening time', () => {
+      beforeEach(() => {
+        MockDate.set('2015-09-10T12:00:00+03:00');
+      });
 
-      it('should return the time between opening hours', () => {
-        expect(availableTime).to.equal('6 tuntia');
+      afterEach(() => {
+        MockDate.reset();
+      });
+
+      describe('if there are no reservations', () => {
+        it('should return the time between opening hours', () => {
+          const openingHours = {
+            opens: '2015-10-10T12:00:00+03:00',
+            closes: '2015-10-10T18:00:00+03:00',
+          };
+          const reservations = [];
+          const availableTime = getAvailableTime(openingHours, reservations);
+          expect(availableTime).to.equal('6 tuntia');
+        });
+      });
+
+      describe('if there are reservations', () => {
+        it('should return the time between opening hours minus reservations', () => {
+          const openingHours = {
+            opens: '2015-10-10T12:00:00+03:00',
+            closes: '2015-10-10T18:00:00+03:00',
+          };
+          const reservations = [
+            {
+              begin: '2015-10-10T13:00:00+03:00',
+              end: '2015-10-10T14:00:00+03:00',
+            },
+            {
+              begin: '2015-10-10T16:00:00+03:00',
+              end: '2015-10-10T16:30:00+03:00',
+            },
+          ];
+          const availableTime = getAvailableTime(openingHours, reservations);
+
+          expect(availableTime).to.equal('4.5 tuntia');
+        });
       });
     });
 
-    describe('if there are reservations', () => {
-      const openingHours = {
-        opens: '2015-10-10T12:00:00+03:00',
-        closes: '2015-10-10T18:00:00+03:00',
-      };
-      const reservations = [
-        {
-          begin: '2015-10-10T13:00:00+03:00',
-          end: '2015-10-10T14:00:00+03:00',
-        },
-        {
-          begin: '2015-10-10T16:00:00+03:00',
-          end: '2015-10-10T16:30:00+03:00',
-        },
-      ];
-      const availableTime = getAvailableTime(openingHours, reservations);
+    describe('if current time is between opening hours', () => {
+      beforeEach(() => {
+        MockDate.set('2015-10-10T15:00:00+03:00');
+      });
 
-      it('should return the time between opening hours minus reservation times', () => {
-        expect(availableTime).to.equal('4.5 tuntia');
+      afterEach(() => {
+        MockDate.reset();
+      });
+
+      describe('if there are no reservations', () => {
+        it('should return time between current time and closing time', () => {
+          const openingHours = {
+            opens: '2015-10-10T12:00:00+03:00',
+            closes: '2015-10-10T18:00:00+03:00',
+          };
+          const availableTime = getAvailableTime(openingHours);
+
+          expect(availableTime).to.equal('3 tuntia');
+        });
+      });
+
+      describe('if there are reservations', () => {
+        it('should return time between current time and closing time minus reservations', () => {
+          const openingHours = {
+            opens: '2015-10-10T12:00:00+03:00',
+            closes: '2015-10-10T18:00:00+03:00',
+          };
+          const reservations = [
+            {
+              begin: '2015-10-10T15:00:00+03:00',
+              end: '2015-10-10T16:00:00+03:00',
+            },
+            {
+              begin: '2015-10-10T17:00:00+03:00',
+              end: '2015-10-10T17:30:00+03:00',
+            },
+          ];
+          const availableTime = getAvailableTime(openingHours, reservations);
+
+          expect(availableTime).to.equal('1.5 tuntia');
+        });
+
+        it('should not minus reservations that are before current time', () => {
+          const openingHours = {
+            opens: '2015-10-10T12:00:00+03:00',
+            closes: '2015-10-10T18:00:00+03:00',
+          };
+          const reservations = [
+            {
+              begin: '2015-10-10T12:00:00+03:00',
+              end: '2015-10-10T13:00:00+03:00',
+            },
+            {
+              begin: '2015-10-10T14:00:00+03:00',
+              end: '2015-10-10T14:30:00+03:00',
+            },
+          ];
+          const availableTime = getAvailableTime(openingHours, reservations);
+
+          expect(availableTime).to.equal('3 tuntia');
+        });
+      });
+    });
+
+    describe('if current time is after openingHours.closes', () => {
+      beforeEach(() => {
+        MockDate.set('2015-11-10T18:00:00+03:00');
+      });
+
+      afterEach(() => {
+        MockDate.reset();
+      });
+
+      it('should return "0 tuntia"', () => {
+        const openingHours = {
+          opens: '2015-10-10T12:00:00+03:00',
+          closes: '2015-10-10T18:00:00+03:00',
+        };
+        const availableTime = getAvailableTime(openingHours);
+        expect(availableTime).to.equal('0 tuntia');
       });
     });
   });
