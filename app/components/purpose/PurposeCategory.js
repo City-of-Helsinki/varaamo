@@ -27,7 +27,6 @@ export class PurposeCategoryList extends Component {
     return (
       <Panel
         collapsible
-        defaultExpanded
         header={humanizeMainType(mainType)}
       >
         <ListGroup fill>
