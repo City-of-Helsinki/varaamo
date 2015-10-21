@@ -149,6 +149,27 @@ describe('Utils: DataUtils', () => {
       expect(getAvailableTime(openingHours)).to.equal('0 tuntia');
     });
 
+    describe('rounding the returned time', () => {
+      beforeEach(() => {
+        MockDate.set('2015-10-10T16:07:37+03:00');
+      });
+
+      afterEach(() => {
+        MockDate.reset();
+      });
+
+      it('should round the time upwards to nearest 0.5 hours', () => {
+        const openingHours = {
+          opens: '2015-10-10T12:00:00+03:00',
+          closes: '2015-10-10T18:00:00+03:00',
+        };
+        const availableTime = getAvailableTime(openingHours);
+
+        expect(availableTime).to.equal('2 tuntia');
+      });
+    });
+
+
     describe('if current time is before opening time', () => {
       beforeEach(() => {
         MockDate.set('2015-09-10T12:00:00+03:00');
