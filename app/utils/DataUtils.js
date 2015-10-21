@@ -80,8 +80,9 @@ function getAvailableTime(openingHours = {}, reservations = []) {
   );
 
   const asHours = moment.duration(total).asHours();
+  const rounded = Math.ceil(asHours * 2) / 2;
 
-  return asHours === 1 ? `${asHours} tunti` : `${asHours} tuntia`;
+  return rounded === 1 ? `${rounded} tunti` : `${rounded} tuntia`;
 }
 
 function getDescription(item) {
