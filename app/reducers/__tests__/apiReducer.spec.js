@@ -40,8 +40,8 @@ describe('Reducer: apiReducer', () => {
   });
 
   describe('handling actions', () => {
-    describe('API.FETCH_PURPOSES_START', () => {
-      const fetchPurposesStart = createAction(types.API.FETCH_PURPOSES_START);
+    describe('API.PURPOSES_GET_REQUEST', () => {
+      const fetchPurposesStart = createAction(types.API.PURPOSES_GET_REQUEST);
 
       it('should set isFetchingPurposes to true', () => {
         const action = fetchPurposesStart();
@@ -52,8 +52,8 @@ describe('Reducer: apiReducer', () => {
       });
     });
 
-    describe('API.FETCH_PURPOSES_SUCCESS', () => {
-      const fetchPurposesSuccess = createAction(types.API.FETCH_PURPOSES_SUCCESS);
+    describe('API.PURPOSES_GET_SUCCESS', () => {
+      const fetchPurposesSuccess = createAction(types.API.PURPOSES_GET_SUCCESS);
 
       it('should set isFetchingPurposes to false', () => {
         const action = fetchPurposesSuccess();
@@ -72,8 +72,8 @@ describe('Reducer: apiReducer', () => {
       });
     });
 
-    describe('API.FETCH_RESOURCE_START', () => {
-      const fetchResourceStart = createAction(types.API.FETCH_RESOURCE_START);
+    describe('API.RESOURCE_GET_REQUEST', () => {
+      const fetchResourceStart = createAction(types.API.RESOURCE_GET_REQUEST);
 
       it('should set isFetchingResource to true', () => {
         const action = fetchResourceStart();
@@ -84,8 +84,8 @@ describe('Reducer: apiReducer', () => {
       });
     });
 
-    describe('API.FETCH_RESOURCE_SUCCESS', () => {
-      const fetchResourceSuccess = createAction(types.API.FETCH_RESOURCE_SUCCESS);
+    describe('API.RESOURCE_GET_SUCCESS', () => {
+      const fetchResourceSuccess = createAction(types.API.RESOURCE_GET_SUCCESS);
 
       it('should set isFetchingResource to false', () => {
         const action = fetchResourceSuccess();
@@ -96,8 +96,8 @@ describe('Reducer: apiReducer', () => {
       });
     });
 
-    describe('API.FETCH_RESOURCE_ERROR', () => {
-      const fetchResourceError = createAction(types.API.FETCH_RESOURCE_ERROR);
+    describe('API.RESOURCE_GET_ERROR', () => {
+      const fetchResourceError = createAction(types.API.RESOURCE_GET_ERROR);
 
       it('should set isFetchingResource to false', () => {
         const action = fetchResourceError();
@@ -109,8 +109,8 @@ describe('Reducer: apiReducer', () => {
     });
 
 
-    describe('API.FETCH_RESOURCES_START', () => {
-      const fetchResourcesStart = createAction(types.API.FETCH_RESOURCES_START);
+    describe('API.RESOURCES_GET_REQUEST', () => {
+      const fetchResourcesStart = createAction(types.API.RESOURCES_GET_REQUEST);
 
       it('should set isFetchingSearchResults to true', () => {
         const action = fetchResourcesStart();
@@ -121,8 +121,8 @@ describe('Reducer: apiReducer', () => {
       });
     });
 
-    describe('API.FETCH_RESOURCES_SUCCESS', () => {
-      const fetchResourcesSuccess = createAction(types.API.FETCH_RESOURCES_SUCCESS);
+    describe('API.RESOURCES_GET_SUCCESS', () => {
+      const fetchResourcesSuccess = createAction(types.API.RESOURCES_GET_SUCCESS);
 
       it('should set isFetchingSearchResults to false', () => {
         const action = fetchResourcesSuccess();
@@ -141,8 +141,8 @@ describe('Reducer: apiReducer', () => {
       });
     });
 
-    describe('API.FETCH_UNITS_SUCCESS', () => {
-      const fetchUnitsSuccess = createAction(types.API.FETCH_UNITS_SUCCESS);
+    describe('API.UNITS_GET_SUCCESS', () => {
+      const fetchUnitsSuccess = createAction(types.API.UNITS_GET_SUCCESS);
 
       it('should set shouldFetchUnits to false', () => {
         const action = fetchUnitsSuccess();
@@ -153,8 +153,8 @@ describe('Reducer: apiReducer', () => {
       });
     });
 
-    describe('API.MAKE_RESERVATION_START', () => {
-      const makeReservationStart = createAction(types.API.MAKE_RESERVATION_START);
+    describe('API.RESERVATION_POST_REQUEST', () => {
+      const makeReservationStart = createAction(types.API.RESERVATION_POST_REQUEST);
 
       it('should increment pendingReservationsCount by one', () => {
         const action = makeReservationStart();
@@ -165,8 +165,8 @@ describe('Reducer: apiReducer', () => {
       });
     });
 
-    describe('API.MAKE_RESERVATION_SUCCESS', () => {
-      const makeReservationSuccess = createAction(types.API.MAKE_RESERVATION_SUCCESS);
+    describe('API.RESERVATION_POST_SUCCESS', () => {
+      const makeReservationSuccess = createAction(types.API.RESERVATION_POST_SUCCESS);
 
       it('should decrement pendingReservationsCount by one', () => {
         const action = makeReservationSuccess();
@@ -177,8 +177,8 @@ describe('Reducer: apiReducer', () => {
       });
     });
 
-    describe('API.MAKE_RESERVATION_ERROR', () => {
-      const makeReservationError = createAction(types.API.MAKE_RESERVATION_ERROR);
+    describe('API.RESERVATION_POST_ERROR', () => {
+      const makeReservationError = createAction(types.API.RESERVATION_POST_ERROR);
 
       it('should decrement pendingReservationsCount by one', () => {
         const action = makeReservationError();

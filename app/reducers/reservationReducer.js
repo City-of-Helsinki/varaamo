@@ -5,7 +5,7 @@ import types from 'constants/ActionTypes';
 export function reservationReducer(state, action) {
   switch (action.type) {
 
-  case types.API.MAKE_RESERVATION_SUCCESS:
+  case types.API.RESERVATION_POST_SUCCESS:
     return state.merge({ selected: [] });
 
   case types.UI.CHANGE_RESERVATION_DATE:

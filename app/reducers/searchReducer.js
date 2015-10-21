@@ -6,7 +6,7 @@ import { pickSupportedFilters } from 'utils/SearchUtils';
 export function searchReducer(state, action) {
   switch (action.type) {
 
-  case types.API.FETCH_RESOURCES_SUCCESS:
+  case types.API.RESOURCES_GET_SUCCESS:
     const results = _.keys(action.payload.entities.resources);
     return state.merge({ results });
 

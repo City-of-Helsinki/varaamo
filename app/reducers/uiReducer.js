@@ -26,13 +26,13 @@ const initialState = Immutable({
 export function uiReducer(state = initialState, action) {
   switch (action.type) {
 
-  case types.API.MAKE_RESERVATION_SUCCESS:
+  case types.API.RESERVATION_POST_SUCCESS:
   case types.UI.CHANGE_RESERVATION_DATE:
   case types.UI.TOGGLE_TIME_SLOT:
     const reservation = reservationReducer(state.reservation, action);
     return state.merge({ reservation });
 
-  case types.API.FETCH_RESOURCES_SUCCESS:
+  case types.API.RESOURCES_GET_SUCCESS:
   case types.UI.CHANGE_SEARCH_FILTERS:
     const search = searchReducer(state.search, action);
     return state.merge({ search });

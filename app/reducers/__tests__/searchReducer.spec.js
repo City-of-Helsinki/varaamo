@@ -10,9 +10,9 @@ import { searchReducer as reducer } from 'reducers/searchReducer';
 
 describe('Reducer: searchReducer', () => {
   describe('handling actions', () => {
-    describe('API.FETCH_RESOURCES_SUCCESS', () => {
+    describe('API.RESOURCES_GET_SUCCESS', () => {
       const fetchResourcesSuccess = createAction(
-        types.API.FETCH_RESOURCES_SUCCESS,
+        types.API.RESOURCES_GET_SUCCESS,
         (resources) => {
           return {
             entities: {

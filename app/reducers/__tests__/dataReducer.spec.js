@@ -108,8 +108,8 @@ describe('Reducer: dataReducer', () => {
   });
 
   describe('handling actions', () => {
-    describe('API.MAKE_RESERVATION_SUCCESS', () => {
-      const makeReservationSuccess = createAction(types.API.MAKE_RESERVATION_SUCCESS);
+    describe('API.RESERVATION_POST_SUCCESS', () => {
+      const makeReservationSuccess = createAction(types.API.RESERVATION_POST_SUCCESS);
       const reservations = [
         {
           begin: 'old-begin',

@@ -15,43 +15,43 @@ const initialState = Immutable({
 export function apiReducer(state = initialState, action) {
   switch (action.type) {
 
-  case types.API.FETCH_PURPOSES_START:
+  case types.API.PURPOSES_GET_REQUEST:
     return state.merge({
       isFetchingPurposes: true,
     });
 
-  case types.API.FETCH_PURPOSES_SUCCESS:
+  case types.API.PURPOSES_GET_SUCCESS:
     return state.merge({
       isFetchingPurposes: false,
       shouldFetchPurposes: false,
     });
 
-  case types.API.FETCH_RESOURCE_START:
+  case types.API.RESOURCE_GET_REQUEST:
     return state.merge({ 'isFetchingResource': true });
 
-  case types.API.FETCH_RESOURCE_SUCCESS:
-  case types.API.FETCH_RESOURCE_ERROR:
+  case types.API.RESOURCE_GET_SUCCESS:
+  case types.API.RESOURCE_GET_ERROR:
     return state.merge({ isFetchingResource: false });
 
-  case types.API.FETCH_RESOURCES_START:
+  case types.API.RESOURCES_GET_REQUEST:
     return state.merge({ 'isFetchingSearchResults': true });
 
-  case types.API.FETCH_RESOURCES_SUCCESS:
+  case types.API.RESOURCES_GET_SUCCESS:
     return state.merge({
       isFetchingSearchResults: false,
       shouldFetchSearchResults: false,
     });
 
-  case types.API.FETCH_UNITS_SUCCESS:
+  case types.API.UNITS_GET_SUCCESS:
     return state.merge({
       shouldFetchUnits: false,
     });
 
-  case types.API.MAKE_RESERVATION_START:
+  case types.API.RESERVATION_POST_REQUEST:
     return state.merge({ 'pendingReservationsCount': state.pendingReservationsCount + 1 });
 
-  case types.API.MAKE_RESERVATION_SUCCESS:
-  case types.API.MAKE_RESERVATION_ERROR:
+  case types.API.RESERVATION_POST_SUCCESS:
+  case types.API.RESERVATION_POST_ERROR:
     return state.merge({ 'pendingReservationsCount': state.pendingReservationsCount - 1 });
 
   case types.UI.CHANGE_SEARCH_FILTERS:
