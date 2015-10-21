@@ -1,0 +1,21 @@
+.panel-heading {
+  padding: 0;
+
+  a {
+    display: block;
+    position: relative;
+    padding: 10px 15px;
+
+    &:after {
+      position: absolute;
+      font-family: 'Glyphicons Halflings';
+      content: "\e113";
+      top: 10px;
+      right: 15px;
+    }
+
+    &.collapsed:after {
+      content: "\e114";
+    }
+  }
+}
