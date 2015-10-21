@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 
-import ActionTypes from 'constants/ActionTypes';
+import types from 'constants/ActionTypes';
 
 const initialState = Immutable({
   userId: null,
@@ -9,12 +9,11 @@ const initialState = Immutable({
 export function authReducer(state = initialState, action) {
   switch (action.type) {
 
-  case ActionTypes.LOGIN:
+  case types.API.LOGIN:
     const { userId } = action.payload;
-
     return state.merge({ userId: userId });
 
-  case ActionTypes.LOGOUT:
+  case types.API.LOGOUT:
     return initialState;
 
   default:

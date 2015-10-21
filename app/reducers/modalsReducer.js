@@ -1,13 +1,13 @@
 import _ from 'lodash';
 
-import ActionTypes from 'constants/ActionTypes';
+import types from 'constants/ActionTypes';
 
 export function modalsReducer(state, action) {
   let modal;
 
   switch (action.type) {
 
-  case ActionTypes.CLOSE_MODAL:
+  case types.UI.CLOSE_MODAL:
     modal = action.payload;
 
     if (_.includes(state.open, modal)) {
@@ -16,7 +16,7 @@ export function modalsReducer(state, action) {
 
     return state;
 
-  case ActionTypes.OPEN_MODAL:
+  case types.UI.OPEN_MODAL:
     modal = action.payload;
 
     if (_.includes(state.open, modal)) {

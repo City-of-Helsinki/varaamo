@@ -16,9 +16,12 @@ function fetchPurposes() {
   return {
     [CALL_API]: {
       types: [
-        types.FETCH_PURPOSES_START,
-        getSuccessTypeDescriptor(types.FETCH_PURPOSES_SUCCESS, paginatedPurposesSchema),
-        types.FETCH_PURPOSES_ERROR,
+        types.API.FETCH_PURPOSES_START,
+        getSuccessTypeDescriptor(
+          types.API.FETCH_PURPOSES_SUCCESS,
+          paginatedPurposesSchema
+        ),
+        types.API.FETCH_PURPOSES_ERROR,
       ],
       endpoint: buildAPIUrl('purpose'),
       method: 'GET',

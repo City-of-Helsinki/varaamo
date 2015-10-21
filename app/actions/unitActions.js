@@ -18,9 +18,12 @@ function fetchUnits() {
   return {
     [CALL_API]: {
       types: [
-        types.FETCH_UNITS_START,
-        getSuccessTypeDescriptor(types.FETCH_UNITS_SUCCESS, paginatedUnitsSchema),
-        types.FETCH_UNITS_ERROR,
+        types.API.FETCH_UNITS_START,
+        getSuccessTypeDescriptor(
+          types.API.FETCH_UNITS_SUCCESS,
+          paginatedUnitsSchema
+        ),
+        types.API.FETCH_UNITS_ERROR,
       ],
       endpoint: buildAPIUrl('unit', fetchParams),
       method: 'GET',

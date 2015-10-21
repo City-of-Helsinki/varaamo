@@ -13,9 +13,9 @@ function makeReservation(reservation) {
   return {
     [CALL_API]: {
       types: [
-        types.MAKE_RESERVATION_START,
-        types.MAKE_RESERVATION_SUCCESS,
-        types.MAKE_RESERVATION_ERROR,
+        types.API.MAKE_RESERVATION_START,
+        types.API.MAKE_RESERVATION_SUCCESS,
+        types.API.MAKE_RESERVATION_ERROR,
       ],
       endpoint: url,
       method: 'POST',

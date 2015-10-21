@@ -17,9 +17,12 @@ function fetchResource(id, params = {}) {
   return {
     [CALL_API]: {
       types: [
-        types.FETCH_RESOURCE_START,
-        getSuccessTypeDescriptor(types.FETCH_RESOURCE_SUCCESS, resourceSchema),
-        types.FETCH_RESOURCE_ERROR,
+        types.API.FETCH_RESOURCE_START,
+        getSuccessTypeDescriptor(
+          types.API.FETCH_RESOURCE_SUCCESS,
+          resourceSchema
+        ),
+        types.API.FETCH_RESOURCE_ERROR,
       ],
       endpoint: buildAPIUrl(`resource/${id}`, params),
       method: 'GET',
@@ -34,9 +37,12 @@ function fetchResources(params = {}) {
   return {
     [CALL_API]: {
       types: [
-        types.FETCH_RESOURCES_START,
-        getSuccessTypeDescriptor(types.FETCH_RESOURCES_SUCCESS, paginatedResourcesSchema),
-        types.FETCH_RESOURCES_ERROR,
+        types.API.FETCH_RESOURCES_START,
+        getSuccessTypeDescriptor(
+          types.API.FETCH_RESOURCES_SUCCESS,
+          paginatedResourcesSchema
+        ),
+        types.API.FETCH_RESOURCES_ERROR,
       ],
       endpoint: buildAPIUrl('resource', fetchParams),
       method: 'GET',
