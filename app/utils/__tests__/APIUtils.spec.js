@@ -7,6 +7,7 @@ import {
   createTransformFunction,
   getHeaders,
   getSearchParamsString,
+  getSuccessTypeDescriptor,
 } from 'utils/APIUtils';
 
 describe('Utils: APIUtils', () => {
@@ -129,6 +130,24 @@ describe('Utils: APIUtils', () => {
       const expected = 'camelized_param=hello';
 
       expect(getSearchParamsString(params)).to.equal(expected);
+    });
+  });
+
+  describe('getSuccessTypeDescriptor', () => {
+    const actionType = 'SUCCESS';
+
+    it('should return an object', () => {
+      expect(typeof getSuccessTypeDescriptor(actionType)).to.equal('object');
+    });
+
+    it('should contain the given action type', () => {
+      const actual = getSuccessTypeDescriptor(actionType).type;
+
+      expect(actual).to.equal(actionType);
+    });
+
+    it('should contain a payload function', () => {
+      expect(typeof getSuccessTypeDescriptor(actionType).payload).to.equal('function');
     });
   });
 });

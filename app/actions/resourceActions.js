@@ -4,8 +4,8 @@ import types from 'constants/ActionTypes';
 import { paginatedResourcesSchema, resourceSchema } from 'middleware/Schemas';
 import {
   buildAPIUrl,
-  createTransformFunction,
   getHeaders,
+  getSuccessTypeDescriptor,
 } from 'utils/APIUtils';
 
 export default {
@@ -18,13 +18,12 @@ function fetchResource(id, params = {}) {
     [CALL_API]: {
       types: [
         types.FETCH_RESOURCE_START,
-        types.FETCH_RESOURCE_SUCCESS,
+        getSuccessTypeDescriptor(types.FETCH_RESOURCE_SUCCESS, resourceSchema),
         types.FETCH_RESOURCE_ERROR,
       ],
       endpoint: buildAPIUrl(`resource/${id}`, params),
       method: 'GET',
       headers: getHeaders(),
-      transform: createTransformFunction(resourceSchema),
     },
   };
 }
@@ -36,13 +35,12 @@ function fetchResources(params = {}) {
     [CALL_API]: {
       types: [
         types.FETCH_RESOURCES_START,
-        types.FETCH_RESOURCES_SUCCESS,
+        getSuccessTypeDescriptor(types.FETCH_RESOURCES_SUCCESS, paginatedResourcesSchema),
         types.FETCH_RESOURCES_ERROR,
       ],
       endpoint: buildAPIUrl('resource', fetchParams),
       method: 'GET',
       headers: getHeaders(),
-      transform: createTransformFunction(paginatedResourcesSchema),
       bailout: (state) => {
         return !state.api.shouldFetchSearchResults;
       },
