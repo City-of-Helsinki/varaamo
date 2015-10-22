@@ -1,6 +1,7 @@
 import { camelizeKeys, decamelizeKeys } from 'humps';
 import _ from 'lodash';
 import { normalize } from 'normalizr';
+import { getJSON } from 'redux-api-middleware';
 
 import { API_URL, REQUIRED_API_HEADERS } from 'constants/AppConstants';
 
@@ -9,6 +10,7 @@ export default {
   createTransformFunction,
   getHeaders,
   getSearchParamsString,
+  getSuccessTypeDescriptor,
 };
 
 function buildAPIUrl(endpoint, params) {
@@ -46,4 +48,13 @@ function getSearchParamsString(params) {
   });
 
   return parts.join('&');
+}
+
+function getSuccessTypeDescriptor(type, schema) {
+  return {
+    type,
+    payload: (action, state, response) => {
+      return getJSON(response).then(createTransformFunction(schema));
+    },
+  };
 }
