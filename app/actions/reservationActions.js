@@ -4,10 +4,10 @@ import types from 'constants/ActionTypes';
 import { buildAPIUrl, getHeaders } from 'utils/APIUtils';
 
 export default {
-  makeReservation,
+  postReservation,
 };
 
-function makeReservation(reservation) {
+function postReservation(reservation) {
   const url = buildAPIUrl('reservation');
 
   return {

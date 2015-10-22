@@ -13,10 +13,10 @@ import { reservationReducer as reducer } from 'reducers/reservationReducer';
 describe('Reducer: reservationReducer', () => {
   describe('handling actions', () => {
     describe('API.RESERVATION_POST_SUCCESS', () => {
-      const makeReservationSuccess = createAction(types.API.RESERVATION_POST_SUCCESS);
+      const postReservationSuccess = createAction(types.API.RESERVATION_POST_SUCCESS);
 
       it('should clear the selected slots', () => {
-        const action = makeReservationSuccess();
+        const action = postReservationSuccess();
         const initialState = Immutable({
           selected: ['some-selected'],
         });

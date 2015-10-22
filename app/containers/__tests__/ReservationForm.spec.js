@@ -19,7 +19,7 @@ describe('Container: ReservationForm', () => {
       changeReservationDate: simple.stub(),
       closeConfirmReservationModal: simple.stub(),
       fetchResource: simple.stub(),
-      makeReservation: simple.stub(),
+      postReservation: simple.stub(),
       openConfirmReservationModal: simple.stub(),
       toggleTimeSlot: simple.stub(),
     },
@@ -157,12 +157,12 @@ describe('Container: ReservationForm', () => {
       instance.handleReservation();
     });
 
-    it('should call makeReservation for each selected reservation', () => {
-      expect(props.actions.makeReservation.callCount).to.equal(props.selectedReservations.length);
+    it('should call postReservation for each selected reservation', () => {
+      expect(props.actions.postReservation.callCount).to.equal(props.selectedReservations.length);
     });
 
-    it('should call makeReservation with correcte arguments', () => {
-      const actualArgs = props.actions.makeReservation.lastCall.args;
+    it('should call postReservation with correcte arguments', () => {
+      const actualArgs = props.actions.postReservation.lastCall.args;
       const expected = props.selectedReservations[1];
 
       expect(actualArgs[0]).to.deep.equal(expected);

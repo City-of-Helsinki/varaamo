@@ -154,10 +154,10 @@ describe('Reducer: apiReducer', () => {
     });
 
     describe('API.RESERVATION_POST_REQUEST', () => {
-      const makeReservationStart = createAction(types.API.RESERVATION_POST_REQUEST);
+      const postReservationStart = createAction(types.API.RESERVATION_POST_REQUEST);
 
       it('should increment pendingReservationsCount by one', () => {
-        const action = makeReservationStart();
+        const action = postReservationStart();
         const initialState = Immutable({ pendingReservationsCount: 0 });
         const nextState = reducer(initialState, action);
 
@@ -166,10 +166,10 @@ describe('Reducer: apiReducer', () => {
     });
 
     describe('API.RESERVATION_POST_SUCCESS', () => {
-      const makeReservationSuccess = createAction(types.API.RESERVATION_POST_SUCCESS);
+      const postReservationSuccess = createAction(types.API.RESERVATION_POST_SUCCESS);
 
       it('should decrement pendingReservationsCount by one', () => {
-        const action = makeReservationSuccess();
+        const action = postReservationSuccess();
         const initialState = Immutable({ pendingReservationsCount: 2 });
         const nextState = reducer(initialState, action);
 
@@ -178,10 +178,10 @@ describe('Reducer: apiReducer', () => {
     });
 
     describe('API.RESERVATION_POST_ERROR', () => {
-      const makeReservationError = createAction(types.API.RESERVATION_POST_ERROR);
+      const postReservationError = createAction(types.API.RESERVATION_POST_ERROR);
 
       it('should decrement pendingReservationsCount by one', () => {
-        const action = makeReservationError();
+        const action = postReservationError();
         const initialState = Immutable({ pendingReservationsCount: 2 });
         const nextState = reducer(initialState, action);
 
