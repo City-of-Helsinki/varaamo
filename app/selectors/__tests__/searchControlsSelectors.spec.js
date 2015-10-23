@@ -1,10 +1,8 @@
 import { expect } from 'chai';
 
-import moment from 'moment';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
-import { DATE_FORMAT } from 'constants/AppConstants';
 import Purpose from 'fixtures/Purpose';
 import { searchControlsSelectors } from 'selectors/searchControlsSelectors';
 
@@ -39,6 +37,12 @@ describe('Selectors: searchControlsSelectors', () => {
     };
   });
 
+  it('should return filters', () => {
+    const selected = searchControlsSelectors(state);
+
+    expect(selected.filters).to.exist;
+  });
+
   describe('isFetchingPurposes', () => {
     it('should return true if PURPOSES_GET_REQUEST is in activeRequests', () => {
       state.api.activeRequests = [types.API.PURPOSES_GET_REQUEST];
@@ -62,24 +66,5 @@ describe('Selectors: searchControlsSelectors', () => {
     ]);
 
     expect(selected.purposeOptions).to.deep.equal(expected);
-  });
-
-  describe('filters', () => {
-    it('should return filters from the state', () => {
-      const selected = searchControlsSelectors(state);
-      const expected = state.ui.search.filters;
-
-      expect(selected.filters).to.deep.equal(expected);
-    });
-
-    it('should return current date as date filter if date is an empty string in state', () => {
-      state.ui.search.filters.date = '';
-      const selected = searchControlsSelectors(state);
-      const filters = state.ui.search.filters;
-      const expectedDate = moment().format(DATE_FORMAT);
-      const expected = Object.assign({}, filters, { date: expectedDate });
-
-      expect(selected.filters).to.deep.equal(expected);
-    });
   });
 });

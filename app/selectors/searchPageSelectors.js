@@ -2,24 +2,23 @@ import _ from 'lodash';
 import { createSelector } from 'reselect';
 
 import types from 'constants/ActionTypes';
-import { getDateString } from 'utils/TimeUtils';
+import searchFiltersSelector from 'selectors/searchFiltersSelector';
 
 const activeRequestsSelector = (state) => state.api.activeRequests;
-const filtersSelector = (state) => state.ui.search.filters;
 const resourcesSelector = (state) => state.data.resources;
 const searchResultsSelector = (state) => state.ui.search.results;
 const unitsSelector = (state) => state.data.units;
 
 export const searchPageSelectors = createSelector(
   activeRequestsSelector,
-  filtersSelector,
   resourcesSelector,
+  searchFiltersSelector,
   searchResultsSelector,
   unitsSelector,
   (
     activeRequests,
-    filters,
     resources,
+    searchFilters,
     searchResults,
     units
   ) => {
@@ -30,7 +29,7 @@ export const searchPageSelectors = createSelector(
     );
 
     return {
-      filters: Object.assign({}, filters, { date: getDateString(filters.date) }),
+      filters: searchFilters,
       isFetchingSearchResults,
       results,
       units,
