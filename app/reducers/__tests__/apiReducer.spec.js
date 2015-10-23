@@ -10,16 +10,8 @@ describe('Reducer: apiReducer', () => {
   describe('initial state', () => {
     const initialState = reducer(undefined, {});
 
-    it('isFetchingPurposes should be false', () => {
-      expect(initialState.isFetchingPurposes).to.equal(false);
-    });
-
-    it('isFetchingResource should be false', () => {
-      expect(initialState.isFetchingResource).to.equal(false);
-    });
-
-    it('isFetchingSearchResults should be false', () => {
-      expect(initialState.isFetchingSearchResults).to.equal(false);
+    it('activeRequests should be an empty array', () => {
+      expect(initialState.activeRequests).to.deep.equal([]);
     });
 
     it('pendingReservationsCount should be 0', () => {
@@ -39,29 +31,75 @@ describe('Reducer: apiReducer', () => {
     });
   });
 
-  describe('handling actions', () => {
-    describe('API.PURPOSES_GET_REQUEST', () => {
-      const fetchPurposesStart = createAction(types.API.PURPOSES_GET_REQUEST);
+  describe('handling API_ACTIONS', () => {
+    const apiActionCreator = createAction(
+      'REQUEST',
+      () => {
+        return {};
+      },
+      (metaData) => {
+        return { API_ACTION: metaData };
+      }
+    );
 
-      it('should set isFetchingPurposes to true', () => {
-        const action = fetchPurposesStart();
-        const initialState = Immutable({ isFetchingPurposes: false });
+    describe('actions that have meta.API_ACTIONS.apiRequestStart', () => {
+      const action = apiActionCreator(
+        { apiRequestStart: true, type: 'SOME_REQUEST' }
+      );
+
+      it('should add the meta.API_ACTIONS.type to activeRequests', () => {
+        const initialState = Immutable({ activeRequests: [] });
         const nextState = reducer(initialState, action);
+        const expected = Immutable({ activeRequests: ['SOME_REQUEST'] });
 
-        expect(nextState.isFetchingPurposes).to.equal(true);
+        expect(nextState).to.deep.equal(expected);
+      });
+
+      it('should not affect the existing activeRequests', () => {
+        const initialState = Immutable({ activeRequests: ['OTHER_REQUEST'] });
+        const nextState = reducer(initialState, action);
+        const expected = Immutable({ activeRequests: ['OTHER_REQUEST', 'SOME_REQUEST'] });
+
+        expect(nextState).to.deep.equal(expected);
       });
     });
 
+    describe('actions that have meta.API_ACTIONS.apiRequestFinish', () => {
+      const action = apiActionCreator(
+        { apiRequestFinish: true, type: 'SOME_REQUEST' }
+      );
+
+      it('should remove the meta.API_ACTIONS.type from activeRequests', () => {
+        const initialState = Immutable({ activeRequests: ['SOME_REQUEST'] });
+        const nextState = reducer(initialState, action);
+        const expected = Immutable({ activeRequests: [] });
+
+        expect(nextState).to.deep.equal(expected);
+      });
+
+      it('should remove all instances of the meta.API_ACTIONS.type', () => {
+        const initialState = Immutable({
+          activeRequests: ['SOME_REQUEST', 'OTHER_REQUEST', 'SOME_REQUEST'],
+        });
+        const nextState = reducer(initialState, action);
+        const expected = Immutable({ activeRequests: ['OTHER_REQUEST'] });
+
+        expect(nextState).to.deep.equal(expected);
+      });
+
+      it('should not affect the existing activeRequests', () => {
+        const initialState = Immutable({ activeRequests: ['OTHER_REQUEST', 'SOME_REQUEST'] });
+        const nextState = reducer(initialState, action);
+        const expected = Immutable({ activeRequests: ['OTHER_REQUEST'] });
+
+        expect(nextState).to.deep.equal(expected);
+      });
+    });
+  });
+
+  describe('handling actions', () => {
     describe('API.PURPOSES_GET_SUCCESS', () => {
       const fetchPurposesSuccess = createAction(types.API.PURPOSES_GET_SUCCESS);
-
-      it('should set isFetchingPurposes to false', () => {
-        const action = fetchPurposesSuccess();
-        const initialState = Immutable({ isFetchingPurposes: true });
-        const nextState = reducer(initialState, action);
-
-        expect(nextState.isFetchingPurposes).to.equal(false);
-      });
 
       it('should set shouldFetchPurposes to false', () => {
         const action = fetchPurposesSuccess();
@@ -72,65 +110,8 @@ describe('Reducer: apiReducer', () => {
       });
     });
 
-    describe('API.RESOURCE_GET_REQUEST', () => {
-      const fetchResourceStart = createAction(types.API.RESOURCE_GET_REQUEST);
-
-      it('should set isFetchingResource to true', () => {
-        const action = fetchResourceStart();
-        const initialState = Immutable({ isFetchingResource: false });
-        const nextState = reducer(initialState, action);
-
-        expect(nextState.isFetchingResource).to.equal(true);
-      });
-    });
-
-    describe('API.RESOURCE_GET_SUCCESS', () => {
-      const fetchResourceSuccess = createAction(types.API.RESOURCE_GET_SUCCESS);
-
-      it('should set isFetchingResource to false', () => {
-        const action = fetchResourceSuccess();
-        const initialState = Immutable({ isFetchingResource: true });
-        const nextState = reducer(initialState, action);
-
-        expect(nextState.isFetchingResource).to.equal(false);
-      });
-    });
-
-    describe('API.RESOURCE_GET_ERROR', () => {
-      const fetchResourceError = createAction(types.API.RESOURCE_GET_ERROR);
-
-      it('should set isFetchingResource to false', () => {
-        const action = fetchResourceError();
-        const initialState = Immutable({ isFetchingResource: true });
-        const nextState = reducer(initialState, action);
-
-        expect(nextState.isFetchingResource).to.equal(false);
-      });
-    });
-
-
-    describe('API.RESOURCES_GET_REQUEST', () => {
-      const fetchResourcesStart = createAction(types.API.RESOURCES_GET_REQUEST);
-
-      it('should set isFetchingSearchResults to true', () => {
-        const action = fetchResourcesStart();
-        const initialState = Immutable({ isFetchingSearchResults: false });
-        const nextState = reducer(initialState, action);
-
-        expect(nextState.isFetchingSearchResults).to.equal(true);
-      });
-    });
-
     describe('API.RESOURCES_GET_SUCCESS', () => {
       const fetchResourcesSuccess = createAction(types.API.RESOURCES_GET_SUCCESS);
-
-      it('should set isFetchingSearchResults to false', () => {
-        const action = fetchResourcesSuccess();
-        const initialState = Immutable({ isFetchingSearchResults: true });
-        const nextState = reducer(initialState, action);
-
-        expect(nextState.isFetchingSearchResults).to.equal(false);
-      });
 
       it('should set shouldFetchSearchResults to false', () => {
         const action = fetchResourcesSuccess();

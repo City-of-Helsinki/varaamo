@@ -1,11 +1,10 @@
+import _ from 'lodash';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
 
 const initialState = Immutable({
-  isFetchingSearchResults: false,
-  isFetchingPurposes: false,
-  isFetchingResource: false,
+  activeRequests: [],
   pendingReservationsCount: 0,
   shouldFetchPurposes: true,
   shouldFetchSearchResults: true,
@@ -13,32 +12,26 @@ const initialState = Immutable({
 });
 
 export function apiReducer(state = initialState, action) {
-  switch (action.type) {
+  if (action.meta && action.meta.API_ACTION) {
+    const { apiRequestStart, apiRequestFinish, type } = action.meta.API_ACTION;
+    if (apiRequestStart) {
+      return state.merge({ activeRequests: [...state.activeRequests, type] });
+    }
 
-  case types.API.PURPOSES_GET_REQUEST:
-    return state.merge({
-      isFetchingPurposes: true,
-    });
+    if (apiRequestFinish) {
+      return state.merge({ activeRequests: _.without(state.activeRequests, type) });
+    }
+  }
+
+  switch (action.type) {
 
   case types.API.PURPOSES_GET_SUCCESS:
     return state.merge({
-      isFetchingPurposes: false,
       shouldFetchPurposes: false,
     });
 
-  case types.API.RESOURCE_GET_REQUEST:
-    return state.merge({ 'isFetchingResource': true });
-
-  case types.API.RESOURCE_GET_SUCCESS:
-  case types.API.RESOURCE_GET_ERROR:
-    return state.merge({ isFetchingResource: false });
-
-  case types.API.RESOURCES_GET_REQUEST:
-    return state.merge({ 'isFetchingSearchResults': true });
-
   case types.API.RESOURCES_GET_SUCCESS:
     return state.merge({
-      isFetchingSearchResults: false,
       shouldFetchSearchResults: false,
     });
 

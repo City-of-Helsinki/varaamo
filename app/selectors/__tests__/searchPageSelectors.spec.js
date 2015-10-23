@@ -4,6 +4,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import Immutable from 'seamless-immutable';
 
+import types from 'constants/ActionTypes';
 import { DATE_FORMAT } from 'constants/AppConstants';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
@@ -24,7 +25,7 @@ describe('Selectors: searchPageSelectors', () => {
 
     state = {
       api: Immutable({
-        isFetchingSearchResults: false,
+        activeRequests: [],
       }),
       data: Immutable({
         resources: {
@@ -47,11 +48,19 @@ describe('Selectors: searchPageSelectors', () => {
     };
   });
 
-  it('should return isFetchingSearchResults from the state', () => {
-    const selected = searchPageSelectors(state);
-    const expected = state.api.isFetchingSearchResults;
+  describe('isFetchingSearchResults', () => {
+    it('should return true if RESOURCES_GET_REQUEST is in activeRequests', () => {
+      state.api.activeRequests = [types.API.RESOURCES_GET_REQUEST];
+      const selected = searchPageSelectors(state);
 
-    expect(selected.isFetchingSearchResults).to.equal(expected);
+      expect(selected.isFetchingSearchResults).to.equal(true);
+    });
+
+    it('should return false if RESOURCES_GET_REQUEST is not in activeRequests', () => {
+      const selected = searchPageSelectors(state);
+
+      expect(selected.isFetchingSearchResults).to.equal(false);
+    });
   });
 
   describe('filters', () => {

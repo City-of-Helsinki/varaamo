@@ -1,11 +1,15 @@
 import { expect } from 'chai';
 
+import { CALL_API } from 'redux-api-middleware';
+
 import { API_URL, REQUIRED_API_HEADERS } from 'constants/AppConstants';
 import { resourceSchema } from 'middleware/Schemas';
 import {
   buildAPIUrl,
   createTransformFunction,
+  getErrorTypeDescriptor,
   getHeaders,
+  getRequestTypeDescriptor,
   getSearchParamsString,
   getSuccessTypeDescriptor,
 } from 'utils/APIUtils';
@@ -84,6 +88,41 @@ describe('Utils: APIUtils', () => {
     });
   });
 
+  describe('getErrorTypeDescriptor', () => {
+    const actionType = 'SOME_GET_ERROR';
+
+    it('should return an object', () => {
+      expect(typeof getErrorTypeDescriptor(actionType)).to.equal('object');
+    });
+
+    it('should contain the given action type', () => {
+      const actual = getErrorTypeDescriptor(actionType).type;
+
+      expect(actual).to.equal(actionType);
+    });
+
+    it('should contain a meta function', () => {
+      expect(typeof getErrorTypeDescriptor(actionType).meta).to.equal('function');
+    });
+
+    it('the meta function should return an object with correct properties', () => {
+      const mockAction = {
+        [CALL_API]: {
+          types: [{ type: 'SOME_GET_REQUEST' }],
+        },
+      };
+      const actual = getErrorTypeDescriptor(actionType).meta(mockAction);
+      const expected = {
+        API_ACTION: {
+          apiRequestFinish: true,
+          type: 'SOME_GET_REQUEST',
+        },
+      };
+
+      expect(actual).to.deep.equal(expected);
+    });
+  });
+
   describe('getHeaders', () => {
     describe('if no additional headers are specified', () => {
       it('should return just the required headers', () => {
@@ -100,6 +139,32 @@ describe('Utils: APIUtils', () => {
 
         expect(getHeaders(additionalHeaders)).to.deep.equal(expected);
       });
+    });
+  });
+
+  describe('getRequestTypeDescriptor', () => {
+    const actionType = 'SOME_GET_REQUEST';
+
+    it('should return an object', () => {
+      expect(typeof getRequestTypeDescriptor(actionType)).to.equal('object');
+    });
+
+    it('should contain the given action type', () => {
+      const actual = getRequestTypeDescriptor(actionType).type;
+
+      expect(actual).to.equal(actionType);
+    });
+
+    it('should contain a meta object with correct properties', () => {
+      const actual = getRequestTypeDescriptor(actionType).meta;
+      const expected = {
+        API_ACTION: {
+          apiRequestStart: true,
+          type: 'SOME_GET_REQUEST',
+        },
+      };
+
+      expect(actual).to.deep.equal(expected);
     });
   });
 
@@ -134,7 +199,7 @@ describe('Utils: APIUtils', () => {
   });
 
   describe('getSuccessTypeDescriptor', () => {
-    const actionType = 'SUCCESS';
+    const actionType = 'SOME_GET_SUCCESS';
 
     it('should return an object', () => {
       expect(typeof getSuccessTypeDescriptor(actionType)).to.equal('object');
@@ -148,6 +213,27 @@ describe('Utils: APIUtils', () => {
 
     it('should contain a payload function', () => {
       expect(typeof getSuccessTypeDescriptor(actionType).payload).to.equal('function');
+    });
+
+    it('should contain a meta function', () => {
+      expect(typeof getSuccessTypeDescriptor(actionType).meta).to.equal('function');
+    });
+
+    it('the meta function should return an object with correct properties', () => {
+      const mockAction = {
+        [CALL_API]: {
+          types: [{ type: 'SOME_GET_REQUEST' }],
+        },
+      };
+      const actual = getSuccessTypeDescriptor(actionType).meta(mockAction);
+      const expected = {
+        API_ACTION: {
+          apiRequestFinish: true,
+          type: 'SOME_GET_REQUEST',
+        },
+      };
+
+      expect(actual).to.deep.equal(expected);
     });
   });
 });

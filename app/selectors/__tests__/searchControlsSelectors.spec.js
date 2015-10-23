@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import moment from 'moment';
 import Immutable from 'seamless-immutable';
 
+import types from 'constants/ActionTypes';
 import { DATE_FORMAT } from 'constants/AppConstants';
 import Purpose from 'fixtures/Purpose';
 import { searchControlsSelectors } from 'selectors/searchControlsSelectors';
@@ -19,7 +20,7 @@ describe('Selectors: searchControlsSelectors', () => {
 
     state = {
       api: Immutable({
-        isFetchingPurposes: false,
+        activeRequests: [],
       }),
       data: Immutable({
         purposes: {
@@ -38,11 +39,19 @@ describe('Selectors: searchControlsSelectors', () => {
     };
   });
 
-  it('should return isFetchingPurposes from the state', () => {
-    const selected = searchControlsSelectors(state);
-    const expected = state.api.isFetchingPurposes;
+  describe('isFetchingPurposes', () => {
+    it('should return true if PURPOSES_GET_REQUEST is in activeRequests', () => {
+      state.api.activeRequests = [types.API.PURPOSES_GET_REQUEST];
+      const selected = searchControlsSelectors(state);
 
-    expect(selected.isFetchingPurposes).to.equal(expected);
+      expect(selected.isFetchingPurposes).to.equal(true);
+    });
+
+    it('should return false if PURPOSES_GET_REQUEST is not in activeRequests', () => {
+      const selected = searchControlsSelectors(state);
+
+      expect(selected.isFetchingPurposes).to.equal(false);
+    });
   });
 
   it('should return objects containing values and labels as purposeOptions', () => {

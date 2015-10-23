@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import _ from 'lodash';
 import Immutable from 'seamless-immutable';
 
+import types from 'constants/ActionTypes';
 import Purpose from 'fixtures/Purpose';
 import { purposeCategoryListSelectors } from 'selectors/purposeCategoryListSelectors';
 
@@ -19,7 +20,7 @@ describe('Selectors: purposeCategoryListSelectors', () => {
 
     state = {
       api: Immutable({
-        isFetchingPurposes: false,
+        activeRequests: [],
       }),
       data: Immutable({
         purposes: _.indexBy(purposes, 'id'),
@@ -27,11 +28,19 @@ describe('Selectors: purposeCategoryListSelectors', () => {
     };
   });
 
-  it('should return isFetchingPurposes from the state', () => {
-    const selected = purposeCategoryListSelectors(state);
-    const expected = state.api.isFetchingPurposes;
+  describe('isFetchingPurposes', () => {
+    it('should return true if PURPOSES_GET_REQUEST is in activeRequests', () => {
+      state.api.activeRequests = [types.API.PURPOSES_GET_REQUEST];
+      const selected = purposeCategoryListSelectors(state);
 
-    expect(selected.isFetchingPurposes).to.equal(expected);
+      expect(selected.isFetchingPurposes).to.equal(true);
+    });
+
+    it('should return false if PURPOSES_GET_REQUEST is not in activeRequests', () => {
+      const selected = purposeCategoryListSelectors(state);
+
+      expect(selected.isFetchingPurposes).to.equal(false);
+    });
   });
 
   it('should return purposes grouped by mainType from the state', () => {
