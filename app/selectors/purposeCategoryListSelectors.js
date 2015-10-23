@@ -2,19 +2,18 @@ import _ from 'lodash';
 import { createSelector } from 'reselect';
 
 import types from 'constants/ActionTypes';
+import purposeCategoriesSelector from 'selectors/purposeCategoriesSelector';
 
 const activeRequestsSelector = (state) => state.api.activeRequests;
-const purposesSelector = (state) => state.data.purposes;
 
 export const purposeCategoryListSelectors = createSelector(
   activeRequestsSelector,
-  purposesSelector,
+  purposeCategoriesSelector,
   (
     activeRequests,
-    purposes
+    purposeCategories
   ) => {
     const isFetchingPurposes = _.includes(activeRequests, types.API.PURPOSES_GET_REQUEST);
-    const purposeCategories = _.groupBy(purposes, 'mainType');
 
     return {
       isFetchingPurposes,
