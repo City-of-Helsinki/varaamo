@@ -3,28 +3,18 @@ import { expect } from 'chai';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
-import Purpose from 'fixtures/Purpose';
 import { searchControlsSelectors } from 'selectors/searchControlsSelectors';
 
 describe('Selectors: searchControlsSelectors', () => {
-  let purposes;
   let state;
 
   beforeEach(() => {
-    purposes = [
-      Purpose.build(),
-      Purpose.build(),
-    ];
-
     state = {
       api: Immutable({
         activeRequests: [],
       }),
       data: Immutable({
-        purposes: {
-          [purposes[0].id]: purposes[0],
-          [purposes[1].id]: purposes[1],
-        },
+        purposes: {},
       }),
       ui: Immutable({
         search: {
@@ -58,13 +48,9 @@ describe('Selectors: searchControlsSelectors', () => {
     });
   });
 
-  it('should return objects containing values and labels as purposeOptions', () => {
+  it('should return purposeOptions', () => {
     const selected = searchControlsSelectors(state);
-    const expected = Immutable([
-      { value: purposes[0].id, label: purposes[0].name.fi },
-      { value: purposes[1].id, label: purposes[1].name.fi },
-    ]);
 
-    expect(selected.purposeOptions).to.deep.equal(expected);
+    expect(selected.purposeOptions).to.exist;
   });
 });
