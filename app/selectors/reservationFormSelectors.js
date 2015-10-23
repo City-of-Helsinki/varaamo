@@ -2,13 +2,13 @@ import _ from 'lodash';
 import { createSelector } from 'reselect';
 
 import types from 'constants/ActionTypes';
+import reservationDateSelector from 'selectors/reservationDateSelector';
 import selectedReservationsSelector from 'selectors/selectedReservationsSelector';
 import { getOpeningHours } from 'utils/DataUtils';
-import { getDateString, getTimeSlots } from 'utils/TimeUtils';
+import { getTimeSlots } from 'utils/TimeUtils';
 import ModalTypes from 'constants/ModalTypes';
 
 const activeRequestsSelector = (state) => state.api.activeRequests;
-const dateSelector = (state) => state.ui.reservation.date;
 const idSelector = (state) => state.router.params.id;
 const openModalsSelector = (state) => state.ui.modals.open;
 const pendingReservationsCountSelector = (state) => state.api.pendingReservationsCount;
@@ -17,19 +17,19 @@ const selectedSelector = (state) => state.ui.reservation.selected;
 
 export const reservationFormSelectors = createSelector(
   activeRequestsSelector,
-  dateSelector,
   idSelector,
   openModalsSelector,
   pendingReservationsCountSelector,
+  reservationDateSelector,
   resourcesSelector,
   selectedSelector,
   selectedReservationsSelector,
   (
     activeRequests,
-    date,
     id,
     openModals,
     pendingReservationsCount,
+    reservationDate,
     resources,
     selected,
     selectedReservations
@@ -44,7 +44,7 @@ export const reservationFormSelectors = createSelector(
 
     return {
       confirmReservationModalIsOpen,
-      date: getDateString(date),
+      date: reservationDate,
       id,
       isFetchingResource,
       isMakingReservations: Boolean(pendingReservationsCount),

@@ -2,24 +2,23 @@ import _ from 'lodash';
 import { createSelector } from 'reselect';
 
 import types from 'constants/ActionTypes';
-import { getDateString } from 'utils/TimeUtils';
+import reservationDateSelector from 'selectors/reservationDateSelector';
 
 const activeRequestsSelector = (state) => state.api.activeRequests;
-const dateSelector = (state) => state.ui.reservation.date;
 const idSelector = (state) => state.router.params.id;
 const resourcesSelector = (state) => state.data.resources;
 const unitsSelector = (state) => state.data.units;
 
 export const reservationPageSelectors = createSelector(
   activeRequestsSelector,
-  dateSelector,
   idSelector,
+  reservationDateSelector,
   resourcesSelector,
   unitsSelector,
   (
     activeRequests,
-    date,
     id,
+    reservationDate,
     resources,
     units
   ) => {
@@ -28,7 +27,7 @@ export const reservationPageSelectors = createSelector(
     const unit = units[resource.unit] || {};
 
     return {
-      date: getDateString(date),
+      date: reservationDate,
       id,
       isFetchingResource,
       resource,

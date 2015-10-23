@@ -1,10 +1,8 @@
 import { expect } from 'chai';
 
-import moment from 'moment';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
-import { DATE_FORMAT } from 'constants/AppConstants';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
 import { reservationPageSelectors } from 'selectors/reservationPageSelectors';
@@ -48,21 +46,10 @@ describe('Selectors: reservationPageSelectors', () => {
     };
   });
 
-  describe('reservation date', () => {
-    it('should return the date if it is selected', () => {
-      const selected = reservationPageSelectors(state);
-      const expected = state.ui.reservation.date;
+  it('should return date', () => {
+    const selected = reservationPageSelectors(state);
 
-      expect(selected.date).to.equal(expected);
-    });
-
-    it('should return current date string if date is not selected', () => {
-      state.ui.reservation.date = '';
-      const selected = reservationPageSelectors(state);
-      const expected = moment().format(DATE_FORMAT);
-
-      expect(selected.date).to.equal(expected);
-    });
+    expect(selected.date).to.exist;
   });
 
   it('should return the id in router.params.id', () => {
