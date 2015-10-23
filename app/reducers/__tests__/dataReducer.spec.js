@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
-import * as types from 'constants/ActionTypes';
+import types from 'constants/ActionTypes';
 import Resource from 'fixtures/Resource';
 import { dataReducer as reducer, handleData } from 'reducers/dataReducer';
 
@@ -108,8 +108,8 @@ describe('Reducer: dataReducer', () => {
   });
 
   describe('handling actions', () => {
-    describe('MAKE_RESERVATION_SUCCESS', () => {
-      const makeReservationSuccess = createAction(types.MAKE_RESERVATION_SUCCESS);
+    describe('API.RESERVATION_POST_SUCCESS', () => {
+      const postReservationSuccess = createAction(types.API.RESERVATION_POST_SUCCESS);
       const reservations = [
         {
           begin: 'old-begin',
@@ -128,7 +128,7 @@ describe('Reducer: dataReducer', () => {
       const initialState = Immutable({
         resources: { [resource.id]: resource },
       });
-      const action = makeReservationSuccess(reservation);
+      const action = postReservationSuccess(reservation);
       const nextState = reducer(initialState, action);
 
       it('should add the given reservation to correct resource', () => {

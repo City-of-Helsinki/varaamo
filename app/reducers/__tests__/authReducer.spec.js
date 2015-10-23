@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
-import * as types from 'constants/ActionTypes';
+import types from 'constants/ActionTypes';
 import { authReducer as reducer } from 'reducers/authReducer';
 
 describe('Reducer: authReducer', () => {
@@ -16,8 +16,8 @@ describe('Reducer: authReducer', () => {
   });
 
   describe('handling actions', () => {
-    describe('LOGIN', () => {
-      const login = createAction(types.LOGIN);
+    describe('API.LOGIN', () => {
+      const login = createAction(types.API.LOGIN);
 
       it('should set userId to given id', () => {
         const payload = { userId: 'u-1' };
@@ -29,8 +29,8 @@ describe('Reducer: authReducer', () => {
       });
     });
 
-    describe('LOGOUT', () => {
-      const logout = createAction(types.LOGOUT);
+    describe('API.LOGOUT', () => {
+      const logout = createAction(types.API.LOGOUT);
 
       it('should set userId to null', () => {
         const action = logout();

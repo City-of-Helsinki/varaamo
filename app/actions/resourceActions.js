@@ -4,7 +4,9 @@ import types from 'constants/ActionTypes';
 import { paginatedResourcesSchema, resourceSchema } from 'middleware/Schemas';
 import {
   buildAPIUrl,
+  getErrorTypeDescriptor,
   getHeaders,
+  getRequestTypeDescriptor,
   getSuccessTypeDescriptor,
 } from 'utils/APIUtils';
 
@@ -17,9 +19,12 @@ function fetchResource(id, params = {}) {
   return {
     [CALL_API]: {
       types: [
-        types.FETCH_RESOURCE_START,
-        getSuccessTypeDescriptor(types.FETCH_RESOURCE_SUCCESS, resourceSchema),
-        types.FETCH_RESOURCE_ERROR,
+        getRequestTypeDescriptor(types.API.RESOURCE_GET_REQUEST),
+        getSuccessTypeDescriptor(
+          types.API.RESOURCE_GET_SUCCESS,
+          resourceSchema
+        ),
+        getErrorTypeDescriptor(types.API.RESOURCE_GET_ERROR),
       ],
       endpoint: buildAPIUrl(`resource/${id}`, params),
       method: 'GET',
@@ -34,9 +39,12 @@ function fetchResources(params = {}) {
   return {
     [CALL_API]: {
       types: [
-        types.FETCH_RESOURCES_START,
-        getSuccessTypeDescriptor(types.FETCH_RESOURCES_SUCCESS, paginatedResourcesSchema),
-        types.FETCH_RESOURCES_ERROR,
+        getRequestTypeDescriptor(types.API.RESOURCES_GET_REQUEST),
+        getSuccessTypeDescriptor(
+          types.API.RESOURCES_GET_SUCCESS,
+          paginatedResourcesSchema
+        ),
+        getErrorTypeDescriptor(types.API.RESOURCES_GET_ERROR),
       ],
       endpoint: buildAPIUrl('resource', fetchParams),
       method: 'GET',

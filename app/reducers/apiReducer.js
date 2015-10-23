@@ -1,11 +1,10 @@
+import _ from 'lodash';
 import Immutable from 'seamless-immutable';
 
-import ActionTypes from 'constants/ActionTypes';
+import types from 'constants/ActionTypes';
 
 const initialState = Immutable({
-  isFetchingSearchResults: false,
-  isFetchingPurposes: false,
-  isFetchingResource: false,
+  activeRequests: [],
   pendingReservationsCount: 0,
   shouldFetchPurposes: true,
   shouldFetchSearchResults: true,
@@ -13,51 +12,45 @@ const initialState = Immutable({
 });
 
 export function apiReducer(state = initialState, action) {
+  if (action.meta && action.meta.API_ACTION) {
+    const { apiRequestStart, apiRequestFinish, type } = action.meta.API_ACTION;
+    if (apiRequestStart) {
+      return state.merge({ activeRequests: [...state.activeRequests, type] });
+    }
+
+    if (apiRequestFinish) {
+      return state.merge({ activeRequests: _.without(state.activeRequests, type) });
+    }
+  }
+
   switch (action.type) {
 
-  case ActionTypes.CHANGE_SEARCH_FILTERS:
+  case types.API.PURPOSES_GET_SUCCESS:
     return state.merge({
-      shouldFetchSearchResults: true,
-    });
-
-  case ActionTypes.FETCH_PURPOSES_START:
-    return state.merge({
-      isFetchingPurposes: true,
-    });
-
-  case ActionTypes.FETCH_PURPOSES_SUCCESS:
-    return state.merge({
-      isFetchingPurposes: false,
       shouldFetchPurposes: false,
     });
 
-  case ActionTypes.FETCH_RESOURCE_START:
-    return state.merge({ 'isFetchingResource': true });
-
-  case ActionTypes.FETCH_RESOURCE_SUCCESS:
-  case ActionTypes.FETCH_RESOURCE_ERROR:
-    return state.merge({ isFetchingResource: false });
-
-  case ActionTypes.FETCH_RESOURCES_START:
-    return state.merge({ 'isFetchingSearchResults': true });
-
-  case ActionTypes.FETCH_RESOURCES_SUCCESS:
+  case types.API.RESOURCES_GET_SUCCESS:
     return state.merge({
-      isFetchingSearchResults: false,
       shouldFetchSearchResults: false,
     });
 
-  case ActionTypes.FETCH_UNITS_SUCCESS:
+  case types.API.UNITS_GET_SUCCESS:
     return state.merge({
       shouldFetchUnits: false,
     });
 
-  case ActionTypes.MAKE_RESERVATION_START:
+  case types.API.RESERVATION_POST_REQUEST:
     return state.merge({ 'pendingReservationsCount': state.pendingReservationsCount + 1 });
 
-  case ActionTypes.MAKE_RESERVATION_SUCCESS:
-  case ActionTypes.MAKE_RESERVATION_ERROR:
+  case types.API.RESERVATION_POST_SUCCESS:
+  case types.API.RESERVATION_POST_ERROR:
     return state.merge({ 'pendingReservationsCount': state.pendingReservationsCount - 1 });
+
+  case types.UI.CHANGE_SEARCH_FILTERS:
+    return state.merge({
+      shouldFetchSearchResults: true,
+    });
 
   default:
     return state;

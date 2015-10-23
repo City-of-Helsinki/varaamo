@@ -2,6 +2,7 @@ import { expect } from 'chai';
 
 import Immutable from 'seamless-immutable';
 
+import types from 'constants/ActionTypes';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
 import { resourcePageSelectors } from 'selectors/resourcePageSelectors';
@@ -21,7 +22,7 @@ describe('Selectors: resourcePageSelectors', () => {
 
     state = {
       api: Immutable({
-        isFetchingResource: false,
+        activeRequests: [],
       }),
       data: Immutable({
         resources: {
@@ -47,13 +48,20 @@ describe('Selectors: resourcePageSelectors', () => {
     expect(selected.id).to.equal(expected);
   });
 
-  it('should return isFetchingResource from the state', () => {
-    const selected = resourcePageSelectors(state);
-    const expected = state.api.isFetchingResource;
+  describe('isFetchingResource', () => {
+    it('should return true if RESOURCE_GET_REQUEST is in activeRequests', () => {
+      state.api.activeRequests = [types.API.RESOURCE_GET_REQUEST];
+      const selected = resourcePageSelectors(state);
 
-    expect(selected.isFetchingResource).to.equal(expected);
+      expect(selected.isFetchingResource).to.equal(true);
+    });
+
+    it('should return false if RESOURCE_GET_REQUEST is not in activeRequests', () => {
+      const selected = resourcePageSelectors(state);
+
+      expect(selected.isFetchingResource).to.equal(false);
+    });
   });
-
 
   it('should return the resource corresponding to the router.params.id', () => {
     const selected = resourcePageSelectors(state);

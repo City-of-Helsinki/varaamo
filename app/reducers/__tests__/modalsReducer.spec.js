@@ -3,13 +3,13 @@ import { expect } from 'chai';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
-import * as types from 'constants/ActionTypes';
+import types from 'constants/ActionTypes';
 import { modalsReducer as reducer } from 'reducers/modalsReducer';
 
 describe('Reducer: modalsReducer', () => {
   describe('handling actions', () => {
-    describe('CLOSE_MODAL', () => {
-      const closeModal = createAction(types.CLOSE_MODAL);
+    describe('UI.CLOSE_MODAL', () => {
+      const closeModal = createAction(types.UI.CLOSE_MODAL);
 
       describe('if modal is open', () => {
         it('should remove the given modal from open', () => {
@@ -42,8 +42,8 @@ describe('Reducer: modalsReducer', () => {
       });
     });
 
-    describe('OPEN_MODAL', () => {
-      const openModal = createAction(types.OPEN_MODAL);
+    describe('UI.OPEN_MODAL', () => {
+      const openModal = createAction(types.UI.OPEN_MODAL);
 
       describe('if modal is not open', () => {
         it('should add the given modal to open', () => {

@@ -1,23 +1,22 @@
 import _ from 'lodash';
 
-import ActionTypes from 'constants/ActionTypes';
+import types from 'constants/ActionTypes';
 
 export function reservationReducer(state, action) {
   switch (action.type) {
 
-  case ActionTypes.CHANGE_RESERVATION_DATE:
+  case types.API.RESERVATION_POST_SUCCESS:
+    return state.merge({ selected: [] });
+
+  case types.UI.CHANGE_RESERVATION_DATE:
     const date = action.payload;
     return state.merge({ date });
 
-  case ActionTypes.MAKE_RESERVATION_SUCCESS:
-    return state.merge({ selected: [] });
-
-  case ActionTypes.TOGGLE_TIME_SLOT:
+  case types.UI.TOGGLE_TIME_SLOT:
     const slot = action.payload;
     if (_.includes(state.selected, slot)) {
       return state.merge({ selected: _.without(state.selected, slot) });
     }
-
     return state.merge({ selected: [...state.selected, slot] });
 
   default:

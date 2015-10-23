@@ -7,12 +7,26 @@ import {
   changeReservationDate,
   toggleTimeSlot,
 } from 'actions/uiActions';
-import * as types from 'constants/ActionTypes';
+import types from 'constants/ActionTypes';
 import { reservationReducer as reducer } from 'reducers/reservationReducer';
 
 describe('Reducer: reservationReducer', () => {
   describe('handling actions', () => {
-    describe('CHANGE_RESERVATION_DATE', () => {
+    describe('API.RESERVATION_POST_SUCCESS', () => {
+      const postReservationSuccess = createAction(types.API.RESERVATION_POST_SUCCESS);
+
+      it('should clear the selected slots', () => {
+        const action = postReservationSuccess();
+        const initialState = Immutable({
+          selected: ['some-selected'],
+        });
+        const nextState = reducer(initialState, action);
+
+        expect(nextState.selected).to.deep.equal([]);
+      });
+    });
+
+    describe('UI.CHANGE_RESERVATION_DATE', () => {
       it('should set the given date to date', () => {
         const date = '2015-10-11';
         const action = changeReservationDate(date);
@@ -25,21 +39,7 @@ describe('Reducer: reservationReducer', () => {
       });
     });
 
-    describe('MAKE_RESERVATION_SUCCESS', () => {
-      const makeReservationSuccess = createAction(types.MAKE_RESERVATION_SUCCESS);
-
-      it('should clear the selected slots', () => {
-        const action = makeReservationSuccess();
-        const initialState = Immutable({
-          selected: ['some-selected'],
-        });
-        const nextState = reducer(initialState, action);
-
-        expect(nextState.selected).to.deep.equal([]);
-      });
-    });
-
-    describe('TOGGLE_TIME_SLOT', () => {
+    describe('UI.TOGGLE_TIME_SLOT', () => {
       describe('if slot is not already selected', () => {
         it('should add the given slot to selected', () => {
           const initialState = Immutable({

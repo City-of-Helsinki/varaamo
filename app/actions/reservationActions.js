@@ -4,18 +4,18 @@ import types from 'constants/ActionTypes';
 import { buildAPIUrl, getHeaders } from 'utils/APIUtils';
 
 export default {
-  makeReservation,
+  postReservation,
 };
 
-function makeReservation(reservation) {
+function postReservation(reservation) {
   const url = buildAPIUrl('reservation');
 
   return {
     [CALL_API]: {
       types: [
-        types.MAKE_RESERVATION_START,
-        types.MAKE_RESERVATION_SUCCESS,
-        types.MAKE_RESERVATION_ERROR,
+        types.API.RESERVATION_POST_REQUEST,
+        types.API.RESERVATION_POST_SUCCESS,
+        types.API.RESERVATION_POST_ERROR,
       ],
       endpoint: url,
       method: 'POST',

@@ -4,6 +4,7 @@ import moment from 'moment';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
+import types from 'constants/ActionTypes';
 import { DATE_FORMAT } from 'constants/AppConstants';
 import ModalTypes from 'constants/ModalTypes';
 import Resource, { openingHours } from 'fixtures/Resource';
@@ -28,7 +29,7 @@ describe('Selectors: reservationFormSelectors', () => {
 
     state = {
       api: Immutable({
-        isFetchingResource: false,
+        activeRequests: [],
         pendingReservationsCount: 0,
       }),
       data: Immutable({
@@ -75,11 +76,19 @@ describe('Selectors: reservationFormSelectors', () => {
     expect(selected.id).to.equal(expected);
   });
 
-  it('should return isFetchingResource from the state', () => {
-    const selected = reservationFormSelectors(state);
-    const expected = state.api.isFetchingResource;
+  describe('isFetchingResource', () => {
+    it('should return true if RESOURCE_GET_REQUEST is in activeRequests', () => {
+      state.api.activeRequests = [types.API.RESOURCE_GET_REQUEST];
+      const selected = reservationFormSelectors(state);
 
-    expect(selected.isFetchingResource).to.equal(expected);
+      expect(selected.isFetchingResource).to.equal(true);
+    });
+
+    it('should return false if RESOURCE_GET_REQUEST is not in activeRequests', () => {
+      const selected = reservationFormSelectors(state);
+
+      expect(selected.isFetchingResource).to.equal(false);
+    });
   });
 
   describe('isMakingReservations', () => {

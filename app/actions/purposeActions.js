@@ -4,7 +4,9 @@ import types from 'constants/ActionTypes';
 import { paginatedPurposesSchema } from 'middleware/Schemas';
 import {
   buildAPIUrl,
+  getErrorTypeDescriptor,
   getHeaders,
+  getRequestTypeDescriptor,
   getSuccessTypeDescriptor,
 } from 'utils/APIUtils';
 
@@ -16,9 +18,12 @@ function fetchPurposes() {
   return {
     [CALL_API]: {
       types: [
-        types.FETCH_PURPOSES_START,
-        getSuccessTypeDescriptor(types.FETCH_PURPOSES_SUCCESS, paginatedPurposesSchema),
-        types.FETCH_PURPOSES_ERROR,
+        getRequestTypeDescriptor(types.API.PURPOSES_GET_REQUEST),
+        getSuccessTypeDescriptor(
+          types.API.PURPOSES_GET_SUCCESS,
+          paginatedPurposesSchema
+        ),
+        getErrorTypeDescriptor(types.API.PURPOSES_GET_ERROR),
       ],
       endpoint: buildAPIUrl('purpose'),
       method: 'GET',

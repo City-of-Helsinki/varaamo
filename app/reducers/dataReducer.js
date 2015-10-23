@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 
-import ActionTypes from 'constants/ActionTypes';
+import types from 'constants/ActionTypes';
 
 export default {
   dataReducer,
@@ -27,13 +27,13 @@ function handleData(state, data) {
 function dataReducer(state = initialState, action) {
   switch (action.type) {
 
-  case ActionTypes.FETCH_PURPOSES_SUCCESS:
-  case ActionTypes.FETCH_RESOURCE_SUCCESS:
-  case ActionTypes.FETCH_RESOURCES_SUCCESS:
-  case ActionTypes.FETCH_UNITS_SUCCESS:
+  case types.API.PURPOSES_GET_SUCCESS:
+  case types.API.RESOURCE_GET_SUCCESS:
+  case types.API.RESOURCES_GET_SUCCESS:
+  case types.API.UNITS_GET_SUCCESS:
     return handleData(state, action.payload.entities);
 
-  case ActionTypes.MAKE_RESERVATION_SUCCESS:
+  case types.API.RESERVATION_POST_SUCCESS:
     const reservation = action.payload;
     const reservations = state.resources[reservation.resource].reservations;
     const entities = {

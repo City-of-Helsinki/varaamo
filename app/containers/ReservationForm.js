@@ -4,7 +4,7 @@ import DatePicker from 'react-date-picker';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { makeReservation } from 'actions/reservationActions';
+import { postReservation } from 'actions/reservationActions';
 import { fetchResource } from 'actions/resourceActions';
 import {
   changeReservationDate,
@@ -37,7 +37,7 @@ export class UnconnectedReservationForm extends Component {
     const { actions, selectedReservations } = this.props;
 
     selectedReservations.forEach(reservation => {
-      actions.makeReservation(reservation);
+      actions.postReservation(reservation);
     });
   }
 
@@ -109,7 +109,7 @@ function mapDispatchToProps(dispatch) {
     changeReservationDate,
     closeConfirmReservationModal,
     fetchResource,
-    makeReservation,
+    postReservation,
     openConfirmReservationModal,
     toggleTimeSlot,
   };
