@@ -1,12 +1,9 @@
 import _ from 'lodash';
 import { createSelector } from 'reselect';
-import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
-import {
-  combineReservations,
-  getOpeningHours,
-} from 'utils/DataUtils';
+import selectedReservationsSelector from 'selectors/selectedReservationsSelector';
+import { getOpeningHours } from 'utils/DataUtils';
 import { getDateString, getTimeSlots } from 'utils/TimeUtils';
 import ModalTypes from 'constants/ModalTypes';
 
@@ -26,6 +23,7 @@ export const reservationFormSelectors = createSelector(
   pendingReservationsCountSelector,
   resourcesSelector,
   selectedSelector,
+  selectedReservationsSelector,
   (
     activeRequests,
     date,
@@ -33,7 +31,8 @@ export const reservationFormSelectors = createSelector(
     openModals,
     pendingReservationsCount,
     resources,
-    selected
+    selected,
+    selectedReservations
   ) => {
     const confirmReservationModalIsOpen = _.includes(openModals, ModalTypes.CONFIRM_RESERVATION);
     const isFetchingResource = _.includes(activeRequests, types.API.RESOURCE_GET_REQUEST);
@@ -42,15 +41,6 @@ export const reservationFormSelectors = createSelector(
     const period = resource.minPeriod ? resource.minPeriod : undefined;
     const reservations = resource.reservations || undefined;
     const timeSlots = getTimeSlots(opens, closes, period, reservations);
-
-    const selectedSlots = selected.map(current => {
-      return {
-        begin: current.split('/')[0],
-        end: current.split('/')[1],
-        resource: id,
-      };
-    });
-    const selectedReservations = Immutable(combineReservations(selectedSlots));
 
     return {
       confirmReservationModalIsOpen,

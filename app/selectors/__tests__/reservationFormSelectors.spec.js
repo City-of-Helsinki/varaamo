@@ -46,9 +46,7 @@ describe('Selectors: reservationFormSelectors', () => {
         },
         reservation: {
           date: '2015-10-10',
-          selected: [
-            '2015-12-12T12:00:00+03:00/2015-12-12T13:00:00+03:00',
-          ],
+          selected: [],
         },
       }),
     };
@@ -130,17 +128,10 @@ describe('Selectors: reservationFormSelectors', () => {
     expect(selected.selected).to.equal(expected);
   });
 
-  it('should return selectedReservations in correct form', () => {
+  it('should return selectedReservations', () => {
     const selected = reservationFormSelectors(state);
-    const expected = [
-      {
-        begin: '2015-12-12T12:00:00+03:00',
-        end: '2015-12-12T13:00:00+03:00',
-        resource: resource.id,
-      },
-    ];
 
-    expect(selected.selectedReservations).to.deep.equal(expected);
+    expect(selected.selectedReservations).to.exist;
   });
 
   describe('timeSlots', () => {
