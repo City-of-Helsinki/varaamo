@@ -9,7 +9,7 @@ import { changeSearchFilters } from 'actions/uiActions';
 import DateHeader from 'components/common/DateHeader';
 import SearchFilters from 'components/search/SearchFilters';
 import SearchInput from 'components/search/SearchInput';
-import { searchControlsSelectors } from 'selectors/searchControlsSelectors';
+import searchControlsSelector from 'selectors/containers/searchControlsSelector';
 import { getFetchParamsFromFilters } from 'utils/SearchUtils';
 
 export class UnconnectedSearchControls extends Component {
@@ -84,4 +84,4 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
-export default connect(searchControlsSelectors, mapDispatchToProps)(UnconnectedSearchControls);
+export default connect(searchControlsSelector, mapDispatchToProps)(UnconnectedSearchControls);

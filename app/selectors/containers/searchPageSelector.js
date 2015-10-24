@@ -7,7 +7,7 @@ import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveS
 
 const unitsSelector = (state) => state.data.units;
 
-export const searchPageSelectors = createSelector(
+const searchPageSelector = createSelector(
   requestIsActiveSelectorFactory(ActionTypes.API.RESOURCES_GET_REQUEST),
   searchFiltersSelector,
   searchResultsSelector,
@@ -26,3 +26,5 @@ export const searchPageSelectors = createSelector(
     };
   }
 );
+
+export default searchPageSelector;

@@ -4,7 +4,7 @@ import ActionTypes from 'constants/ActionTypes';
 import purposeCategoriesSelector from 'selectors/purposeCategoriesSelector';
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
 
-export const purposeCategoryListSelectors = createSelector(
+const purposeCategoryListSelector = createSelector(
   purposeCategoriesSelector,
   requestIsActiveSelectorFactory(ActionTypes.API.PURPOSES_GET_REQUEST),
   (
@@ -17,3 +17,5 @@ export const purposeCategoryListSelectors = createSelector(
     };
   }
 );
+
+export default purposeCategoryListSelector;

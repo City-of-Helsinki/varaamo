@@ -13,7 +13,7 @@ import ModalTypes from 'constants/ModalTypes';
 const pendingReservationsCountSelector = (state) => state.api.pendingReservationsCount;
 const selectedSelector = (state) => state.ui.reservation.selected;
 
-export const reservationFormSelectors = createSelector(
+const reservationFormSelector = createSelector(
   modalIsOpenSelectorFactory(ModalTypes.CONFIRM_RESERVATION),
   pendingReservationsCountSelector,
   requestIsActiveSelectorFactory(ActionTypes.API.RESOURCE_GET_REQUEST),
@@ -47,3 +47,5 @@ export const reservationFormSelectors = createSelector(
     };
   }
 );
+
+export default reservationFormSelector;

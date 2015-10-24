@@ -3,9 +3,9 @@ import { expect } from 'chai';
 import Immutable from 'seamless-immutable';
 
 import Unit from 'fixtures/Unit';
-import { searchPageSelectors } from 'selectors/searchPageSelectors';
+import searchPageSelector from 'selectors/containers/searchPageSelector';
 
-describe('Selectors: searchPageSelectors', () => {
+describe('Selector: searchPageSelector', () => {
   let unit;
   let state;
 
@@ -35,25 +35,25 @@ describe('Selectors: searchPageSelectors', () => {
   });
 
   it('should return filters', () => {
-    const selected = searchPageSelectors(state);
+    const selected = searchPageSelector(state);
 
     expect(selected.filters).to.exist;
   });
 
   it('should return isFetchingSearchResults', () => {
-    const selected = searchPageSelectors(state);
+    const selected = searchPageSelector(state);
 
     expect(selected.isFetchingSearchResults).to.exist;
   });
 
   it('should return results', () => {
-    const selected = searchPageSelectors(state);
+    const selected = searchPageSelector(state);
 
     expect(selected.results).to.exist;
   });
 
   it('should return units from the state', () => {
-    const selected = searchPageSelectors(state);
+    const selected = searchPageSelector(state);
     const expected = state.data.units;
 
     expect(selected.units).to.deep.equal(expected);

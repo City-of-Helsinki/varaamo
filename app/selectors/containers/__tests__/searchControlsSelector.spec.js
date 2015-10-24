@@ -2,9 +2,9 @@ import { expect } from 'chai';
 
 import Immutable from 'seamless-immutable';
 
-import { searchControlsSelectors } from 'selectors/searchControlsSelectors';
+import searchControlsSelector from 'selectors/containers/searchControlsSelector';
 
-describe('Selectors: searchControlsSelectors', () => {
+describe('Selector: searchControlsSelector', () => {
   let state;
 
   beforeEach(() => {
@@ -27,19 +27,19 @@ describe('Selectors: searchControlsSelectors', () => {
   });
 
   it('should return filters', () => {
-    const selected = searchControlsSelectors(state);
+    const selected = searchControlsSelector(state);
 
     expect(selected.filters).to.exist;
   });
 
   it('should return isFetchingPurposes', () => {
-    const selected = searchControlsSelectors(state);
+    const selected = searchControlsSelector(state);
 
     expect(selected.isFetchingPurposes).to.exist;
   });
 
   it('should return purposeOptions', () => {
-    const selected = searchControlsSelectors(state);
+    const selected = searchControlsSelector(state);
 
     expect(selected.purposeOptions).to.exist;
   });

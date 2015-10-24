@@ -2,9 +2,9 @@ import { expect } from 'chai';
 
 import Immutable from 'seamless-immutable';
 
-import { purposeCategoryListSelectors } from 'selectors/purposeCategoryListSelectors';
+import purposeCategoryListSelector from 'selectors/containers/purposeCategoryListSelector';
 
-describe('Selectors: purposeCategoryListSelectors', () => {
+describe('Selector: purposeCategoryListSelector', () => {
   let state;
 
   beforeEach(() => {
@@ -19,13 +19,13 @@ describe('Selectors: purposeCategoryListSelectors', () => {
   });
 
   it('should return isFetchingPurposes', () => {
-    const selected = purposeCategoryListSelectors(state);
+    const selected = purposeCategoryListSelector(state);
 
     expect(selected.isFetchingPurposes).to.exist;
   });
 
   it('should return purposeCategories', () => {
-    const selected = purposeCategoryListSelectors(state);
+    const selected = purposeCategoryListSelector(state);
 
     expect(selected.purposeCategories).to.exist;
   });

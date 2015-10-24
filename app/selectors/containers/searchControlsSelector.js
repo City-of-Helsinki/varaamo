@@ -5,7 +5,7 @@ import purposeOptionsSelector from 'selectors/purposeOptionsSelector';
 import searchFiltersSelector from 'selectors/searchFiltersSelector';
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
 
-export const searchControlsSelectors = createSelector(
+const searchControlsSelector = createSelector(
   purposeOptionsSelector,
   requestIsActiveSelectorFactory(ActionTypes.API.PURPOSES_GET_REQUEST),
   searchFiltersSelector,
@@ -21,3 +21,5 @@ export const searchControlsSelectors = createSelector(
     };
   }
 );
+
+export default searchControlsSelector;

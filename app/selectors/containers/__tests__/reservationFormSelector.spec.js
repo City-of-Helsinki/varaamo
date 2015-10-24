@@ -4,10 +4,10 @@ import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
 import Resource, { openingHours } from 'fixtures/Resource';
-import { reservationFormSelectors } from 'selectors/reservationFormSelectors';
+import reservationFormSelector from 'selectors/containers/reservationFormSelector';
 import TimeUtils from 'utils/TimeUtils';
 
-describe('Selectors: reservationFormSelectors', () => {
+describe('Selector: reservationFormSelector', () => {
   let resource;
   let state;
 
@@ -49,54 +49,54 @@ describe('Selectors: reservationFormSelectors', () => {
   });
 
   it('should return confirmReservationModalIsOpen', () => {
-    const selected = reservationFormSelectors(state);
+    const selected = reservationFormSelector(state);
 
     expect(selected.confirmReservationModalIsOpen).to.exist;
   });
 
   it('should return date', () => {
-    const selected = reservationFormSelectors(state);
+    const selected = reservationFormSelector(state);
 
     expect(selected.date).to.exist;
   });
 
   it('should return the id in router.params.id', () => {
-    const selected = reservationFormSelectors(state);
+    const selected = reservationFormSelector(state);
     const expected = state.router.params.id;
 
     expect(selected.id).to.equal(expected);
   });
 
   it('should return isFetchingResource', () => {
-    const selected = reservationFormSelectors(state);
+    const selected = reservationFormSelector(state);
 
     expect(selected.isFetchingResource).to.exist;
   });
 
   describe('isMakingReservations', () => {
     it('should be false if pendingReservationsCount is 0', () => {
-      const selected = reservationFormSelectors(state);
+      const selected = reservationFormSelector(state);
 
       expect(selected.isMakingReservations).to.equal(false);
     });
 
     it('should be true if pendingReservationsCount is more than 0', () => {
       state.api.pendingReservationsCount = 1;
-      const selected = reservationFormSelectors(state);
+      const selected = reservationFormSelector(state);
 
       expect(selected.isMakingReservations).to.equal(true);
     });
   });
 
   it('should return the reservation.selected from the state', () => {
-    const selected = reservationFormSelectors(state);
+    const selected = reservationFormSelector(state);
     const expected = state.ui.reservation.selected;
 
     expect(selected.selected).to.equal(expected);
   });
 
   it('should return selectedReservations', () => {
-    const selected = reservationFormSelectors(state);
+    const selected = reservationFormSelector(state);
 
     expect(selected.selectedReservations).to.exist;
   });
@@ -105,7 +105,7 @@ describe('Selectors: reservationFormSelectors', () => {
     it('should use resource properties to calculate correct time slots', () => {
       const mockSlots = ['slot-1', 'slot-2'];
       simple.mock(TimeUtils, 'getTimeSlots').returnWith(mockSlots);
-      const selected = reservationFormSelectors(state);
+      const selected = reservationFormSelector(state);
       const actualArgs = TimeUtils.getTimeSlots.lastCall.args;
 
       expect(actualArgs[0]).to.equal(resource.openingHours[0].opens);
@@ -118,7 +118,7 @@ describe('Selectors: reservationFormSelectors', () => {
 
     it('should return timeSlots as an empty array when resource is not found', () => {
       state.router.params.id = 'unfetched-resource-id';
-      const selected = reservationFormSelectors(state);
+      const selected = reservationFormSelector(state);
 
       expect(selected.timeSlots).to.deep.equal([]);
     });

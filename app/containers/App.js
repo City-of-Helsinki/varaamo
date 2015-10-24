@@ -8,7 +8,7 @@ import { pushState } from 'redux-router';
 import { logout } from 'actions/authActions';
 import Footer from 'components/layout/Footer';
 import Navbar from 'components/layout/Navbar';
-import { appSelectors } from 'selectors/appSelectors';
+import appSelector from 'selectors/containers/appSelector';
 
 export class UnconnectedApp extends Component {
   constructor(props) {
@@ -60,4 +60,4 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
-export default connect(appSelectors, mapDispatchToProps)(UnconnectedApp);
+export default connect(appSelector, mapDispatchToProps)(UnconnectedApp);

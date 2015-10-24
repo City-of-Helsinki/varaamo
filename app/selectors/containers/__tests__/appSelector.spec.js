@@ -3,9 +3,9 @@ import { expect } from 'chai';
 import Immutable from 'seamless-immutable';
 
 import User from 'fixtures/User';
-import { appSelectors } from 'selectors/appSelectors';
+import appSelector from 'selectors/containers/appSelector';
 
-describe('Selectors: appSelectors', () => {
+describe('Selector: appSelector', () => {
   let state;
   let user;
 
@@ -25,14 +25,14 @@ describe('Selectors: appSelectors', () => {
   });
 
   it('should return user corresponding to the auth.userId', () => {
-    const selected = appSelectors(state);
+    const selected = appSelector(state);
 
     expect(selected.user).to.deep.equal(user);
   });
 
   it('should return an empty object if user is not logged in', () => {
     state.auth.userId = null;
-    const selected = appSelectors(state);
+    const selected = appSelector(state);
 
     expect(selected.user).to.deep.equal({});
   });
