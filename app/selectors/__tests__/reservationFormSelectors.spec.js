@@ -3,7 +3,6 @@ import { expect } from 'chai';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import types from 'constants/ActionTypes';
 import Resource, { openingHours } from 'fixtures/Resource';
 import { reservationFormSelectors } from 'selectors/reservationFormSelectors';
 import TimeUtils from 'utils/TimeUtils';
@@ -68,19 +67,10 @@ describe('Selectors: reservationFormSelectors', () => {
     expect(selected.id).to.equal(expected);
   });
 
-  describe('isFetchingResource', () => {
-    it('should return true if RESOURCE_GET_REQUEST is in activeRequests', () => {
-      state.api.activeRequests = [types.API.RESOURCE_GET_REQUEST];
-      const selected = reservationFormSelectors(state);
+  it('should return isFetchingResource', () => {
+    const selected = reservationFormSelectors(state);
 
-      expect(selected.isFetchingResource).to.equal(true);
-    });
-
-    it('should return false if RESOURCE_GET_REQUEST is not in activeRequests', () => {
-      const selected = reservationFormSelectors(state);
-
-      expect(selected.isFetchingResource).to.equal(false);
-    });
+    expect(selected.isFetchingResource).to.exist;
   });
 
   describe('isMakingReservations', () => {

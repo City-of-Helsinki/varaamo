@@ -1,25 +1,23 @@
-import _ from 'lodash';
 import { createSelector } from 'reselect';
 
-import types from 'constants/ActionTypes';
+import ActionTypes from 'constants/ActionTypes';
+import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
 
-const activeRequestsSelector = (state) => state.api.activeRequests;
 const idSelector = (state) => state.router.params.id;
 const resourcesSelector = (state) => state.data.resources;
 const unitsSelector = (state) => state.data.units;
 
 export const resourcePageSelectors = createSelector(
-  activeRequestsSelector,
   idSelector,
+  requestIsActiveSelectorFactory(ActionTypes.API.RESOURCE_GET_REQUEST),
   resourcesSelector,
   unitsSelector,
   (
-    activeRequests,
     id,
+    isFetchingResource,
     resources,
     units
   ) => {
-    const isFetchingResource = _.includes(activeRequests, types.API.RESOURCE_GET_REQUEST);
     const resource = resources[id] || {};
     const unit = units[resource.unit] || {};
 

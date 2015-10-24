@@ -2,7 +2,6 @@ import { expect } from 'chai';
 
 import Immutable from 'seamless-immutable';
 
-import types from 'constants/ActionTypes';
 import Unit from 'fixtures/Unit';
 import { searchPageSelectors } from 'selectors/searchPageSelectors';
 
@@ -41,19 +40,10 @@ describe('Selectors: searchPageSelectors', () => {
     expect(selected.filters).to.exist;
   });
 
-  describe('isFetchingSearchResults', () => {
-    it('should return true if RESOURCES_GET_REQUEST is in activeRequests', () => {
-      state.api.activeRequests = [types.API.RESOURCES_GET_REQUEST];
-      const selected = searchPageSelectors(state);
+  it('should return isFetchingSearchResults', () => {
+    const selected = searchPageSelectors(state);
 
-      expect(selected.isFetchingSearchResults).to.equal(true);
-    });
-
-    it('should return false if RESOURCES_GET_REQUEST is not in activeRequests', () => {
-      const selected = searchPageSelectors(state);
-
-      expect(selected.isFetchingSearchResults).to.equal(false);
-    });
+    expect(selected.isFetchingSearchResults).to.exist;
   });
 
   it('should return results', () => {

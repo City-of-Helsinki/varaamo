@@ -2,7 +2,6 @@ import { expect } from 'chai';
 
 import Immutable from 'seamless-immutable';
 
-import types from 'constants/ActionTypes';
 import { searchControlsSelectors } from 'selectors/searchControlsSelectors';
 
 describe('Selectors: searchControlsSelectors', () => {
@@ -33,19 +32,10 @@ describe('Selectors: searchControlsSelectors', () => {
     expect(selected.filters).to.exist;
   });
 
-  describe('isFetchingPurposes', () => {
-    it('should return true if PURPOSES_GET_REQUEST is in activeRequests', () => {
-      state.api.activeRequests = [types.API.PURPOSES_GET_REQUEST];
-      const selected = searchControlsSelectors(state);
+  it('should return isFetchingPurposes', () => {
+    const selected = searchControlsSelectors(state);
 
-      expect(selected.isFetchingPurposes).to.equal(true);
-    });
-
-    it('should return false if PURPOSES_GET_REQUEST is not in activeRequests', () => {
-      const selected = searchControlsSelectors(state);
-
-      expect(selected.isFetchingPurposes).to.equal(false);
-    });
+    expect(selected.isFetchingPurposes).to.exist;
   });
 
   it('should return purposeOptions', () => {
