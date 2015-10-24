@@ -1,9 +1,9 @@
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
-import { reservationReducer } from 'reducers/reservationReducer';
-import { searchReducer } from 'reducers/searchReducer';
-import { modalsReducer } from 'reducers/modalsReducer';
+import modalsReducer from 'reducers/modalsReducer';
+import reservationReducer from 'reducers/reservationReducer';
+import searchReducer from 'reducers/searchReducer';
 
 const initialState = Immutable({
   modals: {
@@ -23,7 +23,7 @@ const initialState = Immutable({
   },
 });
 
-export function uiReducer(state = initialState, action) {
+function uiReducer(state = initialState, action) {
   switch (action.type) {
 
   case types.API.RESERVATION_POST_SUCCESS:
@@ -46,3 +46,5 @@ export function uiReducer(state = initialState, action) {
     return state;
   }
 }
+
+export default uiReducer;

@@ -11,7 +11,7 @@ const initialState = Immutable({
   shouldFetchUnits: true,
 });
 
-export function apiReducer(state = initialState, action) {
+function apiReducer(state = initialState, action) {
   if (action.meta && action.meta.API_ACTION) {
     const { apiRequestStart, apiRequestFinish, type } = action.meta.API_ACTION;
     if (apiRequestStart) {
@@ -56,3 +56,5 @@ export function apiReducer(state = initialState, action) {
     return state;
   }
 }
+
+export default apiReducer;

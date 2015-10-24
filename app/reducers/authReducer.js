@@ -6,7 +6,7 @@ const initialState = Immutable({
   userId: null,
 });
 
-export function authReducer(state = initialState, action) {
+function authReducer(state = initialState, action) {
   switch (action.type) {
 
   case types.API.LOGIN:
@@ -20,3 +20,5 @@ export function authReducer(state = initialState, action) {
     return state;
   }
 }
+
+export default authReducer;

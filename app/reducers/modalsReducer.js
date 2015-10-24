@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 import types from 'constants/ActionTypes';
 
-export function modalsReducer(state, action) {
+function modalsReducer(state, action) {
   let modal;
 
   switch (action.type) {
@@ -29,3 +29,5 @@ export function modalsReducer(state, action) {
     return state;
   }
 }
+
+export default modalsReducer;

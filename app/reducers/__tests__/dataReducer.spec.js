@@ -5,11 +5,11 @@ import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
 import Resource from 'fixtures/Resource';
-import { dataReducer as reducer, handleData } from 'reducers/dataReducer';
+import dataReducer, { handleData } from 'reducers/dataReducer';
 
 describe('Reducer: dataReducer', () => {
   describe('initial state', () => {
-    const initialState = reducer(undefined, {});
+    const initialState = dataReducer(undefined, {});
 
     it('resources should be an empty object', () => {
       expect(initialState.resources).to.deep.equal({});
@@ -129,7 +129,7 @@ describe('Reducer: dataReducer', () => {
         resources: { [resource.id]: resource },
       });
       const action = postReservationSuccess(reservation);
-      const nextState = reducer(initialState, action);
+      const nextState = dataReducer(initialState, action);
 
       it('should add the given reservation to correct resource', () => {
         const expectedReservations = Immutable([

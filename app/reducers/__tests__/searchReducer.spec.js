@@ -6,7 +6,7 @@ import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
 import Resource from 'fixtures/Resource';
-import { searchReducer as reducer } from 'reducers/searchReducer';
+import searchReducer from 'reducers/searchReducer';
 
 describe('Reducer: searchReducer', () => {
   describe('handling actions', () => {
@@ -32,7 +32,7 @@ describe('Reducer: searchReducer', () => {
           results: [],
         });
         const expected = [resources[0].id, resources[1].id];
-        const nextState = reducer(initialState, action);
+        const nextState = searchReducer(initialState, action);
 
         expect(nextState.results).to.deep.equal(expected);
       });
@@ -43,7 +43,7 @@ describe('Reducer: searchReducer', () => {
           results: ['replace-this'],
         });
         const expected = [resources[0].id, resources[1].id];
-        const nextState = reducer(initialState, action);
+        const nextState = searchReducer(initialState, action);
 
         expect(nextState.results).to.deep.equal(expected);
       });
@@ -59,7 +59,7 @@ describe('Reducer: searchReducer', () => {
           filters: {},
         });
         const expected = Immutable(filters);
-        const nextState = reducer(initialState, action);
+        const nextState = searchReducer(initialState, action);
 
         expect(nextState.filters).to.deep.equal(expected);
       });
@@ -71,7 +71,7 @@ describe('Reducer: searchReducer', () => {
           filters: { purpose: 'old-value' },
         });
         const expected = Immutable(filters);
-        const nextState = reducer(initialState, action);
+        const nextState = searchReducer(initialState, action);
 
         expect(nextState.filters).to.deep.equal(expected);
       });
@@ -86,7 +86,7 @@ describe('Reducer: searchReducer', () => {
           purpose: 'some-purpose',
           search: 'search-query',
         });
-        const nextState = reducer(initialState, action);
+        const nextState = searchReducer(initialState, action);
 
         expect(nextState.filters).to.deep.equal(expected);
       });
@@ -103,7 +103,7 @@ describe('Reducer: searchReducer', () => {
           purpose: 'some-purpose',
           search: 'search-query',
         });
-        const nextState = reducer(initialState, action);
+        const nextState = searchReducer(initialState, action);
 
         expect(nextState.filters).to.deep.equal(expected);
       });

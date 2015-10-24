@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 import types from 'constants/ActionTypes';
 
-export function reservationReducer(state, action) {
+function reservationReducer(state, action) {
   switch (action.type) {
 
   case types.API.RESERVATION_POST_SUCCESS:
@@ -23,3 +23,5 @@ export function reservationReducer(state, action) {
     return state;
   }
 }
+
+export default reservationReducer;

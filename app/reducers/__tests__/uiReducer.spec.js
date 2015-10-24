@@ -1,10 +1,10 @@
 import { expect } from 'chai';
 
-import { uiReducer as reducer } from 'reducers/uiReducer';
+import uiReducer from 'reducers/uiReducer';
 
 describe('Reducer: uiReducer', () => {
   describe('initial state', () => {
-    const initialState = reducer(undefined, {});
+    const initialState = uiReducer(undefined, {});
 
     describe('modals', () => {
       const modals = initialState.modals;

@@ -8,7 +8,7 @@ import {
   toggleTimeSlot,
 } from 'actions/uiActions';
 import types from 'constants/ActionTypes';
-import { reservationReducer as reducer } from 'reducers/reservationReducer';
+import reservationReducer from 'reducers/reservationReducer';
 
 describe('Reducer: reservationReducer', () => {
   describe('handling actions', () => {
@@ -20,7 +20,7 @@ describe('Reducer: reservationReducer', () => {
         const initialState = Immutable({
           selected: ['some-selected'],
         });
-        const nextState = reducer(initialState, action);
+        const nextState = reservationReducer(initialState, action);
 
         expect(nextState.selected).to.deep.equal([]);
       });
@@ -33,7 +33,7 @@ describe('Reducer: reservationReducer', () => {
         const initialState = Immutable({
           date: '2015-11-11',
         });
-        const nextState = reducer(initialState, action);
+        const nextState = reservationReducer(initialState, action);
 
         expect(nextState.date).to.equal(date);
       });
@@ -47,7 +47,7 @@ describe('Reducer: reservationReducer', () => {
           });
           const slot = '2015-10-11T10:00:00Z/2015-10-11T11:00:00Z';
           const action = toggleTimeSlot(slot);
-          const nextState = reducer(initialState, action);
+          const nextState = reservationReducer(initialState, action);
           const expected = Immutable([slot]);
 
           expect(nextState.selected).to.deep.equal(expected);
@@ -59,7 +59,7 @@ describe('Reducer: reservationReducer', () => {
           });
           const slot = '2015-10-11T10:00:00Z/2015-10-11T11:00:00Z';
           const action = toggleTimeSlot(slot);
-          const nextState = reducer(initialState, action);
+          const nextState = reservationReducer(initialState, action);
           const expected = Immutable([...initialState.selected, slot]);
 
           expect(nextState.selected).to.deep.equal(expected);
@@ -73,7 +73,7 @@ describe('Reducer: reservationReducer', () => {
           const initialState = Immutable({
             selected: ['2015-10-11T10:00:00Z/2015-10-11T11:00:00Z'],
           });
-          const nextState = reducer(initialState, action);
+          const nextState = reservationReducer(initialState, action);
           const expected = Immutable([]);
 
           expect(nextState.selected).to.deep.equal(expected);
@@ -88,7 +88,7 @@ describe('Reducer: reservationReducer', () => {
               '2015-10-11T10:00:00Z/2015-10-11T11:00:00Z',
             ],
           });
-          const nextState = reducer(initialState, action);
+          const nextState = reservationReducer(initialState, action);
           const expected = Immutable([initialState.selected[0]]);
 
           expect(nextState.selected).to.deep.equal(expected);

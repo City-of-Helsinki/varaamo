@@ -4,11 +4,11 @@ import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
-import { apiReducer as reducer } from 'reducers/apiReducer';
+import apiReducer from 'reducers/apiReducer';
 
 describe('Reducer: apiReducer', () => {
   describe('initial state', () => {
-    const initialState = reducer(undefined, {});
+    const initialState = apiReducer(undefined, {});
 
     it('activeRequests should be an empty array', () => {
       expect(initialState.activeRequests).to.deep.equal([]);
@@ -49,7 +49,7 @@ describe('Reducer: apiReducer', () => {
 
       it('should add the meta.API_ACTIONS.type to activeRequests', () => {
         const initialState = Immutable({ activeRequests: [] });
-        const nextState = reducer(initialState, action);
+        const nextState = apiReducer(initialState, action);
         const expected = Immutable({ activeRequests: ['SOME_REQUEST'] });
 
         expect(nextState).to.deep.equal(expected);
@@ -57,7 +57,7 @@ describe('Reducer: apiReducer', () => {
 
       it('should not affect the existing activeRequests', () => {
         const initialState = Immutable({ activeRequests: ['OTHER_REQUEST'] });
-        const nextState = reducer(initialState, action);
+        const nextState = apiReducer(initialState, action);
         const expected = Immutable({ activeRequests: ['OTHER_REQUEST', 'SOME_REQUEST'] });
 
         expect(nextState).to.deep.equal(expected);
@@ -71,7 +71,7 @@ describe('Reducer: apiReducer', () => {
 
       it('should remove the meta.API_ACTIONS.type from activeRequests', () => {
         const initialState = Immutable({ activeRequests: ['SOME_REQUEST'] });
-        const nextState = reducer(initialState, action);
+        const nextState = apiReducer(initialState, action);
         const expected = Immutable({ activeRequests: [] });
 
         expect(nextState).to.deep.equal(expected);
@@ -81,7 +81,7 @@ describe('Reducer: apiReducer', () => {
         const initialState = Immutable({
           activeRequests: ['SOME_REQUEST', 'OTHER_REQUEST', 'SOME_REQUEST'],
         });
-        const nextState = reducer(initialState, action);
+        const nextState = apiReducer(initialState, action);
         const expected = Immutable({ activeRequests: ['OTHER_REQUEST'] });
 
         expect(nextState).to.deep.equal(expected);
@@ -89,7 +89,7 @@ describe('Reducer: apiReducer', () => {
 
       it('should not affect the existing activeRequests', () => {
         const initialState = Immutable({ activeRequests: ['OTHER_REQUEST', 'SOME_REQUEST'] });
-        const nextState = reducer(initialState, action);
+        const nextState = apiReducer(initialState, action);
         const expected = Immutable({ activeRequests: ['OTHER_REQUEST'] });
 
         expect(nextState).to.deep.equal(expected);
@@ -104,7 +104,7 @@ describe('Reducer: apiReducer', () => {
       it('should set shouldFetchPurposes to false', () => {
         const action = fetchPurposesSuccess();
         const initialState = Immutable({ shouldFetchPurposes: true });
-        const nextState = reducer(initialState, action);
+        const nextState = apiReducer(initialState, action);
 
         expect(nextState.shouldFetchPurposes).to.equal(false);
       });
@@ -116,7 +116,7 @@ describe('Reducer: apiReducer', () => {
       it('should set shouldFetchSearchResults to false', () => {
         const action = fetchResourcesSuccess();
         const initialState = Immutable({ shouldFetchSearchResults: true });
-        const nextState = reducer(initialState, action);
+        const nextState = apiReducer(initialState, action);
 
         expect(nextState.shouldFetchSearchResults).to.equal(false);
       });
@@ -128,7 +128,7 @@ describe('Reducer: apiReducer', () => {
       it('should set shouldFetchUnits to false', () => {
         const action = fetchUnitsSuccess();
         const initialState = Immutable({ shouldFetchUnits: true });
-        const nextState = reducer(initialState, action);
+        const nextState = apiReducer(initialState, action);
 
         expect(nextState.shouldFetchUnits).to.equal(false);
       });
@@ -140,7 +140,7 @@ describe('Reducer: apiReducer', () => {
       it('should increment pendingReservationsCount by one', () => {
         const action = postReservationStart();
         const initialState = Immutable({ pendingReservationsCount: 0 });
-        const nextState = reducer(initialState, action);
+        const nextState = apiReducer(initialState, action);
 
         expect(nextState.pendingReservationsCount).to.equal(1);
       });
@@ -152,7 +152,7 @@ describe('Reducer: apiReducer', () => {
       it('should decrement pendingReservationsCount by one', () => {
         const action = postReservationSuccess();
         const initialState = Immutable({ pendingReservationsCount: 2 });
-        const nextState = reducer(initialState, action);
+        const nextState = apiReducer(initialState, action);
 
         expect(nextState.pendingReservationsCount).to.equal(1);
       });
@@ -164,7 +164,7 @@ describe('Reducer: apiReducer', () => {
       it('should decrement pendingReservationsCount by one', () => {
         const action = postReservationError();
         const initialState = Immutable({ pendingReservationsCount: 2 });
-        const nextState = reducer(initialState, action);
+        const nextState = apiReducer(initialState, action);
 
         expect(nextState.pendingReservationsCount).to.equal(1);
       });
@@ -176,7 +176,7 @@ describe('Reducer: apiReducer', () => {
       it('should set shouldFetchSearchResults to true', () => {
         const action = changeSearchFilters('some-filter');
         const initialState = Immutable({ shouldFetchSearchResults: false });
-        const nextState = reducer(initialState, action);
+        const nextState = apiReducer(initialState, action);
 
         expect(nextState.shouldFetchSearchResults).to.equal(true);
       });

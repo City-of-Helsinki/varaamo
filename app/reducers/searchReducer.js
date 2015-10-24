@@ -3,7 +3,7 @@ import _ from 'lodash';
 import types from 'constants/ActionTypes';
 import { pickSupportedFilters } from 'utils/SearchUtils';
 
-export function searchReducer(state, action) {
+function searchReducer(state, action) {
   switch (action.type) {
 
   case types.API.RESOURCES_GET_SUCCESS:
@@ -18,3 +18,5 @@ export function searchReducer(state, action) {
     return state;
   }
 }
+
+export default searchReducer;
