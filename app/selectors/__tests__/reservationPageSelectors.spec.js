@@ -64,19 +64,10 @@ describe('Selectors: reservationPageSelectors', () => {
     expect(selected.isFetchingResource).to.exist;
   });
 
-  it('should return the resource corresponding to the router.params.id', () => {
-    const selected = reservationPageSelectors(state);
-    const resourceId = state.router.params.id;
-    const expected = state.data.resources[resourceId];
-
-    expect(selected.resource).to.deep.equal(expected);
-  });
-
-  it('should return an empty object as resource if resource with given id is not fetched', () => {
-    state.router.params.id = 'unfetched-resource-id';
+  it('should return resource', () => {
     const selected = reservationPageSelectors(state);
 
-    expect(selected.resource).to.deep.equal({});
+    expect(selected.resource).to.exist;
   });
 
   it('should return the unit corresponding to the resource.unit', () => {

@@ -1,32 +1,28 @@
 import { createSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
+import resourceSelector from 'selectors/resourceSelector';
 import reservationDateSelector from 'selectors/reservationDateSelector';
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
 
-const idSelector = (state) => state.router.params.id;
-const resourcesSelector = (state) => state.data.resources;
 const unitsSelector = (state) => state.data.units;
 
 export const reservationPageSelectors = createSelector(
-  idSelector,
   requestIsActiveSelectorFactory(ActionTypes.API.RESOURCE_GET_REQUEST),
   reservationDateSelector,
-  resourcesSelector,
+  resourceSelector,
   unitsSelector,
   (
-    id,
     isFetchingResource,
     reservationDate,
-    resources,
+    resource,
     units
   ) => {
-    const resource = resources[id] || {};
     const unit = units[resource.unit] || {};
 
     return {
       date: reservationDate,
-      id,
+      id: resource.id,
       isFetchingResource,
       resource,
       unit,
