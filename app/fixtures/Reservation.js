@@ -3,7 +3,7 @@ import { Factory } from 'rosie';
 
 const BASE_DATE = new Date(2015, 10, 10);
 
-const TimeSlot = new Factory()
+const Reservation = new Factory()
   .sequence('index')
   .attr('begin', ['index'], (index) => {
     return moment(BASE_DATE).set('hour', (index + 2) % 24).toISOString();
@@ -11,6 +11,9 @@ const TimeSlot = new Factory()
   .attr('end', ['index'], (index) => {
     return moment(BASE_DATE).set('hour', (index + 3) % 24).toISOString();
   })
-  .attr('resource', 'r-1');
+  .attr('resource', 'r-1')
+  .attr('url', ['index'], (index) => {
+    return `http://api.hel.fi/respa/v1/reservation/${index}/`;
+  });
 
-export default TimeSlot;
+export default Reservation;
