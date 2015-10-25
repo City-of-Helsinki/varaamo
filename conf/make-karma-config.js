@@ -8,6 +8,9 @@ module.exports = function(options) {
 
     browsers: options.browsers || ['PhantomJS2'],
 
+    // Allow enough time for tests to build on CI.
+    browserNoActivityTimeout: 5 * 60000,
+
     autoWatch: true,
 
     files: [
