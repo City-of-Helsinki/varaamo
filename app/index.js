@@ -13,7 +13,12 @@ const store = configureStore();
 
 render(
   <Provider store={store}>
-    <ReduxRouter />
+    <ReduxRouter
+      components={[]}
+      location={{}}
+      params={{}}
+      routes={[]}
+    />
   </Provider>,
   document.getElementById('root')
 );
