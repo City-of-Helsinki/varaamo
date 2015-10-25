@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { createSelector } from 'reselect';
 
 const requestIsActiveSelectorFactory = (requestActionType) => {
@@ -7,7 +6,7 @@ const requestIsActiveSelectorFactory = (requestActionType) => {
   return createSelector(
     activeRequestsSelector,
     (activeRequests) => {
-      return _.includes(activeRequests, requestActionType);
+      return Boolean(activeRequests[requestActionType]);
     }
   );
 };

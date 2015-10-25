@@ -10,8 +10,8 @@ describe('Reducer: apiReducer', () => {
   describe('initial state', () => {
     const initialState = apiReducer(undefined, {});
 
-    it('activeRequests should be an empty array', () => {
-      expect(initialState.activeRequests).to.deep.equal([]);
+    it('activeRequests should be an empty object', () => {
+      expect(initialState.activeRequests).to.deep.equal({});
     });
 
     it('pendingReservationsCount should be 0', () => {
@@ -43,56 +43,159 @@ describe('Reducer: apiReducer', () => {
     );
 
     describe('actions that have meta.API_ACTIONS.apiRequestStart', () => {
-      const action = apiActionCreator(
-        { apiRequestStart: true, type: 'SOME_REQUEST' }
-      );
-
-      it('should add the meta.API_ACTIONS.type to activeRequests', () => {
-        const initialState = Immutable({ activeRequests: [] });
-        const nextState = apiReducer(initialState, action);
-        const expected = Immutable({ activeRequests: ['SOME_REQUEST'] });
-
-        expect(nextState).to.deep.equal(expected);
+      const action = apiActionCreator({
+        apiRequestStart: true,
+        type: 'SOME_REQUEST',
       });
 
-      it('should not affect the existing activeRequests', () => {
-        const initialState = Immutable({ activeRequests: ['OTHER_REQUEST'] });
-        const nextState = apiReducer(initialState, action);
-        const expected = Immutable({ activeRequests: ['OTHER_REQUEST', 'SOME_REQUEST'] });
+      describe('if activeRequests already contains the action', () => {
+        it('should increase the count of the action by one', () => {
+          const initialState = Immutable({
+            activeRequests: { 'SOME_REQUEST': 2 },
+          });
+          const nextState = apiReducer(initialState, action);
+          const expected = Immutable({
+            activeRequests: { 'SOME_REQUEST': 3 },
+          });
 
-        expect(nextState).to.deep.equal(expected);
+          expect(nextState).to.deep.equal(expected);
+        });
+
+        it('should not affect the existing activeRequests', () => {
+          const initialState = Immutable({
+            activeRequests: { 'SOME_REQUEST': 2, 'OTHER_REQUEST': 1 },
+          });
+          const nextState = apiReducer(initialState, action);
+          const expected = Immutable({
+            activeRequests: { 'SOME_REQUEST': 3, 'OTHER_REQUEST': 1 },
+          });
+
+          expect(nextState).to.deep.equal(expected);
+        });
+      });
+
+      describe('if activeRequests does not already contain the action', () => {
+        it('should add the action to activeRequests with count 1', () => {
+          const initialState = Immutable({
+            activeRequests: {},
+          });
+          const nextState = apiReducer(initialState, action);
+          const expected = Immutable({
+            activeRequests: { 'SOME_REQUEST': 1 },
+          });
+
+          expect(nextState).to.deep.equal(expected);
+        });
+
+        it('should not affect the existing activeRequests', () => {
+          const initialState = Immutable({
+            activeRequests: { 'OTHER_REQUEST': 1 },
+          });
+          const nextState = apiReducer(initialState, action);
+          const expected = Immutable({
+            activeRequests: { 'SOME_REQUEST': 1, 'OTHER_REQUEST': 1 },
+          });
+
+          expect(nextState).to.deep.equal(expected);
+        });
       });
     });
 
     describe('actions that have meta.API_ACTIONS.apiRequestFinish', () => {
-      const action = apiActionCreator(
-        { apiRequestFinish: true, type: 'SOME_REQUEST' }
-      );
+      describe('if activeRequests already contains the action', () => {
+        describe('if the action has property "countable"', () => {
+          const action = apiActionCreator({
+            apiRequestFinish: true,
+            countable: true,
+            type: 'SOME_REQUEST',
+          });
 
-      it('should remove the meta.API_ACTIONS.type from activeRequests', () => {
-        const initialState = Immutable({ activeRequests: ['SOME_REQUEST'] });
-        const nextState = apiReducer(initialState, action);
-        const expected = Immutable({ activeRequests: [] });
+          it('should decrease the count of the action by one', () => {
+            const initialState = Immutable({
+              activeRequests: { 'SOME_REQUEST': 2 },
+            });
+            const nextState = apiReducer(initialState, action);
+            const expected = Immutable({
+              activeRequests: { 'SOME_REQUEST': 1 },
+            });
 
-        expect(nextState).to.deep.equal(expected);
-      });
+            expect(nextState).to.deep.equal(expected);
+          });
 
-      it('should remove all instances of the meta.API_ACTIONS.type', () => {
-        const initialState = Immutable({
-          activeRequests: ['SOME_REQUEST', 'OTHER_REQUEST', 'SOME_REQUEST'],
+          it('should not affect the existing activeRequests', () => {
+            const initialState = Immutable({
+              activeRequests: { 'SOME_REQUEST': 2, 'OTHER_REQUEST': 1 },
+            });
+            const nextState = apiReducer(initialState, action);
+            const expected = Immutable({
+              activeRequests: { 'SOME_REQUEST': 1, 'OTHER_REQUEST': 1 },
+            });
+
+            expect(nextState).to.deep.equal(expected);
+          });
         });
-        const nextState = apiReducer(initialState, action);
-        const expected = Immutable({ activeRequests: ['OTHER_REQUEST'] });
 
-        expect(nextState).to.deep.equal(expected);
+        describe('if the action does not have property "countable"', () => {
+          const action = apiActionCreator({
+            apiRequestFinish: true,
+            type: 'SOME_REQUEST',
+          });
+
+          it('should set the count of the action to 0', () => {
+            const initialState = Immutable({
+              activeRequests: { 'SOME_REQUEST': 2 },
+            });
+            const nextState = apiReducer(initialState, action);
+            const expected = Immutable({
+              activeRequests: { 'SOME_REQUEST': 0 },
+            });
+
+            expect(nextState).to.deep.equal(expected);
+          });
+
+          it('should not affect the existing activeRequests', () => {
+            const initialState = Immutable({
+              activeRequests: { 'SOME_REQUEST': 2, 'OTHER_REQUEST': 1 },
+            });
+            const nextState = apiReducer(initialState, action);
+            const expected = Immutable({
+              activeRequests: { 'SOME_REQUEST': 0, 'OTHER_REQUEST': 1 },
+            });
+
+            expect(nextState).to.deep.equal(expected);
+          });
+        });
       });
 
-      it('should not affect the existing activeRequests', () => {
-        const initialState = Immutable({ activeRequests: ['OTHER_REQUEST', 'SOME_REQUEST'] });
-        const nextState = apiReducer(initialState, action);
-        const expected = Immutable({ activeRequests: ['OTHER_REQUEST'] });
+      describe('if activeRequests does not already contain the action', () => {
+        const action = apiActionCreator({
+          apiRequestFinish: true,
+          type: 'SOME_REQUEST',
+        });
 
-        expect(nextState).to.deep.equal(expected);
+        it('should add the action to activeRequests with count 0', () => {
+          const initialState = Immutable({
+            activeRequests: {},
+          });
+          const nextState = apiReducer(initialState, action);
+          const expected = Immutable({
+            activeRequests: { 'SOME_REQUEST': 0 },
+          });
+
+          expect(nextState).to.deep.equal(expected);
+        });
+
+        it('should not affect the existing activeRequests', () => {
+          const initialState = Immutable({
+            activeRequests: { 'OTHER_REQUEST': 1 },
+          });
+          const nextState = apiReducer(initialState, action);
+          const expected = Immutable({
+            activeRequests: { 'SOME_REQUEST': 0, 'OTHER_REQUEST': 1 },
+          });
+
+          expect(nextState).to.deep.equal(expected);
+        });
       });
     });
   });

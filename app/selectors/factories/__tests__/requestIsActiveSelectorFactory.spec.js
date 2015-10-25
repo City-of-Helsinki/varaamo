@@ -20,16 +20,23 @@ describe('Selector factory: requestIsActiveSelectorFactory', () => {
   describe('the returned function', () => {
     const requestActionType = 'SOME_GET_REQUEST';
 
-    it('should return true if given request is in activeRequests', () => {
+    it('should return true if given request is in activeRequests with count > 0', () => {
       const selector = requestIsActiveSelectorFactory(requestActionType);
-      const state = getState([requestActionType]);
+      const state = getState({ [requestActionType]: 1 });
 
       expect(selector(state)).to.equal(true);
     });
 
-    it('should return false if given request is not in open activeRequests', () => {
+    it('should return false if given request is in activeRequests with count 0', () => {
       const selector = requestIsActiveSelectorFactory(requestActionType);
-      const state = getState([]);
+      const state = getState({ [requestActionType]: 0 });
+
+      expect(selector(state)).to.equal(false);
+    });
+
+    it('should return false if given request is not in activeRequests', () => {
+      const selector = requestIsActiveSelectorFactory(requestActionType);
+      const state = getState({});
 
       expect(selector(state)).to.equal(false);
     });

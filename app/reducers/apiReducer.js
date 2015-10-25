@@ -1,10 +1,9 @@
-import _ from 'lodash';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
 
 const initialState = Immutable({
-  activeRequests: [],
+  activeRequests: {},
   pendingReservationsCount: 0,
   shouldFetchPurposes: true,
   shouldFetchSearchResults: true,
@@ -13,14 +12,31 @@ const initialState = Immutable({
 
 function apiReducer(state = initialState, action) {
   if (action.meta && action.meta.API_ACTION) {
-    const { apiRequestStart, apiRequestFinish, type } = action.meta.API_ACTION;
+    const { apiRequestStart, apiRequestFinish, countable, type } = action.meta.API_ACTION;
+    const activeRequests = state.activeRequests;
+    let nextActiveRequests;
+
     if (apiRequestStart) {
-      return state.merge({ activeRequests: [...state.activeRequests, type] });
+      if (activeRequests[type]) {
+        nextActiveRequests = Object.assign({}, activeRequests, { [type]: activeRequests[type] + 1 });
+      } else {
+        nextActiveRequests = Object.assign({}, activeRequests, { [type]: 1 });
+      }
     }
 
     if (apiRequestFinish) {
-      return state.merge({ activeRequests: _.without(state.activeRequests, type) });
+      if (activeRequests[type]) {
+        if (countable) {
+          nextActiveRequests = Object.assign({}, activeRequests, { [type]: activeRequests[type] - 1 });
+        } else {
+          nextActiveRequests = Object.assign({}, activeRequests, { [type]: 0 });
+        }
+      } else {
+        nextActiveRequests = Object.assign({}, activeRequests, { [type]: 0 });
+      }
     }
+
+    return state.merge({ activeRequests: nextActiveRequests || activeRequests });
   }
 
   switch (action.type) {
