@@ -1,9 +1,19 @@
 import _ from 'lodash';
+import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
 import { pickSupportedFilters } from 'utils/SearchUtils';
 
-function searchReducer(state, action) {
+const initialState = Immutable({
+  filters: {
+    date: '',
+    purpose: '',
+    search: '',
+  },
+  results: [],
+});
+
+function searchReducer(state = initialState, action) {
   switch (action.type) {
 
   case types.API.RESOURCES_GET_SUCCESS:

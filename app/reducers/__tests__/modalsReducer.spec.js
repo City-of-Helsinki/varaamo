@@ -7,6 +7,14 @@ import types from 'constants/ActionTypes';
 import modalsReducer from 'reducers/modalsReducer';
 
 describe('Reducer: modalsReducer', () => {
+  describe('initial state', () => {
+    const initialState = modalsReducer(undefined, {});
+
+    it('open should be an empty array', () => {
+      expect(initialState.open).to.deep.equal([]);
+    });
+  });
+
   describe('handling actions', () => {
     describe('UI.CLOSE_MODAL', () => {
       const closeModal = createAction(types.UI.CLOSE_MODAL);

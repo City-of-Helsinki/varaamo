@@ -9,6 +9,32 @@ import Resource from 'fixtures/Resource';
 import searchReducer from 'reducers/searchReducer';
 
 describe('Reducer: searchReducer', () => {
+  describe('initial state', () => {
+    const initialState = searchReducer(undefined, {});
+
+    describe('filters', () => {
+      it('should be an object', () => {
+        expect(typeof initialState.filters).to.equal('object');
+      });
+
+      it('date should be an empty string', () => {
+        expect(initialState.filters.date).to.equal('');
+      });
+
+      it('purpose should be an empty string', () => {
+        expect(initialState.filters.purpose).to.equal('');
+      });
+
+      it('search should be an empty string', () => {
+        expect(initialState.filters.search).to.equal('');
+      });
+    });
+
+    it('results should be an empty array', () => {
+      expect(initialState.results).to.deep.equal([]);
+    });
+  });
+
   describe('handling actions', () => {
     describe('API.RESOURCES_GET_SUCCESS', () => {
       const fetchResourcesSuccess = createAction(

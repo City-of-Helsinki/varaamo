@@ -1,8 +1,13 @@
 import _ from 'lodash';
+import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
 
-function modalsReducer(state, action) {
+const initialState = Immutable({
+  open: [],
+});
+
+function modalsReducer(state = initialState, action) {
   let modal;
 
   switch (action.type) {

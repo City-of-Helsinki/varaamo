@@ -11,6 +11,18 @@ import types from 'constants/ActionTypes';
 import reservationReducer from 'reducers/reservationReducer';
 
 describe('Reducer: reservationReducer', () => {
+  describe('initial state', () => {
+    const initialState = reservationReducer(undefined, {});
+
+    it('date should be an empty string', () => {
+      expect(initialState.date).to.equal('');
+    });
+
+    it('selected should be an empty array', () => {
+      expect(initialState.selected).to.deep.equal([]);
+    });
+  });
+
   describe('handling actions', () => {
     describe('API.RESERVATION_POST_SUCCESS', () => {
       const postReservationSuccess = createAction(types.API.RESERVATION_POST_SUCCESS);
