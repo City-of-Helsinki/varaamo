@@ -1,6 +1,7 @@
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
+import activeRequestsReducer from 'reducers/activeRequestsReducer';
 
 const initialState = Immutable({
   activeRequests: {},
@@ -11,31 +12,7 @@ const initialState = Immutable({
 
 function apiReducer(state = initialState, action) {
   if (action.meta && action.meta.API_ACTION) {
-    const { apiRequestStart, apiRequestFinish, countable, type } = action.meta.API_ACTION;
-    const activeRequests = state.activeRequests;
-    let nextActiveRequests;
-
-    if (apiRequestStart) {
-      if (activeRequests[type]) {
-        nextActiveRequests = Object.assign({}, activeRequests, { [type]: activeRequests[type] + 1 });
-      } else {
-        nextActiveRequests = Object.assign({}, activeRequests, { [type]: 1 });
-      }
-    }
-
-    if (apiRequestFinish) {
-      if (activeRequests[type]) {
-        if (countable) {
-          nextActiveRequests = Object.assign({}, activeRequests, { [type]: activeRequests[type] - 1 });
-        } else {
-          nextActiveRequests = Object.assign({}, activeRequests, { [type]: 0 });
-        }
-      } else {
-        nextActiveRequests = Object.assign({}, activeRequests, { [type]: 0 });
-      }
-    }
-
-    return state.merge({ activeRequests: nextActiveRequests || activeRequests });
+    return state.merge({ activeRequests: activeRequestsReducer(state.activeRequests, action) });
   }
 
   switch (action.type) {
