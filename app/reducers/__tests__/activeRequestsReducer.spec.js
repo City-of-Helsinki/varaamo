@@ -6,6 +6,14 @@ import Immutable from 'seamless-immutable';
 import activeRequestsReducer from 'reducers/activeRequestsReducer';
 
 describe('Reducer: activeRequestsReducer', () => {
+  describe('initial state', () => {
+    const initialState = activeRequestsReducer(undefined, {});
+
+    it('should be an empty object', () => {
+      expect(initialState).to.deep.equal({});
+    });
+  });
+
   describe('handling actions', () => {
     const apiActionCreator = createAction(
       'REQUEST',

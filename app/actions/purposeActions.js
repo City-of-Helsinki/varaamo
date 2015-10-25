@@ -29,7 +29,7 @@ function fetchPurposes() {
       method: 'GET',
       headers: getHeaders(),
       bailout: (state) => {
-        return !state.api.shouldFetchPurposes;
+        return !state.api.shouldFetch.purposes;
       },
     },
   };

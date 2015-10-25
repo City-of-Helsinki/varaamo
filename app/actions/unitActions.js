@@ -31,7 +31,7 @@ function fetchUnits() {
       method: 'GET',
       headers: getHeaders(),
       bailout: (state) => {
-        return !state.api.shouldFetchUnits;
+        return !state.api.shouldFetch.units;
       },
     },
   };
