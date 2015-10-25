@@ -12,7 +12,7 @@ import ImagePanel from 'components/common/ImagePanel';
 import ResourceDetails from 'components/resource/ResourceDetails';
 import ResourceHeader from 'components/resource/ResourceHeader';
 import NotFoundPage from 'containers/NotFoundPage';
-import { resourcePageSelectors } from 'selectors/resourcePageSelectors';
+import resourcePageSelector from 'selectors/containers/resourcePageSelector';
 import {
   getAddressWithName,
   getDescription,
@@ -88,4 +88,4 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
-export default connect(resourcePageSelectors, mapDispatchToProps)(UnconnectedResourcePage);
+export default connect(resourcePageSelector, mapDispatchToProps)(UnconnectedResourcePage);

@@ -7,7 +7,7 @@ import { fetchResources } from 'actions/resourceActions';
 import { fetchUnits } from 'actions/unitActions';
 import SearchResults from 'components/search/SearchResults';
 import SearchControls from 'containers/SearchControls';
-import { searchPageSelectors } from 'selectors/searchPageSelectors';
+import searchPageSelector from 'selectors/containers/searchPageSelector';
 import { getFetchParamsFromFilters } from 'utils/SearchUtils';
 
 export class UnconnectedSearchPage extends Component {
@@ -56,4 +56,4 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
-export default connect(searchPageSelectors, mapDispatchToProps)(UnconnectedSearchPage);
+export default connect(searchPageSelector, mapDispatchToProps)(UnconnectedSearchPage);

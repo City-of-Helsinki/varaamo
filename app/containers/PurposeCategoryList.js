@@ -8,7 +8,7 @@ import { pushState } from 'redux-router';
 import { fetchPurposes } from 'actions/purposeActions';
 import { changeSearchFilters } from 'actions/uiActions';
 import PurposeCategory from 'components/purpose/PurposeCategory';
-import { purposeCategoryListSelectors } from 'selectors/purposeCategoryListSelectors';
+import purposeCategoryListSelector from 'selectors/containers/purposeCategoryListSelector';
 
 export class UnconnectedPurposeCategoryList extends Component {
   constructor(props) {
@@ -68,4 +68,4 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
-export default connect(purposeCategoryListSelectors, mapDispatchToProps)(UnconnectedPurposeCategoryList);
+export default connect(purposeCategoryListSelector, mapDispatchToProps)(UnconnectedPurposeCategoryList);

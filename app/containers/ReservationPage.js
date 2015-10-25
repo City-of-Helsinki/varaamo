@@ -11,7 +11,7 @@ import { fetchResource } from 'actions/resourceActions';
 import ResourceHeader from 'components/resource/ResourceHeader';
 import NotFoundPage from 'containers/NotFoundPage';
 import ReservationForm from 'containers/ReservationForm';
-import { reservationPageSelectors } from 'selectors/reservationPageSelectors';
+import reservationPageSelector from 'selectors/containers/reservationPageSelector';
 import { getAddressWithName, getName } from 'utils/DataUtils';
 import { getDateStartAndEndTimes } from 'utils/TimeUtils';
 
@@ -79,4 +79,4 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
-export default connect(reservationPageSelectors, mapDispatchToProps)(UnconnectedReservationPage);
+export default connect(reservationPageSelector, mapDispatchToProps)(UnconnectedReservationPage);

@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 const userIdSelector = (state) => state.auth.userId;
 const usersSelector = (state) => state.data.users;
 
-export const appSelectors = createSelector(
+const appSelector = createSelector(
   userIdSelector,
   usersSelector,
   (
@@ -17,3 +17,5 @@ export const appSelectors = createSelector(
     };
   }
 );
+
+export default appSelector;
