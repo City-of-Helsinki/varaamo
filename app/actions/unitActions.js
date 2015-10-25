@@ -23,7 +23,7 @@ function fetchUnits() {
         getRequestTypeDescriptor(types.API.UNITS_GET_REQUEST),
         getSuccessTypeDescriptor(
           types.API.UNITS_GET_SUCCESS,
-          paginatedUnitsSchema
+          { schema: paginatedUnitsSchema }
         ),
         getErrorTypeDescriptor(types.API.UNITS_GET_ERROR),
       ],
@@ -31,7 +31,7 @@ function fetchUnits() {
       method: 'GET',
       headers: getHeaders(),
       bailout: (state) => {
-        return !state.api.shouldFetchUnits;
+        return !state.api.shouldFetch.units;
       },
     },
   };

@@ -21,7 +21,7 @@ function fetchPurposes() {
         getRequestTypeDescriptor(types.API.PURPOSES_GET_REQUEST),
         getSuccessTypeDescriptor(
           types.API.PURPOSES_GET_SUCCESS,
-          paginatedPurposesSchema
+          { schema: paginatedPurposesSchema }
         ),
         getErrorTypeDescriptor(types.API.PURPOSES_GET_ERROR),
       ],
@@ -29,7 +29,7 @@ function fetchPurposes() {
       method: 'GET',
       headers: getHeaders(),
       bailout: (state) => {
-        return !state.api.shouldFetchPurposes;
+        return !state.api.shouldFetch.purposes;
       },
     },
   };

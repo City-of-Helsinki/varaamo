@@ -2,11 +2,6 @@ import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
 
-export default {
-  dataReducer,
-  handleData,
-};
-
 const mockUsersData = {
   'u-1': {
     id: 'u-1',
@@ -50,3 +45,6 @@ function dataReducer(state = initialState, action) {
     return state;
   }
 }
+
+export default dataReducer;
+export { handleData };

@@ -4,11 +4,11 @@ import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
-import { authReducer as reducer } from 'reducers/authReducer';
+import authReducer from 'reducers/authReducer';
 
 describe('Reducer: authReducer', () => {
   describe('initial state', () => {
-    const initialState = reducer(undefined, {});
+    const initialState = authReducer(undefined, {});
 
     it('userId should be null', () => {
       expect(initialState.userId).to.equal(null);
@@ -23,7 +23,7 @@ describe('Reducer: authReducer', () => {
         const payload = { userId: 'u-1' };
         const action = login(payload);
         const initialState = Immutable({ userId: null });
-        const nextState = reducer(initialState, action);
+        const nextState = authReducer(initialState, action);
 
         expect(nextState.userId).to.equal(payload.userId);
       });
@@ -35,7 +35,7 @@ describe('Reducer: authReducer', () => {
       it('should set userId to null', () => {
         const action = logout();
         const initialState = Immutable({ userId: 'u-1' });
-        const nextState = reducer(initialState, action);
+        const nextState = authReducer(initialState, action);
 
         expect(nextState.userId).to.equal(null);
       });

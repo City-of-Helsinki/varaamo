@@ -11,13 +11,12 @@ import { getTimeSlots } from 'utils/TimeUtils';
 import ModalTypes from 'constants/ModalTypes';
 
 const idSelector = (state) => state.router.params.id;
-const pendingReservationsCountSelector = (state) => state.api.pendingReservationsCount;
 const selectedSelector = (state) => state.ui.reservation.selected;
 
 const reservationFormSelector = createSelector(
   idSelector,
   modalIsOpenSelectorFactory(ModalTypes.CONFIRM_RESERVATION),
-  pendingReservationsCountSelector,
+  requestIsActiveSelectorFactory(ActionTypes.API.RESERVATION_POST_REQUEST),
   requestIsActiveSelectorFactory(ActionTypes.API.RESOURCE_GET_REQUEST),
   reservationDateSelector,
   resourceSelector,
@@ -26,7 +25,7 @@ const reservationFormSelector = createSelector(
   (
     id,
     confirmReservationModalIsOpen,
-    pendingReservationsCount,
+    isMakingReservations,
     isFetchingResource,
     reservationDate,
     resource,
@@ -43,7 +42,7 @@ const reservationFormSelector = createSelector(
       date: reservationDate,
       id,
       isFetchingResource,
-      isMakingReservations: Boolean(pendingReservationsCount),
+      isMakingReservations,
       selected,
       selectedReservations,
       timeSlots,

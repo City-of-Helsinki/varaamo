@@ -1,8 +1,14 @@
 import _ from 'lodash';
+import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
 
-export function reservationReducer(state, action) {
+const initialState = Immutable({
+  date: '',
+  selected: [],
+});
+
+function reservationReducer(state = initialState, action) {
   switch (action.type) {
 
   case types.API.RESERVATION_POST_SUCCESS:
@@ -23,3 +29,5 @@ export function reservationReducer(state, action) {
     return state;
   }
 }
+
+export default reservationReducer;

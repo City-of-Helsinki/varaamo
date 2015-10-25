@@ -6,9 +6,35 @@ import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
 import Resource from 'fixtures/Resource';
-import { searchReducer as reducer } from 'reducers/searchReducer';
+import searchReducer from 'reducers/searchReducer';
 
 describe('Reducer: searchReducer', () => {
+  describe('initial state', () => {
+    const initialState = searchReducer(undefined, {});
+
+    describe('filters', () => {
+      it('should be an object', () => {
+        expect(typeof initialState.filters).to.equal('object');
+      });
+
+      it('date should be an empty string', () => {
+        expect(initialState.filters.date).to.equal('');
+      });
+
+      it('purpose should be an empty string', () => {
+        expect(initialState.filters.purpose).to.equal('');
+      });
+
+      it('search should be an empty string', () => {
+        expect(initialState.filters.search).to.equal('');
+      });
+    });
+
+    it('results should be an empty array', () => {
+      expect(initialState.results).to.deep.equal([]);
+    });
+  });
+
   describe('handling actions', () => {
     describe('API.RESOURCES_GET_SUCCESS', () => {
       const fetchResourcesSuccess = createAction(
@@ -32,7 +58,7 @@ describe('Reducer: searchReducer', () => {
           results: [],
         });
         const expected = [resources[0].id, resources[1].id];
-        const nextState = reducer(initialState, action);
+        const nextState = searchReducer(initialState, action);
 
         expect(nextState.results).to.deep.equal(expected);
       });
@@ -43,7 +69,7 @@ describe('Reducer: searchReducer', () => {
           results: ['replace-this'],
         });
         const expected = [resources[0].id, resources[1].id];
-        const nextState = reducer(initialState, action);
+        const nextState = searchReducer(initialState, action);
 
         expect(nextState.results).to.deep.equal(expected);
       });
@@ -59,7 +85,7 @@ describe('Reducer: searchReducer', () => {
           filters: {},
         });
         const expected = Immutable(filters);
-        const nextState = reducer(initialState, action);
+        const nextState = searchReducer(initialState, action);
 
         expect(nextState.filters).to.deep.equal(expected);
       });
@@ -71,7 +97,7 @@ describe('Reducer: searchReducer', () => {
           filters: { purpose: 'old-value' },
         });
         const expected = Immutable(filters);
-        const nextState = reducer(initialState, action);
+        const nextState = searchReducer(initialState, action);
 
         expect(nextState.filters).to.deep.equal(expected);
       });
@@ -86,7 +112,7 @@ describe('Reducer: searchReducer', () => {
           purpose: 'some-purpose',
           search: 'search-query',
         });
-        const nextState = reducer(initialState, action);
+        const nextState = searchReducer(initialState, action);
 
         expect(nextState.filters).to.deep.equal(expected);
       });
@@ -103,7 +129,7 @@ describe('Reducer: searchReducer', () => {
           purpose: 'some-purpose',
           search: 'search-query',
         });
-        const nextState = reducer(initialState, action);
+        const nextState = searchReducer(initialState, action);
 
         expect(nextState.filters).to.deep.equal(expected);
       });
