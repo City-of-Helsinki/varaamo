@@ -47,19 +47,19 @@ describe('Component: common/DateHeader', () => {
 
       it('clicking the first button should decrement the date by one', () => {
         const buttonVdom = buttonTrees[0].getRenderOutput();
-        const expectedCount = props.onChange.callCount + 1;
+        props.onChange.reset();
         buttonVdom.props.onClick();
 
-        expect(props.onChange.callCount).to.equal(expectedCount);
+        expect(props.onChange.callCount).to.equal(1);
         expect(props.onChange.lastCall.args[0]).to.equal('2015-10-10');
       });
 
       it('clicking the second button should increment the date by one', () => {
         const buttonVdom = buttonTrees[1].getRenderOutput();
-        const expectedCount = props.onChange.callCount + 1;
+        props.onChange.reset();
         buttonVdom.props.onClick();
 
-        expect(props.onChange.callCount).to.equal(expectedCount);
+        expect(props.onChange.callCount).to.equal(1);
         expect(props.onChange.lastCall.args[0]).to.equal('2015-10-12');
       });
     });

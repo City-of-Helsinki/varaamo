@@ -99,10 +99,10 @@ describe('Component: reservation/ConfirmReservationModal', () => {
         });
 
         it('clicking it should call props.onClose', () => {
-          const initialCallCount = props.onClose.callCount;
+          props.onClose.reset();
           buttonVdom.props.onClick();
 
-          expect(props.onClose.callCount).to.equal(initialCallCount + 1);
+          expect(props.onClose.callCount).to.equal(1);
         });
       });
 
@@ -114,12 +114,12 @@ describe('Component: reservation/ConfirmReservationModal', () => {
         });
 
         it('clicking it should call props.onConfirm and props.onClose', () => {
-          const initialOnConfirmCallCount = props.onConfirm.callCount;
-          const initialOnCloseCallCount = props.onClose.callCount;
+          props.onConfirm.reset();
+          props.onClose.reset();
           buttonVdom.props.onClick();
 
-          expect(props.onConfirm.callCount).to.equal(initialOnConfirmCallCount + 1);
-          expect(props.onClose.callCount).to.equal(initialOnCloseCallCount + 1);
+          expect(props.onConfirm.callCount).to.equal(1);
+          expect(props.onClose.callCount).to.equal(1);
         });
       });
     });
