@@ -4,6 +4,7 @@ import types from 'constants/ActionTypes';
 
 const initialState = Immutable({
   purposes: true,
+  resources: true,
   searchResults: true,
   units: true,
 });
@@ -17,6 +18,11 @@ function shouldFetchReducer(state = initialState, action) {
     });
 
   case types.API.RESOURCES_GET_SUCCESS:
+    return state.merge({
+      resources: false,
+    });
+
+  case types.API.SEARCH_RESULTS_GET_SUCCESS:
     return state.merge({
       searchResults: false,
     });

@@ -36,9 +36,9 @@ describe('Reducer: searchReducer', () => {
   });
 
   describe('handling actions', () => {
-    describe('API.RESOURCES_GET_SUCCESS', () => {
-      const fetchResourcesSuccess = createAction(
-        types.API.RESOURCES_GET_SUCCESS,
+    describe('API.SEARCH_RESULTS_GET_SUCCESS', () => {
+      const searchResourcesSuccess = createAction(
+        types.API.SEARCH_RESULTS_GET_SUCCESS,
         (resources) => {
           return {
             entities: {
@@ -53,7 +53,7 @@ describe('Reducer: searchReducer', () => {
       ];
 
       it('should set the given resource ids to results', () => {
-        const action = fetchResourcesSuccess(resources);
+        const action = searchResourcesSuccess(resources);
         const initialState = Immutable({
           results: [],
         });
@@ -64,7 +64,7 @@ describe('Reducer: searchReducer', () => {
       });
 
       it('should replace the old ids in searchResults.ids', () => {
-        const action = fetchResourcesSuccess(resources);
+        const action = searchResourcesSuccess(resources);
         const initialState = Immutable({
           results: ['replace-this'],
         });
