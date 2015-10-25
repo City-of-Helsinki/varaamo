@@ -7,13 +7,12 @@ import Resource, { openingHours } from 'fixtures/Resource';
 import reservationFormSelector from 'selectors/containers/reservationFormSelector';
 import TimeUtils from 'utils/TimeUtils';
 
-function getState(resource, resourceId, pendingReservationsCount = 0) {
+function getState(resource, resourceId) {
   const id = resourceId || resource.id;
 
   return {
     api: Immutable({
       activeRequests: [],
-      pendingReservationsCount,
     }),
     data: Immutable({
       resources: { [resource.id]: resource },
@@ -76,20 +75,11 @@ describe('Selector: reservationFormSelector', () => {
     expect(selected.isFetchingResource).to.exist;
   });
 
-  describe('isMakingReservations', () => {
-    it('should be false if pendingReservationsCount is 0', () => {
-      const state = getState(resource, null, 0);
-      const selected = reservationFormSelector(state);
+  it('should return isMakingReservations', () => {
+    const state = getState(resource);
+    const selected = reservationFormSelector(state);
 
-      expect(selected.isMakingReservations).to.equal(false);
-    });
-
-    it('should be true if pendingReservationsCount is more than 0', () => {
-      const state = getState(resource, null, 1);
-      const selected = reservationFormSelector(state);
-
-      expect(selected.isMakingReservations).to.equal(true);
-    });
+    expect(selected.isMakingReservations).to.exist;
   });
 
   it('should return the reservation.selected from the state', () => {

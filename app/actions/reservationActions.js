@@ -1,7 +1,14 @@
 import { CALL_API } from 'redux-api-middleware';
 
 import types from 'constants/ActionTypes';
-import { buildAPIUrl, getHeaders } from 'utils/APIUtils';
+import {
+  buildAPIUrl,
+  getErrorTypeDescriptor,
+  getHeaders,
+  getRequestTypeDescriptor,
+  getSuccessTypeDescriptor,
+} from 'utils/APIUtils';
+
 
 export default {
   postReservation,
@@ -13,9 +20,9 @@ function postReservation(reservation) {
   return {
     [CALL_API]: {
       types: [
-        types.API.RESERVATION_POST_REQUEST,
-        types.API.RESERVATION_POST_SUCCESS,
-        types.API.RESERVATION_POST_ERROR,
+        getRequestTypeDescriptor(types.API.RESERVATION_POST_REQUEST),
+        getSuccessTypeDescriptor(types.API.RESERVATION_POST_SUCCESS),
+        getErrorTypeDescriptor(types.API.RESERVATION_POST_ERROR),
       ],
       endpoint: url,
       method: 'POST',

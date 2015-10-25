@@ -14,10 +14,6 @@ describe('Reducer: apiReducer', () => {
       expect(initialState.activeRequests).to.deep.equal({});
     });
 
-    it('pendingReservationsCount should be 0', () => {
-      expect(initialState.pendingReservationsCount).to.equal(0);
-    });
-
     it('shouldFetchPurposes should be true', () => {
       expect(initialState.shouldFetchPurposes).to.equal(true);
     });
@@ -234,42 +230,6 @@ describe('Reducer: apiReducer', () => {
         const nextState = apiReducer(initialState, action);
 
         expect(nextState.shouldFetchUnits).to.equal(false);
-      });
-    });
-
-    describe('API.RESERVATION_POST_REQUEST', () => {
-      const postReservationStart = createAction(types.API.RESERVATION_POST_REQUEST);
-
-      it('should increment pendingReservationsCount by one', () => {
-        const action = postReservationStart();
-        const initialState = Immutable({ pendingReservationsCount: 0 });
-        const nextState = apiReducer(initialState, action);
-
-        expect(nextState.pendingReservationsCount).to.equal(1);
-      });
-    });
-
-    describe('API.RESERVATION_POST_SUCCESS', () => {
-      const postReservationSuccess = createAction(types.API.RESERVATION_POST_SUCCESS);
-
-      it('should decrement pendingReservationsCount by one', () => {
-        const action = postReservationSuccess();
-        const initialState = Immutable({ pendingReservationsCount: 2 });
-        const nextState = apiReducer(initialState, action);
-
-        expect(nextState.pendingReservationsCount).to.equal(1);
-      });
-    });
-
-    describe('API.RESERVATION_POST_ERROR', () => {
-      const postReservationError = createAction(types.API.RESERVATION_POST_ERROR);
-
-      it('should decrement pendingReservationsCount by one', () => {
-        const action = postReservationError();
-        const initialState = Immutable({ pendingReservationsCount: 2 });
-        const nextState = apiReducer(initialState, action);
-
-        expect(nextState.pendingReservationsCount).to.equal(1);
       });
     });
 

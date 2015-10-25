@@ -4,7 +4,6 @@ import types from 'constants/ActionTypes';
 
 const initialState = Immutable({
   activeRequests: {},
-  pendingReservationsCount: 0,
   shouldFetchPurposes: true,
   shouldFetchSearchResults: true,
   shouldFetchUnits: true,
@@ -55,13 +54,6 @@ function apiReducer(state = initialState, action) {
     return state.merge({
       shouldFetchUnits: false,
     });
-
-  case types.API.RESERVATION_POST_REQUEST:
-    return state.merge({ 'pendingReservationsCount': state.pendingReservationsCount + 1 });
-
-  case types.API.RESERVATION_POST_SUCCESS:
-  case types.API.RESERVATION_POST_ERROR:
-    return state.merge({ 'pendingReservationsCount': state.pendingReservationsCount - 1 });
 
   case types.UI.CHANGE_SEARCH_FILTERS:
     return state.merge({
