@@ -22,7 +22,7 @@ function fetchResource(id, params = {}) {
         getRequestTypeDescriptor(types.API.RESOURCE_GET_REQUEST),
         getSuccessTypeDescriptor(
           types.API.RESOURCE_GET_SUCCESS,
-          resourceSchema
+          { schema: resourceSchema }
         ),
         getErrorTypeDescriptor(types.API.RESOURCE_GET_ERROR),
       ],
@@ -42,7 +42,7 @@ function fetchResources(params = {}) {
         getRequestTypeDescriptor(types.API.RESOURCES_GET_REQUEST),
         getSuccessTypeDescriptor(
           types.API.RESOURCES_GET_SUCCESS,
-          paginatedResourcesSchema
+          { schema: paginatedResourcesSchema }
         ),
         getErrorTypeDescriptor(types.API.RESOURCES_GET_ERROR),
       ],

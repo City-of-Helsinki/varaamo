@@ -20,9 +20,18 @@ function postReservation(reservation) {
   return {
     [CALL_API]: {
       types: [
-        getRequestTypeDescriptor(types.API.RESERVATION_POST_REQUEST),
-        getSuccessTypeDescriptor(types.API.RESERVATION_POST_SUCCESS),
-        getErrorTypeDescriptor(types.API.RESERVATION_POST_ERROR),
+        getRequestTypeDescriptor(
+          types.API.RESERVATION_POST_REQUEST,
+          { countable: true }
+        ),
+        getSuccessTypeDescriptor(
+          types.API.RESERVATION_POST_SUCCESS,
+          { countable: true }
+        ),
+        getErrorTypeDescriptor(
+          types.API.RESERVATION_POST_ERROR,
+          { countable: true }
+        ),
       ],
       endpoint: url,
       method: 'POST',
