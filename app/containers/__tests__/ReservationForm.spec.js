@@ -161,7 +161,7 @@ describe('Container: ReservationForm', () => {
       expect(props.actions.postReservation.callCount).to.equal(props.selectedReservations.length);
     });
 
-    it('should call postReservation with correcte arguments', () => {
+    it('should call postReservation with correct arguments', () => {
       const actualArgs = props.actions.postReservation.lastCall.args;
       const expected = props.selectedReservations[1];
 

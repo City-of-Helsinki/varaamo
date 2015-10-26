@@ -35,7 +35,7 @@ describe('Component: common/DateHeader', () => {
     describe('icon buttons', () => {
       const buttonTrees = tree.everySubTree('button');
 
-      it('render 2 buttons for changing the date', () => {
+      it('should render 2 buttons for changing the date', () => {
         expect(buttonTrees.length).to.equal(2);
       });
 

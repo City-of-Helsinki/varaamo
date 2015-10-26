@@ -8,7 +8,7 @@ import Immutable from 'seamless-immutable';
 import Navbar from 'components/layout/Navbar';
 import User from 'fixtures/User';
 
-describe('Component: purpose/Navbar', () => {
+describe('Component: layout/Navbar', () => {
   describe('basic rendering', () => {
     const props = {
       logout: simple.stub(),

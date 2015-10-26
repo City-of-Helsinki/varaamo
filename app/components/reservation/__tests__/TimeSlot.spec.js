@@ -76,7 +76,7 @@ describe('Component: reservation/TimeSlot', () => {
           expect(labelVdom.props.bsStyle).to.equal('success');
         });
 
-        it('should display a text whether the slot is reserved or not', () => {
+        it('should display text "Vapaa"', () => {
           const expected = 'Vapaa';
 
           expect(labelVdom.props.children).to.equal(expected);
@@ -102,7 +102,7 @@ describe('Component: reservation/TimeSlot', () => {
           expect(labelVdom.props.bsStyle).to.equal('danger');
         });
 
-        it('should display a text whether the slot is reserved or not', () => {
+        it('should display text "Varattu"', () => {
           const expected = 'Varattu';
 
           expect(labelVdom.props.children).to.equal(expected);

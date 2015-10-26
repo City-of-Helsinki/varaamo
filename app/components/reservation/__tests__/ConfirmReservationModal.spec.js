@@ -80,7 +80,7 @@ describe('Component: reservation/ConfirmReservationModal', () => {
   describe('Modal footer', () => {
     const modalFooterTrees = tree.everySubTree('ModalFooter');
 
-    it('should render a ModalBody component', () => {
+    it('should render a ModalFooter component', () => {
       expect(modalFooterTrees.length).to.equal(1);
     });
 

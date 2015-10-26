@@ -65,7 +65,7 @@ describe('Component: search/SearchResult', () => {
           tdTree = tdTrees[1];
         });
 
-        it('should display the name of the given in props', () => {
+        it('should display the name of the given unit in props', () => {
           const expected = props.unit.name.fi;
 
           expect(tdTree.text()).to.equal(expected);
