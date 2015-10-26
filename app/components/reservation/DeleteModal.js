@@ -62,7 +62,7 @@ class DeleteModal extends Component {
             Peruuta
           </Button>
           <Button
-            bsStyle="primary"
+            bsStyle="danger"
             disabled={isDeleting}
             onClick={this.onConfirm}
           >
