@@ -3,11 +3,13 @@ import React, { Component, PropTypes } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 
 import TimeRange from 'components/common/TimeRange';
+import { getName } from 'utils/DataUtils';
 
 class DeleteModal extends Component {
   constructor(props) {
     super(props);
     this.onConfirm = this.onConfirm.bind(this);
+    this.renderReservation = this.renderReservation.bind(this);
   }
 
   onConfirm() {
@@ -17,8 +19,12 @@ class DeleteModal extends Component {
   }
 
   renderReservation(reservation) {
+    const resource = this.props.resources[reservation.resource] || {};
+
     return (
       <li key={reservation.begin}>
+        {getName(resource)}
+        {': '}
         <TimeRange begin={reservation.begin} end={reservation.end} />
       </li>
     );
@@ -73,6 +79,7 @@ DeleteModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
   reservationsToDelete: PropTypes.array.isRequired,
+  resources: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
 };
 

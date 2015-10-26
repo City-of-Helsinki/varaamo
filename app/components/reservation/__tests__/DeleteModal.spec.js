@@ -17,6 +17,7 @@ describe('Component: reservation/DeleteModal', () => {
       Reservation.build(),
       Reservation.build(),
     ]),
+    resources: {},
     show: true,
   };
   const tree = sd.shallowRender(<DeleteModal {...props} />);

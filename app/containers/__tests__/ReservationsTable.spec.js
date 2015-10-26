@@ -20,6 +20,7 @@ function getProps(props) {
       fetchResources: simple.stub(),
       fetchUnits: simple.stub(),
       openDeleteReservationModal: simple.stub(),
+      selectReservationToDelete: simple.stub(),
     },
     closeDeleteModal: simple.stub(),
     deleteReservationModalIsOpen: false,
@@ -107,6 +108,11 @@ describe('Component: reservation/ReservationsTable', () => {
 
           expect(actualProps.reservation).to.deep.equal(props.reservations[index]);
           expect(actualProps.openDeleteModal).to.deep.equal(props.actions.openDeleteReservationModal);
+          expect(
+            actualProps.selectReservationToDelete
+          ).to.deep.equal(
+            props.actions.selectReservationToDelete
+          );
         });
       });
 
@@ -145,6 +151,7 @@ describe('Component: reservation/ReservationsTable', () => {
         expect(actualProps.onClose).to.equal(props.actions.closeDeleteReservationModal);
         expect(actualProps.onConfirm).to.equal(props.actions.closeDeleteReservationModal);
         expect(actualProps.reservationsToDelete).to.deep.equal(props.reservationsToDelete);
+        expect(actualProps.resources).to.deep.equal(props.resources);
         expect(actualProps.show).to.equal(props.deleteReservationModalIsOpen);
       });
     });

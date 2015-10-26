@@ -23,6 +23,12 @@ describe('Selector: reservationsTableSelector', () => {
     expect(selected.reservations).to.exist;
   });
 
+  it('should return reservationsToDelete from the state', () => {
+    const expected = state.ui.reservation.toDelete;
+
+    expect(selected.reservationsToDelete).to.deep.equal(expected);
+  });
+
   it('should return resources from the state', () => {
     const expected = state.data.resources;
 

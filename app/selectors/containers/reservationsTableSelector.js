@@ -6,6 +6,7 @@ import modalIsOpenSelectorFactory from 'selectors/factories/modalIsOpenSelectorF
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
 import sortedReservationsSelector from 'selectors/sortedReservationsSelector';
 
+const toDeleteSelector = (state) => state.ui.reservation.toDelete;
 const resourcesSelector = (state) => state.data.resources;
 const unitsSelector = (state) => state.data.units;
 
@@ -14,12 +15,14 @@ const reservationsTableSelector = createSelector(
   requestIsActiveSelectorFactory(ActionTypes.API.RESERVATIONS_GET_REQUEST),
   resourcesSelector,
   sortedReservationsSelector,
+  toDeleteSelector,
   unitsSelector,
   (
     deleteReservationModalIsOpen,
     isFetchingReservations,
     resources,
     reservations,
+    reservationsToDelete,
     units
   ) => {
     return {
@@ -27,6 +30,7 @@ const reservationsTableSelector = createSelector(
       isDeletingReservations: false,
       isFetchingReservations,
       reservations,
+      reservationsToDelete,
       resources,
       units,
     };

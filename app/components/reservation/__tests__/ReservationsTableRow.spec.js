@@ -16,6 +16,7 @@ describe('Component: reservation/ReservationsTableRow', () => {
       openDeleteModal: simple.stub(),
       reservation: Immutable(Reservation.build()),
       resource: Immutable(Resource.build()),
+      selectReservationToDelete: simple.stub(),
       unit: Immutable(Unit.build()),
     };
     let tree;
@@ -103,11 +104,24 @@ describe('Component: reservation/ReservationsTableRow', () => {
           expect(buttonTree.props.children).to.equal('Poista');
         });
 
-        it('clicking the button should call the props.openDeleteModal function', () => {
-          const buttonTree = tdTree.subTree('Button');
-          buttonTree.props.onClick();
+        describe('clicking the button', () => {
+          before(() => {
+            const buttonTree = tdTree.subTree('Button');
+            buttonTree.props.onClick();
+          });
 
-          expect(props.openDeleteModal.callCount).to.equal(1);
+          it('should call props.selectReservationToDelete with this reservation', () => {
+            expect(props.selectReservationToDelete.callCount).to.equal(1);
+            expect(
+              props.selectReservationToDelete.lastCall.args[0]
+            ).to.deep.equal(
+              props.reservation
+            );
+          });
+
+          it('should call the props.openDeleteModal function', () => {
+            expect(props.openDeleteModal.callCount).to.equal(1);
+          });
         });
       });
     });

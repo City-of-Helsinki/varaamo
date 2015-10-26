@@ -6,9 +6,24 @@ import TimeRange from 'components/common/TimeRange';
 import { getName } from 'utils/DataUtils';
 
 class ReservationsTableRow extends Component {
-  render() {
+  constructor(props) {
+    super(props);
+    this.handleDeleteClick = this.handleDeleteClick.bind(this);
+  }
+
+  handleDeleteClick() {
     const {
       openDeleteModal,
+      reservation,
+      selectReservationToDelete,
+    } = this.props;
+
+    selectReservationToDelete(reservation);
+    openDeleteModal();
+  }
+
+  render() {
+    const {
       reservation,
       resource,
       unit,
@@ -29,7 +44,7 @@ class ReservationsTableRow extends Component {
           <Button
             bsSize="xsmall"
             bsStyle="danger"
-            onClick={openDeleteModal}
+            onClick={this.handleDeleteClick}
           >
             Poista
           </Button>
@@ -43,6 +58,7 @@ ReservationsTableRow.propTypes = {
   openDeleteModal: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
+  selectReservationToDelete: PropTypes.func.isRequired,
   unit: PropTypes.object.isRequired,
 };
 

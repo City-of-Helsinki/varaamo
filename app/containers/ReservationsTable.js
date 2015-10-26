@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import {
   closeDeleteReservationModal,
   openDeleteReservationModal,
+  selectReservationToDelete,
 } from 'actions/uiActions';
 import { fetchReservations } from 'actions/reservationActions';
 import { fetchResources } from 'actions/resourceActions';
@@ -43,6 +44,7 @@ export class UnconnectedReservationsTable extends Component {
         reservation={reservation}
         resource={resource}
         openDeleteModal={actions.openDeleteReservationModal}
+        selectReservationToDelete={actions.selectReservationToDelete}
         unit={unit}
       />
     );
@@ -55,6 +57,8 @@ export class UnconnectedReservationsTable extends Component {
       isDeletingReservations,
       isFetchingReservations,
       reservations,
+      reservationsToDelete,
+      resources,
     } = this.props;
 
     return (
@@ -78,7 +82,8 @@ export class UnconnectedReservationsTable extends Component {
               onClose={actions.closeDeleteReservationModal}
               onConfirm={actions.closeDeleteReservationModal}
               isDeleting={isDeletingReservations}
-              reservationsToDelete={[]}
+              reservationsToDelete={reservationsToDelete}
+              resources={resources}
               show={deleteReservationModalIsOpen}
             />
           </div>
@@ -96,6 +101,7 @@ UnconnectedReservationsTable.propTypes = {
   isDeletingReservations: PropTypes.bool.isRequired,
   isFetchingReservations: PropTypes.bool.isRequired,
   reservations: PropTypes.array.isRequired,
+  reservationsToDelete: PropTypes.array.isRequired,
   resources: PropTypes.object.isRequired,
   units: PropTypes.object.isRequired,
 };
@@ -107,6 +113,7 @@ function mapDispatchToProps(dispatch) {
     fetchResources,
     fetchUnits,
     openDeleteReservationModal,
+    selectReservationToDelete,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
