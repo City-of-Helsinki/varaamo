@@ -41,10 +41,10 @@ export class UnconnectedPurposeCategoryList extends Component {
   }
 
   render() {
-    const { purposeCategories } = this.props;
+    const { isFetchingPurposes, purposeCategories } = this.props;
 
     return (
-      <Loader loaded={!_.isEmpty(purposeCategories)}>
+      <Loader loaded={!isFetchingPurposes}>
         <div>
           {_.map(_.keys(purposeCategories), this.renderPurposeCategory)}
         </div>
@@ -55,6 +55,7 @@ export class UnconnectedPurposeCategoryList extends Component {
 
 UnconnectedPurposeCategoryList.propTypes = {
   actions: PropTypes.object.isRequired,
+  isFetchingPurposes: PropTypes.bool.isRequired,
   purposeCategories: PropTypes.object.isRequired,
 };
 
