@@ -15,7 +15,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import styles from './Navbar.styles';
 import logoSrc from 'assets/images/helsinki-coat-of-arms-white.png';
 
-export class Navbar extends Component {
+class Navbar extends Component {
   constructor(props) {
     super(props);
     this.renderUserNav = this.renderUserNav.bind(this);

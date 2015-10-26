@@ -20,7 +20,7 @@ describe('Component: common/TimeRange', () => {
     expect(timeTrees.length).to.equal(1);
   });
 
-  it('should pass correct datetime range to the time element', () => {
+  it('should pass correct dateTime range to the time element', () => {
     const timeTree = tree.subTree('time');
     const expected = `${props.begin}/${props.end}`;
 

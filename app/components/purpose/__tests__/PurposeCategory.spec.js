@@ -31,9 +31,9 @@ describe('Component: purpose/PurposeCategory', () => {
     });
 
     it('should display the mainType in Panel header', () => {
-      const panelVdom = tree.subTree('Panel').getRenderOutput();
+      const panelTree = tree.subTree('Panel');
 
-      expect(panelVdom.props.header).to.equal(props.mainType);
+      expect(panelTree.props.header).to.equal(props.mainType);
     });
 
     it('should render a ListGroup component to hold individual purposes', () => {
@@ -56,11 +56,8 @@ describe('Component: purpose/PurposeCategory', () => {
 
     it('should pass correct props to PurposeCategoryItem', () => {
       purposeTrees.forEach((purposeTree, index) => {
-        const purposeVdom = purposeTree.getRenderOutput();
-        const actualProps = purposeVdom.props;
-
-        expect(actualProps.purpose).to.deep.equal(props.purposes[index]);
-        expect(actualProps.onItemClick).to.deep.equal(props.onItemClick);
+        expect(purposeTree.props.purpose).to.deep.equal(props.purposes[index]);
+        expect(purposeTree.props.onItemClick).to.deep.equal(props.onItemClick);
       });
     });
   });

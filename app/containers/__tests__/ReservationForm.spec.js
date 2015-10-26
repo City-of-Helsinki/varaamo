@@ -41,14 +41,13 @@ describe('Container: ReservationForm', () => {
 
   describe('rendering DatePicker', () => {
     const datePickerTrees = tree.everySubTree('DatePicker');
-    const datePickerVdom = datePickerTrees[0].getRenderOutput();
 
     it('should render DatePicker component', () => {
       expect(datePickerTrees.length).to.equal(1);
     });
 
     it('should pass correct props to DatePicker component', () => {
-      const actualProps = datePickerVdom.props;
+      const actualProps = datePickerTrees[0].props;
 
       expect(actualProps.date).to.equal(props.date);
       expect(actualProps.hideFooter).to.equal(true);
@@ -64,8 +63,7 @@ describe('Container: ReservationForm', () => {
     });
 
     it('should pass correct props to DateHeader component', () => {
-      const dateHeaderVdom = dateHeaderTrees[0].getRenderOutput();
-      const actualProps = dateHeaderVdom.props;
+      const actualProps = dateHeaderTrees[0].props;
 
       expect(actualProps.date).to.equal(props.date);
       expect(actualProps.onChange).to.equal(instance.onDateChange);
@@ -74,14 +72,13 @@ describe('Container: ReservationForm', () => {
 
   describe('rendering TimeSlots', () => {
     const timeSlotsTrees = tree.everySubTree('TimeSlots');
-    const timeSlotsVdom = timeSlotsTrees[0].getRenderOutput();
 
     it('should render TimeSlots component', () => {
       expect(timeSlotsTrees.length).to.equal(1);
     });
 
     it('should pass correct props to TimeSlots component', () => {
-      const actualProps = timeSlotsVdom.props;
+      const actualProps = timeSlotsTrees[0].props;
 
       expect(actualProps.isFetching).to.equal(props.isFetchingResource);
       expect(actualProps.onChange).to.deep.equal(props.actions.toggleTimeSlot);
@@ -92,33 +89,31 @@ describe('Container: ReservationForm', () => {
 
   describe('rendering reservation Button', () => {
     const buttonTrees = tree.everySubTree('Button');
-    const buttonVdom = buttonTrees[0].getRenderOutput();
 
     it('should render a Button component', () => {
       expect(buttonTrees.length).to.equal(1);
     });
 
     it('should pass correct props to Button component', () => {
-      const actualProps = buttonVdom.props;
+      const actualProps = buttonTrees[0].props;
 
       expect(actualProps.onClick).to.equal(props.actions.openConfirmReservationModal);
     });
 
     it('the button should have text "Varaa"', () => {
-      expect(buttonVdom.props.children).to.equal('Varaa');
+      expect(buttonTrees[0].props.children).to.equal('Varaa');
     });
   });
 
   describe('rendering ConfirmReservationModal', () => {
     const modalTrees = tree.everySubTree('ConfirmReservationModal');
-    const modalVdom = modalTrees[0].getRenderOutput();
 
     it('should render ConfirmReservationModal component', () => {
       expect(modalTrees.length).to.equal(1);
     });
 
     it('should pass correct props to ConfirmReservationModal component', () => {
-      const actualProps = modalVdom.props;
+      const actualProps = modalTrees[0].props;
 
       expect(actualProps.isMakingReservations).to.equal(props.isMakingReservations);
       expect(actualProps.onClose).to.equal(props.actions.closeConfirmReservationModal);
@@ -161,7 +156,7 @@ describe('Container: ReservationForm', () => {
       expect(props.actions.postReservation.callCount).to.equal(props.selectedReservations.length);
     });
 
-    it('should call postReservation with correcte arguments', () => {
+    it('should call postReservation with correct arguments', () => {
       const actualArgs = props.actions.postReservation.lastCall.args;
       const expected = props.selectedReservations[1];
 

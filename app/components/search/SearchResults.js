@@ -5,7 +5,7 @@ import Loader from 'react-loader';
 
 import SearchResult from 'components/search/SearchResult';
 
-export class SearchResults extends Component {
+class SearchResults extends Component {
   constructor(props) {
     super(props);
     this.renderSearchResult = this.renderSearchResult.bind(this);

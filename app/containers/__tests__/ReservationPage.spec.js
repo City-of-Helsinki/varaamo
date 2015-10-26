@@ -25,10 +25,9 @@ describe('Container: ReservationPage', () => {
     const linkTree = tree.subTree('LinkContainer');
 
     it('should display a link to this resources page', () => {
-      const linkVdom = linkTree.getRenderOutput();
       const expected = `/resources/${props.resource.id}`;
 
-      expect(linkVdom.props.to).to.equal(expected);
+      expect(linkTree.props.to).to.equal(expected);
     });
 
     it('should display the link as a Button', () => {
@@ -38,9 +37,9 @@ describe('Container: ReservationPage', () => {
     });
 
     it('the link button should have text "Tilan tiedot"', () => {
-      const buttonVdom = linkTree.subTree('Button').getRenderOutput();
+      const buttonTree = linkTree.subTree('Button');
 
-      expect(buttonVdom.props.children).to.equal('Tilan tiedot');
+      expect(buttonTree.props.children).to.equal('Tilan tiedot');
     });
   });
 
@@ -52,8 +51,7 @@ describe('Container: ReservationPage', () => {
     });
 
     it('should pass correct props to ResourceHeader component', () => {
-      const resourceHeaderVdom = resourceHeaderTrees[0].getRenderOutput();
-      const actualProps = resourceHeaderVdom.props;
+      const actualProps = resourceHeaderTrees[0].props;
 
       expect(actualProps.name).to.equal(props.resource.name.fi);
       expect(typeof actualProps.address).to.equal('string');

@@ -16,9 +16,9 @@ describe('Container: LoginPage', () => {
   const instance = tree.getMountedInstance();
 
   it('should display "Kirjaudu sisään" -title inside h1 tags', () => {
-    const h1Vdom = tree.subTree('h1').getRenderOutput();
+    const h1Tree = tree.subTree('h1');
 
-    expect(h1Vdom.props.children).to.equal('Kirjaudu sisään');
+    expect(h1Tree.props.children).to.equal('Kirjaudu sisään');
   });
 
   describe('rendering Login button', () => {
@@ -29,8 +29,7 @@ describe('Container: LoginPage', () => {
     });
 
     it('should pass correct props to Button component', () => {
-      const buttonVdom = buttonTrees[0].getRenderOutput();
-      const actualProps = buttonVdom.props;
+      const actualProps = buttonTrees[0].props;
 
       expect(actualProps.onClick).to.equal(instance.handleLogin);
     });

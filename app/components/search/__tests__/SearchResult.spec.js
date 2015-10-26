@@ -46,9 +46,8 @@ describe('Component: search/SearchResult', () => {
 
         it('should contain a link to resources page', () => {
           const linkTree = tdTree.subTree('Link');
-          const linkVdom = linkTree.getRenderOutput();
 
-          expect(linkVdom.props.to).to.contain('resources');
+          expect(linkTree.props.to).to.contain('resources');
         });
 
         it('should display the name of the result', () => {
@@ -65,7 +64,7 @@ describe('Component: search/SearchResult', () => {
           tdTree = tdTrees[1];
         });
 
-        it('should display the name of the given in props', () => {
+        it('should display the name of the given unit in props', () => {
           const expected = props.unit.name.fi;
 
           expect(tdTree.text()).to.equal(expected);

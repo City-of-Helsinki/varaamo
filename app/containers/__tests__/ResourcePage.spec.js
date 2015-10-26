@@ -28,10 +28,9 @@ describe('Container: ResourcePage', () => {
     const linkTree = tree.subTree('LinkContainer');
 
     it('should display a link to this resources reservation page', () => {
-      const linkVdom = linkTree.getRenderOutput();
       const expected = `/resources/${props.resource.id}/reservation`;
 
-      expect(linkVdom.props.to).to.equal(expected);
+      expect(linkTree.props.to).to.equal(expected);
     });
 
     it('should display the link as a Button', () => {
@@ -41,9 +40,9 @@ describe('Container: ResourcePage', () => {
     });
 
     it('the link button should have text "Varaa tila"', () => {
-      const buttonVdom = linkTree.subTree('Button').getRenderOutput();
+      const buttonTree = linkTree.subTree('Button');
 
-      expect(buttonVdom.props.children).to.equal('Varaa tila');
+      expect(buttonTree.props.children).to.equal('Varaa tila');
     });
   });
 
@@ -55,8 +54,7 @@ describe('Container: ResourcePage', () => {
     });
 
     it('should pass correct props to ResourceHeader component', () => {
-      const resourceHeaderVdom = resourceHeaderTrees[0].getRenderOutput();
-      const actualProps = resourceHeaderVdom.props;
+      const actualProps = resourceHeaderTrees[0].props;
 
       expect(actualProps.name).to.equal(props.resource.name.fi);
       expect(typeof actualProps.address).to.equal('string');
@@ -71,8 +69,7 @@ describe('Container: ResourcePage', () => {
     });
 
     it('should pass correct props to ResourceDetails component', () => {
-      const resourceDetailsVdom = resourceDetailsTrees[0].getRenderOutput();
-      const actualProps = resourceDetailsVdom.props;
+      const actualProps = resourceDetailsTrees[0].props;
 
       expect(typeof actualProps.capacityString).to.equal('string');
       expect(typeof actualProps.description).to.equal('string');
@@ -88,8 +85,7 @@ describe('Container: ResourcePage', () => {
     });
 
     it('should pass correct props to ImagePanel component', () => {
-      const imagePanelVdom = imagePanelTrees[0].getRenderOutput();
-      const actualProps = imagePanelVdom.props;
+      const actualProps = imagePanelTrees[0].props;
       const expectedAltText = `Kuva ${resource.name.fi} tilasta`;
 
       expect(actualProps.altText).to.equal(expectedAltText);

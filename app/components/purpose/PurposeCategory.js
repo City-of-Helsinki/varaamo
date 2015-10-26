@@ -5,7 +5,7 @@ import { ListGroup, Panel } from 'react-bootstrap';
 import PurposeCategoryItem from 'components/purpose/PurposeCategoryItem';
 import { humanizeMainType } from 'utils/DataUtils';
 
-export class PurposeCategoryList extends Component {
+class PurposeCategoryList extends Component {
   constructor(props) {
     super(props);
     this.renderPurposeCategoryItem = this.renderPurposeCategoryItem.bind(this);

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-export class ResourceHeader extends Component {
+class ResourceHeader extends Component {
   render() {
     const { address, name } = this.props;
 

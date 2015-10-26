@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 import styles from './Footer.styles';
 import logoSrc from 'assets/images/helsinki-coat-of-arms-white.png';
 
-export class Footer extends Component {
+class Footer extends Component {
   render() {
     const RadiumLink = Radium(Link);
 

@@ -4,7 +4,7 @@ import { Button, Modal } from 'react-bootstrap';
 
 import TimeRange from 'components/common/TimeRange';
 
-export class ConfirmReservationModal extends Component {
+class ConfirmReservationModal extends Component {
   constructor(props) {
     super(props);
     this.onConfirm = this.onConfirm.bind(this);
@@ -60,7 +60,7 @@ export class ConfirmReservationModal extends Component {
             disabled={isMakingReservations}
             onClick={this.onConfirm}
           >
-            {isMakingReservations ? 'Varaamassa...' : 'Varaa'}
+            {isMakingReservations ? 'Varataan...' : 'Varaa'}
           </Button>
         </Modal.Footer>
       </Modal>

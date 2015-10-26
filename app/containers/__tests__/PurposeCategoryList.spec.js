@@ -15,6 +15,7 @@ describe('Container: PurposeCategoryList', () => {
     actions: {
       fetchPurposes: simple.stub(),
     },
+    isFetchingPurposes: false,
     purposeCategories: Immutable({
       someType: [Purpose.build()],
       otherType: [Purpose.build()],

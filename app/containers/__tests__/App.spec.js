@@ -28,8 +28,7 @@ describe('Container: App', () => {
     });
 
     it('should pass correct props to Navbar component', () => {
-      const navbarVdom = navbarTrees[0].getRenderOutput();
-      const actualProps = navbarVdom.props;
+      const actualProps = navbarTrees[0].props;
 
       expect(actualProps.logout).to.equal(instance.handleLogout);
       expect(actualProps.user).to.equal(props.user);

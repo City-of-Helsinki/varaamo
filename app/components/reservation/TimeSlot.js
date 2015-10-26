@@ -2,7 +2,7 @@ import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 import { Label } from 'react-bootstrap';
 
-export class TimeSlot extends Component {
+class TimeSlot extends Component {
   render() {
     const { onChange, selected, slot } = this.props;
     const disabled = slot.reserved || moment(slot.end) < moment();

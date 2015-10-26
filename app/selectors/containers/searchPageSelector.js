@@ -8,7 +8,7 @@ import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveS
 const unitsSelector = (state) => state.data.units;
 
 const searchPageSelector = createSelector(
-  requestIsActiveSelectorFactory(ActionTypes.API.RESOURCES_GET_REQUEST),
+  requestIsActiveSelectorFactory(ActionTypes.API.SEARCH_RESULTS_GET_REQUEST),
   searchFiltersSelector,
   searchResultsSelector,
   unitsSelector,

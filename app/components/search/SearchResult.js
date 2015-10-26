@@ -7,7 +7,7 @@ import {
   getOpeningHours,
 } from 'utils/DataUtils';
 
-export class SearchResult extends Component {
+class SearchResult extends Component {
   render() {
     const { result, unit } = this.props;
 
@@ -15,7 +15,7 @@ export class SearchResult extends Component {
       <tr>
         <td>
           <Link to={`/resources/${result.id}`}>
-            {result.name.fi}
+            {getName(result)}
           </Link>
         </td>
         <td>{getName(unit)}</td>

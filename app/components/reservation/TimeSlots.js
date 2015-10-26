@@ -5,7 +5,7 @@ import Loader from 'react-loader';
 
 import TimeSlot from 'components/reservation/TimeSlot';
 
-export class TimeSlots extends Component {
+class TimeSlots extends Component {
   constructor(props) {
     super(props);
     this.renderTimeSlot = this.renderTimeSlot.bind(this);

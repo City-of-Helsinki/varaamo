@@ -42,11 +42,9 @@ describe('Container: SearchControls', () => {
 
   describe('rendering SearchInput', () => {
     let searchInputTrees;
-    let searchInputVdom;
 
     beforeEach(() => {
       searchInputTrees = tree.everySubTree('SearchInput');
-      searchInputVdom = searchInputTrees[0].getRenderOutput();
     });
 
     it('should render SearchInput component', () => {
@@ -54,7 +52,7 @@ describe('Container: SearchControls', () => {
     });
 
     it('should pass correct props to SearchInput component', () => {
-      const actualProps = searchInputVdom.props;
+      const actualProps = searchInputTrees[0].props;
 
       expect(actualProps.initialValue).to.equal(props.filters.search);
       expect(typeof actualProps.onSubmit).to.equal('function');
@@ -63,11 +61,9 @@ describe('Container: SearchControls', () => {
 
   describe('rendering SearchFilters', () => {
     let searchFiltersTrees;
-    let searchFiltersVdom;
 
     beforeEach(() => {
       searchFiltersTrees = tree.everySubTree('SearchFilters');
-      searchFiltersVdom = searchFiltersTrees[0].getRenderOutput();
     });
 
     it('should render SearchFilters component', () => {
@@ -75,7 +71,7 @@ describe('Container: SearchControls', () => {
     });
 
     it('should pass correct props to SearchFilters component', () => {
-      const actualProps = searchFiltersVdom.props;
+      const actualProps = searchFiltersTrees[0].props;
 
       expect(actualProps.isFetchingPurposes).to.equal(props.isFetchingPurposes);
       expect(actualProps.onFiltersChange).to.equal(instance.onFiltersChange);
@@ -86,11 +82,9 @@ describe('Container: SearchControls', () => {
 
   describe('rendering DateHeader', () => {
     let dateHeaderTrees;
-    let dateHeaderVdom;
 
     beforeEach(() => {
       dateHeaderTrees = tree.everySubTree('DateHeader');
-      dateHeaderVdom = dateHeaderTrees[0].getRenderOutput();
     });
 
     it('should render DateHeader component', () => {
@@ -98,7 +92,7 @@ describe('Container: SearchControls', () => {
     });
 
     it('should pass correct props to DateHeader component', () => {
-      const actualProps = dateHeaderVdom.props;
+      const actualProps = dateHeaderTrees[0].props;
 
       expect(actualProps.date).to.equal(props.filters.date);
       expect(typeof actualProps.onChange).to.equal('function');
@@ -107,7 +101,7 @@ describe('Container: SearchControls', () => {
     it('DateHeader onChange should call onFiltersChange with correct arguments', () => {
       simple.mock(instance, 'onFiltersChange');
       const newDate = 'some-date';
-      dateHeaderVdom.props.onChange(newDate);
+      dateHeaderTrees[0].props.onChange(newDate);
       const expected = { date: newDate };
       const actualCallCount = instance.onFiltersChange.callCount;
       const actualArgs = instance.onFiltersChange.lastCall.args[0];
@@ -120,11 +114,9 @@ describe('Container: SearchControls', () => {
 
   describe('rendering DatePicker', () => {
     let datePickerTrees;
-    let datePickerVdom;
 
     beforeEach(() => {
       datePickerTrees = tree.everySubTree('DatePicker');
-      datePickerVdom = datePickerTrees[0].getRenderOutput();
     });
 
     it('should render DatePicker component', () => {
@@ -132,7 +124,7 @@ describe('Container: SearchControls', () => {
     });
 
     it('should pass correct props to DatePicker component', () => {
-      const actualProps = datePickerVdom.props;
+      const actualProps = datePickerTrees[0].props;
 
       expect(actualProps.date).to.equal(props.filters.date);
       expect(actualProps.hideFooter).to.equal(true);
@@ -142,7 +134,7 @@ describe('Container: SearchControls', () => {
     it('DatePicker onChange should call onFiltersChange with correct arguments', () => {
       simple.mock(instance, 'onFiltersChange');
       const newDate = 'some-date';
-      datePickerVdom.props.onChange(newDate);
+      datePickerTrees[0].props.onChange(newDate);
       const expected = { date: newDate };
       const actualCallCount = instance.onFiltersChange.callCount;
       const actualArgs = instance.onFiltersChange.lastCall.args[0];

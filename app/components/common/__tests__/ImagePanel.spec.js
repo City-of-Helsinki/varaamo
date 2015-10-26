@@ -50,7 +50,7 @@ describe('Component: common/ImagePanel', () => {
         expect(actualProps.src).to.equal(image.url);
       });
 
-      it('should use the altText for images without caption', () => {
+      it('should use the prop altText for images without caption', () => {
         const imageWithoutCaptionTree = tree.everySubTree('img')[1];
 
         expect(imageWithoutCaptionTree.props.alt).to.equal(props.altText);

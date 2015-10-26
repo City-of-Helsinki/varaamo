@@ -30,18 +30,18 @@ describe('Component: reservation/TimeSlot', () => {
 
     describe('the first table cell', () => {
       const tdTree = tdTrees[0];
-      const inputVdom = tdTree.subTree('input').getRenderOutput();
+      const inputTree = tdTree.subTree('input');
 
       it('should render a checkbox', () => {
-        expect(inputVdom.props.type).to.equal('checkbox');
+        expect(inputTree.props.type).to.equal('checkbox');
       });
 
       it('should not be checked if the slot is available', () => {
-        expect(inputVdom.props.checked).to.equal(false);
+        expect(inputTree.props.checked).to.equal(false);
       });
 
       it('checking the checkbox should call props.onChange with correct arguments', () => {
-        inputVdom.props.onChange();
+        inputTree.props.onChange();
 
         expect(props.onChange.callCount).to.equal(1);
       });
@@ -55,10 +55,10 @@ describe('Component: reservation/TimeSlot', () => {
       });
 
       it('should have the specific time range inside a "time" element', () => {
-        const timeVdom = tdTree.subTree('time').getRenderOutput();
+        const timeTree = tdTree.subTree('time');
         const expected = `${props.slot.start}/${props.slot.end}`;
 
-        expect(timeVdom.props.dateTime).to.equal(expected);
+        expect(timeTree.props.dateTime).to.equal(expected);
       });
     });
 
@@ -66,20 +66,19 @@ describe('Component: reservation/TimeSlot', () => {
       describe('when the slot is available', () => {
         const tdTree = tdTrees[2];
         const labelTrees = tdTree.everySubTree('Label');
-        const labelVdom = labelTrees[0].getRenderOutput();
 
         it('should render a label', () => {
           expect(labelTrees.length).to.equal(1);
         });
 
         it('should give proper props to the label', () => {
-          expect(labelVdom.props.bsStyle).to.equal('success');
+          expect(labelTrees[0].props.bsStyle).to.equal('success');
         });
 
-        it('should display a text whether the slot is reserved or not', () => {
+        it('should display text "Vapaa"', () => {
           const expected = 'Vapaa';
 
-          expect(labelVdom.props.children).to.equal(expected);
+          expect(labelTrees[0].props.children).to.equal(expected);
         });
       });
 
@@ -92,20 +91,19 @@ describe('Component: reservation/TimeSlot', () => {
         const reservedTree = sd.shallowRender(<TimeSlot {...reservedProps} />);
         const tdTree = reservedTree.everySubTree('td')[2];
         const labelTrees = tdTree.everySubTree('Label');
-        const labelVdom = labelTrees[0].getRenderOutput();
 
         it('should render a label', () => {
           expect(labelTrees.length).to.equal(1);
         });
 
         it('should give proper props to the label', () => {
-          expect(labelVdom.props.bsStyle).to.equal('danger');
+          expect(labelTrees[0].props.bsStyle).to.equal('danger');
         });
 
-        it('should display a text whether the slot is reserved or not', () => {
+        it('should display text "Varattu"', () => {
           const expected = 'Varattu';
 
-          expect(labelVdom.props.children).to.equal(expected);
+          expect(labelTrees[0].props.children).to.equal(expected);
         });
       });
     });

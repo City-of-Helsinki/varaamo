@@ -8,7 +8,7 @@ import Immutable from 'seamless-immutable';
 import Navbar from 'components/layout/Navbar';
 import User from 'fixtures/User';
 
-describe('Component: purpose/Navbar', () => {
+describe('Component: layout/Navbar', () => {
   describe('basic rendering', () => {
     const props = {
       logout: simple.stub(),
@@ -29,9 +29,9 @@ describe('Component: purpose/Navbar', () => {
       });
 
       it('should contain a link to home page', () => {
-        const linkVdom = navBrandTrees[0].subTree('Link').getRenderOutput();
+        const linkTree = navBrandTrees[0].subTree('Link');
 
-        expect(linkVdom.props.to).to.equal('/');
+        expect(linkTree.props.to).to.equal('/');
       });
 
       it('should display the logo of the service', () => {
@@ -41,9 +41,9 @@ describe('Component: purpose/Navbar', () => {
       });
 
       it('should display text "Respa"', () => {
-        const linkVdom = navBrandTrees[0].subTree('Link').getRenderOutput();
+        const linkTree = navBrandTrees[0].subTree('Link');
 
-        expect(linkVdom.props.children).to.contain('Respa');
+        expect(linkTree.props.children).to.contain('Respa');
       });
     });
 

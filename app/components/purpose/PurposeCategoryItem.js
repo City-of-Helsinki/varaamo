@@ -4,7 +4,7 @@ import { ListGroupItem } from 'react-bootstrap';
 
 import { getName } from 'utils/DataUtils';
 
-export class PurposeCategoryItem extends Component {
+class PurposeCategoryItem extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
