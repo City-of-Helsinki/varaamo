@@ -36,8 +36,7 @@ describe('Container: SearchPage', () => {
     });
 
     it('should pass correct props to SearchResults component', () => {
-      const searchResultsVdom = searchResultsTrees[0].getRenderOutput();
-      const actualProps = searchResultsVdom.props;
+      const actualProps = searchResultsTrees[0].props;
 
       expect(actualProps.isFetching).to.equal(props.isFetchingSearchResults);
       expect(actualProps.results).to.deep.equal(props.results);

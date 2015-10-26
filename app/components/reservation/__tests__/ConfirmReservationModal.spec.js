@@ -35,7 +35,7 @@ describe('Component: reservation/ConfirmReservationModal', () => {
     });
 
     it('should contain a close button', () => {
-      expect(modalHeaderTrees[0].getRenderOutput().props.closeButton).to.equal(true);
+      expect(modalHeaderTrees[0].props.closeButton).to.equal(true);
     });
 
     it('should render a ModalTitle component', () => {
@@ -45,9 +45,9 @@ describe('Component: reservation/ConfirmReservationModal', () => {
     });
 
     it('the ModalTitle should display text "Varauksen varmistus"', () => {
-      const modalTitleVdom = tree.subTree('ModalTitle').getRenderOutput();
+      const modalTitleTree = tree.subTree('ModalTitle');
 
-      expect(modalTitleVdom.props.children).to.equal('Varauksen varmistus');
+      expect(modalTitleTree.props.children).to.equal('Varauksen varmistus');
     });
   });
 
@@ -92,31 +92,31 @@ describe('Component: reservation/ConfirmReservationModal', () => {
       });
 
       describe('Cancel button', () => {
-        const buttonVdom = buttonTrees[0].getRenderOutput();
+        const buttonTree = buttonTrees[0];
 
         it('the first button should read "Peruuta"', () => {
-          expect(buttonVdom.props.children).to.equal('Peruuta');
+          expect(buttonTree.props.children).to.equal('Peruuta');
         });
 
         it('clicking it should call props.onClose', () => {
           props.onClose.reset();
-          buttonVdom.props.onClick();
+          buttonTree.props.onClick();
 
           expect(props.onClose.callCount).to.equal(1);
         });
       });
 
       describe('Confirm button', () => {
-        const buttonVdom = buttonTrees[1].getRenderOutput();
+        const buttonTree = buttonTrees[1];
 
         it('the second button should read "Varaa"', () => {
-          expect(buttonVdom.props.children).to.equal('Varaa');
+          expect(buttonTree.props.children).to.equal('Varaa');
         });
 
         it('clicking it should call props.onConfirm and props.onClose', () => {
           props.onConfirm.reset();
           props.onClose.reset();
-          buttonVdom.props.onClick();
+          buttonTree.props.onClick();
 
           expect(props.onConfirm.callCount).to.equal(1);
           expect(props.onClose.callCount).to.equal(1);

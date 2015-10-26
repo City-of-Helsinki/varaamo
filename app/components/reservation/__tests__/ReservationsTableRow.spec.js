@@ -48,9 +48,8 @@ describe('Component: reservation/ReservationsTableRow', () => {
 
         it('should contain a link to resources page', () => {
           const linkTree = tdTree.subTree('Link');
-          const linkVdom = linkTree.getRenderOutput();
 
-          expect(linkVdom.props.to).to.contain('resources');
+          expect(linkTree.props.to).to.contain('resources');
         });
 
         it('should display the name of the resource', () => {

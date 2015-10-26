@@ -26,8 +26,7 @@ describe('Component: search/SearchInput', () => {
     });
 
     it('should pass correct props to the Input', () => {
-      const inputVdom = inputTrees[0].getRenderOutput();
-      const actualProps = inputVdom.props;
+      const actualProps = inputTrees[0].props;
 
       expect(actualProps.autoFocus).to.equal(true);
       expect(actualProps.defaultValue).to.equal(props.initialValue);
@@ -37,7 +36,7 @@ describe('Component: search/SearchInput', () => {
   });
 
   describe('submit button', () => {
-    const submitButton = tree.subTree('Input').getRenderOutput().props.buttonAfter;
+    const submitButton = tree.subTree('Input').props.buttonAfter;
 
     it('should render a submit button', () => {
       expect(submitButton).to.exist;

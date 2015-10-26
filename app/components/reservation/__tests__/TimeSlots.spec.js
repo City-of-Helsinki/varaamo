@@ -69,16 +69,14 @@ describe('Component: reservation/TimeSlots', () => {
 
       it('should pass correct props to TimeSlots', () => {
         timeSlotTrees.forEach((timeSlotTree, index) => {
-          const timeSlotVdom = timeSlotTree.getRenderOutput();
-
-          expect(timeSlotVdom.props.onChange).to.equal(props.onChange);
-          expect(timeSlotVdom.props.slot).to.deep.equal(props.slots[index]);
+          expect(timeSlotTree.props.onChange).to.equal(props.onChange);
+          expect(timeSlotTree.props.slot).to.deep.equal(props.slots[index]);
         });
       });
 
       it('should pass correct selected as a prop to TimeSlot', () => {
-        expect(timeSlotTrees[0].getRenderOutput().props.selected).to.equal(true);
-        expect(timeSlotTrees[1].getRenderOutput().props.selected).to.equal(false);
+        expect(timeSlotTrees[0].props.selected).to.equal(true);
+        expect(timeSlotTrees[1].props.selected).to.equal(false);
       });
     });
   });

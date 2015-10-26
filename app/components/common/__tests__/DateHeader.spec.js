@@ -46,18 +46,16 @@ describe('Component: common/DateHeader', () => {
       });
 
       it('clicking the first button should decrement the date by one', () => {
-        const buttonVdom = buttonTrees[0].getRenderOutput();
         props.onChange.reset();
-        buttonVdom.props.onClick();
+        buttonTrees[0].props.onClick();
 
         expect(props.onChange.callCount).to.equal(1);
         expect(props.onChange.lastCall.args[0]).to.equal('2015-10-10');
       });
 
       it('clicking the second button should increment the date by one', () => {
-        const buttonVdom = buttonTrees[1].getRenderOutput();
         props.onChange.reset();
-        buttonVdom.props.onClick();
+        buttonTrees[1].props.onClick();
 
         expect(props.onChange.callCount).to.equal(1);
         expect(props.onChange.lastCall.args[0]).to.equal('2015-10-12');

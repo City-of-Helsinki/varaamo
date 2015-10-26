@@ -29,9 +29,9 @@ describe('Component: layout/Navbar', () => {
       });
 
       it('should contain a link to home page', () => {
-        const linkVdom = navBrandTrees[0].subTree('Link').getRenderOutput();
+        const linkTree = navBrandTrees[0].subTree('Link');
 
-        expect(linkVdom.props.to).to.equal('/');
+        expect(linkTree.props.to).to.equal('/');
       });
 
       it('should display the logo of the service', () => {
@@ -41,9 +41,9 @@ describe('Component: layout/Navbar', () => {
       });
 
       it('should display text "Respa"', () => {
-        const linkVdom = navBrandTrees[0].subTree('Link').getRenderOutput();
+        const linkTree = navBrandTrees[0].subTree('Link');
 
-        expect(linkVdom.props.children).to.contain('Respa');
+        expect(linkTree.props.children).to.contain('Respa');
       });
     });
 

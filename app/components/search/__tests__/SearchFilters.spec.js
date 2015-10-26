@@ -22,14 +22,13 @@ describe('Component: search/SearchFilters', () => {
 
   describe('purpose filter', () => {
     const selectTrees = tree.everySubTree('Select');
-    const selectVdom = selectTrees[0].getRenderOutput();
 
     it('should render a Select component', () => {
       expect(selectTrees.length).to.equal(1);
     });
 
     it('should pass correct props to the Select component', () => {
-      const actualProps = selectVdom.props;
+      const actualProps = selectTrees[0].props;
 
       expect(actualProps.clearable).to.equal(true);
       expect(actualProps.isLoading).to.equal(props.isFetchingPurposes);
@@ -43,7 +42,7 @@ describe('Component: search/SearchFilters', () => {
       const filterValue = 'new-value';
 
       before(() => {
-        selectVdom.props.onChange(filterValue);
+        selectTrees[0].props.onChange(filterValue);
       });
 
       it('should call onFiltersChange ', () => {

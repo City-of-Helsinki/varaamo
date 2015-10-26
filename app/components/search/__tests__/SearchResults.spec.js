@@ -70,22 +70,16 @@ describe('Component: search/SearchResults', () => {
 
       it('should pass result as a prop to SearchResult', () => {
         resultTrees.forEach((resultTree, index) => {
-          const resultVdom = resultTree.getRenderOutput();
-
-          expect(resultVdom.props.result).to.deep.equal(props.results[index]);
+          expect(resultTree.props.result).to.deep.equal(props.results[index]);
         });
       });
 
       it('should pass unit corresponding to result.unit as a prop to SearchResult', () => {
-        const resultVdom = resultTrees[0].getRenderOutput();
-
-        expect(resultVdom.props.unit).to.deep.equal(unit);
+        expect(resultTrees[0].props.unit).to.deep.equal(unit);
       });
 
       it('should pass empty object as unit prop to SearchResult if unit is unfetched', () => {
-        const resultVdom = resultTrees[1].getRenderOutput();
-
-        expect(resultVdom.props.unit).to.deep.equal({});
+        expect(resultTrees[1].props.unit).to.deep.equal({});
       });
     });
   });

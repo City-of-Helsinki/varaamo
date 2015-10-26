@@ -75,34 +75,24 @@ describe('Component: reservation/ReservationsTable', () => {
 
       it('should pass reservation as a prop to ReservationsTableRow', () => {
         reservationsTableRowTrees.forEach((reservationTree, index) => {
-          const reservationVdom = reservationTree.getRenderOutput();
-
-          expect(reservationVdom.props.reservation).to.deep.equal(props.reservations[index]);
+          expect(reservationTree.props.reservation).to.deep.equal(props.reservations[index]);
         });
       });
 
       it('should pass resource corresponding to reservation.resource as a prop to ReservationsTableRow', () => {
-        const reservationVdom = reservationsTableRowTrees[0].getRenderOutput();
-
-        expect(reservationVdom.props.resource).to.deep.equal(resource);
+        expect(reservationsTableRowTrees[0].props.resource).to.deep.equal(resource);
       });
 
       it('should pass empty object as resource prop to ReservationsTableRow if resource is unfetched', () => {
-        const reservationVdom = reservationsTableRowTrees[1].getRenderOutput();
-
-        expect(reservationVdom.props.resource).to.deep.equal({});
+        expect(reservationsTableRowTrees[1].props.resource).to.deep.equal({});
       });
 
       it('should pass unit corresponding to resource.unit as a prop to ReservationsTableRow', () => {
-        const reservationVdom = reservationsTableRowTrees[0].getRenderOutput();
-
-        expect(reservationVdom.props.unit).to.deep.equal(unit);
+        expect(reservationsTableRowTrees[0].props.unit).to.deep.equal(unit);
       });
 
       it('should pass empty object as unit prop to ReservationsTableRow if unit or resource is unfetched', () => {
-        const reservationVdom = reservationsTableRowTrees[1].getRenderOutput();
-
-        expect(reservationVdom.props.unit).to.deep.equal({});
+        expect(reservationsTableRowTrees[1].props.unit).to.deep.equal({});
       });
     });
   });

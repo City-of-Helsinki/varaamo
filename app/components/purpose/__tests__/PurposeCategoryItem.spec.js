@@ -29,9 +29,8 @@ describe('Component: purpose/PurposeCategoryItem', () => {
     });
 
     it('clicking the link should call onItemClick ', () => {
-      const linkVdom = linkTrees[0].getRenderOutput();
       const mockEvent = { preventDefault: simple.stub() };
-      linkVdom.props.onClick(mockEvent);
+      linkTrees[0].props.onClick(mockEvent);
 
       expect(props.onItemClick.callCount).to.equal(1);
     });

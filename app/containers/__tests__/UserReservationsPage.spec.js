@@ -28,9 +28,9 @@ describe('Container: UserReservationsPage', () => {
   const tree = sd.shallowRender(<UserReservationsPage {...props} />);
 
   it('should display "Omat varaukset" -title inside h1 tags', () => {
-    const h1Vdom = tree.subTree('h1').getRenderOutput();
+    const h1Tree = tree.subTree('h1');
 
-    expect(h1Vdom.props.children).to.equal('Omat varaukset');
+    expect(h1Tree.props.children).to.equal('Omat varaukset');
   });
 
   describe('rendering ReservationsTable', () => {
@@ -41,8 +41,7 @@ describe('Container: UserReservationsPage', () => {
     });
 
     it('should pass correct props to ReservationsTable component', () => {
-      const reservationsTableVdom = reservationsTableTrees[0].getRenderOutput();
-      const actualProps = reservationsTableVdom.props;
+      const actualProps = reservationsTableTrees[0].props;
 
       expect(actualProps.isFetching).to.equal(props.isFetchingReservations);
       expect(actualProps.reservations).to.deep.equal(props.reservations);
