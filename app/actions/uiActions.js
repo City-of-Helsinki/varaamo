@@ -27,6 +27,10 @@ const openConfirmReservationModal = createAction(
   () => ModalTypes.CONFIRM_RESERVATION
 );
 
+const selectReservationToDelete = createAction(
+  types.UI.SELECT_RESERVATION_TO_DELETE
+);
+
 const toggleTimeSlot = createAction(types.UI.TOGGLE_TIME_SLOT);
 
 export default {
@@ -36,5 +40,6 @@ export default {
   closeConfirmReservationModal,
   openDeleteReservationModal,
   openConfirmReservationModal,
+  selectReservationToDelete,
   toggleTimeSlot,
 };
