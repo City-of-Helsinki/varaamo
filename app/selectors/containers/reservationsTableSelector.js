@@ -9,7 +9,7 @@ import sortedReservationsSelector from 'selectors/sortedReservationsSelector';
 const resourcesSelector = (state) => state.data.resources;
 const unitsSelector = (state) => state.data.units;
 
-const userReservationsPageSelector = createSelector(
+const reservationsTableSelector = createSelector(
   modalIsOpenSelectorFactory(ModalTypes.DELETE_RESERVATION),
   requestIsActiveSelectorFactory(ActionTypes.API.RESERVATIONS_GET_REQUEST),
   resourcesSelector,
@@ -33,4 +33,4 @@ const userReservationsPageSelector = createSelector(
   }
 );
 
-export default userReservationsPageSelector;
+export default reservationsTableSelector;

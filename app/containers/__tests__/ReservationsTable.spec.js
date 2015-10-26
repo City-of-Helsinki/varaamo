@@ -5,18 +5,26 @@ import sd from 'skin-deep';
 
 import Immutable from 'seamless-immutable';
 
-import ReservationsTable from 'components/reservation/ReservationsTable';
+import {
+  UnconnectedReservationsTable as ReservationsTable,
+} from 'containers/ReservationsTable';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
 
 function getProps(props) {
   const defaults = {
+    actions: {
+      closeDeleteReservationModal: simple.stub(),
+      fetchReservations: simple.stub(),
+      fetchResources: simple.stub(),
+      fetchUnits: simple.stub(),
+      openDeleteReservationModal: simple.stub(),
+    },
     closeDeleteModal: simple.stub(),
-    deleteModalIsOpen: false,
-    isDeleting: false,
-    isFetching: false,
-    openDeleteModal: simple.stub(),
+    deleteReservationModalIsOpen: false,
+    isDeletingReservations: false,
+    isFetchingReservations: false,
     reservations: [],
     reservationsToDelete: [],
     resources: {},
@@ -35,7 +43,6 @@ describe('Component: reservation/ReservationsTable', () => {
         Reservation.build({ resource: resource.id }),
         Reservation.build({ resource: 'unfetched-resource' }),
       ]),
-      reservationsToDelete: [Reservation.build()],
       resources: Immutable({
         [resource.id]: resource,
       }),
@@ -99,7 +106,7 @@ describe('Component: reservation/ReservationsTable', () => {
           const actualProps = reservationTree.props;
 
           expect(actualProps.reservation).to.deep.equal(props.reservations[index]);
-          expect(actualProps.openDeleteModal).to.deep.equal(props.openDeleteModal);
+          expect(actualProps.openDeleteModal).to.deep.equal(props.actions.openDeleteReservationModal);
         });
       });
 
@@ -134,11 +141,11 @@ describe('Component: reservation/ReservationsTable', () => {
       it('should pass correct props to DeleteModal component', () => {
         const actualProps = modalTrees[0].props;
 
-        expect(actualProps.isDeleting).to.equal(props.isDeleting);
-        expect(actualProps.onClose).to.equal(props.closeDeleteModal);
-        expect(actualProps.onConfirm).to.equal(props.closeDeleteModal);
+        expect(actualProps.isDeleting).to.equal(props.isDeletingReservations);
+        expect(actualProps.onClose).to.equal(props.actions.closeDeleteReservationModal);
+        expect(actualProps.onConfirm).to.equal(props.actions.closeDeleteReservationModal);
         expect(actualProps.reservationsToDelete).to.deep.equal(props.reservationsToDelete);
-        expect(actualProps.show).to.equal(props.deleteModalIsOpen);
+        expect(actualProps.show).to.equal(props.deleteReservationModalIsOpen);
       });
     });
   });
@@ -157,6 +164,29 @@ describe('Component: reservation/ReservationsTable', () => {
       const expected = 'Sinulla ei vielä ole yhtään varauksia.';
 
       expect(tree.textIn('p')).to.equal(expected);
+    });
+  });
+
+  describe('fetching data', () => {
+    const props = getProps({});
+    let tree;
+
+    before(() => {
+      tree = sd.shallowRender(<ReservationsTable {...props} />);
+      const instance = tree.getMountedInstance();
+      instance.componentDidMount();
+    });
+
+    it('should fetch reservations when component mounts', () => {
+      expect(props.actions.fetchReservations.callCount).to.equal(1);
+    });
+
+    it('should fetch resources when component mounts', () => {
+      expect(props.actions.fetchResources.callCount).to.equal(1);
+    });
+
+    it('should fetch units when component mounts', () => {
+      expect(props.actions.fetchUnits.callCount).to.equal(1);
     });
   });
 });
