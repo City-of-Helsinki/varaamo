@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Button, Glyphicon, Input } from 'react-bootstrap';
 
-export class SearchInput extends Component {
+class SearchInput extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);

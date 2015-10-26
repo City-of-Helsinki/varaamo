@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 
-export class ResourceDetails extends Component {
+class ResourceDetails extends Component {
   render() {
     const { capacityString, description, type } = this.props;
 

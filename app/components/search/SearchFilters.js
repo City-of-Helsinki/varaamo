@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Select from 'react-select';
 
-export class SearchFilters extends Component {
+class SearchFilters extends Component {
   render() {
     const {
       isFetchingPurposes,

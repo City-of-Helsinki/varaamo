@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 import { Panel } from 'react-bootstrap';
 
-export class ImagePanel extends Component {
+class ImagePanel extends Component {
   constructor(props) {
     super(props);
     this.renderImage = this.renderImage.bind(this);

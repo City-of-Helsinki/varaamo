@@ -7,7 +7,7 @@ import { Glyphicon } from 'react-bootstrap';
 
 import { addToDate } from 'utils/TimeUtils';
 
-export class DateHeader extends Component {
+class DateHeader extends Component {
   render() {
     const { date, onChange } = this.props;
     const dateString = moment(date).format('dddd, LL');
