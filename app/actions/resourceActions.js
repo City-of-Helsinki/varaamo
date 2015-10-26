@@ -50,7 +50,7 @@ function fetchResources(params = {}) {
       method: 'GET',
       headers: getHeaders(),
       bailout: (state) => {
-        return !state.api.shouldFetch.searchResults;
+        return !state.api.shouldFetch.resources;
       },
     },
   };

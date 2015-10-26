@@ -10,6 +10,7 @@ const mockUsersData = {
 };
 
 const initialState = Immutable({
+  reservations: {},
   resources: {},
   units: {},
   users: mockUsersData,
@@ -23,8 +24,10 @@ function dataReducer(state = initialState, action) {
   switch (action.type) {
 
   case types.API.PURPOSES_GET_SUCCESS:
+  case types.API.RESERVATIONS_GET_SUCCESS:
   case types.API.RESOURCE_GET_SUCCESS:
   case types.API.RESOURCES_GET_SUCCESS:
+  case types.API.SEARCH_RESULTS_GET_SUCCESS:
   case types.API.UNITS_GET_SUCCESS:
     return handleData(state, action.payload.entities);
 

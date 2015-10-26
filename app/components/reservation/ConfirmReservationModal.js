@@ -1,7 +1,8 @@
 import _ from 'lodash';
-import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 import { Button, Modal } from 'react-bootstrap';
+
+import TimeRange from 'components/common/TimeRange';
 
 export class ConfirmReservationModal extends Component {
   constructor(props) {
@@ -16,16 +17,9 @@ export class ConfirmReservationModal extends Component {
   }
 
   renderReservation(reservation) {
-    const beginMoment = moment(reservation.begin);
-    const endMoment = moment(reservation.end);
-    const timeString = `${beginMoment.format('LLLL')}\u2013${endMoment.format('H:mm')}`;
-    const ISORangeString = `${reservation.begin}/${reservation.end}`;
-
     return (
       <li key={reservation.begin}>
-        <time dateTime={ISORangeString}>
-          {_.capitalize(timeString)}
-        </time>
+        <TimeRange begin={reservation.begin} end={reservation.end} />
       </li>
     );
   }

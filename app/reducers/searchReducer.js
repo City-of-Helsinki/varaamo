@@ -16,7 +16,7 @@ const initialState = Immutable({
 function searchReducer(state = initialState, action) {
   switch (action.type) {
 
-  case types.API.RESOURCES_GET_SUCCESS:
+  case types.API.SEARCH_RESULTS_GET_SUCCESS:
     const results = _.keys(action.payload.entities.resources);
     return state.merge({ results });
 

@@ -18,7 +18,7 @@ describe('Container: SearchControls', () => {
       actions: {
         changeSearchFilters: simple.stub(),
         fetchPurposes: simple.stub(),
-        fetchResources: simple.stub(),
+        searchResources: simple.stub(),
       },
       isFetchingPurposes: false,
       filters: {
@@ -168,8 +168,8 @@ describe('Container: SearchControls', () => {
       expect(action.lastCall.args[0]).to.deep.equal(newFilters);
     });
 
-    it('should call fetchResources with correct arguments', () => {
-      const action = props.actions.fetchResources;
+    it('should call searchResources with correct arguments', () => {
+      const action = props.actions.searchResources;
       const allFilters = Object.assign({}, props.filters, newFilters);
       const expected = getFetchParamsFromFilters(allFilters);
 

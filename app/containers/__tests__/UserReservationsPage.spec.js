@@ -1,16 +1,72 @@
 import { expect } from 'chai';
 import React from 'react';
 import sd from 'skin-deep';
+import simple from 'simple-mock';
 
-import UserReservationsPage from 'containers/UserReservationsPage';
+import Immutable from 'seamless-immutable';
+
+import { UnconnectedUserReservationsPage as UserReservationsPage } from 'containers/UserReservationsPage';
+import Reservation from 'fixtures/Reservation';
+import Resource from 'fixtures/Resource';
+import Unit from 'fixtures/Unit';
 
 describe('Container: UserReservationsPage', () => {
-  const props = {};
+  const unit = Unit.build();
+  const resource = Resource.build();
+  const reservation = Reservation.build();
+  const props = {
+    actions: {
+      fetchReservations: simple.stub(),
+      fetchResources: simple.stub(),
+      fetchUnits: simple.stub(),
+    },
+    isFetchingReservations: false,
+    reservations: Immutable([reservation]),
+    resources: Immutable({ [resource.id]: resource }),
+    units: Immutable({ [unit.id]: unit }),
+  };
   const tree = sd.shallowRender(<UserReservationsPage {...props} />);
 
   it('should display "Omat varaukset" -title inside h1 tags', () => {
     const h1Vdom = tree.subTree('h1').getRenderOutput();
 
     expect(h1Vdom.props.children).to.equal('Omat varaukset');
+  });
+
+  describe('rendering ReservationsTable', () => {
+    const reservationsTableTrees = tree.everySubTree('ReservationsTable');
+
+    it('should render ReservationsTable component', () => {
+      expect(reservationsTableTrees.length).to.equal(1);
+    });
+
+    it('should pass correct props to ReservationsTable component', () => {
+      const reservationsTableVdom = reservationsTableTrees[0].getRenderOutput();
+      const actualProps = reservationsTableVdom.props;
+
+      expect(actualProps.isFetching).to.equal(props.isFetchingReservations);
+      expect(actualProps.reservations).to.deep.equal(props.reservations);
+      expect(actualProps.resources).to.deep.equal(props.resources);
+      expect(actualProps.units).to.deep.equal(props.units);
+    });
+  });
+
+  describe('fetching data', () => {
+    before(() => {
+      const instance = tree.getMountedInstance();
+      instance.componentDidMount();
+    });
+
+    it('should fetch reservations when component mounts', () => {
+      expect(props.actions.fetchReservations.callCount).to.equal(1);
+    });
+
+    it('should fetch resources when component mounts', () => {
+      expect(props.actions.fetchResources.callCount).to.equal(1);
+    });
+
+    it('should fetch units when component mounts', () => {
+      expect(props.actions.fetchUnits.callCount).to.equal(1);
+    });
   });
 });

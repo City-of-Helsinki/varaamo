@@ -15,7 +15,7 @@ describe('Container: SearchPage', () => {
   const resource = Resource.build();
   const props = {
     actions: {
-      fetchResources: simple.stub(),
+      searchResources: simple.stub(),
       fetchUnits: simple.stub(),
     },
     isFetchingSearchResults: false,
@@ -52,11 +52,11 @@ describe('Container: SearchPage', () => {
     });
 
     it('should fetch resources when component mounts', () => {
-      expect(props.actions.fetchResources.callCount).to.equal(1);
+      expect(props.actions.searchResources.callCount).to.equal(1);
     });
 
     it('should fetch resources witch correct filters', () => {
-      const actual = props.actions.fetchResources.lastCall.args[0];
+      const actual = props.actions.searchResources.lastCall.args[0];
       const expected = getFetchParamsFromFilters(props.filters);
 
       expect(actual).to.deep.equal(expected);

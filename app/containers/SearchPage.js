@@ -3,7 +3,7 @@ import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { fetchResources } from 'actions/resourceActions';
+import { searchResources } from 'actions/searchActions';
 import { fetchUnits } from 'actions/unitActions';
 import SearchResults from 'components/search/SearchResults';
 import SearchControls from 'containers/SearchControls';
@@ -15,7 +15,7 @@ export class UnconnectedSearchPage extends Component {
     const { actions, filters } = this.props;
     const fetchParams = getFetchParamsFromFilters(filters);
 
-    actions.fetchResources(fetchParams);
+    actions.searchResources(fetchParams);
     actions.fetchUnits();
   }
 
@@ -49,7 +49,7 @@ UnconnectedSearchPage.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
-    fetchResources,
+    searchResources,
     fetchUnits,
   };
 

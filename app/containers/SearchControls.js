@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchPurposes } from 'actions/purposeActions';
-import { fetchResources } from 'actions/resourceActions';
+import { searchResources } from 'actions/searchActions';
 import { changeSearchFilters } from 'actions/uiActions';
 import DateHeader from 'components/common/DateHeader';
 import SearchFilters from 'components/search/SearchFilters';
@@ -28,7 +28,7 @@ export class UnconnectedSearchControls extends Component {
     const fetchParams = getFetchParamsFromFilters(allFilters);
 
     actions.changeSearchFilters(newFilters);
-    actions.fetchResources(fetchParams);
+    actions.searchResources(fetchParams);
   }
 
   render() {
@@ -78,7 +78,7 @@ function mapDispatchToProps(dispatch) {
   const actionCreators = {
     changeSearchFilters,
     fetchPurposes,
-    fetchResources,
+    searchResources,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

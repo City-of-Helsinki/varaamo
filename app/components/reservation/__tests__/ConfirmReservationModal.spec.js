@@ -69,6 +69,12 @@ describe('Component: reservation/ConfirmReservationModal', () => {
 
       expect(listElementTrees.length).to.equal(props.selectedReservations.length);
     });
+
+    it('should display a TimeRange for each selected reservation', () => {
+      const timeRangeTrees = modalBodyTrees[0].everySubTree('TimeRange');
+
+      expect(timeRangeTrees.length).to.equal(props.selectedReservations.length);
+    });
   });
 
   describe('Modal footer', () => {
