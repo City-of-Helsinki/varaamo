@@ -15,7 +15,7 @@ export class SearchResult extends Component {
       <tr>
         <td>
           <Link to={`/resources/${result.id}`}>
-            {result.name.fi}
+            {getName(result)}
           </Link>
         </td>
         <td>{getName(unit)}</td>
