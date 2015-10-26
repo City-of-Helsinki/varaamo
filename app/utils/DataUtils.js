@@ -51,7 +51,7 @@ function getAddressWithName(item) {
     getAddress(item),
   ];
 
-  return parts.filter(part => part !== '').join(', ');
+  return _.filter(parts, part => part !== '').join(', ');
 }
 
 function getAvailableTime(openingHours = {}, reservations = []) {
@@ -73,7 +73,7 @@ function getAvailableTime(openingHours = {}, reservations = []) {
   let total = closesMoment - beginMoment;
 
   _.forEach(
-    reservations.filter(reservation => moment(reservation.end) > nowMoment),
+    _.filter(reservations, reservation => moment(reservation.end) > nowMoment),
     (reservation) => {
       total = total - moment(reservation.end) + moment(reservation.begin);
     }
