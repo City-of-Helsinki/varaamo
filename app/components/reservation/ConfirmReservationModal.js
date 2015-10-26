@@ -60,7 +60,7 @@ export class ConfirmReservationModal extends Component {
             disabled={isMakingReservations}
             onClick={this.onConfirm}
           >
-            {isMakingReservations ? 'Varaamassa...' : 'Varaa'}
+            {isMakingReservations ? 'Varataan...' : 'Varaa'}
           </Button>
         </Modal.Footer>
       </Modal>

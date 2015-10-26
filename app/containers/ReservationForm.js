@@ -78,7 +78,7 @@ export class UnconnectedReservationForm extends Component {
           disabled={!selected.length || isMakingReservations}
           onClick={actions.openConfirmReservationModal}
         >
-          {isMakingReservations ? 'Varaamassa...' : 'Varaa'}
+          {isMakingReservations ? 'Varataan...' : 'Varaa'}
         </Button>
         <ConfirmReservationModal
           isMakingReservations={isMakingReservations}
