@@ -3,6 +3,10 @@ import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import {
+  closeDeleteReservationModal,
+  openDeleteReservationModal,
+} from 'actions/uiActions';
 import { fetchReservations } from 'actions/reservationActions';
 import { fetchResources } from 'actions/resourceActions';
 import { fetchUnits } from 'actions/unitActions';
@@ -18,6 +22,9 @@ export class UnconnectedUserReservationsPage extends Component {
 
   render() {
     const {
+      actions,
+      deleteReservationModalIsOpen,
+      isDeletingReservations,
       isFetchingReservations,
       reservations,
       resources,
@@ -29,8 +36,13 @@ export class UnconnectedUserReservationsPage extends Component {
         <div>
           <h1>Omat varaukset</h1>
           <ReservationsTable
+            closeDeleteModal={actions.closeDeleteReservationModal}
+            deleteModalIsOpen={deleteReservationModalIsOpen}
+            isDeleting={isDeletingReservations}
             isFetching={isFetchingReservations}
+            openDeleteModal={actions.openDeleteReservationModal}
             reservations={reservations}
+            reservationsToDelete={[]}
             resources={resources}
             units={units}
           />
@@ -42,6 +54,8 @@ export class UnconnectedUserReservationsPage extends Component {
 
 UnconnectedUserReservationsPage.propTypes = {
   actions: PropTypes.object.isRequired,
+  deleteReservationModalIsOpen: PropTypes.bool.isRequired,
+  isDeletingReservations: PropTypes.bool.isRequired,
   isFetchingReservations: PropTypes.bool.isRequired,
   reservations: PropTypes.array.isRequired,
   resources: PropTypes.object.isRequired,
@@ -50,9 +64,11 @@ UnconnectedUserReservationsPage.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
+    closeDeleteReservationModal,
     fetchReservations,
     fetchResources,
     fetchUnits,
+    openDeleteReservationModal,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import { Table } from 'react-bootstrap';
 import Loader from 'react-loader';
 
+import DeleteModal from 'components/reservation/DeleteModal';
 import ReservationsTableRow from 'components/reservation/ReservationsTableRow';
 
 class ReservationsTable extends Component {
@@ -12,7 +13,11 @@ class ReservationsTable extends Component {
   }
 
   renderReservationsTableRow(reservation) {
-    const { resources, units } = this.props;
+    const {
+      openDeleteModal,
+      resources,
+      units,
+    } = this.props;
     const resource = resources[reservation.resource] || {};
     const unit = resource.unit ? units[resource.unit] || {} : {};
 
@@ -21,29 +26,47 @@ class ReservationsTable extends Component {
         key={reservation.url}
         reservation={reservation}
         resource={resource}
+        openDeleteModal={openDeleteModal}
         unit={unit}
       />
     );
   }
 
   render() {
-    const { isFetching, reservations } = this.props;
+    const {
+      closeDeleteModal,
+      deleteModalIsOpen,
+      isDeleting,
+      isFetching,
+      reservations,
+      reservationsToDelete,
+    } = this.props;
 
     return (
       <Loader loaded={!isFetching}>
         {reservations.length ? (
-          <Table striped>
-            <thead>
-              <tr>
-                <th>Tila</th>
-                <th>Sijainti</th>
-                <th>Aika</th>
-              </tr>
-            </thead>
-            <tbody>
-              {_.map(reservations, this.renderReservationsTableRow)}
-            </tbody>
-          </Table>
+          <div>
+            <Table striped>
+              <thead>
+                <tr>
+                  <th>Tila</th>
+                  <th>Sijainti</th>
+                  <th>Aika</th>
+                  <th>Toiminnot</th>
+                </tr>
+              </thead>
+              <tbody>
+                {_.map(reservations, this.renderReservationsTableRow)}
+              </tbody>
+            </Table>
+            <DeleteModal
+              onClose={closeDeleteModal}
+              onConfirm={closeDeleteModal}
+              isDeleting={isDeleting}
+              reservationsToDelete={reservationsToDelete}
+              show={deleteModalIsOpen}
+            />
+          </div>
         ) : (
           <p>Sinulla ei vielä ole yhtään varauksia.</p>
         )}
@@ -53,8 +76,13 @@ class ReservationsTable extends Component {
 }
 
 ReservationsTable.propTypes = {
+  closeDeleteModal: PropTypes.func.isRequired,
+  deleteModalIsOpen: PropTypes.bool.isRequired,
+  isDeleting: PropTypes.bool.isRequired,
   isFetching: PropTypes.bool.isRequired,
+  openDeleteModal: PropTypes.func.isRequired,
   reservations: PropTypes.array.isRequired,
+  reservationsToDelete: PropTypes.array.isRequired,
   resources: PropTypes.object.isRequired,
   units: PropTypes.object.isRequired,
 };

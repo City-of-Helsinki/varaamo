@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import React from 'react';
+import simple from 'simple-mock';
 import sd from 'skin-deep';
 
 import Immutable from 'seamless-immutable';
@@ -9,23 +10,39 @@ import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
 
+function getProps(props) {
+  const defaults = {
+    closeDeleteModal: simple.stub(),
+    deleteModalIsOpen: false,
+    isDeleting: false,
+    isFetching: false,
+    openDeleteModal: simple.stub(),
+    reservations: [],
+    reservationsToDelete: [],
+    resources: {},
+    units: {},
+  };
+
+  return Object.assign({}, defaults, props);
+}
+
 describe('Component: reservation/ReservationsTable', () => {
   describe('with reservations', () => {
     const unit = Unit.build();
     const resource = Resource.build({ unit: unit.id });
-    const props = {
-      isFetching: false,
+    const props = getProps({
       reservations: Immutable([
         Reservation.build({ resource: resource.id }),
         Reservation.build({ resource: 'unfetched-resource' }),
       ]),
+      reservationsToDelete: [Reservation.build()],
       resources: Immutable({
         [resource.id]: resource,
       }),
       units: Immutable({
         [unit.id]: unit,
       }),
-    };
+    });
     let tree;
 
     before(() => {
@@ -45,8 +62,8 @@ describe('Component: reservation/ReservationsTable', () => {
         thTrees = tree.everySubTree('th');
       });
 
-      it('should render 3 th elements', () => {
-        expect(thTrees.length).to.equal(3);
+      it('should render 4 th elements', () => {
+        expect(thTrees.length).to.equal(4);
       });
 
       it('first th element should contain text "Tila"', () => {
@@ -59,6 +76,10 @@ describe('Component: reservation/ReservationsTable', () => {
 
       it('third th element should contain text "Aika"', () => {
         expect(thTrees[2].text()).to.equal('Aika');
+      });
+
+      it('fourth th element should contain text "Toiminnot"', () => {
+        expect(thTrees[3].text()).to.equal('Toiminnot');
       });
     });
 
@@ -73,9 +94,12 @@ describe('Component: reservation/ReservationsTable', () => {
         expect(reservationsTableRowTrees.length).to.equal(props.reservations.length);
       });
 
-      it('should pass reservation as a prop to ReservationsTableRow', () => {
+      it('should pass correct props to ReservationsTableRow', () => {
         reservationsTableRowTrees.forEach((reservationTree, index) => {
-          expect(reservationTree.props.reservation).to.deep.equal(props.reservations[index]);
+          const actualProps = reservationTree.props;
+
+          expect(actualProps.reservation).to.deep.equal(props.reservations[index]);
+          expect(actualProps.openDeleteModal).to.deep.equal(props.openDeleteModal);
         });
       });
 
@@ -95,15 +119,34 @@ describe('Component: reservation/ReservationsTable', () => {
         expect(reservationsTableRowTrees[1].props.unit).to.deep.equal({});
       });
     });
+
+    describe('rendering DeleteModal', () => {
+      let modalTrees;
+
+      before(() => {
+        modalTrees = tree.everySubTree('DeleteModal');
+      });
+
+      it('should render DeleteModal component', () => {
+        expect(modalTrees.length).to.equal(1);
+      });
+
+      it('should pass correct props to DeleteModal component', () => {
+        const actualProps = modalTrees[0].props;
+
+        expect(actualProps.isDeleting).to.equal(props.isDeleting);
+        expect(actualProps.onClose).to.equal(props.closeDeleteModal);
+        expect(actualProps.onConfirm).to.equal(props.closeDeleteModal);
+        expect(actualProps.reservationsToDelete).to.deep.equal(props.reservationsToDelete);
+        expect(actualProps.show).to.equal(props.deleteModalIsOpen);
+      });
+    });
   });
 
   describe('without reservations', () => {
-    const props = {
-      isFetching: false,
+    const props = getProps({
       reservations: [],
-      resources: {},
-      units: {},
-    };
+    });
     let tree;
 
     before(() => {

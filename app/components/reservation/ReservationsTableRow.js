@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Button } from 'react-bootstrap';
 import { Link } from 'react-router';
 
 import TimeRange from 'components/common/TimeRange';
@@ -6,7 +7,12 @@ import { getName } from 'utils/DataUtils';
 
 class ReservationsTableRow extends Component {
   render() {
-    const { reservation, resource, unit } = this.props;
+    const {
+      openDeleteModal,
+      reservation,
+      resource,
+      unit,
+    } = this.props;
 
     return (
       <tr>
@@ -19,12 +25,22 @@ class ReservationsTableRow extends Component {
         <td>
           <TimeRange begin={reservation.begin} end={reservation.end} />
         </td>
+        <td>
+          <Button
+            bsSize="xsmall"
+            bsStyle="danger"
+            onClick={openDeleteModal}
+          >
+            Poista
+          </Button>
+        </td>
       </tr>
     );
   }
 }
 
 ReservationsTableRow.propTypes = {
+  openDeleteModal: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   unit: PropTypes.object.isRequired,

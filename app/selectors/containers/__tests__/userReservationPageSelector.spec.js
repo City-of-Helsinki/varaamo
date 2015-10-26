@@ -7,6 +7,14 @@ describe('Selector: userReservationsPageSelector', () => {
   const state = getInitialState();
   const selected = userReservationsPageSelector(state);
 
+  it('should return deleteReservationModalIsOpen', () => {
+    expect(selected.deleteReservationModalIsOpen).to.exist;
+  });
+
+  it('should return isDeletingReservations', () => {
+    expect(selected.isDeletingReservations).to.exist;
+  });
+
   it('should return isFetchingReservations', () => {
     expect(selected.isFetchingReservations).to.exist;
   });

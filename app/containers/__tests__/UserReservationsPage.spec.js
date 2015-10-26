@@ -16,10 +16,14 @@ describe('Container: UserReservationsPage', () => {
   const reservation = Reservation.build();
   const props = {
     actions: {
+      closeDeleteReservationModal: simple.stub(),
       fetchReservations: simple.stub(),
       fetchResources: simple.stub(),
       fetchUnits: simple.stub(),
+      openDeleteReservationModal: simple.stub(),
     },
+    deleteReservationModalIsOpen: false,
+    isDeletingReservations: false,
     isFetchingReservations: false,
     reservations: Immutable([reservation]),
     resources: Immutable({ [resource.id]: resource }),
@@ -43,7 +47,11 @@ describe('Container: UserReservationsPage', () => {
     it('should pass correct props to ReservationsTable component', () => {
       const actualProps = reservationsTableTrees[0].props;
 
+      expect(actualProps.closeDeleteModal).to.equal(props.actions.closeDeleteReservationModal);
+      expect(actualProps.deleteModalIsOpen).to.equal(props.deleteReservationModalIsOpen);
+      expect(actualProps.isDeleting).to.equal(props.isDeletingReservations);
       expect(actualProps.isFetching).to.equal(props.isFetchingReservations);
+      expect(actualProps.openDeleteModal).to.equal(props.actions.openDeleteReservationModal);
       expect(actualProps.reservations).to.deep.equal(props.reservations);
       expect(actualProps.resources).to.deep.equal(props.resources);
       expect(actualProps.units).to.deep.equal(props.units);
