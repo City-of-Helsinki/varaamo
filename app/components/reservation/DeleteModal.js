@@ -8,14 +8,13 @@ import { getName } from 'utils/DataUtils';
 class DeleteModal extends Component {
   constructor(props) {
     super(props);
-    this.onConfirm = this.onConfirm.bind(this);
+    this.handleConfirm = this.handleConfirm.bind(this);
     this.renderReservation = this.renderReservation.bind(this);
   }
 
-  onConfirm() {
-    const { onClose, onConfirm } = this.props;
-    onConfirm();
-    onClose();
+  handleConfirm() {
+    this.props.onConfirm();
+    this.props.onClose();
   }
 
   renderReservation(reservation) {
@@ -64,7 +63,7 @@ class DeleteModal extends Component {
           <Button
             bsStyle="danger"
             disabled={isDeleting}
-            onClick={this.onConfirm}
+            onClick={this.handleConfirm}
           >
             {isDeleting ? 'Poistetaan...' : 'Poista'}
           </Button>

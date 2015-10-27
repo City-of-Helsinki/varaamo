@@ -16,6 +16,7 @@ function getProps(props) {
   const defaults = {
     actions: {
       closeDeleteReservationModal: simple.stub(),
+      deleteReservation: simple.stub(),
       fetchReservations: simple.stub(),
       fetchResources: simple.stub(),
       fetchUnits: simple.stub(),
@@ -52,9 +53,11 @@ describe('Component: reservation/ReservationsTable', () => {
       }),
     });
     let tree;
+    let instance;
 
     before(() => {
       tree = sd.shallowRender(<ReservationsTable {...props} />);
+      instance = tree.getMountedInstance();
     });
 
     it('should render a Table component', () => {
@@ -149,7 +152,7 @@ describe('Component: reservation/ReservationsTable', () => {
 
         expect(actualProps.isDeleting).to.equal(props.isDeletingReservations);
         expect(actualProps.onClose).to.equal(props.actions.closeDeleteReservationModal);
-        expect(actualProps.onConfirm).to.equal(props.actions.closeDeleteReservationModal);
+        expect(actualProps.onConfirm).to.equal(instance.handleDelete);
         expect(actualProps.reservationsToDelete).to.deep.equal(props.reservationsToDelete);
         expect(actualProps.resources).to.deep.equal(props.resources);
         expect(actualProps.show).to.equal(props.deleteReservationModalIsOpen);
@@ -194,6 +197,28 @@ describe('Component: reservation/ReservationsTable', () => {
 
     it('should fetch units when component mounts', () => {
       expect(props.actions.fetchUnits.callCount).to.equal(1);
+    });
+  });
+
+  describe('handleDelete', () => {
+    const props = getProps({});
+    let tree;
+
+    before(() => {
+      tree = sd.shallowRender(<ReservationsTable {...props} />);
+      const instance = tree.getMountedInstance();
+      instance.handleDelete();
+    });
+
+    it('should call deleteReservation for each selected reservation', () => {
+      expect(props.actions.deleteReservation.callCount).to.equal(props.reservationsToDelete.length);
+    });
+
+    it('should call deleteReservation with correct arguments', () => {
+      const actualArgs = props.actions.deleteReservation.lastCall.args;
+      const expected = props.reservationsToDelete[1];
+
+      expect(actualArgs[0]).to.deep.equal(expected);
     });
   });
 });

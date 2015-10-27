@@ -10,7 +10,10 @@ import {
   openDeleteReservationModal,
   selectReservationToDelete,
 } from 'actions/uiActions';
-import { fetchReservations } from 'actions/reservationActions';
+import {
+  deleteReservation,
+  fetchReservations,
+ } from 'actions/reservationActions';
 import { fetchResources } from 'actions/resourceActions';
 import { fetchUnits } from 'actions/unitActions';
 import DeleteModal from 'components/reservation/DeleteModal';
@@ -20,6 +23,7 @@ import reservationsTableSelector from 'selectors/containers/reservationsTableSel
 export class UnconnectedReservationsTable extends Component {
   constructor(props) {
     super(props);
+    this.handleDelete = this.handleDelete.bind(this);
     this.renderReservationsTableRow = this.renderReservationsTableRow.bind(this);
   }
 
@@ -27,6 +31,14 @@ export class UnconnectedReservationsTable extends Component {
     this.props.actions.fetchResources();
     this.props.actions.fetchUnits();
     this.props.actions.fetchReservations();
+  }
+
+  handleDelete() {
+    const { actions, reservationsToDelete } = this.props;
+
+    _.forEach(reservationsToDelete, (reservation) => {
+      actions.deleteReservation(reservation);
+    });
   }
 
   renderReservationsTableRow(reservation) {
@@ -80,7 +92,7 @@ export class UnconnectedReservationsTable extends Component {
             </Table>
             <DeleteModal
               onClose={actions.closeDeleteReservationModal}
-              onConfirm={actions.closeDeleteReservationModal}
+              onConfirm={this.handleDelete}
               isDeleting={isDeletingReservations}
               reservationsToDelete={reservationsToDelete}
               resources={resources}
@@ -109,6 +121,7 @@ UnconnectedReservationsTable.propTypes = {
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
     closeDeleteReservationModal,
+    deleteReservation,
     fetchReservations,
     fetchResources,
     fetchUnits,
