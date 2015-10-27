@@ -34,6 +34,9 @@ function reservationReducer(state = initialState, action) {
     const date = action.payload;
     return state.merge({ date });
 
+  case types.UI.CLEAR_RESERVATIONS:
+    return initialState;
+
   case types.UI.CLOSE_MODAL:
     const modal = action.payload;
     if (modal === ModalTypes.DELETE_RESERVATION) {

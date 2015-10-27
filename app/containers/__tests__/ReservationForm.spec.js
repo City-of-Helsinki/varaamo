@@ -18,6 +18,7 @@ describe('Container: ReservationForm', () => {
     actions: {
       cancelReservationEdit: simple.stub(),
       changeReservationDate: simple.stub(),
+      clearReservations: simple.stub(),
       closeConfirmReservationModal: simple.stub(),
       fetchResource: simple.stub(),
       postReservation: simple.stub(),
@@ -123,6 +124,16 @@ describe('Container: ReservationForm', () => {
       expect(actualProps.onConfirm).to.equal(instance.handleReservation);
       expect(actualProps.selectedReservations).to.deep.equal(props.selectedReservations);
       expect(actualProps.show).to.equal(props.confirmReservationModalIsOpen);
+    });
+  });
+
+  describe('on componentWillUnmount', () => {
+    before(() => {
+      instance.componentWillUnmount();
+    });
+
+    it('should call clearReservations', () => {
+      expect(props.actions.clearReservations.callCount).to.equal(1);
     });
   });
 
