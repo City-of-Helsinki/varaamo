@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
@@ -20,6 +21,24 @@ function handleData(state, data) {
   return state.merge(data, { deep: true });
 }
 
+function handleReservationDelete(action, state) {
+  const reservation = action.payload;
+  return state.merge( { reservations: _.omit(state.reservations, reservation.url) });
+}
+
+function handleReservationPost(state, action) {
+  const reservation = action.payload;
+  const reservations = state.resources[reservation.resource].reservations;
+  const entities = {
+    resources: {
+      [reservation.resource]: {
+        reservations: [...reservations, reservation],
+      },
+    },
+  };
+  return handleData(state, entities);
+}
+
 function dataReducer(state = initialState, action) {
   switch (action.type) {
 
@@ -32,17 +51,10 @@ function dataReducer(state = initialState, action) {
     return handleData(state, action.payload.entities);
 
   case types.API.RESERVATION_POST_SUCCESS:
-    const reservation = action.payload;
-    const reservations = state.resources[reservation.resource].reservations;
-    const entities = {
-      resources: {
-        [reservation.resource]: {
-          reservations: [...reservations, reservation],
-        },
-      },
-    };
+    return handleReservationPost(state, action);
 
-    return handleData(state, entities);
+  case types.API.RESERVATION_DELETE_SUCCESS:
+    return handleReservationDelete(action, state);
 
   default:
     return state;

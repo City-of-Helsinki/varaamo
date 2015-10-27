@@ -11,9 +11,37 @@ import {
 } from 'utils/APIUtils';
 
 export default {
+  deleteReservation,
   fetchReservations,
   postReservation,
 };
+
+function deleteReservation(reservation) {
+  return {
+    [CALL_API]: {
+      types: [
+        getRequestTypeDescriptor(
+          types.API.RESERVATION_DELETE_REQUEST,
+          { countable: true }
+        ),
+        getSuccessTypeDescriptor(
+          types.API.RESERVATION_DELETE_SUCCESS,
+          {
+            countable: true,
+            payload: () => reservation,
+          }
+        ),
+        getErrorTypeDescriptor(
+          types.API.RESERVATION_DELETE_ERROR,
+          { countable: true }
+        ),
+      ],
+      endpoint: reservation.url,
+      method: 'DELETE',
+      headers: getHeaders(),
+    },
+  };
+}
 
 function fetchReservations(params = {}) {
   const fetchParams = Object.assign({}, params, { pageSize: 100 });

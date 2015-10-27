@@ -1,9 +1,11 @@
 import { expect } from 'chai';
 
+import _ from 'lodash';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
+import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
 import dataReducer, { handleData } from 'reducers/dataReducer';
 
@@ -150,6 +152,38 @@ describe('Reducer: dataReducer', () => {
         const actualvalue = nextState.resources[resource.id].otherValue;
 
         expect(expectedValue).to.deep.equal(actualvalue);
+      });
+    });
+
+    describe('API.RESERVATION_DELETE_SUCCESS', () => {
+      const deleteReservationSuccess = createAction(types.API.RESERVATION_DELETE_SUCCESS);
+      const reservations = [
+        Reservation.build(),
+        Reservation.build(),
+      ];
+
+      it('should remove the given reservation from reservations', () => {
+        const initialState = Immutable({
+          reservations: { [reservations[0].url]: reservations[0] },
+        });
+        const action = deleteReservationSuccess(reservations[0]);
+        const nextState = dataReducer(initialState, action);
+        const expectedReservations = {};
+
+        expect(nextState.reservations).to.deep.equal(expectedReservations);
+      });
+
+      it('should not remove other reservations', () => {
+        const initialState = Immutable({
+          reservations: _.indexBy(reservations, 'url'),
+        });
+        const action = deleteReservationSuccess(reservations[0]);
+        const nextState = dataReducer(initialState, action);
+        const expectedReservations = Immutable({
+          [reservations[1].url]: reservations[1],
+        });
+
+        expect(nextState.reservations).to.deep.equal(expectedReservations);
       });
     });
   });
