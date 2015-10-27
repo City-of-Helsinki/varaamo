@@ -4,11 +4,13 @@ import { Table } from 'react-bootstrap';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { pushState } from 'redux-router';
 
 import {
   closeDeleteReservationModal,
   openDeleteReservationModal,
   selectReservationToDelete,
+  selectReservationToEdit,
 } from 'actions/uiActions';
 import {
   deleteReservation,
@@ -56,7 +58,9 @@ export class UnconnectedReservationsTable extends Component {
         reservation={reservation}
         resource={resource}
         openDeleteModal={actions.openDeleteReservationModal}
+        pushState={actions.pushState}
         selectReservationToDelete={actions.selectReservationToDelete}
+        selectReservationToEdit={actions.selectReservationToEdit}
         unit={unit}
       />
     );
@@ -126,7 +130,9 @@ function mapDispatchToProps(dispatch) {
     fetchResources,
     fetchUnits,
     openDeleteReservationModal,
+    pushState,
     selectReservationToDelete,
+    selectReservationToEdit,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

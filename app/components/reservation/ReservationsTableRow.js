@@ -9,6 +9,7 @@ class ReservationsTableRow extends Component {
   constructor(props) {
     super(props);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
+    this.handleEditClick = this.handleEditClick.bind(this);
   }
 
   handleDeleteClick() {
@@ -20,6 +21,17 @@ class ReservationsTableRow extends Component {
 
     selectReservationToDelete(reservation);
     openDeleteModal();
+  }
+
+  handleEditClick() {
+    const {
+      pushState,
+      reservation,
+      selectReservationToEdit,
+    } = this.props;
+
+    selectReservationToEdit(reservation);
+    pushState(null, `/resources/${reservation.resource}/reservation`);
   }
 
   render() {
@@ -43,6 +55,13 @@ class ReservationsTableRow extends Component {
         <td>
           <Button
             bsSize="xsmall"
+            bsStyle="primary"
+            onClick={this.handleEditClick}
+          >
+            Muokkaa
+          </Button>
+          <Button
+            bsSize="xsmall"
             bsStyle="danger"
             onClick={this.handleDeleteClick}
           >
@@ -56,9 +75,11 @@ class ReservationsTableRow extends Component {
 
 ReservationsTableRow.propTypes = {
   openDeleteModal: PropTypes.func.isRequired,
+  pushState: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   selectReservationToDelete: PropTypes.func.isRequired,
+  selectReservationToEdit: PropTypes.func.isRequired,
   unit: PropTypes.object.isRequired,
 };
 
