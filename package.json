@@ -7,6 +7,7 @@
   },
   "main": "production-server.js",
   "dependencies": {
+    "classnames": "^2.2.0",
     "history": "^1.12.4",
     "humps": "^1.0.0",
     "isomorphic-fetch": "^2.1.1",

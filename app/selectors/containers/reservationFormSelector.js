@@ -38,7 +38,7 @@ const reservationFormSelector = createSelector(
     const { closes, opens } = getOpeningHours(resource);
     const period = resource.minPeriod ? resource.minPeriod : undefined;
     const reservations = resource.reservations || undefined;
-    const timeSlots = getTimeSlots(opens, closes, period, reservations);
+    const timeSlots = getTimeSlots(opens, closes, period, reservations, reservationsToEdit);
 
     return {
       confirmReservationModalIsOpen,

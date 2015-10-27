@@ -36,7 +36,7 @@ function getDateString(date) {
   return date;
 }
 
-function getTimeSlots(start, end, period = '00:30:00', reservations = []) {
+function getTimeSlots(start, end, period = '00:30:00', reservations = [], reservationsToEdit = []) {
   if (!start || !end) {
     return [];
   }
@@ -44,6 +44,9 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = []) {
   const range = moment.range(moment.utc(start), moment.utc(end));
   const duration = moment.duration(period);
   const reservationRanges = _.map(reservations, reservation => {
+    return moment.range(moment(reservation.begin), moment(reservation.end));
+  });
+  const editRanges = _.map(reservationsToEdit, reservation => {
     return moment.range(moment(reservation.begin), moment(reservation.end));
   });
   const slots = [];
@@ -61,10 +64,14 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = []) {
     const reserved = reservationRanges.some(
       reservationRange => reservationRange.overlaps(slotRange)
     );
+    const editing = editRanges.some(
+      editRange => editRange.overlaps(slotRange)
+    );
 
     slots.push({
       asISOString,
       asString,
+      editing,
       reserved,
       start: startUTC.toISOString(),
       end: endUTC.toISOString(),
