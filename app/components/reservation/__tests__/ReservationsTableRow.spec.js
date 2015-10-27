@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import React from 'react';
+import simple from 'simple-mock';
 import sd from 'skin-deep';
 
 import Immutable from 'seamless-immutable';
@@ -12,8 +13,10 @@ import Unit from 'fixtures/Unit';
 describe('Component: reservation/ReservationsTableRow', () => {
   describe('rendering', () => {
     const props = {
+      openDeleteModal: simple.stub(),
       reservation: Immutable(Reservation.build()),
       resource: Immutable(Resource.build()),
+      selectReservationToDelete: simple.stub(),
       unit: Immutable(Unit.build()),
     };
     let tree;
@@ -35,8 +38,8 @@ describe('Component: reservation/ReservationsTableRow', () => {
         tdTrees = tree.everySubTree('td');
       });
 
-      it('should render 3 table cells', () => {
-        expect(tdTrees).to.have.length(3);
+      it('should render 4 table cells', () => {
+        expect(tdTrees).to.have.length(4);
       });
 
       describe('the first table cell', () => {
@@ -85,6 +88,40 @@ describe('Component: reservation/ReservationsTableRow', () => {
 
           expect(timeRangeTree.props.begin).to.equal(props.reservation.begin);
           expect(timeRangeTree.props.end).to.equal(props.reservation.end);
+        });
+      });
+
+      describe('the fourth table cell', () => {
+        let tdTree;
+
+        before(() => {
+          tdTree = tdTrees[3];
+        });
+
+        it('should contain a delete button', () => {
+          const buttonTree = tdTree.subTree('Button');
+
+          expect(buttonTree.props.children).to.equal('Poista');
+        });
+
+        describe('clicking the button', () => {
+          before(() => {
+            const buttonTree = tdTree.subTree('Button');
+            buttonTree.props.onClick();
+          });
+
+          it('should call props.selectReservationToDelete with this reservation', () => {
+            expect(props.selectReservationToDelete.callCount).to.equal(1);
+            expect(
+              props.selectReservationToDelete.lastCall.args[0]
+            ).to.deep.equal(
+              props.reservation
+            );
+          });
+
+          it('should call the props.openDeleteModal function', () => {
+            expect(props.openDeleteModal.callCount).to.equal(1);
+          });
         });
       });
     });

@@ -286,6 +286,12 @@ describe('Utils: APIUtils', () => {
 
         expect(actual).to.deep.equal(expected);
       });
+
+      it('should support adding payload property', () => {
+        const typeDescriptor = getSuccessTypeDescriptor(actionType, { payload: 'mock-payload' });
+
+        expect(typeDescriptor.payload).to.equal('mock-payload');
+      });
     });
   });
 });

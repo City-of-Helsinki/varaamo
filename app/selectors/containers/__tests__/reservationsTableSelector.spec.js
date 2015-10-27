@@ -1,11 +1,19 @@
 import { expect } from 'chai';
 
-import userReservationsPageSelector from 'selectors/containers/userReservationsPageSelector';
+import reservationsTableSelector from 'selectors/containers/reservationsTableSelector';
 import { getInitialState } from 'utils/TestUtils';
 
-describe('Selector: userReservationsPageSelector', () => {
+describe('Selector: reservationsTableSelector', () => {
   const state = getInitialState();
-  const selected = userReservationsPageSelector(state);
+  const selected = reservationsTableSelector(state);
+
+  it('should return deleteReservationModalIsOpen', () => {
+    expect(selected.deleteReservationModalIsOpen).to.exist;
+  });
+
+  it('should return isDeletingReservations', () => {
+    expect(selected.isDeletingReservations).to.exist;
+  });
 
   it('should return isFetchingReservations', () => {
     expect(selected.isFetchingReservations).to.exist;
@@ -13,6 +21,12 @@ describe('Selector: userReservationsPageSelector', () => {
 
   it('should return reservations', () => {
     expect(selected.reservations).to.exist;
+  });
+
+  it('should return reservationsToDelete from the state', () => {
+    const expected = state.ui.reservation.toDelete;
+
+    expect(selected.reservationsToDelete).to.deep.equal(expected);
   });
 
   it('should return resources from the state', () => {

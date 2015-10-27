@@ -80,12 +80,16 @@ function getSearchParamsString(params) {
   return parts.join('&');
 }
 
+function getSuccessPayload(options) {
+  return (action, state, response) => {
+    return getJSON(response).then(createTransformFunction(options.schema));
+  };
+}
+
 function getSuccessTypeDescriptor(type, options = {}) {
   return {
     type,
-    payload: (action, state, response) => {
-      return getJSON(response).then(createTransformFunction(options.schema));
-    },
+    payload: options.payload || getSuccessPayload(options),
     meta: (action) => {
       return {
         API_ACTION: {
