@@ -16,10 +16,12 @@ describe('Container: ReservationForm', () => {
   ];
   const props = {
     actions: {
+      cancelReservationEdit: simple.stub(),
       changeReservationDate: simple.stub(),
       closeConfirmReservationModal: simple.stub(),
       fetchResource: simple.stub(),
       postReservation: simple.stub(),
+      pushState: simple.stub(),
       openConfirmReservationModal: simple.stub(),
       toggleTimeSlot: simple.stub(),
     },
@@ -28,6 +30,7 @@ describe('Container: ReservationForm', () => {
     id: 'r-1',
     isFetchingResource: false,
     isMakingReservations: false,
+    reservationsToEdit: [],
     timeSlots: Immutable(timeSlots),
     selected: [timeSlots[0].asISOString, timeSlots[1].asISOString],
     selectedReservations: [
@@ -98,8 +101,10 @@ describe('Container: ReservationForm', () => {
       const actualProps = reservationFormControlsTrees[0].props;
 
       expect(actualProps.disabled).to.equal(false);
-      expect(actualProps.onClick).to.equal(props.actions.openConfirmReservationModal);
+      expect(actualProps.isEditing).to.exist;
       expect(actualProps.isMakingReservations).to.equal(props.isMakingReservations);
+      expect(actualProps.onCancel).to.equal(instance.handleEditCancel);
+      expect(actualProps.onClick).to.equal(props.actions.openConfirmReservationModal);
     });
   });
 
@@ -142,6 +147,23 @@ describe('Container: ReservationForm', () => {
       expect(actualArgs[0]).to.equal(props.id);
       expect(actualArgs[1].start).to.contain(newDate);
       expect(actualArgs[1].end).to.contain(newDate);
+    });
+  });
+
+  describe('handleEditCancel', () => {
+    before(() => {
+      instance.handleEditCancel();
+    });
+
+    it('should call cancelReservationEdit', () => {
+      expect(props.actions.cancelReservationEdit.callCount).to.equal(1);
+    });
+
+    it('should redirect user back to my reservations page', () => {
+      const actualUrlArg = props.actions.pushState.lastCall.args[1];
+      const expected = '/my-reservations';
+
+      expect(actualUrlArg).to.deep.equal(expected);
     });
   });
 

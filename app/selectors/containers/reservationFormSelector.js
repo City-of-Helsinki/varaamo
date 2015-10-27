@@ -12,6 +12,7 @@ import ModalTypes from 'constants/ModalTypes';
 
 const idSelector = (state) => state.router.params.id;
 const selectedSelector = (state) => state.ui.reservation.selected;
+const toEditSelector = (state) => state.ui.reservation.toEdit;
 
 const reservationFormSelector = createSelector(
   idSelector,
@@ -22,6 +23,7 @@ const reservationFormSelector = createSelector(
   resourceSelector,
   selectedSelector,
   selectedReservationsSelector,
+  toEditSelector,
   (
     id,
     confirmReservationModalIsOpen,
@@ -30,7 +32,8 @@ const reservationFormSelector = createSelector(
     reservationDate,
     resource,
     selected,
-    selectedReservations
+    selectedReservations,
+    reservationsToEdit
   ) => {
     const { closes, opens } = getOpeningHours(resource);
     const period = resource.minPeriod ? resource.minPeriod : undefined;
@@ -43,6 +46,7 @@ const reservationFormSelector = createSelector(
       id,
       isFetchingResource,
       isMakingReservations,
+      reservationsToEdit,
       selected,
       selectedReservations,
       timeSlots,
