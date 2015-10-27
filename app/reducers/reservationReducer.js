@@ -8,13 +8,27 @@ const initialState = Immutable({
   date: '',
   selected: [],
   toDelete: [],
+  toEdit: [],
 });
+
+function selectReservationToEdit(state, action) {
+  const reservation = action.payload;
+  const date = reservation.begin.split('T')[0];
+
+  return state.merge({
+    date,
+    toEdit: [...state.toEdit, reservation],
+  });
+}
 
 function reservationReducer(state = initialState, action) {
   switch (action.type) {
 
   case types.API.RESERVATION_POST_SUCCESS:
     return state.merge({ selected: [] });
+
+  case types.UI.CANCEL_RESERVATION_EDIT:
+    return state.merge({ toEdit: [] });
 
   case types.UI.CHANGE_RESERVATION_DATE:
     const date = action.payload;
@@ -28,8 +42,10 @@ function reservationReducer(state = initialState, action) {
     return state;
 
   case types.UI.SELECT_RESERVATION_TO_DELETE:
-    const reservation = action.payload;
-    return state.merge({ toDelete: [...state.toDelete, reservation] });
+    return state.merge({ toDelete: [...state.toDelete, action.payload] });
+
+  case types.UI.SELECT_RESERVATION_TO_EDIT:
+    return selectReservationToEdit(state, action);
 
   case types.UI.TOGGLE_TIME_SLOT:
     const slot = action.payload;
