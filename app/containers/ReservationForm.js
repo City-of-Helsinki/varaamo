@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { Button } from 'react-bootstrap';
 import DatePicker from 'react-date-picker';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -14,6 +13,7 @@ import {
 } from 'actions/uiActions';
 import DateHeader from 'components/common/DateHeader';
 import ConfirmReservationModal from 'components/reservation/ConfirmReservationModal';
+import ReservationFormControls from 'components/reservation/ReservationFormControls';
 import TimeSlots from 'components/reservation/TimeSlots';
 import reservationFormSelector from 'selectors/containers/reservationFormSelector';
 import { getDateStartAndEndTimes } from 'utils/TimeUtils';
@@ -72,14 +72,13 @@ export class UnconnectedReservationForm extends Component {
           selected={selected}
           slots={timeSlots}
         />
-        <Button
-          block
-          bsStyle="primary"
+        <ReservationFormControls
           disabled={!selected.length || isMakingReservations}
+          isMakingReservations={isMakingReservations}
           onClick={actions.openConfirmReservationModal}
         >
           {isMakingReservations ? 'Varataan...' : 'Varaa'}
-        </Button>
+        </ReservationFormControls>
         <ConfirmReservationModal
           isMakingReservations={isMakingReservations}
           onClose={actions.closeConfirmReservationModal}

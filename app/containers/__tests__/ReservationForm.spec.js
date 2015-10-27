@@ -87,21 +87,19 @@ describe('Container: ReservationForm', () => {
     });
   });
 
-  describe('rendering reservation Button', () => {
-    const buttonTrees = tree.everySubTree('Button');
+  describe('rendering ReservationFormControls', () => {
+    const reservationFormControlsTrees = tree.everySubTree('ReservationFormControls');
 
-    it('should render a Button component', () => {
-      expect(buttonTrees.length).to.equal(1);
+    it('should render ReservationFormControls component', () => {
+      expect(reservationFormControlsTrees.length).to.equal(1);
     });
 
-    it('should pass correct props to Button component', () => {
-      const actualProps = buttonTrees[0].props;
+    it('should pass correct props to ReservationFormControls component', () => {
+      const actualProps = reservationFormControlsTrees[0].props;
 
+      expect(actualProps.disabled).to.equal(false);
       expect(actualProps.onClick).to.equal(props.actions.openConfirmReservationModal);
-    });
-
-    it('the button should have text "Varaa"', () => {
-      expect(buttonTrees[0].props.children).to.equal('Varaa');
+      expect(actualProps.isMakingReservations).to.equal(props.isMakingReservations);
     });
   });
 
