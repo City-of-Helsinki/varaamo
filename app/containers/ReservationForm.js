@@ -95,9 +95,11 @@ export class UnconnectedReservationForm extends Component {
           onClick={actions.openConfirmReservationModal}
         />
         <ConfirmReservationModal
+          isEditing={isEditing}
           isMakingReservations={isMakingReservations}
           onClose={actions.closeConfirmReservationModal}
           onConfirm={this.handleReservation}
+          reservationsToEdit={reservationsToEdit}
           selectedReservations={selectedReservations}
           show={confirmReservationModalIsOpen}
         />
