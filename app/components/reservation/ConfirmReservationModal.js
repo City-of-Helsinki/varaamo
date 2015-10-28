@@ -38,7 +38,7 @@ class ConfirmReservationModal extends Component {
 
     return (
       <div>
-        <p>Oletko varma että haluat tehdä seuraavat varaukset?</p>
+        <p><strong>Oletko varma että haluat tehdä seuraavat varaukset?</strong></p>
         <ul>
           {_.map(selectedReservations, this.renderReservation)}
         </ul>
