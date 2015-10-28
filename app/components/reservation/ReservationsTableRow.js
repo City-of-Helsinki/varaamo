@@ -77,7 +77,11 @@ class ReservationsTableRow extends Component {
           <div>{getName(unit)}</div>
         </td>
         <td>
-          <TimeRange begin={reservation.begin} end={reservation.end} />
+          <TimeRange
+            begin={reservation.begin}
+            end={reservation.end}
+            lineBreaks
+          />
         </td>
         <td>
           {this.renderButtons()}
