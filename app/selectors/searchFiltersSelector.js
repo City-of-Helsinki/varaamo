@@ -1,13 +1,19 @@
 import { createSelector } from 'reselect';
 
+import { SUPPORTED_SEARCH_FILTERS } from 'constants/AppConstants';
 import { getDateString } from 'utils/TimeUtils';
 
-const filtersSelector = (state) => state.ui.search.filters;
+const filtersSelector = (state) => state.router.location.query;
 
 const searchFiltersSelector = createSelector(
   filtersSelector,
   (filters) => {
-    const searchFilters = Object.assign({}, filters, { date: getDateString(filters.date) });
+    const searchFilters = Object.assign(
+      {},
+      SUPPORTED_SEARCH_FILTERS,
+      filters,
+      { date: getDateString(filters.date) }
+    );
 
     return searchFilters;
   }

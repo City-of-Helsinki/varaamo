@@ -2,10 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import DatePicker from 'react-date-picker';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { pushState } from 'redux-router';
 
 import { fetchPurposes } from 'actions/purposeActions';
 import { searchResources } from 'actions/searchActions';
-import { changeSearchFilters } from 'actions/uiActions';
 import DateHeader from 'components/common/DateHeader';
 import SearchFilters from 'components/search/SearchFilters';
 import SearchInput from 'components/search/SearchInput';
@@ -27,7 +27,7 @@ export class UnconnectedSearchControls extends Component {
     const allFilters = Object.assign({}, filters, newFilters);
     const fetchParams = getFetchParamsFromFilters(allFilters);
 
-    actions.changeSearchFilters(newFilters);
+    actions.pushState(null, '/search', allFilters);
     actions.searchResources(fetchParams);
   }
 
@@ -76,8 +76,8 @@ UnconnectedSearchControls.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
-    changeSearchFilters,
     fetchPurposes,
+    pushState,
     searchResources,
   };
 

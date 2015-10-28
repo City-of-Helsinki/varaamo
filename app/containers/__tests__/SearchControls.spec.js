@@ -16,7 +16,7 @@ describe('Container: SearchControls', () => {
   beforeEach(() => {
     props = {
       actions: {
-        changeSearchFilters: simple.stub(),
+        pushState: simple.stub(),
         fetchPurposes: simple.stub(),
         searchResources: simple.stub(),
       },
@@ -149,15 +149,21 @@ describe('Container: SearchControls', () => {
     let newFilters;
 
     beforeEach(() => {
-      newFilters = { purpose: 'new-purpose' };
+      newFilters = {
+        date: '2015-10-10',
+        purpose: 'new-purpose',
+        search: '',
+      };
       instance.onFiltersChange(newFilters);
     });
 
-    it('should call changeSearchFilters with correct arguments', () => {
-      const action = props.actions.changeSearchFilters;
+    it('should call pushState with correct arguments', () => {
+      const actualArgs = props.actions.pushState.lastCall.args;
 
-      expect(action.callCount).to.equal(1);
-      expect(action.lastCall.args[0]).to.deep.equal(newFilters);
+      expect(props.actions.pushState.callCount).to.equal(1);
+      expect(actualArgs[0]).to.equal(null);
+      expect(actualArgs[1]).to.equal('/search');
+      expect(actualArgs[2]).to.deep.equal(newFilters);
     });
 
     it('should call searchResources with correct arguments', () => {

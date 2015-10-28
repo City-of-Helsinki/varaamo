@@ -13,10 +13,10 @@ export default {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
   },
-  SUPPORTED_SEARCH_FILTERS: [
-    'date',
-    'purpose',
-    'search',
-  ],
+  SUPPORTED_SEARCH_FILTERS: {
+    date: '',
+    purpose: '',
+    search: '',
+  },
   TIME_FORMAT: 'H:mm',
 };
