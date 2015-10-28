@@ -5,10 +5,6 @@ import ModalTypes from 'constants/ModalTypes';
 
 const cancelReservationEdit = createAction(types.UI.CANCEL_RESERVATION_EDIT);
 
-const changeReservationDate = createAction(types.UI.CHANGE_RESERVATION_DATE);
-
-const changeSearchFilters = createAction(types.UI.CHANGE_SEARCH_FILTERS);
-
 const clearReservations = createAction(types.UI.CLEAR_RESERVATIONS);
 
 const closeDeleteReservationModal = createAction(
@@ -43,8 +39,6 @@ const toggleTimeSlot = createAction(types.UI.TOGGLE_TIME_SLOT);
 
 export default {
   cancelReservationEdit,
-  changeReservationDate,
-  changeSearchFilters,
   clearReservations,
   closeDeleteReservationModal,
   closeConfirmReservationModal,

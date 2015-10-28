@@ -5,7 +5,6 @@ import Immutable from 'seamless-immutable';
 
 import {
   cancelReservationEdit,
-  changeReservationDate,
   clearReservations,
   closeDeleteReservationModal,
   closeConfirmReservationModal,
@@ -20,10 +19,6 @@ import reservationReducer from 'reducers/reservationReducer';
 describe('Reducer: reservationReducer', () => {
   describe('initial state', () => {
     const initialState = reservationReducer(undefined, {});
-
-    it('date should be an empty string', () => {
-      expect(initialState.date).to.equal('');
-    });
 
     it('selected should be an empty array', () => {
       expect(initialState.selected).to.deep.equal([]);
@@ -99,20 +94,7 @@ describe('Reducer: reservationReducer', () => {
       });
     });
 
-    describe('UI.CHANGE_RESERVATION_DATE', () => {
-      it('should set the given date to date', () => {
-        const date = '2015-10-11';
-        const action = changeReservationDate(date);
-        const initialState = Immutable({
-          date: '2015-11-11',
-        });
-        const nextState = reservationReducer(initialState, action);
-
-        expect(nextState.date).to.equal(date);
-      });
-    });
-
-    describe('UI.CHANGE_RESERVATION_DATE', () => {
+    describe('UI.CLEAR_RESERVATIONS', () => {
       it('should set the given date to date', () => {
         const resetedState = reservationReducer(undefined, {});
         const action = clearReservations();

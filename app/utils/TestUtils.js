@@ -5,5 +5,14 @@ export default {
 };
 
 function getInitialState() {
-  return rootReducer(undefined, {});
+  const initialState = rootReducer(undefined, {});
+  const defaults = {
+    router: {
+      location: {
+        query: {},
+      },
+    },
+  };
+
+  return Object.assign({}, initialState, defaults);
 }

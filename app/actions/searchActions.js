@@ -30,9 +30,6 @@ function searchResources(params = {}) {
       endpoint: buildAPIUrl('resource', fetchParams),
       method: 'GET',
       headers: getHeaders(),
-      bailout: (state) => {
-        return !state.api.shouldFetch.searchResults;
-      },
     },
   };
 }

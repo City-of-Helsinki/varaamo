@@ -13,7 +13,6 @@ import {
 import { fetchResource } from 'actions/resourceActions';
 import {
   cancelReservationEdit,
-  changeReservationDate,
   clearReservations,
   closeConfirmReservationModal,
   openConfirmReservationModal,
@@ -43,7 +42,7 @@ export class UnconnectedReservationForm extends Component {
     const { actions, id } = this.props;
     const fetchParams = getDateStartAndEndTimes(newDate);
 
-    actions.changeReservationDate(newDate);
+    actions.pushState(null, `/resources/${id}/reservation`, { date: newDate });
     actions.fetchResource(id, fetchParams);
   }
 
@@ -159,7 +158,6 @@ UnconnectedReservationForm.propTypes = {
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
     cancelReservationEdit,
-    changeReservationDate,
     clearReservations,
     closeConfirmReservationModal,
     deleteReservation,

@@ -5,7 +5,6 @@ import types from 'constants/ActionTypes';
 import ModalTypes from 'constants/ModalTypes';
 
 const initialState = Immutable({
-  date: '',
   selected: [],
   toDelete: [],
   toEdit: [],
@@ -33,10 +32,6 @@ function reservationReducer(state = initialState, action) {
 
   case types.UI.CANCEL_RESERVATION_EDIT:
     return state.merge({ toEdit: [] });
-
-  case types.UI.CHANGE_RESERVATION_DATE:
-    const date = action.payload;
-    return state.merge({ date });
 
   case types.UI.CLEAR_RESERVATIONS:
     return initialState;

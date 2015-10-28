@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
 import resourceSelector from 'selectors/resourceSelector';
-import reservationDateSelector from 'selectors/reservationDateSelector';
+import dateSelector from 'selectors/dateSelector';
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
 
 const idSelector = (state) => state.router.params.id;
@@ -11,20 +11,20 @@ const unitsSelector = (state) => state.data.units;
 const reservationPageSelector = createSelector(
   idSelector,
   requestIsActiveSelectorFactory(ActionTypes.API.RESOURCE_GET_REQUEST),
-  reservationDateSelector,
+  dateSelector,
   resourceSelector,
   unitsSelector,
   (
     id,
     isFetchingResource,
-    reservationDate,
+    date,
     resource,
     units
   ) => {
     const unit = units[resource.unit] || {};
 
     return {
-      date: reservationDate,
+      date,
       id,
       isFetchingResource,
       resource,

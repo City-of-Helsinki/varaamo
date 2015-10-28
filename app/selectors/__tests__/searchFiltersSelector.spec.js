@@ -1,20 +1,19 @@
 import { expect } from 'chai';
 import MockDate from 'mockdate';
 
-import Immutable from 'seamless-immutable';
-
 import searchFiltersSelector from 'selectors/searchFiltersSelector';
 
 function getState(date = '2015-10-10') {
   return {
-    ui: Immutable({
-      search: {
-        filters: {
+    router: {
+      location: {
+        query: {
           date: date,
           purpose: 'some-purpose',
+          search: '',
         },
       },
-    }),
+    },
   };
 }
 
@@ -22,7 +21,7 @@ describe('Selector: searchFiltersSelector', () => {
   it('should return search filters from the state', () => {
     const state = getState();
     const actual = searchFiltersSelector(state);
-    const expected = state.ui.search.filters;
+    const expected = state.router.location.query;
 
     expect(actual).to.deep.equal(expected);
   });
@@ -32,7 +31,7 @@ describe('Selector: searchFiltersSelector', () => {
     MockDate.set('2015-12-24T16:07:37Z');
     const actual = searchFiltersSelector(state);
     MockDate.reset();
-    const filters = state.ui.search.filters;
+    const filters = state.router.location.query;
     const expected = Object.assign({}, filters, { date: '2015-12-24' });
 
     expect(actual).to.deep.equal(expected);

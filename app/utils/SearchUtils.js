@@ -19,5 +19,5 @@ function getFetchParamsFromFilters(filters) {
 }
 
 function pickSupportedFilters(filters) {
-  return _.pick(filters, SUPPORTED_SEARCH_FILTERS);
+  return _.pick(filters, _.keys(SUPPORTED_SEARCH_FILTERS));
 }

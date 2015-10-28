@@ -13,7 +13,6 @@ function getProps(props = {}) {
   const defaults = {
     actions: {
       cancelReservationEdit: simple.stub(),
-      changeReservationDate: simple.stub(),
       clearReservations: simple.stub(),
       closeConfirmReservationModal: simple.stub(),
       deleteReservation: simple.stub(),
@@ -164,8 +163,13 @@ describe('Container: ReservationForm', () => {
     const newDate = '2015-12-24';
     instance.onDateChange(newDate);
 
-    it('should call changeReservationDate actionCreator', () => {
-      expect(props.actions.changeReservationDate.callCount).to.equal(1);
+    it('should call pushState and update the url with the new date', () => {
+      const actualArgs = props.actions.pushState.lastCall.args;
+
+      expect(props.actions.pushState.callCount).to.equal(1);
+      expect(actualArgs[0]).to.equal(null);
+      expect(actualArgs[1]).to.equal(`/resources/${props.id}/reservation`);
+      expect(actualArgs[2]).to.deep.equal({ date: newDate });
     });
 
     it('should call fetchResource actionCreator', () => {

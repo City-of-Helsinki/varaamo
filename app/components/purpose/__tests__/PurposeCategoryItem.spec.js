@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import React from 'react';
 import sd from 'skin-deep';
-import simple from 'simple-mock';
 
 import _ from 'lodash';
 
@@ -10,7 +9,6 @@ import Purpose from 'fixtures/Purpose';
 
 describe('Component: purpose/PurposeCategoryItem', () => {
   const props = {
-    onItemClick: simple.stub(),
     purpose: Purpose.build(),
   };
   const tree = sd.shallowRender(<PurposeCategoryItem {...props} />);
@@ -21,24 +19,20 @@ describe('Component: purpose/PurposeCategoryItem', () => {
     expect(listGroupItemTrees.length).to.equal(1);
   });
 
-  describe('Link', () => {
-    const linkTrees = tree.everySubTree('a');
+  it('should render a Link', () => {
+    expect(tree.subTree('Link')).to.be.ok;
+  });
 
-    it('should be rendered', () => {
-      expect(linkTrees.length).to.equal(1);
-    });
+  it('should pass correct props to Link ', () => {
+    const linkTree = tree.subTree('Link');
 
-    it('clicking the link should call onItemClick ', () => {
-      const mockEvent = { preventDefault: simple.stub() };
-      linkTrees[0].props.onClick(mockEvent);
+    expect(linkTree.props.to).to.equal('/search');
+    expect(linkTree.props.query).to.deep.equal({ purpose: props.purpose.id });
+  });
 
-      expect(props.onItemClick.callCount).to.equal(1);
-    });
+  it('should display name of the purpose capitalized', () => {
+    const expected = _.capitalize(props.purpose.name.fi);
 
-    it('should contain name of the purpose capitalized', () => {
-      const expected = _.capitalize(props.purpose.name.fi);
-
-      expect(tree.textIn('a')).to.contain(expected);
-    });
+    expect(tree.subTree('Link').props.children).to.equal(expected);
   });
 });

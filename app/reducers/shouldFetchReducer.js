@@ -5,7 +5,6 @@ import types from 'constants/ActionTypes';
 const initialState = Immutable({
   purposes: true,
   resources: true,
-  searchResults: true,
   units: true,
 });
 
@@ -22,19 +21,9 @@ function shouldFetchReducer(state = initialState, action) {
       resources: false,
     });
 
-  case types.API.SEARCH_RESULTS_GET_SUCCESS:
-    return state.merge({
-      searchResults: false,
-    });
-
   case types.API.UNITS_GET_SUCCESS:
     return state.merge({
       units: false,
-    });
-
-  case types.UI.CHANGE_SEARCH_FILTERS:
-    return state.merge({
-      searchResults: true,
     });
 
   default:
