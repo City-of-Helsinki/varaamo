@@ -74,8 +74,8 @@ class ReservationsTableRow extends Component {
           <Link to={`/resources/${resource.id}`}>
             {getName(resource)}
           </Link>
+          <div>{getName(unit)}</div>
         </td>
-        <td>{getName(unit)}</td>
         <td>
           <TimeRange begin={reservation.begin} end={reservation.end} />
         </td>

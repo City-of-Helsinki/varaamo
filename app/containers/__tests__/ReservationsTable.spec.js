@@ -75,24 +75,20 @@ describe('Component: reservation/ReservationsTable', () => {
         thTrees = tree.everySubTree('th');
       });
 
-      it('should render 4 th elements', () => {
-        expect(thTrees.length).to.equal(4);
+      it('should render 3 th elements', () => {
+        expect(thTrees.length).to.equal(3);
       });
 
       it('first th element should contain text "Tila"', () => {
         expect(thTrees[0].text()).to.equal('Tila');
       });
 
-      it('second th element should contain text "Sijainti"', () => {
-        expect(thTrees[1].text()).to.equal('Sijainti');
+      it('second th element should contain text "Aika"', () => {
+        expect(thTrees[1].text()).to.equal('Aika');
       });
 
-      it('third th element should contain text "Aika"', () => {
-        expect(thTrees[2].text()).to.equal('Aika');
-      });
-
-      it('fourth th element should contain text "Toiminnot"', () => {
-        expect(thTrees[3].text()).to.equal('Toiminnot');
+      it('third th element should contain text "Toiminnot"', () => {
+        expect(thTrees[2].text()).to.equal('Toiminnot');
       });
     });
 
