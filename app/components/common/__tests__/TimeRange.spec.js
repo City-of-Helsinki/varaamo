@@ -9,7 +9,9 @@ import TimeRange from 'components/common/TimeRange';
 describe('Component: common/TimeRange', () => {
   const props = {
     begin: '2015-10-11T12:00:00Z',
+    dateFormat: 'ddd, Do MMMM[ta]',
     end: '2015-10-11T14:00:00Z',
+    timeFormat: 'H:mm',
   };
 
   const tree = sd.shallowRender(<TimeRange {...props} />);
@@ -27,19 +29,25 @@ describe('Component: common/TimeRange', () => {
     expect(timeTree.props.dateTime).to.equal(expected);
   });
 
-  describe('the humanized time range', () => {
-    const humanized = tree.subTree('time').props.children;
+  describe('the datetime range string', () => {
+    const rangeString = tree.subTree('time').props.children;
 
-    it('should display the begin datetime in humanized format', () => {
-      const expected = moment(props.begin).format('LLLL');
+    it('should display the date in given dateFormat', () => {
+      const expected = moment(props.begin).format(props.dateFormat);
 
-      expect(humanized).to.contain(expected);
+      expect(rangeString).to.contain(expected);
     });
 
-    it('should display just the time from the end', () => {
-      const expected = `\u2013 ${moment(props.end).format('H:mm')}`;
+    it('should display the begin time in given timeFormat', () => {
+      const expected = moment(props.begin).format(props.timeFormat);
 
-      expect(humanized).to.contain(expected);
+      expect(rangeString).to.contain(expected);
+    });
+
+    it('should display the end time in given time format', () => {
+      const expected = moment(props.end).format(props.timeFormat);
+
+      expect(rangeString).to.contain(expected);
     });
   });
 });
