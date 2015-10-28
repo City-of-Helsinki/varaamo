@@ -17,15 +17,15 @@ function getState(resources = [], units = [], resourceId = 'some-id') {
       units: _.indexBy(units, 'id'),
     }),
     router: {
+      location: {
+        query: {
+          date: '2015-10-10',
+        },
+      },
       params: {
         id: resourceId,
       },
     },
-    ui: Immutable({
-      reservation: {
-        date: '2015-10-10',
-      },
-    }),
   };
 }
 

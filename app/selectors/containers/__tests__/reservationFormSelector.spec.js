@@ -18,6 +18,11 @@ function getState(resource, resourceId) {
       resources: { [resource.id]: resource },
     }),
     router: {
+      location: {
+        query: {
+          date: '2015-10-10',
+        },
+      },
       params: {
         id,
       },
@@ -27,7 +32,6 @@ function getState(resource, resourceId) {
         open: [],
       },
       reservation: {
-        date: '2015-10-10',
         selected: [],
         toEdit: ['mock-reservation'],
       },

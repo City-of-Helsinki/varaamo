@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
-import reservationDateSelector from 'selectors/reservationDateSelector';
+import dateSelector from 'selectors/dateSelector';
 import resourceSelector from 'selectors/resourceSelector';
 import selectedReservationsSelector from 'selectors/selectedReservationsSelector';
 import modalIsOpenSelectorFactory from 'selectors/factories/modalIsOpenSelectorFactory';
@@ -19,7 +19,7 @@ const reservationFormSelector = createSelector(
   modalIsOpenSelectorFactory(ModalTypes.CONFIRM_RESERVATION),
   requestIsActiveSelectorFactory(ActionTypes.API.RESERVATION_POST_REQUEST),
   requestIsActiveSelectorFactory(ActionTypes.API.RESOURCE_GET_REQUEST),
-  reservationDateSelector,
+  dateSelector,
   resourceSelector,
   selectedSelector,
   selectedReservationsSelector,
@@ -29,7 +29,7 @@ const reservationFormSelector = createSelector(
     confirmReservationModalIsOpen,
     isMakingReservations,
     isFetchingResource,
-    reservationDate,
+    date,
     resource,
     selected,
     selectedReservations,
@@ -42,7 +42,7 @@ const reservationFormSelector = createSelector(
 
     return {
       confirmReservationModalIsOpen,
-      date: reservationDate,
+      date,
       id,
       isFetchingResource,
       isMakingReservations,
