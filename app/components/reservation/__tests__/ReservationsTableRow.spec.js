@@ -60,6 +60,16 @@ describe('Component: reservation/ReservationsTableRow', () => {
       describe('the second table cell', () => {
         const tdTree = tdTrees[1];
 
+        it('should have a Link with correct props', () => {
+          const linkTree = tdTree.subTree('Link');
+
+          expect(linkTree).to.be.ok;
+          expect(linkTree.props.to).to.equal(`/resources/${props.resource.id}/reservation`);
+          expect(linkTree.props.query).to.deep.equal(
+            { date: props.reservation.begin.split('T')[0] }
+          );
+        });
+
         it('should contain a TimeRange component with correct begin and end times', () => {
           const timeRangeTree = tdTree.subTree('TimeRange');
 

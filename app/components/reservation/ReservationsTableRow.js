@@ -77,11 +77,16 @@ class ReservationsTableRow extends Component {
           <div>{getName(unit)}</div>
         </td>
         <td>
-          <TimeRange
-            begin={reservation.begin}
-            end={reservation.end}
-            lineBreaks
-          />
+          <Link
+            to={`/resources/${resource.id}/reservation`}
+            query={{ date: reservation.begin.split('T')[0] }}
+          >
+            <TimeRange
+              begin={reservation.begin}
+              end={reservation.end}
+              lineBreaks
+            />
+        </Link>
         </td>
         <td>
           {this.renderButtons()}
