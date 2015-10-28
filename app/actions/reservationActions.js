@@ -14,6 +14,7 @@ export default {
   deleteReservation,
   fetchReservations,
   postReservation,
+  putReservation,
 };
 
 function deleteReservation(reservation) {
@@ -84,6 +85,31 @@ function postReservation(reservation) {
       ],
       endpoint: url,
       method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify(reservation),
+    },
+  };
+}
+
+function putReservation(reservation) {
+  return {
+    [CALL_API]: {
+      types: [
+        getRequestTypeDescriptor(
+          types.API.RESERVATION_PUT_REQUEST,
+          { countable: true }
+        ),
+        getSuccessTypeDescriptor(
+          types.API.RESERVATION_PUT_SUCCESS,
+          { countable: true }
+        ),
+        getErrorTypeDescriptor(
+          types.API.RESERVATION_PUT_ERROR,
+          { countable: true }
+        ),
+      ],
+      endpoint: reservation.url,
+      method: 'PUT',
       headers: getHeaders(),
       body: JSON.stringify(reservation),
     },

@@ -8,12 +8,42 @@ class ConfirmReservationModal extends Component {
   constructor(props) {
     super(props);
     this.onConfirm = this.onConfirm.bind(this);
+    this.renderModalBody = this.renderModalBody.bind(this);
   }
 
   onConfirm() {
     const { onClose, onConfirm } = this.props;
-    onConfirm();
     onClose();
+    onConfirm();
+  }
+
+  renderModalBody() {
+    const { isEditing, reservationsToEdit, selectedReservations } = this.props;
+
+    if (isEditing) {
+      return (
+        <div>
+          <p><strong>Oletko varma että haluat muuttaa varaustasi?</strong></p>
+          <p>Ennen muutoksia:</p>
+          <ul>
+            {_.map(reservationsToEdit, this.renderReservation)}
+          </ul>
+          <p>Muutosten jälkeen:</p>
+          <ul>
+            {_.map(selectedReservations, this.renderReservation)}
+          </ul>
+        </div>
+      );
+    }
+
+    return (
+      <div>
+        <p>Oletko varma että haluat tehdä seuraavat varaukset?</p>
+        <ul>
+          {_.map(selectedReservations, this.renderReservation)}
+        </ul>
+      </div>
+    );
   }
 
   renderReservation(reservation) {
@@ -26,26 +56,26 @@ class ConfirmReservationModal extends Component {
 
   render() {
     const {
+      isEditing,
       isMakingReservations,
       onClose,
-      selectedReservations,
       show,
     } = this.props;
 
     return (
       <Modal
+        animation={false}
         onHide={onClose}
         show={show}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Varauksen varmistus</Modal.Title>
+          <Modal.Title>
+            {isEditing ? 'Muutosten vahvistus' : 'Varauksen vahvistus'}
+          </Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-          <p>Oletko varma että haluat tehdä seuraavat varaukset?</p>
-          <ul>
-            {_.map(selectedReservations, this.renderReservation)}
-          </ul>
+          {this.renderModalBody()}
         </Modal.Body>
 
         <Modal.Footer>
@@ -60,7 +90,7 @@ class ConfirmReservationModal extends Component {
             disabled={isMakingReservations}
             onClick={this.onConfirm}
           >
-            {isMakingReservations ? 'Varataan...' : 'Varaa'}
+            {isMakingReservations ? 'Tallennetaan...' : 'Tallenna'}
           </Button>
         </Modal.Footer>
       </Modal>
@@ -69,9 +99,11 @@ class ConfirmReservationModal extends Component {
 }
 
 ConfirmReservationModal.propTypes = {
+  isEditing: PropTypes.bool.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
+  reservationsToEdit: PropTypes.array.isRequired,
   selectedReservations: PropTypes.array.isRequired,
   show: PropTypes.bool.isRequired,
 };

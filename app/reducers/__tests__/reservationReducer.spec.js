@@ -4,10 +4,13 @@ import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
 import {
+  cancelReservationEdit,
   changeReservationDate,
+  clearReservations,
   closeDeleteReservationModal,
   closeConfirmReservationModal,
   selectReservationToDelete,
+  selectReservationToEdit,
   toggleTimeSlot,
 } from 'actions/uiActions';
 import types from 'constants/ActionTypes';
@@ -29,13 +32,17 @@ describe('Reducer: reservationReducer', () => {
     it('toDelete should be an empty array', () => {
       expect(initialState.toDelete).to.deep.equal([]);
     });
+
+    it('toEdit should be an empty array', () => {
+      expect(initialState.toEdit).to.deep.equal([]);
+    });
   });
 
   describe('handling actions', () => {
     describe('API.RESERVATION_POST_SUCCESS', () => {
       const postReservationSuccess = createAction(types.API.RESERVATION_POST_SUCCESS);
 
-      it('should clear the selected slots', () => {
+      it('should clear selected', () => {
         const action = postReservationSuccess();
         const initialState = Immutable({
           selected: ['some-selected'],
@@ -43,6 +50,52 @@ describe('Reducer: reservationReducer', () => {
         const nextState = reservationReducer(initialState, action);
 
         expect(nextState.selected).to.deep.equal([]);
+      });
+
+      it('should clear the toEdit', () => {
+        const action = postReservationSuccess();
+        const initialState = Immutable({
+          toEdit: ['something-to-edit'],
+        });
+        const nextState = reservationReducer(initialState, action);
+
+        expect(nextState.toEdit).to.deep.equal([]);
+      });
+    });
+
+    describe('API.RESERVATION_PUT_SUCCESS', () => {
+      const putReservationSuccess = createAction(types.API.RESERVATION_PUT_SUCCESS);
+
+      it('should clear selected', () => {
+        const action = putReservationSuccess();
+        const initialState = Immutable({
+          selected: ['some-selected'],
+        });
+        const nextState = reservationReducer(initialState, action);
+
+        expect(nextState.selected).to.deep.equal([]);
+      });
+
+      it('should clear the toEdit', () => {
+        const action = putReservationSuccess();
+        const initialState = Immutable({
+          toEdit: ['something-to-edit'],
+        });
+        const nextState = reservationReducer(initialState, action);
+
+        expect(nextState.toEdit).to.deep.equal([]);
+      });
+    });
+
+    describe('UI.CANCEL_RESERVATION_EDIT', () => {
+      it('should clear toEdit array', () => {
+        const initialState = Immutable({
+          toEdit: [Reservation.build()],
+        });
+        const action = cancelReservationEdit();
+        const nextState = reservationReducer(initialState, action);
+
+        expect(nextState.toEdit).to.deep.equal([]);
       });
     });
 
@@ -56,6 +109,22 @@ describe('Reducer: reservationReducer', () => {
         const nextState = reservationReducer(initialState, action);
 
         expect(nextState.date).to.equal(date);
+      });
+    });
+
+    describe('UI.CHANGE_RESERVATION_DATE', () => {
+      it('should set the given date to date', () => {
+        const resetedState = reservationReducer(undefined, {});
+        const action = clearReservations();
+        const initialState = Immutable({
+          date: '2015-11-11',
+          selected: ['something'],
+          toDelete: ['something'],
+          toEdit: ['something'],
+        });
+        const nextState = reservationReducer(initialState, action);
+
+        expect(nextState).to.deep.equal(resetedState);
       });
     });
 
@@ -111,6 +180,48 @@ describe('Reducer: reservationReducer', () => {
         const expected = Immutable([reservations[0], reservations[1]]);
 
         expect(nextState.toDelete).to.deep.equal(expected);
+      });
+    });
+
+    describe('UI.SELECT_RESERVATION_TO_EDIT', () => {
+      it('should change date to the date of the reservation', () => {
+        const initialState = Immutable({
+          date: 'mock-date',
+          toEdit: [],
+        });
+        const reservation = Reservation.build();
+        const action = selectReservationToEdit(reservation);
+        const nextState = reservationReducer(initialState, action);
+        const expected = reservation.begin.split('T')[0];
+
+        expect(nextState.date).to.equal(expected);
+      });
+
+      it('should add the given reservation to toEdit', () => {
+        const initialState = Immutable({
+          toEdit: [],
+        });
+        const reservation = Reservation.build();
+        const action = selectReservationToEdit(reservation);
+        const nextState = reservationReducer(initialState, action);
+        const expected = Immutable([reservation]);
+
+        expect(nextState.toEdit).to.deep.equal(expected);
+      });
+
+      it('should not affect other reservations in toEdit', () => {
+        const reservations = [
+          Reservation.build(),
+          Reservation.build(),
+        ];
+        const initialState = Immutable({
+          toEdit: [reservations[0]],
+        });
+        const action = selectReservationToEdit(reservations[1]);
+        const nextState = reservationReducer(initialState, action);
+        const expected = Immutable([reservations[0], reservations[1]]);
+
+        expect(nextState.toEdit).to.deep.equal(expected);
       });
     });
 

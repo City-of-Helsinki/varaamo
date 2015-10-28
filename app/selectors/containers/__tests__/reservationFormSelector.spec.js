@@ -29,6 +29,7 @@ function getState(resource, resourceId) {
       reservation: {
         date: '2015-10-10',
         selected: [],
+        toEdit: ['mock-reservation'],
       },
     }),
   };
@@ -80,6 +81,14 @@ describe('Selector: reservationFormSelector', () => {
     const selected = reservationFormSelector(state);
 
     expect(selected.isMakingReservations).to.exist;
+  });
+
+  it('should return reservationsToEdit from the state', () => {
+    const state = getState(resource);
+    const selected = reservationFormSelector(state);
+    const expected = state.ui.reservation.toEdit;
+
+    expect(selected.reservationsToEdit).to.deep.equal(expected);
   });
 
   it('should return the reservation.selected from the state', () => {

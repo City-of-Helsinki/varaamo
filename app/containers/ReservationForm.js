@@ -1,19 +1,27 @@
+import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
-import { Button } from 'react-bootstrap';
 import DatePicker from 'react-date-picker';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { pushState } from 'redux-router';
 
-import { postReservation } from 'actions/reservationActions';
+import {
+  deleteReservation,
+  postReservation,
+  putReservation,
+} from 'actions/reservationActions';
 import { fetchResource } from 'actions/resourceActions';
 import {
+  cancelReservationEdit,
   changeReservationDate,
+  clearReservations,
   closeConfirmReservationModal,
   openConfirmReservationModal,
   toggleTimeSlot,
 } from 'actions/uiActions';
 import DateHeader from 'components/common/DateHeader';
 import ConfirmReservationModal from 'components/reservation/ConfirmReservationModal';
+import ReservationFormControls from 'components/reservation/ReservationFormControls';
 import TimeSlots from 'components/reservation/TimeSlots';
 import reservationFormSelector from 'selectors/containers/reservationFormSelector';
 import { getDateStartAndEndTimes } from 'utils/TimeUtils';
@@ -21,8 +29,14 @@ import { getDateStartAndEndTimes } from 'utils/TimeUtils';
 export class UnconnectedReservationForm extends Component {
   constructor(props) {
     super(props);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.handleEditCancel = this.handleEditCancel.bind(this);
     this.handleReservation = this.handleReservation.bind(this);
     this.onDateChange = this.onDateChange.bind(this);
+  }
+
+  componentWillUnmount() {
+    this.props.actions.clearReservations();
   }
 
   onDateChange(newDate) {
@@ -31,6 +45,40 @@ export class UnconnectedReservationForm extends Component {
 
     actions.changeReservationDate(newDate);
     actions.fetchResource(id, fetchParams);
+  }
+
+  handleEdit() {
+    const {
+      actions,
+      reservationsToEdit,
+      selectedReservations,
+    } = this.props;
+
+    if (selectedReservations.length) {
+      // Edit the first selected reservation.
+      actions.putReservation(Object.assign(
+        {},
+        selectedReservations[0],
+        { url: reservationsToEdit[0].url }
+      ));
+
+      // Add new reservations if needed.
+      _.forEach(_.rest(selectedReservations), (reservation) => {
+        actions.postReservation(reservation);
+      });
+    } else {
+      // Delete the edited reservation if no time slots were selected.
+      _.forEach(reservationsToEdit, (reservation) => {
+        actions.deleteReservation(reservation);
+      });
+    }
+
+    actions.pushState(null, '/my-reservations');
+  }
+
+  handleEditCancel() {
+    this.props.actions.cancelReservationEdit();
+    this.props.actions.pushState(null, '/my-reservations');
   }
 
   handleReservation() {
@@ -48,10 +96,12 @@ export class UnconnectedReservationForm extends Component {
       date,
       isFetchingResource,
       isMakingReservations,
+      reservationsToEdit,
       selected,
       selectedReservations,
       timeSlots,
     } = this.props;
+    const isEditing = Boolean(reservationsToEdit.length);
 
     return (
       <div>
@@ -72,18 +122,19 @@ export class UnconnectedReservationForm extends Component {
           selected={selected}
           slots={timeSlots}
         />
-        <Button
-          block
-          bsStyle="primary"
+        <ReservationFormControls
           disabled={!selected.length || isMakingReservations}
+          isEditing={isEditing}
+          isMakingReservations={isMakingReservations}
+          onCancel={this.handleEditCancel}
           onClick={actions.openConfirmReservationModal}
-        >
-          {isMakingReservations ? 'Varataan...' : 'Varaa'}
-        </Button>
+        />
         <ConfirmReservationModal
+          isEditing={isEditing}
           isMakingReservations={isMakingReservations}
           onClose={actions.closeConfirmReservationModal}
-          onConfirm={this.handleReservation}
+          onConfirm={isEditing ? this.handleEdit : this.handleReservation}
+          reservationsToEdit={reservationsToEdit}
           selectedReservations={selectedReservations}
           show={confirmReservationModalIsOpen}
         />
@@ -99,6 +150,7 @@ UnconnectedReservationForm.propTypes = {
   id: PropTypes.string.isRequired,
   isFetchingResource: PropTypes.bool.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,
+  reservationsToEdit: PropTypes.array.isRequired,
   selected: PropTypes.array.isRequired,
   selectedReservations: PropTypes.array.isRequired,
   timeSlots: PropTypes.array.isRequired,
@@ -106,10 +158,15 @@ UnconnectedReservationForm.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
+    cancelReservationEdit,
     changeReservationDate,
+    clearReservations,
     closeConfirmReservationModal,
+    deleteReservation,
     fetchResource,
+    pushState,
     postReservation,
+    putReservation,
     openConfirmReservationModal,
     toggleTimeSlot,
   };

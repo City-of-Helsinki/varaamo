@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router';
@@ -9,6 +10,8 @@ class ReservationsTableRow extends Component {
   constructor(props) {
     super(props);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
+    this.handleEditClick = this.handleEditClick.bind(this);
+    this.renderButtons = this.renderButtons.bind(this);
   }
 
   handleDeleteClick() {
@@ -20,6 +23,42 @@ class ReservationsTableRow extends Component {
 
     selectReservationToDelete(reservation);
     openDeleteModal();
+  }
+
+  handleEditClick() {
+    const {
+      pushState,
+      reservation,
+      selectReservationToEdit,
+    } = this.props;
+
+    selectReservationToEdit(reservation);
+    pushState(null, `/resources/${reservation.resource}/reservation`);
+  }
+
+  renderButtons() {
+    if (moment() > moment(this.props.reservation.end)) {
+      return null;
+    }
+
+    return (
+      <div>
+        <Button
+          bsSize="xsmall"
+          bsStyle="primary"
+          onClick={this.handleEditClick}
+        >
+          Muokkaa
+        </Button>
+        <Button
+          bsSize="xsmall"
+          bsStyle="danger"
+          onClick={this.handleDeleteClick}
+        >
+          Poista
+        </Button>
+      </div>
+    );
   }
 
   render() {
@@ -41,13 +80,7 @@ class ReservationsTableRow extends Component {
           <TimeRange begin={reservation.begin} end={reservation.end} />
         </td>
         <td>
-          <Button
-            bsSize="xsmall"
-            bsStyle="danger"
-            onClick={this.handleDeleteClick}
-          >
-            Poista
-          </Button>
+          {this.renderButtons()}
         </td>
       </tr>
     );
@@ -56,9 +89,11 @@ class ReservationsTableRow extends Component {
 
 ReservationsTableRow.propTypes = {
   openDeleteModal: PropTypes.func.isRequired,
+  pushState: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   selectReservationToDelete: PropTypes.func.isRequired,
+  selectReservationToEdit: PropTypes.func.isRequired,
   unit: PropTypes.object.isRequired,
 };
 
