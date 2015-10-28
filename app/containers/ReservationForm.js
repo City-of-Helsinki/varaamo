@@ -1,10 +1,15 @@
+import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 import DatePicker from 'react-date-picker';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { pushState } from 'redux-router';
 
-import { postReservation } from 'actions/reservationActions';
+import {
+  deleteReservation,
+  postReservation,
+  putReservation,
+} from 'actions/reservationActions';
 import { fetchResource } from 'actions/resourceActions';
 import {
   cancelReservationEdit,
@@ -24,6 +29,7 @@ import { getDateStartAndEndTimes } from 'utils/TimeUtils';
 export class UnconnectedReservationForm extends Component {
   constructor(props) {
     super(props);
+    this.handleEdit = this.handleEdit.bind(this);
     this.handleEditCancel = this.handleEditCancel.bind(this);
     this.handleReservation = this.handleReservation.bind(this);
     this.onDateChange = this.onDateChange.bind(this);
@@ -39,6 +45,35 @@ export class UnconnectedReservationForm extends Component {
 
     actions.changeReservationDate(newDate);
     actions.fetchResource(id, fetchParams);
+  }
+
+  handleEdit() {
+    const {
+      actions,
+      reservationsToEdit,
+      selectedReservations,
+    } = this.props;
+
+    if (selectedReservations.length) {
+      // Edit the first selected reservation.
+      actions.putReservation(Object.assign(
+        {},
+        selectedReservations[0],
+        { url: reservationsToEdit[0].url }
+      ));
+
+      // Add new reservations if needed.
+      _.forEach(_.rest(selectedReservations), (reservation) => {
+        actions.postReservation(reservation);
+      });
+    } else {
+      // Delete the edited reservation if no time slots were selected.
+      _.forEach(reservationsToEdit, (reservation) => {
+        actions.deleteReservation(reservation);
+      });
+    }
+
+    actions.pushState(null, '/my-reservations');
   }
 
   handleEditCancel() {
@@ -98,7 +133,7 @@ export class UnconnectedReservationForm extends Component {
           isEditing={isEditing}
           isMakingReservations={isMakingReservations}
           onClose={actions.closeConfirmReservationModal}
-          onConfirm={this.handleReservation}
+          onConfirm={isEditing ? this.handleEdit : this.handleReservation}
           reservationsToEdit={reservationsToEdit}
           selectedReservations={selectedReservations}
           show={confirmReservationModalIsOpen}
@@ -127,9 +162,11 @@ function mapDispatchToProps(dispatch) {
     changeReservationDate,
     clearReservations,
     closeConfirmReservationModal,
+    deleteReservation,
     fetchResource,
     pushState,
     postReservation,
+    putReservation,
     openConfirmReservationModal,
     toggleTimeSlot,
   };

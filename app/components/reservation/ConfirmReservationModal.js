@@ -13,8 +13,8 @@ class ConfirmReservationModal extends Component {
 
   onConfirm() {
     const { onClose, onConfirm } = this.props;
-    onConfirm();
     onClose();
+    onConfirm();
   }
 
   renderModalBody() {
@@ -64,6 +64,7 @@ class ConfirmReservationModal extends Component {
 
     return (
       <Modal
+        animation={false}
         onHide={onClose}
         show={show}
       >
