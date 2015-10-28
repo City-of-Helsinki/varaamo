@@ -42,7 +42,7 @@ describe('Reducer: reservationReducer', () => {
     describe('API.RESERVATION_POST_SUCCESS', () => {
       const postReservationSuccess = createAction(types.API.RESERVATION_POST_SUCCESS);
 
-      it('should clear the selected slots', () => {
+      it('should clear selected', () => {
         const action = postReservationSuccess();
         const initialState = Immutable({
           selected: ['some-selected'],
@@ -50,6 +50,40 @@ describe('Reducer: reservationReducer', () => {
         const nextState = reservationReducer(initialState, action);
 
         expect(nextState.selected).to.deep.equal([]);
+      });
+
+      it('should clear the toEdit', () => {
+        const action = postReservationSuccess();
+        const initialState = Immutable({
+          toEdit: ['something-to-edit'],
+        });
+        const nextState = reservationReducer(initialState, action);
+
+        expect(nextState.toEdit).to.deep.equal([]);
+      });
+    });
+
+    describe('API.RESERVATION_PUT_SUCCESS', () => {
+      const putReservationSuccess = createAction(types.API.RESERVATION_PUT_SUCCESS);
+
+      it('should clear selected', () => {
+        const action = putReservationSuccess();
+        const initialState = Immutable({
+          selected: ['some-selected'],
+        });
+        const nextState = reservationReducer(initialState, action);
+
+        expect(nextState.selected).to.deep.equal([]);
+      });
+
+      it('should clear the toEdit', () => {
+        const action = putReservationSuccess();
+        const initialState = Immutable({
+          toEdit: ['something-to-edit'],
+        });
+        const nextState = reservationReducer(initialState, action);
+
+        expect(nextState.toEdit).to.deep.equal([]);
       });
     });
 

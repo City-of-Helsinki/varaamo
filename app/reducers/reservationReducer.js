@@ -25,7 +25,11 @@ function reservationReducer(state = initialState, action) {
   switch (action.type) {
 
   case types.API.RESERVATION_POST_SUCCESS:
-    return state.merge({ selected: [] });
+  case types.API.RESERVATION_PUT_SUCCESS:
+    return state.merge({
+      selected: [],
+      toEdit: [],
+    });
 
   case types.UI.CANCEL_RESERVATION_EDIT:
     return state.merge({ toEdit: [] });

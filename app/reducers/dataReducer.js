@@ -26,16 +26,26 @@ function handleReservationDelete(action, state) {
   return state.merge( { reservations: _.omit(state.reservations, reservation.url) });
 }
 
-function handleReservationPost(state, action) {
+function handleReservation(state, action) {
   const reservation = action.payload;
-  const reservations = state.resources[reservation.resource].reservations;
   const entities = {
-    resources: {
+    reservations: {
+      [reservation.url]: reservation,
+    },
+  };
+
+  if (state.resources[reservation.resource]) {
+    const reservations = _.reject(
+      state.resources[reservation.resource].reservations,
+      (current) => current.url === reservation.url
+    );
+    entities.resources = {
       [reservation.resource]: {
         reservations: [...reservations, reservation],
       },
-    },
-  };
+    };
+  }
+
   return handleData(state, entities);
 }
 
@@ -51,7 +61,8 @@ function dataReducer(state = initialState, action) {
     return handleData(state, action.payload.entities);
 
   case types.API.RESERVATION_POST_SUCCESS:
-    return handleReservationPost(state, action);
+  case types.API.RESERVATION_PUT_SUCCESS:
+    return handleReservation(state, action);
 
   case types.API.RESERVATION_DELETE_SUCCESS:
     return handleReservationDelete(action, state);

@@ -116,42 +116,164 @@ describe('Reducer: dataReducer', () => {
   describe('handling actions', () => {
     describe('API.RESERVATION_POST_SUCCESS', () => {
       const postReservationSuccess = createAction(types.API.RESERVATION_POST_SUCCESS);
-      const reservations = [
-        {
-          begin: 'old-begin',
-          end: 'new-begin',
-        },
-      ];
-      const resource = Resource.build({
-        reservations,
-        otherValue: 'whatever',
+
+      it('should add the reservation to reservations', () => {
+        const reservation = Reservation.build();
+        const initialState = Immutable({
+          reservations: {},
+          resources: {},
+        });
+        const action = postReservationSuccess(reservation);
+        const nextState = dataReducer(initialState, action);
+
+        const actualReservations = nextState.reservations;
+        const expectedReservations = Immutable({
+          [reservation.url]: reservation,
+        });
+
+        expect(actualReservations).to.deep.equal(expectedReservations);
       });
-      const reservation = {
-        begind: 'some-begin',
-        end: 'some-end',
-        resource: resource.id,
-      };
-      const initialState = Immutable({
-        resources: { [resource.id]: resource },
-      });
-      const action = postReservationSuccess(reservation);
-      const nextState = dataReducer(initialState, action);
 
       it('should add the given reservation to correct resource', () => {
-        const expectedReservations = Immutable([
-          reservations[0],
-          reservation,
-        ]);
+        const resource = Resource.build();
+        const reservation = Reservation.build({ resource: resource.id });
+        const initialState = Immutable({
+          reservations: {},
+          resources: { [resource.id]: resource },
+        });
+        const action = postReservationSuccess(reservation);
+        const nextState = dataReducer(initialState, action);
         const actualReservations = nextState.resources[resource.id].reservations;
+        const expectedReservations = Immutable([reservation]);
 
         expect(actualReservations).to.deep.equal(expectedReservations);
       });
 
       it('should not touch other resource values', () => {
+        const resource = Resource.build({
+          otherValue: 'whatever',
+        });
+        const reservation = Reservation.build({ resource: resource.id });
+        const initialState = Immutable({
+          reservations: {},
+          resources: { [resource.id]: resource },
+        });
+        const action = postReservationSuccess(reservation);
+        const nextState = dataReducer(initialState, action);
         const expectedValue = resource.otherValue;
         const actualvalue = nextState.resources[resource.id].otherValue;
 
         expect(expectedValue).to.deep.equal(actualvalue);
+      });
+    });
+
+    describe('API.RESERVATION_PUT_SUCCESS', () => {
+      const putReservationSuccess = createAction(types.API.RESERVATION_PUT_SUCCESS);
+
+      describe('updating reservations', () => {
+        it('should add the reservation to reservations if it is not already there', () => {
+          const reservation = Reservation.build();
+          const initialState = Immutable({
+            reservations: {},
+            resources: {},
+          });
+          const action = putReservationSuccess(reservation);
+          const nextState = dataReducer(initialState, action);
+
+          const actualReservations = nextState.reservations;
+          const expectedReservations = Immutable({
+            [reservation.url]: reservation,
+          });
+
+          expect(actualReservations).to.deep.equal(expectedReservations);
+        });
+
+        it('should update a reservation already in reservations', () => {
+          const oldReservation = Reservation.build({
+            begin: 'old-begin',
+            end: 'old-end',
+          });
+          const initialState = Immutable({
+            reservations: { [oldReservation.url]: oldReservation },
+            resources: {},
+          });
+          const updatedReservation = Reservation.build({
+            begin: 'new-begin',
+            'end': 'new-end',
+            url: oldReservation.url,
+          });
+          const action = putReservationSuccess(updatedReservation);
+          const nextState = dataReducer(initialState, action);
+
+          const actualReservations = nextState.reservations;
+          const expectedReservations = Immutable({
+            [updatedReservation.url]: updatedReservation,
+          });
+
+          expect(actualReservations).to.deep.equal(expectedReservations);
+        });
+      });
+
+      describe('updating resource reservations', () => {
+        it('should add the given reservation to correct resource', () => {
+          const resource = Resource.build();
+          const reservation = Reservation.build({ resource: resource.id });
+          const initialState = Immutable({
+            reservations: {},
+            resources: { [resource.id]: resource },
+          });
+          const action = putReservationSuccess(reservation);
+          const nextState = dataReducer(initialState, action);
+          const actualReservations = nextState.resources[resource.id].reservations;
+          const expectedReservations = Immutable([reservation]);
+
+          expect(actualReservations).to.deep.equal(expectedReservations);
+        });
+
+        it('should update a reservation already in resource reservations', () => {
+          const resource = Resource.build();
+          const oldReservation = Reservation.build({
+            begin: 'old-begin',
+            end: 'old-end',
+            resource: resource.id,
+          });
+          resource.reservations = [oldReservation];
+
+          const initialState = Immutable({
+            reservations: {},
+            resources: { [resource.id]: resource },
+          });
+          const updatedReservation = Reservation.build({
+            begin: 'new-begin',
+            'end': 'new-end',
+            resource: resource.id,
+            url: oldReservation.url,
+          });
+          const action = putReservationSuccess(updatedReservation);
+          const nextState = dataReducer(initialState, action);
+
+          const actualReservations = nextState.resources[resource.id].reservations;
+          const expectedReservations = Immutable([updatedReservation]);
+
+          expect(actualReservations).to.deep.equal(expectedReservations);
+        });
+
+        it('should not touch other resource values', () => {
+          const resource = Resource.build({
+            otherValue: 'whatever',
+          });
+          const reservation = Reservation.build({ resource: resource.id });
+          const initialState = Immutable({
+            reservations: {},
+            resources: { [resource.id]: resource },
+          });
+          const action = putReservationSuccess(reservation);
+          const nextState = dataReducer(initialState, action);
+          const expectedValue = resource.otherValue;
+          const actualvalue = nextState.resources[resource.id].otherValue;
+
+          expect(expectedValue).to.deep.equal(actualvalue);
+        });
       });
     });
 
