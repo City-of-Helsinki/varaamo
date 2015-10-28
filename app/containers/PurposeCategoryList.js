@@ -3,7 +3,6 @@ import React, { Component, PropTypes } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { pushState } from 'redux-router';
 
 import { fetchPurposes } from 'actions/purposeActions';
 import PurposeCategory from 'components/purpose/PurposeCategory';
@@ -12,17 +11,11 @@ import purposeCategoryListSelector from 'selectors/containers/purposeCategoryLis
 export class UnconnectedPurposeCategoryList extends Component {
   constructor(props) {
     super(props);
-    this.onItemClick = this.onItemClick.bind(this);
     this.renderPurposeCategory = this.renderPurposeCategory.bind(this);
   }
 
   componentDidMount() {
     this.props.actions.fetchPurposes();
-  }
-
-  onItemClick(filters) {
-    const { actions } = this.props;
-    actions.pushState(null, '/search', filters);
   }
 
   renderPurposeCategory(mainType) {
@@ -32,7 +25,6 @@ export class UnconnectedPurposeCategoryList extends Component {
       <PurposeCategory
         key={mainType}
         mainType={mainType}
-        onItemClick={this.onItemClick}
         purposes={purposes}
       />
     );
@@ -60,7 +52,6 @@ UnconnectedPurposeCategoryList.propTypes = {
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
     fetchPurposes,
-    pushState,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
