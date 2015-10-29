@@ -9,7 +9,7 @@ import ImagePanel from 'components/common/ImagePanel';
 describe('Component: common/ImagePanel', () => {
   describe('with images', () => {
     const images = [
-      { url: 'some-url', caption: 'some caption' },
+      { url: 'some-url', caption: { fi: 'some caption' } },
       { url: 'some-url', caption: null },
     ];
     const props = {
@@ -46,7 +46,7 @@ describe('Component: common/ImagePanel', () => {
         const actualProps = tree.everySubTree('img')[0].props;
         const image = images[0];
 
-        expect(actualProps.alt).to.equal(image.caption);
+        expect(actualProps.alt).to.equal(image.caption.fi);
         expect(actualProps.src).to.equal(image.url);
       });
 

@@ -8,10 +8,12 @@ export default {
   getAddress,
   getAddressWithName,
   getAvailableTime,
+  getCaption,
   getDescription,
   getName,
   getOpeningHours,
   getPeopleCapacityString,
+  getTranslatedProperty,
   humanizeMainType,
 };
 
@@ -85,16 +87,16 @@ function getAvailableTime(openingHours = {}, reservations = []) {
   return rounded === 1 ? `${rounded} tunti` : `${rounded} tuntia`;
 }
 
-function getDescription(item) {
-  const hasDescription = item && item.description && item.description.fi;
-
-  return hasDescription ? item.description.fi : '';
+function getCaption(item, language = 'fi') {
+  return getTranslatedProperty(item, 'caption', language);
 }
 
-function getName(item) {
-  const hasName = item && item.name && item.name.fi;
+function getDescription(item, language = 'fi') {
+  return getTranslatedProperty(item, 'description', language);
+}
 
-  return hasName ? item.name.fi : '';
+function getName(item, language) {
+  return getTranslatedProperty(item, 'name', language);
 }
 
 function getOpeningHours(item) {
@@ -113,6 +115,13 @@ function getPeopleCapacityString(capacity) {
     return '';
   }
   return `max ${capacity} hengelle.`;
+}
+
+function getTranslatedProperty(item, property, language = 'fi') {
+  if (item && item[property] && item[property][language]) {
+    return item[property][language];
+  }
+  return '';
 }
 
 function humanizeMainType(mainType) {
