@@ -11,6 +11,7 @@ import Unit from 'fixtures/Unit';
 describe('Component: search/SearchResult', () => {
   describe('rendering', () => {
     const props = {
+      date: '2015-10-10',
       result: Immutable(Resource.build()),
       unit: Immutable(Unit.build()),
     };
@@ -70,10 +71,20 @@ describe('Component: search/SearchResult', () => {
           tdTree = tdTrees[1];
         });
 
+        it('should have a Link to reservations page with a correct date', () => {
+          const linkTree = tdTree.subTree('Link');
+
+          expect(linkTree).to.be.ok;
+          expect(linkTree.props.to).to.equal(`/resources/${props.result.id}/reservation`);
+          expect(linkTree.props.query).to.deep.equal(
+            { date: props.date.split('T')[0] }
+          );
+        });
+
         it('should display the available hours', () => {
           const expected = '0 tuntia';
 
-          expect(tdTree.text()).to.equal(expected);
+          expect(tdTree.subTree('Link').props.children).to.equal(expected);
         });
       });
     });

@@ -38,6 +38,7 @@ describe('Container: SearchPage', () => {
     it('should pass correct props to SearchResults component', () => {
       const actualProps = searchResultsTrees[0].props;
 
+      expect(actualProps.date).to.equal(props.filters.date);
       expect(actualProps.isFetching).to.equal(props.isFetchingSearchResults);
       expect(actualProps.results).to.deep.equal(props.results);
       expect(actualProps.units).to.deep.equal(props.units);

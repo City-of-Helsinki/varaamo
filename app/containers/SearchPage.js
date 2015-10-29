@@ -20,7 +20,12 @@ export class UnconnectedSearchPage extends Component {
   }
 
   render() {
-    const { isFetchingSearchResults, results, units } = this.props;
+    const {
+      filters,
+      isFetchingSearchResults,
+      results,
+      units,
+    } = this.props;
 
     return (
       <DocumentTitle title="Haku - Respa">
@@ -29,6 +34,7 @@ export class UnconnectedSearchPage extends Component {
           <SearchControls />
           <h2>Hakutulokset</h2>
           <SearchResults
+            date={filters.date}
             isFetching={isFetchingSearchResults}
             results={results}
             units={units}

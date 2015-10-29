@@ -16,6 +16,7 @@ class SearchResults extends Component {
 
     return (
       <SearchResult
+        date={this.props.date}
         key={result.id}
         result={result}
         unit={unit}
@@ -49,6 +50,7 @@ class SearchResults extends Component {
 }
 
 SearchResults.propTypes = {
+  date: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
   results: PropTypes.array.isRequired,
   units: PropTypes.object.isRequired,

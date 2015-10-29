@@ -9,7 +9,7 @@ import {
 
 class SearchResult extends Component {
   render() {
-    const { result, unit } = this.props;
+    const { date, result, unit } = this.props;
 
     return (
       <tr>
@@ -19,13 +19,21 @@ class SearchResult extends Component {
           </Link>
           <div>{getName(unit)}</div>
         </td>
-        <td>{getAvailableTime(getOpeningHours(result), result.reservations)}</td>
+        <td>
+          <Link
+            to={`/resources/${result.id}/reservation`}
+            query={{ date: date.split('T')[0] }}
+          >
+            {getAvailableTime(getOpeningHours(result), result.reservations)}
+          </Link>
+        </td>
       </tr>
     );
   }
 }
 
 SearchResult.propTypes = {
+  date: PropTypes.string.isRequired,
   result: PropTypes.object.isRequired,
   unit: PropTypes.object.isRequired,
 };

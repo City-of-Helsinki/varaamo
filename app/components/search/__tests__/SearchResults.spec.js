@@ -12,6 +12,7 @@ describe('Component: search/SearchResults', () => {
   describe('with results', () => {
     const unit = Unit.build();
     const props = {
+      date: '2015-10-10',
       isFetching: false,
       results: Immutable([
         Resource.build({ unit: unit.id }),
@@ -64,8 +65,9 @@ describe('Component: search/SearchResults', () => {
         expect(resultTrees.length).to.equal(props.results.length);
       });
 
-      it('should pass result as a prop to SearchResult', () => {
+      it('should pass correct props to SearchResult', () => {
         resultTrees.forEach((resultTree, index) => {
+          expect(resultTree.props.date).to.equal(props.date);
           expect(resultTree.props.result).to.deep.equal(props.results[index]);
         });
       });
