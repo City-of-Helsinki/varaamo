@@ -33,7 +33,11 @@ class ReservationsTableRow extends Component {
     } = this.props;
 
     selectReservationToEdit(reservation);
-    pushState(null, `/resources/${reservation.resource}/reservation`);
+    pushState(
+      null,
+      `/resources/${reservation.resource}/reservation`,
+      { date: reservation.begin.split('T')[0] }
+    );
   }
 
   renderButtons() {
