@@ -85,7 +85,6 @@ export class UnconnectedReservationsTable extends Component {
               <thead>
                 <tr>
                   <th>Tila</th>
-                  <th>Sijainti</th>
                   <th>Aika</th>
                   <th>Toiminnot</th>
                 </tr>

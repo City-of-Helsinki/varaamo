@@ -43,11 +43,11 @@ class DeleteModal extends Component {
         show={show}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Poistamisen varmistus</Modal.Title>
+          <Modal.Title>Poistamisen vahvistus</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-          <p>Oletko varma että haluat poistaa seuraavat varaukset?</p>
+          <p><strong>Oletko varma että haluat poistaa seuraavat varaukset?</strong></p>
           <ul>
             {_.map(reservationsToDelete, this.renderReservation)}
           </ul>

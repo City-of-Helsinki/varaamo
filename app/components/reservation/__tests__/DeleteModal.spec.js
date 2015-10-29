@@ -45,10 +45,10 @@ describe('Component: reservation/DeleteModal', () => {
       expect(modalTitleTrees.length).to.equal(1);
     });
 
-    it('the ModalTitle should display text "Poistamisen varmistus"', () => {
+    it('the ModalTitle should display text "Poistamisen vahvistus"', () => {
       const modalTitleTree = tree.subTree('ModalTitle');
 
-      expect(modalTitleTree.props.children).to.equal('Poistamisen varmistus');
+      expect(modalTitleTree.props.children).to.equal('Poistamisen vahvistus');
     });
   });
 

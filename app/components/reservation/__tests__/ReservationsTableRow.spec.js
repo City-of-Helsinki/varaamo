@@ -31,8 +31,8 @@ describe('Component: reservation/ReservationsTableRow', () => {
     describe('table cells', () => {
       const tdTrees = tree.everySubTree('td');
 
-      it('should render 4 table cells', () => {
-        expect(tdTrees).to.have.length(4);
+      it('should render 3 table cells', () => {
+        expect(tdTrees).to.have.length(3);
       });
 
       describe('the first table cell', () => {
@@ -49,20 +49,26 @@ describe('Component: reservation/ReservationsTableRow', () => {
 
           expect(tdTree.toString()).to.contain(expected);
         });
+
+        it('should display the name of the given unit in props', () => {
+          const expected = props.unit.name.fi;
+
+          expect(tdTree.text()).to.contain(expected);
+        });
       });
 
       describe('the second table cell', () => {
         const tdTree = tdTrees[1];
 
-        it('should display the name of the given unit in props', () => {
-          const expected = props.unit.name.fi;
+        it('should have a Link with correct props', () => {
+          const linkTree = tdTree.subTree('Link');
 
-          expect(tdTree.text()).to.equal(expected);
+          expect(linkTree).to.be.ok;
+          expect(linkTree.props.to).to.equal(`/resources/${props.resource.id}/reservation`);
+          expect(linkTree.props.query).to.deep.equal(
+            { date: props.reservation.begin.split('T')[0] }
+          );
         });
-      });
-
-      describe('the third table cell', () => {
-        const tdTree = tdTrees[2];
 
         it('should contain a TimeRange component with correct begin and end times', () => {
           const timeRangeTree = tdTree.subTree('TimeRange');
@@ -72,8 +78,8 @@ describe('Component: reservation/ReservationsTableRow', () => {
         });
       });
 
-      describe('the fourth table cell', () => {
-        const tdTree = tdTrees[3];
+      describe('the third table cell', () => {
+        const tdTree = tdTrees[2];
         const buttonTrees = tdTree.everySubTree('Button');
 
         it('should contain two buttons', () => {
