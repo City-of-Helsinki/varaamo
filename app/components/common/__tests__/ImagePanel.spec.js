@@ -5,12 +5,13 @@ import sd from 'skin-deep';
 import Immutable from 'seamless-immutable';
 
 import ImagePanel from 'components/common/ImagePanel';
+import Image from 'fixtures/Image';
 
 describe('Component: common/ImagePanel', () => {
   describe('with images', () => {
     const images = [
-      { url: 'some-url', caption: { fi: 'some caption' } },
-      { url: 'some-url', caption: null },
+      Image.build(),
+      Image.build({ caption: null }),
     ];
     const props = {
       altText: 'some alt text',
