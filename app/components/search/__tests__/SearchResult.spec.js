@@ -5,6 +5,7 @@ import sd from 'skin-deep';
 import Immutable from 'seamless-immutable';
 
 import SearchResult from 'components/search/SearchResult';
+import Image from 'fixtures/Image';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
 
@@ -12,7 +13,9 @@ describe('Component: search/SearchResult', () => {
   describe('rendering', () => {
     const props = {
       date: '2015-10-10',
-      result: Immutable(Resource.build()),
+      result: Immutable(Resource.build({
+        images: [Image.build()],
+      })),
       unit: Immutable(Unit.build()),
     };
     let tree;
@@ -34,8 +37,8 @@ describe('Component: search/SearchResult', () => {
         tdTrees = tree.everySubTree('td');
       });
 
-      it('should render 2 table cells', () => {
-        expect(tdTrees).to.have.length(2);
+      it('should render 3 table cells', () => {
+        expect(tdTrees).to.have.length(3);
       });
 
       describe('the first table cell', () => {
@@ -43,6 +46,23 @@ describe('Component: search/SearchResult', () => {
 
         before(() => {
           tdTree = tdTrees[0];
+        });
+
+        it('should display an image with correct props', () => {
+          const imageTree = tdTree.subTree('img');
+          const image = props.result.images[0];
+
+          expect(imageTree).to.be.ok;
+          expect(imageTree.props.alt).to.equal(image.caption.fi);
+          expect(imageTree.props.src).to.equal(`${image.url}?dim=80x80`);
+        });
+      });
+
+      describe('the second table cell', () => {
+        let tdTree;
+
+        before(() => {
+          tdTree = tdTrees[1];
         });
 
         it('should contain a link to resources page', () => {
@@ -64,11 +84,11 @@ describe('Component: search/SearchResult', () => {
         });
       });
 
-      describe('the second table cell', () => {
+      describe('the third table cell', () => {
         let tdTree;
 
         before(() => {
-          tdTree = tdTrees[1];
+          tdTree = tdTrees[2];
         });
 
         it('should have a Link to reservations page with a correct date', () => {

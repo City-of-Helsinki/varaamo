@@ -49,6 +49,10 @@ describe('Component: search/SearchResults', () => {
         expect(thTrees[0].text()).to.equal('Tila');
       });
 
+      it('first th element should span two columns', () => {
+        expect(thTrees[0].props.colSpan).to.equal('2');
+      });
+
       it('second th element should contain text "Vapaata"', () => {
         expect(thTrees[1].text()).to.equal('Vapaata');
       });

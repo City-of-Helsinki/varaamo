@@ -33,7 +33,7 @@ class SearchResults extends Component {
           <Table striped>
             <thead>
               <tr>
-                <th>Tila</th>
+                <th colSpan="2">Tila</th>
                 <th>Vapaata</th>
               </tr>
             </thead>
