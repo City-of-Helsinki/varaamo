@@ -17,8 +17,8 @@ class SearchResult extends Component {
           <Link to={`/resources/${result.id}`}>
             {getName(result)}
           </Link>
+          <div>{getName(unit)}</div>
         </td>
-        <td>{getName(unit)}</td>
         <td>{getAvailableTime(getOpeningHours(result), result.reservations)}</td>
       </tr>
     );

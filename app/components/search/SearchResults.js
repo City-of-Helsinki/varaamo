@@ -33,7 +33,6 @@ class SearchResults extends Component {
             <thead>
               <tr>
                 <th>Tila</th>
-                <th>Sijainti</th>
                 <th>Vapaata</th>
               </tr>
             </thead>
