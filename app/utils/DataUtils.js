@@ -10,6 +10,7 @@ export default {
   getAvailableTime,
   getCaption,
   getDescription,
+  getMainImage,
   getName,
   getOpeningHours,
   getPeopleCapacityString,
@@ -93,6 +94,14 @@ function getCaption(item, language = 'fi') {
 
 function getDescription(item, language = 'fi') {
   return getTranslatedProperty(item, 'description', language);
+}
+
+function getMainImage(images) {
+  if (!images || !images.length) {
+    return {};
+  }
+
+  return _.find(images, { type: 'main' }) || images[0];
 }
 
 function getName(item, language) {
