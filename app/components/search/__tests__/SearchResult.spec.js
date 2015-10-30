@@ -5,13 +5,17 @@ import sd from 'skin-deep';
 import Immutable from 'seamless-immutable';
 
 import SearchResult from 'components/search/SearchResult';
+import Image from 'fixtures/Image';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
 
 describe('Component: search/SearchResult', () => {
   describe('rendering', () => {
     const props = {
-      result: Immutable(Resource.build()),
+      date: '2015-10-10',
+      result: Immutable(Resource.build({
+        images: [Image.build()],
+      })),
       unit: Immutable(Unit.build()),
     };
     let tree;
@@ -44,6 +48,23 @@ describe('Component: search/SearchResult', () => {
           tdTree = tdTrees[0];
         });
 
+        it('should display an image with correct props', () => {
+          const imageTree = tdTree.subTree('img');
+          const image = props.result.images[0];
+
+          expect(imageTree).to.be.ok;
+          expect(imageTree.props.alt).to.equal(image.caption.fi);
+          expect(imageTree.props.src).to.equal(`${image.url}?dim=80x80`);
+        });
+      });
+
+      describe('the second table cell', () => {
+        let tdTree;
+
+        before(() => {
+          tdTree = tdTrees[1];
+        });
+
         it('should contain a link to resources page', () => {
           const linkTree = tdTree.subTree('Link');
 
@@ -55,19 +76,11 @@ describe('Component: search/SearchResult', () => {
 
           expect(tdTree.toString()).to.contain(expected);
         });
-      });
-
-      describe('the second table cell', () => {
-        let tdTree;
-
-        before(() => {
-          tdTree = tdTrees[1];
-        });
 
         it('should display the name of the given unit in props', () => {
           const expected = props.unit.name.fi;
 
-          expect(tdTree.text()).to.equal(expected);
+          expect(tdTree.toString()).to.contain(expected);
         });
       });
 
@@ -78,10 +91,20 @@ describe('Component: search/SearchResult', () => {
           tdTree = tdTrees[2];
         });
 
+        it('should have a Link to reservations page with a correct date', () => {
+          const linkTree = tdTree.subTree('Link');
+
+          expect(linkTree).to.be.ok;
+          expect(linkTree.props.to).to.equal(`/resources/${props.result.id}/reservation`);
+          expect(linkTree.props.query).to.deep.equal(
+            { date: props.date.split('T')[0] }
+          );
+        });
+
         it('should display the available hours', () => {
           const expected = '0 tuntia';
 
-          expect(tdTree.text()).to.equal(expected);
+          expect(tdTree.subTree('Link').props.children).to.equal(expected);
         });
       });
     });

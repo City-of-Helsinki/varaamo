@@ -2,6 +2,8 @@ import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 import { Panel } from 'react-bootstrap';
 
+import { getCaption } from 'utils/DataUtils';
+
 class ImagePanel extends Component {
   constructor(props) {
     super(props);
@@ -9,7 +11,7 @@ class ImagePanel extends Component {
   }
 
   renderImage(image, index) {
-    const alt = image.caption || this.props.altText;
+    const alt = getCaption(image) || this.props.altText;
     const src = image.url;
     const imageStyles = {
       width: '100%',

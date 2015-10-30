@@ -2,15 +2,18 @@ import { expect } from 'chai';
 import MockDate from 'mockdate';
 
 import { PURPOSE_MAIN_TYPES } from 'constants/AppConstants';
+import Image from 'fixtures/Image';
 import {
   combineReservations,
   getAddress,
   getAddressWithName,
   getAvailableTime,
   getDescription,
+  getMainImage,
   getName,
   getOpeningHours,
   getPeopleCapacityString,
+  getTranslatedProperty,
   humanizeMainType,
 } from 'utils/DataUtils';
 
@@ -324,6 +327,49 @@ describe('Utils: DataUtils', () => {
     });
   });
 
+  describe('getMainImage', () => {
+    it('should return an empty object if images is undefined', () => {
+      const images = undefined;
+
+      expect(getMainImage(images)).to.deep.equal({});
+    });
+
+    it('should return an empty object if images is empty', () => {
+      const images = [];
+
+      expect(getMainImage(images)).to.deep.equal({});
+    });
+
+    it('should return the image that is of type "main"', () => {
+      const images = [
+        Image.build({ type: 'other' }),
+        Image.build({ type: 'main' }),
+        Image.build({ type: 'other' }),
+      ];
+
+      expect(getMainImage(images)).to.deep.equal(images[1]);
+    });
+
+    it('should return the first image that is of type "main"', () => {
+      const images = [
+        Image.build({ type: 'other' }),
+        Image.build({ type: 'main' }),
+        Image.build({ type: 'main' }),
+      ];
+
+      expect(getMainImage(images)).to.deep.equal(images[1]);
+    });
+
+    it('should return the first image if none of the images is of type "main"', () => {
+      const images = [
+        Image.build({ type: 'other' }),
+        Image.build({ type: 'other' }),
+      ];
+
+      expect(getMainImage(images)).to.deep.equal(images[0]);
+    });
+  });
+
   describe('getName', () => {
     it('should return an empty string if item is undefined', () => {
       const item = undefined;
@@ -410,6 +456,43 @@ describe('Utils: DataUtils', () => {
       const expected = `max ${capacity} hengelle.`;
 
       expect(capacityString).to.equal(expected);
+    });
+  });
+
+  describe('getTranslatedProperty', () => {
+    it('should return an empty string if item is undefined', () => {
+      const item = undefined;
+
+      expect(getTranslatedProperty(item, 'name')).to.equal('');
+    });
+
+    it('should return an empty string if item[property] is undefined', () => {
+      const item = {};
+
+      expect(getTranslatedProperty(item, 'name')).to.equal('');
+    });
+
+    it('should return an empty string if the property does not have given language', () => {
+      const item = { name: { 'fi': 'Finnish name' } };
+
+      expect(getTranslatedProperty(item, 'name', 'en')).to.equal('');
+    });
+
+    it('should return translated value', () => {
+      const item = { name: { en: 'Some name' } };
+
+      expect(getTranslatedProperty(item, 'name', 'en')).to.equal('Some name');
+    });
+
+    it('language should default to finnish', () => {
+      const item = {
+        name: {
+          fi: 'Finnish name',
+          en: 'English name',
+        },
+      };
+
+      expect(getTranslatedProperty(item, 'name')).to.equal('Finnish name');
     });
   });
 

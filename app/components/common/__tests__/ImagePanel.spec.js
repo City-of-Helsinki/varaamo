@@ -5,12 +5,13 @@ import sd from 'skin-deep';
 import Immutable from 'seamless-immutable';
 
 import ImagePanel from 'components/common/ImagePanel';
+import Image from 'fixtures/Image';
 
 describe('Component: common/ImagePanel', () => {
   describe('with images', () => {
     const images = [
-      { url: 'some-url', caption: 'some caption' },
-      { url: 'some-url', caption: null },
+      Image.build(),
+      Image.build({ caption: null }),
     ];
     const props = {
       altText: 'some alt text',
@@ -46,7 +47,7 @@ describe('Component: common/ImagePanel', () => {
         const actualProps = tree.everySubTree('img')[0].props;
         const image = images[0];
 
-        expect(actualProps.alt).to.equal(image.caption);
+        expect(actualProps.alt).to.equal(image.caption.fi);
         expect(actualProps.src).to.equal(image.url);
       });
 
