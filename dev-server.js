@@ -1,35 +1,23 @@
 /* eslint-disable
-  func-names,
   no-console,
   no-var,
-  prefer-arrow-callback,
-  prefer-template
 */
 
+var express = require('express');
+var path = require('path');
 var webpack = require('webpack');
-var WebpackDevServer = require('webpack-dev-server');
+var webpackMiddleware = require('webpack-dev-middleware');
+var webpackHotMiddleware = require('webpack-hot-middleware');
+
 var config = require('./conf/webpack.development');
 
+var app = express();
 var compiler = webpack(config);
-var bundler;
-var bundleStart = null;
-var port = 3030;
+var port = 3000;
 
 console.log('Starting development server...');
 
-compiler.plugin('compile', function() {
-  console.log('Bundling...');
-  bundleStart = Date.now();
-});
-
-compiler.plugin('done', function() {
-  console.log('Bundled in ' + (Date.now() - bundleStart) + 'ms!');
-});
-
-bundler = new WebpackDevServer(compiler, {
-  historyApiFallback: true,
-  hot: true,
-  inline: true,
+app.use(webpackMiddleware(compiler, {
   publicPath: config.output.publicPath,
   quiet: false,
   noInfo: false,
@@ -43,8 +31,17 @@ bundler = new WebpackDevServer(compiler, {
     timings: false,
     version: false,
   },
+}));
+
+app.use(webpackHotMiddleware(compiler));
+
+app.get('*', function response(req, res) {
+  res.sendFile(path.join(__dirname, './dist/index.html'));
 });
 
-bundler.listen(port, 'localhost', function() {
-  console.log('Bundling project, please wait...');
+app.listen(port, 'localhost', function onStart(err) {
+  if (err) {
+    console.log(err);
+  }
+  console.log('Listening at http://localhost:' + port);
 });
