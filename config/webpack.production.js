@@ -54,7 +54,7 @@ module.exports = merge(common, {
       hash: true,
       inject: true,
       production: true,
-      template: './config/template.html',
+      template: './app/index.template.html',
     }),
   ],
 });

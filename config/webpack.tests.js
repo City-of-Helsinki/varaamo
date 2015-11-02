@@ -24,7 +24,7 @@ module.exports = merge(common, {
     new HtmlWebpackPlugin({
       favicon: './app/assets/images/favicon.ico',
       inject: true,
-      template: './config/template.html',
+      template: './app/index.template.html',
     }),
   ],
 });
