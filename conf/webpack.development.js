@@ -32,6 +32,22 @@ module.exports = merge(common, {
         test: /\.js$/,
         include: path.resolve(__dirname, '../app'),
         loader: 'babel',
+        query: {
+          'stage': 2,
+          'plugins': ['react-transform'],
+          'extra': {
+            'react-transform': {
+              'transforms': [{
+                'transform': 'react-transform-hmr',
+                'imports': ['react'],
+                'locals': ['module'],
+              }, {
+                'transform': 'react-transform-catch-errors',
+                'imports': ['react', 'redbox-react'],
+              }],
+            },
+          },
+        },
       },
       {
         test: /\.css$/,
