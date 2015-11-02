@@ -31,6 +31,7 @@ module.exports = merge(common, {
       {
         test: /\.js$/,
         include: path.resolve(__dirname, '../app'),
+        exclude: path.resolve(__dirname, '../node_modules'),
         loader: 'babel',
         query: {
           'stage': 2,
