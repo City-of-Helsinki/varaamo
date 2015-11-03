@@ -11,10 +11,6 @@ module.exports = {
         loader: 'url?limit=100000&mimetype=image/png',
       },
       {
-        test: /\.svg$/,
-        loader: 'url?limit=100000&mimetype=image/svg+xml',
-      },
-      {
         test: /\.gif$/,
         loader: 'url?limit=100000&mimetype=image/gif',
       },
@@ -23,16 +19,8 @@ module.exports = {
         loader: 'file',
       },
       {
-        test: /\.woff$|.woff2$/,
-        loader: 'url-loader?limit=10000&mimetype=application/font-woff',
-      },
-      {
-        test: /\.ttf$/,
-        loader: 'file-loader',
-      },
-      {
-        test: /\.eot$/,
-        loader: 'file-loader',
+        test: /\.woff|\.woff2|\.svg|.eot|\.ttf/,
+        loader: 'url?prefix=font/&limit=10000',
       },
     ],
   },
