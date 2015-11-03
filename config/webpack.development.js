@@ -31,6 +31,7 @@ module.exports = merge(common, {
       {
         test: /\.js$/,
         include: path.resolve(__dirname, '../app'),
+        exclude: path.resolve(__dirname, '../node_modules'),
         loader: 'babel',
         query: {
           'stage': 2,
@@ -67,7 +68,7 @@ module.exports = merge(common, {
     new HtmlWebpackPlugin({
       favicon: './app/assets/images/favicon.ico',
       inject: true,
-      template: './conf/template.html',
+      template: './app/index.template.html',
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
