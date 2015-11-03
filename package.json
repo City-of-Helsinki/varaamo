@@ -5,7 +5,7 @@
     "type": "git",
     "url": "https://github.com/fastmonkeys/respa-ui.git"
   },
-  "main": "production-server.js",
+  "main": "server/production-server.js",
   "dependencies": {
     "classnames": "^2.2.0",
     "history": "^1.13.0",
@@ -85,8 +85,8 @@
     "webpack-merge": "^0.2.0"
   },
   "scripts": {
-    "start": "node dev-server.js",
-    "start:production": "node production-server.js",
+    "start": "node server/dev-server.js",
+    "start:production": "node server/production-server.js",
     "build": "./node_modules/.bin/webpack --config config/webpack.production.js",
     "test": "npm run lint && ./node_modules/karma/bin/karma start config/karma.conf.js --single-run",
     "test:watch": "npm run lint && ./node_modules/karma/bin/karma start config/karma.conf.js",

@@ -11,7 +11,7 @@ var path = require('path');
 
 var app = express();
 var port = 8080;
-var publicPath = path.resolve(__dirname, './dist');
+var publicPath = path.resolve(__dirname, '../dist');
 
 console.log('Starting production server...');
 
