@@ -1,19 +1,16 @@
-/* eslint-disable
-  no-console,
-  no-var,
-*/
+/* eslint-disable no-console */
 
-var express = require('express');
-var path = require('path');
-var webpack = require('webpack');
-var webpackMiddleware = require('webpack-dev-middleware');
-var webpackHotMiddleware = require('webpack-hot-middleware');
+import express from 'express';
+import path from 'path';
+import webpack from 'webpack';
+import webpackMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
 
-var config = require('../config/webpack.development');
+import config from '../config/webpack.development';
 
-var app = express();
-var compiler = webpack(config);
-var port = 3000;
+const app = express();
+const compiler = webpack(config);
+const port = 3000;
 
 console.log('Starting development server...');
 
@@ -43,5 +40,5 @@ app.listen(port, 'localhost', function onStart(err) {
   if (err) {
     console.log(err);
   }
-  console.log('Listening at http://localhost:' + port);
+  console.log(`Listening at http://localhost:${port}`);
 });

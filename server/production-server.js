@@ -1,17 +1,11 @@
-/* eslint-disable
-  func-names,
-  no-console,
-  no-var,
-  prefer-arrow-callback,
-  prefer-template
-*/
+/* eslint-disable func-names, no-console */
 
-var express = require('express');
-var path = require('path');
+import express from 'express';
+import path from 'path';
 
-var app = express();
-var port = 8080;
-var publicPath = path.resolve(__dirname, '../dist');
+const app = express();
+const port = 8080;
+const publicPath = path.resolve(__dirname, '../dist');
 
 console.log('Starting production server...');
 
