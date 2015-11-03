@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 
 import express from 'express';
-import path from 'path';
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
 import config from '../config/webpack.development';
+import routes from './routes';
 
 const app = express();
 const compiler = webpack(config);
@@ -32,9 +32,7 @@ app.use(webpackMiddleware(compiler, {
 
 app.use(webpackHotMiddleware(compiler));
 
-app.get('*', function response(req, res) {
-  res.sendFile(path.join(__dirname, '../dist/index.html'));
-});
+app.use(routes);
 
 app.listen(port, 'localhost', function onStart(err) {
   if (err) {
