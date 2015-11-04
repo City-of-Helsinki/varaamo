@@ -8,6 +8,7 @@ import { pushState } from 'redux-router';
 import { logout } from 'actions/authActions';
 import Footer from 'components/layout/Footer';
 import Navbar from 'components/layout/Navbar';
+import Notifications from 'containers/Notifications';
 import appSelector from 'selectors/containers/appSelector';
 
 export class UnconnectedApp extends Component {
@@ -35,6 +36,7 @@ export class UnconnectedApp extends Component {
           />
           <div className="app-content">
             <Grid>
+              <Notifications />
               {children}
             </Grid>
           </div>

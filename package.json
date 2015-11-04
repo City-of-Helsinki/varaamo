@@ -22,6 +22,7 @@
     "react-document-title": "^2.0.1",
     "react-dom": "^0.14.2",
     "react-loader": "git://github.com/dallonf/react-loader.git",
+    "react-notifications": "^0.1.0",
     "react-pure-render": "^1.0.2",
     "react-redux": "^4.0.0",
     "react-router": "^1.0.0-rc3",
