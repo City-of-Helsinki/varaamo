@@ -3,18 +3,11 @@ import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
 
-const mockUsersData = {
-  'u-1': {
-    id: 'u-1',
-    name: 'Luke Skywalker',
-  },
-};
-
 const initialState = Immutable({
   reservations: {},
   resources: {},
   units: {},
-  users: mockUsersData,
+  users: {},
 });
 
 function handleData(state, data) {
