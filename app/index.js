@@ -9,7 +9,8 @@ import configureStore from 'store/configureStore';
 
 import 'assets/styles/app.less';
 
-const store = configureStore();
+const initialState = window.__INITIAL_STATE__;
+const store = configureStore(initialState);
 
 render(
   <Provider store={store}>

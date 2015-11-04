@@ -3,7 +3,6 @@
 var path = require('path');
 var webpack = require('webpack');
 var merge = require('webpack-merge');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var common = require('./webpack.common');
 
@@ -64,11 +63,6 @@ module.exports = merge(common, {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'),
       __DEVTOOLS__: false,
-    }),
-    new HtmlWebpackPlugin({
-      favicon: './app/assets/images/favicon.ico',
-      inject: true,
-      template: './app/index.template.html',
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),

@@ -1,10 +1,7 @@
 import express from 'express';
-import path from 'path';
+import handleRender from './handleRender';
 
 const router = express.Router();
 
-router.get('*', function response(req, res) {
-  res.sendFile(path.join(__dirname, '../dist/index.html'));
-});
-
+router.get('/', handleRender);
 export default router;

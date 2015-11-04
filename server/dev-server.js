@@ -34,9 +34,10 @@ app.use(webpackHotMiddleware(compiler));
 
 app.use(routes);
 
-app.listen(port, 'localhost', function onStart(err) {
-  if (err) {
-    console.log(err);
+app.listen(port, (error) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log(`Listening at http://localhost:${port}`);
   }
-  console.log(`Listening at http://localhost:${port}`);
 });
