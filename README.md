@@ -80,3 +80,12 @@ Code style and linting
 The code mostly follows the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript).
 All JavaScript should be written in ES2015 syntax.
 Code is automatically linted with [eslint](http://eslint.org/) when running unit tests or bundling the app with webpack.
+
+Testing framework
+-----------------
+
+- [Karma](http://karma-runner.github.io/0.13/index.html) is used to run the tests. On local machines tests are run on [PhantomJS](http://phantomjs.org/) to make running tests in watch mode as smooth as possible. On CI the tests are run on Chrome. 
+- [Mocha](https://mochajs.org/) is used as the test framework.
+- [Chai](http://chaijs.com/) is used for test assertions.
+- [simple-mock](https://github.com/jupiter/simple-mock) and [MockDate](https://github.com/boblauer/MockDate) are used for mocking and spies.
+- [skin-deep](https://github.com/glenjamin/skin-deep) is used to make testing React components with shallow rendering easier.
