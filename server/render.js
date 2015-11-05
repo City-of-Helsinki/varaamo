@@ -1,6 +1,8 @@
-import Html from './Html';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
+
+import config from './config';
+import Html from './Html';
 
 function render(req, res) {
   const user = req.user;
@@ -16,11 +18,12 @@ function render(req, res) {
     };
   }
 
-  const appScriptSrc = '/app.js';
   const html = '<!DOCTYPE html>' + ReactDOMServer.renderToStaticMarkup(
     <Html
-      appScriptSrc={appScriptSrc}
+      appCssSrc={config.assetsSources.appCss}
+      appScriptSrc={config.assetsSources.appJs}
       initialState={initialState}
+      isProduction={config.isProduction}
     />
   );
 

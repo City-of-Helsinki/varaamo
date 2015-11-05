@@ -4,7 +4,6 @@ var path = require('path');
 var webpack = require('webpack');
 var merge = require('webpack-merge');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var common = require('./webpack.common');
 
@@ -15,7 +14,7 @@ module.exports = merge(common, {
   output: {
     path: path.resolve(__dirname, '../dist'),
     publicPath: '',
-    filename: 'app.[hash].js',
+    filename: 'app.js',
   },
   module: {
     loaders: [
@@ -43,18 +42,13 @@ module.exports = merge(common, {
       },
     }),
     new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
+        screw_ie8: true,
         warnings: false,
       },
     }),
-    new ExtractTextPlugin('app.[hash].css'),
-    new HtmlWebpackPlugin({
-      favicon: path.resolve(__dirname, '../app/assets/images/favicon.ico'),
-      hash: true,
-      inject: true,
-      production: true,
-      template: './app/index.template.html',
-    }),
+    new ExtractTextPlugin('app.css'),
   ],
 });

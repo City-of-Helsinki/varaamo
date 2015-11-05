@@ -8,14 +8,19 @@ import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
-import config from '../config/webpack.development';
+import serverConfig from './config';
 import render from './render';
+import webpackConfig from '../config/webpack.development';
 
 const app = express();
-const compiler = webpack(config);
-const port = 3000;
+const compiler = webpack(webpackConfig);
+const port = serverConfig.port;
 
-console.log('Starting development server...');
+if (serverConfig.isProduction) {
+  console.log('Starting production server for reals...');
+} else {
+  console.log('Starting development server...');
+}
 
 // Passport configuration
 // ######################
@@ -24,7 +29,7 @@ passport.use(new Strategy(
   {
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: 'http://localhost:3000/login/helsinki/return',
+    callbackURL: `http://localhost:${port}/login/helsinki/return`,
   },
   function(accessToken, refreshToken, profile, cb) {
     return cb(null, profile);
@@ -38,23 +43,28 @@ passport.deserializeUser(function(obj, cb) {
   cb(null, obj);
 });
 
-app.use(webpackMiddleware(compiler, {
-  publicPath: config.output.publicPath,
-  quiet: false,
-  noInfo: false,
-  stats: {
-    assets: false,
-    chunkModules: false,
-    chunks: true,
-    colors: true,
-    hash: false,
-    progress: false,
-    timings: false,
-    version: false,
-  },
-}));
+if (!serverConfig.isProduction) {
+  app.use(webpackMiddleware(compiler, {
+    publicPath: webpackConfig.output.publicPath,
+    quiet: false,
+    noInfo: false,
+    stats: {
+      assets: false,
+      chunkModules: false,
+      chunks: true,
+      colors: true,
+      hash: false,
+      progress: false,
+      timings: false,
+      version: false,
+    },
+  }));
 
-app.use(webpackHotMiddleware(compiler));
+  app.use(webpackHotMiddleware(compiler));
+} else {
+  // Serve the static assets. We can cache them as they include hashes.
+  app.use('/_assets', express.static('dist', { maxAge: '200d' }));
+}
 
 // Use application-level middleware for common functionality, including
 // logging, parsing, and session handling.
@@ -83,6 +93,10 @@ app.listen(port, (error) => {
   if (error) {
     console.error(error);
   } else {
-    console.log(`Listening at http://localhost:${port}`);
+    if (serverConfig.isProduction) {
+      console.log('Production server running on port ' + port);
+    } else {
+      console.log(`Listening at http://localhost:${port}`);
+    }
   }
 });

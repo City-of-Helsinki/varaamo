@@ -6,8 +6,21 @@ class Html extends Component {
     return `window.__INITIAL_STATE__ = ${serialize(initialState)};`;
   }
 
+  renderStylesLink(appCssSrc, isProduction) {
+    if (!isProduction) {
+      return null;
+    }
+
+    return <link href={appCssSrc} rel="stylesheet" />;
+  }
+
   render() {
-    const { appScriptSrc, initialState } = this.props;
+    const {
+      appCssSrc,
+      appScriptSrc,
+      initialState,
+      isProduction,
+    } = this.props;
     const initialStateHtml = this.getInitialStateHtml(initialState);
 
     return (
@@ -16,6 +29,7 @@ class Html extends Component {
           <meta charSet="utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
           <meta content="width=device-width, initial-scale=1" name="viewport" />
+          {this.renderStylesLink(appCssSrc, isProduction)}
           <title>Respa</title>
         </head>
         <body>
@@ -29,8 +43,10 @@ class Html extends Component {
 }
 
 Html.propTypes = {
+  appCssSrc: PropTypes.string.isRequired,
   appScriptSrc: PropTypes.string.isRequired,
   initialState: PropTypes.object.isRequired,
+  isProduction: PropTypes.bool.isRequired,
 };
 
 export default Html;
