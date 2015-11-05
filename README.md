@@ -67,22 +67,16 @@ By default the running app uses port `8080`.
     $ npm run start:production
     ```
 
-### Running tests
+### Running code linter
 
-- Running unit tests:
-
-    ```
-    $ npm test
-    ```
-
-- Running tests on watch mode:
+- To check the code for linting errors:
 
     ```
-    $ npm run test:watch
+    $ npm run lint
     ```
 
-- Running tests with code coverage:
-
-    ```
-    $ npm run test:coverage
-    ```
+Code style and linting
+----------------------
+The code mostly follows the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript).
+All JavaScript should be written in ES2015 syntax.
+Code is automatically linted with [eslint](http://eslint.org/) when running unit tests or bundling the app with webpack.
