@@ -6,7 +6,8 @@ Respa-ui
 Requirements
 ------------
 
-- [node.js](http://nodejs.org/)
+- [node](http://nodejs.org/) `^0.12.7`
+- [npm](https://www.npmjs.com/) `^2.11.3`
 
 Development
 -----------
