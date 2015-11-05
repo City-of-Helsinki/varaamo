@@ -6,28 +6,27 @@ import { reduxReactRouter } from 'redux-router';
 import getRoutes from 'app/routes';
 import rootReducer from 'reducers/index';
 
+const isDevelopment = process.env.NODE_ENV !== 'production';
 let finalCreateStore;
+const storeEnhancers = [
+  applyMiddleware(apiMiddleware),
+  reduxReactRouter({ getRoutes, createHistory }),
+];
 
-if (__DEVTOOLS__) {
-  const { devTools, persistState } = require('redux-devtools');
+if (isDevelopment) {
   const createLogger = require('redux-logger');
   const loggerMiddleware = createLogger();
-
-  finalCreateStore = compose(
-    applyMiddleware(apiMiddleware),
-    reduxReactRouter({ getRoutes, createHistory }),
-    applyMiddleware(loggerMiddleware),
-    devTools(),
-    persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
-  )(createStore);
-} else {
-  finalCreateStore = compose(
-    applyMiddleware(apiMiddleware),
-    reduxReactRouter({ getRoutes, createHistory }),
-  )(createStore);
+  storeEnhancers.push(applyMiddleware(loggerMiddleware));
+  if (__DEVTOOLS__) {
+    const { devTools, persistState } = require('redux-devtools');
+    storeEnhancers.push(devTools());
+    storeEnhancers.push(persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/)));
+  }
 }
 
-export default function configureStore(initialState) {
+finalCreateStore = compose(...storeEnhancers)(createStore);
+
+function configureStore(initialState) {
   const store = finalCreateStore(rootReducer, initialState);
 
   if (module.hot) {
@@ -40,3 +39,5 @@ export default function configureStore(initialState) {
 
   return store;
 }
+
+export default configureStore;
