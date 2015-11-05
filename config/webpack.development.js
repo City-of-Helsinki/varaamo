@@ -63,7 +63,7 @@ module.exports = merge(common, {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'),
-      __DEVTOOLS__: true,
+      __DEVTOOLS__: false,
     }),
     new HtmlWebpackPlugin({
       favicon: './app/assets/images/favicon.ico',
