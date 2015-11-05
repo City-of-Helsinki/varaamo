@@ -1,4 +1,6 @@
-import renderFullPage from './renderFullPage';
+import Html from './Html';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
 function handleRender(req, res) {
   const user = req.user;
@@ -14,8 +16,16 @@ function handleRender(req, res) {
     };
   }
 
+  const appScriptSrc = '/app.js';
+  const html = '<!DOCTYPE html>' + ReactDOMServer.renderToStaticMarkup(
+    <Html
+      appScriptSrc={appScriptSrc}
+      initialState={initialState}
+    />
+  );
+
   // Send the rendered page back to the client
-  res.send(renderFullPage(initialState));
+  res.send(html);
 }
 
 export default handleRender;
