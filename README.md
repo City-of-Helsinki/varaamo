@@ -11,6 +11,19 @@ Requirements
 - [node](http://nodejs.org/) `^0.12.7`
 - [npm](https://www.npmjs.com/) `^2.11.3`
 
+Architecture
+------------
+
+- [Redux](https://github.com/rackt/redux) handles the state management of the app. For more info check their awesome [docs](http://rackt.org/redux/index.html).
+- [React](https://facebook.github.io/react/) handles the rendering of the 'views'.
+- [react-redux](https://github.com/rackt/react-redux) is used to connect the Redux Store to React components.
+- [react-router](https://github.com/rackt/react-router) handles the routing of the app.
+- [reselect](https://github.com/rackt/reselect) is used for getting data from Redux Store and manipulating it to be better usable in React components.
+- [redux-api-middleware](https://github.com/agraboso/redux-api-middleware) is used to interact with the API.
+- The application is run on an [express](http://expressjs.com/) server.
+- [webpack](https://webpack.github.io/) takes modules with dependencies and generates static assets representing those modules.
+- [Babel](https://babeljs.io/) transforms JavaScript written in ES2015 and JSX syntax to regular JavaScript.
+
 Development
 -----------
 
