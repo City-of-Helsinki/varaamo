@@ -3,6 +3,8 @@ Respa-ui
 
 [![Circle CI](https://circleci.com/gh/fastmonkeys/respa-ui.svg?style=svg)](https://circleci.com/gh/fastmonkeys/respa-ui)
 
+UI for a resource reservation system built for city of Helsinki. Uses the [respa API](http://api.hel.fi/respa/v1/).
+
 Requirements
 ------------
 
