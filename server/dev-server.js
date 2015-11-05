@@ -9,7 +9,7 @@ import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
 import config from '../config/webpack.development';
-import handleRender from './handleRender';
+import render from './render';
 
 const app = express();
 const compiler = webpack(config);
@@ -68,7 +68,7 @@ app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveU
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/', handleRender);
+app.get('/', render);
 
 app.get('/login', passport.authenticate('helsinki'));
 

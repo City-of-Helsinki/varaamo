@@ -2,7 +2,7 @@ import Html from './Html';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
-function handleRender(req, res) {
+function render(req, res) {
   const user = req.user;
   let initialState = {};
   if (user && user.id) {
@@ -28,4 +28,4 @@ function handleRender(req, res) {
   res.send(html);
 }
 
-export default handleRender;
+export default render;
