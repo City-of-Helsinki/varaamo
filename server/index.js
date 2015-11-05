@@ -10,4 +10,4 @@ serverConfig.webpackStylesExtensions.forEach(function(ext) {
   require.extensions['.' + ext] = function() {};
 });
 
-require('./dev-server');
+require('./main');
