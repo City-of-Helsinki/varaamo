@@ -24,10 +24,13 @@ Architecture
 - [webpack](https://webpack.github.io/) takes modules with dependencies and generates static assets representing those modules.
 - [Babel](https://babeljs.io/) transforms JavaScript written in ES2015 and JSX syntax to regular JavaScript.
 
-Development
------------
+Usage
+-----
+
+### Starting development server
 
 Follow the instructions below to set up the development environment.
+By default the running app can be found at `localhost:3000`.
 
 1. Install npm dependencies:
 
@@ -41,10 +44,10 @@ Follow the instructions below to set up the development environment.
     $ npm start
     ```
 
-Production
-----------
+### Starting production server
 
 Follow the instructions below to build and start production server.
+By default the running app uses port `8080`.
 
 1. Install npm dependencies:
 
@@ -64,8 +67,7 @@ Follow the instructions below to build and start production server.
     $ npm run start:production
     ```
 
-Testing
--------
+### Running tests
 
 - Running unit tests:
 
