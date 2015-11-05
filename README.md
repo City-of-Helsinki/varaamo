@@ -3,15 +3,34 @@ Respa-ui
 
 [![Circle CI](https://circleci.com/gh/fastmonkeys/respa-ui.svg?style=svg)](https://circleci.com/gh/fastmonkeys/respa-ui)
 
+UI for a resource reservation system built for city of Helsinki. Uses the [respa API](http://api.hel.fi/respa/v1/).
+
 Requirements
 ------------
 
-- [node.js](http://nodejs.org/)
+- [node](http://nodejs.org/) `^0.12.7`
+- [npm](https://www.npmjs.com/) `^2.11.3`
 
-Development
------------
+Architecture
+------------
+
+- [Redux](https://github.com/rackt/redux) handles the state management of the app. For more info check their awesome [docs](http://rackt.org/redux/index.html).
+- [React](https://facebook.github.io/react/) handles the rendering of the 'views'.
+- [react-redux](https://github.com/rackt/react-redux) is used to connect the Redux Store to React components.
+- [react-router](https://github.com/rackt/react-router) handles the routing of the app.
+- [reselect](https://github.com/rackt/reselect) is used for getting data from Redux Store and manipulating it to be better usable in React components.
+- [redux-api-middleware](https://github.com/agraboso/redux-api-middleware) is used to interact with the API.
+- The application is run on an [express](http://expressjs.com/) server.
+- [webpack](https://webpack.github.io/) takes modules with dependencies and generates static assets representing those modules.
+- [Babel](https://babeljs.io/) transforms JavaScript written in ES2015 and JSX syntax to regular JavaScript.
+
+Usage
+-----
+
+### Starting development server
 
 Follow the instructions below to set up the development environment.
+By default the running app can be found at `localhost:3000`.
 
 1. Install npm dependencies:
 
@@ -25,10 +44,10 @@ Follow the instructions below to set up the development environment.
     $ npm start
     ```
 
-Production
-----------
+### Starting production server
 
 Follow the instructions below to build and start production server.
+By default the running app uses port `8080`.
 
 1. Install npm dependencies:
 
@@ -48,23 +67,25 @@ Follow the instructions below to build and start production server.
     $ npm run start:production
     ```
 
-Testing
--------
+### Running code linter
 
-- Running unit tests:
-
-    ```
-    $ npm test
-    ```
-
-- Running tests on watch mode:
+- To check the code for linting errors:
 
     ```
-    $ npm run test:watch
+    $ npm run lint
     ```
 
-- Running tests with code coverage:
+Code style and linting
+----------------------
+The code mostly follows the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript).
+All JavaScript should be written in ES2015 syntax.
+Code is automatically linted with [eslint](http://eslint.org/) when running unit tests or bundling the app with webpack.
 
-    ```
-    $ npm run test:coverage
-    ```
+Testing framework
+-----------------
+
+- [Karma](http://karma-runner.github.io/0.13/index.html) is used to run the tests. On local machines tests are run on [PhantomJS](http://phantomjs.org/) to make running tests in watch mode as smooth as possible. On CI the tests are run on Chrome. 
+- [Mocha](https://mochajs.org/) is used as the test framework.
+- [Chai](http://chaijs.com/) is used for test assertions.
+- [simple-mock](https://github.com/jupiter/simple-mock) and [MockDate](https://github.com/boblauer/MockDate) are used for mocking and spies.
+- [skin-deep](https://github.com/glenjamin/skin-deep) is used to make testing React components with shallow rendering easier.
