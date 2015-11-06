@@ -24,22 +24,27 @@ if (serverConfig.isProduction) {
 
 // Passport configuration
 // ######################
-
-passport.use(new Strategy(
+let helsinkiStrategy;
+helsinkiStrategy = new Strategy(
   {
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
     callbackURL: `http://localhost:${port}/login/helsinki/return`,
   },
-  function(accessToken, refreshToken, profile, cb) {
-    return cb(null, profile);
-  }));
+  (accessToken, refreshToken, profile, cb) => {
+    helsinkiStrategy.getAPIToken(accessToken, process.env.TARGET_APP, (token) => {
+      profile.token = token;
+      return cb(null, profile);
+    });
+  });
 
-passport.serializeUser(function(user, cb) {
+passport.use(helsinkiStrategy);
+
+passport.serializeUser((user, cb) => {
   cb(null, user);
 });
 
-passport.deserializeUser(function(obj, cb) {
+passport.deserializeUser((obj, cb) => {
   cb(null, obj);
 });
 

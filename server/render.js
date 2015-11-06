@@ -8,8 +8,10 @@ function render(req, res) {
   const user = req.user;
   let initialState = {};
   if (user && user.id) {
+    const token = user.token;
+    delete user.token;
     initialState = {
-      auth: { userId: user.id },
+      auth: { userId: user.id, token },
       data: {
         users: {
           [user.id]: user,
