@@ -11,6 +11,13 @@ import ResourcePage from 'containers/ResourcePage';
 import SearchPage from 'containers/SearchPage';
 
 export default (params) => {
+  function removeFacebookAppendedHash(nextState, replaceState, cb) {
+    if (window.location.hash && window.location.hash.indexOf('_=_') !== -1) {
+      replaceState(null, window.location.hash.replace('_=_', ''));
+    }
+    cb();
+  }
+
   function requireAuth(nextState, replaceState, cb) {
     setTimeout(() => {
       const { auth } = params.getState();
@@ -23,7 +30,7 @@ export default (params) => {
   }
 
   return (
-    <Route component={App}>
+    <Route component={App} onEnter={removeFacebookAppendedHash}>
       <Route onEnter={requireAuth}>
         <Route component={UserReservationsPage} path="/my-reservations" />
       </Route>
