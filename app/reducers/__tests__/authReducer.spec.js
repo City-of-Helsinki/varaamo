@@ -10,6 +10,10 @@ describe('Reducer: authReducer', () => {
   describe('initial state', () => {
     const initialState = authReducer(undefined, {});
 
+    it('token should be null', () => {
+      expect(initialState.token).to.equal(null);
+    });
+
     it('userId should be null', () => {
       expect(initialState.userId).to.equal(null);
     });
@@ -38,6 +42,14 @@ describe('Reducer: authReducer', () => {
         const nextState = authReducer(initialState, action);
 
         expect(nextState.userId).to.equal(null);
+      });
+
+      it('should set token to null', () => {
+        const action = logout();
+        const initialState = Immutable({ token: 'mock-token' });
+        const nextState = authReducer(initialState, action);
+
+        expect(nextState.token).to.equal(null);
       });
     });
   });

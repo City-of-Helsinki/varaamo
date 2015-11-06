@@ -40,7 +40,7 @@ function notificationsReducer(state = initialState, action) {
 
   case types.API.LOGOUT:
     notification = {
-      message: 'Sinut on nyt kirjattu ulos.',
+      message: 'Sinut on nyt kirjattu ulos. Huom! Kunnes API on valmis, olet yhä rajapinnan puolella kirjautuneena sisään.',
       type: 'success',
     };
     return addNotification(state, notification);

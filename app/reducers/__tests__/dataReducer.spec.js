@@ -4,9 +4,11 @@ import _ from 'lodash';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
+import { logout } from 'actions/authActions';
 import types from 'constants/ActionTypes';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
+import User from 'fixtures/User';
 import dataReducer, { handleData } from 'reducers/dataReducer';
 
 describe('Reducer: dataReducer', () => {
@@ -107,6 +109,34 @@ describe('Reducer: dataReducer', () => {
   });
 
   describe('handling actions', () => {
+    describe('API.LOGOUT', () => {
+      it('should remove the user with the given id', () => {
+        const user = User.build();
+        const initialState = Immutable({
+          users: { [user.id]: user },
+        });
+        const action = logout(user.id);
+        const nextState = dataReducer(initialState, action);
+
+        expect(nextState.users).to.deep.equal({});
+      });
+
+      it('should not affect other users', () => {
+        const users = [
+          User.build(),
+          User.build(),
+        ];
+        const initialState = Immutable({
+          users: _.indexBy(users, 'id'),
+        });
+        const action = logout(users[0].id);
+        const nextState = dataReducer(initialState, action);
+        const expectedUsers = { [users[1].id]: users[1] };
+
+        expect(nextState.users).to.deep.equal(expectedUsers);
+      });
+    });
+
     describe('API.RESERVATION_POST_SUCCESS', () => {
       const postReservationSuccess = createAction(types.API.RESERVATION_POST_SUCCESS);
 

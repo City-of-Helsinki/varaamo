@@ -30,7 +30,7 @@ class Navbar extends Component {
             <MenuItem>Omat varaukset</MenuItem>
           </LinkContainer>
           <MenuItem divider />
-          <MenuItem onSelect={logout}>Kirjaudu ulos</MenuItem>
+          <MenuItem onSelect={() => logout(user.id)}>Kirjaudu ulos</MenuItem>
         </NavDropdown>
       );
     }
