@@ -5,7 +5,7 @@ import { paginatedUnitsSchema } from 'middleware/Schemas';
 import {
   buildAPIUrl,
   getErrorTypeDescriptor,
-  getHeaders,
+  getHeadersCreator,
   getRequestTypeDescriptor,
   getSuccessTypeDescriptor,
 } from 'utils/APIUtils';
@@ -29,7 +29,7 @@ function fetchUnits() {
       ],
       endpoint: buildAPIUrl('unit', fetchParams),
       method: 'GET',
-      headers: getHeaders(),
+      headers: getHeadersCreator(),
       bailout: (state) => {
         return !state.api.shouldFetch.units;
       },
