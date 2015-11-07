@@ -1,55 +1,33 @@
 /* eslint-disable func-names, no-console, no-var */
 
-import express from 'express';
-import passport from 'passport';
-import { Strategy } from 'passport-helsinki';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import cookieSession from 'cookie-session';
+import express from 'express';
+import morgan from 'morgan';
 
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
 import serverConfig from './config';
+import configurePassport from './configurePassport';
 import render from './render';
 import webpackConfig from '../config/webpack.development';
 
 const app = express();
 const compiler = webpack(webpackConfig);
+const passport = configurePassport();
 const port = serverConfig.port;
 
 if (serverConfig.isProduction) {
-  console.log('Starting production server for reals...');
+  console.log('Starting production server...');
+
+  // Serve the static assets. We can cache them as they include hashes.
+  app.use('/_assets', express.static('dist', { maxAge: '200d' }));
 } else {
   console.log('Starting development server...');
-}
 
-// Passport configuration
-// ######################
-let helsinkiStrategy;
-helsinkiStrategy = new Strategy(
-  {
-    clientID: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: `http://localhost:${port}/login/helsinki/return`,
-  },
-  (accessToken, refreshToken, profile, cb) => {
-    helsinkiStrategy.getAPIToken(accessToken, process.env.TARGET_APP, (token) => {
-      profile.token = token;
-      return cb(null, profile);
-    });
-  });
-
-passport.use(helsinkiStrategy);
-
-passport.serializeUser((user, cb) => {
-  cb(null, user);
-});
-
-passport.deserializeUser((obj, cb) => {
-  cb(null, obj);
-});
-
-if (!serverConfig.isProduction) {
   app.use(webpackMiddleware(compiler, {
     publicPath: webpackConfig.output.publicPath,
     quiet: false,
@@ -67,16 +45,13 @@ if (!serverConfig.isProduction) {
   }));
 
   app.use(webpackHotMiddleware(compiler));
-} else {
-  // Serve the static assets. We can cache them as they include hashes.
-  app.use('/_assets', express.static('dist', { maxAge: '200d' }));
 }
 
 // Use application-level middleware for common functionality, including
 // logging, parsing, and session handling.
-app.use(require('morgan')('combined'));
-app.use(require('cookie-parser')());
-app.use(require('body-parser').urlencoded({ extended: true }));
+app.use(morgan('combined'));
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieSession({
   secret: process.env.SESSION_SECRET,
   cookie: { maxAge: 60 * 60000 },
