@@ -3,6 +3,7 @@
 import express from 'express';
 import passport from 'passport';
 import { Strategy } from 'passport-helsinki';
+import cookieSession from 'cookie-session';
 
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
@@ -76,7 +77,10 @@ if (!serverConfig.isProduction) {
 app.use(require('morgan')('combined'));
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
-app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+app.use(cookieSession({
+  secret: process.env.SESSION_SECRET,
+  cookie: { maxAge: 60 * 60000 },
+}));
 
 // Initialize Passport and restore authentication state, if any, from the
 // session.
