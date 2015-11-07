@@ -1,6 +1,5 @@
 export default {
   API: {
-    LOGIN: 'LOGIN',
     LOGOUT: 'LOGOUT',
 
     PURPOSES_GET_ERROR: 'PURPOSES_GET_ERROR',

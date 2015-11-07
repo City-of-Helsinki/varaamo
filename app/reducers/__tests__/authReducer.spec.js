@@ -20,19 +20,6 @@ describe('Reducer: authReducer', () => {
   });
 
   describe('handling actions', () => {
-    describe('API.LOGIN', () => {
-      const login = createAction(types.API.LOGIN);
-
-      it('should set userId to given id', () => {
-        const payload = { userId: 'u-1' };
-        const action = login(payload);
-        const initialState = Immutable({ userId: null });
-        const nextState = authReducer(initialState, action);
-
-        expect(nextState.userId).to.equal(payload.userId);
-      });
-    });
-
     describe('API.LOGOUT', () => {
       const logout = createAction(types.API.LOGOUT);
 
