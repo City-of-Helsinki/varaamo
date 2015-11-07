@@ -55,9 +55,9 @@ describe('Container: App', () => {
       expect(props.actions.logout.callCount).to.equal(1);
     });
 
-    it('should redirect to login page', () => {
+    it('should redirect to home page', () => {
       expect(props.actions.pushState.callCount).to.equal(1);
-      expect(props.actions.pushState.lastCall.args).to.deep.equal([null, '/login']);
+      expect(props.actions.pushState.lastCall.args).to.deep.equal([null, '/']);
     });
   });
 });

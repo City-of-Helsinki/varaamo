@@ -21,7 +21,7 @@ export class UnconnectedApp extends Component {
     const { actions } = this.props;
 
     actions.logout();
-    actions.pushState(null, '/login');
+    actions.pushState(null, '/');
   }
 
   render() {

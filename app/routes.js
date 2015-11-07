@@ -23,7 +23,9 @@ export default (params) => {
       const { auth } = params.getState();
 
       if (!auth.userId) {
-        replaceState(null, '/login');
+        // To be able to login to a page without the react router "/#/" hash we need to use
+        // the window.location.replace instead of the replaceState provided by react router.
+        window.location.replace(`${window.location.origin}/login`);
       }
       cb();
     }, 0);
