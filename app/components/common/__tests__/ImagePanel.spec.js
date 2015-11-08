@@ -33,7 +33,7 @@ describe('Component: common/ImagePanel', () => {
       const actualProps = tree.subTree('Panel').props;
 
       expect(actualProps.collapsible).to.equal(true);
-      expect(actualProps.defaultExpanded).to.equal(true);
+      expect(actualProps.defaultExpanded).to.equal(false);
       expect(actualProps.header).to.equal('Kuvat');
     });
 
