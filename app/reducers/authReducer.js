@@ -13,6 +13,14 @@ function authReducer(state = initialState, action) {
   case types.API.LOGOUT:
     return initialState;
 
+  case types.API.RESERVATION_DELETE_ERROR:
+  case types.API.RESERVATION_PUT_ERROR:
+  case types.API.RESERVATION_POST_ERROR:
+    if (action.payload.status === 401) {
+      return initialState;
+    }
+    return state;
+
   default:
     return state;
   }
