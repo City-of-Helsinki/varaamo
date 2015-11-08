@@ -61,6 +61,9 @@ class Navbar extends Component {
                 <Glyphicon glyph="search" /> Haku
               </NavItem>
             </LinkContainer>
+            <LinkContainer to="/about">
+              <NavItem>Tietoa palvelusta</NavItem>
+            </LinkContainer>
           </Nav>
           <Nav navbar eventKey={0} right>
             {this.renderUserNav()}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router';
 
+import AboutPage from 'containers/AboutPage';
 import App from 'containers/App';
 import HomePage from 'containers/HomePage';
 import UserReservationsPage from 'containers/UserReservationsPage';
@@ -36,6 +37,7 @@ export default (params) => {
         <Route component={UserReservationsPage} path="/my-reservations" />
       </Route>
       <Route component={HomePage} path="/" />
+      <Route component={AboutPage} path="/about" />
       <Route component={ResourcePage} path="/resources/:id" />
       <Route component={ReservationPage} path="/resources/:id/reservation" />
       <Route component={SearchPage} path="/search" />
