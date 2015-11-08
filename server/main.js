@@ -54,7 +54,7 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieSession({
   secret: process.env.SESSION_SECRET,
-  cookie: { maxAge: 60 * 60000 },
+  maxAge: 60 * 60000,
 }));
 
 // Initialize Passport and restore authentication state, if any, from the
