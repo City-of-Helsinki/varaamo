@@ -5,7 +5,7 @@
     "type": "git",
     "url": "https://github.com/fastmonkeys/respa-ui.git"
   },
-  "main": "server/production-server.js",
+  "main": "server/index.js",
   "dependencies": {
     "classnames": "^2.2.0",
     "hash-file": "^2.1.0",
