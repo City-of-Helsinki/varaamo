@@ -1,6 +1,7 @@
 import Radium from 'radium';
 import React, { Component, PropTypes } from 'react';
 import {
+  CollapsibleNav,
   Glyphicon,
   MenuItem,
   Navbar as RBNavbar,
@@ -41,8 +42,6 @@ class Navbar extends Component {
   }
 
   render() {
-    const RadiumNav = Radium(Nav);
-
     return (
       <RBNavbar inverse toggleNavKey={0}>
         <NavBrand>
@@ -55,16 +54,18 @@ class Navbar extends Component {
             Respa
           </Link>
         </NavBrand>
-        <RadiumNav left style={styles.searchNav}>
-          <LinkContainer to="/search">
-            <NavItem>
-              <Glyphicon glyph="search" />
-            </NavItem>
-          </LinkContainer>
-        </RadiumNav>
-        <Nav eventKey={0} right>
-          {this.renderUserNav()}
-        </Nav>
+        <CollapsibleNav eventKey={0}>
+          <Nav navbar>
+            <LinkContainer to="/search">
+              <NavItem>
+                <Glyphicon glyph="search" />
+              </NavItem>
+            </LinkContainer>
+          </Nav>
+          <Nav navbar eventKey={0} right>
+            {this.renderUserNav()}
+          </Nav>
+        </CollapsibleNav>
       </RBNavbar>
     );
   }
