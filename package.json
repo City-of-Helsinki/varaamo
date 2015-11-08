@@ -59,6 +59,7 @@
     "express": "^4.13.1",
     "extract-text-webpack-plugin": "^0.9.0",
     "file-loader": "^0.8.4",
+    "html-webpack-plugin": "^1.6.2",
     "isparta": "^3.5.1",
     "isparta-instrumenter-loader": "^0.2.1",
     "karma": "^0.13.14",
