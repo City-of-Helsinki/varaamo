@@ -58,7 +58,7 @@ class Navbar extends Component {
           <Nav navbar>
             <LinkContainer to="/search">
               <NavItem>
-                <Glyphicon glyph="search" />
+                <Glyphicon glyph="search" /> Haku
               </NavItem>
             </LinkContainer>
           </Nav>
