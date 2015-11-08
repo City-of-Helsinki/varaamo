@@ -42,20 +42,20 @@ export class UnconnectedResourcePage extends Component {
     return (
       <DocumentTitle title={`${resourceName} - Respa`}>
         <Loader loaded={!_.isEmpty(resource)}>
-          <div>
-            <LinkContainer to={`/resources/${id}/reservation`}>
-              <Button
-                bsSize="large"
-                bsStyle="primary"
-                style={{ float: 'right' }}
-              >
-                Varaa tila
-              </Button>
-            </LinkContainer>
+          <div className="resource-page">
             <ResourceHeader
               address={getAddressWithName(unit)}
               name={resourceName}
             />
+            <LinkContainer to={`/resources/${id}/reservation`}>
+              <Button
+                bsSize="large"
+                bsStyle="primary"
+                className="reserve-button"
+              >
+                Varaa tila
+              </Button>
+            </LinkContainer>
             <ResourceDetails
               capacityString={getPeopleCapacityString(resource.peopleCapacity)}
               description={getDescription(resource)}
