@@ -5,7 +5,7 @@ import { paginatedResourcesSchema } from 'middleware/Schemas';
 import {
   buildAPIUrl,
   getErrorTypeDescriptor,
-  getHeaders,
+  getHeadersCreator,
   getRequestTypeDescriptor,
   getSuccessTypeDescriptor,
 } from 'utils/APIUtils';
@@ -29,7 +29,7 @@ function searchResources(params = {}) {
       ],
       endpoint: buildAPIUrl('resource', fetchParams),
       method: 'GET',
-      headers: getHeaders(),
+      headers: getHeadersCreator(),
     },
   };
 }

@@ -66,7 +66,7 @@ describe('Component: layout/Navbar', () => {
     });
 
     it('NavDropdown should have the name of logged in user as its title', () => {
-      expect(tree.subTree('NavDropdown').props.title).to.equal(props.user.name);
+      expect(tree.subTree('NavDropdown').props.title).to.equal(props.user.displayName);
     });
 
     it('should render a link to my reservations page', () => {
@@ -99,7 +99,7 @@ describe('Component: layout/Navbar', () => {
     });
 
     it('should render a link to login page', () => {
-      const loginLink = tree.findComponentLike('LinkContainer', { to: '/login' });
+      const loginLink = tree.findComponentLike('NavItem', { href: '/login' });
       expect(loginLink).to.be.ok;
     });
 

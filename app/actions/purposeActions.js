@@ -5,7 +5,7 @@ import { paginatedPurposesSchema } from 'middleware/Schemas';
 import {
   buildAPIUrl,
   getErrorTypeDescriptor,
-  getHeaders,
+  getHeadersCreator,
   getRequestTypeDescriptor,
   getSuccessTypeDescriptor,
 } from 'utils/APIUtils';
@@ -27,7 +27,7 @@ function fetchPurposes() {
       ],
       endpoint: buildAPIUrl('purpose'),
       method: 'GET',
-      headers: getHeaders(),
+      headers: getHeadersCreator(),
       bailout: (state) => {
         return !state.api.shouldFetch.purposes;
       },

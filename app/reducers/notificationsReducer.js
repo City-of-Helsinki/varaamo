@@ -31,16 +31,9 @@ function notificationsReducer(state = initialState, action) {
     const index = action.payload.id - 1;
     return hideNotification(state, index);
 
-  case types.API.LOGIN:
-    notification = {
-      message: 'Sinut on nyt kirjattu sisään.',
-      type: 'success',
-    };
-    return addNotification(state, notification);
-
   case types.API.LOGOUT:
     notification = {
-      message: 'Sinut on nyt kirjattu ulos.',
+      message: 'Sinut on nyt kirjattu ulos. Huom! Kunnes API on valmis, olet yhä rajapinnan puolella kirjautuneena sisään.',
       type: 'success',
     };
     return addNotification(state, notification);

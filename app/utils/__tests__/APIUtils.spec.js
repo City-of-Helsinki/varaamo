@@ -8,7 +8,7 @@ import {
   buildAPIUrl,
   createTransformFunction,
   getErrorTypeDescriptor,
-  getHeaders,
+  getHeadersCreator,
   getRequestTypeDescriptor,
   getSearchParamsString,
   getSuccessTypeDescriptor,
@@ -142,21 +142,101 @@ describe('Utils: APIUtils', () => {
     });
   });
 
-  describe('getHeaders', () => {
-    describe('if no additional headers are specified', () => {
-      it('should return just the required headers', () => {
-        expect(getHeaders()).to.deep.equal(REQUIRED_API_HEADERS);
-      });
+  describe('getHeadersCreator', () => {
+    it('should return a function', () => {
+      expect(typeof getHeadersCreator()).to.equal('function');
     });
 
-    describe('if additional headers are specified', () => {
-      it('should return the required headers and the additional headers', () => {
-        const additionalHeaders = {
-          header: 'value',
+    describe('the returned function', () => {
+      describe('when user is logged in', () => {
+        const state = {
+          auth: {
+            token: 'mock-token',
+          },
         };
-        const expected = Object.assign({}, REQUIRED_API_HEADERS, additionalHeaders);
+        const authorizationHeader = { Authorization: 'JWT mock-token' };
 
-        expect(getHeaders(additionalHeaders)).to.deep.equal(expected);
+        describe('if no additional headers are specified', () => {
+          it('should return just the required headers', () => {
+            const creator = getHeadersCreator();
+            const expected = Object.assign({}, REQUIRED_API_HEADERS);
+
+            expect(creator(state)).to.deep.equal(expected);
+          });
+        });
+
+        describe('if additional headers are specified', () => {
+          it('should return the required headers and the additional headers', () => {
+            const additionalHeaders = {
+              header: 'value',
+            };
+            const creator = getHeadersCreator(additionalHeaders);
+            const expected = Object.assign(
+              {},
+              REQUIRED_API_HEADERS,
+              additionalHeaders
+            );
+
+            expect(creator(state)).to.deep.equal(expected);
+          });
+        });
+
+        describe('if options contain withJWT', () => {
+          it('should return the required headers and the Authorization header', () => {
+            const options = {
+              withJWT: true,
+            };
+            const creator = getHeadersCreator({}, options);
+            const expected = Object.assign(
+              {},
+              REQUIRED_API_HEADERS,
+              authorizationHeader
+            );
+
+            expect(creator(state)).to.deep.equal(expected);
+          });
+        });
+      });
+
+      describe('when user is logged out', () => {
+        const state = {
+          auth: {},
+        };
+
+        describe('if no additional headers are specified', () => {
+          it('should return the just the required headers', () => {
+            const creator = getHeadersCreator();
+
+            expect(creator(state)).to.deep.equal(REQUIRED_API_HEADERS);
+          });
+        });
+
+        describe('if additional headers are specified', () => {
+          it('should return the required headers and the additional headers', () => {
+            const additionalHeaders = {
+              header: 'value',
+            };
+            const creator = getHeadersCreator(additionalHeaders);
+            const expected = Object.assign({}, REQUIRED_API_HEADERS, additionalHeaders);
+
+            expect(creator(state)).to.deep.equal(expected);
+          });
+        });
+
+        describe('if options contain withJWT', () => {
+          it('should only return the required headers and no Authorization header', () => {
+            const options = {
+              withJWT: true,
+            };
+            const creator = getHeadersCreator({}, options);
+            const expected = Object.assign(
+              {},
+              REQUIRED_API_HEADERS
+            );
+
+            expect(creator(state)).to.deep.equal(expected);
+          });
+        });
       });
     });
   });

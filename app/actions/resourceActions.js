@@ -5,7 +5,7 @@ import { paginatedResourcesSchema, resourceSchema } from 'middleware/Schemas';
 import {
   buildAPIUrl,
   getErrorTypeDescriptor,
-  getHeaders,
+  getHeadersCreator,
   getRequestTypeDescriptor,
   getSuccessTypeDescriptor,
 } from 'utils/APIUtils';
@@ -28,7 +28,7 @@ function fetchResource(id, params = {}) {
       ],
       endpoint: buildAPIUrl(`resource/${id}`, params),
       method: 'GET',
-      headers: getHeaders(),
+      headers: getHeadersCreator(),
     },
   };
 }
@@ -48,7 +48,7 @@ function fetchResources(params = {}) {
       ],
       endpoint: buildAPIUrl('resource', fetchParams),
       method: 'GET',
-      headers: getHeaders(),
+      headers: getHeadersCreator(),
       bailout: (state) => {
         return !state.api.shouldFetch.resources;
       },

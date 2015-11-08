@@ -3,18 +3,11 @@ import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
 
-const mockUsersData = {
-  'u-1': {
-    id: 'u-1',
-    name: 'Luke Skywalker',
-  },
-};
-
 const initialState = Immutable({
   reservations: {},
   resources: {},
   units: {},
-  users: mockUsersData,
+  users: {},
 });
 
 function handleData(state, data) {
@@ -51,6 +44,9 @@ function handleReservation(state, action) {
 
 function dataReducer(state = initialState, action) {
   switch (action.type) {
+
+  case types.API.LOGOUT:
+    return state.merge({ users: _.omit(state.users, action.payload) });
 
   case types.API.PURPOSES_GET_SUCCESS:
   case types.API.RESERVATIONS_GET_SUCCESS:

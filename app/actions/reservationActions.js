@@ -5,7 +5,7 @@ import { paginatedReservationsSchema } from 'middleware/Schemas';
 import {
   buildAPIUrl,
   getErrorTypeDescriptor,
-  getHeaders,
+  getHeadersCreator,
   getRequestTypeDescriptor,
   getSuccessTypeDescriptor,
 } from 'utils/APIUtils';
@@ -39,7 +39,7 @@ function deleteReservation(reservation) {
       ],
       endpoint: reservation.url,
       method: 'DELETE',
-      headers: getHeaders(),
+      headers: getHeadersCreator({}, { withJWT: true }),
     },
   };
 }
@@ -59,7 +59,7 @@ function fetchReservations(params = {}) {
       ],
       endpoint: buildAPIUrl('reservation', fetchParams),
       method: 'GET',
-      headers: getHeaders(),
+      headers: getHeadersCreator(),
     },
   };
 }
@@ -85,7 +85,7 @@ function postReservation(reservation) {
       ],
       endpoint: url,
       method: 'POST',
-      headers: getHeaders(),
+      headers: getHeadersCreator({}, { withJWT: true }),
       body: JSON.stringify(reservation),
     },
   };
@@ -110,7 +110,7 @@ function putReservation(reservation) {
       ],
       endpoint: reservation.url,
       method: 'PUT',
-      headers: getHeaders(),
+      headers: getHeadersCreator({}, { withJWT: true }),
       body: JSON.stringify(reservation),
     },
   };

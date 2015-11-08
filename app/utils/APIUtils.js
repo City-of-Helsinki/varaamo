@@ -9,7 +9,7 @@ export default {
   buildAPIUrl,
   createTransformFunction,
   getErrorTypeDescriptor,
-  getHeaders,
+  getHeadersCreator,
   getRequestTypeDescriptor,
   getSearchParamsString,
   getSuccessTypeDescriptor,
@@ -52,8 +52,14 @@ function getErrorTypeDescriptor(type, options = {}) {
   };
 }
 
-function getHeaders(headers) {
-  return Object.assign({}, REQUIRED_API_HEADERS, headers);
+function getHeadersCreator(headers, options = {}) {
+  return (state) => {
+    const authorizationHeaders = {};
+    if (options.withJWT && state.auth.token) {
+      authorizationHeaders.Authorization = `JWT ${state.auth.token}`;
+    }
+    return Object.assign({}, REQUIRED_API_HEADERS, headers, authorizationHeaders);
+  };
 }
 
 function getRequestTypeDescriptor(type, options = {}) {

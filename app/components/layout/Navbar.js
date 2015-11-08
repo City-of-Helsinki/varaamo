@@ -23,23 +23,20 @@ class Navbar extends Component {
 
   renderUserNav() {
     const { logout, user } = this.props;
-
-    if (user && user.name) {
+    if (user && user.displayName) {
       return (
-        <NavDropdown id="collapsible-navbar-dropdown" title={user.name}>
+        <NavDropdown id="collapsible-navbar-dropdown" title={user.displayName}>
           <LinkContainer to="/my-reservations">
             <MenuItem>Omat varaukset</MenuItem>
           </LinkContainer>
           <MenuItem divider />
-          <MenuItem onSelect={logout}>Kirjaudu ulos</MenuItem>
+          <MenuItem onSelect={() => logout(user.id)}>Kirjaudu ulos</MenuItem>
         </NavDropdown>
       );
     }
 
     return (
-      <LinkContainer to="/login">
-        <NavItem>Kirjaudu sisään</NavItem>
-      </LinkContainer>
+      <NavItem href="/login">Kirjaudu sisään</NavItem>
     );
   }
 
