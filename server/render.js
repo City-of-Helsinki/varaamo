@@ -7,11 +7,9 @@ import Html from './Html';
 function render(req, res) {
   const user = req.user;
   let initialState = {};
-  if (user && user.id) {
-    const token = user.token;
-    delete user.token;
+  if (user && user.id && user.token) {
     initialState = {
-      auth: { userId: user.id, token },
+      auth: { userId: user.id, token: user.token },
       data: {
         users: {
           [user.id]: user,

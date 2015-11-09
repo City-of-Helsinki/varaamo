@@ -41,7 +41,7 @@ function notificationsReducer(state = initialState, action) {
   case types.API.RESERVATION_DELETE_ERROR:
     message = 'Varauksen poistaminen epäonnistui. Yritä hetken kuluttua uudelleen.';
     if (action.payload.status === 401) {
-      message = 'Sinulla ei ole oikeutta poistaa varausta.';
+      message = 'Kirjaudu sisään poistaaksesi varauksen.';
     }
 
     notification = {
@@ -61,7 +61,7 @@ function notificationsReducer(state = initialState, action) {
   case types.API.RESERVATION_POST_ERROR:
     message = 'Varauksen tekeminen epäonnistui.';
     if (action.payload.status === 401) {
-      message = 'Sinulla ei ole oikeutta tehdä varausta.';
+      message = 'Kirjaudu sisään tehdäksesi varauksen.';
     }
 
     notification = {
@@ -81,7 +81,7 @@ function notificationsReducer(state = initialState, action) {
   case types.API.RESERVATION_PUT_ERROR:
     message = 'Varauksen muuttaminen epäonnistui.';
     if (action.payload.status === 401) {
-      message = 'Sinulla ei ole oikeutta muuttaa varausta.';
+      message = 'Kirjaudu sisään muuttaaksesi varausta.';
     }
 
     notification = {
