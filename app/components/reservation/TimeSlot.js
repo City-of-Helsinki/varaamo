@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
-import { Label } from 'react-bootstrap';
+import { Glyphicon, Label } from 'react-bootstrap';
 
 class TimeSlot extends Component {
   render() {
@@ -19,13 +19,8 @@ class TimeSlot extends Component {
         })}
         onClick={() => !disabled && onChange(slot.asISOString)}
       >
-        <td style={{ textAlign: 'center' }}>
-          <input
-            checked={checked}
-            disabled={disabled}
-            onChange={() => onChange(slot.asISOString)}
-            type="checkbox"
-          />
+        <td className="checkbox-cell">
+          <Glyphicon glyph={checked ? 'check' : 'unchecked'} />
         </td>
         <td>
           <time dateTime={slot.asISOString}>
