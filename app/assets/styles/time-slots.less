@@ -10,21 +10,34 @@
       cursor: pointer;
     }
 
-    &.disabled:hover {
-      cursor: not-allowed;
-      background-color: inherit;
+    .checkbox-cell {
+      text-align: center;
+      width: 70px;
+      color: @gray-dark;
+      font-size: 20px;
+      padding: 0;
+
+      span {
+        top: 7px;
+      }
     }
-  }
 
-  .checkbox-cell {
-    text-align: center;
-    width: 70px;
-    color: @gray-dark;
-    font-size: 20px;
-    padding: 0;
+    // Past styles
+    // -----------
+    &.past {
+      .checkbox-cell,
+      .time-cell {
+        color: @gray-light;
+      }
+    }
 
-    span {
-      top: 7px;
+    // Disabled styles
+    // ---------------
+    &.disabled {
+      &:hover {
+        cursor: not-allowed;
+        background-color: inherit;
+      }
     }
   }
 
