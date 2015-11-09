@@ -12,10 +12,12 @@ class TimeSlot extends Component {
     return (
       <tr
         className={classNames({
+          disabled,
           editing: slot.editing,
           reserved: slot.reserved,
-          selected: selected,
+          selected,
         })}
+        onClick={() => !disabled && onChange(slot.asISOString)}
       >
         <td style={{ textAlign: 'center' }}>
           <input

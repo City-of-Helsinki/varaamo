@@ -1,4 +1,20 @@
 .time-slots {
+  thead tr {
+    border-bottom: 1px solid @gray;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid @gray-lighter;
+
+    &:hover {
+      cursor: pointer;
+    }
+    &.disabled:hover {
+      cursor: not-allowed;
+      background-color: inherit;
+    }
+  }
+
   .editing, .editing td {
     background-color: rgba(0, 114, 198, 0.2);
   }

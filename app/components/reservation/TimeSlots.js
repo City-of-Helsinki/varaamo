@@ -30,7 +30,10 @@ class TimeSlots extends Component {
     return (
       <Loader loaded={!isFetching}>
         {slots.length ? (
-          <Table className="time-slots" striped>
+          <Table
+            className="time-slots"
+            hover
+          >
             <thead>
               <tr>
                 <th />
