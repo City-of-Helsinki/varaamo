@@ -104,7 +104,7 @@ describe('Container: ReservationForm', () => {
         const actualProps = timeSlotsTrees[0].props;
 
         expect(actualProps.isFetching).to.equal(props.isFetchingResource);
-        expect(actualProps.onChange).to.deep.equal(props.actions.toggleTimeSlot);
+        expect(actualProps.onClick).to.deep.equal(props.actions.toggleTimeSlot);
         expect(actualProps.selected).to.deep.equal(props.selected);
         expect(actualProps.slots).to.deep.equal(props.timeSlots);
       });

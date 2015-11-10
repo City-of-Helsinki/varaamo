@@ -5,7 +5,7 @@ import { Glyphicon, Label } from 'react-bootstrap';
 
 class TimeSlot extends Component {
   render() {
-    const { onChange, selected, slot } = this.props;
+    const { onClick, selected, slot } = this.props;
     const isPast = moment(slot.end) < moment();
     const disabled = !slot.editing && (slot.reserved || isPast);
     const checked = selected || (slot.reserved && !slot.editing);
@@ -25,7 +25,7 @@ class TimeSlot extends Component {
           reserved: slot.reserved,
           selected,
         })}
-        onClick={() => !disabled && onChange(slot.asISOString)}
+        onClick={() => !disabled && onClick(slot.asISOString)}
       >
         <td className="checkbox-cell">
           <Glyphicon glyph={checked ? 'check' : 'unchecked'} />
@@ -46,7 +46,7 @@ class TimeSlot extends Component {
 }
 
 TimeSlot.propTypes = {
-  onChange: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
   selected: PropTypes.bool.isRequired,
   slot: PropTypes.object.isRequired,
 };

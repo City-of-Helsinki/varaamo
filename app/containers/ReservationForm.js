@@ -117,7 +117,7 @@ export class UnconnectedReservationForm extends Component {
         />
         <TimeSlots
           isFetching={isFetchingResource}
-          onChange={actions.toggleTimeSlot}
+          onClick={actions.toggleTimeSlot}
           selected={selected}
           slots={timeSlots}
         />
