@@ -51,16 +51,16 @@ export class UnconnectedSearchControls extends Component {
           purposeOptions={purposeOptions}
           filters={filters}
         />
-        <DateHeader
-          date={filters.date}
-          onChange={(newDate) => this.onFiltersChange({ date: newDate })}
-        />
         <DatePicker
           date={filters.date}
           hideFooter
           gotoSelectedText="Mene valittuun"
           onChange={(newDate) => this.onFiltersChange({ date: newDate })}
           todayText="Tänään"
+        />
+        <DateHeader
+          date={filters.date}
+          onChange={(newDate) => this.onFiltersChange({ date: newDate })}
         />
       </div>
     );
