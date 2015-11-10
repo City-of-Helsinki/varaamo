@@ -14,13 +14,13 @@ class SearchInput extends Component {
   }
 
   render() {
-    const { initialValue } = this.props;
+    const { autoFocus, initialValue } = this.props;
     const submitButton = <Button bsStyle="primary" type="submit">Hae</Button>;
 
     return (
       <form onSubmit={this.handleSubmit}>
         <Input
-          autoFocus
+          autoFocus={autoFocus}
           buttonAfter={submitButton}
           defaultValue={initialValue}
           placeholder="Etsi tilan nimellä"
@@ -33,8 +33,9 @@ class SearchInput extends Component {
 }
 
 SearchInput.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  autoFocus: PropTypes.bool.isRequired,
   initialValue: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default SearchInput;

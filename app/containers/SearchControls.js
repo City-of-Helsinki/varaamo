@@ -38,12 +38,12 @@ export class UnconnectedSearchControls extends Component {
       purposeOptions,
     } = this.props;
 
-
     return (
       <div>
         <SearchInput
-          onSubmit={(searchValue) => this.onFiltersChange({ search: searchValue })}
+          autoFocus={!Boolean(filters.purpose)}
           initialValue={filters.search}
+          onSubmit={(searchValue) => this.onFiltersChange({ search: searchValue })}
         />
         <SearchFilters
           isFetchingPurposes={isFetchingPurposes}

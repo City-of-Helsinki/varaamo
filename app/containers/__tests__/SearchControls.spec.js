@@ -54,6 +54,7 @@ describe('Container: SearchControls', () => {
     it('should pass correct props to SearchInput component', () => {
       const actualProps = searchInputTrees[0].props;
 
+      expect(actualProps.autoFocus).to.equal(false);
       expect(actualProps.initialValue).to.equal(props.filters.search);
       expect(typeof actualProps.onSubmit).to.equal('function');
     });

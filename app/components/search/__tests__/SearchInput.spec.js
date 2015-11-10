@@ -7,6 +7,7 @@ import SearchInput from 'components/search/SearchInput';
 
 describe('Component: search/SearchInput', () => {
   const props = {
+    autoFocus: true,
     initialValue: 'query',
     onSubmit: simple.stub(),
   };
@@ -28,7 +29,7 @@ describe('Component: search/SearchInput', () => {
     it('should pass correct props to the Input', () => {
       const actualProps = inputTrees[0].props;
 
-      expect(actualProps.autoFocus).to.equal(true);
+      expect(actualProps.autoFocus).to.equal(props.autoFocus);
       expect(actualProps.defaultValue).to.equal(props.initialValue);
       expect(actualProps.type).to.equal('text');
       expect(actualProps.placeholder).to.equal('Etsi tilan nimellä');
