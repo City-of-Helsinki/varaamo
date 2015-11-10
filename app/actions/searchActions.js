@@ -1,3 +1,4 @@
+import { createAction } from 'redux-actions';
 import { CALL_API } from 'redux-api-middleware';
 
 import types from 'constants/ActionTypes';
@@ -10,9 +11,7 @@ import {
   getSuccessTypeDescriptor,
 } from 'utils/APIUtils';
 
-export default {
-  searchResources,
-};
+const clearSearchResults = createAction(types.UI.CLEAR_SEARCH_RESULTS);
 
 function searchResources(params = {}) {
   const fetchParams = Object.assign({}, params, { pageSize: 100 });
@@ -33,3 +32,8 @@ function searchResources(params = {}) {
     },
   };
 }
+
+export default {
+  clearSearchResults,
+  searchResources,
+};

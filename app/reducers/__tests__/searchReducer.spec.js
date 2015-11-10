@@ -4,6 +4,7 @@ import _ from 'lodash';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
+import { clearSearchResults } from 'actions/searchActions';
 import types from 'constants/ActionTypes';
 import Resource from 'fixtures/Resource';
 import searchReducer from 'reducers/searchReducer';
@@ -54,6 +55,18 @@ describe('Reducer: searchReducer', () => {
         const nextState = searchReducer(initialState, action);
 
         expect(nextState.results).to.deep.equal(expected);
+      });
+    });
+
+    describe('UI.CLEAR_SEARCH_RESULTS', () => {
+      it('should empty the search results', () => {
+        const action = clearSearchResults();
+        const initialState = Immutable({
+          results: ['r-1', 'r-2'],
+        });
+        const nextState = searchReducer(initialState, action);
+
+        expect(nextState.results).to.deep.equal([]);
       });
     });
   });

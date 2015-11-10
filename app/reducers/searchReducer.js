@@ -14,6 +14,9 @@ function searchReducer(state = initialState, action) {
     const results = _.keys(action.payload.entities.resources);
     return state.merge({ results });
 
+  case types.UI.CLEAR_SEARCH_RESULTS:
+    return state.merge({ results: [] });
+
   default:
     return state;
   }
