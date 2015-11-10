@@ -88,6 +88,7 @@ describe('Component: search/SearchResults', () => {
 
   describe('without results', () => {
     const props = {
+      date: '2015-10-10',
       isFetching: false,
       results: [],
       units: {},
