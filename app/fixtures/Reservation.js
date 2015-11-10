@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { Factory } from 'rosie';
 
-const BASE_DATE = new Date(2015, 10, 10);
+const BASE_DATE = moment().add(2, 'days');
 
 const Reservation = new Factory()
   .sequence('index')
