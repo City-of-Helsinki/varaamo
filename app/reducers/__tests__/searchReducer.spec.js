@@ -16,6 +16,10 @@ describe('Reducer: searchReducer', () => {
     it('results should be an empty array', () => {
       expect(initialState.results).to.deep.equal([]);
     });
+
+    it('searchDone should be false', () => {
+      expect(initialState.searchDone).to.equal(false);
+    });
   });
 
   describe('handling actions', () => {
@@ -56,6 +60,16 @@ describe('Reducer: searchReducer', () => {
 
         expect(nextState.results).to.deep.equal(expected);
       });
+
+      it('should set searchDone to true', () => {
+        const action = searchResourcesSuccess(resources);
+        const initialState = Immutable({
+          searchDone: false,
+        });
+        const nextState = searchReducer(initialState, action);
+
+        expect(nextState.searchDone).to.equal(true);
+      });
     });
 
     describe('UI.CLEAR_SEARCH_RESULTS', () => {
@@ -67,6 +81,16 @@ describe('Reducer: searchReducer', () => {
         const nextState = searchReducer(initialState, action);
 
         expect(nextState.results).to.deep.equal([]);
+      });
+
+      it('should set searchDone to false', () => {
+        const action = clearSearchResults();
+        const initialState = Immutable({
+          searchDone: true,
+        });
+        const nextState = searchReducer(initialState, action);
+
+        expect(nextState.searchDone).to.equal(false);
       });
     });
   });
