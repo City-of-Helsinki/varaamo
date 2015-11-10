@@ -14,8 +14,9 @@ export class UnconnectedSearchPage extends Component {
   componentDidMount() {
     const { actions, filters } = this.props;
     const fetchParams = getFetchParamsFromFilters(filters);
-
-    actions.searchResources(fetchParams);
+    if (fetchParams.purpose) {
+      actions.searchResources(fetchParams);
+    }
     actions.fetchUnits();
   }
 
@@ -24,21 +25,28 @@ export class UnconnectedSearchPage extends Component {
       filters,
       isFetchingSearchResults,
       results,
+      searchDone,
       units,
     } = this.props;
 
     return (
       <DocumentTitle title="Haku - Respa">
-        <div>
+        <div className="search-page">
           <h1>Haku</h1>
           <SearchControls />
-          <h2>Hakutulokset</h2>
-          <SearchResults
-            date={filters.date}
-            isFetching={isFetchingSearchResults}
-            results={results}
-            units={units}
-          />
+          {searchDone ? (
+            <SearchResults
+              date={filters.date}
+              isFetching={isFetchingSearchResults}
+              results={results}
+              searchDone={searchDone}
+              units={units}
+            />
+          ) : (
+            <p className="help-text">
+              Etsi tilaa syöttämällä hakukenttään tilan nimi tai tilaan liittyvää tietoa.
+            </p>
+          )}
         </div>
       </DocumentTitle>
     );
@@ -50,6 +58,7 @@ UnconnectedSearchPage.propTypes = {
   isFetchingSearchResults: PropTypes.bool.isRequired,
   filters: PropTypes.object.isRequired,
   results: PropTypes.array.isRequired,
+  searchDone: PropTypes.bool.isRequired,
   units: PropTypes.object.isRequired,
 };
 

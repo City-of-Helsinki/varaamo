@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { pushState } from 'redux-router';
 
 import { logout } from 'actions/authActions';
+import { clearSearchResults } from 'actions/searchActions';
 import Footer from 'components/layout/Footer';
 import Navbar from 'components/layout/Navbar';
 import Notifications from 'containers/Notifications';
@@ -25,13 +26,14 @@ export class UnconnectedApp extends Component {
   }
 
   render() {
-    const { children, user } = this.props;
+    const { actions, children, user } = this.props;
 
     return (
       <DocumentTitle title="Respa">
         <div className="app">
           <Navbar
             logout={this.handleLogout}
+            clearSearchResults={actions.clearSearchResults}
             user={user}
           />
           <div className="app-content">
@@ -55,6 +57,7 @@ UnconnectedApp.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
+    clearSearchResults,
     logout,
     pushState,
   };

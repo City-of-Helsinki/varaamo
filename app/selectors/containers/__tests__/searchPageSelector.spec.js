@@ -19,6 +19,10 @@ describe('Selector: searchPageSelector', () => {
     expect(selected.results).to.exist;
   });
 
+  it('should return searchDone', () => {
+    expect(selected.searchDone).to.exist;
+  });
+
   it('should return units from the state', () => {
     const expected = state.data.units;
 

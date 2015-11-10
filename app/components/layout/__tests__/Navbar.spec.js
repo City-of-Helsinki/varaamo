@@ -12,6 +12,7 @@ describe('Component: layout/Navbar', () => {
   describe('basic rendering', () => {
     const props = {
       logout: simple.stub(),
+      clearSearchResults: simple.stub(),
       user: Immutable(User.build()),
     };
     const tree = sd.shallowRender(<Navbar {...props} />);
@@ -56,6 +57,7 @@ describe('Component: layout/Navbar', () => {
   describe('if user is logged in', () => {
     const props = {
       logout: simple.stub(),
+      clearSearchResults: simple.stub(),
       user: Immutable(User.build()),
     };
     const tree = sd.shallowRender(<Navbar {...props} />);
@@ -88,6 +90,7 @@ describe('Component: layout/Navbar', () => {
   describe('if user is not logged in', () => {
     const props = {
       logout: simple.stub(),
+      clearSearchResults: simple.stub(),
       user: {},
     };
     const tree = sd.shallowRender(<Navbar {...props} />);
