@@ -22,6 +22,34 @@
       }
     }
 
+    // Reserved styles
+    // ---------------
+    &.reserved {
+      .checkbox-cell {
+        color: @brand-danger;
+      }
+    }
+
+    // Editing styles
+    // --------------
+    &.editing {
+      .checkbox-cell {
+        color: @brand-info;
+      }
+    }
+
+    // Selected styles
+    // ---------------
+    &.selected {
+      td {
+        background-color: rgba(0, 156, 61, 0.25);
+      }
+
+      .checkbox-cell {
+        color: @brand-success;
+      }
+    }
+
     // Past styles
     // -----------
     &.past {
@@ -39,9 +67,5 @@
         background-color: inherit;
       }
     }
-  }
-
-  .editing, .editing td {
-    background-color: rgba(0, 114, 198, 0.2);
   }
 }

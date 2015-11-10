@@ -10,10 +10,17 @@ class TimeSlot extends Component {
     const disabled = !slot.editing && (slot.reserved || isPast);
     const checked = selected || (slot.reserved && !slot.editing);
     let labelBsStyle;
+    let labelText;
     if (isPast) {
       labelBsStyle = 'default';
     } else {
       labelBsStyle = slot.reserved ? 'danger' : 'success';
+    }
+    if (slot.editing) {
+      labelBsStyle = 'info';
+      labelText = 'Muokataan';
+    } else {
+      labelText = slot.reserved ? 'Varattu' : 'Vapaa';
     }
 
     return (
@@ -37,7 +44,7 @@ class TimeSlot extends Component {
         </td>
         <td>
           <Label bsStyle={labelBsStyle}>
-            {slot.reserved ? 'Varattu' : 'Vapaa'}
+            {labelText}
           </Label>
         </td>
       </tr>
