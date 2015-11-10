@@ -1,9 +1,19 @@
 import classNames from 'classnames';
 import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
+import { findDOMNode } from 'react-dom';
 import { Glyphicon, Label } from 'react-bootstrap';
 
 class TimeSlot extends Component {
+  componentDidMount() {
+    if (this.props.scrollTo) {
+      const bodyOffsetTop = document.body.getBoundingClientRect().top;
+      const slotOffsetTop = findDOMNode(this).getBoundingClientRect().top;
+      const scrollTo = slotOffsetTop - bodyOffsetTop;
+      window.scrollTo(0, scrollTo);
+    }
+  }
+
   render() {
     const { onClick, selected, slot } = this.props;
     const isPast = moment(slot.end) < moment();
@@ -54,6 +64,7 @@ class TimeSlot extends Component {
 
 TimeSlot.propTypes = {
   onClick: PropTypes.func.isRequired,
+  scrollTo: PropTypes.bool,
   selected: PropTypes.bool.isRequired,
   slot: PropTypes.object.isRequired,
 };

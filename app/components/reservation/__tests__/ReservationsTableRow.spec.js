@@ -66,7 +66,10 @@ describe('Component: reservation/ReservationsTableRow', () => {
           expect(linkTree).to.be.ok;
           expect(linkTree.props.to).to.equal(`/resources/${props.resource.id}/reservation`);
           expect(linkTree.props.query).to.deep.equal(
-            { date: props.reservation.begin.split('T')[0] }
+            {
+              date: props.reservation.begin.split('T')[0],
+              time: props.reservation.begin,
+            }
           );
         });
 

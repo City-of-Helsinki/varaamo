@@ -12,12 +12,14 @@ class TimeSlots extends Component {
   }
 
   renderTimeSlot(slot) {
-    const { onClick, selected } = this.props;
+    const { onClick, selected, time } = this.props;
+    const scrollTo = time && time === slot.start;
 
     return (
       <TimeSlot
         key={slot.start}
         onClick={onClick}
+        scrollTo={scrollTo}
         selected={_.includes(selected, slot.asISOString)}
         slot={slot}
       />
@@ -58,6 +60,7 @@ TimeSlots.propTypes = {
   onClick: PropTypes.func.isRequired,
   selected: PropTypes.array.isRequired,
   slots: PropTypes.array.isRequired,
+  time: PropTypes.string,
 };
 
 export default TimeSlots;
