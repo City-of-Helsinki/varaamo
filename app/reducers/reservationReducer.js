@@ -3,6 +3,7 @@ import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
 import ModalTypes from 'constants/ModalTypes';
+import { getTimeSlots } from 'utils/TimeUtils';
 
 const initialState = Immutable({
   selected: [],
@@ -11,11 +12,14 @@ const initialState = Immutable({
 });
 
 function selectReservationToEdit(state, action) {
-  const reservation = action.payload;
-  const date = reservation.begin.split('T')[0];
+  const { minPeriod, reservation } = action.payload;
+  const selected = _.map(
+    getTimeSlots(reservation.begin, reservation.end, minPeriod),
+    (slot) => slot.asISOString
+  );
 
   return state.merge({
-    date,
+    selected: [...state.selected, ...selected],
     toEdit: [...state.toEdit, reservation],
   });
 }

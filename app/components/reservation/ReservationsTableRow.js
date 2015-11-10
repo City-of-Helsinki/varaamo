@@ -29,10 +29,11 @@ class ReservationsTableRow extends Component {
     const {
       pushState,
       reservation,
+      resource,
       selectReservationToEdit,
     } = this.props;
 
-    selectReservationToEdit(reservation);
+    selectReservationToEdit({ reservation, minPeriod: resource.minPeriod });
     pushState(
       null,
       `/resources/${reservation.resource}/reservation`,

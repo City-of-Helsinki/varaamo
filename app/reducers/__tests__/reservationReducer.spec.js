@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 
+import _ from 'lodash';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
@@ -15,6 +16,7 @@ import {
 import types from 'constants/ActionTypes';
 import Reservation from 'fixtures/Reservation';
 import reservationReducer from 'reducers/reservationReducer';
+import { getTimeSlots } from 'utils/TimeUtils';
 
 describe('Reducer: reservationReducer', () => {
   describe('initial state', () => {
@@ -166,25 +168,13 @@ describe('Reducer: reservationReducer', () => {
     });
 
     describe('UI.SELECT_RESERVATION_TO_EDIT', () => {
-      it('should change date to the date of the reservation', () => {
-        const initialState = Immutable({
-          date: 'mock-date',
-          toEdit: [],
-        });
-        const reservation = Reservation.build();
-        const action = selectReservationToEdit(reservation);
-        const nextState = reservationReducer(initialState, action);
-        const expected = reservation.begin.split('T')[0];
-
-        expect(nextState.date).to.equal(expected);
-      });
-
       it('should add the given reservation to toEdit', () => {
         const initialState = Immutable({
+          selected: [],
           toEdit: [],
         });
         const reservation = Reservation.build();
-        const action = selectReservationToEdit(reservation);
+        const action = selectReservationToEdit({ reservation });
         const nextState = reservationReducer(initialState, action);
         const expected = Immutable([reservation]);
 
@@ -197,13 +187,31 @@ describe('Reducer: reservationReducer', () => {
           Reservation.build(),
         ];
         const initialState = Immutable({
+          selected: [],
           toEdit: [reservations[0]],
         });
-        const action = selectReservationToEdit(reservations[1]);
+        const action = selectReservationToEdit({ reservation: reservations[1] });
         const nextState = reservationReducer(initialState, action);
         const expected = Immutable([reservations[0], reservations[1]]);
 
         expect(nextState.toEdit).to.deep.equal(expected);
+      });
+
+      it('should split the given reservation to slots and add to selected', () => {
+        const begin = '2015-10-09T08:00:00+03:00';
+        const end = '2015-10-09T10:00:00+03:00';
+        const minPeriod = '00:30:00';
+        const reservation = Reservation.build({ begin, end });
+        const initialState = Immutable({
+          selected: [],
+          toEdit: [],
+        });
+        const action = selectReservationToEdit({ reservation, minPeriod });
+        const nextState = reservationReducer(initialState, action);
+        const slots = getTimeSlots(reservation.begin, reservation.end, minPeriod);
+        const expected = _.map(slots, (slot) => slot.asISOString);
+
+        expect(nextState.selected).to.deep.equal(expected);
       });
     });
 
