@@ -175,7 +175,7 @@ describe('Component: reservation/ReservationsTable', () => {
     });
 
     it('should render a message telling no reservations were found', () => {
-      const expected = 'Sinulla ei vielä ole yhtään varauksia.';
+      const expected = 'Sinulla ei vielä ole yhtään varausta.';
 
       expect(tree.textIn('p')).to.equal(expected);
     });

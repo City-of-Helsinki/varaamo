@@ -103,7 +103,7 @@ export class UnconnectedReservationsTable extends Component {
             />
           </div>
         ) : (
-          <p>Sinulla ei vielä ole yhtään varauksia.</p>
+          <p>Sinulla ei vielä ole yhtään varausta.</p>
         )}
       </Loader>
     );
