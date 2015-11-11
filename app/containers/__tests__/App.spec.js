@@ -11,6 +11,7 @@ import User from 'fixtures/User';
 describe('Container: App', () => {
   const props = {
     actions: {
+      clearSearchResults: simple.stub(),
       logout: simple.stub(),
       pushState: simple.stub(),
     },
@@ -31,6 +32,7 @@ describe('Container: App', () => {
       const actualProps = navbarTrees[0].props;
 
       expect(actualProps.logout).to.equal(instance.handleLogout);
+      expect(actualProps.clearSearchResults).to.equal(props.actions.clearSearchResults);
       expect(actualProps.user).to.equal(props.user);
     });
   });

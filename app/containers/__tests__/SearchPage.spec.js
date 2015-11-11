@@ -24,6 +24,7 @@ describe('Container: SearchPage', () => {
       purpose: 'some-purpose',
     },
     results: Immutable([resource]),
+    searchDone: true,
     units: Immutable({ [unit.id]: unit }),
   };
   const tree = sd.shallowRender(<SearchPage {...props} />);

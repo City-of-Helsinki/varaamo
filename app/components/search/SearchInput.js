@@ -1,33 +1,24 @@
 import React, { Component, PropTypes } from 'react';
-import { Button, Glyphicon, Input } from 'react-bootstrap';
+import { Input } from 'react-bootstrap';
 
 class SearchInput extends Component {
-  constructor(props) {
-    super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    const searchValue = this.refs.searchInput.getValue();
-    this.props.onSubmit(searchValue);
-  }
-
   render() {
-    const { initialValue } = this.props;
-    const searchGlyphicon = <Glyphicon glyph="search" />;
-    const submitButton = <Button bsStyle="primary" type="submit">Hae</Button>;
+    const { autoFocus, onChange, onSubmit, value } = this.props;
 
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          onSubmit();
+        }}
+      >
         <Input
-          addonBefore={searchGlyphicon}
-          autoFocus
-          buttonAfter={submitButton}
-          defaultValue={initialValue}
+          autoFocus={autoFocus}
+          onChange={(event) => onChange(event.target.value)}
           placeholder="Etsi tilan nimellä"
           ref="searchInput"
           type="text"
+          value={value}
         />
       </form>
     );
@@ -35,8 +26,10 @@ class SearchInput extends Component {
 }
 
 SearchInput.propTypes = {
+  autoFocus: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  initialValue: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 export default SearchInput;

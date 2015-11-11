@@ -24,6 +24,7 @@ class Navbar extends Component {
 
   renderUserNav() {
     const { logout, user } = this.props;
+
     if (user && user.displayName) {
       return (
         <NavDropdown id="collapsible-navbar-dropdown" title={user.displayName}>
@@ -42,6 +43,8 @@ class Navbar extends Component {
   }
 
   render() {
+    const { clearSearchResults } = this.props;
+
     return (
       <RBNavbar inverse toggleNavKey={0}>
         <NavBrand>
@@ -57,7 +60,7 @@ class Navbar extends Component {
         <CollapsibleNav eventKey={0}>
           <Nav navbar>
             <LinkContainer to="/search">
-              <NavItem>
+              <NavItem onClick={clearSearchResults}>
                 <Glyphicon glyph="search" /> Haku
               </NavItem>
             </LinkContainer>
@@ -76,6 +79,7 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
   logout: PropTypes.func.isRequired,
+  clearSearchResults: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
 };
 
