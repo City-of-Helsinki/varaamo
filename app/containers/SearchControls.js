@@ -25,18 +25,22 @@ export class UnconnectedSearchControls extends Component {
     this.props.actions.fetchPurposes();
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState(nextProps.filters);
+  }
+
   onFiltersChange(newFilters) {
     this.setState(newFilters);
   }
 
-  changeFiltersAndSearch(newFilters) {
-    this.onFiltersChange(newFilters);
-    this.handleSearch();
-  }
-
-  handleSearch() {
+  handleSearch(newFilters) {
     const { actions } = this.props;
-    const filters = this.state;
+    let filters;
+    if (newFilters) {
+      filters = Object.assign({}, this.state, newFilters);
+    } else {
+      filters = this.state;
+    }
     const fetchParams = getFetchParamsFromFilters(filters);
 
     actions.pushState(null, '/search', filters);
@@ -74,7 +78,7 @@ export class UnconnectedSearchControls extends Component {
           block
           bsStyle="primary"
           className="search-button"
-          onClick={this.handleSearch}
+          onClick={() => this.handleSearch()}
           type="submit"
         >
           Hae
@@ -83,12 +87,12 @@ export class UnconnectedSearchControls extends Component {
           date={this.state.date}
           hideFooter
           gotoSelectedText="Mene valittuun"
-          onChange={(newDate) => this.changeFiltersAndSearch({ date: newDate })}
+          onChange={(newDate) => this.handleSearch({ date: newDate })}
           todayText="Tänään"
         />
         <DateHeader
           date={this.state.date}
-          onChange={(newDate) => this.changeFiltersAndSearch({ date: newDate })}
+          onChange={(newDate) => this.handleSearch({ date: newDate })}
         />
       </div>
     );
