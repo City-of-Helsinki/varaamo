@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Panel } from 'react-bootstrap';
 import DatePicker from 'react-date-picker';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -58,12 +58,18 @@ export class UnconnectedSearchControls extends Component {
           onSubmit={this.handleSearch}
           value={this.state.search}
         />
-        <SearchFilters
-          isFetchingPurposes={isFetchingPurposes}
-          onFiltersChange={this.onFiltersChange}
-          purposeOptions={purposeOptions}
-          filters={this.state}
-        />
+        <Panel
+          collapsible
+          defaultExpanded={Boolean(filters.purpose)}
+          header="Tarkennettu haku"
+        >
+          <SearchFilters
+            isFetchingPurposes={isFetchingPurposes}
+            onFiltersChange={this.onFiltersChange}
+            purposeOptions={purposeOptions}
+            filters={this.state}
+          />
+        </Panel>
         <Button
           block
           bsStyle="primary"
