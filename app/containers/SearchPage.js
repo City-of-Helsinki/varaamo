@@ -34,7 +34,7 @@ export class UnconnectedSearchPage extends Component {
         <div className="search-page">
           <h1>Haku</h1>
           <SearchControls />
-          {searchDone ? (
+          {searchDone || isFetchingSearchResults ? (
             <SearchResults
               date={filters.date}
               isFetching={isFetchingSearchResults}

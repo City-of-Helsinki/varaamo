@@ -1,14 +1,24 @@
 import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
+import { findDOMNode } from 'react-dom';
 import { Table } from 'react-bootstrap';
 import Loader from 'react-loader';
 
 import SearchResult from 'components/search/SearchResult';
+import { scrollTo } from 'utils/DOMUtils';
 
 class SearchResults extends Component {
   constructor(props) {
     super(props);
     this.renderSearchResult = this.renderSearchResult.bind(this);
+  }
+
+  componentDidMount() {
+    scrollTo(findDOMNode(this));
+  }
+
+  componentWillUpdate() {
+    scrollTo(findDOMNode(this));
   }
 
   renderSearchResult(result) {

@@ -4,13 +4,12 @@ import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import { Glyphicon, Label } from 'react-bootstrap';
 
+import { scrollTo } from 'utils/DOMUtils';
+
 class TimeSlot extends Component {
   componentDidMount() {
     if (this.props.scrollTo) {
-      const bodyOffsetTop = document.body.getBoundingClientRect().top;
-      const slotOffsetTop = findDOMNode(this).getBoundingClientRect().top;
-      const scrollTo = slotOffsetTop - bodyOffsetTop;
-      window.scrollTo(0, scrollTo);
+      scrollTo(findDOMNode(this));
     }
   }
 
