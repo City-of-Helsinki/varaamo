@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
 import dateSelector from 'selectors/dateSelector';
+import isLoggedInSelector from 'selectors/isLoggedInSelector';
 import resourceSelector from 'selectors/resourceSelector';
 import timeSelector from 'selectors/timeSelector';
 import selectedReservationsSelector from 'selectors/selectedReservationsSelector';
@@ -17,6 +18,7 @@ const toEditSelector = (state) => state.ui.reservation.toEdit;
 
 const reservationFormSelector = createSelector(
   idSelector,
+  isLoggedInSelector,
   modalIsOpenSelectorFactory(ModalTypes.CONFIRM_RESERVATION),
   requestIsActiveSelectorFactory(ActionTypes.API.RESERVATION_POST_REQUEST),
   requestIsActiveSelectorFactory(ActionTypes.API.RESOURCE_GET_REQUEST),
@@ -28,6 +30,7 @@ const reservationFormSelector = createSelector(
   toEditSelector,
   (
     id,
+    isLoggedIn,
     confirmReservationModalIsOpen,
     isMakingReservations,
     isFetchingResource,
@@ -48,6 +51,7 @@ const reservationFormSelector = createSelector(
       date,
       id,
       isFetchingResource,
+      isLoggedIn,
       isMakingReservations,
       reservationsToEdit,
       selected,

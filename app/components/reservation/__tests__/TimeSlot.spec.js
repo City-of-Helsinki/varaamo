@@ -10,6 +10,7 @@ import TimeSlotFixture from 'fixtures/TimeSlot';
 
 describe('Component: reservation/TimeSlot', () => {
   const props = {
+    isLoggedIn: true,
     onClick: simple.stub(),
     selected: false,
     slot: Immutable(TimeSlotFixture.build()),
@@ -84,6 +85,7 @@ describe('Component: reservation/TimeSlot', () => {
 
       describe('when the slot is reserved', () => {
         const reservedProps = {
+          isLoggedIn: true,
           onClick: simple.stub(),
           selected: false,
           slot: Immutable(TimeSlotFixture.build({ reserved: true })),

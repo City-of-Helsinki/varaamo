@@ -94,6 +94,7 @@ export class UnconnectedReservationForm extends Component {
       confirmReservationModalIsOpen,
       date,
       isFetchingResource,
+      isLoggedIn,
       isMakingReservations,
       reservationsToEdit,
       selected,
@@ -118,13 +119,14 @@ export class UnconnectedReservationForm extends Component {
         />
         <TimeSlots
           isFetching={isFetchingResource}
+          isLoggedIn={isLoggedIn}
           onClick={actions.toggleTimeSlot}
           selected={selected}
           slots={timeSlots}
           time={time}
         />
         <ReservationFormControls
-          disabled={!selected.length || isMakingReservations}
+          disabled={!isLoggedIn || !selected.length || isMakingReservations}
           isEditing={isEditing}
           isMakingReservations={isMakingReservations}
           onCancel={this.handleEditCancel}
@@ -150,6 +152,7 @@ UnconnectedReservationForm.propTypes = {
   date: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   isFetchingResource: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,
   reservationsToEdit: PropTypes.array.isRequired,
   selected: PropTypes.array.isRequired,

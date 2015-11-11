@@ -14,6 +14,10 @@ function getState(resource, resourceId) {
     api: Immutable({
       activeRequests: [],
     }),
+    auth: {
+      token: null,
+      userId: null,
+    },
     data: Immutable({
       resources: { [resource.id]: resource },
     }),
@@ -79,6 +83,13 @@ describe('Selector: reservationFormSelector', () => {
     const selected = reservationFormSelector(state);
 
     expect(selected.isFetchingResource).to.exist;
+  });
+
+  it('should return isLoggedIn', () => {
+    const state = getState(resource);
+    const selected = reservationFormSelector(state);
+
+    expect(selected.isLoggedIn).to.exist;
   });
 
   it('should return isMakingReservations', () => {

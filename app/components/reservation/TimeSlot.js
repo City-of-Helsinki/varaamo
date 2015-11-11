@@ -14,9 +14,9 @@ class TimeSlot extends Component {
   }
 
   render() {
-    const { onClick, selected, slot } = this.props;
+    const { isLoggedIn, onClick, selected, slot } = this.props;
     const isPast = moment(slot.end) < moment();
-    const disabled = !slot.editing && (slot.reserved || isPast);
+    const disabled = !isLoggedIn || !slot.editing && (slot.reserved || isPast);
     const checked = selected || (slot.reserved && !slot.editing);
     let labelBsStyle;
     let labelText;
@@ -62,6 +62,7 @@ class TimeSlot extends Component {
 }
 
 TimeSlot.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
   scrollTo: PropTypes.bool,
   selected: PropTypes.bool.isRequired,
