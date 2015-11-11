@@ -180,6 +180,19 @@ describe('Container: SearchControls', () => {
     });
   });
 
+  describe('componentWillReceiveProps', () => {
+    it('should update the component state with the new filters', () => {
+      const filters = {
+        date: 'new-date',
+        purpose: 'new purpose',
+        search: 'new search',
+      };
+      instance.componentWillReceiveProps({ filters });
+
+      expect(instance.state).to.deep.equal(filters);
+    });
+  });
+
   describe('fetching data', () => {
     it('should fetch resources when component mounts', () => {
       instance.componentDidMount();

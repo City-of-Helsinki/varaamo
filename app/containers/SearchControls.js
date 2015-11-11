@@ -25,6 +25,10 @@ export class UnconnectedSearchControls extends Component {
     this.props.actions.fetchPurposes();
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState(nextProps.filters);
+  }
+
   onFiltersChange(newFilters) {
     this.setState(newFilters);
   }
