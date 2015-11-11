@@ -99,13 +99,13 @@ describe('Container: SearchControls', () => {
       expect(typeof actualProps.onChange).to.equal('function');
     });
 
-    it('DateHeader onChange should call onFiltersChange with correct arguments', () => {
-      simple.mock(instance, 'onFiltersChange');
+    it('DateHeader onChange should call handleSearch with correct arguments', () => {
+      simple.mock(instance, 'handleSearch');
       const newDate = 'some-date';
       dateHeaderTrees[0].props.onChange(newDate);
       const expected = { date: newDate };
-      const actualCallCount = instance.onFiltersChange.callCount;
-      const actualArgs = instance.onFiltersChange.lastCall.args[0];
+      const actualCallCount = instance.handleSearch.callCount;
+      const actualArgs = instance.handleSearch.lastCall.args[0];
       simple.restore();
 
       expect(actualCallCount).to.equal(1);
@@ -132,13 +132,13 @@ describe('Container: SearchControls', () => {
       expect(typeof actualProps.onChange).to.equal('function');
     });
 
-    it('DatePicker onChange should call onFiltersChange with correct arguments', () => {
-      simple.mock(instance, 'onFiltersChange');
+    it('DatePicker onChange should call handleSearch with correct arguments', () => {
+      simple.mock(instance, 'handleSearch');
       const newDate = 'some-date';
       datePickerTrees[0].props.onChange(newDate);
       const expected = { date: newDate };
-      const actualCallCount = instance.onFiltersChange.callCount;
-      const actualArgs = instance.onFiltersChange.lastCall.args[0];
+      const actualCallCount = instance.handleSearch.callCount;
+      const actualArgs = instance.handleSearch.lastCall.args[0];
       simple.restore();
 
       expect(actualCallCount).to.equal(1);
