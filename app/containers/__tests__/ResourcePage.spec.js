@@ -19,6 +19,7 @@ describe('Container: ResourcePage', () => {
     actions: { fetchResource: simple.stub() },
     id: resource.id,
     isFetchingResource: false,
+    isLoggedIn: true,
     resource: Immutable(resource),
     unit: Immutable(unit),
   };
