@@ -8,16 +8,23 @@ import SearchInput from 'components/search/SearchInput';
 describe('Component: search/SearchInput', () => {
   const props = {
     autoFocus: true,
+    onChange: simple.stub(),
     onSubmit: simple.stub(),
     value: 'query',
   };
 
   const tree = sd.shallowRender(<SearchInput {...props} />);
   const vdom = tree.getRenderOutput();
-  const instance = tree.getMountedInstance();
 
   it('should render a form', () => {
     expect(vdom.type).to.equal('form');
+  });
+
+  it('submitting the form should call props.onSubmit', () => {
+    const mockEvent = { preventDefault: simple.stub() };
+    tree.props.onSubmit(mockEvent);
+
+    expect(props.onSubmit.callCount).to.equal(1);
   });
 
   describe('search box', () => {
@@ -36,37 +43,13 @@ describe('Component: search/SearchInput', () => {
       expect(actualProps.placeholder).to.equal('Etsi tilan nimellä');
     });
 
-    it('changing the search box value should update the component state', () => {
+    it('changing the search box value should call props.onChange with new value', () => {
       const newValue = 'new search value';
       const mockEvent = { target: { value: newValue } };
       inputTrees[0].props.onChange(mockEvent);
 
-      expect(instance.state.value).to.equal(newValue);
-    });
-  });
-
-  describe('submit button', () => {
-    const submitButton = tree.subTree('Input').props.buttonAfter;
-
-    it('should render a submit button', () => {
-      expect(submitButton).to.exist;
-    });
-
-    it('should have a type "submit"', () => {
-      expect(submitButton.props.type).to.equal('submit');
-    });
-
-    it('should have text "Hae"', () => {
-      expect(submitButton.props.children).to.equal('Hae');
-    });
-  });
-
-  describe('componentWillReceiveProps', () => {
-    it('should update the component state with the new input value', () => {
-      const newValue = 'new search value';
-      instance.componentWillReceiveProps({ value: newValue });
-
-      expect(instance.state.value).to.equal(newValue);
+      expect(props.onChange.callCount).to.equal(1);
+      expect(props.onChange.lastCall.args[0]).to.equal(newValue);
     });
   });
 });

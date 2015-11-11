@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Button } from 'react-bootstrap';
 import DatePicker from 'react-date-picker';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -15,6 +16,8 @@ import { getFetchParamsFromFilters } from 'utils/SearchUtils';
 export class UnconnectedSearchControls extends Component {
   constructor(props) {
     super(props);
+    this.state = this.props.filters;
+    this.handleSearch = this.handleSearch.bind(this);
     this.onFiltersChange = this.onFiltersChange.bind(this);
   }
 
@@ -23,11 +26,20 @@ export class UnconnectedSearchControls extends Component {
   }
 
   onFiltersChange(newFilters) {
-    const { actions, filters } = this.props;
-    const allFilters = Object.assign({}, filters, newFilters);
-    const fetchParams = getFetchParamsFromFilters(allFilters);
+    this.setState(newFilters);
+  }
 
-    actions.pushState(null, '/search', allFilters);
+  changeFiltersAndSearch(newFilters) {
+    this.onFiltersChange(newFilters);
+    this.handleSearch();
+  }
+
+  handleSearch() {
+    const { actions } = this.props;
+    const filters = this.state;
+    const fetchParams = getFetchParamsFromFilters(filters);
+
+    actions.pushState(null, '/search', filters);
     actions.searchResources(fetchParams);
   }
 
@@ -42,25 +54,35 @@ export class UnconnectedSearchControls extends Component {
       <div>
         <SearchInput
           autoFocus={!Boolean(filters.purpose)}
-          onSubmit={(searchValue) => this.onFiltersChange({ search: searchValue })}
-          value={filters.search}
+          onChange={(searchValue) => this.onFiltersChange({ search: searchValue })}
+          onSubmit={this.handleSearch}
+          value={this.state.search}
         />
         <SearchFilters
           isFetchingPurposes={isFetchingPurposes}
           onFiltersChange={this.onFiltersChange}
           purposeOptions={purposeOptions}
-          filters={filters}
+          filters={this.state}
         />
+        <Button
+          block
+          bsStyle="primary"
+          className="search-button"
+          onClick={this.handleSearch}
+          type="submit"
+        >
+          Hae
+        </Button>
         <DatePicker
-          date={filters.date}
+          date={this.state.date}
           hideFooter
           gotoSelectedText="Mene valittuun"
-          onChange={(newDate) => this.onFiltersChange({ date: newDate })}
+          onChange={(newDate) => this.changeFiltersAndSearch({ date: newDate })}
           todayText="Tänään"
         />
         <DateHeader
-          date={filters.date}
-          onChange={(newDate) => this.onFiltersChange({ date: newDate })}
+          date={this.state.date}
+          onChange={(newDate) => this.changeFiltersAndSearch({ date: newDate })}
         />
       </div>
     );

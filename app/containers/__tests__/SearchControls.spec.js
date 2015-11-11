@@ -147,15 +147,19 @@ describe('Container: SearchControls', () => {
   });
 
   describe('onFiltersChange', () => {
+    it('should update the component state with the new filters', () => {
+      const newFilters = { search: 'new search value' };
+      instance.onFiltersChange(newFilters);
+
+      expect(instance.state.search).to.equal(newFilters.search);
+    });
+  });
+
+  describe('handleSearch', () => {
     let newFilters;
 
     beforeEach(() => {
-      newFilters = {
-        date: '2015-10-10',
-        purpose: 'new-purpose',
-        search: '',
-      };
-      instance.onFiltersChange(newFilters);
+      instance.handleSearch(newFilters);
     });
 
     it('should call pushState with correct arguments', () => {
@@ -164,13 +168,12 @@ describe('Container: SearchControls', () => {
       expect(props.actions.pushState.callCount).to.equal(1);
       expect(actualArgs[0]).to.equal(null);
       expect(actualArgs[1]).to.equal('/search');
-      expect(actualArgs[2]).to.deep.equal(newFilters);
+      expect(actualArgs[2]).to.deep.equal(instance.state);
     });
 
     it('should call searchResources with correct arguments', () => {
       const action = props.actions.searchResources;
-      const allFilters = Object.assign({}, props.filters, newFilters);
-      const expected = getFetchParamsFromFilters(allFilters);
+      const expected = getFetchParamsFromFilters(instance.state);
 
       expect(action.callCount).to.equal(1);
       expect(action.lastCall.args[0]).to.deep.equal(expected);
