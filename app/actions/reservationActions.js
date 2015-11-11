@@ -59,7 +59,7 @@ function fetchReservations(params = {}) {
       ],
       endpoint: buildAPIUrl('reservation', fetchParams),
       method: 'GET',
-      headers: getHeadersCreator(),
+      headers: getHeadersCreator({}, { withJWT: true }),
     },
   };
 }
