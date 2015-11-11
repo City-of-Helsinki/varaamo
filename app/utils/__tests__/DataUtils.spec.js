@@ -278,6 +278,22 @@ describe('Utils: DataUtils', () => {
 
           expect(availableTime).to.equal('3 tuntia');
         });
+
+        it('should not minus past time of ongoing reservations', () => {
+          const openingHours = {
+            opens: '2015-10-10T12:00:00+03:00',
+            closes: '2015-10-10T18:00:00+03:00',
+          };
+          const reservations = [
+            {
+              begin: '2015-10-10T13:00:00+03:00',
+              end: '2015-10-10T17:00:00+03:00',
+            },
+          ];
+          const availableTime = getAvailableTime(openingHours, reservations);
+
+          expect(availableTime).to.equal('1 tunti');
+        });
       });
     });
 
