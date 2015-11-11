@@ -66,7 +66,10 @@ describe('Component: reservation/ReservationsTableRow', () => {
           expect(linkTree).to.be.ok;
           expect(linkTree.props.to).to.equal(`/resources/${props.resource.id}/reservation`);
           expect(linkTree.props.query).to.deep.equal(
-            { date: props.reservation.begin.split('T')[0] }
+            {
+              date: props.reservation.begin.split('T')[0],
+              time: props.reservation.begin,
+            }
           );
         });
 
@@ -96,12 +99,12 @@ describe('Component: reservation/ReservationsTableRow', () => {
           describe('clicking the button', () => {
             buttonTree.props.onClick();
 
-            it('should call props.selectReservationToEdit with this reservation', () => {
+            it('should call props.selectReservationToEdit with reservation and minPeriod', () => {
               expect(props.selectReservationToEdit.callCount).to.equal(1);
               expect(
                 props.selectReservationToEdit.lastCall.args[0]
               ).to.deep.equal(
-                props.reservation
+                { reservation: props.reservation, minPeriod: props.resource.minPeriod }
               );
             });
 

@@ -12,12 +12,14 @@ class TimeSlots extends Component {
   }
 
   renderTimeSlot(slot) {
-    const { onChange, selected } = this.props;
+    const { onClick, selected, time } = this.props;
+    const scrollTo = time && time === slot.start;
 
     return (
       <TimeSlot
         key={slot.start}
-        onChange={onChange}
+        onClick={onClick}
+        scrollTo={scrollTo}
         selected={_.includes(selected, slot.asISOString)}
         slot={slot}
       />
@@ -30,7 +32,10 @@ class TimeSlots extends Component {
     return (
       <Loader loaded={!isFetching}>
         {slots.length ? (
-          <Table className="time-slots" striped>
+          <Table
+            className="time-slots"
+            hover
+          >
             <thead>
               <tr>
                 <th />
@@ -52,9 +57,10 @@ class TimeSlots extends Component {
 
 TimeSlots.propTypes = {
   isFetching: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
   selected: PropTypes.array.isRequired,
   slots: PropTypes.array.isRequired,
+  time: PropTypes.string,
 };
 
 export default TimeSlots;

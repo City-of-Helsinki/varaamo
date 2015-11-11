@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 import ActionTypes from 'constants/ActionTypes';
 import dateSelector from 'selectors/dateSelector';
 import resourceSelector from 'selectors/resourceSelector';
+import timeSelector from 'selectors/timeSelector';
 import selectedReservationsSelector from 'selectors/selectedReservationsSelector';
 import modalIsOpenSelectorFactory from 'selectors/factories/modalIsOpenSelectorFactory';
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
@@ -23,6 +24,7 @@ const reservationFormSelector = createSelector(
   resourceSelector,
   selectedSelector,
   selectedReservationsSelector,
+  timeSelector,
   toEditSelector,
   (
     id,
@@ -33,6 +35,7 @@ const reservationFormSelector = createSelector(
     resource,
     selected,
     selectedReservations,
+    time,
     reservationsToEdit
   ) => {
     const { closes, opens } = getOpeningHours(resource);
@@ -49,6 +52,7 @@ const reservationFormSelector = createSelector(
       reservationsToEdit,
       selected,
       selectedReservations,
+      time,
       timeSlots,
     };
   }

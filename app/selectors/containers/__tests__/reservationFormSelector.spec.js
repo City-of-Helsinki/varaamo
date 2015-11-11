@@ -21,6 +21,7 @@ function getState(resource, resourceId) {
       location: {
         query: {
           date: '2015-10-10',
+          time: '2015-10-10T12:00:00+03:00',
         },
       },
       params: {
@@ -109,6 +110,14 @@ describe('Selector: reservationFormSelector', () => {
 
     expect(selected.selectedReservations).to.exist;
   });
+
+  it('should return time', () => {
+    const state = getState(resource);
+    const selected = reservationFormSelector(state);
+
+    expect(selected.time).to.exist;
+  });
+
 
   describe('timeSlots', () => {
     it('should use resource properties to calculate correct time slots', () => {

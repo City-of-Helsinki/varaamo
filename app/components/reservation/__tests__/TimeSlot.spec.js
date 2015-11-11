@@ -10,7 +10,7 @@ import TimeSlotFixture from 'fixtures/TimeSlot';
 
 describe('Component: reservation/TimeSlot', () => {
   const props = {
-    onChange: simple.stub(),
+    onClick: simple.stub(),
     selected: false,
     slot: Immutable(TimeSlotFixture.build()),
   };
@@ -19,6 +19,12 @@ describe('Component: reservation/TimeSlot', () => {
 
   it('should render a table row', () => {
     expect(vdom.type).to.equal('tr');
+  });
+
+  it('clicking the table row should call props.onClick with correct arguments', () => {
+    tree.props.onClick();
+
+    expect(props.onClick.callCount).to.equal(1);
   });
 
   describe('table cells', () => {
@@ -30,20 +36,14 @@ describe('Component: reservation/TimeSlot', () => {
 
     describe('the first table cell', () => {
       const tdTree = tdTrees[0];
-      const inputTree = tdTree.subTree('input');
+      const glyphiconTree = tdTree.subTree('Glyphicon');
 
-      it('should render a checkbox', () => {
-        expect(inputTree.props.type).to.equal('checkbox');
+      it('should render a checkbox icon', () => {
+        expect(glyphiconTree).to.be.ok;
       });
 
       it('should not be checked if the slot is available', () => {
-        expect(inputTree.props.checked).to.equal(false);
-      });
-
-      it('checking the checkbox should call props.onChange with correct arguments', () => {
-        inputTree.props.onChange();
-
-        expect(props.onChange.callCount).to.equal(1);
+        expect(glyphiconTree.props.glyph).to.equal('unchecked');
       });
     });
 
@@ -84,7 +84,7 @@ describe('Component: reservation/TimeSlot', () => {
 
       describe('when the slot is reserved', () => {
         const reservedProps = {
-          onChange: simple.stub(),
+          onClick: simple.stub(),
           selected: false,
           slot: Immutable(TimeSlotFixture.build({ reserved: true })),
         };

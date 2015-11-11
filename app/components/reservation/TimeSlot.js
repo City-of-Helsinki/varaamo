@@ -1,38 +1,60 @@
 import classNames from 'classnames';
 import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
-import { Label } from 'react-bootstrap';
+import { findDOMNode } from 'react-dom';
+import { Glyphicon, Label } from 'react-bootstrap';
 
 class TimeSlot extends Component {
+  componentDidMount() {
+    if (this.props.scrollTo) {
+      const bodyOffsetTop = document.body.getBoundingClientRect().top;
+      const slotOffsetTop = findDOMNode(this).getBoundingClientRect().top;
+      const scrollTo = slotOffsetTop - bodyOffsetTop;
+      window.scrollTo(0, scrollTo);
+    }
+  }
+
   render() {
-    const { onChange, selected, slot } = this.props;
-    const disabled = !slot.editing && (slot.reserved || moment(slot.end) < moment());
+    const { onClick, selected, slot } = this.props;
+    const isPast = moment(slot.end) < moment();
+    const disabled = !slot.editing && (slot.reserved || isPast);
     const checked = selected || (slot.reserved && !slot.editing);
+    let labelBsStyle;
+    let labelText;
+    if (isPast) {
+      labelBsStyle = 'default';
+    } else {
+      labelBsStyle = slot.reserved ? 'danger' : 'success';
+    }
+    if (slot.editing) {
+      labelBsStyle = 'info';
+      labelText = 'Muokataan';
+    } else {
+      labelText = slot.reserved ? 'Varattu' : 'Vapaa';
+    }
 
     return (
       <tr
         className={classNames({
+          disabled,
           editing: slot.editing,
+          'past': isPast,
           reserved: slot.reserved,
-          selected: selected,
+          selected,
         })}
+        onClick={() => !disabled && onClick(slot.asISOString)}
       >
-        <td style={{ textAlign: 'center' }}>
-          <input
-            checked={checked}
-            disabled={disabled}
-            onChange={() => onChange(slot.asISOString)}
-            type="checkbox"
-          />
+        <td className="checkbox-cell">
+          <Glyphicon glyph={checked ? 'check' : 'unchecked'} />
         </td>
-        <td>
+        <td className="time-cell">
           <time dateTime={slot.asISOString}>
             {slot.asString}
           </time>
         </td>
         <td>
-          <Label bsStyle={slot.reserved ? 'danger' : 'success'}>
-            {slot.reserved ? 'Varattu' : 'Vapaa'}
+          <Label bsStyle={labelBsStyle}>
+            {labelText}
           </Label>
         </td>
       </tr>
@@ -41,7 +63,8 @@ class TimeSlot extends Component {
 }
 
 TimeSlot.propTypes = {
-  onChange: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
+  scrollTo: PropTypes.bool,
   selected: PropTypes.bool.isRequired,
   slot: PropTypes.object.isRequired,
 };

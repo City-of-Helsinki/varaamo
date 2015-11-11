@@ -98,6 +98,7 @@ export class UnconnectedReservationForm extends Component {
       reservationsToEdit,
       selected,
       selectedReservations,
+      time,
       timeSlots,
     } = this.props;
     const isEditing = Boolean(reservationsToEdit.length);
@@ -117,9 +118,10 @@ export class UnconnectedReservationForm extends Component {
         />
         <TimeSlots
           isFetching={isFetchingResource}
-          onChange={actions.toggleTimeSlot}
+          onClick={actions.toggleTimeSlot}
           selected={selected}
           slots={timeSlots}
+          time={time}
         />
         <ReservationFormControls
           disabled={!selected.length || isMakingReservations}
@@ -152,6 +154,7 @@ UnconnectedReservationForm.propTypes = {
   reservationsToEdit: PropTypes.array.isRequired,
   selected: PropTypes.array.isRequired,
   selectedReservations: PropTypes.array.isRequired,
+  time: PropTypes.string,
   timeSlots: PropTypes.array.isRequired,
 };
 

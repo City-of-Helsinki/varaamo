@@ -29,14 +29,18 @@ class ReservationsTableRow extends Component {
     const {
       pushState,
       reservation,
+      resource,
       selectReservationToEdit,
     } = this.props;
 
-    selectReservationToEdit(reservation);
+    selectReservationToEdit({ reservation, minPeriod: resource.minPeriod });
     pushState(
       null,
       `/resources/${reservation.resource}/reservation`,
-      { date: reservation.begin.split('T')[0] }
+      {
+        date: reservation.begin.split('T')[0],
+        time: reservation.begin,
+      }
     );
   }
 
@@ -83,7 +87,10 @@ class ReservationsTableRow extends Component {
         <td>
           <Link
             to={`/resources/${resource.id}/reservation`}
-            query={{ date: reservation.begin.split('T')[0] }}
+            query={{
+              date: reservation.begin.split('T')[0],
+              time: reservation.begin,
+            }}
           >
             <TimeRange
               begin={reservation.begin}
