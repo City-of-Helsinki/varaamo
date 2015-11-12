@@ -16,6 +16,7 @@ describe('Component: reservation/TimeSlots', () => {
     ];
     const props = {
       isFetching: false,
+      isLoggedIn: true,
       onClick: simple.stub(),
       selected: [timeSlots[0].asISOString],
       slots: Immutable(timeSlots),
@@ -69,6 +70,7 @@ describe('Component: reservation/TimeSlots', () => {
 
       it('should pass correct props to TimeSlots', () => {
         timeSlotTrees.forEach((timeSlotTree, index) => {
+          expect(timeSlotTree.props.isLoggedIn).to.equal(props.isLoggedIn);
           expect(timeSlotTree.props.onClick).to.equal(props.onClick);
           expect(timeSlotTree.props.slot).to.deep.equal(props.slots[index]);
         });
@@ -84,6 +86,7 @@ describe('Component: reservation/TimeSlots', () => {
   describe('without timeslots', () => {
     const props = {
       isFetching: false,
+      isLoggedIn: true,
       onClick: simple.stub(),
       selected: [],
       slots: [],

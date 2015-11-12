@@ -12,6 +12,10 @@ function getState(resources = [], units = [], resourceId = 'some-id') {
     api: Immutable({
       activeRequests: [],
     }),
+    auth: {
+      token: null,
+      userId: null,
+    },
     data: Immutable({
       resources: _.indexBy(resources, 'id'),
       units: _.indexBy(units, 'id'),
@@ -50,6 +54,13 @@ describe('Selector: reservationPageSelector', () => {
     const selected = reservationPageSelector(state);
 
     expect(selected.isFetchingResource).to.exist;
+  });
+
+  it('should return isLoggedIn', () => {
+    const state = getState();
+    const selected = reservationPageSelector(state);
+
+    expect(selected.isLoggedIn).to.exist;
   });
 
   it('should return resource', () => {

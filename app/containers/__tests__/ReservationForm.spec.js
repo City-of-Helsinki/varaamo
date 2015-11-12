@@ -27,6 +27,7 @@ function getProps(props = {}) {
     date: '2015-10-11',
     id: 'r-1',
     isFetchingResource: false,
+    isLoggedIn: true,
     isMakingReservations: false,
     reservationsToEdit: [],
     timeSlots: [],
@@ -104,6 +105,7 @@ describe('Container: ReservationForm', () => {
         const actualProps = timeSlotsTrees[0].props;
 
         expect(actualProps.isFetching).to.equal(props.isFetchingResource);
+        expect(actualProps.isLoggedIn).to.equal(props.isLoggedIn);
         expect(actualProps.onClick).to.deep.equal(props.actions.toggleTimeSlot);
         expect(actualProps.selected).to.deep.equal(props.selected);
         expect(actualProps.slots).to.deep.equal(props.timeSlots);

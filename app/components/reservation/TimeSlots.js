@@ -12,12 +12,13 @@ class TimeSlots extends Component {
   }
 
   renderTimeSlot(slot) {
-    const { onClick, selected, time } = this.props;
+    const { isLoggedIn, onClick, selected, time } = this.props;
     const scrollTo = time && time === slot.start;
 
     return (
       <TimeSlot
         key={slot.start}
+        isLoggedIn={isLoggedIn}
         onClick={onClick}
         scrollTo={scrollTo}
         selected={_.includes(selected, slot.asISOString)}
@@ -57,6 +58,7 @@ class TimeSlots extends Component {
 
 TimeSlots.propTypes = {
   isFetching: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
   selected: PropTypes.array.isRequired,
   slots: PropTypes.array.isRequired,

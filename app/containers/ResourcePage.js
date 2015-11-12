@@ -30,6 +30,7 @@ export class UnconnectedResourcePage extends Component {
     const {
       id,
       isFetchingResource,
+      isLoggedIn,
       resource,
       unit,
     } = this.props;
@@ -53,7 +54,7 @@ export class UnconnectedResourcePage extends Component {
                 bsStyle="primary"
                 className="reserve-button"
               >
-                Varaa tila
+                {isLoggedIn ? 'Varaa tila' : 'Varaustilanne'}
               </Button>
             </LinkContainer>
             <ResourceDetails
@@ -76,6 +77,7 @@ UnconnectedResourcePage.propTypes = {
   actions: PropTypes.object.isRequired,
   id: PropTypes.string.isRequired,
   isFetchingResource: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
   resource: PropTypes.object.isRequired,
   unit: PropTypes.object.isRequired,
 };
