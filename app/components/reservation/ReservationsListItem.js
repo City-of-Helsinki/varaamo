@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 import { Button } from 'react-bootstrap';
@@ -84,6 +85,8 @@ class ReservationsListItem extends Component {
       unit,
     } = this.props;
 
+    const nameSeparator = _.isEmpty(resource) || _.isEmpty(unit) ? '' : ',';
+
     return (
       <li className="reservation">
         <div className="image">
@@ -94,7 +97,7 @@ class ReservationsListItem extends Component {
         <div className="names">
           <Link to={`/resources/${resource.id}`}>
             <h4>
-              {getName(resource)}, <span className="unit-name">{getName(unit)}</span>
+              {getName(resource)}{nameSeparator} <span className="unit-name">{getName(unit)}</span>
             </h4>
           </Link>
         </div>

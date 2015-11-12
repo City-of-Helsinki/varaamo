@@ -46,7 +46,7 @@ class SearchResult extends Component {
             <div className="unit-name">{getName(unit)}</div>
           </Link>
         </td>
-        <td>
+        <td className="available-time">
           <Link
             to={`/resources/${result.id}/reservation`}
             query={{ date: date.split('T')[0] }}

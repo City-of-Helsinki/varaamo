@@ -67,7 +67,7 @@ export class UnconnectedReservationPage extends Component {
             {this.renderMaxPeriod(resource.maxPeriod)}
             <h2>{isLoggedIn ? 'Varaa tila' : 'Varaustilanne'}</h2>
             {!isLoggedIn &&
-              <p><a href="/login">Kirjaudu sisään</a> voidaksesi tehdä varauksen tähän tilaan.</p>
+              <p>Sinun täytyy <a href="/login">kirjautua sisään</a>, jotta voit tehdä varauksen tähän tilaan.</p>
             }
             <ReservationForm />
           </div>
