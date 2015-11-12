@@ -101,10 +101,10 @@ describe('Component: search/SearchResult', () => {
           );
         });
 
-        it('should display the available hours', () => {
-          const expected = '0 tuntia';
+        it('should display the available hours in a label', () => {
+          const expectedText = '0 tuntia';
 
-          expect(tdTree.subTree('Link').props.children).to.equal(expected);
+          expect(tdTree.subTree('Label').props.children).to.equal(expectedText);
         });
       });
     });
