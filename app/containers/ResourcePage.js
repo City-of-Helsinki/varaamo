@@ -52,7 +52,7 @@ export class UnconnectedResourcePage extends Component {
               <Button
                 bsSize="large"
                 bsStyle="primary"
-                className="reserve-button"
+                className="responsive-button"
               >
                 {isLoggedIn ? 'Varaa tila' : 'Varaustilanne'}
               </Button>
