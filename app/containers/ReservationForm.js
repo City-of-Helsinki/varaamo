@@ -116,6 +116,7 @@ export class UnconnectedReservationForm extends Component {
           hideFooter
           gotoSelectedText="Mene valittuun"
           onChange={this.onDateChange}
+          style={{ height: 210 }}
           todayText="Tänään"
         />
         <DateHeader
