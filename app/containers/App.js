@@ -26,14 +26,20 @@ export class UnconnectedApp extends Component {
   }
 
   render() {
-    const { actions, children, user } = this.props;
+    const {
+      actions,
+      children,
+      isLoggedIn,
+      user,
+    } = this.props;
 
     return (
       <DocumentTitle title="Respa">
         <div className="app">
           <Navbar
-            logout={this.handleLogout}
             clearSearchResults={actions.clearSearchResults}
+            isLoggedIn={isLoggedIn}
+            logout={this.handleLogout}
             user={user}
           />
           <div className="app-content">
@@ -52,6 +58,7 @@ export class UnconnectedApp extends Component {
 UnconnectedApp.propTypes = {
   actions: PropTypes.object.isRequired,
   children: PropTypes.node,
+  isLoggedIn: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
 };
 

@@ -10,6 +10,7 @@ function getState(users, loggedInUserId) {
   return {
     auth: Immutable({
       userId: loggedInUserId,
+      token: 'mock-token',
     }),
     data: Immutable({
       users: _.indexBy(users, 'id'),
@@ -19,6 +20,13 @@ function getState(users, loggedInUserId) {
 
 describe('Selector: appSelector', () => {
   const users = [User.build()];
+
+  it('should return isLoggedIn', () => {
+    const state = getState();
+    const selected = appSelector(state);
+
+    expect(selected.isLoggedIn).to.exist;
+  });
 
   it('should return user corresponding to the auth.userId', () => {
     const user = users[0];
