@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Label } from 'react-bootstrap';
 import { Link } from 'react-router';
 
 import {
@@ -10,6 +11,16 @@ import {
 } from 'utils/DataUtils';
 
 class SearchResult extends Component {
+  renderAvailableTime(availableTime) {
+    let bsStyle = 'success';
+    if (availableTime === '0 tuntia') {
+      bsStyle = 'danger';
+    }
+    return (
+      <Label bsStyle={bsStyle}>{availableTime}</Label>
+    );
+  }
+
   renderImage(image) {
     if (image && image.url) {
       const src = `${image.url}?dim=80x80`;
@@ -20,24 +31,27 @@ class SearchResult extends Component {
 
   render() {
     const { date, result, unit } = this.props;
+    const availableTime = getAvailableTime(getOpeningHours(result), result.reservations);
 
     return (
       <tr>
         <td style={{ height: '80px', width: '80px' }}>
-          {this.renderImage(getMainImage(result.images))}
+          <Link to={`/resources/${result.id}`}>
+            {this.renderImage(getMainImage(result.images))}
+          </Link>
         </td>
         <td>
           <Link to={`/resources/${result.id}`}>
-            {getName(result)}
+            <h4>{getName(result)}</h4>
+            <div className="unit-name">{getName(unit)}</div>
           </Link>
-          <div>{getName(unit)}</div>
         </td>
         <td>
           <Link
             to={`/resources/${result.id}/reservation`}
             query={{ date: date.split('T')[0] }}
           >
-            {getAvailableTime(getOpeningHours(result), result.reservations)}
+            {this.renderAvailableTime(availableTime)}
           </Link>
         </td>
       </tr>

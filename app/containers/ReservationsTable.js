@@ -81,10 +81,10 @@ export class UnconnectedReservationsTable extends Component {
       <Loader loaded={!isFetchingReservations}>
         {reservations.length ? (
           <div>
-            <Table striped>
+            <Table className="reservations-table lined">
               <thead>
                 <tr>
-                  <th>Tila</th>
+                  <th colSpan="2">Tila</th>
                   <th>Aika</th>
                   <th>Toiminnot</th>
                 </tr>

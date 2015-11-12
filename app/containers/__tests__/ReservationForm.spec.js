@@ -202,13 +202,6 @@ describe('Container: ReservationForm', () => {
         expect(props.actions.deleteReservation.callCount).to.equal(1);
         expect(actualArgs[0]).to.equal(props.reservationsToEdit[0]);
       });
-
-      it('should redirect user back to my reservations page', () => {
-        const actualUrlArg = props.actions.pushState.lastCall.args[1];
-        const expected = '/my-reservations';
-
-        expect(actualUrlArg).to.deep.equal(expected);
-      });
     });
 
     describe('if reservations are selected', () => {
@@ -242,13 +235,6 @@ describe('Container: ReservationForm', () => {
         props.actions.postReservation.calls.forEach((call, index) => {
           expect(call.args[0]).to.deep.equal(props.selectedReservations[index + 1]);
         });
-      });
-
-      it('should redirect user back to my reservations page', () => {
-        const actualUrlArg = props.actions.pushState.lastCall.args[1];
-        const expected = '/my-reservations';
-
-        expect(actualUrlArg).to.deep.equal(expected);
       });
     });
   });
