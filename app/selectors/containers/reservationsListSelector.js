@@ -10,7 +10,7 @@ const toDeleteSelector = (state) => state.ui.reservation.toDelete;
 const resourcesSelector = (state) => state.data.resources;
 const unitsSelector = (state) => state.data.units;
 
-const reservationsTableSelector = createSelector(
+const reservationsListSelector = createSelector(
   modalIsOpenSelectorFactory(ModalTypes.DELETE_RESERVATION),
   requestIsActiveSelectorFactory(ActionTypes.API.RESERVATIONS_GET_REQUEST),
   resourcesSelector,
@@ -37,4 +37,4 @@ const reservationsTableSelector = createSelector(
   }
 );
 
-export default reservationsTableSelector;
+export default reservationsListSelector;

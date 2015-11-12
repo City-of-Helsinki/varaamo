@@ -1,4 +1,10 @@
 .search-page {
+  h1 {
+    @media (max-width: @screen-xs-max) {
+      text-align: center;
+    }
+  }
+
   .search-button {
     margin-bottom: 30px;
   }
@@ -8,10 +14,25 @@
   }
 
   .search-results {
+    max-width: 100%;
+
+    @media (max-width: @screen-xs-max) {
+      td:first-child, th:first-child {
+        padding-left: 0;
+      }
+      td:last-child, th:last-child {
+        text-align: right;
+        padding-right: 0;
+      }
+    }
+
     td {
       vertical-align: middle;
       h4 {
         margin-top: 0;
+        @media (max-width: @screen-xs-max) {
+          font-size: 16px;
+        }
       }
       .unit-name {
         color: @gray;

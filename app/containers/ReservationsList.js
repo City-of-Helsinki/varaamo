@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
-import { Table } from 'react-bootstrap';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -19,14 +18,14 @@ import {
 import { fetchResources } from 'actions/resourceActions';
 import { fetchUnits } from 'actions/unitActions';
 import DeleteModal from 'components/reservation/DeleteModal';
-import ReservationsTableRow from 'components/reservation/ReservationsTableRow';
-import reservationsTableSelector from 'selectors/containers/reservationsTableSelector';
+import ReservationsListItem from 'components/reservation/ReservationsListItem';
+import reservationsListSelector from 'selectors/containers/reservationsListSelector';
 
-export class UnconnectedReservationsTable extends Component {
+export class UnconnectedReservationsList extends Component {
   constructor(props) {
     super(props);
     this.handleDelete = this.handleDelete.bind(this);
-    this.renderReservationsTableRow = this.renderReservationsTableRow.bind(this);
+    this.renderReservationsListItem = this.renderReservationsListItem.bind(this);
   }
 
   componentDidMount() {
@@ -43,7 +42,7 @@ export class UnconnectedReservationsTable extends Component {
     });
   }
 
-  renderReservationsTableRow(reservation) {
+  renderReservationsListItem(reservation) {
     const {
       actions,
       resources,
@@ -53,7 +52,7 @@ export class UnconnectedReservationsTable extends Component {
     const unit = resource.unit ? units[resource.unit] || {} : {};
 
     return (
-      <ReservationsTableRow
+      <ReservationsListItem
         key={reservation.url}
         reservation={reservation}
         resource={resource}
@@ -81,18 +80,9 @@ export class UnconnectedReservationsTable extends Component {
       <Loader loaded={!isFetchingReservations}>
         {reservations.length ? (
           <div>
-            <Table className="reservations-table lined">
-              <thead>
-                <tr>
-                  <th colSpan="2">Tila</th>
-                  <th>Aika</th>
-                  <th>Toiminnot</th>
-                </tr>
-              </thead>
-              <tbody>
-                {_.map(reservations, this.renderReservationsTableRow)}
-              </tbody>
-            </Table>
+            <ul className="reservations-list">
+              {_.map(reservations, this.renderReservationsListItem)}
+            </ul>
             <DeleteModal
               onClose={actions.closeDeleteReservationModal}
               onConfirm={this.handleDelete}
@@ -110,7 +100,7 @@ export class UnconnectedReservationsTable extends Component {
   }
 }
 
-UnconnectedReservationsTable.propTypes = {
+UnconnectedReservationsList.propTypes = {
   actions: PropTypes.object.isRequired,
   deleteReservationModalIsOpen: PropTypes.bool.isRequired,
   isDeletingReservations: PropTypes.bool.isRequired,
@@ -137,4 +127,4 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
-export default connect(reservationsTableSelector, mapDispatchToProps)(UnconnectedReservationsTable);
+export default connect(reservationsListSelector, mapDispatchToProps)(UnconnectedReservationsList);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 
-import ReservationsTable from 'containers/ReservationsTable';
+import ReservationsList from 'containers/ReservationsList';
 
 class UserReservationsPage extends Component {
   render() {
@@ -9,7 +9,7 @@ class UserReservationsPage extends Component {
       <DocumentTitle title="Omat varaukset - Respa">
         <div>
           <h1>Omat varaukset</h1>
-          <ReservationsTable />
+          <ReservationsList />
         </div>
       </DocumentTitle>
     );

@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 
-import reservationsTableSelector from 'selectors/containers/reservationsTableSelector';
+import reservationsListSelector from 'selectors/containers/reservationsListSelector';
 import { getInitialState } from 'utils/TestUtils';
 
-describe('Selector: reservationsTableSelector', () => {
+describe('Selector: reservationsListSelector', () => {
   const state = getInitialState();
-  const selected = reservationsTableSelector(state);
+  const selected = reservationsListSelector(state);
 
   it('should return deleteReservationModalIsOpen', () => {
     expect(selected.deleteReservationModalIsOpen).to.exist;

@@ -50,20 +50,20 @@ export class UnconnectedReservationPage extends Component {
     return (
       <DocumentTitle title={`${resourceName} varaaminen - Respa`}>
         <Loader loaded={!_.isEmpty(resource)}>
-          <div>
-            <LinkContainer to={`/resources/${id}`}>
-              <Button
-                bsSize="large"
-                bsStyle="primary"
-                style={{ float: 'right' }}
-              >
-                Tilan tiedot
-              </Button>
-            </LinkContainer>
+          <div className="reservation-page"v>
             <ResourceHeader
               address={getAddressWithName(unit)}
               name={resourceName}
             />
+            <LinkContainer to={`/resources/${id}`}>
+              <Button
+                bsSize="large"
+                bsStyle="primary"
+                className="responsive-button"
+              >
+                Tilan tiedot
+              </Button>
+            </LinkContainer>
             {this.renderMaxPeriod(resource.maxPeriod)}
             <h2>{isLoggedIn ? 'Varaa tila' : 'Varaustilanne'}</h2>
             {!isLoggedIn &&

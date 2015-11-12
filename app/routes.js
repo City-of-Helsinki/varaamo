@@ -31,14 +31,19 @@ export default (params) => {
     }, 0);
   }
 
+  function scrollTop(nextState, replaceState, cb) {
+    window.scrollTo(0, 0);
+    cb();
+  }
+
   return (
     <Route component={App} onEnter={removeFacebookAppendedHash}>
       <Route onEnter={requireAuth}>
         <Route component={UserReservationsPage} path="/my-reservations" />
       </Route>
-      <Route component={HomePage} path="/" />
-      <Route component={AboutPage} path="/about" />
-      <Route component={ResourcePage} path="/resources/:id" />
+      <Route component={HomePage} onEnter={scrollTop} path="/" />
+      <Route component={AboutPage} onEnter={scrollTop} path="/about" />
+      <Route component={ResourcePage} onEnter={scrollTop} path="/resources/:id" />
       <Route component={ReservationPage} path="/resources/:id/reservation" />
       <Route component={SearchPage} path="/search" />
       <Route component={NotFoundPage} path="*" />

@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 import TimeRange from 'components/common/TimeRange';
 import { getCaption, getMainImage, getName } from 'utils/DataUtils';
 
-class ReservationsTableRow extends Component {
+class ReservationsListItem extends Component {
   constructor(props) {
     super(props);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
@@ -50,7 +50,7 @@ class ReservationsTableRow extends Component {
     }
 
     return (
-      <div>
+      <div className="buttons">
         <Button
           bsSize="xsmall"
           bsStyle="primary"
@@ -71,7 +71,7 @@ class ReservationsTableRow extends Component {
 
   renderImage(image) {
     if (image && image.url) {
-      const src = `${image.url}?dim=80x80`;
+      const src = `${image.url}?dim=100x100`;
       return <img alt={getCaption(image)} src={src} />;
     }
     return null;
@@ -85,19 +85,20 @@ class ReservationsTableRow extends Component {
     } = this.props;
 
     return (
-      <tr>
-        <td style={{ height: '80px', width: '80px' }}>
+      <li className="reservation">
+        <div className="image">
           <Link to={`/resources/${resource.id}`}>
             {this.renderImage(getMainImage(resource.images))}
           </Link>
-        </td>
-        <td>
+        </div>
+        <div className="names">
           <Link to={`/resources/${resource.id}`}>
-            <h4>{getName(resource)}</h4>
-            <div className="unit-name">{getName(unit)}</div>
+            <h4>
+              {getName(resource)}, <span className="unit-name">{getName(unit)}</span>
+            </h4>
           </Link>
-        </td>
-        <td>
+        </div>
+        <div className="time">
           <Link
             to={`/resources/${resource.id}/reservation`}
             query={{
@@ -108,19 +109,23 @@ class ReservationsTableRow extends Component {
             <TimeRange
               begin={reservation.begin}
               end={reservation.end}
-              lineBreaks
+              className="hidden-xs"
             />
-        </Link>
-        </td>
-        <td>
-          {this.renderButtons()}
-        </td>
-      </tr>
+            <TimeRange
+              begin={reservation.begin}
+              dateFormat="dd, D.M."
+              end={reservation.end}
+              className="visible-xs-block"
+            />
+          </Link>
+        </div>
+        {this.renderButtons()}
+      </li>
     );
   }
 }
 
-ReservationsTableRow.propTypes = {
+ReservationsListItem.propTypes = {
   openDeleteModal: PropTypes.func.isRequired,
   pushState: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
@@ -130,4 +135,4 @@ ReservationsTableRow.propTypes = {
   unit: PropTypes.object.isRequired,
 };
 
-export default ReservationsTableRow;
+export default ReservationsListItem;
