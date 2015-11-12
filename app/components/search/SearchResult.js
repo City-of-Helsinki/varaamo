@@ -43,7 +43,7 @@ class SearchResult extends Component {
         <td>
           <Link to={`/resources/${result.id}`}>
             <h4>{getName(result)}</h4>
-            <div>{getName(unit)}</div>
+            <div className="unit-name">{getName(unit)}</div>
           </Link>
         </td>
         <td>
