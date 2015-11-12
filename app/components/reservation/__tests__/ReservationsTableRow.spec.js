@@ -6,6 +6,7 @@ import sd from 'skin-deep';
 import Immutable from 'seamless-immutable';
 
 import ReservationsTableRow from 'components/reservation/ReservationsTableRow';
+import Image from 'fixtures/Image';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
@@ -16,7 +17,9 @@ describe('Component: reservation/ReservationsTableRow', () => {
       openDeleteModal: simple.stub(),
       pushState: simple.stub(),
       reservation: Immutable(Reservation.build()),
-      resource: Immutable(Resource.build()),
+      resource: Immutable(Resource.build({
+        images: [Image.build()],
+      })),
       selectReservationToDelete: simple.stub(),
       selectReservationToEdit: simple.stub(),
       unit: Immutable(Unit.build()),
@@ -31,12 +34,25 @@ describe('Component: reservation/ReservationsTableRow', () => {
     describe('table cells', () => {
       const tdTrees = tree.everySubTree('td');
 
-      it('should render 3 table cells', () => {
-        expect(tdTrees).to.have.length(3);
+      it('should render 4 table cells', () => {
+        expect(tdTrees).to.have.length(4);
       });
 
       describe('the first table cell', () => {
         const tdTree = tdTrees[0];
+
+        it('should display an image with correct props', () => {
+          const imageTree = tdTree.subTree('img');
+          const image = props.resource.images[0];
+
+          expect(imageTree).to.be.ok;
+          expect(imageTree.props.alt).to.equal(image.caption.fi);
+          expect(imageTree.props.src).to.equal(`${image.url}?dim=80x80`);
+        });
+      });
+
+      describe('the second table cell', () => {
+        const tdTree = tdTrees[1];
 
         it('should contain a link to resources page', () => {
           const linkTree = tdTree.subTree('Link');
@@ -53,12 +69,12 @@ describe('Component: reservation/ReservationsTableRow', () => {
         it('should display the name of the given unit in props', () => {
           const expected = props.unit.name.fi;
 
-          expect(tdTree.text()).to.contain(expected);
+          expect(tdTree.toString()).to.contain(expected);
         });
       });
 
-      describe('the second table cell', () => {
-        const tdTree = tdTrees[1];
+      describe('the third table cell', () => {
+        const tdTree = tdTrees[2];
 
         it('should have a Link with correct props', () => {
           const linkTree = tdTree.subTree('Link');
@@ -81,8 +97,8 @@ describe('Component: reservation/ReservationsTableRow', () => {
         });
       });
 
-      describe('the third table cell', () => {
-        const tdTree = tdTrees[2];
+      describe('the fourth table cell', () => {
+        const tdTree = tdTrees[3];
         const buttonTrees = tdTree.everySubTree('Button');
 
         it('should contain two buttons', () => {

@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 import { Link } from 'react-router';
 
 import TimeRange from 'components/common/TimeRange';
-import { getName } from 'utils/DataUtils';
+import { getCaption, getMainImage, getName } from 'utils/DataUtils';
 
 class ReservationsTableRow extends Component {
   constructor(props) {
@@ -69,6 +69,14 @@ class ReservationsTableRow extends Component {
     );
   }
 
+  renderImage(image) {
+    if (image && image.url) {
+      const src = `${image.url}?dim=80x80`;
+      return <img alt={getCaption(image)} src={src} />;
+    }
+    return null;
+  }
+
   render() {
     const {
       reservation,
@@ -78,11 +86,16 @@ class ReservationsTableRow extends Component {
 
     return (
       <tr>
+        <td style={{ height: '80px', width: '80px' }}>
+          <Link to={`/resources/${resource.id}`}>
+            {this.renderImage(getMainImage(resource.images))}
+          </Link>
+        </td>
         <td>
           <Link to={`/resources/${resource.id}`}>
-            {getName(resource)}
+            <h4>{getName(resource)}</h4>
+            <div className="unit-name">{getName(unit)}</div>
           </Link>
-          <div>{getName(unit)}</div>
         </td>
         <td>
           <Link
