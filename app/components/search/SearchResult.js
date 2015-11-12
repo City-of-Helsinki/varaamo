@@ -24,13 +24,15 @@ class SearchResult extends Component {
     return (
       <tr>
         <td style={{ height: '80px', width: '80px' }}>
-          {this.renderImage(getMainImage(result.images))}
+          <Link to={`/resources/${result.id}`}>
+            {this.renderImage(getMainImage(result.images))}
+          </Link>
         </td>
         <td>
           <Link to={`/resources/${result.id}`}>
-            {getName(result)}
+            <h4>{getName(result)}</h4>
+            <div>{getName(unit)}</div>
           </Link>
-          <div>{getName(unit)}</div>
         </td>
         <td>
           <Link
