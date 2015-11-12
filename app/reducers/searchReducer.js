@@ -6,6 +6,7 @@ import types from 'constants/ActionTypes';
 const initialState = Immutable({
   results: [],
   searchDone: false,
+  typeaheadSuggestions: [],
 });
 
 function searchReducer(state = initialState, action) {
@@ -17,6 +18,10 @@ function searchReducer(state = initialState, action) {
       results,
       searchDone: true,
     });
+
+  case types.API.TYPEAHEAD_SUGGESTIONS_GET_SUCCESS:
+    const typeaheadSuggestions = _.values(action.payload.resource);
+    return state.merge({ typeaheadSuggestions });
 
   case types.UI.CLEAR_SEARCH_RESULTS:
     return initialState;
