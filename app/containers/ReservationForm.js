@@ -71,8 +71,6 @@ export class UnconnectedReservationForm extends Component {
         actions.deleteReservation(reservation);
       });
     }
-
-    actions.pushState(null, '/my-reservations');
   }
 
   handleEditCancel() {
