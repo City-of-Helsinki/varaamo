@@ -40,7 +40,7 @@ class SearchResults extends Component {
     return (
       <Loader loaded={!isFetching}>
         {results.length ? (
-          <Table striped>
+          <Table className="lined">
             <thead>
               <tr>
                 <th colSpan="2">Tila</th>

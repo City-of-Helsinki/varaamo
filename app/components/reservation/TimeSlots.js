@@ -34,7 +34,7 @@ class TimeSlots extends Component {
       <Loader loaded={!isFetching}>
         {slots.length ? (
           <Table
-            className="time-slots"
+            className="time-slots lined"
             hover
           >
             <thead>
