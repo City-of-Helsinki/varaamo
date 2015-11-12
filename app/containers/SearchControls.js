@@ -88,6 +88,7 @@ export class UnconnectedSearchControls extends Component {
           hideFooter
           gotoSelectedText="Mene valittuun"
           onChange={(newDate) => this.handleSearch({ date: newDate })}
+          style={{ height: 210 }}
           todayText="Tänään"
         />
         <DateHeader
