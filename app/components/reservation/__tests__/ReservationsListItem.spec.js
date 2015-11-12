@@ -5,13 +5,13 @@ import sd from 'skin-deep';
 
 import Immutable from 'seamless-immutable';
 
-import ReservationsTableRow from 'components/reservation/ReservationsTableRow';
+import ReservationsListItem from 'components/reservation/ReservationsListItem';
 import Image from 'fixtures/Image';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
 
-describe('Component: reservation/ReservationsTableRow', () => {
+describe('Component: reservation/ReservationsListItem', () => {
   describe('rendering', () => {
     const props = {
       openDeleteModal: simple.stub(),
@@ -24,7 +24,7 @@ describe('Component: reservation/ReservationsTableRow', () => {
       selectReservationToEdit: simple.stub(),
       unit: Immutable(Unit.build()),
     };
-    const tree = sd.shallowRender(<ReservationsTableRow {...props} />);
+    const tree = sd.shallowRender(<ReservationsListItem {...props} />);
 
     it('should render a table row', () => {
       const vdom = tree.getRenderOutput();

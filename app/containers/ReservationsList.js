@@ -19,14 +19,14 @@ import {
 import { fetchResources } from 'actions/resourceActions';
 import { fetchUnits } from 'actions/unitActions';
 import DeleteModal from 'components/reservation/DeleteModal';
-import ReservationsTableRow from 'components/reservation/ReservationsTableRow';
-import reservationsTableSelector from 'selectors/containers/reservationsTableSelector';
+import ReservationsListItem from 'components/reservation/ReservationsListItem';
+import reservationsListSelector from 'selectors/containers/reservationsListSelector';
 
-export class UnconnectedReservationsTable extends Component {
+export class UnconnectedReservationsList extends Component {
   constructor(props) {
     super(props);
     this.handleDelete = this.handleDelete.bind(this);
-    this.renderReservationsTableRow = this.renderReservationsTableRow.bind(this);
+    this.renderReservationsListItem = this.renderReservationsListItem.bind(this);
   }
 
   componentDidMount() {
@@ -43,7 +43,7 @@ export class UnconnectedReservationsTable extends Component {
     });
   }
 
-  renderReservationsTableRow(reservation) {
+  renderReservationsListItem(reservation) {
     const {
       actions,
       resources,
@@ -53,7 +53,7 @@ export class UnconnectedReservationsTable extends Component {
     const unit = resource.unit ? units[resource.unit] || {} : {};
 
     return (
-      <ReservationsTableRow
+      <ReservationsListItem
         key={reservation.url}
         reservation={reservation}
         resource={resource}
@@ -90,7 +90,7 @@ export class UnconnectedReservationsTable extends Component {
                 </tr>
               </thead>
               <tbody>
-                {_.map(reservations, this.renderReservationsTableRow)}
+                {_.map(reservations, this.renderReservationsListItem)}
               </tbody>
             </Table>
             <DeleteModal
@@ -110,7 +110,7 @@ export class UnconnectedReservationsTable extends Component {
   }
 }
 
-UnconnectedReservationsTable.propTypes = {
+UnconnectedReservationsList.propTypes = {
   actions: PropTypes.object.isRequired,
   deleteReservationModalIsOpen: PropTypes.bool.isRequired,
   isDeletingReservations: PropTypes.bool.isRequired,
@@ -137,4 +137,4 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
-export default connect(reservationsTableSelector, mapDispatchToProps)(UnconnectedReservationsTable);
+export default connect(reservationsListSelector, mapDispatchToProps)(UnconnectedReservationsList);

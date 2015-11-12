@@ -6,8 +6,8 @@ import sd from 'skin-deep';
 import Immutable from 'seamless-immutable';
 
 import {
-  UnconnectedReservationsTable as ReservationsTable,
-} from 'containers/ReservationsTable';
+  UnconnectedReservationsList as ReservationsList,
+} from 'containers/ReservationsList';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
@@ -38,7 +38,7 @@ function getProps(props) {
   return Object.assign({}, defaults, props);
 }
 
-describe('Component: reservation/ReservationsTable', () => {
+describe('Component: reservation/ReservationsList', () => {
   describe('with reservations', () => {
     const unit = Unit.build();
     const resource = Resource.build({ unit: unit.id });
@@ -58,7 +58,7 @@ describe('Component: reservation/ReservationsTable', () => {
     let instance;
 
     before(() => {
-      tree = sd.shallowRender(<ReservationsTable {...props} />);
+      tree = sd.shallowRender(<ReservationsList {...props} />);
       instance = tree.getMountedInstance();
     });
 
@@ -96,14 +96,14 @@ describe('Component: reservation/ReservationsTable', () => {
       let reservationsTableRowTrees;
 
       before(() => {
-        reservationsTableRowTrees = tree.everySubTree('ReservationsTableRow');
+        reservationsTableRowTrees = tree.everySubTree('ReservationsListItem');
       });
 
-      it('should render a ReservationsTableRow for every reservation in props', () => {
+      it('should render a ReservationsListItem for every reservation in props', () => {
         expect(reservationsTableRowTrees.length).to.equal(props.reservations.length);
       });
 
-      it('should pass correct props to ReservationsTableRow', () => {
+      it('should pass correct props to ReservationsListItem', () => {
         reservationsTableRowTrees.forEach((reservationTree, index) => {
           const actualProps = reservationTree.props;
 
@@ -123,19 +123,19 @@ describe('Component: reservation/ReservationsTable', () => {
         });
       });
 
-      it('should pass resource corresponding to reservation.resource as a prop to ReservationsTableRow', () => {
+      it('should pass resource corresponding to reservation.resource as a prop to ReservationsListItem', () => {
         expect(reservationsTableRowTrees[0].props.resource).to.deep.equal(resource);
       });
 
-      it('should pass empty object as resource prop to ReservationsTableRow if resource is unfetched', () => {
+      it('should pass empty object as resource prop to ReservationsListItem if resource is unfetched', () => {
         expect(reservationsTableRowTrees[1].props.resource).to.deep.equal({});
       });
 
-      it('should pass unit corresponding to resource.unit as a prop to ReservationsTableRow', () => {
+      it('should pass unit corresponding to resource.unit as a prop to ReservationsListItem', () => {
         expect(reservationsTableRowTrees[0].props.unit).to.deep.equal(unit);
       });
 
-      it('should pass empty object as unit prop to ReservationsTableRow if unit or resource is unfetched', () => {
+      it('should pass empty object as unit prop to ReservationsListItem if unit or resource is unfetched', () => {
         expect(reservationsTableRowTrees[1].props.unit).to.deep.equal({});
       });
     });
@@ -171,7 +171,7 @@ describe('Component: reservation/ReservationsTable', () => {
     let tree;
 
     before(() => {
-      tree = sd.shallowRender(<ReservationsTable {...props} />);
+      tree = sd.shallowRender(<ReservationsList {...props} />);
     });
 
     it('should render a message telling no reservations were found', () => {
@@ -186,7 +186,7 @@ describe('Component: reservation/ReservationsTable', () => {
     let tree;
 
     before(() => {
-      tree = sd.shallowRender(<ReservationsTable {...props} />);
+      tree = sd.shallowRender(<ReservationsList {...props} />);
       const instance = tree.getMountedInstance();
       instance.componentDidMount();
     });
@@ -209,7 +209,7 @@ describe('Component: reservation/ReservationsTable', () => {
     let tree;
 
     before(() => {
-      tree = sd.shallowRender(<ReservationsTable {...props} />);
+      tree = sd.shallowRender(<ReservationsList {...props} />);
       const instance = tree.getMountedInstance();
       instance.handleDelete();
     });

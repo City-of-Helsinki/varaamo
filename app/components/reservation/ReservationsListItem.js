@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 import TimeRange from 'components/common/TimeRange';
 import { getCaption, getMainImage, getName } from 'utils/DataUtils';
 
-class ReservationsTableRow extends Component {
+class ReservationsListItem extends Component {
   constructor(props) {
     super(props);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
@@ -120,7 +120,7 @@ class ReservationsTableRow extends Component {
   }
 }
 
-ReservationsTableRow.propTypes = {
+ReservationsListItem.propTypes = {
   openDeleteModal: PropTypes.func.isRequired,
   pushState: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
@@ -130,4 +130,4 @@ ReservationsTableRow.propTypes = {
   unit: PropTypes.object.isRequired,
 };
 
-export default ReservationsTableRow;
+export default ReservationsListItem;
