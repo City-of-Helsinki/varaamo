@@ -17,22 +17,6 @@ class SearchResults extends Component {
     scrollTo(findDOMNode(this));
   }
 
-  componentWillReceiveProps(nextProps) {
-    // Only scroll to search results if any other filter than date was changed.
-    const shouldScroll = (
-      nextProps.filters.search !== this.props.filters.search ||
-      nextProps.filters.purpose !== this.props.filters.purpose ||
-      nextProps.filters.people !== this.props.filters.people
-    );
-    this.setState({ shouldScroll });
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    if (nextState.shouldScroll) {
-      scrollTo(findDOMNode(this));
-    }
-  }
-
   renderSearchResult(result) {
     const unit = this.props.units[result.unit] || {};
 

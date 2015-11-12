@@ -16,8 +16,9 @@ describe('Container: SearchControls', () => {
   beforeEach(() => {
     props = {
       actions: {
-        pushState: simple.stub(),
         fetchPurposes: simple.stub(),
+        pushState: simple.stub(),
+        replaceState: simple.stub(),
         searchResources: simple.stub(),
       },
       isFetchingPurposes: false,
@@ -30,6 +31,7 @@ describe('Container: SearchControls', () => {
         { value: 'filter-1', label: 'Label 1' },
         { value: 'filter-2', label: 'Label 2' },
       ]),
+      typeaheadOptions: ['mock-suggestion'],
     };
 
     tree = sd.shallowRender(<SearchControls {...props} />);
@@ -56,6 +58,7 @@ describe('Container: SearchControls', () => {
 
       expect(actualProps.autoFocus).to.equal(false);
       expect(typeof actualProps.onSubmit).to.equal('function');
+      expect(actualProps.typeaheadOptions).to.equal(props.typeaheadOptions);
       expect(actualProps.value).to.equal(props.filters.search);
     });
   });
@@ -147,11 +150,14 @@ describe('Container: SearchControls', () => {
   });
 
   describe('onFiltersChange', () => {
-    it('should update the component state with the new filters', () => {
+    it('should use replaceState to update url', () => {
       const newFilters = { search: 'new search value' };
       instance.onFiltersChange(newFilters);
+      const allFilters = Object.assign({}, props.filters, newFilters);
+      const expectedArgs = [null, '/search', allFilters];
 
-      expect(instance.state.search).to.equal(newFilters.search);
+      expect(props.actions.replaceState.callCount).to.equal(1);
+      expect(props.actions.replaceState.lastCall.args).to.deep.equal(expectedArgs);
     });
   });
 
@@ -168,28 +174,15 @@ describe('Container: SearchControls', () => {
       expect(props.actions.pushState.callCount).to.equal(1);
       expect(actualArgs[0]).to.equal(null);
       expect(actualArgs[1]).to.equal('/search');
-      expect(actualArgs[2]).to.deep.equal(instance.state);
+      expect(actualArgs[2]).to.deep.equal(props.filters);
     });
 
     it('should call searchResources with correct arguments', () => {
       const action = props.actions.searchResources;
-      const expected = getFetchParamsFromFilters(instance.state);
+      const expected = getFetchParamsFromFilters(props.filters);
 
       expect(action.callCount).to.equal(1);
       expect(action.lastCall.args[0]).to.deep.equal(expected);
-    });
-  });
-
-  describe('componentWillReceiveProps', () => {
-    it('should update the component state with the new filters', () => {
-      const filters = {
-        date: 'new-date',
-        purpose: 'new purpose',
-        search: 'new search',
-      };
-      instance.componentWillReceiveProps({ filters });
-
-      expect(instance.state).to.deep.equal(filters);
     });
   });
 
