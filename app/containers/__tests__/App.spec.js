@@ -16,6 +16,7 @@ describe('Container: App', () => {
       pushState: simple.stub(),
     },
     children: <div id="child-div" />,
+    isLoggedIn: true,
     user: Immutable(User.build()),
   };
   const tree = sd.shallowRender(<App {...props} />);
@@ -31,8 +32,9 @@ describe('Container: App', () => {
     it('should pass correct props to Navbar component', () => {
       const actualProps = navbarTrees[0].props;
 
-      expect(actualProps.logout).to.equal(instance.handleLogout);
       expect(actualProps.clearSearchResults).to.equal(props.actions.clearSearchResults);
+      expect(actualProps.isLoggedIn).to.equal(props.isLoggedIn);
+      expect(actualProps.logout).to.equal(instance.handleLogout);
       expect(actualProps.user).to.equal(props.user);
     });
   });

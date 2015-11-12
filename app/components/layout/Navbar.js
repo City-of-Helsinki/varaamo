@@ -23,9 +23,9 @@ class Navbar extends Component {
   }
 
   renderUserNav() {
-    const { logout, user } = this.props;
+    const { isLoggedIn, logout, user } = this.props;
 
-    if (user && user.displayName) {
+    if (isLoggedIn) {
       return (
         <NavDropdown id="collapsible-navbar-dropdown" title={user.displayName}>
           <LinkContainer to="/my-reservations">
@@ -78,8 +78,9 @@ class Navbar extends Component {
 }
 
 Navbar.propTypes = {
-  logout: PropTypes.func.isRequired,
   clearSearchResults: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+  logout: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
 };
 
