@@ -37,6 +37,7 @@ export class UnconnectedSearchPage extends Component {
           {searchDone || isFetchingSearchResults ? (
             <SearchResults
               date={filters.date}
+              filters={filters}
               isFetching={isFetchingSearchResults}
               results={results}
               searchDone={searchDone}
