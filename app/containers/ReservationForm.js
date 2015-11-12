@@ -62,9 +62,16 @@ export class UnconnectedReservationForm extends Component {
       ));
 
       // Add new reservations if needed.
-      _.forEach(_.rest(selectedReservations), (reservation) => {
-        actions.postReservation(reservation);
-      });
+      // FIXME: This is very hacky and not bulletproof but use cases where user splits
+      // one reservation into multiple reservations should be pretty rare.
+      // Try to use something sequential in the future.
+      // Use timeout to allow the PUT request to go through first and possibly free previously
+      // reserved time slots.
+      setTimeout(() => {
+        _.forEach(_.rest(selectedReservations), (reservation) => {
+          actions.postReservation(reservation);
+        });
+      }, 800);
     } else {
       // Delete the edited reservation if no time slots were selected.
       _.forEach(reservationsToEdit, (reservation) => {
