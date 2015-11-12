@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 import { Button } from 'react-bootstrap';
 import DocumentTitle from 'react-document-title';
@@ -21,6 +22,15 @@ export class UnconnectedReservationPage extends Component {
     const fetchParams = getDateStartAndEndTimes(date);
 
     actions.fetchResource(id, fetchParams);
+  }
+
+  renderMaxPeriod(maxPeriod) {
+    if (!maxPeriod) {
+      return null;
+    }
+    return (
+      <p>Tämän tilan voi varata enimmillään {moment.duration(maxPeriod).asHours()} tunniksi.</p>
+    );
   }
 
   render() {
@@ -54,11 +64,12 @@ export class UnconnectedReservationPage extends Component {
               address={getAddressWithName(unit)}
               name={resourceName}
             />
-          <h2>{isLoggedIn ? 'Varaa tila' : 'Varaustilanne'}</h2>
-          {!isLoggedIn &&
-            <p><a href="/login">Kirjaudu sisään</a> voidaksesi tehdä varauksen tähän tilaan.</p>
-          }
-          <ReservationForm />
+            {this.renderMaxPeriod(resource.maxPeriod)}
+            <h2>{isLoggedIn ? 'Varaa tila' : 'Varaustilanne'}</h2>
+            {!isLoggedIn &&
+              <p><a href="/login">Kirjaudu sisään</a> voidaksesi tehdä varauksen tähän tilaan.</p>
+            }
+            <ReservationForm />
           </div>
         </Loader>
       </DocumentTitle>
