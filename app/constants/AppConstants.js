@@ -21,6 +21,7 @@ export default {
   },
   SUPPORTED_SEARCH_FILTERS: {
     date: '',
+    people: '',
     purpose: '',
     search: '',
   },

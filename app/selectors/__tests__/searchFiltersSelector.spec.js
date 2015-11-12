@@ -9,6 +9,7 @@ function getState(date = '2015-10-10') {
       location: {
         query: {
           date: date,
+          people: '',
           purpose: 'some-purpose',
           search: '',
         },

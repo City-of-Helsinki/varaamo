@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Input } from 'react-bootstrap';
 import Select from 'react-select';
 
 class SearchFilters extends Component {
@@ -21,6 +22,15 @@ class SearchFilters extends Component {
           options={purposeOptions}
           placeholder="Rajaa hakutuloksia käyttötarkoituksen mukaan"
           value={filters.purpose}
+        />
+        <h4>Tilan henkilömäärä vähintään</h4>
+        <Input
+          min="0"
+          name="people-capacity-filter"
+          onChange={(event) => onFiltersChange({ people: event.target.value })}
+          placeholder="Rajaa hakutuloksia henkilömäärän mukaan"
+          type="number"
+          value={filters.people}
         />
       </div>
     );
