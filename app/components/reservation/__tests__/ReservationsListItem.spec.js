@@ -26,136 +26,115 @@ describe('Component: reservation/ReservationsListItem', () => {
     };
     const tree = sd.shallowRender(<ReservationsListItem {...props} />);
 
-    it('should render a table row', () => {
+    it('should render a li element', () => {
       const vdom = tree.getRenderOutput();
-      expect(vdom.type).to.equal('tr');
+      expect(vdom.type).to.equal('li');
     });
 
-    describe('table cells', () => {
-      const tdTrees = tree.everySubTree('td');
+    it('should display an image with correct props', () => {
+      const imageTree = tree.subTree('img');
+      const image = props.resource.images[0];
 
-      it('should render 4 table cells', () => {
-        expect(tdTrees).to.have.length(4);
+      expect(imageTree).to.be.ok;
+      expect(imageTree.props.alt).to.equal(image.caption.fi);
+      expect(imageTree.props.src).to.contain(image.url);
+    });
+
+    it('should contain a link to resources page', () => {
+      const expectedUrl = `/resources/${props.resource.id}`;
+      const resourceLinkTree = tree.findComponentLike('Link', { to: expectedUrl });
+
+      expect(resourceLinkTree).to.be.ok;
+    });
+
+    it('should display the name of the resource', () => {
+      const expected = props.resource.name.fi;
+
+      expect(tree.toString()).to.contain(expected);
+    });
+
+    it('should display the name of the given unit in props', () => {
+      const expected = props.unit.name.fi;
+
+      expect(tree.toString()).to.contain(expected);
+    });
+
+    it('should contain a Link to reservations page with correct time', () => {
+      const expectedUrl = `/resources/${props.resource.id}/reservation`;
+      const expectedQuery = {
+        date: props.reservation.begin.split('T')[0],
+        time: props.reservation.begin,
+      };
+      const expectedProps = { to: expectedUrl, query: expectedQuery };
+      const reservationsLinkTree = tree.findComponentLike('Link', expectedProps);
+
+      expect(reservationsLinkTree).to.be.ok;
+    });
+
+    it('should contain a TimeRange component with correct begin and end times', () => {
+      const timeRangeTree = tree.subTree('TimeRange');
+
+      expect(timeRangeTree.props.begin).to.equal(props.reservation.begin);
+      expect(timeRangeTree.props.end).to.equal(props.reservation.end);
+    });
+
+    describe('buttons', () => {
+      const buttonTrees = tree.everySubTree('Button');
+
+      it('should contain two buttons', () => {
+        expect(buttonTrees.length).to.equal(2);
       });
 
-      describe('the first table cell', () => {
-        const tdTree = tdTrees[0];
+      describe('the first button', () => {
+        const buttonTree = buttonTrees[0];
 
-        it('should display an image with correct props', () => {
-          const imageTree = tdTree.subTree('img');
-          const image = props.resource.images[0];
-
-          expect(imageTree).to.be.ok;
-          expect(imageTree.props.alt).to.equal(image.caption.fi);
-          expect(imageTree.props.src).to.equal(`${image.url}?dim=80x80`);
-        });
-      });
-
-      describe('the second table cell', () => {
-        const tdTree = tdTrees[1];
-
-        it('should contain a link to resources page', () => {
-          const linkTree = tdTree.subTree('Link');
-
-          expect(linkTree.props.to).to.contain('resources');
+        it('should be an edit button', () => {
+          expect(buttonTree.props.children).to.equal('Muokkaa');
         });
 
-        it('should display the name of the resource', () => {
-          const expected = props.resource.name.fi;
+        describe('clicking the button', () => {
+          buttonTree.props.onClick();
 
-          expect(tdTree.toString()).to.contain(expected);
-        });
-
-        it('should display the name of the given unit in props', () => {
-          const expected = props.unit.name.fi;
-
-          expect(tdTree.toString()).to.contain(expected);
-        });
-      });
-
-      describe('the third table cell', () => {
-        const tdTree = tdTrees[2];
-
-        it('should have a Link with correct props', () => {
-          const linkTree = tdTree.subTree('Link');
-
-          expect(linkTree).to.be.ok;
-          expect(linkTree.props.to).to.equal(`/resources/${props.resource.id}/reservation`);
-          expect(linkTree.props.query).to.deep.equal(
-            {
-              date: props.reservation.begin.split('T')[0],
-              time: props.reservation.begin,
-            }
-          );
-        });
-
-        it('should contain a TimeRange component with correct begin and end times', () => {
-          const timeRangeTree = tdTree.subTree('TimeRange');
-
-          expect(timeRangeTree.props.begin).to.equal(props.reservation.begin);
-          expect(timeRangeTree.props.end).to.equal(props.reservation.end);
-        });
-      });
-
-      describe('the fourth table cell', () => {
-        const tdTree = tdTrees[3];
-        const buttonTrees = tdTree.everySubTree('Button');
-
-        it('should contain two buttons', () => {
-          expect(buttonTrees.length).to.equal(2);
-        });
-
-        describe('the first button', () => {
-          const buttonTree = buttonTrees[0];
-
-          it('should be an edit button', () => {
-            expect(buttonTree.props.children).to.equal('Muokkaa');
+          it('should call props.selectReservationToEdit with reservation and minPeriod', () => {
+            expect(props.selectReservationToEdit.callCount).to.equal(1);
+            expect(
+              props.selectReservationToEdit.lastCall.args[0]
+            ).to.deep.equal(
+              { reservation: props.reservation, minPeriod: props.resource.minPeriod }
+            );
           });
 
-          describe('clicking the button', () => {
-            buttonTree.props.onClick();
+          it('should call the props.pushState with correct url', () => {
+            const actualUrlArg = props.pushState.lastCall.args[1];
+            const expectedUrl = `/resources/${props.reservation.resource}/reservation`;
 
-            it('should call props.selectReservationToEdit with reservation and minPeriod', () => {
-              expect(props.selectReservationToEdit.callCount).to.equal(1);
-              expect(
-                props.selectReservationToEdit.lastCall.args[0]
-              ).to.deep.equal(
-                { reservation: props.reservation, minPeriod: props.resource.minPeriod }
-              );
-            });
-
-            it('should call the props.pushState with correct url', () => {
-              const actualUrlArg = props.pushState.lastCall.args[1];
-              const expectedUrl = `/resources/${props.reservation.resource}/reservation`;
-
-              expect(props.pushState.callCount).to.equal(1);
-              expect(actualUrlArg).to.equal(expectedUrl);
-            });
+            expect(props.pushState.callCount).to.equal(1);
+            expect(actualUrlArg).to.equal(expectedUrl);
           });
         });
+      });
 
-        describe('the second button', () => {
-          const buttonTree = buttonTrees[1];
+      describe('the second button', () => {
+        const buttonTree = buttonTrees[1];
 
-          it('should be a delete button', () => {
-            expect(buttonTree.props.children).to.equal('Poista');
+        it('should be a delete button', () => {
+          expect(buttonTree.props.children).to.equal('Poista');
+        });
+
+        describe('clicking the button', () => {
+          buttonTree.props.onClick();
+
+          it('should call props.selectReservationToDelete with this reservation', () => {
+            expect(props.selectReservationToDelete.callCount).to.equal(1);
+            expect(
+              props.selectReservationToDelete.lastCall.args[0]
+            ).to.deep.equal(
+              props.reservation
+            );
           });
 
-          describe('clicking the button', () => {
-            buttonTree.props.onClick();
-
-            it('should call props.selectReservationToDelete with this reservation', () => {
-              expect(props.selectReservationToDelete.callCount).to.equal(1);
-              expect(
-                props.selectReservationToDelete.lastCall.args[0]
-              ).to.deep.equal(
-                props.reservation
-              );
-            });
-
-            it('should call the props.openDeleteModal function', () => {
-              expect(props.openDeleteModal.callCount).to.equal(1);
-            });
+          it('should call the props.openDeleteModal function', () => {
+            expect(props.openDeleteModal.callCount).to.equal(1);
           });
         });
       });

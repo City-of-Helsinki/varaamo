@@ -1,0 +1,65 @@
+.reservations-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  .reservation {
+    position: relative;
+    min-height: 130px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 120px;
+    border-bottom: 1px solid @gray-lighter;
+
+    @media (max-width: @screen-xs-max) {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 90px;
+      min-height: 100px;
+    }
+
+    .image {
+      position: absolute;
+      left: 0;
+      top: 15px;
+      @media (max-width: @screen-xs-max) {
+        top: 10px;
+        img {
+          width: 80px;
+          height: 80px;
+        }
+      }
+    }
+
+    .names {
+      h4 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        @media (max-width: @screen-xs-max) {
+          font-size: 16px;
+          line-height: 1;
+        }
+      }
+      .unit-name {
+        font-size: 15px;
+        font-weight: normal;
+        color: @gray;
+      }
+    }
+
+    .time {
+      margin-bottom: 10px;
+    }
+
+    .buttons {
+      button {
+        width: 80px;
+        margin-right: 10px;
+      }
+
+      button + button {
+        margin-right: 0;
+      }
+    }
+  }
+}

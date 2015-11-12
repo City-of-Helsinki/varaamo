@@ -9,6 +9,7 @@ import TimeRange from 'components/common/TimeRange';
 describe('Component: common/TimeRange', () => {
   const props = {
     begin: '2015-10-11T12:00:00Z',
+    className: 'some-class',
     dateFormat: 'ddd, Do MMMM[ta]',
     end: '2015-10-11T14:00:00Z',
     timeFormat: 'H:mm',
@@ -20,6 +21,10 @@ describe('Component: common/TimeRange', () => {
     const timeTrees = tree.everySubTree('time');
 
     expect(timeTrees.length).to.equal(1);
+  });
+
+  it('should add the given className to the time element', () => {
+    expect(tree.props.className).to.equal(props.className);
   });
 
   it('should pass correct dateTime range to the time element', () => {

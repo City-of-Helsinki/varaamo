@@ -6,6 +6,7 @@ class TimeRange extends Component {
   render() {
     const {
       begin,
+      className,
       dateFormat,
       end,
       lineBreaks,
@@ -18,7 +19,7 @@ class TimeRange extends Component {
     const ISORangeString = `${begin}/${end}`;
 
     return (
-      <time dateTime={ISORangeString}>
+      <time className={className} dateTime={ISORangeString}>
         {lineBreaks ? (
           <div>
             <div>{_.capitalize(dateString)}</div>
@@ -34,6 +35,7 @@ class TimeRange extends Component {
 
 TimeRange.propTypes = {
   begin: PropTypes.string.isRequired,
+  className: PropTypes.string,
   dateFormat: PropTypes.string.isRequired,
   end: PropTypes.string.isRequired,
   lineBreaks: PropTypes.bool.isRequired,

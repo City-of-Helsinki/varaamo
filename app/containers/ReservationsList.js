@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
-import { Table } from 'react-bootstrap';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -81,18 +80,9 @@ export class UnconnectedReservationsList extends Component {
       <Loader loaded={!isFetchingReservations}>
         {reservations.length ? (
           <div>
-            <Table className="reservations-table lined">
-              <thead>
-                <tr>
-                  <th colSpan="2">Tila</th>
-                  <th>Aika</th>
-                  <th>Toiminnot</th>
-                </tr>
-              </thead>
-              <tbody>
-                {_.map(reservations, this.renderReservationsListItem)}
-              </tbody>
-            </Table>
+            <ul className="reservations-list">
+              {_.map(reservations, this.renderReservationsListItem)}
+            </ul>
             <DeleteModal
               onClose={actions.closeDeleteReservationModal}
               onConfirm={this.handleDelete}

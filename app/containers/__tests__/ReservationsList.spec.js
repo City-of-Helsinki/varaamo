@@ -62,49 +62,25 @@ describe('Component: reservation/ReservationsList', () => {
       instance = tree.getMountedInstance();
     });
 
-    it('should render a Table component', () => {
-      const tableTrees = tree.everySubTree('Table');
+    it('should render a ul element', () => {
+      const ulTree = tree.subTree('ul');
 
-      expect(tableTrees.length).to.equal(1);
-    });
-
-    describe('rendering table headers', () => {
-      let thTrees;
-
-      before(() => {
-        thTrees = tree.everySubTree('th');
-      });
-
-      it('should render 3 th elements', () => {
-        expect(thTrees.length).to.equal(3);
-      });
-
-      it('first th element should contain text "Tila"', () => {
-        expect(thTrees[0].text()).to.equal('Tila');
-      });
-
-      it('second th element should contain text "Aika"', () => {
-        expect(thTrees[1].text()).to.equal('Aika');
-      });
-
-      it('third th element should contain text "Toiminnot"', () => {
-        expect(thTrees[2].text()).to.equal('Toiminnot');
-      });
+      expect(ulTree).to.be.ok;
     });
 
     describe('rendering individual reservations', () => {
-      let reservationsTableRowTrees;
+      let reservationsListItemTrees;
 
       before(() => {
-        reservationsTableRowTrees = tree.everySubTree('ReservationsListItem');
+        reservationsListItemTrees = tree.everySubTree('ReservationsListItem');
       });
 
       it('should render a ReservationsListItem for every reservation in props', () => {
-        expect(reservationsTableRowTrees.length).to.equal(props.reservations.length);
+        expect(reservationsListItemTrees.length).to.equal(props.reservations.length);
       });
 
       it('should pass correct props to ReservationsListItem', () => {
-        reservationsTableRowTrees.forEach((reservationTree, index) => {
+        reservationsListItemTrees.forEach((reservationTree, index) => {
           const actualProps = reservationTree.props;
 
           expect(actualProps.reservation).to.deep.equal(props.reservations[index]);
@@ -124,19 +100,19 @@ describe('Component: reservation/ReservationsList', () => {
       });
 
       it('should pass resource corresponding to reservation.resource as a prop to ReservationsListItem', () => {
-        expect(reservationsTableRowTrees[0].props.resource).to.deep.equal(resource);
+        expect(reservationsListItemTrees[0].props.resource).to.deep.equal(resource);
       });
 
       it('should pass empty object as resource prop to ReservationsListItem if resource is unfetched', () => {
-        expect(reservationsTableRowTrees[1].props.resource).to.deep.equal({});
+        expect(reservationsListItemTrees[1].props.resource).to.deep.equal({});
       });
 
       it('should pass unit corresponding to resource.unit as a prop to ReservationsListItem', () => {
-        expect(reservationsTableRowTrees[0].props.unit).to.deep.equal(unit);
+        expect(reservationsListItemTrees[0].props.unit).to.deep.equal(unit);
       });
 
       it('should pass empty object as unit prop to ReservationsListItem if unit or resource is unfetched', () => {
-        expect(reservationsTableRowTrees[1].props.unit).to.deep.equal({});
+        expect(reservationsListItemTrees[1].props.unit).to.deep.equal({});
       });
     });
 
