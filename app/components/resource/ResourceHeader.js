@@ -7,7 +7,7 @@ class ResourceHeader extends Component {
     return (
       <div>
         <h1>{name}</h1>
-        <address>{address}</address>
+        <address className="lead">{address}</address>
       </div>
     );
   }
