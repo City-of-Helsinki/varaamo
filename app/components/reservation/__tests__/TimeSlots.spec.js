@@ -98,7 +98,7 @@ describe('Component: reservation/TimeSlots', () => {
     });
 
     it('should render a message telling the resource is not available for reservation', () => {
-      const expected = 'Tila ei ole tänään avoinna.';
+      const expected = 'Tila ei ole tänä päivänä avoinna.';
 
       expect(tree.textIn('p')).to.equal(expected);
     });
