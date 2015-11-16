@@ -24,16 +24,9 @@ class Footer extends Component {
                 Respa
               </RadiumLink>
             </Col>
-            <Col lg={5} md={5}>
+            <Col lg={6} md={6}>
               <p>Tämä on palvelun ensimmäinen pilottiversio, josta toivomme käyttäjiltä palautetta.</p>
               <p>Palautetta voit lähettää sähköpostilla osoitteeseen <a href="mailto:esimerkki@hel.fi" style={styles.link}>esimerkki@hel.fi</a>.</p>
-            </Col>
-            <Col lg={3} lgOffset={1} md={3} mdOffset={1}>
-              <p>Pilotissa mukana</p>
-              <ul>
-                <li>Kirjasto 10</li>
-                <li>Kaupunkiverstas</li>
-              </ul>
             </Col>
           </Row>
         </Grid>
