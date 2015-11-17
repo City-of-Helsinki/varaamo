@@ -33,7 +33,7 @@ describe('Selector: sortedReservationsSelector', () => {
     expect(actual.length).to.deep.equal(reservations.length);
   });
 
-  it('should return the results ordered from newest to oldest', () => {
+  it('should return the results ordered from oldest to newest', () => {
     const reservations = [
       Reservation.build({ begin: '2015-10-10' }),
       Reservation.build({ begin: '2015-09-20' }),
@@ -41,7 +41,7 @@ describe('Selector: sortedReservationsSelector', () => {
     ];
     const state = getState(reservations);
     const actual = sortedReservationsSelector(state);
-    const expected = [reservations[2], reservations[0], reservations[1]];
+    const expected = [reservations[1], reservations[0], reservations[2]];
 
     expect(actual).to.deep.equal(expected);
   });
