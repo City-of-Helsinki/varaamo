@@ -15,7 +15,6 @@ class SearchInput extends Component {
         <Input
           autoFocus={autoFocus}
           onChange={(event) => onChange(event.target.value)}
-          placeholder="Etsi tilan nimellä"
           ref="searchInput"
           type="text"
           value={value}

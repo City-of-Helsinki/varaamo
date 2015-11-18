@@ -40,7 +40,6 @@ describe('Component: search/SearchInput', () => {
       expect(actualProps.autoFocus).to.equal(props.autoFocus);
       expect(actualProps.value).to.equal(props.value);
       expect(actualProps.type).to.equal('text');
-      expect(actualProps.placeholder).to.equal('Etsi tilan nimellä');
     });
 
     it('changing the search box value should call props.onChange with new value', () => {

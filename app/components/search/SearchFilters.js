@@ -13,14 +13,14 @@ class SearchFilters extends Component {
 
     return (
       <div style={{ marginBottom: '20px' }}>
-        <h4>Käyttötarkoitus</h4>
+        <h4>Tilan käyttötarkoitus</h4>
         <Select
           clearable
           isLoading={isFetchingPurposes}
           name="purpose-filter-select"
           onChange={(value) => onFiltersChange({ purpose: value })}
           options={purposeOptions}
-          placeholder="Rajaa hakutuloksia käyttötarkoituksen mukaan"
+          placeholder=" "
           value={filters.purpose}
         />
         <h4>Tilan henkilömäärä vähintään</h4>
@@ -28,7 +28,6 @@ class SearchFilters extends Component {
           min="0"
           name="people-capacity-filter"
           onChange={(event) => onFiltersChange({ people: event.target.value })}
-          placeholder="Rajaa hakutuloksia henkilömäärän mukaan"
           type="number"
           value={filters.people}
         />
