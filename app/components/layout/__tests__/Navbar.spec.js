@@ -70,7 +70,9 @@ describe('Component: layout/Navbar', () => {
     });
 
     it('NavDropdown should have the name of logged in user as its title', () => {
-      expect(tree.subTree('NavDropdown').props.title).to.equal(props.user.displayName);
+      const expected = [props.user.firstName, props.user.lastName].join(' ');
+
+      expect(tree.subTree('NavDropdown').props.title).to.equal(expected);
     });
 
     it('should render a link to my reservations page', () => {
