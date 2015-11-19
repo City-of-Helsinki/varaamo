@@ -24,10 +24,11 @@ class Navbar extends Component {
 
   renderUserNav() {
     const { isLoggedIn, logout, user } = this.props;
+    const name = [user.firstName, user.lastName].join(' ');
 
     if (isLoggedIn) {
       return (
-        <NavDropdown id="collapsible-navbar-dropdown" title={user.displayName}>
+        <NavDropdown id="collapsible-navbar-dropdown" title={name}>
           <LinkContainer to="/my-reservations">
             <MenuItem>Omat varaukset</MenuItem>
           </LinkContainer>
