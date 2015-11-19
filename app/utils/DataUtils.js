@@ -1,8 +1,6 @@
 import _ from 'lodash';
 import moment from 'moment';
 
-import { PURPOSE_MAIN_TYPES } from 'constants/AppConstants';
-
 export default {
   combineReservations,
   getAddress,
@@ -15,7 +13,6 @@ export default {
   getOpeningHours,
   getPeopleCapacityString,
   getTranslatedProperty,
-  humanizeMainType,
 };
 
 function combineReservations(reservations) {
@@ -134,12 +131,4 @@ function getTranslatedProperty(item, property, language = 'fi') {
     return item[property][language];
   }
   return '';
-}
-
-function humanizeMainType(mainType) {
-  if (!mainType) {
-    return '';
-  }
-
-  return mainType in PURPOSE_MAIN_TYPES ? PURPOSE_MAIN_TYPES[mainType] : mainType;
 }

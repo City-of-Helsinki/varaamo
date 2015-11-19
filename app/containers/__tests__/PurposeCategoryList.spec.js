@@ -16,9 +16,13 @@ describe('Container: PurposeCategoryList', () => {
       fetchPurposes: simple.stub(),
     },
     isFetchingPurposes: false,
+    groupedPurposes: Immutable({
+      someParent: [Purpose.build()],
+      otherParent: [Purpose.build()],
+    }),
     purposeCategories: Immutable({
-      someType: [Purpose.build()],
-      otherType: [Purpose.build()],
+      someParent: Purpose.build(),
+      otherParent: Purpose.build(),
     }),
   };
   const tree = sd.shallowRender(<PurposeCategoryList {...props} />);

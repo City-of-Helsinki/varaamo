@@ -6,9 +6,7 @@ const purposesSelector = (state) => state.data.purposes;
 export const purposeCategoriesSelector = createSelector(
   purposesSelector,
   (purposes) => {
-    const purposeCategories = _.groupBy(purposes, 'mainType');
-
-    return purposeCategories;
+    return _.pick(purposes, (purpose) => purpose.parent === null);
   }
 );
 
