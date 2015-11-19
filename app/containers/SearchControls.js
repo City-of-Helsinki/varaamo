@@ -30,8 +30,8 @@ export class UnconnectedSearchControls extends Component {
     this.props.actions.replaceState(null, '/search', filters);
   }
 
-  handleSearch(newFilters) {
-    const { actions } = this.props;
+  handleSearch(newFilters, options = {}) {
+    const { actions, scrollToSearchResults } = this.props;
     let filters;
     if (newFilters) {
       filters = Object.assign({}, this.props.filters, newFilters);
@@ -42,6 +42,9 @@ export class UnconnectedSearchControls extends Component {
 
     actions.pushState(null, '/search', filters);
     actions.searchResources(fetchParams);
+    if (!options.preventScrolling) {
+      scrollToSearchResults();
+    }
   }
 
   handleSearchInputChange(value) {
@@ -93,13 +96,13 @@ export class UnconnectedSearchControls extends Component {
           date={this.props.filters.date}
           hideFooter
           gotoSelectedText="Mene valittuun"
-          onChange={(newDate) => this.handleSearch({ date: newDate })}
+          onChange={(newDate) => this.handleSearch({ date: newDate }, { preventScrolling: true })}
           style={{ height: 210 }}
           todayText="Tänään"
         />
         <DateHeader
           date={this.props.filters.date}
-          onChange={(newDate) => this.handleSearch({ date: newDate })}
+          onChange={(newDate) => this.handleSearch({ date: newDate }, { preventScrolling: true })}
         />
       </div>
     );
@@ -111,6 +114,7 @@ UnconnectedSearchControls.propTypes = {
   filters: PropTypes.object.isRequired,
   isFetchingPurposes: PropTypes.bool.isRequired,
   purposeOptions: PropTypes.array.isRequired,
+  scrollToSearchResults: PropTypes.func.isRequired,
   typeaheadOptions: PropTypes.array.isRequired,
 };
 

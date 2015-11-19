@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import DocumentTitle from 'react-document-title';
+import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -8,9 +9,15 @@ import { fetchUnits } from 'actions/unitActions';
 import SearchResults from 'components/search/SearchResults';
 import SearchControls from 'containers/SearchControls';
 import searchPageSelector from 'selectors/containers/searchPageSelector';
+import { scrollTo } from 'utils/DOMUtils';
 import { getFetchParamsFromFilters } from 'utils/SearchUtils';
 
 export class UnconnectedSearchPage extends Component {
+  constructor(props) {
+    super(props);
+    this.scrollToSearchResults = this.scrollToSearchResults.bind(this);
+  }
+
   componentDidMount() {
     const { actions, filters } = this.props;
     const fetchParams = getFetchParamsFromFilters(filters);
@@ -18,6 +25,10 @@ export class UnconnectedSearchPage extends Component {
       actions.searchResources(fetchParams);
     }
     actions.fetchUnits();
+  }
+
+  scrollToSearchResults() {
+    scrollTo(findDOMNode(this.refs.searchResults));
   }
 
   render() {
@@ -33,12 +44,13 @@ export class UnconnectedSearchPage extends Component {
       <DocumentTitle title="Haku - Respa">
         <div className="search-page">
           <h1>Haku</h1>
-          <SearchControls />
+          <SearchControls scrollToSearchResults={this.scrollToSearchResults} />
           {searchDone || isFetchingSearchResults ? (
             <SearchResults
               date={filters.date}
               filters={filters}
               isFetching={isFetchingSearchResults}
+              ref="searchResults"
               results={results}
               searchDone={searchDone}
               units={units}
