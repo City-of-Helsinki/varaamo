@@ -18,25 +18,28 @@ export class UnconnectedPurposeCategoryList extends Component {
     this.props.actions.fetchPurposes();
   }
 
-  renderPurposeCategory(mainType) {
-    const purposes = this.props.purposeCategories[mainType];
+  renderPurposeCategory(parent) {
+    const { groupedPurposes, purposeCategories } = this.props;
+
+    const purposes = groupedPurposes[parent];
+    const category = purposeCategories[parent];
 
     return (
       <PurposeCategory
-        key={mainType}
-        mainType={mainType}
+        key={parent}
+        category={category}
         purposes={purposes}
       />
     );
   }
 
   render() {
-    const { isFetchingPurposes, purposeCategories } = this.props;
+    const { isFetchingPurposes, groupedPurposes } = this.props;
 
     return (
       <Loader loaded={!isFetchingPurposes}>
         <div>
-          {_.map(_.keys(purposeCategories), this.renderPurposeCategory)}
+          {_.map(_.keys(groupedPurposes), this.renderPurposeCategory)}
         </div>
       </Loader>
     );
@@ -46,6 +49,7 @@ export class UnconnectedPurposeCategoryList extends Component {
 UnconnectedPurposeCategoryList.propTypes = {
   actions: PropTypes.object.isRequired,
   isFetchingPurposes: PropTypes.bool.isRequired,
+  groupedPurposes: PropTypes.object.isRequired,
   purposeCategories: PropTypes.object.isRequired,
 };
 

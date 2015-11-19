@@ -5,6 +5,6 @@ const Purpose = new Factory()
   .sequence('name', (index) => {
     return { fi: `Purpose-${index}` };
   })
-  .attr('mainType', 'some_main_type');
+  .attr('parent', 'some-parent');
 
 export default Purpose;

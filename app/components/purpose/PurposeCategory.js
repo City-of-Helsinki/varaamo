@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import { ListGroup, Panel } from 'react-bootstrap';
 
 import PurposeCategoryItem from 'components/purpose/PurposeCategoryItem';
-import { humanizeMainType } from 'utils/DataUtils';
+import { getName } from 'utils/DataUtils';
 
 class PurposeCategoryList extends Component {
   renderPurposeCategoryItem(purpose) {
@@ -16,12 +16,12 @@ class PurposeCategoryList extends Component {
   }
 
   render() {
-    const { mainType, purposes } = this.props;
+    const { category, purposes } = this.props;
 
     return (
       <Panel
         collapsible
-        header={humanizeMainType(mainType)}
+        header={getName(category)}
       >
         <ListGroup fill>
           {_.map(purposes, this.renderPurposeCategoryItem)}
@@ -32,7 +32,7 @@ class PurposeCategoryList extends Component {
 }
 
 PurposeCategoryList.propTypes = {
-  mainType: PropTypes.string.isRequired,
+  category: PropTypes.object.isRequired,
   purposes: PropTypes.array.isRequired,
 };
 

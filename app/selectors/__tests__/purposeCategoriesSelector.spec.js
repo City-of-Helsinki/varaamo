@@ -15,11 +15,10 @@ function getState(purposes) {
 }
 
 describe('Selector: purposeCategoriesSelector', () => {
-  const mainTypes = ['some-type', 'other-type'];
   const purposes = [
-    Purpose.build({ mainType: mainTypes[0] }),
-    Purpose.build({ mainType: mainTypes[1] }),
-    Purpose.build({ mainType: mainTypes[0] }),
+    Purpose.build({ parent: null }),
+    Purpose.build({ parent: 'some-parent' }),
+    Purpose.build({ parent: null }),
   ];
 
   it('should return an empty object if there are no purposes in state', () => {
@@ -29,12 +28,12 @@ describe('Selector: purposeCategoriesSelector', () => {
     expect(actual).to.deep.equal({});
   });
 
-  it('should return purposes from the state grouped by mainType', () => {
+  it('should return only purposes without a parent', () => {
     const state = getState(purposes);
     const actual = purposeCategoriesSelector(state);
     const expected = Immutable({
-      [mainTypes[0]]: [purposes[0], purposes[2]],
-      [mainTypes[1]]: [purposes[1]],
+      [purposes[0].id]: purposes[0],
+      [purposes[2].id]: purposes[2],
     });
 
     expect(actual).to.deep.equal(expected);

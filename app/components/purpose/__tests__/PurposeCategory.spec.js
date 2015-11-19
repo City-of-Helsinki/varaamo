@@ -13,7 +13,7 @@ describe('Component: purpose/PurposeCategory', () => {
       Purpose.build(),
       Purpose.build(),
     ]),
-    mainType: 'some type',
+    category: Purpose.build(),
   };
   let tree;
 
@@ -28,10 +28,10 @@ describe('Component: purpose/PurposeCategory', () => {
       expect(panelTrees.length).to.equal(1);
     });
 
-    it('should display the mainType in Panel header', () => {
+    it('should display the category name in Panel header', () => {
       const panelTree = tree.subTree('Panel');
 
-      expect(panelTree.props.header).to.equal(props.mainType);
+      expect(panelTree.props.header).to.equal(props.category.name.fi);
     });
 
     it('should render a ListGroup component to hold individual purposes', () => {

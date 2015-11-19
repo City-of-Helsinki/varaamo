@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import MockDate from 'mockdate';
 
-import { PURPOSE_MAIN_TYPES } from 'constants/AppConstants';
 import Image from 'fixtures/Image';
 import {
   combineReservations,
@@ -14,7 +13,6 @@ import {
   getOpeningHours,
   getPeopleCapacityString,
   getTranslatedProperty,
-  humanizeMainType,
 } from 'utils/DataUtils';
 
 describe('Utils: DataUtils', () => {
@@ -509,28 +507,6 @@ describe('Utils: DataUtils', () => {
       };
 
       expect(getTranslatedProperty(item, 'name')).to.equal('Finnish name');
-    });
-  });
-
-  describe('humanizeMainType', () => {
-    it('should return empty string if the given mainType is undefined', () => {
-      const mainType = undefined;
-
-      expect(humanizeMainType(mainType)).to.equal('');
-    });
-
-    it('should return the given mainType if it is not included in PURPOSE_MAIN_TYPES', () => {
-      const mainType = 'unknown-mainType';
-
-      expect(humanizeMainType(mainType)).to.equal(mainType);
-    });
-
-    it('should return included mainType from RESOURCE_TYPES', () => {
-      const validType = Object.keys(PURPOSE_MAIN_TYPES)[0];
-      const mainType = validType;
-      const expected = PURPOSE_MAIN_TYPES[validType];
-
-      expect(humanizeMainType(mainType)).to.equal(expected);
     });
   });
 });
