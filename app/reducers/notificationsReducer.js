@@ -22,32 +22,41 @@ function hideNotification(state, index) {
   ];
 }
 
+function getErrorMessage(error) {
+  let message = 'Jotain meni vikaan. Yritä hetken päästä uudelleen.';
+
+  if (error.status === 401) {
+    message = 'Kirjaudu sisään jatkaaksesi.';
+  } else if (error.response.non_field_errors && error.response.non_field_errors.length) {
+    message = error.response.non_field_errors.join('. ');
+  } else if (error.response.detail) {
+    message = error.response.detail;
+  }
+
+  if (!message.endsWith('.')) {
+    message = message + '.';
+  }
+
+  return message;
+}
+
 function notificationsReducer(state = initialState, action) {
   let message;
   let notification;
   switch (action.type) {
 
+  // Notification handling
+
   case types.UI.HIDE_NOTIFICATION:
     const index = action.payload.id - 1;
     return hideNotification(state, index);
+
+  // Success messages
 
   case types.API.LOGOUT:
     notification = {
       message: 'Sinut on nyt kirjattu ulos. Huom! Kunnes API on valmis, olet yhä rajapinnan puolella kirjautuneena sisään.',
       type: 'success',
-    };
-    return addNotification(state, notification);
-
-  case types.API.RESERVATION_DELETE_ERROR:
-    message = 'Varauksen poistaminen epäonnistui. Yritä hetken kuluttua uudelleen.';
-    if (action.payload.status === 401) {
-      message = 'Kirjaudu sisään poistaaksesi varauksen.';
-    }
-
-    notification = {
-      message,
-      type: 'error',
-      timeOut: 10000,
     };
     return addNotification(state, notification);
 
@@ -58,19 +67,6 @@ function notificationsReducer(state = initialState, action) {
     };
     return addNotification(state, notification);
 
-  case types.API.RESERVATION_POST_ERROR:
-    message = 'Varauksen tekeminen epäonnistui.';
-    if (action.payload.status === 401) {
-      message = 'Kirjaudu sisään tehdäksesi varauksen.';
-    }
-
-    notification = {
-      message,
-      type: 'error',
-      timeOut: 10000,
-    };
-    return addNotification(state, notification);
-
   case types.API.RESERVATION_POST_SUCCESS:
     notification = {
       message: 'Varauksen tekeminen onnistui.',
@@ -78,23 +74,23 @@ function notificationsReducer(state = initialState, action) {
     };
     return addNotification(state, notification);
 
-  case types.API.RESERVATION_PUT_ERROR:
-    message = 'Varauksen muuttaminen epäonnistui.';
-    if (action.payload.status === 401) {
-      message = 'Kirjaudu sisään muuttaaksesi varausta.';
-    }
-
-    notification = {
-      message,
-      type: 'error',
-      timeOut: 10000,
-    };
-    return addNotification(state, notification);
-
   case types.API.RESERVATION_PUT_SUCCESS:
     notification = {
       message: 'Varauksen muuttaminen onnistui.',
       type: 'success',
+    };
+    return addNotification(state, notification);
+
+  // Error messages
+
+  case types.API.RESERVATION_DELETE_ERROR:
+  case types.API.RESERVATION_POST_ERROR:
+  case types.API.RESERVATION_PUT_ERROR:
+    message = getErrorMessage(action.payload);
+    notification = {
+      message,
+      type: 'error',
+      timeOut: 10000,
     };
     return addNotification(state, notification);
 
