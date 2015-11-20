@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 import { Typeahead } from 'react-typeahead';
 
@@ -7,7 +6,7 @@ import TypeaheadList from 'components/search/TypeaheadList';
 class SearchInput extends Component {
   constructor(props) {
     super(props);
-    this.handleKeyUp = _.throttle(this.handleKeyUp.bind(this), 500);
+    this.handleKeyUp = this.handleKeyUp.bind(this);
     this.handleTypeaheadSuggestionSelect = this.handleTypeaheadSuggestionSelect.bind(this);
   }
 

@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 import { Button, Panel } from 'react-bootstrap';
 import DatePicker from 'react-date-picker';
@@ -16,6 +17,7 @@ import { getFetchParamsFromFilters } from 'utils/SearchUtils';
 export class UnconnectedSearchControls extends Component {
   constructor(props) {
     super(props);
+    this.fetchTypeaheadSuggestions = this.fetchTypeaheadSuggestions.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
     this.onFiltersChange = this.onFiltersChange.bind(this);
@@ -23,11 +25,16 @@ export class UnconnectedSearchControls extends Component {
 
   componentDidMount() {
     this.props.actions.fetchPurposes();
+    this.fetchTypeaheadSuggestions = _.throttle(this.fetchTypeaheadSuggestions, 200, { leading: false, trailing: true });
   }
 
   onFiltersChange(newFilters) {
     const filters = Object.assign({}, this.props.filters, newFilters);
     this.props.actions.replaceState(null, '/search', filters);
+  }
+
+  fetchTypeaheadSuggestions(value) {
+    this.props.actions.getTypeaheadSuggestions({ full: true, input: value });
   }
 
   handleSearch(newFilters, options = {}) {
@@ -49,7 +56,7 @@ export class UnconnectedSearchControls extends Component {
 
   handleSearchInputChange(value) {
     this.onFiltersChange({ search: value });
-    this.props.actions.getTypeaheadSuggestions({ full: true, input: value });
+    this.fetchTypeaheadSuggestions(value);
   }
 
   render() {
