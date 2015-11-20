@@ -13,6 +13,7 @@ describe('Component: search/SearchResults', () => {
     const unit = Unit.build();
     const props = {
       date: '2015-10-10',
+      filters: {},
       isFetching: false,
       results: Immutable([
         Resource.build({ unit: unit.id }),
@@ -89,6 +90,7 @@ describe('Component: search/SearchResults', () => {
   describe('without results', () => {
     const props = {
       date: '2015-10-10',
+      filters: {},
       isFetching: false,
       results: [],
       units: {},

@@ -10,6 +10,8 @@ describe('Component: search/SearchInput', () => {
     autoFocus: true,
     onChange: simple.stub(),
     onSubmit: simple.stub(),
+    pushState: simple.stub(),
+    typeaheadOptions: ['mock-suggestion'],
     value: 'query',
   };
 
@@ -27,25 +29,25 @@ describe('Component: search/SearchInput', () => {
     expect(props.onSubmit.callCount).to.equal(1);
   });
 
-  describe('search box', () => {
-    const inputTrees = tree.everySubTree('Input');
+  describe('Typeahead', () => {
+    const typeaheadTrees = tree.everySubTree('Typeahead');
 
-    it('should render an Input component', () => {
-      expect(inputTrees.length).to.equal(1);
+    it('should render a Typeahead component', () => {
+      expect(typeaheadTrees.length).to.equal(1);
     });
 
-    it('should pass correct props to the Input', () => {
-      const actualProps = inputTrees[0].props;
+    it('should pass correct props to the Typeahead', () => {
+      const actualProps = typeaheadTrees[0].props;
 
-      expect(actualProps.autoFocus).to.equal(props.autoFocus);
+      expect(actualProps.inputProps).to.deep.equal({ autoFocus: props.autoFocus });
+      expect(actualProps.options).to.equal(props.typeaheadOptions);
       expect(actualProps.value).to.equal(props.value);
-      expect(actualProps.type).to.equal('text');
     });
 
     it('changing the search box value should call props.onChange with new value', () => {
       const newValue = 'new search value';
       const mockEvent = { target: { value: newValue } };
-      inputTrees[0].props.onChange(mockEvent);
+      typeaheadTrees[0].props.onKeyUp(mockEvent);
 
       expect(props.onChange.callCount).to.equal(1);
       expect(props.onChange.lastCall.args[0]).to.equal(newValue);

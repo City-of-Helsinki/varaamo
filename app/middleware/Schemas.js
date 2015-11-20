@@ -13,6 +13,7 @@ const paginatedPurposesSchema = new Schema('paginatedPurposes');
 const paginatedReservationsSchema = new Schema('paginatedReservations');
 const paginatedResourcesSchema = new Schema('paginatedResources');
 const paginatedUnitsSchema = new Schema('paginatedUnits');
+const typeaheadSchema = new Schema('typeaheadSuggestions');
 
 paginatedPurposesSchema.define({
   results: arrayOf(purposeSchema),
@@ -28,6 +29,10 @@ paginatedResourcesSchema.define({
 
 paginatedUnitsSchema.define({
   results: arrayOf(unitSchema),
+});
+
+typeaheadSchema.define({
+  resource: arrayOf(resourceSchema),
 });
 
 export default {
