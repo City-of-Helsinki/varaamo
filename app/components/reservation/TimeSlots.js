@@ -12,13 +12,20 @@ class TimeSlots extends Component {
   }
 
   renderTimeSlot(slot) {
-    const { isLoggedIn, onClick, selected, time } = this.props;
+    const {
+      isAdmin,
+      isLoggedIn,
+      onClick,
+      selected,
+      time,
+    } = this.props;
     const scrollTo = time && time === slot.start;
 
     return (
       <TimeSlot
-        key={slot.start}
+        isAdmin={isAdmin}
         isLoggedIn={isLoggedIn}
+        key={slot.start}
         onClick={onClick}
         scrollTo={scrollTo}
         selected={_.includes(selected, slot.asISOString)}
@@ -28,7 +35,11 @@ class TimeSlots extends Component {
   }
 
   render() {
-    const { isFetching, slots } = this.props;
+    const {
+      isAdmin,
+      isFetching,
+      slots,
+    } = this.props;
 
     return (
       <Loader loaded={!isFetching}>
@@ -42,6 +53,8 @@ class TimeSlots extends Component {
                 <th />
                 <th>Aika</th>
                 <th>Varaustilanne</th>
+                {isAdmin && <th>Varaaja</th>}
+                {isAdmin && <th>Toiminnot</th>}
               </tr>
             </thead>
             <tbody>
@@ -57,6 +70,7 @@ class TimeSlots extends Component {
 }
 
 TimeSlots.propTypes = {
+  isAdmin: PropTypes.bool.isRequired,
   isFetching: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,

@@ -15,6 +15,7 @@ function getState(resource, resourceId) {
       activeRequests: [],
     }),
     auth: {
+      isAdmin: false,
       token: null,
       userId: null,
     },
@@ -55,6 +56,15 @@ describe('Selector: reservationFormSelector', () => {
       },
     ],
   });
+
+  it('should return isAdmin from the state', () => {
+    const state = getState(resource);
+    const selected = reservationFormSelector(state);
+    const expected = state.auth.isAdmin;
+
+    expect(selected.isAdmin).to.deep.equal(expected);
+  });
+
 
   it('should return confirmReservationModalIsOpen', () => {
     const state = getState(resource);

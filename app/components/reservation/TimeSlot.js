@@ -14,7 +14,13 @@ class TimeSlot extends Component {
   }
 
   render() {
-    const { isLoggedIn, onClick, selected, slot } = this.props;
+    const {
+      isAdmin,
+      isLoggedIn,
+      onClick,
+      selected,
+      slot,
+    } = this.props;
     const isPast = moment(slot.end) < moment();
     const disabled = !isLoggedIn || !slot.editing && (slot.reserved || isPast);
     const checked = selected || (slot.reserved && !slot.editing);
@@ -56,12 +62,15 @@ class TimeSlot extends Component {
             {labelText}
           </Label>
         </td>
+        {isAdmin && <td>{slot.reservation && slot.reservation.user}</td>}
+        {isAdmin && <td>Muokkaa | Poista</td>}
       </tr>
     );
   }
 }
 
 TimeSlot.propTypes = {
+  isAdmin: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
   scrollTo: PropTypes.bool,

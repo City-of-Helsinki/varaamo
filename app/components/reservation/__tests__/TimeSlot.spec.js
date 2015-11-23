@@ -10,6 +10,7 @@ import TimeSlotFixture from 'fixtures/TimeSlot';
 
 describe('Component: reservation/TimeSlot', () => {
   const props = {
+    isAdmin: false,
     isLoggedIn: true,
     onClick: simple.stub(),
     selected: false,
@@ -85,6 +86,7 @@ describe('Component: reservation/TimeSlot', () => {
 
       describe('when the slot is reserved', () => {
         const reservedProps = {
+          isAdmin: false,
           isLoggedIn: true,
           onClick: simple.stub(),
           selected: false,

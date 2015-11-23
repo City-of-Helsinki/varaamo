@@ -10,6 +10,10 @@ describe('Reducer: authReducer', () => {
   describe('initial state', () => {
     const initialState = authReducer(undefined, {});
 
+    it('isAdmin should be false', () => {
+      expect(initialState.isAdmin).to.equal(false);
+    });
+
     it('token should be null', () => {
       expect(initialState.token).to.equal(null);
     });
@@ -47,7 +51,11 @@ describe('Reducer: authReducer', () => {
         const action = reservationDeleteError({ status: 401 });
         const initialState = Immutable({ token: 'mock-token', userId: 'u-1' });
         const nextState = authReducer(initialState, action);
-        const expectedState = Immutable({ token: null, userId: null });
+        const expectedState = Immutable({
+          isAdmin: false,
+          token: null,
+          userId: null,
+        });
 
         expect(nextState).to.deep.equal(expectedState);
       });
@@ -69,7 +77,11 @@ describe('Reducer: authReducer', () => {
         const action = reservationPostError({ status: 401 });
         const initialState = Immutable({ token: 'mock-token', userId: 'u-1' });
         const nextState = authReducer(initialState, action);
-        const expectedState = Immutable({ token: null, userId: null });
+        const expectedState = Immutable({
+          isAdmin: false,
+          token: null,
+          userId: null,
+        });
 
         expect(nextState).to.deep.equal(expectedState);
       });
@@ -91,7 +103,11 @@ describe('Reducer: authReducer', () => {
         const action = reservationPutError({ status: 401 });
         const initialState = Immutable({ token: 'mock-token', userId: 'u-1' });
         const nextState = authReducer(initialState, action);
-        const expectedState = Immutable({ token: null, userId: null });
+        const expectedState = Immutable({
+          isAdmin: false,
+          token: null,
+          userId: null,
+        });
 
         expect(nextState).to.deep.equal(expectedState);
       });
