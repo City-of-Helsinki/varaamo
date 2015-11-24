@@ -1,10 +1,9 @@
 import _ from 'lodash';
-import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
-import { Button } from 'react-bootstrap';
 import { Link } from 'react-router';
 
 import TimeRange from 'components/common/TimeRange';
+import ReservationControls from 'components/reservation/ReservationControls';
 import { getCaption, getMainImage, getName } from 'utils/DataUtils';
 
 class ReservationsListItem extends Component {
@@ -12,7 +11,6 @@ class ReservationsListItem extends Component {
     super(props);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
-    this.renderButtons = this.renderButtons.bind(this);
   }
 
   handleDeleteClick() {
@@ -42,31 +40,6 @@ class ReservationsListItem extends Component {
         date: reservation.begin.split('T')[0],
         time: reservation.begin,
       }
-    );
-  }
-
-  renderButtons() {
-    if (moment() > moment(this.props.reservation.end)) {
-      return null;
-    }
-
-    return (
-      <div className="buttons">
-        <Button
-          bsSize="xsmall"
-          bsStyle="primary"
-          onClick={this.handleEditClick}
-        >
-          Muokkaa
-        </Button>
-        <Button
-          bsSize="xsmall"
-          bsStyle="danger"
-          onClick={this.handleDeleteClick}
-        >
-          Poista
-        </Button>
-      </div>
     );
   }
 
@@ -122,7 +95,11 @@ class ReservationsListItem extends Component {
             />
           </Link>
         </div>
-        {this.renderButtons()}
+        <ReservationControls
+          onDeleteClick={this.handleDeleteClick}
+          onEditClick={this.handleEditClick}
+          reservation={reservation}
+        />
       </li>
     );
   }
