@@ -13,7 +13,7 @@ import Unit from 'fixtures/Unit';
 
 describe('Component: reservation/ReservationsListItem', () => {
   const props = {
-    openDeleteModal: simple.stub(),
+    openReservationDeleteModal: simple.stub(),
     pushState: simple.stub(),
     reservation: Immutable(Reservation.build()),
     resource: Immutable(Resource.build({
@@ -108,8 +108,8 @@ describe('Component: reservation/ReservationsListItem', () => {
       );
     });
 
-    it('should call the props.openDeleteModal function', () => {
-      expect(props.openDeleteModal.callCount).to.equal(1);
+    it('should call the props.openReservationDeleteModal function', () => {
+      expect(props.openReservationDeleteModal.callCount).to.equal(1);
     });
   });
 

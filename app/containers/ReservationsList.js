@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { pushState } from 'redux-router';
 
 import {
-  openDeleteReservationModal,
+  openReservationDeleteModal,
   selectReservationToDelete,
   selectReservationToEdit,
 } from 'actions/uiActions';
@@ -43,7 +43,7 @@ export class UnconnectedReservationsList extends Component {
         key={reservation.url}
         reservation={reservation}
         resource={resource}
-        openDeleteModal={actions.openDeleteReservationModal}
+        openReservationDeleteModal={actions.openReservationDeleteModal}
         pushState={actions.pushState}
         selectReservationToDelete={actions.selectReservationToDelete}
         selectReservationToEdit={actions.selectReservationToEdit}
@@ -88,7 +88,7 @@ function mapDispatchToProps(dispatch) {
     fetchReservations,
     fetchResources,
     fetchUnits,
-    openDeleteReservationModal,
+    openReservationDeleteModal,
     pushState,
     selectReservationToDelete,
     selectReservationToEdit,
