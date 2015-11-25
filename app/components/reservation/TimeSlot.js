@@ -60,7 +60,11 @@ class TimeSlot extends Component {
       slot,
     } = this.props;
     const isPast = moment(slot.end) < moment();
-    const disabled = !isLoggedIn || !slot.editing && (slot.reserved || isPast);
+    const disabled = (
+      !isLoggedIn ||
+      !resource.userPermissions.canMakeReservations ||
+      !slot.editing && (slot.reserved || isPast)
+    );
     const checked = selected || (slot.reserved && !slot.editing);
     let labelBsStyle;
     let labelText;
