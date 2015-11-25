@@ -1,5 +1,5 @@
 export default {
-  API_URL: 'http://api.hel.fi/respa/v1',
+  API_URL: 'https://api.hel.fi/respa/v1',
   DATE_FORMAT: 'YYYY-MM-DD',
   NOTIFICATION_DEFAULTS: {
     message: '',
