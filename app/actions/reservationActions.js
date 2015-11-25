@@ -39,7 +39,7 @@ function deleteReservation(reservation) {
       ],
       endpoint: reservation.url,
       method: 'DELETE',
-      headers: getHeadersCreator({}, { withJWT: true }),
+      headers: getHeadersCreator(),
     },
   };
 }
@@ -59,7 +59,7 @@ function fetchReservations(params = {}) {
       ],
       endpoint: buildAPIUrl('reservation', fetchParams),
       method: 'GET',
-      headers: getHeadersCreator({}, { withJWT: true }),
+      headers: getHeadersCreator(),
     },
   };
 }
@@ -85,7 +85,7 @@ function postReservation(reservation) {
       ],
       endpoint: url,
       method: 'POST',
-      headers: getHeadersCreator({}, { withJWT: true }),
+      headers: getHeadersCreator(),
       body: JSON.stringify(reservation),
     },
   };
@@ -110,7 +110,7 @@ function putReservation(reservation) {
       ],
       endpoint: reservation.url,
       method: 'PUT',
-      headers: getHeadersCreator({}, { withJWT: true }),
+      headers: getHeadersCreator(),
       body: JSON.stringify(reservation),
     },
   };

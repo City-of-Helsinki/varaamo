@@ -52,10 +52,10 @@ function getErrorTypeDescriptor(type, options = {}) {
   };
 }
 
-function getHeadersCreator(headers, options = {}) {
+function getHeadersCreator(headers) {
   return (state) => {
     const authorizationHeaders = {};
-    if (options.withJWT && state.auth.token) {
+    if (state.auth.token) {
       authorizationHeaders.Authorization = `JWT ${state.auth.token}`;
     }
     return Object.assign({}, REQUIRED_API_HEADERS, headers, authorizationHeaders);
