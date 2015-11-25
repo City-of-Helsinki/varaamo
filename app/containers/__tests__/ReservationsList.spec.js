@@ -20,7 +20,7 @@ function getProps(props) {
       fetchReservations: simple.stub(),
       fetchResources: simple.stub(),
       fetchUnits: simple.stub(),
-      openDeleteReservationModal: simple.stub(),
+      openReservationDeleteModal: simple.stub(),
       pushState: simple.stub(),
       selectReservationToDelete: simple.stub(),
       selectReservationToEdit: simple.stub(),
@@ -55,11 +55,9 @@ describe('Component: reservation/ReservationsList', () => {
       }),
     });
     let tree;
-    let instance;
 
     before(() => {
       tree = sd.shallowRender(<ReservationsList {...props} />);
-      instance = tree.getMountedInstance();
     });
 
     it('should render a ul element', () => {
@@ -84,7 +82,7 @@ describe('Component: reservation/ReservationsList', () => {
           const actualProps = reservationTree.props;
 
           expect(actualProps.reservation).to.deep.equal(props.reservations[index]);
-          expect(actualProps.openDeleteModal).to.deep.equal(props.actions.openDeleteReservationModal);
+          expect(actualProps.openReservationDeleteModal).to.deep.equal(props.actions.openReservationDeleteModal);
           expect(actualProps.pushState).to.deep.equal(props.actions.pushState);
           expect(
             actualProps.selectReservationToDelete
@@ -113,29 +111,6 @@ describe('Component: reservation/ReservationsList', () => {
 
       it('should pass empty object as unit prop to ReservationsListItem if unit or resource is unfetched', () => {
         expect(reservationsListItemTrees[1].props.unit).to.deep.equal({});
-      });
-    });
-
-    describe('rendering DeleteModal', () => {
-      let modalTrees;
-
-      before(() => {
-        modalTrees = tree.everySubTree('DeleteModal');
-      });
-
-      it('should render DeleteModal component', () => {
-        expect(modalTrees.length).to.equal(1);
-      });
-
-      it('should pass correct props to DeleteModal component', () => {
-        const actualProps = modalTrees[0].props;
-
-        expect(actualProps.isDeleting).to.equal(props.isDeletingReservations);
-        expect(actualProps.onClose).to.equal(props.actions.closeDeleteReservationModal);
-        expect(actualProps.onConfirm).to.equal(instance.handleDelete);
-        expect(actualProps.reservationsToDelete).to.deep.equal(props.reservationsToDelete);
-        expect(actualProps.resources).to.deep.equal(props.resources);
-        expect(actualProps.show).to.equal(props.deleteReservationModalIsOpen);
       });
     });
   });
@@ -177,28 +152,6 @@ describe('Component: reservation/ReservationsList', () => {
 
     it('should fetch units when component mounts', () => {
       expect(props.actions.fetchUnits.callCount).to.equal(1);
-    });
-  });
-
-  describe('handleDelete', () => {
-    const props = getProps({});
-    let tree;
-
-    before(() => {
-      tree = sd.shallowRender(<ReservationsList {...props} />);
-      const instance = tree.getMountedInstance();
-      instance.handleDelete();
-    });
-
-    it('should call deleteReservation for each selected reservation', () => {
-      expect(props.actions.deleteReservation.callCount).to.equal(props.reservationsToDelete.length);
-    });
-
-    it('should call deleteReservation with correct arguments', () => {
-      const actualArgs = props.actions.deleteReservation.lastCall.args;
-      const expected = props.reservationsToDelete[1];
-
-      expect(actualArgs[0]).to.deep.equal(expected);
     });
   });
 });

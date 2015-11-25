@@ -12,20 +12,21 @@ import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
 
 describe('Component: reservation/ReservationsListItem', () => {
-  describe('rendering', () => {
-    const props = {
-      openDeleteModal: simple.stub(),
-      pushState: simple.stub(),
-      reservation: Immutable(Reservation.build()),
-      resource: Immutable(Resource.build({
-        images: [Image.build()],
-      })),
-      selectReservationToDelete: simple.stub(),
-      selectReservationToEdit: simple.stub(),
-      unit: Immutable(Unit.build()),
-    };
-    const tree = sd.shallowRender(<ReservationsListItem {...props} />);
+  const props = {
+    openReservationDeleteModal: simple.stub(),
+    pushState: simple.stub(),
+    reservation: Immutable(Reservation.build()),
+    resource: Immutable(Resource.build({
+      images: [Image.build()],
+    })),
+    selectReservationToDelete: simple.stub(),
+    selectReservationToEdit: simple.stub(),
+    unit: Immutable(Unit.build()),
+  };
+  const tree = sd.shallowRender(<ReservationsListItem {...props} />);
+  const instance = tree.getMountedInstance();
 
+  describe('rendering', () => {
     it('should render a li element', () => {
       const vdom = tree.getRenderOutput();
       expect(vdom.type).to.equal('li');
@@ -78,66 +79,58 @@ describe('Component: reservation/ReservationsListItem', () => {
       expect(timeRangeTree.props.end).to.equal(props.reservation.end);
     });
 
-    describe('buttons', () => {
-      const buttonTrees = tree.everySubTree('Button');
+    describe('rendering ReservationControls', () => {
+      const reservationControlsTree = tree.subTree('ReservationControls');
 
-      it('should contain two buttons', () => {
-        expect(buttonTrees.length).to.equal(2);
+      it('should render ReservationControls component', () => {
+        expect(reservationControlsTree).to.be.ok;
       });
 
-      describe('the first button', () => {
-        const buttonTree = buttonTrees[0];
+      it('should pass correct props to ReservationControls component', () => {
+        const actualProps = reservationControlsTree.props;
 
-        it('should be an edit button', () => {
-          expect(buttonTree.props.children).to.equal('Muokkaa');
-        });
-
-        describe('clicking the button', () => {
-          buttonTree.props.onClick();
-
-          it('should call props.selectReservationToEdit with reservation and minPeriod', () => {
-            expect(props.selectReservationToEdit.callCount).to.equal(1);
-            expect(
-              props.selectReservationToEdit.lastCall.args[0]
-            ).to.deep.equal(
-              { reservation: props.reservation, minPeriod: props.resource.minPeriod }
-            );
-          });
-
-          it('should call the props.pushState with correct url', () => {
-            const actualUrlArg = props.pushState.lastCall.args[1];
-            const expectedUrl = `/resources/${props.reservation.resource}/reservation`;
-
-            expect(props.pushState.callCount).to.equal(1);
-            expect(actualUrlArg).to.equal(expectedUrl);
-          });
-        });
+        expect(actualProps.reservation).to.equal(props.reservation);
+        expect(actualProps.onDeleteClick).to.equal(instance.handleDeleteClick);
+        expect(actualProps.onEditClick).to.equal(instance.handleEditClick);
       });
+    });
+  });
 
-      describe('the second button', () => {
-        const buttonTree = buttonTrees[1];
+  describe('handleDeleteClick', () => {
+    instance.handleDeleteClick();
 
-        it('should be a delete button', () => {
-          expect(buttonTree.props.children).to.equal('Poista');
-        });
+    it('should call props.selectReservationToDelete with this reservation', () => {
+      expect(props.selectReservationToDelete.callCount).to.equal(1);
+      expect(
+        props.selectReservationToDelete.lastCall.args[0]
+      ).to.deep.equal(
+        props.reservation
+      );
+    });
 
-        describe('clicking the button', () => {
-          buttonTree.props.onClick();
+    it('should call the props.openReservationDeleteModal function', () => {
+      expect(props.openReservationDeleteModal.callCount).to.equal(1);
+    });
+  });
 
-          it('should call props.selectReservationToDelete with this reservation', () => {
-            expect(props.selectReservationToDelete.callCount).to.equal(1);
-            expect(
-              props.selectReservationToDelete.lastCall.args[0]
-            ).to.deep.equal(
-              props.reservation
-            );
-          });
+  describe('handleEditClick', () => {
+    instance.handleEditClick();
 
-          it('should call the props.openDeleteModal function', () => {
-            expect(props.openDeleteModal.callCount).to.equal(1);
-          });
-        });
-      });
+    it('should call props.selectReservationToEdit with reservation and minPeriod', () => {
+      expect(props.selectReservationToEdit.callCount).to.equal(1);
+      expect(
+        props.selectReservationToEdit.lastCall.args[0]
+      ).to.deep.equal(
+        { reservation: props.reservation, minPeriod: props.resource.minPeriod }
+      );
+    });
+
+    it('should call the props.pushState with correct url', () => {
+      const actualUrlArg = props.pushState.lastCall.args[1];
+      const expectedUrl = `/resources/${props.reservation.resource}/reservation`;
+
+      expect(props.pushState.callCount).to.equal(1);
+      expect(actualUrlArg).to.equal(expectedUrl);
     });
   });
 });

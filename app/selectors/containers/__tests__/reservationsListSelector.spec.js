@@ -7,26 +7,12 @@ describe('Selector: reservationsListSelector', () => {
   const state = getInitialState();
   const selected = reservationsListSelector(state);
 
-  it('should return deleteReservationModalIsOpen', () => {
-    expect(selected.deleteReservationModalIsOpen).to.exist;
-  });
-
-  it('should return isDeletingReservations', () => {
-    expect(selected.isDeletingReservations).to.exist;
-  });
-
   it('should return isFetchingReservations', () => {
     expect(selected.isFetchingReservations).to.exist;
   });
 
   it('should return reservations', () => {
     expect(selected.reservations).to.exist;
-  });
-
-  it('should return reservationsToDelete from the state', () => {
-    const expected = state.ui.reservation.toDelete;
-
-    expect(selected.reservationsToDelete).to.deep.equal(expected);
   });
 
   it('should return resources from the state', () => {

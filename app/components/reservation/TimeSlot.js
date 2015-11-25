@@ -4,19 +4,67 @@ import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import { Glyphicon, Label } from 'react-bootstrap';
 
+import ReservationControls from 'components/reservation/ReservationControls';
 import { scrollTo } from 'utils/DOMUtils';
 
 class TimeSlot extends Component {
+  constructor(props) {
+    super(props);
+    this.handleDeleteClick = this.handleDeleteClick.bind(this);
+    this.handleEditClick = this.handleEditClick.bind(this);
+  }
+
   componentDidMount() {
     if (this.props.scrollTo) {
       scrollTo(findDOMNode(this));
     }
   }
 
+  handleDeleteClick() {
+    const {
+      openReservationDeleteModal,
+      slot,
+      selectReservationToDelete,
+    } = this.props;
+
+    selectReservationToDelete(slot.reservation);
+    openReservationDeleteModal();
+  }
+
+  handleEditClick() {
+    const {
+      pushState,
+      slot,
+      resource,
+      selectReservationToEdit,
+    } = this.props;
+    const reservation = slot.reservation;
+
+    selectReservationToEdit({ reservation, minPeriod: resource.minPeriod });
+    pushState(
+      null,
+      `/resources/${reservation.resource}/reservation`,
+      {
+        date: reservation.begin.split('T')[0],
+        time: reservation.begin,
+      }
+    );
+  }
+
   render() {
-    const { isLoggedIn, onClick, selected, slot } = this.props;
+    const {
+      isLoggedIn,
+      onClick,
+      resource,
+      selected,
+      slot,
+    } = this.props;
     const isPast = moment(slot.end) < moment();
-    const disabled = !isLoggedIn || !slot.editing && (slot.reserved || isPast);
+    const disabled = (
+      !isLoggedIn ||
+      !resource.userPermissions.canMakeReservations ||
+      !slot.editing && (slot.reserved || isPast)
+    );
     const checked = selected || (slot.reserved && !slot.editing);
     let labelBsStyle;
     let labelText;
@@ -31,6 +79,8 @@ class TimeSlot extends Component {
     } else {
       labelText = slot.reserved ? 'Varattu' : 'Vapaa';
     }
+    const reservation = slot.reservation;
+    const isAdmin = resource.userPermissions.isAdmin;
 
     return (
       <tr
@@ -56,6 +106,16 @@ class TimeSlot extends Component {
             {labelText}
           </Label>
         </td>
+        {isAdmin && <td>{reservation && reservation.user}</td>}
+        {isAdmin && (
+          <td>
+            <ReservationControls
+              onDeleteClick={this.handleDeleteClick}
+              onEditClick={this.handleEditClick}
+              reservation={reservation}
+            />
+          </td>
+        )}
       </tr>
     );
   }
@@ -64,8 +124,13 @@ class TimeSlot extends Component {
 TimeSlot.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
+  openReservationDeleteModal: PropTypes.func.isRequired,
+  pushState: PropTypes.func.isRequired,
+  resource: PropTypes.object.isRequired,
   scrollTo: PropTypes.bool,
   selected: PropTypes.bool.isRequired,
+  selectReservationToDelete: PropTypes.func.isRequired,
+  selectReservationToEdit: PropTypes.func.isRequired,
   slot: PropTypes.object.isRequired,
 };
 

@@ -61,17 +61,24 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = [], reserv
     const asString = `${startLocal.format(TIME_FORMAT)}\u2013${endLocal.format(TIME_FORMAT)}`;
 
     const slotRange = moment.range(startLocal, endLocal);
-    const reserved = reservationRanges.some(
-      reservationRange => reservationRange.overlaps(slotRange)
-    );
     const editing = editRanges.some(
       editRange => editRange.overlaps(slotRange)
     );
+
+    let reserved = false;
+    let reservation = null;
+    _.forEach(reservationRanges, (reservationRange, index) => {
+      if (reservationRange.overlaps(slotRange)) {
+        reserved = true;
+        reservation = reservations[index];
+      }
+    });
 
     slots.push({
       asISOString,
       asString,
       editing,
+      reservation,
       reserved,
       start: startUTC.toISOString(),
       end: endUTC.toISOString(),

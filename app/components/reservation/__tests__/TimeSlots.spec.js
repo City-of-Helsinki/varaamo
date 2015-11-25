@@ -6,6 +6,7 @@ import simple from 'simple-mock';
 import Immutable from 'seamless-immutable';
 
 import TimeSlots from 'components/reservation/TimeSlots';
+import Resource from 'fixtures/Resource';
 import TimeSlot from 'fixtures/TimeSlot';
 
 describe('Component: reservation/TimeSlots', () => {
@@ -18,7 +19,12 @@ describe('Component: reservation/TimeSlots', () => {
       isFetching: false,
       isLoggedIn: true,
       onClick: simple.stub(),
+      openReservationDeleteModal: simple.stub(),
+      pushState: simple.stub(),
+      resource: Resource.build(),
       selected: [timeSlots[0].asISOString],
+      selectReservationToDelete: simple.stub(),
+      selectReservationToEdit: simple.stub(),
       slots: Immutable(timeSlots),
     };
     let tree;
@@ -72,6 +78,11 @@ describe('Component: reservation/TimeSlots', () => {
         timeSlotTrees.forEach((timeSlotTree, index) => {
           expect(timeSlotTree.props.isLoggedIn).to.equal(props.isLoggedIn);
           expect(timeSlotTree.props.onClick).to.equal(props.onClick);
+          expect(timeSlotTree.props.openReservationDeleteModal).to.equal(props.openReservationDeleteModal);
+          expect(timeSlotTree.props.pushState).to.equal(props.pushState);
+          expect(timeSlotTree.props.resource).to.equal(props.resource);
+          expect(timeSlotTree.props.selectReservationToDelete).to.equal(props.selectReservationToDelete);
+          expect(timeSlotTree.props.selectReservationToEdit).to.equal(props.selectReservationToEdit);
           expect(timeSlotTree.props.slot).to.deep.equal(props.slots[index]);
         });
       });
@@ -88,7 +99,12 @@ describe('Component: reservation/TimeSlots', () => {
       isFetching: false,
       isLoggedIn: true,
       onClick: simple.stub(),
+      openReservationDeleteModal: simple.stub(),
+      pushState: simple.stub(),
+      resource: Resource.build(),
       selected: [],
+      selectReservationToDelete: simple.stub(),
+      selectReservationToEdit: simple.stub(),
       slots: [],
     };
     let tree;
@@ -98,7 +114,7 @@ describe('Component: reservation/TimeSlots', () => {
     });
 
     it('should render a message telling the resource is not available for reservation', () => {
-      const expected = 'Tila ei ole tänä päivänä avoinna.';
+      const expected = 'Tila ei ole varattavissa tänä päivänä.';
 
       expect(tree.textIn('p')).to.equal(expected);
     });

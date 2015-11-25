@@ -54,6 +54,7 @@ const reservationFormSelector = createSelector(
       isLoggedIn,
       isMakingReservations,
       reservationsToEdit,
+      resource,
       selected,
       selectedReservations,
       time,

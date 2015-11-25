@@ -47,7 +47,10 @@ describe('Reducer: authReducer', () => {
         const action = reservationDeleteError({ status: 401 });
         const initialState = Immutable({ token: 'mock-token', userId: 'u-1' });
         const nextState = authReducer(initialState, action);
-        const expectedState = Immutable({ token: null, userId: null });
+        const expectedState = Immutable({
+          token: null,
+          userId: null,
+        });
 
         expect(nextState).to.deep.equal(expectedState);
       });
@@ -69,7 +72,10 @@ describe('Reducer: authReducer', () => {
         const action = reservationPostError({ status: 401 });
         const initialState = Immutable({ token: 'mock-token', userId: 'u-1' });
         const nextState = authReducer(initialState, action);
-        const expectedState = Immutable({ token: null, userId: null });
+        const expectedState = Immutable({
+          token: null,
+          userId: null,
+        });
 
         expect(nextState).to.deep.equal(expectedState);
       });
@@ -91,7 +97,10 @@ describe('Reducer: authReducer', () => {
         const action = reservationPutError({ status: 401 });
         const initialState = Immutable({ token: 'mock-token', userId: 'u-1' });
         const nextState = authReducer(initialState, action);
-        const expectedState = Immutable({ token: null, userId: null });
+        const expectedState = Immutable({
+          token: null,
+          userId: null,
+        });
 
         expect(nextState).to.deep.equal(expectedState);
       });

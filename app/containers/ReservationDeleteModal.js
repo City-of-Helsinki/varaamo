@@ -1,20 +1,29 @@
 import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 import { Button, Modal } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
+import { deleteReservation } from 'actions/reservationActions';
+import { closeDeleteReservationModal } from 'actions/uiActions';
 import TimeRange from 'components/common/TimeRange';
+import reservationDeleteModalSelector from 'selectors/containers/reservationDeleteModalSelector';
 import { getName } from 'utils/DataUtils';
 
-class DeleteModal extends Component {
+export class UnconnectedReservationDeleteModal extends Component {
   constructor(props) {
     super(props);
-    this.handleConfirm = this.handleConfirm.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
     this.renderReservation = this.renderReservation.bind(this);
   }
 
-  handleConfirm() {
-    this.props.onConfirm();
-    this.props.onClose();
+  handleDelete() {
+    const { actions, reservationsToDelete } = this.props;
+
+    _.forEach(reservationsToDelete, (reservation) => {
+      actions.deleteReservation(reservation);
+    });
+    actions.closeDeleteReservationModal();
   }
 
   renderReservation(reservation) {
@@ -31,15 +40,15 @@ class DeleteModal extends Component {
 
   render() {
     const {
-      isDeleting,
-      onClose,
+      actions,
+      isDeletingReservations,
       reservationsToDelete,
       show,
     } = this.props;
 
     return (
       <Modal
-        onHide={onClose}
+        onHide={actions.closeDeleteReservationModal}
         show={show}
       >
         <Modal.Header closeButton>
@@ -56,16 +65,16 @@ class DeleteModal extends Component {
         <Modal.Footer>
           <Button
             bsStyle="default"
-            onClick={onClose}
+            onClick={actions.closeDeleteReservationModal}
           >
             Peruuta
           </Button>
           <Button
             bsStyle="danger"
-            disabled={isDeleting}
-            onClick={this.handleConfirm}
+            disabled={isDeletingReservations}
+            onClick={this.handleDelete}
           >
-            {isDeleting ? 'Poistetaan...' : 'Poista'}
+            {isDeletingReservations ? 'Poistetaan...' : 'Poista'}
           </Button>
         </Modal.Footer>
       </Modal>
@@ -73,13 +82,23 @@ class DeleteModal extends Component {
   }
 }
 
-DeleteModal.propTypes = {
-  isDeleting: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onConfirm: PropTypes.func.isRequired,
+UnconnectedReservationDeleteModal.propTypes = {
+  actions: PropTypes.object.isRequired,
+  isDeletingReservations: PropTypes.bool.isRequired,
   reservationsToDelete: PropTypes.array.isRequired,
   resources: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
 };
 
-export default DeleteModal;
+function mapDispatchToProps(dispatch) {
+  const actionCreators = {
+    closeDeleteReservationModal,
+    deleteReservation,
+  };
+
+  return { actions: bindActionCreators(actionCreators, dispatch) };
+}
+
+export default connect(reservationDeleteModalSelector, mapDispatchToProps)(
+  UnconnectedReservationDeleteModal
+);

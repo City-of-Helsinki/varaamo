@@ -6,6 +6,7 @@ import simple from 'simple-mock';
 import Immutable from 'seamless-immutable';
 
 import Reservation from 'fixtures/Reservation';
+import Resource from 'fixtures/Resource';
 import TimeSlot from 'fixtures/TimeSlot';
 import { UnconnectedReservationForm as ReservationForm } from 'containers/ReservationForm';
 
@@ -17,10 +18,13 @@ function getProps(props = {}) {
       closeConfirmReservationModal: simple.stub(),
       deleteReservation: simple.stub(),
       fetchResource: simple.stub(),
-      postReservation: simple.stub(),
-      putReservation: simple.stub(),
-      pushState: simple.stub(),
       openConfirmReservationModal: simple.stub(),
+      openReservationDeleteModal: simple.stub(),
+      postReservation: simple.stub(),
+      pushState: simple.stub(),
+      putReservation: simple.stub(),
+      selectReservationToDelete: simple.stub(),
+      selectReservationToEdit: simple.stub(),
       toggleTimeSlot: simple.stub(),
     },
     confirmReservationModalIsOpen: false,
@@ -30,6 +34,7 @@ function getProps(props = {}) {
     isLoggedIn: true,
     isMakingReservations: false,
     reservationsToEdit: [],
+    resource: Resource.build(),
     timeSlots: [],
     selected: [],
     selectedReservations: [],
@@ -107,7 +112,12 @@ describe('Container: ReservationForm', () => {
         expect(actualProps.isFetching).to.equal(props.isFetchingResource);
         expect(actualProps.isLoggedIn).to.equal(props.isLoggedIn);
         expect(actualProps.onClick).to.deep.equal(props.actions.toggleTimeSlot);
+        expect(actualProps.openReservationDeleteModal).to.deep.equal(props.actions.openReservationDeleteModal);
+        expect(actualProps.pushState).to.deep.equal(props.actions.pushState);
+        expect(actualProps.resource).to.equal(props.resource);
         expect(actualProps.selected).to.deep.equal(props.selected);
+        expect(actualProps.selectReservationToDelete).to.deep.equal(props.actions.selectReservationToDelete);
+        expect(actualProps.selectReservationToEdit).to.deep.equal(props.actions.selectReservationToEdit);
         expect(actualProps.slots).to.deep.equal(props.timeSlots);
       });
     });
@@ -245,13 +255,6 @@ describe('Container: ReservationForm', () => {
 
     it('should call cancelReservationEdit', () => {
       expect(props.actions.cancelReservationEdit.callCount).to.equal(1);
-    });
-
-    it('should redirect user back to my reservations page', () => {
-      const actualUrlArg = props.actions.pushState.lastCall.args[1];
-      const expected = '/my-reservations';
-
-      expect(actualUrlArg).to.deep.equal(expected);
     });
   });
 

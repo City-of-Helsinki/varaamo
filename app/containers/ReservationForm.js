@@ -16,12 +16,16 @@ import {
   clearReservations,
   closeConfirmReservationModal,
   openConfirmReservationModal,
+  openReservationDeleteModal,
+  selectReservationToDelete,
+  selectReservationToEdit,
   toggleTimeSlot,
 } from 'actions/uiActions';
 import DateHeader from 'components/common/DateHeader';
 import ConfirmReservationModal from 'components/reservation/ConfirmReservationModal';
 import ReservationFormControls from 'components/reservation/ReservationFormControls';
 import TimeSlots from 'components/reservation/TimeSlots';
+import ReservationDeleteModal from 'containers/ReservationDeleteModal';
 import reservationFormSelector from 'selectors/containers/reservationFormSelector';
 import { getDateStartAndEndTimes } from 'utils/TimeUtils';
 
@@ -82,7 +86,6 @@ export class UnconnectedReservationForm extends Component {
 
   handleEditCancel() {
     this.props.actions.cancelReservationEdit();
-    this.props.actions.pushState(null, '/my-reservations');
   }
 
   handleReservation() {
@@ -102,6 +105,7 @@ export class UnconnectedReservationForm extends Component {
       isLoggedIn,
       isMakingReservations,
       reservationsToEdit,
+      resource,
       selected,
       selectedReservations,
       time,
@@ -127,7 +131,12 @@ export class UnconnectedReservationForm extends Component {
           isFetching={isFetchingResource}
           isLoggedIn={isLoggedIn}
           onClick={actions.toggleTimeSlot}
+          openReservationDeleteModal={actions.openReservationDeleteModal}
+          pushState={actions.pushState}
+          resource={resource}
           selected={selected}
+          selectReservationToDelete={actions.selectReservationToDelete}
+          selectReservationToEdit={actions.selectReservationToEdit}
           slots={timeSlots}
           time={time}
         />
@@ -147,6 +156,7 @@ export class UnconnectedReservationForm extends Component {
           selectedReservations={selectedReservations}
           show={confirmReservationModalIsOpen}
         />
+        <ReservationDeleteModal />
       </div>
     );
   }
@@ -161,6 +171,7 @@ UnconnectedReservationForm.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,
   reservationsToEdit: PropTypes.array.isRequired,
+  resource: PropTypes.object.isRequired,
   selected: PropTypes.array.isRequired,
   selectedReservations: PropTypes.array.isRequired,
   time: PropTypes.string,
@@ -174,10 +185,13 @@ function mapDispatchToProps(dispatch) {
     closeConfirmReservationModal,
     deleteReservation,
     fetchResource,
-    pushState,
-    postReservation,
-    putReservation,
     openConfirmReservationModal,
+    openReservationDeleteModal,
+    postReservation,
+    pushState,
+    putReservation,
+    selectReservationToDelete,
+    selectReservationToEdit,
     toggleTimeSlot,
   };
 

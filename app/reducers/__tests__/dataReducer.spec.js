@@ -310,6 +310,7 @@ describe('Reducer: dataReducer', () => {
       it('should remove the given reservation from reservations', () => {
         const initialState = Immutable({
           reservations: { [reservations[0].url]: reservations[0] },
+          resources: {},
         });
         const action = deleteReservationSuccess(reservations[0]);
         const nextState = dataReducer(initialState, action);
@@ -321,6 +322,7 @@ describe('Reducer: dataReducer', () => {
       it('should not remove other reservations', () => {
         const initialState = Immutable({
           reservations: _.indexBy(reservations, 'url'),
+          resources: {},
         });
         const action = deleteReservationSuccess(reservations[0]);
         const nextState = dataReducer(initialState, action);
@@ -329,6 +331,35 @@ describe('Reducer: dataReducer', () => {
         });
 
         expect(nextState.reservations).to.deep.equal(expectedReservations);
+      });
+
+      it('should remove the given reservation from resource.reservations', () => {
+        const resource = Resource.build({ reservations: [reservations[0]] });
+        reservations[0].resource = resource.id;
+        const initialState = Immutable({
+          resources: { [resource.id]: resource },
+        });
+        const action = deleteReservationSuccess(reservations[0]);
+        const nextState = dataReducer(initialState, action);
+        const actualReservations = nextState.resources[resource.id].reservations;
+        const expectedReservations = [];
+
+        expect(actualReservations).to.deep.equal(expectedReservations);
+      });
+
+      it('should not remove other resource.reservations', () => {
+        const resource = Resource.build({ reservations: reservations });
+        reservations[0].resource = resource.id;
+        reservations[1].resource = resource.id;
+        const initialState = Immutable({
+          resources: { [resource.id]: resource },
+        });
+        const action = deleteReservationSuccess(reservations[0]);
+        const nextState = dataReducer(initialState, action);
+        const actualReservations = nextState.resources[resource.id].reservations;
+        const expectedReservations = Immutable([reservations[1]]);
+
+        expect(actualReservations).to.deep.equal(expectedReservations);
       });
     });
   });

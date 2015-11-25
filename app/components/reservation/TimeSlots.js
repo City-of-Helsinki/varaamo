@@ -12,23 +12,43 @@ class TimeSlots extends Component {
   }
 
   renderTimeSlot(slot) {
-    const { isLoggedIn, onClick, selected, time } = this.props;
+    const {
+      isLoggedIn,
+      onClick,
+      openReservationDeleteModal,
+      pushState,
+      resource,
+      selected,
+      selectReservationToDelete,
+      selectReservationToEdit,
+      time,
+    } = this.props;
     const scrollTo = time && time === slot.start;
 
     return (
       <TimeSlot
-        key={slot.start}
         isLoggedIn={isLoggedIn}
+        key={slot.start}
         onClick={onClick}
+        openReservationDeleteModal={openReservationDeleteModal}
+        pushState={pushState}
+        resource={resource}
         scrollTo={scrollTo}
         selected={_.includes(selected, slot.asISOString)}
+        selectReservationToEdit={selectReservationToEdit}
+        selectReservationToDelete={selectReservationToDelete}
         slot={slot}
       />
     );
   }
 
   render() {
-    const { isFetching, slots } = this.props;
+    const {
+      resource,
+      isFetching,
+      slots,
+    } = this.props;
+    const isAdmin = resource.userPermissions.isAdmin;
 
     return (
       <Loader loaded={!isFetching}>
@@ -42,6 +62,8 @@ class TimeSlots extends Component {
                 <th />
                 <th>Aika</th>
                 <th>Varaustilanne</th>
+                {isAdmin && <th>Varaaja</th>}
+                {isAdmin && <th>Toiminnot</th>}
               </tr>
             </thead>
             <tbody>
@@ -49,7 +71,7 @@ class TimeSlots extends Component {
             </tbody>
           </Table>
         ) : (
-          <p>Tila ei ole tänä päivänä avoinna.</p>
+          <p>Tila ei ole varattavissa tänä päivänä.</p>
         )}
       </Loader>
     );
@@ -60,7 +82,12 @@ TimeSlots.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
+  openReservationDeleteModal: PropTypes.func.isRequired,
+  pushState: PropTypes.func.isRequired,
+  resource: PropTypes.object.isRequired,
   selected: PropTypes.array.isRequired,
+  selectReservationToDelete: PropTypes.func.isRequired,
+  selectReservationToEdit: PropTypes.func.isRequired,
   slots: PropTypes.array.isRequired,
   time: PropTypes.string,
 };

@@ -17,7 +17,7 @@ const closeConfirmReservationModal = createAction(
   () => ModalTypes.CONFIRM_RESERVATION
 );
 
-const openDeleteReservationModal = createAction(
+const openReservationDeleteModal = createAction(
   types.UI.OPEN_MODAL,
   () => ModalTypes.DELETE_RESERVATION
 );
@@ -42,7 +42,7 @@ export default {
   clearReservations,
   closeDeleteReservationModal,
   closeConfirmReservationModal,
-  openDeleteReservationModal,
+  openReservationDeleteModal,
   openConfirmReservationModal,
   selectReservationToDelete,
   selectReservationToEdit,
