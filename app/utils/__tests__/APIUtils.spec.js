@@ -157,16 +157,20 @@ describe('Utils: APIUtils', () => {
         const authorizationHeader = { Authorization: 'JWT mock-token' };
 
         describe('if no additional headers are specified', () => {
-          it('should return just the required headers', () => {
+          it('should return the required headers and Authorization header', () => {
             const creator = getHeadersCreator();
-            const expected = Object.assign({}, REQUIRED_API_HEADERS);
+            const expected = Object.assign(
+              {},
+              REQUIRED_API_HEADERS,
+              authorizationHeader
+            );
 
             expect(creator(state)).to.deep.equal(expected);
           });
         });
 
         describe('if additional headers are specified', () => {
-          it('should return the required headers and the additional headers', () => {
+          it('should return the required, the additional and Authorization headers', () => {
             const additionalHeaders = {
               header: 'value',
             };
@@ -174,22 +178,7 @@ describe('Utils: APIUtils', () => {
             const expected = Object.assign(
               {},
               REQUIRED_API_HEADERS,
-              additionalHeaders
-            );
-
-            expect(creator(state)).to.deep.equal(expected);
-          });
-        });
-
-        describe('if options contain withJWT', () => {
-          it('should return the required headers and the Authorization header', () => {
-            const options = {
-              withJWT: true,
-            };
-            const creator = getHeadersCreator({}, options);
-            const expected = Object.assign(
-              {},
-              REQUIRED_API_HEADERS,
+              additionalHeaders,
               authorizationHeader
             );
 
@@ -218,21 +207,6 @@ describe('Utils: APIUtils', () => {
             };
             const creator = getHeadersCreator(additionalHeaders);
             const expected = Object.assign({}, REQUIRED_API_HEADERS, additionalHeaders);
-
-            expect(creator(state)).to.deep.equal(expected);
-          });
-        });
-
-        describe('if options contain withJWT', () => {
-          it('should only return the required headers and no Authorization header', () => {
-            const options = {
-              withJWT: true,
-            };
-            const creator = getHeadersCreator({}, options);
-            const expected = Object.assign(
-              {},
-              REQUIRED_API_HEADERS
-            );
 
             expect(creator(state)).to.deep.equal(expected);
           });
