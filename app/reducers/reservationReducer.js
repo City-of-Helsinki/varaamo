@@ -35,7 +35,10 @@ function reservationReducer(state = initialState, action) {
     });
 
   case types.UI.CANCEL_RESERVATION_EDIT:
-    return state.merge({ toEdit: [] });
+    return state.merge({
+      selected: [],
+      toEdit: [],
+    });
 
   case types.UI.CLEAR_RESERVATIONS:
     return initialState;

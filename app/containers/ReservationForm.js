@@ -86,7 +86,6 @@ export class UnconnectedReservationForm extends Component {
 
   handleEditCancel() {
     this.props.actions.cancelReservationEdit();
-    this.props.actions.pushState(null, '/my-reservations');
   }
 
   handleReservation() {

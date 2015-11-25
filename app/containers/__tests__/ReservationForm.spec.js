@@ -256,13 +256,6 @@ describe('Container: ReservationForm', () => {
     it('should call cancelReservationEdit', () => {
       expect(props.actions.cancelReservationEdit.callCount).to.equal(1);
     });
-
-    it('should redirect user back to my reservations page', () => {
-      const actualUrlArg = props.actions.pushState.lastCall.args[1];
-      const expected = '/my-reservations';
-
-      expect(actualUrlArg).to.deep.equal(expected);
-    });
   });
 
   describe('handleReservation', () => {
