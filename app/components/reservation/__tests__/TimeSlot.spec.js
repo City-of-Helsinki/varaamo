@@ -7,6 +7,7 @@ import Immutable from 'seamless-immutable';
 
 import TimeSlot from 'components/reservation/TimeSlot';
 import TimeSlotFixture from 'fixtures/TimeSlot';
+import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
 
 function getProps(props) {
@@ -122,6 +123,60 @@ describe('Component: reservation/TimeSlot', () => {
 
         expect(labelTrees[0].props.children).to.equal(expected);
       });
+    });
+  });
+
+  describe('handleDeleteClick', () => {
+    const props = getProps({
+      slot: Immutable(TimeSlotFixture.build({
+        reserved: true,
+        reservation: Reservation.build(),
+      })),
+    });
+    const tree = sd.shallowRender(<TimeSlot {...props} />);
+    const instance = tree.getMountedInstance();
+    instance.handleDeleteClick();
+
+    it('should call props.selectReservationToDelete with slot.reservation', () => {
+      expect(props.selectReservationToDelete.callCount).to.equal(1);
+      expect(
+        props.selectReservationToDelete.lastCall.args[0]
+      ).to.deep.equal(
+        props.slot.reservation
+      );
+    });
+
+    it('should call the props.openReservationDeleteModal function', () => {
+      expect(props.openReservationDeleteModal.callCount).to.equal(1);
+    });
+  });
+
+  describe('handleEditClick', () => {
+    const props = getProps({
+      slot: Immutable(TimeSlotFixture.build({
+        reserved: true,
+        reservation: Reservation.build(),
+      })),
+    });
+    const tree = sd.shallowRender(<TimeSlot {...props} />);
+    const instance = tree.getMountedInstance();
+    instance.handleEditClick();
+
+    it('should call props.selectReservationToEdit with reservation and minPeriod', () => {
+      expect(props.selectReservationToEdit.callCount).to.equal(1);
+      expect(
+        props.selectReservationToEdit.lastCall.args[0]
+      ).to.deep.equal(
+        { reservation: props.slot.reservation, minPeriod: props.resource.minPeriod }
+      );
+    });
+
+    it('should call the props.pushState with correct url', () => {
+      const actualUrlArg = props.pushState.lastCall.args[1];
+      const expectedUrl = `/resources/${props.slot.reservation.resource}/reservation`;
+
+      expect(props.pushState.callCount).to.equal(1);
+      expect(actualUrlArg).to.equal(expectedUrl);
     });
   });
 });

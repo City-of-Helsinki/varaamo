@@ -20,6 +20,7 @@ const TimeSlot = new Factory()
   .attr('end', ['index'], (index) => {
     return moment(BASE_DATE).set('hour', (index + 3) % 24).toISOString();
   })
-  .attr('reserved', false);
+  .attr('reserved', false)
+  .attr('resource', 'some-resource-id');
 
 export default TimeSlot;
