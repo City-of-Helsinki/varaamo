@@ -16,6 +16,18 @@ function handleData(state, data) {
 
 function handleReservationDelete(action, state) {
   const reservation = action.payload;
+  const resource = state.resources[reservation.resource];
+  if (resource && resource.reservations && resource.reservations.length) {
+    const newResource = Object.assign(
+      {},
+      resource,
+      { reservations: _.reject(resource.reservations, (current) => current.url === reservation.url) }
+    );
+    return state.merge( {
+      reservations: _.omit(state.reservations, reservation.url),
+      resources: Object.assign({}, state.resources, { [newResource.id]: newResource }),
+    });
+  }
   return state.merge( { reservations: _.omit(state.reservations, reservation.url) });
 }
 

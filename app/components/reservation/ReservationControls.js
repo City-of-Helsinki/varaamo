@@ -10,7 +10,7 @@ class ReservationControls extends Component {
       reservation,
     } = this.props;
 
-    if (moment() > moment(reservation.end)) {
+    if (!reservation || moment() > moment(reservation.end)) {
       return null;
     }
 
@@ -38,7 +38,7 @@ class ReservationControls extends Component {
 ReservationControls.propTypes = {
   onDeleteClick: PropTypes.func.isRequired,
   onEditClick: PropTypes.func.isRequired,
-  reservation: PropTypes.object.isRequired,
+  reservation: PropTypes.object,
 };
 
 export default ReservationControls ;

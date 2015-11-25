@@ -13,7 +13,9 @@ describe('Component: reservation/TimeSlot', () => {
     isAdmin: false,
     isLoggedIn: true,
     onClick: simple.stub(),
+    openReservationDeleteModal: simple.stub(),
     selected: false,
+    selectReservationToDelete: simple.stub(),
     slot: Immutable(TimeSlotFixture.build()),
   };
   const tree = sd.shallowRender(<TimeSlot {...props} />);
@@ -89,7 +91,9 @@ describe('Component: reservation/TimeSlot', () => {
           isAdmin: false,
           isLoggedIn: true,
           onClick: simple.stub(),
+          openReservationDeleteModal: simple.stub(),
           selected: false,
+          selectReservationToDelete: simple.stub(),
           slot: Immutable(TimeSlotFixture.build({ reserved: true })),
         };
         const reservedTree = sd.shallowRender(<TimeSlot {...reservedProps} />);

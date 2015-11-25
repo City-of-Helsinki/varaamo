@@ -16,12 +16,15 @@ import {
   clearReservations,
   closeConfirmReservationModal,
   openConfirmReservationModal,
+  openReservationDeleteModal,
+  selectReservationToDelete,
   toggleTimeSlot,
 } from 'actions/uiActions';
 import DateHeader from 'components/common/DateHeader';
 import ConfirmReservationModal from 'components/reservation/ConfirmReservationModal';
 import ReservationFormControls from 'components/reservation/ReservationFormControls';
 import TimeSlots from 'components/reservation/TimeSlots';
+import ReservationDeleteModal from 'containers/ReservationDeleteModal';
 import reservationFormSelector from 'selectors/containers/reservationFormSelector';
 import { getDateStartAndEndTimes } from 'utils/TimeUtils';
 
@@ -129,7 +132,9 @@ export class UnconnectedReservationForm extends Component {
           isFetching={isFetchingResource}
           isLoggedIn={isLoggedIn}
           onClick={actions.toggleTimeSlot}
+          openReservationDeleteModal={actions.openReservationDeleteModal}
           selected={selected}
+          selectReservationToDelete={actions.selectReservationToDelete}
           slots={timeSlots}
           time={time}
         />
@@ -149,6 +154,7 @@ export class UnconnectedReservationForm extends Component {
           selectedReservations={selectedReservations}
           show={confirmReservationModalIsOpen}
         />
+        <ReservationDeleteModal />
       </div>
     );
   }
@@ -177,10 +183,12 @@ function mapDispatchToProps(dispatch) {
     closeConfirmReservationModal,
     deleteReservation,
     fetchResource,
-    pushState,
-    postReservation,
-    putReservation,
     openConfirmReservationModal,
+    openReservationDeleteModal,
+    postReservation,
+    pushState,
+    putReservation,
+    selectReservationToDelete,
     toggleTimeSlot,
   };
 

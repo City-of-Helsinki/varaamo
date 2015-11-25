@@ -17,10 +17,12 @@ function getProps(props = {}) {
       closeConfirmReservationModal: simple.stub(),
       deleteReservation: simple.stub(),
       fetchResource: simple.stub(),
-      postReservation: simple.stub(),
-      putReservation: simple.stub(),
-      pushState: simple.stub(),
       openConfirmReservationModal: simple.stub(),
+      openReservationDeleteModal: simple.stub(),
+      postReservation: simple.stub(),
+      pushState: simple.stub(),
+      putReservation: simple.stub(),
+      selectReservationToDelete: simple.stub(),
       toggleTimeSlot: simple.stub(),
     },
     confirmReservationModalIsOpen: false,
@@ -108,7 +110,9 @@ describe('Container: ReservationForm', () => {
         expect(actualProps.isFetching).to.equal(props.isFetchingResource);
         expect(actualProps.isLoggedIn).to.equal(props.isLoggedIn);
         expect(actualProps.onClick).to.deep.equal(props.actions.toggleTimeSlot);
+        expect(actualProps.openReservationDeleteModal).to.deep.equal(props.actions.openReservationDeleteModal);
         expect(actualProps.selected).to.deep.equal(props.selected);
+        expect(actualProps.selectReservationToDelete).to.deep.equal(props.actions.selectReservationToDelete);
         expect(actualProps.slots).to.deep.equal(props.timeSlots);
       });
     });

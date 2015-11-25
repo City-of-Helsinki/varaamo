@@ -4,13 +4,35 @@ import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import { Glyphicon, Label } from 'react-bootstrap';
 
+import ReservationControls from 'components/reservation/ReservationControls';
 import { scrollTo } from 'utils/DOMUtils';
 
 class TimeSlot extends Component {
+  constructor(props) {
+    super(props);
+    this.handleDeleteClick = this.handleDeleteClick.bind(this);
+    this.handleEditClick = this.handleEditClick.bind(this);
+  }
+
   componentDidMount() {
     if (this.props.scrollTo) {
       scrollTo(findDOMNode(this));
     }
+  }
+
+  handleDeleteClick() {
+    const {
+      openReservationDeleteModal,
+      slot,
+      selectReservationToDelete,
+    } = this.props;
+
+    selectReservationToDelete(slot.reservation);
+    openReservationDeleteModal();
+  }
+
+  handleEditClick() {
+    console.log('edit');
   }
 
   render() {
@@ -37,6 +59,7 @@ class TimeSlot extends Component {
     } else {
       labelText = slot.reserved ? 'Varattu' : 'Vapaa';
     }
+    const reservation = slot.reservation;
 
     return (
       <tr
@@ -62,8 +85,16 @@ class TimeSlot extends Component {
             {labelText}
           </Label>
         </td>
-        {isAdmin && <td>{slot.reservation && slot.reservation.user}</td>}
-        {isAdmin && <td>Muokkaa | Poista</td>}
+        {isAdmin && <td>{reservation && reservation.user}</td>}
+        {isAdmin && (
+          <td>
+            <ReservationControls
+              onDeleteClick={this.handleDeleteClick}
+              onEditClick={this.handleEditClick}
+              reservation={reservation}
+            />
+          </td>
+        )}
       </tr>
     );
   }
@@ -73,8 +104,10 @@ TimeSlot.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
+  openReservationDeleteModal: PropTypes.func.isRequired,
   scrollTo: PropTypes.bool,
   selected: PropTypes.bool.isRequired,
+  selectReservationToDelete: PropTypes.func.isRequired,
   slot: PropTypes.object.isRequired,
 };
 

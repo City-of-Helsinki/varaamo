@@ -19,7 +19,9 @@ describe('Component: reservation/TimeSlots', () => {
       isFetching: false,
       isLoggedIn: true,
       onClick: simple.stub(),
+      openReservationDeleteModal: simple.stub(),
       selected: [timeSlots[0].asISOString],
+      selectReservationToDelete: simple.stub(),
       slots: Immutable(timeSlots),
     };
     let tree;
@@ -73,6 +75,8 @@ describe('Component: reservation/TimeSlots', () => {
         timeSlotTrees.forEach((timeSlotTree, index) => {
           expect(timeSlotTree.props.isLoggedIn).to.equal(props.isLoggedIn);
           expect(timeSlotTree.props.onClick).to.equal(props.onClick);
+          expect(timeSlotTree.props.openReservationDeleteModal).to.equal(props.openReservationDeleteModal);
+          expect(timeSlotTree.props.selectReservationToDelete).to.equal(props.selectReservationToDelete);
           expect(timeSlotTree.props.slot).to.deep.equal(props.slots[index]);
         });
       });
@@ -90,7 +94,9 @@ describe('Component: reservation/TimeSlots', () => {
       isFetching: false,
       isLoggedIn: true,
       onClick: simple.stub(),
+      openReservationDeleteModal: simple.stub(),
       selected: [],
+      selectReservationToDelete: simple.stub(),
       slots: [],
     };
     let tree;
