@@ -18,35 +18,13 @@ describe('Component: layout/Navbar', () => {
     };
     const tree = sd.shallowRender(<Navbar {...props} />);
 
-    it('should render a Navbar component', () => {
-      const navbarTrees = tree.everySubTree('Navbar');
-
-      expect(navbarTrees.length).to.equal(1);
+    it('should render a link to home page', () => {
+      const homePageLink = tree.findComponentLike('Link', { to: '/' });
+      expect(homePageLink).to.be.ok;
     });
 
-    describe('rendering NavBrand', () => {
-      const navBrandTrees = tree.everySubTree('NavBrand');
-      it('should render a NavBrand component', () => {
-        expect(navBrandTrees.length).to.equal(1);
-      });
-
-      it('should contain a link to home page', () => {
-        const linkTree = navBrandTrees[0].subTree('Link');
-
-        expect(linkTree.props.to).to.equal('/');
-      });
-
-      it('should display the logo of the service', () => {
-        const imgTrees = navBrandTrees[0].everySubTree('img');
-
-        expect(imgTrees.length).to.equal(1);
-      });
-
-      it('should display text "Respa"', () => {
-        const linkTree = navBrandTrees[0].subTree('Link');
-
-        expect(linkTree.props.children).to.contain('Respa');
-      });
+    it('should display the logo of the service', () => {
+      expect(tree.subTree('img')).to.be.ok;
     });
 
     it('should render a link to search page', () => {

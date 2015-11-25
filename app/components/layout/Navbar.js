@@ -1,12 +1,10 @@
 import Radium from 'radium';
 import React, { Component, PropTypes } from 'react';
 import {
-  CollapsibleNav,
   Glyphicon,
   MenuItem,
   Navbar as RBNavbar,
   Nav,
-  NavBrand,
   NavDropdown,
   NavItem,
 } from 'react-bootstrap';
@@ -47,18 +45,21 @@ class Navbar extends Component {
     const { clearSearchResults } = this.props;
 
     return (
-      <RBNavbar inverse toggleNavKey={0}>
-        <NavBrand>
-          <Link style={styles.navBrand} to={'/'}>
-            <img
-              alt="Helsingin vaakuna"
-              src={logoSrc}
-              style={styles.logo}
-            />
-            Respa
-          </Link>
-        </NavBrand>
-        <CollapsibleNav eventKey={0}>
+      <RBNavbar inverse>
+        <RBNavbar.Header>
+          <RBNavbar.Brand>
+            <Link style={styles.navBrand} to={'/'}>
+              <img
+                alt="Helsingin vaakuna"
+                src={logoSrc}
+                style={styles.logo}
+              />
+              Respa
+            </Link>
+          </RBNavbar.Brand>
+          <RBNavbar.Toggle />
+        </RBNavbar.Header>
+        <RBNavbar.Collapse>
           <Nav navbar>
             <LinkContainer to="/search">
               <NavItem onClick={clearSearchResults}>
@@ -69,10 +70,10 @@ class Navbar extends Component {
               <NavItem>Tietoa palvelusta</NavItem>
             </LinkContainer>
           </Nav>
-          <Nav navbar eventKey={0} right>
+          <Nav navbar pullRight>
             {this.renderUserNav()}
           </Nav>
-        </CollapsibleNav>
+        </RBNavbar.Collapse>
       </RBNavbar>
     );
   }

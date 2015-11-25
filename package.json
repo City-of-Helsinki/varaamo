@@ -21,7 +21,7 @@
     "passport-helsinki": "git://github.com/City-of-Helsinki/passport-helsinki.git",
     "radium": "^0.14.3",
     "react": "^0.14.2",
-    "react-bootstrap": "^0.27.3",
+    "react-bootstrap": "^0.28.1",
     "react-date-picker": "^3.1.8",
     "react-document-title": "^2.0.1",
     "react-dom": "^0.14.2",
