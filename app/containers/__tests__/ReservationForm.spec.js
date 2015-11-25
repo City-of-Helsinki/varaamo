@@ -30,7 +30,6 @@ function getProps(props = {}) {
     confirmReservationModalIsOpen: false,
     date: '2015-10-11',
     id: 'r-1',
-    isAdmin: false,
     isFetchingResource: false,
     isLoggedIn: true,
     isMakingReservations: false,

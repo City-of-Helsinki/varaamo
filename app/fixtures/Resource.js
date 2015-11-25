@@ -5,7 +5,8 @@ const Resource = new Factory()
   .sequence('name', (index) => {
     return { fi: `Resource-${index}` };
   })
-  .sequence('unit', (index) => `u-${index}`);
+  .sequence('unit', (index) => `u-${index}`)
+  .attr('userPermissions', { isAdmin: false, canMakeReservations: true });
 
 export const openingHours = [
   {

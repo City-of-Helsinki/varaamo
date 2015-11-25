@@ -16,7 +16,6 @@ describe('Component: reservation/TimeSlots', () => {
       TimeSlot.build(),
     ];
     const props = {
-      isAdmin: false,
       isFetching: false,
       isLoggedIn: true,
       onClick: simple.stub(),
@@ -97,7 +96,6 @@ describe('Component: reservation/TimeSlots', () => {
 
   describe('without timeslots', () => {
     const props = {
-      isAdmin: false,
       isFetching: false,
       isLoggedIn: true,
       onClick: simple.stub(),

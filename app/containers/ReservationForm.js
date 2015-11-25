@@ -102,7 +102,6 @@ export class UnconnectedReservationForm extends Component {
       actions,
       confirmReservationModalIsOpen,
       date,
-      isAdmin,
       isFetchingResource,
       isLoggedIn,
       isMakingReservations,
@@ -130,7 +129,6 @@ export class UnconnectedReservationForm extends Component {
           onChange={this.onDateChange}
         />
         <TimeSlots
-          isAdmin={isAdmin}
           isFetching={isFetchingResource}
           isLoggedIn={isLoggedIn}
           onClick={actions.toggleTimeSlot}
@@ -170,7 +168,6 @@ UnconnectedReservationForm.propTypes = {
   confirmReservationModalIsOpen: PropTypes.bool.isRequired,
   date: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  isAdmin: PropTypes.bool.isRequired,
   isFetchingResource: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,

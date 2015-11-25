@@ -13,7 +13,6 @@ class TimeSlots extends Component {
 
   renderTimeSlot(slot) {
     const {
-      isAdmin,
       isLoggedIn,
       onClick,
       openReservationDeleteModal,
@@ -28,7 +27,6 @@ class TimeSlots extends Component {
 
     return (
       <TimeSlot
-        isAdmin={isAdmin}
         isLoggedIn={isLoggedIn}
         key={slot.start}
         onClick={onClick}
@@ -46,10 +44,11 @@ class TimeSlots extends Component {
 
   render() {
     const {
-      isAdmin,
+      resource,
       isFetching,
       slots,
     } = this.props;
+    const isAdmin = resource.userPermissions.isAdmin;
 
     return (
       <Loader loaded={!isFetching}>
@@ -80,7 +79,6 @@ class TimeSlots extends Component {
 }
 
 TimeSlots.propTypes = {
-  isAdmin: PropTypes.bool.isRequired,
   isFetching: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,

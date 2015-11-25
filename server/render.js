@@ -9,7 +9,7 @@ function render(req, res) {
   let initialState = {};
   if (user && user.id && user.token) {
     initialState = {
-      auth: { isAdmin: true, userId: user.id, token: user.token },
+      auth: { userId: user.id, token: user.token },
       data: {
         users: {
           [user.id]: user,

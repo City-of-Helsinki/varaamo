@@ -10,10 +10,6 @@ describe('Reducer: authReducer', () => {
   describe('initial state', () => {
     const initialState = authReducer(undefined, {});
 
-    it('isAdmin should be false', () => {
-      expect(initialState.isAdmin).to.equal(false);
-    });
-
     it('token should be null', () => {
       expect(initialState.token).to.equal(null);
     });
@@ -52,7 +48,6 @@ describe('Reducer: authReducer', () => {
         const initialState = Immutable({ token: 'mock-token', userId: 'u-1' });
         const nextState = authReducer(initialState, action);
         const expectedState = Immutable({
-          isAdmin: false,
           token: null,
           userId: null,
         });
@@ -78,7 +73,6 @@ describe('Reducer: authReducer', () => {
         const initialState = Immutable({ token: 'mock-token', userId: 'u-1' });
         const nextState = authReducer(initialState, action);
         const expectedState = Immutable({
-          isAdmin: false,
           token: null,
           userId: null,
         });
@@ -104,7 +98,6 @@ describe('Reducer: authReducer', () => {
         const initialState = Immutable({ token: 'mock-token', userId: 'u-1' });
         const nextState = authReducer(initialState, action);
         const expectedState = Immutable({
-          isAdmin: false,
           token: null,
           userId: null,
         });

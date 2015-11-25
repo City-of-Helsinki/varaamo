@@ -12,7 +12,6 @@ import Resource from 'fixtures/Resource';
 
 function getProps(props) {
   const defaults = {
-    isAdmin: false,
     isLoggedIn: true,
     onClick: simple.stub(),
     openReservationDeleteModal: simple.stub(),

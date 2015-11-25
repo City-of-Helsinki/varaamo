@@ -3,7 +3,6 @@ import Immutable from 'seamless-immutable';
 import types from 'constants/ActionTypes';
 
 const initialState = Immutable({
-  isAdmin: false,
   token: null,
   userId: null,
 });

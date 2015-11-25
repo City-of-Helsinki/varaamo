@@ -53,9 +53,9 @@ class TimeSlot extends Component {
 
   render() {
     const {
-      isAdmin,
       isLoggedIn,
       onClick,
+      resource,
       selected,
       slot,
     } = this.props;
@@ -76,6 +76,7 @@ class TimeSlot extends Component {
       labelText = slot.reserved ? 'Varattu' : 'Vapaa';
     }
     const reservation = slot.reservation;
+    const isAdmin = resource.userPermissions.isAdmin;
 
     return (
       <tr
@@ -117,7 +118,6 @@ class TimeSlot extends Component {
 }
 
 TimeSlot.propTypes = {
-  isAdmin: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
   openReservationDeleteModal: PropTypes.func.isRequired,
