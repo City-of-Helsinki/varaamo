@@ -71,7 +71,7 @@ class TimeSlots extends Component {
             </tbody>
           </Table>
         ) : (
-          <p>Tila ei ole tänä päivänä avoinna.</p>
+          <p>Tila ei ole varattavissa tänä päivänä.</p>
         )}
       </Loader>
     );
