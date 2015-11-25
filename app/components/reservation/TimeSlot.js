@@ -32,7 +32,23 @@ class TimeSlot extends Component {
   }
 
   handleEditClick() {
-    console.log('edit');
+    const {
+      pushState,
+      slot,
+      resource,
+      selectReservationToEdit,
+    } = this.props;
+    const reservation = slot.reservation;
+
+    selectReservationToEdit({ reservation, minPeriod: resource.minPeriod });
+    pushState(
+      null,
+      `/resources/${reservation.resource}/reservation`,
+      {
+        date: reservation.begin.split('T')[0],
+        time: reservation.begin,
+      }
+    );
   }
 
   render() {
@@ -105,9 +121,12 @@ TimeSlot.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
   openReservationDeleteModal: PropTypes.func.isRequired,
+  pushState: PropTypes.func.isRequired,
+  resource: PropTypes.object.isRequired,
   scrollTo: PropTypes.bool,
   selected: PropTypes.bool.isRequired,
   selectReservationToDelete: PropTypes.func.isRequired,
+  selectReservationToEdit: PropTypes.func.isRequired,
   slot: PropTypes.object.isRequired,
 };
 

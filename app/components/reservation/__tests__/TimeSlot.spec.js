@@ -7,6 +7,7 @@ import Immutable from 'seamless-immutable';
 
 import TimeSlot from 'components/reservation/TimeSlot';
 import TimeSlotFixture from 'fixtures/TimeSlot';
+import Resource from 'fixtures/Resource';
 
 describe('Component: reservation/TimeSlot', () => {
   const props = {
@@ -14,8 +15,11 @@ describe('Component: reservation/TimeSlot', () => {
     isLoggedIn: true,
     onClick: simple.stub(),
     openReservationDeleteModal: simple.stub(),
+    pushState: simple.stub(),
+    resource: Resource.build(),
     selected: false,
     selectReservationToDelete: simple.stub(),
+    selectReservationToEdit: simple.stub(),
     slot: Immutable(TimeSlotFixture.build()),
   };
   const tree = sd.shallowRender(<TimeSlot {...props} />);
@@ -92,8 +96,11 @@ describe('Component: reservation/TimeSlot', () => {
           isLoggedIn: true,
           onClick: simple.stub(),
           openReservationDeleteModal: simple.stub(),
+          pushState: simple.stub(),
+          resource: Resource.build(),
           selected: false,
           selectReservationToDelete: simple.stub(),
+          selectReservationToEdit: simple.stub(),
           slot: Immutable(TimeSlotFixture.build({ reserved: true })),
         };
         const reservedTree = sd.shallowRender(<TimeSlot {...reservedProps} />);

@@ -6,6 +6,7 @@ import simple from 'simple-mock';
 import Immutable from 'seamless-immutable';
 
 import Reservation from 'fixtures/Reservation';
+import Resource from 'fixtures/Resource';
 import TimeSlot from 'fixtures/TimeSlot';
 import { UnconnectedReservationForm as ReservationForm } from 'containers/ReservationForm';
 
@@ -23,6 +24,7 @@ function getProps(props = {}) {
       pushState: simple.stub(),
       putReservation: simple.stub(),
       selectReservationToDelete: simple.stub(),
+      selectReservationToEdit: simple.stub(),
       toggleTimeSlot: simple.stub(),
     },
     confirmReservationModalIsOpen: false,
@@ -33,6 +35,7 @@ function getProps(props = {}) {
     isLoggedIn: true,
     isMakingReservations: false,
     reservationsToEdit: [],
+    resource: Resource.build(),
     timeSlots: [],
     selected: [],
     selectedReservations: [],
@@ -111,8 +114,11 @@ describe('Container: ReservationForm', () => {
         expect(actualProps.isLoggedIn).to.equal(props.isLoggedIn);
         expect(actualProps.onClick).to.deep.equal(props.actions.toggleTimeSlot);
         expect(actualProps.openReservationDeleteModal).to.deep.equal(props.actions.openReservationDeleteModal);
+        expect(actualProps.pushState).to.deep.equal(props.actions.pushState);
+        expect(actualProps.resource).to.equal(props.resource);
         expect(actualProps.selected).to.deep.equal(props.selected);
         expect(actualProps.selectReservationToDelete).to.deep.equal(props.actions.selectReservationToDelete);
+        expect(actualProps.selectReservationToEdit).to.deep.equal(props.actions.selectReservationToEdit);
         expect(actualProps.slots).to.deep.equal(props.timeSlots);
       });
     });

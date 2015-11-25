@@ -125,6 +125,13 @@ describe('Selector: reservationFormSelector', () => {
     expect(selected.selected).to.equal(expected);
   });
 
+  it('should return resource', () => {
+    const state = getState(resource);
+    const selected = reservationFormSelector(state);
+
+    expect(selected.resource).to.exist;
+  });
+
   it('should return selectedReservations', () => {
     const state = getState(resource);
     const selected = reservationFormSelector(state);

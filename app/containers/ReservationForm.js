@@ -18,6 +18,7 @@ import {
   openConfirmReservationModal,
   openReservationDeleteModal,
   selectReservationToDelete,
+  selectReservationToEdit,
   toggleTimeSlot,
 } from 'actions/uiActions';
 import DateHeader from 'components/common/DateHeader';
@@ -106,6 +107,7 @@ export class UnconnectedReservationForm extends Component {
       isLoggedIn,
       isMakingReservations,
       reservationsToEdit,
+      resource,
       selected,
       selectedReservations,
       time,
@@ -133,8 +135,11 @@ export class UnconnectedReservationForm extends Component {
           isLoggedIn={isLoggedIn}
           onClick={actions.toggleTimeSlot}
           openReservationDeleteModal={actions.openReservationDeleteModal}
+          pushState={actions.pushState}
+          resource={resource}
           selected={selected}
           selectReservationToDelete={actions.selectReservationToDelete}
+          selectReservationToEdit={actions.selectReservationToEdit}
           slots={timeSlots}
           time={time}
         />
@@ -170,6 +175,7 @@ UnconnectedReservationForm.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,
   reservationsToEdit: PropTypes.array.isRequired,
+  resource: PropTypes.object.isRequired,
   selected: PropTypes.array.isRequired,
   selectedReservations: PropTypes.array.isRequired,
   time: PropTypes.string,
@@ -189,6 +195,7 @@ function mapDispatchToProps(dispatch) {
     pushState,
     putReservation,
     selectReservationToDelete,
+    selectReservationToEdit,
     toggleTimeSlot,
   };
 
