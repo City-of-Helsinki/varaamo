@@ -57,9 +57,6 @@ function handleReservation(state, action) {
 function dataReducer(state = initialState, action) {
   switch (action.type) {
 
-  case types.API.LOGOUT:
-    return state.merge({ users: _.omit(state.users, action.payload) });
-
   case types.API.PURPOSES_GET_SUCCESS:
   case types.API.RESERVATIONS_GET_SUCCESS:
   case types.API.RESOURCE_GET_SUCCESS:

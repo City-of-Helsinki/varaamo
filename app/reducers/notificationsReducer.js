@@ -53,13 +53,6 @@ function notificationsReducer(state = initialState, action) {
 
   // Success messages
 
-  case types.API.LOGOUT:
-    notification = {
-      message: 'Sinut on nyt kirjattu ulos. Huom! Kunnes API on valmis, olet yhä rajapinnan puolella kirjautuneena sisään.',
-      type: 'success',
-    };
-    return addNotification(state, notification);
-
   case types.API.RESERVATION_DELETE_SUCCESS:
     notification = {
       message: 'Varauksen poistaminen onnistui.',

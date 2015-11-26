@@ -12,7 +12,6 @@ describe('Container: App', () => {
   const props = {
     actions: {
       clearSearchResults: simple.stub(),
-      logout: simple.stub(),
       pushState: simple.stub(),
     },
     children: <div id="child-div" />,
@@ -20,7 +19,6 @@ describe('Container: App', () => {
     user: Immutable(User.build()),
   };
   const tree = sd.shallowRender(<App {...props} />);
-  const instance = tree.getMountedInstance();
 
   describe('rendering Navbar', () => {
     const navbarTrees = tree.everySubTree('Navbar');
@@ -34,7 +32,6 @@ describe('Container: App', () => {
 
       expect(actualProps.clearSearchResults).to.equal(props.actions.clearSearchResults);
       expect(actualProps.isLoggedIn).to.equal(props.isLoggedIn);
-      expect(actualProps.logout).to.equal(instance.handleLogout);
       expect(actualProps.user).to.equal(props.user);
     });
   });
@@ -50,18 +47,5 @@ describe('Container: App', () => {
   it('should render Footer component', () => {
     const footerTrees = tree.everySubTree('Footer');
     expect(footerTrees.length).to.equal(1);
-  });
-
-  describe('handleLogout', () => {
-    instance.handleLogout();
-
-    it('should call logout function', () => {
-      expect(props.actions.logout.callCount).to.equal(1);
-    });
-
-    it('should redirect to home page', () => {
-      expect(props.actions.pushState.callCount).to.equal(1);
-      expect(props.actions.pushState.lastCall.args).to.deep.equal([null, '/']);
-    });
   });
 });

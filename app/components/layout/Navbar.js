@@ -22,7 +22,7 @@ class Navbar extends Component {
   }
 
   renderUserNav() {
-    const { isLoggedIn, logout, user } = this.props;
+    const { isLoggedIn, user } = this.props;
     let name;
     if (user.firstName || user.lastName) {
       name = _.trim([user.firstName, user.lastName].join(' '));
@@ -37,7 +37,7 @@ class Navbar extends Component {
             <MenuItem>Omat varaukset</MenuItem>
           </LinkContainer>
           <MenuItem divider />
-          <MenuItem onSelect={() => logout(user.id)}>Kirjaudu ulos</MenuItem>
+          <MenuItem href={`https://api.hel.fi/sso/logout/?next=${window.location.origin}`}>Kirjaudu ulos</MenuItem>
         </NavDropdown>
       );
     }
@@ -88,7 +88,6 @@ class Navbar extends Component {
 Navbar.propTypes = {
   clearSearchResults: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
-  logout: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
 };
 
