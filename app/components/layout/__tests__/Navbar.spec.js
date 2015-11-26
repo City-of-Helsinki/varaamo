@@ -19,7 +19,7 @@ describe('Component: layout/Navbar', () => {
     const tree = sd.shallowRender(<Navbar {...props} />);
 
     it('should render a link to home page', () => {
-      const homePageLink = tree.findComponentLike('Link', { to: '/' });
+      const homePageLink = tree.subTreeLike('Link', { to: '/' });
       expect(homePageLink).to.be.ok;
     });
 
@@ -28,7 +28,7 @@ describe('Component: layout/Navbar', () => {
     });
 
     it('should render a link to search page', () => {
-      const searchLink = tree.findComponentLike('LinkContainer', { to: '/search' });
+      const searchLink = tree.subTreeLike('LinkContainer', { to: '/search' });
       expect(searchLink).to.be.ok;
     });
   });
@@ -54,17 +54,17 @@ describe('Component: layout/Navbar', () => {
     });
 
     it('should render a link to my reservations page', () => {
-      const myReservationsLink = tree.findComponentLike('LinkContainer', { to: '/my-reservations' });
+      const myReservationsLink = tree.subTreeLike('LinkContainer', { to: '/my-reservations' });
       expect(myReservationsLink).to.be.ok;
     });
 
     it('should render a logout link', () => {
-      const logoutLink = tree.findComponentLike('MenuItem', { children: 'Kirjaudu ulos' });
+      const logoutLink = tree.subTreeLike('MenuItem', { children: 'Kirjaudu ulos' });
       expect(logoutLink).to.be.ok;
     });
 
     it('should not render a link to login page', () => {
-      const loginLink = tree.findComponentLike('LinkContainer', { to: '/login' });
+      const loginLink = tree.subTreeLike('LinkContainer', { to: '/login' });
       expect(loginLink).to.equal(false);
     });
   });
@@ -85,17 +85,17 @@ describe('Component: layout/Navbar', () => {
     });
 
     it('should render a link to login page', () => {
-      const loginLink = tree.findComponentLike('NavItem', { href: '/login' });
+      const loginLink = tree.subTreeLike('NavItem', { href: '/login' });
       expect(loginLink).to.be.ok;
     });
 
     it('should not render a logout link', () => {
-      const logoutLink = tree.findComponentLike('MenuItem', { children: 'Kirjaudu ulos' });
+      const logoutLink = tree.subTreeLike('MenuItem', { children: 'Kirjaudu ulos' });
       expect(logoutLink).to.equal(false);
     });
 
     it('should not render a link to my reservations page', () => {
-      const myReservationsLink = tree.findComponentLike('LinkContainer', { to: '/my-reservations' });
+      const myReservationsLink = tree.subTreeLike('LinkContainer', { to: '/my-reservations' });
       expect(myReservationsLink).to.equal(false);
     });
   });

@@ -1,6 +1,7 @@
 /* eslint-disable no-var */
 
 var path = require('path');
+var webpack = require('webpack');
 var merge = require('webpack-merge');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -24,5 +25,6 @@ module.exports = merge(common, {
     new HtmlWebpackPlugin({
       inject: true,
     }),
+    new webpack.IgnorePlugin(/ReactContext/),
   ],
 });

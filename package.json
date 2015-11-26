@@ -83,7 +83,7 @@
     "rosie": "^1.2.0",
     "selenium-standalone": "4.7.2",
     "simple-mock": "^0.4.1",
-    "skin-deep": "git://github.com/lraivio/skin-deep.git#feature/react-0.14",
+    "skin-deep": "^0.13.0",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.9",
