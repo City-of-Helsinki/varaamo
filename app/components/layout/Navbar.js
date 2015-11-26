@@ -60,7 +60,7 @@ class Navbar extends Component {
                 src={logoSrc}
                 style={styles.logo}
               />
-              Respa
+              Varaamo
             </Link>
           </RBNavbar.Brand>
           <RBNavbar.Toggle />

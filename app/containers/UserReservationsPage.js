@@ -6,7 +6,7 @@ import ReservationsList from 'containers/ReservationsList';
 class UserReservationsPage extends Component {
   render() {
     return (
-      <DocumentTitle title="Omat varaukset - Respa">
+      <DocumentTitle title="Omat varaukset - Varaamo">
         <div>
           <h1>Omat varaukset</h1>
           <ReservationsList />

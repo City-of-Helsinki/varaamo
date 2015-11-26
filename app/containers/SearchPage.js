@@ -41,7 +41,7 @@ export class UnconnectedSearchPage extends Component {
     } = this.props;
 
     return (
-      <DocumentTitle title="Haku - Respa">
+      <DocumentTitle title="Haku - Varaamo">
         <div className="search-page">
           <h1>Haku</h1>
           <SearchControls scrollToSearchResults={this.scrollToSearchResults} />

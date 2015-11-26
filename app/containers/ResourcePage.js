@@ -41,7 +41,7 @@ export class UnconnectedResourcePage extends Component {
     }
 
     return (
-      <DocumentTitle title={`${resourceName} - Respa`}>
+      <DocumentTitle title={`${resourceName} - Varaamo`}>
         <Loader loaded={!_.isEmpty(resource)}>
           <div className="resource-page">
             <ResourceHeader

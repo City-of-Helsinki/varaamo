@@ -1,38 +1,52 @@
 import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 
+import { FEEDBACK_URL } from 'constants/AppConstants';
+
 class AboutPage extends Component {
   render() {
+    const refUrl = window.location.href;
+    const feedbackLink = (
+      <a href={`${FEEDBACK_URL}?ref=${refUrl}`}>
+        tämän linkin
+      </a>
+    );
+
     return (
-      <DocumentTitle title="Tietoa palvelusta - Respa">
+      <DocumentTitle title="Tietoa palvelusta - Varaamo">
         <div className="about-page">
-          <h1>Tietoa respa.hel.fi –palvelusta</h1>
+          <h1>Tietoa varaamo.hel.fi –palvelusta</h1>
           <p className="lead">
-            Respa on Helsingin kaupungin ylläpitämä verkkopalvelu, jonka kautta voidaan varata
+            Varaamo on on Helsingin kaupungin ylläpitämä verkkopalvelu, jonka kautta voi varata
             kaupungin julkisia tiloja sekä työpisteitä yksityiseen käyttöön.
           </p>
           <p>
-            Palvelu on testausvaiheessa, ja sen pilottikäytössä olevassa versiossa ei ole vielä
-            kaikkia suunnitteilla olevia ominaisuuksia ja toiminnallisuuksia. Testiversion
-            tarkoituksena on kaupungin sisäisten tilavarauskäytäntöjen yhtenäistämisen ohella
-            saada palautetta myös itse palvelusta ja sen toiminnasta. <strong>Palautetta voi antaa
-            joka sivulla sijaitsevan palautelaatikon kautta. ?</strong>
+            Tilavarausjärjestelmä on testausvaiheessa, eikä pilottikäytössä olevassa versiossa
+            ole vielä kaikkia suunnitteilla olevia ominaisuuksia ja toiminnallisuuksia.
           </p>
           <p>
             Pilottivaiheessa palvelun kautta on varattavissa kaupunginkirjaston,
-            nuorisoasiainkeskuksen sekä varhaiskasvatusviraston tiloja ja työpisteitä. Osa palvelun
-            kautta tarjottavista tiloista on maksullisia ja niiden varaaminen suoraan
-            tilavarausjärjestelmän kautta ei ole alkuvaiheessa mahdollista, vaan maksullisista
-            tiloista nähtävissä ovat varauskalenteri sekä tarvittavat yhteystiedot tilavarauksen
-            tekemiseen.
+            nuorisoasiainkeskuksen sekä varhaiskasvatusviraston tiloja, työpisteitä ja laitteita.
           </p>
           <p>
-            Respa-tilavarausjärjestelmän kehittäminen toimii osana Helsingin kaupungin
-            strategiaohjelman 2013 - 2016 (Tehokkaat ja toimivat tukipalvelut) sekä
-            tietotekniikkaohjelman 2015 - 2017 (Datarajapinnat ja avoin kaupunkikehitys)
-            jalkauttamista. Virastoyhteisen tilavarauskokeilun tavoitteena on julkisten tilojen
-            käytön tehostaminen, saavutettavuuden parantaminen ja tilojen käyttöön liittyvien
-            kustannusten alentaminen.
+            Osa palvelun kautta tarjottavista tiloista on maksullisia. Maksullisten tilojen
+            varaaminen ei kuitenkaan ole vielä pilotin ensimmäisessä vaiheessa mahdollista.
+            Maksulliset tilat näkyvät varauskalenterissa ja niiden yhteydessä on tarvittavat
+            yhteystiedot tilavarauksen tekemiseen sähköpostilla tai puhelimitse.
+          </p>
+          <p>
+            Varaamo-tilavarausjärjestelmän kehittäminen on osa Helsingin kaupungin strategiaohjelmaa
+            2013 - 2016 (Tehokkaat ja toimivat tukipalvelut) sekä tietotekniikkaohjelmaa 2015 - 2017
+            (Datarajapinnat ja avoin kaupunkikehitys).
+          </p>
+          <p>
+            Virastoyhteisen tilavaraushankkeen tavoitteena on julkisten tilojen käytön tehostaminen,
+            saavutettavuuden parantaminen ja tilojen käyttöön liittyvien kustannusten alentaminen
+            kaupungin tilavarauskäytäntöjä yhtenäistämällä.
+          </p>
+          <p>
+            Palvelua kehitetään edelleen ja toivomme palvelun käyttäjiltä palautetta. Palautetta
+            voit antaa {feedbackLink} kautta.
           </p>
         </div>
       </DocumentTitle>

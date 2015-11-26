@@ -6,7 +6,7 @@ import PurposeCategoryList from 'containers/PurposeCategoryList';
 class HomePage extends Component {
   render() {
     return (
-      <DocumentTitle title="Etusivu - Respa">
+      <DocumentTitle title="Etusivu - Varaamo">
         <div>
           <h2>Mitä haluat tehdä?</h2>
           <PurposeCategoryList />

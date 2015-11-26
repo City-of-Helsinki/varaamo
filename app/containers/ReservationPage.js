@@ -48,7 +48,7 @@ export class UnconnectedReservationPage extends Component {
     }
 
     return (
-      <DocumentTitle title={`${resourceName} varaaminen - Respa`}>
+      <DocumentTitle title={`${resourceName} varaaminen - Varaamo`}>
         <Loader loaded={!_.isEmpty(resource)}>
           <div className="reservation-page"v>
             <ResourceHeader
