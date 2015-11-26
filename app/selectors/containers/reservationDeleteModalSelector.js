@@ -17,7 +17,7 @@ const reservationDeleteModalSelector = createSelector(
     deleteReservationModalIsOpen,
     isDeletingReservations,
     resources,
-    reservationsToDelete,
+    reservationsToDelete
   ) => {
     return {
       isDeletingReservations,

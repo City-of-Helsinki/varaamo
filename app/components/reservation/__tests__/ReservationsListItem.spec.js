@@ -43,7 +43,7 @@ describe('Component: reservation/ReservationsListItem', () => {
 
     it('should contain a link to resources page', () => {
       const expectedUrl = `/resources/${props.resource.id}`;
-      const resourceLinkTree = tree.findComponentLike('Link', { to: expectedUrl });
+      const resourceLinkTree = tree.subTreeLike('Link', { to: expectedUrl });
 
       expect(resourceLinkTree).to.be.ok;
     });
@@ -67,7 +67,7 @@ describe('Component: reservation/ReservationsListItem', () => {
         time: props.reservation.begin,
       };
       const expectedProps = { to: expectedUrl, query: expectedQuery };
-      const reservationsLinkTree = tree.findComponentLike('Link', expectedProps);
+      const reservationsLinkTree = tree.subTreeLike('Link', expectedProps);
 
       expect(reservationsLinkTree).to.be.ok;
     });
