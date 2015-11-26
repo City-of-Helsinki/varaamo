@@ -3,10 +3,18 @@ import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router';
 
+import { FEEDBACK_URL } from 'constants/AppConstants';
+
 import styles from './Footer.styles';
 import logoSrc from 'assets/images/helsinki-coat-of-arms-white.png';
 
 class Footer extends Component {
+  handleFeedbackClick(event) {
+    event.preventDefault();
+    const refUrl = window.location.href;
+    window.location = `${FEEDBACK_URL}?ref=${refUrl}`;
+  }
+
   render() {
     const RadiumLink = Radium(Link);
 
@@ -25,8 +33,15 @@ class Footer extends Component {
               </RadiumLink>
             </Col>
             <Col lg={6} md={6}>
-              <p>Tämä on palvelun ensimmäinen pilottiversio, josta toivomme käyttäjiltä palautetta.</p>
-              <p>Palautetta voit lähettää sähköpostilla osoitteeseen <a href="mailto:esimerkki@hel.fi" style={styles.link}>esimerkki@hel.fi</a>.</p>
+              <p>
+                Varaamo on Helsingin kaupungin tilanvarauspalvelu.
+                Kyseessä on pilottiversio, josta toivomme Sinulta palautetta.
+                Palautteesi voit lähettää <a
+                  href={FEEDBACK_URL}
+                  onClick={this.handleFeedbackClick}
+                  style={styles.link}
+                >täältä</a>.
+              </p>
             </Col>
           </Row>
         </Grid>

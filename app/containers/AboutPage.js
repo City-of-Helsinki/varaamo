@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 
+import { FEEDBACK_URL } from 'constants/AppConstants';
+
 class AboutPage extends Component {
   render() {
     const refUrl = window.location.href;
@@ -40,7 +42,7 @@ class AboutPage extends Component {
           <p>
             Palvelua kehitetään edelleen ja toivomme palvelun käyttäjiltä palautetta. Palautetta
             voit antaa <a
-              href={`http://www.helmet-kirjasto.fi/respa-palaute/?url=${refUrl}`}
+              href={`${FEEDBACK_URL}?ref=${refUrl}`}
             >tämän linkin</a> kautta.
           </p>
         </div>
