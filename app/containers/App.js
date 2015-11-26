@@ -34,7 +34,7 @@ export class UnconnectedApp extends Component {
     } = this.props;
 
     return (
-      <DocumentTitle title="Respa">
+      <DocumentTitle title="Varaamo">
         <div className="app">
           <Navbar
             clearSearchResults={actions.clearSearchResults}

@@ -30,7 +30,7 @@ class Html extends Component {
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
           <meta content="width=device-width, initial-scale=1" name="viewport" />
           {this.renderStylesLink(appCssSrc, isProduction)}
-          <title>Respa</title>
+          <title>Varaamo</title>
         </head>
         <body>
           <div id="root" />

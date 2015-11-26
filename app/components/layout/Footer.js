@@ -21,7 +21,7 @@ class Footer extends Component {
                   src={logoSrc}
                   style={styles.logo}
                 />
-                Respa
+                Varaamo
               </RadiumLink>
             </Col>
             <Col lg={6} md={6}>

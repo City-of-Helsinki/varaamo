@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 class NotFoundPage extends Component {
   render() {
     return (
-      <DocumentTitle title="404 Sivua ei löydy - Respa">
+      <DocumentTitle title="404 Sivua ei löydy - Varaamo">
         <div>
           <h1>404 Sivua ei löydy</h1>
           <p className="lead">

@@ -4,11 +4,11 @@ import DocumentTitle from 'react-document-title';
 class AboutPage extends Component {
   render() {
     return (
-      <DocumentTitle title="Tietoa palvelusta - Respa">
+      <DocumentTitle title="Tietoa palvelusta - Varaamo">
         <div className="about-page">
           <h1>Tietoa respa.hel.fi –palvelusta</h1>
           <p className="lead">
-            Respa on Helsingin kaupungin ylläpitämä verkkopalvelu, jonka kautta voidaan varata
+            Varaamo on Helsingin kaupungin ylläpitämä verkkopalvelu, jonka kautta voidaan varata
             kaupungin julkisia tiloja sekä työpisteitä yksityiseen käyttöön.
           </p>
           <p>
@@ -27,7 +27,7 @@ class AboutPage extends Component {
             tekemiseen.
           </p>
           <p>
-            Respa-tilavarausjärjestelmän kehittäminen toimii osana Helsingin kaupungin
+            Varaamo-tilavarausjärjestelmän kehittäminen toimii osana Helsingin kaupungin
             strategiaohjelman 2013 - 2016 (Tehokkaat ja toimivat tukipalvelut) sekä
             tietotekniikkaohjelman 2015 - 2017 (Datarajapinnat ja avoin kaupunkikehitys)
             jalkauttamista. Virastoyhteisen tilavarauskokeilun tavoitteena on julkisten tilojen
