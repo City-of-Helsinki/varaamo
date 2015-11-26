@@ -20,26 +20,6 @@ describe('Reducer: authReducer', () => {
   });
 
   describe('handling actions', () => {
-    describe('API.LOGOUT', () => {
-      const logout = createAction(types.API.LOGOUT);
-
-      it('should set userId to null', () => {
-        const action = logout();
-        const initialState = Immutable({ userId: 'u-1' });
-        const nextState = authReducer(initialState, action);
-
-        expect(nextState.userId).to.equal(null);
-      });
-
-      it('should set token to null', () => {
-        const action = logout();
-        const initialState = Immutable({ token: 'mock-token' });
-        const nextState = authReducer(initialState, action);
-
-        expect(nextState.token).to.equal(null);
-      });
-    });
-
     describe('API.RESERVATION_DELETE_ERROR', () => {
       const reservationDeleteError = createAction(types.API.RESERVATION_DELETE_ERROR);
 

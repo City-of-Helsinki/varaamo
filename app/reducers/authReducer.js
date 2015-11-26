@@ -10,9 +10,6 @@ const initialState = Immutable({
 function authReducer(state = initialState, action) {
   switch (action.type) {
 
-  case types.API.LOGOUT:
-    return initialState;
-
   case types.API.RESERVATION_DELETE_ERROR:
   case types.API.RESERVATION_PUT_ERROR:
   case types.API.RESERVATION_POST_ERROR:

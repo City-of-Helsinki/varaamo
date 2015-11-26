@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { pushState } from 'redux-router';
 
-import { logout } from 'actions/authActions';
 import { clearSearchResults } from 'actions/searchActions';
 import Footer from 'components/layout/Footer';
 import Navbar from 'components/layout/Navbar';
@@ -13,18 +12,6 @@ import Notifications from 'containers/Notifications';
 import appSelector from 'selectors/containers/appSelector';
 
 export class UnconnectedApp extends Component {
-  constructor(props) {
-    super(props);
-    this.handleLogout = this.handleLogout.bind(this);
-  }
-
-  handleLogout() {
-    const { actions } = this.props;
-
-    actions.logout();
-    actions.pushState(null, '/');
-  }
-
   render() {
     const {
       actions,
@@ -39,7 +26,6 @@ export class UnconnectedApp extends Component {
           <Navbar
             clearSearchResults={actions.clearSearchResults}
             isLoggedIn={isLoggedIn}
-            logout={this.handleLogout}
             user={user}
           />
           <div className="app-content">
@@ -65,7 +51,6 @@ UnconnectedApp.propTypes = {
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
     clearSearchResults,
-    logout,
     pushState,
   };
 
