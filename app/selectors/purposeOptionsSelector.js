@@ -17,8 +17,9 @@ const purposeOptionsSelector = createSelector(
         label: getName(purpose),
       };
     });
+    const alphabetized = _.sortBy(purposeOptions, 'label');
 
-    return Immutable(purposeOptions);
+    return Immutable(alphabetized);
   }
 );
 
