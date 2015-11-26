@@ -17,6 +17,15 @@ class Footer extends Component {
 
   render() {
     const RadiumLink = Radium(Link);
+    const feedbackLink = (
+      <a
+        href={FEEDBACK_URL}
+        onClick={this.handleFeedbackClick}
+        style={styles.link}
+      >
+        täältä
+      </a>
+    );
 
     return (
       <footer style={styles.footer}>
@@ -36,11 +45,7 @@ class Footer extends Component {
               <p>
                 Varaamo on Helsingin kaupungin tilanvarauspalvelu.
                 Kyseessä on pilottiversio, josta toivomme Sinulta palautetta.
-                Palautteesi voit lähettää <a
-                  href={FEEDBACK_URL}
-                  onClick={this.handleFeedbackClick}
-                  style={styles.link}
-                >täältä</a>.
+                Palautteesi voit lähettää {feedbackLink}.
               </p>
             </Col>
           </Row>

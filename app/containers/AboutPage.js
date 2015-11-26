@@ -6,6 +6,11 @@ import { FEEDBACK_URL } from 'constants/AppConstants';
 class AboutPage extends Component {
   render() {
     const refUrl = window.location.href;
+    const feedbackLink = (
+      <a href={`${FEEDBACK_URL}?ref=${refUrl}`}>
+        tämän linkin
+      </a>
+    );
 
     return (
       <DocumentTitle title="Tietoa palvelusta - Varaamo">
@@ -41,9 +46,7 @@ class AboutPage extends Component {
           </p>
           <p>
             Palvelua kehitetään edelleen ja toivomme palvelun käyttäjiltä palautetta. Palautetta
-            voit antaa <a
-              href={`${FEEDBACK_URL}?ref=${refUrl}`}
-            >tämän linkin</a> kautta.
+            voit antaa {feedbackLink} kautta.
           </p>
         </div>
       </DocumentTitle>
