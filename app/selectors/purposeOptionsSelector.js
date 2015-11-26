@@ -9,14 +9,16 @@ const purposesSelector = (state) => state.data.purposes;
 const purposeOptionsSelector = createSelector(
   purposesSelector,
   (purposes) => {
-    const purposeOptions = Immutable(_.values(purposes).map(purpose => {
+    const purposeOptions = _.filter(
+      _.values(purposes), (purpose) => purpose.parent !== null
+    ).map(purpose => {
       return {
         value: purpose.id,
         label: getName(purpose),
       };
-    }));
+    });
 
-    return purposeOptions;
+    return Immutable(purposeOptions);
   }
 );
 

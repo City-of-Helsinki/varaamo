@@ -27,11 +27,19 @@ describe('Selector: purposeOptionsSelector', () => {
     expect(actual).to.deep.equal([]);
   });
 
-  it('should return an option object for each purpose in state', () => {
+  it('should return an option object for each purpose with a parent', () => {
     const state = getState(purposes);
     const actual = purposeOptionsSelector(state);
 
     expect(actual.length).to.equal(purposes.length);
+  });
+
+  it('should not return an option object for purposes without a parent', () => {
+    const parentlessPurpose = Purpose.build({ parent: null });
+    const state = getState([parentlessPurpose]);
+    const actual = purposeOptionsSelector(state);
+
+    expect(actual.length).to.equal(0);
   });
 
   describe('a returned option object', () => {
