@@ -51,6 +51,16 @@ class TimeSlot extends Component {
     );
   }
 
+  renderUserInfo(user) {
+    if (!user) {
+      return null;
+    }
+
+    return (
+      <span>{user.displayName} - {user.email}</span>
+    );
+  }
+
   render() {
     const {
       isLoggedIn,
@@ -106,7 +116,7 @@ class TimeSlot extends Component {
             {labelText}
           </Label>
         </td>
-        {isAdmin && <td>{reservation && reservation.user}</td>}
+        {isAdmin && <td>{reservation && this.renderUserInfo(reservation.user)}</td>}
         {isAdmin && (
           <td>
             <ReservationControls
