@@ -266,17 +266,26 @@ describe('Container: ReservationForm', () => {
       ],
     };
     const { props, instance } = setup(setupProps);
-    instance.handleReservation();
 
     it('should call postReservation for each selected reservation', () => {
+      instance.handleReservation();
       expect(props.actions.postReservation.callCount).to.equal(props.selectedReservations.length);
     });
 
     it('should call postReservation with correct arguments', () => {
+      instance.handleReservation();
       const actualArgs = props.actions.postReservation.lastCall.args;
       const expected = props.selectedReservations[1];
 
       expect(actualArgs[0]).to.deep.equal(expected);
+    });
+
+    it('should add given comments to the reservation', () => {
+      const comments = 'Some random comment';
+      instance.handleReservation(comments);
+      const actualArgs = props.actions.postReservation.lastCall.args;
+
+      expect(actualArgs[0].comments).to.equal(comments);
     });
   });
 });

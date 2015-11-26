@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Input, Modal } from 'react-bootstrap';
 
 import TimeRange from 'components/common/TimeRange';
 
@@ -13,12 +13,36 @@ class ConfirmReservationModal extends Component {
 
   onConfirm() {
     const { onClose, onConfirm } = this.props;
+    const comments = this.refs.commentInput.getValue();
     onClose();
-    onConfirm();
+    onConfirm(comments);
   }
 
   renderModalBody() {
-    const { isEditing, reservationsToEdit, selectedReservations } = this.props;
+    const {
+      isEditing,
+      reservationsToEdit,
+      resource,
+      selectedReservations,
+    } = this.props;
+    const isAdmin = resource.userPermissions.isAdmin;
+
+    let defaultValue;
+    if (isEditing) {
+      defaultValue = reservationsToEdit.length ? reservationsToEdit[0].comments : '';
+    } else {
+      defaultValue = selectedReservations.length ? selectedReservations[0].comments : '';
+    }
+
+    const commentInput = (
+      <Input
+        defaultValue={defaultValue}
+        label="Kommentit"
+        placeholder="Varauksen mahdolliset lisätiedot"
+        ref="commentInput"
+        type="textarea"
+      />
+    );
 
     if (isEditing) {
       return (
@@ -32,6 +56,7 @@ class ConfirmReservationModal extends Component {
           <ul>
             {_.map(selectedReservations, this.renderReservation)}
           </ul>
+          {isAdmin && commentInput}
         </div>
       );
     }
@@ -42,6 +67,7 @@ class ConfirmReservationModal extends Component {
         <ul>
           {_.map(selectedReservations, this.renderReservation)}
         </ul>
+        {isAdmin && commentInput}
       </div>
     );
   }
@@ -104,6 +130,7 @@ ConfirmReservationModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
   reservationsToEdit: PropTypes.array.isRequired,
+  resource: PropTypes.object.isRequired,
   selectedReservations: PropTypes.array.isRequired,
   show: PropTypes.bool.isRequired,
 };

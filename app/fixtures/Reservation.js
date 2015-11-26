@@ -8,6 +8,7 @@ const Reservation = new Factory()
   .attr('begin', ['index'], (index) => {
     return moment(BASE_DATE).set('hour', (index + 2) % 24).toISOString();
   })
+  .attr('comments', null)
   .attr('end', ['index'], (index) => {
     return moment(BASE_DATE).set('hour', (index + 3) % 24).toISOString();
   })
