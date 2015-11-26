@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import Radium from 'radium';
 import React, { Component, PropTypes } from 'react';
 import {
@@ -22,7 +23,12 @@ class Navbar extends Component {
 
   renderUserNav() {
     const { isLoggedIn, logout, user } = this.props;
-    const name = [user.firstName, user.lastName].join(' ');
+    let name;
+    if (user.firstName || user.lastName) {
+      name = _.trim([user.firstName, user.lastName].join(' '));
+    } else {
+      name = user.emails && user.emails.length ? user.emails[0].value : '';
+    }
 
     if (isLoggedIn) {
       return (
