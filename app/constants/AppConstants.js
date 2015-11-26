@@ -9,6 +9,7 @@ export default {
   },
   REQUIRED_API_HEADERS: {
     'Accept': 'application/json',
+    'Accept-Language': 'fi',
     'Content-Type': 'application/json',
   },
   SUPPORTED_SEARCH_FILTERS: {
