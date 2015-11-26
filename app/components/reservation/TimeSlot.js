@@ -117,6 +117,7 @@ class TimeSlot extends Component {
           </Label>
         </td>
         {isAdmin && <td>{reservation && this.renderUserInfo(reservation.user)}</td>}
+        {isAdmin && <td>{reservation && reservation.comments}</td>}
         {isAdmin && (
           <td>
             <ReservationControls

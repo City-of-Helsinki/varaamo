@@ -7,6 +7,7 @@ import Immutable from 'seamless-immutable';
 
 import ConfirmReservationModal from 'components/reservation/ConfirmReservationModal';
 import Reservation from 'fixtures/Reservation';
+import Resource from 'fixtures/Resource';
 
 function getProps(props) {
   const defaults = {
@@ -15,6 +16,7 @@ function getProps(props) {
     onClose: simple.stub(),
     onConfirm: simple.stub(),
     reservationsToEdit: Immutable([]),
+    resource: Resource.build(),
     selectedReservations: Immutable([]),
     show: true,
   };
@@ -31,6 +33,10 @@ describe('Component: reservation/ConfirmReservationModal', () => {
       ]),
     });
     const tree = sd.shallowRender(<ConfirmReservationModal {...props} />);
+    const instance = tree.getMountedInstance();
+    instance.refs = {
+      commentInput: { getValue: simple.stub() },
+    };
 
     it('should render a Modal component', () => {
       const modalTrees = tree.everySubTree('Modal');
@@ -141,12 +147,17 @@ describe('Component: reservation/ConfirmReservationModal', () => {
     const props = getProps({
       isEditing: true,
       reservationsToEdit: Immutable([Reservation.build()]),
+      resource: Resource.build(),
       selectedReservations: Immutable([
         Reservation.build(),
         Reservation.build(),
       ]),
     });
     const tree = sd.shallowRender(<ConfirmReservationModal {...props} />);
+    const instance = tree.getMountedInstance();
+    instance.refs = {
+      commentInput: { getValue: simple.stub() },
+    };
 
     it('should render a Modal component', () => {
       const modalTrees = tree.everySubTree('Modal');
