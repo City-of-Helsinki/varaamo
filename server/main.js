@@ -62,8 +62,6 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/', render);
-
 app.get('/login', passport.authenticate('helsinki'));
 
 app.get(
@@ -72,6 +70,8 @@ app.get(
   (req, res) => {
     res.redirect('/');
   });
+
+app.get('*', render);
 
 app.listen(port, (error) => {
   if (error) {

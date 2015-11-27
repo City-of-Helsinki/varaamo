@@ -1,4 +1,4 @@
-import createHistory from 'history/lib/createHashHistory';
+import createHistory from 'history/lib/createBrowserHistory';
 import { compose, createStore, applyMiddleware } from 'redux';
 import { apiMiddleware } from 'redux-api-middleware';
 import { reduxReactRouter } from 'redux-router';
