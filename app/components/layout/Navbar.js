@@ -37,7 +37,7 @@ class Navbar extends Component {
             <MenuItem>Omat varaukset</MenuItem>
           </LinkContainer>
           <MenuItem divider />
-          <MenuItem href={`https://api.hel.fi/sso/logout/?next=${window.location.origin}`}>Kirjaudu ulos</MenuItem>
+          <MenuItem href="/logout">Kirjaudu ulos</MenuItem>
         </NavDropdown>
       );
     }
