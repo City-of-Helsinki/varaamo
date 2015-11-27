@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 import { Button } from 'react-bootstrap';
 import DocumentTitle from 'react-document-title';
@@ -10,6 +9,7 @@ import { bindActionCreators } from 'redux';
 
 import { fetchResource } from 'actions/resourceActions';
 import ResourceHeader from 'components/resource/ResourceHeader';
+import ReservationInfo from 'components/reservation/ReservationInfo';
 import NotFoundPage from 'containers/NotFoundPage';
 import ReservationForm from 'containers/ReservationForm';
 import reservationPageSelector from 'selectors/containers/reservationPageSelector';
@@ -22,15 +22,6 @@ export class UnconnectedReservationPage extends Component {
     const fetchParams = getDateStartAndEndTimes(date);
 
     actions.fetchResource(id, fetchParams);
-  }
-
-  renderMaxPeriod(maxPeriod) {
-    if (!maxPeriod) {
-      return null;
-    }
-    return (
-      <p>Tämän tilan voi varata enimmillään {moment.duration(maxPeriod).asHours()} tunniksi.</p>
-    );
   }
 
   render() {
@@ -64,7 +55,7 @@ export class UnconnectedReservationPage extends Component {
                 Tilan tiedot
               </Button>
             </LinkContainer>
-            {this.renderMaxPeriod(resource.maxPeriod)}
+            <ReservationInfo resource={resource} />
             <h2>{isLoggedIn ? 'Varaa tila' : 'Varaustilanne'}</h2>
             {!isLoggedIn &&
               <p>Sinun täytyy <a href="/login">kirjautua sisään</a>, jotta voit tehdä varauksen tähän tilaan.</p>

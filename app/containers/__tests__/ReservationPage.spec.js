@@ -59,6 +59,18 @@ describe('Container: ReservationPage', () => {
     });
   });
 
+  describe('rendering ReservationInfo', () => {
+    it('should render ReservationInfo component', () => {
+      expect(tree.subTree('ReservationInfo')).to.be.ok;
+    });
+
+    it('should pass correct props to ReservationInfo component', () => {
+      const actualProps = tree.subTree('ReservationInfo').props;
+
+      expect(actualProps.resource).to.equal(props.resource);
+    });
+  });
+
   describe('fetching data', () => {
     before(() => {
       const instance = tree.getMountedInstance();
