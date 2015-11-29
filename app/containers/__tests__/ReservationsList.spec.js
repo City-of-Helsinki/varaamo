@@ -146,6 +146,10 @@ describe('Component: reservation/ReservationsList', () => {
       expect(props.actions.fetchReservations.callCount).to.equal(1);
     });
 
+    it('should only fetch user\'s own reservations when component mounts', () => {
+      expect(props.actions.fetchReservations.lastCall.args[0].isOwn).to.equal(true);
+    });
+
     it('should fetch resources when component mounts', () => {
       expect(props.actions.fetchResources.callCount).to.equal(1);
     });
