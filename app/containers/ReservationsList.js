@@ -26,7 +26,7 @@ export class UnconnectedReservationsList extends Component {
   componentDidMount() {
     this.props.actions.fetchResources();
     this.props.actions.fetchUnits();
-    this.props.actions.fetchReservations();
+    this.props.actions.fetchReservations({ isOwn: true });
   }
 
   renderReservationsListItem(reservation) {
