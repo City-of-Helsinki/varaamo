@@ -280,12 +280,12 @@ describe('Container: ReservationForm', () => {
       expect(actualArgs[0]).to.deep.equal(expected);
     });
 
-    it('should add given comments to the reservation', () => {
-      const comments = 'Some random comment';
-      instance.handleReservation(comments);
+    it('should add given values to the reservation', () => {
+      const values = { comments: 'Some random comment' };
+      instance.handleReservation(values);
       const actualArgs = props.actions.postReservation.lastCall.args;
 
-      expect(actualArgs[0].comments).to.equal(comments);
+      expect(actualArgs[0].comments).to.equal(values.comments);
     });
   });
 });

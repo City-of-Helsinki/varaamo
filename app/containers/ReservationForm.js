@@ -50,7 +50,7 @@ export class UnconnectedReservationForm extends Component {
     actions.fetchResource(id, fetchParams);
   }
 
-  handleEdit(comments = null) {
+  handleEdit(values = {}) {
     const {
       actions,
       reservationsToEdit,
@@ -62,7 +62,7 @@ export class UnconnectedReservationForm extends Component {
       actions.putReservation(Object.assign(
         {},
         selectedReservations[0],
-        { comments },
+        values,
         { url: reservationsToEdit[0].url }
       ));
 
@@ -75,7 +75,7 @@ export class UnconnectedReservationForm extends Component {
       setTimeout(() => {
         _.forEach(_.rest(selectedReservations), (reservation) => {
           actions.postReservation(
-            Object.assign({}, reservation, { comments })
+            Object.assign({}, reservation, values)
           );
         });
       }, 800);
@@ -91,12 +91,12 @@ export class UnconnectedReservationForm extends Component {
     this.props.actions.cancelReservationEdit();
   }
 
-  handleReservation(comments = null) {
+  handleReservation(values = {}) {
     const { actions, selectedReservations } = this.props;
 
     selectedReservations.forEach(reservation => {
       actions.postReservation(
-        Object.assign({}, reservation, { comments })
+        Object.assign({}, reservation, values)
       );
     });
   }

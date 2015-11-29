@@ -12,10 +12,11 @@ class ConfirmReservationModal extends Component {
   }
 
   onConfirm() {
-    const { onClose, onConfirm } = this.props;
-    const comments = this.refs.commentInput.getValue();
+    const { onClose, onConfirm, resource } = this.props;
+    const isAdmin = resource.userPermissions.isAdmin;
+    const values = isAdmin ? { comments: this.refs.commentInput.getValue() } : {};
     onClose();
-    onConfirm(comments);
+    onConfirm(values);
   }
 
   renderModalBody() {
