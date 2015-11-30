@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import { Well } from 'react-bootstrap';
 
 class ReservationInfo extends Component {
-  getMaxPeriodText(maxPeriod) {
+  renderMaxPeriodText(maxPeriod) {
     if (!maxPeriod) {
       return null;
     }
@@ -15,7 +15,7 @@ class ReservationInfo extends Component {
     );
   }
 
-  getMaxReservationsPerUserText(maxReservationsPerUser) {
+  renderMaxReservationsPerUserText(maxReservationsPerUser) {
     if (!maxReservationsPerUser) {
       return null;
     }
@@ -26,13 +26,27 @@ class ReservationInfo extends Component {
     );
   }
 
+  renderReservationInfoText() {
+    const mockReservationInfo = `
+      Lorem ipsum dolor sit amet, id odio ludus torquatos per, eripuit apeirian deseruisse eos no.
+      Mel ex aeque oporteat, sit nobis homero sensibus ea. Te eam porro atomorum philosophia.
+      Invenire referrentur ei vim. Sed mollis ponderum ullamcorper ea, sit aliquid deseruisse
+      incorrupte id, et qui probo consequat constituto.
+    `;
+    return (
+      <p>{mockReservationInfo}</p>
+    );
+  }
+
   render() {
     const { resource } = this.props;
 
     return (
       <Well>
-        {this.getMaxPeriodText(resource.maxPeriod)}
-        {this.getMaxReservationsPerUserText(resource.maxReservationsPerUser)}
+        <h4>Ohjeet varaamiseen</h4>
+        {this.renderReservationInfoText()}
+        {this.renderMaxPeriodText(resource.maxPeriod)}
+        {this.renderMaxReservationsPerUserText(resource.maxReservationsPerUser)}
       </Well>
     );
   }
