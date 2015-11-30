@@ -37,15 +37,9 @@ class ReservationInfo extends Component {
     );
   }
 
-  renderReservationInfoText() {
-    const mockReservationInfo = `
-      Lorem ipsum dolor sit amet, id odio ludus torquatos per, eripuit apeirian deseruisse eos no.
-      Mel ex aeque oporteat, sit nobis homero sensibus ea. Te eam porro atomorum philosophia.
-      Invenire referrentur ei vim. Sed mollis ponderum ullamcorper ea, sit aliquid deseruisse
-      incorrupte id, et qui probo consequat constituto.
-    `;
+  renderReservationInfoText(reservationInfo) {
     return (
-      <p>{mockReservationInfo}</p>
+      <p>{reservationInfo}</p>
     );
   }
 
@@ -55,7 +49,7 @@ class ReservationInfo extends Component {
     return (
       <Well>
         <h4>Ohjeet varaamiseen</h4>
-        {this.renderReservationInfoText()}
+        {this.renderReservationInfoText(resource.reservationInfo)}
         {this.renderMaxPeriodText(resource.maxPeriod)}
         {this.renderMaxReservationsPerUserText(resource.maxReservationsPerUser)}
         {this.renderLoginText(isLoggedIn)}

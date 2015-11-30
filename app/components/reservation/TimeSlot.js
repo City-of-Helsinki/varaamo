@@ -21,6 +21,17 @@ class TimeSlot extends Component {
     }
   }
 
+  getReservationInfoMessage(isLoggedIn, resource, slot) {
+    if (moment(slot.end) < moment() || slot.reserved) {
+      return null;
+    }
+
+    if (!isLoggedIn && resource.reservable) {
+      return 'Kirjaudu sisään tehdäksesi varauksen tähän tilaan.';
+    }
+    return resource.reservationInfo;
+  }
+
   handleDeleteClick() {
     const {
       openReservationDeleteModal,
@@ -53,21 +64,24 @@ class TimeSlot extends Component {
   }
 
   handleRowClick(disabled) {
-    const { addNotification, onClick, slot } = this.props;
+    const {
+      addNotification,
+      isLoggedIn,
+      onClick,
+      resource,
+      slot,
+    } = this.props;
 
     if (disabled) {
-      const mockMessage = `
-        Lorem ipsum dolor sit amet, id odio ludus torquatos per, eripuit apeirian deseruisse eos no.
-        Mel ex aeque oporteat, sit nobis homero sensibus ea. Te eam porro atomorum philosophia.
-        Invenire referrentur ei vim. Sed mollis ponderum ullamcorper ea, sit aliquid deseruisse
-        incorrupte id, et qui probo consequat constituto.
-      `;
-      const notification = {
-        message: mockMessage,
-        type: 'info',
-        timeOut: 10000,
-      };
-      addNotification(notification);
+      const message = this.getReservationInfoMessage(isLoggedIn, resource, slot);
+      if (message) {
+        const notification = {
+          message: message,
+          type: 'info',
+          timeOut: 10000,
+        };
+        addNotification(notification);
+      }
     } else {
       onClick(slot.asISOString);
     }

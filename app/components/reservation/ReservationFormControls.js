@@ -15,32 +15,35 @@ class ReservationFormControls extends Component {
     return isMakingReservations ? 'Varataan...' : 'Varaa';
   }
 
+  getReservationInfoMessage(resource, isLoggedIn) {
+    if (resource.reservable) {
+      if (isLoggedIn) {
+        return 'Valitse aika, jolle haluat tehdä varauksen.';
+      }
+      return 'Kirjaudu sisään tehdäksesi varauksen tähän tilaan.';
+    }
+    return resource.reservationInfo;
+  }
+
   handleMainClick() {
     const {
       addNotification,
-      canMakeReservations,
       disabled,
+      isLoggedIn,
       onClick,
+      resource,
     } = this.props;
 
     if (disabled) {
-      let message;
-      if (canMakeReservations) {
-        message = 'Valitse aika, jolle haluat tehdä varauksen.';
-      } else {
-        message = `
-          Lorem ipsum dolor sit amet, id odio ludus torquatos per, eripuit apeirian deseruisse eos no.
-          Mel ex aeque oporteat, sit nobis homero sensibus ea. Te eam porro atomorum philosophia.
-          Invenire referrentur ei vim. Sed mollis ponderum ullamcorper ea, sit aliquid deseruisse
-          incorrupte id, et qui probo consequat constituto.
-        `;
+      const message = this.getReservationInfoMessage(resource, isLoggedIn);
+      if (message) {
+        const notification = {
+          message,
+          type: 'info',
+          timeOut: 10000,
+        };
+        addNotification(notification);
       }
-      const notification = {
-        message: message,
-        type: 'info',
-        timeOut: 10000,
-      };
-      addNotification(notification);
     } else {
       onClick();
     }
@@ -82,12 +85,13 @@ class ReservationFormControls extends Component {
 
 ReservationFormControls.propTypes = {
   addNotification: PropTypes.func.isRequired,
-  canMakeReservations: PropTypes.bool.isRequired,
   disabled: PropTypes.bool.isRequired,
   isEditing: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,
   onCancel: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
+  resource: PropTypes.object.isRequired,
 };
 
 export default ReservationFormControls;

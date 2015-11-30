@@ -4,16 +4,18 @@ import sd from 'skin-deep';
 import simple from 'simple-mock';
 
 import ReservationFormControls from 'components/reservation/ReservationFormControls';
+import Resource from 'fixtures/Resource';
 
 function getProps(props) {
   const defaults = {
     addNotification: simple.stub(),
-    canMakeReservations: true,
+    isLoggedIn: true,
     disabled: false,
     isEditing: false,
     isMakingReservations: false,
     onCancel: simple.stub(),
     onClick: simple.stub(),
+    resource: Resource.build(),
   };
 
   return Object.assign({}, defaults, props);
