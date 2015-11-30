@@ -148,7 +148,9 @@ export class UnconnectedReservationForm extends Component {
           time={time}
         />
         <ReservationFormControls
-          disabled={!isLoggedIn || !selected.length || isMakingReservations}
+          addNotification={actions.addNotification}
+          canMakeReservations={resource.userPermissions.canMakeReservations}
+          disabled={!resource.userPermissions.canMakeReservations || !selected.length || isMakingReservations}
           isEditing={isEditing}
           isMakingReservations={isMakingReservations}
           onCancel={this.handleEditCancel}
