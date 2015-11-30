@@ -13,6 +13,7 @@ import { UnconnectedReservationForm as ReservationForm } from 'containers/Reserv
 function getProps(props = {}) {
   const defaults = {
     actions: {
+      addNotification: simple.stub(),
       cancelReservationEdit: simple.stub(),
       clearReservations: simple.stub(),
       closeConfirmReservationModal: simple.stub(),
@@ -109,6 +110,7 @@ describe('Container: ReservationForm', () => {
       it('should pass correct props to TimeSlots component', () => {
         const actualProps = timeSlotsTrees[0].props;
 
+        expect(actualProps.addNotification).to.deep.equal(props.actions.addNotification);
         expect(actualProps.isFetching).to.equal(props.isFetchingResource);
         expect(actualProps.isLoggedIn).to.equal(props.isLoggedIn);
         expect(actualProps.onClick).to.deep.equal(props.actions.toggleTimeSlot);

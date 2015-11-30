@@ -16,6 +16,7 @@ describe('Component: reservation/TimeSlots', () => {
       TimeSlot.build(),
     ];
     const props = {
+      addNotification: simple.stub(),
       isFetching: false,
       isLoggedIn: true,
       onClick: simple.stub(),
@@ -76,6 +77,7 @@ describe('Component: reservation/TimeSlots', () => {
 
       it('should pass correct props to TimeSlots', () => {
         timeSlotTrees.forEach((timeSlotTree, index) => {
+          expect(timeSlotTree.props.addNotification).to.equal(props.addNotification);
           expect(timeSlotTree.props.isLoggedIn).to.equal(props.isLoggedIn);
           expect(timeSlotTree.props.onClick).to.equal(props.onClick);
           expect(timeSlotTree.props.openReservationDeleteModal).to.equal(props.openReservationDeleteModal);
@@ -96,6 +98,7 @@ describe('Component: reservation/TimeSlots', () => {
 
   describe('without timeslots', () => {
     const props = {
+      addNotification: simple.stub(),
       isFetching: false,
       isLoggedIn: true,
       onClick: simple.stub(),

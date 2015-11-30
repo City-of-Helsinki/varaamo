@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { pushState } from 'redux-router';
 
+import { addNotification } from 'actions/notificationsActions';
 import {
   deleteReservation,
   postReservation,
@@ -133,6 +134,7 @@ export class UnconnectedReservationForm extends Component {
           onChange={this.onDateChange}
         />
         <TimeSlots
+          addNotification={actions.addNotification}
           isFetching={isFetchingResource}
           isLoggedIn={isLoggedIn}
           onClick={actions.toggleTimeSlot}
@@ -186,6 +188,7 @@ UnconnectedReservationForm.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
+    addNotification,
     cancelReservationEdit,
     clearReservations,
     closeConfirmReservationModal,
