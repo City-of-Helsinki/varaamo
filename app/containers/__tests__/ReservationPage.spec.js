@@ -67,6 +67,7 @@ describe('Container: ReservationPage', () => {
     it('should pass correct props to ReservationInfo component', () => {
       const actualProps = tree.subTree('ReservationInfo').props;
 
+      expect(actualProps.isLoggedIn).to.equal(props.isLoggedIn);
       expect(actualProps.resource).to.equal(props.resource);
     });
   });
