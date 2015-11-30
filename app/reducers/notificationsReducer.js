@@ -47,6 +47,10 @@ function notificationsReducer(state = initialState, action) {
 
   // Notification handling
 
+  case types.UI.ADD_NOTIFICATION:
+    notification = action.payload;
+    return addNotification(state, notification);
+
   case types.UI.HIDE_NOTIFICATION:
     const index = action.payload.id - 1;
     return hideNotification(state, index);
