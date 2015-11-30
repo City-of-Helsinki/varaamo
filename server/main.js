@@ -73,9 +73,7 @@ app.get(
 
 app.get('/logout', function(req, res) {
   req.logOut();
-  const redirectUrl = (
-    serverConfig.isProduction ? 'https://varaamo.hel.fi' : `http://localhost:${port}`
-  );
+  const redirectUrl = req.query.next || 'http://varaamo.hel.fi';
   res.redirect(`https://api.hel.fi/sso/logout/?next=${redirectUrl}`);
 });
 
