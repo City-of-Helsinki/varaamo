@@ -240,6 +240,31 @@ describe('Utils: TimeUtils', () => {
       });
     });
 
+    describe('slot reservationStarting and reservationEnding properties during reservation', () => {
+      const start = '2015-10-09T08:00:00+03:00';
+      const end = '2015-10-09T09:30:00+03:00';
+      const period = '00:30:00';
+      const reservations = [
+        {
+          begin: '2015-10-09T08:00:00+03:00',
+          end: '2015-10-09T09:30:00+03:00',
+        },
+      ];
+      const slots = getTimeSlots(start, end, period, reservations);
+
+      it('only first slot should have reservationStarting property', () => {
+        expect(slots[0].reservationStarting).to.equal(true);
+        expect(slots[1].reservationStarting).to.equal(false);
+        expect(slots[2].reservationStarting).to.equal(false);
+      });
+
+      it('only last slot should have reservationEnding property', () => {
+        expect(slots[0].reservationEnding).to.equal(false);
+        expect(slots[1].reservationEnding).to.equal(false);
+        expect(slots[2].reservationEnding).to.equal(true);
+      });
+    });
+
     describe('slot editing property', () => {
       const start = '2015-10-09T08:00:00+03:00';
       const end = '2015-10-09T10:00:00+03:00';

@@ -7,6 +7,14 @@
   }
 
   tbody tr {
+    &.reservation-starting {
+      border-top: 2px solid @gray;
+    }
+
+    &.reservation-ending {
+      border-bottom: 2px solid @gray;
+    }
+
     &:hover {
       cursor: pointer;
     }
@@ -26,6 +34,10 @@
     // Reserved styles
     // ---------------
     &.reserved {
+      &.is-admin {
+        background-color: @gray-lighter;
+      }
+
       .checkbox-cell {
         color: @brand-danger;
       }
