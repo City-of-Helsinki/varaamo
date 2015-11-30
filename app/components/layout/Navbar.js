@@ -37,7 +37,9 @@ class Navbar extends Component {
             <MenuItem>Omat varaukset</MenuItem>
           </LinkContainer>
           <MenuItem divider />
-          <MenuItem href="/logout">Kirjaudu ulos</MenuItem>
+          <MenuItem href={`/logout?next=${window.location.origin}`}>
+            Kirjaudu ulos
+          </MenuItem>
         </NavDropdown>
       );
     }
