@@ -96,8 +96,11 @@ class TimeSlot extends Component {
       <tr
         className={classNames({
           disabled,
+          'is-admin': isAdmin,
           editing: slot.editing,
-          'past': isPast,
+          past: isPast,
+          'reservation-starting': isAdmin && slot.reservationStarting,
+          'reservation-ending': isAdmin && slot.reservationEnding,
           reserved: slot.reserved,
           selected,
         })}
@@ -116,15 +119,20 @@ class TimeSlot extends Component {
             {labelText}
           </Label>
         </td>
-        {isAdmin && <td>{reservation && this.renderUserInfo(reservation.user)}</td>}
-        {isAdmin && <td>{reservation && reservation.comments}</td>}
+        {isAdmin && (
+          <td>{reservation && slot.reservationStarting && this.renderUserInfo(reservation.user)}</td>
+        )}
+        {isAdmin && (
+          <td>{reservation && slot.reservationStarting && reservation.comments}</td>)}
         {isAdmin && (
           <td>
-            <ReservationControls
-              onDeleteClick={this.handleDeleteClick}
-              onEditClick={this.handleEditClick}
-              reservation={reservation}
-            />
+            {slot.reservationStarting && (
+              <ReservationControls
+                onDeleteClick={this.handleDeleteClick}
+                onEditClick={this.handleEditClick}
+                reservation={reservation}
+              />
+            )}
           </td>
         )}
       </tr>

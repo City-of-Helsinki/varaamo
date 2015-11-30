@@ -67,10 +67,16 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = [], reserv
 
     let reserved = false;
     let reservation = null;
+    let reservationStarting = false;
+    let reservationEnding = false;
     _.forEach(reservationRanges, (reservationRange, index) => {
       if (reservationRange.overlaps(slotRange)) {
         reserved = true;
         reservation = reservations[index];
+        const [ reservationStart, reservationEnd ] = reservationRange.toDate();
+        const [ slotStart, slotEnd ] = slotRange.toDate();
+        reservationStarting = reservationStart.getTime() === slotStart.getTime();
+        reservationEnding = reservationEnd.getTime() === slotEnd.getTime();
       }
     });
 
@@ -79,6 +85,8 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = [], reserv
       asString,
       editing,
       reservation,
+      reservationStarting,
+      reservationEnding,
       reserved,
       start: startUTC.toISOString(),
       end: endUTC.toISOString(),
