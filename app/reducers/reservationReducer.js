@@ -19,8 +19,8 @@ function selectReservationToEdit(state, action) {
   );
 
   return state.merge({
-    selected: [...state.selected, ...selected],
-    toEdit: [...state.toEdit, reservation],
+    selected,
+    toEdit: [reservation],
   });
 }
 

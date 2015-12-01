@@ -168,7 +168,7 @@ describe('Reducer: reservationReducer', () => {
     });
 
     describe('UI.SELECT_RESERVATION_TO_EDIT', () => {
-      it('should add the given reservation to toEdit', () => {
+      it('should set the given reservation to toEdit', () => {
         const initialState = Immutable({
           selected: [],
           toEdit: [],
@@ -181,7 +181,7 @@ describe('Reducer: reservationReducer', () => {
         expect(nextState.toEdit).to.deep.equal(expected);
       });
 
-      it('should not affect other reservations in toEdit', () => {
+      it('should remove other reservations in toEdit', () => {
         const reservations = [
           Reservation.build(),
           Reservation.build(),
@@ -192,7 +192,7 @@ describe('Reducer: reservationReducer', () => {
         });
         const action = selectReservationToEdit({ reservation: reservations[1] });
         const nextState = reservationReducer(initialState, action);
-        const expected = Immutable([reservations[0], reservations[1]]);
+        const expected = Immutable([reservations[1]]);
 
         expect(nextState.toEdit).to.deep.equal(expected);
       });
