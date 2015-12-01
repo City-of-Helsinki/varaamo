@@ -14,6 +14,7 @@ class TimeSlots extends Component {
   renderTimeSlot(slot) {
     const {
       addNotification,
+      isEditing,
       isLoggedIn,
       onClick,
       openReservationDeleteModal,
@@ -29,6 +30,7 @@ class TimeSlots extends Component {
     return (
       <TimeSlot
         addNotification={addNotification}
+        isEditing={isEditing}
         isLoggedIn={isLoggedIn}
         key={slot.start}
         onClick={onClick}
@@ -83,6 +85,7 @@ class TimeSlots extends Component {
 
 TimeSlots.propTypes = {
   addNotification: PropTypes.func.isRequired,
+  isEditing: PropTypes.bool.isRequired,
   isFetching: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,

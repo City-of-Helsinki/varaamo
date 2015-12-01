@@ -13,6 +13,7 @@ import Resource from 'fixtures/Resource';
 function getProps(props) {
   const defaults = {
     addNotification: simple.stub(),
+    isEditing: true,
     isLoggedIn: true,
     onClick: simple.stub(),
     openReservationDeleteModal: simple.stub(),
