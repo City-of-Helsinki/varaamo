@@ -3,7 +3,18 @@ import React, { Component, PropTypes } from 'react';
 import { Well } from 'react-bootstrap';
 
 class ReservationInfo extends Component {
-  getMaxPeriodText(maxPeriod) {
+  renderLoginText(isLoggedIn) {
+    if (isLoggedIn) {
+      return null;
+    }
+    return (
+      <p>
+        Sinun täytyy <a href="/login">kirjautua sisään</a>, jotta voit tehdä varauksen tähän tilaan.
+      </p>
+    );
+  }
+
+  renderMaxPeriodText(maxPeriod) {
     if (!maxPeriod) {
       return null;
     }
@@ -15,7 +26,7 @@ class ReservationInfo extends Component {
     );
   }
 
-  getMaxReservationsPerUserText(maxReservationsPerUser) {
+  renderMaxReservationsPerUserText(maxReservationsPerUser) {
     if (!maxReservationsPerUser) {
       return null;
     }
@@ -26,19 +37,29 @@ class ReservationInfo extends Component {
     );
   }
 
+  renderReservationInfoText(reservationInfo) {
+    return (
+      <p>{reservationInfo}</p>
+    );
+  }
+
   render() {
-    const { resource } = this.props;
+    const { isLoggedIn, resource } = this.props;
 
     return (
       <Well>
-        {this.getMaxPeriodText(resource.maxPeriod)}
-        {this.getMaxReservationsPerUserText(resource.maxReservationsPerUser)}
+        <h4>Ohjeet varaamiseen</h4>
+        {this.renderReservationInfoText(resource.reservationInfo)}
+        {this.renderMaxPeriodText(resource.maxPeriod)}
+        {this.renderMaxReservationsPerUserText(resource.maxReservationsPerUser)}
+        {this.renderLoginText(isLoggedIn)}
       </Well>
     );
   }
 }
 
 ReservationInfo.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
   resource: PropTypes.object.isRequired,
 };
 

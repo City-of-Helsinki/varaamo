@@ -12,12 +12,24 @@ class TimeSlot extends Component {
     super(props);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
+    this.handleRowClick = this.handleRowClick.bind(this);
   }
 
   componentDidMount() {
     if (this.props.scrollTo) {
       scrollTo(findDOMNode(this));
     }
+  }
+
+  getReservationInfoMessage(isLoggedIn, resource, slot) {
+    if (moment(slot.end) < moment() || slot.reserved) {
+      return null;
+    }
+
+    if (!isLoggedIn && resource.reservable) {
+      return 'Kirjaudu sisään tehdäksesi varauksen tähän tilaan.';
+    }
+    return resource.reservationInfo;
   }
 
   handleDeleteClick() {
@@ -51,6 +63,30 @@ class TimeSlot extends Component {
     );
   }
 
+  handleRowClick(disabled) {
+    const {
+      addNotification,
+      isLoggedIn,
+      onClick,
+      resource,
+      slot,
+    } = this.props;
+
+    if (disabled) {
+      const message = this.getReservationInfoMessage(isLoggedIn, resource, slot);
+      if (message) {
+        const notification = {
+          message: message,
+          type: 'info',
+          timeOut: 10000,
+        };
+        addNotification(notification);
+      }
+    } else {
+      onClick(slot.asISOString);
+    }
+  }
+
   renderUserInfo(user) {
     if (!user) {
       return null;
@@ -64,7 +100,6 @@ class TimeSlot extends Component {
   render() {
     const {
       isLoggedIn,
-      onClick,
       resource,
       selected,
       slot,
@@ -104,7 +139,7 @@ class TimeSlot extends Component {
           reserved: slot.reserved,
           selected,
         })}
-        onClick={() => !disabled && onClick(slot.asISOString)}
+        onClick={() => this.handleRowClick(disabled)}
       >
         <td className="checkbox-cell">
           <Glyphicon glyph={checked ? 'check' : 'unchecked'} />
@@ -141,6 +176,7 @@ class TimeSlot extends Component {
 }
 
 TimeSlot.propTypes = {
+  addNotification: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
   openReservationDeleteModal: PropTypes.func.isRequired,

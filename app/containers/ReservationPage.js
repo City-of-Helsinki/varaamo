@@ -55,11 +55,11 @@ export class UnconnectedReservationPage extends Component {
                 Tilan tiedot
               </Button>
             </LinkContainer>
-            <ReservationInfo resource={resource} />
+            <ReservationInfo
+              isLoggedIn={isLoggedIn}
+              resource={resource}
+            />
             <h2>{isLoggedIn ? 'Varaa tila' : 'Varaustilanne'}</h2>
-            {!isLoggedIn &&
-              <p>Sinun täytyy <a href="/login">kirjautua sisään</a>, jotta voit tehdä varauksen tähän tilaan.</p>
-            }
             <ReservationForm />
           </div>
         </Loader>

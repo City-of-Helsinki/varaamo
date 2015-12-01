@@ -1,12 +1,52 @@
+import classNames from 'classnames';
 import React, { Component, PropTypes } from 'react';
 import { Button, ButtonGroup } from 'react-bootstrap';
 
 class ReservationFormControls extends Component {
+  constructor(props) {
+    super(props);
+    this.handleMainClick = this.handleMainClick.bind(this);
+  }
+
   getButtonText(isEditing, isMakingReservations) {
     if (isEditing) {
       return isMakingReservations ? 'Tallennetaan...' : 'Vahvista muutokset';
     }
     return isMakingReservations ? 'Varataan...' : 'Varaa';
+  }
+
+  getReservationInfoMessage(resource, isLoggedIn) {
+    if (resource.reservable) {
+      if (isLoggedIn) {
+        return 'Valitse aika, jolle haluat tehdä varauksen.';
+      }
+      return 'Kirjaudu sisään tehdäksesi varauksen tähän tilaan.';
+    }
+    return resource.reservationInfo;
+  }
+
+  handleMainClick() {
+    const {
+      addNotification,
+      disabled,
+      isLoggedIn,
+      onClick,
+      resource,
+    } = this.props;
+
+    if (disabled) {
+      const message = this.getReservationInfoMessage(resource, isLoggedIn);
+      if (message) {
+        const notification = {
+          message,
+          type: 'info',
+          timeOut: 10000,
+        };
+        addNotification(notification);
+      }
+    } else {
+      onClick();
+    }
   }
 
   render() {
@@ -15,7 +55,6 @@ class ReservationFormControls extends Component {
       isEditing,
       isMakingReservations,
       onCancel,
-      onClick,
     } = this.props;
 
     return (
@@ -23,8 +62,8 @@ class ReservationFormControls extends Component {
         <ButtonGroup style={{ width: '100%' }}>
           <Button
             bsStyle="primary"
-            disabled={disabled}
-            onClick={onClick}
+            className={classNames({ disabled })}
+            onClick={this.handleMainClick}
             style={{ width: isEditing ? '50%' : '100%' }}
           >
             {this.getButtonText(isEditing, isMakingReservations)}
@@ -45,11 +84,14 @@ class ReservationFormControls extends Component {
 }
 
 ReservationFormControls.propTypes = {
+  addNotification: PropTypes.func.isRequired,
   disabled: PropTypes.bool.isRequired,
   isEditing: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,
   onCancel: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
+  resource: PropTypes.object.isRequired,
 };
 
 export default ReservationFormControls;

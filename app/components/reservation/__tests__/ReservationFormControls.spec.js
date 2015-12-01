@@ -4,14 +4,18 @@ import sd from 'skin-deep';
 import simple from 'simple-mock';
 
 import ReservationFormControls from 'components/reservation/ReservationFormControls';
+import Resource from 'fixtures/Resource';
 
 function getProps(props) {
   const defaults = {
+    addNotification: simple.stub(),
+    isLoggedIn: true,
     disabled: false,
     isEditing: false,
     isMakingReservations: false,
     onCancel: simple.stub(),
     onClick: simple.stub(),
+    resource: Resource.build(),
   };
 
   return Object.assign({}, defaults, props);
@@ -21,6 +25,7 @@ describe('Component: reservation/ReservationFormControls', () => {
   describe('when user is not editing reservations', () => {
     const props = getProps();
     const tree = sd.shallowRender(<ReservationFormControls {...props} />);
+    const instance = tree.getMountedInstance();
 
     it('should render one button', () => {
       const buttonTrees = tree.everySubTree('Button');
@@ -31,8 +36,7 @@ describe('Component: reservation/ReservationFormControls', () => {
     it('should pass correct props to the button', () => {
       const actualProps = tree.subTree('Button').props;
 
-      expect(actualProps.disabled).to.equal(props.disabled);
-      expect(actualProps.onClick).to.equal(props.onClick);
+      expect(actualProps.onClick).to.equal(instance.handleMainClick);
     });
 
     it('the button should have text "Varaa"', () => {
@@ -45,6 +49,7 @@ describe('Component: reservation/ReservationFormControls', () => {
       isEditing: true,
     });
     const tree = sd.shallowRender(<ReservationFormControls {...props} />);
+    const instance = tree.getMountedInstance();
     const buttonTrees = tree.everySubTree('Button');
 
     it('should render two buttons', () => {
@@ -59,8 +64,7 @@ describe('Component: reservation/ReservationFormControls', () => {
       });
 
       it('should have correct props', () => {
-        expect(buttonTree.props.disabled).to.equal(props.disabled);
-        expect(buttonTree.props.onClick).to.equal(props.onClick);
+        expect(buttonTree.props.onClick).to.equal(instance.handleMainClick);
       });
     });
 
