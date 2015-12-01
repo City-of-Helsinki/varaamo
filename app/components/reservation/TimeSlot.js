@@ -150,18 +150,18 @@ class TimeSlot extends Component {
             {slot.asString}
           </time>
         </td>
-        <td>
+        <td className="status-cell">
           <Label bsStyle={labelBsStyle}>
             {labelText}
           </Label>
         </td>
         {isAdmin && (
-          <td>{reservation && slot.reservationStarting && this.renderUserInfo(reservation.user)}</td>
+          <td className="user-cell">{reservation && slot.reservationStarting && this.renderUserInfo(reservation.user)}</td>
         )}
         {isAdmin && (
-          <td>{reservation && slot.reservationStarting && reservation.comments}</td>)}
+          <td className="comments-cell">{reservation && slot.reservationStarting && reservation.comments}</td>)}
         {isAdmin && (
-          <td>
+          <td className="controls-cell">
             {reservation && slot.reservationStarting && !isEditing && (
               <ReservationControls
                 onDeleteClick={this.handleDeleteClick}
