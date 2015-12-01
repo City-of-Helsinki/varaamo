@@ -99,6 +99,7 @@ class TimeSlot extends Component {
 
   render() {
     const {
+      isEditing,
       isLoggedIn,
       resource,
       selected,
@@ -161,7 +162,7 @@ class TimeSlot extends Component {
           <td>{reservation && slot.reservationStarting && reservation.comments}</td>)}
         {isAdmin && (
           <td>
-            {slot.reservationStarting && (
+            {reservation && slot.reservationStarting && !isEditing && (
               <ReservationControls
                 onDeleteClick={this.handleDeleteClick}
                 onEditClick={this.handleEditClick}
@@ -177,6 +178,7 @@ class TimeSlot extends Component {
 
 TimeSlot.propTypes = {
   addNotification: PropTypes.func.isRequired,
+  isEditing: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
   openReservationDeleteModal: PropTypes.func.isRequired,

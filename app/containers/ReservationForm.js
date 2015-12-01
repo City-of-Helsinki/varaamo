@@ -135,6 +135,7 @@ export class UnconnectedReservationForm extends Component {
         />
         <TimeSlots
           addNotification={actions.addNotification}
+          isEditing={isEditing}
           isFetching={isFetchingResource}
           isLoggedIn={isLoggedIn}
           onClick={actions.toggleTimeSlot}

@@ -111,6 +111,7 @@ describe('Container: ReservationForm', () => {
         const actualProps = timeSlotsTrees[0].props;
 
         expect(actualProps.addNotification).to.deep.equal(props.actions.addNotification);
+        expect(actualProps.isEditing).to.exist;
         expect(actualProps.isFetching).to.equal(props.isFetchingResource);
         expect(actualProps.isLoggedIn).to.equal(props.isLoggedIn);
         expect(actualProps.onClick).to.deep.equal(props.actions.toggleTimeSlot);
