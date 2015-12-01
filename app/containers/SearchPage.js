@@ -19,9 +19,9 @@ export class UnconnectedSearchPage extends Component {
   }
 
   componentDidMount() {
-    const { actions, filters } = this.props;
+    const { actions, filters, searchDone } = this.props;
     const fetchParams = getFetchParamsFromFilters(filters);
-    if (fetchParams.purpose) {
+    if (searchDone || fetchParams.purpose || fetchParams.people || fetchParams.search) {
       actions.searchResources(fetchParams);
     }
     actions.fetchUnits();
