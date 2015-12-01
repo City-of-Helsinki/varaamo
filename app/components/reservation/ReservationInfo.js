@@ -3,8 +3,8 @@ import React, { Component, PropTypes } from 'react';
 import { Well } from 'react-bootstrap';
 
 class ReservationInfo extends Component {
-  renderLoginText(isLoggedIn) {
-    if (isLoggedIn) {
+  renderLoginText(isLoggedIn, resource) {
+    if (isLoggedIn || !resource.reservable) {
       return null;
     }
     return (
@@ -52,7 +52,7 @@ class ReservationInfo extends Component {
         {this.renderReservationInfoText(resource.reservationInfo)}
         {this.renderMaxPeriodText(resource.maxPeriod)}
         {this.renderMaxReservationsPerUserText(resource.maxReservationsPerUser)}
-        {this.renderLoginText(isLoggedIn)}
+        {this.renderLoginText(isLoggedIn, resource)}
       </Well>
     );
   }
