@@ -17,12 +17,12 @@ class AboutPage extends Component {
         <div className="about-page">
           <h1>Tietoa varaamo.hel.fi –palvelusta</h1>
           <p className="lead">
-            Varaamo on on Helsingin kaupungin ylläpitämä verkkopalvelu, jonka kautta voi varata
+            Varaamo on Helsingin kaupungin ylläpitämä verkkopalvelu, jonka kautta voi varata
             kaupungin julkisia tiloja sekä työpisteitä yksityiseen käyttöön.
           </p>
           <p>
-            Tilavarausjärjestelmä on testausvaiheessa, eikä pilottikäytössä olevassa versiossa
-            ole vielä kaikkia suunnitteilla olevia ominaisuuksia ja toiminnallisuuksia.
+            Tilavarausjärjestelmä on testausvaiheessa, eikä pilottikäytössä olevassa versiossa ole
+            vielä kaikkia suunnitteilla olevia ominaisuuksia ja toiminnallisuuksia.
           </p>
           <p>
             Pilottivaiheessa palvelun kautta on varattavissa kaupunginkirjaston,
@@ -35,9 +35,9 @@ class AboutPage extends Component {
             yhteystiedot tilavarauksen tekemiseen sähköpostilla tai puhelimitse.
           </p>
           <p>
-            Varaamo-tilavarausjärjestelmän kehittäminen on osa Helsingin kaupungin strategiaohjelmaa
-            2013 - 2016 (Tehokkaat ja toimivat tukipalvelut) sekä tietotekniikkaohjelmaa 2015 - 2017
-            (Datarajapinnat ja avoin kaupunkikehitys).
+            Varaamo-tilavarausjärjestelmän kehittäminen on osa Helsingin kaupungin
+            strategiaohjelmaa 2013 - 2016 (Tehokkaat ja toimivat tukipalvelut) sekä
+            tietotekniikkaohjelmaa 2015 - 2017 (Datarajapinnat ja avoin kaupunkikehitys).
           </p>
           <p>
             Virastoyhteisen tilavaraushankkeen tavoitteena on julkisten tilojen käytön tehostaminen,
