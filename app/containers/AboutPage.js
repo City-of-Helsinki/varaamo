@@ -11,6 +11,11 @@ class AboutPage extends Component {
         tämän linkin
       </a>
     );
+    const registerLink = (
+      <a href="http://www.helmet-kirjasto.fi/varaamo-palaute/rekisteriseloste.php">
+        Asiakasrekisteriseloste
+      </a>
+    );
 
     return (
       <DocumentTitle title="Tietoa palvelusta - Varaamo">
@@ -47,6 +52,10 @@ class AboutPage extends Component {
           <p>
             Palvelua kehitetään edelleen ja toivomme palvelun käyttäjiltä palautetta. Palautetta
             voit antaa {feedbackLink} kautta.
+          </p>
+          <h3>Asiakasrekisteriseloste</h3>
+          <p>
+            Palveluun liittyvän asiakasreskisteriselosteen näet täältä: {registerLink}
           </p>
         </div>
       </DocumentTitle>
