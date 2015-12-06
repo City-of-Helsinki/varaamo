@@ -5,18 +5,18 @@ import { getDateString } from 'utils/TimeUtils';
 
 const filtersSelector = (state, props) => props.location.query;
 
-const searchFiltersSelector = createSelector(
+const urlSearchFiltersSelector = createSelector(
   filtersSelector,
   (filters) => {
-    const searchFilters = Object.assign(
+    const urlSearchFilters = Object.assign(
       {},
       SUPPORTED_SEARCH_FILTERS,
       filters,
       { date: getDateString(filters.date) }
     );
 
-    return searchFilters;
+    return urlSearchFilters;
   }
 );
 
-export default searchFiltersSelector;
+export default urlSearchFiltersSelector;
