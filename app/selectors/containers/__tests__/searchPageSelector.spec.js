@@ -29,4 +29,10 @@ describe('Selector: searchPageSelector', () => {
 
     expect(selected.units).to.deep.equal(expected);
   });
+
+  it('should return routing.path as url from the state', () => {
+    const expected = state.routing.path;
+
+    expect(selected.url).to.equal(expected);
+  });
 });

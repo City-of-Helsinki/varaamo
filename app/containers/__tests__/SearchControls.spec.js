@@ -7,7 +7,6 @@ import queryString from 'query-string';
 import Immutable from 'seamless-immutable';
 
 import { UnconnectedSearchControls as SearchControls } from 'containers/SearchControls';
-import { getFetchParamsFromFilters } from 'utils/SearchUtils';
 
 describe('Container: SearchControls', () => {
   let props;
@@ -17,6 +16,7 @@ describe('Container: SearchControls', () => {
   beforeEach(() => {
     props = {
       actions: {
+        changeSearchFilters: simple.stub(),
         fetchPurposes: simple.stub(),
         updatePath: simple.stub(),
         searchResources: simple.stub(),
@@ -33,6 +33,7 @@ describe('Container: SearchControls', () => {
       ]),
       scrollToSearchResults: simple.stub(),
       typeaheadOptions: ['mock-suggestion'],
+      urlSearchFilters: {},
     };
 
     tree = sd.shallowRender(<SearchControls {...props} />);
@@ -100,20 +101,7 @@ describe('Container: SearchControls', () => {
       const actualProps = dateHeaderTrees[0].props;
 
       expect(actualProps.date).to.equal(props.filters.date);
-      expect(typeof actualProps.onChange).to.equal('function');
-    });
-
-    it('DateHeader onChange should call handleSearch with correct arguments', () => {
-      simple.mock(instance, 'handleSearch');
-      const newDate = 'some-date';
-      dateHeaderTrees[0].props.onChange(newDate);
-      const expected = { date: newDate };
-      const actualCallCount = instance.handleSearch.callCount;
-      const actualArgs = instance.handleSearch.lastCall.args[0];
-      simple.restore();
-
-      expect(actualCallCount).to.equal(1);
-      expect(actualArgs).to.deep.equal(expected);
+      expect(actualProps.onChange).to.equal(instance.onDateChange);
     });
   });
 
@@ -133,32 +121,44 @@ describe('Container: SearchControls', () => {
 
       expect(actualProps.date).to.equal(props.filters.date);
       expect(actualProps.hideFooter).to.equal(true);
-      expect(typeof actualProps.onChange).to.equal('function');
+      expect(actualProps.onChange).to.equal(instance.onDateChange);
+    });
+  });
+
+  describe('onDateChange', () => {
+    const newDate = '2016-12-12';
+
+    it('should call onFiltersChange with correct filter', () => {
+      simple.mock(instance, 'onFiltersChange').returnWith(null);
+      simple.mock(instance, 'handleSearch').returnWith(null);
+      instance.onDateChange(newDate);
+
+      expect(instance.onFiltersChange.callCount).to.equal(1);
+      expect(instance.onFiltersChange.lastCall.args[0]).to.deep.equal({ date: newDate });
+
+      simple.restore();
     });
 
-    it('DatePicker onChange should call handleSearch with correct arguments', () => {
-      simple.mock(instance, 'handleSearch');
-      const newDate = 'some-date';
-      datePickerTrees[0].props.onChange(newDate);
-      const expected = { date: newDate };
-      const actualCallCount = instance.handleSearch.callCount;
-      const actualArgs = instance.handleSearch.lastCall.args[0];
-      simple.restore();
+    it('should call handleSearch with correct arguments', () => {
+      simple.mock(instance, 'onFiltersChange').returnWith(null);
+      simple.mock(instance, 'handleSearch').returnWith(null);
+      instance.onDateChange(newDate);
 
-      expect(actualCallCount).to.equal(1);
-      expect(actualArgs).to.deep.equal(expected);
+      expect(instance.handleSearch.callCount).to.equal(1);
+      expect(instance.handleSearch.lastCall.args[0]).to.deep.equal({ date: newDate });
+      expect(instance.handleSearch.lastCall.args[1]).to.deep.equal({ preventScrolling: true });
+
+      simple.restore();
     });
   });
 
   describe('onFiltersChange', () => {
-    it('should call updatePath with correct url to update url', () => {
+    it('should call changeSearchFilters with given filters', () => {
       const newFilters = { search: 'new search value' };
       instance.onFiltersChange(newFilters);
-      const allFilters = Object.assign({}, props.filters, newFilters);
-      const expectedUrl = `/search?${queryString.stringify(allFilters)}`;
 
-      expect(props.actions.updatePath.callCount).to.equal(1);
-      expect(props.actions.updatePath.lastCall.args[0]).to.equal(expectedUrl);
+      expect(props.actions.changeSearchFilters.callCount).to.equal(1);
+      expect(props.actions.changeSearchFilters.lastCall.args[0]).to.equal(newFilters);
     });
   });
 
@@ -175,14 +175,6 @@ describe('Container: SearchControls', () => {
 
       expect(props.actions.updatePath.callCount).to.equal(1);
       expect(actualUrl).to.equal(expectedUrl);
-    });
-
-    it('should call searchResources with correct arguments', () => {
-      const action = props.actions.searchResources;
-      const expected = getFetchParamsFromFilters(props.filters);
-
-      expect(action.callCount).to.equal(1);
-      expect(action.lastCall.args[0]).to.deep.equal(expected);
     });
   });
 

@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 import DocumentTitle from 'react-document-title';
 import { findDOMNode } from 'react-dom';
@@ -25,6 +26,15 @@ export class UnconnectedSearchPage extends Component {
       actions.searchResources(fetchParams);
     }
     actions.fetchUnits();
+  }
+
+  componentWillUpdate(nextProps) {
+    const preventSearch = !nextProps.url.includes('?');
+    if (preventSearch || _.isEqual(nextProps.filters, this.props.filters)) {
+      return;
+    }
+    const fetchParams = getFetchParamsFromFilters(nextProps.filters);
+    this.props.actions.searchResources(fetchParams);
   }
 
   scrollToSearchResults() {
@@ -81,6 +91,7 @@ UnconnectedSearchPage.propTypes = {
   results: PropTypes.array.isRequired,
   searchDone: PropTypes.bool.isRequired,
   units: PropTypes.object.isRequired,
+  url: PropTypes.string.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {

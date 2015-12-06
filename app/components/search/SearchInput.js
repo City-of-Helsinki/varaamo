@@ -10,11 +10,11 @@ class SearchInput extends Component {
     this.handleTypeaheadSuggestionSelect = this.handleTypeaheadSuggestionSelect.bind(this);
   }
 
-  componentDidUpdate() {
-    // For some reason the typeahead input value is not updated on render when the value is ''.
+  componentWillUpdate(nextProps) {
+    // For some reason the typeahead input value is not updated value prop changes.
     // A related issue maybe: https://github.com/fmoo/react-typeahead/issues/126
-    if (this.props.value === '') {
-      this.refs.typeahead.setEntryText(this.props.value);
+    if (nextProps.value !== this.props.value) {
+      this.refs.typeahead.setEntryText(nextProps.value);
     }
   }
 

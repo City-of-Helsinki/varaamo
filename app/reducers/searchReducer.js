@@ -1,4 +1,6 @@
 import _ from 'lodash';
+import queryString from 'query-string';
+import { UPDATE_PATH } from 'redux-simple-router';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
@@ -36,6 +38,11 @@ function searchReducer(state = initialState, action) {
 
   case types.UI.CLEAR_SEARCH_RESULTS:
     return initialState;
+
+  case UPDATE_PATH:
+    const query = queryString.extract(action.path);
+    const urlSearchFilters = pickSupportedFilters(queryString.parse(query));
+    return state.merge({ filters: urlSearchFilters }, { deep: true });
 
   default:
     return state;

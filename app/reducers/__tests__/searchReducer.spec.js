@@ -2,6 +2,7 @@ import { expect } from 'chai';
 
 import _ from 'lodash';
 import { createAction } from 'redux-actions';
+import { UPDATE_PATH } from 'redux-simple-router';
 import Immutable from 'seamless-immutable';
 
 import { clearSearchResults } from 'actions/searchActions';
@@ -224,6 +225,20 @@ describe('Reducer: searchReducer', () => {
         const nextState = searchReducer(initialState, action);
 
         expect(nextState.results).to.deep.equal([]);
+      });
+    });
+
+    describe('UPDATE_PATH', () => {
+      it('should parse filters from given path and set them to filters', () => {
+        const path = 'search/?purpose=some-purpose';
+        const action = { type: UPDATE_PATH, path };
+        const initialState = Immutable({
+          filters: {},
+        });
+        const expected = { purpose: 'some-purpose' };
+        const nextState = searchReducer(initialState, action);
+
+        expect(nextState.filters).to.deep.equal(expected);
       });
     });
   });

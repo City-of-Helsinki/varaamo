@@ -7,6 +7,7 @@ import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveS
 
 const searchDoneSelector = (state) => state.ui.search.searchDone;
 const unitsSelector = (state) => state.data.units;
+const urlSelector = (state) => state.routing.path;
 
 const searchPageSelector = createSelector(
   requestIsActiveSelectorFactory(ActionTypes.API.SEARCH_RESULTS_GET_REQUEST),
@@ -14,12 +15,14 @@ const searchPageSelector = createSelector(
   searchResultsSelector,
   unitsSelector,
   urlSearchFiltersSelector,
+  urlSelector,
   (
     isFetchingSearchResults,
     searchDone,
     searchResults,
     units,
-    urlSearchFilters
+    urlSearchFilters,
+    url
   ) => {
     return {
       filters: urlSearchFilters,
@@ -27,6 +30,7 @@ const searchPageSelector = createSelector(
       results: searchResults,
       searchDone,
       units,
+      url,
     };
   }
 );

@@ -8,12 +8,12 @@ import { bindActionCreators } from 'redux';
 import { updatePath } from 'redux-simple-router';
 
 import { fetchPurposes } from 'actions/purposeActions';
-import { getTypeaheadSuggestions, searchResources } from 'actions/searchActions';
+import { getTypeaheadSuggestions } from 'actions/searchActions';
+import { changeSearchFilters } from 'actions/uiActions';
 import DateHeader from 'components/common/DateHeader';
 import SearchFilters from 'components/search/SearchFilters';
 import SearchInput from 'components/search/SearchInput';
 import searchControlsSelector from 'selectors/containers/searchControlsSelector';
-import { getFetchParamsFromFilters } from 'utils/SearchUtils';
 
 export class UnconnectedSearchControls extends Component {
   constructor(props) {
@@ -21,17 +21,25 @@ export class UnconnectedSearchControls extends Component {
     this.fetchTypeaheadSuggestions = this.fetchTypeaheadSuggestions.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
+    this.onDateChange = this.onDateChange.bind(this);
     this.onFiltersChange = this.onFiltersChange.bind(this);
   }
 
   componentDidMount() {
-    this.props.actions.fetchPurposes();
+    const { actions, urlSearchFilters } = this.props;
+
+    actions.changeSearchFilters(urlSearchFilters);
+    actions.fetchPurposes();
     this.fetchTypeaheadSuggestions = _.throttle(this.fetchTypeaheadSuggestions, 200, { leading: false, trailing: true });
   }
 
+  onDateChange(newDate) {
+    this.onFiltersChange({ date: newDate });
+    this.handleSearch({ date: newDate }, { preventScrolling: true });
+  }
+
   onFiltersChange(newFilters) {
-    const filters = Object.assign({}, this.props.filters, newFilters);
-    this.props.actions.updatePath(`/search?${queryString.stringify(filters)}`);
+    this.props.actions.changeSearchFilters(newFilters);
   }
 
   fetchTypeaheadSuggestions(value) {
@@ -46,10 +54,8 @@ export class UnconnectedSearchControls extends Component {
     } else {
       filters = this.props.filters;
     }
-    const fetchParams = getFetchParamsFromFilters(filters);
 
     actions.updatePath(`/search?${queryString.stringify(filters)}`);
-    actions.searchResources(fetchParams);
     if (!options.preventScrolling) {
       scrollToSearchResults();
     }
@@ -104,13 +110,13 @@ export class UnconnectedSearchControls extends Component {
           date={this.props.filters.date}
           hideFooter
           gotoSelectedText="Mene valittuun"
-          onChange={(newDate) => this.handleSearch({ date: newDate }, { preventScrolling: true })}
+          onChange={this.onDateChange}
           style={{ height: 210 }}
           todayText="Tänään"
         />
         <DateHeader
           date={this.props.filters.date}
-          onChange={(newDate) => this.handleSearch({ date: newDate }, { preventScrolling: true })}
+          onChange={this.onDateChange}
         />
       </div>
     );
@@ -124,14 +130,15 @@ UnconnectedSearchControls.propTypes = {
   purposeOptions: PropTypes.array.isRequired,
   scrollToSearchResults: PropTypes.func.isRequired,
   typeaheadOptions: PropTypes.array.isRequired,
+  urlSearchFilters: PropTypes.object.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
+    changeSearchFilters,
     fetchPurposes,
     getTypeaheadSuggestions,
     updatePath,
-    searchResources,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

@@ -23,4 +23,8 @@ describe('Selector: searchControlsSelector', () => {
   it('should return typeaheadOptions', () => {
     expect(selected.typeaheadOptions).to.exist;
   });
+
+  it('should return urlSearchFilters', () => {
+    expect(selected.urlSearchFilters).to.exist;
+  });
 });
