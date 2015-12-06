@@ -11,7 +11,6 @@ import {
   postReservation,
   putReservation,
 } from 'actions/reservationActions';
-import { fetchResource } from 'actions/resourceActions';
 import {
   cancelReservationEdit,
   clearReservations,
@@ -28,7 +27,6 @@ import ReservationFormControls from 'components/reservation/ReservationFormContr
 import TimeSlots from 'components/reservation/TimeSlots';
 import ReservationDeleteModal from 'containers/ReservationDeleteModal';
 import reservationFormSelector from 'selectors/containers/reservationFormSelector';
-import { getDateStartAndEndTimes } from 'utils/TimeUtils';
 
 export class UnconnectedReservationForm extends Component {
   constructor(props) {
@@ -45,10 +43,7 @@ export class UnconnectedReservationForm extends Component {
 
   onDateChange(newDate) {
     const { actions, id } = this.props;
-    const fetchParams = getDateStartAndEndTimes(newDate);
-
     actions.updatePath(`/resources/${id}/reservation?date=${newDate}`);
-    actions.fetchResource(id, fetchParams);
   }
 
   handleEdit(values = {}) {
@@ -197,7 +192,6 @@ function mapDispatchToProps(dispatch) {
     clearReservations,
     closeConfirmReservationModal,
     deleteReservation,
-    fetchResource,
     openConfirmReservationModal,
     openReservationDeleteModal,
     postReservation,

@@ -24,6 +24,15 @@ export class UnconnectedReservationPage extends Component {
     actions.fetchResource(id, fetchParams);
   }
 
+  componentWillUpdate(nextProps) {
+    if (nextProps.date !== this.props.date) {
+      const { actions, id } = this.props;
+      const fetchParams = getDateStartAndEndTimes(nextProps.date);
+
+      actions.fetchResource(id, fetchParams);
+    }
+  }
+
   render() {
     const {
       id,

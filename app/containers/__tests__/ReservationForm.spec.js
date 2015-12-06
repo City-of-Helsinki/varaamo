@@ -18,7 +18,6 @@ function getProps(props = {}) {
       clearReservations: simple.stub(),
       closeConfirmReservationModal: simple.stub(),
       deleteReservation: simple.stub(),
-      fetchResource: simple.stub(),
       openConfirmReservationModal: simple.stub(),
       openReservationDeleteModal: simple.stub(),
       postReservation: simple.stub(),
@@ -184,18 +183,6 @@ describe('Container: ReservationForm', () => {
 
       expect(props.actions.updatePath.callCount).to.equal(1);
       expect(actualUrl).to.equal(expectedUrl);
-    });
-
-    it('should call fetchResource actionCreator', () => {
-      expect(props.actions.fetchResource.callCount).to.equal(1);
-    });
-
-    it('should call fetchResource with correct arguments', () => {
-      const actualArgs = props.actions.fetchResource.lastCall.args;
-
-      expect(actualArgs[0]).to.equal(props.id);
-      expect(actualArgs[1].start).to.contain(newDate);
-      expect(actualArgs[1].end).to.contain(newDate);
     });
   });
 

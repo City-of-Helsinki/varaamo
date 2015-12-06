@@ -74,8 +74,9 @@ describe('Container: ReservationPage', () => {
     });
   });
 
-  describe('fetching data', () => {
+  describe('componentDidMount', () => {
     before(() => {
+      props.actions.fetchResource.reset();
       const instance = tree.getMountedInstance();
       instance.componentDidMount();
     });
@@ -90,6 +91,43 @@ describe('Container: ReservationPage', () => {
       expect(actualArgs[0]).to.equal(props.id);
       expect(actualArgs[1].start).to.contain(props.date);
       expect(actualArgs[1].end).to.contain(props.date);
+    });
+  });
+
+  describe('componentWillUpdate', () => {
+    describe('if date changed', () => {
+      let nextProps;
+
+      before(() => {
+        props.actions.fetchResource.reset();
+        const instance = tree.getMountedInstance();
+        nextProps = { date: '2016-12-12' };
+        instance.componentWillUpdate(nextProps);
+      });
+
+      it('should fetch resource data with new date', () => {
+        const actualArgs = props.actions.fetchResource.lastCall.args;
+
+        expect(props.actions.fetchResource.callCount).to.equal(1);
+        expect(actualArgs[0]).to.equal(props.id);
+        expect(actualArgs[1].start).to.contain(nextProps.date);
+        expect(actualArgs[1].end).to.contain(nextProps.date);
+      });
+    });
+
+    describe('if date did not change', () => {
+      let nextProps;
+
+      before(() => {
+        props.actions.fetchResource.reset();
+        const instance = tree.getMountedInstance();
+        nextProps = { date: props.date };
+        instance.componentWillUpdate(nextProps);
+      });
+
+      it('should not fetch resource data', () => {
+        expect(props.actions.fetchResource.callCount).to.equal(0);
+      });
     });
   });
 });
