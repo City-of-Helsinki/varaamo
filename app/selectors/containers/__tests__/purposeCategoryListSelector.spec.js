@@ -1,11 +1,12 @@
 import { expect } from 'chai';
 
-import { getInitialState } from 'utils/TestUtils';
+import { getDefaultRouterProps, getInitialState } from 'utils/TestUtils';
 import purposeCategoryListSelector from 'selectors/containers/purposeCategoryListSelector';
 
 describe('Selector: purposeCategoryListSelector', () => {
   const state = getInitialState();
-  const selected = purposeCategoryListSelector(state);
+  const props = getDefaultRouterProps();
+  const selected = purposeCategoryListSelector(state, props);
 
   it('should return isFetchingPurposes', () => {
     expect(selected.isFetchingPurposes).to.exist;

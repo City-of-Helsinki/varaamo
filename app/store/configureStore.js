@@ -1,17 +1,11 @@
-import createHistory from 'history/lib/createBrowserHistory';
 import { compose, createStore, applyMiddleware } from 'redux';
 import { apiMiddleware } from 'redux-api-middleware';
-import { reduxReactRouter } from 'redux-router';
 
-import getRoutes from 'app/routes';
 import rootReducer from 'reducers/index';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 let finalCreateStore;
-const storeEnhancers = [
-  applyMiddleware(apiMiddleware),
-  reduxReactRouter({ getRoutes, createHistory }),
-];
+const storeEnhancers = [applyMiddleware(apiMiddleware)];
 
 if (isDevelopment) {
   const createLogger = require('redux-logger');

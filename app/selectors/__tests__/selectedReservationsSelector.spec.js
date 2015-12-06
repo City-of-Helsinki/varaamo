@@ -6,16 +6,19 @@ import selectedReservationsSelector from 'selectors/selectedReservationsSelector
 
 function getState(selected) {
   return {
-    router: {
-      params: {
-        id: 'some-id',
-      },
-    },
     ui: Immutable({
       reservation: {
         selected,
       },
     }),
+  };
+}
+
+function getProps() {
+  return {
+    params: {
+      id: 'some-id',
+    },
   };
 }
 
@@ -27,14 +30,16 @@ describe('Selector: selectedReservationsSelector', () => {
 
   it('should return an empty object if no reservations are selected', () => {
     const state = getState([]);
-    const actual = selectedReservationsSelector(state);
+    const props = getProps();
+    const actual = selectedReservationsSelector(state, props);
 
     expect(actual).to.deep.equal([]);
   });
 
   it('should return selectedReservations in correct form', () => {
     const state = getState([selected[0]]);
-    const actual = selectedReservationsSelector(state);
+    const props = getProps();
+    const actual = selectedReservationsSelector(state, props);
     const expected = [
       {
         begin: '2015-12-12T12:00:00+03:00',
@@ -48,7 +53,8 @@ describe('Selector: selectedReservationsSelector', () => {
 
   it('should combine reservations that if they are continual', () => {
     const state = getState(selected);
-    const actual = selectedReservationsSelector(state);
+    const props = getProps();
+    const actual = selectedReservationsSelector(state, props);
     const expected = [
       {
         begin: '2015-12-12T12:00:00+03:00',

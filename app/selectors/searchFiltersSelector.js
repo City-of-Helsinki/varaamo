@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 import { SUPPORTED_SEARCH_FILTERS } from 'constants/AppConstants';
 import { getDateString } from 'utils/TimeUtils';
 
-const filtersSelector = (state) => state.router.location.query;
+const filtersSelector = (state, props) => props.location.query;
 
 const searchFiltersSelector = createSelector(
   filtersSelector,

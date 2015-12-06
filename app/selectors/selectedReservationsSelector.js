@@ -3,7 +3,7 @@ import Immutable from 'seamless-immutable';
 
 import { combineReservations } from 'utils/DataUtils';
 
-const idSelector = (state) => state.router.params.id;
+const idSelector = (state, props) =>props.params.id;
 const selectedSelector = (state) => state.ui.reservation.selected;
 
 const selectedReservationsSelector = createSelector(

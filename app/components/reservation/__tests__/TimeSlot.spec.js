@@ -3,6 +3,7 @@ import React from 'react';
 import simple from 'simple-mock';
 import sd from 'skin-deep';
 
+import queryString from 'query-string';
 import Immutable from 'seamless-immutable';
 
 import TimeSlot from 'components/reservation/TimeSlot';
@@ -17,7 +18,7 @@ function getProps(props) {
     isLoggedIn: true,
     onClick: simple.stub(),
     openReservationDeleteModal: simple.stub(),
-    pushState: simple.stub(),
+    updatePath: simple.stub(),
     resource: Resource.build(),
     selected: false,
     selectReservationToDelete: simple.stub(),
@@ -172,12 +173,17 @@ describe('Component: reservation/TimeSlot', () => {
       );
     });
 
-    it('should call the props.pushState with correct url', () => {
-      const actualUrlArg = props.pushState.lastCall.args[1];
-      const expectedUrl = `/resources/${props.slot.reservation.resource}/reservation`;
+    it('should call the props.updatePath with correct url', () => {
+      const actualUrl = props.updatePath.lastCall.args[0];
+      const reservation = props.slot.reservation;
+      const query = queryString.stringify({
+        date: reservation.begin.split('T')[0],
+        time: reservation.begin,
+      });
+      const expectedUrl = `/resources/${props.slot.reservation.resource}/reservation?${query}`;
 
-      expect(props.pushState.callCount).to.equal(1);
-      expect(actualUrlArg).to.equal(expectedUrl);
+      expect(props.updatePath.callCount).to.equal(1);
+      expect(actualUrl).to.equal(expectedUrl);
     });
   });
 });

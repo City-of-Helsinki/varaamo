@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
@@ -26,21 +27,18 @@ class ReservationsListItem extends Component {
 
   handleEditClick() {
     const {
-      pushState,
+      updatePath,
       reservation,
       resource,
       selectReservationToEdit,
     } = this.props;
+    const query = queryString.stringify({
+      date: reservation.begin.split('T')[0],
+      time: reservation.begin,
+    });
 
     selectReservationToEdit({ reservation, minPeriod: resource.minPeriod });
-    pushState(
-      null,
-      `/resources/${reservation.resource}/reservation`,
-      {
-        date: reservation.begin.split('T')[0],
-        time: reservation.begin,
-      }
-    );
+    updatePath(`/resources/${reservation.resource}/reservation?${query}`);
   }
 
   renderImage(image) {
@@ -107,7 +105,7 @@ class ReservationsListItem extends Component {
 
 ReservationsListItem.propTypes = {
   openReservationDeleteModal: PropTypes.func.isRequired,
-  pushState: PropTypes.func.isRequired,
+  updatePath: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   selectReservationToDelete: PropTypes.func.isRequired,

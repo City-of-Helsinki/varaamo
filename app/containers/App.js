@@ -3,7 +3,7 @@ import { Grid } from 'react-bootstrap';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { pushState } from 'redux-router';
+import { updatePath } from 'redux-simple-router';
 
 import { clearSearchResults } from 'actions/searchActions';
 import Footer from 'components/layout/Footer';
@@ -51,7 +51,7 @@ UnconnectedApp.propTypes = {
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
     clearSearchResults,
-    pushState,
+    updatePath,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

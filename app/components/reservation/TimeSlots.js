@@ -18,7 +18,7 @@ class TimeSlots extends Component {
       isLoggedIn,
       onClick,
       openReservationDeleteModal,
-      pushState,
+      updatePath,
       resource,
       selected,
       selectReservationToDelete,
@@ -35,7 +35,7 @@ class TimeSlots extends Component {
         key={slot.start}
         onClick={onClick}
         openReservationDeleteModal={openReservationDeleteModal}
-        pushState={pushState}
+        updatePath={updatePath}
         resource={resource}
         scrollTo={scrollTo}
         selected={_.includes(selected, slot.asISOString)}
@@ -90,7 +90,7 @@ TimeSlots.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
   openReservationDeleteModal: PropTypes.func.isRequired,
-  pushState: PropTypes.func.isRequired,
+  updatePath: PropTypes.func.isRequired,
   resource: PropTypes.object.isRequired,
   selected: PropTypes.array.isRequired,
   selectReservationToDelete: PropTypes.func.isRequired,

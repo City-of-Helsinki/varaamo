@@ -3,6 +3,7 @@ import React from 'react';
 import simple from 'simple-mock';
 import sd from 'skin-deep';
 
+import queryString from 'query-string';
 import Immutable from 'seamless-immutable';
 
 import { UnconnectedSearchControls as SearchControls } from 'containers/SearchControls';
@@ -17,8 +18,7 @@ describe('Container: SearchControls', () => {
     props = {
       actions: {
         fetchPurposes: simple.stub(),
-        pushState: simple.stub(),
-        replaceState: simple.stub(),
+        updatePath: simple.stub(),
         searchResources: simple.stub(),
       },
       isFetchingPurposes: false,
@@ -151,14 +151,14 @@ describe('Container: SearchControls', () => {
   });
 
   describe('onFiltersChange', () => {
-    it('should use replaceState to update url', () => {
+    it('should call updatePath with correct url to update url', () => {
       const newFilters = { search: 'new search value' };
       instance.onFiltersChange(newFilters);
       const allFilters = Object.assign({}, props.filters, newFilters);
-      const expectedArgs = [null, '/search', allFilters];
+      const expectedUrl = `/search?${queryString.stringify(allFilters)}`;
 
-      expect(props.actions.replaceState.callCount).to.equal(1);
-      expect(props.actions.replaceState.lastCall.args).to.deep.equal(expectedArgs);
+      expect(props.actions.updatePath.callCount).to.equal(1);
+      expect(props.actions.updatePath.lastCall.args[0]).to.equal(expectedUrl);
     });
   });
 
@@ -169,13 +169,12 @@ describe('Container: SearchControls', () => {
       instance.handleSearch(newFilters);
     });
 
-    it('should call pushState with correct arguments', () => {
-      const actualArgs = props.actions.pushState.lastCall.args;
+    it('should call updatePath with correct url', () => {
+      const actualUrl = props.actions.updatePath.lastCall.args[0];
+      const expectedUrl = `/search?${queryString.stringify(props.filters)}`;
 
-      expect(props.actions.pushState.callCount).to.equal(1);
-      expect(actualArgs[0]).to.equal(null);
-      expect(actualArgs[1]).to.equal('/search');
-      expect(actualArgs[2]).to.deep.equal(props.filters);
+      expect(props.actions.updatePath.callCount).to.equal(1);
+      expect(actualUrl).to.equal(expectedUrl);
     });
 
     it('should call searchResources with correct arguments', () => {

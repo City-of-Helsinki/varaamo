@@ -17,6 +17,8 @@ describe('Container: ReservationPage', () => {
     id: resource.id,
     isFetchingResource: false,
     isLoggedIn: true,
+    location: { query: {} },
+    params: {},
     resource: Immutable(resource),
     unit: Immutable(unit),
   };

@@ -1,10 +1,11 @@
 import _ from 'lodash';
+import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import { Button, Panel } from 'react-bootstrap';
 import DatePicker from 'react-date-picker';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { pushState, replaceState } from 'redux-router';
+import { updatePath } from 'redux-simple-router';
 
 import { fetchPurposes } from 'actions/purposeActions';
 import { getTypeaheadSuggestions, searchResources } from 'actions/searchActions';
@@ -30,7 +31,7 @@ export class UnconnectedSearchControls extends Component {
 
   onFiltersChange(newFilters) {
     const filters = Object.assign({}, this.props.filters, newFilters);
-    this.props.actions.replaceState(null, '/search', filters);
+    this.props.actions.updatePath(`/search?${queryString.stringify(filters)}`);
   }
 
   fetchTypeaheadSuggestions(value) {
@@ -47,7 +48,7 @@ export class UnconnectedSearchControls extends Component {
     }
     const fetchParams = getFetchParamsFromFilters(filters);
 
-    actions.pushState(null, '/search', filters);
+    actions.updatePath(`/search?${queryString.stringify(filters)}`);
     actions.searchResources(fetchParams);
     if (!options.preventScrolling) {
       scrollToSearchResults();
@@ -74,7 +75,7 @@ export class UnconnectedSearchControls extends Component {
           autoFocus={!Boolean(filters.purpose)}
           onChange={(value) => this.handleSearchInputChange(value)}
           onSubmit={this.handleSearch}
-          pushState={actions.pushState}
+          updatePath={actions.updatePath}
           typeaheadOptions={typeaheadOptions}
           value={this.props.filters.search}
         />
@@ -129,8 +130,7 @@ function mapDispatchToProps(dispatch) {
   const actionCreators = {
     fetchPurposes,
     getTypeaheadSuggestions,
-    pushState,
-    replaceState,
+    updatePath,
     searchResources,
   };
 

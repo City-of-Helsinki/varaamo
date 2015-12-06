@@ -29,6 +29,8 @@ export class UnconnectedReservationPage extends Component {
       id,
       isFetchingResource,
       isLoggedIn,
+      location,
+      params,
       resource,
       unit,
     } = this.props;
@@ -60,7 +62,10 @@ export class UnconnectedReservationPage extends Component {
               resource={resource}
             />
             <h2>{isLoggedIn ? 'Varaa tila' : 'Varaustilanne'}</h2>
-            <ReservationForm />
+            <ReservationForm
+              location={location}
+              params={params}
+            />
           </div>
         </Loader>
       </DocumentTitle>
@@ -74,6 +79,8 @@ UnconnectedReservationPage.propTypes = {
   id: PropTypes.string.isRequired,
   isFetchingResource: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
+  location: PropTypes.object.isRequired,
+  params: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   unit: PropTypes.object.isRequired,
 };

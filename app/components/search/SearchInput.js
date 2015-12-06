@@ -27,7 +27,7 @@ class SearchInput extends Component {
   }
 
   handleTypeaheadSuggestionSelect(suggestion) {
-    this.props.pushState(null, `/resources/${suggestion.id}`);
+    this.props.updatePath(`/resources/${suggestion.id}`);
   }
 
   render() {
@@ -69,7 +69,7 @@ SearchInput.propTypes = {
   autoFocus: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  pushState: PropTypes.func.isRequired,
+  updatePath: PropTypes.func.isRequired,
   typeaheadOptions: PropTypes.array.isRequired,
   value: PropTypes.string.isRequired,
 };

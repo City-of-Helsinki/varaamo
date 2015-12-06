@@ -23,6 +23,8 @@ describe('Container: SearchPage', () => {
       date: '2015-10-10',
       purpose: 'some-purpose',
     },
+    location: { query: {} },
+    params: {},
     results: Immutable([resource]),
     searchDone: true,
     units: Immutable({ [unit.id]: unit }),

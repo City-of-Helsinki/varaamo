@@ -35,6 +35,8 @@ export class UnconnectedSearchPage extends Component {
     const {
       filters,
       isFetchingSearchResults,
+      location,
+      params,
       results,
       searchDone,
       units,
@@ -44,7 +46,11 @@ export class UnconnectedSearchPage extends Component {
       <DocumentTitle title="Haku - Varaamo">
         <div className="search-page">
           <h1>Haku</h1>
-          <SearchControls scrollToSearchResults={this.scrollToSearchResults} />
+          <SearchControls
+            location={location}
+            params={params}
+            scrollToSearchResults={this.scrollToSearchResults}
+          />
           {searchDone || isFetchingSearchResults ? (
             <SearchResults
               date={filters.date}
@@ -70,6 +76,8 @@ UnconnectedSearchPage.propTypes = {
   actions: PropTypes.object.isRequired,
   isFetchingSearchResults: PropTypes.bool.isRequired,
   filters: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  params: PropTypes.object.isRequired,
   results: PropTypes.array.isRequired,
   searchDone: PropTypes.bool.isRequired,
   units: PropTypes.object.isRequired,

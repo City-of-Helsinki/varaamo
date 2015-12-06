@@ -1,11 +1,12 @@
 import { expect } from 'chai';
 
 import reservationDeleteModalSelector from 'selectors/containers/reservationDeleteModalSelector';
-import { getInitialState } from 'utils/TestUtils';
+import { getDefaultRouterProps, getInitialState } from 'utils/TestUtils';
 
 describe('Selector: reservationDeleteModalSelector', () => {
   const state = getInitialState();
-  const selected = reservationDeleteModalSelector(state);
+  const props = getDefaultRouterProps();
+  const selected = reservationDeleteModalSelector(state, props);
 
   it('should return show', () => {
     expect(selected.show).to.exist;

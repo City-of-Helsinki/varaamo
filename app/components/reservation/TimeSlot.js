@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import moment from 'moment';
+import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import { Glyphicon, Label } from 'react-bootstrap';
@@ -45,22 +46,19 @@ class TimeSlot extends Component {
 
   handleEditClick() {
     const {
-      pushState,
+      updatePath,
       slot,
       resource,
       selectReservationToEdit,
     } = this.props;
     const reservation = slot.reservation;
+    const query = queryString.stringify({
+      date: reservation.begin.split('T')[0],
+      time: reservation.begin,
+    });
 
     selectReservationToEdit({ reservation, minPeriod: resource.minPeriod });
-    pushState(
-      null,
-      `/resources/${reservation.resource}/reservation`,
-      {
-        date: reservation.begin.split('T')[0],
-        time: reservation.begin,
-      }
-    );
+    updatePath(`/resources/${reservation.resource}/reservation?${query}`);
   }
 
   handleRowClick(disabled) {
@@ -182,7 +180,7 @@ TimeSlot.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
   openReservationDeleteModal: PropTypes.func.isRequired,
-  pushState: PropTypes.func.isRequired,
+  updatePath: PropTypes.func.isRequired,
   resource: PropTypes.object.isRequired,
   scrollTo: PropTypes.bool,
   selected: PropTypes.bool.isRequired,

@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import DatePicker from 'react-date-picker';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { pushState } from 'redux-router';
+import { updatePath } from 'redux-simple-router';
 
 import { addNotification } from 'actions/notificationsActions';
 import {
@@ -47,7 +47,7 @@ export class UnconnectedReservationForm extends Component {
     const { actions, id } = this.props;
     const fetchParams = getDateStartAndEndTimes(newDate);
 
-    actions.pushState(null, `/resources/${id}/reservation`, { date: newDate });
+    actions.updatePath(`/resources/${id}/reservation?date=${newDate}`);
     actions.fetchResource(id, fetchParams);
   }
 
@@ -140,7 +140,7 @@ export class UnconnectedReservationForm extends Component {
           isLoggedIn={isLoggedIn}
           onClick={actions.toggleTimeSlot}
           openReservationDeleteModal={actions.openReservationDeleteModal}
-          pushState={actions.pushState}
+          updatePath={actions.updatePath}
           resource={resource}
           selected={selected}
           selectReservationToDelete={actions.selectReservationToDelete}
@@ -201,7 +201,7 @@ function mapDispatchToProps(dispatch) {
     openConfirmReservationModal,
     openReservationDeleteModal,
     postReservation,
-    pushState,
+    updatePath,
     putReservation,
     selectReservationToDelete,
     selectReservationToEdit,

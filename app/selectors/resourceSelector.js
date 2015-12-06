@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-const idSelector = (state) => state.router.params.id;
+const idSelector = (state, props) => props.params.id;
 const resourcesSelector = (state) => state.data.resources;
 
 const resourceSelector = createSelector(

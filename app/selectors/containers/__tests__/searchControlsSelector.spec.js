@@ -1,11 +1,12 @@
 import { expect } from 'chai';
 
 import searchControlsSelector from 'selectors/containers/searchControlsSelector';
-import { getInitialState } from 'utils/TestUtils';
+import { getDefaultRouterProps, getInitialState } from 'utils/TestUtils';
 
 describe('Selector: searchControlsSelector', () => {
   const state = getInitialState();
-  const selected = searchControlsSelector(state);
+  const props = getDefaultRouterProps();
+  const selected = searchControlsSelector(state, props);
 
   it('should return filters', () => {
     expect(selected.filters).to.exist;

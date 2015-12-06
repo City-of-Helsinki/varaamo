@@ -22,7 +22,7 @@ function getProps(props = {}) {
       openConfirmReservationModal: simple.stub(),
       openReservationDeleteModal: simple.stub(),
       postReservation: simple.stub(),
-      pushState: simple.stub(),
+      updatePath: simple.stub(),
       putReservation: simple.stub(),
       selectReservationToDelete: simple.stub(),
       selectReservationToEdit: simple.stub(),
@@ -116,7 +116,7 @@ describe('Container: ReservationForm', () => {
         expect(actualProps.isLoggedIn).to.equal(props.isLoggedIn);
         expect(actualProps.onClick).to.deep.equal(props.actions.toggleTimeSlot);
         expect(actualProps.openReservationDeleteModal).to.deep.equal(props.actions.openReservationDeleteModal);
-        expect(actualProps.pushState).to.deep.equal(props.actions.pushState);
+        expect(actualProps.updatePath).to.deep.equal(props.actions.updatePath);
         expect(actualProps.resource).to.equal(props.resource);
         expect(actualProps.selected).to.deep.equal(props.selected);
         expect(actualProps.selectReservationToDelete).to.deep.equal(props.actions.selectReservationToDelete);
@@ -178,13 +178,12 @@ describe('Container: ReservationForm', () => {
     const newDate = '2015-12-24';
     instance.onDateChange(newDate);
 
-    it('should call pushState and update the url with the new date', () => {
-      const actualArgs = props.actions.pushState.lastCall.args;
+    it('should call updatePath and update the url with the new date', () => {
+      const actualUrl = props.actions.updatePath.lastCall.args[0];
+      const expectedUrl = `/resources/${props.id}/reservation?date=${newDate}`;
 
-      expect(props.actions.pushState.callCount).to.equal(1);
-      expect(actualArgs[0]).to.equal(null);
-      expect(actualArgs[1]).to.equal(`/resources/${props.id}/reservation`);
-      expect(actualArgs[2]).to.deep.equal({ date: newDate });
+      expect(props.actions.updatePath.callCount).to.equal(1);
+      expect(actualUrl).to.equal(expectedUrl);
     });
 
     it('should call fetchResource actionCreator', () => {

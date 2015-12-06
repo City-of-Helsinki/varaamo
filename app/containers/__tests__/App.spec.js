@@ -12,7 +12,7 @@ describe('Container: App', () => {
   const props = {
     actions: {
       clearSearchResults: simple.stub(),
-      pushState: simple.stub(),
+      updatePath: simple.stub(),
     },
     children: <div id="child-div" />,
     isLoggedIn: true,
