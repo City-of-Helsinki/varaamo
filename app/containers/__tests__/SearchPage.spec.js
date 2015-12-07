@@ -23,6 +23,8 @@ describe('Container: SearchPage', () => {
       date: '2015-10-10',
       purpose: 'some-purpose',
     },
+    location: { query: {} },
+    params: {},
     results: Immutable([resource]),
     searchDone: true,
     units: Immutable({ [unit.id]: unit }),
@@ -47,7 +49,7 @@ describe('Container: SearchPage', () => {
     });
   });
 
-  describe('fetching data', () => {
+  describe('componentDidMount', () => {
     before(() => {
       const instance = tree.getMountedInstance();
       instance.componentDidMount();
@@ -66,6 +68,47 @@ describe('Container: SearchPage', () => {
 
     it('should fetch units when component mounts', () => {
       expect(props.actions.fetchUnits.callCount).to.equal(1);
+    });
+  });
+
+  describe('componentWillUpdate', () => {
+    describe('if search filters did change and url has query part', () => {
+      let nextProps;
+
+      before(() => {
+        props.actions.searchResources.reset();
+        const instance = tree.getMountedInstance();
+        nextProps = {
+          filters: { purpose: 'new-purpose' },
+          url: '/search?purpose=new-purpose',
+        };
+        instance.componentWillUpdate(nextProps);
+      });
+
+      it('should search resources with given filters', () => {
+        const actualArg = props.actions.searchResources.lastCall.args[0];
+
+        expect(props.actions.searchResources.callCount).to.equal(1);
+        expect(actualArg).to.deep.equal(nextProps.filters);
+      });
+    });
+
+    describe('if search filters did not change', () => {
+      let nextProps;
+
+      before(() => {
+        props.actions.searchResources.reset();
+        const instance = tree.getMountedInstance();
+        nextProps = {
+          filters: props.filters,
+          url: '/search?search=some-search',
+        };
+        instance.componentWillUpdate(nextProps);
+      });
+
+      it('should not do a search', () => {
+        expect(props.actions.searchResources.callCount).to.equal(0);
+      });
     });
   });
 });

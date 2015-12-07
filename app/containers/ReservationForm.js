@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import DatePicker from 'react-date-picker';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { pushState } from 'redux-router';
+import { updatePath } from 'redux-simple-router';
 
 import { addNotification } from 'actions/notificationsActions';
 import {
@@ -11,7 +11,6 @@ import {
   postReservation,
   putReservation,
 } from 'actions/reservationActions';
-import { fetchResource } from 'actions/resourceActions';
 import {
   cancelReservationEdit,
   clearReservations,
@@ -28,7 +27,6 @@ import ReservationFormControls from 'components/reservation/ReservationFormContr
 import TimeSlots from 'components/reservation/TimeSlots';
 import ReservationDeleteModal from 'containers/ReservationDeleteModal';
 import reservationFormSelector from 'selectors/containers/reservationFormSelector';
-import { getDateStartAndEndTimes } from 'utils/TimeUtils';
 
 export class UnconnectedReservationForm extends Component {
   constructor(props) {
@@ -45,10 +43,7 @@ export class UnconnectedReservationForm extends Component {
 
   onDateChange(newDate) {
     const { actions, id } = this.props;
-    const fetchParams = getDateStartAndEndTimes(newDate);
-
-    actions.pushState(null, `/resources/${id}/reservation`, { date: newDate });
-    actions.fetchResource(id, fetchParams);
+    actions.updatePath(`/resources/${id}/reservation?date=${newDate}`);
   }
 
   handleEdit(values = {}) {
@@ -140,7 +135,7 @@ export class UnconnectedReservationForm extends Component {
           isLoggedIn={isLoggedIn}
           onClick={actions.toggleTimeSlot}
           openReservationDeleteModal={actions.openReservationDeleteModal}
-          pushState={actions.pushState}
+          updatePath={actions.updatePath}
           resource={resource}
           selected={selected}
           selectReservationToDelete={actions.selectReservationToDelete}
@@ -197,11 +192,10 @@ function mapDispatchToProps(dispatch) {
     clearReservations,
     closeConfirmReservationModal,
     deleteReservation,
-    fetchResource,
     openConfirmReservationModal,
     openReservationDeleteModal,
     postReservation,
-    pushState,
+    updatePath,
     putReservation,
     selectReservationToDelete,
     selectReservationToEdit,

@@ -3,13 +3,11 @@ import MockDate from 'mockdate';
 
 import dateSelector from 'selectors/dateSelector';
 
-function getState(date) {
+function getProps(date) {
   return {
-    router: {
-      location: {
-        query: {
-          date,
-        },
+    location: {
+      query: {
+        date,
       },
     },
   };
@@ -18,16 +16,18 @@ function getState(date) {
 describe('Selector: dateSelector', () => {
   it('should return the date if it is defined', () => {
     const date = '2015-10-10';
-    const state = getState(date);
-    const actual = dateSelector(state);
+    const state = {};
+    const props = getProps(date);
+    const actual = dateSelector(state, props);
 
     expect(actual).to.equal(date);
   });
 
   it('should return current date string if date is not defined', () => {
-    const state = getState('');
+    const state = {};
+    const props = getProps('');
     MockDate.set('2015-12-24T12:00:00Z');
-    const actual = dateSelector(state);
+    const actual = dateSelector(state, props);
     MockDate.reset();
     const expected = '2015-12-24';
 

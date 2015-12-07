@@ -10,7 +10,7 @@ describe('Component: search/SearchInput', () => {
     autoFocus: true,
     onChange: simple.stub(),
     onSubmit: simple.stub(),
-    pushState: simple.stub(),
+    updatePath: simple.stub(),
     typeaheadOptions: ['mock-suggestion'],
     value: 'query',
   };

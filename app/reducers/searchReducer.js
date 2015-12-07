@@ -1,9 +1,18 @@
 import _ from 'lodash';
+import queryString from 'query-string';
+import { UPDATE_PATH } from 'redux-simple-router';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
+import { pickSupportedFilters } from 'utils/SearchUtils';
 
 const initialState = Immutable({
+  filters: {
+    date: '',
+    people: '',
+    purpose: '',
+    search: '',
+  },
   results: [],
   searchDone: false,
   typeaheadSuggestions: [],
@@ -23,8 +32,17 @@ function searchReducer(state = initialState, action) {
     const typeaheadSuggestions = _.values(action.payload.resource);
     return state.merge({ typeaheadSuggestions });
 
+  case types.UI.CHANGE_SEARCH_FILTERS:
+    const filters = pickSupportedFilters(action.payload);
+    return state.merge({ filters }, { deep: true });
+
   case types.UI.CLEAR_SEARCH_RESULTS:
     return initialState;
+
+  case UPDATE_PATH:
+    const query = queryString.extract(action.path);
+    const urlSearchFilters = pickSupportedFilters(queryString.parse(query));
+    return state.merge({ filters: urlSearchFilters }, { deep: true });
 
   default:
     return state;

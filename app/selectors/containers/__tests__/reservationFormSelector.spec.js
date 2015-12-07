@@ -7,9 +7,7 @@ import Resource, { openingHours } from 'fixtures/Resource';
 import reservationFormSelector from 'selectors/containers/reservationFormSelector';
 import TimeUtils from 'utils/TimeUtils';
 
-function getState(resource, resourceId) {
-  const id = resourceId || resource.id;
-
+function getState(resource) {
   return {
     api: Immutable({
       activeRequests: [],
@@ -21,17 +19,6 @@ function getState(resource, resourceId) {
     data: Immutable({
       resources: { [resource.id]: resource },
     }),
-    router: {
-      location: {
-        query: {
-          date: '2015-10-10',
-          time: '2015-10-10T12:00:00+03:00',
-        },
-      },
-      params: {
-        id,
-      },
-    },
     ui: Immutable({
       modals: {
         open: [],
@@ -43,6 +30,21 @@ function getState(resource, resourceId) {
     }),
   };
 }
+
+function getProps(id = 'some-id') {
+  return {
+    location: {
+      query: {
+        date: '2015-10-10',
+        time: '2015-10-10T12:00:00+03:00',
+      },
+    },
+    params: {
+      id,
+    },
+  };
+}
+
 
 describe('Selector: reservationFormSelector', () => {
   const resource = Resource.build({
@@ -58,50 +60,57 @@ describe('Selector: reservationFormSelector', () => {
 
   it('should return confirmReservationModalIsOpen', () => {
     const state = getState(resource);
-    const selected = reservationFormSelector(state);
+    const props = getProps(resource.id);
+    const selected = reservationFormSelector(state, props);
 
     expect(selected.confirmReservationModalIsOpen).to.exist;
   });
 
   it('should return date', () => {
     const state = getState(resource);
-    const selected = reservationFormSelector(state);
+    const props = getProps(resource.id);
+    const selected = reservationFormSelector(state, props);
 
     expect(selected.date).to.exist;
   });
 
   it('should return the id in router.params.id', () => {
     const state = getState(resource);
-    const selected = reservationFormSelector(state);
-    const expected = state.router.params.id;
+    const props = getProps(resource.id);
+    const selected = reservationFormSelector(state, props);
+    const expected = props.params.id;
 
     expect(selected.id).to.equal(expected);
   });
 
   it('should return isFetchingResource', () => {
     const state = getState(resource);
-    const selected = reservationFormSelector(state);
+    const props = getProps(resource.id);
+    const selected = reservationFormSelector(state, props);
 
     expect(selected.isFetchingResource).to.exist;
   });
 
   it('should return isLoggedIn', () => {
     const state = getState(resource);
-    const selected = reservationFormSelector(state);
+    const props = getProps(resource.id);
+    const selected = reservationFormSelector(state, props);
 
     expect(selected.isLoggedIn).to.exist;
   });
 
   it('should return isMakingReservations', () => {
     const state = getState(resource);
-    const selected = reservationFormSelector(state);
+    const props = getProps(resource.id);
+    const selected = reservationFormSelector(state, props);
 
     expect(selected.isMakingReservations).to.exist;
   });
 
   it('should return reservationsToEdit from the state', () => {
     const state = getState(resource);
-    const selected = reservationFormSelector(state);
+    const props = getProps(resource.id);
+    const selected = reservationFormSelector(state, props);
     const expected = state.ui.reservation.toEdit;
 
     expect(selected.reservationsToEdit).to.deep.equal(expected);
@@ -109,7 +118,8 @@ describe('Selector: reservationFormSelector', () => {
 
   it('should return the reservation.selected from the state', () => {
     const state = getState(resource);
-    const selected = reservationFormSelector(state);
+    const props = getProps(resource.id);
+    const selected = reservationFormSelector(state, props);
     const expected = state.ui.reservation.selected;
 
     expect(selected.selected).to.equal(expected);
@@ -117,21 +127,24 @@ describe('Selector: reservationFormSelector', () => {
 
   it('should return resource', () => {
     const state = getState(resource);
-    const selected = reservationFormSelector(state);
+    const props = getProps(resource.id);
+    const selected = reservationFormSelector(state, props);
 
     expect(selected.resource).to.exist;
   });
 
   it('should return selectedReservations', () => {
     const state = getState(resource);
-    const selected = reservationFormSelector(state);
+    const props = getProps(resource.id);
+    const selected = reservationFormSelector(state, props);
 
     expect(selected.selectedReservations).to.exist;
   });
 
   it('should return time', () => {
     const state = getState(resource);
-    const selected = reservationFormSelector(state);
+    const props = getProps(resource.id);
+    const selected = reservationFormSelector(state, props);
 
     expect(selected.time).to.exist;
   });
@@ -143,7 +156,8 @@ describe('Selector: reservationFormSelector', () => {
       simple.mock(TimeUtils, 'getTimeSlots').returnWith(mockSlots);
 
       const state = getState(resource);
-      const selected = reservationFormSelector(state);
+      const props = getProps(resource.id);
+      const selected = reservationFormSelector(state, props);
       const actualArgs = TimeUtils.getTimeSlots.lastCall.args;
 
       expect(actualArgs[0]).to.equal(resource.openingHours[0].opens);
@@ -155,8 +169,9 @@ describe('Selector: reservationFormSelector', () => {
     });
 
     it('should return timeSlots as an empty array when resource is not found', () => {
-      const state = getState(resource, 'unfetched-resource-id');
-      const selected = reservationFormSelector(state);
+      const state = getState(resource);
+      const props = getProps('unfetched-resource-id');
+      const selected = reservationFormSelector(state, props);
 
       expect(selected.timeSlots).to.deep.equal([]);
     });

@@ -3,6 +3,8 @@ import { Well } from 'react-bootstrap';
 import DocumentTitle from 'react-document-title';
 import { Link } from 'react-router';
 
+import { getSearchPageUrl } from 'utils/SearchUtils';
+
 class NotFoundPage extends Component {
   render() {
     return (
@@ -15,7 +17,7 @@ class NotFoundPage extends Component {
           <Well>
             <h5>Voit yrittää seuraavaa:</h5>
             <ul>
-              <li>Jos etsit jotain tiettyä tilaa, voit etsiä sitä <Link to="/search">hakusivulta</Link>.</li>
+              <li>Jos etsit jotain tiettyä tilaa, voit etsiä sitä <Link to={getSearchPageUrl()}>hakusivulta</Link>.</li>
               <li>Jos syötit sivun osoitteen käsin, tarkista että se on oikein.</li>
               <li>Jos tulit tälle sivulle jostain toisesta sivustomme osasta, ota meihin yhteyttä, jotta voimme korjata virheen.</li>
             </ul>

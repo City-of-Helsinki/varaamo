@@ -1,11 +1,12 @@
 import { expect } from 'chai';
 
 import searchPageSelector from 'selectors/containers/searchPageSelector';
-import { getInitialState } from 'utils/TestUtils';
+import { getDefaultRouterProps, getInitialState } from 'utils/TestUtils';
 
 describe('Selector: searchPageSelector', () => {
   const state = getInitialState();
-  const selected = searchPageSelector(state);
+  const props = getDefaultRouterProps();
+  const selected = searchPageSelector(state, props);
 
   it('should return filters', () => {
     expect(selected.filters).to.exist;

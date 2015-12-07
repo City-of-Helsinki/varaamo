@@ -5,7 +5,7 @@ import isLoggedInSelector from 'selectors/isLoggedInSelector';
 import resourceSelector from 'selectors/resourceSelector';
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
 
-const idSelector = (state) => state.router.params.id;
+const idSelector = (state, props) => props.params.id;
 const unitsSelector = (state) => state.data.units;
 
 const resourcePageSelector = createSelector(

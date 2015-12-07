@@ -12,7 +12,7 @@ import { getOpeningHours } from 'utils/DataUtils';
 import { getTimeSlots } from 'utils/TimeUtils';
 import ModalTypes from 'constants/ModalTypes';
 
-const idSelector = (state) => state.router.params.id;
+const idSelector = (state, props) => props.params.id;
 const selectedSelector = (state) => state.ui.reservation.selected;
 const toEditSelector = (state) => state.ui.reservation.toEdit;
 

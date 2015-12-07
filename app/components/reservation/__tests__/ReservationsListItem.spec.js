@@ -3,6 +3,7 @@ import React from 'react';
 import simple from 'simple-mock';
 import sd from 'skin-deep';
 
+import queryString from 'query-string';
 import Immutable from 'seamless-immutable';
 
 import ReservationsListItem from 'components/reservation/ReservationsListItem';
@@ -14,7 +15,7 @@ import Unit from 'fixtures/Unit';
 describe('Component: reservation/ReservationsListItem', () => {
   const props = {
     openReservationDeleteModal: simple.stub(),
-    pushState: simple.stub(),
+    updatePath: simple.stub(),
     reservation: Immutable(Reservation.build()),
     resource: Immutable(Resource.build({
       images: [Image.build()],
@@ -125,11 +126,15 @@ describe('Component: reservation/ReservationsListItem', () => {
       );
     });
 
-    it('should call the props.pushState with correct url', () => {
-      const actualUrlArg = props.pushState.lastCall.args[1];
-      const expectedUrl = `/resources/${props.reservation.resource}/reservation`;
+    it('should call the props.updatePath with correct url', () => {
+      const actualUrlArg = props.updatePath.lastCall.args[0];
+      const query = queryString.stringify({
+        date: props.reservation.begin.split('T')[0],
+        time: props.reservation.begin,
+      });
+      const expectedUrl = `/resources/${props.reservation.resource}/reservation?${query}`;
 
-      expect(props.pushState.callCount).to.equal(1);
+      expect(props.updatePath.callCount).to.equal(1);
       expect(actualUrlArg).to.equal(expectedUrl);
     });
   });

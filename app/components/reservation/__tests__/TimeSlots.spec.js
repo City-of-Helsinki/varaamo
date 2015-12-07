@@ -22,7 +22,7 @@ describe('Component: reservation/TimeSlots', () => {
       isLoggedIn: true,
       onClick: simple.stub(),
       openReservationDeleteModal: simple.stub(),
-      pushState: simple.stub(),
+      updatePath: simple.stub(),
       resource: Resource.build(),
       selected: [timeSlots[0].asISOString],
       selectReservationToDelete: simple.stub(),
@@ -83,7 +83,7 @@ describe('Component: reservation/TimeSlots', () => {
           expect(timeSlotTree.props.isLoggedIn).to.equal(props.isLoggedIn);
           expect(timeSlotTree.props.onClick).to.equal(props.onClick);
           expect(timeSlotTree.props.openReservationDeleteModal).to.equal(props.openReservationDeleteModal);
-          expect(timeSlotTree.props.pushState).to.equal(props.pushState);
+          expect(timeSlotTree.props.updatePath).to.equal(props.updatePath);
           expect(timeSlotTree.props.resource).to.equal(props.resource);
           expect(timeSlotTree.props.selectReservationToDelete).to.equal(props.selectReservationToDelete);
           expect(timeSlotTree.props.selectReservationToEdit).to.equal(props.selectReservationToEdit);
@@ -106,7 +106,7 @@ describe('Component: reservation/TimeSlots', () => {
       isLoggedIn: true,
       onClick: simple.stub(),
       openReservationDeleteModal: simple.stub(),
-      pushState: simple.stub(),
+      updatePath: simple.stub(),
       resource: Resource.build(),
       selected: [],
       selectReservationToDelete: simple.stub(),

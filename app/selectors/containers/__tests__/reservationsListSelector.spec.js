@@ -1,11 +1,12 @@
 import { expect } from 'chai';
 
 import reservationsListSelector from 'selectors/containers/reservationsListSelector';
-import { getInitialState } from 'utils/TestUtils';
+import { getDefaultRouterProps, getInitialState } from 'utils/TestUtils';
 
 describe('Selector: reservationsListSelector', () => {
   const state = getInitialState();
-  const selected = reservationsListSelector(state);
+  const props = getDefaultRouterProps();
+  const selected = reservationsListSelector(state, props);
 
   it('should return isFetchingReservations', () => {
     expect(selected.isFetchingReservations).to.exist;

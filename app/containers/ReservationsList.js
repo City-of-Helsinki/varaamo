@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { pushState } from 'redux-router';
+import { updatePath } from 'redux-simple-router';
 
 import {
   openReservationDeleteModal,
@@ -44,7 +44,7 @@ export class UnconnectedReservationsList extends Component {
         reservation={reservation}
         resource={resource}
         openReservationDeleteModal={actions.openReservationDeleteModal}
-        pushState={actions.pushState}
+        updatePath={actions.updatePath}
         selectReservationToDelete={actions.selectReservationToDelete}
         selectReservationToEdit={actions.selectReservationToEdit}
         unit={unit}
@@ -89,7 +89,7 @@ function mapDispatchToProps(dispatch) {
     fetchResources,
     fetchUnits,
     openReservationDeleteModal,
-    pushState,
+    updatePath,
     selectReservationToDelete,
     selectReservationToEdit,
   };

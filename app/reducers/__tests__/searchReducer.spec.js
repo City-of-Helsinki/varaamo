@@ -2,6 +2,7 @@ import { expect } from 'chai';
 
 import _ from 'lodash';
 import { createAction } from 'redux-actions';
+import { UPDATE_PATH } from 'redux-simple-router';
 import Immutable from 'seamless-immutable';
 
 import { clearSearchResults } from 'actions/searchActions';
@@ -12,6 +13,28 @@ import searchReducer from 'reducers/searchReducer';
 describe('Reducer: searchReducer', () => {
   describe('initial state', () => {
     const initialState = searchReducer(undefined, {});
+
+    describe('filters', () => {
+      it('should be an object', () => {
+        expect(typeof initialState.filters).to.equal('object');
+      });
+
+      it('date should be an empty string', () => {
+        expect(initialState.filters.date).to.equal('');
+      });
+
+      it('people should be an empty string', () => {
+        expect(initialState.filters.purpose).to.equal('');
+      });
+
+      it('purpose should be an empty string', () => {
+        expect(initialState.filters.purpose).to.equal('');
+      });
+
+      it('search should be an empty string', () => {
+        expect(initialState.filters.search).to.equal('');
+      });
+    });
 
     it('results should be an empty array', () => {
       expect(initialState.results).to.deep.equal([]);
@@ -113,6 +136,66 @@ describe('Reducer: searchReducer', () => {
       });
     });
 
+    describe('UI.CHANGE_SEARCH_FILTERS', () => {
+      const changeSearchFilters = createAction(types.UI.CHANGE_SEARCH_FILTERS);
+
+      it('should set the given filters to filters', () => {
+        const filters = { purpose: 'some-purpose' };
+        const action = changeSearchFilters(filters);
+        const initialState = Immutable({
+          filters: {},
+        });
+        const expected = Immutable(filters);
+        const nextState = searchReducer(initialState, action);
+
+        expect(nextState.filters).to.deep.equal(expected);
+      });
+
+      it('should override previous values of same filters', () => {
+        const filters = { purpose: 'some-purpose' };
+        const action = changeSearchFilters(filters);
+        const initialState = Immutable({
+          filters: { purpose: 'old-value' },
+        });
+        const expected = Immutable(filters);
+        const nextState = searchReducer(initialState, action);
+
+        expect(nextState.filters).to.deep.equal(expected);
+      });
+
+      it('should not override unspecified filters', () => {
+        const filters = { purpose: 'some-purpose' };
+        const action = changeSearchFilters(filters);
+        const initialState = Immutable({
+          filters: { search: 'search-query' },
+        });
+        const expected = Immutable({
+          purpose: 'some-purpose',
+          search: 'search-query',
+        });
+        const nextState = searchReducer(initialState, action);
+
+        expect(nextState.filters).to.deep.equal(expected);
+      });
+
+      it('should only save supported filters', () => {
+        const filters = {
+          purpose: 'some-purpose',
+          search: 'search-query',
+          unsupported: 'invalid',
+        };
+        const action = changeSearchFilters(filters);
+        const initialState = Immutable({ filters: {} });
+        const expected = Immutable({
+          purpose: 'some-purpose',
+          search: 'search-query',
+        });
+        const nextState = searchReducer(initialState, action);
+
+        expect(nextState.filters).to.deep.equal(expected);
+      });
+    });
+
     describe('UI.CLEAR_SEARCH_RESULTS', () => {
       it('should empty the search results', () => {
         const action = clearSearchResults();
@@ -142,6 +225,20 @@ describe('Reducer: searchReducer', () => {
         const nextState = searchReducer(initialState, action);
 
         expect(nextState.results).to.deep.equal([]);
+      });
+    });
+
+    describe('UPDATE_PATH', () => {
+      it('should parse filters from given path and set them to filters', () => {
+        const path = 'search/?purpose=some-purpose';
+        const action = { type: UPDATE_PATH, path };
+        const initialState = Immutable({
+          filters: {},
+        });
+        const expected = { purpose: 'some-purpose' };
+        const nextState = searchReducer(initialState, action);
+
+        expect(nextState.filters).to.deep.equal(expected);
       });
     });
   });

@@ -21,7 +21,7 @@ function getProps(props) {
       fetchResources: simple.stub(),
       fetchUnits: simple.stub(),
       openReservationDeleteModal: simple.stub(),
-      pushState: simple.stub(),
+      updatePath: simple.stub(),
       selectReservationToDelete: simple.stub(),
       selectReservationToEdit: simple.stub(),
     },
@@ -83,7 +83,7 @@ describe('Component: reservation/ReservationsList', () => {
 
           expect(actualProps.reservation).to.deep.equal(props.reservations[index]);
           expect(actualProps.openReservationDeleteModal).to.deep.equal(props.actions.openReservationDeleteModal);
-          expect(actualProps.pushState).to.deep.equal(props.actions.pushState);
+          expect(actualProps.updatePath).to.deep.equal(props.actions.updatePath);
           expect(
             actualProps.selectReservationToDelete
           ).to.deep.equal(

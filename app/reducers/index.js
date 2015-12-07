@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { routerStateReducer } from 'redux-router';
+import { routeReducer } from 'redux-simple-router';
 
 import activeRequestsReducer from 'reducers/activeRequestsReducer';
 import authReducer from 'reducers/authReducer';
@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   data: dataReducer,
   notifications: notificationsReducer,
-  router: routerStateReducer,
+  routing: routeReducer,
   ui: combineReducers({
     modals: modalsReducer,
     reservation: reservationReducer,

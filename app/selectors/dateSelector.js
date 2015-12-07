@@ -1,5 +1,5 @@
 import { getDateString } from 'utils/TimeUtils';
 
-const dateSelector = (state) => getDateString(state.router.location.query.date);
+const dateSelector = (state, props) => getDateString(props.location.query.date);
 
 export default dateSelector;

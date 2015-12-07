@@ -4,6 +4,7 @@ import { ListGroupItem } from 'react-bootstrap';
 import { Link } from 'react-router';
 
 import { getName } from 'utils/DataUtils';
+import { getSearchPageUrl } from 'utils/SearchUtils';
 
 class PurposeCategoryItem extends Component {
   render() {
@@ -11,7 +12,7 @@ class PurposeCategoryItem extends Component {
 
     return (
       <ListGroupItem key={purpose.id}>
-        <Link to="/search" query={{ purpose: purpose.id }}>
+        <Link to={getSearchPageUrl({ purpose: purpose.id })}>
           {_.capitalize(getName(purpose))}
         </Link>
       </ListGroupItem>
