@@ -6,6 +6,33 @@ class Html extends Component {
     return `window.__INITIAL_STATE__ = ${serialize(initialState)};`;
   }
 
+  renderAnalyticsCode(isProduction) {
+    if (!isProduction) {
+      return null;
+    }
+
+    const scriptString = `
+      var _paq = _paq || [];
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="//analytics.hel.ninja/piwik/";
+        _paq.push(['setTrackerUrl', u+'piwik.php']);
+        _paq.push(['setSiteId', 4]);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+      })();
+    `;
+    return (
+      <div>
+        <script dangerouslySetInnerHTML={{ __html: scriptString }} />
+        <noscript>
+          <p><img alt="" src="//analytics.hel.ninja/piwik/piwik.php?idsite=4" style={{ border: 0 }} /></p>
+        </noscript>
+      </div>
+    );
+  }
+
   renderStylesLink(appCssSrc, isProduction) {
     if (!isProduction) {
       return null;
@@ -37,6 +64,7 @@ class Html extends Component {
           <div id="root" />
           <script dangerouslySetInnerHTML={{ __html: initialStateHtml }} />
           <script src={appScriptSrc} />
+          {this.renderAnalyticsCode(isProduction)}
         </body>
       </html>
     );
