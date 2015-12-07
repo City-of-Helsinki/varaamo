@@ -26,7 +26,9 @@ function getState(resources = [], units = []) {
 function getProps(id = 'some-id') {
   return {
     location: {
-      query: {},
+      query: {
+        date: '2015-12-12',
+      },
     },
     params: {
       id,
@@ -35,6 +37,15 @@ function getProps(id = 'some-id') {
 }
 
 describe('Selector: resourcePageSelector', () => {
+  it('should return the date in props.location.date', () => {
+    const state = getState();
+    const props = getProps();
+    const selected = resourcePageSelector(state, props);
+    const expected = props.location.query.date;
+
+    expect(selected.date).to.equal(expected);
+  });
+
   it('should return the id in router.params.id', () => {
     const state = getState();
     const props = getProps();

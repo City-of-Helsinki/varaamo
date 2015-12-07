@@ -28,7 +28,7 @@ describe('Container: ReservationPage', () => {
     const linkTree = tree.subTree('LinkContainer');
 
     it('should display a link to this resources page', () => {
-      const expected = `/resources/${props.resource.id}`;
+      const expected = `/resources/${props.resource.id}?date=${props.date}`;
 
       expect(linkTree.props.to).to.equal(expected);
     });
