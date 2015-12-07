@@ -70,7 +70,7 @@ export class UnconnectedReservationPage extends Component {
               isLoggedIn={isLoggedIn}
               resource={resource}
             />
-            <h2>{isLoggedIn ? 'Varaa tila' : 'Varaustilanne'}</h2>
+            <h2 id="reservation-header">{isLoggedIn ? 'Varaa tila' : 'Varaustilanne'}</h2>
             <ReservationForm
               location={location}
               params={params}

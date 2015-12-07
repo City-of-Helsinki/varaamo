@@ -36,7 +36,11 @@ class ImagePanel extends Component {
     }
 
     return (
-      <Panel collapsible header="Kuvat">
+      <Panel
+        collapsible
+        id="image-panel"
+        header="Kuvat"
+      >
         {_.map(images, this.renderImage)}
       </Panel>
     );

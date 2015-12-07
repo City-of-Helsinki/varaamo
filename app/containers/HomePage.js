@@ -14,7 +14,7 @@ class HomePage extends Component {
             kokeiluasteella oleva palvelu, jonka kautta varataan Kaupunginkirjaston,
             Nuorisoasiainkeskuksen ja Varhaiskasvatusviraston tiloja ja työpisteitä.
           </p>
-          <h2>Mitä haluat tehdä?</h2>
+          <h2 id="purpose-category-header">Mitä haluat tehdä?</h2>
           <PurposeCategoryList />
         </div>
       </DocumentTitle>

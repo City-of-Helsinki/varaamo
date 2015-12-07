@@ -18,7 +18,11 @@ class DateHeader extends Component {
     };
 
     return (
-      <h3 className="date-header" style={{ textAlign: 'center' }}>
+      <h3
+        className="date-header"
+        id="date-header"
+        style={{ textAlign: 'center' }}
+      >
         <button
           onClick={() => onChange(addToDate(date, -1))}
           style={Object.assign({}, iconButtonStyles, { float: 'left' })}
