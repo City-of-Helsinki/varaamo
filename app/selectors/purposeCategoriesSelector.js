@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import pick from 'lodash/object/pick';
 import { createSelector } from 'reselect';
 
 const purposesSelector = (state) => state.data.purposes;
@@ -6,7 +6,7 @@ const purposesSelector = (state) => state.data.purposes;
 export const purposeCategoriesSelector = createSelector(
   purposesSelector,
   (purposes) => {
-    return _.pick(purposes, (purpose) => purpose.parent === null);
+    return pick(purposes, (purpose) => purpose.parent === null);
   }
 );
 

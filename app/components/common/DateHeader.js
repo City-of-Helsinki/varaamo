@@ -1,6 +1,6 @@
 import 'moment/locale/fi';
 
-import _ from 'lodash';
+import capitalize from 'lodash/string/capitalize';
 import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 import { Glyphicon } from 'react-bootstrap';
@@ -46,7 +46,7 @@ class DateHeader extends Component {
         >
           <Glyphicon glyph="chevron-right" />
         </button>
-        {_.capitalize(dateString)}
+        {capitalize(dateString)}
       </h3>
     );
   }

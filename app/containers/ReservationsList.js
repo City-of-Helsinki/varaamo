@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import map from 'lodash/collection/map';
 import React, { Component, PropTypes } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
@@ -63,7 +63,7 @@ export class UnconnectedReservationsList extends Component {
         {reservations.length ? (
           <div>
             <ul className="reservations-list">
-              {_.map(reservations, this.renderReservationsListItem)}
+              {map(reservations, this.renderReservationsListItem)}
             </ul>
             <ReservationDeleteModal />
           </div>

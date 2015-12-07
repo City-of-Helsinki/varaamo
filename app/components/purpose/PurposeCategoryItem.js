@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import capitalize from 'lodash/string/capitalize';
 import React, { Component, PropTypes } from 'react';
 import { ListGroupItem } from 'react-bootstrap';
 import { Link } from 'react-router';
@@ -13,7 +13,7 @@ class PurposeCategoryItem extends Component {
     return (
       <ListGroupItem key={purpose.id}>
         <Link to={getSearchPageUrl({ purpose: purpose.id })}>
-          {_.capitalize(getName(purpose))}
+          {capitalize(getName(purpose))}
         </Link>
       </ListGroupItem>
     );

@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import React from 'react';
 import sd from 'skin-deep';
 
-import _ from 'lodash';
+import capitalize from 'lodash/string/capitalize';
 
 import ResourceDetails from 'components/resource/ResourceDetails';
 
@@ -19,7 +19,7 @@ describe('Component: resource/ResourceDetails', () => {
   });
 
   it('should display the given type capitalized', () => {
-    const expected = _.capitalize(props.type);
+    const expected = capitalize(props.type);
 
     expect(tree.text()).to.contain(expected);
   });

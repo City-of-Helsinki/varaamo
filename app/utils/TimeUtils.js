@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import forEach from 'lodash/collection/forEach';
+import map from 'lodash/collection/map';
 import moment from 'moment';
 import 'moment-range';
 
@@ -43,10 +44,10 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = [], reserv
 
   const range = moment.range(moment.utc(start), moment.utc(end));
   const duration = moment.duration(period);
-  const reservationRanges = _.map(reservations, reservation => {
+  const reservationRanges = map(reservations, reservation => {
     return moment.range(moment(reservation.begin), moment(reservation.end));
   });
-  const editRanges = _.map(reservationsToEdit, reservation => {
+  const editRanges = map(reservationsToEdit, reservation => {
     return moment.range(moment(reservation.begin), moment(reservation.end));
   });
   const slots = [];
@@ -69,7 +70,7 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = [], reserv
     let reservation = null;
     let reservationStarting = false;
     let reservationEnding = false;
-    _.forEach(reservationRanges, (reservationRange, index) => {
+    forEach(reservationRanges, (reservationRange, index) => {
       if (reservationRange.overlaps(slotRange)) {
         reserved = true;
         reservation = reservations[index];

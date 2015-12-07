@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import map from 'lodash/collection/map';
 import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import { Table } from 'react-bootstrap';
@@ -45,7 +45,7 @@ class SearchResults extends Component {
                 </tr>
               </thead>
               <tbody>
-                {_.map(results, this.renderSearchResult)}
+                {map(results, this.renderSearchResult)}
               </tbody>
             </Table>
           ) : (

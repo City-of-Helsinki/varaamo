@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import capitalize from 'lodash/string/capitalize';
 import React, { Component, PropTypes } from 'react';
 import AutoLinkText from 'react-autolink-text';
 
@@ -8,7 +8,7 @@ class ResourceDetails extends Component {
 
     return (
       <div>
-        <p>{_.capitalize(type)} {capacityString}</p>
+        <p>{capitalize(type)} {capacityString}</p>
         <p>
           <AutoLinkText text={description} />
         </p>

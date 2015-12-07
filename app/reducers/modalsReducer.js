@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import without from 'lodash/array/without';
+import includes from 'lodash/collection/includes';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
@@ -15,8 +16,8 @@ function modalsReducer(state = initialState, action) {
   case types.UI.CLOSE_MODAL:
     modal = action.payload;
 
-    if (_.includes(state.open, modal)) {
-      return state.merge({ open: _.without(state.open, modal) });
+    if (includes(state.open, modal)) {
+      return state.merge({ open: without(state.open, modal) });
     }
 
     return state;
@@ -24,7 +25,7 @@ function modalsReducer(state = initialState, action) {
   case types.UI.OPEN_MODAL:
     modal = action.payload;
 
-    if (_.includes(state.open, modal)) {
+    if (includes(state.open, modal)) {
       return state;
     }
 

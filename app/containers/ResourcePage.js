@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import isEmpty from 'lodash/lang/isEmpty';
 import React, { Component, PropTypes } from 'react';
 import { Button } from 'react-bootstrap';
 import DocumentTitle from 'react-document-title';
@@ -37,13 +37,13 @@ export class UnconnectedResourcePage extends Component {
     } = this.props;
     const resourceName = getName(resource);
 
-    if (_.isEmpty(resource) && !isFetchingResource) {
+    if (isEmpty(resource) && !isFetchingResource) {
       return <NotFoundPage />;
     }
 
     return (
       <DocumentTitle title={`${resourceName} - Varaamo`}>
-        <Loader loaded={!_.isEmpty(resource)}>
+        <Loader loaded={!isEmpty(resource)}>
           <div className="resource-page">
             <ResourceHeader
               address={getAddressWithName(unit)}

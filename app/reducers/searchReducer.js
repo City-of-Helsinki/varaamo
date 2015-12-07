@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import keys from 'lodash/object/keys';
+import values from 'lodash/object/values';
 import queryString from 'query-string';
 import { UPDATE_PATH } from 'redux-simple-router';
 import Immutable from 'seamless-immutable';
@@ -22,14 +23,14 @@ function searchReducer(state = initialState, action) {
   switch (action.type) {
 
   case types.API.SEARCH_RESULTS_GET_SUCCESS:
-    const results = _.keys(action.payload.entities.resources);
+    const results = keys(action.payload.entities.resources);
     return state.merge({
       results,
       searchDone: true,
     });
 
   case types.API.TYPEAHEAD_SUGGESTIONS_GET_SUCCESS:
-    const typeaheadSuggestions = _.values(action.payload.resource);
+    const typeaheadSuggestions = values(action.payload.resource);
     return state.merge({ typeaheadSuggestions });
 
   case types.UI.CHANGE_SEARCH_FILTERS:

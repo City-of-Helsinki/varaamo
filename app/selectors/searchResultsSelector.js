@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import sortBy from 'lodash/collection/sortBy';
 import { createSelector } from 'reselect';
 
 import { getName } from 'utils/DataUtils';
@@ -10,7 +10,7 @@ const searchResultsSelector = createSelector(
   resourcesSelector,
   resultsSelector,
   (resources, results) => {
-    const searchResults = _.sortBy(
+    const searchResults = sortBy(
       results.map(resourceId => resources[resourceId]),
       (result) => getName(result)
     );

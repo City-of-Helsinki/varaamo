@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import capitalize from 'lodash/string/capitalize';
 import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 
@@ -22,11 +22,11 @@ class TimeRange extends Component {
       <time className={className} dateTime={ISORangeString}>
         {lineBreaks ? (
           <div>
-            <div>{_.capitalize(dateString)}</div>
+            <div>{capitalize(dateString)}</div>
             <div>{timeString}</div>
           </div>
         ) : (
-          `${_.capitalize(dateString)} ${timeString}`
+          `${capitalize(dateString)} ${timeString}`
         )}
       </time>
     );

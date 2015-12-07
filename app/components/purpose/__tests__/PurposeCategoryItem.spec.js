@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import React from 'react';
 import sd from 'skin-deep';
 
-import _ from 'lodash';
+import capitalize from 'lodash/string/capitalize';
 
 import PurposeCategoryItem from 'components/purpose/PurposeCategoryItem';
 import Purpose from 'fixtures/Purpose';
@@ -31,7 +31,7 @@ describe('Component: purpose/PurposeCategoryItem', () => {
   });
 
   it('should display name of the purpose capitalized', () => {
-    const expected = _.capitalize(props.purpose.name.fi);
+    const expected = capitalize(props.purpose.name.fi);
 
     expect(tree.subTree('Link').props.children).to.equal(expected);
   });

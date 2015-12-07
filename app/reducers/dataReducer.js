@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import reject from 'lodash/collection/reject';
+import omit from 'lodash/object/omit';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
@@ -21,14 +22,14 @@ function handleReservationDelete(action, state) {
     const newResource = Object.assign(
       {},
       resource,
-      { reservations: _.reject(resource.reservations, (current) => current.url === reservation.url) }
+      { reservations: reject(resource.reservations, (current) => current.url === reservation.url) }
     );
     return state.merge( {
-      reservations: _.omit(state.reservations, reservation.url),
+      reservations: omit(state.reservations, reservation.url),
       resources: Object.assign({}, state.resources, { [newResource.id]: newResource }),
     });
   }
-  return state.merge( { reservations: _.omit(state.reservations, reservation.url) });
+  return state.merge( { reservations: omit(state.reservations, reservation.url) });
 }
 
 function handleReservation(state, action) {
@@ -40,7 +41,7 @@ function handleReservation(state, action) {
   };
 
   if (state.resources[reservation.resource]) {
-    const reservations = _.reject(
+    const reservations = reject(
       state.resources[reservation.resource].reservations,
       (current) => current.url === reservation.url
     );

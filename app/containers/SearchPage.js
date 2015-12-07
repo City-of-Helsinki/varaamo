@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import isEqual from 'lodash/lang/isEqual';
 import React, { Component, PropTypes } from 'react';
 import DocumentTitle from 'react-document-title';
 import { findDOMNode } from 'react-dom';
@@ -30,7 +30,7 @@ export class UnconnectedSearchPage extends Component {
 
   componentWillUpdate(nextProps) {
     const { filters, searchDone } = nextProps;
-    if (_.isEqual(nextProps.filters, this.props.filters)) {
+    if (isEqual(nextProps.filters, this.props.filters)) {
       return;
     }
     const fetchParams = getFetchParamsFromFilters(filters);
