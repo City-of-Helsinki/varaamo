@@ -81,12 +81,14 @@ By default the running app uses port `8080`.
 
 Code style and linting
 ----------------------
+
 The code mostly follows the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript).
 All JavaScript should be written in ES2015 syntax.
 Code is automatically linted with [eslint](http://eslint.org/) when running unit tests or bundling the app with webpack.
 
 Styles and Stylesheets
 ----------------------
+
 [Less](http://lesscss.org/) CSS pre-processor is used to make writing styles nicer. [Autoprefixer](https://github.com/postcss/autoprefixer) handles CSS vendor prefixes.
 [Bootstrap](http://getbootstrap.com/) is used as the CSS framework for the site and [City of Helsinki Bootstrap theme](http://terotic.github.io/bootstrap-hel-fi/) is used as the main theme.
 
@@ -101,6 +103,7 @@ Testing framework
 
 License
 -------
+
 [The MIT License](http://opensource.org/licenses/MIT)
 
 Copyright (c) 2015 City of Helsinki <[http://www.hel.fi/](http://www.hel.fi/)>
