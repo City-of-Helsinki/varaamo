@@ -38,7 +38,9 @@ By default the running app can be found at `localhost:3000`.
     $ npm install
     ```
 
-2. Then, start the development server:
+2. Set correct environment variables for passport authentication.
+
+3. Then, start the development server:
 
     ```
     $ npm start
@@ -61,7 +63,9 @@ By default the running app uses port `8080`.
     $ npm run build
     ```
 
-3. Then, start the production server:
+3. Set correct environment variables for passport authentication.
+
+4. Then, start the production server:
 
     ```
     $ npm run start:production
