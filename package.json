@@ -6,6 +6,7 @@
     "url": "https://github.com/fastmonkeys/respa-ui.git"
   },
   "main": "server/index.js",
+  "homepage": "https://varaamo.hel.fi/",
   "dependencies": {
     "classnames": "^2.2.0",
     "hash-file": "^2.1.0",
