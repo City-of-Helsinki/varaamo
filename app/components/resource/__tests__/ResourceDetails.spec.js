@@ -28,7 +28,10 @@ describe('Component: resource/ResourceDetails', () => {
     expect(tree.text()).to.contain(props.capacityString);
   });
 
-  it('should display the given description', () => {
-    expect(tree.text()).to.contain(props.description);
+  it('should display the given description autolinked', () => {
+    const autoLinkTextTree = tree.subTree('AutoLinkText');
+
+    expect(autoLinkTextTree).to.be.ok;
+    expect(autoLinkTextTree.props.text).to.equal(props.description);
   });
 });

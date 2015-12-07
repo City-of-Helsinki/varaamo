@@ -22,6 +22,7 @@
     "passport-helsinki": "git://github.com/City-of-Helsinki/passport-helsinki.git",
     "query-string": "^3.0.0",
     "react": "^0.14.2",
+    "react-autolink-text": "git://github.com/joshparolin/react-autolink-text.git#npm-temp-fix",
     "react-bootstrap": "^0.28.1",
     "react-date-picker": "^3.1.8",
     "react-document-title": "^2.0.1",
