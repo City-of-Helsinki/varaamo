@@ -9,7 +9,7 @@ Requirements
 ------------
 
 - [node](http://nodejs.org/) `^0.12.7`
-- [npm](https://www.npmjs.com/) `^2.11.3`
+- [npm](https://www.npmjs.com/) `^2.14.11`
 
 Architecture
 ------------
