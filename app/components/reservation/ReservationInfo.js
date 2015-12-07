@@ -47,7 +47,7 @@ class ReservationInfo extends Component {
     const { isLoggedIn, resource } = this.props;
 
     return (
-      <Well>
+      <Well id="reservation-info">
         <h4>Ohjeet varaamiseen</h4>
         {this.renderReservationInfoText(resource.reservationInfo)}
         {this.renderMaxPeriodText(resource.maxPeriod)}

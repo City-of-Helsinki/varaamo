@@ -34,23 +34,25 @@ class SearchResults extends Component {
     const { isFetching, results } = this.props;
 
     return (
-      <Loader loaded={!isFetching}>
-        {results.length ? (
-          <Table className="search-results lined">
-            <thead>
-              <tr>
-                <th colSpan="2">Tila</th>
-                <th>Vapaata</th>
-              </tr>
-            </thead>
-            <tbody>
-              {_.map(results, this.renderSearchResult)}
-            </tbody>
-          </Table>
-        ) : (
-          <p>Yhtään hakutulosta ei löytynyt.</p>
-        )}
-      </Loader>
+      <div id="search-results">
+        <Loader loaded={!isFetching}>
+          {results.length ? (
+            <Table className="search-results lined">
+              <thead>
+                <tr>
+                  <th colSpan="2">Tila</th>
+                  <th>Vapaata</th>
+                </tr>
+              </thead>
+              <tbody>
+                {_.map(results, this.renderSearchResult)}
+              </tbody>
+            </Table>
+          ) : (
+            <p>Yhtään hakutulosta ei löytynyt.</p>
+          )}
+        </Loader>
+      </div>
     );
   }
 }

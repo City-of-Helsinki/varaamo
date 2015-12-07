@@ -15,6 +15,7 @@ import ModalTypes from 'constants/ModalTypes';
 const idSelector = (state, props) => props.params.id;
 const selectedSelector = (state) => state.ui.reservation.selected;
 const toEditSelector = (state) => state.ui.reservation.toEdit;
+const urlHashSelector = (state, props) => props.location.hash;
 
 const reservationFormSelector = createSelector(
   idSelector,
@@ -28,6 +29,7 @@ const reservationFormSelector = createSelector(
   selectedReservationsSelector,
   timeSelector,
   toEditSelector,
+  urlHashSelector,
   (
     id,
     isLoggedIn,
@@ -39,7 +41,8 @@ const reservationFormSelector = createSelector(
     selected,
     selectedReservations,
     time,
-    reservationsToEdit
+    reservationsToEdit,
+    urlHash
   ) => {
     const { closes, opens } = getOpeningHours(resource);
     const period = resource.minPeriod ? resource.minPeriod : undefined;
@@ -59,6 +62,7 @@ const reservationFormSelector = createSelector(
       selectedReservations,
       time,
       timeSlots,
+      urlHash,
     };
   }
 );
