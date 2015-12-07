@@ -11,8 +11,8 @@ class HomePage extends Component {
           <h2>Varaa vaivatta kaupungin tiloja ja laitteita</h2>
           <p>
             Varaustilanteen näet kirjautumatta. Varaaminen edellyttää kirjautumista. Kyseessä on
-            kokeiluasteella oleva palvelu, jonka kautta varataan Kaupunginkirjaston,
-            Nuorisoasiainkeskuksen ja Varhaiskasvatusviraston tiloja ja työpisteitä.
+            kokeiluasteella oleva palvelu, jonka kautta varataan kaupunginkirjaston,
+            nuorisoasiainkeskuksen ja varhaiskasvatusviraston tiloja ja työpisteitä.
           </p>
           <h2 id="purpose-category-header">Mitä haluat tehdä?</h2>
           <PurposeCategoryList />
