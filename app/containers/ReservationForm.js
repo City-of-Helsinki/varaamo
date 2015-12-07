@@ -111,6 +111,7 @@ export class UnconnectedReservationForm extends Component {
       selectedReservations,
       time,
       timeSlots,
+      urlHash,
     } = this.props;
     const isEditing = Boolean(reservationsToEdit.length);
 
@@ -127,6 +128,7 @@ export class UnconnectedReservationForm extends Component {
         <DateHeader
           date={date}
           onChange={this.onDateChange}
+          scrollTo={urlHash === '#date-header'}
         />
         <TimeSlots
           addNotification={actions.addNotification}
@@ -183,6 +185,7 @@ UnconnectedReservationForm.propTypes = {
   selectedReservations: PropTypes.array.isRequired,
   time: PropTypes.string,
   timeSlots: PropTypes.array.isRequired,
+  urlHash: PropTypes.string.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {

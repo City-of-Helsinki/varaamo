@@ -4,10 +4,21 @@ import _ from 'lodash';
 import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 import { Glyphicon } from 'react-bootstrap';
+import { findDOMNode } from 'react-dom';
 
+import { scrollTo } from 'utils/DOMUtils';
 import { addToDate } from 'utils/TimeUtils';
 
 class DateHeader extends Component {
+  componentDidMount() {
+    if (this.props.scrollTo) {
+      // Use timeout to allow rest of the page render and the scrollTo to work properly.
+      setTimeout(() => {
+        scrollTo(findDOMNode(this));
+      }, 100);
+    }
+  }
+
   render() {
     const { date, onChange } = this.props;
     const dateString = moment(date).format('dddd, LL');
@@ -44,6 +55,7 @@ class DateHeader extends Component {
 DateHeader.propTypes = {
   date: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  scrollTo: PropTypes.bool,
 };
 
 export default DateHeader;

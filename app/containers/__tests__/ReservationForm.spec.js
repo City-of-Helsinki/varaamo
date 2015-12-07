@@ -38,6 +38,7 @@ function getProps(props = {}) {
     timeSlots: [],
     selected: [],
     selectedReservations: [],
+    urlHash: '',
   };
 
   return Object.assign({}, defaults, props);

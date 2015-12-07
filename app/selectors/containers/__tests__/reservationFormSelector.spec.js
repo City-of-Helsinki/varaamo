@@ -38,6 +38,7 @@ function getProps(id = 'some-id') {
         date: '2015-10-10',
         time: '2015-10-10T12:00:00+03:00',
       },
+      hash: '#some-hash',
     },
     params: {
       id,
@@ -149,7 +150,6 @@ describe('Selector: reservationFormSelector', () => {
     expect(selected.time).to.exist;
   });
 
-
   describe('timeSlots', () => {
     it('should use resource properties to calculate correct time slots', () => {
       const mockSlots = ['slot-1', 'slot-2'];
@@ -175,5 +175,14 @@ describe('Selector: reservationFormSelector', () => {
 
       expect(selected.timeSlots).to.deep.equal([]);
     });
+  });
+
+  it('should return urlHash', () => {
+    const state = getState(resource);
+    const props = getProps(resource.id);
+    const expected = props.location.hash;
+    const selected = reservationFormSelector(state, props);
+
+    expect(selected.urlHash).to.equal(expected);
   });
 });
