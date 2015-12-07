@@ -89,3 +89,9 @@ Testing framework
 - [Chai](http://chaijs.com/) is used for test assertions.
 - [simple-mock](https://github.com/jupiter/simple-mock) and [MockDate](https://github.com/boblauer/MockDate) are used for mocking and spies.
 - [skin-deep](https://github.com/glenjamin/skin-deep) is used to make testing React components with shallow rendering easier.
+
+License
+-------
+[The MIT License](http://opensource.org/licenses/MIT)
+
+Copyright (c) 2015 City of Helsinki <[http://www.hel.fi/](http://www.hel.fi/)>
