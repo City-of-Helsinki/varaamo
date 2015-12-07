@@ -29,12 +29,14 @@ export class UnconnectedSearchPage extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    const preventSearch = !nextProps.url.includes('?');
-    if (preventSearch || _.isEqual(nextProps.filters, this.props.filters)) {
+    const { filters, searchDone } = nextProps;
+    if (_.isEqual(nextProps.filters, this.props.filters)) {
       return;
     }
-    const fetchParams = getFetchParamsFromFilters(nextProps.filters);
-    this.props.actions.searchResources(fetchParams);
+    const fetchParams = getFetchParamsFromFilters(filters);
+    if (searchDone || fetchParams.purpose || fetchParams.people || fetchParams.search) {
+      this.props.actions.searchResources(fetchParams);
+    }
   }
 
   scrollToSearchResults() {
@@ -91,7 +93,6 @@ UnconnectedSearchPage.propTypes = {
   results: PropTypes.array.isRequired,
   searchDone: PropTypes.bool.isRequired,
   units: PropTypes.object.isRequired,
-  url: PropTypes.string.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {

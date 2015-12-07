@@ -12,6 +12,8 @@ import {
 import { Link } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
 
+import { getSearchPageUrl } from 'utils/SearchUtils';
+
 import styles from './Navbar.styles';
 import logoSrc from 'assets/images/helsinki-coat-of-arms-white.png';
 
@@ -69,7 +71,7 @@ class Navbar extends Component {
         </RBNavbar.Header>
         <RBNavbar.Collapse>
           <Nav navbar>
-            <LinkContainer to="/search">
+            <LinkContainer to={getSearchPageUrl()}>
               <NavItem onClick={clearSearchResults}>
                 <Glyphicon glyph="search" /> Haku
               </NavItem>

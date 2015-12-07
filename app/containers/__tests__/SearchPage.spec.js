@@ -28,7 +28,6 @@ describe('Container: SearchPage', () => {
     results: Immutable([resource]),
     searchDone: true,
     units: Immutable({ [unit.id]: unit }),
-    url: '/some/url',
   };
   const tree = sd.shallowRender(<SearchPage {...props} />);
 
@@ -91,24 +90,6 @@ describe('Container: SearchPage', () => {
 
         expect(props.actions.searchResources.callCount).to.equal(1);
         expect(actualArg).to.deep.equal(nextProps.filters);
-      });
-    });
-
-    describe('if props.url does not contain a query part', () => {
-      let nextProps;
-
-      before(() => {
-        props.actions.searchResources.reset();
-        const instance = tree.getMountedInstance();
-        nextProps = {
-          filters: { purpose: 'new-purpose' },
-          url: '/search',
-        };
-        instance.componentWillUpdate(nextProps);
-      });
-
-      it('should not do a search', () => {
-        expect(props.actions.searchResources.callCount).to.equal(0);
       });
     });
 

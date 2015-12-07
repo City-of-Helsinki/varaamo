@@ -7,6 +7,7 @@ import Immutable from 'seamless-immutable';
 
 import Navbar from 'components/layout/Navbar';
 import User from 'fixtures/User';
+import { getSearchPageUrl } from 'utils/SearchUtils';
 
 describe('Component: layout/Navbar', () => {
   describe('basic rendering', () => {
@@ -27,7 +28,7 @@ describe('Component: layout/Navbar', () => {
     });
 
     it('should render a link to search page', () => {
-      const searchLink = tree.subTreeLike('LinkContainer', { to: '/search' });
+      const searchLink = tree.subTreeLike('LinkContainer', { to: getSearchPageUrl() });
       expect(searchLink).to.be.ok;
     });
   });

@@ -6,6 +6,7 @@ import _ from 'lodash';
 
 import PurposeCategoryItem from 'components/purpose/PurposeCategoryItem';
 import Purpose from 'fixtures/Purpose';
+import { getSearchPageUrl } from 'utils/SearchUtils';
 
 describe('Component: purpose/PurposeCategoryItem', () => {
   const props = {
@@ -26,8 +27,7 @@ describe('Component: purpose/PurposeCategoryItem', () => {
   it('should pass correct props to Link ', () => {
     const linkTree = tree.subTree('Link');
 
-    expect(linkTree.props.to).to.equal('/search');
-    expect(linkTree.props.query).to.deep.equal({ purpose: props.purpose.id });
+    expect(linkTree.props.to).to.equal(getSearchPageUrl({ purpose: props.purpose.id }));
   });
 
   it('should display name of the purpose capitalized', () => {

@@ -3,6 +3,7 @@ import React from 'react';
 import sd from 'skin-deep';
 
 import NotFoundPage from 'containers/NotFoundPage';
+import { getSearchPageUrl } from 'utils/SearchUtils';
 
 describe('Container: NotFoundPage', () => {
   const props = {};
@@ -25,6 +26,6 @@ describe('Container: NotFoundPage', () => {
   it('should render a Link to search page', () => {
     const linkTree = tree.subTree('Link');
 
-    expect(linkTree.props.to).to.equal('/search');
+    expect(linkTree.props.to).to.equal(getSearchPageUrl());
   });
 });
