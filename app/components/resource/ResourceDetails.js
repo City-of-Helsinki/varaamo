@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
+import AutoLinkText from 'react-autolink-text';
 
 class ResourceDetails extends Component {
   render() {
@@ -8,7 +9,9 @@ class ResourceDetails extends Component {
     return (
       <div>
         <p>{_.capitalize(type)} {capacityString}</p>
-        <p>{description}</p>
+        <p>
+          <AutoLinkText text={description} />
+        </p>
       </div>
     );
   }
