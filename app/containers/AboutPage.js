@@ -40,6 +40,11 @@ class AboutPage extends Component {
             yhteystiedot tilavarauksen tekemiseen sähköpostilla tai puhelimitse.
           </p>
           <p>
+            Varaamo perustuu Helsingin kaupungin avoimeen <a href="http://dev.hel.fi/apis/respa">
+            tilavarausrajapintaan</a>, joka on toteutettu osana Suomen suurimpien kaupunkien
+            yhteistä <a href="http://6aika.fi">6aika - Avoimet ja älykkäät palvelut</a> -hanketta.
+          </p>
+          <p>
             Varaamo-tilavarausjärjestelmän kehittäminen on osa Helsingin kaupungin
             strategiaohjelmaa 2013 - 2016 (Tehokkaat ja toimivat tukipalvelut) sekä
             tietotekniikkaohjelmaa 2015 - 2017 (Datarajapinnat ja avoin kaupunkikehitys).
