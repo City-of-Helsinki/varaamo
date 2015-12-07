@@ -9,7 +9,7 @@ Requirements
 ------------
 
 - [node](http://nodejs.org/) `^0.12.7`
-- [npm](https://www.npmjs.com/) `^2.11.3`
+- [npm](https://www.npmjs.com/) `^2.14.11`
 
 Architecture
 ------------
@@ -21,6 +21,7 @@ Architecture
 - [reselect](https://github.com/rackt/reselect) is used for getting data from Redux Store and manipulating it to be better usable in React components.
 - [redux-api-middleware](https://github.com/agraboso/redux-api-middleware) is used to interact with the API.
 - The application is run on an [express](http://expressjs.com/) server.
+- Uses [Passport](https://github.com/jaredhanson/passport) and [Passport-Helsinki](https://github.com/City-of-Helsinki/passport-helsinki) for authentication.
 - [webpack](https://webpack.github.io/) takes modules with dependencies and generates static assets representing those modules.
 - [Babel](https://babeljs.io/) transforms JavaScript written in ES2015 and JSX syntax to regular JavaScript.
 
@@ -38,7 +39,9 @@ By default the running app can be found at `localhost:3000`.
     $ npm install
     ```
 
-2. Then, start the development server:
+2. Set correct environment variables for passport authentication.
+
+3. Then, start the development server:
 
     ```
     $ npm start
@@ -61,7 +64,9 @@ By default the running app uses port `8080`.
     $ npm run build
     ```
 
-3. Then, start the production server:
+3. Set correct environment variables for passport authentication.
+
+4. Then, start the production server:
 
     ```
     $ npm run start:production
@@ -77,9 +82,16 @@ By default the running app uses port `8080`.
 
 Code style and linting
 ----------------------
+
 The code mostly follows the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript).
 All JavaScript should be written in ES2015 syntax.
 Code is automatically linted with [eslint](http://eslint.org/) when running unit tests or bundling the app with webpack.
+
+Styles and Stylesheets
+----------------------
+
+[Less](http://lesscss.org/) CSS pre-processor is used to make writing styles nicer. [Autoprefixer](https://github.com/postcss/autoprefixer) handles CSS vendor prefixes.
+[Bootstrap](http://getbootstrap.com/) is used as the CSS framework for the site and [City of Helsinki Bootstrap theme](http://terotic.github.io/bootstrap-hel-fi/) is used as the main theme.
 
 Testing framework
 -----------------
@@ -89,3 +101,10 @@ Testing framework
 - [Chai](http://chaijs.com/) is used for test assertions.
 - [simple-mock](https://github.com/jupiter/simple-mock) and [MockDate](https://github.com/boblauer/MockDate) are used for mocking and spies.
 - [skin-deep](https://github.com/glenjamin/skin-deep) is used to make testing React components with shallow rendering easier.
+
+License
+-------
+
+[The MIT License](http://opensource.org/licenses/MIT)
+
+Copyright (c) 2015 City of Helsinki <[http://www.hel.fi/](http://www.hel.fi/)>

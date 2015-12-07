@@ -6,6 +6,14 @@
     "url": "https://github.com/fastmonkeys/respa-ui.git"
   },
   "main": "server/index.js",
+  "homepage": "https://varaamo.hel.fi/",
+  "description": "Respa-ui is the user interface for the City of Helsinki varaamo.hel.fi resource reservation service.",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ],
   "dependencies": {
     "classnames": "^2.2.0",
     "hash-file": "^2.1.0",
