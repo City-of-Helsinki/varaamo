@@ -17,6 +17,7 @@ describe('Container: ResourcePage', () => {
   });
   const props = {
     actions: { fetchResource: simple.stub() },
+    date: '2015-12-12',
     id: resource.id,
     isFetchingResource: false,
     isLoggedIn: true,
@@ -29,7 +30,7 @@ describe('Container: ResourcePage', () => {
     const linkTree = tree.subTree('LinkContainer');
 
     it('should display a link to this resources reservation page', () => {
-      const expected = `/resources/${props.resource.id}/reservation`;
+      const expected = `/resources/${props.resource.id}/reservation?date=${props.date}`;
 
       expect(linkTree.props.to).to.equal(expected);
     });

@@ -35,6 +35,7 @@ export class UnconnectedReservationPage extends Component {
 
   render() {
     const {
+      date,
       id,
       isFetchingResource,
       isLoggedIn,
@@ -57,7 +58,7 @@ export class UnconnectedReservationPage extends Component {
               address={getAddressWithName(unit)}
               name={resourceName}
             />
-            <LinkContainer to={`/resources/${id}`}>
+            <LinkContainer to={`/resources/${id}?date=${date.split('T')[0]}`}>
               <Button
                 bsSize="large"
                 bsStyle="primary"

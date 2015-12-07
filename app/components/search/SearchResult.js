@@ -36,12 +36,18 @@ class SearchResult extends Component {
     return (
       <tr>
         <td style={{ height: '80px', width: '80px' }}>
-          <Link to={`/resources/${result.id}`}>
+          <Link
+            to={`/resources/${result.id}`}
+            query={{ date: date.split('T')[0] }}
+          >
             {this.renderImage(getMainImage(result.images))}
           </Link>
         </td>
         <td>
-          <Link to={`/resources/${result.id}`}>
+          <Link
+            to={`/resources/${result.id}`}
+            query={{ date: date.split('T')[0] }}
+          >
             <h4>{getName(result)}</h4>
             <div className="unit-name">{getName(unit)}</div>
           </Link>
