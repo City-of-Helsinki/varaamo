@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import Radium from 'radium';
 import React, { Component, PropTypes } from 'react';
 import {
   Glyphicon,
@@ -14,7 +13,6 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 import { getSearchPageUrl } from 'utils/SearchUtils';
 
-import styles from './Navbar.styles';
 import logoSrc from 'assets/images/helsinki-coat-of-arms-white.png';
 
 class Navbar extends Component {
@@ -58,11 +56,10 @@ class Navbar extends Component {
       <RBNavbar inverse>
         <RBNavbar.Header>
           <RBNavbar.Brand>
-            <Link style={styles.navBrand} to={'/'}>
+            <Link to={'/'}>
               <img
                 alt="Helsingin vaakuna"
                 src={logoSrc}
-                style={styles.logo}
               />
               Varaamo
             </Link>
@@ -95,4 +92,4 @@ Navbar.propTypes = {
   user: PropTypes.object.isRequired,
 };
 
-export default Radium(Navbar);
+export default Navbar;
