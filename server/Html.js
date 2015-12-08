@@ -27,7 +27,7 @@ class Html extends Component {
       <div>
         <script dangerouslySetInnerHTML={{ __html: scriptString }} />
         <noscript>
-          <p><img alt="" src="//analytics.hel.ninja/piwik/piwik.php?idsite=4" style={{ border: 0 }} /></p>
+          <p><img alt="" src="//analytics.hel.ninja/piwik/piwik.php?idsite=5" style={{ border: 0 }} /></p>
         </noscript>
       </div>
     );
