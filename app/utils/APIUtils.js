@@ -1,5 +1,6 @@
 import { camelizeKeys, decamelizeKeys } from 'humps';
-import _ from 'lodash';
+import pick from 'lodash/object/pick';
+import isEmpty from 'lodash/lang/isEmpty';
 import { normalize } from 'normalizr';
 import { CALL_API, getJSON } from 'redux-api-middleware';
 
@@ -18,9 +19,9 @@ export default {
 function buildAPIUrl(endpoint, params) {
   let url = `${API_URL}/${endpoint}/`;
 
-  const nonEmptyParams = _.pick(params, (value) => value !== '');
+  const nonEmptyParams = pick(params, (value) => value !== '');
 
-  if (!_.isEmpty(nonEmptyParams)) {
+  if (!isEmpty(nonEmptyParams)) {
     url = `${url}?${getSearchParamsString(nonEmptyParams)}`;
   }
 

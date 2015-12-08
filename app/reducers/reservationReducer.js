@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import without from 'lodash/array/without';
+import includes from 'lodash/collection/includes';
+import map from 'lodash/collection/map';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
@@ -13,7 +15,7 @@ const initialState = Immutable({
 
 function selectReservationToEdit(state, action) {
   const { minPeriod, reservation } = action.payload;
-  const selected = _.map(
+  const selected = map(
     getTimeSlots(reservation.begin, reservation.end, minPeriod),
     (slot) => slot.asISOString
   );
@@ -58,8 +60,8 @@ function reservationReducer(state = initialState, action) {
 
   case types.UI.TOGGLE_TIME_SLOT:
     const slot = action.payload;
-    if (_.includes(state.selected, slot)) {
-      return state.merge({ selected: _.without(state.selected, slot) });
+    if (includes(state.selected, slot)) {
+      return state.merge({ selected: without(state.selected, slot) });
     }
     return state.merge({ selected: [...state.selected, slot] });
 

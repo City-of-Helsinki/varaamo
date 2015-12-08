@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import forEach from 'lodash/collection/forEach';
+import rest from 'lodash/array/rest';
 import React, { Component, PropTypes } from 'react';
 import DatePicker from 'react-date-picker';
 import { connect } from 'react-redux';
@@ -69,7 +70,7 @@ export class UnconnectedReservationForm extends Component {
       // Use timeout to allow the PUT request to go through first and possibly free previously
       // reserved time slots.
       setTimeout(() => {
-        _.forEach(_.rest(selectedReservations), (reservation) => {
+        forEach(rest(selectedReservations), (reservation) => {
           actions.postReservation(
             Object.assign({}, reservation, values)
           );
@@ -77,7 +78,7 @@ export class UnconnectedReservationForm extends Component {
       }, 800);
     } else {
       // Delete the edited reservation if no time slots were selected.
-      _.forEach(reservationsToEdit, (reservation) => {
+      forEach(reservationsToEdit, (reservation) => {
         actions.deleteReservation(reservation);
       });
     }

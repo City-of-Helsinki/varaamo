@@ -1,4 +1,11 @@
-import _ from 'lodash';
+import last from 'lodash/array/last';
+import rest from 'lodash/array/rest';
+import filter from 'lodash/collection/filter';
+import find from 'lodash/collection/find';
+import forEach from 'lodash/collection/forEach';
+import sortBy from 'lodash/collection/sortBy';
+import clone from 'lodash/lang/clone';
+import isEmpty from 'lodash/lang/isEmpty';
 import moment from 'moment';
 
 export default {
@@ -20,21 +27,21 @@ function combineReservations(reservations) {
     return [];
   }
 
-  const sorted = _.sortBy(reservations, 'begin');
-  const initialValue = [_.clone(sorted[0])];
+  const sorted = sortBy(reservations, 'begin');
+  const initialValue = [clone(sorted[0])];
 
-  return _.rest(sorted).reduce((previous, current) => {
-    if (current.begin === _.last(previous).end) {
-      _.last(previous).end = current.end;
+  return rest(sorted).reduce((previous, current) => {
+    if (current.begin === last(previous).end) {
+      last(previous).end = current.end;
     } else {
-      previous.push(_.clone(current));
+      previous.push(clone(current));
     }
     return previous;
   }, initialValue);
 }
 
 function getAddress(item) {
-  if (!item || _.isEmpty(item)) {
+  if (!item || isEmpty(item)) {
     return '';
   }
 
@@ -51,7 +58,7 @@ function getAddressWithName(item) {
     getAddress(item),
   ];
 
-  return _.filter(parts, part => part !== '').join(', ');
+  return filter(parts, part => part !== '').join(', ');
 }
 
 function getAvailableTime(openingHours = {}, reservations = []) {
@@ -72,8 +79,8 @@ function getAvailableTime(openingHours = {}, reservations = []) {
   const beginMoment = nowMoment > opensMoment ? nowMoment : opensMoment;
   let total = closesMoment - beginMoment;
 
-  _.forEach(
-    _.filter(reservations, reservation => moment(reservation.end) > nowMoment),
+  forEach(
+    filter(reservations, reservation => moment(reservation.end) > nowMoment),
     (reservation) => {
       const resBeginMoment = moment(reservation.begin);
       const resEndMoment = moment(reservation.end);
@@ -101,7 +108,7 @@ function getMainImage(images) {
     return {};
   }
 
-  return _.find(images, { type: 'main' }) || images[0];
+  return find(images, { type: 'main' }) || images[0];
 }
 
 function getName(item, language) {

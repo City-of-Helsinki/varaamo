@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import map from 'lodash/collection/map';
 import React, { Component, PropTypes } from 'react';
 import { ListGroup, Panel } from 'react-bootstrap';
 
@@ -24,7 +24,7 @@ class PurposeCategoryList extends Component {
         header={getName(category)}
       >
         <ListGroup fill>
-          {_.map(purposes, this.renderPurposeCategoryItem)}
+          {map(purposes, this.renderPurposeCategoryItem)}
         </ListGroup>
       </Panel>
     );

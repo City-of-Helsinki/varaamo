@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import keys from 'lodash/object/keys';
+import omit from 'lodash/object/omit';
+import pick from 'lodash/object/pick';
 import queryString from 'query-string';
 
 import { SUPPORTED_SEARCH_FILTERS } from 'constants/AppConstants';
@@ -17,7 +19,7 @@ function getFetchParamsFromFilters(filters) {
     getDateStartAndEndTimes(filters.date)
   );
 
-  return _.omit(all, 'date');
+  return omit(all, 'date');
 }
 
 function getSearchPageUrl(filters = {}) {
@@ -33,5 +35,5 @@ function getSearchPageUrl(filters = {}) {
 }
 
 function pickSupportedFilters(filters) {
-  return _.pick(filters, _.keys(SUPPORTED_SEARCH_FILTERS));
+  return pick(filters, keys(SUPPORTED_SEARCH_FILTERS));
 }

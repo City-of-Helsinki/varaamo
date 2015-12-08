@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import map from 'lodash/collection/map';
+import forEach from 'lodash/collection/forEach';
 import React, { Component, PropTypes } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
@@ -20,7 +21,7 @@ export class UnconnectedReservationDeleteModal extends Component {
   handleDelete() {
     const { actions, reservationsToDelete } = this.props;
 
-    _.forEach(reservationsToDelete, (reservation) => {
+    forEach(reservationsToDelete, (reservation) => {
       actions.deleteReservation(reservation);
     });
     actions.closeDeleteReservationModal();
@@ -58,7 +59,7 @@ export class UnconnectedReservationDeleteModal extends Component {
         <Modal.Body>
           <p><strong>Oletko varma että haluat poistaa seuraavat varaukset?</strong></p>
           <ul>
-            {_.map(reservationsToDelete, this.renderReservation)}
+            {map(reservationsToDelete, this.renderReservation)}
           </ul>
         </Modal.Body>
 

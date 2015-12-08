@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import throttle from 'lodash/function/throttle';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import { Button, Panel } from 'react-bootstrap';
@@ -30,7 +30,7 @@ export class UnconnectedSearchControls extends Component {
 
     actions.changeSearchFilters(urlSearchFilters);
     actions.fetchPurposes();
-    this.fetchTypeaheadSuggestions = _.throttle(this.fetchTypeaheadSuggestions, 200, { leading: false, trailing: true });
+    this.fetchTypeaheadSuggestions = throttle(this.fetchTypeaheadSuggestions, 200, { leading: false, trailing: true });
   }
 
   onDateChange(newDate) {

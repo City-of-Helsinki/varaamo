@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import isEmpty from 'lodash/lang/isEmpty';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
@@ -56,7 +56,7 @@ class ReservationsListItem extends Component {
       unit,
     } = this.props;
 
-    const nameSeparator = _.isEmpty(resource) || _.isEmpty(unit) ? '' : ',';
+    const nameSeparator = isEmpty(resource) || isEmpty(unit) ? '' : ',';
 
     return (
       <li className="reservation">

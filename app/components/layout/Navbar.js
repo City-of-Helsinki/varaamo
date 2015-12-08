@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import trim from 'lodash/string/trim';
 import React, { Component, PropTypes } from 'react';
 import {
   Glyphicon,
@@ -25,7 +25,7 @@ class Navbar extends Component {
     const { isLoggedIn, user } = this.props;
     let name;
     if (user.firstName || user.lastName) {
-      name = _.trim([user.firstName, user.lastName].join(' '));
+      name = trim([user.firstName, user.lastName].join(' '));
     } else {
       name = user.emails && user.emails.length ? user.emails[0].value : '';
     }

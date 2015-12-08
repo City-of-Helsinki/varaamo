@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import _ from 'lodash';
+import map from 'lodash/collection/map';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
@@ -209,7 +209,7 @@ describe('Reducer: reservationReducer', () => {
         const action = selectReservationToEdit({ reservation, minPeriod });
         const nextState = reservationReducer(initialState, action);
         const slots = getTimeSlots(reservation.begin, reservation.end, minPeriod);
-        const expected = _.map(slots, (slot) => slot.asISOString);
+        const expected = map(slots, (slot) => slot.asISOString);
 
         expect(nextState.selected).to.deep.equal(expected);
       });

@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import isEmpty from 'lodash/lang/isEmpty';
 import React, { Component, PropTypes } from 'react';
 import { Button } from 'react-bootstrap';
 import DocumentTitle from 'react-document-title';
@@ -46,13 +46,13 @@ export class UnconnectedReservationPage extends Component {
     } = this.props;
     const resourceName = getName(resource);
 
-    if (_.isEmpty(resource) && !isFetchingResource) {
+    if (isEmpty(resource) && !isFetchingResource) {
       return <NotFoundPage />;
     }
 
     return (
       <DocumentTitle title={`${resourceName} varaaminen - Varaamo`}>
-        <Loader loaded={!_.isEmpty(resource)}>
+        <Loader loaded={!isEmpty(resource)}>
           <div className="reservation-page"v>
             <ResourceHeader
               address={getAddressWithName(unit)}

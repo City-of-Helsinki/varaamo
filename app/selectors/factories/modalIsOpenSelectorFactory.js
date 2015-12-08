@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import includes from 'lodash/collection/includes';
 import { createSelector } from 'reselect';
 
 const modalIsOpenSelectorFactory = (modalType) => {
@@ -7,7 +7,7 @@ const modalIsOpenSelectorFactory = (modalType) => {
   return createSelector(
     openModalsSelector,
     (openModals) => {
-      return _.includes(openModals, modalType);
+      return includes(openModals, modalType);
     }
   );
 };

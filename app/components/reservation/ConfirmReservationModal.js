@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import map from 'lodash/collection/map';
 import React, { Component, PropTypes } from 'react';
 import { Button, Input, Modal } from 'react-bootstrap';
 
@@ -51,11 +51,11 @@ class ConfirmReservationModal extends Component {
           <p><strong>Oletko varma että haluat muuttaa varaustasi?</strong></p>
           <p>Ennen muutoksia:</p>
           <ul>
-            {_.map(reservationsToEdit, this.renderReservation)}
+            {map(reservationsToEdit, this.renderReservation)}
           </ul>
           <p>Muutosten jälkeen:</p>
           <ul>
-            {_.map(selectedReservations, this.renderReservation)}
+            {map(selectedReservations, this.renderReservation)}
           </ul>
           {isAdmin && commentInput}
         </div>
@@ -66,7 +66,7 @@ class ConfirmReservationModal extends Component {
       <div>
         <p><strong>Oletko varma että haluat tehdä seuraavat varaukset?</strong></p>
         <ul>
-          {_.map(selectedReservations, this.renderReservation)}
+          {map(selectedReservations, this.renderReservation)}
         </ul>
         {isAdmin && commentInput}
       </div>

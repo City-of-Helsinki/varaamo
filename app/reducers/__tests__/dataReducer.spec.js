@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import _ from 'lodash';
+import indexBy from 'lodash/collection/indexBy';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
@@ -291,7 +291,7 @@ describe('Reducer: dataReducer', () => {
 
       it('should not remove other reservations', () => {
         const initialState = Immutable({
-          reservations: _.indexBy(reservations, 'url'),
+          reservations: indexBy(reservations, 'url'),
           resources: {},
         });
         const action = deleteReservationSuccess(reservations[0]);

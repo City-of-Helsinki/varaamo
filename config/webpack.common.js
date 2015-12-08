@@ -2,6 +2,7 @@
 
 var autoprefixer = require('autoprefixer');
 var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
   module: {
@@ -35,4 +36,7 @@ module.exports = {
     extensions: ['', '.js', '.json'],
     modulesDirectories: ['node_modules', 'app'],
   },
+  plugins: [
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|fi|sv/),
+  ],
 };

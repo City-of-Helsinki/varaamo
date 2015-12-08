@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import _ from 'lodash';
+import indexBy from 'lodash/collection/indexBy';
 import Immutable from 'seamless-immutable';
 
 import Resource from 'fixtures/Resource';
@@ -9,7 +9,7 @@ import searchResultsSelector from 'selectors/searchResultsSelector';
 function getState(resources, results = []) {
   return {
     data: Immutable({
-      resources: _.indexBy(resources, 'id'),
+      resources: indexBy(resources, 'id'),
     }),
     ui: Immutable({
       search: {

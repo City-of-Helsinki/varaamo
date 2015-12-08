@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import sortByOrder from 'lodash/collection/sortByOrder';
+import values from 'lodash/object/values';
 import { createSelector } from 'reselect';
 
 const reservationsSelector = (state) => state.data.reservations;
@@ -6,7 +7,7 @@ const reservationsSelector = (state) => state.data.reservations;
 const sortedReservationsSelector = createSelector(
   reservationsSelector,
   (reservations) => {
-    return _.sortByOrder(_.values(reservations), ['begin'], ['asc']);
+    return sortByOrder(values(reservations), ['begin'], ['asc']);
   }
 );
 

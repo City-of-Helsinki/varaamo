@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import map from 'lodash/collection/map';
+import includes from 'lodash/collection/includes';
 import React, { Component, PropTypes } from 'react';
 import { Table } from 'react-bootstrap';
 import Loader from 'react-loader';
@@ -38,7 +39,7 @@ class TimeSlots extends Component {
         updatePath={updatePath}
         resource={resource}
         scrollTo={scrollTo}
-        selected={_.includes(selected, slot.asISOString)}
+        selected={includes(selected, slot.asISOString)}
         selectReservationToEdit={selectReservationToEdit}
         selectReservationToDelete={selectReservationToDelete}
         slot={slot}
@@ -72,7 +73,7 @@ class TimeSlots extends Component {
               </tr>
             </thead>
             <tbody>
-              {_.map(slots, this.renderTimeSlot)}
+              {map(slots, this.renderTimeSlot)}
             </tbody>
           </Table>
         ) : (
