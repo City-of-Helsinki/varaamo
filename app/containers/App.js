@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Grid } from 'react-bootstrap';
+import Grid from 'react-bootstrap/lib/Grid';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

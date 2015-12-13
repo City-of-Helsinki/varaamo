@@ -1,7 +1,7 @@
 import map from 'lodash/collection/map';
 import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
-import { Table } from 'react-bootstrap';
+import Table from 'react-bootstrap/lib/Table';
 import Loader from 'react-loader';
 
 import SearchResult from 'components/search/SearchResult';

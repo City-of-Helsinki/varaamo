@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Input } from 'react-bootstrap';
+import Input from 'react-bootstrap/lib/Input';
 import Select from 'react-select';
 
 class SearchFilters extends Component {

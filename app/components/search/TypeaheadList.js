@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { ListGroup, ListGroupItem } from 'react-bootstrap';
+import ListGroup from 'react-bootstrap/lib/ListGroup';
+import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
 
 class TypeaheadList extends Component {
   constructor(props) {

@@ -1,7 +1,8 @@
 import map from 'lodash/collection/map';
 import forEach from 'lodash/collection/forEach';
 import React, { Component, PropTypes } from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import Button from 'react-bootstrap/lib/Button';
+import Modal from 'react-bootstrap/lib/Modal';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 

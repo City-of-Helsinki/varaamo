@@ -1,6 +1,9 @@
 import map from 'lodash/collection/map';
 import React, { Component, PropTypes } from 'react';
-import { Button, Input, Modal } from 'react-bootstrap';
+import Button from 'react-bootstrap/lib/Button';
+import Input from 'react-bootstrap/lib/Input';
+import Modal from 'react-bootstrap/lib/Modal';
+
 
 import TimeRange from 'components/common/TimeRange';
 

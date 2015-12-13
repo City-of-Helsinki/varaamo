@@ -1,6 +1,7 @@
 import map from 'lodash/collection/map';
 import React, { Component, PropTypes } from 'react';
-import { ListGroup, Panel } from 'react-bootstrap';
+import ListGroup from 'react-bootstrap/lib/ListGroup';
+import Panel from 'react-bootstrap/lib/Panel';
 
 import PurposeCategoryItem from 'components/purpose/PurposeCategoryItem';
 import { getName } from 'utils/DataUtils';

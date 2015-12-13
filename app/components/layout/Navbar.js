@@ -1,13 +1,11 @@
 import trim from 'lodash/string/trim';
 import React, { Component, PropTypes } from 'react';
-import {
-  Glyphicon,
-  MenuItem,
-  Navbar as RBNavbar,
-  Nav,
-  NavDropdown,
-  NavItem,
-} from 'react-bootstrap';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+import MenuItem from 'react-bootstrap/lib/MenuItem';
+import RBNavbar from 'react-bootstrap/lib/Navbar';
+import Nav from 'react-bootstrap/lib/Nav';
+import NavDropdown from 'react-bootstrap/lib/NavDropdown';
+import NavItem from 'react-bootstrap/lib/NavItem';
 import { Link } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
 

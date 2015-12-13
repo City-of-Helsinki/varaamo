@@ -1,7 +1,7 @@
 import map from 'lodash/collection/map';
 import includes from 'lodash/collection/includes';
 import React, { Component, PropTypes } from 'react';
-import { Table } from 'react-bootstrap';
+import Table from 'react-bootstrap/lib/Table';
 import Loader from 'react-loader';
 
 import TimeSlot from 'components/reservation/TimeSlot';
