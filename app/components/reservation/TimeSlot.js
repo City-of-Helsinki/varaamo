@@ -3,7 +3,8 @@ import moment from 'moment';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
-import { Glyphicon, Label } from 'react-bootstrap';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+import Label from 'react-bootstrap/lib/Label';
 
 import ReservationControls from 'components/reservation/ReservationControls';
 import { scrollTo } from 'utils/DOMUtils';

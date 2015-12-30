@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, { Component, PropTypes } from 'react';
-import { Button, ButtonGroup } from 'react-bootstrap';
+import Button from 'react-bootstrap/lib/Button';
+import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
 
 class ReservationFormControls extends Component {
   constructor(props) {

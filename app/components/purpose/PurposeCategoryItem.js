@@ -1,6 +1,6 @@
 import capitalize from 'lodash/string/capitalize';
 import React, { Component, PropTypes } from 'react';
-import { ListGroupItem } from 'react-bootstrap';
+import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
 import { Link } from 'react-router';
 
 import { getName } from 'utils/DataUtils';

@@ -1,6 +1,6 @@
 import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
-import { Button } from 'react-bootstrap';
+import Button from 'react-bootstrap/lib/Button';
 
 class ReservationControls extends Component {
   render() {

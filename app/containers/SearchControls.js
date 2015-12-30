@@ -1,7 +1,8 @@
 import throttle from 'lodash/function/throttle';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
-import { Button, Panel } from 'react-bootstrap';
+import Button from 'react-bootstrap/lib/Button';
+import Panel from 'react-bootstrap/lib/Panel';
 import DatePicker from 'react-date-picker';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

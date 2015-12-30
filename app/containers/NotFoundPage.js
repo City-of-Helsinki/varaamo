@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Well } from 'react-bootstrap';
+import Well from 'react-bootstrap/lib/Well';
 import DocumentTitle from 'react-document-title';
 import { Link } from 'react-router';
 

@@ -1,6 +1,6 @@
 import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
-import { Well } from 'react-bootstrap';
+import Well from 'react-bootstrap/lib/Well';
 
 class ReservationInfo extends Component {
   renderLoginText(isLoggedIn, resource) {

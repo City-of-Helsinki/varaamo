@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Label } from 'react-bootstrap';
+import Label from 'react-bootstrap/lib/Label';
 import { Link } from 'react-router';
 
 import {
