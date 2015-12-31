@@ -25,7 +25,6 @@
     "lodash": "^3.10.1",
     "moment": "^2.10.3",
     "moment-range": "^2.0.3",
-    "nconf": "^0.8.2",
     "normalizr": "^1.4.0",
     "passport": "^0.2.2",
     "passport-helsinki": "git://github.com/City-of-Helsinki/passport-helsinki.git",
