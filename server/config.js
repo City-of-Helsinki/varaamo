@@ -1,5 +1,6 @@
-const hashFile = require('hash-file');
-const nconf = require('nconf');
+import hashFile from 'hash-file';
+import nconf from 'nconf';
+import path from 'path';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -18,8 +19,16 @@ function getAssetHash(filePath) {
 
 const config = {
   assetsSources: {
-    appCss: isProduction ? `/_assets/app.css?${getAssetHash('dist/app.css')}` : '',
-    appJs: isProduction ? `/_assets/app.js?${getAssetHash('dist/app.js')}` : '/app.js',
+    appCss: (
+      isProduction ?
+      `/_assets/app.css?${getAssetHash(path.resolve(__dirname, '../dist/app.css'))}` :
+      ''
+    ),
+    appJs: (
+      isProduction ?
+      `/_assets/app.js?${getAssetHash(path.resolve(__dirname, '../dist/app.js'))}` :
+      '/app.js'
+    ),
   },
   isProduction: isProduction,
   port: isProduction ? 8080 : 3000,

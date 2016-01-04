@@ -29,7 +29,7 @@ if (serverConfig.isProduction) {
   console.log('Starting production server...');
 
   // Serve the static assets. We can cache them as they include hashes.
-  app.use('/_assets', express.static('dist', { maxAge: '200d' }));
+  app.use('/_assets', express.static(path.resolve(__dirname, '../dist'), { maxAge: '200d' }));
 } else {
   console.log('Starting development server...');
 
