@@ -1,5 +1,5 @@
 export default {
-  API_URL: 'https://api.hel.fi/respa/v1',
+  API_URL: __API_URL__,
   DATE_FORMAT: 'YYYY-MM-DD',
   FEEDBACK_URL: 'http://www.helmet-kirjasto.fi/varaamo-palaute/',
   NOTIFICATION_DEFAULTS: {

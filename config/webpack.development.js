@@ -62,6 +62,7 @@ module.exports = merge(common, {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'),
+      __API_URL__: JSON.stringify('https://api.hel.fi/respa-test/v1'),
       __DEVTOOLS__: false,
     }),
     new webpack.HotModuleReplacementPlugin(),
