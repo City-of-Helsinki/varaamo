@@ -22,6 +22,9 @@ module.exports = merge(common, {
     ],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      __API_URL__: JSON.stringify('https://mock-api.fi'),
+    }),
     new HtmlWebpackPlugin({
       inject: true,
     }),

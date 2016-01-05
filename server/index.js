@@ -1,5 +1,6 @@
 /* eslint-disable func-names, no-var, vars-on-top */
 require('babel-core/register');
+require('dotenv').load();
 
 var serverConfig = require('./config');
 
