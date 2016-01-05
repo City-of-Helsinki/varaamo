@@ -5,16 +5,11 @@ import serverConfig from './config';
 
 function configurePassport() {
   let helsinkiStrategy;
-  const callbackURL = (
-    serverConfig.isProduction ?
-    'http://respa.hel.ninja/login/helsinki/return' :
-    `http://localhost:${serverConfig.port}/login/helsinki/return`
-  );
   helsinkiStrategy = new Strategy(
     {
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      callbackURL,
+      callbackURL: serverConfig.loginCallbackUrl,
     },
     (accessToken, refreshToken, profile, cb) => {
       helsinkiStrategy.getAPIToken(accessToken, process.env.TARGET_APP, (token) => {
