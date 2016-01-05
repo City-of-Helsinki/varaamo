@@ -2,6 +2,7 @@ import hashFile from 'hash-file';
 import path from 'path';
 
 const isProduction = process.env.NODE_ENV === 'production';
+const port = isProduction ? 8080 : 3000;
 
 function getAssetHash(filePath) {
   if (!isProduction) return '';
@@ -26,6 +27,11 @@ export default {
     ),
   },
   isProduction: isProduction,
-  port: isProduction ? 8080 : 3000,
+  loginCallbackUrl: (
+    isProduction ?
+    'https://varaamo.hel.fi/login/helsinki/return' :
+    `http://localhost:${port}/login/helsinki/return`
+  ),
+  port,
   webpackStylesExtensions: ['css', 'less'],
 };
