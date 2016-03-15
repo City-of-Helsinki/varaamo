@@ -50,7 +50,8 @@
     "reselect": "^2.0.1",
     "seamless-immutable": "^4.0.2",
     "serialize-javascript": "^1.1.2",
-    "serve-favicon": "^2.3.0"
+    "serve-favicon": "^2.3.0",
+    "validator": "^5.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.1.1",
