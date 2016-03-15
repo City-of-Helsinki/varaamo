@@ -36,7 +36,9 @@ class ConfirmReservationModal extends Component {
   renderModalBody() {
     const {
       isEditing,
+      isMakingReservations,
       isPreliminaryReservation,
+      onClose,
       reservationsToEdit,
       resource,
       selectedReservations,
@@ -87,7 +89,12 @@ class ConfirmReservationModal extends Component {
         <ul>
           {map(selectedReservations, this.renderReservation)}
         </ul>
-        {isPreliminaryReservation && <PreliminaryReservationForm />}
+        {isPreliminaryReservation && (
+          <PreliminaryReservationForm
+            isMakingReservations={isMakingReservations}
+            onClose={onClose}
+          />
+        )}
         {isAdmin && commentInput}
       </div>
     );
@@ -113,6 +120,7 @@ class ConfirmReservationModal extends Component {
     return (
       <Modal
         animation={false}
+        className="confirm-reservation-modal"
         onHide={onClose}
         show={show}
       >
@@ -126,21 +134,23 @@ class ConfirmReservationModal extends Component {
           {this.renderModalBody()}
         </Modal.Body>
 
-        <Modal.Footer>
-          <Button
-            bsStyle="default"
-            onClick={onClose}
-          >
-            Peruuta
-          </Button>
-          <Button
-            bsStyle="primary"
-            disabled={isMakingReservations}
-            onClick={this.onConfirm}
-          >
-            {isMakingReservations ? 'Tallennetaan...' : 'Tallenna'}
-          </Button>
-        </Modal.Footer>
+        {!isPreliminaryReservation && (
+          <Modal.Footer>
+            <Button
+              bsStyle="default"
+              onClick={onClose}
+            >
+              Peruuta
+            </Button>
+            <Button
+              bsStyle="primary"
+              disabled={isMakingReservations}
+              onClick={this.onConfirm}
+            >
+              {isMakingReservations ? 'Tallennetaan...' : 'Tallenna'}
+            </Button>
+          </Modal.Footer>
+        )}
       </Modal>
     );
   }

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Button from 'react-bootstrap/lib/Button';
 import Input from 'react-bootstrap/lib/Input';
 import { reduxForm } from 'redux-form';
 
@@ -32,6 +33,10 @@ export function validate(values) {
 }
 
 export class UnconnectedPreliminaryReservationForm extends Component {
+  onSubmit(data) {
+    console.log('the form was submitted with', data); // eslint-disable-line no-console
+  }
+
   renderField(type, label, field, extraProps) {
     const hasError = field.error && field.touched;
     return (
@@ -49,10 +54,15 @@ export class UnconnectedPreliminaryReservationForm extends Component {
   }
 
   render() {
-    const { fields } = this.props;
+    const {
+      fields,
+      isMakingReservations,
+      handleSubmit,
+      onClose,
+    } = this.props;
     return (
       <div>
-        <form className="form-horizontal">
+        <form className="preliminary-reservatin-form form-horizontal">
           <p>
             Täytä vielä seuraavat tiedot alustavaa varausta varten.
             Tähdellä (*) merkityt tiedot ovat pakollisia.
@@ -62,6 +72,22 @@ export class UnconnectedPreliminaryReservationForm extends Component {
           {this.renderField('text', 'Puhelin*', fields.phone)}
           {this.renderField('textarea', 'Tilaisuuden kuvaus*', fields.description, { rows: 5 })}
           {this.renderField('text', 'Osoite*', fields.address)}
+          <div className="form-controls">
+            <Button
+              bsStyle="default"
+              onClick={onClose}
+            >
+              Peruuta
+            </Button>
+            <Button
+              bsStyle="primary"
+              disabled={isMakingReservations}
+              onClick={handleSubmit(this.onSubmit)}
+              type="submit"
+            >
+              {isMakingReservations ? 'Tallennetaan...' : 'Tallenna'}
+            </Button>
+          </div>
         </form>
       </div>
     );
@@ -70,6 +96,9 @@ export class UnconnectedPreliminaryReservationForm extends Component {
 
 UnconnectedPreliminaryReservationForm.propTypes = {
   fields: PropTypes.object.isRequired,
+  isMakingReservations: PropTypes.bool.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default reduxForm({

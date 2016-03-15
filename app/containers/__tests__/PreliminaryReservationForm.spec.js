@@ -1,7 +1,9 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
+import simple from 'simple-mock';
 
+import Button from 'react-bootstrap/lib/Button';
 import Input from 'react-bootstrap/lib/Input';
 
 import {
@@ -19,6 +21,9 @@ describe('Container: PreliminaryReservationForm', () => {
   };
   const props = {
     fields,
+    handleSubmit: simple.mock(),
+    isMakingReservations: false,
+    onClose: simple.mock(),
   };
   const wrapper = shallow(<PreliminaryReservationForm {...props} />);
 
@@ -123,6 +128,37 @@ describe('Container: PreliminaryReservationForm', () => {
 
         expect(nameInput.props().type).to.equal('text');
         expect(nameInput.props().label).to.equal('Osoite*');
+      });
+    });
+
+    describe('form buttons', () => {
+      const buttons = wrapper.find(Button);
+
+      it('should render two buttons', () => {
+        expect(buttons.length).to.equal(2);
+      });
+
+      describe('Cancel button', () => {
+        const button = buttons.at(0);
+
+        it('the first button should read "Peruuta"', () => {
+          expect(button.props().children).to.equal('Peruuta');
+        });
+
+        it('clicking it should call props.onClose', () => {
+          props.onClose.reset();
+          button.props().onClick();
+
+          expect(props.onClose.callCount).to.equal(1);
+        });
+      });
+
+      describe('Confirm button', () => {
+        const button = buttons.at(1);
+
+        it('the second button should read "Tallenna"', () => {
+          expect(button.props().children).to.equal('Tallenna');
+        });
       });
     });
   });

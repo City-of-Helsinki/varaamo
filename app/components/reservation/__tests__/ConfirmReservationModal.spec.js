@@ -230,48 +230,8 @@ describe('Component: reservation/ConfirmReservationModal', () => {
     describe('Modal footer', () => {
       const modalFooterTrees = tree.everySubTree('ModalFooter');
 
-      it('should render a ModalFooter component', () => {
-        expect(modalFooterTrees.length).to.equal(1);
-      });
-
-      describe('Footer buttons', () => {
-        const buttonTrees = modalFooterTrees[0].everySubTree('Button');
-
-        it('should render two Buttons', () => {
-          expect(buttonTrees.length).to.equal(2);
-        });
-
-        describe('Cancel button', () => {
-          const buttonTree = buttonTrees[0];
-
-          it('the first button should read "Peruuta"', () => {
-            expect(buttonTree.props.children).to.equal('Peruuta');
-          });
-
-          it('clicking it should call props.onClose', () => {
-            props.onClose.reset();
-            buttonTree.props.onClick();
-
-            expect(props.onClose.callCount).to.equal(1);
-          });
-        });
-
-        describe('Confirm button', () => {
-          const buttonTree = buttonTrees[1];
-
-          it('the second button should read "Tallenna"', () => {
-            expect(buttonTree.props.children).to.equal('Tallenna');
-          });
-
-          it('clicking it should call props.onConfirm and props.onClose', () => {
-            props.onConfirm.reset();
-            props.onClose.reset();
-            buttonTree.props.onClick();
-
-            expect(props.onConfirm.callCount).to.equal(1);
-            expect(props.onClose.callCount).to.equal(1);
-          });
-        });
+      it('should not render a ModalFooter component', () => {
+        expect(modalFooterTrees.length).to.equal(0);
       });
     });
   });
