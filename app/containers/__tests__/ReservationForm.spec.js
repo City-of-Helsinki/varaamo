@@ -34,7 +34,7 @@ function getProps(props = {}) {
     isLoggedIn: true,
     isMakingReservations: false,
     reservationsToEdit: [],
-    resource: Resource.build(),
+    resource: Resource.build({ needManualConfirmation: false }),
     timeSlots: [],
     selected: [],
     selectedReservations: [],
@@ -111,6 +111,7 @@ describe('Container: ReservationForm', () => {
         const actualProps = timeSlotsTrees[0].props;
 
         expect(actualProps.addNotification).to.deep.equal(props.actions.addNotification);
+        expect(actualProps.hasPreliminaryReservation).to.equal(props.resource.needManualConfirmation);
         expect(actualProps.isEditing).to.exist;
         expect(actualProps.isFetching).to.equal(props.isFetchingResource);
         expect(actualProps.isLoggedIn).to.equal(props.isLoggedIn);
@@ -155,6 +156,7 @@ describe('Container: ReservationForm', () => {
 
         expect(actualProps.isEditing).to.exist;
         expect(actualProps.isMakingReservations).to.equal(props.isMakingReservations);
+        expect(actualProps.isPreliminaryReservation).to.equal(props.resource.needManualConfirmation);
         expect(actualProps.onClose).to.equal(props.actions.closeConfirmReservationModal);
         expect(actualProps.onConfirm).to.equal(instance.handleReservation);
         expect(actualProps.reservationsToEdit).to.deep.equal(props.reservationsToEdit);

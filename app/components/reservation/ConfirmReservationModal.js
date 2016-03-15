@@ -22,9 +22,20 @@ class ConfirmReservationModal extends Component {
     onConfirm(values);
   }
 
+  getModalTitle(isEditing, isPreliminaryReservation) {
+    if (isEditing) {
+      return 'Muutosten vahvistus';
+    }
+    if (isPreliminaryReservation) {
+      return 'Alustava varaus';
+    }
+    return 'Varauksen vahvistus';
+  }
+
   renderModalBody() {
     const {
       isEditing,
+      isPreliminaryReservation,
       reservationsToEdit,
       resource,
       selectedReservations,
@@ -65,9 +76,13 @@ class ConfirmReservationModal extends Component {
       );
     }
 
+    const helpText = isPreliminaryReservation ?
+      'Olet tekemässä alustavaa varausta seuraaville ajoille:' :
+      'Oletko varma että haluat tehdä seuraavat varaukset?';
+
     return (
       <div>
-        <p><strong>Oletko varma että haluat tehdä seuraavat varaukset?</strong></p>
+        <p><strong>{helpText}</strong></p>
         <ul>
           {map(selectedReservations, this.renderReservation)}
         </ul>
@@ -88,6 +103,7 @@ class ConfirmReservationModal extends Component {
     const {
       isEditing,
       isMakingReservations,
+      isPreliminaryReservation,
       onClose,
       show,
     } = this.props;
@@ -100,7 +116,7 @@ class ConfirmReservationModal extends Component {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-            {isEditing ? 'Muutosten vahvistus' : 'Varauksen vahvistus'}
+            {this.getModalTitle(isEditing, isPreliminaryReservation)}
           </Modal.Title>
         </Modal.Header>
 
@@ -131,6 +147,7 @@ class ConfirmReservationModal extends Component {
 ConfirmReservationModal.propTypes = {
   isEditing: PropTypes.bool.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,
+  isPreliminaryReservation: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
   reservationsToEdit: PropTypes.array.isRequired,
