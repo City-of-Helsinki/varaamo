@@ -45,6 +45,7 @@
     "redux": "^3.0.4",
     "redux-actions": "^0.8.0",
     "redux-api-middleware": "1.0.0-beta3",
+    "redux-form": "^4.2.2",
     "redux-simple-router": "0.0.10",
     "reselect": "^2.0.1",
     "seamless-immutable": "^4.0.2",

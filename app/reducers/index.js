@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { routeReducer } from 'redux-simple-router';
+import { reducer as formReducer } from 'redux-form';
 
 import activeRequestsReducer from 'reducers/activeRequestsReducer';
 import authReducer from 'reducers/authReducer';
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   }),
   auth: authReducer,
   data: dataReducer,
+  form: formReducer,
   notifications: notificationsReducer,
   routing: routeReducer,
   ui: combineReducers({
