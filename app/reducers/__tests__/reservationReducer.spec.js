@@ -7,7 +7,7 @@ import Immutable from 'seamless-immutable';
 import {
   cancelReservationEdit,
   clearReservations,
-  closeDeleteReservationModal,
+  closeReservationDeleteModal,
   closeConfirmReservationModal,
   selectReservationToDelete,
   selectReservationToEdit,
@@ -118,7 +118,7 @@ describe('Reducer: reservationReducer', () => {
           const initialState = Immutable({
             toDelete: [Reservation.build()],
           });
-          const action = closeDeleteReservationModal();
+          const action = closeReservationDeleteModal();
           const nextState = reservationReducer(initialState, action);
 
           expect(nextState.toDelete).to.deep.equal([]);

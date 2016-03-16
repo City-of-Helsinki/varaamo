@@ -15,7 +15,7 @@ import Unit from 'fixtures/Unit';
 function getProps(props) {
   const defaults = {
     actions: {
-      closeDeleteReservationModal: simple.stub(),
+      closeReservationDeleteModal: simple.stub(),
       deleteReservation: simple.stub(),
       fetchReservations: simple.stub(),
       fetchResources: simple.stub(),

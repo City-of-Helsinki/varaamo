@@ -9,14 +9,14 @@ const changeSearchFilters = createAction(types.UI.CHANGE_SEARCH_FILTERS);
 
 const clearReservations = createAction(types.UI.CLEAR_RESERVATIONS);
 
-const closeDeleteReservationModal = createAction(
-  types.UI.CLOSE_MODAL,
-  () => ModalTypes.DELETE_RESERVATION
-);
-
 const closeConfirmReservationModal = createAction(
   types.UI.CLOSE_MODAL,
   () => ModalTypes.CONFIRM_RESERVATION
+);
+
+const closeReservationDeleteModal = createAction(
+  types.UI.CLOSE_MODAL,
+  () => ModalTypes.DELETE_RESERVATION
 );
 
 const openReservationDeleteModal = createAction(
@@ -43,10 +43,10 @@ export default {
   cancelReservationEdit,
   changeSearchFilters,
   clearReservations,
-  closeDeleteReservationModal,
   closeConfirmReservationModal,
-  openReservationDeleteModal,
+  closeReservationDeleteModal,
   openConfirmReservationModal,
+  openReservationDeleteModal,
   selectReservationToDelete,
   selectReservationToEdit,
   toggleTimeSlot,

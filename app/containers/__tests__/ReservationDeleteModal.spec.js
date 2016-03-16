@@ -15,7 +15,7 @@ describe('Container: ReservationDeleteModal', () => {
   const resource = Resource.build();
   const props = {
     actions: {
-      closeDeleteReservationModal: simple.stub(),
+      closeReservationDeleteModal: simple.stub(),
       deleteReservation: simple.stub(),
     },
     show: true,
@@ -110,11 +110,11 @@ describe('Container: ReservationDeleteModal', () => {
             expect(buttonTree.props.children).to.equal('Peruuta');
           });
 
-          it('clicking it should call closeDeleteReservationModal', () => {
-            props.actions.closeDeleteReservationModal.reset();
+          it('clicking it should call closeReservationDeleteModal', () => {
+            props.actions.closeReservationDeleteModal.reset();
             buttonTree.props.onClick();
 
-            expect(props.actions.closeDeleteReservationModal.callCount).to.equal(1);
+            expect(props.actions.closeReservationDeleteModal.callCount).to.equal(1);
           });
         });
 
