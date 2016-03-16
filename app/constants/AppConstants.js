@@ -13,6 +13,24 @@ export default {
     'Accept-Language': 'fi',
     'Content-Type': 'application/json',
   },
+  RESERVATION_STATUS_LABELS: {
+    accepted: {
+      labelBsStyle: 'success',
+      labelText: 'Hyväksytty',
+    },
+    canceled: {
+      labelBsStyle: 'default',
+      labelText: 'Peruttu',
+    },
+    declined: {
+      labelBsStyle: 'danger',
+      labelText: 'Hylätty',
+    },
+    pending: {
+      labelBsStyle: 'primary',
+      labelText: 'Käsiteltävänä',
+    },
+  },
   SUPPORTED_SEARCH_FILTERS: {
     date: '',
     people: '',

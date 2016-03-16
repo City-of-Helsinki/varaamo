@@ -5,7 +5,7 @@
 
   .reservation {
     position: relative;
-    min-height: 130px;
+    min-height: 150px;
     padding-top: 15px;
     padding-bottom: 15px;
     padding-left: 120px;
@@ -26,7 +26,6 @@
         top: 10px;
         img {
           width: 80px;
-          height: 80px;
         }
       }
     }
@@ -52,6 +51,8 @@
     }
 
     .buttons {
+      margin-bottom: 14px;
+
       button {
         width: 80px;
         margin-right: 10px;
@@ -59,6 +60,16 @@
 
       button + button {
         margin-right: 0;
+      }
+    }
+
+    .status {
+      font-size: 20px;
+      width: 100%;
+      max-width: 330px;
+
+      .label {
+        display: block;
       }
     }
   }

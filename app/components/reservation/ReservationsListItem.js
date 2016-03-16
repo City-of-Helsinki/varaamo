@@ -1,10 +1,12 @@
 import isEmpty from 'lodash/lang/isEmpty';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
+import Label from 'react-bootstrap/lib/Label';
 import { Link } from 'react-router';
 
 import TimeRange from 'components/common/TimeRange';
 import ReservationControls from 'components/reservation/ReservationControls';
+import { RESERVATION_STATUS_LABELS } from 'constants/AppConstants';
 import { getCaption, getMainImage, getName } from 'utils/DataUtils';
 
 class ReservationsListItem extends Component {
@@ -43,10 +45,27 @@ class ReservationsListItem extends Component {
 
   renderImage(image) {
     if (image && image.url) {
-      const src = `${image.url}?dim=100x100`;
+      const src = `${image.url}?dim=100x120`;
       return <img alt={getCaption(image)} src={src} />;
     }
     return null;
+  }
+
+  renderStatusLabel(reservation) {
+    const statuses = ['pending', 'canceled', 'declined', 'accepted', null];
+    const status = statuses[reservation.id % 5];
+
+    if (!status) {
+      return null;
+    }
+
+    const { labelBsStyle, labelText } = RESERVATION_STATUS_LABELS[status];
+
+    return (
+      <div className="status">
+        <Label bsStyle={labelBsStyle}>{labelText}</Label>
+      </div>
+    );
   }
 
   render() {
@@ -98,6 +117,7 @@ class ReservationsListItem extends Component {
           onEditClick={this.handleEditClick}
           reservation={reservation}
         />
+        {this.renderStatusLabel(reservation)}
       </li>
     );
   }
