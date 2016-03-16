@@ -10,11 +10,13 @@ import ReservationControls from 'components/reservation/ReservationControls';
 import Reservation from 'fixtures/Reservation';
 
 describe('Component: reservation/ReservationControls', () => {
+  const onCancelClick = simple.stub();
   const onDeleteClick = simple.stub();
   const onEditClick = simple.stub();
 
   function getWrapper(reservationStatus = null) {
     const props = {
+      onCancelClick,
       onDeleteClick,
       onEditClick,
       reservation: Immutable(Reservation.build({ status: reservationStatus })),
@@ -63,11 +65,11 @@ describe('Component: reservation/ReservationControls', () => {
   describe('with preliminary reservation in pending state', () => {
     const buttons = getWrapper('pending').find(Button);
 
-    it('should render one button', () => {
-      expect(buttons.length).to.equal(1);
+    it('should render two buttons', () => {
+      expect(buttons.length).to.equal(2);
     });
 
-    describe('the button', () => {
+    describe('the first button', () => {
       const button = buttons.at(0);
 
       it('should be an edit button', () => {
@@ -79,6 +81,21 @@ describe('Component: reservation/ReservationControls', () => {
         button.props().onClick();
 
         expect(onEditClick.callCount).to.equal(1);
+      });
+    });
+
+    describe('the second button', () => {
+      const button = buttons.at(1);
+
+      it('should be a cancel button', () => {
+        expect(button.props().children).to.equal('Peru');
+      });
+
+      it('clicking the button should call onCancelClick', () => {
+        onCancelClick.reset();
+        button.props().onClick();
+
+        expect(onCancelClick.callCount).to.equal(1);
       });
     });
   });
@@ -102,8 +119,23 @@ describe('Component: reservation/ReservationControls', () => {
   describe('with preliminary reservation in accepted state', () => {
     const buttons = getWrapper('accepted').find(Button);
 
-    it('should not render any buttons', () => {
-      expect(buttons.length).to.equal(0);
+    it('should render one button', () => {
+      expect(buttons.length).to.equal(1);
+    });
+
+    describe('the button', () => {
+      const button = buttons.at(0);
+
+      it('should be a cancel button', () => {
+        expect(button.props().children).to.equal('Peru');
+      });
+
+      it('clicking the button should call onCancelClick', () => {
+        onCancelClick.reset();
+        button.props().onClick();
+
+        expect(onCancelClick.callCount).to.equal(1);
+      });
     });
   });
 });

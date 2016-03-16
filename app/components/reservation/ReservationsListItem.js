@@ -12,6 +12,7 @@ import { getCaption, getMainImage, getName } from 'utils/DataUtils';
 class ReservationsListItem extends Component {
   constructor(props) {
     super(props);
+    this.handleCancelClick = this.handleCancelClick.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
   }
@@ -19,6 +20,17 @@ class ReservationsListItem extends Component {
   getStatus(reservation) {
     const statuses = ['pending', 'canceled', 'declined', 'accepted', null];
     return statuses[reservation.id % 5];
+  }
+
+  handleCancelClick() {
+    const {
+      openReservationCancelModal,
+      reservation,
+      selectReservationToCancel,
+    } = this.props;
+
+    selectReservationToCancel(reservation);
+    openReservationCancelModal();
   }
 
   handleDeleteClick() {
@@ -117,6 +129,7 @@ class ReservationsListItem extends Component {
           </Link>
         </div>
         <ReservationControls
+          onCancelClick={this.handleCancelClick}
           onDeleteClick={this.handleDeleteClick}
           onEditClick={this.handleEditClick}
           reservation={Object.assign({}, reservation, { status: this.getStatus(reservation) })}
@@ -128,13 +141,15 @@ class ReservationsListItem extends Component {
 }
 
 ReservationsListItem.propTypes = {
+  openReservationCancelModal: PropTypes.func.isRequired,
   openReservationDeleteModal: PropTypes.func.isRequired,
-  updatePath: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
+  selectReservationToCancel: PropTypes.func.isRequired,
   selectReservationToDelete: PropTypes.func.isRequired,
   selectReservationToEdit: PropTypes.func.isRequired,
   unit: PropTypes.object.isRequired,
+  updatePath: PropTypes.func.isRequired,
 };
 
 export default ReservationsListItem;

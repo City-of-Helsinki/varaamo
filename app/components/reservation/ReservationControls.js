@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/lib/Button';
 class ReservationControls extends Component {
   render() {
     const {
+      onCancelClick,
       onDeleteClick,
       onEditClick,
       reservation,
@@ -26,6 +27,15 @@ class ReservationControls extends Component {
             Muokkaa
           </Button>
         )}
+        {includes(['accepted', 'pending'], reservation.status) && (
+          <Button
+            bsSize="xsmall"
+            bsStyle="default"
+            onClick={onCancelClick}
+          >
+            Peru
+          </Button>
+        )}
         {!reservation.status && (
           <Button
             bsSize="xsmall"
@@ -41,6 +51,7 @@ class ReservationControls extends Component {
 }
 
 ReservationControls.propTypes = {
+  onCancelClick: PropTypes.func.isRequired,
   onDeleteClick: PropTypes.func.isRequired,
   onEditClick: PropTypes.func.isRequired,
   reservation: PropTypes.object,

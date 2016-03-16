@@ -15,13 +15,14 @@ import Unit from 'fixtures/Unit';
 function getProps(props) {
   const defaults = {
     actions: {
-      closeReservationDeleteModal: simple.stub(),
       deleteReservation: simple.stub(),
       fetchReservations: simple.stub(),
       fetchResources: simple.stub(),
       fetchUnits: simple.stub(),
+      openReservationCancelModal: simple.stub(),
       openReservationDeleteModal: simple.stub(),
       updatePath: simple.stub(),
+      selectReservationToCancel: simple.stub(),
       selectReservationToDelete: simple.stub(),
       selectReservationToEdit: simple.stub(),
     },
@@ -82,8 +83,14 @@ describe('Component: reservation/ReservationsList', () => {
           const actualProps = reservationTree.props;
 
           expect(actualProps.reservation).to.deep.equal(props.reservations[index]);
+          expect(actualProps.openReservationCancelModal).to.deep.equal(props.actions.openReservationCancelModal);
           expect(actualProps.openReservationDeleteModal).to.deep.equal(props.actions.openReservationDeleteModal);
           expect(actualProps.updatePath).to.deep.equal(props.actions.updatePath);
+          expect(
+            actualProps.selectReservationToCancel
+          ).to.deep.equal(
+            props.actions.selectReservationToCancel
+          );
           expect(
             actualProps.selectReservationToDelete
           ).to.deep.equal(

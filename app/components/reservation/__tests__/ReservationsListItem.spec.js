@@ -14,12 +14,14 @@ import Unit from 'fixtures/Unit';
 
 describe('Component: reservation/ReservationsListItem', () => {
   const props = {
+    openReservationCancelModal: simple.stub(),
     openReservationDeleteModal: simple.stub(),
     updatePath: simple.stub(),
     reservation: Immutable(Reservation.build()),
     resource: Immutable(Resource.build({
       images: [Image.build()],
     })),
+    selectReservationToCancel: simple.stub(),
     selectReservationToDelete: simple.stub(),
     selectReservationToEdit: simple.stub(),
     unit: Immutable(Unit.build()),
@@ -95,6 +97,23 @@ describe('Component: reservation/ReservationsListItem', () => {
         expect(actualProps.onDeleteClick).to.equal(instance.handleDeleteClick);
         expect(actualProps.onEditClick).to.equal(instance.handleEditClick);
       });
+    });
+  });
+
+  describe('handleCancelClick', () => {
+    instance.handleCancelClick();
+
+    it('should call props.selectReservationToCancel with this reservation', () => {
+      expect(props.selectReservationToCancel.callCount).to.equal(1);
+      expect(
+        props.selectReservationToCancel.lastCall.args[0]
+      ).to.deep.equal(
+        props.reservation
+      );
+    });
+
+    it('should call the props.openReservationCancelModal function', () => {
+      expect(props.openReservationCancelModal.callCount).to.equal(1);
     });
   });
 
