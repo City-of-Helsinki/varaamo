@@ -9,6 +9,7 @@ import { getTimeSlots } from 'utils/TimeUtils';
 
 const initialState = Immutable({
   selected: [],
+  toCancel: [],
   toDelete: [],
   toEdit: [],
 });
@@ -47,10 +48,16 @@ function reservationReducer(state = initialState, action) {
 
   case types.UI.CLOSE_MODAL:
     const modal = action.payload;
+    if (modal === ModalTypes.CANCEL_RESERVATION) {
+      return state.merge({ toCancel: [] });
+    }
     if (modal === ModalTypes.DELETE_RESERVATION) {
       return state.merge({ toDelete: [] });
     }
     return state;
+
+  case types.UI.SELECT_RESERVATION_TO_CANCEL:
+    return state.merge({ toCancel: [...state.toCancel, action.payload] });
 
   case types.UI.SELECT_RESERVATION_TO_DELETE:
     return state.merge({ toDelete: [...state.toDelete, action.payload] });

@@ -7,8 +7,10 @@ import Immutable from 'seamless-immutable';
 import {
   cancelReservationEdit,
   clearReservations,
+  closeReservationCancelModal,
   closeReservationDeleteModal,
   closeConfirmReservationModal,
+  selectReservationToCancel,
   selectReservationToDelete,
   selectReservationToEdit,
   toggleTimeSlot,
@@ -24,6 +26,10 @@ describe('Reducer: reservationReducer', () => {
 
     it('selected should be an empty array', () => {
       expect(initialState.selected).to.deep.equal([]);
+    });
+
+    it('toCancel should be an empty array', () => {
+      expect(initialState.toCancel).to.deep.equal([]);
     });
 
     it('toDelete should be an empty array', () => {
@@ -113,6 +119,18 @@ describe('Reducer: reservationReducer', () => {
     });
 
     describe('UI.CLOSE_MODAL', () => {
+      describe('if closed modal is CANCEL_RESERVATION modal', () => {
+        it('should clear toCancel array', () => {
+          const initialState = Immutable({
+            toCancel: [Reservation.build()],
+          });
+          const action = closeReservationCancelModal();
+          const nextState = reservationReducer(initialState, action);
+
+          expect(nextState.toCancel).to.deep.equal([]);
+        });
+      });
+
       describe('if closed modal is DELETE_RESERVATION modal', () => {
         it('should clear toDelete array', () => {
           const initialState = Immutable({
@@ -135,6 +153,35 @@ describe('Reducer: reservationReducer', () => {
 
           expect(nextState).to.equal(initialState);
         });
+      });
+    });
+
+    describe('UI.SELECT_RESERVATION_TO_CANCEL', () => {
+      it('should add the given reservation to toCancel', () => {
+        const initialState = Immutable({
+          toCancel: [],
+        });
+        const reservation = Reservation.build();
+        const action = selectReservationToCancel(reservation);
+        const nextState = reservationReducer(initialState, action);
+        const expected = Immutable([reservation]);
+
+        expect(nextState.toCancel).to.deep.equal(expected);
+      });
+
+      it('should not affect other reservations in toCancel', () => {
+        const reservations = [
+          Reservation.build(),
+          Reservation.build(),
+        ];
+        const initialState = Immutable({
+          toCancel: [reservations[0]],
+        });
+        const action = selectReservationToCancel(reservations[1]);
+        const nextState = reservationReducer(initialState, action);
+        const expected = Immutable([reservations[0], reservations[1]]);
+
+        expect(nextState.toCancel).to.deep.equal(expected);
       });
     });
 
