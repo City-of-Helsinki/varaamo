@@ -1,3 +1,4 @@
+import includes from 'lodash/collection/includes';
 import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
@@ -16,20 +17,24 @@ class ReservationControls extends Component {
 
     return (
       <div className="buttons">
-        <Button
-          bsSize="xsmall"
-          bsStyle="primary"
-          onClick={onEditClick}
-        >
-          Muokkaa
-        </Button>
-        <Button
-          bsSize="xsmall"
-          bsStyle="danger"
-          onClick={onDeleteClick}
-        >
-          Poista
-        </Button>
+        {!includes(['accepted', 'canceled', 'declined'], reservation.status) && (
+          <Button
+            bsSize="xsmall"
+            bsStyle="primary"
+            onClick={onEditClick}
+            >
+            Muokkaa
+          </Button>
+        )}
+        {!reservation.status && (
+          <Button
+            bsSize="xsmall"
+            bsStyle="danger"
+            onClick={onDeleteClick}
+          >
+            Poista
+          </Button>
+        )}
       </div>
     );
   }

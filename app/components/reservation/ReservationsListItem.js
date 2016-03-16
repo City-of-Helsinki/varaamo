@@ -16,6 +16,11 @@ class ReservationsListItem extends Component {
     this.handleEditClick = this.handleEditClick.bind(this);
   }
 
+  getStatus(reservation) {
+    const statuses = ['pending', 'canceled', 'declined', 'accepted', null];
+    return statuses[reservation.id % 5];
+  }
+
   handleDeleteClick() {
     const {
       openReservationDeleteModal,
@@ -52,8 +57,7 @@ class ReservationsListItem extends Component {
   }
 
   renderStatusLabel(reservation) {
-    const statuses = ['pending', 'canceled', 'declined', 'accepted', null];
-    const status = statuses[reservation.id % 5];
+    const status = this.getStatus(reservation);
 
     if (!status) {
       return null;
@@ -115,7 +119,7 @@ class ReservationsListItem extends Component {
         <ReservationControls
           onDeleteClick={this.handleDeleteClick}
           onEditClick={this.handleEditClick}
-          reservation={reservation}
+          reservation={Object.assign({}, reservation, { status: this.getStatus(reservation) })}
         />
         {this.renderStatusLabel(reservation)}
       </li>
