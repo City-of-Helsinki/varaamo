@@ -7,7 +7,12 @@ import { Link } from 'react-router';
 import TimeRange from 'components/common/TimeRange';
 import ReservationControls from 'components/reservation/ReservationControls';
 import { RESERVATION_STATUS_LABELS } from 'constants/AppConstants';
-import { getCaption, getMainImage, getName } from 'utils/DataUtils';
+import {
+  getCaption,
+  getMainImage,
+  getName,
+  getReservationStatus,
+} from 'utils/DataUtils';
 
 class ReservationsListItem extends Component {
   constructor(props) {
@@ -15,11 +20,6 @@ class ReservationsListItem extends Component {
     this.handleCancelClick = this.handleCancelClick.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
-  }
-
-  getStatus(reservation) {
-    const statuses = ['pending', 'canceled', 'declined', 'accepted', null];
-    return statuses[reservation.id % 5];
   }
 
   handleCancelClick() {
@@ -69,7 +69,7 @@ class ReservationsListItem extends Component {
   }
 
   renderStatusLabel(reservation) {
-    const status = this.getStatus(reservation);
+    const status = getReservationStatus(reservation);
 
     if (!status) {
       return null;
@@ -132,7 +132,7 @@ class ReservationsListItem extends Component {
           onCancelClick={this.handleCancelClick}
           onDeleteClick={this.handleDeleteClick}
           onEditClick={this.handleEditClick}
-          reservation={Object.assign({}, reservation, { status: this.getStatus(reservation) })}
+          reservation={Object.assign({}, reservation, { status: getReservationStatus(reservation) })}
         />
         {this.renderStatusLabel(reservation)}
       </li>
