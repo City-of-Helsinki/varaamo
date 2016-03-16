@@ -8,6 +8,11 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var common = require('./webpack.common');
 
 module.exports = merge(common, {
+  externals: {
+    cheerio: 'window',
+    'react/lib/ExecutionEnvironment': true,
+    'react/lib/ReactContext': true,
+  },
   module: {
     preLoaders: [],
     loaders: [

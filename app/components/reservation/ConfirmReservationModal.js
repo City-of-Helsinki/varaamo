@@ -6,6 +6,7 @@ import Modal from 'react-bootstrap/lib/Modal';
 
 
 import TimeRange from 'components/common/TimeRange';
+import PreliminaryReservationForm from 'containers/PreliminaryReservationForm';
 
 class ConfirmReservationModal extends Component {
   constructor(props) {
@@ -22,9 +23,22 @@ class ConfirmReservationModal extends Component {
     onConfirm(values);
   }
 
+  getModalTitle(isEditing, isPreliminaryReservation) {
+    if (isEditing) {
+      return 'Muutosten vahvistus';
+    }
+    if (isPreliminaryReservation) {
+      return 'Alustava varaus';
+    }
+    return 'Varauksen vahvistus';
+  }
+
   renderModalBody() {
     const {
       isEditing,
+      isMakingReservations,
+      isPreliminaryReservation,
+      onClose,
       reservationsToEdit,
       resource,
       selectedReservations,
@@ -65,12 +79,22 @@ class ConfirmReservationModal extends Component {
       );
     }
 
+    const helpText = isPreliminaryReservation ?
+      'Olet tekemässä alustavaa varausta seuraaville ajoille:' :
+      'Oletko varma että haluat tehdä seuraavat varaukset?';
+
     return (
       <div>
-        <p><strong>Oletko varma että haluat tehdä seuraavat varaukset?</strong></p>
+        <p><strong>{helpText}</strong></p>
         <ul>
           {map(selectedReservations, this.renderReservation)}
         </ul>
+        {isPreliminaryReservation && (
+          <PreliminaryReservationForm
+            isMakingReservations={isMakingReservations}
+            onClose={onClose}
+          />
+        )}
         {isAdmin && commentInput}
       </div>
     );
@@ -88,6 +112,7 @@ class ConfirmReservationModal extends Component {
     const {
       isEditing,
       isMakingReservations,
+      isPreliminaryReservation,
       onClose,
       show,
     } = this.props;
@@ -95,12 +120,13 @@ class ConfirmReservationModal extends Component {
     return (
       <Modal
         animation={false}
+        className="confirm-reservation-modal"
         onHide={onClose}
         show={show}
       >
         <Modal.Header closeButton>
           <Modal.Title>
-            {isEditing ? 'Muutosten vahvistus' : 'Varauksen vahvistus'}
+            {this.getModalTitle(isEditing, isPreliminaryReservation)}
           </Modal.Title>
         </Modal.Header>
 
@@ -108,21 +134,23 @@ class ConfirmReservationModal extends Component {
           {this.renderModalBody()}
         </Modal.Body>
 
-        <Modal.Footer>
-          <Button
-            bsStyle="default"
-            onClick={onClose}
-          >
-            Peruuta
-          </Button>
-          <Button
-            bsStyle="primary"
-            disabled={isMakingReservations}
-            onClick={this.onConfirm}
-          >
-            {isMakingReservations ? 'Tallennetaan...' : 'Tallenna'}
-          </Button>
-        </Modal.Footer>
+        {!isPreliminaryReservation && (
+          <Modal.Footer>
+            <Button
+              bsStyle="default"
+              onClick={onClose}
+            >
+              Peruuta
+            </Button>
+            <Button
+              bsStyle="primary"
+              disabled={isMakingReservations}
+              onClick={this.onConfirm}
+            >
+              {isMakingReservations ? 'Tallennetaan...' : 'Tallenna'}
+            </Button>
+          </Modal.Footer>
+        )}
       </Modal>
     );
   }
@@ -131,6 +159,7 @@ class ConfirmReservationModal extends Component {
 ConfirmReservationModal.propTypes = {
   isEditing: PropTypes.bool.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,
+  isPreliminaryReservation: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
   reservationsToEdit: PropTypes.array.isRequired,

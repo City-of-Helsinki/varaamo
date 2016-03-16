@@ -13,6 +13,7 @@ function getProps(props) {
   const defaults = {
     isEditing: false,
     isMakingReservations: false,
+    isPreliminaryReservation: false,
     onClose: simple.stub(),
     onConfirm: simple.stub(),
     reservationsToEdit: Immutable([]),
@@ -25,7 +26,7 @@ function getProps(props) {
 }
 
 describe('Component: reservation/ConfirmReservationModal', () => {
-  describe('when making reservations', () => {
+  describe('when making a normal reservation', () => {
     const props = getProps({
       selectedReservations: Immutable([
         Reservation.build(),
@@ -73,6 +74,12 @@ describe('Component: reservation/ConfirmReservationModal', () => {
 
       it('should render a ModalBody component', () => {
         expect(modalBodyTrees.length).to.equal(1);
+      });
+
+      it('should render a help text asking for confirmation', () => {
+        const textTree = modalBodyTrees[0].subTree('p');
+        const expected = 'Oletko varma että haluat tehdä seuraavat varaukset?';
+        expect(textTree.text()).to.equal(expected);
       });
 
       it('should render a list for selected reservations', () => {
@@ -139,6 +146,92 @@ describe('Component: reservation/ConfirmReservationModal', () => {
             expect(props.onClose.callCount).to.equal(1);
           });
         });
+      });
+    });
+  });
+
+  describe('when making a preliminary reservation', () => {
+    const props = getProps({
+      isPreliminaryReservation: true,
+      resource: Resource.build({ needManualConfirmation: true }),
+      selectedReservations: Immutable([
+        Reservation.build(),
+        Reservation.build(),
+      ]),
+    });
+    const tree = sd.shallowRender(<ConfirmReservationModal {...props} />);
+    const instance = tree.getMountedInstance();
+    instance.refs = {
+      commentInput: { getValue: simple.stub() },
+    };
+
+    it('should render a Modal component', () => {
+      const modalTrees = tree.everySubTree('Modal');
+
+      expect(modalTrees.length).to.equal(1);
+    });
+
+    describe('Modal header', () => {
+      const modalHeaderTrees = tree.everySubTree('ModalHeader');
+
+      it('should render a ModalHeader component', () => {
+        expect(modalHeaderTrees.length).to.equal(1);
+      });
+
+      it('should contain a close button', () => {
+        expect(modalHeaderTrees[0].props.closeButton).to.equal(true);
+      });
+
+      it('should render a ModalTitle component', () => {
+        const modalTitleTrees = tree.everySubTree('ModalTitle');
+
+        expect(modalTitleTrees.length).to.equal(1);
+      });
+
+      it('the ModalTitle should display text "Alustava varaus"', () => {
+        const modalTitleTree = tree.subTree('ModalTitle');
+
+        expect(modalTitleTree.props.children).to.equal('Alustava varaus');
+      });
+    });
+
+    describe('Modal body', () => {
+      const modalBodyTrees = tree.everySubTree('ModalBody');
+
+      it('should render a ModalBody component', () => {
+        expect(modalBodyTrees.length).to.equal(1);
+      });
+
+      it('should render a help text asking for confirmation', () => {
+        const textTree = modalBodyTrees[0].subTree('p');
+        const expected = 'Olet tekemässä alustavaa varausta seuraaville ajoille:';
+        expect(textTree.text()).to.equal(expected);
+      });
+
+      it('should render a list for selected reservations', () => {
+        const listTrees = modalBodyTrees[0].everySubTree('ul');
+
+        expect(listTrees.length).to.equal(1);
+      });
+
+      it('should render a list element for each selected reservation', () => {
+        const listElementTrees = modalBodyTrees[0].everySubTree('li');
+
+        expect(listElementTrees.length).to.equal(props.selectedReservations.length);
+      });
+
+      it('should display a TimeRange for each selected reservation', () => {
+        const timeRangeTrees = modalBodyTrees[0].everySubTree('TimeRange');
+
+        expect(timeRangeTrees.length).to.equal(props.selectedReservations.length);
+      });
+    });
+
+    describe('Modal footer', () => {
+      const modalFooterTrees = tree.everySubTree('ModalFooter');
+
+      it('should not render a ModalFooter component', () => {
+        expect(modalFooterTrees.length).to.equal(0);
       });
     });
   });

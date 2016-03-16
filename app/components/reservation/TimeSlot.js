@@ -98,6 +98,7 @@ class TimeSlot extends Component {
 
   render() {
     const {
+      hasPreliminaryReservation,
       isEditing,
       isLoggedIn,
       resource,
@@ -107,7 +108,7 @@ class TimeSlot extends Component {
     const isPast = moment(slot.end) < moment();
     const disabled = (
       !isLoggedIn ||
-      !resource.userPermissions.canMakeReservations ||
+      (!resource.userPermissions.canMakeReservations && !hasPreliminaryReservation) ||
       !slot.editing && (slot.reserved || isPast)
     );
     const checked = selected || (slot.reserved && !slot.editing);
@@ -177,6 +178,7 @@ class TimeSlot extends Component {
 
 TimeSlot.propTypes = {
   addNotification: PropTypes.func.isRequired,
+  hasPreliminaryReservation: PropTypes.bool.isRequired,
   isEditing: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
