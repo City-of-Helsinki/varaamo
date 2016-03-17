@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { deleteReservation } from 'actions/reservationActions';
-import { closeDeleteReservationModal } from 'actions/uiActions';
+import { closeReservationDeleteModal } from 'actions/uiActions';
 import TimeRange from 'components/common/TimeRange';
 import reservationDeleteModalSelector from 'selectors/containers/reservationDeleteModalSelector';
 import { getName } from 'utils/DataUtils';
@@ -25,7 +25,7 @@ export class UnconnectedReservationDeleteModal extends Component {
     forEach(reservationsToDelete, (reservation) => {
       actions.deleteReservation(reservation);
     });
-    actions.closeDeleteReservationModal();
+    actions.closeReservationDeleteModal();
   }
 
   renderReservation(reservation) {
@@ -50,7 +50,7 @@ export class UnconnectedReservationDeleteModal extends Component {
 
     return (
       <Modal
-        onHide={actions.closeDeleteReservationModal}
+        onHide={actions.closeReservationDeleteModal}
         show={show}
       >
         <Modal.Header closeButton>
@@ -67,7 +67,7 @@ export class UnconnectedReservationDeleteModal extends Component {
         <Modal.Footer>
           <Button
             bsStyle="default"
-            onClick={actions.closeDeleteReservationModal}
+            onClick={actions.closeReservationDeleteModal}
           >
             Peruuta
           </Button>
@@ -94,7 +94,7 @@ UnconnectedReservationDeleteModal.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
-    closeDeleteReservationModal,
+    closeReservationDeleteModal,
     deleteReservation,
   };
 

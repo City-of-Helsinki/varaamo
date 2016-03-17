@@ -1,17 +1,36 @@
 import isEmpty from 'lodash/lang/isEmpty';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
+import Label from 'react-bootstrap/lib/Label';
 import { Link } from 'react-router';
 
 import TimeRange from 'components/common/TimeRange';
 import ReservationControls from 'components/reservation/ReservationControls';
-import { getCaption, getMainImage, getName } from 'utils/DataUtils';
+import { RESERVATION_STATUS_LABELS } from 'constants/AppConstants';
+import {
+  getCaption,
+  getMainImage,
+  getName,
+  getReservationStatus,
+} from 'utils/DataUtils';
 
 class ReservationsListItem extends Component {
   constructor(props) {
     super(props);
+    this.handleCancelClick = this.handleCancelClick.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
+  }
+
+  handleCancelClick() {
+    const {
+      openReservationCancelModal,
+      reservation,
+      selectReservationToCancel,
+    } = this.props;
+
+    selectReservationToCancel(reservation);
+    openReservationCancelModal();
   }
 
   handleDeleteClick() {
@@ -43,10 +62,26 @@ class ReservationsListItem extends Component {
 
   renderImage(image) {
     if (image && image.url) {
-      const src = `${image.url}?dim=100x100`;
+      const src = `${image.url}?dim=100x120`;
       return <img alt={getCaption(image)} src={src} />;
     }
     return null;
+  }
+
+  renderStatusLabel(reservation) {
+    const status = getReservationStatus(reservation);
+
+    if (!status) {
+      return null;
+    }
+
+    const { labelBsStyle, labelText } = RESERVATION_STATUS_LABELS[status];
+
+    return (
+      <div className="status">
+        <Label bsStyle={labelBsStyle}>{labelText}</Label>
+      </div>
+    );
   }
 
   render() {
@@ -94,23 +129,27 @@ class ReservationsListItem extends Component {
           </Link>
         </div>
         <ReservationControls
+          onCancelClick={this.handleCancelClick}
           onDeleteClick={this.handleDeleteClick}
           onEditClick={this.handleEditClick}
-          reservation={reservation}
+          reservation={Object.assign({}, reservation, { status: getReservationStatus(reservation) })}
         />
+        {this.renderStatusLabel(reservation)}
       </li>
     );
   }
 }
 
 ReservationsListItem.propTypes = {
+  openReservationCancelModal: PropTypes.func.isRequired,
   openReservationDeleteModal: PropTypes.func.isRequired,
-  updatePath: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
+  selectReservationToCancel: PropTypes.func.isRequired,
   selectReservationToDelete: PropTypes.func.isRequired,
   selectReservationToEdit: PropTypes.func.isRequired,
   unit: PropTypes.object.isRequired,
+  updatePath: PropTypes.func.isRequired,
 };
 
 export default ReservationsListItem;

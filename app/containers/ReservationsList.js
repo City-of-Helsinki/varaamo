@@ -6,13 +6,16 @@ import { bindActionCreators } from 'redux';
 import { updatePath } from 'redux-simple-router';
 
 import {
+  openReservationCancelModal,
   openReservationDeleteModal,
+  selectReservationToCancel,
   selectReservationToDelete,
   selectReservationToEdit,
 } from 'actions/uiActions';
 import { fetchReservations } from 'actions/reservationActions';
 import { fetchResources } from 'actions/resourceActions';
 import { fetchUnits } from 'actions/unitActions';
+import ReservationCancelModal from 'containers/ReservationCancelModal';
 import ReservationDeleteModal from 'containers/ReservationDeleteModal';
 import ReservationsListItem from 'components/reservation/ReservationsListItem';
 import reservationsListSelector from 'selectors/containers/reservationsListSelector';
@@ -43,8 +46,10 @@ export class UnconnectedReservationsList extends Component {
         key={reservation.url}
         reservation={reservation}
         resource={resource}
+        openReservationCancelModal={actions.openReservationCancelModal}
         openReservationDeleteModal={actions.openReservationDeleteModal}
         updatePath={actions.updatePath}
+        selectReservationToCancel={actions.selectReservationToCancel}
         selectReservationToDelete={actions.selectReservationToDelete}
         selectReservationToEdit={actions.selectReservationToEdit}
         unit={unit}
@@ -65,6 +70,7 @@ export class UnconnectedReservationsList extends Component {
             <ul className="reservations-list">
               {map(reservations, this.renderReservationsListItem)}
             </ul>
+            <ReservationCancelModal />
             <ReservationDeleteModal />
           </div>
         ) : (
@@ -88,8 +94,10 @@ function mapDispatchToProps(dispatch) {
     fetchReservations,
     fetchResources,
     fetchUnits,
+    openReservationCancelModal,
     openReservationDeleteModal,
     updatePath,
+    selectReservationToCancel,
     selectReservationToDelete,
     selectReservationToEdit,
   };

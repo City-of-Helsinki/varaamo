@@ -1,52 +1,141 @@
 import { expect } from 'chai';
+import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
-import sd from 'skin-deep';
 
+import Button from 'react-bootstrap/lib/Button';
 import Immutable from 'seamless-immutable';
 
 import ReservationControls from 'components/reservation/ReservationControls';
 import Reservation from 'fixtures/Reservation';
 
 describe('Component: reservation/ReservationControls', () => {
-  const props = {
-    onDeleteClick: simple.stub(),
-    onEditClick: simple.stub(),
-    reservation: Immutable(Reservation.build()),
-  };
-  const tree = sd.shallowRender(<ReservationControls {...props} />);
-  const buttonTrees = tree.everySubTree('Button');
+  const onCancelClick = simple.stub();
+  const onDeleteClick = simple.stub();
+  const onEditClick = simple.stub();
 
+  function getWrapper(reservationStatus = null) {
+    const props = {
+      onCancelClick,
+      onDeleteClick,
+      onEditClick,
+      reservation: Immutable(Reservation.build({ status: reservationStatus })),
+    };
+    return shallow(<ReservationControls {...props} />);
+  }
 
-  it('should render two buttons', () => {
-    expect(buttonTrees.length).to.equal(2);
+  describe('with normal reservation', () => {
+    const buttons = getWrapper().find(Button);
+
+    it('should render two buttons', () => {
+      expect(buttons.length).to.equal(2);
+    });
+
+    describe('the first button', () => {
+      const button = buttons.at(0);
+
+      it('should be an edit button', () => {
+        expect(button.props().children).to.equal('Muokkaa');
+      });
+
+      it('clicking the button should call onEditClick', () => {
+        onEditClick.reset();
+        button.props().onClick();
+
+        expect(onEditClick.callCount).to.equal(1);
+      });
+    });
+
+    describe('the second button', () => {
+      const button = buttons.at(1);
+
+      it('should be a delete button', () => {
+        expect(button.props().children).to.equal('Poista');
+      });
+
+      it('clicking the button should call onDeleteClick', () => {
+        onDeleteClick.reset();
+        button.props().onClick();
+
+        expect(onDeleteClick.callCount).to.equal(1);
+      });
+    });
   });
 
-  describe('the first button', () => {
-    const buttonTree = buttonTrees[0];
+  describe('with preliminary reservation in pending state', () => {
+    const buttons = getWrapper('pending').find(Button);
 
-    it('should be an edit button', () => {
-      expect(buttonTree.props.children).to.equal('Muokkaa');
+    it('should render two buttons', () => {
+      expect(buttons.length).to.equal(2);
     });
 
-    it('clicking the button should call props.onEditClick', () => {
-      buttonTree.props.onClick();
+    describe('the first button', () => {
+      const button = buttons.at(0);
 
-      expect(props.onEditClick.callCount).to.equal(1);
+      it('should be an edit button', () => {
+        expect(button.props().children).to.equal('Muokkaa');
+      });
+
+      it('clicking the button should call onEditClick', () => {
+        onEditClick.reset();
+        button.props().onClick();
+
+        expect(onEditClick.callCount).to.equal(1);
+      });
+    });
+
+    describe('the second button', () => {
+      const button = buttons.at(1);
+
+      it('should be a cancel button', () => {
+        expect(button.props().children).to.equal('Peru');
+      });
+
+      it('clicking the button should call onCancelClick', () => {
+        onCancelClick.reset();
+        button.props().onClick();
+
+        expect(onCancelClick.callCount).to.equal(1);
+      });
     });
   });
 
-  describe('the second button', () => {
-    const buttonTree = buttonTrees[1];
+  describe('with preliminary reservation in canceled state', () => {
+    const buttons = getWrapper('canceled').find(Button);
 
-    it('should be a delete button', () => {
-      expect(buttonTree.props.children).to.equal('Poista');
+    it('should not render any buttons', () => {
+      expect(buttons.length).to.equal(0);
+    });
+  });
+
+  describe('with preliminary reservation in declined state', () => {
+    const buttons = getWrapper('declined').find(Button);
+
+    it('should not render any buttons', () => {
+      expect(buttons.length).to.equal(0);
+    });
+  });
+
+  describe('with preliminary reservation in accepted state', () => {
+    const buttons = getWrapper('accepted').find(Button);
+
+    it('should render one button', () => {
+      expect(buttons.length).to.equal(1);
     });
 
-    it('clicking the button should call props.onDeleteClick', () => {
-      buttonTree.props.onClick();
+    describe('the button', () => {
+      const button = buttons.at(0);
 
-      expect(props.onDeleteClick.callCount).to.equal(1);
+      it('should be a cancel button', () => {
+        expect(button.props().children).to.equal('Peru');
+      });
+
+      it('clicking the button should call onCancelClick', () => {
+        onCancelClick.reset();
+        button.props().onClick();
+
+        expect(onCancelClick.callCount).to.equal(1);
+      });
     });
   });
 });
