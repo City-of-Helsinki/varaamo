@@ -50,6 +50,7 @@ export class UnconnectedReservationsList extends Component {
 
   render() {
     const {
+      emptyMessage,
       isFetchingReservations,
       reservations,
     } = this.props;
@@ -65,7 +66,7 @@ export class UnconnectedReservationsList extends Component {
             <ReservationDeleteModal />
           </div>
         ) : (
-          <p>Sinulla ei vielä ole yhtään varausta.</p>
+          <p>{emptyMessage || 'Sinulla ei vielä ole yhtään varausta.'}</p>
         )}
       </Loader>
     );
@@ -74,6 +75,7 @@ export class UnconnectedReservationsList extends Component {
 
 UnconnectedReservationsList.propTypes = {
   actions: PropTypes.object.isRequired,
+  emptyMessage: PropTypes.string,
   filter: PropTypes.string,
   isFetchingReservations: PropTypes.bool.isRequired,
   reservations: PropTypes.array.isRequired,

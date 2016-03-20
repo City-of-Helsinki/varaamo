@@ -36,7 +36,7 @@ function getProps(props) {
   return Object.assign({}, defaults, props);
 }
 
-describe('Component: reservation/ReservationsList', () => {
+describe('Container: ReservationsList', () => {
   describe('with reservations', () => {
     const unit = Unit.build();
     const resource = Resource.build({ unit: unit.id });
@@ -120,19 +120,29 @@ describe('Component: reservation/ReservationsList', () => {
   });
 
   describe('without reservations', () => {
-    const props = getProps({
-      reservations: [],
+    describe('when emptyMessage is given in props', () => {
+      const props = getProps({
+        emptyMessage: 'No reservations found',
+        reservations: [],
+      });
+      const tree = sd.shallowRender(<ReservationsList {...props} />);
+
+      it('should display the emptyMessage', () => {
+        expect(tree.textIn('p')).to.equal(props.emptyMessage);
+      });
     });
-    let tree;
 
-    before(() => {
-      tree = sd.shallowRender(<ReservationsList {...props} />);
-    });
+    describe('when emptyMessage is not given in props', () => {
+      const props = getProps({
+        reservations: [],
+      });
+      const tree = sd.shallowRender(<ReservationsList {...props} />);
 
-    it('should render a message telling no reservations were found', () => {
-      const expected = 'Sinulla ei vielä ole yhtään varausta.';
+      it('should render a message telling no reservations were found', () => {
+        const expected = 'Sinulla ei vielä ole yhtään varausta.';
 
-      expect(tree.textIn('p')).to.equal(expected);
+        expect(tree.textIn('p')).to.equal(expected);
+      });
     });
   });
 });
