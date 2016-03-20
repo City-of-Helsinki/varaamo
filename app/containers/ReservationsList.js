@@ -74,6 +74,7 @@ export class UnconnectedReservationsList extends Component {
 
 UnconnectedReservationsList.propTypes = {
   actions: PropTypes.object.isRequired,
+  filter: PropTypes.string,
   isFetchingReservations: PropTypes.bool.isRequired,
   reservations: PropTypes.array.isRequired,
   resources: PropTypes.object.isRequired,
