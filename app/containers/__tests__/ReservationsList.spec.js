@@ -16,9 +16,6 @@ function getProps(props) {
   const defaults = {
     actions: {
       deleteReservation: simple.stub(),
-      fetchReservations: simple.stub(),
-      fetchResources: simple.stub(),
-      fetchUnits: simple.stub(),
       openReservationCancelModal: simple.stub(),
       openReservationDeleteModal: simple.stub(),
       updatePath: simple.stub(),
@@ -136,33 +133,6 @@ describe('Component: reservation/ReservationsList', () => {
       const expected = 'Sinulla ei vielä ole yhtään varausta.';
 
       expect(tree.textIn('p')).to.equal(expected);
-    });
-  });
-
-  describe('fetching data', () => {
-    const props = getProps({});
-    let tree;
-
-    before(() => {
-      tree = sd.shallowRender(<ReservationsList {...props} />);
-      const instance = tree.getMountedInstance();
-      instance.componentDidMount();
-    });
-
-    it('should fetch reservations when component mounts', () => {
-      expect(props.actions.fetchReservations.callCount).to.equal(1);
-    });
-
-    it('should only fetch user\'s own reservations when component mounts', () => {
-      expect(props.actions.fetchReservations.lastCall.args[0].isOwn).to.equal(true);
-    });
-
-    it('should fetch resources when component mounts', () => {
-      expect(props.actions.fetchResources.callCount).to.equal(1);
-    });
-
-    it('should fetch units when component mounts', () => {
-      expect(props.actions.fetchUnits.callCount).to.equal(1);
     });
   });
 });

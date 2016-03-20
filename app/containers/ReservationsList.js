@@ -12,9 +12,6 @@ import {
   selectReservationToDelete,
   selectReservationToEdit,
 } from 'actions/uiActions';
-import { fetchReservations } from 'actions/reservationActions';
-import { fetchResources } from 'actions/resourceActions';
-import { fetchUnits } from 'actions/unitActions';
 import ReservationCancelModal from 'containers/ReservationCancelModal';
 import ReservationDeleteModal from 'containers/ReservationDeleteModal';
 import ReservationsListItem from 'components/reservation/ReservationsListItem';
@@ -24,12 +21,6 @@ export class UnconnectedReservationsList extends Component {
   constructor(props) {
     super(props);
     this.renderReservationsListItem = this.renderReservationsListItem.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.actions.fetchResources();
-    this.props.actions.fetchUnits();
-    this.props.actions.fetchReservations({ isOwn: true });
   }
 
   renderReservationsListItem(reservation) {
@@ -91,9 +82,6 @@ UnconnectedReservationsList.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
-    fetchReservations,
-    fetchResources,
-    fetchUnits,
     openReservationCancelModal,
     openReservationDeleteModal,
     updatePath,
