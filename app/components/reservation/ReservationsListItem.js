@@ -86,6 +86,7 @@ class ReservationsListItem extends Component {
 
   render() {
     const {
+      isAdmin,
       reservation,
       resource,
       unit,
@@ -129,6 +130,7 @@ class ReservationsListItem extends Component {
           </Link>
         </div>
         <ReservationControls
+          isAdmin={isAdmin}
           onCancelClick={this.handleCancelClick}
           onDeleteClick={this.handleDeleteClick}
           onEditClick={this.handleEditClick}
@@ -141,6 +143,7 @@ class ReservationsListItem extends Component {
 }
 
 ReservationsListItem.propTypes = {
+  isAdmin: PropTypes.bool.isRequired,
   openReservationCancelModal: PropTypes.func.isRequired,
   openReservationDeleteModal: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,

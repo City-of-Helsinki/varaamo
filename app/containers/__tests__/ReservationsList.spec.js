@@ -15,7 +15,6 @@ import Unit from 'fixtures/Unit';
 function getProps(props) {
   const defaults = {
     actions: {
-      deleteReservation: simple.stub(),
       openReservationCancelModal: simple.stub(),
       openReservationDeleteModal: simple.stub(),
       updatePath: simple.stub(),
@@ -23,12 +22,10 @@ function getProps(props) {
       selectReservationToDelete: simple.stub(),
       selectReservationToEdit: simple.stub(),
     },
-    closeDeleteModal: simple.stub(),
+    isAdmin: false,
     deleteReservationModalIsOpen: false,
-    isDeletingReservations: false,
     isFetchingReservations: false,
     reservations: [],
-    reservationsToDelete: [],
     resources: {},
     units: {},
   };
@@ -79,6 +76,7 @@ describe('Container: ReservationsList', () => {
         reservationsListItemTrees.forEach((reservationTree, index) => {
           const actualProps = reservationTree.props;
 
+          expect(actualProps.isAdmin).to.equal(props.isAdmin);
           expect(actualProps.reservation).to.deep.equal(props.reservations[index]);
           expect(actualProps.openReservationCancelModal).to.deep.equal(props.actions.openReservationCancelModal);
           expect(actualProps.openReservationDeleteModal).to.deep.equal(props.actions.openReservationDeleteModal);

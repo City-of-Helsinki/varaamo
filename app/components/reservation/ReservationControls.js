@@ -6,6 +6,24 @@ class ReservationControls extends Component {
   constructor(props) {
     super(props);
     this.buttons = {
+      accept: (
+        <Button
+          bsSize="xsmall"
+          bsStyle="success"
+          key="acceptButton"
+        >
+          Hyväksy
+        </Button>
+      ),
+      adminCancel: (
+        <Button
+          bsSize="xsmall"
+          bsStyle="danger"
+          key="adminCalcelButton"
+        >
+          Peru
+        </Button>
+      ),
       cancel: (
         <Button
           bsSize="xsmall"
@@ -14,6 +32,15 @@ class ReservationControls extends Component {
           onClick={props.onCancelClick}
         >
           Peru
+        </Button>
+      ),
+      decline: (
+        <Button
+          bsSize="xsmall"
+          bsStyle="danger"
+          key="declineButton"
+        >
+          Hylkää
         </Button>
       ),
       delete: (
@@ -39,23 +66,29 @@ class ReservationControls extends Component {
     };
   }
 
-  renderButtons(buttons, status) {
+  renderButtons(buttons, isAdmin, status) {
     switch (status) {
+
     case 'accepted':
-      return [buttons.cancel];
+      return isAdmin ? [buttons.adminCancel] : [buttons.cancel];
+
     case 'canceled':
-      return null;
+      return isAdmin ? null : null;
+
     case 'declined':
-      return null;
+      return isAdmin ? null : null;
+
     case 'pending':
-      return [buttons.edit, buttons.cancel];
+      return isAdmin ? [buttons.accept, buttons.decline] : [buttons.edit, buttons.cancel];
+
     default:
-      return [buttons.edit, buttons.delete];
+      return isAdmin ? [buttons.edit, buttons.delete] : [buttons.edit, buttons.delete];
+
     }
   }
 
   render() {
-    const { reservation } = this.props;
+    const { isAdmin, reservation } = this.props;
 
     if (!reservation || moment() > moment(reservation.end)) {
       return null;
@@ -63,13 +96,14 @@ class ReservationControls extends Component {
 
     return (
       <div className="buttons">
-        {this.renderButtons(this.buttons, reservation.status)}
+        {this.renderButtons(this.buttons, isAdmin, reservation.status)}
       </div>
     );
   }
 }
 
 ReservationControls.propTypes = {
+  isAdmin: PropTypes.bool.isRequired,
   onCancelClick: PropTypes.func.isRequired,
   onDeleteClick: PropTypes.func.isRequired,
   onEditClick: PropTypes.func.isRequired,

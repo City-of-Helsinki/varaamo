@@ -26,6 +26,7 @@ export class UnconnectedReservationsList extends Component {
   renderReservationsListItem(reservation) {
     const {
       actions,
+      isAdmin,
       resources,
       units,
     } = this.props;
@@ -34,6 +35,7 @@ export class UnconnectedReservationsList extends Component {
 
     return (
       <ReservationsListItem
+        isAdmin={isAdmin}
         key={reservation.url}
         reservation={reservation}
         resource={resource}
@@ -77,6 +79,7 @@ UnconnectedReservationsList.propTypes = {
   actions: PropTypes.object.isRequired,
   emptyMessage: PropTypes.string,
   filter: PropTypes.string,
+  isAdmin: PropTypes.bool.isRequired,
   isFetchingReservations: PropTypes.bool.isRequired,
   reservations: PropTypes.array.isRequired,
   resources: PropTypes.object.isRequired,

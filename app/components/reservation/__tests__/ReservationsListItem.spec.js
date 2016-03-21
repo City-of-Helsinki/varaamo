@@ -14,6 +14,7 @@ import Unit from 'fixtures/Unit';
 
 describe('Component: reservation/ReservationsListItem', () => {
   const props = {
+    isAdmin: false,
     openReservationCancelModal: simple.stub(),
     openReservationDeleteModal: simple.stub(),
     updatePath: simple.stub(),
@@ -94,6 +95,8 @@ describe('Component: reservation/ReservationsListItem', () => {
 
         // TODO: This should be uncommented once API returned reservations contain status field.
         // expect(actualProps.reservation).to.equal(props.reservation);
+        expect(actualProps.isAdmin).to.equal(false);
+        expect(actualProps.onCancelClick).to.equal(instance.handleCancelClick);
         expect(actualProps.onDeleteClick).to.equal(instance.handleDeleteClick);
         expect(actualProps.onEditClick).to.equal(instance.handleEditClick);
       });

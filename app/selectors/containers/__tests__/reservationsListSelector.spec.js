@@ -8,6 +8,10 @@ describe('Selector: reservationsListSelector', () => {
   const props = getDefaultRouterProps();
   const selected = reservationsListSelector(state, props);
 
+  it('should return isAdmin', () => {
+    expect(selected.isAdmin).to.exist;
+  });
+
   it('should return isFetchingReservations', () => {
     expect(selected.isFetchingReservations).to.exist;
   });
