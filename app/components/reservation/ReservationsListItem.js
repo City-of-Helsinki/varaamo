@@ -1,6 +1,7 @@
 import isEmpty from 'lodash/lang/isEmpty';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
+import Button from 'react-bootstrap/lib/Button';
 import Label from 'react-bootstrap/lib/Label';
 import { Link } from 'react-router';
 
@@ -129,6 +130,15 @@ class ReservationsListItem extends Component {
             />
           </Link>
         </div>
+        { isAdmin && (
+          <Button
+            bsSize="xsmall"
+            bsStyle="default"
+            className="info-button"
+          >
+            Tiedot
+          </Button>
+        )}
         <ReservationControls
           isAdmin={isAdmin}
           onCancelClick={this.handleCancelClick}
