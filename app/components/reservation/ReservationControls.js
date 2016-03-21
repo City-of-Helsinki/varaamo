@@ -1,16 +1,61 @@
-import includes from 'lodash/collection/includes';
 import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 
 class ReservationControls extends Component {
+  constructor(props) {
+    super(props);
+    this.buttons = {
+      cancel: (
+        <Button
+          bsSize="xsmall"
+          bsStyle="default"
+          key="calcelButton"
+          onClick={props.onCancelClick}
+        >
+          Peru
+        </Button>
+      ),
+      delete: (
+        <Button
+          bsSize="xsmall"
+          bsStyle="danger"
+          key="deleteButton"
+          onClick={props.onDeleteClick}
+        >
+          Poista
+        </Button>
+      ),
+      edit: (
+        <Button
+          bsSize="xsmall"
+          bsStyle="primary"
+          key="editButton"
+          onClick={props.onEditClick}
+          >
+          Muokkaa
+        </Button>
+      ),
+    };
+  }
+
+  renderButtons(buttons, status) {
+    switch (status) {
+    case 'accepted':
+      return [buttons.cancel];
+    case 'canceled':
+      return null;
+    case 'declined':
+      return null;
+    case 'pending':
+      return [buttons.edit, buttons.cancel];
+    default:
+      return [buttons.edit, buttons.delete];
+    }
+  }
+
   render() {
-    const {
-      onCancelClick,
-      onDeleteClick,
-      onEditClick,
-      reservation,
-    } = this.props;
+    const { reservation } = this.props;
 
     if (!reservation || moment() > moment(reservation.end)) {
       return null;
@@ -18,33 +63,7 @@ class ReservationControls extends Component {
 
     return (
       <div className="buttons">
-        {!includes(['accepted', 'canceled', 'declined'], reservation.status) && (
-          <Button
-            bsSize="xsmall"
-            bsStyle="primary"
-            onClick={onEditClick}
-            >
-            Muokkaa
-          </Button>
-        )}
-        {includes(['accepted', 'pending'], reservation.status) && (
-          <Button
-            bsSize="xsmall"
-            bsStyle="default"
-            onClick={onCancelClick}
-          >
-            Peru
-          </Button>
-        )}
-        {!reservation.status && (
-          <Button
-            bsSize="xsmall"
-            bsStyle="danger"
-            onClick={onDeleteClick}
-          >
-            Poista
-          </Button>
-        )}
+        {this.renderButtons(this.buttons, reservation.status)}
       </div>
     );
   }
