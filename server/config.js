@@ -2,7 +2,8 @@ import hashFile from 'hash-file';
 import path from 'path';
 
 const isProduction = process.env.NODE_ENV === 'production';
-const port = isProduction ? 8080 : 3000;
+const defaultPort = isProduction ? 8080 : 3000;
+const port = process.env.PORT || defaultPort;
 
 function getAssetHash(filePath) {
   if (!isProduction) return '';
