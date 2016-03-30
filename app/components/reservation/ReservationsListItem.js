@@ -1,6 +1,7 @@
 import isEmpty from 'lodash/lang/isEmpty';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
+import Button from 'react-bootstrap/lib/Button';
 import Label from 'react-bootstrap/lib/Label';
 import { Link } from 'react-router';
 
@@ -86,6 +87,7 @@ class ReservationsListItem extends Component {
 
   render() {
     const {
+      isAdmin,
       reservation,
       resource,
       unit,
@@ -128,7 +130,17 @@ class ReservationsListItem extends Component {
             />
           </Link>
         </div>
+        { isAdmin && (
+          <Button
+            bsSize="xsmall"
+            bsStyle="default"
+            className="info-button"
+          >
+            Tiedot
+          </Button>
+        )}
         <ReservationControls
+          isAdmin={isAdmin}
           onCancelClick={this.handleCancelClick}
           onDeleteClick={this.handleDeleteClick}
           onEditClick={this.handleEditClick}
@@ -141,6 +153,7 @@ class ReservationsListItem extends Component {
 }
 
 ReservationsListItem.propTypes = {
+  isAdmin: PropTypes.bool.isRequired,
   openReservationCancelModal: PropTypes.func.isRequired,
   openReservationDeleteModal: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,

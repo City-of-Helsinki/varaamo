@@ -15,34 +15,99 @@ function getState(reservations = []) {
 }
 
 describe('Selector: sortedReservationsSelector', () => {
-  it('should return an empty string if there are no reservations in state', () => {
-    const state = getState([]);
-    const actual = sortedReservationsSelector(state);
+  describe('if there is no filter in props', () => {
+    it('should return an empty string if there are no reservations in state', () => {
+      const state = getState([]);
+      const props = {};
+      const actual = sortedReservationsSelector(state, props);
 
-    expect(actual).to.deep.equal([]);
+      expect(actual).to.deep.equal([]);
+    });
+
+    it('should return all reservations in state in an array', () => {
+      const reservations = [
+        Reservation.build(),
+        Reservation.build(),
+      ];
+      const state = getState(reservations);
+      const props = {};
+      const actual = sortedReservationsSelector(state, props);
+
+      expect(actual.length).to.equal(reservations.length);
+    });
+
+    it('should return the results ordered from oldest to newest', () => {
+      const reservations = [
+        Reservation.build({ begin: '2015-10-10' }),
+        Reservation.build({ begin: '2015-09-20' }),
+        Reservation.build({ begin: '2015-10-30' }),
+      ];
+      const state = getState(reservations);
+      const props = {};
+      const actual = sortedReservationsSelector(state, props);
+      const expected = [reservations[1], reservations[0], reservations[2]];
+
+      expect(actual).to.deep.equal(expected);
+    });
   });
 
-  it('should return all reservations in state in an array', () => {
-    const reservations = [
-      Reservation.build(),
-      Reservation.build(),
-    ];
-    const state = getState(reservations);
-    const actual = sortedReservationsSelector(state);
+  describe('if there is a filter in props', () => {
+    it('should return an empty string if there are no reservations in state', () => {
+      const state = getState([]);
+      const props = { filter: 'preliminary' };
+      const actual = sortedReservationsSelector(state, props);
 
-    expect(actual.length).to.deep.equal(reservations.length);
-  });
+      expect(actual).to.deep.equal([]);
+    });
 
-  it('should return the results ordered from oldest to newest', () => {
-    const reservations = [
-      Reservation.build({ begin: '2015-10-10' }),
-      Reservation.build({ begin: '2015-09-20' }),
-      Reservation.build({ begin: '2015-10-30' }),
-    ];
-    const state = getState(reservations);
-    const actual = sortedReservationsSelector(state);
-    const expected = [reservations[1], reservations[0], reservations[2]];
+    it('should return only preliminary reservations when filter is "preliminary"', () => {
+      const reservations = [
+        Reservation.build({ id: 1 }),
+        Reservation.build({ id: 4 }),
+      ];
+      const state = getState(reservations);
+      const props = { filter: 'preliminary' };
+      const actual = sortedReservationsSelector(state, props);
 
-    expect(actual).to.deep.equal(expected);
+      expect(actual).to.deep.equal([reservations[0]]);
+    });
+
+    it('should return only regular reservations when filter is "regular"', () => {
+      const reservations = [
+        Reservation.build({ id: 1 }),
+        Reservation.build({ id: 4 }),
+      ];
+      const state = getState(reservations);
+      const props = { filter: 'regular' };
+      const actual = sortedReservationsSelector(state, props);
+
+      expect(actual).to.deep.equal([reservations[1]]);
+    });
+
+    it('should return all reservations when filter is anything else', () => {
+      const reservations = [
+        Reservation.build({ id: 1 }),
+        Reservation.build({ id: 4 }),
+      ];
+      const state = getState(reservations);
+      const props = { filter: 'whatever' };
+      const actual = sortedReservationsSelector(state, props);
+
+      expect(actual.length).to.equal(reservations.length);
+    });
+
+    it('should return the results ordered from oldest to newest', () => {
+      const reservations = [
+        Reservation.build({ begin: '2015-10-10', id: 1 }),
+        Reservation.build({ begin: '2015-09-20', id: 2 }),
+        Reservation.build({ begin: '2015-10-30', id: 3 }),
+      ];
+      const state = getState(reservations);
+      const props = { filter: 'preliminary' };
+      const actual = sortedReservationsSelector(state, props);
+      const expected = [reservations[1], reservations[0], reservations[2]];
+
+      expect(actual).to.deep.equal(expected);
+    });
   });
 });

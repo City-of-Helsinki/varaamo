@@ -15,10 +15,6 @@ import Unit from 'fixtures/Unit';
 function getProps(props) {
   const defaults = {
     actions: {
-      deleteReservation: simple.stub(),
-      fetchReservations: simple.stub(),
-      fetchResources: simple.stub(),
-      fetchUnits: simple.stub(),
       openReservationCancelModal: simple.stub(),
       openReservationDeleteModal: simple.stub(),
       updatePath: simple.stub(),
@@ -26,12 +22,10 @@ function getProps(props) {
       selectReservationToDelete: simple.stub(),
       selectReservationToEdit: simple.stub(),
     },
-    closeDeleteModal: simple.stub(),
+    isAdmin: false,
     deleteReservationModalIsOpen: false,
-    isDeletingReservations: false,
     isFetchingReservations: false,
     reservations: [],
-    reservationsToDelete: [],
     resources: {},
     units: {},
   };
@@ -39,7 +33,7 @@ function getProps(props) {
   return Object.assign({}, defaults, props);
 }
 
-describe('Component: reservation/ReservationsList', () => {
+describe('Container: ReservationsList', () => {
   describe('with reservations', () => {
     const unit = Unit.build();
     const resource = Resource.build({ unit: unit.id });
@@ -82,6 +76,7 @@ describe('Component: reservation/ReservationsList', () => {
         reservationsListItemTrees.forEach((reservationTree, index) => {
           const actualProps = reservationTree.props;
 
+          expect(actualProps.isAdmin).to.equal(props.isAdmin);
           expect(actualProps.reservation).to.deep.equal(props.reservations[index]);
           expect(actualProps.openReservationCancelModal).to.deep.equal(props.actions.openReservationCancelModal);
           expect(actualProps.openReservationDeleteModal).to.deep.equal(props.actions.openReservationDeleteModal);
@@ -123,46 +118,29 @@ describe('Component: reservation/ReservationsList', () => {
   });
 
   describe('without reservations', () => {
-    const props = getProps({
-      reservations: [],
-    });
-    let tree;
+    describe('when emptyMessage is given in props', () => {
+      const props = getProps({
+        emptyMessage: 'No reservations found',
+        reservations: [],
+      });
+      const tree = sd.shallowRender(<ReservationsList {...props} />);
 
-    before(() => {
-      tree = sd.shallowRender(<ReservationsList {...props} />);
-    });
-
-    it('should render a message telling no reservations were found', () => {
-      const expected = 'Sinulla ei vielä ole yhtään varausta.';
-
-      expect(tree.textIn('p')).to.equal(expected);
-    });
-  });
-
-  describe('fetching data', () => {
-    const props = getProps({});
-    let tree;
-
-    before(() => {
-      tree = sd.shallowRender(<ReservationsList {...props} />);
-      const instance = tree.getMountedInstance();
-      instance.componentDidMount();
+      it('should display the emptyMessage', () => {
+        expect(tree.textIn('p')).to.equal(props.emptyMessage);
+      });
     });
 
-    it('should fetch reservations when component mounts', () => {
-      expect(props.actions.fetchReservations.callCount).to.equal(1);
-    });
+    describe('when emptyMessage is not given in props', () => {
+      const props = getProps({
+        reservations: [],
+      });
+      const tree = sd.shallowRender(<ReservationsList {...props} />);
 
-    it('should only fetch user\'s own reservations when component mounts', () => {
-      expect(props.actions.fetchReservations.lastCall.args[0].isOwn).to.equal(true);
-    });
+      it('should render a message telling no reservations were found', () => {
+        const expected = 'Sinulla ei vielä ole yhtään varausta.';
 
-    it('should fetch resources when component mounts', () => {
-      expect(props.actions.fetchResources.callCount).to.equal(1);
-    });
-
-    it('should fetch units when component mounts', () => {
-      expect(props.actions.fetchUnits.callCount).to.equal(1);
+        expect(tree.textIn('p')).to.equal(expected);
+      });
     });
   });
 });

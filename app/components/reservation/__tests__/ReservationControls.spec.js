@@ -14,8 +14,9 @@ describe('Component: reservation/ReservationControls', () => {
   const onDeleteClick = simple.stub();
   const onEditClick = simple.stub();
 
-  function getWrapper(reservationStatus = null) {
+  function getWrapper(reservationStatus = null, isAdmin = false) {
     const props = {
+      isAdmin,
       onCancelClick,
       onDeleteClick,
       onEditClick,

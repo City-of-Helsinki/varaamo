@@ -12,9 +12,6 @@ import {
   selectReservationToDelete,
   selectReservationToEdit,
 } from 'actions/uiActions';
-import { fetchReservations } from 'actions/reservationActions';
-import { fetchResources } from 'actions/resourceActions';
-import { fetchUnits } from 'actions/unitActions';
 import ReservationCancelModal from 'containers/ReservationCancelModal';
 import ReservationDeleteModal from 'containers/ReservationDeleteModal';
 import ReservationsListItem from 'components/reservation/ReservationsListItem';
@@ -26,15 +23,10 @@ export class UnconnectedReservationsList extends Component {
     this.renderReservationsListItem = this.renderReservationsListItem.bind(this);
   }
 
-  componentDidMount() {
-    this.props.actions.fetchResources();
-    this.props.actions.fetchUnits();
-    this.props.actions.fetchReservations({ isOwn: true });
-  }
-
   renderReservationsListItem(reservation) {
     const {
       actions,
+      isAdmin,
       resources,
       units,
     } = this.props;
@@ -43,6 +35,7 @@ export class UnconnectedReservationsList extends Component {
 
     return (
       <ReservationsListItem
+        isAdmin={isAdmin}
         key={reservation.url}
         reservation={reservation}
         resource={resource}
@@ -59,6 +52,7 @@ export class UnconnectedReservationsList extends Component {
 
   render() {
     const {
+      emptyMessage,
       isFetchingReservations,
       reservations,
     } = this.props;
@@ -74,7 +68,7 @@ export class UnconnectedReservationsList extends Component {
             <ReservationDeleteModal />
           </div>
         ) : (
-          <p>Sinulla ei vielä ole yhtään varausta.</p>
+          <p>{emptyMessage || 'Sinulla ei vielä ole yhtään varausta.'}</p>
         )}
       </Loader>
     );
@@ -83,6 +77,9 @@ export class UnconnectedReservationsList extends Component {
 
 UnconnectedReservationsList.propTypes = {
   actions: PropTypes.object.isRequired,
+  emptyMessage: PropTypes.string,
+  filter: PropTypes.string,
+  isAdmin: PropTypes.bool.isRequired,
   isFetchingReservations: PropTypes.bool.isRequired,
   reservations: PropTypes.array.isRequired,
   resources: PropTypes.object.isRequired,
@@ -91,9 +88,6 @@ UnconnectedReservationsList.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
-    fetchReservations,
-    fetchResources,
-    fetchUnits,
     openReservationCancelModal,
     openReservationDeleteModal,
     updatePath,
