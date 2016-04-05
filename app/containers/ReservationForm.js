@@ -7,8 +7,8 @@ import { reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 
 const validators = {
-  email: ({ email }) => {
-    if (email && !isEmail(email)) {
+  reserver_email: ({ reserver_email }) => {
+    if (reserver_email && !isEmail(reserver_email)) {
       return 'Syötä kunnollinen sähköpostiosoite';
     }
   },
@@ -64,11 +64,20 @@ export class UnconnectedReservationForm extends Component {
     return (
       <div>
         <form className="preliminary-reservatin-form form-horizontal">
-          {this.renderField('text', 'Nimi*', fields.name)}
-          {this.renderField('email', 'Sähköposti*', fields.email)}
-          {this.renderField('text', 'Puhelin*', fields.phone)}
-          {this.renderField('textarea', 'Tilaisuuden kuvaus*', fields.description, { rows: 5 })}
-          {this.renderField('text', 'Osoite*', fields.address)}
+          {this.renderField('text', 'Nimi*', fields.reserver_name)}
+          {this.renderField('email', 'Sähköposti*', fields.reserver_email)}
+          {this.renderField('text', 'Puhelin*', fields.reserver_phone_number)}
+          {this.renderField('textarea', 'Tilaisuuden kuvaus*', fields.event_description, { rows: 5 })}
+          {this.renderField('text', 'Katuosoite*', fields.reserver_address_street)}
+          {this.renderField('text', 'Postinumero*', fields.reserver_address_zip)}
+          {this.renderField('text', 'Kaupunki*', fields.reserver_address_city)}
+          {this.renderField('text', 'Yhdistyksen nimi*', fields.company)}
+          {this.renderField('text', 'Y-tunnus*', fields.business_id)}
+          <p>Laskutusosoite</p>
+          {this.renderField('text', 'Katuosoite*', fields.billing_address_street)}
+          {this.renderField('text', 'Postinumero*', fields.billing_address_zip)}
+          {this.renderField('text', 'Kaupunki*', fields.billing_address_city)}
+          {this.renderField('number', 'Osallistujamäärä*', fields.number_of_participants, { min: '0' })}
           {this.renderField(
             'textarea',
             'Kommentit',

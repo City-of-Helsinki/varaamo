@@ -6,7 +6,8 @@ const Resource = new Factory()
     return { fi: `Resource-${index}` };
   })
   .sequence('unit', (index) => `u-${index}`)
-  .attr('userPermissions', { isAdmin: false, canMakeReservations: true });
+  .attr('userPermissions', { isAdmin: false, canMakeReservations: true })
+  .attr('requiredReservationExtraFields', []);
 
 export const openingHours = [
   {

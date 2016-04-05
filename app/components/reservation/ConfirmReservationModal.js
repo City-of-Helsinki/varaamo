@@ -1,4 +1,3 @@
-import without from 'lodash/array/without';
 import map from 'lodash/collection/map';
 import React, { Component, PropTypes } from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
@@ -24,16 +23,10 @@ class ConfirmReservationModal extends Component {
   }
 
   getFormFields() {
-    const {
-      isPreliminaryReservation,
-      resource,
-    } = this.props;
+    const { resource } = this.props;
     const isAdmin = resource.userPermissions.isAdmin;
-    const formFields = [];
+    const formFields = [...resource.requiredReservationExtraFields];
 
-    if (isPreliminaryReservation) {
-      formFields.push('name', 'email', 'phone', 'description', 'address');
-    }
     if (isAdmin) {
       formFields.push('comments');
     }
@@ -126,10 +119,9 @@ class ConfirmReservationModal extends Component {
       isMakingReservations,
       isPreliminaryReservation,
       onClose,
+      resource,
       show,
     } = this.props;
-
-    const requiredFormFields = without(this.getFormFields(), 'comments');
 
     return (
       <Modal
@@ -152,7 +144,7 @@ class ConfirmReservationModal extends Component {
             isMakingReservations={isMakingReservations}
             onClose={onClose}
             onConfirm={this.onConfirm}
-            requiredFields={requiredFormFields}
+            requiredFields={resource.requiredReservationExtraFields}
           />
         </Modal.Body>
       </Modal>

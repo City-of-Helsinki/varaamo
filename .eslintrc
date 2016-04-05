@@ -17,6 +17,9 @@
     // Amendments to airbnb rules
     // ##########################
 
+    // disable camlecase rule to make working with API simpler
+    "camelcase": 0,
+
     // lodash is required with '_'
     "id-length": [2, {"min": 2, "properties": "never", "exceptions": ["_"]}],
 
