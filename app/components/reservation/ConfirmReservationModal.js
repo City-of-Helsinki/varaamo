@@ -15,11 +15,9 @@ class ConfirmReservationModal extends Component {
   }
 
   onConfirm(values) {
-    const { isPreliminaryReservation, onClose, onConfirm } = this.props;
+    const { onClose, onConfirm } = this.props;
     onClose();
-    if (!isPreliminaryReservation) {
-      onConfirm(values);
-    }
+    onConfirm(values);
   }
 
   getFormFields() {
