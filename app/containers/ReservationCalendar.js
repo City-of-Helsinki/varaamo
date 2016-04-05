@@ -24,12 +24,12 @@ import {
 } from 'actions/uiActions';
 import DateHeader from 'components/common/DateHeader';
 import ConfirmReservationModal from 'components/reservation/ConfirmReservationModal';
-import ReservationFormControls from 'components/reservation/ReservationFormControls';
+import ReservationCalendarControls from 'components/reservation/ReservationCalendarControls';
 import TimeSlots from 'components/reservation/TimeSlots';
 import ReservationDeleteModal from 'containers/ReservationDeleteModal';
-import reservationFormSelector from 'selectors/containers/reservationFormSelector';
+import reservationCalendarSelector from 'selectors/containers/reservationCalendarSelector';
 
-export class UnconnectedReservationForm extends Component {
+export class UnconnectedReservationCalendar extends Component {
   constructor(props) {
     super(props);
     this.handleEdit = this.handleEdit.bind(this);
@@ -148,7 +148,7 @@ export class UnconnectedReservationForm extends Component {
           slots={timeSlots}
           time={time}
         />
-        <ReservationFormControls
+        <ReservationCalendarControls
           addNotification={actions.addNotification}
           disabled={(
             !isLoggedIn ||
@@ -180,7 +180,7 @@ export class UnconnectedReservationForm extends Component {
   }
 }
 
-UnconnectedReservationForm.propTypes = {
+UnconnectedReservationCalendar.propTypes = {
   actions: PropTypes.object.isRequired,
   confirmReservationModalIsOpen: PropTypes.bool.isRequired,
   date: PropTypes.string.isRequired,
@@ -217,4 +217,4 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
-export default connect(reservationFormSelector, mapDispatchToProps)(UnconnectedReservationForm);
+export default connect(reservationCalendarSelector, mapDispatchToProps)(UnconnectedReservationCalendar);

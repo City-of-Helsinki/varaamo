@@ -3,7 +3,7 @@ import React from 'react';
 import sd from 'skin-deep';
 import simple from 'simple-mock';
 
-import ReservationFormControls from 'components/reservation/ReservationFormControls';
+import ReservationCalendarControls from 'components/reservation/ReservationCalendarControls';
 import Resource from 'fixtures/Resource';
 
 function getProps(props) {
@@ -21,10 +21,10 @@ function getProps(props) {
   return Object.assign({}, defaults, props);
 }
 
-describe('Component: reservation/ReservationFormControls', () => {
+describe('Component: reservation/ReservationCalendarControls', () => {
   describe('when user is not editing reservations', () => {
     const props = getProps();
-    const tree = sd.shallowRender(<ReservationFormControls {...props} />);
+    const tree = sd.shallowRender(<ReservationCalendarControls {...props} />);
     const instance = tree.getMountedInstance();
 
     it('should render one button', () => {
@@ -48,7 +48,7 @@ describe('Component: reservation/ReservationFormControls', () => {
     const props = getProps({
       isEditing: true,
     });
-    const tree = sd.shallowRender(<ReservationFormControls {...props} />);
+    const tree = sd.shallowRender(<ReservationCalendarControls {...props} />);
     const instance = tree.getMountedInstance();
     const buttonTrees = tree.everySubTree('Button');
 

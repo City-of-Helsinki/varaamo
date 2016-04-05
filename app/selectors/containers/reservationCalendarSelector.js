@@ -17,7 +17,7 @@ const selectedSelector = (state) => state.ui.reservation.selected;
 const toEditSelector = (state) => state.ui.reservation.toEdit;
 const urlHashSelector = (state, props) => props.location.hash;
 
-const reservationFormSelector = createSelector(
+const reservationCalendarSelector = createSelector(
   idSelector,
   isLoggedInSelector,
   modalIsOpenSelectorFactory(ModalTypes.CONFIRM_RESERVATION),
@@ -67,4 +67,4 @@ const reservationFormSelector = createSelector(
   }
 );
 
-export default reservationFormSelector;
+export default reservationCalendarSelector;

@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
 
-class ReservationFormControls extends Component {
+class ReservationCalendarControls extends Component {
   constructor(props) {
     super(props);
     this.handleMainClick = this.handleMainClick.bind(this);
@@ -84,7 +84,7 @@ class ReservationFormControls extends Component {
   }
 }
 
-ReservationFormControls.propTypes = {
+ReservationCalendarControls.propTypes = {
   addNotification: PropTypes.func.isRequired,
   disabled: PropTypes.bool.isRequired,
   isEditing: PropTypes.bool.isRequired,
@@ -95,4 +95,4 @@ ReservationFormControls.propTypes = {
   resource: PropTypes.object.isRequired,
 };
 
-export default ReservationFormControls;
+export default ReservationCalendarControls;

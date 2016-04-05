@@ -8,7 +8,9 @@ import Immutable from 'seamless-immutable';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
 import TimeSlot from 'fixtures/TimeSlot';
-import { UnconnectedReservationForm as ReservationForm } from 'containers/ReservationForm';
+import {
+  UnconnectedReservationCalendar as ReservationCalendar,
+} from 'containers/ReservationCalendar';
 
 function getProps(props = {}) {
   const defaults = {
@@ -46,13 +48,13 @@ function getProps(props = {}) {
 
 function setup(setupProps = {}) {
   const props = getProps(setupProps);
-  const tree = sd.shallowRender(<ReservationForm {...props} />);
+  const tree = sd.shallowRender(<ReservationCalendar {...props} />);
   const instance = tree.getMountedInstance();
 
   return { props, tree, instance };
 }
 
-describe('Container: ReservationForm', () => {
+describe('Container: ReservationCalendar', () => {
   describe('render', () => {
     const timeSlots = [
       TimeSlot.build(),
@@ -126,15 +128,15 @@ describe('Container: ReservationForm', () => {
       });
     });
 
-    describe('rendering ReservationFormControls', () => {
-      const reservationFormControlsTrees = tree.everySubTree('ReservationFormControls');
+    describe('rendering ReservationCalendarControls', () => {
+      const reservationCalendarControlsTrees = tree.everySubTree('ReservationCalendarControls');
 
-      it('should render ReservationFormControls component', () => {
-        expect(reservationFormControlsTrees.length).to.equal(1);
+      it('should render ReservationCalendarControls component', () => {
+        expect(reservationCalendarControlsTrees.length).to.equal(1);
       });
 
-      it('should pass correct props to ReservationFormControls component', () => {
-        const actualProps = reservationFormControlsTrees[0].props;
+      it('should pass correct props to ReservationCalendarControls component', () => {
+        const actualProps = reservationCalendarControlsTrees[0].props;
 
         expect(actualProps.disabled).to.equal(false);
         expect(actualProps.isEditing).to.exist;
