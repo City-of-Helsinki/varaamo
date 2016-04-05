@@ -39,13 +39,15 @@ export class UnconnectedReservationForm extends Component {
       return null;
     }
     const hasError = field.error && field.touched;
+    const isRequired = includes(this.props.requiredFields, field.name);
+
     return (
       <Input
         {...field}
         {...extraProps}
         bsStyle={hasError ? 'error' : null}
         help={hasError ? field.error : null}
-        label={label}
+        label={`${label}${isRequired ? '*' : ''}`}
         labelClassName="col-xs-3"
         type={type}
         wrapperClassName="col-xs-9"
@@ -64,20 +66,20 @@ export class UnconnectedReservationForm extends Component {
     return (
       <div>
         <form className="preliminary-reservatin-form form-horizontal">
-          {this.renderField('text', 'Nimi*', fields.reserver_name)}
-          {this.renderField('email', 'Sähköposti*', fields.reserver_email)}
-          {this.renderField('text', 'Puhelin*', fields.reserver_phone_number)}
-          {this.renderField('textarea', 'Tilaisuuden kuvaus*', fields.event_description, { rows: 5 })}
-          {this.renderField('text', 'Katuosoite*', fields.reserver_address_street)}
-          {this.renderField('text', 'Postinumero*', fields.reserver_address_zip)}
-          {this.renderField('text', 'Kaupunki*', fields.reserver_address_city)}
-          {this.renderField('text', 'Yhdistyksen nimi*', fields.company)}
-          {this.renderField('text', 'Y-tunnus*', fields.business_id)}
+          {this.renderField('text', 'Nimi', fields.reserver_name)}
+          {this.renderField('email', 'Sähköposti', fields.reserver_email)}
+          {this.renderField('text', 'Puhelin', fields.reserver_phone_number)}
+          {this.renderField('textarea', 'Tilaisuuden kuvaus', fields.event_description, { rows: 5 })}
+          {this.renderField('text', 'Katuosoite', fields.reserver_address_street)}
+          {this.renderField('text', 'Postinumero', fields.reserver_address_zip)}
+          {this.renderField('text', 'Kaupunki', fields.reserver_address_city)}
+          {this.renderField('text', 'Yhdistyksen nimi', fields.company)}
+          {this.renderField('text', 'Y-tunnus', fields.business_id)}
           <p>Laskutusosoite</p>
-          {this.renderField('text', 'Katuosoite*', fields.billing_address_street)}
-          {this.renderField('text', 'Postinumero*', fields.billing_address_zip)}
-          {this.renderField('text', 'Kaupunki*', fields.billing_address_city)}
-          {this.renderField('number', 'Osallistujamäärä*', fields.number_of_participants, { min: '0' })}
+          {this.renderField('text', 'Katuosoite', fields.billing_address_street)}
+          {this.renderField('text', 'Postinumero', fields.billing_address_zip)}
+          {this.renderField('text', 'Kaupunki', fields.billing_address_city)}
+          {this.renderField('number', 'Osallistujamäärä', fields.number_of_participants, { min: '0' })}
           {this.renderField(
             'textarea',
             'Kommentit',
