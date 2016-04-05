@@ -24,6 +24,7 @@ describe('Container: ReservationForm', () => {
     handleSubmit: simple.mock(),
     isMakingReservations: false,
     onClose: simple.mock(),
+    onConfirm: simple.mock(),
   };
   const wrapper = shallow(<ReservationForm {...props} />);
 
@@ -41,44 +42,84 @@ describe('Container: ReservationForm', () => {
     });
 
     it('should not return errors for valid values', () => {
-      const errors = validate(validValues);
+      const errors = validate(validValues, { fields: Object.keys(fields) });
       expect(errors).to.deep.equal({});
     });
 
-    it('should return an error if name is missing', () => {
-      validValues.name = undefined;
-      const errors = validate(validValues);
-      expect(errors.name).to.exist;
+    describe('name', () => {
+      it('should return an error if name field exists but value is missing', () => {
+        validValues.name = undefined;
+        const errors = validate(validValues, { fields: ['name'] });
+        expect(errors.name).to.exist;
+      });
+
+      it('should not return an error if name field does not exist', () => {
+        validValues.name = undefined;
+        const errors = validate(validValues, { fields: [] });
+        expect(errors.name).to.not.exist;
+      });
     });
 
-    it('should return an error if email is missing', () => {
-      validValues.email = undefined;
-      const errors = validate(validValues);
-      expect(errors.email).to.exist;
+    describe('email', () => {
+      it('should return an error if email field exists but value is missing', () => {
+        validValues.email = undefined;
+        const errors = validate(validValues, { fields: ['email'] });
+        expect(errors.email).to.exist;
+      });
+
+      it('should not return an error if email field does not exist', () => {
+        validValues.email = undefined;
+        const errors = validate(validValues, { fields: [] });
+        expect(errors.email).to.not.exist;
+      });
+
+      it('should return an error if email field exists but email is invalid', () => {
+        validValues.email = 'luke@';
+        const errors = validate(validValues, { fields: ['email'] });
+        expect(errors.email).to.exist;
+      });
     });
 
-    it('should return an error if email is invalid', () => {
-      validValues.email = 'luke@';
-      const errors = validate(validValues);
-      expect(errors.email).to.exist;
+    describe('phone', () => {
+      it('should return an error if phone field exists but value is missing', () => {
+        validValues.phone = undefined;
+        const errors = validate(validValues, { fields: ['phone'] });
+        expect(errors.phone).to.exist;
+      });
+
+      it('should not return an error if phone field does not exist', () => {
+        validValues.phone = undefined;
+        const errors = validate(validValues, { fields: [] });
+        expect(errors.phone).to.not.exist;
+      });
     });
 
-    it('should return an error if phone is missing', () => {
-      validValues.phone = undefined;
-      const errors = validate(validValues);
-      expect(errors.phone).to.exist;
+    describe('description', () => {
+      it('should return an error if description field exists but value is missing', () => {
+        validValues.description = undefined;
+        const errors = validate(validValues, { fields: ['description'] });
+        expect(errors.description).to.exist;
+      });
+
+      it('should not return an error if description field does not exist', () => {
+        validValues.description = undefined;
+        const errors = validate(validValues, { fields: [] });
+        expect(errors.description).to.not.exist;
+      });
     });
 
-    it('should return an error if description is missing', () => {
-      validValues.description = undefined;
-      const errors = validate(validValues);
-      expect(errors.description).to.exist;
-    });
+    describe('address', () => {
+      it('should return an error if address field exists but value is missing', () => {
+        validValues.address = undefined;
+        const errors = validate(validValues, { fields: ['address'] });
+        expect(errors.address).to.exist;
+      });
 
-    it('should return an error if address is missing', () => {
-      validValues.address = undefined;
-      const errors = validate(validValues);
-      expect(errors.address).to.exist;
+      it('should not return an error if address field does not exist', () => {
+        validValues.address = undefined;
+        const errors = validate(validValues, { fields: [] });
+        expect(errors.address).to.not.exist;
+      });
     });
   });
 

@@ -1,9 +1,6 @@
 import map from 'lodash/collection/map';
 import React, { Component, PropTypes } from 'react';
-import Button from 'react-bootstrap/lib/Button';
-import Input from 'react-bootstrap/lib/Input';
 import Modal from 'react-bootstrap/lib/Modal';
-
 
 import TimeRange from 'components/common/TimeRange';
 import ReservationForm from 'containers/ReservationForm';
@@ -11,16 +8,53 @@ import ReservationForm from 'containers/ReservationForm';
 class ConfirmReservationModal extends Component {
   constructor(props) {
     super(props);
+    this.getFormFields = this.getFormFields.bind(this);
+    this.getFormInitialValues = this.getFormInitialValues.bind(this);
     this.onConfirm = this.onConfirm.bind(this);
-    this.renderModalBody = this.renderModalBody.bind(this);
+    this.renderIntroTexts = this.renderIntroTexts.bind(this);
   }
 
-  onConfirm() {
-    const { onClose, onConfirm, resource } = this.props;
-    const isAdmin = resource.userPermissions.isAdmin;
-    const values = isAdmin ? { comments: this.refs.commentInput.getValue() } : {};
+  onConfirm(values) {
+    const { isPreliminaryReservation, onClose, onConfirm } = this.props;
     onClose();
-    onConfirm(values);
+    if (!isPreliminaryReservation) {
+      onConfirm(values);
+    }
+  }
+
+  getFormFields() {
+    const {
+      isPreliminaryReservation,
+      resource,
+    } = this.props;
+    const isAdmin = resource.userPermissions.isAdmin;
+    const formFields = [];
+
+    if (isPreliminaryReservation) {
+      formFields.push('name', 'email', 'phone', 'description', 'address');
+    }
+    if (isAdmin) {
+      formFields.push('comments');
+    }
+
+    return formFields;
+  }
+
+  getFormInitialValues() {
+    const {
+      isEditing,
+      reservationsToEdit,
+      selectedReservations,
+    } = this.props;
+    const initialValues = {};
+
+    if (isEditing) {
+      initialValues.comments = reservationsToEdit.length ? reservationsToEdit[0].comments : '';
+    } else {
+      initialValues.comments = selectedReservations.length ? selectedReservations[0].comments : '';
+    }
+
+    return initialValues;
   }
 
   getModalTitle(isEditing, isPreliminaryReservation) {
@@ -33,34 +67,13 @@ class ConfirmReservationModal extends Component {
     return 'Varauksen vahvistus';
   }
 
-  renderModalBody() {
+  renderIntroTexts() {
     const {
       isEditing,
-      isMakingReservations,
       isPreliminaryReservation,
-      onClose,
       reservationsToEdit,
-      resource,
       selectedReservations,
     } = this.props;
-    const isAdmin = resource.userPermissions.isAdmin;
-
-    let defaultValue;
-    if (isEditing) {
-      defaultValue = reservationsToEdit.length ? reservationsToEdit[0].comments : '';
-    } else {
-      defaultValue = selectedReservations.length ? selectedReservations[0].comments : '';
-    }
-
-    const commentInput = (
-      <Input
-        defaultValue={defaultValue}
-        label="Kommentit"
-        placeholder="Varauksen mahdolliset lisätiedot"
-        ref="commentInput"
-        type="textarea"
-      />
-    );
 
     if (isEditing) {
       return (
@@ -74,7 +87,6 @@ class ConfirmReservationModal extends Component {
           <ul>
             {map(selectedReservations, this.renderReservation)}
           </ul>
-          {isAdmin && commentInput}
         </div>
       );
     }
@@ -90,12 +102,11 @@ class ConfirmReservationModal extends Component {
           {map(selectedReservations, this.renderReservation)}
         </ul>
         {isPreliminaryReservation && (
-          <ReservationForm
-            isMakingReservations={isMakingReservations}
-            onClose={onClose}
-          />
+          <p>
+            Täytä vielä seuraavat tiedot alustavaa varausta varten.
+            Tähdellä (*) merkityt tiedot ovat pakollisia.
+          </p>
         )}
-        {isAdmin && commentInput}
       </div>
     );
   }
@@ -131,26 +142,15 @@ class ConfirmReservationModal extends Component {
         </Modal.Header>
 
         <Modal.Body>
-          {this.renderModalBody()}
+          {this.renderIntroTexts()}
+          <ReservationForm
+            fields={this.getFormFields()}
+            initialValues={this.getFormInitialValues()}
+            isMakingReservations={isMakingReservations}
+            onClose={onClose}
+            onConfirm={this.onConfirm}
+          />
         </Modal.Body>
-
-        {!isPreliminaryReservation && (
-          <Modal.Footer>
-            <Button
-              bsStyle="default"
-              onClick={onClose}
-            >
-              Peruuta
-            </Button>
-            <Button
-              bsStyle="primary"
-              disabled={isMakingReservations}
-              onClick={this.onConfirm}
-            >
-              {isMakingReservations ? 'Tallennetaan...' : 'Tallenna'}
-            </Button>
-          </Modal.Footer>
-        )}
       </Modal>
     );
   }

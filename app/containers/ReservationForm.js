@@ -5,39 +5,55 @@ import { reduxForm } from 'redux-form';
 
 import isEmail from 'validator/lib/isEmail';
 
-export function validate(values) {
+const validators = {
+  name: ({ name }) => {
+    if (!name) {
+      return 'Pakollinen tieto';
+    }
+  },
+  email: ({ email }) => {
+    if (!email) {
+      return 'Pakollinen tieto';
+    } else if (!isEmail(email)) {
+      return 'Syötä kunnollinen sähköpostiosoite';
+    }
+  },
+  phone: ({ phone }) => {
+    if (!phone) {
+      return 'Pakollinen tieto';
+    }
+  },
+  description: ({ description }) => {
+    if (!description) {
+      return 'Pakollinen tieto';
+    }
+  },
+  address: ({ address }) => {
+    if (!address) {
+      return 'Pakollinen tieto';
+    }
+  },
+};
+
+export function validate(values, { fields }) {
   const errors = {};
-
-  if (!values.name) {
-    errors.name = 'Pakollinen tieto';
-  }
-
-  if (!values.email) {
-    errors.email = 'Pakollinen tieto';
-  } else if (!isEmail(values.email)) {
-    errors.email = 'Syötä kunnollinen sähköpostiosoite';
-  }
-
-  if (!values.phone) {
-    errors.phone = 'Pakollinen tieto';
-  }
-
-  if (!values.description) {
-    errors.description = 'Pakollinen tieto';
-  }
-
-  if (!values.address) {
-    errors.address = 'Pakollinen tieto';
-  }
+  fields.forEach((field) => {
+    const validator = validators[field];
+    if (validator) {
+      const error = validator(values);
+      if (error) {
+        errors[field] = error;
+      }
+    }
+  });
   return errors;
 }
 
 export class UnconnectedReservationForm extends Component {
-  onSubmit(data) {
-    console.log('the form was submitted with', data); // eslint-disable-line no-console
-  }
-
   renderField(type, label, field, extraProps) {
+    if (!field) {
+      return null;
+    }
     const hasError = field.error && field.touched;
     return (
       <Input
@@ -59,19 +75,25 @@ export class UnconnectedReservationForm extends Component {
       isMakingReservations,
       handleSubmit,
       onClose,
+      onConfirm,
     } = this.props;
     return (
       <div>
         <form className="preliminary-reservatin-form form-horizontal">
-          <p>
-            Täytä vielä seuraavat tiedot alustavaa varausta varten.
-            Tähdellä (*) merkityt tiedot ovat pakollisia.
-          </p>
           {this.renderField('text', 'Nimi*', fields.name)}
           {this.renderField('email', 'Sähköposti*', fields.email)}
           {this.renderField('text', 'Puhelin*', fields.phone)}
           {this.renderField('textarea', 'Tilaisuuden kuvaus*', fields.description, { rows: 5 })}
           {this.renderField('text', 'Osoite*', fields.address)}
+          {this.renderField(
+            'textarea',
+            'Kommentit',
+            fields.comments,
+            {
+              placeholder: 'Varauksen mahdolliset lisätiedot',
+              rows: 5,
+            }
+          )}
           <div className="form-controls">
             <Button
               bsStyle="default"
@@ -82,7 +104,7 @@ export class UnconnectedReservationForm extends Component {
             <Button
               bsStyle="primary"
               disabled={isMakingReservations}
-              onClick={handleSubmit(this.onSubmit)}
+              onClick={handleSubmit(onConfirm)}
               type="submit"
             >
               {isMakingReservations ? 'Tallennetaan...' : 'Tallenna'}
@@ -99,10 +121,10 @@ UnconnectedReservationForm.propTypes = {
   isMakingReservations: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired,
 };
 
 export default reduxForm({
-  fields: ['name', 'email', 'phone', 'description', 'address'],
   form: 'preliminaryReservation',
   validate,
 })(UnconnectedReservationForm);
