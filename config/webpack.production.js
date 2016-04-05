@@ -36,7 +36,7 @@ module.exports = merge(common, {
   plugins: [
     // Important to keep React file size down
     new webpack.DefinePlugin({
-      __API_URL__: JSON.stringify('https://api.hel.fi/respa/v1'),
+      __API_URL__: JSON.stringify(process.env.API_URL || 'https://api.hel.fi/respa/v1'),
       __DEVTOOLS__: false,
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
