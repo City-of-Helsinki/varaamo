@@ -32,7 +32,7 @@ export function validate(values) {
   return errors;
 }
 
-export class UnconnectedPreliminaryReservationForm extends Component {
+export class UnconnectedReservationForm extends Component {
   onSubmit(data) {
     console.log('the form was submitted with', data); // eslint-disable-line no-console
   }
@@ -94,7 +94,7 @@ export class UnconnectedPreliminaryReservationForm extends Component {
   }
 }
 
-UnconnectedPreliminaryReservationForm.propTypes = {
+UnconnectedReservationForm.propTypes = {
   fields: PropTypes.object.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
@@ -105,4 +105,4 @@ export default reduxForm({
   fields: ['name', 'email', 'phone', 'description', 'address'],
   form: 'preliminaryReservation',
   validate,
-})(UnconnectedPreliminaryReservationForm);
+})(UnconnectedReservationForm);

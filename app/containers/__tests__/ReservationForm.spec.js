@@ -7,11 +7,11 @@ import Button from 'react-bootstrap/lib/Button';
 import Input from 'react-bootstrap/lib/Input';
 
 import {
-  UnconnectedPreliminaryReservationForm as PreliminaryReservationForm,
+  UnconnectedReservationForm as ReservationForm,
   validate,
-} from 'containers/PreliminaryReservationForm';
+} from 'containers/ReservationForm';
 
-describe('Container: PreliminaryReservationForm', () => {
+describe('Container: ReservationForm', () => {
   const fields = {
     name: {},
     email: {},
@@ -25,7 +25,7 @@ describe('Container: PreliminaryReservationForm', () => {
     isMakingReservations: false,
     onClose: simple.mock(),
   };
-  const wrapper = shallow(<PreliminaryReservationForm {...props} />);
+  const wrapper = shallow(<ReservationForm {...props} />);
 
   describe('validation', () => {
     let validValues;

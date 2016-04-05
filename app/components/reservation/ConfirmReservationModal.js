@@ -6,7 +6,7 @@ import Modal from 'react-bootstrap/lib/Modal';
 
 
 import TimeRange from 'components/common/TimeRange';
-import PreliminaryReservationForm from 'containers/PreliminaryReservationForm';
+import ReservationForm from 'containers/ReservationForm';
 
 class ConfirmReservationModal extends Component {
   constructor(props) {
@@ -90,7 +90,7 @@ class ConfirmReservationModal extends Component {
           {map(selectedReservations, this.renderReservation)}
         </ul>
         {isPreliminaryReservation && (
-          <PreliminaryReservationForm
+          <ReservationForm
             isMakingReservations={isMakingReservations}
             onClose={onClose}
           />
