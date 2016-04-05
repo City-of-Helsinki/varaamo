@@ -1,3 +1,4 @@
+import includes from 'lodash/collection/includes';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Input from 'react-bootstrap/lib/Input';
@@ -6,36 +7,14 @@ import { reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 
 const validators = {
-  name: ({ name }) => {
-    if (!name) {
-      return 'Pakollinen tieto';
-    }
-  },
   email: ({ email }) => {
-    if (!email) {
-      return 'Pakollinen tieto';
-    } else if (!isEmail(email)) {
+    if (email && !isEmail(email)) {
       return 'Syötä kunnollinen sähköpostiosoite';
-    }
-  },
-  phone: ({ phone }) => {
-    if (!phone) {
-      return 'Pakollinen tieto';
-    }
-  },
-  description: ({ description }) => {
-    if (!description) {
-      return 'Pakollinen tieto';
-    }
-  },
-  address: ({ address }) => {
-    if (!address) {
-      return 'Pakollinen tieto';
     }
   },
 };
 
-export function validate(values, { fields }) {
+export function validate(values, { fields, requiredFields }) {
   const errors = {};
   fields.forEach((field) => {
     const validator = validators[field];
@@ -43,6 +22,11 @@ export function validate(values, { fields }) {
       const error = validator(values);
       if (error) {
         errors[field] = error;
+      }
+    }
+    if (includes(requiredFields, field)) {
+      if (!values[field]) {
+        errors[field] = 'Pakollinen tieto';
       }
     }
   });
@@ -122,6 +106,7 @@ UnconnectedReservationForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
+  requiredFields: PropTypes.array.isRequired,
 };
 
 export default reduxForm({

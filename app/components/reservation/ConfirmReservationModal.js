@@ -1,3 +1,4 @@
+import without from 'lodash/array/without';
 import map from 'lodash/collection/map';
 import React, { Component, PropTypes } from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
@@ -128,6 +129,8 @@ class ConfirmReservationModal extends Component {
       show,
     } = this.props;
 
+    const requiredFormFields = without(this.getFormFields(), 'comments');
+
     return (
       <Modal
         animation={false}
@@ -149,6 +152,7 @@ class ConfirmReservationModal extends Component {
             isMakingReservations={isMakingReservations}
             onClose={onClose}
             onConfirm={this.onConfirm}
+            requiredFields={requiredFormFields}
           />
         </Modal.Body>
       </Modal>
