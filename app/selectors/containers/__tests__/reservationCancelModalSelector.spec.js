@@ -8,6 +8,10 @@ describe('Selector: reservationCancelModalSelector', () => {
   const props = getDefaultRouterProps();
   const selected = reservationCancelModalSelector(state, props);
 
+  it('should return isAdmin', () => {
+    expect(selected.isAdmin).to.exist;
+  });
+
   it('should return show', () => {
     expect(selected.show).to.exist;
   });

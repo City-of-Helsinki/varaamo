@@ -11,6 +11,7 @@ class ReservationControls extends Component {
           bsSize="xsmall"
           bsStyle="danger"
           key="adminCalcelButton"
+          onClick={props.onCancelClick}
         >
           Peru
         </Button>

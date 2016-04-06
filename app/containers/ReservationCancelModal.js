@@ -1,3 +1,4 @@
+import forEach from 'lodash/collection/forEach';
 import map from 'lodash/collection/map';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
@@ -5,6 +6,7 @@ import Modal from 'react-bootstrap/lib/Modal';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { cancelPreliminaryReservation } from 'actions/reservationActions';
 import { closeReservationCancelModal } from 'actions/uiActions';
 import TimeRange from 'components/common/TimeRange';
 import reservationCancelModalSelector from 'selectors/containers/reservationCancelModalSelector';
@@ -18,38 +20,43 @@ export class UnconnectedReservationCancelModal extends Component {
   }
 
   handleCancel() {
-    this.props.actions.closeReservationCancelModal();
+    const { actions, reservationsToCancel } = this.props;
+
+    forEach(reservationsToCancel, (reservation) => {
+      actions.cancelPreliminaryReservation(reservation);
+    });
+    actions.closeReservationCancelModal();
   }
 
-  renderModalContent(state, reservationsToCancel) {
-    if (state === 'confirmed') {
+  renderModalContent(cancelAllowed, reservationsToCancel) {
+    if (cancelAllowed) {
       return (
         <div>
-          <p>
-            Varauksen peruminen täytyy tehdä tilasta vastaavan virkailijan kautta.
-            Mikäli haluat perua varauksen tai tehdä muutoksia varausaikaan ole yhteydessä tilasta
-            vastaavaan virkailijaan.
-          </p>
-          <p>
-            Huomioi kuitenkin, että varaus pitää perua viimeistään <strong>X päivää</strong> ennen
-            varauksen alkamista. Käyttämättömät varaukset laskutetaan.
-          </p>
-          <h5>Tilasta vastaava virkailja:</h5>
-          <address>
-            Erkki Esimerkki
-            <br />040 123 4567
-            <br /><a href="mailto:erkki@esimerkki.com">erkki@esimerkki.com</a>
-          </address>
+          <p><strong>Oletko varma että haluat perua seuraavat varaukset?</strong></p>
+          <ul>
+            {map(reservationsToCancel, this.renderReservation)}
+          </ul>
         </div>
       );
     }
 
     return (
       <div>
-        <p><strong>Oletko varma että haluat perua seuraavat varaukset?</strong></p>
-        <ul>
-          {map(reservationsToCancel, this.renderReservation)}
-        </ul>
+        <p>
+          Varauksen peruminen täytyy tehdä tilasta vastaavan virkailijan kautta.
+          Mikäli haluat perua varauksen tai tehdä muutoksia varausaikaan ole yhteydessä tilasta
+          vastaavaan virkailijaan.
+        </p>
+        <p>
+          Huomioi kuitenkin, että varaus pitää perua viimeistään <strong>X päivää</strong> ennen
+          varauksen alkamista. Käyttämättömät varaukset laskutetaan.
+        </p>
+        <h5>Tilasta vastaava virkailja:</h5>
+        <address>
+          Erkki Esimerkki
+          <br />040 123 4567
+          <br /><a href="mailto:erkki@esimerkki.com">erkki@esimerkki.com</a>
+        </address>
       </div>
     );
   }
@@ -68,11 +75,13 @@ export class UnconnectedReservationCancelModal extends Component {
   render() {
     const {
       actions,
+      isAdmin,
       reservationsToCancel,
       show,
     } = this.props;
 
     const state = reservationsToCancel.length ? reservationsToCancel[0].state : '';
+    const cancelAllowed = isAdmin || state !== 'confirmed';
 
     return (
       <Modal
@@ -81,12 +90,12 @@ export class UnconnectedReservationCancelModal extends Component {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-            {state === 'confirmed' ? 'Varauksen peruminen' : 'Varauksen perumisen vahvistus'}
+            {cancelAllowed ? 'Varauksen perumisen vahvistus' : 'Varauksen peruminen'}
           </Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-          {this.renderModalContent(state, reservationsToCancel)}
+          {this.renderModalContent(cancelAllowed, reservationsToCancel)}
         </Modal.Body>
 
         <Modal.Footer>
@@ -94,9 +103,9 @@ export class UnconnectedReservationCancelModal extends Component {
             bsStyle="default"
             onClick={actions.closeReservationCancelModal}
           >
-            {state === 'confirmed' ? 'Takaisin' : 'Älä peruuta varausta'}
+            {cancelAllowed ? 'Älä peruuta varausta' : 'Takaisin'}
           </Button>
-          {state !== 'confirmed' && (
+          {cancelAllowed && (
             <Button
               bsStyle="danger"
               onClick={this.handleCancel}
@@ -112,6 +121,7 @@ export class UnconnectedReservationCancelModal extends Component {
 
 UnconnectedReservationCancelModal.propTypes = {
   actions: PropTypes.object.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
   reservationsToCancel: PropTypes.array.isRequired,
   resources: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
@@ -119,6 +129,7 @@ UnconnectedReservationCancelModal.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
+    cancelPreliminaryReservation,
     closeReservationCancelModal,
   };
 

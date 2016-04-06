@@ -12,12 +12,17 @@ import {
 } from 'utils/APIUtils';
 
 export default {
+  cancelPreliminaryReservation,
   confirmPreliminaryReservation,
   deleteReservation,
   fetchReservations,
   postReservation,
   putReservation,
 };
+
+function cancelPreliminaryReservation(reservation) {
+  return deleteReservation(reservation);
+}
 
 function confirmPreliminaryReservation(reservation) {
   return putReservation(Object.assign({}, reservation, { state: 'confirmed' }));

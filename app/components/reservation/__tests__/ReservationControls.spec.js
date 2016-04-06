@@ -133,6 +133,13 @@ describe('Component: reservation/ReservationControls', () => {
         it('should be a cancel button', () => {
           expect(button.props().children).to.equal('Peru');
         });
+
+        it('clicking the button should call onCancelClick', () => {
+          onCancelClick.reset();
+          button.props().onClick();
+
+          expect(onCancelClick.callCount).to.equal(1);
+        });
       });
     });
   });
