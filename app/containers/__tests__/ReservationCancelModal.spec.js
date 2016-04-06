@@ -4,7 +4,6 @@ import simple from 'simple-mock';
 import sd from 'skin-deep';
 
 import Immutable from 'seamless-immutable';
-import DataUtils from 'utils/DataUtils';
 
 import {
   UnconnectedReservationCancelModal as ReservationCancelModal,
@@ -28,13 +27,26 @@ describe('Container: ReservationCancelModal', () => {
     }),
   };
 
+  function getExtraProps(reservationState) {
+    return {
+      reservationsToCancel: Immutable([
+        Reservation.build({ resource: resource.id, state: reservationState }),
+        Reservation.build({ resource: resource.id, state: reservationState }),
+      ]),
+      resources: Immutable({
+        [resource.id]: resource,
+      }),
+    };
+  }
+
   function getTree(extraProps = {}) {
     return sd.shallowRender(<ReservationCancelModal {...Object.assign({}, props, extraProps)} />);
   }
 
   describe('render', () => {
-    describe('when reservation status is anything but "accepted"', () => {
-      const tree = getTree();
+    describe('when reservation state is anything but "confirmed"', () => {
+      const extraProps = getExtraProps('requested');
+      const tree = getTree(extraProps);
       const instance = tree.getMountedInstance();
 
       it('should render a Modal component', () => {
@@ -137,13 +149,9 @@ describe('Container: ReservationCancelModal', () => {
       });
     });
 
-    describe('when reservation status is "accepted"', () => {
-      simple.mock(DataUtils, 'getReservationStatus').returnWith('accepted');
-      const tree = getTree();
-
-      after(() => {
-        simple.restore();
-      });
+    describe('when reservation state is "confirmed"', () => {
+      const extraProps = getExtraProps('confirmed');
+      const tree = getTree(extraProps);
 
       it('should render a Modal component', () => {
         const modalTrees = tree.everySubTree('Modal');

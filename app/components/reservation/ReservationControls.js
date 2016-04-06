@@ -6,15 +6,6 @@ class ReservationControls extends Component {
   constructor(props) {
     super(props);
     this.buttons = {
-      accept: (
-        <Button
-          bsSize="xsmall"
-          bsStyle="success"
-          key="acceptButton"
-        >
-          Hyväksy
-        </Button>
-      ),
       adminCancel: (
         <Button
           bsSize="xsmall"
@@ -34,13 +25,13 @@ class ReservationControls extends Component {
           Peru
         </Button>
       ),
-      decline: (
+      confirm: (
         <Button
           bsSize="xsmall"
-          bsStyle="danger"
-          key="declineButton"
+          bsStyle="success"
+          key="confirmButton"
         >
-          Hylkää
+          Hyväksy
         </Button>
       ),
       delete: (
@@ -51,6 +42,15 @@ class ReservationControls extends Component {
           onClick={props.onDeleteClick}
         >
           Poista
+        </Button>
+      ),
+      deny: (
+        <Button
+          bsSize="xsmall"
+          bsStyle="danger"
+          key="denyButton"
+        >
+          Hylkää
         </Button>
       ),
       edit: (
@@ -66,20 +66,20 @@ class ReservationControls extends Component {
     };
   }
 
-  renderButtons(buttons, isAdmin, status) {
-    switch (status) {
+  renderButtons(buttons, isAdmin, state) {
+    switch (state) {
 
-    case 'accepted':
+    case 'cancelled':
+      return isAdmin ? null : null;
+
+    case 'confirmed':
       return isAdmin ? [buttons.adminCancel] : [buttons.cancel];
 
-    case 'canceled':
+    case 'denied':
       return isAdmin ? null : null;
 
-    case 'declined':
-      return isAdmin ? null : null;
-
-    case 'pending':
-      return isAdmin ? [buttons.accept, buttons.decline] : [buttons.edit, buttons.cancel];
+    case 'requested':
+      return isAdmin ? [buttons.confirm, buttons.deny] : [buttons.edit, buttons.cancel];
 
     default:
       return isAdmin ? [buttons.edit, buttons.delete] : [buttons.edit, buttons.delete];
@@ -96,7 +96,7 @@ class ReservationControls extends Component {
 
     return (
       <div className="buttons">
-        {this.renderButtons(this.buttons, isAdmin, reservation.status)}
+        {this.renderButtons(this.buttons, isAdmin, reservation.state)}
       </div>
     );
   }

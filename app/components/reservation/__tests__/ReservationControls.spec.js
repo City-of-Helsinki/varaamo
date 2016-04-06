@@ -14,13 +14,13 @@ describe('Component: reservation/ReservationControls', () => {
   const onDeleteClick = simple.stub();
   const onEditClick = simple.stub();
 
-  function getWrapper(reservationStatus = null, isAdmin = false) {
+  function getWrapper(reservationState = null, isAdmin = false) {
     const props = {
       isAdmin,
       onCancelClick,
       onDeleteClick,
       onEditClick,
-      reservation: Immutable(Reservation.build({ status: reservationStatus })),
+      reservation: Immutable(Reservation.build({ state: reservationState })),
     };
     return shallow(<ReservationControls {...props} />);
   }
@@ -63,8 +63,8 @@ describe('Component: reservation/ReservationControls', () => {
     });
   });
 
-  describe('with preliminary reservation in pending state', () => {
-    const buttons = getWrapper('pending').find(Button);
+  describe('with preliminary reservation in requested state', () => {
+    const buttons = getWrapper('requested').find(Button);
 
     it('should render two buttons', () => {
       expect(buttons.length).to.equal(2);
@@ -101,24 +101,24 @@ describe('Component: reservation/ReservationControls', () => {
     });
   });
 
-  describe('with preliminary reservation in canceled state', () => {
-    const buttons = getWrapper('canceled').find(Button);
+  describe('with preliminary reservation in cancelled state', () => {
+    const buttons = getWrapper('cancelled').find(Button);
 
     it('should not render any buttons', () => {
       expect(buttons.length).to.equal(0);
     });
   });
 
-  describe('with preliminary reservation in declined state', () => {
-    const buttons = getWrapper('declined').find(Button);
+  describe('with preliminary reservation in denied state', () => {
+    const buttons = getWrapper('denied').find(Button);
 
     it('should not render any buttons', () => {
       expect(buttons.length).to.equal(0);
     });
   });
 
-  describe('with preliminary reservation in accepted state', () => {
-    const buttons = getWrapper('accepted').find(Button);
+  describe('with preliminary reservation in confirmed state', () => {
+    const buttons = getWrapper('confirmed').find(Button);
 
     it('should render one button', () => {
       expect(buttons.length).to.equal(1);

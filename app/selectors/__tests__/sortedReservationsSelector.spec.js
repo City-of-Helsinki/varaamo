@@ -62,8 +62,8 @@ describe('Selector: sortedReservationsSelector', () => {
 
     it('should return only preliminary reservations when filter is "preliminary"', () => {
       const reservations = [
-        Reservation.build({ id: 1 }),
-        Reservation.build({ id: 4 }),
+        Reservation.build({ needManualConfirmation: true }),
+        Reservation.build({ needManualConfirmation: false }),
       ];
       const state = getState(reservations);
       const props = { filter: 'preliminary' };
@@ -74,8 +74,8 @@ describe('Selector: sortedReservationsSelector', () => {
 
     it('should return only regular reservations when filter is "regular"', () => {
       const reservations = [
-        Reservation.build({ id: 1 }),
-        Reservation.build({ id: 4 }),
+        Reservation.build({ needManualConfirmation: true }),
+        Reservation.build({ needManualConfirmation: false }),
       ];
       const state = getState(reservations);
       const props = { filter: 'regular' };
@@ -86,8 +86,8 @@ describe('Selector: sortedReservationsSelector', () => {
 
     it('should return all reservations when filter is anything else', () => {
       const reservations = [
-        Reservation.build({ id: 1 }),
-        Reservation.build({ id: 4 }),
+        Reservation.build({ needManualConfirmation: true }),
+        Reservation.build({ needManualConfirmation: false }),
       ];
       const state = getState(reservations);
       const props = { filter: 'whatever' };
@@ -98,9 +98,9 @@ describe('Selector: sortedReservationsSelector', () => {
 
     it('should return the results ordered from oldest to newest', () => {
       const reservations = [
-        Reservation.build({ begin: '2015-10-10', id: 1 }),
-        Reservation.build({ begin: '2015-09-20', id: 2 }),
-        Reservation.build({ begin: '2015-10-30', id: 3 }),
+        Reservation.build({ begin: '2015-10-10', needManualConfirmation: true }),
+        Reservation.build({ begin: '2015-09-20', needManualConfirmation: true }),
+        Reservation.build({ begin: '2015-10-30', needManualConfirmation: true }),
       ];
       const state = getState(reservations);
       const props = { filter: 'preliminary' };
