@@ -66,8 +66,12 @@ class ReservationControls extends Component {
     };
   }
 
-  renderButtons(buttons, isAdmin, state) {
-    switch (state) {
+  renderButtons(buttons, isAdmin, reservation) {
+    if (!reservation.needManualConfirmation) {
+      return isAdmin ? [buttons.edit, buttons.delete] : [buttons.edit, buttons.delete];
+    }
+
+    switch (reservation.state) {
 
     case 'cancelled':
       return isAdmin ? null : null;
@@ -82,7 +86,7 @@ class ReservationControls extends Component {
       return isAdmin ? [buttons.confirm, buttons.deny] : [buttons.edit, buttons.cancel];
 
     default:
-      return isAdmin ? [buttons.edit, buttons.delete] : [buttons.edit, buttons.delete];
+      return null;
 
     }
   }
@@ -96,7 +100,7 @@ class ReservationControls extends Component {
 
     return (
       <div className="buttons">
-        {this.renderButtons(this.buttons, isAdmin, reservation.state)}
+        {this.renderButtons(this.buttons, isAdmin, reservation)}
       </div>
     );
   }
