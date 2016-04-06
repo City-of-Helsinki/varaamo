@@ -1,220 +1,126 @@
-import forEach from 'lodash/collection/forEach';
-import rest from 'lodash/array/rest';
+import includes from 'lodash/collection/includes';
 import React, { Component, PropTypes } from 'react';
-import DatePicker from 'react-date-picker';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { updatePath } from 'redux-simple-router';
+import Button from 'react-bootstrap/lib/Button';
+import Input from 'react-bootstrap/lib/Input';
+import { reduxForm } from 'redux-form';
 
-import { addNotification } from 'actions/notificationsActions';
-import {
-  deleteReservation,
-  postReservation,
-  putReservation,
-} from 'actions/reservationActions';
-import {
-  cancelReservationEdit,
-  clearReservations,
-  closeConfirmReservationModal,
-  openConfirmReservationModal,
-  openReservationDeleteModal,
-  selectReservationToDelete,
-  selectReservationToEdit,
-  toggleTimeSlot,
-} from 'actions/uiActions';
-import DateHeader from 'components/common/DateHeader';
-import ConfirmReservationModal from 'components/reservation/ConfirmReservationModal';
-import ReservationFormControls from 'components/reservation/ReservationFormControls';
-import TimeSlots from 'components/reservation/TimeSlots';
-import ReservationDeleteModal from 'containers/ReservationDeleteModal';
-import reservationFormSelector from 'selectors/containers/reservationFormSelector';
+import isEmail from 'validator/lib/isEmail';
+
+const validators = {
+  reserver_email: ({ reserver_email }) => {
+    if (reserver_email && !isEmail(reserver_email)) {
+      return 'Syötä kunnollinen sähköpostiosoite';
+    }
+  },
+};
+
+export function validate(values, { fields, requiredFields }) {
+  const errors = {};
+  fields.forEach((field) => {
+    const validator = validators[field];
+    if (validator) {
+      const error = validator(values);
+      if (error) {
+        errors[field] = error;
+      }
+    }
+    if (includes(requiredFields, field)) {
+      if (!values[field]) {
+        errors[field] = 'Pakollinen tieto';
+      }
+    }
+  });
+  return errors;
+}
 
 export class UnconnectedReservationForm extends Component {
-  constructor(props) {
-    super(props);
-    this.handleEdit = this.handleEdit.bind(this);
-    this.handleEditCancel = this.handleEditCancel.bind(this);
-    this.handleReservation = this.handleReservation.bind(this);
-    this.onDateChange = this.onDateChange.bind(this);
-  }
-
-  componentWillUnmount() {
-    this.props.actions.clearReservations();
-  }
-
-  onDateChange(newDate) {
-    const { actions, id } = this.props;
-    actions.updatePath(`/resources/${id}/reservation?date=${newDate}`);
-  }
-
-  handleEdit(values = {}) {
-    const {
-      actions,
-      reservationsToEdit,
-      selectedReservations,
-    } = this.props;
-
-    if (selectedReservations.length) {
-      // Edit the first selected reservation.
-      actions.putReservation(Object.assign(
-        {},
-        selectedReservations[0],
-        values,
-        { url: reservationsToEdit[0].url }
-      ));
-
-      // Add new reservations if needed.
-      // FIXME: This is very hacky and not bulletproof but use cases where user splits
-      // one reservation into multiple reservations should be pretty rare.
-      // Try to use something sequential in the future.
-      // Use timeout to allow the PUT request to go through first and possibly free previously
-      // reserved time slots.
-      setTimeout(() => {
-        forEach(rest(selectedReservations), (reservation) => {
-          actions.postReservation(
-            Object.assign({}, reservation, values)
-          );
-        });
-      }, 800);
-    } else {
-      // Delete the edited reservation if no time slots were selected.
-      forEach(reservationsToEdit, (reservation) => {
-        actions.deleteReservation(reservation);
-      });
+  renderField(type, label, field, extraProps) {
+    if (!field) {
+      return null;
     }
-  }
+    const hasError = field.error && field.touched;
+    const isRequired = includes(this.props.requiredFields, field.name);
 
-  handleEditCancel() {
-    this.props.actions.cancelReservationEdit();
-  }
-
-  handleReservation(values = {}) {
-    const { actions, selectedReservations } = this.props;
-
-    selectedReservations.forEach(reservation => {
-      actions.postReservation(
-        Object.assign({}, reservation, values)
-      );
-    });
+    return (
+      <Input
+        {...field}
+        {...extraProps}
+        bsStyle={hasError ? 'error' : null}
+        help={hasError ? field.error : null}
+        label={`${label}${isRequired ? '*' : ''}`}
+        labelClassName="col-xs-3"
+        type={type}
+        wrapperClassName="col-xs-9"
+      />
+    );
   }
 
   render() {
     const {
-      actions,
-      confirmReservationModalIsOpen,
-      date,
-      isFetchingResource,
-      isLoggedIn,
+      fields,
       isMakingReservations,
-      reservationsToEdit,
-      resource,
-      selected,
-      selectedReservations,
-      time,
-      timeSlots,
-      urlHash,
+      handleSubmit,
+      onClose,
+      onConfirm,
     } = this.props;
-    const isEditing = Boolean(reservationsToEdit.length);
-    const hasPreliminaryReservation = resource.needManualConfirmation;
-
     return (
       <div>
-        <DatePicker
-          date={date}
-          hideFooter
-          gotoSelectedText="Mene valittuun"
-          onChange={this.onDateChange}
-          style={{ height: 210 }}
-          todayText="Tänään"
-        />
-        <DateHeader
-          date={date}
-          onChange={this.onDateChange}
-          scrollTo={urlHash === '#date-header'}
-        />
-        <TimeSlots
-          addNotification={actions.addNotification}
-          hasPreliminaryReservation={hasPreliminaryReservation}
-          isEditing={isEditing}
-          isFetching={isFetchingResource}
-          isLoggedIn={isLoggedIn}
-          onClick={actions.toggleTimeSlot}
-          openReservationDeleteModal={actions.openReservationDeleteModal}
-          updatePath={actions.updatePath}
-          resource={resource}
-          selected={selected}
-          selectReservationToDelete={actions.selectReservationToDelete}
-          selectReservationToEdit={actions.selectReservationToEdit}
-          slots={timeSlots}
-          time={time}
-        />
-        <ReservationFormControls
-          addNotification={actions.addNotification}
-          disabled={(
-            !isLoggedIn ||
-            (!resource.userPermissions.canMakeReservations && !hasPreliminaryReservation) ||
-            !selected.length ||
-            isMakingReservations
+        <form className="preliminary-reservatin-form form-horizontal">
+          {this.renderField('text', 'Nimi', fields.reserver_name)}
+          {this.renderField('email', 'Sähköposti', fields.reserver_email)}
+          {this.renderField('text', 'Puhelin', fields.reserver_phone_number)}
+          {this.renderField('textarea', 'Tilaisuuden kuvaus', fields.event_description, { rows: 5 })}
+          {this.renderField('text', 'Katuosoite', fields.reserver_address_street)}
+          {this.renderField('text', 'Postinumero', fields.reserver_address_zip)}
+          {this.renderField('text', 'Kaupunki', fields.reserver_address_city)}
+          {this.renderField('text', 'Yhdistyksen nimi', fields.company)}
+          {this.renderField('text', 'Y-tunnus', fields.business_id)}
+          <p>Laskutusosoite</p>
+          {this.renderField('text', 'Katuosoite', fields.billing_address_street)}
+          {this.renderField('text', 'Postinumero', fields.billing_address_zip)}
+          {this.renderField('text', 'Kaupunki', fields.billing_address_city)}
+          {this.renderField('number', 'Osallistujamäärä', fields.number_of_participants, { min: '0' })}
+          {this.renderField(
+            'textarea',
+            'Kommentit',
+            fields.comments,
+            {
+              placeholder: 'Varauksen mahdolliset lisätiedot',
+              rows: 5,
+            }
           )}
-          isEditing={isEditing}
-          isLoggedIn={isLoggedIn}
-          isMakingReservations={isMakingReservations}
-          onCancel={this.handleEditCancel}
-          onClick={actions.openConfirmReservationModal}
-          resource={resource}
-        />
-        <ConfirmReservationModal
-          isEditing={isEditing}
-          isMakingReservations={isMakingReservations}
-          isPreliminaryReservation={hasPreliminaryReservation}
-          onClose={actions.closeConfirmReservationModal}
-          onConfirm={isEditing ? this.handleEdit : this.handleReservation}
-          reservationsToEdit={reservationsToEdit}
-          resource={resource}
-          selectedReservations={selectedReservations}
-          show={confirmReservationModalIsOpen}
-        />
-        <ReservationDeleteModal />
+          <div className="form-controls">
+            <Button
+              bsStyle="default"
+              onClick={onClose}
+            >
+              Peruuta
+            </Button>
+            <Button
+              bsStyle="primary"
+              disabled={isMakingReservations}
+              onClick={handleSubmit(onConfirm)}
+              type="submit"
+            >
+              {isMakingReservations ? 'Tallennetaan...' : 'Tallenna'}
+            </Button>
+          </div>
+        </form>
       </div>
     );
   }
 }
 
 UnconnectedReservationForm.propTypes = {
-  actions: PropTypes.object.isRequired,
-  confirmReservationModalIsOpen: PropTypes.bool.isRequired,
-  date: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  isFetchingResource: PropTypes.bool.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
+  fields: PropTypes.object.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,
-  reservationsToEdit: PropTypes.array.isRequired,
-  resource: PropTypes.object.isRequired,
-  selected: PropTypes.array.isRequired,
-  selectedReservations: PropTypes.array.isRequired,
-  time: PropTypes.string,
-  timeSlots: PropTypes.array.isRequired,
-  urlHash: PropTypes.string.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired,
+  requiredFields: PropTypes.array.isRequired,
 };
 
-function mapDispatchToProps(dispatch) {
-  const actionCreators = {
-    addNotification,
-    cancelReservationEdit,
-    clearReservations,
-    closeConfirmReservationModal,
-    deleteReservation,
-    openConfirmReservationModal,
-    openReservationDeleteModal,
-    postReservation,
-    updatePath,
-    putReservation,
-    selectReservationToDelete,
-    selectReservationToEdit,
-    toggleTimeSlot,
-  };
-
-  return { actions: bindActionCreators(actionCreators, dispatch) };
-}
-
-export default connect(reservationFormSelector, mapDispatchToProps)(UnconnectedReservationForm);
+export default reduxForm({
+  form: 'preliminaryReservation',
+  validate,
+})(UnconnectedReservationForm);

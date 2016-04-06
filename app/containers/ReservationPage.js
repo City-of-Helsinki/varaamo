@@ -11,7 +11,7 @@ import { fetchResource } from 'actions/resourceActions';
 import ResourceHeader from 'components/resource/ResourceHeader';
 import ReservationInfo from 'components/reservation/ReservationInfo';
 import NotFoundPage from 'containers/NotFoundPage';
-import ReservationForm from 'containers/ReservationForm';
+import ReservationCalendar from 'containers/ReservationCalendar';
 import reservationPageSelector from 'selectors/containers/reservationPageSelector';
 import { getAddressWithName, getName } from 'utils/DataUtils';
 import { getDateStartAndEndTimes } from 'utils/TimeUtils';
@@ -72,7 +72,7 @@ export class UnconnectedReservationPage extends Component {
               resource={resource}
             />
             <h2 id="reservation-header">{isLoggedIn ? 'Varaa tila' : 'Varaustilanne'}</h2>
-            <ReservationForm
+            <ReservationCalendar
               location={location}
               params={params}
             />
