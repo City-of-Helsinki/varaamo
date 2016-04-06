@@ -30,6 +30,7 @@ class ReservationControls extends Component {
           bsSize="xsmall"
           bsStyle="success"
           key="confirmButton"
+          onClick={props.onConfirmClick}
         >
           Hyväksy
         </Button>
@@ -109,6 +110,7 @@ class ReservationControls extends Component {
 ReservationControls.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
   onCancelClick: PropTypes.func.isRequired,
+  onConfirmClick: PropTypes.func.isRequired,
   onDeleteClick: PropTypes.func.isRequired,
   onEditClick: PropTypes.func.isRequired,
   reservation: PropTypes.object,

@@ -18,6 +18,7 @@ class ReservationsListItem extends Component {
   constructor(props) {
     super(props);
     this.handleCancelClick = this.handleCancelClick.bind(this);
+    this.handleConfirmClick = this.handleConfirmClick.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
   }
@@ -31,6 +32,18 @@ class ReservationsListItem extends Component {
 
     selectReservationToCancel(reservation);
     openReservationCancelModal();
+  }
+
+  handleConfirmClick() {
+    const {
+      confirmPreliminaryReservation,
+      isAdmin,
+      reservation,
+    } = this.props;
+
+    if (isAdmin && reservation.state === 'requested') {
+      confirmPreliminaryReservation(reservation);
+    }
   }
 
   handleDeleteClick() {
@@ -139,6 +152,7 @@ class ReservationsListItem extends Component {
         <ReservationControls
           isAdmin={isAdmin}
           onCancelClick={this.handleCancelClick}
+          onConfirmClick={this.handleConfirmClick}
           onDeleteClick={this.handleDeleteClick}
           onEditClick={this.handleEditClick}
           reservation={reservation}
@@ -150,6 +164,7 @@ class ReservationsListItem extends Component {
 }
 
 ReservationsListItem.propTypes = {
+  confirmPreliminaryReservation: PropTypes.func.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   openReservationCancelModal: PropTypes.func.isRequired,
   openReservationDeleteModal: PropTypes.func.isRequired,

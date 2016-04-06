@@ -1,4 +1,5 @@
 import { CALL_API } from 'redux-api-middleware';
+import { decamelizeKeys } from 'humps';
 
 import types from 'constants/ActionTypes';
 import { paginatedReservationsSchema } from 'middleware/Schemas';
@@ -11,11 +12,16 @@ import {
 } from 'utils/APIUtils';
 
 export default {
+  confirmPreliminaryReservation,
   deleteReservation,
   fetchReservations,
   postReservation,
   putReservation,
 };
+
+function confirmPreliminaryReservation(reservation) {
+  return putReservation(Object.assign({}, reservation, { state: 'confirmed' }));
+}
 
 function deleteReservation(reservation) {
   return {
@@ -111,7 +117,7 @@ function putReservation(reservation) {
       endpoint: reservation.url,
       method: 'PUT',
       headers: getHeadersCreator(),
-      body: JSON.stringify(reservation),
+      body: JSON.stringify(decamelizeKeys(reservation)),
     },
   };
 }

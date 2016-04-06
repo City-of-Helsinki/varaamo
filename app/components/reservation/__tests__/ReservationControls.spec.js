@@ -11,6 +11,7 @@ import Reservation from 'fixtures/Reservation';
 
 describe('Component: reservation/ReservationControls', () => {
   const onCancelClick = simple.stub();
+  const onConfirmClick = simple.stub();
   const onDeleteClick = simple.stub();
   const onEditClick = simple.stub();
 
@@ -18,6 +19,7 @@ describe('Component: reservation/ReservationControls', () => {
     const props = {
       isAdmin,
       onCancelClick,
+      onConfirmClick,
       onDeleteClick,
       onEditClick,
       reservation: Immutable(reservation),
@@ -80,6 +82,13 @@ describe('Component: reservation/ReservationControls', () => {
 
         it('should be a confirm button', () => {
           expect(button.props().children).to.equal('Hyväksy');
+        });
+
+        it('clicking the button should call onEditClick', () => {
+          onConfirmClick.reset();
+          button.props().onClick();
+
+          expect(onConfirmClick.callCount).to.equal(1);
         });
       });
 
