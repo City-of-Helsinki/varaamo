@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 import { closeReservationCancelModal } from 'actions/uiActions';
 import TimeRange from 'components/common/TimeRange';
 import reservationCancelModalSelector from 'selectors/containers/reservationCancelModalSelector';
-import { getName, getReservationStatus } from 'utils/DataUtils';
+import { getName } from 'utils/DataUtils';
 
 export class UnconnectedReservationCancelModal extends Component {
   constructor(props) {
@@ -21,8 +21,8 @@ export class UnconnectedReservationCancelModal extends Component {
     this.props.actions.closeReservationCancelModal();
   }
 
-  renderModalContent(status, reservationsToCancel) {
-    if (status === 'accepted') {
+  renderModalContent(state, reservationsToCancel) {
+    if (state === 'confirmed') {
       return (
         <div>
           <p>
@@ -72,7 +72,7 @@ export class UnconnectedReservationCancelModal extends Component {
       show,
     } = this.props;
 
-    const status = getReservationStatus(reservationsToCancel[0]);
+    const state = reservationsToCancel.length ? reservationsToCancel[0].state : '';
 
     return (
       <Modal
@@ -81,12 +81,12 @@ export class UnconnectedReservationCancelModal extends Component {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-            {status === 'accepted' ? 'Varauksen peruminen' : 'Varauksen perumisen vahvistus'}
+            {state === 'confirmed' ? 'Varauksen peruminen' : 'Varauksen perumisen vahvistus'}
           </Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-          {this.renderModalContent(status, reservationsToCancel)}
+          {this.renderModalContent(state, reservationsToCancel)}
         </Modal.Body>
 
         <Modal.Footer>
@@ -94,9 +94,9 @@ export class UnconnectedReservationCancelModal extends Component {
             bsStyle="default"
             onClick={actions.closeReservationCancelModal}
           >
-            {status === 'accepted' ? 'Takaisin' : 'Älä peruuta varausta'}
+            {state === 'confirmed' ? 'Takaisin' : 'Älä peruuta varausta'}
           </Button>
-          {status !== 'accepted' && (
+          {state !== 'confirmed' && (
             <Button
               bsStyle="danger"
               onClick={this.handleCancel}

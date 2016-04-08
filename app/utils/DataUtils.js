@@ -19,7 +19,6 @@ export default {
   getName,
   getOpeningHours,
   getPeopleCapacityString,
-  getReservationStatus,
   getTranslatedProperty,
 };
 
@@ -132,11 +131,6 @@ function getPeopleCapacityString(capacity) {
     return '';
   }
   return `max ${capacity} hengelle.`;
-}
-
-function getReservationStatus(reservation) {
-  const statuses = ['pending', 'canceled', 'declined', 'accepted', null];
-  return reservation ? statuses[reservation.id % 5] : null;
 }
 
 function getTranslatedProperty(item, property, language = 'fi') {

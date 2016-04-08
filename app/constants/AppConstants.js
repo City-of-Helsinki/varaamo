@@ -13,20 +13,20 @@ export default {
     'Accept-Language': 'fi',
     'Content-Type': 'application/json',
   },
-  RESERVATION_STATUS_LABELS: {
-    accepted: {
-      labelBsStyle: 'success',
-      labelText: 'Hyväksytty',
-    },
-    canceled: {
+  RESERVATION_STATE_LABELS: {
+    cancelled: {
       labelBsStyle: 'default',
       labelText: 'Peruttu',
     },
-    declined: {
+    confirmed: {
+      labelBsStyle: 'success',
+      labelText: 'Hyväksytty',
+    },
+    denied: {
       labelBsStyle: 'danger',
       labelText: 'Hylätty',
     },
-    pending: {
+    requested: {
       labelBsStyle: 'primary',
       labelText: 'Käsiteltävänä',
     },

@@ -93,8 +93,7 @@ describe('Component: reservation/ReservationsListItem', () => {
       it('should pass correct props to ReservationControls component', () => {
         const actualProps = reservationControlsTree.props;
 
-        // TODO: This should be uncommented once API returned reservations contain status field.
-        // expect(actualProps.reservation).to.equal(props.reservation);
+        expect(actualProps.reservation).to.equal(props.reservation);
         expect(actualProps.isAdmin).to.equal(false);
         expect(actualProps.onCancelClick).to.equal(instance.handleCancelClick);
         expect(actualProps.onDeleteClick).to.equal(instance.handleDeleteClick);

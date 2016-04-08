@@ -5,10 +5,10 @@ import { createSelector } from 'reselect';
 
 const reservationsSelector = (state, props) => {
   if (props.filter === 'preliminary') {
-    return filter(state.data.reservations, (reservation) => reservation.id % 5 !== 4);
+    return filter(state.data.reservations, (reservation) => reservation.needManualConfirmation);
   }
   if (props.filter === 'regular') {
-    return filter(state.data.reservations, (reservation) => reservation.id % 5 === 4);
+    return filter(state.data.reservations, (reservation) => !reservation.needManualConfirmation);
   }
   return state.data.reservations;
 };

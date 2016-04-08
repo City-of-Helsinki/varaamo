@@ -7,12 +7,11 @@ import { Link } from 'react-router';
 
 import TimeRange from 'components/common/TimeRange';
 import ReservationControls from 'components/reservation/ReservationControls';
-import { RESERVATION_STATUS_LABELS } from 'constants/AppConstants';
+import { RESERVATION_STATE_LABELS } from 'constants/AppConstants';
 import {
   getCaption,
   getMainImage,
   getName,
-  getReservationStatus,
 } from 'utils/DataUtils';
 
 class ReservationsListItem extends Component {
@@ -69,17 +68,15 @@ class ReservationsListItem extends Component {
     return null;
   }
 
-  renderStatusLabel(reservation) {
-    const status = getReservationStatus(reservation);
-
-    if (!status) {
+  renderStateLabel(reservation) {
+    if (!reservation.needManualConfirmation) {
       return null;
     }
 
-    const { labelBsStyle, labelText } = RESERVATION_STATUS_LABELS[status];
+    const { labelBsStyle, labelText } = RESERVATION_STATE_LABELS[reservation.state];
 
     return (
-      <div className="status">
+      <div className="state">
         <Label bsStyle={labelBsStyle}>{labelText}</Label>
       </div>
     );
@@ -144,9 +141,9 @@ class ReservationsListItem extends Component {
           onCancelClick={this.handleCancelClick}
           onDeleteClick={this.handleDeleteClick}
           onEditClick={this.handleEditClick}
-          reservation={Object.assign({}, reservation, { status: getReservationStatus(reservation) })}
+          reservation={reservation}
         />
-        {this.renderStatusLabel(reservation)}
+      {this.renderStateLabel(reservation)}
       </li>
     );
   }
