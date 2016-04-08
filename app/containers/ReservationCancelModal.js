@@ -87,7 +87,7 @@ export class UnconnectedReservationCancelModal extends Component {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-            {cancelAllowed ? 'Varauksen perumisen vahvistus' : 'Varauksen peruminen'}
+            {cancelAllowed ? 'Perumisen vahvistus' : 'Varauksen peruminen'}
           </Modal.Title>
         </Modal.Header>
 
@@ -100,14 +100,14 @@ export class UnconnectedReservationCancelModal extends Component {
             bsStyle="default"
             onClick={actions.closeReservationCancelModal}
           >
-            {cancelAllowed ? 'Älä peruuta varausta' : 'Takaisin'}
+            {cancelAllowed ? 'Älä peru varausta' : 'Takaisin'}
           </Button>
           {cancelAllowed && (
             <Button
               bsStyle="danger"
               onClick={this.handleCancel}
               >
-              Peruuta varaus
+              Peru varaus
             </Button>
           )}
         </Modal.Footer>

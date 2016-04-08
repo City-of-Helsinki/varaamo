@@ -106,8 +106,8 @@ describe('Container: ReservationDeleteModal', () => {
         describe('Cancel button', () => {
           const buttonTree = buttonTrees[0];
 
-          it('the first button should read "Peruuta"', () => {
-            expect(buttonTree.props.children).to.equal('Peruuta');
+          it('the first button should read "Takaisin"', () => {
+            expect(buttonTree.props.children).to.equal('Takaisin');
           });
 
           it('clicking it should call closeReservationDeleteModal', () => {

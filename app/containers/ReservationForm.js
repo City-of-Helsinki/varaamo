@@ -94,7 +94,7 @@ export class UnconnectedReservationForm extends Component {
               bsStyle="default"
               onClick={onClose}
             >
-              Peruuta
+              Takaisin
             </Button>
             <Button
               bsStyle="primary"
