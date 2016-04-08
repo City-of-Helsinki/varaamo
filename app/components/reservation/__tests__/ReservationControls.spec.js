@@ -13,6 +13,7 @@ describe('Component: reservation/ReservationControls', () => {
   const onCancelClick = simple.stub();
   const onConfirmClick = simple.stub();
   const onDeleteClick = simple.stub();
+  const onDenyClick = simple.stub();
   const onEditClick = simple.stub();
 
   function getWrapper(reservation, isAdmin = false) {
@@ -21,6 +22,7 @@ describe('Component: reservation/ReservationControls', () => {
       onCancelClick,
       onConfirmClick,
       onDeleteClick,
+      onDenyClick,
       onEditClick,
       reservation: Immutable(reservation),
     };
@@ -84,7 +86,7 @@ describe('Component: reservation/ReservationControls', () => {
           expect(button.props().children).to.equal('Hyväksy');
         });
 
-        it('clicking the button should call onEditClick', () => {
+        it('clicking the button should call onConfirmClick', () => {
           onConfirmClick.reset();
           button.props().onClick();
 
@@ -97,6 +99,13 @@ describe('Component: reservation/ReservationControls', () => {
 
         it('should be a deny button', () => {
           expect(button.props().children).to.equal('Hylkää');
+        });
+
+        it('clicking the button should call onDenyClick', () => {
+          onDenyClick.reset();
+          button.props().onClick();
+
+          expect(onDenyClick.callCount).to.equal(1);
         });
       });
     });

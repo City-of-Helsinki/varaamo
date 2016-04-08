@@ -15,6 +15,7 @@ import Unit from 'fixtures/Unit';
 describe('Component: reservation/ReservationsListItem', () => {
   const props = {
     confirmPreliminaryReservation: simple.stub(),
+    denyPreliminaryReservation: simple.stub(),
     isAdmin: false,
     openReservationCancelModal: simple.stub(),
     openReservationDeleteModal: simple.stub(),

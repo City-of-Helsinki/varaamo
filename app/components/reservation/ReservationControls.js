@@ -51,6 +51,7 @@ class ReservationControls extends Component {
           bsSize="xsmall"
           bsStyle="danger"
           key="denyButton"
+          onClick={this.props.onDenyClick}
         >
           Hylkää
         </Button>
@@ -116,6 +117,7 @@ ReservationControls.propTypes = {
   onCancelClick: PropTypes.func.isRequired,
   onConfirmClick: PropTypes.func.isRequired,
   onDeleteClick: PropTypes.func.isRequired,
+  onDenyClick: PropTypes.func.isRequired,
   onEditClick: PropTypes.func.isRequired,
   reservation: PropTypes.object,
 };

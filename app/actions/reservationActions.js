@@ -15,6 +15,7 @@ export default {
   cancelPreliminaryReservation,
   confirmPreliminaryReservation,
   deleteReservation,
+  denyPreliminaryReservation,
   fetchReservations,
   postReservation,
   putReservation,
@@ -53,6 +54,10 @@ function deleteReservation(reservation) {
       headers: getHeadersCreator(),
     },
   };
+}
+
+function denyPreliminaryReservation(reservation) {
+  return putReservation(Object.assign({}, reservation, { state: 'denied' }));
 }
 
 function fetchReservations(params = {}) {
