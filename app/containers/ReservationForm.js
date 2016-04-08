@@ -2,6 +2,7 @@ import includes from 'lodash/collection/includes';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Input from 'react-bootstrap/lib/Input';
+import Well from 'react-bootstrap/lib/Well';
 import { reduxForm } from 'redux-form';
 
 import isEmail from 'validator/lib/isEmail';
@@ -70,15 +71,24 @@ export class UnconnectedReservationForm extends Component {
           {this.renderField('email', 'Sähköposti', fields.reserver_email)}
           {this.renderField('text', 'Puhelin', fields.reserver_phone_number)}
           {this.renderField('textarea', 'Tilaisuuden kuvaus', fields.event_description, { rows: 5 })}
-          {this.renderField('text', 'Katuosoite', fields.reserver_address_street)}
-          {this.renderField('text', 'Postinumero', fields.reserver_address_zip)}
-          {this.renderField('text', 'Kaupunki', fields.reserver_address_city)}
+          { fields.reserver_address_street && (
+            <Well>
+              <p>Osoite</p>
+              {this.renderField('text', 'Katuosoite', fields.reserver_address_street)}
+              {this.renderField('text', 'Postinumero', fields.reserver_address_zip)}
+              {this.renderField('text', 'Kaupunki', fields.reserver_address_city)}
+            </Well>
+          )}
           {this.renderField('text', 'Yhdistyksen nimi', fields.company)}
           {this.renderField('text', 'Y-tunnus', fields.business_id)}
-          <p>Laskutusosoite</p>
-          {this.renderField('text', 'Katuosoite', fields.billing_address_street)}
-          {this.renderField('text', 'Postinumero', fields.billing_address_zip)}
-          {this.renderField('text', 'Kaupunki', fields.billing_address_city)}
+          { fields.reserver_address_street && (
+            <Well>
+              <p>Laskutusosoite</p>
+              {this.renderField('text', 'Katuosoite', fields.billing_address_street)}
+              {this.renderField('text', 'Postinumero', fields.billing_address_zip)}
+              {this.renderField('text', 'Kaupunki', fields.billing_address_city)}
+            </Well>
+          )}
           {this.renderField('number', 'Osallistujamäärä', fields.number_of_participants, { min: '0' })}
           {this.renderField(
             'textarea',
