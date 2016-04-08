@@ -1,3 +1,5 @@
+import filter from 'lodash/collection/filter';
+import includes from 'lodash/collection/includes';
 import { createSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
@@ -47,7 +49,11 @@ const reservationCalendarSelector = createSelector(
     const { closes, opens } = getOpeningHours(resource);
     const period = resource.minPeriod ? resource.minPeriod : undefined;
     const reservations = resource.reservations || undefined;
-    const timeSlots = getTimeSlots(opens, closes, period, reservations, reservationsToEdit);
+    const openReservations = filter(reservations, (reservation) => {
+      const openStates = ['confirmed', 'requested'];
+      return includes(openStates, reservation.state);
+    });
+    const timeSlots = getTimeSlots(opens, closes, period, openReservations, reservationsToEdit);
 
     return {
       confirmReservationModalIsOpen,
