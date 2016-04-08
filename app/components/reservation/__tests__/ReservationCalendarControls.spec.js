@@ -72,7 +72,7 @@ describe('Component: reservation/ReservationCalendarControls', () => {
       const buttonTree = buttonTrees[1];
 
       it('should be a cancel button', () => {
-        expect(buttonTree.props.children).to.equal('Peruuta');
+        expect(buttonTree.props.children).to.equal('Takaisin');
       });
 
       it('should have correct props', () => {

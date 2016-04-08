@@ -75,7 +75,7 @@ class ReservationCalendarControls extends Component {
               onClick={onCancel}
               style={{ width: '50%' }}
             >
-              Peruuta
+              Takaisin
             </Button>
           )}
         </ButtonGroup>

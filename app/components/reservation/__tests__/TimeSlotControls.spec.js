@@ -46,7 +46,7 @@ describe('Component: reservation/TimeSlotControls', () => {
       const button = buttons.at(1);
 
       it('should be a delete button', () => {
-        expect(button.props().children).to.equal('Poista');
+        expect(button.props().children).to.equal('Peru');
       });
 
       it('clicking the button should call props.onDeleteClick', () => {

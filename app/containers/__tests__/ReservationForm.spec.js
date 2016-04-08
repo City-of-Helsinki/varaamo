@@ -97,8 +97,8 @@ describe('Container: ReservationForm', () => {
       describe('Cancel button', () => {
         const button = buttons.at(0);
 
-        it('the first button should read "Peruuta"', () => {
-          expect(button.props().children).to.equal('Peruuta');
+        it('the first button should read "Takaisin"', () => {
+          expect(button.props().children).to.equal('Takaisin');
         });
 
         it('clicking it should call props.onClose', () => {

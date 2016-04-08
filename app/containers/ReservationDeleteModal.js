@@ -69,14 +69,14 @@ export class UnconnectedReservationDeleteModal extends Component {
             bsStyle="default"
             onClick={actions.closeReservationDeleteModal}
           >
-            Peruuta
+            Takaisin
           </Button>
           <Button
             bsStyle="danger"
             disabled={isDeletingReservations}
             onClick={this.handleDelete}
           >
-            {isDeletingReservations ? 'Poistetaan...' : 'Peru'}
+            {isDeletingReservations ? 'Perutaan...' : 'Peru'}
           </Button>
         </Modal.Footer>
       </Modal>

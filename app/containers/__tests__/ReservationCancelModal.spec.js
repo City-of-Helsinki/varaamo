@@ -76,10 +76,10 @@ describe('Container: ReservationCancelModal', () => {
           expect(modalTitleTrees.length).to.equal(1);
         });
 
-        it('the ModalTitle should display text "Varauksen perumisen vahvistus"', () => {
+        it('the ModalTitle should display text "Perumisen vahvistus"', () => {
           const modalTitleTree = tree.subTree('ModalTitle');
 
-          expect(modalTitleTree.props.children).to.equal('Varauksen perumisen vahvistus');
+          expect(modalTitleTree.props.children).to.equal('Perumisen vahvistus');
         });
       });
 
@@ -126,8 +126,8 @@ describe('Container: ReservationCancelModal', () => {
           describe('Cancel button', () => {
             const buttonTree = buttonTrees[0];
 
-            it('the first button should read "Älä peruuta varausta"', () => {
-              expect(buttonTree.props.children).to.equal('Älä peruuta varausta');
+            it('the first button should read "Älä peru varausta"', () => {
+              expect(buttonTree.props.children).to.equal('Älä peru varausta');
             });
 
             it('clicking it should call closeReservationCancelModal', () => {
@@ -141,8 +141,8 @@ describe('Container: ReservationCancelModal', () => {
           describe('Confirm button', () => {
             const buttonTree = buttonTrees[1];
 
-            it('the second button should read "Peruuta varaus"', () => {
-              expect(buttonTree.props.children).to.equal('Peruuta varaus');
+            it('the second button should read "Peru varaus"', () => {
+              expect(buttonTree.props.children).to.equal('Peru varaus');
             });
 
             it('should have handleCancel as its onClick prop', () => {
@@ -181,10 +181,10 @@ describe('Container: ReservationCancelModal', () => {
           expect(modalTitleTrees.length).to.equal(1);
         });
 
-        it('the ModalTitle should display text "Varauksen perumisen vahvistus"', () => {
+        it('the ModalTitle should display text "Perumisen vahvistus"', () => {
           const modalTitleTree = tree.subTree('ModalTitle');
 
-          expect(modalTitleTree.props.children).to.equal('Varauksen perumisen vahvistus');
+          expect(modalTitleTree.props.children).to.equal('Perumisen vahvistus');
         });
       });
 
@@ -231,8 +231,8 @@ describe('Container: ReservationCancelModal', () => {
           describe('Cancel button', () => {
             const buttonTree = buttonTrees[0];
 
-            it('the first button should read "Älä peruuta varausta"', () => {
-              expect(buttonTree.props.children).to.equal('Älä peruuta varausta');
+            it('the first button should read "Älä peru varausta"', () => {
+              expect(buttonTree.props.children).to.equal('Älä peru varausta');
             });
 
             it('clicking it should call closeReservationCancelModal', () => {
@@ -246,8 +246,8 @@ describe('Container: ReservationCancelModal', () => {
           describe('Confirm button', () => {
             const buttonTree = buttonTrees[1];
 
-            it('the second button should read "Peruuta varaus"', () => {
-              expect(buttonTree.props.children).to.equal('Peruuta varaus');
+            it('the second button should read "Peru varaus"', () => {
+              expect(buttonTree.props.children).to.equal('Peru varaus');
             });
 
             it('should have handleCancel as its onClick prop', () => {

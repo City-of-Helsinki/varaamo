@@ -40,7 +40,7 @@ class ReservationControls extends Component {
           bsStyle="danger"
           onClick={onDeleteClick}
         >
-          Poista
+          Peru
         </Button>
       </div>
     );
