@@ -6,7 +6,7 @@ import { findDOMNode } from 'react-dom';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import Label from 'react-bootstrap/lib/Label';
 
-import ReservationControls from 'components/reservation/ReservationControls';
+import TimeSlotControls from 'components/reservation/TimeSlotControls';
 import { scrollTo } from 'utils/DOMUtils';
 
 class TimeSlot extends Component {
@@ -163,7 +163,7 @@ class TimeSlot extends Component {
         {isAdmin && (
           <td className="controls-cell">
             {reservation && slot.reservationStarting && !isEditing && (
-              <ReservationControls
+              <TimeSlotControls
                 onDeleteClick={this.handleDeleteClick}
                 onEditClick={this.handleEditClick}
                 reservation={reservation}

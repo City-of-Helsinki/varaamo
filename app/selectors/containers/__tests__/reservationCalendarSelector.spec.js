@@ -55,6 +55,7 @@ describe('Selector: reservationCalendarSelector', () => {
       {
         opens: '2015-10-10T12:00:00+03:00',
         closes: '2015-10-10T18:00:00+03:00',
+        state: 'confirmed',
       },
     ],
   });
