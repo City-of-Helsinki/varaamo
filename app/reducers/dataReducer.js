@@ -1,5 +1,4 @@
 import reject from 'lodash/collection/reject';
-import omit from 'lodash/object/omit';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
@@ -15,25 +14,7 @@ function handleData(state, data) {
   return state.merge(data, { deep: true });
 }
 
-function handleReservationDelete(action, state) {
-  const reservation = action.payload;
-  const resource = state.resources[reservation.resource];
-  if (resource && resource.reservations && resource.reservations.length) {
-    const newResource = Object.assign(
-      {},
-      resource,
-      { reservations: reject(resource.reservations, (current) => current.url === reservation.url) }
-    );
-    return state.merge( {
-      reservations: omit(state.reservations, reservation.url),
-      resources: Object.assign({}, state.resources, { [newResource.id]: newResource }),
-    });
-  }
-  return state.merge( { reservations: omit(state.reservations, reservation.url) });
-}
-
-function handleReservation(state, action) {
-  const reservation = action.payload;
+function handleReservation(state, reservation) {
   const entities = {
     reservations: {
       [reservation.url]: reservation,
@@ -56,6 +37,7 @@ function handleReservation(state, action) {
 }
 
 function dataReducer(state = initialState, action) {
+  let reservation;
   switch (action.type) {
 
   case types.API.PURPOSES_GET_SUCCESS:
@@ -68,10 +50,12 @@ function dataReducer(state = initialState, action) {
 
   case types.API.RESERVATION_POST_SUCCESS:
   case types.API.RESERVATION_PUT_SUCCESS:
-    return handleReservation(state, action);
+    reservation = action.payload;
+    return handleReservation(state, reservation);
 
   case types.API.RESERVATION_DELETE_SUCCESS:
-    return handleReservationDelete(action, state);
+    reservation = Object.assign({}, action.payload, { state: 'cancelled' });
+    return handleReservation(state, reservation);
 
   default:
     return state;

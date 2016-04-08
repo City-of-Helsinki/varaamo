@@ -82,7 +82,7 @@ class ReservationsListItem extends Component {
   }
 
   renderStateLabel(reservation) {
-    if (!reservation.needManualConfirmation) {
+    if (!reservation.needManualConfirmation && reservation.state !== 'cancelled') {
       return null;
     }
 
