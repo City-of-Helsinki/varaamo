@@ -32,15 +32,15 @@ export class UnconnectedUserReservationsPage extends Component {
             )}
             { isAdmin && (
               <div>
-                <h1>Tavalliset varaukset</h1>
-                <ReservationsList
-                  emptyMessage="Ei tavallisia varauksia näytettäväksi."
-                  filter="regular"
-                />
                 <h1>Alustavat varaukset</h1>
                 <ReservationsList
                   emptyMessage="Ei alustavia varauksia näytettäväksi."
                   filter="preliminary"
+                  />
+                <h1>Tavalliset varaukset</h1>
+                <ReservationsList
+                  emptyMessage="Ei tavallisia varauksia näytettäväksi."
+                  filter="regular"
                 />
               </div>
             )}

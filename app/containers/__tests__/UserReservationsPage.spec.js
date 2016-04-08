@@ -52,12 +52,12 @@ describe('Container: UserReservationsPage', () => {
           expect(headers.length).to.equal(2);
         });
 
-        it('the first header should display "Tavalliset varaukset"', () => {
-          expect(headers.at(0).text()).to.equal('Tavalliset varaukset');
+        it('the first header should display "Alustavat varaukset"', () => {
+          expect(headers.at(0).text()).to.equal('Alustavat varaukset');
         });
 
-        it('the first header should display "Alustavat varaukset"', () => {
-          expect(headers.at(1).text()).to.equal('Alustavat varaukset');
+        it('the second header should display "Tavalliset varaukset"', () => {
+          expect(headers.at(1).text()).to.equal('Tavalliset varaukset');
         });
       });
 
@@ -68,12 +68,12 @@ describe('Container: UserReservationsPage', () => {
           expect(lists.length).to.equal(2);
         });
 
-        it('the first list should only contain regular reservations', () => {
-          expect(lists.at(0).props().filter).to.equal('regular');
+        it('the first list should only contain preliminary reservations', () => {
+          expect(lists.at(0).props().filter).to.equal('preliminary');
         });
 
-        it('the second list should only contain preliminary reservations', () => {
-          expect(lists.at(1).props().filter).to.equal('preliminary');
+        it('the second list should only contain regular reservations', () => {
+          expect(lists.at(1).props().filter).to.equal('regular');
         });
       });
     });
