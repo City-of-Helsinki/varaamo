@@ -59,7 +59,7 @@ function notificationsReducer(state = initialState, action) {
 
   case types.API.RESERVATION_DELETE_SUCCESS:
     notification = {
-      message: 'Varauksen poistaminen onnistui.',
+      message: 'Varauksen peruminen onnistui.',
       type: 'success',
     };
     return addNotification(state, notification);

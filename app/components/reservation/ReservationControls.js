@@ -43,7 +43,7 @@ class ReservationControls extends Component {
           key="deleteButton"
           onClick={props.onDeleteClick}
         >
-          Poista
+          Peru
         </Button>
       ),
       deny: (
@@ -70,6 +70,9 @@ class ReservationControls extends Component {
 
   renderButtons(buttons, isAdmin, reservation) {
     if (!reservation.needManualConfirmation) {
+      if (reservation.state === 'cancelled') {
+        return null;
+      }
       return isAdmin ? [buttons.edit, buttons.delete] : [buttons.edit, buttons.delete];
     }
 
