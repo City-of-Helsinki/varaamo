@@ -18,7 +18,9 @@ class ReservationsListItem extends Component {
   constructor(props) {
     super(props);
     this.handleCancelClick = this.handleCancelClick.bind(this);
+    this.handleConfirmClick = this.handleConfirmClick.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
+    this.handleDenyClick = this.handleDenyClick.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
   }
 
@@ -33,6 +35,18 @@ class ReservationsListItem extends Component {
     openReservationCancelModal();
   }
 
+  handleConfirmClick() {
+    const {
+      confirmPreliminaryReservation,
+      isAdmin,
+      reservation,
+    } = this.props;
+
+    if (isAdmin && reservation.state === 'requested') {
+      confirmPreliminaryReservation(reservation);
+    }
+  }
+
   handleDeleteClick() {
     const {
       openReservationDeleteModal,
@@ -42,6 +56,18 @@ class ReservationsListItem extends Component {
 
     selectReservationToDelete(reservation);
     openReservationDeleteModal();
+  }
+
+  handleDenyClick() {
+    const {
+      denyPreliminaryReservation,
+      isAdmin,
+      reservation,
+    } = this.props;
+
+    if (isAdmin && reservation.state === 'requested') {
+      denyPreliminaryReservation(reservation);
+    }
   }
 
   handleEditClick() {
@@ -69,7 +95,7 @@ class ReservationsListItem extends Component {
   }
 
   renderStateLabel(reservation) {
-    if (!reservation.needManualConfirmation) {
+    if (!reservation.needManualConfirmation && reservation.state !== 'cancelled') {
       return null;
     }
 
@@ -139,7 +165,9 @@ class ReservationsListItem extends Component {
         <ReservationControls
           isAdmin={isAdmin}
           onCancelClick={this.handleCancelClick}
+          onConfirmClick={this.handleConfirmClick}
           onDeleteClick={this.handleDeleteClick}
+          onDenyClick={this.handleDenyClick}
           onEditClick={this.handleEditClick}
           reservation={reservation}
         />
@@ -150,6 +178,8 @@ class ReservationsListItem extends Component {
 }
 
 ReservationsListItem.propTypes = {
+  confirmPreliminaryReservation: PropTypes.func.isRequired,
+  denyPreliminaryReservation: PropTypes.func.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   openReservationCancelModal: PropTypes.func.isRequired,
   openReservationDeleteModal: PropTypes.func.isRequired,

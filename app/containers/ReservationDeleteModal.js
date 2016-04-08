@@ -54,11 +54,11 @@ export class UnconnectedReservationDeleteModal extends Component {
         show={show}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Poistamisen vahvistus</Modal.Title>
+          <Modal.Title>Perumisen vahvistus</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-          <p><strong>Oletko varma että haluat poistaa seuraavat varaukset?</strong></p>
+          <p><strong>Oletko varma että haluat perua seuraavat varaukset?</strong></p>
           <ul>
             {map(reservationsToDelete, this.renderReservation)}
           </ul>
@@ -76,7 +76,7 @@ export class UnconnectedReservationDeleteModal extends Component {
             disabled={isDeletingReservations}
             onClick={this.handleDelete}
           >
-            {isDeletingReservations ? 'Poistetaan...' : 'Poista'}
+            {isDeletingReservations ? 'Poistetaan...' : 'Peru'}
           </Button>
         </Modal.Footer>
       </Modal>

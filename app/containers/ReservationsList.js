@@ -12,6 +12,10 @@ import {
   selectReservationToDelete,
   selectReservationToEdit,
 } from 'actions/uiActions';
+import {
+  confirmPreliminaryReservation,
+  denyPreliminaryReservation,
+} from 'actions/reservationActions';
 import ReservationCancelModal from 'containers/ReservationCancelModal';
 import ReservationDeleteModal from 'containers/ReservationDeleteModal';
 import ReservationsListItem from 'components/reservation/ReservationsListItem';
@@ -35,6 +39,8 @@ export class UnconnectedReservationsList extends Component {
 
     return (
       <ReservationsListItem
+        confirmPreliminaryReservation={actions.confirmPreliminaryReservation}
+        denyPreliminaryReservation={actions.denyPreliminaryReservation}
         isAdmin={isAdmin}
         key={reservation.url}
         reservation={reservation}
@@ -88,6 +94,8 @@ UnconnectedReservationsList.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
+    confirmPreliminaryReservation,
+    denyPreliminaryReservation,
     openReservationCancelModal,
     openReservationDeleteModal,
     updatePath,

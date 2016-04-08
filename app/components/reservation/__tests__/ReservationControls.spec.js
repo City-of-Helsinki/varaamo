@@ -11,14 +11,18 @@ import Reservation from 'fixtures/Reservation';
 
 describe('Component: reservation/ReservationControls', () => {
   const onCancelClick = simple.stub();
+  const onConfirmClick = simple.stub();
   const onDeleteClick = simple.stub();
+  const onDenyClick = simple.stub();
   const onEditClick = simple.stub();
 
   function getWrapper(reservation, isAdmin = false) {
     const props = {
       isAdmin,
       onCancelClick,
+      onConfirmClick,
       onDeleteClick,
+      onDenyClick,
       onEditClick,
       reservation: Immutable(reservation),
     };
@@ -55,7 +59,7 @@ describe('Component: reservation/ReservationControls', () => {
         const button = buttons.at(1);
 
         it('should be a delete button', () => {
-          expect(button.props().children).to.equal('Poista');
+          expect(button.props().children).to.equal('Peru');
         });
 
         it('clicking the button should call onDeleteClick', () => {
@@ -81,6 +85,13 @@ describe('Component: reservation/ReservationControls', () => {
         it('should be a confirm button', () => {
           expect(button.props().children).to.equal('Hyväksy');
         });
+
+        it('clicking the button should call onConfirmClick', () => {
+          onConfirmClick.reset();
+          button.props().onClick();
+
+          expect(onConfirmClick.callCount).to.equal(1);
+        });
       });
 
       describe('the second button', () => {
@@ -88,6 +99,13 @@ describe('Component: reservation/ReservationControls', () => {
 
         it('should be a deny button', () => {
           expect(button.props().children).to.equal('Hylkää');
+        });
+
+        it('clicking the button should call onDenyClick', () => {
+          onDenyClick.reset();
+          button.props().onClick();
+
+          expect(onDenyClick.callCount).to.equal(1);
         });
       });
     });
@@ -124,6 +142,13 @@ describe('Component: reservation/ReservationControls', () => {
         it('should be a cancel button', () => {
           expect(button.props().children).to.equal('Peru');
         });
+
+        it('clicking the button should call onCancelClick', () => {
+          onCancelClick.reset();
+          button.props().onClick();
+
+          expect(onCancelClick.callCount).to.equal(1);
+        });
       });
     });
   });
@@ -158,7 +183,7 @@ describe('Component: reservation/ReservationControls', () => {
         const button = buttons.at(1);
 
         it('should be a delete button', () => {
-          expect(button.props().children).to.equal('Poista');
+          expect(button.props().children).to.equal('Peru');
         });
 
         it('clicking the button should call onDeleteClick', () => {

@@ -12,11 +12,14 @@ import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
 
 describe('Container: ReservationCancelModal', () => {
-  const resource = Resource.build();
+  const reservationInfo = 'Some reservation info.';
+  const resource = Resource.build({ reservationInfo });
   const props = {
     actions: {
+      cancelPreliminaryReservation: simple.stub(),
       closeReservationCancelModal: simple.stub(),
     },
+    isAdmin: false,
     show: true,
     reservationsToCancel: Immutable([
       Reservation.build({ resource: resource.id }),
@@ -44,7 +47,113 @@ describe('Container: ReservationCancelModal', () => {
   }
 
   describe('render', () => {
-    describe('when reservation state is anything but "confirmed"', () => {
+    describe('when isAdmin is true', () => {
+      const isAdmin = true;
+      const extraProps = Object.assign(getExtraProps('requested'), { isAdmin });
+      const tree = getTree(extraProps);
+      const instance = tree.getMountedInstance();
+
+      it('should render a Modal component', () => {
+        const modalTrees = tree.everySubTree('Modal');
+
+        expect(modalTrees.length).to.equal(1);
+      });
+
+      describe('Modal header', () => {
+        const modalHeaderTrees = tree.everySubTree('ModalHeader');
+
+        it('should render a ModalHeader component', () => {
+          expect(modalHeaderTrees.length).to.equal(1);
+        });
+
+        it('should contain a close button', () => {
+          expect(modalHeaderTrees[0].props.closeButton).to.equal(true);
+        });
+
+        it('should render a ModalTitle component', () => {
+          const modalTitleTrees = tree.everySubTree('ModalTitle');
+
+          expect(modalTitleTrees.length).to.equal(1);
+        });
+
+        it('the ModalTitle should display text "Varauksen perumisen vahvistus"', () => {
+          const modalTitleTree = tree.subTree('ModalTitle');
+
+          expect(modalTitleTree.props.children).to.equal('Varauksen perumisen vahvistus');
+        });
+      });
+
+      describe('Modal body', () => {
+        const modalBodyTrees = tree.everySubTree('ModalBody');
+
+        it('should render a ModalBody component', () => {
+          expect(modalBodyTrees.length).to.equal(1);
+        });
+
+        it('should render a list for selected reservations', () => {
+          const listTrees = modalBodyTrees[0].everySubTree('ul');
+
+          expect(listTrees.length).to.equal(1);
+        });
+
+        it('should render a list element for each selected reservation', () => {
+          const listElementTrees = modalBodyTrees[0].everySubTree('li');
+
+          expect(listElementTrees.length).to.equal(props.reservationsToCancel.length);
+        });
+
+        it('should display a TimeRange for each selected reservation', () => {
+          const timeRangeTrees = modalBodyTrees[0].everySubTree('TimeRange');
+
+          expect(timeRangeTrees.length).to.equal(props.reservationsToCancel.length);
+        });
+      });
+
+      describe('Modal footer', () => {
+        const modalFooterTrees = tree.everySubTree('ModalFooter');
+
+        it('should render a ModalFooter component', () => {
+          expect(modalFooterTrees.length).to.equal(1);
+        });
+
+        describe('Footer buttons', () => {
+          const buttonTrees = modalFooterTrees[0].everySubTree('Button');
+
+          it('should render two Buttons', () => {
+            expect(buttonTrees.length).to.equal(2);
+          });
+
+          describe('Cancel button', () => {
+            const buttonTree = buttonTrees[0];
+
+            it('the first button should read "Älä peruuta varausta"', () => {
+              expect(buttonTree.props.children).to.equal('Älä peruuta varausta');
+            });
+
+            it('clicking it should call closeReservationCancelModal', () => {
+              props.actions.closeReservationCancelModal.reset();
+              buttonTree.props.onClick();
+
+              expect(props.actions.closeReservationCancelModal.callCount).to.equal(1);
+            });
+          });
+
+          describe('Confirm button', () => {
+            const buttonTree = buttonTrees[1];
+
+            it('the second button should read "Peruuta varaus"', () => {
+              expect(buttonTree.props.children).to.equal('Peruuta varaus');
+            });
+
+            it('should have handleCancel as its onClick prop', () => {
+              expect(buttonTree.props.onClick).to.equal(instance.handleCancel);
+            });
+          });
+        });
+      });
+    });
+
+    describe('when isAdmin is false and reservation state is anything but "confirmed"', () => {
       const extraProps = getExtraProps('requested');
       const tree = getTree(extraProps);
       const instance = tree.getMountedInstance();
@@ -149,7 +258,7 @@ describe('Container: ReservationCancelModal', () => {
       });
     });
 
-    describe('when reservation state is "confirmed"', () => {
+    describe('when isAdmin is false and reservation state is "confirmed"', () => {
       const extraProps = getExtraProps('confirmed');
       const tree = getTree(extraProps);
 
@@ -190,10 +299,10 @@ describe('Container: ReservationCancelModal', () => {
           expect(modalBodyTrees.length).to.equal(1);
         });
 
-        it('should render contact information', () => {
-          const addressTree = modalBodyTrees[0].subTree('address');
+        it('should render resource reservationInfo', () => {
+          const modalText = modalBodyTrees[0].subTree('.reservation-info').text();
 
-          expect(addressTree).to.be.ok;
+          expect(modalText).to.contain(reservationInfo);
         });
       });
 
@@ -241,6 +350,19 @@ describe('Container: ReservationCancelModal', () => {
 
     it('should call closeReservationCancelModal', () => {
       expect(props.actions.closeReservationCancelModal.callCount).to.equal(1);
+    });
+
+    it('should call cancelPreliminaryReservation for each selected reservation', () => {
+      expect(props.actions.cancelPreliminaryReservation.callCount).to.equal(
+        props.reservationsToCancel.length
+      );
+    });
+
+    it('should call cancelPreliminaryReservation with correct arguments', () => {
+      const actualArgs = props.actions.cancelPreliminaryReservation.lastCall.args;
+      const expected = props.reservationsToCancel[1];
+
+      expect(actualArgs[0]).to.deep.equal(expected);
     });
   });
 });

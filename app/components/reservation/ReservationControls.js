@@ -11,6 +11,7 @@ class ReservationControls extends Component {
           bsSize="xsmall"
           bsStyle="danger"
           key="adminCalcelButton"
+          onClick={props.onCancelClick}
         >
           Peru
         </Button>
@@ -30,6 +31,7 @@ class ReservationControls extends Component {
           bsSize="xsmall"
           bsStyle="success"
           key="confirmButton"
+          onClick={props.onConfirmClick}
         >
           Hyväksy
         </Button>
@@ -41,7 +43,7 @@ class ReservationControls extends Component {
           key="deleteButton"
           onClick={props.onDeleteClick}
         >
-          Poista
+          Peru
         </Button>
       ),
       deny: (
@@ -49,6 +51,7 @@ class ReservationControls extends Component {
           bsSize="xsmall"
           bsStyle="danger"
           key="denyButton"
+          onClick={this.props.onDenyClick}
         >
           Hylkää
         </Button>
@@ -68,6 +71,9 @@ class ReservationControls extends Component {
 
   renderButtons(buttons, isAdmin, reservation) {
     if (!reservation.needManualConfirmation) {
+      if (reservation.state === 'cancelled') {
+        return null;
+      }
       return isAdmin ? [buttons.edit, buttons.delete] : [buttons.edit, buttons.delete];
     }
 
@@ -109,7 +115,9 @@ class ReservationControls extends Component {
 ReservationControls.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
   onCancelClick: PropTypes.func.isRequired,
+  onConfirmClick: PropTypes.func.isRequired,
   onDeleteClick: PropTypes.func.isRequired,
+  onDenyClick: PropTypes.func.isRequired,
   onEditClick: PropTypes.func.isRequired,
   reservation: PropTypes.object,
 };

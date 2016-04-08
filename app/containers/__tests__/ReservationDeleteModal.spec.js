@@ -56,10 +56,10 @@ describe('Container: ReservationDeleteModal', () => {
         expect(modalTitleTrees.length).to.equal(1);
       });
 
-      it('the ModalTitle should display text "Poistamisen vahvistus"', () => {
+      it('the ModalTitle should display text "Perumisen vahvistus"', () => {
         const modalTitleTree = tree.subTree('ModalTitle');
 
-        expect(modalTitleTree.props.children).to.equal('Poistamisen vahvistus');
+        expect(modalTitleTree.props.children).to.equal('Perumisen vahvistus');
       });
     });
 
@@ -121,8 +121,8 @@ describe('Container: ReservationDeleteModal', () => {
         describe('Confirm button', () => {
           const buttonTree = buttonTrees[1];
 
-          it('the second button should read "Poista"', () => {
-            expect(buttonTree.props.children).to.equal('Poista');
+          it('the second button should read "Peru"', () => {
+            expect(buttonTree.props.children).to.equal('Peru');
           });
 
           it('should have handleDelete as its onClick prop', () => {
