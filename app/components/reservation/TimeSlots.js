@@ -63,6 +63,7 @@ class TimeSlots extends Component {
           <Table
             className="time-slots lined"
             hover
+            responsive
           >
             <thead>
               <tr>
