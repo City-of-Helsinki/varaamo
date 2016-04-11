@@ -15,6 +15,22 @@ const validators = {
   },
 };
 
+const maxLengths = {
+  billing_address_city: 100,
+  billing_address_street: 100,
+  billing_address_zip: 30,
+  business_id: 9,
+  company: 100,
+  event_description: 100,
+  number_of_participants: 100,
+  reserver_address_city: 100,
+  reserver_address_street: 100,
+  reserver_address_zip: 30,
+  reserver_email: 100,
+  reserver_name: 100,
+  reserver_phone_number: 30,
+};
+
 export function validate(values, { fields, requiredFields }) {
   const errors = {};
   fields.forEach((field) => {
@@ -23,6 +39,11 @@ export function validate(values, { fields, requiredFields }) {
       const error = validator(values);
       if (error) {
         errors[field] = error;
+      }
+    }
+    if (maxLengths[field]) {
+      if (values[field] && values[field].length > maxLengths[field]) {
+        errors[field] = `Kentän maksimipituus on ${maxLengths[field]} merkkiä`;
       }
     }
     if (includes(requiredFields, field)) {
