@@ -17,13 +17,26 @@ export class UnconnectedReservationInfoModal extends Component {
 
     return (
       <div>
-        <p>Name: {reservation.reserverName}</p>
-        <p>
-          Tila: {getName(resource)}
-        </p>
-        <p>
-          Varauksen ajankohta: <TimeRange begin={reservation.begin} end={reservation.end} />
-        </p>
+        <dl className="dl-horizontal">
+          <dt>Nimi:</dt><dd>{reservation.reserverName}</dd>
+          <dt>Puhelinnumero:</dt><dd>{reservation.reserverPhoneNumber}</dd>
+          <dt>Sähköposti:</dt><dd>{reservation.reserverEmailAddress}</dd>
+          <dt>Osoite:</dt>
+          <dd>
+            {reservation.reserverAddressStreet}, {reservation.reserverAddressZip} {reservation.reserverAddressCity}
+          </dd>
+          <dt>Laskutusosoite:</dt>
+          <dd>
+            {reservation.billingAddressStreet}, {reservation.billingAddressZip} {reservation.billingAddressCity}
+          </dd>
+          <dt>Yhdistys:</dt><dd>{reservation.company}</dd>
+          <dt>Y-tunnus:</dt><dd>{reservation.businessId}</dd>
+          <dt>Varauksen ajankohta:</dt>
+          <dd><TimeRange begin={reservation.begin} end={reservation.end} /></dd>
+          <dt>Tila:</dt><dd>{getName(resource)}</dd>
+          <dt>Osallistujamäärä:</dt><dd>{reservation.numberOfParticipants}</dd>
+          <dt>Tilaisuuden kuvaus:</dt><dd>{reservation.eventDescription}</dd>
+        </dl>
       </div>
     );
   }
@@ -41,6 +54,7 @@ export class UnconnectedReservationInfoModal extends Component {
 
     return (
       <Modal
+        className="reservation-info-modal"
         onHide={actions.closeReservationInfoModal}
         show={show}
       >
