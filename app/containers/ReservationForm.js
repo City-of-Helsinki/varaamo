@@ -49,9 +49,9 @@ export class UnconnectedReservationForm extends Component {
         bsStyle={hasError ? 'error' : null}
         help={hasError ? field.error : null}
         label={`${label}${isRequired ? '*' : ''}`}
-        labelClassName="col-xs-3"
+        labelClassName="col-sm-3"
         type={type}
-        wrapperClassName="col-xs-9"
+        wrapperClassName="col-sm-9"
       />
     );
   }
@@ -66,7 +66,7 @@ export class UnconnectedReservationForm extends Component {
     } = this.props;
     return (
       <div>
-        <form className="preliminary-reservatin-form form-horizontal">
+        <form className="reservation-form form-horizontal">
           {this.renderField('text', 'Nimi', fields.reserver_name)}
           {this.renderField('email', 'Sähköposti', fields.reserver_email)}
           {this.renderField('text', 'Puhelin', fields.reserver_phone_number)}
