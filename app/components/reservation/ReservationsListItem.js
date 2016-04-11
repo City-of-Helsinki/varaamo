@@ -2,12 +2,11 @@ import isEmpty from 'lodash/lang/isEmpty';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
-import Label from 'react-bootstrap/lib/Label';
 import { Link } from 'react-router';
 
 import TimeRange from 'components/common/TimeRange';
 import ReservationControls from 'components/reservation/ReservationControls';
-import { RESERVATION_STATE_LABELS } from 'constants/AppConstants';
+import { renderReservationStateLabel } from 'utils/renderUtils';
 import {
   getCaption,
   getMainImage,
@@ -106,20 +105,6 @@ class ReservationsListItem extends Component {
     return null;
   }
 
-  renderStateLabel(reservation) {
-    if (!reservation.needManualConfirmation && reservation.state !== 'cancelled') {
-      return null;
-    }
-
-    const { labelBsStyle, labelText } = RESERVATION_STATE_LABELS[reservation.state];
-
-    return (
-      <div className="state">
-        <Label bsStyle={labelBsStyle}>{labelText}</Label>
-      </div>
-    );
-  }
-
   render() {
     const {
       isAdmin,
@@ -184,7 +169,7 @@ class ReservationsListItem extends Component {
           onEditClick={this.handleEditClick}
           reservation={reservation}
         />
-        {this.renderStateLabel(reservation)}
+        {renderReservationStateLabel(reservation)}
       </li>
     );
   }

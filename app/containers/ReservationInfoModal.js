@@ -8,6 +8,7 @@ import { closeReservationInfoModal } from 'actions/uiActions';
 import TimeRange from 'components/common/TimeRange';
 import reservationInfoModalSelector from 'selectors/containers/reservationInfoModalSelector';
 import { getName } from 'utils/DataUtils';
+import { renderReservationStateLabel } from 'utils/renderUtils';
 
 export class UnconnectedReservationInfoModal extends Component {
   renderModalContent(reservation, resource) {
@@ -17,6 +18,7 @@ export class UnconnectedReservationInfoModal extends Component {
 
     return (
       <div>
+        {renderReservationStateLabel(reservation)}
         <dl className="dl-horizontal">
           <dt>Nimi:</dt><dd>{reservation.reserverName}</dd>
           <dt>Puhelinnumero:</dt><dd>{reservation.reserverPhoneNumber}</dd>
