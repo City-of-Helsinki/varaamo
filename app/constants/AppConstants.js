@@ -13,6 +13,21 @@ export default {
     'Accept-Language': 'fi',
     'Content-Type': 'application/json',
   },
+  RESERVATION_FORM_FIELDS: [
+    'reserver_name',
+    'reserver_email',
+    'reserver_phone_number',
+    'event_description',
+    'reserver_address_street',
+    'reserver_address_zip',
+    'reserver_address_city',
+    'company',
+    'business_id',
+    'billing_address_street',
+    'billing_address_zip',
+    'billing_address_city',
+    'number_of_participants',
+  ],
   RESERVATION_STATE_LABELS: {
     cancelled: {
       labelBsStyle: 'default',

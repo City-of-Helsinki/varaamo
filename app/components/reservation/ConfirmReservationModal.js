@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 
 import TimeRange from 'components/common/TimeRange';
+import { RESERVATION_FORM_FIELDS } from 'constants/AppConstants';
 import ReservationForm from 'containers/ReservationForm';
 
 class ConfirmReservationModal extends Component {
@@ -23,7 +24,10 @@ class ConfirmReservationModal extends Component {
   getFormFields() {
     const { resource } = this.props;
     const isAdmin = resource.userPermissions.isAdmin;
-    const formFields = [...resource.requiredReservationExtraFields];
+    const formFields = [];
+    if (resource.needManualConfirmation) {
+      formFields.push(...RESERVATION_FORM_FIELDS);
+    }
 
     if (isAdmin) {
       formFields.push('comments');
