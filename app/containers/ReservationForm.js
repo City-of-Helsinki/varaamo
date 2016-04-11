@@ -49,9 +49,9 @@ export class UnconnectedReservationForm extends Component {
         bsStyle={hasError ? 'error' : null}
         help={hasError ? field.error : null}
         label={`${label}${isRequired ? '*' : ''}`}
-        labelClassName="col-xs-3"
+        labelClassName="col-sm-3"
         type={type}
-        wrapperClassName="col-xs-9"
+        wrapperClassName="col-sm-9"
       />
     );
   }
