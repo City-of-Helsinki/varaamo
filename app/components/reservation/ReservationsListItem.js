@@ -22,6 +22,7 @@ class ReservationsListItem extends Component {
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.handleDenyClick = this.handleDenyClick.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
+    this.handleInfoClick = this.handleInfoClick.bind(this);
   }
 
   handleCancelClick() {
@@ -84,6 +85,17 @@ class ReservationsListItem extends Component {
 
     selectReservationToEdit({ reservation, minPeriod: resource.minPeriod });
     updatePath(`/resources/${reservation.resource}/reservation?${query}`);
+  }
+
+  handleInfoClick() {
+    const {
+      openReservationInfoModal,
+      reservation,
+      selectReservationToShow,
+    } = this.props;
+
+    selectReservationToShow(reservation);
+    openReservationInfoModal();
   }
 
   renderImage(image) {
@@ -158,6 +170,7 @@ class ReservationsListItem extends Component {
             bsSize="xsmall"
             bsStyle="default"
             className="info-button"
+            onClick={this.handleInfoClick}
           >
             Tiedot
           </Button>
@@ -171,7 +184,7 @@ class ReservationsListItem extends Component {
           onEditClick={this.handleEditClick}
           reservation={reservation}
         />
-      {this.renderStateLabel(reservation)}
+        {this.renderStateLabel(reservation)}
       </li>
     );
   }
@@ -183,11 +196,13 @@ ReservationsListItem.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
   openReservationCancelModal: PropTypes.func.isRequired,
   openReservationDeleteModal: PropTypes.func.isRequired,
+  openReservationInfoModal: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   selectReservationToCancel: PropTypes.func.isRequired,
   selectReservationToDelete: PropTypes.func.isRequired,
   selectReservationToEdit: PropTypes.func.isRequired,
+  selectReservationToShow: PropTypes.func.isRequired,
   unit: PropTypes.object.isRequired,
   updatePath: PropTypes.func.isRequired,
 };

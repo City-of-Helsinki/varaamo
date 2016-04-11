@@ -19,6 +19,7 @@ describe('Component: reservation/ReservationsListItem', () => {
     isAdmin: false,
     openReservationCancelModal: simple.stub(),
     openReservationDeleteModal: simple.stub(),
+    openReservationInfoModal: simple.stub(),
     updatePath: simple.stub(),
     reservation: Immutable(Reservation.build()),
     resource: Immutable(Resource.build({
@@ -27,6 +28,7 @@ describe('Component: reservation/ReservationsListItem', () => {
     selectReservationToCancel: simple.stub(),
     selectReservationToDelete: simple.stub(),
     selectReservationToEdit: simple.stub(),
+    selectReservationToShow: simple.stub(),
     unit: Immutable(Unit.build()),
   };
   const tree = sd.shallowRender(<ReservationsListItem {...props} />);
@@ -160,6 +162,23 @@ describe('Component: reservation/ReservationsListItem', () => {
 
       expect(props.updatePath.callCount).to.equal(1);
       expect(actualUrlArg).to.equal(expectedUrl);
+    });
+  });
+
+  describe('handleInfoClick', () => {
+    instance.handleInfoClick();
+
+    it('should call props.selectReservationToShow with this reservation', () => {
+      expect(props.selectReservationToShow.callCount).to.equal(1);
+      expect(
+        props.selectReservationToShow.lastCall.args[0]
+      ).to.deep.equal(
+        props.reservation
+      );
+    });
+
+    it('should call the props.openReservationInfoModal function', () => {
+      expect(props.openReservationInfoModal.callCount).to.equal(1);
     });
   });
 });
