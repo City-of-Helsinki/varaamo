@@ -18,8 +18,10 @@ import {
   closeConfirmReservationModal,
   openConfirmReservationModal,
   openReservationDeleteModal,
+  openReservationInfoModal,
   selectReservationToDelete,
   selectReservationToEdit,
+  selectReservationToShow,
   toggleTimeSlot,
 } from 'actions/uiActions';
 import DateHeader from 'components/common/DateHeader';
@@ -27,6 +29,7 @@ import ConfirmReservationModal from 'components/reservation/ConfirmReservationMo
 import ReservationCalendarControls from 'components/reservation/ReservationCalendarControls';
 import TimeSlots from 'components/reservation/TimeSlots';
 import ReservationDeleteModal from 'containers/ReservationDeleteModal';
+import ReservationInfoModal from 'containers/ReservationInfoModal';
 import reservationCalendarSelector from 'selectors/containers/reservationCalendarSelector';
 
 export class UnconnectedReservationCalendar extends Component {
@@ -140,11 +143,13 @@ export class UnconnectedReservationCalendar extends Component {
           isLoggedIn={isLoggedIn}
           onClick={actions.toggleTimeSlot}
           openReservationDeleteModal={actions.openReservationDeleteModal}
+          openReservationInfoModal={actions.openReservationInfoModal}
           updatePath={actions.updatePath}
           resource={resource}
           selected={selected}
           selectReservationToDelete={actions.selectReservationToDelete}
           selectReservationToEdit={actions.selectReservationToEdit}
+          selectReservationToShow={actions.selectReservationToShow}
           slots={timeSlots}
           time={time}
         />
@@ -175,6 +180,7 @@ export class UnconnectedReservationCalendar extends Component {
           show={confirmReservationModalIsOpen}
         />
         <ReservationDeleteModal />
+        <ReservationInfoModal />
       </div>
     );
   }
@@ -206,11 +212,13 @@ function mapDispatchToProps(dispatch) {
     deleteReservation,
     openConfirmReservationModal,
     openReservationDeleteModal,
+    openReservationInfoModal,
     postReservation,
     updatePath,
     putReservation,
     selectReservationToDelete,
     selectReservationToEdit,
+    selectReservationToShow,
     toggleTimeSlot,
   };
 

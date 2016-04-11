@@ -13,6 +13,7 @@ describe('Component: reservation/TimeSlotControls', () => {
   const defaultProps = {
     onDeleteClick: simple.stub(),
     onEditClick: simple.stub(),
+    onInfoClick: simple.stub(),
     reservation: Immutable(Reservation.build()),
   };
 
@@ -70,6 +71,12 @@ describe('Component: reservation/TimeSlotControls', () => {
 
       it('should be an info button', () => {
         expect(button.props().children).to.equal('Tiedot');
+      });
+
+      it('clicking the button should call props.onInfoClick', () => {
+        button.props().onClick();
+
+        expect(defaultProps.onInfoClick.callCount).to.equal(1);
       });
     });
   });

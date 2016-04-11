@@ -19,11 +19,13 @@ function getProps(props) {
     isLoggedIn: true,
     onClick: simple.stub(),
     openReservationDeleteModal: simple.stub(),
+    openReservationInfoModal: simple.stub(),
     updatePath: simple.stub(),
     resource: Resource.build(),
     selected: false,
     selectReservationToDelete: simple.stub(),
     selectReservationToEdit: simple.stub(),
+    selectReservationToShow: simple.stub(),
     slot: Immutable(TimeSlotFixture.build()),
   };
 
@@ -185,6 +187,31 @@ describe('Component: reservation/TimeSlot', () => {
 
       expect(props.updatePath.callCount).to.equal(1);
       expect(actualUrl).to.equal(expectedUrl);
+    });
+  });
+
+  describe('handleInfoClick', () => {
+    const props = getProps({
+      slot: Immutable(TimeSlotFixture.build({
+        reserved: true,
+        reservation: Reservation.build(),
+      })),
+    });
+    const tree = sd.shallowRender(<TimeSlot {...props} />);
+    const instance = tree.getMountedInstance();
+    instance.handleInfoClick();
+
+    it('should call props.selectReservationToShow with slot.reservation', () => {
+      expect(props.selectReservationToShow.callCount).to.equal(1);
+      expect(
+        props.selectReservationToShow.lastCall.args[0]
+      ).to.deep.equal(
+        props.slot.reservation
+      );
+    });
+
+    it('should call the props.openReservationInfoModal function', () => {
+      expect(props.openReservationInfoModal.callCount).to.equal(1);
     });
   });
 });
