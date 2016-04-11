@@ -1,5 +1,6 @@
-import { CALL_API } from 'redux-api-middleware';
+import pick from 'lodash/object/pick';
 import { decamelizeKeys } from 'humps';
+import { CALL_API } from 'redux-api-middleware';
 
 import types from 'constants/ActionTypes';
 import { paginatedReservationsSchema } from 'middleware/Schemas';
@@ -80,6 +81,11 @@ function fetchReservations(params = {}) {
   };
 }
 
+function parseReservationData(reservation) {
+  const parsed = pick(reservation, (value) => value);
+  return JSON.stringify(decamelizeKeys(parsed));
+}
+
 function postReservation(reservation) {
   const url = buildAPIUrl('reservation');
 
@@ -102,7 +108,7 @@ function postReservation(reservation) {
       endpoint: url,
       method: 'POST',
       headers: getHeadersCreator(),
-      body: JSON.stringify(reservation),
+      body: parseReservationData(reservation),
     },
   };
 }
@@ -127,7 +133,7 @@ function putReservation(reservation) {
       endpoint: reservation.url,
       method: 'PUT',
       headers: getHeadersCreator(),
-      body: JSON.stringify(decamelizeKeys(reservation)),
+      body: parseReservationData(reservation),
     },
   };
 }
