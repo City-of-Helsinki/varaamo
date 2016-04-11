@@ -24,6 +24,11 @@ const closeReservationDeleteModal = createAction(
   () => ModalTypes.DELETE_RESERVATION
 );
 
+const closeReservationInfoModal = createAction(
+  types.UI.CLOSE_MODAL,
+  () => ModalTypes.RESERVATION_INFO
+);
+
 const openConfirmReservationModal = createAction(
   types.UI.OPEN_MODAL,
   () => ModalTypes.CONFIRM_RESERVATION
@@ -39,6 +44,11 @@ const openReservationDeleteModal = createAction(
   () => ModalTypes.DELETE_RESERVATION
 );
 
+const openReservationInfoModal = createAction(
+  types.UI.OPEN_MODAL,
+  () => ModalTypes.RESERVATION_INFO
+);
+
 const selectReservationToCancel = createAction(
   types.UI.SELECT_RESERVATION_TO_CANCEL
 );
@@ -51,6 +61,10 @@ const selectReservationToEdit = createAction(
   types.UI.SELECT_RESERVATION_TO_EDIT
 );
 
+const selectReservationToShow = createAction(
+  types.UI.SELECT_RESERVATION_TO_SHOW
+);
+
 const toggleTimeSlot = createAction(types.UI.TOGGLE_TIME_SLOT);
 
 export default {
@@ -60,11 +74,14 @@ export default {
   closeConfirmReservationModal,
   closeReservationCancelModal,
   closeReservationDeleteModal,
+  closeReservationInfoModal,
   openConfirmReservationModal,
   openReservationCancelModal,
   openReservationDeleteModal,
+  openReservationInfoModal,
   selectReservationToCancel,
   selectReservationToDelete,
   selectReservationToEdit,
+  selectReservationToShow,
   toggleTimeSlot,
 };

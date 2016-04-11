@@ -12,6 +12,7 @@ const initialState = Immutable({
   toCancel: [],
   toDelete: [],
   toEdit: [],
+  toShow: [],
 });
 
 function selectReservationToEdit(state, action) {
@@ -54,6 +55,9 @@ function reservationReducer(state = initialState, action) {
     if (modal === ModalTypes.DELETE_RESERVATION) {
       return state.merge({ toDelete: [] });
     }
+    if (modal === ModalTypes.RESERVATION_INFO) {
+      return state.merge({ toShow: [] });
+    }
     return state;
 
   case types.UI.SELECT_RESERVATION_TO_CANCEL:
@@ -64,6 +68,9 @@ function reservationReducer(state = initialState, action) {
 
   case types.UI.SELECT_RESERVATION_TO_EDIT:
     return selectReservationToEdit(state, action);
+
+  case types.UI.SELECT_RESERVATION_TO_SHOW:
+    return state.merge({ toShow: [...state.toShow, action.payload] });
 
   case types.UI.TOGGLE_TIME_SLOT:
     const slot = action.payload;
