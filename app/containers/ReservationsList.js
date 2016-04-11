@@ -18,9 +18,6 @@ import {
   confirmPreliminaryReservation,
   denyPreliminaryReservation,
 } from 'actions/reservationActions';
-import ReservationCancelModal from 'containers/ReservationCancelModal';
-import ReservationDeleteModal from 'containers/ReservationDeleteModal';
-import ReservationInfoModal from 'containers/ReservationInfoModal';
 import ReservationsListItem from 'components/reservation/ReservationsListItem';
 import reservationsListSelector from 'selectors/containers/reservationsListSelector';
 
@@ -75,9 +72,6 @@ export class UnconnectedReservationsList extends Component {
             <ul className="reservations-list">
               {map(reservations, this.renderReservationsListItem)}
             </ul>
-            <ReservationCancelModal />
-            <ReservationDeleteModal />
-            <ReservationInfoModal />
           </div>
         ) : (
           <p>{emptyMessage || 'Sinulla ei vielä ole yhtään varausta.'}</p>
