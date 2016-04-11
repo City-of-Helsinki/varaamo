@@ -38,6 +38,7 @@ export class UnconnectedReservationInfoModal extends Component {
           <dt>Tila:</dt><dd>{getName(resource)}</dd>
           <dt>Osallistujamäärä:</dt><dd>{reservation.numberOfParticipants}</dd>
           <dt>Tilaisuuden kuvaus:</dt><dd>{reservation.eventDescription}</dd>
+          <dt>Kommentit:</dt><dd>{reservation.comments}</dd>
         </dl>
       </div>
     );
