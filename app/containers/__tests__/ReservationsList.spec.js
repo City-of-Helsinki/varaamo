@@ -19,10 +19,12 @@ function getProps(props) {
       denyPreliminaryReservation: simple.stub(),
       openReservationCancelModal: simple.stub(),
       openReservationDeleteModal: simple.stub(),
+      openReservationInfoModal: simple.stub(),
       updatePath: simple.stub(),
       selectReservationToCancel: simple.stub(),
       selectReservationToDelete: simple.stub(),
       selectReservationToEdit: simple.stub(),
+      selectReservationToShow: simple.stub(),
     },
     isAdmin: false,
     deleteReservationModalIsOpen: false,
@@ -84,6 +86,7 @@ describe('Container: ReservationsList', () => {
           expect(actualProps.reservation).to.deep.equal(props.reservations[index]);
           expect(actualProps.openReservationCancelModal).to.deep.equal(props.actions.openReservationCancelModal);
           expect(actualProps.openReservationDeleteModal).to.deep.equal(props.actions.openReservationDeleteModal);
+          expect(actualProps.openReservationInfoModal).to.deep.equal(props.actions.openReservationInfoModal);
           expect(actualProps.updatePath).to.deep.equal(props.actions.updatePath);
           expect(
             actualProps.selectReservationToCancel
@@ -99,6 +102,11 @@ describe('Container: ReservationsList', () => {
             actualProps.selectReservationToEdit
           ).to.deep.equal(
             props.actions.selectReservationToEdit
+          );
+          expect(
+            actualProps.selectReservationToShow
+          ).to.deep.equal(
+            props.actions.selectReservationToShow
           );
         });
       });

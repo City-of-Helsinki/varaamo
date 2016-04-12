@@ -14,6 +14,7 @@ class TimeSlot extends Component {
     super(props);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
+    this.handleInfoClick = this.handleInfoClick.bind(this);
     this.handleRowClick = this.handleRowClick.bind(this);
   }
 
@@ -60,6 +61,17 @@ class TimeSlot extends Component {
 
     selectReservationToEdit({ reservation, minPeriod: resource.minPeriod });
     updatePath(`/resources/${reservation.resource}/reservation?${query}`);
+  }
+
+  handleInfoClick() {
+    const {
+      openReservationInfoModal,
+      slot,
+      selectReservationToShow,
+    } = this.props;
+
+    selectReservationToShow(slot.reservation);
+    openReservationInfoModal();
   }
 
   handleRowClick(disabled) {
@@ -166,6 +178,7 @@ class TimeSlot extends Component {
               <TimeSlotControls
                 onDeleteClick={this.handleDeleteClick}
                 onEditClick={this.handleEditClick}
+                onInfoClick={this.handleInfoClick}
                 reservation={reservation}
               />
             )}
@@ -183,12 +196,14 @@ TimeSlot.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
   openReservationDeleteModal: PropTypes.func.isRequired,
+  openReservationInfoModal: PropTypes.func.isRequired,
   updatePath: PropTypes.func.isRequired,
   resource: PropTypes.object.isRequired,
   scrollTo: PropTypes.bool,
   selected: PropTypes.bool.isRequired,
   selectReservationToDelete: PropTypes.func.isRequired,
   selectReservationToEdit: PropTypes.func.isRequired,
+  selectReservationToShow: PropTypes.func.isRequired,
   slot: PropTypes.object.isRequired,
 };
 

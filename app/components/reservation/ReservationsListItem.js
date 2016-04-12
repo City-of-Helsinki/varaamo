@@ -2,12 +2,11 @@ import isEmpty from 'lodash/lang/isEmpty';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
-import Label from 'react-bootstrap/lib/Label';
 import { Link } from 'react-router';
 
 import TimeRange from 'components/common/TimeRange';
 import ReservationControls from 'components/reservation/ReservationControls';
-import { RESERVATION_STATE_LABELS } from 'constants/AppConstants';
+import { renderReservationStateLabel } from 'utils/renderUtils';
 import {
   getCaption,
   getMainImage,
@@ -22,6 +21,7 @@ class ReservationsListItem extends Component {
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.handleDenyClick = this.handleDenyClick.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
+    this.handleInfoClick = this.handleInfoClick.bind(this);
   }
 
   handleCancelClick() {
@@ -86,26 +86,23 @@ class ReservationsListItem extends Component {
     updatePath(`/resources/${reservation.resource}/reservation?${query}`);
   }
 
+  handleInfoClick() {
+    const {
+      openReservationInfoModal,
+      reservation,
+      selectReservationToShow,
+    } = this.props;
+
+    selectReservationToShow(reservation);
+    openReservationInfoModal();
+  }
+
   renderImage(image) {
     if (image && image.url) {
       const src = `${image.url}?dim=100x120`;
       return <img alt={getCaption(image)} src={src} />;
     }
     return null;
-  }
-
-  renderStateLabel(reservation) {
-    if (!reservation.needManualConfirmation && reservation.state !== 'cancelled') {
-      return null;
-    }
-
-    const { labelBsStyle, labelText } = RESERVATION_STATE_LABELS[reservation.state];
-
-    return (
-      <div className="state">
-        <Label bsStyle={labelBsStyle}>{labelText}</Label>
-      </div>
-    );
   }
 
   render() {
@@ -158,6 +155,7 @@ class ReservationsListItem extends Component {
             bsSize="xsmall"
             bsStyle="default"
             className="info-button"
+            onClick={this.handleInfoClick}
           >
             Tiedot
           </Button>
@@ -171,7 +169,7 @@ class ReservationsListItem extends Component {
           onEditClick={this.handleEditClick}
           reservation={reservation}
         />
-      {this.renderStateLabel(reservation)}
+        {renderReservationStateLabel(reservation)}
       </li>
     );
   }
@@ -183,11 +181,13 @@ ReservationsListItem.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
   openReservationCancelModal: PropTypes.func.isRequired,
   openReservationDeleteModal: PropTypes.func.isRequired,
+  openReservationInfoModal: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   selectReservationToCancel: PropTypes.func.isRequired,
   selectReservationToDelete: PropTypes.func.isRequired,
   selectReservationToEdit: PropTypes.func.isRequired,
+  selectReservationToShow: PropTypes.func.isRequired,
   unit: PropTypes.object.isRequired,
   updatePath: PropTypes.func.isRequired,
 };

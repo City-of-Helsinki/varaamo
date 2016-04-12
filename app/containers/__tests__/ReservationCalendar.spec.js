@@ -22,11 +22,13 @@ function getProps(props = {}) {
       deleteReservation: simple.stub(),
       openConfirmReservationModal: simple.stub(),
       openReservationDeleteModal: simple.stub(),
+      openReservationInfoModal: simple.stub(),
       postReservation: simple.stub(),
       updatePath: simple.stub(),
       putReservation: simple.stub(),
       selectReservationToDelete: simple.stub(),
       selectReservationToEdit: simple.stub(),
+      selectReservationToShow: simple.stub(),
       toggleTimeSlot: simple.stub(),
     },
     confirmReservationModalIsOpen: false,
@@ -119,11 +121,13 @@ describe('Container: ReservationCalendar', () => {
         expect(actualProps.isLoggedIn).to.equal(props.isLoggedIn);
         expect(actualProps.onClick).to.deep.equal(props.actions.toggleTimeSlot);
         expect(actualProps.openReservationDeleteModal).to.deep.equal(props.actions.openReservationDeleteModal);
+        expect(actualProps.openReservationInfoModal).to.deep.equal(props.actions.openReservationInfoModal);
         expect(actualProps.updatePath).to.deep.equal(props.actions.updatePath);
         expect(actualProps.resource).to.equal(props.resource);
         expect(actualProps.selected).to.deep.equal(props.selected);
         expect(actualProps.selectReservationToDelete).to.deep.equal(props.actions.selectReservationToDelete);
         expect(actualProps.selectReservationToEdit).to.deep.equal(props.actions.selectReservationToEdit);
+        expect(actualProps.selectReservationToShow).to.deep.equal(props.actions.selectReservationToShow);
         expect(actualProps.slots).to.deep.equal(props.timeSlots);
       });
     });

@@ -20,11 +20,13 @@ class TimeSlots extends Component {
       isLoggedIn,
       onClick,
       openReservationDeleteModal,
+      openReservationInfoModal,
       updatePath,
       resource,
       selected,
       selectReservationToDelete,
       selectReservationToEdit,
+      selectReservationToShow,
       time,
     } = this.props;
     const scrollTo = time && time === slot.start;
@@ -38,12 +40,14 @@ class TimeSlots extends Component {
         key={slot.start}
         onClick={onClick}
         openReservationDeleteModal={openReservationDeleteModal}
+        openReservationInfoModal={openReservationInfoModal}
         updatePath={updatePath}
         resource={resource}
         scrollTo={scrollTo}
         selected={includes(selected, slot.asISOString)}
         selectReservationToEdit={selectReservationToEdit}
         selectReservationToDelete={selectReservationToDelete}
+        selectReservationToShow={selectReservationToShow}
         slot={slot}
       />
     );
@@ -95,11 +99,13 @@ TimeSlots.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
   openReservationDeleteModal: PropTypes.func.isRequired,
+  openReservationInfoModal: PropTypes.func.isRequired,
   updatePath: PropTypes.func.isRequired,
   resource: PropTypes.object.isRequired,
   selected: PropTypes.array.isRequired,
   selectReservationToDelete: PropTypes.func.isRequired,
   selectReservationToEdit: PropTypes.func.isRequired,
+  selectReservationToShow: PropTypes.func.isRequired,
   slots: PropTypes.array.isRequired,
   time: PropTypes.string,
 };

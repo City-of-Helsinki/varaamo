@@ -7,6 +7,9 @@ import { bindActionCreators } from 'redux';
 import { fetchReservations } from 'actions/reservationActions';
 import { fetchResources } from 'actions/resourceActions';
 import { fetchUnits } from 'actions/unitActions';
+import ReservationCancelModal from 'containers/ReservationCancelModal';
+import ReservationDeleteModal from 'containers/ReservationDeleteModal';
+import ReservationInfoModal from 'containers/ReservationInfoModal';
 import ReservationsList from 'containers/ReservationsList';
 import userReservationsPageSelector from 'selectors/containers/userReservationsPageSelector';
 
@@ -44,6 +47,9 @@ export class UnconnectedUserReservationsPage extends Component {
                 />
               </div>
             )}
+            <ReservationCancelModal />
+            <ReservationDeleteModal />
+            <ReservationInfoModal />
           </div>
         </Loader>
       </DocumentTitle>

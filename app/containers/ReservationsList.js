@@ -8,16 +8,16 @@ import { updatePath } from 'redux-simple-router';
 import {
   openReservationCancelModal,
   openReservationDeleteModal,
+  openReservationInfoModal,
   selectReservationToCancel,
   selectReservationToDelete,
   selectReservationToEdit,
+  selectReservationToShow,
 } from 'actions/uiActions';
 import {
   confirmPreliminaryReservation,
   denyPreliminaryReservation,
 } from 'actions/reservationActions';
-import ReservationCancelModal from 'containers/ReservationCancelModal';
-import ReservationDeleteModal from 'containers/ReservationDeleteModal';
 import ReservationsListItem from 'components/reservation/ReservationsListItem';
 import reservationsListSelector from 'selectors/containers/reservationsListSelector';
 
@@ -47,10 +47,12 @@ export class UnconnectedReservationsList extends Component {
         resource={resource}
         openReservationCancelModal={actions.openReservationCancelModal}
         openReservationDeleteModal={actions.openReservationDeleteModal}
+        openReservationInfoModal={actions.openReservationInfoModal}
         updatePath={actions.updatePath}
         selectReservationToCancel={actions.selectReservationToCancel}
         selectReservationToDelete={actions.selectReservationToDelete}
         selectReservationToEdit={actions.selectReservationToEdit}
+        selectReservationToShow={actions.selectReservationToShow}
         unit={unit}
       />
     );
@@ -70,8 +72,6 @@ export class UnconnectedReservationsList extends Component {
             <ul className="reservations-list">
               {map(reservations, this.renderReservationsListItem)}
             </ul>
-            <ReservationCancelModal />
-            <ReservationDeleteModal />
           </div>
         ) : (
           <p>{emptyMessage || 'Sinulla ei vielä ole yhtään varausta.'}</p>
@@ -98,10 +98,12 @@ function mapDispatchToProps(dispatch) {
     denyPreliminaryReservation,
     openReservationCancelModal,
     openReservationDeleteModal,
+    openReservationInfoModal,
     updatePath,
     selectReservationToCancel,
     selectReservationToDelete,
     selectReservationToEdit,
+    selectReservationToShow,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

@@ -23,11 +23,13 @@ describe('Component: reservation/TimeSlots', () => {
       isLoggedIn: true,
       onClick: simple.stub(),
       openReservationDeleteModal: simple.stub(),
+      openReservationInfoModal: simple.stub(),
       updatePath: simple.stub(),
       resource: Resource.build(),
       selected: [timeSlots[0].asISOString],
       selectReservationToDelete: simple.stub(),
       selectReservationToEdit: simple.stub(),
+      selectReservationToShow: simple.stub(),
       slots: Immutable(timeSlots),
     };
     let tree;
@@ -85,10 +87,12 @@ describe('Component: reservation/TimeSlots', () => {
           expect(timeSlotTree.props.isLoggedIn).to.equal(props.isLoggedIn);
           expect(timeSlotTree.props.onClick).to.equal(props.onClick);
           expect(timeSlotTree.props.openReservationDeleteModal).to.equal(props.openReservationDeleteModal);
+          expect(timeSlotTree.props.openReservationInfoModal).to.equal(props.openReservationInfoModal);
           expect(timeSlotTree.props.updatePath).to.equal(props.updatePath);
           expect(timeSlotTree.props.resource).to.equal(props.resource);
           expect(timeSlotTree.props.selectReservationToDelete).to.equal(props.selectReservationToDelete);
           expect(timeSlotTree.props.selectReservationToEdit).to.equal(props.selectReservationToEdit);
+          expect(timeSlotTree.props.selectReservationToShow).to.equal(props.selectReservationToShow);
           expect(timeSlotTree.props.slot).to.deep.equal(props.slots[index]);
         });
       });
@@ -109,11 +113,13 @@ describe('Component: reservation/TimeSlots', () => {
       isLoggedIn: true,
       onClick: simple.stub(),
       openReservationDeleteModal: simple.stub(),
+      openReservationInfoModal: simple.stub(),
       updatePath: simple.stub(),
       resource: Resource.build(),
       selected: [],
       selectReservationToDelete: simple.stub(),
       selectReservationToEdit: simple.stub(),
+      selectReservationToShow: simple.stub(),
       slots: [],
     };
     let tree;

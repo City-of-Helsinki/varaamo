@@ -9,10 +9,11 @@ import {
   clearReservations,
   closeReservationCancelModal,
   closeReservationDeleteModal,
-  closeConfirmReservationModal,
   selectReservationToCancel,
   selectReservationToDelete,
   selectReservationToEdit,
+  selectReservationToShow,
+  closeReservationInfoModal,
   toggleTimeSlot,
 } from 'actions/uiActions';
 import types from 'constants/ActionTypes';
@@ -38,6 +39,10 @@ describe('Reducer: reservationReducer', () => {
 
     it('toEdit should be an empty array', () => {
       expect(initialState.toEdit).to.deep.equal([]);
+    });
+
+    it('toShow should be an empty array', () => {
+      expect(initialState.toShow).to.deep.equal([]);
     });
   });
 
@@ -143,15 +148,15 @@ describe('Reducer: reservationReducer', () => {
         });
       });
 
-      describe('if closed modal is not DELETE_RESERVATION modal', () => {
-        it('should return the state unchanged', () => {
+      describe('if closed modal is SHOW_RESERVATION modal', () => {
+        it('should clear toShow array', () => {
           const initialState = Immutable({
-            toDelete: [Reservation.build()],
+            toShow: [Reservation.build()],
           });
-          const action = closeConfirmReservationModal();
+          const action = closeReservationInfoModal();
           const nextState = reservationReducer(initialState, action);
 
-          expect(nextState).to.equal(initialState);
+          expect(nextState.toShow).to.deep.equal([]);
         });
       });
     });
@@ -259,6 +264,35 @@ describe('Reducer: reservationReducer', () => {
         const expected = map(slots, (slot) => slot.asISOString);
 
         expect(nextState.selected).to.deep.equal(expected);
+      });
+    });
+
+    describe('UI.SELECT_RESERVATION_TO_SHOW', () => {
+      it('should add the given reservation to toShow', () => {
+        const initialState = Immutable({
+          toShow: [],
+        });
+        const reservation = Reservation.build();
+        const action = selectReservationToShow(reservation);
+        const nextState = reservationReducer(initialState, action);
+        const expected = Immutable([reservation]);
+
+        expect(nextState.toShow).to.deep.equal(expected);
+      });
+
+      it('should not affect other reservations in toShow', () => {
+        const reservations = [
+          Reservation.build(),
+          Reservation.build(),
+        ];
+        const initialState = Immutable({
+          toShow: [reservations[0]],
+        });
+        const action = selectReservationToShow(reservations[1]);
+        const nextState = reservationReducer(initialState, action);
+        const expected = Immutable([reservations[0], reservations[1]]);
+
+        expect(nextState.toShow).to.deep.equal(expected);
       });
     });
 

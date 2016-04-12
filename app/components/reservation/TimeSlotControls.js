@@ -7,6 +7,7 @@ class ReservationControls extends Component {
     const {
       onDeleteClick,
       onEditClick,
+      onInfoClick,
       reservation,
     } = this.props;
 
@@ -16,6 +17,7 @@ class ReservationControls extends Component {
           bsSize="xsmall"
           bsStyle="default"
           className="info-button"
+          onClick={onInfoClick}
         >
           Tiedot
         </Button>
@@ -50,6 +52,7 @@ class ReservationControls extends Component {
 ReservationControls.propTypes = {
   onDeleteClick: PropTypes.func.isRequired,
   onEditClick: PropTypes.func.isRequired,
+  onInfoClick: PropTypes.func.isRequired,
   reservation: PropTypes.object,
 };
 
