@@ -8,8 +8,8 @@ import { reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 
 const validators = {
-  reserver_email: ({ reserver_email }) => {
-    if (reserver_email && !isEmail(reserver_email)) {
+  reserver_email_address: ({ reserver_email_address }) => {
+    if (reserver_email_address && !isEmail(reserver_email_address)) {
       return 'Syötä kunnollinen sähköpostiosoite';
     }
   },
@@ -26,7 +26,7 @@ const maxLengths = {
   reserver_address_city: 100,
   reserver_address_street: 100,
   reserver_address_zip: 30,
-  reserver_email: 100,
+  reserver_email_address: 100,
   reserver_name: 100,
   reserver_phone_number: 30,
 };
@@ -89,7 +89,7 @@ export class UnconnectedReservationForm extends Component {
       <div>
         <form className="reservation-form form-horizontal">
           {this.renderField('text', 'Nimi', fields.reserver_name)}
-          {this.renderField('email', 'Sähköposti', fields.reserver_email)}
+          {this.renderField('email', 'Sähköposti', fields.reserver_email_address)}
           {this.renderField('text', 'Puhelin', fields.reserver_phone_number)}
           {this.renderField('textarea', 'Tilaisuuden kuvaus', fields.event_description, { rows: 5 })}
           { fields.reserver_address_street && (

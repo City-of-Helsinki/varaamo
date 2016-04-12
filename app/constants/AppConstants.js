@@ -15,7 +15,7 @@ export default {
   },
   RESERVATION_FORM_FIELDS: [
     'reserver_name',
-    'reserver_email',
+    'reserver_email_address',
     'reserver_phone_number',
     'event_description',
     'reserver_address_street',

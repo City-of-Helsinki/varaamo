@@ -44,22 +44,22 @@ describe('Container: ReservationForm', () => {
       });
     });
 
-    describe('reserver_email', () => {
+    describe('reserver_email_address', () => {
       const props = {
-        fields: ['reserver_email'],
+        fields: ['reserver_email_address'],
         requiredFields: [],
       };
 
-      it('should return an error if reserver_email is invalid', () => {
-        const values = { reserver_email: 'luke@' };
+      it('should return an error if reserver_email_address is invalid', () => {
+        const values = { reserver_email_address: 'luke@' };
         const errors = validate(values, props);
-        expect(errors.reserver_email).to.exist;
+        expect(errors.reserver_email_address).to.exist;
       });
 
-      it('should not return an error if reserver_email is valid', () => {
-        const values = { reserver_email: 'luke@skywalker.com' };
+      it('should not return an error if reserver_email_address is valid', () => {
+        const values = { reserver_email_address: 'luke@skywalker.com' };
         const errors = validate(values, props);
-        expect(errors.reserver_email).to.not.exist;
+        expect(errors.reserver_email_address).to.not.exist;
       });
     });
   });
