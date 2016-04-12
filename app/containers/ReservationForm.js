@@ -8,11 +8,27 @@ import { reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 
 const validators = {
-  reserver_email: ({ reserver_email }) => {
-    if (reserver_email && !isEmail(reserver_email)) {
+  reserver_email_address: ({ reserver_email_address }) => {
+    if (reserver_email_address && !isEmail(reserver_email_address)) {
       return 'Syötä kunnollinen sähköpostiosoite';
     }
   },
+};
+
+const maxLengths = {
+  billing_address_city: 100,
+  billing_address_street: 100,
+  billing_address_zip: 30,
+  business_id: 9,
+  company: 100,
+  event_description: 100,
+  number_of_participants: 100,
+  reserver_address_city: 100,
+  reserver_address_street: 100,
+  reserver_address_zip: 30,
+  reserver_email_address: 100,
+  reserver_name: 100,
+  reserver_phone_number: 30,
 };
 
 export function validate(values, { fields, requiredFields }) {
@@ -23,6 +39,11 @@ export function validate(values, { fields, requiredFields }) {
       const error = validator(values);
       if (error) {
         errors[field] = error;
+      }
+    }
+    if (maxLengths[field]) {
+      if (values[field] && values[field].length > maxLengths[field]) {
+        errors[field] = `Kentän maksimipituus on ${maxLengths[field]} merkkiä`;
       }
     }
     if (includes(requiredFields, field)) {
@@ -68,7 +89,7 @@ export class UnconnectedReservationForm extends Component {
       <div>
         <form className="reservation-form form-horizontal">
           {this.renderField('text', 'Nimi', fields.reserver_name)}
-          {this.renderField('email', 'Sähköposti', fields.reserver_email)}
+          {this.renderField('email', 'Sähköposti', fields.reserver_email_address)}
           {this.renderField('text', 'Puhelin', fields.reserver_phone_number)}
           {this.renderField('textarea', 'Tilaisuuden kuvaus', fields.event_description, { rows: 5 })}
           { fields.reserver_address_street && (
