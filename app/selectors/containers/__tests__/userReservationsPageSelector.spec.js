@@ -12,7 +12,7 @@ describe('Selector: userReservationsPageSelector', () => {
     expect(selected.isAdmin).to.exist;
   });
 
-  it('should return isFetchingResources', () => {
-    expect(selected.isFetchingResources).to.exist;
+  it('should return resourcesLoaded', () => {
+    expect(selected.resourcesLoaded).to.exist;
   });
 });

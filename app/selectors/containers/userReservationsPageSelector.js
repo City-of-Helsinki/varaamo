@@ -1,19 +1,20 @@
+import isEmpty from 'lodash/lang/isEmpty';
 import { createSelector } from 'reselect';
 
-import ActionTypes from 'constants/ActionTypes';
 import isAdminSelector from 'selectors/isAdminSelector';
-import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
+
+const resourcesSelector = (state) => state.data.resources;
 
 const userReservationsPageSelector = createSelector(
   isAdminSelector,
-  requestIsActiveSelectorFactory(ActionTypes.API.RESOURCES_GET_REQUEST),
+  resourcesSelector,
   (
     isAdmin,
-    isFetchingResources
+    resources
   ) => {
     return {
       isAdmin,
-      isFetchingResources,
+      resourcesLoaded: !isEmpty(resources),
     };
   }
 );
