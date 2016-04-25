@@ -100,7 +100,7 @@
     "skin-deep": "^0.13.0",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
-    "webpack": "^1.12.9",
+    "webpack": "^1.13.0",
     "webpack-dev-middleware": "^1.4.0",
     "webpack-hot-middleware": "^2.5.0",
     "webpack-merge": "^0.3.2"
