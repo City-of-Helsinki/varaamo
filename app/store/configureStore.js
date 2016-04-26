@@ -9,7 +9,10 @@ const storeEnhancers = [applyMiddleware(apiMiddleware)];
 
 if (isDevelopment) {
   const createLogger = require('redux-logger');
-  const loggerMiddleware = createLogger();
+  const loggerMiddleware = createLogger({
+    collapsed: true,
+    duration: true,
+  });
   storeEnhancers.push(applyMiddleware(loggerMiddleware));
   if (__DEVTOOLS__) {
     const { devTools, persistState } = require('redux-devtools');
