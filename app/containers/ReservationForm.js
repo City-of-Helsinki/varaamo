@@ -21,7 +21,6 @@ const maxLengths = {
   billingAddressZip: 30,
   businessId: 9,
   company: 100,
-  eventDescription: 100,
   numberOfParticipants: 100,
   reserverAddressCity: 100,
   reserverAddressStreet: 100,
