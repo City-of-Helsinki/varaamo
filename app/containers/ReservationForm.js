@@ -8,27 +8,27 @@ import { reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 
 const validators = {
-  reserver_email_address: ({ reserver_email_address }) => {
-    if (reserver_email_address && !isEmail(reserver_email_address)) {
+  reserverEmailAddress: ({ reserverEmailAddress }) => {
+    if (reserverEmailAddress && !isEmail(reserverEmailAddress)) {
       return 'Syötä kunnollinen sähköpostiosoite';
     }
   },
 };
 
 const maxLengths = {
-  billing_address_city: 100,
-  billing_address_street: 100,
-  billing_address_zip: 30,
-  business_id: 9,
+  billingAddressCity: 100,
+  billingAddressStreet: 100,
+  billingAddressZip: 30,
+  businessId: 9,
   company: 100,
-  event_description: 100,
-  number_of_participants: 100,
-  reserver_address_city: 100,
-  reserver_address_street: 100,
-  reserver_address_zip: 30,
-  reserver_email_address: 100,
-  reserver_name: 100,
-  reserver_phone_number: 30,
+  eventDescription: 100,
+  numberOfParticipants: 100,
+  reserverAddressCity: 100,
+  reserverAddressStreet: 100,
+  reserverAddressZip: 30,
+  reserverEmailAddress: 100,
+  reserverName: 100,
+  reserverPhoneNumber: 30,
 };
 
 export function validate(values, { fields, requiredFields }) {
@@ -88,29 +88,29 @@ export class UnconnectedReservationForm extends Component {
     return (
       <div>
         <form className="reservation-form form-horizontal">
-          {this.renderField('text', 'Nimi', fields.reserver_name)}
-          {this.renderField('email', 'Sähköposti', fields.reserver_email_address)}
-          {this.renderField('text', 'Puhelin', fields.reserver_phone_number)}
-          {this.renderField('textarea', 'Tilaisuuden kuvaus', fields.event_description, { rows: 5 })}
-          { fields.reserver_address_street && (
+          {this.renderField('text', 'Nimi', fields.reserverName)}
+          {this.renderField('email', 'Sähköposti', fields.reserverEmailAddress)}
+          {this.renderField('text', 'Puhelin', fields.reserverPhoneNumber)}
+          {this.renderField('textarea', 'Tilaisuuden kuvaus', fields.eventDescription, { rows: 5 })}
+          { fields.reserverAddressStreet && (
             <Well>
               <p>Osoite</p>
-              {this.renderField('text', 'Katuosoite', fields.reserver_address_street)}
-              {this.renderField('text', 'Postinumero', fields.reserver_address_zip)}
-              {this.renderField('text', 'Kaupunki', fields.reserver_address_city)}
+              {this.renderField('text', 'Katuosoite', fields.reserverAddressStreet)}
+              {this.renderField('text', 'Postinumero', fields.reserverAddressZip)}
+              {this.renderField('text', 'Kaupunki', fields.reserverAddressCity)}
             </Well>
           )}
           {this.renderField('text', 'Yhdistyksen nimi', fields.company)}
-          {this.renderField('text', 'Y-tunnus', fields.business_id)}
-          { fields.reserver_address_street && (
+          {this.renderField('text', 'Y-tunnus', fields.businessId)}
+          { fields.reserverAddressStreet && (
             <Well>
               <p>Laskutusosoite</p>
-              {this.renderField('text', 'Katuosoite', fields.billing_address_street)}
-              {this.renderField('text', 'Postinumero', fields.billing_address_zip)}
-              {this.renderField('text', 'Kaupunki', fields.billing_address_city)}
+              {this.renderField('text', 'Katuosoite', fields.billingAddressStreet)}
+              {this.renderField('text', 'Postinumero', fields.billingAddressZip)}
+              {this.renderField('text', 'Kaupunki', fields.billingAddressCity)}
             </Well>
           )}
-          {this.renderField('number', 'Osallistujamäärä', fields.number_of_participants, { min: '0' })}
+          {this.renderField('number', 'Osallistujamäärä', fields.numberOfParticipants, { min: '0' })}
           {this.renderField(
             'textarea',
             'Kommentit',

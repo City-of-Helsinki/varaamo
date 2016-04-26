@@ -1,4 +1,6 @@
 import map from 'lodash/collection/map';
+import pick from 'lodash/object/pick';
+import camelCase from 'lodash/string/camelCase';
 import React, { Component, PropTypes } from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 
@@ -42,15 +44,15 @@ class ConfirmReservationModal extends Component {
       reservationsToEdit,
       selectedReservations,
     } = this.props;
-    const initialValues = {};
+    let reservation;
 
     if (isEditing) {
-      initialValues.comments = reservationsToEdit.length ? reservationsToEdit[0].comments : '';
+      reservation = reservationsToEdit.length ? reservationsToEdit[0] : null;
     } else {
-      initialValues.comments = selectedReservations.length ? selectedReservations[0].comments : '';
+      reservation = selectedReservations.length ? selectedReservations[0] : null;
     }
 
-    return initialValues;
+    return reservation ? pick(reservation, ['comments', ...RESERVATION_FORM_FIELDS]) : {};
   }
 
   getModalTitle(isEditing, isPreliminaryReservation) {
@@ -125,6 +127,10 @@ class ConfirmReservationModal extends Component {
       show,
     } = this.props;
 
+    const requiredFormFields = resource.requiredReservationExtraFields.map((field) => {
+      return camelCase(field);
+    });
+
     return (
       <Modal
         animation={false}
@@ -146,7 +152,7 @@ class ConfirmReservationModal extends Component {
             isMakingReservations={isMakingReservations}
             onClose={onClose}
             onConfirm={this.onConfirm}
-            requiredFields={resource.requiredReservationExtraFields}
+            requiredFields={requiredFormFields}
           />
         </Modal.Body>
       </Modal>
