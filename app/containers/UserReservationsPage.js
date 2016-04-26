@@ -20,12 +20,20 @@ export class UnconnectedUserReservationsPage extends Component {
     this.props.actions.fetchReservations({ isOwn: true });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.resourcesLoaded && nextProps.resourcesLoaded) {
+      if (nextProps.isAdmin) {
+        this.props.actions.fetchReservations({ canApprove: true });
+      }
+    }
+  }
+
   render() {
-    const { isAdmin, isFetchingResources } = this.props;
+    const { isAdmin, resourcesLoaded } = this.props;
 
     return (
       <DocumentTitle title="Omat varaukset - Varaamo">
-        <Loader loaded={!isFetchingResources}>
+        <Loader loaded={resourcesLoaded}>
           <div>
             { !isAdmin && (
               <div>
@@ -60,7 +68,7 @@ export class UnconnectedUserReservationsPage extends Component {
 UnconnectedUserReservationsPage.propTypes = {
   actions: PropTypes.object.isRequired,
   isAdmin: PropTypes.bool.isRequired,
-  isFetchingResources: PropTypes.bool.isRequired,
+  resourcesLoaded: PropTypes.bool.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {

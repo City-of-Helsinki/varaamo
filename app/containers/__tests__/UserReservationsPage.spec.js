@@ -9,14 +9,16 @@ import {
 } from 'containers/UserReservationsPage';
 
 describe('Container: UserReservationsPage', () => {
+  const fetchReservations = simple.stub();
+
   const defaultProps = {
     actions: {
-      fetchReservations: simple.stub(),
+      fetchReservations,
       fetchResources: simple.stub(),
       fetchUnits: simple.stub(),
     },
     isAdmin: false,
-    isFetchingResources: false,
+    resourcesLoaded: true,
   };
 
   function getWrapper(extraProps = {}) {
@@ -85,11 +87,11 @@ describe('Container: UserReservationsPage', () => {
     });
 
     it('should fetch reservations when component mounts', () => {
-      expect(defaultProps.actions.fetchReservations.callCount).to.equal(1);
+      expect(fetchReservations.callCount).to.equal(1);
     });
 
     it('should only fetch user\'s own reservations when component mounts', () => {
-      expect(defaultProps.actions.fetchReservations.lastCall.args[0].isOwn).to.equal(true);
+      expect(fetchReservations.lastCall.args[0].isOwn).to.equal(true);
     });
 
     it('should fetch resources when component mounts', () => {
@@ -98,6 +100,63 @@ describe('Container: UserReservationsPage', () => {
 
     it('should fetch units when component mounts', () => {
       expect(defaultProps.actions.fetchUnits.callCount).to.equal(1);
+    });
+  });
+
+  describe('componentWillReceiveProps', () => {
+    let instance;
+
+    beforeEach(() => {
+      fetchReservations.reset();
+    });
+
+    describe('when resources have not been loaded', () => {
+      it('should not fetch reservations', () => {
+        instance = getWrapper({ resourcesLoaded: false }).instance();
+        const nextProps = Object.assign({}, defaultProps, { isAdmin: true, resourcesLoaded: false });
+        instance.componentWillReceiveProps(nextProps);
+        expect(fetchReservations.callCount).to.equal(0);
+      });
+    });
+
+    describe('when resources have just been loaded', () => {
+      beforeEach(() => {
+        instance = getWrapper({ resourcesLoaded: false }).instance();
+      });
+
+      describe('if user is not an admin', () => {
+        it('should not fetch reservations', () => {
+          fetchReservations.reset();
+          const nextProps = Object.assign({}, defaultProps, { isAdmin: false, resourcesLoaded: true });
+          instance.componentWillReceiveProps(nextProps);
+          expect(fetchReservations.callCount).to.equal(0);
+        });
+      });
+
+      describe('if user is an admin', () => {
+        it('should fetch reservations', () => {
+          fetchReservations.reset();
+          const nextProps = Object.assign({}, defaultProps, { isAdmin: true, resourcesLoaded: true });
+          instance.componentWillReceiveProps(nextProps);
+          expect(fetchReservations.callCount).to.equal(1);
+        });
+
+        it('should fetch reservation admin can approve', () => {
+          fetchReservations.reset();
+          const nextProps = Object.assign({}, defaultProps, { isAdmin: true, resourcesLoaded: true });
+          instance.componentWillReceiveProps(nextProps);
+          expect(fetchReservations.lastCall.args[0].canApprove).to.equal(true);
+        });
+      });
+    });
+
+    describe('when resources have already been loaded', () => {
+      it('should not fetch reservations', () => {
+        instance = getWrapper({ resourcesLoaded: true }).instance();
+        const nextProps = Object.assign({}, defaultProps, { isAdmin: true, resourcesLoaded: false });
+        instance.componentWillReceiveProps(nextProps);
+        expect(fetchReservations.callCount).to.equal(0);
+      });
     });
   });
 });
