@@ -83,13 +83,13 @@ class ReservationControls extends Component {
       return isAdmin ? null : null;
 
     case 'confirmed':
-      return isAdmin ? [buttons.adminCancel] : [buttons.cancel];
+      return isAdmin ? [buttons.adminCancel, buttons.edit] : [buttons.cancel];
 
     case 'denied':
       return isAdmin ? null : null;
 
     case 'requested':
-      return isAdmin ? [buttons.confirm, buttons.deny] : [buttons.edit, buttons.cancel];
+      return isAdmin ? [buttons.confirm, buttons.deny, buttons.edit] : [buttons.edit, buttons.cancel];
 
     default:
       return null;
