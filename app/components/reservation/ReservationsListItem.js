@@ -149,6 +149,7 @@ class ReservationsListItem extends Component {
             />
           </Link>
         </div>
+        {renderReservationStateLabel(reservation)}
         <ReservationControls
           isAdmin={isAdmin}
           onCancelClick={this.handleCancelClick}
@@ -159,7 +160,6 @@ class ReservationsListItem extends Component {
           onInfoClick={this.handleInfoClick}
           reservation={reservation}
         />
-        {renderReservationStateLabel(reservation)}
       </li>
     );
   }

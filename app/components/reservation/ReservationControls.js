@@ -8,9 +8,9 @@ class ReservationControls extends Component {
     this.buttons = {
       adminCancel: (
         <Button
-          bsSize="xsmall"
+          bsSize="small"
           bsStyle="danger"
-          key="adminCalcelButton"
+          key="adminCancelButton"
           onClick={props.onCancelClick}
         >
           Peru
@@ -18,9 +18,9 @@ class ReservationControls extends Component {
       ),
       cancel: (
         <Button
-          bsSize="xsmall"
+          bsSize="small"
           bsStyle="default"
-          key="calcelButton"
+          key="cancelButton"
           onClick={props.onCancelClick}
         >
           Peru
@@ -28,7 +28,7 @@ class ReservationControls extends Component {
       ),
       confirm: (
         <Button
-          bsSize="xsmall"
+          bsSize="small"
           bsStyle="success"
           key="confirmButton"
           onClick={props.onConfirmClick}
@@ -38,7 +38,7 @@ class ReservationControls extends Component {
       ),
       delete: (
         <Button
-          bsSize="xsmall"
+          bsSize="small"
           bsStyle="danger"
           key="deleteButton"
           onClick={props.onDeleteClick}
@@ -48,7 +48,7 @@ class ReservationControls extends Component {
       ),
       deny: (
         <Button
-          bsSize="xsmall"
+          bsSize="small"
           bsStyle="danger"
           key="denyButton"
           onClick={this.props.onDenyClick}
@@ -58,7 +58,7 @@ class ReservationControls extends Component {
       ),
       edit: (
         <Button
-          bsSize="xsmall"
+          bsSize="small"
           bsStyle="primary"
           key="editButton"
           onClick={props.onEditClick}
@@ -68,7 +68,7 @@ class ReservationControls extends Component {
       ),
       info: (
         <Button
-          bsSize="xsmall"
+          bsSize="small"
           bsStyle="default"
           key="infoButton"
           onClick={props.onInfoClick}
