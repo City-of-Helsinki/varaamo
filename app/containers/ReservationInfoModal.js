@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
+import Input from 'react-bootstrap/lib/Input';
 import Modal from 'react-bootstrap/lib/Modal';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -38,8 +39,17 @@ export class UnconnectedReservationInfoModal extends Component {
           <dt>Tila:</dt><dd>{getName(resource)}</dd>
           <dt>Osallistujamäärä:</dt><dd>{reservation.numberOfParticipants}</dd>
           <dt>Tilaisuuden kuvaus:</dt><dd>{reservation.eventDescription}</dd>
-          <dt>Kommentit:</dt><dd>{reservation.comments}</dd>
         </dl>
+        <form>
+          <Input
+            defaultValue={reservation.comments}
+            label="Kommentit:"
+            placeholder="Varauksen mahdolliset lisätiedot"
+            ref="commentsInput"
+            rows={5}
+            type="textarea"
+          />
+        </form>
       </div>
     );
   }
