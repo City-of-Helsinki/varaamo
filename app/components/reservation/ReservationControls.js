@@ -62,8 +62,18 @@ class ReservationControls extends Component {
           bsStyle="primary"
           key="editButton"
           onClick={props.onEditClick}
-          >
+        >
           Muokkaa
+        </Button>
+      ),
+      info: (
+        <Button
+          bsSize="xsmall"
+          bsStyle="default"
+          key="infoButton"
+          onClick={props.onInfoClick}
+        >
+          Tiedot
         </Button>
       ),
     };
@@ -74,22 +84,32 @@ class ReservationControls extends Component {
       if (reservation.state === 'cancelled') {
         return null;
       }
-      return isAdmin ? [buttons.edit, buttons.delete] : [buttons.edit, buttons.delete];
+      return isAdmin ?
+        [buttons.edit, buttons.delete] :
+        [buttons.edit, buttons.delete];
     }
 
     switch (reservation.state) {
 
     case 'cancelled':
-      return isAdmin ? null : null;
+      return isAdmin ?
+        [buttons.info] :
+        null;
 
     case 'confirmed':
-      return isAdmin ? [buttons.adminCancel, buttons.edit] : [buttons.cancel];
+      return isAdmin ?
+        [buttons.info, buttons.adminCancel, buttons.edit] :
+        [buttons.cancel];
 
     case 'denied':
-      return isAdmin ? null : null;
+      return isAdmin ?
+        [buttons.info] :
+        null;
 
     case 'requested':
-      return isAdmin ? [buttons.confirm, buttons.deny, buttons.edit] : [buttons.edit, buttons.cancel];
+      return isAdmin ?
+        [buttons.info, buttons.confirm, buttons.deny, buttons.edit] :
+        [buttons.edit, buttons.cancel];
 
     default:
       return null;
@@ -119,6 +139,7 @@ ReservationControls.propTypes = {
   onDeleteClick: PropTypes.func.isRequired,
   onDenyClick: PropTypes.func.isRequired,
   onEditClick: PropTypes.func.isRequired,
+  onInfoClick: PropTypes.func.isRequired,
   reservation: PropTypes.object,
 };
 

@@ -1,7 +1,6 @@
 import isEmpty from 'lodash/lang/isEmpty';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
-import Button from 'react-bootstrap/lib/Button';
 import { Link } from 'react-router';
 
 import TimeRange from 'components/common/TimeRange';
@@ -150,16 +149,6 @@ class ReservationsListItem extends Component {
             />
           </Link>
         </div>
-        { isAdmin && (
-          <Button
-            bsSize="xsmall"
-            bsStyle="default"
-            className="info-button"
-            onClick={this.handleInfoClick}
-          >
-            Tiedot
-          </Button>
-        )}
         <ReservationControls
           isAdmin={isAdmin}
           onCancelClick={this.handleCancelClick}
@@ -167,6 +156,7 @@ class ReservationsListItem extends Component {
           onDeleteClick={this.handleDeleteClick}
           onDenyClick={this.handleDenyClick}
           onEditClick={this.handleEditClick}
+          onInfoClick={this.handleInfoClick}
           reservation={reservation}
         />
         {renderReservationStateLabel(reservation)}
