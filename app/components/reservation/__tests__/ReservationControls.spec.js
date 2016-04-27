@@ -29,7 +29,7 @@ describe('Component: reservation/ReservationControls', () => {
     return shallow(<ReservationControls {...props} />);
   }
 
-  describe('if isAdmin is true', () => {
+  describe('if user is an admin', () => {
     const isAdmin = true;
 
     describe('with regular reservation', () => {
@@ -75,8 +75,8 @@ describe('Component: reservation/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: true, state: 'requested' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('should render two buttons', () => {
-        expect(buttons.length).to.equal(2);
+      it('should render three buttons', () => {
+        expect(buttons.length).to.equal(3);
       });
 
       describe('the first button', () => {
@@ -108,6 +108,21 @@ describe('Component: reservation/ReservationControls', () => {
           expect(onDenyClick.callCount).to.equal(1);
         });
       });
+
+      describe('the third button', () => {
+        const button = buttons.at(2);
+
+        it('should be an edit button', () => {
+          expect(button.props().children).to.equal('Muokkaa');
+        });
+
+        it('clicking the button should call onEditClick', () => {
+          onEditClick.reset();
+          button.props().onClick();
+
+          expect(onEditClick.callCount).to.equal(1);
+        });
+      });
     });
 
     describe('with preliminary reservation in cancelled state', () => {
@@ -132,11 +147,11 @@ describe('Component: reservation/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: true, state: 'confirmed' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('should render one button', () => {
-        expect(buttons.length).to.equal(1);
+      it('should render two buttons', () => {
+        expect(buttons.length).to.equal(2);
       });
 
-      describe('the button', () => {
+      describe('the first button', () => {
         const button = buttons.at(0);
 
         it('should be a cancel button', () => {
@@ -150,10 +165,25 @@ describe('Component: reservation/ReservationControls', () => {
           expect(onCancelClick.callCount).to.equal(1);
         });
       });
+
+      describe('the second button', () => {
+        const button = buttons.at(1);
+
+        it('should be an edit button', () => {
+          expect(button.props().children).to.equal('Muokkaa');
+        });
+
+        it('clicking the button should call onEditClick', () => {
+          onEditClick.reset();
+          button.props().onClick();
+
+          expect(onEditClick.callCount).to.equal(1);
+        });
+      });
     });
   });
 
-  describe('if isAdmin is false', () => {
+  describe('if user is not an admin', () => {
     const isAdmin = false;
 
     describe('with regular reservation', () => {
