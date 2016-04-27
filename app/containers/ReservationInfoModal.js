@@ -6,12 +6,29 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { closeReservationInfoModal } from 'actions/uiActions';
+import { putReservation } from 'actions/reservationActions';
 import TimeRange from 'components/common/TimeRange';
 import reservationInfoModalSelector from 'selectors/containers/reservationInfoModalSelector';
 import { getName } from 'utils/DataUtils';
 import { renderReservationStateLabel } from 'utils/renderUtils';
 
 export class UnconnectedReservationInfoModal extends Component {
+  constructor(props) {
+    super(props);
+    this.handleSave = this.handleSave.bind(this);
+  }
+
+  handleSave() {
+    const { actions, reservationsToShow } = this.props;
+    const reservation = reservationsToShow.length ? reservationsToShow[0] : undefined;
+    if (!reservation) {
+      return;
+    }
+    const comments = this.refs.commentsInput.getValue();
+    actions.putReservation(Object.assign({}, reservation, { comments }));
+    actions.closeReservationInfoModal();
+  }
+
   renderModalContent(reservation, resource) {
     if (!reservation) {
       return null;
@@ -57,6 +74,7 @@ export class UnconnectedReservationInfoModal extends Component {
   render() {
     const {
       actions,
+      isEditingReservations,
       reservationsToShow,
       resources,
       show,
@@ -86,6 +104,14 @@ export class UnconnectedReservationInfoModal extends Component {
           >
             Takaisin
           </Button>
+          <Button
+            bsStyle="primary"
+            disabled={isEditingReservations}
+            onClick={this.handleSave}
+            type="submit"
+          >
+            {isEditingReservations ? 'Tallennetaan...' : 'Tallenna'}
+          </Button>
         </Modal.Footer>
       </Modal>
     );
@@ -94,6 +120,7 @@ export class UnconnectedReservationInfoModal extends Component {
 
 UnconnectedReservationInfoModal.propTypes = {
   actions: PropTypes.object.isRequired,
+  isEditingReservations: PropTypes.bool.isRequired,
   reservationsToShow: PropTypes.array.isRequired,
   resources: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
@@ -102,6 +129,7 @@ UnconnectedReservationInfoModal.propTypes = {
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
     closeReservationInfoModal,
+    putReservation,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

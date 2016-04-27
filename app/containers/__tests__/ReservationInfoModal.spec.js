@@ -35,10 +35,12 @@ describe('Container: ReservationInfoModal', () => {
   const defaultProps = {
     actions: {
       closeReservationInfoModal: simple.stub(),
+      putReservation: simple.stub(),
     },
-    show: true,
+    isEditingReservations: false,
     reservationsToShow: Immutable([reservation]),
     resources: Immutable({ [resource.id]: resource }),
+    show: true,
   };
 
   function getWrapper(extraProps = {}) {
@@ -173,8 +175,8 @@ describe('Container: ReservationInfoModal', () => {
       describe('Footer buttons', () => {
         const buttons = modalFooter.find(Button);
 
-        it('should render one Button', () => {
-          expect(buttons.length).to.equal(1);
+        it('should render two Button', () => {
+          expect(buttons.length).to.equal(2);
         });
 
         describe('Cancel button', () => {
@@ -191,7 +193,50 @@ describe('Container: ReservationInfoModal', () => {
             expect(defaultProps.actions.closeReservationInfoModal.callCount).to.equal(1);
           });
         });
+
+        describe('Save button', () => {
+          const button = buttons.at(1);
+
+          it('the second button should read "Tallenna"', () => {
+            expect(button.props().children).to.equal('Tallenna');
+          });
+
+          it('should have handleSave as its onClick prop', () => {
+            const instance = wrapper.instance();
+            expect(button.props().onClick).to.equal(instance.handleSave);
+          });
+        });
       });
+    });
+  });
+
+  describe('handleSave', () => {
+    let updatedComments;
+
+    before(() => {
+      updatedComments = 'Updated comments';
+      const instance = getWrapper().instance();
+      instance.refs = {
+        commentsInput: { getValue: () => updatedComments },
+      };
+      defaultProps.actions.closeReservationInfoModal.reset();
+      defaultProps.actions.putReservation.reset();
+      instance.handleSave();
+    });
+
+    it('should call putReservation for the first reservation in reservationsToShow', () => {
+      expect(defaultProps.actions.putReservation.callCount).to.equal(1);
+    });
+
+    it('should call putReservation with correct arguments', () => {
+      const actualArgs = defaultProps.actions.putReservation.lastCall.args;
+      const expected = Object.assign({}, reservation, { comments: updatedComments });
+
+      expect(actualArgs[0]).to.deep.equal(expected);
+    });
+
+    it('should close the ReservationInfoModal', () => {
+      expect(defaultProps.actions.closeReservationInfoModal.callCount).to.equal(1);
     });
   });
 });

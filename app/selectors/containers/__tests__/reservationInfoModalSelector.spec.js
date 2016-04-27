@@ -8,6 +8,10 @@ describe('Selector: reservationInfoModalSelector', () => {
   const props = getDefaultRouterProps();
   const selected = reservationInfoModalSelector(state, props);
 
+  it('should return isEditingReservations', () => {
+    expect(selected.isEditingReservations).to.exist;
+  });
+
   it('should return show', () => {
     expect(selected.show).to.exist;
   });
