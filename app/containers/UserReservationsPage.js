@@ -15,16 +15,20 @@ import userReservationsPageSelector from 'selectors/containers/userReservationsP
 
 export class UnconnectedUserReservationsPage extends Component {
   componentDidMount() {
+    this.adminReservationsLoaded = false;
+    if (this.props.isAdmin) {
+      this.props.actions.fetchReservations({ canApprove: true });
+      this.adminReservationsLoaded = true;
+    }
     this.props.actions.fetchResources();
     this.props.actions.fetchUnits();
     this.props.actions.fetchReservations({ isOwn: true });
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!this.props.resourcesLoaded && nextProps.resourcesLoaded) {
-      if (nextProps.isAdmin) {
-        this.props.actions.fetchReservations({ canApprove: true });
-      }
+    if (!this.adminReservationsLoaded && nextProps.isAdmin) {
+      this.props.actions.fetchReservations({ canApprove: true });
+      this.adminReservationsLoaded = true;
     }
   }
 

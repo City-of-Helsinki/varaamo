@@ -10,12 +10,14 @@ import {
 
 describe('Container: UserReservationsPage', () => {
   const fetchReservations = simple.stub();
+  const fetchResources = simple.stub();
+  const fetchUnits = simple.stub();
 
   const defaultProps = {
     actions: {
       fetchReservations,
-      fetchResources: simple.stub(),
-      fetchUnits: simple.stub(),
+      fetchResources,
+      fetchUnits,
     },
     isAdmin: false,
     resourcesLoaded: true,
@@ -81,25 +83,56 @@ describe('Container: UserReservationsPage', () => {
     });
   });
 
-  describe('fetching data', () => {
-    before(() => {
-      getWrapper().instance().componentDidMount();
+  describe('componentDidMount', () => {
+    describe('if user is not an admin', () => {
+      before(() => {
+        fetchReservations.reset();
+        fetchResources.reset();
+        fetchUnits.reset();
+        getWrapper({ isAdmin: false }).instance().componentDidMount();
+      });
+
+      it('should fetch resources', () => {
+        expect(fetchResources.callCount).to.equal(1);
+      });
+
+      it('should fetch units', () => {
+        expect(fetchUnits.callCount).to.equal(1);
+      });
+
+      it('should only fetch user\'s own reservations', () => {
+        expect(fetchReservations.callCount).to.equal(1);
+        expect(fetchReservations.lastCall.args[0].isOwn).to.equal(true);
+      });
     });
 
-    it('should fetch reservations when component mounts', () => {
-      expect(fetchReservations.callCount).to.equal(1);
-    });
+    describe('if user is an admin', () => {
+      before(() => {
+        fetchReservations.reset();
+        fetchResources.reset();
+        fetchUnits.reset();
+        getWrapper({ isAdmin: true }).instance().componentDidMount();
+      });
 
-    it('should only fetch user\'s own reservations when component mounts', () => {
-      expect(fetchReservations.lastCall.args[0].isOwn).to.equal(true);
-    });
+      it('should fetch resources', () => {
+        expect(fetchResources.callCount).to.equal(1);
+      });
 
-    it('should fetch resources when component mounts', () => {
-      expect(defaultProps.actions.fetchResources.callCount).to.equal(1);
-    });
+      it('should fetch units', () => {
+        expect(fetchUnits.callCount).to.equal(1);
+      });
 
-    it('should fetch units when component mounts', () => {
-      expect(defaultProps.actions.fetchUnits.callCount).to.equal(1);
+      it('should fetch two batches of reservations', () => {
+        expect(fetchReservations.callCount).to.equal(2);
+      });
+
+      it('should fetch reservations admin can approve', () => {
+        expect(fetchReservations.calls[0].args[0].canApprove).to.equal(true);
+      });
+
+      it('should fetch admin\'s own reservations', () => {
+        expect(fetchReservations.calls[1].args[0].isOwn).to.equal(true);
+      });
     });
   });
 
@@ -108,54 +141,35 @@ describe('Container: UserReservationsPage', () => {
 
     beforeEach(() => {
       fetchReservations.reset();
+      instance = getWrapper().instance();
     });
 
-    describe('when resources have not been loaded', () => {
+    describe('if user is not an admin', () => {
       it('should not fetch reservations', () => {
-        instance = getWrapper({ resourcesLoaded: false }).instance();
-        const nextProps = Object.assign({}, defaultProps, { isAdmin: true, resourcesLoaded: false });
+        const nextProps = Object.assign({}, defaultProps, { isAdmin: false });
         instance.componentWillReceiveProps(nextProps);
         expect(fetchReservations.callCount).to.equal(0);
       });
     });
 
-    describe('when resources have just been loaded', () => {
-      beforeEach(() => {
-        instance = getWrapper({ resourcesLoaded: false }).instance();
-      });
-
-      describe('if user is not an admin', () => {
-        it('should not fetch reservations', () => {
-          fetchReservations.reset();
-          const nextProps = Object.assign({}, defaultProps, { isAdmin: false, resourcesLoaded: true });
-          instance.componentWillReceiveProps(nextProps);
-          expect(fetchReservations.callCount).to.equal(0);
-        });
-      });
-
-      describe('if user is an admin', () => {
-        it('should fetch reservations', () => {
-          fetchReservations.reset();
-          const nextProps = Object.assign({}, defaultProps, { isAdmin: true, resourcesLoaded: true });
-          instance.componentWillReceiveProps(nextProps);
-          expect(fetchReservations.callCount).to.equal(1);
-        });
-
-        it('should fetch reservation admin can approve', () => {
-          fetchReservations.reset();
-          const nextProps = Object.assign({}, defaultProps, { isAdmin: true, resourcesLoaded: true });
-          instance.componentWillReceiveProps(nextProps);
-          expect(fetchReservations.lastCall.args[0].canApprove).to.equal(true);
-        });
-      });
-    });
-
-    describe('when resources have already been loaded', () => {
-      it('should not fetch reservations', () => {
-        instance = getWrapper({ resourcesLoaded: true }).instance();
-        const nextProps = Object.assign({}, defaultProps, { isAdmin: true, resourcesLoaded: false });
+    describe('if user is an admin', () => {
+      it('should fetch reservations', () => {
+        const nextProps = Object.assign({}, defaultProps, { isAdmin: true });
         instance.componentWillReceiveProps(nextProps);
-        expect(fetchReservations.callCount).to.equal(0);
+        expect(fetchReservations.callCount).to.equal(1);
+      });
+
+      it('should fetch reservations admin can approve', () => {
+        const nextProps = Object.assign({}, defaultProps, { isAdmin: true });
+        instance.componentWillReceiveProps(nextProps);
+        expect(fetchReservations.lastCall.args[0].canApprove).to.equal(true);
+      });
+
+      it('should not fetch admin reservations twice', () => {
+        const nextProps = Object.assign({}, defaultProps, { isAdmin: true });
+        instance.componentWillReceiveProps(nextProps);
+        instance.componentWillReceiveProps(nextProps);
+        expect(fetchReservations.callCount).to.equal(1);
       });
     });
   });
