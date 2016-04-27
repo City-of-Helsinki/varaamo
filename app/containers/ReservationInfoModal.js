@@ -1,16 +1,34 @@
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
+import Input from 'react-bootstrap/lib/Input';
 import Modal from 'react-bootstrap/lib/Modal';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { closeReservationInfoModal } from 'actions/uiActions';
+import { putReservation } from 'actions/reservationActions';
 import TimeRange from 'components/common/TimeRange';
 import reservationInfoModalSelector from 'selectors/containers/reservationInfoModalSelector';
 import { getName } from 'utils/DataUtils';
 import { renderReservationStateLabel } from 'utils/renderUtils';
 
 export class UnconnectedReservationInfoModal extends Component {
+  constructor(props) {
+    super(props);
+    this.handleSave = this.handleSave.bind(this);
+  }
+
+  handleSave() {
+    const { actions, reservationsToShow } = this.props;
+    const reservation = reservationsToShow.length ? reservationsToShow[0] : undefined;
+    if (!reservation) {
+      return;
+    }
+    const comments = this.refs.commentsInput.getValue();
+    actions.putReservation(Object.assign({}, reservation, { comments }));
+    actions.closeReservationInfoModal();
+  }
+
   renderModalContent(reservation, resource) {
     if (!reservation) {
       return null;
@@ -38,8 +56,17 @@ export class UnconnectedReservationInfoModal extends Component {
           <dt>Tila:</dt><dd>{getName(resource)}</dd>
           <dt>Osallistujamäärä:</dt><dd>{reservation.numberOfParticipants}</dd>
           <dt>Tilaisuuden kuvaus:</dt><dd>{reservation.eventDescription}</dd>
-          <dt>Kommentit:</dt><dd>{reservation.comments}</dd>
         </dl>
+        <form>
+          <Input
+            defaultValue={reservation.comments}
+            label="Kommentit:"
+            placeholder="Varauksen mahdolliset lisätiedot"
+            ref="commentsInput"
+            rows={5}
+            type="textarea"
+          />
+        </form>
       </div>
     );
   }
@@ -47,6 +74,7 @@ export class UnconnectedReservationInfoModal extends Component {
   render() {
     const {
       actions,
+      isEditingReservations,
       reservationsToShow,
       resources,
       show,
@@ -62,7 +90,7 @@ export class UnconnectedReservationInfoModal extends Component {
         show={show}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Varaukset tiedot</Modal.Title>
+          <Modal.Title>Varauksen tiedot</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
@@ -76,6 +104,14 @@ export class UnconnectedReservationInfoModal extends Component {
           >
             Takaisin
           </Button>
+          <Button
+            bsStyle="primary"
+            disabled={isEditingReservations}
+            onClick={this.handleSave}
+            type="submit"
+          >
+            {isEditingReservations ? 'Tallennetaan...' : 'Tallenna'}
+          </Button>
         </Modal.Footer>
       </Modal>
     );
@@ -84,6 +120,7 @@ export class UnconnectedReservationInfoModal extends Component {
 
 UnconnectedReservationInfoModal.propTypes = {
   actions: PropTypes.object.isRequired,
+  isEditingReservations: PropTypes.bool.isRequired,
   reservationsToShow: PropTypes.array.isRequired,
   resources: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
@@ -92,6 +129,7 @@ UnconnectedReservationInfoModal.propTypes = {
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
     closeReservationInfoModal,
+    putReservation,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
