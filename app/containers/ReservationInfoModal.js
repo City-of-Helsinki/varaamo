@@ -72,7 +72,7 @@ export class UnconnectedReservationInfoModal extends Component {
         show={show}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Varaukset tiedot</Modal.Title>
+          <Modal.Title>Varauksen tiedot</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
