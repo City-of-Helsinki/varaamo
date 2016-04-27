@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
+import queryString from 'query-string';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Input from 'react-bootstrap/lib/Input';
@@ -36,6 +37,8 @@ describe('Container: ReservationInfoModal', () => {
     actions: {
       closeReservationInfoModal: simple.stub(),
       putReservation: simple.stub(),
+      selectReservationToEdit: simple.stub(),
+      updatePath: simple.stub(),
     },
     isEditingReservations: false,
     reservationsToShow: Immutable([reservation]),
@@ -175,8 +178,8 @@ describe('Container: ReservationInfoModal', () => {
       describe('Footer buttons', () => {
         const buttons = modalFooter.find(Button);
 
-        it('should render two Button', () => {
-          expect(buttons.length).to.equal(2);
+        it('should render three Button', () => {
+          expect(buttons.length).to.equal(3);
         });
 
         describe('Cancel button', () => {
@@ -194,10 +197,23 @@ describe('Container: ReservationInfoModal', () => {
           });
         });
 
-        describe('Save button', () => {
+        describe('Edit button', () => {
           const button = buttons.at(1);
 
-          it('the second button should read "Tallenna"', () => {
+          it('the second button should read "Muokkaa"', () => {
+            expect(button.props().children).to.equal('Muokkaa');
+          });
+
+          it('should have handleEdit as its onClick prop', () => {
+            const instance = wrapper.instance();
+            expect(button.props().onClick).to.equal(instance.handleEdit);
+          });
+        });
+
+        describe('Save button', () => {
+          const button = buttons.at(2);
+
+          it('the third button should read "Tallenna"', () => {
             expect(button.props().children).to.equal('Tallenna');
           });
 
@@ -207,6 +223,41 @@ describe('Container: ReservationInfoModal', () => {
           });
         });
       });
+    });
+  });
+
+  describe('handleEdit', () => {
+    before(() => {
+      const instance = getWrapper().instance();
+      defaultProps.actions.closeReservationInfoModal.reset();
+      defaultProps.actions.selectReservationToEdit.reset();
+      defaultProps.actions.updatePath.reset();
+      instance.handleEdit();
+    });
+
+    it('should call selectReservationToEdit with reservation and minPeriod', () => {
+      expect(defaultProps.actions.selectReservationToEdit.callCount).to.equal(1);
+      expect(
+        defaultProps.actions.selectReservationToEdit.lastCall.args[0]
+      ).to.deep.equal(
+        { reservation: reservation, minPeriod: resource.minPeriod }
+      );
+    });
+
+    it('should call the updatePath with correct url', () => {
+      const actualUrlArg = defaultProps.actions.updatePath.lastCall.args[0];
+      const query = queryString.stringify({
+        date: reservation.begin.split('T')[0],
+        time: reservation.begin,
+      });
+      const expectedUrl = `/resources/${reservation.resource}/reservation?${query}`;
+
+      expect(defaultProps.actions.updatePath.callCount).to.equal(1);
+      expect(actualUrlArg).to.equal(expectedUrl);
+    });
+
+    it('should close the ReservationInfoModal', () => {
+      expect(defaultProps.actions.closeReservationInfoModal.callCount).to.equal(1);
     });
   });
 
