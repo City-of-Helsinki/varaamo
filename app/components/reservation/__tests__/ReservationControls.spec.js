@@ -15,6 +15,7 @@ describe('Component: reservation/ReservationControls', () => {
   const onDeleteClick = simple.stub();
   const onDenyClick = simple.stub();
   const onEditClick = simple.stub();
+  const onInfoClick = simple.stub();
 
   function getWrapper(reservation, isAdmin = false) {
     const props = {
@@ -24,6 +25,7 @@ describe('Component: reservation/ReservationControls', () => {
       onDeleteClick,
       onDenyClick,
       onEditClick,
+      onInfoClick,
       reservation: Immutable(reservation),
     };
     return shallow(<ReservationControls {...props} />);
@@ -75,12 +77,27 @@ describe('Component: reservation/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: true, state: 'requested' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('should render three buttons', () => {
-        expect(buttons.length).to.equal(3);
+      it('should render four buttons', () => {
+        expect(buttons.length).to.equal(4);
       });
 
       describe('the first button', () => {
         const button = buttons.at(0);
+
+        it('should be an info button', () => {
+          expect(button.props().children).to.equal('Tiedot');
+        });
+
+        it('clicking the button should call onInfoClick', () => {
+          onInfoClick.reset();
+          button.props().onClick();
+
+          expect(onInfoClick.callCount).to.equal(1);
+        });
+      });
+
+      describe('the second button', () => {
+        const button = buttons.at(1);
 
         it('should be a confirm button', () => {
           expect(button.props().children).to.equal('Hyväksy');
@@ -94,8 +111,8 @@ describe('Component: reservation/ReservationControls', () => {
         });
       });
 
-      describe('the second button', () => {
-        const button = buttons.at(1);
+      describe('the third button', () => {
+        const button = buttons.at(2);
 
         it('should be a deny button', () => {
           expect(button.props().children).to.equal('Hylkää');
@@ -109,8 +126,8 @@ describe('Component: reservation/ReservationControls', () => {
         });
       });
 
-      describe('the third button', () => {
-        const button = buttons.at(2);
+      describe('the fourth button', () => {
+        const button = buttons.at(3);
 
         it('should be an edit button', () => {
           expect(button.props().children).to.equal('Muokkaa');
@@ -129,8 +146,23 @@ describe('Component: reservation/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: true, state: 'cancelled' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('should not render any buttons', () => {
-        expect(buttons.length).to.equal(0);
+      it('should render one button', () => {
+        expect(buttons.length).to.equal(1);
+      });
+
+      describe('the button', () => {
+        const button = buttons.at(0);
+
+        it('should be an info button', () => {
+          expect(button.props().children).to.equal('Tiedot');
+        });
+
+        it('clicking the button should call onInfoClick', () => {
+          onInfoClick.reset();
+          button.props().onClick();
+
+          expect(onInfoClick.callCount).to.equal(1);
+        });
       });
     });
 
@@ -138,8 +170,23 @@ describe('Component: reservation/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: true, state: 'denied' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('should not render any buttons', () => {
-        expect(buttons.length).to.equal(0);
+      it('should render one button', () => {
+        expect(buttons.length).to.equal(1);
+      });
+
+      describe('the button', () => {
+        const button = buttons.at(0);
+
+        it('should be an info button', () => {
+          expect(button.props().children).to.equal('Tiedot');
+        });
+
+        it('clicking the button should call onInfoClick', () => {
+          onInfoClick.reset();
+          button.props().onClick();
+
+          expect(onInfoClick.callCount).to.equal(1);
+        });
       });
     });
 
@@ -147,12 +194,27 @@ describe('Component: reservation/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: true, state: 'confirmed' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('should render two buttons', () => {
-        expect(buttons.length).to.equal(2);
+      it('should render three buttons', () => {
+        expect(buttons.length).to.equal(3);
       });
 
       describe('the first button', () => {
         const button = buttons.at(0);
+
+        it('should be an info button', () => {
+          expect(button.props().children).to.equal('Tiedot');
+        });
+
+        it('clicking the button should call onInfoClick', () => {
+          onInfoClick.reset();
+          button.props().onClick();
+
+          expect(onInfoClick.callCount).to.equal(1);
+        });
+      });
+
+      describe('the second button', () => {
+        const button = buttons.at(1);
 
         it('should be a cancel button', () => {
           expect(button.props().children).to.equal('Peru');
@@ -166,8 +228,8 @@ describe('Component: reservation/ReservationControls', () => {
         });
       });
 
-      describe('the second button', () => {
-        const button = buttons.at(1);
+      describe('the third button', () => {
+        const button = buttons.at(2);
 
         it('should be an edit button', () => {
           expect(button.props().children).to.equal('Muokkaa');
