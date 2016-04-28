@@ -10,7 +10,7 @@ const resourcesSelector = (state) => state.data.resources;
 
 const reservationDeleteModalSelector = createSelector(
   modalIsOpenSelectorFactory(ModalTypes.DELETE_RESERVATION),
-  requestIsActiveSelectorFactory(ActionTypes.API.RESERVATIONS_DELETE_REQUEST),
+  requestIsActiveSelectorFactory(ActionTypes.API.RESERVATION_DELETE_REQUEST),
   resourcesSelector,
   toDeleteSelector,
   (
