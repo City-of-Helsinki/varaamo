@@ -13,7 +13,7 @@ export default {
     'Accept-Language': 'fi',
     'Content-Type': 'application/json',
   },
-  REQUIRED_ADMIN_EVENT_FIELDS: [
+  REQUIRED_STAFF_EVENT_FIELDS: [
     'eventDescription',
     'reserverName',
   ],

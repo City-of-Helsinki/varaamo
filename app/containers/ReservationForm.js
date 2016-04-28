@@ -6,7 +6,7 @@ import Well from 'react-bootstrap/lib/Well';
 import { reduxForm } from 'redux-form';
 
 import isEmail from 'validator/lib/isEmail';
-import { REQUIRED_ADMIN_EVENT_FIELDS } from 'constants/AppConstants';
+import { REQUIRED_STAFF_EVENT_FIELDS } from 'constants/AppConstants';
 
 const validators = {
   reserverEmailAddress: ({ reserverEmailAddress }) => {
@@ -33,7 +33,7 @@ const maxLengths = {
 
 export function validate(values, { fields, requiredFields }) {
   const errors = {};
-  const currentRequiredFields = values.isAdminEvent ? REQUIRED_ADMIN_EVENT_FIELDS : requiredFields;
+  const currentRequiredFields = values.staffEvent ? REQUIRED_STAFF_EVENT_FIELDS : requiredFields;
   fields.forEach((field) => {
     const validator = validators[field];
     if (validator) {
@@ -78,7 +78,7 @@ export class UnconnectedReservationForm extends Component {
     );
   }
 
-  renderIsAdminEventField(field) {
+  renderStaffEventField(field) {
     if (!field) {
       return null;
     }
@@ -92,7 +92,7 @@ export class UnconnectedReservationForm extends Component {
           `}
           label="Viraston oma tapahtuma"
           type="checkbox"
-          wrapperClassName="col-md-12 is-admin-event-field"
+          wrapperClassName="col-md-12 staff-event-field"
         />
       </Well>
     );
@@ -108,14 +108,14 @@ export class UnconnectedReservationForm extends Component {
       requiredFields,
     } = this.props;
 
-    this.requiredFields = fields.isAdminEvent && fields.isAdminEvent.checked ?
-      REQUIRED_ADMIN_EVENT_FIELDS :
+    this.requiredFields = fields.staffEvent && fields.staffEvent.checked ?
+      REQUIRED_STAFF_EVENT_FIELDS :
       requiredFields;
 
     return (
       <div>
         <form className="reservation-form form-horizontal">
-          {this.renderIsAdminEventField(fields.isAdminEvent)}
+          {this.renderStaffEventField(fields.staffEvent)}
           {this.renderField('text', 'Nimi', fields.reserverName)}
           {this.renderField('email', 'Sähköposti', fields.reserverEmailAddress)}
           {this.renderField('text', 'Puhelin', fields.reserverPhoneNumber)}

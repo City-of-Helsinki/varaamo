@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/lib/Button';
 import Input from 'react-bootstrap/lib/Input';
 
 import {
-  REQUIRED_ADMIN_EVENT_FIELDS,
+  REQUIRED_STAFF_EVENT_FIELDS,
   RESERVATION_FORM_FIELDS,
 } from 'constants/AppConstants';
 
@@ -19,10 +19,10 @@ import {
 describe('Container: ReservationForm', () => {
   describe('validation', () => {
     describe('if field value is missing', () => {
-      describe('if user is reserving an admin event', () => {
-        const values = { isAdminEvent: true };
-        it('should return an error if field belongs to REQUIRED_ADMIN_EVENT_FIELDS', () => {
-          const fieldName = REQUIRED_ADMIN_EVENT_FIELDS[0];
+      describe('if user is reserving an staff event', () => {
+        const values = { staffEvent: true };
+        it('should return an error if field belongs to REQUIRED_STAFF_EVENT_FIELDS', () => {
+          const fieldName = REQUIRED_STAFF_EVENT_FIELDS[0];
           const props = {
             fields: [fieldName],
             requiredFields: [],
@@ -31,7 +31,7 @@ describe('Container: ReservationForm', () => {
           expect(errors[fieldName]).to.exist;
         });
 
-        it('should not return an error if field does not belong to REQUIRED_ADMIN_EVENT_FIELDS', () => {
+        it('should not return an error if field does not belong to REQUIRED_STAFF_EVENT_FIELDS', () => {
           const fieldName = 'someField';
           const props = {
             fields: [fieldName],
@@ -152,11 +152,11 @@ describe('Container: ReservationForm', () => {
             expect(input.props().label).to.not.contain('*');
           });
 
-          describe('if isAdminEvent checkbox is checked', () => {
-            const defaultFields = { isAdminEvent: { name: 'isAdminEvent', checked: true } };
+          describe('if staffEvent checkbox is checked', () => {
+            const defaultFields = { staffEvent: { name: 'staffEvent', checked: true } };
 
-            it('should show an asterisk beside REQUIRED_ADMIN_EVENT_FIELDS', () => {
-              const fieldName = REQUIRED_ADMIN_EVENT_FIELDS[0];
+            it('should show an asterisk beside REQUIRED_STAFF_EVENT_FIELDS', () => {
+              const fieldName = REQUIRED_STAFF_EVENT_FIELDS[0];
               const fields = Object.assign({}, defaultFields, { [fieldName]: { name: fieldName } });
               const props = {
                 fields,
@@ -166,7 +166,7 @@ describe('Container: ReservationForm', () => {
               expect(input.props().label).to.contain('*');
             });
 
-            it('should not show an asterisk beside non REQUIRED_ADMIN_EVENT_FIELDS', () => {
+            it('should not show an asterisk beside non REQUIRED_STAFF_EVENT_FIELDS', () => {
               const fieldName = RESERVATION_FORM_FIELDS[1];
               const fields = Object.assign({}, defaultFields, { [fieldName]: { name: fieldName } });
               const props = {

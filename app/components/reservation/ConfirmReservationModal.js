@@ -33,7 +33,7 @@ class ConfirmReservationModal extends Component {
 
     if (isAdmin) {
       formFields.push('comments');
-      formFields.push('isAdminEvent');
+      formFields.push('staffEvent');
     }
 
     return formFields;
