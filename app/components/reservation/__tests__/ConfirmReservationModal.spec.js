@@ -1,11 +1,15 @@
 import { expect } from 'chai';
+import { shallow } from 'enzyme';
 import React from 'react';
 import sd from 'skin-deep';
 import simple from 'simple-mock';
 
+import forEach from 'lodash/collection/forEach';
 import Immutable from 'seamless-immutable';
 
 import ConfirmReservationModal from 'components/reservation/ConfirmReservationModal';
+import { RESERVATION_FORM_FIELDS } from 'constants/AppConstants';
+import ReservationForm from 'containers/ReservationForm';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
 
@@ -256,6 +260,104 @@ describe('Component: reservation/ConfirmReservationModal', () => {
         timeRangeTrees.forEach((timeRangeTree, index) => {
           expect(timeRangeTree.props.begin).to.equal(props.selectedReservations[index].begin);
           expect(timeRangeTree.props.end).to.equal(props.selectedReservations[index].end);
+        });
+      });
+    });
+  });
+
+  describe('rendering ReservationForm', () => {
+    function getForm(needManualConfirmation = false, isAdmin = false) {
+      const resource = Resource.build({
+        needManualConfirmation,
+        userPermissions: { isAdmin },
+      });
+      const props = getProps({ resource });
+      const wrapper = shallow(<ConfirmReservationModal {...props} />);
+      return wrapper.find(ReservationForm);
+    }
+
+    describe('if resource needs manual confirmation', () => {
+      const needManualConfirmation = true;
+      describe('if user is an admin', () => {
+        const isAdmin = true;
+        const form = getForm(needManualConfirmation, isAdmin);
+        const formFields = form.props().fields;
+
+        it('form fields should include staffEvent', () => {
+          expect(formFields).to.contain('staffEvent');
+        });
+
+        it('form fields should include comments', () => {
+          expect(formFields).to.contain('comments');
+        });
+
+        it('form fields should include RESERVATION_FORM_FIELDS', () => {
+          forEach(RESERVATION_FORM_FIELDS, (field) => {
+            expect(formFields).to.contain(field);
+          });
+        });
+      });
+
+      describe('if user is a regular user', () => {
+        const isAdmin = false;
+        const form = getForm(needManualConfirmation, isAdmin);
+        const formFields = form.props().fields;
+
+        it('form fields should not include staffEvent', () => {
+          expect(formFields).to.not.contain('staffEvent');
+        });
+
+        it('form fields should not include comments', () => {
+          expect(formFields).to.not.contain('comments');
+        });
+
+        it('form fields should include RESERVATION_FORM_FIELDS', () => {
+          forEach(RESERVATION_FORM_FIELDS, (field) => {
+            expect(formFields).to.contain(field);
+          });
+        });
+      });
+    });
+
+    describe('if resource does not need manual confirmation', () => {
+      const needManualConfirmation = false;
+      describe('if user is an admin', () => {
+        const isAdmin = true;
+        const form = getForm(needManualConfirmation, isAdmin);
+        const formFields = form.props().fields;
+
+        it('form fields should not include staffEvent', () => {
+          expect(formFields).to.not.contain('staffEvent');
+        });
+
+        it('form fields should include comments', () => {
+          expect(formFields).to.contain('comments');
+        });
+
+        it('form fields should not include RESERVATION_FORM_FIELDS', () => {
+          forEach(RESERVATION_FORM_FIELDS, (field) => {
+            expect(formFields).to.not.contain(field);
+          });
+        });
+      });
+
+      describe('if user is a regular user', () => {
+        const isAdmin = false;
+        const form = getForm(needManualConfirmation, isAdmin);
+        const formFields = form.props().fields;
+
+        it('form fields should not include staffEvent', () => {
+          expect(formFields).to.not.contain('staffEvent');
+        });
+
+        it('form fields should not include comments', () => {
+          expect(formFields).to.not.contain('comments');
+        });
+
+        it('form fields should not include RESERVATION_FORM_FIELDS', () => {
+          forEach(RESERVATION_FORM_FIELDS, (field) => {
+            expect(formFields).to.not.contain(field);
+          });
         });
       });
     });

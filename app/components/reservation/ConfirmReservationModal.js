@@ -33,7 +33,9 @@ class ConfirmReservationModal extends Component {
 
     if (isAdmin) {
       formFields.push('comments');
-      formFields.push('staffEvent');
+      if (resource.needManualConfirmation) {
+        formFields.push('staffEvent');
+      }
     }
 
     return formFields;
