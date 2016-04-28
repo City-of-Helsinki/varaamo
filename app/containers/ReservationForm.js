@@ -76,6 +76,26 @@ export class UnconnectedReservationForm extends Component {
     );
   }
 
+  renderIsAdminEventField(field) {
+    if (!field) {
+      return null;
+    }
+    return (
+      <Well>
+        <Input
+          {...field}
+          help={`
+            Viraston oma tapahtuma hyväksytään automaattisesti ja ainoat pakolliset tiedot
+            ovat varaajan nimi ja tilaisuuden kuvaus.
+          `}
+          label="Viraston oma tapahtuma"
+          type="checkbox"
+          wrapperClassName="col-md-12 is-admin-event-field"
+        />
+      </Well>
+    );
+  }
+
   render() {
     const {
       fields,
@@ -87,6 +107,7 @@ export class UnconnectedReservationForm extends Component {
     return (
       <div>
         <form className="reservation-form form-horizontal">
+          {this.renderIsAdminEventField(fields.isAdminEvent)}
           {this.renderField('text', 'Nimi', fields.reserverName)}
           {this.renderField('email', 'Sähköposti', fields.reserverEmailAddress)}
           {this.renderField('text', 'Puhelin', fields.reserverPhoneNumber)}
