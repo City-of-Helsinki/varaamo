@@ -13,6 +13,10 @@ export default {
     'Accept-Language': 'fi',
     'Content-Type': 'application/json',
   },
+  REQUIRED_ADMIN_EVENT_FIELDS: [
+    'eventDescription',
+    'reserverName',
+  ],
   RESERVATION_FORM_FIELDS: [
     'reserverName',
     'reserverEmailAddress',
