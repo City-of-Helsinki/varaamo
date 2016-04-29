@@ -41,4 +41,16 @@ describe('Component: common/CompactReservationsList', () => {
     const timeRange = wrapper.find(TimeRange);
     expect(timeRange.length).to.equal(defaultProps.reservations.length);
   });
+
+  describe('rendering resource name', () => {
+    it('should render resource name if correct resource is given', () => {
+      const li = wrapper.find('li').at(0);
+      expect(li.text()).to.contain(resource.name.fi);
+    });
+
+    it('should not render resource name if correct resource is not given', () => {
+      const li = getWrapper({ resources: undefined }).find('li').at(0);
+      expect(li.text()).to.not.contain(resource.name.fi);
+    });
+  });
 });

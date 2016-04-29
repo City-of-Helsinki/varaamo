@@ -11,6 +11,13 @@ class CompactReservationsList extends Component {
   }
 
   renderReservation(reservation) {
+    if (!this.props.resources) {
+      return (
+        <li key={reservation.begin}>
+          <TimeRange begin={reservation.begin} end={reservation.end} />
+        </li>
+      );
+    }
     const resource = this.props.resources[reservation.resource] || {};
     return (
       <li key={reservation.begin}>
@@ -32,7 +39,7 @@ class CompactReservationsList extends Component {
 
 CompactReservationsList.propTypes = {
   reservations: PropTypes.array.isRequired,
-  resources: PropTypes.object.isRequired,
+  resources: PropTypes.object,
 };
 
 export default CompactReservationsList;
