@@ -21,6 +21,14 @@ export class UnconnectedReservationInfoModal extends Component {
     this.handleSave = this.handleSave.bind(this);
   }
 
+  getAddress(street, zip, city) {
+    const ending = `${zip} ${city}`;
+    if (street && (zip || city)) {
+      return `${street}, ${ending}`;
+    }
+    return `${street} ${ending}`;
+  }
+
   handleEdit() {
     const { actions, reservationsToShow, resources } = this.props;
     const reservation = reservationsToShow.length ? reservationsToShow[0] : undefined;
@@ -62,13 +70,9 @@ export class UnconnectedReservationInfoModal extends Component {
           <dt>Puhelinnumero:</dt><dd>{reservation.reserverPhoneNumber}</dd>
           <dt>Sähköposti:</dt><dd>{reservation.reserverEmailAddress}</dd>
           <dt>Osoite:</dt>
-          <dd>
-            {reservation.reserverAddressStreet}, {reservation.reserverAddressZip} {reservation.reserverAddressCity}
-          </dd>
+          <dd>{this.getAddress(reservation.reserverAddressStreet, reservation.reserverAddressZip, reservation.reserverAddressCity)}</dd>
           <dt>Laskutusosoite:</dt>
-          <dd>
-            {reservation.billingAddressStreet}, {reservation.billingAddressZip} {reservation.billingAddressCity}
-          </dd>
+          <dd>{this.getAddress(reservation.billingAddressStreet, reservation.billingAddressZip, reservation.billingAddressCity)}</dd>
           <dt>Yhdistys:</dt><dd>{reservation.company}</dd>
           <dt>Y-tunnus:</dt><dd>{reservation.businessId}</dd>
           <dt>Varauksen ajankohta:</dt>
