@@ -3,6 +3,7 @@ import includes from 'lodash/collection/includes';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
+import ModalTypes from 'constants/ModalTypes';
 
 const initialState = Immutable({
   open: [],
@@ -12,6 +13,14 @@ function modalsReducer(state = initialState, action) {
   let modal;
 
   switch (action.type) {
+
+  case types.API.RESERVATION_POST_SUCCESS:
+    const reservation = action.payload;
+    if (reservation.needManualConfirmation) {
+      modal = ModalTypes.RESERVATION_SUCCESS;
+      return state.merge({ open: [...state.open, modal] });
+    }
+    return state;
 
   case types.UI.CLOSE_MODAL:
     modal = action.payload;

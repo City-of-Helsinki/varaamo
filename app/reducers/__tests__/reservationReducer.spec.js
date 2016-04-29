@@ -54,6 +54,7 @@ describe('Reducer: reservationReducer', () => {
         const action = postReservationSuccess();
         const initialState = Immutable({
           selected: ['some-selected'],
+          toShow: [],
         });
         const nextState = reservationReducer(initialState, action);
 
@@ -64,10 +65,38 @@ describe('Reducer: reservationReducer', () => {
         const action = postReservationSuccess();
         const initialState = Immutable({
           toEdit: ['something-to-edit'],
+          toShow: [],
         });
         const nextState = reservationReducer(initialState, action);
 
         expect(nextState.toEdit).to.deep.equal([]);
+      });
+
+      it('should add the given reservation to toShow', () => {
+        const initialState = Immutable({
+          toShow: [],
+        });
+        const reservation = Reservation.build();
+        const action = postReservationSuccess(reservation);
+        const nextState = reservationReducer(initialState, action);
+        const expected = Immutable([reservation]);
+
+        expect(nextState.toShow).to.deep.equal(expected);
+      });
+
+      it('should not affect other reservations in toShow', () => {
+        const reservations = [
+          Reservation.build(),
+          Reservation.build(),
+        ];
+        const initialState = Immutable({
+          toShow: [reservations[0]],
+        });
+        const action = postReservationSuccess(reservations[1]);
+        const nextState = reservationReducer(initialState, action);
+        const expected = Immutable([reservations[0], reservations[1]]);
+
+        expect(nextState.toShow).to.deep.equal(expected);
       });
     });
 
@@ -78,6 +107,7 @@ describe('Reducer: reservationReducer', () => {
         const action = putReservationSuccess();
         const initialState = Immutable({
           selected: ['some-selected'],
+          toShow: [],
         });
         const nextState = reservationReducer(initialState, action);
 
@@ -88,10 +118,38 @@ describe('Reducer: reservationReducer', () => {
         const action = putReservationSuccess();
         const initialState = Immutable({
           toEdit: ['something-to-edit'],
+          toShow: [],
         });
         const nextState = reservationReducer(initialState, action);
 
         expect(nextState.toEdit).to.deep.equal([]);
+      });
+
+      it('should add the given reservation to toShow', () => {
+        const initialState = Immutable({
+          toShow: [],
+        });
+        const reservation = Reservation.build();
+        const action = putReservationSuccess(reservation);
+        const nextState = reservationReducer(initialState, action);
+        const expected = Immutable([reservation]);
+
+        expect(nextState.toShow).to.deep.equal(expected);
+      });
+
+      it('should not affect other reservations in toShow', () => {
+        const reservations = [
+          Reservation.build(),
+          Reservation.build(),
+        ];
+        const initialState = Immutable({
+          toShow: [reservations[0]],
+        });
+        const action = putReservationSuccess(reservations[1]);
+        const nextState = reservationReducer(initialState, action);
+        const expected = Immutable([reservations[0], reservations[1]]);
+
+        expect(nextState.toShow).to.deep.equal(expected);
       });
     });
 

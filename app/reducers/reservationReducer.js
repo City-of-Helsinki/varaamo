@@ -36,6 +36,7 @@ function reservationReducer(state = initialState, action) {
     return state.merge({
       selected: [],
       toEdit: [],
+      toShow: [...state.toShow, action.payload],
     });
 
   case types.UI.CANCEL_RESERVATION_EDIT:
@@ -56,6 +57,9 @@ function reservationReducer(state = initialState, action) {
       return state.merge({ toDelete: [] });
     }
     if (modal === ModalTypes.RESERVATION_INFO) {
+      return state.merge({ toShow: [] });
+    }
+    if (modal === ModalTypes.RESERVATION_SUCCESS) {
       return state.merge({ toShow: [] });
     }
     return state;

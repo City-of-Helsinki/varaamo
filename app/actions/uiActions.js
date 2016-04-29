@@ -29,6 +29,11 @@ const closeReservationInfoModal = createAction(
   () => ModalTypes.RESERVATION_INFO
 );
 
+const closeReservationSuccessModal = createAction(
+  types.UI.CLOSE_MODAL,
+  () => ModalTypes.RESERVATION_SUCCESS
+);
+
 const openConfirmReservationModal = createAction(
   types.UI.OPEN_MODAL,
   () => ModalTypes.RESERVATION_CONFIRM
@@ -75,6 +80,7 @@ export default {
   closeReservationCancelModal,
   closeReservationDeleteModal,
   closeReservationInfoModal,
+  closeReservationSuccessModal,
   openConfirmReservationModal,
   openReservationCancelModal,
   openReservationDeleteModal,
