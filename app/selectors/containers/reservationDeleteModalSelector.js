@@ -9,8 +9,8 @@ const toDeleteSelector = (state) => state.ui.reservation.toDelete;
 const resourcesSelector = (state) => state.data.resources;
 
 const reservationDeleteModalSelector = createSelector(
-  modalIsOpenSelectorFactory(ModalTypes.DELETE_RESERVATION),
-  requestIsActiveSelectorFactory(ActionTypes.API.RESERVATIONS_DELETE_REQUEST),
+  modalIsOpenSelectorFactory(ModalTypes.RESERVATION_DELETE),
+  requestIsActiveSelectorFactory(ActionTypes.API.RESERVATION_DELETE_REQUEST),
   resourcesSelector,
   toDeleteSelector,
   (
