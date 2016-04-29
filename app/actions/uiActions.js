@@ -11,17 +11,17 @@ const clearReservations = createAction(types.UI.CLEAR_RESERVATIONS);
 
 const closeConfirmReservationModal = createAction(
   types.UI.CLOSE_MODAL,
-  () => ModalTypes.CONFIRM_RESERVATION
+  () => ModalTypes.RESERVATION_CONFIRM
 );
 
 const closeReservationCancelModal = createAction(
   types.UI.CLOSE_MODAL,
-  () => ModalTypes.CANCEL_RESERVATION
+  () => ModalTypes.RESERVATION_CANCEL
 );
 
 const closeReservationDeleteModal = createAction(
   types.UI.CLOSE_MODAL,
-  () => ModalTypes.DELETE_RESERVATION
+  () => ModalTypes.RESERVATION_DELETE
 );
 
 const closeReservationInfoModal = createAction(
@@ -31,17 +31,17 @@ const closeReservationInfoModal = createAction(
 
 const openConfirmReservationModal = createAction(
   types.UI.OPEN_MODAL,
-  () => ModalTypes.CONFIRM_RESERVATION
+  () => ModalTypes.RESERVATION_CONFIRM
 );
 
 const openReservationCancelModal = createAction(
   types.UI.OPEN_MODAL,
-  () => ModalTypes.CANCEL_RESERVATION
+  () => ModalTypes.RESERVATION_CANCEL
 );
 
 const openReservationDeleteModal = createAction(
   types.UI.OPEN_MODAL,
-  () => ModalTypes.DELETE_RESERVATION
+  () => ModalTypes.RESERVATION_DELETE
 );
 
 const openReservationInfoModal = createAction(

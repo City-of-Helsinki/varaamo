@@ -124,7 +124,7 @@ describe('Reducer: reservationReducer', () => {
     });
 
     describe('UI.CLOSE_MODAL', () => {
-      describe('if closed modal is CANCEL_RESERVATION modal', () => {
+      describe('if closed modal is RESERVATION_CANCEL modal', () => {
         it('should clear toCancel array', () => {
           const initialState = Immutable({
             toCancel: [Reservation.build()],
@@ -136,7 +136,7 @@ describe('Reducer: reservationReducer', () => {
         });
       });
 
-      describe('if closed modal is DELETE_RESERVATION modal', () => {
+      describe('if closed modal is RESERVATION_DELETE modal', () => {
         it('should clear toDelete array', () => {
           const initialState = Immutable({
             toDelete: [Reservation.build()],

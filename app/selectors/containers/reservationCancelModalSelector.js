@@ -9,7 +9,7 @@ const resourcesSelector = (state) => state.data.resources;
 
 const reservationCancelModalSelector = createSelector(
   isAdminSelector,
-  modalIsOpenSelectorFactory(ModalTypes.CANCEL_RESERVATION),
+  modalIsOpenSelectorFactory(ModalTypes.RESERVATION_CANCEL),
   resourcesSelector,
   toCancelSelector,
   (

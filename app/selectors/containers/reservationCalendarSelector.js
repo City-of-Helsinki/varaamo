@@ -22,7 +22,7 @@ const urlHashSelector = (state, props) => props.location.hash;
 const reservationCalendarSelector = createSelector(
   idSelector,
   isLoggedInSelector,
-  modalIsOpenSelectorFactory(ModalTypes.CONFIRM_RESERVATION),
+  modalIsOpenSelectorFactory(ModalTypes.RESERVATION_CONFIRM),
   requestIsActiveSelectorFactory(ActionTypes.API.RESERVATION_POST_REQUEST),
   requestIsActiveSelectorFactory(ActionTypes.API.RESOURCE_GET_REQUEST),
   dateSelector,
