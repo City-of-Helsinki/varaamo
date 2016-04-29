@@ -6,6 +6,7 @@ import Well from 'react-bootstrap/lib/Well';
 import { reduxForm } from 'redux-form';
 
 import isEmail from 'validator/lib/isEmail';
+import { REQUIRED_STAFF_EVENT_FIELDS } from 'constants/AppConstants';
 
 const validators = {
   reserverEmailAddress: ({ reserverEmailAddress }) => {
@@ -32,6 +33,7 @@ const maxLengths = {
 
 export function validate(values, { fields, requiredFields }) {
   const errors = {};
+  const currentRequiredFields = values.staffEvent ? REQUIRED_STAFF_EVENT_FIELDS : requiredFields;
   fields.forEach((field) => {
     const validator = validators[field];
     if (validator) {
@@ -45,7 +47,7 @@ export function validate(values, { fields, requiredFields }) {
         errors[field] = `Kentän maksimipituus on ${maxLengths[field]} merkkiä`;
       }
     }
-    if (includes(requiredFields, field)) {
+    if (includes(currentRequiredFields, field)) {
       if (!values[field]) {
         errors[field] = 'Pakollinen tieto';
       }
@@ -60,7 +62,7 @@ export class UnconnectedReservationForm extends Component {
       return null;
     }
     const hasError = field.error && field.touched;
-    const isRequired = includes(this.props.requiredFields, field.name);
+    const isRequired = includes(this.requiredFields, field.name);
 
     return (
       <Input
@@ -76,6 +78,26 @@ export class UnconnectedReservationForm extends Component {
     );
   }
 
+  renderStaffEventField(field) {
+    if (!field) {
+      return null;
+    }
+    return (
+      <Well>
+        <Input
+          {...field}
+          help={`
+            Viraston oma tapahtuma hyväksytään automaattisesti ja ainoat pakolliset tiedot
+            ovat varaajan nimi ja tilaisuuden kuvaus.
+          `}
+          label="Viraston oma tapahtuma"
+          type="checkbox"
+          wrapperClassName="col-md-12 staff-event-field"
+        />
+      </Well>
+    );
+  }
+
   render() {
     const {
       fields,
@@ -83,10 +105,17 @@ export class UnconnectedReservationForm extends Component {
       handleSubmit,
       onClose,
       onConfirm,
+      requiredFields,
     } = this.props;
+
+    this.requiredFields = fields.staffEvent && fields.staffEvent.checked ?
+      REQUIRED_STAFF_EVENT_FIELDS :
+      requiredFields;
+
     return (
       <div>
         <form className="reservation-form form-horizontal">
+          {this.renderStaffEventField(fields.staffEvent)}
           {this.renderField('text', 'Nimi', fields.reserverName)}
           {this.renderField('email', 'Sähköposti', fields.reserverEmailAddress)}
           {this.renderField('text', 'Puhelin', fields.reserverPhoneNumber)}
