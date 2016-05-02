@@ -19,6 +19,7 @@ const appSelector = createSelector(
     return {
       isLoggedIn,
       user,
+      userId,
     };
   }
 );
