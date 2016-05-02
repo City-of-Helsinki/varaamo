@@ -87,9 +87,17 @@ class ConfirmReservationModal extends Component {
       );
     }
 
-    const helpText = isPreliminaryReservation ?
-      'Olet tekemässä alustavaa varausta seuraaville ajoille:' :
-      'Oletko varma että haluat tehdä seuraavat varaukset?';
+    let helpText;
+
+    if (isPreliminaryReservation) {
+      helpText = selectedReservations.length === 1 ?
+        'Olet tekemässä alustavaa varausta ajalle:' :
+        'Olet tekemässä alustavaa varausta ajoille:';
+    } else {
+      helpText = selectedReservations.length === 1 ?
+        'Oletko varma että haluat tehdä varauksen ajalle:' :
+        'Oletko varma että haluat tehdä varaukset ajoille:';
+    }
 
     return (
       <div>

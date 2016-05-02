@@ -82,7 +82,7 @@ describe('Component: reservation/ConfirmReservationModal', () => {
 
       it('should render a help text asking for confirmation', () => {
         const textTree = modalBodyTrees[0].subTree('p');
-        const expected = 'Oletko varma että haluat tehdä seuraavat varaukset?';
+        const expected = 'Oletko varma että haluat tehdä varaukset ajoille:';
         expect(textTree.text()).to.equal(expected);
       });
 
@@ -152,7 +152,7 @@ describe('Component: reservation/ConfirmReservationModal', () => {
 
       it('should render a help text asking for confirmation', () => {
         const textTree = modalBodyTrees[0].subTree('p');
-        const expected = 'Olet tekemässä alustavaa varausta seuraaville ajoille:';
+        const expected = 'Olet tekemässä alustavaa varausta ajoille:';
         expect(textTree.text()).to.equal(expected);
       });
 

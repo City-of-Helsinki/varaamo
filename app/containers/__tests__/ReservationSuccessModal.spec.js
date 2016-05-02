@@ -80,7 +80,7 @@ describe('Container: ReservationSuccessModal', () => {
         it('should pass correct props to CompactReservationsList component', () => {
           const list = modalBody.find(CompactReservationsList);
           expect(list.props().reservations).to.deep.equal(defaultProps.reservationsToShow);
-          expect(list.props().resources).to.deep.equal(defaultProps.resources);
+          expect(list.props().resources).to.equal(undefined);
         });
       });
     });
