@@ -104,10 +104,16 @@ class ConfirmReservationModal extends Component {
         <p><strong>{helpText}</strong></p>
         <CompactReservationsList reservations={selectedReservations} />
         {isPreliminaryReservation && (
-          <p>
-            Täytä vielä seuraavat tiedot alustavaa varausta varten.
-            Tähdellä (*) merkityt tiedot ovat pakollisia.
-          </p>
+          <div>
+            <p>
+              Huomioi, että  tilan käyttö voi olla maksullista. Tarkemmat hintatiedot löytyvät
+              tilan tiedoista. Varaus on alustava ja käsitellään kahden arkipäivän kuluessa.
+            </p>
+            <p>
+              Täytä vielä seuraavat tiedot alustavaa varausta varten.
+              Tähdellä (*) merkityt tiedot ovat pakollisia.
+            </p>
+          </div>
         )}
       </div>
     );
