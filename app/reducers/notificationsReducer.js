@@ -66,11 +66,11 @@ function notificationsReducer(state = initialState, action) {
 
   case types.API.RESERVATION_POST_SUCCESS:
     const reservation = action.payload;
-    message = reservation.needManualConfirmation ?
-      'Alustavan varauksen tekeminen onnistui.' :
-      'Varauksen tekeminen onnistui.';
+    if (reservation.needManualConfirmation) {
+      return state;
+    }
     notification = {
-      message,
+      message: 'Varauksen tekeminen onnistui.',
       type: 'success',
     };
     return addNotification(state, notification);
