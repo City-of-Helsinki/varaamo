@@ -29,6 +29,7 @@ describe('Component: reservation/ReservationsListItem', () => {
     selectReservationToDelete: simple.stub(),
     selectReservationToEdit: simple.stub(),
     selectReservationToShow: simple.stub(),
+    staffUnits: [],
     unit: Immutable(Unit.build()),
   };
   const tree = sd.shallowRender(<ReservationsListItem {...props} />);
@@ -99,6 +100,7 @@ describe('Component: reservation/ReservationsListItem', () => {
 
         expect(actualProps.reservation).to.equal(props.reservation);
         expect(actualProps.isAdmin).to.equal(false);
+        expect(actualProps.isStaff).to.equal(false);
         expect(actualProps.onCancelClick).to.equal(instance.handleCancelClick);
         expect(actualProps.onDeleteClick).to.equal(instance.handleDeleteClick);
         expect(actualProps.onEditClick).to.equal(instance.handleEditClick);

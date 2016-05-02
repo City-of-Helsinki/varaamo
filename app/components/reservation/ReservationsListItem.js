@@ -1,3 +1,4 @@
+import includes from 'lodash/collection/includes';
 import isEmpty from 'lodash/lang/isEmpty';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
@@ -109,6 +110,7 @@ class ReservationsListItem extends Component {
       isAdmin,
       reservation,
       resource,
+      staffUnits,
       unit,
     } = this.props;
 
@@ -152,6 +154,7 @@ class ReservationsListItem extends Component {
         {renderReservationStateLabel(reservation)}
         <ReservationControls
           isAdmin={isAdmin}
+          isStaff={includes(staffUnits, resource.unit)}
           onCancelClick={this.handleCancelClick}
           onConfirmClick={this.handleConfirmClick}
           onDeleteClick={this.handleDeleteClick}
@@ -178,6 +181,7 @@ ReservationsListItem.propTypes = {
   selectReservationToDelete: PropTypes.func.isRequired,
   selectReservationToEdit: PropTypes.func.isRequired,
   selectReservationToShow: PropTypes.func.isRequired,
+  staffUnits: PropTypes.array.isRequired,
   unit: PropTypes.object.isRequired,
   updatePath: PropTypes.func.isRequired,
 };

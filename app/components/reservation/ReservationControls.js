@@ -79,7 +79,7 @@ class ReservationControls extends Component {
     };
   }
 
-  renderButtons(buttons, isAdmin, reservation) {
+  renderButtons(buttons, isAdmin, isStaff, reservation) {
     if (!reservation.needManualConfirmation) {
       if (reservation.state === 'cancelled') {
         return null;
@@ -97,9 +97,12 @@ class ReservationControls extends Component {
         null;
 
     case 'confirmed':
-      return isAdmin ?
-        [buttons.info, buttons.adminCancel, buttons.edit] :
-        [buttons.cancel];
+      if (isAdmin) {
+        return isStaff ?
+          [buttons.info, buttons.adminCancel, buttons.edit] :
+          [buttons.info, buttons.adminCancel];
+      }
+      return [buttons.cancel];
 
     case 'denied':
       return isAdmin ?
@@ -118,7 +121,7 @@ class ReservationControls extends Component {
   }
 
   render() {
-    const { isAdmin, reservation } = this.props;
+    const { isAdmin, isStaff, reservation } = this.props;
 
     if (!reservation || moment() > moment(reservation.end)) {
       return null;
@@ -126,7 +129,7 @@ class ReservationControls extends Component {
 
     return (
       <div className="buttons">
-        {this.renderButtons(this.buttons, isAdmin, reservation)}
+        {this.renderButtons(this.buttons, isAdmin, isStaff, reservation)}
       </div>
     );
   }
@@ -134,6 +137,7 @@ class ReservationControls extends Component {
 
 ReservationControls.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
+  isStaff: PropTypes.bool.isRequired,
   onCancelClick: PropTypes.func.isRequired,
   onConfirmClick: PropTypes.func.isRequired,
   onDeleteClick: PropTypes.func.isRequired,
