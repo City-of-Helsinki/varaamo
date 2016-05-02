@@ -1,10 +1,9 @@
-import map from 'lodash/collection/map';
 import pick from 'lodash/object/pick';
 import camelCase from 'lodash/string/camelCase';
 import React, { Component, PropTypes } from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 
-import TimeRange from 'components/common/TimeRange';
+import CompactReservationsList from 'components/common/CompactReservationsList';
 import { RESERVATION_FORM_FIELDS } from 'constants/AppConstants';
 import ReservationForm from 'containers/ReservationForm';
 
@@ -81,27 +80,29 @@ class ConfirmReservationModal extends Component {
         <div>
           <p><strong>Oletko varma että haluat muuttaa varaustasi?</strong></p>
           <p>Ennen muutoksia:</p>
-          <ul>
-            {map(reservationsToEdit, this.renderReservation)}
-          </ul>
+          <CompactReservationsList reservations={reservationsToEdit} />
           <p>Muutosten jälkeen:</p>
-          <ul>
-            {map(selectedReservations, this.renderReservation)}
-          </ul>
+          <CompactReservationsList reservations={selectedReservations} />
         </div>
       );
     }
 
-    const helpText = isPreliminaryReservation ?
-      'Olet tekemässä alustavaa varausta seuraaville ajoille:' :
-      'Oletko varma että haluat tehdä seuraavat varaukset?';
+    let helpText;
+
+    if (isPreliminaryReservation) {
+      helpText = selectedReservations.length === 1 ?
+        'Olet tekemässä alustavaa varausta ajalle:' :
+        'Olet tekemässä alustavaa varausta ajoille:';
+    } else {
+      helpText = selectedReservations.length === 1 ?
+        'Oletko varma että haluat tehdä varauksen ajalle:' :
+        'Oletko varma että haluat tehdä varaukset ajoille:';
+    }
 
     return (
       <div>
         <p><strong>{helpText}</strong></p>
-        <ul>
-          {map(selectedReservations, this.renderReservation)}
-        </ul>
+        <CompactReservationsList reservations={selectedReservations} />
         {isPreliminaryReservation && (
           <p>
             Täytä vielä seuraavat tiedot alustavaa varausta varten.
@@ -109,14 +110,6 @@ class ConfirmReservationModal extends Component {
           </p>
         )}
       </div>
-    );
-  }
-
-  renderReservation(reservation) {
-    return (
-      <li key={reservation.begin}>
-        <TimeRange begin={reservation.begin} end={reservation.end} />
-      </li>
     );
   }
 

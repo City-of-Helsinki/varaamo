@@ -70,22 +70,15 @@ describe('Container: ReservationDeleteModal', () => {
         expect(modalBodyTrees.length).to.equal(1);
       });
 
-      it('should render a list for selected reservations', () => {
-        const listTrees = modalBodyTrees[0].everySubTree('ul');
-
-        expect(listTrees.length).to.equal(1);
+      it('should render a CompactReservationsList component', () => {
+        const list = modalBodyTrees[0].everySubTree('CompactReservationsList');
+        expect(list.length).to.equal(1);
       });
 
-      it('should render a list element for each selected reservation', () => {
-        const listElementTrees = modalBodyTrees[0].everySubTree('li');
-
-        expect(listElementTrees.length).to.equal(props.reservationsToDelete.length);
-      });
-
-      it('should display a TimeRange for each selected reservation', () => {
-        const timeRangeTrees = modalBodyTrees[0].everySubTree('TimeRange');
-
-        expect(timeRangeTrees.length).to.equal(props.reservationsToDelete.length);
+      it('should pass correct props to CompactReservationsList component', () => {
+        const list = modalBodyTrees[0].subTree('CompactReservationsList');
+        expect(list.props.reservations).to.deep.equal(props.reservationsToDelete);
+        expect(list.props.resources).to.deep.equal(props.resources);
       });
     });
 

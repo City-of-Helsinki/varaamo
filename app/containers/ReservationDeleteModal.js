@@ -1,4 +1,3 @@
-import map from 'lodash/collection/map';
 import forEach from 'lodash/collection/forEach';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
@@ -8,15 +7,13 @@ import { bindActionCreators } from 'redux';
 
 import { deleteReservation } from 'actions/reservationActions';
 import { closeReservationDeleteModal } from 'actions/uiActions';
-import TimeRange from 'components/common/TimeRange';
+import CompactReservationsList from 'components/common/CompactReservationsList';
 import reservationDeleteModalSelector from 'selectors/containers/reservationDeleteModalSelector';
-import { getName } from 'utils/DataUtils';
 
 export class UnconnectedReservationDeleteModal extends Component {
   constructor(props) {
     super(props);
     this.handleDelete = this.handleDelete.bind(this);
-    this.renderReservation = this.renderReservation.bind(this);
   }
 
   handleDelete() {
@@ -28,23 +25,12 @@ export class UnconnectedReservationDeleteModal extends Component {
     actions.closeReservationDeleteModal();
   }
 
-  renderReservation(reservation) {
-    const resource = this.props.resources[reservation.resource] || {};
-
-    return (
-      <li key={reservation.begin}>
-        {getName(resource)}
-        {': '}
-        <TimeRange begin={reservation.begin} end={reservation.end} />
-      </li>
-    );
-  }
-
   render() {
     const {
       actions,
       isDeletingReservations,
       reservationsToDelete,
+      resources,
       show,
     } = this.props;
 
@@ -59,9 +45,7 @@ export class UnconnectedReservationDeleteModal extends Component {
 
         <Modal.Body>
           <p><strong>Oletko varma että haluat perua seuraavat varaukset?</strong></p>
-          <ul>
-            {map(reservationsToDelete, this.renderReservation)}
-          </ul>
+          <CompactReservationsList reservations={reservationsToDelete} resources={resources} />
         </Modal.Body>
 
         <Modal.Footer>

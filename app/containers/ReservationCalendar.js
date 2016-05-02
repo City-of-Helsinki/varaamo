@@ -30,6 +30,7 @@ import ReservationCalendarControls from 'components/reservation/ReservationCalen
 import TimeSlots from 'components/reservation/TimeSlots';
 import ReservationDeleteModal from 'containers/ReservationDeleteModal';
 import ReservationInfoModal from 'containers/ReservationInfoModal';
+import ReservationSuccessModal from 'containers/ReservationSuccessModal';
 import reservationCalendarSelector from 'selectors/containers/reservationCalendarSelector';
 
 export class UnconnectedReservationCalendar extends Component {
@@ -181,6 +182,7 @@ export class UnconnectedReservationCalendar extends Component {
         />
         <ReservationDeleteModal />
         <ReservationInfoModal />
+        <ReservationSuccessModal />
       </div>
     );
   }

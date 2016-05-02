@@ -1,5 +1,4 @@
 import forEach from 'lodash/collection/forEach';
-import map from 'lodash/collection/map';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-bootstrap/lib/Modal';
@@ -8,15 +7,13 @@ import { bindActionCreators } from 'redux';
 
 import { cancelPreliminaryReservation } from 'actions/reservationActions';
 import { closeReservationCancelModal } from 'actions/uiActions';
-import TimeRange from 'components/common/TimeRange';
+import CompactReservationsList from 'components/common/CompactReservationsList';
 import reservationCancelModalSelector from 'selectors/containers/reservationCancelModalSelector';
-import { getName } from 'utils/DataUtils';
 
 export class UnconnectedReservationCancelModal extends Component {
   constructor(props) {
     super(props);
     this.handleCancel = this.handleCancel.bind(this);
-    this.renderReservation = this.renderReservation.bind(this);
   }
 
   handleCancel() {
@@ -28,14 +25,12 @@ export class UnconnectedReservationCancelModal extends Component {
     actions.closeReservationCancelModal();
   }
 
-  renderModalContent(cancelAllowed, reservationsToCancel, reservationInfo) {
+  renderModalContent(reservations, resources, cancelAllowed, reservationInfo) {
     if (cancelAllowed) {
       return (
         <div>
           <p><strong>Oletko varma että haluat perua seuraavat varaukset?</strong></p>
-          <ul>
-            {map(reservationsToCancel, this.renderReservation)}
-          </ul>
+          <CompactReservationsList reservations={reservations} resources={resources} />
         </div>
       );
     }
@@ -53,17 +48,6 @@ export class UnconnectedReservationCancelModal extends Component {
         </p>
         <p className="reservation-info">{reservationInfo}</p>
       </div>
-    );
-  }
-
-  renderReservation(reservation) {
-    const resource = this.props.resources[reservation.resource] || {};
-    return (
-      <li key={reservation.begin}>
-        {getName(resource)}
-        {': '}
-        <TimeRange begin={reservation.begin} end={reservation.end} />
-      </li>
     );
   }
 
@@ -92,7 +76,7 @@ export class UnconnectedReservationCancelModal extends Component {
         </Modal.Header>
 
         <Modal.Body>
-          {this.renderModalContent(cancelAllowed, reservationsToCancel, resource.reservationInfo)}
+          {this.renderModalContent(reservationsToCancel, resources, cancelAllowed, resource.reservationInfo)}
         </Modal.Body>
 
         <Modal.Footer>

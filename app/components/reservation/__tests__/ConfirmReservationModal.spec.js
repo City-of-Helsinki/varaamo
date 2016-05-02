@@ -82,26 +82,18 @@ describe('Component: reservation/ConfirmReservationModal', () => {
 
       it('should render a help text asking for confirmation', () => {
         const textTree = modalBodyTrees[0].subTree('p');
-        const expected = 'Oletko varma että haluat tehdä seuraavat varaukset?';
+        const expected = 'Oletko varma että haluat tehdä varaukset ajoille:';
         expect(textTree.text()).to.equal(expected);
       });
 
-      it('should render a list for selected reservations', () => {
-        const listTrees = modalBodyTrees[0].everySubTree('ul');
-
-        expect(listTrees.length).to.equal(1);
+      it('should render a CompactReservationsList component', () => {
+        const list = modalBodyTrees[0].everySubTree('CompactReservationsList');
+        expect(list.length).to.equal(1);
       });
 
-      it('should render a list element for each selected reservation', () => {
-        const listElementTrees = modalBodyTrees[0].everySubTree('li');
-
-        expect(listElementTrees.length).to.equal(props.selectedReservations.length);
-      });
-
-      it('should display a TimeRange for each selected reservation', () => {
-        const timeRangeTrees = modalBodyTrees[0].everySubTree('TimeRange');
-
-        expect(timeRangeTrees.length).to.equal(props.selectedReservations.length);
+      it('should pass correct props to CompactReservationsList component', () => {
+        const list = modalBodyTrees[0].subTree('CompactReservationsList');
+        expect(list.props.reservations).to.deep.equal(props.selectedReservations);
       });
     });
   });
@@ -160,26 +152,18 @@ describe('Component: reservation/ConfirmReservationModal', () => {
 
       it('should render a help text asking for confirmation', () => {
         const textTree = modalBodyTrees[0].subTree('p');
-        const expected = 'Olet tekemässä alustavaa varausta seuraaville ajoille:';
+        const expected = 'Olet tekemässä alustavaa varausta ajoille:';
         expect(textTree.text()).to.equal(expected);
       });
 
-      it('should render a list for selected reservations', () => {
-        const listTrees = modalBodyTrees[0].everySubTree('ul');
-
-        expect(listTrees.length).to.equal(1);
+      it('should render a CompactReservationsList component', () => {
+        const list = modalBodyTrees[0].everySubTree('CompactReservationsList');
+        expect(list.length).to.equal(1);
       });
 
-      it('should render a list element for each selected reservation', () => {
-        const listElementTrees = modalBodyTrees[0].everySubTree('li');
-
-        expect(listElementTrees.length).to.equal(props.selectedReservations.length);
-      });
-
-      it('should display a TimeRange for each selected reservation', () => {
-        const timeRangeTrees = modalBodyTrees[0].everySubTree('TimeRange');
-
-        expect(timeRangeTrees.length).to.equal(props.selectedReservations.length);
+      it('should pass correct props to CompactReservationsList component', () => {
+        const list = modalBodyTrees[0].subTree('CompactReservationsList');
+        expect(list.props.reservations).to.deep.equal(props.selectedReservations);
       });
     });
   });
@@ -238,29 +222,18 @@ describe('Component: reservation/ConfirmReservationModal', () => {
       });
 
       it('should render two lists', () => {
-        const listTrees = modalBodyTrees[0].everySubTree('ul');
-
-        expect(listTrees.length).to.equal(2);
+        const lists = modalBodyTrees[0].everySubTree('CompactReservationsList');
+        expect(lists.length).to.equal(2);
       });
 
       it('the first list should contain reservations that are edited', () => {
-        const listTree = modalBodyTrees[0].everySubTree('ul')[0];
-        const timeRangeTrees = listTree.everySubTree('TimeRange');
-
-        timeRangeTrees.forEach((timeRangeTree, index) => {
-          expect(timeRangeTree.props.begin).to.equal(props.reservationsToEdit[index].begin);
-          expect(timeRangeTree.props.end).to.equal(props.reservationsToEdit[index].end);
-        });
+        const list = modalBodyTrees[0].everySubTree('CompactReservationsList')[0];
+        expect(list.props.reservations).to.deep.equal(props.reservationsToEdit);
       });
 
       it('the second list should contain reservations that are selected', () => {
-        const listTree = modalBodyTrees[0].everySubTree('ul')[1];
-        const timeRangeTrees = listTree.everySubTree('TimeRange');
-
-        timeRangeTrees.forEach((timeRangeTree, index) => {
-          expect(timeRangeTree.props.begin).to.equal(props.selectedReservations[index].begin);
-          expect(timeRangeTree.props.end).to.equal(props.selectedReservations[index].end);
-        });
+        const list = modalBodyTrees[0].everySubTree('CompactReservationsList')[1];
+        expect(list.props.reservations).to.deep.equal(props.selectedReservations);
       });
     });
   });
