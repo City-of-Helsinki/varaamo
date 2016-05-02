@@ -25,7 +25,7 @@ export class UnconnectedReservationCancelModal extends Component {
     actions.closeReservationCancelModal();
   }
 
-  renderModalContent(reservations, resources, cancelAllowed, reservationInfo) {
+  renderModalContent(reservations, resources, cancelAllowed, responsibleContactInfo) {
     if (cancelAllowed) {
       return (
         <div>
@@ -46,7 +46,7 @@ export class UnconnectedReservationCancelModal extends Component {
           Huomioi kuitenkin, että varaus pitää perua viimeistään <strong>X päivää</strong> ennen
           varauksen alkamista. Käyttämättömät varaukset laskutetaan.
         </p>
-        <p className="reservation-info">{reservationInfo}</p>
+        <p className="responsible-contact-info">{responsibleContactInfo}</p>
       </div>
     );
   }
@@ -76,7 +76,9 @@ export class UnconnectedReservationCancelModal extends Component {
         </Modal.Header>
 
         <Modal.Body>
-          {this.renderModalContent(reservationsToCancel, resources, cancelAllowed, resource.reservationInfo)}
+          {this.renderModalContent(
+            reservationsToCancel, resources, cancelAllowed, resource.responsibleContactInfo
+          )}
         </Modal.Body>
 
         <Modal.Footer>
