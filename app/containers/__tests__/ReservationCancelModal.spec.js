@@ -12,8 +12,8 @@ import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
 
 describe('Container: ReservationCancelModal', () => {
-  const reservationInfo = 'Some reservation info.';
-  const resource = Resource.build({ reservationInfo });
+  const responsibleContactInfo = 'Some contact info.';
+  const resource = Resource.build({ responsibleContactInfo });
   const props = {
     actions: {
       cancelPreliminaryReservation: simple.stub(),
@@ -285,10 +285,10 @@ describe('Container: ReservationCancelModal', () => {
           expect(modalBodyTrees.length).to.equal(1);
         });
 
-        it('should render resource reservationInfo', () => {
-          const modalText = modalBodyTrees[0].subTree('.reservation-info').text();
+        it('should render resource responsibleContactInfo', () => {
+          const modalText = modalBodyTrees[0].subTree('.responsible-contact-info').text();
 
-          expect(modalText).to.contain(reservationInfo);
+          expect(modalText).to.contain(responsibleContactInfo);
         });
       });
 
