@@ -1,3 +1,4 @@
+import includes from 'lodash/collection/includes';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
@@ -102,10 +103,13 @@ export class UnconnectedReservationInfoModal extends Component {
       reservationsToShow,
       resources,
       show,
+      staffUnits,
     } = this.props;
 
     const reservation = reservationsToShow.length ? reservationsToShow[0] : undefined;
     const resource = reservation ? resources[reservationsToShow[0].resource] : {};
+    const isStaff = includes(staffUnits, resource.unit);
+    const showEditButton = (reservation && reservation.state !== 'confirmed') || isStaff;
 
     return (
       <Modal
@@ -128,12 +132,14 @@ export class UnconnectedReservationInfoModal extends Component {
           >
             Takaisin
           </Button>
-          <Button
-            bsStyle="primary"
-            onClick={this.handleEdit}
-          >
-            Muokkaa
-          </Button>
+          {showEditButton && (
+            <Button
+              bsStyle="primary"
+              onClick={this.handleEdit}
+            >
+              Muokkaa
+            </Button>
+          )}
           <Button
             bsStyle="success"
             disabled={isEditingReservations}
@@ -154,6 +160,7 @@ UnconnectedReservationInfoModal.propTypes = {
   reservationsToShow: PropTypes.array.isRequired,
   resources: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
+  staffUnits: PropTypes.array.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
