@@ -18,6 +18,7 @@ function getState(resource) {
     },
     data: Immutable({
       resources: { [resource.id]: resource },
+      users: {},
     }),
     ui: Immutable({
       modals: {
@@ -141,6 +142,14 @@ describe('Selector: reservationCalendarSelector', () => {
     const selected = reservationCalendarSelector(state, props);
 
     expect(selected.selectedReservations).to.exist;
+  });
+
+  it('should return staffUnits', () => {
+    const state = getState(resource);
+    const props = getProps(resource.id);
+    const selected = reservationCalendarSelector(state, props);
+
+    expect(selected.staffUnits).to.exist;
   });
 
   it('should return time', () => {

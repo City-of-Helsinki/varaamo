@@ -42,6 +42,7 @@ function getProps(props = {}) {
     timeSlots: [],
     selected: [],
     selectedReservations: [],
+    staffUnits: [],
     urlHash: '',
   };
 
@@ -168,6 +169,7 @@ describe('Container: ReservationCalendar', () => {
         expect(actualProps.reservationsToEdit).to.deep.equal(props.reservationsToEdit);
         expect(actualProps.selectedReservations).to.deep.equal(props.selectedReservations);
         expect(actualProps.show).to.equal(props.confirmReservationModalIsOpen);
+        expect(actualProps.staffUnits).to.equal(props.staffUnits);
       });
     });
   });

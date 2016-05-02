@@ -114,6 +114,7 @@ export class UnconnectedReservationCalendar extends Component {
       resource,
       selected,
       selectedReservations,
+      staffUnits,
       time,
       timeSlots,
       urlHash,
@@ -179,6 +180,7 @@ export class UnconnectedReservationCalendar extends Component {
           resource={resource}
           selectedReservations={selectedReservations}
           show={confirmReservationModalIsOpen}
+          staffUnits={staffUnits}
         />
         <ReservationDeleteModal />
         <ReservationInfoModal />
@@ -202,6 +204,7 @@ UnconnectedReservationCalendar.propTypes = {
   selectedReservations: PropTypes.array.isRequired,
   time: PropTypes.string,
   timeSlots: PropTypes.array.isRequired,
+  staffUnits: PropTypes.array.isRequired,
   urlHash: PropTypes.string.isRequired,
 };
 
