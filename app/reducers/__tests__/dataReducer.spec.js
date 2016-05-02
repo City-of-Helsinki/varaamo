@@ -6,6 +6,7 @@ import Immutable from 'seamless-immutable';
 import types from 'constants/ActionTypes';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
+import User from 'fixtures/User';
 import dataReducer, { handleData } from 'reducers/dataReducer';
 
 describe('Reducer: dataReducer', () => {
@@ -320,6 +321,40 @@ describe('Reducer: dataReducer', () => {
         const actualvalue = nextState.resources[resource.id].otherValue;
 
         expect(expectedValue).to.deep.equal(actualvalue);
+      });
+    });
+
+    describe('API.USER_GET_SUCCESS', () => {
+      const userGetSuccess = createAction(types.API.USER_GET_SUCCESS);
+
+      it('should add the user to users', () => {
+        const user = User.build();
+        const initialState = Immutable({
+          users: {},
+        });
+        const action = userGetSuccess(user);
+        const nextState = dataReducer(initialState, action);
+
+        const actualUsers = nextState.users;
+        const expectedUsers = Immutable({
+          [user.uuid]: user,
+        });
+
+        expect(actualUsers).to.deep.equal(expectedUsers);
+      });
+
+      it('should not affect previous user values', () => {
+        const user = User.build({ previousValue: 'value' });
+        const updatedUser = User.build({ uuid: user.uuid, newValue: 'newValue' });
+        const initialState = Immutable({
+          users: { [user.uuid]: user },
+        });
+        const action = userGetSuccess(updatedUser);
+        const nextState = dataReducer(initialState, action);
+        const actualUser = nextState.users[user.uuid];
+
+        expect(actualUser.previousValue).to.equal(user.previousValue);
+        expect(actualUser.newValue).to.equal(updatedUser.newValue);
       });
     });
   });
