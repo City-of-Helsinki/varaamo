@@ -374,7 +374,10 @@ describe('Container: ReservationInfoModal', () => {
 
     it('should call putReservation with correct arguments', () => {
       const actualArgs = defaultProps.actions.putReservation.lastCall.args;
-      const expected = Object.assign({}, reservation, { comments: updatedComments });
+      const expected = Object.assign({}, reservation, {
+        comments: updatedComments,
+        staffEvent: false,
+      });
 
       expect(actualArgs[0]).to.deep.equal(expected);
     });

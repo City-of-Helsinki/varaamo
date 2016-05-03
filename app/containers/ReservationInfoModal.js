@@ -12,7 +12,7 @@ import { closeReservationInfoModal, selectReservationToEdit } from 'actions/uiAc
 import { putReservation } from 'actions/reservationActions';
 import TimeRange from 'components/common/TimeRange';
 import reservationInfoModalSelector from 'selectors/containers/reservationInfoModalSelector';
-import { getName } from 'utils/DataUtils';
+import { isStaffEvent, getName } from 'utils/DataUtils';
 import { renderReservationStateLabel } from 'utils/renderUtils';
 
 export class UnconnectedReservationInfoModal extends Component {
@@ -48,13 +48,15 @@ export class UnconnectedReservationInfoModal extends Component {
   }
 
   handleSave() {
-    const { actions, reservationsToShow } = this.props;
+    const { actions, reservationsToShow, resources } = this.props;
     const reservation = reservationsToShow.length ? reservationsToShow[0] : undefined;
     if (!reservation) {
       return;
     }
+    const resource = reservation ? resources[reservationsToShow[0].resource] : {};
+    const staffEvent = isStaffEvent(reservation, resource);
     const comments = this.refs.commentsInput.getValue();
-    actions.putReservation(Object.assign({}, reservation, { comments }));
+    actions.putReservation(Object.assign({}, reservation, { comments }, { staffEvent }));
     actions.closeReservationInfoModal();
   }
 
