@@ -28,7 +28,7 @@ function selectReservationToEdit(state, action) {
   });
 }
 
-function reservationReducer(state = initialState, action) {
+function reservationsReducer(state = initialState, action) {
   switch (action.type) {
 
   case types.API.RESERVATION_POST_SUCCESS:
@@ -88,4 +88,4 @@ function reservationReducer(state = initialState, action) {
   }
 }
 
-export default reservationReducer;
+export default reservationsReducer;

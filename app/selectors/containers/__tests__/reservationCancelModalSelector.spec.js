@@ -17,7 +17,7 @@ describe('Selector: reservationCancelModalSelector', () => {
   });
 
   it('should return reservationsToCancel from the state', () => {
-    const expected = state.ui.reservation.toCancel;
+    const expected = state.ui.reservations.toCancel;
 
     expect(selected.reservationsToCancel).to.deep.equal(expected);
   });

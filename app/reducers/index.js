@@ -7,7 +7,7 @@ import authReducer from 'reducers/authReducer';
 import dataReducer from 'reducers/dataReducer';
 import modalsReducer from 'reducers/modalsReducer';
 import notificationsReducer from 'reducers/notificationsReducer';
-import reservationReducer from 'reducers/reservationReducer';
+import reservationsReducer from 'reducers/reservationsReducer';
 import searchReducer from 'reducers/searchReducer';
 import shouldFetchReducer from 'reducers/shouldFetchReducer';
 
@@ -23,7 +23,7 @@ const rootReducer = combineReducers({
   routing: routeReducer,
   ui: combineReducers({
     modals: modalsReducer,
-    reservation: reservationReducer,
+    reservations: reservationsReducer,
     search: searchReducer,
   }),
 });

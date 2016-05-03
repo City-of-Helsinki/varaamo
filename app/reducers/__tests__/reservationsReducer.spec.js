@@ -18,12 +18,12 @@ import {
 } from 'actions/uiActions';
 import types from 'constants/ActionTypes';
 import Reservation from 'fixtures/Reservation';
-import reservationReducer from 'reducers/reservationReducer';
+import reservationsReducer from 'reducers/reservationsReducer';
 import { getTimeSlots } from 'utils/TimeUtils';
 
-describe('Reducer: reservationReducer', () => {
+describe('Reducer: reservationsReducer', () => {
   describe('initial state', () => {
-    const initialState = reservationReducer(undefined, {});
+    const initialState = reservationsReducer(undefined, {});
 
     it('selected should be an empty array', () => {
       expect(initialState.selected).to.deep.equal([]);
@@ -56,7 +56,7 @@ describe('Reducer: reservationReducer', () => {
           selected: ['some-selected'],
           toShow: [],
         });
-        const nextState = reservationReducer(initialState, action);
+        const nextState = reservationsReducer(initialState, action);
 
         expect(nextState.selected).to.deep.equal([]);
       });
@@ -67,7 +67,7 @@ describe('Reducer: reservationReducer', () => {
           toEdit: ['something-to-edit'],
           toShow: [],
         });
-        const nextState = reservationReducer(initialState, action);
+        const nextState = reservationsReducer(initialState, action);
 
         expect(nextState.toEdit).to.deep.equal([]);
       });
@@ -78,7 +78,7 @@ describe('Reducer: reservationReducer', () => {
         });
         const reservation = Reservation.build();
         const action = postReservationSuccess(reservation);
-        const nextState = reservationReducer(initialState, action);
+        const nextState = reservationsReducer(initialState, action);
         const expected = Immutable([reservation]);
 
         expect(nextState.toShow).to.deep.equal(expected);
@@ -93,7 +93,7 @@ describe('Reducer: reservationReducer', () => {
           toShow: [reservations[0]],
         });
         const action = postReservationSuccess(reservations[1]);
-        const nextState = reservationReducer(initialState, action);
+        const nextState = reservationsReducer(initialState, action);
         const expected = Immutable([reservations[0], reservations[1]]);
 
         expect(nextState.toShow).to.deep.equal(expected);
@@ -109,7 +109,7 @@ describe('Reducer: reservationReducer', () => {
           selected: ['some-selected'],
           toShow: [],
         });
-        const nextState = reservationReducer(initialState, action);
+        const nextState = reservationsReducer(initialState, action);
 
         expect(nextState.selected).to.deep.equal([]);
       });
@@ -120,7 +120,7 @@ describe('Reducer: reservationReducer', () => {
           toEdit: ['something-to-edit'],
           toShow: [],
         });
-        const nextState = reservationReducer(initialState, action);
+        const nextState = reservationsReducer(initialState, action);
 
         expect(nextState.toEdit).to.deep.equal([]);
       });
@@ -131,7 +131,7 @@ describe('Reducer: reservationReducer', () => {
         });
         const reservation = Reservation.build();
         const action = putReservationSuccess(reservation);
-        const nextState = reservationReducer(initialState, action);
+        const nextState = reservationsReducer(initialState, action);
         const expected = Immutable([reservation]);
 
         expect(nextState.toShow).to.deep.equal(expected);
@@ -146,7 +146,7 @@ describe('Reducer: reservationReducer', () => {
           toShow: [reservations[0]],
         });
         const action = putReservationSuccess(reservations[1]);
-        const nextState = reservationReducer(initialState, action);
+        const nextState = reservationsReducer(initialState, action);
         const expected = Immutable([reservations[0], reservations[1]]);
 
         expect(nextState.toShow).to.deep.equal(expected);
@@ -159,7 +159,7 @@ describe('Reducer: reservationReducer', () => {
           toEdit: [Reservation.build()],
         });
         const action = cancelReservationEdit();
-        const nextState = reservationReducer(initialState, action);
+        const nextState = reservationsReducer(initialState, action);
 
         expect(nextState.toEdit).to.deep.equal([]);
       });
@@ -167,7 +167,7 @@ describe('Reducer: reservationReducer', () => {
 
     describe('UI.CLEAR_RESERVATIONS', () => {
       it('should set the given date to date', () => {
-        const resetedState = reservationReducer(undefined, {});
+        const resetedState = reservationsReducer(undefined, {});
         const action = clearReservations();
         const initialState = Immutable({
           date: '2015-11-11',
@@ -175,7 +175,7 @@ describe('Reducer: reservationReducer', () => {
           toDelete: ['something'],
           toEdit: ['something'],
         });
-        const nextState = reservationReducer(initialState, action);
+        const nextState = reservationsReducer(initialState, action);
 
         expect(nextState).to.deep.equal(resetedState);
       });
@@ -188,7 +188,7 @@ describe('Reducer: reservationReducer', () => {
             toCancel: [Reservation.build()],
           });
           const action = closeReservationCancelModal();
-          const nextState = reservationReducer(initialState, action);
+          const nextState = reservationsReducer(initialState, action);
 
           expect(nextState.toCancel).to.deep.equal([]);
         });
@@ -200,7 +200,7 @@ describe('Reducer: reservationReducer', () => {
             toDelete: [Reservation.build()],
           });
           const action = closeReservationDeleteModal();
-          const nextState = reservationReducer(initialState, action);
+          const nextState = reservationsReducer(initialState, action);
 
           expect(nextState.toDelete).to.deep.equal([]);
         });
@@ -212,7 +212,7 @@ describe('Reducer: reservationReducer', () => {
             toShow: [Reservation.build()],
           });
           const action = closeReservationInfoModal();
-          const nextState = reservationReducer(initialState, action);
+          const nextState = reservationsReducer(initialState, action);
 
           expect(nextState.toShow).to.deep.equal([]);
         });
@@ -226,7 +226,7 @@ describe('Reducer: reservationReducer', () => {
         });
         const reservation = Reservation.build();
         const action = selectReservationToCancel(reservation);
-        const nextState = reservationReducer(initialState, action);
+        const nextState = reservationsReducer(initialState, action);
         const expected = Immutable([reservation]);
 
         expect(nextState.toCancel).to.deep.equal(expected);
@@ -241,7 +241,7 @@ describe('Reducer: reservationReducer', () => {
           toCancel: [reservations[0]],
         });
         const action = selectReservationToCancel(reservations[1]);
-        const nextState = reservationReducer(initialState, action);
+        const nextState = reservationsReducer(initialState, action);
         const expected = Immutable([reservations[0], reservations[1]]);
 
         expect(nextState.toCancel).to.deep.equal(expected);
@@ -255,7 +255,7 @@ describe('Reducer: reservationReducer', () => {
         });
         const reservation = Reservation.build();
         const action = selectReservationToDelete(reservation);
-        const nextState = reservationReducer(initialState, action);
+        const nextState = reservationsReducer(initialState, action);
         const expected = Immutable([reservation]);
 
         expect(nextState.toDelete).to.deep.equal(expected);
@@ -270,7 +270,7 @@ describe('Reducer: reservationReducer', () => {
           toDelete: [reservations[0]],
         });
         const action = selectReservationToDelete(reservations[1]);
-        const nextState = reservationReducer(initialState, action);
+        const nextState = reservationsReducer(initialState, action);
         const expected = Immutable([reservations[0], reservations[1]]);
 
         expect(nextState.toDelete).to.deep.equal(expected);
@@ -285,7 +285,7 @@ describe('Reducer: reservationReducer', () => {
         });
         const reservation = Reservation.build();
         const action = selectReservationToEdit({ reservation });
-        const nextState = reservationReducer(initialState, action);
+        const nextState = reservationsReducer(initialState, action);
         const expected = Immutable([reservation]);
 
         expect(nextState.toEdit).to.deep.equal(expected);
@@ -301,7 +301,7 @@ describe('Reducer: reservationReducer', () => {
           toEdit: [reservations[0]],
         });
         const action = selectReservationToEdit({ reservation: reservations[1] });
-        const nextState = reservationReducer(initialState, action);
+        const nextState = reservationsReducer(initialState, action);
         const expected = Immutable([reservations[1]]);
 
         expect(nextState.toEdit).to.deep.equal(expected);
@@ -317,7 +317,7 @@ describe('Reducer: reservationReducer', () => {
           toEdit: [],
         });
         const action = selectReservationToEdit({ reservation, minPeriod });
-        const nextState = reservationReducer(initialState, action);
+        const nextState = reservationsReducer(initialState, action);
         const slots = getTimeSlots(reservation.begin, reservation.end, minPeriod);
         const expected = map(slots, (slot) => slot.asISOString);
 
@@ -332,7 +332,7 @@ describe('Reducer: reservationReducer', () => {
         });
         const reservation = Reservation.build();
         const action = selectReservationToShow(reservation);
-        const nextState = reservationReducer(initialState, action);
+        const nextState = reservationsReducer(initialState, action);
         const expected = Immutable([reservation]);
 
         expect(nextState.toShow).to.deep.equal(expected);
@@ -347,7 +347,7 @@ describe('Reducer: reservationReducer', () => {
           toShow: [reservations[0]],
         });
         const action = selectReservationToShow(reservations[1]);
-        const nextState = reservationReducer(initialState, action);
+        const nextState = reservationsReducer(initialState, action);
         const expected = Immutable([reservations[0], reservations[1]]);
 
         expect(nextState.toShow).to.deep.equal(expected);
@@ -362,7 +362,7 @@ describe('Reducer: reservationReducer', () => {
           });
           const slot = '2015-10-11T10:00:00Z/2015-10-11T11:00:00Z';
           const action = toggleTimeSlot(slot);
-          const nextState = reservationReducer(initialState, action);
+          const nextState = reservationsReducer(initialState, action);
           const expected = Immutable([slot]);
 
           expect(nextState.selected).to.deep.equal(expected);
@@ -374,7 +374,7 @@ describe('Reducer: reservationReducer', () => {
           });
           const slot = '2015-10-11T10:00:00Z/2015-10-11T11:00:00Z';
           const action = toggleTimeSlot(slot);
-          const nextState = reservationReducer(initialState, action);
+          const nextState = reservationsReducer(initialState, action);
           const expected = Immutable([...initialState.selected, slot]);
 
           expect(nextState.selected).to.deep.equal(expected);
@@ -388,7 +388,7 @@ describe('Reducer: reservationReducer', () => {
           const initialState = Immutable({
             selected: ['2015-10-11T10:00:00Z/2015-10-11T11:00:00Z'],
           });
-          const nextState = reservationReducer(initialState, action);
+          const nextState = reservationsReducer(initialState, action);
           const expected = Immutable([]);
 
           expect(nextState.selected).to.deep.equal(expected);
@@ -403,7 +403,7 @@ describe('Reducer: reservationReducer', () => {
               '2015-10-11T10:00:00Z/2015-10-11T11:00:00Z',
             ],
           });
-          const nextState = reservationReducer(initialState, action);
+          const nextState = reservationsReducer(initialState, action);
           const expected = Immutable([initialState.selected[0]]);
 
           expect(nextState.selected).to.deep.equal(expected);

@@ -13,7 +13,7 @@ describe('Selector: reservationSuccessModalSelector', () => {
   });
 
   it('should return reservationsToShow from the state', () => {
-    const expected = state.ui.reservation.toShow;
+    const expected = state.ui.reservations.toShow;
 
     expect(selected.reservationsToShow).to.deep.equal(expected);
   });
