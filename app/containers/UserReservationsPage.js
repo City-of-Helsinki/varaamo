@@ -69,8 +69,8 @@ export class UnconnectedUserReservationsPage extends Component {
                 />
                 <ReservationsList
                   emptyMessage="Ei alustavia varauksia näytettäväksi."
-                  filter="preliminary"
-                  />
+                  filter={adminReservationsFilters.state}
+                />
                 <h1>Tavalliset varaukset</h1>
                 <ReservationsList
                   emptyMessage="Ei tavallisia varauksia näytettäväksi."

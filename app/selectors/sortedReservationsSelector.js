@@ -3,8 +3,13 @@ import sortByOrder from 'lodash/collection/sortByOrder';
 import values from 'lodash/object/values';
 import { createSelector } from 'reselect';
 
+import { RESERVATION_STATE_LABELS } from 'constants/AppConstants';
+
 const reservationsSelector = (state, props) => {
-  if (props.filter === 'preliminary') {
+  if (RESERVATION_STATE_LABELS[props.filter]) {
+    return filter(state.data.reservations, (reservation) => reservation.state === props.filter);
+  }
+  if (props.filter === 'preliminary' || props.filter === 'all') {
     return filter(state.data.reservations, (reservation) => reservation.needManualConfirmation);
   }
   if (props.filter === 'regular') {

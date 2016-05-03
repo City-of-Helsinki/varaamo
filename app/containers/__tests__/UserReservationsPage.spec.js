@@ -95,8 +95,8 @@ describe('Container: UserReservationsPage', () => {
           expect(lists.length).to.equal(2);
         });
 
-        it('the first list should only contain preliminary reservations', () => {
-          expect(lists.at(0).props().filter).to.equal('preliminary');
+        it('the first list should only contain filtered preliminary reservations', () => {
+          expect(lists.at(0).props().filter).to.equal(defaultProps.adminReservationsFilters.state);
         });
 
         it('the second list should only contain regular reservations', () => {

@@ -60,6 +60,66 @@ describe('Selector: sortedReservationsSelector', () => {
       expect(actual).to.deep.equal([]);
     });
 
+    it('should return only reservations in cancelled state when filter is "cancelled"', () => {
+      const reservations = [
+        Reservation.build({ state: 'cancelled' }),
+        Reservation.build({ state: 'confirmed' }),
+      ];
+      const state = getState(reservations);
+      const props = { filter: 'cancelled' };
+      const actual = sortedReservationsSelector(state, props);
+
+      expect(actual).to.deep.equal([reservations[0]]);
+    });
+
+    it('should return only reservations in confirmed state when filter is "confirmed"', () => {
+      const reservations = [
+        Reservation.build({ state: 'confirmed' }),
+        Reservation.build({ state: 'requested' }),
+      ];
+      const state = getState(reservations);
+      const props = { filter: 'confirmed' };
+      const actual = sortedReservationsSelector(state, props);
+
+      expect(actual).to.deep.equal([reservations[0]]);
+    });
+
+    it('should return only reservations in denied state when filter is "denied"', () => {
+      const reservations = [
+        Reservation.build({ state: 'denied' }),
+        Reservation.build({ state: 'requested' }),
+      ];
+      const state = getState(reservations);
+      const props = { filter: 'denied' };
+      const actual = sortedReservationsSelector(state, props);
+
+      expect(actual).to.deep.equal([reservations[0]]);
+    });
+
+    it('should return only reservations in requested state when filter is "requested"', () => {
+      const reservations = [
+        Reservation.build({ state: 'requested' }),
+        Reservation.build({ state: 'confirmed' }),
+      ];
+      const state = getState(reservations);
+      const props = { filter: 'requested' };
+      const actual = sortedReservationsSelector(state, props);
+
+      expect(actual).to.deep.equal([reservations[0]]);
+    });
+
+    it('should return only preliminary reservations when filter is "all"', () => {
+      const reservations = [
+        Reservation.build({ needManualConfirmation: true }),
+        Reservation.build({ needManualConfirmation: false }),
+      ];
+      const state = getState(reservations);
+      const props = { filter: 'all' };
+      const actual = sortedReservationsSelector(state, props);
+
+      expect(actual).to.deep.equal([reservations[0]]);
+    });
+
     it('should return only preliminary reservations when filter is "preliminary"', () => {
       const reservations = [
         Reservation.build({ needManualConfirmation: true }),
