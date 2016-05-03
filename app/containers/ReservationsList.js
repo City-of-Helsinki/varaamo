@@ -32,6 +32,7 @@ export class UnconnectedReservationsList extends Component {
       actions,
       isAdmin,
       resources,
+      staffUnits,
       units,
     } = this.props;
     const resource = resources[reservation.resource] || {};
@@ -53,6 +54,7 @@ export class UnconnectedReservationsList extends Component {
         selectReservationToDelete={actions.selectReservationToDelete}
         selectReservationToEdit={actions.selectReservationToEdit}
         selectReservationToShow={actions.selectReservationToShow}
+        staffUnits={staffUnits}
         unit={unit}
       />
     );
@@ -89,6 +91,7 @@ UnconnectedReservationsList.propTypes = {
   isFetchingReservations: PropTypes.bool.isRequired,
   reservations: PropTypes.array.isRequired,
   resources: PropTypes.object.isRequired,
+  staffUnits: PropTypes.array.isRequired,
   units: PropTypes.object.isRequired,
 };
 

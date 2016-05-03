@@ -26,6 +26,10 @@ describe('Selector: reservationsListSelector', () => {
     expect(selected.resources).to.deep.equal(expected);
   });
 
+  it('should return staffUnits', () => {
+    expect(selected.staffUnits).to.exist;
+  });
+
   it('should return units from the state', () => {
     const expected = state.data.units;
 

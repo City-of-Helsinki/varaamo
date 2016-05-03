@@ -27,4 +27,8 @@ describe('Selector: reservationInfoModalSelector', () => {
 
     expect(selected.resources).to.deep.equal(expected);
   });
+
+  it('should return staffUnits', () => {
+    expect(selected.resources).to.exist;
+  });
 });

@@ -24,6 +24,7 @@ function getProps(props) {
     resource: Resource.build(),
     selectedReservations: Immutable([]),
     show: true,
+    staffUnits: [],
   };
 
   return Object.assign({}, defaults, props);
@@ -239,21 +240,23 @@ describe('Component: reservation/ConfirmReservationModal', () => {
   });
 
   describe('rendering ReservationForm', () => {
-    function getForm(needManualConfirmation = false, isAdmin = false) {
+    function getForm(needManualConfirmation = false, isAdmin = false, isStaff = false) {
       const resource = Resource.build({
         needManualConfirmation,
         userPermissions: { isAdmin },
       });
-      const props = getProps({ resource });
+      const staffUnits = isStaff ? [resource.unit] : [];
+      const props = getProps({ staffUnits, resource });
       const wrapper = shallow(<ConfirmReservationModal {...props} />);
       return wrapper.find(ReservationForm);
     }
 
     describe('if resource needs manual confirmation', () => {
       const needManualConfirmation = true;
-      describe('if user is an admin', () => {
+      describe('if user is admin and staff', () => {
         const isAdmin = true;
-        const form = getForm(needManualConfirmation, isAdmin);
+        const isStaff = true;
+        const form = getForm(needManualConfirmation, isAdmin, isStaff);
         const formFields = form.props().fields;
 
         it('form fields should include staffEvent', () => {
@@ -271,9 +274,31 @@ describe('Component: reservation/ConfirmReservationModal', () => {
         });
       });
 
+      describe('if user is an admin', () => {
+        const isAdmin = true;
+        const isStaff = false;
+        const form = getForm(needManualConfirmation, isAdmin, isStaff);
+        const formFields = form.props().fields;
+
+        it('form fields should not include staffEvent', () => {
+          expect(formFields).to.not.contain('staffEvent');
+        });
+
+        it('form fields should include comments', () => {
+          expect(formFields).to.contain('comments');
+        });
+
+        it('form fields should include RESERVATION_FORM_FIELDS', () => {
+          forEach(RESERVATION_FORM_FIELDS, (field) => {
+            expect(formFields).to.contain(field);
+          });
+        });
+      });
+
       describe('if user is a regular user', () => {
         const isAdmin = false;
-        const form = getForm(needManualConfirmation, isAdmin);
+        const isStaff = false;
+        const form = getForm(needManualConfirmation, isAdmin, isStaff);
         const formFields = form.props().fields;
 
         it('form fields should not include staffEvent', () => {

@@ -8,6 +8,7 @@ import isLoggedInSelector from 'selectors/isLoggedInSelector';
 import resourceSelector from 'selectors/resourceSelector';
 import timeSelector from 'selectors/timeSelector';
 import selectedReservationsSelector from 'selectors/selectedReservationsSelector';
+import staffUnitsSelector from 'selectors/staffUnitsSelector';
 import modalIsOpenSelectorFactory from 'selectors/factories/modalIsOpenSelectorFactory';
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
 import { getOpeningHours } from 'utils/DataUtils';
@@ -29,6 +30,7 @@ const reservationCalendarSelector = createSelector(
   resourceSelector,
   selectedSelector,
   selectedReservationsSelector,
+  staffUnitsSelector,
   timeSelector,
   toEditSelector,
   urlHashSelector,
@@ -42,6 +44,7 @@ const reservationCalendarSelector = createSelector(
     resource,
     selected,
     selectedReservations,
+    staffUnits,
     time,
     reservationsToEdit,
     urlHash
@@ -66,6 +69,7 @@ const reservationCalendarSelector = createSelector(
       resource,
       selected,
       selectedReservations,
+      staffUnits,
       time,
       timeSlots,
       urlHash,

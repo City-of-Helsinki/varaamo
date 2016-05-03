@@ -6,12 +6,19 @@ import { bindActionCreators } from 'redux';
 import { updatePath } from 'redux-simple-router';
 
 import { clearSearchResults } from 'actions/searchActions';
+import { fetchUser } from 'actions/userActions';
 import Footer from 'components/layout/Footer';
 import Navbar from 'components/layout/Navbar';
 import Notifications from 'containers/Notifications';
 import appSelector from 'selectors/containers/appSelector';
 
 export class UnconnectedApp extends Component {
+  componentDidMount() {
+    if (this.props.userId) {
+      this.props.actions.fetchUser(this.props.userId);
+    }
+  }
+
   render() {
     const {
       actions,
@@ -46,11 +53,13 @@ UnconnectedApp.propTypes = {
   children: PropTypes.node,
   isLoggedIn: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
+  userId: PropTypes.string,
 };
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
     clearSearchResults,
+    fetchUser,
     updatePath,
   };
 

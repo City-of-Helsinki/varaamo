@@ -42,4 +42,12 @@ describe('Selector: appSelector', () => {
 
     expect(selected.user).to.deep.equal({});
   });
+
+  it('should return userId', () => {
+    const user = users[0];
+    const state = getState(users, user.id);
+    const selected = appSelector(state);
+
+    expect(selected.userId).to.deep.equal(user.id);
+  });
 });

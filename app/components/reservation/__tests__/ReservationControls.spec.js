@@ -17,9 +17,10 @@ describe('Component: reservation/ReservationControls', () => {
   const onEditClick = simple.stub();
   const onInfoClick = simple.stub();
 
-  function getWrapper(reservation, isAdmin = false) {
+  function getWrapper(reservation, isAdmin = false, isStaff = false) {
     const props = {
       isAdmin,
+      isStaff,
       onCancelClick,
       onConfirmClick,
       onDeleteClick,
@@ -192,54 +193,99 @@ describe('Component: reservation/ReservationControls', () => {
 
     describe('with preliminary reservation in confirmed state', () => {
       const reservation = Reservation.build({ needManualConfirmation: true, state: 'confirmed' });
-      const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('should render three buttons', () => {
-        expect(buttons.length).to.equal(3);
+      describe('if user has staff permissions', () => {
+        const isStaff = true;
+
+        const buttons = getWrapper(reservation, isAdmin, isStaff).find(Button);
+
+        it('should render three buttons', () => {
+          expect(buttons.length).to.equal(3);
+        });
+
+        describe('the first button', () => {
+          const button = buttons.at(0);
+
+          it('should be an info button', () => {
+            expect(button.props().children).to.equal('Tiedot');
+          });
+
+          it('clicking the button should call onInfoClick', () => {
+            onInfoClick.reset();
+            button.props().onClick();
+
+            expect(onInfoClick.callCount).to.equal(1);
+          });
+        });
+
+        describe('the second button', () => {
+          const button = buttons.at(1);
+
+          it('should be a cancel button', () => {
+            expect(button.props().children).to.equal('Peru');
+          });
+
+          it('clicking the button should call onCancelClick', () => {
+            onCancelClick.reset();
+            button.props().onClick();
+
+            expect(onCancelClick.callCount).to.equal(1);
+          });
+        });
+
+        describe('the third button', () => {
+          const button = buttons.at(2);
+
+          it('should be an edit button', () => {
+            expect(button.props().children).to.equal('Muokkaa');
+          });
+
+          it('clicking the button should call onEditClick', () => {
+            onEditClick.reset();
+            button.props().onClick();
+
+            expect(onEditClick.callCount).to.equal(1);
+          });
+        });
       });
 
-      describe('the first button', () => {
-        const button = buttons.at(0);
+      describe('if user does not have staff permissions', () => {
+        const isStaff = false;
 
-        it('should be an info button', () => {
-          expect(button.props().children).to.equal('Tiedot');
+        const buttons = getWrapper(reservation, isAdmin, isStaff).find(Button);
+
+        it('should render two buttons', () => {
+          expect(buttons.length).to.equal(2);
         });
 
-        it('clicking the button should call onInfoClick', () => {
-          onInfoClick.reset();
-          button.props().onClick();
+        describe('the first button', () => {
+          const button = buttons.at(0);
 
-          expect(onInfoClick.callCount).to.equal(1);
-        });
-      });
+          it('should be an info button', () => {
+            expect(button.props().children).to.equal('Tiedot');
+          });
 
-      describe('the second button', () => {
-        const button = buttons.at(1);
+          it('clicking the button should call onInfoClick', () => {
+            onInfoClick.reset();
+            button.props().onClick();
 
-        it('should be a cancel button', () => {
-          expect(button.props().children).to.equal('Peru');
-        });
-
-        it('clicking the button should call onCancelClick', () => {
-          onCancelClick.reset();
-          button.props().onClick();
-
-          expect(onCancelClick.callCount).to.equal(1);
-        });
-      });
-
-      describe('the third button', () => {
-        const button = buttons.at(2);
-
-        it('should be an edit button', () => {
-          expect(button.props().children).to.equal('Muokkaa');
+            expect(onInfoClick.callCount).to.equal(1);
+          });
         });
 
-        it('clicking the button should call onEditClick', () => {
-          onEditClick.reset();
-          button.props().onClick();
+        describe('the second button', () => {
+          const button = buttons.at(1);
 
-          expect(onEditClick.callCount).to.equal(1);
+          it('should be a cancel button', () => {
+            expect(button.props().children).to.equal('Peru');
+          });
+
+          it('clicking the button should call onCancelClick', () => {
+            onCancelClick.reset();
+            button.props().onClick();
+
+            expect(onCancelClick.callCount).to.equal(1);
+          });
         });
       });
     });

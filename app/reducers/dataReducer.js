@@ -57,6 +57,10 @@ function dataReducer(state = initialState, action) {
     reservation = Object.assign({}, action.payload, { state: 'cancelled' });
     return handleReservation(state, reservation);
 
+  case types.API.USER_GET_SUCCESS:
+    const user = action.payload;
+    return handleData(state, { users: { [user.uuid]: user } });
+
   default:
     return state;
   }

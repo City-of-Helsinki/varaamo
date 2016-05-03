@@ -44,6 +44,7 @@ describe('Container: ReservationInfoModal', () => {
     reservationsToShow: Immutable([reservation]),
     resources: Immutable({ [resource.id]: resource }),
     show: true,
+    staffUnits: [],
   };
 
   function getWrapper(extraProps = {}) {
@@ -51,16 +52,14 @@ describe('Container: ReservationInfoModal', () => {
   }
 
   describe('render', () => {
-    const wrapper = getWrapper();
-
     it('should render a Modal component', () => {
-      const modalComponent = wrapper.find(Modal);
+      const modalComponent = getWrapper().find(Modal);
 
       expect(modalComponent.length).to.equal(1);
     });
 
     describe('Modal header', () => {
-      const modalHeader = wrapper.find(Modal.Header);
+      const modalHeader = getWrapper().find(Modal.Header);
 
       it('should render a ModalHeader component', () => {
         expect(modalHeader.length).to.equal(1);
@@ -71,27 +70,27 @@ describe('Container: ReservationInfoModal', () => {
       });
 
       it('should render a ModalTitle component', () => {
-        const modalTitle = wrapper.find(Modal.Title);
+        const modalTitle = getWrapper().find(Modal.Title);
 
         expect(modalTitle.length).to.equal(1);
       });
 
       it('the ModalTitle should display text "Varauksen tiedot"', () => {
-        const modalTitle = wrapper.find(Modal.Title);
+        const modalTitle = getWrapper().find(Modal.Title);
 
         expect(modalTitle.props().children).to.equal('Varauksen tiedot');
       });
     });
 
     describe('Modal body', () => {
-      const modalBody = wrapper.find(Modal.Body);
+      const modalBody = getWrapper().find(Modal.Body);
 
       it('should render a ModalBody component', () => {
         expect(modalBody.length).to.equal(1);
       });
 
       describe('reservation data', () => {
-        const dl = wrapper.find('dl');
+        const dl = getWrapper().find('dl');
         const dlText = dl.text();
 
         it('should render a definition list', () => {
@@ -156,7 +155,7 @@ describe('Container: ReservationInfoModal', () => {
       });
 
       describe('comments input', () => {
-        const input = wrapper.find(Input);
+        const input = getWrapper().find(Input);
         it('should render textarea input for comments', () => {
           expect(input.length).to.equal(1);
           expect(input.props().type).to.equal('textarea');
@@ -168,17 +167,14 @@ describe('Container: ReservationInfoModal', () => {
       });
     });
 
-    describe('Modal footer', () => {
-      const modalFooter = wrapper.find(Modal.Footer);
+    describe('Footer buttons', () => {
+      describe('if user has staff permissions', () => {
+        const wrapper = getWrapper({ staffUnits: [resource.unit] });
+        const modalFooter = wrapper.find(Modal.Footer);
 
-      it('should render a ModalFooter component', () => {
-        expect(modalFooter.length).to.equal(1);
-      });
-
-      describe('Footer buttons', () => {
         const buttons = modalFooter.find(Button);
 
-        it('should render three Button', () => {
+        it('should render three buttons', () => {
           expect(buttons.length).to.equal(3);
         });
 
@@ -220,6 +216,103 @@ describe('Container: ReservationInfoModal', () => {
           it('should have handleSave as its onClick prop', () => {
             const instance = wrapper.instance();
             expect(button.props().onClick).to.equal(instance.handleSave);
+          });
+        });
+      });
+
+      describe('if user does not have staff permissions', () => {
+        describe('if reservation state is not confirmed', () => {
+          const wrapper = getWrapper({
+            reservationsToShow: [Reservation.build({ resource: resource.id, state: 'requested' })],
+            staffUnits: [],
+          });
+          const modalFooter = wrapper.find(Modal.Footer);
+          const buttons = modalFooter.find(Button);
+
+          it('should render three buttons', () => {
+            expect(buttons.length).to.equal(3);
+          });
+
+          describe('Cancel button', () => {
+            const button = buttons.at(0);
+
+            it('the first button should read "Takaisin"', () => {
+              expect(button.props().children).to.equal('Takaisin');
+            });
+
+            it('clicking it should call closeReservationInfoModal', () => {
+              defaultProps.actions.closeReservationInfoModal.reset();
+              button.props().onClick();
+
+              expect(defaultProps.actions.closeReservationInfoModal.callCount).to.equal(1);
+            });
+          });
+
+          describe('Edit button', () => {
+            const button = buttons.at(1);
+
+            it('the second button should read "Muokkaa"', () => {
+              expect(button.props().children).to.equal('Muokkaa');
+            });
+
+            it('should have handleEdit as its onClick prop', () => {
+              const instance = wrapper.instance();
+              expect(button.props().onClick).to.equal(instance.handleEdit);
+            });
+          });
+
+          describe('Save button', () => {
+            const button = buttons.at(2);
+
+            it('the third button should read "Tallenna"', () => {
+              expect(button.props().children).to.equal('Tallenna');
+            });
+
+            it('should have handleSave as its onClick prop', () => {
+              const instance = wrapper.instance();
+              expect(button.props().onClick).to.equal(instance.handleSave);
+            });
+          });
+        });
+
+        describe('if reservation state is confirmed', () => {
+          const wrapper = getWrapper({
+            reservationsToShow: [Reservation.build({ resource: resource.id, state: 'confirmed' })],
+            staffUnits: [],
+          });
+          const modalFooter = wrapper.find(Modal.Footer);
+          const buttons = modalFooter.find(Button);
+
+          it('should render two buttons', () => {
+            expect(buttons.length).to.equal(2);
+          });
+
+          describe('Cancel button', () => {
+            const button = buttons.at(0);
+
+            it('the first button should read "Takaisin"', () => {
+              expect(button.props().children).to.equal('Takaisin');
+            });
+
+            it('clicking it should call closeReservationInfoModal', () => {
+              defaultProps.actions.closeReservationInfoModal.reset();
+              button.props().onClick();
+
+              expect(defaultProps.actions.closeReservationInfoModal.callCount).to.equal(1);
+            });
+          });
+
+          describe('Save button', () => {
+            const button = buttons.at(1);
+
+            it('the second button should read "Tallenna"', () => {
+              expect(button.props().children).to.equal('Tallenna');
+            });
+
+            it('should have handleSave as its onClick prop', () => {
+              const instance = wrapper.instance();
+              expect(button.props().onClick).to.equal(instance.handleSave);
+            });
           });
         });
       });

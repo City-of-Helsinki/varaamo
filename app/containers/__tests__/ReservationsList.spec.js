@@ -31,6 +31,7 @@ function getProps(props) {
     isFetchingReservations: false,
     reservations: [],
     resources: {},
+    staffUnits: [],
     units: {},
   };
 
@@ -87,6 +88,7 @@ describe('Container: ReservationsList', () => {
           expect(actualProps.openReservationCancelModal).to.deep.equal(props.actions.openReservationCancelModal);
           expect(actualProps.openReservationDeleteModal).to.deep.equal(props.actions.openReservationDeleteModal);
           expect(actualProps.openReservationInfoModal).to.deep.equal(props.actions.openReservationInfoModal);
+          expect(actualProps.staffUnits).to.deep.equal(props.staffUnits);
           expect(actualProps.updatePath).to.deep.equal(props.actions.updatePath);
           expect(
             actualProps.selectReservationToCancel
