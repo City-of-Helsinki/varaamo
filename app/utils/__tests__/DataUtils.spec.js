@@ -4,6 +4,7 @@ import MockDate from 'mockdate';
 import Image from 'fixtures/Image';
 import {
   combineReservations,
+  isStaffEvent,
   getAddress,
   getAddressWithName,
   getAvailableTime,
@@ -91,6 +92,38 @@ describe('Utils: DataUtils', () => {
       ];
 
       expect(combineReservations(reservations)).to.deep.equal(expected);
+    });
+  });
+
+  describe('isStaffEvent', () => {
+    it('should return false if resource does not exist', () => {
+      const reservation = { reserverName: 'Luke' };
+      const resource = undefined;
+      expect(isStaffEvent(reservation, resource)).to.equal(false);
+    });
+
+    it('should return false if resource does not have any requiredReservationExtraFields', () => {
+      const reservation = { reserverName: 'Luke' };
+      const resource = {};
+      expect(isStaffEvent(reservation, resource)).to.equal(false);
+    });
+
+    it('should return false if reservation has values for requiredReservationExtraFields', () => {
+      const reservation = { reserverName: 'Luke' };
+      const resource = { requiredReservationExtraFields: ['reserver_name'] };
+      expect(isStaffEvent(reservation, resource)).to.equal(false);
+    });
+
+    it('should return true if reservation is missing values for requiredReservationExtraFields', () => {
+      const reservation = {};
+      const resource = { requiredReservationExtraFields: ['reserver_name'] };
+      expect(isStaffEvent(reservation, resource)).to.equal(true);
+    });
+
+    it('should return true if reservation has empty strings for requiredReservationExtraFields', () => {
+      const reservation = { reserverName: '' };
+      const resource = { requiredReservationExtraFields: ['reserver_name'] };
+      expect(isStaffEvent(reservation, resource)).to.equal(true);
     });
   });
 

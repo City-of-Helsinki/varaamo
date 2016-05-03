@@ -3,13 +3,16 @@ import rest from 'lodash/array/rest';
 import filter from 'lodash/collection/filter';
 import find from 'lodash/collection/find';
 import forEach from 'lodash/collection/forEach';
+import some from 'lodash/collection/some';
 import sortBy from 'lodash/collection/sortBy';
 import clone from 'lodash/lang/clone';
 import isEmpty from 'lodash/lang/isEmpty';
+import camelCase from 'lodash/string/camelCase';
 import moment from 'moment';
 
 export default {
   combineReservations,
+  isStaffEvent,
   getAddress,
   getAddressWithName,
   getAvailableTime,
@@ -38,6 +41,15 @@ function combineReservations(reservations) {
     }
     return previous;
   }, initialValue);
+}
+
+function isStaffEvent(reservation, resource) {
+  if (!resource || !resource.requiredReservationExtraFields) {
+    return false;
+  }
+  return some(resource.requiredReservationExtraFields, (field) => {
+    return !reservation[camelCase(field)];
+  });
 }
 
 function getAddress(item) {
