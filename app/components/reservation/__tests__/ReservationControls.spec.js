@@ -76,69 +76,114 @@ describe('Component: reservation/ReservationControls', () => {
 
     describe('with preliminary reservation in requested state', () => {
       const reservation = Reservation.build({ needManualConfirmation: true, state: 'requested' });
-      const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('should render four buttons', () => {
-        expect(buttons.length).to.equal(4);
+      describe('if user has staff permissions', () => {
+        const isStaff = true;
+
+        const buttons = getWrapper(reservation, isAdmin, isStaff).find(Button);
+
+        it('should render four buttons', () => {
+          expect(buttons.length).to.equal(4);
+        });
+
+        describe('the first button', () => {
+          const button = buttons.at(0);
+
+          it('should be an info button', () => {
+            expect(button.props().children).to.equal('Tiedot');
+          });
+
+          it('clicking the button should call onInfoClick', () => {
+            onInfoClick.reset();
+            button.props().onClick();
+
+            expect(onInfoClick.callCount).to.equal(1);
+          });
+        });
+
+        describe('the second button', () => {
+          const button = buttons.at(1);
+
+          it('should be a confirm button', () => {
+            expect(button.props().children).to.equal('Hyväksy');
+          });
+
+          it('clicking the button should call onConfirmClick', () => {
+            onConfirmClick.reset();
+            button.props().onClick();
+
+            expect(onConfirmClick.callCount).to.equal(1);
+          });
+        });
+
+        describe('the third button', () => {
+          const button = buttons.at(2);
+
+          it('should be a deny button', () => {
+            expect(button.props().children).to.equal('Hylkää');
+          });
+
+          it('clicking the button should call onDenyClick', () => {
+            onDenyClick.reset();
+            button.props().onClick();
+
+            expect(onDenyClick.callCount).to.equal(1);
+          });
+        });
+
+        describe('the fourth button', () => {
+          const button = buttons.at(3);
+
+          it('should be an edit button', () => {
+            expect(button.props().children).to.equal('Muokkaa');
+          });
+
+          it('clicking the button should call onEditClick', () => {
+            onEditClick.reset();
+            button.props().onClick();
+
+            expect(onEditClick.callCount).to.equal(1);
+          });
+        });
       });
 
-      describe('the first button', () => {
-        const button = buttons.at(0);
+      describe('if user does not have staff permissions', () => {
+        const isStaff = false;
 
-        it('should be an info button', () => {
-          expect(button.props().children).to.equal('Tiedot');
+        const buttons = getWrapper(reservation, isAdmin, isStaff).find(Button);
+
+        it('should render two buttons', () => {
+          expect(buttons.length).to.equal(2);
         });
 
-        it('clicking the button should call onInfoClick', () => {
-          onInfoClick.reset();
-          button.props().onClick();
+        describe('the first button', () => {
+          const button = buttons.at(0);
 
-          expect(onInfoClick.callCount).to.equal(1);
-        });
-      });
+          it('should be an info button', () => {
+            expect(button.props().children).to.equal('Tiedot');
+          });
 
-      describe('the second button', () => {
-        const button = buttons.at(1);
+          it('clicking the button should call onInfoClick', () => {
+            onInfoClick.reset();
+            button.props().onClick();
 
-        it('should be a confirm button', () => {
-          expect(button.props().children).to.equal('Hyväksy');
-        });
-
-        it('clicking the button should call onConfirmClick', () => {
-          onConfirmClick.reset();
-          button.props().onClick();
-
-          expect(onConfirmClick.callCount).to.equal(1);
-        });
-      });
-
-      describe('the third button', () => {
-        const button = buttons.at(2);
-
-        it('should be a deny button', () => {
-          expect(button.props().children).to.equal('Hylkää');
+            expect(onInfoClick.callCount).to.equal(1);
+          });
         });
 
-        it('clicking the button should call onDenyClick', () => {
-          onDenyClick.reset();
-          button.props().onClick();
+        describe('the second button', () => {
+          const button = buttons.at(1);
 
-          expect(onDenyClick.callCount).to.equal(1);
-        });
-      });
+          it('should be an edit button', () => {
+            expect(button.props().children).to.equal('Muokkaa');
+          });
 
-      describe('the fourth button', () => {
-        const button = buttons.at(3);
+          it('clicking the button should call onEditClick', () => {
+            onEditClick.reset();
+            button.props().onClick();
 
-        it('should be an edit button', () => {
-          expect(button.props().children).to.equal('Muokkaa');
-        });
-
-        it('clicking the button should call onEditClick', () => {
-          onEditClick.reset();
-          button.props().onClick();
-
-          expect(onEditClick.callCount).to.equal(1);
+            expect(onEditClick.callCount).to.equal(1);
+          });
         });
       });
     });
