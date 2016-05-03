@@ -196,4 +196,50 @@ describe('Container: UserReservationsPage', () => {
       });
     });
   });
+
+  describe('handleFiltersChange', () => {
+    const instance = getWrapper().instance();
+
+    describe('if filters.state is "all"', () => {
+      const filters = { state: 'all' };
+
+      before(() => {
+        changeAdminReservationsFilters.reset();
+        fetchReservations.reset();
+        instance.handleFiltersChange(filters);
+      });
+
+      it('should call changeAdminReservationsFilters with correct filters', () => {
+        expect(changeAdminReservationsFilters.callCount).to.equal(1);
+        expect(changeAdminReservationsFilters.lastCall.args[0]).to.deep.equal(filters);
+      });
+
+      it('should call fetchReservations without any filters', () => {
+        expect(fetchReservations.callCount).to.equal(1);
+        const expectedArgs = { canApprove: true };
+        expect(fetchReservations.lastCall.args[0]).to.deep.equal(expectedArgs);
+      });
+    });
+
+    describe('if filters.state is anything but "all"', () => {
+      const filters = { state: 'requested' };
+
+      before(() => {
+        changeAdminReservationsFilters.reset();
+        fetchReservations.reset();
+        instance.handleFiltersChange(filters);
+      });
+
+      it('should call changeAdminReservationsFilters with correct filters', () => {
+        expect(changeAdminReservationsFilters.callCount).to.equal(1);
+        expect(changeAdminReservationsFilters.lastCall.args[0]).to.deep.equal(filters);
+      });
+
+      it('should call fetchReservations with correct state filter', () => {
+        expect(fetchReservations.callCount).to.equal(1);
+        const expectedArgs = Object.assign({}, { canApprove: true }, filters);
+        expect(fetchReservations.lastCall.args[0]).to.deep.equal(expectedArgs);
+      });
+    });
+  });
 });

@@ -41,6 +41,11 @@ export class UnconnectedUserReservationsPage extends Component {
 
   handleFiltersChange(filters) {
     this.props.actions.changeAdminReservationsFilters(filters);
+    if (filters.state === 'all') {
+      this.props.actions.fetchReservations({ canApprove: true });
+    } else {
+      this.props.actions.fetchReservations({ canApprove: true, state: filters.state });
+    }
   }
 
   render() {

@@ -67,8 +67,10 @@ export class UnconnectedReservationsList extends Component {
       reservations,
     } = this.props;
 
+    const loading = isFetchingReservations && !reservations.length;
+
     return (
-      <Loader loaded={!isFetchingReservations}>
+      <Loader loaded={!loading}>
         {reservations.length ? (
           <div>
             <ul className="reservations-list">
