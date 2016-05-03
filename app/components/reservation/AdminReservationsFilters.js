@@ -22,11 +22,12 @@ class AdminReservationsFilters extends Component {
     } = this.props;
 
     return (
-      <div style={{ marginBottom: '20px' }}>
+      <div className="reservations-filters">
         <h4>Varauksen status</h4>
         <Select
+          className="reservation-state-select"
           clearable={false}
-          name="reservation-state-filter-select"
+          name="reservation-state-select"
           onChange={(value) => onFiltersChange({ state: value })}
           options={stateOptions}
           value={filters.state}
