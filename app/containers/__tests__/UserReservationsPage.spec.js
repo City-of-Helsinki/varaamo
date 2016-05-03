@@ -3,22 +3,26 @@ import React from 'react';
 import simple from 'simple-mock';
 import { shallow } from 'enzyme';
 
+import AdminReservationsFilters from 'components/reservation/AdminReservationsFilters';
 import ReservationsList from 'containers/ReservationsList';
 import {
   UnconnectedUserReservationsPage as UserReservationsPage,
 } from 'containers/UserReservationsPage';
 
 describe('Container: UserReservationsPage', () => {
+  const changeAdminReservationsFilters = simple.stub();
   const fetchReservations = simple.stub();
   const fetchResources = simple.stub();
   const fetchUnits = simple.stub();
 
   const defaultProps = {
     actions: {
+      changeAdminReservationsFilters,
       fetchReservations,
       fetchResources,
       fetchUnits,
     },
+    adminReservationsFilters: { state: 'requested' },
     isAdmin: false,
     resourcesLoaded: true,
   };
@@ -44,6 +48,11 @@ describe('Container: UserReservationsPage', () => {
         expect(reservationsList.length).to.equal(1);
         expect(reservationsList.props().filter).to.not.exist;
       });
+
+      it('should not render AdminReservationsFilters', () => {
+        const adminReservationsFilters = wrapper.find(AdminReservationsFilters);
+        expect(adminReservationsFilters.length).to.equal(0);
+      });
     });
 
     describe('when user is an admin', () => {
@@ -62,6 +71,20 @@ describe('Container: UserReservationsPage', () => {
 
         it('the second header should display "Tavalliset varaukset"', () => {
           expect(headers.at(1).text()).to.equal('Tavalliset varaukset');
+        });
+      });
+
+      describe('AdminReservationsFilters', () => {
+        const adminReservationsFilters = wrapper.find(AdminReservationsFilters);
+
+        it('should render AdminReservationsFilters', () => {
+          expect(adminReservationsFilters.length).to.equal(1);
+        });
+
+        it('should pass correct props to AdminReservationsFilters', () => {
+          const actualProps = adminReservationsFilters.props();
+          expect(actualProps.filters).to.deep.equal(defaultProps.adminReservationsFilters);
+          expect(typeof actualProps.onFiltersChange).to.equal('function');
         });
       });
 
