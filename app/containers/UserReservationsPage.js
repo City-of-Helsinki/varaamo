@@ -52,6 +52,7 @@ export class UnconnectedUserReservationsPage extends Component {
     const {
       adminReservationsFilters,
       isAdmin,
+      reservationsFetchCount,
       resourcesLoaded,
     } = this.props;
 
@@ -62,7 +63,9 @@ export class UnconnectedUserReservationsPage extends Component {
             { !isAdmin && (
               <div>
                 <h1>Omat varaukset</h1>
-                <ReservationsList />
+                <ReservationsList
+                  loading={reservationsFetchCount < 1}
+                />
               </div>
             )}
             { isAdmin && (
@@ -75,11 +78,13 @@ export class UnconnectedUserReservationsPage extends Component {
                 <ReservationsList
                   emptyMessage="Ei alustavia varauksia näytettäväksi."
                   filter={adminReservationsFilters.state}
+                  loading={reservationsFetchCount < 2}
                 />
                 <h1>Tavalliset varaukset</h1>
                 <ReservationsList
                   emptyMessage="Ei tavallisia varauksia näytettäväksi."
                   filter="regular"
+                  loading={reservationsFetchCount < 1}
                 />
               </div>
             )}
@@ -97,6 +102,7 @@ UnconnectedUserReservationsPage.propTypes = {
   actions: PropTypes.object.isRequired,
   adminReservationsFilters: PropTypes.object.isRequired,
   isAdmin: PropTypes.bool.isRequired,
+  reservationsFetchCount: PropTypes.number.isRequired,
   resourcesLoaded: PropTypes.bool.isRequired,
 };
 

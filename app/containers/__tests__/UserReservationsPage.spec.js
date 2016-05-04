@@ -24,6 +24,7 @@ describe('Container: UserReservationsPage', () => {
     },
     adminReservationsFilters: { state: 'requested' },
     isAdmin: false,
+    reservationsFetchCount: 1,
     resourcesLoaded: true,
   };
 
@@ -95,12 +96,28 @@ describe('Container: UserReservationsPage', () => {
           expect(lists.length).to.equal(2);
         });
 
-        it('the first list should only contain filtered preliminary reservations', () => {
-          expect(lists.at(0).props().filter).to.equal(defaultProps.adminReservationsFilters.state);
+        describe('the first list', () => {
+          const list = lists.at(0);
+
+          it('should only contain filtered preliminary reservations', () => {
+            expect(list.props().filter).to.equal(defaultProps.adminReservationsFilters.state);
+          });
+
+          it('should be in correct loading state', () => {
+            expect(list.props().loading).to.equal(defaultProps.reservationsFetchCount < 2);
+          });
         });
 
-        it('the second list should only contain regular reservations', () => {
-          expect(lists.at(1).props().filter).to.equal('regular');
+        describe('the second list', () => {
+          const list = lists.at(1);
+
+          it('the second list should only contain regular reservations', () => {
+            expect(list.props().filter).to.equal('regular');
+          });
+
+          it('should be in correct loading state', () => {
+            expect(list.props().loading).to.equal(defaultProps.reservationsFetchCount < 1);
+          });
         });
       });
     });

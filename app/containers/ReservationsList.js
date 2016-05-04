@@ -63,11 +63,9 @@ export class UnconnectedReservationsList extends Component {
   render() {
     const {
       emptyMessage,
-      isFetchingReservations,
+      loading,
       reservations,
     } = this.props;
-
-    const loading = isFetchingReservations && !reservations.length;
 
     return (
       <Loader loaded={!loading}>
@@ -90,7 +88,7 @@ UnconnectedReservationsList.propTypes = {
   emptyMessage: PropTypes.string,
   filter: PropTypes.string,
   isAdmin: PropTypes.bool.isRequired,
-  isFetchingReservations: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
   reservations: PropTypes.array.isRequired,
   resources: PropTypes.object.isRequired,
   staffUnits: PropTypes.array.isRequired,

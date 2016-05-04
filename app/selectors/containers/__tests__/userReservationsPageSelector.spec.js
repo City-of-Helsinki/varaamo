@@ -16,6 +16,10 @@ describe('Selector: userReservationsPageSelector', () => {
     expect(selected.isAdmin).to.exist;
   });
 
+  it('should return reservationsFetchCount', () => {
+    expect(selected.reservationsFetchCount).to.exist;
+  });
+
   it('should return resourcesLoaded', () => {
     expect(selected.resourcesLoaded).to.exist;
   });
