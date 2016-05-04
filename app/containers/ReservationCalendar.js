@@ -120,7 +120,6 @@ export class UnconnectedReservationCalendar extends Component {
       urlHash,
     } = this.props;
     const isEditing = Boolean(reservationsToEdit.length);
-    const hasPreliminaryReservation = resource.needManualConfirmation;
 
     return (
       <div>
@@ -139,7 +138,6 @@ export class UnconnectedReservationCalendar extends Component {
         />
         <TimeSlots
           addNotification={actions.addNotification}
-          hasPreliminaryReservation={hasPreliminaryReservation}
           isEditing={isEditing}
           isFetching={isFetchingResource}
           isLoggedIn={isLoggedIn}
@@ -159,7 +157,7 @@ export class UnconnectedReservationCalendar extends Component {
           addNotification={actions.addNotification}
           disabled={(
             !isLoggedIn ||
-            (!resource.userPermissions.canMakeReservations && !hasPreliminaryReservation) ||
+            !resource.userPermissions.canMakeReservations ||
             !selected.length ||
             isMakingReservations
           )}
@@ -173,7 +171,7 @@ export class UnconnectedReservationCalendar extends Component {
         <ConfirmReservationModal
           isEditing={isEditing}
           isMakingReservations={isMakingReservations}
-          isPreliminaryReservation={hasPreliminaryReservation}
+          isPreliminaryReservation={resource.needManualConfirmation}
           onClose={actions.closeConfirmReservationModal}
           onConfirm={isEditing ? this.handleEdit : this.handleReservation}
           reservationsToEdit={reservationsToEdit}

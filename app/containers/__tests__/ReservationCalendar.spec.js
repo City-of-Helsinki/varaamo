@@ -116,7 +116,6 @@ describe('Container: ReservationCalendar', () => {
         const actualProps = timeSlotsTrees[0].props;
 
         expect(actualProps.addNotification).to.deep.equal(props.actions.addNotification);
-        expect(actualProps.hasPreliminaryReservation).to.equal(props.resource.needManualConfirmation);
         expect(actualProps.isEditing).to.exist;
         expect(actualProps.isFetching).to.equal(props.isFetchingResource);
         expect(actualProps.isLoggedIn).to.equal(props.isLoggedIn);
