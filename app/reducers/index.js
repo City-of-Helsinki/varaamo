@@ -5,6 +5,7 @@ import { reducer as formReducer } from 'redux-form';
 import activeRequestsReducer from 'reducers/activeRequestsReducer';
 import authReducer from 'reducers/authReducer';
 import dataReducer from 'reducers/dataReducer';
+import fetchCountsReducer from 'reducers/fetchCountsReducer';
 import modalsReducer from 'reducers/modalsReducer';
 import notificationsReducer from 'reducers/notificationsReducer';
 import reservationsReducer from 'reducers/reservationsReducer';
@@ -14,6 +15,7 @@ import shouldFetchReducer from 'reducers/shouldFetchReducer';
 const rootReducer = combineReducers({
   api: combineReducers({
     activeRequests: activeRequestsReducer,
+    fetchCounts: fetchCountsReducer,
     shouldFetch: shouldFetchReducer,
   }),
   auth: authReducer,
