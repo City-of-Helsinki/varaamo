@@ -10,6 +10,13 @@ import reservationSuccessModalSelector from 'selectors/containers/reservationSuc
 import { getName } from 'utils/DataUtils';
 
 export class UnconnectedReservationSuccessModal extends Component {
+  renderEmail(email) {
+    if (!email) {
+      return '';
+    }
+    return <strong> {email}</strong>;
+  }
+
   render() {
     const {
       actions,
@@ -40,7 +47,7 @@ export class UnconnectedReservationSuccessModal extends Component {
           <p>
             Varaus käsitellään kahden arkipäivän kuluessa. Tarkemmat tiedot alustavasta varauksesta
             lähetetään varauksen yhteydessä annettuun sähköpostiosoitteeseen
-            {reservation.reserverEmailAddress ? ` ${reservation.reserverEmailAddress}` : ''}.
+            {this.renderEmail(reservation.reserverEmailAddress)}.
           </p>
           {resource.responsibleContactInfo && (
             <p>Tilasta vastaa:</p>
