@@ -6,7 +6,7 @@ import staffUnitsSelector from 'selectors/staffUnitsSelector';
 import modalIsOpenSelectorFactory from 'selectors/factories/modalIsOpenSelectorFactory';
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
 
-const toShowSelector = (state) => state.ui.reservation.toShow;
+const toShowSelector = (state) => state.ui.reservations.toShow;
 const resourcesSelector = (state) => state.data.resources;
 
 const reservationInfoModalSelector = createSelector(

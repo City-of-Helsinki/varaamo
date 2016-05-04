@@ -7,7 +7,7 @@ import selectedReservationsSelector from 'selectors/selectedReservationsSelector
 function getState(selected) {
   return {
     ui: Immutable({
-      reservation: {
+      reservations: {
         selected,
       },
     }),

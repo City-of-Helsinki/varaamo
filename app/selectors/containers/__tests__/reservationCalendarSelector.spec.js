@@ -24,7 +24,7 @@ function getState(resource) {
       modals: {
         open: [],
       },
-      reservation: {
+      reservations: {
         selected: [],
         toEdit: ['mock-reservation'],
       },
@@ -114,7 +114,7 @@ describe('Selector: reservationCalendarSelector', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = reservationCalendarSelector(state, props);
-    const expected = state.ui.reservation.toEdit;
+    const expected = state.ui.reservations.toEdit;
 
     expect(selected.reservationsToEdit).to.deep.equal(expected);
   });
@@ -123,7 +123,7 @@ describe('Selector: reservationCalendarSelector', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = reservationCalendarSelector(state, props);
-    const expected = state.ui.reservation.selected;
+    const expected = state.ui.reservations.selected;
 
     expect(selected.selected).to.equal(expected);
   });

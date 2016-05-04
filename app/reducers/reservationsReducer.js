@@ -8,6 +8,9 @@ import ModalTypes from 'constants/ModalTypes';
 import { getTimeSlots } from 'utils/TimeUtils';
 
 const initialState = Immutable({
+  adminReservationsFilters: {
+    state: 'all',
+  },
   selected: [],
   toCancel: [],
   toDelete: [],
@@ -28,7 +31,7 @@ function selectReservationToEdit(state, action) {
   });
 }
 
-function reservationReducer(state = initialState, action) {
+function reservationsReducer(state = initialState, action) {
   switch (action.type) {
 
   case types.API.RESERVATION_POST_SUCCESS:
@@ -44,6 +47,10 @@ function reservationReducer(state = initialState, action) {
       selected: [],
       toEdit: [],
     });
+
+  case types.UI.CHANGE_ADMIN_RESERVATIONS_FILTERS:
+    const adminReservationsFilters = action.payload;
+    return state.merge({ adminReservationsFilters }, { deep: true });
 
   case types.UI.CLEAR_RESERVATIONS:
     return initialState;
@@ -88,4 +95,4 @@ function reservationReducer(state = initialState, action) {
   }
 }
 
-export default reservationReducer;
+export default reservationsReducer;

@@ -28,7 +28,7 @@ function getProps(props) {
     },
     isAdmin: false,
     deleteReservationModalIsOpen: false,
-    isFetchingReservations: false,
+    loading: false,
     reservations: [],
     resources: {},
     staffUnits: [],

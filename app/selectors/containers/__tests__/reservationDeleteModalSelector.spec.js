@@ -17,7 +17,7 @@ describe('Selector: reservationDeleteModalSelector', () => {
   });
 
   it('should return reservationsToDelete from the state', () => {
-    const expected = state.ui.reservation.toDelete;
+    const expected = state.ui.reservations.toDelete;
 
     expect(selected.reservationsToDelete).to.deep.equal(expected);
   });

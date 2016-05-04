@@ -5,7 +5,7 @@ import ModalTypes from 'constants/ModalTypes';
 import modalIsOpenSelectorFactory from 'selectors/factories/modalIsOpenSelectorFactory';
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
 
-const toDeleteSelector = (state) => state.ui.reservation.toDelete;
+const toDeleteSelector = (state) => state.ui.reservations.toDelete;
 const resourcesSelector = (state) => state.data.resources;
 
 const reservationDeleteModalSelector = createSelector(
