@@ -44,7 +44,10 @@ export class UnconnectedReservationDeleteModal extends Component {
         </Modal.Header>
 
         <Modal.Body>
-          <p><strong>Oletko varma että haluat perua seuraavat varaukset?</strong></p>
+          {reservationsToDelete.length === 1 ?
+            <p><strong>Oletko varma että haluat perua seuraavan varauksen:</strong></p> :
+            <p><strong>Oletko varma että haluat perua seuraavat varaukset:</strong></p>
+          }
           <CompactReservationsList reservations={reservationsToDelete} resources={resources} />
         </Modal.Body>
 
