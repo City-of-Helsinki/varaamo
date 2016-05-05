@@ -14,6 +14,7 @@ import {
 } from 'containers/ReservationInfoModal';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
+import { makeButtonTests } from 'utils/TestUtils';
 
 describe('Container: ReservationInfoModal', () => {
   const resource = Resource.build();
@@ -155,48 +156,56 @@ describe('Container: ReservationInfoModal', () => {
       });
 
       describe('comments input', () => {
-        const input = getWrapper().find(Input);
-        it('should render textarea input for comments', () => {
-          expect(input.length).to.equal(1);
-          expect(input.props().type).to.equal('textarea');
+        describe('if user has admin rights', () => {
+          const wrapper = getWrapper({
+            resources: { [resource.id]: Resource.build({ userPermissions: { isAdmin: true } }) },
+          });
+          const input = wrapper.find(Input);
+
+          it('should render textarea input for comments', () => {
+            expect(input.length).to.equal(1);
+            expect(input.props().type).to.equal('textarea');
+          });
+
+          it('should have reservation.comments as default value', () => {
+            expect(input.props().defaultValue).to.equal(reservation.comments);
+          });
         });
 
-        it('should have reservation.comments as default value', () => {
-          expect(input.props().defaultValue).to.equal(reservation.comments);
+        describe('if user does not have admin rights', () => {
+          const wrapper = getWrapper({
+            resources: { [resource.id]: Resource.build({ userPermissions: { isAdmin: false } }) },
+          });
+          const input = wrapper.find(Input);
+
+          it('should not render textarea input for comments', () => {
+            expect(input.length).to.equal(0);
+          });
         });
       });
     });
 
     describe('Footer buttons', () => {
       describe('if user has staff permissions', () => {
-        const wrapper = getWrapper({ staffUnits: [resource.unit] });
+        const wrapper = getWrapper({
+          resources: { [resource.id]: Resource.build({ userPermissions: { isAdmin: true } }) },
+          staffUnits: [resource.unit],
+        });
         const modalFooter = wrapper.find(Modal.Footer);
-
         const buttons = modalFooter.find(Button);
 
         it('should render three buttons', () => {
           expect(buttons.length).to.equal(3);
         });
 
-        describe('Cancel button', () => {
-          const button = buttons.at(0);
-
-          it('the first button should read "Takaisin"', () => {
-            expect(button.props().children).to.equal('Takaisin');
-          });
-
-          it('clicking it should call closeReservationInfoModal', () => {
-            defaultProps.actions.closeReservationInfoModal.reset();
-            button.props().onClick();
-
-            expect(defaultProps.actions.closeReservationInfoModal.callCount).to.equal(1);
-          });
+        describe('the first button', () => {
+          makeButtonTests(buttons.at(0), 'back', 'Takaisin', defaultProps.actions.closeReservationInfoModal);
         });
 
-        describe('Edit button', () => {
+        describe('the second button', () => {
           const button = buttons.at(1);
 
-          it('the second button should read "Muokkaa"', () => {
+          it('should be edit button', () => {
             expect(button.props().children).to.equal('Muokkaa');
           });
 
@@ -206,10 +215,10 @@ describe('Container: ReservationInfoModal', () => {
           });
         });
 
-        describe('Save button', () => {
+        describe('the third button', () => {
           const button = buttons.at(2);
 
-          it('the third button should read "Tallenna"', () => {
+          it('should be save button', () => {
             expect(button.props().children).to.equal('Tallenna');
           });
 
@@ -220,10 +229,11 @@ describe('Container: ReservationInfoModal', () => {
         });
       });
 
-      describe('if user does not have staff permissions', () => {
+      describe('if user has regular admin permissions', () => {
         describe('if reservation state is not confirmed', () => {
           const wrapper = getWrapper({
             reservationsToShow: [Reservation.build({ resource: resource.id, state: 'requested' })],
+            resources: { [resource.id]: Resource.build({ userPermissions: { isAdmin: true } }) },
             staffUnits: [],
           });
           const modalFooter = wrapper.find(Modal.Footer);
@@ -233,25 +243,14 @@ describe('Container: ReservationInfoModal', () => {
             expect(buttons.length).to.equal(3);
           });
 
-          describe('Cancel button', () => {
-            const button = buttons.at(0);
-
-            it('the first button should read "Takaisin"', () => {
-              expect(button.props().children).to.equal('Takaisin');
-            });
-
-            it('clicking it should call closeReservationInfoModal', () => {
-              defaultProps.actions.closeReservationInfoModal.reset();
-              button.props().onClick();
-
-              expect(defaultProps.actions.closeReservationInfoModal.callCount).to.equal(1);
-            });
+          describe('the first button', () => {
+            makeButtonTests(buttons.at(0), 'back', 'Takaisin', defaultProps.actions.closeReservationInfoModal);
           });
 
-          describe('Edit button', () => {
+          describe('the second button', () => {
             const button = buttons.at(1);
 
-            it('the second button should read "Muokkaa"', () => {
+            it('should be edit button', () => {
               expect(button.props().children).to.equal('Muokkaa');
             });
 
@@ -261,10 +260,10 @@ describe('Container: ReservationInfoModal', () => {
             });
           });
 
-          describe('Save button', () => {
+          describe('the third button', () => {
             const button = buttons.at(2);
 
-            it('the third button should read "Tallenna"', () => {
+            it('should be save button', () => {
               expect(button.props().children).to.equal('Tallenna');
             });
 
@@ -278,6 +277,7 @@ describe('Container: ReservationInfoModal', () => {
         describe('if reservation state is confirmed', () => {
           const wrapper = getWrapper({
             reservationsToShow: [Reservation.build({ resource: resource.id, state: 'confirmed' })],
+            resources: { [resource.id]: Resource.build({ userPermissions: { isAdmin: true } }) },
             staffUnits: [],
           });
           const modalFooter = wrapper.find(Modal.Footer);
@@ -287,25 +287,14 @@ describe('Container: ReservationInfoModal', () => {
             expect(buttons.length).to.equal(2);
           });
 
-          describe('Cancel button', () => {
-            const button = buttons.at(0);
-
-            it('the first button should read "Takaisin"', () => {
-              expect(button.props().children).to.equal('Takaisin');
-            });
-
-            it('clicking it should call closeReservationInfoModal', () => {
-              defaultProps.actions.closeReservationInfoModal.reset();
-              button.props().onClick();
-
-              expect(defaultProps.actions.closeReservationInfoModal.callCount).to.equal(1);
-            });
+          describe('the first button', () => {
+            makeButtonTests(buttons.at(0), 'back', 'Takaisin', defaultProps.actions.closeReservationInfoModal);
           });
 
-          describe('Save button', () => {
+          describe('the second button', () => {
             const button = buttons.at(1);
 
-            it('the second button should read "Tallenna"', () => {
+            it('should be save button', () => {
               expect(button.props().children).to.equal('Tallenna');
             });
 
@@ -314,6 +303,23 @@ describe('Container: ReservationInfoModal', () => {
               expect(button.props().onClick).to.equal(instance.handleSave);
             });
           });
+        });
+      });
+
+      describe('if user is a regular user', () => {
+        const wrapper = getWrapper({
+          resources: { [resource.id]: Resource.build({ userPermissions: { isAdmin: false } }) },
+          staffUnits: [],
+        });
+        const modalFooter = wrapper.find(Modal.Footer);
+        const buttons = modalFooter.find(Button);
+
+        it('should render one button', () => {
+          expect(buttons.length).to.equal(1);
+        });
+
+        describe('the button', () => {
+          makeButtonTests(buttons.at(0), 'back', 'Takaisin', defaultProps.actions.closeReservationInfoModal);
         });
       });
     });

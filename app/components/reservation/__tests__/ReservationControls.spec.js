@@ -8,19 +8,7 @@ import Immutable from 'seamless-immutable';
 
 import ReservationControls from 'components/reservation/ReservationControls';
 import Reservation from 'fixtures/Reservation';
-
-function makeButtonTests(button, name, expectedText, expectedOnClickFunction) {
-  it(`should be an ${name} button`, () => {
-    expect(button.props().children).to.equal(expectedText);
-  });
-
-  it('clicking the button should call correct onClick function', () => {
-    expectedOnClickFunction.reset();
-    button.props().onClick();
-
-    expect(expectedOnClickFunction.callCount).to.equal(1);
-  });
-}
+import { makeButtonTests } from 'utils/TestUtils';
 
 describe('Component: reservation/ReservationControls', () => {
   const onCancelClick = simple.stub();

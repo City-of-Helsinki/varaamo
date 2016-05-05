@@ -60,7 +60,7 @@ export class UnconnectedReservationInfoModal extends Component {
     actions.closeReservationInfoModal();
   }
 
-  renderModalContent(reservation, resource) {
+  renderModalContent(reservation, resource, isAdmin) {
     if (!reservation) {
       return null;
     }
@@ -84,16 +84,18 @@ export class UnconnectedReservationInfoModal extends Component {
           <dt>Osallistujamäärä:</dt><dd>{reservation.numberOfParticipants}</dd>
           <dt>Tilaisuuden kuvaus:</dt><dd>{reservation.eventDescription}</dd>
         </dl>
-        <form>
-          <Input
-            defaultValue={reservation.comments}
-            label="Kommentit:"
-            placeholder="Varauksen mahdolliset lisätiedot"
-            ref="commentsInput"
-            rows={5}
-            type="textarea"
-          />
-        </form>
+        {isAdmin && (
+          <form>
+            <Input
+              defaultValue={reservation.comments}
+              label="Kommentit:"
+              placeholder="Varauksen mahdolliset lisätiedot"
+              ref="commentsInput"
+              rows={5}
+              type="textarea"
+            />
+          </form>
+        )}
       </div>
     );
   }
@@ -110,6 +112,7 @@ export class UnconnectedReservationInfoModal extends Component {
 
     const reservation = reservationsToShow.length ? reservationsToShow[0] : undefined;
     const resource = reservation ? resources[reservationsToShow[0].resource] : {};
+    const isAdmin = resource.userPermissions && resource.userPermissions.isAdmin;
     const isStaff = includes(staffUnits, resource.unit);
     const showEditButton = (reservation && reservation.state !== 'confirmed') || isStaff;
 
@@ -124,7 +127,7 @@ export class UnconnectedReservationInfoModal extends Component {
         </Modal.Header>
 
         <Modal.Body>
-          {this.renderModalContent(reservation, resource)}
+          {this.renderModalContent(reservation, resource, isAdmin)}
         </Modal.Body>
 
         <Modal.Footer>
@@ -134,7 +137,7 @@ export class UnconnectedReservationInfoModal extends Component {
           >
             Takaisin
           </Button>
-          {showEditButton && (
+          {isAdmin && showEditButton && (
             <Button
               bsStyle="primary"
               onClick={this.handleEdit}
@@ -142,14 +145,16 @@ export class UnconnectedReservationInfoModal extends Component {
               Muokkaa
             </Button>
           )}
-          <Button
-            bsStyle="success"
-            disabled={isEditingReservations}
-            onClick={this.handleSave}
-            type="submit"
-          >
-            {isEditingReservations ? 'Tallennetaan...' : 'Tallenna'}
-          </Button>
+          {isAdmin && (
+            <Button
+              bsStyle="success"
+              disabled={isEditingReservations}
+              onClick={this.handleSave}
+              type="submit"
+            >
+              {isEditingReservations ? 'Tallennetaan...' : 'Tallenna'}
+            </Button>
+          )}
         </Modal.Footer>
       </Modal>
     );
