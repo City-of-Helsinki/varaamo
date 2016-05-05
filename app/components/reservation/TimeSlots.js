@@ -15,7 +15,6 @@ class TimeSlots extends Component {
   renderTimeSlot(slot) {
     const {
       addNotification,
-      hasPreliminaryReservation,
       isEditing,
       isLoggedIn,
       onClick,
@@ -34,7 +33,6 @@ class TimeSlots extends Component {
     return (
       <TimeSlot
         addNotification={addNotification}
-        hasPreliminaryReservation={hasPreliminaryReservation}
         isEditing={isEditing}
         isLoggedIn={isLoggedIn}
         key={slot.start}
@@ -93,7 +91,6 @@ class TimeSlots extends Component {
 
 TimeSlots.propTypes = {
   addNotification: PropTypes.func.isRequired,
-  hasPreliminaryReservation: PropTypes.bool.isRequired,
   isEditing: PropTypes.bool.isRequired,
   isFetching: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
