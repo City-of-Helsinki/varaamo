@@ -9,6 +9,19 @@ import Immutable from 'seamless-immutable';
 import ReservationControls from 'components/reservation/ReservationControls';
 import Reservation from 'fixtures/Reservation';
 
+function makeButtonTests(button, name, expectedText, expectedOnClickFunction) {
+  it(`should be an ${name} button`, () => {
+    expect(button.props().children).to.equal(expectedText);
+  });
+
+  it('clicking the button should call correct onClick function', () => {
+    expectedOnClickFunction.reset();
+    button.props().onClick();
+
+    expect(expectedOnClickFunction.callCount).to.equal(1);
+  });
+}
+
 describe('Component: reservation/ReservationControls', () => {
   const onCancelClick = simple.stub();
   const onConfirmClick = simple.stub();
@@ -44,33 +57,11 @@ describe('Component: reservation/ReservationControls', () => {
       });
 
       describe('the first button', () => {
-        const button = buttons.at(0);
-
-        it('should be an edit button', () => {
-          expect(button.props().children).to.equal('Muokkaa');
-        });
-
-        it('clicking the button should call onEditClick', () => {
-          onEditClick.reset();
-          button.props().onClick();
-
-          expect(onEditClick.callCount).to.equal(1);
-        });
+        makeButtonTests(buttons.at(0), 'edit', 'Muokkaa', onEditClick);
       });
 
       describe('the second button', () => {
-        const button = buttons.at(1);
-
-        it('should be a delete button', () => {
-          expect(button.props().children).to.equal('Peru');
-        });
-
-        it('clicking the button should call onDeleteClick', () => {
-          onDeleteClick.reset();
-          button.props().onClick();
-
-          expect(onDeleteClick.callCount).to.equal(1);
-        });
+        makeButtonTests(buttons.at(1), 'delete', 'Peru', onDeleteClick);
       });
     });
 
@@ -79,7 +70,6 @@ describe('Component: reservation/ReservationControls', () => {
 
       describe('if user has staff permissions', () => {
         const isStaff = true;
-
         const buttons = getWrapper(reservation, isAdmin, isStaff).find(Button);
 
         it('should render four buttons', () => {
@@ -87,69 +77,24 @@ describe('Component: reservation/ReservationControls', () => {
         });
 
         describe('the first button', () => {
-          const button = buttons.at(0);
-
-          it('should be an info button', () => {
-            expect(button.props().children).to.equal('Tiedot');
-          });
-
-          it('clicking the button should call onInfoClick', () => {
-            onInfoClick.reset();
-            button.props().onClick();
-
-            expect(onInfoClick.callCount).to.equal(1);
-          });
+          makeButtonTests(buttons.at(0), 'info', 'Tiedot', onInfoClick);
         });
 
         describe('the second button', () => {
-          const button = buttons.at(1);
-
-          it('should be a confirm button', () => {
-            expect(button.props().children).to.equal('Hyväksy');
-          });
-
-          it('clicking the button should call onConfirmClick', () => {
-            onConfirmClick.reset();
-            button.props().onClick();
-
-            expect(onConfirmClick.callCount).to.equal(1);
-          });
+          makeButtonTests(buttons.at(1), 'confirm', 'Hyväksy', onConfirmClick);
         });
 
         describe('the third button', () => {
-          const button = buttons.at(2);
-
-          it('should be a deny button', () => {
-            expect(button.props().children).to.equal('Hylkää');
-          });
-
-          it('clicking the button should call onDenyClick', () => {
-            onDenyClick.reset();
-            button.props().onClick();
-
-            expect(onDenyClick.callCount).to.equal(1);
-          });
+          makeButtonTests(buttons.at(2), 'deny', 'Hylkää', onDenyClick);
         });
 
         describe('the fourth button', () => {
-          const button = buttons.at(3);
-
-          it('should be an edit button', () => {
-            expect(button.props().children).to.equal('Muokkaa');
-          });
-
-          it('clicking the button should call onEditClick', () => {
-            onEditClick.reset();
-            button.props().onClick();
-
-            expect(onEditClick.callCount).to.equal(1);
-          });
+          makeButtonTests(buttons.at(3), 'edit', 'Muokkaa', onEditClick);
         });
       });
 
       describe('if user does not have staff permissions', () => {
         const isStaff = false;
-
         const buttons = getWrapper(reservation, isAdmin, isStaff).find(Button);
 
         it('should render two buttons', () => {
@@ -157,33 +102,11 @@ describe('Component: reservation/ReservationControls', () => {
         });
 
         describe('the first button', () => {
-          const button = buttons.at(0);
-
-          it('should be an info button', () => {
-            expect(button.props().children).to.equal('Tiedot');
-          });
-
-          it('clicking the button should call onInfoClick', () => {
-            onInfoClick.reset();
-            button.props().onClick();
-
-            expect(onInfoClick.callCount).to.equal(1);
-          });
+          makeButtonTests(buttons.at(0), 'info', 'Tiedot', onInfoClick);
         });
 
         describe('the second button', () => {
-          const button = buttons.at(1);
-
-          it('should be an edit button', () => {
-            expect(button.props().children).to.equal('Muokkaa');
-          });
-
-          it('clicking the button should call onEditClick', () => {
-            onEditClick.reset();
-            button.props().onClick();
-
-            expect(onEditClick.callCount).to.equal(1);
-          });
+          makeButtonTests(buttons.at(1), 'edit', 'Muokkaa', onEditClick);
         });
       });
     });
@@ -197,18 +120,7 @@ describe('Component: reservation/ReservationControls', () => {
       });
 
       describe('the button', () => {
-        const button = buttons.at(0);
-
-        it('should be an info button', () => {
-          expect(button.props().children).to.equal('Tiedot');
-        });
-
-        it('clicking the button should call onInfoClick', () => {
-          onInfoClick.reset();
-          button.props().onClick();
-
-          expect(onInfoClick.callCount).to.equal(1);
-        });
+        makeButtonTests(buttons.at(0), 'info', 'Tiedot', onInfoClick);
       });
     });
 
@@ -221,18 +133,7 @@ describe('Component: reservation/ReservationControls', () => {
       });
 
       describe('the button', () => {
-        const button = buttons.at(0);
-
-        it('should be an info button', () => {
-          expect(button.props().children).to.equal('Tiedot');
-        });
-
-        it('clicking the button should call onInfoClick', () => {
-          onInfoClick.reset();
-          button.props().onClick();
-
-          expect(onInfoClick.callCount).to.equal(1);
-        });
+        makeButtonTests(buttons.at(0), 'info', 'Tiedot', onInfoClick);
       });
     });
 
@@ -241,7 +142,6 @@ describe('Component: reservation/ReservationControls', () => {
 
       describe('if user has staff permissions', () => {
         const isStaff = true;
-
         const buttons = getWrapper(reservation, isAdmin, isStaff).find(Button);
 
         it('should render three buttons', () => {
@@ -249,54 +149,20 @@ describe('Component: reservation/ReservationControls', () => {
         });
 
         describe('the first button', () => {
-          const button = buttons.at(0);
-
-          it('should be an info button', () => {
-            expect(button.props().children).to.equal('Tiedot');
-          });
-
-          it('clicking the button should call onInfoClick', () => {
-            onInfoClick.reset();
-            button.props().onClick();
-
-            expect(onInfoClick.callCount).to.equal(1);
-          });
+          makeButtonTests(buttons.at(0), 'info', 'Tiedot', onInfoClick);
         });
 
         describe('the second button', () => {
-          const button = buttons.at(1);
-
-          it('should be a cancel button', () => {
-            expect(button.props().children).to.equal('Peru');
-          });
-
-          it('clicking the button should call onCancelClick', () => {
-            onCancelClick.reset();
-            button.props().onClick();
-
-            expect(onCancelClick.callCount).to.equal(1);
-          });
+          makeButtonTests(buttons.at(1), 'cancel', 'Peru', onCancelClick);
         });
 
         describe('the third button', () => {
-          const button = buttons.at(2);
-
-          it('should be an edit button', () => {
-            expect(button.props().children).to.equal('Muokkaa');
-          });
-
-          it('clicking the button should call onEditClick', () => {
-            onEditClick.reset();
-            button.props().onClick();
-
-            expect(onEditClick.callCount).to.equal(1);
-          });
+          makeButtonTests(buttons.at(2), 'edit', 'Muokkaa', onEditClick);
         });
       });
 
       describe('if user does not have staff permissions', () => {
         const isStaff = false;
-
         const buttons = getWrapper(reservation, isAdmin, isStaff).find(Button);
 
         it('should render two buttons', () => {
@@ -304,33 +170,11 @@ describe('Component: reservation/ReservationControls', () => {
         });
 
         describe('the first button', () => {
-          const button = buttons.at(0);
-
-          it('should be an info button', () => {
-            expect(button.props().children).to.equal('Tiedot');
-          });
-
-          it('clicking the button should call onInfoClick', () => {
-            onInfoClick.reset();
-            button.props().onClick();
-
-            expect(onInfoClick.callCount).to.equal(1);
-          });
+          makeButtonTests(buttons.at(0), 'info', 'Tiedot', onInfoClick);
         });
 
         describe('the second button', () => {
-          const button = buttons.at(1);
-
-          it('should be a cancel button', () => {
-            expect(button.props().children).to.equal('Peru');
-          });
-
-          it('clicking the button should call onCancelClick', () => {
-            onCancelClick.reset();
-            button.props().onClick();
-
-            expect(onCancelClick.callCount).to.equal(1);
-          });
+          makeButtonTests(buttons.at(1), 'cancel', 'Peru', onCancelClick);
         });
       });
     });
@@ -348,33 +192,11 @@ describe('Component: reservation/ReservationControls', () => {
       });
 
       describe('the first button', () => {
-        const button = buttons.at(0);
-
-        it('should be an edit button', () => {
-          expect(button.props().children).to.equal('Muokkaa');
-        });
-
-        it('clicking the button should call onEditClick', () => {
-          onEditClick.reset();
-          button.props().onClick();
-
-          expect(onEditClick.callCount).to.equal(1);
-        });
+        makeButtonTests(buttons.at(0), 'edit', 'Muokkaa', onEditClick);
       });
 
       describe('the second button', () => {
-        const button = buttons.at(1);
-
-        it('should be a delete button', () => {
-          expect(button.props().children).to.equal('Peru');
-        });
-
-        it('clicking the button should call onDeleteClick', () => {
-          onDeleteClick.reset();
-          button.props().onClick();
-
-          expect(onDeleteClick.callCount).to.equal(1);
-        });
+        makeButtonTests(buttons.at(1), 'delete', 'Peru', onDeleteClick);
       });
     });
 
@@ -387,33 +209,11 @@ describe('Component: reservation/ReservationControls', () => {
       });
 
       describe('the first button', () => {
-        const button = buttons.at(0);
-
-        it('should be an edit button', () => {
-          expect(button.props().children).to.equal('Muokkaa');
-        });
-
-        it('clicking the button should call onEditClick', () => {
-          onEditClick.reset();
-          button.props().onClick();
-
-          expect(onEditClick.callCount).to.equal(1);
-        });
+        makeButtonTests(buttons.at(0), 'edit', 'Muokkaa', onEditClick);
       });
 
       describe('the second button', () => {
-        const button = buttons.at(1);
-
-        it('should be a cancel button', () => {
-          expect(button.props().children).to.equal('Peru');
-        });
-
-        it('clicking the button should call onCancelClick', () => {
-          onCancelClick.reset();
-          button.props().onClick();
-
-          expect(onCancelClick.callCount).to.equal(1);
-        });
+        makeButtonTests(buttons.at(1), 'cancel', 'Peru', onCancelClick);
       });
     });
 
@@ -444,18 +244,7 @@ describe('Component: reservation/ReservationControls', () => {
       });
 
       describe('the button', () => {
-        const button = buttons.at(0);
-
-        it('should be a cancel button', () => {
-          expect(button.props().children).to.equal('Peru');
-        });
-
-        it('clicking the button should call onCancelClick', () => {
-          onCancelClick.reset();
-          button.props().onClick();
-
-          expect(onCancelClick.callCount).to.equal(1);
-        });
+        makeButtonTests(buttons.at(0), 'cancel', 'Peru', onCancelClick);
       });
     });
   });
