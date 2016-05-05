@@ -204,16 +204,20 @@ describe('Component: reservation/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: true, state: 'requested' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('should render two buttons', () => {
-        expect(buttons.length).to.equal(2);
+      it('should render three buttons', () => {
+        expect(buttons.length).to.equal(3);
       });
 
       describe('the first button', () => {
-        makeButtonTests(buttons.at(0), 'edit', 'Muokkaa', onEditClick);
+        makeButtonTests(buttons.at(0), 'info', 'Tiedot', onInfoClick);
       });
 
       describe('the second button', () => {
-        makeButtonTests(buttons.at(1), 'cancel', 'Peru', onCancelClick);
+        makeButtonTests(buttons.at(1), 'edit', 'Muokkaa', onEditClick);
+      });
+
+      describe('the third button', () => {
+        makeButtonTests(buttons.at(2), 'cancel', 'Peru', onCancelClick);
       });
     });
 
@@ -221,8 +225,12 @@ describe('Component: reservation/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: true, state: 'cancelled' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('should not render any buttons', () => {
-        expect(buttons.length).to.equal(0);
+      it('should render one button', () => {
+        expect(buttons.length).to.equal(1);
+      });
+
+      describe('the button', () => {
+        makeButtonTests(buttons.at(0), 'info', 'Tiedot', onInfoClick);
       });
     });
 
@@ -230,8 +238,12 @@ describe('Component: reservation/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: true, state: 'denied' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('should not render any buttons', () => {
-        expect(buttons.length).to.equal(0);
+      it('should render one button', () => {
+        expect(buttons.length).to.equal(1);
+      });
+
+      describe('the button', () => {
+        makeButtonTests(buttons.at(0), 'info', 'Tiedot', onInfoClick);
       });
     });
 
@@ -239,12 +251,16 @@ describe('Component: reservation/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: true, state: 'confirmed' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('should render one button', () => {
-        expect(buttons.length).to.equal(1);
+      it('should render two buttons', () => {
+        expect(buttons.length).to.equal(2);
       });
 
-      describe('the button', () => {
-        makeButtonTests(buttons.at(0), 'cancel', 'Peru', onCancelClick);
+      describe('the first button', () => {
+        makeButtonTests(buttons.at(0), 'info', 'Tiedot', onInfoClick);
+      });
+
+      describe('the second button', () => {
+        makeButtonTests(buttons.at(1), 'cancel', 'Peru', onCancelClick);
       });
     });
   });

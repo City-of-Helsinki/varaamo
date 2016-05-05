@@ -94,7 +94,7 @@ class ReservationControls extends Component {
     case 'cancelled':
       return isAdmin ?
         [buttons.info] :
-        null;
+        [buttons.info];
 
     case 'confirmed':
       if (isAdmin) {
@@ -102,12 +102,12 @@ class ReservationControls extends Component {
           [buttons.info, buttons.adminCancel, buttons.edit] :
           [buttons.info, buttons.adminCancel];
       }
-      return [buttons.cancel];
+      return [buttons.info, buttons.cancel];
 
     case 'denied':
       return isAdmin ?
         [buttons.info] :
-        null;
+        [buttons.info];
 
     case 'requested':
       if (isAdmin) {
@@ -115,7 +115,7 @@ class ReservationControls extends Component {
           [buttons.info, buttons.confirm, buttons.deny, buttons.edit] :
           [buttons.info, buttons.edit];
       }
-      return [buttons.edit, buttons.cancel];
+      return [buttons.info, buttons.edit, buttons.cancel];
 
     default:
       return null;
