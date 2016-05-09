@@ -1,7 +1,9 @@
 import { expect } from 'chai';
 import MockDate from 'mockdate';
 
+import { REQUIRED_STAFF_EVENT_FIELDS } from 'constants/AppConstants';
 import Image from 'fixtures/Image';
+import Reservation from 'fixtures/Reservation';
 import {
   combineReservations,
   isStaffEvent,
@@ -10,6 +12,7 @@ import {
   getAvailableTime,
   getDescription,
   getMainImage,
+  getMissingReservationValues,
   getName,
   getOpeningHours,
   getPeopleCapacityString,
@@ -414,6 +417,42 @@ describe('Utils: DataUtils', () => {
       ];
 
       expect(getMainImage(images)).to.deep.equal(images[0]);
+    });
+  });
+
+  describe('getMissingReservationValues', () => {
+    function getReservation(extraValues) {
+      const defaults = {
+        eventDescription: 'Some description',
+        reserverName: 'Luke Skywalker',
+      };
+      return Reservation.build(Object.assign({}, defaults, extraValues));
+    }
+
+    it('should return an object', () => {
+      const reservation = getReservation();
+      const actual = getMissingReservationValues(reservation);
+
+      expect(typeof actual).to.equal('object');
+    });
+
+    describe('the returned object', () => {
+      it('should be empty if reservation is not missing any required values', () => {
+        const reservation = getReservation();
+        const actual = getMissingReservationValues(reservation);
+
+        expect(actual).to.deep.equal({});
+      });
+
+      REQUIRED_STAFF_EVENT_FIELDS.forEach((field) => {
+        it(`should contain ${field} as "-" if ${field} is missing`, () => {
+          const reservation = getReservation({ [field]: undefined });
+          const actual = getMissingReservationValues(reservation);
+          const expected = { [field]: '-' };
+
+          expect(actual).to.deep.equal(expected);
+        });
+      });
     });
   });
 

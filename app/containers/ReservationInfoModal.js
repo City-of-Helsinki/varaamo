@@ -12,7 +12,11 @@ import { closeReservationInfoModal, selectReservationToEdit } from 'actions/uiAc
 import { putReservation } from 'actions/reservationActions';
 import TimeRange from 'components/common/TimeRange';
 import reservationInfoModalSelector from 'selectors/containers/reservationInfoModalSelector';
-import { isStaffEvent, getName } from 'utils/DataUtils';
+import {
+  isStaffEvent,
+  getMissingReservationValues,
+  getName,
+} from 'utils/DataUtils';
 import { renderReservationStateLabel } from 'utils/renderUtils';
 
 export class UnconnectedReservationInfoModal extends Component {
@@ -55,8 +59,15 @@ export class UnconnectedReservationInfoModal extends Component {
     }
     const resource = reservation ? resources[reservationsToShow[0].resource] : {};
     const staffEvent = isStaffEvent(reservation, resource);
+    const missingValues = getMissingReservationValues(reservation);
     const comments = this.refs.commentsInput.getValue();
-    actions.putReservation(Object.assign({}, reservation, { comments }, { staffEvent }));
+    actions.putReservation(Object.assign(
+      {},
+      reservation,
+      missingValues,
+      { comments },
+      { staffEvent }
+    ));
     actions.closeReservationInfoModal();
   }
 
