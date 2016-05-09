@@ -10,6 +10,8 @@ import isEmpty from 'lodash/lang/isEmpty';
 import camelCase from 'lodash/string/camelCase';
 import moment from 'moment';
 
+import { REQUIRED_STAFF_EVENT_FIELDS } from 'constants/AppConstants';
+
 export default {
   combineReservations,
   isStaffEvent,
@@ -19,6 +21,7 @@ export default {
   getCaption,
   getDescription,
   getMainImage,
+  getMissingReservationValues,
   getName,
   getOpeningHours,
   getPeopleCapacityString,
@@ -121,6 +124,16 @@ function getMainImage(images) {
   }
 
   return find(images, { type: 'main' }) || images[0];
+}
+
+function getMissingReservationValues(reservation) {
+  const missingValues = {};
+  REQUIRED_STAFF_EVENT_FIELDS.forEach((field) => {
+    if (!reservation[field]) {
+      missingValues[field] = '-';
+    }
+  });
+  return missingValues;
 }
 
 function getName(item, language) {
