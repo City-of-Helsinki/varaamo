@@ -180,10 +180,10 @@ describe('Utils: DataUtils', () => {
   });
 
   describe('getAvailableTime', () => {
-    it('should return "0 tuntia" if openingHours is empty', () => {
+    it('should return "0 tuntia vapaana" if openingHours is empty', () => {
       const openingHours = {};
 
-      expect(getAvailableTime(openingHours)).to.equal('0 tuntia');
+      expect(getAvailableTime(openingHours)).to.equal('0 tuntia vapaana');
     });
 
     describe('rounding the returned time', () => {
@@ -202,7 +202,7 @@ describe('Utils: DataUtils', () => {
         };
         const availableTime = getAvailableTime(openingHours);
 
-        expect(availableTime).to.equal('2 tuntia');
+        expect(availableTime).to.equal('2 tuntia vapaana');
       });
     });
 
@@ -224,7 +224,7 @@ describe('Utils: DataUtils', () => {
           };
           const reservations = [];
           const availableTime = getAvailableTime(openingHours, reservations);
-          expect(availableTime).to.equal('6 tuntia');
+          expect(availableTime).to.equal('6 tuntia vapaana');
         });
       });
 
@@ -246,7 +246,7 @@ describe('Utils: DataUtils', () => {
           ];
           const availableTime = getAvailableTime(openingHours, reservations);
 
-          expect(availableTime).to.equal('4.5 tuntia');
+          expect(availableTime).to.equal('4.5 tuntia vapaana');
         });
       });
     });
@@ -268,7 +268,7 @@ describe('Utils: DataUtils', () => {
           };
           const availableTime = getAvailableTime(openingHours);
 
-          expect(availableTime).to.equal('3 tuntia');
+          expect(availableTime).to.equal('3 tuntia vapaana');
         });
       });
 
@@ -290,7 +290,7 @@ describe('Utils: DataUtils', () => {
           ];
           const availableTime = getAvailableTime(openingHours, reservations);
 
-          expect(availableTime).to.equal('1.5 tuntia');
+          expect(availableTime).to.equal('1.5 tuntia vapaana');
         });
 
         it('should not minus reservations that are before current time', () => {
@@ -310,7 +310,7 @@ describe('Utils: DataUtils', () => {
           ];
           const availableTime = getAvailableTime(openingHours, reservations);
 
-          expect(availableTime).to.equal('3 tuntia');
+          expect(availableTime).to.equal('3 tuntia vapaana');
         });
 
         it('should not minus past time of ongoing reservations', () => {
@@ -326,7 +326,7 @@ describe('Utils: DataUtils', () => {
           ];
           const availableTime = getAvailableTime(openingHours, reservations);
 
-          expect(availableTime).to.equal('1 tunti');
+          expect(availableTime).to.equal('1 tunti vapaana');
         });
       });
     });
@@ -340,13 +340,13 @@ describe('Utils: DataUtils', () => {
         MockDate.reset();
       });
 
-      it('should return "0 tuntia"', () => {
+      it('should return "0 tuntia vapaana"', () => {
         const openingHours = {
           opens: '2015-10-10T12:00:00+03:00',
           closes: '2015-10-10T18:00:00+03:00',
         };
         const availableTime = getAvailableTime(openingHours);
-        expect(availableTime).to.equal('0 tuntia');
+        expect(availableTime).to.equal('0 tuntia vapaana');
       });
     });
   });

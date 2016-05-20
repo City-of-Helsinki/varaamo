@@ -1,7 +1,6 @@
 import map from 'lodash/collection/map';
 import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
-import Table from 'react-bootstrap/lib/Table';
 import Loader from 'react-loader';
 
 import SearchResult from 'components/search/SearchResult';
@@ -37,17 +36,9 @@ class SearchResults extends Component {
       <div id="search-results">
         <Loader loaded={!isFetching}>
           {results.length ? (
-            <Table className="search-results lined">
-              <thead>
-                <tr>
-                  <th colSpan="2">Tila</th>
-                  <th>Vapaata</th>
-                </tr>
-              </thead>
-              <tbody>
-                {map(results, this.renderSearchResult)}
-              </tbody>
-            </Table>
+            <ul className="search-results">
+              {map(results, this.renderSearchResult)}
+            </ul>
           ) : (
             <p>Yhtään hakutulosta ei löytynyt.</p>
           )}

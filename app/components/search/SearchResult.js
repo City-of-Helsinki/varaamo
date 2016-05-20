@@ -23,7 +23,7 @@ class SearchResult extends Component {
 
   renderImage(image) {
     if (image && image.url) {
-      const src = `${image.url}?dim=80x80`;
+      const src = `${image.url}?dim=100x100`;
       return <img alt={getCaption(image)} src={src} />;
     }
     return null;
@@ -34,16 +34,16 @@ class SearchResult extends Component {
     const availableTime = getAvailableTime(getOpeningHours(result), result.reservations);
 
     return (
-      <tr>
-        <td style={{ height: '80px', width: '80px' }}>
+      <li>
+        <div className="image">
           <Link
             to={`/resources/${result.id}`}
             query={{ date: date.split('T')[0] }}
           >
             {this.renderImage(getMainImage(result.images))}
           </Link>
-        </td>
-        <td>
+        </div>
+        <div className="names">
           <Link
             to={`/resources/${result.id}`}
             query={{ date: date.split('T')[0] }}
@@ -51,16 +51,16 @@ class SearchResult extends Component {
             <h4>{getName(result)}</h4>
             <div className="unit-name">{getName(unit)}</div>
           </Link>
-        </td>
-        <td className="available-time">
+        </div>
+        <div className="available-time">
           <Link
             to={`/resources/${result.id}/reservation`}
             query={{ date: date.split('T')[0] }}
           >
             {this.renderAvailableTime(availableTime)}
           </Link>
-        </td>
-      </tr>
+        </div>
+      </li>
     );
   }
 }
