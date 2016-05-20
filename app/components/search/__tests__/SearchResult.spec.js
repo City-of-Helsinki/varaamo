@@ -26,86 +26,66 @@ describe('Component: search/SearchResult', () => {
       vdom = tree.getRenderOutput();
     });
 
-    it('should render a table row', () => {
-      expect(vdom.type).to.equal('tr');
+    it('should render an li element', () => {
+      expect(vdom.type).to.equal('li');
     });
 
-    describe('table cells', () => {
-      let tdTrees;
+    it('should render an image with correct props', () => {
+      const imageTree = tree.subTree('img');
+      const image = props.result.images[0];
+
+      expect(imageTree).to.be.ok;
+      expect(imageTree.props.alt).to.equal(image.caption.fi);
+      expect(imageTree.props.src).to.equal(`${image.url}?dim=100x100`);
+    });
+
+    describe('names', () => {
+      let namesTree;
 
       before(() => {
-        tdTrees = tree.everySubTree('td');
+        namesTree = tree.subTree('.names');
       });
 
-      it('should render 3 table cells', () => {
-        expect(tdTrees).to.have.length(3);
+      it('should render a link to resources page', () => {
+        const linkTree = namesTree.subTree('Link');
+
+        expect(linkTree.props.to).to.contain('resources');
       });
 
-      describe('the first table cell', () => {
-        let tdTree;
+      it('should render the name of the result', () => {
+        const expected = props.result.name.fi;
 
-        before(() => {
-          tdTree = tdTrees[0];
-        });
-
-        it('should display an image with correct props', () => {
-          const imageTree = tdTree.subTree('img');
-          const image = props.result.images[0];
-
-          expect(imageTree).to.be.ok;
-          expect(imageTree.props.alt).to.equal(image.caption.fi);
-          expect(imageTree.props.src).to.equal(`${image.url}?dim=80x80`);
-        });
+        expect(namesTree.toString()).to.contain(expected);
       });
 
-      describe('the second table cell', () => {
-        let tdTree;
+      it('should render the name of the given unit in props', () => {
+        const expected = props.unit.name.fi;
 
-        before(() => {
-          tdTree = tdTrees[1];
-        });
+        expect(namesTree.toString()).to.contain(expected);
+      });
+    });
 
-        it('should contain a link to resources page', () => {
-          const linkTree = tdTree.subTree('Link');
+    describe('available time', () => {
+      let availableTimeTree;
 
-          expect(linkTree.props.to).to.contain('resources');
-        });
-
-        it('should display the name of the result', () => {
-          const expected = props.result.name.fi;
-
-          expect(tdTree.toString()).to.contain(expected);
-        });
-
-        it('should display the name of the given unit in props', () => {
-          const expected = props.unit.name.fi;
-
-          expect(tdTree.toString()).to.contain(expected);
-        });
+      before(() => {
+        availableTimeTree = tree.subTree('.available-time');
       });
 
-      describe('the third table cell', () => {
-        let tdTree;
+      it('should have a Link to reservations page with a correct date', () => {
+        const linkTree = availableTimeTree.subTree('Link');
 
-        before(() => {
-          tdTree = tdTrees[2];
-        });
+        expect(linkTree).to.be.ok;
+        expect(linkTree.props.to).to.equal(`/resources/${props.result.id}/reservation`);
+        expect(linkTree.props.query).to.deep.equal(
+          { date: props.date.split('T')[0] }
+        );
+      });
 
-        it('should have a Link to reservations page with a correct date', () => {
-          const linkTree = tdTree.subTree('Link');
+      it('should display the available hours in a label', () => {
+        const expectedText = '0 tuntia vapaana';
 
-          expect(linkTree).to.be.ok;
-          expect(linkTree.props.to).to.equal(`/resources/${props.result.id}/reservation`);
-          expect(linkTree.props.query).to.deep.equal(
-            { date: props.date.split('T')[0] }
-          );
-        });
-
-        it('should display the available hours in a label', () => {
-          const expectedText = '0 tuntia';
-
-          expect(tdTree.subTree('Label').props.children).to.equal(expectedText);
-        });
+        expect(availableTimeTree.subTree('Label').props.children).to.equal(expectedText);
       });
     });
   });

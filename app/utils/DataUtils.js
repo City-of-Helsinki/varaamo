@@ -80,7 +80,7 @@ function getAvailableTime(openingHours = {}, reservations = []) {
   const { closes, opens } = openingHours;
 
   if (!closes || !opens) {
-    return '0 tuntia';
+    return '0 tuntia vapaana';
   }
 
   const nowMoment = moment();
@@ -88,7 +88,7 @@ function getAvailableTime(openingHours = {}, reservations = []) {
   const closesMoment = moment(closes);
 
   if (nowMoment > closesMoment) {
-    return '0 tuntia';
+    return '0 tuntia vapaana';
   }
 
   const beginMoment = nowMoment > opensMoment ? nowMoment : opensMoment;
@@ -107,7 +107,7 @@ function getAvailableTime(openingHours = {}, reservations = []) {
   const asHours = moment.duration(total).asHours();
   const rounded = Math.ceil(asHours * 2) / 2;
 
-  return rounded === 1 ? `${rounded} tunti` : `${rounded} tuntia`;
+  return rounded === 1 ? `${rounded} tunti vapaana` : `${rounded} tuntia vapaana`;
 }
 
 function getCaption(item, language = 'fi') {

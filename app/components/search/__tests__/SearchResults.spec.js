@@ -29,34 +29,10 @@ describe('Component: search/SearchResults', () => {
       tree = sd.shallowRender(<SearchResults {...props} />);
     });
 
-    it('should render a Table component', () => {
-      const tableTrees = tree.everySubTree('Table');
+    it('should render a list', () => {
+      const listTrees = tree.everySubTree('ul');
 
-      expect(tableTrees.length).to.equal(1);
-    });
-
-    describe('rendering table headers', () => {
-      let thTrees;
-
-      before(() => {
-        thTrees = tree.everySubTree('th');
-      });
-
-      it('should render 2 th elements', () => {
-        expect(thTrees.length).to.equal(2);
-      });
-
-      it('first th element should contain text "Tila"', () => {
-        expect(thTrees[0].text()).to.equal('Tila');
-      });
-
-      it('first th element should span two columns', () => {
-        expect(thTrees[0].props.colSpan).to.equal('2');
-      });
-
-      it('second th element should contain text "Vapaata"', () => {
-        expect(thTrees[1].text()).to.equal('Vapaata');
-      });
+      expect(listTrees.length).to.equal(1);
     });
 
     describe('rendering individual results', () => {
