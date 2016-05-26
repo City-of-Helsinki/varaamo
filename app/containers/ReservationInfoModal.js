@@ -71,7 +71,7 @@ export class UnconnectedReservationInfoModal extends Component {
     actions.closeReservationInfoModal();
   }
 
-  renderModalContent(reservation, resource, isAdmin) {
+  renderModalContent(reservation, resource, isAdmin, isStaff) {
     if (!reservation) {
       return null;
     }
@@ -81,7 +81,9 @@ export class UnconnectedReservationInfoModal extends Component {
         {renderReservationStateLabel(reservation)}
         <dl className="dl-horizontal">
           <dt>Varaaja / vuokraaja:</dt><dd>{reservation.reserverName}</dd>
-          <dt>Y-tunnus / henkilötunnus:</dt><dd>{reservation.businessId}</dd>
+          {isStaff && (
+            <span><dt>Y-tunnus / henkilötunnus:</dt><dd>{reservation.businessId}</dd></span>
+          )}
           <dt>Puhelinnumero:</dt><dd>{reservation.reserverPhoneNumber}</dd>
           <dt>Sähköposti:</dt><dd>{reservation.reserverEmailAddress}</dd>
           <dt>Tilaisuuden kuvaus:</dt><dd>{reservation.eventDescription}</dd>
@@ -137,7 +139,7 @@ export class UnconnectedReservationInfoModal extends Component {
         </Modal.Header>
 
         <Modal.Body>
-          {this.renderModalContent(reservation, resource, isAdmin)}
+          {this.renderModalContent(reservation, resource, isAdmin, isStaff)}
         </Modal.Body>
 
         <Modal.Footer>
