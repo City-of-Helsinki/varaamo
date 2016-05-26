@@ -24,7 +24,6 @@ describe('Container: ReservationInfoModal', () => {
     billingAddressZip: '99999',
     businessId: '1234567',
     comments: 'Just some comments.',
-    company: 'Rebellion',
     eventDescription: 'Jedi mind tricks',
     numberOfParticipants: 12,
     reserverAddressCity: 'Mos Eisley',
@@ -112,10 +111,6 @@ describe('Container: ReservationInfoModal', () => {
 
         it('should render reservation.businessId', () => {
           expect(dlText).to.contain(reservation.businessId);
-        });
-
-        it('should render reservation.company', () => {
-          expect(dlText).to.contain(reservation.company);
         });
 
         it('should render reservation.eventDescription', () => {

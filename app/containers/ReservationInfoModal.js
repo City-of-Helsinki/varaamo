@@ -80,20 +80,19 @@ export class UnconnectedReservationInfoModal extends Component {
       <div>
         {renderReservationStateLabel(reservation)}
         <dl className="dl-horizontal">
-          <dt>Nimi:</dt><dd>{reservation.reserverName}</dd>
+          <dt>Varaaja / vuokraaja:</dt><dd>{reservation.reserverName}</dd>
+          <dt>Y-tunnus / henkilötunnus:</dt><dd>{reservation.businessId}</dd>
           <dt>Puhelinnumero:</dt><dd>{reservation.reserverPhoneNumber}</dd>
           <dt>Sähköposti:</dt><dd>{reservation.reserverEmailAddress}</dd>
+          <dt>Tilaisuuden kuvaus:</dt><dd>{reservation.eventDescription}</dd>
+          <dt>Osallistujamäärä:</dt><dd>{reservation.numberOfParticipants}</dd>
           <dt>Osoite:</dt>
           <dd>{this.getAddress(reservation.reserverAddressStreet, reservation.reserverAddressZip, reservation.reserverAddressCity)}</dd>
           <dt>Laskutusosoite:</dt>
           <dd>{this.getAddress(reservation.billingAddressStreet, reservation.billingAddressZip, reservation.billingAddressCity)}</dd>
-          <dt>Yhdistys:</dt><dd>{reservation.company}</dd>
-          <dt>Y-tunnus:</dt><dd>{reservation.businessId}</dd>
           <dt>Varauksen ajankohta:</dt>
           <dd><TimeRange begin={reservation.begin} end={reservation.end} /></dd>
           <dt>Tila:</dt><dd>{getName(resource)}</dd>
-          <dt>Osallistujamäärä:</dt><dd>{reservation.numberOfParticipants}</dd>
-          <dt>Tilaisuuden kuvaus:</dt><dd>{reservation.eventDescription}</dd>
         </dl>
         {isAdmin && (
           <form>

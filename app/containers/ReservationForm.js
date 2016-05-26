@@ -116,10 +116,12 @@ export class UnconnectedReservationForm extends Component {
       <div>
         <form className="reservation-form form-horizontal">
           {this.renderStaffEventField(fields.staffEvent)}
-          {this.renderField('text', 'Nimi', fields.reserverName)}
-          {this.renderField('email', 'Sähköposti', fields.reserverEmailAddress)}
+          {this.renderField('text', 'Varaaja / vuokraaja', fields.reserverName)}
+          {this.renderField('text', 'Y-tunnus / henkilötunnus', fields.businessId)}
           {this.renderField('text', 'Puhelin', fields.reserverPhoneNumber)}
+          {this.renderField('email', 'Sähköposti', fields.reserverEmailAddress)}
           {this.renderField('textarea', 'Tilaisuuden kuvaus', fields.eventDescription, { rows: 5 })}
+          {this.renderField('number', 'Osallistujamäärä', fields.numberOfParticipants, { min: '0' })}
           { fields.reserverAddressStreet && (
             <Well>
               <p>Osoite</p>
@@ -128,9 +130,7 @@ export class UnconnectedReservationForm extends Component {
               {this.renderField('text', 'Kaupunki', fields.reserverAddressCity)}
             </Well>
           )}
-          {this.renderField('text', 'Yhdistyksen nimi', fields.company)}
-          {this.renderField('text', 'Y-tunnus', fields.businessId)}
-          { fields.reserverAddressStreet && (
+          { fields.billingAddressStreet && (
             <Well>
               <p>Laskutusosoite</p>
               {this.renderField('text', 'Katuosoite', fields.billingAddressStreet)}
@@ -138,7 +138,6 @@ export class UnconnectedReservationForm extends Component {
               {this.renderField('text', 'Kaupunki', fields.billingAddressCity)}
             </Well>
           )}
-          {this.renderField('number', 'Osallistujamäärä', fields.numberOfParticipants, { min: '0' })}
           {this.renderField(
             'textarea',
             'Kommentit',
