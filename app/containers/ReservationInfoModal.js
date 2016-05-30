@@ -82,7 +82,7 @@ export class UnconnectedReservationInfoModal extends Component {
         <dl className="dl-horizontal">
           <dt>Varaaja / vuokraaja:</dt><dd>{reservation.reserverName}</dd>
           {isStaff && (
-            <span><dt>Y-tunnus / henkilötunnus:</dt><dd>{reservation.businessId}</dd></span>
+            <span><dt>Y-tunnus / henkilötunnus:</dt><dd>{reservation.reserverId}</dd></span>
           )}
           <dt>Puhelinnumero:</dt><dd>{reservation.reserverPhoneNumber}</dd>
           <dt>Sähköposti:</dt><dd>{reservation.reserverEmailAddress}</dd>

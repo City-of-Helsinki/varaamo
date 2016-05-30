@@ -26,7 +26,7 @@ export default {
     'reserverAddressZip',
     'reserverAddressCity',
     'company',
-    'businessId',
+    'reserverId',
     'billingAddressStreet',
     'billingAddressZip',
     'billingAddressCity',

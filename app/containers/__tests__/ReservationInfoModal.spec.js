@@ -22,7 +22,7 @@ describe('Container: ReservationInfoModal', () => {
     billingAddressCity: 'New York',
     billingAddressStreet: 'Billing Street 11',
     billingAddressZip: '99999',
-    businessId: '112233-123A',
+    reserverId: '112233-123A',
     comments: 'Just some comments.',
     eventDescription: 'Jedi mind tricks',
     numberOfParticipants: 12,
@@ -109,18 +109,18 @@ describe('Container: ReservationInfoModal', () => {
           expect(dlText).to.contain(reservation.billingAddressZip);
         });
 
-        describe('businessId', () => {
+        describe('reserverId', () => {
           describe('if user has staff rights', () => {
-            it('should render reservation.businessId', () => {
+            it('should render reservation.reserverId', () => {
               const wrapper = getWrapper({ staffUnits: [resource.unit] });
-              expect(wrapper.find('dl').text()).to.contain(reservation.businessId);
+              expect(wrapper.find('dl').text()).to.contain(reservation.reserverId);
             });
           });
 
           describe('if user does not have staff rights', () => {
-            it('should not render reservation.businessId', () => {
+            it('should not render reservation.reserverId', () => {
               const wrapper = getWrapper({ staffUnits: [] });
-              expect(wrapper.find('dl').text()).to.not.contain(reservation.businessId);
+              expect(wrapper.find('dl').text()).to.not.contain(reservation.reserverId);
             });
           });
         });

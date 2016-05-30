@@ -20,13 +20,13 @@ const maxLengths = {
   billingAddressCity: 100,
   billingAddressStreet: 100,
   billingAddressZip: 30,
-  businessId: 9,
   company: 100,
   numberOfParticipants: 100,
   reserverAddressCity: 100,
   reserverAddressStreet: 100,
   reserverAddressZip: 30,
   reserverEmailAddress: 100,
+  reserverId: 30,
   reserverName: 100,
   reserverPhoneNumber: 30,
 };
@@ -117,7 +117,7 @@ export class UnconnectedReservationForm extends Component {
         <form className="reservation-form form-horizontal">
           {this.renderStaffEventField(fields.staffEvent)}
           {this.renderField('text', 'Varaaja / vuokraaja', fields.reserverName)}
-          {this.renderField('text', 'Y-tunnus / henkilötunnus', fields.businessId)}
+          {this.renderField('text', 'Y-tunnus / henkilötunnus', fields.reserverId)}
           {this.renderField('text', 'Puhelin', fields.reserverPhoneNumber)}
           {this.renderField('email', 'Sähköposti', fields.reserverEmailAddress)}
           {this.renderField('textarea', 'Tilaisuuden kuvaus', fields.eventDescription, { rows: 5 })}
