@@ -46,7 +46,7 @@ export class UnconnectedReservationCancelModal extends Component {
           vastaavaan virkailijaan.
         </p>
         <p>
-          Huomioi kuitenkin, että varaus pitää perua viimeistään <strong>X päivää</strong> ennen
+          Huomioi kuitenkin, että varaus pitää perua viimeistään <strong>5 päivää</strong> ennen
           varauksen alkamista. Käyttämättömät varaukset laskutetaan.
         </p>
         <p className="responsible-contact-info">{responsibleContactInfo}</p>
