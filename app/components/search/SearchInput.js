@@ -57,6 +57,7 @@ class SearchInput extends Component {
             onKeyUp={this.handleKeyUp}
             onOptionSelected={this.handleTypeaheadSuggestionSelect}
             options={typeaheadOptions}
+            placeholder="Esim. kokous, työskentely"
             value={value}
           />
         </div>
