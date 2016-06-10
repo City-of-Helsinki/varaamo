@@ -13,7 +13,7 @@ import {
 class SearchResult extends Component {
   renderAvailableTime(availableTime) {
     let bsStyle = 'success';
-    if (availableTime === '0 tuntia') {
+    if (availableTime === '0 tuntia vapaana') {
       bsStyle = 'danger';
     }
     return (
