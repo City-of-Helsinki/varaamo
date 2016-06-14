@@ -248,6 +248,23 @@ describe('Utils: DataUtils', () => {
 
           expect(availableTime).to.equal('4.5 tuntia vapaana');
         });
+
+        it('should not minus cancelled reservations from available time', () => {
+          const openingHours = {
+            opens: '2015-10-10T12:00:00+03:00',
+            closes: '2015-10-10T18:00:00+03:00',
+          };
+          const reservations = [
+            {
+              begin: '2015-10-10T13:00:00+03:00',
+              end: '2015-10-10T14:00:00+03:00',
+              state: 'cancelled',
+            },
+          ];
+          const availableTime = getAvailableTime(openingHours, reservations);
+
+          expect(availableTime).to.equal('6 tuntia vapaana');
+        });
       });
     });
 
@@ -327,6 +344,23 @@ describe('Utils: DataUtils', () => {
           const availableTime = getAvailableTime(openingHours, reservations);
 
           expect(availableTime).to.equal('1 tunti vapaana');
+        });
+
+        it('should not minus cancelled reservations from available time', () => {
+          const openingHours = {
+            opens: '2015-10-10T12:00:00+03:00',
+            closes: '2015-10-10T18:00:00+03:00',
+          };
+          const reservations = [
+            {
+              begin: '2015-10-10T15:00:00+03:00',
+              end: '2015-10-10T16:00:00+03:00',
+              state: 'cancelled',
+            },
+          ];
+          const availableTime = getAvailableTime(openingHours, reservations);
+
+          expect(availableTime).to.equal('3 tuntia vapaana');
         });
       });
     });
