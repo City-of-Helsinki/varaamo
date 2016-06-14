@@ -95,7 +95,9 @@ function getAvailableTime(openingHours = {}, reservations = []) {
   let total = closesMoment - beginMoment;
 
   forEach(
-    filter(reservations, reservation => moment(reservation.end) > nowMoment),
+    filter(reservations, reservation => {
+      return reservation.state !== 'cancelled' && moment(reservation.end) > nowMoment;
+    }),
     (reservation) => {
       const resBeginMoment = moment(reservation.begin);
       const resEndMoment = moment(reservation.end);
