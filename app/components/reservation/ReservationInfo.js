@@ -2,6 +2,8 @@ import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 import Well from 'react-bootstrap/lib/Well';
 
+import WrappedText from 'components/common/WrappedText';
+
 class ReservationInfo extends Component {
   renderLoginText(isLoggedIn, resource) {
     if (isLoggedIn || !resource.reservable) {
@@ -37,19 +39,13 @@ class ReservationInfo extends Component {
     );
   }
 
-  renderReservationInfoText(reservationInfo) {
-    return (
-      <p>{reservationInfo}</p>
-    );
-  }
-
   render() {
     const { isLoggedIn, resource } = this.props;
 
     return (
       <Well id="reservation-info">
         <h4>Ohjeet varaamiseen</h4>
-        {this.renderReservationInfoText(resource.reservationInfo)}
+        <WrappedText text={resource.reservationInfo} />
         {this.renderMaxPeriodText(resource.maxPeriod)}
         {this.renderMaxReservationsPerUserText(resource.maxReservationsPerUser)}
         {this.renderLoginText(isLoggedIn, resource)}
