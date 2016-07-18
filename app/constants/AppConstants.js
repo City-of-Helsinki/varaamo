@@ -1,5 +1,8 @@
 export default {
   API_URL: __API_URL__,
+  CUSTOMIZATIONS: {
+    'varaamo.espoo.fi': 'ESPOO',
+  },
   DATE_FORMAT: 'YYYY-MM-DD',
   FEEDBACK_URL: 'http://www.helmet-kirjasto.fi/varaamo-palaute/',
   NOTIFICATION_DEFAULTS: {
