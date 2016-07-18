@@ -5,8 +5,7 @@ import Row from 'react-bootstrap/lib/Row';
 import { Link } from 'react-router';
 
 import { FEEDBACK_URL } from 'constants/AppConstants';
-
-import logoSrc from 'assets/images/helsinki-coat-of-arms-white.png';
+import Logo from 'components/customization/Logo';
 
 class Footer extends Component {
   handleFeedbackClick(event) {
@@ -32,10 +31,7 @@ class Footer extends Component {
           <Row>
             <Col lg={3} md={3}>
               <Link className="brand-link" to="/">
-                <img
-                  alt="Helsingin vaakuna"
-                  src={logoSrc}
-                />
+                <Logo />
                 Varaamo
               </Link>
             </Col>

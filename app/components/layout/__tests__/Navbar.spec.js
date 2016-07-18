@@ -24,7 +24,7 @@ describe('Component: layout/Navbar', () => {
     });
 
     it('should display the logo of the service', () => {
-      expect(tree.subTree('img')).to.be.ok;
+      expect(tree.subTree('Logo')).to.be.ok;
     });
 
     it('should render a link to search page', () => {
