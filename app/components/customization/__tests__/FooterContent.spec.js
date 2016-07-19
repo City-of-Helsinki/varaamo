@@ -3,51 +3,43 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
 
-import FooterText from 'components/customization/FooterText';
+import FooterContent from 'components/customization/FooterContent';
 import { FEEDBACK_URL } from 'constants/AppConstants';
 import customizationUtils from 'utils/CustomizationUtils';
 
-describe('Component: customization/FooterText', () => {
+describe('Component: customization/FooterContent', () => {
   function getWrapper() {
-    return shallow(<FooterText />);
+    return shallow(<FooterContent />);
   }
 
   describe('When there is no customization in use', () => {
-    let footerText;
+    let content;
 
     before(() => {
-      footerText = getWrapper();
-    });
-
-    it('should render text paragraph', () => {
-      expect(footerText.type()).to.equal('p');
+      content = getWrapper();
     });
 
     it('should contain Helsinki feedback link', () => {
-      const feedbackLink = footerText.find('a');
+      const feedbackLink = content.find('a');
       expect(feedbackLink.props().href).to.equal(FEEDBACK_URL);
     });
   });
 
   describe('When Espoo customization is used', () => {
-    let footerText;
+    let content;
 
     before(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('ESPOO');
-      footerText = getWrapper();
+      content = getWrapper();
     });
 
     after(() => {
       simple.restore();
     });
 
-    it('should render text paragraph', () => {
-      expect(footerText.type()).to.equal('p');
-    });
-
-    it('should render text for Espoo', () => {
+    it('should contain text for Espoo', () => {
       const expected = 'Placeholder text for Espoo footer.';
-      expect(footerText.text()).to.equal(expected);
+      expect(content.find('p').text()).to.equal(expected);
     });
   });
 });
