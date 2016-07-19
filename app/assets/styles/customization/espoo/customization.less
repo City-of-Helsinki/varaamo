@@ -1,0 +1,88 @@
+@import "./variables.less";
+@import "./mixins.less";
+
+// Typography
+// ----------
+
+h1, h2, h3, h4, h5, h6 {
+  color: @blue;
+}
+
+a {
+  color: @blue;
+
+  &:hover {
+    color: @blue;
+  }
+}
+
+// Navbar
+// ------
+
+.navbar-inverse {
+  background-color: @blue;
+
+  .navbar-nav {
+    > .active > a,
+    > .active > a:hover,
+    > .active > a:focus {
+      background-color: darken(@blue, 6.5%);
+    }
+
+    .open > a,
+    .open > a:hover,
+    .open > a:focus {
+      background-color: darken(@blue, 6.5%);
+    }
+  }
+}
+
+// Footer
+// ------
+
+footer {
+  background-color: @blue;
+
+  a:hover {
+    color: #fff;
+  }
+}
+
+// Buttons
+// -------
+
+.btn-primary { .btn-styles(@blue); }
+
+// Dropdowns
+// ---------
+
+.dropdown-menu > li > a {
+  &:hover,
+  &:focus {
+    background-color: @blue;
+  }
+}
+.dropdown-menu > .active > a {
+  background-color: @blue;
+  &:hover,
+  &:focus {
+    background-color: @blue;
+  }
+}
+
+// List groups
+// -----------
+
+.list-group-item.active,
+.list-group-item.active:hover,
+.list-group-item.active:focus {
+  background-color: @blue;
+  border-color: @blue;
+}
+
+// Components
+// ----------
+
+.date-picker .dp-table .dp-cell.dp-value {
+  background-color: @blue;
+}
