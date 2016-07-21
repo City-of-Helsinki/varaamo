@@ -19,8 +19,8 @@ describe('Component: customization/AboutPageContent', () => {
     });
 
     it('should render header for Helsinki', () => {
-      const expectedHeader = 'Tietoa varaamo.hel.fi –palvelusta';
-      expect(content.find('h1').text()).to.contain(expectedHeader);
+      const expected = 'Tietoa varaamo.hel.fi –palvelusta';
+      expect(content.find('h1').text()).to.contain(expected);
     });
   });
 
@@ -36,9 +36,9 @@ describe('Component: customization/AboutPageContent', () => {
       simple.restore();
     });
 
-    it('should render content for Espoo', () => {
-      const expected = 'Placeholder text for Espoo about page.';
-      expect(content.text()).to.equal(expected);
+    it('should render header for Espoo', () => {
+      const expected = 'Tietoa varaamo.espoo.fi –palvelusta';
+      expect(content.find('h1').text()).to.contain(expected);
     });
   });
 });
