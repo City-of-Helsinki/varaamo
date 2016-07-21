@@ -23,6 +23,10 @@ describe('Component: customization/FooterContent', () => {
       const feedbackLink = content.find(FeedbackLink);
       expect(feedbackLink.length).to.equal(1);
     });
+
+    it('should render default texts', () => {
+      expect(content.find('p').text()).to.not.contain('Espoo');
+    });
   });
 
   describe('When Espoo customization is used', () => {
@@ -37,9 +41,13 @@ describe('Component: customization/FooterContent', () => {
       simple.restore();
     });
 
-    it('should contain text for Espoo', () => {
-      const expected = 'Placeholder text for Espoo footer.';
-      expect(content.find('p').text()).to.equal(expected);
+    it('should contain feedback link', () => {
+      const feedbackLink = content.find(FeedbackLink);
+      expect(feedbackLink.length).to.equal(1);
+    });
+
+    it('should render texts for Espoo', () => {
+      expect(content.find('p').text()).to.contain('Espoo');
     });
   });
 });

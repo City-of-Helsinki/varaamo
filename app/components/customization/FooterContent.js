@@ -23,7 +23,12 @@ class FooterContent extends Component {
               </Link>
             </Col>
             <Col lg={6} md={6}>
-              <p>Placeholder text for Espoo footer.</p>
+              <p>
+                Varaamo on Helsingin kaupungin tilanvarauspalvelu, jota kokeillaan vuoden ajan
+                tietyissä Espoon kaupunginkirjaston tiloissa. Kyseessä on pilottiversio, josta
+                toivomme Sinulta palautetta.
+                Palautteesi voit lähettää <FeedbackLink text="täältä" />.
+              </p>
             </Col>
           </Row>
         </Grid>
