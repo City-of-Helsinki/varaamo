@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { FEEDBACK_URL } from 'constants/AppConstants';
+import FeedbackLink from 'components/customization/FeedbackLink';
 import { getCurrentCustomization } from 'utils/CustomizationUtils';
 
 class AboutPageContent extends Component {
@@ -15,12 +15,6 @@ class AboutPageContent extends Component {
       );
 
     default:
-      const refUrl = window.location.href;
-      const feedbackLink = (
-        <a href={`${FEEDBACK_URL}?ref=${refUrl}`}>
-          tämän linkin
-        </a>
-      );
       const registerLink = (
         <a href="http://www.helmet-kirjasto.fi/varaamo-palaute/rekisteriseloste.php">
           Asiakasrekisteriseloste
@@ -65,7 +59,7 @@ class AboutPageContent extends Component {
           </p>
           <p>
             Palvelua kehitetään edelleen ja toivomme palvelun käyttäjiltä palautetta. Palautetta
-            voit antaa {feedbackLink} kautta.
+            voit antaa <FeedbackLink text="tämän linkin" /> kautta.
           </p>
           <h3>Asiakasrekisteriseloste</h3>
           <p>
