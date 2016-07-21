@@ -9,9 +9,8 @@ import NavItem from 'react-bootstrap/lib/NavItem';
 import { Link } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
 
+import Logo from 'components/customization/Logo';
 import { getSearchPageUrl } from 'utils/SearchUtils';
-
-import logoSrc from 'assets/images/helsinki-coat-of-arms-white.png';
 
 class Navbar extends Component {
   constructor(props) {
@@ -55,10 +54,7 @@ class Navbar extends Component {
         <RBNavbar.Header>
           <RBNavbar.Brand>
             <Link to={'/'}>
-              <img
-                alt="Helsingin vaakuna"
-                src={logoSrc}
-              />
+              <Logo />
               Varaamo
             </Link>
           </RBNavbar.Brand>
