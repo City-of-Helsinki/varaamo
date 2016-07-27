@@ -15,6 +15,7 @@ import rootReducer from 'reducers/index';
 import configureStore from 'store/configureStore';
 
 import 'assets/styles/app.less';
+import 'assets/styles/customization/espoo/customization.less';
 
 const initialStoreState = createStore(rootReducer, {}).getState();
 const initialState = window.__INITIAL_STATE__;
