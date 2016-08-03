@@ -6,13 +6,6 @@ const isProduction = process.env.NODE_ENV === 'production';
 const defaultPort = isProduction ? 8080 : 3000;
 const port = process.env.PORT || defaultPort;
 
-const defaultLoginCallbackUrl = (
-  isProduction ?
-  'https://varaamo.hel.fi/login/helsinki/return' :
-  `http://localhost:${port}/login/helsinki/return`
-);
-const loginCallbackUrl = process.env.LOGIN_CALLBACK_URL || defaultLoginCallbackUrl;
-
 function getAssetHash(filePath) {
   if (!isProduction) return '';
   try {
@@ -36,7 +29,8 @@ export default {
     ),
   },
   isProduction: isProduction,
-  loginCallbackUrl,
+  loginCallbackUrl: '/login/helsinki/return',
   port,
+  proxy: Boolean(process.env.PROXY) || false,
   webpackStylesExtensions: ['css', 'less'],
 };
