@@ -10,6 +10,7 @@ function configurePassport() {
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
       callbackURL: serverConfig.loginCallbackUrl,
+      proxy: serverConfig.proxy,
     },
     (accessToken, refreshToken, profile, cb) => {
       helsinkiStrategy.getAPIToken(accessToken, process.env.TARGET_APP, (token) => {
