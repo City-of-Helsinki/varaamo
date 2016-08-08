@@ -1,7 +1,7 @@
 export default {
   API_URL: __API_URL__,
   CUSTOMIZATIONS: {
-    'varaamo-espoo.hel.fi': 'ESPOO',
+    'varaamo.espoo.fi': 'ESPOO',
     'varaamotest-espoo.hel.ninja': 'ESPOO',
   },
   DATE_FORMAT: 'YYYY-MM-DD',
