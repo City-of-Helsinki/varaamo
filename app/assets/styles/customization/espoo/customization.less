@@ -1,13 +1,15 @@
 @import "./variables.less";
 @import "./mixins.less";
 
+@import url("https://overpass-30e2.kxcdn.com/overpass.css");
+
 // Typography
 // ----------
 
 h1, h2, h3, h4, h5, h6 {
   color: @blue;
   font-family: @font-family;
-  font-weight: @font-weight-regular;
+  font-weight: @font-weight-bold;
 }
 
 p {
@@ -28,6 +30,10 @@ a {
 
 .navbar-inverse {
   background-color: @blue;
+
+  .navbar-brand {
+    font-weight: @font-weight-bold;
+  }
 
   .navbar-nav {
     > .active > a,
