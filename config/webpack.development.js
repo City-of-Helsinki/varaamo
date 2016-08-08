@@ -1,13 +1,10 @@
 /* eslint-disable no-var */
 
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path');
 var webpack = require('webpack');
 var merge = require('webpack-merge');
 
 var common = require('./webpack.common');
-
-var extractCustomStyles = new ExtractTextPlugin('espoo.css');
 
 module.exports = merge(common, {
   entry: [
@@ -58,13 +55,7 @@ module.exports = merge(common, {
       },
       {
         test: /\.less$/,
-        exclude: path.resolve(__dirname, '../app/assets/styles/customization'),
         loader: 'style!css!postcss-loader!less',
-      },
-      {
-        test: /\.less$/,
-        include: path.resolve(__dirname, '../app/assets/styles/customization'),
-        loader: extractCustomStyles.extract(['css', 'less']),
       },
     ],
   },
@@ -76,6 +67,5 @@ module.exports = merge(common, {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    extractCustomStyles,
   ],
 });

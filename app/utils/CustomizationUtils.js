@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { CUSTOMIZATIONS } from 'constants/AppConstants';
 
 function getCurrentCustomization() {
@@ -7,26 +5,18 @@ function getCurrentCustomization() {
   return CUSTOMIZATIONS[host] || null;
 }
 
-function renderStyleCustomizations() {
+function getCustomizationClassName() {
   switch (getCurrentCustomization()) {
 
   case 'ESPOO':
-    const isProduction = process.env.NODE_ENV === 'production';
-    const href = isProduction ? '/_assets/espoo.css' : '/espoo.css';
-    return (
-      <link
-        rel="stylesheet"
-        type="text/css"
-        href={href}
-      />
-    );
+    return 'espoo-customizations';
 
   default:
-    return null;
+    return '';
   }
 }
 
 export default {
   getCurrentCustomization,
-  renderStyleCustomizations,
+  getCustomizationClassName,
 };
