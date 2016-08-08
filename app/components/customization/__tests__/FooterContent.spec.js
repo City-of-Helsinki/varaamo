@@ -3,8 +3,8 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
 
+import FeedbackLink from 'components/customization/FeedbackLink';
 import FooterContent from 'components/customization/FooterContent';
-import { FEEDBACK_URL } from 'constants/AppConstants';
 import customizationUtils from 'utils/CustomizationUtils';
 
 describe('Component: customization/FooterContent', () => {
@@ -19,9 +19,13 @@ describe('Component: customization/FooterContent', () => {
       content = getWrapper();
     });
 
-    it('should contain Helsinki feedback link', () => {
-      const feedbackLink = content.find('a');
-      expect(feedbackLink.props().href).to.equal(FEEDBACK_URL);
+    it('should contain feedback link', () => {
+      const feedbackLink = content.find(FeedbackLink);
+      expect(feedbackLink.length).to.equal(1);
+    });
+
+    it('should render default texts', () => {
+      expect(content.find('p').text()).to.not.contain('Espoo');
     });
   });
 
@@ -37,9 +41,13 @@ describe('Component: customization/FooterContent', () => {
       simple.restore();
     });
 
-    it('should contain text for Espoo', () => {
-      const expected = 'Placeholder text for Espoo footer.';
-      expect(content.find('p').text()).to.equal(expected);
+    it('should contain feedback link', () => {
+      const feedbackLink = content.find(FeedbackLink);
+      expect(feedbackLink.length).to.equal(1);
+    });
+
+    it('should render texts for Espoo', () => {
+      expect(content.find('p').text()).to.contain('Espoo');
     });
   });
 });
