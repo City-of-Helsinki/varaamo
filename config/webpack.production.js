@@ -7,9 +7,6 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var common = require('./webpack.common');
 
-var extractCustomStyles = new ExtractTextPlugin('espoo.css');
-var extractStyles = new ExtractTextPlugin('app.css');
-
 module.exports = merge(common, {
   entry: path.resolve(__dirname, '../app/index.js'),
   debug: false,
@@ -28,17 +25,11 @@ module.exports = merge(common, {
       },
       {
         test: /\.css$/,
-        loader: extractStyles.extract('style', 'css!postcss-loader'),
+        loader: ExtractTextPlugin.extract('style', 'css!postcss-loader'),
       },
       {
         test: /\.less$/,
-        exclude: path.resolve(__dirname, '../app/assets/styles/customization'),
-        loader: extractStyles.extract('style', 'css!postcss-loader!less'),
-      },
-      {
-        test: /\.less$/,
-        include: path.resolve(__dirname, '../app/assets/styles/customization'),
-        loader: extractCustomStyles.extract(['css', 'less']),
+        loader: ExtractTextPlugin.extract('style', 'css!postcss-loader!less'),
       },
     ],
   },
@@ -59,7 +50,6 @@ module.exports = merge(common, {
         warnings: false,
       },
     }),
-    extractStyles,
-    extractCustomStyles,
+    new ExtractTextPlugin('app.css'),
   ],
 });

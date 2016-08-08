@@ -56,6 +56,7 @@ class Html extends Component {
           <meta charSet="utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
           <meta content="width=device-width, initial-scale=1" name="viewport" />
+          <link href="https://overpass-30e2.kxcdn.com/overpass.css" rel="stylesheet" />
           <link rel="shortcut icon" href="/favicon.ico" />
           {this.renderStylesLink(appCssSrc, isProduction)}
           <title>Varaamo</title>

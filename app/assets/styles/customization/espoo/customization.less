@@ -1,101 +1,116 @@
 @import "./variables.less";
 @import "./mixins.less";
 
-@import url("https://overpass-30e2.kxcdn.com/overpass.css");
+.espoo-customizations {
 
-// Typography
-// ----------
+  // Typography
+  // ----------
 
-h1, h2, h3, h4, h5, h6 {
-  color: @blue;
-  font-family: @font-family;
-  font-weight: @font-weight-bold;
-}
-
-p {
-  font-family: @font-family;
-}
-
-a {
-  color: @blue;
-  font-family: @font-family;
-
-  &:hover {
+  h1, h2, h3, h4, h5, h6 {
     color: @blue;
-  }
-}
-
-// Navbar
-// ------
-
-.navbar-inverse {
-  background-color: @blue;
-
-  .navbar-brand {
+    font-family: @font-family;
     font-weight: @font-weight-bold;
   }
 
-  .navbar-nav {
-    > .active > a,
-    > .active > a:hover,
-    > .active > a:focus {
-      background-color: darken(@blue, 6.5%);
+  p {
+    font-family: @font-family;
+    font-weight: @font-weight-regular;
+  }
+
+  a {
+    color: @blue;
+    font-family: @font-family;
+
+    &:hover {
+      color: @blue;
+    }
+  }
+
+  // Navbar
+  // ------
+
+  .navbar-inverse {
+    background-color: @blue;
+
+    .navbar-brand {
+      font-weight: @font-weight-bold;
     }
 
-    .open > a,
-    .open > a:hover,
-    .open > a:focus {
-      background-color: darken(@blue, 6.5%);
+    .navbar-nav {
+      > .active > a,
+      > .active > a:hover,
+      > .active > a:focus {
+        background-color: darken(@blue, 6.5%);
+      }
+
+      .open > a,
+      .open > a:hover,
+      .open > a:focus {
+        background-color: darken(@blue, 6.5%);
+      }
     }
   }
-}
 
-// Footer
-// ------
+  // Footer
+  // ------
 
-footer {
-  background-color: @blue;
+  footer {
+    background-color: @blue;
 
-  a:hover {
-    color: #fff;
+    .brand-link, .brand-link:hover {
+      color: #fff;
+    }
+
+    .feedback-link {
+      color: #ccc;
+    }
   }
-}
 
-// Buttons
-// -------
+  // Buttons
+  // -------
 
-.btn-primary { .btn-styles(@blue); }
+  .btn-primary {
+    .btn-styles(@blue);
+  }
 
-// Dropdowns
-// ---------
+  // Dropdowns
+  // ---------
 
-.dropdown-menu > li > a {
-  &:hover,
-  &:focus {
+  .dropdown-menu > li > a {
+    &:hover,
+    &:focus {
+      background-color: @blue;
+    }
+  }
+  .dropdown-menu > .active > a {
+    background-color: @blue;
+    &:hover,
+    &:focus {
+      background-color: @blue;
+    }
+  }
+
+  // List groups
+  // -----------
+
+  .list-group-item.active,
+  .list-group-item.active:hover,
+  .list-group-item.active:focus {
+    background-color: @blue;
+    border-color: @blue;
+  }
+
+  // Panels
+  // ------
+
+  .panel-heading a, .panel-heading a:hover {
+    color: @black;
+  }
+
+  // Other components
+  // ----------
+
+  .date-picker .dp-table .dp-cell.dp-value {
     background-color: @blue;
   }
-}
-.dropdown-menu > .active > a {
-  background-color: @blue;
-  &:hover,
-  &:focus {
-    background-color: @blue;
-  }
-}
-
-// List groups
-// -----------
-
-.list-group-item.active,
-.list-group-item.active:hover,
-.list-group-item.active:focus {
-  background-color: @blue;
-  border-color: @blue;
-}
-
-// Components
-// ----------
-
-.date-picker .dp-table .dp-cell.dp-value {
-  background-color: @blue;
 }

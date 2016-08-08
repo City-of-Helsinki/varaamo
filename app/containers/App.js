@@ -11,7 +11,7 @@ import Footer from 'components/layout/Footer';
 import Navbar from 'components/layout/Navbar';
 import Notifications from 'containers/Notifications';
 import appSelector from 'selectors/containers/appSelector';
-import { renderStyleCustomizations } from 'utils/CustomizationUtils';
+import { getCustomizationClassName } from 'utils/CustomizationUtils';
 
 export class UnconnectedApp extends Component {
   componentDidMount() {
@@ -30,8 +30,7 @@ export class UnconnectedApp extends Component {
 
     return (
       <DocumentTitle title="Varaamo">
-        <div className="app">
-          {renderStyleCustomizations()}
+        <div className={`app ${getCustomizationClassName()}`}>
           <Navbar
             clearSearchResults={actions.clearSearchResults}
             isLoggedIn={isLoggedIn}
