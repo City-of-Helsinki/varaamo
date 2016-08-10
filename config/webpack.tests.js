@@ -31,9 +31,7 @@ module.exports = merge(common, {
       __API_URL__: JSON.stringify('https://mock-api.fi'),
       __TRACKING__: false,
     }),
-    new HtmlWebpackPlugin({
-      inject: true,
-    }),
+    new HtmlWebpackPlugin(),
     new webpack.IgnorePlugin(/ReactContext/),
   ],
 });
