@@ -6,7 +6,7 @@ module.exports = function(options) {
   var karmaConfig = {
     frameworks: ['mocha', 'chai'],
 
-    browsers: options.browsers || ['PhantomJS2'],
+    browsers: options.browsers || ['PhantomJS'],
 
     // Allow enough time for tests to build on CI.
     browserNoActivityTimeout: 5 * 60000,
@@ -45,7 +45,7 @@ module.exports = function(options) {
     plugins: [
       'karma-chai',
       'karma-chrome-launcher',
-      'karma-phantomjs2-launcher',
+      'karma-phantomjs-launcher',
       'karma-mocha',
       'karma-mocha-reporter',
       'karma-webpack',
