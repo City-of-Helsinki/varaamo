@@ -91,8 +91,8 @@
     "morgan": "1.6.1",
     "postcss-loader": "0.9.1",
     "react-addons-test-utils": "0.14.8",
-    "react-transform-catch-errors": "1.0.0",
-    "react-transform-hmr": "1.0.1",
+    "react-transform-catch-errors": "1.0.2",
+    "react-transform-hmr": "1.0.4",
     "redbox-react": "1.2.0",
     "redux-devtools": "git://github.com/tomatau/redux-devtools.git",
     "redux-logger": "2.0.4",
@@ -103,8 +103,8 @@
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
     "webpack": "1.13.1",
-    "webpack-dev-middleware": "1.4.0",
-    "webpack-hot-middleware": "2.5.0",
+    "webpack-dev-middleware": "1.6.1",
+    "webpack-hot-middleware": "2.12.2",
     "webpack-merge": "0.3.2"
   },
   "scripts": {
