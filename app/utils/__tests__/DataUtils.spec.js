@@ -146,9 +146,21 @@ describe('Utils: DataUtils', () => {
     it('should return the address in proper format', () => {
       const item = {
         addressZip: '12345',
+        municipality: 'Helsinki',
         streetAddress: { fi: 'Example street 3' },
       };
       const expected = 'Example street 3, 12345 Helsinki';
+
+      expect(getAddress(item)).to.equal(expected);
+    });
+
+    it('should capitalize the municipality', () => {
+      const item = {
+        addressZip: '12345',
+        municipality: 'espoo',
+        streetAddress: { fi: 'Example street 3' },
+      };
+      const expected = 'Example street 3, 12345 Espoo';
 
       expect(getAddress(item)).to.equal(expected);
     });
@@ -171,6 +183,7 @@ describe('Utils: DataUtils', () => {
       const item = {
         addressZip: '12345',
         name: { fi: 'Some Unit' },
+        municipality: 'Helsinki',
         streetAddress: { fi: 'Example street 3' },
       };
       const expected = 'Some Unit, Example street 3, 12345 Helsinki';

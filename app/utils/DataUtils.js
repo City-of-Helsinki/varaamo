@@ -8,6 +8,7 @@ import sortBy from 'lodash/collection/sortBy';
 import clone from 'lodash/lang/clone';
 import isEmpty from 'lodash/lang/isEmpty';
 import camelCase from 'lodash/string/camelCase';
+import capitalize from 'lodash/string/capitalize';
 import moment from 'moment';
 
 import { REQUIRED_STAFF_EVENT_FIELDS } from 'constants/AppConstants';
@@ -62,7 +63,7 @@ function getAddress(item) {
 
   const streetAddress = item.streetAddress ? item.streetAddress.fi : '';
   const zip = item.addressZip;
-  const city = 'Helsinki';
+  const city = capitalize(item.municipality);
 
   return `${streetAddress}, ${zip} ${city}`;
 }
