@@ -30,6 +30,7 @@ export default {
   },
   isProduction: isProduction,
   loginCallbackUrl: '/login/helsinki/return',
+  piwikSiteId: process.env.PIWIK_SITE_ID,
   port,
   proxy: Boolean(process.env.PROXY) || false,
   webpackStylesExtensions: ['css', 'less'],

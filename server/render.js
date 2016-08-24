@@ -24,6 +24,7 @@ function render(req, res) {
       appScriptSrc={config.assetsSources.appJs}
       initialState={initialState}
       isProduction={config.isProduction}
+      piwikSiteId={config.piwikSiteId}
     />
   );
 
