@@ -1,11 +1,9 @@
-import includes from 'lodash/collection/includes';
 import isEmpty from 'lodash/lang/isEmpty';
-import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
 import TimeRange from 'components/common/TimeRange';
-import ReservationControls from 'components/reservation/ReservationControls';
+import ReservationControls from 'containers/ReservationControls';
 import { renderReservationStateLabel } from 'utils/renderUtils';
 import {
   getCaption,
@@ -14,77 +12,6 @@ import {
 } from 'utils/DataUtils';
 
 class ReservationsListItem extends Component {
-  constructor(props) {
-    super(props);
-    this.handleCancelClick = this.handleCancelClick.bind(this);
-    this.handleConfirmClick = this.handleConfirmClick.bind(this);
-    this.handleDenyClick = this.handleDenyClick.bind(this);
-    this.handleEditClick = this.handleEditClick.bind(this);
-    this.handleInfoClick = this.handleInfoClick.bind(this);
-  }
-
-  handleCancelClick() {
-    const {
-      openReservationCancelModal,
-      reservation,
-      selectReservationToCancel,
-    } = this.props;
-
-    selectReservationToCancel(reservation);
-    openReservationCancelModal();
-  }
-
-  handleConfirmClick() {
-    const {
-      confirmPreliminaryReservation,
-      isAdmin,
-      reservation,
-    } = this.props;
-
-    if (isAdmin && reservation.state === 'requested') {
-      confirmPreliminaryReservation(reservation);
-    }
-  }
-
-  handleDenyClick() {
-    const {
-      denyPreliminaryReservation,
-      isAdmin,
-      reservation,
-    } = this.props;
-
-    if (isAdmin && reservation.state === 'requested') {
-      denyPreliminaryReservation(reservation);
-    }
-  }
-
-  handleEditClick() {
-    const {
-      updatePath,
-      reservation,
-      resource,
-      selectReservationToEdit,
-    } = this.props;
-    const query = queryString.stringify({
-      date: reservation.begin.split('T')[0],
-      time: reservation.begin,
-    });
-
-    selectReservationToEdit({ reservation, minPeriod: resource.minPeriod });
-    updatePath(`/resources/${reservation.resource}/reservation?${query}`);
-  }
-
-  handleInfoClick() {
-    const {
-      openReservationInfoModal,
-      reservation,
-      selectReservationToShow,
-    } = this.props;
-
-    selectReservationToShow(reservation);
-    openReservationInfoModal();
-  }
-
   renderImage(image) {
     if (image && image.url) {
       const src = `${image.url}?dim=100x120`;
@@ -96,9 +23,9 @@ class ReservationsListItem extends Component {
   render() {
     const {
       isAdmin,
+      isStaff,
       reservation,
       resource,
-      staffUnits,
       unit,
     } = this.props;
 
@@ -142,13 +69,9 @@ class ReservationsListItem extends Component {
         {renderReservationStateLabel(reservation)}
         <ReservationControls
           isAdmin={isAdmin}
-          isStaff={includes(staffUnits, resource.unit)}
-          onCancelClick={this.handleCancelClick}
-          onConfirmClick={this.handleConfirmClick}
-          onDenyClick={this.handleDenyClick}
-          onEditClick={this.handleEditClick}
-          onInfoClick={this.handleInfoClick}
+          isStaff={isStaff}
           reservation={reservation}
+          resource={resource}
         />
       </li>
     );
@@ -156,19 +79,11 @@ class ReservationsListItem extends Component {
 }
 
 ReservationsListItem.propTypes = {
-  confirmPreliminaryReservation: PropTypes.func.isRequired,
-  denyPreliminaryReservation: PropTypes.func.isRequired,
   isAdmin: PropTypes.bool.isRequired,
-  openReservationCancelModal: PropTypes.func.isRequired,
-  openReservationInfoModal: PropTypes.func.isRequired,
+  isStaff: PropTypes.bool.isRequired,
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
-  selectReservationToCancel: PropTypes.func.isRequired,
-  selectReservationToEdit: PropTypes.func.isRequired,
-  selectReservationToShow: PropTypes.func.isRequired,
-  staffUnits: PropTypes.array.isRequired,
   unit: PropTypes.object.isRequired,
-  updatePath: PropTypes.func.isRequired,
 };
 
 export default ReservationsListItem;

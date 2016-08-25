@@ -1,11 +1,10 @@
 import { expect } from 'chai';
+import { shallow } from 'enzyme';
 import React from 'react';
-import simple from 'simple-mock';
-import sd from 'skin-deep';
-
-import queryString from 'query-string';
 import Immutable from 'seamless-immutable';
 
+import TimeRange from 'components/common/TimeRange';
+import ReservationControls from 'containers/ReservationControls';
 import ReservationsListItem from 'components/reservation/ReservationsListItem';
 import Image from 'fixtures/Image';
 import Reservation from 'fixtures/Reservation';
@@ -14,57 +13,51 @@ import Unit from 'fixtures/Unit';
 
 describe('Component: reservation/ReservationsListItem', () => {
   const props = {
-    confirmPreliminaryReservation: simple.stub(),
-    denyPreliminaryReservation: simple.stub(),
     isAdmin: false,
-    openReservationCancelModal: simple.stub(),
-    openReservationInfoModal: simple.stub(),
-    updatePath: simple.stub(),
+    isStaff: false,
     reservation: Immutable(Reservation.build()),
     resource: Immutable(Resource.build({
       images: [Image.build()],
     })),
-    selectReservationToCancel: simple.stub(),
-    selectReservationToEdit: simple.stub(),
-    selectReservationToShow: simple.stub(),
-    staffUnits: [],
     unit: Immutable(Unit.build()),
   };
-  const tree = sd.shallowRender(<ReservationsListItem {...props} />);
-  const instance = tree.getMountedInstance();
+
+  let component;
+
+  before(() => {
+    component = shallow(<ReservationsListItem {...props} />);
+  });
 
   describe('rendering', () => {
     it('should render a li element', () => {
-      const vdom = tree.getRenderOutput();
-      expect(vdom.type).to.equal('li');
+      expect(component.is('li')).to.be.true;
     });
 
     it('should display an image with correct props', () => {
-      const imageTree = tree.subTree('img');
-      const image = props.resource.images[0];
+      const image = component.find('img');
 
-      expect(imageTree).to.be.ok;
-      expect(imageTree.props.alt).to.equal(image.caption.fi);
-      expect(imageTree.props.src).to.contain(image.url);
+      expect(image).to.have.length(1);
+      expect(image.props().alt).to.equal(props.resource.images[0].caption.fi);
+      expect(image.props().src).to.contain(props.resource.images[0].url);
     });
 
     it('should contain a link to resources page', () => {
       const expectedUrl = `/resources/${props.resource.id}`;
-      const resourceLinkTree = tree.subTreeLike('Link', { to: expectedUrl });
+      const resourceLink = component.find({ to: expectedUrl });
 
-      expect(resourceLinkTree).to.be.ok;
+      expect(resourceLink.length > 0).to.be.true;
     });
 
     it('should display the name of the resource', () => {
       const expected = props.resource.name.fi;
 
-      expect(tree.toString()).to.contain(expected);
+      expect(component.find('h4').text()).to.contain(expected);
     });
 
     it('should display the name of the given unit in props', () => {
       const expected = props.unit.name.fi;
 
-      expect(tree.toString()).to.contain(expected);
+      expect(component.find('h4').text()).to.contain(expected);
     });
 
     it('should contain a Link to reservations page with correct time', () => {
@@ -74,93 +67,33 @@ describe('Component: reservation/ReservationsListItem', () => {
         time: props.reservation.begin,
       };
       const expectedProps = { to: expectedUrl, query: expectedQuery };
-      const reservationsLinkTree = tree.subTreeLike('Link', expectedProps);
+      const reservationsLink = component.find(expectedProps);
 
-      expect(reservationsLinkTree).to.be.ok;
+      expect(reservationsLink).to.be.ok;
     });
 
-    it('should contain a TimeRange component with correct begin and end times', () => {
-      const timeRangeTree = tree.subTree('TimeRange');
+    it('should contain two TimeRange components with correct begin and end times', () => {
+      const timeRange = component.find(TimeRange);
 
-      expect(timeRangeTree.props.begin).to.equal(props.reservation.begin);
-      expect(timeRangeTree.props.end).to.equal(props.reservation.end);
+      expect(timeRange).to.have.length(2);
+      expect(timeRange.at(0).props().begin).to.equal(props.reservation.begin);
+      expect(timeRange.at(0).props().end).to.equal(props.reservation.end);
+      expect(timeRange.at(1).props().begin).to.equal(props.reservation.begin);
+      expect(timeRange.at(1).props().end).to.equal(props.reservation.end);
     });
 
-    describe('rendering ReservationControls', () => {
-      const reservationControlsTree = tree.subTree('ReservationControls');
-
-      it('should render ReservationControls component', () => {
-        expect(reservationControlsTree).to.be.ok;
-      });
-
-      it('should pass correct props to ReservationControls component', () => {
-        const actualProps = reservationControlsTree.props;
-
-        expect(actualProps.reservation).to.equal(props.reservation);
-        expect(actualProps.isAdmin).to.equal(false);
-        expect(actualProps.isStaff).to.equal(false);
-        expect(actualProps.onCancelClick).to.equal(instance.handleCancelClick);
-        expect(actualProps.onEditClick).to.equal(instance.handleEditClick);
-      });
-    });
-  });
-
-  describe('handleCancelClick', () => {
-    instance.handleCancelClick();
-
-    it('should call props.selectReservationToCancel with this reservation', () => {
-      expect(props.selectReservationToCancel.callCount).to.equal(1);
-      expect(
-        props.selectReservationToCancel.lastCall.args[0]
-      ).to.deep.equal(
-        props.reservation
-      );
+    it('should render ReservationControls component', () => {
+      const reservationControls = component.find(ReservationControls);
+      expect(reservationControls).to.have.length(1);
     });
 
-    it('should call the props.openReservationCancelModal function', () => {
-      expect(props.openReservationCancelModal.callCount).to.equal(1);
-    });
-  });
+    it('should pass correct props to ReservationControls component', () => {
+      const actualProps = component.find(ReservationControls).props();
 
-  describe('handleEditClick', () => {
-    instance.handleEditClick();
-
-    it('should call props.selectReservationToEdit with reservation and minPeriod', () => {
-      expect(props.selectReservationToEdit.callCount).to.equal(1);
-      expect(
-        props.selectReservationToEdit.lastCall.args[0]
-      ).to.deep.equal(
-        { reservation: props.reservation, minPeriod: props.resource.minPeriod }
-      );
-    });
-
-    it('should call the props.updatePath with correct url', () => {
-      const actualUrlArg = props.updatePath.lastCall.args[0];
-      const query = queryString.stringify({
-        date: props.reservation.begin.split('T')[0],
-        time: props.reservation.begin,
-      });
-      const expectedUrl = `/resources/${props.reservation.resource}/reservation?${query}`;
-
-      expect(props.updatePath.callCount).to.equal(1);
-      expect(actualUrlArg).to.equal(expectedUrl);
-    });
-  });
-
-  describe('handleInfoClick', () => {
-    instance.handleInfoClick();
-
-    it('should call props.selectReservationToShow with this reservation', () => {
-      expect(props.selectReservationToShow.callCount).to.equal(1);
-      expect(
-        props.selectReservationToShow.lastCall.args[0]
-      ).to.deep.equal(
-        props.reservation
-      );
-    });
-
-    it('should call the props.openReservationInfoModal function', () => {
-      expect(props.openReservationInfoModal.callCount).to.equal(1);
+      expect(actualProps.isAdmin).to.equal(false);
+      expect(actualProps.isStaff).to.equal(false);
+      expect(actualProps.reservation).to.equal(props.reservation);
+      expect(actualProps.resource).to.equal(props.resource);
     });
   });
 });
