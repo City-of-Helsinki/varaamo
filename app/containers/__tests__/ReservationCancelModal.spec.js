@@ -16,7 +16,7 @@ describe('Container: ReservationCancelModal', () => {
   const resource = Resource.build({ responsibleContactInfo });
   const props = {
     actions: {
-      cancelPreliminaryReservation: simple.stub(),
+      deleteReservation: simple.stub(),
       closeReservationCancelModal: simple.stub(),
     },
     isAdmin: false,
@@ -338,14 +338,14 @@ describe('Container: ReservationCancelModal', () => {
       expect(props.actions.closeReservationCancelModal.callCount).to.equal(1);
     });
 
-    it('should call cancelPreliminaryReservation for each selected reservation', () => {
-      expect(props.actions.cancelPreliminaryReservation.callCount).to.equal(
+    it('should call deleteReservation for each selected reservation', () => {
+      expect(props.actions.deleteReservation.callCount).to.equal(
         props.reservationsToCancel.length
       );
     });
 
-    it('should call cancelPreliminaryReservation with correct arguments', () => {
-      const actualArgs = props.actions.cancelPreliminaryReservation.lastCall.args;
+    it('should call deleteReservation with correct arguments', () => {
+      const actualArgs = props.actions.deleteReservation.lastCall.args;
       const expected = props.reservationsToCancel[1];
 
       expect(actualArgs[0]).to.deep.equal(expected);

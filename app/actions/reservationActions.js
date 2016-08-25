@@ -13,7 +13,6 @@ import {
 } from 'utils/APIUtils';
 
 export default {
-  cancelPreliminaryReservation,
   confirmPreliminaryReservation,
   deleteReservation,
   denyPreliminaryReservation,
@@ -21,10 +20,6 @@ export default {
   postReservation,
   putReservation,
 };
-
-function cancelPreliminaryReservation(reservation) {
-  return deleteReservation(reservation);
-}
 
 function confirmPreliminaryReservation(reservation) {
   return putReservation(Object.assign({}, reservation, { state: 'confirmed' }));

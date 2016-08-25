@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/lib/Modal';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { cancelPreliminaryReservation } from 'actions/reservationActions';
+import { deleteReservation } from 'actions/reservationActions';
 import { closeReservationCancelModal } from 'actions/uiActions';
 import CompactReservationsList from 'components/common/CompactReservationsList';
 import reservationCancelModalSelector from 'selectors/containers/reservationCancelModalSelector';
@@ -20,7 +20,7 @@ export class UnconnectedReservationCancelModal extends Component {
     const { actions, reservationsToCancel } = this.props;
 
     forEach(reservationsToCancel, (reservation) => {
-      actions.cancelPreliminaryReservation(reservation);
+      actions.deleteReservation(reservation);
     });
     actions.closeReservationCancelModal();
   }
@@ -115,8 +115,8 @@ UnconnectedReservationCancelModal.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
-    cancelPreliminaryReservation,
     closeReservationCancelModal,
+    deleteReservation,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
