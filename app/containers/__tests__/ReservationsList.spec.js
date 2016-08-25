@@ -25,7 +25,6 @@ function getProps(props) {
       selectReservationToShow: simple.stub(),
     },
     isAdmin: false,
-    deleteReservationModalIsOpen: false,
     loading: false,
     reservations: [],
     resources: {},
