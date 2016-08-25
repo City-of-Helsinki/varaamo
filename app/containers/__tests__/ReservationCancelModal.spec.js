@@ -20,6 +20,7 @@ describe('Container: ReservationCancelModal', () => {
       closeReservationCancelModal: simple.stub(),
     },
     isAdmin: false,
+    isCancellingReservations: false,
     show: true,
     reservationsToCancel: Immutable([
       Reservation.build({ resource: resource.id }),

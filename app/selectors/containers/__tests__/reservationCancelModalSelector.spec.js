@@ -12,6 +12,10 @@ describe('Selector: reservationCancelModalSelector', () => {
     expect(selected.isAdmin).to.exist;
   });
 
+  it('should return isCancellingReservations', () => {
+    expect(selected.isCancellingReservations).to.exist;
+  });
+
   it('should return show', () => {
     expect(selected.show).to.exist;
   });

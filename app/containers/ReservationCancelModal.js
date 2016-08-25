@@ -58,6 +58,7 @@ export class UnconnectedReservationCancelModal extends Component {
     const {
       actions,
       isAdmin,
+      isCancellingReservations,
       reservationsToCancel,
       resources,
       show,
@@ -94,9 +95,10 @@ export class UnconnectedReservationCancelModal extends Component {
           {cancelAllowed && (
             <Button
               bsStyle="danger"
+              disabled={isCancellingReservations}
               onClick={this.handleCancel}
-              >
-              Peru varaus
+            >
+              {isCancellingReservations ? 'Perutaan...' : 'Peru varaus'}
             </Button>
           )}
         </Modal.Footer>
@@ -108,6 +110,7 @@ export class UnconnectedReservationCancelModal extends Component {
 UnconnectedReservationCancelModal.propTypes = {
   actions: PropTypes.object.isRequired,
   isAdmin: PropTypes.bool.isRequired,
+  isCancellingReservations: PropTypes.bool.isRequired,
   reservationsToCancel: PropTypes.array.isRequired,
   resources: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
