@@ -9,9 +9,7 @@ import {
   changeAdminReservationsFilters,
   clearReservations,
   closeReservationCancelModal,
-  closeReservationDeleteModal,
   selectReservationToCancel,
-  selectReservationToDelete,
   selectReservationToEdit,
   selectReservationToShow,
   closeReservationInfoModal,
@@ -42,10 +40,6 @@ describe('Reducer: reservationsReducer', () => {
 
     it('toCancel should be an empty array', () => {
       expect(initialState.toCancel).to.deep.equal([]);
-    });
-
-    it('toDelete should be an empty array', () => {
-      expect(initialState.toDelete).to.deep.equal([]);
     });
 
     it('toEdit should be an empty array', () => {
@@ -224,8 +218,9 @@ describe('Reducer: reservationsReducer', () => {
         const initialState = Immutable({
           date: '2015-11-11',
           selected: ['something'],
-          toDelete: ['something'],
+          toCancel: ['something'],
           toEdit: ['something'],
+          toShow: ['something'],
         });
         const nextState = reservationsReducer(initialState, action);
 
@@ -243,18 +238,6 @@ describe('Reducer: reservationsReducer', () => {
           const nextState = reservationsReducer(initialState, action);
 
           expect(nextState.toCancel).to.deep.equal([]);
-        });
-      });
-
-      describe('if closed modal is RESERVATION_DELETE modal', () => {
-        it('should clear toDelete array', () => {
-          const initialState = Immutable({
-            toDelete: [Reservation.build()],
-          });
-          const action = closeReservationDeleteModal();
-          const nextState = reservationsReducer(initialState, action);
-
-          expect(nextState.toDelete).to.deep.equal([]);
         });
       });
 
@@ -297,35 +280,6 @@ describe('Reducer: reservationsReducer', () => {
         const expected = Immutable([reservations[0], reservations[1]]);
 
         expect(nextState.toCancel).to.deep.equal(expected);
-      });
-    });
-
-    describe('UI.SELECT_RESERVATION_TO_DELETE', () => {
-      it('should add the given reservation to toDelete', () => {
-        const initialState = Immutable({
-          toDelete: [],
-        });
-        const reservation = Reservation.build();
-        const action = selectReservationToDelete(reservation);
-        const nextState = reservationsReducer(initialState, action);
-        const expected = Immutable([reservation]);
-
-        expect(nextState.toDelete).to.deep.equal(expected);
-      });
-
-      it('should not affect other reservations in toDelete', () => {
-        const reservations = [
-          Reservation.build(),
-          Reservation.build(),
-        ];
-        const initialState = Immutable({
-          toDelete: [reservations[0]],
-        });
-        const action = selectReservationToDelete(reservations[1]);
-        const nextState = reservationsReducer(initialState, action);
-        const expected = Immutable([reservations[0], reservations[1]]);
-
-        expect(nextState.toDelete).to.deep.equal(expected);
       });
     });
 
