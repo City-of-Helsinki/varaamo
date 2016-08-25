@@ -64,9 +64,15 @@ export class UnconnectedReservationCancelModal extends Component {
       show,
     } = this.props;
 
-    const resource = reservationsToCancel.length ? resources[reservationsToCancel[0].resource] : {};
-    const state = reservationsToCancel.length ? reservationsToCancel[0].state : '';
-    const cancelAllowed = isAdmin || state !== 'confirmed';
+    const reservation = reservationsToCancel.length ? reservationsToCancel[0] : null;
+    const resource = reservation ? resources[reservation.resource] : {};
+    const state = reservation ? reservation.state : '';
+    const isPreliminaryReservation = reservation && reservation.needManualConfirmation;
+    const cancelAllowed = (
+      !isPreliminaryReservation ||
+      isAdmin ||
+      state !== 'confirmed'
+    );
 
     return (
       <Modal
