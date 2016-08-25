@@ -115,7 +115,10 @@ export class UnconnectedReservationCalendar extends Component {
       timeSlots,
       urlHash,
     } = this.props;
+
+    const isAdmin = resource.userPermissions.isAdmin;
     const isEditing = Boolean(reservationsToEdit.length);
+    const isStaff = includes(staffUnits, resource.unit);
 
     return (
       <div>
@@ -134,11 +137,11 @@ export class UnconnectedReservationCalendar extends Component {
         />
         <TimeSlots
           addNotification={actions.addNotification}
-          isAdmin={resource.userPermissions.isAdmin}
+          isAdmin={isAdmin}
           isEditing={isEditing}
           isFetching={isFetchingResource}
           isLoggedIn={isLoggedIn}
-          isStaff={includes(staffUnits, resource.unit)}
+          isStaff={isStaff}
           onClick={actions.toggleTimeSlot}
           resource={resource}
           selected={selected}
@@ -161,16 +164,17 @@ export class UnconnectedReservationCalendar extends Component {
           resource={resource}
         />
         <ConfirmReservationModal
+          isAdmin={isAdmin}
           isEditing={isEditing}
           isMakingReservations={isMakingReservations}
           isPreliminaryReservation={resource.needManualConfirmation}
+          isStaff={isStaff}
           onClose={actions.closeConfirmReservationModal}
           onConfirm={isEditing ? this.handleEdit : this.handleReservation}
           reservationsToEdit={reservationsToEdit}
           resource={resource}
           selectedReservations={selectedReservations}
           show={confirmReservationModalIsOpen}
-          staffUnits={staffUnits}
         />
         <ReservationCancelModal />
         <ReservationInfoModal />

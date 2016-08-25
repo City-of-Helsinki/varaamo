@@ -151,15 +151,16 @@ describe('Container: ReservationCalendar', () => {
       it('should pass correct props to ConfirmReservationModal component', () => {
         const actualProps = modalTrees[0].props;
 
+        expect(actualProps.isAdmin).to.exist;
         expect(actualProps.isEditing).to.exist;
         expect(actualProps.isMakingReservations).to.equal(props.isMakingReservations);
         expect(actualProps.isPreliminaryReservation).to.equal(props.resource.needManualConfirmation);
+        expect(actualProps.isStaff).to.exist;
         expect(actualProps.onClose).to.equal(props.actions.closeConfirmReservationModal);
         expect(actualProps.onConfirm).to.equal(instance.handleReservation);
         expect(actualProps.reservationsToEdit).to.deep.equal(props.reservationsToEdit);
         expect(actualProps.selectedReservations).to.deep.equal(props.selectedReservations);
         expect(actualProps.show).to.equal(props.confirmReservationModalIsOpen);
-        expect(actualProps.staffUnits).to.equal(props.staffUnits);
       });
     });
   });
