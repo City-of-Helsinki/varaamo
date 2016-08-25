@@ -81,12 +81,6 @@ class AboutPageContent extends Component {
             nuorisoasiainkeskuksen sekä varhaiskasvatusviraston tiloja, työpisteitä ja laitteita.
           </p>
           <p>
-            Osa palvelun kautta tarjottavista tiloista on maksullisia. Maksullisten tilojen
-            varaaminen ei kuitenkaan ole vielä pilotin ensimmäisessä vaiheessa mahdollista.
-            Maksulliset tilat näkyvät varauskalenterissa ja niiden yhteydessä on tarvittavat
-            yhteystiedot tilavarauksen tekemiseen sähköpostilla tai puhelimitse.
-          </p>
-          <p>
             Varaamo perustuu Helsingin kaupungin avoimeen <a href="http://dev.hel.fi/apis/respa">
             tilavarausrajapintaan</a>, joka on toteutettu osana Suomen suurimpien kaupunkien
             yhteistä <a href="http://6aika.fi">6aika - Avoimet ja älykkäät palvelut</a> -hanketta.
