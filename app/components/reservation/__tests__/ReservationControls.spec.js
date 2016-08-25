@@ -13,7 +13,6 @@ import { makeButtonTests } from 'utils/TestUtils';
 describe('Component: reservation/ReservationControls', () => {
   const onCancelClick = simple.stub();
   const onConfirmClick = simple.stub();
-  const onDeleteClick = simple.stub();
   const onDenyClick = simple.stub();
   const onEditClick = simple.stub();
   const onInfoClick = simple.stub();
@@ -24,7 +23,6 @@ describe('Component: reservation/ReservationControls', () => {
       isStaff,
       onCancelClick,
       onConfirmClick,
-      onDeleteClick,
       onDenyClick,
       onEditClick,
       onInfoClick,
@@ -49,7 +47,7 @@ describe('Component: reservation/ReservationControls', () => {
       });
 
       describe('the second button', () => {
-        makeButtonTests(buttons.at(1), 'delete', 'Peru', onDeleteClick);
+        makeButtonTests(buttons.at(1), 'cancel', 'Peru', onCancelClick);
       });
     });
 
@@ -184,7 +182,7 @@ describe('Component: reservation/ReservationControls', () => {
       });
 
       describe('the second button', () => {
-        makeButtonTests(buttons.at(1), 'delete', 'Peru', onDeleteClick);
+        makeButtonTests(buttons.at(1), 'cancel', 'Peru', onCancelClick);
       });
     });
 

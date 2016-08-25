@@ -100,35 +100,13 @@ describe('Component: reservation/ReservationsListItem', () => {
         expect(actualProps.isAdmin).to.equal(false);
         expect(actualProps.isStaff).to.equal(false);
         expect(actualProps.onCancelClick).to.equal(instance.handleCancelClick);
-        expect(actualProps.onDeleteClick).to.equal(instance.handleDeleteClick);
         expect(actualProps.onEditClick).to.equal(instance.handleEditClick);
       });
     });
   });
 
   describe('handleCancelClick', () => {
-    props.openReservationCancelModal.reset();
-    props.selectReservationToCancel.reset();
     instance.handleCancelClick();
-
-    it('should call props.selectReservationToCancel with this reservation', () => {
-      expect(props.selectReservationToCancel.callCount).to.equal(1);
-      expect(
-        props.selectReservationToCancel.lastCall.args[0]
-      ).to.deep.equal(
-        props.reservation
-      );
-    });
-
-    it('should call the props.openReservationCancelModal function', () => {
-      expect(props.openReservationCancelModal.callCount).to.equal(1);
-    });
-  });
-
-  describe('handleDeleteClick', () => {
-    props.openReservationCancelModal.reset();
-    props.selectReservationToCancel.reset();
-    instance.handleDeleteClick();
 
     it('should call props.selectReservationToCancel with this reservation', () => {
       expect(props.selectReservationToCancel.callCount).to.equal(1);

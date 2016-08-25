@@ -6,20 +6,10 @@ class ReservationControls extends Component {
   constructor(props) {
     super(props);
     this.buttons = {
-      adminCancel: (
-        <Button
-          bsSize="xsmall"
-          bsStyle="danger"
-          key="adminCancelButton"
-          onClick={props.onCancelClick}
-        >
-          Peru
-        </Button>
-      ),
       cancel: (
         <Button
           bsSize="xsmall"
-          bsStyle="default"
+          bsStyle="danger"
           key="cancelButton"
           onClick={props.onCancelClick}
         >
@@ -34,16 +24,6 @@ class ReservationControls extends Component {
           onClick={props.onConfirmClick}
         >
           Hyväksy
-        </Button>
-      ),
-      delete: (
-        <Button
-          bsSize="xsmall"
-          bsStyle="danger"
-          key="deleteButton"
-          onClick={props.onDeleteClick}
-        >
-          Peru
         </Button>
       ),
       deny: (
@@ -85,8 +65,8 @@ class ReservationControls extends Component {
         return null;
       }
       return isAdmin ?
-        [buttons.edit, buttons.delete] :
-        [buttons.edit, buttons.delete];
+        [buttons.edit, buttons.cancel] :
+        [buttons.edit, buttons.cancel];
     }
 
     switch (reservation.state) {
@@ -99,8 +79,8 @@ class ReservationControls extends Component {
     case 'confirmed':
       if (isAdmin) {
         return isStaff ?
-          [buttons.info, buttons.adminCancel, buttons.edit] :
-          [buttons.info, buttons.adminCancel];
+          [buttons.info, buttons.cancel, buttons.edit] :
+          [buttons.info, buttons.cancel];
       }
       return [buttons.info, buttons.cancel];
 
@@ -143,7 +123,6 @@ ReservationControls.propTypes = {
   isStaff: PropTypes.bool.isRequired,
   onCancelClick: PropTypes.func.isRequired,
   onConfirmClick: PropTypes.func.isRequired,
-  onDeleteClick: PropTypes.func.isRequired,
   onDenyClick: PropTypes.func.isRequired,
   onEditClick: PropTypes.func.isRequired,
   onInfoClick: PropTypes.func.isRequired,

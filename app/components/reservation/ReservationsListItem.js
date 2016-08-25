@@ -18,7 +18,6 @@ class ReservationsListItem extends Component {
     super(props);
     this.handleCancelClick = this.handleCancelClick.bind(this);
     this.handleConfirmClick = this.handleConfirmClick.bind(this);
-    this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.handleDenyClick = this.handleDenyClick.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
     this.handleInfoClick = this.handleInfoClick.bind(this);
@@ -45,17 +44,6 @@ class ReservationsListItem extends Component {
     if (isAdmin && reservation.state === 'requested') {
       confirmPreliminaryReservation(reservation);
     }
-  }
-
-  handleDeleteClick() {
-    const {
-      openReservationCancelModal,
-      reservation,
-      selectReservationToCancel,
-    } = this.props;
-
-    selectReservationToCancel(reservation);
-    openReservationCancelModal();
   }
 
   handleDenyClick() {
@@ -157,7 +145,6 @@ class ReservationsListItem extends Component {
           isStaff={includes(staffUnits, resource.unit)}
           onCancelClick={this.handleCancelClick}
           onConfirmClick={this.handleConfirmClick}
-          onDeleteClick={this.handleDeleteClick}
           onDenyClick={this.handleDenyClick}
           onEditClick={this.handleEditClick}
           onInfoClick={this.handleInfoClick}
