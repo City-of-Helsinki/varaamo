@@ -7,10 +7,8 @@ import { updatePath } from 'redux-simple-router';
 
 import {
   openReservationCancelModal,
-  openReservationDeleteModal,
   openReservationInfoModal,
   selectReservationToCancel,
-  selectReservationToDelete,
   selectReservationToEdit,
   selectReservationToShow,
 } from 'actions/uiActions';
@@ -47,11 +45,9 @@ export class UnconnectedReservationsList extends Component {
         reservation={reservation}
         resource={resource}
         openReservationCancelModal={actions.openReservationCancelModal}
-        openReservationDeleteModal={actions.openReservationDeleteModal}
         openReservationInfoModal={actions.openReservationInfoModal}
         updatePath={actions.updatePath}
         selectReservationToCancel={actions.selectReservationToCancel}
-        selectReservationToDelete={actions.selectReservationToDelete}
         selectReservationToEdit={actions.selectReservationToEdit}
         selectReservationToShow={actions.selectReservationToShow}
         staffUnits={staffUnits}
@@ -100,11 +96,9 @@ function mapDispatchToProps(dispatch) {
     confirmPreliminaryReservation,
     denyPreliminaryReservation,
     openReservationCancelModal,
-    openReservationDeleteModal,
     openReservationInfoModal,
     updatePath,
     selectReservationToCancel,
-    selectReservationToDelete,
     selectReservationToEdit,
     selectReservationToShow,
   };

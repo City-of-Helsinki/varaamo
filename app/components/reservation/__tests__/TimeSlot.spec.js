@@ -17,12 +17,12 @@ function getProps(props) {
     isEditing: true,
     isLoggedIn: true,
     onClick: simple.stub(),
-    openReservationDeleteModal: simple.stub(),
+    openReservationCancelModal: simple.stub(),
     openReservationInfoModal: simple.stub(),
     updatePath: simple.stub(),
     resource: Resource.build(),
     selected: false,
-    selectReservationToDelete: simple.stub(),
+    selectReservationToCancel: simple.stub(),
     selectReservationToEdit: simple.stub(),
     selectReservationToShow: simple.stub(),
     slot: Immutable(TimeSlotFixture.build()),
@@ -141,17 +141,17 @@ describe('Component: reservation/TimeSlot', () => {
     const instance = tree.getMountedInstance();
     instance.handleDeleteClick();
 
-    it('should call props.selectReservationToDelete with slot.reservation', () => {
-      expect(props.selectReservationToDelete.callCount).to.equal(1);
+    it('should call props.selectReservationToCancel with slot.reservation', () => {
+      expect(props.selectReservationToCancel.callCount).to.equal(1);
       expect(
-        props.selectReservationToDelete.lastCall.args[0]
+        props.selectReservationToCancel.lastCall.args[0]
       ).to.deep.equal(
         props.slot.reservation
       );
     });
 
-    it('should call the props.openReservationDeleteModal function', () => {
-      expect(props.openReservationDeleteModal.callCount).to.equal(1);
+    it('should call the props.openReservationCancelModal function', () => {
+      expect(props.openReservationCancelModal.callCount).to.equal(1);
     });
   });
 

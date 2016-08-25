@@ -37,13 +37,13 @@ class TimeSlot extends Component {
 
   handleDeleteClick() {
     const {
-      openReservationDeleteModal,
+      openReservationCancelModal,
       slot,
-      selectReservationToDelete,
+      selectReservationToCancel,
     } = this.props;
 
-    selectReservationToDelete(slot.reservation);
-    openReservationDeleteModal();
+    selectReservationToCancel(slot.reservation);
+    openReservationCancelModal();
   }
 
   handleEditClick() {
@@ -193,13 +193,13 @@ TimeSlot.propTypes = {
   isEditing: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
-  openReservationDeleteModal: PropTypes.func.isRequired,
+  openReservationCancelModal: PropTypes.func.isRequired,
   openReservationInfoModal: PropTypes.func.isRequired,
   updatePath: PropTypes.func.isRequired,
   resource: PropTypes.object.isRequired,
   scrollTo: PropTypes.bool,
   selected: PropTypes.bool.isRequired,
-  selectReservationToDelete: PropTypes.func.isRequired,
+  selectReservationToCancel: PropTypes.func.isRequired,
   selectReservationToEdit: PropTypes.func.isRequired,
   selectReservationToShow: PropTypes.func.isRequired,
   slot: PropTypes.object.isRequired,

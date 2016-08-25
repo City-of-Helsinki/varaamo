@@ -10,7 +10,6 @@ import { changeAdminReservationsFilters } from 'actions/uiActions';
 import { fetchUnits } from 'actions/unitActions';
 import AdminReservationsFilters from 'components/reservation/AdminReservationsFilters';
 import ReservationCancelModal from 'containers/ReservationCancelModal';
-import ReservationDeleteModal from 'containers/ReservationDeleteModal';
 import ReservationInfoModal from 'containers/ReservationInfoModal';
 import ReservationsList from 'containers/ReservationsList';
 import userReservationsPageSelector from 'selectors/containers/userReservationsPageSelector';
@@ -89,7 +88,6 @@ export class UnconnectedUserReservationsPage extends Component {
               </div>
             )}
             <ReservationCancelModal />
-            <ReservationDeleteModal />
             <ReservationInfoModal />
           </div>
         </Loader>

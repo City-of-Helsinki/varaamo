@@ -21,12 +21,12 @@ function getProps(props = {}) {
       closeConfirmReservationModal: simple.stub(),
       deleteReservation: simple.stub(),
       openConfirmReservationModal: simple.stub(),
-      openReservationDeleteModal: simple.stub(),
+      openReservationCancelModal: simple.stub(),
       openReservationInfoModal: simple.stub(),
       postReservation: simple.stub(),
       updatePath: simple.stub(),
       putReservation: simple.stub(),
-      selectReservationToDelete: simple.stub(),
+      selectReservationToCancel: simple.stub(),
       selectReservationToEdit: simple.stub(),
       selectReservationToShow: simple.stub(),
       toggleTimeSlot: simple.stub(),
@@ -120,12 +120,12 @@ describe('Container: ReservationCalendar', () => {
         expect(actualProps.isFetching).to.equal(props.isFetchingResource);
         expect(actualProps.isLoggedIn).to.equal(props.isLoggedIn);
         expect(actualProps.onClick).to.deep.equal(props.actions.toggleTimeSlot);
-        expect(actualProps.openReservationDeleteModal).to.deep.equal(props.actions.openReservationDeleteModal);
+        expect(actualProps.openReservationCancelModal).to.deep.equal(props.actions.openReservationCancelModal);
         expect(actualProps.openReservationInfoModal).to.deep.equal(props.actions.openReservationInfoModal);
         expect(actualProps.updatePath).to.deep.equal(props.actions.updatePath);
         expect(actualProps.resource).to.equal(props.resource);
         expect(actualProps.selected).to.deep.equal(props.selected);
-        expect(actualProps.selectReservationToDelete).to.deep.equal(props.actions.selectReservationToDelete);
+        expect(actualProps.selectReservationToCancel).to.deep.equal(props.actions.selectReservationToCancel);
         expect(actualProps.selectReservationToEdit).to.deep.equal(props.actions.selectReservationToEdit);
         expect(actualProps.selectReservationToShow).to.deep.equal(props.actions.selectReservationToShow);
         expect(actualProps.slots).to.deep.equal(props.timeSlots);

@@ -18,11 +18,9 @@ function getProps(props) {
       confirmPreliminaryReservation: simple.stub(),
       denyPreliminaryReservation: simple.stub(),
       openReservationCancelModal: simple.stub(),
-      openReservationDeleteModal: simple.stub(),
       openReservationInfoModal: simple.stub(),
       updatePath: simple.stub(),
       selectReservationToCancel: simple.stub(),
-      selectReservationToDelete: simple.stub(),
       selectReservationToEdit: simple.stub(),
       selectReservationToShow: simple.stub(),
     },
@@ -86,7 +84,6 @@ describe('Container: ReservationsList', () => {
           expect(actualProps.isAdmin).to.equal(props.isAdmin);
           expect(actualProps.reservation).to.deep.equal(props.reservations[index]);
           expect(actualProps.openReservationCancelModal).to.deep.equal(props.actions.openReservationCancelModal);
-          expect(actualProps.openReservationDeleteModal).to.deep.equal(props.actions.openReservationDeleteModal);
           expect(actualProps.openReservationInfoModal).to.deep.equal(props.actions.openReservationInfoModal);
           expect(actualProps.staffUnits).to.deep.equal(props.staffUnits);
           expect(actualProps.updatePath).to.deep.equal(props.actions.updatePath);
@@ -94,11 +91,6 @@ describe('Container: ReservationsList', () => {
             actualProps.selectReservationToCancel
           ).to.deep.equal(
             props.actions.selectReservationToCancel
-          );
-          expect(
-            actualProps.selectReservationToDelete
-          ).to.deep.equal(
-            props.actions.selectReservationToDelete
           );
           expect(
             actualProps.selectReservationToEdit

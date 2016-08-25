@@ -17,9 +17,9 @@ import {
   clearReservations,
   closeConfirmReservationModal,
   openConfirmReservationModal,
-  openReservationDeleteModal,
+  openReservationCancelModal,
   openReservationInfoModal,
-  selectReservationToDelete,
+  selectReservationToCancel,
   selectReservationToEdit,
   selectReservationToShow,
   toggleTimeSlot,
@@ -28,7 +28,7 @@ import DateHeader from 'components/common/DateHeader';
 import ConfirmReservationModal from 'components/reservation/ConfirmReservationModal';
 import ReservationCalendarControls from 'components/reservation/ReservationCalendarControls';
 import TimeSlots from 'components/reservation/TimeSlots';
-import ReservationDeleteModal from 'containers/ReservationDeleteModal';
+import ReservationCancelModal from 'containers/ReservationCancelModal';
 import ReservationInfoModal from 'containers/ReservationInfoModal';
 import ReservationSuccessModal from 'containers/ReservationSuccessModal';
 import reservationCalendarSelector from 'selectors/containers/reservationCalendarSelector';
@@ -142,12 +142,12 @@ export class UnconnectedReservationCalendar extends Component {
           isFetching={isFetchingResource}
           isLoggedIn={isLoggedIn}
           onClick={actions.toggleTimeSlot}
-          openReservationDeleteModal={actions.openReservationDeleteModal}
+          openReservationCancelModal={actions.openReservationCancelModal}
           openReservationInfoModal={actions.openReservationInfoModal}
           updatePath={actions.updatePath}
           resource={resource}
           selected={selected}
-          selectReservationToDelete={actions.selectReservationToDelete}
+          selectReservationToCancel={actions.selectReservationToCancel}
           selectReservationToEdit={actions.selectReservationToEdit}
           selectReservationToShow={actions.selectReservationToShow}
           slots={timeSlots}
@@ -180,7 +180,7 @@ export class UnconnectedReservationCalendar extends Component {
           show={confirmReservationModalIsOpen}
           staffUnits={staffUnits}
         />
-        <ReservationDeleteModal />
+        <ReservationCancelModal />
         <ReservationInfoModal />
         <ReservationSuccessModal />
       </div>
@@ -214,12 +214,12 @@ function mapDispatchToProps(dispatch) {
     closeConfirmReservationModal,
     deleteReservation,
     openConfirmReservationModal,
-    openReservationDeleteModal,
+    openReservationCancelModal,
     openReservationInfoModal,
     postReservation,
     updatePath,
     putReservation,
-    selectReservationToDelete,
+    selectReservationToCancel,
     selectReservationToEdit,
     selectReservationToShow,
     toggleTimeSlot,

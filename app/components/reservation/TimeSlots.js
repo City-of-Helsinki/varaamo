@@ -18,12 +18,12 @@ class TimeSlots extends Component {
       isEditing,
       isLoggedIn,
       onClick,
-      openReservationDeleteModal,
+      openReservationCancelModal,
       openReservationInfoModal,
       updatePath,
       resource,
       selected,
-      selectReservationToDelete,
+      selectReservationToCancel,
       selectReservationToEdit,
       selectReservationToShow,
       time,
@@ -37,14 +37,14 @@ class TimeSlots extends Component {
         isLoggedIn={isLoggedIn}
         key={slot.start}
         onClick={onClick}
-        openReservationDeleteModal={openReservationDeleteModal}
+        openReservationCancelModal={openReservationCancelModal}
         openReservationInfoModal={openReservationInfoModal}
         updatePath={updatePath}
         resource={resource}
         scrollTo={scrollTo}
         selected={includes(selected, slot.asISOString)}
         selectReservationToEdit={selectReservationToEdit}
-        selectReservationToDelete={selectReservationToDelete}
+        selectReservationToCancel={selectReservationToCancel}
         selectReservationToShow={selectReservationToShow}
         slot={slot}
       />
@@ -95,12 +95,12 @@ TimeSlots.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
-  openReservationDeleteModal: PropTypes.func.isRequired,
+  openReservationCancelModal: PropTypes.func.isRequired,
   openReservationInfoModal: PropTypes.func.isRequired,
   updatePath: PropTypes.func.isRequired,
   resource: PropTypes.object.isRequired,
   selected: PropTypes.array.isRequired,
-  selectReservationToDelete: PropTypes.func.isRequired,
+  selectReservationToCancel: PropTypes.func.isRequired,
   selectReservationToEdit: PropTypes.func.isRequired,
   selectReservationToShow: PropTypes.func.isRequired,
   slots: PropTypes.array.isRequired,

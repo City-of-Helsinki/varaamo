@@ -49,13 +49,13 @@ class ReservationsListItem extends Component {
 
   handleDeleteClick() {
     const {
-      openReservationDeleteModal,
+      openReservationCancelModal,
       reservation,
-      selectReservationToDelete,
+      selectReservationToCancel,
     } = this.props;
 
-    selectReservationToDelete(reservation);
-    openReservationDeleteModal();
+    selectReservationToCancel(reservation);
+    openReservationCancelModal();
   }
 
   handleDenyClick() {
@@ -173,12 +173,10 @@ ReservationsListItem.propTypes = {
   denyPreliminaryReservation: PropTypes.func.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   openReservationCancelModal: PropTypes.func.isRequired,
-  openReservationDeleteModal: PropTypes.func.isRequired,
   openReservationInfoModal: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   selectReservationToCancel: PropTypes.func.isRequired,
-  selectReservationToDelete: PropTypes.func.isRequired,
   selectReservationToEdit: PropTypes.func.isRequired,
   selectReservationToShow: PropTypes.func.isRequired,
   staffUnits: PropTypes.array.isRequired,

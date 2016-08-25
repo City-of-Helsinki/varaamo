@@ -18,7 +18,6 @@ describe('Component: reservation/ReservationsListItem', () => {
     denyPreliminaryReservation: simple.stub(),
     isAdmin: false,
     openReservationCancelModal: simple.stub(),
-    openReservationDeleteModal: simple.stub(),
     openReservationInfoModal: simple.stub(),
     updatePath: simple.stub(),
     reservation: Immutable(Reservation.build()),
@@ -26,7 +25,6 @@ describe('Component: reservation/ReservationsListItem', () => {
       images: [Image.build()],
     })),
     selectReservationToCancel: simple.stub(),
-    selectReservationToDelete: simple.stub(),
     selectReservationToEdit: simple.stub(),
     selectReservationToShow: simple.stub(),
     staffUnits: [],
@@ -109,6 +107,8 @@ describe('Component: reservation/ReservationsListItem', () => {
   });
 
   describe('handleCancelClick', () => {
+    props.openReservationCancelModal.reset();
+    props.selectReservationToCancel.reset();
     instance.handleCancelClick();
 
     it('should call props.selectReservationToCancel with this reservation', () => {
@@ -126,19 +126,21 @@ describe('Component: reservation/ReservationsListItem', () => {
   });
 
   describe('handleDeleteClick', () => {
+    props.openReservationCancelModal.reset();
+    props.selectReservationToCancel.reset();
     instance.handleDeleteClick();
 
-    it('should call props.selectReservationToDelete with this reservation', () => {
-      expect(props.selectReservationToDelete.callCount).to.equal(1);
+    it('should call props.selectReservationToCancel with this reservation', () => {
+      expect(props.selectReservationToCancel.callCount).to.equal(1);
       expect(
-        props.selectReservationToDelete.lastCall.args[0]
+        props.selectReservationToCancel.lastCall.args[0]
       ).to.deep.equal(
         props.reservation
       );
     });
 
-    it('should call the props.openReservationDeleteModal function', () => {
-      expect(props.openReservationDeleteModal.callCount).to.equal(1);
+    it('should call the props.openReservationCancelModal function', () => {
+      expect(props.openReservationCancelModal.callCount).to.equal(1);
     });
   });
 
