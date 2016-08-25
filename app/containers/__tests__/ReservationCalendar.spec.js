@@ -21,14 +21,9 @@ function getProps(props = {}) {
       closeConfirmReservationModal: simple.stub(),
       deleteReservation: simple.stub(),
       openConfirmReservationModal: simple.stub(),
-      openReservationCancelModal: simple.stub(),
-      openReservationInfoModal: simple.stub(),
       postReservation: simple.stub(),
       updatePath: simple.stub(),
       putReservation: simple.stub(),
-      selectReservationToCancel: simple.stub(),
-      selectReservationToEdit: simple.stub(),
-      selectReservationToShow: simple.stub(),
       toggleTimeSlot: simple.stub(),
     },
     confirmReservationModalIsOpen: false,
@@ -116,18 +111,14 @@ describe('Container: ReservationCalendar', () => {
         const actualProps = timeSlotsTrees[0].props;
 
         expect(actualProps.addNotification).to.deep.equal(props.actions.addNotification);
+        expect(actualProps.isAdmin).to.exist;
         expect(actualProps.isEditing).to.exist;
         expect(actualProps.isFetching).to.equal(props.isFetchingResource);
         expect(actualProps.isLoggedIn).to.equal(props.isLoggedIn);
+        expect(actualProps.isStaff).to.exist;
         expect(actualProps.onClick).to.deep.equal(props.actions.toggleTimeSlot);
-        expect(actualProps.openReservationCancelModal).to.deep.equal(props.actions.openReservationCancelModal);
-        expect(actualProps.openReservationInfoModal).to.deep.equal(props.actions.openReservationInfoModal);
-        expect(actualProps.updatePath).to.deep.equal(props.actions.updatePath);
         expect(actualProps.resource).to.equal(props.resource);
         expect(actualProps.selected).to.deep.equal(props.selected);
-        expect(actualProps.selectReservationToCancel).to.deep.equal(props.actions.selectReservationToCancel);
-        expect(actualProps.selectReservationToEdit).to.deep.equal(props.actions.selectReservationToEdit);
-        expect(actualProps.selectReservationToShow).to.deep.equal(props.actions.selectReservationToShow);
         expect(actualProps.slots).to.deep.equal(props.timeSlots);
       });
     });

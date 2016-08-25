@@ -17,18 +17,14 @@ describe('Component: reservation/TimeSlots', () => {
     ];
     const props = {
       addNotification: simple.stub(),
+      isAdmin: false,
       isEditing: false,
       isFetching: false,
       isLoggedIn: true,
+      isStaff: false,
       onClick: simple.stub(),
-      openReservationCancelModal: simple.stub(),
-      openReservationInfoModal: simple.stub(),
-      updatePath: simple.stub(),
       resource: Resource.build(),
       selected: [timeSlots[0].asISOString],
-      selectReservationToCancel: simple.stub(),
-      selectReservationToEdit: simple.stub(),
-      selectReservationToShow: simple.stub(),
       slots: Immutable(timeSlots),
     };
     let tree;
@@ -81,16 +77,12 @@ describe('Component: reservation/TimeSlots', () => {
       it('should pass correct props to TimeSlots', () => {
         timeSlotTrees.forEach((timeSlotTree, index) => {
           expect(timeSlotTree.props.addNotification).to.equal(props.addNotification);
+          expect(timeSlotTree.props.isAdmin).to.equal(props.isAdmin);
           expect(timeSlotTree.props.isEditing).to.equal(props.isEditing);
           expect(timeSlotTree.props.isLoggedIn).to.equal(props.isLoggedIn);
+          expect(timeSlotTree.props.isStaff).to.equal(props.isStaff);
           expect(timeSlotTree.props.onClick).to.equal(props.onClick);
-          expect(timeSlotTree.props.openReservationCancelModal).to.equal(props.openReservationCancelModal);
-          expect(timeSlotTree.props.openReservationInfoModal).to.equal(props.openReservationInfoModal);
-          expect(timeSlotTree.props.updatePath).to.equal(props.updatePath);
           expect(timeSlotTree.props.resource).to.equal(props.resource);
-          expect(timeSlotTree.props.selectReservationToCancel).to.equal(props.selectReservationToCancel);
-          expect(timeSlotTree.props.selectReservationToEdit).to.equal(props.selectReservationToEdit);
-          expect(timeSlotTree.props.selectReservationToShow).to.equal(props.selectReservationToShow);
           expect(timeSlotTree.props.slot).to.deep.equal(props.slots[index]);
         });
       });
@@ -105,18 +97,14 @@ describe('Component: reservation/TimeSlots', () => {
   describe('without timeslots', () => {
     const props = {
       addNotification: simple.stub(),
+      isAdmin: false,
       isEditing: false,
       isFetching: false,
       isLoggedIn: true,
+      isStaff: false,
       onClick: simple.stub(),
-      openReservationCancelModal: simple.stub(),
-      openReservationInfoModal: simple.stub(),
-      updatePath: simple.stub(),
       resource: Resource.build(),
       selected: [],
-      selectReservationToCancel: simple.stub(),
-      selectReservationToEdit: simple.stub(),
-      selectReservationToShow: simple.stub(),
       slots: [],
     };
     let tree;

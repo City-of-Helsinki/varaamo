@@ -1,3 +1,4 @@
+import includes from 'lodash/collection/includes';
 import forEach from 'lodash/collection/forEach';
 import rest from 'lodash/array/rest';
 import React, { Component, PropTypes } from 'react';
@@ -17,11 +18,6 @@ import {
   clearReservations,
   closeConfirmReservationModal,
   openConfirmReservationModal,
-  openReservationCancelModal,
-  openReservationInfoModal,
-  selectReservationToCancel,
-  selectReservationToEdit,
-  selectReservationToShow,
   toggleTimeSlot,
 } from 'actions/uiActions';
 import DateHeader from 'components/common/DateHeader';
@@ -138,18 +134,14 @@ export class UnconnectedReservationCalendar extends Component {
         />
         <TimeSlots
           addNotification={actions.addNotification}
+          isAdmin={resource.userPermissions.isAdmin}
           isEditing={isEditing}
           isFetching={isFetchingResource}
           isLoggedIn={isLoggedIn}
+          isStaff={includes(staffUnits, resource.unit)}
           onClick={actions.toggleTimeSlot}
-          openReservationCancelModal={actions.openReservationCancelModal}
-          openReservationInfoModal={actions.openReservationInfoModal}
-          updatePath={actions.updatePath}
           resource={resource}
           selected={selected}
-          selectReservationToCancel={actions.selectReservationToCancel}
-          selectReservationToEdit={actions.selectReservationToEdit}
-          selectReservationToShow={actions.selectReservationToShow}
           slots={timeSlots}
           time={time}
         />
@@ -214,14 +206,9 @@ function mapDispatchToProps(dispatch) {
     closeConfirmReservationModal,
     deleteReservation,
     openConfirmReservationModal,
-    openReservationCancelModal,
-    openReservationInfoModal,
     postReservation,
     updatePath,
     putReservation,
-    selectReservationToCancel,
-    selectReservationToEdit,
-    selectReservationToShow,
     toggleTimeSlot,
   };
 
