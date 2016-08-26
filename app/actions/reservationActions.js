@@ -1,4 +1,4 @@
-import pick from 'lodash/object/pick';
+import pickBy from 'lodash/pickBy';
 import { decamelizeKeys } from 'humps';
 import { CALL_API } from 'redux-api-middleware';
 
@@ -71,7 +71,7 @@ function fetchReservations(params = {}) {
 }
 
 function parseReservationData(reservation) {
-  const parsed = pick(reservation, (value) => value);
+  const parsed = pickBy(reservation, (value) => value);
   return JSON.stringify(decamelizeKeys(parsed));
 }
 

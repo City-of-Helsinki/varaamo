@@ -1,4 +1,4 @@
-import reject from 'lodash/collection/reject';
+import reject from 'lodash/reject';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';

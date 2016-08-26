@@ -1,6 +1,6 @@
-import filter from 'lodash/collection/filter';
-import sortByOrder from 'lodash/collection/sortByOrder';
-import values from 'lodash/object/values';
+import filter from 'lodash/filter';
+import orderBy from 'lodash/orderBy';
+import values from 'lodash/values';
 import { createSelector } from 'reselect';
 
 import constants from 'constants/AppConstants';
@@ -21,7 +21,7 @@ const reservationsSelector = (state, props) => {
 const sortedReservationsSelector = createSelector(
   reservationsSelector,
   (reservations) => {
-    return sortByOrder(values(reservations), ['begin'], ['asc']);
+    return orderBy(values(reservations), ['begin'], ['asc']);
   }
 );
 

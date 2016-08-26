@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import React from 'react';
 import sd from 'skin-deep';
 
-import capitalize from 'lodash/string/capitalize';
+import capitalize from 'lodash/capitalize';
 
 import PurposeCategoryItem from 'components/purpose/PurposeCategoryItem';
 import Purpose from 'fixtures/Purpose';

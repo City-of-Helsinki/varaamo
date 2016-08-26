@@ -4,7 +4,7 @@ import React from 'react';
 import sd from 'skin-deep';
 import simple from 'simple-mock';
 
-import forEach from 'lodash/collection/forEach';
+import forEach from 'lodash/forEach';
 import Immutable from 'seamless-immutable';
 
 import ConfirmReservationModal from 'components/reservation/ConfirmReservationModal';

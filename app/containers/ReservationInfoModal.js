@@ -1,4 +1,4 @@
-import includes from 'lodash/collection/includes';
+import includes from 'lodash/includes';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';

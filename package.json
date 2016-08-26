@@ -22,7 +22,7 @@
     "humps": "1.1.0",
     "isomorphic-fetch": "2.2.1",
     "location-origin": "1.1.4",
-    "lodash": "3.10.1",
+    "lodash": "4.15.0",
     "moment": "2.14.1",
     "moment-range": "2.2.0",
     "normalizr": "2.2.1",

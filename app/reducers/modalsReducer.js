@@ -1,5 +1,5 @@
-import without from 'lodash/array/without';
-import includes from 'lodash/collection/includes';
+import without from 'lodash/without';
+import includes from 'lodash/includes';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';

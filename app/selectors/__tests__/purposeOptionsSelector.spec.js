@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import indexBy from 'lodash/collection/indexBy';
+import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
 import Purpose from 'fixtures/Purpose';
@@ -9,7 +9,7 @@ import purposeOptionsSelector from 'selectors/purposeOptionsSelector';
 function getState(purposes) {
   return {
     data: Immutable({
-      purposes: indexBy(purposes, 'id'),
+      purposes: keyBy(purposes, 'id'),
     }),
   };
 }

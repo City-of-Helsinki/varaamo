@@ -1,5 +1,4 @@
-import keys from 'lodash/object/keys';
-import values from 'lodash/object/values';
+import values from 'lodash/values';
 import queryString from 'query-string';
 import { UPDATE_PATH } from 'redux-simple-router';
 import Immutable from 'seamless-immutable';
@@ -23,7 +22,7 @@ function searchReducer(state = initialState, action) {
   switch (action.type) {
 
   case types.API.SEARCH_RESULTS_GET_SUCCESS:
-    const results = keys(action.payload.entities.resources);
+    const results = Object.keys(action.payload.entities.resources);
     return state.merge({
       results,
       searchDone: true,

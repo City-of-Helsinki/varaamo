@@ -1,6 +1,5 @@
-import keys from 'lodash/object/keys';
-import omit from 'lodash/object/omit';
-import pick from 'lodash/object/pick';
+import omit from 'lodash/omit';
+import pick from 'lodash/pick';
 import queryString from 'query-string';
 
 import constants from 'constants/AppConstants';
@@ -29,7 +28,7 @@ function getSearchPageUrl(filters = {}) {
 }
 
 function pickSupportedFilters(filters) {
-  return pick(filters, keys(constants.SUPPORTED_SEARCH_FILTERS));
+  return pick(filters, Object.keys(constants.SUPPORTED_SEARCH_FILTERS));
 }
 
 export {

@@ -1,5 +1,5 @@
-import pick from 'lodash/object/pick';
-import camelCase from 'lodash/string/camelCase';
+import pick from 'lodash/pick';
+import camelCase from 'lodash/camelCase';
 import React, { Component, PropTypes } from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 

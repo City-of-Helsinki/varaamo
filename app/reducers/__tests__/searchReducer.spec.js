@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import indexBy from 'lodash/collection/indexBy';
+import keyBy from 'lodash/keyBy';
 import { createAction } from 'redux-actions';
 import { UPDATE_PATH } from 'redux-simple-router';
 import Immutable from 'seamless-immutable';
@@ -56,7 +56,7 @@ describe('Reducer: searchReducer', () => {
         (resources) => {
           return {
             entities: {
-              resources: indexBy(resources, 'id'),
+              resources: keyBy(resources, 'id'),
             },
           };
         }
@@ -104,7 +104,7 @@ describe('Reducer: searchReducer', () => {
         types.API.TYPEAHEAD_SUGGESTIONS_GET_SUCCESS,
         (resources) => {
           return {
-            resource: indexBy(resources, 'id'),
+            resource: keyBy(resources, 'id'),
           };
         }
       );

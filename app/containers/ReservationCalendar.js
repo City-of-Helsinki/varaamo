@@ -1,6 +1,6 @@
-import includes from 'lodash/collection/includes';
-import forEach from 'lodash/collection/forEach';
-import rest from 'lodash/array/rest';
+import includes from 'lodash/includes';
+import forEach from 'lodash/forEach';
+import tail from 'lodash/tail';
 import React, { Component, PropTypes } from 'react';
 import DatePicker from 'react-date-picker';
 import { connect } from 'react-redux';
@@ -70,7 +70,7 @@ export class UnconnectedReservationCalendar extends Component {
       // Use timeout to allow the PUT request to go through first and possibly free previously
       // reserved time slots.
       setTimeout(() => {
-        forEach(rest(selectedReservations), (reservation) => {
+        forEach(tail(selectedReservations), (reservation) => {
           actions.postReservation(
             Object.assign({}, reservation, values)
           );

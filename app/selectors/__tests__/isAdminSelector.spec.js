@@ -1,4 +1,4 @@
-import indexBy from 'lodash/collection/indexBy';
+import keyBy from 'lodash/keyBy';
 import { expect } from 'chai';
 
 import isAdminSelector from 'selectors/isAdminSelector';
@@ -7,7 +7,7 @@ import Resource from 'fixtures/Resource';
 function getState(resources = []) {
   return {
     data: {
-      resources: indexBy(resources, 'id'),
+      resources: keyBy(resources, 'id'),
     },
   };
 }

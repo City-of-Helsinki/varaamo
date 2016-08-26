@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 
-import indexBy from 'lodash/collection/indexBy';
-import map from 'lodash/collection/map';
+import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
 import Resource from 'fixtures/Resource';
@@ -9,12 +8,12 @@ import Unit from 'fixtures/Unit';
 import typeaheadOptionsSelector from 'selectors/typeaheadOptionsSelector';
 
 function getState(suggestions) {
-  const units = map(suggestions, (suggestion) => {
+  const units = suggestions.map((suggestion) => {
     return Unit.build({ id: suggestion.unit });
   });
   return {
     data: Immutable({
-      units: indexBy(units, 'id'),
+      units: keyBy(units, 'id'),
     }),
     ui: Immutable({
       search: {

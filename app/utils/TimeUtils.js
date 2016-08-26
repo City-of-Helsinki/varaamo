@@ -1,5 +1,5 @@
-import forEach from 'lodash/collection/forEach';
-import map from 'lodash/collection/map';
+import forEach from 'lodash/forEach';
+import map from 'lodash/map';
 import moment from 'moment';
 import 'moment-range';
 

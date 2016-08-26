@@ -1,6 +1,6 @@
-import filter from 'lodash/collection/filter';
-import sortBy from 'lodash/collection/sortBy';
-import values from 'lodash/object/values';
+import filter from 'lodash/filter';
+import sortBy from 'lodash/sortBy';
+import values from 'lodash/values';
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 

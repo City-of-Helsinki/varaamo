@@ -1,5 +1,5 @@
-import map from 'lodash/collection/map';
-import sortBy from 'lodash/collection/sortBy';
+import map from 'lodash/map';
+import sortBy from 'lodash/sortBy';
 import React, { Component, PropTypes } from 'react';
 import Select from 'react-select';
 

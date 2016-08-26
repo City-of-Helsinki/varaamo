@@ -1,6 +1,5 @@
-import without from 'lodash/array/without';
-import includes from 'lodash/collection/includes';
-import map from 'lodash/collection/map';
+import without from 'lodash/without';
+import includes from 'lodash/includes';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
@@ -19,8 +18,7 @@ const initialState = Immutable({
 
 function selectReservationToEdit(state, action) {
   const { minPeriod, reservation } = action.payload;
-  const selected = map(
-    getTimeSlots(reservation.begin, reservation.end, minPeriod),
+  const selected = getTimeSlots(reservation.begin, reservation.end, minPeriod).map(
     (slot) => slot.asISOString
   );
 

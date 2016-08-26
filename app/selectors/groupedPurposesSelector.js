@@ -1,5 +1,5 @@
-import filter from 'lodash/collection/filter';
-import groupBy from 'lodash/collection/groupBy';
+import filter from 'lodash/filter';
+import groupBy from 'lodash/groupBy';
 import { createSelector } from 'reselect';
 
 const purposesSelector = (state) => state.data.purposes;

@@ -1,4 +1,3 @@
-import map from 'lodash/collection/map';
 import { createSelector } from 'reselect';
 
 import { getName } from 'utils/DataUtils';
@@ -10,7 +9,7 @@ const typeaheadOptionsSelector = createSelector(
   typeaheadSuggestionsSelector,
   unitsSelector,
   (typeaheadSuggestions, units) => {
-    return map(typeaheadSuggestions, (suggestion) => {
+    return typeaheadSuggestions.map((suggestion) => {
       return {
         id: suggestion.id,
         name: getName(suggestion),

@@ -1,4 +1,4 @@
-import reject from 'lodash/collection/reject';
+import reject from 'lodash/reject';
 import { createSelector } from 'reselect';
 
 const notificationsInputSelector = (state) => state.notifications;

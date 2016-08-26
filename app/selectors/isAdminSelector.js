@@ -1,4 +1,4 @@
-import some from 'lodash/collection/some';
+import some from 'lodash/some';
 import { createSelector } from 'reselect';
 
 const resourcesSelector = (state) => state.data.resources;

@@ -1,13 +1,13 @@
-import last from 'lodash/array/last';
-import rest from 'lodash/array/rest';
-import filter from 'lodash/collection/filter';
-import find from 'lodash/collection/find';
-import forEach from 'lodash/collection/forEach';
-import some from 'lodash/collection/some';
-import sortBy from 'lodash/collection/sortBy';
-import clone from 'lodash/lang/clone';
-import isEmpty from 'lodash/lang/isEmpty';
-import camelCase from 'lodash/string/camelCase';
+import camelCase from 'lodash/camelCase';
+import clone from 'lodash/clone';
+import filter from 'lodash/filter';
+import find from 'lodash/find';
+import forEach from 'lodash/forEach';
+import isEmpty from 'lodash/isEmpty';
+import last from 'lodash/last';
+import some from 'lodash/some';
+import sortBy from 'lodash/sortBy';
+import tail from 'lodash/tail';
 import moment from 'moment';
 
 import constants from 'constants/AppConstants';
@@ -20,7 +20,7 @@ function combineReservations(reservations) {
   const sorted = sortBy(reservations, 'begin');
   const initialValue = [clone(sorted[0])];
 
-  return rest(sorted).reduce((previous, current) => {
+  return tail(sorted).reduce((previous, current) => {
     if (current.begin === last(previous).end) {
       last(previous).end = current.end;
     } else {

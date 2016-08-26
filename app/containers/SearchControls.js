@@ -1,4 +1,4 @@
-import throttle from 'lodash/function/throttle';
+import throttle from 'lodash/throttle';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
