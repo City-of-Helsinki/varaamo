@@ -1,20 +1,16 @@
 import classNames from 'classnames';
 import moment from 'moment';
-import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import Label from 'react-bootstrap/lib/Label';
 
-import TimeSlotControls from 'components/reservation/TimeSlotControls';
+import ReservationControls from 'containers/ReservationControls';
 import { scrollTo } from 'utils/DOMUtils';
 
 class TimeSlot extends Component {
   constructor(props) {
     super(props);
-    this.handleDeleteClick = this.handleDeleteClick.bind(this);
-    this.handleEditClick = this.handleEditClick.bind(this);
-    this.handleInfoClick = this.handleInfoClick.bind(this);
     this.handleRowClick = this.handleRowClick.bind(this);
   }
 
@@ -33,45 +29,6 @@ class TimeSlot extends Component {
       return 'Kirjaudu sisään tehdäksesi varauksen tähän tilaan.';
     }
     return resource.reservationInfo;
-  }
-
-  handleDeleteClick() {
-    const {
-      openReservationDeleteModal,
-      slot,
-      selectReservationToDelete,
-    } = this.props;
-
-    selectReservationToDelete(slot.reservation);
-    openReservationDeleteModal();
-  }
-
-  handleEditClick() {
-    const {
-      updatePath,
-      slot,
-      resource,
-      selectReservationToEdit,
-    } = this.props;
-    const reservation = slot.reservation;
-    const query = queryString.stringify({
-      date: reservation.begin.split('T')[0],
-      time: reservation.begin,
-    });
-
-    selectReservationToEdit({ reservation, minPeriod: resource.minPeriod });
-    updatePath(`/resources/${reservation.resource}/reservation?${query}`);
-  }
-
-  handleInfoClick() {
-    const {
-      openReservationInfoModal,
-      slot,
-      selectReservationToShow,
-    } = this.props;
-
-    selectReservationToShow(slot.reservation);
-    openReservationInfoModal();
   }
 
   handleRowClick(disabled) {
@@ -110,8 +67,10 @@ class TimeSlot extends Component {
 
   render() {
     const {
+      isAdmin,
       isEditing,
       isLoggedIn,
+      isStaff,
       resource,
       selected,
       slot,
@@ -137,7 +96,6 @@ class TimeSlot extends Component {
       labelText = slot.reserved ? 'Varattu' : 'Vapaa';
     }
     const reservation = slot.reservation;
-    const isAdmin = resource.userPermissions.isAdmin;
 
     return (
       <tr
@@ -174,11 +132,11 @@ class TimeSlot extends Component {
         {isAdmin && (
           <td className="controls-cell">
             {reservation && slot.reservationStarting && !isEditing && (
-              <TimeSlotControls
-                onDeleteClick={this.handleDeleteClick}
-                onEditClick={this.handleEditClick}
-                onInfoClick={this.handleInfoClick}
+              <ReservationControls
+                isAdmin={isAdmin}
+                isStaff={isStaff}
                 reservation={reservation}
+                resource={resource}
               />
             )}
           </td>
@@ -190,18 +148,14 @@ class TimeSlot extends Component {
 
 TimeSlot.propTypes = {
   addNotification: PropTypes.func.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
   isEditing: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
+  isStaff: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
-  openReservationDeleteModal: PropTypes.func.isRequired,
-  openReservationInfoModal: PropTypes.func.isRequired,
-  updatePath: PropTypes.func.isRequired,
   resource: PropTypes.object.isRequired,
   scrollTo: PropTypes.bool,
   selected: PropTypes.bool.isRequired,
-  selectReservationToDelete: PropTypes.func.isRequired,
-  selectReservationToEdit: PropTypes.func.isRequired,
-  selectReservationToShow: PropTypes.func.isRequired,
   slot: PropTypes.object.isRequired,
 };
 

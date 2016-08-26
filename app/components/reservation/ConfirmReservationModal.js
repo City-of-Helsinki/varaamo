@@ -1,4 +1,3 @@
-import includes from 'lodash/collection/includes';
 import pick from 'lodash/object/pick';
 import camelCase from 'lodash/string/camelCase';
 import React, { Component, PropTypes } from 'react';
@@ -25,9 +24,11 @@ class ConfirmReservationModal extends Component {
   }
 
   getFormFields() {
-    const { resource, staffUnits } = this.props;
-    const isAdmin = resource.userPermissions.isAdmin;
-    const isStaff = includes(staffUnits, resource.unit);
+    const {
+      isAdmin,
+      isStaff,
+      resource,
+    } = this.props;
     const formFields = [];
     if (resource.needManualConfirmation) {
       formFields.push(...RESERVATION_FORM_FIELDS);
@@ -171,16 +172,17 @@ class ConfirmReservationModal extends Component {
 }
 
 ConfirmReservationModal.propTypes = {
+  isAdmin: PropTypes.bool.isRequired,
   isEditing: PropTypes.bool.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,
   isPreliminaryReservation: PropTypes.bool.isRequired,
+  isStaff: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
   reservationsToEdit: PropTypes.array.isRequired,
   resource: PropTypes.object.isRequired,
   selectedReservations: PropTypes.array.isRequired,
   show: PropTypes.bool.isRequired,
-  staffUnits: PropTypes.array.isRequired,
 };
 
 export default ConfirmReservationModal;

@@ -1,23 +1,9 @@
+import includes from 'lodash/collection/includes';
 import map from 'lodash/collection/map';
 import React, { Component, PropTypes } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { updatePath } from 'redux-simple-router';
 
-import {
-  openReservationCancelModal,
-  openReservationDeleteModal,
-  openReservationInfoModal,
-  selectReservationToCancel,
-  selectReservationToDelete,
-  selectReservationToEdit,
-  selectReservationToShow,
-} from 'actions/uiActions';
-import {
-  confirmPreliminaryReservation,
-  denyPreliminaryReservation,
-} from 'actions/reservationActions';
 import ReservationsListItem from 'components/reservation/ReservationsListItem';
 import reservationsListSelector from 'selectors/containers/reservationsListSelector';
 
@@ -29,7 +15,6 @@ export class UnconnectedReservationsList extends Component {
 
   renderReservationsListItem(reservation) {
     const {
-      actions,
       isAdmin,
       resources,
       staffUnits,
@@ -40,21 +25,11 @@ export class UnconnectedReservationsList extends Component {
 
     return (
       <ReservationsListItem
-        confirmPreliminaryReservation={actions.confirmPreliminaryReservation}
-        denyPreliminaryReservation={actions.denyPreliminaryReservation}
         isAdmin={isAdmin}
+        isStaff={includes(staffUnits, resource.unit)}
         key={reservation.url}
         reservation={reservation}
         resource={resource}
-        openReservationCancelModal={actions.openReservationCancelModal}
-        openReservationDeleteModal={actions.openReservationDeleteModal}
-        openReservationInfoModal={actions.openReservationInfoModal}
-        updatePath={actions.updatePath}
-        selectReservationToCancel={actions.selectReservationToCancel}
-        selectReservationToDelete={actions.selectReservationToDelete}
-        selectReservationToEdit={actions.selectReservationToEdit}
-        selectReservationToShow={actions.selectReservationToShow}
-        staffUnits={staffUnits}
         unit={unit}
       />
     );
@@ -84,7 +59,6 @@ export class UnconnectedReservationsList extends Component {
 }
 
 UnconnectedReservationsList.propTypes = {
-  actions: PropTypes.object.isRequired,
   emptyMessage: PropTypes.string,
   filter: PropTypes.string,
   isAdmin: PropTypes.bool.isRequired,
@@ -95,21 +69,4 @@ UnconnectedReservationsList.propTypes = {
   units: PropTypes.object.isRequired,
 };
 
-function mapDispatchToProps(dispatch) {
-  const actionCreators = {
-    confirmPreliminaryReservation,
-    denyPreliminaryReservation,
-    openReservationCancelModal,
-    openReservationDeleteModal,
-    openReservationInfoModal,
-    updatePath,
-    selectReservationToCancel,
-    selectReservationToDelete,
-    selectReservationToEdit,
-    selectReservationToShow,
-  };
-
-  return { actions: bindActionCreators(actionCreators, dispatch) };
-}
-
-export default connect(reservationsListSelector, mapDispatchToProps)(UnconnectedReservationsList);
+export default connect(reservationsListSelector)(UnconnectedReservationsList);

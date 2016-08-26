@@ -15,16 +15,17 @@ import Resource from 'fixtures/Resource';
 
 function getProps(props) {
   const defaults = {
+    isAdmin: false,
     isEditing: false,
     isMakingReservations: false,
     isPreliminaryReservation: false,
+    isStaff: false,
     onClose: simple.stub(),
     onConfirm: simple.stub(),
     reservationsToEdit: Immutable([]),
     resource: Resource.build(),
     selectedReservations: Immutable([]),
     show: true,
-    staffUnits: [],
   };
 
   return Object.assign({}, defaults, props);
@@ -245,8 +246,7 @@ describe('Component: reservation/ConfirmReservationModal', () => {
         needManualConfirmation,
         userPermissions: { isAdmin },
       });
-      const staffUnits = isStaff ? [resource.unit] : [];
-      const props = getProps({ staffUnits, resource });
+      const props = getProps({ isAdmin, isStaff, resource });
       const wrapper = shallow(<ConfirmReservationModal {...props} />);
       return wrapper.find(ReservationForm);
     }
