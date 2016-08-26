@@ -16,7 +16,7 @@ class Html extends Component {
       _paq.push(['trackPageView']);
       _paq.push(['enableLinkTracking']);
       (function() {
-        var u="//analytics.hel.ninja/piwik/";
+        var u="https://analytics.hel.ninja/piwik/";
         _paq.push(['setTrackerUrl', u+'piwik.php']);
         _paq.push(['setSiteId', ${piwikSiteId}]);
         var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
