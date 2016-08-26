@@ -1,4 +1,3 @@
-import 'babel-core/polyfill';
 import 'location-origin';
 
 import createHistory from 'history/lib/createBrowserHistory';

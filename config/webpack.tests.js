@@ -22,7 +22,10 @@ module.exports = merge(common, {
           path.resolve(__dirname, '../app'),
           path.resolve(__dirname, '../tests'),
         ],
-        loaders: ['babel'],
+        loader: 'babel',
+        query: {
+          presets: ['es2015', 'node6', 'react', 'stage-2'],
+        },
       },
     ],
   },

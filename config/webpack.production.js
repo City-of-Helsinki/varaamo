@@ -8,7 +8,10 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var common = require('./webpack.common');
 
 module.exports = merge(common, {
-  entry: path.resolve(__dirname, '../app/index.js'),
+  entry: [
+    'babel-polyfill',
+    path.resolve(__dirname, '../app/index.js')
+  ],
   debug: false,
   devtool: 'source-map',
   output: {
@@ -21,7 +24,10 @@ module.exports = merge(common, {
       {
         test: /\.js$/,
         include: path.resolve(__dirname, '../app'),
-        loaders: ['babel'],
+        loader: 'babel',
+        query: {
+          presets: ['es2015', 'node6', 'react', 'stage-2'],
+        },
       },
       {
         test: /\.css$/,

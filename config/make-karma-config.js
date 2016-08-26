@@ -14,7 +14,7 @@ module.exports = function(options) {
     autoWatch: true,
 
     files: [
-      { pattern: '../node_modules/babel-core/browser-polyfill.js', watched: false },
+      { pattern: '../node_modules/babel-polyfill/dist/polyfill.js', watched: false },
       { pattern: '../app/**/__tests__/*.js', watched: false },
     ],
 
