@@ -61,4 +61,5 @@ export default {
     search: '',
   },
   TIME_FORMAT: 'H:mm',
+  TRACKING: __TRACKING__,
 };
