@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import MockDate from 'mockdate';
 
-import { REQUIRED_STAFF_EVENT_FIELDS } from 'constants/AppConstants';
+import constants from 'constants/AppConstants';
 import Image from 'fixtures/Image';
 import Reservation from 'fixtures/Reservation';
 import {
@@ -478,7 +478,7 @@ describe('Utils: DataUtils', () => {
         expect(actual).to.deep.equal({});
       });
 
-      REQUIRED_STAFF_EVENT_FIELDS.forEach((field) => {
+      constants.REQUIRED_STAFF_EVENT_FIELDS.forEach((field) => {
         it(`should contain ${field} as "-" if ${field} is missing`, () => {
           const reservation = getReservation({ [field]: undefined });
           const actual = getMissingReservationValues(reservation);

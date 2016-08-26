@@ -3,7 +3,7 @@ import { decamelizeKeys } from 'humps';
 import { CALL_API } from 'redux-api-middleware';
 
 import types from 'constants/ActionTypes';
-import { paginatedReservationsSchema } from 'middleware/Schemas';
+import schemas from 'middleware/Schemas';
 import {
   buildAPIUrl,
   getErrorTypeDescriptor,
@@ -11,15 +11,6 @@ import {
   getRequestTypeDescriptor,
   getSuccessTypeDescriptor,
 } from 'utils/APIUtils';
-
-export default {
-  confirmPreliminaryReservation,
-  deleteReservation,
-  denyPreliminaryReservation,
-  fetchReservations,
-  postReservation,
-  putReservation,
-};
 
 function confirmPreliminaryReservation(reservation) {
   return putReservation(Object.assign({}, reservation, { state: 'confirmed' }));
@@ -68,7 +59,7 @@ function fetchReservations(params = {}) {
         getRequestTypeDescriptor(types.API.RESERVATIONS_GET_REQUEST),
         getSuccessTypeDescriptor(
           types.API.RESERVATIONS_GET_SUCCESS,
-          { schema: paginatedReservationsSchema }
+          { schema: schemas.paginatedReservationsSchema }
         ),
         getErrorTypeDescriptor(types.API.RESERVATIONS_GET_ERROR),
       ],
@@ -152,3 +143,12 @@ function getTrackingInfo(type, resource) {
     ],
   });
 }
+
+export {
+  confirmPreliminaryReservation,
+  deleteReservation,
+  denyPreliminaryReservation,
+  fetchReservations,
+  postReservation,
+  putReservation,
+};

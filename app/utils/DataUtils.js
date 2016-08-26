@@ -10,23 +10,7 @@ import isEmpty from 'lodash/lang/isEmpty';
 import camelCase from 'lodash/string/camelCase';
 import moment from 'moment';
 
-import { REQUIRED_STAFF_EVENT_FIELDS } from 'constants/AppConstants';
-
-export default {
-  combineReservations,
-  isStaffEvent,
-  getAddress,
-  getAddressWithName,
-  getAvailableTime,
-  getCaption,
-  getDescription,
-  getMainImage,
-  getMissingReservationValues,
-  getName,
-  getOpeningHours,
-  getPeopleCapacityString,
-  getTranslatedProperty,
-};
+import constants from 'constants/AppConstants';
 
 function combineReservations(reservations) {
   if (!reservations || !reservations.length) {
@@ -130,7 +114,7 @@ function getMainImage(images) {
 
 function getMissingReservationValues(reservation) {
   const missingValues = {};
-  REQUIRED_STAFF_EVENT_FIELDS.forEach((field) => {
+  constants.REQUIRED_STAFF_EVENT_FIELDS.forEach((field) => {
     if (!reservation[field]) {
       missingValues[field] = '-';
     }
@@ -166,3 +150,19 @@ function getTranslatedProperty(item, property, language = 'fi') {
   }
   return '';
 }
+
+export {
+  combineReservations,
+  isStaffEvent,
+  getAddress,
+  getAddressWithName,
+  getAvailableTime,
+  getCaption,
+  getDescription,
+  getMainImage,
+  getMissingReservationValues,
+  getName,
+  getOpeningHours,
+  getPeopleCapacityString,
+  getTranslatedProperty,
+};

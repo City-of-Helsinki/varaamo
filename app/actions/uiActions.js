@@ -60,7 +60,7 @@ const selectReservationToShow = createAction(
 
 const toggleTimeSlot = createAction(types.UI.TOGGLE_TIME_SLOT);
 
-export default {
+export {
   cancelReservationEdit,
   changeAdminReservationsFilters,
   changeSearchFilters,

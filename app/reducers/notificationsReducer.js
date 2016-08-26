@@ -1,14 +1,14 @@
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
-import { NOTIFICATION_DEFAULTS } from 'constants/AppConstants';
+import constants from 'constants/AppConstants';
 
 const initialState = Immutable({});
 
 function addNotification(state, notification) {
   return [...state, Object.assign(
     {},
-    NOTIFICATION_DEFAULTS,
+    constants.NOTIFICATION_DEFAULTS,
     notification,
     { id: (state.length || 0) + 1 }
   )];

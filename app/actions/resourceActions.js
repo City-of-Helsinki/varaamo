@@ -1,7 +1,7 @@
 import { CALL_API } from 'redux-api-middleware';
 
 import types from 'constants/ActionTypes';
-import { paginatedResourcesSchema, resourceSchema } from 'middleware/Schemas';
+import schemas from 'middleware/Schemas';
 import {
   buildAPIUrl,
   getErrorTypeDescriptor,
@@ -10,11 +10,6 @@ import {
   getSuccessTypeDescriptor,
 } from 'utils/APIUtils';
 
-export default {
-  fetchResource,
-  fetchResources,
-};
-
 function fetchResource(id, params = {}) {
   return {
     [CALL_API]: {
@@ -22,7 +17,7 @@ function fetchResource(id, params = {}) {
         getRequestTypeDescriptor(types.API.RESOURCE_GET_REQUEST),
         getSuccessTypeDescriptor(
           types.API.RESOURCE_GET_SUCCESS,
-          { schema: resourceSchema }
+          { schema: schemas.resourceSchema }
         ),
         getErrorTypeDescriptor(types.API.RESOURCE_GET_ERROR),
       ],
@@ -42,7 +37,7 @@ function fetchResources(params = {}) {
         getRequestTypeDescriptor(types.API.RESOURCES_GET_REQUEST),
         getSuccessTypeDescriptor(
           types.API.RESOURCES_GET_SUCCESS,
-          { schema: paginatedResourcesSchema }
+          { schema: schemas.paginatedResourcesSchema }
         ),
         getErrorTypeDescriptor(types.API.RESOURCES_GET_ERROR),
       ],
@@ -55,3 +50,8 @@ function fetchResources(params = {}) {
     },
   };
 }
+
+export {
+  fetchResource,
+  fetchResources,
+};

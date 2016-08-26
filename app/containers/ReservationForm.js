@@ -6,7 +6,7 @@ import Well from 'react-bootstrap/lib/Well';
 import { reduxForm } from 'redux-form';
 
 import isEmail from 'validator/lib/isEmail';
-import { REQUIRED_STAFF_EVENT_FIELDS } from 'constants/AppConstants';
+import constants from 'constants/AppConstants';
 
 const validators = {
   reserverEmailAddress: ({ reserverEmailAddress }) => {
@@ -33,7 +33,9 @@ const maxLengths = {
 
 export function validate(values, { fields, requiredFields }) {
   const errors = {};
-  const currentRequiredFields = values.staffEvent ? REQUIRED_STAFF_EVENT_FIELDS : requiredFields;
+  const currentRequiredFields = values.staffEvent ?
+    constants.REQUIRED_STAFF_EVENT_FIELDS :
+    requiredFields;
   fields.forEach((field) => {
     const validator = validators[field];
     if (validator) {
@@ -109,7 +111,7 @@ export class UnconnectedReservationForm extends Component {
     } = this.props;
 
     this.requiredFields = fields.staffEvent && fields.staffEvent.checked ?
-      REQUIRED_STAFF_EVENT_FIELDS :
+      constants.REQUIRED_STAFF_EVENT_FIELDS :
       requiredFields;
 
     return (

@@ -4,20 +4,10 @@ import isEmpty from 'lodash/lang/isEmpty';
 import { normalize } from 'normalizr';
 import { CALL_API, getJSON } from 'redux-api-middleware';
 
-import { API_URL, REQUIRED_API_HEADERS } from 'constants/AppConstants';
-
-export default {
-  buildAPIUrl,
-  createTransformFunction,
-  getErrorTypeDescriptor,
-  getHeadersCreator,
-  getRequestTypeDescriptor,
-  getSearchParamsString,
-  getSuccessTypeDescriptor,
-};
+import constants from 'constants/AppConstants';
 
 function buildAPIUrl(endpoint, params) {
-  let url = `${API_URL}/${endpoint}/`;
+  let url = `${constants.API_URL}/${endpoint}/`;
 
   const nonEmptyParams = pick(params, (value) => value !== '');
 
@@ -59,7 +49,7 @@ function getHeadersCreator(headers) {
     if (state.auth.token) {
       authorizationHeaders.Authorization = `JWT ${state.auth.token}`;
     }
-    return Object.assign({}, REQUIRED_API_HEADERS, headers, authorizationHeaders);
+    return Object.assign({}, constants.REQUIRED_API_HEADERS, headers, authorizationHeaders);
   };
 }
 
@@ -108,3 +98,13 @@ function getSuccessTypeDescriptor(type, options = {}) {
     },
   };
 }
+
+export {
+  buildAPIUrl,
+  createTransformFunction,
+  getErrorTypeDescriptor,
+  getHeadersCreator,
+  getRequestTypeDescriptor,
+  getSearchParamsString,
+  getSuccessTypeDescriptor,
+};

@@ -1,7 +1,7 @@
 import { CALL_API } from 'redux-api-middleware';
 
 import types from 'constants/ActionTypes';
-import { paginatedUnitsSchema } from 'middleware/Schemas';
+import schemas from 'middleware/Schemas';
 import {
   buildAPIUrl,
   getErrorTypeDescriptor,
@@ -9,10 +9,6 @@ import {
   getRequestTypeDescriptor,
   getSuccessTypeDescriptor,
 } from 'utils/APIUtils';
-
-export default {
-  fetchUnits,
-};
 
 function fetchUnits() {
   const fetchParams = { pageSize: 100 };
@@ -23,7 +19,7 @@ function fetchUnits() {
         getRequestTypeDescriptor(types.API.UNITS_GET_REQUEST),
         getSuccessTypeDescriptor(
           types.API.UNITS_GET_SUCCESS,
-          { schema: paginatedUnitsSchema }
+          { schema: schemas.paginatedUnitsSchema }
         ),
         getErrorTypeDescriptor(types.API.UNITS_GET_ERROR),
       ],
@@ -36,3 +32,7 @@ function fetchUnits() {
     },
   };
 }
+
+export {
+  fetchUnits,
+};

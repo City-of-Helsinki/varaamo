@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable';
 
 import Resource, { openingHours } from 'fixtures/Resource';
 import reservationCalendarSelector from 'selectors/containers/reservationCalendarSelector';
-import TimeUtils from 'utils/TimeUtils';
+import * as TimeUtils from 'utils/TimeUtils';
 
 function getState(resource) {
   return {

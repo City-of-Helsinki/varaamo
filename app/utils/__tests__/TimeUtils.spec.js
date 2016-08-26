@@ -2,7 +2,7 @@ import { expect } from 'chai';
 
 import moment from 'moment';
 
-import { DATE_FORMAT, TIME_FORMAT } from 'constants/AppConstants';
+import constants from 'constants/AppConstants';
 import {
   addToDate,
   getDateStartAndEndTimes,
@@ -62,14 +62,14 @@ describe('Utils: TimeUtils', () => {
   describe('getDateString', () => {
     it('should return current date string if date is undefined', () => {
       const date = undefined;
-      const expected = moment().format(DATE_FORMAT);
+      const expected = moment().format(constants.DATE_FORMAT);
 
       expect(getDateString(date)).to.equal(expected);
     });
 
     it('should return current date string if date is an empty string', () => {
       const date = '';
-      const expected = moment().format(DATE_FORMAT);
+      const expected = moment().format(constants.DATE_FORMAT);
 
       expect(getDateString(date)).to.equal(expected);
     });
@@ -183,7 +183,7 @@ describe('Utils: TimeUtils', () => {
         it('should show the slot time range in local time', () => {
           const startLocal = moment(start);
           const endLocal = moment(startLocal).add(duration);
-          const expected = `${startLocal.format(TIME_FORMAT)}\u2013${endLocal.format(TIME_FORMAT)}`;
+          const expected = `${startLocal.format(constants.TIME_FORMAT)}\u2013${endLocal.format(constants.TIME_FORMAT)}`;
 
           expect(slots[0].asString).to.equal(expected);
         });

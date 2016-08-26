@@ -15,7 +15,7 @@ function getAssetHash(filePath) {
   }
 }
 
-export default {
+module.exports = {
   assetsSources: {
     appCss: (
       isProduction ?

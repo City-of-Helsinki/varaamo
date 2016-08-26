@@ -3,14 +3,8 @@ import omit from 'lodash/object/omit';
 import pick from 'lodash/object/pick';
 import queryString from 'query-string';
 
-import { SUPPORTED_SEARCH_FILTERS } from 'constants/AppConstants';
+import constants from 'constants/AppConstants';
 import { getDateStartAndEndTimes, getDateString } from 'utils/TimeUtils';
-
-export default {
-  getFetchParamsFromFilters,
-  getSearchPageUrl,
-  pickSupportedFilters,
-};
 
 function getFetchParamsFromFilters(filters) {
   const all = Object.assign(
@@ -35,5 +29,11 @@ function getSearchPageUrl(filters = {}) {
 }
 
 function pickSupportedFilters(filters) {
-  return pick(filters, keys(SUPPORTED_SEARCH_FILTERS));
+  return pick(filters, keys(constants.SUPPORTED_SEARCH_FILTERS));
 }
+
+export {
+  getFetchParamsFromFilters,
+  getSearchPageUrl,
+  pickSupportedFilters,
+};

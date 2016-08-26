@@ -9,10 +9,6 @@ import {
   getSuccessTypeDescriptor,
 } from 'utils/APIUtils';
 
-export default {
-  fetchUser,
-};
-
 function fetchUser(id, params = {}) {
   return {
     [CALL_API]: {
@@ -37,3 +33,7 @@ function fetchUser(id, params = {}) {
     },
   };
 }
+
+export {
+  fetchUser,
+};

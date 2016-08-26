@@ -3,19 +3,12 @@ import map from 'lodash/collection/map';
 import moment from 'moment';
 import 'moment-range';
 
-import { DATE_FORMAT, TIME_FORMAT } from 'constants/AppConstants';
-
-export default {
-  addToDate,
-  getDateStartAndEndTimes,
-  getDateString,
-  getTimeSlots,
-};
+import constants from 'constants/AppConstants';
 
 function addToDate(date, daysToIncrement) {
   const newDate = moment(date).add(daysToIncrement, 'days');
 
-  return newDate.format(DATE_FORMAT);
+  return newDate.format(constants.DATE_FORMAT);
 }
 
 function getDateStartAndEndTimes(date) {
@@ -31,7 +24,7 @@ function getDateStartAndEndTimes(date) {
 
 function getDateString(date) {
   if (!date) {
-    return moment().format(DATE_FORMAT);
+    return moment().format(constants.DATE_FORMAT);
   }
 
   return date;
@@ -59,7 +52,7 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = [], reserv
     const endLocal = endUTC.local();
 
     const asISOString = `${startUTC.toISOString()}/${endUTC.toISOString()}`;
-    const asString = `${startLocal.format(TIME_FORMAT)}\u2013${endLocal.format(TIME_FORMAT)}`;
+    const asString = `${startLocal.format(constants.TIME_FORMAT)}\u2013${endLocal.format(constants.TIME_FORMAT)}`;
 
     const slotRange = moment.range(startLocal, endLocal);
     const editing = editRanges.some(
@@ -96,3 +89,10 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = [], reserv
 
   return slots;
 }
+
+export {
+  addToDate,
+  getDateStartAndEndTimes,
+  getDateString,
+  getTimeSlots,
+};

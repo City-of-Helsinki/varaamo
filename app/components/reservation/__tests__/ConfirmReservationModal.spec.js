@@ -8,7 +8,7 @@ import forEach from 'lodash/collection/forEach';
 import Immutable from 'seamless-immutable';
 
 import ConfirmReservationModal from 'components/reservation/ConfirmReservationModal';
-import { RESERVATION_FORM_FIELDS } from 'constants/AppConstants';
+import constants from 'constants/AppConstants';
 import ReservationForm from 'containers/ReservationForm';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
@@ -268,7 +268,7 @@ describe('Component: reservation/ConfirmReservationModal', () => {
         });
 
         it('form fields should include RESERVATION_FORM_FIELDS', () => {
-          forEach(RESERVATION_FORM_FIELDS, (field) => {
+          forEach(constants.RESERVATION_FORM_FIELDS, (field) => {
             expect(formFields).to.contain(field);
           });
         });
@@ -289,7 +289,7 @@ describe('Component: reservation/ConfirmReservationModal', () => {
         });
 
         it('form fields should include RESERVATION_FORM_FIELDS', () => {
-          forEach(RESERVATION_FORM_FIELDS, (field) => {
+          forEach(constants.RESERVATION_FORM_FIELDS, (field) => {
             expect(formFields).to.contain(field);
           });
         });
@@ -310,7 +310,7 @@ describe('Component: reservation/ConfirmReservationModal', () => {
         });
 
         it('form fields should include RESERVATION_FORM_FIELDS', () => {
-          forEach(RESERVATION_FORM_FIELDS, (field) => {
+          forEach(constants.RESERVATION_FORM_FIELDS, (field) => {
             expect(formFields).to.contain(field);
           });
         });
@@ -333,7 +333,7 @@ describe('Component: reservation/ConfirmReservationModal', () => {
         });
 
         it('form fields should not include RESERVATION_FORM_FIELDS', () => {
-          forEach(RESERVATION_FORM_FIELDS, (field) => {
+          forEach(constants.RESERVATION_FORM_FIELDS, (field) => {
             expect(formFields).to.not.contain(field);
           });
         });
@@ -353,7 +353,7 @@ describe('Component: reservation/ConfirmReservationModal', () => {
         });
 
         it('form fields should not include RESERVATION_FORM_FIELDS', () => {
-          forEach(RESERVATION_FORM_FIELDS, (field) => {
+          forEach(constants.RESERVATION_FORM_FIELDS, (field) => {
             expect(formFields).to.not.contain(field);
           });
         });

@@ -5,7 +5,7 @@ import simple from 'simple-mock';
 
 import FeedbackLink from 'components/customization/FeedbackLink';
 import FooterContent from 'components/customization/FooterContent';
-import customizationUtils from 'utils/CustomizationUtils';
+import * as customizationUtils from 'utils/CustomizationUtils';
 
 describe('Component: customization/FooterContent', () => {
   function getWrapper() {

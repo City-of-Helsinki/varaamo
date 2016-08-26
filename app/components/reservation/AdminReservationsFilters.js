@@ -3,9 +3,9 @@ import sortBy from 'lodash/collection/sortBy';
 import React, { Component, PropTypes } from 'react';
 import Select from 'react-select';
 
-import { RESERVATION_STATE_LABELS } from 'constants/AppConstants';
+import constants from 'constants/AppConstants';
 
-let stateOptions = map(RESERVATION_STATE_LABELS, (value, key) => {
+let stateOptions = map(constants.RESERVATION_STATE_LABELS, (value, key) => {
   return {
     label: value.labelText,
     value: key,
