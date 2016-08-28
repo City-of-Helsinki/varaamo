@@ -192,7 +192,7 @@ describe('Reducer: dataReducer', () => {
           });
           const updatedReservation = Reservation.build({
             begin: 'new-begin',
-            'end': 'new-end',
+            end: 'new-end',
             url: oldReservation.url,
           });
           const action = putReservationSuccess(updatedReservation);
@@ -238,7 +238,7 @@ describe('Reducer: dataReducer', () => {
           });
           const updatedReservation = Reservation.build({
             begin: 'new-begin',
-            'end': 'new-end',
+            end: 'new-end',
             resource: resource.id,
             url: oldReservation.url,
           });

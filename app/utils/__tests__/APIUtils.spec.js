@@ -48,8 +48,8 @@ describe('Utils: APIUtils', () => {
       it('should camelize object keys', () => {
         const transformFunction = createTransformFunction();
         const initial = {
-          'some_key': {
-            'nested_key': 'value',
+          some_key: {
+            nested_key: 'value',
           },
         };
         const expected = {

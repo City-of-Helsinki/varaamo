@@ -52,8 +52,6 @@
 
     "prefer-arrow-callback": 0,
 
-    "quote-props": 0,
-
     "react/jsx-filename-extension": 0,
 
     "react/no-string-refs": 0,

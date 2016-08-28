@@ -593,7 +593,7 @@ describe('Utils: DataUtils', () => {
     });
 
     it('should return an empty string if the property does not have given language', () => {
-      const item = { name: { 'fi': 'Finnish name' } };
+      const item = { name: { fi: 'Finnish name' } };
 
       expect(getTranslatedProperty(item, 'name', 'en')).to.equal('');
     });

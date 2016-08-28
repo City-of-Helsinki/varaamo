@@ -34,11 +34,11 @@ describe('Reducer: activeRequestsReducer', () => {
       describe('if activeRequests already contains the action', () => {
         it('should increase the count of the action by one', () => {
           const initialState = Immutable(
-            { 'SOME_REQUEST': 2 }
+            { SOME_REQUEST: 2 }
           );
           const nextState = activeRequestsReducer(initialState, action);
           const expected = Immutable(
-            { 'SOME_REQUEST': 3 }
+            { SOME_REQUEST: 3 }
           );
 
           expect(nextState).to.deep.equal(expected);
@@ -46,11 +46,11 @@ describe('Reducer: activeRequestsReducer', () => {
 
         it('should not affect the existing activeRequests', () => {
           const initialState = Immutable(
-            { 'SOME_REQUEST': 2, 'OTHER_REQUEST': 1 }
+            { SOME_REQUEST: 2, OTHER_REQUEST: 1 }
           );
           const nextState = activeRequestsReducer(initialState, action);
           const expected = Immutable(
-            { 'SOME_REQUEST': 3, 'OTHER_REQUEST': 1 }
+            { SOME_REQUEST: 3, OTHER_REQUEST: 1 }
           );
 
           expect(nextState).to.deep.equal(expected);
@@ -62,7 +62,7 @@ describe('Reducer: activeRequestsReducer', () => {
           const initialState = Immutable({});
           const nextState = activeRequestsReducer(initialState, action);
           const expected = Immutable(
-            { 'SOME_REQUEST': 1 }
+            { SOME_REQUEST: 1 }
           );
 
           expect(nextState).to.deep.equal(expected);
@@ -70,11 +70,11 @@ describe('Reducer: activeRequestsReducer', () => {
 
         it('should not affect the existing activeRequests', () => {
           const initialState = Immutable(
-            { 'OTHER_REQUEST': 1 }
+            { OTHER_REQUEST: 1 }
           );
           const nextState = activeRequestsReducer(initialState, action);
           const expected = Immutable(
-            { 'SOME_REQUEST': 1, 'OTHER_REQUEST': 1 }
+            { SOME_REQUEST: 1, OTHER_REQUEST: 1 }
           );
 
           expect(nextState).to.deep.equal(expected);
@@ -93,11 +93,11 @@ describe('Reducer: activeRequestsReducer', () => {
 
           it('should decrease the count of the action by one', () => {
             const initialState = Immutable(
-              { 'SOME_REQUEST': 2 }
+              { SOME_REQUEST: 2 }
             );
             const nextState = activeRequestsReducer(initialState, action);
             const expected = Immutable(
-              { 'SOME_REQUEST': 1 }
+              { SOME_REQUEST: 1 }
             );
 
             expect(nextState).to.deep.equal(expected);
@@ -105,11 +105,11 @@ describe('Reducer: activeRequestsReducer', () => {
 
           it('should not affect the existing activeRequests', () => {
             const initialState = Immutable(
-              { 'SOME_REQUEST': 2, 'OTHER_REQUEST': 1 }
+              { SOME_REQUEST: 2, OTHER_REQUEST: 1 }
             );
             const nextState = activeRequestsReducer(initialState, action);
             const expected = Immutable(
-              { 'SOME_REQUEST': 1, 'OTHER_REQUEST': 1 }
+              { SOME_REQUEST: 1, OTHER_REQUEST: 1 }
             );
 
             expect(nextState).to.deep.equal(expected);
@@ -124,11 +124,11 @@ describe('Reducer: activeRequestsReducer', () => {
 
           it('should set the count of the action to 0', () => {
             const initialState = Immutable(
-              { 'SOME_REQUEST': 2 }
+              { SOME_REQUEST: 2 }
             );
             const nextState = activeRequestsReducer(initialState, action);
             const expected = Immutable(
-              { 'SOME_REQUEST': 0 }
+              { SOME_REQUEST: 0 }
             );
 
             expect(nextState).to.deep.equal(expected);
@@ -136,11 +136,11 @@ describe('Reducer: activeRequestsReducer', () => {
 
           it('should not affect the existing activeRequests', () => {
             const initialState = Immutable(
-              { 'SOME_REQUEST': 2, 'OTHER_REQUEST': 1 }
+              { SOME_REQUEST: 2, OTHER_REQUEST: 1 }
             );
             const nextState = activeRequestsReducer(initialState, action);
             const expected = Immutable(
-              { 'SOME_REQUEST': 0, 'OTHER_REQUEST': 1 }
+              { SOME_REQUEST: 0, OTHER_REQUEST: 1 }
             );
 
             expect(nextState).to.deep.equal(expected);
@@ -158,7 +158,7 @@ describe('Reducer: activeRequestsReducer', () => {
           const initialState = Immutable({});
           const nextState = activeRequestsReducer(initialState, action);
           const expected = Immutable(
-            { 'SOME_REQUEST': 0 }
+            { SOME_REQUEST: 0 }
           );
 
           expect(nextState).to.deep.equal(expected);
@@ -166,11 +166,11 @@ describe('Reducer: activeRequestsReducer', () => {
 
         it('should not affect the existing activeRequests', () => {
           const initialState = Immutable(
-            { 'OTHER_REQUEST': 1 }
+            { OTHER_REQUEST: 1 }
           );
           const nextState = activeRequestsReducer(initialState, action);
           const expected = Immutable(
-            { 'SOME_REQUEST': 0, 'OTHER_REQUEST': 1 }
+            { SOME_REQUEST: 0, OTHER_REQUEST: 1 }
           );
 
           expect(nextState).to.deep.equal(expected);
