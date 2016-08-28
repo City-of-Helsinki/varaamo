@@ -79,7 +79,7 @@ export class UnconnectedSearchControls extends Component {
     return (
       <div>
         <SearchInput
-          autoFocus={!Boolean(filters.purpose)}
+          autoFocus={!filters.purpose}
           onChange={(value) => this.handleSearchInputChange(value)}
           onSubmit={this.handleSearch}
           updatePath={actions.updatePath}

@@ -10,7 +10,7 @@ var common = require('./webpack.common');
 module.exports = merge(common, {
   entry: [
     'babel-polyfill',
-    path.resolve(__dirname, '../app/index.js')
+    path.resolve(__dirname, '../app/index.js'),
   ],
   debug: false,
   devtool: 'source-map',

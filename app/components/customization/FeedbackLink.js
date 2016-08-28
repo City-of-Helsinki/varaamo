@@ -10,11 +10,11 @@ class FeedbackLink extends Component {
 
     switch (getCurrentCustomization()) {
 
-    case 'ESPOO':
-      return <a className="feedback-link" href={href}>{this.props.text}</a>;
+      case 'ESPOO':
+        return <a className="feedback-link" href={href}>{this.props.text}</a>;
 
-    default:
-      return <a className="feedback-link" href={href}>{this.props.text}</a>;
+      default:
+        return <a className="feedback-link" href={href}>{this.props.text}</a>;
     }
   }
 }

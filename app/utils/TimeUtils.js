@@ -67,8 +67,8 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = [], reserv
       if (reservationRange.overlaps(slotRange)) {
         reserved = true;
         reservation = reservations[index];
-        const [ reservationStart, reservationEnd ] = reservationRange.toDate();
-        const [ slotStart, slotEnd ] = slotRange.toDate();
+        const [reservationStart, reservationEnd] = reservationRange.toDate();
+        const [slotStart, slotEnd] = slotRange.toDate();
         reservationStarting = reservationStart.getTime() === slotStart.getTime();
         reservationEnding = reservationEnd.getTime() === slotEnd.getTime();
       }

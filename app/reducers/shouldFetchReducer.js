@@ -11,23 +11,23 @@ const initialState = Immutable({
 function shouldFetchReducer(state = initialState, action) {
   switch (action.type) {
 
-  case types.API.PURPOSES_GET_SUCCESS:
-    return state.merge({
-      purposes: false,
-    });
+    case types.API.PURPOSES_GET_SUCCESS:
+      return state.merge({
+        purposes: false,
+      });
 
-  case types.API.RESOURCES_GET_SUCCESS:
-    return state.merge({
-      resources: false,
-    });
+    case types.API.RESOURCES_GET_SUCCESS:
+      return state.merge({
+        resources: false,
+      });
 
-  case types.API.UNITS_GET_SUCCESS:
-    return state.merge({
-      units: false,
-    });
+    case types.API.UNITS_GET_SUCCESS:
+      return state.merge({
+        units: false,
+      });
 
-  default:
-    return state;
+    default:
+      return state;
   }
 }
 

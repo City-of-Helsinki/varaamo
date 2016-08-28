@@ -8,11 +8,11 @@ function getCurrentCustomization() {
 function getCustomizationClassName() {
   switch (getCurrentCustomization()) {
 
-  case 'ESPOO':
-    return 'espoo-customizations';
+    case 'ESPOO':
+      return 'espoo-customizations';
 
-  default:
-    return '';
+    default:
+      return '';
   }
 }
 

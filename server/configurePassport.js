@@ -4,8 +4,7 @@ import { Strategy } from 'passport-helsinki';
 import serverConfig from './config';
 
 function configurePassport() {
-  let helsinkiStrategy;
-  helsinkiStrategy = new Strategy(
+  const helsinkiStrategy = new Strategy(
     {
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
@@ -14,8 +13,8 @@ function configurePassport() {
     },
     (accessToken, refreshToken, profile, cb) => {
       helsinkiStrategy.getAPIToken(accessToken, process.env.TARGET_APP, (token) => {
-        profile.token = token;
-        return cb(null, profile);
+        const profileWithToken = Object.assign({}, profile, { token });
+        return cb(null, profileWithToken);
       });
     });
 

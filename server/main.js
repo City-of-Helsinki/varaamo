@@ -76,7 +76,7 @@ app.get(
     res.redirect('/');
   });
 
-app.get('/logout', function(req, res) {
+app.get('/logout', function (req, res) {
   req.logOut();
   const redirectUrl = req.query.next || 'https://varaamo.hel.fi';
   res.redirect(`https://api.hel.fi/sso/logout/?next=${redirectUrl}`);
@@ -87,11 +87,9 @@ app.get('*', render);
 app.listen(port, (error) => {
   if (error) {
     console.error(error);
+  } else if (serverConfig.isProduction) {
+    console.log(`Production server running on port ${port}`);
   } else {
-    if (serverConfig.isProduction) {
-      console.log('Production server running on port ' + port);
-    } else {
-      console.log(`Listening at http://localhost:${port}`);
-    }
+    console.log(`Listening at http://localhost:${port}`);
   }
 });

@@ -3,7 +3,7 @@ import serialize from 'serialize-javascript';
 
 class Html extends Component {
   getInitialStateHtml(initialState) {
-    return `window.__INITIAL_STATE__ = ${serialize(initialState)};`;
+    return `window.INITIAL_STATE = ${serialize(initialState)};`;
   }
 
   renderAnalyticsCode(piwikSiteId) {

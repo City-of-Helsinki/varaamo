@@ -28,7 +28,7 @@ module.exports = {
       '/app.js'
     ),
   },
-  isProduction: isProduction,
+  isProduction,
   loginCallbackUrl: '/login/helsinki/return',
   piwikSiteId: process.env.PIWIK_SITE_ID,
   port,

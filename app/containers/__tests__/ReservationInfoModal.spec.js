@@ -346,7 +346,7 @@ describe('Container: ReservationInfoModal', () => {
       expect(
         defaultProps.actions.selectReservationToEdit.lastCall.args[0]
       ).to.deep.equal(
-        { reservation: reservation, minPeriod: resource.minPeriod }
+        { reservation, minPeriod: resource.minPeriod }
       );
     });
 

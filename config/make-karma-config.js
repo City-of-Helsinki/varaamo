@@ -2,7 +2,7 @@
 
 var webpackConfig = require('./webpack.tests');
 
-module.exports = function(options) {
+module.exports = function (options) {
   var karmaConfig = {
     frameworks: ['mocha', 'chai'],
 

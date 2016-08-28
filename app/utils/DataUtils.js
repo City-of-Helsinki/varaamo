@@ -86,7 +86,7 @@ function getAvailableTime(openingHours = {}, reservations = []) {
       const resBeginMoment = moment(reservation.begin);
       const resEndMoment = moment(reservation.end);
       const maxBeginMoment = nowMoment > resBeginMoment ? nowMoment : resBeginMoment;
-      total = total - resEndMoment + maxBeginMoment;
+      total = (total - resEndMoment) + maxBeginMoment;
     }
   );
 

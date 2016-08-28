@@ -1,5 +1,5 @@
 {
-  //"extends": "airbnb",
+  "extends": "airbnb",
 
   "env": {
     "browser": true,
@@ -25,27 +25,40 @@
     // Amendments to airbnb rules
     // ##########################
 
-    // disable camlecase rule to make working with API simpler
-    "camelcase": 0,
+    "arrow-body-style": 0,
 
-    // lodash is required with '_'
-    "id-length": [2, {"min": 2, "properties": "never", "exceptions": ["_"]}],
+    "import/no-extraneous-dependencies": 0,
 
-    // require padding inside curly braces to enforce airbnb style guide
-    "object-curly-spacing": [2, "always"],
+    "import/no-unresolved": 0,
+
+    "import/prefer-default-export": 0,
+
+    "max-len": 0,
 
     // allow use of constructors without new,
-    // makes working with Immutable.js easier
-    "new-cap": [2, {"capIsNew": false, "newIsCap": true}],
+    // makes working with seamless-immutable easier
+    "new-cap": ["error", {"capIsNew": false, "newIsCap": true}],
+
+    "no-case-declarations": 0,
+
+    // allow using underscore dangle with piwik
+    no-underscore-dangle: ["error", { "allow": ["_paq"] }],
 
     // makes testing easier with chai expect
     "no-unused-expressions": 0,
 
     // allow functions to be used before they are defined
-    "no-use-before-define": [2, "nofunc"],
+    "no-use-before-define": ["error", "nofunc"],
 
-    // Enforce omitting truthy boolean attributes in JSX
-    "react/jsx-boolean-value": [2, "never"]
+    "prefer-arrow-callback": 0,
+
+    "quote-props": 0,
+
+    "react/jsx-filename-extension": 0,
+
+    "react/no-string-refs": 0,
+
+    "react/prefer-stateless-function": 0
 
   }
 }

@@ -13,6 +13,7 @@ const validators = {
     if (reserverEmailAddress && !isEmail(reserverEmailAddress)) {
       return 'Syötä kunnollinen sähköpostiosoite';
     }
+    return null;
   },
 };
 
