@@ -1,9 +1,7 @@
-/* eslint-disable func-names, no-var */
+const webpackConfig = require('./webpack.tests');
 
-var webpackConfig = require('./webpack.tests');
-
-module.exports = function (options) {
-  var karmaConfig = {
+module.exports = (options) => {
+  const karmaConfig = {
     frameworks: ['mocha', 'chai'],
 
     browsers: options.browsers || ['PhantomJS'],

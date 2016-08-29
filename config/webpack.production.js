@@ -1,11 +1,9 @@
-/* eslint-disable no-var */
+const path = require('path');
+const webpack = require('webpack');
+const merge = require('webpack-merge');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var path = require('path');
-var webpack = require('webpack');
-var merge = require('webpack-merge');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-var common = require('./webpack.common');
+const common = require('./webpack.common');
 
 module.exports = merge(common, {
   entry: [

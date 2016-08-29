@@ -46,8 +46,6 @@
     // allow functions to be used before they are defined
     "no-use-before-define": ["error", "nofunc"],
 
-    "prefer-arrow-callback": 0,
-
     "react/jsx-filename-extension": 0,
 
     "react/no-string-refs": 0,

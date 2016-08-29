@@ -1,4 +1,4 @@
-/* eslint-disable func-names, no-console, no-var */
+/* eslint-disable no-console */
 
 import path from 'path';
 
@@ -76,7 +76,7 @@ app.get(
     res.redirect('/');
   });
 
-app.get('/logout', function (req, res) {
+app.get('/logout', (req, res) => {
   req.logOut();
   const redirectUrl = req.query.next || 'https://varaamo.hel.fi';
   res.redirect(`https://api.hel.fi/sso/logout/?next=${redirectUrl}`);
