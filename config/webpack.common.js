@@ -16,8 +16,8 @@ module.exports = {
         loader: 'url?limit=100000&mimetype=image/gif',
       },
       {
-        test: /\.jpg$/,
-        loader: 'file',
+        test: /\.jpg$|\.ico$/,
+        loader: 'file?name=[name].[ext]',
       },
       {
         test: /\.woff|\.woff2|\.svg|.eot|\.ttf/,
