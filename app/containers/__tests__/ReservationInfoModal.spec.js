@@ -32,6 +32,7 @@ describe('Container: ReservationInfoModal', () => {
     reserverEmailAddress: 'luke@sky.com',
     reserverName: 'Luke Skywalker',
     reserverPhoneNumber: '1234567',
+    resource: resource.id,
   });
   const defaultProps = {
     actions: {

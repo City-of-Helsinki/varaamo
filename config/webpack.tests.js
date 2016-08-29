@@ -19,6 +19,7 @@ module.exports = merge(common, {
         include: [
           path.resolve(__dirname, '../app'),
           path.resolve(__dirname, '../tests'),
+          path.resolve(__dirname, './'),
         ],
         loader: 'babel',
         query: {

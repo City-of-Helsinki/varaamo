@@ -12,12 +12,11 @@ module.exports = (options) => {
     autoWatch: true,
 
     files: [
-      { pattern: '../node_modules/babel-polyfill/dist/polyfill.js', watched: false },
-      { pattern: '../app/**/__tests__/*.js', watched: false },
+      { pattern: './specs.bootstrap.js', watched: false },
     ],
 
     preprocessors: {
-      '../app/**/__tests__/*.js': ['webpack'],
+      './specs.bootstrap.js': ['webpack'],
     },
 
     webpackMiddleware: {
@@ -55,7 +54,7 @@ module.exports = (options) => {
     webpackConfig.module.preLoaders = [
       {
         test: /\.js$/,
-        exclude: /(__tests__|node_modules)/,
+        exclude: /(__tests__|config|node_modules)/,
         loader: 'isparta-instrumenter-loader',
       },
     ].concat(webpackConfig.module.preLoaders);

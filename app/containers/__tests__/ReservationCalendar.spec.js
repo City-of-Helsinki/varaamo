@@ -230,13 +230,16 @@ describe('Container: ReservationCalendar', () => {
         expect(actualArgs[0]).to.deep.equal(expectedReservation);
       });
 
-      it('should add new reservations for the rest of the selected reservations', () => {
+      it('should add new reservations for the rest of the selected reservations', (done) => {
         const expectedCallCount = props.selectedReservations.length - 1;
 
-        expect(props.actions.postReservation.callCount).to.equal(expectedCallCount);
-        props.actions.postReservation.calls.forEach((call, index) => {
-          expect(call.args[0]).to.deep.equal(props.selectedReservations[index + 1]);
-        });
+        setTimeout(() => {
+          expect(props.actions.postReservation.callCount).to.equal(expectedCallCount);
+          props.actions.postReservation.calls.forEach((call, index) => {
+            expect(call.args[0]).to.deep.equal(props.selectedReservations[index + 1]);
+          });
+          done();
+        }, 800);
       });
     });
   });
