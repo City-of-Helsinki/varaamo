@@ -50,15 +50,6 @@ module.exports = (options) => {
   };
 
   if (options.coverage) {
-    // Needs to load first to prevent linting issues
-    webpackConfig.module.preLoaders = [
-      {
-        test: /\.js$/,
-        exclude: /(__tests__|config|node_modules)/,
-        loader: 'isparta-instrumenter-loader',
-      },
-    ].concat(webpackConfig.module.preLoaders);
-
     karmaConfig.plugins.push('karma-coverage');
 
     karmaConfig.coverageReporter = {

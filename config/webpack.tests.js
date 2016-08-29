@@ -18,11 +18,18 @@ module.exports = merge(common, {
         test: /\.js$/,
         include: [
           path.resolve(__dirname, '../app'),
-          path.resolve(__dirname, '../tests'),
           path.resolve(__dirname, './'),
         ],
         loader: 'babel',
         query: {
+          plugins: [
+            ['istanbul', {
+              exclude: [
+                '**/*.spec.js',
+                '**/specs.bootstrap.js',
+              ],
+            }],
+          ],
           presets: ['es2015', 'node6', 'react', 'stage-2'],
         },
       },
