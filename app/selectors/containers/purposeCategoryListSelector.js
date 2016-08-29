@@ -13,13 +13,11 @@ const purposeCategoryListSelector = createSelector(
     groupedPurposes,
     purposeCategories,
     isFetchingPurposes
-  ) => {
-    return {
-      isFetchingPurposes,
-      groupedPurposes,
-      purposeCategories,
-    };
-  }
+  ) => ({
+    isFetchingPurposes,
+    groupedPurposes,
+    purposeCategories,
+  })
 );
 
 export default purposeCategoryListSelector;

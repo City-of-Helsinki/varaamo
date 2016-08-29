@@ -31,15 +31,13 @@ function createTransformFunction(schema) {
 function getErrorTypeDescriptor(type, options = {}) {
   return {
     type,
-    meta: (action) => {
-      return {
-        API_ACTION: {
-          apiRequestFinish: true,
-          countable: options.countable,
-          type: action[CALL_API].types[0].type,
-        },
-      };
-    },
+    meta: (action) => ({
+      API_ACTION: {
+        apiRequestFinish: true,
+        countable: options.countable,
+        type: action[CALL_API].types[0].type,
+      },
+    }),
   };
 }
 
@@ -78,24 +76,25 @@ function getSearchParamsString(params) {
 }
 
 function getSuccessPayload(options) {
-  return (action, state, response) => {
-    return getJSON(response).then(createTransformFunction(options.schema));
-  };
+  return (action, state, response) => (
+    getJSON(response).then(createTransformFunction(options.schema))
+  );
 }
 
 function getSuccessTypeDescriptor(type, options = {}) {
   return {
     type,
     payload: options.payload || getSuccessPayload(options),
-    meta: (action) => {
-      return Object.assign({
+
+    meta: (action) => (
+      Object.assign({
         API_ACTION: {
           apiRequestFinish: true,
           countable: options.countable,
           type: action[CALL_API].types[0].type,
         },
-      }, options.meta);
-    },
+      }, options.meta)
+    ),
   };
 }
 

@@ -14,13 +14,11 @@ const reservationSuccessModalSelector = createSelector(
     resources,
     reservationsToShow,
     show
-  ) => {
-    return {
-      reservationsToShow,
-      resources,
-      show,
-    };
-  }
+  ) => ({
+    reservationsToShow,
+    resources,
+    show,
+  })
 );
 
 export default reservationSuccessModalSelector;

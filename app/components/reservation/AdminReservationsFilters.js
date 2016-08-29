@@ -5,12 +5,13 @@ import Select from 'react-select';
 
 import constants from 'constants/AppConstants';
 
-let stateOptions = map(constants.RESERVATION_STATE_LABELS, (value, key) => {
-  return {
+let stateOptions = map(
+  constants.RESERVATION_STATE_LABELS,
+  (value, key) => ({
     label: value.labelText,
     value: key,
-  };
-});
+  })
+);
 stateOptions = sortBy(stateOptions, 'label');
 stateOptions.unshift({ label: 'Kaikki', value: 'all' });
 

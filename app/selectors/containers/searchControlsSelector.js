@@ -19,15 +19,13 @@ const searchControlsSelector = createSelector(
     typeaheadOptions,
     uiSearchFilters,
     urlSearchFilters
-  ) => {
-    return {
-      isFetchingPurposes,
-      filters: uiSearchFilters,
-      purposeOptions,
-      typeaheadOptions,
-      urlSearchFilters,
-    };
-  }
+  ) => ({
+    isFetchingPurposes,
+    filters: uiSearchFilters,
+    purposeOptions,
+    typeaheadOptions,
+    urlSearchFilters,
+  })
 );
 
 export default searchControlsSelector;

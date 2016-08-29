@@ -5,9 +5,9 @@ const resourcesSelector = (state) => state.data.resources;
 
 const isAdminSelector = createSelector(
   resourcesSelector,
-  (resources) => {
-    return some(resources, (resource) => resource.userPermissions.isAdmin);
-  }
+  (resources) => (
+    some(resources, (resource) => resource.userPermissions.isAdmin)
+  )
 );
 
 export default isAdminSelector;

@@ -8,9 +8,9 @@ import Unit from 'fixtures/Unit';
 import typeaheadOptionsSelector from 'selectors/typeaheadOptionsSelector';
 
 function getState(suggestions) {
-  const units = suggestions.map((suggestion) => {
-    return Unit.build({ id: suggestion.unit });
-  });
+  const units = suggestions.map(
+    (suggestion) => Unit.build({ id: suggestion.unit })
+  );
   return {
     data: Immutable({
       units: keyBy(units, 'id'),

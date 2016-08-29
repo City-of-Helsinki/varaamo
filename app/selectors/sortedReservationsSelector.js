@@ -20,9 +20,7 @@ const reservationsSelector = (state, props) => {
 
 const sortedReservationsSelector = createSelector(
   reservationsSelector,
-  (reservations) => {
-    return orderBy(values(reservations), ['begin'], ['asc']);
-  }
+  (reservations) => orderBy(values(reservations), ['begin'], ['asc'])
 );
 
 export default sortedReservationsSelector;

@@ -34,9 +34,9 @@ function isStaffEvent(reservation, resource) {
   if (!resource || !resource.requiredReservationExtraFields) {
     return false;
   }
-  return some(resource.requiredReservationExtraFields, (field) => {
-    return !reservation[camelCase(field)];
-  });
+  return some(resource.requiredReservationExtraFields, (field) => (
+    !reservation[camelCase(field)]
+  ));
 }
 
 function getAddress(item) {
@@ -79,9 +79,9 @@ function getAvailableTime(openingHours = {}, reservations = []) {
   let total = closesMoment - beginMoment;
 
   forEach(
-    filter(reservations, reservation => {
-      return reservation.state !== 'cancelled' && moment(reservation.end) > nowMoment;
-    }),
+    filter(reservations, reservation => (
+      reservation.state !== 'cancelled' && moment(reservation.end) > nowMoment
+    )),
     (reservation) => {
       const resBeginMoment = moment(reservation.begin);
       const resEndMoment = moment(reservation.end);

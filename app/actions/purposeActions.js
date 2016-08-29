@@ -24,9 +24,7 @@ function fetchPurposes() {
       endpoint: buildAPIUrl('purpose'),
       method: 'GET',
       headers: getHeadersCreator(),
-      bailout: (state) => {
-        return !state.api.shouldFetch.purposes;
-      },
+      bailout: (state) => !state.api.shouldFetch.purposes,
     },
   };
 }

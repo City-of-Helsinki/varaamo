@@ -6,9 +6,7 @@ const modalIsOpenSelectorFactory = (modalType) => {
 
   return createSelector(
     openModalsSelector,
-    (openModals) => {
-      return includes(openModals, modalType);
-    }
+    (openModals) => includes(openModals, modalType)
   );
 };
 

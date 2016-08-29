@@ -37,12 +37,12 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = [], reserv
 
   const range = moment.range(moment.utc(start), moment.utc(end));
   const duration = moment.duration(period);
-  const reservationRanges = map(reservations, reservation => {
-    return moment.range(moment(reservation.begin), moment(reservation.end));
-  });
-  const editRanges = map(reservationsToEdit, reservation => {
-    return moment.range(moment(reservation.begin), moment(reservation.end));
-  });
+  const reservationRanges = map(reservations, reservation => (
+    moment.range(moment(reservation.begin), moment(reservation.end))
+  ));
+  const editRanges = map(reservationsToEdit, reservation => (
+    moment.range(moment(reservation.begin), moment(reservation.end))
+  ));
   const slots = [];
 
   range.by(duration, (startMoment) => {

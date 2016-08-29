@@ -26,9 +26,7 @@ function fetchUnits() {
       endpoint: buildAPIUrl('unit', fetchParams),
       method: 'GET',
       headers: getHeadersCreator(),
-      bailout: (state) => {
-        return !state.api.shouldFetch.units;
-      },
+      bailout: (state) => !state.api.shouldFetch.units,
     },
   };
 }

@@ -21,15 +21,13 @@ const reservationInfoModalSelector = createSelector(
     reservationsToShow,
     resources,
     staffUnits
-  ) => {
-    return {
-      isEditingReservations,
-      reservationsToShow,
-      resources,
-      show: reservationInfoModalIsOpen,
-      staffUnits,
-    };
-  }
+  ) => ({
+    isEditingReservations,
+    reservationsToShow,
+    resources,
+    show: reservationInfoModalIsOpen,
+    staffUnits,
+  })
 );
 
 export default reservationInfoModalSelector;

@@ -44,9 +44,7 @@ function fetchResources(params = {}) {
       endpoint: buildAPIUrl('resource', fetchParams),
       method: 'GET',
       headers: getHeadersCreator(),
-      bailout: (state) => {
-        return !state.api.shouldFetch.resources;
-      },
+      bailout: (state) => !state.api.shouldFetch.resources,
     },
   };
 }

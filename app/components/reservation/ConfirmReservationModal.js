@@ -140,9 +140,9 @@ class ConfirmReservationModal extends Component {
       show,
     } = this.props;
 
-    const requiredFormFields = resource.requiredReservationExtraFields.map((field) => {
-      return camelCase(field);
-    });
+    const requiredFormFields = resource.requiredReservationExtraFields.map(
+      (field) => camelCase(field)
+    );
 
     return (
       <Modal

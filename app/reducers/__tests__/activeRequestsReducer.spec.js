@@ -17,12 +17,8 @@ describe('Reducer: activeRequestsReducer', () => {
   describe('handling actions', () => {
     const apiActionCreator = createAction(
       'REQUEST',
-      () => {
-        return {};
-      },
-      (metaData) => {
-        return { API_ACTION: metaData };
-      }
+      () => ({}),
+      (metaData) => ({ API_ACTION: metaData })
     );
 
     describe('actions that have meta.API_ACTIONS.apiRequestStart', () => {
