@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import queryString from 'query-string';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Input from 'react-bootstrap/lib/Input';
@@ -38,8 +37,6 @@ describe('Container: ReservationInfoModal', () => {
     actions: {
       closeReservationInfoModal: simple.stub(),
       putReservation: simple.stub(),
-      selectReservationToEdit: simple.stub(),
-      updatePath: simple.stub(),
     },
     isEditingReservations: false,
     reservationsToShow: Immutable([reservation]),
@@ -194,16 +191,16 @@ describe('Container: ReservationInfoModal', () => {
     });
 
     describe('Footer buttons', () => {
-      describe('if user has staff permissions', () => {
+      describe('if user has admin permissions', () => {
         const wrapper = getWrapper({
+          reservationsToShow: [Reservation.build({ resource: resource.id })],
           resources: { [resource.id]: Resource.build({ userPermissions: { isAdmin: true } }) },
-          staffUnits: [resource.unit],
         });
         const modalFooter = wrapper.find(Modal.Footer);
         const buttons = modalFooter.find(Button);
 
-        it('should render three buttons', () => {
-          expect(buttons.length).to.equal(3);
+        it('should render two buttons', () => {
+          expect(buttons.length).to.equal(2);
         });
 
         describe('the first button', () => {
@@ -218,19 +215,6 @@ describe('Container: ReservationInfoModal', () => {
         describe('the second button', () => {
           const button = buttons.at(1);
 
-          it('should be edit button', () => {
-            expect(button.props().children).to.equal('Muokkaa');
-          });
-
-          it('should have handleEdit as its onClick prop', () => {
-            const instance = wrapper.instance();
-            expect(button.props().onClick).to.equal(instance.handleEdit);
-          });
-        });
-
-        describe('the third button', () => {
-          const button = buttons.at(2);
-
           it('should be save button', () => {
             expect(button.props().children).to.equal('Tallenna');
           });
@@ -242,97 +226,9 @@ describe('Container: ReservationInfoModal', () => {
         });
       });
 
-      describe('if user has regular admin permissions', () => {
-        describe('if reservation state is not confirmed', () => {
-          const wrapper = getWrapper({
-            reservationsToShow: [Reservation.build({ resource: resource.id, state: 'requested' })],
-            resources: { [resource.id]: Resource.build({ userPermissions: { isAdmin: true } }) },
-            staffUnits: [],
-          });
-          const modalFooter = wrapper.find(Modal.Footer);
-          const buttons = modalFooter.find(Button);
-
-          it('should render three buttons', () => {
-            expect(buttons.length).to.equal(3);
-          });
-
-          describe('the first button', () => {
-            makeButtonTests(
-              buttons.at(0),
-              'back',
-              'Takaisin',
-              defaultProps.actions.closeReservationInfoModal
-            );
-          });
-
-          describe('the second button', () => {
-            const button = buttons.at(1);
-
-            it('should be edit button', () => {
-              expect(button.props().children).to.equal('Muokkaa');
-            });
-
-            it('should have handleEdit as its onClick prop', () => {
-              const instance = wrapper.instance();
-              expect(button.props().onClick).to.equal(instance.handleEdit);
-            });
-          });
-
-          describe('the third button', () => {
-            const button = buttons.at(2);
-
-            it('should be save button', () => {
-              expect(button.props().children).to.equal('Tallenna');
-            });
-
-            it('should have handleSave as its onClick prop', () => {
-              const instance = wrapper.instance();
-              expect(button.props().onClick).to.equal(instance.handleSave);
-            });
-          });
-        });
-
-        describe('if reservation state is confirmed', () => {
-          const wrapper = getWrapper({
-            reservationsToShow: [Reservation.build({ resource: resource.id, state: 'confirmed' })],
-            resources: { [resource.id]: Resource.build({ userPermissions: { isAdmin: true } }) },
-            staffUnits: [],
-          });
-          const modalFooter = wrapper.find(Modal.Footer);
-          const buttons = modalFooter.find(Button);
-
-          it('should render two buttons', () => {
-            expect(buttons.length).to.equal(2);
-          });
-
-          describe('the first button', () => {
-            makeButtonTests(
-              buttons.at(0),
-              'back',
-              'Takaisin',
-              defaultProps.actions.closeReservationInfoModal
-            );
-          });
-
-          describe('the second button', () => {
-            const button = buttons.at(1);
-
-            it('should be save button', () => {
-              expect(button.props().children).to.equal('Tallenna');
-            });
-
-            it('should have handleSave as its onClick prop', () => {
-              const instance = wrapper.instance();
-              expect(button.props().onClick).to.equal(instance.handleSave);
-            });
-          });
-        });
-      });
-
       describe('if user is a regular user', () => {
         const wrapper = getWrapper({
           resources: { [resource.id]: Resource.build({ userPermissions: { isAdmin: false } }) },
-          staffUnits: [],
         });
         const modalFooter = wrapper.find(Modal.Footer);
         const buttons = modalFooter.find(Button);
@@ -350,41 +246,6 @@ describe('Container: ReservationInfoModal', () => {
           );
         });
       });
-    });
-  });
-
-  describe('handleEdit', () => {
-    before(() => {
-      const instance = getWrapper().instance();
-      defaultProps.actions.closeReservationInfoModal.reset();
-      defaultProps.actions.selectReservationToEdit.reset();
-      defaultProps.actions.updatePath.reset();
-      instance.handleEdit();
-    });
-
-    it('should call selectReservationToEdit with reservation and minPeriod', () => {
-      expect(defaultProps.actions.selectReservationToEdit.callCount).to.equal(1);
-      expect(
-        defaultProps.actions.selectReservationToEdit.lastCall.args[0]
-      ).to.deep.equal(
-        { reservation, minPeriod: resource.minPeriod }
-      );
-    });
-
-    it('should call the updatePath with correct url', () => {
-      const actualUrlArg = defaultProps.actions.updatePath.lastCall.args[0];
-      const query = queryString.stringify({
-        date: reservation.begin.split('T')[0],
-        time: reservation.begin,
-      });
-      const expectedUrl = `/resources/${reservation.resource}/reservation?${query}`;
-
-      expect(defaultProps.actions.updatePath.callCount).to.equal(1);
-      expect(actualUrlArg).to.equal(expectedUrl);
-    });
-
-    it('should close the ReservationInfoModal', () => {
-      expect(defaultProps.actions.closeReservationInfoModal.callCount).to.equal(1);
     });
   });
 
