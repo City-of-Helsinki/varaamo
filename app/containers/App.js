@@ -7,6 +7,7 @@ import { updatePath } from 'redux-simple-router';
 
 import { clearSearchResults } from 'actions/searchActions';
 import { fetchUser } from 'actions/userActions';
+import Favicon from 'components/customization/Favicon';
 import Footer from 'components/layout/Footer';
 import Navbar from 'components/layout/Navbar';
 import Notifications from 'containers/Notifications';
@@ -31,6 +32,7 @@ export class UnconnectedApp extends Component {
     return (
       <DocumentTitle title="Varaamo">
         <div className={`app ${getCustomizationClassName()}`}>
+          <Favicon />
           <Navbar
             clearSearchResults={actions.clearSearchResults}
             isLoggedIn={isLoggedIn}

@@ -35,6 +35,7 @@
     "react-date-picker": "^3.1.8",
     "react-document-title": "^2.0.1",
     "react-dom": "^0.14.3",
+    "react-favicon": "0.0.4",
     "react-loader": "^2.0.0",
     "react-notifications": "^0.1.0",
     "react-redux": "^4.0.0",
@@ -50,7 +51,6 @@
     "reselect": "^2.0.1",
     "seamless-immutable": "^4.0.2",
     "serialize-javascript": "^1.1.2",
-    "serve-favicon": "^2.3.0",
     "validator": "^5.1.0"
   },
   "devDependencies": {
