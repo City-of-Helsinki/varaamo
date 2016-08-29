@@ -253,6 +253,20 @@ describe('Utils: APIUtils', () => {
 
       expect(actual).to.deep.equal(expected);
     });
+
+    it('should support adding extra meta properties', () => {
+      const actual = getRequestTypeDescriptor(actionType, { meta: { test: 'test' } }).meta;
+      const expected = {
+        API_ACTION: {
+          apiRequestStart: true,
+          countable: undefined,
+          type: 'SOME_GET_REQUEST',
+        },
+        test: 'test',
+      };
+
+      expect(actual).to.deep.equal(expected);
+    });
   });
 
   describe('getSearchParamsString', () => {
@@ -345,6 +359,21 @@ describe('Utils: APIUtils', () => {
         const typeDescriptor = getSuccessTypeDescriptor(actionType, { payload: 'mock-payload' });
 
         expect(typeDescriptor.payload).to.equal('mock-payload');
+      });
+
+      it('should support adding extra meta properties', () => {
+        const typeDescriptor = getSuccessTypeDescriptor(actionType, { meta: { test: 'test' } });
+        const actual = typeDescriptor.meta(mockAction);
+        const expected = {
+          API_ACTION: {
+            apiRequestFinish: true,
+            countable: undefined,
+            type: 'SOME_GET_REQUEST',
+          },
+          test: 'test',
+        };
+
+        expect(actual).to.deep.equal(expected);
       });
     });
   });
