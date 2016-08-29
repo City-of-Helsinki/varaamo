@@ -183,7 +183,9 @@ describe('Utils: TimeUtils', () => {
         it('should show the slot time range in local time', () => {
           const startLocal = moment(start);
           const endLocal = moment(startLocal).add(duration);
-          const expected = `${startLocal.format(constants.TIME_FORMAT)}\u2013${endLocal.format(constants.TIME_FORMAT)}`;
+          const startString = startLocal.format(constants.TIME_FORMAT);
+          const endString = endLocal.format(constants.TIME_FORMAT);
+          const expected = `${startString}\u2013${endString}`;
 
           expect(slots[0].asString).to.equal(expected);
         });

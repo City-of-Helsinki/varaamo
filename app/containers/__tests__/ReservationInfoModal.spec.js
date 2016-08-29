@@ -206,7 +206,12 @@ describe('Container: ReservationInfoModal', () => {
         });
 
         describe('the first button', () => {
-          makeButtonTests(buttons.at(0), 'back', 'Takaisin', defaultProps.actions.closeReservationInfoModal);
+          makeButtonTests(
+            buttons.at(0),
+            'back',
+            'Takaisin',
+            defaultProps.actions.closeReservationInfoModal
+          );
         });
 
         describe('the second button', () => {
@@ -251,7 +256,12 @@ describe('Container: ReservationInfoModal', () => {
           });
 
           describe('the first button', () => {
-            makeButtonTests(buttons.at(0), 'back', 'Takaisin', defaultProps.actions.closeReservationInfoModal);
+            makeButtonTests(
+              buttons.at(0),
+              'back',
+              'Takaisin',
+              defaultProps.actions.closeReservationInfoModal
+            );
           });
 
           describe('the second button', () => {
@@ -295,7 +305,12 @@ describe('Container: ReservationInfoModal', () => {
           });
 
           describe('the first button', () => {
-            makeButtonTests(buttons.at(0), 'back', 'Takaisin', defaultProps.actions.closeReservationInfoModal);
+            makeButtonTests(
+              buttons.at(0),
+              'back',
+              'Takaisin',
+              defaultProps.actions.closeReservationInfoModal
+            );
           });
 
           describe('the second button', () => {
@@ -326,7 +341,12 @@ describe('Container: ReservationInfoModal', () => {
         });
 
         describe('the button', () => {
-          makeButtonTests(buttons.at(0), 'back', 'Takaisin', defaultProps.actions.closeReservationInfoModal);
+          makeButtonTests(
+            buttons.at(0),
+            'back',
+            'Takaisin',
+            defaultProps.actions.closeReservationInfoModal
+          );
         });
       });
     });

@@ -31,8 +31,6 @@
 
     "import/prefer-default-export": 0,
 
-    "max-len": 0,
-
     // allow use of constructors without new,
     // makes working with seamless-immutable easier
     "new-cap": ["error", {"capIsNew": false, "newIsCap": true}],

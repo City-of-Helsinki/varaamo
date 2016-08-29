@@ -219,4 +219,6 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
-export default connect(reservationCalendarSelector, mapDispatchToProps)(UnconnectedReservationCalendar);
+export default (
+  connect(reservationCalendarSelector, mapDispatchToProps)(UnconnectedReservationCalendar)
+);

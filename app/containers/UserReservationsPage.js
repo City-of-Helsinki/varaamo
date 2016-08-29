@@ -115,4 +115,6 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
-export default connect(userReservationsPageSelector, mapDispatchToProps)(UnconnectedUserReservationsPage);
+export default (
+  connect(userReservationsPageSelector, mapDispatchToProps)(UnconnectedUserReservationsPage)
+);

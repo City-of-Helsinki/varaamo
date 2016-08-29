@@ -154,7 +154,8 @@ describe('Container: ReservationCalendar', () => {
         expect(actualProps.isAdmin).to.exist;
         expect(actualProps.isEditing).to.exist;
         expect(actualProps.isMakingReservations).to.equal(props.isMakingReservations);
-        expect(actualProps.isPreliminaryReservation).to.equal(props.resource.needManualConfirmation);
+        expect(actualProps.isPreliminaryReservation)
+          .to.equal(props.resource.needManualConfirmation);
         expect(actualProps.isStaff).to.exist;
         expect(actualProps.onClose).to.equal(props.actions.closeConfirmReservationModal);
         expect(actualProps.onConfirm).to.equal(instance.handleReservation);

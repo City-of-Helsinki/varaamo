@@ -15,7 +15,9 @@ class TimeRange extends Component {
     const beginMoment = moment(begin);
     const endMoment = moment(end);
     const dateString = beginMoment.format(dateFormat);
-    const timeString = `klo ${beginMoment.format(timeFormat)} \u2013 ${endMoment.format(timeFormat)}`;
+    const timeString = (
+      `klo ${beginMoment.format(timeFormat)} \u2013 ${endMoment.format(timeFormat)}`
+    );
     const ISORangeString = `${begin}/${end}`;
 
     return (

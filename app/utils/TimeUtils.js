@@ -52,7 +52,9 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = [], reserv
     const endLocal = endUTC.local();
 
     const asISOString = `${startUTC.toISOString()}/${endUTC.toISOString()}`;
-    const asString = `${startLocal.format(constants.TIME_FORMAT)}\u2013${endLocal.format(constants.TIME_FORMAT)}`;
+    const asString = (
+      `${startLocal.format(constants.TIME_FORMAT)}\u2013${endLocal.format(constants.TIME_FORMAT)}`
+    );
 
     const slotRange = moment.range(startLocal, endLocal);
     const editing = editRanges.some(

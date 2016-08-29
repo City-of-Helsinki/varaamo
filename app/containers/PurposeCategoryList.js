@@ -60,4 +60,6 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
-export default connect(purposeCategoryListSelector, mapDispatchToProps)(UnconnectedPurposeCategoryList);
+export default (
+  connect(purposeCategoryListSelector, mapDispatchToProps)(UnconnectedPurposeCategoryList)
+);

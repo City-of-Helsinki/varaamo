@@ -117,17 +117,23 @@ describe('Utils: DataUtils', () => {
       expect(isStaffEvent(reservation, resource)).to.equal(false);
     });
 
-    it('should return true if reservation is missing values for requiredReservationExtraFields', () => {
-      const reservation = {};
-      const resource = { requiredReservationExtraFields: ['reserver_name'] };
-      expect(isStaffEvent(reservation, resource)).to.equal(true);
-    });
+    it(
+      'should return true if reservation is missing values for requiredReservationExtraFields',
+      () => {
+        const reservation = {};
+        const resource = { requiredReservationExtraFields: ['reserver_name'] };
+        expect(isStaffEvent(reservation, resource)).to.equal(true);
+      }
+    );
 
-    it('should return true if reservation has empty strings for requiredReservationExtraFields', () => {
-      const reservation = { reserverName: '' };
-      const resource = { requiredReservationExtraFields: ['reserver_name'] };
-      expect(isStaffEvent(reservation, resource)).to.equal(true);
-    });
+    it(
+      'should return true if reservation has empty strings for requiredReservationExtraFields',
+      () => {
+        const reservation = { reserverName: '' };
+        const resource = { requiredReservationExtraFields: ['reserver_name'] };
+        expect(isStaffEvent(reservation, resource)).to.equal(true);
+      }
+    );
   });
 
   describe('getAddress', () => {

@@ -31,7 +31,9 @@ export class UnconnectedSearchControls extends Component {
 
     actions.changeSearchFilters(urlSearchFilters);
     actions.fetchPurposes();
-    this.fetchTypeaheadSuggestions = throttle(this.fetchTypeaheadSuggestions, 200, { leading: false, trailing: true });
+    this.fetchTypeaheadSuggestions = throttle(
+      this.fetchTypeaheadSuggestions, 200, { leading: false, trailing: true }
+    );
   }
 
   onDateChange(newDate) {

@@ -34,22 +34,25 @@ describe('Selector: staffUnitsSelector', () => {
     expect(selected).to.deep.equal(expected);
   });
 
-  it('should not return unit ids where user does not have can_approve_reservation permission', () => {
-    const user = User.build({
-      staffPerms: {
-        unit: {
-          'unit-1': ['can_approve_something_else'],
-          'unit-2': ['can_approve_reservation'],
-          'unit-3': [],
+  it(
+    'should not return unit ids where user does not have can_approve_reservation permission',
+    () => {
+      const user = User.build({
+        staffPerms: {
+          unit: {
+            'unit-1': ['can_approve_something_else'],
+            'unit-2': ['can_approve_reservation'],
+            'unit-3': [],
+          },
         },
-      },
-    });
-    const state = getState(user);
-    const selected = staffUnitsSelector(state);
-    const expected = ['unit-2'];
+      });
+      const state = getState(user);
+      const selected = staffUnitsSelector(state);
+      const expected = ['unit-2'];
 
-    expect(selected).to.deep.equal(expected);
-  });
+      expect(selected).to.deep.equal(expected);
+    }
+  );
 
   it('should return an empty array if user has no staff permissions', () => {
     const user = User.build();

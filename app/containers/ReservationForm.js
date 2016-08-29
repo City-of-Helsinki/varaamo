@@ -124,7 +124,12 @@ export class UnconnectedReservationForm extends Component {
           {this.renderField('text', 'Puhelin', fields.reserverPhoneNumber)}
           {this.renderField('email', 'Sähköposti', fields.reserverEmailAddress)}
           {this.renderField('textarea', 'Tilaisuuden kuvaus', fields.eventDescription, { rows: 5 })}
-          {this.renderField('number', 'Osallistujamäärä', fields.numberOfParticipants, { min: '0' })}
+          {this.renderField(
+            'number',
+            'Osallistujamäärä',
+            fields.numberOfParticipants,
+            { min: '0' }
+          )}
           { fields.reserverAddressStreet && (
             <Well>
               <p>Osoite</p>

@@ -125,10 +125,15 @@ class TimeSlot extends Component {
           </Label>
         </td>
         {isAdmin && (
-          <td className="user-cell">{reservation && slot.reservationStarting && this.renderUserInfo(reservation.user)}</td>
+          <td className="user-cell">
+            {reservation && slot.reservationStarting && this.renderUserInfo(reservation.user)}
+          </td>
         )}
         {isAdmin && (
-          <td className="comments-cell">{reservation && slot.reservationStarting && reservation.comments}</td>)}
+          <td className="comments-cell">
+            {reservation && slot.reservationStarting && reservation.comments}
+          </td>
+        )}
         {isAdmin && (
           <td className="controls-cell">
             {reservation && slot.reservationStarting && !isEditing && (

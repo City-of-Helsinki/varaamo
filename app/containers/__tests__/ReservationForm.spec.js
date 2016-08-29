@@ -18,24 +18,31 @@ describe('Container: ReservationForm', () => {
     describe('if field value is missing', () => {
       describe('if user is reserving an staff event', () => {
         const values = { staffEvent: true };
-        it('should return an error if field belongs to REQUIRED_STAFF_EVENT_FIELDS', () => {
+
+        describe('if field belongs to REQUIRED_STAFF_EVENT_FIELDS', () => {
           const fieldName = constants.REQUIRED_STAFF_EVENT_FIELDS[0];
-          const props = {
-            fields: [fieldName],
-            requiredFields: [],
-          };
-          const errors = validate(values, props);
-          expect(errors[fieldName]).to.exist;
+
+          it('should return an error', () => {
+            const props = {
+              fields: [fieldName],
+              requiredFields: [],
+            };
+            const errors = validate(values, props);
+            expect(errors[fieldName]).to.exist;
+          });
         });
 
-        it('should not return an error if field does not belong to REQUIRED_STAFF_EVENT_FIELDS', () => {
+        describe('if field does not belong to REQUIRED_STAFF_EVENT_FIELDS', () => {
           const fieldName = 'someField';
-          const props = {
-            fields: [fieldName],
-            requiredFields: [],
-          };
-          const errors = validate(values, props);
-          expect(errors[fieldName]).to.not.exist;
+
+          it('should not return an error', () => {
+            const props = {
+              fields: [fieldName],
+              requiredFields: [],
+            };
+            const errors = validate(values, props);
+            expect(errors[fieldName]).to.not.exist;
+          });
         });
       });
 

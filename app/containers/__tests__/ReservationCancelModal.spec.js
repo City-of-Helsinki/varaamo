@@ -252,7 +252,7 @@ describe('Container: ReservationCancelModal', () => {
       });
     });
 
-    describe('when isAdmin is false and preliminary reservation state is anything but "confirmed"', () => {
+    describe('when isAdmin is false and preliminary reservation state is not "confirmed"', () => {
       const isAdmin = false;
       const reservation = Reservation.build({
         needManualConfirmation: true,

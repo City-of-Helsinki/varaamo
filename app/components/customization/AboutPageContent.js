@@ -20,8 +20,8 @@ class AboutPageContent extends Component {
           <div>
             <h1>Tietoa varaamo.espoo.fi –palvelusta</h1>
             <p className="lead">
-              Varaamo on Helsingin kaupungin ylläpitämä verkkopalvelu, jonka kautta voi varata Espoon
-              ja Helsingin kaupunkien julkisia tiloja sekä työpisteitä yksityiseen käyttöön.
+              Varaamo on Helsingin kaupungin ylläpitämä verkkopalvelu, jonka kautta voi varata
+              Espoon ja Helsingin kaupunkien julkisia tiloja sekä työpisteitä yksityiseen käyttöön.
             </p>
             <p>
               Tilavarausjärjestelmä on testausvaiheessa, eikä pilottikäytössä olevassa versiossa ole
@@ -43,9 +43,9 @@ class AboutPageContent extends Component {
               tietotekniikkaohjelmaa 2015 - 2017 (Datarajapinnat ja avoin kaupunkikehitys).
             </p>
             <p>
-              Virastoyhteisen tilavaraushankkeen tavoitteena on julkisten tilojen käytön tehostaminen,
-              saavutettavuuden parantaminen ja tilojen käyttöön liittyvien kustannusten alentaminen
-              kaupungin tilavarauskäytäntöjä yhtenäistämällä.
+              Virastoyhteisen tilavaraushankkeen tavoitteena on julkisten tilojen käytön
+              tehostaminen, saavutettavuuden parantaminen ja tilojen käyttöön liittyvien
+              kustannusten alentaminen kaupungin tilavarauskäytäntöjä yhtenäistämällä.
             </p>
             <p>
               Palvelua kehitetään edelleen ja toivomme palvelun käyttäjiltä palautetta. Palautetta
@@ -92,9 +92,9 @@ class AboutPageContent extends Component {
               tietotekniikkaohjelmaa 2015 - 2017 (Datarajapinnat ja avoin kaupunkikehitys).
             </p>
             <p>
-              Virastoyhteisen tilavaraushankkeen tavoitteena on julkisten tilojen käytön tehostaminen,
-              saavutettavuuden parantaminen ja tilojen käyttöön liittyvien kustannusten alentaminen
-              kaupungin tilavarauskäytäntöjä yhtenäistämällä.
+              Virastoyhteisen tilavaraushankkeen tavoitteena on julkisten tilojen käytön
+              tehostaminen, saavutettavuuden parantaminen ja tilojen käyttöön liittyvien
+              kustannusten alentaminen kaupungin tilavarauskäytäntöjä yhtenäistämällä.
             </p>
             <p>
               Palvelua kehitetään edelleen ja toivomme palvelun käyttäjiltä palautetta. Palautetta

@@ -20,7 +20,11 @@ class Html extends Component {
         _paq.push(['setTrackerUrl', u+'piwik.php']);
         _paq.push(['setSiteId', ${piwikSiteId}]);
         var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+        g.type='text/javascript';
+        g.async=true;
+        g.defer=true;
+        g.src=u+'piwik.js';
+        s.parentNode.insertBefore(g,s);
       })();
     `;
     const imgSrc = `//analytics.hel.ninja/piwik/piwik.php?idsite=${piwikSiteId}`;
