@@ -47,24 +47,27 @@ function notificationsReducer(state = initialState, action) {
 
   // Notification handling
 
-    case types.UI.ADD_NOTIFICATION:
+    case types.UI.ADD_NOTIFICATION: {
       notification = action.payload;
       return addNotification(state, notification);
+    }
 
-    case types.UI.HIDE_NOTIFICATION:
+    case types.UI.HIDE_NOTIFICATION: {
       const index = action.payload.id - 1;
       return hideNotification(state, index);
+    }
 
     // Success messages
 
-    case types.API.RESERVATION_DELETE_SUCCESS:
+    case types.API.RESERVATION_DELETE_SUCCESS: {
       notification = {
         message: 'Varauksen peruminen onnistui.',
         type: 'success',
       };
       return addNotification(state, notification);
+    }
 
-    case types.API.RESERVATION_POST_SUCCESS:
+    case types.API.RESERVATION_POST_SUCCESS: {
       const reservation = action.payload;
       if (reservation.needManualConfirmation) {
         return state;
@@ -74,19 +77,21 @@ function notificationsReducer(state = initialState, action) {
         type: 'success',
       };
       return addNotification(state, notification);
+    }
 
-    case types.API.RESERVATION_PUT_SUCCESS:
+    case types.API.RESERVATION_PUT_SUCCESS: {
       notification = {
         message: 'Varaus päivitetty.',
         type: 'success',
       };
       return addNotification(state, notification);
+    }
 
     // Error messages
 
     case types.API.RESERVATION_DELETE_ERROR:
     case types.API.RESERVATION_POST_ERROR:
-    case types.API.RESERVATION_PUT_ERROR:
+    case types.API.RESERVATION_PUT_ERROR: {
       message = getErrorMessage(action.payload);
       notification = {
         message,
@@ -94,9 +99,11 @@ function notificationsReducer(state = initialState, action) {
         timeOut: 10000,
       };
       return addNotification(state, notification);
+    }
 
-    default:
+    default: {
       return state;
+    }
   }
 }
 

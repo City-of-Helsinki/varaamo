@@ -9,13 +9,15 @@ const initialState = Immutable({
 function fetchCountsReducer(state = initialState, action) {
   switch (action.type) {
 
-    case types.API.RESERVATIONS_GET_SUCCESS:
+    case types.API.RESERVATIONS_GET_SUCCESS: {
       return state.merge({
         reservations: state.reservations + 1,
       });
+    }
 
-    default:
+    default: {
       return state;
+    }
   }
 }
 

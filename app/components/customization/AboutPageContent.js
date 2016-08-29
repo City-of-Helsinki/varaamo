@@ -9,7 +9,7 @@ class AboutPageContent extends Component {
 
     switch (getCurrentCustomization()) {
 
-      case 'ESPOO':
+      case 'ESPOO': {
         registerLink = (
           <a href="http://www.helmet-kirjasto.fi/varaamo-palaute/rekisteriseloste.php">
             Asiakasrekisteriseloste
@@ -57,8 +57,9 @@ class AboutPageContent extends Component {
             </p>
           </div>
         );
+      }
 
-      default:
+      default: {
         registerLink = (
           <a href="http://www.helmet-kirjasto.fi/varaamo-palaute/rekisteriseloste.php">
             Asiakasrekisteriseloste
@@ -105,6 +106,7 @@ class AboutPageContent extends Component {
             </p>
           </div>
         );
+      }
     }
   }
 }

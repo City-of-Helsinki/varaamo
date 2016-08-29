@@ -37,8 +37,6 @@
     // makes working with seamless-immutable easier
     "new-cap": ["error", {"capIsNew": false, "newIsCap": true}],
 
-    "no-case-declarations": 0,
-
     // allow using underscore dangle with piwik
     no-underscore-dangle: ["error", { "allow": ["_paq"] }],
 

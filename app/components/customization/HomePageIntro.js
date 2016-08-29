@@ -6,7 +6,7 @@ class HomePageIntro extends Component {
   render() {
     switch (getCurrentCustomization()) {
 
-      case 'ESPOO':
+      case 'ESPOO': {
         return (
           <div>
             <h2>Varaa vaivatta kaupungin tiloja ja laitteita</h2>
@@ -17,8 +17,9 @@ class HomePageIntro extends Component {
             </p>
           </div>
         );
+      }
 
-      default:
+      default: {
         return (
           <div>
             <h2>Varaa vaivatta kaupungin tiloja ja laitteita</h2>
@@ -29,6 +30,7 @@ class HomePageIntro extends Component {
             </p>
           </div>
         );
+      }
     }
   }
 }

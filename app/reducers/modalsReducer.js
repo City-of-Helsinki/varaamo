@@ -14,15 +14,16 @@ function modalsReducer(state = initialState, action) {
 
   switch (action.type) {
 
-    case types.API.RESERVATION_POST_SUCCESS:
+    case types.API.RESERVATION_POST_SUCCESS: {
       const reservation = action.payload;
       if (reservation.needManualConfirmation) {
         modal = ModalTypes.RESERVATION_SUCCESS;
         return state.merge({ open: [...state.open, modal] });
       }
       return state;
+    }
 
-    case types.UI.CLOSE_MODAL:
+    case types.UI.CLOSE_MODAL: {
       modal = action.payload;
 
       if (includes(state.open, modal)) {
@@ -30,8 +31,9 @@ function modalsReducer(state = initialState, action) {
       }
 
       return state;
+    }
 
-    case types.UI.OPEN_MODAL:
+    case types.UI.OPEN_MODAL: {
       modal = action.payload;
 
       if (includes(state.open, modal)) {
@@ -39,9 +41,11 @@ function modalsReducer(state = initialState, action) {
       }
 
       return state.merge({ open: [...state.open, modal] });
+    }
 
-    default:
+    default: {
       return state;
+    }
   }
 }
 

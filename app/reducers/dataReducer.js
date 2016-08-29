@@ -45,24 +45,29 @@ function dataReducer(state = initialState, action) {
     case types.API.RESOURCE_GET_SUCCESS:
     case types.API.RESOURCES_GET_SUCCESS:
     case types.API.SEARCH_RESULTS_GET_SUCCESS:
-    case types.API.UNITS_GET_SUCCESS:
+    case types.API.UNITS_GET_SUCCESS: {
       return handleData(state, action.payload.entities);
+    }
 
     case types.API.RESERVATION_POST_SUCCESS:
-    case types.API.RESERVATION_PUT_SUCCESS:
+    case types.API.RESERVATION_PUT_SUCCESS: {
       reservation = action.payload;
       return handleReservation(state, reservation);
+    }
 
-    case types.API.RESERVATION_DELETE_SUCCESS:
+    case types.API.RESERVATION_DELETE_SUCCESS: {
       reservation = Object.assign({}, action.payload, { state: 'cancelled' });
       return handleReservation(state, reservation);
+    }
 
-    case types.API.USER_GET_SUCCESS:
+    case types.API.USER_GET_SUCCESS: {
       const user = action.payload;
       return handleData(state, { users: { [user.uuid]: user } });
+    }
 
-    default:
+    default: {
       return state;
+    }
   }
 }
 

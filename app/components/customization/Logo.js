@@ -9,21 +9,23 @@ class Logo extends Component {
   render() {
     switch (getCurrentCustomization()) {
 
-      case 'ESPOO':
+      case 'ESPOO': {
         return (
           <img
             alt="Espoon kaupunki"
             src={espooLogoSrc}
           />
         );
+      }
 
-      default:
+      default: {
         return (
           <img
             alt="Helsingin vaakuna"
             src={helsinkiLogoSrc}
           />
         );
+      }
     }
   }
 }

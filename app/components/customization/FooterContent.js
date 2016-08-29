@@ -12,7 +12,7 @@ class FooterContent extends Component {
   render() {
     switch (getCurrentCustomization()) {
 
-      case 'ESPOO':
+      case 'ESPOO': {
         return (
           <Grid>
             <Row>
@@ -33,8 +33,9 @@ class FooterContent extends Component {
             </Row>
           </Grid>
         );
+      }
 
-      default:
+      default: {
         return (
           <Grid>
             <Row>
@@ -54,6 +55,7 @@ class FooterContent extends Component {
             </Row>
           </Grid>
         );
+      }
     }
   }
 }
