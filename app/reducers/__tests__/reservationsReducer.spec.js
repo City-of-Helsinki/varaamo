@@ -7,10 +7,11 @@ import {
   changeAdminReservationsFilters,
   clearReservations,
   closeReservationCancelModal,
+  closeReservationInfoModal,
+  closeReservationSuccessModal,
   selectReservationToCancel,
   selectReservationToEdit,
   selectReservationToShow,
-  closeReservationInfoModal,
   toggleTimeSlot,
 } from 'actions/uiActions';
 import types from 'constants/ActionTypes';
@@ -239,12 +240,24 @@ describe('Reducer: reservationsReducer', () => {
         });
       });
 
-      describe('if closed modal is SHOW_RESERVATION modal', () => {
+      describe('if closed modal is RESERVATION_INFO modal', () => {
         it('should clear toShow array', () => {
           const initialState = Immutable({
             toShow: [Reservation.build()],
           });
           const action = closeReservationInfoModal();
+          const nextState = reservationsReducer(initialState, action);
+
+          expect(nextState.toShow).to.deep.equal([]);
+        });
+      });
+
+      describe('if closed modal is RESERVATION_SUCCESS modal', () => {
+        it('should clear toShow array', () => {
+          const initialState = Immutable({
+            toShow: [Reservation.build()],
+          });
+          const action = closeReservationSuccessModal();
           const nextState = reservationsReducer(initialState, action);
 
           expect(nextState.toShow).to.deep.equal([]);
