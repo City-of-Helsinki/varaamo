@@ -16,7 +16,7 @@ module.exports = (options) => {
     ],
 
     preprocessors: {
-      './specs.bootstrap.js': ['webpack'],
+      './specs.bootstrap.js': ['webpack', 'sourcemap'],
     },
 
     webpackMiddleware: {
@@ -45,6 +45,7 @@ module.exports = (options) => {
       'karma-phantomjs-launcher',
       'karma-mocha',
       'karma-mocha-reporter',
+      'karma-sourcemap-loader',
       'karma-webpack',
     ],
   };
