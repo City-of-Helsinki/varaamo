@@ -47,6 +47,7 @@ function searchResources(params = {}) {
                 event: 'trackEvent',
                 args: [
                   'Search',
+                  'get',
                   fetchParams.search,
                 ],
               },
