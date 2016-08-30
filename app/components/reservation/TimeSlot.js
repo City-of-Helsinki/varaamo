@@ -44,7 +44,7 @@ class TimeSlot extends Component {
       const message = this.getReservationInfoMessage(isLoggedIn, resource, slot);
       if (message) {
         const notification = {
-          message: message,
+          message,
           type: 'info',
           timeOut: 10000,
         };
@@ -79,7 +79,7 @@ class TimeSlot extends Component {
     const disabled = (
       !isLoggedIn ||
       !resource.userPermissions.canMakeReservations ||
-      !slot.editing && (slot.reserved || isPast)
+      (!slot.editing && (slot.reserved || isPast))
     );
     const checked = selected || (slot.reserved && !slot.editing);
     let labelBsStyle;
@@ -125,10 +125,15 @@ class TimeSlot extends Component {
           </Label>
         </td>
         {isAdmin && (
-          <td className="user-cell">{reservation && slot.reservationStarting && this.renderUserInfo(reservation.user)}</td>
+          <td className="user-cell">
+            {reservation && slot.reservationStarting && this.renderUserInfo(reservation.user)}
+          </td>
         )}
         {isAdmin && (
-          <td className="comments-cell">{reservation && slot.reservationStarting && reservation.comments}</td>)}
+          <td className="comments-cell">
+            {reservation && slot.reservationStarting && reservation.comments}
+          </td>
+        )}
         {isAdmin && (
           <td className="controls-cell">
             {reservation && slot.reservationStarting && !isEditing && (

@@ -1,14 +1,13 @@
-/* eslint-disable no-var */
+const path = require('path');
+const webpack = require('webpack');
+const merge = require('webpack-merge');
 
-var path = require('path');
-var webpack = require('webpack');
-var merge = require('webpack-merge');
-
-var common = require('./webpack.common');
+const common = require('./webpack.common');
 
 module.exports = merge(common, {
   entry: [
-    'webpack-hot-middleware/client?reload=true',
+    'babel-polyfill',
+    'webpack-hot-middleware/client',
     path.resolve(__dirname, '../app/index.js'),
   ],
   debug: true,
@@ -33,20 +32,7 @@ module.exports = merge(common, {
         exclude: path.resolve(__dirname, '../node_modules'),
         loader: 'babel',
         query: {
-          'stage': 2,
-          'plugins': ['react-transform'],
-          'extra': {
-            'react-transform': {
-              'transforms': [{
-                'transform': 'react-transform-hmr',
-                'imports': ['react'],
-                'locals': ['module'],
-              }, {
-                'transform': 'react-transform-catch-errors',
-                'imports': ['react', 'redbox-react'],
-              }],
-            },
-          },
+          presets: ['es2015', 'node6', 'react', 'react-hmre', 'stage-2'],
         },
       },
       {

@@ -154,7 +154,8 @@ describe('Container: ReservationCalendar', () => {
         expect(actualProps.isAdmin).to.exist;
         expect(actualProps.isEditing).to.exist;
         expect(actualProps.isMakingReservations).to.equal(props.isMakingReservations);
-        expect(actualProps.isPreliminaryReservation).to.equal(props.resource.needManualConfirmation);
+        expect(actualProps.isPreliminaryReservation)
+          .to.equal(props.resource.needManualConfirmation);
         expect(actualProps.isStaff).to.exist;
         expect(actualProps.onClose).to.equal(props.actions.closeConfirmReservationModal);
         expect(actualProps.onConfirm).to.equal(instance.handleReservation);
@@ -229,13 +230,16 @@ describe('Container: ReservationCalendar', () => {
         expect(actualArgs[0]).to.deep.equal(expectedReservation);
       });
 
-      it('should add new reservations for the rest of the selected reservations', () => {
+      it('should add new reservations for the rest of the selected reservations', (done) => {
         const expectedCallCount = props.selectedReservations.length - 1;
 
-        expect(props.actions.postReservation.callCount).to.equal(expectedCallCount);
-        props.actions.postReservation.calls.forEach((call, index) => {
-          expect(call.args[0]).to.deep.equal(props.selectedReservations[index + 1]);
-        });
+        setTimeout(() => {
+          expect(props.actions.postReservation.callCount).to.equal(expectedCallCount);
+          props.actions.postReservation.calls.forEach((call, index) => {
+            expect(call.args[0]).to.deep.equal(props.selectedReservations[index + 1]);
+          });
+          done();
+        }, 800);
       });
     });
   });

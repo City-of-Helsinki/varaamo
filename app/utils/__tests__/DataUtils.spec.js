@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import MockDate from 'mockdate';
 
-import { REQUIRED_STAFF_EVENT_FIELDS } from 'constants/AppConstants';
+import constants from 'constants/AppConstants';
 import Image from 'fixtures/Image';
 import Reservation from 'fixtures/Reservation';
 import {
@@ -117,17 +117,23 @@ describe('Utils: DataUtils', () => {
       expect(isStaffEvent(reservation, resource)).to.equal(false);
     });
 
-    it('should return true if reservation is missing values for requiredReservationExtraFields', () => {
-      const reservation = {};
-      const resource = { requiredReservationExtraFields: ['reserver_name'] };
-      expect(isStaffEvent(reservation, resource)).to.equal(true);
-    });
+    it(
+      'should return true if reservation is missing values for requiredReservationExtraFields',
+      () => {
+        const reservation = {};
+        const resource = { requiredReservationExtraFields: ['reserver_name'] };
+        expect(isStaffEvent(reservation, resource)).to.equal(true);
+      }
+    );
 
-    it('should return true if reservation has empty strings for requiredReservationExtraFields', () => {
-      const reservation = { reserverName: '' };
-      const resource = { requiredReservationExtraFields: ['reserver_name'] };
-      expect(isStaffEvent(reservation, resource)).to.equal(true);
-    });
+    it(
+      'should return true if reservation has empty strings for requiredReservationExtraFields',
+      () => {
+        const reservation = { reserverName: '' };
+        const resource = { requiredReservationExtraFields: ['reserver_name'] };
+        expect(isStaffEvent(reservation, resource)).to.equal(true);
+      }
+    );
   });
 
   describe('getAddress', () => {
@@ -478,7 +484,7 @@ describe('Utils: DataUtils', () => {
         expect(actual).to.deep.equal({});
       });
 
-      REQUIRED_STAFF_EVENT_FIELDS.forEach((field) => {
+      constants.REQUIRED_STAFF_EVENT_FIELDS.forEach((field) => {
         it(`should contain ${field} as "-" if ${field} is missing`, () => {
           const reservation = getReservation({ [field]: undefined });
           const actual = getMissingReservationValues(reservation);
@@ -593,7 +599,7 @@ describe('Utils: DataUtils', () => {
     });
 
     it('should return an empty string if the property does not have given language', () => {
-      const item = { name: { 'fi': 'Finnish name' } };
+      const item = { name: { fi: 'Finnish name' } };
 
       expect(getTranslatedProperty(item, 'name', 'en')).to.equal('');
     });

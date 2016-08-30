@@ -14,12 +14,12 @@ const TimeSlot = new Factory()
     const end = moment(BASE_DATE).set('hour', (index + 3) % 24).toISOString();
     return `${start}/${end}`;
   })
-  .attr('start', ['index'], (index) => {
-    return moment(BASE_DATE).set('hour', (index + 2) % 24).toISOString();
-  })
-  .attr('end', ['index'], (index) => {
-    return moment(BASE_DATE).set('hour', (index + 3) % 24).toISOString();
-  })
+  .attr('start', ['index'], (index) => (
+    moment(BASE_DATE).set('hour', (index + 2) % 24).toISOString()
+  ))
+  .attr('end', ['index'], (index) => (
+    moment(BASE_DATE).set('hour', (index + 3) % 24).toISOString()
+  ))
   .attr('reserved', false)
   .attr('resource', 'some-resource-id');
 

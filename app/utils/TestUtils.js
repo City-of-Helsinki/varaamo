@@ -2,12 +2,6 @@ import { expect } from 'chai';
 
 import rootReducer from 'reducers/index';
 
-export default {
-  getDefaultRouterProps,
-  getInitialState,
-  makeButtonTests,
-};
-
 function getDefaultRouterProps() {
   return {
     location: {
@@ -42,3 +36,9 @@ function makeButtonTests(button, name, expectedText, expectedOnClickFunction) {
     expect(expectedOnClickFunction.callCount).to.equal(1);
   });
 }
+
+export {
+  getDefaultRouterProps,
+  getInitialState,
+  makeButtonTests,
+};

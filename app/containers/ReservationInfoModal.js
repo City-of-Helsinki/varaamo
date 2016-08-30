@@ -1,4 +1,4 @@
-import includes from 'lodash/collection/includes';
+import includes from 'lodash/includes';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
@@ -89,9 +89,21 @@ export class UnconnectedReservationInfoModal extends Component {
           <dt>Tilaisuuden kuvaus:</dt><dd>{reservation.eventDescription}</dd>
           <dt>Osallistujamäärä:</dt><dd>{reservation.numberOfParticipants}</dd>
           <dt>Osoite:</dt>
-          <dd>{this.getAddress(reservation.reserverAddressStreet, reservation.reserverAddressZip, reservation.reserverAddressCity)}</dd>
+          <dd>
+            {this.getAddress(
+              reservation.reserverAddressStreet,
+              reservation.reserverAddressZip,
+              reservation.reserverAddressCity
+            )}
+          </dd>
           <dt>Laskutusosoite:</dt>
-          <dd>{this.getAddress(reservation.billingAddressStreet, reservation.billingAddressZip, reservation.billingAddressCity)}</dd>
+          <dd>
+            {this.getAddress(
+              reservation.billingAddressStreet,
+              reservation.billingAddressZip,
+              reservation.billingAddressCity
+            )}
+          </dd>
           <dt>Varauksen ajankohta:</dt>
           <dd><TimeRange begin={reservation.begin} end={reservation.end} /></dd>
           <dt>Tila:</dt><dd>{getName(resource)}</dd>

@@ -21,15 +21,13 @@ const reservationCancelModalSelector = createSelector(
     cancelReservationModalIsOpen,
     resources,
     reservationsToCancel
-  ) => {
-    return {
-      isAdmin,
-      isCancellingReservations,
-      reservationsToCancel,
-      resources,
-      show: cancelReservationModalIsOpen,
-    };
-  }
+  ) => ({
+    isAdmin,
+    isCancellingReservations,
+    reservationsToCancel,
+    resources,
+    show: cancelReservationModalIsOpen,
+  })
 );
 
 export default reservationCancelModalSelector;

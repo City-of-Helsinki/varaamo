@@ -1,17 +1,16 @@
 machine:
   node:
-    version: 0.12.2
-
-general:
-  artifacts:
-    - "./coverage"
+    version: 6.3.0
 
 dependencies:
-  override:
-    - npm install
-    - ./node_modules/.bin/selenium-standalone install --version=2.47.1 --drivers.chrome.version=2.19
+  pre:
+    - npm install -g npm@3.10.x
 
 test:
   override:
     - npm run lint
     - npm run test:ci
+
+general:
+  artifacts:
+    - "./coverage"

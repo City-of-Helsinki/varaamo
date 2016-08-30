@@ -1,5 +1,4 @@
-import map from 'lodash/collection/map';
-import includes from 'lodash/collection/includes';
+import includes from 'lodash/includes';
 import React, { Component, PropTypes } from 'react';
 import Table from 'react-bootstrap/lib/Table';
 import Loader from 'react-loader';
@@ -69,7 +68,7 @@ class TimeSlots extends Component {
               </tr>
             </thead>
             <tbody>
-              {map(slots, this.renderTimeSlot)}
+              {slots.map(this.renderTimeSlot)}
             </tbody>
           </Table>
         ) : (

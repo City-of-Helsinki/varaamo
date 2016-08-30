@@ -32,6 +32,7 @@ describe('Container: ReservationInfoModal', () => {
     reserverEmailAddress: 'luke@sky.com',
     reserverName: 'Luke Skywalker',
     reserverPhoneNumber: '1234567',
+    resource: resource.id,
   });
   const defaultProps = {
     actions: {
@@ -206,7 +207,12 @@ describe('Container: ReservationInfoModal', () => {
         });
 
         describe('the first button', () => {
-          makeButtonTests(buttons.at(0), 'back', 'Takaisin', defaultProps.actions.closeReservationInfoModal);
+          makeButtonTests(
+            buttons.at(0),
+            'back',
+            'Takaisin',
+            defaultProps.actions.closeReservationInfoModal
+          );
         });
 
         describe('the second button', () => {
@@ -251,7 +257,12 @@ describe('Container: ReservationInfoModal', () => {
           });
 
           describe('the first button', () => {
-            makeButtonTests(buttons.at(0), 'back', 'Takaisin', defaultProps.actions.closeReservationInfoModal);
+            makeButtonTests(
+              buttons.at(0),
+              'back',
+              'Takaisin',
+              defaultProps.actions.closeReservationInfoModal
+            );
           });
 
           describe('the second button', () => {
@@ -295,7 +306,12 @@ describe('Container: ReservationInfoModal', () => {
           });
 
           describe('the first button', () => {
-            makeButtonTests(buttons.at(0), 'back', 'Takaisin', defaultProps.actions.closeReservationInfoModal);
+            makeButtonTests(
+              buttons.at(0),
+              'back',
+              'Takaisin',
+              defaultProps.actions.closeReservationInfoModal
+            );
           });
 
           describe('the second button', () => {
@@ -326,7 +342,12 @@ describe('Container: ReservationInfoModal', () => {
         });
 
         describe('the button', () => {
-          makeButtonTests(buttons.at(0), 'back', 'Takaisin', defaultProps.actions.closeReservationInfoModal);
+          makeButtonTests(
+            buttons.at(0),
+            'back',
+            'Takaisin',
+            defaultProps.actions.closeReservationInfoModal
+          );
         });
       });
     });
@@ -346,7 +367,7 @@ describe('Container: ReservationInfoModal', () => {
       expect(
         defaultProps.actions.selectReservationToEdit.lastCall.args[0]
       ).to.deep.equal(
-        { reservation: reservation, minPeriod: resource.minPeriod }
+        { reservation, minPeriod: resource.minPeriod }
       );
     });
 

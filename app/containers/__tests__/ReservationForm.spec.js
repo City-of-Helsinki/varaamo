@@ -6,10 +6,7 @@ import simple from 'simple-mock';
 import Button from 'react-bootstrap/lib/Button';
 import Input from 'react-bootstrap/lib/Input';
 
-import {
-  REQUIRED_STAFF_EVENT_FIELDS,
-  RESERVATION_FORM_FIELDS,
-} from 'constants/AppConstants';
+import constants from 'constants/AppConstants';
 
 import {
   UnconnectedReservationForm as ReservationForm,
@@ -21,24 +18,31 @@ describe('Container: ReservationForm', () => {
     describe('if field value is missing', () => {
       describe('if user is reserving an staff event', () => {
         const values = { staffEvent: true };
-        it('should return an error if field belongs to REQUIRED_STAFF_EVENT_FIELDS', () => {
-          const fieldName = REQUIRED_STAFF_EVENT_FIELDS[0];
-          const props = {
-            fields: [fieldName],
-            requiredFields: [],
-          };
-          const errors = validate(values, props);
-          expect(errors[fieldName]).to.exist;
+
+        describe('if field belongs to REQUIRED_STAFF_EVENT_FIELDS', () => {
+          const fieldName = constants.REQUIRED_STAFF_EVENT_FIELDS[0];
+
+          it('should return an error', () => {
+            const props = {
+              fields: [fieldName],
+              requiredFields: [],
+            };
+            const errors = validate(values, props);
+            expect(errors[fieldName]).to.exist;
+          });
         });
 
-        it('should not return an error if field does not belong to REQUIRED_STAFF_EVENT_FIELDS', () => {
+        describe('if field does not belong to REQUIRED_STAFF_EVENT_FIELDS', () => {
           const fieldName = 'someField';
-          const props = {
-            fields: [fieldName],
-            requiredFields: [],
-          };
-          const errors = validate(values, props);
-          expect(errors[fieldName]).to.not.exist;
+
+          it('should not return an error', () => {
+            const props = {
+              fields: [fieldName],
+              requiredFields: [],
+            };
+            const errors = validate(values, props);
+            expect(errors[fieldName]).to.not.exist;
+          });
         });
       });
 
@@ -119,7 +123,7 @@ describe('Container: ReservationForm', () => {
       describe('fields included in RESERVATION_FORM_FIELDS', () => {
         it('should render a field if it is included in props.fields', () => {
           const fields = {
-            [RESERVATION_FORM_FIELDS[0]]: {},
+            [constants.RESERVATION_FORM_FIELDS[0]]: {},
           };
           const input = getWrapper({ fields }).find(Input);
           expect(input.length).to.equal(1);
@@ -133,7 +137,7 @@ describe('Container: ReservationForm', () => {
 
         describe('required fields', () => {
           it('should display an asterisk beside a required field label', () => {
-            const fieldName = RESERVATION_FORM_FIELDS[0];
+            const fieldName = constants.RESERVATION_FORM_FIELDS[0];
             const props = {
               fields: { [fieldName]: { name: fieldName } },
               requiredFields: [fieldName],
@@ -143,7 +147,7 @@ describe('Container: ReservationForm', () => {
           });
 
           it('should not display an asterisk beside a non required field label', () => {
-            const fieldName = RESERVATION_FORM_FIELDS[0];
+            const fieldName = constants.RESERVATION_FORM_FIELDS[0];
             const props = {
               fields: { [fieldName]: { name: fieldName } },
               requiredFields: [],
@@ -156,7 +160,7 @@ describe('Container: ReservationForm', () => {
             const defaultFields = { staffEvent: { name: 'staffEvent', checked: true } };
 
             it('should show an asterisk beside REQUIRED_STAFF_EVENT_FIELDS', () => {
-              const fieldName = REQUIRED_STAFF_EVENT_FIELDS[0];
+              const fieldName = constants.REQUIRED_STAFF_EVENT_FIELDS[0];
               const fields = Object.assign({}, defaultFields, { [fieldName]: { name: fieldName } });
               const props = {
                 fields,
@@ -167,7 +171,7 @@ describe('Container: ReservationForm', () => {
             });
 
             it('should not show an asterisk beside non REQUIRED_STAFF_EVENT_FIELDS', () => {
-              const fieldName = RESERVATION_FORM_FIELDS[1];
+              const fieldName = constants.RESERVATION_FORM_FIELDS[1];
               const fields = Object.assign({}, defaultFields, { [fieldName]: { name: fieldName } });
               const props = {
                 fields,

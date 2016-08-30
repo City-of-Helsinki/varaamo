@@ -1,12 +1,12 @@
-import filter from 'lodash/collection/filter';
-import sortByOrder from 'lodash/collection/sortByOrder';
-import values from 'lodash/object/values';
+import filter from 'lodash/filter';
+import orderBy from 'lodash/orderBy';
+import values from 'lodash/values';
 import { createSelector } from 'reselect';
 
-import { RESERVATION_STATE_LABELS } from 'constants/AppConstants';
+import constants from 'constants/AppConstants';
 
 const reservationsSelector = (state, props) => {
-  if (RESERVATION_STATE_LABELS[props.filter]) {
+  if (constants.RESERVATION_STATE_LABELS[props.filter]) {
     return filter(state.data.reservations, (reservation) => reservation.state === props.filter);
   }
   if (props.filter === 'preliminary' || props.filter === 'all') {
@@ -20,9 +20,7 @@ const reservationsSelector = (state, props) => {
 
 const sortedReservationsSelector = createSelector(
   reservationsSelector,
-  (reservations) => {
-    return sortByOrder(values(reservations), ['begin'], ['asc']);
-  }
+  (reservations) => orderBy(values(reservations), ['begin'], ['asc'])
 );
 
 export default sortedReservationsSelector;

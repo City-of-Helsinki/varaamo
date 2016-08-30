@@ -1,12 +1,10 @@
-/* eslint-disable func-names, no-var */
+const webpackConfig = require('./webpack.tests');
 
-var webpackConfig = require('./webpack.tests');
-
-module.exports = function(options) {
-  var karmaConfig = {
+module.exports = (options) => {
+  const karmaConfig = {
     frameworks: ['mocha', 'chai'],
 
-    browsers: options.browsers || ['PhantomJS2'],
+    browsers: options.browsers || ['PhantomJS'],
 
     // Allow enough time for tests to build on CI.
     browserNoActivityTimeout: 5 * 60000,
@@ -14,12 +12,11 @@ module.exports = function(options) {
     autoWatch: true,
 
     files: [
-      { pattern: '../node_modules/babel-core/browser-polyfill.js', watched: false },
-      { pattern: '../app/**/__tests__/*.js', watched: false },
+      { pattern: './specs.bootstrap.js', watched: false },
     ],
 
     preprocessors: {
-      '../app/**/__tests__/*.js': ['webpack'],
+      './specs.bootstrap.js': ['webpack', 'sourcemap'],
     },
 
     webpackMiddleware: {
@@ -45,23 +42,15 @@ module.exports = function(options) {
     plugins: [
       'karma-chai',
       'karma-chrome-launcher',
-      'karma-phantomjs2-launcher',
+      'karma-phantomjs-launcher',
       'karma-mocha',
       'karma-mocha-reporter',
+      'karma-sourcemap-loader',
       'karma-webpack',
     ],
   };
 
   if (options.coverage) {
-    // Needs to load first to prevent linting issues
-    webpackConfig.module.preLoaders = [
-      {
-        test: /\.js$/,
-        exclude: /(__tests__|node_modules)/,
-        loader: 'isparta-instrumenter-loader',
-      },
-    ].concat(webpackConfig.module.preLoaders);
-
     karmaConfig.plugins.push('karma-coverage');
 
     karmaConfig.coverageReporter = {

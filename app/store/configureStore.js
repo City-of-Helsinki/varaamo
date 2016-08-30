@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 import { compose, createStore } from 'redux';
 
 import middleware from 'middleware';
@@ -12,6 +13,7 @@ function configureStore(initialState) {
     // Enable Webpack hot module replacement for reducers
     module.hot.accept('reducers', () => {
       const nextRootReducer = require('reducers/index');
+
       store.replaceReducer(nextRootReducer);
     });
   }

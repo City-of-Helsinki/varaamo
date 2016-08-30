@@ -1,6 +1,6 @@
 import 'moment/locale/fi';
 
-import capitalize from 'lodash/string/capitalize';
+import capitalize from 'lodash/capitalize';
 import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';

@@ -1,15 +1,14 @@
 import React from 'react';
 import Label from 'react-bootstrap/lib/Label';
 
-import { RESERVATION_STATE_LABELS } from 'constants/AppConstants';
-
+import constants from 'constants/AppConstants';
 
 function renderReservationStateLabel(reservation) {
   if (!reservation.needManualConfirmation && reservation.state !== 'cancelled') {
     return null;
   }
 
-  const { labelBsStyle, labelText } = RESERVATION_STATE_LABELS[reservation.state];
+  const { labelBsStyle, labelText } = constants.RESERVATION_STATE_LABELS[reservation.state];
 
   return (
     <div className="state">
@@ -18,6 +17,6 @@ function renderReservationStateLabel(reservation) {
   );
 }
 
-export default {
+export {
   renderReservationStateLabel,
 };

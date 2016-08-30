@@ -7,7 +7,7 @@ function getProps(date = '2015-10-10') {
   return {
     location: {
       query: {
-        date: date,
+        date,
         people: '',
         purpose: 'some-purpose',
         search: '',

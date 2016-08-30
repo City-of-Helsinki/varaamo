@@ -8,7 +8,7 @@ function getState(date = '2015-10-10') {
     ui: {
       search: {
         filters: {
-          date: date,
+          date,
           people: '',
           purpose: 'some-purpose',
           search: '',

@@ -9,6 +9,6 @@ function scrollTo(domElement) {
   window.scrollTo(scrollToX, scrollToY);
 }
 
-export default {
+export {
   scrollTo,
 };

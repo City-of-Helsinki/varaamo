@@ -1,4 +1,4 @@
-import throttle from 'lodash/function/throttle';
+import throttle from 'lodash/throttle';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
@@ -31,7 +31,9 @@ export class UnconnectedSearchControls extends Component {
 
     actions.changeSearchFilters(urlSearchFilters);
     actions.fetchPurposes();
-    this.fetchTypeaheadSuggestions = throttle(this.fetchTypeaheadSuggestions, 200, { leading: false, trailing: true });
+    this.fetchTypeaheadSuggestions = throttle(
+      this.fetchTypeaheadSuggestions, 200, { leading: false, trailing: true }
+    );
   }
 
   onDateChange(newDate) {
@@ -79,7 +81,7 @@ export class UnconnectedSearchControls extends Component {
     return (
       <div>
         <SearchInput
-          autoFocus={!Boolean(filters.purpose)}
+          autoFocus={!filters.purpose}
           onChange={(value) => this.handleSearchInputChange(value)}
           onSubmit={this.handleSearch}
           updatePath={actions.updatePath}

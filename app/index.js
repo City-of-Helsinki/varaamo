@@ -1,4 +1,3 @@
-import 'babel-core/polyfill';
 import 'location-origin';
 
 import createHistory from 'history/lib/createBrowserHistory';
@@ -18,7 +17,7 @@ import 'assets/styles/app.less';
 import 'assets/styles/customization/espoo/customization.less';
 
 const initialStoreState = createStore(rootReducer, {}).getState();
-const initialState = window.__INITIAL_STATE__;
+const initialState = window.INITIAL_STATE;
 const finalState = Immutable(initialStoreState).merge(initialState, { deep: true });
 const store = configureStore(finalState);
 const history = createHistory();
@@ -35,5 +34,5 @@ render(
 );
 
 if (__DEVTOOLS__) {
-  require('./createDevToolsWindow')(store);
+  require('./createDevToolsWindow')(store); // eslint-disable-line global-require
 }

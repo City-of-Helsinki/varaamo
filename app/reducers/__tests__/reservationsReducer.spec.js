@@ -1,6 +1,4 @@
 import { expect } from 'chai';
-
-import map from 'lodash/collection/map';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
@@ -9,10 +7,11 @@ import {
   changeAdminReservationsFilters,
   clearReservations,
   closeReservationCancelModal,
+  closeReservationInfoModal,
+  closeReservationSuccessModal,
   selectReservationToCancel,
   selectReservationToEdit,
   selectReservationToShow,
-  closeReservationInfoModal,
   toggleTimeSlot,
 } from 'actions/uiActions';
 import types from 'constants/ActionTypes';
@@ -241,12 +240,24 @@ describe('Reducer: reservationsReducer', () => {
         });
       });
 
-      describe('if closed modal is SHOW_RESERVATION modal', () => {
+      describe('if closed modal is RESERVATION_INFO modal', () => {
         it('should clear toShow array', () => {
           const initialState = Immutable({
             toShow: [Reservation.build()],
           });
           const action = closeReservationInfoModal();
+          const nextState = reservationsReducer(initialState, action);
+
+          expect(nextState.toShow).to.deep.equal([]);
+        });
+      });
+
+      describe('if closed modal is RESERVATION_SUCCESS modal', () => {
+        it('should clear toShow array', () => {
+          const initialState = Immutable({
+            toShow: [Reservation.build()],
+          });
+          const action = closeReservationSuccessModal();
           const nextState = reservationsReducer(initialState, action);
 
           expect(nextState.toShow).to.deep.equal([]);
@@ -325,7 +336,7 @@ describe('Reducer: reservationsReducer', () => {
         const action = selectReservationToEdit({ reservation, minPeriod });
         const nextState = reservationsReducer(initialState, action);
         const slots = getTimeSlots(reservation.begin, reservation.end, minPeriod);
-        const expected = map(slots, (slot) => slot.asISOString);
+        const expected = slots.map((slot) => slot.asISOString);
 
         expect(nextState.selected).to.deep.equal(expected);
       });

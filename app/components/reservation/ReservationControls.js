@@ -71,34 +71,39 @@ class ReservationControls extends Component {
 
     switch (reservation.state) {
 
-    case 'cancelled':
-      return isAdmin ?
-        [buttons.info] :
-        [buttons.info];
-
-    case 'confirmed':
-      if (isAdmin) {
-        return isStaff ?
-          [buttons.info, buttons.cancel, buttons.edit] :
-          [buttons.info, buttons.cancel];
+      case 'cancelled': {
+        return isAdmin ?
+          [buttons.info] :
+          [buttons.info];
       }
-      return [buttons.info, buttons.cancel];
 
-    case 'denied':
-      return isAdmin ?
-        [buttons.info] :
-        [buttons.info];
-
-    case 'requested':
-      if (isAdmin) {
-        return isStaff ?
-          [buttons.info, buttons.confirm, buttons.deny, buttons.edit] :
-          [buttons.info, buttons.edit];
+      case 'confirmed': {
+        if (isAdmin) {
+          return isStaff ?
+            [buttons.info, buttons.cancel, buttons.edit] :
+            [buttons.info, buttons.cancel];
+        }
+        return [buttons.info, buttons.cancel];
       }
-      return [buttons.info, buttons.edit, buttons.cancel];
 
-    default:
-      return null;
+      case 'denied': {
+        return isAdmin ?
+          [buttons.info] :
+          [buttons.info];
+      }
+
+      case 'requested': {
+        if (isAdmin) {
+          return isStaff ?
+            [buttons.info, buttons.confirm, buttons.deny, buttons.edit] :
+            [buttons.info, buttons.edit];
+        }
+        return [buttons.info, buttons.edit, buttons.cancel];
+      }
+
+      default: {
+        return null;
+      }
 
     }
   }

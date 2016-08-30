@@ -4,8 +4,8 @@ import React from 'react';
 import simple from 'simple-mock';
 
 import FeedbackLink from 'components/customization/FeedbackLink';
-import { FEEDBACK_URL } from 'constants/AppConstants';
-import customizationUtils from 'utils/CustomizationUtils';
+import constants from 'constants/AppConstants';
+import * as customizationUtils from 'utils/CustomizationUtils';
 
 describe('Component: customization/FeedbackLink', () => {
   const defaultProps = {
@@ -32,7 +32,7 @@ describe('Component: customization/FeedbackLink', () => {
     });
 
     it('should have correct href', () => {
-      const expected = `${FEEDBACK_URL}?ref=${window.location.href}`;
+      const expected = `${constants.FEEDBACK_URL}?ref=${window.location.href}`;
       expect(link.props().href).to.equal(expected);
     });
   });
@@ -58,7 +58,7 @@ describe('Component: customization/FeedbackLink', () => {
     });
 
     it('should have correct href', () => {
-      const expected = `${FEEDBACK_URL}?ref=${window.location.href}`;
+      const expected = `${constants.FEEDBACK_URL}?ref=${window.location.href}`;
       expect(link.props().href).to.equal(expected);
     });
   });

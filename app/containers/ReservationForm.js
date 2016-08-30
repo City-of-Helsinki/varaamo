@@ -1,4 +1,4 @@
-import includes from 'lodash/collection/includes';
+import includes from 'lodash/includes';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Input from 'react-bootstrap/lib/Input';
@@ -6,13 +6,14 @@ import Well from 'react-bootstrap/lib/Well';
 import { reduxForm } from 'redux-form';
 
 import isEmail from 'validator/lib/isEmail';
-import { REQUIRED_STAFF_EVENT_FIELDS } from 'constants/AppConstants';
+import constants from 'constants/AppConstants';
 
 const validators = {
   reserverEmailAddress: ({ reserverEmailAddress }) => {
     if (reserverEmailAddress && !isEmail(reserverEmailAddress)) {
       return 'Syötä kunnollinen sähköpostiosoite';
     }
+    return null;
   },
 };
 
@@ -33,7 +34,9 @@ const maxLengths = {
 
 export function validate(values, { fields, requiredFields }) {
   const errors = {};
-  const currentRequiredFields = values.staffEvent ? REQUIRED_STAFF_EVENT_FIELDS : requiredFields;
+  const currentRequiredFields = values.staffEvent ?
+    constants.REQUIRED_STAFF_EVENT_FIELDS :
+    requiredFields;
   fields.forEach((field) => {
     const validator = validators[field];
     if (validator) {
@@ -109,7 +112,7 @@ export class UnconnectedReservationForm extends Component {
     } = this.props;
 
     this.requiredFields = fields.staffEvent && fields.staffEvent.checked ?
-      REQUIRED_STAFF_EVENT_FIELDS :
+      constants.REQUIRED_STAFF_EVENT_FIELDS :
       requiredFields;
 
     return (
@@ -121,7 +124,12 @@ export class UnconnectedReservationForm extends Component {
           {this.renderField('text', 'Puhelin', fields.reserverPhoneNumber)}
           {this.renderField('email', 'Sähköposti', fields.reserverEmailAddress)}
           {this.renderField('textarea', 'Tilaisuuden kuvaus', fields.eventDescription, { rows: 5 })}
-          {this.renderField('number', 'Osallistujamäärä', fields.numberOfParticipants, { min: '0' })}
+          {this.renderField(
+            'number',
+            'Osallistujamäärä',
+            fields.numberOfParticipants,
+            { min: '0' }
+          )}
           { fields.reserverAddressStreet && (
             <Well>
               <p>Osoite</p>

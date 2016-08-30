@@ -1,25 +1,15 @@
 import { camelizeKeys, decamelizeKeys } from 'humps';
-import pick from 'lodash/object/pick';
-import isEmpty from 'lodash/lang/isEmpty';
+import pickBy from 'lodash/pickBy';
+import isEmpty from 'lodash/isEmpty';
 import { normalize } from 'normalizr';
 import { CALL_API, getJSON } from 'redux-api-middleware';
 
-import { API_URL, REQUIRED_API_HEADERS } from 'constants/AppConstants';
-
-export default {
-  buildAPIUrl,
-  createTransformFunction,
-  getErrorTypeDescriptor,
-  getHeadersCreator,
-  getRequestTypeDescriptor,
-  getSearchParamsString,
-  getSuccessTypeDescriptor,
-};
+import constants from 'constants/AppConstants';
 
 function buildAPIUrl(endpoint, params) {
-  let url = `${API_URL}/${endpoint}/`;
+  let url = `${constants.API_URL}/${endpoint}/`;
 
-  const nonEmptyParams = pick(params, (value) => value !== '');
+  const nonEmptyParams = pickBy(params, (value) => value !== '');
 
   if (!isEmpty(nonEmptyParams)) {
     url = `${url}?${getSearchParamsString(nonEmptyParams)}`;
@@ -41,15 +31,13 @@ function createTransformFunction(schema) {
 function getErrorTypeDescriptor(type, options = {}) {
   return {
     type,
-    meta: (action) => {
-      return {
-        API_ACTION: {
-          apiRequestFinish: true,
-          countable: options.countable,
-          type: action[CALL_API].types[0].type,
-        },
-      };
-    },
+    meta: (action) => ({
+      API_ACTION: {
+        apiRequestFinish: true,
+        countable: options.countable,
+        type: action[CALL_API].types[0].type,
+      },
+    }),
   };
 }
 
@@ -59,7 +47,7 @@ function getHeadersCreator(headers) {
     if (state.auth.token) {
       authorizationHeaders.Authorization = `JWT ${state.auth.token}`;
     }
-    return Object.assign({}, REQUIRED_API_HEADERS, headers, authorizationHeaders);
+    return Object.assign({}, constants.REQUIRED_API_HEADERS, headers, authorizationHeaders);
   };
 }
 
@@ -88,23 +76,34 @@ function getSearchParamsString(params) {
 }
 
 function getSuccessPayload(options) {
-  return (action, state, response) => {
-    return getJSON(response).then(createTransformFunction(options.schema));
-  };
+  return (action, state, response) => (
+    getJSON(response).then(createTransformFunction(options.schema))
+  );
 }
 
 function getSuccessTypeDescriptor(type, options = {}) {
   return {
     type,
     payload: options.payload || getSuccessPayload(options),
-    meta: (action) => {
-      return Object.assign({
+
+    meta: (action) => (
+      Object.assign({
         API_ACTION: {
           apiRequestFinish: true,
           countable: options.countable,
           type: action[CALL_API].types[0].type,
         },
-      }, options.meta);
-    },
+      }, options.meta)
+    ),
   };
 }
+
+export {
+  buildAPIUrl,
+  createTransformFunction,
+  getErrorTypeDescriptor,
+  getHeadersCreator,
+  getRequestTypeDescriptor,
+  getSearchParamsString,
+  getSuccessTypeDescriptor,
+};

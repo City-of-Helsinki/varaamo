@@ -3,7 +3,7 @@ import serialize from 'serialize-javascript';
 
 class Html extends Component {
   getInitialStateHtml(initialState) {
-    return `window.__INITIAL_STATE__ = ${serialize(initialState)};`;
+    return `window.INITIAL_STATE = ${serialize(initialState)};`;
   }
 
   renderAnalyticsCode(piwikSiteId) {
@@ -20,7 +20,11 @@ class Html extends Component {
         _paq.push(['setTrackerUrl', u+'piwik.php']);
         _paq.push(['setSiteId', ${piwikSiteId}]);
         var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+        g.type='text/javascript';
+        g.async=true;
+        g.defer=true;
+        g.src=u+'piwik.js';
+        s.parentNode.insertBefore(g,s);
       })();
     `;
     const imgSrc = `//analytics.hel.ninja/piwik/piwik.php?idsite=${piwikSiteId}`;

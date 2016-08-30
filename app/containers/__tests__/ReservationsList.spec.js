@@ -63,30 +63,32 @@ describe('Container: ReservationsList', () => {
         expect(reservationsListItemTrees.length).to.equal(props.reservations.length);
       });
 
-      it('should pass correct props to ReservationsListItem', () => {
-        reservationsListItemTrees.forEach((reservationTree, index) => {
-          const actualProps = reservationTree.props;
+      describe('passing correct props', () => {
+        it('should pass isAdmin, isStaff and reservation', () => {
+          reservationsListItemTrees.forEach((reservationTree, index) => {
+            const actualProps = reservationTree.props;
 
-          expect(actualProps.isAdmin).to.equal(props.isAdmin);
-          expect(actualProps.isStaff).to.equal(false);
-          expect(actualProps.reservation).to.deep.equal(props.reservations[index]);
+            expect(actualProps.isAdmin).to.equal(props.isAdmin);
+            expect(actualProps.isStaff).to.equal(false);
+            expect(actualProps.reservation).to.deep.equal(props.reservations[index]);
+          });
         });
-      });
 
-      it('should pass resource corresponding to reservation.resource as a prop to ReservationsListItem', () => {
-        expect(reservationsListItemTrees[0].props.resource).to.deep.equal(resource);
-      });
+        it('should pass resource corresponding to reservation.resource', () => {
+          expect(reservationsListItemTrees[0].props.resource).to.deep.equal(resource);
+        });
 
-      it('should pass empty object as resource prop to ReservationsListItem if resource is unfetched', () => {
-        expect(reservationsListItemTrees[1].props.resource).to.deep.equal({});
-      });
+        it('should pass empty object as resource if resource is unfetched', () => {
+          expect(reservationsListItemTrees[1].props.resource).to.deep.equal({});
+        });
 
-      it('should pass unit corresponding to resource.unit as a prop to ReservationsListItem', () => {
-        expect(reservationsListItemTrees[0].props.unit).to.deep.equal(unit);
-      });
+        it('should pass unit corresponding to resource.unit', () => {
+          expect(reservationsListItemTrees[0].props.unit).to.deep.equal(unit);
+        });
 
-      it('should pass empty object as unit prop to ReservationsListItem if unit or resource is unfetched', () => {
-        expect(reservationsListItemTrees[1].props.unit).to.deep.equal({});
+        it('should pass empty object as unit if unit or resource is unfetched', () => {
+          expect(reservationsListItemTrees[1].props.unit).to.deep.equal({});
+        });
       });
     });
   });

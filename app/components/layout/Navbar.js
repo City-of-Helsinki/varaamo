@@ -1,4 +1,4 @@
-import trim from 'lodash/string/trim';
+import trim from 'lodash/trim';
 import React, { Component, PropTypes } from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import MenuItem from 'react-bootstrap/lib/MenuItem';

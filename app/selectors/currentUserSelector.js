@@ -6,12 +6,7 @@ const usersSelector = (state) => state.data.users;
 const currentUserSelector = createSelector(
   userIdSelector,
   usersSelector,
-  (
-    userId,
-    users
-  ) => {
-    return users[userId] || {};
-  }
+  (userId, users) => users[userId] || {}
 );
 
 export default currentUserSelector;

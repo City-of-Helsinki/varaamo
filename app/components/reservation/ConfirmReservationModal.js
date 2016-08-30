@@ -1,10 +1,10 @@
-import pick from 'lodash/object/pick';
-import camelCase from 'lodash/string/camelCase';
+import pick from 'lodash/pick';
+import camelCase from 'lodash/camelCase';
 import React, { Component, PropTypes } from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 
 import CompactReservationsList from 'components/common/CompactReservationsList';
-import { RESERVATION_FORM_FIELDS } from 'constants/AppConstants';
+import constants from 'constants/AppConstants';
 import ReservationForm from 'containers/ReservationForm';
 import { isStaffEvent } from 'utils/DataUtils';
 
@@ -31,7 +31,7 @@ class ConfirmReservationModal extends Component {
     } = this.props;
     const formFields = [];
     if (resource.needManualConfirmation) {
-      formFields.push(...RESERVATION_FORM_FIELDS);
+      formFields.push(...constants.RESERVATION_FORM_FIELDS);
     }
 
     if (isAdmin) {
@@ -59,7 +59,9 @@ class ConfirmReservationModal extends Component {
       reservation = selectedReservations.length ? selectedReservations[0] : null;
     }
 
-    let rv = reservation ? pick(reservation, ['comments', ...RESERVATION_FORM_FIELDS]) : {};
+    let rv = reservation ?
+      pick(reservation, ['comments', ...constants.RESERVATION_FORM_FIELDS]) :
+      {};
     if (isEditing) {
       rv = Object.assign(rv, { staffEvent: isStaffEvent(reservation, resource) });
     }
@@ -138,9 +140,9 @@ class ConfirmReservationModal extends Component {
       show,
     } = this.props;
 
-    const requiredFormFields = resource.requiredReservationExtraFields.map((field) => {
-      return camelCase(field);
-    });
+    const requiredFormFields = resource.requiredReservationExtraFields.map(
+      (field) => camelCase(field)
+    );
 
     return (
       <Modal

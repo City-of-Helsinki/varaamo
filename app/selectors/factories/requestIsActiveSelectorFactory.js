@@ -5,9 +5,7 @@ const requestIsActiveSelectorFactory = (requestActionType) => {
 
   return createSelector(
     activeRequestsSelector,
-    (activeRequests) => {
-      return Boolean(activeRequests[requestActionType]);
-    }
+    (activeRequests) => Boolean(activeRequests[requestActionType])
   );
 };
 

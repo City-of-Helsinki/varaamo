@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import simple from 'simple-mock';
 
-import apiUtils from 'utils/APIUtils';
-import userActions from 'actions/userActions';
+import * as apiUtils from 'utils/APIUtils';
+import { fetchUser } from 'actions/userActions';
 
 describe('Actions: userActions', () => {
   let getRequestTypeDescriptorMock;
@@ -13,7 +13,7 @@ describe('Actions: userActions', () => {
   describe('fetchUser', () => {
     it('includes correct track in meta', () => {
       const id = '1234qwert';
-      userActions.fetchUser(id);
+      fetchUser(id);
       expect(getRequestTypeDescriptorMock.lastCall.args[1].meta.track).to.deep.equal({
         event: 'trackEvent',
         args: [

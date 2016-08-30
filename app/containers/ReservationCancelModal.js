@@ -1,4 +1,4 @@
-import forEach from 'lodash/collection/forEach';
+import forEach from 'lodash/forEach';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-bootstrap/lib/Modal';

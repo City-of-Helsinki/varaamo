@@ -2,9 +2,7 @@ import { Factory } from 'rosie';
 
 const Resource = new Factory()
   .sequence('id', (index) => `r-${index}`)
-  .sequence('name', (index) => {
-    return { fi: `Resource-${index}` };
-  })
+  .sequence('name', (index) => ({ fi: `Resource-${index}` }))
   .sequence('unit', (index) => `u-${index}`)
   .attr('userPermissions', { isAdmin: false, canMakeReservations: true })
   .attr('requiredReservationExtraFields', []);

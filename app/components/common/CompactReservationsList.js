@@ -1,4 +1,3 @@
-import map from 'lodash/collection/map';
 import React, { Component, PropTypes } from 'react';
 
 import TimeRange from 'components/common/TimeRange';
@@ -31,7 +30,7 @@ class CompactReservationsList extends Component {
   render() {
     return (
       <ul>
-        {map(this.props.reservations, this.renderReservation)}
+        {this.props.reservations.map(this.renderReservation)}
       </ul>
     );
   }

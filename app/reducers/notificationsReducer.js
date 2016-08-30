@@ -1,14 +1,14 @@
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
-import { NOTIFICATION_DEFAULTS } from 'constants/AppConstants';
+import constants from 'constants/AppConstants';
 
 const initialState = Immutable({});
 
 function addNotification(state, notification) {
   return [...state, Object.assign(
     {},
-    NOTIFICATION_DEFAULTS,
+    constants.NOTIFICATION_DEFAULTS,
     notification,
     { id: (state.length || 0) + 1 }
   )];
@@ -34,7 +34,7 @@ function getErrorMessage(error) {
   }
 
   if (!message.endsWith('.')) {
-    message = message + '.';
+    message += '.';
   }
 
   return message;
@@ -47,56 +47,63 @@ function notificationsReducer(state = initialState, action) {
 
   // Notification handling
 
-  case types.UI.ADD_NOTIFICATION:
-    notification = action.payload;
-    return addNotification(state, notification);
+    case types.UI.ADD_NOTIFICATION: {
+      notification = action.payload;
+      return addNotification(state, notification);
+    }
 
-  case types.UI.HIDE_NOTIFICATION:
-    const index = action.payload.id - 1;
-    return hideNotification(state, index);
+    case types.UI.HIDE_NOTIFICATION: {
+      const index = action.payload.id - 1;
+      return hideNotification(state, index);
+    }
 
-  // Success messages
+    // Success messages
 
-  case types.API.RESERVATION_DELETE_SUCCESS:
-    notification = {
-      message: 'Varauksen peruminen onnistui.',
-      type: 'success',
-    };
-    return addNotification(state, notification);
+    case types.API.RESERVATION_DELETE_SUCCESS: {
+      notification = {
+        message: 'Varauksen peruminen onnistui.',
+        type: 'success',
+      };
+      return addNotification(state, notification);
+    }
 
-  case types.API.RESERVATION_POST_SUCCESS:
-    const reservation = action.payload;
-    if (reservation.needManualConfirmation) {
+    case types.API.RESERVATION_POST_SUCCESS: {
+      const reservation = action.payload;
+      if (reservation.needManualConfirmation) {
+        return state;
+      }
+      notification = {
+        message: 'Varauksen tekeminen onnistui.',
+        type: 'success',
+      };
+      return addNotification(state, notification);
+    }
+
+    case types.API.RESERVATION_PUT_SUCCESS: {
+      notification = {
+        message: 'Varaus päivitetty.',
+        type: 'success',
+      };
+      return addNotification(state, notification);
+    }
+
+    // Error messages
+
+    case types.API.RESERVATION_DELETE_ERROR:
+    case types.API.RESERVATION_POST_ERROR:
+    case types.API.RESERVATION_PUT_ERROR: {
+      message = getErrorMessage(action.payload);
+      notification = {
+        message,
+        type: 'error',
+        timeOut: 10000,
+      };
+      return addNotification(state, notification);
+    }
+
+    default: {
       return state;
     }
-    notification = {
-      message: 'Varauksen tekeminen onnistui.',
-      type: 'success',
-    };
-    return addNotification(state, notification);
-
-  case types.API.RESERVATION_PUT_SUCCESS:
-    notification = {
-      message: 'Varaus päivitetty.',
-      type: 'success',
-    };
-    return addNotification(state, notification);
-
-  // Error messages
-
-  case types.API.RESERVATION_DELETE_ERROR:
-  case types.API.RESERVATION_POST_ERROR:
-  case types.API.RESERVATION_PUT_ERROR:
-    message = getErrorMessage(action.payload);
-    notification = {
-      message,
-      type: 'error',
-      timeOut: 10000,
-    };
-    return addNotification(state, notification);
-
-  default:
-    return state;
   }
 }
 

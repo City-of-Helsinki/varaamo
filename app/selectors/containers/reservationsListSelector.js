@@ -23,16 +23,14 @@ const reservationsListSelector = createSelector(
     reservations,
     staffUnits,
     units
-  ) => {
-    return {
-      isAdmin,
-      isFetchingReservations,
-      reservations,
-      resources,
-      staffUnits,
-      units,
-    };
-  }
+  ) => ({
+    isAdmin,
+    isFetchingReservations,
+    reservations,
+    resources,
+    staffUnits,
+    units,
+  })
 );
 
 export default reservationsListSelector;

@@ -1,32 +1,16 @@
-import last from 'lodash/array/last';
-import rest from 'lodash/array/rest';
-import filter from 'lodash/collection/filter';
-import find from 'lodash/collection/find';
-import forEach from 'lodash/collection/forEach';
-import some from 'lodash/collection/some';
-import sortBy from 'lodash/collection/sortBy';
-import clone from 'lodash/lang/clone';
-import isEmpty from 'lodash/lang/isEmpty';
-import camelCase from 'lodash/string/camelCase';
+import camelCase from 'lodash/camelCase';
+import clone from 'lodash/clone';
+import filter from 'lodash/filter';
+import find from 'lodash/find';
+import forEach from 'lodash/forEach';
+import isEmpty from 'lodash/isEmpty';
+import last from 'lodash/last';
+import some from 'lodash/some';
+import sortBy from 'lodash/sortBy';
+import tail from 'lodash/tail';
 import moment from 'moment';
 
-import { REQUIRED_STAFF_EVENT_FIELDS } from 'constants/AppConstants';
-
-export default {
-  combineReservations,
-  isStaffEvent,
-  getAddress,
-  getAddressWithName,
-  getAvailableTime,
-  getCaption,
-  getDescription,
-  getMainImage,
-  getMissingReservationValues,
-  getName,
-  getOpeningHours,
-  getPeopleCapacityString,
-  getTranslatedProperty,
-};
+import constants from 'constants/AppConstants';
 
 function combineReservations(reservations) {
   if (!reservations || !reservations.length) {
@@ -36,7 +20,7 @@ function combineReservations(reservations) {
   const sorted = sortBy(reservations, 'begin');
   const initialValue = [clone(sorted[0])];
 
-  return rest(sorted).reduce((previous, current) => {
+  return tail(sorted).reduce((previous, current) => {
     if (current.begin === last(previous).end) {
       last(previous).end = current.end;
     } else {
@@ -50,9 +34,9 @@ function isStaffEvent(reservation, resource) {
   if (!resource || !resource.requiredReservationExtraFields) {
     return false;
   }
-  return some(resource.requiredReservationExtraFields, (field) => {
-    return !reservation[camelCase(field)];
-  });
+  return some(resource.requiredReservationExtraFields, (field) => (
+    !reservation[camelCase(field)]
+  ));
 }
 
 function getAddress(item) {
@@ -95,14 +79,14 @@ function getAvailableTime(openingHours = {}, reservations = []) {
   let total = closesMoment - beginMoment;
 
   forEach(
-    filter(reservations, reservation => {
-      return reservation.state !== 'cancelled' && moment(reservation.end) > nowMoment;
-    }),
+    filter(reservations, reservation => (
+      reservation.state !== 'cancelled' && moment(reservation.end) > nowMoment
+    )),
     (reservation) => {
       const resBeginMoment = moment(reservation.begin);
       const resEndMoment = moment(reservation.end);
       const maxBeginMoment = nowMoment > resBeginMoment ? nowMoment : resBeginMoment;
-      total = total - resEndMoment + maxBeginMoment;
+      total = (total - resEndMoment) + maxBeginMoment;
     }
   );
 
@@ -130,7 +114,7 @@ function getMainImage(images) {
 
 function getMissingReservationValues(reservation) {
   const missingValues = {};
-  REQUIRED_STAFF_EVENT_FIELDS.forEach((field) => {
+  constants.REQUIRED_STAFF_EVENT_FIELDS.forEach((field) => {
     if (!reservation[field]) {
       missingValues[field] = '-';
     }
@@ -166,3 +150,19 @@ function getTranslatedProperty(item, property, language = 'fi') {
   }
   return '';
 }
+
+export {
+  combineReservations,
+  isStaffEvent,
+  getAddress,
+  getAddressWithName,
+  getAvailableTime,
+  getCaption,
+  getDescription,
+  getMainImage,
+  getMissingReservationValues,
+  getName,
+  getOpeningHours,
+  getPeopleCapacityString,
+  getTranslatedProperty,
+};

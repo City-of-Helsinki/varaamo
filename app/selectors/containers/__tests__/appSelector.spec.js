@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import indexBy from 'lodash/collection/indexBy';
+import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
 import User from 'fixtures/User';
@@ -13,7 +13,7 @@ function getState(users, loggedInUserId) {
       token: 'mock-token',
     }),
     data: Immutable({
-      users: indexBy(users, 'id'),
+      users: keyBy(users, 'id'),
     }),
   };
 }

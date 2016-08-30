@@ -1,4 +1,4 @@
-import isEqual from 'lodash/lang/isEqual';
+import isEqual from 'lodash/isEqual';
 import React, { Component, PropTypes } from 'react';
 import DocumentTitle from 'react-document-title';
 import { findDOMNode } from 'react-dom';

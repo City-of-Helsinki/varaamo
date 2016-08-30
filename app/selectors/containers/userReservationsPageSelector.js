@@ -16,14 +16,12 @@ const userReservationsPageSelector = createSelector(
     isAdmin,
     reservationsFetchCount,
     resourcesLoaded
-  ) => {
-    return {
-      adminReservationsFilters,
-      isAdmin,
-      reservationsFetchCount,
-      resourcesLoaded,
-    };
-  }
+  ) => ({
+    adminReservationsFilters,
+    isAdmin,
+    reservationsFetchCount,
+    resourcesLoaded,
+  })
 );
 
 export default userReservationsPageSelector;

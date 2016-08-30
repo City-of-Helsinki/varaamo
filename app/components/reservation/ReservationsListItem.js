@@ -1,4 +1,4 @@
-import isEmpty from 'lodash/lang/isEmpty';
+import isEmpty from 'lodash/isEmpty';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 

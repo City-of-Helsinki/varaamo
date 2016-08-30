@@ -20,15 +20,13 @@ const searchPageSelector = createSelector(
     searchResults,
     units,
     urlSearchFilters
-  ) => {
-    return {
-      filters: urlSearchFilters,
-      isFetchingSearchResults,
-      results: searchResults,
-      searchDone,
-      units,
-    };
-  }
+  ) => ({
+    filters: urlSearchFilters,
+    isFetchingSearchResults,
+    results: searchResults,
+    searchDone,
+    units,
+  })
 );
 
 export default searchPageSelector;

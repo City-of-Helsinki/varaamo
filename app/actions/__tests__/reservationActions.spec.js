@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import simple from 'simple-mock';
 
-import apiUtils from 'utils/APIUtils';
-import reservationActions from 'actions/reservationActions';
+import * as apiUtils from 'utils/APIUtils';
+import * as reservationActions from 'actions/reservationActions';
 
 describe('Actions: reservationActions', () => {
   const reservation = {

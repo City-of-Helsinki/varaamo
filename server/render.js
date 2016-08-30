@@ -18,7 +18,7 @@ function render(req, res) {
     };
   }
 
-  const html = '<!DOCTYPE html>' + ReactDOMServer.renderToStaticMarkup(
+  const htmlContent = ReactDOMServer.renderToStaticMarkup(
     <Html
       appCssSrc={config.assetsSources.appCss}
       appScriptSrc={config.assetsSources.appJs}
@@ -27,6 +27,7 @@ function render(req, res) {
       piwikSiteId={config.piwikSiteId}
     />
   );
+  const html = `<!DOCTYPE html>${htmlContent}`;
 
   // Send the rendered page back to the client
   res.send(html);

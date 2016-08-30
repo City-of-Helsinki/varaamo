@@ -1,12 +1,11 @@
-/* eslint-disable func-names, no-var, vars-on-top */
 require('babel-core/register');
 require('dotenv').load();
 
-var serverConfig = require('./config');
+const serverConfig = require('./config');
 
 // To ignore webpack custom loaders on server.
-serverConfig.webpackStylesExtensions.forEach(function(ext) {
-  require.extensions['.' + ext] = function() {};
+serverConfig.webpackStylesExtensions.forEach((ext) => {
+  require.extensions[`.${ext}`] = () => {};
 });
 
 require('./main');
