@@ -39,7 +39,21 @@ function searchResources(params = {}) {
   return {
     [CALL_API]: {
       types: [
-        getRequestTypeDescriptor(types.API.SEARCH_RESULTS_GET_REQUEST),
+        getRequestTypeDescriptor(
+          types.API.SEARCH_RESULTS_GET_REQUEST,
+          {
+            meta: {
+              track: {
+                event: 'trackEvent',
+                args: [
+                  'Search',
+                  'get',
+                  fetchParams.search,
+                ],
+              },
+            },
+          }
+        ),
         getSuccessTypeDescriptor(
           types.API.SEARCH_RESULTS_GET_SUCCESS,
           { schema: paginatedResourcesSchema }

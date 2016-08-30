@@ -31,7 +31,10 @@ function deleteReservation(reservation) {
       types: [
         getRequestTypeDescriptor(
           types.API.RESERVATION_DELETE_REQUEST,
-          { countable: true }
+          {
+            countable: true,
+            meta: { track: getTrackingInfo('cancel', reservation.resource) },
+          }
         ),
         getSuccessTypeDescriptor(
           types.API.RESERVATION_DELETE_SUCCESS,
@@ -89,7 +92,10 @@ function postReservation(reservation) {
       types: [
         getRequestTypeDescriptor(
           types.API.RESERVATION_POST_REQUEST,
-          { countable: true }
+          {
+            countable: true,
+            meta: { track: getTrackingInfo('add', reservation.resource) },
+          }
         ),
         getSuccessTypeDescriptor(
           types.API.RESERVATION_POST_SUCCESS,
@@ -114,7 +120,10 @@ function putReservation(reservation) {
       types: [
         getRequestTypeDescriptor(
           types.API.RESERVATION_PUT_REQUEST,
-          { countable: true }
+          {
+            countable: true,
+            meta: { track: getTrackingInfo('edit', reservation.resource) },
+          }
         ),
         getSuccessTypeDescriptor(
           types.API.RESERVATION_PUT_SUCCESS,
@@ -131,4 +140,15 @@ function putReservation(reservation) {
       body: parseReservationData(reservation),
     },
   };
+}
+
+function getTrackingInfo(type, resource) {
+  return ({
+    event: 'trackEvent',
+    args: [
+      'Reservation',
+      type,
+      resource,
+    ],
+  });
 }

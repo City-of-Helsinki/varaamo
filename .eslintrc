@@ -9,7 +9,8 @@
 
   "globals": {
     __API_URL__: true,
-    __DEVTOOLS__: true
+    __DEVTOOLS__: true,
+    __TRACKING__: false
   },
 
   "rules": {

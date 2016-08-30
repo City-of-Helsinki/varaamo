@@ -66,13 +66,13 @@ function getHeadersCreator(headers) {
 function getRequestTypeDescriptor(type, options = {}) {
   return {
     type,
-    meta: {
+    meta: Object.assign({
       API_ACTION: {
         apiRequestStart: true,
         countable: options.countable,
         type,
       },
-    },
+    }, options.meta),
   };
 }
 
@@ -98,13 +98,13 @@ function getSuccessTypeDescriptor(type, options = {}) {
     type,
     payload: options.payload || getSuccessPayload(options),
     meta: (action) => {
-      return {
+      return Object.assign({
         API_ACTION: {
           apiRequestFinish: true,
           countable: options.countable,
           type: action[CALL_API].types[0].type,
         },
-      };
+      }, options.meta);
     },
   };
 }
