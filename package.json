@@ -106,7 +106,6 @@
     "redux-devtools": "git://github.com/tomatau/redux-devtools.git",
     "redux-logger": "2.0.4",
     "rosie": "1.6.0",
-    "selenium-standalone": "5.6.1",
     "simple-mock": "0.7.0",
     "skin-deep": "0.16.0",
     "style-loader": "0.13.1",
