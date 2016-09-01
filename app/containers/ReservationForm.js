@@ -52,7 +52,11 @@ export function validate(values, { fields, requiredFields }) {
     }
     if (includes(currentRequiredFields, field)) {
       if (!values[field]) {
-        errors[field] = 'Pakollinen tieto';
+        errors[field] = (
+          field === 'termsAndConditions' ?
+          'Sinun on hyväksyttävä tilan käyttösäännöt varataksesi tilan' :
+          'Pakollinen tieto'
+        );
       }
     }
   });
@@ -95,9 +99,26 @@ export class UnconnectedReservationForm extends Component {
           `}
           label="Viraston oma tapahtuma"
           type="checkbox"
-          wrapperClassName="col-md-12 staff-event-field"
+          wrapperClassName="col-md-12 checkbox-field"
         />
       </Well>
+    );
+  }
+
+  renderTermsAndConditionsField(field) {
+    if (!field) {
+      return null;
+    }
+    const hasError = field.error && field.touched;
+    return (
+      <Input
+        {...field}
+        bsStyle={hasError ? 'error' : null}
+        help={hasError ? field.error : null}
+        label="Olen lukenut ja hyväksynyt tilan käyttösäännöt*"
+        type="checkbox"
+        wrapperClassName="col-md-12 checkbox-field"
+      />
     );
   }
 
@@ -155,6 +176,7 @@ export class UnconnectedReservationForm extends Component {
               rows: 5,
             }
           )}
+          {this.renderTermsAndConditionsField(fields.termsAndConditions)}
           <div className="form-controls">
             <Button
               bsStyle="default"

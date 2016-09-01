@@ -30,6 +30,7 @@ class ConfirmReservationModal extends Component {
       resource,
     } = this.props;
     const formFields = [];
+
     if (resource.needManualConfirmation) {
       formFields.push(...constants.RESERVATION_FORM_FIELDS);
     }
@@ -37,8 +38,13 @@ class ConfirmReservationModal extends Component {
     if (isAdmin) {
       formFields.push('comments');
     }
+
     if (resource.needManualConfirmation && isStaff) {
       formFields.push('staffEvent');
+    }
+
+    if (resource.termsAndConditions) {
+      formFields.push('termsAndConditions');
     }
 
     return formFields;
@@ -76,6 +82,18 @@ class ConfirmReservationModal extends Component {
       return 'Alustava varaus';
     }
     return 'Varauksen vahvistus';
+  }
+
+  getRequiredFormFields(resource) {
+    const requiredFormFields = [...resource.requiredReservationExtraFields.map(
+      (field) => camelCase(field)
+    )];
+
+    if (resource.termsAndConditions) {
+      requiredFormFields.push('termsAndConditions');
+    }
+
+    return requiredFormFields;
   }
 
   renderIntroTexts() {
@@ -140,10 +158,6 @@ class ConfirmReservationModal extends Component {
       show,
     } = this.props;
 
-    const requiredFormFields = resource.requiredReservationExtraFields.map(
-      (field) => camelCase(field)
-    );
-
     return (
       <Modal
         animation={false}
@@ -166,7 +180,7 @@ class ConfirmReservationModal extends Component {
             isMakingReservations={isMakingReservations}
             onClose={onClose}
             onConfirm={this.onConfirm}
-            requiredFields={requiredFormFields}
+            requiredFields={this.getRequiredFormFields(resource)}
           />
         </Modal.Body>
       </Modal>
