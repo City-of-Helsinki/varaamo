@@ -117,7 +117,7 @@ class ConfirmReservationModal extends Component {
         {isPreliminaryReservation && (
           <div>
             <p>
-              Huomioi, että  tilan käyttö voi olla maksullista. Tarkemmat hintatiedot löytyvät
+              Huomioi, että tilan käyttö voi olla maksullista. Tarkemmat hintatiedot löytyvät
               tilan tiedoista. Varaus on alustava ja käsitellään kahden arkipäivän kuluessa.
             </p>
             <p>
