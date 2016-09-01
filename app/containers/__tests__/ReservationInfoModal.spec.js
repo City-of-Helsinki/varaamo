@@ -160,31 +160,82 @@ describe('Container: ReservationInfoModal', () => {
         });
       });
 
-      describe('comments input', () => {
+      describe('comments', () => {
         describe('if user has admin rights', () => {
-          const wrapper = getWrapper({
-            resources: { [resource.id]: Resource.build({ userPermissions: { isAdmin: true } }) },
-          });
-          const input = wrapper.find(Input);
-
-          it('should render textarea input for comments', () => {
-            expect(input.length).to.equal(1);
-            expect(input.props().type).to.equal('textarea');
+          const resourceWithAdminRights = Object.assign({}, resource, {
+            userPermissions: { isAdmin: true },
           });
 
-          it('should have reservation.comments as default value', () => {
-            expect(input.props().defaultValue).to.equal(reservation.comments);
+          describe('if reservation state is cancelled', () => {
+            const cancelledReservation = Object.assign({}, reservation, { state: 'cancelled' });
+            let wrapper;
+
+            before(() => {
+              wrapper = getWrapper({
+                resources: { [resourceWithAdminRights.id]: resourceWithAdminRights },
+                reservationsToShow: [cancelledReservation],
+              });
+            });
+
+            it('should render reservation comments as text', () => {
+              const reservationTexts = wrapper.find('dl').text();
+              expect(reservationTexts).to.contain(cancelledReservation.comments);
+            });
+
+            it('should not render textarea input for comments', () => {
+              const input = wrapper.find(Input);
+              expect(input.length).to.equal(0);
+            });
+          });
+
+          describe('if reservation state is not cancelled', () => {
+            const confirmedReservation = Object.assign({}, reservation, { state: 'confirmed' });
+            let input;
+
+            before(() => {
+              const wrapper = getWrapper({
+                resources: { [resourceWithAdminRights.id]: resourceWithAdminRights },
+                reservationsToShow: [confirmedReservation],
+              });
+              input = wrapper.find(Input);
+            });
+
+            it('should render textarea input for comments', () => {
+              expect(input.length).to.equal(1);
+              expect(input.props().type).to.equal('textarea');
+            });
+
+            it('textarea input should have reservation.comments as default value', () => {
+              expect(input.props().defaultValue).to.equal(reservation.comments);
+            });
+
+            it('should not render reservation comments as text', () => {
+              const reservationTexts = getWrapper().find('dl').text();
+              expect(reservationTexts).to.not.contain(confirmedReservation.comments);
+            });
           });
         });
 
         describe('if user does not have admin rights', () => {
-          const wrapper = getWrapper({
-            resources: { [resource.id]: Resource.build({ userPermissions: { isAdmin: false } }) },
+          const resourceWithoutAdminRights = Object.assign({}, resource, {
+            userPermissions: { isAdmin: false },
           });
-          const input = wrapper.find(Input);
+          let wrapper;
+
+          before(() => {
+            wrapper = getWrapper({
+              resources: { [resourceWithoutAdminRights.id]: resourceWithoutAdminRights },
+            });
+          });
 
           it('should not render textarea input for comments', () => {
+            const input = wrapper.find(Input);
             expect(input.length).to.equal(0);
+          });
+
+          it('should not render reservation comments as text', () => {
+            const reservationTexts = getWrapper().find('dl').text();
+            expect(reservationTexts).to.not.contain(resourceWithoutAdminRights.comments);
           });
         });
       });

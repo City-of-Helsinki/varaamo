@@ -87,8 +87,14 @@ export class UnconnectedReservationInfoModal extends Component {
           <dt>Varauksen ajankohta:</dt>
           <dd><TimeRange begin={reservation.begin} end={reservation.end} /></dd>
           <dt>Tila:</dt><dd>{getName(resource)}</dd>
+          {isAdmin && reservation.state === 'cancelled' && (
+            <span>
+              <dt>Kommentit:</dt>
+              <dd>{reservation.comments}</dd>
+            </span>
+          )}
         </dl>
-        {isAdmin && (
+        {isAdmin && reservation.state !== 'cancelled' && (
           <form>
             <Input
               defaultValue={reservation.comments}
@@ -118,6 +124,7 @@ export class UnconnectedReservationInfoModal extends Component {
     const resource = reservation ? resources[reservationsToShow[0].resource] : {};
     const isAdmin = resource.userPermissions && resource.userPermissions.isAdmin;
     const isStaff = includes(staffUnits, resource.unit);
+    const showSaveButton = isAdmin && reservation && reservation.state !== 'cancelled';
 
     return (
       <Modal
@@ -140,7 +147,7 @@ export class UnconnectedReservationInfoModal extends Component {
           >
             Takaisin
           </Button>
-          {isAdmin && (
+          {showSaveButton && (
             <Button
               bsStyle="success"
               disabled={isEditingReservations}
