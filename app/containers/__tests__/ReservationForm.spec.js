@@ -4,8 +4,8 @@ import React from 'react';
 import simple from 'simple-mock';
 
 import Button from 'react-bootstrap/lib/Button';
-import Input from 'react-bootstrap/lib/Input';
 
+import ReduxFormField from 'components/common/ReduxFormField';
 import constants from 'constants/AppConstants';
 
 import {
@@ -125,13 +125,13 @@ describe('Container: ReservationForm', () => {
           const fields = {
             [constants.RESERVATION_FORM_FIELDS[0]]: {},
           };
-          const input = getWrapper({ fields }).find(Input);
+          const input = getWrapper({ fields }).find(ReduxFormField);
           expect(input.length).to.equal(1);
         });
 
         it('should not render a field if it is not included in props.fields', () => {
           const fields = {};
-          const input = getWrapper({ fields }).find(Input);
+          const input = getWrapper({ fields }).find(ReduxFormField);
           expect(input.length).to.equal(0);
         });
 
@@ -142,7 +142,7 @@ describe('Container: ReservationForm', () => {
               fields: { [fieldName]: { name: fieldName } },
               requiredFields: [fieldName],
             };
-            const input = getWrapper(props).find(Input);
+            const input = getWrapper(props).find(ReduxFormField);
             expect(input.props().label).to.contain('*');
           });
 
@@ -152,7 +152,7 @@ describe('Container: ReservationForm', () => {
               fields: { [fieldName]: { name: fieldName } },
               requiredFields: [],
             };
-            const input = getWrapper(props).find(Input);
+            const input = getWrapper(props).find(ReduxFormField);
             expect(input.props().label).to.not.contain('*');
           });
 
@@ -166,7 +166,7 @@ describe('Container: ReservationForm', () => {
                 fields,
                 requiredFields: [fieldName],
               };
-              const input = getWrapper(props).find(Input).at(1);
+              const input = getWrapper(props).find(ReduxFormField).at(1);
               expect(input.props().label).to.contain('*');
             });
 
@@ -177,7 +177,7 @@ describe('Container: ReservationForm', () => {
                 fields,
                 requiredFields: [fieldName],
               };
-              const input = getWrapper(props).find(Input).at(1);
+              const input = getWrapper(props).find(ReduxFormField).at(1);
               expect(input.props().label).to.not.contain('*');
             });
           });
@@ -189,7 +189,7 @@ describe('Container: ReservationForm', () => {
           const fields = {
             someOtherField: {},
           };
-          const input = getWrapper({ fields }).find(Input);
+          const input = getWrapper({ fields }).find(ReduxFormField);
           expect(input.length).to.equal(0);
         });
       });
