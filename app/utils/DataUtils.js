@@ -1,4 +1,5 @@
 import camelCase from 'lodash/camelCase';
+import capitalize from 'lodash/capitalize';
 import clone from 'lodash/clone';
 import filter from 'lodash/filter';
 import find from 'lodash/find';
@@ -46,7 +47,7 @@ function getAddress(item) {
 
   const streetAddress = item.streetAddress ? item.streetAddress.fi : '';
   const zip = item.addressZip;
-  const city = 'Helsinki';
+  const city = capitalize(item.municipality);
 
   return `${streetAddress}, ${zip} ${city}`;
 }
