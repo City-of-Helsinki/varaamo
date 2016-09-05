@@ -6,7 +6,6 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cookieSession from 'cookie-session';
 import express from 'express';
-import favicon from 'serve-favicon';
 import morgan from 'morgan';
 
 import webpack from 'webpack';
@@ -22,8 +21,6 @@ const app = express();
 const compiler = webpack(webpackConfig);
 const passport = configurePassport();
 const port = serverConfig.port;
-
-app.use(favicon(path.join(__dirname, '..', 'static', 'favicon.ico')));
 
 if (serverConfig.isProduction) {
   console.log('Starting production server...');
