@@ -147,6 +147,7 @@ class ConfirmReservationModal extends Component {
     return (
       <Modal
         animation={false}
+        backdrop="static"
         className="confirm-reservation-modal"
         onHide={onClose}
         show={show}
