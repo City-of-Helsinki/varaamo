@@ -1,11 +1,11 @@
 import includes from 'lodash/includes';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
-import Input from 'react-bootstrap/lib/Input';
 import Well from 'react-bootstrap/lib/Well';
 import { reduxForm } from 'redux-form';
-
 import isEmail from 'validator/lib/isEmail';
+
+import ReduxFormField from 'components/common/ReduxFormField';
 import constants from 'constants/AppConstants';
 
 const validators = {
@@ -52,7 +52,11 @@ export function validate(values, { fields, requiredFields }) {
     }
     if (includes(currentRequiredFields, field)) {
       if (!values[field]) {
-        errors[field] = 'Pakollinen tieto';
+        errors[field] = (
+          field === 'termsAndConditions' ?
+          'Sinun on hyväksyttävä tilan käyttösäännöt varataksesi tilan' :
+          'Pakollinen tieto'
+        );
       }
     }
   });
@@ -64,40 +68,15 @@ export class UnconnectedReservationForm extends Component {
     if (!field) {
       return null;
     }
-    const hasError = field.error && field.touched;
     const isRequired = includes(this.requiredFields, field.name);
 
     return (
-      <Input
-        {...field}
-        {...extraProps}
-        bsStyle={hasError ? 'error' : null}
-        help={hasError ? field.error : null}
+      <ReduxFormField
+        extraProps={extraProps}
+        field={field}
         label={`${label}${isRequired ? '*' : ''}`}
-        labelClassName="col-sm-3"
         type={type}
-        wrapperClassName="col-sm-9"
       />
-    );
-  }
-
-  renderStaffEventField(field) {
-    if (!field) {
-      return null;
-    }
-    return (
-      <Well>
-        <Input
-          {...field}
-          help={`
-            Viraston oma tapahtuma hyväksytään automaattisesti ja ainoat pakolliset tiedot
-            ovat varaajan nimi ja tilaisuuden kuvaus.
-          `}
-          label="Viraston oma tapahtuma"
-          type="checkbox"
-          wrapperClassName="col-md-12 staff-event-field"
-        />
-      </Well>
     );
   }
 
@@ -118,7 +97,21 @@ export class UnconnectedReservationForm extends Component {
     return (
       <div>
         <form className="reservation-form form-horizontal">
-          {this.renderStaffEventField(fields.staffEvent)}
+          { fields.staffEvent && (
+            <Well>
+              {this.renderField(
+                'checkbox',
+                'Viraston oma tapahtuma',
+                fields.staffEvent,
+                {
+                  help: `
+                  Viraston oma tapahtuma hyväksytään automaattisesti ja ainoat pakolliset tiedot
+                  ovat varaajan nimi ja tilaisuuden kuvaus.
+                  `,
+                }
+              )}
+            </Well>
+          )}
           {this.renderField('text', 'Varaaja / vuokraaja', fields.reserverName)}
           {this.renderField('text', 'Y-tunnus / henkilötunnus', fields.reserverId)}
           {this.renderField('text', 'Puhelin', fields.reserverPhoneNumber)}
@@ -154,6 +147,11 @@ export class UnconnectedReservationForm extends Component {
               placeholder: 'Varauksen mahdolliset lisätiedot',
               rows: 5,
             }
+          )}
+          {this.renderField(
+            'checkbox',
+            'Olen lukenut ja hyväksynyt tilan käyttösäännöt',
+            fields.termsAndConditions
           )}
           <div className="form-controls">
             <Button
