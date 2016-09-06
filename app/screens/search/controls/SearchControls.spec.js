@@ -44,23 +44,23 @@ describe('Container: SearchControls', () => {
     simple.restore();
   });
 
-  describe('rendering SearchInput', () => {
+  describe('Input for search query', () => {
     let searchInputTrees;
 
     beforeEach(() => {
-      searchInputTrees = tree.everySubTree('SearchInput');
+      searchInputTrees = tree.everySubTree('Input');
     });
 
-    it('should render SearchInput component', () => {
+    it('renders', () => {
       expect(searchInputTrees.length).to.equal(1);
     });
 
-    it('should pass correct props to SearchInput component', () => {
+    it('gets correct props', () => {
       const actualProps = searchInputTrees[0].props;
 
       expect(actualProps.autoFocus).to.equal(false);
-      expect(typeof actualProps.onSubmit).to.equal('function');
-      expect(actualProps.typeaheadOptions).to.equal(props.typeaheadOptions);
+      expect(typeof actualProps.onChange).to.equal('function');
+      expect(actualProps.onKeyUp).to.equal(instance.handleSearchInputChange);
       expect(actualProps.value).to.equal(props.filters.search);
     });
   });
