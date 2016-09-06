@@ -5,10 +5,10 @@ import simple from 'simple-mock';
 
 import Immutable from 'seamless-immutable';
 
-import { UnconnectedSearchPage as SearchPage } from 'containers/SearchPage';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
 import { getFetchParamsFromFilters } from 'utils/SearchUtils';
+import { UnconnectedSearchPage as SearchPage } from './SearchPage';
 
 describe('Container: SearchPage', () => {
   const unit = Unit.build();
