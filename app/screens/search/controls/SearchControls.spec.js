@@ -6,7 +6,7 @@ import sd from 'skin-deep';
 import queryString from 'query-string';
 import Immutable from 'seamless-immutable';
 
-import { UnconnectedSearchControls as SearchControls } from 'containers/SearchControls';
+import { UnconnectedSearchControls as SearchControls } from './SearchControls';
 
 describe('Container: SearchControls', () => {
   let props;

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
-import searchControlsSelector from 'selectors/containers/searchControlsSelector';
 import { getDefaultRouterProps, getInitialState } from 'utils/TestUtils';
+import searchControlsSelector from './searchControlsSelector';
 
 describe('Selector: searchControlsSelector', () => {
   const state = getInitialState();

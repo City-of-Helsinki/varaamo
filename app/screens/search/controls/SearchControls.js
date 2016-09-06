@@ -14,7 +14,7 @@ import { changeSearchFilters } from 'actions/uiActions';
 import DateHeader from 'components/common/DateHeader';
 import SearchFilters from 'components/search/SearchFilters';
 import SearchInput from 'components/search/SearchInput';
-import searchControlsSelector from 'selectors/containers/searchControlsSelector';
+import searchControlsSelector from './searchControlsSelector';
 
 export class UnconnectedSearchControls extends Component {
   constructor(props) {
