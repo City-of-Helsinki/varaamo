@@ -4,6 +4,7 @@ import { Route } from 'react-router';
 import AboutPage from 'containers/AboutPage';
 import App from 'containers/App';
 import UserReservationsPage from 'containers/UserReservationsPage';
+import AdminResourcesPage from 'containers/AdminResourcesPage';
 import NotFoundPage from 'containers/NotFoundPage';
 import ReservationPage from 'containers/ReservationPage';
 import ResourcePage from 'containers/ResourcePage';
@@ -39,6 +40,7 @@ export default (params) => {
   return (
     <Route component={App} onEnter={removeFacebookAppendedHash}>
       <Route onEnter={requireAuth}>
+        <Route component={AdminResourcesPage} path="/admin-resources" />
         <Route component={UserReservationsPage} path="/my-reservations" />
       </Route>
       <Route component={HomePage} onEnter={scrollTop} path="/" />

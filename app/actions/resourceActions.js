@@ -28,7 +28,7 @@ function fetchResource(id, params = {}) {
   };
 }
 
-function fetchResources(params = {}) {
+function fetchResources(params = {}, source) {
   const fetchParams = Object.assign({}, params, { pageSize: 100 });
 
   return {
@@ -37,7 +37,10 @@ function fetchResources(params = {}) {
         getRequestTypeDescriptor(types.API.RESOURCES_GET_REQUEST),
         getSuccessTypeDescriptor(
           types.API.RESOURCES_GET_SUCCESS,
-          { schema: schemas.paginatedResourcesSchema }
+          {
+            meta: { source },
+            schema: schemas.paginatedResourcesSchema,
+          }
         ),
         getErrorTypeDescriptor(types.API.RESOURCES_GET_ERROR),
       ],
