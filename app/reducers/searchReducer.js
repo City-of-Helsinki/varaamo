@@ -22,7 +22,7 @@ function searchReducer(state = initialState, action) {
   switch (action.type) {
 
     case types.API.SEARCH_RESULTS_GET_SUCCESS: {
-      const results = Object.keys(action.payload.entities.resources);
+      const results = Object.keys(action.payload.entities.resources || {});
       return state.merge({
         results,
         searchDone: true,
