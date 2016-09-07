@@ -1,5 +1,7 @@
 require('babel-core/register');
-require('dotenv').load();
+
+const path = require('path');
+require('dotenv').load({ path: path.resolve(__dirname, '../.env') });
 
 const serverConfig = require('./config');
 
