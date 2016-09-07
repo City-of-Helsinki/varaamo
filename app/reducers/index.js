@@ -4,6 +4,7 @@ import { reducer as formReducer } from 'redux-form';
 
 import activeRequestsReducer from 'reducers/activeRequestsReducer';
 import authReducer from 'reducers/authReducer';
+import adminResourcesPageReducer from 'reducers/adminResourcesPageReducer';
 import dataReducer from 'reducers/dataReducer';
 import fetchCountsReducer from 'reducers/fetchCountsReducer';
 import modalsReducer from 'reducers/modalsReducer';
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   routing: routeReducer,
   ui: combineReducers({
     modals: modalsReducer,
+    pages: combineReducers({ adminResources: adminResourcesPageReducer }),
     reservations: reservationsReducer,
     search: searchReducer,
   }),
