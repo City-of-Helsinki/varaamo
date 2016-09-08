@@ -41,7 +41,7 @@ class ResourcesTableItem extends Component {
     if (moment() < moment(closes)) {
       return this.getAvailableTime(closes);
     }
-    return <td className="resource-table-row availability" />;
+    return <td className="resource-table-row availability reserved">Suljettu</td>;
   }
 
   render() {

@@ -98,10 +98,10 @@ describe('Component: reservation/ResourcesTableItem', () => {
         });
 
         if (componentTuple[1] === 'withoutReservationsComponent') {
-          it('availability tr exists and is empty', () => {
+          it('availability tr exists and says "Suljettu"', () => {
             expect(component.find('.resource-table-row.availability')).to.have.length(1);
             expect(component.find('.resource-table-row.availability').prop('children'))
-              .to.be.undefined;
+              .to.equal('Suljettu');
           });
 
           it('availability tr exists and is the amount of free time till resource closes', () => {
