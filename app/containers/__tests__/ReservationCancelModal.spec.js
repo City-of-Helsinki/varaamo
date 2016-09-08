@@ -16,10 +16,11 @@ describe('Container: ReservationCancelModal', () => {
   const resource = Resource.build({ responsibleContactInfo });
   const props = {
     actions: {
-      cancelPreliminaryReservation: simple.stub(),
+      deleteReservation: simple.stub(),
       closeReservationCancelModal: simple.stub(),
     },
     isAdmin: false,
+    isCancellingReservations: false,
     show: true,
     reservationsToCancel: Immutable([
       Reservation.build({ resource: resource.id }),
@@ -30,12 +31,10 @@ describe('Container: ReservationCancelModal', () => {
     }),
   };
 
-  function getExtraProps(reservationState) {
+  function getExtraProps(reservation, isAdmin = false) {
     return {
-      reservationsToCancel: Immutable([
-        Reservation.build({ resource: resource.id, state: reservationState }),
-        Reservation.build({ resource: resource.id, state: reservationState }),
-      ]),
+      isAdmin,
+      reservationsToCancel: Immutable([reservation]),
       resources: Immutable({
         [resource.id]: resource,
       }),
@@ -49,7 +48,10 @@ describe('Container: ReservationCancelModal', () => {
   describe('render', () => {
     describe('when isAdmin is true', () => {
       const isAdmin = true;
-      const extraProps = Object.assign(getExtraProps('requested'), { isAdmin });
+      const reservation = Reservation.build({
+        resource: resource.id,
+      });
+      const extraProps = getExtraProps(reservation, isAdmin);
       const tree = getTree(extraProps);
       const instance = tree.getMountedInstance();
 
@@ -146,8 +148,14 @@ describe('Container: ReservationCancelModal', () => {
       });
     });
 
-    describe('when isAdmin is false and reservation state is anything but "confirmed"', () => {
-      const extraProps = getExtraProps('requested');
+    describe('when isAdmin is false and reservation is not preliminary', () => {
+      const isAdmin = false;
+      const reservation = Reservation.build({
+        needManualConfirmation: false,
+        resource: resource.id,
+        state: 'confirmed',
+      });
+      const extraProps = getExtraProps(reservation, isAdmin);
       const tree = getTree(extraProps);
       const instance = tree.getMountedInstance();
 
@@ -244,8 +252,118 @@ describe('Container: ReservationCancelModal', () => {
       });
     });
 
-    describe('when isAdmin is false and reservation state is "confirmed"', () => {
-      const extraProps = getExtraProps('confirmed');
+    describe('when isAdmin is false and preliminary reservation state is not "confirmed"', () => {
+      const isAdmin = false;
+      const reservation = Reservation.build({
+        needManualConfirmation: true,
+        resource: resource.id,
+        state: 'requested',
+      });
+      const extraProps = getExtraProps(reservation, isAdmin);
+      const tree = getTree(extraProps);
+      const instance = tree.getMountedInstance();
+
+      it('should render a Modal component', () => {
+        const modalTrees = tree.everySubTree('Modal');
+
+        expect(modalTrees.length).to.equal(1);
+      });
+
+      describe('Modal header', () => {
+        const modalHeaderTrees = tree.everySubTree('ModalHeader');
+
+        it('should render a ModalHeader component', () => {
+          expect(modalHeaderTrees.length).to.equal(1);
+        });
+
+        it('should contain a close button', () => {
+          expect(modalHeaderTrees[0].props.closeButton).to.equal(true);
+        });
+
+        it('should render a ModalTitle component', () => {
+          const modalTitleTrees = tree.everySubTree('ModalTitle');
+
+          expect(modalTitleTrees.length).to.equal(1);
+        });
+
+        it('the ModalTitle should display text "Perumisen vahvistus"', () => {
+          const modalTitleTree = tree.subTree('ModalTitle');
+
+          expect(modalTitleTree.props.children).to.equal('Perumisen vahvistus');
+        });
+      });
+
+      describe('Modal body', () => {
+        const modalBodyTrees = tree.everySubTree('ModalBody');
+
+        it('should render a ModalBody component', () => {
+          expect(modalBodyTrees.length).to.equal(1);
+        });
+
+        it('should render a CompactReservationsList component', () => {
+          const list = modalBodyTrees[0].everySubTree('CompactReservationsList');
+          expect(list.length).to.equal(1);
+        });
+
+        it('should pass correct props to CompactReservationsList component', () => {
+          const list = modalBodyTrees[0].subTree('CompactReservationsList');
+          expect(list.props.reservations).to.deep.equal(extraProps.reservationsToCancel);
+          expect(list.props.resources).to.deep.equal(extraProps.resources);
+        });
+      });
+
+      describe('Modal footer', () => {
+        const modalFooterTrees = tree.everySubTree('ModalFooter');
+
+        it('should render a ModalFooter component', () => {
+          expect(modalFooterTrees.length).to.equal(1);
+        });
+
+        describe('Footer buttons', () => {
+          const buttonTrees = modalFooterTrees[0].everySubTree('Button');
+
+          it('should render two Buttons', () => {
+            expect(buttonTrees.length).to.equal(2);
+          });
+
+          describe('Cancel button', () => {
+            const buttonTree = buttonTrees[0];
+
+            it('the first button should read "Älä peru varausta"', () => {
+              expect(buttonTree.props.children).to.equal('Älä peru varausta');
+            });
+
+            it('clicking it should call closeReservationCancelModal', () => {
+              props.actions.closeReservationCancelModal.reset();
+              buttonTree.props.onClick();
+
+              expect(props.actions.closeReservationCancelModal.callCount).to.equal(1);
+            });
+          });
+
+          describe('Confirm button', () => {
+            const buttonTree = buttonTrees[1];
+
+            it('the second button should read "Peru varaus"', () => {
+              expect(buttonTree.props.children).to.equal('Peru varaus');
+            });
+
+            it('should have handleCancel as its onClick prop', () => {
+              expect(buttonTree.props.onClick).to.equal(instance.handleCancel);
+            });
+          });
+        });
+      });
+    });
+
+    describe('when isAdmin is false and preliminary reservation state is "confirmed"', () => {
+      const isAdmin = false;
+      const reservation = Reservation.build({
+        needManualConfirmation: true,
+        resource: resource.id,
+        state: 'confirmed',
+      });
+      const extraProps = getExtraProps(reservation, isAdmin);
       const tree = getTree(extraProps);
 
       it('should render a Modal component', () => {
@@ -338,14 +456,14 @@ describe('Container: ReservationCancelModal', () => {
       expect(props.actions.closeReservationCancelModal.callCount).to.equal(1);
     });
 
-    it('should call cancelPreliminaryReservation for each selected reservation', () => {
-      expect(props.actions.cancelPreliminaryReservation.callCount).to.equal(
+    it('should call deleteReservation for each selected reservation', () => {
+      expect(props.actions.deleteReservation.callCount).to.equal(
         props.reservationsToCancel.length
       );
     });
 
-    it('should call cancelPreliminaryReservation with correct arguments', () => {
-      const actualArgs = props.actions.cancelPreliminaryReservation.lastCall.args;
+    it('should call deleteReservation with correct arguments', () => {
+      const actualArgs = props.actions.deleteReservation.lastCall.args;
       const expected = props.reservationsToCancel[1];
 
       expect(actualArgs[0]).to.deep.equal(expected);

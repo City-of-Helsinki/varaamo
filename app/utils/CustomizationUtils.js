@@ -1,22 +1,24 @@
-import { CUSTOMIZATIONS } from 'constants/AppConstants';
+import constants from 'constants/AppConstants';
 
 function getCurrentCustomization() {
   const host = window.location.host;
-  return CUSTOMIZATIONS[host] || null;
+  return constants.CUSTOMIZATIONS[host] || null;
 }
 
 function getCustomizationClassName() {
   switch (getCurrentCustomization()) {
 
-  case 'ESPOO':
-    return 'espoo-customizations';
+    case 'ESPOO': {
+      return 'espoo-customizations';
+    }
 
-  default:
-    return '';
+    default: {
+      return '';
+    }
   }
 }
 
-export default {
+export {
   getCurrentCustomization,
   getCustomizationClassName,
 };

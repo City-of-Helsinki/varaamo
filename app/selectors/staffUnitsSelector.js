@@ -1,5 +1,5 @@
-import includes from 'lodash/collection/includes';
-import forIn from 'lodash/object/forIn';
+import includes from 'lodash/includes';
+import forIn from 'lodash/forIn';
 import { createSelector } from 'reselect';
 
 import currentUserSelector from 'selectors/currentUserSelector';

@@ -1,14 +1,16 @@
-/* eslint-disable no-var */
+const path = require('path');
 
-var path = require('path');
-var webpack = require('webpack');
-var merge = require('webpack-merge');
+require('dotenv').load({ path: path.resolve(__dirname, '../.env') });
 
-var common = require('./webpack.common');
+const webpack = require('webpack');
+const merge = require('webpack-merge');
+
+const common = require('./webpack.common');
 
 module.exports = merge(common, {
   entry: [
-    'webpack-hot-middleware/client?reload=true',
+    'babel-polyfill',
+    'webpack-hot-middleware/client',
     path.resolve(__dirname, '../app/index.js'),
   ],
   debug: true,
@@ -33,20 +35,7 @@ module.exports = merge(common, {
         exclude: path.resolve(__dirname, '../node_modules'),
         loader: 'babel',
         query: {
-          'stage': 2,
-          'plugins': ['react-transform'],
-          'extra': {
-            'react-transform': {
-              'transforms': [{
-                'transform': 'react-transform-hmr',
-                'imports': ['react'],
-                'locals': ['module'],
-              }, {
-                'transform': 'react-transform-catch-errors',
-                'imports': ['react', 'redbox-react'],
-              }],
-            },
-          },
+          presets: ['es2015', 'node6', 'react', 'react-hmre', 'stage-2'],
         },
       },
       {
@@ -64,6 +53,7 @@ module.exports = merge(common, {
       'process.env.NODE_ENV': JSON.stringify('development'),
       __API_URL__: JSON.stringify(process.env.API_URL || 'https://api.hel.fi/respa-test/v1'),
       __DEVTOOLS__: false,
+      __TRACKING__: Boolean(process.env.PIWIK_SITE_ID),
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),

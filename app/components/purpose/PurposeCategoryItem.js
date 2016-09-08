@@ -1,4 +1,4 @@
-import capitalize from 'lodash/string/capitalize';
+import capitalize from 'lodash/capitalize';
 import React, { Component, PropTypes } from 'react';
 import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
 import { Link } from 'react-router';

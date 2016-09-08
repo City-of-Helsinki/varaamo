@@ -4,7 +4,7 @@ import React from 'react';
 import simple from 'simple-mock';
 
 import Logo from 'components/customization/Logo';
-import customizationUtils from 'utils/CustomizationUtils';
+import * as customizationUtils from 'utils/CustomizationUtils';
 
 import espooLogoSrc from 'assets/images/espoo-logo.png';
 import helsinkiLogoSrc from 'assets/images/helsinki-coat-of-arms-white.png';

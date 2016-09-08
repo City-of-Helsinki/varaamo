@@ -3,7 +3,6 @@ import React from 'react';
 import simple from 'simple-mock';
 import sd from 'skin-deep';
 
-import queryString from 'query-string';
 import Immutable from 'seamless-immutable';
 
 import TimeSlot from 'components/reservation/TimeSlot';
@@ -14,17 +13,13 @@ import Resource from 'fixtures/Resource';
 function getProps(props) {
   const defaults = {
     addNotification: simple.stub(),
+    isAdmin: false,
     isEditing: true,
     isLoggedIn: true,
+    isStaff: false,
     onClick: simple.stub(),
-    openReservationDeleteModal: simple.stub(),
-    openReservationInfoModal: simple.stub(),
-    updatePath: simple.stub(),
     resource: Resource.build(),
     selected: false,
-    selectReservationToDelete: simple.stub(),
-    selectReservationToEdit: simple.stub(),
-    selectReservationToShow: simple.stub(),
     slot: Immutable(TimeSlotFixture.build()),
   };
 
@@ -108,7 +103,10 @@ describe('Component: reservation/TimeSlot', () => {
 
     describe('when the slot is reserved', () => {
       const props = getProps({
-        slot: Immutable(TimeSlotFixture.build({ reserved: true })),
+        slot: Immutable(TimeSlotFixture.build({
+          reserved: true,
+          reservation: Reservation.build(),
+        })),
       });
       const reservedTree = sd.shallowRender(<TimeSlot {...props} />);
       const tdTree = reservedTree.everySubTree('td')[2];
@@ -127,90 +125,6 @@ describe('Component: reservation/TimeSlot', () => {
 
         expect(labelTrees[0].props.children).to.equal(expected);
       });
-    });
-  });
-
-  describe('handleDeleteClick', () => {
-    const props = getProps({
-      slot: Immutable(TimeSlotFixture.build({
-        reserved: true,
-        reservation: Reservation.build(),
-      })),
-    });
-    const tree = sd.shallowRender(<TimeSlot {...props} />);
-    const instance = tree.getMountedInstance();
-    instance.handleDeleteClick();
-
-    it('should call props.selectReservationToDelete with slot.reservation', () => {
-      expect(props.selectReservationToDelete.callCount).to.equal(1);
-      expect(
-        props.selectReservationToDelete.lastCall.args[0]
-      ).to.deep.equal(
-        props.slot.reservation
-      );
-    });
-
-    it('should call the props.openReservationDeleteModal function', () => {
-      expect(props.openReservationDeleteModal.callCount).to.equal(1);
-    });
-  });
-
-  describe('handleEditClick', () => {
-    const props = getProps({
-      slot: Immutable(TimeSlotFixture.build({
-        reserved: true,
-        reservation: Reservation.build(),
-      })),
-    });
-    const tree = sd.shallowRender(<TimeSlot {...props} />);
-    const instance = tree.getMountedInstance();
-    instance.handleEditClick();
-
-    it('should call props.selectReservationToEdit with reservation and minPeriod', () => {
-      expect(props.selectReservationToEdit.callCount).to.equal(1);
-      expect(
-        props.selectReservationToEdit.lastCall.args[0]
-      ).to.deep.equal(
-        { reservation: props.slot.reservation, minPeriod: props.resource.minPeriod }
-      );
-    });
-
-    it('should call the props.updatePath with correct url', () => {
-      const actualUrl = props.updatePath.lastCall.args[0];
-      const reservation = props.slot.reservation;
-      const query = queryString.stringify({
-        date: reservation.begin.split('T')[0],
-        time: reservation.begin,
-      });
-      const expectedUrl = `/resources/${props.slot.reservation.resource}/reservation?${query}`;
-
-      expect(props.updatePath.callCount).to.equal(1);
-      expect(actualUrl).to.equal(expectedUrl);
-    });
-  });
-
-  describe('handleInfoClick', () => {
-    const props = getProps({
-      slot: Immutable(TimeSlotFixture.build({
-        reserved: true,
-        reservation: Reservation.build(),
-      })),
-    });
-    const tree = sd.shallowRender(<TimeSlot {...props} />);
-    const instance = tree.getMountedInstance();
-    instance.handleInfoClick();
-
-    it('should call props.selectReservationToShow with slot.reservation', () => {
-      expect(props.selectReservationToShow.callCount).to.equal(1);
-      expect(
-        props.selectReservationToShow.lastCall.args[0]
-      ).to.deep.equal(
-        props.slot.reservation
-      );
-    });
-
-    it('should call the props.openReservationInfoModal function', () => {
-      expect(props.openReservationInfoModal.callCount).to.equal(1);
     });
   });
 });

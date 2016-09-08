@@ -1,5 +1,6 @@
-import forEach from 'lodash/collection/forEach';
-import rest from 'lodash/array/rest';
+import includes from 'lodash/includes';
+import forEach from 'lodash/forEach';
+import tail from 'lodash/tail';
 import React, { Component, PropTypes } from 'react';
 import DatePicker from 'react-date-picker';
 import { connect } from 'react-redux';
@@ -17,18 +18,13 @@ import {
   clearReservations,
   closeConfirmReservationModal,
   openConfirmReservationModal,
-  openReservationDeleteModal,
-  openReservationInfoModal,
-  selectReservationToDelete,
-  selectReservationToEdit,
-  selectReservationToShow,
   toggleTimeSlot,
 } from 'actions/uiActions';
 import DateHeader from 'components/common/DateHeader';
 import ConfirmReservationModal from 'components/reservation/ConfirmReservationModal';
 import ReservationCalendarControls from 'components/reservation/ReservationCalendarControls';
 import TimeSlots from 'components/reservation/TimeSlots';
-import ReservationDeleteModal from 'containers/ReservationDeleteModal';
+import ReservationCancelModal from 'containers/ReservationCancelModal';
 import ReservationInfoModal from 'containers/ReservationInfoModal';
 import ReservationSuccessModal from 'containers/ReservationSuccessModal';
 import reservationCalendarSelector from 'selectors/containers/reservationCalendarSelector';
@@ -74,7 +70,7 @@ export class UnconnectedReservationCalendar extends Component {
       // Use timeout to allow the PUT request to go through first and possibly free previously
       // reserved time slots.
       setTimeout(() => {
-        forEach(rest(selectedReservations), (reservation) => {
+        forEach(tail(selectedReservations), (reservation) => {
           actions.postReservation(
             Object.assign({}, reservation, values)
           );
@@ -119,7 +115,10 @@ export class UnconnectedReservationCalendar extends Component {
       timeSlots,
       urlHash,
     } = this.props;
+
+    const isAdmin = resource.userPermissions.isAdmin;
     const isEditing = Boolean(reservationsToEdit.length);
+    const isStaff = includes(staffUnits, resource.unit);
 
     return (
       <div>
@@ -138,18 +137,14 @@ export class UnconnectedReservationCalendar extends Component {
         />
         <TimeSlots
           addNotification={actions.addNotification}
+          isAdmin={isAdmin}
           isEditing={isEditing}
           isFetching={isFetchingResource}
           isLoggedIn={isLoggedIn}
+          isStaff={isStaff}
           onClick={actions.toggleTimeSlot}
-          openReservationDeleteModal={actions.openReservationDeleteModal}
-          openReservationInfoModal={actions.openReservationInfoModal}
-          updatePath={actions.updatePath}
           resource={resource}
           selected={selected}
-          selectReservationToDelete={actions.selectReservationToDelete}
-          selectReservationToEdit={actions.selectReservationToEdit}
-          selectReservationToShow={actions.selectReservationToShow}
           slots={timeSlots}
           time={time}
         />
@@ -169,18 +164,19 @@ export class UnconnectedReservationCalendar extends Component {
           resource={resource}
         />
         <ConfirmReservationModal
+          isAdmin={isAdmin}
           isEditing={isEditing}
           isMakingReservations={isMakingReservations}
           isPreliminaryReservation={resource.needManualConfirmation}
+          isStaff={isStaff}
           onClose={actions.closeConfirmReservationModal}
           onConfirm={isEditing ? this.handleEdit : this.handleReservation}
           reservationsToEdit={reservationsToEdit}
           resource={resource}
           selectedReservations={selectedReservations}
           show={confirmReservationModalIsOpen}
-          staffUnits={staffUnits}
         />
-        <ReservationDeleteModal />
+        <ReservationCancelModal />
         <ReservationInfoModal />
         <ReservationSuccessModal />
       </div>
@@ -214,18 +210,15 @@ function mapDispatchToProps(dispatch) {
     closeConfirmReservationModal,
     deleteReservation,
     openConfirmReservationModal,
-    openReservationDeleteModal,
-    openReservationInfoModal,
     postReservation,
     updatePath,
     putReservation,
-    selectReservationToDelete,
-    selectReservationToEdit,
-    selectReservationToShow,
     toggleTimeSlot,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
-export default connect(reservationCalendarSelector, mapDispatchToProps)(UnconnectedReservationCalendar);
+export default (
+  connect(reservationCalendarSelector, mapDispatchToProps)(UnconnectedReservationCalendar)
+);

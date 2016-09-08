@@ -7,20 +7,18 @@ const resourcesSelector = (state) => state.data.resources;
 const toShowSelector = (state) => state.ui.reservations.toShow;
 
 const reservationSuccessModalSelector = createSelector(
-  modalIsOpenSelectorFactory(ModalTypes.RESERVATION_SUCCESS),
   resourcesSelector,
   toShowSelector,
+  modalIsOpenSelectorFactory(ModalTypes.RESERVATION_SUCCESS),
   (
-    deleteReservationModalIsOpen,
     resources,
-    reservationsToShow
-  ) => {
-    return {
-      reservationsToShow,
-      resources,
-      show: deleteReservationModalIsOpen,
-    };
-  }
+    reservationsToShow,
+    show
+  ) => ({
+    reservationsToShow,
+    resources,
+    show,
+  })
 );
 
 export default reservationSuccessModalSelector;

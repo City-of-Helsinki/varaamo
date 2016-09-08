@@ -1,4 +1,3 @@
-import map from 'lodash/collection/map';
 import React, { Component, PropTypes } from 'react';
 import Panel from 'react-bootstrap/lib/Panel';
 
@@ -41,7 +40,7 @@ class ImagePanel extends Component {
         id="image-panel"
         header="Kuvat"
       >
-        {map(images, this.renderImage)}
+        {images.map(this.renderImage)}
       </Panel>
     );
   }

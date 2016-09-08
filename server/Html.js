@@ -3,11 +3,11 @@ import serialize from 'serialize-javascript';
 
 class Html extends Component {
   getInitialStateHtml(initialState) {
-    return `window.__INITIAL_STATE__ = ${serialize(initialState)};`;
+    return `window.INITIAL_STATE = ${serialize(initialState)};`;
   }
 
-  renderAnalyticsCode(isProduction) {
-    if (!isProduction) {
+  renderAnalyticsCode(piwikSiteId) {
+    if (!piwikSiteId) {
       return null;
     }
 
@@ -16,18 +16,23 @@ class Html extends Component {
       _paq.push(['trackPageView']);
       _paq.push(['enableLinkTracking']);
       (function() {
-        var u="//analytics.hel.ninja/piwik/";
+        var u="https://analytics.hel.ninja/piwik/";
         _paq.push(['setTrackerUrl', u+'piwik.php']);
-        _paq.push(['setSiteId', 5]);
+        _paq.push(['setSiteId', ${piwikSiteId}]);
         var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+        g.type='text/javascript';
+        g.async=true;
+        g.defer=true;
+        g.src=u+'piwik.js';
+        s.parentNode.insertBefore(g,s);
       })();
     `;
+    const imgSrc = `//analytics.hel.ninja/piwik/piwik.php?idsite=${piwikSiteId}`;
     return (
       <div>
         <script dangerouslySetInnerHTML={{ __html: scriptString }} />
         <noscript>
-          <p><img alt="" src="//analytics.hel.ninja/piwik/piwik.php?idsite=5" style={{ border: 0 }} /></p>
+          <p><img alt="" src={imgSrc} style={{ border: 0 }} /></p>
         </noscript>
       </div>
     );
@@ -47,6 +52,7 @@ class Html extends Component {
       appScriptSrc,
       initialState,
       isProduction,
+      piwikSiteId,
     } = this.props;
     const initialStateHtml = this.getInitialStateHtml(initialState);
 
@@ -65,7 +71,7 @@ class Html extends Component {
           <div id="root" />
           <script dangerouslySetInnerHTML={{ __html: initialStateHtml }} />
           <script src={appScriptSrc} />
-          {this.renderAnalyticsCode(isProduction)}
+          {this.renderAnalyticsCode(piwikSiteId)}
         </body>
       </html>
     );
@@ -77,6 +83,7 @@ Html.propTypes = {
   appScriptSrc: PropTypes.string.isRequired,
   initialState: PropTypes.object.isRequired,
   isProduction: PropTypes.bool.isRequired,
+  piwikSiteId: PropTypes.string,
 };
 
 export default Html;

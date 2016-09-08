@@ -13,7 +13,7 @@ export default {
     hidden: false,
   },
   REQUIRED_API_HEADERS: {
-    'Accept': 'application/json',
+    Accept: 'application/json',
     'Accept-Language': 'fi',
     'Content-Type': 'application/json',
   },
@@ -61,4 +61,5 @@ export default {
     search: '',
   },
   TIME_FORMAT: 'H:mm',
+  TRACKING: __TRACKING__,
 };

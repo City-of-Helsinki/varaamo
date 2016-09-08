@@ -1,13 +1,13 @@
-import pick from 'lodash/object/pick';
+import pickBy from 'lodash/pickBy';
 import { createSelector } from 'reselect';
 
 const purposesSelector = (state) => state.data.purposes;
 
 export const purposeCategoriesSelector = createSelector(
   purposesSelector,
-  (purposes) => {
-    return pick(purposes, (purpose) => purpose.parent === null);
-  }
+  (purposes) => (
+    pickBy(purposes, (purpose) => purpose.parent === null)
+  )
 );
 
 export default purposeCategoriesSelector;

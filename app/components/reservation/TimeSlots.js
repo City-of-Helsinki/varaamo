@@ -1,5 +1,4 @@
-import map from 'lodash/collection/map';
-import includes from 'lodash/collection/includes';
+import includes from 'lodash/includes';
 import React, { Component, PropTypes } from 'react';
 import Table from 'react-bootstrap/lib/Table';
 import Loader from 'react-loader';
@@ -15,17 +14,13 @@ class TimeSlots extends Component {
   renderTimeSlot(slot) {
     const {
       addNotification,
+      isAdmin,
       isEditing,
       isLoggedIn,
+      isStaff,
       onClick,
-      openReservationDeleteModal,
-      openReservationInfoModal,
-      updatePath,
       resource,
       selected,
-      selectReservationToDelete,
-      selectReservationToEdit,
-      selectReservationToShow,
       time,
     } = this.props;
     const scrollTo = time && time === slot.start;
@@ -33,19 +28,15 @@ class TimeSlots extends Component {
     return (
       <TimeSlot
         addNotification={addNotification}
+        isAdmin={isAdmin}
         isEditing={isEditing}
         isLoggedIn={isLoggedIn}
+        isStaff={isStaff}
         key={slot.start}
         onClick={onClick}
-        openReservationDeleteModal={openReservationDeleteModal}
-        openReservationInfoModal={openReservationInfoModal}
-        updatePath={updatePath}
         resource={resource}
         scrollTo={scrollTo}
         selected={includes(selected, slot.asISOString)}
-        selectReservationToEdit={selectReservationToEdit}
-        selectReservationToDelete={selectReservationToDelete}
-        selectReservationToShow={selectReservationToShow}
         slot={slot}
       />
     );
@@ -53,11 +44,10 @@ class TimeSlots extends Component {
 
   render() {
     const {
-      resource,
+      isAdmin,
       isFetching,
       slots,
     } = this.props;
-    const isAdmin = resource.userPermissions.isAdmin;
 
     return (
       <Loader loaded={!isFetching}>
@@ -78,7 +68,7 @@ class TimeSlots extends Component {
               </tr>
             </thead>
             <tbody>
-              {map(slots, this.renderTimeSlot)}
+              {slots.map(this.renderTimeSlot)}
             </tbody>
           </Table>
         ) : (
@@ -91,18 +81,14 @@ class TimeSlots extends Component {
 
 TimeSlots.propTypes = {
   addNotification: PropTypes.func.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
   isEditing: PropTypes.bool.isRequired,
   isFetching: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
+  isStaff: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
-  openReservationDeleteModal: PropTypes.func.isRequired,
-  openReservationInfoModal: PropTypes.func.isRequired,
-  updatePath: PropTypes.func.isRequired,
   resource: PropTypes.object.isRequired,
   selected: PropTypes.array.isRequired,
-  selectReservationToDelete: PropTypes.func.isRequired,
-  selectReservationToEdit: PropTypes.func.isRequired,
-  selectReservationToShow: PropTypes.func.isRequired,
   slots: PropTypes.array.isRequired,
   time: PropTypes.string,
 };

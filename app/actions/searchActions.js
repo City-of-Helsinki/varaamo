@@ -2,7 +2,7 @@ import { createAction } from 'redux-actions';
 import { CALL_API } from 'redux-api-middleware';
 
 import types from 'constants/ActionTypes';
-import { paginatedResourcesSchema, typeaheadSchema } from 'middleware/Schemas';
+import schemas from 'middleware/Schemas';
 import {
   buildAPIUrl,
   getErrorTypeDescriptor,
@@ -22,7 +22,7 @@ function getTypeaheadSuggestions(params = {}) {
         getRequestTypeDescriptor(types.API.TYPEAHEAD_SUGGESTIONS_GET_REQUEST),
         getSuccessTypeDescriptor(
           types.API.TYPEAHEAD_SUGGESTIONS_GET_SUCCESS,
-          { schema: typeaheadSchema }
+          { schema: schemas.typeaheadSchema }
         ),
         getErrorTypeDescriptor(types.API.TYPEAHEAD_SUGGESTIONS_GET_ERROR),
       ],
@@ -39,10 +39,24 @@ function searchResources(params = {}) {
   return {
     [CALL_API]: {
       types: [
-        getRequestTypeDescriptor(types.API.SEARCH_RESULTS_GET_REQUEST),
+        getRequestTypeDescriptor(
+          types.API.SEARCH_RESULTS_GET_REQUEST,
+          {
+            meta: {
+              track: {
+                event: 'trackEvent',
+                args: [
+                  'Search',
+                  'get',
+                  fetchParams.search,
+                ],
+              },
+            },
+          }
+        ),
         getSuccessTypeDescriptor(
           types.API.SEARCH_RESULTS_GET_SUCCESS,
-          { schema: paginatedResourcesSchema }
+          { schema: schemas.paginatedResourcesSchema }
         ),
         getErrorTypeDescriptor(types.API.SEARCH_RESULTS_GET_ERROR),
       ],
@@ -53,7 +67,7 @@ function searchResources(params = {}) {
   };
 }
 
-export default {
+export {
   clearSearchResults,
   getTypeaheadSuggestions,
   searchResources,

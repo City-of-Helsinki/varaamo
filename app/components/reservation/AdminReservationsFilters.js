@@ -1,16 +1,17 @@
-import map from 'lodash/collection/map';
-import sortBy from 'lodash/collection/sortBy';
+import map from 'lodash/map';
+import sortBy from 'lodash/sortBy';
 import React, { Component, PropTypes } from 'react';
 import Select from 'react-select';
 
-import { RESERVATION_STATE_LABELS } from 'constants/AppConstants';
+import constants from 'constants/AppConstants';
 
-let stateOptions = map(RESERVATION_STATE_LABELS, (value, key) => {
-  return {
+let stateOptions = map(
+  constants.RESERVATION_STATE_LABELS,
+  (value, key) => ({
     label: value.labelText,
     value: key,
-  };
-});
+  })
+);
 stateOptions = sortBy(stateOptions, 'label');
 stateOptions.unshift({ label: 'Kaikki', value: 'all' });
 

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import indexBy from 'lodash/collection/indexBy';
+import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
 import Resource from 'fixtures/Resource';
@@ -17,8 +17,8 @@ function getState(resources = [], units = []) {
       userId: null,
     },
     data: Immutable({
-      resources: indexBy(resources, 'id'),
-      units: indexBy(units, 'id'),
+      resources: keyBy(resources, 'id'),
+      units: keyBy(units, 'id'),
     }),
   };
 }

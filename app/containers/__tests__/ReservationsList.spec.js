@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import React from 'react';
-import simple from 'simple-mock';
 import sd from 'skin-deep';
 
 import Immutable from 'seamless-immutable';
@@ -14,20 +13,7 @@ import Unit from 'fixtures/Unit';
 
 function getProps(props) {
   const defaults = {
-    actions: {
-      confirmPreliminaryReservation: simple.stub(),
-      denyPreliminaryReservation: simple.stub(),
-      openReservationCancelModal: simple.stub(),
-      openReservationDeleteModal: simple.stub(),
-      openReservationInfoModal: simple.stub(),
-      updatePath: simple.stub(),
-      selectReservationToCancel: simple.stub(),
-      selectReservationToDelete: simple.stub(),
-      selectReservationToEdit: simple.stub(),
-      selectReservationToShow: simple.stub(),
-    },
     isAdmin: false,
-    deleteReservationModalIsOpen: false,
     loading: false,
     reservations: [],
     resources: {},
@@ -77,56 +63,32 @@ describe('Container: ReservationsList', () => {
         expect(reservationsListItemTrees.length).to.equal(props.reservations.length);
       });
 
-      it('should pass correct props to ReservationsListItem', () => {
-        reservationsListItemTrees.forEach((reservationTree, index) => {
-          const actualProps = reservationTree.props;
+      describe('passing correct props', () => {
+        it('should pass isAdmin, isStaff and reservation', () => {
+          reservationsListItemTrees.forEach((reservationTree, index) => {
+            const actualProps = reservationTree.props;
 
-          expect(actualProps.confirmPreliminaryReservation).to.deep.equal(props.actions.confirmPreliminaryReservation);
-          expect(actualProps.denyPreliminaryReservation).to.deep.equal(props.actions.denyPreliminaryReservation);
-          expect(actualProps.isAdmin).to.equal(props.isAdmin);
-          expect(actualProps.reservation).to.deep.equal(props.reservations[index]);
-          expect(actualProps.openReservationCancelModal).to.deep.equal(props.actions.openReservationCancelModal);
-          expect(actualProps.openReservationDeleteModal).to.deep.equal(props.actions.openReservationDeleteModal);
-          expect(actualProps.openReservationInfoModal).to.deep.equal(props.actions.openReservationInfoModal);
-          expect(actualProps.staffUnits).to.deep.equal(props.staffUnits);
-          expect(actualProps.updatePath).to.deep.equal(props.actions.updatePath);
-          expect(
-            actualProps.selectReservationToCancel
-          ).to.deep.equal(
-            props.actions.selectReservationToCancel
-          );
-          expect(
-            actualProps.selectReservationToDelete
-          ).to.deep.equal(
-            props.actions.selectReservationToDelete
-          );
-          expect(
-            actualProps.selectReservationToEdit
-          ).to.deep.equal(
-            props.actions.selectReservationToEdit
-          );
-          expect(
-            actualProps.selectReservationToShow
-          ).to.deep.equal(
-            props.actions.selectReservationToShow
-          );
+            expect(actualProps.isAdmin).to.equal(props.isAdmin);
+            expect(actualProps.isStaff).to.equal(false);
+            expect(actualProps.reservation).to.deep.equal(props.reservations[index]);
+          });
         });
-      });
 
-      it('should pass resource corresponding to reservation.resource as a prop to ReservationsListItem', () => {
-        expect(reservationsListItemTrees[0].props.resource).to.deep.equal(resource);
-      });
+        it('should pass resource corresponding to reservation.resource', () => {
+          expect(reservationsListItemTrees[0].props.resource).to.deep.equal(resource);
+        });
 
-      it('should pass empty object as resource prop to ReservationsListItem if resource is unfetched', () => {
-        expect(reservationsListItemTrees[1].props.resource).to.deep.equal({});
-      });
+        it('should pass empty object as resource if resource is unfetched', () => {
+          expect(reservationsListItemTrees[1].props.resource).to.deep.equal({});
+        });
 
-      it('should pass unit corresponding to resource.unit as a prop to ReservationsListItem', () => {
-        expect(reservationsListItemTrees[0].props.unit).to.deep.equal(unit);
-      });
+        it('should pass unit corresponding to resource.unit', () => {
+          expect(reservationsListItemTrees[0].props.unit).to.deep.equal(unit);
+        });
 
-      it('should pass empty object as unit prop to ReservationsListItem if unit or resource is unfetched', () => {
-        expect(reservationsListItemTrees[1].props.unit).to.deep.equal({});
+        it('should pass empty object as unit if unit or resource is unfetched', () => {
+          expect(reservationsListItemTrees[1].props.unit).to.deep.equal({});
+        });
       });
     });
   });

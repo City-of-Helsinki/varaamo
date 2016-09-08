@@ -9,15 +9,21 @@ import {
   getSuccessTypeDescriptor,
 } from 'utils/APIUtils';
 
-export default {
-  fetchUser,
-};
-
 function fetchUser(id, params = {}) {
   return {
     [CALL_API]: {
       types: [
-        getRequestTypeDescriptor(types.API.USER_GET_REQUEST),
+        getRequestTypeDescriptor(
+          types.API.USER_GET_REQUEST,
+          {
+            meta: {
+              track: {
+                event: 'trackEvent',
+                args: ['User', 'get', id],
+              },
+            },
+          }
+        ),
         getSuccessTypeDescriptor(types.API.USER_GET_SUCCESS),
         getErrorTypeDescriptor(types.API.USER_GET_ERROR),
       ],
@@ -27,3 +33,7 @@ function fetchUser(id, params = {}) {
     },
   };
 }
+
+export {
+  fetchUser,
+};

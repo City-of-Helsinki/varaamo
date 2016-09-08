@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import indexBy from 'lodash/collection/indexBy';
+import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
 import Reservation from 'fixtures/Reservation';
@@ -9,7 +9,7 @@ import sortedReservationsSelector from 'selectors/sortedReservationsSelector';
 function getState(reservations = []) {
   return {
     data: Immutable({
-      reservations: indexBy(reservations, 'url'),
+      reservations: keyBy(reservations, 'url'),
     }),
   };
 }

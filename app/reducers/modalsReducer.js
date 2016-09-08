@@ -1,5 +1,5 @@
-import without from 'lodash/array/without';
-import includes from 'lodash/collection/includes';
+import without from 'lodash/without';
+import includes from 'lodash/includes';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
@@ -14,34 +14,38 @@ function modalsReducer(state = initialState, action) {
 
   switch (action.type) {
 
-  case types.API.RESERVATION_POST_SUCCESS:
-    const reservation = action.payload;
-    if (reservation.needManualConfirmation) {
-      modal = ModalTypes.RESERVATION_SUCCESS;
-      return state.merge({ open: [...state.open, modal] });
-    }
-    return state;
-
-  case types.UI.CLOSE_MODAL:
-    modal = action.payload;
-
-    if (includes(state.open, modal)) {
-      return state.merge({ open: without(state.open, modal) });
-    }
-
-    return state;
-
-  case types.UI.OPEN_MODAL:
-    modal = action.payload;
-
-    if (includes(state.open, modal)) {
+    case types.API.RESERVATION_POST_SUCCESS: {
+      const reservation = action.payload;
+      if (reservation.needManualConfirmation) {
+        modal = ModalTypes.RESERVATION_SUCCESS;
+        return state.merge({ open: [...state.open, modal] });
+      }
       return state;
     }
 
-    return state.merge({ open: [...state.open, modal] });
+    case types.UI.CLOSE_MODAL: {
+      modal = action.payload;
 
-  default:
-    return state;
+      if (includes(state.open, modal)) {
+        return state.merge({ open: without(state.open, modal) });
+      }
+
+      return state;
+    }
+
+    case types.UI.OPEN_MODAL: {
+      modal = action.payload;
+
+      if (includes(state.open, modal)) {
+        return state;
+      }
+
+      return state.merge({ open: [...state.open, modal] });
+    }
+
+    default: {
+      return state;
+    }
   }
 }
 

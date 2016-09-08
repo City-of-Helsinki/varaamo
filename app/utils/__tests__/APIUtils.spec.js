@@ -2,8 +2,8 @@ import { expect } from 'chai';
 
 import { CALL_API } from 'redux-api-middleware';
 
-import { API_URL, REQUIRED_API_HEADERS } from 'constants/AppConstants';
-import { resourceSchema } from 'middleware/Schemas';
+import constants from 'constants/AppConstants';
+import schemas from 'middleware/Schemas';
 import {
   buildAPIUrl,
   createTransformFunction,
@@ -19,21 +19,21 @@ describe('Utils: APIUtils', () => {
     const endpoint = 'some/endpoint';
 
     it('should return API_URL + given endpoint if params is empty', () => {
-      const expected = `${API_URL}/${endpoint}/`;
+      const expected = `${constants.API_URL}/${endpoint}/`;
 
       expect(buildAPIUrl(endpoint)).to.equal(expected);
     });
 
     it('should reject params with empty values', () => {
       const params = { empty: '' };
-      const expected = `${API_URL}/${endpoint}/`;
+      const expected = `${constants.API_URL}/${endpoint}/`;
 
       expect(buildAPIUrl(endpoint, params)).to.equal(expected);
     });
 
     it('should append search params at the end if params is not empty', () => {
       const params = { param: 'hello_world' };
-      const expected = `${API_URL}/${endpoint}/?param=hello_world`;
+      const expected = `${constants.API_URL}/${endpoint}/?param=hello_world`;
 
       expect(buildAPIUrl(endpoint, params)).to.equal(expected);
     });
@@ -48,8 +48,8 @@ describe('Utils: APIUtils', () => {
       it('should camelize object keys', () => {
         const transformFunction = createTransformFunction();
         const initial = {
-          'some_key': {
-            'nested_key': 'value',
+          some_key: {
+            nested_key: 'value',
           },
         };
         const expected = {
@@ -63,7 +63,7 @@ describe('Utils: APIUtils', () => {
 
       describe('if normalizr Schema is provided', () => {
         it('should use the Schema to normalize data', () => {
-          const transformFunction = createTransformFunction(resourceSchema);
+          const transformFunction = createTransformFunction(schemas.resourceSchema);
           const initialResourceData = {
             id: 'r-1',
             unit: {
@@ -161,7 +161,7 @@ describe('Utils: APIUtils', () => {
             const creator = getHeadersCreator();
             const expected = Object.assign(
               {},
-              REQUIRED_API_HEADERS,
+              constants.REQUIRED_API_HEADERS,
               authorizationHeader
             );
 
@@ -177,7 +177,7 @@ describe('Utils: APIUtils', () => {
             const creator = getHeadersCreator(additionalHeaders);
             const expected = Object.assign(
               {},
-              REQUIRED_API_HEADERS,
+              constants.REQUIRED_API_HEADERS,
               additionalHeaders,
               authorizationHeader
             );
@@ -196,7 +196,7 @@ describe('Utils: APIUtils', () => {
           it('should return the just the required headers', () => {
             const creator = getHeadersCreator();
 
-            expect(creator(state)).to.deep.equal(REQUIRED_API_HEADERS);
+            expect(creator(state)).to.deep.equal(constants.REQUIRED_API_HEADERS);
           });
         });
 
@@ -206,7 +206,7 @@ describe('Utils: APIUtils', () => {
               header: 'value',
             };
             const creator = getHeadersCreator(additionalHeaders);
-            const expected = Object.assign({}, REQUIRED_API_HEADERS, additionalHeaders);
+            const expected = Object.assign({}, constants.REQUIRED_API_HEADERS, additionalHeaders);
 
             expect(creator(state)).to.deep.equal(expected);
           });
@@ -249,6 +249,20 @@ describe('Utils: APIUtils', () => {
           countable: true,
           type: 'SOME_GET_REQUEST',
         },
+      };
+
+      expect(actual).to.deep.equal(expected);
+    });
+
+    it('should support adding extra meta properties', () => {
+      const actual = getRequestTypeDescriptor(actionType, { meta: { test: 'test' } }).meta;
+      const expected = {
+        API_ACTION: {
+          apiRequestStart: true,
+          countable: undefined,
+          type: 'SOME_GET_REQUEST',
+        },
+        test: 'test',
       };
 
       expect(actual).to.deep.equal(expected);
@@ -345,6 +359,21 @@ describe('Utils: APIUtils', () => {
         const typeDescriptor = getSuccessTypeDescriptor(actionType, { payload: 'mock-payload' });
 
         expect(typeDescriptor.payload).to.equal('mock-payload');
+      });
+
+      it('should support adding extra meta properties', () => {
+        const typeDescriptor = getSuccessTypeDescriptor(actionType, { meta: { test: 'test' } });
+        const actual = typeDescriptor.meta(mockAction);
+        const expected = {
+          API_ACTION: {
+            apiRequestFinish: true,
+            countable: undefined,
+            type: 'SOME_GET_REQUEST',
+          },
+          test: 'test',
+        };
+
+        expect(actual).to.deep.equal(expected);
       });
     });
   });

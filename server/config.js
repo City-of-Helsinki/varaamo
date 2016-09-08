@@ -15,7 +15,7 @@ function getAssetHash(filePath) {
   }
 }
 
-export default {
+module.exports = {
   assetsSources: {
     appCss: (
       isProduction ?
@@ -28,8 +28,9 @@ export default {
       '/app.js'
     ),
   },
-  isProduction: isProduction,
+  isProduction,
   loginCallbackUrl: '/login/helsinki/return',
+  piwikSiteId: process.env.PIWIK_SITE_ID,
   port,
   proxy: Boolean(process.env.PROXY) || false,
   webpackStylesExtensions: ['css', 'less'],

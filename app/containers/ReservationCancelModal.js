@@ -1,11 +1,11 @@
-import forEach from 'lodash/collection/forEach';
+import forEach from 'lodash/forEach';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-bootstrap/lib/Modal';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { cancelPreliminaryReservation } from 'actions/reservationActions';
+import { deleteReservation } from 'actions/reservationActions';
 import { closeReservationCancelModal } from 'actions/uiActions';
 import CompactReservationsList from 'components/common/CompactReservationsList';
 import reservationCancelModalSelector from 'selectors/containers/reservationCancelModalSelector';
@@ -20,7 +20,7 @@ export class UnconnectedReservationCancelModal extends Component {
     const { actions, reservationsToCancel } = this.props;
 
     forEach(reservationsToCancel, (reservation) => {
-      actions.cancelPreliminaryReservation(reservation);
+      actions.deleteReservation(reservation);
     });
     actions.closeReservationCancelModal();
   }
@@ -58,14 +58,21 @@ export class UnconnectedReservationCancelModal extends Component {
     const {
       actions,
       isAdmin,
+      isCancellingReservations,
       reservationsToCancel,
       resources,
       show,
     } = this.props;
 
-    const resource = reservationsToCancel.length ? resources[reservationsToCancel[0].resource] : {};
-    const state = reservationsToCancel.length ? reservationsToCancel[0].state : '';
-    const cancelAllowed = isAdmin || state !== 'confirmed';
+    const reservation = reservationsToCancel.length ? reservationsToCancel[0] : null;
+    const resource = reservation ? resources[reservation.resource] : {};
+    const state = reservation ? reservation.state : '';
+    const isPreliminaryReservation = reservation && reservation.needManualConfirmation;
+    const cancelAllowed = (
+      !isPreliminaryReservation ||
+      isAdmin ||
+      state !== 'confirmed'
+    );
 
     return (
       <Modal
@@ -94,9 +101,10 @@ export class UnconnectedReservationCancelModal extends Component {
           {cancelAllowed && (
             <Button
               bsStyle="danger"
+              disabled={isCancellingReservations}
               onClick={this.handleCancel}
-              >
-              Peru varaus
+            >
+              {isCancellingReservations ? 'Perutaan...' : 'Peru varaus'}
             </Button>
           )}
         </Modal.Footer>
@@ -108,6 +116,7 @@ export class UnconnectedReservationCancelModal extends Component {
 UnconnectedReservationCancelModal.propTypes = {
   actions: PropTypes.object.isRequired,
   isAdmin: PropTypes.bool.isRequired,
+  isCancellingReservations: PropTypes.bool.isRequired,
   reservationsToCancel: PropTypes.array.isRequired,
   resources: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
@@ -115,8 +124,8 @@ UnconnectedReservationCancelModal.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
-    cancelPreliminaryReservation,
     closeReservationCancelModal,
+    deleteReservation,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

@@ -1,4 +1,3 @@
-import map from 'lodash/collection/map';
 import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import Loader from 'react-loader';
@@ -37,7 +36,7 @@ class SearchResults extends Component {
         <Loader loaded={!isFetching}>
           {results.length ? (
             <ul className="search-results">
-              {map(results, this.renderSearchResult)}
+              {results.map(this.renderSearchResult)}
             </ul>
           ) : (
             <p>Yhtään hakutulosta ei löytynyt.</p>

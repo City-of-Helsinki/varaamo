@@ -13,13 +13,11 @@ const appSelector = createSelector(
     isLoggedIn,
     user,
     userId
-  ) => {
-    return {
-      isLoggedIn,
-      user,
-      userId,
-    };
-  }
+  ) => ({
+    isLoggedIn,
+    user,
+    userId,
+  })
 );
 
 export default appSelector;

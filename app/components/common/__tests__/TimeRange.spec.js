@@ -40,7 +40,7 @@ describe('Component: common/TimeRange', () => {
     it('should display the date in given dateFormat', () => {
       const expected = moment(props.begin).format(props.dateFormat);
 
-      expect(rangeString).to.contain(expected);
+      expect(rangeString.toLowerCase()).to.contain(expected.toLowerCase());
     });
 
     it('should display the begin time in given timeFormat', () => {

@@ -1,27 +1,10 @@
-import { compose, createStore, applyMiddleware } from 'redux';
-import { apiMiddleware } from 'redux-api-middleware';
+/* eslint-disable global-require */
+import { compose, createStore } from 'redux';
 
+import middleware from 'middleware';
 import rootReducer from 'reducers/index';
 
-const isDevelopment = process.env.NODE_ENV !== 'production';
-let finalCreateStore;
-const storeEnhancers = [applyMiddleware(apiMiddleware)];
-
-if (isDevelopment) {
-  const createLogger = require('redux-logger');
-  const loggerMiddleware = createLogger({
-    collapsed: true,
-    duration: true,
-  });
-  storeEnhancers.push(applyMiddleware(loggerMiddleware));
-  if (__DEVTOOLS__) {
-    const { devTools, persistState } = require('redux-devtools');
-    storeEnhancers.push(devTools());
-    storeEnhancers.push(persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/)));
-  }
-}
-
-finalCreateStore = compose(...storeEnhancers)(createStore);
+const finalCreateStore = compose(...middleware)(createStore);
 
 function configureStore(initialState) {
   const store = finalCreateStore(rootReducer, initialState);
@@ -30,6 +13,7 @@ function configureStore(initialState) {
     // Enable Webpack hot module replacement for reducers
     module.hot.accept('reducers', () => {
       const nextRootReducer = require('reducers/index');
+
       store.replaceReducer(nextRootReducer);
     });
   }

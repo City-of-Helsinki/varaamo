@@ -4,27 +4,28 @@ import React from 'react';
 import sd from 'skin-deep';
 import simple from 'simple-mock';
 
-import forEach from 'lodash/collection/forEach';
+import forEach from 'lodash/forEach';
 import Immutable from 'seamless-immutable';
 
 import ConfirmReservationModal from 'components/reservation/ConfirmReservationModal';
-import { RESERVATION_FORM_FIELDS } from 'constants/AppConstants';
+import constants from 'constants/AppConstants';
 import ReservationForm from 'containers/ReservationForm';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
 
 function getProps(props) {
   const defaults = {
+    isAdmin: false,
     isEditing: false,
     isMakingReservations: false,
     isPreliminaryReservation: false,
+    isStaff: false,
     onClose: simple.stub(),
     onConfirm: simple.stub(),
     reservationsToEdit: Immutable([]),
     resource: Resource.build(),
     selectedReservations: Immutable([]),
     show: true,
-    staffUnits: [],
   };
 
   return Object.assign({}, defaults, props);
@@ -245,8 +246,7 @@ describe('Component: reservation/ConfirmReservationModal', () => {
         needManualConfirmation,
         userPermissions: { isAdmin },
       });
-      const staffUnits = isStaff ? [resource.unit] : [];
-      const props = getProps({ staffUnits, resource });
+      const props = getProps({ isAdmin, isStaff, resource });
       const wrapper = shallow(<ConfirmReservationModal {...props} />);
       return wrapper.find(ReservationForm);
     }
@@ -268,7 +268,7 @@ describe('Component: reservation/ConfirmReservationModal', () => {
         });
 
         it('form fields should include RESERVATION_FORM_FIELDS', () => {
-          forEach(RESERVATION_FORM_FIELDS, (field) => {
+          forEach(constants.RESERVATION_FORM_FIELDS, (field) => {
             expect(formFields).to.contain(field);
           });
         });
@@ -289,7 +289,7 @@ describe('Component: reservation/ConfirmReservationModal', () => {
         });
 
         it('form fields should include RESERVATION_FORM_FIELDS', () => {
-          forEach(RESERVATION_FORM_FIELDS, (field) => {
+          forEach(constants.RESERVATION_FORM_FIELDS, (field) => {
             expect(formFields).to.contain(field);
           });
         });
@@ -310,7 +310,7 @@ describe('Component: reservation/ConfirmReservationModal', () => {
         });
 
         it('form fields should include RESERVATION_FORM_FIELDS', () => {
-          forEach(RESERVATION_FORM_FIELDS, (field) => {
+          forEach(constants.RESERVATION_FORM_FIELDS, (field) => {
             expect(formFields).to.contain(field);
           });
         });
@@ -333,7 +333,7 @@ describe('Component: reservation/ConfirmReservationModal', () => {
         });
 
         it('form fields should not include RESERVATION_FORM_FIELDS', () => {
-          forEach(RESERVATION_FORM_FIELDS, (field) => {
+          forEach(constants.RESERVATION_FORM_FIELDS, (field) => {
             expect(formFields).to.not.contain(field);
           });
         });
@@ -353,7 +353,7 @@ describe('Component: reservation/ConfirmReservationModal', () => {
         });
 
         it('form fields should not include RESERVATION_FORM_FIELDS', () => {
-          forEach(RESERVATION_FORM_FIELDS, (field) => {
+          forEach(constants.RESERVATION_FORM_FIELDS, (field) => {
             expect(formFields).to.not.contain(field);
           });
         });

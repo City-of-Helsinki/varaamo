@@ -6,20 +6,10 @@ class ReservationControls extends Component {
   constructor(props) {
     super(props);
     this.buttons = {
-      adminCancel: (
-        <Button
-          bsSize="xsmall"
-          bsStyle="danger"
-          key="adminCancelButton"
-          onClick={props.onCancelClick}
-        >
-          Peru
-        </Button>
-      ),
       cancel: (
         <Button
           bsSize="xsmall"
-          bsStyle="default"
+          bsStyle="danger"
           key="cancelButton"
           onClick={props.onCancelClick}
         >
@@ -34,16 +24,6 @@ class ReservationControls extends Component {
           onClick={props.onConfirmClick}
         >
           Hyväksy
-        </Button>
-      ),
-      delete: (
-        <Button
-          bsSize="xsmall"
-          bsStyle="danger"
-          key="deleteButton"
-          onClick={props.onDeleteClick}
-        >
-          Peru
         </Button>
       ),
       deny: (
@@ -85,40 +65,45 @@ class ReservationControls extends Component {
         return null;
       }
       return isAdmin ?
-        [buttons.edit, buttons.delete] :
-        [buttons.edit, buttons.delete];
+        [buttons.edit, buttons.cancel] :
+        [buttons.edit, buttons.cancel];
     }
 
     switch (reservation.state) {
 
-    case 'cancelled':
-      return isAdmin ?
-        [buttons.info] :
-        [buttons.info];
-
-    case 'confirmed':
-      if (isAdmin) {
-        return isStaff ?
-          [buttons.info, buttons.adminCancel, buttons.edit] :
-          [buttons.info, buttons.adminCancel];
+      case 'cancelled': {
+        return isAdmin ?
+          [buttons.info] :
+          [buttons.info];
       }
-      return [buttons.info, buttons.cancel];
 
-    case 'denied':
-      return isAdmin ?
-        [buttons.info] :
-        [buttons.info];
-
-    case 'requested':
-      if (isAdmin) {
-        return isStaff ?
-          [buttons.info, buttons.confirm, buttons.deny, buttons.edit] :
-          [buttons.info, buttons.edit];
+      case 'confirmed': {
+        if (isAdmin) {
+          return isStaff ?
+            [buttons.info, buttons.cancel, buttons.edit] :
+            [buttons.info, buttons.cancel];
+        }
+        return [buttons.info, buttons.cancel];
       }
-      return [buttons.info, buttons.edit, buttons.cancel];
 
-    default:
-      return null;
+      case 'denied': {
+        return isAdmin ?
+          [buttons.info] :
+          [buttons.info];
+      }
+
+      case 'requested': {
+        if (isAdmin) {
+          return isStaff ?
+            [buttons.info, buttons.confirm, buttons.deny, buttons.edit] :
+            [buttons.info, buttons.edit];
+        }
+        return [buttons.info, buttons.edit, buttons.cancel];
+      }
+
+      default: {
+        return null;
+      }
 
     }
   }
@@ -143,7 +128,6 @@ ReservationControls.propTypes = {
   isStaff: PropTypes.bool.isRequired,
   onCancelClick: PropTypes.func.isRequired,
   onConfirmClick: PropTypes.func.isRequired,
-  onDeleteClick: PropTypes.func.isRequired,
   onDenyClick: PropTypes.func.isRequired,
   onEditClick: PropTypes.func.isRequired,
   onInfoClick: PropTypes.func.isRequired,

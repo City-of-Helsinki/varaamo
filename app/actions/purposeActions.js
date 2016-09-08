@@ -1,7 +1,7 @@
 import { CALL_API } from 'redux-api-middleware';
 
 import types from 'constants/ActionTypes';
-import { paginatedPurposesSchema } from 'middleware/Schemas';
+import schemas from 'middleware/Schemas';
 import {
   buildAPIUrl,
   getErrorTypeDescriptor,
@@ -10,10 +10,6 @@ import {
   getSuccessTypeDescriptor,
 } from 'utils/APIUtils';
 
-export default {
-  fetchPurposes,
-};
-
 function fetchPurposes() {
   return {
     [CALL_API]: {
@@ -21,16 +17,18 @@ function fetchPurposes() {
         getRequestTypeDescriptor(types.API.PURPOSES_GET_REQUEST),
         getSuccessTypeDescriptor(
           types.API.PURPOSES_GET_SUCCESS,
-          { schema: paginatedPurposesSchema }
+          { schema: schemas.paginatedPurposesSchema }
         ),
         getErrorTypeDescriptor(types.API.PURPOSES_GET_ERROR),
       ],
       endpoint: buildAPIUrl('purpose'),
       method: 'GET',
       headers: getHeadersCreator(),
-      bailout: (state) => {
-        return !state.api.shouldFetch.purposes;
-      },
+      bailout: (state) => !state.api.shouldFetch.purposes,
     },
   };
 }
+
+export {
+  fetchPurposes,
+};

@@ -1,5 +1,3 @@
-import map from 'lodash/collection/map';
-import keys from 'lodash/object/keys';
 import React, { Component, PropTypes } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
@@ -40,7 +38,7 @@ export class UnconnectedPurposeCategoryList extends Component {
     return (
       <Loader loaded={!isFetchingPurposes}>
         <div>
-          {map(keys(groupedPurposes), this.renderPurposeCategory)}
+          {Object.keys(groupedPurposes).map(this.renderPurposeCategory)}
         </div>
       </Loader>
     );
@@ -62,4 +60,6 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
-export default connect(purposeCategoryListSelector, mapDispatchToProps)(UnconnectedPurposeCategoryList);
+export default (
+  connect(purposeCategoryListSelector, mapDispatchToProps)(UnconnectedPurposeCategoryList)
+);

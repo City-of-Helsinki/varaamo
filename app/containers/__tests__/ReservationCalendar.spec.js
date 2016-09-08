@@ -21,14 +21,9 @@ function getProps(props = {}) {
       closeConfirmReservationModal: simple.stub(),
       deleteReservation: simple.stub(),
       openConfirmReservationModal: simple.stub(),
-      openReservationDeleteModal: simple.stub(),
-      openReservationInfoModal: simple.stub(),
       postReservation: simple.stub(),
       updatePath: simple.stub(),
       putReservation: simple.stub(),
-      selectReservationToDelete: simple.stub(),
-      selectReservationToEdit: simple.stub(),
-      selectReservationToShow: simple.stub(),
       toggleTimeSlot: simple.stub(),
     },
     confirmReservationModalIsOpen: false,
@@ -116,18 +111,14 @@ describe('Container: ReservationCalendar', () => {
         const actualProps = timeSlotsTrees[0].props;
 
         expect(actualProps.addNotification).to.deep.equal(props.actions.addNotification);
+        expect(actualProps.isAdmin).to.exist;
         expect(actualProps.isEditing).to.exist;
         expect(actualProps.isFetching).to.equal(props.isFetchingResource);
         expect(actualProps.isLoggedIn).to.equal(props.isLoggedIn);
+        expect(actualProps.isStaff).to.exist;
         expect(actualProps.onClick).to.deep.equal(props.actions.toggleTimeSlot);
-        expect(actualProps.openReservationDeleteModal).to.deep.equal(props.actions.openReservationDeleteModal);
-        expect(actualProps.openReservationInfoModal).to.deep.equal(props.actions.openReservationInfoModal);
-        expect(actualProps.updatePath).to.deep.equal(props.actions.updatePath);
         expect(actualProps.resource).to.equal(props.resource);
         expect(actualProps.selected).to.deep.equal(props.selected);
-        expect(actualProps.selectReservationToDelete).to.deep.equal(props.actions.selectReservationToDelete);
-        expect(actualProps.selectReservationToEdit).to.deep.equal(props.actions.selectReservationToEdit);
-        expect(actualProps.selectReservationToShow).to.deep.equal(props.actions.selectReservationToShow);
         expect(actualProps.slots).to.deep.equal(props.timeSlots);
       });
     });
@@ -160,15 +151,17 @@ describe('Container: ReservationCalendar', () => {
       it('should pass correct props to ConfirmReservationModal component', () => {
         const actualProps = modalTrees[0].props;
 
+        expect(actualProps.isAdmin).to.exist;
         expect(actualProps.isEditing).to.exist;
         expect(actualProps.isMakingReservations).to.equal(props.isMakingReservations);
-        expect(actualProps.isPreliminaryReservation).to.equal(props.resource.needManualConfirmation);
+        expect(actualProps.isPreliminaryReservation)
+          .to.equal(props.resource.needManualConfirmation);
+        expect(actualProps.isStaff).to.exist;
         expect(actualProps.onClose).to.equal(props.actions.closeConfirmReservationModal);
         expect(actualProps.onConfirm).to.equal(instance.handleReservation);
         expect(actualProps.reservationsToEdit).to.deep.equal(props.reservationsToEdit);
         expect(actualProps.selectedReservations).to.deep.equal(props.selectedReservations);
         expect(actualProps.show).to.equal(props.confirmReservationModalIsOpen);
-        expect(actualProps.staffUnits).to.equal(props.staffUnits);
       });
     });
   });
@@ -237,13 +230,16 @@ describe('Container: ReservationCalendar', () => {
         expect(actualArgs[0]).to.deep.equal(expectedReservation);
       });
 
-      it('should add new reservations for the rest of the selected reservations', () => {
+      it('should add new reservations for the rest of the selected reservations', (done) => {
         const expectedCallCount = props.selectedReservations.length - 1;
 
-        expect(props.actions.postReservation.callCount).to.equal(expectedCallCount);
-        props.actions.postReservation.calls.forEach((call, index) => {
-          expect(call.args[0]).to.deep.equal(props.selectedReservations[index + 1]);
-        });
+        setTimeout(() => {
+          expect(props.actions.postReservation.callCount).to.equal(expectedCallCount);
+          props.actions.postReservation.calls.forEach((call, index) => {
+            expect(call.args[0]).to.deep.equal(props.selectedReservations[index + 1]);
+          });
+          done();
+        }, 800);
       });
     });
   });

@@ -1,14 +1,12 @@
-import includes from 'lodash/collection/includes';
-import queryString from 'query-string';
+import includes from 'lodash/includes';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Input from 'react-bootstrap/lib/Input';
 import Modal from 'react-bootstrap/lib/Modal';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updatePath } from 'redux-simple-router';
 
-import { closeReservationInfoModal, selectReservationToEdit } from 'actions/uiActions';
+import { closeReservationInfoModal } from 'actions/uiActions';
 import { putReservation } from 'actions/reservationActions';
 import TimeRange from 'components/common/TimeRange';
 import reservationInfoModalSelector from 'selectors/containers/reservationInfoModalSelector';
@@ -22,7 +20,6 @@ import { renderReservationStateLabel } from 'utils/renderUtils';
 export class UnconnectedReservationInfoModal extends Component {
   constructor(props) {
     super(props);
-    this.handleEdit = this.handleEdit.bind(this);
     this.handleSave = this.handleSave.bind(this);
   }
 
@@ -32,23 +29,6 @@ export class UnconnectedReservationInfoModal extends Component {
       return `${street}, ${ending}`;
     }
     return `${street} ${ending}`;
-  }
-
-  handleEdit() {
-    const { actions, reservationsToShow, resources } = this.props;
-    const reservation = reservationsToShow.length ? reservationsToShow[0] : undefined;
-    if (!reservation) {
-      return;
-    }
-    const resource = reservation ? resources[reservationsToShow[0].resource] : {};
-    const query = queryString.stringify({
-      date: reservation.begin.split('T')[0],
-      time: reservation.begin,
-    });
-
-    actions.selectReservationToEdit({ reservation, minPeriod: resource.minPeriod });
-    actions.closeReservationInfoModal();
-    actions.updatePath(`/resources/${reservation.resource}/reservation?${query}`);
   }
 
   handleSave() {
@@ -89,14 +69,32 @@ export class UnconnectedReservationInfoModal extends Component {
           <dt>Tilaisuuden kuvaus:</dt><dd>{reservation.eventDescription}</dd>
           <dt>Osallistujamäärä:</dt><dd>{reservation.numberOfParticipants}</dd>
           <dt>Osoite:</dt>
-          <dd>{this.getAddress(reservation.reserverAddressStreet, reservation.reserverAddressZip, reservation.reserverAddressCity)}</dd>
+          <dd>
+            {this.getAddress(
+              reservation.reserverAddressStreet,
+              reservation.reserverAddressZip,
+              reservation.reserverAddressCity
+            )}
+          </dd>
           <dt>Laskutusosoite:</dt>
-          <dd>{this.getAddress(reservation.billingAddressStreet, reservation.billingAddressZip, reservation.billingAddressCity)}</dd>
+          <dd>
+            {this.getAddress(
+              reservation.billingAddressStreet,
+              reservation.billingAddressZip,
+              reservation.billingAddressCity
+            )}
+          </dd>
           <dt>Varauksen ajankohta:</dt>
           <dd><TimeRange begin={reservation.begin} end={reservation.end} /></dd>
           <dt>Tila:</dt><dd>{getName(resource)}</dd>
+          {isAdmin && reservation.state === 'cancelled' && (
+            <span>
+              <dt>Kommentit:</dt>
+              <dd>{reservation.comments}</dd>
+            </span>
+          )}
         </dl>
-        {isAdmin && (
+        {isAdmin && reservation.state !== 'cancelled' && (
           <form>
             <Input
               defaultValue={reservation.comments}
@@ -126,7 +124,7 @@ export class UnconnectedReservationInfoModal extends Component {
     const resource = reservation ? resources[reservationsToShow[0].resource] : {};
     const isAdmin = resource.userPermissions && resource.userPermissions.isAdmin;
     const isStaff = includes(staffUnits, resource.unit);
-    const showEditButton = (reservation && reservation.state !== 'confirmed') || isStaff;
+    const showSaveButton = isAdmin && reservation && reservation.state !== 'cancelled';
 
     return (
       <Modal
@@ -149,15 +147,7 @@ export class UnconnectedReservationInfoModal extends Component {
           >
             Takaisin
           </Button>
-          {isAdmin && showEditButton && (
-            <Button
-              bsStyle="primary"
-              onClick={this.handleEdit}
-            >
-              Muokkaa
-            </Button>
-          )}
-          {isAdmin && (
+          {showSaveButton && (
             <Button
               bsStyle="success"
               disabled={isEditingReservations}
@@ -186,8 +176,6 @@ function mapDispatchToProps(dispatch) {
   const actionCreators = {
     closeReservationInfoModal,
     putReservation,
-    selectReservationToEdit,
-    updatePath,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

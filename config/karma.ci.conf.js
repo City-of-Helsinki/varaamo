@@ -1,8 +1,6 @@
-/* eslint-disable func-names, no-var */
+const karmaFactory = require('./make-karma-config');
 
-var karmaFactory = require('./make-karma-config');
-
-module.exports = function(config) {
+module.exports = (config) => {
   config.set(karmaFactory({
     browsers: ['Chrome'],
     coverage: true,
