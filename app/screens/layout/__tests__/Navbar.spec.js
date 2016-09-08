@@ -57,6 +57,11 @@ describe('Component: layout/Navbar', () => {
       expect(myReservationsLink).to.be.ok;
     });
 
+    it('should render a link to admin resources page', () => {
+      const myReservationsLink = tree.subTreeLike('LinkContainer', { to: '/admin-resources' });
+      expect(myReservationsLink).to.be.ok;
+    });
+
     it('should render a logout link', () => {
       const logoutLink = tree.subTreeLike('MenuItem', { children: 'Kirjaudu ulos' });
       expect(logoutLink).to.be.ok;
