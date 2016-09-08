@@ -5,6 +5,15 @@ import { Link } from 'react-router';
 import TimeRange from 'components/common/TimeRange';
 
 class ResourcesTableItem extends Component {
+  getReserverName(reservation) {
+    return (
+      reservation.reserverName ||
+      (reservation.user &&
+        ((reservation.user.displayName !== '' && reservation.user.displayName) ||
+        reservation.user.email)
+      )
+    );
+  }
 
   renderAvailable() {
     const {
@@ -49,7 +58,7 @@ class ResourcesTableItem extends Component {
             />
           </td>,
           <td className="resource-table-row reserver" key={`${reservation.id}-reserver`}>
-            {reservation.reserverName}
+            {this.getReserverName(reservation)}
           </td>,
           <td className="resource-table-row comments" key={`${reservation.id}-comments`}>
             {reservation.comments}
@@ -67,14 +76,19 @@ class ResourcesTableItem extends Component {
 const reservationPropType = PropTypes.shape({
   begin: PropTypes.string.isRequired,
   end: PropTypes.string.isRequired,
-  reserverName: PropTypes.string.isRequired,
+  reserverName: PropTypes.string,
   comments: PropTypes.arrayOf(PropTypes.string),
 });
 
 ResourcesTableItem.propTypes = {
   currentReservation: reservationPropType,
   nextReservation: reservationPropType,
-  resource: PropTypes.object.isRequired,
+  resource: PropTypes.shape({
+    user: PropTypes.shape({
+      displayName: PropTypes.string,
+      email: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
 };
 
 export default ResourcesTableItem;

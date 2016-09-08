@@ -187,7 +187,7 @@ describe('Component: reservation/ResourcesTableItem', () => {
               expect(tdComponent).to.have.length(1);
             });
 
-            it('contains the reserver name', () => {
+            it('contains the reserver name if it exist', () => {
               expect(tdComponent.prop('children')).to.equal(expectedReservation.reserverName);
             });
           });
@@ -210,5 +210,53 @@ describe('Component: reservation/ResourcesTableItem', () => {
         }
       });
     });
+  });
+
+  describe('getReserverName', () => {
+    let wrapper;
+    let instance;
+
+    const reservationWithReserverName = Reservation.build({
+      reserverName: 'reserverName',
+      user: {
+        displayName: 'myName',
+        email: 'my@email.com',
+      },
+    });
+
+    const reservationWithoutReserverName = Reservation.build({
+      reserverName: null,
+      user: {
+        displayName: 'myName',
+        email: 'my@email.com',
+      },
+    });
+
+    const reservationWithoutReserverNameNorDisplayName = Reservation.build({
+      reserverName: null,
+      user: {
+        displayName: '',
+        email: 'my@email.com',
+      },
+    });
+    before(() => {
+      wrapper = getWrapper();
+      instance = wrapper.instance();
+    });
+
+    it('returns reservaterName if it exists', () => {
+      expect(instance.getReserverName(reservationWithReserverName)).to.equal('reserverName');
+    });
+
+    it('returns displayName if reservaterName does not exists', () => {
+      expect(instance.getReserverName(reservationWithoutReserverName)).to.equal('myName');
+    });
+
+    it('returns email if displayName or reservaterName do not exists', () => {
+      expect(instance.getReserverName(reservationWithoutReserverNameNorDisplayName)).to.equal(
+        'my@email.com'
+      );
+    });
+
   });
 });
