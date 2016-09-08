@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
+import { Link } from 'react-router';
 
 import TimeRange from 'components/common/TimeRange';
 
@@ -33,7 +34,11 @@ class ResourcesTableItem extends Component {
     const reservation = currentReservation || nextReservation;
     return (
       <tr>
-        <td className="resource-table-row name">{resource.name.fi}</td>
+        <td className="resource-table-row name">
+          <Link to={`/resources/${resource.id}`}>
+            {resource.name.fi}
+          </Link>
+        </td>
         {this.renderAvailable()}
         { reservation ? [
           <td className="resource-table-row reservation-range" key={`${reservation.id}-range`}>

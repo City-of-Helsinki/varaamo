@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import moment from 'moment';
-
+import { Link } from 'react-router';
 
 import TimeRange from 'components/common/TimeRange';
 import ResourcesTableItem from 'components/resource/ResourcesTableItem';
@@ -89,8 +89,11 @@ describe('Component: reservation/ResourcesTableItem', () => {
             expect(tdComponent).to.have.length(1);
           });
 
-          it('contains the resource name', () => {
-            expect(tdComponent.prop('children')).to.equal(resource.name.fi);
+          it('contains a Link element with correct to and resource name', () => {
+            expect(tdComponent.children().is(Link)).to.be.true;
+            const props = tdComponent.children().props();
+            expect(props.to).to.equal(`/resources/${resource.id}`);
+            expect(props.children).to.equal(resource.name.fi);
           });
         });
 
