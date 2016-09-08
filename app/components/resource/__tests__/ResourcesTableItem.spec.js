@@ -98,21 +98,21 @@ describe('Component: reservation/ResourcesTableItem', () => {
         });
 
         if (componentTuple[1] === 'withoutReservationsComponent') {
-          it('available tr exists and is empty', () => {
-            expect(component.find('.resource-table-row.available')).to.have.length(1);
-            expect(component.find('.resource-table-row.available').prop('children'))
+          it('availability tr exists and is empty', () => {
+            expect(component.find('.resource-table-row.availability')).to.have.length(1);
+            expect(component.find('.resource-table-row.availability').prop('children'))
               .to.be.undefined;
           });
 
-          it('available tr exists and is the amount of free time till resource closes', () => {
+          it('availability tr exists and is the amount of free time till resource closes', () => {
             const openResource = Immutable(Resource.build({
               openingHours: [{
                 closes: now.clone().add(2, 'hours'),
               }],
             }));
             const customWrapper = getWrapper({ resource: openResource });
-            expect(customWrapper.find('.resource-table-row.available')).to.have.length(1);
-            expect(customWrapper.find('.resource-table-row.available').prop('children'))
+            expect(customWrapper.find('.resource-table-row.availability')).to.have.length(1);
+            expect(customWrapper.find('.resource-table-row.availability').prop('children'))
               .to.equal('2.0h heti');
           });
 
@@ -133,27 +133,27 @@ describe('Component: reservation/ResourcesTableItem', () => {
           });
         } else {
           if (componentTuple[1] === 'nextReservationComponent') {
-            describe('available element', () => {
+            describe('availability element', () => {
               let tdComponent;
 
               before(() => {
-                tdComponent = component.find('.resource-table-row.available');
+                tdComponent = component.find('.resource-table-row.availability');
               });
 
               it('exists', () => {
                 expect(tdComponent).to.have.length(1);
               });
 
-              it('contains the amount of available time', () => {
+              it('contains the amount of availability time', () => {
                 expect(tdComponent.prop('children')).to.equal('2.0h heti');
               });
             });
           } else {
-            describe('available element', () => {
+            describe('availability element', () => {
               let tdComponent;
 
               before(() => {
-                tdComponent = component.find('.resource-table-row.available');
+                tdComponent = component.find('.resource-table-row.availability');
               });
 
               it('exists', () => {
