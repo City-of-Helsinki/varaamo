@@ -10,8 +10,7 @@ import {
 } from 'components/resource/ResourcesTable';
 import ResourcesTableItem from 'components/resource/ResourcesTableItem';
 import Reservation from 'fixtures/Reservation';
-import Resource from 'fixtures/Resource';
-
+import Resource, { openingHours } from 'fixtures/Resource';
 
 describe('Container: ResourcesTable', () => {
   const currentReservation = Reservation.build(
@@ -22,8 +21,11 @@ describe('Container: ResourcesTable', () => {
     { reserverName: 'next' },
     { startTime: moment().add(2, 'hours') }
   );
-  const resource1 = Resource.build({ reservations: [currentReservation, nextReservation] });
-  const resource2 = Resource.build({ reservations: [nextReservation] });
+  const resource1 = Resource.build({
+    openingHours,
+    reservations: [currentReservation, nextReservation],
+  });
+  const resource2 = Resource.build({ reservations: [nextReservation], openingHours });
   const defaultProps = {
     resources: Immutable([
       resource1,

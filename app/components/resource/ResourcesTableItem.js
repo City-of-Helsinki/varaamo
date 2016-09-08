@@ -3,6 +3,7 @@ import moment from 'moment';
 import { Link } from 'react-router';
 
 import TimeRange from 'components/common/TimeRange';
+import { getOpeningHours } from 'utils/DataUtils';
 
 class ResourcesTableItem extends Component {
   getReserverName(reservation) {
@@ -15,21 +16,30 @@ class ResourcesTableItem extends Component {
     );
   }
 
+  getAvailableTime(untilDate) {
+    const availableTime = moment(untilDate).diff(moment(), 'hours', true).toFixed(1);
+    return (
+      <td className="resource-table-row available">{
+        `${availableTime}h heti`
+      }</td>
+    );
+  }
+
   renderAvailable() {
     const {
       currentReservation,
       nextReservation,
+      resource,
     } = this.props;
     if (currentReservation) {
       return <td className="resource-table-row available reserved">Varattu</td>;
     }
     if (nextReservation) {
-      const availableTime = moment(nextReservation.begin).diff(moment(), 'hours', true).toFixed(1);
-      return (
-        <td className="resource-table-row available">{
-          `${availableTime}h heti`
-        }</td>
-      );
+      return this.getAvailableTime(nextReservation.begin);
+    }
+    const closes = getOpeningHours(resource).closes;
+    if (moment() < moment(closes)) {
+      return this.getAvailableTime(closes);
     }
     return <td className="resource-table-row available" />;
   }
@@ -84,6 +94,7 @@ ResourcesTableItem.propTypes = {
   currentReservation: reservationPropType,
   nextReservation: reservationPropType,
   resource: PropTypes.shape({
+    openingHours: PropTypes.array.isRequired,
     user: PropTypes.shape({
       displayName: PropTypes.string,
       email: PropTypes.string.isRequired,

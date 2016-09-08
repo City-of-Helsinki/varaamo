@@ -8,12 +8,12 @@ import { Link } from 'react-router';
 import TimeRange from 'components/common/TimeRange';
 import ResourcesTableItem from 'components/resource/ResourcesTableItem';
 import Reservation from 'fixtures/Reservation';
-import Resource from 'fixtures/Resource';
+import Resource, { openingHours } from 'fixtures/Resource';
 
 
 describe('Component: reservation/ResourcesTableItem', () => {
-  const resource = Immutable(Resource.build());
   const now = moment();
+  const resource = Immutable(Resource.build({ openingHours }));
   const currentReservation = Immutable(Reservation.build(
     { reserverName: 'current' },
     { startTime: now.clone().subtract(30, 'minutes') }
@@ -102,6 +102,18 @@ describe('Component: reservation/ResourcesTableItem', () => {
             expect(component.find('.resource-table-row.available')).to.have.length(1);
             expect(component.find('.resource-table-row.available').prop('children'))
               .to.be.undefined;
+          });
+
+          it('available tr exists and is the amount of free time till resource closes', () => {
+            const openResource = Immutable(Resource.build({
+              openingHours: [{
+                closes: now.clone().add(2, 'hours'),
+              }],
+            }));
+            const customWrapper = getWrapper({ resource: openResource });
+            expect(customWrapper.find('.resource-table-row.available')).to.have.length(1);
+            expect(customWrapper.find('.resource-table-row.available').prop('children'))
+              .to.equal('2.0h heti');
           });
 
           it('reservation range tr exists and is empty', () => {
