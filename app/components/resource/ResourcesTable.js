@@ -24,7 +24,7 @@ export class UnconnectedResourcesTable extends Component {
     } = this.props;
     return (
       Object.keys(resources).length ? (
-        <Table className="resources-list" responsive striped>
+        <Table className="resources-table" responsive striped>
           <thead>
             <tr>
               <th>Tilan nimi</th>
