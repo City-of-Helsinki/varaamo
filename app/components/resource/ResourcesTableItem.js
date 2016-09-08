@@ -85,9 +85,13 @@ class ResourcesTableItem extends Component {
 
 const reservationPropType = PropTypes.shape({
   begin: PropTypes.string.isRequired,
+  comments: PropTypes.string,
   end: PropTypes.string.isRequired,
   reserverName: PropTypes.string,
-  comments: PropTypes.arrayOf(PropTypes.string),
+  user: PropTypes.shape({
+    displayName: PropTypes.string,
+    email: PropTypes.string.isRequired,
+  }),
 });
 
 ResourcesTableItem.propTypes = {
@@ -95,10 +99,6 @@ ResourcesTableItem.propTypes = {
   nextReservation: reservationPropType,
   resource: PropTypes.shape({
     openingHours: PropTypes.array.isRequired,
-    user: PropTypes.shape({
-      displayName: PropTypes.string,
-      email: PropTypes.string.isRequired,
-    }),
   }).isRequired,
 };
 

@@ -228,47 +228,42 @@ describe('Component: reservation/ResourcesTableItem', () => {
     let wrapper;
     let instance;
 
-    const reservationWithReserverName = Reservation.build({
-      reserverName: 'reserverName',
-      user: {
-        displayName: 'myName',
-        email: 'my@email.com',
-      },
-    });
-
-    const reservationWithoutReserverName = Reservation.build({
-      reserverName: null,
-      user: {
-        displayName: 'myName',
-        email: 'my@email.com',
-      },
-    });
-
-    const reservationWithoutReserverNameNorDisplayName = Reservation.build({
-      reserverName: null,
-      user: {
-        displayName: '',
-        email: 'my@email.com',
-      },
-    });
     before(() => {
       wrapper = getWrapper();
       instance = wrapper.instance();
     });
 
-    it('returns reservaterName if it exists', () => {
-      expect(instance.getReserverName(reservationWithReserverName)).to.equal('reserverName');
+    it('returns reserverName if it exists', () => {
+      const reservation = Reservation.build({
+        reserverName: 'reserverName',
+        user: {
+          displayName: 'myName',
+          email: 'my@email.com',
+        },
+      });
+      expect(instance.getReserverName(reservation)).to.equal(reservation.reserverName);
     });
 
-    it('returns displayName if reservaterName does not exists', () => {
-      expect(instance.getReserverName(reservationWithoutReserverName)).to.equal('myName');
+    it('returns displayName if reserverName does not exists', () => {
+      const reservation = Reservation.build({
+        reserverName: null,
+        user: {
+          displayName: 'myName',
+          email: 'my@email.com',
+        },
+      });
+      expect(instance.getReserverName(reservation)).to.equal(reservation.user.displayName);
     });
 
-    it('returns email if displayName or reservaterName do not exists', () => {
-      expect(instance.getReserverName(reservationWithoutReserverNameNorDisplayName)).to.equal(
-        'my@email.com'
-      );
+    it('returns email if displayName or reserverName do not exists', () => {
+      const reservation = Reservation.build({
+        reserverName: null,
+        user: {
+          displayName: '',
+          email: 'my@email.com',
+        },
+      });
+      expect(instance.getReserverName(reservation)).to.equal(reservation.user.email);
     });
-
   });
 });
