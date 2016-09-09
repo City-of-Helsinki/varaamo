@@ -20,7 +20,6 @@ export class UnconnectedSearchControls extends Component {
     super(props);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
-    this.onDateChange = this.onDateChange.bind(this);
     this.onFiltersChange = this.onFiltersChange.bind(this);
   }
 
@@ -29,11 +28,6 @@ export class UnconnectedSearchControls extends Component {
 
     actions.changeSearchFilters(urlSearchFilters);
     actions.fetchPurposes();
-  }
-
-  onDateChange(newDate) {
-    this.onFiltersChange({ date: newDate });
-    this.handleSearch({ date: newDate }, { preventScrolling: true });
   }
 
   onFiltersChange(newFilters) {
@@ -91,7 +85,7 @@ export class UnconnectedSearchControls extends Component {
                 dateFormat="YYYY-MM-DD"
                 defaultValue={this.props.filters.date}
                 footer={false}
-                onChange={this.onDateChange}
+                onChange={(date) => this.onFiltersChange({ date })}
                 updateOnDateClick
               />
             </div>

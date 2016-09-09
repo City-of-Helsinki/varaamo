@@ -101,34 +101,7 @@ describe('Container: SearchControls', () => {
       const actualProps = dateFieldTrees[0].props;
 
       expect(actualProps.defaultValue).to.equal(props.filters.date);
-      expect(actualProps.onChange).to.equal(instance.onDateChange);
-    });
-  });
-
-  describe('onDateChange', () => {
-    const newDate = '2016-12-12';
-
-    it('should call onFiltersChange with correct filter', () => {
-      simple.mock(instance, 'onFiltersChange').returnWith(null);
-      simple.mock(instance, 'handleSearch').returnWith(null);
-      instance.onDateChange(newDate);
-
-      expect(instance.onFiltersChange.callCount).to.equal(1);
-      expect(instance.onFiltersChange.lastCall.args[0]).to.deep.equal({ date: newDate });
-
-      simple.restore();
-    });
-
-    it('should call handleSearch with correct arguments', () => {
-      simple.mock(instance, 'onFiltersChange').returnWith(null);
-      simple.mock(instance, 'handleSearch').returnWith(null);
-      instance.onDateChange(newDate);
-
-      expect(instance.handleSearch.callCount).to.equal(1);
-      expect(instance.handleSearch.lastCall.args[0]).to.deep.equal({ date: newDate });
-      expect(instance.handleSearch.lastCall.args[1]).to.deep.equal({ preventScrolling: true });
-
-      simple.restore();
+      expect(typeof actualProps.onChange).to.equal('function');
     });
   });
 
