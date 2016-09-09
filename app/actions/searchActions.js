@@ -13,6 +13,16 @@ import {
 
 const clearSearchResults = createAction(types.UI.CLEAR_SEARCH_RESULTS);
 
+function getPiwikActionName(searchParams) {
+  if (searchParams.search) {
+    return searchParams.search;
+  } else if (searchParams.purpose) {
+    return `category: ${searchParams.purpose}`;
+  }
+
+  return '-empty-search-';
+}
+
 function getTypeaheadSuggestions(params = {}) {
   const fetchParams = Object.assign({}, params, { pageSize: 100 });
 
@@ -35,6 +45,7 @@ function getTypeaheadSuggestions(params = {}) {
 
 function searchResources(params = {}) {
   const fetchParams = Object.assign({}, params, { pageSize: 100 });
+  const piwikActionName = getPiwikActionName(fetchParams);
 
   return {
     [CALL_API]: {
@@ -48,7 +59,7 @@ function searchResources(params = {}) {
                 args: [
                   'Search',
                   'search-get',
-                  fetchParams.search,
+                  piwikActionName,
                 ],
               },
             },
@@ -69,6 +80,7 @@ function searchResources(params = {}) {
 
 export {
   clearSearchResults,
+  getPiwikActionName,
   getTypeaheadSuggestions,
   searchResources,
 };
