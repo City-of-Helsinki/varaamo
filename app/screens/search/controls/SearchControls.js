@@ -1,8 +1,10 @@
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
+import Col from 'react-bootstrap/lib/Col';
 import Input from 'react-bootstrap/lib/Input';
 import Panel from 'react-bootstrap/lib/Panel';
+import Row from 'react-bootstrap/lib/Row';
 import { DateField } from 'react-date-picker';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -71,14 +73,31 @@ export class UnconnectedSearchControls extends Component {
 
     return (
       <div>
-        <Input
-          autoFocus={!filters.purpose}
-          onChange={(event) => this.onFiltersChange({ search: event.target.value })}
-          onKeyUp={this.handleSearchInputChange}
-          placeholder="Esim. kokous, työskentely"
-          type="text"
-          value={filters.search}
-        />
+        <Row>
+          <Col lg={6} md={6}>
+            <Input
+              autoFocus={!filters.purpose}
+              onChange={(event) => this.onFiltersChange({ search: event.target.value })}
+              onKeyUp={this.handleSearchInputChange}
+              placeholder="Esim. kokous, työskentely"
+              type="text"
+              value={filters.search}
+            />
+          </Col>
+          <Col lg={6} md={6}>
+            <div className="form-group">
+              <DateField
+                clearIcon={false}
+                collapseOnDateClick
+                dateFormat="YYYY-MM-DD"
+                defaultValue={this.props.filters.date}
+                footer={false}
+                onChange={this.onDateChange}
+                updateOnDateClick
+              />
+            </div>
+          </Col>
+        </Row>
         <Panel
           collapsible
           defaultExpanded={Boolean(filters.purpose)}
@@ -100,15 +119,6 @@ export class UnconnectedSearchControls extends Component {
         >
           Hae
         </Button>
-        <DateField
-          clearIcon={false}
-          collapseOnDateClick
-          dateFormat="YYYY-MM-DD"
-          defaultValue={this.props.filters.date}
-          footer={false}
-          onChange={this.onDateChange}
-          updateOnDateClick
-        />
         <DateHeader
           date={this.props.filters.date}
           onChange={this.onDateChange}
