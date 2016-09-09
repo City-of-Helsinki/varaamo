@@ -12,7 +12,6 @@ import { updatePath } from 'redux-simple-router';
 
 import { fetchPurposes } from 'actions/purposeActions';
 import { changeSearchFilters } from 'actions/uiActions';
-import DateHeader from 'components/common/DateHeader';
 import SearchFilters from 'components/search/SearchFilters';
 import searchControlsSelector from './searchControlsSelector';
 
@@ -119,10 +118,6 @@ export class UnconnectedSearchControls extends Component {
         >
           Hae
         </Button>
-        <DateHeader
-          date={this.props.filters.date}
-          onChange={this.onDateChange}
-        />
       </div>
     );
   }

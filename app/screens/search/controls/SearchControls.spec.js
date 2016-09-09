@@ -86,25 +86,6 @@ describe('Container: SearchControls', () => {
     });
   });
 
-  describe('rendering DateHeader', () => {
-    let dateHeaderTrees;
-
-    beforeEach(() => {
-      dateHeaderTrees = tree.everySubTree('DateHeader');
-    });
-
-    it('should render DateHeader component', () => {
-      expect(dateHeaderTrees.length).to.equal(1);
-    });
-
-    it('should pass correct props to DateHeader component', () => {
-      const actualProps = dateHeaderTrees[0].props;
-
-      expect(actualProps.date).to.equal(props.filters.date);
-      expect(actualProps.onChange).to.equal(instance.onDateChange);
-    });
-  });
-
   describe('rendering DateField', () => {
     let dateFieldTrees;
 
