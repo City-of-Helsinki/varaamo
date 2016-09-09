@@ -32,7 +32,6 @@ describe('Container: SearchControls', () => {
         { value: 'filter-2', label: 'Label 2' },
       ]),
       scrollToSearchResults: simple.stub(),
-      typeaheadOptions: ['mock-suggestion'],
       urlSearchFilters: {},
     };
 

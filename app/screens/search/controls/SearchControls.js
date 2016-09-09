@@ -123,7 +123,6 @@ UnconnectedSearchControls.propTypes = {
   isFetchingPurposes: PropTypes.bool.isRequired,
   purposeOptions: PropTypes.array.isRequired,
   scrollToSearchResults: PropTypes.func.isRequired,
-  typeaheadOptions: PropTypes.array.isRequired,
   urlSearchFilters: PropTypes.object.isRequired,
 };
 
