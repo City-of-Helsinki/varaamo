@@ -105,22 +105,21 @@ describe('Container: SearchControls', () => {
     });
   });
 
-  describe('rendering DatePicker', () => {
-    let datePickerTrees;
+  describe('rendering DateField', () => {
+    let dateFieldTrees;
 
     beforeEach(() => {
-      datePickerTrees = tree.everySubTree('DatePicker');
+      dateFieldTrees = tree.everySubTree('DateField');
     });
 
-    it('should render DatePicker component', () => {
-      expect(datePickerTrees.length).to.equal(1);
+    it('should render DateField component', () => {
+      expect(dateFieldTrees.length).to.equal(1);
     });
 
-    it('should pass correct props to DatePicker component', () => {
-      const actualProps = datePickerTrees[0].props;
+    it('should pass correct props to DateField component', () => {
+      const actualProps = dateFieldTrees[0].props;
 
-      expect(actualProps.date).to.equal(props.filters.date);
-      expect(actualProps.hideFooter).to.equal(true);
+      expect(actualProps.defaultValue).to.equal(props.filters.date);
       expect(actualProps.onChange).to.equal(instance.onDateChange);
     });
   });

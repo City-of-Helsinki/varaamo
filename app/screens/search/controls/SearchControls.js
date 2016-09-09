@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Input from 'react-bootstrap/lib/Input';
 import Panel from 'react-bootstrap/lib/Panel';
-import DatePicker from 'react-date-picker';
+import { DateField } from 'react-date-picker';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updatePath } from 'redux-simple-router';
@@ -100,13 +100,14 @@ export class UnconnectedSearchControls extends Component {
         >
           Hae
         </Button>
-        <DatePicker
-          date={this.props.filters.date}
-          hideFooter
-          gotoSelectedText="Mene valittuun"
+        <DateField
+          clearIcon={false}
+          collapseOnDateClick
+          dateFormat="YYYY-MM-DD"
+          defaultValue={this.props.filters.date}
+          footer={false}
           onChange={this.onDateChange}
-          style={{ height: 210 }}
-          todayText="Tänään"
+          updateOnDateClick
         />
         <DateHeader
           date={this.props.filters.date}
