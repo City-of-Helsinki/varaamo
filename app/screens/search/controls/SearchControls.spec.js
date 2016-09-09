@@ -64,19 +64,19 @@ describe('Container: SearchControls', () => {
     });
   });
 
-  describe('rendering SearchFilters', () => {
-    let searchFiltersTrees;
+  describe('rendering AdvancedSearch', () => {
+    let advancedSearchTrees;
 
     beforeEach(() => {
-      searchFiltersTrees = tree.everySubTree('SearchFilters');
+      advancedSearchTrees = tree.everySubTree('AdvancedSearch');
     });
 
-    it('should render SearchFilters component', () => {
-      expect(searchFiltersTrees.length).to.equal(1);
+    it('should render AdvancedSearch component', () => {
+      expect(advancedSearchTrees.length).to.equal(1);
     });
 
-    it('should pass correct props to SearchFilters component', () => {
-      const actualProps = searchFiltersTrees[0].props;
+    it('should pass correct props to AdvancedSearch component', () => {
+      const actualProps = advancedSearchTrees[0].props;
 
       expect(actualProps.isFetchingPurposes).to.equal(props.isFetchingPurposes);
       expect(actualProps.onFiltersChange).to.equal(instance.onFiltersChange);

@@ -3,7 +3,6 @@ import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 import Input from 'react-bootstrap/lib/Input';
-import Panel from 'react-bootstrap/lib/Panel';
 import Row from 'react-bootstrap/lib/Row';
 import { DateField } from 'react-date-picker';
 import { connect } from 'react-redux';
@@ -12,7 +11,7 @@ import { updatePath } from 'redux-simple-router';
 
 import { fetchPurposes } from 'actions/purposeActions';
 import { changeSearchFilters } from 'actions/uiActions';
-import SearchFilters from 'components/search/SearchFilters';
+import AdvancedSearch from './AdvancedSearch';
 import searchControlsSelector from './searchControlsSelector';
 
 export class UnconnectedSearchControls extends Component {
@@ -91,18 +90,12 @@ export class UnconnectedSearchControls extends Component {
             </div>
           </Col>
         </Row>
-        <Panel
-          collapsible
-          defaultExpanded={Boolean(filters.purpose)}
-          header="Tarkennettu haku"
-        >
-          <SearchFilters
-            isFetchingPurposes={isFetchingPurposes}
-            onFiltersChange={this.onFiltersChange}
-            purposeOptions={purposeOptions}
-            filters={this.props.filters}
-          />
-        </Panel>
+        <AdvancedSearch
+          isFetchingPurposes={isFetchingPurposes}
+          onFiltersChange={this.onFiltersChange}
+          purposeOptions={purposeOptions}
+          filters={this.props.filters}
+        />
         <Button
           block
           bsStyle="primary"
