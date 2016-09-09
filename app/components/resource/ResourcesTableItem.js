@@ -54,7 +54,7 @@ class ResourcesTableItem extends Component {
     return (
       <tr>
         <td className="resource-table-row name">
-          <Link to={`/resources/${resource.id}`}>
+          <Link to={`/resources/${resource.id}/reservation`}>
             {resource.name.fi}
           </Link>
         </td>

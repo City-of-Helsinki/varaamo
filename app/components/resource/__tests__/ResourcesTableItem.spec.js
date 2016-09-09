@@ -92,7 +92,7 @@ describe('Component: reservation/ResourcesTableItem', () => {
           it('contains a Link element with correct to and resource name', () => {
             expect(tdComponent.children().is(Link)).to.be.true;
             const props = tdComponent.children().props();
-            expect(props.to).to.equal(`/resources/${resource.id}`);
+            expect(props.to).to.equal(`/resources/${resource.id}/reservation`);
             expect(props.children).to.equal(resource.name.fi);
           });
         });
