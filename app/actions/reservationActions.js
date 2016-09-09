@@ -138,7 +138,7 @@ function getTrackingInfo(type, resource) {
     event: 'trackEvent',
     args: [
       'Reservation',
-      type,
+      `reservation-${type}`,
       resource,
     ],
   });

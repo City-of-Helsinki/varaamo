@@ -18,7 +18,7 @@ describe('Actions: searchActions', () => {
         event: 'trackEvent',
         args: [
           'Search',
-          'get',
+          'search-get',
           'searchText',
         ],
       });
