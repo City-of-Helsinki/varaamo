@@ -18,7 +18,7 @@ describe('Actions: userActions', () => {
         event: 'trackEvent',
         args: [
           'User',
-          'get',
+          'user-get',
           id,
         ],
       });
