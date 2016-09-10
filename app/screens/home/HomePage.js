@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 
-import HomePageIntro from 'components/customization/HomePageIntro';
 import PurposeCategoryList from 'containers/PurposeCategoryList';
+import HomeIntroComponent from './intro/HomeIntroComponent';
 
 class HomePage extends Component {
   render() {
     return (
       <DocumentTitle title="Etusivu - Varaamo">
         <div>
-          <HomePageIntro />
+          <HomeIntroComponent />
           <h2 id="purpose-category-header">Mitä haluat tehdä?</h2>
           <PurposeCategoryList />
         </div>
