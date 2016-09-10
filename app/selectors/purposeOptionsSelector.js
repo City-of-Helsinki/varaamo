@@ -11,7 +11,7 @@ const purposeOptionsSelector = createSelector(
   purposesSelector,
   (purposes) => {
     const purposeOptions = values(purposes)
-      .filter((purpose) => purpose.parent !== null)
+      .filter((purpose) => purpose.parent === null)
       .map(purpose => ({
         value: purpose.id,
         label: getName(purpose),
