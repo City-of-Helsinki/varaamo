@@ -22,7 +22,7 @@ describe('Actions: reservationActions', () => {
         event: 'trackEvent',
         args: [
           'Reservation',
-          'cancel',
+          'reservation-cancel',
           reservation.resource,
         ],
       });
@@ -35,7 +35,7 @@ describe('Actions: reservationActions', () => {
         event: 'trackEvent',
         args: [
           'Reservation',
-          'add',
+          'reservation-add',
           reservation.resource,
         ],
       });
@@ -48,7 +48,7 @@ describe('Actions: reservationActions', () => {
         event: 'trackEvent',
         args: [
           'Reservation',
-          'edit',
+          'reservation-edit',
           reservation.resource,
         ],
       });
