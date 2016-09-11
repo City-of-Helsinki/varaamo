@@ -3,11 +3,11 @@ import { Route } from 'react-router';
 
 import AboutPage from 'containers/AboutPage';
 import App from 'containers/App';
-import HomePage from 'containers/HomePage';
 import UserReservationsPage from 'containers/UserReservationsPage';
 import NotFoundPage from 'containers/NotFoundPage';
 import ReservationPage from 'containers/ReservationPage';
 import ResourcePage from 'containers/ResourcePage';
+import HomePage from 'screens/home/HomePage';
 import SearchPage from 'screens/search/SearchPage';
 
 export default (params) => {
