@@ -1,28 +1,24 @@
-import throttle from 'lodash/throttle';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
-import Panel from 'react-bootstrap/lib/Panel';
-import DatePicker from 'react-date-picker';
+import Col from 'react-bootstrap/lib/Col';
+import Input from 'react-bootstrap/lib/Input';
+import Row from 'react-bootstrap/lib/Row';
+import { DateField } from 'react-date-picker';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updatePath } from 'redux-simple-router';
 
 import { fetchPurposes } from 'actions/purposeActions';
-import { getTypeaheadSuggestions } from 'actions/searchActions';
 import { changeSearchFilters } from 'actions/uiActions';
-import DateHeader from 'components/common/DateHeader';
-import SearchFilters from 'components/search/SearchFilters';
-import SearchInput from 'components/search/SearchInput';
-import searchControlsSelector from 'selectors/containers/searchControlsSelector';
+import AdvancedSearch from './AdvancedSearch';
+import searchControlsSelector from './searchControlsSelector';
 
 export class UnconnectedSearchControls extends Component {
   constructor(props) {
     super(props);
-    this.fetchTypeaheadSuggestions = this.fetchTypeaheadSuggestions.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
-    this.onDateChange = this.onDateChange.bind(this);
     this.onFiltersChange = this.onFiltersChange.bind(this);
   }
 
@@ -31,22 +27,10 @@ export class UnconnectedSearchControls extends Component {
 
     actions.changeSearchFilters(urlSearchFilters);
     actions.fetchPurposes();
-    this.fetchTypeaheadSuggestions = throttle(
-      this.fetchTypeaheadSuggestions, 200, { leading: false, trailing: true }
-    );
-  }
-
-  onDateChange(newDate) {
-    this.onFiltersChange({ date: newDate });
-    this.handleSearch({ date: newDate }, { preventScrolling: true });
   }
 
   onFiltersChange(newFilters) {
     this.props.actions.changeSearchFilters(newFilters);
-  }
-
-  fetchTypeaheadSuggestions(value) {
-    this.props.actions.getTypeaheadSuggestions({ full: true, input: value });
   }
 
   handleSearch(newFilters, options = {}) {
@@ -64,42 +48,55 @@ export class UnconnectedSearchControls extends Component {
     }
   }
 
-  handleSearchInputChange(value) {
+  handleSearchInputChange(event) {
+    const value = event.target.value;
     this.onFiltersChange({ search: value });
-    this.fetchTypeaheadSuggestions(value);
+    if (event.keyCode === 13) {
+      this.handleSearch();
+    }
   }
 
   render() {
     const {
-      actions,
       filters,
       isFetchingPurposes,
       purposeOptions,
-      typeaheadOptions,
     } = this.props;
 
     return (
       <div>
-        <SearchInput
-          autoFocus={!filters.purpose}
-          onChange={(value) => this.handleSearchInputChange(value)}
-          onSubmit={this.handleSearch}
-          updatePath={actions.updatePath}
-          typeaheadOptions={typeaheadOptions}
-          value={this.props.filters.search}
+        <Row>
+          <Col lg={6} md={6}>
+            <Input
+              autoFocus={!filters.purpose}
+              onChange={(event) => this.onFiltersChange({ search: event.target.value })}
+              onKeyUp={this.handleSearchInputChange}
+              placeholder="Esim. kokous, työskentely"
+              type="text"
+              value={filters.search}
+            />
+          </Col>
+          <Col lg={6} md={6}>
+            <div className="form-group">
+              <DateField
+                className="form-control"
+                clearIcon={false}
+                collapseOnDateClick
+                dateFormat="YYYY-MM-DD"
+                defaultValue={this.props.filters.date}
+                footer={false}
+                onChange={(date) => this.onFiltersChange({ date })}
+                updateOnDateClick
+              />
+            </div>
+          </Col>
+        </Row>
+        <AdvancedSearch
+          isFetchingPurposes={isFetchingPurposes}
+          onFiltersChange={this.onFiltersChange}
+          purposeOptions={purposeOptions}
+          filters={this.props.filters}
         />
-        <Panel
-          collapsible
-          defaultExpanded={Boolean(filters.purpose)}
-          header="Tarkennettu haku"
-        >
-          <SearchFilters
-            isFetchingPurposes={isFetchingPurposes}
-            onFiltersChange={this.onFiltersChange}
-            purposeOptions={purposeOptions}
-            filters={this.props.filters}
-          />
-        </Panel>
         <Button
           block
           bsStyle="primary"
@@ -109,18 +106,6 @@ export class UnconnectedSearchControls extends Component {
         >
           Hae
         </Button>
-        <DatePicker
-          date={this.props.filters.date}
-          hideFooter
-          gotoSelectedText="Mene valittuun"
-          onChange={this.onDateChange}
-          style={{ height: 210 }}
-          todayText="Tänään"
-        />
-        <DateHeader
-          date={this.props.filters.date}
-          onChange={this.onDateChange}
-        />
       </div>
     );
   }
@@ -132,7 +117,6 @@ UnconnectedSearchControls.propTypes = {
   isFetchingPurposes: PropTypes.bool.isRequired,
   purposeOptions: PropTypes.array.isRequired,
   scrollToSearchResults: PropTypes.func.isRequired,
-  typeaheadOptions: PropTypes.array.isRequired,
   urlSearchFilters: PropTypes.object.isRequired,
 };
 
@@ -140,7 +124,6 @@ function mapDispatchToProps(dispatch) {
   const actionCreators = {
     changeSearchFilters,
     fetchPurposes,
-    getTypeaheadSuggestions,
     updatePath,
   };
 

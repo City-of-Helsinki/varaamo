@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
-import searchControlsSelector from 'selectors/containers/searchControlsSelector';
 import { getDefaultRouterProps, getInitialState } from 'utils/TestUtils';
+import searchControlsSelector from './searchControlsSelector';
 
 describe('Selector: searchControlsSelector', () => {
   const state = getInitialState();
@@ -18,10 +18,6 @@ describe('Selector: searchControlsSelector', () => {
 
   it('should return purposeOptions', () => {
     expect(selected.purposeOptions).to.exist;
-  });
-
-  it('should return typeaheadOptions', () => {
-    expect(selected.typeaheadOptions).to.exist;
   });
 
   it('should return urlSearchFilters', () => {

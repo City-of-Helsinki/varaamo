@@ -2,7 +2,7 @@ import includes from 'lodash/includes';
 import forEach from 'lodash/forEach';
 import tail from 'lodash/tail';
 import React, { Component, PropTypes } from 'react';
-import DatePicker from 'react-date-picker';
+import { Calendar } from 'react-date-picker';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updatePath } from 'redux-simple-router';
@@ -122,13 +122,9 @@ export class UnconnectedReservationCalendar extends Component {
 
     return (
       <div>
-        <DatePicker
+        <Calendar
           date={date}
-          hideFooter
-          gotoSelectedText="Mene valittuun"
           onChange={this.onDateChange}
-          style={{ height: 210 }}
-          todayText="Tänään"
         />
         <DateHeader
           date={date}

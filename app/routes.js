@@ -8,7 +8,7 @@ import UserReservationsPage from 'containers/UserReservationsPage';
 import NotFoundPage from 'containers/NotFoundPage';
 import ReservationPage from 'containers/ReservationPage';
 import ResourcePage from 'containers/ResourcePage';
-import SearchPage from 'containers/SearchPage';
+import SearchPage from 'screens/search/SearchPage';
 
 export default (params) => {
   function removeFacebookAppendedHash(nextState, replaceState, cb) {

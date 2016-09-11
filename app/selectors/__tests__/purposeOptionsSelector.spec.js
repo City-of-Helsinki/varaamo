@@ -16,26 +16,26 @@ function getState(purposes) {
 
 describe('Selector: purposeOptionsSelector', () => {
   const purposes = [
-    Purpose.build(),
-    Purpose.build(),
+    Purpose.build({ parent: null }),
+    Purpose.build({ parent: null }),
   ];
 
-  it('should return an empty array if state contains no purposes', () => {
+  it('returns an empty array if state contains no purposes', () => {
     const state = getState([]);
     const actual = purposeOptionsSelector(state);
 
     expect(actual).to.deep.equal([]);
   });
 
-  it('should return an option object for each purpose with a parent', () => {
+  it('returns an option object for each purpose without a parent', () => {
     const state = getState(purposes);
     const actual = purposeOptionsSelector(state);
 
     expect(actual.length).to.equal(purposes.length);
   });
 
-  it('should not return an option object for purposes without a parent', () => {
-    const parentlessPurpose = Purpose.build({ parent: null });
+  it('Does not return an option object for purposes with a parent', () => {
+    const parentlessPurpose = Purpose.build({ parent: 'some parent' });
     const state = getState([parentlessPurpose]);
     const actual = purposeOptionsSelector(state);
 
@@ -47,22 +47,22 @@ describe('Selector: purposeOptionsSelector', () => {
     const state = getState([purpose]);
     const option = purposeOptionsSelector(state)[0];
 
-    it('should have purpose.id as its value property', () => {
+    it('has purpose.id as its value property', () => {
       expect(option.value).to.equal(purpose.id);
     });
 
-    it('should have purpose.name.fi as its label property', () => {
+    it('has purpose.name.fi as its label property', () => {
       expect(option.label).to.equal(purpose.name.fi);
     });
 
-    it('should not contain other properties than value and label', () => {
+    it('does not contain other properties than value and label', () => {
       const expected = { value: purpose.id, label: purpose.name.fi };
 
       expect(option).to.deep.equal(expected);
     });
   });
 
-  it('should work for multiple purposes', () => {
+  it('works for multiple purposes', () => {
     const state = getState(purposes);
     const actual = purposeOptionsSelector(state);
     const expected = Immutable([

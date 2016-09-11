@@ -8,10 +8,10 @@ import { bindActionCreators } from 'redux';
 import { searchResources } from 'actions/searchActions';
 import { fetchUnits } from 'actions/unitActions';
 import SearchResults from 'components/search/SearchResults';
-import SearchControls from 'containers/SearchControls';
-import searchPageSelector from 'selectors/containers/searchPageSelector';
 import { scrollTo } from 'utils/DOMUtils';
 import { getFetchParamsFromFilters } from 'utils/SearchUtils';
+import SearchControls from './controls/SearchControls';
+import searchPageSelector from './searchPageSelector';
 
 export class UnconnectedSearchPage extends Component {
   constructor(props) {

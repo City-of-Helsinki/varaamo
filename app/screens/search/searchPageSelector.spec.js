@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
-import searchPageSelector from 'selectors/containers/searchPageSelector';
 import { getDefaultRouterProps, getInitialState } from 'utils/TestUtils';
+import searchPageSelector from './searchPageSelector';
 
 describe('Selector: searchPageSelector', () => {
   const state = getInitialState();

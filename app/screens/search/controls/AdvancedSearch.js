@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import Input from 'react-bootstrap/lib/Input';
+import Panel from 'react-bootstrap/lib/Panel';
 import Select from 'react-select';
 
-class SearchFilters extends Component {
+class AdvancedSearch extends Component {
   render() {
     const {
       isFetchingPurposes,
@@ -12,7 +13,11 @@ class SearchFilters extends Component {
     } = this.props;
 
     return (
-      <div style={{ marginBottom: '20px' }}>
+      <Panel
+        collapsible
+        defaultExpanded={Boolean(filters.purpose)}
+        header="Tarkennettu haku"
+      >
         <h4>Tilan käyttötarkoitus</h4>
         <Select
           clearable
@@ -31,16 +36,16 @@ class SearchFilters extends Component {
           type="number"
           value={filters.people}
         />
-      </div>
+      </Panel>
     );
   }
 }
 
-SearchFilters.propTypes = {
+AdvancedSearch.propTypes = {
   isFetchingPurposes: PropTypes.bool.isRequired,
   onFiltersChange: PropTypes.func.isRequired,
   filters: PropTypes.object.isRequired,
   purposeOptions: PropTypes.array.isRequired,
 };
 
-export default SearchFilters;
+export default AdvancedSearch;
