@@ -5,7 +5,7 @@ import groupedPurposesSelector from 'selectors/groupedPurposesSelector';
 import purposeCategoriesSelector from 'selectors/purposeCategoriesSelector';
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
 
-const purposeCategoryListSelector = createSelector(
+const purposeListSelector = createSelector(
   groupedPurposesSelector,
   purposeCategoriesSelector,
   requestIsActiveSelectorFactory(ActionTypes.API.PURPOSES_GET_REQUEST),
@@ -20,4 +20,4 @@ const purposeCategoryListSelector = createSelector(
   })
 );
 
-export default purposeCategoryListSelector;
+export default purposeListSelector;

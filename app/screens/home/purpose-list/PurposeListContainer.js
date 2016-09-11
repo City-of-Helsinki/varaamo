@@ -5,9 +5,9 @@ import { bindActionCreators } from 'redux';
 
 import { fetchPurposes } from 'actions/purposeActions';
 import PurposeCategory from 'components/purpose/PurposeCategory';
-import purposeCategoryListSelector from 'selectors/containers/purposeCategoryListSelector';
+import purposeListSelector from './purposeListSelector';
 
-export class UnconnectedPurposeCategoryList extends Component {
+export class UnconnectedPurposeListContainer extends Component {
   constructor(props) {
     super(props);
     this.renderPurposeCategory = this.renderPurposeCategory.bind(this);
@@ -45,7 +45,7 @@ export class UnconnectedPurposeCategoryList extends Component {
   }
 }
 
-UnconnectedPurposeCategoryList.propTypes = {
+UnconnectedPurposeListContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   isFetchingPurposes: PropTypes.bool.isRequired,
   groupedPurposes: PropTypes.object.isRequired,
@@ -61,5 +61,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default (
-  connect(purposeCategoryListSelector, mapDispatchToProps)(UnconnectedPurposeCategoryList)
+  connect(purposeListSelector, mapDispatchToProps)(UnconnectedPurposeListContainer)
 );

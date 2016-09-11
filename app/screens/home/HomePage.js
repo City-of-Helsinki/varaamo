@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 
-import PurposeCategoryList from 'containers/PurposeCategoryList';
+import PurposeListContainer from './purpose-list/PurposeListContainer';
 import HomeIntroComponent from './intro/HomeIntroComponent';
 
 class HomePage extends Component {
@@ -11,7 +11,7 @@ class HomePage extends Component {
         <div>
           <HomeIntroComponent />
           <h2 id="purpose-category-header">Mitä haluat tehdä?</h2>
-          <PurposeCategoryList />
+          <PurposeListContainer />
         </div>
       </DocumentTitle>
     );

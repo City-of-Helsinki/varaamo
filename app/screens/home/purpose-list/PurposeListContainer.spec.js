@@ -5,12 +5,10 @@ import simple from 'simple-mock';
 
 import Immutable from 'seamless-immutable';
 
-import {
-  UnconnectedPurposeCategoryList as PurposeCategoryList,
-} from 'containers/PurposeCategoryList';
 import Purpose from 'fixtures/Purpose';
+import { UnconnectedPurposeListContainer as PurposeListContainer } from './PurposeListContainer';
 
-describe('Container: PurposeCategoryList', () => {
+describe('screens/home/purpose-list/PurposeListContainer', () => {
   const props = {
     actions: {
       fetchPurposes: simple.stub(),
@@ -25,7 +23,7 @@ describe('Container: PurposeCategoryList', () => {
       otherParent: Purpose.build(),
     }),
   };
-  const tree = sd.shallowRender(<PurposeCategoryList {...props} />);
+  const tree = sd.shallowRender(<PurposeListContainer {...props} />);
 
   describe('fetching data', () => {
     before(() => {
