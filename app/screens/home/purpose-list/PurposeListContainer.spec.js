@@ -1,38 +1,64 @@
 import { expect } from 'chai';
+import { shallow } from 'enzyme';
 import React from 'react';
-import sd from 'skin-deep';
+import Loader from 'react-loader';
 import simple from 'simple-mock';
 
 import Immutable from 'seamless-immutable';
 
 import Purpose from 'fixtures/Purpose';
+import PurposeListComponent from './PurposeListComponent';
 import { UnconnectedPurposeListContainer as PurposeListContainer } from './PurposeListContainer';
 
 describe('screens/home/purpose-list/PurposeListContainer', () => {
-  const props = {
+  const defaultProps = {
     actions: {
       fetchPurposes: simple.stub(),
     },
     isFetchingPurposes: false,
-    groupedPurposes: Immutable({
-      someParent: [Purpose.build()],
-      otherParent: [Purpose.build()],
-    }),
-    purposeCategories: Immutable({
-      someParent: Purpose.build(),
-      otherParent: Purpose.build(),
-    }),
+    purposes: Immutable([
+      Purpose.build(),
+      Purpose.build(),
+    ]),
   };
-  const tree = sd.shallowRender(<PurposeListContainer {...props} />);
+
+  function getWrapper(extraProps) {
+    return shallow(<PurposeListContainer {...defaultProps} {...extraProps} />);
+  }
+
+  describe('rendering', () => {
+    describe('Loader', () => {
+      it('is rendered', () => {
+        const loader = getWrapper().find(Loader);
+        expect(loader).to.have.length(1);
+      });
+
+      it('is loaded if isFetchingPurposes is false', () => {
+        const loader = getWrapper({ isFetchingPurposes: false }).find(Loader);
+        expect(loader.props().loaded).to.be.true;
+      });
+
+      it('is not loaded if isFetchingPurposes is true', () => {
+        const loader = getWrapper({ isFetchingPurposes: true }).find(Loader);
+        expect(loader.props().loaded).to.be.false;
+      });
+    });
+
+    it('renders PurposeListComponent with correct props', () => {
+      const purposeListComponent = getWrapper().find(PurposeListComponent);
+      expect(purposeListComponent).to.have.length(1);
+      expect(purposeListComponent.props().purposes).to.deep.equal(defaultProps.purposes);
+    });
+  });
 
   describe('fetching data', () => {
     before(() => {
-      const instance = tree.getMountedInstance();
+      const instance = getWrapper().instance();
       instance.componentDidMount();
     });
 
-    it('should fetch purposes when component mounts', () => {
-      expect(props.actions.fetchPurposes.callCount).to.equal(1);
+    it('fetches purposes when component mounts', () => {
+      expect(defaultProps.actions.fetchPurposes.callCount).to.equal(1);
     });
   });
 });

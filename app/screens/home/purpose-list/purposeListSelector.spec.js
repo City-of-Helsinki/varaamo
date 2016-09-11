@@ -12,7 +12,7 @@ describe('screens/home/purpose-list/purposeListSelector', () => {
     expect(selected.isFetchingPurposes).to.exist;
   });
 
-  it('should return purposeCategories', () => {
-    expect(selected.purposeCategories).to.exist;
+  describe('purposes', () => {
+    expect(selected.purposes).to.exist;
   });
 });

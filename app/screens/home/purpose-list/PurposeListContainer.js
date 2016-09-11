@@ -4,42 +4,20 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchPurposes } from 'actions/purposeActions';
-import PurposeCategory from 'components/purpose/PurposeCategory';
-import purposeListSelector from './purposeListSelector';
+import PurposeListComponent from './PurposeListComponent';
+import selector from './purposeListSelector';
 
 export class UnconnectedPurposeListContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.renderPurposeCategory = this.renderPurposeCategory.bind(this);
-  }
-
   componentDidMount() {
     this.props.actions.fetchPurposes();
   }
 
-  renderPurposeCategory(parent) {
-    const { groupedPurposes, purposeCategories } = this.props;
-
-    const purposes = groupedPurposes[parent];
-    const category = purposeCategories[parent];
-
-    return (
-      <PurposeCategory
-        key={parent}
-        category={category}
-        purposes={purposes}
-      />
-    );
-  }
-
   render() {
-    const { isFetchingPurposes, groupedPurposes } = this.props;
+    const { isFetchingPurposes, purposes } = this.props;
 
     return (
       <Loader loaded={!isFetchingPurposes}>
-        <div>
-          {Object.keys(groupedPurposes).map(this.renderPurposeCategory)}
-        </div>
+        <PurposeListComponent purposes={purposes} />
       </Loader>
     );
   }
@@ -48,8 +26,7 @@ export class UnconnectedPurposeListContainer extends Component {
 UnconnectedPurposeListContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   isFetchingPurposes: PropTypes.bool.isRequired,
-  groupedPurposes: PropTypes.object.isRequired,
-  purposeCategories: PropTypes.object.isRequired,
+  purposes: PropTypes.array.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -61,5 +38,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default (
-  connect(purposeListSelector, mapDispatchToProps)(UnconnectedPurposeListContainer)
+  connect(selector, mapDispatchToProps)(UnconnectedPurposeListContainer)
 );
