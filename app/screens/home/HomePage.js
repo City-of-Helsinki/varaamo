@@ -8,7 +8,7 @@ class HomePage extends Component {
   render() {
     return (
       <DocumentTitle title="Etusivu - Varaamo">
-        <div>
+        <div className="home-page">
           <HomeIntroComponent />
           <h2 id="purpose-category-header">Mitä haluat tehdä?</h2>
           <PurposeListContainer />

@@ -15,11 +15,16 @@
 }
 
 .jumbotron {
-  width: 80%;
+  width: 90%;
   max-width: 800px;
   margin: 80px auto 0;
+  padding: 40px 20px;
   background-color: rgba(255, 255, 255, 0.85);
   border: 2px solid rgba(205, 205, 205, 05);
+
+  @media (min-width: @screen-sm-min) {
+    width: 80%;
+  }
 
   h2 {
     color: @black;
