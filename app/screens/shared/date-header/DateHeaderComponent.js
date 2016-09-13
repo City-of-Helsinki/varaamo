@@ -21,29 +21,20 @@ class DateHeaderComponent extends Component {
     const { date, onChange } = this.props;
     const dateString = moment(date).format('dddd, LL');
 
-    const iconButtonStyles = {
-      border: 'none',
-      backgroundColor: 'transparent',
-    };
-
     return (
-      <h3
-        className="date-header"
-        id="date-header"
-        style={{ textAlign: 'center' }}
-      >
+      <h3 className="date-header" id="date-header">
         {onChange && (
           <button
+            className="date-header-button decrease-date"
             onClick={() => onChange(addToDate(date, -1))}
-            style={Object.assign({}, iconButtonStyles, { float: 'left' })}
           >
             <Glyphicon glyph="chevron-left" />
           </button>
         )}
         {onChange && (
           <button
+            className="date-header-button increase-date"
             onClick={() => onChange(addToDate(date, 1))}
-            style={Object.assign({}, iconButtonStyles, { float: 'right' })}
           >
             <Glyphicon glyph="chevron-right" />
           </button>
