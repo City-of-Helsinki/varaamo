@@ -20,7 +20,7 @@ import {
   openConfirmReservationModal,
   toggleTimeSlot,
 } from 'actions/uiActions';
-import DateHeader from 'components/common/DateHeader';
+import DateHeader from 'screens/shared/date-header';
 import ConfirmReservationModal from 'components/reservation/ConfirmReservationModal';
 import ReservationCalendarControls from 'components/reservation/ReservationCalendarControls';
 import TimeSlots from 'components/reservation/TimeSlots';

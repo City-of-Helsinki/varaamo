@@ -3,15 +3,15 @@ import React from 'react';
 import simple from 'simple-mock';
 import sd from 'skin-deep';
 
-import DateHeader from 'components/common/DateHeader';
+import DateHeaderComponent from './DateHeaderComponent';
 
-describe('Component: common/DateHeader', () => {
+describe('screens/shared/date-header/DateHeaderComponent', () => {
   const props = {
     date: '2015-10-11',
     onChange: simple.stub(),
   };
 
-  const tree = sd.shallowRender(<DateHeader {...props} />);
+  const tree = sd.shallowRender(<DateHeaderComponent {...props} />);
 
   describe('header', () => {
     const h3Trees = tree.everySubTree('h3');

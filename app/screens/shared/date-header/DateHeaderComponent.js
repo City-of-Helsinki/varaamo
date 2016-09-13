@@ -1,5 +1,3 @@
-import 'moment/locale/fi';
-
 import capitalize from 'lodash/capitalize';
 import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
@@ -9,7 +7,7 @@ import { findDOMNode } from 'react-dom';
 import { scrollTo } from 'utils/DOMUtils';
 import { addToDate } from 'utils/TimeUtils';
 
-class DateHeader extends Component {
+class DateHeaderComponent extends Component {
   componentDidMount() {
     if (this.props.scrollTo) {
       // Use timeout to allow rest of the page render and the scrollTo to work properly.
@@ -52,10 +50,10 @@ class DateHeader extends Component {
   }
 }
 
-DateHeader.propTypes = {
+DateHeaderComponent.propTypes = {
   date: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   scrollTo: PropTypes.bool,
 };
 
-export default DateHeader;
+export default DateHeaderComponent;
