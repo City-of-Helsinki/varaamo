@@ -32,18 +32,22 @@ class DateHeaderComponent extends Component {
         id="date-header"
         style={{ textAlign: 'center' }}
       >
-        <button
-          onClick={() => onChange(addToDate(date, -1))}
-          style={Object.assign({}, iconButtonStyles, { float: 'left' })}
-        >
-          <Glyphicon glyph="chevron-left" />
-        </button>
-        <button
-          onClick={() => onChange(addToDate(date, 1))}
-          style={Object.assign({}, iconButtonStyles, { float: 'right' })}
-        >
-          <Glyphicon glyph="chevron-right" />
-        </button>
+        {onChange && (
+          <button
+            onClick={() => onChange(addToDate(date, -1))}
+            style={Object.assign({}, iconButtonStyles, { float: 'left' })}
+          >
+            <Glyphicon glyph="chevron-left" />
+          </button>
+        )}
+        {onChange && (
+          <button
+            onClick={() => onChange(addToDate(date, 1))}
+            style={Object.assign({}, iconButtonStyles, { float: 'right' })}
+          >
+            <Glyphicon glyph="chevron-right" />
+          </button>
+        )}
         {capitalize(dateString)}
       </h3>
     );
@@ -52,7 +56,7 @@ class DateHeaderComponent extends Component {
 
 DateHeaderComponent.propTypes = {
   date: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   scrollTo: PropTypes.bool,
 };
 

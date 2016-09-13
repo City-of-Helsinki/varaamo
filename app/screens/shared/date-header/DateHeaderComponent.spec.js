@@ -1,64 +1,84 @@
 import { expect } from 'chai';
+import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
-import sd from 'skin-deep';
 
 import DateHeaderComponent from './DateHeaderComponent';
 
 describe('screens/shared/date-header/DateHeaderComponent', () => {
-  const props = {
+  const defaultProps = {
     date: '2015-10-11',
-    onChange: simple.stub(),
   };
 
-  const tree = sd.shallowRender(<DateHeaderComponent {...props} />);
+  function getWrapper(extraProps) {
+    return shallow(<DateHeaderComponent {...defaultProps} {...extraProps} />);
+  }
 
   describe('header', () => {
-    const h3Trees = tree.everySubTree('h3');
-
-    it('should render a h3 header', () => {
-      expect(h3Trees.length).to.equal(1);
+    it('renders a h3 header', () => {
+      const header = getWrapper().find('h3');
+      expect(header.length).to.equal(1);
     });
 
-    it('should display the weekday of the given date', () => {
-      const weekDay = 'Sunnuntai';
+    it('displays the weekday of the given date', () => {
+      const header = getWrapper().find('h3');
+      const expected = 'Sunnuntai';
 
-      expect(h3Trees[0].text()).to.contain(weekDay);
+      expect(header.text()).to.contain(expected);
     });
 
-    it('should display the date in humanized format', () => {
-      const humanizedDate = '11. lokakuuta 2015';
+    it('displays the date in humanized format', () => {
+      const header = getWrapper().find('h3');
+      const expected = '11. lokakuuta 2015';
 
-      expect(h3Trees[0].text()).to.contain(humanizedDate);
+      expect(header.text()).to.contain(expected);
     });
 
     describe('icon buttons', () => {
-      const buttonTrees = tree.everySubTree('button');
+      describe('when onChange function is given in props', () => {
+        const extraProps = {
+          onChange: simple.stub(),
+        };
+        let buttons;
 
-      it('should render 2 buttons for changing the date', () => {
-        expect(buttonTrees.length).to.equal(2);
-      });
+        before(() => {
+          buttons = getWrapper(extraProps).find('button');
+        });
 
-      it('both buttons should have a glypicon inside them', () => {
-        buttonTrees.forEach(buttonTree => {
-          expect(buttonTree.everySubTree('Glyphicon').length).to.equal(1);
+        it('renders 2 buttons for changing the date', () => {
+          expect(buttons.length).to.equal(2);
+        });
+
+        it('clicking the first button should decrement the date by one', () => {
+          extraProps.onChange.reset();
+          buttons.at(0).props().onClick();
+
+          expect(extraProps.onChange.callCount).to.equal(1);
+          expect(extraProps.onChange.lastCall.args[0]).to.equal('2015-10-10');
+        });
+
+        it('clicking the second button should increment the date by one', () => {
+          extraProps.onChange.reset();
+          buttons.at(1).props().onClick();
+
+          expect(extraProps.onChange.callCount).to.equal(1);
+          expect(extraProps.onChange.lastCall.args[0]).to.equal('2015-10-12');
         });
       });
 
-      it('clicking the first button should decrement the date by one', () => {
-        props.onChange.reset();
-        buttonTrees[0].props.onClick();
+      describe('when onChange function is not given in props', () => {
+        const extraProps = {
+          onChange: undefined,
+        };
+        let buttons;
 
-        expect(props.onChange.callCount).to.equal(1);
-        expect(props.onChange.lastCall.args[0]).to.equal('2015-10-10');
-      });
+        before(() => {
+          buttons = getWrapper(extraProps).find('button');
+        });
 
-      it('clicking the second button should increment the date by one', () => {
-        props.onChange.reset();
-        buttonTrees[1].props.onClick();
-
-        expect(props.onChange.callCount).to.equal(1);
-        expect(props.onChange.lastCall.args[0]).to.equal('2015-10-12');
+        it('does not render any buttons', () => {
+          expect(buttons.length).to.equal(0);
+        });
       });
     });
   });
