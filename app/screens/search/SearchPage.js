@@ -10,6 +10,7 @@ import { fetchUnits } from 'actions/unitActions';
 import SearchResults from 'components/search/SearchResults';
 import { scrollTo } from 'utils/DOMUtils';
 import { getFetchParamsFromFilters } from 'utils/SearchUtils';
+import DateHeader from 'screens/shared/date-header';
 import SearchControls from './controls/SearchControls';
 import searchPageSelector from './searchPageSelector';
 
@@ -63,6 +64,7 @@ export class UnconnectedSearchPage extends Component {
             params={params}
             scrollToSearchResults={this.scrollToSearchResults}
           />
+          {searchDone && <DateHeader date={filters.date} />}
           {searchDone || isFetchingSearchResults ? (
             <SearchResults
               date={filters.date}
