@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Footer from 'components/layout/Footer';
+import Footer from 'screens/layout/Footer';
 import FooterContent from 'components/customization/FooterContent';
 
 describe('Component: layout/Footer', () => {
