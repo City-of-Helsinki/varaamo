@@ -17,7 +17,7 @@ module.exports = merge(common, {
   devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, '../dist'),
-    publicPath: '',
+    publicPath: '/_assets/',
     filename: 'app.js',
   },
   module: {
