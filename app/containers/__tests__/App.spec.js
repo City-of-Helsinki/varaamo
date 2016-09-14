@@ -5,8 +5,8 @@ import simple from 'simple-mock';
 
 import Immutable from 'seamless-immutable';
 
-import Footer from 'components/layout/Footer';
-import Navbar from 'components/layout/Navbar';
+import Footer from 'screens/layout/Footer';
+import Navbar from 'screens/layout/Navbar';
 import { UnconnectedApp as App } from 'containers/App';
 import User from 'fixtures/User';
 

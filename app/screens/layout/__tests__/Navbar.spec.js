@@ -5,7 +5,7 @@ import simple from 'simple-mock';
 
 import Immutable from 'seamless-immutable';
 
-import Navbar from 'components/layout/Navbar';
+import Navbar from 'screens/layout/Navbar';
 import User from 'fixtures/User';
 import { getSearchPageUrl } from 'utils/SearchUtils';
 

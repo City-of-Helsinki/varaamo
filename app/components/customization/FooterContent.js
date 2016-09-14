@@ -29,6 +29,7 @@ class FooterContent extends Component {
                   toivomme Sinulta palautetta.
                   Palautteesi voit lähettää <FeedbackLink text="täältä" />.
                 </p>
+                <Link className="about-link" to="/about">Lisätietoa palvelusta</Link>
               </Col>
             </Row>
           </Grid>
@@ -51,6 +52,7 @@ class FooterContent extends Component {
                   Kyseessä on pilottiversio, josta toivomme Sinulta palautetta.
                   Palautteesi voit lähettää <FeedbackLink text="täältä" />.
                 </p>
+                <Link className="about-link" to="/about">Lisätietoa palvelusta</Link>
               </Col>
             </Row>
           </Grid>
