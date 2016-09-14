@@ -7,9 +7,8 @@ import { bindActionCreators } from 'redux';
 
 import { searchResources } from 'actions/searchActions';
 import { fetchUnits } from 'actions/unitActions';
-import { scrollTo } from 'utils/DOMUtils';
-import { getFetchParamsFromFilters } from 'utils/SearchUtils';
 import DateHeader from 'screens/shared/date-header';
+import { scrollTo } from 'utils/DOMUtils';
 import SearchControls from './controls/SearchControls';
 import searchPageSelector from './searchPageSelector';
 import SearchResults from './results';
@@ -22,9 +21,8 @@ export class UnconnectedSearchPage extends Component {
 
   componentDidMount() {
     const { actions, filters, searchDone } = this.props;
-    const fetchParams = getFetchParamsFromFilters(filters);
-    if (searchDone || fetchParams.purpose || fetchParams.people || fetchParams.search) {
-      actions.searchResources(fetchParams);
+    if (searchDone || filters.purpose || filters.people || filters.search) {
+      actions.searchResources(filters);
     }
     actions.fetchUnits();
   }
@@ -34,9 +32,8 @@ export class UnconnectedSearchPage extends Component {
     if (isEqual(nextProps.filters, this.props.filters)) {
       return;
     }
-    const fetchParams = getFetchParamsFromFilters(filters);
-    if (searchDone || fetchParams.purpose || fetchParams.people || fetchParams.search) {
-      this.props.actions.searchResources(fetchParams);
+    if (searchDone || filters.purpose || filters.people || filters.search) {
+      this.props.actions.searchResources(filters);
     }
   }
 

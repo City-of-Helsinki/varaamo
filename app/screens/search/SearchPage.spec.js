@@ -7,7 +7,6 @@ import Immutable from 'seamless-immutable';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
 import DateHeader from 'screens/shared/date-header';
-import { getFetchParamsFromFilters } from 'utils/SearchUtils';
 import { UnconnectedSearchPage as SearchPage } from './SearchPage';
 import SearchControls from './controls/SearchControls';
 import SearchResults from './results';
@@ -158,14 +157,12 @@ describe('screens/search/SearchPage', () => {
         expect(defaultProps.actions.searchResources.callCount).to.equal(1);
       });
 
-      it('should fetch resources witch correct filters', () => {
+      it('fetches resources witch correct filters', () => {
         const actual = defaultProps.actions.searchResources.lastCall.args[0];
-        const expected = getFetchParamsFromFilters(defaultProps.filters);
-
-        expect(actual).to.deep.equal(expected);
+        expect(actual).to.deep.equal(defaultProps.filters);
       });
 
-      it('should fetch units when component mounts', () => {
+      it('fetches units when component mounts', () => {
         expect(defaultProps.actions.fetchUnits.callCount).to.equal(1);
       });
     });
@@ -184,7 +181,7 @@ describe('screens/search/SearchPage', () => {
           instance.componentWillUpdate(nextProps);
         });
 
-        it('should search resources with given filters', () => {
+        it('searches resources with given filters', () => {
           const actualArg = defaultProps.actions.searchResources.lastCall.args[0];
 
           expect(defaultProps.actions.searchResources.callCount).to.equal(1);
@@ -205,7 +202,7 @@ describe('screens/search/SearchPage', () => {
           instance.componentWillUpdate(nextProps);
         });
 
-        it('should not do a search', () => {
+        it('does not do a search', () => {
           expect(defaultProps.actions.searchResources.callCount).to.equal(0);
         });
       });
