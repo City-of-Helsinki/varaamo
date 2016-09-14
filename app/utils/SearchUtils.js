@@ -9,7 +9,8 @@ function getFetchParamsFromFilters(filters) {
   const all = Object.assign(
     {},
     pickSupportedFilters(filters),
-    getDateStartAndEndTimes(filters.date)
+    getDateStartAndEndTimes(filters.date),
+    { purpose: filters.purpose === 'all' ? '' : filters.purpose }
   );
 
   return omit(all, 'date');
