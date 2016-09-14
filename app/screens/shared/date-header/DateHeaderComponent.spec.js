@@ -34,50 +34,80 @@ describe('screens/shared/date-header/DateHeaderComponent', () => {
       expect(header.text()).to.contain(expected);
     });
 
-    describe('icon buttons', () => {
-      describe('when onChange function is given in props', () => {
+    describe('decrease date button', () => {
+      describe('when onDecreaseDateButtonClick function is given in props', () => {
         const extraProps = {
-          onChange: simple.stub(),
+          onDecreaseDateButtonClick: simple.stub(),
         };
-        let buttons;
+        let button;
 
         before(() => {
-          buttons = getWrapper(extraProps).find('button');
+          button = getWrapper(extraProps).find('button');
         });
 
-        it('renders 2 buttons for changing the date', () => {
-          expect(buttons.length).to.equal(2);
+        it('is rendered', () => {
+          expect(button.length).to.equal(1);
         });
 
-        it('clicking the first button should decrement the date by one', () => {
-          extraProps.onChange.reset();
-          buttons.at(0).props().onClick();
+        it('clicking the button should call onDecreaseDateButtonClick', () => {
+          extraProps.onDecreaseDateButtonClick.reset();
+          button.props().onClick();
 
-          expect(extraProps.onChange.callCount).to.equal(1);
-          expect(extraProps.onChange.lastCall.args[0]).to.equal('2015-10-10');
-        });
-
-        it('clicking the second button should increment the date by one', () => {
-          extraProps.onChange.reset();
-          buttons.at(1).props().onClick();
-
-          expect(extraProps.onChange.callCount).to.equal(1);
-          expect(extraProps.onChange.lastCall.args[0]).to.equal('2015-10-12');
+          expect(extraProps.onDecreaseDateButtonClick.callCount).to.equal(1);
         });
       });
 
-      describe('when onChange function is not given in props', () => {
+      describe('when onDecreaseDateButtonClick function is not given in props', () => {
         const extraProps = {
-          onChange: undefined,
+          onDecreaseDateButtonClick: undefined,
         };
-        let buttons;
+        let button;
 
         before(() => {
-          buttons = getWrapper(extraProps).find('button');
+          button = getWrapper(extraProps).find('button');
         });
 
-        it('does not render any buttons', () => {
-          expect(buttons.length).to.equal(0);
+        it('does not render the button', () => {
+          expect(button.length).to.equal(0);
+        });
+      });
+    });
+
+    describe('increase date button', () => {
+      describe('when onIncreaseDateButtonClick function is given in props', () => {
+        const extraProps = {
+          onIncreaseDateButtonClick: simple.stub(),
+        };
+        let button;
+
+        before(() => {
+          button = getWrapper(extraProps).find('button');
+        });
+
+        it('is rendered', () => {
+          expect(button.length).to.equal(1);
+        });
+
+        it('clicking the button should call onIncreaseDateButtonClick', () => {
+          extraProps.onIncreaseDateButtonClick.reset();
+          button.props().onClick();
+
+          expect(extraProps.onIncreaseDateButtonClick.callCount).to.equal(1);
+        });
+      });
+
+      describe('when onIncreaseDateButtonClick function is not given in props', () => {
+        const extraProps = {
+          onIncreaseDateButtonClick: undefined,
+        };
+        let button;
+
+        before(() => {
+          button = getWrapper(extraProps).find('button');
+        });
+
+        it('does not render the button', () => {
+          expect(button.length).to.equal(0);
         });
       });
     });

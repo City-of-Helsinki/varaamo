@@ -95,7 +95,8 @@ describe('Container: ReservationCalendar', () => {
         const actualProps = dateHeaderTrees[0].props;
 
         expect(actualProps.date).to.equal(props.date);
-        expect(actualProps.onChange).to.equal(instance.onDateChange);
+        expect(actualProps.onDecreaseDateButtonClick).to.equal(instance.decreaseDate);
+        expect(actualProps.onIncreaseDateButtonClick).to.equal(instance.increaseDate);
       });
     });
 

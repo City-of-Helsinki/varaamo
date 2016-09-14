@@ -5,7 +5,6 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import { findDOMNode } from 'react-dom';
 
 import { scrollTo } from 'utils/DOMUtils';
-import { addToDate } from 'utils/TimeUtils';
 
 class DateHeaderComponent extends Component {
   componentDidMount() {
@@ -18,23 +17,23 @@ class DateHeaderComponent extends Component {
   }
 
   render() {
-    const { date, onChange } = this.props;
+    const { date, onDecreaseDateButtonClick, onIncreaseDateButtonClick } = this.props;
     const dateString = moment(date).format('dddd, LL');
 
     return (
       <h3 className="date-header" id="date-header">
-        {onChange && (
+        {onDecreaseDateButtonClick && (
           <button
-            className="date-header-button decrease-date"
-            onClick={() => onChange(addToDate(date, -1))}
+            className="date-header-button decrease-date-button"
+            onClick={onDecreaseDateButtonClick}
           >
             <Glyphicon glyph="chevron-left" />
           </button>
         )}
-        {onChange && (
+        {onIncreaseDateButtonClick && (
           <button
-            className="date-header-button increase-date"
-            onClick={() => onChange(addToDate(date, 1))}
+            className="date-header-button increase-date-button"
+            onClick={onIncreaseDateButtonClick}
           >
             <Glyphicon glyph="chevron-right" />
           </button>
@@ -47,7 +46,8 @@ class DateHeaderComponent extends Component {
 
 DateHeaderComponent.propTypes = {
   date: PropTypes.string.isRequired,
-  onChange: PropTypes.func,
+  onDecreaseDateButtonClick: PropTypes.func,
+  onIncreaseDateButtonClick: PropTypes.func,
   scrollTo: PropTypes.bool,
 };
 
