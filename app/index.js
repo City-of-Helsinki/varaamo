@@ -1,4 +1,5 @@
 import 'location-origin';
+import 'moment/locale/fi';
 
 import createHistory from 'history/lib/createBrowserHistory';
 import React from 'react';

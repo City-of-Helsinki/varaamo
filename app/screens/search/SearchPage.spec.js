@@ -1,19 +1,21 @@
 import { expect } from 'chai';
+import { shallow } from 'enzyme';
 import React from 'react';
-import sd from 'skin-deep';
 import simple from 'simple-mock';
-
 import Immutable from 'seamless-immutable';
 
+import SearchResults from 'components/search/SearchResults';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
+import DateHeader from 'screens/shared/date-header';
 import { getFetchParamsFromFilters } from 'utils/SearchUtils';
 import { UnconnectedSearchPage as SearchPage } from './SearchPage';
+import SearchControls from './controls/SearchControls';
 
-describe('Container: SearchPage', () => {
+describe('screens/search/SearchPage', () => {
   const unit = Unit.build();
   const resource = Resource.build();
-  const props = {
+  const defaultProps = {
     actions: {
       searchResources: simple.stub(),
       fetchUnits: simple.stub(),
@@ -29,85 +31,185 @@ describe('Container: SearchPage', () => {
     searchDone: true,
     units: Immutable({ [unit.id]: unit }),
   };
-  const tree = sd.shallowRender(<SearchPage {...props} />);
 
-  describe('rendering SearchResults', () => {
-    const searchResultsTrees = tree.everySubTree('SearchResults');
+  function getWrapper(extraProps) {
+    return shallow(<SearchPage {...defaultProps} {...extraProps} />);
+  }
 
-    it('should render SearchResults component', () => {
-      expect(searchResultsTrees.length).to.equal(1);
+  describe('rendering', () => {
+    describe('when no search is done', () => {
+      const extraProps = {
+        isFetchingSearchResults: false,
+        searchDone: false,
+      };
+
+      it('renders SearchControls with correct props', () => {
+        const searchControls = getWrapper(extraProps).find(SearchControls);
+
+        expect(searchControls.length).to.equal(1);
+        expect(searchControls.props().location).to.deep.equal(defaultProps.location);
+        expect(searchControls.props().params).to.deep.equal(defaultProps.params);
+        expect(typeof searchControls.props().scrollToSearchResults).to.equal('function');
+      });
+
+      it('does not render DateHeader', () => {
+        const dateHeader = getWrapper(extraProps).find(DateHeader);
+
+        expect(dateHeader.length).to.equal(0);
+      });
+
+      it('does not render SearchResults', () => {
+        const searchResults = getWrapper(extraProps).find(SearchResults);
+
+        expect(searchResults.length).to.equal(0);
+      });
+
+      it('renders help text', () => {
+        const helpText = getWrapper(extraProps).find('.help-text');
+
+        expect(helpText.length).to.equal(1);
+      });
     });
 
-    it('should pass correct props to SearchResults component', () => {
-      const actualProps = searchResultsTrees[0].props;
+    describe('when search results are being fetched', () => {
+      const extraProps = {
+        isFetchingSearchResults: true,
+        searchDone: false,
+      };
 
-      expect(actualProps.date).to.equal(props.filters.date);
-      expect(actualProps.filters).to.equal(props.filters);
-      expect(actualProps.isFetching).to.equal(props.isFetchingSearchResults);
-      expect(actualProps.results).to.deep.equal(props.results);
-      expect(actualProps.units).to.deep.equal(props.units);
+      it('renders SearchControls with correct props', () => {
+        const searchControls = getWrapper(extraProps).find(SearchControls);
+
+        expect(searchControls.length).to.equal(1);
+        expect(searchControls.props().location).to.deep.equal(defaultProps.location);
+        expect(searchControls.props().params).to.deep.equal(defaultProps.params);
+        expect(typeof searchControls.props().scrollToSearchResults).to.equal('function');
+      });
+
+      it('does not render DateHeader', () => {
+        const dateHeader = getWrapper(extraProps).find(DateHeader);
+
+        expect(dateHeader.length).to.equal(0);
+      });
+
+      it('renders SearchResults with correct props', () => {
+        const searchResults = getWrapper(extraProps).find(SearchResults);
+
+        expect(searchResults.props().date).to.equal(defaultProps.filters.date);
+        expect(searchResults.props().filters).to.equal(defaultProps.filters);
+        expect(searchResults.props().isFetching).to.equal(extraProps.isFetchingSearchResults);
+        expect(searchResults.props().results).to.deep.equal(defaultProps.results);
+        expect(searchResults.props().units).to.deep.equal(defaultProps.units);
+      });
+
+      it('does not render help text', () => {
+        const helpText = getWrapper(extraProps).find('.help-text');
+
+        expect(helpText.length).to.equal(0);
+      });
+    });
+
+    describe('when search results have been fetched', () => {
+      const extraProps = {
+        isFetchingSearchResults: false,
+        searchDone: true,
+      };
+
+      it('renders SearchControls with correct props', () => {
+        const searchControls = getWrapper(extraProps).find(SearchControls);
+
+        expect(searchControls.length).to.equal(1);
+        expect(searchControls.props().location).to.deep.equal(defaultProps.location);
+        expect(searchControls.props().params).to.deep.equal(defaultProps.params);
+        expect(typeof searchControls.props().scrollToSearchResults).to.equal('function');
+      });
+
+      it('renders DateHeader with correct props', () => {
+        const dateHeader = getWrapper(extraProps).find(DateHeader);
+
+        expect(dateHeader.length).to.equal(1);
+        expect(dateHeader.props().date).to.equal(defaultProps.filters.date);
+      });
+
+      it('renders SearchResults with correct props', () => {
+        const searchResults = getWrapper(extraProps).find(SearchResults);
+
+        expect(searchResults.props().date).to.equal(defaultProps.filters.date);
+        expect(searchResults.props().filters).to.equal(defaultProps.filters);
+        expect(searchResults.props().isFetching).to.equal(extraProps.isFetchingSearchResults);
+        expect(searchResults.props().results).to.deep.equal(defaultProps.results);
+        expect(searchResults.props().units).to.deep.equal(defaultProps.units);
+      });
+
+      it('does not render help text', () => {
+        const helpText = getWrapper(extraProps).find('.help-text');
+
+        expect(helpText.length).to.equal(0);
+      });
     });
   });
 
-  describe('componentDidMount', () => {
-    before(() => {
-      const instance = tree.getMountedInstance();
-      instance.componentDidMount();
-    });
-
-    it('should fetch resources when component mounts', () => {
-      expect(props.actions.searchResources.callCount).to.equal(1);
-    });
-
-    it('should fetch resources witch correct filters', () => {
-      const actual = props.actions.searchResources.lastCall.args[0];
-      const expected = getFetchParamsFromFilters(props.filters);
-
-      expect(actual).to.deep.equal(expected);
-    });
-
-    it('should fetch units when component mounts', () => {
-      expect(props.actions.fetchUnits.callCount).to.equal(1);
-    });
-  });
-
-  describe('componentWillUpdate', () => {
-    describe('if search filters did change and url has query part', () => {
-      let nextProps;
-
+  describe('lifecycle events', () => {
+    describe('componentDidMount', () => {
       before(() => {
-        props.actions.searchResources.reset();
-        const instance = tree.getMountedInstance();
-        nextProps = {
-          filters: { purpose: 'new-purpose' },
-          url: '/search?purpose=new-purpose',
-        };
-        instance.componentWillUpdate(nextProps);
+        const instance = getWrapper().instance();
+        instance.componentDidMount();
       });
 
-      it('should search resources with given filters', () => {
-        const actualArg = props.actions.searchResources.lastCall.args[0];
+      it('fetches resources when component mounts', () => {
+        expect(defaultProps.actions.searchResources.callCount).to.equal(1);
+      });
 
-        expect(props.actions.searchResources.callCount).to.equal(1);
-        expect(actualArg).to.deep.equal(nextProps.filters);
+      it('should fetch resources witch correct filters', () => {
+        const actual = defaultProps.actions.searchResources.lastCall.args[0];
+        const expected = getFetchParamsFromFilters(defaultProps.filters);
+
+        expect(actual).to.deep.equal(expected);
+      });
+
+      it('should fetch units when component mounts', () => {
+        expect(defaultProps.actions.fetchUnits.callCount).to.equal(1);
       });
     });
 
-    describe('if search filters did not change', () => {
-      let nextProps;
+    describe('componentWillUpdate', () => {
+      describe('if search filters did change and url has query part', () => {
+        let nextProps;
 
-      before(() => {
-        props.actions.searchResources.reset();
-        const instance = tree.getMountedInstance();
-        nextProps = {
-          filters: props.filters,
-          url: '/search?search=some-search',
-        };
-        instance.componentWillUpdate(nextProps);
+        before(() => {
+          defaultProps.actions.searchResources.reset();
+          const instance = getWrapper().instance();
+          nextProps = {
+            filters: { purpose: 'new-purpose' },
+            url: '/search?purpose=new-purpose',
+          };
+          instance.componentWillUpdate(nextProps);
+        });
+
+        it('should search resources with given filters', () => {
+          const actualArg = defaultProps.actions.searchResources.lastCall.args[0];
+
+          expect(defaultProps.actions.searchResources.callCount).to.equal(1);
+          expect(actualArg).to.deep.equal(nextProps.filters);
+        });
       });
 
-      it('should not do a search', () => {
-        expect(props.actions.searchResources.callCount).to.equal(0);
+      describe('if search filters did not change', () => {
+        let nextProps;
+
+        before(() => {
+          defaultProps.actions.searchResources.reset();
+          const instance = getWrapper().instance();
+          nextProps = {
+            filters: defaultProps.filters,
+            url: '/search?search=some-search',
+          };
+          instance.componentWillUpdate(nextProps);
+        });
+
+        it('should not do a search', () => {
+          expect(defaultProps.actions.searchResources.callCount).to.equal(0);
+        });
       });
     });
   });

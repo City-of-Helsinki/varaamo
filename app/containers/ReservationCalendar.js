@@ -20,7 +20,7 @@ import {
   openConfirmReservationModal,
   toggleTimeSlot,
 } from 'actions/uiActions';
-import DateHeader from 'components/common/DateHeader';
+import DateHeader from 'screens/shared/date-header';
 import ConfirmReservationModal from 'components/reservation/ConfirmReservationModal';
 import ReservationCalendarControls from 'components/reservation/ReservationCalendarControls';
 import TimeSlots from 'components/reservation/TimeSlots';
@@ -28,10 +28,13 @@ import ReservationCancelModal from 'containers/ReservationCancelModal';
 import ReservationInfoModal from 'containers/ReservationInfoModal';
 import ReservationSuccessModal from 'containers/ReservationSuccessModal';
 import reservationCalendarSelector from 'selectors/containers/reservationCalendarSelector';
+import { addToDate } from 'utils/TimeUtils';
 
 export class UnconnectedReservationCalendar extends Component {
   constructor(props) {
     super(props);
+    this.decreaseDate = this.decreaseDate.bind(this);
+    this.increaseDate = this.increaseDate.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleEditCancel = this.handleEditCancel.bind(this);
     this.handleReservation = this.handleReservation.bind(this);
@@ -42,9 +45,18 @@ export class UnconnectedReservationCalendar extends Component {
     this.props.actions.clearReservations();
   }
 
+
   onDateChange(newDate) {
     const { actions, id } = this.props;
     actions.updatePath(`/resources/${id}/reservation?date=${newDate}`);
+  }
+
+  decreaseDate() {
+    this.onDateChange(addToDate(this.props.date, -1));
+  }
+
+  increaseDate() {
+    this.onDateChange(addToDate(this.props.date, 1));
   }
 
   handleEdit(values = {}) {
@@ -128,7 +140,8 @@ export class UnconnectedReservationCalendar extends Component {
         />
         <DateHeader
           date={date}
-          onChange={this.onDateChange}
+          onDecreaseDateButtonClick={this.decreaseDate}
+          onIncreaseDateButtonClick={this.increaseDate}
           scrollTo={urlHash === '#date-header'}
         />
         <TimeSlots
