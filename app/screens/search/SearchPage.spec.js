@@ -4,13 +4,13 @@ import React from 'react';
 import simple from 'simple-mock';
 import Immutable from 'seamless-immutable';
 
-import SearchResults from 'components/search/SearchResults';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
 import DateHeader from 'screens/shared/date-header';
 import { getFetchParamsFromFilters } from 'utils/SearchUtils';
 import { UnconnectedSearchPage as SearchPage } from './SearchPage';
 import SearchControls from './controls/SearchControls';
+import SearchResults from './results';
 
 describe('screens/search/SearchPage', () => {
   const unit = Unit.build();
@@ -96,7 +96,6 @@ describe('screens/search/SearchPage', () => {
         const searchResults = getWrapper(extraProps).find(SearchResults);
 
         expect(searchResults.props().date).to.equal(defaultProps.filters.date);
-        expect(searchResults.props().filters).to.equal(defaultProps.filters);
         expect(searchResults.props().isFetching).to.equal(extraProps.isFetchingSearchResults);
         expect(searchResults.props().results).to.deep.equal(defaultProps.results);
         expect(searchResults.props().units).to.deep.equal(defaultProps.units);
@@ -135,7 +134,6 @@ describe('screens/search/SearchPage', () => {
         const searchResults = getWrapper(extraProps).find(SearchResults);
 
         expect(searchResults.props().date).to.equal(defaultProps.filters.date);
-        expect(searchResults.props().filters).to.equal(defaultProps.filters);
         expect(searchResults.props().isFetching).to.equal(extraProps.isFetchingSearchResults);
         expect(searchResults.props().results).to.deep.equal(defaultProps.results);
         expect(searchResults.props().units).to.deep.equal(defaultProps.units);
