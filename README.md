@@ -8,8 +8,8 @@ User interface for the City of Helsinki [varaamo.hel.fi](https://varaamo.hel.fi/
 Requirements
 ------------
 
-- [node](http://nodejs.org/) `^0.12.7`
-- [npm](https://www.npmjs.com/) `^2.14.11`
+- [node](http://nodejs.org/) `6.5.0`
+- [npm](https://www.npmjs.com/) `3.10.3`
 
 Architecture
 ------------
