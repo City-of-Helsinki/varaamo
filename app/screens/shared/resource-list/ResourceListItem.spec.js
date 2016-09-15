@@ -23,13 +23,13 @@ describe('screens/shared/resource-list/ResourceListItem', () => {
     return shallow(<ResourceListItem {...defaultProps} {...extraProps} />);
   }
 
-  it('should render an li element', () => {
+  it('renders an li element', () => {
     const li = getWrapper().find('li');
 
     expect(li.length).to.equal(1);
   });
 
-  it('should render an image with correct props', () => {
+  it('renders an image with correct props', () => {
     const image = getWrapper().find('img');
     const resourceImage = defaultProps.resource.images[0];
 
@@ -46,18 +46,18 @@ describe('screens/shared/resource-list/ResourceListItem', () => {
       namesLink = namesSection.find(Link);
     });
 
-    it('should contain a link to resources page', () => {
+    it('contains a link to resources page', () => {
       expect(namesLink.length).to.equal(1);
       expect(namesLink.props().to).to.contain('resources');
     });
 
-    it('should render the name of the resource', () => {
+    it('renders the name of the resource', () => {
       const expected = defaultProps.resource.name.fi;
 
       expect(namesLink.html()).to.contain(expected);
     });
 
-    it('should render the name of the given unit in props', () => {
+    it('renders the name of the given unit in props', () => {
       const expected = defaultProps.unit.name.fi;
 
       expect(namesLink.html()).to.contain(expected);
@@ -71,7 +71,7 @@ describe('screens/shared/resource-list/ResourceListItem', () => {
       availableTime = getWrapper().find('.available-time');
     });
 
-    it('should have a Link to reservations page with a correct date', () => {
+    it('contains a Link to reservations page with a correct date', () => {
       const link = availableTime.find('Link');
 
       expect(link.length).to.equal(1);
@@ -81,7 +81,7 @@ describe('screens/shared/resource-list/ResourceListItem', () => {
       });
     });
 
-    it('should display the available hours in a label', () => {
+    it('displays the available hours in a label', () => {
       const label = availableTime.find(Label);
       const expected = '0 tuntia vapaana';
 
