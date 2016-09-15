@@ -10,7 +10,7 @@ import {
   getOpeningHours,
 } from 'utils/DataUtils';
 
-class SearchResult extends Component {
+class ResourceListItem extends Component {
   renderAvailableTime(availableTime) {
     let bsStyle = 'success';
     if (availableTime === '0 tuntia vapaana') {
@@ -30,31 +30,31 @@ class SearchResult extends Component {
   }
 
   render() {
-    const { date, result, unit } = this.props;
-    const availableTime = getAvailableTime(getOpeningHours(result), result.reservations);
+    const { date, resource, unit } = this.props;
+    const availableTime = getAvailableTime(getOpeningHours(resource), resource.reservations);
 
     return (
       <li>
         <div className="image">
           <Link
-            to={`/resources/${result.id}`}
+            to={`/resources/${resource.id}`}
             query={{ date: date.split('T')[0] }}
           >
-            {this.renderImage(getMainImage(result.images))}
+            {this.renderImage(getMainImage(resource.images))}
           </Link>
         </div>
         <div className="names">
           <Link
-            to={`/resources/${result.id}`}
+            to={`/resources/${resource.id}`}
             query={{ date: date.split('T')[0] }}
           >
-            <h4>{getName(result)}</h4>
+            <h4>{getName(resource)}</h4>
             <div className="unit-name">{getName(unit)}</div>
           </Link>
         </div>
         <div className="available-time">
           <Link
-            to={`/resources/${result.id}/reservation`}
+            to={`/resources/${resource.id}/reservation`}
             query={{ date: date.split('T')[0] }}
           >
             {this.renderAvailableTime(availableTime)}
@@ -65,10 +65,10 @@ class SearchResult extends Component {
   }
 }
 
-SearchResult.propTypes = {
+ResourceListItem.propTypes = {
   date: PropTypes.string.isRequired,
-  result: PropTypes.object.isRequired,
+  resource: PropTypes.object.isRequired,
   unit: PropTypes.object.isRequired,
 };
 
-export default SearchResult;
+export default ResourceListItem;
