@@ -1,7 +1,8 @@
 import { expect } from 'chai';
+import { shallow } from 'enzyme';
 import React from 'react';
-import sd from 'skin-deep';
-
+import Label from 'react-bootstrap/lib/Label';
+import { Link } from 'react-router';
 import Immutable from 'seamless-immutable';
 
 import Image from 'fixtures/Image';
@@ -10,83 +11,81 @@ import Unit from 'fixtures/Unit';
 import ResourceListItem from './ResourceListItem';
 
 describe('screens/shared/resource-list/ResourceListItem', () => {
-  describe('rendering', () => {
-    const props = {
-      date: '2015-10-10',
-      resource: Immutable(Resource.build({
-        images: [Image.build()],
-      })),
-      unit: Immutable(Unit.build()),
-    };
-    let tree;
-    let vdom;
+  const defaultProps = {
+    date: '2015-10-10',
+    resource: Immutable(Resource.build({
+      images: [Image.build()],
+    })),
+    unit: Immutable(Unit.build()),
+  };
+
+  function getWrapper(extraProps) {
+    return shallow(<ResourceListItem {...defaultProps} {...extraProps} />);
+  }
+
+  it('should render an li element', () => {
+    const li = getWrapper().find('li');
+
+    expect(li.length).to.equal(1);
+  });
+
+  it('should render an image with correct props', () => {
+    const image = getWrapper().find('img');
+    const resourceImage = defaultProps.resource.images[0];
+
+    expect(image.length).to.equal(1);
+    expect(image.props().alt).to.equal(resourceImage.caption.fi);
+    expect(image.props().src).to.equal(`${resourceImage.url}?dim=100x100`);
+  });
+
+  describe('names section', () => {
+    let namesLink;
 
     before(() => {
-      tree = sd.shallowRender(<ResourceListItem {...props} />);
-      vdom = tree.getRenderOutput();
+      const namesSection = getWrapper().find('.names');
+      namesLink = namesSection.find(Link);
     });
 
-    it('should render an li element', () => {
-      expect(vdom.type).to.equal('li');
+    it('should contain a link to resources page', () => {
+      expect(namesLink.length).to.equal(1);
+      expect(namesLink.props().to).to.contain('resources');
     });
 
-    it('should render an image with correct props', () => {
-      const imageTree = tree.subTree('img');
-      const image = props.resource.images[0];
+    it('should render the name of the resource', () => {
+      const expected = defaultProps.resource.name.fi;
 
-      expect(imageTree).to.be.ok;
-      expect(imageTree.props.alt).to.equal(image.caption.fi);
-      expect(imageTree.props.src).to.equal(`${image.url}?dim=100x100`);
+      expect(namesLink.html()).to.contain(expected);
     });
 
-    describe('names', () => {
-      let namesTree;
+    it('should render the name of the given unit in props', () => {
+      const expected = defaultProps.unit.name.fi;
 
-      before(() => {
-        namesTree = tree.subTree('.names');
-      });
+      expect(namesLink.html()).to.contain(expected);
+    });
+  });
 
-      it('should render a link to resources page', () => {
-        const linkTree = namesTree.subTree('Link');
+  describe('available time', () => {
+    let availableTime;
 
-        expect(linkTree.props.to).to.contain('resources');
-      });
+    before(() => {
+      availableTime = getWrapper().find('.available-time');
+    });
 
-      it('should render the name of the resource', () => {
-        const expected = props.resource.name.fi;
+    it('should have a Link to reservations page with a correct date', () => {
+      const link = availableTime.find('Link');
 
-        expect(namesTree.toString()).to.contain(expected);
-      });
-
-      it('should render the name of the given unit in props', () => {
-        const expected = props.unit.name.fi;
-
-        expect(namesTree.toString()).to.contain(expected);
+      expect(link.length).to.equal(1);
+      expect(link.props().to).to.equal(`/resources/${defaultProps.resource.id}/reservation`);
+      expect(link.props().query).to.deep.equal({
+        date: defaultProps.date.split('T')[0],
       });
     });
 
-    describe('available time', () => {
-      let availableTimeTree;
+    it('should display the available hours in a label', () => {
+      const label = availableTime.find(Label);
+      const expected = '0 tuntia vapaana';
 
-      before(() => {
-        availableTimeTree = tree.subTree('.available-time');
-      });
-
-      it('should have a Link to reservations page with a correct date', () => {
-        const linkTree = availableTimeTree.subTree('Link');
-
-        expect(linkTree).to.be.ok;
-        expect(linkTree.props.to).to.equal(`/resources/${props.resource.id}/reservation`);
-        expect(linkTree.props.query).to.deep.equal(
-          { date: props.date.split('T')[0] }
-        );
-      });
-
-      it('should display the available hours in a label', () => {
-        const expectedText = '0 tuntia vapaana';
-
-        expect(availableTimeTree.subTree('Label').props.children).to.equal(expectedText);
-      });
+      expect(label.props().children).to.equal(expected);
     });
   });
 });
