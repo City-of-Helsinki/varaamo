@@ -17,7 +17,7 @@ function renderImage(src, alt) {
 function PartnersComponent() {
   return (
     <div className="partners">
-      <h2>Varaamossa mukana</h2>
+      <h3>Varaamossa mukana</h3>
       <div className="partners-images">
         {renderImage(vaakaImage, 'nuorisoasiainkeskus')}
         {renderImage(kaupunginkirjatoImage, 'Helsingin kaupunginkirjasto')}

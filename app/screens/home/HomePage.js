@@ -12,7 +12,7 @@ class HomePage extends Component {
         <div className="home-page">
           <HomeIntroComponent />
           <PartnersComponent />
-          <h2 id="purpose-category-header">Mitä haluat tehdä?</h2>
+          <h3 id="purpose-category-header">Mitä haluat tehdä?</h3>
           <PurposeListContainer />
         </div>
       </DocumentTitle>
