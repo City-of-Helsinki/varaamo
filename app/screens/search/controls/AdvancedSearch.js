@@ -12,10 +12,14 @@ class AdvancedSearch extends Component {
       purposeOptions,
     } = this.props;
 
+    const purposeSelectValue = purposeOptions.some(option => option.value === filters.purpose) ?
+      filters.purpose :
+      undefined;
+
     return (
       <Panel
         collapsible
-        defaultExpanded={Boolean(filters.purpose)}
+        defaultExpanded={Boolean(purposeSelectValue)}
         header="Tarkennettu haku"
       >
         <h4>Tilan käyttötarkoitus</h4>
@@ -26,7 +30,8 @@ class AdvancedSearch extends Component {
           onChange={(value) => onFiltersChange({ purpose: value })}
           options={purposeOptions}
           placeholder=" "
-          value={filters.purpose}
+          searchable={false}
+          value={purposeSelectValue}
         />
         <h4>Tilan henkilömäärä vähintään</h4>
         <Input

@@ -12,7 +12,7 @@ describe('Component: search/controls/AdvancedSearch', () => {
   const defaultProps = {
     isFetchingPurposes: false,
     onFiltersChange: simple.stub(),
-    filters: { purpose: 'some-filter' },
+    filters: { purpose: 'filter-1' },
     purposeOptions: Immutable([
       { value: 'filter-1', label: 'Label 1' },
       { value: 'filter-2', label: 'Label 2' },
@@ -35,8 +35,14 @@ describe('Component: search/controls/AdvancedSearch', () => {
       expect(panel.props().defaultExpanded).to.be.false;
     });
 
-    it('is open if filters contain purpose', () => {
-      const filters = { purpose: 'some purpose' };
+    it('is closed if purpose in filters is not a valid purpose value', () => {
+      const filters = { purpose: 'invalid-purpose' };
+      const panel = getWrapper({ filters }).find(Panel);
+      expect(panel.props().defaultExpanded).to.be.false;
+    });
+
+    it('is open if filters contain valid purpose value', () => {
+      const filters = { purpose: 'filter-1' };
       const panel = getWrapper({ filters }).find(Panel);
       expect(panel.props().defaultExpanded).to.be.true;
     });

@@ -4,6 +4,7 @@ import React from 'react';
 import Jumbotron from 'react-bootstrap/lib/Jumbotron';
 
 import HomeIntroComponent from './HomeIntroComponent';
+import ShowResourcesLink from './ShowResourcesLink';
 
 describe('screens/home/intro/HomeIntroComponent', () => {
   const wrapper = shallow(<HomeIntroComponent />);
@@ -23,5 +24,9 @@ describe('screens/home/intro/HomeIntroComponent', () => {
     const p = wrapper.find('p');
     const expected = 'Varaamosta voit varata julkisia tiloja ja laitteita omaan käyttöösi';
     expect(p.text()).to.equal(expected);
+  });
+
+  it('renders a ShowResourcesLink component', () => {
+    expect(wrapper.find(ShowResourcesLink).length).to.equal(1);
   });
 });
