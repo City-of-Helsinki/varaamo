@@ -19,6 +19,7 @@ describe('Container: App', () => {
       updatePath: simple.stub(),
     },
     children: <div id="child-div" />,
+    isAdmin: false,
     isLoggedIn: true,
     user: Immutable(user),
     userId: user.id,
@@ -34,26 +35,27 @@ describe('Container: App', () => {
     describe('Navbar', () => {
       const navbar = wrapper.find(Navbar);
 
-      it('should render Navbar component', () => {
+      it('renders a Navbar component', () => {
         expect(navbar.length).to.equal(1);
       });
 
-      it('should pass correct props to Navbar component', () => {
+      it('passes correct props to Navbar component', () => {
         const actualProps = navbar.props();
         expect(actualProps.clearSearchResults).to.equal(defaultProps.actions.clearSearchResults);
+        expect(actualProps.isAdmin).to.equal(defaultProps.isAdmin);
         expect(actualProps.isLoggedIn).to.equal(defaultProps.isLoggedIn);
         expect(actualProps.user).to.equal(defaultProps.user);
       });
     });
 
     describe('props.children', () => {
-      it('should render props.children', () => {
+      it('renders props.children', () => {
         const children = wrapper.find('#child-div');
         expect(children.length).to.equal(1);
       });
     });
 
-    it('should render Footer component', () => {
+    it('renders a Footer component', () => {
       const footer = wrapper.find(Footer);
       expect(footer.length).to.equal(1);
     });
@@ -61,7 +63,7 @@ describe('Container: App', () => {
 
   describe('componentDidMount', () => {
     describe('when user is not logged in', () => {
-      it('should not fetch user data', () => {
+      it('does not fetch user data', () => {
         defaultProps.actions.fetchUser.reset();
         const instance = getWrapper({ user: {}, userId: null }).instance();
         instance.componentDidMount();
@@ -70,7 +72,7 @@ describe('Container: App', () => {
     });
 
     describe('when user is logged in', () => {
-      it('should fetch user data', () => {
+      it('fetches user data', () => {
         defaultProps.actions.fetchUser.reset();
         const instance = getWrapper().instance();
         instance.componentDidMount();
