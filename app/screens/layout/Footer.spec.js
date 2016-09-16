@@ -2,10 +2,10 @@ import { expect } from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Footer from 'screens/layout/Footer';
 import FooterContent from 'components/customization/FooterContent';
+import Footer from './Footer';
 
-describe('Component: layout/Footer', () => {
+describe('screens/layout/Footer', () => {
   function getWrapper() {
     return shallow(<Footer />);
   }

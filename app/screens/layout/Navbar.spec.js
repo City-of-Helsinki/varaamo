@@ -5,11 +5,11 @@ import simple from 'simple-mock';
 
 import Immutable from 'seamless-immutable';
 
-import Navbar from 'screens/layout/Navbar';
 import User from 'fixtures/User';
 import { getSearchPageUrl } from 'utils/SearchUtils';
+import Navbar from './Navbar';
 
-describe('Component: layout/Navbar', () => {
+describe('screens/layout/Navbar', () => {
   describe('basic rendering', () => {
     const props = {
       clearSearchResults: simple.stub(),
