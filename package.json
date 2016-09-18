@@ -32,7 +32,7 @@
     "react": "0.14.8",
     "react-addons-css-transition-group": "0.14.8",
     "react-autolink-text": "2.0.0",
-    "react-bootstrap": "0.28.1",
+    "react-bootstrap": "0.30.3",
     "react-date-picker": "5.3.28",
     "react-document-title": "2.0.2",
     "react-dom": "0.14.8",

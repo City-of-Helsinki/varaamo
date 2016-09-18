@@ -1,8 +1,11 @@
 import includes from 'lodash/includes';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
-import Input from 'react-bootstrap/lib/Input';
+import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import FormControl from 'react-bootstrap/lib/FormControl';
+import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Modal from 'react-bootstrap/lib/Modal';
+import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -40,7 +43,7 @@ export class UnconnectedReservationInfoModal extends Component {
     const resource = reservation ? resources[reservationsToShow[0].resource] : {};
     const staffEvent = isStaffEvent(reservation, resource);
     const missingValues = getMissingReservationValues(reservation);
-    const comments = this.refs.commentsInput.getValue();
+    const comments = findDOMNode(this.refs.commentsInput).value;
     actions.putReservation(Object.assign(
       {},
       reservation,
@@ -96,14 +99,16 @@ export class UnconnectedReservationInfoModal extends Component {
         </dl>
         {isAdmin && reservation.state !== 'cancelled' && (
           <form>
-            <Input
-              defaultValue={reservation.comments}
-              label="Kommentit:"
-              placeholder="Varauksen mahdolliset lisätiedot"
-              ref="commentsInput"
-              rows={5}
-              type="textarea"
-            />
+            <FormGroup controlId="commentsTextarea">
+              <ControlLabel>Kommentit:</ControlLabel>
+              <FormControl
+                componentClass="textarea"
+                defaultValue={reservation.comments}
+                placeholder="Varauksen mahdolliset lisätiedot"
+                ref="commentsInput"
+                rows={5}
+              />
+            </FormGroup>
           </form>
         )}
       </div>

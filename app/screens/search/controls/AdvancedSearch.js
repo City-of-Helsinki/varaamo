@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Input from 'react-bootstrap/lib/Input';
+import FormControl from 'react-bootstrap/lib/FormControl';
 import Panel from 'react-bootstrap/lib/Panel';
 import Select from 'react-select';
 
@@ -34,7 +34,7 @@ class AdvancedSearch extends Component {
           value={purposeSelectValue}
         />
         <h4>Tilan henkilömäärä vähintään</h4>
-        <Input
+        <FormControl
           min="0"
           name="people-capacity-filter"
           onChange={(event) => onFiltersChange({ people: event.target.value })}

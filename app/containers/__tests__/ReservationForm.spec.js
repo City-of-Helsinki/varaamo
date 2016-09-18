@@ -1,12 +1,13 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
+import Form from 'react-bootstrap/lib/Form';
 import simple from 'simple-mock';
 
 import Button from 'react-bootstrap/lib/Button';
 
-import ReduxFormField from 'components/common/ReduxFormField';
 import constants from 'constants/AppConstants';
+import ReduxFormField from 'screens/shared/form-fields/ReduxFormField';
 
 import {
   UnconnectedReservationForm as ReservationForm,
@@ -114,8 +115,8 @@ describe('Container: ReservationForm', () => {
       return shallow(<ReservationForm {...defaultProps} {...extraProps} />);
     }
 
-    it('should render a form', () => {
-      const form = getWrapper().find('form');
+    it('should render a Form component', () => {
+      const form = getWrapper().find(Form);
       expect(form.length).to.equal(1);
     });
 
