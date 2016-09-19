@@ -28,13 +28,12 @@ describe('screens/shared/resource-list/ResourceListItem', () => {
     expect(li.length).to.equal(1);
   });
 
-  it('renders an image with correct props', () => {
-    const image = getWrapper().find('img');
+  it('renders an image container with correct background image', () => {
+    const imageContainer = getWrapper().find('.image-container');
     const resourceImage = defaultProps.resource.images[0];
 
-    expect(image.length).to.equal(1);
-    expect(image.props().alt).to.equal(resourceImage.caption.fi);
-    expect(image.props().src).to.equal(`${resourceImage.url}?dim=100x100`);
+    expect(imageContainer.length).to.equal(1);
+    expect(imageContainer.props().style.backgroundImage).to.contain(resourceImage.url);
   });
 
   it('contains a link to resources page', () => {
