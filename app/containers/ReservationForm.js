@@ -1,12 +1,13 @@
 import includes from 'lodash/includes';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
+import Form from 'react-bootstrap/lib/Form';
 import Well from 'react-bootstrap/lib/Well';
 import { reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 
-import ReduxFormField from 'components/common/ReduxFormField';
 import constants from 'constants/AppConstants';
+import ReduxFormField from 'screens/shared/form-fields/ReduxFormField';
 
 const validators = {
   reserverEmailAddress: ({ reserverEmailAddress }) => {
@@ -64,7 +65,7 @@ export function validate(values, { fields, requiredFields }) {
 }
 
 export class UnconnectedReservationForm extends Component {
-  renderField(type, label, field, extraProps) {
+  renderField(type, label, field, controlProps = {}, help = null) {
     if (!field) {
       return null;
     }
@@ -72,8 +73,9 @@ export class UnconnectedReservationForm extends Component {
 
     return (
       <ReduxFormField
-        extraProps={extraProps}
+        controlProps={controlProps}
         field={field}
+        help={help}
         label={`${label}${isRequired ? '*' : ''}`}
         type={type}
       />
@@ -96,19 +98,16 @@ export class UnconnectedReservationForm extends Component {
 
     return (
       <div>
-        <form className="reservation-form form-horizontal">
+        <Form className="reservation-form" horizontal>
           { fields.staffEvent && (
             <Well>
               {this.renderField(
                 'checkbox',
                 'Viraston oma tapahtuma',
                 fields.staffEvent,
-                {
-                  help: `
-                  Viraston oma tapahtuma hyväksytään automaattisesti ja ainoat pakolliset tiedot
-                  ovat varaajan nimi ja tilaisuuden kuvaus.
-                  `,
-                }
+                {},
+                `Viraston oma tapahtuma hyväksytään automaattisesti ja ainoat pakolliset
+                tiedot ovat varaajan nimi ja tilaisuuden kuvaus.`,
               )}
             </Well>
           )}
@@ -169,7 +168,7 @@ export class UnconnectedReservationForm extends Component {
               {isMakingReservations ? 'Tallennetaan...' : 'Tallenna'}
             </Button>
           </div>
-        </form>
+        </Form>
       </div>
     );
   }

@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
+import ReactDom from 'react-dom';
 import Button from 'react-bootstrap/lib/Button';
-import Input from 'react-bootstrap/lib/Input';
+import FormControl from 'react-bootstrap/lib/FormControl';
 import Modal from 'react-bootstrap/lib/Modal';
-import simple from 'simple-mock';
-
 import Immutable from 'seamless-immutable';
+import simple from 'simple-mock';
 
 import {
   UnconnectedReservationInfoModal as ReservationInfoModal,
@@ -182,31 +182,31 @@ describe('Container: ReservationInfoModal', () => {
               expect(reservationTexts).to.contain(cancelledReservation.comments);
             });
 
-            it('should not render textarea input for comments', () => {
-              const input = wrapper.find(Input);
-              expect(input.length).to.equal(0);
+            it('should not render FormControl for comments', () => {
+              const formControl = wrapper.find(FormControl);
+              expect(formControl.length).to.equal(0);
             });
           });
 
           describe('if reservation state is not cancelled', () => {
             const confirmedReservation = Object.assign({}, reservation, { state: 'confirmed' });
-            let input;
+            let formControl;
 
             before(() => {
               const wrapper = getWrapper({
                 resources: { [resourceWithAdminRights.id]: resourceWithAdminRights },
                 reservationsToShow: [confirmedReservation],
               });
-              input = wrapper.find(Input);
+              formControl = wrapper.find(FormControl);
             });
 
-            it('should render textarea input for comments', () => {
-              expect(input.length).to.equal(1);
-              expect(input.props().type).to.equal('textarea');
+            it('should render textarea FormControl for comments', () => {
+              expect(formControl.length).to.equal(1);
+              expect(formControl.props().componentClass).to.equal('textarea');
             });
 
-            it('textarea input should have reservation.comments as default value', () => {
-              expect(input.props().defaultValue).to.equal(reservation.comments);
+            it('the FormControl should have reservation.comments as default value', () => {
+              expect(formControl.props().defaultValue).to.equal(reservation.comments);
             });
 
             it('should not render reservation comments as text', () => {
@@ -228,9 +228,9 @@ describe('Container: ReservationInfoModal', () => {
             });
           });
 
-          it('should not render textarea input for comments', () => {
-            const input = wrapper.find(Input);
-            expect(input.length).to.equal(0);
+          it('should not render FormControl for comments', () => {
+            const formControl = wrapper.find(FormControl);
+            expect(formControl.length).to.equal(0);
           });
 
           it('should not render reservation comments as text', () => {
@@ -305,13 +305,15 @@ describe('Container: ReservationInfoModal', () => {
 
     before(() => {
       updatedComments = 'Updated comments';
+      simple.mock(ReactDom, 'findDOMNode').returnWith({ value: updatedComments });
       const instance = getWrapper().instance();
-      instance.refs = {
-        commentsInput: { getValue: () => updatedComments },
-      };
       defaultProps.actions.closeReservationInfoModal.reset();
       defaultProps.actions.putReservation.reset();
       instance.handleSave();
+    });
+
+    after(() => {
+      simple.restore();
     });
 
     it('should call putReservation for the first reservation in reservationsToShow', () => {

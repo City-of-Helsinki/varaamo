@@ -2,7 +2,7 @@ import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
-import Input from 'react-bootstrap/lib/Input';
+import FormControl from 'react-bootstrap/lib/FormControl';
 import Row from 'react-bootstrap/lib/Row';
 import { DateField } from 'react-date-picker';
 import { connect } from 'react-redux';
@@ -67,7 +67,7 @@ export class UnconnectedSearchControls extends Component {
       <div>
         <Row>
           <Col lg={6} md={6}>
-            <Input
+            <FormControl
               autoFocus={!filters.purpose}
               onChange={(event) => this.onFiltersChange({ search: event.target.value })}
               onKeyUp={this.handleSearchInputChange}

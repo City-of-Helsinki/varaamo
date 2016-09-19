@@ -8,7 +8,7 @@ import Immutable from 'seamless-immutable';
 
 import { UnconnectedSearchControls as SearchControls } from './SearchControls';
 
-describe('Container: SearchControls', () => {
+describe('screens/search/controls/SearchControls', () => {
   let props;
   let tree;
   let instance;
@@ -43,23 +43,24 @@ describe('Container: SearchControls', () => {
     simple.restore();
   });
 
-  describe('Input for search query', () => {
-    let searchInputTrees;
+  describe('FormControl for search query', () => {
+    let formControlTrees;
 
     beforeEach(() => {
-      searchInputTrees = tree.everySubTree('Input');
+      formControlTrees = tree.everySubTree('FormControl');
     });
 
     it('renders', () => {
-      expect(searchInputTrees.length).to.equal(1);
+      expect(formControlTrees.length).to.equal(1);
     });
 
     it('gets correct props', () => {
-      const actualProps = searchInputTrees[0].props;
+      const actualProps = formControlTrees[0].props;
 
       expect(actualProps.autoFocus).to.equal(false);
       expect(typeof actualProps.onChange).to.equal('function');
       expect(actualProps.onKeyUp).to.equal(instance.handleSearchInputChange);
+      expect(actualProps.type).to.equal('text');
       expect(actualProps.value).to.equal(props.filters.search);
     });
   });
