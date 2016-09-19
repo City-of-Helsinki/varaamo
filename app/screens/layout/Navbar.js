@@ -19,7 +19,7 @@ class Navbar extends Component {
   }
 
   renderUserNav() {
-    const { isLoggedIn, user } = this.props;
+    const { isAdmin, isLoggedIn, user } = this.props;
     let name;
     if (user.firstName || user.lastName) {
       name = trim([user.firstName, user.lastName].join(' '));
@@ -33,6 +33,11 @@ class Navbar extends Component {
           <LinkContainer to="/my-reservations">
             <MenuItem>Omat varaukset</MenuItem>
           </LinkContainer>
+          {isAdmin && (
+            <LinkContainer to="/admin-resources">
+              <MenuItem>Omat tilat</MenuItem>
+            </LinkContainer>
+          )}
           <MenuItem divider />
           <MenuItem href={`/logout?next=${window.location.origin}`}>
             Kirjaudu ulos
@@ -79,6 +84,7 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
   clearSearchResults: PropTypes.func.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
 };

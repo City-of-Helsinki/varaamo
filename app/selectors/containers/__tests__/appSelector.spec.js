@@ -21,14 +21,21 @@ function getState(users, loggedInUserId) {
 describe('Selector: appSelector', () => {
   const users = [User.build()];
 
-  it('should return isLoggedIn', () => {
+  it('returns isAdmin', () => {
+    const state = getState();
+    const selected = appSelector(state);
+
+    expect(selected.isAdmin).to.exist;
+  });
+
+  it('returns isLoggedIn', () => {
     const state = getState();
     const selected = appSelector(state);
 
     expect(selected.isLoggedIn).to.exist;
   });
 
-  it('should return user corresponding to the auth.userId', () => {
+  it('returns user corresponding to the auth.userId', () => {
     const user = users[0];
     const state = getState(users, user.id);
     const selected = appSelector(state);
@@ -36,14 +43,14 @@ describe('Selector: appSelector', () => {
     expect(selected.user).to.deep.equal(user);
   });
 
-  it('should return an empty object if user is not logged in', () => {
+  it('returns an empty object if user is not logged in', () => {
     const state = getState(users, null);
     const selected = appSelector(state);
 
     expect(selected.user).to.deep.equal({});
   });
 
-  it('should return userId', () => {
+  it('returns userId', () => {
     const user = users[0];
     const state = getState(users, user.id);
     const selected = appSelector(state);

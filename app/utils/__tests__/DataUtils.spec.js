@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import MockDate from 'mockdate';
+import moment from 'moment';
 
 import constants from 'constants/AppConstants';
 import Image from 'fixtures/Image';
@@ -10,10 +11,12 @@ import {
   getAddress,
   getAddressWithName,
   getAvailableTime,
+  getCurrentReservation,
   getDescription,
   getMainImage,
   getMissingReservationValues,
   getName,
+  getNextReservation,
   getOpeningHours,
   getPeopleCapacityString,
   getTranslatedProperty,
@@ -404,6 +407,25 @@ describe('Utils: DataUtils', () => {
     });
   });
 
+  describe('getCurrentReservation', () => {
+    const previousReservation = Reservation.build({}, { startTime: moment().subtract(1, 'days') });
+    const currentReservation = Reservation.build(
+      {},
+      { startTime: moment().subtract(20, 'minutes') }
+    );
+    const nextReservation = Reservation.build({}, { startTime: moment().add(2, 'hours') });
+    const lastReservation = Reservation.build({}, { startTime: moment().add(4, 'hours') });
+    const unorderedReservations = [
+      lastReservation,
+      previousReservation,
+      nextReservation,
+      currentReservation,
+    ];
+    it('returns the current reservation from a list of reservations', () => {
+      expect(getCurrentReservation(unorderedReservations)).to.deep.equal(currentReservation);
+    });
+  });
+
   describe('getDescription', () => {
     it('should return an empty string if item is undefined', () => {
       const item = undefined;
@@ -532,6 +554,25 @@ describe('Utils: DataUtils', () => {
       const item = { name: { fi: 'Some name' } };
 
       expect(getName(item)).to.equal('Some name');
+    });
+  });
+
+  describe('getNextReservation', () => {
+    const previousReservation = Reservation.build({}, { startTime: moment().subtract(1, 'days') });
+    const currentReservation = Reservation.build(
+      {},
+      { startTime: moment().subtract(20, 'minutes') }
+    );
+    const nextReservation = Reservation.build({}, { startTime: moment().add(2, 'hours') });
+    const lastReservation = Reservation.build({}, { startTime: moment().add(4, 'hours') });
+    const unorderedReservations = [
+      lastReservation,
+      previousReservation,
+      nextReservation,
+      currentReservation,
+    ];
+    it('returns the next reservation from a list of reservations', () => {
+      expect(getNextReservation(unorderedReservations)).to.deep.equal(nextReservation);
     });
   });
 
