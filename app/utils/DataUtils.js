@@ -112,6 +112,13 @@ function getDescription(item, language = 'fi') {
   return getTranslatedProperty(item, 'description', language);
 }
 
+function getHumanizedPeriod(period) {
+  if (!period) {
+    return '';
+  }
+  return `${moment.duration(period).hours()}h`;
+}
+
 function getMainImage(images) {
   if (!images || !images.length) {
     return {};
@@ -134,6 +141,12 @@ function getName(item, language) {
   return getTranslatedProperty(item, 'name', language);
 }
 
+function getNextReservation(reservations) {
+  const now = moment();
+  const orderedReservations = sortBy(reservations, reservation => moment(reservation.begin));
+  return find(orderedReservations, reservation => now < moment(reservation.begin));
+}
+
 function getOpeningHours(item) {
   if (item && item.openingHours && item.openingHours.length) {
     return {
@@ -143,12 +156,6 @@ function getOpeningHours(item) {
   }
 
   return {};
-}
-
-function getNextReservation(reservations) {
-  const now = moment();
-  const orderedReservations = sortBy(reservations, reservation => moment(reservation.begin));
-  return find(orderedReservations, reservation => now < moment(reservation.begin));
 }
 
 function getPeopleCapacityString(capacity) {
@@ -174,6 +181,7 @@ export {
   getCaption,
   getCurrentReservation,
   getDescription,
+  getHumanizedPeriod,
   getMainImage,
   getMissingReservationValues,
   getName,

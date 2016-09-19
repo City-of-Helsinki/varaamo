@@ -13,6 +13,7 @@ import {
   getAvailableTime,
   getCurrentReservation,
   getDescription,
+  getHumanizedPeriod,
   getMainImage,
   getMissingReservationValues,
   getName,
@@ -449,6 +450,29 @@ describe('Utils: DataUtils', () => {
       const item = { description: { fi: 'Some description' } };
 
       expect(getDescription(item)).to.equal('Some description');
+    });
+  });
+
+  describe('getHumanizedPeriod', () => {
+    it('should return an empty string if period is undefined', () => {
+      const period = undefined;
+      const periodString = getHumanizedPeriod(period);
+
+      expect(periodString).to.equal('');
+    });
+
+    it('should return an empty string if period is null', () => {
+      const period = null;
+      const periodString = getHumanizedPeriod(period);
+
+      expect(periodString).to.equal('');
+    });
+
+    it('should return a correct period string if proper period is given', () => {
+      const period = '04:00:00';
+      const periodString = getHumanizedPeriod(period);
+
+      expect(periodString).to.equal('4h');
     });
   });
 

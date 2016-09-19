@@ -1,23 +1,25 @@
 import React, { Component, PropTypes } from 'react';
-import Label from 'react-bootstrap/lib/Label';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import { Link } from 'react-router';
 
 import {
-  getAvailableTime,
   getCaption,
+  getHumanizedPeriod,
   getMainImage,
   getName,
-  getOpeningHours,
 } from 'utils/DataUtils';
 
 class ResourceListItem extends Component {
-  renderAvailableTime(availableTime) {
-    let bsStyle = 'success';
-    if (availableTime === '0 tuntia vapaana') {
-      bsStyle = 'danger';
+  renderIcon(glyph, text) {
+    if (!text) {
+      return null;
     }
+
     return (
-      <Label bsStyle={bsStyle}>{availableTime}</Label>
+      <span>
+        <Glyphicon glyph={glyph} />
+        <span className="text">{text}</span>
+      </span>
     );
   }
 
@@ -31,35 +33,23 @@ class ResourceListItem extends Component {
 
   render() {
     const { date, resource, unit } = this.props;
-    const availableTime = getAvailableTime(getOpeningHours(resource), resource.reservations);
 
     return (
-      <li>
+      <li className="resource-list-item">
         <div className="image">
-          <Link
-            to={`/resources/${resource.id}`}
-            query={{ date: date.split('T')[0] }}
-          >
-            {this.renderImage(getMainImage(resource.images))}
-          </Link>
+          {this.renderImage(getMainImage(resource.images))}
         </div>
-        <div className="names">
-          <Link
-            to={`/resources/${resource.id}`}
-            query={{ date: date.split('T')[0] }}
-          >
-            <h4>{getName(resource)}</h4>
-            <div className="unit-name">{getName(unit)}</div>
-          </Link>
+        <div className="icons">
+          {this.renderIcon('user', resource.peopleCapacity)}
+          {this.renderIcon('time', getHumanizedPeriod(resource.maxPeriod))}
         </div>
-        <div className="available-time">
-          <Link
-            to={`/resources/${resource.id}/reservation`}
-            query={{ date: date.split('T')[0] }}
-          >
-            {this.renderAvailableTime(availableTime)}
-          </Link>
-        </div>
+        <Link
+          to={`/resources/${resource.id}`}
+          query={{ date: date.split('T')[0] }}
+        >
+          <h4>{getName(resource)}</h4>
+        </Link>
+        <div className="unit-name">{getName(unit)}</div>
       </li>
     );
   }

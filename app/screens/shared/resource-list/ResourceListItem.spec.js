@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
-import Label from 'react-bootstrap/lib/Label';
 import { Link } from 'react-router';
 import Immutable from 'seamless-immutable';
 
@@ -38,54 +37,23 @@ describe('screens/shared/resource-list/ResourceListItem', () => {
     expect(image.props().src).to.equal(`${resourceImage.url}?dim=100x100`);
   });
 
-  describe('names section', () => {
-    let namesLink;
-
-    before(() => {
-      const namesSection = getWrapper().find('.names');
-      namesLink = namesSection.find(Link);
-    });
-
-    it('contains a link to resources page', () => {
-      expect(namesLink.length).to.equal(1);
-      expect(namesLink.props().to).to.contain('resources');
-    });
-
-    it('renders the name of the resource', () => {
-      const expected = defaultProps.resource.name.fi;
-
-      expect(namesLink.html()).to.contain(expected);
-    });
-
-    it('renders the name of the given unit in props', () => {
-      const expected = defaultProps.unit.name.fi;
-
-      expect(namesLink.html()).to.contain(expected);
-    });
+  it('contains a link to resources page', () => {
+    const link = getWrapper().find(Link);
+    expect(link.length).to.equal(1);
+    expect(link.props().to).to.contain('resources');
   });
 
-  describe('available time', () => {
-    let availableTime;
+  it('renders the name of the resource inside the link', () => {
+    const link = getWrapper().find(Link);
+    const expected = defaultProps.resource.name.fi;
 
-    before(() => {
-      availableTime = getWrapper().find('.available-time');
-    });
+    expect(link.html()).to.contain(expected);
+  });
 
-    it('contains a Link to reservations page with a correct date', () => {
-      const link = availableTime.find('Link');
+  it('renders the name of the given unit in props', () => {
+    const unitName = getWrapper().find('.unit-name');
+    const expected = defaultProps.unit.name.fi;
 
-      expect(link.length).to.equal(1);
-      expect(link.props().to).to.equal(`/resources/${defaultProps.resource.id}/reservation`);
-      expect(link.props().query).to.deep.equal({
-        date: defaultProps.date.split('T')[0],
-      });
-    });
-
-    it('displays the available hours in a label', () => {
-      const label = availableTime.find(Label);
-      const expected = '0 tuntia vapaana';
-
-      expect(label.props().children).to.equal(expected);
-    });
+    expect(unitName.text()).to.contain(expected);
   });
 });
