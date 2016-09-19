@@ -25,6 +25,7 @@ export class UnconnectedApp extends Component {
     const {
       actions,
       children,
+      isAdmin,
       isLoggedIn,
       user,
     } = this.props;
@@ -35,6 +36,7 @@ export class UnconnectedApp extends Component {
           <Favicon />
           <Navbar
             clearSearchResults={actions.clearSearchResults}
+            isAdmin={isAdmin}
             isLoggedIn={isLoggedIn}
             user={user}
           />
@@ -54,6 +56,7 @@ export class UnconnectedApp extends Component {
 UnconnectedApp.propTypes = {
   actions: PropTypes.object.isRequired,
   children: PropTypes.node,
+  isAdmin: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
   userId: PropTypes.string,

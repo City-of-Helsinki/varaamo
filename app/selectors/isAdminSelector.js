@@ -1,13 +1,10 @@
-import some from 'lodash/some';
 import { createSelector } from 'reselect';
 
-const resourcesSelector = (state) => state.data.resources;
+import currentUserSelector from 'selectors/currentUserSelector';
 
 const isAdminSelector = createSelector(
-  resourcesSelector,
-  (resources) => (
-    some(resources, (resource) => resource.userPermissions.isAdmin)
-  )
+  currentUserSelector,
+  (currentUser) => Boolean(currentUser.isStaff)
 );
 
 export default isAdminSelector;
