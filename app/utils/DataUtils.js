@@ -1,43 +1,10 @@
-import camelCase from 'lodash/camelCase';
-import clone from 'lodash/clone';
 import filter from 'lodash/filter';
 import find from 'lodash/find';
 import forEach from 'lodash/forEach';
-import last from 'lodash/last';
-import some from 'lodash/some';
 import sortBy from 'lodash/sortBy';
-import tail from 'lodash/tail';
 import moment from 'moment';
 
-import constants from 'constants/AppConstants';
 import { getProperty } from 'utils/translationUtils';
-
-function combineReservations(reservations) {
-  if (!reservations || !reservations.length) {
-    return [];
-  }
-
-  const sorted = sortBy(reservations, 'begin');
-  const initialValue = [clone(sorted[0])];
-
-  return tail(sorted).reduce((previous, current) => {
-    if (current.begin === last(previous).end) {
-      last(previous).end = current.end;
-    } else {
-      previous.push(clone(current));
-    }
-    return previous;
-  }, initialValue);
-}
-
-function isStaffEvent(reservation, resource) {
-  if (!resource || !resource.requiredReservationExtraFields) {
-    return false;
-  }
-  return some(resource.requiredReservationExtraFields, (field) => (
-    !reservation[camelCase(field)]
-  ));
-}
 
 function getAvailableTime(openingHours = {}, reservations = []) {
   const { closes, opens } = openingHours;
@@ -94,16 +61,6 @@ function getHumanizedPeriod(period) {
   return `${moment.duration(period).hours()}h`;
 }
 
-function getMissingReservationValues(reservation) {
-  const missingValues = {};
-  constants.REQUIRED_STAFF_EVENT_FIELDS.forEach((field) => {
-    if (!reservation[field]) {
-      missingValues[field] = '-';
-    }
-  });
-  return missingValues;
-}
-
 function getNextReservation(reservations) {
   const now = moment();
   const orderedReservations = sortBy(reservations, reservation => moment(reservation.begin));
@@ -129,13 +86,10 @@ function getPeopleCapacityString(capacity) {
 }
 
 export {
-  combineReservations,
-  isStaffEvent,
   getAvailableTime,
   getCurrentReservation,
   getDescription,
   getHumanizedPeriod,
-  getMissingReservationValues,
   getNextReservation,
   getOpeningHours,
   getPeopleCapacityString,

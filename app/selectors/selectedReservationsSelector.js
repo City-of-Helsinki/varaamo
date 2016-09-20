@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 
-import { combineReservations } from 'utils/DataUtils';
+import { combine } from 'utils/reservationUtils';
 
 const idSelector = (state, props) => props.params.id;
 const selectedSelector = (state) => state.ui.reservations.selected;
@@ -18,7 +18,7 @@ const selectedReservationsSelector = createSelector(
         resource: id,
       };
     });
-    const selectedReservations = Immutable(combineReservations(selectedSlots));
+    const selectedReservations = Immutable(combine(selectedSlots));
 
     return selectedReservations;
   }

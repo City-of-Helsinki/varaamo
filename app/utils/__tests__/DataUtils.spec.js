@@ -2,138 +2,18 @@ import { expect } from 'chai';
 import MockDate from 'mockdate';
 import moment from 'moment';
 
-import constants from 'constants/AppConstants';
 import Reservation from 'fixtures/Reservation';
 import {
-  combineReservations,
-  isStaffEvent,
   getAvailableTime,
   getCurrentReservation,
   getDescription,
   getHumanizedPeriod,
-  getMissingReservationValues,
   getNextReservation,
   getOpeningHours,
   getPeopleCapacityString,
 } from 'utils/DataUtils';
 
 describe('Utils: DataUtils', () => {
-  describe('combineReservations', () => {
-    const slots = [
-      {
-        begin: '2015-10-16T08:00:00.000Z',
-        end: '2015-10-16T09:00:00.000Z',
-      },
-      {
-        begin: '2015-10-16T09:00:00.000Z',
-        end: '2015-10-16T10:00:00.000Z',
-      },
-      {
-        begin: '2015-10-16T10:00:00.000Z',
-        end: '2015-10-16T11:00:00.000Z',
-      },
-      {
-        begin: '2015-10-16T11:00:00.000Z',
-        end: '2015-10-16T12:00:00.000Z',
-      },
-    ];
-
-    it('should return an empty array if reservations is undefined', () => {
-      const reservations = undefined;
-
-      expect(combineReservations(reservations)).to.deep.equal([]);
-    });
-
-    it('should return an empty array if reservations is empty', () => {
-      const reservations = [];
-
-      expect(combineReservations(reservations)).to.deep.equal([]);
-    });
-
-    it('should return the reservations unchanged if it contains only one element', () => {
-      const reservations = ['mock reservation'];
-
-      expect(combineReservations(reservations)).to.deep.equal(reservations);
-    });
-
-    it('should combine two reservations if they are continual', () => {
-      const reservations = [slots[0], slots[1]];
-      const expected = [{
-        begin: slots[0].begin,
-        end: slots[1].end,
-      }];
-
-      expect(combineReservations(reservations)).to.deep.equal(expected);
-    });
-
-    it('should not combine two reservations if they are not continual', () => {
-      const reservations = [slots[0], slots[2]];
-
-      expect(combineReservations(reservations)).to.deep.equal(reservations);
-    });
-
-    it('should combine three reservations if they are continual', () => {
-      const reservations = [slots[0], slots[1], slots[2]];
-      const expected = [{
-        begin: slots[0].begin,
-        end: slots[2].end,
-      }];
-
-      expect(combineReservations(reservations)).to.deep.equal(expected);
-    });
-
-    it('should only combine reservations that are continual', () => {
-      const reservations = [slots[0], slots[1], slots[3]];
-      const expected = [
-        {
-          begin: slots[0].begin,
-          end: slots[1].end,
-        },
-        slots[3],
-      ];
-
-      expect(combineReservations(reservations)).to.deep.equal(expected);
-    });
-  });
-
-  describe('isStaffEvent', () => {
-    it('should return false if resource does not exist', () => {
-      const reservation = { reserverName: 'Luke' };
-      const resource = undefined;
-      expect(isStaffEvent(reservation, resource)).to.equal(false);
-    });
-
-    it('should return false if resource does not have any requiredReservationExtraFields', () => {
-      const reservation = { reserverName: 'Luke' };
-      const resource = {};
-      expect(isStaffEvent(reservation, resource)).to.equal(false);
-    });
-
-    it('should return false if reservation has values for requiredReservationExtraFields', () => {
-      const reservation = { reserverName: 'Luke' };
-      const resource = { requiredReservationExtraFields: ['reserver_name'] };
-      expect(isStaffEvent(reservation, resource)).to.equal(false);
-    });
-
-    it(
-      'should return true if reservation is missing values for requiredReservationExtraFields',
-      () => {
-        const reservation = {};
-        const resource = { requiredReservationExtraFields: ['reserver_name'] };
-        expect(isStaffEvent(reservation, resource)).to.equal(true);
-      }
-    );
-
-    it(
-      'should return true if reservation has empty strings for requiredReservationExtraFields',
-      () => {
-        const reservation = { reserverName: '' };
-        const resource = { requiredReservationExtraFields: ['reserver_name'] };
-        expect(isStaffEvent(reservation, resource)).to.equal(true);
-      }
-    );
-  });
-
   describe('getAvailableTime', () => {
     it('should return "0 tuntia vapaana" if openingHours is empty', () => {
       const openingHours = {};
@@ -405,42 +285,6 @@ describe('Utils: DataUtils', () => {
       const periodString = getHumanizedPeriod(period);
 
       expect(periodString).to.equal('4h');
-    });
-  });
-
-  describe('getMissingReservationValues', () => {
-    function getReservation(extraValues) {
-      const defaults = {
-        eventDescription: 'Some description',
-        reserverName: 'Luke Skywalker',
-      };
-      return Reservation.build(Object.assign({}, defaults, extraValues));
-    }
-
-    it('should return an object', () => {
-      const reservation = getReservation();
-      const actual = getMissingReservationValues(reservation);
-
-      expect(typeof actual).to.equal('object');
-    });
-
-    describe('the returned object', () => {
-      it('should be empty if reservation is not missing any required values', () => {
-        const reservation = getReservation();
-        const actual = getMissingReservationValues(reservation);
-
-        expect(actual).to.deep.equal({});
-      });
-
-      constants.REQUIRED_STAFF_EVENT_FIELDS.forEach((field) => {
-        it(`should contain ${field} as "-" if ${field} is missing`, () => {
-          const reservation = getReservation({ [field]: undefined });
-          const actual = getMissingReservationValues(reservation);
-          const expected = { [field]: '-' };
-
-          expect(actual).to.deep.equal(expected);
-        });
-      });
     });
   });
 
