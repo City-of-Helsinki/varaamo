@@ -20,7 +20,6 @@ import {
   getNextReservation,
   getOpeningHours,
   getPeopleCapacityString,
-  getTranslatedProperty,
 } from 'utils/DataUtils';
 
 describe('Utils: DataUtils', () => {
@@ -660,43 +659,6 @@ describe('Utils: DataUtils', () => {
       const expected = `max ${capacity} hengelle.`;
 
       expect(capacityString).to.equal(expected);
-    });
-  });
-
-  describe('getTranslatedProperty', () => {
-    it('should return an empty string if item is undefined', () => {
-      const item = undefined;
-
-      expect(getTranslatedProperty(item, 'name')).to.equal('');
-    });
-
-    it('should return an empty string if item[property] is undefined', () => {
-      const item = {};
-
-      expect(getTranslatedProperty(item, 'name')).to.equal('');
-    });
-
-    it('should return an empty string if the property does not have given language', () => {
-      const item = { name: { fi: 'Finnish name' } };
-
-      expect(getTranslatedProperty(item, 'name', 'en')).to.equal('');
-    });
-
-    it('should return translated value', () => {
-      const item = { name: { en: 'Some name' } };
-
-      expect(getTranslatedProperty(item, 'name', 'en')).to.equal('Some name');
-    });
-
-    it('language should default to finnish', () => {
-      const item = {
-        name: {
-          fi: 'Finnish name',
-          en: 'English name',
-        },
-      };
-
-      expect(getTranslatedProperty(item, 'name')).to.equal('Finnish name');
     });
   });
 });

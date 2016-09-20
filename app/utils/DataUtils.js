@@ -12,6 +12,7 @@ import tail from 'lodash/tail';
 import moment from 'moment';
 
 import constants from 'constants/AppConstants';
+import { getProperty } from 'utils/translationUtils';
 
 function combineReservations(reservations) {
   if (!reservations || !reservations.length) {
@@ -98,7 +99,7 @@ function getAvailableTime(openingHours = {}, reservations = []) {
 }
 
 function getCaption(item, language = 'fi') {
-  return getTranslatedProperty(item, 'caption', language);
+  return getProperty(item, 'caption', language);
 }
 
 function getCurrentReservation(reservations) {
@@ -109,7 +110,7 @@ function getCurrentReservation(reservations) {
 }
 
 function getDescription(item, language = 'fi') {
-  return getTranslatedProperty(item, 'description', language);
+  return getProperty(item, 'description', language);
 }
 
 function getHumanizedPeriod(period) {
@@ -138,7 +139,7 @@ function getMissingReservationValues(reservation) {
 }
 
 function getName(item, language) {
-  return getTranslatedProperty(item, 'name', language);
+  return getProperty(item, 'name', language);
 }
 
 function getNextReservation(reservations) {
@@ -165,13 +166,6 @@ function getPeopleCapacityString(capacity) {
   return `max ${capacity} hengelle.`;
 }
 
-function getTranslatedProperty(item, property, language = 'fi') {
-  if (item && item[property] && item[property][language]) {
-    return item[property][language];
-  }
-  return '';
-}
-
 export {
   combineReservations,
   isStaffEvent,
@@ -188,5 +182,4 @@ export {
   getNextReservation,
   getOpeningHours,
   getPeopleCapacityString,
-  getTranslatedProperty,
 };
