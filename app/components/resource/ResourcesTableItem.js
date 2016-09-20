@@ -3,7 +3,7 @@ import moment from 'moment';
 import { Link } from 'react-router';
 
 import TimeRange from 'components/common/TimeRange';
-import { getOpeningHours } from 'utils/DataUtils';
+import { getOpeningHours } from 'utils/resourceUtils';
 
 class ResourcesTableItem extends Component {
   getReserverName(reservation) {

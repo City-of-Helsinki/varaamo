@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import { Link } from 'react-router';
 
-import { getHumanizedPeriod } from 'utils/DataUtils';
 import { getMainImage } from 'utils/imageUtils';
+import { getHumanizedPeriod } from 'utils/resourceUtils';
 import { getName } from 'utils/translationUtils';
 import ReserveButton from './ReserveButton';
 

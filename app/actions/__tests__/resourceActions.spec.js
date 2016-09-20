@@ -1,9 +1,9 @@
 import { expect } from 'chai';
-import { createApiTest } from 'utils/TestUtils';
 
 import { favoriteResource, unfavoriteResource } from 'actions/resourceActions';
 import types from 'constants/ActionTypes';
-import { buildAPIUrl } from 'utils/APIUtils';
+import { buildAPIUrl } from 'utils/apiUtils';
+import { createApiTest } from 'utils/testUtils';
 
 describe('Actions: resourceActions', () => {
   describe('favoriteResource', () => {

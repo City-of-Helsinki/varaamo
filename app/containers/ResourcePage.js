@@ -14,7 +14,7 @@ import ResourceHeader from 'components/resource/ResourceHeader';
 import NotFoundPage from 'containers/NotFoundPage';
 import FavoriteButton from 'screens/shared/favorite-button';
 import resourcePageSelector from 'selectors/containers/resourcePageSelector';
-import { getPeopleCapacityString } from 'utils/DataUtils';
+import { getPeopleCapacityString } from 'utils/resourceUtils';
 import { getName, getProperty } from 'utils/translationUtils';
 import { getAddressWithName } from 'utils/unitUtils';
 

@@ -10,11 +10,11 @@ import {
   getNextReservation,
   getOpeningHours,
   getPeopleCapacityString,
-} from 'utils/DataUtils';
+} from 'utils/resourceUtils';
 
-describe('Utils: DataUtils', () => {
+describe('Utils: resourceUtils', () => {
   describe('getAvailableTime', () => {
-    it('should return "0 tuntia vapaana" if openingHours is empty', () => {
+    it('returns "0 tuntia vapaana" if openingHours is empty', () => {
       const openingHours = {};
 
       expect(getAvailableTime(openingHours)).to.equal('0 tuntia vapaana');
@@ -29,7 +29,7 @@ describe('Utils: DataUtils', () => {
         MockDate.reset();
       });
 
-      it('should round the time upwards to nearest 0.5 hours', () => {
+      it('rounds the time upwards to nearest 0.5 hours', () => {
         const openingHours = {
           opens: '2015-10-10T12:00:00+03:00',
           closes: '2015-10-10T18:00:00+03:00',
@@ -51,7 +51,7 @@ describe('Utils: DataUtils', () => {
       });
 
       describe('if there are no reservations', () => {
-        it('should return the time between opening hours', () => {
+        it('returns the time between opening hours', () => {
           const openingHours = {
             opens: '2015-10-10T12:00:00+03:00',
             closes: '2015-10-10T18:00:00+03:00',
@@ -63,7 +63,7 @@ describe('Utils: DataUtils', () => {
       });
 
       describe('if there are reservations', () => {
-        it('should return the time between opening hours minus reservations', () => {
+        it('returns the time between opening hours minus reservations', () => {
           const openingHours = {
             opens: '2015-10-10T12:00:00+03:00',
             closes: '2015-10-10T18:00:00+03:00',
@@ -83,7 +83,7 @@ describe('Utils: DataUtils', () => {
           expect(availableTime).to.equal('4.5 tuntia vapaana');
         });
 
-        it('should not minus cancelled reservations from available time', () => {
+        it('does not minus cancelled reservations from available time', () => {
           const openingHours = {
             opens: '2015-10-10T12:00:00+03:00',
             closes: '2015-10-10T18:00:00+03:00',
@@ -112,7 +112,7 @@ describe('Utils: DataUtils', () => {
       });
 
       describe('if there are no reservations', () => {
-        it('should return time between current time and closing time', () => {
+        it('returns time between current time and closing time', () => {
           const openingHours = {
             opens: '2015-10-10T12:00:00+03:00',
             closes: '2015-10-10T18:00:00+03:00',
@@ -124,7 +124,7 @@ describe('Utils: DataUtils', () => {
       });
 
       describe('if there are reservations', () => {
-        it('should return time between current time and closing time minus reservations', () => {
+        it('returns time between current time and closing time minus reservations', () => {
           const openingHours = {
             opens: '2015-10-10T12:00:00+03:00',
             closes: '2015-10-10T18:00:00+03:00',
@@ -144,7 +144,7 @@ describe('Utils: DataUtils', () => {
           expect(availableTime).to.equal('1.5 tuntia vapaana');
         });
 
-        it('should not minus reservations that are before current time', () => {
+        it('does not minus reservations that are before current time', () => {
           const openingHours = {
             opens: '2015-10-10T12:00:00+03:00',
             closes: '2015-10-10T18:00:00+03:00',
@@ -164,7 +164,7 @@ describe('Utils: DataUtils', () => {
           expect(availableTime).to.equal('3 tuntia vapaana');
         });
 
-        it('should not minus past time of ongoing reservations', () => {
+        it('does not minus past time of ongoing reservations', () => {
           const openingHours = {
             opens: '2015-10-10T12:00:00+03:00',
             closes: '2015-10-10T18:00:00+03:00',
@@ -180,7 +180,7 @@ describe('Utils: DataUtils', () => {
           expect(availableTime).to.equal('1 tunti vapaana');
         });
 
-        it('should not minus cancelled reservations from available time', () => {
+        it('does not minus cancelled reservations from available time', () => {
           const openingHours = {
             opens: '2015-10-10T12:00:00+03:00',
             closes: '2015-10-10T18:00:00+03:00',
@@ -208,7 +208,7 @@ describe('Utils: DataUtils', () => {
         MockDate.reset();
       });
 
-      it('should return "0 tuntia vapaana"', () => {
+      it('returns "0 tuntia vapaana"', () => {
         const openingHours = {
           opens: '2015-10-10T12:00:00+03:00',
           closes: '2015-10-10T18:00:00+03:00',
@@ -239,21 +239,21 @@ describe('Utils: DataUtils', () => {
   });
 
   describe('getHumanizedPeriod', () => {
-    it('should return an empty string if period is undefined', () => {
+    it('returns an empty string if period is undefined', () => {
       const period = undefined;
       const periodString = getHumanizedPeriod(period);
 
       expect(periodString).to.equal('');
     });
 
-    it('should return an empty string if period is null', () => {
+    it('returns an empty string if period is null', () => {
       const period = null;
       const periodString = getHumanizedPeriod(period);
 
       expect(periodString).to.equal('');
     });
 
-    it('should return a correct period string if proper period is given', () => {
+    it('returns a correct period string if proper period is given', () => {
       const period = '04:00:00';
       const periodString = getHumanizedPeriod(period);
 
@@ -281,25 +281,25 @@ describe('Utils: DataUtils', () => {
   });
 
   describe('getOpeningHours', () => {
-    it('should return an empty object if given item is undefined', () => {
+    it('returns an empty object if given item is undefined', () => {
       const item = undefined;
 
       expect(getOpeningHours(item)).to.deep.equal({});
     });
 
-    it('should return an empty object if given item is empty', () => {
+    it('returns an empty object if given item is empty', () => {
       const item = {};
 
       expect(getOpeningHours(item)).to.deep.equal({});
     });
 
-    it('should return an empty object if item.openingHours is empty', () => {
+    it('returns an empty object if item.openingHours is empty', () => {
       const item = { openingHours: [] };
 
       expect(getOpeningHours(item)).to.deep.equal({});
     });
 
-    it('should return closes and opens from the first openingHours object', () => {
+    it('returns closes and opens from the first openingHours object', () => {
       const item = {
         openingHours: [
           { closes: 'first-closes', opens: 'first-opens' },
@@ -313,28 +313,28 @@ describe('Utils: DataUtils', () => {
   });
 
   describe('getPeopleCapacityString', () => {
-    it('should return an empty string if capacity is undefined', () => {
+    it('returns an empty string if capacity is undefined', () => {
       const capacity = undefined;
       const capacityString = getPeopleCapacityString(capacity);
 
       expect(capacityString).to.equal('');
     });
 
-    it('should return an empty string if capacity is null', () => {
+    it('returns an empty string if capacity is null', () => {
       const capacity = null;
       const capacityString = getPeopleCapacityString(capacity);
 
       expect(capacityString).to.equal('');
     });
 
-    it('should return an empty string if capacity is 0', () => {
+    it('returns an empty string if capacity is 0', () => {
       const capacity = 0;
       const capacityString = getPeopleCapacityString(capacity);
 
       expect(capacityString).to.equal('');
     });
 
-    it('should return a max capacity string if capacity is number bigger than 0', () => {
+    it('returns a max capacity string if capacity is number bigger than 0', () => {
       const capacity = 1;
       const capacityString = getPeopleCapacityString(capacity);
       const expected = `max ${capacity} hengelle.`;
