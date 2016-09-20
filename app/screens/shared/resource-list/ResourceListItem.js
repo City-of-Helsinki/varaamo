@@ -2,11 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import { Link } from 'react-router';
 
-import {
-  getHumanizedPeriod,
-  getMainImage,
-  getName,
-} from 'utils/DataUtils';
+import { getHumanizedPeriod, getName } from 'utils/DataUtils';
+import { getMainImage } from 'utils/imageUtils';
 import ReserveButton from './ReserveButton';
 
 class ResourceListItem extends Component {

@@ -5,11 +5,8 @@ import { Link } from 'react-router';
 import TimeRange from 'components/common/TimeRange';
 import ReservationControls from 'containers/ReservationControls';
 import { renderReservationStateLabel } from 'utils/renderUtils';
-import {
-  getCaption,
-  getMainImage,
-  getName,
-} from 'utils/DataUtils';
+import { getName } from 'utils/DataUtils';
+import { getCaption, getMainImage } from 'utils/imageUtils';
 
 class ReservationsListItem extends Component {
   renderImage(image) {

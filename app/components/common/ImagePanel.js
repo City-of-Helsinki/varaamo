@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Panel from 'react-bootstrap/lib/Panel';
 
-import { getCaption } from 'utils/DataUtils';
+import { getCaption } from 'utils/imageUtils';
 
 class ImagePanel extends Component {
   constructor(props) {

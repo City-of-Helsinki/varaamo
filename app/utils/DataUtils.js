@@ -75,9 +75,6 @@ function getAvailableTime(openingHours = {}, reservations = []) {
   return rounded === 1 ? `${rounded} tunti vapaana` : `${rounded} tuntia vapaana`;
 }
 
-function getCaption(item, language = 'fi') {
-  return getProperty(item, 'caption', language);
-}
 
 function getCurrentReservation(reservations) {
   const now = moment();
@@ -95,14 +92,6 @@ function getHumanizedPeriod(period) {
     return '';
   }
   return `${moment.duration(period).hours()}h`;
-}
-
-function getMainImage(images) {
-  if (!images || !images.length) {
-    return {};
-  }
-
-  return find(images, { type: 'main' }) || images[0];
 }
 
 function getMissingReservationValues(reservation) {
@@ -147,11 +136,9 @@ export {
   combineReservations,
   isStaffEvent,
   getAvailableTime,
-  getCaption,
   getCurrentReservation,
   getDescription,
   getHumanizedPeriod,
-  getMainImage,
   getMissingReservationValues,
   getName,
   getNextReservation,

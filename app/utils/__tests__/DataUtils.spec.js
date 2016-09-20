@@ -3,7 +3,6 @@ import MockDate from 'mockdate';
 import moment from 'moment';
 
 import constants from 'constants/AppConstants';
-import Image from 'fixtures/Image';
 import Reservation from 'fixtures/Reservation';
 import {
   combineReservations,
@@ -12,7 +11,6 @@ import {
   getCurrentReservation,
   getDescription,
   getHumanizedPeriod,
-  getMainImage,
   getMissingReservationValues,
   getName,
   getNextReservation,
@@ -408,49 +406,6 @@ describe('Utils: DataUtils', () => {
       const periodString = getHumanizedPeriod(period);
 
       expect(periodString).to.equal('4h');
-    });
-  });
-
-  describe('getMainImage', () => {
-    it('should return an empty object if images is undefined', () => {
-      const images = undefined;
-
-      expect(getMainImage(images)).to.deep.equal({});
-    });
-
-    it('should return an empty object if images is empty', () => {
-      const images = [];
-
-      expect(getMainImage(images)).to.deep.equal({});
-    });
-
-    it('should return the image that is of type "main"', () => {
-      const images = [
-        Image.build({ type: 'other' }),
-        Image.build({ type: 'main' }),
-        Image.build({ type: 'other' }),
-      ];
-
-      expect(getMainImage(images)).to.deep.equal(images[1]);
-    });
-
-    it('should return the first image that is of type "main"', () => {
-      const images = [
-        Image.build({ type: 'other' }),
-        Image.build({ type: 'main' }),
-        Image.build({ type: 'main' }),
-      ];
-
-      expect(getMainImage(images)).to.deep.equal(images[1]);
-    });
-
-    it('should return the first image if none of the images is of type "main"', () => {
-      const images = [
-        Image.build({ type: 'other' }),
-        Image.build({ type: 'other' }),
-      ];
-
-      expect(getMainImage(images)).to.deep.equal(images[0]);
     });
   });
 
