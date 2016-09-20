@@ -12,13 +12,10 @@ import ImagePanel from 'components/common/ImagePanel';
 import ResourceDetails from 'components/resource/ResourceDetails';
 import ResourceHeader from 'components/resource/ResourceHeader';
 import NotFoundPage from 'containers/NotFoundPage';
-import resourcePageSelector from 'selectors/containers/resourcePageSelector';
 import FavoriteButton from 'screens/shared/favorite-button';
-import {
-  getDescription,
-  getPeopleCapacityString,
-} from 'utils/DataUtils';
-import { getName } from 'utils/translationUtils';
+import resourcePageSelector from 'selectors/containers/resourcePageSelector';
+import { getPeopleCapacityString } from 'utils/DataUtils';
+import { getName, getProperty } from 'utils/translationUtils';
 import { getAddressWithName } from 'utils/unitUtils';
 
 export class UnconnectedResourcePage extends Component {
@@ -63,7 +60,7 @@ export class UnconnectedResourcePage extends Component {
             </LinkContainer>
             <ResourceDetails
               capacityString={getPeopleCapacityString(resource.peopleCapacity)}
-              description={getDescription(resource)}
+              description={getProperty(resource, 'description')}
               type={getName(resource.type)}
             />
             <ImagePanel

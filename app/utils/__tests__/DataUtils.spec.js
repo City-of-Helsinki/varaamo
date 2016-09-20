@@ -6,7 +6,6 @@ import Reservation from 'fixtures/Reservation';
 import {
   getAvailableTime,
   getCurrentReservation,
-  getDescription,
   getHumanizedPeriod,
   getNextReservation,
   getOpeningHours,
@@ -236,32 +235,6 @@ describe('Utils: DataUtils', () => {
     ];
     it('returns the current reservation from a list of reservations', () => {
       expect(getCurrentReservation(unorderedReservations)).to.deep.equal(currentReservation);
-    });
-  });
-
-  describe('getDescription', () => {
-    it('should return an empty string if item is undefined', () => {
-      const item = undefined;
-
-      expect(getDescription(item)).to.equal('');
-    });
-
-    it('should return an empty string if item.description is undefined', () => {
-      const item = {};
-
-      expect(getDescription(item)).to.equal('');
-    });
-
-    it('should return an empty string if item.description.fi is undefined', () => {
-      const item = { description: {} };
-
-      expect(getDescription(item)).to.equal('');
-    });
-
-    it('should return item.description.fi', () => {
-      const item = { description: { fi: 'Some description' } };
-
-      expect(getDescription(item)).to.equal('Some description');
     });
   });
 

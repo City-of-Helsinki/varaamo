@@ -4,8 +4,6 @@ import forEach from 'lodash/forEach';
 import sortBy from 'lodash/sortBy';
 import moment from 'moment';
 
-import { getProperty } from 'utils/translationUtils';
-
 function getAvailableTime(openingHours = {}, reservations = []) {
   const { closes, opens } = openingHours;
 
@@ -50,10 +48,6 @@ function getCurrentReservation(reservations) {
   );
 }
 
-function getDescription(item, language = 'fi') {
-  return getProperty(item, 'description', language);
-}
-
 function getHumanizedPeriod(period) {
   if (!period) {
     return '';
@@ -88,7 +82,6 @@ function getPeopleCapacityString(capacity) {
 export {
   getAvailableTime,
   getCurrentReservation,
-  getDescription,
   getHumanizedPeriod,
   getNextReservation,
   getOpeningHours,
