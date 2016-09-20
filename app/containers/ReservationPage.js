@@ -12,10 +12,11 @@ import ResourceHeader from 'components/resource/ResourceHeader';
 import ReservationInfo from 'components/reservation/ReservationInfo';
 import NotFoundPage from 'containers/NotFoundPage';
 import ReservationCalendar from 'containers/ReservationCalendar';
-import reservationPageSelector from 'selectors/containers/reservationPageSelector';
 import FavoriteButton from 'screens/shared/favorite-button';
-import { getAddressWithName, getName } from 'utils/DataUtils';
+import reservationPageSelector from 'selectors/containers/reservationPageSelector';
+import { getName } from 'utils/DataUtils';
 import { getDateStartAndEndTimes } from 'utils/TimeUtils';
+import { getAddressWithName } from 'utils/unitUtils';
 
 export class UnconnectedReservationPage extends Component {
   componentDidMount() {

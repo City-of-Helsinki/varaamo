@@ -8,8 +8,6 @@ import Reservation from 'fixtures/Reservation';
 import {
   combineReservations,
   isStaffEvent,
-  getAddress,
-  getAddressWithName,
   getAvailableTime,
   getCurrentReservation,
   getDescription,
@@ -137,68 +135,6 @@ describe('Utils: DataUtils', () => {
         expect(isStaffEvent(reservation, resource)).to.equal(true);
       }
     );
-  });
-
-  describe('getAddress', () => {
-    it('should return an empty string if given item is undefined', () => {
-      const item = undefined;
-
-      expect(getAddress(item)).to.equal('');
-    });
-
-    it('should return an empty string if given item is empty', () => {
-      const item = {};
-
-      expect(getAddress(item)).to.equal('');
-    });
-
-    it('should return the address in proper format', () => {
-      const item = {
-        addressZip: '12345',
-        municipality: 'Helsinki',
-        streetAddress: { fi: 'Example street 3' },
-      };
-      const expected = 'Example street 3, 12345 Helsinki';
-
-      expect(getAddress(item)).to.equal(expected);
-    });
-
-    it('should capitalize the municipality', () => {
-      const item = {
-        addressZip: '12345',
-        municipality: 'espoo',
-        streetAddress: { fi: 'Example street 3' },
-      };
-      const expected = 'Example street 3, 12345 Espoo';
-
-      expect(getAddress(item)).to.equal(expected);
-    });
-  });
-
-  describe('getAddressWithName', () => {
-    it('should return an empty string if given item is undefined', () => {
-      const item = undefined;
-
-      expect(getAddressWithName(item)).to.equal('');
-    });
-
-    it('should return an empty string if given item is empty', () => {
-      const item = {};
-
-      expect(getAddressWithName(item)).to.equal('');
-    });
-
-    it('should return the address with item name in proper format', () => {
-      const item = {
-        addressZip: '12345',
-        name: { fi: 'Some Unit' },
-        municipality: 'Helsinki',
-        streetAddress: { fi: 'Example street 3' },
-      };
-      const expected = 'Some Unit, Example street 3, 12345 Helsinki';
-
-      expect(getAddressWithName(item)).to.equal(expected);
-    });
   });
 
   describe('getAvailableTime', () => {

@@ -15,11 +15,11 @@ import NotFoundPage from 'containers/NotFoundPage';
 import resourcePageSelector from 'selectors/containers/resourcePageSelector';
 import FavoriteButton from 'screens/shared/favorite-button';
 import {
-  getAddressWithName,
   getDescription,
   getName,
   getPeopleCapacityString,
 } from 'utils/DataUtils';
+import { getAddressWithName } from 'utils/unitUtils';
 
 export class UnconnectedResourcePage extends Component {
   componentDidMount() {

@@ -1,10 +1,8 @@
 import camelCase from 'lodash/camelCase';
-import capitalize from 'lodash/capitalize';
 import clone from 'lodash/clone';
 import filter from 'lodash/filter';
 import find from 'lodash/find';
 import forEach from 'lodash/forEach';
-import isEmpty from 'lodash/isEmpty';
 import last from 'lodash/last';
 import some from 'lodash/some';
 import sortBy from 'lodash/sortBy';
@@ -39,27 +37,6 @@ function isStaffEvent(reservation, resource) {
   return some(resource.requiredReservationExtraFields, (field) => (
     !reservation[camelCase(field)]
   ));
-}
-
-function getAddress(item) {
-  if (!item || isEmpty(item)) {
-    return '';
-  }
-
-  const streetAddress = item.streetAddress ? item.streetAddress.fi : '';
-  const zip = item.addressZip;
-  const city = capitalize(item.municipality);
-
-  return `${streetAddress}, ${zip} ${city}`;
-}
-
-function getAddressWithName(item) {
-  const parts = [
-    getName(item),
-    getAddress(item),
-  ];
-
-  return filter(parts, part => part !== '').join(', ');
 }
 
 function getAvailableTime(openingHours = {}, reservations = []) {
@@ -169,8 +146,6 @@ function getPeopleCapacityString(capacity) {
 export {
   combineReservations,
   isStaffEvent,
-  getAddress,
-  getAddressWithName,
   getAvailableTime,
   getCaption,
   getCurrentReservation,
