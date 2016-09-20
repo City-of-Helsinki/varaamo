@@ -12,9 +12,9 @@ import {
   getRequestTypeDescriptor,
   getSearchParamsString,
   getSuccessTypeDescriptor,
-} from 'utils/APIUtils';
+} from 'utils/apiUtils';
 
-describe('Utils: APIUtils', () => {
+describe('Utils: apiUtils', () => {
   describe('buildAPIUrl', () => {
     const endpoint = 'some/endpoint';
 

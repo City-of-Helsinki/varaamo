@@ -4,7 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import { findDOMNode } from 'react-dom';
 
-import { scrollTo } from 'utils/DOMUtils';
+import { scrollTo } from 'utils/domUtils';
 
 class DateHeaderComponent extends Component {
   componentDidMount() {

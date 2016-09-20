@@ -28,7 +28,7 @@ import ReservationCancelModal from 'containers/ReservationCancelModal';
 import ReservationInfoModal from 'containers/ReservationInfoModal';
 import ReservationSuccessModal from 'containers/ReservationSuccessModal';
 import reservationCalendarSelector from 'selectors/containers/reservationCalendarSelector';
-import { addToDate } from 'utils/TimeUtils';
+import { addToDate } from 'utils/timeUtils';
 
 export class UnconnectedReservationCalendar extends Component {
   constructor(props) {

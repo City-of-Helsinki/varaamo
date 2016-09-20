@@ -8,9 +8,9 @@ import {
   getDateStartAndEndTimes,
   getDateString,
   getTimeSlots,
-} from 'utils/TimeUtils';
+} from 'utils/timeUtils';
 
-describe('Utils: TimeUtils', () => {
+describe('Utils: timeUtils', () => {
   describe('addToDate', () => {
     it('should add days to given date if daysToIncrement is positive', () => {
       const date = '2015-10-10';

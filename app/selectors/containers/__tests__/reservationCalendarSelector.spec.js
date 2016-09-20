@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable';
 
 import Resource, { openingHours } from 'fixtures/Resource';
 import reservationCalendarSelector from 'selectors/containers/reservationCalendarSelector';
-import * as TimeUtils from 'utils/TimeUtils';
+import * as timeUtils from 'utils/timeUtils';
 
 function getState(resource) {
   return {
@@ -163,12 +163,12 @@ describe('Selector: reservationCalendarSelector', () => {
   describe('timeSlots', () => {
     it('should use resource properties to calculate correct time slots', () => {
       const mockSlots = ['slot-1', 'slot-2'];
-      simple.mock(TimeUtils, 'getTimeSlots').returnWith(mockSlots);
+      simple.mock(timeUtils, 'getTimeSlots').returnWith(mockSlots);
 
       const state = getState(resource);
       const props = getProps(resource.id);
       const selected = reservationCalendarSelector(state, props);
-      const actualArgs = TimeUtils.getTimeSlots.lastCall.args;
+      const actualArgs = timeUtils.getTimeSlots.lastCall.args;
 
       expect(actualArgs[0]).to.equal(resource.openingHours[0].opens);
       expect(actualArgs[1]).to.equal(resource.openingHours[0].closes);

@@ -3,7 +3,7 @@ import Well from 'react-bootstrap/lib/Well';
 import DocumentTitle from 'react-document-title';
 import { Link } from 'react-router';
 
-import { getSearchPageUrl } from 'utils/SearchUtils';
+import { getSearchPageUrl } from 'utils/searchUtils';
 
 class NotFoundPage extends Component {
   render() {

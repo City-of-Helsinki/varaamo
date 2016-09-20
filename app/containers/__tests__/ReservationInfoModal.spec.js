@@ -13,7 +13,7 @@ import {
 } from 'containers/ReservationInfoModal';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
-import { makeButtonTests } from 'utils/TestUtils';
+import { makeButtonTests } from 'utils/testUtils';
 
 describe('Container: ReservationInfoModal', () => {
   const resource = Resource.build();

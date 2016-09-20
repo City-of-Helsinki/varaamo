@@ -14,7 +14,7 @@ import NotFoundPage from 'containers/NotFoundPage';
 import ReservationCalendar from 'containers/ReservationCalendar';
 import FavoriteButton from 'screens/shared/favorite-button';
 import reservationPageSelector from 'selectors/containers/reservationPageSelector';
-import { getDateStartAndEndTimes } from 'utils/TimeUtils';
+import { getDateStartAndEndTimes } from 'utils/timeUtils';
 import { getName } from 'utils/translationUtils';
 import { getAddressWithName } from 'utils/unitUtils';
 

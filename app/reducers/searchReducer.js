@@ -4,7 +4,7 @@ import { UPDATE_PATH } from 'redux-simple-router';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
-import { pickSupportedFilters } from 'utils/SearchUtils';
+import { pickSupportedFilters } from 'utils/searchUtils';
 
 const initialState = Immutable({
   filters: {

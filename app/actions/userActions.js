@@ -7,7 +7,7 @@ import {
   getHeadersCreator,
   getRequestTypeDescriptor,
   getSuccessTypeDescriptor,
-} from 'utils/APIUtils';
+} from 'utils/apiUtils';
 
 function fetchUser(id, params = {}) {
   return {

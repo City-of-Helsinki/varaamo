@@ -8,7 +8,7 @@ import Immutable from 'seamless-immutable';
 
 import ReservationControls from 'components/reservation/ReservationControls';
 import Reservation from 'fixtures/Reservation';
-import { makeButtonTests } from 'utils/TestUtils';
+import { makeButtonTests } from 'utils/testUtils';
 
 describe('Component: reservation/ReservationControls', () => {
   const onCancelClick = simple.stub();

@@ -2,7 +2,7 @@ import { expect } from 'chai';
 
 import Resource from 'fixtures/Resource';
 import adminResourcesPageSelector from 'selectors/containers/adminResourcesPageSelector';
-import { getDefaultRouterProps, getInitialState, getState } from 'utils/TestUtils';
+import { getDefaultRouterProps, getInitialState, getState } from 'utils/testUtils';
 
 describe('Selector: adminResourcesPageSelector', () => {
   const state = getInitialState();

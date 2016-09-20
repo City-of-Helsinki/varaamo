@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 
 import FeedbackLink from 'components/customization/FeedbackLink';
 import Logo from 'components/customization/Logo';
-import { getCurrentCustomization } from 'utils/CustomizationUtils';
+import { getCurrentCustomization } from 'utils/customizationUtils';
 
 class FooterContent extends Component {
   render() {

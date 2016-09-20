@@ -3,10 +3,10 @@ import { expect } from 'chai';
 import {
   getFetchParamsFromFilters,
   pickSupportedFilters,
-} from 'utils/SearchUtils';
-import { getDateStartAndEndTimes } from 'utils/TimeUtils';
+} from 'utils/searchUtils';
+import { getDateStartAndEndTimes } from 'utils/timeUtils';
 
-describe('Utils: SearchUtils', () => {
+describe('Utils: searchUtils', () => {
   describe('getFetchParamsFromFilters', () => {
     const filters = {
       date: '2015-10-10',

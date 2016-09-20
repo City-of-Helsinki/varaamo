@@ -10,7 +10,7 @@ import {
   getHeadersCreator,
   getRequestTypeDescriptor,
   getSuccessTypeDescriptor,
-} from 'utils/APIUtils';
+} from 'utils/apiUtils';
 
 function confirmPreliminaryReservation(reservation) {
   return putReservation(Object.assign({}, reservation, { state: 'confirmed' }));

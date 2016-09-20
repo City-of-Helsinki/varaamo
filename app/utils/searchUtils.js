@@ -3,7 +3,7 @@ import pick from 'lodash/pick';
 import queryString from 'query-string';
 
 import constants from 'constants/AppConstants';
-import { getDateStartAndEndTimes, getDateString } from 'utils/TimeUtils';
+import { getDateStartAndEndTimes, getDateString } from 'utils/timeUtils';
 
 function getFetchParamsFromFilters(filters) {
   const all = Object.assign(

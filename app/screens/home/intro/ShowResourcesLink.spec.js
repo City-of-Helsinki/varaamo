@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import { Link } from 'react-router';
 
-import { getSearchPageUrl } from 'utils/SearchUtils';
+import { getSearchPageUrl } from 'utils/searchUtils';
 import ShowResourcesLink from './ShowResourcesLink';
 
 describe('screens/home/intro/ShowResourcesLink', () => {

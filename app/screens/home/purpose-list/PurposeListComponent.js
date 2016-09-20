@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import { getSearchPageUrl } from 'utils/SearchUtils';
+import { getSearchPageUrl } from 'utils/searchUtils';
 import { getName } from 'utils/translationUtils';
 import PurposeListItemComponent from './PurposeListItemComponent';
 

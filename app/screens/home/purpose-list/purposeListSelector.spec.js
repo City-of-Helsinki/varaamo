@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { getDefaultRouterProps, getInitialState } from 'utils/TestUtils';
+import { getDefaultRouterProps, getInitialState } from 'utils/testUtils';
 import purposeListSelector from './purposeListSelector';
 
 describe('screens/home/purpose-list/purposeListSelector', () => {

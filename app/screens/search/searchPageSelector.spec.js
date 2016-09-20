@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { getDefaultRouterProps, getState } from 'utils/TestUtils';
+import { getDefaultRouterProps, getState } from 'utils/testUtils';
 import searchPageSelector from './searchPageSelector';
 
 describe('screens/search/searchPageSelector', () => {
