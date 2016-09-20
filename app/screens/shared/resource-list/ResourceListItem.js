@@ -7,6 +7,7 @@ import {
   getMainImage,
   getName,
 } from 'utils/DataUtils';
+import ReserveButton from './ReserveButton';
 
 class ResourceListItem extends Component {
   getBackgroundImageStyles(image) {
@@ -30,7 +31,7 @@ class ResourceListItem extends Component {
   }
 
   render() {
-    const { date, resource, unit } = this.props;
+    const { date, isLoggedIn, resource, unit } = this.props;
 
     return (
       <li className="resource-list-item">
@@ -50,6 +51,9 @@ class ResourceListItem extends Component {
             <h4>{getName(resource)}</h4>
           </Link>
           <div className="unit-name">{getName(unit)}</div>
+          <div className="controls">
+            <ReserveButton date={date} isLoggedIn={isLoggedIn} resource={resource} />
+          </div>
         </div>
       </li>
     );
@@ -58,6 +62,7 @@ class ResourceListItem extends Component {
 
 ResourceListItem.propTypes = {
   date: PropTypes.string.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
   resource: PropTypes.object.isRequired,
   unit: PropTypes.object.isRequired,
 };

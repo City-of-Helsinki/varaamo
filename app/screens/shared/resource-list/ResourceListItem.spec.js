@@ -7,11 +7,13 @@ import Immutable from 'seamless-immutable';
 import Image from 'fixtures/Image';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
+import ReserveButton from './ReserveButton';
 import ResourceListItem from './ResourceListItem';
 
 describe('screens/shared/resource-list/ResourceListItem', () => {
   const defaultProps = {
     date: '2015-10-10',
+    isLoggedIn: false,
     resource: Immutable(Resource.build({
       images: [Image.build()],
     })),
@@ -38,6 +40,7 @@ describe('screens/shared/resource-list/ResourceListItem', () => {
 
   it('contains a link to resources page', () => {
     const link = getWrapper().find(Link);
+
     expect(link.length).to.equal(1);
     expect(link.props().to).to.contain('resources');
   });
@@ -54,5 +57,14 @@ describe('screens/shared/resource-list/ResourceListItem', () => {
     const expected = defaultProps.unit.name.fi;
 
     expect(unitName.text()).to.contain(expected);
+  });
+
+  it('renders a ReserveButton with correct props', () => {
+    const reserveButton = getWrapper().find(ReserveButton);
+
+    expect(reserveButton.length).to.equal(1);
+    expect(reserveButton.props().date).to.equal(defaultProps.date);
+    expect(reserveButton.props().isLoggedIn).to.equal(defaultProps.isLoggedIn);
+    expect(reserveButton.props().resource).to.equal(defaultProps.resource);
   });
 });
