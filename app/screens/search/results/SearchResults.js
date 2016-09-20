@@ -11,16 +11,14 @@ class SearchResults extends Component {
   }
 
   render() {
-    const { date, isFetching, results, units } = this.props;
+    const { isFetching, searchResultIds } = this.props;
 
     return (
       <div id="search-results">
         <Loader loaded={!isFetching}>
           <ResourceList
-            date={date}
             emptyMessage="Yhtään hakutulosta ei löytynyt."
-            resources={results}
-            units={units}
+            resourceIds={searchResultIds}
           />
         </Loader>
       </div>
@@ -29,10 +27,8 @@ class SearchResults extends Component {
 }
 
 SearchResults.propTypes = {
-  date: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  results: PropTypes.array.isRequired,
-  units: PropTypes.object.isRequired,
+  searchResultIds: PropTypes.array.isRequired,
 };
 
 export default SearchResults;

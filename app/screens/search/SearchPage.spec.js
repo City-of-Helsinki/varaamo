@@ -4,16 +4,12 @@ import React from 'react';
 import simple from 'simple-mock';
 import Immutable from 'seamless-immutable';
 
-import Resource from 'fixtures/Resource';
-import Unit from 'fixtures/Unit';
 import DateHeader from 'screens/shared/date-header';
 import { UnconnectedSearchPage as SearchPage } from './SearchPage';
 import SearchControls from './controls/SearchControls';
 import SearchResults from './results';
 
 describe('screens/search/SearchPage', () => {
-  const unit = Unit.build();
-  const resource = Resource.build();
   const defaultProps = {
     actions: {
       searchResources: simple.stub(),
@@ -26,9 +22,8 @@ describe('screens/search/SearchPage', () => {
     },
     location: { query: {} },
     params: {},
-    results: Immutable([resource]),
     searchDone: true,
-    units: Immutable({ [unit.id]: unit }),
+    searchResultIds: Immutable(['resource-1', 'resource-2']),
   };
 
   function getWrapper(extraProps) {
@@ -94,10 +89,8 @@ describe('screens/search/SearchPage', () => {
       it('renders SearchResults with correct props', () => {
         const searchResults = getWrapper(extraProps).find(SearchResults);
 
-        expect(searchResults.props().date).to.equal(defaultProps.filters.date);
         expect(searchResults.props().isFetching).to.equal(extraProps.isFetchingSearchResults);
-        expect(searchResults.props().results).to.deep.equal(defaultProps.results);
-        expect(searchResults.props().units).to.deep.equal(defaultProps.units);
+        expect(searchResults.props().searchResultIds).to.deep.equal(defaultProps.searchResultIds);
       });
 
       it('does not render help text', () => {
@@ -132,10 +125,8 @@ describe('screens/search/SearchPage', () => {
       it('renders SearchResults with correct props', () => {
         const searchResults = getWrapper(extraProps).find(SearchResults);
 
-        expect(searchResults.props().date).to.equal(defaultProps.filters.date);
         expect(searchResults.props().isFetching).to.equal(extraProps.isFetchingSearchResults);
-        expect(searchResults.props().results).to.deep.equal(defaultProps.results);
-        expect(searchResults.props().units).to.deep.equal(defaultProps.units);
+        expect(searchResults.props().searchResultIds).to.deep.equal(defaultProps.searchResultIds);
       });
 
       it('does not render help text', () => {
