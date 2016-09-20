@@ -14,8 +14,8 @@ import NotFoundPage from 'containers/NotFoundPage';
 import ReservationCalendar from 'containers/ReservationCalendar';
 import FavoriteButton from 'screens/shared/favorite-button';
 import reservationPageSelector from 'selectors/containers/reservationPageSelector';
-import { getName } from 'utils/DataUtils';
 import { getDateStartAndEndTimes } from 'utils/TimeUtils';
+import { getName } from 'utils/translationUtils';
 import { getAddressWithName } from 'utils/unitUtils';
 
 export class UnconnectedReservationPage extends Component {

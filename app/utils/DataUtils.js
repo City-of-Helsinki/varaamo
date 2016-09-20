@@ -104,10 +104,6 @@ function getMissingReservationValues(reservation) {
   return missingValues;
 }
 
-function getName(item, language) {
-  return getProperty(item, 'name', language);
-}
-
 function getNextReservation(reservations) {
   const now = moment();
   const orderedReservations = sortBy(reservations, reservation => moment(reservation.begin));
@@ -140,7 +136,6 @@ export {
   getDescription,
   getHumanizedPeriod,
   getMissingReservationValues,
-  getName,
   getNextReservation,
   getOpeningHours,
   getPeopleCapacityString,

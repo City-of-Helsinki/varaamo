@@ -1,8 +1,34 @@
 import { expect } from 'chai';
 
-import { getProperty } from 'utils/translationUtils';
+import { getName, getProperty } from 'utils/translationUtils';
 
 describe('Utils: translationUtils', () => {
+  describe('getName', () => {
+    it('returns an empty string if item is undefined', () => {
+      const item = undefined;
+
+      expect(getName(item)).to.equal('');
+    });
+
+    it('returns an empty string if item.name is undefined', () => {
+      const item = {};
+
+      expect(getName(item)).to.equal('');
+    });
+
+    it('returns an empty string if item.name.fi is undefined', () => {
+      const item = { name: {} };
+
+      expect(getName(item)).to.equal('');
+    });
+
+    it('returns item.name.fi', () => {
+      const item = { name: { fi: 'Some name' } };
+
+      expect(getName(item)).to.equal('Some name');
+    });
+  });
+
   describe('getProperty', () => {
     it('returns an empty string if item is undefined', () => {
       const item = undefined;

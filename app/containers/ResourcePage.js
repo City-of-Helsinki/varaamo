@@ -16,9 +16,9 @@ import resourcePageSelector from 'selectors/containers/resourcePageSelector';
 import FavoriteButton from 'screens/shared/favorite-button';
 import {
   getDescription,
-  getName,
   getPeopleCapacityString,
 } from 'utils/DataUtils';
+import { getName } from 'utils/translationUtils';
 import { getAddressWithName } from 'utils/unitUtils';
 
 export class UnconnectedResourcePage extends Component {

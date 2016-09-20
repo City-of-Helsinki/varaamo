@@ -12,7 +12,6 @@ import {
   getDescription,
   getHumanizedPeriod,
   getMissingReservationValues,
-  getName,
   getNextReservation,
   getOpeningHours,
   getPeopleCapacityString,
@@ -442,32 +441,6 @@ describe('Utils: DataUtils', () => {
           expect(actual).to.deep.equal(expected);
         });
       });
-    });
-  });
-
-  describe('getName', () => {
-    it('should return an empty string if item is undefined', () => {
-      const item = undefined;
-
-      expect(getName(item)).to.equal('');
-    });
-
-    it('should return an empty string if item.name is undefined', () => {
-      const item = {};
-
-      expect(getName(item)).to.equal('');
-    });
-
-    it('should return an empty string if item.name.fi is undefined', () => {
-      const item = { name: {} };
-
-      expect(getName(item)).to.equal('');
-    });
-
-    it('should return item.name.fi', () => {
-      const item = { name: { fi: 'Some name' } };
-
-      expect(getName(item)).to.equal('Some name');
     });
   });
 

@@ -13,12 +13,9 @@ import { closeReservationInfoModal } from 'actions/uiActions';
 import { putReservation } from 'actions/reservationActions';
 import TimeRange from 'components/common/TimeRange';
 import reservationInfoModalSelector from 'selectors/containers/reservationInfoModalSelector';
-import {
-  isStaffEvent,
-  getMissingReservationValues,
-  getName,
-} from 'utils/DataUtils';
+import { isStaffEvent, getMissingReservationValues } from 'utils/DataUtils';
 import { renderReservationStateLabel } from 'utils/renderUtils';
+import { getName } from 'utils/translationUtils';
 
 export class UnconnectedReservationInfoModal extends Component {
   constructor(props) {

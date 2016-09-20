@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
-import { getName } from 'utils/DataUtils';
 import { getSearchPageUrl } from 'utils/SearchUtils';
+import { getName } from 'utils/translationUtils';
 import PurposeListItemComponent from './PurposeListItemComponent';
 
 import manufacturingImage from './images/manufacturing.jpg';
