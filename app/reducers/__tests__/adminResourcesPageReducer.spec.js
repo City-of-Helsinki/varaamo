@@ -4,6 +4,7 @@ import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
+import Resource from 'fixtures/Resource';
 import adminResourcesPageReducer from 'reducers/adminResourcesPageReducer';
 
 describe('Reducer: adminResourcesPageReducer', () => {
@@ -22,6 +23,16 @@ describe('Reducer: adminResourcesPageReducer', () => {
         payload => payload,
         (payload, meta) => meta
       );
+      const resourcesList = [
+        Resource.build(),
+        Resource.build(),
+        Resource.build(),
+      ];
+      const resources = {
+        [resourcesList[0].id]: resourcesList[0],
+        [resourcesList[1].id]: resourcesList[1],
+        [resourcesList[2].id]: resourcesList[2],
+      };
 
       describe('with correct meta source', () => {
         let action;
@@ -29,13 +40,7 @@ describe('Reducer: adminResourcesPageReducer', () => {
         before(() => {
           action = getResourceSuccess(
             {
-              entities: {
-                resources: {
-                  resourceId1: { id: 'resourceId1' },
-                  resourceId2: { id: 'resourceId2' },
-                  resourceId3: { id: 'resourceId3' },
-                },
-              },
+              entities: { resources },
             },
             { source: 'adminResourcesPage' }
           );
@@ -47,9 +52,9 @@ describe('Reducer: adminResourcesPageReducer', () => {
           });
           const nextState = adminResourcesPageReducer(initialState, action);
           expect(nextState.resourceIds).to.deep.equal([
-            'resourceId1',
-            'resourceId2',
-            'resourceId3',
+            resourcesList[0].id,
+            resourcesList[1].id,
+            resourcesList[2].id,
           ]);
         });
 
@@ -59,9 +64,9 @@ describe('Reducer: adminResourcesPageReducer', () => {
           });
           const nextState = adminResourcesPageReducer(initialState, action);
           expect(nextState.resourceIds).to.deep.equal([
-            'resourceId1',
-            'resourceId2',
-            'resourceId3',
+            resourcesList[0].id,
+            resourcesList[1].id,
+            resourcesList[2].id,
           ]);
         });
       });
@@ -71,11 +76,7 @@ describe('Reducer: adminResourcesPageReducer', () => {
         before(() => {
           action = getResourceSuccess({
             entities: {
-              resources: {
-                resourceId1: { id: 'resourceId1' },
-                resourceId2: { id: 'resourceId2' },
-                resourceId3: { id: 'resourceId3' },
-              },
+              resources: { resources },
             },
           });
         });
@@ -87,6 +88,35 @@ describe('Reducer: adminResourcesPageReducer', () => {
           const nextState = adminResourcesPageReducer(initialState, action);
 
           expect(nextState.resourceIds).to.deep.equal([]);
+        });
+      });
+
+      describe('which are not public', () => {
+        const publicResource = Resource.build();
+        const nonPublicResource = Resource.build({ public: false });
+
+        let action;
+        before(() => {
+          action = getResourceSuccess(
+            {
+              entities: {
+                resources: {
+                  [publicResource.id]: publicResource,
+                  [nonPublicResource.id]: nonPublicResource,
+                },
+              },
+            },
+            { source: 'adminResourcesPage' }
+          );
+        });
+
+        it('does not add resources ids to state', () => {
+          const initialState = Immutable({
+            resourceIds: [],
+          });
+          const nextState = adminResourcesPageReducer(initialState, action);
+
+          expect(nextState.resourceIds).to.deep.equal([publicResource.id]);
         });
       });
     });
