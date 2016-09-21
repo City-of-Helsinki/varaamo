@@ -1,4 +1,5 @@
 import map from 'lodash/map';
+import filter from 'lodash/filter';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
@@ -12,7 +13,8 @@ function adminResourcesPageReducer(state = initialState, action) {
     case types.API.RESOURCES_GET_SUCCESS: {
       const meta = action.meta;
       if (meta && meta.source === 'adminResourcesPage') {
-        return state.merge({ resourceIds: map(action.payload.entities.resources, 'id') });
+        const resources = filter(action.payload.entities.resources, 'public');
+        return state.merge({ resourceIds: map(resources, 'id') });
       }
       return state;
     }
