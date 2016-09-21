@@ -13,6 +13,7 @@ import ReservationInfo from 'components/reservation/ReservationInfo';
 import NotFoundPage from 'containers/NotFoundPage';
 import ReservationCalendar from 'containers/ReservationCalendar';
 import reservationPageSelector from 'selectors/containers/reservationPageSelector';
+import FavoriteButton from 'screens/shared/favorite-button';
 import { getAddressWithName, getName } from 'utils/DataUtils';
 import { getDateStartAndEndTimes } from 'utils/TimeUtils';
 
@@ -37,6 +38,7 @@ export class UnconnectedReservationPage extends Component {
     const {
       date,
       id,
+      isAdmin,
       isFetchingResource,
       isLoggedIn,
       location,
@@ -58,6 +60,7 @@ export class UnconnectedReservationPage extends Component {
               address={getAddressWithName(unit)}
               name={resourceName}
             />
+            {isAdmin && <FavoriteButton resource={resource} />}
             <LinkContainer to={`/resources/${id}?date=${date.split('T')[0]}`}>
               <Button
                 bsSize="large"
@@ -87,6 +90,7 @@ UnconnectedReservationPage.propTypes = {
   actions: PropTypes.object.isRequired,
   date: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
   isFetchingResource: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
