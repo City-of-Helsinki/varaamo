@@ -15,6 +15,7 @@ export class UnconnectedAdminResourcesPage extends Component {
     const now = moment();
     this.props.actions.fetchResources({
       end: now.endOf('day').toISOString(),
+      is_favorite: true,
       start: now.startOf('day').toISOString(),
     }, 'adminResourcesPage');
   }

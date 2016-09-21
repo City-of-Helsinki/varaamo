@@ -90,16 +90,23 @@ describe('Container: AdminResourcesPage', () => {
         getWrapper({ isAdmin: true }).instance().componentDidMount();
       });
 
-      it('should fetch resources', () => {
+      it('fetches resources', () => {
         expect(fetchResources.callCount).to.equal(1);
       });
 
-      it('should fetch today\'s resources', () => {
+      it('fetches today\'s resources', () => {
         const args = fetchResources.lastCall.args;
-        expect(args[0]).to.deep.equal({
-          end: moment().endOf('day').toISOString(),
-          start: moment().startOf('day').toISOString(),
-        });
+        expect(args[0].end).to.deep.equal(moment().endOf('day').toISOString());
+        expect(args[0].start).to.deep.equal(moment().startOf('day').toISOString());
+      });
+
+      it('fetches favorite resources', () => {
+        const args = fetchResources.lastCall.args;
+        expect(args[0].is_favorite).to.deep.equal(true);
+      });
+
+      it('pases adminResourcesPage as source', () => {
+        const args = fetchResources.lastCall.args;
         expect(args[1]).to.equal('adminResourcesPage');
       });
     });
