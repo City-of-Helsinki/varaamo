@@ -1,12 +1,18 @@
 import { expect } from 'chai';
+import { shallow } from 'enzyme';
 import React from 'react';
+import Button from 'react-bootstrap/lib/Button';
+import { LinkContainer } from 'react-router-bootstrap';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
-import sd from 'skin-deep';
 
+import ImagePanel from 'components/common/ImagePanel';
+import ResourceDetails from 'components/resource/ResourceDetails';
+import ResourceHeader from 'components/resource/ResourceHeader';
 import { UnconnectedResourcePage as ResourcePage } from 'containers/ResourcePage';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
+import FavoriteButtonContainer from 'screens/shared/favorite-button';
 
 describe('Container: ResourcePage', () => {
   const unit = Unit.build();
@@ -15,63 +21,85 @@ describe('Container: ResourcePage', () => {
     images,
     unit: Unit.id,
   });
-  const props = {
+  const defaultProps = {
     actions: { fetchResource: simple.stub() },
     date: '2015-12-12',
     id: resource.id,
+    isAdmin: false,
     isFetchingResource: false,
     isLoggedIn: true,
     resource: Immutable(resource),
     unit: Immutable(unit),
   };
-  const tree = sd.shallowRender(<ResourcePage {...props} />);
+
+  function getWrapper(props) {
+    return shallow(<ResourcePage {...defaultProps} {...props} />);
+  }
+  let wrapper;
+  before(() => {
+    wrapper = getWrapper();
+  });
 
   describe('rendering a link to reservation page', () => {
-    const linkTree = tree.subTree('LinkContainer');
+    let linkWrapper;
+
+    before(() => {
+      linkWrapper = wrapper.find(LinkContainer);
+    });
 
     it('should display a link to this resources reservation page', () => {
-      const expected = `/resources/${props.resource.id}/reservation?date=${props.date}`;
+      const expected = (
+        `/resources/${defaultProps.resource.id}/reservation?date=${defaultProps.date}`
+      );
 
-      expect(linkTree.props.to).to.equal(expected);
+      expect(linkWrapper.prop('to')).to.equal(expected);
     });
 
     it('should display the link as a Button', () => {
-      const buttonTrees = linkTree.everySubTree('Button');
+      const buttonWrapper = linkWrapper.find(Button);
 
-      expect(buttonTrees.length).to.equal(1);
+      expect(buttonWrapper.length).to.equal(1);
     });
 
     it('the link button should have text "Varaa tila"', () => {
-      const buttonTree = linkTree.subTree('Button');
+      const buttonWrapper = linkWrapper.find(Button);
 
-      expect(buttonTree.props.children).to.equal('Varaa tila');
+      expect(buttonWrapper.prop('children')).to.equal('Varaa tila');
     });
   });
 
   describe('rendering ResourceHeader', () => {
-    const resourceHeaderTrees = tree.everySubTree('ResourceHeader');
+    let resoucerHeaderWrapper;
+
+    before(() => {
+      resoucerHeaderWrapper = wrapper.find(ResourceHeader);
+    });
 
     it('should render ResourceHeader component', () => {
-      expect(resourceHeaderTrees.length).to.equal(1);
+      expect(resoucerHeaderWrapper.length).to.equal(1);
     });
 
     it('should pass correct props to ResourceHeader component', () => {
-      const actualProps = resourceHeaderTrees[0].props;
+      const actualProps = resoucerHeaderWrapper.props();
 
-      expect(actualProps.name).to.equal(props.resource.name.fi);
+      expect(actualProps.name).to.equal(defaultProps.resource.name.fi);
       expect(typeof actualProps.address).to.equal('string');
     });
   });
 
   describe('rendering ResourceDetails', () => {
-    const resourceDetailsTrees = tree.everySubTree('ResourceDetails');
+    let resourceDetailsWrapper;
+
+    before(() => {
+      resourceDetailsWrapper = wrapper.find(ResourceDetails);
+    });
 
     it('should render ResourceDetails component', () => {
-      expect(resourceDetailsTrees.length).to.equal(1);
+      expect(resourceDetailsWrapper.length).to.equal(1);
     });
 
     it('should pass correct props to ResourceDetails component', () => {
-      const actualProps = resourceDetailsTrees[0].props;
+      const actualProps = resourceDetailsWrapper.props();
 
       expect(typeof actualProps.capacityString).to.equal('string');
       expect(typeof actualProps.description).to.equal('string');
@@ -80,14 +108,18 @@ describe('Container: ResourcePage', () => {
   });
 
   describe('rendering ImagePanel', () => {
-    const imagePanelTrees = tree.everySubTree('ImagePanel');
+    let imagePanelWrapper;
+
+    before(() => {
+      imagePanelWrapper = wrapper.find(ImagePanel);
+    });
 
     it('should render ImagePanel component', () => {
-      expect(imagePanelTrees.length).to.equal(1);
+      expect(imagePanelWrapper.length).to.equal(1);
     });
 
     it('should pass correct props to ImagePanel component', () => {
-      const actualProps = imagePanelTrees[0].props;
+      const actualProps = imagePanelWrapper.props();
       const expectedAltText = `Kuva ${resource.name.fi} tilasta`;
 
       expect(actualProps.altText).to.equal(expectedAltText);
@@ -97,12 +129,12 @@ describe('Container: ResourcePage', () => {
 
   describe('fetching data', () => {
     before(() => {
-      const instance = tree.getMountedInstance();
+      const instance = wrapper.instance();
       instance.componentDidMount();
     });
 
     it('should fetch resource data when component mounts', () => {
-      expect(props.actions.fetchResource.callCount).to.equal(1);
+      expect(defaultProps.actions.fetchResource.callCount).to.equal(1);
     });
   });
 });
