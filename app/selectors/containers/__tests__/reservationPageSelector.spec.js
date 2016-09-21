@@ -5,20 +5,24 @@ import Immutable from 'seamless-immutable';
 
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
+import User from 'fixtures/User';
 import reservationPageSelector from 'selectors/containers/reservationPageSelector';
 
-function getState(resources = [], units = []) {
+const defaultUser = User.build();
+
+function getState(resources = [], units = [], user = defaultUser) {
   return {
     api: Immutable({
       activeRequests: [],
     }),
-    auth: {
-      token: null,
-      userId: null,
-    },
+    auth: Immutable({
+      userId: user.id,
+      token: 'mock-token',
+    }),
     data: Immutable({
       resources: keyBy(resources, 'id'),
       units: keyBy(units, 'id'),
+      users: { [user.id]: user },
     }),
   };
 }
@@ -53,6 +57,15 @@ describe('Selector: reservationPageSelector', () => {
 
     expect(selected.id).to.equal(expected);
   });
+
+  it('should return isAdmin', () => {
+    const state = getState();
+    const props = getProps();
+    const selected = reservationPageSelector(state, props);
+
+    expect(selected.isAdmin).to.exist;
+  });
+
 
   it('should return isFetchingResource', () => {
     const state = getState();
