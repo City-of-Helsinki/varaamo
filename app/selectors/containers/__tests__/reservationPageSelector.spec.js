@@ -41,7 +41,7 @@ function getProps(id = 'some-id') {
 }
 
 describe('Selector: reservationPageSelector', () => {
-  it('should return date', () => {
+  it('returns date', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
@@ -49,7 +49,7 @@ describe('Selector: reservationPageSelector', () => {
     expect(selected.date).to.exist;
   });
 
-  it('should return the id in router.params.id', () => {
+  it('returns the id in router.params.id', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
@@ -58,7 +58,7 @@ describe('Selector: reservationPageSelector', () => {
     expect(selected.id).to.equal(expected);
   });
 
-  it('should return isAdmin', () => {
+  it('returns isAdmin', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
@@ -67,7 +67,7 @@ describe('Selector: reservationPageSelector', () => {
   });
 
 
-  it('should return isFetchingResource', () => {
+  it('returns isFetchingResource', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
@@ -75,7 +75,7 @@ describe('Selector: reservationPageSelector', () => {
     expect(selected.isFetchingResource).to.exist;
   });
 
-  it('should return isLoggedIn', () => {
+  it('returns isLoggedIn', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
@@ -83,7 +83,7 @@ describe('Selector: reservationPageSelector', () => {
     expect(selected.isLoggedIn).to.exist;
   });
 
-  it('should return resource', () => {
+  it('returns resource', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
@@ -91,7 +91,7 @@ describe('Selector: reservationPageSelector', () => {
     expect(selected.resource).to.exist;
   });
 
-  it('should return the unit corresponding to the resource.unit', () => {
+  it('returns the unit corresponding to the resource.unit', () => {
     const unit = Unit.build();
     const resource = Resource.build({ unit: unit.id });
     const state = getState([resource], [unit]);
@@ -101,7 +101,7 @@ describe('Selector: reservationPageSelector', () => {
     expect(selected.unit).to.deep.equal(unit);
   });
 
-  it('should return an empty object as the unit if unit with the given id is not fetched', () => {
+  it('returns an empty object as the unit if unit with the given id is not fetched', () => {
     const resource = Resource.build();
     const state = getState([resource], []);
     const props = getProps(resource.id);
@@ -110,7 +110,7 @@ describe('Selector: reservationPageSelector', () => {
     expect(selected.unit).to.deep.equal({});
   });
 
-  it('should return an empty object as the unit if resource is not fetched', () => {
+  it('returns an empty object as the unit if resource is not fetched', () => {
     const state = getState([], []);
     const props = getProps('unfetched-id');
     const selected = reservationPageSelector(state, props);
