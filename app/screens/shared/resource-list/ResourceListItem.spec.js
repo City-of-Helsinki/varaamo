@@ -1,18 +1,19 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
-import Label from 'react-bootstrap/lib/Label';
 import { Link } from 'react-router';
 import Immutable from 'seamless-immutable';
 
 import Image from 'fixtures/Image';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
+import ReserveButton from './ReserveButton';
 import ResourceListItem from './ResourceListItem';
 
 describe('screens/shared/resource-list/ResourceListItem', () => {
   const defaultProps = {
     date: '2015-10-10',
+    isLoggedIn: false,
     resource: Immutable(Resource.build({
       images: [Image.build()],
     })),
@@ -29,63 +30,41 @@ describe('screens/shared/resource-list/ResourceListItem', () => {
     expect(li.length).to.equal(1);
   });
 
-  it('renders an image with correct props', () => {
-    const image = getWrapper().find('img');
+  it('renders an image container with correct background image', () => {
+    const imageContainer = getWrapper().find('.image-container');
     const resourceImage = defaultProps.resource.images[0];
 
-    expect(image.length).to.equal(1);
-    expect(image.props().alt).to.equal(resourceImage.caption.fi);
-    expect(image.props().src).to.equal(`${resourceImage.url}?dim=100x100`);
+    expect(imageContainer.length).to.equal(1);
+    expect(imageContainer.props().style.backgroundImage).to.contain(resourceImage.url);
   });
 
-  describe('names section', () => {
-    let namesLink;
+  it('contains a link to resources page', () => {
+    const link = getWrapper().find(Link);
 
-    before(() => {
-      const namesSection = getWrapper().find('.names');
-      namesLink = namesSection.find(Link);
-    });
-
-    it('contains a link to resources page', () => {
-      expect(namesLink.length).to.equal(1);
-      expect(namesLink.props().to).to.contain('resources');
-    });
-
-    it('renders the name of the resource', () => {
-      const expected = defaultProps.resource.name.fi;
-
-      expect(namesLink.html()).to.contain(expected);
-    });
-
-    it('renders the name of the given unit in props', () => {
-      const expected = defaultProps.unit.name.fi;
-
-      expect(namesLink.html()).to.contain(expected);
-    });
+    expect(link.length).to.equal(1);
+    expect(link.props().to).to.contain('resources');
   });
 
-  describe('available time', () => {
-    let availableTime;
+  it('renders the name of the resource inside the link', () => {
+    const link = getWrapper().find(Link);
+    const expected = defaultProps.resource.name.fi;
 
-    before(() => {
-      availableTime = getWrapper().find('.available-time');
-    });
+    expect(link.html()).to.contain(expected);
+  });
 
-    it('contains a Link to reservations page with a correct date', () => {
-      const link = availableTime.find('Link');
+  it('renders the name of the given unit in props', () => {
+    const unitName = getWrapper().find('.unit-name');
+    const expected = defaultProps.unit.name.fi;
 
-      expect(link.length).to.equal(1);
-      expect(link.props().to).to.equal(`/resources/${defaultProps.resource.id}/reservation`);
-      expect(link.props().query).to.deep.equal({
-        date: defaultProps.date.split('T')[0],
-      });
-    });
+    expect(unitName.text()).to.contain(expected);
+  });
 
-    it('displays the available hours in a label', () => {
-      const label = availableTime.find(Label);
-      const expected = '0 tuntia vapaana';
+  it('renders a ReserveButton with correct props', () => {
+    const reserveButton = getWrapper().find(ReserveButton);
 
-      expect(label.props().children).to.equal(expected);
-    });
+    expect(reserveButton.length).to.equal(1);
+    expect(reserveButton.props().date).to.equal(defaultProps.date);
+    expect(reserveButton.props().isLoggedIn).to.equal(defaultProps.isLoggedIn);
+    expect(reserveButton.props().resource).to.equal(defaultProps.resource);
   });
 });

@@ -47,9 +47,8 @@ export class UnconnectedSearchPage extends Component {
       isFetchingSearchResults,
       location,
       params,
-      results,
+      searchResultIds,
       searchDone,
-      units,
     } = this.props;
 
     return (
@@ -64,11 +63,9 @@ export class UnconnectedSearchPage extends Component {
           {searchDone && <DateHeader date={filters.date} />}
           {searchDone || isFetchingSearchResults ? (
             <SearchResults
-              date={filters.date}
               isFetching={isFetchingSearchResults}
               ref="searchResults"
-              results={results}
-              units={units}
+              searchResultIds={searchResultIds}
             />
           ) : (
             <p className="help-text">
@@ -87,9 +84,8 @@ UnconnectedSearchPage.propTypes = {
   filters: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   params: PropTypes.object.isRequired,
-  results: PropTypes.array.isRequired,
   searchDone: PropTypes.bool.isRequired,
-  units: PropTypes.object.isRequired,
+  searchResultIds: PropTypes.array.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {

@@ -5,6 +5,8 @@ const Resource = new Factory()
   .sequence('name', (index) => ({ fi: `Resource-${index}` }))
   .attr('public', true)
   .sequence('unit', (index) => `u-${index}`)
+  .attr('needManualConfirmation', false)
+  .attr('reservable', true)
   .attr('userPermissions', { isAdmin: false, canMakeReservations: true })
   .attr('requiredReservationExtraFields', []);
 

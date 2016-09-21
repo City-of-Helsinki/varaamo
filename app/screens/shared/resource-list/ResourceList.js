@@ -1,36 +1,26 @@
 import React, { PropTypes } from 'react';
 
-import ResourceListItem from './ResourceListItem';
+import ResourceListItem from './ResourceListItemContainer';
 
-function renderResourceListItem(resource, units, date) {
-  const unit = units[resource.unit] || {};
-  return (
-    <ResourceListItem
-      date={date}
-      key={resource.id}
-      resource={resource}
-      unit={unit}
-    />
-  );
+function renderResourceListItem(resourceId) {
+  return <ResourceListItem key={resourceId} resourceId={resourceId} />;
 }
 
-function ResourceList({ date, emptyMessage, resources, units }) {
-  if (!resources.length) {
+function ResourceList({ emptyMessage, resourceIds }) {
+  if (!resourceIds.length) {
     return emptyMessage ? <p>{emptyMessage}</p> : <div />;
   }
 
   return (
     <ul className="resource-list">
-      {resources.map((resource) => renderResourceListItem(resource, units, date))}
+      {resourceIds.map(renderResourceListItem)}
     </ul>
   );
 }
 
 ResourceList.propTypes = {
-  date: PropTypes.string.isRequired,
   emptyMessage: PropTypes.string,
-  resources: PropTypes.array.isRequired,
-  units: PropTypes.object.isRequired,
+  resourceIds: PropTypes.array.isRequired,
 };
 
 export default ResourceList;

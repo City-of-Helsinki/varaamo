@@ -1,32 +1,29 @@
 import { expect } from 'chai';
 
-import { getDefaultRouterProps, getInitialState } from 'utils/TestUtils';
+import { getDefaultRouterProps, getState } from 'utils/TestUtils';
 import searchPageSelector from './searchPageSelector';
 
-describe('Selector: searchPageSelector', () => {
-  const state = getInitialState();
+describe('screens/search/searchPageSelector', () => {
+  const searchResultIds = ['resource-1', 'resourece-2'];
+  const state = getState({
+    'ui.search.results': searchResultIds,
+  });
   const props = getDefaultRouterProps();
   const selected = searchPageSelector(state, props);
 
-  it('should return filters', () => {
+  it('returns filters', () => {
     expect(selected.filters).to.exist;
   });
 
-  it('should return isFetchingSearchResults', () => {
+  it('returns isFetchingSearchResults', () => {
     expect(selected.isFetchingSearchResults).to.exist;
   });
 
-  it('should return results', () => {
-    expect(selected.results).to.exist;
-  });
-
-  it('should return searchDone', () => {
+  it('returns searchDone', () => {
     expect(selected.searchDone).to.exist;
   });
 
-  it('should return units from the state', () => {
-    const expected = state.data.units;
-
-    expect(selected.units).to.deep.equal(expected);
+  it('returns searchResultIds', () => {
+    expect(selected.searchResultIds).to.deep.equal(searchResultIds);
   });
 });

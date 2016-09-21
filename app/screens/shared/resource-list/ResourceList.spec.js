@@ -3,30 +3,20 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
-import Resource from 'fixtures/Resource';
-import Unit from 'fixtures/Unit';
 import ResourceList from './ResourceList';
-import ResourceListItem from './ResourceListItem';
+import ResourceListItem from './ResourceListItemContainer';
 
 describe('screens/shared/resource-list/ResourceList', () => {
-  const unit = Unit.build();
   const defaultProps = {
-    date: '2015-10-10',
     emptyMessage: 'Some empty message',
-    resources: Immutable([
-      Resource.build({ unit: unit.id }),
-      Resource.build({ unit: 'unfetched-unit' }),
-    ]),
-    units: Immutable({
-      [unit.id]: unit,
-    }),
+    resourceIds: Immutable(['resource-1', 'resource-2']),
   };
 
   function getWrapper(extraProps) {
     return shallow(<ResourceList {...defaultProps} {...extraProps} />);
   }
 
-  describe('with resources', () => {
+  describe('with resourceIds', () => {
     let wrapper;
 
     before(() => {
@@ -43,52 +33,43 @@ describe('screens/shared/resource-list/ResourceList', () => {
       expect(emptyMessage.length).to.equal(0);
     });
 
-    describe('rendering individual resources', () => {
-      let resources;
+    describe('rendering individual ResourceListItems', () => {
+      let resourceListItems;
 
       before(() => {
-        resources = wrapper.find(ResourceListItem);
+        resourceListItems = wrapper.find(ResourceListItem);
       });
 
       it('should render a ResourceListItem for every resource in props', () => {
-        expect(resources.length).to.equal(defaultProps.resources.length);
+        expect(resourceListItems.length).to.equal(defaultProps.resourceIds.length);
       });
 
       it('should pass correct props to ResourceListItem', () => {
-        resources.forEach((resource, index) => {
-          expect(resource.props().date).to.equal(defaultProps.date);
-          expect(resource.props().resource).to.deep.equal(defaultProps.resources[index]);
+        resourceListItems.forEach((resourceListItem, index) => {
+          expect(resourceListItem.props().resourceId).to.equal(defaultProps.resourceIds[index]);
         });
-      });
-
-      it('should pass unit corresponding to resource.unit as a prop to ResourceListItem', () => {
-        expect(resources.at(0).props().unit).to.deep.equal(unit);
-      });
-
-      it('should pass empty object as unit prop to ResourceListItem if unit is unfetched', () => {
-        expect(resources.at(1).props().unit).to.deep.equal({});
       });
     });
   });
 
-  describe('without resources', () => {
-    const resources = [];
+  describe('without resourceIds', () => {
+    const resourceIds = [];
 
     it('does not render a list', () => {
-      const list = getWrapper({ resources }).find('ul');
+      const list = getWrapper({ resourceIds }).find('ul');
       expect(list.length).to.equal(0);
     });
 
     describe('empty message', () => {
       it('renders the emptyMessage given in props', () => {
         const emptyMessage = 'Some empty message';
-        const message = getWrapper({ emptyMessage, resources }).find('p');
+        const message = getWrapper({ emptyMessage, resourceIds }).find('p');
         expect(message.text()).to.equal(emptyMessage);
       });
 
       it('renders an empty div if no emptyMessage is given in props', () => {
         const emptyMessage = undefined;
-        const wrapper = getWrapper({ emptyMessage, resources });
+        const wrapper = getWrapper({ emptyMessage, resourceIds });
         expect(wrapper.matchesElement(<div />)).to.be.true;
       });
     });
