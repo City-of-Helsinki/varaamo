@@ -12,7 +12,7 @@ import ResourceHeader from 'components/resource/ResourceHeader';
 import { UnconnectedResourcePage as ResourcePage } from 'containers/ResourcePage';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
-import FavoriteButtonContainer from 'screens/shared/favorite-button';
+import FavoriteButton from 'screens/shared/favorite-button';
 
 describe('Container: ResourcePage', () => {
   const unit = Unit.build();
@@ -84,6 +84,28 @@ describe('Container: ResourcePage', () => {
 
       expect(actualProps.name).to.equal(defaultProps.resource.name.fi);
       expect(typeof actualProps.address).to.equal('string');
+    });
+  });
+
+  describe('rendering FavoriteButton', () => {
+    let FavoriteButtonWrapper;
+    let FavoriteButtonNoAdminWrapper;
+
+    before(() => {
+      FavoriteButtonNoAdminWrapper = wrapper.find(FavoriteButton);
+      FavoriteButtonWrapper = getWrapper({ isAdmin: true }).find(FavoriteButton);
+    });
+
+    it('is not rendered if user is not admin', () => {
+      expect(FavoriteButtonNoAdminWrapper.length).to.equal(0);
+    });
+
+    it('is rendered if user is admin', () => {
+      expect(FavoriteButtonWrapper.length).to.equal(1);
+    });
+
+    it('gets resource props', () => {
+      expect(FavoriteButtonWrapper.props()).to.deep.equal({ resource });
     });
   });
 

@@ -57,7 +57,10 @@ function favoriteResource(id) {
     [CALL_API]: {
       types: [
         getRequestTypeDescriptor(types.API.RESOURCE_FAVORITE_POST_REQUEST),
-        getSuccessTypeDescriptor(types.API.RESOURCE_FAVORITE_POST_SUCCESS),
+        getSuccessTypeDescriptor(
+          types.API.RESOURCE_FAVORITE_POST_SUCCESS,
+          { meta: { id } },
+        ),
         getErrorTypeDescriptor(types.API.RESOURCE_FAVORITE_POST_ERROR),
       ],
       endpoint: buildAPIUrl(`resource/${id}/favorite`),
@@ -72,7 +75,10 @@ function unfavoriteResource(id) {
     [CALL_API]: {
       types: [
         getRequestTypeDescriptor(types.API.RESOURCE_UNFAVORITE_POST_REQUEST),
-        getSuccessTypeDescriptor(types.API.RESOURCE_UNFAVORITE_POST_SUCCESS),
+        getSuccessTypeDescriptor(
+          types.API.RESOURCE_UNFAVORITE_POST_SUCCESS,
+          { meta: { id } },
+        ),
         getErrorTypeDescriptor(types.API.RESOURCE_UNFAVORITE_POST_ERROR),
       ],
       endpoint: buildAPIUrl(`resource/${id}/unfavorite`),

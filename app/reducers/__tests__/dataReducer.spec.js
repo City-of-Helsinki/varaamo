@@ -357,5 +357,57 @@ describe('Reducer: dataReducer', () => {
         expect(actualUser.newValue).to.equal(updatedUser.newValue);
       });
     });
+
+    describe('API.RESOURCE_UNFAVORITE_POST_SUCCESS', () => {
+      const resource = {
+        id: '123',
+        isFavorite: true,
+      };
+
+      const unfavoriteResource = createAction(
+        types.API.RESOURCE_UNFAVORITE_POST_SUCCESS,
+        (payload) => payload,
+        () => ({ id: resource.id })
+      );
+
+      it('should change isFavorite attribute from resource', () => {
+        const user = User.build();
+        const initialState = Immutable({
+          resources: {
+            [resource.id]: resource,
+          },
+        });
+        const action = unfavoriteResource(user);
+        const nextState = dataReducer(initialState, action);
+
+        expect(nextState.resources[resource.id].isFavorite).to.be.false;
+      });
+    });
+
+    describe('API.RESOURCE_FAVORITE_POST_SUCCESS', () => {
+      const resource = {
+        id: '123',
+        isFavorite: false,
+      };
+
+      const unfavoriteResource = createAction(
+        types.API.RESOURCE_FAVORITE_POST_SUCCESS,
+        (payload) => payload,
+        () => ({ id: resource.id })
+      );
+
+      it('should change isFavorite attribute from resource', () => {
+        const user = User.build();
+        const initialState = Immutable({
+          resources: {
+            [resource.id]: resource,
+          },
+        });
+        const action = unfavoriteResource(user);
+        const nextState = dataReducer(initialState, action);
+
+        expect(nextState.resources[resource.id].isFavorite).to.be.true;
+      });
+    });
   });
 });

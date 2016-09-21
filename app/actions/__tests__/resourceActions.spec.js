@@ -1,3 +1,4 @@
+import { expect } from 'chai';
 import { createApiTest } from 'utils/TestUtils';
 
 import { favoriteResource, unfavoriteResource } from 'actions/resourceActions';
@@ -20,6 +21,13 @@ describe('Actions: resourceActions', () => {
         },
         success: {
           type: types.API.RESOURCE_FAVORITE_POST_SUCCESS,
+          extra: {
+            tests: {
+              'contains resource id in meta': ({ meta }) => {
+                expect(meta.id).to.equal(resourceId);
+              },
+            },
+          },
         },
         error: {
           type: types.API.RESOURCE_FAVORITE_POST_ERROR,
@@ -43,6 +51,13 @@ describe('Actions: resourceActions', () => {
         },
         success: {
           type: types.API.RESOURCE_UNFAVORITE_POST_SUCCESS,
+          extra: {
+            tests: {
+              'contains resource id in meta': ({ meta }) => {
+                expect(meta.id).to.equal(resourceId);
+              },
+            },
+          },
         },
         error: {
           type: types.API.RESOURCE_UNFAVORITE_POST_ERROR,

@@ -65,6 +65,15 @@ function dataReducer(state = initialState, action) {
       return handleData(state, { users: { [user.uuid]: user } });
     }
 
+    case types.API.RESOURCE_UNFAVORITE_POST_SUCCESS: {
+      const id = action.meta.id;
+      return state.setIn(['resources', id, 'isFavorite'], false);
+    }
+    case types.API.RESOURCE_FAVORITE_POST_SUCCESS: {
+      const id = action.meta.id;
+      return state.setIn(['resources', id, 'isFavorite'], true);
+    }
+
     default: {
       return state;
     }
