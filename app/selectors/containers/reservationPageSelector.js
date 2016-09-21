@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 import ActionTypes from 'constants/ActionTypes';
 import resourceSelector from 'selectors/resourceSelector';
 import dateSelector from 'selectors/dateSelector';
+import isAdminSelector from 'selectors/isAdminSelector';
 import isLoggedInSelector from 'selectors/isLoggedInSelector';
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
 
@@ -12,6 +13,7 @@ const unitsSelector = (state) => state.data.units;
 const reservationPageSelector = createSelector(
   dateSelector,
   idSelector,
+  isAdminSelector,
   isLoggedInSelector,
   requestIsActiveSelectorFactory(ActionTypes.API.RESOURCE_GET_REQUEST),
   resourceSelector,
@@ -19,6 +21,7 @@ const reservationPageSelector = createSelector(
   (
     date,
     id,
+    isAdmin,
     isLoggedIn,
     isFetchingResource,
     resource,
@@ -29,6 +32,7 @@ const reservationPageSelector = createSelector(
     return {
       date,
       id,
+      isAdmin,
       isFetchingResource,
       isLoggedIn,
       resource,

@@ -52,7 +52,46 @@ function fetchResources(params = {}, source) {
   };
 }
 
+function favoriteResource(id) {
+  return {
+    [CALL_API]: {
+      types: [
+        getRequestTypeDescriptor(types.API.RESOURCE_FAVORITE_POST_REQUEST),
+        getSuccessTypeDescriptor(
+          types.API.RESOURCE_FAVORITE_POST_SUCCESS,
+          { meta: { id } },
+        ),
+        getErrorTypeDescriptor(types.API.RESOURCE_FAVORITE_POST_ERROR),
+      ],
+      endpoint: buildAPIUrl(`resource/${id}/favorite`),
+      method: 'POST',
+      headers: getHeadersCreator(),
+    },
+  };
+}
+
+function unfavoriteResource(id) {
+  return {
+    [CALL_API]: {
+      types: [
+        getRequestTypeDescriptor(types.API.RESOURCE_UNFAVORITE_POST_REQUEST),
+        getSuccessTypeDescriptor(
+          types.API.RESOURCE_UNFAVORITE_POST_SUCCESS,
+          { meta: { id } },
+        ),
+        getErrorTypeDescriptor(types.API.RESOURCE_UNFAVORITE_POST_ERROR),
+      ],
+      endpoint: buildAPIUrl(`resource/${id}/unfavorite`),
+      method: 'POST',
+      headers: getHeadersCreator(),
+    },
+  };
+}
+
+
 export {
   fetchResource,
   fetchResources,
+  favoriteResource,
+  unfavoriteResource,
 };

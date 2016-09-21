@@ -13,6 +13,7 @@ import ResourceDetails from 'components/resource/ResourceDetails';
 import ResourceHeader from 'components/resource/ResourceHeader';
 import NotFoundPage from 'containers/NotFoundPage';
 import resourcePageSelector from 'selectors/containers/resourcePageSelector';
+import FavoriteButton from 'screens/shared/favorite-button';
 import {
   getAddressWithName,
   getDescription,
@@ -31,6 +32,7 @@ export class UnconnectedResourcePage extends Component {
       date,
       id,
       isFetchingResource,
+      isAdmin,
       isLoggedIn,
       resource,
       unit,
@@ -49,6 +51,7 @@ export class UnconnectedResourcePage extends Component {
               address={getAddressWithName(unit)}
               name={resourceName}
             />
+            {isAdmin && <FavoriteButton resource={resource} />}
             <LinkContainer to={`/resources/${id}/reservation?date=${date.split('T')[0]}`}>
               <Button
                 bsSize="large"
@@ -78,6 +81,7 @@ UnconnectedResourcePage.propTypes = {
   actions: PropTypes.object.isRequired,
   date: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
   isFetchingResource: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   resource: PropTypes.object.isRequired,
