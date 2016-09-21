@@ -3,6 +3,10 @@ import React, { Component } from 'react';
 import FeedbackLink from 'components/customization/FeedbackLink';
 import { getCurrentCustomization } from 'utils/CustomizationUtils';
 
+import aikaLogoSrc from 'app/assets/images/aika-logo.png';
+import eakrLogoSrc from 'app/assets/images/eakr-logo.png';
+import euVipuvoimaaLogoSrc from 'app/assets/images/eu-vipuvoimaa-logo.png';
+
 class AboutPageContent extends Component {
   render() {
     let registerLink;
@@ -51,6 +55,30 @@ class AboutPageContent extends Component {
               Palvelua kehitetään edelleen ja toivomme palvelun käyttäjiltä palautetta. Palautetta
               voit antaa <FeedbackLink text="tämän linkin" /> kautta.
             </p>
+
+            <h3>Espoo pilotoi Varaamoa osana 6Aika-hanketta</h3>
+            <div className="about-page-logos">
+              <a href="http://6aika.fi/6aika-avoimia-ja-alykkaita-palveluja/">
+                <img
+                  className="aika-logo"
+                  src={aikaLogoSrc}
+                  alt="6 aika logo"
+                />
+              </a>
+              <a href="http://www.rakennerahastot.fi/">
+                <img
+                  className="eu-vipuvoimaa-logo"
+                  src={euVipuvoimaaLogoSrc}
+                  alt="Vipuvoimaa EU:lta logo"
+                />
+                <img
+                  className="eakr-logo"
+                  src={eakrLogoSrc}
+                  alt="Euroopan aluekehitysrahasto logo"
+                />
+              </a>
+            </div>
+
             <h3>Asiakasrekisteriseloste</h3>
             <p>
               Palveluun liittyvän asiakasreskisteriselosteen näet täältä: {registerLink}
