@@ -4,6 +4,15 @@ import forEach from 'lodash/forEach';
 import sortBy from 'lodash/sortBy';
 import moment from 'moment';
 
+function isOpenNow(resource) {
+  const { closes, opens } = getOpeningHours(resource);
+  const now = moment();
+  if (now >= moment(opens) && now <= moment(closes)) {
+    return true;
+  }
+  return false;
+}
+
 function getAvailableTime(openingHours = {}, reservations = []) {
   const { closes, opens } = openingHours;
 
@@ -61,11 +70,11 @@ function getNextReservation(reservations) {
   return find(orderedReservations, reservation => now < moment(reservation.begin));
 }
 
-function getOpeningHours(item) {
-  if (item && item.openingHours && item.openingHours.length) {
+function getOpeningHours(resource) {
+  if (resource && resource.openingHours && resource.openingHours.length) {
     return {
-      closes: item.openingHours[0].closes,
-      opens: item.openingHours[0].opens,
+      closes: resource.openingHours[0].closes,
+      opens: resource.openingHours[0].opens,
     };
   }
 
@@ -80,6 +89,7 @@ function getPeopleCapacityString(capacity) {
 }
 
 export {
+  isOpenNow,
   getAvailableTime,
   getCurrentReservation,
   getHumanizedPeriod,

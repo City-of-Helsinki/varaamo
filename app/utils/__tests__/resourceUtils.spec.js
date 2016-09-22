@@ -4,6 +4,7 @@ import moment from 'moment';
 
 import Reservation from 'fixtures/Reservation';
 import {
+  isOpenNow,
   getAvailableTime,
   getCurrentReservation,
   getHumanizedPeriod,
@@ -13,6 +14,92 @@ import {
 } from 'utils/resourceUtils';
 
 describe('Utils: resourceUtils', () => {
+  describe('isOpenNow', () => {
+    describe('if openingHours data is missing', () => {
+      const openingHours = {
+        opens: null,
+        closes: null,
+      };
+      const now = '2015-10-10T06:00:00+03:00';
+      const resource = { openingHours: [openingHours] };
+
+      beforeEach(() => {
+        MockDate.set(now);
+      });
+
+      afterEach(() => {
+        MockDate.reset();
+      });
+
+      it('returns false', () => {
+        expect(isOpenNow(resource)).to.equal(false);
+      });
+    });
+
+    describe('if current time is before openingHours.opens', () => {
+      const openingHours = {
+        opens: '2015-10-10T12:00:00+03:00',
+        closes: '2015-10-10T18:00:00+03:00',
+      };
+      const now = '2015-10-10T06:00:00+03:00';
+      const resource = { openingHours: [openingHours] };
+
+      beforeEach(() => {
+        MockDate.set(now);
+      });
+
+      afterEach(() => {
+        MockDate.reset();
+      });
+
+      it('returns false', () => {
+        expect(isOpenNow(resource)).to.equal(false);
+      });
+    });
+
+    describe('if current time is between openingHours', () => {
+      const openingHours = {
+        opens: '2015-10-10T12:00:00+03:00',
+        closes: '2015-10-10T18:00:00+03:00',
+      };
+      const now = '2015-10-10T14:00:00+03:00';
+      const resource = { openingHours: [openingHours] };
+
+      beforeEach(() => {
+        MockDate.set(now);
+      });
+
+      afterEach(() => {
+        MockDate.reset();
+      });
+
+      it('returns true', () => {
+        expect(isOpenNow(resource)).to.equal(true);
+      });
+    });
+
+    describe('if current time is after openingHours.closes', () => {
+      const openingHours = {
+        opens: '2015-10-10T12:00:00+03:00',
+        closes: '2015-10-10T18:00:00+03:00',
+      };
+      const now = '2015-10-10T23:00:00+03:00';
+      const resource = { openingHours: [openingHours] };
+
+      beforeEach(() => {
+        MockDate.set(now);
+      });
+
+      afterEach(() => {
+        MockDate.reset();
+      });
+
+      it('returns false', () => {
+        expect(isOpenNow(resource)).to.equal(false);
+      });
+    });
+  });
+
   describe('getAvailableTime', () => {
     it('returns "0 tuntia vapaana" if openingHours is empty', () => {
       const openingHours = {};
@@ -281,26 +368,26 @@ describe('Utils: resourceUtils', () => {
   });
 
   describe('getOpeningHours', () => {
-    it('returns an empty object if given item is undefined', () => {
-      const item = undefined;
+    it('returns an empty object if given resource is undefined', () => {
+      const resource = undefined;
 
-      expect(getOpeningHours(item)).to.deep.equal({});
+      expect(getOpeningHours(resource)).to.deep.equal({});
     });
 
-    it('returns an empty object if given item is empty', () => {
-      const item = {};
+    it('returns an empty object if given resource is empty', () => {
+      const resource = {};
 
-      expect(getOpeningHours(item)).to.deep.equal({});
+      expect(getOpeningHours(resource)).to.deep.equal({});
     });
 
-    it('returns an empty object if item.openingHours is empty', () => {
-      const item = { openingHours: [] };
+    it('returns an empty object if resource.openingHours is empty', () => {
+      const resource = { openingHours: [] };
 
-      expect(getOpeningHours(item)).to.deep.equal({});
+      expect(getOpeningHours(resource)).to.deep.equal({});
     });
 
     it('returns closes and opens from the first openingHours object', () => {
-      const item = {
+      const resource = {
         openingHours: [
           { closes: 'first-closes', opens: 'first-opens' },
           { closes: 'second-closes', opens: 'second-opens' },
@@ -308,7 +395,7 @@ describe('Utils: resourceUtils', () => {
       };
       const expected = { closes: 'first-closes', opens: 'first-opens' };
 
-      expect(getOpeningHours(item)).to.deep.equal(expected);
+      expect(getOpeningHours(resource)).to.deep.equal(expected);
     });
   });
 
