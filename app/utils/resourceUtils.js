@@ -13,40 +13,38 @@ function isOpenNow(resource) {
   return false;
 }
 
-function getAvailableTime(openingHours = {}, reservations = []) {
-  const { closes, opens } = openingHours;
+function getAvailabilityDataForWholeDay(resource = {}) {
+  const { closes, opens } = getOpeningHours(resource);
+  const reservations = resource.reservations || [];
 
   if (!closes || !opens) {
-    return '0 tuntia vapaana';
+    return { text: 'Suljettu', bsStyle: 'danger' };
   }
 
-  const nowMoment = moment();
   const opensMoment = moment(opens);
   const closesMoment = moment(closes);
-
-  if (nowMoment > closesMoment) {
-    return '0 tuntia vapaana';
-  }
-
-  const beginMoment = nowMoment > opensMoment ? nowMoment : opensMoment;
-  let total = closesMoment - beginMoment;
+  let total = closesMoment - opensMoment;
 
   forEach(
-    filter(reservations, reservation => (
-      reservation.state !== 'cancelled' && moment(reservation.end) > nowMoment
-    )),
+    filter(reservations, reservation => reservation.state !== 'cancelled'),
     (reservation) => {
       const resBeginMoment = moment(reservation.begin);
       const resEndMoment = moment(reservation.end);
-      const maxBeginMoment = nowMoment > resBeginMoment ? nowMoment : resBeginMoment;
-      total = (total - resEndMoment) + maxBeginMoment;
+      total = (total - resEndMoment) + resBeginMoment;
     }
   );
 
   const asHours = moment.duration(total).asHours();
   const rounded = Math.ceil(asHours * 2) / 2;
 
-  return rounded === 1 ? `${rounded} tunti vapaana` : `${rounded} tuntia vapaana`;
+  if (rounded === 0) {
+    return { text: 'Varattu koko päivän', bsStyle: 'danger' };
+  }
+
+  return {
+    text: rounded === 1 ? `Vapaata ${rounded} tunti` : `Vapaata ${rounded} tuntia`,
+    bsStyle: 'success',
+  };
 }
 
 
@@ -90,7 +88,7 @@ function getPeopleCapacityString(capacity) {
 
 export {
   isOpenNow,
-  getAvailableTime,
+  getAvailabilityDataForWholeDay,
   getCurrentReservation,
   getHumanizedPeriod,
   getNextReservation,
