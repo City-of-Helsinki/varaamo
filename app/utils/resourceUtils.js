@@ -1,7 +1,5 @@
 import filter from 'lodash/filter';
-import find from 'lodash/find';
 import forEach from 'lodash/forEach';
-import sortBy from 'lodash/sortBy';
 import moment from 'moment';
 
 function isOpenNow(resource) {
@@ -47,25 +45,11 @@ function getAvailabilityDataForWholeDay(resource = {}) {
   };
 }
 
-
-function getCurrentReservation(reservations) {
-  const now = moment();
-  return find(
-    reservations, reservation => moment(reservation.begin) < now && now < moment(reservation.end)
-  );
-}
-
 function getHumanizedPeriod(period) {
   if (!period) {
     return '';
   }
   return `${moment.duration(period).hours()}h`;
-}
-
-function getNextReservation(reservations) {
-  const now = moment();
-  const orderedReservations = sortBy(reservations, reservation => moment(reservation.begin));
-  return find(orderedReservations, reservation => now < moment(reservation.begin));
 }
 
 function getOpeningHours(resource) {
@@ -89,9 +73,7 @@ function getPeopleCapacityString(capacity) {
 export {
   isOpenNow,
   getAvailabilityDataForWholeDay,
-  getCurrentReservation,
   getHumanizedPeriod,
-  getNextReservation,
   getOpeningHours,
   getPeopleCapacityString,
 };

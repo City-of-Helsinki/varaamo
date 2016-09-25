@@ -1,14 +1,10 @@
 import { expect } from 'chai';
 import MockDate from 'mockdate';
-import moment from 'moment';
 
-import Reservation from 'fixtures/Reservation';
 import {
   isOpenNow,
   getAvailabilityDataForWholeDay,
-  getCurrentReservation,
   getHumanizedPeriod,
-  getNextReservation,
   getOpeningHours,
   getPeopleCapacityString,
 } from 'utils/resourceUtils';
@@ -195,25 +191,6 @@ describe('Utils: resourceUtils', () => {
     });
   });
 
-  describe('getCurrentReservation', () => {
-    const previousReservation = Reservation.build({}, { startTime: moment().subtract(1, 'days') });
-    const currentReservation = Reservation.build(
-      {},
-      { startTime: moment().subtract(20, 'minutes') }
-    );
-    const nextReservation = Reservation.build({}, { startTime: moment().add(2, 'hours') });
-    const lastReservation = Reservation.build({}, { startTime: moment().add(4, 'hours') });
-    const unorderedReservations = [
-      lastReservation,
-      previousReservation,
-      nextReservation,
-      currentReservation,
-    ];
-    it('returns the current reservation from a list of reservations', () => {
-      expect(getCurrentReservation(unorderedReservations)).to.deep.equal(currentReservation);
-    });
-  });
-
   describe('getHumanizedPeriod', () => {
     it('returns an empty string if period is undefined', () => {
       const period = undefined;
@@ -234,25 +211,6 @@ describe('Utils: resourceUtils', () => {
       const periodString = getHumanizedPeriod(period);
 
       expect(periodString).to.equal('4h');
-    });
-  });
-
-  describe('getNextReservation', () => {
-    const previousReservation = Reservation.build({}, { startTime: moment().subtract(1, 'days') });
-    const currentReservation = Reservation.build(
-      {},
-      { startTime: moment().subtract(20, 'minutes') }
-    );
-    const nextReservation = Reservation.build({}, { startTime: moment().add(2, 'hours') });
-    const lastReservation = Reservation.build({}, { startTime: moment().add(4, 'hours') });
-    const unorderedReservations = [
-      lastReservation,
-      previousReservation,
-      nextReservation,
-      currentReservation,
-    ];
-    it('returns the next reservation from a list of reservations', () => {
-      expect(getNextReservation(unorderedReservations)).to.deep.equal(nextReservation);
     });
   });
 

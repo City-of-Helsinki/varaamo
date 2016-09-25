@@ -3,7 +3,7 @@ import Table from 'react-bootstrap/lib/Table';
 import { connect } from 'react-redux';
 
 import ResourcesTableItem from 'components/resource/ResourcesTableItem';
-import { getCurrentReservation, getNextReservation } from 'utils/resourceUtils';
+import { getCurrentReservation, getNextReservation } from 'utils/reservationUtils';
 
 export class UnconnectedResourcesTable extends Component {
   renderResourcesTableItem(resource) {

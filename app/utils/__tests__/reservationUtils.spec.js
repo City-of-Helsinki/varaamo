@@ -1,8 +1,15 @@
 import { expect } from 'chai';
+import moment from 'moment';
 
 import constants from 'constants/AppConstants';
 import Reservation from 'fixtures/Reservation';
-import { combine, isStaffEvent, getMissingValues } from 'utils/reservationUtils';
+import {
+  combine,
+  isStaffEvent,
+  getCurrentReservation,
+  getMissingValues,
+  getNextReservation,
+} from 'utils/reservationUtils';
 
 describe('Utils: reservationUtils', () => {
   describe('combine', () => {
@@ -121,6 +128,26 @@ describe('Utils: reservationUtils', () => {
     );
   });
 
+  describe('getCurrentReservation', () => {
+    const previousReservation = Reservation.build({}, { startTime: moment().subtract(1, 'days') });
+    const currentReservation = Reservation.build(
+      {},
+      { startTime: moment().subtract(20, 'minutes') }
+    );
+    const nextReservation = Reservation.build({}, { startTime: moment().add(2, 'hours') });
+    const lastReservation = Reservation.build({}, { startTime: moment().add(4, 'hours') });
+    const unorderedReservations = [
+      lastReservation,
+      previousReservation,
+      nextReservation,
+      currentReservation,
+    ];
+
+    it('returns the current reservation from a list of reservations', () => {
+      expect(getCurrentReservation(unorderedReservations)).to.deep.equal(currentReservation);
+    });
+  });
+
   describe('getMissingValues', () => {
     function getReservation(extraValues) {
       const defaults = {
@@ -154,6 +181,26 @@ describe('Utils: reservationUtils', () => {
           expect(actual).to.deep.equal(expected);
         });
       });
+    });
+  });
+
+  describe('getNextReservation', () => {
+    const previousReservation = Reservation.build({}, { startTime: moment().subtract(1, 'days') });
+    const currentReservation = Reservation.build(
+      {},
+      { startTime: moment().subtract(20, 'minutes') }
+    );
+    const nextReservation = Reservation.build({}, { startTime: moment().add(2, 'hours') });
+    const lastReservation = Reservation.build({}, { startTime: moment().add(4, 'hours') });
+    const unorderedReservations = [
+      lastReservation,
+      previousReservation,
+      nextReservation,
+      currentReservation,
+    ];
+
+    it('returns the next reservation from a list of reservations', () => {
+      expect(getNextReservation(unorderedReservations)).to.deep.equal(nextReservation);
     });
   });
 });

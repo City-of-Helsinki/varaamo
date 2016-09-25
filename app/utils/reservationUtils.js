@@ -1,9 +1,11 @@
 import camelCase from 'lodash/camelCase';
 import clone from 'lodash/clone';
+import find from 'lodash/find';
 import last from 'lodash/last';
 import some from 'lodash/some';
 import sortBy from 'lodash/sortBy';
 import tail from 'lodash/tail';
+import moment from 'moment';
 
 import constants from 'constants/AppConstants';
 
@@ -34,6 +36,13 @@ function isStaffEvent(reservation, resource) {
   ));
 }
 
+function getCurrentReservation(reservations) {
+  const now = moment();
+  return find(
+    reservations, reservation => moment(reservation.begin) < now && now < moment(reservation.end)
+  );
+}
+
 function getMissingValues(reservation) {
   const missingValues = {};
   constants.REQUIRED_STAFF_EVENT_FIELDS.forEach((field) => {
@@ -44,8 +53,16 @@ function getMissingValues(reservation) {
   return missingValues;
 }
 
+function getNextReservation(reservations) {
+  const now = moment();
+  const orderedReservations = sortBy(reservations, reservation => moment(reservation.begin));
+  return find(orderedReservations, reservation => now < moment(reservation.begin));
+}
+
 export {
   combine,
   isStaffEvent,
+  getCurrentReservation,
   getMissingValues,
+  getNextReservation,
 };
