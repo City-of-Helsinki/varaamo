@@ -3,15 +3,17 @@ import Table from 'react-bootstrap/lib/Table';
 import { connect } from 'react-redux';
 
 import ResourcesTableItem from 'components/resource/ResourcesTableItem';
+import { getReservations } from 'utils/resourceUtils';
 import { getCurrentReservation, getNextReservation } from 'utils/reservationUtils';
 
 export class UnconnectedResourcesTable extends Component {
   renderResourcesTableItem(resource) {
+    const reservations = getReservations(resource);
     return (
       <ResourcesTableItem
         key={resource.id}
-        currentReservation={getCurrentReservation(resource.reservations)}
-        nextReservation={getNextReservation(resource.reservations)}
+        currentReservation={getCurrentReservation(reservations)}
+        nextReservation={getNextReservation(reservations)}
         resource={resource}
       />
     );

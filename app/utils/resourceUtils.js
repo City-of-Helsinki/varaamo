@@ -16,7 +16,7 @@ function isOpenNow(resource) {
 
 function getAvailabilityDataForNow(resource = {}) {
   const { closes, opens } = getOpeningHours(resource);
-  const reservations = resource.reservations || [];
+  const reservations = getReservations(resource);
 
   if (!closes || !opens) {
     return { text: 'Suljettu', bsStyle: 'danger' };
@@ -48,7 +48,7 @@ function getAvailabilityDataForNow(resource = {}) {
 
 function getAvailabilityDataForWholeDay(resource = {}) {
   const { closes, opens } = getOpeningHours(resource);
-  const reservations = resource.reservations || [];
+  const reservations = getReservations(resource);
 
   if (!closes || !opens) {
     return { text: 'Suljettu', bsStyle: 'danger' };
@@ -58,14 +58,11 @@ function getAvailabilityDataForWholeDay(resource = {}) {
   const closesMoment = moment(closes);
   let total = closesMoment - opensMoment;
 
-  forEach(
-    filter(reservations, reservation => reservation.state !== 'cancelled'),
-    (reservation) => {
-      const resBeginMoment = moment(reservation.begin);
-      const resEndMoment = moment(reservation.end);
-      total = (total - resEndMoment) + resBeginMoment;
-    }
-  );
+  forEach(reservations, (reservation) => {
+    const resBeginMoment = moment(reservation.begin);
+    const resEndMoment = moment(reservation.end);
+    total = (total - resEndMoment) + resBeginMoment;
+  });
 
   const asHours = moment.duration(total).asHours();
   const rounded = Math.ceil(asHours * 2) / 2;

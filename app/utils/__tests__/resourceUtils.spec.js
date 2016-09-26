@@ -170,6 +170,34 @@ describe('Utils: resourceUtils', () => {
 
           expect(availabilityData).to.deep.equal(expected);
         });
+
+        it('works with cancelled and denied reservations', () => {
+          const openingHours = {
+            opens: '2015-10-10T12:00:00+03:00',
+            closes: '2015-10-10T18:00:00+03:00',
+          };
+          const reservations = [
+            {
+              begin: '2015-10-10T12:00:00+03:00',
+              end: '2015-10-10T14:00:00+03:00',
+              state: 'cancelled',
+            },
+            {
+              begin: '2015-10-10T12:00:00+03:00',
+              end: '2015-10-10T14:00:00+03:00',
+              state: 'denied',
+            },
+          ];
+          const resource = getResource(openingHours, reservations);
+          const availabilityData = getAvailabilityDataForNow(resource);
+          const expectedTime = moment(openingHours.opens);
+          const expected = {
+            text: `Vapautuu klo ${expectedTime.format(constants.TIME_FORMAT)}`,
+            bsStyle: 'danger',
+          };
+
+          expect(availabilityData).to.deep.equal(expected);
+        });
       });
     });
 
@@ -215,6 +243,30 @@ describe('Utils: resourceUtils', () => {
             text: `Vapautuu klo ${expectedTime.format(constants.TIME_FORMAT)}`,
             bsStyle: 'danger',
           };
+
+          expect(availabilityData).to.deep.equal(expected);
+        });
+
+        it('works with cancelled and denied reservations', () => {
+          const openingHours = {
+            opens: '2015-10-10T12:00:00+03:00',
+            closes: '2015-10-10T18:00:00+03:00',
+          };
+          const reservations = [
+            {
+              begin: '2015-10-10T14:00:00+03:00',
+              end: '2015-10-10T16:00:00+03:00',
+              state: 'cancelled',
+            },
+            {
+              begin: '2015-10-10T14:00:00+03:00',
+              end: '2015-10-10T16:00:00+03:00',
+              state: 'denied',
+            },
+          ];
+          const resource = getResource(openingHours, reservations);
+          const availabilityData = getAvailabilityDataForNow(resource);
+          const expected = { text: 'Heti vapaa', bsStyle: 'success' };
 
           expect(availabilityData).to.deep.equal(expected);
         });
@@ -308,6 +360,25 @@ describe('Utils: resourceUtils', () => {
             begin: '2015-10-10T13:00:00+03:00',
             end: '2015-10-10T14:00:00+03:00',
             state: 'cancelled',
+          },
+        ];
+        const resource = getResource(openingHours, reservations);
+        const availabilityData = getAvailabilityDataForWholeDay(resource);
+        const expected = { text: 'Vapaata 6 tuntia', bsStyle: 'success' };
+
+        expect(availabilityData).to.deep.equal(expected);
+      });
+
+      it('does not minus denied reservations from available time', () => {
+        const openingHours = {
+          opens: '2015-10-10T12:00:00+03:00',
+          closes: '2015-10-10T18:00:00+03:00',
+        };
+        const reservations = [
+          {
+            begin: '2015-10-10T13:00:00+03:00',
+            end: '2015-10-10T14:00:00+03:00',
+            state: 'denied',
           },
         ];
         const resource = getResource(openingHours, reservations);
