@@ -16,7 +16,7 @@ function isOpenNow(resource) {
 
 function getAvailabilityDataForNow(resource = {}) {
   const { closes, opens } = getOpeningHours(resource);
-  const reservations = getReservations(resource);
+  const reservations = getOpenReservations(resource);
 
   if (!closes || !opens) {
     return { text: 'Suljettu', bsStyle: 'danger' };
@@ -48,7 +48,7 @@ function getAvailabilityDataForNow(resource = {}) {
 
 function getAvailabilityDataForWholeDay(resource = {}) {
   const { closes, opens } = getOpeningHours(resource);
-  const reservations = getReservations(resource);
+  const reservations = getOpenReservations(resource);
 
   if (!closes || !opens) {
     return { text: 'Suljettu', bsStyle: 'danger' };
@@ -95,17 +95,17 @@ function getOpeningHours(resource) {
   return {};
 }
 
+function getOpenReservations(resource) {
+  return filter(resource.reservations, reservation => (
+    reservation.state !== 'cancelled' && reservation.state !== 'denied'
+  ));
+}
+
 function getPeopleCapacityString(capacity) {
   if (!capacity) {
     return '';
   }
   return `max ${capacity} hengelle.`;
-}
-
-function getReservations(resource) {
-  return filter(resource.reservations, reservation => (
-    reservation.state !== 'cancelled' && reservation.state !== 'denied'
-  ));
 }
 
 export {
@@ -114,6 +114,6 @@ export {
   getAvailabilityDataForWholeDay,
   getHumanizedPeriod,
   getOpeningHours,
+  getOpenReservations,
   getPeopleCapacityString,
-  getReservations,
 };

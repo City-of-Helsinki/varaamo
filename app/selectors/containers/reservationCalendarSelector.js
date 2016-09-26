@@ -9,7 +9,7 @@ import selectedReservationsSelector from 'selectors/selectedReservationsSelector
 import staffUnitsSelector from 'selectors/staffUnitsSelector';
 import modalIsOpenSelectorFactory from 'selectors/factories/modalIsOpenSelectorFactory';
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
-import { getOpeningHours, getReservations } from 'utils/resourceUtils';
+import { getOpeningHours, getOpenReservations } from 'utils/resourceUtils';
 import { getTimeSlots } from 'utils/timeUtils';
 import ModalTypes from 'constants/ModalTypes';
 
@@ -49,7 +49,7 @@ const reservationCalendarSelector = createSelector(
   ) => {
     const { closes, opens } = getOpeningHours(resource);
     const period = resource.minPeriod ? resource.minPeriod : undefined;
-    const reservations = getReservations(resource);
+    const reservations = getOpenReservations(resource);
     const timeSlots = getTimeSlots(opens, closes, period, reservations, reservationsToEdit);
 
     return {

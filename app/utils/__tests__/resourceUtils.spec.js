@@ -10,7 +10,7 @@ import {
   getHumanizedPeriod,
   getOpeningHours,
   getPeopleCapacityString,
-  getReservations,
+  getOpenReservations,
 } from 'utils/resourceUtils';
 
 describe('Utils: resourceUtils', () => {
@@ -496,11 +496,11 @@ describe('Utils: resourceUtils', () => {
     });
   });
 
-  describe('getReservations', () => {
+  describe('getOpenReservations', () => {
     it('returns resource reservations', () => {
       const resource = { reservations: [{ foo: 'bar' }] };
 
-      expect(getReservations(resource)).to.deep.equal(resource.reservations);
+      expect(getOpenReservations(resource)).to.deep.equal(resource.reservations);
     });
 
     it('does not return cancelled reservations', () => {
@@ -516,7 +516,7 @@ describe('Utils: resourceUtils', () => {
         { id: 4, state: 'something' },
       ];
 
-      expect(getReservations(resource)).to.deep.equal(expected);
+      expect(getOpenReservations(resource)).to.deep.equal(expected);
     });
 
     it('does not return denied reservations', () => {
@@ -532,7 +532,7 @@ describe('Utils: resourceUtils', () => {
         { id: 4, state: 'something' },
       ];
 
-      expect(getReservations(resource)).to.deep.equal(expected);
+      expect(getOpenReservations(resource)).to.deep.equal(expected);
     });
   });
 });
