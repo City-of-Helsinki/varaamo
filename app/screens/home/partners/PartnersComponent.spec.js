@@ -22,12 +22,6 @@ describe('screens/home/partners/PartnersComponent', () => {
     expect(component.prop('className')).to.equal('partners');
   });
 
-  it('has a title with correct name', () => {
-    const header = component.find('h3');
-    expect(header).to.have.length(1);
-    expect(header.text()).to.equal('Varaamossa mukana');
-  });
-
   describe('partners images', () => {
     let images;
 
