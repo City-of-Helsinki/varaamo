@@ -10,6 +10,7 @@ import {
   getHumanizedPeriod,
   getOpeningHours,
   getPeopleCapacityString,
+  getOpenReservations,
 } from 'utils/resourceUtils';
 
 describe('Utils: resourceUtils', () => {
@@ -169,6 +170,34 @@ describe('Utils: resourceUtils', () => {
 
           expect(availabilityData).to.deep.equal(expected);
         });
+
+        it('works with cancelled and denied reservations', () => {
+          const openingHours = {
+            opens: '2015-10-10T12:00:00+03:00',
+            closes: '2015-10-10T18:00:00+03:00',
+          };
+          const reservations = [
+            {
+              begin: '2015-10-10T12:00:00+03:00',
+              end: '2015-10-10T14:00:00+03:00',
+              state: 'cancelled',
+            },
+            {
+              begin: '2015-10-10T12:00:00+03:00',
+              end: '2015-10-10T14:00:00+03:00',
+              state: 'denied',
+            },
+          ];
+          const resource = getResource(openingHours, reservations);
+          const availabilityData = getAvailabilityDataForNow(resource);
+          const expectedTime = moment(openingHours.opens);
+          const expected = {
+            text: `Vapautuu klo ${expectedTime.format(constants.TIME_FORMAT)}`,
+            bsStyle: 'danger',
+          };
+
+          expect(availabilityData).to.deep.equal(expected);
+        });
       });
     });
 
@@ -214,6 +243,30 @@ describe('Utils: resourceUtils', () => {
             text: `Vapautuu klo ${expectedTime.format(constants.TIME_FORMAT)}`,
             bsStyle: 'danger',
           };
+
+          expect(availabilityData).to.deep.equal(expected);
+        });
+
+        it('works with cancelled and denied reservations', () => {
+          const openingHours = {
+            opens: '2015-10-10T12:00:00+03:00',
+            closes: '2015-10-10T18:00:00+03:00',
+          };
+          const reservations = [
+            {
+              begin: '2015-10-10T14:00:00+03:00',
+              end: '2015-10-10T16:00:00+03:00',
+              state: 'cancelled',
+            },
+            {
+              begin: '2015-10-10T14:00:00+03:00',
+              end: '2015-10-10T16:00:00+03:00',
+              state: 'denied',
+            },
+          ];
+          const resource = getResource(openingHours, reservations);
+          const availabilityData = getAvailabilityDataForNow(resource);
+          const expected = { text: 'Heti vapaa', bsStyle: 'success' };
 
           expect(availabilityData).to.deep.equal(expected);
         });
@@ -307,6 +360,25 @@ describe('Utils: resourceUtils', () => {
             begin: '2015-10-10T13:00:00+03:00',
             end: '2015-10-10T14:00:00+03:00',
             state: 'cancelled',
+          },
+        ];
+        const resource = getResource(openingHours, reservations);
+        const availabilityData = getAvailabilityDataForWholeDay(resource);
+        const expected = { text: 'Vapaata 6 tuntia', bsStyle: 'success' };
+
+        expect(availabilityData).to.deep.equal(expected);
+      });
+
+      it('does not minus denied reservations from available time', () => {
+        const openingHours = {
+          opens: '2015-10-10T12:00:00+03:00',
+          closes: '2015-10-10T18:00:00+03:00',
+        };
+        const reservations = [
+          {
+            begin: '2015-10-10T13:00:00+03:00',
+            end: '2015-10-10T14:00:00+03:00',
+            state: 'denied',
           },
         ];
         const resource = getResource(openingHours, reservations);
@@ -421,6 +493,46 @@ describe('Utils: resourceUtils', () => {
       const expected = `max ${capacity} hengelle.`;
 
       expect(capacityString).to.equal(expected);
+    });
+  });
+
+  describe('getOpenReservations', () => {
+    it('returns resource reservations', () => {
+      const resource = { reservations: [{ foo: 'bar' }] };
+
+      expect(getOpenReservations(resource)).to.deep.equal(resource.reservations);
+    });
+
+    it('does not return cancelled reservations', () => {
+      const reservations = [
+        { id: 1, state: 'cancelled' },
+        { id: 2, state: 'confirmed' },
+        { id: 3, state: 'cancelled' },
+        { id: 4, state: 'something' },
+      ];
+      const resource = { reservations };
+      const expected = [
+        { id: 2, state: 'confirmed' },
+        { id: 4, state: 'something' },
+      ];
+
+      expect(getOpenReservations(resource)).to.deep.equal(expected);
+    });
+
+    it('does not return denied reservations', () => {
+      const reservations = [
+        { id: 1, state: 'denied' },
+        { id: 2, state: 'confirmed' },
+        { id: 3, state: 'denied' },
+        { id: 4, state: 'something' },
+      ];
+      const resource = { reservations };
+      const expected = [
+        { id: 2, state: 'confirmed' },
+        { id: 4, state: 'something' },
+      ];
+
+      expect(getOpenReservations(resource)).to.deep.equal(expected);
     });
   });
 });
