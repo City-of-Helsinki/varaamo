@@ -3,6 +3,7 @@ import MockDate from 'mockdate';
 
 import {
   isOpenNow,
+  getAvailabilityDataForNow,
   getAvailabilityDataForWholeDay,
   getHumanizedPeriod,
   getOpeningHours,
@@ -92,6 +93,138 @@ describe('Utils: resourceUtils', () => {
 
       it('returns false', () => {
         expect(isOpenNow(resource)).to.equal(false);
+      });
+    });
+  });
+
+  describe('getAvailabilityDataForNow', () => {
+    function getResource(openingHours = {}, reservations = []) {
+      return { openingHours: [openingHours], reservations };
+    }
+
+    describe('if openingHours are missing', () => {
+      it('returns correct data', () => {
+        const openingHours = {};
+        const resource = getResource(openingHours);
+        const availabilityData = getAvailabilityDataForWholeDay(resource);
+        const expected = { text: 'Suljettu', bsStyle: 'danger' };
+
+        expect(availabilityData).to.deep.equal(expected);
+      });
+    });
+
+    describe('if current time is before opening time', () => {
+      beforeEach(() => {
+        MockDate.set('2015-10-10T10:00:00+03:00');
+      });
+
+      afterEach(() => {
+        MockDate.reset();
+      });
+
+      describe('if there are no reservations when the resource opens', () => {
+        it('returns the time when the resource opens', () => {
+          const openingHours = {
+            opens: '2015-10-10T12:00:00+03:00',
+            closes: '2015-10-10T18:00:00+03:00',
+          };
+          const reservations = [];
+          const resource = getResource(openingHours, reservations);
+          const availabilityData = getAvailabilityDataForNow(resource);
+          const expected = { text: 'Vapautuu klo 12:00', bsStyle: 'danger' };
+
+          expect(availabilityData).to.deep.equal(expected);
+        });
+      });
+
+      describe('if there are reservations when the resource opens', () => {
+        it('returns the first available time', () => {
+          const openingHours = {
+            opens: '2015-10-10T12:00:00+03:00',
+            closes: '2015-10-10T18:00:00+03:00',
+          };
+          const reservations = [
+            {
+              begin: '2015-10-10T12:00:00+03:00',
+              end: '2015-10-10T14:00:00+03:00',
+            },
+            {
+              begin: '2015-10-10T16:00:00+03:00',
+              end: '2015-10-10T16:30:00+03:00',
+            },
+          ];
+          const resource = getResource(openingHours, reservations);
+          const availabilityData = getAvailabilityDataForNow(resource);
+          const expected = { text: 'Vapautuu klo 14:00', bsStyle: 'danger' };
+
+          expect(availabilityData).to.deep.equal(expected);
+        });
+      });
+    });
+
+    describe('if current time is between opening hours', () => {
+      beforeEach(() => {
+        MockDate.set('2015-10-10T15:00:00+03:00');
+      });
+
+      afterEach(() => {
+        MockDate.reset();
+      });
+
+      describe('if there is no ongoing reservation', () => {
+        it('returns data telling the resource is available', () => {
+          const openingHours = {
+            opens: '2015-10-10T12:00:00+03:00',
+            closes: '2015-10-10T18:00:00+03:00',
+          };
+          const resource = getResource(openingHours, []);
+          const availabilityData = getAvailabilityDataForNow(resource);
+          const expected = { text: 'Heti vapaa', bsStyle: 'success' };
+
+          expect(availabilityData).to.deep.equal(expected);
+        });
+      });
+
+      describe('if there is an ongoing reservation', () => {
+        it('returns the next available time', () => {
+          const openingHours = {
+            opens: '2015-10-10T12:00:00+03:00',
+            closes: '2015-10-10T18:00:00+03:00',
+          };
+          const reservations = [
+            {
+              begin: '2015-10-10T14:00:00+03:00',
+              end: '2015-10-10T16:00:00+03:00',
+            },
+          ];
+          const resource = getResource(openingHours, reservations);
+          const availabilityData = getAvailabilityDataForNow(resource);
+          const expected = { text: 'Vapautuu klo 16:00', bsStyle: 'danger' };
+
+          expect(availabilityData).to.deep.equal(expected);
+        });
+      });
+    });
+
+    describe('if current time is after openingHours.closes', () => {
+      beforeEach(() => {
+        MockDate.set('2015-10-10T22:00:00+03:00');
+      });
+
+      afterEach(() => {
+        MockDate.reset();
+      });
+
+      it('returns correct availability data', () => {
+        const openingHours = {
+          opens: '2015-10-10T12:00:00+03:00',
+          closes: '2015-10-10T18:00:00+03:00',
+        };
+        const resource = getResource(openingHours, []);
+        const availabilityData = getAvailabilityDataForNow(resource);
+        const expected = { text: 'Suljettu', bsStyle: 'danger' };
+
+        expect(availabilityData).to.deep.equal(expected);
       });
     });
   });
