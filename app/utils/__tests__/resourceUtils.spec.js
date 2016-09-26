@@ -1,6 +1,8 @@
 import { expect } from 'chai';
 import MockDate from 'mockdate';
+import moment from 'moment';
 
+import constants from 'constants/AppConstants';
 import {
   isOpenNow,
   getAvailabilityDataForNow,
@@ -131,7 +133,11 @@ describe('Utils: resourceUtils', () => {
           const reservations = [];
           const resource = getResource(openingHours, reservations);
           const availabilityData = getAvailabilityDataForNow(resource);
-          const expected = { text: 'Vapautuu klo 12:00', bsStyle: 'danger' };
+          const expectedTime = moment(openingHours.opens);
+          const expected = {
+            text: `Vapautuu klo ${expectedTime.format(constants.TIME_FORMAT)}`,
+            bsStyle: 'danger',
+          };
 
           expect(availabilityData).to.deep.equal(expected);
         });
@@ -155,7 +161,11 @@ describe('Utils: resourceUtils', () => {
           ];
           const resource = getResource(openingHours, reservations);
           const availabilityData = getAvailabilityDataForNow(resource);
-          const expected = { text: 'Vapautuu klo 14:00', bsStyle: 'danger' };
+          const expectedTime = moment(reservations[0].end);
+          const expected = {
+            text: `Vapautuu klo ${expectedTime.format(constants.TIME_FORMAT)}`,
+            bsStyle: 'danger',
+          };
 
           expect(availabilityData).to.deep.equal(expected);
         });
@@ -199,7 +209,11 @@ describe('Utils: resourceUtils', () => {
           ];
           const resource = getResource(openingHours, reservations);
           const availabilityData = getAvailabilityDataForNow(resource);
-          const expected = { text: 'Vapautuu klo 16:00', bsStyle: 'danger' };
+          const expectedTime = moment(reservations[0].end);
+          const expected = {
+            text: `Vapautuu klo ${expectedTime.format(constants.TIME_FORMAT)}`,
+            bsStyle: 'danger',
+          };
 
           expect(availabilityData).to.deep.equal(expected);
         });
