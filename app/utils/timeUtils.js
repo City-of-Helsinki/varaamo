@@ -92,9 +92,20 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = [], reserv
   return slots;
 }
 
+function prettifyHours(hours, showMinutes = false) {
+  if (showMinutes && hours < 0.5) {
+    const minutes = moment.duration(hours, 'hours').minutes();
+    return `${minutes} min`;
+  }
+
+  const rounded = Math.ceil(hours * 2) / 2;
+  return `${rounded}h`;
+}
+
 export {
   addToDate,
   getDateStartAndEndTimes,
   getDateString,
   getTimeSlots,
+  prettifyHours,
 };

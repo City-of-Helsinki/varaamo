@@ -113,7 +113,7 @@ describe('Component: reservation/ResourcesTableItem', () => {
             const customWrapper = getWrapper({ resource: openResource });
             expect(customWrapper.find('.resource-table-row.availability')).to.have.length(1);
             expect(customWrapper.find('.resource-table-row.availability').prop('children'))
-              .to.equal('2.0h heti');
+              .to.equal('2h heti');
           });
 
           it('reservation range tr exists and is empty', () => {
@@ -145,7 +145,7 @@ describe('Component: reservation/ResourcesTableItem', () => {
               });
 
               it('contains the amount of availability time', () => {
-                expect(tdComponent.prop('children')).to.equal('2.0h heti');
+                expect(tdComponent.prop('children')).to.equal('2h heti');
               });
             });
           } else {

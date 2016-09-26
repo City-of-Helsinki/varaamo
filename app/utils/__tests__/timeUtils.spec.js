@@ -8,6 +8,7 @@ import {
   getDateStartAndEndTimes,
   getDateString,
   getTimeSlots,
+  prettifyHours,
 } from 'utils/timeUtils';
 
 describe('Utils: timeUtils', () => {
@@ -315,6 +316,38 @@ describe('Utils: timeUtils', () => {
           expect(slots[2].editing).to.equal(false);
           expect(slots[3].editing).to.equal(true);
         });
+      });
+    });
+  });
+
+  describe('prettifyHours', () => {
+    describe('if hours is less than 0.5', () => {
+      const hours = 0.3;
+
+      describe('if showMinutes is true', () => {
+        const showMinutes = true;
+
+        it('returns the number of minutes left', () => {
+          const expected = `${0.3 * 60} min`;
+
+          expect(prettifyHours(hours, showMinutes)).to.equal(expected);
+        });
+      });
+
+      describe('if showMinutes is false', () => {
+        const showMinutes = false;
+
+        it('returns the number of hours rounded to half an hour', () => {
+          expect(prettifyHours(hours, showMinutes)).to.equal('0.5h');
+        });
+      });
+    });
+
+    describe('if hours is more than 0.5', () => {
+      const hours = 2.3;
+
+      it('returns the number of hours rounded to half an hour', () => {
+        expect(prettifyHours(hours)).to.equal('2.5h');
       });
     });
   });
