@@ -19,7 +19,7 @@ class Navbar extends Component {
   }
 
   renderUserNav() {
-    const { isAdmin, isLoggedIn, user } = this.props;
+    const { isLoggedIn, user } = this.props;
     let name;
     if (user.firstName || user.lastName) {
       name = trim([user.firstName, user.lastName].join(' '));
@@ -30,15 +30,6 @@ class Navbar extends Component {
     if (isLoggedIn) {
       return (
         <NavDropdown id="collapsible-navbar-dropdown" title={name}>
-          <LinkContainer to="/my-reservations">
-            <MenuItem>Omat varaukset</MenuItem>
-          </LinkContainer>
-          {isAdmin && (
-            <LinkContainer to="/admin-resources">
-              <MenuItem>Omat tilat</MenuItem>
-            </LinkContainer>
-          )}
-          <MenuItem divider />
           <MenuItem href={`/logout?next=${window.location.origin}`}>
             Kirjaudu ulos
           </MenuItem>
@@ -52,7 +43,7 @@ class Navbar extends Component {
   }
 
   render() {
-    const { clearSearchResults } = this.props;
+    const { isAdmin, isLoggedIn, clearSearchResults } = this.props;
 
     return (
       <RBNavbar inverse>
@@ -74,6 +65,16 @@ class Navbar extends Component {
             </LinkContainer>
           </Nav>
           <Nav navbar pullRight>
+            {isAdmin && (
+              <LinkContainer to="/admin-resources">
+                <MenuItem>Omat tilat</MenuItem>
+              </LinkContainer>
+            )}
+            {isLoggedIn && (
+              <LinkContainer to="/my-reservations">
+                <MenuItem>Omat varaukset</MenuItem>
+              </LinkContainer>
+            )}
             {this.renderUserNav()}
           </Nav>
         </RBNavbar.Collapse>
