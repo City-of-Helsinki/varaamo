@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 
 import FeedbackLink from 'components/customization/FeedbackLink';
 import FooterContent from 'components/customization/FooterContent';
-import * as customizationUtils from 'utils/CustomizationUtils';
+import * as customizationUtils from 'utils/customizationUtils';
 
 describe('Component: customization/FooterContent', () => {
   function getWrapper() {

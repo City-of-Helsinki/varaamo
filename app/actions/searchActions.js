@@ -9,8 +9,8 @@ import {
   getHeadersCreator,
   getRequestTypeDescriptor,
   getSuccessTypeDescriptor,
-} from 'utils/APIUtils';
-import { getFetchParamsFromFilters } from 'utils/SearchUtils';
+} from 'utils/apiUtils';
+import { getFetchParamsFromFilters } from 'utils/searchUtils';
 
 const clearSearchResults = createAction(types.UI.CLEAR_SEARCH_RESULTS);
 

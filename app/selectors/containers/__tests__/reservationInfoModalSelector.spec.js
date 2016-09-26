@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 import reservationInfoModalSelector from 'selectors/containers/reservationInfoModalSelector';
-import { getDefaultRouterProps, getInitialState } from 'utils/TestUtils';
+import { getDefaultRouterProps, getInitialState } from 'utils/testUtils';
 
 describe('Selector: reservationInfoModalSelector', () => {
   const state = getInitialState();

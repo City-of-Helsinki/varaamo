@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import FeedbackLink from 'components/customization/FeedbackLink';
-import { getCurrentCustomization } from 'utils/CustomizationUtils';
+import { getCurrentCustomization } from 'utils/customizationUtils';
 
 class AboutPageContent extends Component {
   render() {

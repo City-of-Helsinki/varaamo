@@ -11,8 +11,8 @@ import selectedReservationsSelector from 'selectors/selectedReservationsSelector
 import staffUnitsSelector from 'selectors/staffUnitsSelector';
 import modalIsOpenSelectorFactory from 'selectors/factories/modalIsOpenSelectorFactory';
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
-import { getOpeningHours } from 'utils/DataUtils';
-import { getTimeSlots } from 'utils/TimeUtils';
+import { getOpeningHours } from 'utils/resourceUtils';
+import { getTimeSlots } from 'utils/timeUtils';
 import ModalTypes from 'constants/ModalTypes';
 
 const idSelector = (state, props) => props.params.id;

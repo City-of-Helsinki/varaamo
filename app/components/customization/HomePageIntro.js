@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { getCurrentCustomization } from 'utils/CustomizationUtils';
+import { getCurrentCustomization } from 'utils/customizationUtils';
 
 class HomePageIntro extends Component {
   render() {

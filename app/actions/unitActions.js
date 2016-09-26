@@ -8,7 +8,7 @@ import {
   getHeadersCreator,
   getRequestTypeDescriptor,
   getSuccessTypeDescriptor,
-} from 'utils/APIUtils';
+} from 'utils/apiUtils';
 
 function fetchUnits() {
   const fetchParams = { pageSize: 100 };

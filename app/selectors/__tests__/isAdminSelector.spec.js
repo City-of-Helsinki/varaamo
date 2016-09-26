@@ -3,7 +3,7 @@ import Immutable from 'seamless-immutable';
 
 import User from 'fixtures/User';
 import isAdminSelector from 'selectors/isAdminSelector';
-import { getInitialState } from 'utils/TestUtils';
+import { getInitialState } from 'utils/testUtils';
 
 function getState(user) {
   return {

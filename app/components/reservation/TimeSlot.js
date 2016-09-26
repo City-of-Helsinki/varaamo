@@ -6,7 +6,7 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import Label from 'react-bootstrap/lib/Label';
 
 import ReservationControls from 'containers/ReservationControls';
-import { scrollTo } from 'utils/DOMUtils';
+import { scrollTo } from 'utils/domUtils';
 
 class TimeSlot extends Component {
   constructor(props) {

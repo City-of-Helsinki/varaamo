@@ -13,12 +13,9 @@ import { closeReservationInfoModal } from 'actions/uiActions';
 import { putReservation } from 'actions/reservationActions';
 import TimeRange from 'components/common/TimeRange';
 import reservationInfoModalSelector from 'selectors/containers/reservationInfoModalSelector';
-import {
-  isStaffEvent,
-  getMissingReservationValues,
-  getName,
-} from 'utils/DataUtils';
+import { isStaffEvent, getMissingValues } from 'utils/reservationUtils';
 import { renderReservationStateLabel } from 'utils/renderUtils';
+import { getName } from 'utils/translationUtils';
 
 export class UnconnectedReservationInfoModal extends Component {
   constructor(props) {
@@ -42,7 +39,7 @@ export class UnconnectedReservationInfoModal extends Component {
     }
     const resource = reservation ? resources[reservationsToShow[0].resource] : {};
     const staffEvent = isStaffEvent(reservation, resource);
-    const missingValues = getMissingReservationValues(reservation);
+    const missingValues = getMissingValues(reservation);
     const comments = findDOMNode(this.refs.commentsInput).value;
     actions.putReservation(Object.assign(
       {},

@@ -4,7 +4,7 @@ import React from 'react';
 import simple from 'simple-mock';
 
 import AboutPageContent from 'components/customization/AboutPageContent';
-import * as customizationUtils from 'utils/CustomizationUtils';
+import * as customizationUtils from 'utils/customizationUtils';
 
 describe('Component: customization/AboutPageContent', () => {
   function getWrapper() {

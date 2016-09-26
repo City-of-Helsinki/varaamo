@@ -3,7 +3,7 @@ import values from 'lodash/values';
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 
-import { getName } from 'utils/DataUtils';
+import { getName } from 'utils/translationUtils';
 
 const purposesSelector = (state) => state.data.purposes;
 

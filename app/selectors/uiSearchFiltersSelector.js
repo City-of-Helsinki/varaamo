@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
 import constants from 'constants/AppConstants';
-import { getDateString } from 'utils/TimeUtils';
+import { getDateString } from 'utils/timeUtils';
 
 const filtersSelector = (state) => state.ui.search.filters;
 

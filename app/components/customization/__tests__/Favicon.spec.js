@@ -4,7 +4,7 @@ import React from 'react';
 import simple from 'simple-mock';
 
 import Favicon from 'components/customization/Favicon';
-import * as customizationUtils from 'utils/CustomizationUtils';
+import * as customizationUtils from 'utils/customizationUtils';
 
 import espooFavicon from 'assets/images/espoo-favicon.ico';
 import helsinkiFavicon from 'assets/images/helsinki-favicon.ico';

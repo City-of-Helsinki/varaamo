@@ -3,7 +3,7 @@ import React from 'react';
 import sd from 'skin-deep';
 
 import NotFoundPage from 'containers/NotFoundPage';
-import { getSearchPageUrl } from 'utils/SearchUtils';
+import { getSearchPageUrl } from 'utils/searchUtils';
 
 describe('Container: NotFoundPage', () => {
   const props = {};

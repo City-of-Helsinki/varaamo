@@ -3,7 +3,7 @@ import { findDOMNode } from 'react-dom';
 import Loader from 'react-loader';
 
 import ResourceList from 'screens/shared/resource-list';
-import { scrollTo } from 'utils/DOMUtils';
+import { scrollTo } from 'utils/domUtils';
 
 class SearchResults extends Component {
   componentDidMount() {

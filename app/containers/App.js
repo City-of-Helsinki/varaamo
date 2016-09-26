@@ -12,7 +12,7 @@ import Footer from 'screens/layout/Footer';
 import Navbar from 'screens/layout/Navbar';
 import Notifications from 'containers/Notifications';
 import appSelector from 'selectors/containers/appSelector';
-import { getCustomizationClassName } from 'utils/CustomizationUtils';
+import { getCustomizationClassName } from 'utils/customizationUtils';
 
 export class UnconnectedApp extends Component {
   componentDidMount() {

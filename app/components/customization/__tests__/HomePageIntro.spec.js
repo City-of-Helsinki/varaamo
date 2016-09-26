@@ -4,7 +4,7 @@ import React from 'react';
 import simple from 'simple-mock';
 
 import HomePageIntro from 'components/customization/HomePageIntro';
-import * as customizationUtils from 'utils/CustomizationUtils';
+import * as customizationUtils from 'utils/customizationUtils';
 
 describe('Component: customization/HomePageIntro', () => {
   function getWrapper() {
