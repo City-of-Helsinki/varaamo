@@ -6,6 +6,7 @@ import { getMainImage } from 'utils/imageUtils';
 import { getHumanizedPeriod } from 'utils/resourceUtils';
 import { getName } from 'utils/translationUtils';
 import ReserveButton from './ReserveButton';
+import ResourceAvailability from './ResourceAvailability';
 
 class ResourceListItem extends Component {
   getBackgroundImageStyles(image) {
@@ -36,7 +37,9 @@ class ResourceListItem extends Component {
         <div
           className="image-container"
           style={this.getBackgroundImageStyles(getMainImage(resource.images))}
-        />
+        >
+          <ResourceAvailability date={date} resource={resource} />
+        </div>
         <div className="content">
           <div className="icons">
             {this.renderIcon('user', resource.peopleCapacity)}
