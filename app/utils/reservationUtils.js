@@ -53,6 +53,17 @@ function getMissingValues(reservation) {
   return missingValues;
 }
 
+function getNextAvailableTime(reservations, fromMoment = moment()) {
+  const combinedReservations = combine(reservations);
+  if (!combinedReservations.length || fromMoment < moment(combinedReservations[0].begin)) {
+    return fromMoment;
+  }
+  const ongoingReservation = find(combinedReservations, reservation => (
+    moment(reservation.begin) <= fromMoment && fromMoment < moment(reservation.end)
+  ));
+  return ongoingReservation ? moment(ongoingReservation.end) : fromMoment;
+}
+
 function getNextReservation(reservations) {
   const now = moment();
   const orderedReservations = sortBy(reservations, reservation => moment(reservation.begin));
@@ -64,5 +75,6 @@ export {
   isStaffEvent,
   getCurrentReservation,
   getMissingValues,
+  getNextAvailableTime,
   getNextReservation,
 };

@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import MockDate from 'mockdate';
 import moment from 'moment';
 
 import constants from 'constants/AppConstants';
@@ -8,6 +9,7 @@ import {
   isStaffEvent,
   getCurrentReservation,
   getMissingValues,
+  getNextAvailableTime,
   getNextReservation,
 } from 'utils/reservationUtils';
 
@@ -179,6 +181,89 @@ describe('Utils: reservationUtils', () => {
           const expected = { [field]: '-' };
 
           expect(actual).to.deep.equal(expected);
+        });
+      });
+    });
+  });
+
+  describe('getNextAvailableTime', () => {
+    describe('if there are no reservations', () => {
+      const reservations = [];
+
+      it('returns the fromMoment given in function arguments', () => {
+        const fromMoment = moment();
+
+        expect(getNextAvailableTime(reservations, fromMoment)).to.equal(fromMoment);
+      });
+
+      it('returns current time if fromMoment is not given', () => {
+        const mockTime = '2015-10-10T10:00:00+03:00';
+        MockDate.set(mockTime);
+        expect(getNextAvailableTime(reservations).isSame(mockTime)).to.equal(true);
+        MockDate.reset();
+      });
+    });
+
+    describe('if there are reservations', () => {
+      const reservations = [
+        {
+          begin: '2015-10-10T12:00:00+03:00',
+          end: '2015-10-10T14:00:00+03:00',
+        },
+        {
+          begin: '2015-10-10T16:00:00+03:00',
+          end: '2015-10-10T17:00:00+03:00',
+        },
+        {
+          begin: '2015-10-10T17:00:00+03:00',
+          end: '2015-10-10T18:00:00+03:00',
+        },
+      ];
+
+      describe('if the fromMoment is before all of the reservations', () => {
+        const fromMoment = moment('2015-10-10T10:00:00+03:00');
+
+        it('returns the fromMoment', () => {
+          const nextAvailableTime = getNextAvailableTime(reservations, fromMoment);
+          expect(nextAvailableTime).to.equal(fromMoment);
+        });
+      });
+
+      describe('if the fromMoment is during one ongoing reservations', () => {
+        const fromMoment = moment('2015-10-10T13:00:00+03:00');
+
+        it('returns the end moment of the ongoing reservation', () => {
+          const nextAvailableTime = getNextAvailableTime(reservations, fromMoment);
+          const expected = '2015-10-10T14:00:00+03:00';
+          expect(nextAvailableTime.isSame(expected)).to.equal(true);
+        });
+      });
+
+      describe('if the fromMoment is during multiple ongoing reservations', () => {
+        const fromMoment = moment('2015-10-10T16:30:00+03:00');
+
+        it('returns the end moment of the last ongoing reservation', () => {
+          const nextAvailableTime = getNextAvailableTime(reservations, fromMoment);
+          const expected = '2015-10-10T18:00:00+03:00';
+          expect(nextAvailableTime.isSame(expected)).to.equal(true);
+        });
+      });
+
+      describe('if the fromMoment is between reservations', () => {
+        const fromMoment = moment('2015-10-10T15:00:00+03:00');
+
+        it('returns the fromMoment', () => {
+          const nextAvailableTime = getNextAvailableTime(reservations, fromMoment);
+          expect(nextAvailableTime).to.equal(fromMoment);
+        });
+      });
+
+      describe('if the fromMoment is after all of the reservations', () => {
+        const fromMoment = moment('2015-10-10T20:00:00+03:00');
+
+        it('returns the fromMoment', () => {
+          const nextAvailableTime = getNextAvailableTime(reservations, fromMoment);
+          expect(nextAvailableTime).to.equal(fromMoment);
         });
       });
     });
