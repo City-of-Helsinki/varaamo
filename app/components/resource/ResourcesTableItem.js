@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 
 import TimeRange from 'components/common/TimeRange';
 import { getOpeningHours } from 'utils/resourceUtils';
+import { prettifyHours } from 'utils/timeUtils';
 
 class ResourcesTableItem extends Component {
   getReserverName(reservation) {
@@ -17,10 +18,11 @@ class ResourcesTableItem extends Component {
   }
 
   getAvailableTime(untilDate) {
-    const availableTime = moment(untilDate).diff(moment(), 'hours', true).toFixed(1);
+    const availableHours = moment(untilDate).diff(moment(), 'hours', true);
+    const availableTime = prettifyHours(availableHours, true);
     return (
       <td className="resource-table-row availability">
-        {`${availableTime}h heti`}
+        {`${availableTime} heti`}
       </td>
     );
   }
