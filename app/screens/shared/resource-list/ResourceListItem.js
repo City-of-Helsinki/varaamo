@@ -34,12 +34,17 @@ class ResourceListItem extends Component {
 
     return (
       <li className="resource-list-item">
-        <div
-          className="image-container"
-          style={this.getBackgroundImageStyles(getMainImage(resource.images))}
+        <Link
+          to={`/resources/${resource.id}`}
+          query={{ date: date.split('T')[0] }}
         >
-          <ResourceAvailability date={date} resource={resource} />
-        </div>
+          <div
+            className="image-container"
+            style={this.getBackgroundImageStyles(getMainImage(resource.images))}
+          >
+            <ResourceAvailability date={date} resource={resource} />
+          </div>
+        </Link>
         <div className="content">
           <div className="icons">
             {this.renderIcon('user', resource.peopleCapacity)}
