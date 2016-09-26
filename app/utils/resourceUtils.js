@@ -105,6 +105,12 @@ function getPeopleCapacityString(capacity) {
   return `max ${capacity} hengelle.`;
 }
 
+function getReservations(resource) {
+  return filter(resource.reservations, reservation => (
+    reservation.state !== 'cancelled' && reservation.state !== 'denied'
+  ));
+}
+
 export {
   isOpenNow,
   getAvailabilityDataForNow,
@@ -112,4 +118,5 @@ export {
   getHumanizedPeriod,
   getOpeningHours,
   getPeopleCapacityString,
+  getReservations,
 };

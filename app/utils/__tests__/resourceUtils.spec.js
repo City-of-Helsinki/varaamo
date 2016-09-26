@@ -10,6 +10,7 @@ import {
   getHumanizedPeriod,
   getOpeningHours,
   getPeopleCapacityString,
+  getReservations,
 } from 'utils/resourceUtils';
 
 describe('Utils: resourceUtils', () => {
@@ -421,6 +422,46 @@ describe('Utils: resourceUtils', () => {
       const expected = `max ${capacity} hengelle.`;
 
       expect(capacityString).to.equal(expected);
+    });
+  });
+
+  describe('getReservations', () => {
+    it('returns resource reservations', () => {
+      const resource = { reservations: [{ foo: 'bar' }] };
+
+      expect(getReservations(resource)).to.deep.equal(resource.reservations);
+    });
+
+    it('does not return cancelled reservations', () => {
+      const reservations = [
+        { id: 1, state: 'cancelled' },
+        { id: 2, state: 'confirmed' },
+        { id: 3, state: 'cancelled' },
+        { id: 4, state: 'something' },
+      ];
+      const resource = { reservations };
+      const expected = [
+        { id: 2, state: 'confirmed' },
+        { id: 4, state: 'something' },
+      ];
+
+      expect(getReservations(resource)).to.deep.equal(expected);
+    });
+
+    it('does not return denied reservations', () => {
+      const reservations = [
+        { id: 1, state: 'denied' },
+        { id: 2, state: 'confirmed' },
+        { id: 3, state: 'denied' },
+        { id: 4, state: 'something' },
+      ];
+      const resource = { reservations };
+      const expected = [
+        { id: 2, state: 'confirmed' },
+        { id: 4, state: 'something' },
+      ];
+
+      expect(getReservations(resource)).to.deep.equal(expected);
     });
   });
 });
