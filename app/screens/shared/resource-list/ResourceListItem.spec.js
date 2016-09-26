@@ -38,18 +38,18 @@ describe('screens/shared/resource-list/ResourceListItem', () => {
     expect(imageContainer.props().style.backgroundImage).to.contain(resourceImage.url);
   });
 
-  it('contains a link to resources page', () => {
-    const link = getWrapper().find(Link);
+  it('contains links to resources page', () => {
+    const links = getWrapper().find(Link);
 
-    expect(link.length).to.equal(1);
-    expect(link.props().to).to.contain('resources');
+    expect(links.length).to.equal(2);
+    expect(links.at(0).props().to).to.contain('resources');
   });
 
-  it('renders the name of the resource inside the link', () => {
-    const link = getWrapper().find(Link);
+  it('renders the name of the resource inside a h4 header', () => {
+    const header = getWrapper().find('h4');
     const expected = defaultProps.resource.name.fi;
 
-    expect(link.html()).to.contain(expected);
+    expect(header.html()).to.contain(expected);
   });
 
   it('renders the name of the given unit in props', () => {
