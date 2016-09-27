@@ -1,12 +1,12 @@
 import isEqual from 'lodash/isEqual';
 import React, { Component, PropTypes } from 'react';
-import DocumentTitle from 'react-document-title';
 import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { searchResources } from 'actions/searchActions';
 import { fetchUnits } from 'actions/unitActions';
+import PageWrapper from 'screens/layout/PageWrapper';
 import DateHeader from 'screens/shared/date-header';
 import { scrollTo } from 'utils/domUtils';
 import SearchControls from './controls/SearchControls';
@@ -52,28 +52,26 @@ export class UnconnectedSearchPage extends Component {
     } = this.props;
 
     return (
-      <DocumentTitle title="Haku - Varaamo">
-        <div className="search-page">
-          <h1>Haku</h1>
-          <SearchControls
-            location={location}
-            params={params}
-            scrollToSearchResults={this.scrollToSearchResults}
+      <PageWrapper className="search-page" title="Haku">
+        <h1>Haku</h1>
+        <SearchControls
+          location={location}
+          params={params}
+          scrollToSearchResults={this.scrollToSearchResults}
+        />
+        {searchDone && <DateHeader date={filters.date} />}
+        {searchDone || isFetchingSearchResults ? (
+          <SearchResults
+            isFetching={isFetchingSearchResults}
+            ref="searchResults"
+            searchResultIds={searchResultIds}
           />
-          {searchDone && <DateHeader date={filters.date} />}
-          {searchDone || isFetchingSearchResults ? (
-            <SearchResults
-              isFetching={isFetchingSearchResults}
-              ref="searchResults"
-              searchResultIds={searchResultIds}
-            />
           ) : (
-            <p className="help-text">
-              Etsi tilaa syöttämällä hakukenttään tilan nimi tai tilaan liittyvää tietoa.
-            </p>
-          )}
-        </div>
-      </DocumentTitle>
+          <p className="help-text">
+            Etsi tilaa syöttämällä hakukenttään tilan nimi tai tilaan liittyvää tietoa.
+          </p>
+        )}
+      </PageWrapper>
     );
   }
 }

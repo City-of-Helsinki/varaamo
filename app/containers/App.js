@@ -43,8 +43,8 @@ export class UnconnectedApp extends Component {
           <div className="app-content">
             <Grid>
               <Notifications />
-              {children}
             </Grid>
+            {children}
           </div>
           <Footer />
         </div>
