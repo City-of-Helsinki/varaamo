@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Grid from 'react-bootstrap/lib/Grid';
 import DocumentTitle from 'react-document-title';
 
 import PurposeListContainer from './purpose-list/PurposeListContainer';
@@ -11,9 +12,11 @@ class HomePage extends Component {
       <DocumentTitle title="Etusivu - Varaamo">
         <div className="home-page">
           <HomeIntroComponent />
-          <PartnersComponent />
-          <h3 id="purpose-category-header">Mitä haluat tehdä?</h3>
-          <PurposeListContainer />
+          <Grid>
+            <PartnersComponent />
+            <h3 id="purpose-category-header">Mitä haluat tehdä?</h3>
+            <PurposeListContainer />
+          </Grid>
         </div>
       </DocumentTitle>
     );
