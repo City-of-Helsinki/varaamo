@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import DocumentTitle from 'react-document-title';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,6 +11,7 @@ import AdminReservationsFilters from 'components/reservation/AdminReservationsFi
 import ReservationCancelModal from 'containers/ReservationCancelModal';
 import ReservationInfoModal from 'containers/ReservationInfoModal';
 import ReservationsList from 'containers/ReservationsList';
+import PageWrapper from 'screens/layout/PageWrapper';
 import userReservationsPageSelector from 'selectors/containers/userReservationsPageSelector';
 
 export class UnconnectedUserReservationsPage extends Component {
@@ -56,7 +56,7 @@ export class UnconnectedUserReservationsPage extends Component {
     } = this.props;
 
     return (
-      <DocumentTitle title="Omat varaukset - Varaamo">
+      <PageWrapper title="Omat varaukset">
         <Loader loaded={resourcesLoaded}>
           <div>
             { !isAdmin && (
@@ -91,7 +91,7 @@ export class UnconnectedUserReservationsPage extends Component {
             <ReservationInfoModal />
           </div>
         </Loader>
-      </DocumentTitle>
+      </PageWrapper>
     );
   }
 }

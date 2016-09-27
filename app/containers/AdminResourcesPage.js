@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import 'moment/locale/fi';
 import moment from 'moment';
-import DocumentTitle from 'react-document-title';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchResources } from 'actions/resourceActions';
 import ResourcesTable from 'components/resource/ResourcesTable';
+import PageWrapper from 'screens/layout/PageWrapper';
 import adminResourcesPageSelector from 'selectors/containers/adminResourcesPageSelector';
 
 export class UnconnectedAdminResourcesPage extends Component {
@@ -27,7 +27,7 @@ export class UnconnectedAdminResourcesPage extends Component {
       resources,
     } = this.props;
     return (
-      <DocumentTitle title="Omat tilat - Varaamo">
+      <PageWrapper title="Omat tilat">
         <div>
           <h1>Omat tilat</h1>
           <Loader loaded={!isFetchingResources}>
@@ -40,7 +40,7 @@ export class UnconnectedAdminResourcesPage extends Component {
             }
           </Loader>
         </div>
-      </DocumentTitle>
+      </PageWrapper>
     );
   }
 }
