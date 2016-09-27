@@ -11,7 +11,7 @@ import { fetchResource } from 'actions/resourceActions';
 import ImagePanel from 'components/common/ImagePanel';
 import ResourceDetails from 'components/resource/ResourceDetails';
 import ResourceHeader from 'components/resource/ResourceHeader';
-import NotFoundPage from 'containers/NotFoundPage';
+import NotFoundPage from 'screens/not-found/NotFoundPage';
 import FavoriteButton from 'screens/shared/favorite-button';
 import resourcePageSelector from 'selectors/containers/resourcePageSelector';
 import { getPeopleCapacityString } from 'utils/resourceUtils';

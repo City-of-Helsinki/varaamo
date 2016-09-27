@@ -4,11 +4,11 @@ import { Route } from 'react-router';
 import App from 'containers/App';
 import UserReservationsPage from 'containers/UserReservationsPage';
 import AdminResourcesPage from 'containers/AdminResourcesPage';
-import NotFoundPage from 'containers/NotFoundPage';
 import ReservationPage from 'containers/ReservationPage';
 import ResourcePage from 'containers/ResourcePage';
 import AboutPage from 'screens/about/AboutPage';
 import HomePage from 'screens/home/HomePage';
+import NotFoundPage from 'screens/not-found/NotFoundPage';
 import SearchPage from 'screens/search/SearchPage';
 
 export default (params) => {
