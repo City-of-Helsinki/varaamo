@@ -33,17 +33,19 @@ class ResourcesTableItem extends Component {
       nextReservation,
       resource,
     } = this.props;
+    const { closes, opens } = getOpeningHours(resource);
+    const now = moment();
+
+    if ((now < moment(opens)) || (moment(closes) < now)) {
+      return <td className="resource-table-row availability reserved">Suljettu</td>;
+    }
     if (currentReservation) {
       return <td className="resource-table-row availability reserved">Varattu</td>;
     }
     if (nextReservation) {
       return this.getAvailableTime(nextReservation.begin);
     }
-    const closes = getOpeningHours(resource).closes;
-    if (moment() < moment(closes)) {
-      return this.getAvailableTime(closes);
-    }
-    return <td className="resource-table-row availability reserved">Suljettu</td>;
+    return this.getAvailableTime(closes);
   }
 
   render() {
