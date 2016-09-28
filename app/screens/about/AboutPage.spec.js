@@ -2,15 +2,15 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 
-import AboutPageContent from 'components/customization/AboutPageContent';
-import AboutPage from 'containers/AboutPage';
+import AboutPage from './AboutPage';
+import AboutPageContent from './AboutPageContent';
 
-describe('Container: AboutPage', () => {
+describe('screens/about/AboutPage', () => {
   function getWrapper() {
     return shallow(<AboutPage />);
   }
 
-  it('should render AboutPageContent component', () => {
+  it('renders AboutPageContent component', () => {
     expect(getWrapper().find(AboutPageContent).length).to.equal(1);
   });
 });

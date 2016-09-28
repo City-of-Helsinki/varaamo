@@ -3,8 +3,8 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
 
-import AboutPageContent from 'components/customization/AboutPageContent';
 import * as customizationUtils from 'utils/customizationUtils';
+import AboutPageContent from './AboutPageContent';
 
 describe('Component: customization/AboutPageContent', () => {
   function getWrapper() {
@@ -18,7 +18,7 @@ describe('Component: customization/AboutPageContent', () => {
       content = getWrapper();
     });
 
-    it('should render header for Helsinki', () => {
+    it('renders header for Helsinki', () => {
       const expected = 'Tietoa varaamo.hel.fi –palvelusta';
       expect(content.find('h1').text()).to.contain(expected);
     });
@@ -36,7 +36,7 @@ describe('Component: customization/AboutPageContent', () => {
       simple.restore();
     });
 
-    it('should render header for Espoo', () => {
+    it('renders header for Espoo', () => {
       const expected = 'Tietoa varaamo.espoo.fi –palvelusta';
       expect(content.find('h1').text()).to.contain(expected);
     });

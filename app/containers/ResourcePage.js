@@ -1,7 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
-import DocumentTitle from 'react-document-title';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -11,7 +10,8 @@ import { fetchResource } from 'actions/resourceActions';
 import ImagePanel from 'components/common/ImagePanel';
 import ResourceDetails from 'components/resource/ResourceDetails';
 import ResourceHeader from 'components/resource/ResourceHeader';
-import NotFoundPage from 'containers/NotFoundPage';
+import PageWrapper from 'screens/layout/PageWrapper';
+import NotFoundPage from 'screens/not-found/NotFoundPage';
 import FavoriteButton from 'screens/shared/favorite-button';
 import resourcePageSelector from 'selectors/containers/resourcePageSelector';
 import { getPeopleCapacityString } from 'utils/resourceUtils';
@@ -41,35 +41,33 @@ export class UnconnectedResourcePage extends Component {
     }
 
     return (
-      <DocumentTitle title={`${resourceName} - Varaamo`}>
+      <PageWrapper className="resource-page" title={`${resourceName} - Varaamo`}>
         <Loader loaded={!isEmpty(resource)}>
-          <div className="resource-page">
-            <ResourceHeader
-              address={getAddressWithName(unit)}
-              name={resourceName}
-            />
-            {isAdmin && <FavoriteButton resource={resource} />}
-            <LinkContainer to={`/resources/${id}/reservation?date=${date.split('T')[0]}`}>
-              <Button
-                bsSize="large"
-                bsStyle="primary"
-                className="responsive-button"
-              >
-                {isLoggedIn ? 'Varaa tila' : 'Varaustilanne'}
-              </Button>
-            </LinkContainer>
-            <ResourceDetails
-              capacityString={getPeopleCapacityString(resource.peopleCapacity)}
-              description={getProperty(resource, 'description')}
-              type={getName(resource.type)}
-            />
-            <ImagePanel
-              altText={`Kuva ${resourceName} tilasta`}
-              images={resource.images || []}
-            />
-          </div>
+          <ResourceHeader
+            address={getAddressWithName(unit)}
+            name={resourceName}
+          />
+          {isAdmin && <FavoriteButton resource={resource} />}
+          <LinkContainer to={`/resources/${id}/reservation?date=${date.split('T')[0]}`}>
+            <Button
+              bsSize="large"
+              bsStyle="primary"
+              className="responsive-button"
+            >
+              {isLoggedIn ? 'Varaa tila' : 'Varaustilanne'}
+            </Button>
+          </LinkContainer>
+          <ResourceDetails
+            capacityString={getPeopleCapacityString(resource.peopleCapacity)}
+            description={getProperty(resource, 'description')}
+            type={getName(resource.type)}
+          />
+          <ImagePanel
+            altText={`Kuva ${resourceName} tilasta`}
+            images={resource.images || []}
+          />
         </Loader>
-      </DocumentTitle>
+      </PageWrapper>
     );
   }
 }
