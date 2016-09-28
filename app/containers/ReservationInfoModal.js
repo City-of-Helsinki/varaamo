@@ -1,4 +1,5 @@
 import includes from 'lodash/includes';
+import isEmpty from 'lodash/isEmpty';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
@@ -32,12 +33,7 @@ export class UnconnectedReservationInfoModal extends Component {
   }
 
   handleSave() {
-    const { actions, reservationsToShow, resources } = this.props;
-    const reservation = reservationsToShow.length ? reservationsToShow[0] : undefined;
-    if (!reservation) {
-      return;
-    }
-    const resource = reservation ? resources[reservationsToShow[0].resource] : {};
+    const { actions, reservation, resource } = this.props;
     const staffEvent = isStaffEvent(reservation, resource);
     const missingValues = getMissingValues(reservation);
     const comments = findDOMNode(this.refs.commentsInput).value;
@@ -52,7 +48,7 @@ export class UnconnectedReservationInfoModal extends Component {
   }
 
   renderModalContent(reservation, resource, isAdmin, isStaff) {
-    if (!reservation) {
+    if (isEmpty(reservation)) {
       return null;
     }
 
@@ -115,16 +111,14 @@ export class UnconnectedReservationInfoModal extends Component {
   render() {
     const {
       actions,
+      isAdmin,
       isEditingReservations,
-      reservationsToShow,
-      resources,
+      reservation,
+      resource,
       show,
       staffUnits,
     } = this.props;
 
-    const reservation = reservationsToShow.length ? reservationsToShow[0] : undefined;
-    const resource = reservation ? resources[reservationsToShow[0].resource] : {};
-    const isAdmin = resource.userPermissions && resource.userPermissions.isAdmin;
     const isStaff = includes(staffUnits, resource.unit);
     const showSaveButton = isAdmin && reservation && reservation.state !== 'cancelled';
 
@@ -167,9 +161,10 @@ export class UnconnectedReservationInfoModal extends Component {
 
 UnconnectedReservationInfoModal.propTypes = {
   actions: PropTypes.object.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
   isEditingReservations: PropTypes.bool.isRequired,
-  reservationsToShow: PropTypes.array.isRequired,
-  resources: PropTypes.object.isRequired,
+  reservation: PropTypes.object.isRequired,
+  resource: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
   staffUnits: PropTypes.array.isRequired,
 };

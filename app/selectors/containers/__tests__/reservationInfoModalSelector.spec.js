@@ -1,34 +1,42 @@
 import { expect } from 'chai';
 
 import reservationInfoModalSelector from 'selectors/containers/reservationInfoModalSelector';
-import { getDefaultRouterProps, getInitialState } from 'utils/testUtils';
+import { getState } from 'utils/testUtils';
 
 describe('Selector: reservationInfoModalSelector', () => {
-  const state = getInitialState();
-  const props = getDefaultRouterProps();
-  const selected = reservationInfoModalSelector(state, props);
+  const resource = { id: 'resource-1' };
+  const reservationsToShow = [{ id: 'reservation-1', resource: resource.id }];
+  const state = getState({
+    'data.resources': { [resource.id]: resource },
+    'ui.reservations.toShow': reservationsToShow,
+  });
+  const selected = reservationInfoModalSelector(state);
 
-  it('should return isEditingReservations', () => {
+  it('returns isAdmin', () => {
+    expect(selected.isAdmin).to.exist;
+  });
+
+  it('returns isEditingReservations', () => {
     expect(selected.isEditingReservations).to.exist;
   });
 
-  it('should return show', () => {
+  it('returns correct reservation from the state', () => {
+    const expected = reservationsToShow[0];
+
+    expect(selected.reservation).to.deep.equal(expected);
+  });
+
+  it('returns correct resource from the state', () => {
+    const expected = resource;
+
+    expect(selected.resource).to.deep.equal(expected);
+  });
+
+  it('returns show', () => {
     expect(selected.show).to.exist;
   });
 
-  it('should return reservationsToShow from the state', () => {
-    const expected = state.ui.reservations.toShow;
-
-    expect(selected.reservationsToShow).to.deep.equal(expected);
-  });
-
-  it('should return resources from the state', () => {
-    const expected = state.data.resources;
-
-    expect(selected.resources).to.deep.equal(expected);
-  });
-
-  it('should return staffUnits', () => {
-    expect(selected.resources).to.exist;
+  it('returns staffUnits', () => {
+    expect(selected.staffUnits).to.exist;
   });
 });
