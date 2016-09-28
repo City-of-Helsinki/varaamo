@@ -36,7 +36,7 @@ describe('Container: ReservationInfoModal', () => {
   const defaultProps = {
     actions: {
       closeReservationInfoModal: simple.stub(),
-      putReservation: simple.stub(),
+      commentReservation: simple.stub(),
     },
     isAdmin: true,
     isEditingReservations: false,
@@ -300,7 +300,7 @@ describe('Container: ReservationInfoModal', () => {
       simple.mock(ReactDom, 'findDOMNode').returnWith({ value: updatedComments });
       const instance = getWrapper().instance();
       defaultProps.actions.closeReservationInfoModal.reset();
-      defaultProps.actions.putReservation.reset();
+      defaultProps.actions.commentReservation.reset();
       instance.handleSave();
     });
 
@@ -308,18 +308,16 @@ describe('Container: ReservationInfoModal', () => {
       simple.restore();
     });
 
-    it('calls putReservation', () => {
-      expect(defaultProps.actions.putReservation.callCount).to.equal(1);
+    it('calls commentReservation', () => {
+      expect(defaultProps.actions.commentReservation.callCount).to.equal(1);
     });
 
-    it('calls putReservation with correct arguments', () => {
-      const actualArgs = defaultProps.actions.putReservation.lastCall.args;
-      const expected = Object.assign({}, reservation, {
-        comments: updatedComments,
-        staffEvent: false,
-      });
+    it('calls commentReservation with correct arguments', () => {
+      const actualArgs = defaultProps.actions.commentReservation.lastCall.args;
 
-      expect(actualArgs[0]).to.deep.equal(expected);
+      expect(actualArgs[0]).to.deep.equal(reservation);
+      expect(actualArgs[1]).to.deep.equal(resource);
+      expect(actualArgs[2]).to.deep.equal(updatedComments);
     });
 
     it('closes the ReservationInfoModal', () => {

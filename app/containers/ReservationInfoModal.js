@@ -11,10 +11,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { closeReservationInfoModal } from 'actions/uiActions';
-import { putReservation } from 'actions/reservationActions';
+import { commentReservation } from 'actions/reservationActions';
 import TimeRange from 'components/common/TimeRange';
 import reservationInfoModalSelector from 'selectors/containers/reservationInfoModalSelector';
-import { isStaffEvent, getMissingValues } from 'utils/reservationUtils';
 import { renderReservationStateLabel } from 'utils/renderUtils';
 import { getName } from 'utils/translationUtils';
 
@@ -34,16 +33,8 @@ export class UnconnectedReservationInfoModal extends Component {
 
   handleSave() {
     const { actions, reservation, resource } = this.props;
-    const staffEvent = isStaffEvent(reservation, resource);
-    const missingValues = getMissingValues(reservation);
     const comments = findDOMNode(this.refs.commentsInput).value;
-    actions.putReservation(Object.assign(
-      {},
-      reservation,
-      missingValues,
-      { comments },
-      { staffEvent }
-    ));
+    actions.commentReservation(reservation, resource, comments);
     actions.closeReservationInfoModal();
   }
 
@@ -172,7 +163,7 @@ UnconnectedReservationInfoModal.propTypes = {
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
     closeReservationInfoModal,
-    putReservation,
+    commentReservation,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
