@@ -11,6 +11,19 @@ import {
   getRequestTypeDescriptor,
   getSuccessTypeDescriptor,
 } from 'utils/apiUtils';
+import { getMissingValues, isStaffEvent } from 'utils/reservationUtils';
+
+function commentReservation(reservation, resource, comments) {
+  const missingValues = getMissingValues(reservation);
+  const staffEvent = isStaffEvent(reservation, resource);
+  return putReservation(Object.assign(
+    {},
+    reservation,
+    missingValues,
+    { comments },
+    { staffEvent }
+  ));
+}
 
 function confirmPreliminaryReservation(reservation) {
   return putReservation(Object.assign({}, reservation, { state: 'confirmed' }));
@@ -145,6 +158,7 @@ function getTrackingInfo(type, resource) {
 }
 
 export {
+  commentReservation,
   confirmPreliminaryReservation,
   deleteReservation,
   denyPreliminaryReservation,
