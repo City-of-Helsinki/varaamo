@@ -115,6 +115,19 @@ describe('Component: reservation/ResourcesTableItem', () => {
               .to.equal('Suljettu');
           });
 
+          it('availability tr exists and says "Suljettu" if resource openingHours are null', () => {
+            const openResource = Immutable(Resource.build({
+              openingHours: [{
+                opens: null,
+                closes: null,
+              }],
+            }));
+            const customWrapper = getWrapper({ resource: openResource });
+            expect(customWrapper.find('.resource-table-row.availability')).to.have.length(1);
+            expect(customWrapper.find('.resource-table-row.availability').prop('children'))
+              .to.equal('Suljettu');
+          });
+
           it('availability tr exists and is the amount of free time till resource closes', () => {
             expect(component.find('.resource-table-row.availability')).to.have.length(1);
             expect(component.find('.resource-table-row.availability').prop('children'))

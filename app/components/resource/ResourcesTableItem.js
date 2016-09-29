@@ -35,8 +35,9 @@ class ResourcesTableItem extends Component {
     } = this.props;
     const { closes, opens } = getOpeningHours(resource);
     const now = moment();
+    const closedToday = (closes && opens) === null;
 
-    if ((now < moment(opens)) || (moment(closes) < now)) {
+    if (closedToday || ((now < moment(opens)) || (moment(closes) < now))) {
       return <td className="resource-table-row availability reserved">Suljettu</td>;
     }
     if (currentReservation) {
