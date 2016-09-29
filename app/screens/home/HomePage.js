@@ -13,9 +13,9 @@ class HomePage extends Component {
         <div className="home-page">
           <HomeIntroComponent />
           <Grid>
-            <PartnersComponent />
             <h3 id="purpose-category-header">Mitä haluat tehdä?</h3>
             <PurposeListContainer />
+            <PartnersComponent />
           </Grid>
         </div>
       </DocumentTitle>
