@@ -1,12 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import { Link } from 'react-router';
 
 import { getMainImage } from 'utils/imageUtils';
-import { getHumanizedPeriod } from 'utils/resourceUtils';
 import { getName } from 'utils/translationUtils';
 import ReserveButton from './ReserveButton';
 import ResourceAvailability from './ResourceAvailability';
+import ResourceIcons from './ResourceIcons';
 
 class ResourceListItem extends Component {
   getBackgroundImageStyles(image) {
@@ -14,19 +13,6 @@ class ResourceListItem extends Component {
       return { backgroundImage: `url(${image.url}?dim=700x420)` };
     }
     return {};
-  }
-
-  renderIcon(glyph, text) {
-    if (!text) {
-      return null;
-    }
-
-    return (
-      <span>
-        <Glyphicon glyph={glyph} />
-        <span className="text">{text}</span>
-      </span>
-    );
   }
 
   render() {
@@ -46,10 +32,7 @@ class ResourceListItem extends Component {
           </div>
         </Link>
         <div className="content">
-          <div className="icons">
-            {this.renderIcon('user', resource.peopleCapacity)}
-            {this.renderIcon('time', getHumanizedPeriod(resource.maxPeriod))}
-          </div>
+          <ResourceIcons resource={resource} />
           <Link
             to={`/resources/${resource.id}`}
             query={{ date: date.split('T')[0] }}
