@@ -20,7 +20,7 @@ function getHourlyPrice({ minPricePerHour, maxPricePerHour }) {
   if (!(minPricePerHour || maxPricePerHour)) {
     return null;
   }
-  if (minPricePerHour && maxPricePerHour) {
+  if ((minPricePerHour && maxPricePerHour) && (minPricePerHour !== maxPricePerHour)) {
     return `${Number(minPricePerHour)} - ${Number(maxPricePerHour)}e/h`;
   }
   const priceString = maxPricePerHour || minPricePerHour;

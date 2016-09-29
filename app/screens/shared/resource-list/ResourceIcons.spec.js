@@ -120,6 +120,14 @@ describe('screens/shared/resource-list/ResourceIcons', () => {
       expect(getSpanTextWithProps(props).text()).to.equal('10e/h');
     });
 
+    it('renders one price if min and max prices are the same', () => {
+      const props = {
+        maxPricePerHour: '10.00',
+        minPricePerHour: '10.00',
+      };
+      expect(getSpanTextWithProps(props).text()).to.equal('10e/h');
+    });
+
     it('renders price if it is 0', () => {
       const props = {
         maxPricePerHour: null,
