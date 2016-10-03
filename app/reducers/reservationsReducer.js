@@ -31,12 +31,19 @@ function selectReservationToEdit(state, action) {
 function reservationsReducer(state = initialState, action) {
   switch (action.type) {
 
-    case types.API.RESERVATION_POST_SUCCESS:
-    case types.API.RESERVATION_PUT_SUCCESS: {
+    case types.API.RESERVATION_POST_SUCCESS: {
       return state.merge({
         selected: [],
         toEdit: [],
         toShow: [...state.toShow, action.payload],
+      });
+    }
+
+    case types.API.RESERVATION_PUT_SUCCESS: {
+      return state.merge({
+        selected: [],
+        toEdit: [],
+        toShow: [],
       });
     }
 
