@@ -1,42 +1,41 @@
-import keyBy from 'lodash/keyBy';
 import { expect } from 'chai';
+import Immutable from 'seamless-immutable';
 
+import User from 'fixtures/User';
 import isAdminSelector from 'selectors/isAdminSelector';
-import Resource from 'fixtures/Resource';
+import { getInitialState } from 'utils/testUtils';
 
-function getState(resources = []) {
+function getState(user) {
   return {
-    data: {
-      resources: keyBy(resources, 'id'),
-    },
+    auth: Immutable({
+      userId: user.id,
+      token: 'mock-token',
+    }),
+    data: Immutable({
+      users: { [user.id]: user },
+    }),
   };
 }
 
 describe('Selector: isAdminSelector', () => {
-  it('should return false if there are no Resources in state', () => {
-    const state = getState();
+  it('should return false if user is not logged in', () => {
+    const state = getInitialState();
     const actual = isAdminSelector(state);
 
     expect(actual).to.equal(false);
   });
 
-  it('should return false user is not an admin in any Resource', () => {
-    const resources = [
-      Resource.build({ userPermissions: { isAdmin: false } }),
-      Resource.build({ userPermissions: { isAdmin: false } }),
-    ];
-    const state = getState(resources);
+  it('should return false if user.isStaff is false', () => {
+    const user = User.build({ isStaff: false });
+    const state = getState(user);
     const actual = isAdminSelector(state);
 
     expect(actual).to.equal(false);
   });
 
-  it('should return true if user is an admin in any Resource', () => {
-    const resources = [
-      Resource.build({ userPermissions: { isAdmin: false } }),
-      Resource.build({ userPermissions: { isAdmin: true } }),
-    ];
-    const state = getState(resources);
+  it('should return true if user.isStaff is true', () => {
+    const user = User.build({ isStaff: true });
+    const state = getState(user);
     const actual = isAdminSelector(state);
 
     expect(actual).to.equal(true);

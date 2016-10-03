@@ -2,7 +2,7 @@ import includes from 'lodash/includes';
 import forEach from 'lodash/forEach';
 import tail from 'lodash/tail';
 import React, { Component, PropTypes } from 'react';
-import DatePicker from 'react-date-picker';
+import { Calendar } from 'react-date-picker';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updatePath } from 'redux-simple-router';
@@ -20,7 +20,7 @@ import {
   openConfirmReservationModal,
   toggleTimeSlot,
 } from 'actions/uiActions';
-import DateHeader from 'components/common/DateHeader';
+import DateHeader from 'screens/shared/date-header';
 import ConfirmReservationModal from 'components/reservation/ConfirmReservationModal';
 import ReservationCalendarControls from 'components/reservation/ReservationCalendarControls';
 import TimeSlots from 'components/reservation/TimeSlots';
@@ -28,10 +28,13 @@ import ReservationCancelModal from 'containers/ReservationCancelModal';
 import ReservationInfoModal from 'containers/ReservationInfoModal';
 import ReservationSuccessModal from 'containers/ReservationSuccessModal';
 import reservationCalendarSelector from 'selectors/containers/reservationCalendarSelector';
+import { addToDate } from 'utils/timeUtils';
 
 export class UnconnectedReservationCalendar extends Component {
   constructor(props) {
     super(props);
+    this.decreaseDate = this.decreaseDate.bind(this);
+    this.increaseDate = this.increaseDate.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleEditCancel = this.handleEditCancel.bind(this);
     this.handleReservation = this.handleReservation.bind(this);
@@ -42,9 +45,18 @@ export class UnconnectedReservationCalendar extends Component {
     this.props.actions.clearReservations();
   }
 
+
   onDateChange(newDate) {
     const { actions, id } = this.props;
     actions.updatePath(`/resources/${id}/reservation?date=${newDate}`);
+  }
+
+  decreaseDate() {
+    this.onDateChange(addToDate(this.props.date, -1));
+  }
+
+  increaseDate() {
+    this.onDateChange(addToDate(this.props.date, 1));
   }
 
   handleEdit(values = {}) {
@@ -122,17 +134,14 @@ export class UnconnectedReservationCalendar extends Component {
 
     return (
       <div>
-        <DatePicker
+        <Calendar
           date={date}
-          hideFooter
-          gotoSelectedText="Mene valittuun"
           onChange={this.onDateChange}
-          style={{ height: 210 }}
-          todayText="Tänään"
         />
         <DateHeader
           date={date}
-          onChange={this.onDateChange}
+          onDecreaseDateButtonClick={this.decreaseDate}
+          onIncreaseDateButtonClick={this.increaseDate}
           scrollTo={urlHash === '#date-header'}
         />
         <TimeSlots

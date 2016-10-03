@@ -5,8 +5,7 @@
 @import './vendor/hel-bootstrap/hel-bootstrap';
 
 // react-date-picker
-@import (inline) '../../../node_modules/react-date-picker/base.css';
-@import (inline) '../../../node_modules/react-date-picker/theme/hackerone.css';
+@import (inline) '../../../node_modules/react-date-picker/index.css';
 
 // React Notifications
 @import '../../../node_modules/react-notifications/lib/notifications.css';
@@ -26,15 +25,18 @@
 @import './layout';
 @import './navbar';
 
-// Pages
+// Screens
 @import './about-page';
 @import './reservation-page';
 @import './resource-page';
-@import './search-page';
+@import '../../screens/home/home-page';
+@import '../../screens/search/search-page';
+
+// Shared components
+@import '../../screens/shared/shared';
 
 // Components
 @import './confirm-reservation-modal';
-@import './date-header';
 @import './loader';
 @import './notifications';
 @import './panel';
@@ -43,6 +45,7 @@
 @import './reservation-info-modal';
 @import './reservations-filters';
 @import './reservations-list';
+@import './resources-table';
 @import './time-slots';
 @import './typeahead-list';
 @import './wrapped-text';

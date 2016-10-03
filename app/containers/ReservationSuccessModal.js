@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { closeReservationSuccessModal } from 'actions/uiActions';
 import CompactReservationsList from 'components/common/CompactReservationsList';
 import reservationSuccessModalSelector from 'selectors/containers/reservationSuccessModalSelector';
-import { getName } from 'utils/DataUtils';
+import { getName } from 'utils/translationUtils';
 
 export class UnconnectedReservationSuccessModal extends Component {
   renderEmail(email) {

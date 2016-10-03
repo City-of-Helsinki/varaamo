@@ -5,7 +5,7 @@ import simple from 'simple-mock';
 
 import FeedbackLink from 'components/customization/FeedbackLink';
 import constants from 'constants/AppConstants';
-import * as customizationUtils from 'utils/CustomizationUtils';
+import * as customizationUtils from 'utils/customizationUtils';
 
 describe('Component: customization/FeedbackLink', () => {
   const defaultProps = {

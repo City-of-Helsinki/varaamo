@@ -8,11 +8,11 @@ import { updatePath } from 'redux-simple-router';
 import { clearSearchResults } from 'actions/searchActions';
 import { fetchUser } from 'actions/userActions';
 import Favicon from 'components/customization/Favicon';
-import Footer from 'components/layout/Footer';
-import Navbar from 'components/layout/Navbar';
+import Footer from 'screens/layout/Footer';
+import Navbar from 'screens/layout/Navbar';
 import Notifications from 'containers/Notifications';
 import appSelector from 'selectors/containers/appSelector';
-import { getCustomizationClassName } from 'utils/CustomizationUtils';
+import { getCustomizationClassName } from 'utils/customizationUtils';
 
 export class UnconnectedApp extends Component {
   componentDidMount() {
@@ -25,6 +25,7 @@ export class UnconnectedApp extends Component {
     const {
       actions,
       children,
+      isAdmin,
       isLoggedIn,
       user,
     } = this.props;
@@ -35,14 +36,15 @@ export class UnconnectedApp extends Component {
           <Favicon />
           <Navbar
             clearSearchResults={actions.clearSearchResults}
+            isAdmin={isAdmin}
             isLoggedIn={isLoggedIn}
             user={user}
           />
           <div className="app-content">
             <Grid>
               <Notifications />
-              {children}
             </Grid>
+            {children}
           </div>
           <Footer />
         </div>
@@ -54,6 +56,7 @@ export class UnconnectedApp extends Component {
 UnconnectedApp.propTypes = {
   actions: PropTypes.object.isRequired,
   children: PropTypes.node,
+  isAdmin: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
   userId: PropTypes.string,

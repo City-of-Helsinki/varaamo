@@ -9,7 +9,8 @@ import {
   getHeadersCreator,
   getRequestTypeDescriptor,
   getSuccessTypeDescriptor,
-} from 'utils/APIUtils';
+} from 'utils/apiUtils';
+import { getFetchParamsFromFilters } from 'utils/searchUtils';
 
 const clearSearchResults = createAction(types.UI.CLEAR_SEARCH_RESULTS);
 
@@ -43,7 +44,8 @@ function getTypeaheadSuggestions(params = {}) {
   };
 }
 
-function searchResources(params = {}) {
+function searchResources(filters = {}) {
+  const params = getFetchParamsFromFilters(filters);
   const fetchParams = Object.assign({}, params, { pageSize: 100 });
   const piwikActionName = getPiwikActionName(fetchParams);
 

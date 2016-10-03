@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 import reservationsListSelector from 'selectors/containers/reservationsListSelector';
-import { getDefaultRouterProps, getInitialState } from 'utils/TestUtils';
+import { getDefaultRouterProps, getInitialState } from 'utils/testUtils';
 
 describe('Selector: reservationsListSelector', () => {
   const state = getInitialState();

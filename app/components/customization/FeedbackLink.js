@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import constants from 'constants/AppConstants';
-import { getCurrentCustomization } from 'utils/CustomizationUtils';
+import { getCurrentCustomization } from 'utils/customizationUtils';
 
 class FeedbackLink extends Component {
   render() {

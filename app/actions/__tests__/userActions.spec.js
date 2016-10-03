@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import simple from 'simple-mock';
 
-import * as apiUtils from 'utils/APIUtils';
+import * as apiUtils from 'utils/apiUtils';
 import { fetchUser } from 'actions/userActions';
 
 describe('Actions: userActions', () => {

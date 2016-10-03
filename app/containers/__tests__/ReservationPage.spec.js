@@ -1,20 +1,27 @@
 import { expect } from 'chai';
+import { shallow } from 'enzyme';
 import React from 'react';
+import Button from 'react-bootstrap/lib/Button';
+import { LinkContainer } from 'react-router-bootstrap';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
-import sd from 'skin-deep';
 
 import { UnconnectedReservationPage as ReservationPage } from 'containers/ReservationPage';
+import ResourceHeader from 'components/resource/ResourceHeader';
+import ReservationInfo from 'components/reservation/ReservationInfo';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
+import FavoriteButton from 'screens/shared/favorite-button';
+
 
 describe('Container: ReservationPage', () => {
   const unit = Unit.build();
   const resource = Resource.build({ unit: Unit.id });
-  const props = {
+  const defaultProps = {
     actions: { fetchResource: simple.stub() },
     date: '2015-10-10',
     id: resource.id,
+    isAdmin: false,
     isFetchingResource: false,
     isLoggedIn: true,
     location: { query: {} },
@@ -22,75 +29,118 @@ describe('Container: ReservationPage', () => {
     resource: Immutable(resource),
     unit: Immutable(unit),
   };
-  const tree = sd.shallowRender(<ReservationPage {...props} />);
+
+  function getWrapper(props) {
+    return shallow(<ReservationPage {...defaultProps} {...props} />);
+  }
+  let wrapper;
+  before(() => {
+    wrapper = getWrapper();
+  });
 
   describe('rendering a link to resource page', () => {
-    const linkTree = tree.subTree('LinkContainer');
+    let linkWrapper;
+
+    before(() => {
+      linkWrapper = wrapper.find(LinkContainer);
+    });
 
     it('should display a link to this resources page', () => {
-      const expected = `/resources/${props.resource.id}?date=${props.date}`;
+      const expected = `/resources/${defaultProps.resource.id}?date=${defaultProps.date}`;
 
-      expect(linkTree.props.to).to.equal(expected);
+      expect(linkWrapper.prop('to')).to.equal(expected);
     });
 
     it('should display the link as a Button', () => {
-      const buttonTrees = linkTree.everySubTree('Button');
+      const buttonTrees = linkWrapper.find(Button);
 
       expect(buttonTrees.length).to.equal(1);
     });
 
     it('the link button should have text "Tilan tiedot"', () => {
-      const buttonTree = linkTree.subTree('Button');
+      const buttonTree = linkWrapper.find(Button);
 
-      expect(buttonTree.props.children).to.equal('Tilan tiedot');
+      expect(buttonTree.prop('children')).to.equal('Tilan tiedot');
     });
   });
 
   describe('rendering ResourceHeader', () => {
-    const resourceHeaderTrees = tree.everySubTree('ResourceHeader');
+    let resoucerHeaderWrapper;
+
+    before(() => {
+      resoucerHeaderWrapper = wrapper.find(ResourceHeader);
+    });
 
     it('should render ResourceHeader component', () => {
-      expect(resourceHeaderTrees.length).to.equal(1);
+      expect(resoucerHeaderWrapper.length).to.equal(1);
     });
 
     it('should pass correct props to ResourceHeader component', () => {
-      const actualProps = resourceHeaderTrees[0].props;
+      const actualProps = resoucerHeaderWrapper.props();
 
-      expect(actualProps.name).to.equal(props.resource.name.fi);
+      expect(actualProps.name).to.equal(defaultProps.resource.name.fi);
       expect(typeof actualProps.address).to.equal('string');
     });
   });
 
+  describe('rendering FavoriteButton', () => {
+    let FavoriteButtonWrapper;
+    let FavoriteButtonNoAdminWrapper;
+
+    before(() => {
+      FavoriteButtonNoAdminWrapper = wrapper.find(FavoriteButton);
+      FavoriteButtonWrapper = getWrapper({ isAdmin: true }).find(FavoriteButton);
+    });
+
+    it('is not rendered if user is not admin', () => {
+      expect(FavoriteButtonNoAdminWrapper.length).to.equal(0);
+    });
+
+    it('is rendered if user is admin', () => {
+      expect(FavoriteButtonWrapper.length).to.equal(1);
+    });
+
+    it('gets resource props', () => {
+      expect(FavoriteButtonWrapper.props()).to.deep.equal({ resource });
+    });
+  });
+
   describe('rendering ReservationInfo', () => {
+    let ReservationInfoWrapper;
+
+    before(() => {
+      ReservationInfoWrapper = wrapper.find(ReservationInfo);
+    });
+
     it('should render ReservationInfo component', () => {
-      expect(tree.subTree('ReservationInfo')).to.be.ok;
+      expect(ReservationInfoWrapper).to.be.ok;
     });
 
     it('should pass correct props to ReservationInfo component', () => {
-      const actualProps = tree.subTree('ReservationInfo').props;
+      const actualProps = ReservationInfoWrapper.props();
 
-      expect(actualProps.isLoggedIn).to.equal(props.isLoggedIn);
-      expect(actualProps.resource).to.equal(props.resource);
+      expect(actualProps.isLoggedIn).to.equal(defaultProps.isLoggedIn);
+      expect(actualProps.resource).to.equal(defaultProps.resource);
     });
   });
 
   describe('componentDidMount', () => {
     before(() => {
-      props.actions.fetchResource.reset();
-      const instance = tree.getMountedInstance();
+      defaultProps.actions.fetchResource.reset();
+      const instance = wrapper.instance();
       instance.componentDidMount();
     });
 
     it('should fetch resource data when component mounts', () => {
-      expect(props.actions.fetchResource.callCount).to.equal(1);
+      expect(defaultProps.actions.fetchResource.callCount).to.equal(1);
     });
 
     it('should fetch resource with correct arguments', () => {
-      const actualArgs = props.actions.fetchResource.lastCall.args;
+      const actualArgs = defaultProps.actions.fetchResource.lastCall.args;
 
-      expect(actualArgs[0]).to.equal(props.id);
-      expect(actualArgs[1].start).to.contain(props.date);
-      expect(actualArgs[1].end).to.contain(props.date);
+      expect(actualArgs[0]).to.equal(defaultProps.id);
+      expect(actualArgs[1].start).to.contain(defaultProps.date);
+      expect(actualArgs[1].end).to.contain(defaultProps.date);
     });
   });
 
@@ -99,17 +149,17 @@ describe('Container: ReservationPage', () => {
       let nextProps;
 
       before(() => {
-        props.actions.fetchResource.reset();
-        const instance = tree.getMountedInstance();
+        defaultProps.actions.fetchResource.reset();
+        const instance = wrapper.instance();
         nextProps = { date: '2016-12-12' };
         instance.componentWillUpdate(nextProps);
       });
 
       it('should fetch resource data with new date', () => {
-        const actualArgs = props.actions.fetchResource.lastCall.args;
+        const actualArgs = defaultProps.actions.fetchResource.lastCall.args;
 
-        expect(props.actions.fetchResource.callCount).to.equal(1);
-        expect(actualArgs[0]).to.equal(props.id);
+        expect(defaultProps.actions.fetchResource.callCount).to.equal(1);
+        expect(actualArgs[0]).to.equal(defaultProps.id);
         expect(actualArgs[1].start).to.contain(nextProps.date);
         expect(actualArgs[1].end).to.contain(nextProps.date);
       });
@@ -119,14 +169,14 @@ describe('Container: ReservationPage', () => {
       let nextProps;
 
       before(() => {
-        props.actions.fetchResource.reset();
-        const instance = tree.getMountedInstance();
-        nextProps = { date: props.date };
+        defaultProps.actions.fetchResource.reset();
+        const instance = wrapper.instance();
+        nextProps = { date: defaultProps.date };
         instance.componentWillUpdate(nextProps);
       });
 
       it('should not fetch resource data', () => {
-        expect(props.actions.fetchResource.callCount).to.equal(0);
+        expect(defaultProps.actions.fetchResource.callCount).to.equal(0);
       });
     });
   });

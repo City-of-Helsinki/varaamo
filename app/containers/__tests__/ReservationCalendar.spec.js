@@ -69,34 +69,34 @@ describe('Container: ReservationCalendar', () => {
 
     const { props, tree, instance } = setup(setupProps);
 
-    describe('rendering DatePicker', () => {
-      const datePickerTrees = tree.everySubTree('DatePicker');
+    describe('rendering Calendar', () => {
+      const calendarTrees = tree.everySubTree('Calendar');
 
-      it('should render DatePicker component', () => {
-        expect(datePickerTrees.length).to.equal(1);
+      it('should render Calendar component', () => {
+        expect(calendarTrees.length).to.equal(1);
       });
 
-      it('should pass correct props to DatePicker component', () => {
-        const actualProps = datePickerTrees[0].props;
+      it('should pass correct props to Calendar component', () => {
+        const actualProps = calendarTrees[0].props;
 
         expect(actualProps.date).to.equal(props.date);
-        expect(actualProps.hideFooter).to.equal(true);
         expect(actualProps.onChange).to.equal(instance.onDateChange);
       });
     });
 
-    describe('rendering DateHeader', () => {
-      const dateHeaderTrees = tree.everySubTree('DateHeader');
+    describe('rendering DateHeaderComponent', () => {
+      const dateHeaderTrees = tree.everySubTree('DateHeaderComponent');
 
-      it('should render DateHeader component', () => {
+      it('should render DateHeaderComponent', () => {
         expect(dateHeaderTrees.length).to.equal(1);
       });
 
-      it('should pass correct props to DateHeader component', () => {
+      it('should pass correct props to DateHeaderComponent', () => {
         const actualProps = dateHeaderTrees[0].props;
 
         expect(actualProps.date).to.equal(props.date);
-        expect(actualProps.onChange).to.equal(instance.onDateChange);
+        expect(actualProps.onDecreaseDateButtonClick).to.equal(instance.decreaseDate);
+        expect(actualProps.onIncreaseDateButtonClick).to.equal(instance.increaseDate);
       });
     });
 

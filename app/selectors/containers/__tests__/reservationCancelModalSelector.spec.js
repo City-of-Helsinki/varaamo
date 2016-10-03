@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 import reservationCancelModalSelector from 'selectors/containers/reservationCancelModalSelector';
-import { getDefaultRouterProps, getInitialState } from 'utils/TestUtils';
+import { getDefaultRouterProps, getInitialState } from 'utils/testUtils';
 
 describe('Selector: reservationCancelModalSelector', () => {
   const state = getInitialState();

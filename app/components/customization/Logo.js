@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { getCurrentCustomization } from 'utils/CustomizationUtils';
+import { getCurrentCustomization } from 'utils/customizationUtils';
 
 import helsinkiLogoSrc from 'assets/images/helsinki-coat-of-arms-white.png';
 import espooLogoSrc from 'assets/images/espoo-logo.png';

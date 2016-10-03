@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { getName } from 'utils/DataUtils';
+import { getName } from 'utils/translationUtils';
 
 const typeaheadSuggestionsSelector = (state) => state.ui.search.typeaheadSuggestions;
 const unitsSelector = (state) => state.data.units;

@@ -1,14 +1,15 @@
 import React from 'react';
 import { Route } from 'react-router';
 
-import AboutPage from 'containers/AboutPage';
 import App from 'containers/App';
-import HomePage from 'containers/HomePage';
 import UserReservationsPage from 'containers/UserReservationsPage';
-import NotFoundPage from 'containers/NotFoundPage';
+import AdminResourcesPage from 'containers/AdminResourcesPage';
 import ReservationPage from 'containers/ReservationPage';
 import ResourcePage from 'containers/ResourcePage';
-import SearchPage from 'containers/SearchPage';
+import AboutPage from 'screens/about/AboutPage';
+import HomePage from 'screens/home/HomePage';
+import NotFoundPage from 'screens/not-found/NotFoundPage';
+import SearchPage from 'screens/search/SearchPage';
 
 export default (params) => {
   function removeFacebookAppendedHash(nextState, replaceState, cb) {
@@ -39,6 +40,7 @@ export default (params) => {
   return (
     <Route component={App} onEnter={removeFacebookAppendedHash}>
       <Route onEnter={requireAuth}>
+        <Route component={AdminResourcesPage} path="/admin-resources" />
         <Route component={UserReservationsPage} path="/my-reservations" />
       </Route>
       <Route component={HomePage} onEnter={scrollTop} path="/" />

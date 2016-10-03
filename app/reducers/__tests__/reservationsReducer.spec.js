@@ -17,7 +17,7 @@ import {
 import types from 'constants/ActionTypes';
 import Reservation from 'fixtures/Reservation';
 import reservationsReducer from 'reducers/reservationsReducer';
-import { getTimeSlots } from 'utils/TimeUtils';
+import { getTimeSlots } from 'utils/timeUtils';
 
 describe('Reducer: reservationsReducer', () => {
   describe('initial state', () => {

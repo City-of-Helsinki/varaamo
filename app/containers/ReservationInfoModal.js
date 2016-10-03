@@ -1,8 +1,11 @@
 import includes from 'lodash/includes';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
-import Input from 'react-bootstrap/lib/Input';
+import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import FormControl from 'react-bootstrap/lib/FormControl';
+import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Modal from 'react-bootstrap/lib/Modal';
+import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -10,12 +13,9 @@ import { closeReservationInfoModal } from 'actions/uiActions';
 import { putReservation } from 'actions/reservationActions';
 import TimeRange from 'components/common/TimeRange';
 import reservationInfoModalSelector from 'selectors/containers/reservationInfoModalSelector';
-import {
-  isStaffEvent,
-  getMissingReservationValues,
-  getName,
-} from 'utils/DataUtils';
+import { isStaffEvent, getMissingValues } from 'utils/reservationUtils';
 import { renderReservationStateLabel } from 'utils/renderUtils';
+import { getName } from 'utils/translationUtils';
 
 export class UnconnectedReservationInfoModal extends Component {
   constructor(props) {
@@ -39,8 +39,8 @@ export class UnconnectedReservationInfoModal extends Component {
     }
     const resource = reservation ? resources[reservationsToShow[0].resource] : {};
     const staffEvent = isStaffEvent(reservation, resource);
-    const missingValues = getMissingReservationValues(reservation);
-    const comments = this.refs.commentsInput.getValue();
+    const missingValues = getMissingValues(reservation);
+    const comments = findDOMNode(this.refs.commentsInput).value;
     actions.putReservation(Object.assign(
       {},
       reservation,
@@ -96,14 +96,16 @@ export class UnconnectedReservationInfoModal extends Component {
         </dl>
         {isAdmin && reservation.state !== 'cancelled' && (
           <form>
-            <Input
-              defaultValue={reservation.comments}
-              label="Kommentit:"
-              placeholder="Varauksen mahdolliset lisätiedot"
-              ref="commentsInput"
-              rows={5}
-              type="textarea"
-            />
+            <FormGroup controlId="commentsTextarea">
+              <ControlLabel>Kommentit:</ControlLabel>
+              <FormControl
+                componentClass="textarea"
+                defaultValue={reservation.comments}
+                placeholder="Varauksen mahdolliset lisätiedot"
+                ref="commentsInput"
+                rows={5}
+              />
+            </FormGroup>
           </form>
         )}
       </div>

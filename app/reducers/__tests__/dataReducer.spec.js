@@ -13,19 +13,19 @@ describe('Reducer: dataReducer', () => {
   describe('initial state', () => {
     const initialState = dataReducer(undefined, {});
 
-    it('reservations should be an empty object', () => {
+    it('reservations is an empty object', () => {
       expect(initialState.reservations).to.deep.equal({});
     });
 
-    it('resources should be an empty object', () => {
+    it('resources is an empty object', () => {
       expect(initialState.resources).to.deep.equal({});
     });
 
-    it('units should be an empty object', () => {
+    it('units is an empty object', () => {
       expect(initialState.units).to.deep.equal({});
     });
 
-    it('users should be an empty object', () => {
+    it('users is an empty object', () => {
       expect(initialState.users).to.deep.equal({});
     });
   });
@@ -37,7 +37,7 @@ describe('Reducer: dataReducer', () => {
       },
     };
 
-    it('should add the given entities to state', () => {
+    it('adds the given entities to state', () => {
       const initialState = Immutable({
         resources: {},
       });
@@ -51,7 +51,7 @@ describe('Reducer: dataReducer', () => {
       expect(nextState).to.deep.equal(expectedState);
     });
 
-    it('should not remove other entities in the same data collection', () => {
+    it('does not remove other entities in the same data collection', () => {
       const initialState = Immutable({
         resources: {
           'r-2': { value: 'other-value' },
@@ -68,7 +68,7 @@ describe('Reducer: dataReducer', () => {
       expect(nextState).to.deep.equal(expectedState);
     });
 
-    it('should override values with the same id in the same data collection', () => {
+    it('overrides values with the same id in the same data collection', () => {
       const initialState = Immutable({
         resources: {
           'r-1': { value: 'override this' },
@@ -84,7 +84,7 @@ describe('Reducer: dataReducer', () => {
       expect(nextState).to.deep.equal(expectedState);
     });
 
-    it('should not change the other data collections', () => {
+    it('does not change the other data collections', () => {
       const initialState = Immutable({
         resources: {},
         units: {
@@ -110,7 +110,7 @@ describe('Reducer: dataReducer', () => {
     describe('API.RESERVATION_POST_SUCCESS', () => {
       const postReservationSuccess = createAction(types.API.RESERVATION_POST_SUCCESS);
 
-      it('should add the reservation to reservations', () => {
+      it('adds the reservation to reservations', () => {
         const reservation = Reservation.build();
         const initialState = Immutable({
           reservations: {},
@@ -127,7 +127,7 @@ describe('Reducer: dataReducer', () => {
         expect(actualReservations).to.deep.equal(expectedReservations);
       });
 
-      it('should add the given reservation to correct resource', () => {
+      it('adds the given reservation to correct resource', () => {
         const resource = Resource.build();
         const reservation = Reservation.build({ resource: resource.id });
         const initialState = Immutable({
@@ -142,7 +142,7 @@ describe('Reducer: dataReducer', () => {
         expect(actualReservations).to.deep.equal(expectedReservations);
       });
 
-      it('should not touch other resource values', () => {
+      it('does not touch other resource values', () => {
         const resource = Resource.build({
           otherValue: 'whatever',
         });
@@ -164,7 +164,7 @@ describe('Reducer: dataReducer', () => {
       const putReservationSuccess = createAction(types.API.RESERVATION_PUT_SUCCESS);
 
       describe('updating reservations', () => {
-        it('should add the reservation to reservations if it is not already there', () => {
+        it('adds the reservation to reservations if it is not already there', () => {
           const reservation = Reservation.build();
           const initialState = Immutable({
             reservations: {},
@@ -181,7 +181,7 @@ describe('Reducer: dataReducer', () => {
           expect(actualReservations).to.deep.equal(expectedReservations);
         });
 
-        it('should update a reservation already in reservations', () => {
+        it('updates a reservation already in reservations', () => {
           const oldReservation = Reservation.build({
             begin: 'old-begin',
             end: 'old-end',
@@ -208,7 +208,7 @@ describe('Reducer: dataReducer', () => {
       });
 
       describe('updating resource reservations', () => {
-        it('should add the given reservation to correct resource', () => {
+        it('adds the given reservation to correct resource', () => {
           const resource = Resource.build();
           const reservation = Reservation.build({ resource: resource.id });
           const initialState = Immutable({
@@ -223,7 +223,7 @@ describe('Reducer: dataReducer', () => {
           expect(actualReservations).to.deep.equal(expectedReservations);
         });
 
-        it('should update a reservation already in resource reservations', () => {
+        it('updates a reservation already in resource reservations', () => {
           const resource = Resource.build();
           const oldReservation = Reservation.build({
             begin: 'old-begin',
@@ -251,7 +251,7 @@ describe('Reducer: dataReducer', () => {
           expect(actualReservations).to.deep.equal(expectedReservations);
         });
 
-        it('should not touch other resource values', () => {
+        it('does not touch other resource values', () => {
           const resource = Resource.build({
             otherValue: 'whatever',
           });
@@ -273,7 +273,7 @@ describe('Reducer: dataReducer', () => {
     describe('API.RESERVATION_DELETE_SUCCESS', () => {
       const deleteReservationSuccess = createAction(types.API.RESERVATION_DELETE_SUCCESS);
 
-      it('should change reservation state to cancelled in reservations', () => {
+      it('changes reservation state to cancelled in reservations', () => {
         const reservation = Reservation.build({ state: 'confirmed' });
         const initialState = Immutable({
           reservations: { [reservation.url]: reservation },
@@ -288,7 +288,7 @@ describe('Reducer: dataReducer', () => {
         expect(actual).to.deep.equal(expected);
       });
 
-      it('should change reservation state to cancelled in resource reservations', () => {
+      it('changes reservation state to cancelled in resource reservations', () => {
         const resource = Resource.build();
         const reservation = Reservation.build({ resource: resource.id, state: 'confirmed' });
         resource.reservations = [reservation];
@@ -306,7 +306,7 @@ describe('Reducer: dataReducer', () => {
         expect(actualReservations[0].state).to.deep.equal(expected[0].state);
       });
 
-      it('should not touch other resource values', () => {
+      it('does not touch other resource values', () => {
         const resource = Resource.build({
           otherValue: 'whatever',
         });
@@ -327,7 +327,7 @@ describe('Reducer: dataReducer', () => {
     describe('API.USER_GET_SUCCESS', () => {
       const userGetSuccess = createAction(types.API.USER_GET_SUCCESS);
 
-      it('should add the user to users', () => {
+      it('adds the user to users', () => {
         const user = User.build();
         const initialState = Immutable({
           users: {},
@@ -343,7 +343,7 @@ describe('Reducer: dataReducer', () => {
         expect(actualUsers).to.deep.equal(expectedUsers);
       });
 
-      it('should not affect previous user values', () => {
+      it('does not affect previous user values', () => {
         const user = User.build({ previousValue: 'value' });
         const updatedUser = User.build({ uuid: user.uuid, newValue: 'newValue' });
         const initialState = Immutable({
@@ -355,6 +355,58 @@ describe('Reducer: dataReducer', () => {
 
         expect(actualUser.previousValue).to.equal(user.previousValue);
         expect(actualUser.newValue).to.equal(updatedUser.newValue);
+      });
+    });
+
+    describe('API.RESOURCE_UNFAVORITE_POST_SUCCESS', () => {
+      const resource = {
+        id: '123',
+        isFavorite: true,
+      };
+
+      const unfavoriteResource = createAction(
+        types.API.RESOURCE_UNFAVORITE_POST_SUCCESS,
+        (payload) => payload,
+        () => ({ id: resource.id })
+      );
+
+      it('changes isFavorite attribute from resource', () => {
+        const user = User.build();
+        const initialState = Immutable({
+          resources: {
+            [resource.id]: resource,
+          },
+        });
+        const action = unfavoriteResource(user);
+        const nextState = dataReducer(initialState, action);
+
+        expect(nextState.resources[resource.id].isFavorite).to.be.false;
+      });
+    });
+
+    describe('API.RESOURCE_FAVORITE_POST_SUCCESS', () => {
+      const resource = {
+        id: '123',
+        isFavorite: false,
+      };
+
+      const unfavoriteResource = createAction(
+        types.API.RESOURCE_FAVORITE_POST_SUCCESS,
+        (payload) => payload,
+        () => ({ id: resource.id })
+      );
+
+      it('changes isFavorite attribute from resource', () => {
+        const user = User.build();
+        const initialState = Immutable({
+          resources: {
+            [resource.id]: resource,
+          },
+        });
+        const action = unfavoriteResource(user);
+        const nextState = dataReducer(initialState, action);
+
+        expect(nextState.resources[resource.id].isFavorite).to.be.true;
       });
     });
   });

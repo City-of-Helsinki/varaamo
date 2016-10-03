@@ -1,5 +1,3 @@
-import filter from 'lodash/filter';
-import includes from 'lodash/includes';
 import { createSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
@@ -11,8 +9,8 @@ import selectedReservationsSelector from 'selectors/selectedReservationsSelector
 import staffUnitsSelector from 'selectors/staffUnitsSelector';
 import modalIsOpenSelectorFactory from 'selectors/factories/modalIsOpenSelectorFactory';
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
-import { getOpeningHours } from 'utils/DataUtils';
-import { getTimeSlots } from 'utils/TimeUtils';
+import { getOpeningHours, getOpenReservations } from 'utils/resourceUtils';
+import { getTimeSlots } from 'utils/timeUtils';
 import ModalTypes from 'constants/ModalTypes';
 
 const idSelector = (state, props) => props.params.id;
@@ -51,12 +49,8 @@ const reservationCalendarSelector = createSelector(
   ) => {
     const { closes, opens } = getOpeningHours(resource);
     const period = resource.minPeriod ? resource.minPeriod : undefined;
-    const reservations = resource.reservations || undefined;
-    const openReservations = filter(reservations, (reservation) => {
-      const openStates = ['confirmed', 'requested'];
-      return includes(openStates, reservation.state);
-    });
-    const timeSlots = getTimeSlots(opens, closes, period, openReservations, reservationsToEdit);
+    const reservations = getOpenReservations(resource);
+    const timeSlots = getTimeSlots(opens, closes, period, reservations, reservationsToEdit);
 
     return {
       confirmReservationModalIsOpen,

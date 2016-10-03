@@ -4,7 +4,7 @@ import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
 import ModalTypes from 'constants/ModalTypes';
-import { getTimeSlots } from 'utils/TimeUtils';
+import { getTimeSlots } from 'utils/timeUtils';
 
 const initialState = Immutable({
   adminReservationsFilters: {
