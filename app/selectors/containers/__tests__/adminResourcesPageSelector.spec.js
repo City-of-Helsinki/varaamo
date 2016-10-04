@@ -21,10 +21,10 @@ describe('Selector: adminResourcesPageSelector', () => {
     expect(selected.resources).to.exist;
   });
 
-  it('should return an array of resources', () => {
-    const resource1 = Resource.build();
+  it('should return an array of resources ordered by name', () => {
+    const resource1 = Resource.build({ name: { fi: 'Zimbabwe' } });
     const resource2 = Resource.build();
-    const resource3 = Resource.build();
+    const resource3 = Resource.build({ name: { fi: 'Afganistan' } });
     const customState = getState({
       'data.resources': {
         [resource1.id]: resource1,
@@ -34,6 +34,6 @@ describe('Selector: adminResourcesPageSelector', () => {
       'ui.pages.adminResources.resourceIds': [resource1.id, resource3.id],
     });
     const customSelected = adminResourcesPageSelector(customState, props);
-    expect(customSelected.resources).to.deep.equal([resource1, resource3]);
+    expect(customSelected.resources).to.deep.equal([resource3, resource1]);
   });
 });
