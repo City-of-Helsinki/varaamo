@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import pick from 'lodash/pick';
 import values from 'lodash/values';
+import sortBy from 'lodash/sortBy';
 
 import ActionTypes from 'constants/ActionTypes';
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
@@ -22,7 +23,7 @@ const adminResourcesPage = createSelector(
   ) => ({
     isAdmin,
     isFetchingResources,
-    resources: values(pick(resources, resourceIds)),
+    resources: sortBy(values(pick(resources, resourceIds)), (resource) => resource.name.fi),
   })
 );
 
