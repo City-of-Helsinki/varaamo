@@ -21,6 +21,11 @@ const closeReservationCancelModal = createAction(
   () => ModalTypes.RESERVATION_CANCEL
 );
 
+const closeReservationCommentModal = createAction(
+  types.UI.CLOSE_MODAL,
+  () => ModalTypes.RESERVATION_COMMENT
+);
+
 const closeReservationInfoModal = createAction(
   types.UI.CLOSE_MODAL,
   () => ModalTypes.RESERVATION_INFO
@@ -39,6 +44,11 @@ const openConfirmReservationModal = createAction(
 const openReservationCancelModal = createAction(
   types.UI.OPEN_MODAL,
   () => ModalTypes.RESERVATION_CANCEL
+);
+
+const openReservationCommentModal = createAction(
+  types.UI.OPEN_MODAL,
+  () => ModalTypes.RESERVATION_COMMENT
 );
 
 const openReservationInfoModal = createAction(
@@ -67,10 +77,12 @@ export {
   clearReservations,
   closeConfirmReservationModal,
   closeReservationCancelModal,
+  closeReservationCommentModal,
   closeReservationInfoModal,
   closeReservationSuccessModal,
   openConfirmReservationModal,
   openReservationCancelModal,
+  openReservationCommentModal,
   openReservationInfoModal,
   selectReservationToCancel,
   selectReservationToEdit,
