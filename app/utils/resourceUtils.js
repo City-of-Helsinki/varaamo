@@ -81,7 +81,7 @@ function getHumanizedPeriod(period) {
   if (!period) {
     return '';
   }
-  return `${moment.duration(period).hours()}h`;
+  return `${moment.duration(period).hours()} h`;
 }
 
 function getOpeningHours(resource) {

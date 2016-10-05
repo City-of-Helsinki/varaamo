@@ -429,7 +429,7 @@ describe('Utils: resourceUtils', () => {
       const period = '04:00:00';
       const periodString = getHumanizedPeriod(period);
 
-      expect(periodString).to.equal('4h');
+      expect(periodString).to.equal('4 h');
     });
   });
 

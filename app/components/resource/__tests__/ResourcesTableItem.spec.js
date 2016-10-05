@@ -131,7 +131,7 @@ describe('Component: reservation/ResourcesTableItem', () => {
           it('availability tr exists and is the amount of free time till resource closes', () => {
             expect(component.find('.resource-table-row.availability')).to.have.length(1);
             expect(component.find('.resource-table-row.availability').prop('children'))
-              .to.equal('6h heti');
+              .to.equal('6 h heti');
           });
 
           it('reservation range tr exists and is empty', () => {
@@ -163,7 +163,7 @@ describe('Component: reservation/ResourcesTableItem', () => {
               });
 
               it('contains the amount of availability time', () => {
-                expect(tdComponent.prop('children')).to.equal('2h heti');
+                expect(tdComponent.prop('children')).to.equal('2 h heti');
               });
 
               it('exists and is closed if resource is not yet opened', () => {

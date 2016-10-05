@@ -75,7 +75,7 @@ describe('screens/shared/resource-list/ResourceIcons', () => {
     });
 
     it('renders correct text', () => {
-      expect(spanText.text()).to.equal('2h');
+      expect(spanText.text()).to.equal('2 h');
     });
 
     it('is not rendered if prop is not passed', () => {
