@@ -10,9 +10,9 @@ function ModalWrapper({ children, className, footerContent, onClose, show, title
       <Modal.Body>
         {children}
       </Modal.Body>
-      <Modal.Footer>
-        {footerContent}
-      </Modal.Footer>
+      {footerContent && (
+        <Modal.Footer>{footerContent}</Modal.Footer>
+      )}
     </Modal>
   );
 }
@@ -20,7 +20,7 @@ function ModalWrapper({ children, className, footerContent, onClose, show, title
 ModalWrapper.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
-  footerContent: PropTypes.node.isRequired,
+  footerContent: PropTypes.node,
   onClose: PropTypes.func.isRequired,
   show: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,

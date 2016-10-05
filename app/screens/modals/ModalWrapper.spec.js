@@ -64,9 +64,18 @@ describe('screens/modals/ModalWrapper', () => {
     expect(modalFooter.length).to.equal(1);
   });
 
-  it('renders footerContent inside ModalFooter', () => {
-    const modalFooter = getWrapper().find(Modal.Footer);
+  describe('footerContent', () => {
+    it('is rendered inside ModalFooter if footerContent is given in props', () => {
+      const modalFooter = getWrapper().find(Modal.Footer);
 
-    expect(modalFooter.children().equals(defaultProps.footerContent)).to.be.true;
+      expect(modalFooter.children().equals(defaultProps.footerContent)).to.be.true;
+    });
+
+    it('is not rendered if footerContent is not given in props', () => {
+      const footerContent = undefined;
+      const modalFooter = getWrapper({ footerContent }).find(Modal.Footer);
+
+      expect(modalFooter.length).to.equal(0);
+    });
   });
 });
