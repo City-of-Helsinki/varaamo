@@ -3,6 +3,7 @@ import moment from 'moment';
 import { Link } from 'react-router';
 
 import TimeRange from 'components/common/TimeRange';
+import CommentButton from 'screens/shared/comment-button';
 import { getOpeningHours } from 'utils/resourceUtils';
 import { prettifyHours } from 'utils/timeUtils';
 
@@ -77,6 +78,7 @@ class ResourcesTableItem extends Component {
           </td>,
           <td className="resource-table-row comments" key={`${reservation.id}-comments`}>
             {reservation.comments}
+            <CommentButton reservation={reservation} />
           </td>,
         ] : [
           <td className="resource-table-row reservation-range" key="no-res-range" />,

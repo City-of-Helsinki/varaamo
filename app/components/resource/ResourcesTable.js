@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/lib/Table';
 import { connect } from 'react-redux';
 
 import ResourcesTableItem from 'components/resource/ResourcesTableItem';
+import CommentModal from 'screens/modals/comment';
 import { getOpenReservations } from 'utils/resourceUtils';
 import { getCurrentReservation, getNextReservation } from 'utils/reservationUtils';
 
@@ -26,20 +27,23 @@ export class UnconnectedResourcesTable extends Component {
     } = this.props;
     return (
       Object.keys(resources).length ? (
-        <Table className="resources-table" responsive striped>
-          <thead>
-            <tr>
-              <th>Tilan nimi</th>
-              <th>Vapaata</th>
-              <th>Varaus</th>
-              <th>Varaaja</th>
-              <th>Kommentit</th>
-            </tr>
-          </thead>
-          <tbody>
-            {resources.map(this.renderResourcesTableItem)}
-          </tbody>
-        </Table>
+        <div>
+          <Table className="resources-table" responsive striped>
+            <thead>
+              <tr>
+                <th>Tilan nimi</th>
+                <th>Vapaata</th>
+                <th>Varaus</th>
+                <th>Varaaja</th>
+                <th>Kommentit</th>
+              </tr>
+            </thead>
+            <tbody>
+              {resources.map(this.renderResourcesTableItem)}
+            </tbody>
+          </Table>
+          <CommentModal />
+        </div>
       ) : (
         <p>{emptyMessage || 'Et ole lisännyt vielä yhtään tilaa itsellesi.'}</p>
       )
