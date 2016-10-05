@@ -338,7 +338,7 @@ describe('Utils: timeUtils', () => {
         const showMinutes = false;
 
         it('returns the number of hours rounded to half an hour', () => {
-          expect(prettifyHours(hours, showMinutes)).to.equal('0.5h');
+          expect(prettifyHours(hours, showMinutes)).to.equal('0.5 h');
         });
       });
     });
@@ -347,7 +347,7 @@ describe('Utils: timeUtils', () => {
       const hours = 2.3;
 
       it('returns the number of hours rounded to half an hour', () => {
-        expect(prettifyHours(hours)).to.equal('2.5h');
+        expect(prettifyHours(hours)).to.equal('2.5 h');
       });
     });
   });

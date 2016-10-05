@@ -21,10 +21,10 @@ function getHourlyPrice({ minPricePerHour, maxPricePerHour }) {
     return null;
   }
   if ((minPricePerHour && maxPricePerHour) && (minPricePerHour !== maxPricePerHour)) {
-    return `${Number(minPricePerHour)} - ${Number(maxPricePerHour)}e/h`;
+    return `${Number(minPricePerHour)} - ${Number(maxPricePerHour)} €/h`;
   }
   const priceString = maxPricePerHour || minPricePerHour;
-  return priceString !== null ? `${Number(priceString)}e/h` : null;
+  return priceString !== null ? `${Number(priceString)} €/h` : null;
 }
 
 function ResourceIcons({ resource }) {

@@ -99,7 +99,7 @@ function prettifyHours(hours, showMinutes = false) {
   }
 
   const rounded = Math.ceil(hours * 2) / 2;
-  return `${rounded}h`;
+  return `${rounded} h`;
 }
 
 export {
