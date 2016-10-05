@@ -24,7 +24,11 @@ function getHourlyPrice({ minPricePerHour, maxPricePerHour }) {
     return `${Number(minPricePerHour)} - ${Number(maxPricePerHour)} €/h`;
   }
   const priceString = maxPricePerHour || minPricePerHour;
-  return priceString !== null ? `${Number(priceString)} €/h` : null;
+  const price = priceString !== 0 ? Number(priceString) : null;
+  if (price === 0) {
+    return 'ILMAINEN';
+  }
+  return price ? `${price} €/h` : null;
 }
 
 function ResourceIcons({ resource }) {
