@@ -101,7 +101,7 @@ describe('screens/shared/resource-list/ResourceIcons', () => {
     });
 
     it('renders range of prices', () => {
-      expect(spanText.text()).to.equal('10 - 25e/h');
+      expect(spanText.text()).to.equal('10 - 25 €/h');
     });
 
     it('renders max euro if no min price', () => {
@@ -109,7 +109,7 @@ describe('screens/shared/resource-list/ResourceIcons', () => {
         maxPricePerHour: '25.00',
         minPricePerHour: null,
       };
-      expect(getSpanTextWithProps(props).text()).to.equal('25e/h');
+      expect(getSpanTextWithProps(props).text()).to.equal('25 €/h');
     });
 
     it('renders min price if no max price', () => {
@@ -117,7 +117,7 @@ describe('screens/shared/resource-list/ResourceIcons', () => {
         maxPricePerHour: '10.00',
         minPricePerHour: null,
       };
-      expect(getSpanTextWithProps(props).text()).to.equal('10e/h');
+      expect(getSpanTextWithProps(props).text()).to.equal('10 €/h');
     });
 
     it('renders one price if min and max prices are the same', () => {
@@ -125,7 +125,7 @@ describe('screens/shared/resource-list/ResourceIcons', () => {
         maxPricePerHour: '10.00',
         minPricePerHour: '10.00',
       };
-      expect(getSpanTextWithProps(props).text()).to.equal('10e/h');
+      expect(getSpanTextWithProps(props).text()).to.equal('10 €/h');
     });
 
     it('renders price if it is 0', () => {
@@ -133,7 +133,7 @@ describe('screens/shared/resource-list/ResourceIcons', () => {
         maxPricePerHour: null,
         minPricePerHour: '0.00',
       };
-      expect(getSpanTextWithProps(props).text()).to.equal('0e/h');
+      expect(getSpanTextWithProps(props).text()).to.equal('0 €/h');
     });
 
     it('is not rendered if prop is not passed', () => {
