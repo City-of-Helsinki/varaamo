@@ -5,11 +5,11 @@ import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
 import ReservationInfo from 'components/reservation/ReservationInfo';
-import ResourceHeader from 'components/resource/ResourceHeader';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
 import FavoriteButton from 'screens/shared/favorite-button';
 import { UnconnectedResourcePage as ResourcePage } from './ResourcePage';
+import ResourceInfo from './resource-info';
 
 describe('screens/resource/ResourcePage', () => {
   const unit = Unit.build();
@@ -30,27 +30,25 @@ describe('screens/resource/ResourcePage', () => {
   function getWrapper(props) {
     return shallow(<ResourcePage {...defaultProps} {...props} />);
   }
+
   let wrapper;
+
   before(() => {
     wrapper = getWrapper();
   });
 
-  describe('rendering ResourceHeader', () => {
-    let resoucerHeaderWrapper;
+  describe('rendering ResourceInfo', () => {
+    it('renders ResourceInfo component', () => {
+      const resourceInfo = getWrapper().find(ResourceInfo);
 
-    before(() => {
-      resoucerHeaderWrapper = wrapper.find(ResourceHeader);
+      expect(resourceInfo.length).to.equal(1);
     });
 
-    it('renders ResourceHeader component', () => {
-      expect(resoucerHeaderWrapper.length).to.equal(1);
-    });
+    it('passes correct props to ResourceInfo component', () => {
+      const actualProps = getWrapper().find(ResourceInfo).props();
 
-    it('passes correct props to ResourceHeader component', () => {
-      const actualProps = resoucerHeaderWrapper.props();
-
-      expect(actualProps.name).to.equal(defaultProps.resource.name.fi);
-      expect(typeof actualProps.address).to.equal('string');
+      expect(actualProps.resource).to.deep.equal(defaultProps.resource);
+      expect(actualProps.unit).to.deep.equal(defaultProps.unit);
     });
   });
 

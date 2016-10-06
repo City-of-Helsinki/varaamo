@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchResource } from 'actions/resourceActions';
-import ResourceHeader from 'components/resource/ResourceHeader';
 import ReservationInfo from 'components/reservation/ReservationInfo';
 import ReservationCalendar from 'containers/ReservationCalendar';
 import PageWrapper from 'screens/layout/PageWrapper';
@@ -13,7 +12,7 @@ import NotFoundPage from 'screens/not-found/NotFoundPage';
 import FavoriteButton from 'screens/shared/favorite-button';
 import { getDateStartAndEndTimes } from 'utils/timeUtils';
 import { getName } from 'utils/translationUtils';
-import { getAddressWithName } from 'utils/unitUtils';
+import ResourceInfo from './resource-info';
 import resourcePageSelector from './resourcePageSelector';
 
 export class UnconnectedResourcePage extends Component {
@@ -52,9 +51,9 @@ export class UnconnectedResourcePage extends Component {
     return (
       <PageWrapper className="resource-page" title={`${resourceName}`}>
         <Loader loaded={!isEmpty(resource)}>
-          <ResourceHeader
-            address={getAddressWithName(unit)}
-            name={resourceName}
+          <ResourceInfo
+            resource={resource}
+            unit={unit}
           />
           {isAdmin && <FavoriteButton resource={resource} />}
           <ReservationInfo
