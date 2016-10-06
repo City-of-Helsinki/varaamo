@@ -6,6 +6,7 @@ import Immutable from 'seamless-immutable';
 import WrappedText from 'components/common/WrappedText';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
+import ResourceIcons from 'screens/shared/resource-icons';
 import { getAddressWithName } from 'utils/unitUtils';
 import ResourceInfo from './ResourceInfo';
 
@@ -33,6 +34,12 @@ describe('screens/resource/resource-info/ResourceInfo', () => {
     const expected = getAddressWithName(defaultProps.unit);
 
     expect(address.props().children).to.equal(expected);
+  });
+
+  it('renders ResourceIcons component', () => {
+    const resourceIcons = getWrapper().find(ResourceIcons);
+
+    expect(resourceIcons.length).to.equal(1);
   });
 
   it('renders resource description as WrappedText', () => {
