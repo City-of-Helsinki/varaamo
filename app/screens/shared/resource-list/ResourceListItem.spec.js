@@ -7,6 +7,7 @@ import Immutable from 'seamless-immutable';
 import Image from 'fixtures/Image';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
+import ResourceIcons from 'screens/shared/resource-icons';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import ReserveButton from './ReserveButton';
 import ResourceListItem from './ResourceListItem';
@@ -46,6 +47,12 @@ describe('screens/shared/resource-list/ResourceListItem', () => {
     expect(links.length).to.equal(2);
     expect(links.at(0).props().to).to.equal(expectedUrl);
     expect(links.at(1).props().to).to.equal(expectedUrl);
+  });
+
+  it('renders ResourceIcons component', () => {
+    const resourceIcons = getWrapper().find(ResourceIcons);
+
+    expect(resourceIcons.length).to.equal(1);
   });
 
   it('renders the name of the resource inside a h4 header', () => {

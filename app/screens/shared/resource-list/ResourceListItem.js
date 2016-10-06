@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
+import ResourceIcons from 'screens/shared/resource-icons';
 import { getMainImage } from 'utils/imageUtils';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import { getName } from 'utils/translationUtils';
 import ReserveButton from './ReserveButton';
 import ResourceAvailability from './ResourceAvailability';
-import ResourceIcons from './ResourceIcons';
 
 class ResourceListItem extends Component {
   getBackgroundImageStyles(image) {
