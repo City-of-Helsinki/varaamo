@@ -1,20 +1,16 @@
 import { expect } from 'chai';
 
-import reservationInfoModalSelector from 'selectors/containers/reservationInfoModalSelector';
 import { getState } from 'utils/testUtils';
+import commentModalSelector from './commentModalSelector';
 
-describe('Selector: reservationInfoModalSelector', () => {
+describe('screens/modals/comment/commentModalSelector', () => {
   const resource = { id: 'resource-1' };
   const reservationsToShow = [{ id: 'reservation-1', resource: resource.id }];
   const state = getState({
     'data.resources': { [resource.id]: resource },
     'ui.reservations.toShow': reservationsToShow,
   });
-  const selected = reservationInfoModalSelector(state);
-
-  it('returns isAdmin', () => {
-    expect(selected.isAdmin).to.exist;
-  });
+  const selected = commentModalSelector(state);
 
   it('returns isEditingReservations', () => {
     expect(selected.isEditingReservations).to.exist;
@@ -34,9 +30,5 @@ describe('Selector: reservationInfoModalSelector', () => {
 
   it('returns show', () => {
     expect(selected.show).to.exist;
-  });
-
-  it('returns staffUnits', () => {
-    expect(selected.staffUnits).to.exist;
   });
 });

@@ -250,7 +250,7 @@ describe('Component: reservation/ResourcesTableItem', () => {
             });
 
             it('contains the reserver name', () => {
-              expect(tdComponent.prop('children')).to.equal(expectedReservation.comments);
+              expect(tdComponent.prop('children')).to.contain(expectedReservation.comments);
             });
           });
         }

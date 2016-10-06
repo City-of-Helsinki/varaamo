@@ -68,6 +68,9 @@ function reservationsReducer(state = initialState, action) {
       if (modal === ModalTypes.RESERVATION_CANCEL) {
         return state.merge({ toCancel: [] });
       }
+      if (modal === ModalTypes.RESERVATION_COMMENT) {
+        return state.merge({ toShow: [] });
+      }
       if (modal === ModalTypes.RESERVATION_INFO) {
         return state.merge({ toShow: [] });
       }

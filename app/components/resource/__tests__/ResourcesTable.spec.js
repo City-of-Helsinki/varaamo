@@ -45,7 +45,7 @@ describe('Container: ResourcesTable', () => {
     });
 
     it('renders a Table element', () => {
-      expect(wrapper.is(Table)).to.be.true;
+      expect(wrapper.find(Table).length).to.equal(1);
     });
 
     describe('table header', () => {
@@ -54,7 +54,7 @@ describe('Container: ResourcesTable', () => {
       let thWrapper;
 
       before(() => {
-        theadWrapper = wrapper.children().filter('thead');
+        theadWrapper = wrapper.find('thead');
         trWrapper = theadWrapper.children();
         thWrapper = trWrapper.children();
       });
@@ -73,7 +73,7 @@ describe('Container: ResourcesTable', () => {
       let tbodyWrapper;
 
       before(() => {
-        tbodyWrapper = wrapper.children().filter('tbody');
+        tbodyWrapper = wrapper.find('tbody');
       });
 
       it('exists', () => {

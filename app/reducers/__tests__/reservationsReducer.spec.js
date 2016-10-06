@@ -7,6 +7,7 @@ import {
   changeAdminReservationsFilters,
   clearReservations,
   closeReservationCancelModal,
+  closeReservationCommentModal,
   closeReservationInfoModal,
   closeReservationSuccessModal,
   selectReservationToCancel,
@@ -218,6 +219,18 @@ describe('Reducer: reservationsReducer', () => {
           const nextState = reservationsReducer(initialState, action);
 
           expect(nextState.toCancel).to.deep.equal([]);
+        });
+      });
+
+      describe('if closed modal is RESERVATION_COMMENT modal', () => {
+        it('should clear toShow array', () => {
+          const initialState = Immutable({
+            toShow: [Reservation.build()],
+          });
+          const action = closeReservationCommentModal();
+          const nextState = reservationsReducer(initialState, action);
+
+          expect(nextState.toShow).to.deep.equal([]);
         });
       });
 

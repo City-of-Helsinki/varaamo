@@ -1,4 +1,5 @@
 import includes from 'lodash/includes';
+import isEmpty from 'lodash/isEmpty';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
@@ -10,10 +11,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { closeReservationInfoModal } from 'actions/uiActions';
-import { putReservation } from 'actions/reservationActions';
+import { commentReservation } from 'actions/reservationActions';
 import TimeRange from 'components/common/TimeRange';
 import reservationInfoModalSelector from 'selectors/containers/reservationInfoModalSelector';
-import { isStaffEvent, getMissingValues } from 'utils/reservationUtils';
 import { renderReservationStateLabel } from 'utils/renderUtils';
 import { getName } from 'utils/translationUtils';
 
@@ -32,27 +32,14 @@ export class UnconnectedReservationInfoModal extends Component {
   }
 
   handleSave() {
-    const { actions, reservationsToShow, resources } = this.props;
-    const reservation = reservationsToShow.length ? reservationsToShow[0] : undefined;
-    if (!reservation) {
-      return;
-    }
-    const resource = reservation ? resources[reservationsToShow[0].resource] : {};
-    const staffEvent = isStaffEvent(reservation, resource);
-    const missingValues = getMissingValues(reservation);
+    const { actions, reservation, resource } = this.props;
     const comments = findDOMNode(this.refs.commentsInput).value;
-    actions.putReservation(Object.assign(
-      {},
-      reservation,
-      missingValues,
-      { comments },
-      { staffEvent }
-    ));
+    actions.commentReservation(reservation, resource, comments);
     actions.closeReservationInfoModal();
   }
 
   renderModalContent(reservation, resource, isAdmin, isStaff) {
-    if (!reservation) {
+    if (isEmpty(reservation)) {
       return null;
     }
 
@@ -115,16 +102,14 @@ export class UnconnectedReservationInfoModal extends Component {
   render() {
     const {
       actions,
+      isAdmin,
       isEditingReservations,
-      reservationsToShow,
-      resources,
+      reservation,
+      resource,
       show,
       staffUnits,
     } = this.props;
 
-    const reservation = reservationsToShow.length ? reservationsToShow[0] : undefined;
-    const resource = reservation ? resources[reservationsToShow[0].resource] : {};
-    const isAdmin = resource.userPermissions && resource.userPermissions.isAdmin;
     const isStaff = includes(staffUnits, resource.unit);
     const showSaveButton = isAdmin && reservation && reservation.state !== 'cancelled';
 
@@ -167,9 +152,10 @@ export class UnconnectedReservationInfoModal extends Component {
 
 UnconnectedReservationInfoModal.propTypes = {
   actions: PropTypes.object.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
   isEditingReservations: PropTypes.bool.isRequired,
-  reservationsToShow: PropTypes.array.isRequired,
-  resources: PropTypes.object.isRequired,
+  reservation: PropTypes.object.isRequired,
+  resource: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
   staffUnits: PropTypes.array.isRequired,
 };
@@ -177,7 +163,7 @@ UnconnectedReservationInfoModal.propTypes = {
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
     closeReservationInfoModal,
-    putReservation,
+    commentReservation,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
