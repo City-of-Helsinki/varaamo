@@ -4,11 +4,11 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import ReservationInfo from 'components/reservation/ReservationInfo';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
 import FavoriteButton from 'screens/shared/favorite-button';
 import { UnconnectedResourcePage as ResourcePage } from './ResourcePage';
+import ReservationInfo from './reservation-info';
 import ResourceInfo from './resource-info';
 
 describe('screens/resource/ResourcePage', () => {

@@ -5,13 +5,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchResource } from 'actions/resourceActions';
-import ReservationInfo from 'components/reservation/ReservationInfo';
 import ReservationCalendar from 'containers/ReservationCalendar';
 import PageWrapper from 'screens/layout/PageWrapper';
 import NotFoundPage from 'screens/not-found/NotFoundPage';
 import FavoriteButton from 'screens/shared/favorite-button';
 import { getDateStartAndEndTimes } from 'utils/timeUtils';
 import { getName } from 'utils/translationUtils';
+import ReservationInfo from './reservation-info';
 import ResourceInfo from './resource-info';
 import resourcePageSelector from './resourcePageSelector';
 
@@ -56,11 +56,11 @@ export class UnconnectedResourcePage extends Component {
             unit={unit}
           />
           {isAdmin && <FavoriteButton resource={resource} />}
+          <h2 id="reservation-header">{isLoggedIn ? 'Varaa tila' : 'Varaustilanne'}</h2>
           <ReservationInfo
             isLoggedIn={isLoggedIn}
             resource={resource}
           />
-          <h2 id="reservation-header">{isLoggedIn ? 'Varaa tila' : 'Varaustilanne'}</h2>
           <ReservationCalendar
             location={location}
             params={params}
