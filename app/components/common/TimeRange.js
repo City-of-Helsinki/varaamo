@@ -8,6 +8,7 @@ class TimeRange extends Component {
       begin,
       className,
       dateFormat,
+      dateTimeSeparator,
       end,
       lineBreaks,
       timeFormat,
@@ -15,9 +16,7 @@ class TimeRange extends Component {
     const beginMoment = moment(begin);
     const endMoment = moment(end);
     const dateString = beginMoment.format(dateFormat);
-    const timeString = (
-      `klo ${beginMoment.format(timeFormat)} \u2013 ${endMoment.format(timeFormat)}`
-    );
+    const timeString = `${beginMoment.format(timeFormat)} \u2013 ${endMoment.format(timeFormat)}`;
     const ISORangeString = `${begin}/${end}`;
 
     return (
@@ -25,10 +24,10 @@ class TimeRange extends Component {
         {lineBreaks ? (
           <div>
             <div>{capitalize(dateString)}</div>
-            <div>{timeString}</div>
+            <div>{dateTimeSeparator} {timeString}</div>
           </div>
-        ) : (
-          `${capitalize(dateString)} ${timeString}`
+          ) : (
+          `${capitalize(dateString)} ${dateTimeSeparator} ${timeString}`
         )}
       </time>
     );
@@ -39,6 +38,7 @@ TimeRange.propTypes = {
   begin: PropTypes.string.isRequired,
   className: PropTypes.string,
   dateFormat: PropTypes.string.isRequired,
+  dateTimeSeparator: PropTypes.string.isRequired,
   end: PropTypes.string.isRequired,
   lineBreaks: PropTypes.bool.isRequired,
   timeFormat: PropTypes.string.isRequired,
@@ -46,6 +46,7 @@ TimeRange.propTypes = {
 
 TimeRange.defaultProps = {
   dateFormat: 'dddd, Do MMMM[ta]',
+  dateTimeSeparator: 'klo',
   lineBreaks: false,
   timeFormat: 'H:mm',
 };

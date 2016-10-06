@@ -70,6 +70,7 @@ class ResourcesTableItem extends Component {
             <TimeRange
               begin={reservation.begin}
               dateFormat=" "
+              dateTimeSeparator=""
               end={reservation.end}
             />
           </td>,

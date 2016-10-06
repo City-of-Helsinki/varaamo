@@ -1,6 +1,9 @@
 .resources-table {
   .resource-table-row {
+    line-height: 25px;
+
     &.availability {
+      min-width: 100px;
       color: @brand-success;
       font-weight: bold;
 
@@ -9,8 +12,19 @@
       }
     }
 
-    .comment-button {
-      float: right;
+    &.reservation-range {
+      min-width: 120px;
+    }
+
+    &.comments {
+      position: relative;
+      padding-right: 40px;
+
+      .comment-button {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+      }
     }
   }
 }
