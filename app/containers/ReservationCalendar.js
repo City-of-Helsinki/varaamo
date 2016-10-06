@@ -28,6 +28,7 @@ import ReservationCancelModal from 'containers/ReservationCancelModal';
 import ReservationInfoModal from 'containers/ReservationInfoModal';
 import ReservationSuccessModal from 'containers/ReservationSuccessModal';
 import reservationCalendarSelector from 'selectors/containers/reservationCalendarSelector';
+import { getResourcePageUrl } from 'utils/resourceUtils';
 import { addToDate } from 'utils/timeUtils';
 
 export class UnconnectedReservationCalendar extends Component {
@@ -47,8 +48,8 @@ export class UnconnectedReservationCalendar extends Component {
 
 
   onDateChange(newDate) {
-    const { actions, id } = this.props;
-    actions.updatePath(`/resources/${id}/reservation?date=${newDate}`);
+    const { actions, resource } = this.props;
+    actions.updatePath(getResourcePageUrl(resource, newDate));
   }
 
   decreaseDate() {
@@ -197,7 +198,6 @@ UnconnectedReservationCalendar.propTypes = {
   actions: PropTypes.object.isRequired,
   confirmReservationModalIsOpen: PropTypes.bool.isRequired,
   date: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
   isFetchingResource: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,

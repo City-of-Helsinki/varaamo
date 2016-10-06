@@ -6,6 +6,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import Immutable from 'seamless-immutable';
 
 import Resource from 'fixtures/Resource';
+import { getResourcePageUrl } from 'utils/resourceUtils';
 import ReserveButton from './ReserveButton';
 
 describe('screens/shared/resource-list/ReserveButton', () => {
@@ -32,10 +33,10 @@ describe('screens/shared/resource-list/ReserveButton', () => {
 
   it('renders a LinkContainer to reservation page', () => {
     const linkContainer = getWrapper().find(LinkContainer);
-    const expectedLink = `/resources/${defaultProps.resource.id}/reservation`;
+    const expectedUrl = getResourcePageUrl(defaultProps.resource, defaultProps.date);
 
     expect(linkContainer.length).to.equal(1);
-    expect(linkContainer.props().to).to.equal(expectedLink);
+    expect(linkContainer.props().to).to.equal(expectedUrl);
   });
 
   describe('Button', () => {

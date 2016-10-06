@@ -1,4 +1,3 @@
-import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -16,6 +15,7 @@ import {
   denyPreliminaryReservation,
 } from 'actions/reservationActions';
 import ReservationControls from 'components/reservation/ReservationControls';
+import { getResourcePageUrl } from 'utils/resourceUtils';
 
 export class UnconnectedReservationControls extends Component {
   constructor(props) {
@@ -58,18 +58,11 @@ export class UnconnectedReservationControls extends Component {
   }
 
   handleEditClick() {
-    const {
-      actions,
-      reservation,
-      resource,
-    } = this.props;
-    const query = queryString.stringify({
-      date: reservation.begin.split('T')[0],
-      time: reservation.begin,
-    });
+    const { actions, reservation, resource } = this.props;
+    const nextUrl = getResourcePageUrl(resource, reservation.begin, reservation.begin);
 
     actions.selectReservationToEdit({ reservation, minPeriod: resource.minPeriod });
-    actions.updatePath(`/resources/${reservation.resource}/reservation?${query}`);
+    actions.updatePath(nextUrl);
   }
 
   handleInfoClick() {

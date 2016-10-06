@@ -11,6 +11,7 @@ import TimeSlot from 'fixtures/TimeSlot';
 import {
   UnconnectedReservationCalendar as ReservationCalendar,
 } from 'containers/ReservationCalendar';
+import { getResourcePageUrl } from 'utils/resourceUtils';
 
 function getProps(props = {}) {
   const defaults = {
@@ -28,7 +29,6 @@ function getProps(props = {}) {
     },
     confirmReservationModalIsOpen: false,
     date: '2015-10-11',
-    id: 'r-1',
     isFetchingResource: false,
     isLoggedIn: true,
     isMakingReservations: false,
@@ -182,7 +182,7 @@ describe('Container: ReservationCalendar', () => {
 
     it('should call updatePath and update the url with the new date', () => {
       const actualUrl = props.actions.updatePath.lastCall.args[0];
-      const expectedUrl = `/resources/${props.id}/reservation?date=${newDate}`;
+      const expectedUrl = getResourcePageUrl(props.resource, newDate);
 
       expect(props.actions.updatePath.callCount).to.equal(1);
       expect(actualUrl).to.equal(expectedUrl);

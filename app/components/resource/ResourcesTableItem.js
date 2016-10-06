@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 import TimeRange from 'components/common/TimeRange';
 import CommentButton from 'screens/shared/comment-button';
-import { getOpeningHours } from 'utils/resourceUtils';
+import { getOpeningHours, getResourcePageUrl } from 'utils/resourceUtils';
 import { prettifyHours } from 'utils/timeUtils';
 
 class ResourcesTableItem extends Component {
@@ -60,7 +60,7 @@ class ResourcesTableItem extends Component {
     return (
       <tr>
         <td className="resource-table-row name">
-          <Link to={`/resources/${resource.id}/reservation`}>
+          <Link to={getResourcePageUrl(resource)}>
             {resource.name.fi}
           </Link>
         </td>

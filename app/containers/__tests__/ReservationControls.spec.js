@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import queryString from 'query-string';
 import React from 'react';
 import simple from 'simple-mock';
 
@@ -8,6 +7,7 @@ import ReservationControls from 'components/reservation/ReservationControls';
 import { UnconnectedReservationControls } from 'containers/ReservationControls';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
+import { getResourcePageUrl } from 'utils/resourceUtils';
 
 describe('Container: ReservationControls', () => {
   const resource = Resource.build();
@@ -91,11 +91,11 @@ describe('Container: ReservationControls', () => {
 
     it('should call the props.actions.updatePath with correct url', () => {
       const actualUrlArg = props.actions.updatePath.lastCall.args[0];
-      const query = queryString.stringify({
-        date: props.reservation.begin.split('T')[0],
-        time: props.reservation.begin,
-      });
-      const expectedUrl = `/resources/${props.reservation.resource}/reservation?${query}`;
+      const expectedUrl = getResourcePageUrl(
+        props.resource,
+        props.reservation.begin,
+        props.reservation.begin
+      );
 
       expect(props.actions.updatePath.callCount).to.equal(1);
       expect(actualUrlArg).to.equal(expectedUrl);

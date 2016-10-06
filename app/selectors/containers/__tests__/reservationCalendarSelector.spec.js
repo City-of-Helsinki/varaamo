@@ -77,15 +77,6 @@ describe('Selector: reservationCalendarSelector', () => {
     expect(selected.date).to.exist;
   });
 
-  it('should return the id in router.params.id', () => {
-    const state = getState(resource);
-    const props = getProps(resource.id);
-    const selected = reservationCalendarSelector(state, props);
-    const expected = props.params.id;
-
-    expect(selected.id).to.equal(expected);
-  });
-
   it('should return isFetchingResource', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
