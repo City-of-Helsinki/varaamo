@@ -31,20 +31,22 @@ class CommentForm extends Component {
             rows={5}
           />
         </FormGroup>
-        <Button
-          bsStyle="default"
-          onClick={onCancel}
-        >
-          Takaisin
-        </Button>
-        <Button
-          bsStyle="success"
-          disabled={isSaving}
-          onClick={this.handleSave}
-          type="submit"
-        >
-          {isSaving ? 'Tallennetaan...' : 'Tallenna'}
-        </Button>
+        <div className="buttons">
+          <Button
+            bsStyle="default"
+            onClick={onCancel}
+          >
+            Takaisin
+          </Button>
+          <Button
+            bsStyle="success"
+            disabled={isSaving}
+            onClick={this.handleSave}
+            type="submit"
+          >
+            {isSaving ? 'Tallennetaan...' : 'Tallenna'}
+          </Button>
+        </div>
       </form>
     );
   }
