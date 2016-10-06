@@ -102,13 +102,6 @@ function getOpenReservations(resource) {
   ));
 }
 
-function getPeopleCapacityString(capacity) {
-  if (!capacity) {
-    return '';
-  }
-  return `max ${capacity} hengelle.`;
-}
-
 function getResourcePageUrl(resource, date, time) {
   if (!resource || !resource.id) {
     return '';
@@ -128,6 +121,5 @@ export {
   getHumanizedPeriod,
   getOpeningHours,
   getOpenReservations,
-  getPeopleCapacityString,
   getResourcePageUrl,
 };

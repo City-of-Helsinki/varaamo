@@ -10,7 +10,6 @@ import {
   getAvailabilityDataForWholeDay,
   getHumanizedPeriod,
   getOpeningHours,
-  getPeopleCapacityString,
   getOpenReservations,
   getResourcePageUrl,
 } from 'utils/resourceUtils';
@@ -464,37 +463,6 @@ describe('Utils: resourceUtils', () => {
       const expected = { closes: 'first-closes', opens: 'first-opens' };
 
       expect(getOpeningHours(resource)).to.deep.equal(expected);
-    });
-  });
-
-  describe('getPeopleCapacityString', () => {
-    it('returns an empty string if capacity is undefined', () => {
-      const capacity = undefined;
-      const capacityString = getPeopleCapacityString(capacity);
-
-      expect(capacityString).to.equal('');
-    });
-
-    it('returns an empty string if capacity is null', () => {
-      const capacity = null;
-      const capacityString = getPeopleCapacityString(capacity);
-
-      expect(capacityString).to.equal('');
-    });
-
-    it('returns an empty string if capacity is 0', () => {
-      const capacity = 0;
-      const capacityString = getPeopleCapacityString(capacity);
-
-      expect(capacityString).to.equal('');
-    });
-
-    it('returns a max capacity string if capacity is number bigger than 0', () => {
-      const capacity = 1;
-      const capacityString = getPeopleCapacityString(capacity);
-      const expected = `max ${capacity} hengelle.`;
-
-      expect(capacityString).to.equal(expected);
     });
   });
 
