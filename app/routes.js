@@ -4,7 +4,6 @@ import { Route } from 'react-router';
 import App from 'containers/App';
 import UserReservationsPage from 'containers/UserReservationsPage';
 import AdminResourcesPage from 'containers/AdminResourcesPage';
-import ReservationPage from 'containers/ReservationPage';
 import AboutPage from 'screens/about/AboutPage';
 import HomePage from 'screens/home/HomePage';
 import NotFoundPage from 'screens/not-found/NotFoundPage';
@@ -46,7 +45,6 @@ export default (params) => {
       <Route component={HomePage} onEnter={scrollTop} path="/" />
       <Route component={AboutPage} onEnter={scrollTop} path="/about" />
       <Route component={ResourcePage} onEnter={scrollTop} path="/resources/:id" />
-      <Route component={ReservationPage} path="/resources/:id/reservation" />
       <Route component={SearchPage} path="/search" />
       <Route component={NotFoundPage} path="*" />
     </Route>
