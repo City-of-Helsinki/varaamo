@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
+import WrappedText from 'components/common/WrappedText';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
 import { getAddressWithName } from 'utils/unitUtils';
@@ -10,7 +11,9 @@ import ResourceInfo from './ResourceInfo';
 
 describe('screens/resource/resource-info/ResourceInfo', () => {
   const defaultProps = {
-    resource: Immutable(Resource.build()),
+    resource: Immutable(Resource.build({
+      description: { fi: 'Some description' },
+    })),
     unit: Immutable(Unit.build()),
   };
 
@@ -30,5 +33,13 @@ describe('screens/resource/resource-info/ResourceInfo', () => {
     const expected = getAddressWithName(defaultProps.unit);
 
     expect(address.props().children).to.equal(expected);
+  });
+
+  it('renders resource description as WrappedText', () => {
+    const wrappedText = getWrapper().find(WrappedText);
+    const expectedText = defaultProps.resource.description.fi;
+
+    expect(wrappedText.length).to.equal(1);
+    expect(wrappedText.props().text).to.equal(expectedText);
   });
 });

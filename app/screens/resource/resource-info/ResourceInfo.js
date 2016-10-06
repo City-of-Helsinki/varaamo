@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 
-import { getName } from 'utils/translationUtils';
+import WrappedText from 'components/common/WrappedText';
+import { getName, getProperty } from 'utils/translationUtils';
 import { getAddressWithName } from 'utils/unitUtils';
 
 function ResourceInfo({ resource, unit }) {
@@ -8,6 +9,7 @@ function ResourceInfo({ resource, unit }) {
     <div className="resource-info">
       <h1>{getName(resource)}</h1>
       <address className="lead">{getAddressWithName(unit)}</address>
+      <WrappedText text={getProperty(resource, 'description')} />
     </div>
   );
 }
