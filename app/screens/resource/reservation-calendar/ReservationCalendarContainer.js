@@ -22,12 +22,12 @@ import {
 } from 'actions/uiActions';
 import DateHeader from 'screens/shared/date-header';
 import ConfirmReservationModal from 'components/reservation/ConfirmReservationModal';
-import ReservationCalendarControls from 'components/reservation/ReservationCalendarControls';
 import ReservationCancelModal from 'containers/ReservationCancelModal';
 import ReservationInfoModal from 'containers/ReservationInfoModal';
 import ReservationSuccessModal from 'containers/ReservationSuccessModal';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import { addToDate } from 'utils/timeUtils';
+import ReservationCalendarControls from './ReservationCalendarControls';
 import reservationCalendarSelector from './reservationCalendarSelector';
 import TimeSlots from './time-slots';
 
