@@ -23,13 +23,13 @@ import {
 import DateHeader from 'screens/shared/date-header';
 import ConfirmReservationModal from 'components/reservation/ConfirmReservationModal';
 import ReservationCalendarControls from 'components/reservation/ReservationCalendarControls';
-import TimeSlots from 'components/reservation/TimeSlots';
 import ReservationCancelModal from 'containers/ReservationCancelModal';
 import ReservationInfoModal from 'containers/ReservationInfoModal';
 import ReservationSuccessModal from 'containers/ReservationSuccessModal';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import { addToDate } from 'utils/timeUtils';
 import reservationCalendarSelector from './reservationCalendarSelector';
+import TimeSlots from './time-slots';
 
 export class UnconnectedReservationCalendarContainer extends Component {
   constructor(props) {
