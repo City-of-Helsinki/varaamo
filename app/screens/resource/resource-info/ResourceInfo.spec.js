@@ -8,12 +8,14 @@ import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
 import ResourceIcons from 'screens/shared/resource-icons';
 import { getAddressWithName } from 'utils/unitUtils';
+import ImageCarousel from './ImageCarousel';
 import ResourceInfo from './ResourceInfo';
 
 describe('screens/resource/resource-info/ResourceInfo', () => {
   const defaultProps = {
     resource: Immutable(Resource.build({
       description: { fi: 'Some description' },
+      images: [{ foo: 'bar' }],
     })),
     unit: Immutable(Unit.build()),
   };
@@ -40,6 +42,13 @@ describe('screens/resource/resource-info/ResourceInfo', () => {
     const resourceIcons = getWrapper().find(ResourceIcons);
 
     expect(resourceIcons.length).to.equal(1);
+  });
+
+  it('renders ImageCarousel component with correct images', () => {
+    const imageCarousel = getWrapper().find(ImageCarousel);
+
+    expect(imageCarousel.length).to.equal(1);
+    expect(imageCarousel.prop('images')).to.deep.equal(defaultProps.resource.images);
   });
 
   it('renders resource description as WrappedText', () => {
