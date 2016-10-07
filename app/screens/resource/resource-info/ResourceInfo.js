@@ -1,14 +1,16 @@
 import React, { PropTypes } from 'react';
 
 import WrappedText from 'components/common/WrappedText';
+import FavoriteButton from 'screens/shared/favorite-button';
 import ResourceIcons from 'screens/shared/resource-icons';
 import { getName, getProperty } from 'utils/translationUtils';
 import { getAddressWithName } from 'utils/unitUtils';
 import ImageCarousel from './ImageCarousel';
 
-function ResourceInfo({ resource, unit }) {
+function ResourceInfo({ isAdmin, resource, unit }) {
   return (
     <div className="resource-info">
+      {isAdmin && <FavoriteButton resource={resource} />}
       <h1>{getName(resource)}</h1>
       <address className="lead">{getAddressWithName(unit)}</address>
       <ResourceIcons resource={resource} />
@@ -22,6 +24,7 @@ function ResourceInfo({ resource, unit }) {
 }
 
 ResourceInfo.propTypes = {
+  isAdmin: PropTypes.bool.isRequired,
   resource: PropTypes.object.isRequired,
   unit: PropTypes.object.isRequired,
 };

@@ -8,7 +8,6 @@ import { fetchResource } from 'actions/resourceActions';
 import ReservationCalendar from 'containers/ReservationCalendar';
 import PageWrapper from 'screens/layout/PageWrapper';
 import NotFoundPage from 'screens/not-found/NotFoundPage';
-import FavoriteButton from 'screens/shared/favorite-button';
 import { getDateStartAndEndTimes } from 'utils/timeUtils';
 import { getName } from 'utils/translationUtils';
 import ReservationInfo from './reservation-info';
@@ -52,10 +51,10 @@ export class UnconnectedResourcePage extends Component {
       <PageWrapper className="resource-page" title={`${resourceName}`}>
         <Loader loaded={!isEmpty(resource)}>
           <ResourceInfo
+            isAdmin={isAdmin}
             resource={resource}
             unit={unit}
           />
-          {isAdmin && <FavoriteButton resource={resource} />}
           <h2 id="reservation-header">{isLoggedIn ? 'Varaa tila' : 'Varaustilanne'}</h2>
           <ReservationInfo
             isLoggedIn={isLoggedIn}

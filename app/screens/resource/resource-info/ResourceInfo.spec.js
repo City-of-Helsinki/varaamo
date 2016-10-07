@@ -6,6 +6,7 @@ import Immutable from 'seamless-immutable';
 import WrappedText from 'components/common/WrappedText';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
+import FavoriteButton from 'screens/shared/favorite-button';
 import ResourceIcons from 'screens/shared/resource-icons';
 import { getAddressWithName } from 'utils/unitUtils';
 import ImageCarousel from './ImageCarousel';
@@ -13,6 +14,7 @@ import ResourceInfo from './ResourceInfo';
 
 describe('screens/resource/resource-info/ResourceInfo', () => {
   const defaultProps = {
+    isAdmin: false,
     resource: Immutable(Resource.build({
       description: { fi: 'Some description' },
       images: [{ foo: 'bar' }],
@@ -23,6 +25,21 @@ describe('screens/resource/resource-info/ResourceInfo', () => {
   function getWrapper(extraProps) {
     return shallow(<ResourceInfo {...defaultProps} {...extraProps} />);
   }
+
+  describe('FavoriteButton', () => {
+    it('is not rendered if user is not admin', () => {
+      const favoriteButton = getWrapper({ isAdmin: false }).find(FavoriteButton);
+
+      expect(favoriteButton.length).to.equal(0);
+    });
+
+    it('is rendered with correct props if user is admin', () => {
+      const favoriteButton = getWrapper({ isAdmin: true }).find(FavoriteButton);
+
+      expect(favoriteButton.length).to.equal(1);
+      expect(favoriteButton.prop('resource')).to.deep.equal(defaultProps.resource);
+    });
+  });
 
   it('renders the name of the resource inside a h1 header', () => {
     const header = getWrapper().find('h1');

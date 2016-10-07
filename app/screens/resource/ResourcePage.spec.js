@@ -6,7 +6,6 @@ import simple from 'simple-mock';
 
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
-import FavoriteButton from 'screens/shared/favorite-button';
 import { UnconnectedResourcePage as ResourcePage } from './ResourcePage';
 import ReservationInfo from './reservation-info';
 import ResourceInfo from './resource-info';
@@ -49,28 +48,6 @@ describe('screens/resource/ResourcePage', () => {
 
       expect(actualProps.resource).to.deep.equal(defaultProps.resource);
       expect(actualProps.unit).to.deep.equal(defaultProps.unit);
-    });
-  });
-
-  describe('rendering FavoriteButton', () => {
-    let FavoriteButtonWrapper;
-    let FavoriteButtonNoAdminWrapper;
-
-    before(() => {
-      FavoriteButtonNoAdminWrapper = wrapper.find(FavoriteButton);
-      FavoriteButtonWrapper = getWrapper({ isAdmin: true }).find(FavoriteButton);
-    });
-
-    it('is not rendered if user is not admin', () => {
-      expect(FavoriteButtonNoAdminWrapper.length).to.equal(0);
-    });
-
-    it('is rendered if user is admin', () => {
-      expect(FavoriteButtonWrapper.length).to.equal(1);
-    });
-
-    it('gets resource props', () => {
-      expect(FavoriteButtonWrapper.props()).to.deep.equal({ resource });
     });
   });
 
