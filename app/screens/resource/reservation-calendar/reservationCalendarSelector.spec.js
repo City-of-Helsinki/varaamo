@@ -4,8 +4,8 @@ import simple from 'simple-mock';
 import Immutable from 'seamless-immutable';
 
 import Resource, { openingHours } from 'fixtures/Resource';
-import reservationCalendarSelector from 'selectors/containers/reservationCalendarSelector';
 import * as timeUtils from 'utils/timeUtils';
+import reservationCalendarSelector from './reservationCalendarSelector';
 
 function getState(resource) {
   return {
@@ -48,7 +48,7 @@ function getProps(id = 'some-id') {
 }
 
 
-describe('Selector: reservationCalendarSelector', () => {
+describe('screens/resource/reservation-calendar/reservationCalendarSelector', () => {
   const resource = Resource.build({
     minPeriod: '01:00:00',
     openingHours,
@@ -61,7 +61,7 @@ describe('Selector: reservationCalendarSelector', () => {
     ],
   });
 
-  it('should return confirmReservationModalIsOpen', () => {
+  it('returns confirmReservationModalIsOpen', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = reservationCalendarSelector(state, props);
@@ -69,7 +69,7 @@ describe('Selector: reservationCalendarSelector', () => {
     expect(selected.confirmReservationModalIsOpen).to.exist;
   });
 
-  it('should return date', () => {
+  it('returns date', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = reservationCalendarSelector(state, props);
@@ -77,7 +77,7 @@ describe('Selector: reservationCalendarSelector', () => {
     expect(selected.date).to.exist;
   });
 
-  it('should return isFetchingResource', () => {
+  it('returns isFetchingResource', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = reservationCalendarSelector(state, props);
@@ -85,7 +85,7 @@ describe('Selector: reservationCalendarSelector', () => {
     expect(selected.isFetchingResource).to.exist;
   });
 
-  it('should return isLoggedIn', () => {
+  it('returns isLoggedIn', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = reservationCalendarSelector(state, props);
@@ -93,7 +93,7 @@ describe('Selector: reservationCalendarSelector', () => {
     expect(selected.isLoggedIn).to.exist;
   });
 
-  it('should return isMakingReservations', () => {
+  it('returns isMakingReservations', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = reservationCalendarSelector(state, props);
@@ -101,7 +101,7 @@ describe('Selector: reservationCalendarSelector', () => {
     expect(selected.isMakingReservations).to.exist;
   });
 
-  it('should return reservationsToEdit from the state', () => {
+  it('returns reservationsToEdit from the state', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = reservationCalendarSelector(state, props);
@@ -110,7 +110,7 @@ describe('Selector: reservationCalendarSelector', () => {
     expect(selected.reservationsToEdit).to.deep.equal(expected);
   });
 
-  it('should return the reservation.selected from the state', () => {
+  it('returns the reservation.selected from the state', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = reservationCalendarSelector(state, props);
@@ -119,7 +119,7 @@ describe('Selector: reservationCalendarSelector', () => {
     expect(selected.selected).to.equal(expected);
   });
 
-  it('should return resource', () => {
+  it('returns resource', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = reservationCalendarSelector(state, props);
@@ -127,7 +127,7 @@ describe('Selector: reservationCalendarSelector', () => {
     expect(selected.resource).to.exist;
   });
 
-  it('should return selectedReservations', () => {
+  it('returns selectedReservations', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = reservationCalendarSelector(state, props);
@@ -135,7 +135,7 @@ describe('Selector: reservationCalendarSelector', () => {
     expect(selected.selectedReservations).to.exist;
   });
 
-  it('should return staffUnits', () => {
+  it('returns staffUnits', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = reservationCalendarSelector(state, props);
@@ -143,7 +143,7 @@ describe('Selector: reservationCalendarSelector', () => {
     expect(selected.staffUnits).to.exist;
   });
 
-  it('should return time', () => {
+  it('returns time', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = reservationCalendarSelector(state, props);
@@ -152,7 +152,7 @@ describe('Selector: reservationCalendarSelector', () => {
   });
 
   describe('timeSlots', () => {
-    it('should use resource properties to calculate correct time slots', () => {
+    it('uses resource properties to calculate correct time slots', () => {
       const mockSlots = ['slot-1', 'slot-2'];
       simple.mock(timeUtils, 'getTimeSlots').returnWith(mockSlots);
 
@@ -169,7 +169,7 @@ describe('Selector: reservationCalendarSelector', () => {
       simple.restore();
     });
 
-    it('should return timeSlots as an empty array when resource is not found', () => {
+    it('returns timeSlots as an empty array when resource is not found', () => {
       const state = getState(resource);
       const props = getProps('unfetched-resource-id');
       const selected = reservationCalendarSelector(state, props);
@@ -178,7 +178,7 @@ describe('Selector: reservationCalendarSelector', () => {
     });
   });
 
-  it('should return urlHash', () => {
+  it('returns urlHash', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const expected = props.location.hash;

@@ -8,10 +8,10 @@ import Immutable from 'seamless-immutable';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
 import TimeSlot from 'fixtures/TimeSlot';
-import {
-  UnconnectedReservationCalendar as ReservationCalendar,
-} from 'containers/ReservationCalendar';
 import { getResourcePageUrl } from 'utils/resourceUtils';
+import {
+  UnconnectedReservationCalendarContainer as ReservationCalendarContainer,
+} from './ReservationCalendarContainer';
 
 function getProps(props = {}) {
   const defaults = {
@@ -46,13 +46,13 @@ function getProps(props = {}) {
 
 function setup(setupProps = {}) {
   const props = getProps(setupProps);
-  const tree = sd.shallowRender(<ReservationCalendar {...props} />);
+  const tree = sd.shallowRender(<ReservationCalendarContainer {...props} />);
   const instance = tree.getMountedInstance();
 
   return { props, tree, instance };
 }
 
-describe('Container: ReservationCalendar', () => {
+describe('screens/resource/reservation-calendar/ReservationCalendarContainer', () => {
   describe('render', () => {
     const timeSlots = [
       TimeSlot.build(),

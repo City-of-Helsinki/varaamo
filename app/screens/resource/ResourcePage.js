@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchResource } from 'actions/resourceActions';
-import ReservationCalendar from 'containers/ReservationCalendar';
 import PageWrapper from 'screens/layout/PageWrapper';
 import NotFoundPage from 'screens/not-found/NotFoundPage';
 import { getDateStartAndEndTimes } from 'utils/timeUtils';
 import { getName } from 'utils/translationUtils';
+import ReservationCalendar from './reservation-calendar';
 import ReservationInfo from './reservation-info';
 import ResourceInfo from './resource-info';
 import resourcePageSelector from './resourcePageSelector';
