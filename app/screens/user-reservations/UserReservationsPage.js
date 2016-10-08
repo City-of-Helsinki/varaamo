@@ -10,9 +10,9 @@ import { fetchUnits } from 'actions/unitActions';
 import AdminReservationsFilters from 'components/reservation/AdminReservationsFilters';
 import ReservationCancelModal from 'containers/ReservationCancelModal';
 import ReservationInfoModal from 'containers/ReservationInfoModal';
-import ReservationsList from 'containers/ReservationsList';
 import PageWrapper from 'screens/layout/PageWrapper';
 import userReservationsPageSelector from './userReservationsPageSelector';
+import ReservationList from './reservation-list';
 
 export class UnconnectedUserReservationsPage extends Component {
   constructor(props) {
@@ -62,7 +62,7 @@ export class UnconnectedUserReservationsPage extends Component {
             { !isAdmin && (
               <div>
                 <h1>Omat varaukset</h1>
-                <ReservationsList
+                <ReservationList
                   loading={reservationsFetchCount < 1}
                 />
               </div>
@@ -74,13 +74,13 @@ export class UnconnectedUserReservationsPage extends Component {
                   filters={adminReservationsFilters}
                   onFiltersChange={this.handleFiltersChange}
                 />
-                <ReservationsList
+                <ReservationList
                   emptyMessage="Ei alustavia varauksia näytettäväksi."
                   filter={adminReservationsFilters.state}
                   loading={reservationsFetchCount < 2}
                 />
                 <h1>Tavalliset varaukset</h1>
-                <ReservationsList
+                <ReservationList
                   emptyMessage="Ei tavallisia varauksia näytettäväksi."
                   filter="regular"
                   loading={reservationsFetchCount < 1}

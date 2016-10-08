@@ -4,8 +4,8 @@ import simple from 'simple-mock';
 import { shallow } from 'enzyme';
 
 import AdminReservationsFilters from 'components/reservation/AdminReservationsFilters';
-import ReservationsList from 'containers/ReservationsList';
 import { UnconnectedUserReservationsPage as UserReservationsPage } from './UserReservationsPage';
+import ReservationList from './reservation-list';
 
 describe('screens/user-reservations/UserReservationsPage', () => {
   const changeAdminReservationsFilters = simple.stub();
@@ -41,11 +41,11 @@ describe('screens/user-reservations/UserReservationsPage', () => {
         expect(h1.text()).to.equal('Omat varaukset');
       });
 
-      it('should render ReservationsList with all user reservations', () => {
-        const reservationsList = wrapper.find(ReservationsList);
+      it('should render ReservationList with all user reservations', () => {
+        const reservationList = wrapper.find(ReservationList);
 
-        expect(reservationsList.length).to.equal(1);
-        expect(reservationsList.props().filter).to.not.exist;
+        expect(reservationList.length).to.equal(1);
+        expect(reservationList.props().filter).to.not.exist;
       });
 
       it('should not render AdminReservationsFilters', () => {
@@ -88,7 +88,7 @@ describe('screens/user-reservations/UserReservationsPage', () => {
       });
 
       describe('reservation lists', () => {
-        const lists = wrapper.find(ReservationsList);
+        const lists = wrapper.find(ReservationList);
 
         it('should render two reservation lists', () => {
           expect(lists.length).to.equal(2);

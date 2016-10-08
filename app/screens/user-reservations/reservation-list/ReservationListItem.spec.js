@@ -5,14 +5,14 @@ import Immutable from 'seamless-immutable';
 
 import TimeRange from 'components/common/TimeRange';
 import ReservationControls from 'containers/ReservationControls';
-import ReservationsListItem from 'components/reservation/ReservationsListItem';
 import Image from 'fixtures/Image';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
 import { getResourcePageUrl } from 'utils/resourceUtils';
+import ReservationListItem from './ReservationListItem';
 
-describe('Component: reservation/ReservationsListItem', () => {
+describe('screens/user-reservations/reservation-list/ReservationListItem', () => {
   const props = {
     isAdmin: false,
     isStaff: false,
@@ -26,7 +26,7 @@ describe('Component: reservation/ReservationsListItem', () => {
   let component;
 
   before(() => {
-    component = shallow(<ReservationsListItem {...props} />);
+    component = shallow(<ReservationListItem {...props} />);
   });
 
   describe('rendering', () => {

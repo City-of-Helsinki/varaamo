@@ -1,36 +1,36 @@
 import { expect } from 'chai';
 
-import reservationsListSelector from 'selectors/containers/reservationsListSelector';
 import { getDefaultRouterProps, getInitialState } from 'utils/testUtils';
+import reservationListSelector from './reservationListSelector';
 
-describe('Selector: reservationsListSelector', () => {
+describe('screens/user-reservations/reservation-list/reservationListSelector', () => {
   const state = getInitialState();
   const props = getDefaultRouterProps();
-  const selected = reservationsListSelector(state, props);
+  const selected = reservationListSelector(state, props);
 
-  it('should return isAdmin', () => {
+  it('returns isAdmin', () => {
     expect(selected.isAdmin).to.exist;
   });
 
-  it('should return isFetchingReservations', () => {
+  it('returns isFetchingReservations', () => {
     expect(selected.isFetchingReservations).to.exist;
   });
 
-  it('should return reservations', () => {
+  it('returns reservations', () => {
     expect(selected.reservations).to.exist;
   });
 
-  it('should return resources from the state', () => {
+  it('returns resources from the state', () => {
     const expected = state.data.resources;
 
     expect(selected.resources).to.deep.equal(expected);
   });
 
-  it('should return staffUnits', () => {
+  it('returns staffUnits', () => {
     expect(selected.staffUnits).to.exist;
   });
 
-  it('should return units from the state', () => {
+  it('returns units from the state', () => {
     const expected = state.data.units;
 
     expect(selected.units).to.deep.equal(expected);
