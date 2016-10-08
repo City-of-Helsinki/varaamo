@@ -1,14 +1,13 @@
 import { expect } from 'chai';
 import React from 'react';
+import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 import sd from 'skin-deep';
 
-import Immutable from 'seamless-immutable';
-
-import TimeSlot from 'components/reservation/TimeSlot';
 import TimeSlotFixture from 'fixtures/TimeSlot';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
+import TimeSlot from './TimeSlot';
 
 function getProps(props) {
   const defaults = {

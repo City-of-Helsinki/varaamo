@@ -8,9 +8,10 @@ import Immutable from 'seamless-immutable';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
 import TimeSlot from 'fixtures/TimeSlot';
+import { getResourcePageUrl } from 'utils/resourceUtils';
 import {
-  UnconnectedReservationCalendar as ReservationCalendar,
-} from 'containers/ReservationCalendar';
+  UnconnectedReservationCalendarContainer as ReservationCalendarContainer,
+} from './ReservationCalendarContainer';
 
 function getProps(props = {}) {
   const defaults = {
@@ -28,7 +29,6 @@ function getProps(props = {}) {
     },
     confirmReservationModalIsOpen: false,
     date: '2015-10-11',
-    id: 'r-1',
     isFetchingResource: false,
     isLoggedIn: true,
     isMakingReservations: false,
@@ -46,13 +46,13 @@ function getProps(props = {}) {
 
 function setup(setupProps = {}) {
   const props = getProps(setupProps);
-  const tree = sd.shallowRender(<ReservationCalendar {...props} />);
+  const tree = sd.shallowRender(<ReservationCalendarContainer {...props} />);
   const instance = tree.getMountedInstance();
 
   return { props, tree, instance };
 }
 
-describe('Container: ReservationCalendar', () => {
+describe('screens/resource/reservation-calendar/ReservationCalendarContainer', () => {
   describe('render', () => {
     const timeSlots = [
       TimeSlot.build(),
@@ -182,7 +182,7 @@ describe('Container: ReservationCalendar', () => {
 
     it('should call updatePath and update the url with the new date', () => {
       const actualUrl = props.actions.updatePath.lastCall.args[0];
-      const expectedUrl = `/resources/${props.id}/reservation?date=${newDate}`;
+      const expectedUrl = getResourcePageUrl(props.resource, newDate);
 
       expect(props.actions.updatePath.callCount).to.equal(1);
       expect(actualUrl).to.equal(expectedUrl);

@@ -6,7 +6,7 @@ import Immutable from 'seamless-immutable';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
 import User from 'fixtures/User';
-import resourcePageSelector from 'selectors/containers/resourcePageSelector';
+import resourcePageSelector from './resourcePageSelector';
 
 const defaultUser = User.build();
 
@@ -31,7 +31,7 @@ function getProps(id = 'some-id') {
   return {
     location: {
       query: {
-        date: '2015-12-12',
+        date: '2015-10-10',
       },
     },
     params: {
@@ -40,14 +40,13 @@ function getProps(id = 'some-id') {
   };
 }
 
-describe('Selector: resourcePageSelector', () => {
-  it('returns the date in props.location.date', () => {
+describe('screens/resource/resourcePageSelector', () => {
+  it('returns date', () => {
     const state = getState();
     const props = getProps();
     const selected = resourcePageSelector(state, props);
-    const expected = props.location.query.date;
 
-    expect(selected.date).to.equal(expected);
+    expect(selected.date).to.exist;
   });
 
   it('returns the id in router.params.id', () => {

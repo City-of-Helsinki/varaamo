@@ -6,6 +6,7 @@ import TimeRange from 'components/common/TimeRange';
 import ReservationControls from 'containers/ReservationControls';
 import { getCaption, getMainImage } from 'utils/imageUtils';
 import { renderReservationStateLabel } from 'utils/renderUtils';
+import { getResourcePageUrl } from 'utils/resourceUtils';
 import { getName } from 'utils/translationUtils';
 
 class ReservationsListItem extends Component {
@@ -31,25 +32,19 @@ class ReservationsListItem extends Component {
     return (
       <li className="reservation">
         <div className="image">
-          <Link to={`/resources/${resource.id}`}>
+          <Link to={getResourcePageUrl(resource)}>
             {this.renderImage(getMainImage(resource.images))}
           </Link>
         </div>
         <div className="names">
-          <Link to={`/resources/${resource.id}`}>
+          <Link to={getResourcePageUrl(resource)}>
             <h4>
               {getName(resource)}{nameSeparator} <span className="unit-name">{getName(unit)}</span>
             </h4>
           </Link>
         </div>
         <div className="time">
-          <Link
-            to={`/resources/${resource.id}/reservation`}
-            query={{
-              date: reservation.begin.split('T')[0],
-              time: reservation.begin,
-            }}
-          >
+          <Link to={getResourcePageUrl(resource, reservation.begin, reservation.begin)}>
             <TimeRange
               begin={reservation.begin}
               end={reservation.end}

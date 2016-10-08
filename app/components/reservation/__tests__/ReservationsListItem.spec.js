@@ -10,6 +10,7 @@ import Image from 'fixtures/Image';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
+import { getResourcePageUrl } from 'utils/resourceUtils';
 
 describe('Component: reservation/ReservationsListItem', () => {
   const props = {
@@ -42,7 +43,7 @@ describe('Component: reservation/ReservationsListItem', () => {
     });
 
     it('should contain a link to resources page', () => {
-      const expectedUrl = `/resources/${props.resource.id}`;
+      const expectedUrl = getResourcePageUrl(props.resource);
       const resourceLink = component.find({ to: expectedUrl });
 
       expect(resourceLink.length > 0).to.be.true;
@@ -60,16 +61,16 @@ describe('Component: reservation/ReservationsListItem', () => {
       expect(component.find('h4').text()).to.contain(expected);
     });
 
-    it('should contain a Link to reservations page with correct time', () => {
-      const expectedUrl = `/resources/${props.resource.id}/reservation`;
-      const expectedQuery = {
-        date: props.reservation.begin.split('T')[0],
-        time: props.reservation.begin,
-      };
-      const expectedProps = { to: expectedUrl, query: expectedQuery };
-      const reservationsLink = component.find(expectedProps);
+    it('should contain a Link to resource page with correct time', () => {
+      const expectedUrl = getResourcePageUrl(
+        props.resource,
+        props.reservation.begin,
+        props.reservation.begin
+      );
+      const expectedProps = { to: expectedUrl };
+      const resourcePageLinkWithTime = component.find(expectedProps);
 
-      expect(reservationsLink).to.be.ok;
+      expect(resourcePageLinkWithTime.length).to.equal(1);
     });
 
     it('should contain two TimeRange components with correct begin and end times', () => {

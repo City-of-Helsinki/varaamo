@@ -9,7 +9,7 @@ import TimeRange from 'components/common/TimeRange';
 import ResourcesTableItem from 'components/resource/ResourcesTableItem';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
-
+import { getResourcePageUrl } from 'utils/resourceUtils';
 
 describe('Component: reservation/ResourcesTableItem', () => {
   const now = moment();
@@ -96,7 +96,7 @@ describe('Component: reservation/ResourcesTableItem', () => {
           it('contains a Link element with correct to and resource name', () => {
             expect(tdComponent.children().is(Link)).to.be.true;
             const props = tdComponent.children().props();
-            expect(props.to).to.equal(`/resources/${resource.id}/reservation`);
+            expect(props.to).to.equal(getResourcePageUrl(resource));
             expect(props.children).to.equal(resource.name.fi);
           });
         });

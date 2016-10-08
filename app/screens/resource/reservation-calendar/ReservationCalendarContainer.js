@@ -22,15 +22,16 @@ import {
 } from 'actions/uiActions';
 import DateHeader from 'screens/shared/date-header';
 import ConfirmReservationModal from 'components/reservation/ConfirmReservationModal';
-import ReservationCalendarControls from 'components/reservation/ReservationCalendarControls';
-import TimeSlots from 'components/reservation/TimeSlots';
 import ReservationCancelModal from 'containers/ReservationCancelModal';
 import ReservationInfoModal from 'containers/ReservationInfoModal';
 import ReservationSuccessModal from 'containers/ReservationSuccessModal';
-import reservationCalendarSelector from 'selectors/containers/reservationCalendarSelector';
+import { getResourcePageUrl } from 'utils/resourceUtils';
 import { addToDate } from 'utils/timeUtils';
+import ReservationCalendarControls from './ReservationCalendarControls';
+import reservationCalendarSelector from './reservationCalendarSelector';
+import TimeSlots from './time-slots';
 
-export class UnconnectedReservationCalendar extends Component {
+export class UnconnectedReservationCalendarContainer extends Component {
   constructor(props) {
     super(props);
     this.decreaseDate = this.decreaseDate.bind(this);
@@ -47,8 +48,8 @@ export class UnconnectedReservationCalendar extends Component {
 
 
   onDateChange(newDate) {
-    const { actions, id } = this.props;
-    actions.updatePath(`/resources/${id}/reservation?date=${newDate}`);
+    const { actions, resource } = this.props;
+    actions.updatePath(getResourcePageUrl(resource, newDate));
   }
 
   decreaseDate() {
@@ -193,11 +194,10 @@ export class UnconnectedReservationCalendar extends Component {
   }
 }
 
-UnconnectedReservationCalendar.propTypes = {
+UnconnectedReservationCalendarContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   confirmReservationModalIsOpen: PropTypes.bool.isRequired,
   date: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
   isFetchingResource: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,
@@ -229,5 +229,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default (
-  connect(reservationCalendarSelector, mapDispatchToProps)(UnconnectedReservationCalendar)
+  connect(reservationCalendarSelector, mapDispatchToProps)(UnconnectedReservationCalendarContainer)
 );

@@ -1,6 +1,7 @@
 import filter from 'lodash/filter';
 import forEach from 'lodash/forEach';
 import moment from 'moment';
+import queryString from 'query-string';
 
 import constants from 'constants/AppConstants';
 import { getCurrentReservation, getNextAvailableTime } from 'utils/reservationUtils';
@@ -101,11 +102,16 @@ function getOpenReservations(resource) {
   ));
 }
 
-function getPeopleCapacityString(capacity) {
-  if (!capacity) {
+function getResourcePageUrl(resource, date, time) {
+  if (!resource || !resource.id) {
     return '';
   }
-  return `max ${capacity} hengelle.`;
+  const pathname = `/resources/${resource.id}`;
+  const query = queryString.stringify({
+    date: date ? date.split('T')[0] : undefined,
+    time,
+  });
+  return query ? `${pathname}?${query}` : pathname;
 }
 
 export {
@@ -115,5 +121,5 @@ export {
   getHumanizedPeriod,
   getOpeningHours,
   getOpenReservations,
-  getPeopleCapacityString,
+  getResourcePageUrl,
 };

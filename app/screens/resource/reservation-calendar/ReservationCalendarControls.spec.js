@@ -3,8 +3,8 @@ import React from 'react';
 import sd from 'skin-deep';
 import simple from 'simple-mock';
 
-import ReservationCalendarControls from 'components/reservation/ReservationCalendarControls';
 import Resource from 'fixtures/Resource';
+import ReservationCalendarControls from './ReservationCalendarControls';
 
 function getProps(props) {
   const defaults = {
@@ -21,7 +21,7 @@ function getProps(props) {
   return Object.assign({}, defaults, props);
 }
 
-describe('Component: reservation/ReservationCalendarControls', () => {
+describe('screens/resource/reservation-calendar/ReservationCalendarControls', () => {
   describe('when user is not editing reservations', () => {
     const props = getProps();
     const tree = sd.shallowRender(<ReservationCalendarControls {...props} />);

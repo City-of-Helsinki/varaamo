@@ -1,24 +1,20 @@
 import isEmpty from 'lodash/isEmpty';
 import React, { Component, PropTypes } from 'react';
-import Button from 'react-bootstrap/lib/Button';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
-import { LinkContainer } from 'react-router-bootstrap';
 import { bindActionCreators } from 'redux';
 
 import { fetchResource } from 'actions/resourceActions';
-import ResourceHeader from 'components/resource/ResourceHeader';
-import ReservationInfo from 'components/reservation/ReservationInfo';
-import ReservationCalendar from 'containers/ReservationCalendar';
 import PageWrapper from 'screens/layout/PageWrapper';
 import NotFoundPage from 'screens/not-found/NotFoundPage';
-import FavoriteButton from 'screens/shared/favorite-button';
-import reservationPageSelector from 'selectors/containers/reservationPageSelector';
 import { getDateStartAndEndTimes } from 'utils/timeUtils';
 import { getName } from 'utils/translationUtils';
-import { getAddressWithName } from 'utils/unitUtils';
+import ReservationCalendar from './reservation-calendar';
+import ReservationInfo from './reservation-info';
+import ResourceInfo from './resource-info';
+import resourcePageSelector from './resourcePageSelector';
 
-export class UnconnectedReservationPage extends Component {
+export class UnconnectedResourcePage extends Component {
   componentDidMount() {
     const { actions, date, id } = this.props;
     const fetchParams = getDateStartAndEndTimes(date);
@@ -37,8 +33,6 @@ export class UnconnectedReservationPage extends Component {
 
   render() {
     const {
-      date,
-      id,
       isAdmin,
       isFetchingResource,
       isLoggedIn,
@@ -54,27 +48,18 @@ export class UnconnectedReservationPage extends Component {
     }
 
     return (
-      <PageWrapper className="reservation-page" title={`${resourceName} - varauskalenteri`}>
+      <PageWrapper className="resource-page" title={`${resourceName}`}>
         <Loader loaded={!isEmpty(resource)}>
-          <ResourceHeader
-            address={getAddressWithName(unit)}
-            name={resourceName}
+          <ResourceInfo
+            isAdmin={isAdmin}
+            resource={resource}
+            unit={unit}
           />
-          {isAdmin && <FavoriteButton resource={resource} />}
-          <LinkContainer to={`/resources/${id}?date=${date.split('T')[0]}`}>
-            <Button
-              bsSize="large"
-              bsStyle="primary"
-              className="responsive-button"
-            >
-              Tilan tiedot
-            </Button>
-          </LinkContainer>
+          <h2 id="reservation-header">{isLoggedIn ? 'Varaa tila' : 'Varaustilanne'}</h2>
           <ReservationInfo
             isLoggedIn={isLoggedIn}
             resource={resource}
           />
-          <h2 id="reservation-header">{isLoggedIn ? 'Varaa tila' : 'Varaustilanne'}</h2>
           <ReservationCalendar
             location={location}
             params={params}
@@ -85,7 +70,7 @@ export class UnconnectedReservationPage extends Component {
   }
 }
 
-UnconnectedReservationPage.propTypes = {
+UnconnectedResourcePage.propTypes = {
   actions: PropTypes.object.isRequired,
   date: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
@@ -106,4 +91,4 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
-export default connect(reservationPageSelector, mapDispatchToProps)(UnconnectedReservationPage);
+export default connect(resourcePageSelector, mapDispatchToProps)(UnconnectedResourcePage);

@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
+import ResourceIcons from 'screens/shared/resource-icons';
 import { getMainImage } from 'utils/imageUtils';
+import { getResourcePageUrl } from 'utils/resourceUtils';
 import { getName } from 'utils/translationUtils';
 import ReserveButton from './ReserveButton';
 import ResourceAvailability from './ResourceAvailability';
-import ResourceIcons from './ResourceIcons';
 
 class ResourceListItem extends Component {
   getBackgroundImageStyles(image) {
@@ -20,10 +21,7 @@ class ResourceListItem extends Component {
 
     return (
       <li className="resource-list-item">
-        <Link
-          to={`/resources/${resource.id}`}
-          query={{ date: date.split('T')[0] }}
-        >
+        <Link to={getResourcePageUrl(resource, date)}>
           <div
             className="image-container"
             style={this.getBackgroundImageStyles(getMainImage(resource.images))}
@@ -33,10 +31,7 @@ class ResourceListItem extends Component {
         </Link>
         <div className="content">
           <ResourceIcons resource={resource} />
-          <Link
-            to={`/resources/${resource.id}`}
-            query={{ date: date.split('T')[0] }}
-          >
+          <Link to={getResourcePageUrl(resource, date)}>
             <h4>{getName(resource)}</h4>
           </Link>
           <div className="unit-name">{getName(unit)}</div>

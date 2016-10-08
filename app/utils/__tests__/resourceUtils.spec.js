@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import MockDate from 'mockdate';
 import moment from 'moment';
+import queryString from 'query-string';
 
 import constants from 'constants/AppConstants';
 import {
@@ -9,8 +10,8 @@ import {
   getAvailabilityDataForWholeDay,
   getHumanizedPeriod,
   getOpeningHours,
-  getPeopleCapacityString,
   getOpenReservations,
+  getResourcePageUrl,
 } from 'utils/resourceUtils';
 
 describe('Utils: resourceUtils', () => {
@@ -465,37 +466,6 @@ describe('Utils: resourceUtils', () => {
     });
   });
 
-  describe('getPeopleCapacityString', () => {
-    it('returns an empty string if capacity is undefined', () => {
-      const capacity = undefined;
-      const capacityString = getPeopleCapacityString(capacity);
-
-      expect(capacityString).to.equal('');
-    });
-
-    it('returns an empty string if capacity is null', () => {
-      const capacity = null;
-      const capacityString = getPeopleCapacityString(capacity);
-
-      expect(capacityString).to.equal('');
-    });
-
-    it('returns an empty string if capacity is 0', () => {
-      const capacity = 0;
-      const capacityString = getPeopleCapacityString(capacity);
-
-      expect(capacityString).to.equal('');
-    });
-
-    it('returns a max capacity string if capacity is number bigger than 0', () => {
-      const capacity = 1;
-      const capacityString = getPeopleCapacityString(capacity);
-      const expected = `max ${capacity} hengelle.`;
-
-      expect(capacityString).to.equal(expected);
-    });
-  });
-
   describe('getOpenReservations', () => {
     it('returns resource reservations', () => {
       const resource = { reservations: [{ foo: 'bar' }] };
@@ -533,6 +503,58 @@ describe('Utils: resourceUtils', () => {
       ];
 
       expect(getOpenReservations(resource)).to.deep.equal(expected);
+    });
+  });
+
+  describe('getResourcePageUrl', () => {
+    it('returns an empty string if resource is undefined', () => {
+      const resource = undefined;
+      const resourcePageUrl = getResourcePageUrl(resource);
+
+      expect(resourcePageUrl).to.equal('');
+    });
+
+    it('returns an empty string if resource does not have id', () => {
+      const resource = {};
+      const resourcePageUrl = getResourcePageUrl(resource);
+
+      expect(resourcePageUrl).to.equal('');
+    });
+
+    it('returns correct url if date is not given', () => {
+      const resource = { id: 'some-id' };
+      const resourcePageUrl = getResourcePageUrl(resource);
+      const expected = `/resources/${resource.id}`;
+
+      expect(resourcePageUrl).to.equal(expected);
+    });
+
+    it('returns correct url if date is given', () => {
+      const resource = { id: 'some-id' };
+      const date = '2015-10-10';
+      const resourcePageUrl = getResourcePageUrl(resource, date);
+      const expected = `/resources/${resource.id}?date=2015-10-10`;
+
+      expect(resourcePageUrl).to.equal(expected);
+    });
+
+    it('returns correct url if date is given in datetime format', () => {
+      const resource = { id: 'some-id' };
+      const date = '2015-10-10T08:00:00+03:00';
+      const resourcePageUrl = getResourcePageUrl(resource, date);
+      const expected = `/resources/${resource.id}?date=2015-10-10`;
+
+      expect(resourcePageUrl).to.equal(expected);
+    });
+
+    it('returns correct url if date and time are given', () => {
+      const resource = { id: 'some-id' };
+      const date = '2015-10-10';
+      const time = '2015-10-10T08:00:00+03:00';
+      const resourcePageUrl = getResourcePageUrl(resource, date, time);
+      const expected = `/resources/${resource.id}?${queryString.stringify({ date, time })}`;
+
+      expect(resourcePageUrl).to.equal(expected);
     });
   });
 });
