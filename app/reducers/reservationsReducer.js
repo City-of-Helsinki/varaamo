@@ -7,7 +7,7 @@ import ModalTypes from 'constants/ModalTypes';
 import { getTimeSlots } from 'utils/timeUtils';
 
 const initialState = Immutable({
-  adminReservationsFilters: {
+  adminReservationFilters: {
     state: 'all',
   },
   selected: [],
@@ -55,8 +55,8 @@ function reservationsReducer(state = initialState, action) {
     }
 
     case types.UI.CHANGE_ADMIN_RESERVATIONS_FILTERS: {
-      const adminReservationsFilters = action.payload;
-      return state.merge({ adminReservationsFilters }, { deep: true });
+      const adminReservationFilters = action.payload;
+      return state.merge({ adminReservationFilters }, { deep: true });
     }
 
     case types.UI.CLEAR_RESERVATIONS: {

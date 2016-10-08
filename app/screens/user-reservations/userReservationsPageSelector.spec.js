@@ -8,8 +8,8 @@ describe('screens/user-reservations/userReservationsPageSelector', () => {
   const props = getDefaultRouterProps();
   const selected = userReservationsPageSelector(state, props);
 
-  it('returns adminReservationsFilters', () => {
-    expect(selected.adminReservationsFilters).to.exist;
+  it('returns adminReservationFilters', () => {
+    expect(selected.adminReservationFilters).to.exist;
   });
 
   it('returns isAdmin', () => {

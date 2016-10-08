@@ -4,7 +4,7 @@ import Immutable from 'seamless-immutable';
 
 import {
   cancelReservationEdit,
-  changeAdminReservationsFilters,
+  changeAdminReservationFilters,
   clearReservations,
   closeReservationCancelModal,
   closeReservationCommentModal,
@@ -24,13 +24,13 @@ describe('Reducer: reservationsReducer', () => {
   describe('initial state', () => {
     const initialState = reservationsReducer(undefined, {});
 
-    describe('adminReservationsFilters', () => {
+    describe('adminReservationFilters', () => {
       it('should be an object', () => {
-        expect(typeof initialState.adminReservationsFilters).to.equal('object');
+        expect(typeof initialState.adminReservationFilters).to.equal('object');
       });
 
       it('state should be "all"', () => {
-        expect(initialState.adminReservationsFilters.state).to.equal('all');
+        expect(initialState.adminReservationFilters.state).to.equal('all');
       });
     });
 
@@ -152,35 +152,35 @@ describe('Reducer: reservationsReducer', () => {
     });
 
     describe('UI.CHANGE_ADMIN_RESERVATIONS_FILTERS', () => {
-      it('should set the given filters to adminReservationsFilters', () => {
-        const adminReservationsFilters = { state: 'some-state' };
-        const action = changeAdminReservationsFilters(adminReservationsFilters);
+      it('should set the given filters to adminReservationFilters', () => {
+        const adminReservationFilters = { state: 'some-state' };
+        const action = changeAdminReservationFilters(adminReservationFilters);
         const initialState = Immutable({
-          adminReservationsFilters: {},
+          adminReservationFilters: {},
         });
-        const expected = Immutable(adminReservationsFilters);
+        const expected = Immutable(adminReservationFilters);
         const nextState = reservationsReducer(initialState, action);
 
-        expect(nextState.adminReservationsFilters).to.deep.equal(expected);
+        expect(nextState.adminReservationFilters).to.deep.equal(expected);
       });
 
-      it('should override previous values of same adminReservationsFilters', () => {
-        const adminReservationsFilters = { state: 'some-state' };
-        const action = changeAdminReservationsFilters(adminReservationsFilters);
+      it('should override previous values of same adminReservationFilters', () => {
+        const adminReservationFilters = { state: 'some-state' };
+        const action = changeAdminReservationFilters(adminReservationFilters);
         const initialState = Immutable({
-          adminReservationsFilters: { state: 'old-value' },
+          adminReservationFilters: { state: 'old-value' },
         });
-        const expected = Immutable(adminReservationsFilters);
+        const expected = Immutable(adminReservationFilters);
         const nextState = reservationsReducer(initialState, action);
 
-        expect(nextState.adminReservationsFilters).to.deep.equal(expected);
+        expect(nextState.adminReservationFilters).to.deep.equal(expected);
       });
 
-      it('should not override unspecified adminReservationsFilters', () => {
-        const adminReservationsFilters = { state: 'some-state' };
-        const action = changeAdminReservationsFilters(adminReservationsFilters);
+      it('should not override unspecified adminReservationFilters', () => {
+        const adminReservationFilters = { state: 'some-state' };
+        const action = changeAdminReservationFilters(adminReservationFilters);
         const initialState = Immutable({
-          adminReservationsFilters: { otherFilter: 'other-value' },
+          adminReservationFilters: { otherFilter: 'other-value' },
         });
         const expected = Immutable({
           otherFilter: 'other-value',
@@ -188,7 +188,7 @@ describe('Reducer: reservationsReducer', () => {
         });
         const nextState = reservationsReducer(initialState, action);
 
-        expect(nextState.adminReservationsFilters).to.deep.equal(expected);
+        expect(nextState.adminReservationFilters).to.deep.equal(expected);
       });
     });
 

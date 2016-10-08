@@ -3,24 +3,24 @@ import React from 'react';
 import simple from 'simple-mock';
 import { shallow } from 'enzyme';
 
-import AdminReservationsFilters from 'components/reservation/AdminReservationsFilters';
 import { UnconnectedUserReservationsPage as UserReservationsPage } from './UserReservationsPage';
+import AdminReservationFilters from './reservation-filters/AdminReservationFilters';
 import ReservationList from './reservation-list';
 
 describe('screens/user-reservations/UserReservationsPage', () => {
-  const changeAdminReservationsFilters = simple.stub();
+  const changeAdminReservationFilters = simple.stub();
   const fetchReservations = simple.stub();
   const fetchResources = simple.stub();
   const fetchUnits = simple.stub();
 
   const defaultProps = {
     actions: {
-      changeAdminReservationsFilters,
+      changeAdminReservationFilters,
       fetchReservations,
       fetchResources,
       fetchUnits,
     },
-    adminReservationsFilters: { state: 'requested' },
+    adminReservationFilters: { state: 'requested' },
     isAdmin: false,
     reservationsFetchCount: 1,
     resourcesLoaded: true,
@@ -48,9 +48,9 @@ describe('screens/user-reservations/UserReservationsPage', () => {
         expect(reservationList.props().filter).to.not.exist;
       });
 
-      it('should not render AdminReservationsFilters', () => {
-        const adminReservationsFilters = wrapper.find(AdminReservationsFilters);
-        expect(adminReservationsFilters.length).to.equal(0);
+      it('should not render AdminReservationFilters', () => {
+        const adminReservationFilters = wrapper.find(AdminReservationFilters);
+        expect(adminReservationFilters.length).to.equal(0);
       });
     });
 
@@ -73,16 +73,16 @@ describe('screens/user-reservations/UserReservationsPage', () => {
         });
       });
 
-      describe('AdminReservationsFilters', () => {
-        const adminReservationsFilters = wrapper.find(AdminReservationsFilters);
+      describe('AdminReservationFilters', () => {
+        const adminReservationFilters = wrapper.find(AdminReservationFilters);
 
-        it('should render AdminReservationsFilters', () => {
-          expect(adminReservationsFilters.length).to.equal(1);
+        it('should render AdminReservationFilters', () => {
+          expect(adminReservationFilters.length).to.equal(1);
         });
 
-        it('should pass correct props to AdminReservationsFilters', () => {
-          const actualProps = adminReservationsFilters.props();
-          expect(actualProps.filters).to.deep.equal(defaultProps.adminReservationsFilters);
+        it('should pass correct props to AdminReservationFilters', () => {
+          const actualProps = adminReservationFilters.props();
+          expect(actualProps.filters).to.deep.equal(defaultProps.adminReservationFilters);
           expect(typeof actualProps.onFiltersChange).to.equal('function');
         });
       });
@@ -98,7 +98,7 @@ describe('screens/user-reservations/UserReservationsPage', () => {
           const list = lists.at(0);
 
           it('should only contain filtered preliminary reservations', () => {
-            expect(list.props().filter).to.equal(defaultProps.adminReservationsFilters.state);
+            expect(list.props().filter).to.equal(defaultProps.adminReservationFilters.state);
           });
 
           it('should be in correct loading state', () => {
@@ -219,14 +219,14 @@ describe('screens/user-reservations/UserReservationsPage', () => {
       const filters = { state: 'all' };
 
       before(() => {
-        changeAdminReservationsFilters.reset();
+        changeAdminReservationFilters.reset();
         fetchReservations.reset();
         instance.handleFiltersChange(filters);
       });
 
-      it('should call changeAdminReservationsFilters with correct filters', () => {
-        expect(changeAdminReservationsFilters.callCount).to.equal(1);
-        expect(changeAdminReservationsFilters.lastCall.args[0]).to.deep.equal(filters);
+      it('should call changeAdminReservationFilters with correct filters', () => {
+        expect(changeAdminReservationFilters.callCount).to.equal(1);
+        expect(changeAdminReservationFilters.lastCall.args[0]).to.deep.equal(filters);
       });
 
       it('should call fetchReservations without any filters', () => {
@@ -240,14 +240,14 @@ describe('screens/user-reservations/UserReservationsPage', () => {
       const filters = { state: 'requested' };
 
       before(() => {
-        changeAdminReservationsFilters.reset();
+        changeAdminReservationFilters.reset();
         fetchReservations.reset();
         instance.handleFiltersChange(filters);
       });
 
-      it('should call changeAdminReservationsFilters with correct filters', () => {
-        expect(changeAdminReservationsFilters.callCount).to.equal(1);
-        expect(changeAdminReservationsFilters.lastCall.args[0]).to.deep.equal(filters);
+      it('should call changeAdminReservationFilters with correct filters', () => {
+        expect(changeAdminReservationFilters.callCount).to.equal(1);
+        expect(changeAdminReservationFilters.lastCall.args[0]).to.deep.equal(filters);
       });
 
       it('should call fetchReservations with correct state filter', () => {

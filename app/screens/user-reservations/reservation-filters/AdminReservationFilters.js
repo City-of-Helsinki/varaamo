@@ -15,7 +15,7 @@ let stateOptions = map(
 stateOptions = sortBy(stateOptions, 'label');
 stateOptions.unshift({ label: 'Kaikki', value: 'all' });
 
-class AdminReservationsFilters extends Component {
+class AdminReservationFilters extends Component {
   render() {
     const {
       onFiltersChange,
@@ -23,7 +23,7 @@ class AdminReservationsFilters extends Component {
     } = this.props;
 
     return (
-      <div className="reservations-filters">
+      <div className="reservation-filters">
         <h4>Varauksen status</h4>
         <Select
           className="reservation-state-select"
@@ -38,9 +38,9 @@ class AdminReservationsFilters extends Component {
   }
 }
 
-AdminReservationsFilters.propTypes = {
+AdminReservationFilters.propTypes = {
   filters: PropTypes.object.isRequired,
   onFiltersChange: PropTypes.func.isRequired,
 };
 
-export default AdminReservationsFilters;
+export default AdminReservationFilters;

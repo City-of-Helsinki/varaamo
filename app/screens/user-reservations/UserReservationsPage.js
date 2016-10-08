@@ -5,13 +5,13 @@ import { bindActionCreators } from 'redux';
 
 import { fetchReservations } from 'actions/reservationActions';
 import { fetchResources } from 'actions/resourceActions';
-import { changeAdminReservationsFilters } from 'actions/uiActions';
+import { changeAdminReservationFilters } from 'actions/uiActions';
 import { fetchUnits } from 'actions/unitActions';
-import AdminReservationsFilters from 'components/reservation/AdminReservationsFilters';
 import ReservationCancelModal from 'containers/ReservationCancelModal';
 import ReservationInfoModal from 'containers/ReservationInfoModal';
 import PageWrapper from 'screens/layout/PageWrapper';
 import userReservationsPageSelector from './userReservationsPageSelector';
+import AdminReservationFilters from './reservation-filters/AdminReservationFilters';
 import ReservationList from './reservation-list';
 
 export class UnconnectedUserReservationsPage extends Component {
@@ -39,7 +39,7 @@ export class UnconnectedUserReservationsPage extends Component {
   }
 
   handleFiltersChange(filters) {
-    this.props.actions.changeAdminReservationsFilters(filters);
+    this.props.actions.changeAdminReservationFilters(filters);
     if (filters.state === 'all') {
       this.props.actions.fetchReservations({ canApprove: true });
     } else {
@@ -49,7 +49,7 @@ export class UnconnectedUserReservationsPage extends Component {
 
   render() {
     const {
-      adminReservationsFilters,
+      adminReservationFilters,
       isAdmin,
       reservationsFetchCount,
       resourcesLoaded,
@@ -70,13 +70,13 @@ export class UnconnectedUserReservationsPage extends Component {
             { isAdmin && (
               <div>
                 <h1>Alustavat varaukset</h1>
-                <AdminReservationsFilters
-                  filters={adminReservationsFilters}
+                <AdminReservationFilters
+                  filters={adminReservationFilters}
                   onFiltersChange={this.handleFiltersChange}
                 />
                 <ReservationList
                   emptyMessage="Ei alustavia varauksia näytettäväksi."
-                  filter={adminReservationsFilters.state}
+                  filter={adminReservationFilters.state}
                   loading={reservationsFetchCount < 2}
                 />
                 <h1>Tavalliset varaukset</h1>
@@ -98,7 +98,7 @@ export class UnconnectedUserReservationsPage extends Component {
 
 UnconnectedUserReservationsPage.propTypes = {
   actions: PropTypes.object.isRequired,
-  adminReservationsFilters: PropTypes.object.isRequired,
+  adminReservationFilters: PropTypes.object.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   reservationsFetchCount: PropTypes.number.isRequired,
   resourcesLoaded: PropTypes.bool.isRequired,
@@ -106,7 +106,7 @@ UnconnectedUserReservationsPage.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
-    changeAdminReservationsFilters,
+    changeAdminReservationFilters,
     fetchReservations,
     fetchResources,
     fetchUnits,
