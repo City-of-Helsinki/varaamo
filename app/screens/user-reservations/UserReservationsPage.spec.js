@@ -5,11 +5,9 @@ import { shallow } from 'enzyme';
 
 import AdminReservationsFilters from 'components/reservation/AdminReservationsFilters';
 import ReservationsList from 'containers/ReservationsList';
-import {
-  UnconnectedUserReservationsPage as UserReservationsPage,
-} from 'containers/UserReservationsPage';
+import { UnconnectedUserReservationsPage as UserReservationsPage } from './UserReservationsPage';
 
-describe('Container: UserReservationsPage', () => {
+describe('screens/user-reservations/UserReservationsPage', () => {
   const changeAdminReservationsFilters = simple.stub();
   const fetchReservations = simple.stub();
   const fetchResources = simple.stub();

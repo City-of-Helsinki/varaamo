@@ -2,13 +2,13 @@ import React from 'react';
 import { Route } from 'react-router';
 
 import App from 'containers/App';
-import UserReservationsPage from 'containers/UserReservationsPage';
 import AdminResourcesPage from 'screens/admin-resources/AdminResourcesPage';
 import AboutPage from 'screens/about/AboutPage';
 import HomePage from 'screens/home/HomePage';
 import NotFoundPage from 'screens/not-found/NotFoundPage';
 import ResourcePage from 'screens/resource/ResourcePage';
 import SearchPage from 'screens/search/SearchPage';
+import UserReservationsPage from 'screens/user-reservations/UserReservationsPage';
 
 export default (params) => {
   function removeFacebookAppendedHash(nextState, replaceState, cb) {

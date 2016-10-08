@@ -12,7 +12,7 @@ import ReservationCancelModal from 'containers/ReservationCancelModal';
 import ReservationInfoModal from 'containers/ReservationInfoModal';
 import ReservationsList from 'containers/ReservationsList';
 import PageWrapper from 'screens/layout/PageWrapper';
-import userReservationsPageSelector from 'selectors/containers/userReservationsPageSelector';
+import userReservationsPageSelector from './userReservationsPageSelector';
 
 export class UnconnectedUserReservationsPage extends Component {
   constructor(props) {
