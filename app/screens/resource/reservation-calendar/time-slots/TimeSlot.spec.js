@@ -9,7 +9,7 @@ import simple from 'simple-mock';
 import TimeSlotFixture from 'fixtures/TimeSlot';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
-import TimeSlot from './TimeSlot';
+import TimeSlot, { getLabelData } from './TimeSlot';
 
 describe('screens/resource/reservation-calendar/time-slots/TimeSlot', () => {
   const defaultProps = {
@@ -27,6 +27,82 @@ describe('screens/resource/reservation-calendar/time-slots/TimeSlot', () => {
   function getWrapper(extraProps) {
     return shallow(<TimeSlot {...defaultProps} {...extraProps} />);
   }
+
+  describe('getLabelData', () => {
+    describe('when time is in the past', () => {
+      const isPast = true;
+
+      it('returns correct data if slot is being edited', () => {
+        const slot = { editing: true };
+        const labelData = getLabelData({ isPast, slot });
+        const expected = { bsStyle: 'default', text: 'Muokataan' };
+
+        expect(labelData).to.deep.equal(expected);
+      });
+
+      it('returns correct data if slot is reserved', () => {
+        const slot = { reserved: true };
+        const labelData = getLabelData({ isPast, slot });
+        const expected = { bsStyle: 'default', text: 'Varattu' };
+
+        expect(labelData).to.deep.equal(expected);
+      });
+
+      it('returns correct data if slot contains own reservation', () => {
+        const slot = { reserved: true };
+        const isOwnReservation = true;
+        const labelData = getLabelData({ isOwnReservation, isPast, slot });
+        const expected = { bsStyle: 'default', text: 'Oma varaus' };
+
+        expect(labelData).to.deep.equal(expected);
+      });
+
+      it('returns correct data if slot is not reserved', () => {
+        const slot = { reserved: false };
+        const labelData = getLabelData({ isPast, slot });
+        const expected = { bsStyle: 'default', text: 'Vapaa' };
+
+        expect(labelData).to.deep.equal(expected);
+      });
+    });
+
+    describe('when time is not in the past', () => {
+      const isPast = false;
+
+      it('returns correct data if slot is being edited', () => {
+        const slot = { editing: true };
+        const labelData = getLabelData({ isPast, slot });
+        const expected = { bsStyle: 'info', text: 'Muokataan' };
+
+        expect(labelData).to.deep.equal(expected);
+      });
+
+      it('returns correct data if slot is reserved', () => {
+        const slot = { reserved: true };
+        const labelData = getLabelData({ isPast, slot });
+        const expected = { bsStyle: 'danger', text: 'Varattu' };
+
+        expect(labelData).to.deep.equal(expected);
+      });
+
+      it('returns correct data if slot contains own reservation', () => {
+        const slot = { reserved: true };
+        const isOwnReservation = true;
+        const labelData = getLabelData({ isOwnReservation, isPast, slot });
+        const expected = { bsStyle: 'info', text: 'Oma varaus' };
+
+        expect(labelData).to.deep.equal(expected);
+      });
+
+      it('returns correct data if slot is not reserved', () => {
+        const slot = { reserved: false };
+        const labelData = getLabelData({ isPast, slot });
+        const expected = { bsStyle: 'success', text: 'Vapaa' };
+
+        expect(labelData).to.deep.equal(expected);
+      });
+    });
+  });
 
   describe('render', () => {
     describe('when the slot is not reserved', () => {

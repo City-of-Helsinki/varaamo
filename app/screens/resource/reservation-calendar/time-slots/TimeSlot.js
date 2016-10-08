@@ -8,6 +8,23 @@ import Label from 'react-bootstrap/lib/Label';
 import ReservationControls from 'containers/ReservationControls';
 import { scrollTo } from 'utils/domUtils';
 
+export function getLabelData({ isOwnReservation, isPast, slot }) {
+  let data = {};
+
+  if (slot.editing) {
+    data = { bsStyle: 'info', text: 'Muokataan' };
+  } else if (slot.reserved) {
+    data = {
+      bsStyle: isOwnReservation ? 'info' : 'danger',
+      text: isOwnReservation ? 'Oma varaus' : 'Varattu',
+    };
+  } else {
+    data = { bsStyle: 'success', text: 'Vapaa' };
+  }
+
+  return isPast ? { bsStyle: 'default', text: data.text } : data;
+}
+
 class TimeSlot extends Component {
   constructor(props) {
     super(props);
@@ -85,23 +102,10 @@ class TimeSlot extends Component {
     const reservation = slot.reservation;
     const isOwnReservation = reservation && reservation.isOwn;
     const showReservationControls = reservation && slot.reservationStarting && !isEditing;
-
-    let labelBsStyle;
-    let labelText;
-
-    if (slot.editing) {
-      labelBsStyle = 'info';
-      labelText = 'Muokataan';
-    } else if (slot.reserved) {
-      labelBsStyle = isOwnReservation ? 'info' : 'danger';
-      labelText = isOwnReservation ? 'Oma varaus' : 'Varattu';
-    } else {
-      labelBsStyle = 'success';
-      labelText = 'Vapaa';
-    }
-    if (isPast) {
-      labelBsStyle = 'default';
-    }
+    const {
+      bsStyle: labelBsStyle,
+      text: labelText,
+    } = getLabelData({ isOwnReservation, isPast, slot });
 
     return (
       <tr
