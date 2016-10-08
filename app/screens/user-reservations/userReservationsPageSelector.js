@@ -2,22 +2,22 @@ import { createSelector } from 'reselect';
 
 import isAdminSelector from 'selectors/isAdminSelector';
 
-const adminReservationsFiltersSelector = (state) => state.ui.reservations.adminReservationsFilters;
+const adminReservationFiltersSelector = (state) => state.ui.reservations.adminReservationFilters;
 const reservationsFetchCountSelector = (state) => state.api.fetchCounts.reservations;
 const resourcesLoadedSelector = (state) => !state.api.shouldFetch.resources;
 
 const userReservationsPageSelector = createSelector(
-  adminReservationsFiltersSelector,
+  adminReservationFiltersSelector,
   isAdminSelector,
   reservationsFetchCountSelector,
   resourcesLoadedSelector,
   (
-    adminReservationsFilters,
+    adminReservationFilters,
     isAdmin,
     reservationsFetchCount,
     resourcesLoaded
   ) => ({
-    adminReservationsFilters,
+    adminReservationFilters,
     isAdmin,
     reservationsFetchCount,
     resourcesLoaded,

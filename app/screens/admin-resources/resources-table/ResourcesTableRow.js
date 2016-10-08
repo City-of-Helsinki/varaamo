@@ -7,7 +7,7 @@ import CommentButton from 'screens/shared/comment-button';
 import { getOpeningHours, getResourcePageUrl } from 'utils/resourceUtils';
 import { prettifyHours } from 'utils/timeUtils';
 
-class ResourcesTableItem extends Component {
+class ResourcesTableRow extends Component {
   getReserverName(reservation) {
     return (
       reservation.reserverName ||
@@ -102,7 +102,7 @@ const reservationPropType = PropTypes.shape({
   }),
 });
 
-ResourcesTableItem.propTypes = {
+ResourcesTableRow.propTypes = {
   currentReservation: reservationPropType,
   nextReservation: reservationPropType,
   resource: PropTypes.shape({
@@ -110,4 +110,4 @@ ResourcesTableItem.propTypes = {
   }).isRequired,
 };
 
-export default ResourcesTableItem;
+export default ResourcesTableRow;

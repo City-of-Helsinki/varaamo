@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import pick from 'lodash/pick';
-import values from 'lodash/values';
 import sortBy from 'lodash/sortBy';
+import values from 'lodash/values';
 
 import ActionTypes from 'constants/ActionTypes';
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
@@ -10,7 +10,7 @@ import isAdminSelector from 'selectors/isAdminSelector';
 const resourcesSelector = (state) => state.data.resources;
 const resourceIdsSelector = (state) => state.ui.pages.adminResources.resourceIds;
 
-const adminResourcesPage = createSelector(
+const adminResourcesPageSelector = createSelector(
   isAdminSelector,
   requestIsActiveSelectorFactory(ActionTypes.API.RESOURCES_GET_REQUEST),
   resourceIdsSelector,
@@ -27,4 +27,4 @@ const adminResourcesPage = createSelector(
   })
 );
 
-export default adminResourcesPage;
+export default adminResourcesPageSelector;

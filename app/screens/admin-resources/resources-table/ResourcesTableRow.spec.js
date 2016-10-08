@@ -6,12 +6,12 @@ import moment from 'moment';
 import { Link } from 'react-router';
 
 import TimeRange from 'components/common/TimeRange';
-import ResourcesTableItem from 'components/resource/ResourcesTableItem';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
 import { getResourcePageUrl } from 'utils/resourceUtils';
+import ResourcesTableRow from './ResourcesTableRow';
 
-describe('Component: reservation/ResourcesTableItem', () => {
+describe('screens/admin-resources/resources-table/ResourcesTableRow', () => {
   const now = moment();
   const openResourceHours = [{
     opens: now.clone().subtract(2, 'hours').toISOString(),
@@ -30,7 +30,7 @@ describe('Component: reservation/ResourcesTableItem', () => {
   const defaultProps = { resource };
 
   const getWrapper = (extraProps) => shallow(
-    <ResourcesTableItem {...defaultProps} {...extraProps} />
+    <ResourcesTableRow {...defaultProps} {...extraProps} />
   );
   let withoutReservationsComponent;
   let currentReservationComponent;

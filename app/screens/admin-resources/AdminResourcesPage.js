@@ -6,9 +6,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchResources } from 'actions/resourceActions';
-import ResourcesTable from 'components/resource/ResourcesTable';
 import PageWrapper from 'screens/layout/PageWrapper';
-import adminResourcesPageSelector from 'selectors/containers/adminResourcesPageSelector';
+import adminResourcesPageSelector from './adminResourcesPageSelector';
+import ResourcesTable from './resources-table';
 
 export class UnconnectedAdminResourcesPage extends Component {
   componentDidMount() {
@@ -28,18 +28,16 @@ export class UnconnectedAdminResourcesPage extends Component {
     } = this.props;
     return (
       <PageWrapper title="Omat tilat">
-        <div>
-          <h1>Omat tilat</h1>
-          <Loader loaded={!isFetchingResources}>
-            { isAdmin ?
-              <ResourcesTable
-                emptyMessage="Sinulla ei vielä ole yhtään omia tiloja näytettäväksi"
-                resources={resources}
-              /> :
-              <p>Tarvitset virkailijan oikeudet nähdäksesi tämän sivun.</p>
-            }
-          </Loader>
-        </div>
+        <h1>Omat tilat</h1>
+        <Loader loaded={!isFetchingResources}>
+          { isAdmin ?
+            <ResourcesTable
+              emptyMessage="Sinulla ei vielä ole yhtään omia tiloja näytettäväksi"
+              resources={resources}
+            /> :
+            <p>Tarvitset virkailijan oikeudet nähdäksesi tämän sivun.</p>
+          }
+        </Loader>
       </PageWrapper>
     );
   }

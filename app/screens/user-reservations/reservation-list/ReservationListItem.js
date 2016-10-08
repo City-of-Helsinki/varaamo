@@ -9,7 +9,7 @@ import { renderReservationStateLabel } from 'utils/renderUtils';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import { getName } from 'utils/translationUtils';
 
-class ReservationsListItem extends Component {
+class ReservationListItem extends Component {
   renderImage(image) {
     if (image && image.url) {
       const src = `${image.url}?dim=100x120`;
@@ -70,7 +70,7 @@ class ReservationsListItem extends Component {
   }
 }
 
-ReservationsListItem.propTypes = {
+ReservationListItem.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
   isStaff: PropTypes.bool.isRequired,
   reservation: PropTypes.object.isRequired,
@@ -78,4 +78,4 @@ ReservationsListItem.propTypes = {
   unit: PropTypes.object.isRequired,
 };
 
-export default ReservationsListItem;
+export default ReservationListItem;

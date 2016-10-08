@@ -9,7 +9,7 @@ import staffUnitsSelector from 'selectors/staffUnitsSelector';
 const resourcesSelector = (state) => state.data.resources;
 const unitsSelector = (state) => state.data.units;
 
-const reservationsListSelector = createSelector(
+const reservationListSelector = createSelector(
   isAdminSelector,
   requestIsActiveSelectorFactory(ActionTypes.API.RESERVATIONS_GET_REQUEST),
   resourcesSelector,
@@ -33,4 +33,4 @@ const reservationsListSelector = createSelector(
   })
 );
 
-export default reservationsListSelector;
+export default reservationListSelector;

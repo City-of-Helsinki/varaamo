@@ -3,16 +3,16 @@ import React, { Component, PropTypes } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 
-import ReservationsListItem from 'components/reservation/ReservationsListItem';
-import reservationsListSelector from 'selectors/containers/reservationsListSelector';
+import ReservationListItem from './ReservationListItem';
+import reservationListSelector from './reservationListSelector';
 
-export class UnconnectedReservationsList extends Component {
+export class UnconnectedReservationListContainer extends Component {
   constructor(props) {
     super(props);
-    this.renderReservationsListItem = this.renderReservationsListItem.bind(this);
+    this.renderReservationListItem = this.renderReservationListItem.bind(this);
   }
 
-  renderReservationsListItem(reservation) {
+  renderReservationListItem(reservation) {
     const {
       isAdmin,
       resources,
@@ -23,7 +23,7 @@ export class UnconnectedReservationsList extends Component {
     const unit = resource.unit ? units[resource.unit] || {} : {};
 
     return (
-      <ReservationsListItem
+      <ReservationListItem
         isAdmin={isAdmin}
         isStaff={includes(staffUnits, resource.unit)}
         key={reservation.url}
@@ -45,8 +45,8 @@ export class UnconnectedReservationsList extends Component {
       <Loader loaded={!loading}>
         {reservations.length ? (
           <div>
-            <ul className="reservations-list">
-              {reservations.map(this.renderReservationsListItem)}
+            <ul className="reservation-list">
+              {reservations.map(this.renderReservationListItem)}
             </ul>
           </div>
         ) : (
@@ -57,7 +57,7 @@ export class UnconnectedReservationsList extends Component {
   }
 }
 
-UnconnectedReservationsList.propTypes = {
+UnconnectedReservationListContainer.propTypes = {
   emptyMessage: PropTypes.string,
   filter: PropTypes.string,
   isAdmin: PropTypes.bool.isRequired,
@@ -68,4 +68,4 @@ UnconnectedReservationsList.propTypes = {
   units: PropTypes.object.isRequired,
 };
 
-export default connect(reservationsListSelector)(UnconnectedReservationsList);
+export default connect(reservationListSelector)(UnconnectedReservationListContainer);

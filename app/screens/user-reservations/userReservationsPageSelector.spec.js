@@ -1,26 +1,26 @@
 import { expect } from 'chai';
 
-import userReservationsPageSelector from 'selectors/containers/userReservationsPageSelector';
 import { getDefaultRouterProps, getInitialState } from 'utils/testUtils';
+import userReservationsPageSelector from './userReservationsPageSelector';
 
-describe('Selector: userReservationsPageSelector', () => {
+describe('screens/user-reservations/userReservationsPageSelector', () => {
   const state = getInitialState();
   const props = getDefaultRouterProps();
   const selected = userReservationsPageSelector(state, props);
 
-  it('should return adminReservationsFilters', () => {
-    expect(selected.adminReservationsFilters).to.exist;
+  it('returns adminReservationFilters', () => {
+    expect(selected.adminReservationFilters).to.exist;
   });
 
-  it('should return isAdmin', () => {
+  it('returns isAdmin', () => {
     expect(selected.isAdmin).to.exist;
   });
 
-  it('should return reservationsFetchCount', () => {
+  it('returns reservationsFetchCount', () => {
     expect(selected.reservationsFetchCount).to.exist;
   });
 
-  it('should return resourcesLoaded', () => {
+  it('returns resourcesLoaded', () => {
     expect(selected.resourcesLoaded).to.exist;
   });
 });

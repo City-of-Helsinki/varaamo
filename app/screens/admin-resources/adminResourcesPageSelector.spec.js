@@ -1,27 +1,27 @@
 import { expect } from 'chai';
 
 import Resource from 'fixtures/Resource';
-import adminResourcesPageSelector from 'selectors/containers/adminResourcesPageSelector';
 import { getDefaultRouterProps, getInitialState, getState } from 'utils/testUtils';
+import adminResourcesPageSelector from './adminResourcesPageSelector';
 
-describe('Selector: adminResourcesPageSelector', () => {
+describe('screens/admin-resources/adminResourcesPageSelector', () => {
   const state = getInitialState();
   const props = getDefaultRouterProps();
   const selected = adminResourcesPageSelector(state, props);
 
-  it('should return isAdmin', () => {
+  it('returns isAdmin', () => {
     expect(selected.isAdmin).to.exist;
   });
 
-  it('should return isFetchingResources', () => {
+  it('returns isFetchingResources', () => {
     expect(selected.isFetchingResources).to.exist;
   });
 
-  it('should return resources', () => {
+  it('returns resources', () => {
     expect(selected.resources).to.exist;
   });
 
-  it('should return an array of resources ordered by name', () => {
+  it('returns an array of resources ordered by name', () => {
     const resource1 = Resource.build({ name: { fi: 'Zimbabwe' } });
     const resource2 = Resource.build();
     const resource3 = Resource.build({ name: { fi: 'Afganistan' } });

@@ -2,16 +2,16 @@ import React, { Component, PropTypes } from 'react';
 import Table from 'react-bootstrap/lib/Table';
 import { connect } from 'react-redux';
 
-import ResourcesTableItem from 'components/resource/ResourcesTableItem';
 import CommentModal from 'screens/modals/comment';
 import { getOpenReservations } from 'utils/resourceUtils';
 import { getCurrentReservation, getNextReservation } from 'utils/reservationUtils';
+import ResourcesTableRow from './ResourcesTableRow';
 
 export class UnconnectedResourcesTable extends Component {
-  renderResourcesTableItem(resource) {
+  renderResourcesTableRow(resource) {
     const reservations = getOpenReservations(resource);
     return (
-      <ResourcesTableItem
+      <ResourcesTableRow
         key={resource.id}
         currentReservation={getCurrentReservation(reservations)}
         nextReservation={getNextReservation(reservations)}
@@ -39,7 +39,7 @@ export class UnconnectedResourcesTable extends Component {
               </tr>
             </thead>
             <tbody>
-              {resources.map(this.renderResourcesTableItem)}
+              {resources.map(this.renderResourcesTableRow)}
             </tbody>
           </Table>
           <CommentModal />
