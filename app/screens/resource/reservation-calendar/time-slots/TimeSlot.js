@@ -29,6 +29,7 @@ class TimeSlot extends Component {
   constructor(props) {
     super(props);
     this.handleRowClick = this.handleRowClick.bind(this);
+    this.renderReservationControls = this.renderReservationControls.bind(this);
   }
 
   componentDidMount() {
@@ -72,6 +73,24 @@ class TimeSlot extends Component {
     }
   }
 
+  renderReservationControls() {
+    const {
+      isAdmin,
+      isStaff,
+      resource,
+      slot,
+    } = this.props;
+
+    return (
+      <ReservationControls
+        isAdmin={isAdmin}
+        isStaff={isStaff}
+        reservation={slot.reservation}
+        resource={resource}
+      />
+    );
+  }
+
   renderUserInfo(user) {
     if (!user) {
       return null;
@@ -87,7 +106,6 @@ class TimeSlot extends Component {
       isAdmin,
       isEditing,
       isLoggedIn,
-      isStaff,
       resource,
       selected,
       slot,
@@ -114,7 +132,7 @@ class TimeSlot extends Component {
           'is-admin': isAdmin,
           editing: slot.editing,
           past: isPast,
-          'own-reservation': reservation && reservation.isOwn,
+          'own-reservation': isOwnReservation,
           'reservation-starting': (isAdmin || isOwnReservation) && slot.reservationStarting,
           'reservation-ending': (isAdmin || isOwnReservation) && slot.reservationEnding,
           reserved: slot.reserved,
@@ -137,14 +155,7 @@ class TimeSlot extends Component {
         </td>
         {!isAdmin && (
           <td className="controls-cell">
-            {showReservationControls && isOwnReservation && (
-              <ReservationControls
-                isAdmin={isAdmin}
-                isStaff={isStaff}
-                reservation={reservation}
-                resource={resource}
-              />
-            )}
+            {showReservationControls && isOwnReservation && this.renderReservationControls()}
           </td>
         )}
         {isAdmin && (
@@ -159,14 +170,7 @@ class TimeSlot extends Component {
         )}
         {isAdmin && (
           <td className="controls-cell">
-            {showReservationControls && (
-              <ReservationControls
-                isAdmin={isAdmin}
-                isStaff={isStaff}
-                reservation={reservation}
-                resource={resource}
-              />
-            )}
+            {showReservationControls && this.renderReservationControls()}
           </td>
         )}
       </tr>
