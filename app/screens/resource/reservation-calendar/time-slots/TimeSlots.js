@@ -62,6 +62,7 @@ class TimeSlots extends Component {
                 <th />
                 <th>Aika</th>
                 <th>Varaustilanne</th>
+                {!isAdmin && <th />}
                 {isAdmin && <th>Varaaja</th>}
                 {isAdmin && <th>Kommentit</th>}
                 {isAdmin && <th>Toiminnot</th>}

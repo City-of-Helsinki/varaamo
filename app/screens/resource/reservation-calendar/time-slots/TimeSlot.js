@@ -82,20 +82,26 @@ class TimeSlot extends Component {
       (!slot.editing && (slot.reserved || isPast))
     );
     const checked = selected || (slot.reserved && !slot.editing);
+    const reservation = slot.reservation;
+    const isOwnReservation = reservation && reservation.isOwn;
+    const showReservationControls = reservation && slot.reservationStarting && !isEditing;
+
     let labelBsStyle;
     let labelText;
-    if (isPast) {
-      labelBsStyle = 'default';
-    } else {
-      labelBsStyle = slot.reserved ? 'danger' : 'success';
-    }
+
     if (slot.editing) {
       labelBsStyle = 'info';
       labelText = 'Muokataan';
+    } else if (slot.reserved) {
+      labelBsStyle = isOwnReservation ? 'info' : 'danger';
+      labelText = isOwnReservation ? 'Oma varaus' : 'Varattu';
     } else {
-      labelText = slot.reserved ? 'Varattu' : 'Vapaa';
+      labelBsStyle = 'success';
+      labelText = 'Vapaa';
     }
-    const reservation = slot.reservation;
+    if (isPast) {
+      labelBsStyle = 'default';
+    }
 
     return (
       <tr
@@ -104,8 +110,9 @@ class TimeSlot extends Component {
           'is-admin': isAdmin,
           editing: slot.editing,
           past: isPast,
-          'reservation-starting': isAdmin && slot.reservationStarting,
-          'reservation-ending': isAdmin && slot.reservationEnding,
+          'own-reservation': reservation && reservation.isOwn,
+          'reservation-starting': (isAdmin || isOwnReservation) && slot.reservationStarting,
+          'reservation-ending': (isAdmin || isOwnReservation) && slot.reservationEnding,
           reserved: slot.reserved,
           selected,
         })}
@@ -124,6 +131,18 @@ class TimeSlot extends Component {
             {labelText}
           </Label>
         </td>
+        {!isAdmin && (
+          <td className="controls-cell">
+            {showReservationControls && isOwnReservation && (
+              <ReservationControls
+                isAdmin={isAdmin}
+                isStaff={isStaff}
+                reservation={reservation}
+                resource={resource}
+              />
+            )}
+          </td>
+        )}
         {isAdmin && (
           <td className="user-cell">
             {reservation && slot.reservationStarting && this.renderUserInfo(reservation.user)}
@@ -136,7 +155,7 @@ class TimeSlot extends Component {
         )}
         {isAdmin && (
           <td className="controls-cell">
-            {reservation && slot.reservationStarting && !isEditing && (
+            {showReservationControls && (
               <ReservationControls
                 isAdmin={isAdmin}
                 isStaff={isStaff}

@@ -1,16 +1,18 @@
 import { expect } from 'chai';
+import { shallow } from 'enzyme';
 import React from 'react';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+import Label from 'react-bootstrap/lib/Label';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
-import sd from 'skin-deep';
 
 import TimeSlotFixture from 'fixtures/TimeSlot';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
 import TimeSlot from './TimeSlot';
 
-function getProps(props) {
-  const defaults = {
+describe('screens/resource/reservation-calendar/time-slots/TimeSlot', () => {
+  const defaultProps = {
     addNotification: simple.stub(),
     isAdmin: false,
     isEditing: true,
@@ -22,107 +24,97 @@ function getProps(props) {
     slot: Immutable(TimeSlotFixture.build()),
   };
 
-  return Object.assign({}, defaults, props);
-}
+  function getWrapper(extraProps) {
+    return shallow(<TimeSlot {...defaultProps} {...extraProps} />);
+  }
 
-describe('Component: reservation/TimeSlot', () => {
   describe('render', () => {
     describe('when the slot is not reserved', () => {
-      const props = getProps();
-      const tree = sd.shallowRender(<TimeSlot {...props} />);
-      const vdom = tree.getRenderOutput();
+      const wrapper = getWrapper();
 
-      it('should render a table row', () => {
-        expect(vdom.type).to.equal('tr');
+      it('renders a table row', () => {
+        const tableRow = wrapper.find('tr');
+
+        expect(tableRow.length).to.equal(1);
       });
 
-      it('clicking the table row should call props.onClick with correct arguments', () => {
-        tree.props.onClick();
+      it('clicking the table row calls props.onClick with correct arguments', () => {
+        wrapper.find('tr').props().onClick();
 
-        expect(props.onClick.callCount).to.equal(1);
+        expect(defaultProps.onClick.callCount).to.equal(1);
       });
 
       describe('table cells', () => {
-        const tdTrees = tree.everySubTree('td');
+        const tableCells = wrapper.find('td');
 
-        it('should render 3 table cells', () => {
-          expect(tdTrees).to.have.length(3);
+        it('renders 4 table cells', () => {
+          expect(tableCells).to.have.length(4);
         });
 
         describe('the first table cell', () => {
-          const tdTree = tdTrees[0];
-          const glyphiconTree = tdTree.subTree('Glyphicon');
+          const tableCell = tableCells.at(0);
+          const glyphIcon = tableCell.find(Glyphicon);
 
-          it('should render a checkbox icon', () => {
-            expect(glyphiconTree).to.be.ok;
+          it('renders a checkbox icon', () => {
+            expect(glyphIcon.length).to.equal(1);
           });
 
-          it('should not be checked if the slot is available', () => {
-            expect(glyphiconTree.props.glyph).to.equal('unchecked');
+          it('is not checked', () => {
+            expect(glyphIcon.props().glyph).to.equal('unchecked');
           });
         });
 
         describe('the second table cell', () => {
-          const tdTree = tdTrees[1];
+          const tableCell = tableCells.at(1);
 
-          it('should display the slot time range as string', () => {
-            expect(tdTree.text()).to.equal(props.slot.asString);
+          it('displays the slot time range as a string', () => {
+            expect(tableCell.text()).to.equal(defaultProps.slot.asString);
           });
 
-          it('should have the specific time range inside a "time" element', () => {
-            const timeTree = tdTree.subTree('time');
-            const expected = `${props.slot.start}/${props.slot.end}`;
+          it('has the specific time range inside a "time" element', () => {
+            const time = tableCell.find('time');
+            const expected = `${defaultProps.slot.start}/${defaultProps.slot.end}`;
 
-            expect(timeTree.props.dateTime).to.equal(expected);
+            expect(time.props().dateTime).to.equal(expected);
           });
         });
 
         describe('the third table cell', () => {
-          describe('when the slot is available', () => {
-            const tdTree = tdTrees[2];
-            const labelTrees = tdTree.everySubTree('Label');
+          const tableCell = tableCells.at(2);
+          const label = tableCell.find(Label);
 
-            it('should render a label', () => {
-              expect(labelTrees.length).to.equal(1);
-            });
+          it('contains a label with correct props', () => {
+            expect(label.length).to.equal(1);
+            expect(label.props().bsStyle).to.equal('success');
+          });
 
-            it('should give proper props to the label', () => {
-              expect(labelTrees[0].props.bsStyle).to.equal('success');
-            });
-
-            it('should display text "Vapaa"', () => {
-              const expected = 'Vapaa';
-
-              expect(labelTrees[0].props.children).to.equal(expected);
-            });
+          it('displays text "Vapaa"', () => {
+            expect(label.props().children).to.equal('Vapaa');
           });
         });
       });
     });
 
     describe('when the slot is reserved', () => {
-      const props = getProps({
+      const extraProps = {
         slot: Immutable(TimeSlotFixture.build({
           reserved: true,
           reservation: Reservation.build(),
         })),
-      });
-      const reservedTree = sd.shallowRender(<TimeSlot {...props} />);
-      const tdTree = reservedTree.everySubTree('td')[2];
-      const labelTrees = tdTree.everySubTree('Label');
+      };
+      const wrapper = getWrapper(extraProps);
 
-      it('should render a label', () => {
-        expect(labelTrees.length).to.equal(1);
-      });
+      it('renders a label with correct props', () => {
+        const label = wrapper.find(Label);
 
-      it('should give proper props to the label', () => {
-        expect(labelTrees[0].props.bsStyle).to.equal('danger');
+        expect(label.length).to.equal(1);
+        expect(label.props().bsStyle).to.equal('danger');
       });
 
-      it('should display text "Varattu"', () => {
-        const expected = 'Varattu';
+      it('displays text "Varattu"', () => {
+        const label = wrapper.find(Label);
 
-        expect(labelTrees[0].props.children).to.equal(expected);
+        expect(label.props().children).to.equal('Varattu');
       });
     });
   });
