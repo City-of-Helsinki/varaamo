@@ -6,9 +6,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchResources } from 'actions/resourceActions';
-import ResourcesTable from 'components/resource/ResourcesTable';
 import PageWrapper from 'screens/layout/PageWrapper';
 import adminResourcesPageSelector from './adminResourcesPageSelector';
+import ResourcesTable from './resources-table';
 
 export class UnconnectedAdminResourcesPage extends Component {
   componentDidMount() {

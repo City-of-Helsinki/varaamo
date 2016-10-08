@@ -5,8 +5,8 @@ import React from 'react';
 import Loader from 'react-loader';
 import simple from 'simple-mock';
 
-import ResourcesTable from 'components/resource/ResourcesTable';
 import { UnconnectedAdminResourcesPage as AdminResourcesPage } from './AdminResourcesPage';
+import ResourcesTable from './resources-table';
 
 describe('screens/admin-resources/AdminResourcesPage', () => {
   const fetchResources = simple.stub();

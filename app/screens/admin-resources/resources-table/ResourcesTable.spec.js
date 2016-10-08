@@ -5,14 +5,12 @@ import React from 'react';
 import Table from 'react-bootstrap/lib/Table';
 
 import Immutable from 'seamless-immutable';
-import {
-  UnconnectedResourcesTable as ResourcesTable,
-} from 'components/resource/ResourcesTable';
-import ResourcesTableItem from 'components/resource/ResourcesTableItem';
 import Reservation from 'fixtures/Reservation';
 import Resource, { openingHours } from 'fixtures/Resource';
+import { UnconnectedResourcesTable as ResourcesTable } from './ResourcesTable';
+import ResourcesTableRow from './ResourcesTableRow';
 
-describe('Container: ResourcesTable', () => {
+describe('screens/admin-resources/resources-table/ResourcesTable', () => {
   const currentReservation = Reservation.build(
     { reserverName: 'current' },
     { startTime: moment().subtract(20, 'minutes') }
@@ -95,8 +93,8 @@ describe('Container: ResourcesTable', () => {
           expect(children).to.have.length(2);
         });
 
-        it('first table item is a ResourcesTableItem component', () => {
-          expect(resourceComponent1.is(ResourcesTableItem)).to.be.true;
+        it('first table item is a ResourcesTableRow component', () => {
+          expect(resourceComponent1.is(ResourcesTableRow)).to.be.true;
         });
 
         it('first table item has correct props', () => {
@@ -115,8 +113,8 @@ describe('Container: ResourcesTable', () => {
           });
         });
 
-        it('second table item is a ResourcesTableItem component', () => {
-          expect(resourceComponent2.is(ResourcesTableItem)).to.be.true;
+        it('second table item is a ResourcesTableRow component', () => {
+          expect(resourceComponent2.is(ResourcesTableRow)).to.be.true;
         });
       });
     });
