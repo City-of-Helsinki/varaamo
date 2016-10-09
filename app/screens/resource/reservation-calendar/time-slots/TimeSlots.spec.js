@@ -1,121 +1,127 @@
 import { expect } from 'chai';
+import { shallow } from 'enzyme';
 import React from 'react';
+import Table from 'react-bootstrap/lib/Table';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
-import sd from 'skin-deep';
 
 import Resource from 'fixtures/Resource';
 import TimeSlot from 'fixtures/TimeSlot';
 import TimeSlots from './TimeSlots';
+import TimeSlotComponent from './TimeSlot';
 
-describe('Component: reservation/TimeSlots', () => {
+describe('screens/resource/reservation-calendar/time-slots/TimeSlots', () => {
+  const defaultSlots = [
+    TimeSlot.build(),
+    TimeSlot.build(),
+  ];
+  const defaultProps = {
+    addNotification: simple.stub(),
+    isAdmin: false,
+    isEditing: false,
+    isFetching: false,
+    isLoggedIn: true,
+    isStaff: false,
+    onClick: simple.stub(),
+    resource: Resource.build(),
+    selected: [defaultSlots[0].asISOString],
+    slots: Immutable(defaultSlots),
+  };
+
+  function getWrapper(extraProps) {
+    return shallow(<TimeSlots {...defaultProps} {...extraProps} />);
+  }
+
   describe('with timeslots', () => {
-    const timeSlots = [
-      TimeSlot.build(),
-      TimeSlot.build(),
-    ];
-    const props = {
-      addNotification: simple.stub(),
-      isAdmin: false,
-      isEditing: false,
-      isFetching: false,
-      isLoggedIn: true,
-      isStaff: false,
-      onClick: simple.stub(),
-      resource: Resource.build(),
-      selected: [timeSlots[0].asISOString],
-      slots: Immutable(timeSlots),
-    };
-    let tree;
+    let wrapper;
 
     before(() => {
-      tree = sd.shallowRender(<TimeSlots {...props} />);
+      wrapper = getWrapper();
     });
 
-    it('should render a Table component', () => {
-      const tableTrees = tree.everySubTree('Table');
+    it('renders a Table component', () => {
+      const table = wrapper.find(Table);
 
-      expect(tableTrees.length).to.equal(1);
+      expect(table.length).to.equal(1);
     });
 
-    describe('rendering table headers', () => {
-      let thTrees;
+    describe('table headers', () => {
+      let tableHeaders;
 
       before(() => {
-        thTrees = tree.everySubTree('th');
+        tableHeaders = wrapper.find('th');
       });
 
-      it('should render 3 th elements', () => {
-        expect(thTrees.length).to.equal(3);
+      it('renders 4 th elements', () => {
+        expect(tableHeaders.length).to.equal(4);
       });
 
-      it('first th element should be empty', () => {
-        expect(thTrees[0].text()).to.equal('');
+      it('first th element is empty', () => {
+        expect(tableHeaders.at(0).text()).to.equal('');
       });
 
-      it('second th element should contain text "Aika"', () => {
-        expect(thTrees[1].text()).to.equal('Aika');
+      it('second th element contains text "Aika"', () => {
+        expect(tableHeaders.at(1).text()).to.equal('Aika');
       });
 
-      it('third th element should contain text "Varaustilanne"', () => {
-        expect(thTrees[2].text()).to.equal('Varaustilanne');
+      it('third th element contains text "Varaustilanne"', () => {
+        expect(tableHeaders.at(2).text()).to.equal('Varaustilanne');
+      });
+
+      it('fourth th element is empty', () => {
+        expect(tableHeaders.at(3).text()).to.equal('');
       });
     });
 
     describe('rendering individual time slots', () => {
-      let timeSlotTrees;
+      let timeSlots;
 
       before(() => {
-        timeSlotTrees = tree.everySubTree('TimeSlot');
+        timeSlots = wrapper.find(TimeSlotComponent);
       });
 
-      it('should render a TimeSlot for every time slot in props', () => {
-        expect(timeSlotTrees.length).to.equal(props.slots.length);
+      it('renders a TimeSlot component for every time slot in props', () => {
+        expect(timeSlots.length).to.equal(defaultProps.slots.length);
       });
 
-      it('should pass correct props to TimeSlots', () => {
-        timeSlotTrees.forEach((timeSlotTree, index) => {
-          expect(timeSlotTree.props.addNotification).to.equal(props.addNotification);
-          expect(timeSlotTree.props.isAdmin).to.equal(props.isAdmin);
-          expect(timeSlotTree.props.isEditing).to.equal(props.isEditing);
-          expect(timeSlotTree.props.isLoggedIn).to.equal(props.isLoggedIn);
-          expect(timeSlotTree.props.isStaff).to.equal(props.isStaff);
-          expect(timeSlotTree.props.onClick).to.equal(props.onClick);
-          expect(timeSlotTree.props.resource).to.equal(props.resource);
-          expect(timeSlotTree.props.slot).to.deep.equal(props.slots[index]);
+      it('passes correct props to TimeSlots', () => {
+        timeSlots.forEach((timeSlot, index) => {
+          expect(timeSlot.props().addNotification).to.equal(defaultProps.addNotification);
+          expect(timeSlot.props().isAdmin).to.equal(defaultProps.isAdmin);
+          expect(timeSlot.props().isEditing).to.equal(defaultProps.isEditing);
+          expect(timeSlot.props().isLoggedIn).to.equal(defaultProps.isLoggedIn);
+          expect(timeSlot.props().isStaff).to.equal(defaultProps.isStaff);
+          expect(timeSlot.props().onClick).to.equal(defaultProps.onClick);
+          expect(timeSlot.props().resource).to.equal(defaultProps.resource);
+          expect(timeSlot.props().slot).to.deep.equal(defaultProps.slots[index]);
         });
       });
 
-      it('should pass correct selected as a prop to TimeSlot', () => {
-        expect(timeSlotTrees[0].props.selected).to.equal(true);
-        expect(timeSlotTrees[1].props.selected).to.equal(false);
+      it('passes correct selected as a prop to TimeSlot', () => {
+        expect(timeSlots.at(0).props().selected).to.equal(true);
+        expect(timeSlots.at(1).props().selected).to.equal(false);
       });
     });
   });
 
   describe('without timeslots', () => {
-    const props = {
-      addNotification: simple.stub(),
-      isAdmin: false,
-      isEditing: false,
-      isFetching: false,
-      isLoggedIn: true,
-      isStaff: false,
-      onClick: simple.stub(),
-      resource: Resource.build(),
-      selected: [],
-      slots: [],
-    };
-    let tree;
+    const slots = [];
+    let wrapper;
 
     before(() => {
-      tree = sd.shallowRender(<TimeSlots {...props} />);
+      wrapper = getWrapper({ slots });
     });
 
-    it('should render a message telling the resource is not available for reservation', () => {
+    it('renders a message telling the resource is not available for reservation', () => {
       const expected = 'Tila ei ole varattavissa tänä päivänä.';
 
-      expect(tree.textIn('p')).to.equal(expected);
+      expect(wrapper.find('p').text()).to.equal(expected);
+    });
+
+    it('does not render a Table component', () => {
+      const table = wrapper.find(Table);
+
+      expect(table.length).to.equal(0);
     });
   });
 });

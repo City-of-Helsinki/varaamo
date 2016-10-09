@@ -38,10 +38,15 @@
       }
     }
 
+    .controls-cell {
+      width: 140px;
+      text-align: right;
+    }
+
     // Reserved styles
     // ---------------
     &.reserved {
-      &.is-admin {
+      &.is-admin, &.own-reservation {
         background-color: @gray-lighter;
       }
 
@@ -105,10 +110,6 @@
 
       .status-cell {
         width: 80px;
-      }
-
-      .controls-cell {
-        width: 140px;
       }
     }
   }

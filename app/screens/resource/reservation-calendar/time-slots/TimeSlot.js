@@ -8,10 +8,28 @@ import Label from 'react-bootstrap/lib/Label';
 import ReservationControls from 'containers/ReservationControls';
 import { scrollTo } from 'utils/domUtils';
 
+export function getLabelData({ isOwnReservation, isPast, slot }) {
+  let data = {};
+
+  if (slot.editing) {
+    data = { bsStyle: 'info', text: 'Muokataan' };
+  } else if (slot.reserved) {
+    data = {
+      bsStyle: isOwnReservation ? 'info' : 'danger',
+      text: isOwnReservation ? 'Oma varaus' : 'Varattu',
+    };
+  } else {
+    data = { bsStyle: 'success', text: 'Vapaa' };
+  }
+
+  return isPast ? { bsStyle: 'default', text: data.text } : data;
+}
+
 class TimeSlot extends Component {
   constructor(props) {
     super(props);
     this.handleRowClick = this.handleRowClick.bind(this);
+    this.renderReservationControls = this.renderReservationControls.bind(this);
   }
 
   componentDidMount() {
@@ -55,6 +73,24 @@ class TimeSlot extends Component {
     }
   }
 
+  renderReservationControls() {
+    const {
+      isAdmin,
+      isStaff,
+      resource,
+      slot,
+    } = this.props;
+
+    return (
+      <ReservationControls
+        isAdmin={isAdmin}
+        isStaff={isStaff}
+        reservation={slot.reservation}
+        resource={resource}
+      />
+    );
+  }
+
   renderUserInfo(user) {
     if (!user) {
       return null;
@@ -70,7 +106,6 @@ class TimeSlot extends Component {
       isAdmin,
       isEditing,
       isLoggedIn,
-      isStaff,
       resource,
       selected,
       slot,
@@ -82,20 +117,13 @@ class TimeSlot extends Component {
       (!slot.editing && (slot.reserved || isPast))
     );
     const checked = selected || (slot.reserved && !slot.editing);
-    let labelBsStyle;
-    let labelText;
-    if (isPast) {
-      labelBsStyle = 'default';
-    } else {
-      labelBsStyle = slot.reserved ? 'danger' : 'success';
-    }
-    if (slot.editing) {
-      labelBsStyle = 'info';
-      labelText = 'Muokataan';
-    } else {
-      labelText = slot.reserved ? 'Varattu' : 'Vapaa';
-    }
     const reservation = slot.reservation;
+    const isOwnReservation = reservation && reservation.isOwn;
+    const showReservationControls = reservation && slot.reservationStarting && !isEditing;
+    const {
+      bsStyle: labelBsStyle,
+      text: labelText,
+    } = getLabelData({ isOwnReservation, isPast, slot });
 
     return (
       <tr
@@ -104,8 +132,9 @@ class TimeSlot extends Component {
           'is-admin': isAdmin,
           editing: slot.editing,
           past: isPast,
-          'reservation-starting': isAdmin && slot.reservationStarting,
-          'reservation-ending': isAdmin && slot.reservationEnding,
+          'own-reservation': isOwnReservation,
+          'reservation-starting': (isAdmin || isOwnReservation) && slot.reservationStarting,
+          'reservation-ending': (isAdmin || isOwnReservation) && slot.reservationEnding,
           reserved: slot.reserved,
           selected,
         })}
@@ -124,6 +153,11 @@ class TimeSlot extends Component {
             {labelText}
           </Label>
         </td>
+        {!isAdmin && (
+          <td className="controls-cell">
+            {showReservationControls && isOwnReservation && this.renderReservationControls()}
+          </td>
+        )}
         {isAdmin && (
           <td className="user-cell">
             {reservation && slot.reservationStarting && this.renderUserInfo(reservation.user)}
@@ -136,14 +170,7 @@ class TimeSlot extends Component {
         )}
         {isAdmin && (
           <td className="controls-cell">
-            {reservation && slot.reservationStarting && !isEditing && (
-              <ReservationControls
-                isAdmin={isAdmin}
-                isStaff={isStaff}
-                reservation={reservation}
-                resource={resource}
-              />
-            )}
+            {showReservationControls && this.renderReservationControls()}
           </td>
         )}
       </tr>
