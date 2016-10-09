@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
+import MockDate from 'mockdate';
 import moment from 'moment';
 import React from 'react';
 import Loader from 'react-loader';
@@ -9,11 +10,11 @@ import { UnconnectedAdminResourcesPage as AdminResourcesPage } from './AdminReso
 import ResourcesTable from './resources-table';
 
 describe('screens/admin-resources/AdminResourcesPage', () => {
-  const fetchResources = simple.stub();
+  const fetchFavoritedResources = simple.stub();
 
   const defaultProps = {
     actions: {
-      fetchResources,
+      fetchFavoritedResources,
     },
     isAdmin: true,
     isFetchingResources: false,
@@ -83,28 +84,30 @@ describe('screens/admin-resources/AdminResourcesPage', () => {
 
   describe('componentDidMount', () => {
     describe('if user is an admin', () => {
+      const now = '2015-10-10T06:00:00+03:00';
+      const isAdmin = true;
+
       before(() => {
-        fetchResources.reset();
-        getWrapper({ isAdmin: true }).instance().componentDidMount();
+        MockDate.set(now);
+        fetchFavoritedResources.reset();
+        getWrapper({ isAdmin }).instance().componentDidMount();
       });
 
-      it('fetches resources', () => {
-        expect(fetchResources.callCount).to.equal(1);
+      after(() => {
+        MockDate.reset();
+      });
+
+      it('fetches favorited resources', () => {
+        expect(fetchFavoritedResources.callCount).to.equal(1);
       });
 
       it('fetches today\'s resources', () => {
-        const args = fetchResources.lastCall.args;
-        expect(args[0].end).to.deep.equal(moment().endOf('day').toISOString());
-        expect(args[0].start).to.deep.equal(moment().startOf('day').toISOString());
+        const args = fetchFavoritedResources.lastCall.args;
+        expect(args[0].isSame(moment(now))).to.be.true;
       });
 
-      it('fetches favorite resources', () => {
-        const args = fetchResources.lastCall.args;
-        expect(args[0].is_favorite).to.deep.equal(true);
-      });
-
-      it('pases adminResourcesPage as source', () => {
-        const args = fetchResources.lastCall.args;
+      it('passes adminResourcesPage as source', () => {
+        const args = fetchFavoritedResources.lastCall.args;
         expect(args[1]).to.equal('adminResourcesPage');
       });
     });

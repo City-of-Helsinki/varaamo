@@ -10,6 +10,15 @@ import {
   getSuccessTypeDescriptor,
 } from 'utils/apiUtils';
 
+function fetchFavoritedResources(timeAsMoment, source) {
+  const params = {
+    end: timeAsMoment.endOf('day').toISOString(),
+    is_favorite: true,
+    start: timeAsMoment.startOf('day').toISOString(),
+  };
+  return fetchResources(params, source);
+}
+
 function fetchResource(id, params = {}) {
   return {
     [CALL_API]: {
@@ -89,6 +98,7 @@ function unfavoriteResource(id) {
 
 
 export {
+  fetchFavoritedResources,
   fetchResource,
   fetchResources,
   favoriteResource,
