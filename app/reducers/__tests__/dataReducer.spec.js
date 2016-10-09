@@ -324,6 +324,64 @@ describe('Reducer: dataReducer', () => {
       });
     });
 
+    describe('API.RESOURCES_GET_SUCCESS', () => {
+      const resourcesGetSuccess = createAction(
+        types.API.RESOURCES_GET_SUCCESS,
+        resource => ({ entities: { resources: { [resource.id]: resource } } })
+      );
+
+      it('adds resources to state', () => {
+        const resource = Resource.build();
+        const initialState = Immutable({
+          resources: {},
+        });
+        const action = resourcesGetSuccess(resource);
+        const nextState = dataReducer(initialState, action);
+
+        const expected = Immutable({
+          [resource.id]: resource,
+        });
+
+        expect(nextState.resources).to.deep.equal(expected);
+      });
+
+      it('removes resource.reservations if it is null', () => {
+        const resource = { id: 'resource-1', reservations: null };
+        const initialState = Immutable({
+          resources: {},
+        });
+        const action = resourcesGetSuccess(resource);
+        const nextState = dataReducer(initialState, action);
+
+        const expected = Immutable({
+          [resource.id]: { id: 'resource-1' },
+        });
+
+        expect(nextState.resources).to.deep.equal(expected);
+      });
+
+      it('does not replace old reservations value with null', () => {
+        const originalResource = Resource.build({
+          reservations: [{ foo: 'bar' }],
+          state: 'requested',
+        });
+        const updatedResource = Resource.build({
+          id: originalResource.id,
+          reservations: null,
+          state: 'confirmed',
+        });
+        const initialState = Immutable({
+          resources: { [originalResource.id]: originalResource },
+        });
+        const action = resourcesGetSuccess(updatedResource);
+        const nextState = dataReducer(initialState, action);
+        const actualResource = nextState.resources[originalResource.id];
+
+        expect(actualResource.reservations).to.deep.equal(originalResource.reservations);
+        expect(actualResource.state).to.equal(updatedResource.state);
+      });
+    });
+
     describe('API.USER_GET_SUCCESS', () => {
       const userGetSuccess = createAction(types.API.USER_GET_SUCCESS);
 
