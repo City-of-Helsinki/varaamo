@@ -3,13 +3,13 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
 
-import Favicon from 'components/customization/Favicon';
 import * as customizationUtils from 'utils/customizationUtils';
+import Favicon from './Favicon';
 
-import espooFavicon from 'assets/images/espoo-favicon.ico';
-import helsinkiFavicon from 'assets/images/helsinki-favicon.ico';
+import espooFavicon from './espoo-favicon.ico';
+import helsinkiFavicon from './helsinki-favicon.ico';
 
-describe('Component: customization/Favicon', () => {
+describe('shared/favicon/Favicon', () => {
   function getWrapper() {
     return shallow(<Favicon />);
   }
@@ -21,7 +21,7 @@ describe('Component: customization/Favicon', () => {
       favicon = getWrapper();
     });
 
-    it('should render favicon of Helsinki', () => {
+    it('renders favicon of Helsinki', () => {
       expect(favicon.props().url).to.deep.equal([helsinkiFavicon]);
     });
   });
@@ -38,7 +38,7 @@ describe('Component: customization/Favicon', () => {
       simple.restore();
     });
 
-    it('should render favicon of Espoo', () => {
+    it('renders favicon of Espoo', () => {
       expect(favicon.props().url).to.deep.equal([espooFavicon]);
     });
   });

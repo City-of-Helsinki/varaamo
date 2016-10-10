@@ -3,8 +3,8 @@ import ReactFavicon from 'react-favicon';
 
 import { getCurrentCustomization } from 'utils/customizationUtils';
 
-import helsinkiFavicon from 'assets/images/helsinki-favicon.ico';
-import espooFavicon from 'assets/images/espoo-favicon.ico';
+import helsinkiFavicon from './helsinki-favicon.ico';
+import espooFavicon from './espoo-favicon.ico';
 
 function Favicon() {
   const favicon = getCurrentCustomization() === 'ESPOO' ? espooFavicon : helsinkiFavicon;

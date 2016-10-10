@@ -7,9 +7,9 @@ import { updatePath } from 'redux-simple-router';
 
 import { clearSearchResults } from 'actions/searchActions';
 import { fetchUser } from 'actions/userActions';
-import Favicon from 'components/customization/Favicon';
 import Notifications from 'containers/Notifications';
 import appSelector from 'selectors/containers/appSelector';
+import Favicon from 'shared/favicon';
 import Footer from 'shared/footer';
 import Navbar from 'shared/navbar';
 import { getCustomizationClassName } from 'utils/customizationUtils';
