@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FeedbackLink from 'components/customization/FeedbackLink';
+import FeedbackLink from 'shared/feedback-link';
 import { getCurrentCustomization } from 'utils/customizationUtils';
 
 import aikaLogoSrc from 'app/assets/images/aika-logo.png';

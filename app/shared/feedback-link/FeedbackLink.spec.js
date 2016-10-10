@@ -3,11 +3,11 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
 
-import FeedbackLink from 'components/customization/FeedbackLink';
 import constants from 'constants/AppConstants';
 import * as customizationUtils from 'utils/customizationUtils';
+import FeedbackLink from './FeedbackLink';
 
-describe('Component: customization/FeedbackLink', () => {
+describe('shared/feedback-link/FeedbackLink', () => {
   const defaultProps = {
     text: 'link text',
   };
@@ -23,15 +23,15 @@ describe('Component: customization/FeedbackLink', () => {
       link = getWrapper();
     });
 
-    it('should render a link', () => {
+    it('renders a link', () => {
       expect(link.type()).to.equal('a');
     });
 
-    it('should render the text given in props', () => {
+    it('renders the text given in props', () => {
       expect(link.text()).to.equal(defaultProps.text);
     });
 
-    it('should have correct href', () => {
+    it('has correct href', () => {
       const expected = `${constants.FEEDBACK_URL}?ref=${window.location.href}`;
       expect(link.props().href).to.equal(expected);
     });
@@ -49,15 +49,15 @@ describe('Component: customization/FeedbackLink', () => {
       simple.restore();
     });
 
-    it('should render a link', () => {
+    it('renders a link', () => {
       expect(link.type()).to.equal('a');
     });
 
-    it('should render the text given in props', () => {
+    it('renders the text given in props', () => {
       expect(link.text()).to.equal(defaultProps.text);
     });
 
-    it('should have correct href', () => {
+    it('has correct href', () => {
       const expected = `${constants.FEEDBACK_URL}?ref=${window.location.href}`;
       expect(link.props().href).to.equal(expected);
     });

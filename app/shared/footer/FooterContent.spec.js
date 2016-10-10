@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import simple from 'simple-mock';
 
-import FeedbackLink from 'components/customization/FeedbackLink';
+import FeedbackLink from 'shared/feedback-link';
 import * as customizationUtils from 'utils/customizationUtils';
 import FooterContent from './FooterContent';
 

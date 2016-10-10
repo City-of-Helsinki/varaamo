@@ -4,7 +4,7 @@ import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import { Link } from 'react-router';
 
-import FeedbackLink from 'components/customization/FeedbackLink';
+import FeedbackLink from 'shared/feedback-link';
 import Logo from 'shared/logo';
 import { getCurrentCustomization } from 'utils/customizationUtils';
 
