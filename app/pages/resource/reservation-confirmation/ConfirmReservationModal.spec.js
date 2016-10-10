@@ -88,13 +88,13 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
         expect(textTree.text()).to.equal(expected);
       });
 
-      it('should render a CompactReservationsList component', () => {
-        const list = modalBodyTrees[0].everySubTree('CompactReservationsList');
+      it('should render a CompactReservationList component', () => {
+        const list = modalBodyTrees[0].everySubTree('CompactReservationList');
         expect(list.length).to.equal(1);
       });
 
-      it('should pass correct props to CompactReservationsList component', () => {
-        const list = modalBodyTrees[0].subTree('CompactReservationsList');
+      it('should pass correct props to CompactReservationList component', () => {
+        const list = modalBodyTrees[0].subTree('CompactReservationList');
         expect(list.props.reservations).to.deep.equal(props.selectedReservations);
       });
     });
@@ -158,13 +158,13 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
         expect(textTree.text()).to.equal(expected);
       });
 
-      it('should render a CompactReservationsList component', () => {
-        const list = modalBodyTrees[0].everySubTree('CompactReservationsList');
+      it('should render a CompactReservationList component', () => {
+        const list = modalBodyTrees[0].everySubTree('CompactReservationList');
         expect(list.length).to.equal(1);
       });
 
-      it('should pass correct props to CompactReservationsList component', () => {
-        const list = modalBodyTrees[0].subTree('CompactReservationsList');
+      it('should pass correct props to CompactReservationList component', () => {
+        const list = modalBodyTrees[0].subTree('CompactReservationList');
         expect(list.props.reservations).to.deep.equal(props.selectedReservations);
       });
     });
@@ -224,17 +224,17 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
       });
 
       it('should render two lists', () => {
-        const lists = modalBodyTrees[0].everySubTree('CompactReservationsList');
+        const lists = modalBodyTrees[0].everySubTree('CompactReservationList');
         expect(lists.length).to.equal(2);
       });
 
       it('the first list should contain reservations that are edited', () => {
-        const list = modalBodyTrees[0].everySubTree('CompactReservationsList')[0];
+        const list = modalBodyTrees[0].everySubTree('CompactReservationList')[0];
         expect(list.props.reservations).to.deep.equal(props.reservationsToEdit);
       });
 
       it('the second list should contain reservations that are selected', () => {
-        const list = modalBodyTrees[0].everySubTree('CompactReservationsList')[1];
+        const list = modalBodyTrees[0].everySubTree('CompactReservationList')[1];
         expect(list.props.reservations).to.deep.equal(props.selectedReservations);
       });
     });

@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import TimeRange from 'shared/time-range';
 import { getName } from 'utils/translationUtils';
 
-class CompactReservationsList extends Component {
+class CompactReservationList extends Component {
   constructor(props) {
     super(props);
     this.renderReservation = this.renderReservation.bind(this);
@@ -36,9 +36,9 @@ class CompactReservationsList extends Component {
   }
 }
 
-CompactReservationsList.propTypes = {
+CompactReservationList.propTypes = {
   reservations: PropTypes.array.isRequired,
   resources: PropTypes.object,
 };
 
-export default CompactReservationsList;
+export default CompactReservationList;

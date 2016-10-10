@@ -3,7 +3,7 @@ import camelCase from 'lodash/camelCase';
 import React, { Component, PropTypes } from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 
-import CompactReservationsList from 'components/common/CompactReservationsList';
+import CompactReservationList from 'shared/compact-reservation-list';
 import constants from 'constants/AppConstants';
 import { isStaffEvent } from 'utils/reservationUtils';
 import { getTermsAndConditions } from 'utils/resourceUtils';
@@ -110,9 +110,9 @@ class ConfirmReservationModal extends Component {
         <div>
           <p><strong>Oletko varma että haluat muuttaa varaustasi?</strong></p>
           <p>Ennen muutoksia:</p>
-          <CompactReservationsList reservations={reservationsToEdit} />
+          <CompactReservationList reservations={reservationsToEdit} />
           <p>Muutosten jälkeen:</p>
-          <CompactReservationsList reservations={selectedReservations} />
+          <CompactReservationList reservations={selectedReservations} />
         </div>
       );
     }
@@ -132,7 +132,7 @@ class ConfirmReservationModal extends Component {
     return (
       <div>
         <p><strong>{helpText}</strong></p>
-        <CompactReservationsList reservations={selectedReservations} />
+        <CompactReservationList reservations={selectedReservations} />
         {isPreliminaryReservation && (
           <div>
             <p>

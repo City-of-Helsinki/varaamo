@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { closeReservationSuccessModal } from 'actions/uiActions';
-import CompactReservationsList from 'components/common/CompactReservationsList';
+import CompactReservationList from 'shared/compact-reservation-list';
 import reservationSuccessModalSelector from 'selectors/containers/reservationSuccessModalSelector';
 import { getName } from 'utils/translationUtils';
 
@@ -43,7 +43,7 @@ export class UnconnectedReservationSuccessModal extends Component {
             Olet tehnyt alustavan varauksen tilaan {getName(resource)}
             {reservationsToShow.length === 1 ? ' ajalle:' : ' ajoille:'}
           </p>
-          <CompactReservationsList reservations={reservationsToShow} />
+          <CompactReservationList reservations={reservationsToShow} />
           <p>
             Varaus käsitellään kahden arkipäivän kuluessa. Tarkemmat tiedot alustavasta varauksesta
             lähetetään varauksen yhteydessä annettuun sähköpostiosoitteeseen

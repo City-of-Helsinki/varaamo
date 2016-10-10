@@ -92,13 +92,13 @@ describe('Container: ReservationCancelModal', () => {
           expect(modalBodyTrees.length).to.equal(1);
         });
 
-        it('should render a CompactReservationsList component', () => {
-          const list = modalBodyTrees[0].everySubTree('CompactReservationsList');
+        it('should render a CompactReservationList component', () => {
+          const list = modalBodyTrees[0].everySubTree('CompactReservationList');
           expect(list.length).to.equal(1);
         });
 
-        it('should pass correct props to CompactReservationsList component', () => {
-          const list = modalBodyTrees[0].subTree('CompactReservationsList');
+        it('should pass correct props to CompactReservationList component', () => {
+          const list = modalBodyTrees[0].subTree('CompactReservationList');
           expect(list.props.reservations).to.deep.equal(extraProps.reservationsToCancel);
           expect(list.props.resources).to.deep.equal(extraProps.resources);
         });
@@ -196,13 +196,13 @@ describe('Container: ReservationCancelModal', () => {
           expect(modalBodyTrees.length).to.equal(1);
         });
 
-        it('should render a CompactReservationsList component', () => {
-          const list = modalBodyTrees[0].everySubTree('CompactReservationsList');
+        it('should render a CompactReservationList component', () => {
+          const list = modalBodyTrees[0].everySubTree('CompactReservationList');
           expect(list.length).to.equal(1);
         });
 
-        it('should pass correct props to CompactReservationsList component', () => {
-          const list = modalBodyTrees[0].subTree('CompactReservationsList');
+        it('should pass correct props to CompactReservationList component', () => {
+          const list = modalBodyTrees[0].subTree('CompactReservationList');
           expect(list.props.reservations).to.deep.equal(extraProps.reservationsToCancel);
           expect(list.props.resources).to.deep.equal(extraProps.resources);
         });
@@ -300,13 +300,13 @@ describe('Container: ReservationCancelModal', () => {
           expect(modalBodyTrees.length).to.equal(1);
         });
 
-        it('should render a CompactReservationsList component', () => {
-          const list = modalBodyTrees[0].everySubTree('CompactReservationsList');
+        it('should render a CompactReservationList component', () => {
+          const list = modalBodyTrees[0].everySubTree('CompactReservationList');
           expect(list.length).to.equal(1);
         });
 
-        it('should pass correct props to CompactReservationsList component', () => {
-          const list = modalBodyTrees[0].subTree('CompactReservationsList');
+        it('should pass correct props to CompactReservationList component', () => {
+          const list = modalBodyTrees[0].subTree('CompactReservationList');
           expect(list.props.reservations).to.deep.equal(extraProps.reservationsToCancel);
           expect(list.props.resources).to.deep.equal(extraProps.resources);
         });

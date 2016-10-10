@@ -7,7 +7,7 @@ import simple from 'simple-mock';
 
 import Immutable from 'seamless-immutable';
 
-import CompactReservationsList from 'components/common/CompactReservationsList';
+import CompactReservationList from 'shared/compact-reservation-list';
 
 import {
   UnconnectedReservationSuccessModal as ReservationSuccessModal,
@@ -72,13 +72,13 @@ describe('Container: ReservationSuccessModal', () => {
       });
 
       describe('reservation list', () => {
-        it('should render a CompactReservationsList component', () => {
-          const list = modalBody.find(CompactReservationsList);
+        it('should render a CompactReservationList component', () => {
+          const list = modalBody.find(CompactReservationList);
           expect(list.length).to.equal(1);
         });
 
-        it('should pass correct props to CompactReservationsList component', () => {
-          const list = modalBody.find(CompactReservationsList);
+        it('should pass correct props to CompactReservationList component', () => {
+          const list = modalBody.find(CompactReservationList);
           expect(list.props().reservations).to.deep.equal(defaultProps.reservationsToShow);
           expect(list.props().resources).to.equal(undefined);
         });

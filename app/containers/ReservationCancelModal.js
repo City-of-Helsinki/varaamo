@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 
 import { deleteReservation } from 'actions/reservationActions';
 import { closeReservationCancelModal } from 'actions/uiActions';
-import CompactReservationsList from 'components/common/CompactReservationsList';
+import CompactReservationList from 'shared/compact-reservation-list';
 import reservationCancelModalSelector from 'selectors/containers/reservationCancelModalSelector';
 
 export class UnconnectedReservationCancelModal extends Component {
@@ -33,7 +33,7 @@ export class UnconnectedReservationCancelModal extends Component {
             <p><strong>Oletko varma että haluat perua seuraavan varauksen:</strong></p> :
             <p><strong>Oletko varma että haluat perua seuraavat varaukset:</strong></p>
           }
-          <CompactReservationsList reservations={reservations} resources={resources} />
+          <CompactReservationList reservations={reservations} resources={resources} />
         </div>
       );
     }
