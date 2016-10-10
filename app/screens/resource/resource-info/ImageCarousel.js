@@ -11,7 +11,11 @@ function renderCarouselItem(image, altText) {
   const imageSrc = `${image.url}?dim=${IMAGE_WIDTH}x${IMAGE_HEIGHT}`;
   return (
     <Carousel.Item key={image.url}>
-      <img alt={imageAlt} src={imageSrc} />
+      <img
+        alt={imageAlt}
+        src={imageSrc}
+        style={{ backgroundColor: '#ccc', height: IMAGE_HEIGHT, width: IMAGE_WIDTH }}
+      />
     </Carousel.Item>
   );
 }
