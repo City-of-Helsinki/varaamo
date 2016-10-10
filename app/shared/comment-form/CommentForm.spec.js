@@ -9,7 +9,7 @@ import simple from 'simple-mock';
 import { makeButtonTests } from 'utils/testUtils';
 import CommentForm from './CommentForm';
 
-describe('screens/shared/comment-form/CommentForm', () => {
+describe('shared/comment-form/CommentForm', () => {
   const defaultProps = {
     defaultValue: 'This is a comment',
     isSaving: false,

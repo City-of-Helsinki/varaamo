@@ -6,7 +6,7 @@ import simple from 'simple-mock';
 
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
-import CommentForm from 'screens/shared/comment-form';
+import CommentForm from 'shared/comment-form';
 import { UnconnectedCommentModalContainer as CommentModalContainer } from './CommentModalContainer';
 import ModalWrapper from '../ModalWrapper';
 

@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 
 import WrappedText from 'components/common/WrappedText';
-import FavoriteButton from 'screens/shared/favorite-button';
-import ResourceIcons from 'screens/shared/resource-icons';
+import FavoriteButton from 'shared/favorite-button';
+import ResourceIcons from 'shared/resource-icons';
 import { getName, getProperty } from 'utils/translationUtils';
 import { getAddressWithName } from 'utils/unitUtils';
 import ImageCarousel from './ImageCarousel';

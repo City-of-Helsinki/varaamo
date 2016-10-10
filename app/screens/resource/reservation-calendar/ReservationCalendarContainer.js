@@ -12,7 +12,7 @@ import {
   openConfirmReservationModal,
   toggleTimeSlot,
 } from 'actions/uiActions';
-import DateHeader from 'screens/shared/date-header';
+import DateHeader from 'shared/date-header';
 import ReservationCancelModal from 'containers/ReservationCancelModal';
 import ReservationInfoModal from 'containers/ReservationInfoModal';
 import ReservationSuccessModal from 'containers/ReservationSuccessModal';

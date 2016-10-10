@@ -8,7 +8,7 @@ import isEmail from 'validator/lib/isEmail';
 
 import WrappedText from 'components/common/WrappedText';
 import constants from 'constants/AppConstants';
-import ReduxFormField from 'screens/shared/form-fields/ReduxFormField';
+import ReduxFormField from 'shared/form-fields/ReduxFormField';
 
 const validators = {
   reserverEmailAddress: ({ reserverEmailAddress }) => {

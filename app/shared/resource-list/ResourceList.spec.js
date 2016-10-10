@@ -6,7 +6,7 @@ import Immutable from 'seamless-immutable';
 import ResourceList from './ResourceList';
 import ResourceListItem from './ResourceListItemContainer';
 
-describe('screens/shared/resource-list/ResourceList', () => {
+describe('shared/resource-list/ResourceList', () => {
   const defaultProps = {
     emptyMessage: 'Some empty message',
     resourceIds: Immutable(['resource-1', 'resource-2']),

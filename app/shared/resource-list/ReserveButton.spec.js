@@ -9,7 +9,7 @@ import Resource from 'fixtures/Resource';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import ReserveButton from './ReserveButton';
 
-describe('screens/shared/resource-list/ReserveButton', () => {
+describe('shared/resource-list/ReserveButton', () => {
   const defaultProps = {
     date: '2015-10-10',
     isLoggedIn: false,

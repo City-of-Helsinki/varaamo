@@ -7,7 +7,7 @@ import simple from 'simple-mock';
 
 import WrappedText from 'components/common/WrappedText';
 import constants from 'constants/AppConstants';
-import ReduxFormField from 'screens/shared/form-fields/ReduxFormField';
+import ReduxFormField from 'shared/form-fields/ReduxFormField';
 import { UnconnectedReservationForm as ReservationForm, validate } from './ReservationForm';
 
 describe('screens/resource/reservation-confirmation/ReservationForm', () => {

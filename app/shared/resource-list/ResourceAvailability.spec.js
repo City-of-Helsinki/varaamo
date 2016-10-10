@@ -10,7 +10,7 @@ import Resource from 'fixtures/Resource';
 import * as resourceUtils from 'utils/resourceUtils';
 import ResourceAvailability from './ResourceAvailability';
 
-describe('screens/shared/resource-list/ResourceAvailability', () => {
+describe('shared/resource-list/ResourceAvailability', () => {
   const defaultProps = {
     date: '2015-10-10',
     resource: Immutable(Resource.build()),

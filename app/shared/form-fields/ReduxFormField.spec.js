@@ -6,7 +6,7 @@ import Checkbox from './Checkbox';
 import FormControl from './FormControl';
 import ReduxFormField from './ReduxFormField';
 
-describe('screens/shared/form-fields/ReduxFormField', () => {
+describe('shared/form-fields/ReduxFormField', () => {
   const defaultProps = {
     controlProps: { someProp: 'some', otherProp: 'other' },
     field: { name: 'email', foo: 'bar' },

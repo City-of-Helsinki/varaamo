@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
-import ResourceIcons from 'screens/shared/resource-icons';
+import ResourceIcons from 'shared/resource-icons';
 import { getMainImage } from 'utils/imageUtils';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import { getName } from 'utils/translationUtils';

@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { searchResources } from 'actions/searchActions';
 import { fetchUnits } from 'actions/unitActions';
 import PageWrapper from 'screens/layout/PageWrapper';
-import DateHeader from 'screens/shared/date-header';
+import DateHeader from 'shared/date-header';
 import { scrollTo } from 'utils/domUtils';
 import SearchControls from './controls/SearchControls';
 import searchPageSelector from './searchPageSelector';

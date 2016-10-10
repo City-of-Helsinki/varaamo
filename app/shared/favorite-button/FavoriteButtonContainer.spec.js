@@ -6,7 +6,7 @@ import simple from 'simple-mock';
 import { UnconnectedFavoriteButtonContainer } from './FavoriteButtonContainer';
 import FavoriteButtonComponent from './FavoriteButtonComponent';
 
-describe('screens/shared/favorite-button/FavoriteButtonContainer', () => {
+describe('shared/favorite-button/FavoriteButtonContainer', () => {
   const resource = {
     id: '123',
     isFavorite: true,

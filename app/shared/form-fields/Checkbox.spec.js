@@ -8,7 +8,7 @@ import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
 import Checkbox from './Checkbox';
 
-describe('screens/shared/form-fields/Checkbox', () => {
+describe('shared/form-fields/Checkbox', () => {
   const defaultProps = {
     controlProps: { someProp: 'some', otherProp: 'other' },
     id: 'email',

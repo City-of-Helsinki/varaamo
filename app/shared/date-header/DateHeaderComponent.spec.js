@@ -5,7 +5,7 @@ import simple from 'simple-mock';
 
 import DateHeaderComponent from './DateHeaderComponent';
 
-describe('screens/shared/date-header/DateHeaderComponent', () => {
+describe('shared/date-header/DateHeaderComponent', () => {
   const defaultProps = {
     date: '2015-10-11',
   };

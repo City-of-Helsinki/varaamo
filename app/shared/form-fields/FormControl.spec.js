@@ -9,7 +9,7 @@ import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
 import FormControl from './FormControl';
 
-describe('screens/shared/form-fields/FormControl', () => {
+describe('shared/form-fields/FormControl', () => {
   const defaultProps = {
     controlProps: { someProp: 'some', otherProp: 'other' },
     id: 'email',

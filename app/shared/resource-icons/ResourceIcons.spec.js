@@ -6,7 +6,7 @@ import Immutable from 'seamless-immutable';
 import Resource from 'fixtures/Resource';
 import ResourceIcons from './ResourceIcons';
 
-describe('screens/shared/resource-list/ResourceIcons', () => {
+describe('shared/resource-list/ResourceIcons', () => {
   const defaultProps = {
     resource: Immutable(Resource.build({
       peopleCapacity: 10,

@@ -7,12 +7,12 @@ import Immutable from 'seamless-immutable';
 import Image from 'fixtures/Image';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
-import ResourceIcons from 'screens/shared/resource-icons';
+import ResourceIcons from 'shared/resource-icons';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import ReserveButton from './ReserveButton';
 import ResourceListItem from './ResourceListItem';
 
-describe('screens/shared/resource-list/ResourceListItem', () => {
+describe('shared/resource-list/ResourceListItem', () => {
   const defaultProps = {
     date: '2015-10-10',
     isLoggedIn: false,

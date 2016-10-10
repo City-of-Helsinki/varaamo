@@ -5,7 +5,7 @@ import Unit from 'fixtures/Unit';
 import { getState } from 'utils/testUtils';
 import resourceListItemSelector from './resourceListItemSelector';
 
-describe('screens/shared/resource-list/resourceListItemSelector', () => {
+describe('shared/resource-list/resourceListItemSelector', () => {
   const unit = Unit.build();
   const resource = Resource.build({ unit: unit.id });
   const state = getState({

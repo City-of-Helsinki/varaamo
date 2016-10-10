@@ -6,7 +6,7 @@ import simple from 'simple-mock';
 
 import CommentButton from './CommentButton';
 
-describe('screens/shared/comment-button/CommentButton', () => {
+describe('shared/comment-button/CommentButton', () => {
   const defaultProps = {
     onClick: simple.mock(),
   };

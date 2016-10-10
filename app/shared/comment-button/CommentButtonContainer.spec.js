@@ -6,7 +6,7 @@ import simple from 'simple-mock';
 import CommentButton from './CommentButton';
 import { UnconnectedCommentButtonContainer } from './CommentButtonContainer';
 
-describe('screens/shared/comment-button/CommentButtonContainer', () => {
+describe('shared/comment-button/CommentButtonContainer', () => {
   const reservation = {
     comments: 'some comments',
   };

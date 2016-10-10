@@ -4,7 +4,7 @@ import React from 'react';
 import Loader from 'react-loader';
 import Immutable from 'seamless-immutable';
 
-import ResourceList from 'screens/shared/resource-list';
+import ResourceList from 'shared/resource-list';
 import SearchResults from './SearchResults';
 import ResultsCount from './ResultsCount';
 

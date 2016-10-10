@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import Loader from 'react-loader';
 
-import ResourceList from 'screens/shared/resource-list';
+import ResourceList from 'shared/resource-list';
 import { scrollTo } from 'utils/domUtils';
 import ResultsCount from './ResultsCount';
 

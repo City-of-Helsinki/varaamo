@@ -6,7 +6,7 @@ import simple from 'simple-mock';
 
 import FavoriteButtonComponent from './FavoriteButtonComponent';
 
-describe('screens/shared/favorite-button/FavoriteButtonComponent', () => {
+describe('shared/favorite-button/FavoriteButtonComponent', () => {
   const defaultProps = {
     favorited: true,
     onClick: simple.mock(),

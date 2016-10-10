@@ -4,7 +4,7 @@ import React from 'react';
 import simple from 'simple-mock';
 import Immutable from 'seamless-immutable';
 
-import DateHeader from 'screens/shared/date-header';
+import DateHeader from 'shared/date-header';
 import { UnconnectedSearchPage as SearchPage } from './SearchPage';
 import SearchControls from './controls/SearchControls';
 import SearchResults from './results';
