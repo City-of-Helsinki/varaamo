@@ -20,7 +20,7 @@ function ImageCarousel({ images, altText }) {
   return (
     <Carousel
       className="image-carousel"
-      controls={false}
+      controls={images.length > 1}
       indicators={images.length > 1}
       interval={7000}
       style={{ maxWidth: IMAGE_WIDTH }}

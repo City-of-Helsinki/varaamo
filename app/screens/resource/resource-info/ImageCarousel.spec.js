@@ -23,22 +23,44 @@ describe('screens/resource/resource-info/ImageCarousel', () => {
   }
 
   describe('Carousel', () => {
-    it('is rendered', () => {
-      const carousel = getWrapper().find(Carousel);
+    describe('when there are multiple images in the carousel', () => {
+      let carousel;
 
-      expect(carousel.length).to.equal(1);
+      before(() => {
+        carousel = getWrapper().find(Carousel);
+      });
+
+      it('is rendered', () => {
+        expect(carousel.length).to.equal(1);
+      });
+
+      it('has indicators', () => {
+        expect(carousel.prop('indicators')).to.equal(true);
+      });
+
+      it('has controls', () => {
+        expect(carousel.prop('controls')).to.equal(true);
+      });
     });
 
-    it('has indicators if there are multiple images in the carousel', () => {
-      const carousel = getWrapper().find(Carousel);
+    describe('when there is only one image in the carousel', () => {
+      let carousel;
 
-      expect(carousel.prop('indicators')).to.equal(true);
-    });
+      before(() => {
+        carousel = getWrapper({ images: [Image.build()] }).find(Carousel);
+      });
 
-    it('does not have indicators if there is only one image in the carousel', () => {
-      const carousel = getWrapper({ images: [Image.build()] }).find(Carousel);
+      it('is rendered', () => {
+        expect(carousel.length).to.equal(1);
+      });
 
-      expect(carousel.prop('indicators')).to.equal(false);
+      it('the carousel has indicators', () => {
+        expect(carousel.prop('indicators')).to.equal(false);
+      });
+
+      it('the carousel has controls', () => {
+        expect(carousel.prop('controls')).to.equal(false);
+      });
     });
   });
 
