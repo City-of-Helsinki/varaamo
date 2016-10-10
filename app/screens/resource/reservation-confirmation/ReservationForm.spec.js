@@ -8,13 +8,9 @@ import Button from 'react-bootstrap/lib/Button';
 
 import constants from 'constants/AppConstants';
 import ReduxFormField from 'screens/shared/form-fields/ReduxFormField';
+import { UnconnectedReservationForm as ReservationForm, validate } from './ReservationForm';
 
-import {
-  UnconnectedReservationForm as ReservationForm,
-  validate,
-} from 'containers/ReservationForm';
-
-describe('Container: ReservationForm', () => {
+describe('screens/resource/reservation-confirmation/ReservationForm', () => {
   describe('validation', () => {
     describe('if field value is missing', () => {
       describe('if user is reserving an staff event', () => {

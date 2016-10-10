@@ -10,6 +10,7 @@ import NotFoundPage from 'screens/not-found/NotFoundPage';
 import { getDateStartAndEndTimes } from 'utils/timeUtils';
 import { getName } from 'utils/translationUtils';
 import ReservationCalendar from './reservation-calendar';
+import ReservationConfirmation from './reservation-confirmation';
 import ReservationInfo from './reservation-info';
 import ResourceInfo from './resource-info';
 import resourcePageSelector from './resourcePageSelector';
@@ -64,6 +65,7 @@ export class UnconnectedResourcePage extends Component {
             location={location}
             params={params}
           />
+          <ReservationConfirmation params={params} />
         </Loader>
       </PageWrapper>
     );

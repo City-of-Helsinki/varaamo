@@ -5,8 +5,8 @@ import Modal from 'react-bootstrap/lib/Modal';
 
 import CompactReservationsList from 'components/common/CompactReservationsList';
 import constants from 'constants/AppConstants';
-import ReservationForm from 'containers/ReservationForm';
 import { isStaffEvent } from 'utils/reservationUtils';
+import ReservationForm from './ReservationForm';
 
 class ConfirmReservationModal extends Component {
   constructor(props) {

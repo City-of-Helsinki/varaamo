@@ -61,14 +61,6 @@ describe('screens/resource/reservation-calendar/reservationCalendarSelector', ()
     ],
   });
 
-  it('returns confirmReservationModalIsOpen', () => {
-    const state = getState(resource);
-    const props = getProps(resource.id);
-    const selected = reservationCalendarSelector(state, props);
-
-    expect(selected.confirmReservationModalIsOpen).to.exist;
-  });
-
   it('returns date', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
@@ -83,6 +75,23 @@ describe('screens/resource/reservation-calendar/reservationCalendarSelector', ()
     const selected = reservationCalendarSelector(state, props);
 
     expect(selected.isFetchingResource).to.exist;
+  });
+
+  it('returns isAdmin', () => {
+    const state = getState(resource);
+    const props = getProps(resource.id);
+    const selected = reservationCalendarSelector(state, props);
+
+    expect(selected.isAdmin).to.exist;
+  });
+
+  it('returns isEditing based on reservationsToEdit', () => {
+    const state = getState(resource);
+    const props = getProps(resource.id);
+    const selected = reservationCalendarSelector(state, props);
+    const expected = Boolean(state.ui.reservations.toEdit);
+
+    expect(selected.isEditing).to.equal(expected);
   });
 
   it('returns isLoggedIn', () => {
@@ -101,15 +110,6 @@ describe('screens/resource/reservation-calendar/reservationCalendarSelector', ()
     expect(selected.isMakingReservations).to.exist;
   });
 
-  it('returns reservationsToEdit from the state', () => {
-    const state = getState(resource);
-    const props = getProps(resource.id);
-    const selected = reservationCalendarSelector(state, props);
-    const expected = state.ui.reservations.toEdit;
-
-    expect(selected.reservationsToEdit).to.deep.equal(expected);
-  });
-
   it('returns the reservation.selected from the state', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
@@ -125,14 +125,6 @@ describe('screens/resource/reservation-calendar/reservationCalendarSelector', ()
     const selected = reservationCalendarSelector(state, props);
 
     expect(selected.resource).to.exist;
-  });
-
-  it('returns selectedReservations', () => {
-    const state = getState(resource);
-    const props = getProps(resource.id);
-    const selected = reservationCalendarSelector(state, props);
-
-    expect(selected.selectedReservations).to.exist;
   });
 
   it('returns staffUnits', () => {
