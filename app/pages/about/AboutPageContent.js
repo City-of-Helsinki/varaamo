@@ -3,9 +3,9 @@ import React from 'react';
 import FeedbackLink from 'shared/feedback-link';
 import { getCurrentCustomization } from 'utils/customizationUtils';
 
-import aikaLogoSrc from 'app/assets/images/aika-logo.png';
-import eakrLogoSrc from 'app/assets/images/eakr-logo.png';
-import euVipuvoimaaLogoSrc from 'app/assets/images/eu-vipuvoimaa-logo.png';
+import aikaLogoSrc from './images/aika-logo.png';
+import eakrLogoSrc from './images/eakr-logo.png';
+import euVipuvoimaaLogoSrc from './images/eu-vipuvoimaa-logo.png';
 
 function AboutPageContent() {
   let registerLink;
