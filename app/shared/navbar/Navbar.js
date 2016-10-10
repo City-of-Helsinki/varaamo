@@ -9,7 +9,7 @@ import NavItem from 'react-bootstrap/lib/NavItem';
 import { Link } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
 
-import Logo from 'components/customization/Logo';
+import Logo from 'shared/logo';
 import { getSearchPageUrl } from 'utils/searchUtils';
 
 class Navbar extends Component {

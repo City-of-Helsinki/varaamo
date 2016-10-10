@@ -3,13 +3,13 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
 
-import Logo from 'components/customization/Logo';
 import * as customizationUtils from 'utils/customizationUtils';
+import Logo from './Logo';
 
-import espooLogoSrc from 'assets/images/espoo-logo.png';
-import helsinkiLogoSrc from 'assets/images/helsinki-coat-of-arms-white.png';
+import espooLogoSrc from './espoo-logo.png';
+import helsinkiLogoSrc from './helsinki-coat-of-arms-white.png';
 
-describe('Component: customization/Logo', () => {
+describe('shared/logo/Logo', () => {
   function getWrapper() {
     return shallow(<Logo />);
   }
@@ -21,12 +21,12 @@ describe('Component: customization/Logo', () => {
       logo = getWrapper();
     });
 
-    it('should render logo of Helsinki', () => {
+    it('renders logo of Helsinki', () => {
       expect(logo.type()).to.equal('img');
       expect(logo.props().src).to.equal(helsinkiLogoSrc);
     });
 
-    it('should render Helsinki alt text', () => {
+    it('renders Helsinki alt text', () => {
       expect(logo.props().alt).to.equal('Helsingin vaakuna');
     });
   });
@@ -43,12 +43,12 @@ describe('Component: customization/Logo', () => {
       simple.restore();
     });
 
-    it('should render logo of Espoo', () => {
+    it('renders logo of Espoo', () => {
       expect(logo.type()).to.equal('img');
       expect(logo.props().src).to.equal(espooLogoSrc);
     });
 
-    it('should render Espoo alt text', () => {
+    it('renders Espoo alt text', () => {
       expect(logo.props().alt).to.equal('Espoon kaupunki');
     });
   });

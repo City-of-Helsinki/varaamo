@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/lib/Row';
 import { Link } from 'react-router';
 
 import FeedbackLink from 'components/customization/FeedbackLink';
-import Logo from 'components/customization/Logo';
+import Logo from 'shared/logo';
 import { getCurrentCustomization } from 'utils/customizationUtils';
 
 function FooterContent() {
