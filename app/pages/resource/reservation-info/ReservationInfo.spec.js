@@ -5,7 +5,7 @@ import Well from 'react-bootstrap/lib/Well';
 import Immutable from 'seamless-immutable';
 
 import Resource from 'fixtures/Resource';
-import WrappedText from 'components/common/WrappedText';
+import WrappedText from 'shared/wrapped-text';
 import ReservationInfo from './ReservationInfo';
 
 describe('pages/resource/reservation-info/ReservationInfo', () => {

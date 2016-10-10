@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
 import simple from 'simple-mock';
 
-import WrappedText from 'components/common/WrappedText';
+import WrappedText from 'shared/wrapped-text';
 import constants from 'constants/AppConstants';
 import ReduxFormField from 'shared/form-fields/ReduxFormField';
 import { UnconnectedReservationForm as ReservationForm, validate } from './ReservationForm';

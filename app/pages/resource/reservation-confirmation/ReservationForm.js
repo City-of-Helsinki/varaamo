@@ -6,7 +6,7 @@ import Well from 'react-bootstrap/lib/Well';
 import { reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 
-import WrappedText from 'components/common/WrappedText';
+import WrappedText from 'shared/wrapped-text';
 import constants from 'constants/AppConstants';
 import ReduxFormField from 'shared/form-fields/ReduxFormField';
 

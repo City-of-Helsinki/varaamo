@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import WrappedText from 'components/common/WrappedText';
+import WrappedText from 'shared/wrapped-text';
 import FavoriteButton from 'shared/favorite-button';
 import ResourceIcons from 'shared/resource-icons';
 import { getName, getProperty } from 'utils/translationUtils';

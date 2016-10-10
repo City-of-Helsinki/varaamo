@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
-
-import WrappedText from 'components/common/WrappedText';
 import AutoLinkText from 'react-autolink-text';
 
-describe('Component: common/WrappedText', () => {
+import WrappedText from './WrappedText';
+
+describe('shared/wrapped-text/WrappedText', () => {
   const defaultProps = {
     text: 'Some text',
   };
@@ -14,7 +14,7 @@ describe('Component: common/WrappedText', () => {
     return shallow(<WrappedText {...defaultProps} {...extraProps} />);
   }
 
-  it('should have class "wrapped-text"', () => {
+  it('has class "wrapped-text"', () => {
     const wrapper = getWrapper();
     expect(wrapper.hasClass('wrapped-text')).to.be.true;
   });
@@ -27,12 +27,12 @@ describe('Component: common/WrappedText', () => {
       content = getWrapper({ text }).children();
     });
 
-    it('should render a div for the text', () => {
+    it('renders a div for the text', () => {
       const div = content.find('div');
       expect(div.length).to.equal(1);
     });
 
-    it('should use autolink for the text', () => {
+    it('uses autolink for the text', () => {
       const autolink = content.find(AutoLinkText);
       expect(autolink.length).to.equal(1);
       expect(autolink.props().text).to.equal(text);
@@ -48,12 +48,12 @@ describe('Component: common/WrappedText', () => {
       content = getWrapper({ text }).children();
     });
 
-    it('should render a div for each line', () => {
+    it('renders a div for each line', () => {
       const div = content.find('div');
       expect(div.length).to.equal(lines.length);
     });
 
-    it('should use autolink for each line', () => {
+    it('uses autolink for each line', () => {
       const autolinks = content.find(AutoLinkText);
       expect(autolinks.length).to.equal(lines.length);
       lines.forEach((line, index) => {

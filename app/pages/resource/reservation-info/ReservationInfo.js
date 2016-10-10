@@ -2,7 +2,7 @@ import moment from 'moment';
 import React, { PropTypes } from 'react';
 import Well from 'react-bootstrap/lib/Well';
 
-import WrappedText from 'components/common/WrappedText';
+import WrappedText from 'shared/wrapped-text';
 
 function renderLoginText(isLoggedIn, resource) {
   if (isLoggedIn || !resource.reservable) {

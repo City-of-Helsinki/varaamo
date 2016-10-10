@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
-import WrappedText from 'components/common/WrappedText';
+import WrappedText from 'shared/wrapped-text';
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
 import FavoriteButton from 'shared/favorite-button';
