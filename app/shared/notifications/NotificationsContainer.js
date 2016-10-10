@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { hideNotification } from 'actions/notificationsActions';
-import notificationsSelector from 'selectors/containers/notificationsSelector';
+import notificationsSelector from './notificationsSelector';
 
-export class UnconnectedNotifications extends Component {
+export class UnconnectedNotificationsContainer extends Component {
   render() {
     const { actions, notifications } = this.props;
 
@@ -19,7 +19,7 @@ export class UnconnectedNotifications extends Component {
   }
 }
 
-UnconnectedNotifications.propTypes = {
+UnconnectedNotificationsContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   notifications: PropTypes.array.isRequired,
 };
@@ -32,4 +32,6 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
-export default connect(notificationsSelector, mapDispatchToProps)(UnconnectedNotifications);
+export default connect(notificationsSelector, mapDispatchToProps)(
+  UnconnectedNotificationsContainer
+);
