@@ -26,7 +26,7 @@ function getHourlyPrice({ minPricePerHour, maxPricePerHour }) {
   const priceString = maxPricePerHour || minPricePerHour;
   const price = priceString !== 0 ? Number(priceString) : null;
   if (price === 0) {
-    return 'ILMAINEN';
+    return 'MAKSUTON';
   }
   return price ? `${price} €/h` : null;
 }
