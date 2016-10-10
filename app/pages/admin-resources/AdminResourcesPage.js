@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchFavoritedResources } from 'actions/resourceActions';
-import PageWrapper from 'pages/layout/PageWrapper';
+import PageWrapper from 'pages/PageWrapper';
 import adminResourcesPageSelector from './adminResourcesPageSelector';
 import ResourcesTable from './resources-table';
 

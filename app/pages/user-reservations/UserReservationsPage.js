@@ -9,7 +9,7 @@ import { changeAdminReservationFilters } from 'actions/uiActions';
 import { fetchUnits } from 'actions/unitActions';
 import ReservationCancelModal from 'containers/ReservationCancelModal';
 import ReservationInfoModal from 'containers/ReservationInfoModal';
-import PageWrapper from 'pages/layout/PageWrapper';
+import PageWrapper from 'pages/PageWrapper';
 import userReservationsPageSelector from './userReservationsPageSelector';
 import AdminReservationFilters from './reservation-filters/AdminReservationFilters';
 import ReservationList from './reservation-list';

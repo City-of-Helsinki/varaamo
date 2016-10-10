@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import { searchResources } from 'actions/searchActions';
 import { fetchUnits } from 'actions/unitActions';
-import PageWrapper from 'pages/layout/PageWrapper';
+import PageWrapper from 'pages/PageWrapper';
 import DateHeader from 'shared/date-header';
 import { scrollTo } from 'utils/domUtils';
 import SearchControls from './controls/SearchControls';

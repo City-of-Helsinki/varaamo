@@ -5,7 +5,7 @@ import DocumentTitle from 'react-document-title';
 
 import PageWrapper from './PageWrapper';
 
-describe('pages/layout/PageWrapper', () => {
+describe('pages/PageWrapper', () => {
   const defaultProps = {
     className: 'test-page',
     title: 'Test title',

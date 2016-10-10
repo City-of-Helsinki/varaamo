@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PageWrapper from 'pages/layout/PageWrapper';
+import PageWrapper from 'pages/PageWrapper';
 import AboutPageContent from './AboutPageContent';
 
 function AboutPage() {

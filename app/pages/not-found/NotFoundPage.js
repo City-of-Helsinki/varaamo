@@ -2,7 +2,7 @@ import React from 'react';
 import Well from 'react-bootstrap/lib/Well';
 import { Link } from 'react-router';
 
-import PageWrapper from 'pages/layout/PageWrapper';
+import PageWrapper from 'pages/PageWrapper';
 import { getSearchPageUrl } from 'utils/searchUtils';
 
 function NotFoundPage() {
