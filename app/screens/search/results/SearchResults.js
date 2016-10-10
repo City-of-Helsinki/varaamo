@@ -4,6 +4,7 @@ import Loader from 'react-loader';
 
 import ResourceList from 'screens/shared/resource-list';
 import { scrollTo } from 'utils/domUtils';
+import ResultsCount from './ResultsCount';
 
 class SearchResults extends Component {
   componentDidMount() {
@@ -16,8 +17,11 @@ class SearchResults extends Component {
     return (
       <div id="search-results">
         <Loader loaded={!isFetching}>
-          <ResourceList
+          <ResultsCount
             emptyMessage="Yhtään hakutulosta ei löytynyt."
+            resultIds={searchResultIds}
+          />
+          <ResourceList
             resourceIds={searchResultIds}
           />
         </Loader>
