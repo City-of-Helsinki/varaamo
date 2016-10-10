@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { getState } from 'utils/testUtils';
 import commentModalSelector from './commentModalSelector';
 
-describe('screens/modals/comment/commentModalSelector', () => {
+describe('shared/modals/comment/commentModalSelector', () => {
   const resource = { id: 'resource-1' };
   const reservationsToShow = [{ id: 'reservation-1', resource: resource.id }];
   const state = getState({

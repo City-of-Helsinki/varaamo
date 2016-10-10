@@ -10,7 +10,7 @@ import CommentForm from 'shared/comment-form';
 import { UnconnectedCommentModalContainer as CommentModalContainer } from './CommentModalContainer';
 import ModalWrapper from '../ModalWrapper';
 
-describe('screens/modals/comment/CommentModalContainer', () => {
+describe('shared/modals/comment/CommentModalContainer', () => {
   const resource = Resource.build();
   const reservation = Reservation.build({
     comments: 'Some comments',

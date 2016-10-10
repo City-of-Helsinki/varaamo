@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Table from 'react-bootstrap/lib/Table';
 import { connect } from 'react-redux';
 
-import CommentModal from 'screens/modals/comment';
+import CommentModal from 'shared/modals/comment';
 import { getOpenReservations } from 'utils/resourceUtils';
 import { getCurrentReservation, getNextReservation } from 'utils/reservationUtils';
 import ResourcesTableRow from './ResourcesTableRow';

@@ -6,7 +6,7 @@ import simple from 'simple-mock';
 
 import ModalWrapper from './ModalWrapper';
 
-describe('screens/modals/ModalWrapper', () => {
+describe('shared/modals/ModalWrapper', () => {
   const defaultProps = {
     className: 'modal-class',
     footerContent: <div>Footer content</div>,
