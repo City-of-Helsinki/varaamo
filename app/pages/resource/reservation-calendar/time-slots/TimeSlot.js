@@ -5,7 +5,7 @@ import { findDOMNode } from 'react-dom';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import Label from 'react-bootstrap/lib/Label';
 
-import ReservationControls from 'containers/ReservationControls';
+import ReservationControls from 'shared/reservation-controls';
 import { scrollTo } from 'utils/domUtils';
 
 export function getLabelData({ isOwnReservation, isPast, slot }) {

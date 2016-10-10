@@ -3,13 +3,15 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
 
-import ReservationControls from 'components/reservation/ReservationControls';
-import { UnconnectedReservationControls } from 'containers/ReservationControls';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
 import { getResourcePageUrl } from 'utils/resourceUtils';
+import ReservationControls from './ReservationControls';
+import {
+  UnconnectedReservationControlsContainer as ReservationControlsContainer,
+} from './ReservationControlsContainer';
 
-describe('Container: ReservationControls', () => {
+describe('shared/reservation-controls/ReservationControlsContainer', () => {
   const resource = Resource.build();
   const reservation = Reservation.build({ resource: resource.id });
   const props = {
@@ -33,16 +35,16 @@ describe('Container: ReservationControls', () => {
   let instance;
 
   before(() => {
-    container = shallow(<UnconnectedReservationControls {...props} />);
+    container = shallow(<ReservationControlsContainer {...props} />);
     instance = container.instance();
   });
 
   describe('rendering', () => {
-    it('should render ReservationControls component', () => {
+    it('renders ReservationControls component', () => {
       expect(container.find(ReservationControls)).to.have.length(1);
     });
 
-    it('should pass correct props to ReservationControls component', () => {
+    it('passes correct props to ReservationControls component', () => {
       const actualProps = container.find(ReservationControls).props();
 
       expect(actualProps.isAdmin).to.equal(props.isAdmin);
@@ -61,7 +63,7 @@ describe('Container: ReservationControls', () => {
       instance.handleCancelClick();
     });
 
-    it('should call props.actions.selectReservationToCancel with this reservation', () => {
+    it('calls props.actions.selectReservationToCancel with this reservation', () => {
       expect(props.actions.selectReservationToCancel.callCount).to.equal(1);
       expect(
         props.actions.selectReservationToCancel.lastCall.args[0]
@@ -70,7 +72,7 @@ describe('Container: ReservationControls', () => {
       );
     });
 
-    it('should call the props.actions.openReservationCancelModal function', () => {
+    it('calls the props.actions.openReservationCancelModal function', () => {
       expect(props.actions.openReservationCancelModal.callCount).to.equal(1);
     });
   });
@@ -80,7 +82,7 @@ describe('Container: ReservationControls', () => {
       instance.handleEditClick();
     });
 
-    it('should call props.actions.selectReservationToEdit with reservation and minPeriod', () => {
+    it('calls props.actions.selectReservationToEdit with reservation and minPeriod', () => {
       expect(props.actions.selectReservationToEdit.callCount).to.equal(1);
       expect(
         props.actions.selectReservationToEdit.lastCall.args[0]
@@ -89,7 +91,7 @@ describe('Container: ReservationControls', () => {
       );
     });
 
-    it('should call the props.actions.updatePath with correct url', () => {
+    it('calls the props.actions.updatePath with correct url', () => {
       const actualUrlArg = props.actions.updatePath.lastCall.args[0];
       const expectedUrl = getResourcePageUrl(
         props.resource,
@@ -107,7 +109,7 @@ describe('Container: ReservationControls', () => {
       instance.handleInfoClick();
     });
 
-    it('should call props.actions.selectReservationToShow with this reservation', () => {
+    it('calls props.actions.selectReservationToShow with this reservation', () => {
       expect(props.actions.selectReservationToShow.callCount).to.equal(1);
       expect(
         props.actions.selectReservationToShow.lastCall.args[0]
@@ -116,7 +118,7 @@ describe('Container: ReservationControls', () => {
       );
     });
 
-    it('should call the props.actions.openReservationInfoModal function', () => {
+    it('calls the props.actions.openReservationInfoModal function', () => {
       expect(props.actions.openReservationInfoModal.callCount).to.equal(1);
     });
   });

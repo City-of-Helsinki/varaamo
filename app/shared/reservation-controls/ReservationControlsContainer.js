@@ -4,20 +4,20 @@ import { bindActionCreators } from 'redux';
 import { updatePath } from 'redux-simple-router';
 
 import {
+  confirmPreliminaryReservation,
+  denyPreliminaryReservation,
+} from 'actions/reservationActions';
+import {
   openReservationCancelModal,
   openReservationInfoModal,
   selectReservationToCancel,
   selectReservationToEdit,
   selectReservationToShow,
 } from 'actions/uiActions';
-import {
-  confirmPreliminaryReservation,
-  denyPreliminaryReservation,
-} from 'actions/reservationActions';
-import ReservationControls from 'components/reservation/ReservationControls';
 import { getResourcePageUrl } from 'utils/resourceUtils';
+import ReservationControls from './ReservationControls';
 
-export class UnconnectedReservationControls extends Component {
+export class UnconnectedReservationControlsContainer extends Component {
   constructor(props) {
     super(props);
     this.handleCancelClick = this.handleCancelClick.bind(this);
@@ -94,7 +94,7 @@ export class UnconnectedReservationControls extends Component {
   }
 }
 
-UnconnectedReservationControls.propTypes = {
+UnconnectedReservationControlsContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   isStaff: PropTypes.bool.isRequired,
@@ -117,4 +117,4 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
-export default connect(null, mapDispatchToProps)(UnconnectedReservationControls);
+export default connect(null, mapDispatchToProps)(UnconnectedReservationControlsContainer);

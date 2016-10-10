@@ -1,16 +1,15 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
-import simple from 'simple-mock';
-
 import Button from 'react-bootstrap/lib/Button';
 import Immutable from 'seamless-immutable';
+import simple from 'simple-mock';
 
-import ReservationControls from 'components/reservation/ReservationControls';
 import Reservation from 'fixtures/Reservation';
 import { makeButtonTests } from 'utils/testUtils';
+import ReservationControls from './ReservationControls';
 
-describe('Component: reservation/ReservationControls', () => {
+describe('shared/reservation-controls/ReservationControls', () => {
   const onCancelClick = simple.stub();
   const onConfirmClick = simple.stub();
   const onDenyClick = simple.stub();
@@ -38,7 +37,7 @@ describe('Component: reservation/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: false, state: 'confirmed' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('should render two buttons', () => {
+      it('renders two buttons', () => {
         expect(buttons.length).to.equal(2);
       });
 
@@ -58,7 +57,7 @@ describe('Component: reservation/ReservationControls', () => {
         const isStaff = true;
         const buttons = getWrapper(reservation, isAdmin, isStaff).find(Button);
 
-        it('should render four buttons', () => {
+        it('renders four buttons', () => {
           expect(buttons.length).to.equal(4);
         });
 
@@ -83,7 +82,7 @@ describe('Component: reservation/ReservationControls', () => {
         const isStaff = false;
         const buttons = getWrapper(reservation, isAdmin, isStaff).find(Button);
 
-        it('should render two buttons', () => {
+        it('renders two buttons', () => {
           expect(buttons.length).to.equal(2);
         });
 
@@ -101,7 +100,7 @@ describe('Component: reservation/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: true, state: 'cancelled' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('should render one button', () => {
+      it('renders one button', () => {
         expect(buttons.length).to.equal(1);
       });
 
@@ -114,7 +113,7 @@ describe('Component: reservation/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: true, state: 'denied' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('should render one button', () => {
+      it('renders one button', () => {
         expect(buttons.length).to.equal(1);
       });
 
@@ -130,7 +129,7 @@ describe('Component: reservation/ReservationControls', () => {
         const isStaff = true;
         const buttons = getWrapper(reservation, isAdmin, isStaff).find(Button);
 
-        it('should render three buttons', () => {
+        it('renders three buttons', () => {
           expect(buttons.length).to.equal(3);
         });
 
@@ -151,7 +150,7 @@ describe('Component: reservation/ReservationControls', () => {
         const isStaff = false;
         const buttons = getWrapper(reservation, isAdmin, isStaff).find(Button);
 
-        it('should render two buttons', () => {
+        it('renders two buttons', () => {
           expect(buttons.length).to.equal(2);
         });
 
@@ -173,7 +172,7 @@ describe('Component: reservation/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: false, state: 'confirmed' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('should render two buttons', () => {
+      it('renders two buttons', () => {
         expect(buttons.length).to.equal(2);
       });
 
@@ -190,7 +189,7 @@ describe('Component: reservation/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: true, state: 'requested' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('should render three buttons', () => {
+      it('renders three buttons', () => {
         expect(buttons.length).to.equal(3);
       });
 
@@ -211,7 +210,7 @@ describe('Component: reservation/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: true, state: 'cancelled' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('should render one button', () => {
+      it('renders one button', () => {
         expect(buttons.length).to.equal(1);
       });
 
@@ -224,7 +223,7 @@ describe('Component: reservation/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: true, state: 'denied' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('should render one button', () => {
+      it('renders one button', () => {
         expect(buttons.length).to.equal(1);
       });
 
@@ -237,7 +236,7 @@ describe('Component: reservation/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: true, state: 'confirmed' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('should render two buttons', () => {
+      it('renders two buttons', () => {
         expect(buttons.length).to.equal(2);
       });
 
