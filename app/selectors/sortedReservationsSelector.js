@@ -7,7 +7,9 @@ import constants from 'constants/AppConstants';
 
 const reservationsSelector = (state, props) => {
   if (constants.RESERVATION_STATE_LABELS[props.filter]) {
-    return filter(state.data.reservations, (reservation) => reservation.state === props.filter);
+    return filter(state.data.reservations, (reservation) => (
+      reservation.needManualConfirmation && reservation.state === props.filter
+    ));
   }
   if (props.filter === 'preliminary' || props.filter === 'all') {
     return filter(state.data.reservations, (reservation) => reservation.needManualConfirmation);
