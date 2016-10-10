@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
 import { Link } from 'react-router';
 
-import TimeRange from 'components/common/TimeRange';
+import TimeRange from 'shared/time-range';
 import CommentButton from 'shared/comment-button';
 import { getOpeningHours, getResourcePageUrl } from 'utils/resourceUtils';
 import { prettifyHours } from 'utils/timeUtils';

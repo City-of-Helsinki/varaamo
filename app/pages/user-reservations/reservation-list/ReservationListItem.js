@@ -2,7 +2,7 @@ import isEmpty from 'lodash/isEmpty';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
-import TimeRange from 'components/common/TimeRange';
+import TimeRange from 'shared/time-range';
 import ReservationControls from 'shared/reservation-controls';
 import { getCaption, getMainImage } from 'utils/imageUtils';
 import { renderReservationStateLabel } from 'utils/renderUtils';

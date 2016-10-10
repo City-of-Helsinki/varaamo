@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import TimeRange from 'components/common/TimeRange';
+import TimeRange from 'shared/time-range';
 import { getName } from 'utils/translationUtils';
 
 class CompactReservationsList extends Component {

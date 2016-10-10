@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable';
 import moment from 'moment';
 import { Link } from 'react-router';
 
-import TimeRange from 'components/common/TimeRange';
+import TimeRange from 'shared/time-range';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
 import { getResourcePageUrl } from 'utils/resourceUtils';

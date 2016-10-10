@@ -12,7 +12,7 @@ import { bindActionCreators } from 'redux';
 
 import { closeReservationInfoModal } from 'actions/uiActions';
 import { commentReservation } from 'actions/reservationActions';
-import TimeRange from 'components/common/TimeRange';
+import TimeRange from 'shared/time-range';
 import reservationInfoModalSelector from 'selectors/containers/reservationInfoModalSelector';
 import { renderReservationStateLabel } from 'utils/renderUtils';
 import { getName } from 'utils/translationUtils';

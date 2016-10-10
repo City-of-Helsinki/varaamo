@@ -5,7 +5,7 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 
 import CompactReservationsList from 'components/common/CompactReservationsList';
-import TimeRange from 'components/common/TimeRange';
+import TimeRange from 'shared/time-range';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
 

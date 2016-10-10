@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
-import TimeRange from 'components/common/TimeRange';
+import TimeRange from 'shared/time-range';
 import Image from 'fixtures/Image';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
