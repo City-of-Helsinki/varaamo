@@ -9,6 +9,7 @@ import { UnconnectedApp as App } from 'containers/App';
 import User from 'fixtures/User';
 import Footer from 'shared/footer';
 import Navbar from 'shared/navbar';
+import Notifications from 'shared/notifications';
 
 describe('Container: App', () => {
   const user = User.build();
@@ -46,6 +47,11 @@ describe('Container: App', () => {
         expect(actualProps.isLoggedIn).to.equal(defaultProps.isLoggedIn);
         expect(actualProps.user).to.equal(defaultProps.user);
       });
+    });
+
+    it('renders Notifications', () => {
+      const notifications = wrapper.find(Notifications);
+      expect(notifications.length).to.equal(1);
     });
 
     describe('props.children', () => {
