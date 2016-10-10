@@ -49,7 +49,6 @@ export class UnconnectedReservationSuccessModal extends Component {
             lähetetään varauksen yhteydessä annettuun sähköpostiosoitteeseen
             {this.renderEmail(reservation.reserverEmailAddress)}.
           </p>
-          {resource.responsibleContactInfo && <p>{resource.responsibleContactInfo}</p>}
         </Modal.Body>
 
         <Modal.Footer>
