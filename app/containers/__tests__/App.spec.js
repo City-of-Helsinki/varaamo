@@ -7,8 +7,8 @@ import Immutable from 'seamless-immutable';
 
 import { UnconnectedApp as App } from 'containers/App';
 import User from 'fixtures/User';
-import Navbar from 'screens/layout/Navbar';
 import Footer from 'shared/footer';
+import Navbar from 'shared/navbar';
 
 describe('Container: App', () => {
   const user = User.build();

@@ -9,9 +9,9 @@ import { clearSearchResults } from 'actions/searchActions';
 import { fetchUser } from 'actions/userActions';
 import Favicon from 'components/customization/Favicon';
 import Notifications from 'containers/Notifications';
-import Navbar from 'screens/layout/Navbar';
 import appSelector from 'selectors/containers/appSelector';
 import Footer from 'shared/footer';
+import Navbar from 'shared/navbar';
 import { getCustomizationClassName } from 'utils/customizationUtils';
 
 export class UnconnectedApp extends Component {

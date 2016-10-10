@@ -1,15 +1,15 @@
 import { expect } from 'chai';
 import React from 'react';
-import sd from 'skin-deep';
-import simple from 'simple-mock';
-
 import Immutable from 'seamless-immutable';
+import simple from 'simple-mock';
+import sd from 'skin-deep';
+
 
 import User from 'fixtures/User';
 import { getSearchPageUrl } from 'utils/searchUtils';
 import Navbar from './Navbar';
 
-describe('screens/layout/Navbar', () => {
+describe('shared/navbar/Navbar', () => {
   describe('basic rendering', () => {
     const props = {
       clearSearchResults: simple.stub(),
