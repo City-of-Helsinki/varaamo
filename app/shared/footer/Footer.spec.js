@@ -1,21 +1,21 @@
 import { expect } from 'chai';
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import FooterContent from 'components/customization/FooterContent';
+import FooterContent from './FooterContent';
 import Footer from './Footer';
 
-describe('screens/layout/Footer', () => {
+describe('shared/footer/Footer', () => {
   function getWrapper() {
     return shallow(<Footer />);
   }
 
-  it('should render a footer element', () => {
+  it('renders a footer element', () => {
     const footer = getWrapper().find('footer');
     expect(footer.length).to.equal(1);
   });
 
-  it('should render FooterContent component', () => {
+  it('renders FooterContent component', () => {
     const footerContent = getWrapper().find(FooterContent);
     expect(footerContent.length).to.equal(1);
   });

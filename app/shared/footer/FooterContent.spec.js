@@ -1,14 +1,14 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
-import simple from 'simple-mock';
 import { Link } from 'react-router';
+import simple from 'simple-mock';
 
 import FeedbackLink from 'components/customization/FeedbackLink';
-import FooterContent from 'components/customization/FooterContent';
 import * as customizationUtils from 'utils/customizationUtils';
+import FooterContent from './FooterContent';
 
-describe('Component: customization/FooterContent', () => {
+describe('shared/footer/FooterContent', () => {
   function getWrapper() {
     return shallow(<FooterContent />);
   }
@@ -20,16 +20,16 @@ describe('Component: customization/FooterContent', () => {
       content = getWrapper();
     });
 
-    it('should contain feedback link', () => {
+    it('contains feedback link', () => {
       const feedbackLink = content.find(FeedbackLink);
       expect(feedbackLink.length).to.equal(1);
     });
 
-    it('should render default texts', () => {
+    it('renders default texts', () => {
       expect(content.find('p').text()).to.not.contain('Espoo');
     });
 
-    it('should contain a link to about page', () => {
+    it('contains a link to about page', () => {
       const link = content.find(Link).filter('.about-link');
       expect(link).to.have.length(1);
       expect(link.prop('to')).to.equal('/about');
@@ -49,16 +49,16 @@ describe('Component: customization/FooterContent', () => {
       simple.restore();
     });
 
-    it('should contain feedback link', () => {
+    it('contains feedback link', () => {
       const feedbackLink = content.find(FeedbackLink);
       expect(feedbackLink.length).to.equal(1);
     });
 
-    it('should render texts for Espoo', () => {
+    it('renders texts for Espoo', () => {
       expect(content.find('p').text()).to.contain('Espoo');
     });
 
-    it('should contain a link to about page', () => {
+    it('contains a link to about page', () => {
       const link = content.find(Link).filter('.about-link');
       expect(link).to.have.length(1);
       expect(link.prop('to')).to.equal('/about');
