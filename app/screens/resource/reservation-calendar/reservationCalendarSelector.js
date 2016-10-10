@@ -2,10 +2,10 @@ import { createSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
 import dateSelector from 'selectors/dateSelector';
+import isAdminSelector from 'selectors/isAdminSelector';
 import isLoggedInSelector from 'selectors/isLoggedInSelector';
 import resourceSelector from 'selectors/resourceSelector';
 import timeSelector from 'selectors/timeSelector';
-import selectedReservationsSelector from 'selectors/selectedReservationsSelector';
 import staffUnitsSelector from 'selectors/staffUnitsSelector';
 import modalIsOpenSelectorFactory from 'selectors/factories/modalIsOpenSelectorFactory';
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
@@ -18,6 +18,7 @@ const toEditSelector = (state) => state.ui.reservations.toEdit;
 const urlHashSelector = (state, props) => props.location.hash;
 
 const reservationCalendarSelector = createSelector(
+  isAdminSelector,
   isLoggedInSelector,
   modalIsOpenSelectorFactory(ModalTypes.RESERVATION_CONFIRM),
   requestIsActiveSelectorFactory(ActionTypes.API.RESERVATION_POST_REQUEST),
@@ -25,12 +26,12 @@ const reservationCalendarSelector = createSelector(
   dateSelector,
   resourceSelector,
   selectedSelector,
-  selectedReservationsSelector,
   staffUnitsSelector,
   timeSelector,
   toEditSelector,
   urlHashSelector,
   (
+    isAdmin,
     isLoggedIn,
     confirmReservationModalIsOpen,
     isMakingReservations,
@@ -38,7 +39,6 @@ const reservationCalendarSelector = createSelector(
     date,
     resource,
     selected,
-    selectedReservations,
     staffUnits,
     time,
     reservationsToEdit,
@@ -50,15 +50,14 @@ const reservationCalendarSelector = createSelector(
     const timeSlots = getTimeSlots(opens, closes, period, reservations, reservationsToEdit);
 
     return {
-      confirmReservationModalIsOpen,
       date,
+      isAdmin,
+      isEditing: Boolean(reservationsToEdit.length),
       isFetchingResource,
       isLoggedIn,
       isMakingReservations,
-      reservationsToEdit,
       resource,
       selected,
-      selectedReservations,
       staffUnits,
       time,
       timeSlots,

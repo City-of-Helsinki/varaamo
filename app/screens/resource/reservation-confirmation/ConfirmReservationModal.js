@@ -5,8 +5,9 @@ import Modal from 'react-bootstrap/lib/Modal';
 
 import CompactReservationsList from 'components/common/CompactReservationsList';
 import constants from 'constants/AppConstants';
-import ReservationForm from 'containers/ReservationForm';
 import { isStaffEvent } from 'utils/reservationUtils';
+import { getTermsAndConditions } from 'utils/resourceUtils';
+import ReservationForm from './ReservationForm';
 
 class ConfirmReservationModal extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class ConfirmReservationModal extends Component {
     onConfirm(values);
   }
 
-  getFormFields() {
+  getFormFields(termsAndConditions) {
     const {
       isAdmin,
       isStaff,
@@ -43,7 +44,7 @@ class ConfirmReservationModal extends Component {
       formFields.push('staffEvent');
     }
 
-    if (resource.termsAndConditions) {
+    if (termsAndConditions) {
       formFields.push('termsAndConditions');
     }
 
@@ -84,12 +85,12 @@ class ConfirmReservationModal extends Component {
     return 'Varauksen vahvistus';
   }
 
-  getRequiredFormFields(resource) {
+  getRequiredFormFields(resource, termsAndConditions) {
     const requiredFormFields = [...resource.requiredReservationExtraFields.map(
       (field) => camelCase(field)
     )];
 
-    if (resource.termsAndConditions) {
+    if (termsAndConditions) {
       requiredFormFields.push('termsAndConditions');
     }
 
@@ -158,6 +159,8 @@ class ConfirmReservationModal extends Component {
       show,
     } = this.props;
 
+    const termsAndConditions = getTermsAndConditions(resource);
+
     return (
       <Modal
         animation={false}
@@ -175,12 +178,13 @@ class ConfirmReservationModal extends Component {
         <Modal.Body>
           {this.renderIntroTexts()}
           <ReservationForm
-            fields={this.getFormFields()}
+            fields={this.getFormFields(termsAndConditions)}
             initialValues={this.getFormInitialValues()}
             isMakingReservations={isMakingReservations}
             onClose={onClose}
             onConfirm={this.onConfirm}
-            requiredFields={this.getRequiredFormFields(resource)}
+            requiredFields={this.getRequiredFormFields(resource, termsAndConditions)}
+            termsAndConditions={termsAndConditions}
           />
         </Modal.Body>
       </Modal>

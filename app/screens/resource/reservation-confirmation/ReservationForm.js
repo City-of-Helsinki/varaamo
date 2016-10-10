@@ -6,6 +6,7 @@ import Well from 'react-bootstrap/lib/Well';
 import { reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 
+import WrappedText from 'components/common/WrappedText';
 import constants from 'constants/AppConstants';
 import ReduxFormField from 'screens/shared/form-fields/ReduxFormField';
 
@@ -90,6 +91,7 @@ export class UnconnectedReservationForm extends Component {
       onClose,
       onConfirm,
       requiredFields,
+      termsAndConditions,
     } = this.props;
 
     this.requiredFields = fields.staffEvent && fields.staffEvent.checked ?
@@ -147,10 +149,20 @@ export class UnconnectedReservationForm extends Component {
               rows: 5,
             }
           )}
-          {this.renderField(
-            'checkbox',
-            'Olen lukenut ja hyväksynyt tilan käyttösäännöt',
-            fields.termsAndConditions
+          {termsAndConditions && (
+            <div className="terms-and-conditions">
+              <h5>Tilan käyttösäännöt</h5>
+              <WrappedText text={termsAndConditions} />
+            </div>
+          )}
+          {termsAndConditions && (
+            <Well className="terms-and-conditions-input-wrapper">
+              {this.renderField(
+                'checkbox',
+                'Olen lukenut ja hyväksynyt tilan käyttösäännöt',
+                fields.termsAndConditions
+              )}
+            </Well>
           )}
           <div className="form-controls">
             <Button
@@ -181,6 +193,7 @@ UnconnectedReservationForm.propTypes = {
   onClose: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
   requiredFields: PropTypes.array.isRequired,
+  termsAndConditions: PropTypes.string.isRequired,
 };
 
 export default reduxForm({

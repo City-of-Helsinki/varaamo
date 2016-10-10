@@ -7,11 +7,11 @@ import simple from 'simple-mock';
 import forEach from 'lodash/forEach';
 import Immutable from 'seamless-immutable';
 
-import ConfirmReservationModal from 'components/reservation/ConfirmReservationModal';
 import constants from 'constants/AppConstants';
-import ReservationForm from 'containers/ReservationForm';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
+import ConfirmReservationModal from './ConfirmReservationModal';
+import ReservationForm from './ReservationForm';
 
 function getProps(props) {
   const defaults = {
@@ -31,7 +31,7 @@ function getProps(props) {
   return Object.assign({}, defaults, props);
 }
 
-describe('Component: reservation/ConfirmReservationModal', () => {
+describe('screens/resource/reservation-confirmation/ConfirmReservationModal', () => {
   describe('when making a normal reservation', () => {
     const props = getProps({
       selectedReservations: Immutable([
