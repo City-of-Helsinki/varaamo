@@ -128,12 +128,12 @@ describe('screens/shared/resource-list/ResourceIcons', () => {
       expect(getSpanTextWithProps(props).text()).to.equal('10 €/h');
     });
 
-    it('renders ILMAINEN if price is 0', () => {
+    it('renders MAKSUTON if price is 0', () => {
       const props = {
         maxPricePerHour: null,
         minPricePerHour: '0.00',
       };
-      expect(getSpanTextWithProps(props).text()).to.equal('ILMAINEN');
+      expect(getSpanTextWithProps(props).text()).to.equal('MAKSUTON');
     });
 
     it('is not rendered if prop is not passed', () => {
