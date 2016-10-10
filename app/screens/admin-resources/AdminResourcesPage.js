@@ -5,7 +5,7 @@ import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { fetchResources } from 'actions/resourceActions';
+import { fetchFavoritedResources } from 'actions/resourceActions';
 import PageWrapper from 'screens/layout/PageWrapper';
 import adminResourcesPageSelector from './adminResourcesPageSelector';
 import ResourcesTable from './resources-table';
@@ -13,11 +13,7 @@ import ResourcesTable from './resources-table';
 export class UnconnectedAdminResourcesPage extends Component {
   componentDidMount() {
     const now = moment();
-    this.props.actions.fetchResources({
-      end: now.endOf('day').toISOString(),
-      is_favorite: true,
-      start: now.startOf('day').toISOString(),
-    }, 'adminResourcesPage');
+    this.props.actions.fetchFavoritedResources(now, 'adminResourcesPage');
   }
 
   render() {
@@ -52,7 +48,7 @@ UnconnectedAdminResourcesPage.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
-    fetchResources,
+    fetchFavoritedResources,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

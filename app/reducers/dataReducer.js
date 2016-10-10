@@ -1,4 +1,5 @@
 import reject from 'lodash/reject';
+import mapValues from 'lodash/mapValues';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
@@ -43,10 +44,19 @@ function dataReducer(state = initialState, action) {
     case types.API.PURPOSES_GET_SUCCESS:
     case types.API.RESERVATIONS_GET_SUCCESS:
     case types.API.RESOURCE_GET_SUCCESS:
-    case types.API.RESOURCES_GET_SUCCESS:
     case types.API.SEARCH_RESULTS_GET_SUCCESS:
     case types.API.UNITS_GET_SUCCESS: {
       return handleData(state, action.payload.entities);
+    }
+
+    case types.API.RESOURCES_GET_SUCCESS: {
+      const resources = mapValues(action.payload.entities.resources, (resource) => {
+        if (!resource.reservations) {
+          delete resource.reservations; // eslint-disable-line
+        }
+        return resource;
+      });
+      return handleData(state, { resources });
     }
 
     case types.API.RESERVATION_POST_SUCCESS:
