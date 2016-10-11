@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { searchResources } from 'actions/searchActions';
+import { changeSearchFilters } from 'actions/uiActions';
 import { fetchUnits } from 'actions/unitActions';
 import PageWrapper from 'pages/PageWrapper';
 import DateHeader from 'shared/date-header';
@@ -28,12 +29,14 @@ export class UnconnectedSearchPage extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    const { filters, searchDone } = nextProps;
-    if (isEqual(nextProps.filters, this.props.filters)) {
+    const { filters: currentFilters, actions } = this.props;
+    const { filters: nextFilters, searchDone } = nextProps;
+    if (isEqual(currentFilters, nextFilters)) {
       return;
     }
-    if (searchDone || filters.purpose || filters.people || filters.search) {
-      this.props.actions.searchResources(filters);
+    actions.changeSearchFilters(nextFilters);
+    if (searchDone || nextFilters.purpose || nextFilters.people || nextFilters.search) {
+      actions.searchResources(nextFilters);
     }
   }
 
@@ -88,8 +91,9 @@ UnconnectedSearchPage.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
-    searchResources,
+    changeSearchFilters,
     fetchUnits,
+    searchResources,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
