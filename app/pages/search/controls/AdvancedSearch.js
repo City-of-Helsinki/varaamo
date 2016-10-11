@@ -27,7 +27,7 @@ class AdvancedSearch extends Component {
           clearable
           isLoading={isFetchingPurposes}
           name="purpose-filter-select"
-          onChange={value => onFiltersChange({ purpose: value })}
+          onChange={option => onFiltersChange({ purpose: option.value })}
           options={purposeOptions}
           placeholder=" "
           searchable={false}

@@ -67,10 +67,10 @@ describe('Component: search/controls/AdvancedSearch', () => {
     });
 
     describe('onChange', () => {
-      const filterValue = 'new-value';
+      const filterOption = { label: 'Label', value: 'new-value' };
 
       before(() => {
-        select.props().onChange(filterValue);
+        select.props().onChange(filterOption);
       });
 
       it('calls onFiltersChange ', () => {
@@ -78,7 +78,7 @@ describe('Component: search/controls/AdvancedSearch', () => {
       });
 
       it('calls onFiltersChange with correct arguments', () => {
-        const expected = { purpose: filterValue };
+        const expected = { purpose: filterOption.value };
 
         expect(defaultProps.onFiltersChange.lastCall.args[0]).to.deep.equal(expected);
       });

@@ -17,10 +17,7 @@ stateOptions.unshift({ label: 'Kaikki', value: 'all' });
 
 class AdminReservationFilters extends Component {
   render() {
-    const {
-      onFiltersChange,
-      filters,
-    } = this.props;
+    const { filters, onFiltersChange } = this.props;
 
     return (
       <div className="reservation-filters">
@@ -29,7 +26,7 @@ class AdminReservationFilters extends Component {
           className="reservation-state-select"
           clearable={false}
           name="reservation-state-select"
-          onChange={value => onFiltersChange({ state: value })}
+          onChange={option => onFiltersChange({ state: option.value })}
           options={stateOptions}
           value={filters.state}
         />
