@@ -14,7 +14,7 @@ import { changeSearchFilters } from 'actions/uiActions';
 import AdvancedSearch from './AdvancedSearch';
 import searchControlsSelector from './searchControlsSelector';
 
-export class UnconnectedSearchControls extends Component {
+export class UnconnectedSearchControlsContainer extends Component {
   constructor(props) {
     super(props);
     this.handleSearch = this.handleSearch.bind(this);
@@ -111,7 +111,7 @@ export class UnconnectedSearchControls extends Component {
   }
 }
 
-UnconnectedSearchControls.propTypes = {
+UnconnectedSearchControlsContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   filters: PropTypes.object.isRequired,
   isFetchingPurposes: PropTypes.bool.isRequired,
@@ -130,4 +130,6 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
-export default connect(searchControlsSelector, mapDispatchToProps)(UnconnectedSearchControls);
+export default connect(searchControlsSelector, mapDispatchToProps)(
+  UnconnectedSearchControlsContainer
+);

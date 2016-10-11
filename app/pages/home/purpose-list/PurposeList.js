@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 import { getSearchPageUrl } from 'utils/searchUtils';
 import { getName } from 'utils/translationUtils';
-import PurposeListItemComponent from './PurposeListItemComponent';
+import PurposeListItem from './PurposeListItem';
 
 import manufacturingImage from './images/manufacturing.jpg';
 import meetingsAndWorkingImage from './images/meetings-and-working.jpg';
@@ -18,7 +18,7 @@ const images = {
 
 function renderPurposeListItem(purpose) {
   return (
-    <PurposeListItemComponent
+    <PurposeListItem
       imageUrl={images[purpose.id] || ''}
       key={purpose.id}
       linkUrl={getSearchPageUrl({ purpose: purpose.id })}
@@ -27,7 +27,7 @@ function renderPurposeListItem(purpose) {
   );
 }
 
-function PurposeListComponent({ purposes }) {
+function PurposeList({ purposes }) {
   return (
     <div className="purpose-list">
       {purposes.map(renderPurposeListItem)}
@@ -42,8 +42,8 @@ const purposePropType = PropTypes.shape({
   }).isRequired,
 });
 
-PurposeListComponent.propTypes = {
+PurposeList.propTypes = {
   purposes: PropTypes.arrayOf(purposePropType).isRequired,
 };
 
-export default PurposeListComponent;
+export default PurposeList;

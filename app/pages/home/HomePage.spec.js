@@ -4,9 +4,9 @@ import React from 'react';
 import DocumentTitle from 'react-document-title';
 
 import HomePage from './HomePage';
-import HomeIntroComponent from './intro/HomeIntroComponent';
-import PartnersComponent from './partners/PartnersComponent';
-import PurposeListContainer from './purpose-list/PurposeListContainer';
+import HomeIntro from './intro';
+import Partners from './partners';
+import PurposeListContainer from './purpose-list';
 
 describe('pages/about/HomePage', () => {
   function getWrapper() {
@@ -18,8 +18,8 @@ describe('pages/about/HomePage', () => {
     expect(title.prop('title')).to.equal('Etusivu - Varaamo');
   });
 
-  it('renders HomeIntroComponent component', () => {
-    expect(getWrapper().find(HomeIntroComponent).length).to.equal(1);
+  it('renders HomeIntro component', () => {
+    expect(getWrapper().find(HomeIntro).length).to.equal(1);
   });
 
   it('renders header for purpose list', () => {
@@ -33,7 +33,7 @@ describe('pages/about/HomePage', () => {
     expect(getWrapper().find(PurposeListContainer).length).to.equal(1);
   });
 
-  it('renders PartnersComponent component', () => {
-    expect(getWrapper().find(PartnersComponent).length).to.equal(1);
+  it('renders Partners component', () => {
+    expect(getWrapper().find(Partners).length).to.equal(1);
   });
 });

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-function PurposeListItemComponent({ imageUrl, linkUrl, text }) {
+function PurposeListItem({ imageUrl, linkUrl, text }) {
   return (
     <div className="purpose-list-item">
       <Link to={linkUrl}>
@@ -12,10 +12,10 @@ function PurposeListItemComponent({ imageUrl, linkUrl, text }) {
   );
 }
 
-PurposeListItemComponent.propTypes = {
+PurposeListItem.propTypes = {
   imageUrl: PropTypes.string.isRequired,
   linkUrl: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
 };
 
-export default PurposeListItemComponent;
+export default PurposeListItem;

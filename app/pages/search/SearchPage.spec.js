@@ -6,7 +6,7 @@ import Immutable from 'seamless-immutable';
 
 import DateHeader from 'shared/date-header';
 import { UnconnectedSearchPage as SearchPage } from './SearchPage';
-import SearchControls from './controls/SearchControls';
+import SearchControls from './controls';
 import SearchResults from './results';
 
 describe('pages/search/SearchPage', () => {

@@ -5,10 +5,10 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 
 import Purpose from 'fixtures/Purpose';
-import PurposeListComponent from './PurposeListComponent';
-import PurposeListItemComponent from './PurposeListItemComponent';
+import PurposeList from './PurposeList';
+import PurposeListItem from './PurposeListItem';
 
-describe('pages/home/purpose-list/PurposeListItemComponent', () => {
+describe('pages/home/purpose-list/PurposeListItem', () => {
   const defaultProps = {
     purposes: Immutable([
       Purpose.build(),
@@ -17,17 +17,17 @@ describe('pages/home/purpose-list/PurposeListItemComponent', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallow(<PurposeListComponent {...defaultProps} {...extraProps} />);
+    return shallow(<PurposeList {...defaultProps} {...extraProps} />);
   }
 
   describe('PurposeListItem components', () => {
-    it('PurposeListItemComponent is rendered for each purpose given in props', () => {
-      const purposeListItems = getWrapper().find(PurposeListItemComponent);
+    it('PurposeListItem is rendered for each purpose given in props', () => {
+      const purposeListItems = getWrapper().find(PurposeListItem);
       expect(purposeListItems).to.have.length(defaultProps.purposes.length);
     });
 
-    it('correct props are given to every PurposeListItemComponent', () => {
-      const purposeListItems = getWrapper().find(PurposeListItemComponent);
+    it('correct props are given to every PurposeListItem', () => {
+      const purposeListItems = getWrapper().find(PurposeListItem);
       defaultProps.purposes.forEach((purpose, index) => {
         const purposeListItem = purposeListItems.at(index);
         const actualProps = purposeListItem.props();

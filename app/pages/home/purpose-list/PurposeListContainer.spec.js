@@ -7,7 +7,7 @@ import simple from 'simple-mock';
 import Immutable from 'seamless-immutable';
 
 import Purpose from 'fixtures/Purpose';
-import PurposeListComponent from './PurposeListComponent';
+import PurposeList from './PurposeList';
 import { UnconnectedPurposeListContainer as PurposeListContainer } from './PurposeListContainer';
 
 describe('pages/home/purpose-list/PurposeListContainer', () => {
@@ -44,10 +44,10 @@ describe('pages/home/purpose-list/PurposeListContainer', () => {
       });
     });
 
-    it('renders PurposeListComponent with correct props', () => {
-      const purposeListComponent = getWrapper().find(PurposeListComponent);
-      expect(purposeListComponent).to.have.length(1);
-      expect(purposeListComponent.props().purposes).to.deep.equal(defaultProps.purposes);
+    it('renders PurposeList with correct props', () => {
+      const purposeList = getWrapper().find(PurposeList);
+      expect(purposeList).to.have.length(1);
+      expect(purposeList.props().purposes).to.deep.equal(defaultProps.purposes);
     });
   });
 

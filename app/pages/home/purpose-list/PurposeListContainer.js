@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchPurposes } from 'actions/purposeActions';
-import PurposeListComponent from './PurposeListComponent';
+import PurposeList from './PurposeList';
 import selector from './purposeListSelector';
 
 export class UnconnectedPurposeListContainer extends Component {
@@ -17,7 +17,7 @@ export class UnconnectedPurposeListContainer extends Component {
 
     return (
       <Loader loaded={!isFetchingPurposes}>
-        <PurposeListComponent purposes={purposes} />
+        <PurposeList purposes={purposes} />
       </Loader>
     );
   }

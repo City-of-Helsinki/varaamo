@@ -3,7 +3,7 @@ import Jumbotron from 'react-bootstrap/lib/Jumbotron';
 
 import ShowResourcesLink from './ShowResourcesLink';
 
-function HomeIntroComponent() {
+function HomeIntro() {
   return (
     <div className="home-intro">
       <div className="content">
@@ -17,6 +17,6 @@ function HomeIntroComponent() {
   );
 }
 
-HomeIntroComponent.propTypes = {};
+HomeIntro.propTypes = {};
 
-export default HomeIntroComponent;
+export default HomeIntro;

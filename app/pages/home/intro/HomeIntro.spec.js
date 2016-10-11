@@ -3,11 +3,11 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import Jumbotron from 'react-bootstrap/lib/Jumbotron';
 
-import HomeIntroComponent from './HomeIntroComponent';
+import HomeIntro from './HomeIntro';
 import ShowResourcesLink from './ShowResourcesLink';
 
-describe('pages/home/intro/HomeIntroComponent', () => {
-  const wrapper = shallow(<HomeIntroComponent />);
+describe('pages/home/intro/HomeIntro', () => {
+  const wrapper = shallow(<HomeIntro />);
 
   it('renders a Jumbotron component', () => {
     const jumbotron = wrapper.find(Jumbotron);

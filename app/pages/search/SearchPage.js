@@ -9,7 +9,7 @@ import { fetchUnits } from 'actions/unitActions';
 import PageWrapper from 'pages/PageWrapper';
 import DateHeader from 'shared/date-header';
 import { scrollTo } from 'utils/domUtils';
-import SearchControls from './controls/SearchControls';
+import SearchControls from './controls';
 import searchPageSelector from './searchPageSelector';
 import SearchResults from './results';
 

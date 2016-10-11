@@ -14,7 +14,7 @@ function renderImage(src, alt) {
 }
 
 
-function PartnersComponent() {
+function Partners() {
   return (
     <div className="partners">
       <div className="partners-images">
@@ -26,4 +26,4 @@ function PartnersComponent() {
   );
 }
 
-export default PartnersComponent;
+export default Partners;

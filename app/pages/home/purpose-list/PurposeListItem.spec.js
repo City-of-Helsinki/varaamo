@@ -3,9 +3,9 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import { Link } from 'react-router';
 
-import PurposeListItemComponent from './PurposeListItemComponent';
+import PurposeListItem from './PurposeListItem';
 
-describe('pages/home/purpose-list/PurposeListItemComponent', () => {
+describe('pages/home/purpose-list/PurposeListItem', () => {
   const defaultProps = {
     imageUrl: 'some-image.jpg',
     linkUrl: 'some/url',
@@ -13,7 +13,7 @@ describe('pages/home/purpose-list/PurposeListItemComponent', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallow(<PurposeListItemComponent {...defaultProps} {...extraProps} />);
+    return shallow(<PurposeListItem {...defaultProps} {...extraProps} />);
   }
 
   describe('Link component', () => {

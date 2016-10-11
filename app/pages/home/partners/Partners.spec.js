@@ -5,13 +5,13 @@ import { shallow } from 'enzyme';
 import vaakaImage from './images/vaaka.png';
 import hginvarhaiskasvatusImage from './images/hginvarhaiskasvatus.png';
 import kaupunginkirjatoImage from './images/kaupunginkirjato.png';
-import PartnersComponent from './PartnersComponent';
+import Partners from './Partners';
 
-describe('pages/home/partners/PartnersComponent', () => {
+describe('pages/home/partners/Partners', () => {
   let component;
 
   before(() => {
-    component = shallow(<PartnersComponent />);
+    component = shallow(<Partners />);
   });
 
   it('is a div', () => {

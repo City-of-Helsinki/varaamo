@@ -1,14 +1,15 @@
 import { expect } from 'chai';
+import queryString from 'query-string';
 import React from 'react';
+import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 import sd from 'skin-deep';
 
-import queryString from 'query-string';
-import Immutable from 'seamless-immutable';
+import {
+  UnconnectedSearchControlsContainer as SearchControlsContainer,
+} from './SearchControlsContainer';
 
-import { UnconnectedSearchControls as SearchControls } from './SearchControls';
-
-describe('pages/search/controls/SearchControls', () => {
+describe('pages/search/controls/SearchControlsContainer', () => {
   let props;
   let tree;
   let instance;
@@ -35,7 +36,7 @@ describe('pages/search/controls/SearchControls', () => {
       urlSearchFilters: {},
     };
 
-    tree = sd.shallowRender(<SearchControls {...props} />);
+    tree = sd.shallowRender(<SearchControlsContainer {...props} />);
     instance = tree.getMountedInstance();
   });
 
@@ -72,11 +73,11 @@ describe('pages/search/controls/SearchControls', () => {
       advancedSearchTrees = tree.everySubTree('AdvancedSearch');
     });
 
-    it('should render AdvancedSearch component', () => {
+    it('renders AdvancedSearch component', () => {
       expect(advancedSearchTrees.length).to.equal(1);
     });
 
-    it('should pass correct props to AdvancedSearch component', () => {
+    it('passes correct props to AdvancedSearch component', () => {
       const actualProps = advancedSearchTrees[0].props;
 
       expect(actualProps.isFetchingPurposes).to.equal(props.isFetchingPurposes);
@@ -93,11 +94,11 @@ describe('pages/search/controls/SearchControls', () => {
       dateFieldTrees = tree.everySubTree('DateField');
     });
 
-    it('should render DateField component', () => {
+    it('renders DateField component', () => {
       expect(dateFieldTrees.length).to.equal(1);
     });
 
-    it('should pass correct props to DateField component', () => {
+    it('passes correct props to DateField component', () => {
       const actualProps = dateFieldTrees[0].props;
 
       expect(actualProps.defaultValue).to.equal(props.filters.date);
@@ -106,7 +107,7 @@ describe('pages/search/controls/SearchControls', () => {
   });
 
   describe('onFiltersChange', () => {
-    it('should call changeSearchFilters with given filters', () => {
+    it('calls changeSearchFilters with given filters', () => {
       const newFilters = { search: 'new search value' };
       instance.onFiltersChange(newFilters);
 
@@ -122,7 +123,7 @@ describe('pages/search/controls/SearchControls', () => {
       instance.handleSearch(newFilters);
     });
 
-    it('should call updatePath with correct url', () => {
+    it('calls updatePath with correct url', () => {
       const actualUrl = props.actions.updatePath.lastCall.args[0];
       const expectedUrl = `/search?${queryString.stringify(props.filters)}`;
 
@@ -132,7 +133,7 @@ describe('pages/search/controls/SearchControls', () => {
   });
 
   describe('fetching data', () => {
-    it('should fetch resources when component mounts', () => {
+    it('fetches resources when component mounts', () => {
       instance.componentDidMount();
 
       expect(props.actions.fetchPurposes.callCount).to.equal(1);
