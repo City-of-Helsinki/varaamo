@@ -49,7 +49,7 @@ describe('shared/date-header/DateHeaderComponent', () => {
           expect(button.length).to.equal(1);
         });
 
-        it('clicking the button should call onDecreaseDateButtonClick', () => {
+        it('clicking the button calls onDecreaseDateButtonClick', () => {
           extraProps.onDecreaseDateButtonClick.reset();
           button.props().onClick();
 
@@ -88,7 +88,7 @@ describe('shared/date-header/DateHeaderComponent', () => {
           expect(button.length).to.equal(1);
         });
 
-        it('clicking the button should call onIncreaseDateButtonClick', () => {
+        it('clicking the button calls onIncreaseDateButtonClick', () => {
           extraProps.onIncreaseDateButtonClick.reset();
           button.props().onClick();
 

@@ -18,14 +18,14 @@ function getState(user) {
 }
 
 describe('Selector: isAdminSelector', () => {
-  it('should return false if user is not logged in', () => {
+  it('returns false if user is not logged in', () => {
     const state = getInitialState();
     const actual = isAdminSelector(state);
 
     expect(actual).to.equal(false);
   });
 
-  it('should return false if user.isStaff is false', () => {
+  it('returns false if user.isStaff is false', () => {
     const user = User.build({ isStaff: false });
     const state = getState(user);
     const actual = isAdminSelector(state);
@@ -33,7 +33,7 @@ describe('Selector: isAdminSelector', () => {
     expect(actual).to.equal(false);
   });
 
-  it('should return true if user.isStaff is true', () => {
+  it('returns true if user.isStaff is true', () => {
     const user = User.build({ isStaff: true });
     const state = getState(user);
     const actual = isAdminSelector(state);

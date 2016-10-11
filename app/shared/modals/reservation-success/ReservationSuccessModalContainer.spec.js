@@ -34,7 +34,7 @@ describe('shared/modals/reservation-success/ReservationSuccessModalContainer', (
   describe('render', () => {
     const wrapper = getWrapper();
 
-    it('should render a Modal component', () => {
+    it('renders a Modal component', () => {
       const modalComponent = wrapper.find(Modal);
 
       expect(modalComponent.length).to.equal(1);
@@ -43,21 +43,21 @@ describe('shared/modals/reservation-success/ReservationSuccessModalContainer', (
     describe('Modal header', () => {
       const modalHeader = wrapper.find(Modal.Header);
 
-      it('should render a ModalHeader component', () => {
+      it('renders a ModalHeader component', () => {
         expect(modalHeader.length).to.equal(1);
       });
 
-      it('should contain a close button', () => {
+      it('contains a close button', () => {
         expect(modalHeader.props().closeButton).to.equal(true);
       });
 
-      it('should render a ModalTitle component', () => {
+      it('renders a ModalTitle component', () => {
         const modalTitle = wrapper.find(Modal.Title);
 
         expect(modalTitle.length).to.equal(1);
       });
 
-      it('the ModalTitle should display text "Varauspyyntösi on lähetetty"', () => {
+      it('the ModalTitle displays text "Varauspyyntösi on lähetetty"', () => {
         const modalTitle = wrapper.find(Modal.Title);
 
         expect(modalTitle.props().children).to.equal('Varauspyyntösi on lähetetty');
@@ -67,17 +67,17 @@ describe('shared/modals/reservation-success/ReservationSuccessModalContainer', (
     describe('Modal body', () => {
       const modalBody = wrapper.find(Modal.Body);
 
-      it('should render a ModalBody component', () => {
+      it('renders a ModalBody component', () => {
         expect(modalBody.length).to.equal(1);
       });
 
       describe('reservation list', () => {
-        it('should render a CompactReservationList component', () => {
+        it('renders a CompactReservationList component', () => {
           const list = modalBody.find(CompactReservationList);
           expect(list.length).to.equal(1);
         });
 
-        it('should pass correct props to CompactReservationList component', () => {
+        it('passes correct props to CompactReservationList component', () => {
           const list = modalBody.find(CompactReservationList);
           expect(list.props().reservations).to.deep.equal(defaultProps.reservationsToShow);
           expect(list.props().resources).to.equal(undefined);
@@ -88,25 +88,25 @@ describe('shared/modals/reservation-success/ReservationSuccessModalContainer', (
     describe('Modal footer', () => {
       const modalFooter = wrapper.find(Modal.Footer);
 
-      it('should render a ModalFooter component', () => {
+      it('renders a ModalFooter component', () => {
         expect(modalFooter.length).to.equal(1);
       });
 
       describe('Footer buttons', () => {
         const buttons = modalFooter.find(Button);
 
-        it('should render one Button', () => {
+        it('renders one Button', () => {
           expect(buttons.length).to.equal(1);
         });
 
         describe('the button', () => {
           const button = buttons.at(0);
 
-          it('should read "Takaisin"', () => {
+          it('has text "Takaisin"', () => {
             expect(button.props().children).to.equal('Takaisin');
           });
 
-          it('clicking it should call closeReservationSuccessModal', () => {
+          it('clicking it calls closeReservationSuccessModal', () => {
             defaultProps.actions.closeReservationSuccessModal.reset();
             button.props().onClick();
 

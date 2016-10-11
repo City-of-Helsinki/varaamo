@@ -10,7 +10,7 @@ describe('Reducer: fetchCountsReducer', () => {
   describe('initial state', () => {
     const initialState = fetchCountsReducer(undefined, {});
 
-    it('reservations should be 0', () => {
+    it('reservations is 0', () => {
       expect(initialState.reservations).to.equal(0);
     });
   });
@@ -19,7 +19,7 @@ describe('Reducer: fetchCountsReducer', () => {
     describe('API.RESERVATIONS_GET_SUCCESS', () => {
       const getReservationsSuccess = createAction(types.API.RESERVATIONS_GET_SUCCESS);
 
-      it('should increase reservations by 1', () => {
+      it('increases reservations by 1', () => {
         const action = getReservationsSuccess();
         const initialState = Immutable({
           reservations: 3,

@@ -130,7 +130,7 @@ describe('pages/admin-resources/resources-table/ResourcesTable', () => {
         });
       });
 
-      it('should display the emptyMessage', () => {
+      it('displays the emptyMessage', () => {
         expect(wrapper.is('p')).to.be.true;
         expect(wrapper.text()).to.equal('No resources found');
       });
@@ -143,7 +143,7 @@ describe('pages/admin-resources/resources-table/ResourcesTable', () => {
         wrapper = getWrapper({ resources: [] });
       });
 
-      it('should render a message telling no resources were found', () => {
+      it('renders a message telling no resources were found', () => {
         const expected = 'Et ole lisännyt vielä yhtään tilaa itsellesi.';
         expect(wrapper.is('p')).to.be.true;
         expect(wrapper.text()).to.equal(expected);

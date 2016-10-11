@@ -10,7 +10,7 @@ describe('Reducer: modalsReducer', () => {
   describe('initial state', () => {
     const initialState = modalsReducer(undefined, {});
 
-    it('open should be an empty array', () => {
+    it('open is an empty array', () => {
       expect(initialState.open).to.deep.equal([]);
     });
   });
@@ -20,7 +20,7 @@ describe('Reducer: modalsReducer', () => {
       const closeModal = createAction(types.UI.CLOSE_MODAL);
 
       describe('if modal is open', () => {
-        it('should remove the given modal from open', () => {
+        it('removes the given modal from open', () => {
           const initialState = Immutable({ open: ['some-modal'] });
           const action = closeModal('some-modal');
           const nextState = modalsReducer(initialState, action);
@@ -29,7 +29,7 @@ describe('Reducer: modalsReducer', () => {
           expect(nextState).to.deep.equal(expected);
         });
 
-        it('should not affect other modals in open', () => {
+        it('does not affect other modals in open', () => {
           const initialState = Immutable({ open: ['other-modal', 'some-modal'] });
           const action = closeModal('some-modal');
           const nextState = modalsReducer(initialState, action);
@@ -40,7 +40,7 @@ describe('Reducer: modalsReducer', () => {
       });
 
       describe('if modal is not open', () => {
-        it('should not change open in any way', () => {
+        it('does not change open in any way', () => {
           const action = closeModal('some-modal');
           const initialState = Immutable({ open: ['other-modal'] });
           const nextState = modalsReducer(initialState, action);
@@ -54,7 +54,7 @@ describe('Reducer: modalsReducer', () => {
       const openModal = createAction(types.UI.OPEN_MODAL);
 
       describe('if modal is not open', () => {
-        it('should add the given modal to open', () => {
+        it('adds the given modal to open', () => {
           const initialState = Immutable({ open: [] });
           const action = openModal('some-modal');
           const nextState = modalsReducer(initialState, action);
@@ -63,7 +63,7 @@ describe('Reducer: modalsReducer', () => {
           expect(nextState).to.deep.equal(expected);
         });
 
-        it('should not affect other modals in open', () => {
+        it('does not affect other modals in open', () => {
           const initialState = Immutable({ open: ['other-modal'] });
           const action = openModal('some-modal');
           const nextState = modalsReducer(initialState, action);
@@ -74,7 +74,7 @@ describe('Reducer: modalsReducer', () => {
       });
 
       describe('if modal is already open', () => {
-        it('should not change open in any way', () => {
+        it('does not change open in any way', () => {
           const action = openModal('some-modal');
           const initialState = Immutable({ open: ['other-modal', 'some-modal'] });
           const nextState = modalsReducer(initialState, action);

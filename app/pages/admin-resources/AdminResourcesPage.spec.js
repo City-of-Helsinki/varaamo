@@ -46,7 +46,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
     describe('when user is an admin', () => {
       const wrapper = getWrapper({ isAdmin: true });
 
-      it('should display "Omat tilat" -title inside h1 tags', () => {
+      it('displays "Omat tilat" -title inside h1 tags', () => {
         const h1 = wrapper.find('h1');
         expect(h1.text()).to.equal('Omat tilat');
       });

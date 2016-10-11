@@ -8,19 +8,19 @@ describe('Selector: searchControlsSelector', () => {
   const props = getDefaultRouterProps();
   const selected = searchControlsSelector(state, props);
 
-  it('should return filters', () => {
+  it('returns filters', () => {
     expect(selected.filters).to.exist;
   });
 
-  it('should return isFetchingPurposes', () => {
+  it('returns isFetchingPurposes', () => {
     expect(selected.isFetchingPurposes).to.exist;
   });
 
-  it('should return purposeOptions', () => {
+  it('returns purposeOptions', () => {
     expect(selected.purposeOptions).to.exist;
   });
 
-  it('should return urlSearchFilters', () => {
+  it('returns urlSearchFilters', () => {
     expect(selected.urlSearchFilters).to.exist;
   });
 });

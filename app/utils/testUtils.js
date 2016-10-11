@@ -155,7 +155,7 @@ function createApiTest(options) {
               promise = payload({ type: actionTests.type }, {}, response);
             });
 
-            it('should exist', () => {
+            it('exists', () => {
               expect(payload).to.exist;
             });
 
@@ -208,11 +208,11 @@ function getState(extraState = {}) {
 }
 
 function makeButtonTests(button, name, expectedText, expectedOnClickFunction) {
-  it(`should be an ${name} button`, () => {
+  it(`is an ${name} button`, () => {
     expect(button.props().children).to.equal(expectedText);
   });
 
-  it('clicking the button should call correct onClick function', () => {
+  it('clicking the button calls correct onClick function', () => {
     expectedOnClickFunction.reset();
     button.props().onClick();
 

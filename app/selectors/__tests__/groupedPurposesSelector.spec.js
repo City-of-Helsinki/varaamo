@@ -22,14 +22,14 @@ describe('Selector: groupedPurposesSelector', () => {
     Purpose.build({ parent: parents[0] }),
   ];
 
-  it('should return an empty object if there are no purposes in state', () => {
+  it('returns an empty object if there are no purposes in state', () => {
     const state = getState([]);
     const actual = groupedPurposesSelector(state);
 
     expect(actual).to.deep.equal({});
   });
 
-  it('should return purposes from the state grouped by parent', () => {
+  it('returns purposes from the state grouped by parent', () => {
     const state = getState(purposes);
     const actual = groupedPurposesSelector(state);
     const expected = Immutable({
@@ -40,7 +40,7 @@ describe('Selector: groupedPurposesSelector', () => {
     expect(actual).to.deep.equal(expected);
   });
 
-  it('should filter out purposes without a parent', () => {
+  it('filters out purposes without a parent', () => {
     const purposesWithoutParent = [
       Purpose.build({ parent: null }),
       Purpose.build({ parent: null }),

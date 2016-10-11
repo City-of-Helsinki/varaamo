@@ -40,11 +40,11 @@ describe('shared/resource-list/ResourceList', () => {
         resourceListItems = wrapper.find(ResourceListItem);
       });
 
-      it('should render a ResourceListItem for every resource in props', () => {
+      it('renders a ResourceListItem for every resource in props', () => {
         expect(resourceListItems.length).to.equal(defaultProps.resourceIds.length);
       });
 
-      it('should pass correct props to ResourceListItem', () => {
+      it('passes correct props to ResourceListItem', () => {
         resourceListItems.forEach((resourceListItem, index) => {
           expect(resourceListItem.props().resourceId).to.equal(defaultProps.resourceIds[index]);
         });

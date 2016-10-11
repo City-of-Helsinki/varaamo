@@ -30,11 +30,11 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
   });
 
   describe('rendering', () => {
-    it('should render a li element', () => {
+    it('renders a li element', () => {
       expect(component.is('li')).to.be.true;
     });
 
-    it('should display an image with correct props', () => {
+    it('displays an image with correct props', () => {
       const image = component.find('img');
 
       expect(image).to.have.length(1);
@@ -42,26 +42,26 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
       expect(image.props().src).to.contain(props.resource.images[0].url);
     });
 
-    it('should contain a link to resources page', () => {
+    it('contains a link to resources page', () => {
       const expectedUrl = getResourcePageUrl(props.resource);
       const resourceLink = component.find({ to: expectedUrl });
 
       expect(resourceLink.length > 0).to.be.true;
     });
 
-    it('should display the name of the resource', () => {
+    it('displays the name of the resource', () => {
       const expected = props.resource.name.fi;
 
       expect(component.find('h4').text()).to.contain(expected);
     });
 
-    it('should display the name of the given unit in props', () => {
+    it('displays the name of the given unit in props', () => {
       const expected = props.unit.name.fi;
 
       expect(component.find('h4').text()).to.contain(expected);
     });
 
-    it('should contain a Link to resource page with correct time', () => {
+    it('contains a Link to resource page with correct time', () => {
       const expectedUrl = getResourcePageUrl(
         props.resource,
         props.reservation.begin,
@@ -73,7 +73,7 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
       expect(resourcePageLinkWithTime.length).to.equal(1);
     });
 
-    it('should contain two TimeRange components with correct begin and end times', () => {
+    it('contains two TimeRange components with correct begin and end times', () => {
       const timeRange = component.find(TimeRange);
 
       expect(timeRange).to.have.length(2);
@@ -83,12 +83,12 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
       expect(timeRange.at(1).props().end).to.equal(props.reservation.end);
     });
 
-    it('should render ReservationControls component', () => {
+    it('renders ReservationControls component', () => {
       const reservationControls = component.find(ReservationControls);
       expect(reservationControls).to.have.length(1);
     });
 
-    it('should pass correct props to ReservationControls component', () => {
+    it('passes correct props to ReservationControls component', () => {
       const actualProps = component.find(ReservationControls).props();
 
       expect(actualProps.isAdmin).to.equal(false);

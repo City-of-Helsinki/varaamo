@@ -134,7 +134,7 @@ describe('pages/resource/reservation-confirmation/ReservationForm', () => {
         });
 
         describe('required fields', () => {
-          it('should display an asterisk beside a required field label', () => {
+          it('displays an asterisk beside a required field label', () => {
             const fieldName = constants.RESERVATION_FORM_FIELDS[0];
             const props = {
               fields: { [fieldName]: { name: fieldName } },

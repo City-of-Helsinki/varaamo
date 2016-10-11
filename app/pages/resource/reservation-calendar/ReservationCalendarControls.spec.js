@@ -27,19 +27,19 @@ describe('pages/resource/reservation-calendar/ReservationCalendarControls', () =
     const tree = sd.shallowRender(<ReservationCalendarControls {...props} />);
     const instance = tree.getMountedInstance();
 
-    it('should render one button', () => {
+    it('renders one button', () => {
       const buttonTrees = tree.everySubTree('Button');
 
       expect(buttonTrees.length).to.equal(1);
     });
 
-    it('should pass correct props to the button', () => {
+    it('passes correct props to the button', () => {
       const actualProps = tree.subTree('Button').props;
 
       expect(actualProps.onClick).to.equal(instance.handleMainClick);
     });
 
-    it('the button should have text "Varaa"', () => {
+    it('the button has text "Varaa"', () => {
       expect(tree.subTree('Button').props.children).to.equal('Varaa');
     });
   });
@@ -52,18 +52,18 @@ describe('pages/resource/reservation-calendar/ReservationCalendarControls', () =
     const instance = tree.getMountedInstance();
     const buttonTrees = tree.everySubTree('Button');
 
-    it('should render two buttons', () => {
+    it('renders two buttons', () => {
       expect(buttonTrees.length).to.equal(2);
     });
 
     describe('the first button', () => {
       const buttonTree = buttonTrees[0];
 
-      it('should be a confirm edit button', () => {
+      it('is a confirm edit button', () => {
         expect(buttonTree.props.children).to.equal('Vahvista muutokset');
       });
 
-      it('should have correct props', () => {
+      it('has correct props', () => {
         expect(buttonTree.props.onClick).to.equal(instance.handleMainClick);
       });
     });
@@ -71,11 +71,11 @@ describe('pages/resource/reservation-calendar/ReservationCalendarControls', () =
     describe('the second button', () => {
       const buttonTree = buttonTrees[1];
 
-      it('should be a cancel button', () => {
+      it('is a cancel button', () => {
         expect(buttonTree.props.children).to.equal('Takaisin');
       });
 
-      it('should have correct props', () => {
+      it('has correct props', () => {
         expect(buttonTree.props.onClick).to.equal(props.onCancel);
       });
     });
