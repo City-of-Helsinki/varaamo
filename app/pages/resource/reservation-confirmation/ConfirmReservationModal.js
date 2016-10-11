@@ -157,6 +157,7 @@ class ConfirmReservationModal extends Component {
       onClose,
       resource,
       show,
+      staffEventSelected,
     } = this.props;
 
     const termsAndConditions = getTermsAndConditions(resource);
@@ -184,6 +185,7 @@ class ConfirmReservationModal extends Component {
             onClose={onClose}
             onConfirm={this.onConfirm}
             requiredFields={this.getRequiredFormFields(resource, termsAndConditions)}
+            staffEventSelected={staffEventSelected}
             termsAndConditions={termsAndConditions}
           />
         </Modal.Body>
@@ -204,6 +206,7 @@ ConfirmReservationModal.propTypes = {
   resource: PropTypes.object.isRequired,
   selectedReservations: PropTypes.array.isRequired,
   show: PropTypes.bool.isRequired,
+  staffEventSelected: PropTypes.bool,
 };
 
 export default ConfirmReservationModal;

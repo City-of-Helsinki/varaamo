@@ -72,6 +72,7 @@ export class UnconnectedReservationConfirmationContainer extends Component {
       reservationsToEdit,
       resource,
       selectedReservations,
+      staffEventSelected,
       staffUnits,
     } = this.props;
 
@@ -92,6 +93,7 @@ export class UnconnectedReservationConfirmationContainer extends Component {
         resource={resource}
         selectedReservations={selectedReservations}
         show={confirmReservationModalIsOpen}
+        staffEventSelected={staffEventSelected}
       />
     );
   }
@@ -107,6 +109,7 @@ UnconnectedReservationConfirmationContainer.propTypes = {
   reservationsToEdit: PropTypes.array.isRequired,
   resource: PropTypes.object.isRequired,
   selectedReservations: PropTypes.array.isRequired,
+  staffEventSelected: PropTypes.bool,
   staffUnits: PropTypes.array.isRequired,
 };
 
