@@ -126,7 +126,7 @@ class TimeSlot extends Component {
     } = getLabelData({ isOwnReservation, isPast, slot });
 
     return (
-      <tr
+      <tr // eslint-disable-line jsx-a11y/no-static-element-interactions
         className={classNames({
           disabled,
           'is-admin': isAdmin,

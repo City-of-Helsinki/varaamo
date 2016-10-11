@@ -109,7 +109,7 @@ describe('Utils: timeUtils', () => {
       it('uses empty array as default reservations if no reservations is given', () => {
         const timeSlots = getTimeSlots(start, end, period);
 
-        timeSlots.forEach(timeSlot => {
+        timeSlots.forEach((timeSlot) => {
           expect(timeSlot.reserved).to.equal(false);
         });
       });

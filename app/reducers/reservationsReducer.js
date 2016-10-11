@@ -19,7 +19,7 @@ const initialState = Immutable({
 function selectReservationToEdit(state, action) {
   const { minPeriod, reservation } = action.payload;
   const selected = getTimeSlots(reservation.begin, reservation.end, minPeriod).map(
-    (slot) => slot.asISOString
+    slot => slot.asISOString
   );
 
   return state.merge({

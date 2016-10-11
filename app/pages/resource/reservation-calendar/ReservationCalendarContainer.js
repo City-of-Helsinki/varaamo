@@ -127,10 +127,10 @@ UnconnectedReservationCalendarContainer.propTypes = {
   isFetchingResource: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,
-  location: PropTypes.shape({
+  location: PropTypes.shape({ // eslint-disable-line react/no-unused-prop-types
     hash: PropTypes.string.isRequired,
   }).isRequired,
-  params: PropTypes.shape({
+  params: PropTypes.shape({ // eslint-disable-line react/no-unused-prop-types
     id: PropTypes.string.isRequired,
   }).isRequired,
   resource: PropTypes.object.isRequired,

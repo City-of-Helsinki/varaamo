@@ -27,7 +27,7 @@ class AdvancedSearch extends Component {
           clearable
           isLoading={isFetchingPurposes}
           name="purpose-filter-select"
-          onChange={(value) => onFiltersChange({ purpose: value })}
+          onChange={value => onFiltersChange({ purpose: value })}
           options={purposeOptions}
           placeholder=" "
           searchable={false}
@@ -37,7 +37,7 @@ class AdvancedSearch extends Component {
         <FormControl
           min="0"
           name="people-capacity-filter"
-          onChange={(event) => onFiltersChange({ people: event.target.value })}
+          onChange={event => onFiltersChange({ people: event.target.value })}
           type="number"
           value={filters.people}
         />

@@ -8,7 +8,7 @@ import staffUnitsSelector from 'selectors/staffUnitsSelector';
 import modalIsOpenSelectorFactory from 'selectors/factories/modalIsOpenSelectorFactory';
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
 
-const toEditSelector = (state) => state.ui.reservations.toEdit;
+const toEditSelector = state => state.ui.reservations.toEdit;
 
 const reservationCalendarSelector = createSelector(
   modalIsOpenSelectorFactory(ModalTypes.RESERVATION_CONFIRM),

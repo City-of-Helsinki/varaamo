@@ -87,7 +87,7 @@ class ConfirmReservationModal extends Component {
 
   getRequiredFormFields(resource, termsAndConditions) {
     const requiredFormFields = [...resource.requiredReservationExtraFields.map(
-      (field) => camelCase(field)
+      field => camelCase(field)
     )];
 
     if (termsAndConditions) {

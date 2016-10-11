@@ -1,10 +1,10 @@
 import reject from 'lodash/reject';
 import { createSelector } from 'reselect';
 
-const notificationsInputSelector = (state) => state.notifications;
+const notificationsInputSelector = state => state.notifications;
 
 const notificationsSelector = createSelector(
-  notificationsInputSelector, (notifications) => ({
+  notificationsInputSelector, notifications => ({
     notifications: reject(notifications, 'hidden'),
   })
 );

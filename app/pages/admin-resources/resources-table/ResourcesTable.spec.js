@@ -31,7 +31,7 @@ describe('pages/admin-resources/resources-table/ResourcesTable', () => {
     ]),
   };
 
-  const getWrapper = (extraProps) => shallow(
+  const getWrapper = extraProps => shallow(
     <ResourcesTable {...defaultProps} {...extraProps} />
   );
 

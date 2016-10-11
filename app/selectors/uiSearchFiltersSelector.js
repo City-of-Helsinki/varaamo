@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 import constants from 'constants/AppConstants';
 import { getDateString } from 'utils/timeUtils';
 
-const filtersSelector = (state) => state.ui.search.filters;
+const filtersSelector = state => state.ui.search.filters;
 
 const uiSearchFiltersSelector = createSelector(
   filtersSelector,

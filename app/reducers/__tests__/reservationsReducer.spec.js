@@ -330,7 +330,7 @@ describe('Reducer: reservationsReducer', () => {
         const action = selectReservationToEdit({ reservation, minPeriod });
         const nextState = reservationsReducer(initialState, action);
         const slots = getTimeSlots(reservation.begin, reservation.end, minPeriod);
-        const expected = slots.map((slot) => slot.asISOString);
+        const expected = slots.map(slot => slot.asISOString);
 
         expect(nextState.selected).to.deep.equal(expected);
       });

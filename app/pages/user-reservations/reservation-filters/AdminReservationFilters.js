@@ -29,7 +29,7 @@ class AdminReservationFilters extends Component {
           className="reservation-state-select"
           clearable={false}
           name="reservation-state-select"
-          onChange={(value) => onFiltersChange({ state: value })}
+          onChange={value => onFiltersChange({ state: value })}
           options={stateOptions}
           value={filters.state}
         />

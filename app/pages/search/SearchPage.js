@@ -67,9 +67,9 @@ export class UnconnectedSearchPage extends Component {
             searchResultIds={searchResultIds}
           />
           ) : (
-          <p className="help-text">
+            <p className="help-text">
             Etsi tilaa syöttämällä hakukenttään tilan nimi tai tilaan liittyvää tietoa.
-          </p>
+            </p>
         )}
       </PageWrapper>
     );

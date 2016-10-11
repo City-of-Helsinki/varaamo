@@ -69,7 +69,7 @@ export class UnconnectedSearchControlsContainer extends Component {
           <Col lg={6} md={6}>
             <FormControl
               autoFocus={!filters.purpose}
-              onChange={(event) => this.onFiltersChange({ search: event.target.value })}
+              onChange={event => this.onFiltersChange({ search: event.target.value })}
               onKeyUp={this.handleSearchInputChange}
               placeholder="Esim. kokous, työskentely"
               type="text"
@@ -85,7 +85,7 @@ export class UnconnectedSearchControlsContainer extends Component {
                 dateFormat="YYYY-MM-DD"
                 defaultValue={this.props.filters.date}
                 footer={false}
-                onChange={(date) => this.onFiltersChange({ date })}
+                onChange={date => this.onFiltersChange({ date })}
                 updateOnDateClick
               />
             </div>

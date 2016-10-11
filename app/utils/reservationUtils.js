@@ -31,7 +31,7 @@ function isStaffEvent(reservation, resource) {
   if (!resource || !resource.requiredReservationExtraFields) {
     return false;
   }
-  return some(resource.requiredReservationExtraFields, (field) => (
+  return some(resource.requiredReservationExtraFields, field => (
     !reservation[camelCase(field)]
   ));
 }

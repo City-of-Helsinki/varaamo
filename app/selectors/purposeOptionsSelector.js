@@ -5,13 +5,13 @@ import Immutable from 'seamless-immutable';
 
 import { getName } from 'utils/translationUtils';
 
-const purposesSelector = (state) => state.data.purposes;
+const purposesSelector = state => state.data.purposes;
 
 const purposeOptionsSelector = createSelector(
   purposesSelector,
   (purposes) => {
     const purposeOptions = values(purposes)
-      .filter((purpose) => purpose.parent === null)
+      .filter(purpose => purpose.parent === null)
       .map(purpose => ({
         value: purpose.id,
         label: getName(purpose),

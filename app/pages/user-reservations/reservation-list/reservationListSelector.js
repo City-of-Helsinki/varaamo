@@ -6,8 +6,8 @@ import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveS
 import sortedReservationsSelector from 'selectors/sortedReservationsSelector';
 import staffUnitsSelector from 'selectors/staffUnitsSelector';
 
-const resourcesSelector = (state) => state.data.resources;
-const unitsSelector = (state) => state.data.units;
+const resourcesSelector = state => state.data.resources;
+const unitsSelector = state => state.data.units;
 
 const reservationListSelector = createSelector(
   isAdminSelector,

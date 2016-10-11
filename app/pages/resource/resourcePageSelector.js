@@ -8,7 +8,7 @@ import isLoggedInSelector from 'selectors/isLoggedInSelector';
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
 
 const idSelector = (state, props) => props.params.id;
-const unitsSelector = (state) => state.data.units;
+const unitsSelector = state => state.data.units;
 
 const resourcePageSelector = createSelector(
   dateSelector,

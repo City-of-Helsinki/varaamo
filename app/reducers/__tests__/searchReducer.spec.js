@@ -53,7 +53,7 @@ describe('Reducer: searchReducer', () => {
     describe('API.SEARCH_RESULTS_GET_SUCCESS', () => {
       const searchResourcesSuccess = createAction(
         types.API.SEARCH_RESULTS_GET_SUCCESS,
-        (resources) => ({
+        resources => ({
           entities: {
             resources: keyBy(resources, 'id'),
           },
@@ -100,7 +100,7 @@ describe('Reducer: searchReducer', () => {
     describe('API.TYPEAHEAD_SUGGESTIONS_GET_SUCCESS', () => {
       const typeaheadSuggestionsSuccess = createAction(
         types.API.TYPEAHEAD_SUGGESTIONS_GET_SUCCESS,
-        (resources) => ({
+        resources => ({
           resource: keyBy(resources, 'id'),
         })
       );

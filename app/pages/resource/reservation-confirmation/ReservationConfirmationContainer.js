@@ -57,7 +57,7 @@ export class UnconnectedReservationConfirmationContainer extends Component {
   handleReservation(values = {}) {
     const { actions, selectedReservations } = this.props;
 
-    selectedReservations.forEach(reservation => {
+    selectedReservations.forEach((reservation) => {
       actions.postReservation(
         Object.assign({}, reservation, values)
       );
@@ -101,7 +101,7 @@ UnconnectedReservationConfirmationContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   confirmReservationModalIsOpen: PropTypes.bool.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,
-  params: PropTypes.shape({
+  params: PropTypes.shape({ // eslint-disable-line react/no-unused-prop-types
     id: PropTypes.string.isRequired,
   }).isRequired,
   reservationsToEdit: PropTypes.array.isRequired,

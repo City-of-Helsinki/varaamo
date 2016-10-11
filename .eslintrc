@@ -25,6 +25,10 @@
     // Amendments to airbnb rules
     // ##########################
 
+    "class-methods-use-this": 0,
+
+    "import/extensions": 0,
+
     "import/no-extraneous-dependencies": 0,
 
     "import/no-unresolved": 0,
@@ -44,9 +48,13 @@
     // allow functions to be used before they are defined
     "no-use-before-define": ["error", "nofunc"],
 
+    "react/forbid-prop-types": 0,
+
     "react/jsx-filename-extension": 0,
 
     "react/no-string-refs": 0,
+
+    "react/no-unused-prop-types": [2, { "skipShapeProps": true }],
 
     "react/prefer-stateless-function": 0
 

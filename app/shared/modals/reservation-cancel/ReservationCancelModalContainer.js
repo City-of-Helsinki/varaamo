@@ -31,7 +31,7 @@ export class UnconnectedReservationCancelModalContainer extends Component {
         <div>
           {reservations.length === 1 ?
             <p><strong>Oletko varma että haluat perua seuraavan varauksen:</strong></p> :
-            <p><strong>Oletko varma että haluat perua seuraavat varaukset:</strong></p>
+              <p><strong>Oletko varma että haluat perua seuraavat varaukset:</strong></p>
           }
           <CompactReservationList reservations={reservations} resources={resources} />
         </div>

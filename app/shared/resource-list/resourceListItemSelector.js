@@ -3,9 +3,9 @@ import { createSelector } from 'reselect';
 import isLoggedInSelector from 'selectors/isLoggedInSelector';
 import dateSelector from 'selectors/dateSelector';
 
-const resourcesSelector = (state) => state.data.resources;
+const resourcesSelector = state => state.data.resources;
 const resourceIdSelector = (state, props) => props.resourceId;
-const unitsSelector = (state) => state.data.units;
+const unitsSelector = state => state.data.units;
 
 const resourceSelector = createSelector(
   resourcesSelector,

@@ -5,8 +5,8 @@ import ModalTypes from 'constants/ModalTypes';
 import modalIsOpenSelectorFactory from 'selectors/factories/modalIsOpenSelectorFactory';
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
 
-const reservationsToShowSelector = (state) => state.ui.reservations.toShow;
-const resourcesSelector = (state) => state.data.resources;
+const reservationsToShowSelector = state => state.ui.reservations.toShow;
+const resourcesSelector = state => state.data.resources;
 
 const commentModalSelector = createSelector(
   requestIsActiveSelectorFactory(ActionTypes.API.RESERVATION_PUT_REQUEST),
