@@ -17,7 +17,8 @@ class ResourceListItem extends Component {
   }
 
   render() {
-    const { date, isLoggedIn, resource, unit } = this.props;
+    const { isLoggedIn, resource, unit } = this.props;
+    const date = this.context.location.query.date;
 
     return (
       <li className="resource-list-item">
@@ -45,10 +46,13 @@ class ResourceListItem extends Component {
 }
 
 ResourceListItem.propTypes = {
-  date: PropTypes.string.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   resource: PropTypes.object.isRequired,
   unit: PropTypes.object.isRequired,
+};
+
+ResourceListItem.contextTypes = {
+  location: React.PropTypes.object,
 };
 
 export default ResourceListItem;

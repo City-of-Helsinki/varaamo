@@ -49,7 +49,7 @@ class Navbar extends Component {
       <RBNavbar inverse>
         <RBNavbar.Header>
           <RBNavbar.Brand>
-            <Link to={'/'}>
+            <Link to="/">
               <Logo />
               Varaamo
             </Link>

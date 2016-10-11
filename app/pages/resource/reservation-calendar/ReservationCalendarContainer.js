@@ -2,8 +2,8 @@ import includes from 'lodash/includes';
 import React, { Component, PropTypes } from 'react';
 import { Calendar } from 'react-date-picker';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
-import { updatePath } from 'redux-simple-router';
 
 import { addNotification } from 'actions/notificationsActions';
 import {
@@ -36,8 +36,8 @@ export class UnconnectedReservationCalendarContainer extends Component {
   }
 
   onDateChange(newDate) {
-    const { actions, resource } = this.props;
-    actions.updatePath(getResourcePageUrl(resource, newDate));
+    const { resource } = this.props;
+    browserHistory.push(getResourcePageUrl(resource, newDate));
   }
 
   decreaseDate() {
@@ -147,7 +147,6 @@ function mapDispatchToProps(dispatch) {
     cancelReservationEdit,
     clearReservations,
     openConfirmReservationModal,
-    updatePath,
     toggleTimeSlot,
   };
 

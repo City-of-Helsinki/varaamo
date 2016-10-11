@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import queryString from 'query-string';
 import React from 'react';
+import { browserHistory } from 'react-router';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 import sd from 'skin-deep';
@@ -19,7 +20,6 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       actions: {
         changeSearchFilters: simple.stub(),
         fetchPurposes: simple.stub(),
-        updatePath: simple.stub(),
         searchResources: simple.stub(),
       },
       isFetchingPurposes: false,
@@ -117,18 +117,24 @@ describe('pages/search/controls/SearchControlsContainer', () => {
   });
 
   describe('handleSearch', () => {
-    let newFilters;
+    const newFilters = {};
+    let browserHistoryMock;
 
-    beforeEach(() => {
+    before(() => {
+      browserHistoryMock = simple.mock(browserHistory, 'push');
       instance.handleSearch(newFilters);
     });
 
-    it('calls updatePath with correct url', () => {
-      const actualUrl = props.actions.updatePath.lastCall.args[0];
-      const expectedUrl = `/search?${queryString.stringify(props.filters)}`;
+    after(() => {
+      simple.restore();
+    });
 
-      expect(props.actions.updatePath.callCount).to.equal(1);
-      expect(actualUrl).to.equal(expectedUrl);
+    it('calls browserHistory.push with correct path', () => {
+      const actualPath = browserHistoryMock.lastCall.args[0];
+      const expectedPath = `/search?${queryString.stringify(props.filters)}`;
+
+      expect(browserHistoryMock.callCount).to.equal(1);
+      expect(actualPath).to.equal(expectedPath);
     });
   });
 

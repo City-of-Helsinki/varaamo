@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
-import { updatePath } from 'redux-simple-router';
 
 import {
   confirmPreliminaryReservation,
@@ -62,7 +62,7 @@ export class UnconnectedReservationControlsContainer extends Component {
     const nextUrl = getResourcePageUrl(resource, reservation.begin, reservation.begin);
 
     actions.selectReservationToEdit({ reservation, minPeriod: resource.minPeriod });
-    actions.updatePath(nextUrl);
+    browserHistory.push(nextUrl);
   }
 
   handleInfoClick() {
@@ -108,7 +108,6 @@ function mapDispatchToProps(dispatch) {
     denyPreliminaryReservation,
     openReservationCancelModal,
     openReservationInfoModal,
-    updatePath,
     selectReservationToCancel,
     selectReservationToEdit,
     selectReservationToShow,

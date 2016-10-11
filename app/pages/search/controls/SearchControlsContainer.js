@@ -6,8 +6,8 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import Row from 'react-bootstrap/lib/Row';
 import { DateField } from 'react-date-picker';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
-import { updatePath } from 'redux-simple-router';
 
 import { fetchPurposes } from 'actions/purposeActions';
 import { changeSearchFilters } from 'actions/uiActions';
@@ -34,7 +34,7 @@ export class UnconnectedSearchControlsContainer extends Component {
   }
 
   handleSearch(newFilters, options = {}) {
-    const { actions, scrollToSearchResults } = this.props;
+    const { scrollToSearchResults } = this.props;
     let filters;
     if (newFilters) {
       filters = Object.assign({}, this.props.filters, newFilters);
@@ -42,7 +42,7 @@ export class UnconnectedSearchControlsContainer extends Component {
       filters = this.props.filters;
     }
 
-    actions.updatePath(`/search?${queryString.stringify(filters)}`);
+    browserHistory.push(`/search?${queryString.stringify(filters)}`);
     if (!options.preventScrolling) {
       scrollToSearchResults();
     }
@@ -124,7 +124,6 @@ function mapDispatchToProps(dispatch) {
   const actionCreators = {
     changeSearchFilters,
     fetchPurposes,
-    updatePath,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
