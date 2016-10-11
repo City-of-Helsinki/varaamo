@@ -12,10 +12,10 @@ import {
   openConfirmReservationModal,
   toggleTimeSlot,
 } from 'actions/uiActions';
-import ReservationInfoModal from 'shared/modals/reservation-info';
-import ReservationSuccessModal from 'containers/ReservationSuccessModal';
 import DateHeader from 'shared/date-header';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
+import ReservationInfoModal from 'shared/modals/reservation-info';
+import ReservationSuccessModal from 'shared/modals/reservation-success';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import { addToDate } from 'utils/timeUtils';
 import ReservationCalendarControls from './ReservationCalendarControls';

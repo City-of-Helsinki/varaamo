@@ -9,13 +9,13 @@ import Immutable from 'seamless-immutable';
 
 import CompactReservationList from 'shared/compact-reservation-list';
 
-import {
-  UnconnectedReservationSuccessModal as ReservationSuccessModal,
-} from 'containers/ReservationSuccessModal';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
+import {
+  UnconnectedReservationSuccessModalContainer as ReservationSuccessModalContainer,
+} from './ReservationSuccessModalContainer';
 
-describe('Container: ReservationSuccessModal', () => {
+describe('shared/modals/reservation-success/ReservationSuccessModalContainer', () => {
   const resource = Resource.build();
   const reservation = Reservation.build({ resource: resource.id });
   const defaultProps = {
@@ -28,7 +28,7 @@ describe('Container: ReservationSuccessModal', () => {
   };
 
   function getWrapper(extraProps = {}) {
-    return shallow(<ReservationSuccessModal {...defaultProps} {...extraProps} />);
+    return shallow(<ReservationSuccessModalContainer {...defaultProps} {...extraProps} />);
   }
 
   describe('render', () => {

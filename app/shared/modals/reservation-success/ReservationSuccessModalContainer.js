@@ -6,10 +6,10 @@ import { bindActionCreators } from 'redux';
 
 import { closeReservationSuccessModal } from 'actions/uiActions';
 import CompactReservationList from 'shared/compact-reservation-list';
-import reservationSuccessModalSelector from 'selectors/containers/reservationSuccessModalSelector';
 import { getName } from 'utils/translationUtils';
+import reservationSuccessModalSelector from './reservationSuccessModalSelector';
 
-export class UnconnectedReservationSuccessModal extends Component {
+export class UnconnectedReservationSuccessModalContainer extends Component {
   renderEmail(email) {
     if (!email) {
       return '';
@@ -64,7 +64,7 @@ export class UnconnectedReservationSuccessModal extends Component {
   }
 }
 
-UnconnectedReservationSuccessModal.propTypes = {
+UnconnectedReservationSuccessModalContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   reservationsToShow: PropTypes.array.isRequired,
   resources: PropTypes.object.isRequired,
@@ -80,5 +80,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(reservationSuccessModalSelector, mapDispatchToProps)(
-  UnconnectedReservationSuccessModal
+  UnconnectedReservationSuccessModalContainer
 );
