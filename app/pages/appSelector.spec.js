@@ -1,10 +1,9 @@
 import { expect } from 'chai';
-
 import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
 import User from 'fixtures/User';
-import appSelector from 'selectors/containers/appSelector';
+import appSelector from './appSelector';
 
 function getState(users, loggedInUserId) {
   return {
@@ -18,7 +17,7 @@ function getState(users, loggedInUserId) {
   };
 }
 
-describe('Selector: appSelector', () => {
+describe('pages/appSelector', () => {
   const users = [User.build()];
 
   it('returns isAdmin', () => {

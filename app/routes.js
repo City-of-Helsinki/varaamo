@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router';
 
-import App from 'containers/App';
+import AppContainer from 'pages/AppContainer';
 import AboutPage from 'pages/about';
 import AdminResourcesPage from 'pages/admin-resources';
 import HomePage from 'pages/home';
@@ -37,7 +37,7 @@ export default (params) => {
   }
 
   return (
-    <Route component={App} onEnter={removeFacebookAppendedHash}>
+    <Route component={AppContainer} onEnter={removeFacebookAppendedHash}>
       <Route onEnter={requireAuth}>
         <Route component={AdminResourcesPage} path="/admin-resources" />
         <Route component={UserReservationsPage} path="/my-reservations" />

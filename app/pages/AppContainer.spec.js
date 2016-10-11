@@ -1,23 +1,21 @@
 import { expect } from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
+import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import Immutable from 'seamless-immutable';
-
-import { UnconnectedApp as App } from 'containers/App';
 import User from 'fixtures/User';
 import Footer from 'shared/footer';
 import Navbar from 'shared/navbar';
 import Notifications from 'shared/notifications';
+import { UnconnectedAppContainer as AppContainer } from './AppContainer';
 
-describe('Container: App', () => {
+describe('pages/AppContainer', () => {
   const user = User.build();
   const defaultProps = {
     actions: {
       clearSearchResults: simple.stub(),
       fetchUser: simple.stub(),
-      updatePath: simple.stub(),
     },
     children: <div id="child-div" />,
     isAdmin: false,
@@ -27,7 +25,7 @@ describe('Container: App', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallow(<App {...defaultProps} {...extraProps} />);
+    return shallow(<AppContainer {...defaultProps} {...extraProps} />);
   }
 
   describe('rendering', () => {

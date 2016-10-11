@@ -3,18 +3,17 @@ import Grid from 'react-bootstrap/lib/Grid';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updatePath } from 'redux-simple-router';
 
 import { clearSearchResults } from 'actions/searchActions';
 import { fetchUser } from 'actions/userActions';
-import appSelector from 'selectors/containers/appSelector';
 import Favicon from 'shared/favicon';
 import Footer from 'shared/footer';
 import Navbar from 'shared/navbar';
 import Notifications from 'shared/notifications';
 import { getCustomizationClassName } from 'utils/customizationUtils';
+import appSelector from './appSelector';
 
-export class UnconnectedApp extends Component {
+export class UnconnectedAppContainer extends Component {
   componentDidMount() {
     if (this.props.userId) {
       this.props.actions.fetchUser(this.props.userId);
@@ -53,7 +52,7 @@ export class UnconnectedApp extends Component {
   }
 }
 
-UnconnectedApp.propTypes = {
+UnconnectedAppContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   children: PropTypes.node,
   isAdmin: PropTypes.bool.isRequired,
@@ -66,10 +65,9 @@ function mapDispatchToProps(dispatch) {
   const actionCreators = {
     clearSearchResults,
     fetchUser,
-    updatePath,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
-export default connect(appSelector, mapDispatchToProps)(UnconnectedApp);
+export default connect(appSelector, mapDispatchToProps)(UnconnectedAppContainer);
