@@ -1,23 +1,22 @@
 import { expect } from 'chai';
 import React from 'react';
+import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 import sd from 'skin-deep';
 
-import Immutable from 'seamless-immutable';
-
-import {
-  UnconnectedReservationCancelModal as ReservationCancelModal,
-} from 'containers/ReservationCancelModal';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
+import {
+  UnconnectedReservationCancelModalContainer as ReservationCancelModalContainer,
+} from './ReservationCancelModalContainer';
 
-describe('Container: ReservationCancelModal', () => {
+describe('shared/modals/reservation-cancel/ReservationCancelModalContainer', () => {
   const responsibleContactInfo = 'Some contact info.';
   const resource = Resource.build({ responsibleContactInfo });
   const props = {
     actions: {
-      deleteReservation: simple.stub(),
       closeReservationCancelModal: simple.stub(),
+      deleteReservation: simple.stub(),
     },
     isAdmin: false,
     isCancellingReservations: false,
@@ -42,7 +41,9 @@ describe('Container: ReservationCancelModal', () => {
   }
 
   function getTree(extraProps = {}) {
-    return sd.shallowRender(<ReservationCancelModal {...Object.assign({}, props, extraProps)} />);
+    return sd.shallowRender(
+      <ReservationCancelModalContainer {...Object.assign({}, props, extraProps)} />
+    );
   }
 
   describe('render', () => {
@@ -55,7 +56,7 @@ describe('Container: ReservationCancelModal', () => {
       const tree = getTree(extraProps);
       const instance = tree.getMountedInstance();
 
-      it('should render a Modal component', () => {
+      it('renders a Modal component', () => {
         const modalTrees = tree.everySubTree('Modal');
 
         expect(modalTrees.length).to.equal(1);
@@ -64,21 +65,21 @@ describe('Container: ReservationCancelModal', () => {
       describe('Modal header', () => {
         const modalHeaderTrees = tree.everySubTree('ModalHeader');
 
-        it('should render a ModalHeader component', () => {
+        it('renders a ModalHeader component', () => {
           expect(modalHeaderTrees.length).to.equal(1);
         });
 
-        it('should contain a close button', () => {
+        it('contains a close button', () => {
           expect(modalHeaderTrees[0].props.closeButton).to.equal(true);
         });
 
-        it('should render a ModalTitle component', () => {
+        it('renders a ModalTitle component', () => {
           const modalTitleTrees = tree.everySubTree('ModalTitle');
 
           expect(modalTitleTrees.length).to.equal(1);
         });
 
-        it('the ModalTitle should display text "Perumisen vahvistus"', () => {
+        it('the ModalTitle displays text "Perumisen vahvistus"', () => {
           const modalTitleTree = tree.subTree('ModalTitle');
 
           expect(modalTitleTree.props.children).to.equal('Perumisen vahvistus');
@@ -88,16 +89,16 @@ describe('Container: ReservationCancelModal', () => {
       describe('Modal body', () => {
         const modalBodyTrees = tree.everySubTree('ModalBody');
 
-        it('should render a ModalBody component', () => {
+        it('renders a ModalBody component', () => {
           expect(modalBodyTrees.length).to.equal(1);
         });
 
-        it('should render a CompactReservationList component', () => {
+        it('renders a CompactReservationList component', () => {
           const list = modalBodyTrees[0].everySubTree('CompactReservationList');
           expect(list.length).to.equal(1);
         });
 
-        it('should pass correct props to CompactReservationList component', () => {
+        it('passes correct props to CompactReservationList component', () => {
           const list = modalBodyTrees[0].subTree('CompactReservationList');
           expect(list.props.reservations).to.deep.equal(extraProps.reservationsToCancel);
           expect(list.props.resources).to.deep.equal(extraProps.resources);
@@ -107,25 +108,25 @@ describe('Container: ReservationCancelModal', () => {
       describe('Modal footer', () => {
         const modalFooterTrees = tree.everySubTree('ModalFooter');
 
-        it('should render a ModalFooter component', () => {
+        it('renders a ModalFooter component', () => {
           expect(modalFooterTrees.length).to.equal(1);
         });
 
         describe('Footer buttons', () => {
           const buttonTrees = modalFooterTrees[0].everySubTree('Button');
 
-          it('should render two Buttons', () => {
+          it('renders two Buttons', () => {
             expect(buttonTrees.length).to.equal(2);
           });
 
           describe('Cancel button', () => {
             const buttonTree = buttonTrees[0];
 
-            it('the first button should read "Älä peru varausta"', () => {
+            it('the first button has text "Älä peru varausta"', () => {
               expect(buttonTree.props.children).to.equal('Älä peru varausta');
             });
 
-            it('clicking it should call closeReservationCancelModal', () => {
+            it('clicking it calls closeReservationCancelModal', () => {
               props.actions.closeReservationCancelModal.reset();
               buttonTree.props.onClick();
 
@@ -136,11 +137,11 @@ describe('Container: ReservationCancelModal', () => {
           describe('Confirm button', () => {
             const buttonTree = buttonTrees[1];
 
-            it('the second button should read "Peru varaus"', () => {
+            it('the second button has text "Peru varaus"', () => {
               expect(buttonTree.props.children).to.equal('Peru varaus');
             });
 
-            it('should have handleCancel as its onClick prop', () => {
+            it('has handleCancel as its onClick prop', () => {
               expect(buttonTree.props.onClick).to.equal(instance.handleCancel);
             });
           });
@@ -159,7 +160,7 @@ describe('Container: ReservationCancelModal', () => {
       const tree = getTree(extraProps);
       const instance = tree.getMountedInstance();
 
-      it('should render a Modal component', () => {
+      it('renders a Modal component', () => {
         const modalTrees = tree.everySubTree('Modal');
 
         expect(modalTrees.length).to.equal(1);
@@ -168,21 +169,21 @@ describe('Container: ReservationCancelModal', () => {
       describe('Modal header', () => {
         const modalHeaderTrees = tree.everySubTree('ModalHeader');
 
-        it('should render a ModalHeader component', () => {
+        it('renders a ModalHeader component', () => {
           expect(modalHeaderTrees.length).to.equal(1);
         });
 
-        it('should contain a close button', () => {
+        it('contains a close button', () => {
           expect(modalHeaderTrees[0].props.closeButton).to.equal(true);
         });
 
-        it('should render a ModalTitle component', () => {
+        it('renders a ModalTitle component', () => {
           const modalTitleTrees = tree.everySubTree('ModalTitle');
 
           expect(modalTitleTrees.length).to.equal(1);
         });
 
-        it('the ModalTitle should display text "Perumisen vahvistus"', () => {
+        it('the ModalTitle displays text "Perumisen vahvistus"', () => {
           const modalTitleTree = tree.subTree('ModalTitle');
 
           expect(modalTitleTree.props.children).to.equal('Perumisen vahvistus');
@@ -192,16 +193,16 @@ describe('Container: ReservationCancelModal', () => {
       describe('Modal body', () => {
         const modalBodyTrees = tree.everySubTree('ModalBody');
 
-        it('should render a ModalBody component', () => {
+        it('renders a ModalBody component', () => {
           expect(modalBodyTrees.length).to.equal(1);
         });
 
-        it('should render a CompactReservationList component', () => {
+        it('renders a CompactReservationList component', () => {
           const list = modalBodyTrees[0].everySubTree('CompactReservationList');
           expect(list.length).to.equal(1);
         });
 
-        it('should pass correct props to CompactReservationList component', () => {
+        it('passes correct props to CompactReservationList component', () => {
           const list = modalBodyTrees[0].subTree('CompactReservationList');
           expect(list.props.reservations).to.deep.equal(extraProps.reservationsToCancel);
           expect(list.props.resources).to.deep.equal(extraProps.resources);
@@ -211,25 +212,25 @@ describe('Container: ReservationCancelModal', () => {
       describe('Modal footer', () => {
         const modalFooterTrees = tree.everySubTree('ModalFooter');
 
-        it('should render a ModalFooter component', () => {
+        it('renders a ModalFooter component', () => {
           expect(modalFooterTrees.length).to.equal(1);
         });
 
         describe('Footer buttons', () => {
           const buttonTrees = modalFooterTrees[0].everySubTree('Button');
 
-          it('should render two Buttons', () => {
+          it('renders two Buttons', () => {
             expect(buttonTrees.length).to.equal(2);
           });
 
           describe('Cancel button', () => {
             const buttonTree = buttonTrees[0];
 
-            it('the first button should read "Älä peru varausta"', () => {
+            it('the first button has text "Älä peru varausta"', () => {
               expect(buttonTree.props.children).to.equal('Älä peru varausta');
             });
 
-            it('clicking it should call closeReservationCancelModal', () => {
+            it('clicking it calls closeReservationCancelModal', () => {
               props.actions.closeReservationCancelModal.reset();
               buttonTree.props.onClick();
 
@@ -240,11 +241,11 @@ describe('Container: ReservationCancelModal', () => {
           describe('Confirm button', () => {
             const buttonTree = buttonTrees[1];
 
-            it('the second button should read "Peru varaus"', () => {
+            it('the second button has text "Peru varaus"', () => {
               expect(buttonTree.props.children).to.equal('Peru varaus');
             });
 
-            it('should have handleCancel as its onClick prop', () => {
+            it('has handleCancel as its onClick prop', () => {
               expect(buttonTree.props.onClick).to.equal(instance.handleCancel);
             });
           });
@@ -263,7 +264,7 @@ describe('Container: ReservationCancelModal', () => {
       const tree = getTree(extraProps);
       const instance = tree.getMountedInstance();
 
-      it('should render a Modal component', () => {
+      it('renders a Modal component', () => {
         const modalTrees = tree.everySubTree('Modal');
 
         expect(modalTrees.length).to.equal(1);
@@ -272,21 +273,21 @@ describe('Container: ReservationCancelModal', () => {
       describe('Modal header', () => {
         const modalHeaderTrees = tree.everySubTree('ModalHeader');
 
-        it('should render a ModalHeader component', () => {
+        it('renders a ModalHeader component', () => {
           expect(modalHeaderTrees.length).to.equal(1);
         });
 
-        it('should contain a close button', () => {
+        it('contains a close button', () => {
           expect(modalHeaderTrees[0].props.closeButton).to.equal(true);
         });
 
-        it('should render a ModalTitle component', () => {
+        it('renders a ModalTitle component', () => {
           const modalTitleTrees = tree.everySubTree('ModalTitle');
 
           expect(modalTitleTrees.length).to.equal(1);
         });
 
-        it('the ModalTitle should display text "Perumisen vahvistus"', () => {
+        it('the ModalTitle displays text "Perumisen vahvistus"', () => {
           const modalTitleTree = tree.subTree('ModalTitle');
 
           expect(modalTitleTree.props.children).to.equal('Perumisen vahvistus');
@@ -296,16 +297,16 @@ describe('Container: ReservationCancelModal', () => {
       describe('Modal body', () => {
         const modalBodyTrees = tree.everySubTree('ModalBody');
 
-        it('should render a ModalBody component', () => {
+        it('renders a ModalBody component', () => {
           expect(modalBodyTrees.length).to.equal(1);
         });
 
-        it('should render a CompactReservationList component', () => {
+        it('renders a CompactReservationList component', () => {
           const list = modalBodyTrees[0].everySubTree('CompactReservationList');
           expect(list.length).to.equal(1);
         });
 
-        it('should pass correct props to CompactReservationList component', () => {
+        it('passes correct props to CompactReservationList component', () => {
           const list = modalBodyTrees[0].subTree('CompactReservationList');
           expect(list.props.reservations).to.deep.equal(extraProps.reservationsToCancel);
           expect(list.props.resources).to.deep.equal(extraProps.resources);
@@ -315,25 +316,25 @@ describe('Container: ReservationCancelModal', () => {
       describe('Modal footer', () => {
         const modalFooterTrees = tree.everySubTree('ModalFooter');
 
-        it('should render a ModalFooter component', () => {
+        it('renders a ModalFooter component', () => {
           expect(modalFooterTrees.length).to.equal(1);
         });
 
         describe('Footer buttons', () => {
           const buttonTrees = modalFooterTrees[0].everySubTree('Button');
 
-          it('should render two Buttons', () => {
+          it('renders two Buttons', () => {
             expect(buttonTrees.length).to.equal(2);
           });
 
           describe('Cancel button', () => {
             const buttonTree = buttonTrees[0];
 
-            it('the first button should read "Älä peru varausta"', () => {
+            it('the first button has text "Älä peru varausta"', () => {
               expect(buttonTree.props.children).to.equal('Älä peru varausta');
             });
 
-            it('clicking it should call closeReservationCancelModal', () => {
+            it('clicking it calls closeReservationCancelModal', () => {
               props.actions.closeReservationCancelModal.reset();
               buttonTree.props.onClick();
 
@@ -344,11 +345,11 @@ describe('Container: ReservationCancelModal', () => {
           describe('Confirm button', () => {
             const buttonTree = buttonTrees[1];
 
-            it('the second button should read "Peru varaus"', () => {
+            it('the second button has text "Peru varaus"', () => {
               expect(buttonTree.props.children).to.equal('Peru varaus');
             });
 
-            it('should have handleCancel as its onClick prop', () => {
+            it('has handleCancel as its onClick prop', () => {
               expect(buttonTree.props.onClick).to.equal(instance.handleCancel);
             });
           });
@@ -366,7 +367,7 @@ describe('Container: ReservationCancelModal', () => {
       const extraProps = getExtraProps(reservation, isAdmin);
       const tree = getTree(extraProps);
 
-      it('should render a Modal component', () => {
+      it('renders a Modal component', () => {
         const modalTrees = tree.everySubTree('Modal');
 
         expect(modalTrees.length).to.equal(1);
@@ -375,21 +376,21 @@ describe('Container: ReservationCancelModal', () => {
       describe('Modal header', () => {
         const modalHeaderTrees = tree.everySubTree('ModalHeader');
 
-        it('should render a ModalHeader component', () => {
+        it('renders a ModalHeader component', () => {
           expect(modalHeaderTrees.length).to.equal(1);
         });
 
-        it('should contain a close button', () => {
+        it('contains a close button', () => {
           expect(modalHeaderTrees[0].props.closeButton).to.equal(true);
         });
 
-        it('should render a ModalTitle component', () => {
+        it('renders a ModalTitle component', () => {
           const modalTitleTrees = tree.everySubTree('ModalTitle');
 
           expect(modalTitleTrees.length).to.equal(1);
         });
 
-        it('the ModalTitle should display text "Varauksen peruminen"', () => {
+        it('the ModalTitle displays text "Varauksen peruminen"', () => {
           const modalTitleTree = tree.subTree('ModalTitle');
 
           expect(modalTitleTree.props.children).to.equal('Varauksen peruminen');
@@ -399,11 +400,11 @@ describe('Container: ReservationCancelModal', () => {
       describe('Modal body', () => {
         const modalBodyTrees = tree.everySubTree('ModalBody');
 
-        it('should render a ModalBody component', () => {
+        it('renders a ModalBody component', () => {
           expect(modalBodyTrees.length).to.equal(1);
         });
 
-        it('should render resource responsibleContactInfo', () => {
+        it('renders resource responsibleContactInfo', () => {
           const modalText = modalBodyTrees[0].subTree('.responsible-contact-info').text();
 
           expect(modalText).to.contain(responsibleContactInfo);
@@ -413,25 +414,25 @@ describe('Container: ReservationCancelModal', () => {
       describe('Modal footer', () => {
         const modalFooterTrees = tree.everySubTree('ModalFooter');
 
-        it('should render a ModalFooter component', () => {
+        it('renders a ModalFooter component', () => {
           expect(modalFooterTrees.length).to.equal(1);
         });
 
         describe('Footer buttons', () => {
           const buttonTrees = modalFooterTrees[0].everySubTree('Button');
 
-          it('should render one Button', () => {
+          it('renders one Button', () => {
             expect(buttonTrees.length).to.equal(1);
           });
 
           describe('the button', () => {
             const buttonTree = buttonTrees[0];
 
-            it('should read "Takaisin"', () => {
+            it('has text "Takaisin"', () => {
               expect(buttonTree.props.children).to.equal('Takaisin');
             });
 
-            it('clicking it should call closeReservationCancelModal', () => {
+            it('clicking it calls closeReservationCancelModal', () => {
               props.actions.closeReservationCancelModal.reset();
               buttonTree.props.onClick();
 
@@ -444,7 +445,7 @@ describe('Container: ReservationCancelModal', () => {
   });
 
   describe('handleCancel', () => {
-    const tree = sd.shallowRender(<ReservationCancelModal {...props} />);
+    const tree = sd.shallowRender(<ReservationCancelModalContainer {...props} />);
     const instance = tree.getMountedInstance();
 
     before(() => {
@@ -452,17 +453,17 @@ describe('Container: ReservationCancelModal', () => {
       instance.handleCancel();
     });
 
-    it('should call closeReservationCancelModal', () => {
+    it('calls closeReservationCancelModal', () => {
       expect(props.actions.closeReservationCancelModal.callCount).to.equal(1);
     });
 
-    it('should call deleteReservation for each selected reservation', () => {
+    it('calls deleteReservation for each selected reservation', () => {
       expect(props.actions.deleteReservation.callCount).to.equal(
         props.reservationsToCancel.length
       );
     });
 
-    it('should call deleteReservation with correct arguments', () => {
+    it('calls deleteReservation with correct arguments', () => {
       const actualArgs = props.actions.deleteReservation.lastCall.args;
       const expected = props.reservationsToCancel[1];
 

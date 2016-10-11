@@ -8,9 +8,9 @@ import { bindActionCreators } from 'redux';
 import { deleteReservation } from 'actions/reservationActions';
 import { closeReservationCancelModal } from 'actions/uiActions';
 import CompactReservationList from 'shared/compact-reservation-list';
-import reservationCancelModalSelector from 'selectors/containers/reservationCancelModalSelector';
+import reservationCancelModalSelector from './reservationCancelModalSelector';
 
-export class UnconnectedReservationCancelModal extends Component {
+export class UnconnectedReservationCancelModalContainer extends Component {
   constructor(props) {
     super(props);
     this.handleCancel = this.handleCancel.bind(this);
@@ -113,7 +113,7 @@ export class UnconnectedReservationCancelModal extends Component {
   }
 }
 
-UnconnectedReservationCancelModal.propTypes = {
+UnconnectedReservationCancelModalContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   isCancellingReservations: PropTypes.bool.isRequired,
@@ -132,5 +132,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(reservationCancelModalSelector, mapDispatchToProps)(
-  UnconnectedReservationCancelModal
+  UnconnectedReservationCancelModalContainer
 );

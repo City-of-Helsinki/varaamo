@@ -1,32 +1,32 @@
 import { expect } from 'chai';
 
-import reservationCancelModalSelector from 'selectors/containers/reservationCancelModalSelector';
 import { getDefaultRouterProps, getInitialState } from 'utils/testUtils';
+import reservationCancelModalSelector from './reservationCancelModalSelector';
 
-describe('Selector: reservationCancelModalSelector', () => {
+describe('shared/modals/reservation-cancel/reservationCancelModalSelector', () => {
   const state = getInitialState();
   const props = getDefaultRouterProps();
   const selected = reservationCancelModalSelector(state, props);
 
-  it('should return isAdmin', () => {
+  it('returns isAdmin', () => {
     expect(selected.isAdmin).to.exist;
   });
 
-  it('should return isCancellingReservations', () => {
+  it('returns isCancellingReservations', () => {
     expect(selected.isCancellingReservations).to.exist;
   });
 
-  it('should return show', () => {
+  it('returns show', () => {
     expect(selected.show).to.exist;
   });
 
-  it('should return reservationsToCancel from the state', () => {
+  it('returns reservationsToCancel from the state', () => {
     const expected = state.ui.reservations.toCancel;
 
     expect(selected.reservationsToCancel).to.deep.equal(expected);
   });
 
-  it('should return resources from the state', () => {
+  it('returns resources from the state', () => {
     const expected = state.data.resources;
 
     expect(selected.resources).to.deep.equal(expected);
