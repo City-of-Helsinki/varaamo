@@ -8,14 +8,14 @@ import Modal from 'react-bootstrap/lib/Modal';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import {
-  UnconnectedReservationInfoModal as ReservationInfoModal,
-} from 'containers/ReservationInfoModal';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
 import { makeButtonTests } from 'utils/testUtils';
+import {
+  UnconnectedReservationInfoModalContainer as ReservationInfoModalContainer,
+} from './ReservationInfoModalContainer';
 
-describe('Container: ReservationInfoModal', () => {
+describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
   const resource = Resource.build();
   const reservation = Reservation.build({
     billingAddressCity: 'New York',
@@ -47,7 +47,7 @@ describe('Container: ReservationInfoModal', () => {
   };
 
   function getWrapper(extraProps = {}) {
-    return shallow(<ReservationInfoModal {...defaultProps} {...extraProps} />);
+    return shallow(<ReservationInfoModalContainer {...defaultProps} {...extraProps} />);
   }
 
   describe('render', () => {

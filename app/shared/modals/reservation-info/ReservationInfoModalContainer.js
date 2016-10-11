@@ -13,11 +13,11 @@ import { bindActionCreators } from 'redux';
 import { closeReservationInfoModal } from 'actions/uiActions';
 import { commentReservation } from 'actions/reservationActions';
 import TimeRange from 'shared/time-range';
-import reservationInfoModalSelector from 'selectors/containers/reservationInfoModalSelector';
 import { renderReservationStateLabel } from 'utils/renderUtils';
 import { getName } from 'utils/translationUtils';
+import reservationInfoModalSelector from './reservationInfoModalSelector';
 
-export class UnconnectedReservationInfoModal extends Component {
+export class UnconnectedReservationInfoModalContainer extends Component {
   constructor(props) {
     super(props);
     this.handleSave = this.handleSave.bind(this);
@@ -150,7 +150,7 @@ export class UnconnectedReservationInfoModal extends Component {
   }
 }
 
-UnconnectedReservationInfoModal.propTypes = {
+UnconnectedReservationInfoModalContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   isEditingReservations: PropTypes.bool.isRequired,
@@ -170,5 +170,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(reservationInfoModalSelector, mapDispatchToProps)(
-  UnconnectedReservationInfoModal
+  UnconnectedReservationInfoModalContainer
 );

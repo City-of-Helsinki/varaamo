@@ -7,7 +7,7 @@ import { fetchReservations } from 'actions/reservationActions';
 import { fetchResources } from 'actions/resourceActions';
 import { changeAdminReservationFilters } from 'actions/uiActions';
 import { fetchUnits } from 'actions/unitActions';
-import ReservationInfoModal from 'containers/ReservationInfoModal';
+import ReservationInfoModal from 'shared/modals/reservation-info';
 import PageWrapper from 'pages/PageWrapper';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
 import userReservationsPageSelector from './userReservationsPageSelector';

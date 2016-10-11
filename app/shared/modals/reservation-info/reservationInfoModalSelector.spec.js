@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 
-import reservationInfoModalSelector from 'selectors/containers/reservationInfoModalSelector';
 import { getState } from 'utils/testUtils';
+import reservationInfoModalSelector from './reservationInfoModalSelector';
 
-describe('Selector: reservationInfoModalSelector', () => {
+describe('shared/modals/reservation-info/reservationInfoModalSelector', () => {
   const resource = { id: 'resource-1' };
   const reservationsToShow = [{ id: 'reservation-1', resource: resource.id }];
   const state = getState({
