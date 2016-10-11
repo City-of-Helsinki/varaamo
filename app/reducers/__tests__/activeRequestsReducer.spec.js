@@ -9,7 +9,7 @@ describe('Reducer: activeRequestsReducer', () => {
   describe('initial state', () => {
     const initialState = activeRequestsReducer(undefined, {});
 
-    it('should be an empty object', () => {
+    it('is an empty object', () => {
       expect(initialState).to.deep.equal({});
     });
   });
@@ -28,7 +28,7 @@ describe('Reducer: activeRequestsReducer', () => {
       });
 
       describe('if activeRequests already contains the action', () => {
-        it('should increase the count of the action by one', () => {
+        it('increases the count of the action by one', () => {
           const initialState = Immutable(
             { SOME_REQUEST: 2 }
           );
@@ -40,7 +40,7 @@ describe('Reducer: activeRequestsReducer', () => {
           expect(nextState).to.deep.equal(expected);
         });
 
-        it('should not affect the existing activeRequests', () => {
+        it('does not affect the existing activeRequests', () => {
           const initialState = Immutable(
             { SOME_REQUEST: 2, OTHER_REQUEST: 1 }
           );
@@ -54,7 +54,7 @@ describe('Reducer: activeRequestsReducer', () => {
       });
 
       describe('if activeRequests does not already contain the action', () => {
-        it('should add the action to activeRequests with count 1', () => {
+        it('adds the action to activeRequests with count 1', () => {
           const initialState = Immutable({});
           const nextState = activeRequestsReducer(initialState, action);
           const expected = Immutable(
@@ -64,7 +64,7 @@ describe('Reducer: activeRequestsReducer', () => {
           expect(nextState).to.deep.equal(expected);
         });
 
-        it('should not affect the existing activeRequests', () => {
+        it('does not affect the existing activeRequests', () => {
           const initialState = Immutable(
             { OTHER_REQUEST: 1 }
           );
@@ -87,7 +87,7 @@ describe('Reducer: activeRequestsReducer', () => {
             type: 'SOME_REQUEST',
           });
 
-          it('should decrease the count of the action by one', () => {
+          it('decreases the count of the action by one', () => {
             const initialState = Immutable(
               { SOME_REQUEST: 2 }
             );
@@ -99,7 +99,7 @@ describe('Reducer: activeRequestsReducer', () => {
             expect(nextState).to.deep.equal(expected);
           });
 
-          it('should not affect the existing activeRequests', () => {
+          it('does not affect the existing activeRequests', () => {
             const initialState = Immutable(
               { SOME_REQUEST: 2, OTHER_REQUEST: 1 }
             );
@@ -118,7 +118,7 @@ describe('Reducer: activeRequestsReducer', () => {
             type: 'SOME_REQUEST',
           });
 
-          it('should set the count of the action to 0', () => {
+          it('sets the count of the action to 0', () => {
             const initialState = Immutable(
               { SOME_REQUEST: 2 }
             );
@@ -130,7 +130,7 @@ describe('Reducer: activeRequestsReducer', () => {
             expect(nextState).to.deep.equal(expected);
           });
 
-          it('should not affect the existing activeRequests', () => {
+          it('does not affect the existing activeRequests', () => {
             const initialState = Immutable(
               { SOME_REQUEST: 2, OTHER_REQUEST: 1 }
             );
@@ -150,7 +150,7 @@ describe('Reducer: activeRequestsReducer', () => {
           type: 'SOME_REQUEST',
         });
 
-        it('should add the action to activeRequests with count 0', () => {
+        it('adds the action to activeRequests with count 0', () => {
           const initialState = Immutable({});
           const nextState = activeRequestsReducer(initialState, action);
           const expected = Immutable(
@@ -160,7 +160,7 @@ describe('Reducer: activeRequestsReducer', () => {
           expect(nextState).to.deep.equal(expected);
         });
 
-        it('should not affect the existing activeRequests', () => {
+        it('does not affect the existing activeRequests', () => {
           const initialState = Immutable(
             { OTHER_REQUEST: 1 }
           );

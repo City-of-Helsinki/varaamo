@@ -28,7 +28,7 @@ describe('Selector: selectedReservationsSelector', () => {
     '2015-12-12T13:00:00+03:00/2015-12-12T14:00:00+03:00',
   ];
 
-  it('should return an empty object if no reservations are selected', () => {
+  it('returns an empty object if no reservations are selected', () => {
     const state = getState([]);
     const props = getProps();
     const actual = selectedReservationsSelector(state, props);
@@ -36,7 +36,7 @@ describe('Selector: selectedReservationsSelector', () => {
     expect(actual).to.deep.equal([]);
   });
 
-  it('should return selectedReservations in correct form', () => {
+  it('returns selectedReservations in correct form', () => {
     const state = getState([selected[0]]);
     const props = getProps();
     const actual = selectedReservationsSelector(state, props);
@@ -51,7 +51,7 @@ describe('Selector: selectedReservationsSelector', () => {
     expect(actual).to.deep.equal(expected);
   });
 
-  it('should combine reservations that if they are continual', () => {
+  it('combines reservations that if they are continual', () => {
     const state = getState(selected);
     const props = getProps();
     const actual = selectedReservationsSelector(state, props);

@@ -11,7 +11,7 @@ describe('Reducer: adminResourcesPageReducer', () => {
   describe('initial state', () => {
     const initialState = adminResourcesPageReducer(undefined, {});
 
-    it('resourceIds should be an empty array', () => {
+    it('resourceIds is an empty array', () => {
       expect(initialState.resourceIds).to.deep.equal([]);
     });
   });

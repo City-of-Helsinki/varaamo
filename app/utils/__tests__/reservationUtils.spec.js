@@ -62,7 +62,7 @@ describe('Utils: reservationUtils', () => {
       expect(combine(reservations)).to.deep.equal(expected);
     });
 
-    it('should not combine two reservations if they are not continual', () => {
+    it('does not combine two reservations if they are not continual', () => {
       const reservations = [slots[0], slots[2]];
 
       expect(combine(reservations)).to.deep.equal(reservations);

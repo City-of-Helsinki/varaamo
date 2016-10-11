@@ -35,20 +35,20 @@ describe('pages/user-reservations/UserReservationsPage', () => {
     describe('when user is not admin', () => {
       const wrapper = getWrapper({ isAdmin: false });
 
-      it('should display "Omat varaukset" -title inside h1 tags', () => {
+      it('displays "Omat varaukset" -title inside h1 tags', () => {
         const h1 = wrapper.find('h1');
 
         expect(h1.text()).to.equal('Omat varaukset');
       });
 
-      it('should render ReservationList with all user reservations', () => {
+      it('renders ReservationList with all user reservations', () => {
         const reservationList = wrapper.find(ReservationList);
 
         expect(reservationList.length).to.equal(1);
         expect(reservationList.props().filter).to.not.exist;
       });
 
-      it('should not render AdminReservationFilters', () => {
+      it('does not render AdminReservationFilters', () => {
         const adminReservationFilters = wrapper.find(AdminReservationFilters);
         expect(adminReservationFilters.length).to.equal(0);
       });
@@ -60,15 +60,15 @@ describe('pages/user-reservations/UserReservationsPage', () => {
       describe('headers', () => {
         const headers = wrapper.find('h1');
 
-        it('should render two headers', () => {
+        it('renders two headers', () => {
           expect(headers.length).to.equal(2);
         });
 
-        it('the first header should display "Alustavat varaukset"', () => {
+        it('the first header displays "Alustavat varaukset"', () => {
           expect(headers.at(0).text()).to.equal('Alustavat varaukset');
         });
 
-        it('the second header should display "Tavalliset varaukset"', () => {
+        it('the second header displays "Tavalliset varaukset"', () => {
           expect(headers.at(1).text()).to.equal('Tavalliset varaukset');
         });
       });
@@ -76,11 +76,11 @@ describe('pages/user-reservations/UserReservationsPage', () => {
       describe('AdminReservationFilters', () => {
         const adminReservationFilters = wrapper.find(AdminReservationFilters);
 
-        it('should render AdminReservationFilters', () => {
+        it('renders AdminReservationFilters', () => {
           expect(adminReservationFilters.length).to.equal(1);
         });
 
-        it('should pass correct props to AdminReservationFilters', () => {
+        it('passes correct props to AdminReservationFilters', () => {
           const actualProps = adminReservationFilters.props();
           expect(actualProps.filters).to.deep.equal(defaultProps.adminReservationFilters);
           expect(typeof actualProps.onFiltersChange).to.equal('function');
@@ -90,18 +90,18 @@ describe('pages/user-reservations/UserReservationsPage', () => {
       describe('reservation lists', () => {
         const lists = wrapper.find(ReservationList);
 
-        it('should render two reservation lists', () => {
+        it('renders two reservation lists', () => {
           expect(lists.length).to.equal(2);
         });
 
         describe('the first list', () => {
           const list = lists.at(0);
 
-          it('should only contain filtered preliminary reservations', () => {
+          it('contains only filtered preliminary reservations', () => {
             expect(list.props().filter).to.equal(defaultProps.adminReservationFilters.state);
           });
 
-          it('should be in correct loading state', () => {
+          it('is in correct loading state', () => {
             expect(list.props().loading).to.equal(defaultProps.reservationsFetchCount < 2);
           });
         });
@@ -109,11 +109,11 @@ describe('pages/user-reservations/UserReservationsPage', () => {
         describe('the second list', () => {
           const list = lists.at(1);
 
-          it('the second list should only contain regular reservations', () => {
+          it('the second list contains only regular reservations', () => {
             expect(list.props().filter).to.equal('regular');
           });
 
-          it('should be in correct loading state', () => {
+          it('is in correct loading state', () => {
             expect(list.props().loading).to.equal(defaultProps.reservationsFetchCount < 1);
           });
         });
@@ -130,15 +130,15 @@ describe('pages/user-reservations/UserReservationsPage', () => {
         getWrapper({ isAdmin: false }).instance().componentDidMount();
       });
 
-      it('should fetch resources', () => {
+      it('fetches resources', () => {
         expect(fetchResources.callCount).to.equal(1);
       });
 
-      it('should fetch units', () => {
+      it('fetches units', () => {
         expect(fetchUnits.callCount).to.equal(1);
       });
 
-      it('should only fetch user\'s own reservations', () => {
+      it('fetches only user\'s own reservations', () => {
         expect(fetchReservations.callCount).to.equal(1);
         expect(fetchReservations.lastCall.args[0].isOwn).to.equal(true);
       });
@@ -152,23 +152,23 @@ describe('pages/user-reservations/UserReservationsPage', () => {
         getWrapper({ isAdmin: true }).instance().componentDidMount();
       });
 
-      it('should fetch resources', () => {
+      it('fetches resources', () => {
         expect(fetchResources.callCount).to.equal(1);
       });
 
-      it('should fetch units', () => {
+      it('fetches units', () => {
         expect(fetchUnits.callCount).to.equal(1);
       });
 
-      it('should fetch two batches of reservations', () => {
+      it('fetches two batches of reservations', () => {
         expect(fetchReservations.callCount).to.equal(2);
       });
 
-      it('should fetch reservations admin can approve', () => {
+      it('fetches reservations admin can approve', () => {
         expect(fetchReservations.calls[0].args[0].canApprove).to.equal(true);
       });
 
-      it('should fetch admin\'s own reservations', () => {
+      it('fetches admin\'s own reservations', () => {
         expect(fetchReservations.calls[1].args[0].isOwn).to.equal(true);
       });
     });
@@ -183,7 +183,7 @@ describe('pages/user-reservations/UserReservationsPage', () => {
     });
 
     describe('if user is not an admin', () => {
-      it('should not fetch reservations', () => {
+      it('does not fetch reservations', () => {
         const nextProps = Object.assign({}, defaultProps, { isAdmin: false });
         instance.componentWillReceiveProps(nextProps);
         expect(fetchReservations.callCount).to.equal(0);
@@ -191,19 +191,19 @@ describe('pages/user-reservations/UserReservationsPage', () => {
     });
 
     describe('if user is an admin', () => {
-      it('should fetch reservations', () => {
+      it('fetches reservations', () => {
         const nextProps = Object.assign({}, defaultProps, { isAdmin: true });
         instance.componentWillReceiveProps(nextProps);
         expect(fetchReservations.callCount).to.equal(1);
       });
 
-      it('should fetch reservations admin can approve', () => {
+      it('fetches reservations admin can approve', () => {
         const nextProps = Object.assign({}, defaultProps, { isAdmin: true });
         instance.componentWillReceiveProps(nextProps);
         expect(fetchReservations.lastCall.args[0].canApprove).to.equal(true);
       });
 
-      it('should not fetch admin reservations twice', () => {
+      it('does not fetch admin reservations twice', () => {
         const nextProps = Object.assign({}, defaultProps, { isAdmin: true });
         instance.componentWillReceiveProps(nextProps);
         instance.componentWillReceiveProps(nextProps);
@@ -224,12 +224,12 @@ describe('pages/user-reservations/UserReservationsPage', () => {
         instance.handleFiltersChange(filters);
       });
 
-      it('should call changeAdminReservationFilters with correct filters', () => {
+      it('calls changeAdminReservationFilters with correct filters', () => {
         expect(changeAdminReservationFilters.callCount).to.equal(1);
         expect(changeAdminReservationFilters.lastCall.args[0]).to.deep.equal(filters);
       });
 
-      it('should call fetchReservations without any filters', () => {
+      it('calls fetchReservations without any filters', () => {
         expect(fetchReservations.callCount).to.equal(1);
         const expectedArgs = { canApprove: true };
         expect(fetchReservations.lastCall.args[0]).to.deep.equal(expectedArgs);
@@ -245,12 +245,12 @@ describe('pages/user-reservations/UserReservationsPage', () => {
         instance.handleFiltersChange(filters);
       });
 
-      it('should call changeAdminReservationFilters with correct filters', () => {
+      it('calls changeAdminReservationFilters with correct filters', () => {
         expect(changeAdminReservationFilters.callCount).to.equal(1);
         expect(changeAdminReservationFilters.lastCall.args[0]).to.deep.equal(filters);
       });
 
-      it('should call fetchReservations with correct state filter', () => {
+      it('calls fetchReservations with correct state filter', () => {
         expect(fetchReservations.callCount).to.equal(1);
         const expectedArgs = Object.assign({}, { canApprove: true }, filters);
         expect(fetchReservations.lastCall.args[0]).to.deep.equal(expectedArgs);

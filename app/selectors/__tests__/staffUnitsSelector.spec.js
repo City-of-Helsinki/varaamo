@@ -18,7 +18,7 @@ function getState(user) {
 }
 
 describe('Selector: staffUnitsSelector', () => {
-  it('should return unit ids where user has can_approve_reservation permission', () => {
+  it('returns unit ids where user has can_approve_reservation permission', () => {
     const user = User.build({
       staffPerms: {
         unit: {
@@ -35,7 +35,7 @@ describe('Selector: staffUnitsSelector', () => {
   });
 
   it(
-    'should not return unit ids where user does not have can_approve_reservation permission',
+    'does not return unit ids where user does not have can_approve_reservation permission',
     () => {
       const user = User.build({
         staffPerms: {
@@ -54,7 +54,7 @@ describe('Selector: staffUnitsSelector', () => {
     }
   );
 
-  it('should return an empty array if user has no staff permissions', () => {
+  it('returns an empty array if user has no staff permissions', () => {
     const user = User.build();
     const state = getState(user);
     const selected = staffUnitsSelector(state);
@@ -62,7 +62,7 @@ describe('Selector: staffUnitsSelector', () => {
     expect(selected).to.deep.equal([]);
   });
 
-  it('should return an empty array if user has no staff permissions for units', () => {
+  it('returns an empty array if user has no staff permissions for units', () => {
     const user = User.build({
       staffPerms: {
         unit: {},

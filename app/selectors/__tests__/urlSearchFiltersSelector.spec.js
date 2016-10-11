@@ -17,7 +17,7 @@ function getProps(date = '2015-10-10') {
 }
 
 describe('Selector: urlSearchFiltersSelector', () => {
-  it('should return search filters from the props', () => {
+  it('returns search filters from the props', () => {
     const state = {};
     const props = getProps();
     const actual = urlSearchFiltersSelector(state, props);
@@ -26,7 +26,7 @@ describe('Selector: urlSearchFiltersSelector', () => {
     expect(actual).to.deep.equal(expected);
   });
 
-  it('should return current date as the date filter if date is an empty string in props', () => {
+  it('returns current date as the date filter if date is an empty string in props', () => {
     const state = {};
     const props = getProps('');
     MockDate.set('2015-12-24T16:07:37Z');

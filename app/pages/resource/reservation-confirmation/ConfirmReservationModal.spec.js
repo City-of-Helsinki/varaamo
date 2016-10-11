@@ -45,7 +45,7 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
       commentInput: { getValue: simple.stub() },
     };
 
-    it('should render a Modal component', () => {
+    it('renders a Modal component', () => {
       const modalTrees = tree.everySubTree('Modal');
 
       expect(modalTrees.length).to.equal(1);
@@ -54,21 +54,21 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
     describe('Modal header', () => {
       const modalHeaderTrees = tree.everySubTree('ModalHeader');
 
-      it('should render a ModalHeader component', () => {
+      it('renders a ModalHeader component', () => {
         expect(modalHeaderTrees.length).to.equal(1);
       });
 
-      it('should contain a close button', () => {
+      it('contains a close button', () => {
         expect(modalHeaderTrees[0].props.closeButton).to.equal(true);
       });
 
-      it('should render a ModalTitle component', () => {
+      it('renders a ModalTitle component', () => {
         const modalTitleTrees = tree.everySubTree('ModalTitle');
 
         expect(modalTitleTrees.length).to.equal(1);
       });
 
-      it('the ModalTitle should display text "Varauksen vahvistus"', () => {
+      it('the ModalTitle displays text "Varauksen vahvistus"', () => {
         const modalTitleTree = tree.subTree('ModalTitle');
 
         expect(modalTitleTree.props.children).to.equal('Varauksen vahvistus');
@@ -78,22 +78,22 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
     describe('Modal body', () => {
       const modalBodyTrees = tree.everySubTree('ModalBody');
 
-      it('should render a ModalBody component', () => {
+      it('renders a ModalBody component', () => {
         expect(modalBodyTrees.length).to.equal(1);
       });
 
-      it('should render a help text asking for confirmation', () => {
+      it('renders a help text asking for confirmation', () => {
         const textTree = modalBodyTrees[0].subTree('p');
         const expected = 'Oletko varma että haluat tehdä varaukset ajoille:';
         expect(textTree.text()).to.equal(expected);
       });
 
-      it('should render a CompactReservationList component', () => {
+      it('renders a CompactReservationList component', () => {
         const list = modalBodyTrees[0].everySubTree('CompactReservationList');
         expect(list.length).to.equal(1);
       });
 
-      it('should pass correct props to CompactReservationList component', () => {
+      it('passes correct props to CompactReservationList component', () => {
         const list = modalBodyTrees[0].subTree('CompactReservationList');
         expect(list.props.reservations).to.deep.equal(props.selectedReservations);
       });
@@ -115,7 +115,7 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
       commentInput: { getValue: simple.stub() },
     };
 
-    it('should render a Modal component', () => {
+    it('renders a Modal component', () => {
       const modalTrees = tree.everySubTree('Modal');
 
       expect(modalTrees.length).to.equal(1);
@@ -124,21 +124,21 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
     describe('Modal header', () => {
       const modalHeaderTrees = tree.everySubTree('ModalHeader');
 
-      it('should render a ModalHeader component', () => {
+      it('renders a ModalHeader component', () => {
         expect(modalHeaderTrees.length).to.equal(1);
       });
 
-      it('should contain a close button', () => {
+      it('contains a close button', () => {
         expect(modalHeaderTrees[0].props.closeButton).to.equal(true);
       });
 
-      it('should render a ModalTitle component', () => {
+      it('renders a ModalTitle component', () => {
         const modalTitleTrees = tree.everySubTree('ModalTitle');
 
         expect(modalTitleTrees.length).to.equal(1);
       });
 
-      it('the ModalTitle should display text "Alustava varaus"', () => {
+      it('the ModalTitle displays text "Alustava varaus"', () => {
         const modalTitleTree = tree.subTree('ModalTitle');
 
         expect(modalTitleTree.props.children).to.equal('Alustava varaus');
@@ -148,22 +148,22 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
     describe('Modal body', () => {
       const modalBodyTrees = tree.everySubTree('ModalBody');
 
-      it('should render a ModalBody component', () => {
+      it('renders a ModalBody component', () => {
         expect(modalBodyTrees.length).to.equal(1);
       });
 
-      it('should render a help text asking for confirmation', () => {
+      it('renders a help text asking for confirmation', () => {
         const textTree = modalBodyTrees[0].subTree('p');
         const expected = 'Olet tekemässä alustavaa varausta ajoille:';
         expect(textTree.text()).to.equal(expected);
       });
 
-      it('should render a CompactReservationList component', () => {
+      it('renders a CompactReservationList component', () => {
         const list = modalBodyTrees[0].everySubTree('CompactReservationList');
         expect(list.length).to.equal(1);
       });
 
-      it('should pass correct props to CompactReservationList component', () => {
+      it('passes correct props to CompactReservationList component', () => {
         const list = modalBodyTrees[0].subTree('CompactReservationList');
         expect(list.props.reservations).to.deep.equal(props.selectedReservations);
       });
@@ -186,7 +186,7 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
       commentInput: { getValue: simple.stub() },
     };
 
-    it('should render a Modal component', () => {
+    it('renders a Modal component', () => {
       const modalTrees = tree.everySubTree('Modal');
 
       expect(modalTrees.length).to.equal(1);
@@ -195,21 +195,21 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
     describe('Modal header', () => {
       const modalHeaderTrees = tree.everySubTree('ModalHeader');
 
-      it('should render a ModalHeader component', () => {
+      it('renders a ModalHeader component', () => {
         expect(modalHeaderTrees.length).to.equal(1);
       });
 
-      it('should contain a close button', () => {
+      it('contains a close button', () => {
         expect(modalHeaderTrees[0].props.closeButton).to.equal(true);
       });
 
-      it('should render a ModalTitle component', () => {
+      it('renders a ModalTitle component', () => {
         const modalTitleTrees = tree.everySubTree('ModalTitle');
 
         expect(modalTitleTrees.length).to.equal(1);
       });
 
-      it('the ModalTitle should display text "Muutosten vahvistus"', () => {
+      it('the ModalTitle displays text "Muutosten vahvistus"', () => {
         const modalTitleTree = tree.subTree('ModalTitle');
 
         expect(modalTitleTree.props.children).to.equal('Muutosten vahvistus');
@@ -219,21 +219,21 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
     describe('Modal body', () => {
       const modalBodyTrees = tree.everySubTree('ModalBody');
 
-      it('should render a ModalBody component', () => {
+      it('renders a ModalBody component', () => {
         expect(modalBodyTrees.length).to.equal(1);
       });
 
-      it('should render two lists', () => {
+      it('renders two lists', () => {
         const lists = modalBodyTrees[0].everySubTree('CompactReservationList');
         expect(lists.length).to.equal(2);
       });
 
-      it('the first list should contain reservations that are edited', () => {
+      it('the first list contains reservations that are edited', () => {
         const list = modalBodyTrees[0].everySubTree('CompactReservationList')[0];
         expect(list.props.reservations).to.deep.equal(props.reservationsToEdit);
       });
 
-      it('the second list should contain reservations that are selected', () => {
+      it('the second list contains reservations that are selected', () => {
         const list = modalBodyTrees[0].everySubTree('CompactReservationList')[1];
         expect(list.props.reservations).to.deep.equal(props.selectedReservations);
       });
@@ -259,15 +259,15 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
         const form = getForm(needManualConfirmation, isAdmin, isStaff);
         const formFields = form.props().fields;
 
-        it('form fields should include staffEvent', () => {
+        it('form fields include staffEvent', () => {
           expect(formFields).to.contain('staffEvent');
         });
 
-        it('form fields should include comments', () => {
+        it('form fields include comments', () => {
           expect(formFields).to.contain('comments');
         });
 
-        it('form fields should include RESERVATION_FORM_FIELDS', () => {
+        it('form fields include RESERVATION_FORM_FIELDS', () => {
           forEach(constants.RESERVATION_FORM_FIELDS, (field) => {
             expect(formFields).to.contain(field);
           });
@@ -280,15 +280,15 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
         const form = getForm(needManualConfirmation, isAdmin, isStaff);
         const formFields = form.props().fields;
 
-        it('form fields should not include staffEvent', () => {
+        it('form fields do not include staffEvent', () => {
           expect(formFields).to.not.contain('staffEvent');
         });
 
-        it('form fields should include comments', () => {
+        it('form fields include comments', () => {
           expect(formFields).to.contain('comments');
         });
 
-        it('form fields should include RESERVATION_FORM_FIELDS', () => {
+        it('form fields include RESERVATION_FORM_FIELDS', () => {
           forEach(constants.RESERVATION_FORM_FIELDS, (field) => {
             expect(formFields).to.contain(field);
           });
@@ -301,15 +301,15 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
         const form = getForm(needManualConfirmation, isAdmin, isStaff);
         const formFields = form.props().fields;
 
-        it('form fields should not include staffEvent', () => {
+        it('form fields do not include staffEvent', () => {
           expect(formFields).to.not.contain('staffEvent');
         });
 
-        it('form fields should not include comments', () => {
+        it('form fields do not include comments', () => {
           expect(formFields).to.not.contain('comments');
         });
 
-        it('form fields should include RESERVATION_FORM_FIELDS', () => {
+        it('form fields include RESERVATION_FORM_FIELDS', () => {
           forEach(constants.RESERVATION_FORM_FIELDS, (field) => {
             expect(formFields).to.contain(field);
           });
@@ -324,15 +324,15 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
         const form = getForm(needManualConfirmation, isAdmin);
         const formFields = form.props().fields;
 
-        it('form fields should not include staffEvent', () => {
+        it('form fields do not include staffEvent', () => {
           expect(formFields).to.not.contain('staffEvent');
         });
 
-        it('form fields should include comments', () => {
+        it('form fields include comments', () => {
           expect(formFields).to.contain('comments');
         });
 
-        it('form fields should not include RESERVATION_FORM_FIELDS', () => {
+        it('form fields do not include RESERVATION_FORM_FIELDS', () => {
           forEach(constants.RESERVATION_FORM_FIELDS, (field) => {
             expect(formFields).to.not.contain(field);
           });
@@ -344,15 +344,15 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
         const form = getForm(needManualConfirmation, isAdmin);
         const formFields = form.props().fields;
 
-        it('form fields should not include staffEvent', () => {
+        it('form fields do not include staffEvent', () => {
           expect(formFields).to.not.contain('staffEvent');
         });
 
-        it('form fields should not include comments', () => {
+        it('form fields do not include comments', () => {
           expect(formFields).to.not.contain('comments');
         });
 
-        it('form fields should not include RESERVATION_FORM_FIELDS', () => {
+        it('form fields do not include RESERVATION_FORM_FIELDS', () => {
           forEach(constants.RESERVATION_FORM_FIELDS, (field) => {
             expect(formFields).to.not.contain(field);
           });

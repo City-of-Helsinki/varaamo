@@ -23,7 +23,7 @@ function getProps(id) {
 }
 
 describe('Selector: resourceSelector', () => {
-  it('should return the resource corresponding to the router.params.id', () => {
+  it('returns the resource corresponding to the router.params.id', () => {
     const resource = Resource.build();
     const state = getState([resource]);
     const props = getProps(resource.id);
@@ -32,7 +32,7 @@ describe('Selector: resourceSelector', () => {
     expect(actual).to.deep.equal(resource);
   });
 
-  it('should return an empty object as resource if resource with given id is not fetched', () => {
+  it('returns an empty object as resource if resource with given id is not fetched', () => {
     const state = getState([]);
     const props = getProps('unfetched-id');
     const actual = resourceSelector(state, props);

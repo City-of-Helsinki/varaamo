@@ -8,7 +8,7 @@ describe('pages/home/purpose-list/purposeListSelector', () => {
   const props = getDefaultRouterProps();
   const selected = purposeListSelector(state, props);
 
-  it('should return isFetchingPurposes', () => {
+  it('returns isFetchingPurposes', () => {
     expect(selected.isFetchingPurposes).to.exist;
   });
 

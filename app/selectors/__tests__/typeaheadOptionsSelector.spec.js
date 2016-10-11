@@ -29,14 +29,14 @@ describe('Selector: typeaheadOptionsSelector', () => {
     Resource.build(),
   ];
 
-  it('should return an empty array if state contains no suggestions', () => {
+  it('returns an empty array if state contains no suggestions', () => {
     const state = getState([]);
     const actual = typeaheadOptionsSelector(state);
 
     expect(actual).to.deep.equal([]);
   });
 
-  it('should return an option object for each typeaheadSuggestion in state', () => {
+  it('returns an option object for each typeaheadSuggestion in state', () => {
     const state = getState(suggestions);
     const actual = typeaheadOptionsSelector(state);
 
@@ -48,21 +48,21 @@ describe('Selector: typeaheadOptionsSelector', () => {
     const state = getState([suggestion]);
     const option = typeaheadOptionsSelector(state)[0];
 
-    it('should have suggestion.id as its id property', () => {
+    it('has suggestion.id as its id property', () => {
       expect(option.id).to.equal(suggestion.id);
     });
 
-    it('should have suggestion.name.fi as its name property', () => {
+    it('has suggestion.name.fi as its name property', () => {
       expect(option.name).to.equal(suggestion.name.fi);
     });
 
-    it('should have unit.name.fi as its unitName property', () => {
+    it('has unit.name.fi as its unitName property', () => {
       const unit = state.data.units[suggestion.unit];
       expect(option.unitName).to.equal(unit.name.fi);
     });
   });
 
-  it('should work for multiple suggestions', () => {
+  it('works for multiple suggestions', () => {
     const state = getState(suggestions);
     const actual = typeaheadOptionsSelector(state);
     const expected = Immutable([

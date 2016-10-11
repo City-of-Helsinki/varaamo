@@ -14,7 +14,7 @@ describe('pages/home/intro/ShowResourcesLink', () => {
     expect(link.length).to.equal(1);
   });
 
-  it('the Link should have correct url', () => {
+  it('the Link has correct url', () => {
     const link = wrapper.find(Link);
     const expectedUrl = getSearchPageUrl({ purpose: 'all' });
     expect(link.props().to).to.equal(expectedUrl);

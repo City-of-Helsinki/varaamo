@@ -46,7 +46,7 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
       tree = sd.shallowRender(<ReservationListContainer {...props} />);
     });
 
-    it('should render a ul element', () => {
+    it('renders a ul element', () => {
       const ulTree = tree.subTree('ul');
 
       expect(ulTree).to.be.ok;
@@ -59,12 +59,12 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
         reservationListItemTrees = tree.everySubTree('ReservationListItem');
       });
 
-      it('should render a ReservationListItem for every reservation in props', () => {
+      it('renders a ReservationListItem for every reservation in props', () => {
         expect(reservationListItemTrees.length).to.equal(props.reservations.length);
       });
 
       describe('passing correct props', () => {
-        it('should pass isAdmin, isStaff and reservation', () => {
+        it('passes isAdmin, isStaff and reservation', () => {
           reservationListItemTrees.forEach((reservationTree, index) => {
             const actualProps = reservationTree.props;
 
@@ -74,19 +74,19 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
           });
         });
 
-        it('should pass resource corresponding to reservation.resource', () => {
+        it('passes resource corresponding to reservation.resource', () => {
           expect(reservationListItemTrees[0].props.resource).to.deep.equal(resource);
         });
 
-        it('should pass empty object as resource if resource is unfetched', () => {
+        it('passes empty object as resource if resource is unfetched', () => {
           expect(reservationListItemTrees[1].props.resource).to.deep.equal({});
         });
 
-        it('should pass unit corresponding to resource.unit', () => {
+        it('passes unit corresponding to resource.unit', () => {
           expect(reservationListItemTrees[0].props.unit).to.deep.equal(unit);
         });
 
-        it('should pass empty object as unit if unit or resource is unfetched', () => {
+        it('passes empty object as unit if unit or resource is unfetched', () => {
           expect(reservationListItemTrees[1].props.unit).to.deep.equal({});
         });
       });
@@ -101,7 +101,7 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
       });
       const tree = sd.shallowRender(<ReservationListContainer {...props} />);
 
-      it('should display the emptyMessage', () => {
+      it('displays the emptyMessage', () => {
         expect(tree.textIn('p')).to.equal(props.emptyMessage);
       });
     });
@@ -112,7 +112,7 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
       });
       const tree = sd.shallowRender(<ReservationListContainer {...props} />);
 
-      it('should render a message telling no reservations were found', () => {
+      it('renders a message telling no reservations were found', () => {
         const expected = 'Sinulla ei vielä ole yhtään varausta.';
 
         expect(tree.textIn('p')).to.equal(expected);
