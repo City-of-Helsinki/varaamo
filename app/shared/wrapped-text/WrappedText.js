@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
-import AutoLinkText from 'react-autolink-text';
+import Linkify from 'react-linkify';
 
 function renderParagraph(text, index) {
-  return <div key={index}><AutoLinkText text={text} /></div>;
+  return <div key={index}><Linkify>{text}</Linkify></div>;
 }
 
 function WrappedText({ text }) {

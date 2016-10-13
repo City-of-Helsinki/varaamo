@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
-import AutoLinkText from 'react-autolink-text';
+import Linkify from 'react-linkify';
 
 import WrappedText from './WrappedText';
 
@@ -32,10 +32,10 @@ describe('shared/wrapped-text/WrappedText', () => {
       expect(div.length).to.equal(1);
     });
 
-    it('uses autolink for the text', () => {
-      const autolink = content.find(AutoLinkText);
-      expect(autolink.length).to.equal(1);
-      expect(autolink.props().text).to.equal(text);
+    it('uses Linkify to autolink the text', () => {
+      const linkify = content.find(Linkify);
+      expect(linkify.length).to.equal(1);
+      expect(linkify.props().children).to.equal(text);
     });
   });
 
@@ -53,11 +53,11 @@ describe('shared/wrapped-text/WrappedText', () => {
       expect(div.length).to.equal(lines.length);
     });
 
-    it('uses autolink for each line', () => {
-      const autolinks = content.find(AutoLinkText);
-      expect(autolinks.length).to.equal(lines.length);
+    it('uses Linkify to autolink each line', () => {
+      const linkifies = content.find(Linkify);
+      expect(linkifies.length).to.equal(lines.length);
       lines.forEach((line, index) => {
-        expect(autolinks.at(index).props().text).to.equal(line);
+        expect(linkifies.at(index).props().children).to.equal(line);
       });
     });
   });
