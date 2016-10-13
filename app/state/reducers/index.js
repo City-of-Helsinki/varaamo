@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 
-import authReducer from 'reducers/authReducer';
-import dataReducer from 'reducers/dataReducer';
-import notificationsReducer from 'reducers/notificationsReducer';
 import apiReducers from './api';
+import authReducer from './authReducer';
+import dataReducer from './dataReducer';
+import notificationsReducer from './notificationsReducer';
 import uiReducers from './ui';
 
 const rootReducer = combineReducers({

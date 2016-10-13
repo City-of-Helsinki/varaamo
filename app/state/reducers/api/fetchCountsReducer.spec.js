@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable';
 import types from 'constants/ActionTypes';
 import fetchCountsReducer from './fetchCountsReducer';
 
-describe('Reducer: fetchCountsReducer', () => {
+describe('state/reducers/api/fetchCountsReducer', () => {
   describe('initial state', () => {
     const initialState = fetchCountsReducer(undefined, {});
 

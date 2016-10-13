@@ -4,7 +4,7 @@ import Immutable from 'seamless-immutable';
 
 import activeRequestsReducer from './activeRequestsReducer';
 
-describe('Reducer: activeRequestsReducer', () => {
+describe('state/reducers/api/activeRequestsReducer', () => {
   describe('initial state', () => {
     const initialState = activeRequestsReducer(undefined, {});
 

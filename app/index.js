@@ -9,8 +9,8 @@ import { createStore } from 'redux';
 import Immutable from 'seamless-immutable';
 
 import getRoutes from 'app/routes';
-import rootReducer from 'reducers/index';
 import configureStore from 'state/configureStore';
+import rootReducer from 'state/reducers';
 
 import 'assets/styles/app.less';
 import 'assets/styles/customization/espoo/customization.less';

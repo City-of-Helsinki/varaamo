@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable';
 import types from 'constants/ActionTypes';
 import modalsReducer from './modalsReducer';
 
-describe('Reducer: modalsReducer', () => {
+describe('state/reducers/ui/modalsReducer', () => {
   describe('initial state', () => {
     const initialState = modalsReducer(undefined, {});
 

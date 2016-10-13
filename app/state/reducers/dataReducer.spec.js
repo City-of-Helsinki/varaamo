@@ -8,7 +8,7 @@ import Resource from 'fixtures/Resource';
 import User from 'fixtures/User';
 import dataReducer, { handleData } from './dataReducer';
 
-describe('Reducer: dataReducer', () => {
+describe('state/reducers/dataReducer', () => {
   describe('initial state', () => {
     const initialState = dataReducer(undefined, {});
 

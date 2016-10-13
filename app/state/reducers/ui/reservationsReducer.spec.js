@@ -20,7 +20,7 @@ import Reservation from 'fixtures/Reservation';
 import { getTimeSlots } from 'utils/timeUtils';
 import reservationsReducer from './reservationsReducer';
 
-describe('Reducer: reservationsReducer', () => {
+describe('state/reducers/ui/reservationsReducer', () => {
   describe('initial state', () => {
     const initialState = reservationsReducer(undefined, {});
 

@@ -6,7 +6,7 @@ import merge from 'lodash/merge';
 import set from 'lodash/set';
 import { CALL_API } from 'redux-api-middleware';
 
-import rootReducer from 'reducers/index';
+import rootReducer from 'state/reducers';
 
 
 function createApiTest(options) {

@@ -8,7 +8,7 @@ import types from 'constants/ActionTypes';
 import Resource from 'fixtures/Resource';
 import searchReducer from './searchReducer';
 
-describe('Reducer: searchReducer', () => {
+describe('state/reducers/ui/searchReducer', () => {
   describe('initial state', () => {
     const initialState = searchReducer(undefined, {});
 

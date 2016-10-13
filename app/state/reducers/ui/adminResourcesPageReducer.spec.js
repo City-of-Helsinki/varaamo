@@ -6,7 +6,7 @@ import types from 'constants/ActionTypes';
 import Resource from 'fixtures/Resource';
 import adminResourcesPageReducer from './adminResourcesPageReducer';
 
-describe('Reducer: adminResourcesPageReducer', () => {
+describe('state/reducers/ui/adminResourcesPageReducer', () => {
   describe('initial state', () => {
     const initialState = adminResourcesPageReducer(undefined, {});
 

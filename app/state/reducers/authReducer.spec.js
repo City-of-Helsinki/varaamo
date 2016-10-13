@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable';
 import types from 'constants/ActionTypes';
 import authReducer from './authReducer';
 
-describe('Reducer: authReducer', () => {
+describe('state/reducers/authReducer', () => {
   describe('initial state', () => {
     const initialState = authReducer(undefined, {});
 
