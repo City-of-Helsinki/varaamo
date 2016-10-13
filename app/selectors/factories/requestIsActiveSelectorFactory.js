@@ -1,11 +1,11 @@
 import { createSelector } from 'reselect';
 
 const requestIsActiveSelectorFactory = (requestActionType) => {
-  const activeRequestsSelector = (state) => state.api.activeRequests;
+  const activeRequestsSelector = state => state.api.activeRequests;
 
   return createSelector(
     activeRequestsSelector,
-    (activeRequests) => Boolean(activeRequests[requestActionType])
+    activeRequests => Boolean(activeRequests[requestActionType])
   );
 };
 

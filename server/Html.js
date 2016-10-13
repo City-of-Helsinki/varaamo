@@ -1,3 +1,5 @@
+/* eslint-disable react/no-danger */
+
 import React, { Component, PropTypes } from 'react';
 import serialize from 'serialize-javascript';
 

@@ -29,7 +29,7 @@ describe('pages/admin-resources/resources-table/ResourcesTableRow', () => {
   ));
   const defaultProps = { resource };
 
-  const getWrapper = (extraProps) => shallow(
+  const getWrapper = extraProps => shallow(
     <ResourcesTableRow {...defaultProps} {...extraProps} />
   );
   let withoutReservationsComponent;

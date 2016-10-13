@@ -57,7 +57,7 @@ export class UnconnectedReservationConfirmationContainer extends Component {
   handleReservation(values = {}) {
     const { actions, selectedReservations } = this.props;
 
-    selectedReservations.forEach(reservation => {
+    selectedReservations.forEach((reservation) => {
       actions.postReservation(
         Object.assign({}, reservation, values)
       );
@@ -72,6 +72,7 @@ export class UnconnectedReservationConfirmationContainer extends Component {
       reservationsToEdit,
       resource,
       selectedReservations,
+      staffEventSelected,
       staffUnits,
     } = this.props;
 
@@ -92,6 +93,7 @@ export class UnconnectedReservationConfirmationContainer extends Component {
         resource={resource}
         selectedReservations={selectedReservations}
         show={confirmReservationModalIsOpen}
+        staffEventSelected={staffEventSelected}
       />
     );
   }
@@ -101,12 +103,13 @@ UnconnectedReservationConfirmationContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   confirmReservationModalIsOpen: PropTypes.bool.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,
-  params: PropTypes.shape({
+  params: PropTypes.shape({ // eslint-disable-line react/no-unused-prop-types
     id: PropTypes.string.isRequired,
   }).isRequired,
   reservationsToEdit: PropTypes.array.isRequired,
   resource: PropTypes.object.isRequired,
   selectedReservations: PropTypes.array.isRequired,
+  staffEventSelected: PropTypes.bool,
   staffUnits: PropTypes.array.isRequired,
 };
 

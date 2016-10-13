@@ -7,8 +7,8 @@ import ActionTypes from 'constants/ActionTypes';
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
 import isAdminSelector from 'selectors/isAdminSelector';
 
-const resourcesSelector = (state) => state.data.resources;
-const resourceIdsSelector = (state) => state.ui.pages.adminResources.resourceIds;
+const resourcesSelector = state => state.data.resources;
+const resourceIdsSelector = state => state.ui.pages.adminResources.resourceIds;
 
 const adminResourcesPageSelector = createSelector(
   isAdminSelector,
@@ -23,7 +23,7 @@ const adminResourcesPageSelector = createSelector(
   ) => ({
     isAdmin,
     isFetchingResources,
-    resources: sortBy(values(pick(resources, resourceIds)), (resource) => resource.name.fi),
+    resources: sortBy(values(pick(resources, resourceIds)), resource => resource.name.fi),
   })
 );
 

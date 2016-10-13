@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import React from 'react';
+import { browserHistory } from 'react-router';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 import sd from 'skin-deep';
@@ -19,7 +20,6 @@ function getProps(props = {}) {
       cancelReservationEdit: simple.stub(),
       clearReservations: simple.stub(),
       openConfirmReservationModal: simple.stub(),
-      updatePath: simple.stub(),
       toggleTimeSlot: simple.stub(),
     },
     date: '2015-10-11',
@@ -144,16 +144,25 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
   });
 
   describe('onDateChange', () => {
-    const { props, instance } = setup();
     const newDate = '2015-12-24';
-    instance.onDateChange(newDate);
+    const { props, instance } = setup();
+    let browserHistoryMock;
 
-    it('calls updatePath and update the url with the new date', () => {
-      const actualUrl = props.actions.updatePath.lastCall.args[0];
-      const expectedUrl = getResourcePageUrl(props.resource, newDate);
+    before(() => {
+      browserHistoryMock = simple.mock(browserHistory, 'push');
+      instance.onDateChange(newDate);
+    });
 
-      expect(props.actions.updatePath.callCount).to.equal(1);
-      expect(actualUrl).to.equal(expectedUrl);
+    after(() => {
+      simple.restore();
+    });
+
+    it('calls browserHistory.push with correct path', () => {
+      const actualPath = browserHistoryMock.lastCall.args[0];
+      const expectedPath = getResourcePageUrl(props.resource, newDate);
+
+      expect(browserHistoryMock.callCount).to.equal(1);
+      expect(actualPath).to.equal(expectedPath);
     });
   });
 

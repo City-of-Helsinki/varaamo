@@ -2,7 +2,6 @@ import { expect } from 'chai';
 
 import keyBy from 'lodash/keyBy';
 import { createAction } from 'redux-actions';
-import { UPDATE_PATH } from 'redux-simple-router';
 import Immutable from 'seamless-immutable';
 
 import { clearSearchResults } from 'actions/searchActions';
@@ -53,7 +52,7 @@ describe('Reducer: searchReducer', () => {
     describe('API.SEARCH_RESULTS_GET_SUCCESS', () => {
       const searchResourcesSuccess = createAction(
         types.API.SEARCH_RESULTS_GET_SUCCESS,
-        (resources) => ({
+        resources => ({
           entities: {
             resources: keyBy(resources, 'id'),
           },
@@ -100,7 +99,7 @@ describe('Reducer: searchReducer', () => {
     describe('API.TYPEAHEAD_SUGGESTIONS_GET_SUCCESS', () => {
       const typeaheadSuggestionsSuccess = createAction(
         types.API.TYPEAHEAD_SUGGESTIONS_GET_SUCCESS,
-        (resources) => ({
+        resources => ({
           resource: keyBy(resources, 'id'),
         })
       );
@@ -221,20 +220,6 @@ describe('Reducer: searchReducer', () => {
         const nextState = searchReducer(initialState, action);
 
         expect(nextState.results).to.deep.equal([]);
-      });
-    });
-
-    describe('UPDATE_PATH', () => {
-      it('parses filters from given path and set them to filters', () => {
-        const path = 'search/?purpose=some-purpose';
-        const action = { type: UPDATE_PATH, path };
-        const initialState = Immutable({
-          filters: {},
-        });
-        const expected = { purpose: 'some-purpose' };
-        const nextState = searchReducer(initialState, action);
-
-        expect(nextState.filters).to.deep.equal(expected);
       });
     });
   });

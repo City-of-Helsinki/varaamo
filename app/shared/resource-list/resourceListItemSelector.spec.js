@@ -15,10 +15,6 @@ describe('shared/resource-list/resourceListItemSelector', () => {
   const props = { resourceId: resource.id };
   const selected = resourceListItemSelector(state, props);
 
-  it('returns date', () => {
-    expect(selected.date).to.exist;
-  });
-
   it('returns isLoggedIn', () => {
     expect(selected.isLoggedIn).to.exist;
   });

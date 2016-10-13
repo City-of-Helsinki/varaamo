@@ -4,11 +4,11 @@ import { createSelector } from 'reselect';
 import ActionTypes from 'constants/ActionTypes';
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
 
-const purposesSelector = (state) => state.data.purposes;
+const purposesSelector = state => state.data.purposes;
 
 const purposeArraySelector = createSelector(
   purposesSelector,
-  (purposes) => values(purposes)
+  purposes => values(purposes)
     .filter(purpose => purpose.parent === null)
 );
 

@@ -86,7 +86,7 @@ describe('shared/form-fields/FormControl', () => {
       it('gets correct props', () => {
         const type = 'textarea';
         const actualProps = getWrapper({ type }).find(RBFormControl).props();
-        Object.keys(defaultProps.controlProps).forEach(key => {
+        Object.keys(defaultProps.controlProps).forEach((key) => {
           expect(actualProps[key]).to.equal(defaultProps.controlProps[key]);
         });
         expect(actualProps.componentClass).to.equal('textarea');
@@ -98,7 +98,7 @@ describe('shared/form-fields/FormControl', () => {
       it('gets correct props', () => {
         const type = 'text';
         const actualProps = getWrapper({ type }).find(RBFormControl).props();
-        Object.keys(defaultProps.controlProps).forEach(key => {
+        Object.keys(defaultProps.controlProps).forEach((key) => {
           expect(actualProps[key]).to.equal(defaultProps.controlProps[key]);
         });
         expect(actualProps.type).to.equal(type);

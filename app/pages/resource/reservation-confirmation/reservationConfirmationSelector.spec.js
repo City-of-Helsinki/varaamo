@@ -8,6 +8,7 @@ describe('pages/resource/reservation-confirmation/reservationConfirmationSelecto
   const resource = Resource.build();
   const state = getState({
     'data.resources': { [resource.id]: resource },
+    'form.preliminaryReservation.values': { staffEvent: true },
     'ui.reservations.toEdit': ['mock-reservation'],
   });
   const props = {
@@ -35,6 +36,10 @@ describe('pages/resource/reservation-confirmation/reservationConfirmationSelecto
 
   it('returns selectedReservations', () => {
     expect(selected.selectedReservations).to.exist;
+  });
+
+  it('returns staffEventSelected from state', () => {
+    expect(selected.staffEventSelected).to.be.true;
   });
 
   it('returns staffUnits', () => {

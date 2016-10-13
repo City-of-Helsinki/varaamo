@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
 import Well from 'react-bootstrap/lib/Well';
-import { reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 
 import WrappedText from 'shared/wrapped-text';
@@ -66,18 +66,19 @@ export function validate(values, { fields, requiredFields }) {
 }
 
 export class UnconnectedReservationForm extends Component {
-  renderField(type, label, field, controlProps = {}, help = null) {
-    if (!field) {
+  renderField(name, type, label, controlProps = {}, help = null) {
+    if (!includes(this.props.fields, name)) {
       return null;
     }
-    const isRequired = includes(this.requiredFields, field.name);
+    const isRequired = includes(this.requiredFields, name);
 
     return (
-      <ReduxFormField
+      <Field
+        component={ReduxFormField}
         controlProps={controlProps}
-        field={field}
         help={help}
         label={`${label}${isRequired ? '*' : ''}`}
+        name={name}
         type={type}
       />
     );
@@ -85,65 +86,65 @@ export class UnconnectedReservationForm extends Component {
 
   render() {
     const {
-      fields,
       isMakingReservations,
       handleSubmit,
       onClose,
       onConfirm,
       requiredFields,
+      staffEventSelected,
       termsAndConditions,
     } = this.props;
 
-    this.requiredFields = fields.staffEvent && fields.staffEvent.checked ?
+    this.requiredFields = staffEventSelected ?
       constants.REQUIRED_STAFF_EVENT_FIELDS :
       requiredFields;
 
     return (
       <div>
         <Form className="reservation-form" horizontal>
-          { fields.staffEvent && (
+          { includes(this.props.fields, 'staffEvent') && (
             <Well>
               {this.renderField(
+                'staffEvent',
                 'checkbox',
                 'Viraston oma tapahtuma',
-                fields.staffEvent,
                 {},
                 `Viraston oma tapahtuma hyväksytään automaattisesti ja ainoat pakolliset
                 tiedot ovat varaajan nimi ja tilaisuuden kuvaus.`,
               )}
             </Well>
           )}
-          {this.renderField('text', 'Varaaja / vuokraaja', fields.reserverName)}
-          {this.renderField('text', 'Y-tunnus / henkilötunnus', fields.reserverId)}
-          {this.renderField('text', 'Puhelin', fields.reserverPhoneNumber)}
-          {this.renderField('email', 'Sähköposti', fields.reserverEmailAddress)}
-          {this.renderField('textarea', 'Tilaisuuden kuvaus', fields.eventDescription, { rows: 5 })}
+          {this.renderField('reserverName', 'text', 'Varaaja / vuokraaja')}
+          {this.renderField('reserverId', 'text', 'Y-tunnus / henkilötunnus')}
+          {this.renderField('reserverPhoneNumber', 'text', 'Puhelin')}
+          {this.renderField('reserverEmailAddress', 'email', 'Sähköposti')}
+          {this.renderField('eventDescription', 'textarea', 'Tilaisuuden kuvaus', { rows: 5 })}
           {this.renderField(
+            'numberOfParticipants',
             'number',
             'Osallistujamäärä',
-            fields.numberOfParticipants,
             { min: '0' }
           )}
-          { fields.reserverAddressStreet && (
+          { includes(this.props.fields, 'reserverAddressStreet') && (
             <Well>
               <p>Osoite</p>
-              {this.renderField('text', 'Katuosoite', fields.reserverAddressStreet)}
-              {this.renderField('text', 'Postinumero', fields.reserverAddressZip)}
-              {this.renderField('text', 'Kaupunki', fields.reserverAddressCity)}
+              {this.renderField('reserverAddressStreet', 'text', 'Katuosoite')}
+              {this.renderField('reserverAddressZip', 'text', 'Postinumero')}
+              {this.renderField('reserverAddressCity', 'text', 'Kaupunki')}
             </Well>
           )}
-          { fields.billingAddressStreet && (
+          { includes(this.props.fields, 'billingAddressStreet') && (
             <Well>
               <p>Laskutusosoite</p>
-              {this.renderField('text', 'Katuosoite', fields.billingAddressStreet)}
-              {this.renderField('text', 'Postinumero', fields.billingAddressZip)}
-              {this.renderField('text', 'Kaupunki', fields.billingAddressCity)}
+              {this.renderField('billingAddressStreet', 'text', 'Katuosoite')}
+              {this.renderField('billingAddressZip', 'text', 'Postinumero')}
+              {this.renderField('billingAddressCity', 'text', 'Kaupunki')}
             </Well>
           )}
           {this.renderField(
+            'comments',
             'textarea',
             'Kommentit',
-            fields.comments,
             {
               placeholder: 'Varauksen mahdolliset lisätiedot',
               rows: 5,
@@ -158,9 +159,9 @@ export class UnconnectedReservationForm extends Component {
           {termsAndConditions && (
             <Well className="terms-and-conditions-input-wrapper">
               {this.renderField(
+                'termsAndConditions',
                 'checkbox',
                 'Olen lukenut ja hyväksynyt tilan käyttösäännöt',
-                fields.termsAndConditions
               )}
             </Well>
           )}
@@ -187,12 +188,13 @@ export class UnconnectedReservationForm extends Component {
 }
 
 UnconnectedReservationForm.propTypes = {
-  fields: PropTypes.object.isRequired,
+  fields: PropTypes.array.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
   requiredFields: PropTypes.array.isRequired,
+  staffEventSelected: PropTypes.bool,
   termsAndConditions: PropTypes.string.isRequired,
 };
 

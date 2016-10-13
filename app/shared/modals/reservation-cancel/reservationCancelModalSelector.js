@@ -6,8 +6,8 @@ import isAdminSelector from 'selectors/isAdminSelector';
 import modalIsOpenSelectorFactory from 'selectors/factories/modalIsOpenSelectorFactory';
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
 
-const toCancelSelector = (state) => state.ui.reservations.toCancel;
-const resourcesSelector = (state) => state.data.resources;
+const toCancelSelector = state => state.ui.reservations.toCancel;
+const resourcesSelector = state => state.data.resources;
 
 const reservationCancelModalSelector = createSelector(
   isAdminSelector,

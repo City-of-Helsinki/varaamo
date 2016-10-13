@@ -14,6 +14,12 @@ import { getCustomizationClassName } from 'utils/customizationUtils';
 import appSelector from './appSelector';
 
 export class UnconnectedAppContainer extends Component {
+  getChildContext() {
+    return {
+      location: this.props.location,
+    };
+  }
+
   componentDidMount() {
     if (this.props.userId) {
       this.props.actions.fetchUser(this.props.userId);
@@ -57,8 +63,13 @@ UnconnectedAppContainer.propTypes = {
   children: PropTypes.node,
   isAdmin: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
+  location: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   userId: PropTypes.string,
+};
+
+UnconnectedAppContainer.childContextTypes = {
+  location: React.PropTypes.object,
 };
 
 function mapDispatchToProps(dispatch) {

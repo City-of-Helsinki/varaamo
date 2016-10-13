@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { routeReducer } from 'redux-simple-router';
 import { reducer as formReducer } from 'redux-form';
 
 import activeRequestsReducer from 'reducers/activeRequestsReducer';
@@ -23,7 +22,6 @@ const rootReducer = combineReducers({
   data: dataReducer,
   form: formReducer,
   notifications: notificationsReducer,
-  routing: routeReducer,
   ui: combineReducers({
     modals: modalsReducer,
     pages: combineReducers({ adminResources: adminResourcesPageReducer }),

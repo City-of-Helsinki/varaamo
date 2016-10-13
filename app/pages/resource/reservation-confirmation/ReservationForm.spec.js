@@ -3,11 +3,11 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
+import { Field } from 'redux-form';
 import simple from 'simple-mock';
 
 import WrappedText from 'shared/wrapped-text';
 import constants from 'constants/AppConstants';
-import ReduxFormField from 'shared/form-fields/ReduxFormField';
 import { UnconnectedReservationForm as ReservationForm, validate } from './ReservationForm';
 
 describe('pages/resource/reservation-confirmation/ReservationForm', () => {
@@ -99,7 +99,7 @@ describe('pages/resource/reservation-confirmation/ReservationForm', () => {
 
   describe('rendering', () => {
     const defaultProps = {
-      fields: {},
+      fields: [],
       handleSubmit: simple.mock(),
       isMakingReservations: false,
       onClose: simple.mock(),
@@ -120,16 +120,14 @@ describe('pages/resource/reservation-confirmation/ReservationForm', () => {
     describe('form fields', () => {
       describe('fields included in RESERVATION_FORM_FIELDS', () => {
         it('renders a field if it is included in props.fields', () => {
-          const fields = {
-            [constants.RESERVATION_FORM_FIELDS[0]]: {},
-          };
-          const input = getWrapper({ fields }).find(ReduxFormField);
+          const fields = [constants.RESERVATION_FORM_FIELDS[0]];
+          const input = getWrapper({ fields }).find(Field);
           expect(input.length).to.equal(1);
         });
 
         it('does not render a field if it is not included in props.fields', () => {
-          const fields = {};
-          const input = getWrapper({ fields }).find(ReduxFormField);
+          const fields = [];
+          const input = getWrapper({ fields }).find(Field);
           expect(input.length).to.equal(0);
         });
 
@@ -137,45 +135,47 @@ describe('pages/resource/reservation-confirmation/ReservationForm', () => {
           it('displays an asterisk beside a required field label', () => {
             const fieldName = constants.RESERVATION_FORM_FIELDS[0];
             const props = {
-              fields: { [fieldName]: { name: fieldName } },
+              fields: [fieldName],
               requiredFields: [fieldName],
             };
-            const input = getWrapper(props).find(ReduxFormField);
+            const input = getWrapper(props).find(Field);
             expect(input.props().label).to.contain('*');
           });
 
           it('does not display an asterisk beside a non required field label', () => {
             const fieldName = constants.RESERVATION_FORM_FIELDS[0];
             const props = {
-              fields: { [fieldName]: { name: fieldName } },
+              fields: [fieldName],
               requiredFields: [],
             };
-            const input = getWrapper(props).find(ReduxFormField);
+            const input = getWrapper(props).find(Field);
             expect(input.props().label).to.not.contain('*');
           });
 
           describe('if staffEvent checkbox is checked', () => {
-            const defaultFields = { staffEvent: { name: 'staffEvent', checked: true } };
+            const staffEventSelected = true;
 
             it('shows an asterisk beside REQUIRED_STAFF_EVENT_FIELDS', () => {
               const fieldName = constants.REQUIRED_STAFF_EVENT_FIELDS[0];
-              const fields = Object.assign({}, defaultFields, { [fieldName]: { name: fieldName } });
+              const fields = [fieldName];
               const props = {
                 fields,
                 requiredFields: [fieldName],
+                staffEventSelected,
               };
-              const input = getWrapper(props).find(ReduxFormField).at(1);
+              const input = getWrapper(props).find(Field);
               expect(input.props().label).to.contain('*');
             });
 
             it('does not show an asterisk beside non REQUIRED_STAFF_EVENT_FIELDS', () => {
               const fieldName = constants.RESERVATION_FORM_FIELDS[1];
-              const fields = Object.assign({}, defaultFields, { [fieldName]: { name: fieldName } });
+              const fields = [fieldName];
               const props = {
                 fields,
                 requiredFields: [fieldName],
+                staffEventSelected,
               };
-              const input = getWrapper(props).find(ReduxFormField).at(1);
+              const input = getWrapper(props).find(Field);
               expect(input.props().label).to.not.contain('*');
             });
           });
@@ -184,10 +184,8 @@ describe('pages/resource/reservation-confirmation/ReservationForm', () => {
 
       describe('fields not included in RESERVATION_FORM_FIELDS', () => {
         it('does not render a field even if it is included in props.fields', () => {
-          const fields = {
-            someOtherField: {},
-          };
-          const input = getWrapper({ fields }).find(ReduxFormField);
+          const fields = ['someOtherField'];
+          const input = getWrapper({ fields }).find(Field);
           expect(input.length).to.equal(0);
         });
       });

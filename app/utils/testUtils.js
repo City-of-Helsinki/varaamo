@@ -128,7 +128,7 @@ function createApiTest(options) {
             });
             const func = (
               value.length === 2 ?
-              (done) => value(getParams(), done) :
+              done => value(getParams(), done) :
               () => value(getParams())
             );
             it(name, func);
@@ -162,7 +162,7 @@ function createApiTest(options) {
             payloadTests.tests && forIn(payloadTests.tests, (value, name) => {
               const func = (
                 value.length === 2 ?
-                (done) => value({ promise, payload, response }, done) :
+                done => value({ promise, payload, response }, done) :
                 () => value({ promise, payload, response })
               );
               it(name, func);

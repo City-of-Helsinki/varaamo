@@ -9,8 +9,10 @@ import ReduxFormField from './ReduxFormField';
 describe('shared/form-fields/ReduxFormField', () => {
   const defaultProps = {
     controlProps: { someProp: 'some', otherProp: 'other' },
-    field: { name: 'email', foo: 'bar' },
+    input: { name: 'email' },
     label: 'Enter your email',
+    meta: { error: 'some error' },
+    name: 'email',
     type: 'text',
   };
 
@@ -35,9 +37,9 @@ describe('shared/form-fields/ReduxFormField', () => {
   });
 
   describe('passing props', () => {
-    it('controlProps contain both props.field and props.controlProps', () => {
+    it('controlProps contain both props.input and props.controlProps', () => {
       const actualProps = getWrapper().find(FormControl).props();
-      const expected = Object.assign({}, defaultProps.field, defaultProps.controlProps);
+      const expected = Object.assign({}, defaultProps.input, defaultProps.controlProps);
       expect(actualProps.controlProps).to.deep.equal(expected);
     });
 
@@ -49,10 +51,10 @@ describe('shared/form-fields/ReduxFormField', () => {
 
         describe('if field has been touched', () => {
           const touched = true;
-          const field = { error, name: 'Name', touched };
+          const meta = { error, touched };
 
           it('is the erorr message', () => {
-            const props = { field, help };
+            const props = { meta, help };
             const actualProps = getWrapper(props).find(FormControl).props();
             expect(actualProps.help).to.equal(error);
           });
@@ -60,10 +62,10 @@ describe('shared/form-fields/ReduxFormField', () => {
 
         describe('if field has not been touched', () => {
           const touched = false;
-          const field = { error, name: 'Name', touched };
+          const meta = { error, touched };
 
           it('is the help text given in props', () => {
-            const props = { field, help };
+            const props = { meta, help };
             const actualProps = getWrapper(props).find(FormControl).props();
             expect(actualProps.help).to.equal(help);
           });
@@ -72,19 +74,19 @@ describe('shared/form-fields/ReduxFormField', () => {
 
       describe('if field does not contain an error', () => {
         const error = undefined;
-        const field = { error, name: 'Name' };
+        const meta = { error };
 
         it('is the help text given in props', () => {
-          const props = { field, help };
+          const props = { meta, help };
           const actualProps = getWrapper(props).find(FormControl).props();
           expect(actualProps.help).to.equal(help);
         });
       });
     });
 
-    it('id is the name of the field', () => {
+    it('id is the name', () => {
       const actualProps = getWrapper().find(FormControl).props();
-      expect(actualProps.id).to.equal(defaultProps.field.name);
+      expect(actualProps.id).to.equal(defaultProps.name);
     });
 
     it('label is the label given in props', () => {
@@ -103,10 +105,10 @@ describe('shared/form-fields/ReduxFormField', () => {
 
         describe('if field has been touched', () => {
           const touched = true;
-          const field = { error, name: 'Name', touched };
+          const meta = { error, touched };
 
           it('is "error"', () => {
-            const props = { field };
+            const props = { meta };
             const actualProps = getWrapper(props).find(FormControl).props();
             expect(actualProps.validationState).to.equal('error');
           });
@@ -114,10 +116,10 @@ describe('shared/form-fields/ReduxFormField', () => {
 
         describe('if field has not been touched', () => {
           const touched = false;
-          const field = { error, name: 'Name', touched };
+          const meta = { error, touched };
 
           it('is undefined', () => {
-            const props = { field };
+            const props = { meta };
             const actualProps = getWrapper(props).find(FormControl).props();
             expect(actualProps.validationState).to.equal(undefined);
           });
@@ -126,10 +128,10 @@ describe('shared/form-fields/ReduxFormField', () => {
 
       describe('if field does not contain an error', () => {
         const error = undefined;
-        const field = { error, name: 'Name' };
+        const meta = { error };
 
         it('is undefined', () => {
-          const props = { field };
+          const props = { meta };
           const actualProps = getWrapper(props).find(FormControl).props();
           expect(actualProps.validationState).to.equal(undefined);
         });

@@ -20,7 +20,7 @@ describe('shared/navbar/Navbar', () => {
     const tree = sd.shallowRender(<Navbar {...props} />);
 
     it('renders a link to home page', () => {
-      const homePageLink = tree.subTreeLike('Link', { to: '/' });
+      const homePageLink = tree.subTreeLike('IndexLink', { to: '/' });
       expect(homePageLink).to.be.ok;
     });
 

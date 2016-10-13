@@ -6,7 +6,7 @@ import RBNavbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
 import NavDropdown from 'react-bootstrap/lib/NavDropdown';
 import NavItem from 'react-bootstrap/lib/NavItem';
-import { Link } from 'react-router';
+import { IndexLink } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import Logo from 'shared/logo';
@@ -49,10 +49,10 @@ class Navbar extends Component {
       <RBNavbar inverse>
         <RBNavbar.Header>
           <RBNavbar.Brand>
-            <Link to={'/'}>
+            <IndexLink to="/">
               <Logo />
               Varaamo
-            </Link>
+            </IndexLink>
           </RBNavbar.Brand>
           <RBNavbar.Toggle />
         </RBNavbar.Header>
@@ -67,12 +67,12 @@ class Navbar extends Component {
           <Nav navbar pullRight>
             {isAdmin && (
               <LinkContainer to="/admin-resources">
-                <MenuItem>Omat tilat</MenuItem>
+                <NavItem>Omat tilat</NavItem>
               </LinkContainer>
             )}
             {isLoggedIn && (
               <LinkContainer to="/my-reservations">
-                <MenuItem>Omat varaukset</MenuItem>
+                <NavItem>Omat varaukset</NavItem>
               </LinkContainer>
             )}
             {this.renderUserNav()}

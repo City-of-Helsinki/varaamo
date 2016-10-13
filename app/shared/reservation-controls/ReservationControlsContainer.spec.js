@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
+import { browserHistory } from 'react-router';
 import simple from 'simple-mock';
 
 import Reservation from 'fixtures/Reservation';
@@ -20,7 +21,6 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
       denyPreliminaryReservation: simple.stub(),
       openReservationCancelModal: simple.stub(),
       openReservationInfoModal: simple.stub(),
-      updatePath: simple.stub(),
       selectReservationToCancel: simple.stub(),
       selectReservationToEdit: simple.stub(),
       selectReservationToShow: simple.stub(),
@@ -78,8 +78,15 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
   });
 
   describe('handleEditClick', () => {
+    let browserHistoryMock;
+
     before(() => {
+      browserHistoryMock = simple.mock(browserHistory, 'push');
       instance.handleEditClick();
+    });
+
+    after(() => {
+      simple.restore();
     });
 
     it('calls props.actions.selectReservationToEdit with reservation and minPeriod', () => {
@@ -91,16 +98,16 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
       );
     });
 
-    it('calls the props.actions.updatePath with correct url', () => {
-      const actualUrlArg = props.actions.updatePath.lastCall.args[0];
-      const expectedUrl = getResourcePageUrl(
+    it('calls browserHistory.push with correct path', () => {
+      const actualPath = browserHistoryMock.lastCall.args[0];
+      const expectedPath = getResourcePageUrl(
         props.resource,
         props.reservation.begin,
         props.reservation.begin
       );
 
-      expect(props.actions.updatePath.callCount).to.equal(1);
-      expect(actualUrlArg).to.equal(expectedUrl);
+      expect(browserHistoryMock.callCount).to.equal(1);
+      expect(actualPath).to.equal(expectedPath);
     });
   });
 

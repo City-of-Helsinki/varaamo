@@ -20,6 +20,7 @@ describe('pages/AppContainer', () => {
     children: <div id="child-div" />,
     isAdmin: false,
     isLoggedIn: true,
+    location: {},
     user: Immutable(user),
     userId: user.id,
   };

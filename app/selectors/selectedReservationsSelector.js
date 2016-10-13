@@ -4,13 +4,13 @@ import Immutable from 'seamless-immutable';
 import { combine } from 'utils/reservationUtils';
 
 const idSelector = (state, props) => props.params.id;
-const selectedSelector = (state) => state.ui.reservations.selected;
+const selectedSelector = state => state.ui.reservations.selected;
 
 const selectedReservationsSelector = createSelector(
   idSelector,
   selectedSelector,
   (id, selected) => {
-    const selectedSlots = selected.map(current => {
+    const selectedSlots = selected.map((current) => {
       const dateTimes = current.split('/');
       return {
         begin: dateTimes[0],

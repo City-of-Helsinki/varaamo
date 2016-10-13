@@ -9,7 +9,7 @@ import constants from 'constants/AppConstants';
 function buildAPIUrl(endpoint, params) {
   let url = `${constants.API_URL}/${endpoint}/`;
 
-  const nonEmptyParams = pickBy(params, (value) => value !== '');
+  const nonEmptyParams = pickBy(params, value => value !== '');
 
   if (!isEmpty(nonEmptyParams)) {
     url = `${url}?${getSearchParamsString(nonEmptyParams)}`;
@@ -31,7 +31,7 @@ function createTransformFunction(schema) {
 function getErrorTypeDescriptor(type, options = {}) {
   return {
     type,
-    meta: (action) => ({
+    meta: action => ({
       API_ACTION: {
         apiRequestFinish: true,
         countable: options.countable,
@@ -68,7 +68,7 @@ function getSearchParamsString(params) {
   const decamelized = decamelizeKeys(params);
   const parts = [];
 
-  Object.keys(decamelized).forEach(key => {
+  Object.keys(decamelized).forEach((key) => {
     parts.push(`${encodeURIComponent(key)}=${encodeURIComponent(decamelized[key])}`);
   });
 
@@ -86,7 +86,7 @@ function getSuccessTypeDescriptor(type, options = {}) {
     type,
     payload: options.payload || getSuccessPayload(options),
 
-    meta: (action) => (
+    meta: action => (
       Object.assign({
         API_ACTION: {
           apiRequestFinish: true,

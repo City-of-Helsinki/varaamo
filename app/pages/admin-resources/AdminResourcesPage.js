@@ -31,7 +31,7 @@ export class UnconnectedAdminResourcesPage extends Component {
               emptyMessage="Sinulla ei vielä ole yhtään omia tiloja näytettäväksi"
               resources={resources}
             /> :
-            <p>Tarvitset virkailijan oikeudet nähdäksesi tämän sivun.</p>
+              <p>Tarvitset virkailijan oikeudet nähdäksesi tämän sivun.</p>
           }
         </Loader>
       </PageWrapper>

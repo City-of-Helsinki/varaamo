@@ -59,7 +59,7 @@ export class UnconnectedReservationListContainer extends Component {
 
 UnconnectedReservationListContainer.propTypes = {
   emptyMessage: PropTypes.string,
-  filter: PropTypes.string,
+  filter: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   isAdmin: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   reservations: PropTypes.array.isRequired,

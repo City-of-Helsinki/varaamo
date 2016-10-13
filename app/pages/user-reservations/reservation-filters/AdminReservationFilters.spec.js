@@ -40,10 +40,10 @@ describe('pages/user-reservations/reservation-filters/AdminReservationFilters', 
     });
 
     describe('onChange', () => {
-      const filterValue = 'new-value';
+      const filterOption = { label: 'Label', value: 'new-value' };
 
       before(() => {
-        select.props().onChange(filterValue);
+        select.props().onChange(filterOption);
       });
 
       it('calls onFiltersChange ', () => {
@@ -51,7 +51,7 @@ describe('pages/user-reservations/reservation-filters/AdminReservationFilters', 
       });
 
       it('calls onFiltersChange with correct arguments', () => {
-        const expected = { state: filterValue };
+        const expected = { state: filterOption.value };
         expect(defaultProps.onFiltersChange.lastCall.args[0]).to.deep.equal(expected);
       });
     });

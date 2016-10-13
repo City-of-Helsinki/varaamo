@@ -12,8 +12,9 @@ import SearchResults from './results';
 describe('pages/search/SearchPage', () => {
   const defaultProps = {
     actions: {
-      searchResources: simple.stub(),
+      changeSearchFilters: simple.stub(),
       fetchUnits: simple.stub(),
+      searchResources: simple.stub(),
     },
     isFetchingSearchResults: false,
     filters: {
@@ -163,6 +164,7 @@ describe('pages/search/SearchPage', () => {
         let nextProps;
 
         before(() => {
+          defaultProps.actions.changeSearchFilters.reset();
           defaultProps.actions.searchResources.reset();
           const instance = getWrapper().instance();
           nextProps = {
@@ -170,6 +172,13 @@ describe('pages/search/SearchPage', () => {
             url: '/search?purpose=new-purpose',
           };
           instance.componentWillUpdate(nextProps);
+        });
+
+        it('updates search filters in state with the new filters', () => {
+          const actualArg = defaultProps.actions.changeSearchFilters.lastCall.args[0];
+
+          expect(defaultProps.actions.changeSearchFilters.callCount).to.equal(1);
+          expect(actualArg).to.deep.equal(nextProps.filters);
         });
 
         it('searches resources with given filters', () => {
@@ -184,6 +193,7 @@ describe('pages/search/SearchPage', () => {
         let nextProps;
 
         before(() => {
+          defaultProps.actions.changeSearchFilters.reset();
           defaultProps.actions.searchResources.reset();
           const instance = getWrapper().instance();
           nextProps = {
@@ -191,6 +201,10 @@ describe('pages/search/SearchPage', () => {
             url: '/search?search=some-search',
           };
           instance.componentWillUpdate(nextProps);
+        });
+
+        it('does not update search filters in state', () => {
+          expect(defaultProps.actions.changeSearchFilters.callCount).to.equal(0);
         });
 
         it('does not do a search', () => {

@@ -9,7 +9,7 @@ import typeaheadOptionsSelector from 'selectors/typeaheadOptionsSelector';
 
 function getState(suggestions) {
   const units = suggestions.map(
-    (suggestion) => Unit.build({ id: suggestion.unit })
+    suggestion => Unit.build({ id: suggestion.unit })
   );
   return {
     data: Immutable({

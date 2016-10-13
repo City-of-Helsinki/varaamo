@@ -424,7 +424,7 @@ describe('Reducer: dataReducer', () => {
 
       const unfavoriteResource = createAction(
         types.API.RESOURCE_UNFAVORITE_POST_SUCCESS,
-        (payload) => payload,
+        payload => payload,
         () => ({ id: resource.id })
       );
 
@@ -450,7 +450,7 @@ describe('Reducer: dataReducer', () => {
 
       const unfavoriteResource = createAction(
         types.API.RESOURCE_FAVORITE_POST_SUCCESS,
-        (payload) => payload,
+        payload => payload,
         () => ({ id: resource.id })
       );
 

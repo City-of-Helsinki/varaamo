@@ -13,17 +13,20 @@ import ReserveButton from './ReserveButton';
 import ResourceListItem from './ResourceListItem';
 
 describe('shared/resource-list/ResourceListItem', () => {
+  const date = '2015-10-10';
   const defaultProps = {
-    date: '2015-10-10',
     isLoggedIn: false,
     resource: Immutable(Resource.build({
       images: [Image.build()],
     })),
     unit: Immutable(Unit.build()),
   };
+  const context = {
+    location: { query: { date } },
+  };
 
   function getWrapper(extraProps) {
-    return shallow(<ResourceListItem {...defaultProps} {...extraProps} />);
+    return shallow(<ResourceListItem {...defaultProps} {...extraProps} />, { context });
   }
 
   it('renders an li element', () => {
@@ -42,7 +45,7 @@ describe('shared/resource-list/ResourceListItem', () => {
 
   it('contains links to correct resource page', () => {
     const links = getWrapper().find(Link);
-    const expectedUrl = getResourcePageUrl(defaultProps.resource, defaultProps.date);
+    const expectedUrl = getResourcePageUrl(defaultProps.resource, date);
 
     expect(links.length).to.equal(2);
     expect(links.at(0).props().to).to.equal(expectedUrl);
@@ -73,7 +76,7 @@ describe('shared/resource-list/ResourceListItem', () => {
     const reserveButton = getWrapper().find(ReserveButton);
 
     expect(reserveButton.length).to.equal(1);
-    expect(reserveButton.props().date).to.equal(defaultProps.date);
+    expect(reserveButton.props().date).to.equal(date);
     expect(reserveButton.props().isLoggedIn).to.equal(defaultProps.isLoggedIn);
     expect(reserveButton.props().resource).to.equal(defaultProps.resource);
   });

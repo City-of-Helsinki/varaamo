@@ -18,7 +18,7 @@ const Reservation = new Factory()
       moment(BASE_DATE).set('hour', (index + 3) % 24).toISOString()
   ))
   .attr('resource', 'r-1')
-  .attr('url', ['index'], (index) => (
+  .attr('url', ['index'], index => (
     `http://api.hel.fi/respa/v1/reservation/${index}/`
   ));
 

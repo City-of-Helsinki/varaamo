@@ -4,8 +4,8 @@ import ActionTypes from 'constants/ActionTypes';
 import urlSearchFiltersSelector from 'selectors/urlSearchFiltersSelector';
 import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
 
-const searchDoneSelector = (state) => state.ui.search.searchDone;
-const searchResultIdsSelector = (state) => state.ui.search.results;
+const searchDoneSelector = state => state.ui.search.searchDone;
+const searchResultIdsSelector = state => state.ui.search.results;
 
 const searchPageSelector = createSelector(
   requestIsActiveSelectorFactory(ActionTypes.API.SEARCH_RESULTS_GET_REQUEST),

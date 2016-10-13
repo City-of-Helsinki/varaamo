@@ -4,7 +4,7 @@ import currentUserSelector from 'selectors/currentUserSelector';
 import isAdminSelector from 'selectors/isAdminSelector';
 import isLoggedInSelector from 'selectors/isLoggedInSelector';
 
-const userIdSelector = (state) => state.auth.userId;
+const userIdSelector = state => state.auth.userId;
 
 const appSelector = createSelector(
   isAdminSelector,

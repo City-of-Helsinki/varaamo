@@ -54,7 +54,7 @@ describe('shared/form-fields/Checkbox', () => {
 
     it('gets correct props', () => {
       const actualProps = getWrapper().find(RBCheckbox).props();
-      Object.keys(defaultProps.controlProps).forEach(key => {
+      Object.keys(defaultProps.controlProps).forEach((key) => {
         expect(actualProps[key]).to.equal(defaultProps.controlProps[key]);
       });
     });

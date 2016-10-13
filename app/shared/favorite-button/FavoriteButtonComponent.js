@@ -9,7 +9,7 @@ function FavoriteButtonComponent({ favorited, onClick }) {
     >
       { favorited ?
         <Glyphicon glyph="star" /> :
-        <Glyphicon glyph="star-empty" />
+          <Glyphicon glyph="star-empty" />
       }
     </button>
   );

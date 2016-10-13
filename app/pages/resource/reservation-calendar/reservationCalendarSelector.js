@@ -13,8 +13,8 @@ import { getOpeningHours, getOpenReservations } from 'utils/resourceUtils';
 import { getTimeSlots } from 'utils/timeUtils';
 import ModalTypes from 'constants/ModalTypes';
 
-const selectedSelector = (state) => state.ui.reservations.selected;
-const toEditSelector = (state) => state.ui.reservations.toEdit;
+const selectedSelector = state => state.ui.reservations.selected;
+const toEditSelector = state => state.ui.reservations.toEdit;
 const urlHashSelector = (state, props) => props.location.hash;
 
 const reservationCalendarSelector = createSelector(
