@@ -1,3 +1,4 @@
+import moment from 'moment';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
@@ -11,15 +12,17 @@ import { bindActionCreators } from 'redux';
 
 import { fetchPurposes } from 'actions/purposeActions';
 import { changeSearchFilters } from 'actions/uiActions';
+import constants from 'constants/AppConstants';
 import AdvancedSearch from './AdvancedSearch';
 import searchControlsSelector from './searchControlsSelector';
 
 export class UnconnectedSearchControlsContainer extends Component {
   constructor(props) {
     super(props);
+    this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleFiltersChange = this.handleFiltersChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
-    this.onFiltersChange = this.onFiltersChange.bind(this);
   }
 
   componentDidMount() {
@@ -29,7 +32,14 @@ export class UnconnectedSearchControlsContainer extends Component {
     actions.fetchPurposes();
   }
 
-  onFiltersChange(newFilters) {
+  handleDateChange(date) {
+    const dateInCorrectFormat = (
+      moment(date, constants.LOCALIZED_DATE_FORMAT).format(constants.DATE_FORMAT)
+    );
+    this.handleFiltersChange({ date: dateInCorrectFormat });
+  }
+
+  handleFiltersChange(newFilters) {
     this.props.actions.changeSearchFilters(newFilters);
   }
 
@@ -50,7 +60,7 @@ export class UnconnectedSearchControlsContainer extends Component {
 
   handleSearchInputChange(event) {
     const value = event.target.value;
-    this.onFiltersChange({ search: value });
+    this.handleFiltersChange({ search: value });
     if (event.keyCode === 13) {
       this.handleSearch();
     }
@@ -69,7 +79,7 @@ export class UnconnectedSearchControlsContainer extends Component {
           <Col lg={6} md={6}>
             <FormControl
               autoFocus={!filters.purpose}
-              onChange={event => this.onFiltersChange({ search: event.target.value })}
+              onChange={event => this.handleFiltersChange({ search: event.target.value })}
               onKeyUp={this.handleSearchInputChange}
               placeholder="Esim. kokous, työskentely"
               type="text"
@@ -82,10 +92,10 @@ export class UnconnectedSearchControlsContainer extends Component {
                 className="form-control"
                 clearIcon={false}
                 collapseOnDateClick
-                dateFormat="YYYY-MM-DD"
-                defaultValue={this.props.filters.date}
+                dateFormat={constants.LOCALIZED_DATE_FORMAT}
+                value={moment(filters.date).format(constants.LOCALIZED_DATE_FORMAT)}
                 footer={false}
-                onChange={date => this.onFiltersChange({ date })}
+                onChange={this.handleDateChange}
                 updateOnDateClick
               />
             </div>
@@ -93,9 +103,9 @@ export class UnconnectedSearchControlsContainer extends Component {
         </Row>
         <AdvancedSearch
           isFetchingPurposes={isFetchingPurposes}
-          onFiltersChange={this.onFiltersChange}
+          onFiltersChange={this.handleFiltersChange}
           purposeOptions={purposeOptions}
-          filters={this.props.filters}
+          filters={filters}
         />
         <Button
           block

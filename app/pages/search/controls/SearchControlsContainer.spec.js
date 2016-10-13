@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import moment from 'moment';
 import queryString from 'query-string';
 import React from 'react';
 import { browserHistory } from 'react-router';
@@ -6,6 +7,7 @@ import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 import sd from 'skin-deep';
 
+import constants from 'constants/AppConstants';
 import {
   UnconnectedSearchControlsContainer as SearchControlsContainer,
 } from './SearchControlsContainer';
@@ -81,7 +83,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       const actualProps = advancedSearchTrees[0].props;
 
       expect(actualProps.isFetchingPurposes).to.equal(props.isFetchingPurposes);
-      expect(actualProps.onFiltersChange).to.equal(instance.onFiltersChange);
+      expect(actualProps.onFiltersChange).to.equal(instance.handleFiltersChange);
       expect(actualProps.purposeOptions).to.deep.equal(props.purposeOptions);
       expect(actualProps.filters).to.deep.equal(props.filters);
     });
@@ -98,18 +100,24 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(dateFieldTrees.length).to.equal(1);
     });
 
-    it('passes correct props to DateField component', () => {
+    it('passes correct onChange prop to DateField', () => {
       const actualProps = dateFieldTrees[0].props;
 
-      expect(actualProps.defaultValue).to.equal(props.filters.date);
-      expect(typeof actualProps.onChange).to.equal('function');
+      expect(actualProps.onChange).to.equal(instance.handleDateChange);
+    });
+
+    it('converts value to localized date format and passes it to DateField', () => {
+      const actualProps = dateFieldTrees[0].props;
+      const expected = moment(props.filters.date).format(constants.LOCALIZED_DATE_FORMAT);
+
+      expect(actualProps.value).to.equal(expected);
     });
   });
 
-  describe('onFiltersChange', () => {
+  describe('handleFiltersChange', () => {
     it('calls changeSearchFilters with given filters', () => {
       const newFilters = { search: 'new search value' };
-      instance.onFiltersChange(newFilters);
+      instance.handleFiltersChange(newFilters);
 
       expect(props.actions.changeSearchFilters.callCount).to.equal(1);
       expect(props.actions.changeSearchFilters.lastCall.args[0]).to.equal(newFilters);
