@@ -241,8 +241,10 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
   });
 
   describe('rendering ReservationForm', () => {
+    const termsAndConditions = 'Some terms and conditions';
     function getForm(needManualConfirmation = false, isAdmin = false, isStaff = false) {
       const resource = Resource.build({
+        genericTerms: { fi: termsAndConditions },
         needManualConfirmation,
         userPermissions: { isAdmin },
       });
@@ -293,6 +295,14 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
             expect(formFields).to.contain(field);
           });
         });
+
+        it('form fields does not include termsAndConditions', () => {
+          expect(formFields).to.not.contain('termsAndConditions');
+        });
+
+        it('form termsAndConditions is an empty string', () => {
+          expect(form.prop('termsAndConditions')).to.equal('');
+        });
       });
 
       describe('if user is a regular user', () => {
@@ -313,6 +323,14 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
           forEach(constants.RESERVATION_FORM_FIELDS, (field) => {
             expect(formFields).to.contain(field);
           });
+        });
+
+        it('form fields include termsAndConditions', () => {
+          expect(formFields).to.contain('termsAndConditions');
+        });
+
+        it('form props contain termsAndConditions', () => {
+          expect(form.prop('termsAndConditions')).to.equal(termsAndConditions);
         });
       });
     });
@@ -337,6 +355,14 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
             expect(formFields).to.not.contain(field);
           });
         });
+
+        it('form fields does not include termsAndConditions', () => {
+          expect(formFields).to.not.contain('termsAndConditions');
+        });
+
+        it('form termsAndConditions is an empty string', () => {
+          expect(form.prop('termsAndConditions')).to.equal('');
+        });
       });
 
       describe('if user is a regular user', () => {
@@ -356,6 +382,14 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
           forEach(constants.RESERVATION_FORM_FIELDS, (field) => {
             expect(formFields).to.not.contain(field);
           });
+        });
+
+        it('form fields include termsAndConditions', () => {
+          expect(formFields).to.contain('termsAndConditions');
+        });
+
+        it('form props contain termsAndConditions', () => {
+          expect(form.prop('termsAndConditions')).to.equal(termsAndConditions);
         });
       });
     });
