@@ -2,9 +2,9 @@ import { expect } from 'chai';
 import simple from 'simple-mock';
 
 import AppConstants from 'constants/AppConstants';
-import trackingMiddleware, { track } from 'middleware/tracking';
+import trackingMiddleware, { track } from './tracking';
 
-describe('middleware/tracking', () => {
+describe('state/middleware/tracking', () => {
   let dispatch;
   let middleware;
   let action;

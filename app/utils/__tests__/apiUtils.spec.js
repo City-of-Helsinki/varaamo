@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { CALL_API } from 'redux-api-middleware';
 
 import constants from 'constants/AppConstants';
-import schemas from 'middleware/Schemas';
+import schemas from 'state/middleware/Schemas';
 import {
   buildAPIUrl,
   createTransformFunction,

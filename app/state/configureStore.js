@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 import { compose, createStore } from 'redux';
 
-import middleware from 'middleware';
+import middleware from './middleware';
 import rootReducer from './reducers';
 
 const finalCreateStore = compose(...middleware)(createStore);
