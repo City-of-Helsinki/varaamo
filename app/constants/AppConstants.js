@@ -6,6 +6,7 @@ export default {
   },
   DATE_FORMAT: 'YYYY-MM-DD',
   FEEDBACK_URL: 'http://www.helmet-kirjasto.fi/varaamo-palaute/',
+  LOCALIZED_DATE_FORMAT: 'D.M.YYYY',
   NOTIFICATION_DEFAULTS: {
     message: '',
     type: 'info',
