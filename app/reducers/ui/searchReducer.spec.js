@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-
 import keyBy from 'lodash/keyBy';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
@@ -7,7 +6,7 @@ import Immutable from 'seamless-immutable';
 import { clearSearchResults } from 'actions/searchActions';
 import types from 'constants/ActionTypes';
 import Resource from 'fixtures/Resource';
-import searchReducer from 'reducers/searchReducer';
+import searchReducer from './searchReducer';
 
 describe('Reducer: searchReducer', () => {
   describe('initial state', () => {

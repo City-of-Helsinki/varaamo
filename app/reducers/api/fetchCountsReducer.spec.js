@@ -1,10 +1,9 @@
 import { expect } from 'chai';
-
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
-import fetchCountsReducer from 'reducers/fetchCountsReducer';
+import fetchCountsReducer from './fetchCountsReducer';
 
 describe('Reducer: fetchCountsReducer', () => {
   describe('initial state', () => {

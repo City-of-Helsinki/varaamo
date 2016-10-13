@@ -1,9 +1,8 @@
 import { expect } from 'chai';
-
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
-import activeRequestsReducer from 'reducers/activeRequestsReducer';
+import activeRequestsReducer from './activeRequestsReducer';
 
 describe('Reducer: activeRequestsReducer', () => {
   describe('initial state', () => {

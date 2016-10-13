@@ -1,11 +1,10 @@
 import { expect } from 'chai';
-
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
 import Resource from 'fixtures/Resource';
-import adminResourcesPageReducer from 'reducers/adminResourcesPageReducer';
+import adminResourcesPageReducer from './adminResourcesPageReducer';
 
 describe('Reducer: adminResourcesPageReducer', () => {
   describe('initial state', () => {

@@ -1,10 +1,9 @@
 import { expect } from 'chai';
-
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
-import authReducer from 'reducers/authReducer';
+import authReducer from './authReducer';
 
 describe('Reducer: authReducer', () => {
   describe('initial state', () => {

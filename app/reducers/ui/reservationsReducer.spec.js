@@ -17,8 +17,8 @@ import {
 } from 'actions/uiActions';
 import types from 'constants/ActionTypes';
 import Reservation from 'fixtures/Reservation';
-import reservationsReducer from 'reducers/reservationsReducer';
 import { getTimeSlots } from 'utils/timeUtils';
+import reservationsReducer from './reservationsReducer';
 
 describe('Reducer: reservationsReducer', () => {
   describe('initial state', () => {

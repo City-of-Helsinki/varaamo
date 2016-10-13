@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
@@ -7,7 +6,7 @@ import types from 'constants/ActionTypes';
 import Reservation from 'fixtures/Reservation';
 import Resource from 'fixtures/Resource';
 import User from 'fixtures/User';
-import dataReducer, { handleData } from 'reducers/dataReducer';
+import dataReducer, { handleData } from './dataReducer';
 
 describe('Reducer: dataReducer', () => {
   describe('initial state', () => {
