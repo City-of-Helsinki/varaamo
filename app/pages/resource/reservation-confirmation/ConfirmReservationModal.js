@@ -151,6 +151,7 @@ class ConfirmReservationModal extends Component {
 
   render() {
     const {
+      isAdmin,
       isEditing,
       isMakingReservations,
       isPreliminaryReservation,
@@ -160,7 +161,7 @@ class ConfirmReservationModal extends Component {
       staffEventSelected,
     } = this.props;
 
-    const termsAndConditions = getTermsAndConditions(resource);
+    const termsAndConditions = isAdmin ? '' : getTermsAndConditions(resource);
 
     return (
       <Modal
