@@ -74,6 +74,12 @@ export class UnconnectedReservationInfoModalContainer extends Component {
           <dt>Varauksen ajankohta:</dt>
           <dd><TimeRange begin={reservation.begin} end={reservation.end} /></dd>
           <dt>Tila:</dt><dd>{getName(resource)}</dd>
+          {reservation.accessCode && (
+            <span>
+              <dt>PIN-koodi:</dt>
+              <dd>{reservation.accessCode}</dd>
+            </span>
+          )}
           {isAdmin && reservation.state === 'cancelled' && (
             <span>
               <dt>Kommentit:</dt>
