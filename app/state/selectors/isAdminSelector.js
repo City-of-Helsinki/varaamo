@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import currentUserSelector from 'selectors/currentUserSelector';
+import currentUserSelector from 'state/selectors/currentUserSelector';
 
 const isAdminSelector = createSelector(
   currentUserSelector,

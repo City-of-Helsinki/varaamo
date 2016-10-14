@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import timeSelector from 'selectors/timeSelector';
+import timeSelector from 'state/selectors/timeSelector';
 
 function getProps(time) {
   return {

@@ -4,7 +4,7 @@ import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
 import User from 'fixtures/User';
-import currentUserSelector from 'selectors/currentUserSelector';
+import currentUserSelector from 'state/selectors/currentUserSelector';
 
 function getState(users, loggedInUserId) {
   return {

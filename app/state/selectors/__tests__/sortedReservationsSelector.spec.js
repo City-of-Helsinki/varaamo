@@ -4,7 +4,7 @@ import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
 import Reservation from 'fixtures/Reservation';
-import sortedReservationsSelector from 'selectors/sortedReservationsSelector';
+import sortedReservationsSelector from 'state/selectors/sortedReservationsSelector';
 
 function getState(reservations = []) {
   return {

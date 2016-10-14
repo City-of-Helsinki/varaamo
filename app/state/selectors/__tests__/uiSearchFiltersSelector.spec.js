@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import MockDate from 'mockdate';
 
-import uiSearchFiltersSelector from 'selectors/uiSearchFiltersSelector';
+import uiSearchFiltersSelector from 'state/selectors/uiSearchFiltersSelector';
 
 function getState(date = '2015-10-10') {
   return {

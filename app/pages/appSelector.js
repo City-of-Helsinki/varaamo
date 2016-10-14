@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 
-import currentUserSelector from 'selectors/currentUserSelector';
-import isAdminSelector from 'selectors/isAdminSelector';
-import isLoggedInSelector from 'selectors/isLoggedInSelector';
+import currentUserSelector from 'state/selectors/currentUserSelector';
+import isAdminSelector from 'state/selectors/isAdminSelector';
+import isLoggedInSelector from 'state/selectors/isLoggedInSelector';
 
 const userIdSelector = state => state.auth.userId;
 

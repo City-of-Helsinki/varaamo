@@ -2,7 +2,7 @@ import { expect } from 'chai';
 
 import Immutable from 'seamless-immutable';
 
-import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
+import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
 
 function getState(activeRequests) {
   return {

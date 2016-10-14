@@ -2,7 +2,7 @@ import { expect } from 'chai';
 
 import Immutable from 'seamless-immutable';
 
-import selectedReservationsSelector from 'selectors/selectedReservationsSelector';
+import selectedReservationsSelector from 'state/selectors/selectedReservationsSelector';
 
 function getState(selected) {
   return {

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import MockDate from 'mockdate';
 
-import urlSearchFiltersSelector from 'selectors/urlSearchFiltersSelector';
+import urlSearchFiltersSelector from 'state/selectors/urlSearchFiltersSelector';
 
 function getProps(date = '2015-10-10') {
   return {

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import isLoggedInSelector from 'selectors/isLoggedInSelector';
+import isLoggedInSelector from 'state/selectors/isLoggedInSelector';
 
 function getState(token = null, userId = null) {
   return {

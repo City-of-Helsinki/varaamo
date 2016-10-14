@@ -4,7 +4,7 @@ import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
 import Resource from 'fixtures/Resource';
-import resourceSelector from 'selectors/resourceSelector';
+import resourceSelector from 'state/selectors/resourceSelector';
 
 function getState(resources) {
   return {

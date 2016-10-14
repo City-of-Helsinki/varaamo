@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
-import isAdminSelector from 'selectors/isAdminSelector';
-import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
-import sortedReservationsSelector from 'selectors/sortedReservationsSelector';
-import staffUnitsSelector from 'selectors/staffUnitsSelector';
+import isAdminSelector from 'state/selectors/isAdminSelector';
+import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
+import sortedReservationsSelector from 'state/selectors/sortedReservationsSelector';
+import staffUnitsSelector from 'state/selectors/staffUnitsSelector';
 
 const resourcesSelector = state => state.data.resources;
 const unitsSelector = state => state.data.units;

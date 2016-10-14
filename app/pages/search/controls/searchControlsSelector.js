@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
-import purposeOptionsSelector from 'selectors/purposeOptionsSelector';
-import uiSearchFiltersSelector from 'selectors/uiSearchFiltersSelector';
-import urlSearchFiltersSelector from 'selectors/urlSearchFiltersSelector';
-import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
+import purposeOptionsSelector from 'state/selectors/purposeOptionsSelector';
+import uiSearchFiltersSelector from 'state/selectors/uiSearchFiltersSelector';
+import urlSearchFiltersSelector from 'state/selectors/urlSearchFiltersSelector';
+import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
 
 const searchControlsSelector = createSelector(
   purposeOptionsSelector,

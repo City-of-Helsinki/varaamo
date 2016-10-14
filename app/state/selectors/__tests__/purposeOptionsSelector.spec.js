@@ -4,7 +4,7 @@ import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
 import Purpose from 'fixtures/Purpose';
-import purposeOptionsSelector from 'selectors/purposeOptionsSelector';
+import purposeOptionsSelector from 'state/selectors/purposeOptionsSelector';
 
 function getState(purposes) {
   return {

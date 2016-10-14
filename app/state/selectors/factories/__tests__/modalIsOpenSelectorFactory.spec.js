@@ -2,7 +2,7 @@ import { expect } from 'chai';
 
 import Immutable from 'seamless-immutable';
 
-import modalIsOpenSelectorFactory from 'selectors/factories/modalIsOpenSelectorFactory';
+import modalIsOpenSelectorFactory from 'state/selectors/factories/modalIsOpenSelectorFactory';
 
 function getState(openModals) {
   return {

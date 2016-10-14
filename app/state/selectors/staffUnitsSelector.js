@@ -2,7 +2,7 @@ import includes from 'lodash/includes';
 import forIn from 'lodash/forIn';
 import { createSelector } from 'reselect';
 
-import currentUserSelector from 'selectors/currentUserSelector';
+import currentUserSelector from 'state/selectors/currentUserSelector';
 
 const staffUnitsSelector = createSelector(
   currentUserSelector,

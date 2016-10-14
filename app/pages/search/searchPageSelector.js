@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
-import urlSearchFiltersSelector from 'selectors/urlSearchFiltersSelector';
-import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
+import urlSearchFiltersSelector from 'state/selectors/urlSearchFiltersSelector';
+import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
 
 const searchDoneSelector = state => state.ui.search.searchDone;
 const searchResultIdsSelector = state => state.ui.search.results;

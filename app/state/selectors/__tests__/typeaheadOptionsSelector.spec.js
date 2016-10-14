@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable';
 
 import Resource from 'fixtures/Resource';
 import Unit from 'fixtures/Unit';
-import typeaheadOptionsSelector from 'selectors/typeaheadOptionsSelector';
+import typeaheadOptionsSelector from 'state/selectors/typeaheadOptionsSelector';
 
 function getState(suggestions) {
   const units = suggestions.map(
