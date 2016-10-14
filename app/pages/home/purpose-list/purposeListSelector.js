@@ -2,7 +2,7 @@ import values from 'lodash/values';
 import { createSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
-import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
+import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
 
 const purposesSelector = state => state.data.purposes;
 

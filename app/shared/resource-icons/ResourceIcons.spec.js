@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
-import Resource from 'fixtures/Resource';
+import Resource from 'utils/fixtures/Resource';
 import ResourceIcons from './ResourceIcons';
 
 describe('shared/resource-list/ResourceIcons', () => {

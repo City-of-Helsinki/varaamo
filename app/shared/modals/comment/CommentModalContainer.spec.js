@@ -4,8 +4,8 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import Reservation from 'fixtures/Reservation';
-import Resource from 'fixtures/Resource';
+import Reservation from 'utils/fixtures/Reservation';
+import Resource from 'utils/fixtures/Resource';
 import CommentForm from 'shared/comment-form';
 import { UnconnectedCommentModalContainer as CommentModalContainer } from './CommentModalContainer';
 import ModalWrapper from '../ModalWrapper';

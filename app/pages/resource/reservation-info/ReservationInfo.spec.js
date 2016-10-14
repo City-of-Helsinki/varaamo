@@ -4,7 +4,7 @@ import React from 'react';
 import Well from 'react-bootstrap/lib/Well';
 import Immutable from 'seamless-immutable';
 
-import Resource from 'fixtures/Resource';
+import Resource from 'utils/fixtures/Resource';
 import WrappedText from 'shared/wrapped-text';
 import ReservationInfo from './ReservationInfo';
 

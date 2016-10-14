@@ -4,7 +4,7 @@ import React from 'react';
 
 import Immutable from 'seamless-immutable';
 
-import Purpose from 'fixtures/Purpose';
+import Purpose from 'utils/fixtures/Purpose';
 import PurposeList from './PurposeList';
 import PurposeListItem from './PurposeListItem';
 

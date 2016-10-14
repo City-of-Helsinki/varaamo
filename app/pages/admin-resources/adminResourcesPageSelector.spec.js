@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import Resource from 'fixtures/Resource';
+import Resource from 'utils/fixtures/Resource';
 import { getDefaultRouterProps, getInitialState, getState } from 'utils/testUtils';
 import adminResourcesPageSelector from './adminResourcesPageSelector';
 

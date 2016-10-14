@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import isLoggedInSelector from 'selectors/isLoggedInSelector';
+import isLoggedInSelector from 'state/selectors/isLoggedInSelector';
 
 const resourcesSelector = state => state.data.resources;
 const resourceIdSelector = (state, props) => props.resourceId;

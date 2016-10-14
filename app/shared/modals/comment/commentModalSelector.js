@@ -2,8 +2,8 @@ import { createSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
 import ModalTypes from 'constants/ModalTypes';
-import modalIsOpenSelectorFactory from 'selectors/factories/modalIsOpenSelectorFactory';
-import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
+import modalIsOpenSelectorFactory from 'state/selectors/factories/modalIsOpenSelectorFactory';
+import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
 
 const reservationsToShowSelector = state => state.ui.reservations.toShow;
 const resourcesSelector = state => state.data.resources;

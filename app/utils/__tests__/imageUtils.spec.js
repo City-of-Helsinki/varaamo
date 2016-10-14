@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import Image from 'fixtures/Image';
+import Image from 'utils/fixtures/Image';
 import { getCaption, getMainImage } from 'utils/imageUtils';
 
 describe('Utils: imageUtils', () => {

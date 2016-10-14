@@ -4,8 +4,8 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 
 import WrappedText from 'shared/wrapped-text';
-import Resource from 'fixtures/Resource';
-import Unit from 'fixtures/Unit';
+import Resource from 'utils/fixtures/Resource';
+import Unit from 'utils/fixtures/Unit';
 import FavoriteButton from 'shared/favorite-button';
 import ResourceIcons from 'shared/resource-icons';
 import { getAddressWithName } from 'utils/unitUtils';

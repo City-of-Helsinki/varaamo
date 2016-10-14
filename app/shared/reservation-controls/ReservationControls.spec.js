@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/lib/Button';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import Reservation from 'fixtures/Reservation';
+import Reservation from 'utils/fixtures/Reservation';
 import { makeButtonTests } from 'utils/testUtils';
 import ReservationControls from './ReservationControls';
 

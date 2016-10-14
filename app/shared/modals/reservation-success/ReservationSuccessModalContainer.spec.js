@@ -9,8 +9,8 @@ import Immutable from 'seamless-immutable';
 
 import CompactReservationList from 'shared/compact-reservation-list';
 
-import Reservation from 'fixtures/Reservation';
-import Resource from 'fixtures/Resource';
+import Reservation from 'utils/fixtures/Reservation';
+import Resource from 'utils/fixtures/Resource';
 import {
   UnconnectedReservationSuccessModalContainer as ReservationSuccessModalContainer,
 } from './ReservationSuccessModalContainer';

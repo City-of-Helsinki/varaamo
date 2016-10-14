@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
-import Resource from 'fixtures/Resource';
-import Unit from 'fixtures/Unit';
+import Resource from 'utils/fixtures/Resource';
+import Unit from 'utils/fixtures/Unit';
 import { getState } from 'utils/testUtils';
 import resourceListItemSelector from './resourceListItemSelector';
 

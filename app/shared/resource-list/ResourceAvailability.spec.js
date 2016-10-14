@@ -6,7 +6,7 @@ import Label from 'react-bootstrap/lib/Label';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import Resource from 'fixtures/Resource';
+import Resource from 'utils/fixtures/Resource';
 import * as resourceUtils from 'utils/resourceUtils';
 import ResourceAvailability from './ResourceAvailability';
 

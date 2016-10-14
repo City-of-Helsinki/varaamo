@@ -4,9 +4,9 @@ import React from 'react';
 import { Link } from 'react-router';
 import Immutable from 'seamless-immutable';
 
-import Image from 'fixtures/Image';
-import Resource from 'fixtures/Resource';
-import Unit from 'fixtures/Unit';
+import Image from 'utils/fixtures/Image';
+import Resource from 'utils/fixtures/Resource';
+import Unit from 'utils/fixtures/Unit';
 import ResourceIcons from 'shared/resource-icons';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import ReserveButton from './ReserveButton';

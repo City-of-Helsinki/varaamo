@@ -2,7 +2,7 @@ import { createAction } from 'redux-actions';
 import { CALL_API } from 'redux-api-middleware';
 
 import types from 'constants/ActionTypes';
-import schemas from 'middleware/Schemas';
+import schemas from 'state/middleware/Schemas';
 import {
   buildAPIUrl,
   getErrorTypeDescriptor,

@@ -6,7 +6,7 @@ import simple from 'simple-mock';
 
 import Immutable from 'seamless-immutable';
 
-import Purpose from 'fixtures/Purpose';
+import Purpose from 'utils/fixtures/Purpose';
 import PurposeList from './PurposeList';
 import { UnconnectedPurposeListContainer as PurposeListContainer } from './PurposeListContainer';
 

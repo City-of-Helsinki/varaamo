@@ -4,9 +4,9 @@ import sd from 'skin-deep';
 
 import Immutable from 'seamless-immutable';
 
-import Reservation from 'fixtures/Reservation';
-import Resource from 'fixtures/Resource';
-import Unit from 'fixtures/Unit';
+import Reservation from 'utils/fixtures/Reservation';
+import Resource from 'utils/fixtures/Resource';
+import Unit from 'utils/fixtures/Unit';
 import {
   UnconnectedReservationListContainer as ReservationListContainer,
 } from './ReservationListContainer';

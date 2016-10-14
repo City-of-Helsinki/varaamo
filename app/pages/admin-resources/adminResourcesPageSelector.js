@@ -4,8 +4,8 @@ import sortBy from 'lodash/sortBy';
 import values from 'lodash/values';
 
 import ActionTypes from 'constants/ActionTypes';
-import requestIsActiveSelectorFactory from 'selectors/factories/requestIsActiveSelectorFactory';
-import isAdminSelector from 'selectors/isAdminSelector';
+import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
+import isAdminSelector from 'state/selectors/isAdminSelector';
 
 const resourcesSelector = state => state.data.resources;
 const resourceIdsSelector = state => state.ui.pages.adminResources.resourceIds;
