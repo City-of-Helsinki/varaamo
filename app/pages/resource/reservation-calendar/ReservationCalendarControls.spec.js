@@ -3,7 +3,7 @@ import React from 'react';
 import sd from 'skin-deep';
 import simple from 'simple-mock';
 
-import Resource from 'fixtures/Resource';
+import Resource from 'utils/fixtures/Resource';
 import ReservationCalendarControls from './ReservationCalendarControls';
 
 function getProps(props) {

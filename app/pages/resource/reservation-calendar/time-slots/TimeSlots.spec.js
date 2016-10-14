@@ -5,8 +5,8 @@ import Table from 'react-bootstrap/lib/Table';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import Resource from 'fixtures/Resource';
-import TimeSlot from 'fixtures/TimeSlot';
+import Resource from 'utils/fixtures/Resource';
+import TimeSlot from 'utils/fixtures/TimeSlot';
 import TimeSlots from './TimeSlots';
 import TimeSlotComponent from './TimeSlot';
 

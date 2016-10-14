@@ -16,7 +16,7 @@ import {
   toggleTimeSlot,
 } from 'actions/uiActions';
 import types from 'constants/ActionTypes';
-import Reservation from 'fixtures/Reservation';
+import Reservation from 'utils/fixtures/Reservation';
 import { getTimeSlots } from 'utils/timeUtils';
 import reservationsReducer from './reservationsReducer';
 

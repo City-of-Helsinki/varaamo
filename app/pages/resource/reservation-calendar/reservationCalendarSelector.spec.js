@@ -3,7 +3,7 @@ import simple from 'simple-mock';
 
 import Immutable from 'seamless-immutable';
 
-import Resource, { openingHours } from 'fixtures/Resource';
+import Resource, { openingHours } from 'utils/fixtures/Resource';
 import * as timeUtils from 'utils/timeUtils';
 import reservationCalendarSelector from './reservationCalendarSelector';
 

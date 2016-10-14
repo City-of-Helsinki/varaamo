@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import Immutable from 'seamless-immutable';
 
-import User from 'fixtures/User';
+import User from 'utils/fixtures/User';
 import isAdminSelector from 'state/selectors/isAdminSelector';
 import { getInitialState } from 'utils/testUtils';
 

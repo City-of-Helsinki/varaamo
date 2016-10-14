@@ -4,7 +4,7 @@ import React from 'react';
 import Carousel from 'react-bootstrap/lib/Carousel';
 import Immutable from 'seamless-immutable';
 
-import Image from 'fixtures/Image';
+import Image from 'utils/fixtures/Image';
 import { getCaption } from 'utils/imageUtils';
 import ImageCarousel from './ImageCarousel';
 

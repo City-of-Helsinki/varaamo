@@ -4,10 +4,10 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 
 import TimeRange from 'shared/time-range';
-import Image from 'fixtures/Image';
-import Reservation from 'fixtures/Reservation';
-import Resource from 'fixtures/Resource';
-import Unit from 'fixtures/Unit';
+import Image from 'utils/fixtures/Image';
+import Reservation from 'utils/fixtures/Reservation';
+import Resource from 'utils/fixtures/Resource';
+import Unit from 'utils/fixtures/Unit';
 import ReservationControls from 'shared/reservation-controls';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import ReservationListItem from './ReservationListItem';

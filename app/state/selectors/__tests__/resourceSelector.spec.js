@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
-import Resource from 'fixtures/Resource';
+import Resource from 'utils/fixtures/Resource';
 import resourceSelector from 'state/selectors/resourceSelector';
 
 function getState(resources) {

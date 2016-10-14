@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable';
 
 import { clearSearchResults } from 'actions/searchActions';
 import types from 'constants/ActionTypes';
-import Resource from 'fixtures/Resource';
+import Resource from 'utils/fixtures/Resource';
 import searchReducer from './searchReducer';
 
 describe('state/reducers/ui/searchReducer', () => {

@@ -3,8 +3,8 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
-import Reservation from 'fixtures/Reservation';
-import Resource from 'fixtures/Resource';
+import Reservation from 'utils/fixtures/Reservation';
+import Resource from 'utils/fixtures/Resource';
 import TimeRange from 'shared/time-range';
 import CompactReservationList from './CompactReservationList';
 

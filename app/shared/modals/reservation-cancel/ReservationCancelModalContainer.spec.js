@@ -4,8 +4,8 @@ import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 import sd from 'skin-deep';
 
-import Reservation from 'fixtures/Reservation';
-import Resource from 'fixtures/Resource';
+import Reservation from 'utils/fixtures/Reservation';
+import Resource from 'utils/fixtures/Resource';
 import {
   UnconnectedReservationCancelModalContainer as ReservationCancelModalContainer,
 } from './ReservationCancelModalContainer';

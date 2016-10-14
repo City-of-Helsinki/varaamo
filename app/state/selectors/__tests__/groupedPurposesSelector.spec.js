@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
-import Purpose from 'fixtures/Purpose';
+import Purpose from 'utils/fixtures/Purpose';
 import groupedPurposesSelector from 'state/selectors/groupedPurposesSelector';
 
 function getState(purposes) {

@@ -3,9 +3,9 @@ import { expect } from 'chai';
 import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
-import Resource from 'fixtures/Resource';
-import Unit from 'fixtures/Unit';
-import User from 'fixtures/User';
+import Resource from 'utils/fixtures/Resource';
+import Unit from 'utils/fixtures/Unit';
+import User from 'utils/fixtures/User';
 import resourcePageSelector from './resourcePageSelector';
 
 const defaultUser = User.build();

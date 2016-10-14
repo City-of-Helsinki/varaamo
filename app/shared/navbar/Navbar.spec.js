@@ -5,7 +5,7 @@ import simple from 'simple-mock';
 import sd from 'skin-deep';
 
 
-import User from 'fixtures/User';
+import User from 'utils/fixtures/User';
 import { getSearchPageUrl } from 'utils/searchUtils';
 import Navbar from './Navbar';
 

@@ -5,8 +5,8 @@ import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 import sd from 'skin-deep';
 
-import Resource from 'fixtures/Resource';
-import TimeSlot from 'fixtures/TimeSlot';
+import Resource from 'utils/fixtures/Resource';
+import TimeSlot from 'utils/fixtures/TimeSlot';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import {
   UnconnectedReservationCalendarContainer as ReservationCalendarContainer,

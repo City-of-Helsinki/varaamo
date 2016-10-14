@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import User from 'fixtures/User';
+import User from 'utils/fixtures/User';
 import Footer from 'shared/footer';
 import Navbar from 'shared/navbar';
 import Notifications from 'shared/notifications';

@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
-import User from 'fixtures/User';
+import User from 'utils/fixtures/User';
 import appSelector from './appSelector';
 
 function getState(users, loggedInUserId) {

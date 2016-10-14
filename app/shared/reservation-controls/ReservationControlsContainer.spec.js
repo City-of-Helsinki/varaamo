@@ -4,8 +4,8 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import simple from 'simple-mock';
 
-import Reservation from 'fixtures/Reservation';
-import Resource from 'fixtures/Resource';
+import Reservation from 'utils/fixtures/Reservation';
+import Resource from 'utils/fixtures/Resource';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import ReservationControls from './ReservationControls';
 import {

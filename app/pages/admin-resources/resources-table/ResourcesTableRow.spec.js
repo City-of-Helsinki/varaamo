@@ -6,8 +6,8 @@ import moment from 'moment';
 import { Link } from 'react-router';
 
 import TimeRange from 'shared/time-range';
-import Reservation from 'fixtures/Reservation';
-import Resource from 'fixtures/Resource';
+import Reservation from 'utils/fixtures/Reservation';
+import Resource from 'utils/fixtures/Resource';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import ResourcesTableRow from './ResourcesTableRow';
 

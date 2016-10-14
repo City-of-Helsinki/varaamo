@@ -4,8 +4,8 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import Resource from 'fixtures/Resource';
-import Unit from 'fixtures/Unit';
+import Resource from 'utils/fixtures/Resource';
+import Unit from 'utils/fixtures/Unit';
 import { UnconnectedResourcePage as ResourcePage } from './ResourcePage';
 import ReservationInfo from './reservation-info';
 import ResourceInfo from './resource-info';

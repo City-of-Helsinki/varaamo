@@ -3,8 +3,8 @@ import { expect } from 'chai';
 import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
-import Resource from 'fixtures/Resource';
-import Unit from 'fixtures/Unit';
+import Resource from 'utils/fixtures/Resource';
+import Unit from 'utils/fixtures/Unit';
 import typeaheadOptionsSelector from 'state/selectors/typeaheadOptionsSelector';
 
 function getState(suggestions) {

@@ -8,8 +8,8 @@ import forEach from 'lodash/forEach';
 import Immutable from 'seamless-immutable';
 
 import constants from 'constants/AppConstants';
-import Reservation from 'fixtures/Reservation';
-import Resource from 'fixtures/Resource';
+import Reservation from 'utils/fixtures/Reservation';
+import Resource from 'utils/fixtures/Resource';
 import ConfirmReservationModal from './ConfirmReservationModal';
 import ReservationForm from './ReservationForm';
 
