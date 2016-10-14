@@ -2,8 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
 import { Link } from 'react-router';
 
-import TimeRange from 'shared/time-range';
 import CommentButton from 'shared/comment-button';
+import ReservationAccessCode from 'shared/reservation-access-code';
+import TimeRange from 'shared/time-range';
 import { getOpeningHours, getResourcePageUrl } from 'utils/resourceUtils';
 import { prettifyHours } from 'utils/timeUtils';
 
@@ -76,6 +77,7 @@ class ResourcesTableRow extends Component {
           </td>,
           <td className="resource-table-row reserver" key={`${reservation.id}-reserver`}>
             {this.getReserverName(reservation)}
+            <ReservationAccessCode reservation={reservation} />
           </td>,
           <td className="resource-table-row comments" key={`${reservation.id}-comments`}>
             {reservation.comments}
