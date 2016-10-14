@@ -9,6 +9,7 @@ import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
 import ReservationControls from 'shared/reservation-controls';
+import ReservationStateLabel from 'shared/reservation-state-label';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import ReservationListItem from './ReservationListItem';
 
@@ -81,6 +82,11 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
       expect(timeRange.at(0).props().end).to.equal(props.reservation.end);
       expect(timeRange.at(1).props().begin).to.equal(props.reservation.begin);
       expect(timeRange.at(1).props().end).to.equal(props.reservation.end);
+    });
+
+    it('renders ReservationStateLabel component', () => {
+      const reservationStateLabel = component.find(ReservationStateLabel);
+      expect(reservationStateLabel.length).to.equal(1);
     });
 
     it('renders ReservationControls component', () => {

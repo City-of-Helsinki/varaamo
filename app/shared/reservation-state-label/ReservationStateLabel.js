@@ -10,7 +10,7 @@ function ReservationStateLabel({ reservation }) {
   const { labelBsStyle, labelText } = constants.RESERVATION_STATE_LABELS[reservation.state];
 
   return (
-    <div className="reservation-state-container">
+    <div className="reservation-state-label-container">
       <Label bsStyle={labelBsStyle}>{labelText}</Label>
     </div>
   );

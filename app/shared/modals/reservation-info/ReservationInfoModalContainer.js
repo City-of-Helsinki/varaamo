@@ -12,8 +12,8 @@ import { bindActionCreators } from 'redux';
 
 import { closeReservationInfoModal } from 'actions/uiActions';
 import { commentReservation } from 'actions/reservationActions';
+import ReservationStateLabel from 'shared/reservation-state-label';
 import TimeRange from 'shared/time-range';
-import { renderReservationStateLabel } from 'utils/renderUtils';
 import { getName } from 'utils/translationUtils';
 import reservationInfoModalSelector from './reservationInfoModalSelector';
 
@@ -45,7 +45,7 @@ export class UnconnectedReservationInfoModalContainer extends Component {
 
     return (
       <div>
-        {renderReservationStateLabel(reservation)}
+        <ReservationStateLabel reservation={reservation} />
         <dl className="dl-horizontal">
           <dt>Varaaja / vuokraaja:</dt><dd>{reservation.reserverName}</dd>
           {isStaff && (

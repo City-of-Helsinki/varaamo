@@ -27,7 +27,7 @@ describe('shared/reservation-state-label/ReservationStateLabel', () => {
     it('renders a container div with correct className', () => {
       const container = wrapper.find('div');
       expect(container.length).to.equal(1);
-      expect(container.prop('className')).to.equal('reservation-state-container');
+      expect(container.prop('className')).to.equal('reservation-state-label-container');
     });
 
     describe('Label', () => {

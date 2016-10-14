@@ -4,8 +4,8 @@ import { Link } from 'react-router';
 
 import TimeRange from 'shared/time-range';
 import ReservationControls from 'shared/reservation-controls';
+import ReservationStateLabel from 'shared/reservation-state-label';
 import { getCaption, getMainImage } from 'utils/imageUtils';
-import { renderReservationStateLabel } from 'utils/renderUtils';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import { getName } from 'utils/translationUtils';
 
@@ -58,7 +58,7 @@ class ReservationListItem extends Component {
             />
           </Link>
         </div>
-        {renderReservationStateLabel(reservation)}
+        <ReservationStateLabel reservation={reservation} />
         <ReservationControls
           isAdmin={isAdmin}
           isStaff={isStaff}
