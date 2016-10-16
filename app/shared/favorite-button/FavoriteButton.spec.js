@@ -4,16 +4,16 @@ import React from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import simple from 'simple-mock';
 
-import FavoriteButtonComponent from './FavoriteButtonComponent';
+import FavoriteButton from './FavoriteButton';
 
-describe('shared/favorite-button/FavoriteButtonComponent', () => {
+describe('shared/favorite-button/FavoriteButton', () => {
   const defaultProps = {
     favorited: true,
     onClick: simple.mock(),
   };
 
   function getWrapper(props) {
-    return shallow(<FavoriteButtonComponent {...defaultProps} {...props} />);
+    return shallow(<FavoriteButton {...defaultProps} {...props} />);
   }
   let wrapper;
 

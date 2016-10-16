@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { favoriteResource, unfavoriteResource } from 'actions/resourceActions';
-import FavoriteButton from './FavoriteButtonComponent';
+import FavoriteButton from './FavoriteButton';
 
 export class UnconnectedFavoriteButtonContainer extends Component {
   constructor(props) {
