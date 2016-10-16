@@ -3,15 +3,15 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
 
-import DateHeaderComponent from './DateHeaderComponent';
+import DateHeader from './DateHeader';
 
-describe('shared/date-header/DateHeaderComponent', () => {
+describe('shared/date-header/DateHeader', () => {
   const defaultProps = {
     date: '2015-10-11',
   };
 
   function getWrapper(extraProps) {
-    return shallow(<DateHeaderComponent {...defaultProps} {...extraProps} />);
+    return shallow(<DateHeader {...defaultProps} {...extraProps} />);
   }
 
   describe('header', () => {

@@ -76,14 +76,14 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       });
     });
 
-    describe('rendering DateHeaderComponent', () => {
-      const dateHeaderTrees = tree.everySubTree('DateHeaderComponent');
+    describe('rendering DateHeader', () => {
+      const dateHeaderTrees = tree.everySubTree('DateHeader');
 
-      it('renders DateHeaderComponent', () => {
+      it('renders DateHeader', () => {
         expect(dateHeaderTrees.length).to.equal(1);
       });
 
-      it('passes correct props to DateHeaderComponent', () => {
+      it('passes correct props to DateHeader', () => {
         const actualProps = dateHeaderTrees[0].props;
 
         expect(actualProps.date).to.equal(props.date);

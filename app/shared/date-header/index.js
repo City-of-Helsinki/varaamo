@@ -1,3 +1,3 @@
-import DateHeaderComponent from './DateHeaderComponent';
+import DateHeader from './DateHeader';
 
-export default DateHeaderComponent;
+export default DateHeader;
