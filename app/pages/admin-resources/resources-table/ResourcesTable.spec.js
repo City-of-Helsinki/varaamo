@@ -3,8 +3,8 @@ import { shallow } from 'enzyme';
 import moment from 'moment';
 import React from 'react';
 import Table from 'react-bootstrap/lib/Table';
-
 import Immutable from 'seamless-immutable';
+
 import Reservation from 'utils/fixtures/Reservation';
 import Resource, { openingHours } from 'utils/fixtures/Resource';
 import { UnconnectedResourcesTable as ResourcesTable } from './ResourcesTable';

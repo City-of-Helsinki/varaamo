@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-
 import Immutable from 'seamless-immutable';
 
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';

@@ -5,7 +5,6 @@ import simple from 'simple-mock';
 
 import * as customizationUtils from 'utils/customizationUtils';
 import Logo from './Logo';
-
 import espooLogoSrc from './espoo-logo.png';
 import helsinkiLogoSrc from './helsinki-coat-of-arms-white.png';
 

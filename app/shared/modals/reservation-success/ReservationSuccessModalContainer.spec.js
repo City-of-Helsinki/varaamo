@@ -3,12 +3,10 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-bootstrap/lib/Modal';
+import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import Immutable from 'seamless-immutable';
-
 import CompactReservationList from 'shared/compact-reservation-list';
-
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
 import {

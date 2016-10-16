@@ -1,10 +1,9 @@
 import { expect } from 'chai';
-
 import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
-import Resource from 'utils/fixtures/Resource';
 import resourceSelector from 'state/selectors/resourceSelector';
+import Resource from 'utils/fixtures/Resource';
 
 function getState(resources) {
   return {

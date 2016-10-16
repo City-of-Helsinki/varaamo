@@ -17,8 +17,17 @@
 
   "plugins": [
     "babel",
+    "import",
     "react"
   ],
+
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "./config/webpack.common.js"
+      }
+    }
+  },
 
   "rules": {
 
@@ -27,11 +36,9 @@
 
     "class-methods-use-this": 0,
 
-    "import/extensions": 0,
-
     "import/no-extraneous-dependencies": 0,
 
-    "import/no-unresolved": 0,
+    "import/order": ["error", { groups: ["builtin", "external", ["internal", "parent", "sibling", "index"]], "newlines-between": "always" }],
 
     "import/prefer-default-export": 0,
 

@@ -1,10 +1,9 @@
 import { expect } from 'chai';
-
 import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
-import Reservation from 'utils/fixtures/Reservation';
 import sortedReservationsSelector from 'state/selectors/sortedReservationsSelector';
+import Reservation from 'utils/fixtures/Reservation';
 
 function getState(reservations = []) {
   return {

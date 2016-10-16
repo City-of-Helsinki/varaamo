@@ -1,5 +1,6 @@
-import hashFile from 'hash-file';
 import path from 'path';
+
+import hashFile from 'hash-file';
 
 const isProduction = process.env.NODE_ENV === 'production';
 

@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-
 import Immutable from 'seamless-immutable';
 
 import selectedReservationsSelector from 'state/selectors/selectedReservationsSelector';

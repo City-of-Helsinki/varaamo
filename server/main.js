@@ -7,15 +7,14 @@ import cookieParser from 'cookie-parser';
 import cookieSession from 'cookie-session';
 import express from 'express';
 import morgan from 'morgan';
-
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
+import webpackConfig from '../config/webpack.development';
 import serverConfig from './config';
 import configurePassport from './configurePassport';
 import render from './render';
-import webpackConfig from '../config/webpack.development';
 
 const app = express();
 const compiler = webpack(webpackConfig);
