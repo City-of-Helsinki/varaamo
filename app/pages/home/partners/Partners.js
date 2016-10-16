@@ -8,7 +8,7 @@ import kaupunginkirjatoImage from './images/kaupunginkirjato.png';
 function renderImage(src, alt) {
   return (
     <div className="partner-image-wrapper">
-      <img src={src} alt={alt} />
+      <img alt={alt} src={src} />
     </div>
   );
 }

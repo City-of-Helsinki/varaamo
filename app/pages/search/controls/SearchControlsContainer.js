@@ -93,19 +93,19 @@ export class UnconnectedSearchControlsContainer extends Component {
                 clearIcon={false}
                 collapseOnDateClick
                 dateFormat={constants.LOCALIZED_DATE_FORMAT}
-                value={moment(filters.date).format(constants.LOCALIZED_DATE_FORMAT)}
                 footer={false}
                 onChange={this.handleDateChange}
                 updateOnDateClick
+                value={moment(filters.date).format(constants.LOCALIZED_DATE_FORMAT)}
               />
             </div>
           </Col>
         </Row>
         <AdvancedSearch
+          filters={filters}
           isFetchingPurposes={isFetchingPurposes}
           onFiltersChange={this.handleFiltersChange}
           purposeOptions={purposeOptions}
-          filters={filters}
         />
         <Button
           block

@@ -59,6 +59,8 @@
 
     "react/jsx-filename-extension": "off",
 
+    "react/jsx-sort-props": ["error", { "ignoreCase": true }],
+
     "react/no-string-refs": "off",
 
     "react/no-unused-prop-types": ["error", { "skipShapeProps": true }],

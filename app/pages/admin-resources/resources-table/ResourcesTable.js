@@ -12,8 +12,8 @@ export class UnconnectedResourcesTable extends Component {
     const reservations = getOpenReservations(resource);
     return (
       <ResourcesTableRow
-        key={resource.id}
         currentReservation={getCurrentReservation(reservations)}
+        key={resource.id}
         nextReservation={getNextReservation(reservations)}
         resource={resource}
       />

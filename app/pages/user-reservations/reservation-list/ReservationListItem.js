@@ -47,14 +47,14 @@ class ReservationListItem extends Component {
           <Link to={getResourcePageUrl(resource, reservation.begin, reservation.begin)}>
             <TimeRange
               begin={reservation.begin}
-              end={reservation.end}
               className="hidden-xs"
+              end={reservation.end}
             />
             <TimeRange
               begin={reservation.begin}
+              className="visible-xs-block"
               dateFormat="dd, D.M."
               end={reservation.end}
-              className="visible-xs-block"
             />
           </Link>
         </div>
