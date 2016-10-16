@@ -44,7 +44,6 @@ module.exports = merge(common, {
     // Important to keep React file size down
     new webpack.DefinePlugin({
       __API_URL__: JSON.stringify(process.env.API_URL || 'https://api.hel.fi/respa/v1'),
-      __DEVTOOLS__: false,
       __TRACKING__: Boolean(process.env.PIWIK_SITE_ID),
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
