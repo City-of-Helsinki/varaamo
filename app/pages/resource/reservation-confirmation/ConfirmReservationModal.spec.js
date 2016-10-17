@@ -1,11 +1,10 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import React from 'react';
-import sd from 'skin-deep';
-import simple from 'simple-mock';
-
 import forEach from 'lodash/forEach';
+import React from 'react';
 import Immutable from 'seamless-immutable';
+import simple from 'simple-mock';
+import sd from 'skin-deep';
 
 import constants from 'constants/AppConstants';
 import Reservation from 'utils/fixtures/Reservation';

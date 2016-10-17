@@ -62,7 +62,7 @@ class Html extends Component {
       <html lang="fi">
         <head>
           <meta charSet="utf-8" />
-          <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+          <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
           <meta content="width=device-width, initial-scale=1" name="viewport" />
           <link href="https://overpass-30e2.kxcdn.com/overpass.css" rel="stylesheet" />
           {this.renderStylesLink(appCssSrc, isProduction)}

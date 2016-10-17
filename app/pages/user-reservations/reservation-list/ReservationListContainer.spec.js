@@ -1,8 +1,7 @@
 import { expect } from 'chai';
 import React from 'react';
-import sd from 'skin-deep';
-
 import Immutable from 'seamless-immutable';
+import sd from 'skin-deep';
 
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';

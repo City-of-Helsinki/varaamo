@@ -28,7 +28,3 @@ render(
   </Provider>,
   document.getElementById('root')
 );
-
-if (__DEVTOOLS__) {
-  require('./createDevToolsWindow')(store); // eslint-disable-line global-require
-}

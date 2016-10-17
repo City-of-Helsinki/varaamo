@@ -4,8 +4,8 @@ import { Link } from 'react-router';
 
 import TimeRange from 'shared/time-range';
 import ReservationControls from 'shared/reservation-controls';
+import ReservationStateLabel from 'shared/reservation-state-label';
 import { getCaption, getMainImage } from 'utils/imageUtils';
-import { renderReservationStateLabel } from 'utils/renderUtils';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import { getName } from 'utils/translationUtils';
 
@@ -47,18 +47,18 @@ class ReservationListItem extends Component {
           <Link to={getResourcePageUrl(resource, reservation.begin, reservation.begin)}>
             <TimeRange
               begin={reservation.begin}
-              end={reservation.end}
               className="hidden-xs"
+              end={reservation.end}
             />
             <TimeRange
               begin={reservation.begin}
+              className="visible-xs-block"
               dateFormat="dd, D.M."
               end={reservation.end}
-              className="visible-xs-block"
             />
           </Link>
         </div>
-        {renderReservationStateLabel(reservation)}
+        <ReservationStateLabel reservation={reservation} />
         <ReservationControls
           isAdmin={isAdmin}
           isStaff={isStaff}

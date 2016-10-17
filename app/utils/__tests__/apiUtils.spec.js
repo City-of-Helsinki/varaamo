@@ -1,9 +1,7 @@
 import { expect } from 'chai';
-
 import { CALL_API } from 'redux-api-middleware';
 
 import constants from 'constants/AppConstants';
-import schemas from 'state/middleware/Schemas';
 import {
   buildAPIUrl,
   createTransformFunction,
@@ -13,6 +11,7 @@ import {
   getSearchParamsString,
   getSuccessTypeDescriptor,
 } from 'utils/apiUtils';
+import schemas from 'state/middleware/Schemas';
 
 describe('Utils: apiUtils', () => {
   describe('buildAPIUrl', () => {

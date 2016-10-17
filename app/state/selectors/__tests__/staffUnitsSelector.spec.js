@@ -1,9 +1,8 @@
 import { expect } from 'chai';
-
 import Immutable from 'seamless-immutable';
 
-import User from 'utils/fixtures/User';
 import staffUnitsSelector from 'state/selectors/staffUnitsSelector';
+import User from 'utils/fixtures/User';
 
 function getState(user) {
   return {

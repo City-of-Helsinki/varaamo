@@ -2,7 +2,6 @@ import React from 'react';
 
 import FeedbackLink from 'shared/feedback-link';
 import { getCurrentCustomization } from 'utils/customizationUtils';
-
 import aikaLogoSrc from './images/aika-logo.png';
 import eakrLogoSrc from './images/eakr-logo.png';
 import euVipuvoimaaLogoSrc from './images/eu-vipuvoimaa-logo.png';
@@ -59,21 +58,21 @@ function AboutPageContent() {
           <div className="about-page-logos">
             <a href="http://6aika.fi/6aika-avoimia-ja-alykkaita-palveluja/">
               <img
+                alt="6 aika logo"
                 className="aika-logo"
                 src={aikaLogoSrc}
-                alt="6 aika logo"
               />
             </a>
             <a href="http://www.rakennerahastot.fi/">
               <img
+                alt="Vipuvoimaa EU:lta logo"
                 className="eu-vipuvoimaa-logo"
                 src={euVipuvoimaaLogoSrc}
-                alt="Vipuvoimaa EU:lta logo"
               />
               <img
+                alt="Euroopan aluekehitysrahasto logo"
                 className="eakr-logo"
                 src={eakrLogoSrc}
-                alt="Euroopan aluekehitysrahasto logo"
               />
             </a>
           </div>

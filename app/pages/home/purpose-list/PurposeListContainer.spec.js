@@ -3,7 +3,6 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import Loader from 'react-loader';
 import simple from 'simple-mock';
-
 import Immutable from 'seamless-immutable';
 
 import Purpose from 'utils/fixtures/Purpose';

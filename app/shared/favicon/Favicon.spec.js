@@ -5,7 +5,6 @@ import simple from 'simple-mock';
 
 import * as customizationUtils from 'utils/customizationUtils';
 import Favicon from './Favicon';
-
 import espooFavicon from './espoo-favicon.ico';
 import helsinkiFavicon from './helsinki-favicon.ico';
 

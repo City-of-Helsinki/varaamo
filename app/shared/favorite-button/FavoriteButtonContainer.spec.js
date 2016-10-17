@@ -4,7 +4,7 @@ import React from 'react';
 import simple from 'simple-mock';
 
 import { UnconnectedFavoriteButtonContainer } from './FavoriteButtonContainer';
-import FavoriteButtonComponent from './FavoriteButtonComponent';
+import FavoriteButton from './FavoriteButton';
 
 describe('shared/favorite-button/FavoriteButtonContainer', () => {
   const resource = {
@@ -29,8 +29,8 @@ describe('shared/favorite-button/FavoriteButtonContainer', () => {
     wrapper = getWrapper();
   });
 
-  it('renders a FavoriteButtonComponent', () => {
-    expect(wrapper.is(FavoriteButtonComponent)).to.be.true;
+  it('renders a FavoriteButton', () => {
+    expect(wrapper.is(FavoriteButton)).to.be.true;
   });
 
   it('has favorited prop', () => {

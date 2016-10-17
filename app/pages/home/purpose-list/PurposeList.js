@@ -3,7 +3,6 @@ import React, { PropTypes } from 'react';
 import { getSearchPageUrl } from 'utils/searchUtils';
 import { getName } from 'utils/translationUtils';
 import PurposeListItem from './PurposeListItem';
-
 import manufacturingImage from './images/manufacturing.jpg';
 import meetingsAndWorkingImage from './images/meetings-and-working.jpg';
 import photoAndAudioImage from './images/photo-and-audio.jpg';

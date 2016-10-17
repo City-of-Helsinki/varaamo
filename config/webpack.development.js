@@ -52,7 +52,6 @@ module.exports = merge(common, {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'),
       __API_URL__: JSON.stringify(process.env.API_URL || 'https://api.hel.fi/respa-test/v1'),
-      __DEVTOOLS__: false,
       __TRACKING__: Boolean(process.env.PIWIK_SITE_ID),
     }),
     new webpack.HotModuleReplacementPlugin(),

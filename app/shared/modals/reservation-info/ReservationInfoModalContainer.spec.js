@@ -8,6 +8,7 @@ import Modal from 'react-bootstrap/lib/Modal';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
+import ReservationStateLabel from 'shared/reservation-state-label';
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
 import { makeButtonTests } from 'utils/testUtils';
@@ -86,6 +87,11 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
 
       it('renders a ModalBody component', () => {
         expect(modalBody.length).to.equal(1);
+      });
+
+      it('renders ReservationStateLabel component', () => {
+        const reservationStateLabel = getWrapper().find(ReservationStateLabel);
+        expect(reservationStateLabel.length).to.equal(1);
       });
 
       describe('reservation data', () => {

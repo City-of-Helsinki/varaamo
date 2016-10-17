@@ -4,7 +4,7 @@ import { createSelector } from 'reselect';
 
 const purposesSelector = state => state.data.purposes;
 
-export const groupedPurposesSelector = createSelector(
+const groupedPurposesSelector = createSelector(
   purposesSelector,
   (purposes) => {
     const purposeCategories = groupBy(

@@ -1,10 +1,9 @@
 import { expect } from 'chai';
-
 import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
-import Purpose from 'utils/fixtures/Purpose';
 import groupedPurposesSelector from 'state/selectors/groupedPurposesSelector';
+import Purpose from 'utils/fixtures/Purpose';
 
 function getState(purposes) {
   return {

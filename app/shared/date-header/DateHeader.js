@@ -6,7 +6,7 @@ import { findDOMNode } from 'react-dom';
 
 import { scrollTo } from 'utils/domUtils';
 
-class DateHeaderComponent extends Component {
+class DateHeader extends Component {
   componentDidMount() {
     if (this.props.scrollTo) {
       // Use timeout to allow rest of the page render and the scrollTo to work properly.
@@ -44,11 +44,11 @@ class DateHeaderComponent extends Component {
   }
 }
 
-DateHeaderComponent.propTypes = {
+DateHeader.propTypes = {
   date: PropTypes.string.isRequired,
   onDecreaseDateButtonClick: PropTypes.func,
   onIncreaseDateButtonClick: PropTypes.func,
   scrollTo: PropTypes.bool,
 };
 
-export default DateHeaderComponent;
+export default DateHeader;

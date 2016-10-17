@@ -1,7 +1,6 @@
 import { expect } from 'chai';
-import simple from 'simple-mock';
-
 import Immutable from 'seamless-immutable';
+import simple from 'simple-mock';
 
 import Resource, { openingHours } from 'utils/fixtures/Resource';
 import * as timeUtils from 'utils/timeUtils';

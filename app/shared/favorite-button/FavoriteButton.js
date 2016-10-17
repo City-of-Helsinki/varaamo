@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
-function FavoriteButtonComponent({ favorited, onClick }) {
+function FavoriteButton({ favorited, onClick }) {
   return (
     <button
       className="favorite-button"
@@ -15,9 +15,9 @@ function FavoriteButtonComponent({ favorited, onClick }) {
   );
 }
 
-FavoriteButtonComponent.propTypes = {
+FavoriteButton.propTypes = {
   favorited: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 
-export default FavoriteButtonComponent;
+export default FavoriteButton;
