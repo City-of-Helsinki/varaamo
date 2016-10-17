@@ -6,9 +6,9 @@ import Label from 'react-bootstrap/lib/Label';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import TimeSlotFixture from 'utils/fixtures/TimeSlot';
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
+import TimeSlotFixture from 'utils/fixtures/TimeSlot';
 import TimeSlot, { getLabelData } from './TimeSlot';
 
 describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
