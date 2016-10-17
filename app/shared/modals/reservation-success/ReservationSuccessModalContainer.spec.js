@@ -2,7 +2,6 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
-import Modal from 'react-bootstrap/lib/Modal';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
@@ -12,6 +11,7 @@ import Resource from 'utils/fixtures/Resource';
 import {
   UnconnectedReservationSuccessModalContainer as ReservationSuccessModalContainer,
 } from './ReservationSuccessModalContainer';
+import ModalWrapper from '../ModalWrapper';
 
 describe('shared/modals/reservation-success/ReservationSuccessModalContainer', () => {
   const resource = Resource.build();
@@ -30,87 +30,45 @@ describe('shared/modals/reservation-success/ReservationSuccessModalContainer', (
   }
 
   describe('render', () => {
-    const wrapper = getWrapper();
+    it('renders a ModalWrapper with correct props', () => {
+      const modalWrapper = getWrapper().find(ModalWrapper);
 
-    it('renders a Modal component', () => {
-      const modalComponent = wrapper.find(Modal);
-
-      expect(modalComponent.length).to.equal(1);
+      expect(modalWrapper.length).to.equal(1);
+      expect(modalWrapper.prop('className')).to.equal('reservation-success-modal');
+      expect(modalWrapper.prop('onClose')).to.equal(
+        defaultProps.actions.closeReservationSuccessModal
+      );
+      expect(modalWrapper.prop('show')).to.equal(defaultProps.show);
+      expect(modalWrapper.prop('title')).to.equal('Varauspyyntösi on lähetetty');
     });
 
-    describe('Modal header', () => {
-      const modalHeader = wrapper.find(Modal.Header);
-
-      it('renders a ModalHeader component', () => {
-        expect(modalHeader.length).to.equal(1);
+    describe('reservation list', () => {
+      it('renders a CompactReservationList component', () => {
+        const list = getWrapper().find(CompactReservationList);
+        expect(list.length).to.equal(1);
       });
 
-      it('contains a close button', () => {
-        expect(modalHeader.props().closeButton).to.equal(true);
-      });
-
-      it('renders a ModalTitle component', () => {
-        const modalTitle = wrapper.find(Modal.Title);
-
-        expect(modalTitle.length).to.equal(1);
-      });
-
-      it('the ModalTitle displays text "Varauspyyntösi on lähetetty"', () => {
-        const modalTitle = wrapper.find(Modal.Title);
-
-        expect(modalTitle.props().children).to.equal('Varauspyyntösi on lähetetty');
+      it('passes correct props to CompactReservationList component', () => {
+        const actualProps = getWrapper().find(CompactReservationList).props();
+        expect(actualProps.reservations).to.deep.equal(defaultProps.reservationsToShow);
+        expect(actualProps.resources).to.equal(undefined);
       });
     });
 
-    describe('Modal body', () => {
-      const modalBody = wrapper.find(Modal.Body);
-
-      it('renders a ModalBody component', () => {
-        expect(modalBody.length).to.equal(1);
+    describe('Back button', () => {
+      it('is rendered', () => {
+        const button = getWrapper().find(Button);
+        expect(button.length).to.equal(1);
       });
 
-      describe('reservation list', () => {
-        it('renders a CompactReservationList component', () => {
-          const list = modalBody.find(CompactReservationList);
-          expect(list.length).to.equal(1);
-        });
-
-        it('passes correct props to CompactReservationList component', () => {
-          const list = modalBody.find(CompactReservationList);
-          expect(list.props().reservations).to.deep.equal(defaultProps.reservationsToShow);
-          expect(list.props().resources).to.equal(undefined);
-        });
-      });
-    });
-
-    describe('Modal footer', () => {
-      const modalFooter = wrapper.find(Modal.Footer);
-
-      it('renders a ModalFooter component', () => {
-        expect(modalFooter.length).to.equal(1);
+      it('has text "Takaisin"', () => {
+        const buttonText = getWrapper().find(Button).props().children;
+        expect(buttonText).to.equal('Takaisin');
       });
 
-      describe('Footer buttons', () => {
-        const buttons = modalFooter.find(Button);
-
-        it('renders one Button', () => {
-          expect(buttons.length).to.equal(1);
-        });
-
-        describe('the button', () => {
-          const button = buttons.at(0);
-
-          it('has text "Takaisin"', () => {
-            expect(button.props().children).to.equal('Takaisin');
-          });
-
-          it('clicking it calls closeReservationSuccessModal', () => {
-            defaultProps.actions.closeReservationSuccessModal.reset();
-            button.props().onClick();
-
-            expect(defaultProps.actions.closeReservationSuccessModal.callCount).to.equal(1);
-          });
-        });
+      it('has closeReservationSuccessModal as its onClick prop ', () => {
+        const button = getWrapper().find(Button);
+        expect(button.prop('onClick')).to.equal(defaultProps.actions.closeReservationSuccessModal);
       });
     });
   });

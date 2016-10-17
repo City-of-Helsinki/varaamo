@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
-import Modal from 'react-bootstrap/lib/Modal';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -8,6 +7,7 @@ import { closeReservationSuccessModal } from 'actions/uiActions';
 import CompactReservationList from 'shared/compact-reservation-list';
 import { getName } from 'utils/translationUtils';
 import reservationSuccessModalSelector from './reservationSuccessModalSelector';
+import ModalWrapper from '../ModalWrapper';
 
 export class UnconnectedReservationSuccessModalContainer extends Component {
   renderEmail(email) {
@@ -29,37 +29,31 @@ export class UnconnectedReservationSuccessModalContainer extends Component {
     const resource = reservation.resource ? resources[reservation.resource] : {};
 
     return (
-      <Modal
+      <ModalWrapper
         className="reservation-success-modal"
-        onHide={actions.closeReservationSuccessModal}
+        onClose={actions.closeReservationSuccessModal}
         show={show}
+        title="Varauspyyntösi on lähetetty"
       >
-        <Modal.Header closeButton>
-          <Modal.Title>Varauspyyntösi on lähetetty</Modal.Title>
-        </Modal.Header>
-
-        <Modal.Body>
-          <p>
-            Olet tehnyt alustavan varauksen tilaan {getName(resource)}
-            {reservationsToShow.length === 1 ? ' ajalle:' : ' ajoille:'}
-          </p>
-          <CompactReservationList reservations={reservationsToShow} />
-          <p>
-            Varaus käsitellään kahden arkipäivän kuluessa. Tarkemmat tiedot alustavasta varauksesta
-            lähetetään varauksen yhteydessä annettuun sähköpostiosoitteeseen
-            {this.renderEmail(reservation.reserverEmailAddress)}.
-          </p>
-        </Modal.Body>
-
-        <Modal.Footer>
+        <p>
+          Olet tehnyt alustavan varauksen tilaan {getName(resource)}
+          {reservationsToShow.length === 1 ? ' ajalle:' : ' ajoille:'}
+        </p>
+        <CompactReservationList reservations={reservationsToShow} />
+        <p>
+          Varaus käsitellään kahden arkipäivän kuluessa. Tarkemmat tiedot alustavasta varauksesta
+          lähetetään varauksen yhteydessä annettuun sähköpostiosoitteeseen
+          {this.renderEmail(reservation.reserverEmailAddress)}.
+        </p>
+        <div className="modal-controls">
           <Button
             bsStyle="default"
             onClick={actions.closeReservationSuccessModal}
           >
             Takaisin
           </Button>
-        </Modal.Footer>
-      </Modal>
+        </div>
+      </ModalWrapper>
     );
   }
 }
