@@ -8,25 +8,21 @@ import simple from 'simple-mock';
 import CompactReservationList from 'shared/compact-reservation-list';
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
-import {
-  UnconnectedReservationSuccessModalContainer as ReservationSuccessModalContainer,
-} from './ReservationSuccessModalContainer';
+import ReservationSuccessModal from './ReservationSuccessModal';
 import ModalWrapper from '../ModalWrapper';
 
-describe('shared/modals/reservation-success/ReservationSuccessModalContainer', () => {
+describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
   const resource = Resource.build();
   const reservation = Reservation.build({ resource: resource.id });
   const defaultProps = {
-    actions: {
-      closeReservationSuccessModal: simple.stub(),
-    },
+    closeReservationSuccessModal: simple.stub(),
     reservationsToShow: Immutable([reservation]),
     resources: Immutable({ [resource.id]: resource }),
     show: true,
   };
 
   function getWrapper(extraProps = {}) {
-    return shallow(<ReservationSuccessModalContainer {...defaultProps} {...extraProps} />);
+    return shallow(<ReservationSuccessModal {...defaultProps} {...extraProps} />);
   }
 
   describe('render', () => {
@@ -36,7 +32,7 @@ describe('shared/modals/reservation-success/ReservationSuccessModalContainer', (
       expect(modalWrapper.length).to.equal(1);
       expect(modalWrapper.prop('className')).to.equal('reservation-success-modal');
       expect(modalWrapper.prop('onClose')).to.equal(
-        defaultProps.actions.closeReservationSuccessModal
+        defaultProps.closeReservationSuccessModal
       );
       expect(modalWrapper.prop('show')).to.equal(defaultProps.show);
       expect(modalWrapper.prop('title')).to.equal('Varauspyyntösi on lähetetty');
@@ -68,7 +64,7 @@ describe('shared/modals/reservation-success/ReservationSuccessModalContainer', (
 
       it('has closeReservationSuccessModal as its onClick prop ', () => {
         const button = getWrapper().find(Button);
-        expect(button.prop('onClick')).to.equal(defaultProps.actions.closeReservationSuccessModal);
+        expect(button.prop('onClick')).to.equal(defaultProps.closeReservationSuccessModal);
       });
     });
   });
