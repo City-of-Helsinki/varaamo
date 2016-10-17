@@ -20,24 +20,32 @@ function ReservationSuccessModal({
 }) {
   const reservation = reservationsToShow.length ? reservationsToShow[0] : {};
   const resource = reservation.resource ? resources[reservation.resource] : {};
+  const isPreliminaryReservation = reservation.needManualConfirmation;
 
   return (
     <ModalWrapper
       className="reservation-success-modal"
       onClose={closeReservationSuccessModal}
       show={show}
-      title="Varauspyyntösi on lähetetty"
+      title={
+        isPreliminaryReservation ? 'Varauspyyntösi on lähetetty' : 'Varauksen tekeminen onnistui'
+      }
     >
       <p>
-        Olet tehnyt alustavan varauksen tilaan {getName(resource)}
+        {isPreliminaryReservation ? 'Olet tehnyt alustavan varauksen tilaan ' : 'Varaus tehty tilaan '}
+        {getName(resource)}
         {reservationsToShow.length === 1 ? ' ajalle:' : ' ajoille:'}
       </p>
       <CompactReservationList reservations={reservationsToShow} />
-      <p>
-        Varaus käsitellään kahden arkipäivän kuluessa. Tarkemmat tiedot alustavasta varauksesta
-        lähetetään varauksen yhteydessä annettuun sähköpostiosoitteeseen
-        {renderEmail(reservation.reserverEmailAddress)}.
-      </p>
+
+      {isPreliminaryReservation && (
+        <p>
+          Varaus käsitellään kahden arkipäivän kuluessa. Tarkemmat tiedot alustavasta varauksesta
+          lähetetään varauksen yhteydessä annettuun sähköpostiosoitteeseen
+          {renderEmail(reservation.reserverEmailAddress)}.
+        </p>
+      )}
+
       <div className="modal-controls">
         <Button
           bsStyle="default"

@@ -3,6 +3,7 @@ import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
+import ModalTypes from 'constants/ModalTypes';
 import modalsReducer from './modalsReducer';
 
 describe('state/reducers/ui/modalsReducer', () => {
@@ -15,6 +16,19 @@ describe('state/reducers/ui/modalsReducer', () => {
   });
 
   describe('handling actions', () => {
+    describe('API.RESERVATION_POST_SUCCESS', () => {
+      const reservationPostSuccessAction = createAction(types.API.RESERVATION_POST_SUCCESS);
+
+      it('adds ModalTypes.RESERVATION_SUCCESS to open', () => {
+        const initialState = Immutable({ open: [] });
+        const action = reservationPostSuccessAction();
+        const nextState = modalsReducer(initialState, action);
+        const expected = Immutable({ open: [ModalTypes.RESERVATION_SUCCESS] });
+
+        expect(nextState).to.deep.equal(expected);
+      });
+    });
+
     describe('UI.CLOSE_MODAL', () => {
       const closeModal = createAction(types.UI.CLOSE_MODAL);
 
