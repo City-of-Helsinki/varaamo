@@ -1,3 +1,17 @@
+@reservation-list-image-width: 100px;
+@reservation-list-image-width-xs: 80px;
+@reservation-list-padding: 20px;
+@reservation-list-inner-margin: 10px;
+@reservation-list-label-height: 20px;
+
+@reservation-list-item-min-height: (
+  2 * @reservation-list-padding + @reservation-list-label-height + @reservation-list-inner-margin + @reservation-list-image-width
+);
+@reservation-list-item-min-height-xs: (
+  2 * @reservation-list-padding + @reservation-list-label-height + @reservation-list-inner-margin + @reservation-list-image-width-xs
+);
+
+
 .reservation-list {
   list-style: none;
   margin: 0;
@@ -5,24 +19,46 @@
 
   .reservation {
     position: relative;
-    min-height: 160px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 120px;
+    min-height: @reservation-list-item-min-height;
+    padding-top: @reservation-list-padding;
+    padding-bottom: @reservation-list-padding;
+    padding-left: @reservation-list-image-width + @reservation-list-padding;
     border-bottom: 1px solid @gray-lighter;
 
     @media (max-width: @screen-xs-max) {
-      padding-left: 90px;
-      min-height: 140px;
+      padding-left: @reservation-list-image-width-xs + @reservation-list-inner-margin;
+      min-height: @reservation-list-item-min-height-xs;
     }
 
-    .image {
+    .image-container {
       position: absolute;
       left: 0;
-      top: 20px;
+      top: @reservation-list-padding;
+      width: @reservation-list-image-width;
+
+      .reservation-state-label-container {
+        font-size: 18px;
+        width: 100%;
+        margin-bottom: @reservation-list-inner-margin;
+
+        .label {
+          display: block;
+          line-height: @reservation-list-label-height;
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+      }
+
+      img {
+        width: 100%;
+        background-color: @gray-light;
+      }
+
       @media (max-width: @screen-xs-max) {
-        img {
-          width: 80px;
+        width: @reservation-list-image-width-xs;
+
+        .reservation-state-label-container {
+          font-size: 16px;
         }
       }
     }
@@ -30,7 +66,7 @@
     .names {
       h4 {
         margin-top: 0;
-        margin-bottom: 10px;
+        margin-bottom: @reservation-list-inner-margin;
         @media (max-width: @screen-xs-max) {
           font-size: 16px;
           margin-bottom: 5px;
@@ -45,23 +81,16 @@
     }
 
     .time {
-      margin-bottom: 10px;
+      margin-bottom: @reservation-list-inner-margin;
       @media (max-width: @screen-xs-max) {
         margin-bottom: 5px;
       }
     }
 
-    .reservation-state-label-container {
-      font-size: 20px;
-      width: 100%;
-      max-width: 330px;
-      @media (max-width: @screen-xs-max) {
-        font-size: 16px;
-      }
-
-      .label {
-        display: block;
-      }
+    .reservation-access-code {
+      display: block;
+      font-weight: bold;
+      margin-bottom: @reservation-list-inner-margin;
     }
 
     .buttons {
@@ -70,7 +99,6 @@
       button {
         width: 80px;
         margin-left: 14px;
-        margin-top: 14px;
       }
     }
   }
