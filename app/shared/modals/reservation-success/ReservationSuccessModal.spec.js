@@ -181,4 +181,36 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
       });
     });
   });
+
+  describe('access code', () => {
+    describe('if reservation has access code', () => {
+      const reservationsToShow = Immutable([
+        Reservation.build({
+          accessCode: '9999',
+          resource: resource.id,
+        }),
+      ]);
+
+      it('renders ReservationAccessCode component with correct reservation', () => {
+        const accessCode = getWrapper({ reservationsToShow }).find('ReservationAccessCode');
+
+        expect(accessCode.length).to.equal(1);
+        expect(accessCode.prop('reservation')).to.deep.equal(reservationsToShow[0]);
+      });
+    });
+
+    describe('if reservation does not have access code', () => {
+      const reservationsToShow = Immutable([
+        Reservation.build({
+          resource: resource.id,
+        }),
+      ]);
+
+      it('does not render ReservationAccessCode component', () => {
+        const accessCode = getWrapper({ reservationsToShow }).find('ReservationAccessCode');
+
+        expect(accessCode.length).to.equal(0);
+      });
+    });
+  });
 });

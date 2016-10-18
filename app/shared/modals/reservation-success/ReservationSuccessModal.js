@@ -2,15 +2,9 @@ import React, { PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 
 import CompactReservationList from 'shared/compact-reservation-list';
+import ReservationAccessCode from 'shared/reservation-access-code';
 import { getName } from 'utils/translationUtils';
 import ModalWrapper from '../ModalWrapper';
-
-function renderEmail(email) {
-  if (!email) {
-    return '';
-  }
-  return <strong> {email}</strong>;
-}
 
 function ReservationSuccessModal({
   closeReservationSuccessModal,
@@ -21,6 +15,7 @@ function ReservationSuccessModal({
   const reservation = reservationsToShow.length ? reservationsToShow[0] : {};
   const resource = reservation.resource ? resources[reservation.resource] : {};
   const isPreliminaryReservation = reservation.needManualConfirmation;
+  const email = reservation.reserverEmailAddress || (reservation.user && reservation.user.email);
 
   return (
     <ModalWrapper
@@ -38,11 +33,27 @@ function ReservationSuccessModal({
       </p>
       <CompactReservationList reservations={reservationsToShow} />
 
+      {reservation.accessCode && (
+        <div>
+          <p>
+            <ReservationAccessCode
+              reservation={reservation}
+              text="Tilaan pääset käyttämällä PIN-koodia:"
+            />
+          </p>
+          <p>
+            PIN-koodin voit tarkistaa jatkossa {'"Omat varaukset" -sivulta'}
+            {email ? ' sekä varausvahvistuksesta, joka on lähetetty sähköpostiosoitteeseen: ' : ''}
+            {email && <strong>{email}</strong>}.
+          </p>
+        </div>
+      )}
+
       {isPreliminaryReservation && (
         <p>
           Varaus käsitellään kahden arkipäivän kuluessa. Tarkemmat tiedot alustavasta varauksesta
           lähetetään varauksen yhteydessä annettuun sähköpostiosoitteeseen
-          {renderEmail(reservation.reserverEmailAddress)}.
+          {email && <strong> {email}</strong>}.
         </p>
       )}
 
