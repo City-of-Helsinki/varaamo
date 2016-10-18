@@ -60,7 +60,7 @@ class ReservationListItem extends Component {
             />
           </Link>
         </div>
-        <ReservationAccessCode reservation={reservation} text="Huoneen PIN-koodi:" />
+        <ReservationAccessCode reservation={reservation} text="Tilan PIN-koodi:" />
         <ReservationControls
           isAdmin={isAdmin}
           isStaff={isStaff}
