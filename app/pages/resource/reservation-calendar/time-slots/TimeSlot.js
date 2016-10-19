@@ -5,6 +5,7 @@ import { findDOMNode } from 'react-dom';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import Label from 'react-bootstrap/lib/Label';
 
+import ReservationAccessCode from 'shared/reservation-access-code';
 import ReservationControls from 'shared/reservation-controls';
 import { scrollTo } from 'utils/domUtils';
 
@@ -119,7 +120,8 @@ class TimeSlot extends Component {
     const checked = selected || (slot.reserved && !slot.editing);
     const reservation = slot.reservation;
     const isOwnReservation = reservation && reservation.isOwn;
-    const showReservationControls = reservation && slot.reservationStarting && !isEditing;
+    const reservationIsStarting = reservation && slot.reservationStarting;
+    const showReservationControls = reservationIsStarting && !isEditing;
     const {
       bsStyle: labelBsStyle,
       text: labelText,
@@ -160,12 +162,13 @@ class TimeSlot extends Component {
         )}
         {isAdmin && (
           <td className="user-cell">
-            {reservation && slot.reservationStarting && this.renderUserInfo(reservation.user)}
+            {reservationIsStarting && this.renderUserInfo(reservation.user)}
+            {reservationIsStarting && <ReservationAccessCode reservation={reservation} />}
           </td>
         )}
         {isAdmin && (
           <td className="comments-cell">
-            {reservation && slot.reservationStarting && reservation.comments}
+            {reservationIsStarting && reservation.comments}
           </td>
         )}
         {isAdmin && (

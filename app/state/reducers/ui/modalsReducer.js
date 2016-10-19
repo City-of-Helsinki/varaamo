@@ -15,12 +15,8 @@ function modalsReducer(state = initialState, action) {
   switch (action.type) {
 
     case types.API.RESERVATION_POST_SUCCESS: {
-      const reservation = action.payload;
-      if (reservation.needManualConfirmation) {
-        modal = ModalTypes.RESERVATION_SUCCESS;
-        return state.merge({ open: [...state.open, modal] });
-      }
-      return state;
+      modal = ModalTypes.RESERVATION_SUCCESS;
+      return state.merge({ open: [...state.open, modal] });
     }
 
     case types.UI.CLOSE_MODAL: {

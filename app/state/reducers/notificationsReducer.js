@@ -67,18 +67,6 @@ function notificationsReducer(state = initialState, action) {
       return addNotification(state, notification);
     }
 
-    case types.API.RESERVATION_POST_SUCCESS: {
-      const reservation = action.payload;
-      if (reservation.needManualConfirmation) {
-        return state;
-      }
-      notification = {
-        message: 'Varauksen tekeminen onnistui.',
-        type: 'success',
-      };
-      return addNotification(state, notification);
-    }
-
     case types.API.RESERVATION_PUT_SUCCESS: {
       notification = {
         message: 'Varaus päivitetty.',

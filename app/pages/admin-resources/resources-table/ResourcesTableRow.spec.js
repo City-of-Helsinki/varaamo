@@ -5,6 +5,7 @@ import Immutable from 'seamless-immutable';
 import moment from 'moment';
 import { Link } from 'react-router';
 
+import ReservationAccessCode from 'shared/reservation-access-code';
 import TimeRange from 'shared/time-range';
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
@@ -222,7 +223,7 @@ describe('pages/admin-resources/resources-table/ResourcesTableRow', () => {
             });
           });
 
-          describe('reserver name element', () => {
+          describe('reserver name', () => {
             let tdComponent;
 
             before(() => {
@@ -234,7 +235,12 @@ describe('pages/admin-resources/resources-table/ResourcesTableRow', () => {
             });
 
             it('contains the reserver name if it exist', () => {
-              expect(tdComponent.prop('children')).to.equal(expectedReservation.reserverName);
+              expect(tdComponent.text()).to.contain(expectedReservation.reserverName);
+            });
+
+            it('renders ReservationAccessCode component', () => {
+              const reservationAccessCode = component.find(ReservationAccessCode);
+              expect(reservationAccessCode.length).to.equal(1);
             });
           });
 
