@@ -23,4 +23,8 @@ describe('shared/modals/reservation-success/reservationSuccessModalSelector', ()
 
     expect(selected.resources).to.deep.equal(expected);
   });
+
+  it('returns user', () => {
+    expect(selected.user).to.exist;
+  });
 });

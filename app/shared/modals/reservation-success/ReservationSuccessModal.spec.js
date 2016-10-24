@@ -19,6 +19,7 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
     reservationsToShow: Immutable([reservation]),
     resources: Immutable({ [resource.id]: resource }),
     show: true,
+    user: { email: 'han@solo.com' },
   };
 
   function getWrapper(extraProps = {}) {
