@@ -11,11 +11,12 @@ function ReservationSuccessModal({
   reservationsToShow,
   resources,
   show,
+  user,
 }) {
   const reservation = reservationsToShow.length ? reservationsToShow[0] : {};
   const resource = reservation.resource ? resources[reservation.resource] : {};
   const isPreliminaryReservation = reservation.needManualConfirmation;
-  const email = reservation.reserverEmailAddress || (reservation.user && reservation.user.email);
+  const email = isPreliminaryReservation ? reservation.reserverEmailAddress : user.email;
 
   return (
     <ModalWrapper
@@ -74,6 +75,7 @@ ReservationSuccessModal.propTypes = {
   reservationsToShow: PropTypes.array.isRequired,
   resources: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 export default ReservationSuccessModal;
