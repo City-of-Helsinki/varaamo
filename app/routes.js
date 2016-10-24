@@ -1,5 +1,5 @@
 import React from 'react';
-import { IndexRoute, Route } from 'react-router';
+import { IndexRoute, Redirect, Route } from 'react-router';
 
 import AppContainer from 'pages/AppContainer';
 import AboutPage from 'pages/about';
@@ -44,6 +44,7 @@ export default (params) => {
       </Route>
       <IndexRoute component={HomePage} onEnter={scrollTop} />
       <Route component={AboutPage} onEnter={scrollTop} path="/about" />
+      <Redirect from="/resources/:id/reservation" to="/resources/:id" />
       <Route component={ResourcePage} onEnter={scrollTop} path="/resources/:id" />
       <Route component={SearchPage} path="/search" />
       <Route component={NotFoundPage} path="*" />
