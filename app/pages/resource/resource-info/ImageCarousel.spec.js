@@ -5,7 +5,6 @@ import Carousel from 'react-bootstrap/lib/Carousel';
 import Immutable from 'seamless-immutable';
 
 import Image from 'utils/fixtures/Image';
-import { getCaption } from 'utils/imageUtils';
 import ImageCarousel from './ImageCarousel';
 
 describe('pages/resource/resource-info/ImageCarousel', () => {
@@ -70,33 +69,22 @@ describe('pages/resource/resource-info/ImageCarousel', () => {
       expect(carouselItems.length).to.equal(defaultProps.images.length);
     });
 
-    describe('image', () => {
+    describe('div for image', () => {
       it('exists for each item', () => {
         const carouselItems = getWrapper().find(Carousel.Item);
-        carouselItems.forEach((carouselItem, index) => {
-          const img = carouselItem.find('img');
+        carouselItems.forEach((carouselItem) => {
+          const imageDiv = carouselItem.find('div');
 
-          expect(img.length).to.equal(1);
-          expect(img.prop('src')).to.contain(defaultProps.images[index].url);
+          expect(imageDiv.length).to.equal(1);
         });
       });
 
       it('has correct src', () => {
         const carouselItems = getWrapper().find(Carousel.Item);
         carouselItems.forEach((carouselItem, index) => {
-          const img = carouselItem.find('img');
+          const imageDiv = carouselItem.find('div');
 
-          expect(img.prop('src')).to.contain(defaultProps.images[index].url);
-        });
-      });
-
-      it('has correct alt text', () => {
-        const carouselItems = getWrapper().find(Carousel.Item);
-        carouselItems.forEach((carouselItem, index) => {
-          const img = carouselItem.find('img');
-          const expectedAltText = getCaption(images[index]) || defaultProps.altText;
-
-          expect(img.prop('alt')).to.contain(expectedAltText);
+          expect(imageDiv.prop('style').backgroundImage).to.contain(defaultProps.images[index].url);
         });
       });
     });
