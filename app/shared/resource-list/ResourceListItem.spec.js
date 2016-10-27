@@ -4,10 +4,11 @@ import React from 'react';
 import { Link } from 'react-router';
 import Immutable from 'seamless-immutable';
 
+import BackgroundImage from 'shared/background-image';
+import ResourceIcons from 'shared/resource-icons';
 import Image from 'utils/fixtures/Image';
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
-import ResourceIcons from 'shared/resource-icons';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import ReserveButton from './ReserveButton';
 import ResourceListItem from './ResourceListItem';
@@ -35,12 +36,12 @@ describe('shared/resource-list/ResourceListItem', () => {
     expect(li.length).to.equal(1);
   });
 
-  it('renders an image container with correct background image', () => {
-    const imageContainer = getWrapper().find('.image-container');
-    const resourceImage = defaultProps.resource.images[0];
+  it('renders BackgroundImage component with correct image', () => {
+    const backgroundImage = getWrapper().find(BackgroundImage);
+    const resourceMainImage = defaultProps.resource.images[0];
 
-    expect(imageContainer.length).to.equal(1);
-    expect(imageContainer.props().style.backgroundImage).to.contain(resourceImage.url);
+    expect(backgroundImage.length).to.equal(1);
+    expect(backgroundImage.prop('image')).to.deep.equal(resourceMainImage);
   });
 
   it('contains links to correct resource page', () => {
