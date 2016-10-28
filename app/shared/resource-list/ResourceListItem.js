@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
+import BackgroundImage from 'shared/background-image';
 import ResourceIcons from 'shared/resource-icons';
 import { getMainImage } from 'utils/imageUtils';
 import { getResourcePageUrl } from 'utils/resourceUtils';
@@ -9,13 +10,6 @@ import ReserveButton from './ReserveButton';
 import ResourceAvailability from './ResourceAvailability';
 
 class ResourceListItem extends Component {
-  getBackgroundImageStyles(image) {
-    if (image && image.url) {
-      return { backgroundImage: `url(${image.url}?dim=700x420)` };
-    }
-    return {};
-  }
-
   render() {
     const { isLoggedIn, resource, unit } = this.props;
     const date = this.context.location.query.date;
@@ -23,12 +17,13 @@ class ResourceListItem extends Component {
     return (
       <li className="resource-list-item">
         <Link to={getResourcePageUrl(resource, date)}>
-          <div
-            className="image-container"
-            style={this.getBackgroundImageStyles(getMainImage(resource.images))}
+          <BackgroundImage
+            height={420}
+            image={getMainImage(resource.images)}
+            width={700}
           >
             <ResourceAvailability date={date} resource={resource} />
-          </div>
+          </BackgroundImage>
         </Link>
         <div className="content">
           <ResourceIcons resource={resource} />

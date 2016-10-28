@@ -1,15 +1,14 @@
 import React, { PropTypes } from 'react';
 import Carousel from 'react-bootstrap/lib/Carousel';
 
+import BackgroundImage from 'shared/background-image';
+
 const carouselInterval = 7000;
 
 function renderCarouselItem(image) {
   return (
     <Carousel.Item key={image.url}>
-      <div
-        className="image-container"
-        style={{ backgroundImage: `url(${image.url})` }}
-      />
+      <BackgroundImage image={image} />
     </Carousel.Item>
   );
 }

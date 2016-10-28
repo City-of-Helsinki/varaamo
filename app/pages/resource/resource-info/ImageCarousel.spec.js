@@ -4,6 +4,7 @@ import React from 'react';
 import Carousel from 'react-bootstrap/lib/Carousel';
 import Immutable from 'seamless-immutable';
 
+import BackgroundImage from 'shared/background-image';
 import Image from 'utils/fixtures/Image';
 import ImageCarousel from './ImageCarousel';
 
@@ -69,22 +70,22 @@ describe('pages/resource/resource-info/ImageCarousel', () => {
       expect(carouselItems.length).to.equal(defaultProps.images.length);
     });
 
-    describe('div for image', () => {
+    describe('BackgroundImage component', () => {
       it('exists for each item', () => {
         const carouselItems = getWrapper().find(Carousel.Item);
         carouselItems.forEach((carouselItem) => {
-          const imageDiv = carouselItem.find('div');
+          const backgroundImage = carouselItem.find(BackgroundImage);
 
-          expect(imageDiv.length).to.equal(1);
+          expect(backgroundImage.length).to.equal(1);
         });
       });
 
-      it('has correct src', () => {
+      it('has correct image prop', () => {
         const carouselItems = getWrapper().find(Carousel.Item);
         carouselItems.forEach((carouselItem, index) => {
-          const imageDiv = carouselItem.find('div');
+          const backgroundImage = carouselItem.find(BackgroundImage);
 
-          expect(imageDiv.prop('style').backgroundImage).to.contain(defaultProps.images[index].url);
+          expect(backgroundImage.prop('image')).to.deep.equal(defaultProps.images[index]);
         });
       });
     });
