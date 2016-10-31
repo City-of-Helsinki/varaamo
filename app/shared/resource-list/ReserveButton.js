@@ -1,17 +1,12 @@
-import moment from 'moment';
 import React, { PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import { getResourcePageUrl, reservingIsLimited } from 'utils/resourceUtils';
+import { isPastDate } from 'utils/timeUtils';
 
 function ReserveButton({ date, isLoggedIn, resource }) {
-  const now = moment();
-  if (moment(date).isBefore(now, 'day')) {
-    return <span />;
-  }
-
-  if (reservingIsLimited(resource, date)) {
+  if (isPastDate(date) || reservingIsLimited(resource, date)) {
     return <span />;
   }
 
