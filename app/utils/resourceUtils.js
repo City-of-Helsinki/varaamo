@@ -125,6 +125,18 @@ function getTermsAndConditions(resource = {}) {
   return `${specificTerms}${genericTerms}`;
 }
 
+function reservingIsLimited(resource, date) {
+  if (!date) {
+    return false;
+  }
+  const isAdmin = resource.userPermissions && resource.userPermissions.isAdmin;
+  const isLimited = (
+    resource.reservableBefore &&
+    moment(resource.reservableBefore).isBefore(moment(date), 'day')
+  );
+  return Boolean(isLimited && !isAdmin);
+}
+
 export {
   isOpenNow,
   getAvailabilityDataForNow,
@@ -134,4 +146,5 @@ export {
   getOpenReservations,
   getResourcePageUrl,
   getTermsAndConditions,
+  reservingIsLimited,
 };

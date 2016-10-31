@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import { LinkContainer } from 'react-router-bootstrap';
 
-import { getResourcePageUrl } from 'utils/resourceUtils';
+import { getResourcePageUrl, reservingIsLimited } from 'utils/resourceUtils';
 
 function ReserveButton({ date, isLoggedIn, resource }) {
   const now = moment();
@@ -11,13 +11,7 @@ function ReserveButton({ date, isLoggedIn, resource }) {
     return <span />;
   }
 
-  const isAdmin = resource.userPermissions && resource.userPermissions.isAdmin;
-  const reservationLimited = (
-    resource.reservableBefore &&
-    moment(resource.reservableBefore).isBefore(moment(date), 'day')
-  );
-
-  if (reservationLimited && !isAdmin) {
+  if (reservingIsLimited(resource, date)) {
     return <span />;
   }
 

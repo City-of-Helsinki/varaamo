@@ -13,6 +13,7 @@ import {
   getOpenReservations,
   getResourcePageUrl,
   getTermsAndConditions,
+  reservingIsLimited,
 } from 'utils/resourceUtils';
 
 describe('Utils: resourceUtils', () => {
@@ -604,6 +605,68 @@ describe('Utils: resourceUtils', () => {
         const resource = { genericTerms, specificTerms };
 
         expect(getTermsAndConditions(resource)).to.equal('');
+      });
+    });
+  });
+
+  describe('reservingIsLimited', () => {
+    describe('when no date is given', () => {
+      const date = null;
+      const resource = {};
+
+      it('returns false', () => {
+        const isLimited = reservingIsLimited(resource, date);
+        expect(isLimited).to.be.false;
+      });
+    });
+
+    describe('when resource does not have reservableBefore limit', () => {
+      const date = '2016-10-10';
+
+      it('returns false if user is an admin', () => {
+        const resource = { userPermissions: { isAdmin: true } };
+        const isLimited = reservingIsLimited(resource, date);
+        expect(isLimited).to.be.false;
+      });
+
+      it('returns false if user is a regular user', () => {
+        const resource = { userPermissions: { isAdmin: false } };
+        const isLimited = reservingIsLimited(resource, date);
+        expect(isLimited).to.be.false;
+      });
+    });
+
+    describe('when resource has reservableBefore limit and its after given date', () => {
+      const reservableBefore = '2016-12-12';
+      const date = '2016-10-10';
+
+      it('returns false if user is an admin', () => {
+        const resource = { userPermissions: { isAdmin: true }, reservableBefore };
+        const isLimited = reservingIsLimited(resource, date);
+        expect(isLimited).to.be.false;
+      });
+
+      it('returns false if user is a regular user', () => {
+        const resource = { userPermissions: { isAdmin: false }, reservableBefore };
+        const isLimited = reservingIsLimited(resource, date);
+        expect(isLimited).to.be.false;
+      });
+    });
+
+    describe('when resource has reservableBefore limit and its before given date', () => {
+      const reservableBefore = '2016-09-09';
+      const date = '2016-10-10';
+
+      it('returns false if user is an admin', () => {
+        const resource = { userPermissions: { isAdmin: true }, reservableBefore };
+        const isLimited = reservingIsLimited(resource, date);
+        expect(isLimited).to.be.false;
+      });
+
+      it('returns true if user is a regular user', () => {
+        const resource = { userPermissions: { isAdmin: false }, reservableBefore };
+        const isLimited = reservingIsLimited(resource, date);
+        expect(isLimited).to.be.true;
       });
     });
   });
