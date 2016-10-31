@@ -48,12 +48,16 @@ function getAvailabilityDataForNow(resource = {}) {
   return { text: 'Heti vapaa', bsStyle: 'success' };
 }
 
-function getAvailabilityDataForWholeDay(resource = {}) {
+function getAvailabilityDataForWholeDay(resource = {}, date = null) {
   const { closes, opens } = getOpeningHours(resource);
   const reservations = getOpenReservations(resource);
 
   if (!closes || !opens) {
     return { text: 'Suljettu', bsStyle: 'danger' };
+  }
+
+  if (reservingIsLimited(resource, date)) {
+    return { text: 'Ei varattavissa', bsStyle: 'danger' };
   }
 
   const opensMoment = moment(opens);

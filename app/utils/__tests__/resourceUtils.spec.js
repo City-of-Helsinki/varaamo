@@ -112,7 +112,7 @@ describe('Utils: resourceUtils', () => {
       it('returns correct data', () => {
         const openingHours = {};
         const resource = getResource(openingHours);
-        const availabilityData = getAvailabilityDataForWholeDay(resource);
+        const availabilityData = getAvailabilityDataForNow(resource);
         const expected = { text: 'Suljettu', bsStyle: 'danger' };
 
         expect(availabilityData).to.deep.equal(expected);
@@ -310,6 +310,21 @@ describe('Utils: resourceUtils', () => {
         const resource = getResource(openingHours);
         const availabilityData = getAvailabilityDataForWholeDay(resource);
         const expected = { text: 'Suljettu', bsStyle: 'danger' };
+
+        expect(availabilityData).to.deep.equal(expected);
+      });
+    });
+
+    describe('if reserving is limited in a future date', () => {
+      it('returns correct data', () => {
+        const openingHours = [{
+          opens: '2016-12-12T12:00:00+03:00',
+          closes: '2016-12-12T18:00:00+03:00',
+        }];
+        const date = '2016-12-12';
+        const resource = { openingHours, reservableBefore: '2016-10-10' };
+        const availabilityData = getAvailabilityDataForWholeDay(resource, date);
+        const expected = { text: 'Ei varattavissa', bsStyle: 'danger' };
 
         expect(availabilityData).to.deep.equal(expected);
       });
