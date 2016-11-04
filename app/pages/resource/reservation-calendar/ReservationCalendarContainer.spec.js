@@ -1,151 +1,207 @@
 import { expect } from 'chai';
+import { shallow } from 'enzyme';
+import MockDate from 'mockdate';
 import React from 'react';
+import { Calendar } from 'react-date-picker';
 import { browserHistory } from 'react-router';
-import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
-import sd from 'skin-deep';
 
+import DateHeader from 'shared/date-header';
+import ReservationCancelModal from 'shared/modals/reservation-cancel';
+import ReservationInfoModal from 'shared/modals/reservation-info';
+import ReservationSuccessModal from 'shared/modals/reservation-success';
 import Resource from 'utils/fixtures/Resource';
 import TimeSlot from 'utils/fixtures/TimeSlot';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import {
   UnconnectedReservationCalendarContainer as ReservationCalendarContainer,
 } from './ReservationCalendarContainer';
+import ReservationCalendarControls from './ReservationCalendarControls';
+import ReservingRestrictedText from './ReservingRestrictedText';
+import TimeSlots from './time-slots';
 
-function getProps(props = {}) {
-  const resource = Resource.build();
-  const defaults = {
-    actions: {
-      addNotification: simple.stub(),
-      cancelReservationEdit: simple.stub(),
-      clearReservations: simple.stub(),
-      openConfirmReservationModal: simple.stub(),
-      toggleTimeSlot: simple.stub(),
-    },
-    date: '2015-10-11',
-    isAdmin: false,
-    isEditing: false,
-    isFetchingResource: false,
-    isLoggedIn: true,
-    isMakingReservations: false,
-    location: { hash: '&some=hash' },
-    params: { id: resource.id },
-    resource,
-    selected: [],
-    staffUnits: [],
-    timeSlots: [],
-    urlHash: '',
-  };
-
-  return Object.assign({}, defaults, props);
-}
-
-function setup(setupProps = {}) {
-  const props = getProps(setupProps);
-  const tree = sd.shallowRender(<ReservationCalendarContainer {...props} />);
-  const instance = tree.getMountedInstance();
-
-  return { props, tree, instance };
-}
 
 describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () => {
+  const actions = {
+    addNotification: simple.stub(),
+    cancelReservationEdit: simple.stub(),
+    clearReservations: simple.stub(),
+    openConfirmReservationModal: simple.stub(),
+    toggleTimeSlot: simple.stub(),
+  };
+  const resource = Resource.build();
+
+  function getWrapper(props) {
+    const defaults = {
+      actions,
+      date: '2015-10-11',
+      isAdmin: false,
+      isEditing: false,
+      isFetchingResource: false,
+      isLoggedIn: true,
+      isMakingReservations: false,
+      location: { hash: '&some=hash' },
+      params: { id: resource.id },
+      resource,
+      selected: [],
+      staffUnits: [],
+      timeSlots: [
+        TimeSlot.build(),
+        TimeSlot.build(),
+      ],
+      urlHash: '',
+    };
+
+    return shallow(<ReservationCalendarContainer {...defaults} {...props} />);
+  }
+
+  function makeRenderTests(props, options) {
+    let wrapper;
+    const {
+      renderClosedText,
+      renderControls,
+      renderRestrictedText,
+      renderTimeSlots,
+    } = options;
+
+    before(() => {
+      wrapper = getWrapper(props);
+    });
+
+    it('renders Calendar', () => {
+      expect(wrapper.find(Calendar).length).to.equal(1);
+    });
+
+    it('renders DateHeader', () => {
+      expect(wrapper.find(DateHeader).length).to.equal(1);
+    });
+
+    it(`${renderTimeSlots ? 'renders' : 'does not render'} TimeSlots`, () => {
+      expect(wrapper.find(TimeSlots).length === 1).to.equal(renderTimeSlots);
+    });
+
+    it(`${renderClosedText ? 'renders' : 'does not render'} closed text`, () => {
+      expect(wrapper.find('.closed-text').length === 1).to.equal(renderClosedText);
+    });
+
+    it(`${renderRestrictedText ? 'renders' : 'does not render'} restricted text`, () => {
+      expect(wrapper.find(ReservingRestrictedText).length === 1).to.equal(renderRestrictedText);
+    });
+
+    it(`${renderControls ? 'renders' : 'does not render'} ReservationCalendarControls`, () => {
+      expect(wrapper.find(ReservationCalendarControls).length === 1).to.equal(renderControls);
+    });
+
+    it('renders ReservationCancelModal', () => {
+      expect(wrapper.find(ReservationCancelModal).length).to.equal(1);
+    });
+
+    it('renders ReservationInfoModal', () => {
+      expect(wrapper.find(ReservationInfoModal).length).to.equal(1);
+    });
+
+    it('renders ReservationSuccessModal', () => {
+      expect(wrapper.find(ReservationSuccessModal).length).to.equal(1);
+    });
+  }
+
   describe('render', () => {
-    const timeSlots = [
-      TimeSlot.build(),
-      TimeSlot.build(),
-    ];
-    const setupProps = getProps({
-      timeSlots: Immutable(timeSlots),
-      selected: [timeSlots[0].asISOString, timeSlots[1].asISOString],
+    const now = '2016-10-10T06:00:00+03:00';
+
+    before(() => {
+      MockDate.set(now);
     });
 
-    const { props, tree, instance } = setup(setupProps);
-
-    describe('rendering Calendar', () => {
-      const calendarTrees = tree.everySubTree('Calendar');
-
-      it('renders Calendar component', () => {
-        expect(calendarTrees.length).to.equal(1);
-      });
-
-      it('passes correct props to Calendar component', () => {
-        const actualProps = calendarTrees[0].props;
-
-        expect(actualProps.date).to.equal(props.date);
-        expect(actualProps.onChange).to.equal(instance.onDateChange);
-      });
+    after(() => {
+      MockDate.reset();
     });
 
-    describe('rendering DateHeader', () => {
-      const dateHeaderTrees = tree.everySubTree('DateHeader');
+    describe('when date is in the past', () => {
+      const date = '2015-10-10';
 
-      it('renders DateHeader', () => {
-        expect(dateHeaderTrees.length).to.equal(1);
+      describe('when resource is closed', () => {
+        const timeSlots = [];
+        const props = { date, timeSlots };
+        const options = {
+          renderClosedText: true,
+          renderControls: false,
+          renderRestrictedText: false,
+          renderTimeSlots: false,
+        };
+        makeRenderTests(props, options);
       });
 
-      it('passes correct props to DateHeader', () => {
-        const actualProps = dateHeaderTrees[0].props;
-
-        expect(actualProps.date).to.equal(props.date);
-        expect(actualProps.onDecreaseDateButtonClick).to.equal(instance.decreaseDate);
-        expect(actualProps.onIncreaseDateButtonClick).to.equal(instance.increaseDate);
+      describe('when resource is open', () => {
+        const timeSlots = [TimeSlot.build()];
+        const props = { date, timeSlots };
+        const options = {
+          renderClosedText: false,
+          renderControls: false,
+          renderRestrictedText: false,
+          renderTimeSlots: true,
+        };
+        makeRenderTests(props, options);
       });
     });
 
-    describe('rendering TimeSlots', () => {
-      const timeSlotsTrees = tree.everySubTree('TimeSlots');
+    describe('when date is not in the past', () => {
+      const date = '2016-12-12';
 
-      it('renders TimeSlots component', () => {
-        expect(timeSlotsTrees.length).to.equal(1);
+      describe('when resource is closed', () => {
+        const timeSlots = [];
+        const props = { date, timeSlots };
+        const options = {
+          renderClosedText: true,
+          renderControls: false,
+          renderRestrictedText: false,
+          renderTimeSlots: false,
+        };
+        makeRenderTests(props, options);
       });
 
-      it('passes correct props to TimeSlots component', () => {
-        const actualProps = timeSlotsTrees[0].props;
+      describe('when resource is open', () => {
+        const timeSlots = [TimeSlot.build()];
 
-        expect(actualProps.addNotification).to.deep.equal(props.actions.addNotification);
-        expect(actualProps.isAdmin).to.equal(props.isAdmin);
-        expect(actualProps.isEditing).to.equal(props.isEditing);
-        expect(actualProps.isFetching).to.equal(props.isFetchingResource);
-        expect(actualProps.isLoggedIn).to.equal(props.isLoggedIn);
-        expect(actualProps.isStaff).to.exist;
-        expect(actualProps.onClick).to.deep.equal(props.actions.toggleTimeSlot);
-        expect(actualProps.resource).to.equal(props.resource);
-        expect(actualProps.selected).to.deep.equal(props.selected);
-        expect(actualProps.slots).to.deep.equal(props.timeSlots);
-      });
-    });
+        describe('when reserving is restricted', () => {
+          const restrictedResource = Resource.build({
+            reservableBefore: '2016-11-11T06:00:00+03:00',
+            reservableDaysInAdvance: 32,
+          });
+          const props = { date, resource: restrictedResource, timeSlots };
+          const options = {
+            renderClosedText: false,
+            renderControls: false,
+            renderRestrictedText: true,
+            renderTimeSlots: false,
+          };
+          makeRenderTests(props, options);
+        });
 
-    describe('rendering ReservationCalendarControls', () => {
-      const reservationCalendarControlsTrees = tree.everySubTree('ReservationCalendarControls');
-
-      it('renders ReservationCalendarControls component', () => {
-        expect(reservationCalendarControlsTrees.length).to.equal(1);
-      });
-
-      it('passes correct props to ReservationCalendarControls component', () => {
-        const actualProps = reservationCalendarControlsTrees[0].props;
-
-        expect(actualProps.disabled).to.equal(false);
-        expect(actualProps.isEditing).to.equal(props.isEditing);
-        expect(actualProps.isMakingReservations).to.equal(props.isMakingReservations);
-        expect(actualProps.onCancel).to.equal(instance.handleEditCancel);
-        expect(actualProps.onClick).to.equal(props.actions.openConfirmReservationModal);
+        describe('when reserving is not restricted', () => {
+          const props = { date, timeSlots };
+          const options = {
+            renderClosedText: false,
+            renderControls: true,
+            renderRestrictedText: false,
+            renderTimeSlots: true,
+          };
+          makeRenderTests(props, options);
+        });
       });
     });
   });
 
-  describe('on componentWillUnmount', () => {
-    const { props, instance } = setup();
-    instance.componentWillUnmount();
-
+  describe('componentWillUnmount', () => {
     it('calls clearReservations', () => {
-      expect(props.actions.clearReservations.callCount).to.equal(1);
+      const instance = getWrapper().instance();
+      instance.componentWillUnmount();
+      expect(actions.clearReservations.callCount).to.equal(1);
     });
   });
 
   describe('onDateChange', () => {
     const newDate = '2015-12-24';
-    const { props, instance } = setup();
+    const instance = getWrapper().instance();
     let browserHistoryMock;
 
     before(() => {
@@ -159,7 +215,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
 
     it('calls browserHistory.push with correct path', () => {
       const actualPath = browserHistoryMock.lastCall.args[0];
-      const expectedPath = getResourcePageUrl(props.resource, newDate);
+      const expectedPath = getResourcePageUrl(resource, newDate);
 
       expect(browserHistoryMock.callCount).to.equal(1);
       expect(actualPath).to.equal(expectedPath);
@@ -167,11 +223,10 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
   });
 
   describe('handleEditCancel', () => {
-    const { props, instance } = setup();
-    instance.handleEditCancel();
-
     it('calls cancelReservationEdit', () => {
-      expect(props.actions.cancelReservationEdit.callCount).to.equal(1);
+      const instance = getWrapper().instance();
+      instance.handleEditCancel();
+      expect(actions.cancelReservationEdit.callCount).to.equal(1);
     });
   });
 });
