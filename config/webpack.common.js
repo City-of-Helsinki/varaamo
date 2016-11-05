@@ -7,6 +7,10 @@ module.exports = {
   module: {
     loaders: [
       {
+        test: /\.json$/,
+        loader: 'json',
+      },
+      {
         test: /\.png$/,
         loader: 'url?limit=100000&mimetype=image/png',
       },

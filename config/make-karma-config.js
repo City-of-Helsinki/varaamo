@@ -2,7 +2,7 @@ const webpackConfig = require('./webpack.tests');
 
 module.exports = (options) => {
   const karmaConfig = {
-    frameworks: ['mocha', 'chai'],
+    frameworks: ['mocha', 'chai', 'intl-shim'],
 
     browsers: options.browsers || ['PhantomJS'],
 
@@ -42,9 +42,10 @@ module.exports = (options) => {
     plugins: [
       'karma-chai',
       'karma-chrome-launcher',
-      'karma-phantomjs-launcher',
-      'karma-mocha',
+      'karma-intl-shim',
       'karma-mocha-reporter',
+      'karma-mocha',
+      'karma-phantomjs-launcher',
       'karma-sourcemap-loader',
       'karma-webpack',
     ],

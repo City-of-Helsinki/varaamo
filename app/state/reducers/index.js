@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
+import { intlReducer } from 'react-intl-redux';
 
 import apiReducers from './api';
 import authReducer from './authReducer';
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   data: dataReducer,
   form: formReducer,
+  intl: intlReducer,
   notifications: notificationsReducer,
   ui: uiReducers,
 });
