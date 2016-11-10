@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import { deleteReservation } from 'actions/reservationActions';
 import { closeReservationCancelModal } from 'actions/uiActions';
 import CompactReservationList from 'shared/compact-reservation-list';
+import { getProperty } from 'utils/translationUtils';
 import reservationCancelModalSelector from './reservationCancelModalSelector';
 
 export class UnconnectedReservationCancelModalContainer extends Component {
@@ -73,6 +74,7 @@ export class UnconnectedReservationCancelModalContainer extends Component {
       isAdmin ||
       state !== 'confirmed'
     );
+    const responsibleContactInfo = getProperty(resource, 'responsibleContactInfo');
 
     return (
       <Modal
@@ -87,7 +89,7 @@ export class UnconnectedReservationCancelModalContainer extends Component {
 
         <Modal.Body>
           {this.renderModalContent(
-            reservationsToCancel, resources, cancelAllowed, resource.responsibleContactInfo
+            reservationsToCancel, resources, cancelAllowed, responsibleContactInfo
           )}
         </Modal.Body>
 

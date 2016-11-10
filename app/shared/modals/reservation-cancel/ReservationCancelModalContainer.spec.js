@@ -11,7 +11,7 @@ import {
 } from './ReservationCancelModalContainer';
 
 describe('shared/modals/reservation-cancel/ReservationCancelModalContainer', () => {
-  const responsibleContactInfo = 'Some contact info.';
+  const responsibleContactInfo = { fi: 'Some contact info.' };
   const resource = Resource.build({ responsibleContactInfo });
   const props = {
     actions: {
@@ -407,7 +407,7 @@ describe('shared/modals/reservation-cancel/ReservationCancelModalContainer', () 
         it('renders resource responsibleContactInfo', () => {
           const modalText = modalBodyTrees[0].subTree('.responsible-contact-info').text();
 
-          expect(modalText).to.contain(responsibleContactInfo);
+          expect(modalText).to.contain(responsibleContactInfo.fi);
         });
       });
 

@@ -3,6 +3,8 @@ import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
 
+import { getProperty } from 'utils/translationUtils';
+
 class ReservationCalendarControls extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +25,7 @@ class ReservationCalendarControls extends Component {
       }
       return 'Kirjaudu sisään tehdäksesi varauksen tähän tilaan.';
     }
-    return resource.reservationInfo;
+    return getProperty(resource, 'reservationInfo');
   }
 
   handleMainClick() {
