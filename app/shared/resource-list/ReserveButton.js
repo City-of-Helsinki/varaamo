@@ -1,12 +1,21 @@
+import moment from 'moment';
 import React, { PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import { LinkContainer } from 'react-router-bootstrap';
 
-import { getResourcePageUrl, reservingIsRestricted } from 'utils/resourceUtils';
+import {
+  getOpeningHours,
+  getResourcePageUrl,
+  reservingIsRestricted,
+} from 'utils/resourceUtils';
 import { isPastDate } from 'utils/timeUtils';
 
 function ReserveButton({ date, isLoggedIn, resource }) {
-  if (isPastDate(date) || reservingIsRestricted(resource, date)) {
+  const { closes } = getOpeningHours(resource);
+  const isClosed = !closes || moment() > moment(closes);
+  const hideButton = isClosed || isPastDate(date) || reservingIsRestricted(resource, date);
+
+  if (hideButton) {
     return <span />;
   }
 

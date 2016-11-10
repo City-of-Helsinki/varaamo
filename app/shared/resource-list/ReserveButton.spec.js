@@ -11,20 +11,28 @@ import { getResourcePageUrl } from 'utils/resourceUtils';
 import ReserveButton from './ReserveButton';
 
 describe('shared/resource-list/ReserveButton', () => {
+  function getProps(props, resourceProps) {
+    const openingHours = resourceProps.openingHours || [{
+      opens: `${props.date}T12:00:00+03:00`,
+      closes: `${props.date}T18:00:00+03:00`,
+    }];
+    const resource = Immutable(Resource.build(
+      Object.assign({}, resourceProps, { openingHours })
+    ));
+    return Object.assign({}, props, { resource });
+  }
+
   function getWrapper(props) {
     const defaults = {
       date: '2015-10-10',
       isLoggedIn: false,
-      resource: Immutable(Resource.build({
-        needManualConfirmation: false,
-        reservable: false,
-      })),
+      resource: Immutable(Resource.build()),
     };
 
     return shallow(<ReserveButton {...defaults} {...props} />);
   }
 
-  function testWrapper(props, expectedText) {
+  function makeTests(props, expectedText) {
     it('renders a LinkContainer to reservation page', () => {
       const linkContainer = getWrapper(props).find(LinkContainer);
       const expectedUrl = getResourcePageUrl(props.resource, props.date);
@@ -57,7 +65,14 @@ describe('shared/resource-list/ReserveButton', () => {
     });
   });
 
-  describe('when date given in props is not in past', () => {
+  describe('when resource is closed', () => {
+    it('renders an empty span', () => {
+      const wrapper = getWrapper({}, { openingHours: [] });
+      expect(wrapper.equals(<span />)).to.be.true;
+    });
+  });
+
+  describe('when resource is open and date given in props is not in past', () => {
     const now = '2016-10-10T06:00:00+03:00';
     const date = '2016-11-10';
 
@@ -81,48 +96,32 @@ describe('shared/resource-list/ReserveButton', () => {
 
             describe('when resource needs manual confirmation', () => {
               const needManualConfirmation = true;
-              const props = {
-                date,
-                isLoggedIn,
-                resource: Immutable(Resource.build({
-                  needManualConfirmation, reservable, reservableBefore,
-                })),
-              };
-              testWrapper(props, 'Tee alustava varaus');
+              const resourceProps = { needManualConfirmation, reservable, reservableBefore };
+              const props = getProps({ date, isLoggedIn }, resourceProps);
+              makeTests(props, 'Tee alustava varaus');
             });
 
             describe('when resource does not need manual confirmation', () => {
               const needManualConfirmation = false;
-              const props = {
-                date,
-                isLoggedIn,
-                resource: Immutable(Resource.build({
-                  needManualConfirmation, reservable, reservableBefore,
-                })),
-              };
-              testWrapper(props, 'Varaa');
+              const resourceProps = { needManualConfirmation, reservable, reservableBefore };
+              const props = getProps({ date, isLoggedIn }, resourceProps);
+              makeTests(props, 'Varaa');
             });
           });
 
           describe('when resource is not reservable', () => {
             const reservable = false;
-            const props = {
-              date,
-              isLoggedIn,
-              resource: Immutable(Resource.build({ reservable, reservableBefore })),
-            };
-            testWrapper(props, 'Katso varaustilanne');
+            const resourceProps = { reservable, reservableBefore };
+            const props = getProps({ date, isLoggedIn }, resourceProps);
+            makeTests(props, 'Katso varaustilanne');
           });
         });
 
         describe('when user is not logged in', () => {
           const isLoggedIn = false;
-          const props = {
-            date,
-            isLoggedIn,
-            resource: Immutable(Resource.build({ reservableBefore })),
-          };
-          testWrapper(props, 'Katso varaustilanne');
+          const resourceProps = { reservableBefore };
+          const props = getProps({ date, isLoggedIn }, resourceProps);
+          makeTests(props, 'Katso varaustilanne');
         });
       });
 
@@ -132,11 +131,8 @@ describe('shared/resource-list/ReserveButton', () => {
         describe('when user is a regular user', () => {
           const isLoggedIn = true;
           const userPermissions = { isAdmin: false };
-          const props = {
-            date,
-            isLoggedIn,
-            resource: Immutable(Resource.build({ reservableBefore, userPermissions })),
-          };
+          const resourceProps = { reservableBefore, userPermissions };
+          const props = getProps({ date, isLoggedIn }, resourceProps);
 
           it('renders an empty span', () => {
             const wrapper = getWrapper(props);
@@ -147,21 +143,15 @@ describe('shared/resource-list/ReserveButton', () => {
         describe('when user is an admin', () => {
           const isLoggedIn = true;
           const userPermissions = { isAdmin: true };
-          const props = {
-            date,
-            isLoggedIn,
-            resource: Immutable(Resource.build({ reservableBefore, userPermissions })),
-          };
-          testWrapper(props, 'Varaa');
+          const resourceProps = { reservableBefore, userPermissions };
+          const props = getProps({ date, isLoggedIn }, resourceProps);
+          makeTests(props, 'Varaa');
         });
 
         describe('when user is not logged in', () => {
           const isLoggedIn = false;
-          const props = {
-            date,
-            isLoggedIn,
-            resource: Immutable(Resource.build({ reservableBefore })),
-          };
+          const resourceProps = { reservableBefore };
+          const props = getProps({ date, isLoggedIn }, resourceProps);
 
           it('renders an empty span', () => {
             const wrapper = getWrapper(props);
@@ -182,48 +172,32 @@ describe('shared/resource-list/ReserveButton', () => {
 
           describe('when resource needs manual confirmation', () => {
             const needManualConfirmation = true;
-            const props = {
-              date,
-              isLoggedIn,
-              resource: Immutable(Resource.build({
-                needManualConfirmation, reservable, reservableBefore,
-              })),
-            };
-            testWrapper(props, 'Tee alustava varaus');
+            const resourceProps = { needManualConfirmation, reservable, reservableBefore };
+            const props = getProps({ date, isLoggedIn }, resourceProps);
+            makeTests(props, 'Tee alustava varaus');
           });
 
           describe('when resource does not need manual confirmation', () => {
             const needManualConfirmation = false;
-            const props = {
-              date,
-              isLoggedIn,
-              resource: Immutable(Resource.build({
-                needManualConfirmation, reservable, reservableBefore,
-              })),
-            };
-            testWrapper(props, 'Varaa');
+            const resourceProps = { needManualConfirmation, reservable, reservableBefore };
+            const props = getProps({ date, isLoggedIn }, resourceProps);
+            makeTests(props, 'Varaa');
           });
         });
 
         describe('when resource is not reservable', () => {
           const reservable = false;
-          const props = {
-            date,
-            isLoggedIn,
-            resource: Immutable(Resource.build({ reservable, reservableBefore })),
-          };
-          testWrapper(props, 'Katso varaustilanne');
+          const resourceProps = { reservable, reservableBefore };
+          const props = getProps({ date, isLoggedIn }, resourceProps);
+          makeTests(props, 'Katso varaustilanne');
         });
       });
 
       describe('when user is not logged in', () => {
         const isLoggedIn = false;
-        const props = {
-          date,
-          isLoggedIn,
-          resource: Immutable(Resource.build({ reservableBefore })),
-        };
-        testWrapper(props, 'Katso varaustilanne');
+        const resourceProps = { reservableBefore };
+        const props = getProps({ date, isLoggedIn }, resourceProps);
+        makeTests(props, 'Katso varaustilanne');
       });
     });
   });
