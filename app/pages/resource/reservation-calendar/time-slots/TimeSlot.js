@@ -8,6 +8,7 @@ import Label from 'react-bootstrap/lib/Label';
 import ReservationAccessCode from 'shared/reservation-access-code';
 import ReservationControls from 'shared/reservation-controls';
 import { scrollTo } from 'utils/domUtils';
+import { getProperty } from 'utils/translationUtils';
 
 export function getLabelData({ isOwnReservation, isPast, slot }) {
   let data = {};
@@ -47,7 +48,7 @@ class TimeSlot extends Component {
     if (!isLoggedIn && resource.reservable) {
       return 'Kirjaudu sisään tehdäksesi varauksen tähän tilaan.';
     }
-    return resource.reservationInfo;
+    return getProperty(resource, 'reservationInfo');
   }
 
   handleRowClick(disabled) {

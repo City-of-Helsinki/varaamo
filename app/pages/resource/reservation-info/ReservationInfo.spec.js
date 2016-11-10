@@ -15,7 +15,7 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
       maxPeriod: '04:00:00',
       maxReservationsPerUser: 2,
       reservable: true,
-      reservationInfo: 'Some information',
+      reservationInfo: { fi: 'Some information' },
     })),
   };
 
@@ -31,7 +31,7 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
 
   it('renders resource.reservationInfo as WrappedText', () => {
     const wrappedText = getWrapper().find(WrappedText);
-    const expectedText = defaultProps.resource.reservationInfo;
+    const expectedText = defaultProps.resource.reservationInfo.fi;
 
     expect(wrappedText.length).to.equal(1);
     expect(wrappedText.props().text).to.equal(expectedText);
@@ -46,7 +46,7 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
     });
 
     it('is not rendered if resource.maxPeriod is not defined', () => {
-      const resource = { reservationInfo: '' };
+      const resource = { reservationInfo: {} };
       const content = getWrapper({ resource }).html();
 
       expect(content).to.not.contain('Varauksen maksimipituus:');
@@ -62,7 +62,7 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
     });
 
     it('is not rendered if resource.maxReservationsPerUser is not defined', () => {
-      const resource = { reservationInfo: '' };
+      const resource = { reservationInfo: {} };
       const content = getWrapper({ resource }).html();
 
       expect(content).to.not.contain('Maksimimäärä varauksia per käyttäjä:');
@@ -79,7 +79,7 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
     it('is not rendered if resource is not reservable', () => {
       const resource = {
         reservable: false,
-        reservationInfo: '',
+        reservationInfo: {},
       };
       const content = getWrapper({ resource }).html();
 
@@ -89,7 +89,7 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
     it('is rendered otherwise', () => {
       const resource = {
         reservable: true,
-        reservationInfo: '',
+        reservationInfo: {},
       };
       const content = getWrapper({ isLoggedIn: false, resource }).html();
 
