@@ -56,7 +56,7 @@ function getAvailabilityDataForWholeDay(resource = {}, date = null) {
     return { text: 'Suljettu', bsStyle: 'danger' };
   }
 
-  if (reservingIsLimited(resource, date)) {
+  if (reservingIsRestricted(resource, date)) {
     return { text: 'Ei varattavissa', bsStyle: 'danger' };
   }
 
@@ -129,7 +129,7 @@ function getTermsAndConditions(resource = {}) {
   return `${specificTerms}${genericTerms}`;
 }
 
-function reservingIsLimited(resource, date) {
+function reservingIsRestricted(resource, date) {
   if (!date) {
     return false;
   }
@@ -150,5 +150,5 @@ export {
   getOpenReservations,
   getResourcePageUrl,
   getTermsAndConditions,
-  reservingIsLimited,
+  reservingIsRestricted,
 };

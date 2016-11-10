@@ -16,7 +16,7 @@ import DateHeader from 'shared/date-header';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
 import ReservationInfoModal from 'shared/modals/reservation-info';
 import ReservationSuccessModal from 'shared/modals/reservation-success';
-import { getResourcePageUrl, reservingIsLimited } from 'utils/resourceUtils';
+import { getResourcePageUrl, reservingIsRestricted } from 'utils/resourceUtils';
 import { addToDate, isPastDate } from 'utils/timeUtils';
 import ReservationCalendarControls from './ReservationCalendarControls';
 import reservationCalendarSelector from './reservationCalendarSelector';
@@ -72,7 +72,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
 
     const isStaff = includes(staffUnits, resource.unit);
     const isOpen = Boolean(timeSlots.length);
-    const showTimeSlots = isOpen && !reservingIsLimited(resource, date);
+    const showTimeSlots = isOpen && !reservingIsRestricted(resource, date);
     const showControls = !isPastDate(date) && showTimeSlots;
 
     return (
@@ -105,7 +105,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
         {!isOpen &&
           <p className="info-text closed-text">Tila on kiinni tänä päivänä.</p>
         }
-        {reservingIsLimited(resource, date) &&
+        {isOpen && reservingIsRestricted(resource, date) &&
           <ReservingRestrictedText
             reservableBefore={resource.reservableBefore}
             reservableDaysInAdvance={resource.reservableDaysInAdvance}

@@ -13,7 +13,7 @@ import {
   getOpenReservations,
   getResourcePageUrl,
   getTermsAndConditions,
-  reservingIsLimited,
+  reservingIsRestricted,
 } from 'utils/resourceUtils';
 
 describe('Utils: resourceUtils', () => {
@@ -624,13 +624,13 @@ describe('Utils: resourceUtils', () => {
     });
   });
 
-  describe('reservingIsLimited', () => {
+  describe('reservingIsRestricted', () => {
     describe('when no date is given', () => {
       const date = null;
       const resource = {};
 
       it('returns false', () => {
-        const isLimited = reservingIsLimited(resource, date);
+        const isLimited = reservingIsRestricted(resource, date);
         expect(isLimited).to.be.false;
       });
     });
@@ -640,13 +640,13 @@ describe('Utils: resourceUtils', () => {
 
       it('returns false if user is an admin', () => {
         const resource = { userPermissions: { isAdmin: true } };
-        const isLimited = reservingIsLimited(resource, date);
+        const isLimited = reservingIsRestricted(resource, date);
         expect(isLimited).to.be.false;
       });
 
       it('returns false if user is a regular user', () => {
         const resource = { userPermissions: { isAdmin: false } };
-        const isLimited = reservingIsLimited(resource, date);
+        const isLimited = reservingIsRestricted(resource, date);
         expect(isLimited).to.be.false;
       });
     });
@@ -657,13 +657,13 @@ describe('Utils: resourceUtils', () => {
 
       it('returns false if user is an admin', () => {
         const resource = { userPermissions: { isAdmin: true }, reservableBefore };
-        const isLimited = reservingIsLimited(resource, date);
+        const isLimited = reservingIsRestricted(resource, date);
         expect(isLimited).to.be.false;
       });
 
       it('returns false if user is a regular user', () => {
         const resource = { userPermissions: { isAdmin: false }, reservableBefore };
-        const isLimited = reservingIsLimited(resource, date);
+        const isLimited = reservingIsRestricted(resource, date);
         expect(isLimited).to.be.false;
       });
     });
@@ -674,13 +674,13 @@ describe('Utils: resourceUtils', () => {
 
       it('returns false if user is an admin', () => {
         const resource = { userPermissions: { isAdmin: true }, reservableBefore };
-        const isLimited = reservingIsLimited(resource, date);
+        const isLimited = reservingIsRestricted(resource, date);
         expect(isLimited).to.be.false;
       });
 
       it('returns true if user is a regular user', () => {
         const resource = { userPermissions: { isAdmin: false }, reservableBefore };
-        const isLimited = reservingIsLimited(resource, date);
+        const isLimited = reservingIsRestricted(resource, date);
         expect(isLimited).to.be.true;
       });
     });
