@@ -20,7 +20,7 @@ function ResourceAvailability({ date, resource }) {
   }
 
   if (moment(date).isAfter(now, 'day')) {
-    const availabilityData = getAvailabilityDataForWholeDay(resource);
+    const availabilityData = getAvailabilityDataForWholeDay(resource, date);
     availabilityText = availabilityData.text;
     bsStyle = availabilityData.bsStyle;
   }

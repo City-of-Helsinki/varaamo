@@ -16,10 +16,11 @@ import DateHeader from 'shared/date-header';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
 import ReservationInfoModal from 'shared/modals/reservation-info';
 import ReservationSuccessModal from 'shared/modals/reservation-success';
-import { getResourcePageUrl } from 'utils/resourceUtils';
-import { addToDate } from 'utils/timeUtils';
+import { getResourcePageUrl, reservingIsRestricted } from 'utils/resourceUtils';
+import { addToDate, isPastDate } from 'utils/timeUtils';
 import ReservationCalendarControls from './ReservationCalendarControls';
 import reservationCalendarSelector from './reservationCalendarSelector';
+import ReservingRestrictedText from './ReservingRestrictedText';
 import TimeSlots from './time-slots';
 
 export class UnconnectedReservationCalendarContainer extends Component {
@@ -70,9 +71,12 @@ export class UnconnectedReservationCalendarContainer extends Component {
     } = this.props;
 
     const isStaff = includes(staffUnits, resource.unit);
+    const isOpen = Boolean(timeSlots.length);
+    const showTimeSlots = isOpen && !reservingIsRestricted(resource, date);
+    const showControls = !isPastDate(date) && showTimeSlots;
 
     return (
-      <div>
+      <div className="reservation-calendar">
         <Calendar
           date={date}
           onChange={this.onDateChange}
@@ -83,34 +87,47 @@ export class UnconnectedReservationCalendarContainer extends Component {
           onIncreaseDateButtonClick={this.increaseDate}
           scrollTo={urlHash === '#date-header'}
         />
-        <TimeSlots
-          addNotification={actions.addNotification}
-          isAdmin={isAdmin}
-          isEditing={isEditing}
-          isFetching={isFetchingResource}
-          isLoggedIn={isLoggedIn}
-          isStaff={isStaff}
-          onClick={actions.toggleTimeSlot}
-          resource={resource}
-          selected={selected}
-          slots={timeSlots}
-          time={time}
-        />
-        <ReservationCalendarControls
-          addNotification={actions.addNotification}
-          disabled={(
-            !isLoggedIn ||
-            !resource.userPermissions.canMakeReservations ||
-            !selected.length ||
-            isMakingReservations
-          )}
-          isEditing={isEditing}
-          isLoggedIn={isLoggedIn}
-          isMakingReservations={isMakingReservations}
-          onCancel={this.handleEditCancel}
-          onClick={actions.openConfirmReservationModal}
-          resource={resource}
-        />
+        {showTimeSlots &&
+          <TimeSlots
+            addNotification={actions.addNotification}
+            isAdmin={isAdmin}
+            isEditing={isEditing}
+            isFetching={isFetchingResource}
+            isLoggedIn={isLoggedIn}
+            isStaff={isStaff}
+            onClick={actions.toggleTimeSlot}
+            resource={resource}
+            selected={selected}
+            slots={timeSlots}
+            time={time}
+          />
+        }
+        {!isOpen &&
+          <p className="info-text closed-text">Tila on kiinni tänä päivänä.</p>
+        }
+        {isOpen && reservingIsRestricted(resource, date) &&
+          <ReservingRestrictedText
+            reservableBefore={resource.reservableBefore}
+            reservableDaysInAdvance={resource.reservableDaysInAdvance}
+          />
+        }
+        {showControls &&
+          <ReservationCalendarControls
+            addNotification={actions.addNotification}
+            disabled={(
+              !isLoggedIn ||
+              !resource.userPermissions.canMakeReservations ||
+              !selected.length ||
+              isMakingReservations
+            )}
+            isEditing={isEditing}
+            isLoggedIn={isLoggedIn}
+            isMakingReservations={isMakingReservations}
+            onCancel={this.handleEditCancel}
+            onClick={actions.openConfirmReservationModal}
+            resource={resource}
+          />
+        }
         <ReservationCancelModal />
         <ReservationInfoModal />
         <ReservationSuccessModal />

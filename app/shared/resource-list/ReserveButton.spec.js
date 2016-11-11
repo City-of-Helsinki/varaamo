@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
+import MockDate from 'mockdate';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -10,82 +11,193 @@ import { getResourcePageUrl } from 'utils/resourceUtils';
 import ReserveButton from './ReserveButton';
 
 describe('shared/resource-list/ReserveButton', () => {
-  const defaultProps = {
-    date: '2015-10-10',
-    isLoggedIn: false,
-    resource: Immutable(Resource.build({
-      needManualConfirmation: false,
-      reservable: false,
-    })),
-  };
-
-  function getWrapper(extraProps) {
-    return shallow(<ReserveButton {...defaultProps} {...extraProps} />);
+  function getProps(props, resourceProps) {
+    const openingHours = resourceProps.openingHours || [{
+      opens: `${props.date}T12:00:00+03:00`,
+      closes: `${props.date}T18:00:00+03:00`,
+    }];
+    const resource = Immutable(Resource.build(
+      Object.assign({}, resourceProps, { openingHours })
+    ));
+    return Object.assign({}, props, { resource });
   }
 
-  function getButton({ isLoggedIn = false, needManualConfirmation = false, reservable = false }) {
-    const extraProps = {
-      isLoggedIn,
-      resource: { needManualConfirmation, reservable },
+  function getWrapper(props) {
+    const defaults = {
+      date: '2015-10-10',
+      isLoggedIn: false,
+      resource: Immutable(Resource.build()),
     };
-    return getWrapper(extraProps).find(Button);
+
+    return shallow(<ReserveButton {...defaults} {...props} />);
   }
 
-  it('renders a LinkContainer to reservation page', () => {
-    const linkContainer = getWrapper().find(LinkContainer);
-    const expectedUrl = getResourcePageUrl(defaultProps.resource, defaultProps.date);
+  function makeTests(props, expectedText) {
+    it('renders a LinkContainer to reservation page', () => {
+      const linkContainer = getWrapper(props).find(LinkContainer);
+      const expectedUrl = getResourcePageUrl(props.resource, props.date);
 
-    expect(linkContainer.length).to.equal(1);
-    expect(linkContainer.props().to).to.equal(expectedUrl);
+      expect(linkContainer.length).to.equal(1);
+      expect(linkContainer.props().to).to.equal(expectedUrl);
+    });
+
+    it(`renders button with text ${expectedText}`, () => {
+      const button = getWrapper(props).find(Button);
+      expect(button.prop('children')).to.equal(expectedText);
+    });
+  }
+
+  describe('when date given in props is in the past', () => {
+    const now = '2016-10-10T06:00:00+03:00';
+    const date = '2016-10-09';
+
+    beforeEach(() => {
+      MockDate.set(now);
+    });
+
+    afterEach(() => {
+      MockDate.reset();
+    });
+
+    it('renders an empty span', () => {
+      const wrapper = getWrapper({ date });
+      expect(wrapper.equals(<span />)).to.be.true;
+    });
   });
 
-  describe('Button', () => {
-    it('is rendered', () => {
-      const button = getWrapper().find(Button);
-      expect(button.length).to.equal(1);
+  describe('when resource is closed', () => {
+    it('renders an empty span', () => {
+      const wrapper = getWrapper({}, { openingHours: [] });
+      expect(wrapper.equals(<span />)).to.be.true;
+    });
+  });
+
+  describe('when resource is open and date given in props is not in past', () => {
+    const now = '2016-10-10T06:00:00+03:00';
+    const date = '2016-11-10';
+
+    before(() => {
+      MockDate.set(now);
     });
 
-    describe('if user is logged in', () => {
-      const isLoggedIn = true;
+    after(() => {
+      MockDate.reset();
+    });
 
-      describe('if resource is reservable', () => {
-        const reservable = true;
+    describe('when resource has time limit for reservations', () => {
+      describe('when time limit is after the date in props', () => {
+        const reservableBefore = '2016-12-20';
 
-        describe('if resource needs manual confirmation', () => {
-          const needManualConfirmation = true;
+        describe('when user is logged in', () => {
+          const isLoggedIn = true;
 
-          it('has text "Tee alustava varaus"', () => {
-            const button = getButton({ isLoggedIn, needManualConfirmation, reservable });
-            expect(button.props().children).to.equal('Tee alustava varaus');
+          describe('when resource is reservable', () => {
+            const reservable = true;
+
+            describe('when resource needs manual confirmation', () => {
+              const needManualConfirmation = true;
+              const resourceProps = { needManualConfirmation, reservable, reservableBefore };
+              const props = getProps({ date, isLoggedIn }, resourceProps);
+              makeTests(props, 'Tee alustava varaus');
+            });
+
+            describe('when resource does not need manual confirmation', () => {
+              const needManualConfirmation = false;
+              const resourceProps = { needManualConfirmation, reservable, reservableBefore };
+              const props = getProps({ date, isLoggedIn }, resourceProps);
+              makeTests(props, 'Varaa');
+            });
+          });
+
+          describe('when resource is not reservable', () => {
+            const reservable = false;
+            const resourceProps = { reservable, reservableBefore };
+            const props = getProps({ date, isLoggedIn }, resourceProps);
+            makeTests(props, 'Katso varaustilanne');
           });
         });
 
-        describe('if resource does not need manual confirmation', () => {
-          const needManualConfirmation = false;
-
-          it('has text "Varaa"', () => {
-            const button = getButton({ isLoggedIn, needManualConfirmation, reservable });
-            expect(button.props().children).to.equal('Varaa');
-          });
+        describe('when user is not logged in', () => {
+          const isLoggedIn = false;
+          const resourceProps = { reservableBefore };
+          const props = getProps({ date, isLoggedIn }, resourceProps);
+          makeTests(props, 'Katso varaustilanne');
         });
       });
 
-      describe('if resource is not reservable', () => {
-        const reservable = false;
+      describe('when time limit is before the date in props', () => {
+        const reservableBefore = '2016-10-20';
 
-        it('has text "Katso varaustilanne"', () => {
-          const button = getButton({ isLoggedIn, reservable });
-          expect(button.props().children).to.equal('Katso varaustilanne');
+        describe('when user is a regular user', () => {
+          const isLoggedIn = true;
+          const userPermissions = { isAdmin: false };
+          const resourceProps = { reservableBefore, userPermissions };
+          const props = getProps({ date, isLoggedIn }, resourceProps);
+
+          it('renders an empty span', () => {
+            const wrapper = getWrapper(props);
+            expect(wrapper.equals(<span />)).to.be.true;
+          });
+        });
+
+        describe('when user is an admin', () => {
+          const isLoggedIn = true;
+          const userPermissions = { isAdmin: true };
+          const resourceProps = { reservableBefore, userPermissions };
+          const props = getProps({ date, isLoggedIn }, resourceProps);
+          makeTests(props, 'Varaa');
+        });
+
+        describe('when user is not logged in', () => {
+          const isLoggedIn = false;
+          const resourceProps = { reservableBefore };
+          const props = getProps({ date, isLoggedIn }, resourceProps);
+
+          it('renders an empty span', () => {
+            const wrapper = getWrapper(props);
+            expect(wrapper.equals(<span />)).to.be.true;
+          });
         });
       });
     });
 
-    describe('if user is not logged in', () => {
-      const isLoggedIn = false;
+    describe('when resource does not have time limit for reservations', () => {
+      const reservableBefore = undefined;
 
-      it('has text "Katso varaustilanne"', () => {
-        const button = getButton({ isLoggedIn });
-        expect(button.props().children).to.equal('Katso varaustilanne');
+      describe('when user is logged in', () => {
+        const isLoggedIn = true;
+
+        describe('when resource is reservable', () => {
+          const reservable = true;
+
+          describe('when resource needs manual confirmation', () => {
+            const needManualConfirmation = true;
+            const resourceProps = { needManualConfirmation, reservable, reservableBefore };
+            const props = getProps({ date, isLoggedIn }, resourceProps);
+            makeTests(props, 'Tee alustava varaus');
+          });
+
+          describe('when resource does not need manual confirmation', () => {
+            const needManualConfirmation = false;
+            const resourceProps = { needManualConfirmation, reservable, reservableBefore };
+            const props = getProps({ date, isLoggedIn }, resourceProps);
+            makeTests(props, 'Varaa');
+          });
+        });
+
+        describe('when resource is not reservable', () => {
+          const reservable = false;
+          const resourceProps = { reservable, reservableBefore };
+          const props = getProps({ date, isLoggedIn }, resourceProps);
+          makeTests(props, 'Katso varaustilanne');
+        });
+      });
+
+      describe('when user is not logged in', () => {
+        const isLoggedIn = false;
+        const resourceProps = { reservableBefore };
+        const props = getProps({ date, isLoggedIn }, resourceProps);
+        makeTests(props, 'Katso varaustilanne');
       });
     });
   });

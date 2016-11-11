@@ -92,6 +92,11 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = [], reserv
   return slots;
 }
 
+function isPastDate(date) {
+  const now = moment();
+  return moment(date).isBefore(now, 'day');
+}
+
 function prettifyHours(hours, showMinutes = false) {
   if (showMinutes && hours < 0.5) {
     const minutes = moment.duration(hours, 'hours').minutes();
@@ -107,5 +112,6 @@ export {
   getDateStartAndEndTimes,
   getDateString,
   getTimeSlots,
+  isPastDate,
   prettifyHours,
 };

@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import MockDate from 'mockdate';
 import moment from 'moment';
 
 import constants from 'constants/AppConstants';
@@ -7,6 +8,7 @@ import {
   getDateStartAndEndTimes,
   getDateString,
   getTimeSlots,
+  isPastDate,
   prettifyHours,
 } from 'utils/timeUtils';
 
@@ -316,6 +318,33 @@ describe('Utils: timeUtils', () => {
           expect(slots[3].editing).to.equal(true);
         });
       });
+    });
+  });
+
+  describe('isPastDate', () => {
+    const now = '2016-10-10T06:00:00+03:00';
+
+    before(() => {
+      MockDate.set(now);
+    });
+
+    after(() => {
+      MockDate.reset();
+    });
+
+    it('returns true if date is in the past', () => {
+      const date = '2016-09-09';
+      expect(isPastDate(date)).to.be.true;
+    });
+
+    it('returns false if date is the current date', () => {
+      const date = '2016-10-10';
+      expect(isPastDate(date)).to.be.false;
+    });
+
+    it('returns false if date is in the future', () => {
+      const date = '2016-11-11';
+      expect(isPastDate(date)).to.be.false;
     });
   });
 

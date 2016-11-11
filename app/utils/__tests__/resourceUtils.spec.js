@@ -13,6 +13,7 @@ import {
   getOpenReservations,
   getResourcePageUrl,
   getTermsAndConditions,
+  reservingIsRestricted,
 } from 'utils/resourceUtils';
 
 describe('Utils: resourceUtils', () => {
@@ -111,7 +112,7 @@ describe('Utils: resourceUtils', () => {
       it('returns correct data', () => {
         const openingHours = {};
         const resource = getResource(openingHours);
-        const availabilityData = getAvailabilityDataForWholeDay(resource);
+        const availabilityData = getAvailabilityDataForNow(resource);
         const expected = { text: 'Suljettu', bsStyle: 'danger' };
 
         expect(availabilityData).to.deep.equal(expected);
@@ -309,6 +310,21 @@ describe('Utils: resourceUtils', () => {
         const resource = getResource(openingHours);
         const availabilityData = getAvailabilityDataForWholeDay(resource);
         const expected = { text: 'Suljettu', bsStyle: 'danger' };
+
+        expect(availabilityData).to.deep.equal(expected);
+      });
+    });
+
+    describe('if reserving is limited in a future date', () => {
+      it('returns correct data', () => {
+        const openingHours = [{
+          opens: '2016-12-12T12:00:00+03:00',
+          closes: '2016-12-12T18:00:00+03:00',
+        }];
+        const date = '2016-12-12';
+        const resource = { openingHours, reservableBefore: '2016-10-10' };
+        const availabilityData = getAvailabilityDataForWholeDay(resource, date);
+        const expected = { text: 'Ei varattavissa', bsStyle: 'danger' };
 
         expect(availabilityData).to.deep.equal(expected);
       });
@@ -604,6 +620,68 @@ describe('Utils: resourceUtils', () => {
         const resource = { genericTerms, specificTerms };
 
         expect(getTermsAndConditions(resource)).to.equal('');
+      });
+    });
+  });
+
+  describe('reservingIsRestricted', () => {
+    describe('when no date is given', () => {
+      const date = null;
+      const resource = {};
+
+      it('returns false', () => {
+        const isLimited = reservingIsRestricted(resource, date);
+        expect(isLimited).to.be.false;
+      });
+    });
+
+    describe('when resource does not have reservableBefore limit', () => {
+      const date = '2016-10-10';
+
+      it('returns false if user is an admin', () => {
+        const resource = { userPermissions: { isAdmin: true } };
+        const isLimited = reservingIsRestricted(resource, date);
+        expect(isLimited).to.be.false;
+      });
+
+      it('returns false if user is a regular user', () => {
+        const resource = { userPermissions: { isAdmin: false } };
+        const isLimited = reservingIsRestricted(resource, date);
+        expect(isLimited).to.be.false;
+      });
+    });
+
+    describe('when resource has reservableBefore limit and its after given date', () => {
+      const reservableBefore = '2016-12-12';
+      const date = '2016-10-10';
+
+      it('returns false if user is an admin', () => {
+        const resource = { userPermissions: { isAdmin: true }, reservableBefore };
+        const isLimited = reservingIsRestricted(resource, date);
+        expect(isLimited).to.be.false;
+      });
+
+      it('returns false if user is a regular user', () => {
+        const resource = { userPermissions: { isAdmin: false }, reservableBefore };
+        const isLimited = reservingIsRestricted(resource, date);
+        expect(isLimited).to.be.false;
+      });
+    });
+
+    describe('when resource has reservableBefore limit and its before given date', () => {
+      const reservableBefore = '2016-09-09';
+      const date = '2016-10-10';
+
+      it('returns false if user is an admin', () => {
+        const resource = { userPermissions: { isAdmin: true }, reservableBefore };
+        const isLimited = reservingIsRestricted(resource, date);
+        expect(isLimited).to.be.false;
+      });
+
+      it('returns true if user is a regular user', () => {
+        const resource = { userPermissions: { isAdmin: false }, reservableBefore };
+        const isLimited = reservingIsRestricted(resource, date);
+        expect(isLimited).to.be.true;
       });
     });
   });

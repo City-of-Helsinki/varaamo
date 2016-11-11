@@ -51,30 +51,26 @@ class TimeSlots extends Component {
 
     return (
       <Loader loaded={!isFetching}>
-        {slots.length ? (
-          <Table
-            className="time-slots lined"
-            hover
-            responsive
-          >
-            <thead>
-              <tr>
-                <th />
-                <th>Aika</th>
-                <th>Varaustilanne</th>
-                {!isAdmin && <th />}
-                {isAdmin && <th>Varaaja</th>}
-                {isAdmin && <th>Kommentit</th>}
-                {isAdmin && <th>Toiminnot</th>}
-              </tr>
-            </thead>
-            <tbody>
-              {slots.map(this.renderTimeSlot)}
-            </tbody>
-          </Table>
-        ) : (
-          <p>Tila ei ole varattavissa tänä päivänä.</p>
-        )}
+        <Table
+          className="time-slots lined"
+          hover
+          responsive
+        >
+          <thead>
+            <tr>
+              <th />
+              <th>Aika</th>
+              <th>Varaustilanne</th>
+              {!isAdmin && <th />}
+              {isAdmin && <th>Varaaja</th>}
+              {isAdmin && <th>Kommentit</th>}
+              {isAdmin && <th>Toiminnot</th>}
+            </tr>
+          </thead>
+          <tbody>
+            {slots.map(this.renderTimeSlot)}
+          </tbody>
+        </Table>
       </Loader>
     );
   }
