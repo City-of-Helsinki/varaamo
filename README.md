@@ -1,7 +1,7 @@
-Respa-ui
-========
+Varaamo
+=======
 
-[![Circle CI](https://circleci.com/gh/fastmonkeys/respa-ui.svg?style=svg)](https://circleci.com/gh/fastmonkeys/respa-ui)
+[![Circle CI](https://circleci.com/gh/City-of-Helsinki/varaamo.svg?style=svg)](https://circleci.com/gh/City-of-Helsinki/varaamo)
 
 User interface for the City of Helsinki [varaamo.hel.fi](https://varaamo.hel.fi/) resource reservation service. Uses the [respa API](http://api.hel.fi/respa/v1/).
 
