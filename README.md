@@ -1,7 +1,7 @@
-Respa-ui
-========
+Varaamo
+=======
 
-[![Circle CI](https://circleci.com/gh/fastmonkeys/respa-ui.svg?style=svg)](https://circleci.com/gh/fastmonkeys/respa-ui)
+[![Circle CI](https://circleci.com/gh/City-of-Helsinki/varaamo.svg?style=svg)](https://circleci.com/gh/City-of-Helsinki/varaamo)
 
 User interface for the City of Helsinki [varaamo.hel.fi](https://varaamo.hel.fi/) resource reservation service. Uses the [respa API](http://api.hel.fi/respa/v1/).
 
@@ -39,7 +39,15 @@ By default the running app can be found at `localhost:3000`.
     $ npm install
     ```
 
-2. Set correct environment variables for passport authentication.
+2. Make sure you have the following env variables set in an .env file in the root of the project:
+
+    ```
+    API_URL
+    CLIENT_ID
+    CLIENT_SECRET
+    SESSION_SECRET
+    TARGET_APP
+    ```
 
 3. Then, start the development server:
 
@@ -64,12 +72,32 @@ By default the running app uses port `8080`.
     $ npm run build
     ```
 
-3. Set correct environment variables for passport authentication.
+3. Make sure you have the required env variables set.
 
 4. Then, start the production server:
 
     ```
     $ npm run start:production
+    ```
+
+### Running tests
+
+- Run tests:
+
+    ```
+    $ npm test
+    ```
+
+- Run tests in watch mode:
+
+    ```
+    $ npm run test:watch
+    ```
+
+- Run tests with coverage:
+
+    ```
+    $ npm run test:coverage
     ```
 
 ### Running code linter
