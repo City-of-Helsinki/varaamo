@@ -1,13 +1,19 @@
 import { expect } from 'chai';
+import { shallow } from 'enzyme';
 import forEach from 'lodash/forEach';
 import forIn from 'lodash/forIn';
 import get from 'lodash/get';
+import mapValues from 'lodash/mapValues';
 import merge from 'lodash/merge';
 import set from 'lodash/set';
+import React from 'react';
+import { IntlProvider } from 'react-intl';
 import { CALL_API } from 'redux-api-middleware';
 
 import rootReducer from 'state/reducers';
+import enMessages from 'translations/en.json';
 
+const testMessages = mapValues(enMessages, (value, key) => key);
 
 function createApiTest(options) {
   /** Create some tests for an API action.
@@ -220,10 +226,20 @@ function makeButtonTests(button, name, expectedText, expectedOnClickFunction) {
   });
 }
 
+// Utilities for shallow testing components that use react-intl and injectT.
+const intlProvider = new IntlProvider({ locale: 'en', messages: testMessages }, {});
+const { intl } = intlProvider.getChildContext();
+
+function shallowWithIntl(node) {
+  const nodeWithIntl = React.cloneElement(node, { intl });
+  return shallow(nodeWithIntl, { context: { intl } }).shallow();
+}
+
 export {
   createApiTest,
   getDefaultRouterProps,
   getInitialState,
   getState,
   makeButtonTests,
+  shallowWithIntl,
 };
