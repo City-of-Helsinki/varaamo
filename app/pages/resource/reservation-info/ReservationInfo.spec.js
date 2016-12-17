@@ -1,10 +1,10 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
 import Well from 'react-bootstrap/lib/Well';
 import Immutable from 'seamless-immutable';
 
 import Resource from 'utils/fixtures/Resource';
+import { shallowWithIntl } from 'utils/testUtils';
 import WrappedText from 'shared/wrapped-text';
 import ReservationInfo from './ReservationInfo';
 
@@ -19,61 +19,52 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
     })),
   };
 
-  function getWrapper(extraProps) {
-    return shallow(<ReservationInfo {...defaultProps} {...extraProps} />);
+  function getWrapper(props) {
+    return shallowWithIntl(<ReservationInfo {...defaultProps} {...props} />);
   }
 
   it('renders a Well', () => {
     const well = getWrapper().find(Well);
-
     expect(well.length).to.equal(1);
   });
 
   it('renders resource.reservationInfo as WrappedText', () => {
     const wrappedText = getWrapper().find(WrappedText);
     const expectedText = defaultProps.resource.reservationInfo.fi;
-
     expect(wrappedText.length).to.equal(1);
     expect(wrappedText.props().text).to.equal(expectedText);
   });
 
-  describe('max period text', () => {
+  describe('max length text', () => {
     it('is rendered correctly when resource.maxPeriod is defined', () => {
-      const content = getWrapper().html();
-      const expectedString = 'Varauksen maksimipituus: 4 tuntia';
-
-      expect(content).to.contain(expectedString);
+      const maxLengthText = getWrapper().find('.max-length-text');
+      expect(maxLengthText).to.have.length(1);
     });
 
     it('is not rendered if resource.maxPeriod is not defined', () => {
-      const resource = { reservationInfo: {} };
-      const content = getWrapper({ resource }).html();
-
-      expect(content).to.not.contain('Varauksen maksimipituus:');
+      const resource = {};
+      const maxLengthText = getWrapper({ resource }).find('.max-length-text');
+      expect(maxLengthText).to.have.length(0);
     });
   });
 
   describe('max reservations per user text', () => {
     it('is rendered correctly when resource.maxReservationsPerUser is defined', () => {
-      const content = getWrapper().html();
-      const expectedString = 'Maksimimäärä varauksia per käyttäjä: 2';
-
-      expect(content).to.contain(expectedString);
+      const maxReservationsText = getWrapper().find('.max-number-of-reservations-text');
+      expect(maxReservationsText).to.have.length(1);
     });
 
     it('is not rendered if resource.maxReservationsPerUser is not defined', () => {
-      const resource = { reservationInfo: {} };
-      const content = getWrapper({ resource }).html();
-
-      expect(content).to.not.contain('Maksimimäärä varauksia per käyttäjä:');
+      const resource = {};
+      const maxReservationsText = getWrapper({ resource }).find('.max-number-of-reservations-text');
+      expect(maxReservationsText).to.have.length(0);
     });
   });
 
   describe('login text', () => {
     it('is not rendered if user is logged in', () => {
-      const content = getWrapper({ isLoggedIn: true }).html();
-
-      expect(content).to.not.contain('kirjautua sisään');
+      const loginText = getWrapper({ isLoggedIn: true }).find('.login-text');
+      expect(loginText).to.have.length(0);
     });
 
     it('is not rendered if resource is not reservable', () => {
@@ -81,9 +72,8 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
         reservable: false,
         reservationInfo: {},
       };
-      const content = getWrapper({ resource }).html();
-
-      expect(content).to.not.contain('kirjautua sisään');
+      const loginText = getWrapper({ resource }).find('.login-text');
+      expect(loginText).to.have.length(0);
     });
 
     it('is rendered otherwise', () => {
@@ -91,9 +81,8 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
         reservable: true,
         reservationInfo: {},
       };
-      const content = getWrapper({ isLoggedIn: false, resource }).html();
-
-      expect(content).to.contain('kirjautua sisään');
+      const loginText = getWrapper({ isLoggedIn: false, resource }).find('.login-text');
+      expect(loginText).to.have.length(1);
     });
   });
 });

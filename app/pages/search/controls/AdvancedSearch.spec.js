@@ -1,14 +1,14 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
 import Panel from 'react-bootstrap/lib/Panel';
 import Select from 'react-select';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
+import { shallowWithIntl } from 'utils/testUtils';
 import AdvancedSearch from './AdvancedSearch';
 
-describe('Component: search/controls/AdvancedSearch', () => {
+describe('pages/search/controls/AdvancedSearch', () => {
   const defaultProps = {
     isFetchingPurposes: false,
     onFiltersChange: simple.stub(),
@@ -20,7 +20,7 @@ describe('Component: search/controls/AdvancedSearch', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallow(<AdvancedSearch {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(<AdvancedSearch {...defaultProps} {...extraProps} />);
   }
 
   describe('Panel component', () => {

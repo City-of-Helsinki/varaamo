@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import PageWrapper from 'pages/PageWrapper';
+import { injectT } from 'translations';
 import AboutPageContent from './AboutPageContent';
 
-function AboutPage() {
+function AboutPage({ t }) {
   return (
-    <PageWrapper className="about-page" title="Tietoa palvelusta">
+    <PageWrapper className="about-page" title={t('AboutPage.title')}>
       <AboutPageContent />
     </PageWrapper>
   );
 }
 
-AboutPage.propTypes = {};
+AboutPage.propTypes = {
+  t: PropTypes.func.isRequired,
+};
 
-export default AboutPage;
+export default injectT(AboutPage);

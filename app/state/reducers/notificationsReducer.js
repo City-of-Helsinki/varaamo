@@ -22,33 +22,39 @@ function hideNotification(state, index) {
   ];
 }
 
-function getErrorMessage(error) {
-  let message = 'Jotain meni vikaan. Yritä hetken päästä uudelleen.';
+function getErrorNotification(error) {
+  const defaults = {
+    messageId: 'Notifications.errorMessage',
+    type: 'error',
+    timeOut: 10000,
+  };
 
   if (error.status === 401) {
-    message = 'Kirjaudu sisään jatkaaksesi.';
+    return {
+      ...defaults,
+      messageId: 'Notifications.loginMessage',
+    };
   } else if (error.response.non_field_errors && error.response.non_field_errors.length) {
-    message = error.response.non_field_errors.join('. ');
+    return {
+      ...defaults,
+      message: error.response.non_field_errors.join('. '),
+    };
   } else if (error.response.detail) {
-    message = error.response.detail;
+    return {
+      ...defaults,
+      message: error.response.detail,
+    };
   }
-
-  if (!message.endsWith('.')) {
-    message += '.';
-  }
-
-  return message;
+  return defaults;
 }
 
 function notificationsReducer(state = initialState, action) {
-  let message;
-  let notification;
   switch (action.type) {
 
   // Notification handling
 
     case types.UI.ADD_NOTIFICATION: {
-      notification = action.payload;
+      const notification = action.payload;
       return addNotification(state, notification);
     }
 
@@ -60,16 +66,16 @@ function notificationsReducer(state = initialState, action) {
     // Success messages
 
     case types.API.RESERVATION_DELETE_SUCCESS: {
-      notification = {
-        message: 'Varauksen peruminen onnistui.',
+      const notification = {
+        messageId: 'Notifications.reservationDeleteSuccessMessage',
         type: 'success',
       };
       return addNotification(state, notification);
     }
 
     case types.API.RESERVATION_PUT_SUCCESS: {
-      notification = {
-        message: 'Varaus päivitetty.',
+      const notification = {
+        messageId: 'Notifications.reservationUpdateSuccessMessage',
         type: 'success',
       };
       return addNotification(state, notification);
@@ -80,13 +86,7 @@ function notificationsReducer(state = initialState, action) {
     case types.API.RESERVATION_DELETE_ERROR:
     case types.API.RESERVATION_POST_ERROR:
     case types.API.RESERVATION_PUT_ERROR: {
-      message = getErrorMessage(action.payload);
-      notification = {
-        message,
-        type: 'error',
-        timeOut: 10000,
-      };
-      return addNotification(state, notification);
+      return addNotification(state, getErrorNotification(action.payload));
     }
 
     default: {

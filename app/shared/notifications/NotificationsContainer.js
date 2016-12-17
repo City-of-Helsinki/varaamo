@@ -4,15 +4,19 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { hideNotification } from 'actions/notificationsActions';
+import { injectT } from 'translations';
 import notificationsSelector from './notificationsSelector';
 
-export class UnconnectedNotificationsContainer extends Component {
+class UnconnectedNotificationsContainer extends Component {
   render() {
-    const { actions, notifications } = this.props;
-
+    const { actions, notifications, t } = this.props;
+    const translatedNotifications = notifications.map(notification => ({
+      ...notification,
+      message: notification.message || t(notification.messageId),
+    }));
     return (
       <ReactNotifications
-        notifications={notifications}
+        notifications={translatedNotifications}
         onRequestHide={actions.hideNotification}
       />
     );
@@ -22,7 +26,9 @@ export class UnconnectedNotificationsContainer extends Component {
 UnconnectedNotificationsContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   notifications: PropTypes.array.isRequired,
+  t: PropTypes.func.isRequired,
 };
+UnconnectedNotificationsContainer = injectT(UnconnectedNotificationsContainer);  // eslint-disable-line
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
@@ -32,6 +38,7 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
+export { UnconnectedNotificationsContainer };
 export default connect(notificationsSelector, mapDispatchToProps)(
   UnconnectedNotificationsContainer
 );

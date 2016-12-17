@@ -1,13 +1,13 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
 import { Link } from 'react-router';
 
 import { getSearchPageUrl } from 'utils/searchUtils';
+import { shallowWithIntl } from 'utils/testUtils';
 import ShowResourcesLink from './ShowResourcesLink';
 
 describe('pages/home/intro/ShowResourcesLink', () => {
-  const wrapper = shallow(<ShowResourcesLink />);
+  const wrapper = shallowWithIntl(<ShowResourcesLink />);
 
   it('renders a Link component', () => {
     const link = wrapper.find(Link);

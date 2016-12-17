@@ -2,125 +2,98 @@ import { expect } from 'chai';
 import moment from 'moment';
 import queryString from 'query-string';
 import React from 'react';
+import FormControl from 'react-bootstrap/lib/FormControl';
+import { DateField } from 'react-date-picker';
 import { browserHistory } from 'react-router';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
-import sd from 'skin-deep';
 
 import constants from 'constants/AppConstants';
+import { shallowWithIntl } from 'utils/testUtils';
+import AdvancedSearch from './AdvancedSearch';
 import {
   UnconnectedSearchControlsContainer as SearchControlsContainer,
 } from './SearchControlsContainer';
 
 describe('pages/search/controls/SearchControlsContainer', () => {
-  let props;
-  let tree;
-  let instance;
+  const defaultProps = {
+    actions: {
+      changeSearchFilters: () => null,
+      fetchPurposes: () => null,
+      searchResources: () => null,
+    },
+    isFetchingPurposes: false,
+    filters: {
+      date: '2015-10-10',
+      purpose: 'some-purpose',
+      search: 'search-query',
+    },
+    purposeOptions: Immutable([
+      { value: 'filter-1', label: 'Label 1' },
+      { value: 'filter-2', label: 'Label 2' },
+    ]),
+    scrollToSearchResults: () => null,
+    urlSearchFilters: {},
+  };
 
-  beforeEach(() => {
-    props = {
-      actions: {
-        changeSearchFilters: simple.stub(),
-        fetchPurposes: simple.stub(),
-        searchResources: simple.stub(),
-      },
-      isFetchingPurposes: false,
-      filters: {
-        date: '2015-10-10',
-        purpose: 'some-purpose',
-        search: 'search-query',
-      },
-      purposeOptions: Immutable([
-        { value: 'filter-1', label: 'Label 1' },
-        { value: 'filter-2', label: 'Label 2' },
-      ]),
-      scrollToSearchResults: simple.stub(),
-      urlSearchFilters: {},
-    };
+  function getWrapper(props) {
+    return shallowWithIntl(<SearchControlsContainer {...defaultProps} {...props} />);
+  }
 
-    tree = sd.shallowRender(<SearchControlsContainer {...props} />);
-    instance = tree.getMountedInstance();
-  });
-
-  afterEach(() => {
-    simple.restore();
-  });
-
-  describe('FormControl for search query', () => {
-    let formControlTrees;
-
-    beforeEach(() => {
-      formControlTrees = tree.everySubTree('FormControl');
+  describe('render', () => {
+    it('renders FormControl for search query', () => {
+      const wrapper = getWrapper();
+      const formControl = wrapper.find(FormControl);
+      expect(formControl).to.have.length(1);
+      expect(formControl.prop('autoFocus')).to.equal(false);
+      expect(typeof formControl.prop('onChange')).to.equal('function');
+      expect(formControl.prop('onKeyUp')).to.equal(wrapper.instance().handleSearchInputChange);
+      expect(formControl.prop('type')).to.equal('text');
+      expect(formControl.prop('value')).to.equal(defaultProps.filters.search);
     });
 
-    it('renders', () => {
-      expect(formControlTrees.length).to.equal(1);
-    });
+    describe('DateField', () => {
+      function getDateFieldWrapper(props) {
+        return getWrapper(props).find(DateField);
+      }
 
-    it('gets correct props', () => {
-      const actualProps = formControlTrees[0].props;
+      it('is rendered', () => {
+        expect(getDateFieldWrapper()).to.have.length(1);
+      });
 
-      expect(actualProps.autoFocus).to.equal(false);
-      expect(typeof actualProps.onChange).to.equal('function');
-      expect(actualProps.onKeyUp).to.equal(instance.handleSearchInputChange);
-      expect(actualProps.type).to.equal('text');
-      expect(actualProps.value).to.equal(props.filters.search);
-    });
-  });
+      it('gets correct onChange prop', () => {
+        const wrapper = getWrapper();
+        const actual = wrapper.find(DateField).prop('onChange');
 
-  describe('rendering AdvancedSearch', () => {
-    let advancedSearchTrees;
+        expect(actual).to.equal(wrapper.instance().handleDateChange);
+      });
 
-    beforeEach(() => {
-      advancedSearchTrees = tree.everySubTree('AdvancedSearch');
-    });
-
-    it('renders AdvancedSearch component', () => {
-      expect(advancedSearchTrees.length).to.equal(1);
-    });
-
-    it('passes correct props to AdvancedSearch component', () => {
-      const actualProps = advancedSearchTrees[0].props;
-
-      expect(actualProps.isFetchingPurposes).to.equal(props.isFetchingPurposes);
-      expect(actualProps.onFiltersChange).to.equal(instance.handleFiltersChange);
-      expect(actualProps.purposeOptions).to.deep.equal(props.purposeOptions);
-      expect(actualProps.filters).to.deep.equal(props.filters);
+      it('converts value to localized date format and passes it to DateField', () => {
+        const actual = getDateFieldWrapper().prop('value');
+        const expected = moment(defaultProps.filters.date).format(constants.LOCALIZED_DATE_FORMAT);
+        expect(actual).to.equal(expected);
+      });
     });
   });
 
-  describe('rendering DateField', () => {
-    let dateFieldTrees;
-
-    beforeEach(() => {
-      dateFieldTrees = tree.everySubTree('DateField');
-    });
-
-    it('renders DateField component', () => {
-      expect(dateFieldTrees.length).to.equal(1);
-    });
-
-    it('passes correct onChange prop to DateField', () => {
-      const actualProps = dateFieldTrees[0].props;
-
-      expect(actualProps.onChange).to.equal(instance.handleDateChange);
-    });
-
-    it('converts value to localized date format and passes it to DateField', () => {
-      const actualProps = dateFieldTrees[0].props;
-      const expected = moment(props.filters.date).format(constants.LOCALIZED_DATE_FORMAT);
-
-      expect(actualProps.value).to.equal(expected);
-    });
+  it('renders AdvancedSearch with correct props', () => {
+    const wrapper = getWrapper();
+    const advancedSearch = wrapper.find(AdvancedSearch);
+    expect(advancedSearch).to.have.length(1);
+    expect(advancedSearch.prop('isFetchingPurposes')).to.equal(defaultProps.isFetchingPurposes);
+    expect(advancedSearch.prop('onFiltersChange')).to.equal(wrapper.instance().handleFiltersChange);
+    expect(advancedSearch.prop('purposeOptions')).to.deep.equal(defaultProps.purposeOptions);
+    expect(advancedSearch.prop('filters')).to.deep.equal(defaultProps.filters);
   });
 
   describe('handleFiltersChange', () => {
     it('calls changeSearchFilters with given filters', () => {
       const newFilters = { search: 'new search value' };
+      const changeSearchFilters = simple.mock();
+      const instance = getWrapper({ actions: { changeSearchFilters } }).instance();
       instance.handleFiltersChange(newFilters);
-
-      expect(props.actions.changeSearchFilters.callCount).to.equal(1);
-      expect(props.actions.changeSearchFilters.lastCall.args[0]).to.equal(newFilters);
+      expect(changeSearchFilters.callCount).to.equal(1);
+      expect(changeSearchFilters.lastCall.args[0]).to.equal(newFilters);
     });
   });
 
@@ -130,7 +103,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
 
     before(() => {
       browserHistoryMock = simple.mock(browserHistory, 'push');
-      instance.handleSearch(newFilters);
+      getWrapper().instance().handleSearch(newFilters);
     });
 
     after(() => {
@@ -139,18 +112,22 @@ describe('pages/search/controls/SearchControlsContainer', () => {
 
     it('calls browserHistory.push with correct path', () => {
       const actualPath = browserHistoryMock.lastCall.args[0];
-      const expectedPath = `/search?${queryString.stringify(props.filters)}`;
+      const expectedPath = `/search?${queryString.stringify(defaultProps.filters)}`;
 
       expect(browserHistoryMock.callCount).to.equal(1);
       expect(actualPath).to.equal(expectedPath);
     });
   });
 
-  describe('fetching data', () => {
+  describe('componentDidMount', () => {
     it('fetches resources when component mounts', () => {
-      instance.componentDidMount();
+      const actions = {
+        fetchPurposes: simple.mock(),
+        changeSearchFilters: () => null,
+      };
+      getWrapper({ actions }).instance().componentDidMount();
 
-      expect(props.actions.fetchPurposes.callCount).to.equal(1);
+      expect(actions.fetchPurposes.callCount).to.equal(1);
     });
   });
 });

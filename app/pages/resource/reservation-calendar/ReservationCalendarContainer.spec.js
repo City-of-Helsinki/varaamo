@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import MockDate from 'mockdate';
 import React from 'react';
 import { Calendar } from 'react-date-picker';
@@ -13,6 +12,7 @@ import ReservationSuccessModal from 'shared/modals/reservation-success';
 import Resource from 'utils/fixtures/Resource';
 import TimeSlot from 'utils/fixtures/TimeSlot';
 import { getResourcePageUrl } from 'utils/resourceUtils';
+import { shallowWithIntl } from 'utils/testUtils';
 import {
   UnconnectedReservationCalendarContainer as ReservationCalendarContainer,
 } from './ReservationCalendarContainer';
@@ -52,7 +52,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       urlHash: '',
     };
 
-    return shallow(<ReservationCalendarContainer {...defaults} {...props} />);
+    return shallowWithIntl(<ReservationCalendarContainer {...defaults} {...props} />);
   }
 
   function makeRenderTests(props, options) {

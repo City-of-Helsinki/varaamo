@@ -1,33 +1,34 @@
 import { expect } from 'chai';
 import React from 'react';
 import Immutable from 'seamless-immutable';
-import sd from 'skin-deep';
 
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
+import { shallowWithIntl } from 'utils/testUtils';
 import {
   UnconnectedReservationListContainer as ReservationListContainer,
 } from './ReservationListContainer';
-
-function getProps(props) {
-  const defaults = {
-    isAdmin: false,
-    loading: false,
-    reservations: [],
-    resources: {},
-    staffUnits: [],
-    units: {},
-  };
-
-  return Object.assign({}, defaults, props);
-}
+import ReservationListItem from './ReservationListItem';
 
 describe('pages/user-reservations/reservation-list/ReservationListContainer', () => {
+  function getWrapper(props) {
+    const defaults = {
+      isAdmin: false,
+      loading: false,
+      reservations: [],
+      resources: {},
+      staffUnits: [],
+      units: {},
+    };
+    return shallowWithIntl(<ReservationListContainer {...defaults} {...props} />);
+  }
+
   describe('with reservations', () => {
     const unit = Unit.build();
     const resource = Resource.build({ unit: unit.id });
-    const props = getProps({
+    const props = {
+      isAdmin: false,
       reservations: Immutable([
         Reservation.build({ resource: resource.id }),
         Reservation.build({ resource: 'unfetched-resource' }),
@@ -38,83 +39,58 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
       units: Immutable({
         [unit.id]: unit,
       }),
-    });
-    let tree;
+    };
 
-    before(() => {
-      tree = sd.shallowRender(<ReservationListContainer {...props} />);
-    });
+    function getWithReservationsWrapper() {
+      return getWrapper(props);
+    }
 
     it('renders a ul element', () => {
-      const ulTree = tree.subTree('ul');
-
-      expect(ulTree).to.be.ok;
+      const ul = getWithReservationsWrapper().find('ul');
+      expect(ul).to.have.length(1);
     });
 
     describe('rendering individual reservations', () => {
-      let reservationListItemTrees;
-
-      before(() => {
-        reservationListItemTrees = tree.everySubTree('ReservationListItem');
-      });
-
       it('renders a ReservationListItem for every reservation in props', () => {
-        expect(reservationListItemTrees.length).to.equal(props.reservations.length);
+        const reservationListItems = getWithReservationsWrapper().find(ReservationListItem);
+        expect(reservationListItems).to.have.length(props.reservations.length);
       });
 
-      describe('passing correct props', () => {
-        it('passes isAdmin, isStaff and reservation', () => {
-          reservationListItemTrees.forEach((reservationTree, index) => {
-            const actualProps = reservationTree.props;
-
-            expect(actualProps.isAdmin).to.equal(props.isAdmin);
-            expect(actualProps.isStaff).to.equal(false);
-            expect(actualProps.reservation).to.deep.equal(props.reservations[index]);
-          });
-        });
-
-        it('passes resource corresponding to reservation.resource', () => {
-          expect(reservationListItemTrees[0].props.resource).to.deep.equal(resource);
-        });
-
-        it('passes empty object as resource if resource is unfetched', () => {
-          expect(reservationListItemTrees[1].props.resource).to.deep.equal({});
-        });
-
-        it('passes unit corresponding to resource.unit', () => {
-          expect(reservationListItemTrees[0].props.unit).to.deep.equal(unit);
-        });
-
-        it('passes empty object as unit if unit or resource is unfetched', () => {
-          expect(reservationListItemTrees[1].props.unit).to.deep.equal({});
+      it('passes isAdmin, isStaff and reservation', () => {
+        const reservationListItems = getWithReservationsWrapper().find(ReservationListItem);
+        reservationListItems.forEach((reservationListItem, index) => {
+          const actualProps = reservationListItem.props();
+          expect(actualProps.isAdmin).to.equal(props.isAdmin);
+          expect(actualProps.isStaff).to.equal(false);
+          expect(actualProps.reservation).to.deep.equal(props.reservations[index]);
+          expect(reservationListItems.at(0).prop('resource')).to.deep.equal(resource);
+          expect(reservationListItems.at(1).prop('resource')).to.deep.equal({});
+          expect(reservationListItems.at(0).prop('unit')).to.deep.equal(unit);
+          expect(reservationListItems.at(1).prop('unit')).to.deep.equal({});
         });
       });
     });
   });
 
   describe('without reservations', () => {
+    const reservations = [];
+    function getWithouReservationsWrapper(emptyMessage) {
+      return getWrapper({ emptyMessage, reservations });
+    }
+
     describe('when emptyMessage is given in props', () => {
-      const props = getProps({
-        emptyMessage: 'No reservations found',
-        reservations: [],
-      });
-      const tree = sd.shallowRender(<ReservationListContainer {...props} />);
+      const emptyMessage = 'No reservations found';
 
       it('displays the emptyMessage', () => {
-        expect(tree.textIn('p')).to.equal(props.emptyMessage);
+        const message = getWithouReservationsWrapper(emptyMessage).find('p').text();
+        expect(message).to.equal(emptyMessage);
       });
     });
 
     describe('when emptyMessage is not given in props', () => {
-      const props = getProps({
-        reservations: [],
-      });
-      const tree = sd.shallowRender(<ReservationListContainer {...props} />);
-
       it('renders a message telling no reservations were found', () => {
-        const expected = 'Sinulla ei vielä ole yhtään varausta.';
-
-        expect(tree.textIn('p')).to.equal(expected);
+        const message = getWithouReservationsWrapper().find('p').text();
+        expect(message).to.equal('ReservationListContainer.emptyMessage');
       });
     });
   });

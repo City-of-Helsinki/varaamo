@@ -1,12 +1,11 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
 import ReactDom from 'react-dom';
 import Button from 'react-bootstrap/lib/Button';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import simple from 'simple-mock';
 
-import { makeButtonTests } from 'utils/testUtils';
+import { makeButtonTests, shallowWithIntl } from 'utils/testUtils';
 import CommentForm from './CommentForm';
 
 describe('shared/comment-form/CommentForm', () => {
@@ -18,7 +17,7 @@ describe('shared/comment-form/CommentForm', () => {
   };
 
   function getWrapper(extraProps = {}) {
-    return shallow(<CommentForm {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(<CommentForm {...defaultProps} {...extraProps} />);
   }
 
   describe('render', () => {
@@ -50,7 +49,7 @@ describe('shared/comment-form/CommentForm', () => {
         makeButtonTests(
           buttons.at(0),
           'back',
-          'Takaisin',
+          'common.back',
           defaultProps.onCancel
         );
       });
@@ -59,7 +58,7 @@ describe('shared/comment-form/CommentForm', () => {
         const button = buttons.at(1);
 
         it('is save button', () => {
-          expect(button.props().children).to.equal('Tallenna');
+          expect(button.props().children).to.equal('common.save');
         });
 
         it('has handleSave as its onClick prop', () => {

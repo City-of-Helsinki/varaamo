@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import Table from 'react-bootstrap/lib/Table';
 import Loader from 'react-loader';
 
+import { injectT } from 'translations';
 import TimeSlot from './TimeSlot';
 
 class TimeSlots extends Component {
@@ -47,6 +48,7 @@ class TimeSlots extends Component {
       isAdmin,
       isFetching,
       slots,
+      t,
     } = this.props;
 
     return (
@@ -59,12 +61,12 @@ class TimeSlots extends Component {
           <thead>
             <tr>
               <th />
-              <th>Aika</th>
-              <th>Varaustilanne</th>
+              <th>{t('TimeSlots.time')}</th>
+              <th>{t('TimeSlots.reservations')}</th>
               {!isAdmin && <th />}
-              {isAdmin && <th>Varaaja</th>}
-              {isAdmin && <th>Kommentit</th>}
-              {isAdmin && <th>Toiminnot</th>}
+              {isAdmin && <th>{t('TimeSlots.reserver')}</th>}
+              {isAdmin && <th>{t('TimeSlots.comments')}</th>}
+              {isAdmin && <th>{t('TimeSlots.controls')}</th>}
             </tr>
           </thead>
           <tbody>
@@ -87,7 +89,8 @@ TimeSlots.propTypes = {
   resource: PropTypes.object.isRequired,
   selected: PropTypes.array.isRequired,
   slots: PropTypes.array.isRequired,
+  t: PropTypes.func.isRequired,
   time: PropTypes.string,
 };
 
-export default TimeSlots;
+export default injectT(TimeSlots);

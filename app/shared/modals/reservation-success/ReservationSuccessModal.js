@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
+import { FormattedHTMLMessage } from 'react-intl';
 
 import CompactReservationList from 'shared/compact-reservation-list';
 import ReservationAccessCode from 'shared/reservation-access-code';
+import { injectT } from 'translations';
 import { getName } from 'utils/translationUtils';
 import ModalWrapper from '../ModalWrapper';
 
@@ -11,12 +13,15 @@ function ReservationSuccessModal({
   reservationsToShow,
   resources,
   show,
+  t,
   user,
 }) {
   const reservation = reservationsToShow.length ? reservationsToShow[0] : {};
   const resource = reservation.resource ? resources[reservation.resource] : {};
   const isPreliminaryReservation = reservation.needManualConfirmation;
   const email = isPreliminaryReservation ? reservation.reserverEmailAddress : user.email;
+  const resourceName = getName(resource);
+  const reservationsCount = reservationsToShow.length;
 
   return (
     <ModalWrapper
@@ -24,13 +29,16 @@ function ReservationSuccessModal({
       onClose={closeReservationSuccessModal}
       show={show}
       title={
-        isPreliminaryReservation ? 'Varauspyyntösi on lähetetty' : 'Varauksen tekeminen onnistui'
+        isPreliminaryReservation ?
+        t('ReservationSuccessModal.preliminaryReservationTitle') :
+        t('ReservationSuccessModal.regularReservationTitle')
       }
     >
       <p>
-        {isPreliminaryReservation ? 'Olet tehnyt alustavan varauksen tilaan ' : 'Varaus tehty tilaan '}
-        {getName(resource)}
-        {reservationsToShow.length === 1 ? ' ajalle:' : ' ajoille:'}
+        {isPreliminaryReservation ?
+          t('ReservationSuccessModal.preliminaryReservationLead', { reservationsCount, resourceName }) :
+          t('ReservationSuccessModal.regularReservationLead', { reservationsCount, resourceName })
+        }
       </p>
       <CompactReservationList reservations={reservationsToShow} />
 
@@ -39,22 +47,30 @@ function ReservationSuccessModal({
           <p>
             <ReservationAccessCode
               reservation={reservation}
-              text="Tilaan pääset käyttämällä PIN-koodia:"
+              text={t('ReservationSuccessModal.reservationAccessCodeText')}
             />
           </p>
           <p>
-            PIN-koodin voit tarkistaa jatkossa {'"Omat varaukset" -sivulta'}
-            {email ? ' sekä varausvahvistuksesta, joka on lähetetty sähköpostiosoitteeseen: ' : ''}
-            {email && <strong>{email}</strong>}.
+            {t('ReservationSuccessModal.ownReservationsPageHelpText')}
+            {email &&
+              <span>
+                {' '}
+                <FormattedHTMLMessage
+                  id="ReservationSuccessModal.emailHelpText"
+                  values={{ email }}
+                />
+              </span>
+            }.
           </p>
         </div>
       )}
 
       {isPreliminaryReservation && (
         <p>
-          Varaus käsitellään kahden arkipäivän kuluessa. Tarkemmat tiedot alustavasta varauksesta
-          lähetetään varauksen yhteydessä annettuun sähköpostiosoitteeseen
-          {email && <strong> {email}</strong>}.
+          <FormattedHTMLMessage
+            id="ReservationSuccessModal.preliminaryReservationInfo"
+            values={{ email }}
+          />
         </p>
       )}
 
@@ -63,7 +79,7 @@ function ReservationSuccessModal({
           bsStyle="default"
           onClick={closeReservationSuccessModal}
         >
-          Takaisin
+          {t('common.back')}
         </Button>
       </div>
     </ModalWrapper>
@@ -75,7 +91,8 @@ ReservationSuccessModal.propTypes = {
   reservationsToShow: PropTypes.array.isRequired,
   resources: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
+  t: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
 };
 
-export default ReservationSuccessModal;
+export default injectT(ReservationSuccessModal);

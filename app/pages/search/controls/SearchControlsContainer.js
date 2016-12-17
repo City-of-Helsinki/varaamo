@@ -13,10 +13,11 @@ import { bindActionCreators } from 'redux';
 import { fetchPurposes } from 'actions/purposeActions';
 import { changeSearchFilters } from 'actions/uiActions';
 import constants from 'constants/AppConstants';
+import { injectT } from 'translations';
 import AdvancedSearch from './AdvancedSearch';
 import searchControlsSelector from './searchControlsSelector';
 
-export class UnconnectedSearchControlsContainer extends Component {
+class UnconnectedSearchControlsContainer extends Component {
   constructor(props) {
     super(props);
     this.handleDateChange = this.handleDateChange.bind(this);
@@ -71,6 +72,7 @@ export class UnconnectedSearchControlsContainer extends Component {
       filters,
       isFetchingPurposes,
       purposeOptions,
+      t,
     } = this.props;
 
     return (
@@ -81,7 +83,7 @@ export class UnconnectedSearchControlsContainer extends Component {
               autoFocus={!filters.purpose}
               onChange={event => this.handleFiltersChange({ search: event.target.value })}
               onKeyUp={this.handleSearchInputChange}
-              placeholder="Esim. kokous, työskentely"
+              placeholder={t('SearchControls.searchPlaceholder')}
               type="text"
               value={filters.search}
             />
@@ -114,7 +116,7 @@ export class UnconnectedSearchControlsContainer extends Component {
           onClick={() => this.handleSearch()}
           type="submit"
         >
-          Hae
+          {t('SearchControls.search')}
         </Button>
       </div>
     );
@@ -127,8 +129,11 @@ UnconnectedSearchControlsContainer.propTypes = {
   isFetchingPurposes: PropTypes.bool.isRequired,
   purposeOptions: PropTypes.array.isRequired,
   scrollToSearchResults: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
   urlSearchFilters: PropTypes.object.isRequired,
 };
+
+UnconnectedSearchControlsContainer = injectT(UnconnectedSearchControlsContainer);  // eslint-disable-line
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
@@ -139,6 +144,7 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
+export { UnconnectedSearchControlsContainer };
 export default connect(searchControlsSelector, mapDispatchToProps)(
   UnconnectedSearchControlsContainer
 );

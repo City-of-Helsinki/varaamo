@@ -1,16 +1,16 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
 
 import * as customizationUtils from 'utils/customizationUtils';
+import { shallowWithIntl } from 'utils/testUtils';
 import Logo from './Logo';
 import espooLogoSrc from './espoo-logo.png';
 import helsinkiLogoSrc from './helsinki-coat-of-arms-white.png';
 
 describe('shared/logo/Logo', () => {
   function getWrapper() {
-    return shallow(<Logo />);
+    return shallowWithIntl(<Logo />);
   }
 
   describe('When there is no customization in use', () => {
@@ -26,7 +26,7 @@ describe('shared/logo/Logo', () => {
     });
 
     it('renders Helsinki alt text', () => {
-      expect(logo.props().alt).to.equal('Helsingin vaakuna');
+      expect(logo.props().alt).to.equal('Logo.helsinkiAlt');
     });
   });
 
@@ -48,7 +48,7 @@ describe('shared/logo/Logo', () => {
     });
 
     it('renders Espoo alt text', () => {
-      expect(logo.props().alt).to.equal('Espoon kaupunki');
+      expect(logo.props().alt).to.equal('Logo.espooAlt');
     });
   });
 });

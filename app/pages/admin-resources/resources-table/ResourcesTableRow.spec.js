@@ -1,15 +1,15 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
-import React from 'react';
-import Immutable from 'seamless-immutable';
 import moment from 'moment';
+import React from 'react';
 import { Link } from 'react-router';
+import Immutable from 'seamless-immutable';
 
 import ReservationAccessCode from 'shared/reservation-access-code';
 import TimeRange from 'shared/time-range';
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
 import { getResourcePageUrl } from 'utils/resourceUtils';
+import { shallowWithIntl } from 'utils/testUtils';
 import ResourcesTableRow from './ResourcesTableRow';
 
 describe('pages/admin-resources/resources-table/ResourcesTableRow', () => {
@@ -30,9 +30,10 @@ describe('pages/admin-resources/resources-table/ResourcesTableRow', () => {
   ));
   const defaultProps = { resource };
 
-  const getWrapper = extraProps => shallow(
-    <ResourcesTableRow {...defaultProps} {...extraProps} />
-  );
+  function getWrapper(extraProps) {
+    return shallowWithIntl(<ResourcesTableRow {...defaultProps} {...extraProps} />);
+  }
+
   let withoutReservationsComponent;
   let currentReservationComponent;
   let nextReservationComponent;
@@ -103,36 +104,36 @@ describe('pages/admin-resources/resources-table/ResourcesTableRow', () => {
         });
 
         if (componentTuple[1] === 'withoutReservationsComponent') {
-          it('availability tr exists and says "Suljettu" if resource is already closed', () => {
+          it('availability tr exists and has closed text if resource is already closed', () => {
             const openResource = Immutable(Resource.build({
               openingHours: [{
                 opens: now.clone().subtract(6, 'hours').toISOString(),
                 closes: now.clone().subtract(1, 'hours').toISOString(),
               }],
             }));
-            const customWrapper = getWrapper({ resource: openResource });
-            expect(customWrapper.find('.resource-table-row.availability')).to.have.length(1);
-            expect(customWrapper.find('.resource-table-row.availability').prop('children'))
-              .to.equal('Suljettu');
+            const availabilityTr = getWrapper({ resource: openResource }).find('.availability');
+            expect(availabilityTr).to.have.length(1);
+            const text = availabilityTr.text();
+            expect(text).to.equal('ResourcesTableRow.closed');
           });
 
-          it('availability tr exists and says "Suljettu" if resource openingHours are null', () => {
+          it('availability tr exists and has closed text if resource openingHours are null', () => {
             const openResource = Immutable(Resource.build({
               openingHours: [{
                 opens: null,
                 closes: null,
               }],
             }));
-            const customWrapper = getWrapper({ resource: openResource });
-            expect(customWrapper.find('.resource-table-row.availability')).to.have.length(1);
-            expect(customWrapper.find('.resource-table-row.availability').prop('children'))
-              .to.equal('Suljettu');
+            const availabilityTr = getWrapper({ resource: openResource }).find('.availability');
+            expect(availabilityTr).to.have.length(1);
+            const text = availabilityTr.text();
+            expect(text).to.equal('ResourcesTableRow.closed');
           });
 
           it('availability tr exists and is the amount of free time till resource closes', () => {
-            expect(component.find('.resource-table-row.availability')).to.have.length(1);
-            expect(component.find('.resource-table-row.availability').prop('children'))
-              .to.equal('6 h heti');
+            const availabilityTr = component.find('.resource-table-row.availability');
+            expect(availabilityTr).to.have.length(1);
+            expect(availabilityTr.text()).to.equal('ResourcesTableRow.availableTime');
           });
 
           it('reservation range tr exists and is empty', () => {
@@ -164,7 +165,7 @@ describe('pages/admin-resources/resources-table/ResourcesTableRow', () => {
               });
 
               it('contains the amount of availability time', () => {
-                expect(tdComponent.prop('children')).to.equal('2 h heti');
+                expect(tdComponent.prop('children')).to.equal('ResourcesTableRow.availableTime');
               });
 
               it('exists and is closed if resource is not yet opened', () => {
@@ -178,9 +179,10 @@ describe('pages/admin-resources/resources-table/ResourcesTableRow', () => {
                   nextReservation,
                   resource: openResource,
                 });
-                expect(customWrapper.find('.resource-table-row.availability')).to.have.length(1);
-                expect(customWrapper.find('.resource-table-row.availability').prop('children'))
-                  .to.equal('Suljettu');
+                const availabilityTr = customWrapper.find('.availability');
+                expect(availabilityTr).to.have.length(1);
+                const text = availabilityTr.text();
+                expect(text).to.equal('ResourcesTableRow.closed');
               });
             });
           } else {
@@ -199,8 +201,8 @@ describe('pages/admin-resources/resources-table/ResourcesTableRow', () => {
                 expect(tdComponent.prop('className')).to.contain('reserved');
               });
 
-              it('contains Varattu', () => {
-                expect(tdComponent.prop('children')).to.equal('Varattu');
+              it('contains reserved text', () => {
+                expect(tdComponent.prop('children')).to.equal('ResourcesTableRow.reserved');
               });
             });
           }

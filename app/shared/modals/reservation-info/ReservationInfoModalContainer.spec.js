@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
 import ReactDom from 'react-dom';
 import Button from 'react-bootstrap/lib/Button';
@@ -11,7 +10,7 @@ import simple from 'simple-mock';
 import ReservationStateLabel from 'shared/reservation-state-label';
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
-import { makeButtonTests } from 'utils/testUtils';
+import { makeButtonTests, shallowWithIntl } from 'utils/testUtils';
 import {
   UnconnectedReservationInfoModalContainer as ReservationInfoModalContainer,
 } from './ReservationInfoModalContainer';
@@ -48,7 +47,7 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
   };
 
   function getWrapper(extraProps = {}) {
-    return shallow(<ReservationInfoModalContainer {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(<ReservationInfoModalContainer {...defaultProps} {...extraProps} />);
   }
 
   describe('render', () => {
@@ -69,16 +68,10 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
         expect(modalHeader.props().closeButton).to.equal(true);
       });
 
-      it('renders a ModalTitle component', () => {
+      it('renders a ModalTitle with correct title', () => {
         const modalTitle = getWrapper().find(Modal.Title);
-
         expect(modalTitle.length).to.equal(1);
-      });
-
-      it('the ModalTitle displays text "Varauksen tiedot"', () => {
-        const modalTitle = getWrapper().find(Modal.Title);
-
-        expect(modalTitle.props().children).to.equal('Varauksen tiedot');
+        expect(modalTitle.prop('children')).to.equal('ReservationInfoModal.title');
       });
     });
 
@@ -257,7 +250,7 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
           makeButtonTests(
             buttons.at(0),
             'back',
-            'Takaisin',
+            'common.back',
             defaultProps.actions.closeReservationInfoModal
           );
         });
@@ -266,7 +259,7 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
           const button = buttons.at(1);
 
           it('is save button', () => {
-            expect(button.props().children).to.equal('Tallenna');
+            expect(button.props().children).to.equal('common.save');
           });
 
           it('has handleSave as its onClick prop', () => {
@@ -290,7 +283,7 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
           makeButtonTests(
             buttons.at(0),
             'back',
-            'Takaisin',
+            'common.back',
             defaultProps.actions.closeReservationInfoModal
           );
         });

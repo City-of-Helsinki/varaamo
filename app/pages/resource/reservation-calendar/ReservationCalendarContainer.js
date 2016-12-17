@@ -16,6 +16,7 @@ import DateHeader from 'shared/date-header';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
 import ReservationInfoModal from 'shared/modals/reservation-info';
 import ReservationSuccessModal from 'shared/modals/reservation-success';
+import { injectT } from 'translations';
 import { getResourcePageUrl, reservingIsRestricted } from 'utils/resourceUtils';
 import { addToDate, isPastDate } from 'utils/timeUtils';
 import ReservationCalendarControls from './ReservationCalendarControls';
@@ -65,6 +66,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
       resource,
       selected,
       staffUnits,
+      t,
       time,
       timeSlots,
       urlHash,
@@ -103,7 +105,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
           />
         }
         {!isOpen &&
-          <p className="info-text closed-text">Tila on kiinni tänä päivänä.</p>
+          <p className="info-text closed-text">{t('TimeSlots.closedMessage')}</p>
         }
         {isOpen && reservingIsRestricted(resource, date) &&
           <ReservingRestrictedText
@@ -153,10 +155,12 @@ UnconnectedReservationCalendarContainer.propTypes = {
   resource: PropTypes.object.isRequired,
   selected: PropTypes.array.isRequired,
   staffUnits: PropTypes.array.isRequired,
+  t: PropTypes.func.isRequired,
   time: PropTypes.string,
   timeSlots: PropTypes.array.isRequired,
   urlHash: PropTypes.string.isRequired,
 };
+UnconnectedReservationCalendarContainer = injectT(UnconnectedReservationCalendarContainer);  // eslint-disable-line
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {

@@ -2,6 +2,8 @@ import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 
+import { injectT } from 'translations';
+
 class ReservationControls extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +15,7 @@ class ReservationControls extends Component {
           key="cancelButton"
           onClick={props.onCancelClick}
         >
-          Peru
+          {props.t('ReservationControls.cancel')}
         </Button>
       ),
       confirm: (
@@ -23,7 +25,7 @@ class ReservationControls extends Component {
           key="confirmButton"
           onClick={props.onConfirmClick}
         >
-          Hyväksy
+          {props.t('ReservationControls.confirm')}
         </Button>
       ),
       deny: (
@@ -33,7 +35,7 @@ class ReservationControls extends Component {
           key="denyButton"
           onClick={this.props.onDenyClick}
         >
-          Hylkää
+          {props.t('ReservationControls.deny')}
         </Button>
       ),
       edit: (
@@ -43,7 +45,7 @@ class ReservationControls extends Component {
           key="editButton"
           onClick={props.onEditClick}
         >
-          Muokkaa
+          {props.t('ReservationControls.edit')}
         </Button>
       ),
       info: (
@@ -53,7 +55,7 @@ class ReservationControls extends Component {
           key="infoButton"
           onClick={props.onInfoClick}
         >
-          Tiedot
+          {props.t('ReservationControls.info')}
         </Button>
       ),
     };
@@ -132,6 +134,7 @@ ReservationControls.propTypes = {
   onEditClick: PropTypes.func.isRequired,
   onInfoClick: PropTypes.func.isRequired,
   reservation: PropTypes.object,
+  t: PropTypes.func.isRequired,
 };
 
-export default ReservationControls ;
+export default injectT(ReservationControls) ;

@@ -1,10 +1,10 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
 import Loader from 'react-loader';
 import Immutable from 'seamless-immutable';
 
 import ResourceList from 'shared/resource-list';
+import { shallowWithIntl } from 'utils/testUtils';
 import SearchResults from './SearchResults';
 import ResultsCount from './ResultsCount';
 
@@ -15,7 +15,7 @@ describe('pages/search/results/SearchResults', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallow(<SearchResults {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(<SearchResults {...defaultProps} {...extraProps} />);
   }
 
   describe('rendering', () => {
@@ -47,7 +47,7 @@ describe('pages/search/results/SearchResults', () => {
       expect(resultsCount).to.have.length(1);
       expect(resultsCount.props()).to.deep.equal({
         resultIds: defaultProps.searchResultIds,
-        emptyMessage: 'Yhtään hakutulosta ei löytynyt.',
+        emptyMessage: 'SearchResults.emptyMessage',
       });
     });
   });

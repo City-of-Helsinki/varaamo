@@ -6,6 +6,7 @@ import TimeRange from 'shared/time-range';
 import ReservationAccessCode from 'shared/reservation-access-code';
 import ReservationControls from 'shared/reservation-controls';
 import ReservationStateLabel from 'shared/reservation-state-label';
+import { injectT } from 'translations';
 import { getCaption, getMainImage } from 'utils/imageUtils';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import { getName } from 'utils/translationUtils';
@@ -25,6 +26,7 @@ class ReservationListItem extends Component {
       isStaff,
       reservation,
       resource,
+      t,
       unit,
     } = this.props;
 
@@ -60,7 +62,10 @@ class ReservationListItem extends Component {
             />
           </Link>
         </div>
-        <ReservationAccessCode reservation={reservation} text="Tilan PIN-koodi:" />
+        <ReservationAccessCode
+          reservation={reservation}
+          text={t('ReservationListItem.accessCodeText')}
+        />
         <ReservationControls
           isAdmin={isAdmin}
           isStaff={isStaff}
@@ -77,7 +82,8 @@ ReservationListItem.propTypes = {
   isStaff: PropTypes.bool.isRequired,
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
+  t: PropTypes.func.isRequired,
   unit: PropTypes.object.isRequired,
 };
 
-export default ReservationListItem;
+export default injectT(ReservationListItem);

@@ -1,9 +1,9 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
 import Resource from 'utils/fixtures/Resource';
+import { shallowWithIntl } from 'utils/testUtils';
 import ResourceIcons from './ResourceIcons';
 
 describe('shared/resource-list/ResourceIcons', () => {
@@ -17,7 +17,7 @@ describe('shared/resource-list/ResourceIcons', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallow(<ResourceIcons {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(<ResourceIcons {...defaultProps} {...extraProps} />);
   }
   let wrapper;
   let wrapperNoProps;
@@ -128,12 +128,12 @@ describe('shared/resource-list/ResourceIcons', () => {
       expect(getSpanTextWithProps(props).text()).to.equal('10 €/h');
     });
 
-    it('renders MAKSUTON if price is 0', () => {
+    it('renders "free" message if price is 0', () => {
       const props = {
         maxPricePerHour: null,
         minPricePerHour: '0.00',
       };
-      expect(getSpanTextWithProps(props).text()).to.equal('MAKSUTON');
+      expect(getSpanTextWithProps(props).text()).to.equal('ResourceIcons.free');
     });
 
     it('is not rendered if prop is not passed', () => {

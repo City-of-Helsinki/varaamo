@@ -21,7 +21,7 @@ function getAvailabilityDataForNow(resource = {}) {
   const reservations = getOpenReservations(resource);
 
   if (!closes || !opens) {
-    return { text: 'Suljettu', bsStyle: 'danger' };
+    return { status: 'closed', bsStyle: 'danger' };
   }
 
   const nowMoment = moment();
@@ -31,21 +31,22 @@ function getAvailabilityDataForNow(resource = {}) {
   const currentReservation = getCurrentReservation(reservations);
 
   if (nowMoment > closesMoment) {
-    return { text: 'Suljettu', bsStyle: 'danger' };
+    return { status: 'closed', bsStyle: 'danger' };
   }
 
   if (currentReservation || nowMoment < opensMoment) {
     const nextAvailableTime = getNextAvailableTime(reservations, beginMoment);
     if (nextAvailableTime < closesMoment) {
       return {
-        text: `Vapautuu klo ${nextAvailableTime.format(constants.TIME_FORMAT)}`,
+        status: 'availableAt',
         bsStyle: 'danger',
+        values: { time: nextAvailableTime.format(constants.TIME_FORMAT) },
       };
     }
-    return { text: 'Varattu koko päivän', bsStyle: 'danger' };
+    return { status: 'reserved', bsStyle: 'danger' };
   }
 
-  return { text: 'Heti vapaa', bsStyle: 'success' };
+  return { status: 'available', bsStyle: 'success' };
 }
 
 function getAvailabilityDataForWholeDay(resource = {}, date = null) {
@@ -53,11 +54,11 @@ function getAvailabilityDataForWholeDay(resource = {}, date = null) {
   const reservations = getOpenReservations(resource);
 
   if (!closes || !opens) {
-    return { text: 'Suljettu', bsStyle: 'danger' };
+    return { status: 'closed', bsStyle: 'danger' };
   }
 
   if (reservingIsRestricted(resource, date)) {
-    return { text: 'Ei varattavissa', bsStyle: 'danger' };
+    return { status: 'reservingRestricted', bsStyle: 'danger' };
   }
 
   const opensMoment = moment(opens);
@@ -74,12 +75,13 @@ function getAvailabilityDataForWholeDay(resource = {}, date = null) {
   const rounded = Math.ceil(asHours * 2) / 2;
 
   if (rounded === 0) {
-    return { text: 'Varattu koko päivän', bsStyle: 'danger' };
+    return { status: 'reserved', bsStyle: 'danger' };
   }
 
   return {
-    text: rounded === 1 ? `Vapaata ${rounded} tunti` : `Vapaata ${rounded} tuntia`,
+    status: 'availableTime',
     bsStyle: 'success',
+    values: { hours: rounded },
   };
 }
 

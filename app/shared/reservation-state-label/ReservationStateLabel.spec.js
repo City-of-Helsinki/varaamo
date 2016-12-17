@@ -1,11 +1,11 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
 import Label from 'react-bootstrap/lib/Label';
 import Immutable from 'seamless-immutable';
 
 import constants from 'constants/AppConstants';
 import Reservation from 'utils/fixtures/Reservation';
+import { shallowWithIntl } from 'utils/testUtils';
 import ReservationStateLabel from './ReservationStateLabel';
 
 describe('shared/reservation-state-label/ReservationStateLabel', () => {
@@ -17,7 +17,7 @@ describe('shared/reservation-state-label/ReservationStateLabel', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallow(<ReservationStateLabel {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(<ReservationStateLabel {...defaultProps} {...extraProps} />);
   }
 
   function getTests(needManualConfirmation, state) {
@@ -32,7 +32,7 @@ describe('shared/reservation-state-label/ReservationStateLabel', () => {
 
     describe('Label', () => {
       const label = wrapper.find(Label);
-      const { labelBsStyle, labelText } = constants.RESERVATION_STATE_LABELS[reservation.state];
+      const { labelBsStyle, labelTextId } = constants.RESERVATION_STATE_LABELS[reservation.state];
 
       it('is rendered', () => {
         expect(label.length).to.equal(1);
@@ -43,7 +43,7 @@ describe('shared/reservation-state-label/ReservationStateLabel', () => {
       });
 
       it('has correct text', () => {
-        expect(label.props().children).to.equal(labelText);
+        expect(label.prop('children')).to.equal(labelTextId);
       });
     });
   }

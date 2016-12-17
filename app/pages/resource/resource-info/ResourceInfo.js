@@ -14,10 +14,7 @@ function ResourceInfo({ isAdmin, resource, unit }) {
       <h1>{getName(resource)}</h1>
       <address className="lead">{getAddressWithName(unit)}</address>
       <ResourceIcons resource={resource} />
-      <ImageCarousel
-        altText={`Kuva ${getName(resource)} tilasta`}
-        images={resource.images || []}
-      />
+      <ImageCarousel images={resource.images || []} />
       <WrappedText text={getProperty(resource, 'description')} />
     </div>
   );

@@ -1,16 +1,16 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
 import { Link } from 'react-router';
 import simple from 'simple-mock';
 
 import FeedbackLink from 'shared/feedback-link';
 import * as customizationUtils from 'utils/customizationUtils';
+import { shallowWithIntl } from 'utils/testUtils';
 import FooterContent from './FooterContent';
 
 describe('shared/footer/FooterContent', () => {
   function getWrapper() {
-    return shallow(<FooterContent />);
+    return shallowWithIntl(<FooterContent />);
   }
 
   describe('When there is no customization in use', () => {
@@ -25,15 +25,15 @@ describe('shared/footer/FooterContent', () => {
       expect(feedbackLink.length).to.equal(1);
     });
 
-    it('renders default texts', () => {
-      expect(content.find('p').text()).to.not.contain('Espoo');
+    it('renders texts for Helsinki', () => {
+      const texts = content.find('p').text();
+      expect(texts).to.contain('Footer.helsinkiText');
     });
 
     it('contains a link to about page', () => {
       const link = content.find(Link).filter('.about-link');
       expect(link).to.have.length(1);
       expect(link.prop('to')).to.equal('/about');
-      expect(link.children().text()).to.equal('Lisätietoa palvelusta');
     });
   });
 
@@ -55,14 +55,14 @@ describe('shared/footer/FooterContent', () => {
     });
 
     it('renders texts for Espoo', () => {
-      expect(content.find('p').text()).to.contain('Espoo');
+      const texts = content.find('p').text();
+      expect(texts).to.contain('Footer.espooText');
     });
 
     it('contains a link to about page', () => {
       const link = content.find(Link).filter('.about-link');
       expect(link).to.have.length(1);
       expect(link.prop('to')).to.equal('/about');
-      expect(link.children().text()).to.equal('Lisätietoa palvelusta');
     });
   });
 });

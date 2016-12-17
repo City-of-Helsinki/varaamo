@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
+import { injectT } from 'translations';
 import { getSearchPageUrl } from 'utils/searchUtils';
 
-function ShowResourcesLink() {
+function ShowResourcesLink({ t }) {
   return (
     <Link
       className="show-resources-link"
       to={getSearchPageUrl({ purpose: 'all' })}
     >
-      Näytä kaikki tilat ja laitteet
+      {t('ShowResourcesLink.text')}
     </Link>
   );
 }
 
-ShowResourcesLink.propTypes = {};
+ShowResourcesLink.propTypes = {
+  t: PropTypes.func.isRequired,
+};
 
-export default ShowResourcesLink;
+export default injectT(ShowResourcesLink);

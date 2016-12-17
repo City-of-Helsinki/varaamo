@@ -1,16 +1,16 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
+import ReservationStateLabel from 'shared/reservation-state-label';
 import TimeRange from 'shared/time-range';
 import Image from 'utils/fixtures/Image';
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
 import ReservationControls from 'shared/reservation-controls';
-import ReservationStateLabel from 'shared/reservation-state-label';
 import { getResourcePageUrl } from 'utils/resourceUtils';
+import { shallowWithIntl } from 'utils/testUtils';
 import ReservationListItem from './ReservationListItem';
 
 describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
@@ -27,7 +27,7 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
   let component;
 
   before(() => {
-    component = shallow(<ReservationListItem {...props} />);
+    component = shallowWithIntl(<ReservationListItem {...props} />);
   });
 
   describe('rendering', () => {

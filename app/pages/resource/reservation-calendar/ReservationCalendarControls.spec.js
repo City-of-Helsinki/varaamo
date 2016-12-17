@@ -1,12 +1,13 @@
 import { expect } from 'chai';
 import React from 'react';
-import sd from 'skin-deep';
+import Button from 'react-bootstrap/lib/Button';
 import simple from 'simple-mock';
 
 import Resource from 'utils/fixtures/Resource';
+import { shallowWithIntl } from 'utils/testUtils';
 import ReservationCalendarControls from './ReservationCalendarControls';
 
-function getProps(props) {
+function getWrapper(props) {
   const defaults = {
     addNotification: simple.stub(),
     isLoggedIn: true,
@@ -18,66 +19,54 @@ function getProps(props) {
     resource: Resource.build(),
   };
 
-  return Object.assign({}, defaults, props);
+  return shallowWithIntl(<ReservationCalendarControls {...defaults} {...props} />);
 }
 
 describe('pages/resource/reservation-calendar/ReservationCalendarControls', () => {
   describe('when user is not editing reservations', () => {
-    const props = getProps();
-    const tree = sd.shallowRender(<ReservationCalendarControls {...props} />);
-    const instance = tree.getMountedInstance();
+    function getIsNotEditingWrapper(props) {
+      return getWrapper({ ...props, isEditing: false });
+    }
 
     it('renders one button', () => {
-      const buttonTrees = tree.everySubTree('Button');
-
-      expect(buttonTrees.length).to.equal(1);
+      const buttons = getIsNotEditingWrapper().find(Button);
+      expect(buttons).to.have.length(1);
     });
 
-    it('passes correct props to the button', () => {
-      const actualProps = tree.subTree('Button').props;
-
-      expect(actualProps.onClick).to.equal(instance.handleMainClick);
+    it('passes correct onClick prop to the button', () => {
+      const wrapper = getIsNotEditingWrapper();
+      const actual = wrapper.find(Button).prop('onClick');
+      expect(actual).to.equal(wrapper.instance().handleMainClick);
     });
 
-    it('the button has text "Varaa"', () => {
-      expect(tree.subTree('Button').props.children).to.equal('Varaa');
+    it('the button has correct text', () => {
+      const button = getIsNotEditingWrapper().find(Button);
+      expect(button.prop('children')).to.equal('ReservationCalendarControls.reserve');
     });
   });
 
   describe('when user is editing reservations', () => {
-    const props = getProps({
-      isEditing: true,
-    });
-    const tree = sd.shallowRender(<ReservationCalendarControls {...props} />);
-    const instance = tree.getMountedInstance();
-    const buttonTrees = tree.everySubTree('Button');
+    function getIsEditingWrapper(props) {
+      return getWrapper({ ...props, isEditing: true });
+    }
 
     it('renders two buttons', () => {
-      expect(buttonTrees.length).to.equal(2);
+      const buttons = getIsEditingWrapper().find(Button);
+      expect(buttons).to.have.length(2);
     });
 
-    describe('the first button', () => {
-      const buttonTree = buttonTrees[0];
-
-      it('is a confirm edit button', () => {
-        expect(buttonTree.props.children).to.equal('Vahvista muutokset');
-      });
-
-      it('has correct props', () => {
-        expect(buttonTree.props.onClick).to.equal(instance.handleMainClick);
-      });
+    it('the first button is a confirm edit button', () => {
+      const wrapper = getIsEditingWrapper();
+      const button = wrapper.find(Button).at(0);
+      expect(button.prop('children')).to.equal('ReservationCalendarControls.confirmChanges');
+      expect(button.prop('onClick')).to.equal(wrapper.instance().handleMainClick);
     });
 
-    describe('the second button', () => {
-      const buttonTree = buttonTrees[1];
-
-      it('is a cancel button', () => {
-        expect(buttonTree.props.children).to.equal('Takaisin');
-      });
-
-      it('has correct props', () => {
-        expect(buttonTree.props.onClick).to.equal(props.onCancel);
-      });
+    it('the second button is a cancel button', () => {
+      const onCancel = () => null;
+      const button = getIsEditingWrapper({ onCancel }).find(Button).at(1);
+      expect(button.prop('children')).to.equal('ReservationCalendarControls.goBack');
+      expect(button.prop('onClick')).to.equal(onCancel);
     });
   });
 });

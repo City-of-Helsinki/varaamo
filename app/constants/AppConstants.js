@@ -40,19 +40,19 @@ export default {
   RESERVATION_STATE_LABELS: {
     cancelled: {
       labelBsStyle: 'default',
-      labelText: 'Peruttu',
+      labelTextId: 'common.cancelled',
     },
     confirmed: {
       labelBsStyle: 'success',
-      labelText: 'Hyväksytty',
+      labelTextId: 'common.confirmed',
     },
     denied: {
       labelBsStyle: 'danger',
-      labelText: 'Hylätty',
+      labelTextId: 'common.denied',
     },
     requested: {
       labelBsStyle: 'primary',
-      labelText: 'Käsiteltävänä',
+      labelTextId: 'common.requested',
     },
   },
   SUPPORTED_SEARCH_FILTERS: {

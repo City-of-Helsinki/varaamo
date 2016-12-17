@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-import vaakaImage from './images/vaaka.png';
-import hginvarhaiskasvatusImage from './images/hginvarhaiskasvatus.png';
+import { injectT } from 'translations';
+import nuorisoasiainkeskusImage from './images/vaaka.png';
 import kaupunginkirjatoImage from './images/kaupunginkirjato.png';
-
+import varhaiskasvatusvirastoImage from './images/hginvarhaiskasvatus.png';
 
 function renderImage(src, alt) {
   return (
@@ -13,17 +13,20 @@ function renderImage(src, alt) {
   );
 }
 
-
-function Partners() {
+function Partners({ t }) {
   return (
     <div className="partners">
       <div className="partners-images">
-        {renderImage(vaakaImage, 'nuorisoasiainkeskus')}
-        {renderImage(kaupunginkirjatoImage, 'Helsingin kaupunginkirjasto')}
-        {renderImage(hginvarhaiskasvatusImage, 'Helsingin kaupunki - Varhaiskasvatusvirasto')}
+        {renderImage(nuorisoasiainkeskusImage, t('Partners.nuorisoasiainkeskusImageAlt'))}
+        {renderImage(kaupunginkirjatoImage, t('Partners.kaupunginkirjatoImageAlt'))}
+        {renderImage(varhaiskasvatusvirastoImage, t('Partners.varhaiskasvatusvirastoImageAlt'))}
       </div>
     </div>
   );
 }
 
-export default Partners;
+Partners.propTypes = {
+  t: PropTypes.func.isRequired,
+};
+
+export default injectT(Partners);

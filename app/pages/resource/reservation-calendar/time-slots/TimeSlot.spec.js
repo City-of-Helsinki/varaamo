@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import Label from 'react-bootstrap/lib/Label';
@@ -9,6 +8,7 @@ import simple from 'simple-mock';
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
 import TimeSlotFixture from 'utils/fixtures/TimeSlot';
+import { shallowWithIntl } from 'utils/testUtils';
 import TimeSlot, { getLabelData } from './TimeSlot';
 
 describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
@@ -25,7 +25,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallow(<TimeSlot {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(<TimeSlot {...defaultProps} {...extraProps} />);
   }
 
   describe('getLabelData', () => {
@@ -35,7 +35,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       it('returns correct data if slot is being edited', () => {
         const slot = { editing: true };
         const labelData = getLabelData({ isPast, slot });
-        const expected = { bsStyle: 'default', text: 'Muokataan' };
+        const expected = { bsStyle: 'default', messageId: 'TimeSlot.editing' };
 
         expect(labelData).to.deep.equal(expected);
       });
@@ -43,7 +43,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       it('returns correct data if slot is reserved', () => {
         const slot = { reserved: true };
         const labelData = getLabelData({ isPast, slot });
-        const expected = { bsStyle: 'default', text: 'Varattu' };
+        const expected = { bsStyle: 'default', messageId: 'TimeSlot.reserved' };
 
         expect(labelData).to.deep.equal(expected);
       });
@@ -52,7 +52,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
         const slot = { reserved: true };
         const isOwnReservation = true;
         const labelData = getLabelData({ isOwnReservation, isPast, slot });
-        const expected = { bsStyle: 'default', text: 'Oma varaus' };
+        const expected = { bsStyle: 'default', messageId: 'TimeSlot.ownReservation' };
 
         expect(labelData).to.deep.equal(expected);
       });
@@ -60,7 +60,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       it('returns correct data if slot is not reserved', () => {
         const slot = { reserved: false };
         const labelData = getLabelData({ isPast, slot });
-        const expected = { bsStyle: 'default', text: 'Vapaa' };
+        const expected = { bsStyle: 'default', messageId: 'TimeSlot.available' };
 
         expect(labelData).to.deep.equal(expected);
       });
@@ -72,7 +72,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       it('returns correct data if slot is being edited', () => {
         const slot = { editing: true };
         const labelData = getLabelData({ isPast, slot });
-        const expected = { bsStyle: 'info', text: 'Muokataan' };
+        const expected = { bsStyle: 'info', messageId: 'TimeSlot.editing' };
 
         expect(labelData).to.deep.equal(expected);
       });
@@ -80,7 +80,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       it('returns correct data if slot is reserved', () => {
         const slot = { reserved: true };
         const labelData = getLabelData({ isPast, slot });
-        const expected = { bsStyle: 'danger', text: 'Varattu' };
+        const expected = { bsStyle: 'danger', messageId: 'TimeSlot.reserved' };
 
         expect(labelData).to.deep.equal(expected);
       });
@@ -89,7 +89,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
         const slot = { reserved: true };
         const isOwnReservation = true;
         const labelData = getLabelData({ isOwnReservation, isPast, slot });
-        const expected = { bsStyle: 'info', text: 'Oma varaus' };
+        const expected = { bsStyle: 'info', messageId: 'TimeSlot.ownReservation' };
 
         expect(labelData).to.deep.equal(expected);
       });
@@ -97,7 +97,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       it('returns correct data if slot is not reserved', () => {
         const slot = { reserved: false };
         const labelData = getLabelData({ isPast, slot });
-        const expected = { bsStyle: 'success', text: 'Vapaa' };
+        const expected = { bsStyle: 'success', messageId: 'TimeSlot.available' };
 
         expect(labelData).to.deep.equal(expected);
       });
@@ -164,8 +164,8 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
             expect(label.props().bsStyle).to.equal('success');
           });
 
-          it('displays text "Vapaa"', () => {
-            expect(label.props().children).to.equal('Vapaa');
+          it('displays correct text', () => {
+            expect(label.props().children).to.equal('TimeSlot.available');
           });
         });
       });
@@ -187,10 +187,10 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
         expect(label.props().bsStyle).to.equal('danger');
       });
 
-      it('displays text "Varattu"', () => {
+      it('displays correct text', () => {
         const label = wrapper.find(Label);
 
-        expect(label.props().children).to.equal('Varattu');
+        expect(label.props().children).to.equal('TimeSlot.reserved');
       });
     });
   });

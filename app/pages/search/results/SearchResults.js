@@ -3,6 +3,7 @@ import { findDOMNode } from 'react-dom';
 import Loader from 'react-loader';
 
 import ResourceList from 'shared/resource-list';
+import { injectT } from 'translations';
 import { scrollTo } from 'utils/domUtils';
 import ResultsCount from './ResultsCount';
 
@@ -12,13 +13,13 @@ class SearchResults extends Component {
   }
 
   render() {
-    const { isFetching, searchResultIds } = this.props;
+    const { isFetching, searchResultIds, t } = this.props;
 
     return (
       <div id="search-results">
         <Loader loaded={!isFetching}>
           <ResultsCount
-            emptyMessage="Yhtään hakutulosta ei löytynyt."
+            emptyMessage={t('SearchResults.emptyMessage')}
             resultIds={searchResultIds}
           />
           <ResourceList
@@ -33,6 +34,7 @@ class SearchResults extends Component {
 SearchResults.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   searchResultIds: PropTypes.array.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
-export default SearchResults;
+export default injectT(SearchResults);

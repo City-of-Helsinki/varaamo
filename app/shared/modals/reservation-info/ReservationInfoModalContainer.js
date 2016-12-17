@@ -14,10 +14,11 @@ import { closeReservationInfoModal } from 'actions/uiActions';
 import { commentReservation } from 'actions/reservationActions';
 import ReservationStateLabel from 'shared/reservation-state-label';
 import TimeRange from 'shared/time-range';
+import { injectT } from 'translations';
 import { getName } from 'utils/translationUtils';
 import reservationInfoModalSelector from './reservationInfoModalSelector';
 
-export class UnconnectedReservationInfoModalContainer extends Component {
+class UnconnectedReservationInfoModalContainer extends Component {
   constructor(props) {
     super(props);
     this.handleSave = this.handleSave.bind(this);
@@ -38,73 +39,6 @@ export class UnconnectedReservationInfoModalContainer extends Component {
     actions.closeReservationInfoModal();
   }
 
-  renderModalContent(reservation, resource, isAdmin, isStaff) {
-    if (isEmpty(reservation)) {
-      return null;
-    }
-
-    return (
-      <div>
-        <ReservationStateLabel reservation={reservation} />
-        <dl className="dl-horizontal">
-          <dt>Varaaja / vuokraaja:</dt><dd>{reservation.reserverName}</dd>
-          {isStaff && (
-            <span><dt>Y-tunnus / henkilötunnus:</dt><dd>{reservation.reserverId}</dd></span>
-          )}
-          <dt>Puhelinnumero:</dt><dd>{reservation.reserverPhoneNumber}</dd>
-          <dt>Sähköposti:</dt><dd>{reservation.reserverEmailAddress}</dd>
-          <dt>Tilaisuuden kuvaus:</dt><dd>{reservation.eventDescription}</dd>
-          <dt>Osallistujamäärä:</dt><dd>{reservation.numberOfParticipants}</dd>
-          <dt>Osoite:</dt>
-          <dd>
-            {this.getAddress(
-              reservation.reserverAddressStreet,
-              reservation.reserverAddressZip,
-              reservation.reserverAddressCity
-            )}
-          </dd>
-          <dt>Laskutusosoite:</dt>
-          <dd>
-            {this.getAddress(
-              reservation.billingAddressStreet,
-              reservation.billingAddressZip,
-              reservation.billingAddressCity
-            )}
-          </dd>
-          <dt>Varauksen ajankohta:</dt>
-          <dd><TimeRange begin={reservation.begin} end={reservation.end} /></dd>
-          <dt>Tila:</dt><dd>{getName(resource)}</dd>
-          {reservation.accessCode && (
-            <span>
-              <dt>PIN-koodi:</dt>
-              <dd>{reservation.accessCode}</dd>
-            </span>
-          )}
-          {isAdmin && reservation.state === 'cancelled' && (
-            <span>
-              <dt>Kommentit:</dt>
-              <dd>{reservation.comments}</dd>
-            </span>
-          )}
-        </dl>
-        {isAdmin && reservation.state !== 'cancelled' && (
-          <form>
-            <FormGroup controlId="commentsTextarea">
-              <ControlLabel>Kommentit:</ControlLabel>
-              <FormControl
-                componentClass="textarea"
-                defaultValue={reservation.comments}
-                placeholder="Varauksen mahdolliset lisätiedot"
-                ref="commentsInput"
-                rows={5}
-              />
-            </FormGroup>
-          </form>
-        )}
-      </div>
-    );
-  }
-
   render() {
     const {
       actions,
@@ -114,6 +48,7 @@ export class UnconnectedReservationInfoModalContainer extends Component {
       resource,
       show,
       staffUnits,
+      t,
     } = this.props;
 
     const isStaff = includes(staffUnits, resource.unit);
@@ -126,11 +61,70 @@ export class UnconnectedReservationInfoModalContainer extends Component {
         show={show}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Varauksen tiedot</Modal.Title>
+          <Modal.Title>{t('ReservationInfoModal.title')}</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-          {this.renderModalContent(reservation, resource, isAdmin, isStaff)}
+          {!isEmpty(reservation) &&
+            <div>
+              <ReservationStateLabel reservation={reservation} />
+              <dl className="dl-horizontal">
+                <dt>{t('ReservationForm.reserverNameLabel')}:</dt><dd>{reservation.reserverName}</dd>
+                {isStaff && (
+                  <span><dt>{t('ReservationForm.reserverIdLabel')}:</dt><dd>{reservation.reserverId}</dd></span>
+                )}
+                <dt>{t('ReservationInfoModal.phoneNumber')}:</dt><dd>{reservation.reserverPhoneNumber}</dd>
+                <dt>{t('ReservationForm.reserverEmailAddressLabel')}:</dt><dd>{reservation.reserverEmailAddress}</dd>
+                <dt>{t('ReservationForm.eventDescriptionLabel')}:</dt><dd>{reservation.eventDescription}</dd>
+                <dt>{t('ReservationForm.numberOfParticipantsLabel')}:</dt><dd>{reservation.numberOfParticipants}</dd>
+                <dt>{t('ReservationInfoModal.address')}:</dt>
+                <dd>
+                  {this.getAddress(
+                    reservation.reserverAddressStreet,
+                    reservation.reserverAddressZip,
+                    reservation.reserverAddressCity
+                  )}
+                </dd>
+                <dt>{t('ReservationInfoModal.billingAddress')}:</dt>
+                <dd>
+                  {this.getAddress(
+                    reservation.billingAddressStreet,
+                    reservation.billingAddressZip,
+                    reservation.billingAddressCity
+                  )}
+                </dd>
+                <dt>{t('ReservationInfoModal.reservationTime')}:</dt>
+                <dd><TimeRange begin={reservation.begin} end={reservation.end} /></dd>
+                <dt>{t('ReservationInfoModal.resource')}:</dt><dd>{getName(resource)}</dd>
+                {reservation.accessCode && (
+                  <span>
+                    <dt>{t('ReservationInfoModal.accessCode')}:</dt>
+                    <dd>{reservation.accessCode}</dd>
+                  </span>
+                )}
+                {isAdmin && reservation.state === 'cancelled' && (
+                  <span>
+                    <dt>{t('ReservationForm.commentsLabel')}:</dt>
+                    <dd>{reservation.comments}</dd>
+                  </span>
+                )}
+              </dl>
+              {isAdmin && reservation.state !== 'cancelled' && (
+                <form>
+                  <FormGroup controlId="commentsTextarea">
+                    <ControlLabel>{t('ReservationForm.commentsLabel')}:</ControlLabel>
+                    <FormControl
+                      componentClass="textarea"
+                      defaultValue={reservation.comments}
+                      placeholder="Varauksen mahdolliset lisätiedot"
+                      ref="commentsInput"
+                      rows={5}
+                    />
+                  </FormGroup>
+                </form>
+              )}
+            </div>
+          }
         </Modal.Body>
 
         <Modal.Footer>
@@ -138,7 +132,7 @@ export class UnconnectedReservationInfoModalContainer extends Component {
             bsStyle="default"
             onClick={actions.closeReservationInfoModal}
           >
-            Takaisin
+            {t('common.back')}
           </Button>
           {showSaveButton && (
             <Button
@@ -147,7 +141,7 @@ export class UnconnectedReservationInfoModalContainer extends Component {
               onClick={this.handleSave}
               type="submit"
             >
-              {isEditingReservations ? 'Tallennetaan...' : 'Tallenna'}
+              {isEditingReservations ? t('common.saving') : t('common.save')}
             </Button>
           )}
         </Modal.Footer>
@@ -164,7 +158,10 @@ UnconnectedReservationInfoModalContainer.propTypes = {
   resource: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
   staffUnits: PropTypes.array.isRequired,
+  t: PropTypes.func.isRequired,
 };
+
+UnconnectedReservationInfoModalContainer = injectT(UnconnectedReservationInfoModalContainer);  // eslint-disable-line
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
@@ -175,6 +172,7 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
+export { UnconnectedReservationInfoModalContainer };
 export default connect(reservationInfoModalSelector, mapDispatchToProps)(
   UnconnectedReservationInfoModalContainer
 );

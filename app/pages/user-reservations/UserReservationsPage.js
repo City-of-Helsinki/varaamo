@@ -10,11 +10,12 @@ import { fetchUnits } from 'actions/unitActions';
 import ReservationInfoModal from 'shared/modals/reservation-info';
 import PageWrapper from 'pages/PageWrapper';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
+import { injectT } from 'translations';
 import userReservationsPageSelector from './userReservationsPageSelector';
 import AdminReservationFilters from './reservation-filters/AdminReservationFilters';
 import ReservationList from './reservation-list';
 
-export class UnconnectedUserReservationsPage extends Component {
+class UnconnectedUserReservationsPage extends Component {
   constructor(props) {
     super(props);
     this.handleFiltersChange = this.handleFiltersChange.bind(this);
@@ -53,15 +54,16 @@ export class UnconnectedUserReservationsPage extends Component {
       isAdmin,
       reservationsFetchCount,
       resourcesLoaded,
+      t,
     } = this.props;
 
     return (
-      <PageWrapper title="Omat varaukset">
+      <PageWrapper title={t('UserReservationsPage.title')}>
         <Loader loaded={resourcesLoaded}>
           <div>
             { !isAdmin && (
               <div>
-                <h1>Omat varaukset</h1>
+                <h1>{t('UserReservationsPage.title')}</h1>
                 <ReservationList
                   loading={reservationsFetchCount < 1}
                 />
@@ -69,19 +71,19 @@ export class UnconnectedUserReservationsPage extends Component {
             )}
             { isAdmin && (
               <div>
-                <h1>Alustavat varaukset</h1>
+                <h1>{t('UserReservationsPage.preliminaryReservationsHeader')}</h1>
                 <AdminReservationFilters
                   filters={adminReservationFilters}
                   onFiltersChange={this.handleFiltersChange}
                 />
                 <ReservationList
-                  emptyMessage="Ei alustavia varauksia näytettäväksi."
+                  emptyMessage={t('UserReservationsPage.preliminaryEmptyMessage')}
                   filter={adminReservationFilters.state}
                   loading={reservationsFetchCount < 2}
                 />
-                <h1>Tavalliset varaukset</h1>
+                <h1>{t('UserReservationsPage.regularReservationsHeader')}</h1>
                 <ReservationList
-                  emptyMessage="Ei tavallisia varauksia näytettäväksi."
+                  emptyMessage={t('UserReservationsPage.regularEmptyMessage')}
                   filter="regular"
                   loading={reservationsFetchCount < 1}
                 />
@@ -102,7 +104,9 @@ UnconnectedUserReservationsPage.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
   reservationsFetchCount: PropTypes.number.isRequired,
   resourcesLoaded: PropTypes.bool.isRequired,
+  t: PropTypes.func.isRequired,
 };
+UnconnectedUserReservationsPage = injectT(UnconnectedUserReservationsPage);  // eslint-disable-line
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
@@ -115,6 +119,8 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
-export default (
-  connect(userReservationsPageSelector, mapDispatchToProps)(UnconnectedUserReservationsPage)
+
+export { UnconnectedUserReservationsPage };
+export default connect(userReservationsPageSelector, mapDispatchToProps)(
+  UnconnectedUserReservationsPage
 );

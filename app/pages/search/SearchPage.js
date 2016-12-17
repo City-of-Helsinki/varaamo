@@ -9,12 +9,13 @@ import { changeSearchFilters } from 'actions/uiActions';
 import { fetchUnits } from 'actions/unitActions';
 import PageWrapper from 'pages/PageWrapper';
 import DateHeader from 'shared/date-header';
+import { injectT } from 'translations';
 import { scrollTo } from 'utils/domUtils';
 import SearchControls from './controls';
 import searchPageSelector from './searchPageSelector';
 import SearchResults from './results';
 
-export class UnconnectedSearchPage extends Component {
+class UnconnectedSearchPage extends Component {
   constructor(props) {
     super(props);
     this.scrollToSearchResults = this.scrollToSearchResults.bind(this);
@@ -52,28 +53,26 @@ export class UnconnectedSearchPage extends Component {
       params,
       searchResultIds,
       searchDone,
+      t,
     } = this.props;
 
     return (
-      <PageWrapper className="search-page" title="Haku">
-        <h1>Haku</h1>
+      <PageWrapper className="search-page" title={t('SearchPage.title')}>
+        <h1>{t('SearchPage.title')}</h1>
         <SearchControls
           location={location}
           params={params}
           scrollToSearchResults={this.scrollToSearchResults}
         />
         {searchDone && <DateHeader date={filters.date} />}
-        {searchDone || isFetchingSearchResults ? (
+        {searchDone || isFetchingSearchResults ?
           <SearchResults
             isFetching={isFetchingSearchResults}
             ref="searchResults"
             searchResultIds={searchResultIds}
           />
-          ) : (
-            <p className="help-text">
-            Etsi tilaa syöttämällä hakukenttään tilan nimi tai tilaan liittyvää tietoa.
-            </p>
-        )}
+          : <p className="help-text">{t('SearchPage.helpText')}</p>
+        }
       </PageWrapper>
     );
   }
@@ -87,7 +86,10 @@ UnconnectedSearchPage.propTypes = {
   params: PropTypes.object.isRequired,
   searchDone: PropTypes.bool.isRequired,
   searchResultIds: PropTypes.array.isRequired,
+  t: PropTypes.func.isRequired,
 };
+
+UnconnectedSearchPage = injectT(UnconnectedSearchPage); // eslint-disable-line
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
@@ -99,4 +101,5 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
+export { UnconnectedSearchPage };
 export default connect(searchPageSelector, mapDispatchToProps)(UnconnectedSearchPage);

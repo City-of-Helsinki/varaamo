@@ -6,14 +6,15 @@ import Well from 'react-bootstrap/lib/Well';
 import { Field, reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 
-import WrappedText from 'shared/wrapped-text';
 import constants from 'constants/AppConstants';
+import WrappedText from 'shared/wrapped-text';
 import ReduxFormField from 'shared/form-fields/ReduxFormField';
+import { injectT } from 'translations';
 
 const validators = {
-  reserverEmailAddress: ({ reserverEmailAddress }) => {
+  reserverEmailAddress: (t, { reserverEmailAddress }) => {
     if (reserverEmailAddress && !isEmail(reserverEmailAddress)) {
-      return 'Syötä kunnollinen sähköpostiosoite';
+      return t('ReservationForm.emailError');
     }
     return null;
   },
@@ -34,7 +35,7 @@ const maxLengths = {
   reserverPhoneNumber: 30,
 };
 
-export function validate(values, { fields, requiredFields }) {
+export function validate(values, { fields, requiredFields, t }) {
   const errors = {};
   const currentRequiredFields = values.staffEvent ?
     constants.REQUIRED_STAFF_EVENT_FIELDS :
@@ -42,22 +43,22 @@ export function validate(values, { fields, requiredFields }) {
   fields.forEach((field) => {
     const validator = validators[field];
     if (validator) {
-      const error = validator(values);
+      const error = validator(t, values);
       if (error) {
         errors[field] = error;
       }
     }
     if (maxLengths[field]) {
       if (values[field] && values[field].length > maxLengths[field]) {
-        errors[field] = `Kentän maksimipituus on ${maxLengths[field]} merkkiä`;
+        errors[field] = t('ReservationForm.maxLengthError', { maxLength: maxLengths[field] });
       }
     }
     if (includes(currentRequiredFields, field)) {
       if (!values[field]) {
         errors[field] = (
           field === 'termsAndConditions' ?
-          'Sinun on hyväksyttävä tilan käyttösäännöt varataksesi tilan' :
-          'Pakollinen tieto'
+          t('ReservationForm.termsAndConditionsError') :
+          t('ReservationForm.requiredError')
         );
       }
     }
@@ -65,7 +66,7 @@ export function validate(values, { fields, requiredFields }) {
   return errors;
 }
 
-export class UnconnectedReservationForm extends Component {
+class UnconnectedReservationForm extends Component {
   renderField(name, type, label, controlProps = {}, help = null) {
     if (!includes(this.props.fields, name)) {
       return null;
@@ -92,6 +93,7 @@ export class UnconnectedReservationForm extends Component {
       onConfirm,
       requiredFields,
       staffEventSelected,
+      t,
       termsAndConditions,
     } = this.props;
 
@@ -107,52 +109,96 @@ export class UnconnectedReservationForm extends Component {
               {this.renderField(
                 'staffEvent',
                 'checkbox',
-                'Viraston oma tapahtuma',
+                t('ReservationForm.staffEventLabel'),
                 {},
-                `Viraston oma tapahtuma hyväksytään automaattisesti ja ainoat pakolliset
-                tiedot ovat varaajan nimi ja tilaisuuden kuvaus.`,
+                t('ReservationForm.staffEventHelp'),
               )}
             </Well>
           )}
-          {this.renderField('reserverName', 'text', 'Varaaja / vuokraaja')}
-          {this.renderField('reserverId', 'text', 'Y-tunnus / henkilötunnus')}
-          {this.renderField('reserverPhoneNumber', 'text', 'Puhelin')}
-          {this.renderField('reserverEmailAddress', 'email', 'Sähköposti')}
-          {this.renderField('eventDescription', 'textarea', 'Tilaisuuden kuvaus', { rows: 5 })}
+          {this.renderField(
+            'reserverName',
+            'text',
+            t('ReservationForm.reserverNameLabel')
+          )}
+          {this.renderField(
+            'reserverId',
+            'text',
+            t('ReservationForm.reserverIdLabel')
+          )}
+          {this.renderField(
+            'reserverPhoneNumber',
+            'text',
+            t('ReservationForm.reserverPhoneNumberLabel')
+          )}
+          {this.renderField(
+            'reserverEmailAddress',
+            'email',
+            t('ReservationForm.reserverEmailAddressLabel')
+          )}
+          {this.renderField(
+            'eventDescription',
+            'textarea',
+            t('ReservationForm.eventDescriptionLabel'),
+            { rows: 5 }
+          )}
           {this.renderField(
             'numberOfParticipants',
             'number',
-            'Osallistujamäärä',
+            t('ReservationForm.numberOfParticipantsLabel'),
             { min: '0' }
           )}
-          { includes(this.props.fields, 'reserverAddressStreet') && (
+          {includes(this.props.fields, 'reserverAddressStreet') && (
             <Well>
-              <p>Osoite</p>
-              {this.renderField('reserverAddressStreet', 'text', 'Katuosoite')}
-              {this.renderField('reserverAddressZip', 'text', 'Postinumero')}
-              {this.renderField('reserverAddressCity', 'text', 'Kaupunki')}
+              <p>{t('ReservationForm.addressHeader')}</p>
+              {this.renderField(
+                'reserverAddressStreet',
+                'text',
+                t('ReservationForm.addressStreetLabel'),
+              )}
+              {this.renderField(
+                'reserverAddressZip',
+                'text',
+                t('ReservationForm.addressZipLabel'),
+              )}
+              {this.renderField(
+                'reserverAddressCity',
+                'text',
+                t('ReservationForm.addressCityLabel'),
+              )}
             </Well>
           )}
-          { includes(this.props.fields, 'billingAddressStreet') && (
+          {includes(this.props.fields, 'billingAddressStreet') && (
             <Well>
-              <p>Laskutusosoite</p>
-              {this.renderField('billingAddressStreet', 'text', 'Katuosoite')}
-              {this.renderField('billingAddressZip', 'text', 'Postinumero')}
-              {this.renderField('billingAddressCity', 'text', 'Kaupunki')}
+              <p>{t('ReservationForm.billingAddressHeader')}</p>
+              {this.renderField(
+                'billingAddressStreet',
+                'text',
+                t('ReservationForm.addressStreetLabel'),
+              )}
+              {this.renderField(
+                'billingAddressZip',
+                'text',
+                t('ReservationForm.addressZipLabel'),
+              )}
+              {this.renderField(
+                'billingAddressCity',
+                'text',
+                t('ReservationForm.addressCityLabel'),
+              )}
             </Well>
           )}
           {this.renderField(
             'comments',
             'textarea',
-            'Kommentit',
+            t('ReservationForm.commentsLabel'),
             {
-              placeholder: 'Varauksen mahdolliset lisätiedot',
+              placeholder: t('ReservationForm.commentsPlaceholder'),
               rows: 5,
             }
           )}
           {termsAndConditions && (
             <div className="terms-and-conditions">
-              <h5>Tilan käyttösäännöt</h5>
+              <h5>{t('ReservationForm.termsAndConditionsHeader')}</h5>
               <WrappedText text={termsAndConditions} />
             </div>
           )}
@@ -161,7 +207,7 @@ export class UnconnectedReservationForm extends Component {
               {this.renderField(
                 'termsAndConditions',
                 'checkbox',
-                'Olen lukenut ja hyväksynyt tilan käyttösäännöt',
+                t('ReservationForm.termsAndConditionsLabel'),
               )}
             </Well>
           )}
@@ -170,7 +216,7 @@ export class UnconnectedReservationForm extends Component {
               bsStyle="default"
               onClick={onClose}
             >
-              Takaisin
+              {t('common.back')}
             </Button>
             <Button
               bsStyle="primary"
@@ -178,7 +224,7 @@ export class UnconnectedReservationForm extends Component {
               onClick={handleSubmit(onConfirm)}
               type="submit"
             >
-              {isMakingReservations ? 'Tallennetaan...' : 'Tallenna'}
+              {isMakingReservations ? t('common.saving') : t('common.save')}
             </Button>
           </div>
         </Form>
@@ -195,10 +241,13 @@ UnconnectedReservationForm.propTypes = {
   onConfirm: PropTypes.func.isRequired,
   requiredFields: PropTypes.array.isRequired,
   staffEventSelected: PropTypes.bool,
+  t: PropTypes.func.isRequired,
   termsAndConditions: PropTypes.string.isRequired,
 };
+UnconnectedReservationForm = injectT(UnconnectedReservationForm);  // eslint-disable-line
 
-export default reduxForm({
+export { UnconnectedReservationForm };
+export default injectT(reduxForm({
   form: 'preliminaryReservation',
   validate,
-})(UnconnectedReservationForm);
+})(UnconnectedReservationForm));
