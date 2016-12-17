@@ -6,7 +6,13 @@ import { clearSearchResults } from 'actions/searchActions';
 import currentUserSelector from 'state/selectors/currentUserSelector';
 import isAdminSelector from 'state/selectors/isAdminSelector';
 import isLoggedInSelector from 'state/selectors/isLoggedInSelector';
+import { changeLanguage } from 'translations';
 import Navbar from './Navbar';
+
+function currentLanguageSelector(state) {
+  const locale = state.intl.locale;
+  return locale === 'se' ? 'sv' : locale;
+}
 
 const userNameSelector = createSelector(
   currentUserSelector,
@@ -21,10 +27,12 @@ const userNameSelector = createSelector(
 export const selector = createStructuredSelector({
   isAdmin: isAdminSelector,
   isLoggedIn: isLoggedInSelector,
+  currentLanguage: currentLanguageSelector,
   userName: userNameSelector,
 });
 
 const actions = {
+  changeLanguage,
   clearSearchResults,
 };
 

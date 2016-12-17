@@ -14,7 +14,9 @@ import { getSearchPageUrl } from 'utils/searchUtils';
 
 function Navbar(props) {
   const {
+    changeLanguage,
     clearSearchResults,
+    currentLanguage,
     isAdmin,
     isLoggedIn,
     t,
@@ -40,6 +42,7 @@ function Navbar(props) {
             </NavItem>
           </LinkContainer>
         </Nav>
+
         <Nav navbar pullRight>
           {isAdmin && (
             <LinkContainer to="/admin-resources">
@@ -55,8 +58,19 @@ function Navbar(props) {
               </NavItem>
             </LinkContainer>
           )}
+
+          <NavDropdown
+            id="language-dropdown"
+            onSelect={changeLanguage}
+            title={currentLanguage.toUpperCase()}
+          >
+            {currentLanguage !== 'en' && <MenuItem eventKey="en">EN</MenuItem>}
+            {currentLanguage !== 'fi' && <MenuItem eventKey="fi">FI</MenuItem>}
+            {currentLanguage !== 'sv' && <MenuItem eventKey="sv">SV</MenuItem>}
+          </NavDropdown>
+
           {isLoggedIn && (
-            <NavDropdown id="collapsible-navbar-dropdown" title={userName}>
+            <NavDropdown id="user-dropdown" title={userName}>
               <MenuItem href={`/logout?next=${window.location.origin}`}>
                 {t('Navbar.logout')}
               </MenuItem>
@@ -74,7 +88,9 @@ function Navbar(props) {
 }
 
 Navbar.propTypes = {
+  changeLanguage: PropTypes.func.isRequired,
   clearSearchResults: PropTypes.func.isRequired,
+  currentLanguage: PropTypes.string.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,

@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import React from 'react';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
-import NavDropdown from 'react-bootstrap/lib/NavDropdown';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import { IndexLink } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -14,7 +13,9 @@ import Navbar from './Navbar';
 describe('shared/navbar/Navbar', () => {
   function getWrapper(props) {
     const defaults = {
+      changeLanguage: () => null,
       clearSearchResults: () => null,
+      currentLanguage: 'fi',
       isAdmin: false,
       isLoggedIn: false,
       userName: 'Luke Skywalker',
@@ -36,6 +37,36 @@ describe('shared/navbar/Navbar', () => {
     expect(searchLink).to.have.length(1);
   });
 
+  describe('language dropdown', () => {
+    function getLanguageDropdownWrapper(props) {
+      return getWrapper(props).find('#language-dropdown');
+    }
+
+    it('is rendered', () => {
+      expect(getLanguageDropdownWrapper()).to.have.length(1);
+    });
+
+    it('has the currentLanguage uppercased as a title ', () => {
+      const currentLanguage = 'fi';
+      const actual = getLanguageDropdownWrapper({ currentLanguage }).prop('title');
+      expect(actual).to.equal('FI');
+    });
+
+    it('has changeLanguage as onSelect prop', () => {
+      const changeLanguage = () => null;
+      const actual = getLanguageDropdownWrapper({ changeLanguage }).prop('onSelect');
+      expect(actual).to.equal(changeLanguage);
+    });
+
+    it('renders MenuItems for other languages', () => {
+      const currentLanguage = 'fi';
+      const menuItems = getLanguageDropdownWrapper({ currentLanguage }).find(MenuItem);
+      expect(menuItems).to.have.length(2);
+      expect(menuItems.at(0).prop('children')).to.equal('EN');
+      expect(menuItems.at(1).prop('children')).to.equal('SV');
+    });
+  });
+
   describe('if user is logged in but is not an admin', () => {
     const props = {
       isAdmin: false,
@@ -46,13 +77,13 @@ describe('shared/navbar/Navbar', () => {
       return getWrapper(props);
     }
 
-    it('renders a NavDropdown', () => {
-      const navDropdown = getLoggedInNotAdminWrapper().find(NavDropdown);
+    it('renders a NavDropdown for logged in user', () => {
+      const navDropdown = getLoggedInNotAdminWrapper().find('#user-dropdown');
       expect(navDropdown).to.have.length(1);
     });
 
     it('NavDropdown has the name of the logged in user as its title', () => {
-      const actual = getLoggedInNotAdminWrapper().find(NavDropdown).prop('title');
+      const actual = getLoggedInNotAdminWrapper().find('#user-dropdown').prop('title');
       expect(actual).to.equal(props.userName);
     });
 
@@ -105,8 +136,8 @@ describe('shared/navbar/Navbar', () => {
       return getWrapper(props);
     }
 
-    it('does not render a NavDropdown', () => {
-      const navDropdown = getNotLoggedInWrapper().find(NavDropdown);
+    it('does not render a NavDropdown for logged in user', () => {
+      const navDropdown = getNotLoggedInWrapper().find('#user-dropdown');
       expect(navDropdown).to.have.length(0);
     });
 
