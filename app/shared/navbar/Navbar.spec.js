@@ -5,10 +5,8 @@ import NavDropdown from 'react-bootstrap/lib/NavDropdown';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import { IndexLink } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
-import Immutable from 'seamless-immutable';
 
 import Logo from 'shared/logo';
-import User from 'utils/fixtures/User';
 import { getSearchPageUrl } from 'utils/searchUtils';
 import { shallowWithIntl } from 'utils/testUtils';
 import Navbar from './Navbar';
@@ -19,7 +17,7 @@ describe('shared/navbar/Navbar', () => {
       clearSearchResults: () => null,
       isAdmin: false,
       isLoggedIn: false,
-      user: {},
+      userName: 'Luke Skywalker',
     };
     return shallowWithIntl(<Navbar {...defaults} {...props} />);
   }
@@ -42,7 +40,7 @@ describe('shared/navbar/Navbar', () => {
     const props = {
       isAdmin: false,
       isLoggedIn: true,
-      user: Immutable(User.build()),
+      userName: 'Luke',
     };
     function getLoggedInNotAdminWrapper() {
       return getWrapper(props);
@@ -55,8 +53,7 @@ describe('shared/navbar/Navbar', () => {
 
     it('NavDropdown has the name of the logged in user as its title', () => {
       const actual = getLoggedInNotAdminWrapper().find(NavDropdown).prop('title');
-      const expected = [props.user.firstName, props.user.lastName].join(' ');
-      expect(actual).to.equal(expected);
+      expect(actual).to.equal(props.userName);
     });
 
     it('renders a link to my reservations page', () => {
@@ -87,7 +84,6 @@ describe('shared/navbar/Navbar', () => {
     const props = {
       isAdmin: true,
       isLoggedIn: true,
-      user: Immutable(User.build()),
     };
     function getLoggedInAdminWrapper() {
       return getWrapper(props);
@@ -104,7 +100,6 @@ describe('shared/navbar/Navbar', () => {
     const props = {
       isAdmin: false,
       isLoggedIn: false,
-      user: {},
     };
     function getNotLoggedInWrapper() {
       return getWrapper(props);
