@@ -1,10 +1,11 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
 import Immutable from 'seamless-immutable';
 
+import PageWrapper from 'pages/PageWrapper';
 import DateHeader from 'shared/date-header';
+import { shallowWithIntl } from 'utils/testUtils';
 import { UnconnectedSearchPage as SearchPage } from './SearchPage';
 import SearchControls from './controls';
 import SearchResults from './results';
@@ -28,10 +29,17 @@ describe('pages/search/SearchPage', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallow(<SearchPage {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(<SearchPage {...defaultProps} {...extraProps} />);
   }
 
-  describe('rendering', () => {
+  describe('render', () => {
+    it('renders PageWrapper with correct props', () => {
+      const pageWrapper = getWrapper().find(PageWrapper);
+      expect(pageWrapper).to.have.length(1);
+      expect(pageWrapper.prop('className')).to.equal('search-page');
+      expect(pageWrapper.prop('title')).to.equal('SearchPage.title');
+    });
+
     describe('when no search is done', () => {
       const extraProps = {
         isFetchingSearchResults: false,
@@ -138,78 +146,76 @@ describe('pages/search/SearchPage', () => {
     });
   });
 
-  describe('lifecycle events', () => {
-    describe('componentDidMount', () => {
+  describe('componentDidMount', () => {
+    before(() => {
+      const instance = getWrapper().instance();
+      instance.componentDidMount();
+    });
+
+    it('fetches resources when component mounts', () => {
+      expect(defaultProps.actions.searchResources.callCount).to.equal(1);
+    });
+
+    it('fetches resources witch correct filters', () => {
+      const actual = defaultProps.actions.searchResources.lastCall.args[0];
+      expect(actual).to.deep.equal(defaultProps.filters);
+    });
+
+    it('fetches units when component mounts', () => {
+      expect(defaultProps.actions.fetchUnits.callCount).to.equal(1);
+    });
+  });
+
+  describe('componentWillUpdate', () => {
+    describe('if search filters did change and url has query part', () => {
+      let nextProps;
+
       before(() => {
+        defaultProps.actions.changeSearchFilters.reset();
+        defaultProps.actions.searchResources.reset();
         const instance = getWrapper().instance();
-        instance.componentDidMount();
+        nextProps = {
+          filters: { purpose: 'new-purpose' },
+          url: '/search?purpose=new-purpose',
+        };
+        instance.componentWillUpdate(nextProps);
       });
 
-      it('fetches resources when component mounts', () => {
+      it('updates search filters in state with the new filters', () => {
+        const actualArg = defaultProps.actions.changeSearchFilters.lastCall.args[0];
+
+        expect(defaultProps.actions.changeSearchFilters.callCount).to.equal(1);
+        expect(actualArg).to.deep.equal(nextProps.filters);
+      });
+
+      it('searches resources with given filters', () => {
+        const actualArg = defaultProps.actions.searchResources.lastCall.args[0];
+
         expect(defaultProps.actions.searchResources.callCount).to.equal(1);
-      });
-
-      it('fetches resources witch correct filters', () => {
-        const actual = defaultProps.actions.searchResources.lastCall.args[0];
-        expect(actual).to.deep.equal(defaultProps.filters);
-      });
-
-      it('fetches units when component mounts', () => {
-        expect(defaultProps.actions.fetchUnits.callCount).to.equal(1);
+        expect(actualArg).to.deep.equal(nextProps.filters);
       });
     });
 
-    describe('componentWillUpdate', () => {
-      describe('if search filters did change and url has query part', () => {
-        let nextProps;
+    describe('if search filters did not change', () => {
+      let nextProps;
 
-        before(() => {
-          defaultProps.actions.changeSearchFilters.reset();
-          defaultProps.actions.searchResources.reset();
-          const instance = getWrapper().instance();
-          nextProps = {
-            filters: { purpose: 'new-purpose' },
-            url: '/search?purpose=new-purpose',
-          };
-          instance.componentWillUpdate(nextProps);
-        });
-
-        it('updates search filters in state with the new filters', () => {
-          const actualArg = defaultProps.actions.changeSearchFilters.lastCall.args[0];
-
-          expect(defaultProps.actions.changeSearchFilters.callCount).to.equal(1);
-          expect(actualArg).to.deep.equal(nextProps.filters);
-        });
-
-        it('searches resources with given filters', () => {
-          const actualArg = defaultProps.actions.searchResources.lastCall.args[0];
-
-          expect(defaultProps.actions.searchResources.callCount).to.equal(1);
-          expect(actualArg).to.deep.equal(nextProps.filters);
-        });
+      before(() => {
+        defaultProps.actions.changeSearchFilters.reset();
+        defaultProps.actions.searchResources.reset();
+        const instance = getWrapper().instance();
+        nextProps = {
+          filters: defaultProps.filters,
+          url: '/search?search=some-search',
+        };
+        instance.componentWillUpdate(nextProps);
       });
 
-      describe('if search filters did not change', () => {
-        let nextProps;
+      it('does not update search filters in state', () => {
+        expect(defaultProps.actions.changeSearchFilters.callCount).to.equal(0);
+      });
 
-        before(() => {
-          defaultProps.actions.changeSearchFilters.reset();
-          defaultProps.actions.searchResources.reset();
-          const instance = getWrapper().instance();
-          nextProps = {
-            filters: defaultProps.filters,
-            url: '/search?search=some-search',
-          };
-          instance.componentWillUpdate(nextProps);
-        });
-
-        it('does not update search filters in state', () => {
-          expect(defaultProps.actions.changeSearchFilters.callCount).to.equal(0);
-        });
-
-        it('does not do a search', () => {
-          expect(defaultProps.actions.searchResources.callCount).to.equal(0);
-        });
+      it('does not do a search', () => {
+        expect(defaultProps.actions.searchResources.callCount).to.equal(0);
       });
     });
   });

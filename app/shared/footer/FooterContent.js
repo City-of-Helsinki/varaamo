@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Col from 'react-bootstrap/lib/Col';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
@@ -6,9 +6,18 @@ import { Link } from 'react-router';
 
 import FeedbackLink from 'shared/feedback-link';
 import Logo from 'shared/logo';
+import { injectT } from 'translations';
 import { getCurrentCustomization } from 'utils/customizationUtils';
 
-function FooterContent() {
+function FooterContent({ t }) {
+  const aboutLink = (
+    <Link className="about-link" to="/about">
+      {t('Footer.aboutLink')}
+    </Link>
+  );
+
+  const feedbackLink = <FeedbackLink>{t('Footer.feedbackLink')}</FeedbackLink>;
+
   switch (getCurrentCustomization()) {
     case 'ESPOO': {
       return (
@@ -21,13 +30,8 @@ function FooterContent() {
               </Link>
             </Col>
             <Col lg={6} md={6}>
-              <p>
-                Varaamo on Helsingin kaupungin tilanvarauspalvelu, jota kokeillaan vuoden ajan
-                tietyissä Espoon kaupunginkirjaston tiloissa. Kyseessä on pilottiversio, josta
-                toivomme Sinulta palautetta.
-                Palautteesi voit lähettää <FeedbackLink text="täältä" />.
-              </p>
-              <Link className="about-link" to="/about">Lisätietoa palvelusta</Link>
+              <p>{t('Footer.espooText')} {feedbackLink}</p>
+              {aboutLink}
             </Col>
           </Row>
         </Grid>
@@ -45,12 +49,8 @@ function FooterContent() {
               </Link>
             </Col>
             <Col lg={6} md={6}>
-              <p>
-                Varaamo on Helsingin kaupungin tilanvarauspalvelu.
-                Kyseessä on pilottiversio, josta toivomme Sinulta palautetta.
-                Palautteesi voit lähettää <FeedbackLink text="täältä" />.
-              </p>
-              <Link className="about-link" to="/about">Lisätietoa palvelusta</Link>
+              <p>{t('Footer.helsinkiText')} {feedbackLink}</p>
+              {aboutLink}
             </Col>
           </Row>
         </Grid>
@@ -59,6 +59,8 @@ function FooterContent() {
   }
 }
 
-FooterContent.propTypes = {};
+FooterContent.propTypes = {
+  t: PropTypes.func.isRequired,
+};
 
-export default FooterContent;
+export default injectT(FooterContent);

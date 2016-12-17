@@ -1,11 +1,11 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
+import { shallowWithIntl } from 'utils/testUtils';
 import CommentForm from 'shared/comment-form';
 import { UnconnectedCommentModalContainer as CommentModalContainer } from './CommentModalContainer';
 import ModalWrapper from '../ModalWrapper';
@@ -28,7 +28,7 @@ describe('shared/modals/comment/CommentModalContainer', () => {
   };
 
   function getWrapper(extraProps = {}) {
-    return shallow(<CommentModalContainer {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(<CommentModalContainer {...defaultProps} {...extraProps} />);
   }
 
   describe('render', () => {

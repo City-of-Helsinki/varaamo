@@ -1,11 +1,12 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import MockDate from 'mockdate';
 import moment from 'moment';
 import React from 'react';
 import Loader from 'react-loader';
 import simple from 'simple-mock';
 
+import PageWrapper from 'pages/PageWrapper';
+import { shallowWithIntl } from 'utils/testUtils';
 import { UnconnectedAdminResourcesPage as AdminResourcesPage } from './AdminResourcesPage';
 import ResourcesTable from './resources-table';
 
@@ -22,10 +23,17 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
   };
 
   function getWrapper(extraProps = {}) {
-    return shallow(<AdminResourcesPage {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(<AdminResourcesPage {...defaultProps} {...extraProps} />);
   }
 
   describe('rendering', () => {
+    it('renders PageWrapper with correct props', () => {
+      const pageWrapper = getWrapper().find(PageWrapper);
+      expect(pageWrapper).to.have.length(1);
+      expect(pageWrapper.prop('className')).to.equal('admin-resources-page');
+      expect(pageWrapper.prop('title')).to.equal('AdminResourcesPage.title');
+    });
+
     describe('when user is not admin', () => {
       let wrapper;
       before(() => {
@@ -37,47 +45,35 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
       });
 
       it('renders correct text in paragraph', () => {
-        expect(wrapper.find('p').text()).to.equal(
-          'Tarvitset virkailijan oikeudet nähdäksesi tämän sivun.'
-        );
+        expect(wrapper.find('p').text()).to.equal('AdminResourcesPage.noRightsMessage');
       });
     });
 
     describe('when user is an admin', () => {
-      const wrapper = getWrapper({ isAdmin: true });
+      function getIsAdminWrapper(props) {
+        return getWrapper({ ...props, isAdmin: true });
+      }
 
-      it('displays "Omat tilat" -title inside h1 tags', () => {
-        const h1 = wrapper.find('h1');
-        expect(h1.text()).to.equal('Omat tilat');
+      it('displays correct title inside h1 tags', () => {
+        const h1 = getIsAdminWrapper().find('h1');
+        expect(h1.text()).to.equal('AdminResourcesPage.title');
       });
 
       it('renders a loader with a loaded prop if resources has been fetched', () => {
-        expect(wrapper.find(Loader).prop('loaded')).to.be.true;
+        const loader = getIsAdminWrapper({ isFetchingResources: false }).find(Loader);
+        expect(loader.prop('loaded')).to.be.true;
       });
 
       it('renders a loader without loaded prop if resources has not been fetched', () => {
-        const currentWrapper = getWrapper({ isFetchingResources: true });
-        expect(currentWrapper.find(Loader).prop('loaded')).to.be.false;
+        const loader = getIsAdminWrapper({ isFetchingResources: true }).find(Loader);
+        expect(loader.prop('loaded')).to.be.false;
       });
-      describe('resources table', () => {
-        let resourcesTable;
-        before(() => {
-          resourcesTable = wrapper.find(ResourcesTable);
-        });
 
-        it('exists', () => {
-          expect(resourcesTable).to.have.length(1);
-        });
-
-        it('has correct emptyMessage prop', () => {
-          expect(resourcesTable.prop('emptyMessage')).to.equal(
-            'Sinulla ei vielä ole yhtään omia tiloja näytettäväksi'
-          );
-        });
-
-        it('has correct resources prop', () => {
-          expect(resourcesTable.prop('resources')).to.deep.equal([]);
-        });
+      it('renders ResourcesTable with correct props', () => {
+        const resources = [{ foo: 'bar' }];
+        const resourcesTable = getIsAdminWrapper({ resources }).find(ResourcesTable);
+        expect(resourcesTable).to.have.length(1);
+        expect(resourcesTable.prop('resources')).to.deep.equal(resources);
       });
     });
   });

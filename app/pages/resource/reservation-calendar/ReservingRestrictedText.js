@@ -1,15 +1,17 @@
 import moment from 'moment';
 import React, { PropTypes } from 'react';
 
-function ReservingRestrictedText({ reservableBefore, reservableDaysInAdvance }) {
+import { injectT } from 'translations';
+
+function ReservingRestrictedText({ reservableBefore, reservableDaysInAdvance, t }) {
   const dateFormat = 'D.M.YYYY';
   const today = moment().format(dateFormat);
   const until = moment(reservableBefore).format(dateFormat);
 
   return (
     <p className="info-text">
-      Voit varata tilan aikaisintaan {reservableDaysInAdvance} päivää etukäteen.
-      Tällä hetkellä voit tehdä varauksen ajalle {today} {'\u2013'} {until}.
+      {t('ReservingRestrictedText.reservationRestricted', { days: reservableDaysInAdvance })}{' '}
+      {t('ReservingRestrictedText.reservationAvailableBetween', { today, until })}
     </p>
   );
 }
@@ -17,6 +19,7 @@ function ReservingRestrictedText({ reservableBefore, reservableDaysInAdvance }) 
 ReservingRestrictedText.propTypes = {
   reservableBefore: PropTypes.string.isRequired,
   reservableDaysInAdvance: PropTypes.number.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
-export default ReservingRestrictedText;
+export default injectT(ReservingRestrictedText);

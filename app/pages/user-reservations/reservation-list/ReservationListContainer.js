@@ -3,10 +3,11 @@ import React, { Component, PropTypes } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 
+import { injectT } from 'translations';
 import ReservationListItem from './ReservationListItem';
 import reservationListSelector from './reservationListSelector';
 
-export class UnconnectedReservationListContainer extends Component {
+class UnconnectedReservationListContainer extends Component {
   constructor(props) {
     super(props);
     this.renderReservationListItem = this.renderReservationListItem.bind(this);
@@ -39,19 +40,19 @@ export class UnconnectedReservationListContainer extends Component {
       emptyMessage,
       loading,
       reservations,
+      t,
     } = this.props;
 
     return (
       <Loader loaded={!loading}>
-        {reservations.length ? (
+        {reservations.length ?
           <div>
             <ul className="reservation-list">
               {reservations.map(this.renderReservationListItem)}
             </ul>
           </div>
-        ) : (
-          <p>{emptyMessage || 'Sinulla ei vielä ole yhtään varausta.'}</p>
-        )}
+          : <p>{emptyMessage || t('ReservationListContainer.emptyMessage')}</p>
+        }
       </Loader>
     );
   }
@@ -65,7 +66,10 @@ UnconnectedReservationListContainer.propTypes = {
   reservations: PropTypes.array.isRequired,
   resources: PropTypes.object.isRequired,
   staffUnits: PropTypes.array.isRequired,
+  t: PropTypes.func.isRequired,
   units: PropTypes.object.isRequired,
 };
+UnconnectedReservationListContainer = injectT(UnconnectedReservationListContainer);  // eslint-disable-line
 
+export { UnconnectedReservationListContainer };
 export default connect(reservationListSelector)(UnconnectedReservationListContainer);

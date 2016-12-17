@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import MockDate from 'mockdate';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
@@ -8,6 +7,7 @@ import Immutable from 'seamless-immutable';
 
 import Resource from 'utils/fixtures/Resource';
 import { getResourcePageUrl } from 'utils/resourceUtils';
+import { shallowWithIntl } from 'utils/testUtils';
 import ReserveButton from './ReserveButton';
 
 describe('shared/resource-list/ReserveButton', () => {
@@ -29,7 +29,7 @@ describe('shared/resource-list/ReserveButton', () => {
       resource: Immutable(Resource.build()),
     };
 
-    return shallow(<ReserveButton {...defaults} {...props} />);
+    return shallowWithIntl(<ReserveButton {...defaults} {...props} />);
   }
 
   function makeTests(props, expectedText) {
@@ -41,7 +41,7 @@ describe('shared/resource-list/ReserveButton', () => {
       expect(linkContainer.props().to).to.equal(expectedUrl);
     });
 
-    it(`renders button with text ${expectedText}`, () => {
+    it(`renders button and message with id ${expectedText}`, () => {
       const button = getWrapper(props).find(Button);
       expect(button.prop('children')).to.equal(expectedText);
     });
@@ -98,14 +98,14 @@ describe('shared/resource-list/ReserveButton', () => {
               const needManualConfirmation = true;
               const resourceProps = { needManualConfirmation, reservable, reservableBefore };
               const props = getProps({ date, isLoggedIn }, resourceProps);
-              makeTests(props, 'Tee alustava varaus');
+              makeTests(props, 'ReserveButton.makePreliminaryReservation');
             });
 
             describe('when resource does not need manual confirmation', () => {
               const needManualConfirmation = false;
               const resourceProps = { needManualConfirmation, reservable, reservableBefore };
               const props = getProps({ date, isLoggedIn }, resourceProps);
-              makeTests(props, 'Varaa');
+              makeTests(props, 'ReserveButton.makeRegularReservation');
             });
           });
 
@@ -113,7 +113,7 @@ describe('shared/resource-list/ReserveButton', () => {
             const reservable = false;
             const resourceProps = { reservable, reservableBefore };
             const props = getProps({ date, isLoggedIn }, resourceProps);
-            makeTests(props, 'Katso varaustilanne');
+            makeTests(props, 'ReserveButton.notReservableText');
           });
         });
 
@@ -121,7 +121,7 @@ describe('shared/resource-list/ReserveButton', () => {
           const isLoggedIn = false;
           const resourceProps = { reservableBefore };
           const props = getProps({ date, isLoggedIn }, resourceProps);
-          makeTests(props, 'Katso varaustilanne');
+          makeTests(props, 'ReserveButton.notReservableText');
         });
       });
 
@@ -145,7 +145,7 @@ describe('shared/resource-list/ReserveButton', () => {
           const userPermissions = { isAdmin: true };
           const resourceProps = { reservableBefore, userPermissions };
           const props = getProps({ date, isLoggedIn }, resourceProps);
-          makeTests(props, 'Varaa');
+          makeTests(props, 'ReserveButton.makeRegularReservation');
         });
 
         describe('when user is not logged in', () => {
@@ -174,14 +174,14 @@ describe('shared/resource-list/ReserveButton', () => {
             const needManualConfirmation = true;
             const resourceProps = { needManualConfirmation, reservable, reservableBefore };
             const props = getProps({ date, isLoggedIn }, resourceProps);
-            makeTests(props, 'Tee alustava varaus');
+            makeTests(props, 'ReserveButton.makePreliminaryReservation');
           });
 
           describe('when resource does not need manual confirmation', () => {
             const needManualConfirmation = false;
             const resourceProps = { needManualConfirmation, reservable, reservableBefore };
             const props = getProps({ date, isLoggedIn }, resourceProps);
-            makeTests(props, 'Varaa');
+            makeTests(props, 'ReserveButton.makeRegularReservation');
           });
         });
 
@@ -189,7 +189,7 @@ describe('shared/resource-list/ReserveButton', () => {
           const reservable = false;
           const resourceProps = { reservable, reservableBefore };
           const props = getProps({ date, isLoggedIn }, resourceProps);
-          makeTests(props, 'Katso varaustilanne');
+          makeTests(props, 'ReserveButton.notReservableText');
         });
       });
 
@@ -197,7 +197,7 @@ describe('shared/resource-list/ReserveButton', () => {
         const isLoggedIn = false;
         const resourceProps = { reservableBefore };
         const props = getProps({ date, isLoggedIn }, resourceProps);
-        makeTests(props, 'Katso varaustilanne');
+        makeTests(props, 'ReserveButton.notReservableText');
       });
     });
   });

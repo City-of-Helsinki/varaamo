@@ -113,7 +113,7 @@ describe('Utils: resourceUtils', () => {
         const openingHours = {};
         const resource = getResource(openingHours);
         const availabilityData = getAvailabilityDataForNow(resource);
-        const expected = { text: 'Suljettu', bsStyle: 'danger' };
+        const expected = { status: 'closed', bsStyle: 'danger' };
 
         expect(availabilityData).to.deep.equal(expected);
       });
@@ -137,10 +137,11 @@ describe('Utils: resourceUtils', () => {
           const reservations = [];
           const resource = getResource(openingHours, reservations);
           const availabilityData = getAvailabilityDataForNow(resource);
-          const expectedTime = moment(openingHours.opens);
+          const expectedTime = moment(openingHours.opens).format(constants.TIME_FORMAT);
           const expected = {
-            text: `Vapautuu klo ${expectedTime.format(constants.TIME_FORMAT)}`,
+            status: 'availableAt',
             bsStyle: 'danger',
+            values: { time: expectedTime },
           };
 
           expect(availabilityData).to.deep.equal(expected);
@@ -165,10 +166,11 @@ describe('Utils: resourceUtils', () => {
           ];
           const resource = getResource(openingHours, reservations);
           const availabilityData = getAvailabilityDataForNow(resource);
-          const expectedTime = moment(reservations[0].end);
+          const expectedTime = moment(reservations[0].end).format(constants.TIME_FORMAT);
           const expected = {
-            text: `Vapautuu klo ${expectedTime.format(constants.TIME_FORMAT)}`,
+            status: 'availableAt',
             bsStyle: 'danger',
+            values: { time: expectedTime },
           };
 
           expect(availabilityData).to.deep.equal(expected);
@@ -193,10 +195,11 @@ describe('Utils: resourceUtils', () => {
           ];
           const resource = getResource(openingHours, reservations);
           const availabilityData = getAvailabilityDataForNow(resource);
-          const expectedTime = moment(openingHours.opens);
+          const expectedTime = moment(openingHours.opens).format(constants.TIME_FORMAT);
           const expected = {
-            text: `Vapautuu klo ${expectedTime.format(constants.TIME_FORMAT)}`,
+            status: 'availableAt',
             bsStyle: 'danger',
+            values: { time: expectedTime },
           };
 
           expect(availabilityData).to.deep.equal(expected);
@@ -221,7 +224,7 @@ describe('Utils: resourceUtils', () => {
           };
           const resource = getResource(openingHours, []);
           const availabilityData = getAvailabilityDataForNow(resource);
-          const expected = { text: 'Heti vapaa', bsStyle: 'success' };
+          const expected = { status: 'available', bsStyle: 'success' };
 
           expect(availabilityData).to.deep.equal(expected);
         });
@@ -241,10 +244,11 @@ describe('Utils: resourceUtils', () => {
           ];
           const resource = getResource(openingHours, reservations);
           const availabilityData = getAvailabilityDataForNow(resource);
-          const expectedTime = moment(reservations[0].end);
+          const expectedTime = moment(reservations[0].end).format(constants.TIME_FORMAT);
           const expected = {
-            text: `Vapautuu klo ${expectedTime.format(constants.TIME_FORMAT)}`,
+            status: 'availableAt',
             bsStyle: 'danger',
+            values: { time: expectedTime },
           };
 
           expect(availabilityData).to.deep.equal(expected);
@@ -269,8 +273,7 @@ describe('Utils: resourceUtils', () => {
           ];
           const resource = getResource(openingHours, reservations);
           const availabilityData = getAvailabilityDataForNow(resource);
-          const expected = { text: 'Heti vapaa', bsStyle: 'success' };
-
+          const expected = { status: 'available', bsStyle: 'success' };
           expect(availabilityData).to.deep.equal(expected);
         });
       });
@@ -292,7 +295,7 @@ describe('Utils: resourceUtils', () => {
         };
         const resource = getResource(openingHours, []);
         const availabilityData = getAvailabilityDataForNow(resource);
-        const expected = { text: 'Suljettu', bsStyle: 'danger' };
+        const expected = { status: 'closed', bsStyle: 'danger' };
 
         expect(availabilityData).to.deep.equal(expected);
       });
@@ -309,7 +312,7 @@ describe('Utils: resourceUtils', () => {
         const openingHours = {};
         const resource = getResource(openingHours);
         const availabilityData = getAvailabilityDataForWholeDay(resource);
-        const expected = { text: 'Suljettu', bsStyle: 'danger' };
+        const expected = { status: 'closed', bsStyle: 'danger' };
 
         expect(availabilityData).to.deep.equal(expected);
       });
@@ -324,7 +327,7 @@ describe('Utils: resourceUtils', () => {
         const date = '2016-12-12';
         const resource = { openingHours, reservableBefore: '2016-10-10' };
         const availabilityData = getAvailabilityDataForWholeDay(resource, date);
-        const expected = { text: 'Ei varattavissa', bsStyle: 'danger' };
+        const expected = { status: 'reservingRestricted', bsStyle: 'danger' };
 
         expect(availabilityData).to.deep.equal(expected);
       });
@@ -339,7 +342,11 @@ describe('Utils: resourceUtils', () => {
         const reservations = [];
         const resource = getResource(openingHours, reservations);
         const availabilityData = getAvailabilityDataForWholeDay(resource);
-        const expected = { text: 'Vapaata 6 tuntia', bsStyle: 'success' };
+        const expected = {
+          status: 'availableTime',
+          bsStyle: 'success',
+          values: { hours: 6 },
+        };
 
         expect(availabilityData).to.deep.equal(expected);
       });
@@ -363,7 +370,11 @@ describe('Utils: resourceUtils', () => {
         ];
         const resource = getResource(openingHours, reservations);
         const availabilityData = getAvailabilityDataForWholeDay(resource);
-        const expected = { text: 'Vapaata 4.5 tuntia', bsStyle: 'success' };
+        const expected = {
+          status: 'availableTime',
+          bsStyle: 'success',
+          values: { hours: 4.5 },
+        };
 
         expect(availabilityData).to.deep.equal(expected);
       });
@@ -382,7 +393,11 @@ describe('Utils: resourceUtils', () => {
         ];
         const resource = getResource(openingHours, reservations);
         const availabilityData = getAvailabilityDataForWholeDay(resource);
-        const expected = { text: 'Vapaata 6 tuntia', bsStyle: 'success' };
+        const expected = {
+          status: 'availableTime',
+          bsStyle: 'success',
+          values: { hours: 6 },
+        };
 
         expect(availabilityData).to.deep.equal(expected);
       });
@@ -401,7 +416,11 @@ describe('Utils: resourceUtils', () => {
         ];
         const resource = getResource(openingHours, reservations);
         const availabilityData = getAvailabilityDataForWholeDay(resource);
-        const expected = { text: 'Vapaata 6 tuntia', bsStyle: 'success' };
+        const expected = {
+          status: 'availableTime',
+          bsStyle: 'success',
+          values: { hours: 6 },
+        };
 
         expect(availabilityData).to.deep.equal(expected);
       });
@@ -420,7 +439,7 @@ describe('Utils: resourceUtils', () => {
           ];
           const resource = getResource(openingHours, reservations);
           const availabilityData = getAvailabilityDataForWholeDay(resource);
-          const expected = { text: 'Varattu koko päivän', bsStyle: 'danger' };
+          const expected = { status: 'reserved', bsStyle: 'danger' };
 
           expect(availabilityData).to.deep.equal(expected);
         });

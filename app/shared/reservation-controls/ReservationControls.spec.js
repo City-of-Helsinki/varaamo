@@ -1,12 +1,11 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
 import Reservation from 'utils/fixtures/Reservation';
-import { makeButtonTests } from 'utils/testUtils';
+import { makeButtonTests, shallowWithIntl } from 'utils/testUtils';
 import ReservationControls from './ReservationControls';
 
 describe('shared/reservation-controls/ReservationControls', () => {
@@ -27,7 +26,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       onInfoClick,
       reservation: Immutable(reservation),
     };
-    return shallow(<ReservationControls {...props} />);
+    return shallowWithIntl(<ReservationControls {...props} />);
   }
 
   describe('if user is an admin', () => {
@@ -42,11 +41,11 @@ describe('shared/reservation-controls/ReservationControls', () => {
       });
 
       describe('the first button', () => {
-        makeButtonTests(buttons.at(0), 'edit', 'Muokkaa', onEditClick);
+        makeButtonTests(buttons.at(0), 'edit', 'ReservationControls.edit', onEditClick);
       });
 
       describe('the second button', () => {
-        makeButtonTests(buttons.at(1), 'cancel', 'Peru', onCancelClick);
+        makeButtonTests(buttons.at(1), 'cancel', 'ReservationControls.cancel', onCancelClick);
       });
     });
 
@@ -62,19 +61,19 @@ describe('shared/reservation-controls/ReservationControls', () => {
         });
 
         describe('the first button', () => {
-          makeButtonTests(buttons.at(0), 'info', 'Tiedot', onInfoClick);
+          makeButtonTests(buttons.at(0), 'info', 'ReservationControls.info', onInfoClick);
         });
 
         describe('the second button', () => {
-          makeButtonTests(buttons.at(1), 'confirm', 'Hyväksy', onConfirmClick);
+          makeButtonTests(buttons.at(1), 'confirm', 'ReservationControls.confirm', onConfirmClick);
         });
 
         describe('the third button', () => {
-          makeButtonTests(buttons.at(2), 'deny', 'Hylkää', onDenyClick);
+          makeButtonTests(buttons.at(2), 'deny', 'ReservationControls.deny', onDenyClick);
         });
 
         describe('the fourth button', () => {
-          makeButtonTests(buttons.at(3), 'edit', 'Muokkaa', onEditClick);
+          makeButtonTests(buttons.at(3), 'edit', 'ReservationControls.edit', onEditClick);
         });
       });
 
@@ -87,11 +86,11 @@ describe('shared/reservation-controls/ReservationControls', () => {
         });
 
         describe('the first button', () => {
-          makeButtonTests(buttons.at(0), 'info', 'Tiedot', onInfoClick);
+          makeButtonTests(buttons.at(0), 'info', 'ReservationControls.info', onInfoClick);
         });
 
         describe('the second button', () => {
-          makeButtonTests(buttons.at(1), 'edit', 'Muokkaa', onEditClick);
+          makeButtonTests(buttons.at(1), 'edit', 'ReservationControls.edit', onEditClick);
         });
       });
     });
@@ -105,7 +104,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       });
 
       describe('the button', () => {
-        makeButtonTests(buttons.at(0), 'info', 'Tiedot', onInfoClick);
+        makeButtonTests(buttons.at(0), 'info', 'ReservationControls.info', onInfoClick);
       });
     });
 
@@ -118,7 +117,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       });
 
       describe('the button', () => {
-        makeButtonTests(buttons.at(0), 'info', 'Tiedot', onInfoClick);
+        makeButtonTests(buttons.at(0), 'info', 'ReservationControls.info', onInfoClick);
       });
     });
 
@@ -134,15 +133,15 @@ describe('shared/reservation-controls/ReservationControls', () => {
         });
 
         describe('the first button', () => {
-          makeButtonTests(buttons.at(0), 'info', 'Tiedot', onInfoClick);
+          makeButtonTests(buttons.at(0), 'info', 'ReservationControls.info', onInfoClick);
         });
 
         describe('the second button', () => {
-          makeButtonTests(buttons.at(1), 'cancel', 'Peru', onCancelClick);
+          makeButtonTests(buttons.at(1), 'cancel', 'ReservationControls.cancel', onCancelClick);
         });
 
         describe('the third button', () => {
-          makeButtonTests(buttons.at(2), 'edit', 'Muokkaa', onEditClick);
+          makeButtonTests(buttons.at(2), 'edit', 'ReservationControls.edit', onEditClick);
         });
       });
 
@@ -155,11 +154,11 @@ describe('shared/reservation-controls/ReservationControls', () => {
         });
 
         describe('the first button', () => {
-          makeButtonTests(buttons.at(0), 'info', 'Tiedot', onInfoClick);
+          makeButtonTests(buttons.at(0), 'info', 'ReservationControls.info', onInfoClick);
         });
 
         describe('the second button', () => {
-          makeButtonTests(buttons.at(1), 'cancel', 'Peru', onCancelClick);
+          makeButtonTests(buttons.at(1), 'cancel', 'ReservationControls.cancel', onCancelClick);
         });
       });
     });
@@ -177,11 +176,11 @@ describe('shared/reservation-controls/ReservationControls', () => {
       });
 
       describe('the first button', () => {
-        makeButtonTests(buttons.at(0), 'edit', 'Muokkaa', onEditClick);
+        makeButtonTests(buttons.at(0), 'edit', 'ReservationControls.edit', onEditClick);
       });
 
       describe('the second button', () => {
-        makeButtonTests(buttons.at(1), 'cancel', 'Peru', onCancelClick);
+        makeButtonTests(buttons.at(1), 'cancel', 'ReservationControls.cancel', onCancelClick);
       });
     });
 
@@ -194,15 +193,15 @@ describe('shared/reservation-controls/ReservationControls', () => {
       });
 
       describe('the first button', () => {
-        makeButtonTests(buttons.at(0), 'info', 'Tiedot', onInfoClick);
+        makeButtonTests(buttons.at(0), 'info', 'ReservationControls.info', onInfoClick);
       });
 
       describe('the second button', () => {
-        makeButtonTests(buttons.at(1), 'edit', 'Muokkaa', onEditClick);
+        makeButtonTests(buttons.at(1), 'edit', 'ReservationControls.edit', onEditClick);
       });
 
       describe('the third button', () => {
-        makeButtonTests(buttons.at(2), 'cancel', 'Peru', onCancelClick);
+        makeButtonTests(buttons.at(2), 'cancel', 'ReservationControls.cancel', onCancelClick);
       });
     });
 
@@ -215,7 +214,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       });
 
       describe('the button', () => {
-        makeButtonTests(buttons.at(0), 'info', 'Tiedot', onInfoClick);
+        makeButtonTests(buttons.at(0), 'info', 'ReservationControls.info', onInfoClick);
       });
     });
 
@@ -228,7 +227,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       });
 
       describe('the button', () => {
-        makeButtonTests(buttons.at(0), 'info', 'Tiedot', onInfoClick);
+        makeButtonTests(buttons.at(0), 'info', 'ReservationControls.info', onInfoClick);
       });
     });
 
@@ -241,11 +240,11 @@ describe('shared/reservation-controls/ReservationControls', () => {
       });
 
       describe('the first button', () => {
-        makeButtonTests(buttons.at(0), 'info', 'Tiedot', onInfoClick);
+        makeButtonTests(buttons.at(0), 'info', 'ReservationControls.info', onInfoClick);
       });
 
       describe('the second button', () => {
-        makeButtonTests(buttons.at(1), 'cancel', 'Peru', onCancelClick);
+        makeButtonTests(buttons.at(1), 'cancel', 'ReservationControls.cancel', onCancelClick);
       });
     });
   });

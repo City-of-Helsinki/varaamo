@@ -1,8 +1,8 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
+import { shallowWithIntl } from 'utils/testUtils';
 import ResultsCount from './ResultsCount';
 
 describe('pages/search/results/ResultsCount', () => {
@@ -12,7 +12,7 @@ describe('pages/search/results/ResultsCount', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallow(<ResultsCount {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(<ResultsCount {...defaultProps} {...extraProps} />);
   }
 
   describe('rendering', () => {
@@ -21,7 +21,7 @@ describe('pages/search/results/ResultsCount', () => {
     });
 
     it('renders correct string if there are results', () => {
-      expect(getWrapper().text()).to.equal('Tiloja löytyi 2 kpl.');
+      expect(getWrapper().text()).to.equal('ResultsCount.text');
     });
 
     it('renders emptyMessage string if no results', () => {

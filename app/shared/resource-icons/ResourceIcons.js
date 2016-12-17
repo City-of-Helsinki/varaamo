@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
+import { injectT } from 'translations';
 import { getHumanizedPeriod } from 'utils/resourceUtils';
 
 function renderIcon(glyph, text) {
@@ -16,7 +17,7 @@ function renderIcon(glyph, text) {
   );
 }
 
-function getHourlyPrice({ minPricePerHour, maxPricePerHour }) {
+function getHourlyPrice(t, { minPricePerHour, maxPricePerHour }) {
   if (!(minPricePerHour || maxPricePerHour)) {
     return null;
   }
@@ -26,17 +27,17 @@ function getHourlyPrice({ minPricePerHour, maxPricePerHour }) {
   const priceString = maxPricePerHour || minPricePerHour;
   const price = priceString !== 0 ? Number(priceString) : null;
   if (price === 0) {
-    return 'MAKSUTON';
+    return t('ResourceIcons.free');
   }
   return price ? `${price} €/h` : null;
 }
 
-function ResourceIcons({ resource }) {
+function ResourceIcons({ resource, t }) {
   return (
     <div className="resource-icons">
       {renderIcon('user', resource.peopleCapacity)}
       {renderIcon('time', getHumanizedPeriod(resource.maxPeriod))}
-      {renderIcon('euro', getHourlyPrice(resource))}
+      {renderIcon('euro', getHourlyPrice(t, resource))}
     </div>
   );
 }
@@ -48,6 +49,7 @@ ResourceIcons.propTypes = {
     minPricePerHour: PropTypes.string,
     maxPricePerHour: PropTypes.string,
   }).isRequired,
+  t: PropTypes.func.isRequired,
 };
 
-export default ResourceIcons;
+export default injectT(ResourceIcons);

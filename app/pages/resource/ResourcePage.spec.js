@@ -1,11 +1,12 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
+import PageWrapper from 'pages/PageWrapper';
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
+import { shallowWithIntl } from 'utils/testUtils';
 import { UnconnectedResourcePage as ResourcePage } from './ResourcePage';
 import ReservationInfo from './reservation-info';
 import ResourceInfo from './resource-info';
@@ -14,7 +15,7 @@ describe('pages/resource/ResourcePage', () => {
   const unit = Unit.build();
   const resource = Resource.build({ unit: Unit.id });
   const defaultProps = {
-    actions: { fetchResource: simple.stub() },
+    actions: { fetchResource: () => null },
     date: '2015-10-10',
     id: resource.id,
     isAdmin: false,
@@ -27,63 +28,40 @@ describe('pages/resource/ResourcePage', () => {
   };
 
   function getWrapper(props) {
-    return shallow(<ResourcePage {...defaultProps} {...props} />);
+    return shallowWithIntl(<ResourcePage {...defaultProps} {...props} />);
   }
 
-  let wrapper;
+  describe('render', () => {
+    it('renders PageWrapper with correct props', () => {
+      const pageWrapper = getWrapper().find(PageWrapper);
+      expect(pageWrapper).to.have.length(1);
+      expect(pageWrapper.prop('className')).to.equal('resource-page');
+      expect(pageWrapper.prop('title')).to.equal(defaultProps.resource.name.fi);
+    });
 
-  before(() => {
-    wrapper = getWrapper();
-  });
-
-  describe('rendering ResourceInfo', () => {
-    it('renders ResourceInfo component', () => {
+    it('renders ResourceInfo with correct props', () => {
       const resourceInfo = getWrapper().find(ResourceInfo);
-
-      expect(resourceInfo.length).to.equal(1);
+      expect(resourceInfo).to.have.length(1);
+      expect(resourceInfo.prop('resource')).to.deep.equal(defaultProps.resource);
+      expect(resourceInfo.prop('unit')).to.deep.equal(defaultProps.unit);
     });
 
-    it('passes correct props to ResourceInfo component', () => {
-      const actualProps = getWrapper().find(ResourceInfo).props();
-
-      expect(actualProps.resource).to.deep.equal(defaultProps.resource);
-      expect(actualProps.unit).to.deep.equal(defaultProps.unit);
-    });
-  });
-
-  describe('rendering ReservationInfo', () => {
-    let ReservationInfoWrapper;
-
-    before(() => {
-      ReservationInfoWrapper = wrapper.find(ReservationInfo);
-    });
-
-    it('renders ReservationInfo component', () => {
-      expect(ReservationInfoWrapper).to.be.ok;
-    });
-
-    it('passes correct props to ReservationInfo component', () => {
-      const actualProps = ReservationInfoWrapper.props();
-
-      expect(actualProps.isLoggedIn).to.equal(defaultProps.isLoggedIn);
-      expect(actualProps.resource).to.equal(defaultProps.resource);
+    it('renders ReservationInfo with correct props', () => {
+      const reservationInfo = getWrapper().find(ReservationInfo);
+      expect(reservationInfo).to.have.length(1);
+      expect(reservationInfo.prop('isLoggedIn')).to.equal(defaultProps.isLoggedIn);
+      expect(reservationInfo.prop('resource')).to.deep.equal(defaultProps.resource);
     });
   });
 
   describe('componentDidMount', () => {
-    before(() => {
-      defaultProps.actions.fetchResource.reset();
-      const instance = wrapper.instance();
-      instance.componentDidMount();
-    });
-
-    it('fetches resource data when component mounts', () => {
-      expect(defaultProps.actions.fetchResource.callCount).to.equal(1);
-    });
-
     it('fetches resource with correct arguments', () => {
-      const actualArgs = defaultProps.actions.fetchResource.lastCall.args;
+      const fetchResource = simple.mock();
+      const instance = getWrapper({ actions: { fetchResource } }).instance();
+      instance.componentDidMount();
+      const actualArgs = fetchResource.lastCall.args;
 
+      expect(fetchResource.callCount).to.equal(1);
       expect(actualArgs[0]).to.equal(defaultProps.id);
       expect(actualArgs[1].start).to.contain(defaultProps.date);
       expect(actualArgs[1].end).to.contain(defaultProps.date);
@@ -92,19 +70,18 @@ describe('pages/resource/ResourcePage', () => {
 
   describe('componentWillUpdate', () => {
     describe('if date changed', () => {
-      let nextProps;
+      const nextProps = { date: '2016-12-12' };
+      const fetchResource = simple.mock();
 
       before(() => {
-        defaultProps.actions.fetchResource.reset();
-        const instance = wrapper.instance();
-        nextProps = { date: '2016-12-12' };
+        const instance = getWrapper({ actions: { fetchResource } }).instance();
         instance.componentWillUpdate(nextProps);
       });
 
       it('fetches resource data with new date', () => {
-        const actualArgs = defaultProps.actions.fetchResource.lastCall.args;
+        const actualArgs = fetchResource.lastCall.args;
 
-        expect(defaultProps.actions.fetchResource.callCount).to.equal(1);
+        expect(fetchResource.callCount).to.equal(1);
         expect(actualArgs[0]).to.equal(defaultProps.id);
         expect(actualArgs[1].start).to.contain(nextProps.date);
         expect(actualArgs[1].end).to.contain(nextProps.date);
@@ -112,17 +89,16 @@ describe('pages/resource/ResourcePage', () => {
     });
 
     describe('if date did not change', () => {
-      let nextProps;
+      const nextProps = { date: defaultProps.date };
+      const fetchResource = simple.mock();
 
       before(() => {
-        defaultProps.actions.fetchResource.reset();
-        const instance = wrapper.instance();
-        nextProps = { date: defaultProps.date };
+        const instance = getWrapper({ actions: { fetchResource } }).instance();
         instance.componentWillUpdate(nextProps);
       });
 
       it('does not fetch resource data', () => {
-        expect(defaultProps.actions.fetchResource.callCount).to.equal(0);
+        expect(fetchResource.callCount).to.equal(0);
       });
     });
   });

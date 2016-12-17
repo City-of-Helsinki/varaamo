@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import MockDate from 'mockdate';
 import React from 'react';
 import Label from 'react-bootstrap/lib/Label';
@@ -8,6 +7,7 @@ import simple from 'simple-mock';
 
 import Resource from 'utils/fixtures/Resource';
 import * as resourceUtils from 'utils/resourceUtils';
+import { shallowWithIntl } from 'utils/testUtils';
 import ResourceAvailability from './ResourceAvailability';
 
 describe('shared/resource-list/ResourceAvailability', () => {
@@ -17,7 +17,7 @@ describe('shared/resource-list/ResourceAvailability', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallow(<ResourceAvailability {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(<ResourceAvailability {...defaultProps} {...extraProps} />);
   }
 
   describe('if date given in props is in the past', () => {
@@ -56,12 +56,12 @@ describe('shared/resource-list/ResourceAvailability', () => {
     });
 
     it('uses getAvailabilityDataForNow for Label props', () => {
-      const expectedData = { text: 'some text', bsStyle: 'danger' };
+      const expectedData = { status: 'closed', bsStyle: 'danger' };
       simple.mock(resourceUtils, 'getAvailabilityDataForNow').returnWith(expectedData);
       const label = getWrapper({ date }).find(Label);
 
-      expect(label.props().bsStyle).to.equal(expectedData.bsStyle);
-      expect(label.props().children).to.equal(expectedData.text);
+      expect(label.prop('bsStyle')).to.equal(expectedData.bsStyle);
+      expect(label.prop('children')).to.equal('ResourceAvailability.closed');
       simple.restore();
     });
   });
@@ -84,12 +84,12 @@ describe('shared/resource-list/ResourceAvailability', () => {
     });
 
     it('uses getAvailabilityDataForWholeDay for Label props', () => {
-      const expectedData = { text: 'some text', bsStyle: 'danger' };
+      const expectedData = { status: 'closed', bsStyle: 'danger' };
       simple.mock(resourceUtils, 'getAvailabilityDataForWholeDay').returnWith(expectedData);
       const label = getWrapper({ date }).find(Label);
 
-      expect(label.props().bsStyle).to.equal(expectedData.bsStyle);
-      expect(label.props().children).to.equal(expectedData.text);
+      expect(label.prop('bsStyle')).to.equal(expectedData.bsStyle);
+      expect(label.prop('children')).to.equal('ResourceAvailability.closed');
       simple.restore();
     });
   });

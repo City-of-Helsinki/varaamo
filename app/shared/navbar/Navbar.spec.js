@@ -1,128 +1,141 @@
 import { expect } from 'chai';
 import React from 'react';
+import MenuItem from 'react-bootstrap/lib/MenuItem';
+import NavDropdown from 'react-bootstrap/lib/NavDropdown';
+import NavItem from 'react-bootstrap/lib/NavItem';
+import { IndexLink } from 'react-router';
+import { LinkContainer } from 'react-router-bootstrap';
 import Immutable from 'seamless-immutable';
-import simple from 'simple-mock';
-import sd from 'skin-deep';
 
-
+import Logo from 'shared/logo';
 import User from 'utils/fixtures/User';
 import { getSearchPageUrl } from 'utils/searchUtils';
+import { shallowWithIntl } from 'utils/testUtils';
 import Navbar from './Navbar';
 
 describe('shared/navbar/Navbar', () => {
-  describe('basic rendering', () => {
-    const props = {
-      clearSearchResults: simple.stub(),
+  function getWrapper(props) {
+    const defaults = {
+      clearSearchResults: () => null,
       isAdmin: false,
-      isLoggedIn: true,
-      user: Immutable(User.build()),
+      isLoggedIn: false,
+      user: {},
     };
-    const tree = sd.shallowRender(<Navbar {...props} />);
+    return shallowWithIntl(<Navbar {...defaults} {...props} />);
+  }
 
-    it('renders a link to home page', () => {
-      const homePageLink = tree.subTreeLike('IndexLink', { to: '/' });
-      expect(homePageLink).to.be.ok;
-    });
+  it('renders a link to home page', () => {
+    const homePageLink = getWrapper().find(IndexLink);
+    expect(homePageLink).to.have.length(1);
+  });
 
-    it('displays the logo of the service', () => {
-      expect(tree.subTree('Logo')).to.be.ok;
-    });
+  it('displays the logo of the service', () => {
+    expect(getWrapper().find(Logo)).to.have.length(1);
+  });
 
-    it('renders a link to search page', () => {
-      const searchLink = tree.subTreeLike('LinkContainer', { to: getSearchPageUrl() });
-      expect(searchLink).to.be.ok;
-    });
+  it('renders a link to search page', () => {
+    const searchLink = getWrapper().find(LinkContainer).filter({ to: getSearchPageUrl() });
+    expect(searchLink).to.have.length(1);
   });
 
   describe('if user is logged in but is not an admin', () => {
     const props = {
-      clearSearchResults: simple.stub(),
       isAdmin: false,
       isLoggedIn: true,
       user: Immutable(User.build()),
     };
-    const tree = sd.shallowRender(<Navbar {...props} />);
+    function getLoggedInNotAdminWrapper() {
+      return getWrapper(props);
+    }
 
     it('renders a NavDropdown', () => {
-      const navDropdownTrees = tree.everySubTree('NavDropdown');
-      expect(navDropdownTrees.length).to.equal(1);
+      const navDropdown = getLoggedInNotAdminWrapper().find(NavDropdown);
+      expect(navDropdown).to.have.length(1);
     });
 
     it('NavDropdown has the name of the logged in user as its title', () => {
+      const actual = getLoggedInNotAdminWrapper().find(NavDropdown).prop('title');
       const expected = [props.user.firstName, props.user.lastName].join(' ');
-
-      expect(tree.subTree('NavDropdown').props.title).to.equal(expected);
+      expect(actual).to.equal(expected);
     });
 
     it('renders a link to my reservations page', () => {
-      const myReservationsLink = tree.subTreeLike('LinkContainer', { to: '/my-reservations' });
-      expect(myReservationsLink).to.be.ok;
+      const myReservationsLink = getLoggedInNotAdminWrapper()
+        .find(LinkContainer).filter({ to: '/my-reservations' });
+      expect(myReservationsLink).to.have.length(1);
     });
 
     it('does not render a link to admin resources page', () => {
-      const myReservationsLink = tree.subTreeLike('LinkContainer', { to: '/admin-resources' });
-      expect(myReservationsLink).to.be.false;
+      const myReservationsLink = getLoggedInNotAdminWrapper()
+        .find(LinkContainer).filter({ to: '/admin-resources' });
+      expect(myReservationsLink).to.have.length(0);
     });
 
     it('renders a logout link', () => {
-      const logoutLink = tree.subTreeLike('MenuItem', { children: 'Kirjaudu ulos' });
-      expect(logoutLink).to.be.ok;
+      const logoutHref = `/logout?next=${window.location.origin}`;
+      const logoutLink = getLoggedInNotAdminWrapper().find(MenuItem).filter({ href: logoutHref });
+      expect(logoutLink).to.have.length(1);
     });
 
     it('does not render a link to login page', () => {
-      const loginLink = tree.subTreeLike('LinkContainer', { to: '/login' });
-      expect(loginLink).to.equal(false);
+      const loginLink = getLoggedInNotAdminWrapper().find(NavItem).filter({ href: '/login' });
+      expect(loginLink).to.have.length(0);
     });
   });
 
   describe('if user is logged in and is an admin', () => {
     const props = {
-      clearSearchResults: simple.stub(),
       isAdmin: true,
       isLoggedIn: true,
       user: Immutable(User.build()),
     };
-    const tree = sd.shallowRender(<Navbar {...props} />);
+    function getLoggedInAdminWrapper() {
+      return getWrapper(props);
+    }
 
     it('renders a link to admin resources page', () => {
-      const myReservationsLink = tree.subTreeLike('LinkContainer', { to: '/admin-resources' });
-      expect(myReservationsLink).to.be.ok;
+      const myReservationsLink = getLoggedInAdminWrapper()
+        .find(LinkContainer).filter({ to: '/admin-resources' });
+      expect(myReservationsLink).to.have.length(1);
     });
   });
 
   describe('if user is not logged in', () => {
     const props = {
-      clearSearchResults: simple.stub(),
       isAdmin: false,
       isLoggedIn: false,
       user: {},
     };
-    const tree = sd.shallowRender(<Navbar {...props} />);
+    function getNotLoggedInWrapper() {
+      return getWrapper(props);
+    }
 
     it('does not render a NavDropdown', () => {
-      const navDropdownTrees = tree.everySubTree('NavDropdown');
-
-      expect(navDropdownTrees.length).to.equal(0);
+      const navDropdown = getNotLoggedInWrapper().find(NavDropdown);
+      expect(navDropdown).to.have.length(0);
     });
 
     it('renders a link to login page', () => {
-      const loginLink = tree.subTreeLike('NavItem', { href: '/login' });
-      expect(loginLink).to.be.ok;
+      const loginLink = getNotLoggedInWrapper().find(NavItem).filter({ href: '/login' });
+      expect(loginLink).to.have.length(1);
     });
 
     it('does not render a logout link', () => {
-      const logoutLink = tree.subTreeLike('MenuItem', { children: 'Kirjaudu ulos' });
-      expect(logoutLink).to.equal(false);
+      const logoutHref = `/logout?next=${window.location.origin}`;
+      const logoutLink = getNotLoggedInWrapper().find(MenuItem).filter({ href: logoutHref });
+      expect(logoutLink).to.have.length(0);
     });
 
     it('does not render a link to my reservations page', () => {
-      const myReservationsLink = tree.subTreeLike('LinkContainer', { to: '/my-reservations' });
-      expect(myReservationsLink).to.equal(false);
+      const myReservationsLink = getNotLoggedInWrapper()
+        .find(LinkContainer).filter({ to: '/my-reservations' });
+      expect(myReservationsLink).to.have.length(0);
     });
 
     it('does not render a link to admin resources page', () => {
-      const myReservationsLink = tree.subTreeLike('LinkContainer', { to: '/admin-resources' });
-      expect(myReservationsLink).to.be.false;
+      const myReservationsLink = getNotLoggedInWrapper()
+        .find(LinkContainer).filter({ to: '/admin-resources' });
+      expect(myReservationsLink).to.have.length(0);
     });
   });
 });

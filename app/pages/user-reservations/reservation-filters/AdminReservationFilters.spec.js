@@ -1,9 +1,9 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
 import Select from 'react-select';
 import simple from 'simple-mock';
 
+import { shallowWithIntl } from 'utils/testUtils';
 import AdminReservationFilters from './AdminReservationFilters';
 
 describe('pages/user-reservations/reservation-filters/AdminReservationFilters', () => {
@@ -13,7 +13,7 @@ describe('pages/user-reservations/reservation-filters/AdminReservationFilters', 
   };
 
   function getWrapper(extraProps) {
-    return shallow(<AdminReservationFilters {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(<AdminReservationFilters {...defaultProps} {...extraProps} />);
   }
 
   describe('state filter', () => {
@@ -29,13 +29,12 @@ describe('pages/user-reservations/reservation-filters/AdminReservationFilters', 
 
     it('passes correct options to the Select component', () => {
       const expected = [
-        { label: 'Kaikki', value: 'all' },
-        { label: 'Hylätty', value: 'denied' },
-        { label: 'Hyväksytty', value: 'confirmed' },
-        { label: 'Käsiteltävänä', value: 'requested' },
-        { label: 'Peruttu', value: 'cancelled' },
+        { label: 'AdminReservationFilters.allOptionLabel', value: 'all' },
+        { label: 'common.cancelled', value: 'cancelled' },
+        { label: 'common.confirmed', value: 'confirmed' },
+        { label: 'common.denied', value: 'denied' },
+        { label: 'common.requested', value: 'requested' },
       ];
-
       expect(select.props().options).to.deep.equal(expected);
     });
 

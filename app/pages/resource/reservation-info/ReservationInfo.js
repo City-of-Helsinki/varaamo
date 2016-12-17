@@ -1,8 +1,10 @@
 import moment from 'moment';
 import React, { PropTypes } from 'react';
+import { FormattedHTMLMessage } from 'react-intl';
 import Well from 'react-bootstrap/lib/Well';
 
 import WrappedText from 'shared/wrapped-text';
+import { injectT } from 'translations';
 import { getProperty } from 'utils/translationUtils';
 
 function renderLoginText(isLoggedIn, resource) {
@@ -10,33 +12,41 @@ function renderLoginText(isLoggedIn, resource) {
     return null;
   }
   return (
-    <p>
-      Sinun täytyy <a href="/login">kirjautua sisään</a>, jotta voit tehdä varauksen tähän tilaan.
+    <p className="login-text">
+      <FormattedHTMLMessage id="ReservationInfo.loginMessage" />
     </p>
   );
 }
 
-function renderMaxPeriodText(maxPeriod) {
+function renderMaxPeriodText(maxPeriod, t) {
   if (!maxPeriod) {
     return null;
   }
   const asHours = moment.duration(maxPeriod).asHours();
-  return <p>{`Varauksen maksimipituus: ${asHours} tuntia`}</p>;
+  return (
+    <p className="max-length-text">
+      {t('ReservationInfo.reservationMaxLength', { asHours })}
+    </p>
+  );
 }
 
-function renderMaxReservationsPerUserText(maxReservationsPerUser) {
+function renderMaxReservationsPerUserText(maxReservationsPerUser, t) {
   if (!maxReservationsPerUser) {
     return null;
   }
-  return <p>{`Maksimimäärä varauksia per käyttäjä: ${maxReservationsPerUser}`}</p>;
+  return (
+    <p className="max-number-of-reservations-text">
+      {t('ReservationInfo.maxNumberOfReservations', { maxReservationsPerUser })}
+    </p>
+  );
 }
 
-function ReservationInfo({ isLoggedIn, resource }) {
+function ReservationInfo({ isLoggedIn, resource, t }) {
   return (
     <Well id="reservation-info">
       <WrappedText text={getProperty(resource, 'reservationInfo')} />
-      {renderMaxPeriodText(resource.maxPeriod)}
-      {renderMaxReservationsPerUserText(resource.maxReservationsPerUser)}
+      {renderMaxPeriodText(resource.maxPeriod, t)}
+      {renderMaxReservationsPerUserText(resource.maxReservationsPerUser, t)}
       {renderLoginText(isLoggedIn, resource)}
     </Well>
   );
@@ -50,6 +60,7 @@ ReservationInfo.propTypes = {
     reservable: PropTypes.bool,
     reservationInfo: PropTypes.object,
   }).isRequired,
+  t: PropTypes.func.isRequired,
 };
 
-export default ReservationInfo;
+export default injectT(ReservationInfo);

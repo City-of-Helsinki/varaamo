@@ -1,13 +1,13 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
 import Jumbotron from 'react-bootstrap/lib/Jumbotron';
 
+import { shallowWithIntl } from 'utils/testUtils';
 import HomeIntro from './HomeIntro';
 import ShowResourcesLink from './ShowResourcesLink';
 
 describe('pages/home/intro/HomeIntro', () => {
-  const wrapper = shallow(<HomeIntro />);
+  const wrapper = shallowWithIntl(<HomeIntro />);
 
   it('renders a Jumbotron component', () => {
     const jumbotron = wrapper.find(Jumbotron);
@@ -16,14 +16,14 @@ describe('pages/home/intro/HomeIntro', () => {
 
   it('renders a h2 header with correct text', () => {
     const h2 = wrapper.find('h2');
-    const expected = 'Tilat ja laitteet varattavana';
-    expect(h2.text()).to.equal(expected);
+    expect(h2).to.have.length(1);
+    expect(h2.text()).to.equal('HomeIntro.header');
   });
 
-  it('renders additional text inside p tag', () => {
+  it('renders p tag with correct text', () => {
     const p = wrapper.find('p');
-    const expected = 'Varaamosta voit varata julkisia tiloja ja laitteita omaan käyttöösi';
-    expect(p.text()).to.equal(expected);
+    expect(p).to.have.length(1);
+    expect(p.text()).to.equal('HomeIntro.lead');
   });
 
   it('renders a ShowResourcesLink component', () => {

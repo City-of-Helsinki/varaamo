@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Jumbotron from 'react-bootstrap/lib/Jumbotron';
 
+import { injectT } from 'translations';
 import ShowResourcesLink from './ShowResourcesLink';
 
-function HomeIntro() {
+function HomeIntro({ t }) {
   return (
     <div className="home-intro">
       <div className="content">
         <Jumbotron>
-          <h2>Tilat ja laitteet varattavana</h2>
-          <p>Varaamosta voit varata julkisia tiloja ja laitteita omaan käyttöösi</p>
+          <h2>{t('HomeIntro.header')}</h2>
+          <p>{t('HomeIntro.lead')}</p>
           <ShowResourcesLink />
         </Jumbotron>
       </div>
@@ -17,6 +18,8 @@ function HomeIntro() {
   );
 }
 
-HomeIntro.propTypes = {};
+HomeIntro.propTypes = {
+  t: PropTypes.func.isRequired,
+};
 
-export default HomeIntro;
+export default injectT(HomeIntro);

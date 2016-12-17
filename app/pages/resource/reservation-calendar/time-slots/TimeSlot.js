@@ -1,12 +1,13 @@
 import classNames from 'classnames';
 import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
-import { findDOMNode } from 'react-dom';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import Label from 'react-bootstrap/lib/Label';
+import { findDOMNode } from 'react-dom';
 
 import ReservationAccessCode from 'shared/reservation-access-code';
 import ReservationControls from 'shared/reservation-controls';
+import { injectT } from 'translations';
 import { scrollTo } from 'utils/domUtils';
 import { getProperty } from 'utils/translationUtils';
 
@@ -14,17 +15,23 @@ export function getLabelData({ isOwnReservation, isPast, slot }) {
   let data = {};
 
   if (slot.editing) {
-    data = { bsStyle: 'info', text: 'Muokataan' };
+    data = {
+      bsStyle: 'info',
+      messageId: 'TimeSlot.editing',
+    };
   } else if (slot.reserved) {
     data = {
       bsStyle: isOwnReservation ? 'info' : 'danger',
-      text: isOwnReservation ? 'Oma varaus' : 'Varattu',
+      messageId: isOwnReservation ? 'TimeSlot.ownReservation' : 'TimeSlot.reserved',
     };
   } else {
-    data = { bsStyle: 'success', text: 'Vapaa' };
+    data = {
+      bsStyle: 'success',
+      messageId: 'TimeSlot.available',
+    };
   }
 
-  return isPast ? { bsStyle: 'default', text: data.text } : data;
+  return isPast ? { bsStyle: 'default', messageId: data.messageId } : data;
 }
 
 class TimeSlot extends Component {
@@ -40,15 +47,23 @@ class TimeSlot extends Component {
     }
   }
 
-  getReservationInfoMessage(isLoggedIn, resource, slot) {
+  getReservationInfoNotification(isLoggedIn, resource, slot, t) {
     if (moment(slot.end) < moment() || slot.reserved) {
       return null;
     }
 
     if (!isLoggedIn && resource.reservable) {
-      return 'Kirjaudu sisään tehdäksesi varauksen tähän tilaan.';
+      return {
+        message: t('Notifications.loginToReserve'),
+        type: 'info',
+        timeOut: 10000,
+      };
     }
-    return getProperty(resource, 'reservationInfo');
+    return {
+      message: getProperty(resource, 'reservationInfo'),
+      type: 'info',
+      timeOut: 10000,
+    };
   }
 
   handleRowClick(disabled) {
@@ -58,16 +73,12 @@ class TimeSlot extends Component {
       onClick,
       resource,
       slot,
+      t,
     } = this.props;
 
     if (disabled) {
-      const message = this.getReservationInfoMessage(isLoggedIn, resource, slot);
-      if (message) {
-        const notification = {
-          message,
-          type: 'info',
-          timeOut: 10000,
-        };
+      const notification = this.getReservationInfoNotification(isLoggedIn, resource, slot, t);
+      if (notification && notification.message) {
         addNotification(notification);
       }
     } else {
@@ -111,6 +122,7 @@ class TimeSlot extends Component {
       resource,
       selected,
       slot,
+      t,
     } = this.props;
     const isPast = moment(slot.end) < moment();
     const disabled = (
@@ -125,7 +137,7 @@ class TimeSlot extends Component {
     const showReservationControls = reservationIsStarting && !isEditing;
     const {
       bsStyle: labelBsStyle,
-      text: labelText,
+      messageId: labelMessageId,
     } = getLabelData({ isOwnReservation, isPast, slot });
 
     return (
@@ -152,9 +164,7 @@ class TimeSlot extends Component {
           </time>
         </td>
         <td className="status-cell">
-          <Label bsStyle={labelBsStyle}>
-            {labelText}
-          </Label>
+          <Label bsStyle={labelBsStyle}>{t(labelMessageId)}</Label>
         </td>
         {!isAdmin && (
           <td className="controls-cell">
@@ -193,6 +203,7 @@ TimeSlot.propTypes = {
   scrollTo: PropTypes.bool,
   selected: PropTypes.bool.isRequired,
   slot: PropTypes.object.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
-export default TimeSlot;
+export default injectT(TimeSlot);

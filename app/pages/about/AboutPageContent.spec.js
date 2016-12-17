@@ -1,14 +1,14 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
 
 import * as customizationUtils from 'utils/customizationUtils';
+import { shallowWithIntl } from 'utils/testUtils';
 import AboutPageContent from './AboutPageContent';
 
 describe('Component: customization/AboutPageContent', () => {
   function getWrapper() {
-    return shallow(<AboutPageContent />);
+    return shallowWithIntl(<AboutPageContent />);
   }
 
   describe('When there is no customization in use', () => {
@@ -19,8 +19,7 @@ describe('Component: customization/AboutPageContent', () => {
     });
 
     it('renders header for Helsinki', () => {
-      const expected = 'Tietoa varaamo.hel.fi –palvelusta';
-      expect(content.find('h1').text()).to.contain(expected);
+      expect(content.find('h1').text()).to.contain('AboutPageContent.defaultHeader');
     });
   });
 
@@ -37,8 +36,7 @@ describe('Component: customization/AboutPageContent', () => {
     });
 
     it('renders header for Espoo', () => {
-      const expected = 'Tietoa varaamo.espoo.fi –palvelusta';
-      expect(content.find('h1').text()).to.contain(expected);
+      expect(content.find('h1').text()).to.contain('AboutPageContent.espooHeader');
     });
   });
 });

@@ -1,17 +1,19 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
 import { Field } from 'redux-form';
 import simple from 'simple-mock';
 
-import WrappedText from 'shared/wrapped-text';
 import constants from 'constants/AppConstants';
+import WrappedText from 'shared/wrapped-text';
+import { shallowWithIntl } from 'utils/testUtils';
 import { UnconnectedReservationForm as ReservationForm, validate } from './ReservationForm';
 
 describe('pages/resource/reservation-confirmation/ReservationForm', () => {
   describe('validation', () => {
+    const t = id => id;
+
     describe('if field value is missing', () => {
       describe('if user is reserving an staff event', () => {
         const values = { staffEvent: true };
@@ -23,6 +25,7 @@ describe('pages/resource/reservation-confirmation/ReservationForm', () => {
             const props = {
               fields: [fieldName],
               requiredFields: [],
+              t,
             };
             const errors = validate(values, props);
             expect(errors[fieldName]).to.exist;
@@ -36,6 +39,7 @@ describe('pages/resource/reservation-confirmation/ReservationForm', () => {
             const props = {
               fields: [fieldName],
               requiredFields: [],
+              t,
             };
             const errors = validate(values, props);
             expect(errors[fieldName]).to.not.exist;
@@ -51,6 +55,7 @@ describe('pages/resource/reservation-confirmation/ReservationForm', () => {
           const props = {
             fields: [fieldName],
             requiredFields: [fieldName],
+            t,
           };
           const errors = validate(values, props);
           expect(errors[fieldName]).to.exist;
@@ -61,6 +66,7 @@ describe('pages/resource/reservation-confirmation/ReservationForm', () => {
           const props = {
             fields: [fieldName],
             requiredFields: [],
+            t,
           };
           const errors = validate(values, props);
           expect(errors[fieldName]).to.not.exist;
@@ -70,7 +76,11 @@ describe('pages/resource/reservation-confirmation/ReservationForm', () => {
 
     describe('if field has a value', () => {
       it('does not return an error even if field is required', () => {
-        const props = { fields: ['name'], requiredFields: ['name'] };
+        const props = {
+          fields: ['name'],
+          requiredFields: ['name'],
+          t,
+        };
         const values = { name: 'Luke' };
         const errors = validate(values, props);
         expect(errors.name).to.not.exist;
@@ -81,6 +91,7 @@ describe('pages/resource/reservation-confirmation/ReservationForm', () => {
       const props = {
         fields: ['reserverEmailAddress'],
         requiredFields: [],
+        t,
       };
 
       it('returns an error if reserverEmailAddress is invalid', () => {
@@ -109,7 +120,7 @@ describe('pages/resource/reservation-confirmation/ReservationForm', () => {
     };
 
     function getWrapper(extraProps) {
-      return shallow(<ReservationForm {...defaultProps} {...extraProps} />);
+      return shallowWithIntl(<ReservationForm {...defaultProps} {...extraProps} />);
     }
 
     it('renders a Form component', () => {
@@ -205,7 +216,7 @@ describe('pages/resource/reservation-confirmation/ReservationForm', () => {
           const header = termsAndConditionsDiv.find('h5');
 
           expect(header.length).to.equal(1);
-          expect(header.text()).to.equal('Tilan käyttösäännöt');
+          expect(header.text()).to.equal('ReservationForm.termsAndConditionsHeader');
         });
 
         it('renders the terms and conditions text inside WrappedText component', () => {
@@ -250,8 +261,8 @@ describe('pages/resource/reservation-confirmation/ReservationForm', () => {
       describe('the first button', () => {
         const button = buttons.at(0);
 
-        it('has text "Takaisin"', () => {
-          expect(button.props().children).to.equal('Takaisin');
+        it('has correct text', () => {
+          expect(button.props().children).to.equal('common.back');
         });
 
         it('clicking it calls props.onClose', () => {
@@ -265,8 +276,8 @@ describe('pages/resource/reservation-confirmation/ReservationForm', () => {
       describe('the second button', () => {
         const button = buttons.at(1);
 
-        it('has text "Tallenna"', () => {
-          expect(button.props().children).to.equal('Tallenna');
+        it('has correct text', () => {
+          expect(button.props().children).to.equal('common.save');
         });
       });
     });

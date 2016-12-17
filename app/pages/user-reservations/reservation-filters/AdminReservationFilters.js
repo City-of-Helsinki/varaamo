@@ -4,24 +4,31 @@ import React, { Component, PropTypes } from 'react';
 import Select from 'react-select';
 
 import constants from 'constants/AppConstants';
-
-let stateOptions = map(
-  constants.RESERVATION_STATE_LABELS,
-  (value, key) => ({
-    label: value.labelText,
-    value: key,
-  })
-);
-stateOptions = sortBy(stateOptions, 'label');
-stateOptions.unshift({ label: 'Kaikki', value: 'all' });
+import { injectT } from 'translations';
 
 class AdminReservationFilters extends Component {
   render() {
-    const { filters, onFiltersChange } = this.props;
+    const { filters, onFiltersChange, t } = this.props;
+    const stateOptions = [
+      {
+        label: t('AdminReservationFilters.allOptionLabel'),
+        value: 'all',
+      },
+      ...sortBy(
+        map(
+          constants.RESERVATION_STATE_LABELS,
+          (value, key) => ({
+            label: t(value.labelTextId),
+            value: key,
+          })
+        ),
+        'label'
+      ),
+    ];
 
     return (
       <div className="reservation-filters">
-        <h4>Varauksen status</h4>
+        <h4>{t('AdminReservationFilters.header')}</h4>
         <Select
           className="reservation-state-select"
           clearable={false}
@@ -38,6 +45,7 @@ class AdminReservationFilters extends Component {
 AdminReservationFilters.propTypes = {
   filters: PropTypes.object.isRequired,
   onFiltersChange: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
-export default AdminReservationFilters;
+export default injectT(AdminReservationFilters);

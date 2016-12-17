@@ -8,12 +8,10 @@ import * as customizationUtils from 'utils/customizationUtils';
 import FeedbackLink from './FeedbackLink';
 
 describe('shared/feedback-link/FeedbackLink', () => {
-  const defaultProps = {
-    text: 'link text',
-  };
+  const linkChildren = <span>Some text</span>;
 
-  function getWrapper(extraProps) {
-    return shallow(<FeedbackLink {...defaultProps} {...extraProps} />);
+  function getWrapper() {
+    return shallow(<FeedbackLink>{linkChildren}</FeedbackLink>);
   }
 
   describe('When there is no customization in use', () => {
@@ -27,8 +25,9 @@ describe('shared/feedback-link/FeedbackLink', () => {
       expect(link.type()).to.equal('a');
     });
 
-    it('renders the text given in props', () => {
-      expect(link.text()).to.equal(defaultProps.text);
+    it('renders children', () => {
+      const wrapper = getWrapper();
+      expect(wrapper.children().equals(linkChildren)).to.be.true;
     });
 
     it('has correct href', () => {
@@ -53,8 +52,9 @@ describe('shared/feedback-link/FeedbackLink', () => {
       expect(link.type()).to.equal('a');
     });
 
-    it('renders the text given in props', () => {
-      expect(link.text()).to.equal(defaultProps.text);
+    it('renders children', () => {
+      const wrapper = getWrapper();
+      expect(wrapper.children().equals(linkChildren)).to.be.true;
     });
 
     it('has correct href', () => {

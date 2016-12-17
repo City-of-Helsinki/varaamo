@@ -10,6 +10,7 @@ import { IndexLink } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import Logo from 'shared/logo';
+import { injectT } from 'translations';
 import { getSearchPageUrl } from 'utils/searchUtils';
 
 class Navbar extends Component {
@@ -19,7 +20,7 @@ class Navbar extends Component {
   }
 
   renderUserNav() {
-    const { isLoggedIn, user } = this.props;
+    const { isLoggedIn, t, user } = this.props;
     let name;
     if (user.firstName || user.lastName) {
       name = trim([user.firstName, user.lastName].join(' '));
@@ -31,19 +32,21 @@ class Navbar extends Component {
       return (
         <NavDropdown id="collapsible-navbar-dropdown" title={name}>
           <MenuItem href={`/logout?next=${window.location.origin}`}>
-            Kirjaudu ulos
+            {t('Navbar.logout')}
           </MenuItem>
         </NavDropdown>
       );
     }
 
     return (
-      <NavItem href="/login">Kirjaudu sisään</NavItem>
+      <NavItem href="/login">
+        {t('Navbar.login')}
+      </NavItem>
     );
   }
 
   render() {
-    const { isAdmin, isLoggedIn, clearSearchResults } = this.props;
+    const { isAdmin, clearSearchResults, isLoggedIn, t } = this.props;
 
     return (
       <RBNavbar inverse>
@@ -60,19 +63,23 @@ class Navbar extends Component {
           <Nav navbar>
             <LinkContainer to={getSearchPageUrl()}>
               <NavItem onClick={clearSearchResults}>
-                <Glyphicon glyph="search" /> Haku
+                <Glyphicon glyph="search" /> {t('Navbar.search')}
               </NavItem>
             </LinkContainer>
           </Nav>
           <Nav navbar pullRight>
             {isAdmin && (
               <LinkContainer to="/admin-resources">
-                <NavItem>Omat tilat</NavItem>
+                <NavItem>
+                  {t('Navbar.adminResources')}
+                </NavItem>
               </LinkContainer>
             )}
             {isLoggedIn && (
               <LinkContainer to="/my-reservations">
-                <NavItem>Omat varaukset</NavItem>
+                <NavItem>
+                  {t('Navbar.userResources')}
+                </NavItem>
               </LinkContainer>
             )}
             {this.renderUserNav()}
@@ -87,7 +94,8 @@ Navbar.propTypes = {
   clearSearchResults: PropTypes.func.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
+  t: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
 };
 
-export default Navbar;
+export default injectT(Navbar);

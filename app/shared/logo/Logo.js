@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
+import { injectT } from 'translations';
 import { getCurrentCustomization } from 'utils/customizationUtils';
 import helsinkiLogoSrc from './helsinki-coat-of-arms-white.png';
 import espooLogoSrc from './espoo-logo.png';
 
-function Logo() {
+function Logo({ t }) {
   switch (getCurrentCustomization()) {
 
     case 'ESPOO': {
       return (
         <img
-          alt="Espoon kaupunki"
+          alt={t('Logo.espooAlt')}
           src={espooLogoSrc}
         />
       );
@@ -19,7 +20,7 @@ function Logo() {
     default: {
       return (
         <img
-          alt="Helsingin vaakuna"
+          alt={t('Logo.helsinkiAlt')}
           src={helsinkiLogoSrc}
         />
       );
@@ -27,6 +28,8 @@ function Logo() {
   }
 }
 
-Logo.propTypes = {};
+Logo.propTypes = {
+  t: PropTypes.func.isRequired,
+};
 
-export default Logo;
+export default injectT(Logo);

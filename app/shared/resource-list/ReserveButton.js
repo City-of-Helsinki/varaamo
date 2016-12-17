@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import { LinkContainer } from 'react-router-bootstrap';
 
+import { injectT } from 'translations';
 import {
   getOpeningHours,
   getResourcePageUrl,
@@ -10,7 +11,7 @@ import {
 } from 'utils/resourceUtils';
 import { isPastDate } from 'utils/timeUtils';
 
-function ReserveButton({ date, isLoggedIn, resource }) {
+function ReserveButton({ date, isLoggedIn, resource, t }) {
   const { closes } = getOpeningHours(resource);
   const isClosed = !closes || moment() > moment(closes);
   const hideButton = isClosed || isPastDate(date) || reservingIsRestricted(resource, date);
@@ -23,9 +24,11 @@ function ReserveButton({ date, isLoggedIn, resource }) {
   let buttonText;
 
   if (isReservable) {
-    buttonText = resource.needManualConfirmation ? 'Tee alustava varaus' : 'Varaa';
+    buttonText = resource.needManualConfirmation ?
+      t('ReserveButton.makePreliminaryReservation') :
+      t('ReserveButton.makeRegularReservation');
   } else {
-    buttonText = 'Katso varaustilanne';
+    buttonText = t('ReserveButton.notReservableText');
   }
 
   return (
@@ -45,6 +48,7 @@ ReserveButton.propTypes = {
     reservable: PropTypes.bool.isRequired,
     userPermissions: PropTypes.object.isRequired,
   }).isRequired,
+  t: PropTypes.func.isRequired,
 };
 
-export default ReserveButton;
+export default injectT(ReserveButton);

@@ -1,9 +1,9 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
 import Reservation from 'utils/fixtures/Reservation';
+import { shallowWithIntl } from 'utils/testUtils';
 import ReservationAccessCode from './ReservationAccessCode';
 
 describe('shared/reservation-access-code/ReservationAccessCode', () => {
@@ -12,7 +12,7 @@ describe('shared/reservation-access-code/ReservationAccessCode', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallow(<ReservationAccessCode {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(<ReservationAccessCode {...defaultProps} {...extraProps} />);
   }
 
   describe('if reservation has accessCode', () => {
@@ -36,9 +36,9 @@ describe('shared/reservation-access-code/ReservationAccessCode', () => {
       expect(content).to.contain(text);
     });
 
-    it('renders "PIN-koodi:" if no text is given in props', () => {
+    it('renders default text if no text is given in props', () => {
       const content = getWrapper({ reservation }).text();
-      expect(content).to.contain('PIN-koodi:');
+      expect(content).to.contain('ReservationAccessCode.defaultText');
     });
   });
 

@@ -1,8 +1,9 @@
 import { expect } from 'chai';
 import React from 'react';
 import simple from 'simple-mock';
-import { shallow } from 'enzyme';
 
+import PageWrapper from 'pages/PageWrapper';
+import { shallowWithIntl } from 'utils/testUtils';
 import { UnconnectedUserReservationsPage as UserReservationsPage } from './UserReservationsPage';
 import AdminReservationFilters from './reservation-filters/AdminReservationFilters';
 import ReservationList from './reservation-list';
@@ -28,17 +29,22 @@ describe('pages/user-reservations/UserReservationsPage', () => {
 
   function getWrapper(extraProps = {}) {
     const props = Object.assign({}, defaultProps, extraProps);
-    return shallow(<UserReservationsPage {...props} />);
+    return shallowWithIntl(<UserReservationsPage {...props} />);
   }
 
-  describe('rendering', () => {
+  describe('render', () => {
+    it('renders PageWrapper with correct title', () => {
+      const pageWrapper = getWrapper().find(PageWrapper);
+      expect(pageWrapper).to.have.length(1);
+      expect(pageWrapper.prop('title')).to.equal('UserReservationsPage.title');
+    });
+
     describe('when user is not admin', () => {
       const wrapper = getWrapper({ isAdmin: false });
 
-      it('displays "Omat varaukset" -title inside h1 tags', () => {
+      it('displays correct title inside h1 tags', () => {
         const h1 = wrapper.find('h1');
-
-        expect(h1.text()).to.equal('Omat varaukset');
+        expect(h1.text()).to.equal('UserReservationsPage.title');
       });
 
       it('renders ReservationList with all user reservations', () => {
@@ -57,20 +63,18 @@ describe('pages/user-reservations/UserReservationsPage', () => {
     describe('when user is an admin', () => {
       const wrapper = getWrapper({ isAdmin: true });
 
-      describe('headers', () => {
-        const headers = wrapper.find('h1');
+      it('renders two headers', () => {
+        expect(wrapper.find('h1').length).to.equal(2);
+      });
 
-        it('renders two headers', () => {
-          expect(headers.length).to.equal(2);
-        });
+      it('renders correct text inside the first header', () => {
+        const headerText = wrapper.find('h1').at(0).text();
+        expect(headerText).to.equal('UserReservationsPage.preliminaryReservationsHeader');
+      });
 
-        it('the first header displays "Alustavat varaukset"', () => {
-          expect(headers.at(0).text()).to.equal('Alustavat varaukset');
-        });
-
-        it('the second header displays "Tavalliset varaukset"', () => {
-          expect(headers.at(1).text()).to.equal('Tavalliset varaukset');
-        });
+      it('renders correct text inside the second header', () => {
+        const headerText = wrapper.find('h1').at(1).text();
+        expect(headerText).to.equal('UserReservationsPage.regularReservationsHeader');
       });
 
       describe('AdminReservationFilters', () => {
