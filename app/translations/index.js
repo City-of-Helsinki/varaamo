@@ -1,3 +1,7 @@
+import changeLanguage from './changeLanguage';
 import injectT from './injectT';
 
-export { injectT };
+export {
+  changeLanguage,
+  injectT,
+};
