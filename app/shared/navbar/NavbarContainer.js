@@ -6,13 +6,9 @@ import { clearSearchResults } from 'actions/searchActions';
 import currentUserSelector from 'state/selectors/currentUserSelector';
 import isAdminSelector from 'state/selectors/isAdminSelector';
 import isLoggedInSelector from 'state/selectors/isLoggedInSelector';
+import { currentLanguageSelector } from 'state/selectors/translationSelectors';
 import { changeLanguage } from 'translations';
 import Navbar from './Navbar';
-
-function currentLanguageSelector(state) {
-  const locale = state.intl.locale;
-  return locale === 'se' ? 'sv' : locale;
-}
 
 const userNameSelector = createSelector(
   currentUserSelector,

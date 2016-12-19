@@ -5,6 +5,7 @@ export default {
     'varaamotest-espoo.hel.ninja': 'ESPOO',
   },
   DATE_FORMAT: 'YYYY-MM-DD',
+  DEFAULT_LANGUAGE: 'fi',
   FEEDBACK_URL: 'http://www.helmet-kirjasto.fi/varaamo-palaute/',
   LOCALIZED_DATE_FORMAT: 'D.M.YYYY',
   NOTIFICATION_DEFAULTS: {
@@ -55,6 +56,7 @@ export default {
       labelTextId: 'common.requested',
     },
   },
+  SUPPORTED_LANGUAGES: ['en', 'fi', 'sv'],
   SUPPORTED_SEARCH_FILTERS: {
     date: '',
     people: '',
