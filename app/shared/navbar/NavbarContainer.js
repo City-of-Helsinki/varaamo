@@ -3,9 +3,7 @@ import { createSelector, createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 
 import { clearSearchResults } from 'actions/searchActions';
-import currentUserSelector from 'state/selectors/currentUserSelector';
-import isAdminSelector from 'state/selectors/isAdminSelector';
-import isLoggedInSelector from 'state/selectors/isLoggedInSelector';
+import { currentUserSelector, isAdminSelector, isLoggedInSelector } from 'state/selectors/authSelectors';
 import { currentLanguageSelector } from 'state/selectors/translationSelectors';
 import { changeLanguage } from 'translations';
 import Navbar from './Navbar';
