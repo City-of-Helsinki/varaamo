@@ -1,6 +1,6 @@
 import { createStructuredSelector } from 'reselect';
 
-import isAdminSelector from 'state/selectors/isAdminSelector';
+import { isAdminSelector } from 'state/selectors/authSelectors';
 
 const adminReservationFiltersSelector = state => state.ui.reservations.adminReservationFilters;
 const reservationsFetchCountSelector = state => state.api.fetchCounts.reservations;

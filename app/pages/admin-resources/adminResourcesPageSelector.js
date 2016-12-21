@@ -2,9 +2,9 @@ import { createSelector, createStructuredSelector } from 'reselect';
 import sortBy from 'lodash/sortBy';
 
 import ActionTypes from 'constants/ActionTypes';
+import { isAdminSelector } from 'state/selectors/authSelectors';
 import { resourcesSelector } from 'state/selectors/dataSelectors';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
-import isAdminSelector from 'state/selectors/isAdminSelector';
 
 const resourceIdsSelector = state => state.ui.pages.adminResources.resourceIds;
 

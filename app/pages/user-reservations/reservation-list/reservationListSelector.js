@@ -1,8 +1,8 @@
 import { createStructuredSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
+import { isAdminSelector } from 'state/selectors/authSelectors';
 import { resourcesSelector, unitsSelector } from 'state/selectors/dataSelectors';
-import isAdminSelector from 'state/selectors/isAdminSelector';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
 import sortedReservationsSelector from 'state/selectors/sortedReservationsSelector';
 import staffUnitsSelector from 'state/selectors/staffUnitsSelector';
