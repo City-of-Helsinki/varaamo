@@ -89,7 +89,7 @@
   "ReservationCancelModal.cancelAllowedTitle": "Bekräfta avbokningen",
   "ReservationCancelModal.cancelNotAllowedInfo": "Avbokningen av bokningen måste göras via tjänstemannen som ansvarar för utrymmet. Om du vill avboka en bokning eller ändra tidpunkten för bokningen, kontakta tjänstemannen som ansvarar för utrymmet.",
   "ReservationCancelModal.cancelNotAllowedTitle": "Avbokning av bokning",
-  "ReservationCancelModal.lead": "Är du säker på att du vill avboka {reservationsCount, plural, one {följande bokning} other {följande bokningar}}:",
+  "ReservationCancelModal.lead": "Är du säker på att du vill avboka följande bokning:",
   "ReservationCancelModal.takeIntoAccount": "Märk väl att bokningen ska avbokas minst <strong>5 dagar</strong> före datumet för bokningen. Oanvända bokningar faktureras.",
   "ReservationControls.cancel": "Avbryt",
   "ReservationControls.confirm": "Godkänn",

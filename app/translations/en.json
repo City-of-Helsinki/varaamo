@@ -89,7 +89,7 @@
   "ReservationCancelModal.cancelAllowedTitle": "Confirming the cancellation",
   "ReservationCancelModal.cancelNotAllowedInfo": "The reservation must be cancelled through the employee in charge of the premises. If you wish to cancel the reservation or make changes to the reservation times, contact the employee in charge of the premises.",
   "ReservationCancelModal.cancelNotAllowedTitle": "Cancelling a reservation",
-  "ReservationCancelModal.lead": "Are you certain that you wish to cancel {reservationsCount, plural, one {the following reservation} other {the following reservations}}:",
+  "ReservationCancelModal.lead": "Are you certain that you wish to cancel the following reservation:",
   "ReservationCancelModal.takeIntoAccount": "Please note that the reservation must be cancelled, at the latest, <strong>5 days</strong> before the start of the reservation. You will be invoiced for unused reservations.",
   "ReservationControls.cancel": "Cancel",
   "ReservationControls.confirm": "Approve",

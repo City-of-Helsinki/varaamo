@@ -89,7 +89,7 @@
   "ReservationCancelModal.cancelAllowedTitle": "Perumisen vahvistus",
   "ReservationCancelModal.cancelNotAllowedInfo": "Varauksen peruminen täytyy tehdä tilasta vastaavan virkailijan kautta. Mikäli haluat perua varauksen tai tehdä muutoksia varausaikaan ole yhteydessä tilasta vastaavaan virkailijaan.",
   "ReservationCancelModal.cancelNotAllowedTitle": "Varauksen peruminen",
-  "ReservationCancelModal.lead": "Oletko varma että haluat perua {reservationsCount, plural, one {seuraavan varauksen} other {seuraavat varaukset}}:",
+  "ReservationCancelModal.lead": "Oletko varma että haluat perua seuraavan varauksen:",
   "ReservationCancelModal.takeIntoAccount": "Huomioi kuitenkin, että varaus pitää perua viimeistään <strong>5 päivää</strong> ennen varauksen alkamista. Käyttämättömät varaukset laskutetaan.",
   "ReservationControls.cancel": "Peru",
   "ReservationControls.confirm": "Hyväksy",
