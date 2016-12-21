@@ -1,21 +1,36 @@
-import { createStructuredSelector } from 'reselect';
+import { createSelector, createStructuredSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
 import ModalTypes from 'constants/ModalTypes';
 import { isAdminSelector } from 'state/selectors/authSelectors';
-import { resourcesSelector } from 'state/selectors/dataSelectors';
+import { createResourceSelector } from 'state/selectors/dataSelectors';
 import modalIsOpenSelectorFactory from 'state/selectors/factories/modalIsOpenSelectorFactory';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
 
-const toCancelSelector = state => state.ui.reservations.toCancel;
+function reservationSelector(state) {
+  return state.ui.reservations.toCancel[0] || {};
+}
+
+const resourceIdSelector = createSelector(
+  reservationSelector,
+  reservation => reservation.resource
+);
+
+const cancelAllowedSelector = createSelector(
+  isAdminSelector,
+  reservationSelector,
+  (isAdmin, reservation) => (
+    isAdmin || !reservation.needManualConfirmation || reservation.state !== 'confirmed'
+  )
+);
 
 const reservationCancelModalSelector = createStructuredSelector({
-  isAdmin: isAdminSelector,
+  cancelAllowed: cancelAllowedSelector,
   isCancellingReservations: requestIsActiveSelectorFactory(
     ActionTypes.API.RESERVATION_DELETE_REQUEST
   ),
-  reservationsToCancel: toCancelSelector,
-  resources: resourcesSelector,
+  reservation: reservationSelector,
+  resource: createResourceSelector(resourceIdSelector),
   show: modalIsOpenSelectorFactory(ModalTypes.RESERVATION_CANCEL),
 });
 

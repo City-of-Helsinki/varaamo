@@ -1,80 +1,38 @@
-import forEach from 'lodash/forEach';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-bootstrap/lib/Modal';
+import { FormattedHTMLMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { deleteReservation } from 'actions/reservationActions';
 import { closeReservationCancelModal } from 'actions/uiActions';
 import CompactReservationList from 'shared/compact-reservation-list';
-import { getProperty } from 'utils/translationUtils';
+import { injectT } from 'translations';
 import reservationCancelModalSelector from './reservationCancelModalSelector';
 
-export class UnconnectedReservationCancelModalContainer extends Component {
+class UnconnectedReservationCancelModalContainer extends Component {
   constructor(props) {
     super(props);
     this.handleCancel = this.handleCancel.bind(this);
   }
 
   handleCancel() {
-    const { actions, reservationsToCancel } = this.props;
-
-    forEach(reservationsToCancel, (reservation) => {
-      actions.deleteReservation(reservation);
-    });
+    const { actions, reservation } = this.props;
+    actions.deleteReservation(reservation);
     actions.closeReservationCancelModal();
-  }
-
-  renderModalContent(reservations, resources, cancelAllowed, responsibleContactInfo) {
-    if (cancelAllowed) {
-      return (
-        <div>
-          {reservations.length === 1 ?
-            <p><strong>Oletko varma että haluat perua seuraavan varauksen:</strong></p> :
-              <p><strong>Oletko varma että haluat perua seuraavat varaukset:</strong></p>
-          }
-          <CompactReservationList reservations={reservations} resources={resources} />
-        </div>
-      );
-    }
-
-    return (
-      <div>
-        <p>
-          Varauksen peruminen täytyy tehdä tilasta vastaavan virkailijan kautta.
-          Mikäli haluat perua varauksen tai tehdä muutoksia varausaikaan ole yhteydessä tilasta
-          vastaavaan virkailijaan.
-        </p>
-        <p>
-          Huomioi kuitenkin, että varaus pitää perua viimeistään <strong>5 päivää</strong> ennen
-          varauksen alkamista. Käyttämättömät varaukset laskutetaan.
-        </p>
-        <p className="responsible-contact-info">{responsibleContactInfo}</p>
-      </div>
-    );
   }
 
   render() {
     const {
       actions,
-      isAdmin,
+      cancelAllowed,
       isCancellingReservations,
-      reservationsToCancel,
-      resources,
+      reservation,
+      resource,
       show,
+      t,
     } = this.props;
-
-    const reservation = reservationsToCancel.length ? reservationsToCancel[0] : null;
-    const resource = reservation ? resources[reservation.resource] : {};
-    const state = reservation ? reservation.state : '';
-    const isPreliminaryReservation = reservation && reservation.needManualConfirmation;
-    const cancelAllowed = (
-      !isPreliminaryReservation ||
-      isAdmin ||
-      state !== 'confirmed'
-    );
-    const responsibleContactInfo = getProperty(resource, 'responsibleContactInfo');
 
     return (
       <Modal
@@ -83,14 +41,32 @@ export class UnconnectedReservationCancelModalContainer extends Component {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-            {cancelAllowed ? 'Perumisen vahvistus' : 'Varauksen peruminen'}
+            {cancelAllowed ?
+              t('ReservationCancelModal.cancelAllowedTitle') :
+              t('ReservationCancelModal.cancelNotAllowedTitle')
+            }
           </Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-          {this.renderModalContent(
-            reservationsToCancel, resources, cancelAllowed, responsibleContactInfo
-          )}
+          {cancelAllowed &&
+            <div>
+              <p><strong>{t('ReservationCancelModal.lead')}</strong></p>
+              {reservation.resource &&
+                <CompactReservationList
+                  reservations={[reservation]}
+                  resources={{ [resource.id]: resource }}
+                />
+              }
+            </div>
+          }
+          {!cancelAllowed &&
+            <div>
+              <p>{t('ReservationCancelModal.cancelNotAllowedInfo')}</p>
+              <p><FormattedHTMLMessage id="ReservationCancelModal.takeIntoAccount" /></p>
+              <p className="responsible-contact-info">{resource.responsibleContactInfo}</p>
+            </div>
+          }
         </Modal.Body>
 
         <Modal.Footer>
@@ -98,7 +74,10 @@ export class UnconnectedReservationCancelModalContainer extends Component {
             bsStyle="default"
             onClick={actions.closeReservationCancelModal}
           >
-            {cancelAllowed ? 'Älä peru varausta' : 'Takaisin'}
+            {cancelAllowed ?
+              t('ReservationCancelModal.cancelAllowedCancel') :
+              t('common.back')
+            }
           </Button>
           {cancelAllowed && (
             <Button
@@ -106,7 +85,10 @@ export class UnconnectedReservationCancelModalContainer extends Component {
               disabled={isCancellingReservations}
               onClick={this.handleCancel}
             >
-              {isCancellingReservations ? 'Perutaan...' : 'Peru varaus'}
+              {isCancellingReservations ?
+                t('common.cancelling') :
+                t('ReservationCancelModal.cancelAllowedConfirm')
+              }
             </Button>
           )}
         </Modal.Footer>
@@ -117,12 +99,15 @@ export class UnconnectedReservationCancelModalContainer extends Component {
 
 UnconnectedReservationCancelModalContainer.propTypes = {
   actions: PropTypes.object.isRequired,
-  isAdmin: PropTypes.bool.isRequired,
+  cancelAllowed: PropTypes.bool.isRequired,
   isCancellingReservations: PropTypes.bool.isRequired,
-  reservationsToCancel: PropTypes.array.isRequired,
-  resources: PropTypes.object.isRequired,
+  reservation: PropTypes.object.isRequired,
+  resource: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
+  t: PropTypes.func.isRequired,
 };
+
+UnconnectedReservationCancelModalContainer = injectT(UnconnectedReservationCancelModalContainer);  // eslint-disable-line
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
@@ -133,6 +118,7 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
+export { UnconnectedReservationCancelModalContainer };
 export default connect(reservationCancelModalSelector, mapDispatchToProps)(
   UnconnectedReservationCancelModalContainer
 );
