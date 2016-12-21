@@ -1,16 +1,10 @@
 import { createSelector, createStructuredSelector } from 'reselect';
 
-import { resourcesSelector, unitsSelector } from 'state/selectors/dataSelectors';
+import { createResourceSelector, unitsSelector } from 'state/selectors/dataSelectors';
 import isLoggedInSelector from 'state/selectors/isLoggedInSelector';
 
 const resourceIdSelector = (state, props) => props.resourceId;
-
-const resourceSelector = createSelector(
-  resourcesSelector,
-  resourceIdSelector,
-  (resources, resourceId) => resources[resourceId] || {}
-);
-
+const resourceSelector = createResourceSelector(resourceIdSelector);
 const unitSelector = createSelector(
   unitsSelector,
   resourceSelector,
@@ -19,7 +13,7 @@ const unitSelector = createSelector(
 
 const resourceListItemSelector = createStructuredSelector({
   isLoggedIn: isLoggedInSelector,
-  resource: resourceSelector,
+  resource: createResourceSelector(resourceIdSelector),
   unit: unitSelector,
 });
 

@@ -2,6 +2,7 @@ import { expect } from 'chai';
 
 import { getState } from 'utils/testUtils';
 import {
+  createResourceSelector,
   purposesSelector,
   reservationsSelector,
   resourcesSelector,
@@ -82,6 +83,25 @@ describe('state/selectors/dataSelectors', () => {
       };
       const selected = unitsSelector(state);
       expect(selected).to.deep.equal(expected);
+    });
+  });
+
+  describe('createResourceSelector', () => {
+    it('returns the resource specified by the given id selector', () => {
+      const resource = { id: 'r-1' };
+      const idSelector = () => resource.id;
+      const state = getState({
+        'data.resources': { [resource.id]: resource },
+      });
+      const selected = createResourceSelector(idSelector)(state);
+      expect(selected).to.deep.equal(resource);
+    });
+
+    it('returns an empty object if resource does not exist', () => {
+      const idSelector = () => 'r-999';
+      const state = getState();
+      const selected = createResourceSelector(idSelector)(state);
+      expect(selected).to.deep.equal({});
     });
   });
 });
