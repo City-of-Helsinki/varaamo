@@ -99,7 +99,7 @@ describe('pages/admin-resources/resources-table/ResourcesTableRow', () => {
             expect(tdComponent.children().is(Link)).to.be.true;
             const props = tdComponent.children().props();
             expect(props.to).to.equal(getResourcePageUrl(resource));
-            expect(props.children).to.equal(resource.name.fi);
+            expect(props.children).to.equal(resource.name);
           });
         });
 

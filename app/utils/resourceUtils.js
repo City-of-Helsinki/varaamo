@@ -5,7 +5,6 @@ import queryString from 'query-string';
 
 import constants from 'constants/AppConstants';
 import { getCurrentReservation, getNextAvailableTime } from 'utils/reservationUtils';
-import { getProperty } from 'utils/translationUtils';
 
 function isOpenNow(resource) {
   const { closes, opens } = getOpeningHours(resource);
@@ -122,8 +121,8 @@ function getResourcePageUrl(resource, date, time) {
 }
 
 function getTermsAndConditions(resource = {}) {
-  const genericTerms = getProperty(resource, 'genericTerms');
-  const specificTerms = getProperty(resource, 'specificTerms');
+  const genericTerms = resource.genericTerms || '';
+  const specificTerms = resource.specificTerms || '';
 
   if (genericTerms && specificTerms) {
     return `${specificTerms}\n\n${genericTerms}`;

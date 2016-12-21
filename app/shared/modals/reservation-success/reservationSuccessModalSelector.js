@@ -1,10 +1,10 @@
 import { createStructuredSelector } from 'reselect';
 
 import ModalTypes from 'constants/ModalTypes';
+import { resourcesSelector } from 'state/selectors/dataSelectors';
 import currentUserSelector from 'state/selectors/currentUserSelector';
 import modalIsOpenSelectorFactory from 'state/selectors/factories/modalIsOpenSelectorFactory';
 
-const resourcesSelector = state => state.data.resources;
 const toShowSelector = state => state.ui.reservations.toShow;
 
 const reservationSuccessModalSelector = createStructuredSelector({

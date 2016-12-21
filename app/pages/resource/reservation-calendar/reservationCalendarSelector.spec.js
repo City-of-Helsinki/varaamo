@@ -46,7 +46,6 @@ function getProps(id = 'some-id') {
   };
 }
 
-
 describe('pages/resource/reservation-calendar/reservationCalendarSelector', () => {
   const resource = Resource.build({
     minPeriod: '01:00:00',

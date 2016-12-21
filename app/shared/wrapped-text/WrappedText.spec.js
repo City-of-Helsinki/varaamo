@@ -19,6 +19,18 @@ describe('shared/wrapped-text/WrappedText', () => {
     expect(wrapper.hasClass('wrapped-text')).to.be.true;
   });
 
+  it('renders an empty div if no text is given in props', () => {
+    const text = undefined;
+    const wrapper = getWrapper({ text });
+    expect(wrapper.matchesElement(<div />)).to.be.true;
+  });
+
+  it('renders an empty div if empty string is given as text in props', () => {
+    const text = '';
+    const wrapper = getWrapper({ text });
+    expect(wrapper.matchesElement(<div />)).to.be.true;
+  });
+
   describe('Text with one line', () => {
     const text = 'Just one line';
     let content;

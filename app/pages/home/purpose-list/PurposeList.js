@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 
 import { getSearchPageUrl } from 'utils/searchUtils';
-import { getName } from 'utils/translationUtils';
 import PurposeListItem from './PurposeListItem';
 import manufacturingImage from './images/manufacturing.jpg';
 import meetingsAndWorkingImage from './images/meetings-and-working.jpg';
@@ -21,7 +20,7 @@ function renderPurposeListItem(purpose) {
       imageUrl={images[purpose.id] || ''}
       key={purpose.id}
       linkUrl={getSearchPageUrl({ purpose: purpose.id })}
-      text={getName(purpose)}
+      text={purpose.name}
     />
   );
 }
@@ -36,9 +35,7 @@ function PurposeList({ purposes }) {
 
 const purposePropType = PropTypes.shape({
   id: PropTypes.string.isRequired,
-  name: PropTypes.shape({
-    fi: PropTypes.string.isRequired,
-  }).isRequired,
+  name: PropTypes.string.isRequired,
 });
 
 PurposeList.propTypes = {

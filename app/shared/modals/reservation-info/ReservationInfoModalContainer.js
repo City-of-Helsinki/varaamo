@@ -15,7 +15,6 @@ import { commentReservation } from 'actions/reservationActions';
 import ReservationStateLabel from 'shared/reservation-state-label';
 import TimeRange from 'shared/time-range';
 import { injectT } from 'translations';
-import { getName } from 'utils/translationUtils';
 import reservationInfoModalSelector from './reservationInfoModalSelector';
 
 class UnconnectedReservationInfoModalContainer extends Component {
@@ -95,7 +94,7 @@ class UnconnectedReservationInfoModalContainer extends Component {
                 </dd>
                 <dt>{t('ReservationInfoModal.reservationTime')}:</dt>
                 <dd><TimeRange begin={reservation.begin} end={reservation.end} /></dd>
-                <dt>{t('ReservationInfoModal.resource')}:</dt><dd>{getName(resource)}</dd>
+                <dt>{t('ReservationInfoModal.resource')}:</dt><dd>{resource.name}</dd>
                 {reservation.accessCode && (
                   <span>
                     <dt>{t('ReservationInfoModal.accessCode')}:</dt>

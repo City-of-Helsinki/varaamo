@@ -5,7 +5,6 @@ import Well from 'react-bootstrap/lib/Well';
 
 import WrappedText from 'shared/wrapped-text';
 import { injectT } from 'translations';
-import { getProperty } from 'utils/translationUtils';
 
 function renderLoginText(isLoggedIn, resource) {
   if (isLoggedIn || !resource.reservable) {
@@ -44,7 +43,7 @@ function renderMaxReservationsPerUserText(maxReservationsPerUser, t) {
 function ReservationInfo({ isLoggedIn, resource, t }) {
   return (
     <Well id="reservation-info">
-      <WrappedText text={getProperty(resource, 'reservationInfo')} />
+      <WrappedText text={resource.reservationInfo} />
       {renderMaxPeriodText(resource.maxPeriod, t)}
       {renderMaxReservationsPerUserText(resource.maxReservationsPerUser, t)}
       {renderLoginText(isLoggedIn, resource)}
@@ -58,7 +57,7 @@ ReservationInfo.propTypes = {
     maxPeriod: PropTypes.string,
     maxReservationsPerUser: PropTypes.number,
     reservable: PropTypes.bool,
-    reservationInfo: PropTypes.object,
+    reservationInfo: PropTypes.string,
   }).isRequired,
   t: PropTypes.func.isRequired,
 };

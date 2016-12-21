@@ -2,14 +2,13 @@ import isEmpty from 'lodash/isEmpty';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
-import TimeRange from 'shared/time-range';
 import ReservationAccessCode from 'shared/reservation-access-code';
 import ReservationControls from 'shared/reservation-controls';
 import ReservationStateLabel from 'shared/reservation-state-label';
+import TimeRange from 'shared/time-range';
 import { injectT } from 'translations';
 import { getCaption, getMainImage } from 'utils/imageUtils';
 import { getResourcePageUrl } from 'utils/resourceUtils';
-import { getName } from 'utils/translationUtils';
 
 class ReservationListItem extends Component {
   renderImage(image) {
@@ -43,7 +42,7 @@ class ReservationListItem extends Component {
         <div className="names">
           <Link to={getResourcePageUrl(resource)}>
             <h4>
-              {getName(resource)}{nameSeparator} <span className="unit-name">{getName(unit)}</span>
+              {resource.name}{nameSeparator} <span className="unit-name">{unit.name}</span>
             </h4>
           </Link>
         </div>

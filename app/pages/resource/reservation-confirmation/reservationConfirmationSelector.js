@@ -1,5 +1,5 @@
 import { formValueSelector } from 'redux-form';
-import { createSelector } from 'reselect';
+import { createStructuredSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
 import ModalTypes from 'constants/ModalTypes';
@@ -14,31 +14,14 @@ const staffEventSelectedSelector = state => (
   formValueSelector('preliminaryReservation')(state, 'staffEvent')
 );
 
-const reservationCalendarSelector = createSelector(
-  modalIsOpenSelectorFactory(ModalTypes.RESERVATION_CONFIRM),
-  requestIsActiveSelectorFactory(ActionTypes.API.RESERVATION_POST_REQUEST),
-  resourceSelector,
-  selectedReservationsSelector,
-  staffEventSelectedSelector,
-  staffUnitsSelector,
-  toEditSelector,
-  (
-    confirmReservationModalIsOpen,
-    isMakingReservations,
-    resource,
-    selectedReservations,
-    staffEventSelected,
-    staffUnits,
-    reservationsToEdit,
-  ) => ({
-    confirmReservationModalIsOpen,
-    isMakingReservations,
-    reservationsToEdit,
-    resource,
-    selectedReservations,
-    staffEventSelected,
-    staffUnits,
-  })
-);
+const reservationCalendarSelector = createStructuredSelector({
+  confirmReservationModalIsOpen: modalIsOpenSelectorFactory(ModalTypes.RESERVATION_CONFIRM),
+  isMakingReservations: requestIsActiveSelectorFactory(ActionTypes.API.RESERVATION_POST_REQUEST),
+  reservationsToEdit: toEditSelector,
+  resource: resourceSelector,
+  selectedReservations: selectedReservationsSelector,
+  staffEventSelected: staffEventSelectedSelector,
+  staffUnits: staffUnitsSelector,
+});
 
 export default reservationCalendarSelector;

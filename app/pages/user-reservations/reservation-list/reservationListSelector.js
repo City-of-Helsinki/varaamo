@@ -1,36 +1,19 @@
-import { createSelector } from 'reselect';
+import { createStructuredSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
+import { resourcesSelector, unitsSelector } from 'state/selectors/dataSelectors';
 import isAdminSelector from 'state/selectors/isAdminSelector';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
 import sortedReservationsSelector from 'state/selectors/sortedReservationsSelector';
 import staffUnitsSelector from 'state/selectors/staffUnitsSelector';
 
-const resourcesSelector = state => state.data.resources;
-const unitsSelector = state => state.data.units;
-
-const reservationListSelector = createSelector(
-  isAdminSelector,
-  requestIsActiveSelectorFactory(ActionTypes.API.RESERVATIONS_GET_REQUEST),
-  resourcesSelector,
-  sortedReservationsSelector,
-  staffUnitsSelector,
-  unitsSelector,
-  (
-    isAdmin,
-    isFetchingReservations,
-    resources,
-    reservations,
-    staffUnits,
-    units
-  ) => ({
-    isAdmin,
-    isFetchingReservations,
-    reservations,
-    resources,
-    staffUnits,
-    units,
-  })
-);
+const reservationListSelector = createStructuredSelector({
+  isAdmin: isAdminSelector,
+  isFetchingReservations: requestIsActiveSelectorFactory(ActionTypes.API.RESERVATIONS_GET_REQUEST),
+  reservations: sortedReservationsSelector,
+  resources: resourcesSelector,
+  staffUnits: staffUnitsSelector,
+  units: unitsSelector,
+});
 
 export default reservationListSelector;

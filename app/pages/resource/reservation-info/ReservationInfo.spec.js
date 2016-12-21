@@ -15,7 +15,7 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
       maxPeriod: '04:00:00',
       maxReservationsPerUser: 2,
       reservable: true,
-      reservationInfo: { fi: 'Some information' },
+      reservationInfo: 'Some information',
     })),
   };
 
@@ -30,9 +30,8 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
 
   it('renders resource.reservationInfo as WrappedText', () => {
     const wrappedText = getWrapper().find(WrappedText);
-    const expectedText = defaultProps.resource.reservationInfo.fi;
     expect(wrappedText.length).to.equal(1);
-    expect(wrappedText.props().text).to.equal(expectedText);
+    expect(wrappedText.props().text).to.equal(defaultProps.resource.reservationInfo);
   });
 
   describe('max length text', () => {
@@ -70,7 +69,6 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
     it('is not rendered if resource is not reservable', () => {
       const resource = {
         reservable: false,
-        reservationInfo: {},
       };
       const loginText = getWrapper({ resource }).find('.login-text');
       expect(loginText).to.have.length(0);
@@ -79,7 +77,6 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
     it('is rendered otherwise', () => {
       const resource = {
         reservable: true,
-        reservationInfo: {},
       };
       const loginText = getWrapper({ isLoggedIn: false, resource }).find('.login-text');
       expect(loginText).to.have.length(1);

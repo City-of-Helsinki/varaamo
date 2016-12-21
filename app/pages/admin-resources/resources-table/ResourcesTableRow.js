@@ -77,7 +77,7 @@ class ResourcesTableRow extends Component {
       <tr>
         <td className="resource-table-row name">
           <Link to={getResourcePageUrl(resource)}>
-            {resource.name.fi}
+            {resource.name}
           </Link>
         </td>
         {this.renderAvailable()}

@@ -1,10 +1,9 @@
 import values from 'lodash/values';
-import { createSelector } from 'reselect';
+import { createSelector, createStructuredSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
-
-const purposesSelector = state => state.data.purposes;
+import { purposesSelector } from 'state/selectors/dataSelectors';
 
 const purposeArraySelector = createSelector(
   purposesSelector,
@@ -12,16 +11,9 @@ const purposeArraySelector = createSelector(
     .filter(purpose => purpose.parent === null)
 );
 
-const purposeListSelector = createSelector(
-  requestIsActiveSelectorFactory(ActionTypes.API.PURPOSES_GET_REQUEST),
-  purposeArraySelector,
-  (
-    isFetchingPurposes,
-    purposes
-  ) => ({
-    isFetchingPurposes,
-    purposes,
-  })
-);
+const purposeListSelector = createStructuredSelector({
+  isFetchingPurposes: requestIsActiveSelectorFactory(ActionTypes.API.PURPOSES_GET_REQUEST),
+  purposes: purposeArraySelector,
+});
 
 export default purposeListSelector;

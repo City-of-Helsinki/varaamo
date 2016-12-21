@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
 import TimeRange from 'shared/time-range';
-import { getName } from 'utils/translationUtils';
 
 class CompactReservationList extends Component {
   constructor(props) {
@@ -20,9 +19,7 @@ class CompactReservationList extends Component {
     const resource = this.props.resources[reservation.resource] || {};
     return (
       <li key={reservation.begin}>
-        {getName(resource)}
-        {': '}
-        <TimeRange begin={reservation.begin} end={reservation.end} />
+        {resource.name}: <TimeRange begin={reservation.begin} end={reservation.end} />
       </li>
     );
   }

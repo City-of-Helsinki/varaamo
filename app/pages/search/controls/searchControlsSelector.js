@@ -1,27 +1,31 @@
-import { createSelector } from 'reselect';
+import sortBy from 'lodash/sortBy';
+import values from 'lodash/values';
+import { createSelector, createStructuredSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
-import purposeOptionsSelector from 'state/selectors/purposeOptionsSelector';
+import { purposesSelector } from 'state/selectors/dataSelectors';
 import uiSearchFiltersSelector from 'state/selectors/uiSearchFiltersSelector';
 import urlSearchFiltersSelector from 'state/selectors/urlSearchFiltersSelector';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
 
-const searchControlsSelector = createSelector(
-  purposeOptionsSelector,
-  requestIsActiveSelectorFactory(ActionTypes.API.PURPOSES_GET_REQUEST),
-  uiSearchFiltersSelector,
-  urlSearchFiltersSelector,
-  (
-    purposeOptions,
-    isFetchingPurposes,
-    uiSearchFilters,
-    urlSearchFilters
-  ) => ({
-    isFetchingPurposes,
-    filters: uiSearchFilters,
-    purposeOptions,
-    urlSearchFilters,
-  })
+const purposeOptionsSelector = createSelector(
+  purposesSelector,
+  (purposes) => {
+    const purposeOptions = values(purposes)
+      .filter(purpose => purpose.parent === null)
+      .map(purpose => ({
+        value: purpose.id,
+        label: purpose.name,
+      }));
+    return sortBy(purposeOptions, 'label');
+  }
 );
+
+const searchControlsSelector = createStructuredSelector({
+  isFetchingPurposes: requestIsActiveSelectorFactory(ActionTypes.API.PURPOSES_GET_REQUEST),
+  filters: uiSearchFiltersSelector,
+  purposeOptions: purposeOptionsSelector,
+  urlSearchFilters: urlSearchFiltersSelector,
+});
 
 export default searchControlsSelector;

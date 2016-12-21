@@ -5,7 +5,6 @@ import { FormattedHTMLMessage } from 'react-intl';
 import CompactReservationList from 'shared/compact-reservation-list';
 import ReservationAccessCode from 'shared/reservation-access-code';
 import { injectT } from 'translations';
-import { getName } from 'utils/translationUtils';
 import ModalWrapper from '../ModalWrapper';
 
 function ReservationSuccessModal({
@@ -20,7 +19,7 @@ function ReservationSuccessModal({
   const resource = reservation.resource ? resources[reservation.resource] : {};
   const isPreliminaryReservation = reservation.needManualConfirmation;
   const email = isPreliminaryReservation ? reservation.reserverEmailAddress : user.email;
-  const resourceName = getName(resource);
+  const resourceName = resource.name;
   const reservationsCount = reservationsToShow.length;
 
   return (

@@ -8,7 +8,6 @@ import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
 import FavoriteButton from 'shared/favorite-button';
 import ResourceIcons from 'shared/resource-icons';
-import { getAddressWithName } from 'utils/unitUtils';
 import ImageCarousel from './ImageCarousel';
 import ResourceInfo from './ResourceInfo';
 
@@ -16,7 +15,7 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
   const defaultProps = {
     isAdmin: false,
     resource: Immutable(Resource.build({
-      description: { fi: 'Some description' },
+      description: 'Some description',
       images: [{ foo: 'bar' }],
     })),
     unit: Immutable(Unit.build()),
@@ -43,14 +42,20 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
 
   it('renders the name of the resource inside a h1 header', () => {
     const header = getWrapper().find('h1');
-    const expected = defaultProps.resource.name.fi;
+    const expected = defaultProps.resource.name;
 
     expect(header.props().children).to.equal(expected);
   });
 
-  it('renders the unit address with name inside an address tag', () => {
-    const address = getWrapper().find('address');
-    const expected = getAddressWithName(defaultProps.unit);
+  it('renders the unit name and address', () => {
+    const unit = Unit.build({
+      addressZip: '99999',
+      municipality: 'helsinki',
+      name: 'Unit name',
+      streetAddress: 'Test street 12',
+    });
+    const address = getWrapper({ unit }).find('.address');
+    const expected = 'Unit name, Test street 12, 99999 Helsinki';
 
     expect(address.props().children).to.equal(expected);
   });
@@ -70,7 +75,7 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
 
   it('renders resource description as WrappedText', () => {
     const wrappedText = getWrapper().find(WrappedText);
-    const expectedText = defaultProps.resource.description.fi;
+    const expectedText = defaultProps.resource.description;
 
     expect(wrappedText.length).to.equal(1);
     expect(wrappedText.props().text).to.equal(expectedText);
