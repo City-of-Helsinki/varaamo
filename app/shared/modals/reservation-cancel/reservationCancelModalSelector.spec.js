@@ -1,34 +1,59 @@
 import { expect } from 'chai';
 
-import { getDefaultRouterProps, getInitialState } from 'utils/testUtils';
+import ActionTypes from 'constants/ActionTypes';
+import ModalTypes from 'constants/ModalTypes';
+import { getState } from 'utils/testUtils';
 import reservationCancelModalSelector from './reservationCancelModalSelector';
 
 describe('shared/modals/reservation-cancel/reservationCancelModalSelector', () => {
-  const state = getInitialState();
-  const props = getDefaultRouterProps();
-  const selected = reservationCancelModalSelector(state, props);
+  function getSelected(extraState) {
+    const state = getState(extraState);
+    return reservationCancelModalSelector(state);
+  }
 
   it('returns isAdmin', () => {
-    expect(selected.isAdmin).to.exist;
+    expect(getSelected().isAdmin).to.exist;
   });
 
-  it('returns isCancellingReservations', () => {
-    expect(selected.isCancellingReservations).to.exist;
-  });
+  describe('isCancellingReservations', () => {
+    it('returns true if RESERVATION_DELETE_REQUEST is active', () => {
+      const activeRequests = { [ActionTypes.API.RESERVATION_DELETE_REQUEST]: 1 };
+      const selected = getSelected({
+        'api.activeRequests': activeRequests,
+      });
+      expect(selected.isCancellingReservations).to.be.true;
+    });
 
-  it('returns show', () => {
-    expect(selected.show).to.exist;
+    it('returns false if RESERVATION_DELETE_REQUEST is not active', () => {
+      expect(getSelected().isCancellingReservations).to.be.false;
+    });
   });
 
   it('returns reservationsToCancel from the state', () => {
-    const expected = state.ui.reservations.toCancel;
-
-    expect(selected.reservationsToCancel).to.deep.equal(expected);
+    const reservationsToCancel = [{ id: 'r-1' }, { id: 'r-2' }];
+    const selected = getSelected({
+      'ui.reservations.toCancel': reservationsToCancel,
+    });
+    expect(selected.reservationsToCancel).to.deep.equal(reservationsToCancel);
   });
 
   it('returns resources from the state', () => {
-    const expected = state.data.resources;
+    expect(getSelected().resources).to.exist;
+  });
 
-    expect(selected.resources).to.deep.equal(expected);
+  describe('show', () => {
+    it('returns true if modals.open contain RESERVATION_CANCEL', () => {
+      const selected = getSelected({
+        'ui.modals.open': [ModalTypes.RESERVATION_CANCEL],
+      });
+      expect(selected.show).to.be.true;
+    });
+
+    it('returns false if modals.open does not contain RESERVATION_CANCEL', () => {
+      const selected = getSelected({
+        'ui.modals.open': [],
+      });
+      expect(selected.show).to.be.false;
+    });
   });
 });

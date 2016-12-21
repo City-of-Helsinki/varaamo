@@ -5,7 +5,6 @@ import BackgroundImage from 'shared/background-image';
 import ResourceIcons from 'shared/resource-icons';
 import { getMainImage } from 'utils/imageUtils';
 import { getResourcePageUrl } from 'utils/resourceUtils';
-import { getName } from 'utils/translationUtils';
 import ReserveButton from './ReserveButton';
 import ResourceAvailability from './ResourceAvailability';
 
@@ -28,9 +27,9 @@ class ResourceListItem extends Component {
         <div className="content">
           <ResourceIcons resource={resource} />
           <Link to={getResourcePageUrl(resource, date)}>
-            <h4>{getName(resource)}</h4>
+            <h4>{resource.name}</h4>
           </Link>
-          <div className="unit-name">{getName(unit)}</div>
+          <div className="unit-name">{unit.name}</div>
           <div className="controls">
             <ReserveButton date={date} isLoggedIn={isLoggedIn} resource={resource} />
           </div>

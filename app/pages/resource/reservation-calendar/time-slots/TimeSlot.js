@@ -9,7 +9,6 @@ import ReservationAccessCode from 'shared/reservation-access-code';
 import ReservationControls from 'shared/reservation-controls';
 import { injectT } from 'translations';
 import { scrollTo } from 'utils/domUtils';
-import { getProperty } from 'utils/translationUtils';
 
 export function getLabelData({ isOwnReservation, isPast, slot }) {
   let data = {};
@@ -60,7 +59,7 @@ class TimeSlot extends Component {
       };
     }
     return {
-      message: getProperty(resource, 'reservationInfo'),
+      message: resource.reservationInfo,
       type: 'info',
       timeOut: 10000,
     };

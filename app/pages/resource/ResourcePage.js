@@ -9,7 +9,6 @@ import PageWrapper from 'pages/PageWrapper';
 import NotFoundPage from 'pages/not-found/NotFoundPage';
 import { injectT } from 'translations';
 import { getDateStartAndEndTimes } from 'utils/timeUtils';
-import { getName } from 'utils/translationUtils';
 import ReservationCalendar from './reservation-calendar';
 import ReservationConfirmation from './reservation-confirmation';
 import ReservationInfo from './reservation-info';
@@ -44,14 +43,13 @@ class UnconnectedResourcePage extends Component {
       t,
       unit,
     } = this.props;
-    const resourceName = getName(resource);
 
     if (isEmpty(resource) && !isFetchingResource) {
       return <NotFoundPage />;
     }
 
     return (
-      <PageWrapper className="resource-page" title={`${resourceName}`}>
+      <PageWrapper className="resource-page" title={resource.name || ''}>
         <Loader loaded={!isEmpty(resource)}>
           <ResourceInfo
             isAdmin={isAdmin}

@@ -44,12 +44,12 @@ describe('shared/compact-reservation-list/CompactReservationList', () => {
   describe('rendering resource name', () => {
     it('renders resource name if correct resource is given', () => {
       const li = wrapper.find('li').at(0);
-      expect(li.text()).to.contain(resource.name.fi);
+      expect(li.text()).to.contain(resource.name);
     });
 
     it('does not render resource name if correct resource is not given', () => {
       const li = getWrapper({ resources: undefined }).find('li').at(0);
-      expect(li.text()).to.not.contain(resource.name.fi);
+      expect(li.text()).to.not.contain(resource.name);
     });
   });
 });

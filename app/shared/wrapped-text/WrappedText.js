@@ -6,6 +6,9 @@ function renderParagraph(text, index) {
 }
 
 function WrappedText({ text }) {
+  if (!text) {
+    return <div />;
+  }
   return (
     <div className="wrapped-text">
       {text.split('\n').map(renderParagraph)}
@@ -14,7 +17,7 @@ function WrappedText({ text }) {
 }
 
 WrappedText.propTypes = {
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
 };
 
 export default WrappedText;

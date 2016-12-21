@@ -596,38 +596,33 @@ describe('Utils: resourceUtils', () => {
 
   describe('getTermsAndConditions', () => {
     describe('when both specific and generic terms are specified', () => {
-      const genericTerms = { fi: 'generic terms' };
-      const specificTerms = { fi: 'specific terms' };
+      const genericTerms = 'generic terms';
+      const specificTerms = 'specific terms';
 
       it('returns specific and generic terms separated by blank lines', () => {
         const resource = { genericTerms, specificTerms };
-        const expected = `${specificTerms.fi}\n\n${genericTerms.fi}`;
-
+        const expected = `${specificTerms}\n\n${genericTerms}`;
         expect(getTermsAndConditions(resource)).to.equal(expected);
       });
     });
 
     describe('when only specific terms is specified', () => {
       const genericTerms = null;
-      const specificTerms = { fi: 'specific terms' };
+      const specificTerms = 'specific terms';
 
       it('returns only specific terms', () => {
         const resource = { genericTerms, specificTerms };
-        const expected = specificTerms.fi;
-
-        expect(getTermsAndConditions(resource)).to.equal(expected);
+        expect(getTermsAndConditions(resource)).to.equal(specificTerms);
       });
     });
 
     describe('when only generic terms is specified', () => {
-      const genericTerms = { fi: 'generic terms' };
+      const genericTerms = 'generic terms';
       const specificTerms = null;
 
       it('returns only specific terms', () => {
         const resource = { genericTerms, specificTerms };
-        const expected = genericTerms.fi;
-
-        expect(getTermsAndConditions(resource)).to.equal(expected);
+        expect(getTermsAndConditions(resource)).to.equal(genericTerms);
       });
     });
 

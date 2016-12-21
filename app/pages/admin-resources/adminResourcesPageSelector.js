@@ -1,30 +1,25 @@
-import { createSelector } from 'reselect';
-import pick from 'lodash/pick';
+import { createSelector, createStructuredSelector } from 'reselect';
 import sortBy from 'lodash/sortBy';
-import values from 'lodash/values';
 
 import ActionTypes from 'constants/ActionTypes';
+import { resourcesSelector } from 'state/selectors/dataSelectors';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
 import isAdminSelector from 'state/selectors/isAdminSelector';
 
-const resourcesSelector = state => state.data.resources;
 const resourceIdsSelector = state => state.ui.pages.adminResources.resourceIds;
 
-const adminResourcesPageSelector = createSelector(
-  isAdminSelector,
-  requestIsActiveSelectorFactory(ActionTypes.API.RESOURCES_GET_REQUEST),
+const adminResourcesSelector = createSelector(
   resourceIdsSelector,
   resourcesSelector,
-  (
-    isAdmin,
-    isFetchingResources,
-    resourceIds,
-    resources
-  ) => ({
-    isAdmin,
-    isFetchingResources,
-    resources: sortBy(values(pick(resources, resourceIds)), resource => resource.name.fi),
-  })
+  (resourceIds, resources) => (
+    sortBy(resourceIds.map(id => resources[id]), 'name')
+  )
 );
+
+const adminResourcesPageSelector = createStructuredSelector({
+  isAdmin: isAdminSelector,
+  isFetchingResources: requestIsActiveSelectorFactory(ActionTypes.API.RESOURCES_GET_REQUEST),
+  resources: adminResourcesSelector,
+});
 
 export default adminResourcesPageSelector;

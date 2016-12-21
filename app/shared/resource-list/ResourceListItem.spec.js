@@ -61,14 +61,14 @@ describe('shared/resource-list/ResourceListItem', () => {
 
   it('renders the name of the resource inside a h4 header', () => {
     const header = getWrapper().find('h4');
-    const expected = defaultProps.resource.name.fi;
+    const expected = defaultProps.resource.name;
 
     expect(header.html()).to.contain(expected);
   });
 
   it('renders the name of the given unit in props', () => {
     const unitName = getWrapper().find('.unit-name');
-    const expected = defaultProps.unit.name.fi;
+    const expected = defaultProps.unit.name;
 
     expect(unitName.text()).to.contain(expected);
   });

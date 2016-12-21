@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/lib/Button';
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
 
 import { injectT } from 'translations';
-import { getProperty } from 'utils/translationUtils';
 
 class ReservationCalendarControls extends Component {
   constructor(props) {
@@ -39,7 +38,7 @@ class ReservationCalendarControls extends Component {
       };
     }
     return {
-      message: getProperty(resource, 'reservationInfo'),
+      message: resource.reservationInfo,
       type: 'info',
       timeout: 10000,
     };

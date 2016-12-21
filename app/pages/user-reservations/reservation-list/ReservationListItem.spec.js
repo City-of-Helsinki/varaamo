@@ -51,13 +51,13 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
     });
 
     it('displays the name of the resource', () => {
-      const expected = props.resource.name.fi;
+      const expected = props.resource.name;
 
       expect(component.find('h4').text()).to.contain(expected);
     });
 
     it('displays the name of the given unit in props', () => {
-      const expected = props.unit.name.fi;
+      const expected = props.unit.name;
 
       expect(component.find('h4').text()).to.contain(expected);
     });

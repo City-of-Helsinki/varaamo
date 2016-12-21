@@ -5,25 +5,28 @@ import searchPageSelector from './searchPageSelector';
 
 describe('pages/search/searchPageSelector', () => {
   const searchResultIds = ['resource-1', 'resourece-2'];
-  const state = getState({
-    'ui.search.results': searchResultIds,
-  });
-  const props = getDefaultRouterProps();
-  const selected = searchPageSelector(state, props);
+
+  function getSelected() {
+    const state = getState({
+      'ui.search.results': searchResultIds,
+    });
+    const props = getDefaultRouterProps();
+    return searchPageSelector(state, props);
+  }
 
   it('returns filters', () => {
-    expect(selected.filters).to.exist;
+    expect(getSelected().filters).to.exist;
   });
 
   it('returns isFetchingSearchResults', () => {
-    expect(selected.isFetchingSearchResults).to.exist;
+    expect(getSelected().isFetchingSearchResults).to.exist;
   });
 
   it('returns searchDone', () => {
-    expect(selected.searchDone).to.exist;
+    expect(getSelected().searchDone).to.exist;
   });
 
   it('returns searchResultIds', () => {
-    expect(selected.searchResultIds).to.deep.equal(searchResultIds);
+    expect(getSelected().searchResultIds).to.deep.equal(searchResultIds);
   });
 });

@@ -32,7 +32,7 @@ describe('pages/home/purpose-list/PurposeListItem', () => {
         const actualProps = purposeListItem.props();
         expect(actualProps.imageUrl).to.exist;
         expect(actualProps.linkUrl).to.contain(purpose.id);
-        expect(actualProps.text).to.equal(purpose.name.fi);
+        expect(actualProps.text).to.equal(purpose.name);
       });
     });
   });

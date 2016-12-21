@@ -1,7 +1,8 @@
 import { createSelector } from 'reselect';
 
+import { resourcesSelector } from 'state/selectors/dataSelectors';
+
 const idSelector = (state, props) => props.params.id;
-const resourcesSelector = state => state.data.resources;
 
 const resourceSelector = createSelector(
   idSelector,
