@@ -7,14 +7,14 @@ import ReservationControls from 'shared/reservation-controls';
 import ReservationStateLabel from 'shared/reservation-state-label';
 import TimeRange from 'shared/time-range';
 import { injectT } from 'translations';
-import { getCaption, getMainImage } from 'utils/imageUtils';
+import { getMainImage } from 'utils/imageUtils';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 
 class ReservationListItem extends Component {
   renderImage(image) {
     if (image && image.url) {
       const src = `${image.url}?dim=200x200`;
-      return <img alt={getCaption(image)} src={src} />;
+      return <img alt={image.caption} src={src} />;
     }
     return null;
   }

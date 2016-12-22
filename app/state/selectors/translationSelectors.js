@@ -31,12 +31,14 @@ function translateValue(prop, language) {
 // For example if the current language is 'fi':
 // { name: { en: 'Name', fi: 'Nimi' } } -> { name: 'Nimi' }
 function translateItem(item, language) {
-  return mapValues(item, (value) => {
-    if (isTranslatable(value)) {
-      return translateValue(value, language);
-    }
-    return value;
-  });
+  if (isTranslatable(item)) {
+    return translateValue(item, language);
+  } else if (isArray(item)) {
+    return item.map(value => translateItem(value, language));
+  } else if (isObject(item)) {
+    return mapValues(item, value => translateItem(value, language));
+  }
+  return item;
 }
 
 // Translates items returned by the toTranslateSelector given as an argument.

@@ -1,17 +1,9 @@
 import { expect } from 'chai';
 
 import Image from 'utils/fixtures/Image';
-import { getCaption, getMainImage } from 'utils/imageUtils';
+import { getMainImage } from 'utils/imageUtils';
 
 describe('Utils: imageUtils', () => {
-  describe('getCaption', () => {
-    it('returns caption of the given image', () => {
-      const caption = 'Some caption';
-      const image = Image.build({ caption: { fi: caption } });
-      expect(getCaption(image)).to.equal(caption);
-    });
-  });
-
   describe('getMainImage', () => {
     it('returns an empty object if images is undefined', () => {
       const images = undefined;

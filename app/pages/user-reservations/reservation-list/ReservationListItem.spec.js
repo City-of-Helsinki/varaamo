@@ -39,7 +39,7 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
       const image = component.find('img');
 
       expect(image).to.have.length(1);
-      expect(image.props().alt).to.equal(props.resource.images[0].caption.fi);
+      expect(image.props().alt).to.equal(props.resource.images[0].caption);
       expect(image.props().src).to.contain(props.resource.images[0].url);
     });
 
