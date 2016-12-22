@@ -1,11 +1,5 @@
 import find from 'lodash/find';
 
-import { getProperty } from 'utils/translationUtils';
-
-function getCaption(image, language = 'fi') {
-  return getProperty(image, 'caption', language);
-}
-
 function getMainImage(images) {
   if (!images || !images.length) {
     return {};
@@ -15,6 +9,5 @@ function getMainImage(images) {
 }
 
 export {
-  getCaption,
   getMainImage,
 };
