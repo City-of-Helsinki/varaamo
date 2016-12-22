@@ -128,7 +128,7 @@ Testing framework
 - [Mocha](https://mochajs.org/) is used as the test framework.
 - [Chai](http://chaijs.com/) is used for test assertions.
 - [simple-mock](https://github.com/jupiter/simple-mock) and [MockDate](https://github.com/boblauer/MockDate) are used for mocking and spies.
-- [Enzyme](https://github.com/airbnb/enzyme) and [skin-deep](https://github.com/glenjamin/skin-deep) are used to make testing React Components easier.
+- [Enzyme](https://github.com/airbnb/enzyme) is used to make testing React Components easier.
 
 License
 -------
