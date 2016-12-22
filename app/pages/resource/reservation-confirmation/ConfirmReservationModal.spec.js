@@ -1,19 +1,20 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import forEach from 'lodash/forEach';
 import React from 'react';
+import Modal from 'react-bootstrap/lib/Modal';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
-import sd from 'skin-deep';
 
 import constants from 'constants/AppConstants';
+import CompactReservationList from 'shared/compact-reservation-list';
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
+import { shallowWithIntl } from 'utils/testUtils';
 import ConfirmReservationModal from './ConfirmReservationModal';
 import ReservationForm from './ReservationForm';
 
-function getProps(props) {
-  const defaults = {
+describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () => {
+  const defaultProps = {
     isAdmin: false,
     isEditing: false,
     isMakingReservations: false,
@@ -23,233 +24,116 @@ function getProps(props) {
     onConfirm: simple.stub(),
     reservationsToEdit: Immutable([]),
     resource: Resource.build(),
-    selectedReservations: Immutable([]),
+    selectedReservations: Immutable([
+      Reservation.build(),
+      Reservation.build(),
+    ]),
     show: true,
   };
 
-  return Object.assign({}, defaults, props);
-}
+  function getWrapper(extraProps = {}) {
+    return shallowWithIntl(<ConfirmReservationModal {...defaultProps} {...extraProps} />);
+  }
 
-describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () => {
-  describe('when making a normal reservation', () => {
-    const props = getProps({
-      selectedReservations: Immutable([
-        Reservation.build(),
-        Reservation.build(),
-      ]),
-    });
-    const tree = sd.shallowRender(<ConfirmReservationModal {...props} />);
-    const instance = tree.getMountedInstance();
-    instance.refs = {
-      commentInput: { getValue: simple.stub() },
-    };
-
+  describe('modal', () => {
     it('renders a Modal component', () => {
-      const modalTrees = tree.everySubTree('Modal');
-
-      expect(modalTrees.length).to.equal(1);
+      const modalComponent = getWrapper().find(Modal);
+      expect(modalComponent.length).to.equal(1);
     });
 
     describe('Modal header', () => {
-      const modalHeaderTrees = tree.everySubTree('ModalHeader');
+      function getModalHeaderWrapper(props) {
+        return getWrapper(props).find(Modal.Header);
+      }
 
-      it('renders a ModalHeader component', () => {
-        expect(modalHeaderTrees.length).to.equal(1);
+      it('is rendered', () => {
+        expect(getModalHeaderWrapper()).to.have.length(1);
       });
 
       it('contains a close button', () => {
-        expect(modalHeaderTrees[0].props.closeButton).to.equal(true);
+        expect(getModalHeaderWrapper().props().closeButton).to.equal(true);
       });
 
-      it('renders a ModalTitle component', () => {
-        const modalTitleTrees = tree.everySubTree('ModalTitle');
+      describe('title', () => {
+        it('is correct if editing', () => {
+          const modalTitle = getModalHeaderWrapper({ isEditing: true }).find(Modal.Title);
+          expect(modalTitle.prop('children')).to.equal('ConfirmReservationModal.editTitle');
+        });
 
-        expect(modalTitleTrees.length).to.equal(1);
-      });
+        it('is correct if confirming preliminary reservation', () => {
+          const modalTitle = getModalHeaderWrapper({ isPreliminaryReservation: true })
+            .find(Modal.Title);
+          expect(modalTitle.prop('children')).to.equal(
+            'ConfirmReservationModal.preliminaryReservationTitle'
+          );
+        });
 
-      it('the ModalTitle displays text "Varauksen vahvistus"', () => {
-        const modalTitleTree = tree.subTree('ModalTitle');
-
-        expect(modalTitleTree.props.children).to.equal('Varauksen vahvistus');
+        it('is correct if confirming regular reservation', () => {
+          const modalTitle = getModalHeaderWrapper({ isPreliminaryReservation: false })
+            .find(Modal.Title);
+          expect(modalTitle.prop('children')).to.equal(
+            'ConfirmReservationModal.regularReservationTitle'
+          );
+        });
       });
     });
 
     describe('Modal body', () => {
-      const modalBodyTrees = tree.everySubTree('ModalBody');
+      function getModalBodyWrapper(props) {
+        return getWrapper(props).find(Modal.Body);
+      }
 
-      it('renders a ModalBody component', () => {
-        expect(modalBodyTrees.length).to.equal(1);
+      it('is rendered', () => {
+        expect(getModalBodyWrapper).to.have.length(1);
       });
 
-      it('renders a help text asking for confirmation', () => {
-        const textTree = modalBodyTrees[0].subTree('p');
-        const expected = 'Oletko varma että haluat tehdä varaukset ajoille:';
-        expect(textTree.text()).to.equal(expected);
+      it('renders ReservationForm', () => {
+        expect(getModalBodyWrapper().find(ReservationForm)).to.have.length(1);
       });
 
-      it('renders a CompactReservationList component', () => {
-        const list = modalBodyTrees[0].everySubTree('CompactReservationList');
-        expect(list.length).to.equal(1);
+      describe('when making a preliminary reservation', () => {
+        const props = {
+          isPreliminaryReservation: true,
+        };
+
+        it('renders CompactReservationList with correct props', () => {
+          const list = getModalBodyWrapper(props).find(CompactReservationList);
+          expect(list).to.have.length(1);
+          expect(list.prop('reservations')).to.deep.equal(defaultProps.selectedReservations);
+        });
       });
 
-      it('passes correct props to CompactReservationList component', () => {
-        const list = modalBodyTrees[0].subTree('CompactReservationList');
-        expect(list.props.reservations).to.deep.equal(props.selectedReservations);
-      });
-    });
-  });
+      describe('when editing reservation', () => {
+        const props = {
+          isEditing: true,
+          reservationsToEdit: Immutable([Reservation.build()]),
+        };
 
-  describe('when making a preliminary reservation', () => {
-    const props = getProps({
-      isPreliminaryReservation: true,
-      resource: Resource.build({ needManualConfirmation: true }),
-      selectedReservations: Immutable([
-        Reservation.build(),
-        Reservation.build(),
-      ]),
-    });
-    const tree = sd.shallowRender(<ConfirmReservationModal {...props} />);
-    const instance = tree.getMountedInstance();
-    instance.refs = {
-      commentInput: { getValue: simple.stub() },
-    };
+        it('renders one CompactReservationList with reservations to edit', () => {
+          const list = getModalBodyWrapper(props).find(CompactReservationList).at(0);
+          expect(list).to.have.length(1);
+          expect(list.prop('reservations')).to.deep.equal(props.reservationsToEdit);
+        });
 
-    it('renders a Modal component', () => {
-      const modalTrees = tree.everySubTree('Modal');
-
-      expect(modalTrees.length).to.equal(1);
-    });
-
-    describe('Modal header', () => {
-      const modalHeaderTrees = tree.everySubTree('ModalHeader');
-
-      it('renders a ModalHeader component', () => {
-        expect(modalHeaderTrees.length).to.equal(1);
-      });
-
-      it('contains a close button', () => {
-        expect(modalHeaderTrees[0].props.closeButton).to.equal(true);
-      });
-
-      it('renders a ModalTitle component', () => {
-        const modalTitleTrees = tree.everySubTree('ModalTitle');
-
-        expect(modalTitleTrees.length).to.equal(1);
-      });
-
-      it('the ModalTitle displays text "Alustava varaus"', () => {
-        const modalTitleTree = tree.subTree('ModalTitle');
-
-        expect(modalTitleTree.props.children).to.equal('Alustava varaus');
-      });
-    });
-
-    describe('Modal body', () => {
-      const modalBodyTrees = tree.everySubTree('ModalBody');
-
-      it('renders a ModalBody component', () => {
-        expect(modalBodyTrees.length).to.equal(1);
-      });
-
-      it('renders a help text asking for confirmation', () => {
-        const textTree = modalBodyTrees[0].subTree('p');
-        const expected = 'Olet tekemässä alustavaa varausta ajoille:';
-        expect(textTree.text()).to.equal(expected);
-      });
-
-      it('renders a CompactReservationList component', () => {
-        const list = modalBodyTrees[0].everySubTree('CompactReservationList');
-        expect(list.length).to.equal(1);
-      });
-
-      it('passes correct props to CompactReservationList component', () => {
-        const list = modalBodyTrees[0].subTree('CompactReservationList');
-        expect(list.props.reservations).to.deep.equal(props.selectedReservations);
+        it('renders one CompactReservationList with reservations selected reservations', () => {
+          const list = getModalBodyWrapper(props).find(CompactReservationList).at(1);
+          expect(list).to.have.length(1);
+          expect(list.prop('reservations')).to.deep.equal(defaultProps.selectedReservations);
+        });
       });
     });
   });
 
-  describe('when editing reservations', () => {
-    const props = getProps({
-      isEditing: true,
-      reservationsToEdit: Immutable([Reservation.build()]),
-      resource: Resource.build(),
-      selectedReservations: Immutable([
-        Reservation.build(),
-        Reservation.build(),
-      ]),
-    });
-    const tree = sd.shallowRender(<ConfirmReservationModal {...props} />);
-    const instance = tree.getMountedInstance();
-    instance.refs = {
-      commentInput: { getValue: simple.stub() },
-    };
-
-    it('renders a Modal component', () => {
-      const modalTrees = tree.everySubTree('Modal');
-
-      expect(modalTrees.length).to.equal(1);
-    });
-
-    describe('Modal header', () => {
-      const modalHeaderTrees = tree.everySubTree('ModalHeader');
-
-      it('renders a ModalHeader component', () => {
-        expect(modalHeaderTrees.length).to.equal(1);
-      });
-
-      it('contains a close button', () => {
-        expect(modalHeaderTrees[0].props.closeButton).to.equal(true);
-      });
-
-      it('renders a ModalTitle component', () => {
-        const modalTitleTrees = tree.everySubTree('ModalTitle');
-
-        expect(modalTitleTrees.length).to.equal(1);
-      });
-
-      it('the ModalTitle displays text "Muutosten vahvistus"', () => {
-        const modalTitleTree = tree.subTree('ModalTitle');
-
-        expect(modalTitleTree.props.children).to.equal('Muutosten vahvistus');
-      });
-    });
-
-    describe('Modal body', () => {
-      const modalBodyTrees = tree.everySubTree('ModalBody');
-
-      it('renders a ModalBody component', () => {
-        expect(modalBodyTrees.length).to.equal(1);
-      });
-
-      it('renders two lists', () => {
-        const lists = modalBodyTrees[0].everySubTree('CompactReservationList');
-        expect(lists.length).to.equal(2);
-      });
-
-      it('the first list contains reservations that are edited', () => {
-        const list = modalBodyTrees[0].everySubTree('CompactReservationList')[0];
-        expect(list.props.reservations).to.deep.equal(props.reservationsToEdit);
-      });
-
-      it('the second list contains reservations that are selected', () => {
-        const list = modalBodyTrees[0].everySubTree('CompactReservationList')[1];
-        expect(list.props.reservations).to.deep.equal(props.selectedReservations);
-      });
-    });
-  });
-
-  describe('rendering ReservationForm', () => {
+  describe('ReservationForm', () => {
     const termsAndConditions = 'Some terms and conditions';
     function getForm(needManualConfirmation = false, isAdmin = false, isStaff = false) {
       const resource = Resource.build({
-        genericTerms: { fi: termsAndConditions },
+        genericTerms: termsAndConditions,
         needManualConfirmation,
         userPermissions: { isAdmin },
       });
-      const props = getProps({ isAdmin, isStaff, resource });
-      const wrapper = shallow(<ConfirmReservationModal {...props} />);
-      return wrapper.find(ReservationForm);
+      const props = { isAdmin, isStaff, resource };
+      return getWrapper(props).find(ReservationForm);
     }
 
     describe('if resource needs manual confirmation', () => {
