@@ -3,8 +3,9 @@ import camelCase from 'lodash/camelCase';
 import React, { Component, PropTypes } from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 
-import CompactReservationList from 'shared/compact-reservation-list';
 import constants from 'constants/AppConstants';
+import CompactReservationList from 'shared/compact-reservation-list';
+import { injectT } from 'translations';
 import { isStaffEvent } from 'utils/reservationUtils';
 import { getTermsAndConditions } from 'utils/resourceUtils';
 import ReservationForm from './ReservationForm';
@@ -75,14 +76,14 @@ class ConfirmReservationModal extends Component {
     return rv;
   }
 
-  getModalTitle(isEditing, isPreliminaryReservation) {
+  getModalTitle(isEditing, isPreliminaryReservation, t) {
     if (isEditing) {
-      return 'Muutosten vahvistus';
+      return t('ConfirmReservationModal.editTitle');
     }
     if (isPreliminaryReservation) {
-      return 'Alustava varaus';
+      return t('ConfirmReservationModal.preliminaryReservationTitle');
     }
-    return 'Varauksen vahvistus';
+    return t('ConfirmReservationModal.regularReservationTitle');
   }
 
   getRequiredFormFields(resource, termsAndConditions) {
@@ -103,31 +104,31 @@ class ConfirmReservationModal extends Component {
       isPreliminaryReservation,
       reservationsToEdit,
       selectedReservations,
+      t,
     } = this.props;
 
     if (isEditing) {
       return (
         <div>
-          <p><strong>Oletko varma että haluat muuttaa varaustasi?</strong></p>
-          <p>Ennen muutoksia:</p>
+          <p>
+            <strong>{t('ConfirmReservationModal.confirmationText')}</strong>
+          </p>
+          <p>
+            {t('ConfirmReservationModal.beforeText')}
+          </p>
           <CompactReservationList reservations={reservationsToEdit} />
-          <p>Muutosten jälkeen:</p>
+          <p>
+            {t('ConfirmReservationModal.afterText')}
+          </p>
           <CompactReservationList reservations={selectedReservations} />
         </div>
       );
     }
 
-    let helpText;
-
-    if (isPreliminaryReservation) {
-      helpText = selectedReservations.length === 1 ?
-        'Olet tekemässä alustavaa varausta ajalle:' :
-        'Olet tekemässä alustavaa varausta ajoille:';
-    } else {
-      helpText = selectedReservations.length === 1 ?
-        'Oletko varma että haluat tehdä varauksen ajalle:' :
-        'Oletko varma että haluat tehdä varaukset ajoille:';
-    }
+    const reservationsCount = selectedReservations.length;
+    const helpText = isPreliminaryReservation ?
+      t('ConfirmReservationModal.preliminaryReservationText', { reservationsCount }) :
+      t('ConfirmReservationModal.regularReservationText', { reservationsCount });
 
     return (
       <div>
@@ -135,14 +136,8 @@ class ConfirmReservationModal extends Component {
         <CompactReservationList reservations={selectedReservations} />
         {isPreliminaryReservation && (
           <div>
-            <p>
-              Huomioi, että tilan käyttö voi olla maksullista. Tarkemmat hintatiedot löytyvät
-              tilan tiedoista. Varaus on alustava ja käsitellään kahden arkipäivän kuluessa.
-            </p>
-            <p>
-              Täytä vielä seuraavat tiedot alustavaa varausta varten.
-              Tähdellä (*) merkityt tiedot ovat pakollisia.
-            </p>
+            <p>{t('ConfirmReservationModal.priceInfo')}</p>
+            <p>{t('ConfirmReservationModal.formInfo')}</p>
           </div>
         )}
       </div>
@@ -159,6 +154,7 @@ class ConfirmReservationModal extends Component {
       resource,
       show,
       staffEventSelected,
+      t,
     } = this.props;
 
     const termsAndConditions = isAdmin ? '' : getTermsAndConditions(resource);
@@ -173,7 +169,7 @@ class ConfirmReservationModal extends Component {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-            {this.getModalTitle(isEditing, isPreliminaryReservation)}
+            {this.getModalTitle(isEditing, isPreliminaryReservation, t)}
           </Modal.Title>
         </Modal.Header>
 
@@ -208,6 +204,7 @@ ConfirmReservationModal.propTypes = {
   selectedReservations: PropTypes.array.isRequired,
   show: PropTypes.bool.isRequired,
   staffEventSelected: PropTypes.bool,
+  t: PropTypes.func.isRequired,
 };
 
-export default ConfirmReservationModal;
+export default injectT(ConfirmReservationModal);
