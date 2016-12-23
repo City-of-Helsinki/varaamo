@@ -21,7 +21,7 @@ describe('shared/favicon/Favicon', () => {
     });
 
     it('renders favicon of Helsinki', () => {
-      expect(favicon.props().url).to.deep.equal([helsinkiFavicon]);
+      expect(favicon.prop('link')[0].href).to.deep.equal(helsinkiFavicon);
     });
   });
 
@@ -38,7 +38,7 @@ describe('shared/favicon/Favicon', () => {
     });
 
     it('renders favicon of Espoo', () => {
-      expect(favicon.props().url).to.deep.equal([espooFavicon]);
+      expect(favicon.prop('link')[0].href).to.deep.equal(espooFavicon);
     });
   });
 });
