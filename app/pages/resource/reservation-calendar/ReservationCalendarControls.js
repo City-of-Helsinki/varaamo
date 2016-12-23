@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
 
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 
 class ReservationCalendarControls extends Component {
   constructor(props) {

@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import Grid from 'react-bootstrap/lib/Grid';
 import DocumentTitle from 'react-document-title';
 
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import HomeIntro from './intro';
 import Partners from './partners';
 import PurposeList from './purpose-list';

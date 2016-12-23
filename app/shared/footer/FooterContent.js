@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 
 import FeedbackLink from 'shared/feedback-link';
 import Logo from 'shared/logo';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import { getCurrentCustomization } from 'utils/customizationUtils';
 
 function FooterContent({ t }) {

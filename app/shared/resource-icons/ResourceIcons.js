@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import { getHumanizedPeriod } from 'utils/resourceUtils';
 
 function renderIcon(glyph, text) {

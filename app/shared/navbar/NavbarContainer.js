@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { clearSearchResults } from 'actions/searchActions';
 import { currentUserSelector, isAdminSelector, isLoggedInSelector } from 'state/selectors/authSelectors';
 import { currentLanguageSelector } from 'state/selectors/translationSelectors';
-import { changeLanguage } from 'translations';
+import { changeLocale } from 'i18n';
 import Navbar from './Navbar';
 
 const userNameSelector = createSelector(
@@ -26,7 +26,7 @@ export const selector = createStructuredSelector({
 });
 
 const actions = {
-  changeLanguage,
+  changeLocale,
   clearSearchResults,
 };
 

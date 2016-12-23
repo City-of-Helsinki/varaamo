@@ -10,7 +10,7 @@ import { fetchUnits } from 'actions/unitActions';
 import ReservationInfoModal from 'shared/modals/reservation-info';
 import PageWrapper from 'pages/PageWrapper';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import userReservationsPageSelector from './userReservationsPageSelector';
 import AdminReservationFilters from './reservation-filters/AdminReservationFilters';
 import ReservationList from './reservation-list';

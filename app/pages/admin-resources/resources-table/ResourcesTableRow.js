@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import CommentButton from 'shared/comment-button';
 import ReservationAccessCode from 'shared/reservation-access-code';
 import TimeRange from 'shared/time-range';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import { getOpeningHours, getResourcePageUrl } from 'utils/resourceUtils';
 import { prettifyHours } from 'utils/timeUtils';
 

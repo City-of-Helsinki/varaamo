@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Jumbotron from 'react-bootstrap/lib/Jumbotron';
 
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import ShowResourcesLink from './ShowResourcesLink';
 
 function HomeIntro({ t }) {

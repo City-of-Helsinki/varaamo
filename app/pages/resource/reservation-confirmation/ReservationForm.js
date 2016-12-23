@@ -9,7 +9,7 @@ import isEmail from 'validator/lib/isEmail';
 import constants from 'constants/AppConstants';
 import WrappedText from 'shared/wrapped-text';
 import ReduxFormField from 'shared/form-fields/ReduxFormField';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 
 const validators = {
   reserverEmailAddress: (t, { reserverEmailAddress }) => {

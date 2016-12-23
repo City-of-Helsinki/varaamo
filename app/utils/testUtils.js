@@ -11,7 +11,7 @@ import { IntlProvider } from 'react-intl';
 import { CALL_API } from 'redux-api-middleware';
 
 import rootReducer from 'state/reducers';
-import enMessages from 'translations/en.json';
+import enMessages from 'i18n/messages/en.json';
 
 const testMessages = mapValues(enMessages, (value, key) => key);
 

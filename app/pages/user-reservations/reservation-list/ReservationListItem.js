@@ -6,7 +6,7 @@ import ReservationAccessCode from 'shared/reservation-access-code';
 import ReservationControls from 'shared/reservation-controls';
 import ReservationStateLabel from 'shared/reservation-state-label';
 import TimeRange from 'shared/time-range';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import { getMainImage } from 'utils/imageUtils';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 

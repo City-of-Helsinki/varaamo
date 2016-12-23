@@ -9,7 +9,7 @@ import { changeSearchFilters } from 'actions/uiActions';
 import { fetchUnits } from 'actions/unitActions';
 import PageWrapper from 'pages/PageWrapper';
 import DateHeader from 'shared/date-header';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import { scrollTo } from 'utils/domUtils';
 import SearchControls from './controls';
 import searchPageSelector from './searchPageSelector';

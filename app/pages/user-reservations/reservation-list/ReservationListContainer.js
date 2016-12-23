@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import ReservationListItem from './ReservationListItem';
 import reservationListSelector from './reservationListSelector';
 

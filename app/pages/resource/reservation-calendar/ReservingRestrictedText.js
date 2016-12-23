@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React, { PropTypes } from 'react';
 
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 
 function ReservingRestrictedText({ reservableBefore, reservableDaysInAdvance, t }) {
   const dateFormat = 'D.M.YYYY';

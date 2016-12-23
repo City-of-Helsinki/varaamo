@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import nuorisoasiainkeskusImage from './images/vaaka.png';
 import kaupunginkirjatoImage from './images/kaupunginkirjato.png';
 import varhaiskasvatusvirastoImage from './images/hginvarhaiskasvatus.png';

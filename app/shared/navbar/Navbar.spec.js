@@ -13,7 +13,7 @@ import Navbar from './Navbar';
 describe('shared/navbar/Navbar', () => {
   function getWrapper(props) {
     const defaults = {
-      changeLanguage: () => null,
+      changeLocale: () => null,
       clearSearchResults: () => null,
       currentLanguage: 'fi',
       isAdmin: false,
@@ -52,10 +52,10 @@ describe('shared/navbar/Navbar', () => {
       expect(actual).to.equal('FI');
     });
 
-    it('has changeLanguage as onSelect prop', () => {
-      const changeLanguage = () => null;
-      const actual = getLanguageDropdownWrapper({ changeLanguage }).prop('onSelect');
-      expect(actual).to.equal(changeLanguage);
+    it('has changeLocale as onSelect prop', () => {
+      const changeLocale = () => null;
+      const actual = getLanguageDropdownWrapper({ changeLocale }).prop('onSelect');
+      expect(actual).to.equal(changeLocale);
     });
 
     it('renders MenuItems for other languages', () => {

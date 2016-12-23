@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { FormattedHTMLMessage } from 'react-intl';
 
 import FeedbackLink from 'shared/feedback-link';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import { getCurrentCustomization } from 'utils/customizationUtils';
 import EspooPartners from './EspooPartners';
 

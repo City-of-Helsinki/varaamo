@@ -4,7 +4,7 @@ import { FormattedHTMLMessage } from 'react-intl';
 import Well from 'react-bootstrap/lib/Well';
 
 import WrappedText from 'shared/wrapped-text';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 
 function renderLoginText(isLoggedIn, resource) {
   if (isLoggedIn || !resource.reservable) {

@@ -1,8 +1,8 @@
 import { updateIntl } from 'react-intl-redux';
 
-import enMessages from 'translations/en.json';
-import fiMessages from 'translations/fi.json';
-import svMessages from 'translations/sv.json';
+import enMessages from 'i18n/messages/en.json';
+import fiMessages from 'i18n/messages/fi.json';
+import svMessages from 'i18n/messages/sv.json';
 
 const messages = {
   fi: fiMessages,
@@ -10,7 +10,7 @@ const messages = {
   sv: svMessages,
 };
 
-function changeLanguage(language) {
+function changeLocale(language) {
   const locale = language === 'sv' ? 'se' : language;
   return updateIntl({
     locale,
@@ -18,4 +18,4 @@ function changeLanguage(language) {
   });
 }
 
-export default changeLanguage;
+export default changeLocale;

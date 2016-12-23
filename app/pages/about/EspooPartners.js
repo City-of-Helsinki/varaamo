@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import aikaLogoSrc from './images/aika-logo.png';
 import eakrLogoSrc from './images/eakr-logo.png';
 import euVipuvoimaaLogoSrc from './images/eu-vipuvoimaa-logo.png';
