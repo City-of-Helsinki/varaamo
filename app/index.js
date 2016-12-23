@@ -17,7 +17,7 @@ import 'assets/styles/customization/espoo/customization.less';
 import getRoutes from 'app/routes';
 import configureStore from 'state/configureStore';
 import rootReducer from 'state/reducers';
-import fiMessages from 'translations/fi.json';
+import fiMessages from 'i18n/messages/fi.json';
 
 addLocaleData([...en, ...fi, ...se]);
 const initialStoreState = createStore(rootReducer, {}).getState();

@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { fetchResource } from 'actions/resourceActions';
 import PageWrapper from 'pages/PageWrapper';
 import NotFoundPage from 'pages/not-found/NotFoundPage';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import { getDateStartAndEndTimes } from 'utils/timeUtils';
 import ReservationCalendar from './reservation-calendar';
 import ReservationConfirmation from './reservation-confirmation';

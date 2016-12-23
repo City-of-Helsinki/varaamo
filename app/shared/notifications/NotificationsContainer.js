@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { hideNotification } from 'actions/notificationsActions';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import notificationsSelector from './notificationsSelector';
 
 class UnconnectedNotificationsContainer extends Component {

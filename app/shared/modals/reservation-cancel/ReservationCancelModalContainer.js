@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 import { deleteReservation } from 'actions/reservationActions';
 import { closeReservationCancelModal } from 'actions/uiActions';
 import CompactReservationList from 'shared/compact-reservation-list';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import reservationCancelModalSelector from './reservationCancelModalSelector';
 
 class UnconnectedReservationCancelModalContainer extends Component {

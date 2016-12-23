@@ -4,7 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import Select from 'react-select';
 
 import constants from 'constants/AppConstants';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 
 class AdminReservationFilters extends Component {
   render() {

@@ -13,7 +13,7 @@ import { bindActionCreators } from 'redux';
 import { fetchPurposes } from 'actions/purposeActions';
 import { changeSearchFilters } from 'actions/uiActions';
 import constants from 'constants/AppConstants';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import AdvancedSearch from './AdvancedSearch';
 import searchControlsSelector from './searchControlsSelector';
 

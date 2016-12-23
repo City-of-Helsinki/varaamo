@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 
 import PageWrapper from 'pages/PageWrapper';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import { getSearchPageUrl } from 'utils/searchUtils';
 
 function NotFoundPage({ t }) {

@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import { LinkContainer } from 'react-router-bootstrap';
 
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import {
   getOpeningHours,
   getResourcePageUrl,

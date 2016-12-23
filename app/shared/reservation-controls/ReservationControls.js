@@ -2,7 +2,7 @@ import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 
 class ReservationControls extends Component {
   constructor(props) {

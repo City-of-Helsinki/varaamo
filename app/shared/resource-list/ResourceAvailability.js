@@ -2,7 +2,7 @@ import moment from 'moment';
 import React, { PropTypes } from 'react';
 import Label from 'react-bootstrap/lib/Label';
 
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import { getAvailabilityDataForNow, getAvailabilityDataForWholeDay } from 'utils/resourceUtils';
 
 function ResourceAvailability({ date, resource, t }) {

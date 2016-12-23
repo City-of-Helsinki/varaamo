@@ -3,7 +3,7 @@ import { findDOMNode } from 'react-dom';
 import Loader from 'react-loader';
 
 import ResourceList from 'shared/resource-list';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import { scrollTo } from 'utils/domUtils';
 import ResultsCount from './ResultsCount';
 

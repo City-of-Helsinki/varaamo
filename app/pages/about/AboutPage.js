@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import PageWrapper from 'pages/PageWrapper';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import AboutPageContent from './AboutPageContent';
 
 function AboutPage({ t }) {

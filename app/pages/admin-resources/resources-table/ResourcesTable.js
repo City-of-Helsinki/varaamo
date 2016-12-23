@@ -3,7 +3,7 @@ import Table from 'react-bootstrap/lib/Table';
 import { connect } from 'react-redux';
 
 import CommentModal from 'shared/modals/comment';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import { getOpenReservations } from 'utils/resourceUtils';
 import { getCurrentReservation, getNextReservation } from 'utils/reservationUtils';
 import ResourcesTableRow from './ResourcesTableRow';

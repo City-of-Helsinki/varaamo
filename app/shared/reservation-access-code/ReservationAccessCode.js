@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 
 function ReservationAccessCode({ reservation, t, text }) {
   if (!reservation.accessCode) {

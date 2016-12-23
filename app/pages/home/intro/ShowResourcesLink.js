@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import { getSearchPageUrl } from 'utils/searchUtils';
 
 function ShowResourcesLink({ t }) {

@@ -3,7 +3,7 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import Panel from 'react-bootstrap/lib/Panel';
 import Select from 'react-select';
 
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 
 class AdvancedSearch extends Component {
   render() {

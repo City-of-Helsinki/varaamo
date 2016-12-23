@@ -16,7 +16,7 @@ import DateHeader from 'shared/date-header';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
 import ReservationInfoModal from 'shared/modals/reservation-info';
 import ReservationSuccessModal from 'shared/modals/reservation-success';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import { getResourcePageUrl, reservingIsRestricted } from 'utils/resourceUtils';
 import { addToDate, isPastDate } from 'utils/timeUtils';
 import ReservationCalendarControls from './ReservationCalendarControls';

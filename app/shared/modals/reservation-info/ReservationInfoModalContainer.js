@@ -14,7 +14,7 @@ import { closeReservationInfoModal } from 'actions/uiActions';
 import { commentReservation } from 'actions/reservationActions';
 import ReservationStateLabel from 'shared/reservation-state-label';
 import TimeRange from 'shared/time-range';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import reservationInfoModalSelector from './reservationInfoModalSelector';
 
 class UnconnectedReservationInfoModalContainer extends Component {

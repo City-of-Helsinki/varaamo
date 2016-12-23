@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 
 import { fetchFavoritedResources } from 'actions/resourceActions';
 import PageWrapper from 'pages/PageWrapper';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import adminResourcesPageSelector from './adminResourcesPageSelector';
 import ResourcesTable from './resources-table';
 

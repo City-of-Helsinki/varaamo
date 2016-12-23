@@ -4,7 +4,7 @@ import { FormattedHTMLMessage } from 'react-intl';
 
 import CompactReservationList from 'shared/compact-reservation-list';
 import ReservationAccessCode from 'shared/reservation-access-code';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import ModalWrapper from '../ModalWrapper';
 
 function ReservationSuccessModal({

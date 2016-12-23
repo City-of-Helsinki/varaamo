@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import Table from 'react-bootstrap/lib/Table';
 import Loader from 'react-loader';
 
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import TimeSlot from './TimeSlot';
 
 class TimeSlots extends Component {

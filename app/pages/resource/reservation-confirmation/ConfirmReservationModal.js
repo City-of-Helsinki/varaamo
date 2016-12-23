@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/lib/Modal';
 
 import constants from 'constants/AppConstants';
 import CompactReservationList from 'shared/compact-reservation-list';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import { isStaffEvent } from 'utils/reservationUtils';
 import { getTermsAndConditions } from 'utils/resourceUtils';
 import ReservationForm from './ReservationForm';

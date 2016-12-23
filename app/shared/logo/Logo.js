@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import { getCurrentCustomization } from 'utils/customizationUtils';
 import helsinkiLogoSrc from './helsinki-coat-of-arms-white.png';
 import espooLogoSrc from './espoo-logo.png';

@@ -7,7 +7,7 @@ import { findDOMNode } from 'react-dom';
 
 import ReservationAccessCode from 'shared/reservation-access-code';
 import ReservationControls from 'shared/reservation-controls';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import { scrollTo } from 'utils/domUtils';
 
 export function getLabelData({ isOwnReservation, isPast, slot }) {

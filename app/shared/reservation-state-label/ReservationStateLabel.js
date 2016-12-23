@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import Label from 'react-bootstrap/lib/Label';
 
 import constants from 'constants/AppConstants';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 
 function ReservationStateLabel({ reservation, t }) {
   if (!reservation.needManualConfirmation && reservation.state !== 'cancelled') {

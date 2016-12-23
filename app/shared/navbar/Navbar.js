@@ -9,12 +9,12 @@ import { IndexLink } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import Logo from 'shared/logo';
-import { injectT } from 'translations';
+import { injectT } from 'i18n';
 import { getSearchPageUrl } from 'utils/searchUtils';
 
 function Navbar(props) {
   const {
-    changeLanguage,
+    changeLocale,
     clearSearchResults,
     currentLanguage,
     isAdmin,
@@ -61,7 +61,7 @@ function Navbar(props) {
 
           <NavDropdown
             id="language-dropdown"
-            onSelect={changeLanguage}
+            onSelect={changeLocale}
             title={currentLanguage.toUpperCase()}
           >
             {currentLanguage !== 'en' && <MenuItem eventKey="en">EN</MenuItem>}
@@ -88,7 +88,7 @@ function Navbar(props) {
 }
 
 Navbar.propTypes = {
-  changeLanguage: PropTypes.func.isRequired,
+  changeLocale: PropTypes.func.isRequired,
   clearSearchResults: PropTypes.func.isRequired,
   currentLanguage: PropTypes.string.isRequired,
   isAdmin: PropTypes.bool.isRequired,
