@@ -30,7 +30,7 @@
     "react-date-picker": "5.3.28",
     "react-document-title": "2.0.2",
     "react-dom": "15.3.2",
-    "react-favicon": "0.0.5",
+    "react-helmet": "3.2.3",
     "react-intl": "2.1.5",
     "react-intl-redux": "0.1.0",
     "react-linkify": "0.1.3",
