@@ -85,9 +85,9 @@ class ResourcesTableRow extends Component {
           <td className="resource-table-row reservation-range" key={`${reservation.id}-range`}>
             <TimeRange
               begin={reservation.begin}
-              dateFormat=" "
-              dateTimeSeparator=""
+              beginFormat="LT"
               end={reservation.end}
+              endFormat="LT"
             />
           </td>,
           <td className="resource-table-row reserver" key={`${reservation.id}-reserver`}>

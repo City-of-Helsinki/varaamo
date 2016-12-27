@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { updateIntl } from 'react-intl-redux';
 
 import enMessages from 'i18n/messages/en.json';
@@ -12,6 +13,7 @@ const messages = {
 
 function changeLocale(language) {
   const locale = language === 'sv' ? 'se' : language;
+  moment.locale(`varaamo-${locale}`);
   return updateIntl({
     locale,
     messages: messages[language],

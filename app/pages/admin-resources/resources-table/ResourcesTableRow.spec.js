@@ -220,8 +220,9 @@ describe('pages/admin-resources/resources-table/ResourcesTableRow', () => {
             it('contains a TimeRange element with correct props', () => {
               const timeRangeComponent = tdComponent.find(TimeRange);
               expect(timeRangeComponent.prop('begin')).to.equal(expectedReservation.begin);
-              expect(timeRangeComponent.prop('dateFormat')).to.equal(' ');
+              expect(timeRangeComponent.prop('beginFormat')).to.equal('LT');
               expect(timeRangeComponent.prop('end')).to.equal(expectedReservation.end);
+              expect(timeRangeComponent.prop('endFormat')).to.equal('LT');
             });
           });
 

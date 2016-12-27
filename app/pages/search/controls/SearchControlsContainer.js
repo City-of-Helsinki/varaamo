@@ -35,7 +35,7 @@ class UnconnectedSearchControlsContainer extends Component {
 
   handleDateChange(date) {
     const dateInCorrectFormat = (
-      moment(date, constants.LOCALIZED_DATE_FORMAT).format(constants.DATE_FORMAT)
+      moment(date, 'L').format(constants.DATE_FORMAT)
     );
     this.handleFiltersChange({ date: dateInCorrectFormat });
   }
@@ -94,11 +94,11 @@ class UnconnectedSearchControlsContainer extends Component {
                 className="form-control"
                 clearIcon={false}
                 collapseOnDateClick
-                dateFormat={constants.LOCALIZED_DATE_FORMAT}
+                dateFormat={'L'}
                 footer={false}
                 onChange={this.handleDateChange}
                 updateOnDateClick
-                value={moment(filters.date).format(constants.LOCALIZED_DATE_FORMAT)}
+                value={moment(filters.date).format('L')}
               />
             </div>
           </Col>

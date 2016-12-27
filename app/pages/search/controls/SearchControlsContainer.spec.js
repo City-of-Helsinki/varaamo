@@ -8,7 +8,6 @@ import { browserHistory } from 'react-router';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import constants from 'constants/AppConstants';
 import { shallowWithIntl } from 'utils/testUtils';
 import AdvancedSearch from './AdvancedSearch';
 import {
@@ -70,7 +69,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
 
       it('converts value to localized date format and passes it to DateField', () => {
         const actual = getDateFieldWrapper().prop('value');
-        const expected = moment(defaultProps.filters.date).format(constants.LOCALIZED_DATE_FORMAT);
+        const expected = moment(defaultProps.filters.date).format('L');
         expect(actual).to.equal(expected);
       });
     });

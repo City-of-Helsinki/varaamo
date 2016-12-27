@@ -44,6 +44,6 @@ module.exports = {
     modulesDirectories: ['node_modules', 'app'],
   },
   plugins: [
-    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|fi|sv/),
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en-gb|fi|sv/),
   ],
 };

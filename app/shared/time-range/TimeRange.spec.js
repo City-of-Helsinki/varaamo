@@ -9,9 +9,9 @@ describe('shared/time-range/TimeRange', () => {
   const defaultProps = {
     begin: '2015-10-11T12:00:00Z',
     className: 'some-class',
-    dateFormat: 'ddd, Do MMMM[ta]',
+    beginFormat: 'ddd, Do MMMM',
     end: '2015-10-11T14:00:00Z',
-    timeFormat: 'H:mm',
+    endFormat: 'H:mm',
   };
 
   function getWrapper(extraProps) {
@@ -20,41 +20,30 @@ describe('shared/time-range/TimeRange', () => {
 
   it('renders a time element', () => {
     const time = getWrapper().find('time');
-
     expect(time.length).to.equal(1);
   });
 
   it('adds the given className to the time element', () => {
     const time = getWrapper().find('time');
-
     expect(time.props().className).to.equal(defaultProps.className);
   });
 
   it('passes correct dateTime range to the time element', () => {
     const time = getWrapper().find('time');
     const expected = `${defaultProps.begin}/${defaultProps.end}`;
-
     expect(time.props().dateTime).to.equal(expected);
   });
 
   describe('the datetime range string', () => {
     const rangeString = getWrapper().find('time').props().children;
 
-    it('displays the date in given dateFormat', () => {
-      const expected = moment(defaultProps.begin).format(defaultProps.dateFormat);
-
+    it('displays the begin in given beginFormat', () => {
+      const expected = moment(defaultProps.begin).format(defaultProps.beginFormat);
       expect(rangeString.toLowerCase()).to.contain(expected.toLowerCase());
     });
 
-    it('displays the begin time in given timeFormat', () => {
-      const expected = moment(defaultProps.begin).format(defaultProps.timeFormat);
-
-      expect(rangeString).to.contain(expected);
-    });
-
-    it('displays the end time in given time format', () => {
-      const expected = moment(defaultProps.end).format(defaultProps.timeFormat);
-
+    it('displays the end time in given endFormat', () => {
+      const expected = moment(defaultProps.end).format(defaultProps.endFormat);
       expect(rangeString).to.contain(expected);
     });
   });
