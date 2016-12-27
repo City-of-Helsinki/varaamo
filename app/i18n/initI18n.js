@@ -1,6 +1,7 @@
 import 'moment/locale/en-gb';
 import 'moment/locale/fi';
 import 'moment/locale/sv';
+import 'moment-timezone';
 
 import moment from 'moment';
 import { addLocaleData } from 'react-intl';
@@ -10,6 +11,8 @@ import se from 'react-intl/locale-data/se';
 
 import constants from 'constants/AppConstants';
 import fiMessages from 'i18n/messages/fi.json';
+
+moment.tz.setDefault('Europe/Helsinki');
 
 moment.defineLocale('varaamo-en', {
   parentLocale: 'en-gb',

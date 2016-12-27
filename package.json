@@ -20,6 +20,7 @@
     "lodash": "4.16.4",
     "moment": "2.15.1",
     "moment-range": "2.2.0",
+    "moment-timezone": "0.5.11",
     "normalizr": "2.2.1",
     "passport": "0.3.2",
     "passport-helsinki": "git://github.com/City-of-Helsinki/passport-helsinki.git",
