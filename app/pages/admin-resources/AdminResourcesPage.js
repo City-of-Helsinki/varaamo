@@ -1,4 +1,3 @@
-import 'moment/locale/fi';
 import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 import Loader from 'react-loader';

@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
@@ -22,15 +23,13 @@ describe('shared/date-header/DateHeader', () => {
 
     it('displays the weekday of the given date', () => {
       const header = getWrapper().find('h3');
-      const expected = 'Sunnuntai';
-
-      expect(header.text()).to.contain(expected);
+      const expected = moment(defaultProps.date).format('dddd');
+      expect(header.text().toLowerCase()).to.contain(expected);
     });
 
     it('displays the date in humanized format', () => {
       const header = getWrapper().find('h3');
-      const expected = '11. lokakuuta 2015';
-
+      const expected = moment(defaultProps.date).format('LL');
       expect(header.text()).to.contain(expected);
     });
 

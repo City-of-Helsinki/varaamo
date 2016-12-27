@@ -74,14 +74,11 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
       expect(resourcePageLinkWithTime.length).to.equal(1);
     });
 
-    it('contains two TimeRange components with correct begin and end times', () => {
+    it('contains TimeRange component with correct props', () => {
       const timeRange = component.find(TimeRange);
-
-      expect(timeRange).to.have.length(2);
-      expect(timeRange.at(0).props().begin).to.equal(props.reservation.begin);
-      expect(timeRange.at(0).props().end).to.equal(props.reservation.end);
-      expect(timeRange.at(1).props().begin).to.equal(props.reservation.begin);
-      expect(timeRange.at(1).props().end).to.equal(props.reservation.end);
+      expect(timeRange).to.have.length(1);
+      expect(timeRange.prop('begin')).to.equal(props.reservation.begin);
+      expect(timeRange.prop('end')).to.equal(props.reservation.end);
     });
 
     it('renders ReservationStateLabel component', () => {
