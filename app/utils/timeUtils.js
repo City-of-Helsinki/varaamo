@@ -35,7 +35,7 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = [], reserv
     return [];
   }
 
-  const range = moment.range(moment.utc(start), moment.utc(end));
+  const range = moment.range(moment(start), moment(end));
   const duration = moment.duration(period);
   const reservationRanges = map(reservations, reservation => (
     moment.range(moment(reservation.begin), moment(reservation.end))
@@ -46,17 +46,13 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = [], reserv
   const slots = [];
 
   range.by(duration, (startMoment) => {
-    const startUTC = moment.utc(startMoment);
-    const endUTC = moment.utc(startMoment).add(duration);
-    const startLocal = startUTC.local();
-    const endLocal = endUTC.local();
-
-    const asISOString = `${startUTC.toISOString()}/${endUTC.toISOString()}`;
+    const endMoment = moment(startMoment).add(duration);
+    const asISOString = `${startMoment.toISOString()}/${endMoment.toISOString()}`;
     const asString = (
-      `${startLocal.format(constants.TIME_FORMAT)}\u2013${endLocal.format(constants.TIME_FORMAT)}`
+      `${startMoment.format(constants.TIME_FORMAT)}\u2013${endMoment.format(constants.TIME_FORMAT)}`
     );
 
-    const slotRange = moment.range(startLocal, endLocal);
+    const slotRange = moment.range(startMoment, endMoment);
     const editing = editRanges.some(
       editRange => editRange.overlaps(slotRange)
     );
@@ -84,8 +80,8 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = [], reserv
       reservationStarting,
       reservationEnding,
       reserved,
-      start: startUTC.toISOString(),
-      end: endUTC.toISOString(),
+      start: startMoment.toISOString(),
+      end: endMoment.toISOString(),
     });
   }, true);
 
