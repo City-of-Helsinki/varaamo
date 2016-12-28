@@ -7,7 +7,7 @@ import { createSelector } from 'reselect';
 import constants from 'constants/AppConstants';
 
 function currentLanguageSelector(state) {
-  const locale = state.intl ? state.intl.locale : constants.DEFAULT_LANGUAGE;
+  const locale = state.intl ? state.intl.locale : constants.DEFAULT_LOCALE;
   return locale === 'se' ? 'sv' : locale;
 }
 
@@ -21,8 +21,8 @@ function isTranslatable(prop) {
 function translateValue(prop, language) {
   if (prop[language]) {
     return prop[language];
-  } else if (prop[constants.DEFAULT_LANGUAGE]) {
-    return prop[constants.DEFAULT_LANGUAGE];
+  } else if (prop[constants.DEFAULT_LOCALE]) {
+    return prop[constants.DEFAULT_LOCALE];
   }
   return '';
 }
