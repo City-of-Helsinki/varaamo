@@ -5,7 +5,7 @@ export default {
     'varaamotest-espoo.hel.ninja': 'ESPOO',
   },
   DATE_FORMAT: 'YYYY-MM-DD',
-  DEFAULT_LANGUAGE: 'fi',
+  DEFAULT_LOCALE: 'fi',
   FEEDBACK_URL: 'http://www.helmet-kirjasto.fi/varaamo-palaute/',
   NOTIFICATION_DEFAULTS: {
     message: '',

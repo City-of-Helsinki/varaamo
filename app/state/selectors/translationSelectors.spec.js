@@ -11,7 +11,7 @@ describe('state/selectors/dataSelectors', () => {
   describe('currentLanguageSelector', () => {
     it('returns default language if state does not contain locale', () => {
       const state = {};
-      expect(currentLanguageSelector(state)).to.equal(constants.DEFAULT_LANGUAGE);
+      expect(currentLanguageSelector(state)).to.equal(constants.DEFAULT_LOCALE);
     });
 
     it('returns locale from state', () => {
