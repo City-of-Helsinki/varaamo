@@ -1,11 +1,29 @@
-.navbar-brand {
-  color: #fff;
+.navbar {
+  .navbar-brand {
+    color: #fff;
 
-  img {
-    display: inline-block;
-    vertical-align: top;
-    height: 40px;
-    margin-top: -8px;
-    margin-right: 10px;
+    img {
+      display: inline-block;
+      vertical-align: top;
+      height: 40px;
+      margin-top: -8px;
+      margin-right: 10px;
+    }
+  }
+
+  #language-nav {
+    li {
+      position: relative;
+      display: inline-block;
+    }
+    li + li:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 30%;
+      bottom: 30%;
+      width: 1px;
+      background-color: #eee;
+    }
   }
 }
