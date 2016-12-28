@@ -37,33 +37,27 @@ describe('shared/navbar/Navbar', () => {
     expect(searchLink).to.have.length(1);
   });
 
-  describe('language dropdown', () => {
-    function getLanguageDropdownWrapper(props) {
-      return getWrapper(props).find('#language-dropdown');
+  describe('language nav', () => {
+    function getLanguageNavWrapper(props) {
+      return getWrapper(props).find('#language-nav');
     }
 
     it('is rendered', () => {
-      expect(getLanguageDropdownWrapper()).to.have.length(1);
-    });
-
-    it('has the currentLanguage uppercased as a title ', () => {
-      const currentLanguage = 'fi';
-      const actual = getLanguageDropdownWrapper({ currentLanguage }).prop('title');
-      expect(actual).to.equal('FI');
+      expect(getLanguageNavWrapper()).to.have.length(1);
     });
 
     it('has changeLocale as onSelect prop', () => {
       const changeLocale = () => null;
-      const actual = getLanguageDropdownWrapper({ changeLocale }).prop('onSelect');
+      const actual = getLanguageNavWrapper({ changeLocale }).prop('onSelect');
       expect(actual).to.equal(changeLocale);
     });
 
-    it('renders MenuItems for other languages', () => {
+    it('renders NavItems for other languages', () => {
       const currentLanguage = 'fi';
-      const menuItems = getLanguageDropdownWrapper({ currentLanguage }).find(MenuItem);
-      expect(menuItems).to.have.length(2);
-      expect(menuItems.at(0).prop('children')).to.equal('EN');
-      expect(menuItems.at(1).prop('children')).to.equal('SV');
+      const navItems = getLanguageNavWrapper({ currentLanguage }).find(NavItem);
+      expect(navItems).to.have.length(2);
+      expect(navItems.at(0).prop('children')).to.equal('EN');
+      expect(navItems.at(1).prop('children')).to.equal('SV');
     });
   });
 

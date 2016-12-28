@@ -58,17 +58,6 @@ function Navbar(props) {
               </NavItem>
             </LinkContainer>
           )}
-
-          <NavDropdown
-            id="language-dropdown"
-            onSelect={changeLocale}
-            title={currentLanguage.toUpperCase()}
-          >
-            {currentLanguage !== 'en' && <MenuItem eventKey="en">EN</MenuItem>}
-            {currentLanguage !== 'fi' && <MenuItem eventKey="fi">FI</MenuItem>}
-            {currentLanguage !== 'sv' && <MenuItem eventKey="sv">SV</MenuItem>}
-          </NavDropdown>
-
           {isLoggedIn && (
             <NavDropdown id="user-dropdown" title={userName}>
               <MenuItem href={`/logout?next=${window.location.origin}`}>
@@ -81,6 +70,13 @@ function Navbar(props) {
               {t('Navbar.login')}
             </NavItem>
           )}
+        </Nav>
+
+        {/* Language nav is placed here so it is in the bottom in the navbar on mobile */}
+        <Nav id="language-nav" onSelect={changeLocale}>
+          {currentLanguage !== 'en' && <NavItem eventKey="en">EN</NavItem>}
+          {currentLanguage !== 'fi' && <NavItem eventKey="fi">FI</NavItem>}
+          {currentLanguage !== 'sv' && <NavItem eventKey="sv">SV</NavItem>}
         </Nav>
       </RBNavbar.Collapse>
     </RBNavbar>
