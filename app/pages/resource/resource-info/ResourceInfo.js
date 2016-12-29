@@ -1,4 +1,4 @@
-import capitalize from 'lodash/capitalize';
+import upperFirst from 'lodash/upperFirst';
 import React, { PropTypes } from 'react';
 
 import WrappedText from 'shared/wrapped-text';
@@ -10,7 +10,7 @@ function getAddress({ addressZip, municipality, name, streetAddress }) {
   const parts = [
     name,
     streetAddress,
-    `${addressZip} ${capitalize(municipality)}`.trim(),
+    `${addressZip} ${upperFirst(municipality)}`.trim(),
   ];
   return parts.filter(part => part).join(', ');
 }
