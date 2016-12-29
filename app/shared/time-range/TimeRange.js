@@ -1,4 +1,4 @@
-import capitalize from 'lodash/capitalize';
+import upperFirst from 'lodash/upperFirst';
 import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 
@@ -18,7 +18,7 @@ class TimeRange extends Component {
 
     return (
       <time className={className} dateTime={ISORangeString}>
-        {capitalize(rangeString)}
+        {upperFirst(rangeString)}
       </time>
     );
   }
