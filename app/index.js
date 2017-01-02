@@ -9,10 +9,10 @@ import Immutable from 'seamless-immutable';
 
 import 'assets/styles/app.less';
 import 'assets/styles/customization/espoo/customization.less';
-import getRoutes from 'app/routes';
 import { initI18n } from 'i18n';
 import configureStore from 'state/configureStore';
 import rootReducer from 'state/reducers';
+import getRoutes from './routes';
 
 const initialStoreState = createStore(rootReducer, {}).getState();
 const initialServerState = window.INITIAL_STATE;
