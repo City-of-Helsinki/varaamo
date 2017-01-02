@@ -24,26 +24,6 @@ function getPiwikActionName(searchParams) {
   return '-empty-search-';
 }
 
-function getTypeaheadSuggestions(params = {}) {
-  const fetchParams = Object.assign({}, params, { pageSize: 100 });
-
-  return {
-    [CALL_API]: {
-      types: [
-        getRequestTypeDescriptor(types.API.TYPEAHEAD_SUGGESTIONS_GET_REQUEST),
-        getSuccessTypeDescriptor(
-          types.API.TYPEAHEAD_SUGGESTIONS_GET_SUCCESS,
-          { schema: schemas.typeaheadSchema }
-        ),
-        getErrorTypeDescriptor(types.API.TYPEAHEAD_SUGGESTIONS_GET_ERROR),
-      ],
-      endpoint: buildAPIUrl('search', fetchParams),
-      method: 'GET',
-      headers: getHeadersCreator(),
-    },
-  };
-}
-
 function searchResources(filters = {}) {
   const params = getFetchParamsFromFilters(filters);
   const fetchParams = Object.assign({}, params, { pageSize: 100 });
@@ -83,6 +63,5 @@ function searchResources(filters = {}) {
 export {
   clearSearchResults,
   getPiwikActionName,
-  getTypeaheadSuggestions,
   searchResources,
 };

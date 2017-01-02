@@ -1,4 +1,3 @@
-import values from 'lodash/values';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
@@ -13,7 +12,6 @@ const initialState = Immutable({
   },
   results: [],
   searchDone: false,
-  typeaheadSuggestions: [],
 });
 
 function searchReducer(state = initialState, action) {
@@ -25,11 +23,6 @@ function searchReducer(state = initialState, action) {
         results,
         searchDone: true,
       });
-    }
-
-    case types.API.TYPEAHEAD_SUGGESTIONS_GET_SUCCESS: {
-      const typeaheadSuggestions = values(action.payload.resource);
-      return state.merge({ typeaheadSuggestions });
     }
 
     case types.UI.CHANGE_SEARCH_FILTERS: {

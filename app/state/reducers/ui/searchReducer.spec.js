@@ -41,10 +41,6 @@ describe('state/reducers/ui/searchReducer', () => {
     it('searchDone is false', () => {
       expect(initialState.searchDone).to.equal(false);
     });
-
-    it('typeaheadSuggestions is an empty array', () => {
-      expect(initialState.typeaheadSuggestions).to.deep.equal([]);
-    });
   });
 
   describe('handling actions', () => {
@@ -92,41 +88,6 @@ describe('state/reducers/ui/searchReducer', () => {
         const nextState = searchReducer(initialState, action);
 
         expect(nextState.searchDone).to.equal(true);
-      });
-    });
-
-    describe('API.TYPEAHEAD_SUGGESTIONS_GET_SUCCESS', () => {
-      const typeaheadSuggestionsSuccess = createAction(
-        types.API.TYPEAHEAD_SUGGESTIONS_GET_SUCCESS,
-        resources => ({
-          resource: keyBy(resources, 'id'),
-        })
-      );
-      const resources = [
-        Resource.build(),
-        Resource.build(),
-      ];
-
-      it('sets the given resources to typeaheadSuggestions', () => {
-        const action = typeaheadSuggestionsSuccess(resources);
-        const initialState = Immutable({
-          typeaheadSuggestions: [],
-        });
-        const expected = resources;
-        const nextState = searchReducer(initialState, action);
-
-        expect(nextState.typeaheadSuggestions).to.deep.equal(expected);
-      });
-
-      it('replaces the old ids in searchResults.ids', () => {
-        const action = typeaheadSuggestionsSuccess(resources);
-        const initialState = Immutable({
-          typeaheadSuggestions: ['replace-this'],
-        });
-        const expected = resources;
-        const nextState = searchReducer(initialState, action);
-
-        expect(nextState.typeaheadSuggestions).to.deep.equal(expected);
       });
     });
 
@@ -209,16 +170,6 @@ describe('state/reducers/ui/searchReducer', () => {
         const nextState = searchReducer(initialState, action);
 
         expect(nextState.searchDone).to.equal(false);
-      });
-
-      it('empties typeaheadSuggestions', () => {
-        const action = clearSearchResults();
-        const initialState = Immutable({
-          typeaheadSuggestions: ['r-1', 'r-2'],
-        });
-        const nextState = searchReducer(initialState, action);
-
-        expect(nextState.results).to.deep.equal([]);
       });
     });
   });
