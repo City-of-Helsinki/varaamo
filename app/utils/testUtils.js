@@ -190,16 +190,7 @@ function getDefaultRouterProps() {
 }
 
 function getInitialState() {
-  const initialState = rootReducer(undefined, {});
-  const defaults = {
-    router: {
-      location: {
-        query: {},
-      },
-    },
-  };
-
-  return Object.assign({}, initialState, defaults);
+  return rootReducer(undefined, {});
 }
 
 function getState(extraState = {}) {
