@@ -114,13 +114,13 @@
     "webpack-merge": "0.14.1"
   },
   "scripts": {
-    "start": "node server/index.js",
-    "start:production": "NODE_ENV=production node server/index.js",
     "build": "./node_modules/.bin/webpack --config config/webpack.production.js",
-    "test": "npm run lint && ./node_modules/karma/bin/karma start config/karma.conf.js --single-run",
-    "test:watch": "npm run lint && ./node_modules/karma/bin/karma start config/karma.conf.js",
-    "test:coverage": "npm run lint && ./node_modules/karma/bin/karma start config/karma.coverage.conf.js --single-run",
+    "lint": "./node_modules/.bin/eslint .",
+    "start:production": "NODE_ENV=production node server/index.js",
+    "start": "node server/index.js",
     "test:ci": "./node_modules/karma/bin/karma start config/karma.ci.conf.js --single-run",
-    "lint": "./node_modules/.bin/eslint ."
+    "test:coverage": "npm run lint && ./node_modules/karma/bin/karma start config/karma.coverage.conf.js --single-run",
+    "test:watch": "npm run lint && ./node_modules/karma/bin/karma start config/karma.conf.js",
+    "test": "npm run lint && ./node_modules/karma/bin/karma start config/karma.conf.js --single-run"
   }
 }
