@@ -138,7 +138,6 @@ class UnconnectedReservationInfoModalContainer extends Component {
               bsStyle="success"
               disabled={isEditingReservations}
               onClick={this.handleSave}
-              type="submit"
             >
               {isEditingReservations ? t('common.saving') : t('common.save')}
             </Button>
