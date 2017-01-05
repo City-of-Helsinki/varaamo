@@ -114,7 +114,6 @@ class UnconnectedSearchControlsContainer extends Component {
           bsStyle="primary"
           className="search-button"
           onClick={() => this.handleSearch()}
-          type="submit"
         >
           {t('SearchControls.search')}
         </Button>

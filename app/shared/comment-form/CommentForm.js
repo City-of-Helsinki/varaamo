@@ -13,7 +13,8 @@ class CommentForm extends Component {
     this.handleSave = this.handleSave.bind(this);
   }
 
-  handleSave() {
+  handleSave(event) {
+    event.preventDefault();
     const comments = findDOMNode(this.refs.commentsInput).value;
     this.props.onSave(comments);
   }

@@ -72,12 +72,13 @@ describe('shared/comment-form/CommentForm', () => {
 
   describe('handleSave', () => {
     const comments = 'Some comments';
+    const mockEvent = { preventDefault: () => null };
 
     before(() => {
       simple.mock(ReactDom, 'findDOMNode').returnWith({ value: comments });
       const instance = getWrapper().instance();
       defaultProps.onSave.reset();
-      instance.handleSave();
+      instance.handleSave(mockEvent);
     });
 
     after(() => {
