@@ -169,6 +169,7 @@
   "SearchPage.title": "Search",
   "SearchResults.emptyMessage": "Your search found no results.",
   "ShowResourcesLink.text": "Show all premises and equipment",
+  "TestSiteMessage.text": "This is the test version of Varaamo",
   "TimeSlot.available": "Free",
   "TimeSlot.editing": "Edited",
   "TimeSlot.ownReservation": "My reservation",

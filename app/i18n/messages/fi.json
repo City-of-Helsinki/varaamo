@@ -169,6 +169,7 @@
   "SearchPage.title": "Haku",
   "SearchResults.emptyMessage": "Yhtään hakutulosta ei löytynyt.",
   "ShowResourcesLink.text": "Näytä kaikki tilat ja laitteet",
+  "TestSiteMessage.text": "Tämä on Varaamon testiversio",
   "TimeSlot.available": "Vapaa",
   "TimeSlot.editing": "Muokataan",
   "TimeSlot.ownReservation": "Oma varaus",

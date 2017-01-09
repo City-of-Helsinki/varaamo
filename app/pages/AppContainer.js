@@ -6,6 +6,7 @@ import { createStructuredSelector } from 'reselect';
 
 import { fetchUser } from 'actions/userActions';
 import Favicon from 'shared/favicon';
+import TestSiteMessage from 'shared/test-site-message';
 import Footer from 'shared/footer';
 import Navbar from 'shared/navbar';
 import Notifications from 'shared/notifications';
@@ -34,6 +35,7 @@ export class UnconnectedAppContainer extends Component {
       <DocumentTitle title="Varaamo">
         <div className={`app ${getCustomizationClassName()}`}>
           <Favicon />
+          <TestSiteMessage />
           <Navbar />
           <div className="app-content">
             <Grid>
