@@ -55,6 +55,7 @@ export default {
       labelTextId: 'common.requested',
     },
   },
+  SHOW_TEST_SITE_MESSAGE: SETTINGS.SHOW_TEST_SITE_MESSAGE,
   SUPPORTED_LANGUAGES: ['en', 'fi', 'sv'],
   SUPPORTED_SEARCH_FILTERS: {
     date: '',
