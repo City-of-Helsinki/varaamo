@@ -40,8 +40,10 @@ module.exports = merge(common, {
   },
   plugins: [
     new webpack.DefinePlugin({
-      __API_URL__: JSON.stringify('https://mock-api.fi'),
-      __TRACKING__: false,
+      SETTINGS: {
+        API_URL: JSON.stringify('https://mock-api.fi'),
+        TRACKING: false,
+      },
     }),
     new HtmlWebpackPlugin(),
     new webpack.IgnorePlugin(/ReactContext/),
