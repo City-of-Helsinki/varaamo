@@ -1,5 +1,5 @@
 export default {
-  API_URL: __API_URL__,
+  API_URL: SETTINGS.API_URL,
   CUSTOMIZATIONS: {
     'varaamo.espoo.fi': 'ESPOO',
     'varaamotest-espoo.hel.ninja': 'ESPOO',
@@ -63,5 +63,5 @@ export default {
     search: '',
   },
   TIME_FORMAT: 'H:mm',
-  TRACKING: __TRACKING__,
+  TRACKING: SETTINGS.TRACKING,
 };

@@ -8,8 +8,7 @@
   },
 
   "globals": {
-    __API_URL__: true,
-    __TRACKING__: false
+    SETTINGS: true
   },
 
   "parser": "babel-eslint",
