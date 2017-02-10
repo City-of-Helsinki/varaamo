@@ -1,5 +1,5 @@
-import { createSelector, createStructuredSelector } from 'reselect';
 import sortBy from 'lodash/sortBy';
+import { createSelector, createStructuredSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
 import { isAdminSelector } from 'state/selectors/authSelectors';
@@ -11,9 +11,7 @@ const resourceIdsSelector = state => state.ui.pages.adminResources.resourceIds;
 const adminResourcesSelector = createSelector(
   resourceIdsSelector,
   resourcesSelector,
-  (resourceIds, resources) => (
-    sortBy(resourceIds.map(id => resources[id]), 'name')
-  )
+  (resourceIds, resources) => sortBy(resourceIds.map(id => resources[id]), 'name').map(res => res.id),
 );
 
 const adminResourcesPageSelector = createStructuredSelector({

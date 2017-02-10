@@ -21,7 +21,7 @@ describe('pages/admin-resources/adminResourcesPageSelector', () => {
     expect(getSelected().resources).to.exist;
   });
 
-  it('returns an array of resources translated and ordered by name', () => {
+  it('returns an array of resource ids ordered by translated name', () => {
     const resource1 = { id: 1, name: { fi: 'Tatooine' } };
     const resource2 = { id: 2, name: { fi: 'Dantooine' } };
     const resource3 = { id: 3, name: { fi: 'Alderaan' } };
@@ -34,10 +34,7 @@ describe('pages/admin-resources/adminResourcesPageSelector', () => {
       'intl.locale': 'fi',
       'ui.pages.adminResources.resourceIds': [resource1.id, resource3.id],
     };
-    const expected = [
-      { id: 3, name: 'Alderaan' },
-      { id: 1, name: 'Tatooine' },
-    ];
+    const expected = [3, 1];
     const selected = getSelected(extraState);
     expect(selected.resources).to.deep.equal(expected);
   });

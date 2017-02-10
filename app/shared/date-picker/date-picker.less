@@ -1,0 +1,37 @@
+.date-picker {
+
+  // Selected value
+  .react-date-picker__decade-view--theme-default,
+  .react-date-picker__year-view--theme-default,
+  .react-date-picker__month-view-day--value {
+    .react-date-picker__decade-view-year--value,
+    .react-date-picker__year-view-month--value,
+    .react-date-picker__month-view-day-text {
+      background-color: @brand-primary;
+
+      &:hover {
+        background-color: @brand-primary;
+      }
+    }
+  }
+
+  // Active value
+  .react-date-picker__decade-view--theme-default,
+  .react-date-picker__year-view--theme-default,
+  .react-date-picker__month-view-day--active {
+    .react-date-picker__decade-view-year--active,
+    .react-date-picker__year-view-month--active,
+    .react-date-picker__month-view-day-text {
+      border-color: @brand-primary;
+    }
+  }
+
+  // Regular hover
+  .react-date-picker__month-view--theme-default {
+    .react-date-picker__month-view-day-text {
+      &:hover {
+        background-color: lighten(@brand-primary, 25%);
+      }
+    }
+  }
+}
