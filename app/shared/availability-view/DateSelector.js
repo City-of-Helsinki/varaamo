@@ -1,12 +1,14 @@
 import React, { PropTypes } from 'react';
 import moment from 'moment';
 
+import { injectT } from 'i18n';
 import DatePicker from 'shared/date-picker';
 
-export default class DateSelector extends React.Component {
+export class DateSelector extends React.Component {
   static propTypes = {
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
+    t: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -33,7 +35,7 @@ export default class DateSelector extends React.Component {
     return (
       <div className="date-selector">
         <a className="previous" onClick={this.handlePreviousClick} tabIndex="0">
-          Edellinen päivä
+          {this.props.t('AvailabilityViewDateSelector.previousDay')}
         </a>
         <div className="current-value" >
           <DatePicker
@@ -43,9 +45,11 @@ export default class DateSelector extends React.Component {
           />
         </div>
         <a className="next" onClick={this.handleNextClick} tabIndex="0">
-          Seuraava päivä
+          {this.props.t('AvailabilityViewDateSelector.nextDay')}
         </a>
       </div>
     );
   }
 }
+
+export default injectT(DateSelector);

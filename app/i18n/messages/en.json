@@ -23,6 +23,8 @@
   "AdvancedSearch.peopleCapacityHeader": "Minimum number of people permitted",
   "AdvancedSearch.purposeHeader": "Purpose of use",
   "AdvancedSearch.title": "Advanced search",
+  "AvailabilityViewDateSelector.nextDay": "next day",
+  "AvailabilityViewDateSelector.previousDay": "previous day",
   "CommentForm.label": "Comments:",
   "CommentForm.placeholder": "Any additional information about the reservation",
   "CommentModal.title": "Comments concerning the reservation",
