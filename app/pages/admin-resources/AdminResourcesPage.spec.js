@@ -6,9 +6,9 @@ import Loader from 'react-loader';
 import simple from 'simple-mock';
 
 import PageWrapper from 'pages/PageWrapper';
+import AvailabilityView from 'shared/availability-view';
 import { shallowWithIntl } from 'utils/testUtils';
 import { UnconnectedAdminResourcesPage as AdminResourcesPage } from './AdminResourcesPage';
-import ResourcesTable from './resources-table';
 
 describe('pages/admin-resources/AdminResourcesPage', () => {
   const fetchFavoritedResources = simple.stub();
@@ -50,6 +50,14 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
     });
 
     describe('when user is an admin', () => {
+      before(() => {
+        MockDate.set('2015-10-11T06:00:00+03:00');
+      });
+
+      after(() => {
+        MockDate.reset();
+      });
+
       function getIsAdminWrapper(props) {
         return getWrapper({ ...props, isAdmin: true });
       }
@@ -69,11 +77,14 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
         expect(loader.prop('loaded')).to.be.false;
       });
 
-      it('renders ResourcesTable with correct props', () => {
+      it('renders AvailabilityView with correct props', () => {
         const resources = [{ foo: 'bar' }];
-        const resourcesTable = getIsAdminWrapper({ resources }).find(ResourcesTable);
-        expect(resourcesTable).to.have.length(1);
-        expect(resourcesTable.prop('resources')).to.deep.equal(resources);
+        const view = getIsAdminWrapper({ resources }).find(AvailabilityView);
+        expect(view).to.have.length(1);
+        expect(view.prop('groups')).to.deep.equal([
+          { name: '', resources },
+        ]);
+        expect(view.prop('date')).to.deep.equal('2015-10-11');
       });
     });
   });

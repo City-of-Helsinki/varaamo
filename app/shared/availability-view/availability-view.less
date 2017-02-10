@@ -1,0 +1,183 @@
+.availability-view {
+  @slot-height: 50px;
+  @slot-margin: 1px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  &-single {
+    display: block;
+
+    .timeline-group {
+      overflow-x: auto;
+    }
+  }
+  .left {
+    width: 19%;
+  }
+  .right {
+    width: 80%;
+  }
+  // max-width calculated based on width: 19% and width: 120px
+  @media (max-width: 630px) {
+    .left {
+      width: 120px;
+    }
+    .right {
+      width: ~"calc(100% - 122px)";
+    }
+  }
+  .top-left, .date-selector {
+    display: flex;
+    align-items: center;
+    height: @line-height-computed;
+    margin-bottom: @padding-base-vertical;
+    background-color: @brand-primary;
+    color: white;
+    padding: 0 @padding-small-horizontal;
+    font-size: @font-size-small;
+  }
+  .date-selector {
+    justify-content: space-between;
+    text-transform: lowercase;
+
+    .previous, .next {
+      color: white;
+      cursor: pointer;
+      text-overflow: ellipsis;
+      overflow-x: hidden;
+      white-space: nowrap;
+    }
+  }
+
+  .date-picker {
+    border: none;
+    color: black;
+    cursor: pointer;
+    input {
+      background: none;
+      color: white;
+      cursor: pointer;
+      text-align: center;
+    }
+    .react-date-field__calendar-icon {
+      display: none;
+    }
+  }
+  .group-info {
+    background-color: @gray-lighter;
+    padding: 0 @padding-base-horizontal;
+
+    .group-name, .resource-info {
+      height: @slot-height + @slot-margin * 2;
+    }
+    .group-name {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      line-height: @headings-line-height;
+      font-weight: @headings-font-weight;
+      font-size: @font-size-base;
+      color: @headings-color;
+
+      .name {
+        text-align: right;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+  .resource-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    font-size: @font-size-small;
+    .favorite-icon {
+      color: red; // @favorite-color;
+      padding: 3px;
+      font-size: 12px;
+    }
+    .name {
+      text-align: right;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+
+      a {
+        color: @text-color;
+        font-size: @font-size-small;
+        font-weight: @headings-font-weight;
+      }
+    }
+    .capacity {
+      color: @gray;
+    }
+  }
+  .timeline-groups {
+    width: 100%;
+    overflow-x: auto;
+  }
+  .timeline-group {
+    .hours {
+      display: flex;
+
+      .hour {
+        display: flex;
+        align-items: center;
+        height: @slot-height;
+        flex-shrink: 0;
+        margin: @slot-margin;
+        background-color: @gray-lighter;
+        padding: @padding-small-vertical @padding-small-horizontal;
+        font-size: @font-size-small;
+      }
+    }
+  }
+  .availability-timeline {
+    display: flex;
+  }
+  .reservation, .reservation-slot {
+    display: inline-flex;
+    margin: @slot-margin;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .reservation {
+    border: none;
+    height: @slot-height;
+    background-color: @brand-success;
+    color: white;
+    font-size: @font-size-small;
+    align-items: center;
+    padding: @padding-small-vertical @padding-small-horizontal;
+    overflow: hidden;
+    cursor: pointer;
+
+    &-link:hover {
+      text-decoration: none;
+    }
+    .names {
+      height: 100%;
+      overflow: hidden;
+      text-overflow: clip;
+      white-space: nowrap;
+    }
+  }
+  .reservation-slot {
+    height: @slot-height;
+    background-color: @gray-light;
+    overflow: hidden;
+
+    &-selected {
+      background-color: @brand-primary;
+    }
+    &:hover {
+      background-color: @brand-primary;
+    }
+    .a11y-text {
+      position: relative;
+      left: 100px;
+    }
+  }
+}

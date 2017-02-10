@@ -6,9 +6,9 @@ import { bindActionCreators } from 'redux';
 
 import { fetchFavoritedResources } from 'actions/resourceActions';
 import PageWrapper from 'pages/PageWrapper';
+import AvailabilityView from 'shared/availability-view';
 import { injectT } from 'i18n';
 import adminResourcesPageSelector from './adminResourcesPageSelector';
-import ResourcesTable from './resources-table';
 
 class UnconnectedAdminResourcesPage extends Component {
   componentDidMount() {
@@ -28,8 +28,12 @@ class UnconnectedAdminResourcesPage extends Component {
         <h1>{t('AdminResourcesPage.title')}</h1>
         <Loader loaded={!isFetchingResources}>
           {isAdmin && (
-            Object.keys(resources).length ?
-              <ResourcesTable resources={resources} />
+            resources && resources.length ?
+              <AvailabilityView
+                date={moment().format('YYYY-MM-DD')}
+                groups={[{ name: '', resources }]}
+                onDateChange={(...args) => console.log(args)}
+              />
             : <p>{t('ResourcesTable.emptyMessage')}</p>
           )}
           {!isAdmin && (
