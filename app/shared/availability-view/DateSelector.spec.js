@@ -4,12 +4,13 @@ import React from 'react';
 import simple from 'simple-mock';
 
 import DatePicker from 'shared/date-picker';
-import DateSelector from './DateSelector';
+import { DateSelector } from './DateSelector';
 
 function getWrapper(props) {
   const defaults = {
     value: '2016-11-01',
     onChange: () => null,
+    t: s => s,
   };
   return shallow(<DateSelector {...defaults} {...props} />);
 }

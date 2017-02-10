@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { createSelector } from 'reselect';
 
+import { resourcesSelector } from 'state/selectors/dataSelectors';
+
 ResourceInfo.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
@@ -26,9 +28,6 @@ export function ResourceInfo(props) {
 
 export function selector() {
   function idSelector(state, props) { return props.id; }
-  function resourcesSelector(state) {
-    return state.data.resources;
-  }
   const resourceSelector = createSelector(
     resourcesSelector,
     idSelector,
@@ -37,7 +36,7 @@ export function selector() {
   return createSelector(
     resourceSelector,
     resource => ({
-      name: resource.name.fi,
+      name: resource.name,
       peopleCapacity: resource.peopleCapacity,
     })
   );

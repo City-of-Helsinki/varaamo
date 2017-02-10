@@ -23,6 +23,8 @@
   "AdvancedSearch.peopleCapacityHeader": "Tilan henkilömäärä vähintään",
   "AdvancedSearch.purposeHeader": "Tilan käyttötarkoitus",
   "AdvancedSearch.title": "Tarkennettu haku",
+  "AvailabilityViewDateSelector.nextDay": "seuraava päivä",
+  "AvailabilityViewDateSelector.previousDay": "edellinen päivä",
   "CommentForm.label": "Kommentit:",
   "CommentForm.placeholder": "Varauksen mahdolliset lisätiedot",
   "CommentModal.title": "Varauksen kommentit",
