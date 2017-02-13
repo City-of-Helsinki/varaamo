@@ -24,7 +24,7 @@ function getState() {
 describe('shared/availability-view/ResourceInfoContainer', () => {
   describe('container', () => {
     function getWrapper(props) {
-      const defaults = { id: '123456', store: { getState } };
+      const defaults = { date: '2017-01-01', id: '123456', store: { getState } };
       return shallow(<ResourceInfoContainer {...defaults} {...props} />);
     }
 
@@ -37,6 +37,7 @@ describe('shared/availability-view/ResourceInfoContainer', () => {
   describe('component', () => {
     function getWrapper(props) {
       const defaults = {
+        date: '2017-01-02',
         id: 'r-1',
         isFavorite: false,
         name: 'Resource name',
@@ -51,9 +52,10 @@ describe('shared/availability-view/ResourceInfoContainer', () => {
     });
 
     it('renders the name and link to resource page', () => {
-      const link = getWrapper({ id: 'r-1', name: 'Room 1' }).find(Link);
+      const date = '2017-02-03';
+      const link = getWrapper({ date, id: 'r-1', name: 'Room 1' }).find(Link);
       expect(link).to.have.length(1);
-      expect(link.prop('to')).to.equal('/resources/r-1');
+      expect(link.prop('to')).to.equal(`/resources/r-1?date=${date}`);
       expect(link.prop('children')).to.equal('Room 1');
     });
 
