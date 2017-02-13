@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
+import { changeAdminResourcesPageDate } from 'actions/uiActions';
 import types from 'constants/ActionTypes';
 import Resource from 'utils/fixtures/Resource';
 import adminResourcesPageReducer from './adminResourcesPageReducer';
@@ -13,9 +14,26 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
     it('resourceIds is an empty array', () => {
       expect(initialState.resourceIds).to.deep.equal([]);
     });
+
+    it('date is undefined', () => {
+      expect(initialState.date).to.be.undefined;
+    });
   });
 
   describe('handling actions', () => {
+    describe('UI.CHANGE_ADMIN_RESOURCES_PAGE_DATE', () => {
+      it('updates date from payload', () => {
+        const date = '2017-01-20';
+        const state = adminResourcesPageReducer(undefined, changeAdminResourcesPageDate(date));
+        expect(state.date).to.equal(date);
+      });
+
+      it('sets date to undefined if set to null', () => {
+        const state = adminResourcesPageReducer(undefined, changeAdminResourcesPageDate(null));
+        expect(state.date).to.be.undefined;
+      });
+    });
+
     describe('API.RESOURCES_GET_SUCCESS', () => {
       const getResourceSuccess = createAction(
         types.API.RESOURCES_GET_SUCCESS,

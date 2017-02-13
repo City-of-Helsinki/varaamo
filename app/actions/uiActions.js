@@ -7,6 +7,8 @@ const cancelReservationEdit = createAction(types.UI.CANCEL_RESERVATION_EDIT);
 
 const changeAdminReservationFilters = createAction(types.UI.CHANGE_ADMIN_RESERVATIONS_FILTERS);
 
+const changeAdminResourcesPageDate = createAction(types.UI.CHANGE_ADMIN_RESOURCES_PAGE_DATE);
+
 const changeSearchFilters = createAction(types.UI.CHANGE_SEARCH_FILTERS);
 
 const clearReservations = createAction(types.UI.CLEAR_RESERVATIONS);
@@ -73,6 +75,7 @@ const toggleTimeSlot = createAction(types.UI.TOGGLE_TIME_SLOT);
 export {
   cancelReservationEdit,
   changeAdminReservationFilters,
+  changeAdminResourcesPageDate,
   changeSearchFilters,
   clearReservations,
   closeConfirmReservationModal,
