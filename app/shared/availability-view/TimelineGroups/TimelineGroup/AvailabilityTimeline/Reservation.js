@@ -13,7 +13,7 @@ Reservation.propTypes = {
   eventSubject: PropTypes.string,
   id: PropTypes.number.isRequired,
   numberOfParticipants: PropTypes.number,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   reserverName: PropTypes.string,
 };
 
@@ -33,7 +33,7 @@ function Reservation(props) {
     </Popover>
   );
   return (
-    <Link className="reservation-link" onClick={() => props.onClick(props.id)}>
+    <Link className="reservation-link" onClick={() => props.onClick && props.onClick(props.id)}>
       <OverlayTrigger
         overlay={popover}
         placement="top"
