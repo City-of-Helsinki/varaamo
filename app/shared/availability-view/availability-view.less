@@ -137,6 +137,9 @@
   .availability-timeline {
     display: flex;
   }
+  .reservation-link, .reservation-slot {
+    height: @slot-height;
+  }
   .reservation, .reservation-slot {
     display: inline-flex;
     margin: @slot-margin;
@@ -165,7 +168,6 @@
     }
   }
   .reservation-slot {
-    height: @slot-height;
     background-color: @gray-light;
     overflow: hidden;
 
