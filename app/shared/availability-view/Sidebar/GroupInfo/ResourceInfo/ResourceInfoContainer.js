@@ -7,6 +7,7 @@ import { createSelector } from 'reselect';
 import { resourcesSelector } from 'state/selectors/dataSelectors';
 
 ResourceInfo.propTypes = {
+  date: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   peopleCapacity: PropTypes.number.isRequired,
@@ -15,7 +16,7 @@ export function ResourceInfo(props) {
   return (
     <div className="resource-info" title={props.name}>
       <div className="name">
-        <Link to={`/resources/${props.id}`}>
+        <Link to={`/resources/${props.id}?date=${props.date}`}>
           {props.name}
         </Link>
       </div>
