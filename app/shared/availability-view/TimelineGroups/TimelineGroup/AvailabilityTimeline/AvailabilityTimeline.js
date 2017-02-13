@@ -11,7 +11,7 @@ AvailabilityTimeline.propTypes = {
       data: PropTypes.object,
     })
   ).isRequired,
-  onReservationClick: PropTypes.func.isRequired,
+  onReservationClick: PropTypes.func,
   onReservationSlotClick: PropTypes.func,
   selection: PropTypes.object,
 };
