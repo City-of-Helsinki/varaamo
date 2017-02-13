@@ -1,15 +1,13 @@
 import passport from 'passport';
 import { Strategy } from 'passport-helsinki';
 
-import serverConfig from './config';
-
 function configurePassport() {
   const helsinkiStrategy = new Strategy(
     {
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: serverConfig.loginCallbackUrl,
-      proxy: serverConfig.proxy,
+      callbackURL: process.env.LOGIN_CALLBACK_URL || '/login/helsinki/return',
+      proxy: Boolean(process.env.PROXY),
     },
     (accessToken, refreshToken, profile, cb) => {
       helsinkiStrategy.getAPIToken(accessToken, process.env.TARGET_APP, (token) => {
