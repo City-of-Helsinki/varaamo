@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import moment from 'moment';
 
 import { getState } from 'utils/testUtils';
 import adminResourcesPageSelector from './adminResourcesPageSelector';
@@ -19,6 +20,16 @@ describe('pages/admin-resources/adminResourcesPageSelector', () => {
 
   it('returns resources', () => {
     expect(getSelected().resources).to.exist;
+  });
+
+  it('returns date', () => {
+    const selected = getSelected({ 'ui.pages.adminResources': { date: '2017-02-01' } });
+    expect(selected.date).to.equal('2017-02-01');
+  });
+
+  it('returns current date by default', () => {
+    const current = moment().format('YYYY-MM-DD');
+    expect(getSelected().date).to.equal(current);
   });
 
   it('returns an array of resource ids ordered by translated name', () => {

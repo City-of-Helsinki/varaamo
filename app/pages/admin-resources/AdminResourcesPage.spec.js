@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import MockDate from 'mockdate';
 import moment from 'moment';
 import React from 'react';
 import Loader from 'react-loader';
@@ -11,12 +10,15 @@ import { shallowWithIntl } from 'utils/testUtils';
 import { UnconnectedAdminResourcesPage as AdminResourcesPage } from './AdminResourcesPage';
 
 describe('pages/admin-resources/AdminResourcesPage', () => {
+  const changeAdminResourcesPageDate = simple.stub();
   const fetchFavoritedResources = simple.stub();
 
   const defaultProps = {
     actions: {
+      changeAdminResourcesPageDate,
       fetchFavoritedResources,
     },
+    date: '2017-01-10',
     isAdmin: true,
     isFetchingResources: false,
     resources: [],
@@ -50,14 +52,6 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
     });
 
     describe('when user is an admin', () => {
-      before(() => {
-        MockDate.set('2015-10-11T06:00:00+03:00');
-      });
-
-      after(() => {
-        MockDate.reset();
-      });
-
       function getIsAdminWrapper(props) {
         return getWrapper({ ...props, isAdmin: true });
       }
@@ -84,39 +78,47 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
         expect(view.prop('groups')).to.deep.equal([
           { name: '', resources },
         ]);
-        expect(view.prop('date')).to.deep.equal('2015-10-11');
+        expect(view.prop('date')).to.deep.equal('2017-01-10');
+        expect(view.prop('onDateChange')).to.equal(changeAdminResourcesPageDate);
       });
     });
   });
 
   describe('componentDidMount', () => {
     describe('if user is an admin', () => {
-      const now = '2015-10-10T06:00:00+03:00';
       const isAdmin = true;
 
       before(() => {
-        MockDate.set(now);
         fetchFavoritedResources.reset();
         getWrapper({ isAdmin }).instance().componentDidMount();
-      });
-
-      after(() => {
-        MockDate.reset();
       });
 
       it('fetches favorited resources', () => {
         expect(fetchFavoritedResources.callCount).to.equal(1);
       });
 
-      it('fetches today\'s resources', () => {
+      it('fetches date\'s resources', () => {
         const args = fetchFavoritedResources.lastCall.args;
-        expect(args[0].isSame(moment(now))).to.be.true;
+        expect(args[0].format('YYYY-MM-DD')).to.equal('2017-01-10');
       });
 
       it('passes adminResourcesPage as source', () => {
         const args = fetchFavoritedResources.lastCall.args;
         expect(args[1]).to.equal('adminResourcesPage');
       });
+    });
+  });
+
+  describe('componentWillUnmount', () => {
+    beforeEach(() => {
+      changeAdminResourcesPageDate.reset();
+    });
+
+    it('sets date to null', () => {
+      const wrapper = getWrapper();
+      wrapper.instance().componentWillUnmount();
+      expect(changeAdminResourcesPageDate.callCount).to.equal(1);
+      expect(changeAdminResourcesPageDate.lastCall.args).to.deep.equal([null]);
     });
   });
 });

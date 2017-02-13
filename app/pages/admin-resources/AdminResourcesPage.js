@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchFavoritedResources } from 'actions/resourceActions';
+import { changeAdminResourcesPageDate } from 'actions/uiActions';
 import PageWrapper from 'pages/PageWrapper';
 import AvailabilityView from 'shared/availability-view';
 import { injectT } from 'i18n';
@@ -12,8 +13,21 @@ import adminResourcesPageSelector from './adminResourcesPageSelector';
 
 class UnconnectedAdminResourcesPage extends Component {
   componentDidMount() {
-    const now = moment();
-    this.props.actions.fetchFavoritedResources(now, 'adminResourcesPage');
+    this.fetchResources(this.props.date);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.date !== this.props.date) {
+      this.fetchResources(nextProps.date);
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.actions.changeAdminResourcesPageDate(null);
+  }
+
+  fetchResources(date) {
+    this.props.actions.fetchFavoritedResources(moment(date), 'adminResourcesPage');
   }
 
   render() {
@@ -28,14 +42,13 @@ class UnconnectedAdminResourcesPage extends Component {
         <h1>{t('AdminResourcesPage.title')}</h1>
         <Loader loaded={!isFetchingResources}>
           {isAdmin && (
-            resources && resources.length ?
-              <AvailabilityView
-                date={moment().format('YYYY-MM-DD')}
-                groups={[{ name: '', resources }]}
-                onDateChange={(...args) => console.log(args)}
-              />
-            : <p>{t('ResourcesTable.emptyMessage')}</p>
+            <AvailabilityView
+              date={this.props.date}
+              groups={[{ name: '', resources }]}
+              onDateChange={this.props.actions.changeAdminResourcesPageDate}
+            />
           )}
+          {isAdmin && !resources.length && <p>{t('ResourcesTable.emptyMessage')}</p>}
           {!isAdmin && (
             <p>{t('AdminResourcesPage.noRightsMessage')}</p>
           )}
@@ -47,6 +60,7 @@ class UnconnectedAdminResourcesPage extends Component {
 
 UnconnectedAdminResourcesPage.propTypes = {
   actions: PropTypes.object.isRequired,
+  date: PropTypes.string.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   isFetchingResources: PropTypes.bool.isRequired,
   resources: PropTypes.array.isRequired,
@@ -57,6 +71,7 @@ UnconnectedAdminResourcesPage = injectT(UnconnectedAdminResourcesPage);  // esli
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
+    changeAdminResourcesPageDate,
     fetchFavoritedResources,
   };
 
