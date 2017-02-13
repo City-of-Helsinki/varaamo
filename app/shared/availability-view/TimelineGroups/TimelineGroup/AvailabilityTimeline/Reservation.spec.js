@@ -77,10 +77,30 @@ describe('shared/availability-view/Reservation', () => {
     expect(element.text()).to.equal(eventSubject);
   });
 
-  it('renders reserverName', () => {
-    const reserverName = 'Luke Skywalker';
-    const element = getWrapper({ reserverName }).find('.reserver-name');
-    expect(element).to.have.length(1);
-    expect(element.text()).to.equal(reserverName);
+  describe('reserver name', () => {
+    function getReserverName(extra) {
+      const wrapper = getWrapper({
+        reserverName: 'Luke Skywalker',
+        user: {
+          displayName: 'DarthV',
+          email: 'dv@dark.side',
+        },
+        ...extra
+      });
+      return wrapper.find('.reserver-name').text();
+    }
+
+    it('is rendered from reserverName', () => {
+      expect(getReserverName()).to.equal('Luke Skywalker');
+    });
+
+    it('is rendered from user.displayName if no reserverName', () => {
+      expect(getReserverName({ reserverName: undefined })).to.equal('DarthV');
+    });
+
+    it('is rendered from email if no others', () => {
+      const props = { reserverName: undefined, user: { email: 'dv@dark.side' } };
+      expect(getReserverName(props)).to.equal('dv@dark.side');
+    });
   });
 });

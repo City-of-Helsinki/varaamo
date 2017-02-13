@@ -7,6 +7,10 @@ import Popover from 'react-bootstrap/lib/Popover';
 import utils from '../utils';
 import Link from './Link';
 
+function getReserverName(reserverName, user) {
+  return reserverName || (user && (user.displayName || user.email));
+}
+
 Reservation.propTypes = {
   begin: PropTypes.string.isRequired,
   end: PropTypes.string.isRequired,
@@ -15,12 +19,17 @@ Reservation.propTypes = {
   numberOfParticipants: PropTypes.number,
   onClick: PropTypes.func,
   reserverName: PropTypes.string,
+  user: PropTypes.shape({
+    displayName: PropTypes.string,
+    email: PropTypes.string,
+  }),
 };
 
 function Reservation(props) {
   const startTime = moment(props.begin);
   const endTime = moment(props.end);
   const width = utils.getTimeSlotWidth({ startTime, endTime });
+  const reserverName = getReserverName(props.reserverName, props.user);
   const popover = (
     <Popover id={`popover-${props.id}`} title={props.eventSubject}>
       <div>
@@ -28,7 +37,7 @@ function Reservation(props) {
         {' '}
         {startTime.format('HH:mm')} - {endTime.format('HH:mm')}
       </div>
-      {props.reserverName && <div>{props.reserverName}</div>}
+      {reserverName && <div>{reserverName}</div>}
       {props.numberOfParticipants && <div><Glyphicon glyph="user" /> {props.numberOfParticipants}</div>}
     </Popover>
   );
@@ -42,7 +51,7 @@ function Reservation(props) {
         <div className="reservation" style={{ width }}>
           <div className="names">
             <div className="event-subject">{props.eventSubject}</div>
-            <div className="reserver-name">{props.reserverName}</div>
+            <div className="reserver-name">{reserverName}</div>
           </div>
         </div>
       </OverlayTrigger>
