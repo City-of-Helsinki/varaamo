@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import moment from 'moment';
 import React from 'react';
 import Loader from 'react-loader';
 import simple from 'simple-mock';

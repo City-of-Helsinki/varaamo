@@ -85,7 +85,7 @@ describe('shared/availability-view/Reservation', () => {
           displayName: 'DarthV',
           email: 'dv@dark.side',
         },
-        ...extra
+        ...extra,
       });
       return wrapper.find('.reserver-name').text();
     }

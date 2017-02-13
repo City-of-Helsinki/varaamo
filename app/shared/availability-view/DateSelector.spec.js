@@ -4,7 +4,7 @@ import React from 'react';
 import simple from 'simple-mock';
 
 import DatePicker from 'shared/date-picker';
-import { DateSelector } from './DateSelector';
+import { UninjectedDateSelector as DateSelector } from './DateSelector';
 
 function getWrapper(props) {
   const defaults = {

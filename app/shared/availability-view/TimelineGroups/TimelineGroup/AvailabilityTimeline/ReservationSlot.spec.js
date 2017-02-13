@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import moment from 'moment';
-import queryString from 'query-string';
 import simple from 'simple-mock';
 import React from 'react';
 

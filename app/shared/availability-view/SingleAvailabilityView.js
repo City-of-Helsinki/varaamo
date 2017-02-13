@@ -47,7 +47,7 @@ export default class SingleAvailabilityView extends React.Component {
   render() {
     return (
       <div className="availability-view availability-view-single">
-        <DateSelector value={this.props.date} onChange={this.props.onDateChange} />
+        <DateSelector onChange={this.props.onDateChange} value={this.props.date} />
         <TimelineGroup
           className="dragscroll"
           date={this.props.date}
