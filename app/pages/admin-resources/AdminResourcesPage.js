@@ -48,7 +48,7 @@ class UnconnectedAdminResourcesPage extends Component {
               onDateChange={this.props.actions.changeAdminResourcesPageDate}
             />
           )}
-          {isAdmin && !resources.length && <p>{t('ResourcesTable.emptyMessage')}</p>}
+          {isAdmin && !resources.length && <p>{t('AdminResourcesPage.noResourcesMessage')}</p>}
           {!isAdmin && (
             <p>{t('AdminResourcesPage.noRightsMessage')}</p>
           )}
