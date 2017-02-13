@@ -4,7 +4,7 @@ import moment from 'moment';
 import { injectT } from 'i18n';
 import DatePicker from 'shared/date-picker';
 
-export class DateSelector extends React.Component {
+export class UninjectedDateSelector extends React.Component {
   static propTypes = {
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
@@ -52,4 +52,4 @@ export class DateSelector extends React.Component {
   }
 }
 
-export default injectT(DateSelector);
+export default injectT(UninjectedDateSelector);
