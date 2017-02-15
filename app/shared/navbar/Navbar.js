@@ -19,6 +19,7 @@ function Navbar(props) {
     currentLanguage,
     isAdmin,
     isLoggedIn,
+    login,
     t,
     userName,
   } = props;
@@ -66,7 +67,7 @@ function Navbar(props) {
             </NavDropdown>
           )}
           {!isLoggedIn && (
-            <NavItem href="/login">
+            <NavItem onClick={login}>
               {t('Navbar.login')}
             </NavItem>
           )}
@@ -87,6 +88,7 @@ Navbar.propTypes = {
   changeLocale: PropTypes.func.isRequired,
   clearSearchResults: PropTypes.func.isRequired,
   currentLanguage: PropTypes.string.isRequired,
+  login: PropTypes.func.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,

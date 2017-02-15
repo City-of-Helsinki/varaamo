@@ -73,4 +73,37 @@ describe('pages/AppContainer', () => {
       });
     });
   });
+
+  describe('componentWillUpdate', () => {
+    describe('when userId does not change', () => {
+      it('does not fetch user data', () => {
+        const fetchUser = simple.mock();
+        const userId = 'u-1';
+        const instance = getWrapper({ fetchUser, userId }).instance();
+        instance.componentWillUpdate({ userId });
+        expect(fetchUser.callCount).to.equal(0);
+      });
+    });
+
+    describe('when userId does change', () => {
+      it('fetches user data if new userId is not null', () => {
+        const fetchUser = simple.mock();
+        const userId = 'u-1';
+        const newId = 'u-99';
+        const instance = getWrapper({ fetchUser, userId }).instance();
+        instance.componentWillUpdate({ userId: newId });
+        expect(fetchUser.callCount).to.equal(1);
+        expect(fetchUser.lastCall.arg).to.equal(newId);
+      });
+
+      it('does not fetch user data if new userId is null', () => {
+        const fetchUser = simple.mock();
+        const userId = 'u-1';
+        const newId = null;
+        const instance = getWrapper({ fetchUser, userId }).instance();
+        instance.componentWillUpdate({ userId: newId });
+        expect(fetchUser.callCount).to.equal(0);
+      });
+    });
+  });
 });

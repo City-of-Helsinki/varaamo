@@ -18,6 +18,7 @@ describe('shared/navbar/Navbar', () => {
       currentLanguage: 'fi',
       isAdmin: false,
       isLoggedIn: false,
+      login: () => null,
       userName: 'Luke Skywalker',
     };
     return shallowWithIntl(<Navbar {...defaults} {...props} />);
@@ -65,6 +66,7 @@ describe('shared/navbar/Navbar', () => {
     const props = {
       isAdmin: false,
       isLoggedIn: true,
+      login: () => null,
       userName: 'Luke',
     };
     function getLoggedInNotAdminWrapper() {
@@ -100,7 +102,7 @@ describe('shared/navbar/Navbar', () => {
     });
 
     it('does not render a link to login page', () => {
-      const loginLink = getLoggedInNotAdminWrapper().find(NavItem).filter({ href: '/login' });
+      const loginLink = getLoggedInNotAdminWrapper().find(NavItem).filter({ onClick: props.login });
       expect(loginLink).to.have.length(0);
     });
   });
@@ -125,6 +127,7 @@ describe('shared/navbar/Navbar', () => {
     const props = {
       isAdmin: false,
       isLoggedIn: false,
+      login: () => null,
     };
     function getNotLoggedInWrapper() {
       return getWrapper(props);
@@ -136,7 +139,7 @@ describe('shared/navbar/Navbar', () => {
     });
 
     it('renders a link to login page', () => {
-      const loginLink = getNotLoggedInWrapper().find(NavItem).filter({ href: '/login' });
+      const loginLink = getNotLoggedInWrapper().find(NavItem).filter({ onClick: props.login });
       expect(loginLink).to.have.length(1);
     });
 

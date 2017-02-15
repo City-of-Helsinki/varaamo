@@ -2,6 +2,7 @@ import trim from 'lodash/trim';
 import { createSelector, createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 
+import { login } from 'actions/authActions';
 import { clearSearchResults } from 'actions/searchActions';
 import { currentUserSelector, isAdminSelector, isLoggedInSelector } from 'state/selectors/authSelectors';
 import { currentLanguageSelector } from 'state/selectors/translationSelectors';
@@ -13,6 +14,8 @@ const userNameSelector = createSelector(
   (user) => {
     if (user.firstName || user.lastName) {
       return trim([user.firstName, user.lastName].join(' '));
+    } else if (user.email) {
+      return user.email;
     }
     return user.emails && user.emails.length ? user.emails[0].value : '';
   }
@@ -28,6 +31,7 @@ export const selector = createStructuredSelector({
 const actions = {
   changeLocale,
   clearSearchResults,
+  login,
 };
 
 export default connect(selector, actions)(Navbar);
