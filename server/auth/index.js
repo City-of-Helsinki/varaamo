@@ -30,8 +30,14 @@ router.get('/auth', (req, res) => {
 router.get('/login', passport.authenticate('helsinki'));
 
 router.get('/login/helsinki/return',
-  passport.authenticate('helsinki', { failureRedirect: '/login' }),
-  (req, res) => res.redirect('/')
+  passport.authenticate(
+    'helsinki',
+    { failureRedirect: '/login' }
+  ),
+  (req, res) => {
+    const js = '(function() {if(window.opener) { window.close(); } else { location.href = "/"; } }());';
+    res.send(`<html><body>Login successful<script>${js}</script>`);
+  }
 );
 
 router.get('/logout', (req, res) => {

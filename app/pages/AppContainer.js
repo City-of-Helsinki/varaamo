@@ -30,6 +30,12 @@ export class UnconnectedAppContainer extends Component {
     }
   }
 
+  componentWillUpdate(nextProps) {
+    if (nextProps.userId && nextProps.userId !== this.props.userId) {
+      this.props.fetchUser(nextProps.userId);
+    }
+  }
+
   render() {
     return (
       <DocumentTitle title="Varaamo">

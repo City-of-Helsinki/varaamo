@@ -54,6 +54,12 @@ describe('shared/navbar/NavbarContainer', () => {
       });
 
       it('returns user email if no firstName or lastName', () => {
+        const user = { email: 'luke@skywalker.com' };
+        const selected = selector(getState(null, user));
+        expect(selected.userName).to.equal('luke@skywalker.com');
+      });
+
+      it('returns user email from emails array if no firstName or lastName', () => {
         const user = { emails: [{ value: 'luke@skywalker.com' }] };
         const selected = selector(getState(null, user));
         expect(selected.userName).to.equal('luke@skywalker.com');
