@@ -22,6 +22,10 @@ describe('pages/search/searchPageSelector', () => {
     expect(getSelected().isFetchingSearchResults).to.exist;
   });
 
+  it('returns isLoggedIn', () => {
+    expect(getSelected().isLoggedIn).to.exist;
+  });
+
   it('returns searchDone', () => {
     expect(getSelected().searchDone).to.exist;
   });

@@ -17,6 +17,7 @@ describe('pages/search/SearchPage', () => {
       fetchUnits: simple.stub(),
       searchResources: simple.stub(),
     },
+    isLoggedIn: false,
     isFetchingSearchResults: false,
     filters: {
       date: '2015-10-10',
@@ -167,6 +168,30 @@ describe('pages/search/SearchPage', () => {
   });
 
   describe('componentWillUpdate', () => {
+    describe('if isLoggedIn changed', () => {
+      let nextProps;
+
+      before(() => {
+        defaultProps.actions.changeSearchFilters.reset();
+        defaultProps.actions.searchResources.reset();
+        const instance = getWrapper().instance();
+        nextProps = {
+          filters: defaultProps.filters,
+          isLoggedIn: !defaultProps.isLoggedIn,
+          url: '/search?search=some-search',
+        };
+        instance.componentWillUpdate(nextProps);
+      });
+
+      it('refetches search results', () => {
+        expect(defaultProps.actions.searchResources.callCount).to.equal(1);
+      });
+
+      it('does not update search filters in state', () => {
+        expect(defaultProps.actions.changeSearchFilters.callCount).to.equal(0);
+      });
+    });
+
     describe('if search filters did change and url has query part', () => {
       let nextProps;
 
@@ -176,6 +201,7 @@ describe('pages/search/SearchPage', () => {
         const instance = getWrapper().instance();
         nextProps = {
           filters: { purpose: 'new-purpose' },
+          isLoggedIn: defaultProps.isLoggedIn,
           url: '/search?purpose=new-purpose',
         };
         instance.componentWillUpdate(nextProps);
@@ -205,6 +231,7 @@ describe('pages/search/SearchPage', () => {
         const instance = getWrapper().instance();
         nextProps = {
           filters: defaultProps.filters,
+          isLoggedIn: defaultProps.isLoggedIn,
           url: '/search?search=some-search',
         };
         instance.componentWillUpdate(nextProps);
