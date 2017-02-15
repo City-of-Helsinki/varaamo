@@ -24,7 +24,7 @@ class UnconnectedResourcePage extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (nextProps.date !== this.props.date) {
+    if (nextProps.date !== this.props.date || nextProps.isLoggedIn !== this.props.isLoggedIn) {
       const { actions, id } = this.props;
       const fetchParams = getDateStartAndEndTimes(nextProps.date);
 
