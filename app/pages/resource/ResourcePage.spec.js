@@ -70,7 +70,7 @@ describe('pages/resource/ResourcePage', () => {
 
   describe('componentWillUpdate', () => {
     describe('if date changed', () => {
-      const nextProps = { date: '2016-12-12' };
+      const nextProps = { date: '2016-12-12', isLoggedIn: defaultProps.isLoggedIn };
       const fetchResource = simple.mock();
 
       before(() => {
@@ -89,7 +89,40 @@ describe('pages/resource/ResourcePage', () => {
     });
 
     describe('if date did not change', () => {
-      const nextProps = { date: defaultProps.date };
+      const nextProps = { date: defaultProps.date, isLoggedIn: defaultProps.isLoggedIn };
+      const fetchResource = simple.mock();
+
+      before(() => {
+        const instance = getWrapper({ actions: { fetchResource } }).instance();
+        instance.componentWillUpdate(nextProps);
+      });
+
+      it('does not fetch resource data', () => {
+        expect(fetchResource.callCount).to.equal(0);
+      });
+    });
+
+    describe('if isLoggedIn changed', () => {
+      const nextProps = { date: defaultProps.date, isLoggedIn: !defaultProps.isLoggedIn };
+      const fetchResource = simple.mock();
+
+      before(() => {
+        const instance = getWrapper({ actions: { fetchResource } }).instance();
+        instance.componentWillUpdate(nextProps);
+      });
+
+      it('fetches resource data correct date', () => {
+        const actualArgs = fetchResource.lastCall.args;
+
+        expect(fetchResource.callCount).to.equal(1);
+        expect(actualArgs[0]).to.equal(defaultProps.id);
+        expect(actualArgs[1].start).to.contain(nextProps.date);
+        expect(actualArgs[1].end).to.contain(nextProps.date);
+      });
+    });
+
+    describe('if isLoggedIn did not change', () => {
+      const nextProps = { date: defaultProps.date, isLoggedIn: defaultProps.isLoggedIn };
       const fetchResource = simple.mock();
 
       before(() => {
