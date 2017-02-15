@@ -19,30 +19,38 @@ class UnconnectedSearchPage extends Component {
   constructor(props) {
     super(props);
     this.scrollToSearchResults = this.scrollToSearchResults.bind(this);
+    this.searchResources = this.searchResources.bind(this);
   }
 
   componentDidMount() {
-    const { actions, filters, searchDone } = this.props;
-    if (searchDone || filters.purpose || filters.people || filters.search) {
-      actions.searchResources(filters);
-    }
+    const { actions, filters } = this.props;
+    this.searchResources(filters);
     actions.fetchUnits();
   }
 
   componentWillUpdate(nextProps) {
     const { filters: currentFilters, actions } = this.props;
-    const { filters: nextFilters, searchDone } = nextProps;
+    const { filters: nextFilters } = nextProps;
+    if (nextProps.isLoggedIn !== this.props.isLoggedIn) {
+      this.searchResources(nextFilters);
+      return;
+    }
     if (isEqual(currentFilters, nextFilters)) {
       return;
     }
     actions.changeSearchFilters(nextFilters);
-    if (searchDone || nextFilters.purpose || nextFilters.people || nextFilters.search) {
-      actions.searchResources(nextFilters);
-    }
+    this.searchResources(nextFilters);
   }
 
   scrollToSearchResults() {
     scrollTo(findDOMNode(this.refs.searchResults));
+  }
+
+  searchResources(filters) {
+    const { actions, searchDone } = this.props;
+    if (searchDone || filters.purpose || filters.people || filters.search) {
+      actions.searchResources(filters);
+    }
   }
 
   render() {
@@ -82,6 +90,7 @@ UnconnectedSearchPage.propTypes = {
   actions: PropTypes.object.isRequired,
   isFetchingSearchResults: PropTypes.bool.isRequired,
   filters: PropTypes.object.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
   params: PropTypes.object.isRequired,
   searchDone: PropTypes.bool.isRequired,
