@@ -48,4 +48,31 @@ describe('shared/availability-view/AvailabilityView', () => {
     expect(element.prop('date')).to.equal(date);
     expect(element.prop('groups')).to.equal(groups);
   });
+
+  it('has correct initial state', () => {
+    const wrapper = getWrapper();
+    expect(wrapper.state()).to.deep.equal({ selection: null });
+  });
+
+  describe('handleReservationSlotClick', () => {
+    function handleReservationSlotClick(slot) {
+      const wrapper = getWrapper();
+      wrapper.instance().handleReservationSlotClick(slot);
+      return wrapper.state();
+    }
+
+    it('is given to TimelineGroups', () => {
+      const wrapper = getWrapper();
+      const groups = wrapper.find(TimelineGroups);
+      const handler = wrapper.instance().handleReservationSlotClick;
+      expect(groups.prop('onReservationSlotClick')).to.equal(handler);
+    });
+
+    it('adds selection', () => {
+      const begin = '2017-01-01';
+      const resourceId = 'ab872ced93e1ee';
+      const state = handleReservationSlotClick({ begin, resourceId, other: 'data' });
+      expect(state).to.deep.equal({ selection: { begin, resourceId } });
+    });
+  });
 });
