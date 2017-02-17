@@ -3,7 +3,6 @@ import { CALL_API } from 'redux-api-middleware';
 import types from 'constants/ActionTypes';
 
 function fetchAuthState() {
-  const params = { t: +new Date() };
   return {
     [CALL_API]: {
       types: [
@@ -11,7 +10,7 @@ function fetchAuthState() {
         types.API.AUTH_GET_SUCCESS,
         types.API.AUTH_GET_ERROR,
       ],
-      endpoint: `/auth?t=${params.t}`,
+      endpoint: '/auth',
       method: 'GET',
       credentials: 'include',
     },

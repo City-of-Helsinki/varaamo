@@ -2,6 +2,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cookieSession from 'cookie-session';
 import express from 'express';
+import nocache from 'nocache';
 
 import configurePassport from './configurePassport';
 import getAuthState from './getAuthState';
@@ -23,7 +24,7 @@ router.use(cookieSession({
 router.use(passport.initialize());
 router.use(passport.session());
 
-router.get('/auth', (req, res) => {
+router.get('/auth', nocache(), (req, res) => {
   res.json(getAuthState(req));
 });
 
