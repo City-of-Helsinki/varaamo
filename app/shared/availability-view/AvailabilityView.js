@@ -9,6 +9,7 @@ export default class AvailabilityView extends React.Component {
     date: PropTypes.string.isRequired,
     groups: PropTypes.arrayOf(PropTypes.object).isRequired,
     onDateChange: PropTypes.func.isRequired,
+    onSelect: PropTypes.func,
   };
 
   constructor(props) {
@@ -18,6 +19,27 @@ export default class AvailabilityView extends React.Component {
   }
 
   handleReservationSlotClick(slot) {
+    if (this.state.selection) {
+      this.endSelection(slot);
+    } else {
+      this.startSelection(slot);
+    }
+  }
+
+  endSelection(slot) {
+    const isValid = (
+      this.state.selection.resourceId === slot.resourceId &&
+      this.state.selection.begin <= slot.begin
+    );
+    if (!isValid) {
+      return;
+    }
+    const selection = { end: slot.end, ...this.state.selection };
+    if (this.props.onSelect) this.props.onSelect(selection);
+    this.setState({ selection: null });
+  }
+
+  startSelection(slot) {
     const selection = { begin: slot.begin, resourceId: slot.resourceId };
     this.setState({ selection });
   }
