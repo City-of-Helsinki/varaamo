@@ -29,4 +29,12 @@ describe('shared/availability-view/TimelineGroups', () => {
     const elements = getWrapper({ groups }).find(TimelineGroup);
     expect(elements).to.have.length(2);
   });
+
+  it('passes onReservationSlotClick to groups', () => {
+    const groups = [{ name: 'A', resources: [] }];
+    const onReservationSlotClick = () => null;
+    const element = getWrapper({ groups, onReservationSlotClick }).find(TimelineGroup);
+    expect(element).to.have.length(1);
+    expect(element.prop('onReservationSlotClick')).to.equal(onReservationSlotClick);
+  });
 });
