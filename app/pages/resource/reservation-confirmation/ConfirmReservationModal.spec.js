@@ -148,6 +148,10 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
           expect(formFields).to.contain('staffEvent');
         });
 
+        it('form fields do not include eventSubject', () => {
+          expect(formFields).to.not.contain('eventSubject');
+        });
+
         it('form fields include comments', () => {
           expect(formFields).to.contain('comments');
         });
@@ -171,6 +175,10 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
 
         it('form fields include comments', () => {
           expect(formFields).to.contain('comments');
+        });
+
+        it('form fields do not include eventSubject', () => {
+          expect(formFields).to.not.contain('eventSubject');
         });
 
         it('form fields include RESERVATION_FORM_FIELDS', () => {
@@ -200,6 +208,10 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
 
         it('form fields do not include comments', () => {
           expect(formFields).to.not.contain('comments');
+        });
+
+        it('form fields do not include eventSubject', () => {
+          expect(formFields).to.not.contain('eventSubject');
         });
 
         it('form fields include RESERVATION_FORM_FIELDS', () => {
@@ -233,6 +245,10 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
           expect(formFields).to.contain('comments');
         });
 
+        it('form fields include eventSubject', () => {
+          expect(formFields).to.contain('eventSubject');
+        });
+
         it('form fields do not include RESERVATION_FORM_FIELDS', () => {
           forEach(constants.RESERVATION_FORM_FIELDS, (field) => {
             expect(formFields).to.not.contain(field);
@@ -259,6 +275,10 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
 
         it('form fields do not include comments', () => {
           expect(formFields).to.not.contain('comments');
+        });
+
+        it('form fields include eventSubject', () => {
+          expect(formFields).to.contain('eventSubject');
         });
 
         it('form fields do not include RESERVATION_FORM_FIELDS', () => {

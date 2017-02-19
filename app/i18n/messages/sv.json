@@ -109,6 +109,7 @@
   "ReservationForm.commentsPlaceholder": "Eventuell ytterligare information om bokningen",
   "ReservationForm.emailError": "Mata in en giltig e-postadress",
   "ReservationForm.eventDescriptionLabel": "Beskrivning av evenemanget",
+  "ReservationForm.eventSubjectLabel": "Name of the event",
   "ReservationForm.maxLengthError": "Den maximala längden på fältet är {maxLength} tecken",
   "ReservationForm.numberOfParticipantsLabel": "Antal deltagare",
   "ReservationForm.requiredError": "Obligatorisk information",

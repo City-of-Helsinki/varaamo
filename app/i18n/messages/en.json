@@ -109,6 +109,7 @@
   "ReservationForm.commentsPlaceholder": "Any additional information about the reservation",
   "ReservationForm.emailError": "Enter a valid e-mail address",
   "ReservationForm.eventDescriptionLabel": "Description of the event",
+  "ReservationForm.eventSubjectLabel": "Name of the event",
   "ReservationForm.maxLengthError": "The maximum length of the field is {maxLength} characters",
   "ReservationForm.numberOfParticipantsLabel": "Number of participants",
   "ReservationForm.requiredError": "Mandatory information",
