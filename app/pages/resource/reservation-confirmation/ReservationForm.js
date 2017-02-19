@@ -116,6 +116,11 @@ class UnconnectedReservationForm extends Component {
             </Well>
           )}
           {this.renderField(
+            'eventSubject',
+            'text',
+            t('ReservationForm.eventSubjectLabel')
+          )}
+          {this.renderField(
             'reserverName',
             'text',
             t('ReservationForm.reserverNameLabel')
