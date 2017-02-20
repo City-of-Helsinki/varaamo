@@ -8,6 +8,7 @@ import { fetchFavoritedResources } from 'actions/resourceActions';
 import { changeAdminResourcesPageDate, openConfirmReservationModal } from 'actions/uiActions';
 import PageWrapper from 'pages/PageWrapper';
 import AvailabilityView from 'shared/availability-view';
+import ReservationSuccessModal from 'shared/modals/reservation-success';
 import ReservationConfirmationContainer from 'shared/reservation-confirmation';
 import { injectT } from 'i18n';
 import adminResourcesPageSelector from './adminResourcesPageSelector';
@@ -75,6 +76,7 @@ class UnconnectedAdminResourcesPage extends Component {
               resource: this.state.selection.resourceId,
             }]}
           />}
+        <ReservationSuccessModal />
       </PageWrapper>
     );
   }
