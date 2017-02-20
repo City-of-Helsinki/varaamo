@@ -13,7 +13,7 @@ import { shallowWithIntl } from 'utils/testUtils';
 import ConfirmReservationModal from './ConfirmReservationModal';
 import ReservationForm from './ReservationForm';
 
-describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () => {
+describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
   const defaultProps = {
     isAdmin: false,
     isEditing: false,

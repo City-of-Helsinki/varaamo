@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchFavoritedResources } from 'actions/resourceActions';
-import ReservationConfirmationContainer from 'pages/resource/reservation-confirmation';
 import { changeAdminResourcesPageDate, openConfirmReservationModal } from 'actions/uiActions';
 import PageWrapper from 'pages/PageWrapper';
 import AvailabilityView from 'shared/availability-view';
+import ReservationConfirmationContainer from 'shared/reservation-confirmation';
 import { injectT } from 'i18n';
 import adminResourcesPageSelector from './adminResourcesPageSelector';
 
