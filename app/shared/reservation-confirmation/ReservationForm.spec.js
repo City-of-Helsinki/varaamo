@@ -10,7 +10,7 @@ import WrappedText from 'shared/wrapped-text';
 import { shallowWithIntl } from 'utils/testUtils';
 import { UnconnectedReservationForm as ReservationForm, validate } from './ReservationForm';
 
-describe('pages/resource/reservation-confirmation/ReservationForm', () => {
+describe('shared/reservation-confirmation/ReservationForm', () => {
   describe('validation', () => {
     const t = id => id;
 
