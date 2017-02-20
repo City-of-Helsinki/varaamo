@@ -21,7 +21,12 @@ export function selector() {
     resourceSelector,
     dateSelector,
     (resource, date) => resource.reservations && sortBy(
-      resource.reservations.filter(reservation => reservation.begin.slice(0, 10) === date),
+      resource.reservations
+        .filter(reservation =>
+          reservation.state !== 'cancelled' &&
+          reservation.state !== 'denied'
+        )
+        .filter(reservation => reservation.begin.slice(0, 10) === date),
       'begin'
     )
   );
