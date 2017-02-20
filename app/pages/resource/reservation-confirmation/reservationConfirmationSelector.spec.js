@@ -7,7 +7,7 @@ import reservationConfirmationSelector from './reservationConfirmationSelector';
 describe('pages/resource/reservation-confirmation/reservationConfirmationSelector', () => {
   const resource = Resource.build();
 
-  function getSelected() {
+  function getSelected(extraProps) {
     const state = getState({
       'data.resources': { [resource.id]: resource },
       'form.preliminaryReservation.values': { staffEvent: true },
@@ -15,6 +15,7 @@ describe('pages/resource/reservation-confirmation/reservationConfirmationSelecto
     });
     const props = {
       params: { id: resource.id },
+      ...extraProps,
     };
     return reservationConfirmationSelector(state, props);
   }
@@ -37,6 +38,12 @@ describe('pages/resource/reservation-confirmation/reservationConfirmationSelecto
 
   it('returns selectedReservations', () => {
     expect(getSelected().selectedReservations).to.exist;
+  });
+
+  it('returns selectedReservations from props', () => {
+    const selectedReservations = { some: 'data' };
+    const selected = getSelected({ selectedReservations });
+    expect(selected.selectedReservations).to.equal(selectedReservations);
   });
 
   it('returns staffEventSelected from state', () => {
