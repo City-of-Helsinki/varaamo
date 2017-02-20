@@ -4,7 +4,7 @@ import Resource from 'utils/fixtures/Resource';
 import { getState } from 'utils/testUtils';
 import reservationConfirmationSelector from './reservationConfirmationSelector';
 
-describe('pages/resource/reservation-confirmation/reservationConfirmationSelector', () => {
+describe('shared/reservation-confirmation/reservationConfirmationSelector', () => {
   const resource = Resource.build();
 
   function getSelected(extraProps) {
