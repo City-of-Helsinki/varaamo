@@ -4,6 +4,7 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 import Popover from 'react-bootstrap/lib/Popover';
 
+import ReservationAccessCode from 'shared/reservation-access-code';
 import utils from '../utils';
 import Link from './Link';
 
@@ -12,7 +13,9 @@ function getReserverName(reserverName, user) {
 }
 
 Reservation.propTypes = {
+  accessCode: PropTypes.string,
   begin: PropTypes.string.isRequired,
+  comments: PropTypes.string,
   end: PropTypes.string.isRequired,
   eventSubject: PropTypes.string,
   id: PropTypes.number.isRequired,
@@ -31,7 +34,7 @@ function Reservation(props) {
   const width = utils.getTimeSlotWidth({ startTime, endTime });
   const reserverName = getReserverName(props.reserverName, props.user);
   const popover = (
-    <Popover id={`popover-${props.id}`} title={props.eventSubject}>
+    <Popover className="reservation-popover" id={`popover-${props.id}`} title={props.eventSubject}>
       <div>
         <Glyphicon glyph="time" />
         {' '}
@@ -39,6 +42,9 @@ function Reservation(props) {
       </div>
       {reserverName && <div>{reserverName}</div>}
       {props.numberOfParticipants && <div><Glyphicon glyph="user" /> {props.numberOfParticipants}</div>}
+      {props.accessCode && <div><ReservationAccessCode reservation={props} /></div>}
+      {props.comments && <hr />}
+      {props.comments && <div><Glyphicon glyph="comment" /> {props.comments}</div>}
     </Popover>
   );
   return (
