@@ -5,13 +5,20 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchFavoritedResources } from 'actions/resourceActions';
-import { changeAdminResourcesPageDate } from 'actions/uiActions';
+import ReservationConfirmationContainer from 'pages/resource/reservation-confirmation';
+import { changeAdminResourcesPageDate, openConfirmReservationModal } from 'actions/uiActions';
 import PageWrapper from 'pages/PageWrapper';
 import AvailabilityView from 'shared/availability-view';
 import { injectT } from 'i18n';
 import adminResourcesPageSelector from './adminResourcesPageSelector';
 
 class UnconnectedAdminResourcesPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { selection: null };
+    this.handleSelect = this.handleSelect.bind(this);
+  }
+
   componentDidMount() {
     this.fetchResources(this.props.date);
   }
@@ -30,6 +37,11 @@ class UnconnectedAdminResourcesPage extends Component {
     this.props.actions.fetchFavoritedResources(moment(date), 'adminResourcesPage');
   }
 
+  handleSelect(selection) {
+    this.setState({ selection });
+    this.props.actions.openConfirmReservationModal();
+  }
+
   render() {
     const {
       isAdmin,
@@ -46,6 +58,7 @@ class UnconnectedAdminResourcesPage extends Component {
               date={this.props.date}
               groups={[{ name: '', resources }]}
               onDateChange={this.props.actions.changeAdminResourcesPageDate}
+              onSelect={this.handleSelect}
             />
           )}
           {isAdmin && !resources.length && <p>{t('AdminResourcesPage.noResourcesMessage')}</p>}
@@ -53,6 +66,15 @@ class UnconnectedAdminResourcesPage extends Component {
             <p>{t('AdminResourcesPage.noRightsMessage')}</p>
           )}
         </Loader>
+        {this.state.selection &&
+          <ReservationConfirmationContainer
+            params={{ id: this.state.selection.resourceId }}
+            selectedReservations={[{
+              begin: this.state.selection.begin,
+              end: this.state.selection.end,
+              resource: this.state.selection.resourceId,
+            }]}
+          />}
       </PageWrapper>
     );
   }
@@ -73,6 +95,7 @@ function mapDispatchToProps(dispatch) {
   const actionCreators = {
     changeAdminResourcesPageDate,
     fetchFavoritedResources,
+    openConfirmReservationModal,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

@@ -11,11 +11,13 @@ import { UnconnectedAdminResourcesPage as AdminResourcesPage } from './AdminReso
 describe('pages/admin-resources/AdminResourcesPage', () => {
   const changeAdminResourcesPageDate = simple.stub();
   const fetchFavoritedResources = simple.stub();
+  const openConfirmReservationModal = simple.stub();
 
   const defaultProps = {
     actions: {
       changeAdminResourcesPageDate,
       fetchFavoritedResources,
+      openConfirmReservationModal,
     },
     date: '2017-01-10',
     isAdmin: true,
@@ -72,13 +74,15 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
 
       it('renders AvailabilityView with correct props', () => {
         const resources = [{ foo: 'bar' }];
-        const view = getIsAdminWrapper({ resources }).find(AvailabilityView);
+        const wrapper = getIsAdminWrapper({ resources });
+        const view = wrapper.find(AvailabilityView);
         expect(view).to.have.length(1);
         expect(view.prop('groups')).to.deep.equal([
           { name: '', resources },
         ]);
         expect(view.prop('date')).to.deep.equal('2017-01-10');
         expect(view.prop('onDateChange')).to.equal(changeAdminResourcesPageDate);
+        expect(view.prop('onSelect')).to.equal(wrapper.instance().handleSelect);
       });
     });
   });
@@ -118,6 +122,22 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
       wrapper.instance().componentWillUnmount();
       expect(changeAdminResourcesPageDate.callCount).to.equal(1);
       expect(changeAdminResourcesPageDate.lastCall.args).to.deep.equal([null]);
+    });
+  });
+
+  describe('handleSelect', () => {
+    it('saves selection to state', () => {
+      const wrapper = getWrapper();
+      const selection = { some: 'data' };
+      wrapper.instance().handleSelect(selection);
+      expect(wrapper.state()).to.deep.equal({ selection });
+    });
+
+    it('opens the confirm reservation modal', () => {
+      openConfirmReservationModal.reset();
+      const wrapper = getWrapper();
+      wrapper.instance().handleSelect({});
+      expect(openConfirmReservationModal.callCount).to.equal(1);
     });
   });
 });
