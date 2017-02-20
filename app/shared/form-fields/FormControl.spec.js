@@ -7,6 +7,7 @@ import RBFormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
+import InfoPopover from 'shared/info-popover';
 import FormControl from './FormControl';
 
 describe('shared/form-fields/FormControl', () => {
@@ -42,19 +43,29 @@ describe('shared/form-fields/FormControl', () => {
     });
 
     describe('the first Col', () => {
-      let col;
-
-      before(() => {
-        col = getWrapper().find(Col).at(0);
-      });
+      function getColWrapper(props) {
+        return getWrapper(props).find(Col).at(0);
+      }
 
       it('gets correct props', () => {
-        expect(col.props().componentClass).to.equal(ControlLabel);
-        expect(col.props().sm).to.equal(3);
+        expect(getColWrapper().props().componentClass).to.equal(ControlLabel);
+        expect(getColWrapper().props().sm).to.equal(3);
       });
 
       it('contains the label text given in props', () => {
-        expect(col.props().children).to.equal(defaultProps.label);
+        expect(getColWrapper().props().children).to.contain(defaultProps.label);
+      });
+
+      it('does not contain InfoPopover if info not given', () => {
+        const popover = getColWrapper().find(InfoPopover);
+        expect(popover).to.have.length(0);
+      });
+
+      it('contains InfoPopover if info is given', () => {
+        const info = 'Some info';
+        const popover = getColWrapper({ info }).find(InfoPopover);
+        expect(popover).to.have.length(1);
+        expect(popover.prop('text')).to.equal(info);
       });
     });
 

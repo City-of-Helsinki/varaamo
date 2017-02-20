@@ -89,6 +89,12 @@ describe('shared/form-fields/ReduxFormField', () => {
       expect(actualProps.id).to.equal(defaultProps.name);
     });
 
+    it('info is the info given in props', () => {
+      const info = 'Some info';
+      const actualProps = getWrapper({ info }).find(FormControl).props();
+      expect(actualProps.info).to.equal(info);
+    });
+
     it('label is the label given in props', () => {
       const actualProps = getWrapper().find(FormControl).props();
       expect(actualProps.label).to.equal(defaultProps.label);

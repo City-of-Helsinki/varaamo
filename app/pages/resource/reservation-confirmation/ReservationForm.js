@@ -67,7 +67,7 @@ export function validate(values, { fields, requiredFields, t }) {
 }
 
 class UnconnectedReservationForm extends Component {
-  renderField(name, type, label, controlProps = {}, help = null) {
+  renderField(name, type, label, controlProps = {}, help = null, info = null) {
     if (!includes(this.props.fields, name)) {
       return null;
     }
@@ -78,6 +78,7 @@ class UnconnectedReservationForm extends Component {
         component={ReduxFormField}
         controlProps={controlProps}
         help={help}
+        info={info}
         label={`${label}${isRequired ? '*' : ''}`}
         name={name}
         type={type}
@@ -118,7 +119,10 @@ class UnconnectedReservationForm extends Component {
           {this.renderField(
             'eventSubject',
             'text',
-            t('ReservationForm.eventSubjectLabel')
+            t('ReservationForm.eventSubjectLabel'),
+            {},
+            null,
+            t('ReservationForm.eventSubjectInfo'),
           )}
           {this.renderField(
             'reserverName',

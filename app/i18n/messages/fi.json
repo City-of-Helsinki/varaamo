@@ -109,6 +109,7 @@
   "ReservationForm.commentsPlaceholder": "Varauksen mahdolliset lisätiedot",
   "ReservationForm.emailError": "Syötä kunnollinen sähköpostiosoite",
   "ReservationForm.eventDescriptionLabel": "Tilaisuuden kuvaus",
+  "ReservationForm.eventSubjectInfo": "Tilaisuuden nimen näkee ainoastaan henkilökunta. Antamalla tilaisuudelle nimen helpotat saapuvien vieraiden opastamista oikeaan tilaan. Muistathan ilmoittaa nimen myös tilaisuuteen saapuville.",
   "ReservationForm.eventSubjectLabel": "Tilaisuuden nimi",
   "ReservationForm.maxLengthError": "Kentän maksimipituus on {maxLength} merkkiä",
   "ReservationForm.numberOfParticipantsLabel": "Osallistujamäärä",
