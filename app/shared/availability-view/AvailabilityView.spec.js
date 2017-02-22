@@ -71,10 +71,13 @@ describe('shared/availability-view/AvailabilityView', () => {
 
     describe('when no existing selection', () => {
       it('adds selection', () => {
-        const begin = '2017-01-01';
-        const resourceId = 'ab872ced93e1ee';
-        const state = handleReservationSlotClick({ begin, resourceId, other: 'data' });
-        expect(state).to.deep.equal({ selection: { begin, resourceId } });
+        const selection = {
+          begin: '2017-01-01T10:00:00Z',
+          end: '2017-01-01T10:30:00Z',
+          resourceId: 'auuexui389aeoord',
+        };
+        const state = handleReservationSlotClick(selection);
+        expect(state).to.deep.equal({ selection });
       });
     });
 

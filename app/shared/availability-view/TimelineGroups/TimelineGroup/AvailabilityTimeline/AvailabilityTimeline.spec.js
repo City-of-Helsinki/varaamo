@@ -23,7 +23,9 @@ describe('shared/availability-view/AvailabilityTimeline', () => {
   });
 
   it('renders given reservation slot', () => {
+    const id = 'resource-auuxnane';
     const wrapper = getWrapper({
+      id,
       items: [{
         key: '1',
         type: 'reservation-slot',
@@ -32,6 +34,7 @@ describe('shared/availability-view/AvailabilityTimeline', () => {
     });
     const slot = wrapper.find(ReservationSlot);
     expect(slot).to.have.length(1);
+    expect(slot.prop('resourceId')).to.equal(id);
   });
 
   it('renders given reservation', () => {

@@ -37,4 +37,11 @@ describe('shared/availability-view/TimelineGroups', () => {
     expect(element).to.have.length(1);
     expect(element.prop('onReservationSlotClick')).to.equal(onReservationSlotClick);
   });
+
+  it('passes selection to groups', () => {
+    const selection = { some: 'data' };
+    const groups = [{ name: 'A', resources: [] }];
+    const group = getWrapper({ groups, selection }).find(TimelineGroup);
+    expect(group.prop('selection')).to.equal(selection);
+  });
 });
