@@ -21,6 +21,8 @@ export default class TimelineGroup extends React.Component {
     className: PropTypes.string,
     date: PropTypes.string.isRequired,
     onReservationSlotClick: PropTypes.func,
+    onReservationSlotMouseEnter: PropTypes.func,
+    onReservationSlotMouseLeave: PropTypes.func,
     resources: PropTypes.arrayOf(PropTypes.string).isRequired,
     selection: PropTypes.object,
   };
@@ -39,7 +41,12 @@ export default class TimelineGroup extends React.Component {
   }
 
   render() {
-    const { onReservationSlotClick, selection } = this.props;
+    const {
+      onReservationSlotClick,
+      onReservationSlotMouseEnter,
+      onReservationSlotMouseLeave,
+      selection,
+    } = this.props;
     return (
       <div
         className={classNames('timeline-group', this.props.className)}
@@ -62,6 +69,8 @@ export default class TimelineGroup extends React.Component {
             id={resource}
             key={resource}
             onReservationSlotClick={onReservationSlotClick}
+            onReservationSlotMouseEnter={onReservationSlotMouseEnter}
+            onReservationSlotMouseLeave={onReservationSlotMouseLeave}
             selection={selection}
           />
         )}
