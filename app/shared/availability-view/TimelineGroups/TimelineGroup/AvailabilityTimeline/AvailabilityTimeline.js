@@ -20,6 +20,12 @@ export default class AvailabilityTimeline extends React.Component {
     selection: PropTypes.object,
   };
 
+  shouldComponentUpdate(nextProps) {
+    const isSelected = nextProps.selection && nextProps.selection.resourceId === this.props.id;
+    const wasSelected = this.props.selection && this.props.selection.resourceId === this.props.id;
+    return this.props.items !== nextProps.items || isSelected || wasSelected;
+  }
+
   render() {
     const {
       onReservationClick,
