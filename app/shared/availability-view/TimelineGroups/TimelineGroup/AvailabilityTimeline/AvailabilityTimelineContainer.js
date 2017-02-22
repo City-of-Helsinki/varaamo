@@ -49,6 +49,8 @@ AvailabilityTimelineContainer.propTypes = {
   date: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   onReservationSlotClick: PropTypes.func,
+  onReservationSlotMouseEnter: PropTypes.func,
+  onReservationSlotMouseLeave: PropTypes.func,
   selection: PropTypes.object,
 };
 
