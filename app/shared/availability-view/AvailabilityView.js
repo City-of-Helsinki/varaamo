@@ -40,8 +40,7 @@ export default class AvailabilityView extends React.Component {
   }
 
   startSelection(slot) {
-    const selection = { begin: slot.begin, resourceId: slot.resourceId };
-    this.setState({ selection });
+    this.setState({ selection: slot });
   }
 
   render() {
@@ -57,6 +56,7 @@ export default class AvailabilityView extends React.Component {
             date={this.props.date}
             groups={this.props.groups}
             onReservationSlotClick={this.handleReservationSlotClick}
+            selection={this.state.selection}
           />
         </div>
       </div>
