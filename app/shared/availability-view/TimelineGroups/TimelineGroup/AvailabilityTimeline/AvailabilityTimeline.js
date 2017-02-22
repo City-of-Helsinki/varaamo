@@ -15,22 +15,19 @@ export default class AvailabilityTimeline extends React.Component {
     ).isRequired,
     onReservationClick: PropTypes.func,
     onReservationSlotClick: PropTypes.func,
+    onReservationSlotMouseEnter: PropTypes.func,
+    onReservationSlotMouseLeave: PropTypes.func,
     selection: PropTypes.object,
   };
 
-  constructor(props) {
-    super(props);
-    this.handleReservationSlotClick = this.handleReservationSlotClick.bind(this);
-  }
-
-  handleReservationSlotClick(data) {
-    if (this.props.onReservationSlotClick) {
-      this.props.onReservationSlotClick({ resourceId: this.props.id, ...data });
-    }
-  }
-
   render() {
-    const { onReservationClick, selection } = this.props;
+    const {
+      onReservationClick,
+      onReservationSlotClick,
+      onReservationSlotMouseEnter,
+      onReservationSlotMouseLeave,
+      selection,
+    } = this.props;
     return (
       <div className="availability-timeline">
         {this.props.items.map((item) => {
@@ -39,7 +36,9 @@ export default class AvailabilityTimeline extends React.Component {
               <ReservationSlot
                 {...item.data}
                 key={item.key}
-                onClick={this.handleReservationSlotClick}
+                onClick={onReservationSlotClick}
+                onMouseEnter={onReservationSlotMouseEnter}
+                onMouseLeave={onReservationSlotMouseLeave}
                 resourceId={this.props.id}
                 selection={selection}
               />

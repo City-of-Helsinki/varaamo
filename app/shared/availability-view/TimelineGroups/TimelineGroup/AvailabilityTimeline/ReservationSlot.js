@@ -15,6 +15,8 @@ export default class ReservationSlot extends React.Component {
       isSameOrBefore: PropTypes.func.isRequired,
     }).isRequired,
     onClick: PropTypes.func,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func,
     resourceId: PropTypes.string.isRequired,
     selection: PropTypes.shape({
       begin: PropTypes.string.isRequired,
@@ -25,15 +27,34 @@ export default class ReservationSlot extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.handleMouseEnter = this.handleMouseEnter.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
+  }
+
+  getSlotInfo() {
+    return {
+      begin: this.props.begin.format(),
+      end: this.props.end.format(),
+      resourceId: this.props.resourceId,
+    };
   }
 
   handleClick(event) {
     if (this.props.onClick) {
       event.preventDefault();
-      this.props.onClick({
-        begin: this.props.begin.format(),
-        end: this.props.end.format(),
-      });
+      this.props.onClick(this.getSlotInfo());
+    }
+  }
+
+  handleMouseEnter() {
+    if (this.props.onMouseEnter) {
+      this.props.onMouseEnter(this.getSlotInfo());
+    }
+  }
+
+  handleMouseLeave() {
+    if (this.props.onMouseLeave) {
+      this.props.onMouseLeave(this.getSlotInfo());
     }
   }
 

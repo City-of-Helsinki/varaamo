@@ -2,7 +2,6 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import moment from 'moment';
 import React from 'react';
-import simple from 'simple-mock';
 
 import AvailabilityTimeline from './AvailabilityTimeline';
 import Reservation from './Reservation';
@@ -24,6 +23,9 @@ describe('shared/availability-view/AvailabilityTimeline', () => {
 
   it('renders given reservation slot', () => {
     const id = 'resource-auuxnane';
+    const onReservationSlotClick = () => null;
+    const onReservationSlotMouseEnter = () => null;
+    const onReservationSlotMouseLeave = () => null;
     const wrapper = getWrapper({
       id,
       items: [{
@@ -31,10 +33,16 @@ describe('shared/availability-view/AvailabilityTimeline', () => {
         type: 'reservation-slot',
         data: { begin: moment(), end: moment(), resourceId: '' },
       }],
+      onReservationSlotClick,
+      onReservationSlotMouseEnter,
+      onReservationSlotMouseLeave,
     });
     const slot = wrapper.find(ReservationSlot);
     expect(slot).to.have.length(1);
     expect(slot.prop('resourceId')).to.equal(id);
+    expect(slot.prop('onClick')).to.equal(onReservationSlotClick);
+    expect(slot.prop('onMouseEnter')).to.equal(onReservationSlotMouseEnter);
+    expect(slot.prop('onMouseLeave')).to.equal(onReservationSlotMouseLeave);
   });
 
   it('renders given reservation', () => {
@@ -83,42 +91,5 @@ describe('shared/availability-view/AvailabilityTimeline', () => {
     expect(children.at(0).is(ReservationSlot)).to.be.true;
     expect(children.at(1).is(Reservation)).to.be.true;
     expect(children.at(2).is(ReservationSlot)).to.be.true;
-  });
-
-  describe('handleReservationSlotClick', () => {
-    it('is given to ReservationSlot components', () => {
-      const wrapper = getWrapper({
-        items: [
-          {
-            key: '1',
-            type: 'reservation-slot',
-            data: {
-              begin: moment(),
-              end: moment(),
-              resourceId: '',
-            },
-          },
-        ],
-      });
-      const slot = wrapper.find(ReservationSlot);
-      expect(slot.prop('onClick')).to.equal(wrapper.instance().handleReservationSlotClick);
-    });
-
-    it('calls props.onReservationSlotClick with data and resource id', () => {
-      const id = 'resource-id-test';
-      const onReservationSlotClick = simple.mock();
-      const wrapper = getWrapper({ id, onReservationSlotClick });
-      wrapper.instance().handleReservationSlotClick({ some: 'data' });
-      expect(onReservationSlotClick.callCount).to.equal(1);
-      expect(onReservationSlotClick.lastCall.args).to.deep.equal([{
-        some: 'data',
-        resourceId: id,
-      }]);
-    });
-
-    it('does not raise an error if no onReservationSlotClick in props', () => {
-      const wrapper = getWrapper();
-      wrapper.instance().handleReservationSlotClick({ some: 'data' });
-    });
   });
 });

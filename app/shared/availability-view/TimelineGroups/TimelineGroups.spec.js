@@ -38,6 +38,22 @@ describe('shared/availability-view/TimelineGroups', () => {
     expect(element.prop('onReservationSlotClick')).to.equal(onReservationSlotClick);
   });
 
+  it('passes onReservationSlotMouseEnter to groups', () => {
+    const groups = [{ name: 'A', resources: [] }];
+    const onReservationSlotMouseEnter = () => null;
+    const element = getWrapper({ groups, onReservationSlotMouseEnter }).find(TimelineGroup);
+    expect(element).to.have.length(1);
+    expect(element.prop('onReservationSlotMouseEnter')).to.equal(onReservationSlotMouseEnter);
+  });
+
+  it('passes onReservationSlotMouseLeave to groups', () => {
+    const groups = [{ name: 'A', resources: [] }];
+    const onReservationSlotMouseLeave = () => null;
+    const element = getWrapper({ groups, onReservationSlotMouseLeave }).find(TimelineGroup);
+    expect(element).to.have.length(1);
+    expect(element.prop('onReservationSlotMouseLeave')).to.equal(onReservationSlotMouseLeave);
+  });
+
   it('passes selection to groups', () => {
     const selection = { some: 'data' };
     const groups = [{ name: 'A', resources: [] }];
