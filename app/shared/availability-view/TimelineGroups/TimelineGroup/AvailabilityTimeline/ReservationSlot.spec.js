@@ -76,6 +76,16 @@ describe('shared/availability-view/ReservationSlot', () => {
       const actual = wrapper.hasClass('reservation-slot-selected');
       expect(actual).to.be.false;
     });
+
+    it('is not selected if selection.resourceId is different', () => {
+      const actual = isSelected({}, { resourceId: '2' });
+      expect(actual).to.be.false;
+    });
+
+    it('is selected if selection.resourceId is the same', () => {
+      const actual = isSelected({}, { resourceId: '1' });
+      expect(actual).to.be.true;
+    });
   });
 
   describe('handleClick', () => {

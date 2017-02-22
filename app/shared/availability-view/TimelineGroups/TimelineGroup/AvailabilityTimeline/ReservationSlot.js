@@ -15,6 +15,7 @@ export default class ReservationSlot extends React.Component {
       isSameOrBefore: PropTypes.func.isRequired,
     }).isRequired,
     onClick: PropTypes.func,
+    resourceId: PropTypes.string.isRequired,
     selection: PropTypes.shape({
       begin: PropTypes.string.isRequired,
       end: PropTypes.string.isRequired,
@@ -37,9 +38,11 @@ export default class ReservationSlot extends React.Component {
   }
 
   render() {
-    const isSelected = this.props.selection && (
-      this.props.begin.isSameOrAfter(this.props.selection.begin) &&
-      this.props.end.isSameOrBefore(this.props.selection.end)
+    const selection = this.props.selection;
+    const isSelected = selection && (
+      this.props.begin.isSameOrAfter(selection.begin) &&
+      this.props.end.isSameOrBefore(selection.end) &&
+      (!selection.resourceId || selection.resourceId === this.props.resourceId)
     );
     return (
       <Link
