@@ -31,7 +31,7 @@ describe('shared/availability-view/AvailabilityTimeline', () => {
       items: [{
         key: '1',
         type: 'reservation-slot',
-        data: { begin: moment(), end: moment(), resourceId: '' },
+        data: { begin: moment().format(), end: moment().format(), resourceId: '' },
       }],
       onReservationSlotClick,
       onReservationSlotMouseEnter,
@@ -70,8 +70,8 @@ describe('shared/availability-view/AvailabilityTimeline', () => {
           key: '1',
           type: 'reservation-slot',
           data: {
-            begin: moment(),
-            end: moment(),
+            begin: moment().format(),
+            end: moment().format(),
             resourceId: '',
           },
         },
@@ -80,8 +80,8 @@ describe('shared/availability-view/AvailabilityTimeline', () => {
           key: '3',
           type: 'reservation-slot',
           data: {
-            begin: moment(),
-            end: moment(),
+            begin: moment().format(),
+            end: moment().format(),
             resourceId: '',
           },
         },

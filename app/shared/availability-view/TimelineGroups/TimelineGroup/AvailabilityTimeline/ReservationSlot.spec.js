@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import moment from 'moment';
 import simple from 'simple-mock';
 import React from 'react';
 
@@ -10,8 +9,8 @@ import utils from '../utils';
 
 function getWrapper(props) {
   const defaults = {
-    begin: moment(),
-    end: moment().add(30, 'minutes'),
+    begin: '2017-01-01T10:00:00Z',
+    end: '2017-01-01T10:30:00Z',
     resourceId: '1',
   };
   return shallow(<ReservationSlot {...defaults} {...props} />);
@@ -39,11 +38,12 @@ describe('shared/availability-view/ReservationSlot', () => {
   describe('selection', () => {
     function isSelected(props, selection) {
       const defaultProps = {
-        begin: moment('2016-01-01T10:00:00'),
-        end: moment('2016-01-01T10:30:00'),
+        begin: '2016-01-01T10:00:00',
+        end: '2016-01-01T10:30:00',
         selection: {
           begin: '2016-01-01T10:00:00',
           end: '2016-01-01T11:00:00',
+          resourceId: '1',
           ...selection,
         },
       };
@@ -104,16 +104,12 @@ describe('shared/availability-view/ReservationSlot', () => {
 
       it('calls onReservationSlotClick', () => {
         const onClick = simple.mock();
-        const begin = moment();
-        const end = moment().add(30, 'minutes');
+        const begin = '2017-01-02T14:00:00Z';
+        const end = '2017-01-02T14:30:00Z';
         const resourceId = 'auuxn391';
         callHandleClick({}, { begin, end, onClick, resourceId });
         expect(onClick.callCount).to.equal(1);
-        expect(onClick.lastCall.args).to.deep.equal([{
-          begin: begin.format(),
-          end: end.format(),
-          resourceId,
-        }]);
+        expect(onClick.lastCall.args).to.deep.equal([{ begin, end, resourceId }]);
       });
     });
 

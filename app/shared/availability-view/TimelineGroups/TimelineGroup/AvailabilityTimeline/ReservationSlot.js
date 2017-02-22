@@ -6,14 +6,8 @@ import Link from './Link';
 
 export default class ReservationSlot extends React.Component {
   static propTypes = {
-    begin: PropTypes.shape({
-      format: PropTypes.func.isRequired,
-      isSameOrAfter: PropTypes.func.isRequired,
-    }).isRequired,
-    end: PropTypes.shape({
-      format: PropTypes.func.isRequired,
-      isSameOrBefore: PropTypes.func.isRequired,
-    }).isRequired,
+    begin: PropTypes.string.isRequired,
+    end: PropTypes.string.isRequired,
     onClick: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
@@ -21,6 +15,7 @@ export default class ReservationSlot extends React.Component {
     selection: PropTypes.shape({
       begin: PropTypes.string.isRequired,
       end: PropTypes.string.isRequired,
+      resourceId: PropTypes.string.isRequired,
     }),
   };
 
@@ -31,10 +26,24 @@ export default class ReservationSlot extends React.Component {
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
   }
 
+  shouldComponentUpdate(nextProps) {
+    const isSelected = this.getIsSelected(nextProps.selection);
+    const wasSelected = this.getIsSelected(this.props.selection);
+    return isSelected !== wasSelected;
+  }
+
+  getIsSelected(selection) {
+    return selection && (
+      (!selection.resourceId || selection.resourceId === this.props.resourceId) &&
+      this.props.begin >= selection.begin &&
+      this.props.end <= selection.end
+    );
+  }
+
   getSlotInfo() {
     return {
-      begin: this.props.begin.format(),
-      end: this.props.end.format(),
+      begin: this.props.begin,
+      end: this.props.end,
       resourceId: this.props.resourceId,
     };
   }
@@ -59,16 +68,13 @@ export default class ReservationSlot extends React.Component {
   }
 
   render() {
-    const selection = this.props.selection;
-    const isSelected = selection && (
-      this.props.begin.isSameOrAfter(selection.begin) &&
-      this.props.end.isSameOrBefore(selection.end) &&
-      (!selection.resourceId || selection.resourceId === this.props.resourceId)
-    );
+    const isSelected = this.getIsSelected(this.props.selection);
     return (
       <Link
         className={classNames('reservation-slot', { 'reservation-slot-selected': isSelected })}
         onClick={this.handleClick}
+        onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
         style={{ width: utils.getTimeSlotWidth() }}
       >
         <span className="a11y-text">Make reservation</span>
