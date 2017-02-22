@@ -89,7 +89,7 @@ describe('shared/availability-view/ReservationSlot', () => {
   });
 
   describe('handleClick', () => {
-    describe('if onReservationSlotClick given', () => {
+    describe('if onClick given', () => {
       function callHandleClick({ preventDefault }, props) {
         const wrapper = getWrapper({ onClick: () => null, ...props });
         const event = { preventDefault: preventDefault || (() => null) };
@@ -106,11 +106,13 @@ describe('shared/availability-view/ReservationSlot', () => {
         const onClick = simple.mock();
         const begin = moment();
         const end = moment().add(30, 'minutes');
-        callHandleClick({}, { begin, end, onClick });
+        const resourceId = 'auuxn391';
+        callHandleClick({}, { begin, end, onClick, resourceId });
         expect(onClick.callCount).to.equal(1);
         expect(onClick.lastCall.args).to.deep.equal([{
           begin: begin.format(),
           end: end.format(),
+          resourceId,
         }]);
       });
     });
