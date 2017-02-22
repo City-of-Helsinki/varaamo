@@ -52,7 +52,119 @@ describe('shared/availability-view/AvailabilityView', () => {
 
   it('has correct initial state', () => {
     const wrapper = getWrapper();
-    expect(wrapper.state()).to.deep.equal({ selection: null });
+    expect(wrapper.state()).to.deep.equal({ hoverSelection: null, selection: null });
+  });
+
+  describe('getSelection', () => {
+    function getSelection(selection, hoverSelection) {
+      const wrapper = getWrapper();
+      const instance = wrapper.instance();
+      instance.state = { selection, hoverSelection };
+      return instance.getSelection();
+    }
+
+    it('returns selection if only selection', () => {
+      const selection = {};
+      expect(getSelection(selection, null)).to.equal(selection);
+    });
+
+    it('returns hoverSelection if only hoverSelection', () => {
+      const hoverSelection = {};
+      expect(getSelection(null, hoverSelection)).to.equal(hoverSelection);
+    });
+
+    it('returns null if neither', () => {
+      expect(getSelection(null, null)).to.be.null;
+    });
+
+    it('returns selection with hoverSelection.end if both', () => {
+      const selection = { begin: '1-begin', end: '1-end', resourceId: '1-resourceId' };
+      const hoverSelection = { begin: '2-begin', end: '2-end', resourceId: '2-resourceId' };
+      expect(getSelection(selection, hoverSelection)).to.deep.equal({
+        begin: '1-begin',
+        end: '2-end',
+        resourceId: '1-resourceId',
+      });
+    });
+  });
+
+  describe('handleReservationSlotMouseLeave', () => {
+    const begin = '2017-01-01T10:00:00Z';
+    const end = '2017-01-01T10:30:00Z';
+    const resourceId = 'auxxnen1';
+
+    function getHoverSelection(slot, state) {
+      const wrapper = getWrapper();
+      const instance = wrapper.instance();
+      if (state) instance.state = state;
+      instance.handleReservationSlotMouseLeave(slot);
+      return wrapper.state().hoverSelection;
+    }
+
+    it('does nothing if existing hoverSelection is null', () => {
+      expect(getHoverSelection({ begin, end, resourceId })).to.be.null;
+    });
+
+    it('does nothing if existing hoverSelection is different', () => {
+      const selection = { begin, end, resourceId };
+      const hoverSelection = { begin: 'foo' };
+      expect(getHoverSelection(selection, { hoverSelection })).to.equal(hoverSelection);
+    });
+
+    it('sets hoverSelection to null if existing is the same', () => {
+      const selection = { begin, end, resourceId };
+      const hoverSelection = { begin, end, resourceId };
+      expect(getHoverSelection(selection, { hoverSelection })).to.be.null;
+    });
+  });
+
+  describe('handleReservationSlotMouseEnter', () => {
+    const begin = '2017-01-01T10:00:00Z';
+    const end = '2017-01-01T10:30:00Z';
+    const resourceId = 'auxxnen1';
+
+    function getHoverSelection(slot, state) {
+      const wrapper = getWrapper();
+      const instance = wrapper.instance();
+      if (state) instance.state = state;
+      instance.handleReservationSlotMouseEnter(slot);
+      return wrapper.state().hoverSelection;
+    }
+
+    it('updates hoverSelection if no state.selection', () => {
+      const selection = { begin, end, resourceId };
+      expect(getHoverSelection(selection)).to.equal(selection);
+    });
+
+    it('updates hoverSelection if is selectable', () => {
+      const selection = { begin, end, resourceId };
+      const existing = {
+        begin: '2017-01-01T09:00:00Z',
+        end: '2017-01-01T09:30:00Z',
+        resourceId,
+      };
+      expect(getHoverSelection(selection, { selection: existing })).to.equal(selection);
+    });
+
+    it('does not update hoverSelection if different resource', () => {
+      const selection = { begin, end, resourceId };
+      const existing = {
+        begin: '2017-01-01T09:00:00Z',
+        end: '2017-01-01T09:30:00Z',
+        resourceId: 'xiauenqi',
+      };
+      expect(getHoverSelection(selection, { selection: existing })).to.be.undefined;
+    });
+
+    it('does not update hoverSelection if before selection', () => {
+      const selection = { begin, end, resourceId };
+      const existing = {
+        begin: '2017-01-01T10:30:00Z',
+        end: '2017-01-01T11:00:00Z',
+        resourceId,
+      };
+      expect(getHoverSelection(selection, { selection: existing })).to.be.undefined;
+    });
   });
 
   describe('handleReservationSlotClick', () => {
@@ -77,7 +189,7 @@ describe('shared/availability-view/AvailabilityView', () => {
           resourceId: 'auuexui389aeoord',
         };
         const state = handleReservationSlotClick(selection);
-        expect(state).to.deep.equal({ selection });
+        expect(state).to.deep.equal({ hoverSelection: null, selection });
       });
     });
 
@@ -98,7 +210,7 @@ describe('shared/availability-view/AvailabilityView', () => {
             { resourceId, begin: '2016-01-01T10:00:00Z' },
             { resourceId, begin: '2016-01-01T10:00:00Z', end: '2016-01-01T10:30:00Z' }
           );
-          expect(wrapper.state()).to.deep.equal({ selection: null });
+          expect(wrapper.state()).to.deep.equal({ hoverSelection: null, selection: null });
         });
 
         it('calls props.onSelect', () => {
@@ -122,7 +234,7 @@ describe('shared/availability-view/AvailabilityView', () => {
         function checkInvalid(begin, end) {
           const onSelect = simple.mock();
           const wrapper = doSelect({ onSelect }, begin, end);
-          expect(wrapper.state()).to.deep.equal({ selection: begin });
+          expect(wrapper.state()).to.deep.equal({ hoverSelection: null, selection: begin });
           expect(onSelect.called).to.be.false;
         }
 

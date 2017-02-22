@@ -30,8 +30,8 @@ function getTimelineItems(date, reservations, resourceId) {
         key: String(items.length),
         type: 'reservation-slot',
         data: {
-          begin: timePointer.clone(),
-          end: timePointer.clone().add(slotSize, 'minutes'),
+          begin: timePointer.format(),
+          end: timePointer.clone().add(slotSize, 'minutes').format(),
           resourceId,
         },
       });
