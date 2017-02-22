@@ -40,6 +40,7 @@ export default class AvailabilityTimeline extends React.Component {
                 {...item.data}
                 key={item.key}
                 onClick={this.handleReservationSlotClick}
+                resourceId={this.props.id}
                 selection={selection}
               />
             );
