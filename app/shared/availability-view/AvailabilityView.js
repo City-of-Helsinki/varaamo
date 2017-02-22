@@ -1,3 +1,4 @@
+import isEqual from 'lodash/isEqual';
 import React, { PropTypes } from 'react';
 
 import DateSelector from './DateSelector';
@@ -14,8 +15,19 @@ export default class AvailabilityView extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { selection: null };
+    this.state = { hoverSelection: null, selection: null };
     this.handleReservationSlotClick = this.handleReservationSlotClick.bind(this);
+    this.handleReservationSlotMouseEnter = this.handleReservationSlotMouseEnter.bind(this);
+    this.handleReservationSlotMouseLeave = this.handleReservationSlotMouseLeave.bind(this);
+  }
+
+  getSelection() {
+    const selection = this.state.selection;
+    const hover = this.state.hoverSelection;
+    if (!selection && !hover) return null;
+    if (selection && !hover) return selection;
+    if (!selection && hover) return hover;
+    return { ...selection, end: hover.end };
   }
 
   handleReservationSlotClick(slot) {
@@ -23,6 +35,24 @@ export default class AvailabilityView extends React.Component {
       this.endSelection(slot);
     } else {
       this.startSelection(slot);
+    }
+  }
+
+  handleReservationSlotMouseEnter(slot) {
+    const isSlotSelectable = (
+      !this.state.selection || (
+        this.state.selection.resourceId === slot.resourceId &&
+        this.state.selection.begin < slot.begin
+      )
+    );
+    if (isSlotSelectable) {
+      this.setState({ hoverSelection: slot });
+    }
+  }
+
+  handleReservationSlotMouseLeave(slot) {
+    if (isEqual(slot, this.state.hoverSelection)) {
+      this.setState({ hoverSelection: null });
     }
   }
 
@@ -56,7 +86,9 @@ export default class AvailabilityView extends React.Component {
             date={this.props.date}
             groups={this.props.groups}
             onReservationSlotClick={this.handleReservationSlotClick}
-            selection={this.state.selection}
+            onReservationSlotMouseEnter={this.handleReservationSlotMouseEnter}
+            onReservationSlotMouseLeave={this.handleReservationSlotMouseLeave}
+            selection={this.getSelection()}
           />
         </div>
       </div>

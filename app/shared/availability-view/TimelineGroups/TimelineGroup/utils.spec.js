@@ -69,17 +69,6 @@ describe('shared/availability-view/utils', () => {
         { id: 13, begin: '2016-01-01T20:00:00', end: '2016-01-01T20:30:00' },
       ];
       const actual = utils.getTimelineItems(moment('2016-01-01T00:00:00'), reservations, '1');
-      const actualFormatted = actual.map((item) => {
-        if (item.type === 'reservation') return item;
-        return {
-          ...item,
-          data: {
-            ...item.data,
-            begin: item.data.begin.format(),
-            end: item.data.end.format(),
-          },
-        };
-      });
       const expected = [
         {
           key: '0',
@@ -229,7 +218,7 @@ describe('shared/availability-view/utils', () => {
           },
         },
       ];
-      expect(actualFormatted).to.deep.equal(expected);
+      expect(actual).to.deep.equal(expected);
     });
   });
 });
