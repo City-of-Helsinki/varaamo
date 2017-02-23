@@ -9,7 +9,7 @@ function ReservationAccessCode({ reservation, t, text }) {
 
   return (
     <span className="reservation-access-code">
-      {text || t('ReservationAccessCode.defaultText')}: {reservation.accessCode}
+      {text || t('ReservationAccessCode.defaultText')} {reservation.accessCode}
     </span>
   );
 }
