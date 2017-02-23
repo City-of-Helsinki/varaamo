@@ -218,7 +218,7 @@ describe('shared/availability-view/AvailabilityView', () => {
           const resourceId = 'resource-id';
           doSelect(
             { onSelect },
-            { resourceId, begin: '2016-01-01T10:30:00Z' },
+            { resourceId, begin: '2016-01-01T10:30:00Z', end: '2016-01-01T11:00:00Z' },
             { resourceId, begin: '2016-01-01T11:00:00Z', end: '2016-01-01T11:30:00Z' }
           );
           expect(onSelect.callCount).to.equal(1);
