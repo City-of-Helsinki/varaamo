@@ -136,6 +136,7 @@
   "ReservationInfoModal.title": "Varauksen tiedot",
   "ReservationListContainer.emptyMessage": "Sinulla ei vielä ole yhtään varausta.",
   "ReservationListItem.accessCodeText": "Tilan PIN-koodi:",
+  "ReservationSlot.selectionInfoHeader": "Valitse varauksen päättymisajankohta",
   "ReservationSuccessModal.emailHelpText": "sekä varausvahvistuksesta, joka on lähetetty sähköpostiosoitteeseen: <strong> {email}</strong>",
   "ReservationSuccessModal.ownReservationsPageHelpText": "PIN-koodin voit tarkistaa jatkossa \"Omat varaukset\" -sivulta",
   "ReservationSuccessModal.preliminaryReservationInfo": "Varaus käsitellään kahden arkipäivän kuluessa. Tarkemmat tiedot alustavasta varauksesta lähetetään varauksen yhteydessä annettuun sähköpostiosoitteeseen <strong> {email}</strong>.",

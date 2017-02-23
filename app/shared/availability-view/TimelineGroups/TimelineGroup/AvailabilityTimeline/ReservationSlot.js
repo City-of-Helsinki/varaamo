@@ -1,10 +1,14 @@
 import classNames from 'classnames';
+import moment from 'moment';
 import React, { PropTypes } from 'react';
+import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
+import Popover from 'react-bootstrap/lib/Popover';
 
+import { injectT } from 'i18n';
 import utils from '../utils';
 import Link from './Link';
 
-export default class ReservationSlot extends React.Component {
+export class UninjectedReservationSlot extends React.Component {
   static propTypes = {
     begin: PropTypes.string.isRequired,
     end: PropTypes.string.isRequired,
@@ -15,8 +19,10 @@ export default class ReservationSlot extends React.Component {
     selection: PropTypes.shape({
       begin: PropTypes.string.isRequired,
       end: PropTypes.string.isRequired,
+      hover: PropTypes.bool,
       resourceId: PropTypes.string.isRequired,
     }),
+    t: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -29,10 +35,10 @@ export default class ReservationSlot extends React.Component {
   shouldComponentUpdate(nextProps) {
     const isSelected = this.getIsSelected(nextProps.selection);
     const wasSelected = this.getIsSelected(this.props.selection);
-    return isSelected !== wasSelected;
+    return isSelected !== wasSelected || this.shouldShowPopover(wasSelected, nextProps);
   }
 
-  getIsSelected(selection) {
+  getIsSelected(selection = this.props.selection) {
     return selection && (
       (!selection.resourceId || selection.resourceId === this.props.resourceId) &&
       this.props.begin >= selection.begin &&
@@ -46,6 +52,14 @@ export default class ReservationSlot extends React.Component {
       end: this.props.end,
       resourceId: this.props.resourceId,
     };
+  }
+
+  shouldShowPopover(isSelected, props = this.props) {
+    return (
+      isSelected &&
+      !props.selection.hover &&
+      props.selection.begin === props.begin
+    );
   }
 
   handleClick(event) {
@@ -68,8 +82,8 @@ export default class ReservationSlot extends React.Component {
   }
 
   render() {
-    const isSelected = this.getIsSelected(this.props.selection);
-    return (
+    const isSelected = this.getIsSelected();
+    const slot = (
       <Link
         className={classNames('reservation-slot', { 'reservation-slot-selected': isSelected })}
         onClick={this.handleClick}
@@ -80,5 +94,30 @@ export default class ReservationSlot extends React.Component {
         <span className="a11y-text">Make reservation</span>
       </Link>
     );
+    if (this.shouldShowPopover(isSelected)) {
+      const popover = (
+        <Popover
+          id="popover-selection-information"
+          title={this.props.t('ReservationSlot.selectionInfoHeader')}
+        >
+          {moment(this.props.selection.begin).format('HH:mm')}
+          –
+          {moment(this.props.selection.end).format('HH:mm')}
+        </Popover>
+      );
+      return (
+        <OverlayTrigger
+          defaultOverlayShown
+          overlay={popover}
+          placement="top"
+          trigger={[]}
+        >
+          {slot}
+        </OverlayTrigger>
+      );
+    }
+    return slot;
   }
 }
+
+export default injectT(UninjectedReservationSlot);
