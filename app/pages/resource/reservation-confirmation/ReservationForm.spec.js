@@ -129,9 +129,9 @@ describe('pages/resource/reservation-confirmation/ReservationForm', () => {
     });
 
     describe('form fields', () => {
-      describe('fields included in RESERVATION_FORM_FIELDS', () => {
+      describe('fields included in PRELIMINARY_RESERVATION_FORM_FIELDS', () => {
         it('renders a field if it is included in props.fields', () => {
-          const fields = [constants.RESERVATION_FORM_FIELDS[0]];
+          const fields = [constants.PRELIMINARY_RESERVATION_FORM_FIELDS[0]];
           const input = getWrapper({ fields }).find(Field);
           expect(input.length).to.equal(1);
         });
@@ -144,7 +144,7 @@ describe('pages/resource/reservation-confirmation/ReservationForm', () => {
 
         describe('required fields', () => {
           it('displays an asterisk beside a required field label', () => {
-            const fieldName = constants.RESERVATION_FORM_FIELDS[0];
+            const fieldName = constants.PRELIMINARY_RESERVATION_FORM_FIELDS[0];
             const props = {
               fields: [fieldName],
               requiredFields: [fieldName],
@@ -154,7 +154,7 @@ describe('pages/resource/reservation-confirmation/ReservationForm', () => {
           });
 
           it('does not display an asterisk beside a non required field label', () => {
-            const fieldName = constants.RESERVATION_FORM_FIELDS[0];
+            const fieldName = constants.PRELIMINARY_RESERVATION_FORM_FIELDS[0];
             const props = {
               fields: [fieldName],
               requiredFields: [],
@@ -179,7 +179,7 @@ describe('pages/resource/reservation-confirmation/ReservationForm', () => {
             });
 
             it('does not show an asterisk beside non REQUIRED_STAFF_EVENT_FIELDS', () => {
-              const fieldName = constants.RESERVATION_FORM_FIELDS[1];
+              const fieldName = constants.PRELIMINARY_RESERVATION_FORM_FIELDS[1];
               const fields = [fieldName];
               const props = {
                 fields,
@@ -193,7 +193,7 @@ describe('pages/resource/reservation-confirmation/ReservationForm', () => {
         });
       });
 
-      describe('fields not included in RESERVATION_FORM_FIELDS', () => {
+      describe('fields not included in PRELIMINARY_RESERVATION_FORM_FIELDS', () => {
         it('does not render a field even if it is included in props.fields', () => {
           const fields = ['someOtherField'];
           const input = getWrapper({ fields }).find(Field);

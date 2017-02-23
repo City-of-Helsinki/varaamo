@@ -156,8 +156,8 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
           expect(formFields).to.contain('comments');
         });
 
-        it('form fields include RESERVATION_FORM_FIELDS', () => {
-          forEach(constants.RESERVATION_FORM_FIELDS, (field) => {
+        it('form fields include PRELIMINARY_RESERVATION_FORM_FIELDS', () => {
+          forEach(constants.PRELIMINARY_RESERVATION_FORM_FIELDS, (field) => {
             expect(formFields).to.contain(field);
           });
         });
@@ -181,8 +181,8 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
           expect(formFields).to.not.contain('eventSubject');
         });
 
-        it('form fields include RESERVATION_FORM_FIELDS', () => {
-          forEach(constants.RESERVATION_FORM_FIELDS, (field) => {
+        it('form fields include PRELIMINARY_RESERVATION_FORM_FIELDS', () => {
+          forEach(constants.PRELIMINARY_RESERVATION_FORM_FIELDS, (field) => {
             expect(formFields).to.contain(field);
           });
         });
@@ -214,8 +214,8 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
           expect(formFields).to.not.contain('eventSubject');
         });
 
-        it('form fields include RESERVATION_FORM_FIELDS', () => {
-          forEach(constants.RESERVATION_FORM_FIELDS, (field) => {
+        it('form fields include PRELIMINARY_RESERVATION_FORM_FIELDS', () => {
+          forEach(constants.PRELIMINARY_RESERVATION_FORM_FIELDS, (field) => {
             expect(formFields).to.contain(field);
           });
         });
@@ -249,8 +249,8 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
           expect(formFields).to.contain('eventSubject');
         });
 
-        it('form fields do not include RESERVATION_FORM_FIELDS', () => {
-          forEach(constants.RESERVATION_FORM_FIELDS, (field) => {
+        it('form fields do not include PRELIMINARY_RESERVATION_FORM_FIELDS', () => {
+          forEach(constants.PRELIMINARY_RESERVATION_FORM_FIELDS, (field) => {
             expect(formFields).to.not.contain(field);
           });
         });
@@ -281,8 +281,8 @@ describe('pages/resource/reservation-confirmation/ConfirmReservationModal', () =
           expect(formFields).to.contain('eventSubject');
         });
 
-        it('form fields do not include RESERVATION_FORM_FIELDS', () => {
-          forEach(constants.RESERVATION_FORM_FIELDS, (field) => {
+        it('form fields do not include PRELIMINARY_RESERVATION_FORM_FIELDS', () => {
+          forEach(constants.PRELIMINARY_RESERVATION_FORM_FIELDS, (field) => {
             expect(formFields).to.not.contain(field);
           });
         });
