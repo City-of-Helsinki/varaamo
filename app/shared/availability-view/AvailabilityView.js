@@ -26,7 +26,7 @@ export default class AvailabilityView extends React.Component {
     const hover = this.state.hoverSelection;
     if (!selection && !hover) return null;
     if (selection && !hover) return selection;
-    if (!selection && hover) return hover;
+    if (!selection && hover) return { ...hover, hover: true };
     return { ...selection, end: hover.end };
   }
 

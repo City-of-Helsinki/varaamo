@@ -69,8 +69,11 @@ describe('shared/availability-view/AvailabilityView', () => {
     });
 
     it('returns hoverSelection if only hoverSelection', () => {
-      const hoverSelection = {};
-      expect(getSelection(null, hoverSelection)).to.equal(hoverSelection);
+      const hoverSelection = { some: 'data' };
+      expect(getSelection(null, hoverSelection)).to.deep.equal({
+        ...hoverSelection,
+        hover: true,
+      });
     });
 
     it('returns null if neither', () => {
