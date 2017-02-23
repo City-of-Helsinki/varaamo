@@ -2,8 +2,9 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import simple from 'simple-mock';
 import React from 'react';
+import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 
-import ReservationSlot from './ReservationSlot';
+import { UninjectedReservationSlot as ReservationSlot } from './ReservationSlot';
 import Link from './Link';
 import utils from '../utils';
 
@@ -12,6 +13,7 @@ function getWrapper(props) {
     begin: '2017-01-01T10:00:00Z',
     end: '2017-01-01T10:30:00Z',
     resourceId: '1',
+    t: s => s,
   };
   return shallow(<ReservationSlot {...defaults} {...props} />);
 }
@@ -35,6 +37,73 @@ describe('shared/availability-view/ReservationSlot', () => {
     expect(wrapper.prop('onClick')).to.equal(instance.handleClick);
   });
 
+  describe('OverlayTrigger', () => {
+    function getTrigger(props) {
+      const wrapper = getWrapper(props);
+      return wrapper.find(OverlayTrigger);
+    }
+
+    describe('is not rendered when the slot', () => {
+      it('has no selection', () => {
+        const trigger = getTrigger({ selection: null });
+        expect(trigger).to.have.length(0);
+      });
+
+      it('is not in selection', () => {
+        const trigger = getTrigger({
+          begin: '2016-01-01T10:00:00Z',
+          end: '2016-01-01T10:30:00Z',
+          selection: {
+            begin: '2016-01-01T10:30:00Z',
+            end: '2016-01-01T12:00:00Z',
+            resourceId: '1',
+          },
+        });
+        expect(trigger).to.have.length(0);
+      });
+
+      it('is inside selection but not the first slot', () => {
+        const trigger = getTrigger({
+          begin: '2016-01-01T10:00:00Z',
+          end: '2016-01-01T10:30:00Z',
+          selection: {
+            begin: '2016-01-01T09:30:00Z',
+            end: '2016-01-01T12:00:00Z',
+            resourceId: '1',
+          },
+        });
+        expect(trigger).to.have.length(0);
+      });
+
+      it('is inside hover selection', () => {
+        const trigger = getTrigger({
+          begin: '2016-01-01T10:00:00Z',
+          end: '2016-01-01T10:30:00Z',
+          selection: {
+            begin: '2016-01-01T10:00:00Z',
+            end: '2016-01-01T12:00:00Z',
+            resourceId: '1',
+            hover: true,
+          },
+        });
+        expect(trigger).to.have.length(0);
+      });
+    });
+
+    it('is rendered if beginning of selection', () => {
+      const trigger = getTrigger({
+        begin: '2016-01-01T10:00:00Z',
+        end: '2016-01-01T10:30:00Z',
+        selection: {
+          begin: '2016-01-01T10:00:00Z',
+          end: '2016-01-01T12:00:00Z',
+          resourceId: '1',
+        },
+      });
+      expect(trigger).to.have.length(1);
+    });
+  });
+
   describe('selection', () => {
     function isSelected(props, selection) {
       const defaultProps = {
@@ -46,9 +115,10 @@ describe('shared/availability-view/ReservationSlot', () => {
           resourceId: '1',
           ...selection,
         },
+        resourceId: '1',
       };
       const wrapper = getWrapper({ ...defaultProps, ...props });
-      return wrapper.hasClass('reservation-slot-selected');
+      return wrapper.find(Link).hasClass('reservation-slot-selected');
     }
 
     it('is selected if begin and end are same as selected', () => {

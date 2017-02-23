@@ -136,6 +136,7 @@
   "ReservationInfoModal.title": "Reservation information.",
   "ReservationListContainer.emptyMessage": "You do not have any reservations yet.",
   "ReservationListItem.accessCodeText": "PIN code of the premises:",
+  "ReservationSlot.selectionInfoHeader": "Select the reservation's end time",
   "ReservationSuccessModal.emailHelpText": "as well as on the reservation confirmation sent to the following e-mail address: <strong> {email}</strong>",
   "ReservationSuccessModal.ownReservationsPageHelpText": "In the future, you can find the PIN code on the ‘My reservations’ page",
   "ReservationSuccessModal.preliminaryReservationInfo": "This reservation will be processed within two weekdays. The details of the preliminary reservation will be sent to the email address <strong> {email}</strong> provided when making the reservation.",
