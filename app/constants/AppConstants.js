@@ -13,16 +13,7 @@ export default {
     timeOut: 5000,
     hidden: false,
   },
-  REQUIRED_API_HEADERS: {
-    Accept: 'application/json',
-    'Accept-Language': 'fi',
-    'Content-Type': 'application/json',
-  },
-  REQUIRED_STAFF_EVENT_FIELDS: [
-    'eventDescription',
-    'reserverName',
-  ],
-  RESERVATION_FORM_FIELDS: [
+  PRELIMINARY_RESERVATION_FORM_FIELDS: [
     'reserverName',
     'reserverEmailAddress',
     'reserverPhoneNumber',
@@ -36,6 +27,18 @@ export default {
     'billingAddressZip',
     'billingAddressCity',
     'numberOfParticipants',
+  ],
+  REGULAR_RESERVATION_FORM_FIELDS: [
+    'eventSubject',
+  ],
+  REQUIRED_API_HEADERS: {
+    Accept: 'application/json',
+    'Accept-Language': 'fi',
+    'Content-Type': 'application/json',
+  },
+  REQUIRED_STAFF_EVENT_FIELDS: [
+    'eventDescription',
+    'reserverName',
   ],
   RESERVATION_STATE_LABELS: {
     cancelled: {

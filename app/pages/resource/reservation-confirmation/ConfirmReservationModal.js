@@ -34,9 +34,9 @@ class ConfirmReservationModal extends Component {
     const formFields = [];
 
     if (resource.needManualConfirmation) {
-      formFields.push(...constants.RESERVATION_FORM_FIELDS);
+      formFields.push(...constants.PRELIMINARY_RESERVATION_FORM_FIELDS);
     } else {
-      formFields.push('eventSubject');
+      formFields.push(...constants.REGULAR_RESERVATION_FORM_FIELDS);
     }
 
     if (isAdmin) {
@@ -69,11 +69,9 @@ class ConfirmReservationModal extends Component {
       reservation = selectedReservations.length ? selectedReservations[0] : null;
     }
 
-    let rv = reservation ?
-      pick(reservation, ['comments', ...constants.RESERVATION_FORM_FIELDS]) :
-      {};
+    let rv = reservation ? pick(reservation, this.getFormFields()) : {};
     if (isEditing) {
-      rv = Object.assign(rv, { staffEvent: isStaffEvent(reservation, resource) });
+      rv = { ...rv, staffEvent: isStaffEvent(reservation, resource) };
     }
     return rv;
   }
