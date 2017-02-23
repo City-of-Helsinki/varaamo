@@ -64,7 +64,7 @@ export default class AvailabilityView extends React.Component {
     if (!isValid) {
       return;
     }
-    const selection = { end: slot.end, ...this.state.selection };
+    const selection = { ...this.state.selection, end: slot.end };
     if (this.props.onSelect) this.props.onSelect(selection);
     this.setState({ selection: null });
   }

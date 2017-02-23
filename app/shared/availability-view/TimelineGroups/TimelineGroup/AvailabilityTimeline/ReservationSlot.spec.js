@@ -102,7 +102,7 @@ describe('shared/availability-view/ReservationSlot', () => {
         expect(preventDefault.callCount).to.equal(1);
       });
 
-      it('calls onReservationSlotClick', () => {
+      it('calls onClick', () => {
         const onClick = simple.mock();
         const begin = '2017-01-02T14:00:00Z';
         const end = '2017-01-02T14:30:00Z';
