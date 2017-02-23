@@ -6,7 +6,7 @@ import utils from './utils';
 describe('shared/availability-view/utils', () => {
   describe('getTimeSlotWidth', () => {
     const slotWidth = 30;
-    const slotMargin = 2;
+    const slotMargin = 0;
 
     it('returns one slot width with no arguments', () => {
       const actual = utils.getTimeSlotWidth();
