@@ -1,6 +1,6 @@
 .availability-view {
   @slot-height: 50px;
-  @slot-margin: 1px;
+  @slot-border: 1px solid white;
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -69,7 +69,7 @@
     padding: 0 @padding-base-horizontal;
 
     .group-name, .resource-info {
-      height: @slot-height + @slot-margin * 2;
+      height: @slot-height;
     }
     .group-name {
       display: flex;
@@ -127,7 +127,8 @@
         align-items: center;
         height: @slot-height;
         flex-shrink: 0;
-        margin: @slot-margin;
+        margin: 0;
+        border: @slot-border;
         background-color: @gray-lighter;
         padding: @padding-small-vertical @padding-small-horizontal;
         font-size: @font-size-small;
@@ -142,12 +143,12 @@
   }
   .reservation, .reservation-slot {
     display: inline-flex;
-    margin: @slot-margin;
+    margin: 0;
+    border: @slot-border;
     border-radius: 2px;
     flex-shrink: 0;
   }
   .reservation {
-    border: none;
     height: @slot-height;
     background-color: @brand-success;
     color: white;
