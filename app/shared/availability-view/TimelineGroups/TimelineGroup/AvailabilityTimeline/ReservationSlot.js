@@ -36,7 +36,12 @@ export class UninjectedReservationSlot extends React.Component {
   shouldComponentUpdate(nextProps) {
     const isSelected = this.getIsSelected(nextProps.selection);
     const wasSelected = this.getIsSelected(this.props.selection);
-    return isSelected !== wasSelected || this.shouldShowPopover(wasSelected, nextProps);
+    const isSelectableChanged = this.props.isSelectable !== nextProps.isSelectable;
+    return (
+      isSelectableChanged ||
+      isSelected !== wasSelected ||
+      this.shouldShowPopover(wasSelected, nextProps)
+    );
   }
 
   getIsSelected(selection = this.props.selection) {
@@ -86,7 +91,10 @@ export class UninjectedReservationSlot extends React.Component {
     const isSelected = this.getIsSelected();
     const slot = (
       <Link
-        className={classNames('reservation-slot', { 'reservation-slot-selected': isSelected })}
+        className={classNames('reservation-slot', {
+          'reservation-slot-selected': isSelected,
+          'reservation-slot-selectable': this.props.isSelectable,
+        })}
         onClick={this.handleClick}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
