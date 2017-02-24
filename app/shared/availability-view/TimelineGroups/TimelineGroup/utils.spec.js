@@ -38,6 +38,68 @@ describe('shared/availability-view/utils', () => {
     });
   });
 
+  describe('addSelectionData', () => {
+    const items = [
+      {
+        data: { begin: '2016-01-01T11:00:00Z' },
+        type: 'reservation-slot',
+      },
+      {
+        data: { begin: '2016-01-01T11:30:00Z' },
+        type: 'reservation-slot',
+      },
+      {
+        data: { begin: '2016-01-01T12:00:00Z' },
+        type: 'reservation',
+      },
+      {
+        data: { begin: '2016-01-01T12:30:00Z' },
+        type: 'reservation-slot',
+      },
+      {
+        data: { begin: '2016-01-01T13:00:00Z' },
+        type: 'reservation-slot',
+      },
+    ];
+
+    function getItems(slot1, slot2, slot3, slot4) {
+      return [
+        { ...items[0], data: { ...items[0].data, isSelectable: slot1 } },
+        { ...items[1], data: { ...items[1].data, isSelectable: slot2 } },
+        items[2],
+        { ...items[3], data: { ...items[3].data, isSelectable: slot3 } },
+        { ...items[4], data: { ...items[4].data, isSelectable: slot4 } },
+      ];
+    }
+
+    it('marks all selectable if no selection', () => {
+      const expected = getItems(true, true, true, true);
+      const actual = utils.addSelectionData(null, 'r1', items);
+      expect(actual).to.deep.equal(expected);
+    });
+
+    it('marks all not selectable if selection in another resource', () => {
+      const expected = getItems(false, false, false, false);
+      const selection = { begin: '2016-01-01T11:30:00Z', resourceId: 'r2' };
+      const actual = utils.addSelectionData(selection, 'r1', items);
+      expect(actual).to.deep.equal(expected);
+    });
+
+    it('marks selectable if selection in this resource', () => {
+      const expected = getItems(false, false, false, true);
+      const selection = { begin: '2016-01-01T13:00:00Z', resourceId: 'r1' };
+      const actual = utils.addSelectionData(selection, 'r1', items);
+      expect(actual).to.deep.equal(expected);
+    });
+
+    it('only marks selectable until next reservation', () => {
+      const expected = getItems(true, true, false, false);
+      const selection = { begin: '2016-01-01T11:00:00Z', resourceId: 'r1' };
+      const actual = utils.addSelectionData(selection, 'r1', items);
+      expect(actual).to.deep.equal(expected);
+    });
+  });
+
   describe('getTimelineItems', () => {
     it('returns reservation slots if reservations is undefined', () => {
       const actual = utils.getTimelineItems(moment('2016-01-01T00:00:00Z'), undefined, '1');
