@@ -72,6 +72,13 @@ const selectReservationToShow = createAction(
 
 const toggleTimeSlot = createAction(types.UI.TOGGLE_TIME_SLOT);
 
+function openReservationInfoModalWithReservation(reservation) {
+  return (dispatch) => {
+    dispatch(selectReservationToShow(reservation));
+    dispatch(openReservationInfoModal());
+  };
+}
+
 export {
   cancelReservationEdit,
   changeAdminReservationFilters,
@@ -87,6 +94,7 @@ export {
   openReservationCancelModal,
   openReservationCommentModal,
   openReservationInfoModal,
+  openReservationInfoModalWithReservation,
   selectReservationToCancel,
   selectReservationToEdit,
   selectReservationToShow,

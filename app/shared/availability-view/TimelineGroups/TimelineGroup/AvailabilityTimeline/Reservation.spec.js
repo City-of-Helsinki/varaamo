@@ -47,14 +47,20 @@ describe('shared/availability-view/Reservation', () => {
     expect(overlay.type).to.equal(Popover);
   });
 
-  it('on click it calls prop.onClick and passes id', () => {
+  it('on click it calls prop.onClick and passes reservation data', () => {
     const onClick = simple.mock();
-    const wrapper = getOuterWrapper({ id: 123, onClick });
+    const reservation = {
+      begin: '2016-01-01T10:00:00Z',
+      end: '2016-01-01T12:00:00Z',
+      eventSubject: 'Meeting',
+      id: 12345,
+    };
+    const wrapper = getOuterWrapper({ ...reservation, onClick });
     const onClickProp = wrapper.prop('onClick');
     expect(onClick.callCount).to.equal(0);
     onClickProp();
     expect(onClick.callCount).to.equal(1);
-    expect(onClick.lastCall.args[0]).to.equal(123);
+    expect(onClick.lastCall.args[0]).to.deep.equal(reservation);
   });
 
   it('has correct width', () => {

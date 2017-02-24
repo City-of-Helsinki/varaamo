@@ -1,6 +1,7 @@
 import isEqual from 'lodash/isEqual';
 import React, { PropTypes } from 'react';
 
+import ReservationInfoModal from 'shared/modals/reservation-info';
 import DateSelector from './DateSelector';
 import TimelineGroups from './TimelineGroups';
 import Sidebar from './Sidebar';
@@ -91,6 +92,7 @@ export default class AvailabilityView extends React.Component {
             selection={this.getSelection()}
           />
         </div>
+        <ReservationInfoModal />
       </div>
     );
   }
