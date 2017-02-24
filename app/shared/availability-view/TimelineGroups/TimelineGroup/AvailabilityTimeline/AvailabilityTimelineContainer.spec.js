@@ -118,6 +118,35 @@ describe('shared/availability-view/AvailabilityTimelineContainer', () => {
         );
         expect(actual[10].type).to.equal('reservation-slot');
       });
+
+      it('contains selectability info', () => {
+        const state = getState();
+        const reservations = state.data.resources['resource-1'].reservations;
+        const selection = {
+          begin: '2016-01-01T10:00:00',
+          end: '2016-01-01T10:30:00',
+          resourceId: 'resource-1',
+        };
+        const props = { id: 'resource-1', date: '2016-01-01', selection };
+        const actual = selector()(state, props).items;
+        expect(actual[0].data.isSelectable).to.be.false;
+        expect(actual[1].data.isSelectable).to.be.false;
+        expect(actual[2].data.isSelectable).to.be.false;
+        expect(actual[3].data.isSelectable).to.be.false;
+        expect(actual[4]).to.deep.equal(
+          { key: '4', type: 'reservation', data: reservations[0] },
+        );
+        expect(actual[5].data.isSelectable).to.be.true;
+        expect(actual[6].data.isSelectable).to.be.true;
+        expect(actual[7].data.isSelectable).to.be.true;
+        expect(actual[8]).to.deep.equal(
+          { key: '8', type: 'reservation', data: reservations[1] },
+        );
+        expect(actual[9]).to.deep.equal(
+          { key: '9', type: 'reservation', data: reservations[2] },
+        );
+        expect(actual[10].data.isSelectable).to.be.false;
+      });
     });
   });
 });

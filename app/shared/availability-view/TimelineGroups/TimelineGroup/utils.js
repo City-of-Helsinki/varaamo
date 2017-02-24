@@ -41,7 +41,39 @@ function getTimelineItems(date, reservations, resourceId) {
   return items;
 }
 
+function markItemSelectable(item, isSelectable) {
+  return { ...item, data: { ...item.data, isSelectable } };
+}
+
+function markItemsSelectable(items, isSelectable) {
+  return items.map((item) => {
+    if (item.type === 'reservation') return item;
+    return markItemSelectable(item, isSelectable);
+  });
+}
+
+function addSelectionData(selection, resourceId, items) {
+  if (!selection) {
+    return markItemsSelectable(items, true);
+  } else if (selection.resourceId !== resourceId) {
+    return markItemsSelectable(items, false);
+  }
+  let lastSelectableFound = false;
+  return items.map((item) => {
+    if (lastSelectableFound || item.data.begin < selection.begin) {
+      if (item.type === 'reservation') return item;
+      return markItemSelectable(item, false);
+    }
+    if (item.type === 'reservation') {
+      lastSelectableFound = true;
+      return item;
+    }
+    return markItemSelectable(item, true);
+  });
+}
+
 export default {
+  addSelectionData,
   getTimelineItems,
   getTimeSlotWidth,
 };

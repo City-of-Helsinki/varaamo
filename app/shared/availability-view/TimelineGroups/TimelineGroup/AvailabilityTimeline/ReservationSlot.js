@@ -12,6 +12,7 @@ export class UninjectedReservationSlot extends React.Component {
   static propTypes = {
     begin: PropTypes.string.isRequired,
     end: PropTypes.string.isRequired,
+    isSelectable: PropTypes.bool.isRequired,
     onClick: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
@@ -63,20 +64,20 @@ export class UninjectedReservationSlot extends React.Component {
   }
 
   handleClick(event) {
-    if (this.props.onClick) {
+    if (this.props.onClick && this.props.isSelectable) {
       event.preventDefault();
       this.props.onClick(this.getSlotInfo());
     }
   }
 
   handleMouseEnter() {
-    if (this.props.onMouseEnter) {
+    if (this.props.onMouseEnter && this.props.isSelectable) {
       this.props.onMouseEnter(this.getSlotInfo());
     }
   }
 
   handleMouseLeave() {
-    if (this.props.onMouseLeave) {
+    if (this.props.onMouseLeave && this.props.isSelectable) {
       this.props.onMouseLeave(this.getSlotInfo());
     }
   }
