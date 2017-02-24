@@ -28,27 +28,27 @@ Reservation.propTypes = {
   }),
 };
 
-function Reservation(props) {
-  const startTime = moment(props.begin);
-  const endTime = moment(props.end);
+function Reservation({ onClick, ...reservation }) {
+  const startTime = moment(reservation.begin);
+  const endTime = moment(reservation.end);
   const width = utils.getTimeSlotWidth({ startTime, endTime });
-  const reserverName = getReserverName(props.reserverName, props.user);
+  const reserverName = getReserverName(reservation.reserverName, reservation.user);
   const popover = (
-    <Popover className="reservation-popover" id={`popover-${props.id}`} title={props.eventSubject}>
+    <Popover className="reservation-popover" id={`popover-${reservation.id}`} title={reservation.eventSubject}>
       <div>
         <Glyphicon glyph="time" />
         {' '}
         {startTime.format('HH:mm')} - {endTime.format('HH:mm')}
       </div>
       {reserverName && <div>{reserverName}</div>}
-      {props.numberOfParticipants && <div><Glyphicon glyph="user" /> {props.numberOfParticipants}</div>}
-      {props.accessCode && <div><ReservationAccessCode reservation={props} /></div>}
-      {props.comments && <hr />}
-      {props.comments && <div><Glyphicon glyph="comment" /> {props.comments}</div>}
+      {reservation.numberOfParticipants && <div><Glyphicon glyph="user" /> {reservation.numberOfParticipants}</div>}
+      {reservation.accessCode && <div><ReservationAccessCode reservation={reservation} /></div>}
+      {reservation.comments && <hr />}
+      {reservation.comments && <div><Glyphicon glyph="comment" /> {reservation.comments}</div>}
     </Popover>
   );
   return (
-    <Link className="reservation-link" onClick={() => props.onClick && props.onClick(props.id)}>
+    <Link className="reservation-link" onClick={() => onClick && onClick(reservation)}>
       <OverlayTrigger
         overlay={popover}
         placement="top"
@@ -56,7 +56,7 @@ function Reservation(props) {
       >
         <div className="reservation" style={{ width }}>
           <div className="names">
-            <div className="event-subject">{props.eventSubject}</div>
+            <div className="event-subject">{reservation.eventSubject}</div>
             <div className="reserver-name">{reserverName}</div>
           </div>
         </div>
