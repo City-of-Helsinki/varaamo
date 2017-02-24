@@ -11,6 +11,10 @@ export function selector() {
   function dateSelector(state, props) { return props.date; }
   function resourceIdSelector(state, props) { return props.id; }
   function resourcesSelector(state) { return state.data.resources; }
+  function nonHoverSelectionSelector(state, props) {
+    if (props.selection && props.selection.hover) return null;
+    return props.selection;
+  }
 
   const resourceSelector = createSelector(
     resourcesSelector,
@@ -38,8 +42,16 @@ export function selector() {
       utils.getTimelineItems(moment(date), reservations, resourceId)
   );
 
-  return createSelector(
+  const itemsWithSelectionDataSelector = createSelector(
     itemsSelector,
+    nonHoverSelectionSelector,
+    resourceIdSelector,
+    (items, selection, resourceId) =>
+      utils.addSelectionData(selection, resourceId, items)
+  );
+
+  return createSelector(
+    itemsWithSelectionDataSelector,
     items => ({ items })
   );
 }
