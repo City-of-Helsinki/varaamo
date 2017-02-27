@@ -1,3 +1,4 @@
+import some from 'lodash/some';
 import moment from 'moment';
 
 import { slotSize, slotWidth, slotMargin } from 'shared/availability-view';
@@ -41,21 +42,33 @@ function getTimelineItems(date, reservations, resourceId) {
   return items;
 }
 
-function markItemSelectable(item, isSelectable) {
-  return { ...item, data: { ...item.data, isSelectable } };
+function isInsideAvailableHours(item, availableHours) {
+  return some(availableHours, availability => (
+    availability.starts <= item.data.begin && item.data.end <= availability.ends
+  ));
 }
 
-function markItemsSelectable(items, isSelectable) {
+function markItemSelectable(item, isSelectable, availableHours) {
+  const isInFuture = moment().isSameOrBefore(item.data.end);
+  const selectable = isInFuture && (
+    isSelectable && availableHours ?
+    isInsideAvailableHours(item, availableHours) :
+    isSelectable
+  );
+  return { ...item, data: { ...item.data, isSelectable: selectable } };
+}
+
+function markItemsSelectable(items, isSelectable, availableHours) {
   return items.map((item) => {
     if (item.type === 'reservation') return item;
-    return markItemSelectable(item, isSelectable);
+    return markItemSelectable(item, isSelectable, availableHours);
   });
 }
 
-function addSelectionData(selection, resourceId, items) {
+function addSelectionData(selection, resource, items) {
   if (!selection) {
-    return markItemsSelectable(items, true);
-  } else if (selection.resourceId !== resourceId) {
+    return markItemsSelectable(items, true, resource.availableHours);
+  } else if (selection.resourceId !== resource.id) {
     return markItemsSelectable(items, false);
   }
   let lastSelectableFound = false;
@@ -68,7 +81,7 @@ function addSelectionData(selection, resourceId, items) {
       lastSelectableFound = true;
       return item;
     }
-    return markItemSelectable(item, true);
+    return markItemSelectable(item, true, resource.availableHours);
   });
 }
 

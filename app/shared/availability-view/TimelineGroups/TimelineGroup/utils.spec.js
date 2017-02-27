@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import mockDate from 'mockdate';
 import moment from 'moment';
 
 import utils from './utils';
@@ -41,23 +42,38 @@ describe('shared/availability-view/utils', () => {
   describe('addSelectionData', () => {
     const items = [
       {
-        data: { begin: '2016-01-01T11:00:00Z' },
+        data: {
+          begin: '2016-01-01T11:00:00Z',
+          end: '2016-01-01T11:30:00Z',
+        },
         type: 'reservation-slot',
       },
       {
-        data: { begin: '2016-01-01T11:30:00Z' },
+        data: {
+          begin: '2016-01-01T11:30:00Z',
+          end: '2016-01-01T12:00:00Z',
+        },
         type: 'reservation-slot',
       },
       {
-        data: { begin: '2016-01-01T12:00:00Z' },
+        data: {
+          begin: '2016-01-01T12:00:00Z',
+          end: '2016-01-01T12:30:00Z',
+        },
         type: 'reservation',
       },
       {
-        data: { begin: '2016-01-01T12:30:00Z' },
+        data: {
+          begin: '2016-01-01T12:30:00Z',
+          end: '2016-01-01T13:00:00Z',
+        },
         type: 'reservation-slot',
       },
       {
-        data: { begin: '2016-01-01T13:00:00Z' },
+        data: {
+          begin: '2016-01-01T13:00:00Z',
+          end: '2016-01-01T13:30:00Z',
+        },
         type: 'reservation-slot',
       },
     ];
@@ -72,30 +88,58 @@ describe('shared/availability-view/utils', () => {
       ];
     }
 
+    beforeEach(() => {
+      mockDate.set('2015-12-01T10:00:00Z');
+    });
+
+    after(() => {
+      mockDate.reset();
+    });
+
     it('marks all selectable if no selection', () => {
       const expected = getItems(true, true, true, true);
-      const actual = utils.addSelectionData(null, 'r1', items);
+      const actual = utils.addSelectionData(null, { id: 'r1' }, items);
       expect(actual).to.deep.equal(expected);
     });
 
     it('marks all not selectable if selection in another resource', () => {
       const expected = getItems(false, false, false, false);
       const selection = { begin: '2016-01-01T11:30:00Z', resourceId: 'r2' };
-      const actual = utils.addSelectionData(selection, 'r1', items);
+      const actual = utils.addSelectionData(selection, { id: 'r1' }, items);
       expect(actual).to.deep.equal(expected);
     });
 
     it('marks selectable if selection in this resource', () => {
       const expected = getItems(false, false, false, true);
       const selection = { begin: '2016-01-01T13:00:00Z', resourceId: 'r1' };
-      const actual = utils.addSelectionData(selection, 'r1', items);
+      const actual = utils.addSelectionData(selection, { id: 'r1' }, items);
       expect(actual).to.deep.equal(expected);
     });
 
     it('only marks selectable until next reservation', () => {
       const expected = getItems(true, true, false, false);
       const selection = { begin: '2016-01-01T11:00:00Z', resourceId: 'r1' };
-      const actual = utils.addSelectionData(selection, 'r1', items);
+      const actual = utils.addSelectionData(selection, { id: 'r1' }, items);
+      expect(actual).to.deep.equal(expected);
+    });
+
+    it('marks not selectable if in the past', () => {
+      mockDate.set('2016-02-01T10:00:00Z');
+      const expected = getItems(false, false, false, false);
+      const actual = utils.addSelectionData(null, { id: 'r1' }, items);
+      expect(actual).to.deep.equal(expected);
+    });
+
+    it('marks not selectable if outside available hours', () => {
+      const expected = getItems(false, true, false, true);
+      const resource = {
+        id: 'r1',
+        availableHours: [
+          { starts: '2016-01-01T11:30:00Z', ends: '2016-01-01T12:30:00Z' },
+          { starts: '2016-01-01T13:00:00Z', ends: '2016-01-01T13:30:00Z' },
+        ],
+      };
+      const actual = utils.addSelectionData(null, resource, items);
       expect(actual).to.deep.equal(expected);
     });
   });

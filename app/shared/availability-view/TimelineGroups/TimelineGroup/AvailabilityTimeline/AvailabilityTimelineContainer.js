@@ -46,9 +46,9 @@ export function selector() {
   const itemsWithSelectionDataSelector = createSelector(
     itemsSelector,
     nonHoverSelectionSelector,
-    resourceIdSelector,
-    (items, selection, resourceId) =>
-      utils.addSelectionData(selection, resourceId, items)
+    resourceSelector,
+    (items, selection, resource) =>
+      utils.addSelectionData(selection, resource, items)
   );
 
   return createSelector(

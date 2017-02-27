@@ -169,14 +169,15 @@
     }
   }
   .reservation-slot {
-    background-color: @gray-light;
+    background-color: @gray-lighter;
     overflow: hidden;
 
+    &-selectable {
+      background-color: @gray-light;
+      cursor: pointer;
+    }
     &-selected {
       background-color: @brand-primary;
-    }
-    &-selectable {
-      cursor: pointer;
     }
     .a11y-text {
       position: relative;
