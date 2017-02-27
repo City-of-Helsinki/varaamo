@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
+import mockDate from 'mockdate';
 import moment from 'moment';
 import React from 'react';
 
@@ -83,6 +84,14 @@ describe('shared/availability-view/AvailabilityTimelineContainer', () => {
     }
 
     describe('items', () => {
+      before(() => {
+        mockDate.set('2015-12-01T10:00:00Z');
+      });
+
+      after(() => {
+        mockDate.reset();
+      });
+
       it('contains slots if no reservations', () => {
         const actual = getSelected({ id: 'resource-2' }).items;
         expect(actual).to.have.length((24 * 60) / slotSize);
