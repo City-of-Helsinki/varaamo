@@ -45,6 +45,7 @@ describe('shared/availability-view/utils', () => {
         data: {
           begin: '2016-01-01T11:00:00Z',
           end: '2016-01-01T11:30:00Z',
+          isSelectable: false,
         },
         type: 'reservation-slot',
       },
@@ -52,6 +53,7 @@ describe('shared/availability-view/utils', () => {
         data: {
           begin: '2016-01-01T11:30:00Z',
           end: '2016-01-01T12:00:00Z',
+          isSelectable: false,
         },
         type: 'reservation-slot',
       },
@@ -59,6 +61,7 @@ describe('shared/availability-view/utils', () => {
         data: {
           begin: '2016-01-01T12:00:00Z',
           end: '2016-01-01T12:30:00Z',
+          isSelectable: false,
         },
         type: 'reservation',
       },
@@ -66,6 +69,7 @@ describe('shared/availability-view/utils', () => {
         data: {
           begin: '2016-01-01T12:30:00Z',
           end: '2016-01-01T13:00:00Z',
+          isSelectable: false,
         },
         type: 'reservation-slot',
       },
@@ -73,6 +77,7 @@ describe('shared/availability-view/utils', () => {
         data: {
           begin: '2016-01-01T13:00:00Z',
           end: '2016-01-01T13:30:00Z',
+          isSelectable: false,
         },
         type: 'reservation-slot',
       },
@@ -183,6 +188,7 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T00:00:00').format(),
             end: moment('2016-01-01T00:30:00').format(),
             resourceId: '1',
+            isSelectable: false,
           },
         },
         {
@@ -192,6 +198,7 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T00:30:00').format(),
             end: moment('2016-01-01T01:00:00').format(),
             resourceId: '1',
+            isSelectable: false,
           },
         },
         {
@@ -201,6 +208,7 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T01:00:00').format(),
             end: moment('2016-01-01T01:30:00').format(),
             resourceId: '1',
+            isSelectable: false,
           },
         },
         {
@@ -210,6 +218,7 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T01:30:00').format(),
             end: moment('2016-01-01T02:00:00').format(),
             resourceId: '1',
+            isSelectable: false,
           },
         },
         { key: '4', type: 'reservation', data: reservations[0] },
@@ -220,6 +229,7 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T10:00:00').format(),
             end: moment('2016-01-01T10:30:00').format(),
             resourceId: '1',
+            isSelectable: false,
           },
         },
         {
@@ -229,6 +239,7 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T10:30:00').format(),
             end: moment('2016-01-01T11:00:00').format(),
             resourceId: '1',
+            isSelectable: false,
           },
         },
         {
@@ -238,6 +249,7 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T11:00:00').format(),
             end: moment('2016-01-01T11:30:00').format(),
             resourceId: '1',
+            isSelectable: false,
           },
         },
         {
@@ -247,6 +259,7 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T11:30:00').format(),
             end: moment('2016-01-01T12:00:00').format(),
             resourceId: '1',
+            isSelectable: false,
           },
         },
         {
@@ -256,6 +269,7 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T12:00:00').format(),
             end: moment('2016-01-01T12:30:00').format(),
             resourceId: '1',
+            isSelectable: false,
           },
         },
         { key: '10', type: 'reservation', data: reservations[1] },
@@ -267,6 +281,7 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T20:30:00').format(),
             end: moment('2016-01-01T21:00:00').format(),
             resourceId: '1',
+            isSelectable: false,
           },
         },
         {
@@ -276,6 +291,7 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T21:00:00').format(),
             end: moment('2016-01-01T21:30:00').format(),
             resourceId: '1',
+            isSelectable: false,
           },
         },
         {
@@ -285,6 +301,7 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T21:30:00').format(),
             end: moment('2016-01-01T22:00:00').format(),
             resourceId: '1',
+            isSelectable: false,
           },
         },
         {
@@ -294,6 +311,7 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T22:00:00').format(),
             end: moment('2016-01-01T22:30:00').format(),
             resourceId: '1',
+            isSelectable: false,
           },
         },
         {
@@ -303,6 +321,7 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T22:30:00').format(),
             end: moment('2016-01-01T23:00:00').format(),
             resourceId: '1',
+            isSelectable: false,
           },
         },
         {
@@ -312,6 +331,7 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T23:00:00').format(),
             end: moment('2016-01-01T23:30:00').format(),
             resourceId: '1',
+            isSelectable: false,
           },
         },
         {
@@ -321,6 +341,7 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T23:30:00').format(),
             end: moment('2016-01-02T00:00:00').format(),
             resourceId: '1',
+            isSelectable: false,
           },
         },
       ];
