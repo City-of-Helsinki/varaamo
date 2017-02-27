@@ -34,6 +34,9 @@ function getTimelineItems(date, reservations, resourceId) {
           begin: timePointer.format(),
           end: timePointer.clone().add(slotSize, 'minutes').format(),
           resourceId,
+          // isSelectable: false by default to improve selector performance by allowing
+          // addSelectionData to make some assumptions.
+          isSelectable: false,
         },
       });
       timePointer.add(slotSize, 'minutes');
@@ -49,11 +52,10 @@ function isInsideAvailableHours(item, availableHours) {
 }
 
 function markItemSelectable(item, isSelectable, availableHours) {
-  const isInFuture = moment().isSameOrBefore(item.data.end);
-  const selectable = isInFuture && (
-    isSelectable && availableHours ?
-    isInsideAvailableHours(item, availableHours) :
-    isSelectable
+  const selectable = (
+    isSelectable &&
+    moment().isSameOrBefore(item.data.end) &&
+    (!availableHours || isInsideAvailableHours(item, availableHours))
   );
   return { ...item, data: { ...item.data, isSelectable: selectable } };
 }
@@ -69,13 +71,20 @@ function addSelectionData(selection, resource, items) {
   if (!selection) {
     return markItemsSelectable(items, true, resource.availableHours);
   } else if (selection.resourceId !== resource.id) {
-    return markItemsSelectable(items, false);
+    // isSelectable is false by default, so nothing needs to be done.
+    // This is a pretty important performance optimization when there are tons of
+    // resources in the AvailabilityView and the selection is in a state where the
+    // first click has been done but the second (end time) hasn't. Without this
+    // optimization we'd be calling markItemSelectable for every slot in every
+    // resource when the user hovers to another slot.
+    return items;
   }
   let lastSelectableFound = false;
   return items.map((item) => {
     if (lastSelectableFound || item.data.begin < selection.begin) {
       if (item.type === 'reservation') return item;
-      return markItemSelectable(item, false);
+      // isSelectable is false by default.
+      return item;
     }
     if (item.type === 'reservation') {
       lastSelectableFound = true;
