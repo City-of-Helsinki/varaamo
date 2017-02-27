@@ -21,6 +21,8 @@ class UnconnectedReservationInfoModalContainer extends Component {
   constructor(props) {
     super(props);
     this.handleSave = this.handleSave.bind(this);
+    this.renderAddressRow = this.renderAddressRow.bind(this);
+    this.renderInfoRow = this.renderInfoRow.bind(this);
   }
 
   getAddress(street, zip, city) {
@@ -36,6 +38,38 @@ class UnconnectedReservationInfoModalContainer extends Component {
     const comments = findDOMNode(this.refs.commentsInput).value;
     actions.commentReservation(reservation, resource, comments);
     actions.closeReservationInfoModal();
+  }
+
+  renderAddressRow(addressType) {
+    const { reservation, t } = this.props;
+    const hasAddress = (
+      reservation.reserverAddressStreet || reservation.reserverAddressStreet === ''
+    );
+    if (!hasAddress) return null;
+    return (
+      <span>
+        <dt>{t(`common.${addressType}Label`)}:</dt>
+        <dd>
+          {this.getAddress(
+            reservation[`${addressType}Street`],
+            reservation[`${addressType}Zip`],
+            reservation[`${addressType}City`]
+          )}
+        </dd>
+      </span>
+    );
+  }
+
+  renderInfoRow(propertyName) {
+    const { reservation, t } = this.props;
+    const property = reservation[propertyName];
+    if (!property && property !== '') return null;
+    return (
+      <span>
+        <dt>{t(`common.${propertyName}Label`)}:</dt>
+        <dd>{property}</dd>
+      </span>
+    );
   }
 
   render() {
@@ -68,30 +102,15 @@ class UnconnectedReservationInfoModalContainer extends Component {
             <div>
               <ReservationStateLabel reservation={reservation} />
               <dl className="dl-horizontal">
-                <dt>{t('ReservationForm.reserverNameLabel')}:</dt><dd>{reservation.reserverName}</dd>
-                {isStaff && (
-                  <span><dt>{t('ReservationForm.reserverIdLabel')}:</dt><dd>{reservation.reserverId}</dd></span>
-                )}
-                <dt>{t('ReservationInfoModal.phoneNumber')}:</dt><dd>{reservation.reserverPhoneNumber}</dd>
-                <dt>{t('ReservationForm.reserverEmailAddressLabel')}:</dt><dd>{reservation.reserverEmailAddress}</dd>
-                <dt>{t('ReservationForm.eventDescriptionLabel')}:</dt><dd>{reservation.eventDescription}</dd>
-                <dt>{t('ReservationForm.numberOfParticipantsLabel')}:</dt><dd>{reservation.numberOfParticipants}</dd>
-                <dt>{t('ReservationInfoModal.address')}:</dt>
-                <dd>
-                  {this.getAddress(
-                    reservation.reserverAddressStreet,
-                    reservation.reserverAddressZip,
-                    reservation.reserverAddressCity
-                  )}
-                </dd>
-                <dt>{t('ReservationInfoModal.billingAddress')}:</dt>
-                <dd>
-                  {this.getAddress(
-                    reservation.billingAddressStreet,
-                    reservation.billingAddressZip,
-                    reservation.billingAddressCity
-                  )}
-                </dd>
+                {this.renderInfoRow('eventSubject')}
+                {this.renderInfoRow('reserverName')}
+                {isStaff && this.renderInfoRow('reserverId')}
+                {this.renderInfoRow('reserverPhoneNumber')}
+                {this.renderInfoRow('reserverEmailAddress')}
+                {this.renderInfoRow('eventDescription')}
+                {this.renderInfoRow('numberOfParticipants')}
+                {this.renderAddressRow('reserverAddress')}
+                {this.renderAddressRow('billingAddress')}
                 <dt>{t('ReservationInfoModal.reservationTime')}:</dt>
                 <dd><TimeRange begin={reservation.begin} end={reservation.end} /></dd>
                 <dt>{t('ReservationInfoModal.resource')}:</dt><dd>{resource.name}</dd>
@@ -103,7 +122,7 @@ class UnconnectedReservationInfoModalContainer extends Component {
                 )}
                 {isAdmin && reservation.state === 'cancelled' && (
                   <span>
-                    <dt>{t('ReservationForm.commentsLabel')}:</dt>
+                    <dt>{t('common.commentsLabel')}:</dt>
                     <dd>{reservation.comments}</dd>
                   </span>
                 )}
@@ -111,11 +130,11 @@ class UnconnectedReservationInfoModalContainer extends Component {
               {isAdmin && reservation.state !== 'cancelled' && (
                 <form>
                   <FormGroup controlId="commentsTextarea">
-                    <ControlLabel>{t('ReservationForm.commentsLabel')}:</ControlLabel>
+                    <ControlLabel>{t('common.commentsLabel')}:</ControlLabel>
                     <FormControl
                       componentClass="textarea"
                       defaultValue={reservation.comments}
-                      placeholder="Varauksen mahdolliset lisätiedot"
+                      placeholder={t('common.commentsPlaceholder')}
                       ref="commentsInput"
                       rows={5}
                     />

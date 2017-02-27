@@ -119,7 +119,7 @@ class UnconnectedReservationForm extends Component {
           {this.renderField(
             'eventSubject',
             'text',
-            t('ReservationForm.eventSubjectLabel'),
+            t('common.eventSubjectLabel'),
             {},
             null,
             t('ReservationForm.eventSubjectInfo'),
@@ -127,81 +127,81 @@ class UnconnectedReservationForm extends Component {
           {this.renderField(
             'reserverName',
             'text',
-            t('ReservationForm.reserverNameLabel')
+            t('common.reserverNameLabel')
           )}
           {this.renderField(
             'reserverId',
             'text',
-            t('ReservationForm.reserverIdLabel')
+            t('common.reserverIdLabel')
           )}
           {this.renderField(
             'reserverPhoneNumber',
             'text',
-            t('ReservationForm.reserverPhoneNumberLabel')
+            t('common.reserverPhoneNumberLabel')
           )}
           {this.renderField(
             'reserverEmailAddress',
             'email',
-            t('ReservationForm.reserverEmailAddressLabel')
+            t('common.reserverEmailAddressLabel')
           )}
           {this.renderField(
             'eventDescription',
             'textarea',
-            t('ReservationForm.eventDescriptionLabel'),
+            t('common.eventDescriptionLabel'),
             { rows: 5 }
           )}
           {this.renderField(
             'numberOfParticipants',
             'number',
-            t('ReservationForm.numberOfParticipantsLabel'),
+            t('common.numberOfParticipantsLabel'),
             { min: '0' }
           )}
           {includes(this.props.fields, 'reserverAddressStreet') && (
             <Well>
-              <p>{t('ReservationForm.addressHeader')}</p>
+              <p>{t('common.reserverAddressLabel')}</p>
               {this.renderField(
                 'reserverAddressStreet',
                 'text',
-                t('ReservationForm.addressStreetLabel'),
+                t('common.addressStreetLabel'),
               )}
               {this.renderField(
                 'reserverAddressZip',
                 'text',
-                t('ReservationForm.addressZipLabel'),
+                t('common.addressZipLabel'),
               )}
               {this.renderField(
                 'reserverAddressCity',
                 'text',
-                t('ReservationForm.addressCityLabel'),
+                t('common.addressCityLabel'),
               )}
             </Well>
           )}
           {includes(this.props.fields, 'billingAddressStreet') && (
             <Well>
-              <p>{t('ReservationForm.billingAddressHeader')}</p>
+              <p>{t('common.billingAddressLabel')}</p>
               {this.renderField(
                 'billingAddressStreet',
                 'text',
-                t('ReservationForm.addressStreetLabel'),
+                t('common.addressStreetLabel'),
               )}
               {this.renderField(
                 'billingAddressZip',
                 'text',
-                t('ReservationForm.addressZipLabel'),
+                t('common.addressZipLabel'),
               )}
               {this.renderField(
                 'billingAddressCity',
                 'text',
-                t('ReservationForm.addressCityLabel'),
+                t('common.addressCityLabel'),
               )}
             </Well>
           )}
           {this.renderField(
             'comments',
             'textarea',
-            t('ReservationForm.commentsLabel'),
+            t('common.commentsLabel'),
             {
-              placeholder: t('ReservationForm.commentsPlaceholder'),
+              placeholder: t('common.commentsPlaceholder'),
               rows: 5,
             }
           )}
