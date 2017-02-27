@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import moment from 'moment';
 import React, { PropTypes } from 'react';
+import Sticky from 'react-sticky-el';
 
 import AvailabilityTimelineContainer from './AvailabilityTimeline';
 import utils from './utils';
@@ -58,20 +59,22 @@ export default class TimelineGroup extends React.Component {
         className={classNames('timeline-group', this.props.className)}
         ref={this.setElement}
       >
-        <div className="hours">
-          {getHourRanges(this.props.date).map(range =>
-            <div
-              className={classNames('hour', {
-                'hour-start-selected': selection && range.midPoint.isSame(selection.end),
-                'hour-end-selected': selection && range.endTime.isSame(selection.end),
-              })}
-              key={range.startTime.format('HH')}
-              style={{ width: utils.getTimeSlotWidth(range) }}
-            >
-              {range.startTime.format('HH:mm')}
-            </div>
-          )}
-        </div>
+        <Sticky>
+          <div className="hours">
+            {getHourRanges(this.props.date).map(range =>
+              <div
+                className={classNames('hour', {
+                  'hour-start-selected': selection && range.midPoint.isSame(selection.end),
+                  'hour-end-selected': selection && range.endTime.isSame(selection.end),
+                })}
+                key={range.startTime.format('HH')}
+                style={{ width: utils.getTimeSlotWidth(range) }}
+              >
+                {range.startTime.format('HH:mm')}
+              </div>
+            )}
+          </div>
+        </Sticky>
         {this.props.resources.map(resource =>
           <AvailabilityTimelineContainer
             date={this.props.date}

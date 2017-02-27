@@ -43,6 +43,7 @@
     "react-router": "2.8.1",
     "react-router-bootstrap": "0.23.1",
     "react-select": "1.0.0-rc.2",
+    "react-sticky-el": "1.0.3",
     "redux": "3.6.0",
     "redux-actions": "0.12.0",
     "redux-api-middleware": "1.0.2",
