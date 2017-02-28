@@ -40,11 +40,11 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       isFetchingResource: false,
       isLoggedIn: true,
       isMakingReservations: false,
+      isStaff: false,
       location: { hash: '&some=hash' },
       params: { id: resource.id },
       resource,
       selected: [],
-      staffUnits: [],
       timeSlots: [
         TimeSlot.build(),
         TimeSlot.build(),

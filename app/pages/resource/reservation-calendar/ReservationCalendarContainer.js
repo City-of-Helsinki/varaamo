@@ -1,4 +1,3 @@
-import includes from 'lodash/includes';
 import React, { Component, PropTypes } from 'react';
 import { Calendar } from 'react-date-picker';
 import { connect } from 'react-redux';
@@ -63,16 +62,15 @@ export class UnconnectedReservationCalendarContainer extends Component {
       isFetchingResource,
       isLoggedIn,
       isMakingReservations,
+      isStaff,
       resource,
       selected,
-      staffUnits,
       t,
       time,
       timeSlots,
       urlHash,
     } = this.props;
 
-    const isStaff = includes(staffUnits, resource.unit);
     const isOpen = Boolean(timeSlots.length);
     const showTimeSlots = isOpen && !reservingIsRestricted(resource, date);
     const showControls = !isPastDate(date) && showTimeSlots;
@@ -146,6 +144,7 @@ UnconnectedReservationCalendarContainer.propTypes = {
   isFetchingResource: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,
+  isStaff: PropTypes.bool.isRequired,
   location: PropTypes.shape({ // eslint-disable-line react/no-unused-prop-types
     hash: PropTypes.string.isRequired,
   }).isRequired,
@@ -154,7 +153,6 @@ UnconnectedReservationCalendarContainer.propTypes = {
   }).isRequired,
   resource: PropTypes.object.isRequired,
   selected: PropTypes.array.isRequired,
-  staffUnits: PropTypes.array.isRequired,
   t: PropTypes.func.isRequired,
   time: PropTypes.string,
   timeSlots: PropTypes.array.isRequired,

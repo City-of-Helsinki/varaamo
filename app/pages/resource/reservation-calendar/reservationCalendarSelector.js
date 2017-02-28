@@ -1,11 +1,14 @@
 import { createSelector, createStructuredSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
-import { isAdminSelector, isLoggedInSelector } from 'state/selectors/authSelectors';
+import {
+  createIsStaffSelector,
+  isAdminSelector,
+  isLoggedInSelector,
+} from 'state/selectors/authSelectors';
 import { createResourceSelector } from 'state/selectors/dataSelectors';
 import dateSelector from 'state/selectors/dateSelector';
 import timeSelector from 'state/selectors/timeSelector';
-import staffUnitsSelector from 'state/selectors/staffUnitsSelector';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
 import { getOpeningHours, getOpenReservations } from 'utils/resourceUtils';
 import { getTimeSlots } from 'utils/timeUtils';
@@ -39,9 +42,9 @@ const reservationCalendarSelector = createStructuredSelector({
   isFetchingResource: requestIsActiveSelectorFactory(ActionTypes.API.RESOURCE_GET_REQUEST),
   isLoggedIn: isLoggedInSelector,
   isMakingReservations: requestIsActiveSelectorFactory(ActionTypes.API.RESERVATION_POST_REQUEST),
+  isStaff: createIsStaffSelector(resourceSelector),
   resource: resourceSelector,
   selected: selectedSelector,
-  staffUnits: staffUnitsSelector,
   time: timeSelector,
   timeSlots: timeSlotsSelector,
   urlHash: urlHashSelector,

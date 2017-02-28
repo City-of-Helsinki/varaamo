@@ -1,4 +1,3 @@
-import includes from 'lodash/includes';
 import isEmpty from 'lodash/isEmpty';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
@@ -77,14 +76,13 @@ class UnconnectedReservationInfoModalContainer extends Component {
       actions,
       isAdmin,
       isEditingReservations,
+      isStaff,
       reservation,
       resource,
       show,
-      staffUnits,
       t,
     } = this.props;
 
-    const isStaff = includes(staffUnits, resource.unit);
     const showSaveButton = isAdmin && reservation && reservation.state !== 'cancelled';
 
     return (
@@ -171,10 +169,10 @@ UnconnectedReservationInfoModalContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   isEditingReservations: PropTypes.bool.isRequired,
+  isStaff: PropTypes.bool.isRequired,
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
-  staffUnits: PropTypes.array.isRequired,
   t: PropTypes.func.isRequired,
 };
 
