@@ -108,6 +108,14 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
     expect(selected.isMakingReservations).to.exist;
   });
 
+  it('returns isStaff', () => {
+    const state = getState(resource);
+    const props = getProps(resource.id);
+    const selected = reservationCalendarSelector(state, props);
+
+    expect(selected.isStaff).to.exist;
+  });
+
   it('returns the reservation.selected from the state', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
@@ -123,14 +131,6 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
     const selected = reservationCalendarSelector(state, props);
 
     expect(selected.resource).to.exist;
-  });
-
-  it('returns staffUnits', () => {
-    const state = getState(resource);
-    const props = getProps(resource.id);
-    const selected = reservationCalendarSelector(state, props);
-
-    expect(selected.staffUnits).to.exist;
   });
 
   it('returns time', () => {

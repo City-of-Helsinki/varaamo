@@ -2,9 +2,8 @@ import { createSelector, createStructuredSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
 import ModalTypes from 'constants/ModalTypes';
-import { isAdminSelector } from 'state/selectors/authSelectors';
+import { createIsStaffSelector, isAdminSelector } from 'state/selectors/authSelectors';
 import { createResourceSelector } from 'state/selectors/dataSelectors';
-import staffUnitsSelector from 'state/selectors/staffUnitsSelector';
 import modalIsOpenSelectorFactory from 'state/selectors/factories/modalIsOpenSelectorFactory';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
 
@@ -17,13 +16,15 @@ const resourceIdSelector = createSelector(
   reservation => reservation.resource
 );
 
+const resourceSelector = createResourceSelector(resourceIdSelector);
+
 const reservationInfoModalSelector = createStructuredSelector({
   isAdmin: isAdminSelector,
   isEditingReservations: requestIsActiveSelectorFactory(ActionTypes.API.RESERVATION_PUT_REQUEST),
+  isStaff: createIsStaffSelector(resourceSelector),
   reservation: reservationSelector,
-  resource: createResourceSelector(resourceIdSelector),
+  resource: resourceSelector,
   show: modalIsOpenSelectorFactory(ModalTypes.RESERVATION_INFO),
-  staffUnits: staffUnitsSelector,
 });
 
 export default reservationInfoModalSelector;

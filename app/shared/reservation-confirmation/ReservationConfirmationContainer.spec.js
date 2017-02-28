@@ -23,6 +23,7 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
     },
     confirmReservationModalIsOpen: false,
     isMakingReservations: false,
+    isStaff: false,
     params: { id: resource.id },
     reservationsToEdit: [],
     resource: Immutable(resource),
@@ -30,7 +31,6 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
       Reservation.build(),
       Reservation.build(),
     ]),
-    staffUnits: [],
   };
 
   function getWrapper(extraProps) {

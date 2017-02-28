@@ -28,6 +28,10 @@ describe('shared/reservation-confirmation/reservationConfirmationSelector', () =
     expect(getSelected().isMakingReservations).to.exist;
   });
 
+  it('returns isStaff', () => {
+    expect(getSelected().isStaff).to.exist;
+  });
+
   it('returns reservationsToEdit from the state', () => {
     expect(getSelected().reservationsToEdit).to.deep.equal(['mock-reservation']);
   });
@@ -48,9 +52,5 @@ describe('shared/reservation-confirmation/reservationConfirmationSelector', () =
 
   it('returns staffEventSelected from state', () => {
     expect(getSelected().staffEventSelected).to.be.true;
-  });
-
-  it('returns staffUnits', () => {
-    expect(getSelected().staffUnits).to.exist;
   });
 });

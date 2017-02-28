@@ -40,10 +40,10 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
     },
     isAdmin: true,
     isEditingReservations: false,
+    isStaff: false,
     reservation: Immutable(reservation),
     resource: Immutable(resource),
     show: true,
-    staffUnits: [],
   };
 
   function getWrapper(extraProps = {}) {
@@ -110,14 +110,14 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
         describe('reserverId', () => {
           describe('if user has staff rights', () => {
             it('renders reservation.reserverId', () => {
-              const wrapper = getWrapper({ staffUnits: [resource.unit] });
+              const wrapper = getWrapper({ isStaff: true });
               expect(wrapper.find('dl').text()).to.contain(reservation.reserverId);
             });
           });
 
           describe('if user does not have staff rights', () => {
             it('does not render reservation.reserverId', () => {
-              const wrapper = getWrapper({ staffUnits: [] });
+              const wrapper = getWrapper({ isStaff: false });
               expect(wrapper.find('dl').text()).to.not.contain(reservation.reserverId);
             });
           });

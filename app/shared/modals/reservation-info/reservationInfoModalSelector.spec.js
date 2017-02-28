@@ -29,6 +29,10 @@ describe('shared/modals/reservation-info/reservationInfoModalSelector', () => {
     });
   });
 
+  it('returns isStaff', () => {
+    expect(getSelected().isStaff).to.exist;
+  });
+
   it('returns correct reservation from the state', () => {
     const reservation = { id: 'reservation-1' };
     const selected = getSelected({
@@ -62,9 +66,5 @@ describe('shared/modals/reservation-info/reservationInfoModalSelector', () => {
       });
       expect(selected.show).to.be.false;
     });
-  });
-
-  it('returns staffUnits', () => {
-    expect(getSelected().staffUnits).to.exist;
   });
 });

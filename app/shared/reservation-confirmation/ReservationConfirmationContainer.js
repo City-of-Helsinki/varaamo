@@ -1,4 +1,3 @@
-import includes from 'lodash/includes';
 import forEach from 'lodash/forEach';
 import tail from 'lodash/tail';
 import React, { Component, PropTypes } from 'react';
@@ -69,16 +68,15 @@ export class UnconnectedReservationConfirmationContainer extends Component {
       actions,
       confirmReservationModalIsOpen,
       isMakingReservations,
+      isStaff,
       reservationsToEdit,
       resource,
       selectedReservations,
       staffEventSelected,
-      staffUnits,
     } = this.props;
 
     const isAdmin = resource.userPermissions.isAdmin;
     const isEditing = Boolean(reservationsToEdit.length);
-    const isStaff = includes(staffUnits, resource.unit);
 
     return (
       <ConfirmReservationModal
@@ -103,6 +101,7 @@ UnconnectedReservationConfirmationContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   confirmReservationModalIsOpen: PropTypes.bool.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,
+  isStaff: PropTypes.bool.isRequired,
   params: PropTypes.shape({ // eslint-disable-line react/no-unused-prop-types
     id: PropTypes.string.isRequired,
   }).isRequired,
@@ -110,7 +109,6 @@ UnconnectedReservationConfirmationContainer.propTypes = {
   resource: PropTypes.object.isRequired,
   selectedReservations: PropTypes.array.isRequired,
   staffEventSelected: PropTypes.bool,
-  staffUnits: PropTypes.array.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
