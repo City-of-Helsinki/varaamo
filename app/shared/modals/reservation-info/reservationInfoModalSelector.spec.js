@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 
 import ActionTypes from 'constants/ActionTypes';
-import ModalTypes from 'constants/ModalTypes';
 import { getState } from 'utils/testUtils';
 import reservationInfoModalSelector from './reservationInfoModalSelector';
 
@@ -36,7 +35,7 @@ describe('shared/modals/reservation-info/reservationInfoModalSelector', () => {
   it('returns correct reservation from the state', () => {
     const reservation = { id: 'reservation-1' };
     const selected = getSelected({
-      'ui.reservations.toShow': [reservation],
+      'ui.reservationInfoModal.reservation': reservation,
     });
     expect(selected.reservation).to.deep.equal(reservation);
   });
@@ -46,23 +45,23 @@ describe('shared/modals/reservation-info/reservationInfoModalSelector', () => {
     const reservation = { id: 'reservation-1', resource: resource.id };
     const selected = getSelected({
       'data.resources': { [resource.id]: resource },
-      'ui.reservations.toShow': [reservation],
+      'ui.reservationInfoModal.reservation': reservation,
     });
 
     expect(selected.resource).to.deep.equal(resource);
   });
 
   describe('show', () => {
-    it('returns true if modals.open contain RESERVATION_INFO', () => {
+    it('returns true if ui.reservationInfoModal.show is true', () => {
       const selected = getSelected({
-        'ui.modals.open': [ModalTypes.RESERVATION_INFO],
+        'ui.reservationInfoModal': { show: true },
       });
       expect(selected.show).to.be.true;
     });
 
-    it('returns false if modals.open does not contain RESERVATION_INFO', () => {
+    it('returns false if ui.reservationInfoModal.show is false', () => {
       const selected = getSelected({
-        'ui.modals.open': [],
+        'ui.reservationInfoModal': { show: false },
       });
       expect(selected.show).to.be.false;
     });

@@ -4,7 +4,7 @@ import { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
-import { openReservationInfoModalWithReservation } from 'actions/uiActions';
+import { showReservationInfoModal } from 'actions/uiActions';
 import AvailabilityTimeline from './AvailabilityTimeline';
 import utils from '../utils';
 
@@ -58,7 +58,7 @@ export function selector() {
 }
 
 const actions = {
-  onReservationClick: openReservationInfoModalWithReservation,
+  onReservationClick: showReservationInfoModal,
 };
 
 const AvailabilityTimelineContainer = connect(selector, actions)(AvailabilityTimeline);

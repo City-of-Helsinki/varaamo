@@ -35,8 +35,8 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
   });
   const defaultProps = {
     actions: {
-      closeReservationInfoModal: simple.stub(),
       commentReservation: simple.stub(),
+      hideReservationInfoModal: simple.stub(),
     },
     isAdmin: true,
     isEditingReservations: false,
@@ -251,7 +251,7 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
             buttons.at(0),
             'back',
             'common.back',
-            defaultProps.actions.closeReservationInfoModal
+            defaultProps.actions.hideReservationInfoModal
           );
         });
 
@@ -284,7 +284,7 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
             buttons.at(0),
             'back',
             'common.back',
-            defaultProps.actions.closeReservationInfoModal
+            defaultProps.actions.hideReservationInfoModal
           );
         });
       });
@@ -298,7 +298,7 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
       updatedComments = 'Updated comments';
       simple.mock(ReactDom, 'findDOMNode').returnWith({ value: updatedComments });
       const instance = getWrapper().instance();
-      defaultProps.actions.closeReservationInfoModal.reset();
+      defaultProps.actions.hideReservationInfoModal.reset();
       defaultProps.actions.commentReservation.reset();
       instance.handleSave();
     });
@@ -320,7 +320,7 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
     });
 
     it('closes the ReservationInfoModal', () => {
-      expect(defaultProps.actions.closeReservationInfoModal.callCount).to.equal(1);
+      expect(defaultProps.actions.hideReservationInfoModal.callCount).to.equal(1);
     });
   });
 });

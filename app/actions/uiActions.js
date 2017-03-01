@@ -28,11 +28,6 @@ const closeReservationCommentModal = createAction(
   () => ModalTypes.RESERVATION_COMMENT
 );
 
-const closeReservationInfoModal = createAction(
-  types.UI.CLOSE_MODAL,
-  () => ModalTypes.RESERVATION_INFO
-);
-
 const closeReservationSuccessModal = createAction(
   types.UI.CLOSE_MODAL,
   () => ModalTypes.RESERVATION_SUCCESS
@@ -55,11 +50,6 @@ const openReservationCommentModal = createAction(
   () => ModalTypes.RESERVATION_COMMENT
 );
 
-const openReservationInfoModal = createAction(
-  types.UI.OPEN_MODAL,
-  () => ModalTypes.RESERVATION_INFO
-);
-
 const selectReservationToCancel = createAction(
   types.UI.SELECT_RESERVATION_TO_CANCEL
 );
@@ -76,13 +66,6 @@ const showReservationInfoModal = createAction(types.UI.SHOW_RESERVATION_INFO_MOD
 
 const toggleTimeSlot = createAction(types.UI.TOGGLE_TIME_SLOT);
 
-function openReservationInfoModalWithReservation(reservation) {
-  return (dispatch) => {
-    dispatch(selectReservationToShow(reservation));
-    dispatch(openReservationInfoModal());
-  };
-}
-
 export {
   cancelReservationEdit,
   changeAdminReservationFilters,
@@ -92,14 +75,11 @@ export {
   closeConfirmReservationModal,
   closeReservationCancelModal,
   closeReservationCommentModal,
-  closeReservationInfoModal,
   closeReservationSuccessModal,
   hideReservationInfoModal,
   openConfirmReservationModal,
   openReservationCancelModal,
   openReservationCommentModal,
-  openReservationInfoModal,
-  openReservationInfoModalWithReservation,
   selectReservationToCancel,
   selectReservationToEdit,
   selectReservationToShow,
