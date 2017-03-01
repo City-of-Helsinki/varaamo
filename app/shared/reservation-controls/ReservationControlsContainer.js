@@ -9,10 +9,10 @@ import {
 } from 'actions/reservationActions';
 import {
   openReservationCancelModal,
-  openReservationInfoModal,
   selectReservationToCancel,
   selectReservationToEdit,
   selectReservationToShow,
+  showReservationInfoModal,
 } from 'actions/uiActions';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import ReservationControls from './ReservationControls';
@@ -68,8 +68,7 @@ export class UnconnectedReservationControlsContainer extends Component {
   handleInfoClick() {
     const { actions, reservation } = this.props;
 
-    actions.selectReservationToShow(reservation);
-    actions.openReservationInfoModal();
+    actions.showReservationInfoModal(reservation);
   }
 
   render() {
@@ -107,10 +106,10 @@ function mapDispatchToProps(dispatch) {
     confirmPreliminaryReservation,
     denyPreliminaryReservation,
     openReservationCancelModal,
-    openReservationInfoModal,
     selectReservationToCancel,
     selectReservationToEdit,
     selectReservationToShow,
+    showReservationInfoModal,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

@@ -20,10 +20,10 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
       confirmPreliminaryReservation: simple.stub(),
       denyPreliminaryReservation: simple.stub(),
       openReservationCancelModal: simple.stub(),
-      openReservationInfoModal: simple.stub(),
       selectReservationToCancel: simple.stub(),
       selectReservationToEdit: simple.stub(),
       selectReservationToShow: simple.stub(),
+      showReservationInfoModal: simple.stub(),
     },
     isAdmin: false,
     isStaff: false,
@@ -116,17 +116,13 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
       instance.handleInfoClick();
     });
 
-    it('calls props.actions.selectReservationToShow with this reservation', () => {
-      expect(props.actions.selectReservationToShow.callCount).to.equal(1);
+    it('calls the props.actions.showReservationInfoModal function with this reservation', () => {
+      expect(props.actions.showReservationInfoModal.callCount).to.equal(1);
       expect(
-        props.actions.selectReservationToShow.lastCall.args[0]
+        props.actions.showReservationInfoModal.lastCall.args[0]
       ).to.deep.equal(
         props.reservation
       );
-    });
-
-    it('calls the props.actions.openReservationInfoModal function', () => {
-      expect(props.actions.openReservationInfoModal.callCount).to.equal(1);
     });
   });
 });

@@ -9,8 +9,8 @@ import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { closeReservationInfoModal } from 'actions/uiActions';
 import { commentReservation } from 'actions/reservationActions';
+import { hideReservationInfoModal } from 'actions/uiActions';
 import ReservationStateLabel from 'shared/reservation-state-label';
 import TimeRange from 'shared/time-range';
 import { injectT } from 'i18n';
@@ -36,7 +36,7 @@ class UnconnectedReservationInfoModalContainer extends Component {
     const { actions, reservation, resource } = this.props;
     const comments = findDOMNode(this.refs.commentsInput).value;
     actions.commentReservation(reservation, resource, comments);
-    actions.closeReservationInfoModal();
+    actions.hideReservationInfoModal();
   }
 
   renderAddressRow(addressType) {
@@ -88,7 +88,7 @@ class UnconnectedReservationInfoModalContainer extends Component {
     return (
       <Modal
         className="reservation-info-modal"
-        onHide={actions.closeReservationInfoModal}
+        onHide={actions.hideReservationInfoModal}
         show={show}
       >
         <Modal.Header closeButton>
@@ -146,7 +146,7 @@ class UnconnectedReservationInfoModalContainer extends Component {
         <Modal.Footer>
           <Button
             bsStyle="default"
-            onClick={actions.closeReservationInfoModal}
+            onClick={actions.hideReservationInfoModal}
           >
             {t('common.back')}
           </Button>
@@ -180,8 +180,8 @@ UnconnectedReservationInfoModalContainer = injectT(UnconnectedReservationInfoMod
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
-    closeReservationInfoModal,
     commentReservation,
+    hideReservationInfoModal,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

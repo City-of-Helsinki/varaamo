@@ -8,7 +8,6 @@ import {
   clearReservations,
   closeReservationCancelModal,
   closeReservationCommentModal,
-  closeReservationInfoModal,
   closeReservationSuccessModal,
   selectReservationToCancel,
   selectReservationToEdit,
@@ -228,18 +227,6 @@ describe('state/reducers/ui/reservationsReducer', () => {
             toShow: [Reservation.build()],
           });
           const action = closeReservationCommentModal();
-          const nextState = reservationsReducer(initialState, action);
-
-          expect(nextState.toShow).to.deep.equal([]);
-        });
-      });
-
-      describe('if closed modal is RESERVATION_INFO modal', () => {
-        it('clears toShow array', () => {
-          const initialState = Immutable({
-            toShow: [Reservation.build()],
-          });
-          const action = closeReservationInfoModal();
           const nextState = reservationsReducer(initialState, action);
 
           expect(nextState.toShow).to.deep.equal([]);
