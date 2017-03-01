@@ -132,6 +132,7 @@
   "ReservationInfoModal.phoneNumber": "Telefonnummer",
   "ReservationInfoModal.reservationTime": "Tidpunkt för bokning",
   "ReservationInfoModal.resource": "Utrymme",
+  "ReservationInfoModal.saveComment": "Save comment",
   "ReservationInfoModal.title": "Uppgifter om bokningen",
   "ReservationListContainer.emptyMessage": "Du har ännu inte några bokningar.",
   "ReservationListItem.accessCodeText": "Utrymmets PIN-kod:",

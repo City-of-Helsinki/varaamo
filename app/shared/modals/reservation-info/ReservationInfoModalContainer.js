@@ -36,7 +36,6 @@ class UnconnectedReservationInfoModalContainer extends Component {
     const { actions, reservation, resource } = this.props;
     const comments = findDOMNode(this.refs.commentsInput).value;
     actions.commentReservation(reservation, resource, comments);
-    actions.hideReservationInfoModal();
   }
 
   renderAddressRow(addressType) {
@@ -82,8 +81,6 @@ class UnconnectedReservationInfoModalContainer extends Component {
       show,
       t,
     } = this.props;
-
-    const showSaveButton = isAdmin && reservation && reservation.state !== 'cancelled';
 
     return (
       <Modal
@@ -137,6 +134,15 @@ class UnconnectedReservationInfoModalContainer extends Component {
                       rows={5}
                     />
                   </FormGroup>
+                  <div className="form-controls">
+                    <Button
+                      bsStyle="primary"
+                      disabled={isEditingReservations}
+                      onClick={this.handleSave}
+                    >
+                      {isEditingReservations ? t('common.saving') : t('ReservationInfoModal.saveComment')}
+                    </Button>
+                  </div>
                 </form>
               )}
             </div>
@@ -150,15 +156,6 @@ class UnconnectedReservationInfoModalContainer extends Component {
           >
             {t('common.back')}
           </Button>
-          {showSaveButton && (
-            <Button
-              bsStyle="success"
-              disabled={isEditingReservations}
-              onClick={this.handleSave}
-            >
-              {isEditingReservations ? t('common.saving') : t('common.save')}
-            </Button>
-          )}
         </Modal.Footer>
       </Modal>
     );

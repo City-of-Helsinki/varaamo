@@ -189,9 +189,10 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
           describe('if reservation state is not cancelled', () => {
             const confirmedReservation = Object.assign({}, reservation, { state: 'confirmed' });
             let formControl;
+            let wrapper;
 
             before(() => {
-              const wrapper = getWrapper({
+              wrapper = getWrapper({
                 isAdmin,
                 reservation: confirmedReservation,
               });
@@ -210,6 +211,13 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
             it('does not render reservation comments as text', () => {
               const reservationTexts = getWrapper().find('dl').text();
               expect(reservationTexts).to.not.contain(confirmedReservation.comments);
+            });
+
+            it('renders a save button with correct onClick prop', () => {
+              const button = wrapper.find('.form-controls').find(Button);
+              const instance = wrapper.instance();
+              expect(button.props().children).to.equal('ReservationInfoModal.saveComment');
+              expect(button.props().onClick).to.equal(instance.handleSave);
             });
           });
         });
@@ -235,15 +243,15 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
       });
     });
 
-    describe('Footer buttons', () => {
+    describe('Footer', () => {
       describe('if user has admin permissions', () => {
         const isAdmin = true;
         const wrapper = getWrapper({ isAdmin });
         const modalFooter = wrapper.find(Modal.Footer);
         const buttons = modalFooter.find(Button);
 
-        it('renders two buttons', () => {
-          expect(buttons.length).to.equal(2);
+        it('renders one button', () => {
+          expect(buttons.length).to.equal(1);
         });
 
         describe('the first button', () => {
@@ -253,19 +261,6 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
             'common.back',
             defaultProps.actions.hideReservationInfoModal
           );
-        });
-
-        describe('the second button', () => {
-          const button = buttons.at(1);
-
-          it('is save button', () => {
-            expect(button.props().children).to.equal('common.save');
-          });
-
-          it('has handleSave as its onClick prop', () => {
-            const instance = wrapper.instance();
-            expect(button.props().onClick).to.equal(instance.handleSave);
-          });
         });
       });
 
@@ -317,10 +312,6 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
       expect(actualArgs[0]).to.deep.equal(reservation);
       expect(actualArgs[1]).to.deep.equal(resource);
       expect(actualArgs[2]).to.deep.equal(updatedComments);
-    });
-
-    it('closes the ReservationInfoModal', () => {
-      expect(defaultProps.actions.hideReservationInfoModal.callCount).to.equal(1);
     });
   });
 });

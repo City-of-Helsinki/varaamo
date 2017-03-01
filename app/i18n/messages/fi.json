@@ -129,6 +129,7 @@
   "ReservationInfoModal.accessCode": "PIN-koodi",
   "ReservationInfoModal.reservationTime": "Varauksen ajankohta",
   "ReservationInfoModal.resource": "Tila",
+  "ReservationInfoModal.saveComment": "Tallenna kommentti",
   "ReservationInfoModal.title": "Varauksen tiedot",
   "ReservationListContainer.emptyMessage": "Sinulla ei vielä ole yhtään varausta.",
   "ReservationListItem.accessCodeText": "Tilan PIN-koodi:",
