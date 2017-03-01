@@ -132,6 +132,7 @@
   "ReservationInfoModal.phoneNumber": "Telephone",
   "ReservationInfoModal.reservationTime": "Time and date of the reservation",
   "ReservationInfoModal.resource": "Premises",
+  "ReservationInfoModal.saveComment": "Save comment",
   "ReservationInfoModal.title": "Reservation information.",
   "ReservationListContainer.emptyMessage": "You do not have any reservations yet.",
   "ReservationListItem.accessCodeText": "PIN code of the premises:",
