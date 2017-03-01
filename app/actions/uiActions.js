@@ -38,6 +38,8 @@ const closeReservationSuccessModal = createAction(
   () => ModalTypes.RESERVATION_SUCCESS
 );
 
+const hideReservationInfoModal = createAction(types.UI.HIDE_RESERVATION_INFO_MODAL);
+
 const openConfirmReservationModal = createAction(
   types.UI.OPEN_MODAL,
   () => ModalTypes.RESERVATION_CONFIRM
@@ -70,6 +72,8 @@ const selectReservationToShow = createAction(
   types.UI.SELECT_RESERVATION_TO_SHOW
 );
 
+const showReservationInfoModal = createAction(types.UI.SHOW_RESERVATION_INFO_MODAL);
+
 const toggleTimeSlot = createAction(types.UI.TOGGLE_TIME_SLOT);
 
 function openReservationInfoModalWithReservation(reservation) {
@@ -90,6 +94,7 @@ export {
   closeReservationCommentModal,
   closeReservationInfoModal,
   closeReservationSuccessModal,
+  hideReservationInfoModal,
   openConfirmReservationModal,
   openReservationCancelModal,
   openReservationCommentModal,
@@ -98,5 +103,6 @@ export {
   selectReservationToCancel,
   selectReservationToEdit,
   selectReservationToShow,
+  showReservationInfoModal,
   toggleTimeSlot,
 };
