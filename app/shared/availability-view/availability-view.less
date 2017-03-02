@@ -66,7 +66,6 @@
   }
   .group-info {
     background-color: @gray-lighter;
-    padding: 0 @padding-base-horizontal;
 
     .group-name, .resource-info {
       height: @slot-height;
@@ -93,6 +92,12 @@
     justify-content: center;
     align-items: flex-end;
     font-size: @font-size-small;
+    padding: @padding-xs-vertical @padding-base-horizontal;
+    line-height: 16px;
+
+    &-selected {
+      background-color: @gray-light;
+    }
     .favorite-icon {
       color: red; // @favorite-color;
       padding: 3px;

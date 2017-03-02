@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { PropTypes } from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import { connect } from 'react-redux';
@@ -9,12 +10,16 @@ import { resourcesSelector } from 'state/selectors/dataSelectors';
 ResourceInfo.propTypes = {
   date: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  isSelected: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   peopleCapacity: PropTypes.number.isRequired,
 };
 export function ResourceInfo(props) {
   return (
-    <div className="resource-info" title={props.name}>
+    <div
+      className={classNames('resource-info', { 'resource-info-selected': props.isSelected })}
+      title={props.name}
+    >
       <div className="name">
         <Link to={`/resources/${props.id}?date=${props.date}`}>
           {props.name}
@@ -46,5 +51,6 @@ export function selector() {
 const ResourceInfoContainer = connect(selector)(ResourceInfo);
 ResourceInfoContainer.propTypes = {
   id: PropTypes.string.isRequired,
+  isSelected: PropTypes.bool.isRequired,
 };
 export default ResourceInfoContainer;
