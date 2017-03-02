@@ -51,6 +51,30 @@ describe('shared/availability-view/TimelineGroup', () => {
     ]);
   });
 
+  describe('end hour of selection', () => {
+    it('is .hour-start-selected if end time is XX:30', () => {
+      const selection = {
+        begin: '2016-01-01T00:00:00',
+        end: '2016-01-01T01:30:00',
+      };
+      const hours = getWrapper({ selection }).find('.hour');
+      const hour = hours.at(1);
+      expect(hour.is('.hour-start-selected')).to.be.true;
+      expect(hour.is('.hour-end-selected')).to.be.false;
+    });
+
+    it('is .hour-end-selected if end time is XX:00', () => {
+      const selection = {
+        begin: '2016-01-01T00:00:00',
+        end: '2016-01-01T02:00:00',
+      };
+      const hours = getWrapper({ selection }).find('.hour');
+      const hour = hours.at(1);
+      expect(hour.is('.hour-start-selected')).to.be.false;
+      expect(hour.is('.hour-end-selected')).to.be.true;
+    });
+  });
+
   it('renders no resources if none given', () => {
     const wrapper = getWrapper({ resources: [] });
     const resources = wrapper.find(AvailabilityTimelineContainer);

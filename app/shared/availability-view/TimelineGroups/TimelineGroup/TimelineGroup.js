@@ -10,7 +10,11 @@ function getHourRanges(date) {
   const current = moment(date);
   const end = moment(date).add(1, 'day');
   while (current.isBefore(end)) {
-    ranges.push({ startTime: current.clone(), endTime: current.clone().add(1, 'hour') });
+    ranges.push({
+      startTime: current.clone(),
+      midPoint: current.clone().add(30, 'minutes'),
+      endTime: current.clone().add(1, 'hour'),
+    });
     current.add(1, 'hour');
   }
   return ranges;
@@ -57,7 +61,10 @@ export default class TimelineGroup extends React.Component {
         <div className="hours">
           {getHourRanges(this.props.date).map(range =>
             <div
-              className="hour"
+              className={classNames('hour', {
+                'hour-start-selected': selection && range.midPoint.isSame(selection.end),
+                'hour-end-selected': selection && range.endTime.isSame(selection.end),
+              })}
               key={range.startTime.format('HH')}
               style={{ width: utils.getTimeSlotWidth(range) }}
             >
