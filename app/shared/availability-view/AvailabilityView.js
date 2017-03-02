@@ -82,11 +82,16 @@ export default class AvailabilityView extends React.Component {
   }
 
   render() {
+    const selection = this.getSelection();
     return (
       <div className="availability-view">
         <div className="left">
           <div className="top-left" />
-          <Sidebar date={this.props.date} groups={this.props.groups} />
+          <Sidebar
+            date={this.props.date}
+            groups={this.props.groups}
+            selectedResourceId={selection && selection.resourceId}
+          />
         </div>
         <div className="right">
           <DateSelector onChange={this.props.onDateChange} value={this.props.date} />
@@ -97,7 +102,7 @@ export default class AvailabilityView extends React.Component {
             onReservationSlotMouseEnter={this.handleReservationSlotMouseEnter}
             onReservationSlotMouseLeave={this.handleReservationSlotMouseLeave}
             onSelectionCancel={this.handleSelectionCancel}
-            selection={this.getSelection()}
+            selection={selection}
           />
         </div>
         <ReservationInfoModal />

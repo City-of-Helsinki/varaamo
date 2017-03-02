@@ -24,7 +24,12 @@ function getState() {
 describe('shared/availability-view/ResourceInfoContainer', () => {
   describe('container', () => {
     function getWrapper(props) {
-      const defaults = { date: '2017-01-01', id: '123456', store: { getState } };
+      const defaults = {
+        date: '2017-01-01',
+        id: '123456',
+        isSelected: false,
+        store: { getState },
+      };
       return shallow(<ResourceInfoContainer {...defaults} {...props} />);
     }
 
@@ -40,6 +45,7 @@ describe('shared/availability-view/ResourceInfoContainer', () => {
         date: '2017-01-02',
         id: 'r-1',
         isFavorite: false,
+        isSelected: false,
         name: 'Resource name',
         peopleCapacity: 19,
       };
@@ -49,6 +55,11 @@ describe('shared/availability-view/ResourceInfoContainer', () => {
     it('renders a div.resource-info', () => {
       const wrapper = getWrapper();
       expect(wrapper.is('div.resource-info')).to.be.true;
+    });
+
+    it('has selected class if isSelected', () => {
+      const wrapper = getWrapper({ isSelected: true });
+      expect(wrapper.is('.resource-info-selected')).to.be.true;
     });
 
     it('renders the name and link to resource page', () => {
