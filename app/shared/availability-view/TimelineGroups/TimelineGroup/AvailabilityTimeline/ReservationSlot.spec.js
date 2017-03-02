@@ -160,7 +160,7 @@ describe('shared/availability-view/ReservationSlot', () => {
   });
 
   describe('handleClick', () => {
-    describe('if onClick given', () => {
+    describe('if isSelectable', () => {
       function callHandleClick({ preventDefault }, props) {
         const wrapper = getWrapper({ onClick: () => null, ...props });
         const event = { preventDefault: preventDefault || (() => null) };
@@ -183,10 +183,40 @@ describe('shared/availability-view/ReservationSlot', () => {
         expect(onClick.lastCall.args).to.deep.equal([{ begin, end, resourceId }]);
       });
 
-      it('does nothing if not isSelectable', () => {
+      it('does not call onSelectionCancel', () => {
+        const onSelectionCancel = simple.mock();
+        callHandleClick({}, { onSelectionCancel, isSelectable: true });
+        expect(onSelectionCancel.called).to.be.false;
+      });
+    });
+
+    describe('if not isSelectable', () => {
+      function callHandleClick({ preventDefault }, props) {
+        const wrapper = getWrapper({
+          isSelectable: false,
+          onSelectionCancel: () => null,
+          ...props,
+        });
+        const event = { preventDefault: preventDefault || (() => null) };
+        return wrapper.instance().handleClick(event);
+      }
+
+      it('calls event.preventDefault', () => {
+        const preventDefault = simple.mock();
+        callHandleClick({ preventDefault });
+        expect(preventDefault.callCount).to.equal(1);
+      });
+
+      it('does not call onClick', () => {
         const onClick = simple.mock();
-        callHandleClick({}, { onClick, isSelectable: false });
+        callHandleClick({}, { onClick });
         expect(onClick.called).to.be.false;
+      });
+
+      it('calls onSelectionCancel', () => {
+        const onSelectionCancel = simple.mock();
+        callHandleClick({}, { onSelectionCancel });
+        expect(onSelectionCancel.callCount).to.equal(1);
       });
     });
 

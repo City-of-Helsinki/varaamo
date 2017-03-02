@@ -17,6 +17,7 @@ export default class AvailabilityTimeline extends React.Component {
     onReservationSlotClick: PropTypes.func,
     onReservationSlotMouseEnter: PropTypes.func,
     onReservationSlotMouseLeave: PropTypes.func,
+    onSelectionCancel: PropTypes.func,
     selection: PropTypes.object,
   };
 
@@ -30,6 +31,7 @@ export default class AvailabilityTimeline extends React.Component {
     const {
       onReservationClick,
       onReservationSlotClick,
+      onSelectionCancel,
       onReservationSlotMouseEnter,
       onReservationSlotMouseLeave,
       selection,
@@ -45,6 +47,7 @@ export default class AvailabilityTimeline extends React.Component {
                 onClick={onReservationSlotClick}
                 onMouseEnter={onReservationSlotMouseEnter}
                 onMouseLeave={onReservationSlotMouseLeave}
+                onSelectionCancel={onSelectionCancel}
                 resourceId={this.props.id}
                 selection={selection}
               />

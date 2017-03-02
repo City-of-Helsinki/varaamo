@@ -26,6 +26,7 @@ export default class TimelineGroups extends React.Component {
     onReservationSlotClick: PropTypes.func,
     onReservationSlotMouseEnter: PropTypes.func,
     onReservationSlotMouseLeave: PropTypes.func,
+    onSelectionCancel: PropTypes.func,
     selection: PropTypes.object,
   };
 
@@ -46,6 +47,7 @@ export default class TimelineGroups extends React.Component {
             onReservationSlotClick={this.props.onReservationSlotClick}
             onReservationSlotMouseEnter={this.props.onReservationSlotMouseEnter}
             onReservationSlotMouseLeave={this.props.onReservationSlotMouseLeave}
+            onSelectionCancel={this.props.onSelectionCancel}
             selection={this.props.selection}
             {...group}
           />

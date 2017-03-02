@@ -170,6 +170,30 @@ describe('shared/availability-view/AvailabilityView', () => {
     });
   });
 
+  describe('handleSelectionCancel', () => {
+    function handleSelectionCancel() {
+      const wrapper = getWrapper();
+      const instance = wrapper.instance();
+      instance.state = { selection: { some: 'data' }, hoverSelection: { more: 'data' } };
+      instance.handleSelectionCancel();
+      return wrapper.state();
+    }
+
+    it('is given to TimelineGroups', () => {
+      const wrapper = getWrapper();
+      const groups = wrapper.find(TimelineGroups);
+      const handler = wrapper.instance().handleSelectionCancel;
+      expect(groups.prop('onSelectionCancel')).to.equal(handler);
+    });
+
+    it('clears selection and hoverSelection', () => {
+      expect(handleSelectionCancel()).to.deep.equal({
+        selection: null,
+        hoverSelection: null,
+      });
+    });
+  });
+
   describe('handleReservationSlotClick', () => {
     function handleReservationSlotClick(slot) {
       const wrapper = getWrapper();
