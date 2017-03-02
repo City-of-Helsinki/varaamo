@@ -20,6 +20,7 @@ export default class AvailabilityView extends React.Component {
     this.handleReservationSlotClick = this.handleReservationSlotClick.bind(this);
     this.handleReservationSlotMouseEnter = this.handleReservationSlotMouseEnter.bind(this);
     this.handleReservationSlotMouseLeave = this.handleReservationSlotMouseLeave.bind(this);
+    this.handleSelectionCancel = this.handleSelectionCancel.bind(this);
   }
 
   getSelection() {
@@ -57,6 +58,12 @@ export default class AvailabilityView extends React.Component {
     }
   }
 
+  handleSelectionCancel() {
+    if (this.state.selection) {
+      this.setState({ hoverSelection: null, selection: null });
+    }
+  }
+
   endSelection(slot) {
     const isValid = (
       this.state.selection.resourceId === slot.resourceId &&
@@ -89,6 +96,7 @@ export default class AvailabilityView extends React.Component {
             onReservationSlotClick={this.handleReservationSlotClick}
             onReservationSlotMouseEnter={this.handleReservationSlotMouseEnter}
             onReservationSlotMouseLeave={this.handleReservationSlotMouseLeave}
+            onSelectionCancel={this.handleSelectionCancel}
             selection={this.getSelection()}
           />
         </div>

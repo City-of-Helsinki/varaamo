@@ -16,6 +16,7 @@ export class UninjectedReservationSlot extends React.Component {
     onClick: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
+    onSelectionCancel: PropTypes.func,
     resourceId: PropTypes.string.isRequired,
     selection: PropTypes.shape({
       begin: PropTypes.string.isRequired,
@@ -72,6 +73,9 @@ export class UninjectedReservationSlot extends React.Component {
     if (this.props.onClick && this.props.isSelectable) {
       event.preventDefault();
       this.props.onClick(this.getSlotInfo());
+    } else if (this.props.onSelectionCancel && !this.props.isSelectable) {
+      event.preventDefault();
+      this.props.onSelectionCancel(this.getSlotInfo());
     }
   }
 
