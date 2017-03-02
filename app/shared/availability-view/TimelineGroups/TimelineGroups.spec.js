@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
+import simple from 'simple-mock';
 
 import TimelineGroups from './TimelineGroups';
 import TimelineGroup from './TimelineGroup';
@@ -16,7 +17,9 @@ function getWrapper(props) {
 describe('shared/availability-view/TimelineGroups', () => {
   it('renders a div.timeline-groups', () => {
     const wrapper = getWrapper();
+    const instance = wrapper.instance();
     expect(wrapper.is('div.timeline-groups')).to.be.true;
+    expect(wrapper.prop('onScroll')).to.equal(instance.handleScroll);
   });
 
   it('renders no groups if none given', () => {
@@ -59,5 +62,41 @@ describe('shared/availability-view/TimelineGroups', () => {
     const groups = [{ name: 'A', resources: [] }];
     const group = getWrapper({ groups, selection }).find(TimelineGroup);
     expect(group.prop('selection')).to.equal(selection);
+  });
+
+  describe('componentDidMount', () => {
+    before(() => {
+      simple.mock(window, 'addEventListener');
+    });
+
+    after(() => {
+      simple.restore();
+    });
+
+    it('adds a scroll event listener', () => {
+      window.addEventListener.reset();
+      const instance = getWrapper().instance();
+      instance.componentDidMount();
+      expect(window.addEventListener.callCount).to.equal(1);
+      expect(window.addEventListener.lastCall.args).to.deep.equal(['scroll', instance.handleScroll]);
+    });
+  });
+
+  describe('componentWillUnmount', () => {
+    before(() => {
+      simple.mock(window, 'removeEventListener');
+    });
+
+    after(() => {
+      simple.restore();
+    });
+
+    it('removes the scroll event listener', () => {
+      window.removeEventListener.reset();
+      const instance = getWrapper().instance();
+      instance.componentWillUnmount();
+      expect(window.removeEventListener.callCount).to.equal(1);
+      expect(window.removeEventListener.lastCall.args).to.deep.equal(['scroll', instance.handleScroll]);
+    });
   });
 });
