@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import moment from 'moment';
 import React, { PropTypes } from 'react';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 import Popover from 'react-bootstrap/lib/Popover';
 
@@ -75,7 +76,7 @@ export class UninjectedReservationSlot extends React.Component {
       this.props.onClick(this.getSlotInfo());
     } else if (this.props.onSelectionCancel && !this.props.isSelectable) {
       event.preventDefault();
-      this.props.onSelectionCancel(this.getSlotInfo());
+      this.props.onSelectionCancel();
     }
   }
 
@@ -110,12 +111,20 @@ export class UninjectedReservationSlot extends React.Component {
     if (this.shouldShowPopover(isSelected)) {
       const popover = (
         <Popover
+          className="reservation-slot-popover"
           id="popover-selection-information"
           title={this.props.t('ReservationSlot.selectionInfoHeader')}
         >
-          {moment(this.props.selection.begin).format('HH:mm')}
-          –
-          {moment(this.props.selection.end).format('HH:mm')}
+          <div className="reservation-slot-popover-time">
+            {moment(this.props.selection.begin).format('HH:mm')}
+            –
+            {moment(this.props.selection.end).format('HH:mm')}
+          </div>
+          <Glyphicon
+            className="reservation-slot-popover-cancel"
+            glyph="trash"
+            onClick={this.props.onSelectionCancel}
+          />
         </Popover>
       );
       return (

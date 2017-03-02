@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import simple from 'simple-mock';
 import React from 'react';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 
 import { UninjectedReservationSlot as ReservationSlot } from './ReservationSlot';
@@ -102,6 +103,30 @@ describe('shared/availability-view/ReservationSlot', () => {
         },
       });
       expect(trigger).to.have.length(1);
+    });
+
+    describe('popover', () => {
+      function getPopover(props) {
+        const trigger = getTrigger({
+          begin: '2016-01-01T10:00:00Z',
+          end: '2016-01-01T10:30:00Z',
+          selection: {
+            begin: '2016-01-01T10:00:00Z',
+            end: '2016-01-01T12:00:00Z',
+            resourceId: '1',
+          },
+          ...props,
+        });
+        return shallow(trigger.prop('overlay'));
+      }
+
+      it('renders cancel icon', () => {
+        const onSelectionCancel = () => null;
+        const icon = getPopover({ onSelectionCancel }).find('.reservation-slot-popover-cancel');
+        expect(icon.is(Glyphicon)).to.be.true;
+        expect(icon.prop('glyph')).to.equal('trash');
+        expect(icon.prop('onClick')).to.equal(onSelectionCancel);
+      });
     });
   });
 
