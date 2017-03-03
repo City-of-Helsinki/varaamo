@@ -3,6 +3,7 @@ import moment from 'moment';
 import React, { PropTypes } from 'react';
 import Sticky from 'react-sticky-el';
 
+import { slotSize, slotWidth } from 'shared/availability-view';
 import AvailabilityTimelineContainer from './AvailabilityTimeline';
 import utils from './utils';
 
@@ -36,6 +37,26 @@ export default class TimelineGroup extends React.Component {
   constructor(props) {
     super(props);
     this.setElement = this.setElement.bind(this);
+    this.updateTime = this.updateTime.bind(this);
+    this.state = { timeOffset: this.getTimeOffset() };
+  }
+
+  componentDidMount() {
+    this.updateTimeInterval = window.setInterval(this.updateTime, 60000);
+  }
+
+  componentWillUnmount() {
+    window.clearInterval(this.updateTimeInterval);
+    this.updateTimeInterval = null;
+  }
+
+  getTimeOffset() {
+    const now = moment();
+    const isToday = now.isSame(this.props.date, 'day');
+    if (!isToday) return null;
+    const offsetMinutes = now.diff(this.props.date, 'minutes');
+    const offsetPixels = (offsetMinutes / slotSize) * slotWidth;
+    return offsetPixels;
   }
 
   setElement(element) {
@@ -44,6 +65,13 @@ export default class TimelineGroup extends React.Component {
 
   scrollTo(pixels) {
     if (this.element) this.element.scrollLeft = pixels;
+  }
+
+  updateTime() {
+    const timeOffset = this.getTimeOffset();
+    if (timeOffset !== this.state.timeOffset) {
+      this.setState({ timeOffset });
+    }
   }
 
   render() {
@@ -59,6 +87,12 @@ export default class TimelineGroup extends React.Component {
         className={classNames('timeline-group', this.props.className)}
         ref={this.setElement}
       >
+        {this.state.timeOffset && (
+          <div
+            className="timeline-group-current-time"
+            style={{ left: this.state.timeOffset }}
+          />
+        )}
         <Sticky>
           <div className="hours">
             {getHourRanges(this.props.date).map(range =>

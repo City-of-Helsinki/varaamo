@@ -1,7 +1,11 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
+import mockDate from 'mockdate';
+import moment from 'moment';
 import React from 'react';
+import simple from 'simple-mock';
 
+import { slotSize, slotWidth } from 'shared/availability-view';
 import TimelineGroup from './TimelineGroup';
 import AvailabilityTimelineContainer from './AvailabilityTimeline';
 
@@ -90,5 +94,81 @@ describe('shared/availability-view/TimelineGroup', () => {
     expect(elements.at(1).prop('id')).to.equal(resources[1]);
     expect(elements.at(2).prop('id')).to.equal(resources[2]);
     expect(elements.at(3).prop('id')).to.equal(resources[3]);
+  });
+
+  describe('componentDidMount', () => {
+    before(() => {
+      simple.mock(window, 'setInterval');
+    });
+
+    after(() => {
+      simple.restore();
+    });
+
+    it('starts interval', () => {
+      const interval = {};
+      window.setInterval.reset();
+      window.setInterval.returnWith(interval);
+      const instance = getWrapper().instance();
+      instance.componentDidMount();
+      expect(window.setInterval.callCount).to.equal(1);
+      expect(window.setInterval.lastCall.args).to.deep.equal([instance.updateTime, 60000]);
+      expect(instance.updateTimeInterval).to.equal(interval);
+    });
+  });
+
+  describe('componentWillUnmount', () => {
+    before(() => {
+      simple.mock(window, 'clearInterval');
+    });
+
+    after(() => {
+      simple.restore();
+    });
+
+    it('clears interval', () => {
+      const interval = { some: 'data' };
+      window.clearInterval.reset();
+      const instance = getWrapper().instance();
+      instance.updateTimeInterval = interval;
+      instance.componentWillUnmount();
+      expect(window.clearInterval.callCount).to.equal(1);
+      expect(window.clearInterval.lastCall.args).to.deep.equal([interval]);
+      expect(instance.updateTimeInterval).to.be.null;
+    });
+  });
+
+  describe('getTimeOffset', () => {
+    function getOffset(date, now) {
+      mockDate.set(moment(now).format());
+      const instance = getWrapper({ date }).instance();
+      return instance.getTimeOffset();
+    }
+
+    afterEach(() => {
+      mockDate.reset();
+    });
+
+    it('returns null if date is before current date', () => {
+      const offset = getOffset('2017-01-01', '2017-01-02T10:00:00');
+      expect(offset).to.be.null;
+    });
+
+    it('returns null if date is after current date', () => {
+      const offset = getOffset('2017-01-03', '2017-01-02T10:00:00');
+      expect(offset).to.be.null;
+    });
+
+    it('returns 0 if currently at the beginning of the day', () => {
+      const offset = getOffset('2017-01-02', '2017-01-02T00:00:00');
+      expect(offset).to.equal(0);
+    });
+
+    it('returns correct value if during day', () => {
+      const offset = getOffset('2017-01-02', '2017-01-02T12:32:00');
+      const minutes = (12 * 60) + 32;
+      const expected = (minutes / slotSize) * slotWidth;
+      expect(offset).to.equal(expected);
+    });
   });
 });
