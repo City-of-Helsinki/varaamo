@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import mockDate from 'mockdate';
 
 import ActionTypes from 'constants/ActionTypes';
 import { getState } from 'utils/testUtils';
@@ -38,6 +39,40 @@ describe('shared/modals/reservation-info/reservationInfoModalSelector', () => {
       'ui.reservationInfoModal.reservation': reservation,
     });
     expect(selected.reservation).to.deep.equal(reservation);
+  });
+
+  describe('reservationIsEditable', () => {
+    before(() => {
+      mockDate.set('2017-03-01T10:00:00Z');
+    });
+
+    after(() => {
+      mockDate.reset();
+    });
+
+    it('returns false if reservation is in the past', () => {
+      const reservation = { end: '2016-12-12T10:00:00Z' };
+      const selected = getSelected({
+        'ui.reservationInfoModal.reservation': reservation,
+      });
+      expect(selected.reservationIsEditable).to.be.false;
+    });
+
+    it('returns false if reservation is cancelled', () => {
+      const reservation = { end: '2017-12-12T10:00:00Z', state: 'cancelled' };
+      const selected = getSelected({
+        'ui.reservationInfoModal.reservation': reservation,
+      });
+      expect(selected.reservationIsEditable).to.be.false;
+    });
+
+    it('returns true otherwise', () => {
+      const reservation = { end: '2017-12-12T10:00:00Z', state: 'confirmed' };
+      const selected = getSelected({
+        'ui.reservationInfoModal.reservation': reservation,
+      });
+      expect(selected.reservationIsEditable).to.be.true;
+    });
   });
 
   it('returns correct resource from the state', () => {
