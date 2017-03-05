@@ -38,10 +38,11 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
       commentReservation: simple.stub(),
       hideReservationInfoModal: simple.stub(),
     },
-    isAdmin: true,
+    isAdmin: false,
     isEditingReservations: false,
     isStaff: false,
     reservation: Immutable(reservation),
+    reservationIsEditable: false,
     resource: Immutable(resource),
     show: true,
   };
@@ -164,20 +165,19 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
         describe('if user has admin rights', () => {
           const isAdmin = true;
 
-          describe('if reservation state is cancelled', () => {
-            const cancelledReservation = Object.assign({}, reservation, { state: 'cancelled' });
+          describe('if reservation is not editable', () => {
             let wrapper;
 
             before(() => {
               wrapper = getWrapper({
                 isAdmin,
-                reservation: cancelledReservation,
+                reservationIsEditable: false,
               });
             });
 
             it('renders reservation comments as text', () => {
               const reservationTexts = wrapper.find('dl').text();
-              expect(reservationTexts).to.contain(cancelledReservation.comments);
+              expect(reservationTexts).to.contain(reservation.comments);
             });
 
             it('does not render FormControl for comments', () => {
@@ -186,15 +186,14 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
             });
           });
 
-          describe('if reservation state is not cancelled', () => {
-            const confirmedReservation = Object.assign({}, reservation, { state: 'confirmed' });
+          describe('if reservation is editable', () => {
             let formControl;
             let wrapper;
 
             before(() => {
               wrapper = getWrapper({
                 isAdmin,
-                reservation: confirmedReservation,
+                reservationIsEditable: true,
               });
               formControl = wrapper.find(FormControl);
             });
@@ -210,7 +209,7 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
 
             it('does not render reservation comments as text', () => {
               const reservationTexts = getWrapper().find('dl').text();
-              expect(reservationTexts).to.not.contain(confirmedReservation.comments);
+              expect(reservationTexts).to.not.contain(reservation.comments);
             });
 
             it('renders a save button with correct onClick prop', () => {

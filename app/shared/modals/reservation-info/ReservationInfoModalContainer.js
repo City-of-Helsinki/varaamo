@@ -77,6 +77,7 @@ class UnconnectedReservationInfoModalContainer extends Component {
       isEditingReservations,
       isStaff,
       reservation,
+      reservationIsEditable,
       resource,
       show,
       t,
@@ -115,14 +116,14 @@ class UnconnectedReservationInfoModalContainer extends Component {
                     <dd>{reservation.accessCode}</dd>
                   </span>
                 )}
-                {isAdmin && reservation.state === 'cancelled' && (
+                {isAdmin && !reservationIsEditable && (
                   <span>
                     <dt>{t('common.commentsLabel')}:</dt>
                     <dd>{reservation.comments}</dd>
                   </span>
                 )}
               </dl>
-              {isAdmin && reservation.state !== 'cancelled' && (
+              {isAdmin && reservationIsEditable && (
                 <form>
                   <FormGroup controlId="commentsTextarea">
                     <ControlLabel>{t('common.commentsLabel')}:</ControlLabel>
@@ -168,6 +169,7 @@ UnconnectedReservationInfoModalContainer.propTypes = {
   isEditingReservations: PropTypes.bool.isRequired,
   isStaff: PropTypes.bool.isRequired,
   reservation: PropTypes.object.isRequired,
+  reservationIsEditable: PropTypes.bool.isRequired,
   resource: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,

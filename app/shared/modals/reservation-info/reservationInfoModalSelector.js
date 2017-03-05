@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { createSelector, createStructuredSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
@@ -8,6 +9,14 @@ import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsA
 function reservationSelector(state) {
   return state.ui.reservationInfoModal.reservation || {};
 }
+
+const reservationIsEditableSelector = createSelector(
+  reservationSelector,
+  (reservation) => {
+    const isPastReservation = moment(reservation.end).isBefore(moment());
+    return !isPastReservation && reservation.state !== 'cancelled';
+  }
+);
 
 const resourceIdSelector = createSelector(
   reservationSelector,
@@ -21,6 +30,7 @@ const reservationInfoModalSelector = createStructuredSelector({
   isEditingReservations: requestIsActiveSelectorFactory(ActionTypes.API.RESERVATION_PUT_REQUEST),
   isStaff: createIsStaffSelector(resourceSelector),
   reservation: reservationSelector,
+  reservationIsEditable: reservationIsEditableSelector,
   resource: resourceSelector,
   show: state => state.ui.reservationInfoModal.show,
 });
