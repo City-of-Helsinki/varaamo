@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import {
-  commentReservation, confirmPreliminaryReservation,
+  commentReservation, confirmPreliminaryReservation, denyPreliminaryReservation,
 } from 'actions/reservationActions';
 import { hideReservationInfoModal } from 'actions/uiActions';
 import ReservationStateLabel from 'shared/reservation-state-label';
@@ -22,6 +22,7 @@ class UnconnectedReservationInfoModalContainer extends Component {
   constructor(props) {
     super(props);
     this.handleConfirmClick = this.handleConfirmClick.bind(this);
+    this.handleDenyClick = this.handleDenyClick.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.renderAddressRow = this.renderAddressRow.bind(this);
     this.renderInfoRow = this.renderInfoRow.bind(this);
@@ -37,6 +38,10 @@ class UnconnectedReservationInfoModalContainer extends Component {
 
   handleConfirmClick() {
     this.props.actions.confirmPreliminaryReservation(this.props.reservation);
+  }
+
+  handleDenyClick() {
+    this.props.actions.denyPreliminaryReservation(this.props.reservation);
   }
 
   handleSave() {
@@ -166,11 +171,20 @@ class UnconnectedReservationInfoModalContainer extends Component {
           </Button>
           {isStaff && reservationIsEditable && reservation.state === 'requested' && (
             <Button
+              bsStyle="danger"
+              disabled={isEditingReservations}
+              onClick={this.handleDenyClick}
+            >
+              {t('ReservationInfoModal.denyButton')}
+            </Button>
+          )}
+          {isStaff && reservationIsEditable && reservation.state === 'requested' && (
+            <Button
               bsStyle="success"
               disabled={isEditingReservations}
               onClick={this.handleConfirmClick}
             >
-              {isEditingReservations ? t('common.saving') : t('ReservationInfoModal.confirmButton')}
+              {t('ReservationInfoModal.confirmButton')}
             </Button>
           )}
         </Modal.Footer>
@@ -197,6 +211,7 @@ function mapDispatchToProps(dispatch) {
   const actionCreators = {
     commentReservation,
     confirmPreliminaryReservation,
+    denyPreliminaryReservation,
     hideReservationInfoModal,
   };
 

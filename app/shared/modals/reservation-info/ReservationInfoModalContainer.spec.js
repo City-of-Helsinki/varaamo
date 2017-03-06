@@ -263,6 +263,51 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
         });
       });
 
+      describe('deny button', () => {
+        function getDenyButton(props) {
+          const denyPreliminaryReservation = () => null;
+          const wrapper = getWrapper({ ...props, actions: { denyPreliminaryReservation } });
+          const onClick = wrapper.instance().handleDenyClick;
+          return wrapper.find(Modal.Footer).find(Button).filter({ onClick });
+        }
+
+        it('is not rendered if user is not a staff member', () => {
+          const props = {
+            isStaff: false,
+            reservationIsEditable: true,
+            reservation: { ...reservation, state: 'requested' },
+          };
+          expect(getDenyButton(props)).to.have.length(0);
+        });
+
+        it('is not rendered if reservation is not editable', () => {
+          const props = {
+            isStaff: true,
+            reservationIsEditable: false,
+            reservation: { ...reservation, state: 'requested' },
+          };
+          expect(getDenyButton(props)).to.have.length(0);
+        });
+
+        it('is not rendered if reservation state is not "requested"', () => {
+          const props = {
+            isStaff: true,
+            reservationIsEditable: true,
+            reservation: { ...reservation, state: 'confirmed' },
+          };
+          expect(getDenyButton(props)).to.have.length(0);
+        });
+
+        it('is rendered if user is staff, reservation is editable and in "requested" state', () => {
+          const props = {
+            isStaff: true,
+            reservationIsEditable: true,
+            reservation: { ...reservation, state: 'requested' },
+          };
+          expect(getDenyButton(props)).to.have.length(1);
+        });
+      });
+
       describe('confirm button', () => {
         function getConfirmButton(props) {
           const confirmPreliminaryReservation = () => null;
@@ -317,6 +362,16 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
       instance.handleConfirmClick();
       expect(confirmPreliminaryReservation.callCount).to.equal(1);
       expect(confirmPreliminaryReservation.lastCall.args).to.deep.equal([reservation]);
+    });
+  });
+
+  describe('handleDenyClick', () => {
+    it('calls denyPreliminaryReservation with props.reservation', () => {
+      const denyPreliminaryReservation = simple.mock();
+      const instance = getWrapper({ actions: { denyPreliminaryReservation } }).instance();
+      instance.handleDenyClick();
+      expect(denyPreliminaryReservation.callCount).to.equal(1);
+      expect(denyPreliminaryReservation.lastCall.args).to.deep.equal([reservation]);
     });
   });
 
