@@ -45,31 +45,31 @@ function getTimelineItems(date, reservations, resourceId) {
   return items;
 }
 
-function isInsideAvailableHours(item, availableHours) {
-  return some(availableHours, availability => (
-    availability.starts <= item.data.begin && item.data.end <= availability.ends
+function isInsideOpeningHours(item, openingHours) {
+  return some(openingHours, opening => (
+    opening.opens <= item.data.begin && item.data.end <= opening.closes
   ));
 }
 
-function markItemSelectable(item, isSelectable, availableHours) {
+function markItemSelectable(item, isSelectable, openingHours) {
   const selectable = (
     isSelectable &&
     moment().isSameOrBefore(item.data.end) &&
-    (!availableHours || isInsideAvailableHours(item, availableHours))
+    (!openingHours || isInsideOpeningHours(item, openingHours))
   );
   return { ...item, data: { ...item.data, isSelectable: selectable } };
 }
 
-function markItemsSelectable(items, isSelectable, availableHours) {
+function markItemsSelectable(items, isSelectable, openingHours) {
   return items.map((item) => {
     if (item.type === 'reservation') return item;
-    return markItemSelectable(item, isSelectable, availableHours);
+    return markItemSelectable(item, isSelectable, openingHours);
   });
 }
 
 function addSelectionData(selection, resource, items) {
   if (!selection) {
-    return markItemsSelectable(items, true, resource.availableHours);
+    return markItemsSelectable(items, true, resource.openingHours);
   } else if (selection.resourceId !== resource.id) {
     // isSelectable is false by default, so nothing needs to be done.
     // This is a pretty important performance optimization when there are tons of
@@ -90,7 +90,7 @@ function addSelectionData(selection, resource, items) {
       lastSelectableFound = true;
       return item;
     }
-    return markItemSelectable(item, true, resource.availableHours);
+    return markItemSelectable(item, true, resource.openingHours);
   });
 }
 

@@ -139,9 +139,9 @@ describe('shared/availability-view/utils', () => {
       const expected = getItems(false, true, false, true);
       const resource = {
         id: 'r1',
-        availableHours: [
-          { starts: '2016-01-01T11:30:00Z', ends: '2016-01-01T12:30:00Z' },
-          { starts: '2016-01-01T13:00:00Z', ends: '2016-01-01T13:30:00Z' },
+        openingHours: [
+          { opens: '2016-01-01T11:30:00Z', closes: '2016-01-01T12:30:00Z' },
+          { opens: '2016-01-01T13:00:00Z', closes: '2016-01-01T13:30:00Z' },
         ],
       };
       const actual = utils.addSelectionData(null, resource, items);
