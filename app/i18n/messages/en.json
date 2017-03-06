@@ -129,6 +129,7 @@
   "ReservationInfoModal.accessCode": "PIN code",
   "ReservationInfoModal.address": "Address",
   "ReservationInfoModal.billingAddress": "Invoicing address",
+  "ReservationInfoModal.confirmButton": "Confirm reservation",
   "ReservationInfoModal.phoneNumber": "Telephone",
   "ReservationInfoModal.reservationTime": "Time and date of the reservation",
   "ReservationInfoModal.resource": "Premises",

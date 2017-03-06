@@ -10,7 +10,7 @@ import simple from 'simple-mock';
 import ReservationStateLabel from 'shared/reservation-state-label';
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
-import { makeButtonTests, shallowWithIntl } from 'utils/testUtils';
+import { shallowWithIntl } from 'utils/testUtils';
 import {
   UnconnectedReservationInfoModalContainer as ReservationInfoModalContainer,
 } from './ReservationInfoModalContainer';
@@ -36,6 +36,7 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
   const defaultProps = {
     actions: {
       commentReservation: simple.stub(),
+      confirmPreliminaryReservation: () => null,
       hideReservationInfoModal: simple.stub(),
     },
     isAdmin: false,
@@ -243,45 +244,79 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
     });
 
     describe('Footer', () => {
-      describe('if user has admin permissions', () => {
-        const isAdmin = true;
-        const wrapper = getWrapper({ isAdmin });
-        const modalFooter = wrapper.find(Modal.Footer);
-        const buttons = modalFooter.find(Button);
+      describe('back button', () => {
+        function getBackButton(props) {
+          const hideReservationInfoModal = () => null;
+          const wrapper = getWrapper({ ...props, actions: { hideReservationInfoModal } });
+          const buttons = wrapper.find(Modal.Footer).find(Button);
+          return buttons.filter({ onClick: hideReservationInfoModal });
+        }
 
-        it('renders one button', () => {
-          expect(buttons.length).to.equal(1);
+        it('is rendered if user is a regular user', () => {
+          const button = getBackButton({ isAdmin: false });
+          expect(button).to.have.length(1);
         });
 
-        describe('the first button', () => {
-          makeButtonTests(
-            buttons.at(0),
-            'back',
-            'common.back',
-            defaultProps.actions.hideReservationInfoModal
-          );
-        });
-      });
-
-      describe('if user is a regular user', () => {
-        const isAdmin = false;
-        const wrapper = getWrapper({ isAdmin });
-        const modalFooter = wrapper.find(Modal.Footer);
-        const buttons = modalFooter.find(Button);
-
-        it('renders one button', () => {
-          expect(buttons.length).to.equal(1);
-        });
-
-        describe('the button', () => {
-          makeButtonTests(
-            buttons.at(0),
-            'back',
-            'common.back',
-            defaultProps.actions.hideReservationInfoModal
-          );
+        it('is rendered if user is an admin', () => {
+          const button = getBackButton({ isAdmin: true });
+          expect(button).to.have.length(1);
         });
       });
+
+      describe('confirm button', () => {
+        function getConfirmButton(props) {
+          const confirmPreliminaryReservation = () => null;
+          const wrapper = getWrapper({ ...props, actions: { confirmPreliminaryReservation } });
+          const onClick = wrapper.instance().handleConfirmClick;
+          return wrapper.find(Modal.Footer).find(Button).filter({ onClick });
+        }
+
+        it('is not rendered if user is not a staff member', () => {
+          const props = {
+            isStaff: false,
+            reservationIsEditable: true,
+            reservation: { ...reservation, state: 'requested' },
+          };
+          expect(getConfirmButton(props)).to.have.length(0);
+        });
+
+        it('is not rendered if reservation is not editable', () => {
+          const props = {
+            isStaff: true,
+            reservationIsEditable: false,
+            reservation: { ...reservation, state: 'requested' },
+          };
+          expect(getConfirmButton(props)).to.have.length(0);
+        });
+
+        it('is not rendered if reservation state is not "requested"', () => {
+          const props = {
+            isStaff: true,
+            reservationIsEditable: true,
+            reservation: { ...reservation, state: 'confirmed' },
+          };
+          expect(getConfirmButton(props)).to.have.length(0);
+        });
+
+        it('is rendered if user is staff, reservation is editable and in "requested" state', () => {
+          const props = {
+            isStaff: true,
+            reservationIsEditable: true,
+            reservation: { ...reservation, state: 'requested' },
+          };
+          expect(getConfirmButton(props)).to.have.length(1);
+        });
+      });
+    });
+  });
+
+  describe('handleConfirmClick', () => {
+    it('calls confirmPreliminaryReservation with props.reservation', () => {
+      const confirmPreliminaryReservation = simple.mock();
+      const instance = getWrapper({ actions: { confirmPreliminaryReservation } }).instance();
+      instance.handleConfirmClick();
+      expect(confirmPreliminaryReservation.callCount).to.equal(1);
+      expect(confirmPreliminaryReservation.lastCall.args).to.deep.equal([reservation]);
     });
   });
 

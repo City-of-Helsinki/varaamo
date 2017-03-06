@@ -127,6 +127,7 @@
   "ReservationInfo.maxNumberOfReservations": "Maksimimäärä varauksia per käyttäjä: {maxReservationsPerUser}",
   "ReservationInfo.reservationMaxLength": "Varauksen maksimipituus: {asHours} tuntia",
   "ReservationInfoModal.accessCode": "PIN-koodi",
+  "ReservationInfoModal.confirmButton": "Hyväksy tapahtuma",
   "ReservationInfoModal.reservationTime": "Varauksen ajankohta",
   "ReservationInfoModal.resource": "Tila",
   "ReservationInfoModal.saveComment": "Tallenna kommentti",

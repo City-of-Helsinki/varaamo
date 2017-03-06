@@ -14,6 +14,19 @@ describe('state/reducers/ui/reservationInfoModalReducer', () => {
     expect(actual).to.deep.equal(initialState);
   });
 
+  describe('RESERVATION_PUT_SUCCESS', () => {
+    const reservation = { id: 'r-1', foo: 'bar' };
+    const action = {
+      type: 'RESERVATION_PUT_SUCCESS',
+      payload: reservation,
+    };
+
+    it('sets payload as reservation', () => {
+      const actual = reducer(Immutable({ reservation: { id: 'r-1', foo: 'old value' } }), action);
+      expect(actual.reservation).to.deep.equal(reservation);
+    });
+  });
+
   describe('SHOW_RESERVATION_INFO_MODAL', () => {
     const reservation = { id: 'r-1', foo: 'bar' };
     const action = {

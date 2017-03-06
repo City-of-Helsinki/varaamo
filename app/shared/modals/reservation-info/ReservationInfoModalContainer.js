@@ -9,7 +9,9 @@ import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { commentReservation } from 'actions/reservationActions';
+import {
+  commentReservation, confirmPreliminaryReservation,
+} from 'actions/reservationActions';
 import { hideReservationInfoModal } from 'actions/uiActions';
 import ReservationStateLabel from 'shared/reservation-state-label';
 import TimeRange from 'shared/time-range';
@@ -19,6 +21,7 @@ import reservationInfoModalSelector from './reservationInfoModalSelector';
 class UnconnectedReservationInfoModalContainer extends Component {
   constructor(props) {
     super(props);
+    this.handleConfirmClick = this.handleConfirmClick.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.renderAddressRow = this.renderAddressRow.bind(this);
     this.renderInfoRow = this.renderInfoRow.bind(this);
@@ -30,6 +33,10 @@ class UnconnectedReservationInfoModalContainer extends Component {
       return `${street}, ${ending}`;
     }
     return `${street} ${ending}`;
+  }
+
+  handleConfirmClick() {
+    this.props.actions.confirmPreliminaryReservation(this.props.reservation);
   }
 
   handleSave() {
@@ -157,6 +164,15 @@ class UnconnectedReservationInfoModalContainer extends Component {
           >
             {t('common.back')}
           </Button>
+          {isStaff && reservationIsEditable && reservation.state === 'requested' && (
+            <Button
+              bsStyle="success"
+              disabled={isEditingReservations}
+              onClick={this.handleConfirmClick}
+            >
+              {isEditingReservations ? t('common.saving') : t('ReservationInfoModal.confirmButton')}
+            </Button>
+          )}
         </Modal.Footer>
       </Modal>
     );
@@ -180,6 +196,7 @@ UnconnectedReservationInfoModalContainer = injectT(UnconnectedReservationInfoMod
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
     commentReservation,
+    confirmPreliminaryReservation,
     hideReservationInfoModal,
   };
 
