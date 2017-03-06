@@ -10,6 +10,12 @@ const initialState = Immutable({
 function reservationInfoModalReducer(state = initialState, action) {
   switch (action.type) {
 
+    case types.API.RESERVATION_PUT_SUCCESS: {
+      return state.merge({
+        reservation: action.payload,
+      });
+    }
+
     case types.UI.SHOW_RESERVATION_INFO_MODAL: {
       return state.merge({
         reservation: action.payload,
