@@ -130,6 +130,7 @@
   "ReservationInfoModal.address": "Adress",
   "ReservationInfoModal.billingAddress": "Faktureringsadress",
   "ReservationInfoModal.confirmButton": "Confirm reservation",
+  "ReservationInfoModal.denyButton": "Deny reservation",
   "ReservationInfoModal.phoneNumber": "Telefonnummer",
   "ReservationInfoModal.reservationTime": "Tidpunkt för bokning",
   "ReservationInfoModal.resource": "Utrymme",
