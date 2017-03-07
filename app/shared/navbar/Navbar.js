@@ -12,6 +12,11 @@ import Logo from 'shared/logo';
 import { injectT } from 'i18n';
 import { getSearchPageUrl } from 'utils/searchUtils';
 
+export function handleLoginClick() {
+  const next = encodeURIComponent(window.location.href);
+  window.location.replace(`${window.location.origin}/login?next=${next}`);
+}
+
 function Navbar(props) {
   const {
     changeLocale,
@@ -19,7 +24,6 @@ function Navbar(props) {
     currentLanguage,
     isAdmin,
     isLoggedIn,
-    login,
     t,
     userName,
   } = props;
@@ -67,7 +71,7 @@ function Navbar(props) {
             </NavDropdown>
           )}
           {!isLoggedIn && (
-            <NavItem onClick={login}>
+            <NavItem onClick={handleLoginClick}>
               {t('Navbar.login')}
             </NavItem>
           )}
@@ -88,7 +92,6 @@ Navbar.propTypes = {
   changeLocale: PropTypes.func.isRequired,
   clearSearchResults: PropTypes.func.isRequired,
   currentLanguage: PropTypes.string.isRequired,
-  login: PropTypes.func.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,

@@ -8,7 +8,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import Logo from 'shared/logo';
 import { getSearchPageUrl } from 'utils/searchUtils';
 import { shallowWithIntl } from 'utils/testUtils';
-import Navbar from './Navbar';
+import Navbar, { handleLoginClick } from './Navbar';
 
 describe('shared/navbar/Navbar', () => {
   function getWrapper(props) {
@@ -18,7 +18,6 @@ describe('shared/navbar/Navbar', () => {
       currentLanguage: 'fi',
       isAdmin: false,
       isLoggedIn: false,
-      login: () => null,
       userName: 'Luke Skywalker',
     };
     return shallowWithIntl(<Navbar {...defaults} {...props} />);
@@ -66,7 +65,6 @@ describe('shared/navbar/Navbar', () => {
     const props = {
       isAdmin: false,
       isLoggedIn: true,
-      login: () => null,
       userName: 'Luke',
     };
     function getLoggedInNotAdminWrapper() {
@@ -102,7 +100,8 @@ describe('shared/navbar/Navbar', () => {
     });
 
     it('does not render a link to login page', () => {
-      const loginLink = getLoggedInNotAdminWrapper().find(NavItem).filter({ onClick: props.login });
+      const loginLink = getLoggedInNotAdminWrapper()
+        .find(NavItem).filter({ onClick: handleLoginClick });
       expect(loginLink).to.have.length(0);
     });
   });
@@ -127,7 +126,6 @@ describe('shared/navbar/Navbar', () => {
     const props = {
       isAdmin: false,
       isLoggedIn: false,
-      login: () => null,
     };
     function getNotLoggedInWrapper() {
       return getWrapper(props);
@@ -139,7 +137,8 @@ describe('shared/navbar/Navbar', () => {
     });
 
     it('renders a link to login page', () => {
-      const loginLink = getNotLoggedInWrapper().find(NavItem).filter({ onClick: props.login });
+      const loginLink = getNotLoggedInWrapper()
+        .find(NavItem).filter({ onClick: handleLoginClick });
       expect(loginLink).to.have.length(1);
     });
 

@@ -28,18 +28,25 @@ router.get('/auth', nocache(), (req, res) => {
   res.json(getAuthState(req));
 });
 
-router.get('/login', passport.authenticate('helsinki'));
+router.get('/login',
+  (req, res, next) => {
+    req.session.next = req.query.next; // eslint-disable-line no-param-reassign
+    next();
+  },
+  passport.authenticate('helsinki')
+);
 
 router.get('/login/helsinki/return',
-  passport.authenticate(
-    'helsinki',
-    { failureRedirect: '/login' }
-  ),
+  passport.authenticate('helsinki', { failureRedirect: '/login' }),
   (req, res) => {
-    const js = '(function() {if(window.opener) { window.close(); } else { location.href = "/"; } }());';
-    res.send(`<html><body>Login successful<script>${js}</script>`);
-  }
-);
+    if (req.session.next) {
+      const redirectUrl = req.session.next;
+      req.session.next = null; // eslint-disable-line no-param-reassign
+      res.redirect(redirectUrl);
+    } else {
+      res.redirect('/');
+    }
+  });
 
 router.get('/logout', (req, res) => {
   req.logOut();
