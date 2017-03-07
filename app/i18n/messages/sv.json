@@ -129,6 +129,7 @@
   "ReservationInfoModal.accessCode": "PIN-kod",
   "ReservationInfoModal.address": "Adress",
   "ReservationInfoModal.billingAddress": "Faktureringsadress",
+  "ReservationInfoModal.cancelButton": "Cancel event",
   "ReservationInfoModal.confirmButton": "Confirm reservation",
   "ReservationInfoModal.denyButton": "Deny reservation",
   "ReservationInfoModal.phoneNumber": "Telefonnummer",

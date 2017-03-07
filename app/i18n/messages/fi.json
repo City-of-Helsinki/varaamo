@@ -127,6 +127,7 @@
   "ReservationInfo.maxNumberOfReservations": "Maksimimäärä varauksia per käyttäjä: {maxReservationsPerUser}",
   "ReservationInfo.reservationMaxLength": "Varauksen maksimipituus: {asHours} tuntia",
   "ReservationInfoModal.accessCode": "PIN-koodi",
+  "ReservationInfoModal.cancelButton": "Peru tapahtuma",
   "ReservationInfoModal.confirmButton": "Hyväksy tapahtuma",
   "ReservationInfoModal.denyButton": "Hylkää tapahtuma",
   "ReservationInfoModal.reservationTime": "Varauksen ajankohta",

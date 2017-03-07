@@ -38,6 +38,8 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
       commentReservation: simple.stub(),
       confirmPreliminaryReservation: () => null,
       hideReservationInfoModal: simple.stub(),
+      openReservationCancelModal: () => null,
+      selectReservationToCancel: () => null,
     },
     isAdmin: false,
     isEditingReservations: false,
@@ -352,6 +354,93 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
           expect(getConfirmButton(props)).to.have.length(1);
         });
       });
+
+      describe('cancel button', () => {
+        function getCancelButton(props) {
+          const wrapper = getWrapper({ ...props });
+          const onClick = wrapper.instance().handleCancelClick;
+          return wrapper.find(Modal.Footer).find(Button).filter({ onClick });
+        }
+
+        describe('if reservation is not editable', () => {
+          const reservationIsEditable = false;
+
+          it('is not rendered', () => {
+            const props = {
+              reservationIsEditable,
+              reservation: { ...reservation, state: 'confirmed' },
+            };
+            expect(getCancelButton(props)).to.have.length(0);
+          });
+        });
+
+        describe('if reservation is editable', () => {
+          const reservationIsEditable = true;
+
+          it('is rendered if reservation state is "confirmed"', () => {
+            const props = {
+              reservationIsEditable,
+              reservation: { ...reservation, state: 'confirmed' },
+            };
+            expect(getCancelButton(props)).to.have.length(1);
+          });
+
+          it('is rendered for regular users if reservation state is "requested"', () => {
+            const props = {
+              isAdmin: false,
+              reservationIsEditable,
+              reservation: { ...reservation, state: 'requested' },
+            };
+            expect(getCancelButton(props)).to.have.length(1);
+          });
+
+          it('is not rendered for admins if reservation state is "requested"', () => {
+            const props = {
+              isAdmin: true,
+              reservationIsEditable,
+              reservation: { ...reservation, state: 'requested' },
+            };
+            expect(getCancelButton(props)).to.have.length(0);
+          });
+
+          it('is not rendered if reservation state is "cancelled"', () => {
+            const props = {
+              reservationIsEditable,
+              reservation: { ...reservation, state: 'cancelled' },
+            };
+            expect(getCancelButton(props)).to.have.length(0);
+          });
+
+          it('is not rendered if reservation state is "denied"', () => {
+            const props = {
+              reservationIsEditable,
+              reservation: { ...reservation, state: 'denied' },
+            };
+            expect(getCancelButton(props)).to.have.length(0);
+          });
+        });
+      });
+    });
+  });
+
+  describe('handleCancelClick', () => {
+    function callHandleCancelClick(extraActions) {
+      const actions = { ...defaultProps.actions, ...extraActions };
+      const instance = getWrapper({ actions }).instance();
+      instance.handleCancelClick();
+    }
+
+    it('calls props.actions.selectReservationToCancel with props.reservation', () => {
+      const selectReservationToCancel = simple.mock();
+      callHandleCancelClick({ selectReservationToCancel });
+      expect(selectReservationToCancel.callCount).to.equal(1);
+      expect(selectReservationToCancel.lastCall.args).to.deep.equal([reservation]);
+    });
+
+    it('calls the props.actions.openReservationCancelModal', () => {
+      const openReservationCancelModal = simple.mock();
+      callHandleCancelClick({ openReservationCancelModal });
+      expect(openReservationCancelModal.callCount).to.equal(1);
     });
   });
 
