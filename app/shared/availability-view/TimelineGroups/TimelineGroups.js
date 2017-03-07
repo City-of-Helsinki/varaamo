@@ -16,7 +16,7 @@ function scrollToInitial(element) {
   }
 }
 
-const scrollStickies = (function () {
+const scrollStickies = (function () { // eslint-disable-line func-names
   function scroll(scrollContainer) {
     const stickies = scrollContainer.querySelectorAll('.sticky');
     stickies.forEach((sticky) => {
