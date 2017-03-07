@@ -14,7 +14,7 @@ import { getSearchPageUrl } from 'utils/searchUtils';
 
 export function handleLoginClick() {
   const next = encodeURIComponent(window.location.href);
-  window.location.replace(`${window.location.origin}/login?next=${next}`);
+  window.location.assign(`${window.location.origin}/login?next=${next}`);
 }
 
 function Navbar(props) {
