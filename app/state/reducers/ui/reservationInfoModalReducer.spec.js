@@ -14,6 +14,15 @@ describe('state/reducers/ui/reservationInfoModalReducer', () => {
     expect(actual).to.deep.equal(initialState);
   });
 
+  describe('RESERVATION_DELETE_SUCCESS', () => {
+    it('resets state', () => {
+      const actual = reducer({ show: true, reservation: {} }, {
+        type: 'RESERVATION_DELETE_SUCCESS',
+      });
+      expect(actual).to.deep.equal(initialState);
+    });
+  });
+
   describe('RESERVATION_PUT_SUCCESS', () => {
     const reservation = { id: 'r-1', foo: 'bar' };
     const action = {

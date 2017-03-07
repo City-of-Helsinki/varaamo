@@ -12,7 +12,10 @@ import { bindActionCreators } from 'redux';
 import {
   commentReservation, confirmPreliminaryReservation, denyPreliminaryReservation,
 } from 'actions/reservationActions';
-import { hideReservationInfoModal } from 'actions/uiActions';
+import {
+  hideReservationInfoModal, openReservationCancelModal, selectReservationToCancel,
+} from 'actions/uiActions';
+import ReservationCancelModal from 'shared/modals/reservation-cancel';
 import ReservationStateLabel from 'shared/reservation-state-label';
 import TimeRange from 'shared/time-range';
 import { injectT } from 'i18n';
@@ -21,6 +24,7 @@ import reservationInfoModalSelector from './reservationInfoModalSelector';
 class UnconnectedReservationInfoModalContainer extends Component {
   constructor(props) {
     super(props);
+    this.handleCancelClick = this.handleCancelClick.bind(this);
     this.handleConfirmClick = this.handleConfirmClick.bind(this);
     this.handleDenyClick = this.handleDenyClick.bind(this);
     this.handleSave = this.handleSave.bind(this);
@@ -34,6 +38,12 @@ class UnconnectedReservationInfoModalContainer extends Component {
       return `${street}, ${ending}`;
     }
     return `${street} ${ending}`;
+  }
+
+  handleCancelClick() {
+    const { actions, reservation } = this.props;
+    actions.selectReservationToCancel(reservation);
+    actions.openReservationCancelModal();
   }
 
   handleConfirmClick() {
@@ -94,6 +104,11 @@ class UnconnectedReservationInfoModalContainer extends Component {
       show,
       t,
     } = this.props;
+
+    const showCancelButton = reservationIsEditable && (
+      reservation.state === 'confirmed' ||
+      (reservation.state === 'requested' && !isAdmin)
+    );
 
     return (
       <Modal
@@ -187,7 +202,17 @@ class UnconnectedReservationInfoModalContainer extends Component {
               {t('ReservationInfoModal.confirmButton')}
             </Button>
           )}
+          {showCancelButton && (
+            <Button
+              bsStyle="danger"
+              disabled={isEditingReservations}
+              onClick={this.handleCancelClick}
+            >
+              {t('ReservationInfoModal.cancelButton')}
+            </Button>
+          )}
         </Modal.Footer>
+        <ReservationCancelModal />
       </Modal>
     );
   }
@@ -213,6 +238,8 @@ function mapDispatchToProps(dispatch) {
     confirmPreliminaryReservation,
     denyPreliminaryReservation,
     hideReservationInfoModal,
+    openReservationCancelModal,
+    selectReservationToCancel,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
