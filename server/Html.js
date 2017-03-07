@@ -71,6 +71,7 @@ class Html extends Component {
         <body>
           <div id="root" />
           <script dangerouslySetInnerHTML={{ __html: initialStateHtml }} />
+          <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en-gb,Intl.~locale.fi,Intl.~locale.sv" />
           <script src={appScriptSrc} />
           {this.renderAnalyticsCode(piwikSiteId)}
         </body>
