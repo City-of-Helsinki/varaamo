@@ -18,7 +18,7 @@ function scrollToInitial(element) {
 
 const scrollStickies = (function () {
   function scroll(scrollContainer) {
-    const stickies = scrollContainer.querySelectorAll('.sticky');
+    const stickies = Array.from(scrollContainer.querySelectorAll('.sticky'));
     stickies.forEach((sticky) => {
       sticky.scrollLeft = scrollContainer.scrollLeft; // eslint-disable-line no-param-reassign
     });
