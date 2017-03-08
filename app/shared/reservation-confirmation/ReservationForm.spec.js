@@ -129,75 +129,64 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
     });
 
     describe('form fields', () => {
-      describe('fields included in PRELIMINARY_RESERVATION_FORM_FIELDS', () => {
-        it('renders a field if it is included in props.fields', () => {
-          const fields = [constants.PRELIMINARY_RESERVATION_FORM_FIELDS[0]];
-          const input = getWrapper({ fields }).find(Field);
-          expect(input.length).to.equal(1);
+      const fieldName = 'reserverName';
+
+      it('renders a field if it is included in props.fields', () => {
+        const fields = [fieldName];
+        const input = getWrapper({ fields }).find(Field);
+        expect(input.length).to.equal(1);
+      });
+
+      it('does not render a field if it is not included in props.fields', () => {
+        const fields = [];
+        const input = getWrapper({ fields }).find(Field);
+        expect(input.length).to.equal(0);
+      });
+
+      describe('required fields', () => {
+        it('displays an asterisk beside a required field label', () => {
+          const props = {
+            fields: [fieldName],
+            requiredFields: [fieldName],
+          };
+          const input = getWrapper(props).find(Field);
+          expect(input.props().label).to.contain('*');
         });
 
-        it('does not render a field if it is not included in props.fields', () => {
-          const fields = [];
-          const input = getWrapper({ fields }).find(Field);
-          expect(input.length).to.equal(0);
+        it('does not display an asterisk beside a non required field label', () => {
+          const props = {
+            fields: [fieldName],
+            requiredFields: [],
+          };
+          const input = getWrapper(props).find(Field);
+          expect(input.props().label).to.not.contain('*');
         });
 
-        describe('required fields', () => {
-          it('displays an asterisk beside a required field label', () => {
-            const fieldName = constants.PRELIMINARY_RESERVATION_FORM_FIELDS[0];
+        describe('if staffEvent checkbox is checked', () => {
+          const staffEventSelected = true;
+
+          it('shows an asterisk beside REQUIRED_STAFF_EVENT_FIELDS', () => {
+            const fields = [fieldName];
             const props = {
-              fields: [fieldName],
+              fields,
               requiredFields: [fieldName],
+              staffEventSelected,
             };
             const input = getWrapper(props).find(Field);
             expect(input.props().label).to.contain('*');
           });
 
-          it('does not display an asterisk beside a non required field label', () => {
-            const fieldName = constants.PRELIMINARY_RESERVATION_FORM_FIELDS[0];
+          it('does not show an asterisk beside non REQUIRED_STAFF_EVENT_FIELDS', () => {
+            const nonRequiredFieldName = 'reserverEmailAddress';
+            const fields = [nonRequiredFieldName];
             const props = {
-              fields: [fieldName],
-              requiredFields: [],
+              fields,
+              requiredFields: [nonRequiredFieldName],
+              staffEventSelected,
             };
             const input = getWrapper(props).find(Field);
             expect(input.props().label).to.not.contain('*');
           });
-
-          describe('if staffEvent checkbox is checked', () => {
-            const staffEventSelected = true;
-
-            it('shows an asterisk beside REQUIRED_STAFF_EVENT_FIELDS', () => {
-              const fieldName = constants.REQUIRED_STAFF_EVENT_FIELDS[0];
-              const fields = [fieldName];
-              const props = {
-                fields,
-                requiredFields: [fieldName],
-                staffEventSelected,
-              };
-              const input = getWrapper(props).find(Field);
-              expect(input.props().label).to.contain('*');
-            });
-
-            it('does not show an asterisk beside non REQUIRED_STAFF_EVENT_FIELDS', () => {
-              const fieldName = constants.PRELIMINARY_RESERVATION_FORM_FIELDS[1];
-              const fields = [fieldName];
-              const props = {
-                fields,
-                requiredFields: [fieldName],
-                staffEventSelected,
-              };
-              const input = getWrapper(props).find(Field);
-              expect(input.props().label).to.not.contain('*');
-            });
-          });
-        });
-      });
-
-      describe('fields not included in PRELIMINARY_RESERVATION_FORM_FIELDS', () => {
-        it('does not render a field even if it is included in props.fields', () => {
-          const fields = ['someOtherField'];
-          const input = getWrapper({ fields }).find(Field);
-          expect(input.length).to.equal(0);
         });
       });
     });

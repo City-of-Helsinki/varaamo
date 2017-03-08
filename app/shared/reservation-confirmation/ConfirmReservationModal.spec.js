@@ -5,7 +5,6 @@ import Modal from 'react-bootstrap/lib/Modal';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import constants from 'constants/AppConstants';
 import CompactReservationList from 'shared/compact-reservation-list';
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
@@ -124,176 +123,64 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
     });
   });
 
-  describe('ReservationForm', () => {
-    const termsAndConditions = 'Some terms and conditions';
-    function getForm(needManualConfirmation = false, isAdmin = false, isStaff = false) {
-      const resource = Resource.build({
-        genericTerms: termsAndConditions,
-        needManualConfirmation,
-        userPermissions: { isAdmin },
-      });
-      const props = { isAdmin, isStaff, resource };
-      return getWrapper(props).find(ReservationForm);
+  describe('ReservationForm fields', () => {
+    function getFormFields(props) {
+      return getWrapper(props).find(ReservationForm).props().fields;
     }
 
-    describe('if resource needs manual confirmation', () => {
-      const needManualConfirmation = true;
-      describe('if user is admin and staff', () => {
-        const isAdmin = true;
-        const isStaff = true;
-        const form = getForm(needManualConfirmation, isAdmin, isStaff);
-        const formFields = form.props().fields;
-
-        it('form fields include staffEvent', () => {
-          expect(formFields).to.contain('staffEvent');
-        });
-
-        it('form fields do not include eventSubject', () => {
-          expect(formFields).to.not.contain('eventSubject');
-        });
-
-        it('form fields include comments', () => {
-          expect(formFields).to.contain('comments');
-        });
-
-        it('form fields include PRELIMINARY_RESERVATION_FORM_FIELDS', () => {
-          forEach(constants.PRELIMINARY_RESERVATION_FORM_FIELDS, (field) => {
-            expect(formFields).to.contain(field);
-          });
-        });
-      });
-
-      describe('if user is an admin', () => {
-        const isAdmin = true;
-        const isStaff = false;
-        const form = getForm(needManualConfirmation, isAdmin, isStaff);
-        const formFields = form.props().fields;
-
-        it('form fields do not include staffEvent', () => {
-          expect(formFields).to.not.contain('staffEvent');
-        });
-
-        it('form fields include comments', () => {
-          expect(formFields).to.contain('comments');
-        });
-
-        it('form fields do not include eventSubject', () => {
-          expect(formFields).to.not.contain('eventSubject');
-        });
-
-        it('form fields include PRELIMINARY_RESERVATION_FORM_FIELDS', () => {
-          forEach(constants.PRELIMINARY_RESERVATION_FORM_FIELDS, (field) => {
-            expect(formFields).to.contain(field);
-          });
-        });
-
-        it('form fields does not include termsAndConditions', () => {
-          expect(formFields).to.not.contain('termsAndConditions');
-        });
-
-        it('form termsAndConditions is an empty string', () => {
-          expect(form.prop('termsAndConditions')).to.equal('');
-        });
-      });
-
-      describe('if user is a regular user', () => {
-        const isAdmin = false;
-        const isStaff = false;
-        const form = getForm(needManualConfirmation, isAdmin, isStaff);
-        const formFields = form.props().fields;
-
-        it('form fields do not include staffEvent', () => {
-          expect(formFields).to.not.contain('staffEvent');
-        });
-
-        it('form fields do not include comments', () => {
-          expect(formFields).to.not.contain('comments');
-        });
-
-        it('form fields do not include eventSubject', () => {
-          expect(formFields).to.not.contain('eventSubject');
-        });
-
-        it('form fields include PRELIMINARY_RESERVATION_FORM_FIELDS', () => {
-          forEach(constants.PRELIMINARY_RESERVATION_FORM_FIELDS, (field) => {
-            expect(formFields).to.contain(field);
-          });
-        });
-
-        it('form fields include termsAndConditions', () => {
-          expect(formFields).to.contain('termsAndConditions');
-        });
-
-        it('form props contain termsAndConditions', () => {
-          expect(form.prop('termsAndConditions')).to.equal(termsAndConditions);
-        });
+    it('contain resource.supportedReservationExtraFields', () => {
+      const supportedReservationExtraFields = ['firstField', 'secondField'];
+      const resource = Resource.build({ supportedReservationExtraFields });
+      forEach(supportedReservationExtraFields, (field) => {
+        expect(getFormFields({ resource })).to.contain(field);
       });
     });
 
-    describe('if resource does not need manual confirmation', () => {
-      const needManualConfirmation = false;
-      describe('if user is an admin', () => {
-        const isAdmin = true;
-        const form = getForm(needManualConfirmation, isAdmin);
-        const formFields = form.props().fields;
-
-        it('form fields do not include staffEvent', () => {
-          expect(formFields).to.not.contain('staffEvent');
-        });
-
-        it('form fields include comments', () => {
-          expect(formFields).to.contain('comments');
-        });
-
-        it('form fields include eventSubject', () => {
-          expect(formFields).to.contain('eventSubject');
-        });
-
-        it('form fields do not include PRELIMINARY_RESERVATION_FORM_FIELDS', () => {
-          forEach(constants.PRELIMINARY_RESERVATION_FORM_FIELDS, (field) => {
-            expect(formFields).to.not.contain(field);
-          });
-        });
-
-        it('form fields does not include termsAndConditions', () => {
-          expect(formFields).to.not.contain('termsAndConditions');
-        });
-
-        it('form termsAndConditions is an empty string', () => {
-          expect(form.prop('termsAndConditions')).to.equal('');
-        });
+    describe('comments', () => {
+      it('is included if user is an admin', () => {
+        expect(getFormFields({ isAdmin: true })).to.contain('comments');
       });
 
-      describe('if user is a regular user', () => {
-        const isAdmin = false;
-        const form = getForm(needManualConfirmation, isAdmin);
-        const formFields = form.props().fields;
+      it('is not included if user is not an admin', () => {
+        expect(getFormFields({ isAdmin: false })).to.not.contain('comments');
+      });
+    });
 
-        it('form fields do not include staffEvent', () => {
-          expect(formFields).to.not.contain('staffEvent');
-        });
+    describe('staffEvent', () => {
+      it('is not included if resource does not need manual confirmation', () => {
+        const props = {
+          isStaff: true,
+          resource: Resource.build({ needManualConfirmation: false }),
+        };
+        expect(getFormFields(props)).to.not.contain('staffEvent');
+      });
 
-        it('form fields do not include comments', () => {
-          expect(formFields).to.not.contain('comments');
-        });
+      it('is not included if user is not staff', () => {
+        const props = {
+          isStaff: false,
+          resource: Resource.build({ needManualConfirmation: true }),
+        };
+        expect(getFormFields(props)).to.not.contain('staffEvent');
+      });
 
-        it('form fields include eventSubject', () => {
-          expect(formFields).to.contain('eventSubject');
-        });
+      it('is included if user is staff and resource need manual confirmation', () => {
+        const props = {
+          isStaff: true,
+          resource: Resource.build({ needManualConfirmation: true }),
+        };
+        expect(getFormFields(props)).to.contain('staffEvent');
+      });
+    });
 
-        it('form fields do not include PRELIMINARY_RESERVATION_FORM_FIELDS', () => {
-          forEach(constants.PRELIMINARY_RESERVATION_FORM_FIELDS, (field) => {
-            expect(formFields).to.not.contain(field);
-          });
-        });
+    describe('termsAndConditions', () => {
+      it('is included if resource contains terms', () => {
+        const resource = Resource.build({ genericTerms: 'Some terms' });
+        expect(getFormFields({ resource })).to.contain('termsAndConditions');
+      });
 
-        it('form fields include termsAndConditions', () => {
-          expect(formFields).to.contain('termsAndConditions');
-        });
-
-        it('form props contain termsAndConditions', () => {
-          expect(form.prop('termsAndConditions')).to.equal(termsAndConditions);
-        });
+      it('is not included if resource does not contain any terms', () => {
+        const resource = Resource.build({ genericTerms: null });
+        expect(getFormFields({ resource })).to.not.contain('termsAndConditions');
       });
     });
   });
