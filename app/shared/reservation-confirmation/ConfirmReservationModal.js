@@ -3,7 +3,6 @@ import camelCase from 'lodash/camelCase';
 import React, { Component, PropTypes } from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 
-import constants from 'constants/AppConstants';
 import CompactReservationList from 'shared/compact-reservation-list';
 import { injectT } from 'i18n';
 import { isStaffEvent } from 'utils/reservationUtils';
@@ -31,13 +30,7 @@ class ConfirmReservationModal extends Component {
       isStaff,
       resource,
     } = this.props;
-    const formFields = [];
-
-    if (resource.needManualConfirmation) {
-      formFields.push(...constants.PRELIMINARY_RESERVATION_FORM_FIELDS);
-    } else {
-      formFields.push(...constants.REGULAR_RESERVATION_FORM_FIELDS);
-    }
+    const formFields = [...resource.supportedReservationExtraFields].map(value => camelCase(value));
 
     if (isAdmin) {
       formFields.push('comments');

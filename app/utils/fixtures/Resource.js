@@ -8,7 +8,8 @@ const Resource = new Factory()
   .attr('needManualConfirmation', false)
   .attr('reservable', true)
   .attr('userPermissions', { isAdmin: false, canMakeReservations: true })
-  .attr('requiredReservationExtraFields', []);
+  .attr('requiredReservationExtraFields', [])
+  .attr('supportedReservationExtraFields', []);
 
 export const openingHours = [
   {
