@@ -97,15 +97,15 @@ class UnconnectedReservationEditForm extends Component {
         {this.renderStaticInfoRow('reserverName')}
         {this.renderEditableInfoRow('eventDescription', 'textarea')}
         {this.renderEditableInfoRow('numberOfParticipants', 'number')}
-        {this.renderInfoRow(t('ReservationInfoModal.reservationTime'), reservationTime)}
-        {this.renderInfoRow(t('ReservationInfoModal.resource'), resource.name)}
+        {this.renderInfoRow(t('common.reservationTimeLabel'), reservationTime)}
+        {this.renderInfoRow(t('common.resourceLabel'), resource.name)}
 
         {isStaff && this.renderStaticInfoRow('reserverId')}
         {this.renderStaticInfoRow('reserverPhoneNumber')}
         {this.renderStaticInfoRow('reserverEmailAddress')}
         {this.renderAddressRow('reserverAddress')}
         {this.renderAddressRow('billingAddress')}
-        {this.renderInfoRow(t('ReservationInfoModal.accessCode'), reservation.accessCode)}
+        {this.renderStaticInfoRow('accessCode')}
         {showComments && this.renderStaticInfoRow('comments')}
       </Form>
     );

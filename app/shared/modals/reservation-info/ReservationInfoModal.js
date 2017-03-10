@@ -7,62 +7,20 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Modal from 'react-bootstrap/lib/Modal';
 import { findDOMNode } from 'react-dom';
 
+import { injectT } from 'i18n';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
 import ReservationStateLabel from 'shared/reservation-state-label';
-import TimeRange from 'shared/time-range';
-import { injectT } from 'i18n';
+import ReservationEditForm from './ReservationEditForm';
 
 class ReservationInfoModal extends Component {
   constructor(props) {
     super(props);
     this.handleSaveCommentsClick = this.handleSaveCommentsClick.bind(this);
-    this.renderAddressRow = this.renderAddressRow.bind(this);
-    this.renderInfoRow = this.renderInfoRow.bind(this);
-  }
-
-  getAddress(street, zip, city) {
-    const ending = `${zip} ${city}`;
-    if (street && (zip || city)) {
-      return `${street}, ${ending}`;
-    }
-    return `${street} ${ending}`;
   }
 
   handleSaveCommentsClick() {
     const comments = findDOMNode(this.refs.commentsInput).value;
     this.props.onSaveCommentsClick(comments);
-  }
-
-  renderAddressRow(addressType) {
-    const { reservation, t } = this.props;
-    const hasAddress = (
-      reservation.reserverAddressStreet || reservation.reserverAddressStreet === ''
-    );
-    if (!hasAddress) return null;
-    return (
-      <span>
-        <dt>{t(`common.${addressType}Label`)}:</dt>
-        <dd>
-          {this.getAddress(
-            reservation[`${addressType}Street`],
-            reservation[`${addressType}Zip`],
-            reservation[`${addressType}City`]
-          )}
-        </dd>
-      </span>
-    );
-  }
-
-  renderInfoRow(propertyName) {
-    const { reservation, t } = this.props;
-    const property = reservation[propertyName];
-    if (!property && property !== '') return null;
-    return (
-      <span>
-        <dt>{t(`common.${propertyName}Label`)}:</dt>
-        <dd>{property}</dd>
-      </span>
-    );
   }
 
   render() {
@@ -100,34 +58,16 @@ class ReservationInfoModal extends Component {
           {!isEmpty(reservation) &&
             <div>
               <ReservationStateLabel reservation={reservation} />
-              <dl className="dl-horizontal">
-                {this.renderInfoRow('eventSubject')}
-                {this.renderInfoRow('reserverName')}
-                {isStaff && this.renderInfoRow('reserverId')}
-                {this.renderInfoRow('reserverPhoneNumber')}
-                {this.renderInfoRow('reserverEmailAddress')}
-                {this.renderInfoRow('eventDescription')}
-                {this.renderInfoRow('numberOfParticipants')}
-                {this.renderAddressRow('reserverAddress')}
-                {this.renderAddressRow('billingAddress')}
-                <dt>{t('ReservationInfoModal.reservationTime')}:</dt>
-                <dd><TimeRange begin={reservation.begin} end={reservation.end} /></dd>
-                <dt>{t('ReservationInfoModal.resource')}:</dt><dd>{resource.name}</dd>
-                {reservation.accessCode && (
-                  <span>
-                    <dt>{t('ReservationInfoModal.accessCode')}:</dt>
-                    <dd>{reservation.accessCode}</dd>
-                  </span>
-                )}
-                {isAdmin && !reservationIsEditable && (
-                  <span>
-                    <dt>{t('common.commentsLabel')}:</dt>
-                    <dd>{reservation.comments}</dd>
-                  </span>
-                )}
-              </dl>
+              <ReservationEditForm
+                initialValues={reservation}
+                isEditing={false}
+                isStaff={isStaff}
+                reservation={reservation}
+                resource={resource}
+                showComments={isAdmin && !reservationIsEditable}
+              />
               {isAdmin && reservationIsEditable && (
-                <form>
+                <form className="comments-form">
                   <FormGroup controlId="commentsTextarea">
                     <ControlLabel>{t('common.commentsLabel')}:</ControlLabel>
                     <FormControl
