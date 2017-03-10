@@ -11,6 +11,7 @@ import ReservationStateLabel from 'shared/reservation-state-label';
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
 import { shallowWithIntl } from 'utils/testUtils';
+import ReservationEditForm from './ReservationEditForm';
 import ReservationInfoModal from './ReservationInfoModal';
 
 describe('shared/modals/reservation-info/ReservationInfoModal', () => {
@@ -87,155 +88,59 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
         expect(reservationStateLabel.length).to.equal(1);
       });
 
-      describe('reservation data', () => {
-        const dl = getWrapper().find('dl');
-        const dlText = dl.text();
-
-        it('renders a definition list', () => {
-          expect(dl.length).to.equal(1);
-        });
-
-        it('renders reservation.billingAddressCity', () => {
-          expect(dlText).to.contain(reservation.billingAddressCity);
-        });
-
-        it('renders reservation.billingAddressStreet', () => {
-          expect(dlText).to.contain(reservation.billingAddressStreet);
-        });
-
-        it('renders reservation.billingAddressZip', () => {
-          expect(dlText).to.contain(reservation.billingAddressZip);
-        });
-
-        describe('reserverId', () => {
-          describe('if user has staff rights', () => {
-            it('renders reservation.reserverId', () => {
-              const wrapper = getWrapper({ isStaff: true });
-              expect(wrapper.find('dl').text()).to.contain(reservation.reserverId);
-            });
-          });
-
-          describe('if user does not have staff rights', () => {
-            it('does not render reservation.reserverId', () => {
-              const wrapper = getWrapper({ isStaff: false });
-              expect(wrapper.find('dl').text()).to.not.contain(reservation.reserverId);
-            });
-          });
-        });
-
-        it('renders reservation.eventDescription', () => {
-          expect(dlText).to.contain(reservation.eventDescription);
-        });
-
-        it('renders reservation.numberOfParticipants', () => {
-          expect(dlText).to.contain(reservation.numberOfParticipants);
-        });
-
-        it('renders reservation.reserverAddressCity', () => {
-          expect(dlText).to.contain(reservation.reserverAddressCity);
-        });
-
-        it('renders reservation.reserverAddressStreet', () => {
-          expect(dlText).to.contain(reservation.reserverAddressStreet);
-        });
-
-        it('renders reservation.reserverAddressZip', () => {
-          expect(dlText).to.contain(reservation.reserverAddressZip);
-        });
-
-        it('renders reservation.reserverEmailAddress', () => {
-          expect(dlText).to.contain(reservation.reserverEmailAddress);
-        });
-
-        it('renders reservation.reserverName', () => {
-          expect(dlText).to.contain(reservation.reserverName);
-        });
-
-        it('renders reservation.reserverPhoneNumber', () => {
-          expect(dlText).to.contain(reservation.reserverPhoneNumber);
-        });
-
-        it('does not render reservation.comments', () => {
-          expect(dlText).to.not.contain(reservation.comments);
-        });
+      it('renders ReservationEditForm component', () => {
+        expect(getWrapper().find(ReservationEditForm)).to.have.length(1);
       });
 
-      describe('comments', () => {
-        describe('if user has admin rights', () => {
-          const isAdmin = true;
+      describe('comments form', () => {
+        function getCommentsForm(props) {
+          return getWrapper(props).find('.comments-form');
+        }
 
-          describe('if reservation is not editable', () => {
-            let wrapper;
+        describe('if user has admin rights but reservation is not editable', () => {
+          const props = {
+            isAdmin: true,
+            reservationIsEditable: false,
+          };
 
-            before(() => {
-              wrapper = getWrapper({
-                isAdmin,
-                reservationIsEditable: false,
-              });
-            });
+          it('is not rendered', () => {
+            expect(getCommentsForm(props)).to.have.length(0);
+          });
+        });
 
-            it('renders reservation comments as text', () => {
-              const reservationTexts = wrapper.find('dl').text();
-              expect(reservationTexts).to.contain(reservation.comments);
-            });
+        describe('if user has admin rights and reservation is editable', () => {
+          const props = {
+            isAdmin: true,
+            reservationIsEditable: true,
+          };
 
-            it('does not render FormControl for comments', () => {
-              const formControl = wrapper.find(FormControl);
-              expect(formControl.length).to.equal(0);
-            });
+          it('is rendered', () => {
+            expect(getCommentsForm(props)).to.have.length(1);
           });
 
-          describe('if reservation is editable', () => {
-            let formControl;
-            let wrapper;
+          it('renders textarea FormControl for comments with correct props', () => {
+            const formControl = getCommentsForm(props).find(FormControl);
+            expect(formControl).to.have.length(1);
+            expect(formControl.prop('componentClass')).to.equal('textarea');
+            expect(formControl.prop('defaultValue')).to.equal(reservation.comments);
+          });
 
-            before(() => {
-              wrapper = getWrapper({
-                isAdmin,
-                reservationIsEditable: true,
-              });
-              formControl = wrapper.find(FormControl);
-            });
-
-            it('renders textarea FormControl for comments', () => {
-              expect(formControl.length).to.equal(1);
-              expect(formControl.props().componentClass).to.equal('textarea');
-            });
-
-            it('the FormControl has reservation.comments as default value', () => {
-              expect(formControl.props().defaultValue).to.equal(reservation.comments);
-            });
-
-            it('does not render reservation comments as text', () => {
-              const reservationTexts = getWrapper().find('dl').text();
-              expect(reservationTexts).to.not.contain(reservation.comments);
-            });
-
-            it('renders a save button with correct onClick prop', () => {
-              const button = wrapper.find('.form-controls').find(Button);
-              const instance = wrapper.instance();
-              expect(button.props().children).to.equal('ReservationInfoModal.saveComment');
-              expect(button.props().onClick).to.equal(instance.handleSaveCommentsClick);
-            });
+          it('renders a save button with correct onClick prop', () => {
+            const wrapper = getWrapper(props);
+            const button = wrapper.find('.comments-form').find(Button);
+            const instance = wrapper.instance();
+            expect(button.props().children).to.equal('ReservationInfoModal.saveComment');
+            expect(button.props().onClick).to.equal(instance.handleSaveCommentsClick);
           });
         });
 
         describe('if user does not have admin rights', () => {
-          const isAdmin = false;
-          let wrapper;
+          const props = {
+            isAdmin: false,
+          };
 
-          before(() => {
-            wrapper = getWrapper({ isAdmin });
-          });
-
-          it('does not render FormControl for comments', () => {
-            const formControl = wrapper.find(FormControl);
-            expect(formControl.length).to.equal(0);
-          });
-
-          it('does not render reservation comments as text', () => {
-            const reservationTexts = getWrapper().find('dl').text();
-            expect(reservationTexts).to.not.contain(reservation.comments);
+          it('is not rendered', () => {
+            expect(getCommentsForm(props)).to.have.length(0);
           });
         });
       });
