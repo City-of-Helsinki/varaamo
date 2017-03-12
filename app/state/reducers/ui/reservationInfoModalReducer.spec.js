@@ -5,6 +5,7 @@ import reducer from './reservationInfoModalReducer';
 
 describe('state/reducers/ui/reservationInfoModalReducer', () => {
   const initialState = Immutable({
+    isEditing: false,
     reservation: null,
     show: false,
   });
@@ -34,6 +35,11 @@ describe('state/reducers/ui/reservationInfoModalReducer', () => {
       const actual = reducer(Immutable({ reservation: { id: 'r-1', foo: 'old value' } }), action);
       expect(actual.reservation).to.deep.equal(reservation);
     });
+
+    it('sets isEditing to false', () => {
+      const actual = reducer(Immutable({ isEditing: true }), action);
+      expect(actual.isEditing).to.be.false;
+    });
   });
 
   describe('SHOW_RESERVATION_INFO_MODAL', () => {
@@ -60,6 +66,31 @@ describe('state/reducers/ui/reservationInfoModalReducer', () => {
         type: 'HIDE_RESERVATION_INFO_MODAL',
       });
       expect(actual.show).to.be.false;
+    });
+
+    it('sets isEditing to false', () => {
+      const actual = reducer(Immutable({ isEditing: true }), {
+        type: 'HIDE_RESERVATION_INFO_MODAL',
+      });
+      expect(actual.isEditing).to.be.false;
+    });
+  });
+
+  describe('START_RESERVATION_EDIT_IN_INFO_MODAL', () => {
+    it('sets isEditing to true', () => {
+      const actual = reducer(Immutable({ isEditing: false }), {
+        type: 'START_RESERVATION_EDIT_IN_INFO_MODAL',
+      });
+      expect(actual.isEditing).to.be.true;
+    });
+  });
+
+  describe('CANCEL_RESERVATION_EDIT_IN_INFO_MODAL', () => {
+    it('sets isEditing to false', () => {
+      const actual = reducer(Immutable({ isEditing: true }), {
+        type: 'CANCEL_RESERVATION_EDIT_IN_INFO_MODAL',
+      });
+      expect(actual.isEditing).to.be.false;
     });
   });
 });

@@ -5,6 +5,10 @@ import ModalTypes from 'constants/ModalTypes';
 
 const cancelReservationEdit = createAction(types.UI.CANCEL_RESERVATION_EDIT);
 
+const cancelReservationEditInInfoModal = createAction(
+  types.UI.CANCEL_RESERVATION_EDIT_IN_INFO_MODAL
+);
+
 const changeAdminReservationFilters = createAction(types.UI.CHANGE_ADMIN_RESERVATIONS_FILTERS);
 
 const changeAdminResourcesPageDate = createAction(types.UI.CHANGE_ADMIN_RESOURCES_PAGE_DATE);
@@ -64,10 +68,13 @@ const selectReservationToShow = createAction(
 
 const showReservationInfoModal = createAction(types.UI.SHOW_RESERVATION_INFO_MODAL);
 
+const startReservationEditInInfoModal = createAction(types.UI.START_RESERVATION_EDIT_IN_INFO_MODAL);
+
 const toggleTimeSlot = createAction(types.UI.TOGGLE_TIME_SLOT);
 
 export {
   cancelReservationEdit,
+  cancelReservationEditInInfoModal,
   changeAdminReservationFilters,
   changeAdminResourcesPageDate,
   changeSearchFilters,
@@ -84,5 +91,6 @@ export {
   selectReservationToEdit,
   selectReservationToShow,
   showReservationInfoModal,
+  startReservationEditInInfoModal,
   toggleTimeSlot,
 };
