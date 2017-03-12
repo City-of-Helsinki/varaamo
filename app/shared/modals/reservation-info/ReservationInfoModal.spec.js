@@ -35,7 +35,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
   const defaultProps = {
     hideReservationInfoModal: () => null,
     isAdmin: false,
-    isEditingReservations: false,
+    isSaving: false,
     isStaff: false,
     onCancelClick: () => null,
     onConfirmClick: () => null,

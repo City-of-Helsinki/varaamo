@@ -16,7 +16,7 @@ const resourceIdSelector = createSelector(
 );
 
 const commentModalSelector = createStructuredSelector({
-  isEditingReservations: requestIsActiveSelectorFactory(ActionTypes.API.RESERVATION_PUT_REQUEST),
+  isSaving: requestIsActiveSelectorFactory(ActionTypes.API.RESERVATION_PUT_REQUEST),
   reservation: reservationSelector,
   resource: createResourceSelector(resourceIdSelector),
   show: modalIsOpenSelectorFactory(ModalTypes.RESERVATION_COMMENT),

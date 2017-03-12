@@ -21,7 +21,7 @@ describe('shared/modals/comment/CommentModalContainer', () => {
       closeReservationCommentModal: simple.stub(),
       commentReservation: simple.stub(),
     },
-    isEditingReservations: false,
+    isSaving: false,
     reservation: Immutable(reservation),
     resource: Immutable(resource),
     show: true,
@@ -48,7 +48,7 @@ describe('shared/modals/comment/CommentModalContainer', () => {
 
       expect(commentForm.length).to.equal(1);
       expect(commentForm.prop('defaultValue')).to.equal(reservation.comments);
-      expect(commentForm.prop('isSaving')).to.equal(defaultProps.isEditingReservations);
+      expect(commentForm.prop('isSaving')).to.equal(defaultProps.isSaving);
       expect(commentForm.prop('onCancel')).to.equal(
         defaultProps.actions.closeReservationCommentModal
       );

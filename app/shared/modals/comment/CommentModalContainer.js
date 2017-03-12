@@ -24,7 +24,7 @@ class UnconnectedCommentModalContainer extends Component {
   render() {
     const {
       actions,
-      isEditingReservations,
+      isSaving,
       reservation,
       show,
       t,
@@ -39,7 +39,7 @@ class UnconnectedCommentModalContainer extends Component {
       >
         <CommentForm
           defaultValue={reservation.comments}
-          isSaving={isEditingReservations}
+          isSaving={isSaving}
           onCancel={actions.closeReservationCommentModal}
           onSave={this.handleSave}
         />
@@ -50,7 +50,7 @@ class UnconnectedCommentModalContainer extends Component {
 
 UnconnectedCommentModalContainer.propTypes = {
   actions: PropTypes.object.isRequired,
-  isEditingReservations: PropTypes.bool.isRequired,
+  isSaving: PropTypes.bool.isRequired,
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
