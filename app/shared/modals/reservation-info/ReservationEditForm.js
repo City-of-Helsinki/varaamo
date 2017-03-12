@@ -1,5 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 import React, { Component, PropTypes } from 'react';
+import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Form from 'react-bootstrap/lib/Form';
@@ -81,10 +82,14 @@ class UnconnectedReservationEditForm extends Component {
 
   render() {
     const {
+      isAdmin,
+      isEditing,
+      isSaving,
       isStaff,
+      onStartEditClick,
       reservation,
+      reservationIsEditable,
       resource,
-      showComments,
       t,
     } = this.props;
 
@@ -106,18 +111,34 @@ class UnconnectedReservationEditForm extends Component {
         {this.renderAddressRow('reserverAddress')}
         {this.renderAddressRow('billingAddress')}
         {this.renderStaticInfoRow('accessCode')}
-        {showComments && this.renderStaticInfoRow('comments')}
+        {isAdmin && !reservationIsEditable && this.renderStaticInfoRow('comments')}
+        {isAdmin && reservationIsEditable && (
+          <div className="form-controls">
+            {!isEditing && (
+              <Button
+                bsStyle="primary"
+                disabled={isSaving}
+                onClick={onStartEditClick}
+              >
+                {t('ReservationEditForm.startEdit')}
+              </Button>
+            )}
+          </div>
+        )}
       </Form>
     );
   }
 }
 
 UnconnectedReservationEditForm.propTypes = {
+  isAdmin: PropTypes.bool.isRequired,
   isEditing: PropTypes.bool.isRequired,
+  isSaving: PropTypes.bool.isRequired,
   isStaff: PropTypes.bool.isRequired,
+  onStartEditClick: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
+  reservationIsEditable: PropTypes.bool.isRequired,
   resource: PropTypes.object.isRequired,
-  showComments: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
 };
 UnconnectedReservationEditForm = injectT(UnconnectedReservationEditForm);  // eslint-disable-line

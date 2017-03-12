@@ -117,6 +117,7 @@
   "ReservationControls.deny": "Avvisa",
   "ReservationControls.edit": "Redigera",
   "ReservationControls.info": "Uppgifter",
+  "ReservationEditForm.startEdit": "Edit reservation",
   "ReservationForm.cancel": "Tillbaka",
   "ReservationForm.emailError": "Mata in en giltig e-postadress",
   "ReservationForm.eventSubjectInfo": "Event name is visible to staff only. Giving a name to the event makes it easier to guide the guests to the right space. Please remember to also tell the name to people arriving to the event.",

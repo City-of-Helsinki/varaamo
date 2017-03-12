@@ -27,11 +27,13 @@ class ReservationInfoModal extends Component {
     const {
       hideReservationInfoModal,
       isAdmin,
+      isEditing,
       isSaving,
       isStaff,
       onCancelClick,
       onConfirmClick,
       onDenyClick,
+      onStartEditClick,
       reservation,
       reservationIsEditable,
       resource,
@@ -60,11 +62,14 @@ class ReservationInfoModal extends Component {
               <ReservationStateLabel reservation={reservation} />
               <ReservationEditForm
                 initialValues={reservation}
-                isEditing={false}
+                isAdmin={isAdmin}
+                isEditing={isEditing}
+                isSaving={isSaving}
                 isStaff={isStaff}
+                onStartEditClick={onStartEditClick}
                 reservation={reservation}
+                reservationIsEditable={reservationIsEditable}
                 resource={resource}
-                showComments={isAdmin && !reservationIsEditable}
               />
               {isAdmin && reservationIsEditable && (
                 <form className="comments-form">
@@ -137,12 +142,14 @@ class ReservationInfoModal extends Component {
 ReservationInfoModal.propTypes = {
   hideReservationInfoModal: PropTypes.func.isRequired,
   isAdmin: PropTypes.bool.isRequired,
+  isEditing: PropTypes.bool.isRequired,
   isSaving: PropTypes.bool.isRequired,
   isStaff: PropTypes.bool.isRequired,
   onCancelClick: PropTypes.func.isRequired,
   onConfirmClick: PropTypes.func.isRequired,
   onDenyClick: PropTypes.func.isRequired,
   onSaveCommentsClick: PropTypes.func.isRequired,
+  onStartEditClick: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
   reservationIsEditable: PropTypes.bool.isRequired,
   resource: PropTypes.object.isRequired,

@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import React from 'react';
+import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
 import Immutable from 'seamless-immutable';
 import { Field } from 'redux-form';
@@ -29,11 +30,14 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
     resource: resource.id,
   });
   const defaultProps = {
+    isAdmin: true,
     isEditing: false,
+    isSaving: false,
     isStaff: false,
+    onStartEditClick: () => null,
     reservation: Immutable(reservation),
+    reservationIsEditable: false,
     resource: Immutable(resource),
-    showComments: false,
   };
 
   function getWrapper(extraProps = {}) {
@@ -63,12 +67,28 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
       });
 
       describe('comments', () => {
-        it('are rendered if showComments is true', () => {
-          expect(getData({ showComments: true })).to.contain(reservation.comments);
+        it('are not rendered if user is not an admin', () => {
+          const props = {
+            isAdmin: false,
+            reservationIsEditable: false,
+          };
+          expect(getData(props)).to.not.contain(reservation.comments);
         });
 
-        it('are not rendered if showComments is false', () => {
-          expect(getData({ showComments: false })).to.not.contain(reservation.comments);
+        it('are not rendered if reservation is editable', () => {
+          const props = {
+            isAdmin: true,
+            reservationIsEditable: true,
+          };
+          expect(getData(props)).to.not.contain(reservation.comments);
+        });
+
+        it('are rendered if user is admin and reservation is not editable', () => {
+          const props = {
+            isAdmin: true,
+            reservationIsEditable: false,
+          };
+          expect(getData(props)).to.contain(reservation.comments);
         });
       });
 
@@ -147,6 +167,57 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
       describe('when not editing', () => {
         it('does not render any form fields', () => {
           expect(getWrapper({ isEditing: false }).find(Field)).to.have.length(0);
+        });
+      });
+    });
+
+    describe('form controls', () => {
+      function getFormControls(props) {
+        return getWrapper(props).find('.form-controls');
+      }
+
+      it('are not rendered if user is not an admin', () => {
+        const props = {
+          isAdmin: false,
+          reservationIsEditable: true,
+        };
+        expect(getFormControls(props)).to.have.length(0);
+      });
+
+      it('are not rendered if reservation is not editable', () => {
+        const props = {
+          isAdmin: true,
+          reservationIsEditable: false,
+        };
+        expect(getFormControls(props)).to.have.length(0);
+      });
+
+      it('are rendered if user is admin and reservation is editable', () => {
+        const props = {
+          isAdmin: true,
+          reservationIsEditable: true,
+        };
+        expect(getFormControls(props)).to.have.length(1);
+      });
+
+      describe('edit button', () => {
+        function getEditButton(props) {
+          const onStartEditClick = () => null;
+          const defaults = {
+            isAdmin: true,
+            onStartEditClick,
+            reservationIsEditable: true,
+          };
+          const wrapper = getFormControls({ ...defaults, ...props });
+          return wrapper.find(Button).filter({ onClick: onStartEditClick });
+        }
+
+        it('is rendered if isEditing is false', () => {
+          expect(getEditButton({ isEditing: false })).to.have.length(1);
+        });
+
+        it('is not rendered if isEditing is true', () => {
+          expect(getEditButton({ isEditing: true })).to.have.length(0);
         });
       });
     });

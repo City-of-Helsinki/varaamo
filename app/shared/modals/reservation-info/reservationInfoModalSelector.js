@@ -27,6 +27,7 @@ const resourceSelector = createResourceSelector(resourceIdSelector);
 
 const reservationInfoModalSelector = createStructuredSelector({
   isAdmin: isAdminSelector,
+  isEditing: state => state.ui.reservationInfoModal.isEditing,
   isSaving: requestIsActiveSelectorFactory(ActionTypes.API.RESERVATION_PUT_REQUEST),
   isStaff: createIsStaffSelector(resourceSelector),
   reservation: reservationSelector,
