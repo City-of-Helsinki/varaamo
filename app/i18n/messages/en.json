@@ -116,6 +116,7 @@
   "ReservationControls.deny": "Deny",
   "ReservationControls.edit": "Edit",
   "ReservationControls.info": "Information",
+  "ReservationEditForm.startEdit": "Edit reservation",
   "ReservationForm.cancel": "Back",
   "ReservationForm.emailError": "Enter a valid e-mail address",
   "ReservationForm.eventSubjectInfo": "Event name is visible to staff only. Giving a name to the event makes it easier to guide the guests to the right space. Please remember to also tell the name to people arriving to the event.",

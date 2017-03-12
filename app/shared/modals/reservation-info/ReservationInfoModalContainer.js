@@ -4,7 +4,10 @@ import {
   commentReservation, confirmPreliminaryReservation, denyPreliminaryReservation,
 } from 'actions/reservationActions';
 import {
-  hideReservationInfoModal, openReservationCancelModal, selectReservationToCancel,
+  hideReservationInfoModal,
+  openReservationCancelModal,
+  selectReservationToCancel,
+  startReservationEditInInfoModal,
 } from 'actions/uiActions';
 import ReservationInfoModal from './ReservationInfoModal';
 import reservationInfoModalSelector from './reservationInfoModalSelector';
@@ -16,6 +19,7 @@ const actions = {
   hideReservationInfoModal,
   openReservationCancelModal,
   selectReservationToCancel,
+  startReservationEditInInfoModal,
 };
 
 export function mergeProps(stateProps, dispatchProps) {
@@ -32,6 +36,7 @@ export function mergeProps(stateProps, dispatchProps) {
     onSaveCommentsClick: (comments) => {
       dispatchProps.commentReservation(reservation, resource, comments);
     },
+    onStartEditClick: dispatchProps.startReservationEditInInfoModal,
   };
 }
 

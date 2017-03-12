@@ -15,6 +15,22 @@ describe('shared/modals/reservation-info/reservationInfoModalSelector', () => {
     expect(getSelected().isAdmin).to.exist;
   });
 
+  describe('isEditing', () => {
+    it('returns true if ui.reservationInfoModal.isEditing is true', () => {
+      const selected = getSelected({
+        'ui.reservationInfoModal': { isEditing: true },
+      });
+      expect(selected.isEditing).to.be.true;
+    });
+
+    it('returns false if ui.reservationInfoModal.isEditing is false', () => {
+      const selected = getSelected({
+        'ui.reservationInfoModal': { isEditing: false },
+      });
+      expect(selected.isEditing).to.be.false;
+    });
+  });
+
   describe('isSaving', () => {
     it('returns true if RESERVATION_PUT_REQUEST is active', () => {
       const activeRequests = { [ActionTypes.API.RESERVATION_PUT_REQUEST]: 1 };

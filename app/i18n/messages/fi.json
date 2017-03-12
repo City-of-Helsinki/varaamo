@@ -116,6 +116,7 @@
   "ReservationControls.deny": "Hylkää",
   "ReservationControls.edit": "Muokkaa",
   "ReservationControls.info": "Tiedot",
+  "ReservationEditForm.startEdit": "Muokkaa tapahtumaa",
   "ReservationForm.cancel": "Takaisin",
   "ReservationForm.emailError": "Syötä kunnollinen sähköpostiosoite",
   "ReservationForm.eventSubjectInfo": "Tilaisuuden nimen näkee ainoastaan henkilökunta. Antamalla tilaisuudelle nimen helpotat saapuvien vieraiden opastamista oikeaan tilaan. Muistathan ilmoittaa nimen myös tilaisuuteen saapuville.",
