@@ -10,6 +10,7 @@ import { findDOMNode } from 'react-dom';
 import { injectT } from 'i18n';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
 import ReservationStateLabel from 'shared/reservation-state-label';
+import { isStaffEvent } from 'utils/reservationUtils';
 import ReservationEditForm from './ReservationEditForm';
 
 class ReservationInfoModal extends Component {
@@ -20,8 +21,9 @@ class ReservationInfoModal extends Component {
   }
 
   handleEditFormSubmit(values) {
-    const { onEditFormSubmit, reservation } = this.props;
-    onEditFormSubmit({ ...reservation, ...values });
+    const { onEditFormSubmit, reservation, resource } = this.props;
+    const staffEvent = isStaffEvent(reservation, resource);
+    onEditFormSubmit({ ...reservation, ...values, staffEvent });
   }
 
   handleSaveCommentsClick() {
