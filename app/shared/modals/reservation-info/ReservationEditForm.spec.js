@@ -30,6 +30,7 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
     resource: resource.id,
   });
   const defaultProps = {
+    handleSubmit: () => null,
     isAdmin: true,
     isEditing: false,
     isSaving: false,
@@ -240,6 +241,25 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
 
         it('is not rendered if isEditing is false', () => {
           expect(getEditButton({ isEditing: false })).to.have.length(0);
+        });
+      });
+
+      describe('save button', () => {
+        function getSaveButton(props) {
+          const defaults = {
+            isAdmin: true,
+            reservationIsEditable: true,
+          };
+          const wrapper = getFormControls({ ...defaults, ...props });
+          return wrapper.find(Button).filter({ type: 'submit' });
+        }
+
+        it('is rendered if isEditing is true', () => {
+          expect(getSaveButton({ isEditing: true })).to.have.length(1);
+        });
+
+        it('is not rendered if isEditing is false', () => {
+          expect(getSaveButton({ isEditing: false })).to.have.length(0);
         });
       });
     });

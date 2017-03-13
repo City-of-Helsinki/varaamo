@@ -42,6 +42,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
     onCancelEditClick: () => null,
     onConfirmClick: () => null,
     onDenyClick: () => null,
+    onEditFormSubmit: () => null,
     onSaveCommentsClick: () => null,
     onStartEditClick: () => null,
     reservation: Immutable(reservation),
@@ -325,6 +326,26 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
           });
         });
       });
+    });
+  });
+
+  describe('handleEditFormSubmit', () => {
+    const onEditFormSubmit = simple.mock();
+
+    function callHandleEditFormSubmit(values) {
+      const instance = getWrapper({ onEditFormSubmit }).instance();
+      instance.handleEditFormSubmit(values);
+    }
+
+    it('calls onEditFormSubmit with updated reservation values', () => {
+      const values = {
+        eventDescription: 'Updated description',
+        reserverName: 'Han Solo',
+      };
+      callHandleEditFormSubmit(values);
+      const expected = { ...reservation, ...values };
+      expect(onEditFormSubmit.callCount).to.equal(1);
+      expect(onEditFormSubmit.lastCall.args).to.deep.equal([expected]);
     });
   });
 

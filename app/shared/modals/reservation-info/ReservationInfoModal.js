@@ -15,7 +15,13 @@ import ReservationEditForm from './ReservationEditForm';
 class ReservationInfoModal extends Component {
   constructor(props) {
     super(props);
+    this.handleEditFormSubmit = this.handleEditFormSubmit.bind(this);
     this.handleSaveCommentsClick = this.handleSaveCommentsClick.bind(this);
+  }
+
+  handleEditFormSubmit(values) {
+    const { onEditFormSubmit, reservation } = this.props;
+    onEditFormSubmit({ ...reservation, ...values });
   }
 
   handleSaveCommentsClick() {
@@ -69,6 +75,7 @@ class ReservationInfoModal extends Component {
                 isStaff={isStaff}
                 onCancelEditClick={onCancelEditClick}
                 onStartEditClick={onStartEditClick}
+                onSubmit={this.handleEditFormSubmit}
                 reservation={reservation}
                 reservationIsEditable={reservationIsEditable}
                 resource={resource}
@@ -151,6 +158,7 @@ ReservationInfoModal.propTypes = {
   onCancelEditClick: PropTypes.func.isRequired,
   onConfirmClick: PropTypes.func.isRequired,
   onDenyClick: PropTypes.func.isRequired,
+  onEditFormSubmit: PropTypes.func.isRequired,
   onSaveCommentsClick: PropTypes.func.isRequired,
   onStartEditClick: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
