@@ -39,6 +39,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
     isSaving: false,
     isStaff: false,
     onCancelClick: () => null,
+    onCancelEditClick: () => null,
     onConfirmClick: () => null,
     onDenyClick: () => null,
     onSaveCommentsClick: () => null,

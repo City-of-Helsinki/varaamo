@@ -86,6 +86,7 @@ class UnconnectedReservationEditForm extends Component {
       isEditing,
       isSaving,
       isStaff,
+      onCancelEditClick,
       onStartEditClick,
       reservation,
       reservationIsEditable,
@@ -123,6 +124,15 @@ class UnconnectedReservationEditForm extends Component {
                 {t('ReservationEditForm.startEdit')}
               </Button>
             )}
+            {isEditing && (
+              <Button
+                bsStyle="default"
+                disabled={isSaving}
+                onClick={onCancelEditClick}
+              >
+                {t('ReservationEditForm.cancelEdit')}
+              </Button>
+            )}
           </div>
         )}
       </Form>
@@ -135,6 +145,7 @@ UnconnectedReservationEditForm.propTypes = {
   isEditing: PropTypes.bool.isRequired,
   isSaving: PropTypes.bool.isRequired,
   isStaff: PropTypes.bool.isRequired,
+  onCancelEditClick: PropTypes.func.isRequired,
   onStartEditClick: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
   reservationIsEditable: PropTypes.bool.isRequired,

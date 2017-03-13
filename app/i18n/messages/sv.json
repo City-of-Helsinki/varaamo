@@ -117,6 +117,7 @@
   "ReservationControls.deny": "Avvisa",
   "ReservationControls.edit": "Redigera",
   "ReservationControls.info": "Uppgifter",
+  "ReservationEditForm.cancelEdit": "Cancel editing",
   "ReservationEditForm.startEdit": "Edit reservation",
   "ReservationForm.cancel": "Tillbaka",
   "ReservationForm.emailError": "Mata in en giltig e-postadress",
