@@ -82,6 +82,7 @@ class UnconnectedReservationEditForm extends Component {
 
   render() {
     const {
+      handleSubmit,
       isAdmin,
       isEditing,
       isSaving,
@@ -98,7 +99,11 @@ class UnconnectedReservationEditForm extends Component {
     const reservationTime = <TimeRange begin={reservation.begin} end={reservation.end} />;
 
     return (
-      <Form className="reservation-edit-form" horizontal>
+      <Form
+        className="reservation-edit-form"
+        horizontal
+        onSubmit={handleSubmit}
+      >
         {this.renderEditableInfoRow('eventSubject', 'text')}
         {this.renderStaticInfoRow('reserverName')}
         {this.renderEditableInfoRow('eventDescription', 'textarea')}
@@ -133,6 +138,15 @@ class UnconnectedReservationEditForm extends Component {
                 {t('ReservationEditForm.cancelEdit')}
               </Button>
             )}
+            {isEditing && (
+              <Button
+                bsStyle="primary"
+                disabled={isSaving}
+                type="submit"
+              >
+                {t('ReservationEditForm.saveChanges')}
+              </Button>
+            )}
           </div>
         )}
       </Form>
@@ -141,6 +155,7 @@ class UnconnectedReservationEditForm extends Component {
 }
 
 UnconnectedReservationEditForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   isEditing: PropTypes.bool.isRequired,
   isSaving: PropTypes.bool.isRequired,

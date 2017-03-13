@@ -1,7 +1,10 @@
 import { connect } from 'react-redux';
 
 import {
-  commentReservation, confirmPreliminaryReservation, denyPreliminaryReservation,
+  commentReservation,
+  confirmPreliminaryReservation,
+  denyPreliminaryReservation,
+  putReservation,
 } from 'actions/reservationActions';
 import {
   cancelReservationEditInInfoModal,
@@ -20,6 +23,7 @@ const actions = {
   denyPreliminaryReservation,
   hideReservationInfoModal,
   openReservationCancelModal,
+  putReservation,
   selectReservationToCancel,
   startReservationEditInInfoModal,
 };
@@ -36,6 +40,7 @@ export function mergeProps(stateProps, dispatchProps) {
     onCancelEditClick: dispatchProps.cancelReservationEditInInfoModal,
     onConfirmClick: () => dispatchProps.confirmPreliminaryReservation(reservation),
     onDenyClick: () => dispatchProps.denyPreliminaryReservation(reservation),
+    onEditFormSubmit: dispatchProps.putReservation,
     onSaveCommentsClick: (comments) => {
       dispatchProps.commentReservation(reservation, resource, comments);
     },

@@ -117,6 +117,7 @@
   "ReservationControls.edit": "Muokkaa",
   "ReservationControls.info": "Tiedot",
   "ReservationEditForm.cancelEdit": "Peruuta muokkaus",
+  "ReservationEditForm.saveChanges": "Tallenna muutokset",
   "ReservationEditForm.startEdit": "Muokkaa tapahtumaa",
   "ReservationForm.cancel": "Takaisin",
   "ReservationForm.emailError": "Syötä kunnollinen sähköpostiosoite",
