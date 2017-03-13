@@ -4,6 +4,7 @@ import {
   commentReservation, confirmPreliminaryReservation, denyPreliminaryReservation,
 } from 'actions/reservationActions';
 import {
+  cancelReservationEditInInfoModal,
   hideReservationInfoModal,
   openReservationCancelModal,
   selectReservationToCancel,
@@ -13,6 +14,7 @@ import ReservationInfoModal from './ReservationInfoModal';
 import reservationInfoModalSelector from './reservationInfoModalSelector';
 
 const actions = {
+  cancelReservationEditInInfoModal,
   commentReservation,
   confirmPreliminaryReservation,
   denyPreliminaryReservation,
@@ -31,6 +33,7 @@ export function mergeProps(stateProps, dispatchProps) {
       dispatchProps.selectReservationToCancel(reservation);
       dispatchProps.openReservationCancelModal();
     },
+    onCancelEditClick: dispatchProps.cancelReservationEditInInfoModal,
     onConfirmClick: () => dispatchProps.confirmPreliminaryReservation(reservation),
     onDenyClick: () => dispatchProps.denyPreliminaryReservation(reservation),
     onSaveCommentsClick: (comments) => {

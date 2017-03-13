@@ -31,6 +31,7 @@ class ReservationInfoModal extends Component {
       isSaving,
       isStaff,
       onCancelClick,
+      onCancelEditClick,
       onConfirmClick,
       onDenyClick,
       onStartEditClick,
@@ -66,6 +67,7 @@ class ReservationInfoModal extends Component {
                 isEditing={isEditing}
                 isSaving={isSaving}
                 isStaff={isStaff}
+                onCancelEditClick={onCancelEditClick}
                 onStartEditClick={onStartEditClick}
                 reservation={reservation}
                 reservationIsEditable={reservationIsEditable}
@@ -146,6 +148,7 @@ ReservationInfoModal.propTypes = {
   isSaving: PropTypes.bool.isRequired,
   isStaff: PropTypes.bool.isRequired,
   onCancelClick: PropTypes.func.isRequired,
+  onCancelEditClick: PropTypes.func.isRequired,
   onConfirmClick: PropTypes.func.isRequired,
   onDenyClick: PropTypes.func.isRequired,
   onSaveCommentsClick: PropTypes.func.isRequired,

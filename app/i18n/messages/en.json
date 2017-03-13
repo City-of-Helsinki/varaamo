@@ -116,6 +116,7 @@
   "ReservationControls.deny": "Deny",
   "ReservationControls.edit": "Edit",
   "ReservationControls.info": "Information",
+  "ReservationEditForm.cancelEdit": "Cancel editing",
   "ReservationEditForm.startEdit": "Edit reservation",
   "ReservationForm.cancel": "Back",
   "ReservationForm.emailError": "Enter a valid e-mail address",

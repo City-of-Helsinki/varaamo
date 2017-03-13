@@ -34,6 +34,7 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
     isEditing: false,
     isSaving: false,
     isStaff: false,
+    onCancelEditClick: () => null,
     onStartEditClick: () => null,
     reservation: Immutable(reservation),
     reservationIsEditable: false,
@@ -218,6 +219,27 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
 
         it('is not rendered if isEditing is true', () => {
           expect(getEditButton({ isEditing: true })).to.have.length(0);
+        });
+      });
+
+      describe('cancel button', () => {
+        function getEditButton(props) {
+          const onCancelEditClick = () => null;
+          const defaults = {
+            isAdmin: true,
+            onCancelEditClick,
+            reservationIsEditable: true,
+          };
+          const wrapper = getFormControls({ ...defaults, ...props });
+          return wrapper.find(Button).filter({ onClick: onCancelEditClick });
+        }
+
+        it('is rendered if isEditing is true', () => {
+          expect(getEditButton({ isEditing: true })).to.have.length(1);
+        });
+
+        it('is not rendered if isEditing is false', () => {
+          expect(getEditButton({ isEditing: false })).to.have.length(0);
         });
       });
     });
