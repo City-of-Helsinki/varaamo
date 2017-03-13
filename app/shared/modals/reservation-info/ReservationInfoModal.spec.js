@@ -343,7 +343,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
         reserverName: 'Han Solo',
       };
       callHandleEditFormSubmit(values);
-      const expected = { ...reservation, ...values };
+      const expected = { ...reservation, ...values, staffEvent: false };
       expect(onEditFormSubmit.callCount).to.equal(1);
       expect(onEditFormSubmit.lastCall.args).to.deep.equal([expected]);
     });
