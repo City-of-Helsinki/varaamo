@@ -78,7 +78,7 @@ function ReservationSuccessModal({
           bsStyle="default"
           onClick={closeReservationSuccessModal}
         >
-          {t('common.back')}
+          {t('common.ok')}
         </Button>
       </div>
     </ModalWrapper>
