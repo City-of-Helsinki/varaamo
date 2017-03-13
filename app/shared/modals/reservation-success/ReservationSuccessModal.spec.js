@@ -101,7 +101,7 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
 
       it('has corrext text', () => {
         const buttonText = wrapper.find(Button).props().children;
-        expect(buttonText).to.equal('common.back');
+        expect(buttonText).to.equal('common.ok');
       });
 
       it('has closeReservationSuccessModal as its onClick prop ', () => {
@@ -179,7 +179,7 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
 
       it('has correct text', () => {
         const buttonText = wrapper.find(Button).props().children;
-        expect(buttonText).to.equal('common.back');
+        expect(buttonText).to.equal('common.ok');
       });
 
       it('has closeReservationSuccessModal as its onClick prop ', () => {

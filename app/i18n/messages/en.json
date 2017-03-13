@@ -44,6 +44,7 @@
   "common.eventDescriptionLabel": "Description of the event",
   "common.eventSubjectLabel": "Name of the event",
   "common.numberOfParticipantsLabel": "Number of participants",
+  "common.ok": "OK",
   "common.requested": "Processed",
   "common.reserverAddressLabel": "Address",
   "common.reserverEmailAddressLabel": "E-mail",

@@ -44,6 +44,7 @@
   "common.eventDescriptionLabel": "Beskrivning av evenemanget",
   "common.eventSubjectLabel": "Name of the event",
   "common.numberOfParticipantsLabel": "Antal deltagare",
+  "common.ok": "OK",
   "common.requested": "Behandlas",
   "common.reserverAddressLabel": "Adress",
   "common.reserverEmailAddressLabel": "E-post",
