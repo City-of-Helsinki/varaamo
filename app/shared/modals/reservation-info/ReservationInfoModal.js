@@ -48,6 +48,7 @@ class ReservationInfoModal extends Component {
       t,
     } = this.props;
 
+    const disabled = isSaving || isEditing;
     const showCancelButton = reservationIsEditable && (
       reservation.state === 'confirmed' ||
       (reservation.state === 'requested' && !isAdmin)
@@ -87,6 +88,7 @@ class ReservationInfoModal extends Component {
                     <FormControl
                       componentClass="textarea"
                       defaultValue={reservation.comments}
+                      disabled={disabled}
                       placeholder={t('common.commentsPlaceholder')}
                       ref="commentsInput"
                       rows={5}
@@ -95,7 +97,7 @@ class ReservationInfoModal extends Component {
                   <div className="form-controls">
                     <Button
                       bsStyle="primary"
-                      disabled={isSaving}
+                      disabled={disabled}
                       onClick={this.handleSaveCommentsClick}
                     >
                       {isSaving ? t('common.saving') : t('ReservationInfoModal.saveComment')}
@@ -117,7 +119,7 @@ class ReservationInfoModal extends Component {
           {isStaff && reservationIsEditable && reservation.state === 'requested' && (
             <Button
               bsStyle="danger"
-              disabled={isSaving}
+              disabled={disabled}
               onClick={onDenyClick}
             >
               {t('ReservationInfoModal.denyButton')}
@@ -126,7 +128,7 @@ class ReservationInfoModal extends Component {
           {isStaff && reservationIsEditable && reservation.state === 'requested' && (
             <Button
               bsStyle="success"
-              disabled={isSaving}
+              disabled={disabled}
               onClick={onConfirmClick}
             >
               {t('ReservationInfoModal.confirmButton')}
@@ -135,7 +137,7 @@ class ReservationInfoModal extends Component {
           {showCancelButton && (
             <Button
               bsStyle="danger"
-              disabled={isSaving}
+              disabled={disabled}
               onClick={onCancelClick}
             >
               {t('ReservationInfoModal.cancelButton')}
