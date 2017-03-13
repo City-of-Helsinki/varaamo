@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
@@ -100,7 +101,7 @@ class UnconnectedReservationEditForm extends Component {
 
     return (
       <Form
-        className="reservation-edit-form"
+        className={classNames('reservation-edit-form', { editing: isEditing })}
         horizontal
         onSubmit={handleSubmit}
       >
