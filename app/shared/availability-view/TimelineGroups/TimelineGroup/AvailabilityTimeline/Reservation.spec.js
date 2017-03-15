@@ -63,6 +63,29 @@ describe('shared/availability-view/Reservation', () => {
     expect(onClick.lastCall.args[0]).to.deep.equal(reservation);
   });
 
+  it('adds class with-comments to reservation-link if reservation has comments', () => {
+    const reservation = {
+      begin: '2016-01-01T10:00:00Z',
+      end: '2016-01-01T12:00:00Z',
+      eventSubject: 'Meeting',
+      id: 12345,
+      comments: 'comment',
+    };
+    const element = getOuterWrapper({ ...reservation }).find('.with-comments');
+    expect(element).to.have.length(1);
+  });
+
+  it('does not add class with-comments to reservation-link if reservation has no comments', () => {
+    const reservation = {
+      begin: '2016-01-01T10:00:00Z',
+      end: '2016-01-01T12:00:00Z',
+      eventSubject: 'Meeting',
+      id: 12345,
+    };
+    const element = getOuterWrapper({ ...reservation }).find('.with-comments');
+    expect(element).to.have.length(0);
+  });
+
   it('has correct width', () => {
     const times = {
       end: '2016-01-01T20:00:00Z',
