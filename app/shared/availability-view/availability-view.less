@@ -1,6 +1,8 @@
 .availability-view {
   @slot-height: 50px;
-  @slot-border: 1px solid white;
+  @slot-border-size: 1px;
+  @slot-border: @slot-border-size solid white;
+  @slot-comment-bubble-size: 18px;
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -163,6 +165,26 @@
   }
   .reservation-link, .reservation-slot {
     height: @slot-height;
+    position: relative;
+  }
+  .reservation-link.with-comments::after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e111";
+    position: absolute;
+    top: -(@slot-comment-bubble-size / 2 + @slot-border-size * 2);
+    right: -(@slot-comment-bubble-size / 2 + @slot-border-size * 2);
+    width: @slot-comment-bubble-size;
+    height: @slot-comment-bubble-size;
+    font-size: @slot-comment-bubble-size / 2;
+    color: white;
+    line-height: @slot-comment-bubble-size;
+    text-align: center;
+    background-color: @brand-primary;
+    border: @slot-border;
+    border-width: @slot-border-size * 2;
+    border-radius: 50%;
+    z-index: 1;
+    box-sizing: content-box;
   }
   .reservation, .reservation-slot {
     display: inline-flex;

@@ -1,3 +1,4 @@
+import classnames from 'classnames';
 import moment from 'moment';
 import React, { PropTypes } from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
@@ -48,7 +49,10 @@ function Reservation({ onClick, ...reservation }) {
     </Popover>
   );
   return (
-    <Link className="reservation-link" onClick={() => onClick && onClick(reservation)}>
+    <Link
+      className={classnames('reservation-link', { 'with-comments': reservation.comments })}
+      onClick={() => onClick && onClick(reservation)}
+    >
       <OverlayTrigger
         overlay={popover}
         placement="top"
