@@ -83,6 +83,7 @@ class UnconnectedReservationEditForm extends Component {
 
   render() {
     const {
+      allowEditing,
       handleSubmit,
       isAdmin,
       isEditing,
@@ -119,7 +120,7 @@ class UnconnectedReservationEditForm extends Component {
         {this.renderAddressRow('billingAddress')}
         {this.renderStaticInfoRow('accessCode')}
         {isAdmin && !reservationIsEditable && this.renderStaticInfoRow('comments')}
-        {isAdmin && reservationIsEditable && (
+        {isAdmin && allowEditing && reservationIsEditable && (
           <div className="form-controls">
             {!isEditing && (
               <Button
@@ -156,6 +157,7 @@ class UnconnectedReservationEditForm extends Component {
 }
 
 UnconnectedReservationEditForm.propTypes = {
+  allowEditing: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   isEditing: PropTypes.bool.isRequired,
