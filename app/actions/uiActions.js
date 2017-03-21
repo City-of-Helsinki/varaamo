@@ -37,6 +37,8 @@ const closeReservationSuccessModal = createAction(
   () => ModalTypes.RESERVATION_SUCCESS
 );
 
+const filterAdminResourceType = createAction(types.UI.FILTER_ADMIN_RESOURCE_TYPE);
+
 const hideReservationInfoModal = createAction(types.UI.HIDE_RESERVATION_INFO_MODAL);
 
 const openConfirmReservationModal = createAction(
@@ -72,6 +74,8 @@ const startReservationEditInInfoModal = createAction(types.UI.START_RESERVATION_
 
 const toggleTimeSlot = createAction(types.UI.TOGGLE_TIME_SLOT);
 
+const unfilterAdminResourceType = createAction(types.UI.UNFILTER_ADMIN_RESOURCE_TYPE);
+
 export {
   cancelReservationEdit,
   cancelReservationEditInInfoModal,
@@ -83,6 +87,7 @@ export {
   closeReservationCancelModal,
   closeReservationCommentModal,
   closeReservationSuccessModal,
+  filterAdminResourceType,
   hideReservationInfoModal,
   openConfirmReservationModal,
   openReservationCancelModal,
@@ -93,4 +98,5 @@ export {
   showReservationInfoModal,
   startReservationEditInInfoModal,
   toggleTimeSlot,
+  unfilterAdminResourceType,
 };

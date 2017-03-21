@@ -2,7 +2,11 @@ import { expect } from 'chai';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
-import { changeAdminResourcesPageDate } from 'actions/uiActions';
+import {
+  changeAdminResourcesPageDate,
+  filterAdminResourceType,
+  unfilterAdminResourceType,
+} from 'actions/uiActions';
 import types from 'constants/ActionTypes';
 import Resource from 'utils/fixtures/Resource';
 import adminResourcesPageReducer from './adminResourcesPageReducer';
@@ -31,6 +35,41 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
       it('sets date to undefined if set to null', () => {
         const state = adminResourcesPageReducer(undefined, changeAdminResourcesPageDate(null));
         expect(state.date).to.be.undefined;
+      });
+    });
+
+    describe('UI.FILTER_ADMIN_RESOURCE_TYPE', () => {
+      it('updates filtered types from payload', () => {
+        const resourceType = 'new type';
+        const state = adminResourcesPageReducer(undefined, filterAdminResourceType(resourceType));
+        expect(state.filteredResourceTypes).to.deep.equal([resourceType]);
+      });
+
+      it('does not duplicate types in array', () => {
+        const resourceType = 'new type';
+        const initialState = Immutable({
+          filteredResourceTypes: [resourceType],
+        });
+        const state = adminResourcesPageReducer(
+          initialState,
+          filterAdminResourceType(resourceType)
+        );
+        expect(state.filteredResourceTypes).to.deep.equal([resourceType]);
+      });
+    });
+
+    describe('UI.UNFILTER_ADMIN_RESOURCE_TYPE', () => {
+      it('removes resource type from payload', () => {
+        const resourceType = 'type';
+        const removedResourceType = 'old type';
+        const initialState = Immutable({
+          filteredResourceTypes: [removedResourceType, resourceType],
+        });
+        const state = adminResourcesPageReducer(
+          initialState,
+          unfilterAdminResourceType(removedResourceType)
+        );
+        expect(state.filteredResourceTypes).to.deep.equal([resourceType]);
       });
     });
 
