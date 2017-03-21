@@ -9,7 +9,7 @@ import getAuthState from './getAuthState';
 
 const router = express.Router();  // eslint-disable-line new-cap
 const passport = configurePassport();
-const maxSessionAge = 4 * 60 * 60 * 1000;  // 4 hours
+const maxSessionAge = 9 * 60 * 60 * 1000;  // 9 hours
 
 // Session handling
 router.use(cookieParser());
