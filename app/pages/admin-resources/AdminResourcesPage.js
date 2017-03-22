@@ -17,11 +17,14 @@ class UnconnectedAdminResourcesPage extends Component {
   constructor(props) {
     super(props);
     this.state = { selection: null };
+    this.fetchResources = this.fetchResources.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
   }
 
   componentDidMount() {
-    this.fetchResources(this.props.date);
+    const interval = 10 * 60 * 1000;
+    this.fetchResources();
+    this.updateResourcesTimer = window.setInterval(this.fetchResources, interval);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -32,9 +35,10 @@ class UnconnectedAdminResourcesPage extends Component {
 
   componentWillUnmount() {
     this.props.actions.changeAdminResourcesPageDate(null);
+    window.clearInterval(this.updateResourcesTimer);
   }
 
-  fetchResources(date) {
+  fetchResources(date = this.props.date) {
     this.props.actions.fetchFavoritedResources(moment(date), 'adminResourcesPage');
   }
 
@@ -53,7 +57,7 @@ class UnconnectedAdminResourcesPage extends Component {
     return (
       <PageWrapper className="admin-resources-page" title={t('AdminResourcesPage.title')}>
         <h1>{t('AdminResourcesPage.title')}</h1>
-        <Loader loaded={!isFetchingResources}>
+        <Loader loaded={Boolean(!isFetchingResources || resources.length)}>
           {isAdmin && (
             <AvailabilityView
               date={this.props.date}
