@@ -62,14 +62,24 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
         expect(h1.text()).to.equal('AdminResourcesPage.title');
       });
 
-      it('renders a loader with a loaded prop if resources has been fetched', () => {
-        const loader = getIsAdminWrapper({ isFetchingResources: false }).find(Loader);
-        expect(loader.prop('loaded')).to.be.true;
-      });
+      describe('Loader', () => {
+        it('is not loaded if fetching resources and no resources in the state', () => {
+          const props = { isFetchingResources: true, resources: [] };
+          const loader = getIsAdminWrapper(props).find(Loader);
+          expect(loader.prop('loaded')).to.be.false;
+        });
 
-      it('renders a loader without loaded prop if resources has not been fetched', () => {
-        const loader = getIsAdminWrapper({ isFetchingResources: true }).find(Loader);
-        expect(loader.prop('loaded')).to.be.false;
+        it('is loaded if not fetching resource', () => {
+          const props = { isFetchingResources: false, resources: [] };
+          const loader = getIsAdminWrapper(props).find(Loader);
+          expect(loader.prop('loaded')).to.be.true;
+        });
+
+        it('is loaded if resources in state', () => {
+          const props = { isFetchingResources: true, resources: [{ id: 'r-1' }] };
+          const loader = getIsAdminWrapper(props).find(Loader);
+          expect(loader.prop('loaded')).to.be.true;
+        });
       });
 
       it('renders AvailabilityView with correct props', () => {
@@ -90,10 +100,18 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
   describe('componentDidMount', () => {
     describe('if user is an admin', () => {
       const isAdmin = true;
+      const timer = 5;
+      let instance;
 
       before(() => {
         fetchFavoritedResources.reset();
-        getWrapper({ isAdmin }).instance().componentDidMount();
+        simple.mock(window, 'setInterval').returnWith(timer);
+        instance = getWrapper({ isAdmin }).instance();
+        instance.componentDidMount();
+      });
+
+      after(() => {
+        simple.restore();
       });
 
       it('fetches favorited resources', () => {
@@ -109,19 +127,44 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
         const args = fetchFavoritedResources.lastCall.args;
         expect(args[1]).to.equal('adminResourcesPage');
       });
+
+      it('starts fetching resources every ten minutes', () => {
+        expect(window.setInterval.callCount).to.equal(1);
+        const interval = 10 * 60 * 1000;
+        expect(window.setInterval.lastCall.args).to.deep.equal([instance.fetchResources, interval]);
+      });
+
+      it('saves interval to this.updateResourcesTimer', () => {
+        expect(instance.updateResourcesTimer).to.equal(timer);
+      });
     });
   });
 
   describe('componentWillUnmount', () => {
-    beforeEach(() => {
+    const timer = 5;
+    let instance;
+
+    before(() => {
       changeAdminResourcesPageDate.reset();
+      simple.mock(window, 'setInterval').returnWith(timer);
+      simple.mock(window, 'clearInterval').returnWith(timer);
+      instance = getWrapper().instance();
+      instance.componentDidMount();
+      instance.componentWillUnmount();
+    });
+
+    after(() => {
+      simple.restore();
     });
 
     it('sets date to null', () => {
-      const wrapper = getWrapper();
-      wrapper.instance().componentWillUnmount();
       expect(changeAdminResourcesPageDate.callCount).to.equal(1);
       expect(changeAdminResourcesPageDate.lastCall.args).to.deep.equal([null]);
+    });
+
+    it('it clears fetchResources interval', () => {
+      expect(window.clearInterval.callCount).to.equal(1);
+      expect(window.clearInterval.lastCall.args).to.deep.equal([timer]);
     });
   });
 
