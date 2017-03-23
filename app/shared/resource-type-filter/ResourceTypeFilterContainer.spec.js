@@ -25,14 +25,13 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
   });
 
   it('renders ResourceTypeFilter components', () => {
-    expect(wrapper.children()).to.have.length(3);
-    expect(wrapper.childAt(0).is(ResourceTypeFilterButton)).to.be.true;
+    expect(wrapper.find(ResourceTypeFilterButton)).to.have.length(3);
   });
 
   describe('ResourceTypeFilter', () => {
     let resourceTypeFilter;
     before(() => {
-      resourceTypeFilter = wrapper.childAt(0);
+      resourceTypeFilter = wrapper.find(ResourceTypeFilterButton).at(0);
     });
 
     it('passes correct props', () => {
@@ -42,7 +41,7 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
 
     describe('filtered', () => {
       before(() => {
-        resourceTypeFilter = wrapper.childAt(0);
+        resourceTypeFilter = wrapper.find(ResourceTypeFilterButton).at(0);
       });
 
       it('passes correct active prop', () => {
@@ -51,7 +50,7 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
     });
     describe('not filtered', () => {
       before(() => {
-        resourceTypeFilter = wrapper.childAt(1);
+        resourceTypeFilter = wrapper.find(ResourceTypeFilterButton).at(1);
       });
 
       it('passes correct active prop', () => {
