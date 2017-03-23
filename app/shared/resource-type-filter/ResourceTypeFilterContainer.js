@@ -31,7 +31,8 @@ class ResourceTypeFilterContainer extends Component {
 
   render() {
     return (
-      <div>
+      <div className="resource-type-filter-container">
+        <h6>Näytä</h6>
         { this.props.resourceTypes.map(resourceType =>
           <ResourceTypeFilterButton
             active={!includes(this.props.filteredResourceTypes, resourceType)}
