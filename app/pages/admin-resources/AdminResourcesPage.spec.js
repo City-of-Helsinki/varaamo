@@ -5,24 +5,31 @@ import simple from 'simple-mock';
 
 import PageWrapper from 'pages/PageWrapper';
 import AvailabilityView from 'shared/availability-view';
+import ResourceTypeFilter from 'shared/resource-type-filter';
 import { shallowWithIntl } from 'utils/testUtils';
 import { UnconnectedAdminResourcesPage as AdminResourcesPage } from './AdminResourcesPage';
 
 describe('pages/admin-resources/AdminResourcesPage', () => {
   const changeAdminResourcesPageDate = simple.stub();
   const fetchFavoritedResources = simple.stub();
+  const filterAdminResourceType = simple.stub();
   const openConfirmReservationModal = simple.stub();
+  const unfilterAdminResourceType = simple.stub();
 
   const defaultProps = {
     actions: {
       changeAdminResourcesPageDate,
       fetchFavoritedResources,
+      filterAdminResourceType,
       openConfirmReservationModal,
+      unfilterAdminResourceType,
     },
     date: '2017-01-10',
+    filteredResourceTypes: [],
     isAdmin: true,
     isFetchingResources: false,
     resources: [],
+    resourceTypes: ['a', 'b', 'c'],
   };
 
   function getWrapper(extraProps = {}) {
@@ -93,6 +100,20 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
         expect(view.prop('date')).to.deep.equal('2017-01-10');
         expect(view.prop('onDateChange')).to.equal(changeAdminResourcesPageDate);
         expect(view.prop('onSelect')).to.equal(wrapper.instance().handleSelect);
+      });
+
+      it('renders ResourceTypeFilter with correct props', () => {
+        const wrapper = getIsAdminWrapper();
+        const resourceTypeFilter = wrapper.find(ResourceTypeFilter);
+        expect(resourceTypeFilter).to.have.length(1);
+        expect(resourceTypeFilter.prop('filteredResourceTypes')).to.deep.equal(
+          defaultProps.filteredResourceTypes
+        );
+        expect(resourceTypeFilter.prop('resourceTypes')).to.deep.equal(defaultProps.resourceTypes);
+        expect(resourceTypeFilter.prop('onFilterResourceType')).to.equal(filterAdminResourceType);
+        expect(resourceTypeFilter.prop('onUnfilterResourceType')).to.equal(
+          unfilterAdminResourceType
+        );
       });
     });
   });
