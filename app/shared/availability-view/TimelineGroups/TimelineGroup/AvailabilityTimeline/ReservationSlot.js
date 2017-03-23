@@ -109,17 +109,29 @@ export class UninjectedReservationSlot extends React.Component {
       </Link>
     );
     if (this.shouldShowPopover(isSelected)) {
+      const reservationLength = moment.duration(
+        moment(this.props.selection.end).diff(
+          moment(this.props.selection.begin)
+        )
+      );
       const popover = (
         <Popover
           className="reservation-slot-popover"
           id="popover-selection-information"
           title={this.props.t('ReservationSlot.selectionInfoHeader')}
         >
-          <div className="reservation-slot-popover-time">
+          <span className="reservation-slot-popover-time">
             {moment(this.props.selection.begin).format('HH:mm')}
             –
             {moment(this.props.selection.end).format('HH:mm')}
-          </div>
+          </span>
+          <span className="reservation-slot-popover-length">
+            {
+              reservationLength.hours() ?
+              `(${reservationLength.hours()}h ${reservationLength.minutes()}min)` :
+              `(${reservationLength.minutes()}min)`
+            }
+          </span>
           <Glyphicon
             className="reservation-slot-popover-cancel"
             glyph="trash"

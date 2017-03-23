@@ -120,6 +120,23 @@ describe('shared/availability-view/ReservationSlot', () => {
         return shallow(trigger.prop('overlay'));
       }
 
+      it('renders length with hours and minutes', () => {
+        const span = getPopover().find('.reservation-slot-popover-length');
+        expect(span.text()).to.be.equal('(2h 0min)');
+      });
+
+      it('renders length with only minutes if less than an hour', () => {
+        const extraProps = {
+          selection: {
+            begin: '2016-01-01T10:00:00Z',
+            end: '2016-01-01T10:30:00Z',
+            resourceId: '1',
+          },
+        };
+        const span = getPopover(extraProps).find('.reservation-slot-popover-length');
+        expect(span.text()).to.be.equal('(30min)');
+      });
+
       it('renders cancel icon', () => {
         const onSelectionCancel = () => null;
         const icon = getPopover({ onSelectionCancel }).find('.reservation-slot-popover-cancel');
