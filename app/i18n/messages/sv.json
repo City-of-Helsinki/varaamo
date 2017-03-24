@@ -163,6 +163,7 @@
   "ResourceIcons.free": "AVGIFTSFRI",
   "ResourcePage.reservationStatusHeader": "Bokningsläget",
   "ResourcePage.reserveHeader": "Boka utrymme",
+  "ResourceTypeFilter.title": "Show",
   "ResultsCount.text": "{count} utrymmen hittades",
   "SearchControls.search": "Sök",
   "SearchControls.searchPlaceholder": "Till exempel möte, arbete",
