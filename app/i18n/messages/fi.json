@@ -163,6 +163,7 @@
   "ResourceIcons.free": "MAKSUTON",
   "ResourcePage.reservationStatusHeader": "Varaustilanne",
   "ResourcePage.reserveHeader": "Varaa tila",
+  "ResourceTypeFilter.title": "Näytä",
   "ResultsCount.text": "Tiloja löytyi {count} kpl.",
   "SearchControls.search": "Hae",
   "SearchControls.searchPlaceholder": "Esim. kokous, työskentely",

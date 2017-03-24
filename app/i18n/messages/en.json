@@ -163,6 +163,7 @@
   "ResourceIcons.free": "FREE OF CHARGE",
   "ResourcePage.reservationStatusHeader": "Reservation situation",
   "ResourcePage.reserveHeader": "Reserve the space",
+  "ResourceTypeFilter.title": "Show",
   "ResultsCount.text": "{count} premises found.",
   "SearchControls.search": "Search",
   "SearchControls.searchPlaceholder": "For example: meeting, working",

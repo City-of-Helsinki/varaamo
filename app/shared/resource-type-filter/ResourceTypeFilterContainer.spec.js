@@ -1,8 +1,8 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
 
+import { shallowWithIntl } from 'utils/testUtils';
 import ResourceTypeFilterContainer from './ResourceTypeFilterContainer';
 import ResourceTypeFilterButton from './ResourceTypeFilterButton';
 
@@ -16,7 +16,7 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
   };
 
   function getWrapper(props) {
-    return shallow(<ResourceTypeFilterContainer {...defaultProps} {...props} />);
+    return shallowWithIntl(<ResourceTypeFilterContainer {...defaultProps} {...props} />);
   }
   let wrapper;
 
