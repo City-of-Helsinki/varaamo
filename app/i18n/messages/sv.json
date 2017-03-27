@@ -161,6 +161,7 @@
   "ResourceAvailability.reserved": "Bokat hela dagen",
   "ResourceAvailability.reservingRestricted": "Kan inte bokas",
   "ResourceIcons.free": "AVGIFTSFRI",
+  "ResourceInfo.equipmentHeader": "Equipment",
   "ResourcePage.reservationStatusHeader": "Bokningsläget",
   "ResourcePage.reserveHeader": "Boka utrymme",
   "ResourceTypeFilter.title": "Show",
