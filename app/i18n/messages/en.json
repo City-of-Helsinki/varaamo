@@ -161,6 +161,7 @@
   "ResourceAvailability.reserved": "Reserved for the whole day",
   "ResourceAvailability.reservingRestricted": "Not available for reservation",
   "ResourceIcons.free": "FREE OF CHARGE",
+  "ResourceInfo.equipmentHeader": "Equipment",
   "ResourcePage.reservationStatusHeader": "Reservation situation",
   "ResourcePage.reserveHeader": "Reserve the space",
   "ResourceTypeFilter.title": "Show",
