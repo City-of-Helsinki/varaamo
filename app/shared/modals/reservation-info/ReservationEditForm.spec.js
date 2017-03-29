@@ -3,7 +3,7 @@ import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
 import Immutable from 'seamless-immutable';
-import { Field } from 'redux-form';
+import { Field, Fields } from 'redux-form';
 
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
@@ -165,11 +165,19 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
           expect(field).to.have.length(1);
           expect(field.prop('type')).to.equal('number');
         });
+
+        it('renders ReservationTimeControls', () => {
+          const timeControls = getWrapper({ isEditing: true })
+            .find(Fields)
+            .filter({ names: ['begin', 'end'] });
+          expect(timeControls).to.have.length(1);
+        });
       });
 
       describe('when not editing', () => {
         it('does not render any form fields', () => {
           expect(getWrapper({ isEditing: false }).find(Field)).to.have.length(0);
+          expect(getWrapper({ isEditing: false }).find(Fields)).to.have.length(0);
         });
       });
     });

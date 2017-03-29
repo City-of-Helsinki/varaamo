@@ -7,9 +7,10 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Form from 'react-bootstrap/lib/Form';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
-import { Field, reduxForm } from 'redux-form';
+import { Field, Fields, reduxForm } from 'redux-form';
 
 import ReduxFormField from 'shared/form-fields/ReduxFormField';
+import ReservationTimeControls from 'shared/form-fields/ReservationTimeControls';
 import TimeRange from 'shared/time-range';
 import { injectT } from 'i18n';
 
@@ -19,6 +20,7 @@ class UnconnectedReservationEditForm extends Component {
     this.renderAddressRow = this.renderAddressRow.bind(this);
     this.renderEditableInfoRow = this.renderEditableInfoRow.bind(this);
     this.renderInfoRow = this.renderInfoRow.bind(this);
+    this.renderReservationTime = this.renderReservationTime.bind(this);
   }
 
   getAddress(street, zip, city) {
@@ -81,6 +83,27 @@ class UnconnectedReservationEditForm extends Component {
     return this.renderInfoRow(label, value);
   }
 
+  renderReservationTime() {
+    const { isEditing, reservation, t } = this.props;
+    if (isEditing) {
+      return (
+        <FormGroup id="reservation-time">
+          <Col sm={3}>
+            <ControlLabel>{t('common.reservationTimeLabel')}</ControlLabel>
+          </Col>
+          <Col sm={9}>
+            <Fields
+              component={ReservationTimeControls}
+              names={['begin', 'end']}
+            />
+          </Col>
+        </FormGroup>
+      );
+    }
+    const staticReservationTime = <TimeRange begin={reservation.begin} end={reservation.end} />;
+    return this.renderInfoRow(t('common.reservationTimeLabel'), staticReservationTime);
+  }
+
   render() {
     const {
       allowEditing,
@@ -98,7 +121,6 @@ class UnconnectedReservationEditForm extends Component {
     } = this.props;
 
     if (isEmpty(reservation)) return <span />;
-    const reservationTime = <TimeRange begin={reservation.begin} end={reservation.end} />;
 
     return (
       <Form
@@ -110,7 +132,7 @@ class UnconnectedReservationEditForm extends Component {
         {this.renderStaticInfoRow('reserverName')}
         {this.renderEditableInfoRow('eventDescription', 'textarea')}
         {this.renderEditableInfoRow('numberOfParticipants', 'number')}
-        {this.renderInfoRow(t('common.reservationTimeLabel'), reservationTime)}
+        {this.renderReservationTime()}
         {this.renderInfoRow(t('common.resourceLabel'), resource.name)}
 
         {isStaff && this.renderStaticInfoRow('reserverId')}
