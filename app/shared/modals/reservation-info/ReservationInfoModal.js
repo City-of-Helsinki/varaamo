@@ -55,11 +55,6 @@ class ReservationInfoModal extends Component {
       reservation.state === 'confirmed' ||
       (reservation.state === 'requested' && !isAdmin)
     );
-    const allowEditing = Boolean(
-      (reservation.eventSubject || reservation.eventSubject === '') ||
-      (reservation.eventDescription || reservation.eventDescription === '') ||
-      (reservation.numberOfParticipants || reservation.numberOfParticipants === '')
-    );
 
     return (
       <Modal
@@ -76,7 +71,6 @@ class ReservationInfoModal extends Component {
             <div>
               <ReservationStateLabel reservation={reservation} />
               <ReservationEditForm
-                allowEditing={allowEditing}
                 initialValues={reservation}
                 isAdmin={isAdmin}
                 isEditing={isEditing}
