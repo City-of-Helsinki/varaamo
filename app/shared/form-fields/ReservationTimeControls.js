@@ -4,6 +4,23 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 
 import DatePicker from 'shared/date-picker';
 
+function updateWithDate(initialValue, date) {
+  const dateMoment = moment(date);
+  return moment(initialValue).set({
+    year: dateMoment.get('year'),
+    month: dateMoment.get('month'),
+    date: dateMoment.get('date'),
+  }).toISOString();
+}
+
+function updateWithTime(initialValue, time, timeFormat) {
+  const timeMoment = moment(time, timeFormat);
+  return moment(initialValue).set({
+    hour: timeMoment.get('hour'),
+    minute: timeMoment.get('minute'),
+  }).toISOString();
+}
+
 class ReservationTimeControls extends Component {
   static propTypes = {
     begin: PropTypes.object.isRequired,
@@ -26,39 +43,28 @@ class ReservationTimeControls extends Component {
 
   handleBeginTimeChange(event) {
     const { begin, timeFormat } = this.props;
-    const timeMoment = moment(event.target.value, timeFormat);
-    const beginValue = moment(begin.input.value).set({
-      hour: timeMoment.get('hour'),
-      minute: timeMoment.get('minute'),
-    }).toISOString();
-    begin.input.onChange(beginValue);
+    const time = event.target.value;
+    if (time) {
+      begin.input.onChange(
+        updateWithTime(begin.input.value, time, timeFormat)
+      );
+    }
   }
 
   handleEndTimeChange(event) {
     const { end, timeFormat } = this.props;
-    const timeMoment = moment(event.target.value, timeFormat);
-    const endValue = moment(end.input.value).set({
-      hour: timeMoment.get('hour'),
-      minute: timeMoment.get('minute'),
-    }).toISOString();
-    end.input.onChange(endValue);
+    const time = event.target.value;
+    if (time) {
+      end.input.onChange(
+        updateWithTime(end.input.value, time, timeFormat)
+      );
+    }
   }
 
   handleDateChange(date) {
     const { begin, end } = this.props;
-    const dateMoment = moment(date);
-    const beginValue = moment(begin.input.value).set({
-      year: dateMoment.get('year'),
-      month: dateMoment.get('month'),
-      date: dateMoment.get('date'),
-    }).toISOString();
-    const endValue = moment(end.input.value).set({
-      year: dateMoment.get('year'),
-      month: dateMoment.get('month'),
-      date: dateMoment.get('date'),
-    }).toISOString();
-    begin.input.onChange(beginValue);
-    end.input.onChange(endValue);
+    begin.input.onChange(updateWithDate(begin.input.value, date));
+    end.input.onChange(updateWithDate(end.input.value, date));
   }
 
   render() {

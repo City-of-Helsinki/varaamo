@@ -63,36 +63,66 @@ describe('shared/form-fields/ReservationTimeControls', () => {
   });
 
   describe('handleBeginTimeChange', () => {
-    it('calls begin.input.onChange with time updated in begin.input.value', () => {
-      const onChange = simple.mock();
-      const value = moment('2017-01-01T10:00:00').toISOString();
+    function callHandleBeginTimeChange(onChange, value) {
+      const currentValue = moment('2017-01-01T10:00:00').toISOString();
       const props = {
-        begin: { input: { onChange, value } },
+        begin: { input: { onChange, value: currentValue } },
       };
       const wrapper = getWrapper(props);
-      const mockEvent = { target: { value: '15:30' } };
-      const expectedArg = moment('2017-01-01T15:30:00').toISOString();
-
+      const mockEvent = { target: { value } };
       wrapper.instance().handleBeginTimeChange(mockEvent);
-      expect(onChange.callCount).to.equal(1);
-      expect(onChange.lastCall.args).to.deep.equal([expectedArg]);
+    }
+
+    describe('with valid time value', () => {
+      it('calls begin.input.onChange with time updated in begin.input.value', () => {
+        const onChange = simple.mock();
+        const value = '15:30';
+        const expectedArg = moment('2017-01-01T15:30:00').toISOString();
+        callHandleBeginTimeChange(onChange, value);
+        expect(onChange.callCount).to.equal(1);
+        expect(onChange.lastCall.args).to.deep.equal([expectedArg]);
+      });
+    });
+
+    describe('with empty time value', () => {
+      it('does not call begin.input.onChange', () => {
+        const onChange = simple.mock();
+        const value = '';
+        callHandleBeginTimeChange(onChange, value);
+        expect(onChange.callCount).to.equal(0);
+      });
     });
   });
 
   describe('handleEndTimeChange', () => {
-    it('calls end.input.onChange with time updated in end.input.value', () => {
-      const onChange = simple.mock();
-      const value = moment('2017-01-01T12:00:00').toISOString();
+    function callHandleEndTimeChange(onChange, value) {
+      const currentValue = moment('2017-01-01T12:00:00').toISOString();
       const props = {
-        end: { input: { onChange, value } },
+        end: { input: { onChange, value: currentValue } },
       };
       const wrapper = getWrapper(props);
-      const mockEvent = { target: { value: '18:00' } };
-      const expectedArg = moment('2017-01-01T18:00:00').toISOString();
-
+      const mockEvent = { target: { value } };
       wrapper.instance().handleEndTimeChange(mockEvent);
-      expect(onChange.callCount).to.equal(1);
-      expect(onChange.lastCall.args).to.deep.equal([expectedArg]);
+    }
+
+    describe('with valid time value', () => {
+      it('calls end.input.onChange with time updated in end.input.value', () => {
+        const onChange = simple.mock();
+        const value = '18:00';
+        const expectedArg = moment('2017-01-01T18:00:00').toISOString();
+        callHandleEndTimeChange(onChange, value);
+        expect(onChange.callCount).to.equal(1);
+        expect(onChange.lastCall.args).to.deep.equal([expectedArg]);
+      });
+    });
+
+    describe('with empty time value', () => {
+      it('does not call end.input.onChange', () => {
+        const onChange = simple.mock();
+        const value = '';
+        callHandleEndTimeChange(onChange, value);
+        expect(onChange.callCount).to.equal(0);
+      });
     });
   });
 
