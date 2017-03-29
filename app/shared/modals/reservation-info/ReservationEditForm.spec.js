@@ -30,7 +30,6 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
     resource: resource.id,
   });
   const defaultProps = {
-    allowEditing: false,
     handleSubmit: () => null,
     isAdmin: true,
     isEditing: false,
@@ -189,17 +188,7 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
 
       it('are not rendered if user is not an admin', () => {
         const props = {
-          allowEditing: true,
           isAdmin: false,
-          reservationIsEditable: true,
-        };
-        expect(getFormControls(props)).to.have.length(0);
-      });
-
-      it('are not rendered if editing is not allowed', () => {
-        const props = {
-          allowEditing: false,
-          isAdmin: true,
           reservationIsEditable: true,
         };
         expect(getFormControls(props)).to.have.length(0);
@@ -207,7 +196,6 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
 
       it('are not rendered if reservation is not editable', () => {
         const props = {
-          allowEditing: true,
           isAdmin: true,
           reservationIsEditable: false,
         };
@@ -216,7 +204,6 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
 
       it('are rendered if user is admin and reservation is editable', () => {
         const props = {
-          allowEditing: true,
           isAdmin: true,
           reservationIsEditable: true,
         };
@@ -227,7 +214,6 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
         function getEditButton(props) {
           const onStartEditClick = () => null;
           const defaults = {
-            allowEditing: true,
             isAdmin: true,
             onStartEditClick,
             reservationIsEditable: true,
@@ -249,7 +235,6 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
         function getEditButton(props) {
           const onCancelEditClick = () => null;
           const defaults = {
-            allowEditing: true,
             isAdmin: true,
             onCancelEditClick,
             reservationIsEditable: true,
@@ -270,7 +255,6 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
       describe('save button', () => {
         function getSaveButton(props) {
           const defaults = {
-            allowEditing: true,
             isAdmin: true,
             reservationIsEditable: true,
           };
