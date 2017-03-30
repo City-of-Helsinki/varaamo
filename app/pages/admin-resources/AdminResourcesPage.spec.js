@@ -28,6 +28,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
     filteredResourceTypes: [],
     isAdmin: true,
     isFetchingResources: false,
+    location: { id: '123' },
     resources: [],
     resourceTypes: ['a', 'b', 'c'],
   };
@@ -158,6 +159,40 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
       it('saves interval to this.updateResourcesTimer', () => {
         expect(instance.updateResourcesTimer).to.equal(timer);
       });
+    });
+  });
+
+  describe('componentWillReceiveProps', () => {
+    let instance;
+
+    before(() => {
+      instance = getWrapper().instance();
+      instance.fetchResources = simple.mock();
+    });
+
+    afterEach(() => {
+      instance.fetchResources.reset();
+    });
+
+    after(() => {
+      simple.restore();
+    });
+
+    it('does not call fetchResources if props have not changed', () => {
+      instance.componentWillReceiveProps(defaultProps);
+      expect(instance.fetchResources.callCount).to.equal(0);
+    });
+
+    it('calls fetchResources if props have changed date', () => {
+      instance.componentWillReceiveProps({ ...defaultProps, date: '2017-01-12' });
+      expect(instance.fetchResources.callCount).to.equal(1);
+      expect(instance.fetchResources.lastCall.args).to.deep.equal(['2017-01-12']);
+    });
+
+    it('calls fetchResources if props have changed location', () => {
+      instance.componentWillReceiveProps({ ...defaultProps, location: { id: '321' } });
+      expect(instance.fetchResources.callCount).to.equal(1);
+      expect(instance.fetchResources.lastCall.args).to.deep.equal([defaultProps.date]);
     });
   });
 

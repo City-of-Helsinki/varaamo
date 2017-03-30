@@ -34,7 +34,7 @@ class UnconnectedAdminResourcesPage extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.date !== this.props.date) {
+    if (nextProps.date !== this.props.date || nextProps.location !== this.props.location) {
       this.fetchResources(nextProps.date);
     }
   }
@@ -108,6 +108,7 @@ UnconnectedAdminResourcesPage.propTypes = {
   filteredResourceTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
   isAdmin: PropTypes.bool.isRequired,
   isFetchingResources: PropTypes.bool.isRequired,
+  location: PropTypes.object.isRequired,
   resources: PropTypes.array.isRequired,
   t: PropTypes.func.isRequired,
   resourceTypes: PropTypes.array.isRequired,
