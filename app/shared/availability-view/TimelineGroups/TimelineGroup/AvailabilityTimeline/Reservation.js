@@ -23,6 +23,7 @@ Reservation.propTypes = {
   numberOfParticipants: PropTypes.number,
   onClick: PropTypes.func,
   reserverName: PropTypes.string,
+  state: PropTypes.string,
   user: PropTypes.shape({
     displayName: PropTypes.string,
     email: PropTypes.string,
@@ -58,7 +59,10 @@ function Reservation({ onClick, ...reservation }) {
         placement="top"
         trigger={['hover', 'focus']}
       >
-        <div className="reservation" style={{ width }}>
+        <div
+          className={classnames('reservation', { requested: reservation.state === 'requested' })}
+          style={{ width }}
+        >
           <div className="names">
             <div className="event-subject">{reservation.eventSubject}</div>
             <div className="reserver-name">{reserverName}</div>
