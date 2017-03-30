@@ -86,6 +86,16 @@ describe('shared/availability-view/Reservation', () => {
     expect(element).to.have.length(0);
   });
 
+  it('adds class requested to reservation if reservation state is requested', () => {
+    const element = getWrapper({ state: 'requested' }).find('.requested');
+    expect(element).to.have.length(1);
+  });
+
+  it('does not add class requested to reservation if reservation state is not requested', () => {
+    const element = getWrapper({ state: 'approved' }).find('.requested');
+    expect(element).to.have.length(0);
+  });
+
   it('has correct width', () => {
     const times = {
       end: '2016-01-01T20:00:00Z',
