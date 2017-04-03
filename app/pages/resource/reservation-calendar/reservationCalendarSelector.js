@@ -1,3 +1,4 @@
+import isEmpty from 'lodash/isEmpty';
 import { createSelector, createStructuredSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
@@ -24,8 +25,28 @@ const isEditingSelector = createSelector(
   reservationsToEdit => Boolean(reservationsToEdit.length)
 );
 
-const timeSlotsSelector = createSelector(
+const resourceByDate = createSelector(
   resourceSelector,
+  dateSelector,
+  (resource, selectedDate) => {
+    if (!isEmpty(resource)) {
+      return {
+        ...resource,
+        availableHours: resource.availableHours.filter(
+          range => range.starts.substring(0, 10) === selectedDate
+        ),
+        openingHours: resource.openingHours.filter(({ date }) => date === selectedDate),
+        reservations: resource.reservations.filter(
+          ({ begin }) => begin.substring(0, 10) === selectedDate
+        ),
+      };
+    }
+    return resource;
+  }
+);
+
+const timeSlotsSelector = createSelector(
+  resourceByDate,
   toEditSelector,
   (resource, reservationsToEdit) => {
     const { closes, opens } = getOpeningHours(resource);

@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import Resource, { openingHours } from 'utils/fixtures/Resource';
+import Resource, { availableHours, openingHoursMonth } from 'utils/fixtures/Resource';
 import * as timeUtils from 'utils/timeUtils';
 import reservationCalendarSelector from './reservationCalendarSelector';
 
@@ -31,11 +31,11 @@ function getState(resource) {
   };
 }
 
-function getProps(id = 'some-id') {
+function getProps(id = 'some-id', date = '2015-10-10') {
   return {
     location: {
       query: {
-        date: '2015-10-10',
+        date,
         time: '2015-10-10T12:00:00+03:00',
       },
       hash: '#some-hash',
@@ -48,12 +48,13 @@ function getProps(id = 'some-id') {
 
 describe('pages/resource/reservation-calendar/reservationCalendarSelector', () => {
   const resource = Resource.build({
+    availableHours,
     minPeriod: '01:00:00',
-    openingHours,
+    openingHours: openingHoursMonth,
     reservations: [
       {
-        opens: '2015-10-10T12:00:00+03:00',
-        closes: '2015-10-10T18:00:00+03:00',
+        begin: '2015-10-10T12:00:00+03:00',
+        end: '2015-10-10T18:00:00+03:00',
         state: 'confirmed',
       },
     ],
@@ -151,12 +152,20 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
       const selected = reservationCalendarSelector(state, props);
       const actualArgs = timeUtils.getTimeSlots.lastCall.args;
 
-      expect(actualArgs[0]).to.equal(resource.openingHours[0].opens);
-      expect(actualArgs[1]).to.equal(resource.openingHours[0].closes);
+      expect(actualArgs[0]).to.equal('2015-10-10T12:00:00+03:00');
+      expect(actualArgs[1]).to.equal('2015-10-10T18:00:00+03:00');
       expect(actualArgs[2]).to.equal(resource.minPeriod);
       expect(actualArgs[3]).to.deep.equal(resource.reservations);
       expect(selected.timeSlots).to.deep.equal(mockSlots);
       simple.restore();
+    });
+
+    it('returns timeSlots as an empty array when date not in resource', () => {
+      const state = getState(resource);
+      const props = getProps(resource.id, '2015-10-15');
+      const selected = reservationCalendarSelector(state, props);
+
+      expect(selected.timeSlots).to.deep.equal([]);
     });
 
     it('returns timeSlots as an empty array when resource is not found', () => {

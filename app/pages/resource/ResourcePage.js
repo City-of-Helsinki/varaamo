@@ -1,4 +1,5 @@
 import isEmpty from 'lodash/isEmpty';
+import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
@@ -9,27 +10,33 @@ import PageWrapper from 'pages/PageWrapper';
 import NotFoundPage from 'pages/not-found/NotFoundPage';
 import ReservationConfirmation from 'shared/reservation-confirmation';
 import { injectT } from 'i18n';
-import { getDateStartAndEndTimes } from 'utils/timeUtils';
 import ReservationCalendar from './reservation-calendar';
 import ReservationInfo from './reservation-info';
 import ResourceInfo from './resource-info';
 import resourcePageSelector from './resourcePageSelector';
 
 class UnconnectedResourcePage extends Component {
-  componentDidMount() {
-    const { actions, date, id } = this.props;
-    const fetchParams = getDateStartAndEndTimes(date);
+  constructor(props) {
+    super(props);
+    this.fetchResource = this.fetchResource.bind(this);
+  }
 
-    actions.fetchResource(id, fetchParams);
+  componentDidMount() {
+    this.fetchResource();
   }
 
   componentWillUpdate(nextProps) {
     if (nextProps.date !== this.props.date || nextProps.isLoggedIn !== this.props.isLoggedIn) {
-      const { actions, id } = this.props;
-      const fetchParams = getDateStartAndEndTimes(nextProps.date);
-
-      actions.fetchResource(id, fetchParams);
+      this.fetchResource(nextProps.date);
     }
+  }
+
+  fetchResource(date = this.props.date) {
+    const { actions, id } = this.props;
+    const start = moment(date).subtract(2, 'M').startOf('month').format();
+    const end = moment(date).add(2, 'M').endOf('month').format();
+
+    actions.fetchResource(id, { start, end });
   }
 
   render() {
