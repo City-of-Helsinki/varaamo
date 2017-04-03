@@ -55,16 +55,14 @@ describe('pages/resource/ResourcePage', () => {
   });
 
   describe('componentDidMount', () => {
-    it('fetches resource with correct arguments', () => {
+    it('calls fetchResource', () => {
       const fetchResource = simple.mock();
-      const instance = getWrapper({ actions: { fetchResource } }).instance();
+      const instance = getWrapper().instance();
+      instance.fetchResource = fetchResource;
       instance.componentDidMount();
-      const actualArgs = fetchResource.lastCall.args;
 
       expect(fetchResource.callCount).to.equal(1);
-      expect(actualArgs[0]).to.equal(defaultProps.id);
-      expect(actualArgs[1].start).to.contain(defaultProps.date);
-      expect(actualArgs[1].end).to.contain(defaultProps.date);
+      expect(fetchResource.lastCall.args).to.deep.equal([]);
     });
   });
 
@@ -74,7 +72,8 @@ describe('pages/resource/ResourcePage', () => {
       const fetchResource = simple.mock();
 
       before(() => {
-        const instance = getWrapper({ actions: { fetchResource } }).instance();
+        const instance = getWrapper().instance();
+        instance.fetchResource = fetchResource;
         instance.componentWillUpdate(nextProps);
       });
 
@@ -82,9 +81,7 @@ describe('pages/resource/ResourcePage', () => {
         const actualArgs = fetchResource.lastCall.args;
 
         expect(fetchResource.callCount).to.equal(1);
-        expect(actualArgs[0]).to.equal(defaultProps.id);
-        expect(actualArgs[1].start).to.contain(nextProps.date);
-        expect(actualArgs[1].end).to.contain(nextProps.date);
+        expect(actualArgs[0]).to.equal(nextProps.date);
       });
     });
 
@@ -93,7 +90,8 @@ describe('pages/resource/ResourcePage', () => {
       const fetchResource = simple.mock();
 
       before(() => {
-        const instance = getWrapper({ actions: { fetchResource } }).instance();
+        const instance = getWrapper().instance();
+        instance.fetchResource = fetchResource;
         instance.componentWillUpdate(nextProps);
       });
 
@@ -107,7 +105,8 @@ describe('pages/resource/ResourcePage', () => {
       const fetchResource = simple.mock();
 
       before(() => {
-        const instance = getWrapper({ actions: { fetchResource } }).instance();
+        const instance = getWrapper().instance();
+        instance.fetchResource = fetchResource;
         instance.componentWillUpdate(nextProps);
       });
 
@@ -115,9 +114,7 @@ describe('pages/resource/ResourcePage', () => {
         const actualArgs = fetchResource.lastCall.args;
 
         expect(fetchResource.callCount).to.equal(1);
-        expect(actualArgs[0]).to.equal(defaultProps.id);
-        expect(actualArgs[1].start).to.contain(nextProps.date);
-        expect(actualArgs[1].end).to.contain(nextProps.date);
+        expect(actualArgs[0]).to.equal(nextProps.date);
       });
     });
 
@@ -133,6 +130,30 @@ describe('pages/resource/ResourcePage', () => {
       it('does not fetch resource data', () => {
         expect(fetchResource.callCount).to.equal(0);
       });
+    });
+  });
+  describe('fetchResource', () => {
+    it('fetches resource with correct arguments', () => {
+      const fetchResource = simple.mock();
+      const instance = getWrapper({ actions: { fetchResource } }).instance();
+      instance.fetchResource();
+      const actualArgs = fetchResource.lastCall.args;
+
+      expect(fetchResource.callCount).to.equal(1);
+      expect(actualArgs[0]).to.equal(defaultProps.id);
+      expect(actualArgs[1].start).to.contain('2015-08-01');
+      expect(actualArgs[1].end).to.contain('2015-12-31');
+    });
+    it('fetches resource with correct arguments with a passed date', () => {
+      const fetchResource = simple.mock();
+      const instance = getWrapper({ actions: { fetchResource } }).instance();
+      instance.fetchResource('2015-11-11');
+      const actualArgs = fetchResource.lastCall.args;
+
+      expect(fetchResource.callCount).to.equal(1);
+      expect(actualArgs[0]).to.equal(defaultProps.id);
+      expect(actualArgs[1].start).to.contain('2015-09-01');
+      expect(actualArgs[1].end).to.contain('2016-01-31');
     });
   });
 });
