@@ -84,7 +84,7 @@ class UnconnectedReservationEditForm extends Component {
   }
 
   renderReservationTime() {
-    const { isEditing, reservation, t } = this.props;
+    const { isEditing, reservation, resource, t } = this.props;
     if (isEditing) {
       return (
         <FormGroup id="reservation-time">
@@ -95,6 +95,7 @@ class UnconnectedReservationEditForm extends Component {
             <Fields
               component={ReservationTimeControls}
               names={['begin', 'end']}
+              period={resource.minPeriod}
             />
           </Col>
         </FormGroup>

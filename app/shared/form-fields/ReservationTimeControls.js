@@ -1,6 +1,7 @@
 import moment from 'moment';
+import 'moment-range';
 import React, { Component, PropTypes } from 'react';
-import FormControl from 'react-bootstrap/lib/FormControl';
+import Select from 'react-select';
 
 import DatePicker from 'shared/date-picker';
 
@@ -25,13 +26,13 @@ class ReservationTimeControls extends Component {
   static propTypes = {
     begin: PropTypes.object.isRequired,
     end: PropTypes.object.isRequired,
+    period: PropTypes.string,
     timeFormat: PropTypes.string,
-    timeStep: PropTypes.number,
   };
 
   static defaultProps = {
+    period: '00:30:00',
     timeFormat: 'HH:mm',
-    timeStep: 30 * 60,  // 30 minutes
   };
 
   constructor(props) {
@@ -41,22 +42,36 @@ class ReservationTimeControls extends Component {
     this.handleDateChange = this.handleDateChange.bind(this);
   }
 
-  handleBeginTimeChange(event) {
+  getTimeOptions() {
+    const { period, timeFormat } = this.props;
+    const start = moment().startOf('day');
+    const end = moment().endOf('day');
+    const range = moment.range(moment(start), moment(end));
+    const duration = moment.duration(period);
+    const options = [];
+    range.by(duration, (beginMoment) => {
+      options.push({
+        label: beginMoment.format(timeFormat),
+        value: beginMoment.format(timeFormat),
+      });
+    });
+    return options;
+  }
+
+  handleBeginTimeChange({ value }) {
     const { begin, timeFormat } = this.props;
-    const time = event.target.value;
-    if (time) {
+    if (value) {
       begin.input.onChange(
-        updateWithTime(begin.input.value, time, timeFormat)
+        updateWithTime(begin.input.value, value, timeFormat)
       );
     }
   }
 
-  handleEndTimeChange(event) {
+  handleEndTimeChange({ value }) {
     const { end, timeFormat } = this.props;
-    const time = event.target.value;
-    if (time) {
+    if (value) {
       end.input.onChange(
-        updateWithTime(end.input.value, time, timeFormat)
+        updateWithTime(end.input.value, value, timeFormat)
       );
     }
   }
@@ -68,7 +83,7 @@ class ReservationTimeControls extends Component {
   }
 
   render() {
-    const { begin, end, timeFormat, timeStep } = this.props;
+    const { begin, end, timeFormat } = this.props;
 
     return (
       <div className="reservation-time-controls">
@@ -79,11 +94,13 @@ class ReservationTimeControls extends Component {
           />
         </div>
         <div className="reservation-time-controls-time-control">
-          <FormControl
+          <Select
+            clearable={false}
+            name="reservation-time-controls-begin-time-select"
             onChange={this.handleBeginTimeChange}
-            required
-            step={timeStep}
-            type="time"
+            options={this.getTimeOptions()}
+            placeholder=" "
+            searchable
             value={moment(begin.input.value).format(timeFormat)}
           />
         </div>
@@ -91,11 +108,13 @@ class ReservationTimeControls extends Component {
           -
         </div>
         <div className="reservation-time-controls-time-control">
-          <FormControl
+          <Select
+            clearable={false}
+            name="reservation-time-controls-end-time-select"
             onChange={this.handleEndTimeChange}
-            required
-            step={timeStep}
-            type="time"
+            options={this.getTimeOptions()}
+            placeholder=" "
+            searchable
             value={moment(end.input.value).format(timeFormat)}
           />
         </div>
