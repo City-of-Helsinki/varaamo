@@ -7,6 +7,7 @@ import { Field, reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 
 import constants from 'constants/AppConstants';
+import FormTypes from 'constants/FormTypes';
 import WrappedText from 'shared/wrapped-text';
 import ReduxFormField from 'shared/form-fields/ReduxFormField';
 import { injectT } from 'i18n';
@@ -257,6 +258,6 @@ UnconnectedReservationForm = injectT(UnconnectedReservationForm);  // eslint-dis
 
 export { UnconnectedReservationForm };
 export default injectT(reduxForm({
-  form: 'preliminaryReservation',
+  form: FormTypes.RESERVATION,
   validate,
 })(UnconnectedReservationForm));

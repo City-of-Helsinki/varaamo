@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import simple from 'simple-mock';
 
+import FormTypes from 'constants/FormTypes';
 import { mergeProps } from './ReservationInfoModalContainer';
 
 describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
@@ -56,7 +57,7 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
         const resetForm = simple.mock();
         callOnCancelEditClick({ resetForm });
         expect(resetForm.callCount).to.equal(1);
-        expect(resetForm.lastCall.args).to.deep.equal(['reservationEdit']);
+        expect(resetForm.lastCall.args).to.deep.equal([FormTypes.RESERVATION_EDIT]);
       });
     });
 

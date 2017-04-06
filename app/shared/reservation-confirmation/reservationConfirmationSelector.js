@@ -2,6 +2,7 @@ import { formValueSelector } from 'redux-form';
 import { createSelector, createStructuredSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
+import FormTypes from 'constants/FormTypes';
 import ModalTypes from 'constants/ModalTypes';
 import { createIsStaffSelector } from 'state/selectors/authSelectors';
 import { createResourceSelector } from 'state/selectors/dataSelectors';
@@ -13,7 +14,7 @@ const resourceIdSelector = (state, props) => props.params.id;
 const resourceSelector = createResourceSelector(resourceIdSelector);
 const toEditSelector = state => state.ui.reservations.toEdit;
 const staffEventSelectedSelector = state => (
-  formValueSelector('preliminaryReservation')(state, 'staffEvent')
+  formValueSelector(FormTypes.RESERVATION)(state, 'staffEvent')
 );
 const selectedReservationsSelector = createSelector(
   (state, props) => props.selectedReservations,
