@@ -71,6 +71,7 @@ class ReservationInfoModal extends Component {
             <div>
               <ReservationStateLabel reservation={reservation} />
               <ReservationEditForm
+                enableReinitialize
                 initialValues={reservation}
                 isAdmin={isAdmin}
                 isEditing={isEditing}
