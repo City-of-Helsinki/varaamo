@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { reset as resetForm } from 'redux-form';
 
 import {
   commentReservation,
@@ -23,6 +24,7 @@ const actions = {
   denyPreliminaryReservation,
   hideReservationInfoModal,
   openReservationCancelModal,
+  resetForm,
   putReservation,
   selectReservationToCancel,
   startReservationEditInInfoModal,
@@ -37,7 +39,10 @@ export function mergeProps(stateProps, dispatchProps) {
       dispatchProps.selectReservationToCancel(reservation);
       dispatchProps.openReservationCancelModal();
     },
-    onCancelEditClick: dispatchProps.cancelReservationEditInInfoModal,
+    onCancelEditClick: () => {
+      dispatchProps.cancelReservationEditInInfoModal();
+      dispatchProps.resetForm('reservationEdit');
+    },
     onConfirmClick: () => dispatchProps.confirmPreliminaryReservation(reservation),
     onDenyClick: () => dispatchProps.denyPreliminaryReservation(reservation),
     onEditFormSubmit: dispatchProps.putReservation,

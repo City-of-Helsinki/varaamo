@@ -9,10 +9,12 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
     const resource = { id: 'resource-123' };
     const stateProps = { reservation, resource };
     const actions = {
+      cancelReservationEditInInfoModal: () => null,
       commentReservation: () => null,
       confirmPreliminaryReservation: () => null,
       hideReservationInfoModal: () => null,
       openReservationCancelModal: () => null,
+      resetForm: () => null,
       selectReservationToCancel: () => null,
     };
 
@@ -36,6 +38,25 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
         const openReservationCancelModal = simple.mock();
         callOnCancelClick({ openReservationCancelModal });
         expect(openReservationCancelModal.callCount).to.equal(1);
+      });
+    });
+
+    describe('onCancelEditClick', () => {
+      function callOnCancelEditClick(extraActions) {
+        getProps({ ...actions, ...extraActions }).onCancelEditClick();
+      }
+
+      it('calls cancelReservationEditInInfoModal', () => {
+        const cancelReservationEditInInfoModal = simple.mock();
+        callOnCancelEditClick({ cancelReservationEditInInfoModal });
+        expect(cancelReservationEditInInfoModal.callCount).to.equal(1);
+      });
+
+      it('calls resetForm for reservation edit form', () => {
+        const resetForm = simple.mock();
+        callOnCancelEditClick({ resetForm });
+        expect(resetForm.callCount).to.equal(1);
+        expect(resetForm.lastCall.args).to.deep.equal(['reservationEdit']);
       });
     });
 
