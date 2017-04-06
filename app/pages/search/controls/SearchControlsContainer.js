@@ -91,7 +91,7 @@ class UnconnectedSearchControlsContainer extends Component {
           <Col lg={6} md={6}>
             <div className="form-group">
               <DateField
-                className="form-control"
+                className="form-control date-picker"
                 clearIcon={false}
                 collapseOnDateClick
                 dateFormat={'L'}
