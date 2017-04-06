@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import moment from 'moment';
 import React from 'react';
-import FormControl from 'react-bootstrap/lib/FormControl';
+import Select from 'react-select';
 import simple from 'simple-mock';
 
 import DatePicker from 'shared/date-picker';
@@ -41,24 +41,59 @@ describe('shared/form-fields/ReservationTimeControls', () => {
       expect(datePicker.prop('onChange')).to.equal(wrapper.instance().handleDateChange);
     });
 
-    it('renders time control for changing reservation begin time', () => {
+    it('renders Select for changing reservation begin time', () => {
       const wrapper = getWrapper();
-      const beginTimeControl = wrapper.find(FormControl).at(0);
+      const beginTimeControl = wrapper.find(Select).at(0);
       const expectedValue = moment(defaultProps.begin.input.value).format('HH:mm');
       expect(beginTimeControl).to.have.length(1);
-      expect(beginTimeControl.prop('type')).to.equal('time');
       expect(beginTimeControl.prop('value')).to.equal(expectedValue);
       expect(beginTimeControl.prop('onChange')).to.equal(wrapper.instance().handleBeginTimeChange);
+      expect(beginTimeControl.prop('options')).to.deep.equal(wrapper.instance().getTimeOptions());
     });
 
-    it('renders time control for changing reservation end time', () => {
+    it('renders time Select for changing reservation end time', () => {
       const wrapper = getWrapper();
-      const endTimeControl = wrapper.find(FormControl).at(1);
+      const endTimeControl = wrapper.find(Select).at(1);
       const expectedValue = moment(defaultProps.end.input.value).format('HH:mm');
       expect(endTimeControl).to.have.length(1);
-      expect(endTimeControl.prop('type')).to.equal('time');
       expect(endTimeControl.prop('value')).to.equal(expectedValue);
       expect(endTimeControl.prop('onChange')).to.equal(wrapper.instance().handleEndTimeChange);
+      expect(endTimeControl.prop('options')).to.deep.equal(wrapper.instance().getTimeOptions());
+    });
+  });
+
+  describe('getTimeOptions', () => {
+    it('returns time options using props.period as the duration between times ', () => {
+      const period = '01:00:00';
+      const wrapper = getWrapper({ period });
+      const options = wrapper.instance().getTimeOptions();
+      const expected = [
+        { label: '00:00', value: '00:00' },
+        { label: '01:00', value: '01:00' },
+        { label: '02:00', value: '02:00' },
+        { label: '03:00', value: '03:00' },
+        { label: '04:00', value: '04:00' },
+        { label: '05:00', value: '05:00' },
+        { label: '06:00', value: '06:00' },
+        { label: '07:00', value: '07:00' },
+        { label: '08:00', value: '08:00' },
+        { label: '09:00', value: '09:00' },
+        { label: '10:00', value: '10:00' },
+        { label: '11:00', value: '11:00' },
+        { label: '12:00', value: '12:00' },
+        { label: '13:00', value: '13:00' },
+        { label: '14:00', value: '14:00' },
+        { label: '15:00', value: '15:00' },
+        { label: '16:00', value: '16:00' },
+        { label: '17:00', value: '17:00' },
+        { label: '18:00', value: '18:00' },
+        { label: '19:00', value: '19:00' },
+        { label: '20:00', value: '20:00' },
+        { label: '21:00', value: '21:00' },
+        { label: '22:00', value: '22:00' },
+        { label: '23:00', value: '23:00' },
+      ];
+      expect(options).to.deep.equal(expected);
     });
   });
 
@@ -69,8 +104,7 @@ describe('shared/form-fields/ReservationTimeControls', () => {
         begin: { input: { onChange, value: currentValue } },
       };
       const wrapper = getWrapper(props);
-      const mockEvent = { target: { value } };
-      wrapper.instance().handleBeginTimeChange(mockEvent);
+      wrapper.instance().handleBeginTimeChange({ value });
     }
 
     describe('with valid time value', () => {
@@ -101,8 +135,7 @@ describe('shared/form-fields/ReservationTimeControls', () => {
         end: { input: { onChange, value: currentValue } },
       };
       const wrapper = getWrapper(props);
-      const mockEvent = { target: { value } };
-      wrapper.instance().handleEndTimeChange(mockEvent);
+      wrapper.instance().handleEndTimeChange({ value });
     }
 
     describe('with valid time value', () => {
