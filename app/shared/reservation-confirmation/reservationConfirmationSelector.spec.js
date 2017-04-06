@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 
+import FormTypes from 'constants/FormTypes';
 import Resource from 'utils/fixtures/Resource';
 import { getState } from 'utils/testUtils';
 import reservationConfirmationSelector from './reservationConfirmationSelector';
@@ -10,7 +11,7 @@ describe('shared/reservation-confirmation/reservationConfirmationSelector', () =
   function getSelected(extraProps) {
     const state = getState({
       'data.resources': { [resource.id]: resource },
-      'form.preliminaryReservation.values': { staffEvent: true },
+      [`form.${FormTypes.RESERVATION}.values`]: { staffEvent: true },
       'ui.reservations.toEdit': ['mock-reservation'],
     });
     const props = {

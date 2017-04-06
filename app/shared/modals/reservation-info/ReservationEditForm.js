@@ -9,6 +9,7 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import { Field, Fields, reduxForm } from 'redux-form';
 
+import FormTypes from 'constants/FormTypes';
 import ReduxFormField from 'shared/form-fields/ReduxFormField';
 import ReservationTimeControls from 'shared/form-fields/ReservationTimeControls';
 import TimeRange from 'shared/time-range';
@@ -195,5 +196,5 @@ UnconnectedReservationEditForm = injectT(UnconnectedReservationEditForm);  // es
 
 export { UnconnectedReservationEditForm };
 export default injectT(reduxForm({
-  form: 'reservationEdit',
+  form: FormTypes.RESERVATION_EDIT,
 })(UnconnectedReservationEditForm));

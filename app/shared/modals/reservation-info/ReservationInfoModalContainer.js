@@ -14,6 +14,7 @@ import {
   selectReservationToCancel,
   startReservationEditInInfoModal,
 } from 'actions/uiActions';
+import FormTypes from 'constants/FormTypes';
 import ReservationInfoModal from './ReservationInfoModal';
 import reservationInfoModalSelector from './reservationInfoModalSelector';
 
@@ -41,7 +42,7 @@ export function mergeProps(stateProps, dispatchProps) {
     },
     onCancelEditClick: () => {
       dispatchProps.cancelReservationEditInInfoModal();
-      dispatchProps.resetForm('reservationEdit');
+      dispatchProps.resetForm(FormTypes.RESERVATION_EDIT);
     },
     onConfirmClick: () => dispatchProps.confirmPreliminaryReservation(reservation),
     onDenyClick: () => dispatchProps.denyPreliminaryReservation(reservation),
