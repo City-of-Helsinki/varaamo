@@ -7,8 +7,19 @@ import constants from 'constants/AppConstants';
 import { injectT } from 'i18n';
 
 class AdminReservationFilters extends Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange({ value }) {
+    if (value) {
+      this.props.onFiltersChange({ state: value });
+    }
+  }
+
   render() {
-    const { filters, onFiltersChange, t } = this.props;
+    const { filters, t } = this.props;
     const stateOptions = [
       {
         label: t('AdminReservationFilters.allOptionLabel'),
@@ -33,8 +44,9 @@ class AdminReservationFilters extends Component {
           className="reservation-state-select"
           clearable={false}
           name="reservation-state-select"
-          onChange={option => onFiltersChange({ state: option.value })}
+          onChange={this.handleChange}
           options={stateOptions}
+          searchable={false}
           value={filters.state}
         />
       </div>
