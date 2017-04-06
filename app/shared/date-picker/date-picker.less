@@ -26,12 +26,19 @@
     }
   }
 
-  // Regular hover
+  // Regular
   .react-date-picker__month-view--theme-default {
     .react-date-picker__month-view-day-text {
+      // Forced line-height to center content in IE11
+      line-height: 36px;
       &:hover {
         background-color: lighten(@brand-primary, 25%);
       }
     }
+  }
+
+  & > .react-date-field__picker {
+    // Forced width to avoid content hidden behind small container in IE11
+    width: 282px;
   }
 }
