@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { Calendar } from 'react-date-picker';
+import DayPicker from 'react-day-picker';
+import MomentLocaleUtils from 'react-day-picker/moment';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
@@ -38,15 +39,16 @@ export class UnconnectedReservationCalendarContainer extends Component {
 
   onDateChange(newDate) {
     const { resource } = this.props;
-    browserHistory.push(getResourcePageUrl(resource, newDate));
+    const day = newDate.toISOString().substring(0, 10);
+    browserHistory.push(getResourcePageUrl(resource, day));
   }
 
   decreaseDate() {
-    this.onDateChange(addToDate(this.props.date, -1));
+    this.onDateChange(new Date(addToDate(this.props.date, -1)));
   }
 
   increaseDate() {
-    this.onDateChange(addToDate(this.props.date, 1));
+    this.onDateChange(new Date(addToDate(this.props.date, 1)));
   }
 
   handleEditCancel() {
@@ -56,6 +58,8 @@ export class UnconnectedReservationCalendarContainer extends Component {
   render() {
     const {
       actions,
+      availability,
+      currentLanguage,
       date,
       isAdmin,
       isEditing,
@@ -77,9 +81,33 @@ export class UnconnectedReservationCalendarContainer extends Component {
 
     return (
       <div className="reservation-calendar">
-        <Calendar
-          date={date}
-          onChange={this.onDateChange}
+        <DayPicker
+          disabledDays={{ before: new Date() }}
+          enableOutsideDays
+          initialMonth={new Date(date)}
+          locale={currentLanguage}
+          localeUtils={MomentLocaleUtils}
+          modifiers={{
+            available: (day) => {
+              const dayDate = day.toISOString().substring(0, 10);
+              return availability[dayDate] && availability[dayDate].percentage >= 80;
+            },
+            busy: (day) => {
+              const dayDate = day.toISOString().substring(0, 10);
+              return (
+                availability[dayDate] &&
+                availability[dayDate].percentage < 80 &&
+                availability[dayDate].percentage > 0
+              );
+            },
+            booked: (day) => {
+              const dayDate = day.toISOString().substring(0, 10);
+              return availability[dayDate] && availability[dayDate].percentage === 0;
+            },
+          }}
+          onDayClick={this.onDateChange}
+          onMonthChange={this.onMonthChange}
+          selectedDays={new Date(date)}
         />
         <DateHeader
           date={date}
@@ -138,6 +166,8 @@ export class UnconnectedReservationCalendarContainer extends Component {
 
 UnconnectedReservationCalendarContainer.propTypes = {
   actions: PropTypes.object.isRequired,
+  availability: PropTypes.object.isRequired,
+  currentLanguage: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   isEditing: PropTypes.bool.isRequired,

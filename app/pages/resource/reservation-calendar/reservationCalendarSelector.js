@@ -1,4 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
+import mapValues from 'lodash/mapValues';
+import moment from 'moment';
 import { createSelector, createStructuredSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
@@ -10,6 +12,7 @@ import {
 import { createResourceSelector } from 'state/selectors/dataSelectors';
 import dateSelector from 'state/selectors/dateSelector';
 import timeSelector from 'state/selectors/timeSelector';
+import { currentLanguageSelector } from 'state/selectors/translationSelectors';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
 import { getOpeningHours, getOpenReservations } from 'utils/resourceUtils';
 import { getTimeSlots } from 'utils/timeUtils';
@@ -56,7 +59,43 @@ const timeSlotsSelector = createSelector(
   }
 );
 
+const AvailabilitySelector = createSelector(
+  resourceSelector,
+  (resource) => {
+    if (isEmpty(resource)) {
+      return resource;
+    }
+    const availableTimeByDate = {};
+    resource.openingHours.forEach(({ closes, date, opens }) => {
+      const openMinutes = moment.duration(
+        moment(closes).diff(moment(opens))
+      ).asMinutes();
+      if (availableTimeByDate[date]) {
+        availableTimeByDate[date].openMinutes += openMinutes;
+      } else {
+        availableTimeByDate[date] = {
+          availableMinutes: 0,
+          openMinutes,
+        };
+      }
+    });
+    resource.availableHours.forEach(({ ends, starts }) => {
+      const date = starts.substring(0, 10);
+      const availableMinutes = moment.duration(
+        moment(ends).diff(moment(starts))
+      ).asMinutes();
+      availableTimeByDate[date].availableMinutes += availableMinutes;
+    });
+    return mapValues(availableTimeByDate, date => ({
+      ...date,
+      percentage: (date.availableMinutes * 100) / date.openMinutes,
+    }));
+  }
+);
+
 const reservationCalendarSelector = createStructuredSelector({
+  availability: AvailabilitySelector,
+  currentLanguage: currentLanguageSelector,
   date: dateSelector,
   isAdmin: isAdminSelector,
   isEditing: isEditingSelector,

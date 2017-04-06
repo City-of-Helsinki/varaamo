@@ -1,7 +1,8 @@
 import { expect } from 'chai';
 import MockDate from 'mockdate';
 import React from 'react';
-import { Calendar } from 'react-date-picker';
+import DayPicker from 'react-day-picker';
+import MomentLocaleUtils from 'react-day-picker/moment';
 import { browserHistory } from 'react-router';
 import simple from 'simple-mock';
 
@@ -31,28 +32,29 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
   };
   const resource = Resource.build();
 
+  const defaultProps = {
+    availability: {},
+    actions,
+    currentLanguage: 'en',
+    date: '2015-10-11',
+    isAdmin: false,
+    isEditing: false,
+    isFetchingResource: false,
+    isLoggedIn: true,
+    isMakingReservations: false,
+    isStaff: false,
+    location: { hash: '&some=hash' },
+    params: { id: resource.id },
+    resource,
+    selected: [],
+    timeSlots: [
+      TimeSlot.build(),
+      TimeSlot.build(),
+    ],
+    urlHash: '',
+  };
   function getWrapper(props) {
-    const defaults = {
-      actions,
-      date: '2015-10-11',
-      isAdmin: false,
-      isEditing: false,
-      isFetchingResource: false,
-      isLoggedIn: true,
-      isMakingReservations: false,
-      isStaff: false,
-      location: { hash: '&some=hash' },
-      params: { id: resource.id },
-      resource,
-      selected: [],
-      timeSlots: [
-        TimeSlot.build(),
-        TimeSlot.build(),
-      ],
-      urlHash: '',
-    };
-
-    return shallowWithIntl(<ReservationCalendarContainer {...defaults} {...props} />);
+    return shallowWithIntl(<ReservationCalendarContainer {...defaultProps} {...props} />);
   }
 
   function makeRenderTests(props, options) {
@@ -68,8 +70,8 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       wrapper = getWrapper(props);
     });
 
-    it('renders Calendar', () => {
-      expect(wrapper.find(Calendar).length).to.equal(1);
+    it('renders DayPicker', () => {
+      expect(wrapper.find(DayPicker).length).to.equal(1);
     });
 
     it('renders DateHeader', () => {
@@ -191,6 +193,60 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     });
   });
 
+  describe('DayPicker', () => {
+    let instance;
+    let dayWrapper;
+    before(() => {
+      const wrapper = getWrapper({
+        availability: {
+          '2015-10-01': { percentage: 0 },
+          '2015-10-02': { percentage: 50 },
+          '2015-10-03': { percentage: 81 },
+          '2015-10-04': { percentage: 100 },
+        },
+      });
+      instance = wrapper.instance();
+      dayWrapper = wrapper.find(DayPicker);
+    });
+
+    it('renders correct props', () => {
+      expect(dayWrapper.prop('disabledDays').before.valueOf()).to.be.closeTo(
+        new Date().valueOf(),
+        100000
+      );
+      expect(dayWrapper.prop('enableOutsideDays')).to.be.true;
+      expect(dayWrapper.prop('initialMonth')).to.deep.equal(new Date(defaultProps.date));
+      expect(dayWrapper.prop('locale')).to.equal('en');
+      expect(dayWrapper.prop('localeUtils')).to.equal(MomentLocaleUtils);
+      expect(dayWrapper.prop('onDayClick')).to.equal(instance.onDateChange);
+      expect(dayWrapper.prop('selectedDays')).to.deep.equal(new Date(defaultProps.date));
+    });
+
+    describe('modifiers', () => {
+      it('is available if percentage is greater than 80', () => {
+        const func = dayWrapper.prop('modifiers').available;
+        expect(func(new Date('2015-10-01'))).to.be.false;
+        expect(func(new Date('2015-10-02'))).to.be.false;
+        expect(func(new Date('2015-10-03'))).to.be.true;
+        expect(func(new Date('2015-10-04'))).to.be.true;
+      });
+      it('is busy if percentage is lower than 80', () => {
+        const func = dayWrapper.prop('modifiers').busy;
+        expect(func(new Date('2015-10-01'))).to.be.false;
+        expect(func(new Date('2015-10-02'))).to.be.true;
+        expect(func(new Date('2015-10-03'))).to.be.false;
+        expect(func(new Date('2015-10-04'))).to.be.false;
+      });
+      it('is booked if percentage is 0', () => {
+        const func = dayWrapper.prop('modifiers').booked;
+        expect(func(new Date('2015-10-01'))).to.be.true;
+        expect(func(new Date('2015-10-02'))).to.be.false;
+        expect(func(new Date('2015-10-03'))).to.be.false;
+        expect(func(new Date('2015-10-04'))).to.be.false;
+      });
+    });
+  });
+
   describe('componentWillUnmount', () => {
     it('calls clearReservations', () => {
       const instance = getWrapper().instance();
@@ -200,7 +256,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
   });
 
   describe('onDateChange', () => {
-    const newDate = '2015-12-24';
+    const newDate = new Date('2015-12-24');
     const instance = getWrapper().instance();
     let browserHistoryMock;
 
@@ -215,7 +271,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
 
     it('calls browserHistory.push with correct path', () => {
       const actualPath = browserHistoryMock.lastCall.args[0];
-      const expectedPath = getResourcePageUrl(resource, newDate);
+      const expectedPath = getResourcePageUrl(resource, '2015-12-24');
 
       expect(browserHistoryMock.callCount).to.equal(1);
       expect(actualPath).to.equal(expectedPath);

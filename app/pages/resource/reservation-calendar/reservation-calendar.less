@@ -6,3 +6,15 @@
     text-align: center;
   }
 }
+
+.DayPicker-Day {
+  &--available:not(&--disabled):not(&--selected) {
+    background-color: #D1FAD1;
+  }
+  &--busy:not(&--disabled):not(&--selected)  {
+    background-color: #F6EAAC;
+  }
+  &--booked:not(&--disabled):not(&--selected)  {
+    background-color: #F5A3A3;
+  }
+}
