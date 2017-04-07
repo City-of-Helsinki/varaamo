@@ -74,6 +74,15 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       expect(wrapper.find(DayPicker).length).to.equal(1);
     });
 
+    it('renders a calendar-legend with correct labels', () => {
+      expect(wrapper.find('.calendar-legend .free').text())
+        .to.equal('ReservationCalendarPickerLegend.free');
+      expect(wrapper.find('.calendar-legend .busy').text())
+        .to.equal('ReservationCalendarPickerLegend.busy');
+      expect(wrapper.find('.calendar-legend .booked').text())
+      .to.equal('ReservationCalendarPickerLegend.booked');
+    });
+
     it('renders DateHeader', () => {
       expect(wrapper.find(DateHeader).length).to.equal(1);
     });
