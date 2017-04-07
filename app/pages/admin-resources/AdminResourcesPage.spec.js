@@ -43,6 +43,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
       expect(pageWrapper).to.have.length(1);
       expect(pageWrapper.prop('className')).to.equal('admin-resources-page');
       expect(pageWrapper.prop('title')).to.equal('AdminResourcesPage.title');
+      expect(pageWrapper.prop('fluid')).to.be.true;
     });
 
     describe('when user is not admin', () => {
