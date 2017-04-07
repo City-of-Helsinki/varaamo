@@ -2,9 +2,9 @@ import React, { PropTypes } from 'react';
 import Grid from 'react-bootstrap/lib/Grid';
 import DocumentTitle from 'react-document-title';
 
-function PageWrapper({ children, className, title }) {
+function PageWrapper({ children, className, fluid = false, title }) {
   return (
-    <Grid>
+    <Grid fluid={fluid}>
       <DocumentTitle title={`${title} - Varaamo`} />
       <div className={className}>
         {children}
@@ -16,6 +16,7 @@ function PageWrapper({ children, className, title }) {
 PageWrapper.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
+  fluid: PropTypes.bool,
   title: PropTypes.string.isRequired,
 };
 

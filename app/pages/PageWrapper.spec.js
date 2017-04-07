@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
+import Grid from 'react-bootstrap/lib/Grid';
 import DocumentTitle from 'react-document-title';
 
 import PageWrapper from './PageWrapper';
@@ -33,5 +34,15 @@ describe('pages/PageWrapper', () => {
     const content = getWrapper().find('h1');
     expect(content).to.have.length(1);
     expect(content.text()).to.equal('Rendered content');
+  });
+
+  it('renders a normal Grid', () => {
+    const gridWrapper = getWrapper().find(Grid);
+    expect(gridWrapper).to.have.length(1);
+  });
+
+  it('renders a fluid Grid if fluid prop', () => {
+    const gridWrapper = getWrapper({ fluid: true }).find(Grid);
+    expect(gridWrapper).to.have.length(1);
   });
 });
