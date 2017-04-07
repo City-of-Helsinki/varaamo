@@ -81,34 +81,41 @@ export class UnconnectedReservationCalendarContainer extends Component {
 
     return (
       <div className="reservation-calendar">
-        <DayPicker
-          disabledDays={{ before: new Date() }}
-          enableOutsideDays
-          initialMonth={new Date(date)}
-          locale={currentLanguage}
-          localeUtils={MomentLocaleUtils}
-          modifiers={{
-            available: (day) => {
-              const dayDate = day.toISOString().substring(0, 10);
-              return availability[dayDate] && availability[dayDate].percentage >= 80;
-            },
-            busy: (day) => {
-              const dayDate = day.toISOString().substring(0, 10);
-              return (
-                availability[dayDate] &&
-                availability[dayDate].percentage < 80 &&
-                availability[dayDate].percentage > 0
-              );
-            },
-            booked: (day) => {
-              const dayDate = day.toISOString().substring(0, 10);
-              return availability[dayDate] && availability[dayDate].percentage === 0;
-            },
-          }}
-          onDayClick={this.onDateChange}
-          onMonthChange={this.onMonthChange}
-          selectedDays={new Date(date)}
-        />
+        <div className="calendar-availability">
+          <DayPicker
+            disabledDays={{ before: new Date() }}
+            enableOutsideDays
+            initialMonth={new Date(date)}
+            locale={currentLanguage}
+            localeUtils={MomentLocaleUtils}
+            modifiers={{
+              available: (day) => {
+                const dayDate = day.toISOString().substring(0, 10);
+                return availability[dayDate] && availability[dayDate].percentage >= 80;
+              },
+              busy: (day) => {
+                const dayDate = day.toISOString().substring(0, 10);
+                return (
+                  availability[dayDate] &&
+                  availability[dayDate].percentage < 80 &&
+                  availability[dayDate].percentage > 0
+                );
+              },
+              booked: (day) => {
+                const dayDate = day.toISOString().substring(0, 10);
+                return availability[dayDate] && availability[dayDate].percentage === 0;
+              },
+            }}
+            onDayClick={this.onDateChange}
+            selectedDays={new Date(date)}
+          />
+          <div className="calendar-legend">
+            <span className="free">{t('ReservationCalendarPickerLegend.free')}</span>
+            <span className="busy">{t('ReservationCalendarPickerLegend.busy')}</span>
+            <span className="booked">{t('ReservationCalendarPickerLegend.booked')}</span>
+          </div>
+        </div>
+
         <DateHeader
           date={date}
           onDecreaseDateButtonClick={this.decreaseDate}

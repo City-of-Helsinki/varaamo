@@ -1,4 +1,8 @@
 .reservation-calendar {
+  @available-color: #D1FAD1;
+  @busy-color: #F6EAAC;
+  @booked-color: #F5A3A3;
+
   .info-text {
     margin-top: 30px;
     font-size: 20px;
@@ -6,8 +10,11 @@
     text-align: center;
   }
 
-  .DayPicker {
+  .calendar-availability {
     display: inline-block;
+  }
+
+  .DayPicker {
     padding: 0;
     border: 1px solid @gray-light;
     border-radius: 5px;
@@ -36,13 +43,13 @@
       cursor: pointer;
     }
     &--available:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected) {
-      background-color: #D1FAD1;
+      background-color: @available-color;
     }
     &--busy:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected)  {
-      background-color: #F6EAAC;
+      background-color: @busy-color;
     }
     &--booked:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected)  {
-      background-color: #F5A3A3;
+      background-color: @booked-color;
     }
     &--selected:not(.DayPicker-Day--outside) {
       color: #FFF;
@@ -65,5 +72,36 @@
       cursor: default;
       vertical-align: text-top;
     }
+  }
+
+  .calendar-legend {
+    display: flex;
+    justify-content: space-between;
+    span {
+      padding: 10px;
+    }
+    span::before {
+      content: '';
+      display: inline-block;
+      vertical-align: middle;
+      width: 16px;
+      height: 16px;
+      margin: 6px;
+      border-radius: 50%;
+      border: 2px solid black;
+    }
+    span.free::before {
+      background-color: @available-color;
+      border-color: darken(@available-color, 20);
+    }
+    span.busy::before {
+      background-color: @busy-color;
+      border-color: darken(@busy-color, 20);
+    }
+    span.booked::before {
+      background-color: @booked-color;
+      border-color: darken(@booked-color, 20);
+    }
+
   }
 }
