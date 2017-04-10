@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import DayPicker from 'react-day-picker';
@@ -24,7 +25,7 @@ export function UnconnectedResourceCalendar({
   return (
     <div className="calendar-availability">
       <DayPicker
-        disabledDays={{ before: new Date() }}
+        disabledDays={{ before: moment().subtract(1, 'days').toDate() }}
         enableOutsideDays
         initialMonth={new Date(selectedDate)}
         locale={currentLanguage}
