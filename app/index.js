@@ -11,7 +11,7 @@ import 'assets/styles/app.less';
 import 'assets/styles/customization/espoo/customization.less';
 import { initI18n } from 'i18n';
 import configureStore from 'store/configureStore';
-import rootReducer from 'state/reducers';
+import rootReducer from 'state/rootReducer';
 import getRoutes from './routes';
 
 const initialStoreState = createStore(rootReducer, {}).getState();
