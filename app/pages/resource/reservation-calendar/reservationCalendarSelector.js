@@ -1,6 +1,4 @@
 import isEmpty from 'lodash/isEmpty';
-import mapValues from 'lodash/mapValues';
-import moment from 'moment';
 import { createSelector, createStructuredSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
@@ -12,7 +10,6 @@ import {
 import { createResourceSelector } from 'state/selectors/dataSelectors';
 import dateSelector from 'state/selectors/dateSelector';
 import timeSelector from 'state/selectors/timeSelector';
-import { currentLanguageSelector } from 'state/selectors/translationSelectors';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
 import { getOpeningHours, getOpenReservations } from 'utils/resourceUtils';
 import { getTimeSlots } from 'utils/timeUtils';
@@ -59,43 +56,7 @@ const timeSlotsSelector = createSelector(
   }
 );
 
-const AvailabilitySelector = createSelector(
-  resourceSelector,
-  (resource) => {
-    if (isEmpty(resource)) {
-      return resource;
-    }
-    const availableTimeByDate = {};
-    resource.openingHours.forEach(({ closes, date, opens }) => {
-      const openMinutes = moment.duration(
-        moment(closes).diff(moment(opens))
-      ).asMinutes();
-      if (availableTimeByDate[date]) {
-        availableTimeByDate[date].openMinutes += openMinutes;
-      } else {
-        availableTimeByDate[date] = {
-          reservedMinutes: 0,
-          openMinutes,
-        };
-      }
-    });
-    getOpenReservations(resource).forEach(({ begin, end }) => {
-      const date = begin.substring(0, 10);
-      const reservedMinutes = moment.duration(
-        moment(end).diff(moment(begin))
-      ).asMinutes();
-      availableTimeByDate[date].reservedMinutes += reservedMinutes;
-    });
-    return mapValues(availableTimeByDate, date => ({
-      ...date,
-      percentage: ((date.openMinutes - date.reservedMinutes) * 100) / date.openMinutes,
-    }));
-  }
-);
-
 const reservationCalendarSelector = createStructuredSelector({
-  availability: AvailabilitySelector,
-  currentLanguage: currentLanguageSelector,
   date: dateSelector,
   isAdmin: isAdminSelector,
   isEditing: isEditingSelector,

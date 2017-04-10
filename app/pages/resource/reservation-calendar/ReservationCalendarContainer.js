@@ -1,6 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import DayPicker from 'react-day-picker';
-import MomentLocaleUtils from 'react-day-picker/moment';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
@@ -16,6 +14,7 @@ import DateHeader from 'shared/date-header';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
 import ReservationInfoModal from 'shared/modals/reservation-info';
 import ReservationSuccessModal from 'shared/modals/reservation-success';
+import ResourceCalendar from 'shared/resource-calendar';
 import { injectT } from 'i18n';
 import { getResourcePageUrl, reservingIsRestricted } from 'utils/resourceUtils';
 import { addToDate, isPastDate } from 'utils/timeUtils';
@@ -58,8 +57,6 @@ export class UnconnectedReservationCalendarContainer extends Component {
   render() {
     const {
       actions,
-      availability,
-      currentLanguage,
       date,
       isAdmin,
       isEditing,
@@ -80,42 +77,12 @@ export class UnconnectedReservationCalendarContainer extends Component {
     const showControls = !isPastDate(date) && showTimeSlots;
 
     return (
-      <div className="reservation-calendar">
-        <div className="calendar-availability">
-          <DayPicker
-            disabledDays={{ before: new Date() }}
-            enableOutsideDays
-            initialMonth={new Date(date)}
-            locale={currentLanguage}
-            localeUtils={MomentLocaleUtils}
-            modifiers={{
-              available: (day) => {
-                const dayDate = day.toISOString().substring(0, 10);
-                return availability[dayDate] && availability[dayDate].percentage >= 80;
-              },
-              busy: (day) => {
-                const dayDate = day.toISOString().substring(0, 10);
-                return (
-                  availability[dayDate] &&
-                  availability[dayDate].percentage < 80 &&
-                  availability[dayDate].percentage > 0
-                );
-              },
-              booked: (day) => {
-                const dayDate = day.toISOString().substring(0, 10);
-                return availability[dayDate] && availability[dayDate].percentage === 0;
-              },
-            }}
-            onDayClick={this.onDateChange}
-            selectedDays={new Date(date)}
-          />
-          <div className="calendar-legend">
-            <span className="free">{t('ReservationCalendarPickerLegend.free')}</span>
-            <span className="busy">{t('ReservationCalendarPickerLegend.busy')}</span>
-            <span className="booked">{t('ReservationCalendarPickerLegend.booked')}</span>
-          </div>
-        </div>
-
+      <div>
+        <ResourceCalendar
+          onDateChange={this.onDateChange}
+          resourceId={resource.id}
+          selectedDate={date}
+        />
         <DateHeader
           date={date}
           onDecreaseDateButtonClick={this.decreaseDate}
@@ -173,8 +140,6 @@ export class UnconnectedReservationCalendarContainer extends Component {
 
 UnconnectedReservationCalendarContainer.propTypes = {
   actions: PropTypes.object.isRequired,
-  availability: PropTypes.object.isRequired,
-  currentLanguage: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   isEditing: PropTypes.bool.isRequired,
