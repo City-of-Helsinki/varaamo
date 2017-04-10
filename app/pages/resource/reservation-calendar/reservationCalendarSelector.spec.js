@@ -215,15 +215,30 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
         minPeriod: '01:00:00',
         openingHours: openingHoursMonth,
         reservations: [
+          // Day 2015-10-01 is completely available
+          // Day 2015-10-10 is partially available
           {
-            begin: '2015-10-10T12:00:00+03:00',
+            begin: '2015-10-10T15:00:00+03:00',
             end: '2015-10-10T18:00:00+03:00',
             state: 'confirmed',
           },
+          // Day 2015-10-11 is fully booked
           {
-            begin: '2015-10-11T12:00:00+03:00',
-            end: '2015-10-11T18:00:00+03:00',
+            begin: '2015-10-11T10:00:00+03:00',
+            end: '2015-10-11T20:00:00+03:00',
             state: 'confirmed',
+          },
+          // Day 2015-10-30 is available with canceled reservation
+          {
+            begin: '2015-10-11T19:00:00+03:00',
+            end: '2015-10-11T20:00:00+03:00',
+            state: 'cancelled',
+          },
+          // Day 2015-10-31 is available with denied reservation
+          {
+            begin: '2015-10-11T19:00:00+03:00',
+            end: '2015-10-11T20:00:00+03:00',
+            state: 'denied',
           },
         ],
       });
@@ -245,8 +260,12 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
       expect(availability['2015-10-11'].percentage).to.equal(0);
     });
 
-    it('calculates fully booked if no availableHours', () => {
-      expect(availability['2015-10-31'].percentage).to.equal(0);
+    it('calculates correct percentages if reservation is cancelled', () => {
+      expect(availability['2015-10-30'].percentage).to.equal(100);
+    });
+
+    it('calculates correct percentages if reservation is cancelled', () => {
+      expect(availability['2015-10-31'].percentage).to.equal(100);
     });
   });
 });
