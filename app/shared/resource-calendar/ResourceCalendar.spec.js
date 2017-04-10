@@ -53,7 +53,7 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
 
   it('renders correct props', () => {
     expect(dayWrapper.prop('disabledDays').before.valueOf()).to.be.closeTo(
-      new Date().valueOf(),
+      new Date().valueOf() - 86400000,
       100000
     );
     expect(dayWrapper.prop('enableOutsideDays')).to.be.true;
