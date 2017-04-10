@@ -3,7 +3,7 @@ import { decamelizeKeys } from 'humps';
 import { CALL_API } from 'redux-api-middleware';
 
 import types from 'constants/ActionTypes';
-import schemas from 'state/middleware/Schemas';
+import schemas from 'store/middleware/Schemas';
 import {
   buildAPIUrl,
   getErrorTypeDescriptor,

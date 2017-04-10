@@ -10,7 +10,7 @@ import Immutable from 'seamless-immutable';
 import 'assets/styles/app.less';
 import 'assets/styles/customization/espoo/customization.less';
 import { initI18n } from 'i18n';
-import configureStore from 'state/configureStore';
+import configureStore from 'store/configureStore';
 import rootReducer from 'state/reducers';
 import getRoutes from './routes';
 

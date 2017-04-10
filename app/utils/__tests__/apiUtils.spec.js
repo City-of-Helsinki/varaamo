@@ -11,7 +11,7 @@ import {
   getSearchParamsString,
   getSuccessTypeDescriptor,
 } from 'utils/apiUtils';
-import schemas from 'state/middleware/Schemas';
+import schemas from 'store/middleware/Schemas';
 
 describe('Utils: apiUtils', () => {
   describe('buildAPIUrl', () => {
