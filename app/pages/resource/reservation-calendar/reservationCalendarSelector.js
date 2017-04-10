@@ -74,21 +74,21 @@ const AvailabilitySelector = createSelector(
         availableTimeByDate[date].openMinutes += openMinutes;
       } else {
         availableTimeByDate[date] = {
-          availableMinutes: 0,
+          reservedMinutes: 0,
           openMinutes,
         };
       }
     });
-    resource.availableHours.forEach(({ ends, starts }) => {
-      const date = starts.substring(0, 10);
-      const availableMinutes = moment.duration(
-        moment(ends).diff(moment(starts))
+    getOpenReservations(resource).forEach(({ begin, end }) => {
+      const date = begin.substring(0, 10);
+      const reservedMinutes = moment.duration(
+        moment(end).diff(moment(begin))
       ).asMinutes();
-      availableTimeByDate[date].availableMinutes += availableMinutes;
+      availableTimeByDate[date].reservedMinutes += reservedMinutes;
     });
     return mapValues(availableTimeByDate, date => ({
       ...date,
-      percentage: (date.availableMinutes * 100) / date.openMinutes,
+      percentage: ((date.openMinutes - date.reservedMinutes) * 100) / date.openMinutes,
     }));
   }
 );
