@@ -190,7 +190,7 @@ function getDefaultRouterProps() {
 }
 
 function getInitialState() {
-  return rootReducer(undefined, {});
+  return rootReducer(undefined, { type: 'NOOP' });
 }
 
 function getState(extraState = {}) {
