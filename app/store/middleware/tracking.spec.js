@@ -4,7 +4,7 @@ import simple from 'simple-mock';
 import AppConstants from 'constants/AppConstants';
 import trackingMiddleware, { track } from './tracking';
 
-describe('state/middleware/tracking', () => {
+describe('store/middleware/tracking', () => {
   let dispatch;
   let middleware;
   let action;

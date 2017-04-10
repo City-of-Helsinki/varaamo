@@ -1,7 +1,7 @@
 import { compose, createStore } from 'redux';
 
+import rootReducer from 'state/rootReducer';
 import middleware from './middleware';
-import rootReducer from './reducers';
 
 const finalCreateStore = compose(...middleware)(createStore);
 
@@ -10,8 +10,8 @@ function configureStore(initialState) {
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept('./reducers', () => {
-      const nextRootReducer = require('./reducers');  // eslint-disable-line global-require
+    module.hot.accept('state/rootReducer', () => {
+      const nextRootReducer = require('state/rootReducer');  // eslint-disable-line global-require
 
       store.replaceReducer(nextRootReducer);
     });
