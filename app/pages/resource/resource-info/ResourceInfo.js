@@ -25,7 +25,7 @@ function renderEquipment(equipment, t) {
       <div className="details-label">{t('ResourceInfo.equipmentHeader')}</div>
       {
         equipment.map(item =>
-          <Label bsStyle="primary" key={`label-${item.id}`}>{item.name.fi}</Label>
+          <Label bsStyle="primary" key={`label-${item.id}`}>{item.name}</Label>
         )
       }
     </div> :

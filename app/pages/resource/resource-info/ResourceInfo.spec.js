@@ -78,8 +78,8 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
     const equippedResource = {
       ...defaultProps.resource,
       equipment: [
-        { id: 1, name: { fi: 'projector' } },
-        { id: 2, name: { fi: 'whiteboard' } },
+        { id: 1, name: 'projector' },
+        { id: 2, name: 'whiteboard' },
       ],
     };
     const resourceEquipment = (
