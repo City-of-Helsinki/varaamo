@@ -100,6 +100,7 @@
   "Partners.nuorisoasiainkeskusImageAlt": "Helsingfors stad - ungdomscentralen",
   "Partners.varhaiskasvatusvirastoImageAlt": "Helsingfors stad - Barnomsorgsverket",
   "ReservationAccessCode.defaultText": "PIN-kod",
+  "ReservationCalendar.header": "Select a day",
   "ReservationCalendarControls.confirmChanges": "Bekräfta ändringarna",
   "ReservationCalendarControls.goBack": "Tillbaka",
   "ReservationCalendarControls.reserve": "Boka",
