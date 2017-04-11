@@ -56,7 +56,17 @@ export class UnconnectedReservationCalendarContainer extends Component {
     this.props.actions.cancelReservationEdit();
   }
 
-  render() {
+  renderCalendar() {
+    return (
+      <ResourceCalendar
+        onDateChange={this.onDateChange}
+        resourceId={this.props.resource.id}
+        selectedDate={this.props.date}
+      />
+    );
+  }
+
+  renderTimeSlots() {
     const {
       actions,
       date,
@@ -77,70 +87,79 @@ export class UnconnectedReservationCalendarContainer extends Component {
     const isOpen = Boolean(timeSlots.length);
     const showTimeSlots = isOpen && !reservingIsRestricted(resource, date);
     const showControls = !isPastDate(date) && showTimeSlots;
-
     return (
-      <Row className="reservation-calendar">
-        <Col className="resource-calendar" sm={4} xs={12}>
-          <h3 id="resource-calendar-header">{t('ReservationCalendar.header')}</h3>
-          <ResourceCalendar
-            onDateChange={this.onDateChange}
-            resourceId={resource.id}
-            selectedDate={date}
+      <div>
+        <DateHeader
+          date={date}
+          onDecreaseDateButtonClick={this.decreaseDate}
+          onIncreaseDateButtonClick={this.increaseDate}
+          scrollTo={urlHash === '#date-header'}
+        />
+        {showTimeSlots &&
+          <TimeSlots
+            addNotification={actions.addNotification}
+            isAdmin={isAdmin}
+            isEditing={isEditing}
+            isFetching={isFetchingResource}
+            isLoggedIn={isLoggedIn}
+            isStaff={isStaff}
+            onClick={actions.toggleTimeSlot}
+            resource={resource}
+            selected={selected}
+            slots={timeSlots}
+            time={time}
           />
-        </Col>
-        <Col className="resource-time-slots" sm={8} xs={12}>
-          <DateHeader
-            date={date}
-            onDecreaseDateButtonClick={this.decreaseDate}
-            onIncreaseDateButtonClick={this.increaseDate}
-            scrollTo={urlHash === '#date-header'}
+        }
+        {!isOpen &&
+          <p className="info-text closed-text">{t('TimeSlots.closedMessage')}</p>
+        }
+        {isOpen && reservingIsRestricted(resource, date) &&
+          <ReservingRestrictedText
+            reservableBefore={resource.reservableBefore}
+            reservableDaysInAdvance={resource.reservableDaysInAdvance}
           />
-          {showTimeSlots &&
-            <TimeSlots
-              addNotification={actions.addNotification}
-              isAdmin={isAdmin}
-              isEditing={isEditing}
-              isFetching={isFetchingResource}
-              isLoggedIn={isLoggedIn}
-              isStaff={isStaff}
-              onClick={actions.toggleTimeSlot}
-              resource={resource}
-              selected={selected}
-              slots={timeSlots}
-              time={time}
-            />
-          }
-          {!isOpen &&
-            <p className="info-text closed-text">{t('TimeSlots.closedMessage')}</p>
-          }
-          {isOpen && reservingIsRestricted(resource, date) &&
-            <ReservingRestrictedText
-              reservableBefore={resource.reservableBefore}
-              reservableDaysInAdvance={resource.reservableDaysInAdvance}
-            />
-          }
-          {showControls &&
-            <ReservationCalendarControls
-              addNotification={actions.addNotification}
-              disabled={(
-                !isLoggedIn ||
-                !resource.userPermissions.canMakeReservations ||
-                !selected.length ||
-                isMakingReservations
-              )}
-              isEditing={isEditing}
-              isLoggedIn={isLoggedIn}
-              isMakingReservations={isMakingReservations}
-              onCancel={this.handleEditCancel}
-              onClick={actions.openConfirmReservationModal}
-              resource={resource}
-            />
-          }
-          <ReservationCancelModal />
-          <ReservationInfoModal />
-          <ReservationSuccessModal />
-        </Col>
-      </Row>
+        }
+        {showControls &&
+          <ReservationCalendarControls
+            addNotification={actions.addNotification}
+            disabled={(
+              !isLoggedIn ||
+              !resource.userPermissions.canMakeReservations ||
+              !selected.length ||
+              isMakingReservations
+            )}
+            isEditing={isEditing}
+            isLoggedIn={isLoggedIn}
+            isMakingReservations={isMakingReservations}
+            onCancel={this.handleEditCancel}
+            onClick={actions.openConfirmReservationModal}
+            resource={resource}
+          />
+        }
+        <ReservationCancelModal />
+        <ReservationInfoModal />
+        <ReservationSuccessModal />
+      </div>
+    );
+  }
+
+  render() {
+    return (
+      this.props.isAdmin ?
+        <div className="reservation-calendar">
+          <h3 id="resource-calendar-header">{this.props.t('ReservationCalendar.header')}</h3>
+          {this.renderCalendar()}
+          {this.renderTimeSlots()}
+        </div> :
+          <Row className="reservation-calendar">
+            <Col sm={4} xs={12}>
+              <h3 id="resource-calendar-header">{this.props.t('ReservationCalendar.header')}</h3>
+              {this.renderCalendar()}
+            </Col>
+            <Col sm={8} xs={12}>
+              {this.renderTimeSlots()}
+            </Col>
+          </Row>
     );
   }
 }
