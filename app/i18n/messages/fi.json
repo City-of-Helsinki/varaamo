@@ -100,6 +100,7 @@
   "Partners.nuorisoasiainkeskusImageAlt": "Helsingin kaupunki - nuorisoasiainkeskus",
   "Partners.varhaiskasvatusvirastoImageAlt": "Helsingin kaupunki - Varhaiskasvatusvirasto",
   "ReservationAccessCode.defaultText": "PIN-koodi",
+  "ReservationCalendar.header": "Valitse päivä",
   "ReservationCalendarControls.confirmChanges": "Vahvista muutokset",
   "ReservationCalendarControls.goBack": "Takaisin",
   "ReservationCalendarControls.reserve": "Varaa",

@@ -1,6 +1,8 @@
 import { expect } from 'chai';
 import MockDate from 'mockdate';
 import React from 'react';
+import Col from 'react-bootstrap/lib/Col';
+import Row from 'react-bootstrap/lib/Row';
 import { browserHistory } from 'react-router';
 import simple from 'simple-mock';
 
@@ -67,6 +69,14 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       wrapper = getWrapper(props);
     });
 
+    it('renders a Row element', () => {
+      expect(wrapper.is(Row)).to.be.true;
+    });
+
+    it('renders a header', () => {
+      expect(wrapper.find('h3').text()).to.equal('ReservationCalendar.header');
+    });
+
     it('renders ResourceCalendar', () => {
       expect(wrapper.find(ResourceCalendar).length).to.equal(1);
     });
@@ -101,6 +111,14 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
 
     it('renders ReservationSuccessModal', () => {
       expect(wrapper.find(ReservationSuccessModal).length).to.equal(1);
+    });
+
+    it('renders Col element for calendar', () => {
+      expect(wrapper.find(Col).at(0).find(ResourceCalendar)).to.have.length(1);
+    });
+
+    it('renders Col element for timeSlots', () => {
+      expect(wrapper.find(Col).at(1).find(TimeSlots).length === 1).to.equal(renderTimeSlots);
     });
   }
 
