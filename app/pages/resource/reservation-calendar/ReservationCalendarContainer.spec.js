@@ -69,10 +69,6 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       wrapper = getWrapper(props);
     });
 
-    it('renders a Row element', () => {
-      expect(wrapper.is(Row)).to.be.true;
-    });
-
     it('renders a header', () => {
       expect(wrapper.find('h3').text()).to.equal('ReservationCalendar.header');
     });
@@ -113,12 +109,27 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       expect(wrapper.find(ReservationSuccessModal).length).to.equal(1);
     });
 
-    it('renders Col element for calendar', () => {
-      expect(wrapper.find(Col).at(0).find(ResourceCalendar)).to.have.length(1);
+    describe('with admin user', () => {
+      it('does not render a Row element', () => {
+        expect(getWrapper({ ...props, isAdmin: true }).find(Row)).to.have.length(0);
+      });
+      it('does not render a Col element', () => {
+        expect(getWrapper({ ...props, isAdmin: true }).find(Col)).to.have.length(0);
+      });
     });
 
-    it('renders Col element for timeSlots', () => {
-      expect(wrapper.find(Col).at(1).find(TimeSlots).length === 1).to.equal(renderTimeSlots);
+    describe('without admin user', () => {
+      it('renders a Row element', () => {
+        expect(wrapper.is(Row)).to.be.true;
+      });
+
+      it('renders Col element for calendar', () => {
+        expect(wrapper.find(Col).at(0).find(ResourceCalendar)).to.have.length(1);
+      });
+
+      it('renders Col element for timeSlots', () => {
+        expect(wrapper.find(Col).at(1).find(TimeSlots).length === 1).to.equal(renderTimeSlots);
+      });
     });
   }
 
