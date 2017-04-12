@@ -51,6 +51,18 @@
       overflow-x: hidden;
       white-space: nowrap;
     }
+    .previous::before, .next::after {
+      font-family: 'Glyphicons Halflings';
+      vertical-align: middle;
+    }
+    .previous::before {
+      content: "\e079";
+      padding-right: 5px;
+    }
+    .next::after {
+      content: "\e080";
+      padding-left: 5px;
+    }
   }
 
   .date-picker {
