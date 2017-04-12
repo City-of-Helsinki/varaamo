@@ -3,6 +3,7 @@
   @slot-border-size: 1px;
   @slot-border: @slot-border-size solid white;
   @slot-comment-bubble-size: 18px;
+  @av-header-height: @input-height-base;
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -32,7 +33,7 @@
   .top-left, .date-selector {
     display: flex;
     align-items: center;
-    height: @line-height-computed;
+    height: @av-header-height;
     margin-bottom: @padding-base-vertical;
     background-color: @brand-primary;
     color: white;
