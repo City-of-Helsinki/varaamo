@@ -25,6 +25,7 @@ function DatePicker(props) {
       dateFormat={pickerDateFormat}
       footer={false}
       onChange={date => props.onChange(formatDate(date))}
+      readOnly
       updateOnDateClick
       value={moment(props.value).format(pickerDateFormat)}
     >
