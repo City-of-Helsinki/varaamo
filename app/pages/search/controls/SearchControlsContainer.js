@@ -97,6 +97,7 @@ class UnconnectedSearchControlsContainer extends Component {
                 dateFormat={'L'}
                 footer={false}
                 onChange={this.handleDateChange}
+                readOnly
                 updateOnDateClick
                 value={moment(filters.date).format('L')}
               />
