@@ -7,11 +7,13 @@ import reservationConfirmationSelector from './reservationConfirmationSelector';
 
 describe('shared/reservation-confirmation/reservationConfirmationSelector', () => {
   const resource = Resource.build();
+  const recurringReservations = ['mock-recurring-reservation'];
 
   function getSelected(extraProps) {
     const state = getState({
       'data.resources': { [resource.id]: resource },
       [`form.${FormTypes.RESERVATION}.values`]: { staffEvent: true },
+      recurringReservations: { reservations: recurringReservations },
       'ui.reservations.toEdit': ['mock-reservation'],
     });
     const props = {
@@ -31,6 +33,10 @@ describe('shared/reservation-confirmation/reservationConfirmationSelector', () =
 
   it('returns isStaff', () => {
     expect(getSelected().isStaff).to.exist;
+  });
+
+  it('returns recurringReservations from the state', () => {
+    expect(getSelected().recurringReservations).to.deep.equal(recurringReservations);
   });
 
   it('returns reservationsToEdit from the state', () => {

@@ -25,6 +25,7 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
     isMakingReservations: false,
     isStaff: false,
     params: { id: resource.id },
+    recurringReservations: [Reservation.build()],
     reservationsToEdit: [],
     resource: Immutable(resource),
     selectedReservations: Immutable([
@@ -57,6 +58,7 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
         expect(actualProps.isStaff).to.exist;
         expect(actualProps.onClose).to.equal(defaultProps.actions.closeConfirmReservationModal);
         expect(actualProps.onConfirm).to.equal(wrapper.instance().handleReservation);
+        expect(actualProps.recurringReservations).to.deep.equal(defaultProps.recurringReservations);
         expect(actualProps.reservationsToEdit).to.deep.equal(defaultProps.reservationsToEdit);
         expect(actualProps.selectedReservations).to.deep.equal(defaultProps.selectedReservations);
         expect(actualProps.show).to.equal(defaultProps.confirmReservationModalIsOpen);
