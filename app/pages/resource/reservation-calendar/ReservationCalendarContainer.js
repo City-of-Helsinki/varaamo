@@ -17,7 +17,9 @@ import ReservationCancelModal from 'shared/modals/reservation-cancel';
 import ReservationInfoModal from 'shared/modals/reservation-info';
 import ReservationSuccessModal from 'shared/modals/reservation-success';
 import ResourceCalendar from 'shared/resource-calendar';
+import recurringReservations from 'state/recurringReservations';
 import { injectT } from 'i18n';
+import { combine } from 'utils/reservationUtils';
 import { getResourcePageUrl, reservingIsRestricted } from 'utils/resourceUtils';
 import { addToDate, isPastDate } from 'utils/timeUtils';
 import ReservationCalendarControls from './ReservationCalendarControls';
@@ -31,6 +33,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
     this.decreaseDate = this.decreaseDate.bind(this);
     this.increaseDate = this.increaseDate.bind(this);
     this.handleEditCancel = this.handleEditCancel.bind(this);
+    this.handleReserveButtonClick = this.handleReserveButtonClick.bind(this);
     this.onDateChange = this.onDateChange.bind(this);
   }
 
@@ -54,6 +57,17 @@ export class UnconnectedReservationCalendarContainer extends Component {
 
   handleEditCancel() {
     this.props.actions.cancelReservationEdit();
+  }
+
+  handleReserveButtonClick() {
+    const { actions, selected } = this.props;
+    const selectedSlots = selected.map((current) => {
+      const [begin, end] = current.split('/');
+      return { begin, end };
+    });
+    const baseTime = combine(selectedSlots)[0];
+    actions.changeRecurringBaseTime(baseTime);
+    actions.openConfirmReservationModal();
   }
 
   renderCalendar() {
@@ -132,7 +146,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
             isLoggedIn={isLoggedIn}
             isMakingReservations={isMakingReservations}
             onCancel={this.handleEditCancel}
-            onClick={actions.openConfirmReservationModal}
+            onClick={this.handleReserveButtonClick}
             resource={resource}
           />
         }
@@ -192,6 +206,7 @@ function mapDispatchToProps(dispatch) {
   const actionCreators = {
     addNotification,
     cancelReservationEdit,
+    changeRecurringBaseTime: recurringReservations.changeBaseTime,
     clearReservations,
     openConfirmReservationModal,
     toggleTimeSlot,
