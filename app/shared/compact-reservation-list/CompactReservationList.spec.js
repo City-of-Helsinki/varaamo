@@ -52,4 +52,18 @@ describe('shared/compact-reservation-list/CompactReservationList', () => {
       expect(li.text()).to.not.contain(resource.name);
     });
   });
+
+  describe('subtitle', () => {
+    it('is rendered if subtitle is specified', () => {
+      const reservations = [Reservation.build({ foo: 'bar' })];
+      const props = { reservations, subtitle: 'foo' };
+      const subtitle = getWrapper(props).find('.compact-reservation-list-subtitle');
+      expect(subtitle).to.have.length(1);
+      expect(subtitle.text()).to.equal(reservations[0].foo);
+    });
+
+    it('is not rendered if subtitle is not specified', () => {
+      expect(getWrapper().find('.compact-reservation-list-subtitle')).to.have.length(0);
+    });
+  });
 });
