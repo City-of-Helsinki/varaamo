@@ -48,6 +48,7 @@ function ReservationSuccessModal({
           <CompactReservationList
             className="failed-reservations-list"
             reservations={failedReservations}
+            subtitle="failReason"
           />
         </div>
       }
