@@ -54,12 +54,14 @@ export class UnconnectedReservationConfirmationContainer extends Component {
   }
 
   handleReservation(values = {}) {
-    const { actions, selectedReservations } = this.props;
+    const { actions, recurringReservations, resource, selectedReservations } = this.props;
 
-    selectedReservations.forEach((reservation) => {
-      actions.postReservation(
-        Object.assign({}, reservation, values)
-      );
+    [...selectedReservations, ...recurringReservations].forEach((reservation) => {
+      actions.postReservation({
+        ...reservation,
+        ...values,
+        resource: resource.id,
+      });
     });
   }
 
