@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { createAction, handleActions } from 'redux-actions';
 
 // actions
@@ -16,18 +17,45 @@ const initialState = {
   baseTime: null,
   frequency: '',
   numberOfOccurrences: 1,
+  reservations: [],
 };
+
+export function populateReservations({ baseTime, frequency, numberOfOccurrences }) {
+  const reservations = [];
+  if (!baseTime || !frequency) {
+    return reservations;
+  }
+  const begin = moment(baseTime.begin);
+  const end = moment(baseTime.end);
+  for (let i = 1; i <= numberOfOccurrences; i += 1) {
+    reservations.push({
+      begin: begin.clone().add(i, frequency).toISOString(),
+      end: end.clone().add(i, frequency).toISOString(),
+    });
+  }
+  return reservations;
+}
 
 const recurringReservationsReducer = handleActions({
   [actions.changeBaseTime]: (state, action) => ({
     ...state, baseTime: action.payload,
   }),
-  [actions.changeFrequency]: (state, action) => ({
-    ...state, frequency: action.payload,
-  }),
-  [actions.changeNumberOfOccurrences]: (state, action) => ({
-    ...state, numberOfOccurrences: parseInt(action.payload, 10),
-  }),
+  [actions.changeFrequency]: (state, action) => {
+    const frequency = action.payload;
+    return {
+      ...state,
+      frequency,
+      reservations: populateReservations({ ...state, frequency }),
+    };
+  },
+  [actions.changeNumberOfOccurrences]: (state, action) => {
+    const numberOfOccurrences = parseInt(action.payload, 10);
+    return {
+      ...state,
+      numberOfOccurrences,
+      reservations: populateReservations({ ...state, numberOfOccurrences }),
+    };
+  },
 }, initialState);
 
 // selectors
@@ -45,6 +73,9 @@ const selectors = {
   },
   selectNumberOfOccurrences(state) {
     return state.recurringReservations.numberOfOccurrences;
+  },
+  selectReservations(state) {
+    return state.recurringReservations.reservations;
   },
 };
 
