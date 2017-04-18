@@ -39,6 +39,10 @@ module.exports = (options) => {
 
     reporters: ['mocha'],
 
+    mochaReporter: {
+      showDiff: true,
+    },
+
     plugins: [
       'karma-chai',
       'karma-chrome-launcher',
