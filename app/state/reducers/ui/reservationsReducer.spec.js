@@ -33,6 +33,10 @@ describe('state/reducers/ui/reservationsReducer', () => {
       });
     });
 
+    it('failed is an empty array', () => {
+      expect(initialState.failed).to.deep.equal([]);
+    });
+
     it('selected is an empty array', () => {
       expect(initialState.selected).to.deep.equal([]);
     });
@@ -101,6 +105,41 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const expected = Immutable([reservations[0], reservations[1]]);
 
         expect(nextState.toShow).to.deep.equal(expected);
+      });
+    });
+
+    describe('API.RESERVATION_POST_ERROR', () => {
+      const postReservationError = createAction(
+        types.API.RESERVATION_POST_ERROR,
+        reservation => reservation,
+        reservation => ({ reservation }),
+      );
+
+      it('adds the reservation in meta info to failed', () => {
+        const initialState = Immutable({
+          failed: [],
+        });
+        const reservation = Reservation.build();
+        const action = postReservationError(reservation);
+        const nextState = reservationsReducer(initialState, action);
+        const expected = Immutable([reservation]);
+
+        expect(nextState.failed).to.deep.equal(expected);
+      });
+
+      it('does not affect other reservations in failed', () => {
+        const reservations = [
+          Reservation.build(),
+          Reservation.build(),
+        ];
+        const initialState = Immutable({
+          failed: [reservations[0]],
+        });
+        const action = postReservationError(reservations[1]);
+        const nextState = reservationsReducer(initialState, action);
+        const expected = Immutable(reservations);
+
+        expect(nextState.failed).to.deep.equal(expected);
       });
     });
 
@@ -242,6 +281,16 @@ describe('state/reducers/ui/reservationsReducer', () => {
           const nextState = reservationsReducer(initialState, action);
 
           expect(nextState.toShow).to.deep.equal([]);
+        });
+
+        it('clears failed array', () => {
+          const initialState = Immutable({
+            failed: [Reservation.build()],
+          });
+          const action = closeReservationSuccessModal();
+          const nextState = reservationsReducer(initialState, action);
+
+          expect(nextState.failed).to.deep.equal([]);
         });
       });
     });
