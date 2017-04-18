@@ -97,6 +97,7 @@ class ConfirmReservationModal extends Component {
       isAdmin,
       isEditing,
       isPreliminaryReservation,
+      recurringReservations,
       reservationsToEdit,
       selectedReservations,
       t,
@@ -129,7 +130,9 @@ class ConfirmReservationModal extends Component {
       <div>
         {isAdmin && <RecurringReservationControls />}
         <p><strong>{helpText}</strong></p>
-        <CompactReservationList reservations={selectedReservations} />
+        <CompactReservationList
+          reservations={[...selectedReservations, ...recurringReservations]}
+        />
         {isPreliminaryReservation && (
           <div>
             <p>{t('ConfirmReservationModal.priceInfo')}</p>
@@ -195,6 +198,7 @@ ConfirmReservationModal.propTypes = {
   isStaff: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
+  recurringReservations: PropTypes.array.isRequired,
   reservationsToEdit: PropTypes.array.isRequired,
   resource: PropTypes.object.isRequired,
   selectedReservations: PropTypes.array.isRequired,

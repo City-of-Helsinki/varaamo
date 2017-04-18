@@ -22,6 +22,7 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
     isStaff: false,
     onClose: simple.stub(),
     onConfirm: simple.stub(),
+    recurringReservations: [],
     reservationsToEdit: Immutable([]),
     resource: Resource.build(),
     selectedReservations: Immutable([
@@ -97,9 +98,16 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
         };
 
         it('renders CompactReservationList with correct props', () => {
-          const list = getModalBodyWrapper(props).find(CompactReservationList);
+          const recurringReservations = [
+            Reservation.build(),
+            Reservation.build(),
+          ];
+          const list = getModalBodyWrapper({ ...props, recurringReservations })
+            .find(CompactReservationList);
           expect(list).to.have.length(1);
-          expect(list.prop('reservations')).to.deep.equal(defaultProps.selectedReservations);
+          expect(list.prop('reservations')).to.deep.equal(
+            [...defaultProps.selectedReservations, ...recurringReservations]
+          );
         });
 
         it('renders RecurringReservationControls if user is admin', () => {
