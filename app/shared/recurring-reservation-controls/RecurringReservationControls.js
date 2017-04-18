@@ -15,6 +15,9 @@ function createValueRenderer(t) {
 }
 
 function RecurringReservationControls(props) {
+  if (!props.isVisible) {
+    return <span />;
+  }
   return (
     <div className="recurring-reservation-controls">
       <div className="recurring-reservation-frequency-control">
@@ -53,6 +56,7 @@ RecurringReservationControls.propTypes = {
   changeNumberOfOccurrences: PropTypes.func.isRequired,
   frequency: PropTypes.string.isRequired,
   frequencyOptions: PropTypes.array.isRequired,
+  isVisible: PropTypes.bool.isRequired,
   numberOfOccurrences: PropTypes.number.isRequired,
   t: PropTypes.func.isRequired,
 };
