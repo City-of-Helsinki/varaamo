@@ -27,6 +27,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
   const actions = {
     addNotification: simple.stub(),
     cancelReservationEdit: simple.stub(),
+    changeRecurringBaseTime: () => null,
     clearReservations: simple.stub(),
     openConfirmReservationModal: simple.stub(),
     toggleTimeSlot: simple.stub(),
@@ -255,6 +256,35 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       const instance = getWrapper().instance();
       instance.handleEditCancel();
       expect(actions.cancelReservationEdit.callCount).to.equal(1);
+    });
+  });
+
+  describe('handleReserveButtonClick', () => {
+    function callHandleReserveButtonClick(extraActions, extraProps) {
+      const wrapper = getWrapper({ actions: { ...actions, ...extraActions }, ...extraProps });
+      wrapper.instance().handleReserveButtonClick();
+    }
+
+    it('calls openConfirmReservationModal', () => {
+      const openConfirmReservationModal = simple.mock();
+      callHandleReserveButtonClick({ openConfirmReservationModal });
+      expect(openConfirmReservationModal.callCount).to.equal(1);
+    });
+
+    it('calls changeRecurringBaseTime with correct time', () => {
+      const changeRecurringBaseTime = simple.mock();
+      const selected = [
+        '2017-04-19T07:00:00.000Z/2017-04-19T07:30:00.000Z',
+        '2017-04-19T07:30:00.000Z/2017-04-19T08:00:00.000Z',
+        '2017-04-19T08:00:00.000Z/2017-04-19T08:30:00.000Z',
+      ];
+      const expectedTime = {
+        begin: '2017-04-19T07:00:00.000Z',
+        end: '2017-04-19T08:30:00.000Z',
+      };
+      callHandleReserveButtonClick({ changeRecurringBaseTime }, { selected });
+      expect(changeRecurringBaseTime.callCount).to.equal(1);
+      expect(changeRecurringBaseTime.lastCall.args).to.deep.equal([expectedTime]);
     });
   });
 });
