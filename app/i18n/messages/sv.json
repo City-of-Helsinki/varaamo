@@ -152,6 +152,7 @@
   "ReservationListItem.accessCodeText": "Utrymmets PIN-kod:",
   "ReservationSlot.selectionInfoHeader": "Select the reservation's end time",
   "ReservationSuccessModal.emailHelpText": "samt på bokningsbekräftelsen som skickats till e-postadressen: <strong> {email}</strong>",
+  "ReservationSuccessModal.failedReservationsHeader": "We were not able to make the following reservations:",
   "ReservationSuccessModal.ownReservationsPageHelpText": "I fortsättningen kan du kontrollera PIN-koden via sidan Mina bokningar",
   "ReservationSuccessModal.preliminaryReservationInfo": "Bokningen behandlas inom två vardagar. Närmare information om den preliminära bokningen skickas till e-postadressen <strong> {email}</strong> som angetts i samband med bokningen.",
   "ReservationSuccessModal.preliminaryReservationLead": "Du har gjort en preliminär bokning av utrymmet {resourceName} {reservationsCount, plural, one {för tidpunkten} other {för tidpunkterna}}:",

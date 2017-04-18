@@ -18,6 +18,14 @@ describe('shared/modals/reservation-success/reservationSuccessModalSelector', ()
     expect(selected.reservationsToShow).to.deep.equal(reservationsToShow);
   });
 
+  it('returns failedReservations from the state', () => {
+    const failedReservations = [{ id: 'r-1' }, { id: 'r-2' }];
+    const selected = getSelected({
+      'ui.reservations.failed': failedReservations,
+    });
+    expect(selected.failedReservations).to.deep.equal(failedReservations);
+  });
+
   it('returns resources from the state', () => {
     expect(getSelected().resources).to.exist;
   });

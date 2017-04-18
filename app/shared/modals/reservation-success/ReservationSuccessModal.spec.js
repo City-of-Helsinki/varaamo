@@ -18,6 +18,7 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
   const reservation = Reservation.build({ resource: resource.id });
   const defaultProps = {
     closeReservationSuccessModal: simple.stub(),
+    failedReservations: [],
     reservationsToShow: Immutable([reservation]),
     resources: Immutable({ [resource.id]: resource }),
     show: true,
@@ -63,6 +64,9 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
 
       before(() => {
         wrapper.find('p').forEach((paragraph) => {
+          texts.push(paragraph.text());
+        });
+        wrapper.find('h5').forEach((paragraph) => {
           texts.push(paragraph.text());
         });
         textContent = texts.join();
@@ -143,6 +147,9 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
         wrapper.find('p').forEach((paragraph) => {
           texts.push(paragraph.text());
         });
+        wrapper.find('h5').forEach((paragraph) => {
+          texts.push(paragraph.text());
+        });
         textContent = texts.join();
       });
 
@@ -186,6 +193,22 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
         const button = wrapper.find(Button);
         expect(button.prop('onClick')).to.equal(defaultProps.closeReservationSuccessModal);
       });
+    });
+  });
+
+  describe('failed reservations', () => {
+    function getFailedReservationsList(failedReservations) {
+      return getWrapper({ failedReservations }).find('.failed-reservations-list');
+    }
+
+    it('are rendered if there are any', () => {
+      const failedReservations = [Reservation.build()];
+      expect(getFailedReservationsList(failedReservations)).to.have.length(1);
+    });
+
+    it('are not rendered if there are none', () => {
+      const failedReservations = [];
+      expect(getFailedReservationsList(failedReservations)).to.have.length(0);
     });
   });
 
