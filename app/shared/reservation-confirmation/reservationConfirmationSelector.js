@@ -4,6 +4,7 @@ import { createSelector, createStructuredSelector } from 'reselect';
 import ActionTypes from 'constants/ActionTypes';
 import FormTypes from 'constants/FormTypes';
 import ModalTypes from 'constants/ModalTypes';
+import recurringReservations from 'state/recurringReservations';
 import { createIsStaffSelector } from 'state/selectors/authSelectors';
 import { createResourceSelector } from 'state/selectors/dataSelectors';
 import selectedReservationsFromStateSelector from 'state/selectors/selectedReservationsSelector';
@@ -22,14 +23,15 @@ const selectedReservationsSelector = createSelector(
   (fromProps, fromState) => fromProps || fromState
 );
 
-const reservationCalendarSelector = createStructuredSelector({
+const reservationConfirmationSelector = createStructuredSelector({
   confirmReservationModalIsOpen: modalIsOpenSelectorFactory(ModalTypes.RESERVATION_CONFIRM),
   isMakingReservations: requestIsActiveSelectorFactory(ActionTypes.API.RESERVATION_POST_REQUEST),
   isStaff: createIsStaffSelector(resourceSelector),
+  recurringReservations: recurringReservations.selectReservations,
   reservationsToEdit: toEditSelector,
   resource: resourceSelector,
   selectedReservations: selectedReservationsSelector,
   staffEventSelected: staffEventSelectedSelector,
 });
 
-export default reservationCalendarSelector;
+export default reservationConfirmationSelector;
