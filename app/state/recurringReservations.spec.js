@@ -8,6 +8,7 @@ describe('state/recurringReservations', () => {
 
     it('returns correct initial state', () => {
       const expected = {
+        baseTime: null,
         frequency: '',
         numberOfOccurrences: 1,
       };
@@ -15,11 +16,30 @@ describe('state/recurringReservations', () => {
       expect(actual).to.deep.equal(expected);
     });
 
+    describe('changeBaseTime', () => {
+      const changeBaseTime = recurringReservations.changeBaseTime;
+
+      it('changes baseTime to action.payload', () => {
+        const state = {
+          baseTime: null,
+          frequency: 'days',
+          numberOfOccurrences: 1,
+        };
+        const newTime = {
+          begin: '2017-04-18T15:00:00.000Z',
+          end: '2017-04-18T16:00:00.000Z',
+        };
+        const actual = reducer(state, changeBaseTime(newTime));
+        expect(actual.baseTime).to.deep.equal(newTime);
+      });
+    });
+
     describe('changeFrequency', () => {
       const changeFrequency = recurringReservations.changeFrequency;
 
       it('changes frequency to action.payload', () => {
         const state = {
+          baseTime: null,
           frequency: '',
           numberOfOccurrences: 12,
         };
@@ -49,6 +69,17 @@ describe('state/recurringReservations', () => {
           recurringReservations: { foo: 'bar' },
         };
         expect(recurringReservations.select(state)).to.deep.equal(state.recurringReservations);
+      });
+    });
+
+    describe('selectBaseTime', () => {
+      it('returns recurringReservations.baseTime', () => {
+        const state = {
+          recurringReservations: { baseTime: { begin: '', end: '' } },
+        };
+        expect(recurringReservations.selectBaseTime(state)).to.deep.equal(
+          state.recurringReservations.baseTime
+        );
       });
     });
 
