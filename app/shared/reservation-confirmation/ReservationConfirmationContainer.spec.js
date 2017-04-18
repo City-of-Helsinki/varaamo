@@ -122,28 +122,30 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
   });
 
   describe('handleReservation', () => {
-    const extraProps = {
-      selectedReservations: [
-        Reservation.build(),
-        Reservation.build(),
-      ],
-    };
-    const instance = getWrapper(extraProps).instance();
+    const recurringReservations = [
+      Reservation.build({ resource: resource.id }),
+    ];
+    const selectedReservations = [
+      Reservation.build({ resource: resource.id }),
+      Reservation.build({ resource: resource.id }),
+    ];
+    const reservavations = [...selectedReservations, ...recurringReservations];
+    const instance = getWrapper({ recurringReservations, selectedReservations }).instance();
 
     before(() => {
       defaultProps.actions.postReservation.reset();
     });
 
-    it('calls postReservation for each selected reservation', () => {
+    it('calls postReservation for each selected and recurring reservation', () => {
       instance.handleReservation();
       expect(defaultProps.actions.postReservation.callCount)
-        .to.equal(extraProps.selectedReservations.length);
+        .to.equal(reservavations.length);
     });
 
     it('calls postReservation with correct arguments', () => {
       instance.handleReservation();
       const actualArgs = defaultProps.actions.postReservation.lastCall.args;
-      const expected = extraProps.selectedReservations[1];
+      const expected = recurringReservations[0];
 
       expect(actualArgs[0]).to.deep.equal(expected);
     });
