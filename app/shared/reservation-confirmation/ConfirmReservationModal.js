@@ -4,6 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 
 import CompactReservationList from 'shared/compact-reservation-list';
+import RecurringReservationControls from 'shared/recurring-reservation-controls';
 import { injectT } from 'i18n';
 import { isStaffEvent } from 'utils/reservationUtils';
 import { getTermsAndConditions } from 'utils/resourceUtils';
@@ -93,6 +94,7 @@ class ConfirmReservationModal extends Component {
 
   renderIntroTexts() {
     const {
+      isAdmin,
       isEditing,
       isPreliminaryReservation,
       reservationsToEdit,
@@ -125,6 +127,7 @@ class ConfirmReservationModal extends Component {
 
     return (
       <div>
+        {isAdmin && <RecurringReservationControls />}
         <p><strong>{helpText}</strong></p>
         <CompactReservationList reservations={selectedReservations} />
         {isPreliminaryReservation && (
