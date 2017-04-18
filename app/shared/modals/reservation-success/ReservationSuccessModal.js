@@ -9,6 +9,7 @@ import ModalWrapper from '../ModalWrapper';
 
 function ReservationSuccessModal({
   closeReservationSuccessModal,
+  failedReservations,
   reservationsToShow,
   resources,
   show,
@@ -33,13 +34,23 @@ function ReservationSuccessModal({
         t('ReservationSuccessModal.regularReservationTitle')
       }
     >
-      <p>
+      <h5>
         {isPreliminaryReservation ?
           t('ReservationSuccessModal.preliminaryReservationLead', { reservationsCount, resourceName }) :
           t('ReservationSuccessModal.regularReservationLead', { reservationsCount, resourceName })
         }
-      </p>
+      </h5>
       <CompactReservationList reservations={reservationsToShow} />
+
+      {Boolean(failedReservations.length) &&
+        <div>
+          <h5>{t('ReservationSuccessModal.failedReservationsHeader')}</h5>
+          <CompactReservationList
+            className="failed-reservations-list"
+            reservations={failedReservations}
+          />
+        </div>
+      }
 
       {reservation.accessCode && (
         <div>
@@ -87,6 +98,7 @@ function ReservationSuccessModal({
 
 ReservationSuccessModal.propTypes = {
   closeReservationSuccessModal: PropTypes.func.isRequired,
+  failedReservations: PropTypes.array.isRequired,
   reservationsToShow: PropTypes.array.isRequired,
   resources: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,

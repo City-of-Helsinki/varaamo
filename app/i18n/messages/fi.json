@@ -152,6 +152,7 @@
   "ReservationListItem.accessCodeText": "Tilan PIN-koodi:",
   "ReservationSlot.selectionInfoHeader": "Valitse varauksen päättymisajankohta",
   "ReservationSuccessModal.emailHelpText": "sekä varausvahvistuksesta, joka on lähetetty sähköpostiosoitteeseen: <strong> {email}</strong>",
+  "ReservationSuccessModal.failedReservationsHeader": "Seuraavien varausten tekeminen ei onnistunut:",
   "ReservationSuccessModal.ownReservationsPageHelpText": "PIN-koodin voit tarkistaa jatkossa \"Omat varaukset\" -sivulta",
   "ReservationSuccessModal.preliminaryReservationInfo": "Varaus käsitellään kahden arkipäivän kuluessa. Tarkemmat tiedot alustavasta varauksesta lähetetään varauksen yhteydessä annettuun sähköpostiosoitteeseen <strong> {email}</strong>.",
   "ReservationSuccessModal.preliminaryReservationLead": "Olet tehnyt alustavan varauksen tilaan {resourceName} {reservationsCount, plural, one {ajalle} other {ajoille}}:",
