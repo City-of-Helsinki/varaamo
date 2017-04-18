@@ -109,9 +109,10 @@ describe('state/reducers/ui/reservationsReducer', () => {
     });
 
     describe('API.RESERVATION_POST_ERROR', () => {
+      const failReason = 'Some error';
       const postReservationError = createAction(
         types.API.RESERVATION_POST_ERROR,
-        reservation => reservation,
+        () => ({ response: { non_field_errors: [`['${failReason}']`] } }),
         reservation => ({ reservation }),
       );
 
@@ -122,7 +123,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const reservation = Reservation.build();
         const action = postReservationError(reservation);
         const nextState = reservationsReducer(initialState, action);
-        const expected = Immutable([reservation]);
+        const expected = Immutable([{ ...reservation, failReason }]);
 
         expect(nextState.failed).to.deep.equal(expected);
       });
@@ -137,7 +138,10 @@ describe('state/reducers/ui/reservationsReducer', () => {
         });
         const action = postReservationError(reservations[1]);
         const nextState = reservationsReducer(initialState, action);
-        const expected = Immutable(reservations);
+        const expected = Immutable([
+          reservations[0],
+          { ...reservations[1], failReason },
+        ]);
 
         expect(nextState.failed).to.deep.equal(expected);
       });

@@ -1,5 +1,5 @@
-import without from 'lodash/without';
 import includes from 'lodash/includes';
+import without from 'lodash/without';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
@@ -29,6 +29,15 @@ function selectReservationToEdit(state, action) {
   });
 }
 
+function parseError(error) {
+  if (error.response && error.response.non_field_errors && error.response.non_field_errors.length) {
+    return error.response.non_field_errors.join('. ').replace('[\'', '').replace('\']', '');
+  } else if (error.response && error.response.detail) {
+    return error.response.detail;
+  }
+  return 'Jotain meni vikaan';
+}
+
 function reservationsReducer(state = initialState, action) {
   switch (action.type) {
 
@@ -41,8 +50,10 @@ function reservationsReducer(state = initialState, action) {
     }
 
     case types.API.RESERVATION_POST_ERROR: {
+      const reservation = action.meta.reservation;
+      const failReason = parseError(action.payload);
       return state.merge({
-        failed: [...state.failed, action.meta.reservation],
+        failed: [...state.failed, { ...reservation, failReason }],
       });
     }
 
