@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { createSelector, createStructuredSelector } from 'reselect';
 
 import recurringReservations from 'state/recurringReservations';
 
@@ -12,9 +12,15 @@ function selectFrequencyOptions() {
   ];
 }
 
-const selector = createStructuredSelector({
+const isVisibleSelector = createSelector(
+  recurringReservations.selectBaseTime,
+  baseTime => Boolean(baseTime),
+);
+
+export const selector = createStructuredSelector({
   frequency: recurringReservations.selectFrequency,
   frequencyOptions: selectFrequencyOptions,
+  isVisible: isVisibleSelector,
   numberOfOccurrences: recurringReservations.selectNumberOfOccurrences,
 });
 

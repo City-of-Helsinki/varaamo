@@ -12,12 +12,18 @@ function getWrapper(props) {
     changeNumberOfOccurrences: () => null,
     frequency: 'days',
     frequencyOptions: [{ label: '', value: '' }],
+    isVisible: true,
     numberOfOccurrences: 1,
   };
   return shallowWithIntl(<RecurringReservationControls {...defaults} {...props} />);
 }
 
 describe('shared/RecurringReservationControls/RecurringReservationControls', () => {
+  it('renders an empty span if isVisible is false', () => {
+    const wrapper = getWrapper({ isVisible: false });
+    expect(wrapper.equals(<span />)).to.be.true;
+  });
+
   it('renders Select with correct props', () => {
     const props = {
       changeFrequency: () => null,
