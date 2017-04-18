@@ -107,7 +107,7 @@ function postReservation(reservation) {
         ),
         getErrorTypeDescriptor(
           types.API.RESERVATION_POST_ERROR,
-          { countable: true }
+          { countable: true, meta: { reservation } }
         ),
       ],
       endpoint: url,

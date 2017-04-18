@@ -10,6 +10,7 @@ const initialState = Immutable({
   adminReservationFilters: {
     state: 'all',
   },
+  failed: [],
   selected: [],
   toCancel: [],
   toEdit: [],
@@ -36,6 +37,12 @@ function reservationsReducer(state = initialState, action) {
         selected: [],
         toEdit: [],
         toShow: [...state.toShow, action.payload],
+      });
+    }
+
+    case types.API.RESERVATION_POST_ERROR: {
+      return state.merge({
+        failed: [...state.failed, action.meta.reservation],
       });
     }
 
@@ -72,7 +79,7 @@ function reservationsReducer(state = initialState, action) {
         return state.merge({ toShow: [] });
       }
       if (modal === ModalTypes.RESERVATION_SUCCESS) {
-        return state.merge({ toShow: [] });
+        return state.merge({ failed: [], toShow: [] });
       }
       return state;
     }

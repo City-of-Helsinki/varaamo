@@ -138,6 +138,21 @@ describe('Utils: apiUtils', () => {
 
         expect(actual).to.deep.equal(expected);
       });
+
+      it('supports adding extra meta properties', () => {
+        const typeDescriptor = getErrorTypeDescriptor(actionType, { meta: { test: 'test' } });
+        const actual = typeDescriptor.meta(mockAction);
+        const expected = {
+          API_ACTION: {
+            apiRequestFinish: true,
+            countable: undefined,
+            type: 'SOME_GET_REQUEST',
+          },
+          test: 'test',
+        };
+
+        expect(actual).to.deep.equal(expected);
+      });
     });
   });
 

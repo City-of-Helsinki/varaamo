@@ -37,6 +37,7 @@ function getErrorTypeDescriptor(type, options = {}) {
         countable: options.countable,
         type: action[CALL_API].types[0].type,
       },
+      ...options.meta,
     }),
   };
 }
