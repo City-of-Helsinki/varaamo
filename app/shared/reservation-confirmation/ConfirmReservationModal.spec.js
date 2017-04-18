@@ -6,6 +6,7 @@ import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
 import CompactReservationList from 'shared/compact-reservation-list';
+import RecurringReservationControls from 'shared/recurring-reservation-controls';
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
 import { shallowWithIntl } from 'utils/testUtils';
@@ -100,6 +101,18 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
           expect(list).to.have.length(1);
           expect(list.prop('reservations')).to.deep.equal(defaultProps.selectedReservations);
         });
+
+        it('renders RecurringReservationControls if user is admin', () => {
+          expect(
+            getModalBodyWrapper({ ...props, isAdmin: true }).find(RecurringReservationControls)
+          ).to.have.length(1);
+        });
+
+        it('does not render RecurringReservationControls if user is not admin', () => {
+          expect(
+            getModalBodyWrapper({ ...props, isAdmin: false }).find(RecurringReservationControls)
+          ).to.have.length(0);
+        });
       });
 
       describe('when editing reservation', () => {
@@ -118,6 +131,10 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
           const list = getModalBodyWrapper(props).find(CompactReservationList).at(1);
           expect(list).to.have.length(1);
           expect(list.prop('reservations')).to.deep.equal(defaultProps.selectedReservations);
+        });
+
+        it('does not render RecurringReservationControls', () => {
+          expect(getModalBodyWrapper(props).find(RecurringReservationControls)).to.have.length(0);
         });
       });
     });
