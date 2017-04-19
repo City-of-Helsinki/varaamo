@@ -5,16 +5,17 @@ import recurringReservations, { populateReservations } from './recurringReservat
 describe('state/recurringReservations', () => {
   describe('reducer', () => {
     const reducer = recurringReservations.reducer;
+    const initialState = {
+      baseTime: null,
+      frequency: '',
+      lastTime: null,
+      numberOfOccurrences: 1,
+      reservations: [],
+    };
 
     it('returns correct initial state', () => {
-      const expected = {
-        baseTime: null,
-        frequency: '',
-        numberOfOccurrences: 1,
-        reservations: [],
-      };
       const actual = reducer(undefined, { type: 'NOOP' });
-      expect(actual).to.deep.equal(expected);
+      expect(actual).to.deep.equal(initialState);
     });
 
     describe('changeBaseTime', () => {
@@ -22,9 +23,8 @@ describe('state/recurringReservations', () => {
 
       it('changes baseTime to action.payload', () => {
         const state = {
-          baseTime: null,
+          ...initialState,
           frequency: 'days',
-          numberOfOccurrences: 1,
         };
         const newTime = {
           begin: '2017-04-18T15:00:00.000Z',
@@ -40,8 +40,7 @@ describe('state/recurringReservations', () => {
 
       it('changes frequency to action.payload', () => {
         const state = {
-          baseTime: null,
-          frequency: '',
+          ...initialState,
           numberOfOccurrences: 12,
         };
         const actual = reducer(state, changeFrequency('days'));
@@ -65,6 +64,24 @@ describe('state/recurringReservations', () => {
         }];
         expect(reservations).to.deep.equal(expected);
       });
+
+      it('updates lastTime', () => {
+        const baseTime = {
+          begin: '2017-04-18T15:00:00.000Z',
+          end: '2017-04-18T16:00:00.000Z',
+        };
+        const state = {
+          ...initialState,
+          baseTime,
+          numberOfOccurrences: 1,
+        };
+        const actual = reducer(state, changeFrequency('weeks'));
+        const expectedLastTime = {
+          begin: '2017-04-25T15:00:00.000Z',
+          end: '2017-04-25T16:00:00.000Z',
+        };
+        expect(actual.lastTime).to.deep.equal(expectedLastTime);
+      });
     });
 
     describe('changeNumberOfOccurrences', () => {
@@ -72,8 +89,8 @@ describe('state/recurringReservations', () => {
 
       it('changes numberOfOccurrences to action.payload', () => {
         const state = {
+          ...initialState,
           frequency: 'days',
-          numberOfOccurrences: 1,
         };
         const actual = reducer(state, changeNumberOfOccurrences(12));
         expect(actual.numberOfOccurrences).to.equal(12);
@@ -101,6 +118,80 @@ describe('state/recurringReservations', () => {
           },
         ];
         expect(reservations).to.deep.equal(expected);
+      });
+
+      it('updates lastTime', () => {
+        const baseTime = {
+          begin: '2017-04-18T15:00:00.000Z',
+          end: '2017-04-18T16:00:00.000Z',
+        };
+        const state = {
+          baseTime,
+          frequency: 'days',
+          numberOfOccurrences: 1,
+          lastTime: null,
+        };
+        const expectedLastTime = {
+          begin: '2017-04-20T15:00:00.000Z',
+          end: '2017-04-20T16:00:00.000Z',
+        };
+        const actual = reducer(state, changeNumberOfOccurrences(2));
+        expect(actual.lastTime).to.deep.equal(expectedLastTime);
+      });
+
+      describe('changeLastTime', () => {
+        const changeLastTime = recurringReservations.changeLastTime;
+
+        it('changes lastTime to action.payload', () => {
+          const lastTime = {
+            begin: '2017-04-18T15:00:00.000Z',
+            end: '2017-04-18T16:00:00.000Z',
+          };
+          const state = {
+            ...initialState,
+            lastTime,
+          };
+          const actual = reducer(state, changeLastTime(lastTime));
+          expect(actual.lastTime).to.deep.equal(lastTime);
+        });
+
+        it('updates numberOfOccurrences', () => {
+          const baseTime = {
+            begin: '2017-04-18T15:00:00.000Z',
+            end: '2017-04-18T16:00:00.000Z',
+          };
+          const lastTime = {
+            begin: '2017-04-20T15:00:00.000Z',
+            end: '2017-04-20T16:00:00.000Z',
+          };
+          const state = {
+            baseTime,
+            frequency: 'days',
+            numberOfOccurrences: 1,
+            lastTime: null,
+          };
+          const actual = reducer(state, changeLastTime(lastTime));
+          expect(actual.numberOfOccurrences).to.equal(2);
+        });
+
+        it('rounds down the numberOfOccurrences', () => {
+          const baseTime = {
+            begin: '2017-04-18T15:00:00.000Z',
+            end: '2017-04-18T16:00:00.000Z',
+          };
+          const lastTime = {
+            begin: '2017-04-30T15:00:00.000Z',
+            end: '2017-04-30T16:00:00.000Z',
+          };
+          const state = {
+            baseTime,
+            frequency: 'weeks',
+            numberOfOccurrences: 1,
+            lastTime: null,
+          };
+          const actual = reducer(state, changeLastTime(lastTime));
+          expect(actual.numberOfOccurrences).to.equal(1);
+        });
       });
     });
   });
