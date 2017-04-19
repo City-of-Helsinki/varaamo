@@ -7,6 +7,7 @@ import { createAction, handleActions } from 'redux-actions';
 const actions = {
   changeBaseTime: createAction('app/recurringReservations/CHANGE_BASE_TIME'),
   changeFrequency: createAction('app/recurringReservations/CHANGE_FREQUENCY'),
+  changeLastTime: createAction('app/recurringReservations/CHANGE_LAST_TIME'),
   changeNumberOfOccurrences: createAction('app/recurringReservations/CHANGE_NUMBER_OF_OCCURRENCES'),
 };
 
@@ -16,6 +17,7 @@ const actions = {
 const initialState = {
   baseTime: null,
   frequency: '',
+  lastTime: null,
   numberOfOccurrences: 1,
   reservations: [],
 };
@@ -36,26 +38,48 @@ export function populateReservations({ baseTime, frequency, numberOfOccurrences 
   return reservations;
 }
 
+function adjustState(state, changeLastTime = false) {
+  if (!state.baseTime || !state.frequency || (!state.lastTime && !state.numberOfOccurrences)) {
+    return { ...state, reservations: [] };
+  }
+  let newState;
+  if (changeLastTime) {
+    const start = moment(state.baseTime.begin);
+    const end = moment(state.lastTime.begin);
+    const duration = moment.duration(end.diff(start));
+    newState = {
+      ...state,
+      numberOfOccurrences: parseInt(duration.as(state.frequency), 10),
+    };
+  } else {
+    newState = {
+      ...state,
+      lastTime: {
+        begin: (
+          moment(state.baseTime.begin).add(state.numberOfOccurrences, state.frequency).toISOString()
+        ),
+        end: (
+          moment(state.baseTime.end).add(state.numberOfOccurrences, state.frequency).toISOString()
+        ),
+      },
+    };
+  }
+  return { ...newState, reservations: populateReservations(newState) };
+}
+
 const recurringReservationsReducer = handleActions({
-  [actions.changeBaseTime]: (state, action) => ({
+  [actions.changeBaseTime]: (state, action) => adjustState({
     ...state, baseTime: action.payload,
   }),
-  [actions.changeFrequency]: (state, action) => {
-    const frequency = action.payload;
-    return {
-      ...state,
-      frequency,
-      reservations: populateReservations({ ...state, frequency }),
-    };
-  },
-  [actions.changeNumberOfOccurrences]: (state, action) => {
-    const numberOfOccurrences = parseInt(action.payload, 10);
-    return {
-      ...state,
-      numberOfOccurrences,
-      reservations: populateReservations({ ...state, numberOfOccurrences }),
-    };
-  },
+  [actions.changeFrequency]: (state, action) => adjustState({
+    ...state, frequency: action.payload,
+  }),
+  [actions.changeLastTime]: (state, action) => adjustState({
+    ...state, lastTime: action.payload,
+  }, true),
+  [actions.changeNumberOfOccurrences]: (state, action) => adjustState({
+    ...state, numberOfOccurrences: parseInt(action.payload, 10),
+  }),
 }, initialState);
 
 // selectors
@@ -70,6 +94,9 @@ const selectors = {
   },
   selectFrequency(state) {
     return state.recurringReservations.frequency;
+  },
+  selectLastTime(state) {
+    return state.recurringReservations.lastTime;
   },
   selectNumberOfOccurrences(state) {
     return state.recurringReservations.numberOfOccurrences;
