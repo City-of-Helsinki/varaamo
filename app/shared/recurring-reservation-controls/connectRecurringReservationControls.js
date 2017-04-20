@@ -21,11 +21,13 @@ export const selector = createStructuredSelector({
   frequency: recurringReservations.selectFrequency,
   frequencyOptions: selectFrequencyOptions,
   isVisible: isVisibleSelector,
+  lastTime: recurringReservations.selectLastTime,
   numberOfOccurrences: recurringReservations.selectNumberOfOccurrences,
 });
 
 const actions = {
   changeFrequency: recurringReservations.changeFrequency,
+  changeLastTime: recurringReservations.changeLastTime,
   changeNumberOfOccurrences: recurringReservations.changeNumberOfOccurrences,
 };
 

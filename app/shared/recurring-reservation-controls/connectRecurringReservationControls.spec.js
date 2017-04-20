@@ -17,6 +17,14 @@ describe('shared/recurring-reservation-controls/connectRecurringReservationContr
       expect(getSelected(state).frequency).to.equal(frequency);
     });
 
+    it('returns lastTime from state', () => {
+      const lastTime = '2017-04-18';
+      const state = getState({
+        recurringReservations: { lastTime },
+      });
+      expect(getSelected(state).lastTime).to.equal(lastTime);
+    });
+
     it('returns frequencyOptions', () => {
       const state = getState();
       expect(getSelected(state).frequencyOptions).to.exist;
