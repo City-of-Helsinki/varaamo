@@ -44,24 +44,33 @@ function adjustState(state, changeLastTime = false) {
   }
   let newState;
   if (changeLastTime) {
-    const start = moment(state.baseTime.begin);
-    const end = moment(state.lastTime.begin);
+    const start = moment(state.baseTime.begin).startOf('day');
+    const end = moment(state.lastTime).startOf('day');
     const duration = moment.duration(end.diff(start));
-    newState = {
-      ...state,
-      numberOfOccurrences: parseInt(duration.as(state.frequency), 10),
-    };
+    if (duration > 0) {
+      newState = {
+        ...state,
+        numberOfOccurrences: parseInt(duration.as(state.frequency), 10),
+      };
+    } else {
+      newState = {
+        ...state,
+        numberOfOccurrences: 1,
+        lastTime: (
+          moment(state.baseTime.begin)
+          .add(1, 'days')
+          .format('YYYY-MM-DD')
+        ),
+      };
+    }
   } else {
     newState = {
       ...state,
-      lastTime: {
-        begin: (
-          moment(state.baseTime.begin).add(state.numberOfOccurrences, state.frequency).toISOString()
-        ),
-        end: (
-          moment(state.baseTime.end).add(state.numberOfOccurrences, state.frequency).toISOString()
-        ),
-      },
+      lastTime: (
+          moment(state.baseTime.begin)
+          .add(state.numberOfOccurrences, state.frequency)
+          .format('YYYY-MM-DD')
+      ),
     };
   }
   return { ...newState, reservations: populateReservations(newState) };
