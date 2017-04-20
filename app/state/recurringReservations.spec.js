@@ -76,10 +76,7 @@ describe('state/recurringReservations', () => {
           numberOfOccurrences: 1,
         };
         const actual = reducer(state, changeFrequency('weeks'));
-        const expectedLastTime = {
-          begin: '2017-04-25T15:00:00.000Z',
-          end: '2017-04-25T16:00:00.000Z',
-        };
+        const expectedLastTime = '2017-04-25';
         expect(actual.lastTime).to.deep.equal(expectedLastTime);
       });
     });
@@ -131,10 +128,7 @@ describe('state/recurringReservations', () => {
           numberOfOccurrences: 1,
           lastTime: null,
         };
-        const expectedLastTime = {
-          begin: '2017-04-20T15:00:00.000Z',
-          end: '2017-04-20T16:00:00.000Z',
-        };
+        const expectedLastTime = '2017-04-20';
         const actual = reducer(state, changeNumberOfOccurrences(2));
         expect(actual.lastTime).to.deep.equal(expectedLastTime);
       });
@@ -143,10 +137,7 @@ describe('state/recurringReservations', () => {
         const changeLastTime = recurringReservations.changeLastTime;
 
         it('changes lastTime to action.payload', () => {
-          const lastTime = {
-            begin: '2017-04-18T15:00:00.000Z',
-            end: '2017-04-18T16:00:00.000Z',
-          };
+          const lastTime = '2017-04-18';
           const state = {
             ...initialState,
             lastTime,
@@ -160,10 +151,7 @@ describe('state/recurringReservations', () => {
             begin: '2017-04-18T15:00:00.000Z',
             end: '2017-04-18T16:00:00.000Z',
           };
-          const lastTime = {
-            begin: '2017-04-20T15:00:00.000Z',
-            end: '2017-04-20T16:00:00.000Z',
-          };
+          const lastTime = '2017-04-20';
           const state = {
             baseTime,
             frequency: 'days',
@@ -179,10 +167,7 @@ describe('state/recurringReservations', () => {
             begin: '2017-04-18T15:00:00.000Z',
             end: '2017-04-18T16:00:00.000Z',
           };
-          const lastTime = {
-            begin: '2017-04-30T15:00:00.000Z',
-            end: '2017-04-30T16:00:00.000Z',
-          };
+          const lastTime = '2017-04-30';
           const state = {
             baseTime,
             frequency: 'weeks',
