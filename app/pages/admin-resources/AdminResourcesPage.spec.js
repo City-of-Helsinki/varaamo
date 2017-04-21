@@ -19,6 +19,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
   const defaultProps = {
     actions: {
       changeAdminResourcesPageDate,
+      changeRecurringBaseTime: () => null,
       fetchFavoritedResources,
       filterAdminResourceType,
       openConfirmReservationModal,
@@ -231,6 +232,20 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
       const selection = { some: 'data' };
       wrapper.instance().handleSelect(selection);
       expect(wrapper.state()).to.deep.equal({ selection });
+    });
+
+    it('calls changeRecurringBaseTime with correct time', () => {
+      const changeRecurringBaseTime = simple.mock();
+      const selection = {
+        begin: '2017-04-21T12:00:00+03:00',
+        end: '2017-04-21T13:00:00+03:00',
+        resourceId: 'r-1',
+      };
+      const actions = { ...defaultProps.actions, changeRecurringBaseTime };
+      const wrapper = getWrapper({ actions });
+      wrapper.instance().handleSelect(selection);
+      expect(changeRecurringBaseTime.callCount).to.equal(1);
+      expect(changeRecurringBaseTime.lastCall.args).to.deep.equal([selection]);
     });
 
     it('opens the confirm reservation modal', () => {
