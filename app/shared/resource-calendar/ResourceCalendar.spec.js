@@ -53,7 +53,7 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
 
   it('renders correct props', () => {
     expect(dayWrapper.prop('disabledDays').before.valueOf()).to.be.closeTo(
-      new Date().valueOf() - 86400000,
+      new Date().valueOf(),
       100000
     );
     expect(dayWrapper.prop('enableOutsideDays')).to.be.true;
@@ -61,7 +61,9 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
     expect(dayWrapper.prop('locale')).to.equal('en');
     expect(dayWrapper.prop('localeUtils')).to.equal(MomentLocaleUtils);
     expect(dayWrapper.prop('onDayClick')).to.equal(defaultProps.onDateChange);
-    expect(dayWrapper.prop('selectedDays')).to.deep.equal(new Date(defaultProps.selectedDate));
+    expect(dayWrapper.prop('selectedDays').getFullYear()).to.equal(2015);
+    expect(dayWrapper.prop('selectedDays').getMonth()).to.equal(9);
+    expect(dayWrapper.prop('selectedDays').getDate()).to.equal(11);
   });
 
   describe('modifiers', () => {
