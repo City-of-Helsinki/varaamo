@@ -10,20 +10,86 @@ describe('shared/modals/reservation-success/reservationSuccessModalSelector', ()
     return reservationSuccessModalSelector(state);
   }
 
-  it('returns reservationsToShow from the state', () => {
-    const reservationsToShow = [{ id: 'r-1' }, { id: 'r-2' }];
+  it('returns reservationsToShow from the state ordered by begin time', () => {
+    const reservationsToShow = [
+      {
+        id: 'r-1',
+        begin: '2017-05-14T10:00:00.000Z',
+        end: '2017-05-14T10:30:00.000Z',
+      },
+      {
+        id: 'r-2',
+        begin: '2017-05-12T12:00:00.000Z',
+        end: '2017-05-12T12:30:00.000Z',
+      },
+      {
+        id: 'r-3',
+        begin: '2017-05-12T14:00:00.000Z',
+        end: '2017-05-12T14:30:00.000Z',
+      },
+    ];
+    const expected = [
+      {
+        id: 'r-2',
+        begin: '2017-05-12T12:00:00.000Z',
+        end: '2017-05-12T12:30:00.000Z',
+      },
+      {
+        id: 'r-3',
+        begin: '2017-05-12T14:00:00.000Z',
+        end: '2017-05-12T14:30:00.000Z',
+      },
+      {
+        id: 'r-1',
+        begin: '2017-05-14T10:00:00.000Z',
+        end: '2017-05-14T10:30:00.000Z',
+      },
+    ];
     const selected = getSelected({
       'ui.reservations.toShow': reservationsToShow,
     });
-    expect(selected.reservationsToShow).to.deep.equal(reservationsToShow);
+    expect(selected.reservationsToShow).to.deep.equal(expected);
   });
 
-  it('returns failedReservations from the state', () => {
-    const failedReservations = [{ id: 'r-1' }, { id: 'r-2' }];
+  it('returns failedReservations from the state ordered by begin time', () => {
+    const failedReservations = [
+      {
+        id: 'r-1',
+        begin: '2017-05-14T10:00:00.000Z',
+        end: '2017-05-14T10:30:00.000Z',
+      },
+      {
+        id: 'r-2',
+        begin: '2017-05-12T12:00:00.000Z',
+        end: '2017-05-12T12:30:00.000Z',
+      },
+      {
+        id: 'r-3',
+        begin: '2017-05-12T14:00:00.000Z',
+        end: '2017-05-12T14:30:00.000Z',
+      },
+    ];
+    const expected = [
+      {
+        id: 'r-2',
+        begin: '2017-05-12T12:00:00.000Z',
+        end: '2017-05-12T12:30:00.000Z',
+      },
+      {
+        id: 'r-3',
+        begin: '2017-05-12T14:00:00.000Z',
+        end: '2017-05-12T14:30:00.000Z',
+      },
+      {
+        id: 'r-1',
+        begin: '2017-05-14T10:00:00.000Z',
+        end: '2017-05-14T10:30:00.000Z',
+      },
+    ];
     const selected = getSelected({
       'ui.reservations.failed': failedReservations,
     });
-    expect(selected.failedReservations).to.deep.equal(failedReservations);
+    expect(selected.failedReservations).to.deep.equal(expected);
   });
 
   it('returns resources from the state', () => {
