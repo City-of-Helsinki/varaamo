@@ -79,8 +79,11 @@
       background: none;
       color: white;
       cursor: pointer;
-      text-align: center;
-      width: 100px;
+      text-align: left;
+      width: 110px;
+      height: @av-header-height;
+      box-sizing: content-box;
+      z-index: 3;
     }
     .react-date-field__calendar-icon {
       display: none;
@@ -90,7 +93,7 @@
       content: "\e252";
       color: white;
       vertical-align: middle;
-      padding-left: 5px;
+      margin-left: -20px;
     }
   }
   .group-info {
