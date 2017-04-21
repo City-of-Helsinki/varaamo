@@ -17,7 +17,7 @@ const AvailabilitySelector = createSelector(
       return resource;
     }
     const availableTimeByDate = {};
-    resource.openingHours.forEach(({ closes, date, opens }) => {
+    (resource.openingHours || []).forEach(({ closes, date, opens }) => {
       const openMinutes = moment.duration(
         moment(closes).diff(moment(opens))
       ).asMinutes();
@@ -32,10 +32,12 @@ const AvailabilitySelector = createSelector(
     });
     getOpenReservations(resource).forEach(({ begin, end }) => {
       const date = begin.substring(0, 10);
-      const reservedMinutes = moment.duration(
-        moment(end).diff(moment(begin))
-      ).asMinutes();
-      availableTimeByDate[date].reservedMinutes += reservedMinutes;
+      if (availableTimeByDate[date]) {
+        const reservedMinutes = moment.duration(
+          moment(end).diff(moment(begin))
+        ).asMinutes();
+        availableTimeByDate[date].reservedMinutes += reservedMinutes;
+      }
     });
     return mapValues(availableTimeByDate, date => ({
       ...date,
