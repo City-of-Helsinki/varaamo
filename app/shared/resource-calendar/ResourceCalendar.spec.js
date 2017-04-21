@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import mockDate from 'mockdate';
 import React from 'react';
 import DayPicker from 'react-day-picker';
 import MomentLocaleUtils from 'react-day-picker/moment';
@@ -52,10 +53,7 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
   });
 
   it('renders correct props', () => {
-    expect(dayWrapper.prop('disabledDays').before.valueOf()).to.be.closeTo(
-      new Date().valueOf(),
-      100000
-    );
+    expect(dayWrapper.prop('disabledDays')).to.exist;
     expect(dayWrapper.prop('enableOutsideDays')).to.be.true;
     expect(dayWrapper.prop('initialMonth')).to.deep.equal(new Date(defaultProps.selectedDate));
     expect(dayWrapper.prop('locale')).to.equal('en');
@@ -64,6 +62,53 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
     expect(dayWrapper.prop('selectedDays').getFullYear()).to.equal(2015);
     expect(dayWrapper.prop('selectedDays').getMonth()).to.equal(9);
     expect(dayWrapper.prop('selectedDays').getDate()).to.equal(11);
+  });
+
+  describe('disabledDays', () => {
+    const now = new Date();
+    const todayEarly = new Date();
+    todayEarly.setHours(0, 1, 0, 0);
+    const todayLate = new Date();
+    todayLate.setHours(23, 0, 0, 0);
+    const receivedToday = new Date(now);
+    const receivedYesterday = new Date(now.valueOf() - 86400000);
+    const receivedTomorrow = new Date(now.valueOf() + 86400000);
+    receivedToday.setHours(12, 0, 0, 0);
+    receivedTomorrow.setHours(12, 0, 0, 0);
+    receivedYesterday.setHours(12, 0, 0, 0);
+    let isDisabled;
+    before(() => {
+      isDisabled = dayWrapper.prop('disabledDays');
+    });
+
+    afterEach(() => {
+      mockDate.reset();
+    });
+
+    it('disables yesterday', () => {
+      mockDate.set(now);
+      expect(isDisabled(receivedYesterday)).to.be.true;
+    });
+
+    it('enables today now', () => {
+      mockDate.set(now);
+      expect(isDisabled(receivedToday)).to.be.false;
+    });
+
+    it('enables today early', () => {
+      mockDate.set(todayEarly);
+      expect(isDisabled(receivedToday)).to.be.false;
+    });
+
+    it('enables today late', () => {
+      mockDate.set(todayLate);
+      expect(isDisabled(receivedToday)).to.be.false;
+    });
+
+    it('enables tomorrow', () => {
+      mockDate.set(now);
+      expect(isDisabled(receivedTomorrow)).to.be.false;
+    });
   });
 
   describe('modifiers', () => {
