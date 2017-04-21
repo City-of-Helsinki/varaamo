@@ -121,7 +121,8 @@ class ConfirmReservationModal extends Component {
       );
     }
 
-    const reservationsCount = selectedReservations.length;
+    const allReservations = [...selectedReservations, ...recurringReservations];
+    const reservationsCount = allReservations.length;
     const helpText = isPreliminaryReservation ?
       t('ConfirmReservationModal.preliminaryReservationText', { reservationsCount }) :
       t('ConfirmReservationModal.regularReservationText', { reservationsCount });
@@ -131,7 +132,7 @@ class ConfirmReservationModal extends Component {
         {isAdmin && <RecurringReservationControls />}
         <p><strong>{helpText}</strong></p>
         <CompactReservationList
-          reservations={[...selectedReservations, ...recurringReservations]}
+          reservations={allReservations}
         />
         {isPreliminaryReservation && (
           <div>
