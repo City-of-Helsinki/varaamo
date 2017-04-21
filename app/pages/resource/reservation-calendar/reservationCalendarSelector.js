@@ -1,3 +1,4 @@
+import filter from 'lodash/filter';
 import isEmpty from 'lodash/isEmpty';
 import { createSelector, createStructuredSelector } from 'reselect';
 
@@ -32,11 +33,16 @@ const resourceByDate = createSelector(
     if (!isEmpty(resource)) {
       return {
         ...resource,
-        availableHours: resource.availableHours.filter(
+        availableHours: filter(
+          resource.availableHours,
           range => range.starts.substring(0, 10) === selectedDate
         ),
-        openingHours: resource.openingHours.filter(({ date }) => date === selectedDate),
-        reservations: resource.reservations.filter(
+        openingHours: filter(
+          resource.openingHours,
+          ({ date }) => date === selectedDate
+        ),
+        reservations: filter(
+          resource.reservations,
           ({ begin }) => begin.substring(0, 10) === selectedDate
         ),
       };
