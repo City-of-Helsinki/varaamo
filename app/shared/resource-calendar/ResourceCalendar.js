@@ -27,7 +27,7 @@ export function UnconnectedResourceCalendar({
   return (
     <div className="calendar-availability">
       <DayPicker
-        disabledDays={{ before: new Date() }}
+        disabledDays={day => new Date(day).setHours(23, 59, 59, 59) < new Date()}
         enableOutsideDays
         initialMonth={new Date(selectedDate)}
         locale={currentLanguage}
