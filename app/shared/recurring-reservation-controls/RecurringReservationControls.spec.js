@@ -61,7 +61,7 @@ describe('shared/RecurringReservationControls/RecurringReservationControls', () 
     };
     const control = getWrapper(props).find(DatePicker);
     expect(control).to.have.length(1);
-    expect(control.prop('dateFormat')).to.equal('dd D.M.YYYY');
+    expect(control.prop('dateFormat')).to.equal('D.M.YYYY');
     expect(control.prop('formControl')).to.be.true;
     expect(control.prop('onChange')).to.equal(props.changeLastTime);
     expect(control.prop('value')).to.equal(props.lastTime);
