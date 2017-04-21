@@ -1,4 +1,3 @@
-import moment from 'moment';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import DayPicker from 'react-day-picker';
@@ -22,10 +21,13 @@ export function UnconnectedResourceCalendar({
   selectedDate,
   t,
 }) {
+  const [year, month, dayNumber] = selectedDate.split('-');
+  const selectedDay = new Date();
+  selectedDay.setFullYear(year, month - 1, dayNumber);
   return (
     <div className="calendar-availability">
       <DayPicker
-        disabledDays={{ before: moment().subtract(1, 'days').toDate() }}
+        disabledDays={{ before: new Date() }}
         enableOutsideDays
         initialMonth={new Date(selectedDate)}
         locale={currentLanguage}
@@ -49,7 +51,7 @@ export function UnconnectedResourceCalendar({
           },
         }}
         onDayClick={onDateChange}
-        selectedDays={new Date(selectedDate)}
+        selectedDays={selectedDay}
       />
       <div className="calendar-legend">
         <span className="free">{t('ReservationCalendarPickerLegend.free')}</span>
