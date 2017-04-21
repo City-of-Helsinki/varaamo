@@ -1,6 +1,9 @@
 import moment from 'moment';
 import { createAction, handleActions } from 'redux-actions';
 
+import actionTypes from 'constants/ActionTypes';
+import modalTypes from 'constants/ModalTypes';
+
 // actions
 // -------
 
@@ -89,6 +92,16 @@ const recurringReservationsReducer = handleActions({
   [actions.changeNumberOfOccurrences]: (state, action) => adjustState({
     ...state, numberOfOccurrences: parseInt(action.payload, 10),
   }),
+  [actionTypes.UI.CLOSE_MODAL]: (state, action) => {
+    const modalType = action.payload;
+    if (
+      modalType === modalTypes.RESERVATION_SUCCESS ||
+      modalType === modalTypes.RESERVATION_CONFIRM
+    ) {
+      return initialState;
+    }
+    return state;
+  },
 }, initialState);
 
 // selectors

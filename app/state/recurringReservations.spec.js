@@ -1,5 +1,10 @@
 import { expect } from 'chai';
 
+import {
+  closeConfirmReservationModal,
+  closeReservationCommentModal,
+  closeReservationSuccessModal,
+} from 'actions/uiActions';
 import recurringReservations, { populateReservations } from './recurringReservations';
 
 describe('state/recurringReservations', () => {
@@ -176,6 +181,41 @@ describe('state/recurringReservations', () => {
           };
           const actual = reducer(state, changeLastTime(lastTime));
           expect(actual.numberOfOccurrences).to.equal(1);
+        });
+      });
+
+      describe('UI.CLOSE_MODAL', () => {
+        it('resets state if closed modal is RESERVATION_SUCCESS modal', () => {
+          const state = {
+            baseTime: { begin: '', end: '' },
+            frequency: 'days',
+            numberOfOccurrences: 12,
+            lastTime: '2017-04-18',
+          };
+          const actual = reducer(state, closeReservationSuccessModal());
+          expect(actual).to.deep.equal(initialState);
+        });
+
+        it('resets state if closed modal is RESERVATION_CONFIRM modal', () => {
+          const state = {
+            baseTime: { begin: '', end: '' },
+            frequency: 'days',
+            numberOfOccurrences: 12,
+            lastTime: '2017-04-18',
+          };
+          const actual = reducer(state, closeConfirmReservationModal());
+          expect(actual).to.deep.equal(initialState);
+        });
+
+        it('does not affect state if closed modal is any other modal', () => {
+          const state = {
+            baseTime: { begin: '', end: '' },
+            frequency: 'days',
+            numberOfOccurrences: 12,
+            lastTime: '2017-04-18',
+          };
+          const actual = reducer(state, closeReservationCommentModal());
+          expect(actual).to.deep.equal(state);
         });
       });
     });
