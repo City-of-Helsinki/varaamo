@@ -1,48 +1,24 @@
 .date-picker {
-
-  // Selected value
-  .react-date-picker__decade-view--theme-default,
-  .react-date-picker__year-view--theme-default,
-  .react-date-picker__month-view-day--value {
-    .react-date-picker__decade-view-year--value,
-    .react-date-picker__year-view-month--value,
-    .react-date-picker__month-view-day-text {
-      background-color: @brand-primary;
-
-      &:hover {
-        background-color: @brand-primary;
-      }
-    }
+  input {
+    display: inline-block;
+    padding-right: 40px;
+    z-index: 3;
+    width: 100%;
+    border: none;
   }
-
-  // Active value
-  .react-date-picker__decade-view--theme-default,
-  .react-date-picker__year-view--theme-default,
-  .react-date-picker__month-view-day--active {
-    .react-date-picker__decade-view-year--active,
-    .react-date-picker__year-view-month--active,
-    .react-date-picker__month-view-day-text {
-      border-color: @brand-primary;
-    }
+  input.form-control[readonly] {
+    background-color: white;
   }
-
-  // Regular
-  .react-date-picker__month-view--theme-default {
-    .react-date-picker__month-view-day-text {
-      // Forced line-height to center content in IE11
-      line-height: 36px;
-      &:hover {
-        background-color: lighten(@brand-primary, 25%);
-      }
-    }
+  .date-picker-glyphicon{
+    margin-left: -30px;
   }
-
-  & > .react-date-field__picker {
-    // Forced width to avoid content hidden behind small container in IE11
-    width: 282px;
+  &-wrapper {
+    position: relative;
   }
-
-  &.form-control[readOnly]{
-    background-color: transparent;
+  &-overlay {
+    position: absolute;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .15);
+    z-index: 100;
   }
 }
