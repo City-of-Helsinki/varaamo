@@ -33,8 +33,7 @@ function adminResourcesPageReducer(state = initialState, action) {
     case types.API.RESOURCES_GET_SUCCESS: {
       const meta = action.meta;
       if (meta && meta.source === 'adminResourcesPage') {
-        const resources = filter(action.payload.entities.resources, 'public');
-        return state.merge({ resourceIds: map(resources, 'id') });
+        return state.merge({ resourceIds: map(action.payload.entities.resources, 'id') });
       }
       return state;
     }

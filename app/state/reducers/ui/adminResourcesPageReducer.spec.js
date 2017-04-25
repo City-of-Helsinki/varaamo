@@ -166,13 +166,13 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
           );
         });
 
-        it('does not add resources ids to state', () => {
+        it('adds resources ids to state', () => {
           const initialState = Immutable({
             resourceIds: [],
           });
           const nextState = adminResourcesPageReducer(initialState, action);
 
-          expect(nextState.resourceIds).to.deep.equal([publicResource.id]);
+          expect(nextState.resourceIds).to.deep.equal([publicResource.id, nonPublicResource.id]);
         });
       });
     });
