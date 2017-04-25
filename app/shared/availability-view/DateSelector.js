@@ -40,6 +40,9 @@ export class UninjectedDateSelector extends React.Component {
         <div className="current-value" >
           <DatePicker
             dateFormat="dd D.M.YYYY"
+            dayPickerClassName="date-picker"
+            icon="chevron-down"
+            inputClassName="input-date-picker"
             onChange={date => this.handleChange(date)}
             value={this.props.value}
           />

@@ -70,31 +70,28 @@
     }
   }
 
-  .date-picker {
+  .input-date-picker {
     border: none;
-    color: black;
     cursor: pointer;
     line-height: @av-header-height;
-    input {
-      background: none;
-      color: white;
-      cursor: pointer;
-      text-align: left;
-      width: 110px;
-      height: @av-header-height;
-      box-sizing: content-box;
-      z-index: 3;
-    }
-    .react-date-field__calendar-icon {
-      display: none;
-    }
-    &::after {
-      font-family: 'Glyphicons Halflings';
-      content: "\e252";
-      color: white;
-      vertical-align: middle;
-      margin-left: -20px;
-    }
+    background: none;
+    color: white;
+    cursor: pointer;
+    text-align: left;
+    width: 110px;
+    height: @av-header-height;
+    box-sizing: content-box;
+    z-index: 3;
+  }
+
+  .date-picker-glyphicon {
+    color: white;
+    margin-left: -50px !important;
+  }
+
+  .date-picker {
+    color: black;
+
   }
   .group-info {
     background-color: @gray-lighter;
