@@ -174,6 +174,7 @@
   "ResourceAvailability.reservingRestricted": "Kan inte bokas",
   "ResourceIcons.free": "AVGIFTSFRI",
   "ResourceInfo.equipmentHeader": "Equipment",
+  "ResourceInfoContainer.unpublishedLabel": "opublicerad",
   "ResourcePage.reservationStatusHeader": "Bokningsläget",
   "ResourcePage.reserveHeader": "Boka utrymme",
   "ResourceTypeFilter.title": "Show",
