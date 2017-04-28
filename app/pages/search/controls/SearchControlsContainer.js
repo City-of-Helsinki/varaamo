@@ -1,19 +1,17 @@
-import moment from 'moment';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import Row from 'react-bootstrap/lib/Row';
-import { DateField } from 'react-date-picker';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 
 import { fetchPurposes } from 'actions/purposeActions';
 import { changeSearchFilters } from 'actions/uiActions';
-import constants from 'constants/AppConstants';
 import { injectT } from 'i18n';
+import DatePicker from 'shared/date-picker';
 import AdvancedSearch from './AdvancedSearch';
 import searchControlsSelector from './searchControlsSelector';
 
@@ -34,10 +32,7 @@ class UnconnectedSearchControlsContainer extends Component {
   }
 
   handleDateChange(date) {
-    const dateInCorrectFormat = (
-      moment(date, 'L').format(constants.DATE_FORMAT)
-    );
-    this.handleFiltersChange({ date: dateInCorrectFormat });
+    this.handleFiltersChange({ date });
   }
 
   handleFiltersChange(newFilters) {
@@ -74,7 +69,6 @@ class UnconnectedSearchControlsContainer extends Component {
       purposeOptions,
       t,
     } = this.props;
-
     return (
       <div>
         <Row>
@@ -90,16 +84,13 @@ class UnconnectedSearchControlsContainer extends Component {
           </Col>
           <Col lg={6} md={6}>
             <div className="form-group">
-              <DateField
-                className="form-control date-picker"
-                clearIcon={false}
-                collapseOnDateClick
-                dateFormat={'L'}
-                footer={false}
+              <DatePicker
+                dateFormat="L"
+                dayPickerClassName="date-picker"
+                icon="calendar"
+                inputClassName="form-control"
                 onChange={this.handleDateChange}
-                readOnly
-                updateOnDateClick
-                value={moment(filters.date).format('L')}
+                value={filters.date}
               />
             </div>
           </Col>

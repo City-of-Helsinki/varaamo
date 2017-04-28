@@ -3,13 +3,13 @@ import moment from 'moment';
 import queryString from 'query-string';
 import React from 'react';
 import FormControl from 'react-bootstrap/lib/FormControl';
-import { DateField } from 'react-date-picker';
 import { browserHistory } from 'react-router';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
 import { shallowWithIntl } from 'utils/testUtils';
 import AdvancedSearch from './AdvancedSearch';
+import DatePicker from 'shared/date-picker';
 import {
   UnconnectedSearchControlsContainer as SearchControlsContainer,
 } from './SearchControlsContainer';
@@ -51,24 +51,24 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(formControl.prop('value')).to.equal(defaultProps.filters.search);
     });
 
-    describe('DateField', () => {
-      function getDateFieldWrapper(props) {
-        return getWrapper(props).find(DateField);
+    describe('DatePicker', () => {
+      function getDatePickerWrapper(props) {
+        return getWrapper(props).find(DatePicker);
       }
 
       it('is rendered', () => {
-        expect(getDateFieldWrapper()).to.have.length(1);
+        expect(getDatePickerWrapper()).to.have.length(1);
       });
 
       it('gets correct onChange prop', () => {
         const wrapper = getWrapper();
-        const actual = wrapper.find(DateField).prop('onChange');
+        const actual = wrapper.find(DatePicker).prop('onChange');
 
         expect(actual).to.equal(wrapper.instance().handleDateChange);
       });
 
-      it('converts value to localized date format and passes it to DateField', () => {
-        const actual = getDateFieldWrapper().prop('value');
+      it('converts value to localized date format and passes it to DatePicker', () => {
+        const actual = getDatePickerWrapper().prop('value');
         const expected = moment(defaultProps.filters.date).format('L');
         expect(actual).to.equal(expected);
       });

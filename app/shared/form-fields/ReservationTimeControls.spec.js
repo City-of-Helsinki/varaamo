@@ -37,7 +37,7 @@ describe('shared/form-fields/ReservationTimeControls', () => {
       const wrapper = getWrapper();
       const datePicker = wrapper.find(DatePicker);
       expect(datePicker).to.have.length(1);
-      expect(datePicker.prop('value')).to.equal(defaultProps.begin.input.value);
+      expect(datePicker.prop('value')).to.equal('2017-01-01');
       expect(datePicker.prop('onChange')).to.equal(wrapper.instance().handleDateChange);
     });
 

@@ -84,13 +84,12 @@ class ReservationTimeControls extends Component {
 
   render() {
     const { begin, end, timeFormat } = this.props;
-
     return (
       <div className="reservation-time-controls">
         <div className="reservation-time-controls-date-control">
           <DatePicker
             onChange={this.handleDateChange}
-            value={begin.input.value}
+            value={begin.input.value.substring(0, 10)}
           />
         </div>
         <div className="reservation-time-controls-time-control">
