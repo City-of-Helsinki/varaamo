@@ -1,10 +1,12 @@
 import classNames from 'classnames';
 import React, { PropTypes } from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+import Label from 'react-bootstrap/lib/Label';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { createSelector } from 'reselect';
 
+import { injectT } from 'i18n';
 import { resourcesSelector } from 'state/selectors/dataSelectors';
 
 ResourceInfo.propTypes = {
@@ -13,6 +15,8 @@ ResourceInfo.propTypes = {
   isSelected: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   peopleCapacity: PropTypes.number.isRequired,
+  public: PropTypes.bool.isRequired,
+  t: PropTypes.func.isRequired,
 };
 export function ResourceInfo(props) {
   return (
@@ -25,8 +29,13 @@ export function ResourceInfo(props) {
           {props.name}
         </Link>
       </div>
-      <div className="capacity">
+      <div className="details">
         <Glyphicon glyph="user" /> {props.peopleCapacity}
+        {!props.public &&
+          <Label bsStyle="default" className="unpublished-label">
+            {props.t('ResourceInfoContainer.unpublishedLabel')}
+          </Label>
+        }
       </div>
     </div>
   );
@@ -44,11 +53,14 @@ export function selector() {
     resource => ({
       name: resource.name,
       peopleCapacity: resource.peopleCapacity,
+      public: resource.public,
     })
   );
 }
 
-const ResourceInfoContainer = connect(selector)(ResourceInfo);
+export const UnconnectedResourceInfo = injectT(ResourceInfo);
+
+const ResourceInfoContainer = connect(selector)(UnconnectedResourceInfo);
 ResourceInfoContainer.propTypes = {
   id: PropTypes.string.isRequired,
   isSelected: PropTypes.bool.isRequired,
