@@ -86,14 +86,51 @@
       z-index: 3;
     }
     .react-date-field__calendar-icon {
-      display: none;
+      z-index: 10;
+      border: none;
+      &:hover {
+        background-color: transparent;
+        .react-date-field__calendar-icon-inner {
+          background-color: transparent;
+        }
+      }
+      &:active {
+        border: none;
+      }
+      &::before, &::after {
+        visibility: hidden;
+      }
+      .react-date-field__calendar-icon-inner {
+        line-height: @av-header-height;
+        height: @av-header-height;
+        margin: 0;
+        padding: 0;
+        width: 150px;
+        text-align: right;
+        cursor: pointer;
+        margin-left: -120px;
+        z-index: 10;
+        margin-left: -140px;
+        position: static;
+        background-color: transparent;
+
+        &::after {
+          font-family: 'Glyphicons Halflings';
+          content: "\e252";
+          visibility: visible;
+          color: white;
+          font-size: 18px;
+          position: absolute;
+          right: 20px;
+        }
+      }
     }
-    &::after {
-      font-family: 'Glyphicons Halflings';
-      content: "\e252";
-      color: white;
-      vertical-align: middle;
-      margin-left: -20px;
+    &.react-date-field--expanded {
+      .react-date-field__calendar-icon-inner {
+        &::after {
+          content: "\e253";
+        }
+      }
     }
   }
   .group-info {
