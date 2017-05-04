@@ -9,20 +9,15 @@ class CompactReservationList extends Component {
   }
 
   renderReservation(reservation) {
-    if (!this.props.resources) {
-      return (
-        <li key={reservation.begin}>
-          <TimeRange begin={reservation.begin} end={reservation.end} />
-          {this.props.subtitle &&
-            <div className="compact-reservation-list-subtitle">{reservation[this.props.subtitle]}</div>
-          }
-        </li>
-      );
+    let resourceName = null;
+    if (this.props.resources) {
+      const resource = this.props.resources[reservation.resource] || {};
+      resourceName = resource.name;
     }
-    const resource = this.props.resources[reservation.resource] || {};
     return (
       <li key={reservation.begin}>
-        {resource.name}: <TimeRange begin={reservation.begin} end={reservation.end} />
+        {resourceName ? `${resourceName}: ` : ''}
+        <TimeRange begin={reservation.begin} end={reservation.end} />
         {this.props.subtitle &&
           <div className="compact-reservation-list-subtitle">{reservation[this.props.subtitle]}</div>
         }
