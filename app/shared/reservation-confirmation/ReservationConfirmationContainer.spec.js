@@ -20,6 +20,7 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
       openConfirmReservationModal: simple.stub(),
       postReservation: simple.stub(),
       putReservation: simple.stub(),
+      removeReservation: simple.stub(),
     },
     confirmReservationModalIsOpen: false,
     isMakingReservations: false,
@@ -58,6 +59,7 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
         expect(actualProps.isStaff).to.exist;
         expect(actualProps.onClose).to.equal(defaultProps.actions.closeConfirmReservationModal);
         expect(actualProps.onConfirm).to.equal(wrapper.instance().handleReservation);
+        expect(actualProps.onRemoveReservation).to.equal(defaultProps.actions.removeReservation);
         expect(actualProps.recurringReservations).to.deep.equal(defaultProps.recurringReservations);
         expect(actualProps.reservationsToEdit).to.deep.equal(defaultProps.reservationsToEdit);
         expect(actualProps.selectedReservations).to.deep.equal(defaultProps.selectedReservations);

@@ -1,14 +1,14 @@
 import React, { Component, PropTypes } from 'react';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
 import TimeRange from 'shared/time-range';
 
 class CompactReservationList extends Component {
-  constructor(props) {
-    super(props);
-    this.renderReservation = this.renderReservation.bind(this);
-  }
+  renderFixedReservation = reservation => this.renderReservation(reservation);
 
-  renderReservation(reservation) {
+  renderRemovableReservation = reservation => this.renderReservation(reservation, true);
+
+  renderReservation = (reservation, removable = false) => {
     let resourceName = null;
     if (this.props.resources) {
       const resource = this.props.resources[reservation.resource] || {};
@@ -18,8 +18,16 @@ class CompactReservationList extends Component {
       <li key={reservation.begin}>
         {resourceName ? `${resourceName}: ` : ''}
         <TimeRange begin={reservation.begin} end={reservation.end} />
+        {removable &&
+          <Glyphicon
+            glyph="remove-circle"
+            onClick={() => this.props.onRemoveClick(reservation.begin)}
+          />
+        }
         {this.props.subtitle &&
-          <div className="compact-reservation-list-subtitle">{reservation[this.props.subtitle]}</div>
+          <div className="compact-reservation-list-subtitle">
+            {reservation[this.props.subtitle]}
+          </div>
         }
       </li>
     );
@@ -28,13 +36,18 @@ class CompactReservationList extends Component {
   render() {
     return (
       <ul className="compact-reservation-list">
-        {this.props.reservations.map(this.renderReservation)}
+        {this.props.reservations.map(this.renderFixedReservation)}
+        {this.props.removableReservations && this.props.removableReservations.map(
+          this.renderRemovableReservation
+        )}
       </ul>
     );
   }
 }
 
 CompactReservationList.propTypes = {
+  onRemoveClick: PropTypes.func,
+  removableReservations: PropTypes.array,
   reservations: PropTypes.array.isRequired,
   resources: PropTypes.object,
   subtitle: PropTypes.string,

@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import { deleteReservation, postReservation, putReservation } from 'actions/reservationActions';
 import { closeConfirmReservationModal, openConfirmReservationModal } from 'actions/uiActions';
+import recurringReservationsConnector from 'state/recurringReservations';
 import ConfirmReservationModal from './ConfirmReservationModal';
 import reservationConfirmationSelector from './reservationConfirmationSelector';
 
@@ -90,6 +91,7 @@ export class UnconnectedReservationConfirmationContainer extends Component {
         isStaff={isStaff}
         onClose={actions.closeConfirmReservationModal}
         onConfirm={isEditing ? this.handleEdit : this.handleReservation}
+        onRemoveReservation={actions.removeReservation}
         recurringReservations={recurringReservations}
         reservationsToEdit={reservationsToEdit}
         resource={resource}
@@ -123,6 +125,7 @@ function mapDispatchToProps(dispatch) {
     openConfirmReservationModal,
     postReservation,
     putReservation,
+    removeReservation: recurringReservationsConnector.removeReservation,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
