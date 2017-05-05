@@ -97,6 +97,7 @@ class ConfirmReservationModal extends Component {
       isAdmin,
       isEditing,
       isPreliminaryReservation,
+      onRemoveReservation,
       recurringReservations,
       reservationsToEdit,
       selectedReservations,
@@ -121,8 +122,7 @@ class ConfirmReservationModal extends Component {
       );
     }
 
-    const allReservations = [...selectedReservations, ...recurringReservations];
-    const reservationsCount = allReservations.length;
+    const reservationsCount = selectedReservations.length + recurringReservations.length;
     const helpText = isPreliminaryReservation ?
       t('ConfirmReservationModal.preliminaryReservationText', { reservationsCount }) :
       t('ConfirmReservationModal.regularReservationText', { reservationsCount });
@@ -132,7 +132,9 @@ class ConfirmReservationModal extends Component {
         {isAdmin && <RecurringReservationControls />}
         <p><strong>{helpText}</strong></p>
         <CompactReservationList
-          reservations={allReservations}
+          onRemoveClick={onRemoveReservation}
+          removableReservations={recurringReservations}
+          reservations={selectedReservations}
         />
         {isPreliminaryReservation && (
           <div>
@@ -199,6 +201,7 @@ ConfirmReservationModal.propTypes = {
   isStaff: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
+  onRemoveReservation: PropTypes.func.isRequired,
   recurringReservations: PropTypes.array.isRequired,
   reservationsToEdit: PropTypes.array.isRequired,
   resource: PropTypes.object.isRequired,

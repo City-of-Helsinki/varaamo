@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
+import simple from 'simple-mock';
 
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
@@ -18,6 +19,7 @@ describe('shared/compact-reservation-list/CompactReservationList', () => {
     resources: Immutable({
       [resource.id]: resource,
     }),
+    onRemoveClick: () => {},
   };
 
   function getWrapper(extraProps) {
@@ -64,6 +66,31 @@ describe('shared/compact-reservation-list/CompactReservationList', () => {
 
     it('is not rendered if subtitle is not specified', () => {
       expect(getWrapper().find('.compact-reservation-list-subtitle')).to.have.length(0);
+    });
+  });
+
+  describe('remove button', () => {
+    it('is rendered if reservation is in removableReservations', () => {
+      const reservations = [Reservation.build({ foo: 'bar' })];
+      const removableReservations = [
+        Reservation.build(),
+        Reservation.build(),
+      ];
+      const props = { reservations, removableReservations };
+      const buttons = getWrapper(props).find({ glyph: 'remove-circle' });
+      expect(buttons).to.have.length(2);
+    });
+
+    it('passes onRemoveClick func to onClick prop', () => {
+      const onRemoveClick = simple.mock();
+      const removableReservations = [Reservation.build()];
+      const props = { onRemoveClick, removableReservations };
+      const button = getWrapper(props).find({ glyph: 'remove-circle' });
+      expect(onRemoveClick.callCount).to.equal(0);
+      button.prop('onClick')();
+      expect(onRemoveClick.lastCall.args).to.deep.equal(
+        [removableReservations[0].begin]
+      );
     });
   });
 });
