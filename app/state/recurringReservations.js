@@ -1,3 +1,4 @@
+import filter from 'lodash/filter';
 import moment from 'moment';
 import { createAction, handleActions } from 'redux-actions';
 
@@ -12,6 +13,7 @@ const actions = {
   changeFrequency: createAction('app/recurringReservations/CHANGE_FREQUENCY'),
   changeLastTime: createAction('app/recurringReservations/CHANGE_LAST_TIME'),
   changeNumberOfOccurrences: createAction('app/recurringReservations/CHANGE_NUMBER_OF_OCCURRENCES'),
+  removeReservation: createAction('app/recurringReservations/REMOVE_RESERVATION'),
 };
 
 // reducer
@@ -102,6 +104,10 @@ const recurringReservationsReducer = handleActions({
     }
     return state;
   },
+  [actions.removeReservation]: (state, action) => ({
+    ...state,
+    reservations: filter(state.reservations, reservation => reservation.begin !== action.payload),
+  }),
 }, initialState);
 
 // selectors

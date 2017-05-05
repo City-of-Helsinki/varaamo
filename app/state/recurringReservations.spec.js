@@ -184,6 +184,41 @@ describe('state/recurringReservations', () => {
         });
       });
 
+      describe('removeReservation', () => {
+        const removeReservation = recurringReservations.removeReservation;
+        const reservations = [
+          {
+            begin: '2017-04-18T15:00:00.000Z',
+            end: '2017-04-18T16:00:00.000Z',
+          },
+          {
+            begin: '2017-04-19T15:00:00.000Z',
+            end: '2017-04-19T16:00:00.000Z',
+          },
+        ];
+
+        it('removes reservation with same begin than payload', () => {
+          const state = {
+            ...initialState,
+            reservations,
+          };
+          const actual = reducer(state, removeReservation('2017-04-18T15:00:00.000Z'));
+          expect(actual.reservations).to.deep.equal([{
+            begin: '2017-04-19T15:00:00.000Z',
+            end: '2017-04-19T16:00:00.000Z',
+          }]);
+        });
+
+        it('does not change reservations if begin time is not in reservations', () => {
+          const state = {
+            ...initialState,
+            reservations,
+          };
+          const actual = reducer(state, removeReservation('2017-04-17T15:00:00.000Z'));
+          expect(actual.reservations).to.deep.equal(reservations);
+        });
+      });
+
       describe('UI.CLOSE_MODAL', () => {
         it('resets state if closed modal is RESERVATION_SUCCESS modal', () => {
           const state = {
