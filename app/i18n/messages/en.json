@@ -105,7 +105,7 @@
   "RecurringReservationControls.frequencyNone": "None",
   "RecurringReservationControls.frequencyWeekly": "Weekly",
   "RecurringReservationControls.lastTimeLabel": "Ends on",
-  "RecurringReservationControls.numberOfOccurrencesLabel": "Occurrences",
+  "RecurringReservationControls.numberOfOccurrencesLabel": "Repetitions",
   "ReservationAccessCode.defaultText": "PIN code",
   "ReservationCalendar.header": "Select a day",
   "ReservationCalendarControls.confirmChanges": "Confirm the changes",
