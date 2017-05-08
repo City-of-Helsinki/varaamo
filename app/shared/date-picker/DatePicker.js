@@ -1,4 +1,5 @@
 import classnames from 'classnames';
+import throttle from 'lodash/throttle';
 import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
@@ -9,9 +10,9 @@ import constants from 'constants/AppConstants';
 
 export default class DatePicker extends Component {
   static propTypes = {
+    className: PropTypes.string,
     dateFormat: PropTypes.string,
     dayPickerClassName: PropTypes.string,
-    formControl: PropTypes.bool,
     icon: PropTypes.string,
     inputClassName: PropTypes.string,
     onChange: PropTypes.func.isRequired,
@@ -27,30 +28,25 @@ export default class DatePicker extends Component {
   }
 
   input = null;
-  clickedInside = false;
+  daypicker = null;
+  keepOverlayOpenFlag = false;
   clickTimeout = null;
 
-  handleContainerMouseDown = () => {
-    this.clickedInside = true;
+  keepOverlayOpen = () => {
+    this.keepOverlayOpenFlag = true;
     // The input's onBlur method is called from a queue right after onMouseDown event.
     // setTimeout adds another callback in the queue, but is called later than onBlur event
     this.clickTimeout = setTimeout(() => {
-      this.clickedInside = false;
+      this.keepOverlayOpenFlag = false;
     }, 0);
   };
 
-  handleInputFocus = () => {
-    this.setState({
-      showOverlay: true,
-    });
-  };
-
   handleInputBlur = () => {
-    const showOverlay = this.clickedInside;
+    const showOverlay = this.keepOverlayOpenFlag;
 
-    this.setState({
-      showOverlay,
-    });
+    if (this.state.showOverlay !== showOverlay) {
+      this.toggleOverlay();
+    }
 
     // Force input's focus if blur event was caused by clicking on the calendar
     if (showOverlay) {
@@ -58,13 +54,27 @@ export default class DatePicker extends Component {
     }
   };
 
+  handleInputMouseDown = () => {
+    if (!this.keepOverlayOpenFlag) {
+      this.toggleOverlay();
+    }
+  }
+
   handleDayClick = (day) => {
     this.setState({
       showOverlay: false,
     });
     this.props.onChange(moment(day).format(constants.DATE_FORMAT));
-    this.input.blur();
-  };
+  }
+
+  toggleOverlay = throttle(() => {
+    if (!this.state.showOverlay) {
+      this.input.focus();
+    }
+    this.setState({
+      showOverlay: !this.state.showOverlay,
+    });
+  }, 100, { trailing: false });
 
   render() {
     const pickerDateFormat = this.props.dateFormat || 'L';
@@ -79,13 +89,13 @@ export default class DatePicker extends Component {
     }
     return (
       <div
-        className={classnames('date-picker', { 'form-control': this.props.formControl })}
-        onMouseDown={this.handleContainerMouseDown}
+        className={classnames('date-picker', this.props.className)}
       >
         <input
           className={this.props.inputClassName}
           onBlur={this.handleInputBlur}
-          onFocus={this.handleInputFocus}
+          onFocus={this.handleInputMouseDown}
+          onMouseDown={this.handleInputMouseDown}
           placeholder="DD/MM/YYYY"
           readOnly
           ref={(el) => {
@@ -95,10 +105,14 @@ export default class DatePicker extends Component {
           value={formatDate(this.props.value)}
         />
         {this.props.icon &&
-          <Glyphicon className="date-picker-glyphicon" glyph={this.props.icon} />
+          <Glyphicon
+            className="date-picker-glyphicon"
+            glyph={this.props.icon}
+            onClick={this.handleInputMouseDown}
+          />
         }
         {this.state.showOverlay &&
-          <div className="date-picker-wrapper">
+          <div className="date-picker-wrapper" onMouseDown={this.keepOverlayOpen}>
             <div className="date-picker-overlay">
               <DayPicker
                 className={this.props.dayPickerClassName}

@@ -85,10 +85,10 @@ class UnconnectedSearchControlsContainer extends Component {
           <Col lg={6} md={6}>
             <div className="form-group">
               <DatePicker
+                className="form-control"
                 dateFormat="L"
                 dayPickerClassName="date-picker"
                 icon="calendar"
-                inputClassName="form-control"
                 onChange={this.handleDateChange}
                 value={filters.date}
               />

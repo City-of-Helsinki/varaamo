@@ -74,8 +74,8 @@ function RecurringReservationControls({
                 {t('RecurringReservationControls.lastTimeLabel')}
               </ControlLabel>
               <DatePicker
+                className="form-control"
                 dateFormat="D.M.YYYY"
-                formControl
                 onChange={changeLastTime}
                 value={lastTime}
               />

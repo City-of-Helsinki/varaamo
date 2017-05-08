@@ -8,8 +8,8 @@ import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
 import { shallowWithIntl } from 'utils/testUtils';
-import AdvancedSearch from './AdvancedSearch';
 import DatePicker from 'shared/date-picker';
+import AdvancedSearch from './AdvancedSearch';
 import {
   UnconnectedSearchControlsContainer as SearchControlsContainer,
 } from './SearchControlsContainer';
