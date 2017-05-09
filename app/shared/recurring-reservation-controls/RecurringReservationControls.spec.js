@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import React from 'react';
-import FormControl from 'react-bootstrap/lib/FormControl';
+import NumericInput from 'react-numeric-input';
 import Select from 'react-select';
 import simple from 'simple-mock';
 
@@ -42,15 +42,17 @@ describe('shared/RecurringReservationControls/RecurringReservationControls', () 
     expect(select.prop('value')).to.equal(props.frequency);
   });
 
-  it('renders FormControl to change number of occurrences', () => {
+  it('renders NumericInput to change number of occurrences', () => {
     const props = {
+      changeNumberOfOccurrences: () => null,
       lastTime: '2017-04-09',
       numberOfOccurrences: 12,
     };
-    const control = getWrapper(props).find(FormControl);
+    const control = getWrapper(props).find(NumericInput);
     expect(control).to.have.length(1);
     expect(control.prop('min')).to.equal(1);
     expect(control.prop('value')).to.equal(props.numberOfOccurrences);
+    expect(control.prop('onChange')).to.equal(props.changeNumberOfOccurrences);
   });
 
   it('renders DatePicker with correct props', () => {
@@ -73,8 +75,8 @@ describe('shared/RecurringReservationControls/RecurringReservationControls', () 
       wrapper = getWrapper({ frequency: '' });
     });
 
-    it('does not render numbrerOfOcurrences FormControl', () => {
-      expect(wrapper.find(FormControl)).to.have.length(0);
+    it('does not render numbrerOfOcurrences NumericInput', () => {
+      expect(wrapper.find(NumericInput)).to.have.length(0);
     });
 
     it('does not render DatePicker', () => {
