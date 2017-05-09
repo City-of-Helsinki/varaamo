@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import Col from 'react-bootstrap/lib/Col';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Row from 'react-bootstrap/lib/Row';
+import NumericInput from 'react-numeric-input';
 import Select from 'react-select';
 
 import { injectT } from 'i18n';
@@ -58,10 +58,10 @@ function RecurringReservationControls({
               <ControlLabel>
                 {t('RecurringReservationControls.numberOfOccurrencesLabel')}
               </ControlLabel>
-              <FormControl
+              <NumericInput
+                className="form-control"
                 min={1}
-                onChange={event => changeNumberOfOccurrences(event.target.value || 1)}
-                type="number"
+                onChange={changeNumberOfOccurrences}
                 value={numberOfOccurrences}
               />
             </FormGroup>
