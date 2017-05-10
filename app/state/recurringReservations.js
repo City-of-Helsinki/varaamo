@@ -43,6 +43,27 @@ export function populateReservations({ baseTime, frequency, numberOfOccurrences 
   return reservations;
 }
 
+function limitDateState(state) {
+  const start = moment(state.baseTime.begin).startOf('day');
+  const end = moment(state.lastTime).startOf('day');
+  const duration = moment.duration(end.diff(start));
+  const twoYearsDuration = moment.duration(2, 'years');
+
+  if (duration > twoYearsDuration) {
+    const numberOfOccurrences = parseInt(twoYearsDuration.as(state.frequency), 10);
+    return {
+      ...state,
+      numberOfOccurrences,
+      lastTime: (
+        moment(state.baseTime.begin)
+        .add(numberOfOccurrences, state.frequency)
+        .format('YYYY-MM-DD')
+      ),
+    };
+  }
+  return state;
+}
+
 function adjustState(state, changeLastTime = false) {
   if (!state.baseTime || !state.frequency || (!state.lastTime && !state.numberOfOccurrences)) {
     return { ...state, reservations: [] };
@@ -53,9 +74,15 @@ function adjustState(state, changeLastTime = false) {
     const end = moment(state.lastTime).startOf('day');
     const duration = moment.duration(end.diff(start));
     if (duration > 0) {
+      const numberOfOccurrences = parseInt(duration.as(state.frequency), 10);
       newState = {
         ...state,
-        numberOfOccurrences: parseInt(duration.as(state.frequency), 10),
+        numberOfOccurrences,
+        lastTime: (
+            moment(state.baseTime.begin)
+            .add(numberOfOccurrences, state.frequency)
+            .format('YYYY-MM-DD')
+        ),
       };
     } else {
       newState = {
@@ -63,7 +90,7 @@ function adjustState(state, changeLastTime = false) {
         numberOfOccurrences: 1,
         lastTime: (
           moment(state.baseTime.begin)
-          .add(1, 'days')
+          .add(1, state.frequency)
           .format('YYYY-MM-DD')
         ),
       };
@@ -78,6 +105,7 @@ function adjustState(state, changeLastTime = false) {
       ),
     };
   }
+  newState = limitDateState(newState);
   return { ...newState, reservations: populateReservations(newState) };
 }
 
