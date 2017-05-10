@@ -138,6 +138,22 @@ describe('state/recurringReservations', () => {
         expect(actual.lastTime).to.deep.equal(expectedLastTime);
       });
 
+      it('has a maximum of 2 years', () => {
+        const state = {
+          baseTime: {
+            begin: '2017-04-18T15:00:00.000Z',
+            end: '2017-04-18T16:00:00.000Z',
+          },
+          frequency: 'months',
+          numberOfOccurrences: 1,
+          reservations: [],
+        };
+        const actual = reducer(state, changeNumberOfOccurrences(30));
+        expect(actual.numberOfOccurrences).to.equal(24);
+        expect(actual.lastTime).to.equal('2019-04-18');
+        expect(actual.reservations).to.have.length(24);
+      });
+
       describe('changeLastTime', () => {
         const changeLastTime = recurringReservations.changeLastTime;
 
@@ -181,6 +197,24 @@ describe('state/recurringReservations', () => {
           };
           const actual = reducer(state, changeLastTime(lastTime));
           expect(actual.numberOfOccurrences).to.equal(1);
+        });
+
+        it('has a maximum of 2 years', () => {
+          const baseTime = {
+            begin: '2017-04-18T15:00:00.000Z',
+            end: '2017-04-18T16:00:00.000Z',
+          };
+          const lastTime = '2030-04-30';
+          const state = {
+            baseTime,
+            frequency: 'months',
+            numberOfOccurrences: 1,
+            lastTime: null,
+          };
+          const actual = reducer(state, changeLastTime(lastTime));
+          expect(actual.numberOfOccurrences).to.equal(24);
+          expect(actual.lastTime).to.equal('2019-04-18');
+          expect(actual.reservations).to.have.length(24);
         });
       });
 
