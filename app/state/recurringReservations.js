@@ -43,6 +43,18 @@ export function populateReservations({ baseTime, frequency, numberOfOccurrences 
   return reservations;
 }
 
+function setOccurrences(state, numberOfOccurrences) {
+  return {
+    ...state,
+    numberOfOccurrences,
+    lastTime: (
+        moment(state.baseTime.begin)
+        .add(numberOfOccurrences, state.frequency)
+        .format('YYYY-MM-DD')
+    ),
+  };
+}
+
 function limitDateState(state) {
   const start = moment(state.baseTime.begin).startOf('day');
   const end = moment(state.lastTime).startOf('day');
@@ -51,15 +63,7 @@ function limitDateState(state) {
 
   if (duration > twoYearsDuration) {
     const numberOfOccurrences = parseInt(twoYearsDuration.as(state.frequency), 10);
-    return {
-      ...state,
-      numberOfOccurrences,
-      lastTime: (
-        moment(state.baseTime.begin)
-        .add(numberOfOccurrences, state.frequency)
-        .format('YYYY-MM-DD')
-      ),
-    };
+    return setOccurrences(state, numberOfOccurrences);
   }
   return state;
 }
@@ -68,44 +72,18 @@ function adjustState(state, changeLastTime = false) {
   if (!state.baseTime || !state.frequency || (!state.lastTime && !state.numberOfOccurrences)) {
     return { ...state, reservations: [] };
   }
-  let newState;
+  let numberOfOccurrences = 1;
   if (changeLastTime) {
     const start = moment(state.baseTime.begin).startOf('day');
     const end = moment(state.lastTime).startOf('day');
     const duration = moment.duration(end.diff(start));
     if (duration > 0) {
-      const numberOfOccurrences = parseInt(duration.as(state.frequency), 10);
-      newState = {
-        ...state,
-        numberOfOccurrences,
-        lastTime: (
-            moment(state.baseTime.begin)
-            .add(numberOfOccurrences, state.frequency)
-            .format('YYYY-MM-DD')
-        ),
-      };
-    } else {
-      newState = {
-        ...state,
-        numberOfOccurrences: 1,
-        lastTime: (
-          moment(state.baseTime.begin)
-          .add(1, state.frequency)
-          .format('YYYY-MM-DD')
-        ),
-      };
+      numberOfOccurrences = parseInt(duration.as(state.frequency), 10);
     }
   } else {
-    newState = {
-      ...state,
-      lastTime: (
-          moment(state.baseTime.begin)
-          .add(state.numberOfOccurrences, state.frequency)
-          .format('YYYY-MM-DD')
-      ),
-    };
+    numberOfOccurrences = state.numberOfOccurrences;
   }
-  newState = limitDateState(newState);
+  const newState = limitDateState(setOccurrences(state, numberOfOccurrences));
   return { ...newState, reservations: populateReservations(newState) };
 }
 
