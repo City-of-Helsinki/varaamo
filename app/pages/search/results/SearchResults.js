@@ -3,6 +3,7 @@ import { findDOMNode } from 'react-dom';
 import Loader from 'react-loader';
 
 import ResourceList from 'shared/resource-list';
+import ResourceMap from 'shared/resource-map';
 import { injectT } from 'i18n';
 import { scrollTo } from 'utils/domUtils';
 import ResultsCount from './ResultsCount';
@@ -13,7 +14,13 @@ class SearchResults extends Component {
   }
 
   render() {
-    const { isFetching, searchResultIds, t } = this.props;
+    const {
+      isFetching,
+      onToggleMap,
+      searchResultIds,
+      showMap,
+      t,
+    } = this.props;
 
     return (
       <div id="search-results">
@@ -22,9 +29,20 @@ class SearchResults extends Component {
             emptyMessage={t('SearchResults.emptyMessage')}
             resultIds={searchResultIds}
           />
-          <ResourceList
-            resourceIds={searchResultIds}
-          />
+          <button
+            className="map-toggle btn-primary btn"
+            onClick={onToggleMap}
+          >
+            {showMap ? 'Show list' : 'Show map'}
+          </button>
+          {showMap ?
+            <ResourceMap
+              resourceIds={searchResultIds}
+            /> :
+              <ResourceList
+                resourceIds={searchResultIds}
+              />
+          }
         </Loader>
       </div>
     );
@@ -33,7 +51,9 @@ class SearchResults extends Component {
 
 SearchResults.propTypes = {
   isFetching: PropTypes.bool.isRequired,
+  onToggleMap: PropTypes.func.isRequired,
   searchResultIds: PropTypes.array.isRequired,
+  showMap: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
 };
 

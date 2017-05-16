@@ -16,6 +16,7 @@ describe('pages/search/SearchPage', () => {
       changeSearchFilters: simple.stub(),
       fetchUnits: simple.stub(),
       searchResources: simple.stub(),
+      toggleMap: () => {},
     },
     isLoggedIn: false,
     isFetchingSearchResults: false,
@@ -27,6 +28,7 @@ describe('pages/search/SearchPage', () => {
     params: {},
     searchDone: true,
     searchResultIds: Immutable(['resource-1', 'resource-2']),
+    showMap: false,
   };
 
   function getWrapper(extraProps) {
@@ -136,7 +138,9 @@ describe('pages/search/SearchPage', () => {
         const searchResults = getWrapper(extraProps).find(SearchResults);
 
         expect(searchResults.props().isFetching).to.equal(extraProps.isFetchingSearchResults);
+        expect(searchResults.props().onToggleMap).to.equal(defaultProps.actions.toggleMap);
         expect(searchResults.props().searchResultIds).to.deep.equal(defaultProps.searchResultIds);
+        expect(searchResults.props().showMap).to.equal(defaultProps.showMap);
       });
 
       it('does not render help text', () => {

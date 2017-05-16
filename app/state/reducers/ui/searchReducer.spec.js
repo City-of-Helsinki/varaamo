@@ -3,7 +3,7 @@ import keyBy from 'lodash/keyBy';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
-import { clearSearchResults } from 'actions/searchActions';
+import { clearSearchResults, toggleMap } from 'actions/searchActions';
 import types from 'constants/ActionTypes';
 import Resource from 'utils/fixtures/Resource';
 import searchReducer from './searchReducer';
@@ -170,6 +170,28 @@ describe('state/reducers/ui/searchReducer', () => {
         const nextState = searchReducer(initialState, action);
 
         expect(nextState.searchDone).to.equal(false);
+      });
+    });
+
+    describe('UI.TOGGLE_SEARCH_SHOW_MAP', () => {
+      it('toggles showMap if false', () => {
+        const action = toggleMap();
+        const initialState = Immutable({
+          showMap: false,
+        });
+        const nextState = searchReducer(initialState, action);
+
+        expect(nextState.showMap).to.be.true;
+      });
+
+      it('toggles showMap if true', () => {
+        const action = toggleMap();
+        const initialState = Immutable({
+          showMap: true,
+        });
+        const nextState = searchReducer(initialState, action);
+
+        expect(nextState.showMap).to.be.false;
       });
     });
   });
