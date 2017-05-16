@@ -13,6 +13,7 @@ import {
 import { getFetchParamsFromFilters } from 'utils/searchUtils';
 
 const clearSearchResults = createAction(types.UI.CLEAR_SEARCH_RESULTS);
+const toggleMap = createAction(types.UI.TOGGLE_SEARCH_SHOW_MAP);
 
 function getPiwikActionName(searchParams) {
   if (searchParams.search) {
@@ -64,4 +65,5 @@ export {
   clearSearchResults,
   getPiwikActionName,
   searchResources,
+  toggleMap,
 };

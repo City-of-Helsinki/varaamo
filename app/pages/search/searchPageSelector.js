@@ -7,6 +7,7 @@ import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsA
 
 const searchDoneSelector = state => state.ui.search.searchDone;
 const searchResultIdsSelector = state => state.ui.search.results;
+const showMapSelector = state => state.ui.search.showMap;
 
 const searchPageSelector = createStructuredSelector({
   filters: urlSearchFiltersSelector,
@@ -15,6 +16,7 @@ const searchPageSelector = createStructuredSelector({
   isLoggedIn: isLoggedInSelector,
   searchDone: searchDoneSelector,
   searchResultIds: searchResultIdsSelector,
+  showMap: showMapSelector,
 });
 
 export default searchPageSelector;

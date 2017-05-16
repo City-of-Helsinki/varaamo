@@ -12,6 +12,7 @@ const initialState = Immutable({
   },
   results: [],
   searchDone: false,
+  showMap: false,
 });
 
 function searchReducer(state = initialState, action) {
@@ -32,6 +33,10 @@ function searchReducer(state = initialState, action) {
 
     case types.UI.CLEAR_SEARCH_RESULTS: {
       return initialState;
+    }
+
+    case types.UI.TOGGLE_SEARCH_SHOW_MAP: {
+      return state.merge({ showMap: !state.showMap });
     }
 
     default: {
