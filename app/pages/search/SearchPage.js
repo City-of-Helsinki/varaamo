@@ -4,7 +4,7 @@ import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { searchResources } from 'actions/searchActions';
+import { searchResources, toggleMap } from 'actions/searchActions';
 import { changeSearchFilters } from 'actions/uiActions';
 import { fetchUnits } from 'actions/unitActions';
 import PageWrapper from 'pages/PageWrapper';
@@ -55,12 +55,14 @@ class UnconnectedSearchPage extends Component {
 
   render() {
     const {
+      actions,
       filters,
       isFetchingSearchResults,
       location,
       params,
       searchResultIds,
       searchDone,
+      showMap,
       t,
     } = this.props;
 
@@ -76,8 +78,10 @@ class UnconnectedSearchPage extends Component {
         {searchDone || isFetchingSearchResults ?
           <SearchResults
             isFetching={isFetchingSearchResults}
+            onToggleMap={actions.toggleMap}
             ref="searchResults"
             searchResultIds={searchResultIds}
+            showMap={showMap}
           />
           : <p className="help-text">{t('SearchPage.helpText')}</p>
         }
@@ -95,6 +99,7 @@ UnconnectedSearchPage.propTypes = {
   params: PropTypes.object.isRequired,
   searchDone: PropTypes.bool.isRequired,
   searchResultIds: PropTypes.array.isRequired,
+  showMap: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
 };
 
@@ -105,6 +110,7 @@ function mapDispatchToProps(dispatch) {
     changeSearchFilters,
     fetchUnits,
     searchResources,
+    toggleMap,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

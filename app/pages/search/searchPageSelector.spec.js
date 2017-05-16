@@ -33,4 +33,8 @@ describe('pages/search/searchPageSelector', () => {
   it('returns searchResultIds', () => {
     expect(getSelected().searchResultIds).to.deep.equal(searchResultIds);
   });
+
+  it('returns showMap', () => {
+    expect(getSelected().showMap).to.exist;
+  });
 });
