@@ -4,13 +4,12 @@ import React from 'react';
 import { Map } from 'react-leaflet';
 import simple from 'simple-mock';
 
-import { UnconnectedMapContainer as MapContainer } from './MapContainer';
-import Markers from './Markers';
+import { UnconnectedResourceMapContainer as MapContainer } from './MapContainer';
+import Marker from './Marker';
 
-describe('screens/map/MapContainer', () => {
+describe('shared/resource-map/MapContainer', () => {
   function getWrapper(props) {
     const defaults = {
-      isLoaded: true,
       markers: [],
       boundaries: {
         maxLatitude: 0,
@@ -22,21 +21,35 @@ describe('screens/map/MapContainer', () => {
     return shallow(<MapContainer {...defaults} {...props} />);
   }
 
-  it('renders map even if not loaded', () => {
-    const map = getWrapper({ isLoaded: false }).find(Map);
-    expect(map).to.have.length(1);
-  });
-
   it('renders a Leaflet Map', () => {
     const map = getWrapper().find(Map);
     expect(map).to.have.length(1);
   });
 
-  it('renders Markers', () => {
-    const markers = [{ id: '1', longitude: 1, latitude: 1, owner: 'A' }];
-    const element = getWrapper({ markers }).find(Markers);
+  it('does not render Marker if no markers', () => {
+    const markers = [];
+    const element = getWrapper({ markers }).find(Marker);
+    expect(element).to.have.length(0);
+  });
+
+  it('renders Marker', () => {
+    const markers = [{ longitude: 1, latitude: 1, resourceId: 'a' }];
+    const element = getWrapper({ markers }).find(Marker);
     expect(element).to.have.length(1);
-    expect(element.prop('markers')).to.equal(markers);
+    expect(element.props()).to.deep.equal(markers[0]);
+  });
+
+  it('renders Marker many markers', () => {
+    const markers = [
+      { longitude: 1, latitude: 1, resourceId: 'a' },
+      { longitude: 2, latitude: 2, resourceId: 'b' },
+      { longitude: 1.5, latitude: 1.5, resourceId: 'c' },
+    ];
+    const element = getWrapper({ markers }).find(Marker);
+    expect(element).to.have.length(3);
+    expect(element.at(0).props()).to.deep.equal(markers[0]);
+    expect(element.at(1).props()).to.deep.equal(markers[1]);
+    expect(element.at(2).props()).to.deep.equal(markers[2]);
   });
 
   describe('onMapRef', () => {
@@ -57,17 +70,6 @@ describe('screens/map/MapContainer', () => {
       expect(fitBounds.lastCall.args).to.deep.equal([
         [[5, 15], [10, 20]],
       ]);
-    });
-
-    it('does not call fitBounds if not loaded', () => {
-      const fitBounds = simple.mock();
-      callOnMapRef(fitBounds, {
-        maxLatitude: 10,
-        minLatitude: 5,
-        maxLongitude: 20,
-        minLongitude: 15,
-      }, { isLoaded: false });
-      expect(fitBounds.called).to.be.false;
     });
   });
 
