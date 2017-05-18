@@ -1,32 +1,22 @@
-import pickBy from 'lodash/pickBy';
-
 import { createSelector, createStructuredSelector } from 'reselect';
 
-import { unitMatchesFilters } from 'screens/utils';
-import selectors from 'state/selectors';
+import { resourcesSelector, unitsSelector } from 'state/selectors/dataSelectors';
 
-const filteredUnitsSelector = createSelector(
-  selectors.unitsSelector,
-  selectors.cityFilterSelector,
-  selectors.ownerFilterSelector,
-  selectors.postalCodeFilterSelector,
-  (units, city, owners, postalCodes) => pickBy(
-    units,
-    unit => unitMatchesFilters(unit, city, owners, postalCodes)
-  )
+const resourceIdsSelector = (state, props) => props.resourceIds;
+const filteredResourcesSelector = createSelector(
+  resourceIdsSelector,
+  resourcesSelector,
+  (resourceIds, resources) => resourceIds.map(id => resources[id])
 );
 
 const markersSelector = createSelector(
-  filteredUnitsSelector,
-  (units) => {
-    const ids = Object.keys(units).sort();
-    return ids.map(id => ({
-      id,
-      latitude: units[id].coordinates.latitude,
-      longitude: units[id].coordinates.longitude,
-      owner: units[id].owner,
-    }));
-  }
+  filteredResourcesSelector,
+  unitsSelector,
+  (resources, units) => resources.map(resource => ({
+    latitude: units[resource.unit].location.coordinates[1],
+    longitude: units[resource.unit].location.coordinates[0],
+    resourceId: resource.id,
+  }))
 );
 
 const boundariesSelector = createSelector(
@@ -61,7 +51,6 @@ const boundariesSelector = createSelector(
 );
 
 export default createStructuredSelector({
-  isLoaded: selectors.isLoadedSelector,
   markers: markersSelector,
   boundaries: boundariesSelector,
 });
