@@ -1,26 +1,21 @@
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
 import { Map, TileLayer, ZoomControl } from 'react-leaflet';
+import { connect } from 'react-redux';
 
 import selector from './mapSelector';
-import Markers from './Markers';
+import Marker from './Marker';
 
 const defaultPosition = [60.372465778991284, 24.818115234375004];
 const defaultZoom = 10;
 
-export class UnconnectedMapContainer extends React.Component {
-  constructor() {
-    super();
-    this.onMapRef = this.onMapRef.bind(this);
-  }
-
+export class UnconnectedResourceMapContainer extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.map && prevProps.boundaries !== this.props.boundaries) {
       this.fitMapToBoundaries();
     }
   }
 
-  onMapRef(map) {
+  onMapRef = (map) => {
     this.map = map;
     this.fitMapToBoundaries();
   }
@@ -43,8 +38,8 @@ export class UnconnectedMapContainer extends React.Component {
     );
   }
 
-  fitMapToBoundaries() {
-    if (this.props.isLoaded && this.hasBoundaries()) {
+  fitMapToBoundaries = () => {
+    if (this.hasBoundaries() && this.map) {
       this.map.leafletElement.fitBounds(this.getBounds());
     }
   }
@@ -52,31 +47,27 @@ export class UnconnectedMapContainer extends React.Component {
   render() {
     return (
       <Map
-        className="map"
         center={defaultPosition}
+        className="map"
+        ref={this.onMapRef}
         zoom={defaultZoom}
         zoomControl={false}
-        ref={this.onMapRef}
       >
         <TileLayer
-          url="https://api.mapbox.com/styles/v1/city-of-helsinki/cj0w88p4j00qw2rnp9h8ylt7s/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY2l0eS1vZi1oZWxzaW5raSIsImEiOiJjaXdwMTg1bXowMDBoMnZueHlod2RqbXRyIn0.7FKlCDKY-lDr2BNFbNlQ1w"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://api.mapbox.com/styles/v1/city-of-helsinki/cj0w88p4j00qw2rnp9h8ylt7s/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY2l0eS1vZi1oZWxzaW5raSIsImEiOiJjaXdwMTg1bXowMDBoMnZueHlod2RqbXRyIn0.7FKlCDKY-lDr2BNFbNlQ1w"
         />
         <ZoomControl position="bottomright" />
-        <Markers markers={this.props.markers} />
+        {this.props.markers && this.props.markers.map(
+          marker => <Marker {...marker} key={marker.resourceId} />
+        )}
       </Map>
     );
   }
 }
 
-UnconnectedMapContainer.propTypes = {
-  isLoaded: PropTypes.bool.isRequired,
-  markers: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    latitude: PropTypes.number.isRequired,
-    longitude: PropTypes.number.isRequired,
-    owner: PropTypes.string.isRequired,
-  })),
+UnconnectedResourceMapContainer.propTypes = {
+  markers: PropTypes.array,
   boundaries: PropTypes.shape({
     maxLatitude: PropTypes.number,
     minLatitude: PropTypes.number,
@@ -85,4 +76,4 @@ UnconnectedMapContainer.propTypes = {
   }),
 };
 
-export default connect(selector)(UnconnectedMapContainer);
+export default connect(selector)(UnconnectedResourceMapContainer);

@@ -1,4 +1,3 @@
-import React from 'react';
+import MapContainer from './MapContainer';
 
-const ResourceMap = () => <div />;
-export default ResourceMap;
+export default MapContainer;
