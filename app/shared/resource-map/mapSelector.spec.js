@@ -1,0 +1,106 @@
+import { expect } from 'chai';
+
+import selector from './mapSelector';
+
+function getState({ units = {}, resources = {} }) {
+  return { data: { units, resources } };
+}
+
+function createUnit(id, latitude, longitude) {
+  return {
+    id,
+    location: { coordinates: [longitude, latitude] },
+  };
+}
+
+function createResource(id, unitId) {
+  return {
+    id,
+    unit: unitId,
+  };
+}
+
+const padding = 0.004;
+
+describe('shared/resource-map/mapSelector', () => {
+  describe('markers', () => {
+    it('are returned', () => {
+      const state = getState({
+        units: {
+          21: createUnit('21', 0, 1),
+          1: createUnit('1', 2, 3),
+        },
+        resources: {
+          123: createResource('123', 21),
+          321: createResource('321', 1),
+        },
+      });
+      const props = { resourceIds: ['123', '321'] };
+      const data = selector(state, props);
+      expect(data.markers).to.deep.equal([
+        { latitude: 0, longitude: 1, resourceId: '123' },
+        { latitude: 2, longitude: 3, resourceId: '321' },
+      ]);
+    });
+
+    it('are returned if resources in the same unit', () => {
+      const state = getState({
+        units: {
+          21: createUnit('21', 0, 1),
+          1: createUnit('1', 2, 3),
+        },
+        resources: {
+          123: createResource('123', 21),
+          321: createResource('321', 21),
+        },
+      });
+      const props = { resourceIds: ['123', '321'] };
+      const data = selector(state, props);
+      expect(data.markers).to.deep.equal([
+        { latitude: 0, longitude: 1, resourceId: '123' },
+        { latitude: 0, longitude: 1, resourceId: '321' },
+      ]);
+    });
+
+    it('are returned if id in resourceIds prop', () => {
+      const state = getState({
+        units: {
+          21: createUnit('21', 0, 1),
+          1: createUnit('1', 2, 3),
+        },
+        resources: {
+          123: createResource('123', 21),
+          321: createResource('321', 1),
+        },
+      });
+      const props = { resourceIds: ['123'] };
+      const data = selector(state, props);
+      expect(data.markers).to.deep.equal([
+        { latitude: 0, longitude: 1, resourceId: '123' },
+      ]);
+    });
+  });
+
+  it('returns boundaries', () => {
+    const data = selector(getState({
+      units: {
+        1: createUnit('1', 5, 5),
+        2: createUnit('2', 0, 10),
+        3: createUnit('3', 3, 3),
+        4: createUnit('4', 5, 8),
+      },
+      resources: {
+        1: createResource('1', 1),
+        2: createResource('2', 2),
+        3: createResource('3', 3),
+        4: createResource('4', 4),
+      },
+    }), { resourceIds: ['1', '2', '3', '4'] });
+    expect(data.boundaries).to.deep.equal({
+      maxLatitude: 5 + padding,
+      minLatitude: 0 - padding,
+      maxLongitude: 10 + padding,
+      minLongitude: 3 - padding,
+    });
+  });
+});
