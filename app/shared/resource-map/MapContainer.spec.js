@@ -33,7 +33,7 @@ describe('shared/resource-map/MapContainer', () => {
   });
 
   it('renders Marker', () => {
-    const markers = [{ longitude: 1, latitude: 1, resourceId: 'a' }];
+    const markers = [{ unitId: 1, longitude: 1, latitude: 1, resourceIds: ['a'] }];
     const element = getWrapper({ markers }).find(Marker);
     expect(element).to.have.length(1);
     expect(element.props()).to.deep.equal(markers[0]);
@@ -41,9 +41,9 @@ describe('shared/resource-map/MapContainer', () => {
 
   it('renders Marker many markers', () => {
     const markers = [
-      { longitude: 1, latitude: 1, resourceId: 'a' },
-      { longitude: 2, latitude: 2, resourceId: 'b' },
-      { longitude: 1.5, latitude: 1.5, resourceId: 'c' },
+      { unitId: 1, longitude: 1, latitude: 1, resourceIds: ['a'] },
+      { unitId: 2, longitude: 2, latitude: 2, resourceIds: ['b'] },
+      { unitId: 3, longitude: 1.5, latitude: 1.5, resourceIds: ['c', 'd'] },
     ];
     const element = getWrapper({ markers }).find(Marker);
     expect(element).to.have.length(3);

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
-import { Marker as LeafletMarker } from 'react-leaflet';
+import { Marker as LeafletMarker, Tooltip } from 'react-leaflet';
 import { browserHistory } from 'react-router';
 import simple from 'simple-mock';
 
@@ -11,7 +11,7 @@ function getWrapper(props) {
   const defaults = {
     latitude: 1,
     longitude: 2,
-    resourceId: '123',
+    resourceIds: ['123', '321'],
   };
   return shallow(<Marker {...defaults} {...props} />);
 }
@@ -28,7 +28,7 @@ describe('shared/resource-map/Marker', () => {
       simple.restore();
     });
 
-    it('redirects to resource page', () => {
+    it('redirects to first resource page', () => {
       getWrapper().instance().handleClick();
       const actualPath = browserHistoryMock.lastCall.args[0];
       const expectedPath = '/resources/123';
@@ -42,6 +42,17 @@ describe('shared/resource-map/Marker', () => {
     it('is a marker', () => {
       const wrapper = getWrapper();
       expect(wrapper.is(LeafletMarker)).to.be.true;
+    });
+
+    it('contains a tooltip with the number of resources', () => {
+      const wrapper = getWrapper().find(Tooltip);
+      expect(wrapper).to.have.length(1);
+      expect(wrapper.children().text()).to.be.equal('2');
+    });
+
+    it('does not contains a tooltip with the number of resources if only one resource', () => {
+      const wrapper = getWrapper({ resourceIds: ['123'] }).find(Tooltip);
+      expect(wrapper).to.have.length(0);
     });
 
     it('has onClick event handlers', () => {
