@@ -1,14 +1,27 @@
 import React, { PropTypes } from 'react';
 import { Map, TileLayer, ZoomControl } from 'react-leaflet';
 import { connect } from 'react-redux';
+import { geolocated, geoPropTypes } from 'react-geolocated';
 
 import selector from './mapSelector';
 import Marker from './Marker';
+import UserMarker from './UserMarker';
 
 const defaultPosition = [60.372465778991284, 24.818115234375004];
 const defaultZoom = 10;
 
 export class UnconnectedResourceMapContainer extends React.Component {
+  static propTypes = {
+    markers: PropTypes.array,
+    boundaries: PropTypes.shape({
+      maxLatitude: PropTypes.number,
+      minLatitude: PropTypes.number,
+      maxLongitude: PropTypes.number,
+      minLongitude: PropTypes.number,
+    }),
+    ...geoPropTypes,
+  };
+
   componentDidUpdate(prevProps) {
     if (this.map && prevProps.boundaries !== this.props.boundaries) {
       this.fitMapToBoundaries();
@@ -45,9 +58,12 @@ export class UnconnectedResourceMapContainer extends React.Component {
   }
 
   render() {
+    const center = this.props.coords ?
+      [this.props.coords.latitude, this.props.coords.longitude] :
+      defaultPosition;
     return (
       <Map
-        center={defaultPosition}
+        center={center}
         className="map"
         ref={this.onMapRef}
         zoom={defaultZoom}
@@ -61,19 +77,15 @@ export class UnconnectedResourceMapContainer extends React.Component {
         {this.props.markers && this.props.markers.map(
           marker => <Marker {...marker} key={marker.unitId} />
         )}
+        {this.props.coords &&
+          <UserMarker
+            latitude={this.props.coords.latitude}
+            longitude={this.props.coords.longitude}
+          />
+        }
       </Map>
     );
   }
 }
 
-UnconnectedResourceMapContainer.propTypes = {
-  markers: PropTypes.array,
-  boundaries: PropTypes.shape({
-    maxLatitude: PropTypes.number,
-    minLatitude: PropTypes.number,
-    maxLongitude: PropTypes.number,
-    minLongitude: PropTypes.number,
-  }),
-};
-
-export default connect(selector)(UnconnectedResourceMapContainer);
+export default connect(selector)(geolocated()(UnconnectedResourceMapContainer));

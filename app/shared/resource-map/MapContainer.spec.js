@@ -6,6 +6,7 @@ import simple from 'simple-mock';
 
 import { UnconnectedResourceMapContainer as MapContainer } from './MapContainer';
 import Marker from './Marker';
+import UserMarker from './UserMarker';
 
 describe('shared/resource-map/MapContainer', () => {
   function getWrapper(props) {
@@ -24,6 +25,12 @@ describe('shared/resource-map/MapContainer', () => {
   it('renders a Leaflet Map', () => {
     const map = getWrapper().find(Map);
     expect(map).to.have.length(1);
+  });
+
+  it('Map is centered at default position', () => {
+    const defaultPosition = [60.372465778991284, 24.818115234375004];
+    const map = getWrapper().find(Map);
+    expect(map.prop('center')).to.deep.equal(defaultPosition);
   });
 
   it('does not render Marker if no markers', () => {
@@ -50,6 +57,32 @@ describe('shared/resource-map/MapContainer', () => {
     expect(element.at(0).props()).to.deep.equal(markers[0]);
     expect(element.at(1).props()).to.deep.equal(markers[1]);
     expect(element.at(2).props()).to.deep.equal(markers[2]);
+  });
+
+  it('does not render an userMarker', () => {
+    const element = getWrapper().find(UserMarker);
+    expect(element).to.have.length(0);
+  });
+
+  describe('with a geolocalized user', () => {
+    it('centers the map on users position', () => {
+      const coords = {
+        latitude: 61,
+        longitude: 26,
+      };
+      const map = getWrapper({ coords }).find(Map);
+      expect(map.prop('center')).to.deep.equal([61, 26]);
+    });
+
+    it('renders an userMarker', () => {
+      const coords = {
+        latitude: 61,
+        longitude: 26,
+      };
+      const element = getWrapper({ coords }).find(UserMarker);
+      expect(element).to.have.length(1);
+      expect(element.props()).to.deep.equal(coords);
+    });
   });
 
   describe('onMapRef', () => {
