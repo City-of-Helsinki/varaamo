@@ -59,7 +59,7 @@ export class UnconnectedResourceMapContainer extends React.Component {
         />
         <ZoomControl position="bottomright" />
         {this.props.markers && this.props.markers.map(
-          marker => <Marker {...marker} key={marker.resourceId} />
+          marker => <Marker {...marker} key={marker.unitId} />
         )}
       </Map>
     );

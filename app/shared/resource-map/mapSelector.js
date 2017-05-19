@@ -1,3 +1,4 @@
+import reduce from 'lodash/reduce';
 import { createSelector, createStructuredSelector } from 'reselect';
 
 import { resourcesSelector, unitsSelector } from 'state/selectors/dataSelectors';
@@ -12,11 +13,21 @@ const filteredResourcesSelector = createSelector(
 const markersSelector = createSelector(
   filteredResourcesSelector,
   unitsSelector,
-  (resources, units) => resources.map(resource => ({
-    latitude: units[resource.unit].location.coordinates[1],
-    longitude: units[resource.unit].location.coordinates[0],
-    resourceId: resource.id,
-  }))
+  (resources, units) => Object.values(
+    reduce(resources, (memo, resource) => {
+      if (memo[resource.unit]) {
+        memo[resource.unit].resourceIds.push(resource.id);
+      } else {
+        memo[resource.unit] = {                                 // eslint-disable-line
+          unitId: resource.unit,
+          latitude: units[resource.unit].location.coordinates[1],
+          longitude: units[resource.unit].location.coordinates[0],
+          resourceIds: [resource.id],
+        };
+      }
+      return memo;
+    }, {})
+  )
 );
 
 const boundariesSelector = createSelector(
