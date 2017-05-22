@@ -1,0 +1,34 @@
+// Mixin for generating new button styles
+@mixin btn-styles($btn-color: $blue) {
+  background-color: $btn-color;
+  border-color: darken($btn-color, 14%);
+  color: #fff;
+
+  &:hover,
+  &:focus  {
+    background-color: darken($btn-color, 12%);
+    background-position: 0 -15px;
+    color: #fff;
+  }
+
+  &:active,
+  &.active {
+    background-color: darken($btn-color, 12%);
+    border-color: darken($btn-color, 14%);
+    color: #fff;
+  }
+
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    &,
+    &:hover,
+    &:focus,
+    &.focus,
+    &:active,
+    &.active {
+      background-color: darken($btn-color, 12%);
+      background-image: none;
+    }
+  }
+}

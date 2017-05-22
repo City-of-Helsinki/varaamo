@@ -32,5 +32,5 @@ module.exports = {
   isProduction,
   piwikSiteId: process.env.PIWIK_SITE_ID,
   port,
-  webpackStylesExtensions: ['css', 'less'],
+  webpackStylesExtensions: ['css', 'scss'],
 };

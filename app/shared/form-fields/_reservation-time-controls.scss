@@ -1,0 +1,31 @@
+.reservation-time-controls {
+  display: flex;
+
+  .reservation-time-controls-date-control {
+    flex: 2 1;
+    margin-right: 40px;
+    .date-picker {
+      border: 2px solid $input-border;
+      border-radius: 2px;
+      background-color: #fff;
+      width: 100%;
+      input {
+        height: 39px;
+        padding-left: 15px;
+      }
+      .react-date-field__calendar-icon {
+        margin-right: 15px;
+      }
+    }
+  }
+
+  .reservation-time-controls-time-control {
+    flex: 0 1 100px;
+  }
+
+  .reservation-time-controls-separator {
+    width: 40px;
+    text-align: center;
+    line-height: 43px;
+  }
+}
