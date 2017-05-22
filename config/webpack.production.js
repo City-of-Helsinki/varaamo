@@ -25,18 +25,18 @@ module.exports = merge(common, {
       {
         test: /\.js$/,
         include: path.resolve(__dirname, '../app'),
-        loader: 'babel',
+        loader: 'babel-loader',
         query: {
           presets: ['es2015', 'node6', 'react', 'stage-2'],
         },
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style', 'css!postcss-loader'),
+        loader: ExtractTextPlugin.extract('style', 'css-loader!postcss-loader'),
       },
       {
-        test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style', 'css!postcss-loader!less'),
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract('style', 'css-loader!resolve-url-loader!postcss-loader!sass-loader'),
       },
     ],
   },

@@ -1,0 +1,38 @@
+//
+// Application specific visual customisation
+// -----------------------------------------
+
+$theme-primary-dark:    $hel-coat !default;
+$theme-primary-light:   $hel-summer !default;
+
+$theme-secondary-dark:  $hel-brick !default;
+$theme-secondary-light: $hel-fog !default;
+
+$theme-highlight-dark:  $hel-bus !default;
+$theme-highlight-light: $hel-copper !default;
+
+// Non brand
+
+$black:         #010f27;
+$dark-gray:     #525a65;
+$medium-gray:   #abb2bd;
+$light-gray:    #ebedf1;
+$white:         #ffffff;
+
+$theme-success: $hel-tram;
+$theme-info:    $hel-fog;
+$theme-warning: $hel-summer;
+$theme-danger:  $hel-brick;
+
+$bootstrap-sass-asset-helper: false !default;
+
+// Glyphicon icon path
+$icon-font-path: '../fonts/';
+
+$font-family-sans-serif: $hel-grotesk;
+
+
+// Other variables
+$font-weight-regular:    400;
+$font-weight-bold:       600;
+$favorite-color:         #BF0863;

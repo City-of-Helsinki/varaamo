@@ -7,8 +7,8 @@ import { browserHistory, Router } from 'react-router';
 import { createStore } from 'redux';
 import Immutable from 'seamless-immutable';
 
-import 'assets/styles/app.less';
-import 'assets/styles/customization/espoo/customization.less';
+import 'assets/styles/main.scss';
+import 'assets/styles/customization/espoo/customization.scss';
 import { initI18n } from 'i18n';
 import configureStore from 'store/configureStore';
 import rootReducer from 'state/rootReducer';
