@@ -1,0 +1,13 @@
+.notification-container {
+  .notification-info {
+    background-color: $brand-info;
+  }
+
+  .notification-success {
+    background-color: $brand-success;
+  }
+
+  .notification-error {
+    background-color: $brand-danger;
+  }
+}

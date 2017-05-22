@@ -25,7 +25,7 @@ module.exports = merge(common, {
       {
         test: /\.js$/,
         include: path.resolve(__dirname, '../app'),
-        loader: 'eslint',
+        loader: 'eslint-loader',
       },
     ],
     loaders: [
@@ -33,18 +33,18 @@ module.exports = merge(common, {
         test: /\.js$/,
         include: path.resolve(__dirname, '../app'),
         exclude: path.resolve(__dirname, '../node_modules'),
-        loader: 'babel',
+        loader: 'babel-loader',
         query: {
           presets: ['es2015', 'node6', 'react', 'react-hmre', 'stage-2'],
         },
       },
       {
         test: /\.css$/,
-        loader: 'style!css!postcss-loader',
+        loader: 'style-loader!css-loader!postcss-loader',
       },
       {
-        test: /\.less$/,
-        loader: 'style!css!postcss-loader!less',
+        test: /\.scss$/,
+        loader: 'style-loader!css-loader!resolve-url-loader!postcss-loader!sass-loader?source-map',
       },
     ],
   },
