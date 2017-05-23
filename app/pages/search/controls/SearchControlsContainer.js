@@ -2,9 +2,7 @@ import moment from 'moment';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
-import Col from 'react-bootstrap/lib/Col';
 import FormControl from 'react-bootstrap/lib/FormControl';
-import Row from 'react-bootstrap/lib/Row';
 import { DateField } from 'react-date-picker';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
@@ -76,34 +74,29 @@ class UnconnectedSearchControlsContainer extends Component {
     } = this.props;
 
     return (
-      <div>
-        <Row>
-          <Col lg={6} md={6}>
-            <FormControl
-              autoFocus={!filters.purpose}
-              onChange={event => this.handleFiltersChange({ search: event.target.value })}
-              onKeyUp={this.handleSearchInputChange}
-              placeholder={t('SearchControls.searchPlaceholder')}
-              type="text"
-              value={filters.search}
-            />
-          </Col>
-          <Col lg={6} md={6}>
-            <div className="form-group">
-              <DateField
-                className="form-control date-picker"
-                clearIcon={false}
-                collapseOnDateClick
-                dateFormat={'L'}
-                footer={false}
-                onChange={this.handleDateChange}
-                readOnly
-                updateOnDateClick
-                value={moment(filters.date).format('L')}
-              />
-            </div>
-          </Col>
-        </Row>
+      <div className="app-SearchControlsContainer">
+        <FormControl
+          autoFocus={!filters.purpose}
+          className="app-SearchControlsContainer__search-box"
+          onChange={event => this.handleFiltersChange({ search: event.target.value })}
+          onKeyUp={this.handleSearchInputChange}
+          placeholder={t('SearchControls.searchPlaceholder')}
+          type="text"
+          value={filters.search}
+        />
+        <div className="form-group">
+          <DateField
+            className="form-control date-picker"
+            clearIcon={false}
+            collapseOnDateClick
+            dateFormat={'L'}
+            footer={false}
+            onChange={this.handleDateChange}
+            readOnly
+            updateOnDateClick
+            value={moment(filters.date).format('L')}
+          />
+        </div>
         <AdvancedSearch
           filters={filters}
           isFetchingPurposes={isFetchingPurposes}
