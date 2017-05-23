@@ -74,7 +74,6 @@ class UnconnectedSearchPage extends Component {
           showMap={showMap}
         />
         <div className="app-SearchPage__content">
-          <h1>{t('SearchPage.title')}</h1>
           <SearchControls
             location={location}
             params={params}
