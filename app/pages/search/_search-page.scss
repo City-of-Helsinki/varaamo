@@ -1,3 +1,5 @@
+@import './controls/search-controls';
+
 .search-page {
   h1 {
     @media (max-width: $screen-xs-max) {

@@ -1,0 +1,13 @@
+.app-SearchControlsContainer {
+  &__search-box {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    border: none;
+    height: 80px;
+    line-height: 80px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 6px;
+    box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.2);
+  }
+}
