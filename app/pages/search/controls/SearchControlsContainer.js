@@ -84,9 +84,9 @@ class UnconnectedSearchControlsContainer extends Component {
           type="text"
           value={filters.search}
         />
-        <div className="form-group">
+        <div className="app-SearchControlsContainer__filters">
           <DateField
-            className="form-control date-picker"
+            className="app-SearchControlsContainer__date-picker"
             clearIcon={false}
             collapseOnDateClick
             dateFormat={'L'}
