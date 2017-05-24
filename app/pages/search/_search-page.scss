@@ -16,4 +16,13 @@
   .react-date-field {
     border: 2px solid $input-border;
   }
+
+  &__overlay {
+    z-index: 5;
+  }
+
+  .app-SearchPage__content {
+    position: relative;
+    z-index: $max-map-z-index +1 ;
+  }
 }

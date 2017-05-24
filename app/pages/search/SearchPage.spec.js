@@ -5,6 +5,7 @@ import Immutable from 'seamless-immutable';
 
 import PageWrapper from 'pages/PageWrapper';
 import DateHeader from 'shared/date-header';
+import ResourceMap from 'shared/resource-map';
 import { shallowWithIntl } from 'utils/testUtils';
 import { UnconnectedSearchPage as SearchPage } from './SearchPage';
 import SearchControls from './controls';
@@ -41,6 +42,18 @@ describe('pages/search/SearchPage', () => {
       expect(pageWrapper).to.have.length(1);
       expect(pageWrapper.prop('className')).to.equal('search-page');
       expect(pageWrapper.prop('title')).to.equal('SearchPage.title');
+    });
+
+    it('renders a ResourceMap with correct props', () => {
+      const resourceMap = getWrapper().find(ResourceMap);
+      expect(resourceMap).to.have.length(1);
+      expect(resourceMap.prop('showMap')).to.equal(false);
+      expect(resourceMap.prop('resourceIds')).to.deep.equal(defaultProps.searchResultIds);
+    });
+
+    it('passes showMap prop to ResourceMap', () => {
+      const resourceMap = getWrapper({ showMap: true }).find(ResourceMap);
+      expect(resourceMap.prop('showMap')).to.equal(true);
     });
 
     describe('when no search is done', () => {
