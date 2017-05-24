@@ -1,0 +1,44 @@
+.app-MiniModal {
+  &__show-button {
+    @include varaamo-button($white, $medium-gray);
+  }
+
+  &__modal {
+    width: 400px;
+
+    &-header {
+      background-color: $medium-gray;
+      color: $white;
+      text-align: center;
+      height: 50px;
+      h2 {
+        margin: 0;
+        line-height: 50px;
+        font-size: 18px;
+        font-weight: $font-weight-light;
+      }
+    }
+
+    &-content {
+      padding: 20px;
+    }
+
+    &-footer {
+      height: 50px;
+
+      &-close-button {
+        @include button-variant($white, $medium-gray, $medium-gray);
+        display: block;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        line-height: 50px;
+        font-weight: $font-weight-bold;
+        text-transform: uppercase;
+        background-color: $medium-gray;
+        color: $white;
+        border: none;
+      }
+    }
+  }
+}
