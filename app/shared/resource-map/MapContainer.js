@@ -64,11 +64,10 @@ export class UnconnectedResourceMapContainer extends React.Component {
       [this.props.coords.latitude, this.props.coords.longitude] :
       defaultPosition;
     return (
-      <div>
-        {!this.props.showMap && <div className="app-ResourceMap__overlay" />}
+      <div className={classnames('app-ResourceMap', { 'app-ResourceMap__showMap': this.props.showMap })}>
         <Map
           center={center}
-          className={classnames('app-ResourceMap__map', { 'app-ResourceMap__showMap': this.props.showMap })}
+          className="app-ResourceMap__map"
           ref={this.onMapRef}
           zoom={defaultZoom}
           zoomControl={false}
@@ -88,6 +87,7 @@ export class UnconnectedResourceMapContainer extends React.Component {
             />
           }
         </Map>
+        <div className="app-ResourceMap__overlay" />
       </div>
     );
   }

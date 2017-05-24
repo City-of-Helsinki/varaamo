@@ -1,27 +1,37 @@
-.app-ResourceMap__map {
-  height: 100vh;
-  width: 100vw;
-  left: 0;
-  right: 0;
-  top: 0;
-  position: fixed;
-  pointer-events: none;
-  z-index: -2;
-  &.app-ResourceMap__showMap {
-    pointer-events: auto;
-    z-index: 0;
+.app-ResourceMap {
+  &__map {
+    height: 100vh;
+    width: 100vw;
+    left: 0;
+    right: 0;
+    top: 0;
+    position: fixed;
+    pointer-events: none;
+    z-index: -2;
   }
-}
 
-.app-ResourceMap__overlay {
-  height: 100vh;
-  width: 100vw;
-  left: 0;
-  right: 0;
-  top: 0;
-  position: fixed;
-  z-index: -1;
-  pointer-events: none;
-  background-color: white;
-  opacity: 0.8;
+  &__overlay {
+    height: 100vh;
+    width: 100vw;
+    overflow: visible;
+    left: 0;
+    right: 0;
+    top: 0;
+    position: fixed;
+    z-index: 0;
+    pointer-events: none;
+    background-color: white;
+    opacity: 0.8;
+    transition: opacity 0.3s linear;
+  }
+
+  &__showMap {
+    .app-ResourceMap__map {
+      pointer-events: auto;
+      z-index: 0;
+    }
+    .app-ResourceMap__overlay {
+      opacity: 0;
+    }
+  }
 }
