@@ -35,7 +35,14 @@ $font-family-sans-serif: $hel-grotesk;
 
 
 // Other variables
-$font-weight-regular:    400;
 $font-weight-bold:       600;
+$font-weight-regular:    400;
+$font-weight-light:      200;
+
 $favorite-color:         #BF0863;
 $max-map-z-index:        1000;
+
+// Buttons
+$button-default-height:        40px;
+$button-border-radius:         30px;
+$button-horizontal-padding:    15px;

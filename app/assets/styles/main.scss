@@ -16,12 +16,15 @@
 
 // App styles
 @import './layout';
+@import './mixins';
+
 @import '../../pages/pages';
 @import '../../shared/shared';
+
+@import './elements';
 @import './loader';
 @import './panel';
 @import './react-select';
-@import './elements';
 
 
 // Customizations
