@@ -3,7 +3,6 @@ import { findDOMNode } from 'react-dom';
 import Loader from 'react-loader';
 
 import ResourceList from 'shared/resource-list';
-import ResourceMap from 'shared/resource-map';
 import { injectT } from 'i18n';
 import { scrollTo } from 'utils/domUtils';
 import ResultsCount from './ResultsCount';
@@ -35,13 +34,10 @@ class SearchResults extends Component {
           >
             {showMap ? 'Show list' : 'Show map'}
           </button>
-          {showMap ?
-            <ResourceMap
+          {!showMap &&
+            <ResourceList
               resourceIds={searchResultIds}
-            /> :
-              <ResourceList
-                resourceIds={searchResultIds}
-              />
+            />
           }
         </Loader>
       </div>

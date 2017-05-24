@@ -1,3 +1,27 @@
-.map {
-  height: 90vh;
+.app-ResourceMap__map {
+  height: 100vh;
+  width: 100vw;
+  left: 0;
+  right: 0;
+  top: 0;
+  position: fixed;
+  pointer-events: none;
+  z-index: -2;
+  &.app-ResourceMap__showMap {
+    pointer-events: auto;
+    z-index: 0;
+  }
+}
+
+.app-ResourceMap__overlay {
+  height: 100vh;
+  width: 100vw;
+  left: 0;
+  right: 0;
+  top: 0;
+  position: fixed;
+  z-index: -1;
+  pointer-events: none;
+  background-color: white;
+  opacity: 0.8;
 }
