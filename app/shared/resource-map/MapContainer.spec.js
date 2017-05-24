@@ -28,6 +28,16 @@ describe('shared/resource-map/MapContainer', () => {
     expect(map).to.have.length(1);
   });
 
+  it('adds showMap classname to wrapper div if showMap prop is passed', () => {
+    const wrapper = getWrapper();
+    expect(wrapper.prop('className')).to.contain('app-ResourceMap__showMap');
+  });
+
+  it('does not add showMap classname to wrapper div if showMap prop is not passed', () => {
+    const wrapper = getWrapper({ showMap: false });
+    expect(wrapper.prop('className')).to.not.contain('app-ResourceMap__showMap');
+  });
+
   it('Map is centered at default position', () => {
     const defaultPosition = [60.372465778991284, 24.818115234375004];
     const map = getWrapper().find(Map);
@@ -65,13 +75,8 @@ describe('shared/resource-map/MapContainer', () => {
     expect(element).to.have.length(0);
   });
 
-  it('does not render an overlay div if showMap prop is true', () => {
+  it('renders an overlay div', () => {
     const element = getWrapper().find('.app-ResourceMap__overlay');
-    expect(element).to.have.length(0);
-  });
-
-  it('renders an overlay div if showMap prop is false', () => {
-    const element = getWrapper({ showMap: false }).find('.app-ResourceMap__overlay');
     expect(element).to.have.length(1);
   });
 
