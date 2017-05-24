@@ -24,12 +24,14 @@
     }
 
     input {
-      width: 120px;
-      padding: 10px 20px;
+      width: 110px;
+      padding: 10px $button-horizontal-padding;
       color: $white;
       background-color: $green;
-      border-radius: 30px;
+      border-radius: $button-border-radius;
       cursor: pointer;
+      height: $button-default-height;
+      text-align: center;
     }
 
     .react-date-field__calendar-icon {

@@ -1,0 +1,8 @@
+@mixin varaamo-button($color, $background) {
+  @include button-variant($color, $background, $background);
+  height: $button-default-height;
+  line-height: $button-default-height;
+  padding: 0 $button-horizontal-padding;
+  border-radius: $button-border-radius;
+  font-weight: $font-weight-regular;
+}
