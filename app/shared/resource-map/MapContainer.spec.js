@@ -18,6 +18,7 @@ describe('shared/resource-map/MapContainer', () => {
         maxLongitude: 0,
         minLongitude: 0,
       },
+      showMap: true,
     };
     return shallow(<MapContainer {...defaults} {...props} />);
   }
@@ -62,6 +63,16 @@ describe('shared/resource-map/MapContainer', () => {
   it('does not render an userMarker', () => {
     const element = getWrapper().find(UserMarker);
     expect(element).to.have.length(0);
+  });
+
+  it('does not render an overlay div if showMap prop is true', () => {
+    const element = getWrapper().find('.app-ResourceMap__overlay');
+    expect(element).to.have.length(0);
+  });
+
+  it('renders an overlay div if showMap prop is false', () => {
+    const element = getWrapper({ showMap: false }).find('.app-ResourceMap__overlay');
+    expect(element).to.have.length(1);
   });
 
   describe('with a geolocalized user', () => {

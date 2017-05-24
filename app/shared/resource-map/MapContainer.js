@@ -1,3 +1,4 @@
+import classnames from 'classnames';
 import React, { PropTypes } from 'react';
 import { Map, TileLayer, ZoomControl } from 'react-leaflet';
 import { connect } from 'react-redux';
@@ -19,6 +20,7 @@ export class UnconnectedResourceMapContainer extends React.Component {
       maxLongitude: PropTypes.number,
       minLongitude: PropTypes.number,
     }),
+    showMap: PropTypes.bool.isRequired,
     ...geoPropTypes,
   };
 
@@ -62,28 +64,31 @@ export class UnconnectedResourceMapContainer extends React.Component {
       [this.props.coords.latitude, this.props.coords.longitude] :
       defaultPosition;
     return (
-      <Map
-        center={center}
-        className="map"
-        ref={this.onMapRef}
-        zoom={defaultZoom}
-        zoomControl={false}
-      >
-        <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://api.mapbox.com/styles/v1/city-of-helsinki/cj0w88p4j00qw2rnp9h8ylt7s/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY2l0eS1vZi1oZWxzaW5raSIsImEiOiJjaXdwMTg1bXowMDBoMnZueHlod2RqbXRyIn0.7FKlCDKY-lDr2BNFbNlQ1w"
-        />
-        <ZoomControl position="bottomright" />
-        {this.props.markers && this.props.markers.map(
-          marker => <Marker {...marker} key={marker.unitId} />
-        )}
-        {this.props.coords &&
-          <UserMarker
-            latitude={this.props.coords.latitude}
-            longitude={this.props.coords.longitude}
+      <div>
+        {!this.props.showMap && <div className="app-ResourceMap__overlay" />}
+        <Map
+          center={center}
+          className={classnames('app-ResourceMap__map', { 'app-ResourceMap__showMap': this.props.showMap })}
+          ref={this.onMapRef}
+          zoom={defaultZoom}
+          zoomControl={false}
+        >
+          <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://api.mapbox.com/styles/v1/city-of-helsinki/cj0w88p4j00qw2rnp9h8ylt7s/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY2l0eS1vZi1oZWxzaW5raSIsImEiOiJjaXdwMTg1bXowMDBoMnZueHlod2RqbXRyIn0.7FKlCDKY-lDr2BNFbNlQ1w"
           />
-        }
-      </Map>
+          <ZoomControl position="bottomright" />
+          {this.props.markers && this.props.markers.map(
+            marker => <Marker {...marker} key={marker.unitId} />
+          )}
+          {this.props.coords &&
+            <UserMarker
+              latitude={this.props.coords.latitude}
+              longitude={this.props.coords.longitude}
+            />
+          }
+        </Map>
+      </div>
     );
   }
 }

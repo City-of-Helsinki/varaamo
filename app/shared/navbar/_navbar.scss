@@ -1,4 +1,5 @@
 .navbar {
+  z-index: $max-map-z-index + 1 ;
   .navbar-brand {
     color: #fff;
 

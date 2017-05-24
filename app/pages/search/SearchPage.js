@@ -11,6 +11,7 @@ import PageWrapper from 'pages/PageWrapper';
 import DateHeader from 'shared/date-header';
 import { injectT } from 'i18n';
 import { scrollTo } from 'utils/domUtils';
+import ResourceMap from 'shared/resource-map';
 import SearchControls from './controls';
 import searchPageSelector from './searchPageSelector';
 import SearchResults from './results';
@@ -68,23 +69,29 @@ class UnconnectedSearchPage extends Component {
 
     return (
       <PageWrapper className="search-page" title={t('SearchPage.title')}>
-        <h1>{t('SearchPage.title')}</h1>
-        <SearchControls
-          location={location}
-          params={params}
-          scrollToSearchResults={this.scrollToSearchResults}
+        <ResourceMap
+          resourceIds={searchResultIds}
+          showMap={showMap}
         />
-        {searchDone && <DateHeader date={filters.date} />}
-        {searchDone || isFetchingSearchResults ?
-          <SearchResults
-            isFetching={isFetchingSearchResults}
-            onToggleMap={actions.toggleMap}
-            ref="searchResults"
-            searchResultIds={searchResultIds}
-            showMap={showMap}
+        <div className="app-SearchPage__content">
+          <h1>{t('SearchPage.title')}</h1>
+          <SearchControls
+            location={location}
+            params={params}
+            scrollToSearchResults={this.scrollToSearchResults}
           />
-          : <p className="help-text">{t('SearchPage.helpText')}</p>
-        }
+          {searchDone && <DateHeader date={filters.date} />}
+          {searchDone || isFetchingSearchResults ?
+            <SearchResults
+              isFetching={isFetchingSearchResults}
+              onToggleMap={actions.toggleMap}
+              ref="searchResults"
+              searchResultIds={searchResultIds}
+              showMap={showMap}
+            />
+            : <p className="help-text">{t('SearchPage.helpText')}</p>
+          }
+        </div>
       </PageWrapper>
     );
   }

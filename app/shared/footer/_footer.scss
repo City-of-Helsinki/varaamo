@@ -1,6 +1,7 @@
 footer {
   background-color: $brand-primary;
   color: #fff;
+  z-index: $max-map-z-index + 1;
 
   @media (max-width: 991px) {
     text-align: center;
