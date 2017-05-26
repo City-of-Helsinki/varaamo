@@ -100,6 +100,8 @@
   "Partners.kaupunginkirjatoImageAlt": "Helsingin kaupunginkirjasto",
   "Partners.nuorisoasiainkeskusImageAlt": "Helsingin kaupunki - nuorisoasiainkeskus",
   "Partners.varhaiskasvatusvirastoImageAlt": "Helsingin kaupunki - Varhaiskasvatusvirasto",
+  "PeopleCapacityControl.header": "Valitse henkilömäärä",
+  "PeopleCapacityControl.label": "Tilan henkilömäärä vähintään",
   "RecurringReservationControls.frequencyDaily": "Päivittäin",
   "RecurringReservationControls.frequencyLabel": "Toistetaanko varaus?",
   "RecurringReservationControls.frequencyMonthly": "Kuukausittain",
