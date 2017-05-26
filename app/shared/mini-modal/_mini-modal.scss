@@ -1,7 +1,46 @@
 .app-MiniModal {
+
+  // Show modal button
+  // -----------------
+
   &__show-button {
     @include varaamo-button($white, $medium-gray);
+
+    &--theme-blue {
+      @include varaamo-button($white, $blue);
+    }
+
+    &--theme-copper {
+      @include varaamo-button($white, $copper);
+    }
+
+    &--theme-gold {
+      @include varaamo-button($white, $gold);
+    }
+
+    &--theme-green {
+      @include varaamo-button($white, $green);
+    }
+
+    &--theme-orange {
+      @include varaamo-button($white, $orange);
+    }
+
+    &--theme-pink {
+      @include varaamo-button($white, $pink);
+    }
+
+    &--theme-red {
+      @include varaamo-button($white, $red);
+    }
+
+    &--theme-yellow {
+      @include varaamo-button($white, $yellow);
+    }
   }
+
+  // The actual modal
+  // ----------------
 
   &__modal {
     width: 400px;
@@ -27,7 +66,6 @@
       height: 50px;
 
       &-close-button {
-        @include button-variant($white, $medium-gray, $medium-gray);
         display: block;
         width: 100%;
         height: 100%;
@@ -39,6 +77,53 @@
         color: $white;
         border: none;
       }
+    }
+
+    // Modal themes
+    // ------------
+
+    @mixin modal-theme($color, $background) {
+      .app-MiniModal__modal-header {
+        color: $color;
+        background-color: $background;
+      }
+
+      .app-MiniModal__modal-footer-close-button {
+        color: $color;
+        background-color: $background;
+      }
+    }
+
+    &--theme-blue {
+      @include modal-theme($white, $blue);
+    }
+
+    &--theme-copper {
+      @include modal-theme($white, $copper);
+    }
+
+    &--theme-gold {
+      @include modal-theme($white, $gold);
+    }
+
+    &--theme-green {
+      @include modal-theme($white, $green);
+    }
+
+    &--theme-orange {
+      @include modal-theme($white, $orange);
+    }
+
+    &--theme-pink {
+      @include modal-theme($white, $pink);
+    }
+
+    &--theme-red {
+      @include modal-theme($white, $red);
+    }
+
+    &--theme-yellow {
+      @include modal-theme($white, $yellow);
     }
   }
 }

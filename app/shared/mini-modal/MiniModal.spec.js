@@ -33,6 +33,13 @@ describe('shared/mini-modal/MiniModal', () => {
       expect(showButton).to.have.length(1);
       expect(showButton.prop('children')).to.equal(buttonContent);
     });
+
+    it('has correct theme given in the props', () => {
+      const theme = 'gold';
+      const showButton = getWrapper({ theme }).find('.app-MiniModal__show-button');
+      expect(showButton).to.have.length(1);
+      expect(showButton.prop('className')).to.contain('app-MiniModal__show-button--theme-gold');
+    });
   });
 
   describe('Modal', () => {
@@ -61,6 +68,13 @@ describe('shared/mini-modal/MiniModal', () => {
       const hideModal = wrapper.instance().hideModal;
       const modalCloseButton = wrapper.find(Modal).find('button').filter({ onClick: hideModal });
       expect(modalCloseButton).to.have.length(1);
+    });
+
+    it('has correct theme given in the props', () => {
+      const theme = 'gold';
+      const modal = getWrapper({ theme }).find(Modal);
+      expect(modal).to.have.length(1);
+      expect(modal.prop('dialogClassName')).to.contain('app-MiniModal__modal--theme-gold');
     });
   });
 
