@@ -10,6 +10,7 @@ import simple from 'simple-mock';
 
 import { shallowWithIntl } from 'utils/testUtils';
 import AdvancedSearch from './AdvancedSearch';
+import PeopleCapacityControl from './PeopleCapacityControl';
 import {
   UnconnectedSearchControlsContainer as SearchControlsContainer,
 } from './SearchControlsContainer';
@@ -73,6 +74,14 @@ describe('pages/search/controls/SearchControlsContainer', () => {
         expect(actual).to.equal(expected);
       });
     });
+  });
+
+  it('renders PeopleCapacityControl with correct props', () => {
+    const filters = { ...defaultProps.filters, people: '12' };
+    const peopleCapacityControl = getWrapper({ filters }).find(PeopleCapacityControl);
+    expect(peopleCapacityControl).to.have.length(1);
+    expect(peopleCapacityControl.prop('value')).to.equal(12);
+    expect(peopleCapacityControl.prop('onChange')).to.exist;
   });
 
   it('renders AdvancedSearch with correct props', () => {
