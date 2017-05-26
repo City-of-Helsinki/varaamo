@@ -82,6 +82,24 @@ describe('shared/resource-map/mapSelector', () => {
         { unitId: 21, latitude: 0, longitude: 1, resourceIds: ['123'] },
       ]);
     });
+
+    it('are not returned if unit id not in state', () => {
+      const state = getState({
+        units: {
+          21: createUnit('21', 0, 1),
+          1: createUnit('1', 2, 3),
+        },
+        resources: {
+          123: createResource('123', 21),
+          321: createResource('321', 31),
+        },
+      });
+      const props = { resourceIds: ['123', '321'] };
+      const data = selector(state, props);
+      expect(data.markers).to.deep.equal([
+        { unitId: 21, latitude: 0, longitude: 1, resourceIds: ['123'] },
+      ]);
+    });
   });
 
   it('returns boundaries', () => {
