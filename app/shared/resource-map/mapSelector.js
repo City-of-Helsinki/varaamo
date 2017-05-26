@@ -17,7 +17,7 @@ const markersSelector = createSelector(
     reduce(resources, (memo, resource) => {
       if (memo[resource.unit]) {
         memo[resource.unit].resourceIds.push(resource.id);
-      } else {
+      } else if (units[resource.unit]) {
         memo[resource.unit] = {                                 // eslint-disable-line
           unitId: resource.unit,
           latitude: units[resource.unit].location.coordinates[1],
