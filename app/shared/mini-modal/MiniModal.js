@@ -14,7 +14,7 @@ class MiniModal extends React.Component {
   }
 
   static defaultProps = {
-    color: 'gray',
+    theme: 'gray',
   }
 
   state = {
@@ -34,13 +34,13 @@ class MiniModal extends React.Component {
     return (
       <div className={`app-MiniModal app-MiniModal--theme-${theme}`}>
         <Button
-          className="app-MiniModal__show-button"
+          className={`app-MiniModal__show-button app-MiniModal__show-button--theme-${theme}`}
           onClick={this.showModal}
         >
           {buttonContent}
         </Button>
         <Modal
-          dialogClassName="app-MiniModal__modal"
+          dialogClassName={`app-MiniModal__modal app-MiniModal__modal--theme-${theme}`}
           onHide={this.hideModal}
           show={this.state.visible}
         >
