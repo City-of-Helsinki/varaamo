@@ -9,7 +9,6 @@ import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
 import { shallowWithIntl } from 'utils/testUtils';
-import AdvancedSearch from './AdvancedSearch';
 import PeopleCapacityControl from './PeopleCapacityControl';
 import PurposeControl from './PurposeControl';
 import {
@@ -96,16 +95,6 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     expect(purposeControl.prop('onChange')).to.equal(wrapper.instance().handleFiltersChange);
     expect(purposeControl.prop('purposeOptions')).to.equal(purposeOptions);
     expect(purposeControl.prop('value')).to.equal(filters.purpose);
-  });
-
-  it('renders AdvancedSearch with correct props', () => {
-    const wrapper = getWrapper();
-    const advancedSearch = wrapper.find(AdvancedSearch);
-    expect(advancedSearch).to.have.length(1);
-    expect(advancedSearch.prop('isFetchingPurposes')).to.equal(defaultProps.isFetchingPurposes);
-    expect(advancedSearch.prop('onFiltersChange')).to.equal(wrapper.instance().handleFiltersChange);
-    expect(advancedSearch.prop('purposeOptions')).to.deep.equal(defaultProps.purposeOptions);
-    expect(advancedSearch.prop('filters')).to.deep.equal(defaultProps.filters);
   });
 
   describe('handleFiltersChange', () => {

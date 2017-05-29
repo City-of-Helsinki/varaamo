@@ -12,7 +12,6 @@ import { fetchPurposes } from 'actions/purposeActions';
 import { changeSearchFilters } from 'actions/uiActions';
 import constants from 'constants/AppConstants';
 import { injectT } from 'i18n';
-import AdvancedSearch from './AdvancedSearch';
 import PeopleCapacityControl from './PeopleCapacityControl';
 import PurposeControl from './PurposeControl';
 import searchControlsSelector from './searchControlsSelector';
@@ -109,12 +108,6 @@ class UnconnectedSearchControlsContainer extends Component {
             value={filters.purpose}
           />
         </div>
-        <AdvancedSearch
-          filters={filters}
-          isFetchingPurposes={isFetchingPurposes}
-          onFiltersChange={this.handleFiltersChange}
-          purposeOptions={purposeOptions}
-        />
         <Button
           block
           bsStyle="primary"
