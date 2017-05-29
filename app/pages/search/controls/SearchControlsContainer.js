@@ -14,6 +14,7 @@ import constants from 'constants/AppConstants';
 import { injectT } from 'i18n';
 import AdvancedSearch from './AdvancedSearch';
 import PeopleCapacityControl from './PeopleCapacityControl';
+import PurposeControl from './PurposeControl';
 import searchControlsSelector from './searchControlsSelector';
 
 class UnconnectedSearchControlsContainer extends Component {
@@ -100,6 +101,12 @@ class UnconnectedSearchControlsContainer extends Component {
           <PeopleCapacityControl
             onChange={people => this.handleFiltersChange({ people })}
             value={parseInt(filters.people, 10)}
+          />
+          <PurposeControl
+            isLoading={isFetchingPurposes}
+            onChange={this.handleFiltersChange}
+            purposeOptions={purposeOptions}
+            value={filters.purpose}
           />
         </div>
         <AdvancedSearch
