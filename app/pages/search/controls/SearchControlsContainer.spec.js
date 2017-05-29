@@ -11,6 +11,7 @@ import simple from 'simple-mock';
 import { shallowWithIntl } from 'utils/testUtils';
 import AdvancedSearch from './AdvancedSearch';
 import PeopleCapacityControl from './PeopleCapacityControl';
+import PurposeControl from './PurposeControl';
 import {
   UnconnectedSearchControlsContainer as SearchControlsContainer,
 } from './SearchControlsContainer';
@@ -82,6 +83,19 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     expect(peopleCapacityControl).to.have.length(1);
     expect(peopleCapacityControl.prop('value')).to.equal(12);
     expect(peopleCapacityControl.prop('onChange')).to.exist;
+  });
+
+  it('renders PurposeControl with correct props', () => {
+    const filters = { ...defaultProps.filters, purpose: 'some purpose' };
+    const isFetchingPurposes = false;
+    const purposeOptions = [{ label: 'Foo', value: 'bar' }];
+    const wrapper = getWrapper({ filters, isFetchingPurposes, purposeOptions });
+    const purposeControl = wrapper.find(PurposeControl);
+    expect(purposeControl).to.have.length(1);
+    expect(purposeControl.prop('isLoading')).to.equal(isFetchingPurposes);
+    expect(purposeControl.prop('onChange')).to.equal(wrapper.instance().handleFiltersChange);
+    expect(purposeControl.prop('purposeOptions')).to.equal(purposeOptions);
+    expect(purposeControl.prop('value')).to.equal(filters.purpose);
   });
 
   it('renders AdvancedSearch with correct props', () => {
