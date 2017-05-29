@@ -14,8 +14,8 @@ class ResourceListItem extends Component {
     const date = this.context.location.query.date;
 
     return (
-      <li className="resource-list-item">
-        <Link to={getResourcePageUrl(resource, date)}>
+      <li className="app-ResourceListItem">
+        <Link className="app-ResourceListItem__image-link" to={getResourcePageUrl(resource, date)}>
           <BackgroundImage
             height={420}
             image={getMainImage(resource.images)}
@@ -24,8 +24,8 @@ class ResourceListItem extends Component {
             <ResourceAvailability date={date} resource={resource} />
           </BackgroundImage>
         </Link>
-        <div className="content">
           <ResourceIcons resource={resource} />
+        <div className="app-ResourceListItem__content">
           <Link to={getResourcePageUrl(resource, date)}>
             <h4>{resource.name}</h4>
           </Link>
