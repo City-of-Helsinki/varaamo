@@ -5,12 +5,11 @@ import { Link } from 'react-router';
 import Immutable from 'seamless-immutable';
 
 import BackgroundImage from 'shared/background-image';
-import ResourceIcons from 'shared/resource-icons';
 import Image from 'utils/fixtures/Image';
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
 import { getResourcePageUrl } from 'utils/resourceUtils';
-import ReserveButton from './ReserveButton';
+import Label from 'shared/label';
 import ResourceListItem from './ResourceListItem';
 
 describe('shared/resource-list/ResourceListItem', () => {
@@ -19,6 +18,19 @@ describe('shared/resource-list/ResourceListItem', () => {
     isLoggedIn: false,
     resource: Immutable(Resource.build({
       images: [Image.build()],
+      type: {
+        name: 'workplace',
+      },
+      equipment: [
+        {
+          id: '1',
+          name: 'television',
+        },
+        {
+          id: '2',
+          name: 'printer',
+        },
+      ],
     })),
     unit: Immutable(Unit.build()),
   };
@@ -53,12 +65,6 @@ describe('shared/resource-list/ResourceListItem', () => {
     expect(links.at(1).props().to).to.equal(expectedUrl);
   });
 
-  it('renders ResourceIcons component', () => {
-    const resourceIcons = getWrapper().find(ResourceIcons);
-
-    expect(resourceIcons.length).to.equal(1);
-  });
-
   it('renders the name of the resource inside a h4 header', () => {
     const header = getWrapper().find('h4');
     const expected = defaultProps.resource.name;
@@ -67,18 +73,33 @@ describe('shared/resource-list/ResourceListItem', () => {
   });
 
   it('renders the name of the given unit in props', () => {
-    const unitName = getWrapper().find('.unit-name');
+    const unitName = getWrapper().find('.app-ResourceListItem__unit-name').find('span');
     const expected = defaultProps.unit.name;
 
     expect(unitName.text()).to.contain(expected);
   });
 
-  it('renders a ReserveButton with correct props', () => {
-    const reserveButton = getWrapper().find(ReserveButton);
+  it('renders a label with the type of the given resource in props', () => {
+    const typeLabel = getWrapper().find('.app-ResourceListItem__unit-name').find(Label);
+    expect(typeLabel.prop('size')).to.equal('mini');
+    expect(typeLabel.prop('theme')).to.equal('blue');
+    expect(typeLabel.children().text()).to.contain(defaultProps.resource.type.name);
+  });
 
-    expect(reserveButton.length).to.equal(1);
-    expect(reserveButton.props().date).to.equal(date);
-    expect(reserveButton.props().isLoggedIn).to.equal(defaultProps.isLoggedIn);
-    expect(reserveButton.props().resource).to.equal(defaultProps.resource);
+  it('renders correct number of labels for equipment', () => {
+    const equipmentLabels = getWrapper().find('.app-ResourceListItem__equipment').find(Label);
+    expect(equipmentLabels).to.have.length(2);
+  });
+
+  it('renders labels with the equipment of the given resource in props', () => {
+    const equipmentLabels = getWrapper().find('.app-ResourceListItem__equipment').find(Label);
+    const equipmentLabel = equipmentLabels.at(0);
+    expect(equipmentLabel.prop('shape')).to.equal('rounded');
+    expect(equipmentLabel.prop('size')).to.equal('mini');
+    expect(equipmentLabel.prop('theme')).to.equal('gold');
+    expect(equipmentLabel.children().text()).to.contain(defaultProps.resource.equipment[0].name);
+    expect(equipmentLabels.at(1).children().text()).to.contain(
+      defaultProps.resource.equipment[1].name
+    );
   });
 });
