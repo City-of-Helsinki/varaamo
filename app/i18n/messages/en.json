@@ -102,6 +102,8 @@
   "Partners.varhaiskasvatusvirastoImageAlt": "City of Helsinki – Department of Early Education and Care",
   "PeopleCapacityControl.header": "Choose number of people",
   "PeopleCapacityControl.label": "Minimum number of people permitted",
+  "PurposeControl.header": "Select purpose of use",
+  "PurposeControl.label": "What do you want to do?",
   "RecurringReservationControls.frequencyDaily": "Daily",
   "RecurringReservationControls.frequencyLabel": "Repeat the reservation?",
   "RecurringReservationControls.frequencyMonthly": "Monthly",
