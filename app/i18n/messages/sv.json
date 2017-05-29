@@ -102,6 +102,8 @@
   "Partners.varhaiskasvatusvirastoImageAlt": "Helsingfors stad - Barnomsorgsverket",
   "PeopleCapacityControl.header": "Choose number of people",
   "PeopleCapacityControl.label": "Minsta personantal i utrymmet",
+  "PurposeControl.header": "Select purpose of use",
+  "PurposeControl.label": "What do you want to do?",
   "RecurringReservationControls.frequencyDaily": "Varje dag",
   "RecurringReservationControls.frequencyLabel": "Vill du upprepa bokningen?",
   "RecurringReservationControls.frequencyMonthly": "Varje månad",

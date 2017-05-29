@@ -102,6 +102,8 @@
   "Partners.varhaiskasvatusvirastoImageAlt": "Helsingin kaupunki - Varhaiskasvatusvirasto",
   "PeopleCapacityControl.header": "Valitse henkilömäärä",
   "PeopleCapacityControl.label": "Tilan henkilömäärä vähintään",
+  "PurposeControl.header": "Valitse käyttötarkoitus",
+  "PurposeControl.label": "Mitä haluat tehdä?",
   "RecurringReservationControls.frequencyDaily": "Päivittäin",
   "RecurringReservationControls.frequencyLabel": "Toistetaanko varaus?",
   "RecurringReservationControls.frequencyMonthly": "Kuukausittain",
