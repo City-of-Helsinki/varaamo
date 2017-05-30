@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
+import FontAwesome from 'react-fontawesome';
 import { Link } from 'react-router';
 
+import { injectT } from 'i18n';
 import BackgroundImage from 'shared/background-image';
 import { getMainImage } from 'utils/imageUtils';
-import { getResourcePageUrl } from 'utils/resourceUtils';
+import { getResourcePageUrl, getHourlyPrice } from 'utils/resourceUtils';
 import Label from 'shared/label';
 import ResourceAvailability from './ResourceAvailability';
 
@@ -16,7 +18,7 @@ class ResourceListItem extends Component {
     );
   }
   render() {
-    const { resource, unit } = this.props;
+    const { resource, t, unit } = this.props;
     const date = this.context.location.query.date;
 
     return (
@@ -26,7 +28,20 @@ class ResourceListItem extends Component {
             height={420}
             image={getMainImage(resource.images)}
             width={700}
-          />
+          >
+            <Label
+              className="app-ResourceListItem__peopleCapacity"
+              shape="rounded"
+              size="mini"
+              theme="orange"
+            >
+              {resource.peopleCapacity}
+              <FontAwesome name="user" />
+            </Label>
+            <span className="app-ResourceListItem__hourly-price">
+              {getHourlyPrice(t, resource)}
+            </span>
+          </BackgroundImage>
         </Link>
         <div className="app-ResourceListItem__content">
           <Link to={getResourcePageUrl(resource, date)}>
@@ -49,10 +64,11 @@ class ResourceListItem extends Component {
 ResourceListItem.propTypes = {
   resource: PropTypes.object.isRequired,
   unit: PropTypes.object.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
 ResourceListItem.contextTypes = {
   location: React.PropTypes.object,
 };
 
-export default ResourceListItem;
+export default injectT(ResourceListItem);
