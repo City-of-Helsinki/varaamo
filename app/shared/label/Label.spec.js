@@ -33,6 +33,12 @@ describe('shared/label/Label', () => {
     expect(wrapper.prop('className')).to.contain('app-Label--theme-gold');
   });
 
+  it('adds correct className given in the props', () => {
+    const className = 'className';
+    const wrapper = getWrapper({ className });
+    expect(wrapper.prop('className')).to.contain('className');
+  });
+
   it('renders children', () => {
     const children = <span>Some text inside a span</span>;
     const wrapper = getWrapper({}, children);
