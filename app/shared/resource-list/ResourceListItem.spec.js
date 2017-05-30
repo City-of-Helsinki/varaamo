@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
+import FontAwesome from 'react-fontawesome';
 import { Link } from 'react-router';
 import Immutable from 'seamless-immutable';
 
@@ -9,6 +9,7 @@ import Image from 'utils/fixtures/Image';
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
 import { getResourcePageUrl } from 'utils/resourceUtils';
+import { shallowWithIntl } from 'utils/testUtils';
 import Label from 'shared/label';
 import ResourceListItem from './ResourceListItem';
 
@@ -17,10 +18,6 @@ describe('shared/resource-list/ResourceListItem', () => {
   const defaultProps = {
     isLoggedIn: false,
     resource: Immutable(Resource.build({
-      images: [Image.build()],
-      type: {
-        name: 'workplace',
-      },
       equipment: [
         {
           id: '1',
@@ -31,6 +28,12 @@ describe('shared/resource-list/ResourceListItem', () => {
           name: 'printer',
         },
       ],
+      images: [Image.build()],
+      maxPricePerHour: '30',
+      peopleCapacity: '16',
+      type: {
+        name: 'workplace',
+      },
     })),
     unit: Immutable(Unit.build()),
   };
@@ -39,7 +42,7 @@ describe('shared/resource-list/ResourceListItem', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallow(<ResourceListItem {...defaultProps} {...extraProps} />, { context });
+    return shallowWithIntl(<ResourceListItem {...defaultProps} {...extraProps} />, context);
   }
 
   it('renders an li element', () => {
@@ -48,12 +51,41 @@ describe('shared/resource-list/ResourceListItem', () => {
     expect(li.length).to.equal(1);
   });
 
-  it('renders BackgroundImage component with correct image', () => {
-    const backgroundImage = getWrapper().find(BackgroundImage);
-    const resourceMainImage = defaultProps.resource.images[0];
+  describe('backgroundImage', () => {
+    function getBackgroundImageWrapper(extraProps) {
+      return getWrapper(extraProps).find(BackgroundImage);
+    }
 
-    expect(backgroundImage.length).to.equal(1);
-    expect(backgroundImage.prop('image')).to.deep.equal(resourceMainImage);
+    it('renders BackgroundImage component with correct image', () => {
+      const backgroundImage = getBackgroundImageWrapper();
+      const resourceMainImage = defaultProps.resource.images[0];
+
+      expect(backgroundImage.length).to.equal(1);
+      expect(backgroundImage.prop('image')).to.deep.equal(resourceMainImage);
+    });
+
+    it('renders a label with people capacity', () => {
+      const peopleCapacityLabel = getBackgroundImageWrapper().find(
+        '.app-ResourceListItem__peopleCapacity'
+      );
+
+      expect(peopleCapacityLabel.is(Label)).to.be.true;
+      expect(peopleCapacityLabel.prop('shape')).to.equal('rounded');
+      expect(peopleCapacityLabel.prop('size')).to.equal('mini');
+      expect(peopleCapacityLabel.prop('theme')).to.equal('orange');
+      expect(peopleCapacityLabel.children().at(0).text()).to.equal('16');
+      expect(peopleCapacityLabel.children().at(1).is(FontAwesome)).to.be.true;
+      expect(peopleCapacityLabel.children().at(1).prop('name')).to.equal('user');
+    });
+
+    it('renders a hourly price', () => {
+      const hourlyPriceSpan = getBackgroundImageWrapper().find(
+        '.app-ResourceListItem__hourly-price'
+      );
+
+      expect(hourlyPriceSpan.is('span')).to.be.true;
+      expect(hourlyPriceSpan.text()).to.contain('30 €/h');
+    });
   });
 
   it('contains links to correct resource page', () => {

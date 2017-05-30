@@ -1,4 +1,5 @@
 $list-item-margin: 10% / 6;
+$image-items-margin: 5px;
 
 .resource-list {
   list-style: none;
@@ -27,6 +28,34 @@ $list-item-margin: 10% / 6;
       background-repeat: no-repeat;
       background-position: 50% 50%;
       background-size: cover;
+    }
+
+    &__peopleCapacity {
+      height: 40px;
+      width: 40px;
+      line-height: 40px;
+      white-space: nowrap;
+      text-align: center;
+      position: absolute;
+      right: $image-items-margin;
+      top: $image-items-margin;
+      .fa {
+        margin-left: 2px;
+      }
+    }
+
+    &__hourly-price {
+      position: absolute;
+      bottom: $image-items-margin;
+      left: $image-items-margin;
+      color: white;
+      font-size: 24px;
+      font-weight: 700;
+      text-decoration: none;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      @media (max-width: $screen-xs-max) {
+        font-size: 16px;
+      }
     }
 
     &__content {
