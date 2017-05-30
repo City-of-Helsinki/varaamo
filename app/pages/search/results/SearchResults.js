@@ -24,14 +24,14 @@ class SearchResults extends Component {
     return (
       <div id="search-results">
         <Loader loaded={!isFetching}>
-          <ResultsCount
-            emptyMessage={t('SearchResults.emptyMessage')}
-            resultIds={searchResultIds}
-          />
           <button
             className="map-toggle btn-primary btn"
             onClick={onToggleMap}
           >
+            <ResultsCount
+              emptyMessage={t('SearchResults.emptyMessage')}
+              resultIds={searchResultIds}
+            />
             {showMap ? 'Show list' : 'Show map'}
           </button>
           {!showMap &&
