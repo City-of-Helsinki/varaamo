@@ -84,6 +84,21 @@ function getAvailabilityDataForWholeDay(resource = {}, date = null) {
   };
 }
 
+function getHourlyPrice(t, { minPricePerHour, maxPricePerHour }) {
+  if (!(minPricePerHour || maxPricePerHour)) {
+    return null;
+  }
+  if ((minPricePerHour && maxPricePerHour) && (minPricePerHour !== maxPricePerHour)) {
+    return `${Number(minPricePerHour)} - ${Number(maxPricePerHour)} €/h`;
+  }
+  const priceString = maxPricePerHour || minPricePerHour;
+  const price = priceString !== 0 ? Number(priceString) : null;
+  if (price === 0) {
+    return t('ResourceIcons.free');
+  }
+  return price ? `${price} €/h` : null;
+}
+
 function getHumanizedPeriod(period) {
   if (!period) {
     return '';
@@ -146,6 +161,7 @@ export {
   isOpenNow,
   getAvailabilityDataForNow,
   getAvailabilityDataForWholeDay,
+  getHourlyPrice,
   getHumanizedPeriod,
   getOpeningHours,
   getOpenReservations,
