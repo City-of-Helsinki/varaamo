@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
 import { injectT } from 'i18n';
-import { getHumanizedPeriod } from 'utils/resourceUtils';
+import { getHumanizedPeriod, getHourlyPrice } from 'utils/resourceUtils';
 
 function renderIcon(glyph, text) {
   if (!text) {
@@ -15,21 +15,6 @@ function renderIcon(glyph, text) {
       <span className="text">{text}</span>
     </span>
   );
-}
-
-function getHourlyPrice(t, { minPricePerHour, maxPricePerHour }) {
-  if (!(minPricePerHour || maxPricePerHour)) {
-    return null;
-  }
-  if ((minPricePerHour && maxPricePerHour) && (minPricePerHour !== maxPricePerHour)) {
-    return `${Number(minPricePerHour)} - ${Number(maxPricePerHour)} €/h`;
-  }
-  const priceString = maxPricePerHour || minPricePerHour;
-  const price = priceString !== 0 ? Number(priceString) : null;
-  if (price === 0) {
-    return t('ResourceIcons.free');
-  }
-  return price ? `${price} €/h` : null;
 }
 
 function ResourceIcons({ resource, t }) {
