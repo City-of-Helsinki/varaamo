@@ -58,10 +58,22 @@ describe('pages/search/results/SearchResults', () => {
       });
     });
 
+    it('renders a show map text in map toggle button', () => {
+      const toggleButton = getWrapper().find('.map-toggle');
+      expect(toggleButton).to.have.length(1);
+      expect(toggleButton.text()).to.contain('SearchResults.showMap');
+    });
+
     describe('with showMap', () => {
       it('does not render ResourceList', () => {
         const resourceList = getWrapper({ showMap: true }).find(ResourceList);
         expect(resourceList).to.have.length(0);
+      });
+
+      it('renders a show list text in map toggle button', () => {
+        const toggleButton = getWrapper({ showMap: true }).find('.map-toggle');
+        expect(toggleButton).to.have.length(1);
+        expect(toggleButton.text()).to.contain('SearchResults.showList');
       });
     });
   });

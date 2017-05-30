@@ -32,7 +32,7 @@ class SearchResults extends Component {
               emptyMessage={t('SearchResults.emptyMessage')}
               resultIds={searchResultIds}
             />
-            {showMap ? 'Show list' : 'Show map'}
+            {showMap ? t('SearchResults.showList') : t('SearchResults.showMap')}
           </button>
           {!showMap &&
             <ResourceList
