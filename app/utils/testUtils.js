@@ -221,9 +221,9 @@ function makeButtonTests(button, name, expectedText, expectedOnClickFunction) {
 const intlProvider = new IntlProvider({ locale: 'en', messages: testMessages }, {});
 const { intl } = intlProvider.getChildContext();
 
-function shallowWithIntl(node) {
+function shallowWithIntl(node, context) {
   const nodeWithIntl = React.cloneElement(node, { intl });
-  return shallow(nodeWithIntl, { context: { intl } }).shallow();
+  return shallow(nodeWithIntl, { context: { ...context, intl } }).shallow({ context });
 }
 
 export {
