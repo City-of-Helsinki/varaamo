@@ -1,22 +1,22 @@
-$list-item-margin: 10% / 6;
 $image-items-margin: 5px;
 
 .resource-list {
   list-style: none;
-  margin: $list-item-margin -$list-item-margin 0;
   padding: 0;
+  max-width: 800px;
 
   .app-ResourceListItem {
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-start;
     height: 150px;
-    margin: 15px $list-item-margin;
+    margin: 20px 0;
     background-color: white;
 
     &__image-link{
       flex: 1 1;
       min-width: 180px;
+      max-width: 200px;
       padding: 10px;
     }
 
@@ -31,10 +31,7 @@ $image-items-margin: 5px;
     }
 
     &__peopleCapacity {
-      height: 40px;
-      width: 40px;
-      line-height: 40px;
-      white-space: nowrap;
+      font-size: 14px;
       text-align: center;
       position: absolute;
       right: $image-items-margin;
@@ -49,7 +46,7 @@ $image-items-margin: 5px;
       bottom: $image-items-margin;
       left: $image-items-margin;
       color: white;
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 700;
       text-decoration: none;
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -84,13 +81,11 @@ $image-items-margin: 5px;
     }
 
     .resource-availability {
-      float: right;
-      font-size: 20px;
-      border-radius: 0;
-      @media (max-width: $screen-xs-max) {
-        font-size: 16px;
-        line-height: 1;
-      }
+      display: inline-block;
+      color: $white;
+      font-size: 16px;
+      margin-top: 10px;
+      padding: 10px;
     }
     .controls {
       text-align: center;

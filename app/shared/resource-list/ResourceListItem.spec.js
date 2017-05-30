@@ -70,12 +70,12 @@ describe('shared/resource-list/ResourceListItem', () => {
       );
 
       expect(peopleCapacityLabel.is(Label)).to.be.true;
-      expect(peopleCapacityLabel.prop('shape')).to.equal('rounded');
-      expect(peopleCapacityLabel.prop('size')).to.equal('mini');
+      expect(peopleCapacityLabel.prop('shape')).to.equal('circle');
+      expect(peopleCapacityLabel.prop('size')).to.equal('medium');
       expect(peopleCapacityLabel.prop('theme')).to.equal('orange');
       expect(peopleCapacityLabel.children().at(0).text()).to.equal('16');
       expect(peopleCapacityLabel.children().at(1).is(FontAwesome)).to.be.true;
-      expect(peopleCapacityLabel.children().at(1).prop('name')).to.equal('user');
+      expect(peopleCapacityLabel.children().at(1).prop('name')).to.equal('users');
     });
 
     it('renders a hourly price', () => {

@@ -31,12 +31,12 @@ class ResourceListItem extends Component {
           >
             <Label
               className="app-ResourceListItem__peopleCapacity"
-              shape="rounded"
-              size="mini"
+              shape="circle"
+              size="medium"
               theme="orange"
             >
               {resource.peopleCapacity}
-              <FontAwesome name="user" />
+              <FontAwesome name="users" />
             </Label>
             <span className="app-ResourceListItem__hourly-price">
               {getHourlyPrice(t, resource)}
