@@ -5,7 +5,7 @@ import { injectT } from 'i18n';
 function ResultsCount({ emptyMessage, resultIds, t }) {
   const count = resultIds.length;
   return (
-    <div id="results-count">
+    <div className="app-ResultsCount" id="results-count">
       {count ? t('ResultsCount.text', { count }) : emptyMessage}
     </div>
   );
