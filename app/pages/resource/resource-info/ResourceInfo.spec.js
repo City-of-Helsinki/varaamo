@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import React from 'react';
-import Label from 'react-bootstrap/lib/Label';
+import FontAwesome from 'react-fontawesome';
 import Immutable from 'seamless-immutable';
 
 import WrappedText from 'shared/wrapped-text';
@@ -8,7 +8,7 @@ import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
 import { shallowWithIntl } from 'utils/testUtils';
 import FavoriteButton from 'shared/favorite-button';
-import ResourceIcons from 'shared/resource-icons';
+import Label from 'shared/label';
 import ImageCarousel from './ImageCarousel';
 import ResourceInfo from './ResourceInfo';
 
@@ -18,6 +18,11 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
     resource: Immutable(Resource.build({
       description: 'Some description',
       images: [{ foo: 'bar' }],
+      maxPricePerHour: '30',
+      peopleCapacity: '16',
+      type: {
+        name: 'workplace',
+      },
     })),
     unit: Immutable(Unit.build()),
   };
@@ -41,11 +46,11 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
     });
   });
 
-  it('renders the name of the resource inside a h1 header', () => {
-    const header = getWrapper().find('h1');
+  it('renders the name of the resource inside a h3 header', () => {
+    const header = getWrapper().find('h3');
     const expected = defaultProps.resource.name;
 
-    expect(header.props().children).to.equal(expected);
+    expect(header.props().children).to.contain(expected);
   });
 
   it('renders the unit name and address', () => {
@@ -55,16 +60,48 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
       name: 'Unit name',
       streetAddress: 'Test street 12',
     });
-    const address = getWrapper({ unit }).find('.address');
+    const address = getWrapper({ unit }).find('.app-ResourceInfo__address');
     const expected = 'Unit name, Test street 12, 99999 Helsinki';
 
     expect(address.props().children).to.equal(expected);
   });
 
-  it('renders ResourceIcons component', () => {
-    const resourceIcons = getWrapper().find(ResourceIcons);
+  it('renders a hourly price', () => {
+    const hourlyPriceSpan = getWrapper().find(
+      '.app-ResourceInfo__hourly-price'
+    );
 
-    expect(resourceIcons.length).to.equal(1);
+    expect(hourlyPriceSpan.is('span')).to.be.true;
+    expect(hourlyPriceSpan.text()).to.contain('30 €/h');
+  });
+
+
+  it('renders a label with people capacity', () => {
+    const peopleCapacityLabel = getWrapper().find(
+      '.app-ResourceInfo__peopleCapacity'
+    );
+
+    expect(peopleCapacityLabel.is(Label)).to.be.true;
+    expect(peopleCapacityLabel.prop('shape')).to.equal('circle');
+    expect(peopleCapacityLabel.prop('size')).to.equal('medium');
+    expect(peopleCapacityLabel.prop('theme')).to.equal('orange');
+    expect(peopleCapacityLabel.html()).to.contain('16');
+    expect(peopleCapacityLabel.find(FontAwesome)).to.have.length(1);
+    expect(peopleCapacityLabel.find(FontAwesome).prop('name')).to.equal('users');
+  });
+
+  it('renders a label with type name', () => {
+    const typeLabel = getWrapper().find(
+      '.app-ResourceInfo__type'
+    );
+
+    expect(typeLabel.is(Label)).to.be.true;
+    expect(typeLabel.prop('shape')).to.equal('rounded');
+    expect(typeLabel.prop('size')).to.equal('medium');
+    expect(typeLabel.prop('theme')).to.equal('blue');
+    expect(typeLabel.find(FontAwesome)).to.have.length(1);
+    expect(typeLabel.find(FontAwesome).prop('name')).to.equal('bullseye');
+    expect(typeLabel.html()).to.contain('workplace');
   });
 
   it('renders ImageCarousel component with correct images', () => {

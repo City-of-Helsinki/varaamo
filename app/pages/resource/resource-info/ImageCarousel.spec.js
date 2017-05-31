@@ -34,8 +34,8 @@ describe('pages/resource/resource-info/ImageCarousel', () => {
         expect(carousel.length).to.equal(1);
       });
 
-      it('has indicators', () => {
-        expect(carousel.prop('indicators')).to.equal(true);
+      it('does not have indicators', () => {
+        expect(carousel.prop('indicators')).to.equal(false);
       });
 
       it('has controls', () => {
@@ -54,11 +54,11 @@ describe('pages/resource/resource-info/ImageCarousel', () => {
         expect(carousel.length).to.equal(1);
       });
 
-      it('the carousel has indicators', () => {
+      it('does not have indicators', () => {
         expect(carousel.prop('indicators')).to.equal(false);
       });
 
-      it('the carousel has controls', () => {
+      it('has controls', () => {
         expect(carousel.prop('controls')).to.equal(false);
       });
     });
