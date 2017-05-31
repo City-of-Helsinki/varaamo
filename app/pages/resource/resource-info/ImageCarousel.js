@@ -18,7 +18,7 @@ function ImageCarousel({ images }) {
     <Carousel
       className="image-carousel"
       controls={images.length > 1}
-      indicators={images.length > 1}
+      indicators={false}
       interval={carouselInterval}
     >
       {images.map(renderCarouselItem)}

@@ -1,13 +1,12 @@
 import upperFirst from 'lodash/upperFirst';
 import React, { PropTypes } from 'react';
-import Col from 'react-bootstrap/lib/Col';
-import Label from 'react-bootstrap/lib/Label';
-import Row from 'react-bootstrap/lib/Row';
+import FontAwesome from 'react-fontawesome';
 
 import { injectT } from 'i18n';
 import WrappedText from 'shared/wrapped-text';
 import FavoriteButton from 'shared/favorite-button';
-import ResourceIcons from 'shared/resource-icons';
+import Label from 'shared/label';
+import { getHourlyPrice } from 'utils/resourceUtils';
 import ImageCarousel from './ImageCarousel';
 
 function getAddress({ addressZip, municipality, name, streetAddress }) {
@@ -41,24 +40,39 @@ function orderImages(images) {
 
 function ResourceInfo({ isAdmin, resource, unit, t }) {
   return (
-    <section className="resource-info">
-      <Row>
-        <Col className="resource-images" sm={7} xs={12}>
-          <ImageCarousel images={orderImages(resource.images) || []} />
-        </Col>
-        <Col sm={5} xs={12}>
-          {isAdmin && <FavoriteButton resource={resource} />}
-          <h1>{resource.name}</h1>
-          <p className="address lead">{getAddress(unit)}</p>
-          <ResourceIcons resource={resource} />
-          {renderEquipment(resource.equipment, t)}
-          {resource.description &&
-            <div className="resource-description">
-              <WrappedText text={resource.description} />
-            </div>
-          }
-        </Col>
-      </Row>
+    <section className="app-ResourceInfo">
+      <div className="app-ResourceInfo__images-wrapper">
+        <ImageCarousel images={orderImages(resource.images) || []} />
+        <div className="app-ResourceInfo__top-bar">
+          <h3>{resource.name} {isAdmin && <FavoriteButton resource={resource} />}</h3>
+          <p className="app-ResourceInfo__address">{getAddress(unit)}</p>
+        </div>
+        <div className="app-ResourceInfo__bottom-bar">
+          <span className="app-ResourceInfo__hourly-price">
+            {getHourlyPrice(t, resource)}
+          </span>
+          <Label
+            className="app-ResourceInfo__peopleCapacity app-ResourceInfo__label"
+            shape="circle"
+            size="medium"
+            theme="orange"
+          >
+            {resource.peopleCapacity} <FontAwesome name="users" />
+          </Label>
+          <Label
+            className="app-ResourceInfo__type app-ResourceInfo__label"
+            shape="rounded"
+            size="medium"
+            theme="blue"
+          >
+            <FontAwesome name="bullseye" /> {resource.type.name}
+          </Label>
+        </div>
+      </div>
+      <div className="app-ResourceInfo__description">
+        {resource.description && <WrappedText text={resource.description} />}
+      </div>
+      {renderEquipment(resource.equipment, t)}
     </section>
   );
 }
