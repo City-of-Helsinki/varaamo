@@ -127,24 +127,47 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
       defaultProps.resource.images[2],
     ]);
   });
-
-  it('renders resource equipment', () => {
+  describe('equipment', () => {
     const equippedResource = {
       ...defaultProps.resource,
       equipment: [
-        { id: 1, name: 'projector' },
-        { id: 2, name: 'whiteboard' },
+        { id: 1,
+          name: 'projector',
+          description: 'description a',
+        },
+        { id: 2,
+          name: 'whiteboard',
+          description: 'description b',
+        },
       ],
     };
-    const resourceEquipment = (
-      getWrapper({ resource: equippedResource }).find('.resource-equipment')
-    );
-    const nameLabel = resourceEquipment.find('.details-label');
-    expect(nameLabel.text()).to.equal('ResourceInfo.equipmentHeader');
-    const equipmentLabels = resourceEquipment.find(Label);
-    expect(equipmentLabels).to.have.length(2);
-    expect(equipmentLabels.children().get(0)).to.equal('projector');
-    expect(equipmentLabels.children().get(1)).to.equal('whiteboard');
+    function getEquipmentWrapper(props) {
+      return getWrapper({ resource: equippedResource, ...props }).find('.app-ResourceInfo__equipment');
+    }
+
+    it('is rendered', () => {
+      const equipment = getEquipmentWrapper();
+      expect(equipment).to.have.length(1);
+    });
+
+    it('renders a header', () => {
+      const header = getEquipmentWrapper().find('.app-ResourceInfo__equipment-header');
+      expect(header.text()).to.equal('ResourceInfo.equipmentHeader');
+    });
+
+    it('renders the equipment name in labels', () => {
+      const labels = getEquipmentWrapper().find(Label);
+      expect(labels).to.have.length(2);
+      expect(labels.children().get(0)).to.equal('projector');
+      expect(labels.children().get(1)).to.equal('whiteboard');
+    });
+
+    it('renders the equipment description in table column', () => {
+      const columns = getEquipmentWrapper().find('td');
+      expect(columns).to.have.length(4);
+      expect(columns.children().get(1)).to.equal('description a');
+      expect(columns.children().get(3)).to.equal('description b');
+    });
   });
 
   it('does not render resource equipment if empty', () => {

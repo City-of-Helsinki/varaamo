@@ -172,7 +172,7 @@
   "ResourceAvailability.reserved": "Varattu koko päivän",
   "ResourceAvailability.reservingRestricted": "Ei varattavissa",
   "ResourceIcons.free": "MAKSUTON",
-  "ResourceInfo.equipmentHeader": "Varustelu",
+  "ResourceInfo.equipmentHeader": "Tilan varusteet",
   "ResourceInfoContainer.unpublishedLabel": "ei julkaistu",
   "ResourcePage.reservationStatusHeader": "Varaustilanne",
   "ResourcePage.reserveHeader": "Varaa tila",
