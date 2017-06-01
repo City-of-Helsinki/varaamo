@@ -35,7 +35,7 @@ describe('pages/resource/ResourcePage', () => {
     it('renders PageWrapper with correct props', () => {
       const pageWrapper = getWrapper().find(PageWrapper);
       expect(pageWrapper).to.have.length(1);
-      expect(pageWrapper.prop('className')).to.equal('resource-page');
+      expect(pageWrapper.prop('className')).to.equal('app-ResourcePage');
       expect(pageWrapper.prop('title')).to.equal(defaultProps.resource.name);
     });
 

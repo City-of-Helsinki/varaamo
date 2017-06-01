@@ -172,7 +172,7 @@
   "ResourceAvailability.reserved": "Reserved for the whole day",
   "ResourceAvailability.reservingRestricted": "Not available for reservation",
   "ResourceIcons.free": "FREE OF CHARGE",
-  "ResourceInfo.equipmentHeader": "Equipment",
+  "ResourceInfo.equipmentHeader": "Premise equipment",
   "ResourceInfoContainer.unpublishedLabel": "unpublished",
   "ResourcePage.reservationStatusHeader": "Reservation situation",
   "ResourcePage.reserveHeader": "Reserve the space",
