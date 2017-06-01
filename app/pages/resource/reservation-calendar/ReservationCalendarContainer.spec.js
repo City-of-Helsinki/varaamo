@@ -1,8 +1,6 @@
 import { expect } from 'chai';
 import MockDate from 'mockdate';
 import React from 'react';
-import Col from 'react-bootstrap/lib/Col';
-import Row from 'react-bootstrap/lib/Row';
 import { browserHistory } from 'react-router';
 import simple from 'simple-mock';
 
@@ -108,29 +106,6 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
 
     it('renders ReservationSuccessModal', () => {
       expect(wrapper.find(ReservationSuccessModal).length).to.equal(1);
-    });
-
-    describe('with admin user', () => {
-      it('does not render a Row element', () => {
-        expect(getWrapper({ ...props, isAdmin: true }).find(Row)).to.have.length(0);
-      });
-      it('does not render a Col element', () => {
-        expect(getWrapper({ ...props, isAdmin: true }).find(Col)).to.have.length(0);
-      });
-    });
-
-    describe('without admin user', () => {
-      it('renders a Row element', () => {
-        expect(wrapper.is(Row)).to.be.true;
-      });
-
-      it('renders Col element for calendar', () => {
-        expect(wrapper.find(Col).at(0).find(ResourceCalendar)).to.have.length(1);
-      });
-
-      it('renders Col element for timeSlots', () => {
-        expect(wrapper.find(Col).at(1).find(TimeSlots).length === 1).to.equal(renderTimeSlots);
-      });
     });
   }
 
