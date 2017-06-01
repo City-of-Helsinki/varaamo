@@ -20,13 +20,24 @@ function getAddress({ addressZip, municipality, name, streetAddress }) {
 
 function renderEquipment(equipment, t) {
   return equipment.length ?
-    <div className="details-row resource-equipment">
-      <div className="details-label">{t('ResourceInfo.equipmentHeader')}</div>
-      {
-        equipment.map(item =>
-          <Label bsStyle="primary" key={`label-${item.id}`}>{item.name}</Label>
-        )
-      }
+    <div className="app-ResourceInfo__equipment">
+      <h5 className="app-ResourceInfo__equipment-header">{t('ResourceInfo.equipmentHeader')}</h5>
+      <table>
+        {equipment.map(item =>
+          <tr key={`equipment-row-${item.id}`}>
+            <td>
+              <Label
+                className="app-ResourceInfo__equipment-label"
+                size="small"
+                theme="gold"
+              >
+                {item.name}
+              </Label>
+            </td>
+            <td>{item.description}</td>
+          </tr>
+        )}
+      </table>
     </div> :
     null;
 }
@@ -62,10 +73,12 @@ function ResourceInfo({ isAdmin, resource, unit, t }) {
           </Label>
         </div>
       </div>
-      <div className="app-ResourceInfo__description">
-        {resource.description && <WrappedText text={resource.description} />}
+      <div className="app-ResourceInfo__content">
+        <div className="app-ResourceInfo__description">
+          {resource.description && <WrappedText text={resource.description} />}
+        </div>
+        {renderEquipment(resource.equipment, t)}
       </div>
-      {renderEquipment(resource.equipment, t)}
     </section>
   );
 }

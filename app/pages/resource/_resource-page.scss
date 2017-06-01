@@ -2,3 +2,7 @@
 @import './reservation-calendar/time-slots/time-slots';
 @import './resource-info/image-carousel';
 @import './resource-info/resource-info';
+
+.app-ResourcePage {
+  max-width: 700px;
+}

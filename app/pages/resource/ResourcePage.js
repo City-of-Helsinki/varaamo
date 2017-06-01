@@ -56,7 +56,7 @@ class UnconnectedResourcePage extends Component {
     }
 
     return (
-      <PageWrapper className="resource-page" title={resource.name || ''}>
+      <PageWrapper className="app-ResourcePage" title={resource.name || ''}>
         <Loader loaded={!isEmpty(resource)}>
           <ResourceInfo
             isAdmin={isAdmin}
