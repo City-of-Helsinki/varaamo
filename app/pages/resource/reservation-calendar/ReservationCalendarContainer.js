@@ -1,7 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Col from 'react-bootstrap/lib/Col';
-import Row from 'react-bootstrap/lib/Row';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 
@@ -159,21 +157,11 @@ export class UnconnectedReservationCalendarContainer extends Component {
 
   render() {
     return (
-      this.props.isAdmin ?
-        <div className="reservation-calendar">
-          <h3 id="resource-calendar-header">{this.props.t('ReservationCalendar.header')}</h3>
-          {this.renderCalendar()}
-          {this.renderTimeSlots()}
-        </div> :
-          <Row className="reservation-calendar">
-            <Col sm={4} xs={12}>
-              <h3 id="resource-calendar-header">{this.props.t('ReservationCalendar.header')}</h3>
-              {this.renderCalendar()}
-            </Col>
-            <Col sm={8} xs={12}>
-              {this.renderTimeSlots()}
-            </Col>
-          </Row>
+      <div className="reservation-calendar">
+        <h3 id="resource-calendar-header">{this.props.t('ReservationCalendar.header')}</h3>
+        {this.renderCalendar()}
+        {this.renderTimeSlots()}
+      </div>
     );
   }
 }
