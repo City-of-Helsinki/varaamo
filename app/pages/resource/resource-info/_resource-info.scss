@@ -1,3 +1,5 @@
+$horizontal-margin: 20px;
+
 .app-ResourceInfo {
   &__images-wrapper {
     position: relative;
@@ -10,7 +12,7 @@
     top: 0;
     left: 0;
     right: 0;
-    margin: 10px;
+    margin: $horizontal-margin;
   }
 
   h3 {
@@ -19,7 +21,6 @@
 
   &__address {
     font-size: 0.9em;
-    line-height: 8px;
   }
 
   &__bottom-bar {
@@ -27,26 +28,32 @@
     bottom: 0;
     left: 0;
     right: 0;
-    margin: 10px;
+    margin: $horizontal-margin;
     display: flex;
-    justify-content: space-around;
   }
 
   &__hourly-price {
+    display: inline-block;
     font-size: 20px;
     font-weight: 700;
     line-height: $element-size-medium;
+
     @media (max-width: $screen-xs-max) {
       font-size: 16px;
     }
   }
 
+  &__labels {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-around;
+  }
   &__label {
     font-size: 14px;
   }
 
   &__content {
-    margin: 20px 15px;
+    margin: $horizontal-margin;
   }
 
   &__description {
