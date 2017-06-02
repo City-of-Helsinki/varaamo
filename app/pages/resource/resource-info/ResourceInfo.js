@@ -59,25 +59,27 @@ function ResourceInfo({ isAdmin, resource, unit, t }) {
           <p className="app-ResourceInfo__address">{getAddress(unit)}</p>
         </div>
         <div className="app-ResourceInfo__bottom-bar">
-          <span className="app-ResourceInfo__hourly-price">
+          <div className="app-ResourceInfo__hourly-price">
             {getHourlyPrice(t, resource)}
-          </span>
-          <Label
-            className="app-ResourceInfo__peopleCapacity app-ResourceInfo__label"
-            shape="circle"
-            size="medium"
-            theme="orange"
-          >
-            {resource.peopleCapacity} <FontAwesome name="users" />
-          </Label>
-          <Label
-            className="app-ResourceInfo__type app-ResourceInfo__label"
-            shape="rounded"
-            size="medium"
-            theme="blue"
-          >
-            <FontAwesome name="bullseye" /> {resource.type.name}
-          </Label>
+          </div>
+          <div className="app-ResourceInfo__labels">
+            <Label
+              className="app-ResourceInfo__peopleCapacity app-ResourceInfo__label"
+              shape="circle"
+              size="medium"
+              theme="orange"
+            >
+              {resource.peopleCapacity} <FontAwesome name="users" />
+            </Label>
+            <Label
+              className="app-ResourceInfo__type app-ResourceInfo__label"
+              shape="rounded"
+              size="medium"
+              theme="blue"
+            >
+              <FontAwesome name="bullseye" /> {resource.type.name}
+            </Label>
+          </div>
         </div>
       </div>
       <div className="app-ResourceInfo__content">
