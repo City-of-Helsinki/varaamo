@@ -71,7 +71,6 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
       '.app-ResourceInfo__hourly-price'
     );
 
-    expect(hourlyPriceSpan.is('span')).to.be.true;
     expect(hourlyPriceSpan.text()).to.contain('30 €/h');
   });
 
