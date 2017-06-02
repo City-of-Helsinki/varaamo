@@ -171,7 +171,7 @@
   "ResourceAvailability.closed": "Suljettu",
   "ResourceAvailability.reserved": "Varattu koko päivän",
   "ResourceAvailability.reservingRestricted": "Ei varattavissa",
-  "ResourceIcons.free": "MAKSUTON",
+  "ResourceIcons.free": "Maksuton",
   "ResourceInfo.equipmentHeader": "Tilan varusteet",
   "ResourceInfoContainer.unpublishedLabel": "ei julkaistu",
   "ResourcePage.reservationStatusHeader": "Varaustilanne",

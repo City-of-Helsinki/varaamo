@@ -171,7 +171,7 @@
   "ResourceAvailability.closed": "Stängt",
   "ResourceAvailability.reserved": "Bokat hela dagen",
   "ResourceAvailability.reservingRestricted": "Kan inte bokas",
-  "ResourceIcons.free": "AVGIFTSFRI",
+  "ResourceIcons.free": "Avgiftsfri",
   "ResourceInfo.equipmentHeader": "Premise equipment",
   "ResourceInfoContainer.unpublishedLabel": "opublicerad",
   "ResourcePage.reservationStatusHeader": "Bokningsläget",
