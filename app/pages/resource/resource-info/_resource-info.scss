@@ -17,6 +17,7 @@ $horizontal-margin: 20px;
 
   h3 {
     margin: 0;
+    font-size: 24px;
   }
 
   &__address {
@@ -35,12 +36,12 @@ $horizontal-margin: 20px;
 
   &__hourly-price {
     display: inline-block;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
     line-height: $element-size-medium;
 
     @media (max-width: $screen-xs-max) {
-      font-size: 16px;
+      font-size: 20px;
     }
   }
 
