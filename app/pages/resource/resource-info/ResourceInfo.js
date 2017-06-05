@@ -62,7 +62,7 @@ function ResourceInfo({ isAdmin, resource, unit, t }) {
               size="medium"
               theme="orange"
             >
-              {resource.peopleCapacity} <FontAwesome name="users" />
+              <FontAwesome name="users" /> {resource.peopleCapacity}
             </Label>
             <Label
               className="app-ResourceInfo__type app-ResourceInfo__label"
