@@ -5,6 +5,8 @@ $horizontal-margin: 20px;
     position: relative;
     color: $white;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    min-height: 400px;
+    background-color: $medium-gray;
   }
 
   &__top-bar {
