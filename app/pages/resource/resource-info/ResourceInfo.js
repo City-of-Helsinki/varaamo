@@ -58,7 +58,7 @@ function ResourceInfo({ isAdmin, resource, unit, t }) {
           <div className="app-ResourceInfo__labels">
             <Label
               className="app-ResourceInfo__peopleCapacity app-ResourceInfo__label"
-              shape="circle"
+              shape="rounded"
               size="medium"
               theme="orange"
             >

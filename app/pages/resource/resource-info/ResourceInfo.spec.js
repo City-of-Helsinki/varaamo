@@ -81,7 +81,7 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
     );
 
     expect(peopleCapacityLabel.is(Label)).to.be.true;
-    expect(peopleCapacityLabel.prop('shape')).to.equal('circle');
+    expect(peopleCapacityLabel.prop('shape')).to.equal('rounded');
     expect(peopleCapacityLabel.prop('size')).to.equal('medium');
     expect(peopleCapacityLabel.prop('theme')).to.equal('orange');
     expect(peopleCapacityLabel.html()).to.contain('16');

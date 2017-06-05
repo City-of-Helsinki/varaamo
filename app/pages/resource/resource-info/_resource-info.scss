@@ -30,6 +30,7 @@ $horizontal-margin: 20px;
     right: 0;
     margin: $horizontal-margin;
     display: flex;
+    justify-content: space-between;
   }
 
   &__hourly-price {
@@ -43,13 +44,12 @@ $horizontal-margin: 20px;
     }
   }
 
-  &__labels {
-    flex-grow: 1;
-    display: flex;
-    justify-content: space-around;
-  }
   &__label {
+    margin-left: $horizontal-margin;
     font-size: 14px;
+    &:first-child {
+      margin-left: 0;
+    }
   }
 
   &__content {
