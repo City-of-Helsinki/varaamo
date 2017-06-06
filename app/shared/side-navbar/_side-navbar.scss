@@ -1,0 +1,31 @@
+.app-SideNavbar {
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    padding: 0 20px 10px 20px;
+  }
+
+  .app-Sidebar__sidebar {
+    background-color: $brand-primary;
+  }
+
+  &__toggle {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    background-color: $brand-primary;
+    right: 0;
+    top: 0;
+    z-index: 20002;
+    font-size: 30px;
+    text-align: center;
+    line-height: 50px;
+    color: $white;
+    &:hover, &:focus {
+      color: $white;
+    }
+    box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.2);
+  }
+}
