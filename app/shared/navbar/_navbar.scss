@@ -1,14 +1,23 @@
-.navbar {
-  z-index: $max-map-z-index + 1 ;
-  .navbar-brand {
-    color: #fff;
+.app-Navbar {
+  background-color: $brand-primary;
+  color: white;
 
-    img {
-      display: inline-block;
-      vertical-align: top;
-      height: 40px;
-      margin-top: -8px;
-      margin-right: 10px;
+  a {
+    color: white;
+  }
+
+  .app-Navbar__logout-button {
+    text-transform: uppercase;
+  }
+
+  .nav.nav-stacked {
+    margin-top: 20px;
+    li {
+      a {
+        padding-left: 0;
+        padding-right: 0;
+      }
+      border-bottom: 1px solid $white;
     }
   }
 
