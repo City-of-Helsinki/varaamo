@@ -7,9 +7,8 @@ import { createStructuredSelector } from 'reselect';
 import { fetchUser } from 'actions/userActions';
 import Favicon from 'shared/favicon';
 import TestSiteMessage from 'shared/test-site-message';
-import Footer from 'shared/footer';
-import Navbar from 'shared/navbar';
 import Notifications from 'shared/notifications';
+import SideNavbar from 'shared/side-navbar';
 import { getCustomizationClassName } from 'utils/customizationUtils';
 
 const userIdSelector = state => state.auth.userId;
@@ -40,16 +39,16 @@ export class UnconnectedAppContainer extends Component {
     return (
       <DocumentTitle title="Varaamo">
         <div className={`app ${getCustomizationClassName()}`}>
-          <Favicon />
-          <TestSiteMessage />
-          <Navbar />
-          <div className="app-content">
-            <Grid>
-              <Notifications />
-            </Grid>
-            {this.props.children}
-          </div>
-          <Footer />
+          <SideNavbar>
+            <Favicon />
+            <TestSiteMessage />
+            <div className="app-content">
+              <Grid>
+                <Notifications />
+              </Grid>
+              {this.props.children}
+            </div>
+          </SideNavbar>
         </div>
       </DocumentTitle>
     );

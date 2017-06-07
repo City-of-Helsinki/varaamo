@@ -3,8 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import simple from 'simple-mock';
 
-import Footer from 'shared/footer';
-import Navbar from 'shared/navbar';
+import SideNavbar from 'shared/side-navbar';
 import Notifications from 'shared/notifications';
 import { selector, UnconnectedAppContainer as AppContainer } from './AppContainer';
 
@@ -34,8 +33,8 @@ describe('pages/AppContainer', () => {
   describe('render', () => {
     const wrapper = getWrapper();
 
-    it('renders Navbar', () => {
-      expect(getWrapper().find(Navbar)).to.have.length(1);
+    it('renders SideNavbar', () => {
+      expect(getWrapper().find(SideNavbar)).to.have.length(1);
     });
 
     it('renders Notifications', () => {
@@ -45,10 +44,6 @@ describe('pages/AppContainer', () => {
     it('renders props.children', () => {
       const children = wrapper.find('#child-div');
       expect(children).to.have.length(1);
-    });
-
-    it('renders a Footer component', () => {
-      expect(getWrapper().find(Footer)).to.have.length(1);
     });
   });
 
