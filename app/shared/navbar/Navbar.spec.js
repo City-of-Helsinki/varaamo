@@ -1,11 +1,8 @@
 import { expect } from 'chai';
 import React from 'react';
-import MenuItem from 'react-bootstrap/lib/MenuItem';
 import NavItem from 'react-bootstrap/lib/NavItem';
-import { IndexLink } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
 
-import Logo from 'shared/logo';
 import { getSearchPageUrl } from 'utils/searchUtils';
 import { shallowWithIntl } from 'utils/testUtils';
 import Navbar, { handleLoginClick } from './Navbar';
@@ -22,16 +19,6 @@ describe('shared/navbar/Navbar', () => {
     };
     return shallowWithIntl(<Navbar {...defaults} {...props} />);
   }
-
-  it('renders a link to home page', () => {
-    const homePageLink = getWrapper().find(IndexLink);
-    expect(homePageLink).to.have.length(1);
-  });
-
-  it('displays the logo of the service', () => {
-    expect(getWrapper().find(Logo)).to.have.length(1);
-  });
-
   it('renders a link to search page', () => {
     const searchLink = getWrapper().find(LinkContainer).filter({ to: getSearchPageUrl() });
     expect(searchLink).to.have.length(1);
@@ -71,14 +58,14 @@ describe('shared/navbar/Navbar', () => {
       return getWrapper(props);
     }
 
-    it('renders a NavDropdown for logged in user', () => {
-      const navDropdown = getLoggedInNotAdminWrapper().find('#user-dropdown');
-      expect(navDropdown).to.have.length(1);
+    it('renders a header for logged in user', () => {
+      const header = getLoggedInNotAdminWrapper().find('header');
+      expect(header).to.have.length(1);
     });
 
-    it('NavDropdown has the name of the logged in user as its title', () => {
-      const actual = getLoggedInNotAdminWrapper().find('#user-dropdown').prop('title');
-      expect(actual).to.equal(props.userName);
+    it('header has the name of the logged in user in a h4 tag', () => {
+      const actual = getLoggedInNotAdminWrapper().find('header').find('h4');
+      expect(actual.text()).to.equal(props.userName);
     });
 
     it('renders a link to my reservations page', () => {
@@ -93,9 +80,13 @@ describe('shared/navbar/Navbar', () => {
       expect(myReservationsLink).to.have.length(0);
     });
 
-    it('renders a logout link', () => {
+    it('renders a logout link in header', () => {
       const logoutHref = `/logout?next=${window.location.origin}`;
-      const logoutLink = getLoggedInNotAdminWrapper().find(MenuItem).filter({ href: logoutHref });
+      const logoutLink = (
+        getLoggedInNotAdminWrapper()
+        .find('a')
+        .filter({ href: logoutHref })
+      );
       expect(logoutLink).to.have.length(1);
     });
 
@@ -131,9 +122,9 @@ describe('shared/navbar/Navbar', () => {
       return getWrapper(props);
     }
 
-    it('does not render a NavDropdown for logged in user', () => {
-      const navDropdown = getNotLoggedInWrapper().find('#user-dropdown');
-      expect(navDropdown).to.have.length(0);
+    it('does not render a header for logged in user', () => {
+      const header = getNotLoggedInWrapper().find('header');
+      expect(header).to.have.length(0);
     });
 
     it('renders a link to login page', () => {
@@ -144,7 +135,7 @@ describe('shared/navbar/Navbar', () => {
 
     it('does not render a logout link', () => {
       const logoutHref = `/logout?next=${window.location.origin}`;
-      const logoutLink = getNotLoggedInWrapper().find(MenuItem).filter({ href: logoutHref });
+      const logoutLink = getNotLoggedInWrapper().find('a').filter({ href: logoutHref });
       expect(logoutLink).to.have.length(0);
     });
 
