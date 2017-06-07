@@ -1,7 +1,4 @@
 import React, { PropTypes } from 'react';
-import Col from 'react-bootstrap/lib/Col';
-import Grid from 'react-bootstrap/lib/Grid';
-import Row from 'react-bootstrap/lib/Row';
 import { Link } from 'react-router';
 
 import FeedbackLink from 'shared/feedback-link';
@@ -21,39 +18,26 @@ function FooterContent({ t }) {
   switch (getCurrentCustomization()) {
     case 'ESPOO': {
       return (
-        <Grid>
-          <Row>
-            <Col lg={4} md={4}>
-              <Link className="brand-link" to="/">
-                <Logo />
-                Varaamo
-              </Link>
-            </Col>
-            <Col lg={6} md={6}>
-              <p>{t('Footer.espooText')} {feedbackLink}</p>
-              {aboutLink}
-            </Col>
-          </Row>
-        </Grid>
+        <div>
+          <Link className="brand-link" to="/">
+            <Logo />
+            Varaamo
+          </Link>
+          <p>{t('Footer.espooText')} {feedbackLink}</p>
+          {aboutLink}
+        </div>
       );
     }
 
     default: {
       return (
-        <Grid>
-          <Row>
-            <Col lg={3} md={3}>
-              <Link className="brand-link" to="/">
-                <Logo />
-                Varaamo
-              </Link>
-            </Col>
-            <Col lg={6} md={6}>
-              <p>{t('Footer.helsinkiText')} {feedbackLink}</p>
-              {aboutLink}
-            </Col>
-          </Row>
-        </Grid>
+        <div>
+          <Link className="brand-link" to="/">
+            Varaamo
+          </Link>
+          <p>{t('Footer.helsinkiText')} {feedbackLink}</p>
+          {aboutLink}
+        </div>
       );
     }
   }

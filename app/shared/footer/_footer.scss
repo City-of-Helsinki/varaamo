@@ -2,10 +2,8 @@ footer {
   background-color: $brand-primary;
   color: #fff;
   z-index: $max-map-z-index + 1;
-
-  @media (max-width: 991px) {
-    text-align: center;
-  }
+  margin-bottom: 20px;
+  text-align: center;
 
   .brand-link {
     display: block;
@@ -13,10 +11,6 @@ footer {
     font-size: 30px;
     line-height: 80px;
     margin-bottom: 30px;
-
-    @media (min-width: 992px) {
-      margin-bottom: 0px;
-    }
 
     img {
       display: inline-block;
