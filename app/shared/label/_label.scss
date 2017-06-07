@@ -82,6 +82,19 @@
     background-color: $green;
   }
 
+  &--theme-inverse {
+    color: $white;
+    background-color: $brand-primary;
+    border: 2px solid $white;
+    line-height: $element-size-medium - 4px;
+    &.app-Label--size-small {
+      line-height: $element-size-small - 4px;
+    }
+    &.app-Label--size-mini {
+      line-height: $element-size-mini - 4px;
+    }
+  }
+
   &--theme-orange {
     color: $white;
     background-color: $orange;
