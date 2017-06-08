@@ -63,6 +63,7 @@
   "ConfirmReservationModal.priceInfo": "Observera att användningen av utrymmet kan vara avgiftsbelagd. Närmare uppgifter om priserna finns i informationen om utrymmet. Bokningen är preliminär och behandlas inom två vardagar.",
   "ConfirmReservationModal.regularReservationText": "Är du säker på att du vill göra en bokning för {reservationsCount, plural, one {tidpunkten} other {tidpunkterna}}:",
   "ConfirmReservationModal.regularReservationTitle": "Bekräfta bokningen",
+  "DatePickerControl.header": "Select date",
   "EspooPartners.aikaLogoAlt": "Logotypen för 6Aika",
   "EspooPartners.eakrLogoAlt": "Logotyp för Europeiska regionala utvecklingsfonden",
   "EspooPartners.euVipuvoimaaLogoAlt": "Hävkraft från EU-logo",

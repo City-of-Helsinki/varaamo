@@ -15,32 +15,16 @@
     margin-bottom: 30px;
   }
 
-  &__date-picker {
-    display: inline-block;
-    border: none;
-
-    &.react-date-field--focused {
-      border: none;
-    }
-
-    input {
-      width: 110px;
-      padding: 10px $button-horizontal-padding;
-      color: $white;
-      background-color: $green;
-      border-radius: $button-border-radius;
-      cursor: pointer;
-      height: $element-size-medium;
-      text-align: center;
-    }
-
-    .react-date-field__calendar-icon {
-      display: none;
-    }
-  }
-
-  .app-PeopleCapacityControl, .app-PurposeControl {
+  .app-PeopleCapacityControl, .app-PurposeControl, .app-DatePickerControl{
     display: inline-block;
     margin-left: 15px;
+  }
+}
+
+.app-DatePickerControl__calendar {
+  border: none;
+  width: 100%;
+  & > div {
+    width: 100%;
   }
 }
