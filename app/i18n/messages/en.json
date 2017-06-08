@@ -63,6 +63,7 @@
   "ConfirmReservationModal.priceInfo": "Please note that use of the premises may be subject to a charge. For more detailed prices, see the information of the premises in question. The reservation is preliminary and will be processed within two weekdays.",
   "ConfirmReservationModal.regularReservationText": "Are you sure you wish to make a reservation for {reservationsCount, plural, one {period} other {periods}}:",
   "ConfirmReservationModal.regularReservationTitle": "Confirming the reservation",
+  "DatePickerControl.header": "Select date",
   "EspooPartners.aikaLogoAlt": "6aika logo",
   "EspooPartners.eakrLogoAlt": "Logo of the European Regional Development Fund",
   "EspooPartners.euVipuvoimaaLogoAlt": "Leverage from the EU logo",

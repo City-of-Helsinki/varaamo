@@ -3,12 +3,12 @@ import moment from 'moment';
 import queryString from 'query-string';
 import React from 'react';
 import FormControl from 'react-bootstrap/lib/FormControl';
-import { DateField } from 'react-date-picker';
 import { browserHistory } from 'react-router';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
 import { shallowWithIntl } from 'utils/testUtils';
+import DatePickerControl from './DatePickerControl';
 import PeopleCapacityControl from './PeopleCapacityControl';
 import PurposeControl from './PurposeControl';
 import {
@@ -52,51 +52,36 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(formControl.prop('value')).to.equal(defaultProps.filters.search);
     });
 
-    describe('DateField', () => {
-      function getDateFieldWrapper(props) {
-        return getWrapper(props).find(DateField);
-      }
+    it('renders DatePickerControl with correct props', () => {
+      const filters = { ...defaultProps.filters, date: '2015-10-10' };
+      const wrapper = getWrapper({ filters });
+      const datePickerControl = wrapper.find(DatePickerControl);
+      expect(datePickerControl).to.have.length(1);
+      expect(datePickerControl.prop('value')).to.equal(moment(filters.date).format('L'));
+      expect(datePickerControl.prop('onChange')).to.equal(wrapper.instance().handleDateChange);
+    });
 
-      it('is rendered', () => {
-        expect(getDateFieldWrapper()).to.have.length(1);
-      });
+    it('renders PeopleCapacityControl with correct props', () => {
+      const filters = { ...defaultProps.filters, people: '12' };
+      const peopleCapacityControl = getWrapper({ filters }).find(PeopleCapacityControl);
+      expect(peopleCapacityControl).to.have.length(1);
+      expect(peopleCapacityControl.prop('value')).to.equal(12);
+      expect(peopleCapacityControl.prop('onChange')).to.exist;
+    });
 
-      it('gets correct onChange prop', () => {
-        const wrapper = getWrapper();
-        const actual = wrapper.find(DateField).prop('onChange');
-
-        expect(actual).to.equal(wrapper.instance().handleDateChange);
-      });
-
-      it('converts value to localized date format and passes it to DateField', () => {
-        const actual = getDateFieldWrapper().prop('value');
-        const expected = moment(defaultProps.filters.date).format('L');
-        expect(actual).to.equal(expected);
-      });
+    it('renders PurposeControl with correct props', () => {
+      const filters = { ...defaultProps.filters, purpose: 'some purpose' };
+      const isFetchingPurposes = false;
+      const purposeOptions = [{ label: 'Foo', value: 'bar' }];
+      const wrapper = getWrapper({ filters, isFetchingPurposes, purposeOptions });
+      const purposeControl = wrapper.find(PurposeControl);
+      expect(purposeControl).to.have.length(1);
+      expect(purposeControl.prop('isLoading')).to.equal(isFetchingPurposes);
+      expect(purposeControl.prop('onChange')).to.equal(wrapper.instance().handleFiltersChange);
+      expect(purposeControl.prop('purposeOptions')).to.equal(purposeOptions);
+      expect(purposeControl.prop('value')).to.equal(filters.purpose);
     });
   });
-
-  it('renders PeopleCapacityControl with correct props', () => {
-    const filters = { ...defaultProps.filters, people: '12' };
-    const peopleCapacityControl = getWrapper({ filters }).find(PeopleCapacityControl);
-    expect(peopleCapacityControl).to.have.length(1);
-    expect(peopleCapacityControl.prop('value')).to.equal(12);
-    expect(peopleCapacityControl.prop('onChange')).to.exist;
-  });
-
-  it('renders PurposeControl with correct props', () => {
-    const filters = { ...defaultProps.filters, purpose: 'some purpose' };
-    const isFetchingPurposes = false;
-    const purposeOptions = [{ label: 'Foo', value: 'bar' }];
-    const wrapper = getWrapper({ filters, isFetchingPurposes, purposeOptions });
-    const purposeControl = wrapper.find(PurposeControl);
-    expect(purposeControl).to.have.length(1);
-    expect(purposeControl.prop('isLoading')).to.equal(isFetchingPurposes);
-    expect(purposeControl.prop('onChange')).to.equal(wrapper.instance().handleFiltersChange);
-    expect(purposeControl.prop('purposeOptions')).to.equal(purposeOptions);
-    expect(purposeControl.prop('value')).to.equal(filters.purpose);
-  });
-
   describe('handleFiltersChange', () => {
     it('calls changeSearchFilters with given filters', () => {
       const newFilters = { search: 'new search value' };

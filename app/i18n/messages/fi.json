@@ -63,6 +63,7 @@
   "ConfirmReservationModal.priceInfo": "Huomioi, että tilan käyttö voi olla maksullista. Tarkemmat hintatiedot löytyvät tilan tiedoista. Varaus on alustava ja käsitellään kahden arkipäivän kuluessa.",
   "ConfirmReservationModal.regularReservationText": "Oletko varma että haluat tehdä varauksen {reservationsCount, plural, one {ajalle} other {ajoille}}:",
   "ConfirmReservationModal.regularReservationTitle": "Varauksen vahvistus",
+  "DatePickerControl.header": "Valitse aika",
   "EspooPartners.aikaLogoAlt": "6 aika logo",
   "EspooPartners.eakrLogoAlt": "Euroopan aluekehitysrahasto logo",
   "EspooPartners.euVipuvoimaaLogoAlt": "Vipuvoimaa EU:lta logo",
