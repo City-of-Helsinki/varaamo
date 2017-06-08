@@ -3,7 +3,6 @@ import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import FormControl from 'react-bootstrap/lib/FormControl';
-import { DateField } from 'react-date-picker';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
@@ -12,6 +11,7 @@ import { fetchPurposes } from 'actions/purposeActions';
 import { changeSearchFilters } from 'actions/uiActions';
 import constants from 'constants/AppConstants';
 import { injectT } from 'i18n';
+import DatePickerControl from './DatePickerControl';
 import PeopleCapacityControl from './PeopleCapacityControl';
 import PurposeControl from './PurposeControl';
 import searchControlsSelector from './searchControlsSelector';
@@ -86,15 +86,8 @@ class UnconnectedSearchControlsContainer extends Component {
           value={filters.search}
         />
         <div className="app-SearchControlsContainer__filters">
-          <DateField
-            className="app-SearchControlsContainer__date-picker"
-            clearIcon={false}
-            collapseOnDateClick
-            dateFormat={'L'}
-            footer={false}
+          <DatePickerControl
             onChange={this.handleDateChange}
-            readOnly
-            updateOnDateClick
             value={moment(filters.date).format('L')}
           />
           <PeopleCapacityControl
