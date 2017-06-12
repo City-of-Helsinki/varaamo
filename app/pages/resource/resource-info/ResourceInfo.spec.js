@@ -17,7 +17,20 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
     isAdmin: false,
     resource: Immutable(Resource.build({
       description: 'Some description',
-      images: [{ foo: 'bar' }],
+      images: [
+        {
+          foo: 'bar',
+          type: 'other',
+        },
+        {
+          foo: 'bar',
+          type: 'main',
+        },
+        {
+          foo: 'bar',
+          type: 'other',
+        },
+      ],
     })),
     unit: Immutable(Unit.build()),
   };
@@ -67,11 +80,15 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
     expect(resourceIcons.length).to.equal(1);
   });
 
-  it('renders ImageCarousel component with correct images', () => {
+  it('renders ImageCarousel component with ordered resource images', () => {
     const imageCarousel = getWrapper().find(ImageCarousel);
 
     expect(imageCarousel.length).to.equal(1);
-    expect(imageCarousel.prop('images')).to.deep.equal(defaultProps.resource.images);
+    expect(imageCarousel.prop('images')).to.deep.equal([
+      defaultProps.resource.images[1],     // main image
+      defaultProps.resource.images[0],
+      defaultProps.resource.images[2],
+    ]);
   });
 
   it('renders resource equipment', () => {
