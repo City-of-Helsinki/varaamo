@@ -32,12 +32,19 @@ function renderEquipment(equipment, t) {
     null;
 }
 
+function orderImages(images) {
+  return [].concat(
+    images.filter(image => image.type === 'main'),
+    images.filter(image => image.type !== 'main'),
+  );
+}
+
 function ResourceInfo({ isAdmin, resource, unit, t }) {
   return (
     <section className="resource-info">
       <Row>
         <Col className="resource-images" sm={7} xs={12}>
-          <ImageCarousel images={resource.images || []} />
+          <ImageCarousel images={orderImages(resource.images) || []} />
         </Col>
         <Col sm={5} xs={12}>
           {isAdmin && <FavoriteButton resource={resource} />}
