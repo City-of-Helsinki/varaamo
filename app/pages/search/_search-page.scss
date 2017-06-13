@@ -1,21 +1,11 @@
 @import './controls/search-controls';
 
-.search-page {
-  h1 {
-    @media (max-width: $screen-xs-max) {
-      text-align: center;
-    }
-  }
-
-  .search-button {
-    margin-bottom: 30px;
-  }
-
+.app-SearchPage {
   &__overlay {
     z-index: 5;
   }
 
-  .app-SearchPage__content {
+  &__content {
     position: relative;
     z-index: $max-map-z-index +1 ;
   }

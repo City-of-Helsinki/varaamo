@@ -104,7 +104,7 @@ class UnconnectedSearchControlsContainer extends Component {
         <Button
           block
           bsStyle="primary"
-          className="search-button"
+          className="app-SearchControlsContainer__search-button"
           onClick={() => this.handleSearch()}
         >
           {t('SearchControls.search')}

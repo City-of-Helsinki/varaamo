@@ -39,7 +39,8 @@ describe('pages/search/SearchPage', () => {
     it('renders PageWrapper with correct props', () => {
       const pageWrapper = getWrapper().find(PageWrapper);
       expect(pageWrapper).to.have.length(1);
-      expect(pageWrapper.prop('className')).to.equal('search-page');
+      expect(pageWrapper.prop('className')).to.equal('app-SearchPage');
+      expect(pageWrapper.prop('fluid')).to.be.true;
       expect(pageWrapper.prop('title')).to.equal('SearchPage.title');
     });
 
