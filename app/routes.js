@@ -4,7 +4,6 @@ import { IndexRoute, Redirect, Route } from 'react-router';
 import AppContainer from 'pages/AppContainer';
 import AboutPage from 'pages/about';
 import AdminResourcesPage from 'pages/admin-resources';
-import HomePage from 'pages/home';
 import NotFoundPage from 'pages/not-found';
 import ResourcePage from 'pages/resource';
 import SearchPage from 'pages/search';
@@ -42,11 +41,11 @@ export default (params) => {
         <Route component={AdminResourcesPage} path="/admin-resources" />
         <Route component={UserReservationsPage} path="/my-reservations" />
       </Route>
-      <IndexRoute component={HomePage} onEnter={scrollTop} />
+      <IndexRoute component={SearchPage} />
       <Route component={AboutPage} onEnter={scrollTop} path="/about" />
       <Redirect from="/resources/:id/reservation" to="/resources/:id" />
+      <Redirect from="/search" to="/" />
       <Route component={ResourcePage} onEnter={scrollTop} path="/resources/:id" />
-      <Route component={SearchPage} path="/search" />
       <Route component={NotFoundPage} path="*" />
     </Route>
   );
