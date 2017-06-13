@@ -4,7 +4,6 @@ import simple from 'simple-mock';
 import Immutable from 'seamless-immutable';
 
 import PageWrapper from 'pages/PageWrapper';
-import DateHeader from 'shared/date-header';
 import ResourceMap from 'shared/resource-map';
 import { shallowWithIntl } from 'utils/testUtils';
 import { UnconnectedSearchPage as SearchPage } from './SearchPage';
@@ -71,12 +70,6 @@ describe('pages/search/SearchPage', () => {
         expect(typeof searchControls.props().scrollToSearchResults).to.equal('function');
       });
 
-      it('does not render DateHeader', () => {
-        const dateHeader = getWrapper(extraProps).find(DateHeader);
-
-        expect(dateHeader.length).to.equal(0);
-      });
-
       it('does not render SearchResults', () => {
         const searchResults = getWrapper(extraProps).find(SearchResults);
 
@@ -103,12 +96,6 @@ describe('pages/search/SearchPage', () => {
         expect(searchControls.props().location).to.deep.equal(defaultProps.location);
         expect(searchControls.props().params).to.deep.equal(defaultProps.params);
         expect(typeof searchControls.props().scrollToSearchResults).to.equal('function');
-      });
-
-      it('does not render DateHeader', () => {
-        const dateHeader = getWrapper(extraProps).find(DateHeader);
-
-        expect(dateHeader.length).to.equal(0);
       });
 
       it('renders SearchResults with correct props', () => {
@@ -138,13 +125,6 @@ describe('pages/search/SearchPage', () => {
         expect(searchControls.props().location).to.deep.equal(defaultProps.location);
         expect(searchControls.props().params).to.deep.equal(defaultProps.params);
         expect(typeof searchControls.props().scrollToSearchResults).to.equal('function');
-      });
-
-      it('renders DateHeader with correct props', () => {
-        const dateHeader = getWrapper(extraProps).find(DateHeader);
-
-        expect(dateHeader.length).to.equal(1);
-        expect(dateHeader.props().date).to.equal(defaultProps.filters.date);
       });
 
       it('renders SearchResults with correct props', () => {
