@@ -25,7 +25,7 @@ function getSearchPageUrl(filters = {}) {
     )
   );
 
-  return `/search?${query}`;
+  return `/?${query}`;
 }
 
 function pickSupportedFilters(filters) {

@@ -195,7 +195,7 @@ describe('pages/search/SearchPage', () => {
         nextProps = {
           filters: defaultProps.filters,
           isLoggedIn: !defaultProps.isLoggedIn,
-          url: '/search?search=some-search',
+          url: '/?search=some-search',
         };
         instance.componentWillUpdate(nextProps);
       });
@@ -219,7 +219,7 @@ describe('pages/search/SearchPage', () => {
         nextProps = {
           filters: { purpose: 'new-purpose' },
           isLoggedIn: defaultProps.isLoggedIn,
-          url: '/search?purpose=new-purpose',
+          url: '/?purpose=new-purpose',
         };
         instance.componentWillUpdate(nextProps);
       });
@@ -249,7 +249,7 @@ describe('pages/search/SearchPage', () => {
         nextProps = {
           filters: defaultProps.filters,
           isLoggedIn: defaultProps.isLoggedIn,
-          url: '/search?search=some-search',
+          url: '/?search=some-search',
         };
         instance.componentWillUpdate(nextProps);
       });

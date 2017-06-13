@@ -52,7 +52,7 @@ class UnconnectedSearchControlsContainer extends Component {
       filters = this.props.filters;
     }
 
-    browserHistory.push(`/search?${queryString.stringify(filters)}`);
+    browserHistory.push(`/?${queryString.stringify(filters)}`);
     if (!options.preventScrolling) {
       scrollToSearchResults();
     }
