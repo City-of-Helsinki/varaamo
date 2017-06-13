@@ -8,7 +8,6 @@ import { searchResources, toggleMap } from 'actions/searchActions';
 import { changeSearchFilters } from 'actions/uiActions';
 import { fetchUnits } from 'actions/unitActions';
 import PageWrapper from 'pages/PageWrapper';
-import DateHeader from 'shared/date-header';
 import { injectT } from 'i18n';
 import { scrollTo } from 'utils/domUtils';
 import ResourceMap from 'shared/resource-map';
@@ -57,7 +56,6 @@ class UnconnectedSearchPage extends Component {
   render() {
     const {
       actions,
-      filters,
       isFetchingSearchResults,
       location,
       params,
@@ -79,7 +77,6 @@ class UnconnectedSearchPage extends Component {
             params={params}
             scrollToSearchResults={this.scrollToSearchResults}
           />
-          {searchDone && <DateHeader date={filters.date} />}
           {searchDone || isFetchingSearchResults ?
             <SearchResults
               isFetching={isFetchingSearchResults}
