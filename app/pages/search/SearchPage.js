@@ -77,7 +77,7 @@ class UnconnectedSearchPage extends Component {
             params={params}
             scrollToSearchResults={this.scrollToSearchResults}
           />
-          {searchDone || isFetchingSearchResults ?
+          {(searchDone || isFetchingSearchResults) &&
             <SearchResults
               isFetching={isFetchingSearchResults}
               onToggleMap={actions.toggleMap}
@@ -85,7 +85,6 @@ class UnconnectedSearchPage extends Component {
               searchResultIds={searchResultIds}
               showMap={showMap}
             />
-            : <p className="help-text">{t('SearchPage.helpText')}</p>
           }
         </div>
       </PageWrapper>

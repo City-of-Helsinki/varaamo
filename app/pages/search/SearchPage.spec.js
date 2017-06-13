@@ -55,91 +55,42 @@ describe('pages/search/SearchPage', () => {
       expect(resourceMap.prop('showMap')).to.equal(true);
     });
 
-    describe('when no search is done', () => {
-      const extraProps = {
-        isFetchingSearchResults: false,
-        searchDone: false,
-      };
+    it('renders SearchControls with correct props', () => {
+      const searchControls = getWrapper().find(SearchControls);
+      expect(searchControls.length).to.equal(1);
+      expect(searchControls.prop('location')).to.deep.equal(defaultProps.location);
+      expect(searchControls.prop('params')).to.deep.equal(defaultProps.params);
+      expect(searchControls.prop('scrollToSearchResults')).to.be.a('function');
+    });
 
-      it('renders SearchControls with correct props', () => {
-        const searchControls = getWrapper(extraProps).find(SearchControls);
+    describe('SearchResults', () => {
+      function getSearchResults(props) {
+        return getWrapper(props).find(SearchResults);
+      }
 
-        expect(searchControls.length).to.equal(1);
-        expect(searchControls.props().location).to.deep.equal(defaultProps.location);
-        expect(searchControls.props().params).to.deep.equal(defaultProps.params);
-        expect(typeof searchControls.props().scrollToSearchResults).to.equal('function');
-      });
-
-      it('does not render SearchResults', () => {
-        const searchResults = getWrapper(extraProps).find(SearchResults);
-
+      it('are not rendered when no search has been done', () => {
+        const isFetchingSearchResults = false;
+        const searchDone = false;
+        const searchResults = getSearchResults({ isFetchingSearchResults, searchDone });
         expect(searchResults.length).to.equal(0);
       });
 
-      it('renders help text', () => {
-        const helpText = getWrapper(extraProps).find('.help-text');
-
-        expect(helpText.length).to.equal(1);
-      });
-    });
-
-    describe('when search results are being fetched', () => {
-      const extraProps = {
-        isFetchingSearchResults: true,
-        searchDone: false,
-      };
-
-      it('renders SearchControls with correct props', () => {
-        const searchControls = getWrapper(extraProps).find(SearchControls);
-
-        expect(searchControls.length).to.equal(1);
-        expect(searchControls.props().location).to.deep.equal(defaultProps.location);
-        expect(searchControls.props().params).to.deep.equal(defaultProps.params);
-        expect(typeof searchControls.props().scrollToSearchResults).to.equal('function');
-      });
-
-      it('renders SearchResults with correct props', () => {
-        const searchResults = getWrapper(extraProps).find(SearchResults);
-
-        expect(searchResults.props().isFetching).to.equal(extraProps.isFetchingSearchResults);
+      it('are rendered when fetching search results', () => {
+        const isFetchingSearchResults = true;
+        const searchDone = false;
+        const searchResults = getSearchResults({ isFetchingSearchResults, searchDone });
+        expect(searchResults.props().isFetching).to.equal(isFetchingSearchResults);
         expect(searchResults.props().searchResultIds).to.deep.equal(defaultProps.searchResultIds);
       });
 
-      it('does not render help text', () => {
-        const helpText = getWrapper(extraProps).find('.help-text');
-
-        expect(helpText.length).to.equal(0);
-      });
-    });
-
-    describe('when search results have been fetched', () => {
-      const extraProps = {
-        isFetchingSearchResults: false,
-        searchDone: true,
-      };
-
-      it('renders SearchControls with correct props', () => {
-        const searchControls = getWrapper(extraProps).find(SearchControls);
-
-        expect(searchControls.length).to.equal(1);
-        expect(searchControls.props().location).to.deep.equal(defaultProps.location);
-        expect(searchControls.props().params).to.deep.equal(defaultProps.params);
-        expect(typeof searchControls.props().scrollToSearchResults).to.equal('function');
-      });
-
-      it('renders SearchResults with correct props', () => {
-        const searchResults = getWrapper(extraProps).find(SearchResults);
-
-        expect(searchResults.props().isFetching).to.equal(extraProps.isFetchingSearchResults);
+      it('are rendered when search is done', () => {
+        const isFetchingSearchResults = false;
+        const searchDone = true;
+        const searchResults = getSearchResults({ isFetchingSearchResults, searchDone });
+        expect(searchResults.props().isFetching).to.equal(isFetchingSearchResults);
         expect(searchResults.props().onToggleMap).to.equal(defaultProps.actions.toggleMap);
         expect(searchResults.props().searchResultIds).to.deep.equal(defaultProps.searchResultIds);
         expect(searchResults.props().showMap).to.equal(defaultProps.showMap);
-      });
-
-      it('does not render help text', () => {
-        const helpText = getWrapper(extraProps).find('.help-text');
-
-        expect(helpText.length).to.equal(0);
       });
     });
   });
