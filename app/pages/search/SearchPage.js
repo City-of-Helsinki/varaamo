@@ -66,7 +66,7 @@ class UnconnectedSearchPage extends Component {
     } = this.props;
 
     return (
-      <PageWrapper className="search-page" title={t('SearchPage.title')}>
+      <PageWrapper className="app-SearchPage" fluid title={t('SearchPage.title')}>
         <ResourceMap
           resourceIds={searchResultIds}
           showMap={showMap}
