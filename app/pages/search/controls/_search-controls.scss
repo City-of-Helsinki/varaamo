@@ -15,9 +15,13 @@
     margin-bottom: 30px;
   }
 
-  .app-PeopleCapacityControl, .app-PurposeControl, .app-DatePickerControl{
+  .app-PeopleCapacityControl, .app-PurposeControl, .app-DatePickerControl {
     display: inline-block;
     margin-left: 15px;
+  }
+
+  .app-DatePickerControl {
+    margin-left: 0;
   }
 
   &__search-button {
