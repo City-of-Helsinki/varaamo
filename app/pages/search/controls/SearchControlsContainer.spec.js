@@ -108,7 +108,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
 
     it('calls browserHistory.push with correct path', () => {
       const actualPath = browserHistoryMock.lastCall.args[0];
-      const expectedPath = `/search?${queryString.stringify(defaultProps.filters)}`;
+      const expectedPath = `/?${queryString.stringify(defaultProps.filters)}`;
 
       expect(browserHistoryMock.callCount).to.equal(1);
       expect(actualPath).to.equal(expectedPath);
