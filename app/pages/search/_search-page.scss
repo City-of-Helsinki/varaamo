@@ -1,12 +1,17 @@
 @import './controls/search-controls';
 
 .app-SearchPage {
+  @media (min-width: $screen-md-max) {
+    padding: 30px;
+  }
+
   &__overlay {
     z-index: 5;
   }
 
   &__content {
     position: relative;
+    max-width: 800px;
     z-index: $max-map-z-index +1 ;
   }
 
