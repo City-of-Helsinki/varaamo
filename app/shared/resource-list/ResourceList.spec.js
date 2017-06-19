@@ -3,8 +3,8 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
+import ResourceCard from 'shared/resource-card';
 import ResourceList from './ResourceList';
-import ResourceListItem from './ResourceListItemContainer';
 
 describe('shared/resource-list/ResourceList', () => {
   const defaultProps = {
@@ -33,19 +33,19 @@ describe('shared/resource-list/ResourceList', () => {
       expect(emptyMessage.length).to.equal(0);
     });
 
-    describe('rendering individual ResourceListItems', () => {
-      let resourceListItems;
+    describe('rendering individual ResourceCards', () => {
+      let resourceCards;
 
       before(() => {
-        resourceListItems = wrapper.find(ResourceListItem);
+        resourceCards = wrapper.find(ResourceCard);
       });
 
-      it('renders a ResourceListItem for every resource in props', () => {
-        expect(resourceListItems.length).to.equal(defaultProps.resourceIds.length);
+      it('renders a ResourceCard for every resource in props', () => {
+        expect(resourceCards.length).to.equal(defaultProps.resourceIds.length);
       });
 
-      it('passes correct props to ResourceListItem', () => {
-        resourceListItems.forEach((resourceListItem, index) => {
+      it('passes correct props to ResourceCard', () => {
+        resourceCards.forEach((resourceListItem, index) => {
           expect(resourceListItem.props().resourceId).to.equal(defaultProps.resourceIds[index]);
         });
       });

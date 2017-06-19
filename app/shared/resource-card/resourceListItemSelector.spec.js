@@ -3,9 +3,9 @@ import { expect } from 'chai';
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
 import { getState } from 'utils/testUtils';
-import resourceListItemSelector from './resourceListItemSelector';
+import resourceCardSelector from './resourceCardSelector';
 
-describe('shared/resource-list/resourceListItemSelector', () => {
+describe('shared/resource-list/resourceCardSelector', () => {
   const unit = Unit.build();
   const resource = Resource.build({ unit: unit.id });
 
@@ -15,7 +15,7 @@ describe('shared/resource-list/resourceListItemSelector', () => {
       'data.units': { [unit.id]: unit },
     });
     const props = { resourceId: resource.id };
-    return resourceListItemSelector(state, props);
+    return resourceCardSelector(state, props);
   }
 
   it('returns isLoggedIn', () => {
