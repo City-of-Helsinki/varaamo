@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 
-import ResourceListItem from './ResourceListItemContainer';
+import ResourceCard from 'shared/resource-card';
 
 function renderResourceListItem(resourceId) {
-  return <ResourceListItem key={resourceId} resourceId={resourceId} />;
+  return <ResourceCard key={resourceId} resourceId={resourceId} />;
 }
 
 function ResourceList({ emptyMessage, resourceIds }) {
