@@ -11,9 +11,9 @@ import Unit from 'utils/fixtures/Unit';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import { shallowWithIntl } from 'utils/testUtils';
 import Label from 'shared/label';
-import ResourceListItem from './ResourceListItem';
+import ResourceCard from './ResourceCard';
 
-describe('shared/resource-list/ResourceListItem', () => {
+describe('shared/resource-card/ResourceCard', () => {
   const date = '2015-10-10';
   const defaultProps = {
     isLoggedIn: false,
@@ -42,7 +42,7 @@ describe('shared/resource-list/ResourceListItem', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallowWithIntl(<ResourceListItem {...defaultProps} {...extraProps} />, context);
+    return shallowWithIntl(<ResourceCard {...defaultProps} {...extraProps} />, context);
   }
 
   it('renders an li element', () => {
@@ -66,7 +66,7 @@ describe('shared/resource-list/ResourceListItem', () => {
 
     it('renders a label with people capacity', () => {
       const peopleCapacityLabel = getBackgroundImageWrapper().find(
-        '.app-ResourceListItem__peopleCapacity'
+        '.app-ResourceCard__peopleCapacity'
       );
 
       expect(peopleCapacityLabel.is(Label)).to.be.true;
@@ -80,7 +80,7 @@ describe('shared/resource-list/ResourceListItem', () => {
 
     it('renders a hourly price', () => {
       const hourlyPriceSpan = getBackgroundImageWrapper().find(
-        '.app-ResourceListItem__hourly-price'
+        '.app-ResourceCard__hourly-price'
       );
 
       expect(hourlyPriceSpan.is('span')).to.be.true;
@@ -105,26 +105,26 @@ describe('shared/resource-list/ResourceListItem', () => {
   });
 
   it('renders the name of the given unit in props', () => {
-    const unitName = getWrapper().find('.app-ResourceListItem__unit-name').find('span');
+    const unitName = getWrapper().find('.app-ResourceCard__unit-name').find('span');
     const expected = defaultProps.unit.name;
 
     expect(unitName.text()).to.contain(expected);
   });
 
   it('renders a label with the type of the given resource in props', () => {
-    const typeLabel = getWrapper().find('.app-ResourceListItem__unit-name').find(Label);
+    const typeLabel = getWrapper().find('.app-ResourceCard__unit-name').find(Label);
     expect(typeLabel.prop('size')).to.equal('mini');
     expect(typeLabel.prop('theme')).to.equal('blue');
     expect(typeLabel.children().text()).to.contain(defaultProps.resource.type.name);
   });
 
   it('renders correct number of labels for equipment', () => {
-    const equipmentLabels = getWrapper().find('.app-ResourceListItem__equipment').find(Label);
+    const equipmentLabels = getWrapper().find('.app-ResourceCard__equipment').find(Label);
     expect(equipmentLabels).to.have.length(2);
   });
 
   it('renders labels with the equipment of the given resource in props', () => {
-    const equipmentLabels = getWrapper().find('.app-ResourceListItem__equipment').find(Label);
+    const equipmentLabels = getWrapper().find('.app-ResourceCard__equipment').find(Label);
     const equipmentLabel = equipmentLabels.at(0);
     expect(equipmentLabel.prop('shape')).to.equal('rounded');
     expect(equipmentLabel.prop('size')).to.equal('mini');

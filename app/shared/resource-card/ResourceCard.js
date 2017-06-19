@@ -9,7 +9,7 @@ import { getResourcePageUrl, getHourlyPrice } from 'utils/resourceUtils';
 import Label from 'shared/label';
 import ResourceAvailability from './ResourceAvailability';
 
-class ResourceListItem extends Component {
+class ResourceCard extends Component {
   renderEquipment(equipment) {
     return (
       <Label key={equipment.id} shape="rounded" size="mini" theme="gold">
@@ -22,15 +22,15 @@ class ResourceListItem extends Component {
     const date = this.context.location.query.date;
 
     return (
-      <li className="app-ResourceListItem">
-        <Link className="app-ResourceListItem__image-link" to={getResourcePageUrl(resource, date)}>
+      <li className="app-ResourceCard">
+        <Link className="app-ResourceCard__image-link" to={getResourcePageUrl(resource, date)}>
           <BackgroundImage
             height={420}
             image={getMainImage(resource.images)}
             width={700}
           >
             <Label
-              className="app-ResourceListItem__peopleCapacity"
+              className="app-ResourceCard__peopleCapacity"
               shape="circle"
               size="medium"
               theme="orange"
@@ -38,20 +38,20 @@ class ResourceListItem extends Component {
               {resource.peopleCapacity}
               <FontAwesome name="users" />
             </Label>
-            <span className="app-ResourceListItem__hourly-price">
+            <span className="app-ResourceCard__hourly-price">
               {getHourlyPrice(t, resource)}
             </span>
           </BackgroundImage>
         </Link>
-        <div className="app-ResourceListItem__content">
+        <div className="app-ResourceCard__content">
           <Link to={getResourcePageUrl(resource, date)}>
             <h4>{resource.name}</h4>
           </Link>
-          <div className="app-ResourceListItem__unit-name">
+          <div className="app-ResourceCard__unit-name">
             <span>{unit.name}</span>
             {resource.type && <Label size="mini" theme="blue">{resource.type.name}</Label>}
           </div>
-          <div className="app-ResourceListItem__equipment">
+          <div className="app-ResourceCard__equipment">
             {resource.equipment.map(this.renderEquipment)}
           </div>
           <ResourceAvailability date={date} resource={resource} />
@@ -61,14 +61,14 @@ class ResourceListItem extends Component {
   }
 }
 
-ResourceListItem.propTypes = {
+ResourceCard.propTypes = {
   resource: PropTypes.object.isRequired,
   unit: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
 };
 
-ResourceListItem.contextTypes = {
+ResourceCard.contextTypes = {
   location: React.PropTypes.object,
 };
 
-export default injectT(ResourceListItem);
+export default injectT(ResourceCard);

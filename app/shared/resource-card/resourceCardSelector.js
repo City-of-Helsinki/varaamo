@@ -11,10 +11,10 @@ const unitSelector = createSelector(
   (units, resource) => units[resource.unit] || {}
 );
 
-const resourceListItemSelector = createStructuredSelector({
+const ResourceCardSelector = createStructuredSelector({
   isLoggedIn: isLoggedInSelector,
   resource: createResourceSelector(resourceIdSelector),
   unit: unitSelector,
 });
 
-export default resourceListItemSelector;
+export default ResourceCardSelector;
