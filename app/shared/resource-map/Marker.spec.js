@@ -2,7 +2,6 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import { Marker as LeafletMarker, Tooltip } from 'react-leaflet';
-import { browserHistory } from 'react-router';
 import simple from 'simple-mock';
 
 import Marker from './Marker';
@@ -12,29 +11,31 @@ function getWrapper(props) {
     latitude: 1,
     longitude: 2,
     resourceIds: ['123', '321'],
+    selectUnit: () => {},
+    unitId: 'unitid',
   };
   return shallow(<Marker {...defaults} {...props} />);
 }
 
 describe('shared/resource-map/Marker', () => {
   describe('handleClick', () => {
-    let browserHistoryMock;
+    let selectUnitMock;
 
     before(() => {
-      browserHistoryMock = simple.mock(browserHistory, 'push');
+      selectUnitMock = simple.mock();
     });
 
     after(() => {
       simple.restore();
     });
 
-    it('redirects to first resource page', () => {
-      getWrapper().instance().handleClick();
-      const actualPath = browserHistoryMock.lastCall.args[0];
-      const expectedPath = '/resources/123';
+    it('selects unit id', () => {
+      getWrapper({ selectUnit: selectUnitMock }).instance().handleClick();
+      const actualId = selectUnitMock.lastCall.args[0];
+      const expectedId = 'unitid';
 
-      expect(browserHistoryMock.callCount).to.equal(1);
-      expect(actualPath).to.equal(expectedPath);
+      expect(selectUnitMock.callCount).to.equal(1);
+      expect(actualId).to.equal(expectedId);
     });
   });
 

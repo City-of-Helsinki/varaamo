@@ -3,7 +3,7 @@ import keyBy from 'lodash/keyBy';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
-import { clearSearchResults, toggleMap } from 'actions/searchActions';
+import { clearSearchResults, selectUnit, toggleMap } from 'actions/searchActions';
 import types from 'constants/ActionTypes';
 import Resource from 'utils/fixtures/Resource';
 import searchReducer from './searchReducer';
@@ -40,6 +40,10 @@ describe('state/reducers/ui/searchReducer', () => {
 
     it('searchDone is false', () => {
       expect(initialState.searchDone).to.equal(false);
+    });
+
+    it('unitId is null', () => {
+      expect(initialState.unitId).to.equal(null);
     });
   });
 
@@ -192,6 +196,18 @@ describe('state/reducers/ui/searchReducer', () => {
         const nextState = searchReducer(initialState, action);
 
         expect(nextState.showMap).to.be.false;
+      });
+    });
+
+    describe('UI.SELECT_SEARCH_RESULTS_UNIT', () => {
+      it('Sets action payload content to unitId', () => {
+        const action = selectUnit('123');
+        const initialState = Immutable({
+          unitId: null,
+        });
+        const nextState = searchReducer(initialState, action);
+
+        expect(nextState.unitId).to.equal('123');
       });
     });
   });

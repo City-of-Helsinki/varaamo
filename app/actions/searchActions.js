@@ -14,6 +14,7 @@ import { getFetchParamsFromFilters } from 'utils/searchUtils';
 
 const clearSearchResults = createAction(types.UI.CLEAR_SEARCH_RESULTS);
 const toggleMap = createAction(types.UI.TOGGLE_SEARCH_SHOW_MAP);
+const selectUnit = createAction(types.UI.SELECT_SEARCH_RESULTS_UNIT);
 
 function getPiwikActionName(searchParams) {
   if (searchParams.search) {
@@ -65,5 +66,6 @@ export {
   clearSearchResults,
   getPiwikActionName,
   searchResources,
+  selectUnit,
   toggleMap,
 };

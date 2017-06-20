@@ -61,6 +61,7 @@ class UnconnectedSearchPage extends Component {
       params,
       searchResultIds,
       searchDone,
+      selectedUnitId,
       showMap,
       t,
     } = this.props;
@@ -69,6 +70,7 @@ class UnconnectedSearchPage extends Component {
       <PageWrapper className="app-SearchPage" fluid title={t('SearchPage.title')}>
         <ResourceMap
           resourceIds={searchResultIds}
+          selectedUnitId={selectedUnitId}
           showMap={showMap}
         />
         <div className="app-SearchPage__content">
@@ -101,6 +103,7 @@ UnconnectedSearchPage.propTypes = {
   params: PropTypes.object.isRequired,
   searchDone: PropTypes.bool.isRequired,
   searchResultIds: PropTypes.array.isRequired,
+  selectedUnitId: PropTypes.string,
   showMap: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
 };
