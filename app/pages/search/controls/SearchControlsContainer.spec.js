@@ -1,16 +1,16 @@
 import { expect } from 'chai';
+import { shallow } from 'enzyme';
 import moment from 'moment';
 import queryString from 'query-string';
 import React from 'react';
-import FormControl from 'react-bootstrap/lib/FormControl';
 import { browserHistory } from 'react-router';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import { shallowWithIntl } from 'utils/testUtils';
 import DatePickerControl from './DatePickerControl';
 import PeopleCapacityControl from './PeopleCapacityControl';
 import PurposeControl from './PurposeControl';
+import SearchBox from './SearchBox';
 import {
   UnconnectedSearchControlsContainer as SearchControlsContainer,
 } from './SearchControlsContainer';
@@ -37,19 +37,18 @@ describe('pages/search/controls/SearchControlsContainer', () => {
   };
 
   function getWrapper(props) {
-    return shallowWithIntl(<SearchControlsContainer {...defaultProps} {...props} />);
+    return shallow(<SearchControlsContainer {...defaultProps} {...props} />);
   }
 
   describe('render', () => {
-    it('renders FormControl for search query', () => {
-      const wrapper = getWrapper();
-      const formControl = wrapper.find(FormControl);
-      expect(formControl).to.have.length(1);
-      expect(formControl.prop('autoFocus')).to.equal(false);
-      expect(typeof formControl.prop('onChange')).to.equal('function');
-      expect(formControl.prop('onKeyUp')).to.equal(wrapper.instance().handleSearchInputChange);
-      expect(formControl.prop('type')).to.equal('text');
-      expect(formControl.prop('value')).to.equal(defaultProps.filters.search);
+    it('renders SearchBox with correct props', () => {
+      const filters = { ...defaultProps.filters, search: 'my search' };
+      const wrapper = getWrapper({ filters });
+      const searchBox = wrapper.find(SearchBox);
+      expect(searchBox).to.have.length(1);
+      expect(searchBox.prop('onChange')).to.be.a('function');
+      expect(searchBox.prop('onSearch')).to.equal(wrapper.instance().handleSearch);
+      expect(searchBox.prop('value')).to.equal(filters.search);
     });
 
     it('renders DatePickerControl with correct props', () => {

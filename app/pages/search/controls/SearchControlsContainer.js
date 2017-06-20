@@ -1,8 +1,6 @@
 import moment from 'moment';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
-import Button from 'react-bootstrap/lib/Button';
-import FormControl from 'react-bootstrap/lib/FormControl';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
@@ -10,10 +8,10 @@ import { bindActionCreators } from 'redux';
 import { fetchPurposes } from 'actions/purposeActions';
 import { changeSearchFilters } from 'actions/uiActions';
 import constants from 'constants/AppConstants';
-import { injectT } from 'i18n';
 import DatePickerControl from './DatePickerControl';
 import PeopleCapacityControl from './PeopleCapacityControl';
 import PurposeControl from './PurposeControl';
+import SearchBox from './SearchBox';
 import searchControlsSelector from './searchControlsSelector';
 
 class UnconnectedSearchControlsContainer extends Component {
@@ -71,18 +69,13 @@ class UnconnectedSearchControlsContainer extends Component {
       filters,
       isFetchingPurposes,
       purposeOptions,
-      t,
     } = this.props;
 
     return (
       <div className="app-SearchControlsContainer">
-        <FormControl
-          autoFocus={!filters.purpose}
-          className="app-SearchControlsContainer__search-box"
-          onChange={event => this.handleFiltersChange({ search: event.target.value })}
-          onKeyUp={this.handleSearchInputChange}
-          placeholder={t('SearchControls.searchPlaceholder')}
-          type="text"
+        <SearchBox
+          onChange={value => this.handleFiltersChange({ search: value })}
+          onSearch={this.handleSearch}
           value={filters.search}
         />
         <div className="app-SearchControlsContainer__filters">
@@ -101,14 +94,6 @@ class UnconnectedSearchControlsContainer extends Component {
             value={filters.purpose}
           />
         </div>
-        <Button
-          block
-          bsStyle="primary"
-          className="app-SearchControlsContainer__search-button"
-          onClick={() => this.handleSearch()}
-        >
-          {t('SearchControls.search')}
-        </Button>
       </div>
     );
   }
@@ -120,11 +105,8 @@ UnconnectedSearchControlsContainer.propTypes = {
   isFetchingPurposes: PropTypes.bool.isRequired,
   purposeOptions: PropTypes.array.isRequired,
   scrollToSearchResults: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired,
   urlSearchFilters: PropTypes.object.isRequired,
 };
-
-UnconnectedSearchControlsContainer = injectT(UnconnectedSearchControlsContainer);  // eslint-disable-line
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {

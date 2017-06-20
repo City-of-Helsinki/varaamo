@@ -1,14 +1,45 @@
 .app-SearchControlsContainer {
-  &__search-box {
+  .app-SearchBox {
+    $button-width: 100px;
+
+    position: relative;
     margin-top: 10px;
     margin-bottom: 30px;
-    border: none;
-    height: 80px;
-    line-height: 80px;
-    padding-left: 30px;
-    padding-right: 30px;
-    border-radius: 6px;
-    box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.2);
+
+    &__text-field {
+      border: none;
+      height: 80px;
+      line-height: 80px;
+      padding-left: 30px;
+      padding-right: $button-width;
+      border-radius: 6px;
+      box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    &__divider {
+      position: absolute;
+      right: $button-width;
+      top: 8px;
+      bottom: 8px;
+      width: 1px;
+      background: $gray-lighter;
+    }
+
+    &__button {
+      height: 80px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: $button-width;
+      border: none;
+      border-radius: 6px;
+      text-transform: uppercase;
+
+      &:hover {
+        background-color: transparent;
+        color: darken($brand-primary, 20%);
+      }
+    }
   }
 
   &__filters {
@@ -22,10 +53,6 @@
 
   .app-DatePickerControl {
     margin-left: 0;
-  }
-
-  &__search-button {
-    margin-bottom: 30px;
   }
 }
 
