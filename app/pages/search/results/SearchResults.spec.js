@@ -3,6 +3,7 @@ import React from 'react';
 import Loader from 'react-loader';
 import Immutable from 'seamless-immutable';
 
+import ResourceCompactList from 'shared/resource-compact-list';
 import ResourceList from 'shared/resource-list';
 import { shallowWithIntl } from 'utils/testUtils';
 import SearchResults from './SearchResults';
@@ -74,6 +75,19 @@ describe('pages/search/results/SearchResults', () => {
         const toggleButton = getWrapper({ showMap: true }).find('.map-toggle');
         expect(toggleButton).to.have.length(1);
         expect(toggleButton.text()).to.contain('SearchResults.showList');
+      });
+
+      describe('with selectedUnitId', () => {
+        it('renders a ResourceCompactList', () => {
+          const resourceCompactList = getWrapper({ showMap: true, selectedUnitId: '1' }).find(
+            ResourceCompactList
+          );
+          expect(resourceCompactList).to.have.length(1);
+          expect(resourceCompactList.prop('resourceIds')).to.deep.equal(
+            defaultProps.searchResultIds
+          );
+          expect(resourceCompactList.prop('unitId')).to.deep.equal('1');
+        });
       });
     });
   });
