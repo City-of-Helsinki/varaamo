@@ -4,14 +4,13 @@ import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 import React, { PropTypes } from 'react';
 import { Marker as LeafletMarker, Tooltip } from 'react-leaflet';
-import { browserHistory } from 'react-router';
 
-import { getResourcePageUrl } from 'utils/resourceUtils';
+import highlightedIconRetinaUrl from 'assets/map/highlighted-marker-icon-2x.png';
+import highlightedIconUrl from 'assets/map/highlighted-marker-icon.png';
 
 class Marker extends React.Component {
   handleClick = () => {
-    // It redirects to today
-    browserHistory.push(getResourcePageUrl({ id: this.props.resourceIds[0] }));
+    this.props.selectUnit(this.props.unitId);
   }
 
   render() {
@@ -27,9 +26,20 @@ class Marker extends React.Component {
       shadowUrl,
       tooltipAnchor: [16, -28],
     });
+
+    const highlightedIcon = L.icon({
+      iconAnchor: [12, 41],
+      iconRetinaUrl: highlightedIconRetinaUrl,
+      iconSize: [25, 41],
+      iconUrl: highlightedIconUrl,
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41],
+      shadowUrl,
+      tooltipAnchor: [16, -28],
+    });
     return (
       <LeafletMarker
-        icon={icon}
+        icon={this.props.highlighted ? highlightedIcon : icon}
         onClick={this.handleClick}
         position={[this.props.latitude, this.props.longitude]}
       >
@@ -45,6 +55,9 @@ Marker.propTypes = {
   latitude: PropTypes.number.isRequired,
   longitude: PropTypes.number.isRequired,
   resourceIds: PropTypes.array.isRequired,
+  unitId: PropTypes.string.isRequired,
+  highlighted: PropTypes.bool,
+  selectUnit: PropTypes.func.isRequired,
 };
 
 export default Marker;

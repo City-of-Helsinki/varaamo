@@ -3,7 +3,9 @@ import React, { PropTypes } from 'react';
 import { Map, TileLayer, ZoomControl } from 'react-leaflet';
 import { connect } from 'react-redux';
 import { geolocated, geoPropTypes } from 'react-geolocated';
+import { bindActionCreators } from 'redux';
 
+import { selectUnit } from 'actions/searchActions';
 import selector from './mapSelector';
 import Marker from './Marker';
 import UserMarker from './UserMarker';
@@ -13,6 +15,7 @@ const defaultZoom = 10;
 
 export class UnconnectedResourceMapContainer extends React.Component {
   static propTypes = {
+    actions: PropTypes.object.isRequired,
     markers: PropTypes.array,
     boundaries: PropTypes.shape({
       maxLatitude: PropTypes.number,
@@ -21,6 +24,7 @@ export class UnconnectedResourceMapContainer extends React.Component {
       minLongitude: PropTypes.number,
     }),
     showMap: PropTypes.bool.isRequired,
+    selectedUnitId: PropTypes.string,
     ...geoPropTypes,
   };
 
@@ -78,7 +82,12 @@ export class UnconnectedResourceMapContainer extends React.Component {
           />
           <ZoomControl position="bottomright" />
           {this.props.markers && this.props.markers.map(
-            marker => <Marker {...marker} key={marker.unitId} />
+            marker => <Marker
+              {...marker}
+              highlighted={this.props.selectedUnitId === marker.unitId}
+              key={marker.unitId}
+              selectUnit={this.props.actions.selectUnit}
+            />
           )}
           {this.props.coords &&
             <UserMarker
@@ -93,4 +102,12 @@ export class UnconnectedResourceMapContainer extends React.Component {
   }
 }
 
-export default connect(selector)(geolocated()(UnconnectedResourceMapContainer));
+function mapDispatchToProps(dispatch) {
+  const actionCreators = {
+    selectUnit,
+  };
+
+  return { actions: bindActionCreators(actionCreators, dispatch) };
+}
+
+export default connect(selector, mapDispatchToProps)(geolocated()(UnconnectedResourceMapContainer));

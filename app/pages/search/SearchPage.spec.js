@@ -28,6 +28,7 @@ describe('pages/search/SearchPage', () => {
     params: {},
     searchDone: true,
     searchResultIds: Immutable(['resource-1', 'resource-2']),
+    selectedUnitId: '123',
     showMap: false,
   };
 
@@ -49,6 +50,7 @@ describe('pages/search/SearchPage', () => {
       expect(resourceMap).to.have.length(1);
       expect(resourceMap.prop('showMap')).to.equal(false);
       expect(resourceMap.prop('resourceIds')).to.deep.equal(defaultProps.searchResultIds);
+      expect(resourceMap.prop('selectedUnitId')).to.equal(defaultProps.selectedUnitId);
     });
 
     it('passes showMap prop to ResourceMap', () => {
