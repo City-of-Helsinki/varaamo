@@ -37,4 +37,8 @@ describe('pages/search/searchPageSelector', () => {
   it('returns showMap', () => {
     expect(getSelected().showMap).to.exist;
   });
+
+  it('returns selectedUnitId', () => {
+    expect(getSelected().selectedUnitId).to.equal(null);
+  });
 });

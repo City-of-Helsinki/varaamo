@@ -11,6 +11,9 @@ import UserMarker from './UserMarker';
 describe('shared/resource-map/MapContainer', () => {
   function getWrapper(props) {
     const defaults = {
+      actions: {
+        selectUnit: () => {},
+      },
       markers: [],
       boundaries: {
         maxLatitude: 0,
@@ -19,6 +22,7 @@ describe('shared/resource-map/MapContainer', () => {
         minLongitude: 0,
       },
       showMap: true,
+      selectedUnitId: null,
     };
     return shallow(<MapContainer {...defaults} {...props} />);
   }
@@ -51,23 +55,42 @@ describe('shared/resource-map/MapContainer', () => {
   });
 
   it('renders Marker', () => {
-    const markers = [{ unitId: 1, longitude: 1, latitude: 1, resourceIds: ['a'] }];
+    const markers = [{ unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a'] }];
     const element = getWrapper({ markers }).find(Marker);
     expect(element).to.have.length(1);
-    expect(element.props()).to.deep.equal(markers[0]);
+    expect(element.props()).to.include(markers[0]);
   });
 
   it('renders Marker many markers', () => {
     const markers = [
-      { unitId: 1, longitude: 1, latitude: 1, resourceIds: ['a'] },
-      { unitId: 2, longitude: 2, latitude: 2, resourceIds: ['b'] },
-      { unitId: 3, longitude: 1.5, latitude: 1.5, resourceIds: ['c', 'd'] },
+      { unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a'] },
+      { unitId: '2', longitude: 2, latitude: 2, resourceIds: ['b'] },
+      { unitId: '3', longitude: 1.5, latitude: 1.5, resourceIds: ['c', 'd'] },
     ];
     const element = getWrapper({ markers }).find(Marker);
     expect(element).to.have.length(3);
-    expect(element.at(0).props()).to.deep.equal(markers[0]);
-    expect(element.at(1).props()).to.deep.equal(markers[1]);
-    expect(element.at(2).props()).to.deep.equal(markers[2]);
+    expect(element.at(0).props()).to.include(markers[0]);
+    expect(element.at(1).props()).to.include(markers[1]);
+    expect(element.at(2).props()).to.include(markers[2]);
+  });
+
+  it('passes highlighted prop to Marker if unit is selected', () => {
+    const markers = [
+      { unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a'] },
+      { unitId: '2', longitude: 2, latitude: 2, resourceIds: ['b'] },
+    ];
+    const element = getWrapper({ markers, selectedUnitId: '1' }).find(Marker);
+    expect(element).to.have.length(2);
+    expect(element.at(0).prop('highlighted')).to.be.true;
+    expect(element.at(1).prop('highlighted')).to.be.false;
+  });
+
+  it('renders Marker', () => {
+    const selectUnit = () => {};
+    const markers = [{ unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a'] }];
+    const element = getWrapper({ markers, actions: { selectUnit } }).find(Marker);
+    expect(element).to.have.length(1);
+    expect(element.prop('selectUnit')).to.equal(selectUnit);
   });
 
   it('does not render an userMarker', () => {
