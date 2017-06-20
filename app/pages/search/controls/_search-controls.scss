@@ -43,6 +43,8 @@
   }
 
   &__filters {
+    overflow-y: hidden;
+    white-space: nowrap;
     margin-bottom: 30px;
   }
 
