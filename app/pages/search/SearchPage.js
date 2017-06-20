@@ -85,6 +85,7 @@ class UnconnectedSearchPage extends Component {
               onToggleMap={actions.toggleMap}
               ref="searchResults"
               searchResultIds={searchResultIds}
+              selectedUnitId={selectedUnitId}
               showMap={showMap}
             />
           }
