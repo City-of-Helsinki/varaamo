@@ -45,10 +45,8 @@ describe('shared/resource-card/ResourceCard', () => {
     return shallowWithIntl(<ResourceCard {...defaultProps} {...extraProps} />, context);
   }
 
-  it('renders an li element', () => {
-    const li = getWrapper().find('li');
-
-    expect(li.length).to.equal(1);
+  it('renders an div element', () => {
+    expect(getWrapper().is('div')).to.be.true;
   });
 
   describe('backgroundImage', () => {
