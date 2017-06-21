@@ -3,9 +3,8 @@ import React, { PropTypes } from 'react';
 import { Map, TileLayer, ZoomControl } from 'react-leaflet';
 import { connect } from 'react-redux';
 import { geolocated, geoPropTypes } from 'react-geolocated';
-import { bindActionCreators } from 'redux';
 
-import { selectUnit } from 'actions/searchActions';
+import { searchMapClick, selectUnit } from 'actions/searchActions';
 import selector from './mapSelector';
 import Marker from './Marker';
 import UserMarker from './UserMarker';
@@ -15,7 +14,6 @@ const defaultZoom = 10;
 
 export class UnconnectedResourceMapContainer extends React.Component {
   static propTypes = {
-    actions: PropTypes.object.isRequired,
     markers: PropTypes.array,
     boundaries: PropTypes.shape({
       maxLatitude: PropTypes.number,
@@ -23,8 +21,10 @@ export class UnconnectedResourceMapContainer extends React.Component {
       maxLongitude: PropTypes.number,
       minLongitude: PropTypes.number,
     }),
-    showMap: PropTypes.bool.isRequired,
+    searchMapClick: PropTypes.func.isRequired,
     selectedUnitId: PropTypes.string,
+    selectUnit: PropTypes.func.isRequired,
+    showMap: PropTypes.bool.isRequired,
     ...geoPropTypes,
   };
 
@@ -72,6 +72,7 @@ export class UnconnectedResourceMapContainer extends React.Component {
         <Map
           center={center}
           className="app-ResourceMap__map"
+          onClick={this.props.searchMapClick}
           ref={this.onMapRef}
           zoom={defaultZoom}
           zoomControl={false}
@@ -86,7 +87,7 @@ export class UnconnectedResourceMapContainer extends React.Component {
               {...marker}
               highlighted={this.props.selectedUnitId === marker.unitId}
               key={marker.unitId}
-              selectUnit={this.props.actions.selectUnit}
+              selectUnit={this.props.selectUnit}
             />
           )}
           {this.props.coords &&
@@ -102,12 +103,9 @@ export class UnconnectedResourceMapContainer extends React.Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  const actionCreators = {
-    selectUnit,
-  };
+const actions = {
+  selectUnit,
+  searchMapClick,
+};
 
-  return { actions: bindActionCreators(actionCreators, dispatch) };
-}
-
-export default connect(selector, mapDispatchToProps)(geolocated()(UnconnectedResourceMapContainer));
+export default connect(selector, actions)(geolocated()(UnconnectedResourceMapContainer));

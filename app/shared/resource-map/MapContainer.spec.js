@@ -11,9 +11,6 @@ import UserMarker from './UserMarker';
 describe('shared/resource-map/MapContainer', () => {
   function getWrapper(props) {
     const defaults = {
-      actions: {
-        selectUnit: () => {},
-      },
       markers: [],
       boundaries: {
         maxLatitude: 0,
@@ -21,8 +18,10 @@ describe('shared/resource-map/MapContainer', () => {
         maxLongitude: 0,
         minLongitude: 0,
       },
-      showMap: true,
+      searchMapClick: () => {},
       selectedUnitId: null,
+      selectUnit: () => {},
+      showMap: true,
     };
     return shallow(<MapContainer {...defaults} {...props} />);
   }
@@ -46,6 +45,12 @@ describe('shared/resource-map/MapContainer', () => {
     const defaultPosition = [60.372465778991284, 24.818115234375004];
     const map = getWrapper().find(Map);
     expect(map.prop('center')).to.deep.equal(defaultPosition);
+  });
+
+  it('Map gets correct onClick prop', () => {
+    const searchMapClick = () => {};
+    const map = getWrapper({ searchMapClick }).find(Map);
+    expect(map.prop('onClick')).to.equal(searchMapClick);
   });
 
   it('does not render Marker if no markers', () => {
@@ -88,7 +93,7 @@ describe('shared/resource-map/MapContainer', () => {
   it('renders Marker', () => {
     const selectUnit = () => {};
     const markers = [{ unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a'] }];
-    const element = getWrapper({ markers, actions: { selectUnit } }).find(Marker);
+    const element = getWrapper({ markers, selectUnit }).find(Marker);
     expect(element).to.have.length(1);
     expect(element.prop('selectUnit')).to.equal(selectUnit);
   });
