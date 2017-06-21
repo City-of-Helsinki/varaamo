@@ -23,9 +23,8 @@ describe('shared/resource-list/ResourceList', () => {
       wrapper = getWrapper();
     });
 
-    it('renders a list', () => {
-      const list = wrapper.find('ul');
-      expect(list.length).to.equal(1);
+    it('renders a div', () => {
+      expect(wrapper.is('div')).to.be.true;
     });
 
     it('does not render the empty message', () => {

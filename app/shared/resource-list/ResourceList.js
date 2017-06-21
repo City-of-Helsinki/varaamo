@@ -12,9 +12,9 @@ function ResourceList({ emptyMessage, resourceIds }) {
   }
 
   return (
-    <ul className="resource-list">
+    <div className="resource-list">
       {resourceIds.map(renderResourceListItem)}
-    </ul>
+    </div>
   );
 }
 
