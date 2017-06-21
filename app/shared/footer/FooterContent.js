@@ -33,6 +33,7 @@ function FooterContent({ t }) {
       return (
         <div>
           <Link className="brand-link" to="/">
+            <Logo />
             Varaamo
           </Link>
           <p>{t('Footer.helsinkiText')} {feedbackLink}</p>
