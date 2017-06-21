@@ -4,19 +4,20 @@ footer {
   z-index: $max-map-z-index + 1;
   margin-bottom: 20px;
   text-align: center;
+  font-size: 12px;
 
   .brand-link {
     display: block;
     color: #fff;
-    font-size: 30px;
-    line-height: 80px;
-    margin-bottom: 30px;
+    font-size: 25px;
+    line-height: 50px;
+    font-weight: bold;
 
     img {
-      display: inline-block;
+      display: block;
+      margin: 0 auto;
       vertical-align: top;
-      height: 80px;
-      margin-right: 20px;
+      height: 50px;
     }
   }
 
