@@ -44,6 +44,10 @@ function searchReducer(state = initialState, action) {
       return state.merge({ unitId: action.payload });
     }
 
+    case types.UI.SEARCH_MAP_CLICK: {
+      return state.merge({ unitId: null });
+    }
+
     default: {
       return state;
     }
