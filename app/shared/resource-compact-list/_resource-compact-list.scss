@@ -1,0 +1,30 @@
+
+
+.app-ResourceCompactList {
+  $button-size: 50px;
+  $button-offset: -20px;
+  position: relative;
+  &_arrow {
+    position: absolute;
+    border-radius: 50%;
+    top: $app-ResourceCard-height / 2 - $button-size / 2;
+    width: $button-size;
+    height: $button-size;
+    background-color: white;
+    border: none;
+    box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    color: $brand-primary;
+
+    &-left {
+      left: $button-offset;
+    }
+
+    &-right {
+      right: $button-offset;
+    }
+  }
+  .app-ResourceCard {
+    margin: 0;
+  }
+}
