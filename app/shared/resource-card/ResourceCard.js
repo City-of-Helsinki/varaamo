@@ -22,7 +22,7 @@ class ResourceCard extends Component {
     const date = this.context.location.query.date;
 
     return (
-      <li className="app-ResourceCard">
+      <div className="app-ResourceCard">
         <Link className="app-ResourceCard__image-link" to={getResourcePageUrl(resource, date)}>
           <BackgroundImage
             height={420}
@@ -56,7 +56,7 @@ class ResourceCard extends Component {
           </div>
           <ResourceAvailability date={date} resource={resource} />
         </div>
-      </li>
+      </div>
     );
   }
 }
