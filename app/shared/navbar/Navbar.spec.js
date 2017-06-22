@@ -43,8 +43,10 @@ describe('shared/navbar/Navbar', () => {
       const currentLanguage = 'fi';
       const navItems = getLanguageNavWrapper({ currentLanguage }).find(NavItem);
       expect(navItems).to.have.length(2);
-      expect(navItems.at(0).prop('children')).to.equal('EN');
-      expect(navItems.at(1).prop('children')).to.equal('SV');
+      expect(navItems.at(0).prop('eventKey')).to.equal('en');
+      expect(navItems.at(0).find('img')).to.have.length(1);
+      expect(navItems.at(1).prop('eventKey')).to.equal('sv');
+      expect(navItems.at(1).find('img')).to.have.length(1);
     });
   });
 
@@ -58,13 +60,8 @@ describe('shared/navbar/Navbar', () => {
       return getWrapper(props);
     }
 
-    it('renders a header for logged in user', () => {
-      const header = getLoggedInNotAdminWrapper().find('header');
-      expect(header).to.have.length(1);
-    });
-
-    it('header has the name of the logged in user in a h4 tag', () => {
-      const actual = getLoggedInNotAdminWrapper().find('header').find('h4');
+    it('renders a h4 with the name of the logged in user', () => {
+      const actual = getLoggedInNotAdminWrapper().find('h4');
       expect(actual.text()).to.equal(props.userName);
     });
 
@@ -84,7 +81,7 @@ describe('shared/navbar/Navbar', () => {
       const logoutHref = `/logout?next=${window.location.origin}`;
       const logoutLink = (
         getLoggedInNotAdminWrapper()
-        .find('a')
+        .find(NavItem)
         .filter({ href: logoutHref })
       );
       expect(logoutLink).to.have.length(1);
@@ -122,9 +119,9 @@ describe('shared/navbar/Navbar', () => {
       return getWrapper(props);
     }
 
-    it('does not render a header for logged in user', () => {
-      const header = getNotLoggedInWrapper().find('header');
-      expect(header).to.have.length(0);
+    it('renders a h4 with the header message', () => {
+      const actual = getNotLoggedInWrapper().find('h2');
+      expect(actual.text()).to.equal('Navbar.header');
     });
 
     it('renders a link to login page', () => {
@@ -135,7 +132,7 @@ describe('shared/navbar/Navbar', () => {
 
     it('does not render a logout link', () => {
       const logoutHref = `/logout?next=${window.location.origin}`;
-      const logoutLink = getNotLoggedInWrapper().find('a').filter({ href: logoutHref });
+      const logoutLink = getNotLoggedInWrapper().find(NavItem).filter({ href: logoutHref });
       expect(logoutLink).to.have.length(0);
     });
 

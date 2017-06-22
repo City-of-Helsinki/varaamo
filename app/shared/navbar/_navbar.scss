@@ -11,13 +11,19 @@
   }
 
   .nav.nav-stacked {
-    margin-top: 20px;
+    margin-top: 50px;
+    text-align: center;
     li {
+      margin: 0 30px;
+      padding: 10px 0;
+      border-bottom: 1px solid lighten($brand-primary, 6);
       a {
         padding-left: 0;
         padding-right: 0;
       }
-      border-bottom: 1px solid $white;
+      &:first-of-type {
+        border-top: 1px solid lighten($brand-primary, 6);
+      }
     }
   }
 
@@ -25,15 +31,13 @@
     li {
       position: relative;
       display: inline-block;
-    }
-    li + li:before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 30%;
-      bottom: 30%;
-      width: 1px;
-      background-color: #eee;
+      a {
+        padding-left: 0;
+        padding-right: 10px;
+      }
+      img {
+        height: 25px;
+      }
     }
   }
 }
