@@ -23,11 +23,33 @@ class SideNavbar extends Component {
     this.setState({ open });
   }
 
-  renderSidebarContent() {
+  renderCloseBar() {
+    return (
+      <a
+        className="app-SideNavbar__close-bar"
+        onClick={this.onToggleSideBar}
+        role="button"
+        tabIndex="-1"
+      >
+        <span>{this.props.t('SideNavbar.close')}</span>
+      </a>
+    );
+  }
+
+  renderContent() {
     return (
       <div className="app-SideNavbar__content">
         <Navbar />
         <Footer />
+      </div>
+    );
+  }
+
+  renderSidebarContent() {
+    return (
+      <div className="app-SideNavbar__sidebar-content">
+        {this.renderCloseBar()}
+        {this.renderContent()}
       </div>
     );
   }

@@ -1,9 +1,30 @@
 .app-SideNavbar {
+  &__close-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $white;
+    width: 25px;
+    &:hover, &:focus {
+      color: $white;
+      text-decoration: none;
+    }
+    span {
+      transform: rotate(-90deg);
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 14px;
+    }
+  }
+  &__sidebar-content {
+    display: flex;
+  }
   &__content {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100vh;
+    overflow-y: scroll;
     padding: 0 20px 10px 20px;
   }
 
