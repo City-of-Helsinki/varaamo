@@ -1,13 +1,13 @@
 import { expect } from 'chai';
+import { shallow } from 'enzyme';
 import React from 'react';
 import Loader from 'react-loader';
 import Immutable from 'seamless-immutable';
 
 import ResourceCompactList from 'shared/resource-compact-list';
 import ResourceList from 'shared/resource-list';
-import { shallowWithIntl } from 'utils/testUtils';
 import SearchResults from './SearchResults';
-import ResultsCount from './ResultsCount';
+import MapToggle from './MapToggle';
 
 describe('pages/search/results/SearchResults', () => {
   const defaultProps = {
@@ -18,7 +18,7 @@ describe('pages/search/results/SearchResults', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallowWithIntl(<SearchResults {...defaultProps} {...extraProps} />);
+    return shallow(<SearchResults {...defaultProps} {...extraProps} />);
   }
 
   describe('rendering', () => {
@@ -39,9 +39,14 @@ describe('pages/search/results/SearchResults', () => {
       });
     });
 
-    it('renders a button to toggle the map', () => {
-      const button = getWrapper().find('button.map-toggle');
-      expect(button.props().onClick).to.deep.equal(defaultProps.onToggleMap);
+    it('renders a MapToggle component with correct props', () => {
+      const mapToggle = getWrapper().find(MapToggle);
+      expect(mapToggle).to.have.length(1);
+      expect(mapToggle.props()).to.deep.equal({
+        mapVisible: defaultProps.showMap,
+        onClick: defaultProps.onToggleMap,
+        resultsCount: defaultProps.searchResultIds.length,
+      });
     });
 
     it('renders ResourceList with correct props', () => {
@@ -50,31 +55,10 @@ describe('pages/search/results/SearchResults', () => {
       expect(resourceList.props().resourceIds).to.deep.equal(defaultProps.searchResultIds);
     });
 
-    it('renders a ResultsCount component with correct props', () => {
-      const resultsCount = getWrapper().find(ResultsCount);
-      expect(resultsCount).to.have.length(1);
-      expect(resultsCount.props()).to.deep.equal({
-        resultIds: defaultProps.searchResultIds,
-        emptyMessage: 'SearchResults.emptyMessage',
-      });
-    });
-
-    it('renders a show map text in map toggle button', () => {
-      const toggleButton = getWrapper().find('.map-toggle');
-      expect(toggleButton).to.have.length(1);
-      expect(toggleButton.text()).to.contain('SearchResults.showMap');
-    });
-
     describe('with showMap', () => {
       it('does not render ResourceList', () => {
         const resourceList = getWrapper({ showMap: true }).find(ResourceList);
         expect(resourceList).to.have.length(0);
-      });
-
-      it('renders a show list text in map toggle button', () => {
-        const toggleButton = getWrapper({ showMap: true }).find('.map-toggle');
-        expect(toggleButton).to.have.length(1);
-        expect(toggleButton.text()).to.contain('SearchResults.showList');
       });
 
       describe('with selectedUnitId', () => {
