@@ -48,41 +48,43 @@ function Navbar(props) {
           />
         </NavItem>}
       </Nav>
-      <Nav id="main-nav" stacked>
+      <div className="main-nav">
         {isLoggedIn ?
           <h4>{userName}</h4> :
             <h2>{t('Navbar.header')}</h2>
         }
-        {isLoggedIn && (
-          <NavItem href={`/logout?next=${window.location.origin}`}>
-              {t('Navbar.logout')}
-          </NavItem>
-        )}
-        {!isLoggedIn && (
-          <NavItem onClick={handleLoginClick}>
-            {t('Navbar.login')}
-          </NavItem>
-        )}
-        <LinkContainer to={getSearchPageUrl()}>
-          <NavItem onClick={clearSearchResults}>
-            <Glyphicon glyph="search" /> {t('Navbar.search')}
-          </NavItem>
-        </LinkContainer>
-        {isAdmin && (
-          <LinkContainer to="/admin-resources">
-            <NavItem>
-              {t('Navbar.adminResources')}
+        <Nav id="main-nav" stacked>
+          {isLoggedIn && (
+            <NavItem href={`/logout?next=${window.location.origin}`}>
+                {t('Navbar.logout')}
+            </NavItem>
+          )}
+          {!isLoggedIn && (
+            <NavItem onClick={handleLoginClick}>
+              {t('Navbar.login')}
+            </NavItem>
+          )}
+          <LinkContainer to={getSearchPageUrl()}>
+            <NavItem onClick={clearSearchResults}>
+              <Glyphicon glyph="search" /> {t('Navbar.search')}
             </NavItem>
           </LinkContainer>
-        )}
-        {isLoggedIn && (
-          <LinkContainer to="/my-reservations">
-            <NavItem>
-              {t('Navbar.userResources')}
-            </NavItem>
-          </LinkContainer>
-        )}
-      </Nav>
+          {isAdmin && (
+            <LinkContainer to="/admin-resources">
+              <NavItem>
+                {t('Navbar.adminResources')}
+              </NavItem>
+            </LinkContainer>
+          )}
+          {isLoggedIn && (
+            <LinkContainer to="/my-reservations">
+              <NavItem>
+                {t('Navbar.userResources')}
+              </NavItem>
+            </LinkContainer>
+          )}
+        </Nav>
+      </div>
     </div>
   );
 }
