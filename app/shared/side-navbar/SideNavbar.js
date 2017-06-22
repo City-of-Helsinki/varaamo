@@ -1,13 +1,16 @@
+import classnames from 'classnames';
 import React, { Component, PropTypes } from 'react';
-import FontAwesome from 'react-fontawesome';
 
+import { injectT } from 'i18n';
 import Footer from 'shared/footer';
 import Navbar from 'shared/navbar';
 import Sidebar from 'shared/sidebar';
 
-export default class SideNavbar extends Component {
+class SideNavbar extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
+    initials: PropTypes.string,
+    t: PropTypes.func.isRequired,
   };
 
   state = { open: false };
@@ -39,15 +42,20 @@ export default class SideNavbar extends Component {
         sidebar={this.renderSidebarContent()}
       >
         <a
-          className="app-SideNavbar__toggle"
+          className={classnames(
+            'app-SideNavbar__toggle',
+            { 'app-SideNavbar__initials': this.props.initials }
+          )}
           onClick={this.onToggleSideBar}
           role="button"
           tabIndex="0"
         >
-          <FontAwesome name="bars" />
+          {this.props.initials || this.props.t('SideNavbar.toggle')}
         </a>
         {this.props.children}
       </Sidebar>
     );
   }
 }
+
+export default injectT(SideNavbar);

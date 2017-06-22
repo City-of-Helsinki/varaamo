@@ -10,9 +10,12 @@
     text-transform: uppercase;
   }
 
-  .nav.nav-stacked {
-    margin-top: 50px;
+  .main-nav {
+    margin-top: 60px;
     text-align: center;
+  }
+
+  .nav.nav-stacked {
     li {
       margin: 0 30px;
       padding: 10px 0;

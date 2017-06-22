@@ -1,3 +1,3 @@
-import SideNavbar from './SideNavbar';
+import SideNavbarContainer from './SideNavbarContainer';
 
-export default SideNavbar;
+export default SideNavbarContainer;
