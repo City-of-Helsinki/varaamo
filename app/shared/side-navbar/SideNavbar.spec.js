@@ -32,10 +32,17 @@ describe('shared/side-navbar/SideNavbar', () => {
 
   it('renders sidebar content', () => {
     const sidebarContentWrapper = shallow(getWrapper().prop('sidebar'));
-    expect(sidebarContentWrapper.prop('className')).to.equal('app-SideNavbar__content');
+    expect(sidebarContentWrapper.prop('className')).to.equal('app-SideNavbar__sidebar-content');
     expect(sidebarContentWrapper.find(Navbar)).to.have.length(1);
     expect(sidebarContentWrapper.find(Footer)).to.have.length(1);
   });
+
+  it('renders sidebar close bar with correct text', () => {
+    const sidebarContentWrapper = shallow(getWrapper().prop('sidebar'));
+    const closeBar = sidebarContentWrapper.find('.app-SideNavbar__close-bar');
+    expect(closeBar.find({ children: 'SideNavbar.close' })).to.have.length(1);
+  });
+
 
   it('has a toggle', () => {
     const wrapper = getWrapper();
