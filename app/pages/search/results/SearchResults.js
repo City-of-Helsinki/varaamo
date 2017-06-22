@@ -4,9 +4,8 @@ import Loader from 'react-loader';
 
 import ResourceCompactList from 'shared/resource-compact-list';
 import ResourceList from 'shared/resource-list';
-import { injectT } from 'i18n';
 import { scrollTo } from 'utils/domUtils';
-import ResultsCount from './ResultsCount';
+import MapToggle from './MapToggle';
 
 class SearchResults extends Component {
   componentDidMount() {
@@ -20,21 +19,15 @@ class SearchResults extends Component {
       searchResultIds,
       selectedUnitId,
       showMap,
-      t,
     } = this.props;
     return (
-      <div id="search-results">
+      <div className="app-SearchResults" id="search-results">
         <Loader loaded={!isFetching}>
-          <button
-            className="map-toggle btn-primary btn"
+          <MapToggle
+            mapVisible={showMap}
             onClick={onToggleMap}
-          >
-            <ResultsCount
-              emptyMessage={t('SearchResults.emptyMessage')}
-              resultIds={searchResultIds}
-            />
-            {showMap ? t('SearchResults.showList') : t('SearchResults.showMap')}
-          </button>
+            resultsCount={searchResultIds.length || 0}
+          />
           {!showMap &&
             <ResourceList
               resourceIds={searchResultIds}
@@ -58,7 +51,6 @@ SearchResults.propTypes = {
   searchResultIds: PropTypes.array.isRequired,
   selectedUnitId: PropTypes.string,
   showMap: PropTypes.bool.isRequired,
-  t: PropTypes.func.isRequired,
 };
 
-export default injectT(SearchResults);
+export default SearchResults;
