@@ -6,7 +6,7 @@ import * as customizationUtils from 'utils/customizationUtils';
 import { shallowWithIntl } from 'utils/testUtils';
 import Logo from './Logo';
 import espooLogoSrc from './espoo-logo.png';
-import helsinkiLogoSrc from './helsinki-coat-of-arms-white.png';
+import helsinkiLogoSrc from './helsinki-logo-white.png';
 
 describe('shared/logo/Logo', () => {
   function getWrapper() {

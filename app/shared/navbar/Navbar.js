@@ -4,9 +4,11 @@ import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import { LinkContainer } from 'react-router-bootstrap';
 
+import finlandFlagSrc from 'assets/flags/fi.svg';
+import swedenFlagSrc from 'assets/flags/sv.svg';
+import englandFlagSrc from 'assets/flags/gb.svg';
 import { injectT } from 'i18n';
 import { getSearchPageUrl } from 'utils/searchUtils';
-import Label from 'shared/label';
 
 export function handleLoginClick() {
   const next = encodeURIComponent(window.location.href);
@@ -26,22 +28,41 @@ function Navbar(props) {
 
   return (
     <div className="app-Navbar">
-      {isLoggedIn && (
-        <header>
-          <h4>{userName}</h4>
-          <a href={`/logout?next=${window.location.origin}`}>
-            <Label
-              className="app-Navbar__logout-button"
-              shape="rounded"
-              size="small"
-              theme="inverse"
-            >
+      <Nav id="language-nav" onSelect={changeLocale}>
+        {currentLanguage !== 'en' && <NavItem eventKey="en">
+          <img
+            alt={t('Navbar.language-english')}
+            src={englandFlagSrc}
+          />
+        </NavItem>}
+        {currentLanguage !== 'fi' && <NavItem eventKey="fi">
+          <img
+            alt={t('Navbar.language-finnish')}
+            src={finlandFlagSrc}
+          />
+        </NavItem>}
+        {currentLanguage !== 'sv' && <NavItem eventKey="sv">
+          <img
+            alt={t('Navbar.language-swedish')}
+            src={swedenFlagSrc}
+          />
+        </NavItem>}
+      </Nav>
+      <Nav id="main-nav" stacked>
+        {isLoggedIn ?
+          <h4>{userName}</h4> :
+            <h2>{t('Navbar.header')}</h2>
+        }
+        {isLoggedIn && (
+          <NavItem href={`/logout?next=${window.location.origin}`}>
               {t('Navbar.logout')}
-            </Label>
-          </a>
-        </header>
-      )}
-      <Nav stacked>
+          </NavItem>
+        )}
+        {!isLoggedIn && (
+          <NavItem onClick={handleLoginClick}>
+            {t('Navbar.login')}
+          </NavItem>
+        )}
         <LinkContainer to={getSearchPageUrl()}>
           <NavItem onClick={clearSearchResults}>
             <Glyphicon glyph="search" /> {t('Navbar.search')}
@@ -61,18 +82,6 @@ function Navbar(props) {
             </NavItem>
           </LinkContainer>
         )}
-        {!isLoggedIn && (
-          <NavItem onClick={handleLoginClick}>
-            {t('Navbar.login')}
-          </NavItem>
-        )}
-      </Nav>
-
-      {/* Language nav is placed here so it is in the bottom in the navbar on mobile */}
-      <Nav id="language-nav" onSelect={changeLocale}>
-        {currentLanguage !== 'en' && <NavItem eventKey="en">EN</NavItem>}
-        {currentLanguage !== 'fi' && <NavItem eventKey="fi">FI</NavItem>}
-        {currentLanguage !== 'sv' && <NavItem eventKey="sv">SV</NavItem>}
       </Nav>
     </div>
   );
