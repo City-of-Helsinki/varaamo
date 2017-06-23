@@ -1,3 +1,7 @@
+$carousel-image-min-height: 260px;
+$carousel-image-mid-height: 350px;
+$carousel-image-max-height: 420px;
+
 @import './reservation-calendar/reservation-calendar';
 @import './reservation-calendar/time-slots/time-slots';
 @import './resource-info/image-carousel';
