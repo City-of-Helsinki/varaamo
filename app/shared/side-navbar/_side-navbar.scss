@@ -33,17 +33,17 @@
   }
 
   &__toggle {
-    $toggle-size: 70px;
-    width: $toggle-size;
-    height: $toggle-size;
+    width: $app-SideNavbar-toggle-width;
+    height: $app-SideNavbar-toggle-width;
     position: fixed;
     background-color: $brand-primary;
-    right: 10px;
-    top: 10px;
+    right: 0;
+    top: 0;
+    margin: $app-SideNavbar-toggle-margin;
     z-index: 20002;
     font-size: 30px;
     text-align: center;
-    line-height: $toggle-size;
+    line-height: $app-SideNavbar-toggle-width;
     color: $white;
     border-radius: 50%;
     text-transform: uppercase;
