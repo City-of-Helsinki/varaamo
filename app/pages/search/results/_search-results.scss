@@ -15,6 +15,7 @@
     }
 
     &:hover, &:focus, &:active {
+      outline: none;
       background-color: $white;
     }
   }
