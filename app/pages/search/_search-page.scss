@@ -2,9 +2,7 @@
 @import './results/search-results';
 
 .app-SearchPage {
-  @media (min-width: $screen-md-max) {
-    padding: 30px;
-  }
+  padding: $app-SearchPage-margin 0;
 
   &__overlay {
     z-index: 5;
