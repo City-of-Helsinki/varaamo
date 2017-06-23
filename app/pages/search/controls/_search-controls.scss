@@ -5,6 +5,8 @@
     position: relative;
     margin-top: 10px;
     margin-bottom: 30px;
+    width: calc(100vw - #{$app-SideNavbar-toggle-size} - #{$grid-gutter-width / 2 });
+    max-width: $app-SearchPage-max-width;
 
     &__text-field {
       border: none;

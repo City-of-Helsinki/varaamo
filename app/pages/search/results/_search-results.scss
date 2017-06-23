@@ -25,6 +25,6 @@
     bottom: 0;
     margin: 0;
     width: calc(100% - 30px);
-    max-width: 800px;
+    max-width: $app-SearchPage-max-width;
   }
 }
