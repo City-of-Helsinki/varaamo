@@ -1,41 +1,56 @@
 .app-SearchControlsContainer {
   .app-SearchBox {
-    $button-width: 100px;
+    $button-width-sm: 60px;
+    $button-width-lg: 100px;
+    $search-box-height: $app-SideNavbar-toggle-width;
 
     position: relative;
-    margin-top: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     width: calc(100vw - #{$app-SideNavbar-toggle-size} - #{$grid-gutter-width / 2 });
     max-width: $app-SearchPage-max-width;
 
     &__text-field {
       border: none;
-      height: 80px;
-      line-height: 80px;
+      height: $search-box-height;
+      line-height: $search-box-height;
       padding-left: 30px;
-      padding-right: $button-width;
+      padding-left: 10px;
+      padding-right: $button-width-sm;
       border-radius: 6px;
       box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.2);
+
+      @media (min-width: $screen-md-max) {
+        padding-left: 30px;
+        padding-right: $button-width-lg;
+      }
     }
 
     &__divider {
       position: absolute;
-      right: $button-width;
+      right: $button-width-sm;
       top: 8px;
       bottom: 8px;
       width: 1px;
       background: $gray-lighter;
+
+      @media (min-width: $screen-md-max) {
+        right: $button-width-lg;
+      }
     }
 
     &__button {
-      height: 80px;
+      height: $search-box-height;
       position: absolute;
       right: 0;
       top: 0;
-      width: $button-width;
+      width: $button-width-sm;
       border: none;
       border-radius: 6px;
       text-transform: uppercase;
+
+      @media (min-width: $screen-md-max) {
+        width: $button-width-lg;
+      }
 
       &:hover {
         background-color: transparent;
@@ -47,7 +62,7 @@
   &__filters {
     overflow-y: hidden;
     white-space: nowrap;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 
   .app-PeopleCapacityControl, .app-PurposeControl, .app-DatePickerControl {
