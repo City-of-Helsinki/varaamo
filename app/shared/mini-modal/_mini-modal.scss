@@ -45,6 +45,15 @@
   &__modal {
     width: 400px;
 
+    @media (max-width: $screen-xs-min) {
+      margin: 0;
+      width: 100vw;
+    }
+
+    @media (min-width: $screen-xs-min) {
+      margin: 30px auto;
+    }
+
     &-header {
       background-color: $medium-gray;
       color: $white;
