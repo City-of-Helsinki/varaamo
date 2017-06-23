@@ -54,6 +54,7 @@
     &:hover, &:focus {
       color: $white;
       text-decoration: none;
+      outline: none;
     }
   }
   &__initials {

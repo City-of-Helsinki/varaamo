@@ -1,4 +1,7 @@
 .app-MiniModal {
+  .btn:hover, .btn:focus {
+    outline: none;
+  }
 
   // Show modal button
   // -----------------
