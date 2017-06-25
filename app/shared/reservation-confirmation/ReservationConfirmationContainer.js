@@ -11,13 +11,23 @@ import ConfirmReservationModal from './ConfirmReservationModal';
 import reservationConfirmationSelector from './reservationConfirmationSelector';
 
 export class UnconnectedReservationConfirmationContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.handleEdit = this.handleEdit.bind(this);
-    this.handleReservation = this.handleReservation.bind(this);
-  }
+  static propTypes = {
+    actions: PropTypes.object.isRequired,
+    confirmReservationModalIsOpen: PropTypes.bool.isRequired,
+    isMakingReservations: PropTypes.bool.isRequired,
+    isStaff: PropTypes.bool.isRequired,
+    params: PropTypes.shape({ // eslint-disable-line react/no-unused-prop-types
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+    recurringReservations: PropTypes.array.isRequired,
+    reservationsToEdit: PropTypes.array.isRequired,
+    resource: PropTypes.object.isRequired,
+    showTimeControls: PropTypes.bool,
+    selectedReservations: PropTypes.array.isRequired,
+    staffEventSelected: PropTypes.bool,
+  };
 
-  handleEdit(values = {}) {
+  handleEdit = (values = {}) => {
     const {
       actions,
       reservationsToEdit,
@@ -54,7 +64,7 @@ export class UnconnectedReservationConfirmationContainer extends Component {
     }
   }
 
-  handleReservation(values = {}) {
+  handleReservation = (values = {}) => {
     const { actions, recurringReservations, resource, selectedReservations } = this.props;
 
     [...selectedReservations, ...recurringReservations].forEach((reservation) => {
@@ -76,6 +86,7 @@ export class UnconnectedReservationConfirmationContainer extends Component {
       reservationsToEdit,
       resource,
       selectedReservations,
+      showTimeControls,
       staffEventSelected,
     } = this.props;
 
@@ -97,26 +108,12 @@ export class UnconnectedReservationConfirmationContainer extends Component {
         resource={resource}
         selectedReservations={selectedReservations}
         show={confirmReservationModalIsOpen}
+        showTimeControls={showTimeControls}
         staffEventSelected={staffEventSelected}
       />
     );
   }
 }
-
-UnconnectedReservationConfirmationContainer.propTypes = {
-  actions: PropTypes.object.isRequired,
-  confirmReservationModalIsOpen: PropTypes.bool.isRequired,
-  isMakingReservations: PropTypes.bool.isRequired,
-  isStaff: PropTypes.bool.isRequired,
-  params: PropTypes.shape({ // eslint-disable-line react/no-unused-prop-types
-    id: PropTypes.string.isRequired,
-  }).isRequired,
-  recurringReservations: PropTypes.array.isRequired,
-  reservationsToEdit: PropTypes.array.isRequired,
-  resource: PropTypes.object.isRequired,
-  selectedReservations: PropTypes.array.isRequired,
-  staffEventSelected: PropTypes.bool,
-};
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
