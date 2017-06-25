@@ -8,6 +8,7 @@ import {
   denyPreliminaryReservation,
 } from 'actions/reservationActions';
 import {
+  openConfirmReservationModal,
   openReservationCancelModal,
   selectReservationToCancel,
   selectReservationToEdit,
@@ -63,6 +64,7 @@ export class UnconnectedReservationControlsContainer extends Component {
 
     actions.selectReservationToEdit({ reservation, minPeriod: resource.minPeriod });
     browserHistory.push(nextUrl);
+    actions.openConfirmReservationModal();
   }
 
   handleInfoClick() {
@@ -105,6 +107,7 @@ function mapDispatchToProps(dispatch) {
   const actionCreators = {
     confirmPreliminaryReservation,
     denyPreliminaryReservation,
+    openConfirmReservationModal,
     openReservationCancelModal,
     selectReservationToCancel,
     selectReservationToEdit,

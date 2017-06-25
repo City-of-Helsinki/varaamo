@@ -1,5 +1,3 @@
-import forEach from 'lodash/forEach';
-import tail from 'lodash/tail';
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -29,45 +27,15 @@ export class UnconnectedReservationConfirmationContainer extends Component {
   };
 
   handleEdit = (values = {}) => {
-    const {
-      actions,
-      reservationsToEdit,
-      selectedReservations,
-    } = this.props;
-
-    if (selectedReservations.length) {
-      // Edit the first selected reservation.
-      actions.putReservation(Object.assign(
-        {},
-        selectedReservations[0],
-        values,
-        { url: reservationsToEdit[0].url }
-      ));
-
-      // Add new reservations if needed.
-      // FIXME: This is very hacky and not bulletproof but use cases where user splits
-      // one reservation into multiple reservations should be pretty rare.
-      // Try to use something sequential in the future.
-      // Use timeout to allow the PUT request to go through first and possibly free previously
-      // reserved time slots.
-      setTimeout(() => {
-        forEach(tail(selectedReservations), (reservation) => {
-          actions.postReservation(
-            Object.assign({}, reservation, values)
-          );
-        });
-      }, 800);
-    } else {
-      // Delete the edited reservation if no time slots were selected.
-      forEach(reservationsToEdit, (reservation) => {
-        actions.deleteReservation(reservation);
-      });
-    }
+    const { actions, reservationsToEdit } = this.props;
+    actions.putReservation({
+      ...reservationsToEdit[0],
+      ...values,
+    });
   }
 
   handleReservation = (values = {}) => {
     const { actions, recurringReservations, resource, selectedReservations } = this.props;
-
     [...selectedReservations, ...recurringReservations].forEach((reservation) => {
       actions.postReservation({
         ...reservation,

@@ -19,6 +19,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
     actions: {
       confirmPreliminaryReservation: simple.stub(),
       denyPreliminaryReservation: simple.stub(),
+      openConfirmReservationModal: simple.stub(),
       openReservationCancelModal: simple.stub(),
       selectReservationToCancel: simple.stub(),
       selectReservationToEdit: simple.stub(),
@@ -108,6 +109,10 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
 
       expect(browserHistoryMock.callCount).to.equal(1);
       expect(actualPath).to.equal(expectedPath);
+    });
+
+    it('calls props.actions.openConfirmReservationModal', () => {
+      expect(props.actions.openConfirmReservationModal.callCount).to.equal(1);
     });
   });
 
