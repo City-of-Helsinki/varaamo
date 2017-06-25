@@ -3,13 +3,18 @@ import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 
 import { fetchResource } from 'actions/resourceActions';
 import PageWrapper from 'pages/PageWrapper';
 import NotFoundPage from 'pages/not-found/NotFoundPage';
+import DateHeader from 'shared/date-header';
 import ReservationConfirmation from 'shared/reservation-confirmation';
+import ResourceCalendar from 'shared/resource-calendar';
 import { injectT } from 'i18n';
+import { getResourcePageUrl } from 'utils/resourceUtils';
+import { addToDate } from 'utils/timeUtils';
 import ReservationCalendar from './reservation-calendar';
 import ReservationInfo from './reservation-info';
 import ResourceInfo from './resource-info';
@@ -39,8 +44,23 @@ class UnconnectedResourcePage extends Component {
     actions.fetchResource(id, { start, end });
   }
 
+  handleDateChange = (newDate) => {
+    const { resource } = this.props;
+    const day = newDate.toISOString().substring(0, 10);
+    browserHistory.push(getResourcePageUrl(resource, day));
+  }
+
+  decreaseDate = () => {
+    this.handleDateChange(new Date(addToDate(this.props.date, -1)));
+  }
+
+  increaseDate = () => {
+    this.handleDateChange(new Date(addToDate(this.props.date, 1)));
+  }
+
   render() {
     const {
+      date,
       isAdmin,
       isFetchingResource,
       isLoggedIn,
@@ -72,6 +92,17 @@ class UnconnectedResourcePage extends Component {
           <ReservationInfo
             isLoggedIn={isLoggedIn}
             resource={resource}
+          />
+          <ResourceCalendar
+            onDateChange={this.handleDateChange}
+            resourceId={resource.id}
+            selectedDate={date}
+          />
+          <DateHeader
+            date={date}
+            onDecreaseDateButtonClick={this.decreaseDate}
+            onIncreaseDateButtonClick={this.increaseDate}
+            scrollTo={location.hash === '#date-header'}
           />
           <ReservationCalendar
             location={location}

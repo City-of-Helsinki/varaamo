@@ -1,11 +1,15 @@
 import { expect } from 'chai';
 import React from 'react';
+import { browserHistory } from 'react-router';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
 import PageWrapper from 'pages/PageWrapper';
+import DateHeader from 'shared/date-header';
+import ResourceCalendar from 'shared/resource-calendar';
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
+import { getResourcePageUrl } from 'utils/resourceUtils';
 import { shallowWithIntl } from 'utils/testUtils';
 import { UnconnectedResourcePage as ResourcePage } from './ResourcePage';
 import ReservationInfo from './reservation-info';
@@ -51,6 +55,25 @@ describe('pages/resource/ResourcePage', () => {
       expect(reservationInfo).to.have.length(1);
       expect(reservationInfo.prop('isLoggedIn')).to.equal(defaultProps.isLoggedIn);
       expect(reservationInfo.prop('resource')).to.deep.equal(defaultProps.resource);
+    });
+
+    it('renders ResourceCalendar with correct props', () => {
+      const wrapper = getWrapper();
+      const calendar = wrapper.find(ResourceCalendar);
+      expect(calendar).to.have.length(1);
+      expect(calendar.prop('onDateChange')).to.equal(wrapper.instance().handleDateChange);
+      expect(calendar.prop('resourceId')).to.equal(defaultProps.resource.id);
+      expect(calendar.prop('selectedDate')).to.equal(defaultProps.date);
+    });
+
+    it('renders DateHeader with correct props', () => {
+      const wrapper = getWrapper();
+      const dateHeader = wrapper.find(DateHeader);
+      expect(dateHeader).to.have.length(1);
+      expect(dateHeader.prop('date')).to.equal(defaultProps.date);
+      expect(dateHeader.prop('onDecreaseDateButtonClick')).to.equal(wrapper.instance().decreaseDate);
+      expect(dateHeader.prop('onIncreaseDateButtonClick')).to.equal(wrapper.instance().increaseDate);
+      expect(dateHeader.prop('scrollTo')).to.exist;
     });
   });
 
@@ -132,6 +155,7 @@ describe('pages/resource/ResourcePage', () => {
       });
     });
   });
+
   describe('fetchResource', () => {
     it('fetches resource with correct arguments', () => {
       const fetchResource = simple.mock();
@@ -144,6 +168,7 @@ describe('pages/resource/ResourcePage', () => {
       expect(actualArgs[1].start).to.contain('2015-08-01');
       expect(actualArgs[1].end).to.contain('2015-12-31');
     });
+
     it('fetches resource with correct arguments with a passed date', () => {
       const fetchResource = simple.mock();
       const instance = getWrapper({ actions: { fetchResource } }).instance();
@@ -154,6 +179,29 @@ describe('pages/resource/ResourcePage', () => {
       expect(actualArgs[0]).to.equal(defaultProps.id);
       expect(actualArgs[1].start).to.contain('2015-09-01');
       expect(actualArgs[1].end).to.contain('2016-01-31');
+    });
+  });
+
+  describe('handleDateChange', () => {
+    const newDate = new Date('2015-12-24');
+    const instance = getWrapper().instance();
+    let browserHistoryMock;
+
+    before(() => {
+      browserHistoryMock = simple.mock(browserHistory, 'push');
+      instance.handleDateChange(newDate);
+    });
+
+    after(() => {
+      simple.restore();
+    });
+
+    it('calls browserHistory.push with correct path', () => {
+      const actualPath = browserHistoryMock.lastCall.args[0];
+      const expectedPath = getResourcePageUrl(resource, '2015-12-24');
+
+      expect(browserHistoryMock.callCount).to.equal(1);
+      expect(actualPath).to.equal(expectedPath);
     });
   });
 });
