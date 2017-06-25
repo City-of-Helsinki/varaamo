@@ -38,10 +38,11 @@ class TimeControls extends Component {
     return options;
   }
 
-  getEndTimeOptions() {
+  getEndTimeOptions(beginValue) {
     const { begin, timeFormat, timeSlots } = this.props;
+    const beginTime = beginValue || begin.input.value;
     const firstPossibleIndex = timeSlots.findIndex(slot => (
-      moment(slot.end).isAfter(begin.input.value)
+      moment(slot.end).isAfter(beginTime)
     ));
 
     const options = [];
@@ -59,11 +60,17 @@ class TimeControls extends Component {
   }
 
   handleBeginTimeChange = ({ value }) => {
-    const { begin, timeFormat } = this.props;
+    const { begin, end, timeFormat } = this.props;
     if (value) {
-      begin.input.onChange(
-        updateWithTime(begin.input.value, value, timeFormat)
-      );
+      const updatedBeginTime = updateWithTime(begin.input.value, value, timeFormat);
+      begin.input.onChange(updatedBeginTime);
+      const newEndOptions = this.getEndTimeOptions(updatedBeginTime);
+      const currentEndValue = moment(end.input.value).format(timeFormat);
+      if (!newEndOptions.find(option => option.value === currentEndValue)) {
+        end.input.onChange(
+          updateWithTime(end.input.value, newEndOptions[0].value, timeFormat)
+        );
+      }
     }
   }
 
