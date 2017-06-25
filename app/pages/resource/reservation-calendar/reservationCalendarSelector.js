@@ -18,6 +18,7 @@ import { getTimeSlots } from 'utils/timeUtils';
 const resourceIdSelector = (state, props) => props.params.id;
 const resourceSelector = createResourceSelector(resourceIdSelector);
 const selectedSelector = state => state.ui.reservations.selected;
+const selectedReservationSlotSelector = state => state.ui.reservations.selectedSlot;
 const toEditSelector = state => state.ui.reservations.toEdit;
 
 const isEditingSelector = createSelector(
@@ -71,6 +72,7 @@ const reservationCalendarSelector = createStructuredSelector({
   isStaff: createIsStaffSelector(resourceSelector),
   resource: resourceSelector,
   selected: selectedSelector,
+  selectedReservationSlot: selectedReservationSlotSelector,
   time: timeSelector,
   timeSlots: timeSlotsSelector,
 });
