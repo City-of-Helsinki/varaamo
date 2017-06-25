@@ -109,34 +109,24 @@ class ConfirmReservationModal extends Component {
     return requiredFormFields;
   }
 
+  renderEditingTexts = () => {
+    const { reservationsToEdit, t } = this.props;
+    return (
+      <div className="app-ConfirmReservationModal__editing-texts">
+        <p>{t('ConfirmReservationModal.beforeText')}</p>
+        <CompactReservationList reservations={reservationsToEdit} />
+      </div>
+    );
+  }
+
   renderReservationTimes = () => {
     const {
-      isEditing,
       isPreliminaryReservation,
       onRemoveReservation,
       recurringReservations,
-      reservationsToEdit,
       selectedReservations,
       t,
     } = this.props;
-
-    if (isEditing) {
-      return (
-        <div>
-          <p>
-            <strong>{t('ConfirmReservationModal.confirmationText')}</strong>
-          </p>
-          <p>
-            {t('ConfirmReservationModal.beforeText')}
-          </p>
-          <CompactReservationList reservations={reservationsToEdit} />
-          <p>
-            {t('ConfirmReservationModal.afterText')}
-          </p>
-          <CompactReservationList reservations={selectedReservations} />
-        </div>
-      );
-    }
 
     const reservationsCount = selectedReservations.length + recurringReservations.length;
     const introText = isPreliminaryReservation ?
@@ -188,7 +178,7 @@ class ConfirmReservationModal extends Component {
       <Modal
         animation={false}
         backdrop="static"
-        className="confirm-reservation-modal"
+        className="app-ConfirmReservationModal"
         onHide={onClose}
         show={show}
       >
@@ -200,6 +190,7 @@ class ConfirmReservationModal extends Component {
 
         <Modal.Body>
           {isAdmin && !showTimeControls && <RecurringReservationControls />}
+          {isEditing && this.renderEditingTexts()}
           {!showTimeControls && this.renderReservationTimes()}
           {this.renderInfoTexts()}
           <ReservationForm
