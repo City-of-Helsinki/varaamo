@@ -33,6 +33,12 @@ describe('shared/date-header/DateHeader', () => {
       expect(header.text()).to.contain(expected);
     });
 
+    it('displays beforeText before date if given in props', () => {
+      const beforeText = 'Some text before the date';
+      const headerText = getWrapper({ beforeText }).text();
+      expect(headerText.indexOf(beforeText)).to.equal(0);
+    });
+
     describe('decrease date button', () => {
       describe('when onDecreaseDateButtonClick function is given in props', () => {
         const extraProps = {
