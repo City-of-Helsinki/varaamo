@@ -12,6 +12,7 @@ const initialState = Immutable({
   },
   failed: [],
   selected: [],
+  selectedSlot: null,
   toCancel: [],
   toEdit: [],
   toShow: [],
@@ -101,6 +102,10 @@ function reservationsReducer(state = initialState, action) {
 
     case types.UI.SELECT_RESERVATION_TO_EDIT: {
       return selectReservationToEdit(state, action);
+    }
+
+    case types.UI.SELECT_RESERVATION_SLOT: {
+      return state.merge({ selectedSlot: action.payload });
     }
 
     case types.UI.SELECT_RESERVATION_TO_SHOW: {
