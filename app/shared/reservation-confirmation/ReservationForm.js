@@ -2,8 +2,11 @@ import includes from 'lodash/includes';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
+import Col from 'react-bootstrap/lib/Col';
+import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Well from 'react-bootstrap/lib/Well';
-import { Field, reduxForm } from 'redux-form';
+import { Field, Fields, reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 
 import constants from 'constants/AppConstants';
@@ -11,6 +14,7 @@ import FormTypes from 'constants/FormTypes';
 import WrappedText from 'shared/wrapped-text';
 import ReduxFormField from 'shared/form-fields/ReduxFormField';
 import { injectT } from 'i18n';
+import TimeControls from './TimeControls';
 
 const validators = {
   reserverEmailAddress: (t, { reserverEmailAddress }) => {
@@ -87,6 +91,27 @@ class UnconnectedReservationForm extends Component {
     );
   }
 
+  renderTimeControls = () => {
+    const { fields, t } = this.props;
+    if (!includes(fields, 'begin') || !includes(fields, 'end')) {
+      return null;
+    }
+
+    return (
+      <FormGroup id="reservation-time">
+        <Col sm={3}>
+          <ControlLabel>{t('common.reservationTimeLabel')}</ControlLabel>
+        </Col>
+        <Col sm={9}>
+          <Fields
+            component={TimeControls}
+            names={['begin', 'end']}
+          />
+        </Col>
+      </FormGroup>
+    );
+  }
+
   render() {
     const {
       isMakingReservations,
@@ -106,6 +131,7 @@ class UnconnectedReservationForm extends Component {
     return (
       <div>
         <Form className="reservation-form" horizontal>
+          {this.renderTimeControls()}
           { includes(this.props.fields, 'staffEvent') && (
             <Well>
               {this.renderField(
