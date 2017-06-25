@@ -63,10 +63,6 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       wrapper = getWrapper(props);
     });
 
-    it('renders a header', () => {
-      expect(wrapper.find('h3').text()).to.equal('ReservationCalendar.header');
-    });
-
     it(`${renderTimeSlots ? 'renders' : 'does not render'} TimeSlots`, () => {
       expect(wrapper.find(TimeSlots).length === 1).to.equal(renderTimeSlots);
     });
