@@ -56,6 +56,10 @@ const openReservationCommentModal = createAction(
   () => ModalTypes.RESERVATION_COMMENT
 );
 
+const selectReservationSlot = createAction(
+  types.UI.SELECT_RESERVATION_SLOT,
+);
+
 const selectReservationToCancel = createAction(
   types.UI.SELECT_RESERVATION_TO_CANCEL
 );
@@ -94,6 +98,7 @@ export {
   openReservationCommentModal,
   selectReservationToCancel,
   selectReservationToEdit,
+  selectReservationSlot,
   selectReservationToShow,
   showReservationInfoModal,
   startReservationEditInInfoModal,
