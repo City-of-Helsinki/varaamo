@@ -7,7 +7,7 @@ import {
   cancelReservationEdit,
   clearReservations,
   openConfirmReservationModal,
-  toggleTimeSlot,
+  selectReservationSlot,
 } from 'actions/uiActions';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
 import ReservationInfoModal from 'shared/modals/reservation-info';
@@ -24,21 +24,38 @@ import ReservingRestrictedText from './ReservingRestrictedText';
 import TimeSlots from './time-slots';
 
 export class UnconnectedReservationCalendarContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.handleEditCancel = this.handleEditCancel.bind(this);
-    this.handleReserveButtonClick = this.handleReserveButtonClick.bind(this);
-  }
+  static propTypes = {
+    actions: PropTypes.object.isRequired,
+    date: PropTypes.string.isRequired,
+    isAdmin: PropTypes.bool.isRequired,
+    isEditing: PropTypes.bool.isRequired,
+    isFetchingResource: PropTypes.bool.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
+    isMakingReservations: PropTypes.bool.isRequired,
+    isStaff: PropTypes.bool.isRequired,
+    location: PropTypes.shape({ // eslint-disable-line react/no-unused-prop-types
+      query: PropTypes.object.isRequired,
+    }).isRequired,
+    params: PropTypes.shape({ // eslint-disable-line react/no-unused-prop-types
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+    resource: PropTypes.object.isRequired,
+    selected: PropTypes.array.isRequired,
+    selectedReservationSlot: PropTypes.object,
+    t: PropTypes.func.isRequired,
+    time: PropTypes.string,
+    timeSlots: PropTypes.array.isRequired,
+  };
 
   componentWillUnmount() {
     this.props.actions.clearReservations();
   }
 
-  handleEditCancel() {
+  handleEditCancel = () => {
     this.props.actions.cancelReservationEdit();
   }
 
-  handleReserveButtonClick() {
+  handleReserveButtonClick = () => {
     const { actions, selected } = this.props;
     const selectedSlots = selected.map((current) => {
       const [begin, end] = current.split('/');
@@ -46,6 +63,12 @@ export class UnconnectedReservationCalendarContainer extends Component {
     });
     const baseTime = combine(selectedSlots)[0];
     actions.changeRecurringBaseTime(baseTime);
+    actions.openConfirmReservationModal();
+  }
+
+  handleTimeSlotClick = (slot) => {
+    const { actions } = this.props;
+    actions.selectReservationSlot(slot);
     actions.openConfirmReservationModal();
   }
 
@@ -62,6 +85,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
       params,
       resource,
       selected,
+      selectedReservationSlot,
       t,
       time,
       timeSlots,
@@ -80,7 +104,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
             isFetching={isFetchingResource}
             isLoggedIn={isLoggedIn}
             isStaff={isStaff}
-            onClick={actions.toggleTimeSlot}
+            onClick={this.handleTimeSlotClick}
             resource={resource}
             selected={selected}
             slots={timeSlots}
@@ -118,6 +142,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
         <ReservationSuccessModal />
         <ReservationConfirmation
           params={params}
+          selectedReservations={[selectedReservationSlot]}
           showTimeControls
           timeSlots={timeSlots}
         />
@@ -126,27 +151,6 @@ export class UnconnectedReservationCalendarContainer extends Component {
   }
 }
 
-UnconnectedReservationCalendarContainer.propTypes = {
-  actions: PropTypes.object.isRequired,
-  date: PropTypes.string.isRequired,
-  isAdmin: PropTypes.bool.isRequired,
-  isEditing: PropTypes.bool.isRequired,
-  isFetchingResource: PropTypes.bool.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
-  isMakingReservations: PropTypes.bool.isRequired,
-  isStaff: PropTypes.bool.isRequired,
-  location: PropTypes.shape({ // eslint-disable-line react/no-unused-prop-types
-    query: PropTypes.object.isRequired,
-  }).isRequired,
-  params: PropTypes.shape({ // eslint-disable-line react/no-unused-prop-types
-    id: PropTypes.string.isRequired,
-  }).isRequired,
-  resource: PropTypes.object.isRequired,
-  selected: PropTypes.array.isRequired,
-  t: PropTypes.func.isRequired,
-  time: PropTypes.string,
-  timeSlots: PropTypes.array.isRequired,
-};
 UnconnectedReservationCalendarContainer = injectT(UnconnectedReservationCalendarContainer);  // eslint-disable-line
 
 function mapDispatchToProps(dispatch) {
@@ -156,7 +160,7 @@ function mapDispatchToProps(dispatch) {
     changeRecurringBaseTime: recurringReservations.changeBaseTime,
     clearReservations,
     openConfirmReservationModal,
-    toggleTimeSlot,
+    selectReservationSlot,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
