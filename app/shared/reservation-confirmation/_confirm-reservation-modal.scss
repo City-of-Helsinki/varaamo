@@ -1,8 +1,14 @@
-.confirm-reservation-modal {
+.app-ConfirmReservationModal {
   .modal-dialog {
     @media (min-width: $screen-sm-min) {
       width: 700px;
     }
+  }
+
+  &__editing-texts {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid $gray-lighter;
   }
 
   .reservation-form {
