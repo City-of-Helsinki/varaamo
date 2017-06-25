@@ -99,22 +99,29 @@ describe('pages/search/SearchPage', () => {
   });
 
   describe('componentDidMount', () => {
-    before(() => {
-      const instance = getWrapper().instance();
+    function callComponentDidMount(props, extraActions) {
+      const actions = { ...defaultProps.actions, ...extraActions };
+      const instance = getWrapper({ ...props, actions }).instance();
       instance.componentDidMount();
+    }
+
+    it('fetches resources if searchDone is false', () => {
+      const searchResources = simple.mock();
+      callComponentDidMount({ searchDone: false }, { searchResources });
+      expect(searchResources.callCount).to.equal(1);
+      expect(searchResources.lastCall.args).to.deep.equal([defaultProps.filters]);
     });
 
-    it('fetches resources when component mounts', () => {
-      expect(defaultProps.actions.searchResources.callCount).to.equal(1);
+    it('does not fetch resources if searchDone is true', () => {
+      const searchResources = simple.mock();
+      callComponentDidMount({ searchDone: true }, { searchResources });
+      expect(searchResources.callCount).to.equal(0);
     });
 
-    it('fetches resources witch correct filters', () => {
-      const actual = defaultProps.actions.searchResources.lastCall.args[0];
-      expect(actual).to.deep.equal(defaultProps.filters);
-    });
-
-    it('fetches units when component mounts', () => {
-      expect(defaultProps.actions.fetchUnits.callCount).to.equal(1);
+    it('fetches units', () => {
+      const fetchUnits = simple.mock();
+      callComponentDidMount({}, { fetchUnits });
+      expect(fetchUnits.callCount).to.equal(1);
     });
   });
 
