@@ -1,17 +1,13 @@
 import { expect } from 'chai';
 import MockDate from 'mockdate';
 import React from 'react';
-import { browserHistory } from 'react-router';
 import simple from 'simple-mock';
 
-import DateHeader from 'shared/date-header';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
 import ReservationInfoModal from 'shared/modals/reservation-info';
 import ReservationSuccessModal from 'shared/modals/reservation-success';
-import ResourceCalendar from 'shared/resource-calendar';
 import Resource from 'utils/fixtures/Resource';
 import TimeSlot from 'utils/fixtures/TimeSlot';
-import { getResourcePageUrl } from 'utils/resourceUtils';
 import { shallowWithIntl } from 'utils/testUtils';
 import {
   UnconnectedReservationCalendarContainer as ReservationCalendarContainer,
@@ -41,7 +37,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     isLoggedIn: true,
     isMakingReservations: false,
     isStaff: false,
-    location: { hash: '&some=hash' },
+    location: { query: {} },
     params: { id: resource.id },
     resource,
     selected: [],
@@ -49,7 +45,6 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       TimeSlot.build(),
       TimeSlot.build(),
     ],
-    urlHash: '',
   };
   function getWrapper(props) {
     return shallowWithIntl(<ReservationCalendarContainer {...defaultProps} {...props} />);
@@ -70,14 +65,6 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
 
     it('renders a header', () => {
       expect(wrapper.find('h3').text()).to.equal('ReservationCalendar.header');
-    });
-
-    it('renders ResourceCalendar', () => {
-      expect(wrapper.find(ResourceCalendar).length).to.equal(1);
-    });
-
-    it('renders DateHeader', () => {
-      expect(wrapper.find(DateHeader).length).to.equal(1);
     });
 
     it(`${renderTimeSlots ? 'renders' : 'does not render'} TimeSlots`, () => {
@@ -200,29 +187,6 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       const instance = getWrapper().instance();
       instance.componentWillUnmount();
       expect(actions.clearReservations.callCount).to.equal(1);
-    });
-  });
-
-  describe('onDateChange', () => {
-    const newDate = new Date('2015-12-24');
-    const instance = getWrapper().instance();
-    let browserHistoryMock;
-
-    before(() => {
-      browserHistoryMock = simple.mock(browserHistory, 'push');
-      instance.onDateChange(newDate);
-    });
-
-    after(() => {
-      simple.restore();
-    });
-
-    it('calls browserHistory.push with correct path', () => {
-      const actualPath = browserHistoryMock.lastCall.args[0];
-      const expectedPath = getResourcePageUrl(resource, '2015-12-24');
-
-      expect(browserHistoryMock.callCount).to.equal(1);
-      expect(actualPath).to.equal(expectedPath);
     });
   });
 
