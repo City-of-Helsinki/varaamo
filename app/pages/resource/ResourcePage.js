@@ -10,7 +10,6 @@ import { fetchResource } from 'actions/resourceActions';
 import PageWrapper from 'pages/PageWrapper';
 import NotFoundPage from 'pages/not-found/NotFoundPage';
 import DateHeader from 'shared/date-header';
-import ReservationConfirmation from 'shared/reservation-confirmation';
 import ResourceCalendar from 'shared/resource-calendar';
 import { injectT } from 'i18n';
 import { getResourcePageUrl } from 'utils/resourceUtils';
@@ -98,7 +97,6 @@ class UnconnectedResourcePage extends Component {
             location={location}
             params={params}
           />
-          <ReservationConfirmation params={params} showTimeControls />
         </Loader>
       </PageWrapper>
     );
