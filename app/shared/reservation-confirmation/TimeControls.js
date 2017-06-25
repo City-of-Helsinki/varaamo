@@ -28,7 +28,7 @@ class TimeControls extends Component {
     const { timeFormat, timeSlots } = this.props;
     const options = [];
     timeSlots.forEach((slot) => {
-      if (!slot.reserved) {
+      if (!slot.reserved || slot.editing) {
         options.push({
           label: moment(slot.start).format(timeFormat),
           value: moment(slot.start).format(timeFormat),
@@ -47,7 +47,7 @@ class TimeControls extends Component {
 
     const options = [];
     forEach(timeSlots.slice(firstPossibleIndex), (slot) => {  // eslint-disable-line
-      if (!slot.reserved) {
+      if (!slot.reserved || slot.editing) {
         options.push({
           label: moment(slot.end).format(timeFormat),
           value: moment(slot.end).format(timeFormat),
