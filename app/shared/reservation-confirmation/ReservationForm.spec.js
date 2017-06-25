@@ -112,8 +112,9 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
     const defaultProps = {
       fields: [],
       handleSubmit: simple.mock(),
+      isEditing: false,
       isMakingReservations: false,
-      onClose: simple.mock(),
+      onCancel: simple.mock(),
       onConfirm: simple.mock(),
       requiredFields: [],
       termsAndConditions: '',
@@ -254,11 +255,11 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
           expect(button.props().children).to.equal('common.back');
         });
 
-        it('clicking it calls props.onClose', () => {
-          defaultProps.onClose.reset();
+        it('clicking it calls props.onCancel', () => {
+          defaultProps.onCancel.reset();
           button.props().onClick();
 
-          expect(defaultProps.onClose.callCount).to.equal(1);
+          expect(defaultProps.onCancel.callCount).to.equal(1);
         });
       });
 

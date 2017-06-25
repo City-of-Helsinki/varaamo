@@ -17,6 +17,7 @@ class ConfirmReservationModal extends Component {
     isMakingReservations: PropTypes.bool.isRequired,
     isPreliminaryReservation: PropTypes.bool.isRequired,
     isStaff: PropTypes.bool.isRequired,
+    onCancel: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
     onConfirm: PropTypes.func.isRequired,
     onRemoveReservation: PropTypes.func.isRequired,
@@ -109,6 +110,12 @@ class ConfirmReservationModal extends Component {
     return requiredFormFields;
   }
 
+  handleCancel = () => {
+    const { onCancel, onClose } = this.props;
+    onCancel();
+    onClose();
+  }
+
   renderEditingTexts = () => {
     const { reservationsToEdit, t } = this.props;
     return (
@@ -196,8 +203,9 @@ class ConfirmReservationModal extends Component {
           <ReservationForm
             fields={this.getFormFields(termsAndConditions)}
             initialValues={this.getFormInitialValues()}
+            isEditing={isEditing}
             isMakingReservations={isMakingReservations}
-            onClose={onClose}
+            onCancel={this.handleCancel}
             onConfirm={this.onConfirm}
             requiredFields={this.getRequiredFormFields(resource, termsAndConditions)}
             staffEventSelected={staffEventSelected}
