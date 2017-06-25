@@ -20,6 +20,7 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
     isMakingReservations: false,
     isPreliminaryReservation: false,
     isStaff: false,
+    onCancel: simple.stub(),
     onClose: simple.stub(),
     onConfirm: simple.stub(),
     onRemoveReservation: simple.stub(),

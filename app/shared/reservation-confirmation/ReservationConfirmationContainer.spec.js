@@ -15,6 +15,7 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
   const resource = Resource.build({ needManualConfirmation: false });
   const defaultProps = {
     actions: {
+      cancelReservationEdit: simple.stub(),
       closeConfirmReservationModal: simple.stub(),
       deleteReservation: simple.stub(),
       openConfirmReservationModal: simple.stub(),
@@ -57,6 +58,7 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
         expect(actualProps.isPreliminaryReservation)
           .to.equal(defaultProps.resource.needManualConfirmation);
         expect(actualProps.isStaff).to.exist;
+        expect(actualProps.onCancel).to.equal(defaultProps.actions.cancelReservationEdit);
         expect(actualProps.onClose).to.equal(defaultProps.actions.closeConfirmReservationModal);
         expect(actualProps.onConfirm).to.equal(wrapper.instance().handleReservation);
         expect(actualProps.onRemoveReservation).to.equal(defaultProps.actions.removeReservation);

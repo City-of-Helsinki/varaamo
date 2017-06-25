@@ -115,9 +115,10 @@ class UnconnectedReservationForm extends Component {
 
   render() {
     const {
+      isEditing,
       isMakingReservations,
       handleSubmit,
-      onClose,
+      onCancel,
       onConfirm,
       requiredFields,
       staffEventSelected,
@@ -251,9 +252,9 @@ class UnconnectedReservationForm extends Component {
           <div className="form-controls">
             <Button
               bsStyle="default"
-              onClick={onClose}
+              onClick={onCancel}
             >
-              {t('common.back')}
+              {isEditing ? t('common.cancel') : t('common.back')}
             </Button>
             <Button
               bsStyle="primary"
@@ -272,9 +273,10 @@ class UnconnectedReservationForm extends Component {
 
 UnconnectedReservationForm.propTypes = {
   fields: PropTypes.array.isRequired,
+  isEditing: PropTypes.bool.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  onClose: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
   requiredFields: PropTypes.array.isRequired,
   staffEventSelected: PropTypes.bool,
