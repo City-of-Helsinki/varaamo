@@ -48,7 +48,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
     actions.openConfirmReservationModal();
   }
 
-  renderTimeSlots() {
+  render() {
     const {
       actions,
       date,
@@ -69,7 +69,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
     const showTimeSlots = isOpen && !reservingIsRestricted(resource, date);
     const showControls = !isPastDate(date) && showTimeSlots;
     return (
-      <div>
+      <div className="reservation-calendar">
         {showTimeSlots &&
           <TimeSlots
             addNotification={actions.addNotification}
@@ -114,15 +114,6 @@ export class UnconnectedReservationCalendarContainer extends Component {
         <ReservationCancelModal />
         <ReservationInfoModal />
         <ReservationSuccessModal />
-      </div>
-    );
-  }
-
-  render() {
-    return (
-      <div className="reservation-calendar">
-        <h3 id="resource-calendar-header">{this.props.t('ReservationCalendar.header')}</h3>
-        {this.renderTimeSlots()}
       </div>
     );
   }

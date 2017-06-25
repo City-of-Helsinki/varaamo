@@ -118,7 +118,6 @@
   "RecurringReservationControls.lastTimeLabel": "Avslutas",
   "RecurringReservationControls.numberOfOccurrencesLabel": "Antal upprepningar",
   "ReservationAccessCode.defaultText": "PIN-kod",
-  "ReservationCalendar.header": "Välj dag",
   "ReservationCalendarControls.confirmChanges": "Bekräfta ändringarna",
   "ReservationCalendarControls.goBack": "Tillbaka",
   "ReservationCalendarControls.reserve": "Boka",

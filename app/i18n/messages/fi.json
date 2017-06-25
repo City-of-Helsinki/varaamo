@@ -118,7 +118,6 @@
   "RecurringReservationControls.lastTimeLabel": "Päättyy",
   "RecurringReservationControls.numberOfOccurrencesLabel": "Toistokertoja",
   "ReservationAccessCode.defaultText": "PIN-koodi",
-  "ReservationCalendar.header": "Valitse päivä",
   "ReservationCalendarControls.confirmChanges": "Vahvista muutokset",
   "ReservationCalendarControls.goBack": "Takaisin",
   "ReservationCalendarControls.reserve": "Varaa",
