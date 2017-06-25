@@ -9,6 +9,7 @@ import {
   closeReservationCancelModal,
   closeReservationCommentModal,
   closeReservationSuccessModal,
+  selectReservationSlot,
   selectReservationToCancel,
   selectReservationToEdit,
   selectReservationToShow,
@@ -39,6 +40,10 @@ describe('state/reducers/ui/reservationsReducer', () => {
 
     it('selected is an empty array', () => {
       expect(initialState.selected).to.deep.equal([]);
+    });
+
+    it('selectedSlot is null', () => {
+      expect(initialState.selectedSlot).to.be.null;
     });
 
     it('toCancel is an empty array', () => {
@@ -296,6 +301,18 @@ describe('state/reducers/ui/reservationsReducer', () => {
 
           expect(nextState.failed).to.deep.equal([]);
         });
+      });
+    });
+
+    describe('UI.SELECT_RESERVATION_SLOT', () => {
+      it('sets the given slot to state', () => {
+        const initialState = Immutable({
+          selectedSlot: { old: 'slot' },
+        });
+        const newSlot = { new: 'slot' };
+        const action = selectReservationSlot(newSlot);
+        const nextState = reservationsReducer(initialState, action);
+        expect(nextState.selectedSlot).to.deep.equal(newSlot);
       });
     });
 
