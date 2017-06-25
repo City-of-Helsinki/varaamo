@@ -176,13 +176,4 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
       expect(selected.timeSlots).to.deep.equal([]);
     });
   });
-
-  it('returns urlHash', () => {
-    const state = getState(resource);
-    const props = getProps(resource.id);
-    const expected = props.location.hash;
-    const selected = reservationCalendarSelector(state, props);
-
-    expect(selected.urlHash).to.equal(expected);
-  });
 });

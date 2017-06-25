@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 
 import { addNotification } from 'actions/notificationsActions';
@@ -10,16 +9,14 @@ import {
   openConfirmReservationModal,
   toggleTimeSlot,
 } from 'actions/uiActions';
-import DateHeader from 'shared/date-header';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
 import ReservationInfoModal from 'shared/modals/reservation-info';
 import ReservationSuccessModal from 'shared/modals/reservation-success';
-import ResourceCalendar from 'shared/resource-calendar';
 import recurringReservations from 'state/recurringReservations';
 import { injectT } from 'i18n';
 import { combine } from 'utils/reservationUtils';
-import { getResourcePageUrl, reservingIsRestricted } from 'utils/resourceUtils';
-import { addToDate, isPastDate } from 'utils/timeUtils';
+import { reservingIsRestricted } from 'utils/resourceUtils';
+import { isPastDate } from 'utils/timeUtils';
 import ReservationCalendarControls from './ReservationCalendarControls';
 import reservationCalendarSelector from './reservationCalendarSelector';
 import ReservingRestrictedText from './ReservingRestrictedText';
@@ -28,29 +25,12 @@ import TimeSlots from './time-slots';
 export class UnconnectedReservationCalendarContainer extends Component {
   constructor(props) {
     super(props);
-    this.decreaseDate = this.decreaseDate.bind(this);
-    this.increaseDate = this.increaseDate.bind(this);
     this.handleEditCancel = this.handleEditCancel.bind(this);
     this.handleReserveButtonClick = this.handleReserveButtonClick.bind(this);
-    this.onDateChange = this.onDateChange.bind(this);
   }
 
   componentWillUnmount() {
     this.props.actions.clearReservations();
-  }
-
-  onDateChange(newDate) {
-    const { resource } = this.props;
-    const day = newDate.toISOString().substring(0, 10);
-    browserHistory.push(getResourcePageUrl(resource, day));
-  }
-
-  decreaseDate() {
-    this.onDateChange(new Date(addToDate(this.props.date, -1)));
-  }
-
-  increaseDate() {
-    this.onDateChange(new Date(addToDate(this.props.date, 1)));
   }
 
   handleEditCancel() {
@@ -68,16 +48,6 @@ export class UnconnectedReservationCalendarContainer extends Component {
     actions.openConfirmReservationModal();
   }
 
-  renderCalendar() {
-    return (
-      <ResourceCalendar
-        onDateChange={this.onDateChange}
-        resourceId={this.props.resource.id}
-        selectedDate={this.props.date}
-      />
-    );
-  }
-
   renderTimeSlots() {
     const {
       actions,
@@ -93,7 +63,6 @@ export class UnconnectedReservationCalendarContainer extends Component {
       t,
       time,
       timeSlots,
-      urlHash,
     } = this.props;
 
     const isOpen = Boolean(timeSlots.length);
@@ -101,12 +70,6 @@ export class UnconnectedReservationCalendarContainer extends Component {
     const showControls = !isPastDate(date) && showTimeSlots;
     return (
       <div>
-        <DateHeader
-          date={date}
-          onDecreaseDateButtonClick={this.decreaseDate}
-          onIncreaseDateButtonClick={this.increaseDate}
-          scrollTo={urlHash === '#date-header'}
-        />
         {showTimeSlots &&
           <TimeSlots
             addNotification={actions.addNotification}
@@ -159,7 +122,6 @@ export class UnconnectedReservationCalendarContainer extends Component {
     return (
       <div className="reservation-calendar">
         <h3 id="resource-calendar-header">{this.props.t('ReservationCalendar.header')}</h3>
-        {this.renderCalendar()}
         {this.renderTimeSlots()}
       </div>
     );
@@ -176,7 +138,7 @@ UnconnectedReservationCalendarContainer.propTypes = {
   isMakingReservations: PropTypes.bool.isRequired,
   isStaff: PropTypes.bool.isRequired,
   location: PropTypes.shape({ // eslint-disable-line react/no-unused-prop-types
-    hash: PropTypes.string.isRequired,
+    query: PropTypes.object.isRequired,
   }).isRequired,
   params: PropTypes.shape({ // eslint-disable-line react/no-unused-prop-types
     id: PropTypes.string.isRequired,
@@ -186,7 +148,6 @@ UnconnectedReservationCalendarContainer.propTypes = {
   t: PropTypes.func.isRequired,
   time: PropTypes.string,
   timeSlots: PropTypes.array.isRequired,
-  urlHash: PropTypes.string.isRequired,
 };
 UnconnectedReservationCalendarContainer = injectT(UnconnectedReservationCalendarContainer);  // eslint-disable-line
 

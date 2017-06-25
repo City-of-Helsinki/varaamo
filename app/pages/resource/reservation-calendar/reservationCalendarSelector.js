@@ -19,7 +19,6 @@ const resourceIdSelector = (state, props) => props.params.id;
 const resourceSelector = createResourceSelector(resourceIdSelector);
 const selectedSelector = state => state.ui.reservations.selected;
 const toEditSelector = state => state.ui.reservations.toEdit;
-const urlHashSelector = (state, props) => props.location.hash;
 
 const isEditingSelector = createSelector(
   toEditSelector,
@@ -74,7 +73,6 @@ const reservationCalendarSelector = createStructuredSelector({
   selected: selectedSelector,
   time: timeSelector,
   timeSlots: timeSlotsSelector,
-  urlHash: urlHashSelector,
 });
 
 export default reservationCalendarSelector;
