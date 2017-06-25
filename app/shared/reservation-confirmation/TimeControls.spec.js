@@ -107,31 +107,64 @@ describe('shared/reservation-confirmation/TimeControls', () => {
   });
 
   describe('handleBeginTimeChange', () => {
-    function callHandleBeginTimeChange(onChange, value) {
-      const currentValue = moment('2017-01-01T10:00:00').toISOString();
-      const props = {
-        begin: { input: { onChange, value: currentValue } },
-      };
-      const wrapper = getWrapper(props);
-      wrapper.instance().handleBeginTimeChange({ value });
+    const newEndOptions = [
+      { label: '16:00', value: '16:00' },
+      { label: '16:00', value: '16:30' },
+    ];
+
+    function callHandleBeginTimeChange(props, value) {
+      const instance = getWrapper(props).instance();
+      simple.mock(instance, 'getEndTimeOptions').returnWith(newEndOptions);
+      instance.handleBeginTimeChange({ value });
+      simple.restore(instance, 'getEndTimeOptions');
     }
 
     describe('with valid time value', () => {
       it('calls begin.input.onChange with time updated in begin.input.value', () => {
         const onChange = simple.mock();
+        const props = {
+          begin: { input: { onChange, value: '2017-01-01T10:00:00+02:00' } },
+        };
         const value = '15:30';
         const expectedArg = moment('2017-01-01T15:30:00').toISOString();
-        callHandleBeginTimeChange(onChange, value);
+        callHandleBeginTimeChange(props, value);
         expect(onChange.callCount).to.equal(1);
         expect(onChange.lastCall.args).to.deep.equal([expectedArg]);
+      });
+
+      it('calls end.input.onChange with correct value if old end time is no longer valid', () => {
+        const onChange = simple.mock();
+        const currentEndValue = moment('2017-01-01T10:00:00').toISOString();
+        const props = {
+          end: { input: { onChange, value: currentEndValue } },
+        };
+        const value = '15:30';
+        callHandleBeginTimeChange(props, value);
+        const expectedArg = moment('2017-01-01T16:00:00').toISOString();
+        expect(onChange.callCount).to.equal(1);
+        expect(onChange.lastCall.args).to.deep.equal([expectedArg]);
+      });
+
+      it('does not call end.input.onChange if old end time is still valid', () => {
+        const onChange = simple.mock();
+        const currentEndValue = moment('2017-01-01T16:30:00').toISOString();
+        const props = {
+          end: { input: { onChange, value: currentEndValue } },
+        };
+        const value = '15:30';
+        callHandleBeginTimeChange(props, value);
+        expect(onChange.callCount).to.equal(0);
       });
     });
 
     describe('with empty time value', () => {
       it('does not call begin.input.onChange', () => {
         const onChange = simple.mock();
+        const props = {
+          begin: { input: { onChange, value: '2017-01-01T10:00:00+02:00' } },
+        };
         const value = '';
-        callHandleBeginTimeChange(onChange, value);
+        callHandleBeginTimeChange(props, value);
         expect(onChange.callCount).to.equal(0);
       });
     });
