@@ -14,7 +14,6 @@ import ReservationConfirmation from 'shared/reservation-confirmation';
 import ResourceCalendar from 'shared/resource-calendar';
 import { injectT } from 'i18n';
 import { getResourcePageUrl } from 'utils/resourceUtils';
-import { addToDate } from 'utils/timeUtils';
 import ReservationCalendar from './reservation-calendar';
 import ReservationInfo from './reservation-info';
 import ResourceInfo from './resource-info';
@@ -48,14 +47,6 @@ class UnconnectedResourcePage extends Component {
     const { resource } = this.props;
     const day = newDate.toISOString().substring(0, 10);
     browserHistory.push(getResourcePageUrl(resource, day));
-  }
-
-  decreaseDate = () => {
-    this.handleDateChange(new Date(addToDate(this.props.date, -1)));
-  }
-
-  increaseDate = () => {
-    this.handleDateChange(new Date(addToDate(this.props.date, 1)));
   }
 
   render() {
@@ -99,9 +90,8 @@ class UnconnectedResourcePage extends Component {
             selectedDate={date}
           />
           <DateHeader
+            beforeText="Varaustilanne"
             date={date}
-            onDecreaseDateButtonClick={this.decreaseDate}
-            onIncreaseDateButtonClick={this.increaseDate}
             scrollTo={location.hash === '#date-header'}
           />
           <ReservationCalendar
