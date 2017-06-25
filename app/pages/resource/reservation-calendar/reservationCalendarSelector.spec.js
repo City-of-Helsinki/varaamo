@@ -25,6 +25,7 @@ function getState(resource) {
       },
       reservations: {
         selected: [],
+        selectedSlot: { foo: 'bar' },
         toEdit: ['mock-reservation'],
       },
     }),
@@ -124,6 +125,13 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
     const expected = state.ui.reservations.selected;
 
     expect(selected.selected).to.equal(expected);
+  });
+
+  it('returns reservation.selectedSlot from state', () => {
+    const state = getState(resource);
+    const props = getProps(resource.id);
+    const selected = reservationCalendarSelector(state, props);
+    expect(selected.selectedReservationSlot).to.deep.equal(state.ui.reservations.selectedSlot);
   });
 
   it('returns resource', () => {

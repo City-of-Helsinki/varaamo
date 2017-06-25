@@ -25,7 +25,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     changeRecurringBaseTime: () => null,
     clearReservations: simple.stub(),
     openConfirmReservationModal: simple.stub(),
-    toggleTimeSlot: simple.stub(),
+    selectReservationSlot: simple.stub(),
   };
   const resource = Resource.build();
 
@@ -229,6 +229,27 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       callHandleReserveButtonClick({ changeRecurringBaseTime }, { selected });
       expect(changeRecurringBaseTime.callCount).to.equal(1);
       expect(changeRecurringBaseTime.lastCall.args).to.deep.equal([expectedTime]);
+    });
+  });
+
+  describe('handleTimeSlotClick', () => {
+    function callHandleTimeSlotClick(extraActions, value) {
+      const wrapper = getWrapper({ actions: { ...actions, ...extraActions } });
+      wrapper.instance().handleTimeSlotClick(value);
+    }
+
+    it('calls selectReservationSlot with correct value', () => {
+      const slot = { begin: 'foo', end: 'bar', resource: 'r-1' };
+      const selectReservationSlot = simple.mock();
+      callHandleTimeSlotClick({ selectReservationSlot }, slot);
+      expect(selectReservationSlot.callCount).to.equal(1);
+      expect(selectReservationSlot.lastCall.args).to.deep.equal([slot]);
+    });
+
+    it('calls openConfirmReservationModal', () => {
+      const openConfirmReservationModal = simple.mock();
+      callHandleTimeSlotClick({ openConfirmReservationModal });
+      expect(openConfirmReservationModal.callCount).to.equal(1);
     });
   });
 });

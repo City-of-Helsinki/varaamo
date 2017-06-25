@@ -81,7 +81,11 @@ class TimeSlot extends Component {
         addNotification(notification);
       }
     } else {
-      onClick(slot.asISOString);
+      onClick({
+        begin: slot.start,
+        end: slot.end,
+        resource: resource.id,
+      });
     }
   }
 
