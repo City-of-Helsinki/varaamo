@@ -7,6 +7,14 @@ import { findDOMNode } from 'react-dom';
 import { scrollTo } from 'utils/domUtils';
 
 class DateHeader extends Component {
+  static propTypes = {
+    beforeText: PropTypes.string,
+    date: PropTypes.string.isRequired,
+    onDecreaseDateButtonClick: PropTypes.func,
+    onIncreaseDateButtonClick: PropTypes.func,
+    scrollTo: PropTypes.bool,
+  };
+
   componentDidMount() {
     if (this.props.scrollTo) {
       // Use timeout to allow rest of the page render and the scrollTo to work properly.
@@ -17,7 +25,7 @@ class DateHeader extends Component {
   }
 
   render() {
-    const { date, onDecreaseDateButtonClick, onIncreaseDateButtonClick } = this.props;
+    const { beforeText, date, onDecreaseDateButtonClick, onIncreaseDateButtonClick } = this.props;
     const dateString = moment(date).format('dddd, LL');
 
     return (
@@ -38,17 +46,12 @@ class DateHeader extends Component {
             <Glyphicon glyph="chevron-right" />
           </button>
         )}
-        {upperFirst(dateString)}
+        {beforeText && `${beforeText} ${dateString}`}
+        {!beforeText && upperFirst(dateString)}
       </h3>
     );
   }
 }
 
-DateHeader.propTypes = {
-  date: PropTypes.string.isRequired,
-  onDecreaseDateButtonClick: PropTypes.func,
-  onIncreaseDateButtonClick: PropTypes.func,
-  scrollTo: PropTypes.bool,
-};
 
 export default DateHeader;
