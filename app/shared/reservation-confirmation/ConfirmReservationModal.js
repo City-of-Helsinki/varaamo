@@ -11,27 +11,43 @@ import { getTermsAndConditions } from 'utils/resourceUtils';
 import ReservationForm from './ReservationForm';
 
 class ConfirmReservationModal extends Component {
-  constructor(props) {
-    super(props);
-    this.getFormFields = this.getFormFields.bind(this);
-    this.getFormInitialValues = this.getFormInitialValues.bind(this);
-    this.onConfirm = this.onConfirm.bind(this);
-    this.renderIntroTexts = this.renderIntroTexts.bind(this);
-  }
+  static propTypes = {
+    isAdmin: PropTypes.bool.isRequired,
+    isEditing: PropTypes.bool.isRequired,
+    isMakingReservations: PropTypes.bool.isRequired,
+    isPreliminaryReservation: PropTypes.bool.isRequired,
+    isStaff: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+    onConfirm: PropTypes.func.isRequired,
+    onRemoveReservation: PropTypes.func.isRequired,
+    recurringReservations: PropTypes.array.isRequired,
+    reservationsToEdit: PropTypes.array.isRequired,
+    resource: PropTypes.object.isRequired,
+    selectedReservations: PropTypes.array.isRequired,
+    show: PropTypes.bool.isRequired,
+    showTimeControls: PropTypes.bool,
+    staffEventSelected: PropTypes.bool,
+    t: PropTypes.func.isRequired,
+  };
 
-  onConfirm(values) {
+  onConfirm = (values) => {
     const { onClose, onConfirm } = this.props;
     onClose();
     onConfirm(values);
   }
 
-  getFormFields(termsAndConditions) {
+  getFormFields = (termsAndConditions) => {
     const {
       isAdmin,
       isStaff,
       resource,
+      showTimeControls,
     } = this.props;
     const formFields = [...resource.supportedReservationExtraFields].map(value => camelCase(value));
+
+    if (showTimeControls) {
+      formFields.push('begin', 'end');
+    }
 
     if (isAdmin) {
       formFields.push('comments');
@@ -48,7 +64,7 @@ class ConfirmReservationModal extends Component {
     return formFields;
   }
 
-  getFormInitialValues() {
+  getFormInitialValues = () => {
     const {
       isEditing,
       reservationsToEdit,
@@ -92,9 +108,8 @@ class ConfirmReservationModal extends Component {
     return requiredFormFields;
   }
 
-  renderIntroTexts() {
+  renderReservationTimes = () => {
     const {
-      isAdmin,
       isEditing,
       isPreliminaryReservation,
       onRemoveReservation,
@@ -123,25 +138,30 @@ class ConfirmReservationModal extends Component {
     }
 
     const reservationsCount = selectedReservations.length + recurringReservations.length;
-    const helpText = isPreliminaryReservation ?
+    const introText = isPreliminaryReservation ?
       t('ConfirmReservationModal.preliminaryReservationText', { reservationsCount }) :
       t('ConfirmReservationModal.regularReservationText', { reservationsCount });
 
     return (
       <div>
-        {isAdmin && <RecurringReservationControls />}
-        <p><strong>{helpText}</strong></p>
+        <p><strong>{introText}</strong></p>
         <CompactReservationList
           onRemoveClick={onRemoveReservation}
           removableReservations={recurringReservations}
           reservations={selectedReservations}
         />
-        {isPreliminaryReservation && (
-          <div>
-            <p>{t('ConfirmReservationModal.priceInfo')}</p>
-            <p>{t('ConfirmReservationModal.formInfo')}</p>
-          </div>
-        )}
+      </div>
+    );
+  }
+
+  renderInfoTexts = () => {
+    const { isPreliminaryReservation, t } = this.props;
+    if (!isPreliminaryReservation) return null;
+
+    return (
+      <div>
+        <p>{t('ConfirmReservationModal.priceInfo')}</p>
+        <p>{t('ConfirmReservationModal.formInfo')}</p>
       </div>
     );
   }
@@ -155,6 +175,7 @@ class ConfirmReservationModal extends Component {
       onClose,
       resource,
       show,
+      showTimeControls,
       staffEventSelected,
       t,
     } = this.props;
@@ -176,7 +197,9 @@ class ConfirmReservationModal extends Component {
         </Modal.Header>
 
         <Modal.Body>
-          {this.renderIntroTexts()}
+          {isAdmin && !showTimeControls && <RecurringReservationControls />}
+          {!showTimeControls && this.renderReservationTimes()}
+          {this.renderInfoTexts()}
           <ReservationForm
             fields={this.getFormFields(termsAndConditions)}
             initialValues={this.getFormInitialValues()}
@@ -192,23 +215,5 @@ class ConfirmReservationModal extends Component {
     );
   }
 }
-
-ConfirmReservationModal.propTypes = {
-  isAdmin: PropTypes.bool.isRequired,
-  isEditing: PropTypes.bool.isRequired,
-  isMakingReservations: PropTypes.bool.isRequired,
-  isPreliminaryReservation: PropTypes.bool.isRequired,
-  isStaff: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onConfirm: PropTypes.func.isRequired,
-  onRemoveReservation: PropTypes.func.isRequired,
-  recurringReservations: PropTypes.array.isRequired,
-  reservationsToEdit: PropTypes.array.isRequired,
-  resource: PropTypes.object.isRequired,
-  selectedReservations: PropTypes.array.isRequired,
-  show: PropTypes.bool.isRequired,
-  staffEventSelected: PropTypes.bool,
-  t: PropTypes.func.isRequired,
-};
 
 export default injectT(ConfirmReservationModal);

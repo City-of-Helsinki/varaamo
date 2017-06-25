@@ -98,7 +98,7 @@ class UnconnectedResourcePage extends Component {
             location={location}
             params={params}
           />
-          <ReservationConfirmation params={params} />
+          <ReservationConfirmation params={params} showTimeControls />
         </Loader>
       </PageWrapper>
     );
