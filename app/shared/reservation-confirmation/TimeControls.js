@@ -1,3 +1,4 @@
+import forEach from 'lodash/forEach';
 import moment from 'moment';
 import 'moment-range';
 import React, { Component, PropTypes } from 'react';
@@ -15,27 +16,44 @@ class TimeControls extends Component {
   static propTypes = {
     begin: PropTypes.object.isRequired,
     end: PropTypes.object.isRequired,
-    period: PropTypes.string,
     timeFormat: PropTypes.string,
+    timeSlots: PropTypes.array,
   };
 
   static defaultProps = {
-    period: '00:30:00',
     timeFormat: 'HH:mm',
   };
 
-  getTimeOptions() {
-    const { period, timeFormat } = this.props;
-    const start = moment().startOf('day');
-    const end = moment().endOf('day');
-    const range = moment.range(moment(start), moment(end));
-    const duration = moment.duration(period);
+  getBeginTimeOptions() {
+    const { timeFormat, timeSlots } = this.props;
     const options = [];
-    range.by(duration, (beginMoment) => {
-      options.push({
-        label: beginMoment.format(timeFormat),
-        value: beginMoment.format(timeFormat),
-      });
+    timeSlots.forEach((slot) => {
+      if (!slot.reserved) {
+        options.push({
+          label: moment(slot.start).format(timeFormat),
+          value: moment(slot.start).format(timeFormat),
+        });
+      }
+    });
+    return options;
+  }
+
+  getEndTimeOptions() {
+    const { begin, timeFormat, timeSlots } = this.props;
+    const firstPossibleIndex = timeSlots.findIndex(slot => (
+      moment(slot.end).isAfter(begin.input.value)
+    ));
+
+    const options = [];
+    forEach(timeSlots.slice(firstPossibleIndex), (slot) => {  // eslint-disable-line
+      if (!slot.reserved) {
+        options.push({
+          label: moment(slot.end).format(timeFormat),
+          value: moment(slot.end).format(timeFormat),
+        });
+      } else {
+        return false;  // Exits the lodash forEach
+      }
     });
     return options;
   }
@@ -68,7 +86,7 @@ class TimeControls extends Component {
             clearable={false}
             name="app-TimeControls-begin-time-select"
             onChange={this.handleBeginTimeChange}
-            options={this.getTimeOptions()}
+            options={this.getBeginTimeOptions()}
             placeholder=" "
             searchable
             value={moment(begin.input.value).format(timeFormat)}
@@ -80,7 +98,7 @@ class TimeControls extends Component {
             clearable={false}
             name="app-TimeControls-end-time-select"
             onChange={this.handleEndTimeChange}
-            options={this.getTimeOptions()}
+            options={this.getEndTimeOptions()}
             placeholder=" "
             searchable
             value={moment(end.input.value).format(timeFormat)}

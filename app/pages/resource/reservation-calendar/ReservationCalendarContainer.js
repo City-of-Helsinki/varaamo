@@ -12,6 +12,7 @@ import {
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
 import ReservationInfoModal from 'shared/modals/reservation-info';
 import ReservationSuccessModal from 'shared/modals/reservation-success';
+import ReservationConfirmation from 'shared/reservation-confirmation';
 import recurringReservations from 'state/recurringReservations';
 import { injectT } from 'i18n';
 import { combine } from 'utils/reservationUtils';
@@ -58,6 +59,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
       isLoggedIn,
       isMakingReservations,
       isStaff,
+      params,
       resource,
       selected,
       t,
@@ -114,6 +116,11 @@ export class UnconnectedReservationCalendarContainer extends Component {
         <ReservationCancelModal />
         <ReservationInfoModal />
         <ReservationSuccessModal />
+        <ReservationConfirmation
+          params={params}
+          showTimeControls
+          timeSlots={timeSlots}
+        />
       </div>
     );
   }

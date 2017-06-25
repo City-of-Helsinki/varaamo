@@ -12,15 +12,16 @@ describe('shared/reservation-confirmation/TimeControls', () => {
     begin: {
       input: {
         onChange: () => null,
-        value: '2017-01-01T10:00:00+03:00',
+        value: '2017-01-01T10:00:00+02:00',
       },
     },
     end: {
       input: {
         onChange: () => null,
-        value: '2017-01-01T11:30:00+03:00',
+        value: '2017-01-01T11:30:00+02:00',
       },
     },
+    timeSlots: [],
   };
 
   function getWrapper(props) {
@@ -39,7 +40,7 @@ describe('shared/reservation-confirmation/TimeControls', () => {
       expect(beginTimeControl).to.have.length(1);
       expect(beginTimeControl.prop('value')).to.equal(expectedValue);
       expect(beginTimeControl.prop('onChange')).to.equal(wrapper.instance().handleBeginTimeChange);
-      expect(beginTimeControl.prop('options')).to.deep.equal(wrapper.instance().getTimeOptions());
+      expect(beginTimeControl.prop('options')).to.deep.equal(wrapper.instance().getBeginTimeOptions());
     });
 
     it('renders time Select for changing reservation end time', () => {
@@ -49,40 +50,57 @@ describe('shared/reservation-confirmation/TimeControls', () => {
       expect(endTimeControl).to.have.length(1);
       expect(endTimeControl.prop('value')).to.equal(expectedValue);
       expect(endTimeControl.prop('onChange')).to.equal(wrapper.instance().handleEndTimeChange);
-      expect(endTimeControl.prop('options')).to.deep.equal(wrapper.instance().getTimeOptions());
+      expect(endTimeControl.prop('options')).to.deep.equal(wrapper.instance().getEndTimeOptions());
     });
   });
 
-  describe('getTimeOptions', () => {
-    it('returns time options using props.period as the duration between times ', () => {
-      const period = '01:00:00';
-      const wrapper = getWrapper({ period });
-      const options = wrapper.instance().getTimeOptions();
+  describe('getBeginTimeOptions', () => {
+    it('returns start time of every free time slot as time options', () => {
+      const timeSlots = [
+        { start: '2017-01-01T05:00+02:00', reserved: false },
+        { start: '2017-01-01T06:00+02:00', reserved: true },
+        { start: '2017-01-01T07:00+02:00', reserved: false },
+        { start: '2017-01-01T08:00+02:00', reserved: false },
+        { start: '2017-01-01T09:00+02:00', reserved: true },
+        { start: '2017-01-01T10:00+02:00', reserved: false },
+      ];
+      const wrapper = getWrapper({ timeSlots });
+      const options = wrapper.instance().getBeginTimeOptions();
       const expected = [
-        { label: '00:00', value: '00:00' },
-        { label: '01:00', value: '01:00' },
-        { label: '02:00', value: '02:00' },
-        { label: '03:00', value: '03:00' },
-        { label: '04:00', value: '04:00' },
         { label: '05:00', value: '05:00' },
-        { label: '06:00', value: '06:00' },
         { label: '07:00', value: '07:00' },
         { label: '08:00', value: '08:00' },
-        { label: '09:00', value: '09:00' },
         { label: '10:00', value: '10:00' },
+      ];
+      expect(options).to.deep.equal(expected);
+    });
+  });
+
+  describe('getEndTimeOptions', () => {
+    it('returns end time of every free time slot from begin to next unavailable slot', () => {
+      const begin = {
+        input: {
+          onChange: () => null,
+          value: '2017-01-01T10:00:00+02:00',
+        },
+      };
+      const timeSlots = [
+        { end: '2017-01-01T05:00+02:00', reserved: false },
+        { end: '2017-01-01T06:00+02:00', reserved: true },
+        { end: '2017-01-01T07:00+02:00', reserved: false },
+        { end: '2017-01-01T08:00+02:00', reserved: false },
+        { end: '2017-01-01T09:00+02:00', reserved: true },
+        { end: '2017-01-01T10:00+02:00', reserved: false },
+        { end: '2017-01-01T11:00+02:00', reserved: false },
+        { end: '2017-01-01T12:00+02:00', reserved: false },
+        { end: '2017-01-01T13:00+02:00', reserved: true },
+        { end: '2017-01-01T14:00+02:00', reserved: false },
+      ];
+      const wrapper = getWrapper({ begin, timeSlots });
+      const options = wrapper.instance().getEndTimeOptions();
+      const expected = [
         { label: '11:00', value: '11:00' },
         { label: '12:00', value: '12:00' },
-        { label: '13:00', value: '13:00' },
-        { label: '14:00', value: '14:00' },
-        { label: '15:00', value: '15:00' },
-        { label: '16:00', value: '16:00' },
-        { label: '17:00', value: '17:00' },
-        { label: '18:00', value: '18:00' },
-        { label: '19:00', value: '19:00' },
-        { label: '20:00', value: '20:00' },
-        { label: '21:00', value: '21:00' },
-        { label: '22:00', value: '22:00' },
-        { label: '23:00', value: '23:00' },
       ];
       expect(options).to.deep.equal(expected);
     });

@@ -6,6 +6,7 @@ import simple from 'simple-mock';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
 import ReservationInfoModal from 'shared/modals/reservation-info';
 import ReservationSuccessModal from 'shared/modals/reservation-success';
+import ReservationConfirmation from 'shared/reservation-confirmation';
 import Resource from 'utils/fixtures/Resource';
 import TimeSlot from 'utils/fixtures/TimeSlot';
 import { shallowWithIntl } from 'utils/testUtils';
@@ -89,6 +90,14 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
 
     it('renders ReservationSuccessModal', () => {
       expect(wrapper.find(ReservationSuccessModal).length).to.equal(1);
+    });
+
+    it('renders ReservationConfirmation', () => {
+      const confirmation = wrapper.find(ReservationConfirmation);
+      expect(confirmation).to.have.length(1);
+      expect(confirmation.prop('params')).to.deep.equal(defaultProps.params);
+      expect(confirmation.prop('showTimeControls')).to.be.true;
+      expect(confirmation.prop('timeSlots')).to.deep.equal(props.timeSlots || defaultProps.timeSlots);
     });
   }
 
