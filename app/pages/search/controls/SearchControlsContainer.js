@@ -39,6 +39,7 @@ class UnconnectedSearchControlsContainer extends Component {
 
   handleFiltersChange = (newFilters) => {
     this.props.actions.changeSearchFilters(newFilters);
+    this.handleSearch(newFilters);
   }
 
   handleSearch = (newFilters = {}, options = {}) => {
@@ -70,7 +71,7 @@ class UnconnectedSearchControlsContainer extends Component {
             value={moment(filters.date).format('L')}
           />
           <PeopleCapacityControl
-            onChange={people => this.handleFiltersChange({ people })}
+            onConfirm={people => this.handleFiltersChange({ people })}
             value={parseInt(filters.people, 10)}
           />
           <PurposeControl

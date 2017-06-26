@@ -65,7 +65,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       const peopleCapacityControl = getWrapper({ filters }).find(PeopleCapacityControl);
       expect(peopleCapacityControl).to.have.length(1);
       expect(peopleCapacityControl.prop('value')).to.equal(12);
-      expect(peopleCapacityControl.prop('onChange')).to.exist;
+      expect(peopleCapacityControl.prop('onConfirm')).to.exist;
     });
 
     it('renders PurposeControl with correct props', () => {
