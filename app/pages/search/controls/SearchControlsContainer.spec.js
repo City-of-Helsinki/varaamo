@@ -57,7 +57,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       const datePickerControl = wrapper.find(DatePickerControl);
       expect(datePickerControl).to.have.length(1);
       expect(datePickerControl.prop('value')).to.equal(moment(filters.date).format('L'));
-      expect(datePickerControl.prop('onChange')).to.equal(wrapper.instance().handleDateChange);
+      expect(datePickerControl.prop('onConfirm')).to.equal(wrapper.instance().handleDateChange);
     });
 
     it('renders PeopleCapacityControl with correct props', () => {
