@@ -15,52 +15,38 @@ import SearchBox from './SearchBox';
 import searchControlsSelector from './searchControlsSelector';
 
 class UnconnectedSearchControlsContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.handleDateChange = this.handleDateChange.bind(this);
-    this.handleFiltersChange = this.handleFiltersChange.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
-    this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
-  }
+  static propTypes = {
+    actions: PropTypes.object.isRequired,
+    filters: PropTypes.object.isRequired,
+    isFetchingPurposes: PropTypes.bool.isRequired,
+    purposeOptions: PropTypes.array.isRequired,
+    scrollToSearchResults: PropTypes.func.isRequired,
+    urlSearchFilters: PropTypes.object.isRequired,
+  };
 
   componentDidMount() {
     const { actions, urlSearchFilters } = this.props;
-
     actions.changeSearchFilters(urlSearchFilters);
     actions.fetchPurposes();
   }
 
-  handleDateChange(date) {
+  handleDateChange = (date) => {
     const dateInCorrectFormat = (
       moment(date, 'L').format(constants.DATE_FORMAT)
     );
     this.handleFiltersChange({ date: dateInCorrectFormat });
   }
 
-  handleFiltersChange(newFilters) {
+  handleFiltersChange = (newFilters) => {
     this.props.actions.changeSearchFilters(newFilters);
   }
 
-  handleSearch(newFilters, options = {}) {
+  handleSearch = (newFilters = {}, options = {}) => {
     const { scrollToSearchResults } = this.props;
-    let filters;
-    if (newFilters) {
-      filters = Object.assign({}, this.props.filters, newFilters);
-    } else {
-      filters = this.props.filters;
-    }
-
+    const filters = { ...this.props.filters, ...newFilters };
     browserHistory.push(`/?${queryString.stringify(filters)}`);
     if (!options.preventScrolling) {
       scrollToSearchResults();
-    }
-  }
-
-  handleSearchInputChange(event) {
-    const value = event.target.value;
-    this.handleFiltersChange({ search: value });
-    if (event.keyCode === 13) {
-      this.handleSearch();
     }
   }
 
@@ -98,15 +84,6 @@ class UnconnectedSearchControlsContainer extends Component {
     );
   }
 }
-
-UnconnectedSearchControlsContainer.propTypes = {
-  actions: PropTypes.object.isRequired,
-  filters: PropTypes.object.isRequired,
-  isFetchingPurposes: PropTypes.bool.isRequired,
-  purposeOptions: PropTypes.array.isRequired,
-  scrollToSearchResults: PropTypes.func.isRequired,
-  urlSearchFilters: PropTypes.object.isRequired,
-};
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
