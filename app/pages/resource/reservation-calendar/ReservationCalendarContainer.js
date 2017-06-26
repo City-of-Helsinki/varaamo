@@ -17,8 +17,6 @@ import recurringReservations from 'state/recurringReservations';
 import { injectT } from 'i18n';
 import { combine } from 'utils/reservationUtils';
 import { reservingIsRestricted } from 'utils/resourceUtils';
-import { isPastDate } from 'utils/timeUtils';
-import ReservationCalendarControls from './ReservationCalendarControls';
 import reservationCalendarSelector from './reservationCalendarSelector';
 import ReservingRestrictedText from './ReservingRestrictedText';
 import TimeSlots from './time-slots';
@@ -31,7 +29,6 @@ export class UnconnectedReservationCalendarContainer extends Component {
     isEditing: PropTypes.bool.isRequired,
     isFetchingResource: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
-    isMakingReservations: PropTypes.bool.isRequired,
     isStaff: PropTypes.bool.isRequired,
     location: PropTypes.shape({ // eslint-disable-line react/no-unused-prop-types
       query: PropTypes.object.isRequired,
@@ -80,7 +77,6 @@ export class UnconnectedReservationCalendarContainer extends Component {
       isEditing,
       isFetchingResource,
       isLoggedIn,
-      isMakingReservations,
       isStaff,
       params,
       resource,
@@ -93,7 +89,6 @@ export class UnconnectedReservationCalendarContainer extends Component {
 
     const isOpen = Boolean(timeSlots.length);
     const showTimeSlots = isOpen && !reservingIsRestricted(resource, date);
-    const showControls = !isPastDate(date) && showTimeSlots;
     return (
       <div className="reservation-calendar">
         {showTimeSlots &&
@@ -118,23 +113,6 @@ export class UnconnectedReservationCalendarContainer extends Component {
           <ReservingRestrictedText
             reservableBefore={resource.reservableBefore}
             reservableDaysInAdvance={resource.reservableDaysInAdvance}
-          />
-        }
-        {showControls &&
-          <ReservationCalendarControls
-            addNotification={actions.addNotification}
-            disabled={(
-              !isLoggedIn ||
-              !resource.userPermissions.canMakeReservations ||
-              !selected.length ||
-              isMakingReservations
-            )}
-            isEditing={isEditing}
-            isLoggedIn={isLoggedIn}
-            isMakingReservations={isMakingReservations}
-            onCancel={this.handleEditCancel}
-            onClick={this.handleReserveButtonClick}
-            resource={resource}
           />
         }
         <ReservationCancelModal />
