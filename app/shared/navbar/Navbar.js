@@ -22,26 +22,37 @@ function Navbar(props) {
     currentLanguage,
     isAdmin,
     isLoggedIn,
+    onNavItemClick,
     t,
     userName,
   } = props;
 
+  const onSearchNavItemClick = () => {
+    onNavItemClick();
+    clearSearchResults();
+  };
+
+  const onLoginNavItemClick = () => {
+    onNavItemClick();
+    handleLoginClick();
+  };
+
   return (
     <div className="app-Navbar">
       <Nav id="language-nav" onSelect={changeLocale}>
-        {currentLanguage !== 'en' && <NavItem eventKey="en">
+        {currentLanguage !== 'en' && <NavItem eventKey="en" onClick={onNavItemClick}>
           <img
             alt={t('Navbar.language-english')}
             src={englandFlagSrc}
           />
         </NavItem>}
-        {currentLanguage !== 'fi' && <NavItem eventKey="fi">
+        {currentLanguage !== 'fi' && <NavItem eventKey="fi" onClick={onNavItemClick}>
           <img
             alt={t('Navbar.language-finnish')}
             src={finlandFlagSrc}
           />
         </NavItem>}
-        {currentLanguage !== 'sv' && <NavItem eventKey="sv">
+        {currentLanguage !== 'sv' && <NavItem eventKey="sv" onClick={onNavItemClick}>
           <img
             alt={t('Navbar.language-swedish')}
             src={swedenFlagSrc}
@@ -55,30 +66,33 @@ function Navbar(props) {
         }
         <Nav id="main-nav" stacked>
           {isLoggedIn && (
-            <NavItem href={`/logout?next=${window.location.origin}`}>
+            <NavItem
+              href={`/logout?next=${window.location.origin}`}
+              onClick={onNavItemClick}
+            >
                 {t('Navbar.logout')}
             </NavItem>
           )}
           {!isLoggedIn && (
-            <NavItem onClick={handleLoginClick}>
+            <NavItem id="app-Navbar__login" onClick={onLoginNavItemClick}>
               {t('Navbar.login')}
             </NavItem>
           )}
           <LinkContainer to={getSearchPageUrl()}>
-            <NavItem onClick={clearSearchResults}>
+            <NavItem onClick={onSearchNavItemClick}>
               <Glyphicon glyph="search" /> {t('Navbar.search')}
             </NavItem>
           </LinkContainer>
           {isAdmin && (
             <LinkContainer to="/admin-resources">
-              <NavItem>
+              <NavItem onClick={onNavItemClick}>
                 {t('Navbar.adminResources')}
               </NavItem>
             </LinkContainer>
           )}
           {isLoggedIn && (
             <LinkContainer to="/my-reservations">
-              <NavItem>
+              <NavItem onClick={onNavItemClick}>
                 {t('Navbar.userResources')}
               </NavItem>
             </LinkContainer>
@@ -95,8 +109,13 @@ Navbar.propTypes = {
   currentLanguage: PropTypes.string.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
+  onNavItemClick: PropTypes.func,
   t: PropTypes.func.isRequired,
   userName: PropTypes.string.isRequired,
+};
+
+Navbar.defaultProps = {
+  onNavItemClick: () => {},
 };
 
 export default injectT(Navbar);
