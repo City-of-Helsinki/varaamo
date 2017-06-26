@@ -7,36 +7,58 @@ import NumericInput from 'react-numeric-input';
 import { injectT } from 'i18n';
 import MiniModal from 'shared/mini-modal';
 
-PeopleCapacityControl.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired,
-  value: PropTypes.number,
-};
+class PeopleCapacityControl extends React.Component {
+  static propTypes = {
+    onConfirm: PropTypes.func.isRequired,
+    t: PropTypes.func.isRequired,
+    value: PropTypes.number,
+  };
 
-function PeopleCapacityControl({ onChange, t, value }) {
-  return (
-    <div className="app-PeopleCapacityControl">
-      <MiniModal
-        buttonContent={
-          <span><FontAwesome name="users" /> {value || ''}</span>
-        }
-        header={t('PeopleCapacityControl.header')}
-        theme="orange"
-      >
-        <FormGroup controlId="people-capacity-control-group">
-          <ControlLabel>
-            {t('PeopleCapacityControl.label')}
-          </ControlLabel>
-          <NumericInput
-            className="form-control"
-            min={0}
-            onChange={onChange}
-            value={value || 0}
-          />
-        </FormGroup>
-      </MiniModal>
-    </div>
-  );
+  state = {
+    value: 0,
+  }
+
+  componentWillReceiveProps({ value }) {
+    if (value !== this.props.value) {
+      this.setState({ value });
+    }
+  }
+
+  handleChange = (value) => {
+    this.setState({ value });
+  }
+
+  handleConfirm = () => {
+    this.props.onConfirm(this.state.value);
+  }
+
+  render() {
+    const { t, value } = this.props;
+    return (
+      <div className="app-PeopleCapacityControl">
+        <MiniModal
+          buttonContent={
+            <span><FontAwesome name="users" /> {value || ''}</span>
+          }
+          header={t('PeopleCapacityControl.header')}
+          onConfirm={this.handleConfirm}
+          theme="orange"
+        >
+          <FormGroup controlId="people-capacity-control-group">
+            <ControlLabel>
+              {t('PeopleCapacityControl.label')}
+            </ControlLabel>
+            <NumericInput
+              className="form-control"
+              min={0}
+              onChange={this.handleChange}
+              value={this.state.value || 0}
+            />
+          </FormGroup>
+        </MiniModal>
+      </div>
+    );
+  }
 }
 
 export default injectT(PeopleCapacityControl);
