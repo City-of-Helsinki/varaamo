@@ -10,9 +10,12 @@
 
   &__image-link{
     flex: 1 1;
-    min-width: 180px;
+    min-width: 140px;
     max-width: 200px;
     padding: 10px;
+    @media (min-width: $screen-xs-min) {
+      min-width: 180px;
+    }
   }
 
   .image-container {
