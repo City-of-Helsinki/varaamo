@@ -76,7 +76,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       const purposeControl = wrapper.find(PurposeControl);
       expect(purposeControl).to.have.length(1);
       expect(purposeControl.prop('isLoading')).to.equal(isFetchingPurposes);
-      expect(purposeControl.prop('onChange')).to.equal(wrapper.instance().handleFiltersChange);
+      expect(purposeControl.prop('onConfirm')).to.exist;
       expect(purposeControl.prop('purposeOptions')).to.equal(purposeOptions);
       expect(purposeControl.prop('value')).to.equal(filters.purpose);
     });

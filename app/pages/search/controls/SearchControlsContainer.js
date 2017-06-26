@@ -76,7 +76,7 @@ class UnconnectedSearchControlsContainer extends Component {
           />
           <PurposeControl
             isLoading={isFetchingPurposes}
-            onChange={this.handleFiltersChange}
+            onConfirm={purpose => this.handleFiltersChange({ purpose })}
             purposeOptions={purposeOptions}
             value={filters.purpose}
           />
