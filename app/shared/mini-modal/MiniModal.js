@@ -9,6 +9,7 @@ class MiniModal extends React.Component {
     buttonContent: PropTypes.node.isRequired,
     children: PropTypes.node,
     header: PropTypes.string.isRequired,
+    onConfirm: PropTypes.func,
     t: PropTypes.func.isRequired,
     theme: PropTypes.string,
   }
@@ -19,6 +20,12 @@ class MiniModal extends React.Component {
 
   state = {
     visible: false,
+  }
+
+  handleConfirm = () => {
+    const { onConfirm } = this.props;
+    onConfirm && onConfirm();
+    this.hideModal();
   }
 
   hideModal = () => {
@@ -53,7 +60,7 @@ class MiniModal extends React.Component {
           <div className="app-MiniModal__modal-footer">
             <button
               className="app-MiniModal__modal-footer-close-button"
-              onClick={this.hideModal}
+              onClick={this.handleConfirm}
             >
               {t('MiniModal.buttonText')}
             </button>

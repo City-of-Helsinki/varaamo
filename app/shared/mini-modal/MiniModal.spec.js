@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import React from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
+import simple from 'simple-mock';
 
 import { shallowWithIntl } from 'utils/testUtils';
 import MiniModal from './MiniModal';
@@ -63,10 +64,10 @@ describe('shared/mini-modal/MiniModal', () => {
       expect(modalContent.prop('children')).to.equal(children);
     });
 
-    it('has a button for closing the modal', () => {
+    it('has a button for confirming the modal', () => {
       const wrapper = getWrapper();
-      const hideModal = wrapper.instance().hideModal;
-      const modalCloseButton = wrapper.find(Modal).find('button').filter({ onClick: hideModal });
+      const handleConfirm = wrapper.instance().handleConfirm;
+      const modalCloseButton = wrapper.find(Modal).find('button').filter({ onClick: handleConfirm });
       expect(modalCloseButton).to.have.length(1);
     });
 
@@ -75,6 +76,23 @@ describe('shared/mini-modal/MiniModal', () => {
       const modal = getWrapper({ theme }).find(Modal);
       expect(modal).to.have.length(1);
       expect(modal.prop('dialogClassName')).to.contain('app-MiniModal__modal--theme-gold');
+    });
+  });
+
+  describe('handleConfirm', () => {
+    it('calls onConfirm if given in props', () => {
+      const onConfirm = simple.mock();
+      const instance = getWrapper({ onConfirm }).instance();
+      instance.handleConfirm();
+      expect(onConfirm.callCount).to.equal(1);
+    });
+
+    it('calls hideModal', () => {
+      const instance = getWrapper().instance();
+      simple.mock(instance, 'hideModal');
+      instance.handleConfirm();
+      expect(instance.hideModal.callCount).to.equal(1);
+      simple.restore();
     });
   });
 
