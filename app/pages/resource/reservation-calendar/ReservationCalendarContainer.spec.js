@@ -13,7 +13,6 @@ import { shallowWithIntl } from 'utils/testUtils';
 import {
   UnconnectedReservationCalendarContainer as ReservationCalendarContainer,
 } from './ReservationCalendarContainer';
-import ReservationCalendarControls from './ReservationCalendarControls';
 import ReservingRestrictedText from './ReservingRestrictedText';
 import TimeSlots from './time-slots';
 
@@ -36,7 +35,6 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     isEditing: false,
     isFetchingResource: false,
     isLoggedIn: true,
-    isMakingReservations: false,
     isStaff: false,
     location: { query: {} },
     params: { id: resource.id },
@@ -55,7 +53,6 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     let wrapper;
     const {
       renderClosedText,
-      renderControls,
       renderRestrictedText,
       renderTimeSlots,
     } = options;
@@ -74,10 +71,6 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
 
     it(`${renderRestrictedText ? 'renders' : 'does not render'} restricted text`, () => {
       expect(wrapper.find(ReservingRestrictedText).length === 1).to.equal(renderRestrictedText);
-    });
-
-    it(`${renderControls ? 'renders' : 'does not render'} ReservationCalendarControls`, () => {
-      expect(wrapper.find(ReservationCalendarControls).length === 1).to.equal(renderControls);
     });
 
     it('renders ReservationCancelModal', () => {
@@ -120,7 +113,6 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
         const props = { date, timeSlots };
         const options = {
           renderClosedText: true,
-          renderControls: false,
           renderRestrictedText: false,
           renderTimeSlots: false,
         };
@@ -132,7 +124,6 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
         const props = { date, timeSlots };
         const options = {
           renderClosedText: false,
-          renderControls: false,
           renderRestrictedText: false,
           renderTimeSlots: true,
         };
@@ -148,7 +139,6 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
         const props = { date, timeSlots };
         const options = {
           renderClosedText: true,
-          renderControls: false,
           renderRestrictedText: false,
           renderTimeSlots: false,
         };
@@ -166,7 +156,6 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
           const props = { date, resource: restrictedResource, timeSlots };
           const options = {
             renderClosedText: false,
-            renderControls: false,
             renderRestrictedText: true,
             renderTimeSlots: false,
           };
@@ -177,7 +166,6 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
           const props = { date, timeSlots };
           const options = {
             renderClosedText: false,
-            renderControls: true,
             renderRestrictedText: false,
             renderTimeSlots: true,
           };
