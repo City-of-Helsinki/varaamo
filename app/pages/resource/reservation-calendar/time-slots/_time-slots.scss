@@ -1,121 +1,42 @@
-.time-slots {
-  td, th {
-    height: 40px;
+.app-TimeSlots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-content: flex-start;
+  margin-bottom: 30px;
 
-    @media (max-width: $screen-xs-max) {
-      text-align: center;
-    }
-  }
-
-  thead tr {
-    border-bottom: 2px solid $gray;
-  }
-
-  tbody tr {
-    border-bottom: 1px solid $gray-lighter;
-
-    &.reservation-starting {
-      border-top: 2px solid $gray;
-    }
-
-    &.reservation-ending {
-      border-bottom: 2px solid $gray;
-    }
+  .app-TimeSlot {
+    $slot-height: 50px;
+    flex: 0 0 23%;
+    margin-bottom: 2%;
+    height: $slot-height;
+    line-height: $slot-height;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    color: $white;
+    font-size: 20px;
+    background-color: $green;
 
     &:hover {
-      cursor: pointer;
+      background-color: darken($green, 10%);
     }
 
-    .user-cell {
-      .reservation-access-code {
-        display: block;
-      }
-    }
-
-    .checkbox-cell {
-      text-align: center;
-      width: 70px;
-      color: $gray-dark;
-      font-size: 20px;
-      padding: 0;
-
-      span {
-        top: 7px;
+    &--past, &--disabled, &--reserved {
+      background-color: $gray-light;
+      &:hover {
+        cursor: not-allowed;
+        background-color: $gray-light;
       }
     }
 
-    .controls-cell {
-      width: 140px;
-      text-align: right;
-    }
-
-    // Reserved styles
-    // ---------------
-    &.reserved {
-      &.is-admin, &.own-reservation {
-        background-color: $gray-lighter;
-      }
-
-      .checkbox-cell {
-        color: $brand-danger;
-      }
-    }
-
-    // Editing styles
-    // --------------
-    &.editing {
-      .checkbox-cell {
-        color: $brand-info;
-      }
-    }
-
-    // Selected styles
-    // ---------------
-    &.selected {
-      td {
-        background-color: rgba(0, 156, 61, 0.25);
-      }
-
-      .checkbox-cell {
-        color: $brand-success;
-      }
-    }
-
-    // Past styles
-    // -----------
-    &.past {
-      .checkbox-cell,
-      .time-cell {
-        color: $gray-light;
-      }
-    }
-
-    // Disabled styles
-    // ---------------
-    &.disabled {
-      .checkbox-cell {
-        color: $gray-light;
-      }
+    &--own-reservation {
+      background-color: $theme-info;
 
       &:hover {
         cursor: not-allowed;
-        background-color: inherit;
-      }
-    }
-
-    // Admin styles
-    // ------------
-    &.is-admin {
-      .checkbox-cell {
-        width: 50px;
-      }
-
-      .time-cell {
-        width: 120px;
-      }
-
-      .status-cell {
-        width: 80px;
+        background-color: $theme-info;
       }
     }
   }

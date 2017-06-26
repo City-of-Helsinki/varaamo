@@ -1,12 +1,11 @@
 import { expect } from 'chai';
+import { shallow } from 'enzyme';
 import React from 'react';
-import Table from 'react-bootstrap/lib/Table';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
 import Resource from 'utils/fixtures/Resource';
 import TimeSlot from 'utils/fixtures/TimeSlot';
-import { shallowWithIntl } from 'utils/testUtils';
 import TimeSlots from './TimeSlots';
 import TimeSlotComponent from './TimeSlot';
 
@@ -21,7 +20,6 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
     isEditing: false,
     isFetching: false,
     isLoggedIn: true,
-    isStaff: false,
     onClick: simple.stub(),
     resource: Resource.build(),
     selected: [defaultSlots[0].asISOString],
@@ -29,74 +27,12 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
   };
 
   function getWrapper(props) {
-    return shallowWithIntl(<TimeSlots {...defaultProps} {...props} />);
+    return shallow(<TimeSlots {...defaultProps} {...props} />);
   }
 
-  it('renders a Table component', () => {
-    const table = getWrapper().find(Table);
-    expect(table.length).to.equal(1);
-  });
-
-  describe('table headers', () => {
-    function getThsWrapper(props) {
-      return getWrapper(props).find('th');
-    }
-
-    describe('if user is not an admin', () => {
-      const isAdmin = false;
-
-      it('renders 4 th elements', () => {
-        expect(getThsWrapper({ isAdmin })).to.have.length(4);
-      });
-
-      it('first th element is empty', () => {
-        expect(getThsWrapper({ isAdmin }).at(0).text()).to.equal('');
-      });
-
-      it('second th element contains correct text', () => {
-        expect(getThsWrapper({ isAdmin }).at(1).text()).to.equal('TimeSlots.time');
-      });
-
-      it('third th element contains correct text', () => {
-        expect(getThsWrapper({ isAdmin }).at(2).text()).to.equal('TimeSlots.reservations');
-      });
-
-      it('fourth th element is empty', () => {
-        expect(getThsWrapper({ isAdmin }).at(3).text()).to.equal('');
-      });
-    });
-
-    describe('if user is an admin', () => {
-      const isAdmin = true;
-
-      it('renders 6 th elements', () => {
-        expect(getThsWrapper({ isAdmin })).to.have.length(6);
-      });
-
-      it('first th element is empty', () => {
-        expect(getThsWrapper({ isAdmin }).at(0).text()).to.equal('');
-      });
-
-      it('second th element contains correct text', () => {
-        expect(getThsWrapper({ isAdmin }).at(1).text()).to.equal('TimeSlots.time');
-      });
-
-      it('third th element contains correct text', () => {
-        expect(getThsWrapper({ isAdmin }).at(2).text()).to.equal('TimeSlots.reservations');
-      });
-
-      it('fourth th element contains correct text', () => {
-        expect(getThsWrapper({ isAdmin }).at(3).text()).to.equal('TimeSlots.reserver');
-      });
-
-      it('fifth th element contains correct text', () => {
-        expect(getThsWrapper({ isAdmin }).at(4).text()).to.equal('TimeSlots.comments');
-      });
-
-      it('sixth th element contains correct text', () => {
-        expect(getThsWrapper({ isAdmin }).at(5).text()).to.equal('TimeSlots.controls');
-      });
-    });
+  it('renders div.app-TimeSlots', () => {
+    const div = getWrapper().find('div.app-TimeSlots');
+    expect(div).to.have.length(1);
   });
 
   describe('rendering individual time slots', () => {
