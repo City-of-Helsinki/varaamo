@@ -1,44 +1,23 @@
 import classNames from 'classnames';
 import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
-import Label from 'react-bootstrap/lib/Label';
 import { findDOMNode } from 'react-dom';
 
-import ReservationAccessCode from 'shared/reservation-access-code';
-import ReservationControls from 'shared/reservation-controls';
 import { injectT } from 'i18n';
 import { scrollTo } from 'utils/domUtils';
 
-export function getLabelData({ isOwnReservation, isPast, slot }) {
-  let data = {};
-
-  if (slot.editing) {
-    data = {
-      bsStyle: 'info',
-      messageId: 'TimeSlot.editing',
-    };
-  } else if (slot.reserved) {
-    data = {
-      bsStyle: isOwnReservation ? 'info' : 'danger',
-      messageId: isOwnReservation ? 'TimeSlot.ownReservation' : 'TimeSlot.reserved',
-    };
-  } else {
-    data = {
-      bsStyle: 'success',
-      messageId: 'TimeSlot.available',
-    };
-  }
-
-  return isPast ? { bsStyle: 'default', messageId: data.messageId } : data;
-}
-
 class TimeSlot extends Component {
-  constructor(props) {
-    super(props);
-    this.handleRowClick = this.handleRowClick.bind(this);
-    this.renderReservationControls = this.renderReservationControls.bind(this);
-  }
+  static propTypes = {
+    addNotification: PropTypes.func.isRequired,
+    isAdmin: PropTypes.bool.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
+    onClick: PropTypes.func.isRequired,
+    resource: PropTypes.object.isRequired,
+    scrollTo: PropTypes.bool,
+    selected: PropTypes.bool.isRequired,
+    slot: PropTypes.object.isRequired,
+    t: PropTypes.func.isRequired,
+  };
 
   componentDidMount() {
     if (this.props.scrollTo) {
@@ -65,7 +44,7 @@ class TimeSlot extends Component {
     };
   }
 
-  handleRowClick(disabled) {
+  handleClick = (disabled) => {
     const {
       addNotification,
       isLoggedIn,
@@ -89,43 +68,13 @@ class TimeSlot extends Component {
     }
   }
 
-  renderReservationControls() {
-    const {
-      isAdmin,
-      isStaff,
-      resource,
-      slot,
-    } = this.props;
-
-    return (
-      <ReservationControls
-        isAdmin={isAdmin}
-        isStaff={isStaff}
-        reservation={slot.reservation}
-        resource={resource}
-      />
-    );
-  }
-
-  renderUserInfo(user) {
-    if (!user) {
-      return null;
-    }
-
-    return (
-      <span>{user.displayName} - {user.email}</span>
-    );
-  }
-
   render() {
     const {
       isAdmin,
-      isEditing,
       isLoggedIn,
       resource,
       selected,
       slot,
-      t,
     } = this.props;
     const isPast = moment(slot.end) < moment();
     const disabled = (
@@ -133,80 +82,30 @@ class TimeSlot extends Component {
       !resource.userPermissions.canMakeReservations ||
       (!slot.editing && (slot.reserved || isPast))
     );
-    const checked = selected || (slot.reserved && !slot.editing);
     const reservation = slot.reservation;
     const isOwnReservation = reservation && reservation.isOwn;
-    const reservationIsStarting = reservation && slot.reservationStarting;
-    const showReservationControls = reservationIsStarting && !isEditing;
-    const {
-      bsStyle: labelBsStyle,
-      messageId: labelMessageId,
-    } = getLabelData({ isOwnReservation, isPast, slot });
 
     return (
-      <tr // eslint-disable-line jsx-a11y/no-static-element-interactions
-        className={classNames({
-          disabled,
-          'is-admin': isAdmin,
-          editing: slot.editing,
-          past: isPast,
-          'own-reservation': isOwnReservation,
-          'reservation-starting': (isAdmin || isOwnReservation) && slot.reservationStarting,
-          'reservation-ending': (isAdmin || isOwnReservation) && slot.reservationEnding,
-          reserved: slot.reserved,
-          selected,
+      <button
+        className={classNames('app-TimeSlot', {
+          'app-TimeSlot--disabled': disabled,
+          'app-TimeSlot--is-admin': isAdmin,
+          'app-TimeSlot--editing': slot.editing,
+          'app-TimeSlot--past': isPast,
+          'app-TimeSlot--own-reservation': isOwnReservation,
+          'app-TimeSlot--reservation-starting': (isAdmin || isOwnReservation) && slot.reservationStarting,
+          'app-TimeSlot--reservation-ending': (isAdmin || isOwnReservation) && slot.reservationEnding,
+          'app-TimeSlot--reserved': slot.reserved,
+          'app-TimeSlot--selected': selected,
         })}
-        onClick={() => this.handleRowClick(disabled)}
+        onClick={() => this.handleClick(disabled)}
       >
-        <td className="checkbox-cell">
-          <Glyphicon glyph={checked ? 'check' : 'unchecked'} />
-        </td>
-        <td className="time-cell">
-          <time dateTime={slot.asISOString}>
-            {slot.asString}
-          </time>
-        </td>
-        <td className="status-cell">
-          <Label bsStyle={labelBsStyle}>{t(labelMessageId)}</Label>
-        </td>
-        {!isAdmin && (
-          <td className="controls-cell">
-            {showReservationControls && isOwnReservation && this.renderReservationControls()}
-          </td>
-        )}
-        {isAdmin && (
-          <td className="user-cell">
-            {reservationIsStarting && this.renderUserInfo(reservation.user)}
-            {reservationIsStarting && <ReservationAccessCode reservation={reservation} />}
-          </td>
-        )}
-        {isAdmin && (
-          <td className="comments-cell">
-            {reservationIsStarting && reservation.comments}
-          </td>
-        )}
-        {isAdmin && (
-          <td className="controls-cell">
-            {showReservationControls && this.renderReservationControls()}
-          </td>
-        )}
-      </tr>
+        <time dateTime={slot.asISOString}>
+          {moment(slot.start).format('HH:mm')}
+        </time>
+      </button>
     );
   }
 }
-
-TimeSlot.propTypes = {
-  addNotification: PropTypes.func.isRequired,
-  isAdmin: PropTypes.bool.isRequired,
-  isEditing: PropTypes.bool.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
-  isStaff: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
-  resource: PropTypes.object.isRequired,
-  scrollTo: PropTypes.bool,
-  selected: PropTypes.bool.isRequired,
-  slot: PropTypes.object.isRequired,
-  t: PropTypes.func.isRequired,
-};
 
 export default injectT(TimeSlot);
