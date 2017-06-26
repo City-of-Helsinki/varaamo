@@ -6,12 +6,9 @@ $horizontal-margin: 20px;
     color: $white;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     background-color: $medium-gray;
+    min-height: $carousel-image-min-height;
 
-    @media (max-width: $screen-xs-min) {
-      min-height: $carousel-image-min-height;
-    }
-
-    @media (min-width: $screen-sm-min) {
+    @media (min-width: $screen-xs-min) {
       min-height: $carousel-image-mid-height;
     }
 
