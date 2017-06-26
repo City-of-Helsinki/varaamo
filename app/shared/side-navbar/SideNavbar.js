@@ -23,6 +23,10 @@ class SideNavbar extends Component {
     this.setState({ open });
   }
 
+  closeSidebar = () => {
+    this.setState({ open: false });
+  }
+
   renderCloseBar() {
     return (
       <a
@@ -39,7 +43,7 @@ class SideNavbar extends Component {
   renderContent() {
     return (
       <div className="app-SideNavbar__content">
-        <Navbar />
+        <Navbar onNavItemClick={this.closeSidebar} />
         <Footer />
       </div>
     );
