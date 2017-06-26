@@ -30,7 +30,7 @@
   &--size-small {
     height: $element-size-small;
     line-height: $element-size-small;
-    font-size: 14px;
+    font-size: 1.4rem;
     padding: 0 12px;
 
     &.app-Label--shape-default {
@@ -46,7 +46,7 @@
   &--size-mini {
     height: $element-size-mini;
     line-height: $element-size-mini;
-    font-size: 12px;
+    font-size: 1.2rem;
     padding: 0 8px;
 
     &.app-Label--shape-default {
