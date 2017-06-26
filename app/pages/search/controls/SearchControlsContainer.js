@@ -67,7 +67,7 @@ class UnconnectedSearchControlsContainer extends Component {
         />
         <div className="app-SearchControlsContainer__filters">
           <DatePickerControl
-            onChange={this.handleDateChange}
+            onConfirm={this.handleDateChange}
             value={moment(filters.date).format('L')}
           />
           <PeopleCapacityControl
