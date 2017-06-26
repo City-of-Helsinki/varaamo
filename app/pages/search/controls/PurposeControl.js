@@ -10,21 +10,39 @@ import MiniModal from 'shared/mini-modal';
 class PurposeControl extends React.Component {
   static propTypes = {
     isLoading: PropTypes.bool.isRequired,
-    onChange: PropTypes.func.isRequired,
+    onConfirm: PropTypes.func.isRequired,
     purposeOptions: PropTypes.array.isRequired,
     t: PropTypes.func.isRequired,
     value: PropTypes.string,
   }
 
+  state = {
+    value: undefined,
+  }
+
+  componentWillReceiveProps({ value }) {
+    if (value !== this.props.value) {
+      this.setState({ value });
+    }
+  }
+
   handleChange = (option) => {
-    this.props.onChange({ purpose: option ? option.value : '' });
+    this.setState({ value: option ? option.value : '' });
+  }
+
+  handleConfirm = () => {
+    this.props.onConfirm(this.state.value);
   }
 
   render() {
-    const { isLoading, purposeOptions, t, value } = this.props;
+    const { isLoading, purposeOptions, t } = this.props;
+    const { value } = this.state;
+
     const selectedOption = purposeOptions.find(option => option.value === value);
     const selectValue = selectedOption ? value : undefined;
-    const humanizedValue = selectedOption ? selectedOption.label : '';
+
+    const originalOption = purposeOptions.find(option => option.value === this.props.value);
+    const humanizedValue = originalOption ? originalOption.label : '';
 
     return (
       <div className="app-PurposeControl">
@@ -33,6 +51,7 @@ class PurposeControl extends React.Component {
             <span><FontAwesome name="bullseye" /> {humanizedValue}</span>
           }
           header={t('PurposeControl.header')}
+          onConfirm={this.handleConfirm}
           theme="blue"
         >
           <FormGroup controlId="people-capacity-control-group">

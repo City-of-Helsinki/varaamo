@@ -10,7 +10,7 @@ import PurposeControl from './PurposeControl';
 function getWrapper(props) {
   const defaults = {
     isLoading: false,
-    onChange: () => null,
+    onConfirm: () => null,
     purposeOptions: [],
     value: '',
   };
@@ -36,14 +36,33 @@ describe('pages/search/controls/PurposeControl', () => {
     expect(select.prop('onChange')).to.equal(wrapper.instance().handleChange);
   });
 
+  describe('componentWillReceiveProps', () => {
+    it('sets state.value to the nextProps.value', () => {
+      const value = 'sports';
+      const instance = getWrapper({ value }).instance();
+      instance.componentWillReceiveProps({ value: 'meeting' });
+      expect(instance.state.value).to.equal('meeting');
+    });
+  });
+
   describe('handleChange', () => {
-    it('calls props.onChange with correct value', () => {
-      const onChange = simple.mock();
-      const option = { label: 'Foo', value: 'bar' };
-      const instance = getWrapper({ onChange }).instance();
-      instance.handleChange(option);
-      expect(onChange.callCount).to.equal(1);
-      expect(onChange.lastCall.args).to.deep.equal([{ purpose: 'bar' }]);
+    it('sets state.value to the new value', () => {
+      const instance = getWrapper().instance();
+      instance.state.value = 'sports';
+      instance.handleChange({ value: 'meeting' });
+      expect(instance.state.value).to.equal('meeting');
+    });
+  });
+
+  describe('handleConfirm', () => {
+    it('calls onConfirm with correct value', () => {
+      const onConfirm = simple.mock();
+      const value = 'meeting';
+      const instance = getWrapper({ onConfirm }).instance();
+      instance.state.value = value;
+      instance.handleConfirm();
+      expect(onConfirm.callCount).to.equal(1);
+      expect(onConfirm.lastCall.args).to.deep.equal([value]);
     });
   });
 });
