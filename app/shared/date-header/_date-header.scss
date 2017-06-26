@@ -1,10 +1,5 @@
 .date-header {
   text-align: center;
-
-  @media (max-width: $screen-xs-max) {
-    font-size: 20px;
-  }
-
   .date-header-button {
     border: none;
     background-color: transparent;

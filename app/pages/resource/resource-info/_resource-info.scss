@@ -30,11 +30,14 @@ $horizontal-margin: 20px;
 
   h3 {
     margin: 0;
-    font-size: 24px;
+    font-size: 2.4rem;
+    @media (max-width: $screen-xs-max) {
+      font-size: 2rem;
+    }
   }
 
   &__address {
-    font-size: 0.9em;
+    font-size: 1.4rem;
   }
 
   &__bottom-bar {
@@ -49,18 +52,18 @@ $horizontal-margin: 20px;
 
   &__hourly-price {
     display: inline-block;
-    font-size: 22px;
+    font-size: 2rem;
     font-weight: 700;
     line-height: $element-size-medium;
 
     @media (max-width: $screen-xs-max) {
-      font-size: 20px;
+      font-size: 1.6rem;
     }
   }
 
   &__label {
     margin-left: $horizontal-margin;
-    font-size: 14px;
+    font-size: 1.4rem;
     &:first-child {
       margin-left: 0;
     }

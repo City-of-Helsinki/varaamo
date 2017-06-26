@@ -15,6 +15,13 @@ html, body, #root {
   height: 100%;
 }
 
+body {
+  font-size: 1.6rem;
+  @media (max-width: $screen-xs-max) {
+    font-size: 1.4rem;
+  }
+}
+
 .app {
   display: flex;
   flex-direction: column;
