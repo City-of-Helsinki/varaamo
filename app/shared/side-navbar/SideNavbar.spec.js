@@ -78,6 +78,18 @@ describe('shared/side-navbar/SideNavbar', () => {
     expect(instance.state.open).to.be.false;
   });
 
+  it('sets closed state when calling closeSidebar', () => {
+    const wrapper = getWrapper();
+    const instance = wrapper.instance();
+    instance.setState({ open: true });
+    expect(instance.state.open).to.be.true;
+    instance.closeSidebar();
+    expect(instance.state.open).to.be.false;
+    instance.closeSidebar();
+    expect(instance.state.open).to.be.false;
+  });
+
+
   describe('with initials', () => {
     it('renders initials in toggle', () => {
       const wrapper = getWrapper({ initials: 'RG' });
