@@ -102,14 +102,6 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
     expect(selected.isLoggedIn).to.exist;
   });
 
-  it('returns isMakingReservations', () => {
-    const state = getState(resource);
-    const props = getProps(resource.id);
-    const selected = reservationCalendarSelector(state, props);
-
-    expect(selected.isMakingReservations).to.exist;
-  });
-
   it('returns isStaff', () => {
     const state = getState(resource);
     const props = getProps(resource.id);

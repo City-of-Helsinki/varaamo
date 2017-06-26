@@ -68,7 +68,6 @@ const reservationCalendarSelector = createStructuredSelector({
   isEditing: isEditingSelector,
   isFetchingResource: requestIsActiveSelectorFactory(ActionTypes.API.RESOURCE_GET_REQUEST),
   isLoggedIn: isLoggedInSelector,
-  isMakingReservations: requestIsActiveSelectorFactory(ActionTypes.API.RESERVATION_POST_REQUEST),
   isStaff: createIsStaffSelector(resourceSelector),
   resource: resourceSelector,
   selected: selectedSelector,
