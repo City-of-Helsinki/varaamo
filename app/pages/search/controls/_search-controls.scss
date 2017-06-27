@@ -3,14 +3,15 @@
     $button-width-sm: 60px;
     $button-width-lg: 100px;
     $search-box-height: $app-SideNavbar-toggle-width;
-    $search-box-height-mobile: 40px;
+    $search-box-height-mobile: $app-SideNavbar-toggle-width-mobile;
 
     position: relative;
     margin-bottom: 10px;
-    width: calc(100vw - #{$app-SideNavbar-toggle-size} - #{$grid-gutter-width / 2 });
+    width: calc(100vw - #{$app-SideNavbar-toggle-size-mobile} - #{$grid-gutter-width / 2 });
     max-width: $app-SearchPage-max-width;
 
     @media (min-width: $screen-sm-min) {
+      width: calc(100vw - #{$app-SideNavbar-toggle-size} - #{$grid-gutter-width / 2 });
       margin-bottom: 20px;
     }
 
