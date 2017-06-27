@@ -9,8 +9,8 @@ import { shallowWithIntl } from 'utils/testUtils';
 import FooterContent from './FooterContent';
 
 describe('shared/footer/FooterContent', () => {
-  function getWrapper() {
-    return shallowWithIntl(<FooterContent />);
+  function getWrapper(props) {
+    return shallowWithIntl(<FooterContent {...props} />);
   }
 
   describe('When there is no customization in use', () => {
@@ -34,6 +34,18 @@ describe('shared/footer/FooterContent', () => {
       const link = content.find(Link).filter('.about-link');
       expect(link).to.have.length(1);
       expect(link.prop('to')).to.equal('/about');
+    });
+
+    it('link to about page has correct onClick prop', () => {
+      const onLinkClick = () => {};
+      const link = getWrapper({ onLinkClick }).find(Link).filter('.about-link');
+      expect(link.prop('onClick')).to.equal(onLinkClick);
+    });
+
+    it('Logo link has correct onClick prop', () => {
+      const onLinkClick = () => {};
+      const link = getWrapper({ onLinkClick }).find(Link).filter('.brand-link');
+      expect(link.prop('onClick')).to.equal(onLinkClick);
     });
   });
 
@@ -63,6 +75,18 @@ describe('shared/footer/FooterContent', () => {
       const link = content.find(Link).filter('.about-link');
       expect(link).to.have.length(1);
       expect(link.prop('to')).to.equal('/about');
+    });
+
+    it('link to about page has correct onClick prop', () => {
+      const onLinkClick = () => {};
+      const link = getWrapper({ onLinkClick }).find(Link).filter('.about-link');
+      expect(link.prop('onClick')).to.equal(onLinkClick);
+    });
+
+    it('Logo link has correct onClick prop', () => {
+      const onLinkClick = () => {};
+      const link = getWrapper({ onLinkClick }).find(Link).filter('.brand-link');
+      expect(link.prop('onClick')).to.equal(onLinkClick);
     });
   });
 });

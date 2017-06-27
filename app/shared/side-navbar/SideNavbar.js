@@ -44,7 +44,7 @@ class SideNavbar extends Component {
     return (
       <div className="app-SideNavbar__content">
         <Navbar onNavItemClick={this.closeSidebar} />
-        <Footer />
+        <Footer onLinkClick={this.closeSidebar} />
       </div>
     );
   }
