@@ -45,7 +45,7 @@ class UnconnectedResourcePage extends Component {
   handleDateChange = (newDate) => {
     const { resource } = this.props;
     const day = newDate.toISOString().substring(0, 10);
-    browserHistory.push(getResourcePageUrl(resource, day));
+    browserHistory.replace(getResourcePageUrl(resource, day));
   }
 
   render() {
