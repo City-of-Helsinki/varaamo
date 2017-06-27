@@ -6,9 +6,9 @@ import Logo from 'shared/logo';
 import { injectT } from 'i18n';
 import { getCurrentCustomization } from 'utils/customizationUtils';
 
-function FooterContent({ t }) {
+function FooterContent({ onLinkClick, t }) {
   const aboutLink = (
-    <Link className="about-link" to="/about">
+    <Link className="about-link" onClick={onLinkClick} to="/about">
       {t('Footer.aboutLink')}
     </Link>
   );
@@ -19,7 +19,7 @@ function FooterContent({ t }) {
     case 'ESPOO': {
       return (
         <div>
-          <Link className="brand-link" to="/">
+          <Link className="brand-link" onClick={onLinkClick} to="/">
             <Logo />
             Varaamo
           </Link>
@@ -32,7 +32,7 @@ function FooterContent({ t }) {
     default: {
       return (
         <div>
-          <Link className="brand-link" to="/">
+          <Link className="brand-link" onClick={onLinkClick} to="/">
             <Logo />
             Varaamo
           </Link>
@@ -45,7 +45,12 @@ function FooterContent({ t }) {
 }
 
 FooterContent.propTypes = {
+  onLinkClick: PropTypes.func,
   t: PropTypes.func.isRequired,
+};
+
+FooterContent.defaultProps = {
+  onLinkClick: () => {},
 };
 
 export default injectT(FooterContent);
