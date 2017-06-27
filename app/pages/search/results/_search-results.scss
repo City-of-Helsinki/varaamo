@@ -32,7 +32,11 @@
     position: fixed;
     bottom: 0;
     margin: 0;
-    width: calc(100% - 30px);
+    width: 100%;
     max-width: $app-SearchPage-max-width;
+
+    @media (min-width: $screen-sm-min) {
+      width: calc(100% - 30px);
+    }
   }
 }

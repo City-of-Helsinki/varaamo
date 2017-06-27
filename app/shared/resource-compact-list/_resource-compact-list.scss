@@ -3,6 +3,7 @@
 .app-ResourceCompactList {
   $button-size: 50px;
   $button-offset: -20px;
+  $button-offset-mobile: 2px;
   position: relative;
   &_arrow {
     position: absolute;
@@ -17,11 +18,19 @@
     color: $brand-primary;
 
     &-left {
-      left: $button-offset;
+      left: $button-offset-mobile;
+
+      @media (min-width: $screen-sm-min) {
+        left: $button-offset;
+      }
     }
 
     &-right {
-      right: $button-offset;
+      right: $button-offset-mobile;
+
+      @media (min-width: $screen-sm-min) {
+        right: $button-offset;
+      }
     }
   }
   .app-ResourceCard {
