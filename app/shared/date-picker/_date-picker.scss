@@ -1,9 +1,17 @@
 .date-picker {
+  border: 1px solid $input-border;
+  display: flex;
   input {
     // Width value won't be taken in account because date-picker display is flex
     // and this element has a flex-grow, flex-shrink and flex-basis values.
     width: 70%;
   }
+
+  &.react-date-field--focused{
+    border-color: $input-border-focus;
+    box-shadow: $input-box-shadow-focus;
+  }
+
   // Selected value
   .react-date-picker__decade-view--theme-default,
   .react-date-picker__year-view--theme-default,
