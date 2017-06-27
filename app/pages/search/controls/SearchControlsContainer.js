@@ -42,6 +42,10 @@ class UnconnectedSearchControlsContainer extends Component {
     this.handleSearch(newFilters);
   }
 
+  handleSearchBoxChange = (value) => {
+    this.props.actions.changeSearchFilters({ search: value });
+  }
+
   handleSearch = (newFilters = {}, options = {}) => {
     const { scrollToSearchResults } = this.props;
     const filters = { ...this.props.filters, ...newFilters };
@@ -61,7 +65,7 @@ class UnconnectedSearchControlsContainer extends Component {
     return (
       <div className="app-SearchControlsContainer">
         <SearchBox
-          onChange={value => this.handleFiltersChange({ search: value })}
+          onChange={this.handleSearchBoxChange}
           onSearch={this.handleSearch}
           value={filters.search}
         />
