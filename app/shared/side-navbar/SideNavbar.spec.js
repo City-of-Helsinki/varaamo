@@ -27,7 +27,7 @@ describe('shared/side-navbar/SideNavbar', () => {
     expect(wrapper.prop('docked')).to.be.true;
     expect(wrapper.prop('className')).to.equal('app-SideNavbar');
     expect(wrapper.prop('onSetOpen')).to.equal(wrapper.instance().onSetSidebarOpen);
-    expect(wrapper.prop('open')).to.be.false;
+    expect(wrapper.prop('open')).to.be.true;
   });
 
   it('renders sidebar content', () => {
@@ -59,7 +59,7 @@ describe('shared/side-navbar/SideNavbar', () => {
   it('toggles open state when calling onToggleSideBar', () => {
     const wrapper = getWrapper();
     const instance = wrapper.instance();
-    expect(instance.state.open).to.be.false;
+    instance.state.open = false;
     instance.onToggleSideBar();
     expect(instance.state.open).to.be.true;
     instance.onToggleSideBar();
@@ -69,7 +69,7 @@ describe('shared/side-navbar/SideNavbar', () => {
   it('sets open state when calling onSetSidebarOpen', () => {
     const wrapper = getWrapper();
     const instance = wrapper.instance();
-    expect(instance.state.open).to.be.false;
+    instance.state.open = false;
     instance.onSetSidebarOpen(true);
     expect(instance.state.open).to.be.true;
     instance.onSetSidebarOpen(true);
@@ -81,14 +81,12 @@ describe('shared/side-navbar/SideNavbar', () => {
   it('sets closed state when calling closeSidebar', () => {
     const wrapper = getWrapper();
     const instance = wrapper.instance();
-    instance.setState({ open: true });
-    expect(instance.state.open).to.be.true;
+    instance.state.open = true;
     instance.closeSidebar();
     expect(instance.state.open).to.be.false;
     instance.closeSidebar();
     expect(instance.state.open).to.be.false;
   });
-
 
   describe('with initials', () => {
     it('renders initials in toggle', () => {
