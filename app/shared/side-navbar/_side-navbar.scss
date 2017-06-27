@@ -33,8 +33,8 @@
   }
 
   &__toggle {
-    width: $app-SideNavbar-toggle-width;
-    height: $app-SideNavbar-toggle-width;
+    width: $app-SideNavbar-toggle-width-mobile;
+    height: $app-SideNavbar-toggle-width-mobile;
     position: fixed;
     background-color: $brand-primary;
     right: 0;
@@ -43,7 +43,7 @@
     z-index: 20002;
     font-size: 3rem;
     text-align: center;
-    line-height: $app-SideNavbar-toggle-width;
+    line-height: $app-SideNavbar-toggle-width-mobile;
     color: $white;
     border-radius: 50%;
     text-transform: uppercase;
@@ -51,12 +51,20 @@
     font-weight: bold;
     box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.2);
     font-size: 1.4rem;
+
+    @media (min-width: $screen-sm-min) {
+      width: $app-SideNavbar-toggle-width;
+      height: $app-SideNavbar-toggle-width;
+      line-height: $app-SideNavbar-toggle-width;
+    }
+
     &:hover, &:focus {
       color: $white;
       text-decoration: none;
       outline: none;
     }
   }
+
   &__initials {
     font-size: 2.5rem;
   }
