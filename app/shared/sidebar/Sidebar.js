@@ -17,7 +17,7 @@ Sidebar.defaultProps = {
 
 const styles = {
   sidebar: {
-    width: '100vw',
+    width: '90vw',
     maxWidth: '400px',
     zIndex: 20001,
   },
