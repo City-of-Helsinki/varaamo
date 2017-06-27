@@ -39,7 +39,7 @@ describe('shared/sidebar/Sidebar', () => {
     expect(sidebar.prop('open')).to.be.false;
     expect(sidebar.prop('pullRight')).to.be.true;
     expect(sidebar.prop('sidebar')).to.deep.equal(sidebarContent);
-    expect(sidebar.prop('touch')).to.be.true;
+    expect(sidebar.prop('touch')).to.be.false;
     expect(sidebar.children().text()).to.equal('Some text');
   });
 
