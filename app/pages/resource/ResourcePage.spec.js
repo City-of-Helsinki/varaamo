@@ -188,7 +188,7 @@ describe('pages/resource/ResourcePage', () => {
     let browserHistoryMock;
 
     before(() => {
-      browserHistoryMock = simple.mock(browserHistory, 'push');
+      browserHistoryMock = simple.mock(browserHistory, 'replace');
       instance.handleDateChange(newDate);
     });
 
@@ -196,7 +196,7 @@ describe('pages/resource/ResourcePage', () => {
       simple.restore();
     });
 
-    it('calls browserHistory.push with correct path', () => {
+    it('calls browserHistory.replace with correct path', () => {
       const actualPath = browserHistoryMock.lastCall.args[0];
       const expectedPath = getResourcePageUrl(resource, '2015-12-24');
 
