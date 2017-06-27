@@ -13,7 +13,7 @@ class SideNavbar extends Component {
     t: PropTypes.func.isRequired,
   };
 
-  state = { open: false };
+  state = { open: true };
 
   onToggleSideBar = () => {
     this.setState({ open: !this.state.open });
