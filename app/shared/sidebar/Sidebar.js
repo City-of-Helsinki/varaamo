@@ -41,7 +41,7 @@ function Sidebar({ children, className, docked, onSetOpen, open, sidebar }) {
         sidebar={sidebar}
         sidebarClassName="app-Sidebar__sidebar"
         styles={styles}
-        touch
+        touch={false}
       >
         {children}
       </ReactSidebar>
