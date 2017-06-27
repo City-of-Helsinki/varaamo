@@ -23,7 +23,15 @@
       background-color: darken($green, 10%);
     }
 
-    &--past, &--disabled, &--reserved {
+    &--disabled {
+      opacity: 0.7;
+
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+
+    &--past, &--reserved {
       background-color: $gray-light;
       &:hover {
         cursor: not-allowed;
