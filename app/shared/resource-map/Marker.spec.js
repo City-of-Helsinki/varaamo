@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
-import { Marker as LeafletMarker, Tooltip } from 'react-leaflet';
+import { Marker as LeafletMarker } from 'react-leaflet';
 import simple from 'simple-mock';
 
 import Marker from './Marker';
@@ -45,15 +45,14 @@ describe('shared/resource-map/Marker', () => {
       expect(wrapper.is(LeafletMarker)).to.be.true;
     });
 
-    it('contains a tooltip with the number of resources', () => {
-      const wrapper = getWrapper().find(Tooltip);
-      expect(wrapper).to.have.length(1);
-      expect(wrapper.children().text()).to.be.equal('2');
+    it('contains an icon with the number of resources', () => {
+      const iconhtml = getWrapper().prop('icon').options.html;
+      expect(iconhtml).to.contain('<div>2</div>');
     });
 
-    it('does not contains a tooltip with the number of resources if only one resource', () => {
-      const wrapper = getWrapper({ resourceIds: ['123'] }).find(Tooltip);
-      expect(wrapper).to.have.length(0);
+    it('icon does not contain a number if only one resource', () => {
+      const iconhtml = getWrapper({ resourceIds: ['123'] }).prop('icon').options.html;
+      expect(iconhtml).to.contain('<div></div>');
     });
 
     it('has onClick event handlers', () => {

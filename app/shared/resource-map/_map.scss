@@ -34,4 +34,16 @@
       opacity: 0;
     }
   }
+
+  .leaflet-marker-icon {
+    div {
+      color: $brand-primary;
+      text-align: right;
+      font-weight: bold;
+      line-height: 6px;
+    }
+    img {
+      width: 100%;
+    }
+  }
 }
