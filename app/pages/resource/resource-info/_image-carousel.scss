@@ -1,4 +1,8 @@
 .image-carousel {
+  @media (max-width: $resource-page-width) {
+    margin-left: -($grid-gutter-width/2);
+    margin-right: -($grid-gutter-width/2);
+  }
   .image-container {
     background-color: $gray-light;
     background-position: 50% 50%;
