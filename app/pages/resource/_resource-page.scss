@@ -1,6 +1,7 @@
 $carousel-image-min-height: 260px;
 $carousel-image-mid-height: 350px;
 $carousel-image-max-height: 420px;
+$resource-page-width: 700px;
 
 @import './reservation-calendar/reservation-calendar';
 @import './reservation-calendar/time-slots/time-slots';
@@ -8,7 +9,7 @@ $carousel-image-max-height: 420px;
 @import './resource-info/resource-info';
 
 .app-ResourcePage {
-  max-width: 700px;
+  max-width: $resource-page-width;
 
   .date-header {
     margin-bottom: 20px;
