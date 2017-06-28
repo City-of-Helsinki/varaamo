@@ -5,6 +5,7 @@
     align-items: center;
     color: $white;
     width: 25px;
+    flex: 1 0 auto;
     &:hover, &:focus {
       color: $white;
       text-decoration: none;
@@ -26,6 +27,12 @@
     height: 100vh;
     overflow-y: scroll;
     padding: 0 20px 10px 20px;
+    .app-Navbar {
+      flex: 1 0 auto;
+    }
+    footer {
+      flex: 0 1 auto;
+    }
   }
 
   .app-Sidebar__sidebar {
