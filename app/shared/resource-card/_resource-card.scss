@@ -79,6 +79,16 @@
     }
   }
 
+  &__street-address {
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: $gray;
+    margin-bottom: 5px;
+    span {
+      text-transform: capitalize;
+    }
+  }
+
   .resource-availability {
     display: inline-block;
     color: $white;
