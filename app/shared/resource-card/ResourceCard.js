@@ -51,6 +51,10 @@ class ResourceCard extends Component {
             <span>{unit.name}</span>
             {resource.type && <Label size="mini" theme="blue">{resource.type.name}</Label>}
           </div>
+          <div className="app-ResourceCard__street-address">
+            <span>{`${unit.streetAddress}, ${unit.addressZip} `}</span>
+            <span>{unit.municipality}</span>
+          </div>
           <div className="app-ResourceCard__equipment">
             {resource.equipment.map(this.renderEquipment)}
           </div>

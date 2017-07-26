@@ -35,7 +35,11 @@ describe('shared/resource-card/ResourceCard', () => {
         name: 'workplace',
       },
     })),
-    unit: Immutable(Unit.build()),
+    unit: Immutable(Unit.build({
+      addressZip: '00100',
+      municipality: 'helsinki',
+      streetAddress: 'Fabiankatu',
+    })),
   };
   const context = {
     location: { query: { date } },
@@ -107,6 +111,14 @@ describe('shared/resource-card/ResourceCard', () => {
     const expected = defaultProps.unit.name;
 
     expect(unitName.text()).to.contain(expected);
+  });
+
+  it('renders the street address of the given unit in props', () => {
+    const unitName = getWrapper().find('.app-ResourceCard__street-address');
+
+    expect(unitName.html()).to.contain(defaultProps.unit.addressZip);
+    expect(unitName.html()).to.contain(defaultProps.unit.municipality);
+    expect(unitName.html()).to.contain(defaultProps.unit.streetAddress);
   });
 
   it('renders a label with the type of the given resource in props', () => {
