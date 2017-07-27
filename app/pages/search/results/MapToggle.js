@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
 import { injectT } from 'i18n';
 
@@ -15,10 +16,15 @@ function MapToggle({ mapVisible, onClick, resultsCount, t }) {
       className="app-MapToggle btn"
       onClick={onClick}
     >
-      <div className="app-MapToggle__results-count">
-        {resultsCount ? t('MapToggle.resultsText', { count: resultsCount }) : t('MapToggle.noResultsText')}
+      <div className="app-MapToggle__icon">
+        {mapVisible ? <Glyphicon glyph="list" /> : <Glyphicon glyph="map-marker" />}
       </div>
-      {mapVisible ? t('MapToggle.showList') : t('MapToggle.showMap')}
+      <div className="app-MapToggle__text">
+        <div className="app-MapToggle__results-count">
+          {resultsCount ? t('MapToggle.resultsText', { count: resultsCount }) : t('MapToggle.noResultsText')}
+        </div>
+        {mapVisible ? t('MapToggle.showList') : t('MapToggle.showMap')}
+      </div>
     </button>
   );
 }
