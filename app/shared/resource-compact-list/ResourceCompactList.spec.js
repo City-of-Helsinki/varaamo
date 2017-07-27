@@ -44,6 +44,16 @@ describe('shared/resource-list/ResourceCompactList', () => {
       expect(resourceCard.prop('resourceId')).to.equal('resource-2');
     });
 
+    it('passes stacked prop to ResourceCard if more than one resource', () => {
+      const resourceCard = wrapper.find(ResourceCard);
+      expect(resourceCard.prop('stacked')).to.be.true;
+    });
+
+    it('does not pass stacked prop to ResourceCard if more only one resource', () => {
+      const resourceCard = getWrapper({ resourceIds: ['resource-1'] }).find(ResourceCard);
+      expect(resourceCard.prop('stacked')).to.be.false;
+    });
+
     it('renders left arrow if resourcePosition state is not 0', () => {
       const instance = wrapper.instance();
       instance.setState({
