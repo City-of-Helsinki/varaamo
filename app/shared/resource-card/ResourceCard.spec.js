@@ -53,6 +53,16 @@ describe('shared/resource-card/ResourceCard', () => {
     expect(getWrapper().is('div')).to.be.true;
   });
 
+  it('renders stacked className if stacked prop is passed', () => {
+    const resourceCard = getWrapper({ stacked: true }).filter('.app-ResourceCard__stacked');
+    expect(resourceCard).to.have.length(1);
+  });
+
+  it('does not render stacked className if stacked prop is not passed', () => {
+    const resourceCard = getWrapper().filter('.app-ResourceCard__stacked');
+    expect(resourceCard).to.have.length(0);
+  });
+
   describe('backgroundImage', () => {
     function getBackgroundImageWrapper(extraProps) {
       return getWrapper(extraProps).find(BackgroundImage);

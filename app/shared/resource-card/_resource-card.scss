@@ -1,3 +1,4 @@
+$card-border-color: #d6d6d6;
 .app-ResourceCard {
   $image-items-margin: 5px;
 
@@ -7,6 +8,7 @@
   height: $app-ResourceCard-height;
   margin: 20px 0;
   background-color: white;
+  border: 1px solid $card-border-color;
 
   &__image-link{
     flex: 1 1;
@@ -98,5 +100,17 @@
   }
   .controls {
     text-align: center;
+  }
+
+  &.app-ResourceCard__stacked::before {
+    content: '';
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    border: 1px solid $card-border-color;
+    z-index: -1;
+    position: absolute;
+    margin-left: 6px;
+    margin-top: 6px;
   }
 }

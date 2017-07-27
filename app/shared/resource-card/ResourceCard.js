@@ -1,3 +1,4 @@
+import classnames from 'classnames';
 import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
 import { Link } from 'react-router';
@@ -22,7 +23,12 @@ class ResourceCard extends Component {
     const date = this.context.location.query.date;
 
     return (
-      <div className="app-ResourceCard">
+      <div
+        className={classnames(
+          'app-ResourceCard',
+          { 'app-ResourceCard__stacked': this.props.stacked },
+        )}
+      >
         <Link className="app-ResourceCard__image-link" to={getResourcePageUrl(resource, date)}>
           <BackgroundImage
             height={420}
@@ -67,8 +73,9 @@ class ResourceCard extends Component {
 
 ResourceCard.propTypes = {
   resource: PropTypes.object.isRequired,
-  unit: PropTypes.object.isRequired,
+  stacked: PropTypes.bool,
   t: PropTypes.func.isRequired,
+  unit: PropTypes.object.isRequired,
 };
 
 ResourceCard.contextTypes = {
