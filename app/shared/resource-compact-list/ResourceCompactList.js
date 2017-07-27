@@ -45,7 +45,8 @@ export class UnconnectedResourceCompactList extends React.Component {
         }
         <ResourceCard
           resourceId={this.props.resourceIds[this.state.resourcePosition]}
-        />;
+          stacked={Boolean(this.props.resourceIds.length - 1)}
+        />
         {
           this.state.resourcePosition !== this.props.resourceIds.length - 1 &&
           this.props.resourceIds.length &&
