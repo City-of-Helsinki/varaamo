@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import React from 'react';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
 import { shallowWithIntl } from 'utils/testUtils';
 import MapToggle from './MapToggle';
@@ -43,6 +44,20 @@ describe('pages/search/results/MapToggle', () => {
 
     it('renders show list text if map is visible', () => {
       expect(getButtonText(true)).to.contain('MapToggle.showList');
+    });
+  });
+
+  describe('button text', () => {
+    function getButtonIcon(mapVisible) {
+      return getWrapper({ mapVisible }).find('.app-MapToggle__icon').find(Glyphicon);
+    }
+
+    it('renders show map icon if map is not visible', () => {
+      expect(getButtonIcon(false).prop('glyph')).to.equal('map-marker');
+    });
+
+    it('renders show list icon if map is visible', () => {
+      expect(getButtonIcon(true).prop('glyph')).to.equal('list');
     });
   });
 });
