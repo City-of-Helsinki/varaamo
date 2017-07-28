@@ -21,8 +21,12 @@ export class UnconnectedResourceCompactList extends React.Component {
   }
 
   onPreviousResource = () => {
+    // Javascript mod operator (%) does not work as expected an the module of a negative number
+    // is calculated like -(i % i_max) which would lead on a negative resourcePosition.
     this.setState({
-      resourcePosition: (this.state.resourcePosition - 1) % this.props.resourceIds.length,
+      resourcePosition: (
+        (this.state.resourcePosition - 1) + this.props.resourceIds.length
+      ) % this.props.resourceIds.length,
     });
   }
 
@@ -35,7 +39,7 @@ export class UnconnectedResourceCompactList extends React.Component {
   render() {
     return (
       <div className="app-ResourceCompactList">
-        {this.state.resourcePosition !== 0 &&
+        {Boolean(this.props.resourceIds.length - 1) &&
           <button
             className="app-ResourceCompactList_arrow app-ResourceCompactList_arrow-left"
             onClick={this.onPreviousResource}
@@ -47,9 +51,7 @@ export class UnconnectedResourceCompactList extends React.Component {
           resourceId={this.props.resourceIds[this.state.resourcePosition]}
           stacked={Boolean(this.props.resourceIds.length - 1)}
         />
-        {
-          this.state.resourcePosition !== this.props.resourceIds.length - 1 &&
-          this.props.resourceIds.length &&
+        {Boolean(this.props.resourceIds.length - 1) &&
           <button
             className="app-ResourceCompactList_arrow app-ResourceCompactList_arrow-right"
             onClick={this.onNextResource}

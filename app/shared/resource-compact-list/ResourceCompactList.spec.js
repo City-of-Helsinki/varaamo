@@ -64,14 +64,14 @@ describe('shared/resource-list/ResourceCompactList', () => {
       expect(leftArrow.length).to.equal(1);
     });
 
-    it('does not render left arrow if resourcePosition state is 0', () => {
+    it('renders left arrow if resourcePosition state is 0', () => {
       const instance = wrapper.instance();
       instance.setState({
         resourcePosition: 0,
       });
       wrapper.update();
       const leftArrow = wrapper.find('.app-ResourceCompactList_arrow-left');
-      expect(leftArrow.length).to.equal(0);
+      expect(leftArrow.length).to.equal(1);
     });
 
     it('left arrow has correct onClick prop', () => {
@@ -94,14 +94,14 @@ describe('shared/resource-list/ResourceCompactList', () => {
       expect(rightArrow.length).to.equal(1);
     });
 
-    it('does not render right arrow if resourcePosition state is last resource position', () => {
+    it('renders right arrow if resourcePosition state is last resource position', () => {
       const instance = wrapper.instance();
       instance.setState({
         resourcePosition: 1,
       });
       wrapper.update();
       const rightArrow = wrapper.find('.app-ResourceCompactList_arrow-right');
-      expect(rightArrow.length).to.equal(0);
+      expect(rightArrow.length).to.equal(1);
     });
 
     it('right arrow has correct onClick prop', () => {
@@ -124,6 +124,15 @@ describe('shared/resource-list/ResourceCompactList', () => {
       instance.onPreviousResource();
       expect(instance.state.resourcePosition).to.equal(0);
     });
+
+    it('loops to last position if position is 0', () => {
+      const instance = getWrapper().instance();
+      instance.setState({
+        resourcePosition: 0,
+      });
+      instance.onPreviousResource();
+      expect(instance.state.resourcePosition).to.equal(1);
+    });
   });
 
   describe('onNextResource', () => {
@@ -134,6 +143,15 @@ describe('shared/resource-list/ResourceCompactList', () => {
       });
       instance.onNextResource();
       expect(instance.state.resourcePosition).to.equal(1);
+    });
+
+    it('loops to first position if position is last', () => {
+      const instance = getWrapper().instance();
+      instance.setState({
+        resourcePosition: 1,
+      });
+      instance.onNextResource();
+      expect(instance.state.resourcePosition).to.equal(0);
     });
   });
 });
