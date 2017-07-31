@@ -30,6 +30,10 @@ describe('pages/search/SearchPage', () => {
     searchResultIds: Immutable(['resource-1', 'resource-2']),
     selectedUnitId: '123',
     showMap: false,
+    uiFilters: {
+      date: '2015-10-10',
+      purpose: 'some-purpose',
+    },
   };
 
   function getWrapper(extraProps) {
@@ -112,7 +116,19 @@ describe('pages/search/SearchPage', () => {
       expect(searchResources.lastCall.args).to.deep.equal([defaultProps.filters]);
     });
 
-    it('does not fetch resources if searchDone is true', () => {
+    it('fetches resources if ui filters do not match url filters', () => {
+      const searchResources = simple.mock();
+      const props = {
+        filters: { people: 1 },
+        uiFilters: { people: 2 },
+        searchDone: true,
+      };
+      callComponentDidMount(props, { searchResources });
+      expect(searchResources.callCount).to.equal(1);
+      expect(searchResources.lastCall.args).to.deep.equal([props.filters]);
+    });
+
+    it('does not fetch resources otherwise', () => {
       const searchResources = simple.mock();
       callComponentDidMount({ searchDone: true }, { searchResources });
       expect(searchResources.callCount).to.equal(0);

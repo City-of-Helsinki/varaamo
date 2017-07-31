@@ -41,4 +41,8 @@ describe('pages/search/searchPageSelector', () => {
   it('returns selectedUnitId', () => {
     expect(getSelected().selectedUnitId).to.equal(null);
   });
+
+  it('returns uiFilters', () => {
+    expect(getSelected().uiFilters).to.exist;
+  });
 });

@@ -23,9 +23,12 @@ class UnconnectedSearchPage extends Component {
   }
 
   componentDidMount() {
-    const { actions, filters, searchDone } = this.props;
+    const { actions, filters, searchDone, uiFilters } = this.props;
     actions.fetchUnits();
     if (!searchDone) {
+      this.searchResources(filters);
+    }
+    if (!isEqual(filters, uiFilters)) {
       this.searchResources(filters);
     }
   }
@@ -106,6 +109,7 @@ UnconnectedSearchPage.propTypes = {
   selectedUnitId: PropTypes.string,
   showMap: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
+  uiFilters: PropTypes.object.isRequired,
 };
 
 UnconnectedSearchPage = injectT(UnconnectedSearchPage); // eslint-disable-line
