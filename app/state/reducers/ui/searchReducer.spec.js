@@ -155,25 +155,45 @@ describe('state/reducers/ui/searchReducer', () => {
       });
     });
 
-    describe('UI.CLEAR_SEARCH_RESULTS', () => {
-      it('empties the search results', () => {
+    describe('UI.CLEAR_SEARCH_FILTERS', () => {
+      it('clears filters', () => {
+        const filters = {
+          date: '2017-12-12',
+          people: '12',
+          purpose: 'some-purpose',
+          search: 'search-query',
+        };
+        const expected = {
+          date: '',
+          people: '',
+          purpose: '',
+          search: '',
+        };
+        const action = clearSearchResults();
+        const initialState = Immutable({ filters });
+        const nextState = searchReducer(initialState, action);
+
+        expect(nextState.filters).to.deep.equal(expected);
+      });
+
+      it('does not empty the search results', () => {
         const action = clearSearchResults();
         const initialState = Immutable({
           results: ['r-1', 'r-2'],
         });
         const nextState = searchReducer(initialState, action);
 
-        expect(nextState.results).to.deep.equal([]);
+        expect(nextState.results).to.deep.equal(initialState.results);
       });
 
-      it('sets searchDone to false', () => {
+      it('does not change searchDone', () => {
         const action = clearSearchResults();
         const initialState = Immutable({
           searchDone: true,
         });
         const nextState = searchReducer(initialState, action);
 
-        expect(nextState.searchDone).to.equal(false);
+        expect(nextState.searchDone).to.equal(true);
       });
     });
 

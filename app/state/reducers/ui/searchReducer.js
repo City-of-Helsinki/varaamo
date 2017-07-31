@@ -32,8 +32,9 @@ function searchReducer(state = initialState, action) {
       return state.merge({ filters }, { deep: true });
     }
 
-    case types.UI.CLEAR_SEARCH_RESULTS: {
-      return initialState;
+    case types.UI.CLEAR_SEARCH_FILTERS: {
+      const { results, searchDone } = state;
+      return initialState.merge({ results, searchDone });
     }
 
     case types.UI.TOGGLE_SEARCH_SHOW_MAP: {
