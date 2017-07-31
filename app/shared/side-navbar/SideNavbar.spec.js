@@ -27,7 +27,7 @@ describe('shared/side-navbar/SideNavbar', () => {
     expect(wrapper.prop('docked')).to.be.true;
     expect(wrapper.prop('className')).to.equal('app-SideNavbar');
     expect(wrapper.prop('onSetOpen')).to.equal(wrapper.instance().onSetSidebarOpen);
-    expect(wrapper.prop('open')).to.be.true;
+    expect(wrapper.prop('open')).to.be.false;
   });
 
   it('renders sidebar content', () => {
@@ -99,6 +99,66 @@ describe('shared/side-navbar/SideNavbar', () => {
       const wrapper = getWrapper({ initials: 'RG' });
       const toggle = wrapper.find('.app-SideNavbar__toggle.app-SideNavbar__initials');
       expect(toggle).to.have.length(1);
+    });
+  });
+
+  describe('docked', () => {
+    describe('onMediaQueryChanged', () => {
+      it('sets open and forcedOpen state to true if media query has match', () => {
+        const instance = getWrapper().instance();
+        instance.onMediaQueryChanged({ matches: true });
+        expect(instance.state.open).to.be.true;
+        expect(instance.state.forcedOpen).to.be.true;
+      });
+
+      it('sets open and forcedOpen state to false if media query does not has match', () => {
+        const instance = getWrapper().instance();
+        instance.onMediaQueryChanged({ matches: false });
+        expect(instance.state.open).to.be.false;
+        expect(instance.state.forcedOpen).to.be.false;
+      });
+    });
+    describe('onToggleSideBar', () => {
+      it('does not change open state if forcedOpen is true', () => {
+        const instance = getWrapper().instance();
+        instance.setState({ forcedOpen: true, open: true });
+        instance.onToggleSideBar();
+        expect(instance.state.open).to.be.true;
+      });
+      it('changes open state if forcedOpen is false', () => {
+        const instance = getWrapper().instance();
+        instance.setState({ forcedOpen: false, open: true });
+        instance.onToggleSideBar();
+        expect(instance.state.open).to.be.false;
+      });
+    });
+
+    describe('closeSidebar', () => {
+      it('does not change open state if forcedOpen is true', () => {
+        const instance = getWrapper().instance();
+        instance.setState({ forcedOpen: true, open: true });
+        instance.closeSidebar();
+        expect(instance.state.open).to.be.true;
+      });
+      it('changes open state if forcedOpen is false', () => {
+        const instance = getWrapper().instance();
+        instance.setState({ forcedOpen: false, open: true });
+        instance.closeSidebar();
+        expect(instance.state.open).to.be.false;
+      });
+    });
+    describe('renderCloseBar', () => {
+      it('returns false if forcedOpen', () => {
+        const instance = getWrapper().instance();
+        instance.setState({ forcedOpen: true });
+        expect(instance.renderCloseBar()).to.be.false;
+      });
+
+      it('returns something else than false if forcedOpen', () => {
+        const instance = getWrapper().instance();
+        instance.setState({ forcedOpen: false });
+        expect(instance.renderCloseBar()).not.to.be.false;
+      });
     });
   });
 });
