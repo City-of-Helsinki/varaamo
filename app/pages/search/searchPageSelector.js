@@ -2,6 +2,7 @@ import { createStructuredSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
 import { isLoggedInSelector } from 'state/selectors/authSelectors';
+import uiSearchFiltersSelector from 'state/selectors/uiSearchFiltersSelector';
 import urlSearchFiltersSelector from 'state/selectors/urlSearchFiltersSelector';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
 
@@ -19,6 +20,7 @@ const searchPageSelector = createStructuredSelector({
   searchResultIds: searchResultIdsSelector,
   selectedUnitId: selectedUnitIdSelector,
   showMap: showMapSelector,
+  uiFilters: uiSearchFiltersSelector,
 });
 
 export default searchPageSelector;
