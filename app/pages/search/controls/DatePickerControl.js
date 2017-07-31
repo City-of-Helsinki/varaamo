@@ -36,7 +36,10 @@ class DatePickerControl extends React.Component {
       <div className="app-DatePickerControl">
         <MiniModal
           buttonContent={
-            <span><FontAwesome name="calendar" /> {value || ''}</span>
+            <div>
+              <div><FontAwesome name="calendar" /> Päivämäärä</div>
+              <div>{value || ''}</div>
+            </div>
           }
           header={t('DatePickerControl.header')}
           onConfirm={this.handleConfirm}

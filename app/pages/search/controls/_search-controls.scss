@@ -86,9 +86,13 @@
   .app-PeopleCapacityControl, .app-PurposeControl, .app-DatePickerControl {
     display: inline-block;
     margin-left: 15px;
+    .app-MiniModal__show-button {
+      height: 50px;
+      line-height: 20px;
+    }
   }
 
-  .app-DatePickerControl {
+  .app-PurposeControl {
     margin-left: 0;
   }
 }

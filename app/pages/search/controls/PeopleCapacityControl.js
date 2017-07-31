@@ -38,7 +38,10 @@ class PeopleCapacityControl extends React.Component {
       <div className="app-PeopleCapacityControl">
         <MiniModal
           buttonContent={
-            <span><FontAwesome name="users" /> {value || ''}</span>
+            <div>
+              <div><FontAwesome name="users" /> Henkilömäärä</div>
+              <div>{value || '1'}</div>
+            </div>
           }
           header={t('PeopleCapacityControl.header')}
           onConfirm={this.handleConfirm}
@@ -50,9 +53,9 @@ class PeopleCapacityControl extends React.Component {
             </ControlLabel>
             <NumericInput
               className="form-control"
-              min={0}
+              min={1}
               onChange={this.handleChange}
-              value={this.state.value || 0}
+              value={this.state.value || 1}
             />
           </FormGroup>
         </MiniModal>
