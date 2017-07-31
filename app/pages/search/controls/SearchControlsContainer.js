@@ -70,6 +70,12 @@ class UnconnectedSearchControlsContainer extends Component {
           value={filters.search}
         />
         <div className="app-SearchControlsContainer__filters">
+          <PurposeControl
+            isLoading={isFetchingPurposes}
+            onConfirm={purpose => this.handleFiltersChange({ purpose })}
+            purposeOptions={purposeOptions}
+            value={filters.purpose}
+          />
           <DatePickerControl
             onConfirm={this.handleDateChange}
             value={moment(filters.date).format('L')}
@@ -77,12 +83,6 @@ class UnconnectedSearchControlsContainer extends Component {
           <PeopleCapacityControl
             onConfirm={people => this.handleFiltersChange({ people })}
             value={parseInt(filters.people, 10)}
-          />
-          <PurposeControl
-            isLoading={isFetchingPurposes}
-            onConfirm={purpose => this.handleFiltersChange({ purpose })}
-            purposeOptions={purposeOptions}
-            value={filters.purpose}
           />
         </div>
       </div>
