@@ -7,12 +7,6 @@ import { injectT } from 'i18n';
 import { getCurrentCustomization } from 'utils/customizationUtils';
 
 function FooterContent({ onLinkClick, t }) {
-  const aboutLink = (
-    <Link className="about-link" onClick={onLinkClick} to="/about">
-      {t('Footer.aboutLink')}
-    </Link>
-  );
-
   const feedbackLink = <FeedbackLink>{t('Footer.feedbackLink')}</FeedbackLink>;
 
   switch (getCurrentCustomization()) {
@@ -24,7 +18,6 @@ function FooterContent({ onLinkClick, t }) {
             Varaamo
           </Link>
           <p>{t('Footer.espooText')} {feedbackLink}</p>
-          {aboutLink}
         </div>
       );
     }
@@ -37,7 +30,6 @@ function FooterContent({ onLinkClick, t }) {
             Varaamo
           </Link>
           <p>{t('Footer.helsinkiText')} {feedbackLink}</p>
-          {aboutLink}
         </div>
       );
     }
