@@ -49,10 +49,7 @@ class UnconnectedSearchPage extends Component {
   }
 
   searchResources(filters) {
-    const { actions, searchDone } = this.props;
-    if (searchDone || filters.purpose || filters.people || filters.search) {
-      actions.searchResources(filters);
-    }
+    this.props.actions.searchResources(filters);
   }
 
   render() {
