@@ -13,30 +13,53 @@ class SideNavbar extends Component {
     t: PropTypes.func.isRequired,
   };
 
-  state = { open: true };
+  state = { open: false, forcedOpen: false };
+
+  componentWillMount() {
+    const mql = window.matchMedia('(min-width: 1280px)');
+    this.setState({ mql });
+    mql.addListener(this.onMediaQueryChanged);
+    this.onMediaQueryChanged(mql);
+  }
+
+  componentWillUnmount() {
+    this.state.mql.removeListener(this.onMediaQueryChanged);
+  }
 
   onToggleSideBar = () => {
-    this.setState({ open: !this.state.open });
+    if (!this.state.forcedOpen) {
+      this.setState({ open: !this.state.open });
+    }
   }
 
   onSetSidebarOpen = (open) => {
     this.setState({ open });
   }
 
+  onMediaQueryChanged = (mqlEvent) => {
+    this.setState({
+      open: mqlEvent.matches,
+      forcedOpen: mqlEvent.matches,
+    });
+  }
+
   closeSidebar = () => {
-    this.setState({ open: false });
+    if (!this.state.forcedOpen) {
+      this.setState({ open: false });
+    }
   }
 
   renderCloseBar() {
     return (
-      <a
-        className="app-SideNavbar__close-bar"
-        onClick={this.onToggleSideBar}
-        role="button"
-        tabIndex="-1"
-      >
-        <span>{this.props.t('SideNavbar.close')}</span>
-      </a>
+      !this.state.forcedOpen &&
+        <a
+          className="app-SideNavbar__close-bar"
+          onClick={this.onToggleSideBar}
+          role="button"
+          tabIndex="-1"
+        >
+          <span>{this.props.t('SideNavbar.close')}</span>
+        </a>
     );
   }
 
