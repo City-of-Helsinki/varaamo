@@ -27,7 +27,13 @@ describe('shared/side-navbar/SideNavbar', () => {
     expect(wrapper.prop('docked')).to.be.true;
     expect(wrapper.prop('className')).to.equal('app-SideNavbar');
     expect(wrapper.prop('onSetOpen')).to.equal(wrapper.instance().onSetSidebarOpen);
-    expect(wrapper.prop('open')).to.be.false;
+    expect(wrapper.prop('open')).to.be.true;
+  });
+
+  it('has correct initial state', () => {
+    const state = getWrapper().instance().state;
+    expect(state.open).to.be.true;
+    expect(state.forcedOpen).to.be.false;
   });
 
   it('renders sidebar content', () => {
@@ -114,7 +120,7 @@ describe('shared/side-navbar/SideNavbar', () => {
       it('sets open and forcedOpen state to false if media query does not has match', () => {
         const instance = getWrapper().instance();
         instance.onMediaQueryChanged({ matches: false });
-        expect(instance.state.open).to.be.false;
+        expect(instance.state.open).to.be.true;
         expect(instance.state.forcedOpen).to.be.false;
       });
     });
