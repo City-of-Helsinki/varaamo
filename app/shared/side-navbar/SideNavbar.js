@@ -13,7 +13,7 @@ class SideNavbar extends Component {
     t: PropTypes.func.isRequired,
   };
 
-  state = { open: false, forcedOpen: false };
+  state = { open: true, forcedOpen: false };
 
   componentWillMount() {
     const mql = window.matchMedia('(min-width: 1280px)');
@@ -38,7 +38,7 @@ class SideNavbar extends Component {
 
   onMediaQueryChanged = (mqlEvent) => {
     this.setState({
-      open: mqlEvent.matches,
+      open: true,
       forcedOpen: mqlEvent.matches,
     });
   }
