@@ -97,6 +97,11 @@ function Navbar(props) {
               </NavItem>
             </LinkContainer>
           )}
+          <LinkContainer to="/about">
+            <NavItem className="about-link" onClick={onNavItemClick}>
+              {t('Navbar.aboutLink')}
+            </NavItem>
+          </LinkContainer>
         </Nav>
       </div>
     </div>

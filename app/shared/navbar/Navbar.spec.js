@@ -43,6 +43,11 @@ describe('shared/navbar/Navbar', () => {
     expect(searchLink).to.have.length(1);
   });
 
+  it('contains a link to about page', () => {
+    const link = getWrapper().find(LinkContainer).filter({ to: '/about' });
+    expect(link).to.have.length(1);
+  });
+
   describe('language nav', () => {
     function getLanguageNavWrapper(props) {
       return getWrapper(props).find('#language-nav');

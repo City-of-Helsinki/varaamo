@@ -30,18 +30,6 @@ describe('shared/footer/FooterContent', () => {
       expect(texts).to.contain('Footer.helsinkiText');
     });
 
-    it('contains a link to about page', () => {
-      const link = content.find(Link).filter('.about-link');
-      expect(link).to.have.length(1);
-      expect(link.prop('to')).to.equal('/about');
-    });
-
-    it('link to about page has correct onClick prop', () => {
-      const onLinkClick = () => {};
-      const link = getWrapper({ onLinkClick }).find(Link).filter('.about-link');
-      expect(link.prop('onClick')).to.equal(onLinkClick);
-    });
-
     it('Logo link has correct onClick prop', () => {
       const onLinkClick = () => {};
       const link = getWrapper({ onLinkClick }).find(Link).filter('.brand-link');
@@ -69,18 +57,6 @@ describe('shared/footer/FooterContent', () => {
     it('renders texts for Espoo', () => {
       const texts = content.find('p').text();
       expect(texts).to.contain('Footer.espooText');
-    });
-
-    it('contains a link to about page', () => {
-      const link = content.find(Link).filter('.about-link');
-      expect(link).to.have.length(1);
-      expect(link.prop('to')).to.equal('/about');
-    });
-
-    it('link to about page has correct onClick prop', () => {
-      const onLinkClick = () => {};
-      const link = getWrapper({ onLinkClick }).find(Link).filter('.about-link');
-      expect(link.prop('onClick')).to.equal(onLinkClick);
     });
 
     it('Logo link has correct onClick prop', () => {
