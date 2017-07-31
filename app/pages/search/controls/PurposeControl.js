@@ -48,7 +48,10 @@ class PurposeControl extends React.Component {
       <div className="app-PurposeControl">
         <MiniModal
           buttonContent={
-            <span><FontAwesome name="bullseye" /> {humanizedValue}</span>
+            <div>
+              <div><FontAwesome name="bullseye" /> Mitä haluat tehdä?</div>
+              <div>{humanizedValue}</div>
+            </div>
           }
           header={t('PurposeControl.header')}
           onConfirm={this.handleConfirm}
