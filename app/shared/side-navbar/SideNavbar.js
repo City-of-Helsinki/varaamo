@@ -93,7 +93,10 @@ class SideNavbar extends Component {
         <a
           className={classnames(
             'app-SideNavbar__toggle',
-            { 'app-SideNavbar__initials': this.props.initials }
+            {
+              'app-SideNavbar__initials': this.props.initials,
+              'app-SideNavbar__docked': this.state.forcedOpen,
+            }
           )}
           onClick={this.onToggleSideBar}
           role="button"
