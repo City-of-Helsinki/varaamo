@@ -109,6 +109,13 @@ describe('shared/side-navbar/SideNavbar', () => {
   });
 
   describe('docked', () => {
+    it('renders docked class in toggle', () => {
+      const wrapper = getWrapper();
+      expect(wrapper.find('.app-SideNavbar__docked')).to.have.length(0);
+      wrapper.instance().setState({ forcedOpen: true });
+      expect(wrapper.update().find('.app-SideNavbar__docked')).to.have.length(1);
+    });
+
     describe('onMediaQueryChanged', () => {
       it('sets open and forcedOpen state to true if media query has match', () => {
         const instance = getWrapper().instance();
