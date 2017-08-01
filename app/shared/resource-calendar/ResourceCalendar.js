@@ -25,7 +25,7 @@ export function UnconnectedResourceCalendar({
   const selectedDay = new Date();
   selectedDay.setFullYear(year, month - 1, dayNumber);
   return (
-    <div className="calendar-availability">
+    <div className="app-ResourceCalendar">
       <DayPicker
         disabledDays={day => new Date(day).setHours(23, 59, 59, 59) < new Date()}
         enableOutsideDays

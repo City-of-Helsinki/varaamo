@@ -2,6 +2,8 @@ $carousel-image-min-height: 260px;
 $carousel-image-mid-height: 350px;
 $carousel-image-max-height: 420px;
 $resource-page-width: 700px;
+$margin-between-items: 10px;
+
 
 @import './reservation-calendar/reservation-calendar';
 @import './reservation-calendar/time-slots/time-slots';
@@ -16,5 +18,25 @@ $resource-page-width: 700px;
     font-size: 1.8rem;
     color: $brand-primary;
     text-align: left;
+  }
+
+  .app-ResourcePage__calendar-time-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: -($margin-between-items);
+  }
+
+  .app-ResourceCalendar {
+    margin-left: $margin-between-items;
+  }
+
+  &__reservation-calendar-wrapper {
+    flex-basis: ($resource-page-width/2);
+    flex-grow: 1;
+    margin-left: $margin-between-items;
+    h3 {
+      margin-top: 0;
+    }
   }
 }
