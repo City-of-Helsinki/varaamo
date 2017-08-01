@@ -7,13 +7,14 @@
   margin-bottom: 30px;
 
   .app-TimeSlot {
-    $slot-height: 50px;
+    $slot-height: 32px;
     flex: 0 0 23%;
     margin-bottom: 10px;
     height: $slot-height;
     line-height: $slot-height;
     outline: none;
     border: none;
+    padding: 0;
     border-radius: 8px;
     color: $white;
     font-size: 20px;
