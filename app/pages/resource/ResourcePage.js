@@ -83,20 +83,24 @@ class UnconnectedResourcePage extends Component {
             isLoggedIn={isLoggedIn}
             resource={resource}
           />
-          <ResourceCalendar
-            onDateChange={this.handleDateChange}
-            resourceId={resource.id}
-            selectedDate={date}
-          />
-          <DateHeader
-            beforeText="Varaustilanne"
-            date={date}
-            scrollTo={location.hash === '#date-header'}
-          />
-          <ReservationCalendar
-            location={location}
-            params={params}
-          />
+          <div className="app-ResourcePage__calendar-time-wrapper">
+            <ResourceCalendar
+              onDateChange={this.handleDateChange}
+              resourceId={resource.id}
+              selectedDate={date}
+            />
+            <div className="app-ResourcePage__reservation-calendar-wrapper">
+              <DateHeader
+                beforeText="Varaustilanne"
+                date={date}
+                scrollTo={location.hash === '#date-header'}
+              />
+              <ReservationCalendar
+                location={location}
+                params={params}
+              />
+            </div>
+          </div>
         </Loader>
       </PageWrapper>
     );
