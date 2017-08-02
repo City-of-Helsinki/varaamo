@@ -37,7 +37,7 @@ class DatePickerControl extends React.Component {
         <MiniModal
           buttonContent={
             <div>
-              <div><FontAwesome name="calendar" /> Päivämäärä</div>
+              <div><FontAwesome name="calendar" /> {t('DatePickerControl.buttonLabel')}</div>
               <div>{value || ''}</div>
             </div>
           }
