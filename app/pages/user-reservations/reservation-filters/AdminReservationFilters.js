@@ -22,7 +22,7 @@ class AdminReservationFilters extends Component {
     const { filters, t } = this.props;
     const stateOptions = [
       {
-        label: t('AdminReservationFilters.allOptionLabel'),
+        label: t('common.optionsAllLabel'),
         value: 'all',
       },
       ...sortBy(

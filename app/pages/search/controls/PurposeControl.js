@@ -17,7 +17,11 @@ class PurposeControl extends React.Component {
   }
 
   state = {
-    value: undefined,
+    value: '',
+  }
+
+  componentWillMount() {
+    this.setState({ value: this.props.value });
   }
 
   componentWillReceiveProps({ value }) {
@@ -37,12 +41,14 @@ class PurposeControl extends React.Component {
   render() {
     const { isLoading, purposeOptions, t } = this.props;
     const { value } = this.state;
-
-    const selectedOption = purposeOptions.find(option => option.value === value);
-    const selectValue = selectedOption ? value : undefined;
-
-    const originalOption = purposeOptions.find(option => option.value === this.props.value);
-    const humanizedValue = originalOption ? originalOption.label : '';
+    const selectOptions = [
+      {
+        label: t('common.optionsAllLabel'),
+        value: '',
+      },
+      ...purposeOptions,
+    ];
+    const originalOption = selectOptions.find(option => option.value === this.props.value) || {};
 
     return (
       <div className="app-PurposeControl">
@@ -50,7 +56,7 @@ class PurposeControl extends React.Component {
           buttonContent={
             <div>
               <div><FontAwesome name="bullseye" /> Mitä haluat tehdä?</div>
-              <div>{humanizedValue}</div>
+              <div>{originalOption.label}</div>
             </div>
           }
           header={t('PurposeControl.header')}
@@ -62,14 +68,14 @@ class PurposeControl extends React.Component {
               {t('PurposeControl.label')}
             </ControlLabel>
             <Select
-              clearable
+              clearable={false}
               isLoading={isLoading}
               name="purpose-filter-select"
               onChange={this.handleChange}
-              options={purposeOptions}
+              options={selectOptions}
               placeholder=" "
               searchable={false}
-              value={selectValue}
+              value={value}
             />
           </FormGroup>
         </MiniModal>
