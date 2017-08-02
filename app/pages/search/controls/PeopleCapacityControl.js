@@ -39,7 +39,7 @@ class PeopleCapacityControl extends React.Component {
         <MiniModal
           buttonContent={
             <div>
-              <div><FontAwesome name="users" /> Henkilömäärä</div>
+              <div><FontAwesome name="users" /> {t('PeopleCapacityControl.buttonLabel')}</div>
               <div>{value || '1'}</div>
             </div>
           }
