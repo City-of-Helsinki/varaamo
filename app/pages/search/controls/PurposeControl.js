@@ -55,7 +55,7 @@ class PurposeControl extends React.Component {
         <MiniModal
           buttonContent={
             <div>
-              <div><FontAwesome name="bullseye" /> Mitä haluat tehdä?</div>
+              <div><FontAwesome name="bullseye" /> {t('PurposeControl.buttonLabel')}</div>
               <div>{originalOption.label}</div>
             </div>
           }
