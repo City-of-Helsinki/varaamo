@@ -29,7 +29,7 @@ describe('pages/user-reservations/reservation-filters/AdminReservationFilters', 
 
     it('passes correct options to the Select component', () => {
       const expected = [
-        { label: 'AdminReservationFilters.allOptionLabel', value: 'all' },
+        { label: 'common.optionsAllLabel', value: 'all' },
         { label: 'common.cancelled', value: 'cancelled' },
         { label: 'common.confirmed', value: 'confirmed' },
         { label: 'common.denied', value: 'denied' },
