@@ -12,6 +12,11 @@ $margin-between-items: 10px;
 
 .app-ResourcePage {
   max-width: $resource-page-width;
+  position: relative;
+  padding: 10px;
+  background-color: $white;
+  box-shadow: 0px 1px 10px 5px rgba(0, 0, 0, 0.2);
+  box-sizing: content-box;
 
   .date-header {
     margin-bottom: 20px;
