@@ -103,6 +103,19 @@
 // DatePickerControl styles
 // ------------------------
 
+.app-DatePickerControl {
+  display: inline-block;
+  margin-left: 15px;
+
+  &__show-button {
+    @include search-control-button($green);
+  }
+
+  &__modal {
+    @include search-control-modal($green);
+  }
+}
+
 .app-DatePickerControl__calendar {
   border: none;
   width: 100%;
@@ -115,7 +128,10 @@
   }
 }
 
-.app-PeopleCapacityControl, .app-DatePickerControl {
+// PeopleCapacityControl styles
+// ----------------------------
+
+.app-PeopleCapacityControl {
   display: inline-block;
   margin-left: 15px;
   .app-MiniModal__show-button {
