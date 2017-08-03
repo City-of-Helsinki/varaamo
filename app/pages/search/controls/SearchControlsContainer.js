@@ -82,7 +82,7 @@ class UnconnectedSearchControlsContainer extends Component {
           />
           <PeopleCapacityControl
             onConfirm={people => this.handleFiltersChange({ people })}
-            value={parseInt(filters.people, 10)}
+            value={filters.people ? parseInt(filters.people, 10) : 1}
           />
         </div>
       </div>
