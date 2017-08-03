@@ -10,7 +10,6 @@ import { fetchUnits } from 'actions/unitActions';
 import PageWrapper from 'pages/PageWrapper';
 import { injectT } from 'i18n';
 import { scrollTo } from 'utils/domUtils';
-import ResourceMap from 'shared/resource-map';
 import SearchControls from './controls';
 import searchPageSelector from './searchPageSelector';
 import SearchResults from './results';
@@ -70,11 +69,6 @@ class UnconnectedSearchPage extends Component {
 
     return (
       <PageWrapper className="app-SearchPage" fluid title={t('SearchPage.title')}>
-        <ResourceMap
-          resourceIds={searchResultIds}
-          selectedUnitId={selectedUnitId}
-          showMap={showMap}
-        />
         <div className="app-SearchPage__content">
           <SearchControls
             location={location}
