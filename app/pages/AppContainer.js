@@ -8,12 +8,20 @@ import { fetchUser } from 'actions/userActions';
 import Favicon from 'shared/favicon';
 import TestSiteMessage from 'shared/test-site-message';
 import Notifications from 'shared/notifications';
+import ResourceMap from 'shared/resource-map';
 import SideNavbar from 'shared/side-navbar';
 import { getCustomizationClassName } from 'utils/customizationUtils';
 
 const userIdSelector = state => state.auth.userId;
+const searchResultIdsSelector = state => state.ui.search.results;
+const showMapSelector = state => state.ui.search.showMap;
+const selectedUnitIdSelector = state => state.ui.search.unitId;
+
 export const selector = createStructuredSelector({
   userId: userIdSelector,
+  searchResultIds: searchResultIdsSelector,
+  selectedUnitId: selectedUnitIdSelector,
+  showMap: showMapSelector,
 });
 
 export class UnconnectedAppContainer extends Component {
@@ -46,6 +54,11 @@ export class UnconnectedAppContainer extends Component {
               <Grid>
                 <Notifications />
               </Grid>
+              <ResourceMap
+                resourceIds={this.props.searchResultIds}
+                selectedUnitId={this.props.selectedUnitId}
+                showMap={this.props.showMap}
+              />
               {this.props.children}
             </div>
           </SideNavbar>
@@ -59,6 +72,9 @@ UnconnectedAppContainer.propTypes = {
   children: PropTypes.node,
   fetchUser: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
+  searchResultIds: PropTypes.array.isRequired,
+  selectedUnitId: PropTypes.string,
+  showMap: PropTypes.bool.isRequired,
   userId: PropTypes.string,
 };
 

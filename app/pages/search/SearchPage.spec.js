@@ -1,10 +1,9 @@
 import { expect } from 'chai';
 import React from 'react';
-import simple from 'simple-mock';
 import Immutable from 'seamless-immutable';
+import simple from 'simple-mock';
 
 import PageWrapper from 'pages/PageWrapper';
-import ResourceMap from 'shared/resource-map';
 import { shallowWithIntl } from 'utils/testUtils';
 import { UnconnectedSearchPage as SearchPage } from './SearchPage';
 import SearchControls from './controls';
@@ -47,19 +46,6 @@ describe('pages/search/SearchPage', () => {
       expect(pageWrapper.prop('className')).to.equal('app-SearchPage');
       expect(pageWrapper.prop('fluid')).to.be.true;
       expect(pageWrapper.prop('title')).to.equal('SearchPage.title');
-    });
-
-    it('renders a ResourceMap with correct props', () => {
-      const resourceMap = getWrapper().find(ResourceMap);
-      expect(resourceMap).to.have.length(1);
-      expect(resourceMap.prop('showMap')).to.equal(false);
-      expect(resourceMap.prop('resourceIds')).to.deep.equal(defaultProps.searchResultIds);
-      expect(resourceMap.prop('selectedUnitId')).to.equal(defaultProps.selectedUnitId);
-    });
-
-    it('passes showMap prop to ResourceMap', () => {
-      const resourceMap = getWrapper({ showMap: true }).find(ResourceMap);
-      expect(resourceMap.prop('showMap')).to.equal(true);
     });
 
     it('renders SearchControls with correct props', () => {
