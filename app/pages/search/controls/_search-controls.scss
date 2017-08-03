@@ -82,20 +82,26 @@
       margin-bottom: 20px;
     }
   }
+}
 
-  .app-PeopleCapacityControl, .app-PurposeControl, .app-DatePickerControl {
-    display: inline-block;
-    margin-left: 15px;
-    .app-MiniModal__show-button {
-      height: 50px;
-      line-height: 20px;
-    }
+// PurposeControl styles
+// ---------------------
+
+.app-PurposeControl {
+  display: inline-block;
+  margin-left: 0;
+
+  &__show-button {
+    @include search-control-button($blue);
   }
 
-  .app-PurposeControl {
-    margin-left: 0;
+  &__modal {
+    @include search-control-modal($blue);
   }
 }
+
+// DatePickerControl styles
+// ------------------------
 
 .app-DatePickerControl__calendar {
   border: none;
@@ -106,5 +112,14 @@
   .react-date-picker__month-view-day-text {
     // Forced line-height to center content in IE11
     line-height: 36px;
+  }
+}
+
+.app-PeopleCapacityControl, .app-DatePickerControl {
+  display: inline-block;
+  margin-left: 15px;
+  .app-MiniModal__show-button {
+    height: 50px;
+    line-height: 20px;
   }
 }

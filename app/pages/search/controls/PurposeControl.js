@@ -1,11 +1,10 @@
 import React, { PropTypes } from 'react';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
+import Button from 'react-bootstrap/lib/Button';
+import Modal from 'react-bootstrap/lib/Modal';
 import FontAwesome from 'react-fontawesome';
 import Select from 'react-select';
 
 import { injectT } from 'i18n';
-import MiniModal from 'shared/mini-modal';
 
 class PurposeControl extends React.Component {
   static propTypes = {
@@ -17,30 +16,25 @@ class PurposeControl extends React.Component {
   }
 
   state = {
-    value: '',
+    visible: false,
   }
 
-  componentWillMount() {
-    this.setState({ value: this.props.value });
+  hideModal = () => {
+    this.setState({ visible: false });
   }
 
-  componentWillReceiveProps({ value }) {
-    if (value !== this.props.value) {
-      this.setState({ value });
-    }
+  showModal = () => {
+    this.setState({ visible: true });
   }
 
-  handleChange = (option) => {
-    this.setState({ value: option ? option.value : '' });
-  }
-
-  handleConfirm = () => {
-    this.props.onConfirm(this.state.value);
+  handleConfirm = (option) => {
+    const value = option ? option.value : '';
+    this.props.onConfirm(value);
+    this.hideModal();
   }
 
   render() {
-    const { isLoading, purposeOptions, t } = this.props;
-    const { value } = this.state;
+    const { isLoading, purposeOptions, t, value } = this.props;
     const selectOptions = [
       {
         label: t('common.optionsAllLabel'),
@@ -52,33 +46,34 @@ class PurposeControl extends React.Component {
 
     return (
       <div className="app-PurposeControl">
-        <MiniModal
-          buttonContent={
-            <div>
-              <div><FontAwesome name="bullseye" /> {t('PurposeControl.buttonLabel')}</div>
-              <div>{originalOption.label}</div>
-            </div>
-          }
-          header={t('PurposeControl.header')}
-          onConfirm={this.handleConfirm}
-          theme="blue"
+        <Button
+          className="app-PurposeControl__show-button"
+          onClick={this.showModal}
         >
-          <FormGroup controlId="people-capacity-control-group">
-            <ControlLabel>
-              {t('PurposeControl.label')}
-            </ControlLabel>
+          <div><FontAwesome name="bullseye" /> {t('PurposeControl.buttonLabel')}</div>
+          <div>{originalOption.label}</div>
+        </Button>
+        <Modal
+          dialogClassName="app-PurposeControl__modal"
+          onHide={this.hideModal}
+          show={this.state.visible}
+        >
+          <div className="app-PurposeControl__modal-header">
+            <h2>{t('PurposeControl.label')}</h2>
+          </div>
+          <div className="app-PurposeControl__modal-content">
             <Select
               clearable={false}
               isLoading={isLoading}
               name="purpose-filter-select"
-              onChange={this.handleChange}
+              onChange={this.handleConfirm}
               options={selectOptions}
               placeholder=" "
               searchable={false}
               value={value}
             />
-          </FormGroup>
-        </MiniModal>
+          </div>
+        </Modal>
       </div>
     );
   }
