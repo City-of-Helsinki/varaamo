@@ -78,6 +78,8 @@ const startReservationEditInInfoModal = createAction(types.UI.START_RESERVATION_
 
 const toggleTimeSlot = createAction(types.UI.TOGGLE_TIME_SLOT);
 
+const toggleResourceMap = createAction(types.UI.TOGGLE_RESOURCE_SHOW_MAP);
+
 const unfilterAdminResourceType = createAction(types.UI.UNFILTER_ADMIN_RESOURCE_TYPE);
 
 export {
@@ -102,6 +104,7 @@ export {
   selectReservationToShow,
   showReservationInfoModal,
   startReservationEditInInfoModal,
+  toggleResourceMap,
   toggleTimeSlot,
   unfilterAdminResourceType,
 };
