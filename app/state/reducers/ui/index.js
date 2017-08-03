@@ -4,6 +4,7 @@ import adminResourcesPageReducer from './adminResourcesPageReducer';
 import modalsReducer from './modalsReducer';
 import reservationInfoModalReducer from './reservationInfoModalReducer';
 import reservationsReducer from './reservationsReducer';
+import resourceMapReducer from './resourceMapReducer';
 import searchReducer from './searchReducer';
 
 const uiReducers = combineReducers({
@@ -11,6 +12,7 @@ const uiReducers = combineReducers({
   pages: combineReducers({ adminResources: adminResourcesPageReducer }),
   reservationInfoModal: reservationInfoModalReducer,
   reservations: reservationsReducer,
+  resourceMap: resourceMapReducer,
   search: searchReducer,
 });
 
