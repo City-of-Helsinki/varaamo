@@ -1,11 +1,11 @@
+import range from 'lodash/range';
 import React, { PropTypes } from 'react';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
+import Button from 'react-bootstrap/lib/Button';
+import Modal from 'react-bootstrap/lib/Modal';
 import FontAwesome from 'react-fontawesome';
-import NumericInput from 'react-numeric-input';
+import Select from 'react-select';
 
 import { injectT } from 'i18n';
-import MiniModal from 'shared/mini-modal';
 
 class PeopleCapacityControl extends React.Component {
   static propTypes = {
@@ -15,50 +15,61 @@ class PeopleCapacityControl extends React.Component {
   };
 
   state = {
-    value: 0,
+    visible: false,
   }
 
-  componentWillReceiveProps({ value }) {
-    if (value !== this.props.value) {
-      this.setState({ value });
-    }
+  getOption(value) {
+    return { label: String(value), value };
   }
 
-  handleChange = (value) => {
-    this.setState({ value });
+  hideModal = () => {
+    this.setState({ visible: false });
   }
 
-  handleConfirm = () => {
-    this.props.onConfirm(this.state.value);
+  showModal = () => {
+    this.setState({ visible: true });
+  }
+
+  handleConfirm = (option) => {
+    const value = option ? option.value : '';
+    this.props.onConfirm(value);
+    this.hideModal();
   }
 
   render() {
     const { t, value } = this.props;
+    const options = range(1, 10).map(this.getOption);
+    range(10, 30, 5).forEach(index => options.push(this.getOption(index)));
+    options.push({ label: '30+', value: 30 });
     return (
       <div className="app-PeopleCapacityControl">
-        <MiniModal
-          buttonContent={
-            <div>
-              <div><FontAwesome name="users" /> {t('PeopleCapacityControl.buttonLabel')}</div>
-              <div>{value || '1'}</div>
-            </div>
-          }
-          header={t('PeopleCapacityControl.header')}
-          onConfirm={this.handleConfirm}
-          theme="orange"
+        <Button
+          className="app-PeopleCapacityControl__show-button"
+          onClick={this.showModal}
         >
-          <FormGroup controlId="people-capacity-control-group">
-            <ControlLabel>
-              {t('PeopleCapacityControl.label')}
-            </ControlLabel>
-            <NumericInput
-              className="form-control"
-              min={1}
-              onChange={this.handleChange}
-              value={this.state.value || 1}
+          <div><FontAwesome name="users" /> {t('PeopleCapacityControl.buttonLabel')}</div>
+          <div>{value || '1'}</div>
+        </Button>
+        <Modal
+          dialogClassName="app-PeopleCapacityControl__modal"
+          onHide={this.hideModal}
+          show={this.state.visible}
+        >
+          <div className="app-PeopleCapacityControl__modal-header">
+            <h2>{t('PeopleCapacityControl.header')}</h2>
+          </div>
+          <div className="app-PeopleCapacityControl__modal-content">
+            <Select
+              clearable={false}
+              name="purpose-filter-select"
+              onChange={this.handleConfirm}
+              options={options}
+              placeholder=" "
+              searchable={false}
+              value={value}
             />
-          </FormGroup>
-        </MiniModal>
+          </div>
+        </Modal>
       </div>
     );
   }

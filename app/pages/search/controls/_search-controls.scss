@@ -134,8 +134,12 @@
 .app-PeopleCapacityControl {
   display: inline-block;
   margin-left: 15px;
-  .app-MiniModal__show-button {
-    height: 50px;
-    line-height: 20px;
+
+  &__show-button {
+    @include search-control-button($orange);
+  }
+
+  &__modal {
+    @include search-control-modal($orange);
   }
 }
