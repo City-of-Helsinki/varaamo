@@ -5,4 +5,45 @@
   padding: 0 $button-horizontal-padding;
   border-radius: $button-border-radius;
   font-weight: $font-weight-regular;
+
+  &:hover, &:focus, &:active {
+    outline: none;
+  }
+}
+
+@mixin search-control-button($background: $medium-gray) {
+  @include varaamo-button($white, $background);
+  font-size: 1.4rem;
+  height: 50px;
+  line-height: 20px;
+}
+
+@mixin search-control-modal($background: $medium-gray) {
+  width: 400px;
+
+  @media (max-width: $screen-xs-min) {
+    margin: 0;
+    width: 100vw;
+  }
+
+  @media (min-width: $screen-xs-min) {
+    margin: 30px auto;
+  }
+
+  &-header {
+    background-color: $background;
+    color: $white;
+    text-align: center;
+    height: 50px;
+    h2 {
+      margin: 0;
+      line-height: 50px;
+      font-size: 1.8rem;
+      font-weight: $font-weight-light;
+    }
+  }
+
+  &-content {
+    padding: 20px;
+  }
 }
