@@ -105,7 +105,11 @@
 
 .app-DatePickerControl {
   display: inline-block;
-  margin-left: 15px;
+  margin-left: 10px;
+
+  @media (min-width: $screen-sm-min) {
+    margin-left: 15px;
+  }
 
   &__show-button {
     @include search-control-button($green);
@@ -133,7 +137,11 @@
 
 .app-PeopleCapacityControl {
   display: inline-block;
-  margin-left: 15px;
+  margin-left: 10px;
+
+  @media (min-width: $screen-sm-min) {
+    margin-left: 15px;
+  }
 
   &__show-button {
     @include search-control-button($orange);
