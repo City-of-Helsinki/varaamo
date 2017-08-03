@@ -1,5 +1,6 @@
 import React from 'react';
 import { IndexRoute, Redirect, Route } from 'react-router';
+import { createAction } from 'redux-actions';
 
 import AppContainer from 'pages/AppContainer';
 import AboutPage from 'pages/about';
@@ -30,23 +31,52 @@ export default (params) => {
     }, 0);
   }
 
-  function scrollTop(nextState, replace, callback) {
+  function scrollTop() {
     window.scrollTo(0, 0);
-    callback();
+  }
+
+  function getDispatchers(componentName, { onChange = () => {}, onEnter = () => {} } = {}) {
+    const routeChangedAction = createAction(`ENTER_OR_CHANGE_${componentName.toUpperCase()}_PAGE`);
+
+    function onChangeFunc(prevState, nextState, replace, callback) {
+      params.dispatch(routeChangedAction(nextState.location));
+      onChange(nextState, replace, callback);
+      callback();
+    }
+
+    function onEnterFunc(nextState, replace, callback) {
+      params.dispatch(routeChangedAction(nextState.location));
+      onEnter(nextState, replace, callback);
+      callback();
+    }
+
+    return { onChange: onChangeFunc, onEnter: onEnterFunc };
   }
 
   return (
     <Route component={AppContainer} onEnter={removeFacebookAppendedHash} path="/">
       <Route onEnter={requireAuth}>
-        <Route component={AdminResourcesPage} path="/admin-resources" />
-        <Route component={UserReservationsPage} path="/my-reservations" />
+        <Route
+          {...getDispatchers('AdminResources')}
+          component={AdminResourcesPage}
+          path="/admin-resources"
+        />
+        <Route
+          {...getDispatchers('MyReservations')}
+          component={UserReservationsPage}
+          path="/my-reservations"
+        />
       </Route>
-      <IndexRoute component={SearchPage} />
-      <Route component={AboutPage} onEnter={scrollTop} path="/about" />
+      <IndexRoute component={SearchPage} {...getDispatchers('Search')} />
+      <Route component={AboutPage} {...getDispatchers('About', { onEnter: scrollTop })} path="/about" />
       <Redirect from="/resources/:id/reservation" to="/resources/:id" />
       <Redirect from="/search" to="/" />
-      <Route component={ResourcePage} onEnter={scrollTop} path="/resources/:id" />
-      <Route component={NotFoundPage} path="*" />
+      <Route
+        {...getDispatchers('Resource', { onEnter: scrollTop })}
+        component={ResourcePage}
+        path="/resources/:id"
+      />
+      <Route component={NotFoundPage} {...getDispatchers('NotFoundPage')} path="*" />
     </Route>
   );
 };
