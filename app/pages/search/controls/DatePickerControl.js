@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
+import Button from 'react-bootstrap/lib/Button';
+import Modal from 'react-bootstrap/lib/Modal';
 import { Calendar } from 'react-date-picker';
 import FontAwesome from 'react-fontawesome';
 
 import { injectT } from 'i18n';
-import MiniModal from 'shared/mini-modal';
 
 class DatePickerControl extends React.Component {
   static propTypes = {
@@ -13,45 +14,50 @@ class DatePickerControl extends React.Component {
   };
 
   state = {
-    value: this.props.value,
+    visible: false,
   }
 
-  componentWillReceiveProps({ value }) {
-    if (value !== this.props.value) {
-      this.setState({ value });
-    }
+  hideModal = () => {
+    this.setState({ visible: false });
   }
 
-  handleChange = (value) => {
-    this.setState({ value });
+  showModal = () => {
+    this.setState({ visible: true });
   }
 
-  handleConfirm = () => {
-    this.props.onConfirm(this.state.value);
+  handleConfirm = (value) => {
+    this.props.onConfirm(value);
+    this.hideModal();
   }
 
   render() {
     const { t, value } = this.props;
     return (
       <div className="app-DatePickerControl">
-        <MiniModal
-          buttonContent={
-            <div>
-              <div><FontAwesome name="calendar" /> {t('DatePickerControl.buttonLabel')}</div>
-              <div>{value || ''}</div>
-            </div>
-          }
-          header={t('DatePickerControl.header')}
-          onConfirm={this.handleConfirm}
-          theme="green"
+        <Button
+          className="app-DatePickerControl__show-button"
+          onClick={this.showModal}
         >
-          <Calendar
-            className="app-DatePickerControl__calendar"
-            dateFormat={'L'}
-            defaultDate={this.state.value}
-            onChange={this.handleChange}
-          />
-        </MiniModal>
+          <div><FontAwesome name="calendar" /> {t('DatePickerControl.buttonLabel')}</div>
+          <div>{value || ''}</div>
+        </Button>
+        <Modal
+          dialogClassName="app-DatePickerControl__modal"
+          onHide={this.hideModal}
+          show={this.state.visible}
+        >
+          <div className="app-DatePickerControl__modal-header">
+            <h2>{t('DatePickerControl.header')}</h2>
+          </div>
+          <div className="app-DatePickerControl__modal-content">
+            <Calendar
+              className="app-DatePickerControl__calendar"
+              dateFormat={'L'}
+              defaultDate={value}
+              onChange={this.handleConfirm}
+            />
+          </div>
+        </Modal>
       </div>
     );
   }
