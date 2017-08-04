@@ -10,8 +10,13 @@ const filteredResourcesSelector = createSelector(
   (resourceIds, resources) => resourceIds.map(id => resources[id])
 );
 
-const markersSelector = createSelector(
+const fetchedResourcesSelector = createSelector(
   filteredResourcesSelector,
+  resources => resources.filter(resource => resource !== undefined)
+);
+
+const markersSelector = createSelector(
+  fetchedResourcesSelector,
   unitsSelector,
   (resources, units) => Object.values(
     reduce(resources, (memo, resource) => {
