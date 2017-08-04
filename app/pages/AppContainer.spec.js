@@ -28,30 +28,70 @@ describe('pages/AppContainer', () => {
   describe('selector', () => {
     const searchResultIds = ['resource-1', 'resourece-2'];
 
-    function getSelected() {
+    const defaultProps = {
+      location: {
+        pathname: '/',
+      },
+    };
+
+    function getSelected(props = defaultProps) {
       const state = getState({
         auth: {
           userId: 'u-1',
         },
-        'ui.search.results': searchResultIds,
+        'ui.search': {
+          results: searchResultIds,
+          showMap: true,
+          unitId: 'search-unit',
+        },
+        'ui.resourceMap': {
+          resourceId: 'selected-resource',
+          showMap: false,
+          unitId: 'resource-unit',
+        },
       });
-      return selector(state);
+      return selector(state, props);
     }
 
-    it('returns userId from state', () => {
-      expect(getSelected().userId).to.equal('u-1');
+    describe('with path in root', () => {
+      it('returns userId from state', () => {
+        expect(getSelected().userId).to.equal('u-1');
+      });
+
+      it('returns searchResultIds', () => {
+        expect(getSelected().searchResultIds).to.deep.equal(searchResultIds);
+      });
+
+      it('returns showMap', () => {
+        expect(getSelected().showMap).to.be.true;
+      });
+
+      it('returns selectedUnitId', () => {
+        expect(getSelected().selectedUnitId).to.equal('search-unit');
+      });
     });
 
-    it('returns searchResultIds', () => {
-      expect(getSelected().searchResultIds).to.deep.equal(searchResultIds);
-    });
+    describe('with path in /resources/', () => {
+      const customProps = {
+        location: {
+          pathname: '/resources/qwertyqwerty',
+        },
+      };
+      it('returns userId from state', () => {
+        expect(getSelected(customProps).userId).to.equal('u-1');
+      });
 
-    it('returns showMap', () => {
-      expect(getSelected().showMap).to.exist;
-    });
+      it('returns searchResultIds', () => {
+        expect(getSelected(customProps).searchResultIds).to.deep.equal(['selected-resource']);
+      });
 
-    it('returns selectedUnitId', () => {
-      expect(getSelected().selectedUnitId).to.equal(null);
+      it('returns showMap', () => {
+        expect(getSelected(customProps).showMap).to.be.false;
+      });
+
+      it('returns selectedUnitId', () => {
+        expect(getSelected(customProps).selectedUnitId).to.equal('resource-unit');
+      });
     });
   });
 

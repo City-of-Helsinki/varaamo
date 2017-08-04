@@ -13,9 +13,24 @@ import SideNavbar from 'shared/side-navbar';
 import { getCustomizationClassName } from 'utils/customizationUtils';
 
 const userIdSelector = state => state.auth.userId;
-const searchResultIdsSelector = state => state.ui.search.results;
-const showMapSelector = state => state.ui.search.showMap;
-const selectedUnitIdSelector = state => state.ui.search.unitId;
+const searchResultIdsSelector = (state, props) => {
+  if (props.location.pathname.slice(0, 11) === '/resources/') {
+    return [state.ui.resourceMap.resourceId];
+  }
+  return state.ui.search.results;
+};
+const showMapSelector = (state, props) => {
+  if (props.location.pathname.slice(0, 11) === '/resources/') {
+    return state.ui.resourceMap.showMap;
+  }
+  return state.ui.search.showMap;
+};
+const selectedUnitIdSelector = (state, props) => {
+  if (props.location.pathname.slice(0, 11) === '/resources/') {
+    return state.ui.resourceMap.unitId;
+  }
+  return state.ui.search.unitId;
+};
 
 export const selector = createStructuredSelector({
   userId: userIdSelector,
