@@ -180,6 +180,7 @@
   "ResourceInfoContainer.unpublishedLabel": "ei julkaistu",
   "ResourcePage.reservationStatusHeader": "Varaustilanne",
   "ResourcePage.reserveHeader": "Varaa tila",
+  "ResourcePage.showMap": "Näytä kartalla",
   "ResourceTypeFilter.title": "Näytä",
   "SearchBox.buttonText": "Hae",
   "SearchBox.placeholder": "Etsi tilaa syöttämällä tilaan liittyvää tietoa",
