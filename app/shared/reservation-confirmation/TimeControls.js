@@ -48,9 +48,11 @@ class TimeControls extends Component {
     const options = [];
     forEach(timeSlots.slice(firstPossibleIndex), (slot) => {  // eslint-disable-line
       if (!slot.reserved || slot.editing) {
+        const hours = moment.duration(moment(slot.end).diff(beginTime)).asHours();
+        const time = moment(slot.end).format(timeFormat);
         options.push({
-          label: moment(slot.end).format(timeFormat),
-          value: moment(slot.end).format(timeFormat),
+          label: `${time} (${hours} h)`,
+          value: time,
         });
       } else {
         return false;  // Exits the lodash forEach
