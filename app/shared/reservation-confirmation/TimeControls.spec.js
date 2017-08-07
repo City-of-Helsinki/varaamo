@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
+import mockDate from 'mockdate';
 import moment from 'moment';
 import React from 'react';
 import Select from 'react-select';
@@ -56,13 +57,14 @@ describe('shared/reservation-confirmation/TimeControls', () => {
 
   describe('getBeginTimeOptions', () => {
     it('returns start time of every free time slot as time options', () => {
+      mockDate.set('2016-01-01T06:30+02:00');
       const timeSlots = [
-        { start: '2017-01-01T05:00+02:00', reserved: false },
-        { start: '2017-01-01T06:00+02:00', reserved: true },
-        { start: '2017-01-01T07:00+02:00', reserved: false },
-        { start: '2017-01-01T08:00+02:00', reserved: false },
-        { start: '2017-01-01T09:00+02:00', reserved: true },
-        { start: '2017-01-01T10:00+02:00', reserved: false },
+        { start: '2017-01-01T05:00+02:00', end: '2017-01-01T06:00+02:00', reserved: false },
+        { start: '2017-01-01T06:00+02:00', end: '2017-01-01T07:00+02:00', reserved: true },
+        { start: '2017-01-01T07:00+02:00', end: '2017-01-01T08:00+02:00', reserved: false },
+        { start: '2017-01-01T08:00+02:00', end: '2017-01-01T09:00+02:00', reserved: false },
+        { start: '2017-01-01T09:00+02:00', end: '2017-01-01T10:00+02:00', reserved: true },
+        { start: '2017-01-01T10:00+02:00', end: '2017-01-01T11:00+02:00', reserved: false },
       ];
       const wrapper = getWrapper({ timeSlots });
       const options = wrapper.instance().getBeginTimeOptions();
@@ -72,6 +74,26 @@ describe('shared/reservation-confirmation/TimeControls', () => {
         { label: '08:00', value: '08:00' },
         { label: '10:00', value: '10:00' },
       ];
+      mockDate.reset();
+      expect(options).to.deep.equal(expected);
+    });
+
+    it('does not return start times before the current time', () => {
+      mockDate.set('2017-01-01T07:25+02:00');
+
+      const timeSlots = [
+        { start: '2017-01-01T05:00+02:00', end: '2017-01-01T06:00+02:00', reserved: false },
+        { start: '2017-01-01T06:00+02:00', end: '2017-01-01T07:00+02:00', reserved: false },
+        { start: '2017-01-01T07:00+02:00', end: '2017-01-01T08:00+02:00', reserved: false },
+        { start: '2017-01-01T08:00+02:00', end: '2017-01-01T09:00+02:00', reserved: false },
+      ];
+      const wrapper = getWrapper({ timeSlots });
+      const options = wrapper.instance().getBeginTimeOptions();
+      const expected = [
+        { label: '07:00', value: '07:00' },
+        { label: '08:00', value: '08:00' },
+      ];
+      mockDate.reset();
       expect(options).to.deep.equal(expected);
     });
   });

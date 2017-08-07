@@ -27,8 +27,9 @@ class TimeControls extends Component {
   getBeginTimeOptions() {
     const { timeFormat, timeSlots } = this.props;
     const options = [];
+    const now = moment();
     timeSlots.forEach((slot) => {
-      if (!slot.reserved || slot.editing) {
+      if (now.isBefore(slot.end) && (!slot.reserved || slot.editing)) {
         options.push({
           label: moment(slot.start).format(timeFormat),
           value: moment(slot.start).format(timeFormat),
