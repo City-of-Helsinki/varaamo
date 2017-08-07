@@ -171,7 +171,7 @@
   "ReservingRestrictedText.reservationRestricted": "You can reserve the space at the earliest {days} in advance.",
   "ResourceAvailability.available": "Available right now ",
   "ResourceAvailability.availableAt": "Available at {time}",
-  "ResourceAvailability.availableTime": "Free in {hours} {hours, plural, one {hour} other {hours}}",
+  "ResourceAvailability.availableTime": "{hours} {hours, plural, one {hour} other {hours}} available",
   "ResourceAvailability.closed": "Closed",
   "ResourceAvailability.reserved": "Reserved for the whole day",
   "ResourceAvailability.reservingRestricted": "Not available for reservation",
