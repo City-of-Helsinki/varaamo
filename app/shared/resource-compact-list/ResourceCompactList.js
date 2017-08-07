@@ -7,6 +7,7 @@ import selector from './ResourceCompactListSelector';
 
 export class UnconnectedResourceCompactList extends React.Component {
   static propTypes = {
+    date: PropTypes.string.isRequired,
     resourceIds: PropTypes.array.isRequired,
   };
 
@@ -48,6 +49,7 @@ export class UnconnectedResourceCompactList extends React.Component {
           </button>
         }
         <ResourceCard
+          date={this.props.date}
           resourceId={this.props.resourceIds[this.state.resourcePosition]}
           stacked={Boolean(this.props.resourceIds.length - 1)}
         />

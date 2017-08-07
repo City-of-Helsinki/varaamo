@@ -11,11 +11,12 @@ import Unit from 'utils/fixtures/Unit';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import { shallowWithIntl } from 'utils/testUtils';
 import Label from 'shared/label';
+import ResourceAvailability from './ResourceAvailability';
 import ResourceCard from './ResourceCard';
 
 describe('shared/resource-card/ResourceCard', () => {
-  const date = '2015-10-10';
   const defaultProps = {
+    date: '2015-10-10',
     isLoggedIn: false,
     resource: Immutable(Resource.build({
       equipment: [
@@ -40,9 +41,6 @@ describe('shared/resource-card/ResourceCard', () => {
       municipality: 'helsinki',
       streetAddress: 'Fabiankatu',
     })),
-  };
-  const context = {
-    location: { query: { date } },
   };
 
   function getWrapper(extraProps) {
@@ -102,7 +100,7 @@ describe('shared/resource-card/ResourceCard', () => {
 
   it('contains links to correct resource page', () => {
     const links = getWrapper().find(Link);
-    const expectedUrl = getResourcePageUrl(defaultProps.resource, date);
+    const expectedUrl = getResourcePageUrl(defaultProps.resource, defaultProps.date);
 
     expect(links.length).to.equal(2);
     expect(links.at(0).props().to).to.equal(expectedUrl);
@@ -153,5 +151,11 @@ describe('shared/resource-card/ResourceCard', () => {
     expect(equipmentLabels.at(1).children().text()).to.contain(
       defaultProps.resource.equipment[1].name
     );
+  });
+
+  it('renders ResourceAvailability with correct props', () => {
+    const resourceAvailability = getWrapper().find(ResourceAvailability);
+    expect(resourceAvailability.prop('date')).to.equal(defaultProps.date);
+    expect(resourceAvailability.prop('resource').id).to.equal(defaultProps.resource.id);
   });
 });

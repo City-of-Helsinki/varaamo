@@ -10,6 +10,7 @@ describe('shared/resource-list/ResourceList', () => {
   const defaultProps = {
     emptyMessage: 'Some empty message',
     resourceIds: Immutable(['resource-1', 'resource-2']),
+    date: '2017-01-01',
   };
 
   function getWrapper(extraProps) {
@@ -46,6 +47,7 @@ describe('shared/resource-list/ResourceList', () => {
       it('passes correct props to ResourceCard', () => {
         resourceCards.forEach((resourceListItem, index) => {
           expect(resourceListItem.props().resourceId).to.equal(defaultProps.resourceIds[index]);
+          expect(resourceListItem.props().date).to.equal(defaultProps.date);
         });
       });
     });
