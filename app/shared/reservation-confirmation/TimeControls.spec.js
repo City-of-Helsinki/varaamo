@@ -99,8 +99,8 @@ describe('shared/reservation-confirmation/TimeControls', () => {
       const wrapper = getWrapper({ begin, timeSlots });
       const options = wrapper.instance().getEndTimeOptions();
       const expected = [
-        { label: '11:00', value: '11:00' },
-        { label: '12:00', value: '12:00' },
+        { label: '11:00 (1 h)', value: '11:00' },
+        { label: '12:00 (2 h)', value: '12:00' },
       ];
       expect(options).to.deep.equal(expected);
     });
