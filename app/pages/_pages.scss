@@ -3,3 +3,14 @@
 @import './resource/resource-page';
 @import './search/search-page';
 @import './user-reservations/user-reservations-page';
+
+.app-PageWrapper {
+  position: relative;
+  background-color: white;
+  min-height: 100vh;
+
+  &__transparent {
+    background-color: transparent;
+    min-height: auto;
+  }
+}
