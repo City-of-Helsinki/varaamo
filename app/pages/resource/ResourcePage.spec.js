@@ -7,6 +7,7 @@ import simple from 'simple-mock';
 import PageWrapper from 'pages/PageWrapper';
 import DateHeader from 'shared/date-header';
 import ResourceCalendar from 'shared/resource-calendar';
+import ResourceCard from 'shared/resource-card';
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
 import { getResourcePageUrl } from 'utils/resourceUtils';
@@ -28,6 +29,7 @@ describe('pages/resource/ResourcePage', () => {
     location: { query: {} },
     params: {},
     resource: Immutable(resource),
+    showMap: false,
     unit: Immutable(unit),
   };
 
@@ -74,6 +76,45 @@ describe('pages/resource/ResourcePage', () => {
       expect(dateHeader.prop('onDecreaseDateButtonClick')).to.equal(wrapper.instance().decreaseDate);
       expect(dateHeader.prop('onIncreaseDateButtonClick')).to.equal(wrapper.instance().increaseDate);
       expect(dateHeader.prop('scrollTo')).to.exist;
+    });
+
+    it('renders toggleMap button', () => {
+      const wrapper = getWrapper();
+      const toggleMapButton = wrapper.find('.app-ResourcePage__toggle-map');
+      expect(toggleMapButton).to.have.length(1);
+      expect(toggleMapButton.text()).to.equal('ResourcePage.showMap');
+    });
+
+    it('renders toggleMap button  with correct onClick toggleResourceMap action', () => {
+      const toggleResourceMap = () => {};
+      const wrapper = getWrapper({ actions: { ...defaultProps.actions, toggleResourceMap } });
+      const toggleMapButton = wrapper.find('.app-ResourcePage__toggle-map');
+      expect(toggleMapButton).to.have.length(1);
+      expect(toggleMapButton.prop('onClick')).to.equal(toggleResourceMap);
+    });
+
+    describe('with showMap prop', () => {
+      function getShowMapWrapper(props = {}) {
+        return getWrapper({ ...props, showMap: true });
+      }
+      it('renders a ResourceCard', () => {
+        const wrapper = getShowMapWrapper();
+        const resourceCard = wrapper.find(ResourceCard);
+        expect(resourceCard).to.have.length(1);
+        expect(resourceCard.prop('resourceId')).to.equal(defaultProps.resource.id);
+      });
+
+      it('does not render a ResourceInfo', () => {
+        const wrapper = getShowMapWrapper();
+        const resourceCard = wrapper.find(ResourceInfo);
+        expect(resourceCard).to.have.length(0);
+      });
+
+      it('does not render a ResourceCalendar', () => {
+        const wrapper = getShowMapWrapper();
+        const resourceCard = wrapper.find(ResourceCalendar);
+        expect(resourceCard).to.have.length(0);
+      });
     });
   });
 

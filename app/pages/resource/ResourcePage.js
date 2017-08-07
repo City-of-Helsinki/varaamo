@@ -7,9 +7,11 @@ import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 
 import { fetchResource } from 'actions/resourceActions';
+import { toggleResourceMap } from 'actions/uiActions';
 import PageWrapper from 'pages/PageWrapper';
 import NotFoundPage from 'pages/not-found/NotFoundPage';
 import DateHeader from 'shared/date-header';
+import ResourceCard from 'shared/resource-card';
 import ResourceCalendar from 'shared/resource-calendar';
 import { injectT } from 'i18n';
 import { getResourcePageUrl } from 'utils/resourceUtils';
@@ -50,6 +52,7 @@ class UnconnectedResourcePage extends Component {
 
   render() {
     const {
+      actions,
       date,
       isAdmin,
       isFetchingResource,
@@ -57,6 +60,7 @@ class UnconnectedResourcePage extends Component {
       location,
       params,
       resource,
+      showMap,
       t,
       unit,
     } = this.props;
@@ -68,39 +72,52 @@ class UnconnectedResourcePage extends Component {
     return (
       <PageWrapper className="app-ResourcePage" title={resource.name || ''}>
         <Loader loaded={!isEmpty(resource)}>
-          <ResourceInfo
-            isAdmin={isAdmin}
-            resource={resource}
-            unit={unit}
-          />
-          <h2 id="reservation-header">
-            {isLoggedIn ?
-              t('ResourcePage.reserveHeader') :
-              t('ResourcePage.reservationStatusHeader')
-            }
-          </h2>
-          <ReservationInfo
-            isLoggedIn={isLoggedIn}
-            resource={resource}
-          />
-          <div className="app-ResourcePage__calendar-time-wrapper">
-            <ResourceCalendar
-              onDateChange={this.handleDateChange}
-              resourceId={resource.id}
-              selectedDate={date}
-            />
-            <div className="app-ResourcePage__reservation-calendar-wrapper">
-              <DateHeader
-                beforeText="Varaustilanne"
-                date={date}
-                scrollTo={location.hash === '#date-header'}
-              />
-              <ReservationCalendar
-                location={location}
-                params={params}
-              />
-            </div>
-          </div>
+          { showMap ?
+            <ResourceCard resourceId={resource.id} /> :
+              <div>
+                <button
+                  className="app-ResourcePage__toggle-map"
+                  onClick={actions.toggleResourceMap}
+                >
+                  {t('ResourcePage.showMap')}
+                </button>
+                <div className="app-ResourcePage__content">
+                  <ResourceInfo
+                    isAdmin={isAdmin}
+                    resource={resource}
+                    unit={unit}
+                  />
+                  <h2 id="reservation-header">
+                    {isLoggedIn ?
+                      t('ResourcePage.reserveHeader') :
+                      t('ResourcePage.reservationStatusHeader')
+                    }
+                  </h2>
+                  <ReservationInfo
+                    isLoggedIn={isLoggedIn}
+                    resource={resource}
+                  />
+                  <div className="app-ResourcePage__calendar-time-wrapper">
+                    <ResourceCalendar
+                      onDateChange={this.handleDateChange}
+                      resourceId={resource.id}
+                      selectedDate={date}
+                    />
+                    <div className="app-ResourcePage__reservation-calendar-wrapper">
+                      <DateHeader
+                        beforeText="Varaustilanne"
+                        date={date}
+                        scrollTo={location.hash === '#date-header'}
+                      />
+                      <ReservationCalendar
+                        location={location}
+                        params={params}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+          }
         </Loader>
       </PageWrapper>
     );
@@ -117,6 +134,7 @@ UnconnectedResourcePage.propTypes = {
   location: PropTypes.object.isRequired,
   params: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
+  showMap: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
   unit: PropTypes.object.isRequired,
 };
@@ -125,6 +143,7 @@ UnconnectedResourcePage = injectT(UnconnectedResourcePage);  // eslint-disable-l
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
     fetchResource,
+    toggleResourceMap,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
