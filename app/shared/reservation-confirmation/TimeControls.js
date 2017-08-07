@@ -16,6 +16,7 @@ class TimeControls extends Component {
   static propTypes = {
     begin: PropTypes.object.isRequired,
     end: PropTypes.object.isRequired,
+    maxReservationPeriod: PropTypes.string,
     timeFormat: PropTypes.string,
     timeSlots: PropTypes.array,
   };
@@ -40,16 +41,17 @@ class TimeControls extends Component {
   }
 
   getEndTimeOptions(beginValue) {
-    const { begin, timeFormat, timeSlots } = this.props;
+    const { begin, maxReservationPeriod, timeFormat, timeSlots } = this.props;
     const beginTime = beginValue || begin.input.value;
     const firstPossibleIndex = timeSlots.findIndex(slot => (
       moment(slot.end).isAfter(beginTime)
     ));
-
+    const maxHours = maxReservationPeriod ? moment.duration(maxReservationPeriod).asHours() : null;
     const options = [];
     forEach(timeSlots.slice(firstPossibleIndex), (slot) => {  // eslint-disable-line
-      if (!slot.reserved || slot.editing) {
-        const hours = moment.duration(moment(slot.end).diff(beginTime)).asHours();
+      const hours = moment.duration(moment(slot.end).diff(beginTime)).asHours();
+      const withinMaxHours = !maxHours || hours <= maxHours;
+      if (withinMaxHours && (!slot.reserved || slot.editing)) {
         const time = moment(slot.end).format(timeFormat);
         options.push({
           label: `${time} (${hours} h)`,

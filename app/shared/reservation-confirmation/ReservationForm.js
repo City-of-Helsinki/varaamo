@@ -92,7 +92,7 @@ class UnconnectedReservationForm extends Component {
   }
 
   renderTimeControls = () => {
-    const { fields, t, timeSlots } = this.props;
+    const { fields, maxReservationPeriod, t, timeSlots } = this.props;
     if (!includes(fields, 'begin') || !includes(fields, 'end')) {
       return null;
     }
@@ -105,6 +105,7 @@ class UnconnectedReservationForm extends Component {
         <Col sm={9}>
           <Fields
             component={TimeControls}
+            maxReservationPeriod={maxReservationPeriod}
             names={['begin', 'end']}
             timeSlots={timeSlots}
           />
@@ -276,6 +277,7 @@ UnconnectedReservationForm.propTypes = {
   isEditing: PropTypes.bool.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  maxReservationPeriod: PropTypes.string,
   onCancel: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
   requiredFields: PropTypes.array.isRequired,
