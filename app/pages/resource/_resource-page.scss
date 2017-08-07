@@ -3,6 +3,7 @@ $carousel-image-mid-height: 350px;
 $carousel-image-max-height: 420px;
 $resource-page-width: 700px;
 $margin-between-items: 10px;
+$content-padding: 10px;
 
 
 @import './reservation-calendar/reservation-calendar';
@@ -11,13 +12,17 @@ $margin-between-items: 10px;
 @import './resource-info/resource-info';
 
 .app-ResourcePage {
-  max-width: $resource-page-width;
   position: relative;
-  padding: 10px;
-  background-color: $white;
-  box-shadow: 0px 1px 10px 5px rgba(0, 0, 0, 0.2);
-  box-sizing: content-box;
+  max-width: $resource-page-width + $content-padding * 2;
 
+  &__content {
+    padding: 10px;
+    background-color: $white;
+    box-shadow: 0px 1px 10px 5px rgba(0, 0, 0, 0.2);
+    box-sizing: content-box;
+    max-width: $resource-page-width;
+    margin-bottom: 30px;
+  }
   .date-header {
     margin-bottom: 20px;
     font-size: 1.8rem;
@@ -42,6 +47,44 @@ $margin-between-items: 10px;
     margin-left: $margin-between-items;
     h3 {
       margin-top: 0;
+    }
+  }
+  .app-ResourceCard {
+    position: fixed;
+    bottom: 15px;
+    left: 15px;
+    margin: 0;
+    width: calc(100% - 30px);
+    max-width: $app-SearchPage-max-width;
+  }
+
+  &__toggle-map {
+    @include button-variant($gray, $white, $white);
+    display: block;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    margin-left: auto;
+    box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.2);
+    border-style: none;
+    border-radius: 100px;
+    padding: 5px;
+    padding-right: 10px;
+    font-size: 1.3rem;
+
+    & > div {
+      display: inline-block;
+    }
+
+    .app-ResourcePage__map-icon {
+      color: $brand-primary;
+      font-size: 33px;
+      margin-right: 3px;
+      vertical-align: middle;
+    }
+
+    &:hover, &:focus, &:active {
+      outline: none;
+      background-color: $white;
     }
   }
 }
