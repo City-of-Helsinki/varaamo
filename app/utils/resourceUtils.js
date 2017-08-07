@@ -1,4 +1,5 @@
 import filter from 'lodash/filter';
+import find from 'lodash/find';
 import forEach from 'lodash/forEach';
 import moment from 'moment';
 import queryString from 'query-string';
@@ -49,7 +50,7 @@ function getAvailabilityDataForNow(resource = {}) {
 }
 
 function getAvailabilityDataForWholeDay(resource = {}, date = null) {
-  const { closes, opens } = getOpeningHours(resource);
+  const { closes, opens } = getOpeningHours(resource, date);
   const reservations = getOpenReservations(resource);
 
   if (!closes || !opens) {
@@ -66,6 +67,9 @@ function getAvailabilityDataForWholeDay(resource = {}, date = null) {
 
   forEach(reservations, (reservation) => {
     const resBeginMoment = moment(reservation.begin);
+    if (!resBeginMoment.isSame(opensMoment, 'd')) {
+      return;
+    }
     const resEndMoment = moment(reservation.end);
     total = (total - resEndMoment) + resBeginMoment;
   });
@@ -106,8 +110,15 @@ function getHumanizedPeriod(period) {
   return `${moment.duration(period).hours()} h`;
 }
 
-function getOpeningHours(resource) {
+function getOpeningHours(resource, selectedDate) {
   if (resource && resource.openingHours && resource.openingHours.length) {
+    if (selectedDate) {
+      const openingHours = find(resource.openingHours, ({ date }) => date === selectedDate);
+      return openingHours ? {
+        closes: openingHours.closes,
+        opens: openingHours.opens,
+      } : {};
+    }
     return {
       closes: resource.openingHours[0].closes,
       opens: resource.openingHours[0].opens,
