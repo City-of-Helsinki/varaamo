@@ -180,6 +180,7 @@ class ConfirmReservationModal extends Component {
     } = this.props;
 
     const termsAndConditions = isAdmin ? '' : getTermsAndConditions(resource);
+    const maxReservationPeriod = isAdmin ? null : resource.maxPeriod;
 
     return (
       <Modal
@@ -205,6 +206,7 @@ class ConfirmReservationModal extends Component {
             initialValues={this.getFormInitialValues()}
             isEditing={isEditing}
             isMakingReservations={isMakingReservations}
+            maxReservationPeriod={maxReservationPeriod}
             onCancel={this.handleCancel}
             onConfirm={this.onConfirm}
             requiredFields={this.getRequiredFormFields(resource, termsAndConditions)}

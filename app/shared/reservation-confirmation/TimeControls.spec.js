@@ -126,6 +126,31 @@ describe('shared/reservation-confirmation/TimeControls', () => {
       ];
       expect(options).to.deep.equal(expected);
     });
+
+    it('returns time slots only within maxReservationPeriod if maxReservationPeriod given', () => {
+      const begin = {
+        input: {
+          onChange: () => null,
+          value: '2017-01-01T04:00:00+02:00',
+        },
+      };
+      const maxReservationPeriod = '02:00:00';
+      const timeSlots = [
+        { end: '2017-01-01T05:00+02:00', reserved: false },
+        { end: '2017-01-01T06:00+02:00', reserved: false },
+        { end: '2017-01-01T07:00+02:00', reserved: false },
+        { end: '2017-01-01T08:00+02:00', reserved: false },
+        { end: '2017-01-01T09:00+02:00', reserved: false },
+        { end: '2017-01-01T10:00+02:00', reserved: false },
+      ];
+      const wrapper = getWrapper({ begin, maxReservationPeriod, timeSlots });
+      const options = wrapper.instance().getEndTimeOptions();
+      const expected = [
+        { label: '05:00 (1 h)', value: '05:00' },
+        { label: '06:00 (2 h)', value: '06:00' },
+      ];
+      expect(options).to.deep.equal(expected);
+    });
   });
 
   describe('handleBeginTimeChange', () => {
