@@ -2,11 +2,11 @@ import React, { PropTypes } from 'react';
 
 import ResourceCard from 'shared/resource-card';
 
-function renderResourceListItem(resourceId) {
-  return <ResourceCard key={resourceId} resourceId={resourceId} />;
-}
 
-function ResourceList({ emptyMessage, resourceIds }) {
+function ResourceList({ date, emptyMessage, resourceIds }) {
+  function renderResourceListItem(resourceId) {
+    return <ResourceCard date={date} key={resourceId} resourceId={resourceId} />;
+  }
   if (!resourceIds.length) {
     return emptyMessage ? <p>{emptyMessage}</p> : <div />;
   }
@@ -19,6 +19,7 @@ function ResourceList({ emptyMessage, resourceIds }) {
 }
 
 ResourceList.propTypes = {
+  date: PropTypes.string.isRequired,
   emptyMessage: PropTypes.string,
   resourceIds: PropTypes.array.isRequired,
 };
