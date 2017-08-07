@@ -82,7 +82,7 @@ describe('pages/resource/ResourcePage', () => {
       const wrapper = getWrapper();
       const toggleMapButton = wrapper.find('.app-ResourcePage__toggle-map');
       expect(toggleMapButton).to.have.length(1);
-      expect(toggleMapButton.text()).to.equal('ResourcePage.showMap');
+      expect(toggleMapButton.find('span').text()).to.equal('ResourcePage.showMap');
     });
 
     it('renders toggleMap button  with correct onClick toggleResourceMap action', () => {

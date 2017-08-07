@@ -1,6 +1,7 @@
 import isEmpty from 'lodash/isEmpty';
 import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
@@ -79,7 +80,8 @@ class UnconnectedResourcePage extends Component {
                   className="app-ResourcePage__toggle-map"
                   onClick={actions.toggleResourceMap}
                 >
-                  {t('ResourcePage.showMap')}
+                  <Glyphicon className="app-ResourcePage__map-icon" glyph="map-marker" />
+                  <span>{t('ResourcePage.showMap')}</span>
                 </button>
                 <div className="app-ResourcePage__content">
                   <ResourceInfo
