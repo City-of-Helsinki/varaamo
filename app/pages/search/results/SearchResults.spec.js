@@ -6,11 +6,12 @@ import Immutable from 'seamless-immutable';
 
 import ResourceCompactList from 'shared/resource-compact-list';
 import ResourceList from 'shared/resource-list';
-import SearchResults from './SearchResults';
+import { UnconnectedSearchResults as SearchResults } from './SearchResults';
 import MapToggle from './MapToggle';
 
 describe('pages/search/results/SearchResults', () => {
   const defaultProps = {
+    date: '2015-10-10',
     isFetching: false,
     onToggleMap: () => {},
     searchResultIds: Immutable(['resource-1', 'resource-2']),
@@ -53,6 +54,7 @@ describe('pages/search/results/SearchResults', () => {
       const resourceList = getWrapper().find(ResourceList);
       expect(resourceList).to.have.length(1);
       expect(resourceList.props().resourceIds).to.deep.equal(defaultProps.searchResultIds);
+      expect(resourceList.props().date).to.deep.equal(defaultProps.date);
     });
 
     describe('with showMap', () => {
@@ -70,6 +72,7 @@ describe('pages/search/results/SearchResults', () => {
           expect(resourceCompactList.prop('resourceIds')).to.deep.equal(
             defaultProps.searchResultIds
           );
+          expect(resourceCompactList.prop('date')).to.deep.equal(defaultProps.date);
           expect(resourceCompactList.prop('unitId')).to.deep.equal('1');
         });
       });

@@ -9,6 +9,7 @@ import { UnconnectedResourceCompactList as ResourceCompactList } from './Resourc
 describe('shared/resource-list/ResourceCompactList', () => {
   const defaultProps = {
     resourceIds: Immutable(['resource-1', 'resource-2']),
+    date: '2017-01-01',
   };
 
   function getWrapper(extraProps) {
@@ -31,6 +32,12 @@ describe('shared/resource-list/ResourceCompactList', () => {
       const resourceCard = wrapper.find(ResourceCard);
       expect(resourceCard.length).to.equal(1);
       expect(resourceCard.prop('resourceId')).to.equal('resource-1');
+    });
+
+    it('passes date prop to ResourceCard', () => {
+      const resourceCard = wrapper.find(ResourceCard);
+      expect(resourceCard.length).to.equal(1);
+      expect(resourceCard.prop('date')).to.equal(defaultProps.date);
     });
 
     it('renders second ResourceCard if resourcePosition is 1', () => {

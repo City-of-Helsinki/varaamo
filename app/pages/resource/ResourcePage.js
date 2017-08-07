@@ -74,7 +74,7 @@ class UnconnectedResourcePage extends Component {
       <PageWrapper className="app-ResourcePage" title={resource.name || ''} transparent>
         <Loader loaded={!isEmpty(resource)}>
           { showMap ?
-            <ResourceCard resourceId={resource.id} /> :
+            <ResourceCard date={date} resourceId={resource.id} /> :
               <div>
                 <button
                   className="app-ResourcePage__toggle-map"

@@ -19,8 +19,7 @@ class ResourceCard extends Component {
     );
   }
   render() {
-    const { resource, t, unit } = this.props;
-    const date = this.context.location.query.date;
+    const { date, resource, t, unit } = this.props;
 
     return (
       <div
@@ -72,14 +71,11 @@ class ResourceCard extends Component {
 }
 
 ResourceCard.propTypes = {
+  date: PropTypes.string.isRequired,
   resource: PropTypes.object.isRequired,
   stacked: PropTypes.bool,
   t: PropTypes.func.isRequired,
   unit: PropTypes.object.isRequired,
-};
-
-ResourceCard.contextTypes = {
-  location: React.PropTypes.object,
 };
 
 export default injectT(ResourceCard);
