@@ -1,5 +1,9 @@
 .app-Sidebar {
   &__content{
-    right: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden;
+    @media (max-width: $force-open-navbar-screen-width - 1px) {
+      right: 0 !important;
+    }
   }
 }
