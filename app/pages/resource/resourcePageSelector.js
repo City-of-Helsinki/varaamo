@@ -8,6 +8,7 @@ import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsA
 
 const resourceIdSelector = (state, props) => props.params.id;
 const resourceSelector = createResourceSelector(resourceIdSelector);
+const showMapSelector = state => state.ui.resourceMap.showMap;
 const unitSelector = createSelector(
   resourceSelector,
   unitsSelector,
@@ -21,6 +22,7 @@ const resourcePageSelector = createStructuredSelector({
   isFetchingResource: requestIsActiveSelectorFactory(ActionTypes.API.RESOURCE_GET_REQUEST),
   isLoggedIn: isLoggedInSelector,
   resource: resourceSelector,
+  showMap: showMapSelector,
   unit: unitSelector,
 });
 

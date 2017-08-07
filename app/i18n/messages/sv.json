@@ -180,6 +180,7 @@
   "ResourceInfoContainer.unpublishedLabel": "opublicerad",
   "ResourcePage.reservationStatusHeader": "Bokningsläget",
   "ResourcePage.reserveHeader": "Boka utrymme",
+  "ResourcePage.showMap": "Show map",
   "ResourceTypeFilter.title": "Visa",
   "SearchBox.buttonText": "Sök",
   "SearchBox.placeholder": "Leta efter utrymmen genom att ange information om utrymmet",

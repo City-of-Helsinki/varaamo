@@ -23,6 +23,11 @@ function getState(resources = [], units = [], user = defaultUser) {
       units: keyBy(units, 'id'),
       users: { [user.id]: user },
     }),
+    ui: Immutable({
+      resourceMap: Immutable({
+        showMap: true,
+      }),
+    }),
   };
 }
 
@@ -87,6 +92,14 @@ describe('pages/resource/resourcePageSelector', () => {
     const selected = resourcePageSelector(state, props);
 
     expect(selected.resource).to.exist;
+  });
+
+  it('returns showMap', () => {
+    const state = getState();
+    const props = getProps();
+    const selected = resourcePageSelector(state, props);
+
+    expect(selected.showMap).to.exist;
   });
 
   it('returns the unit corresponding to the resource.unit', () => {
