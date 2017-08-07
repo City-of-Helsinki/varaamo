@@ -39,6 +39,12 @@
     background-color: $brand-primary;
   }
 
+  .app-Sidebar__content {
+    top: initial;
+    bottom: initial;
+    height: calc(100vh + 30px);
+  }
+
   &__toggle {
     width: $app-SideNavbar-toggle-width-mobile;
     height: $app-SideNavbar-toggle-width-mobile;

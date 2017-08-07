@@ -68,7 +68,7 @@ class UnconnectedSearchPage extends Component {
     } = this.props;
 
     return (
-      <PageWrapper className="app-SearchPage" fluid title={t('SearchPage.title')}>
+      <PageWrapper className="app-SearchPage" fluid title={t('SearchPage.title')} transparent>
         <div className="app-SearchPage__content">
           <SearchControls
             location={location}

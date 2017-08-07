@@ -71,7 +71,7 @@ class UnconnectedResourcePage extends Component {
     }
 
     return (
-      <PageWrapper className="app-ResourcePage" title={resource.name || ''}>
+      <PageWrapper className="app-ResourcePage" title={resource.name || ''} transparent>
         <Loader loaded={!isEmpty(resource)}>
           { showMap ?
             <ResourceCard resourceId={resource.id} /> :
