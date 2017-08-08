@@ -47,4 +47,7 @@
       margin-left: 5px;
     }
   }
+  .well {
+    background-color: darken($brand-primary, 7);
+  }
 }
