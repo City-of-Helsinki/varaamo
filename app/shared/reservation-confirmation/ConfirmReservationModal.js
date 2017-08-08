@@ -186,7 +186,7 @@ class ConfirmReservationModal extends Component {
       <Modal
         animation={false}
         backdrop="static"
-        className="app-ConfirmReservationModal"
+        className="app-ConfirmReservationModal modal-city-theme"
         onHide={onClose}
         show={show}
       >
