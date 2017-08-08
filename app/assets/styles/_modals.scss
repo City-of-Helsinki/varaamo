@@ -15,6 +15,22 @@
     }
     .modal-header {
       border: none;
+      &::before {
+        content: '';
+        background: url('../../shared/logo/helsinki-logo-white.png');
+        position: absolute;
+        background-repeat: no-repeat;
+        background-size: contain;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        height: 50px;
+        width: 108px;
+        margin-top: 20px;
+      }
+      .modal-title {
+        margin-top: 80px;
+      }
       button.close {
         color: $white;
         font-weight: 300;
