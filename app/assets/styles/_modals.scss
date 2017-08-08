@@ -4,4 +4,31 @@
 
 .modal {
   z-index: 30010;
+  &.modal-city-theme {
+    .modal-content {
+      background-color: $brand-primary;
+      color: $white;
+
+      h1, h2, h3, h4, h5, h6, label {
+        font-weight: 300;
+      }
+    }
+    .modal-header {
+      border: none;
+      button.close {
+        color: $white;
+        font-weight: 300;
+        opacity: 1;
+      }
+    }
+  }
+  .btn {
+    border-radius: 10px;
+    &.btn-primary {
+      background-color: $blue;
+    }
+    &+.btn {
+      margin-left: 5px;
+    }
+  }
 }
