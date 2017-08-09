@@ -51,3 +51,9 @@ footer {
     padding-bottom: $layout-padding;
   }
 }
+
+@media (min-width: $screen-lg-min ) {
+  .container {
+    width: 1170px - $app-SideNavbar-width;
+  }
+}
