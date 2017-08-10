@@ -73,52 +73,54 @@ class UnconnectedResourcePage extends Component {
     return (
       <PageWrapper className="app-ResourcePage" title={resource.name || ''} transparent>
         <Loader loaded={!isEmpty(resource)}>
-          { showMap ?
-            <ResourceCard date={date} resourceId={resource.id} /> :
-              <div>
-                <button
-                  className="app-ResourcePage__toggle-map"
-                  onClick={actions.toggleResourceMap}
-                >
-                  <Glyphicon className="app-ResourcePage__map-icon" glyph="map-marker" />
-                  <span>{t('ResourcePage.showMap')}</span>
-                </button>
-                <div className="app-ResourcePage__content">
-                  <ResourceInfo
-                    isAdmin={isAdmin}
-                    resource={resource}
-                    unit={unit}
+          {showMap &&
+            <ResourceCard date={date} resourceId={resource.id} />
+          }
+          {!showMap &&
+            <div>
+              <button
+                className="app-ResourcePage__toggle-map"
+                onClick={actions.toggleResourceMap}
+              >
+                <Glyphicon className="app-ResourcePage__map-icon" glyph="map-marker" />
+                <span>{t('ResourcePage.showMap')}</span>
+              </button>
+              <div className="app-ResourcePage__content">
+                <ResourceInfo
+                  isAdmin={isAdmin}
+                  resource={resource}
+                  unit={unit}
+                />
+                <h2 id="reservation-header">
+                  {isLoggedIn ?
+                    t('ResourcePage.reserveHeader') :
+                    t('ResourcePage.reservationStatusHeader')
+                  }
+                </h2>
+                <ReservationInfo
+                  isLoggedIn={isLoggedIn}
+                  resource={resource}
+                />
+                <div className="app-ResourcePage__calendar-time-wrapper">
+                  <ResourceCalendar
+                    onDateChange={this.handleDateChange}
+                    resourceId={resource.id}
+                    selectedDate={date}
                   />
-                  <h2 id="reservation-header">
-                    {isLoggedIn ?
-                      t('ResourcePage.reserveHeader') :
-                      t('ResourcePage.reservationStatusHeader')
-                    }
-                  </h2>
-                  <ReservationInfo
-                    isLoggedIn={isLoggedIn}
-                    resource={resource}
-                  />
-                  <div className="app-ResourcePage__calendar-time-wrapper">
-                    <ResourceCalendar
-                      onDateChange={this.handleDateChange}
-                      resourceId={resource.id}
-                      selectedDate={date}
+                  <div className="app-ResourcePage__reservation-calendar-wrapper">
+                    <DateHeader
+                      beforeText={t('ResourcePage.reservationStatusHeader')}
+                      date={date}
+                      scrollTo={location.hash === '#date-header'}
                     />
-                    <div className="app-ResourcePage__reservation-calendar-wrapper">
-                      <DateHeader
-                        beforeText="Varaustilanne"
-                        date={date}
-                        scrollTo={location.hash === '#date-header'}
-                      />
-                      <ReservationCalendar
-                        location={location}
-                        params={params}
-                      />
-                    </div>
+                    <ReservationCalendar
+                      location={location}
+                      params={params}
+                    />
                   </div>
                 </div>
               </div>
+            </div>
           }
         </Loader>
       </PageWrapper>
