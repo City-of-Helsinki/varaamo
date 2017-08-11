@@ -5,7 +5,7 @@ module.exports = (config) => {
     browsers: ['Chrome'],
     coverage: true,
     coverageReporters: [
-      { type: 'html' },
+      { type: 'lcov' },
       { type: 'text' },
       { type: 'text-summary' },
     ],
