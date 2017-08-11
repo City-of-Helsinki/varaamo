@@ -73,6 +73,7 @@
     "babel-preset-stage-2": "6.17.0",
     "body-parser": "1.15.2",
     "chai": "3.5.0",
+    "codecov": "2.3.0",
     "cookie-parser": "1.4.3",
     "cookie-session": "1.2.0",
     "css-loader": "0.25.0",
