@@ -2,8 +2,8 @@ Varaamo
 =======
 
 [![Circle CI](https://circleci.com/gh/City-of-Helsinki/varaamo.svg?style=svg)](https://circleci.com/gh/City-of-Helsinki/varaamo)
-[![Build status](https://travis-ci.org/City-of-Helsinki/linkedevents.svg)](https://travis-ci.org/City-of-Helsinki/linkedevents)
-[![codecov](https://codecov.io/gh/City-of-Helsinki/linkedevents/branch/master/graph/badge.svg)](https://codecov.io/gh/City-of-Helsinki/linkedevents)
+[![Build status](https://travis-ci.org/City-of-Helsinki/varaamo.svg)](https://travis-ci.org/City-of-Helsinki/varaamo)
+[![codecov](https://codecov.io/gh/City-of-Helsinki/varaamo/branch/master/graph/badge.svg)](https://codecov.io/gh/City-of-Helsinki/varaamo)
 
 User interface for the City of Helsinki [varaamo.hel.fi](https://varaamo.hel.fi/) resource reservation service. Uses the [respa API](http://api.hel.fi/respa/v1/).
 
