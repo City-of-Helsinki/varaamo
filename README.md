@@ -1,7 +1,6 @@
 Varaamo
 =======
 
-[![Circle CI](https://circleci.com/gh/City-of-Helsinki/varaamo.svg?style=svg)](https://circleci.com/gh/City-of-Helsinki/varaamo)
 [![Build status](https://travis-ci.org/City-of-Helsinki/varaamo.svg)](https://travis-ci.org/City-of-Helsinki/varaamo)
 [![codecov](https://codecov.io/gh/City-of-Helsinki/varaamo/branch/master/graph/badge.svg)](https://codecov.io/gh/City-of-Helsinki/varaamo)
 
