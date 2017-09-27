@@ -1,4 +1,5 @@
 import Immutable from 'seamless-immutable';
+import omit from 'lodash/omit';
 
 import types from 'constants/ActionTypes';
 import { pickSupportedFilters } from 'utils/searchUtils';
@@ -6,6 +7,8 @@ import { pickSupportedFilters } from 'utils/searchUtils';
 const initialState = Immutable({
   filters: {
     date: '',
+    lat: null,
+    lon: null,
     people: '',
     purpose: '',
     search: '',
@@ -34,7 +37,25 @@ function searchReducer(state = initialState, action) {
 
     case types.UI.CLEAR_SEARCH_FILTERS: {
       const { results, searchDone } = state;
-      return initialState.merge({ results, searchDone });
+      const filters = omit(initialState.filters, ['lat', 'lon']);
+      return initialState.merge({ filters, results, searchDone });
+    }
+
+    case types.UI.ENABLE_GEOPOSITION_SUCCESS: {
+      const filters = {
+        lat: action.payload.coords.latitude,
+        lon: action.payload.coords.longitude,
+      };
+      return state.merge({ filters }, { deep: true });
+    }
+
+    case types.UI.ENABLE_GEOPOSITION_ERROR:
+    case types.UI.DISABLE_GEOPOSITION: {
+      const filters = {
+        lat: initialState.filters.lat,
+        lon: initialState.filters.lon,
+      };
+      return state.merge({ filters }, { deep: true });
     }
 
     case types.UI.TOGGLE_SEARCH_SHOW_MAP: {
