@@ -37,6 +37,22 @@ const closeReservationSuccessModal = createAction(
   () => ModalTypes.RESERVATION_SUCCESS
 );
 
+const disableGeoposition = createAction(types.UI.DISABLE_GEOPOSITION);
+const enableGeopositionRequest = createAction(types.UI.ENABLE_GEOPOSITION_REQUEST);
+const enableGeopositionSuccess = createAction(types.UI.ENABLE_GEOPOSITION_SUCCESS);
+const enableGeopositionError = createAction(types.UI.ENABLE_GEOPOSITION_ERROR);
+
+const enableGeoposition = () => (dispatch) => {
+  dispatch(enableGeopositionRequest());
+  if (!navigator.geolocation) {
+    dispatch(enableGeopositionError());
+  }
+  navigator.geolocation.getCurrentPosition(
+    position => dispatch(enableGeopositionSuccess(position)),
+    error => dispatch(enableGeopositionError(error)),
+  );
+};
+
 const filterAdminResourceType = createAction(types.UI.FILTER_ADMIN_RESOURCE_TYPE);
 
 const hideReservationInfoModal = createAction(types.UI.HIDE_RESERVATION_INFO_MODAL);
@@ -93,6 +109,8 @@ export {
   closeReservationCancelModal,
   closeReservationCommentModal,
   closeReservationSuccessModal,
+  disableGeoposition,
+  enableGeoposition,
   filterAdminResourceType,
   hideReservationInfoModal,
   openConfirmReservationModal,
