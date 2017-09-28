@@ -39,6 +39,10 @@ class UnconnectedSearchPage extends Component {
       this.searchResources(nextFilters);
       return;
     }
+    if (!isEqual(nextProps.position, this.props.position)) {
+      this.searchResources(nextFilters, nextProps.position);
+      return;
+    }
     if (isEqual(currentFilters, nextFilters)) {
       return;
     }
@@ -50,8 +54,8 @@ class UnconnectedSearchPage extends Component {
     scrollTo(findDOMNode(this.refs.searchResults));
   }
 
-  searchResources(filters) {
-    this.props.actions.searchResources(filters);
+  searchResources(filters, position = this.props.position || {}) {
+    this.props.actions.searchResources({ ...filters, ...position });
   }
 
   render() {
@@ -98,6 +102,7 @@ UnconnectedSearchPage.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
   params: PropTypes.object.isRequired,
+  position: PropTypes.object,
   searchDone: PropTypes.bool.isRequired,
   searchResultIds: PropTypes.array.isRequired,
   selectedUnitId: PropTypes.string,

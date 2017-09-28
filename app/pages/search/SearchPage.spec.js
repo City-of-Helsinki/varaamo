@@ -25,6 +25,7 @@ describe('pages/search/SearchPage', () => {
     },
     location: { query: {} },
     params: {},
+    position: null,
     searchDone: true,
     searchResultIds: Immutable(['resource-1', 'resource-2']),
     selectedUnitId: '123',
@@ -138,6 +139,7 @@ describe('pages/search/SearchPage', () => {
         nextProps = {
           filters: defaultProps.filters,
           isLoggedIn: !defaultProps.isLoggedIn,
+          position: null,
           url: '/?search=some-search',
         };
         instance.componentWillUpdate(nextProps);
@@ -162,6 +164,7 @@ describe('pages/search/SearchPage', () => {
         nextProps = {
           filters: { purpose: 'new-purpose' },
           isLoggedIn: defaultProps.isLoggedIn,
+          position: null,
           url: '/?purpose=new-purpose',
         };
         instance.componentWillUpdate(nextProps);
@@ -192,6 +195,7 @@ describe('pages/search/SearchPage', () => {
         nextProps = {
           filters: defaultProps.filters,
           isLoggedIn: defaultProps.isLoggedIn,
+          position: null,
           url: '/?search=some-search',
         };
         instance.componentWillUpdate(nextProps);
@@ -203,6 +207,34 @@ describe('pages/search/SearchPage', () => {
 
       it('does not do a search', () => {
         expect(defaultProps.actions.searchResources.callCount).to.equal(0);
+      });
+    });
+
+    describe('if position changed', () => {
+      let nextProps;
+
+      before(() => {
+        defaultProps.actions.changeSearchFilters.reset();
+        defaultProps.actions.searchResources.reset();
+        const instance = getWrapper().instance();
+        nextProps = {
+          filters: defaultProps.filters,
+          isLoggedIn: defaultProps.isLoggedIn,
+          position: {
+            lat: 12,
+            lon: 11,
+          },
+        };
+        instance.componentWillUpdate(nextProps);
+      });
+
+      it('refetches search results', () => {
+        expect(defaultProps.actions.searchResources.callCount).to.equal(1);
+      });
+
+      it('includes position argument on searchResources call', () => {
+        expect(defaultProps.actions.searchResources.lastCall.args[0].lat).to.equal(12);
+        expect(defaultProps.actions.searchResources.lastCall.args[0].lon).to.equal(11);
       });
     });
   });

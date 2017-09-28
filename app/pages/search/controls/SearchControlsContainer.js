@@ -6,10 +6,11 @@ import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 
 import { fetchPurposes } from 'actions/purposeActions';
-import { changeSearchFilters } from 'actions/uiActions';
+import { changeSearchFilters, disableGeoposition, enableGeoposition } from 'actions/uiActions';
 import constants from 'constants/AppConstants';
 import DatePickerControl from './DatePickerControl';
 import PeopleCapacityControl from './PeopleCapacityControl';
+import PositionControl from './PositionControl';
 import PurposeControl from './PurposeControl';
 import SearchBox from './SearchBox';
 import searchControlsSelector from './searchControlsSelector';
@@ -19,6 +20,7 @@ class UnconnectedSearchControlsContainer extends Component {
     actions: PropTypes.object.isRequired,
     filters: PropTypes.object.isRequired,
     isFetchingPurposes: PropTypes.bool.isRequired,
+    position: PropTypes.object,
     purposeOptions: PropTypes.array.isRequired,
     scrollToSearchResults: PropTypes.func.isRequired,
     urlSearchFilters: PropTypes.object.isRequired,
@@ -42,6 +44,14 @@ class UnconnectedSearchControlsContainer extends Component {
     this.handleSearch(newFilters);
   }
 
+  handlePositionSwitch = () => {
+    if (!this.props.position) {
+      this.props.actions.enableGeoposition();
+    } else {
+      this.props.actions.disableGeoposition();
+    }
+  }
+
   handleSearchBoxChange = (value) => {
     this.props.actions.changeSearchFilters({ search: value });
   }
@@ -61,7 +71,6 @@ class UnconnectedSearchControlsContainer extends Component {
       isFetchingPurposes,
       purposeOptions,
     } = this.props;
-
     return (
       <div className="app-SearchControlsContainer">
         <SearchBox
@@ -75,6 +84,10 @@ class UnconnectedSearchControlsContainer extends Component {
             onConfirm={purpose => this.handleFiltersChange({ purpose })}
             purposeOptions={purposeOptions}
             value={filters.purpose}
+          />
+          <PositionControl
+            geolocated={Boolean(this.props.position)}
+            onPositionSwitch={this.handlePositionSwitch}
           />
           <DatePickerControl
             onConfirm={this.handleDateChange}
@@ -93,6 +106,8 @@ class UnconnectedSearchControlsContainer extends Component {
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
     changeSearchFilters,
+    disableGeoposition,
+    enableGeoposition,
     fetchPurposes,
   };
 
