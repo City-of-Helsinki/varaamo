@@ -21,14 +21,6 @@ describe('state/reducers/ui/searchReducer', () => {
         expect(initialState.filters.date).to.equal('');
       });
 
-      it('lat is null', () => {
-        expect(initialState.filters.lat).to.equal(null);
-      });
-
-      it('lon is null', () => {
-        expect(initialState.filters.lon).to.equal(null);
-      });
-
       it('people is an empty string', () => {
         expect(initialState.filters.purpose).to.equal('');
       });
@@ -40,6 +32,10 @@ describe('state/reducers/ui/searchReducer', () => {
       it('search is an empty string', () => {
         expect(initialState.filters.search).to.equal('');
       });
+    });
+
+    it('position is null', () => {
+      expect(initialState.position).to.equal(null);
     });
 
     it('results is an empty array', () => {
@@ -216,64 +212,48 @@ describe('state/reducers/ui/searchReducer', () => {
         } };
         const action = enableGeopositionSuccess(position);
         const initialState = Immutable({
-          filters: {
-            date: '',
-            lat: null,
-            lon: null,
-          },
+          position: null,
         });
 
         const expected = Immutable({
-          date: '',
           lat: 11,
           lon: 12,
         });
         const nextState = searchReducer(initialState, action);
 
-        expect(nextState.filters).to.deep.equal(expected);
+        expect(nextState.position).to.deep.equal(expected);
       });
     });
 
     describe('UI.ENABLE_GEOPOSITION_ERROR', () => {
       const enableGeopositionError = createAction(types.UI.ENABLE_GEOPOSITION_ERROR);
 
-      it('sets the given position coords', () => {
-        const filters = {
-          date: '',
+      it('sets position to null', () => {
+        const position = {
           lat: 11,
           lon: 12,
         };
         const action = enableGeopositionError();
-        const initialState = Immutable({ filters });
-        const expected = Immutable({
-          date: '',
-          lat: null,
-          lon: null,
-        });
+        const initialState = Immutable({ position });
         const nextState = searchReducer(initialState, action);
 
-        expect(nextState.filters).to.deep.equal(expected);
+        expect(nextState.position).to.deep.equal(null);
       });
     });
 
-    describe('UI.DISABLE_GEOPOSITION_ERROR', () => {
+    describe('UI.DISABLE_GEOPOSITION', () => {
       const disableGeoposition = createAction(types.UI.DISABLE_GEOPOSITION);
 
-      it('sets the given position coords', () => {
-        const filters = {
-          date: '',
+      it('sets position to null', () => {
+        const position = {
           lat: 11,
           lon: 12,
         };
         const action = disableGeoposition();
-        const initialState = Immutable({ filters });
-        const expected = Immutable({
-          date: '',
-          lat: null,
-          lon: null,
-        });
+        const initialState = Immutable({ position });
         const nextState = searchReducer(initialState, action);
-        expect(nextState.filters).to.deep.equal(expected);
+
+        expect(nextState.position).to.deep.equal(null);
       });
     });
 
