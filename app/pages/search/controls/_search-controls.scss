@@ -100,6 +100,24 @@
   }
 }
 
+// PositionControl styles
+// ---------------------
+
+.app-PositionControl {
+  display: inline-block;
+  margin-left: 10px;
+
+  &__show-button {
+    @include search-control-button($medium-gray);
+    font-size: 1.5em;
+    &.app-PositionControl__active {
+      @include search-control-button($copper);
+      font-size: 1.5em;
+    }
+  }
+}
+
+
 // DatePickerControl styles
 // ------------------------
 

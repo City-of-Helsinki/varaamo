@@ -8,6 +8,8 @@ import uiSearchFiltersSelector from 'state/selectors/uiSearchFiltersSelector';
 import urlSearchFiltersSelector from 'state/selectors/urlSearchFiltersSelector';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
 
+const positionSelector = state => state.ui.search.position;
+
 const purposeOptionsSelector = createSelector(
   purposesSelector,
   (purposes) => {
@@ -22,8 +24,9 @@ const purposeOptionsSelector = createSelector(
 );
 
 const searchControlsSelector = createStructuredSelector({
-  isFetchingPurposes: requestIsActiveSelectorFactory(ActionTypes.API.PURPOSES_GET_REQUEST),
   filters: uiSearchFiltersSelector,
+  isFetchingPurposes: requestIsActiveSelectorFactory(ActionTypes.API.PURPOSES_GET_REQUEST),
+  position: positionSelector,
   purposeOptions: purposeOptionsSelector,
   urlSearchFilters: urlSearchFiltersSelector,
 });

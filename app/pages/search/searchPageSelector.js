@@ -10,12 +10,14 @@ const searchDoneSelector = state => state.ui.search.searchDone;
 const searchResultIdsSelector = state => state.ui.search.results;
 const showMapSelector = state => state.ui.search.showMap;
 const selectedUnitIdSelector = state => state.ui.search.unitId;
+const positionSelector = state => state.ui.search.position;
 
 const searchPageSelector = createStructuredSelector({
   filters: urlSearchFiltersSelector,
   isFetchingSearchResults:
     requestIsActiveSelectorFactory(ActionTypes.API.SEARCH_RESULTS_GET_REQUEST),
   isLoggedIn: isLoggedInSelector,
+  position: positionSelector,
   searchDone: searchDoneSelector,
   searchResultIds: searchResultIdsSelector,
   selectedUnitId: selectedUnitIdSelector,
