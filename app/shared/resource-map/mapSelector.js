@@ -3,6 +3,7 @@ import { createSelector, createStructuredSelector } from 'reselect';
 
 import { resourcesSelector, unitsSelector } from 'state/selectors/dataSelectors';
 
+const positionSelector = state => state.ui.search.position;
 const resourceIdsSelector = (state, props) => props.resourceIds;
 const filteredResourcesSelector = createSelector(
   resourceIdsSelector,
@@ -67,6 +68,7 @@ const boundariesSelector = createSelector(
 );
 
 export default createStructuredSelector({
-  markers: markersSelector,
   boundaries: boundariesSelector,
+  position: positionSelector,
+  markers: markersSelector,
 });
