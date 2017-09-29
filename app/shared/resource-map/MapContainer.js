@@ -2,7 +2,6 @@ import classnames from 'classnames';
 import React, { PropTypes } from 'react';
 import { Map, TileLayer, ZoomControl } from 'react-leaflet';
 import { connect } from 'react-redux';
-import { geolocated, geoPropTypes } from 'react-geolocated';
 
 import { searchMapClick, selectUnit } from 'actions/searchActions';
 import selector from './mapSelector';
@@ -14,18 +13,18 @@ const defaultZoom = 10;
 
 export class UnconnectedResourceMapContainer extends React.Component {
   static propTypes = {
-    markers: PropTypes.array,
     boundaries: PropTypes.shape({
       maxLatitude: PropTypes.number,
       minLatitude: PropTypes.number,
       maxLongitude: PropTypes.number,
       minLongitude: PropTypes.number,
     }),
+    markers: PropTypes.array,
+    position: PropTypes.object,
     searchMapClick: PropTypes.func.isRequired,
     selectedUnitId: PropTypes.string,
     selectUnit: PropTypes.func.isRequired,
     showMap: PropTypes.bool.isRequired,
-    ...geoPropTypes,
   };
 
   componentDidUpdate(prevProps) {
@@ -64,8 +63,8 @@ export class UnconnectedResourceMapContainer extends React.Component {
   }
 
   render() {
-    const center = this.props.coords ?
-      [this.props.coords.latitude, this.props.coords.longitude] :
+    const center = this.props.position ?
+      [this.props.position.lat, this.props.position.lon] :
       defaultPosition;
     return (
       <div className={classnames('app-ResourceMap', { 'app-ResourceMap__showMap': this.props.showMap })}>
@@ -90,10 +89,10 @@ export class UnconnectedResourceMapContainer extends React.Component {
               selectUnit={this.props.selectUnit}
             />
           )}
-          {this.props.coords &&
+          {this.props.position &&
             <UserMarker
-              latitude={this.props.coords.latitude}
-              longitude={this.props.coords.longitude}
+              latitude={this.props.position.lat}
+              longitude={this.props.position.lon}
             />
           }
         </Map>
@@ -108,4 +107,4 @@ const actions = {
   searchMapClick,
 };
 
-export default connect(selector, actions)(geolocated()(UnconnectedResourceMapContainer));
+export default connect(selector, actions)(UnconnectedResourceMapContainer);

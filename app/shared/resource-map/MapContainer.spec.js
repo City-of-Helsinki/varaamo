@@ -110,22 +110,23 @@ describe('shared/resource-map/MapContainer', () => {
 
   describe('with a geolocalized user', () => {
     it('centers the map on users position', () => {
-      const coords = {
-        latitude: 61,
-        longitude: 26,
+      const position = {
+        lat: 61,
+        lon: 26,
       };
-      const map = getWrapper({ coords }).find(Map);
+      const map = getWrapper({ position }).find(Map);
       expect(map.prop('center')).to.deep.equal([61, 26]);
     });
 
     it('renders an userMarker', () => {
-      const coords = {
-        latitude: 61,
-        longitude: 26,
+      const position = {
+        lat: 61,
+        lon: 26,
       };
-      const element = getWrapper({ coords }).find(UserMarker);
+      const element = getWrapper({ position }).find(UserMarker);
       expect(element).to.have.length(1);
-      expect(element.props()).to.deep.equal(coords);
+      expect(element.prop('latitude')).to.deep.equal(position.lat);
+      expect(element.prop('longitude')).to.deep.equal(position.lon);
     });
   });
 

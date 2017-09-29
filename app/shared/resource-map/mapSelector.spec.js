@@ -3,7 +3,10 @@ import { expect } from 'chai';
 import selector from './mapSelector';
 
 function getState({ units = {}, resources = {} }) {
-  return { data: { units, resources } };
+  return {
+    data: { units, resources },
+    ui: { search: { position: null } },
+  };
 }
 
 function createUnit(id, latitude, longitude) {
