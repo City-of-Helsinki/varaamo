@@ -15,10 +15,8 @@ import ResourceAvailability from './ResourceAvailability';
 import ResourceCard from './ResourceCard';
 
 describe('shared/resource-card/ResourceCard', () => {
-  const defaultProps = {
-    date: '2015-10-10',
-    isLoggedIn: false,
-    resource: Immutable(Resource.build({
+  function getResource(extra) {
+    return Immutable(Resource.build({
       equipment: [
         {
           id: '1',
@@ -35,7 +33,13 @@ describe('shared/resource-card/ResourceCard', () => {
       type: {
         name: 'workplace',
       },
-    })),
+      ...extra,
+    }));
+  }
+  const defaultProps = {
+    date: '2015-10-10',
+    isLoggedIn: false,
+    resource: getResource(),
     unit: Immutable(Unit.build({
       addressZip: '00100',
       municipality: 'helsinki',
@@ -86,6 +90,40 @@ describe('shared/resource-card/ResourceCard', () => {
       expect(peopleCapacityLabel.children().at(0).text()).to.equal('16');
       expect(peopleCapacityLabel.children().at(1).is(FontAwesome)).to.be.true;
       expect(peopleCapacityLabel.children().at(1).prop('name')).to.equal('users');
+    });
+
+    it('does not render a label with distance if not available', () => {
+      const distanceLabel = getBackgroundImageWrapper().find(
+        '.app-ResourceCard__distance'
+      );
+
+      expect(distanceLabel).to.have.length(0);
+    });
+
+    it('renders a label with distance', () => {
+      const distanceLabel = getBackgroundImageWrapper({
+        resource: getResource({ distance: 11123 }),
+      }).find(
+        '.app-ResourceCard__distance'
+      );
+
+      expect(distanceLabel).to.have.length(1);
+      expect(distanceLabel.is(Label)).to.be.true;
+      expect(distanceLabel.prop('shape')).to.equal('circle');
+      expect(distanceLabel.prop('size')).to.equal('medium');
+      expect(distanceLabel.prop('theme')).to.equal('copper');
+      expect(distanceLabel.children().text()).to.equal('11 km');
+    });
+
+    it('renders distance with a decimal if distance is smaller than 10 km', () => {
+      const distanceLabel = getBackgroundImageWrapper({
+        resource: getResource({ distance: 123 }),
+      }).find(
+        '.app-ResourceCard__distance'
+      );
+
+      expect(distanceLabel).to.have.length(1);
+      expect(distanceLabel.children().text()).to.equal('0.1 km');
     });
 
     it('renders a hourly price', () => {

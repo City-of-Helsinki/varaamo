@@ -1,4 +1,5 @@
 import classnames from 'classnames';
+import round from 'lodash/round';
 import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
 import { Link } from 'react-router';
@@ -18,6 +19,16 @@ class ResourceCard extends Component {
       </Label>
     );
   }
+
+  renderDistance(distance) {
+    const km = distance / 1000;
+    let formatedDistance = round(km);
+    if (km < 10) {
+      formatedDistance = round(km, 1);
+    }
+    return `${formatedDistance} km`;
+  }
+
   render() {
     const { date, resource, t, unit } = this.props;
 
@@ -34,6 +45,16 @@ class ResourceCard extends Component {
             image={getMainImage(resource.images)}
             width={700}
           >
+            {resource.distance &&
+              <Label
+                className="app-ResourceCard__distance"
+                shape="circle"
+                size="medium"
+                theme="copper"
+              >
+                {this.renderDistance(resource.distance)}
+              </Label>
+            }
             <Label
               className="app-ResourceCard__peopleCapacity"
               shape="circle"

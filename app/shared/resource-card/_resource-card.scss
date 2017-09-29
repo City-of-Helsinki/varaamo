@@ -31,6 +31,15 @@ $card-border-color: #d6d6d6;
     background-size: cover;
   }
 
+  &__distance {
+    font-size: 1.1rem;
+    white-space: nowrap;
+    text-align: center;
+    position: absolute;
+    left: $image-items-margin;
+    top: $image-items-margin;
+  }
+
   &__peopleCapacity {
     font-size: 1.2rem;
     text-align: center;
