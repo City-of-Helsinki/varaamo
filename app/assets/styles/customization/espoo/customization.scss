@@ -29,25 +29,44 @@
   // Navbar
   // ------
 
-  .navbar-inverse {
+  .app-SideNavbar .app-Sidebar__sidebar {
     background-color: $blue;
 
-    .navbar-brand {
-      font-weight: $font-weight-bold;
+    h1, h2, h3, h4, h5, h6, p, a {
+      color: $white;
+      &:hover, &:focus {
+        color: $white;
+      }
     }
 
-    .navbar-nav {
-      > .active > a,
-      > .active > a:hover,
-      > .active > a:focus {
-        background-color: darken($blue, 6.5%);
+    .app-Navbar {
+      background-color: $blue;
+      .main-nav {
+        .nav.nav-stacked {
+          li {
+            border-bottom: 1px solid lighten($blue, 6);
+            &:first-of-type {
+              border-top: 1px solid lighten($blue, 6);
+            }
+          }
+        }
       }
+    }
 
-      .open > a,
-      .open > a:hover,
-      .open > a:focus {
-        background-color: darken($blue, 6.5%);
+    .feedback-link {
+      color: #bbb;
+      &:hover, &:focus {
+        color: #bbb;
       }
+    }
+  }
+
+  .app-SideNavbar__toggle {
+    background-color: $blue;
+    color: $white;
+
+    &:hover, &:focus {
+      color: $white;
     }
   }
 
@@ -71,6 +90,8 @@
   }
 
   // About-page
+  // ----------
+
   .about-page {
     .about-page-logos {
       margin-bottom: 20px;
