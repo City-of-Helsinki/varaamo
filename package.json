@@ -22,6 +22,7 @@
     "leaflet": "1.0.3",
     "location-origin": "1.1.4",
     "lodash": "4.16.4",
+    "mobile-detect": "1.4.0",
     "moment": "2.15.1",
     "moment-range": "2.2.0",
     "moment-timezone": "0.5.11",
