@@ -15,6 +15,7 @@ describe('pages/AppContainer', () => {
   function getWrapper(props) {
     const defaults = {
       children: <div id="child-div" />,
+      enableGeoposition: () => {},
       fetchUser: () => null,
       location: {},
       searchResultIds: Immutable([]),
