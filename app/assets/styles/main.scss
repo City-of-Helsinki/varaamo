@@ -7,12 +7,13 @@
 
 
 // Other third party
-@import '~react-date-picker/index.css';
-@import '~react-notifications/lib/notifications.css';
 @import '~leaflet/dist/leaflet.css';
-@import '~react-select/dist/react-select.css';
+@import '~rc-slider/assets/index.css';
+@import '~react-date-picker/index.css';
 @import '~react-day-picker/lib/style.css';
-
+@import '~react-notifications/lib/notifications.css';
+@import '~react-select/dist/react-select.css';
+@import '~react-toggle/style.css';
 
 // App styles
 @import './layout';
