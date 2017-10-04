@@ -111,6 +111,8 @@
   "Partners.varhaiskasvatusvirastoImageAlt": "Helsingin kaupunki - Varhaiskasvatusvirasto",
   "PeopleCapacityControl.buttonLabel": "Henkilömäärä",
   "PeopleCapacityControl.header": "Tilan henkilömäärä vähintään",
+  "PositionControl.header": "Geolocation",
+  "PositionControl.noDistanceLimit": "No limit",
   "PurposeControl.buttonLabel": "Mitä haluat tehdä?",
   "PurposeControl.label": "Mitä haluat tehdä?",
   "RecurringReservationControls.frequencyDaily": "Päivittäin",
