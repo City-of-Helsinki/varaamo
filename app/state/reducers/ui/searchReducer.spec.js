@@ -21,8 +21,12 @@ describe('state/reducers/ui/searchReducer', () => {
         expect(initialState.filters.date).to.equal('');
       });
 
+      it('distance is an empty string', () => {
+        expect(initialState.filters.distance).to.equal('');
+      });
+
       it('people is an empty string', () => {
-        expect(initialState.filters.purpose).to.equal('');
+        expect(initialState.filters.people).to.equal('');
       });
 
       it('purpose is an empty string', () => {
@@ -163,12 +167,14 @@ describe('state/reducers/ui/searchReducer', () => {
       it('clears filters', () => {
         const filters = {
           date: '2017-12-12',
+          distance: '5000',
           people: '12',
           purpose: 'some-purpose',
           search: 'search-query',
         };
         const expected = {
           date: '',
+          distance: '',
           people: '',
           purpose: '',
           search: '',

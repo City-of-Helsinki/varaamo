@@ -46,6 +46,7 @@ export default {
   SUPPORTED_LANGUAGES: ['en', 'fi', 'sv'],
   SUPPORTED_SEARCH_FILTERS: {
     date: '',
+    distance: '',
     lat: '',
     lon: '',
     people: '',
