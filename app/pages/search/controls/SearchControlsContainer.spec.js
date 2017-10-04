@@ -9,6 +9,7 @@ import simple from 'simple-mock';
 
 import DatePickerControl from './DatePickerControl';
 import PeopleCapacityControl from './PeopleCapacityControl';
+import PositionControl from './PositionControl';
 import PurposeControl from './PurposeControl';
 import SearchBox from './SearchBox';
 import {
@@ -66,6 +67,19 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(peopleCapacityControl).to.have.length(1);
       expect(peopleCapacityControl.prop('value')).to.equal(12);
       expect(peopleCapacityControl.prop('onConfirm')).to.exist;
+    });
+
+    it('renders PositionControl with correct props', () => {
+      const filters = { ...defaultProps.filters, distance: '5000' };
+      const positionControl = getWrapper({
+        filters,
+        position: { lat: 1, lon: 2 },
+      }).find(PositionControl);
+      expect(positionControl).to.have.length(1);
+      expect(positionControl.prop('geolocated')).to.be.true;
+      expect(positionControl.prop('onConfirm')).to.exist;
+      expect(positionControl.prop('onPositionSwitch')).to.exist;
+      expect(positionControl.prop('value')).to.equal(5000);
     });
 
     it('renders PurposeControl with correct props', () => {
