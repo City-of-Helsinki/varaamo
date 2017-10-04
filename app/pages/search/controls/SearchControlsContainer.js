@@ -87,7 +87,9 @@ class UnconnectedSearchControlsContainer extends Component {
           />
           <PositionControl
             geolocated={Boolean(this.props.position)}
+            onConfirm={distance => this.handleFiltersChange({ distance })}
             onPositionSwitch={this.handlePositionSwitch}
+            value={parseInt(filters.distance, 10)}
           />
           <DatePickerControl
             onConfirm={this.handleDateChange}

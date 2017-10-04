@@ -111,6 +111,8 @@
   "Partners.varhaiskasvatusvirastoImageAlt": "City of Helsinki – Department of Early Education and Care",
   "PeopleCapacityControl.buttonLabel": "Number of people",
   "PeopleCapacityControl.header": "Minimum number of people permitted",
+  "PositionControl.header": "Geolocation",
+  "PositionControl.noDistanceLimit": "No limit",
   "PurposeControl.buttonLabel": "What do you want to do?",
   "PurposeControl.label": "What do you want to do?",
   "RecurringReservationControls.frequencyDaily": "Daily",

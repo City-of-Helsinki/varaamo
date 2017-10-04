@@ -111,6 +111,8 @@
   "Partners.varhaiskasvatusvirastoImageAlt": "Helsingfors stad - Barnomsorgsverket",
   "PeopleCapacityControl.buttonLabel": "Personantal",
   "PeopleCapacityControl.header": "Minsta personantal i utrymmet",
+  "PositionControl.header": "Geolocation",
+  "PositionControl.noDistanceLimit": "No limit",
   "PurposeControl.buttonLabel": "Vad vill du göra?",
   "PurposeControl.label": "Vad vill du göra?",
   "RecurringReservationControls.frequencyDaily": "Varje dag",
