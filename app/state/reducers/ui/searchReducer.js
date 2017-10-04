@@ -9,6 +9,7 @@ const initialState = Immutable({
     people: '',
     purpose: '',
     search: '',
+    distance: '',
   },
   position: null,
   results: [],

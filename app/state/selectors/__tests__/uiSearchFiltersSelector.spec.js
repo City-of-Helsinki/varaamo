@@ -9,6 +9,7 @@ function getState(date = '2015-10-10') {
       search: {
         filters: {
           date,
+          distance: '',
           people: '',
           purpose: 'some-purpose',
           search: '',
