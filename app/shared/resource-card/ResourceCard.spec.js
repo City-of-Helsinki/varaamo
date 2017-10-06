@@ -1,8 +1,9 @@
 import { expect } from 'chai';
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
-import { Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import Immutable from 'seamless-immutable';
+import simple from 'simple-mock';
 
 import BackgroundImage from 'shared/background-image';
 import Image from 'utils/fixtures/Image';
@@ -167,6 +168,13 @@ describe('shared/resource-card/ResourceCard', () => {
     expect(unitName.html()).to.contain(defaultProps.unit.streetAddress);
   });
 
+  it('renders an anchor that calls handleSearchByType on click', () => {
+    const wrapper = getWrapper();
+    const typeAnchor = wrapper.find('.app-ResourceCard__unit-name').find('a');
+    expect(typeAnchor).to.have.length(1);
+    expect(typeAnchor.prop('onClick')).to.equal(wrapper.instance().handleSearchByType);
+  });
+
   it('renders a label with the type of the given resource in props', () => {
     const typeLabel = getWrapper().find('.app-ResourceCard__unit-name').find(Label);
     expect(typeLabel.prop('size')).to.equal('mini');
@@ -195,5 +203,26 @@ describe('shared/resource-card/ResourceCard', () => {
     const resourceAvailability = getWrapper().find(ResourceAvailability);
     expect(resourceAvailability.prop('date')).to.equal(defaultProps.date);
     expect(resourceAvailability.prop('resource').id).to.equal(defaultProps.resource.id);
+  });
+
+  describe('handleSearchByType', () => {
+    let browserHistoryMock;
+
+    before(() => {
+      browserHistoryMock = simple.mock(browserHistory, 'push');
+    });
+
+    after(() => {
+      simple.restore();
+    });
+
+    it('calls browserHistory.push with correct path', () => {
+      getWrapper().instance().handleSearchByType();
+      const actualPath = browserHistoryMock.lastCall.args[0];
+      const expectedPath = '/?search=workplace';
+
+      expect(browserHistoryMock.callCount).to.equal(1);
+      expect(actualPath).to.equal(expectedPath);
+    });
   });
 });
