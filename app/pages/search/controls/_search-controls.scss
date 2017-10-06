@@ -113,10 +113,8 @@
 
   &__show-button {
     @include search-control-button($medium-gray);
-    font-size: 1.5em;
     &.app-PositionControl__active {
       @include search-control-button($copper);
-      font-size: 1.5em;
     }
   }
 

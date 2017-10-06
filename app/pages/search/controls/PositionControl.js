@@ -61,7 +61,7 @@ class PositionControl extends React.Component {
     this.hideModal();
   }
 
-  tipFormatter = value => (
+  distanceFormatter = value => (
     value > this.state.maxDistance ?
     this.props.t('PositionControl.noDistanceLimit') :
     `${value / 1000} Km`
@@ -77,7 +77,13 @@ class PositionControl extends React.Component {
           })}
           onClick={this.showModal}
         >
-          <Glyphicon glyph="map-marker" />
+          <div><Glyphicon glyph="map-marker" /> {t('PositionControl.buttonLabel')}</div>
+          <div>{
+            this.props.geolocated ?
+              this.distanceFormatter(this.state.distance) :
+              t('PositionControl.geolocationOff')
+            }
+          </div>
         </Button>
         <Modal
           dialogClassName="app-PositionControl__modal"
@@ -106,7 +112,7 @@ class PositionControl extends React.Component {
               onAfterChange={this.handleConfirm}
               onChange={this.handleDistanceSliderChange}
               step={this.state.step}
-              tipFormatter={this.tipFormatter}
+              tipFormatter={this.distanceFormatter}
               tipProps={{ overlayClassName: 'app-PositionControl__distance_slider_tooltip' }}
               value={this.state.distance}
             />
