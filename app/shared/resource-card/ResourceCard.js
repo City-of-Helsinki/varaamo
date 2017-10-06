@@ -1,8 +1,9 @@
 import classnames from 'classnames';
 import round from 'lodash/round';
+import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
-import { Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 
 import { injectT } from 'i18n';
 import BackgroundImage from 'shared/background-image';
@@ -12,6 +13,11 @@ import Label from 'shared/label';
 import ResourceAvailability from './ResourceAvailability';
 
 class ResourceCard extends Component {
+  handleSearchByType = () => {
+    const filters = { search: this.props.resource.type.name };
+    browserHistory.push(`/?${queryString.stringify(filters)}`);
+  }
+
   renderEquipment(equipment) {
     return (
       <Label key={equipment.id} shape="rounded" size="mini" theme="gold">
@@ -75,7 +81,15 @@ class ResourceCard extends Component {
           </Link>
           <div className="app-ResourceCard__unit-name">
             <span>{unit.name}</span>
-            {resource.type && <Label size="mini" theme="blue">{resource.type.name}</Label>}
+            {resource.type &&
+              <a
+                onClick={this.handleSearchByType}
+                role="button"
+                tabIndex="-1"
+              >
+                <Label size="mini" theme="blue">{resource.type.name}</Label>
+              </a>
+            }
           </div>
           <div className="app-ResourceCard__street-address">
             <span>{`${unit.streetAddress}, ${unit.addressZip} `}</span>
