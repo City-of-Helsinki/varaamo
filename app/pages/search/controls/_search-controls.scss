@@ -121,15 +121,19 @@
   &__modal {
     @include search-control-modal($copper);
   }
-  &__modal-content {
-    margin-top: 15px;
+  &__toggle-content > label{
+    display: flex;
+    justify-content: space-between;
   }
   &__geolocation-toggle {
     margin-left: 10px;
     vertical-align: middle;
   }
-  &__distance_slider_tooltip {
-    z-index: 40000;
+  &__distance_slider{
+    margin-top: 15px;
+    &_tooltip {
+      z-index: 40000;
+    }
   }
 }
 
