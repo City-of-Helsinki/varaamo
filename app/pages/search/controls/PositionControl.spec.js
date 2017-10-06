@@ -154,4 +154,16 @@ describe('pages/search/controls/PositionControl', () => {
       expect(instance.state.visible).to.be.true;
     });
   });
+
+  describe('distanceFormatter', () => {
+    it('returns value and km', () => {
+      const instance = getWrapper().instance();
+      expect(instance.distanceFormatter(2000)).to.equal('2 Km');
+    });
+
+    it('returns PositionControl.noDistanceLimit if distance is higher than maxDistance', () => {
+      const instance = getWrapper().instance();
+      expect(instance.distanceFormatter(999999)).to.equal('PositionControl.noDistanceLimit');
+    });
+  });
 });

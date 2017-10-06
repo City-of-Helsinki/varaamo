@@ -91,9 +91,12 @@ class PositionControl extends React.Component {
           show={this.state.visible}
         >
           <div className="app-PositionControl__modal-header">
-            <h2>
+            <h2>{t('PositionControl.header')}</h2>
+          </div>
+          <div className="app-PositionControl__modal-content">
+            <div className="app-PositionControl__toggle-content">
               <label htmlFor="geolocation-status">
-                <span>{t('PositionControl.header')}</span>
+                <span>{t('PositionControl.useDistance')}</span>
                 <Toggle
                   className="app-PositionControl__geolocation-toggle"
                   defaultChecked={geolocated}
@@ -101,9 +104,10 @@ class PositionControl extends React.Component {
                   onChange={this.handleToggleChange}
                 />
               </label>
-            </h2>
-          </div>
-          <div className="app-PositionControl__modal-content">
+            </div>
+            <div>
+              {t('PositionControl.maxDistance')}: {this.distanceFormatter(this.state.distance)}
+            </div>
             <TooltipSlider
               className="app-PositionControl__distance_slider"
               disabled={!this.state.toggled}
