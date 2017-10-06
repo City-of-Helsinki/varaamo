@@ -102,7 +102,7 @@ class PositionControl extends React.Component {
               className="app-PositionControl__distance_slider"
               disabled={!this.state.toggled}
               max={this.state.maxDistance + this.state.step}
-              min={0}
+              min={this.state.step}
               onAfterChange={this.handleConfirm}
               onChange={this.handleDistanceSliderChange}
               step={this.state.step}
