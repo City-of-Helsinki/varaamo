@@ -65,7 +65,7 @@ describe('pages/search/controls/PositionControl', () => {
       expect(modal).to.have.length(1);
       expect(modal.prop('disabled')).to.be.false;
       expect(modal.prop('max')).to.equal(21000);
-      expect(modal.prop('min')).to.equal(0);
+      expect(modal.prop('min')).to.equal(1000);
       expect(modal.prop('onAfterChange')).to.equal(wrapper.instance().handleConfirm);
       expect(modal.prop('onChange')).to.equal(wrapper.instance().handleDistanceSliderChange);
       expect(modal.prop('step')).to.equal(1000);
