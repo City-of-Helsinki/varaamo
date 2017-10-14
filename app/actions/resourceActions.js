@@ -38,7 +38,7 @@ function fetchResource(id, params = {}) {
 }
 
 function fetchResources(params = {}, source) {
-  const fetchParams = Object.assign({}, params, { pageSize: 100 });
+  const fetchParams = Object.assign({}, params, { pageSize: 500 });
 
   return {
     [CALL_API]: {
