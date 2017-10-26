@@ -18,6 +18,11 @@ class ResourceCard extends Component {
     browserHistory.push(`/?${queryString.stringify(filters)}`);
   }
 
+  handleSearchByUnitName = () => {
+    const filters = { search: this.props.unit.name };
+    browserHistory.push(`/?${queryString.stringify(filters)}`);
+  }
+
   renderEquipment(equipment) {
     return (
       <Label key={equipment.id} shape="rounded" size="mini" theme="gold">
@@ -80,9 +85,17 @@ class ResourceCard extends Component {
             <h4>{resource.name}</h4>
           </Link>
           <div className="app-ResourceCard__unit-name">
-            <span>{unit.name}</span>
+            <a
+              className="app-ResourceCard__unit-name-link"
+              onClick={this.handleSearchByUnitName}
+              role="button"
+              tabIndex="-1"
+            >
+              <span>{unit.name}</span>
+            </a>
             {resource.type &&
               <a
+                className="app-ResourceCard__resource-type-link"
                 onClick={this.handleSearchByType}
                 role="button"
                 tabIndex="-1"
