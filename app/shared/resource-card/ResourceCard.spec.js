@@ -42,6 +42,7 @@ describe('shared/resource-card/ResourceCard', () => {
     isLoggedIn: false,
     resource: getResource(),
     unit: Immutable(Unit.build({
+      name: 'unit_name',
       addressZip: '00100',
       municipality: 'helsinki',
       streetAddress: 'Fabiankatu',
@@ -170,9 +171,16 @@ describe('shared/resource-card/ResourceCard', () => {
 
   it('renders an anchor that calls handleSearchByType on click', () => {
     const wrapper = getWrapper();
-    const typeAnchor = wrapper.find('.app-ResourceCard__unit-name').find('a');
+    const typeAnchor = wrapper.find('.app-ResourceCard__resource-type-link').filter('a');
     expect(typeAnchor).to.have.length(1);
     expect(typeAnchor.prop('onClick')).to.equal(wrapper.instance().handleSearchByType);
+  });
+
+  it('renders an anchor that calls handleSearchByUnitName on click', () => {
+    const wrapper = getWrapper();
+    const typeAnchor = wrapper.find('.app-ResourceCard__unit-name-link').filter('a');
+    expect(typeAnchor).to.have.length(1);
+    expect(typeAnchor.prop('onClick')).to.equal(wrapper.instance().handleSearchByUnitName);
   });
 
   it('renders a label with the type of the given resource in props', () => {
@@ -220,6 +228,27 @@ describe('shared/resource-card/ResourceCard', () => {
       getWrapper().instance().handleSearchByType();
       const actualPath = browserHistoryMock.lastCall.args[0];
       const expectedPath = '/?search=workplace';
+
+      expect(browserHistoryMock.callCount).to.equal(1);
+      expect(actualPath).to.equal(expectedPath);
+    });
+  });
+
+  describe('handleSearchByUnitName', () => {
+    let browserHistoryMock;
+
+    before(() => {
+      browserHistoryMock = simple.mock(browserHistory, 'push');
+    });
+
+    after(() => {
+      simple.restore();
+    });
+
+    it('calls browserHistory.push with correct path', () => {
+      getWrapper().instance().handleSearchByUnitName();
+      const actualPath = browserHistoryMock.lastCall.args[0];
+      const expectedPath = '/?search=unit_name';
 
       expect(browserHistoryMock.callCount).to.equal(1);
       expect(actualPath).to.equal(expectedPath);
