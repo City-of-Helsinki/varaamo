@@ -96,7 +96,7 @@ class ResourceCard extends Component {
             <span>{unit.municipality}</span>
           </div>
           <div className="app-ResourceCard__equipment">
-            {resource.equipment.map(this.renderEquipment)}
+            {resource.equipment && resource.equipment.map(this.renderEquipment)}
           </div>
           <ResourceAvailability date={date} resource={resource} />
         </div>
