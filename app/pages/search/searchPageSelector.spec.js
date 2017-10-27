@@ -4,11 +4,20 @@ import { getDefaultRouterProps, getState } from 'utils/testUtils';
 import searchPageSelector from './searchPageSelector';
 
 describe('pages/search/searchPageSelector', () => {
-  const searchResultIds = ['resource-1', 'resourece-2'];
+  const searchResultIds = ['resource-1', 'resource-2'];
 
-  function getSelected() {
+  function getSelected(extraState) {
     const state = getState({
       'ui.search.results': searchResultIds,
+      'data.resources': {
+        'resource-1': {
+          id: 'resource-1',
+        },
+        'resource-2': {
+          id: 'resource-2',
+        },
+      },
+      ...extraState,
     });
     const props = getDefaultRouterProps();
     return searchPageSelector(state, props);
@@ -32,6 +41,21 @@ describe('pages/search/searchPageSelector', () => {
 
   it('returns searchResultIds', () => {
     expect(getSelected().searchResultIds).to.deep.equal(searchResultIds);
+  });
+
+  it('returns searchResultIds ordered by distance', () => {
+    expect(getSelected({
+      'data.resources': {
+        'resource-1': {
+          id: 'resource-1',
+          distance: 4000,
+        },
+        'resource-2': {
+          id: 'resource-2',
+          distance: 2000,
+        },
+      },
+    }).searchResultIds).to.deep.equal(['resource-2', 'resource-1']);
   });
 
   it('returns showMap', () => {
