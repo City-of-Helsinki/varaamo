@@ -44,9 +44,12 @@ function dataReducer(state = initialState, action) {
     case types.API.PURPOSES_GET_SUCCESS:
     case types.API.RESERVATIONS_GET_SUCCESS:
     case types.API.RESOURCE_GET_SUCCESS:
-    case types.API.SEARCH_RESULTS_GET_SUCCESS:
     case types.API.UNITS_GET_SUCCESS: {
       return handleData(state, action.payload.entities);
+    }
+
+    case types.API.SEARCH_RESULTS_GET_SUCCESS: {
+      return state.merge(action.payload.entities);
     }
 
     case types.API.RESOURCES_GET_SUCCESS: {
