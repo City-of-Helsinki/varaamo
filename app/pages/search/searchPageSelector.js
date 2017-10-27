@@ -1,16 +1,27 @@
-import { createStructuredSelector } from 'reselect';
+import orderBy from 'lodash/orderBy';
+import { createStructuredSelector, createSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
 import { isLoggedInSelector } from 'state/selectors/authSelectors';
 import uiSearchFiltersSelector from 'state/selectors/uiSearchFiltersSelector';
 import urlSearchFiltersSelector from 'state/selectors/urlSearchFiltersSelector';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
+import { resourcesSelector } from 'state/selectors/dataSelectors';
 
 const searchDoneSelector = state => state.ui.search.searchDone;
 const searchResultIdsSelector = state => state.ui.search.results;
 const showMapSelector = state => state.ui.search.showMap;
 const selectedUnitIdSelector = state => state.ui.search.unitId;
 const positionSelector = state => state.ui.search.position;
+
+const orderedSearchResultIdsSelector = createSelector(
+  searchResultIdsSelector,
+  resourcesSelector,
+  (resourceIds, resources) => {
+    const selectedResources = resourceIds.map(id => resources[id]);
+    return orderBy(selectedResources, 'distance').map(resource => resource.id);
+  }
+);
 
 const searchPageSelector = createStructuredSelector({
   filters: urlSearchFiltersSelector,
@@ -19,7 +30,7 @@ const searchPageSelector = createStructuredSelector({
   isLoggedIn: isLoggedInSelector,
   position: positionSelector,
   searchDone: searchDoneSelector,
-  searchResultIds: searchResultIdsSelector,
+  searchResultIds: orderedSearchResultIdsSelector,
   selectedUnitId: selectedUnitIdSelector,
   showMap: showMapSelector,
   uiFilters: uiSearchFiltersSelector,
