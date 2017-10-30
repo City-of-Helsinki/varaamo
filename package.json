@@ -32,6 +32,7 @@
     "query-string": "4.2.3",
     "react": "15.3.2",
     "react-addons-css-transition-group": "15.3.2",
+    "react-body-classname": "1.2.0",
     "react-bootstrap": "0.30.5",
     "react-date-picker": "git://github.com/YoYuUm/react-date-picker.git#build-readonly",
     "react-day-picker": "5.2.0",
