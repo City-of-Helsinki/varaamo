@@ -124,4 +124,9 @@
   .btn-primary {
     @include btn-styles($blue);
   }
+
+  // Modal header
+  .modal .modal-header::before {
+    background-image: url('../../shared/logo/espoo-logo.png');
+  }
 }
