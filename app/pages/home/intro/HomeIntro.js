@@ -12,6 +12,7 @@ function HomeIntro({ t }) {
           <h2>{t('HomeIntro.header')}</h2>
           <p>{t('HomeIntro.lead')}</p>
           <ShowResourcesLink />
+          <h3>{t('HomeNewui.lead')}</h3>
         </Jumbotron>
       </div>
     </div>
