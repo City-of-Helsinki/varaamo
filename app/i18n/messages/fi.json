@@ -76,6 +76,7 @@
   "Home.purposeHeader": "Mitä haluat tehdä?",
   "HomeIntro.header": "Tilat ja laitteet varattavana",
   "HomeIntro.lead": "Varaamosta voit varata julkisia tiloja ja laitteita omaan käyttöösi",
+  "HomeNewui.lead": "Varaamo siirtyy pian uuteen versioon - <a href=\"https://varaamo.hel.ninja/\">kokeile tästä</a>",
   "Logo.espooAlt": "Espoon kaupunki",
   "Logo.helsinkiAlt": "Helsingin vaakuna",
   "Navbar.adminResources": "Omat tilat",
