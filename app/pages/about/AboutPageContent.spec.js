@@ -39,4 +39,21 @@ describe('Component: customization/AboutPageContent', () => {
       expect(content.find('h1').text()).to.contain('AboutPageContent.espooHeader');
     });
   });
+
+  describe('When Vantaa customization is used', () => {
+    let content;
+
+    before(() => {
+      simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('VANTAA');
+      content = getWrapper();
+    });
+
+    after(() => {
+      simple.restore();
+    });
+
+    it('renders header for Vantaa', () => {
+      expect(content.find('h1').text()).to.contain('AboutPageContent.vantaaHeader');
+    });
+  });
 });

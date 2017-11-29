@@ -12,6 +12,10 @@ function getCustomizationClassName() {
       return 'espoo-customizations';
     }
 
+    case 'VANTAA': {
+      return 'vantaa-customizations';
+    }
+
     default: {
       return '';
     }

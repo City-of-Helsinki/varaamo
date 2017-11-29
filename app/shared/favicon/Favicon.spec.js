@@ -6,6 +6,7 @@ import simple from 'simple-mock';
 import * as customizationUtils from 'utils/customizationUtils';
 import Favicon from './Favicon';
 import espooFavicon from './espoo-favicon.ico';
+import vantaaFavicon from './vantaa-favicon.ico';
 import helsinkiFavicon from './helsinki-favicon.ico';
 
 describe('shared/favicon/Favicon', () => {
@@ -39,6 +40,23 @@ describe('shared/favicon/Favicon', () => {
 
     it('renders favicon of Espoo', () => {
       expect(favicon.prop('link')[0].href).to.deep.equal(espooFavicon);
+    });
+  });
+
+  describe('When Vantaa customization is used', () => {
+    let favicon;
+
+    before(() => {
+      simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('VANTAA');
+      favicon = getWrapper();
+    });
+
+    after(() => {
+      simple.restore();
+    });
+
+    it('renders favicon of Vantaa', () => {
+      expect(favicon.prop('link')[0].href).to.deep.equal(vantaaFavicon);
     });
   });
 });

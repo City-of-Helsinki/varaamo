@@ -22,6 +22,18 @@ function FooterContent({ onLinkClick, t }) {
       );
     }
 
+    case 'VANTAA': {
+      return (
+        <div>
+          <Link className="brand-link" onClick={onLinkClick} to="/">
+            <Logo />
+            Varaamo
+          </Link>
+          <p>{t('Footer.vantaaText')} {feedbackLink}</p>
+        </div>
+      );
+    }
+
     default: {
       return (
         <div>
