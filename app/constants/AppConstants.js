@@ -3,6 +3,7 @@ export default {
   CUSTOMIZATIONS: {
     'varaamo.espoo.fi': 'ESPOO',
     'varaamotest-espoo.hel.ninja': 'ESPOO',
+    'varaamo.vantaa.fi': 'VANTAA',
   },
   DATE_FORMAT: 'YYYY-MM-DD',
   DEFAULT_LOCALE: 'fi',

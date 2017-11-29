@@ -4,6 +4,7 @@ import { injectT } from 'i18n';
 import { getCurrentCustomization } from 'utils/customizationUtils';
 import helsinkiLogoSrc from './helsinki-logo-white.png';
 import espooLogoSrc from './espoo-logo.png';
+import vantaaLogoSrc from './vantaa-logo.png';
 
 function Logo({ t }) {
   switch (getCurrentCustomization()) {
@@ -13,6 +14,15 @@ function Logo({ t }) {
         <img
           alt={t('Logo.espooAlt')}
           src={espooLogoSrc}
+        />
+      );
+    }
+
+    case 'VANTAA': {
+      return (
+        <img
+          alt={t('Logo.vantaaAlt')}
+          src={vantaaLogoSrc}
         />
       );
     }

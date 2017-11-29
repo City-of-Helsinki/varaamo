@@ -4,32 +4,42 @@ import { FormattedHTMLMessage } from 'react-intl';
 import FeedbackLink from 'shared/feedback-link';
 import { injectT } from 'i18n';
 import { getCurrentCustomization } from 'utils/customizationUtils';
-import EspooPartners from './EspooPartners';
+import AboutPartners from './AboutPartners';
+
+const defaultTranslationKeys = {
+  header: 'AboutPageContent.defaultHeader',
+  lead: 'AboutPageContent.defaultLead',
+  reservable: 'AboutPageContent.defaultReservableParagraph',
+};
+
+const customizedTranslationKeys = {
+  ESPOO: {
+    header: 'AboutPageContent.espooHeader',
+    lead: 'AboutPageContent.espooLead',
+    reservable: 'AboutPageContent.espooReservableParagraph',
+    partners: 'AboutPageContent.espooPartnersHeader',
+  },
+  VANTAA: {
+    header: 'AboutPageContent.vantaaHeader',
+    lead: 'AboutPageContent.vantaaLead',
+    reservable: 'AboutPageContent.vantaaReservableParagraph',
+    partners: 'AboutPageContent.vantaaPartnersHeader',
+  },
+};
 
 function AboutPageContent({ t }) {
-  const isEspooDomain = getCurrentCustomization() === 'ESPOO';
+  const customization = getCurrentCustomization();
+  let translationKeys = defaultTranslationKeys;
+  if (customization) {
+    translationKeys = customizedTranslationKeys[customization];
+  }
 
   return (
     <div>
-      <h1>
-        {isEspooDomain ?
-          t('AboutPageContent.espooHeader') :
-          t('AboutPageContent.defaultHeader')
-        }
-      </h1>
-      <p className="lead">
-        {isEspooDomain ?
-          t('AboutPageContent.espooLead') :
-          t('AboutPageContent.defaultLead')
-        }
-      </p>
+      <h1>{t(translationKeys.header)}</h1>
+      <p className="lead">{t(translationKeys.lead)}</p>
       <p>{t('AboutPageContent.pilotParagraph')}</p>
-      <p>
-        {isEspooDomain ?
-          t('AboutPageContent.espooReservableParagraph') :
-          t('AboutPageContent.defaultReservableParagraph')
-        }
-      </p>
+      <p>{t(translationKeys.reservable)}</p>
       <p><FormattedHTMLMessage id="AboutPageContent.basedOnParagraph" /></p>
       <p>{t('AboutPageContent.developmentParagraph')}</p>
       <p>{t('AboutPageContent.goalParagraph')}</p>
@@ -38,10 +48,10 @@ function AboutPageContent({ t }) {
         {' '}
         <FeedbackLink>{t('AboutPageContent.feedbackLink')}</FeedbackLink>
       </p>
-      {isEspooDomain && (
+      {translationKeys.partners && (
         <div>
-          <h3>{t('AboutPageContent.espooPartnersHeader')}</h3>
-          <EspooPartners />
+          <h3>{t(translationKeys.partners)}</h3>
+          <AboutPartners />
         </div>
       )}
 
@@ -60,5 +70,6 @@ function AboutPageContent({ t }) {
 AboutPageContent.propTypes = {
   t: PropTypes.func.isRequired,
 };
+
 
 export default injectT(AboutPageContent);
