@@ -381,6 +381,49 @@ describe('state/reducers/dataReducer', () => {
       });
     });
 
+    describe('API.SEARCH_RESULTS_GET_SUCCESS', () => {
+      const searchResultsGetSuccess = createAction(
+        types.API.SEARCH_RESULTS_GET_SUCCESS,
+        resource => ({ entities: { resources: { [resource.id]: resource } } })
+      );
+
+      it('adds resources to state', () => {
+        const resource = Resource.build();
+        const initialState = Immutable({
+          resources: {},
+        });
+        const action = searchResultsGetSuccess(resource);
+        const nextState = dataReducer(initialState, action);
+
+        const expected = Immutable({
+          [resource.id]: resource,
+        });
+
+        expect(nextState.resources).to.deep.equal(expected);
+      });
+
+
+      it('does not keep old fields in resource', () => {
+        const originalResource = Resource.build({
+          distance: 400000,
+          state: 'requested',
+        });
+        const updatedResource = Resource.build({
+          id: originalResource.id,
+          state: 'confirmed',
+        });
+        const initialState = Immutable({
+          resources: { [originalResource.id]: originalResource },
+        });
+        const action = searchResultsGetSuccess(updatedResource);
+        const nextState = dataReducer(initialState, action);
+        const actualResource = nextState.resources[originalResource.id];
+
+        expect(actualResource).to.deep.equal(updatedResource);
+      });
+    });
+
+
     describe('API.USER_GET_SUCCESS', () => {
       const userGetSuccess = createAction(types.API.USER_GET_SUCCESS);
 
