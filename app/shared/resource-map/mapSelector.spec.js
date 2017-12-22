@@ -2,10 +2,14 @@ import { expect } from 'chai';
 
 import selector from './mapSelector';
 
-function getState({ units = {}, resources = {} }) {
+function getState({
+    units = {},
+    resources = {},
+    filters = { date: '2012-02-02', search: '' },
+  } = {}) {
   return {
     data: { units, resources },
-    ui: { search: { position: null } },
+    ui: { search: { filters, position: null } },
   };
 }
 
@@ -125,6 +129,28 @@ describe('shared/resource-map/mapSelector', () => {
       minLatitude: 0 - padding,
       maxLongitude: 10 + padding,
       minLongitude: 3 - padding,
+    });
+  });
+
+  describe('shouldMapFitBoundaries', () => {
+    it('is false if no filters or seleted unit', () => {
+      const data = selector(getState(), { resourceIds: ['123'] });
+      expect(data.shouldMapFitBoundaries).to.equal(false);
+    });
+
+    it('is true if filters have some data', () => {
+      const data = selector(
+        getState({
+          filters: { date: '2012-02-02', search: 'search' },
+        }),
+        { resourceIds: ['123'] }
+      );
+      expect(data.shouldMapFitBoundaries).to.equal(true);
+    });
+
+    it('is if unit is seleted', () => {
+      const data = selector(getState(), { resourceIds: ['123'], selectedUnitId: '123123' });
+      expect(data.shouldMapFitBoundaries).to.equal(true);
     });
   });
 });
