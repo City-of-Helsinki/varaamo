@@ -9,7 +9,7 @@ import Marker from './Marker';
 import UserMarker from './UserMarker';
 
 const defaultPosition = [60.372465778991284, 24.818115234375004];
-const defaultZoom = 10;
+const defaultZoom = 11;
 
 export class UnconnectedResourceMapContainer extends React.Component {
   static propTypes = {
@@ -24,11 +24,16 @@ export class UnconnectedResourceMapContainer extends React.Component {
     searchMapClick: PropTypes.func.isRequired,
     selectedUnitId: PropTypes.string,
     selectUnit: PropTypes.func.isRequired,
+    shouldMapFitBoundaries: PropTypes.bool.isRequired,
     showMap: PropTypes.bool.isRequired,
   };
 
   componentDidUpdate(prevProps) {
-    if (this.map && prevProps.boundaries !== this.props.boundaries) {
+    if (this.map && (
+        prevProps.boundaries !== this.props.boundaries ||
+        prevProps.shouldMapFitBoundaries !== this.props.shouldMapFitBoundaries
+      )
+    ) {
       this.fitMapToBoundaries();
     }
   }
@@ -46,6 +51,12 @@ export class UnconnectedResourceMapContainer extends React.Component {
     ];
   }
 
+  getCenter = () => (
+    this.props.position ?
+    [this.props.position.lat, this.props.position.lon] :
+    defaultPosition
+  );
+
   hasBoundaries() {
     const boundaries = this.props.boundaries;
     return (
@@ -57,19 +68,20 @@ export class UnconnectedResourceMapContainer extends React.Component {
   }
 
   fitMapToBoundaries = () => {
-    if (this.hasBoundaries() && this.map) {
-      this.map.leafletElement.fitBounds(this.getBounds());
+    if (this.map) {
+      if (this.hasBoundaries() && this.props.shouldMapFitBoundaries) {
+        this.map.leafletElement.fitBounds(this.getBounds());
+      } else {
+        this.map.leafletElement.panTo(this.getCenter(), defaultZoom);
+      }
     }
   }
 
   render() {
-    const center = this.props.position ?
-      [this.props.position.lat, this.props.position.lon] :
-      defaultPosition;
     return (
       <div className={classnames('app-ResourceMap', { 'app-ResourceMap__showMap': this.props.showMap })}>
         <Map
-          center={center}
+          center={this.getCenter()}
           className="app-ResourceMap__map"
           onClick={this.props.searchMapClick}
           ref={this.onMapRef}

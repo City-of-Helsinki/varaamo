@@ -21,6 +21,7 @@ describe('shared/resource-map/MapContainer', () => {
       searchMapClick: () => {},
       selectedUnitId: null,
       selectUnit: () => {},
+      shouldMapFitBoundaries: true,
       showMap: true,
     };
     return shallow(<MapContainer {...defaults} {...props} />);
@@ -152,36 +153,48 @@ describe('shared/resource-map/MapContainer', () => {
   });
 
   describe('componentDidUpdate', () => {
-    function callComponentDidUpdate(prevBoundaries, boundaries, fitBounds) {
-      const instance = getWrapper({ boundaries }).instance();
-      instance.map = { leafletElement: { fitBounds } };
-      instance.componentDidUpdate({ boundaries: prevBoundaries });
+    function callComponentDidUpdate(
+        prevBoundaries,
+        boundaries,
+        fitBounds,
+        panTo,
+        shouldMapFitBoundaries = true
+      ) {
+      const instance = getWrapper({ boundaries, shouldMapFitBoundaries: true }).instance();
+      instance.map = { leafletElement: { fitBounds, panTo } };
+      instance.componentDidUpdate({ boundaries: prevBoundaries, shouldMapFitBoundaries });
     }
 
     it('calls fitBounds if boundaries changed', () => {
       const prev = { maxLatitude: 0, minLatitude: 0, maxLongitude: 0, minLongitude: 0 };
       const next = { maxLatitude: 1, minLatitude: 0, maxLongitude: 0, minLongitude: 0 };
       const fitBounds = simple.mock();
-      callComponentDidUpdate(prev, next, fitBounds);
+      const panTo = simple.mock();
+      callComponentDidUpdate(prev, next, fitBounds, panTo);
       expect(fitBounds.callCount).to.equal(1);
       expect(fitBounds.lastCall.args).to.deep.equal([
         [[0, 0], [1, 0]],
       ]);
+      expect(panTo.called).to.be.false;
     });
 
     it('does not call fitBounds if boundaries did not change', () => {
       const prev = { maxLatitude: 1, minLatitude: 1, maxLongitude: 1, minLongitude: 1 };
       const fitBounds = simple.mock();
-      callComponentDidUpdate(prev, prev, fitBounds);
+      const panTo = simple.mock();
+      callComponentDidUpdate(prev, prev, fitBounds, panTo);
       expect(fitBounds.called).to.be.false;
+      expect(panTo.called).to.be.false;
     });
 
-    it('does not call fitBounds if new boundaries are nulls', () => {
+    it('does call panTo if new boundaries are nulls', () => {
       const prev = { maxLatitude: 0, minLatitude: 0, maxLongitude: 0, minLongitude: 0 };
       const next = { maxLatitude: null, minLatitude: null, maxLongitude: null, minLongitude: null };
       const fitBounds = simple.mock();
-      callComponentDidUpdate(prev, next, fitBounds);
+      const panTo = simple.mock();
+      callComponentDidUpdate(prev, next, fitBounds, panTo);
       expect(fitBounds.called).to.be.false;
+      expect(panTo.called).to.be.true;
     });
   });
 });

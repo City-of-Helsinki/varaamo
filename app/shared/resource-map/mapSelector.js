@@ -1,15 +1,28 @@
 import reduce from 'lodash/reduce';
+import find from 'lodash/find';
+import omit from 'lodash/omit';
 import { createSelector, createStructuredSelector } from 'reselect';
 
 import { resourcesSelector, unitsSelector } from 'state/selectors/dataSelectors';
+import uiSearchFiltersSelector from 'state/selectors/uiSearchFiltersSelector';
+
 
 const positionSelector = state => state.ui.search.position;
 const resourceIdsSelector = (state, props) => props.resourceIds;
+const selectedUnitIdSelector = (state, props) => props.selectedUnitId;
 const filteredResourcesSelector = createSelector(
   resourceIdsSelector,
   resourcesSelector,
   (resourceIds, resources) => resourceIds.map(id => resources[id])
 );
+const shouldMapFitBoundariesSelector = createSelector(
+  uiSearchFiltersSelector,
+  selectedUnitIdSelector,
+  (filters, unitId) => (
+    Boolean(find(omit(filters, ['date']), filter => filter !== '')) || Boolean(unitId)
+  )
+);
+
 
 const fetchedResourcesSelector = createSelector(
   filteredResourcesSelector,
@@ -69,6 +82,7 @@ const boundariesSelector = createSelector(
 
 export default createStructuredSelector({
   boundaries: boundariesSelector,
-  position: positionSelector,
+  shouldMapFitBoundaries: shouldMapFitBoundariesSelector,
   markers: markersSelector,
+  position: positionSelector,
 });
