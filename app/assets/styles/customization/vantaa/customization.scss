@@ -122,4 +122,27 @@
       }
     }
   }
+
+  // Modals
+  // ------
+  .modal {
+    &.modal-city-theme .modal-content {
+      background-color: $blue;
+      h1, h2, h3, h4, h5, h6 {
+        color: white;
+      }
+    }
+    .modal-header::before {
+      background-image: url('../../shared/logo/vantaa-logo.png');
+    }
+  }
+  .app-ResourceInfo__images-wrapper,
+  .app-DatePickerControl__modal-header,
+  .app-PurposeControl__modal-header,
+  .app-PositionControl__modal-header,
+  .app-PeopleCapacityControl__modal-header {
+    h1, h2, h3, h4, h5, h6 {
+      color: white;
+    }
+  }
 }
