@@ -43,7 +43,7 @@ describe('shared/resource-map/MapContainer', () => {
   });
 
   it('Map is centered at default position', () => {
-    const defaultPosition = [60.372465778991284, 24.818115234375004];
+    const defaultPosition = [60.18952, 24.99545];
     const map = getWrapper().find(Map);
     expect(map.prop('center')).to.deep.equal(defaultPosition);
   });

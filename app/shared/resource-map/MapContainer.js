@@ -4,12 +4,17 @@ import { Map, TileLayer, ZoomControl } from 'react-leaflet';
 import { connect } from 'react-redux';
 
 import { searchMapClick, selectUnit } from 'actions/searchActions';
+import { getCurrentCustomization } from 'utils/customizationUtils';
 import selector from './mapSelector';
 import Marker from './Marker';
 import UserMarker from './UserMarker';
 
-const defaultPosition = [60.372465778991284, 24.818115234375004];
-const defaultZoom = 11;
+const defaultPosition = {
+  null: [60.18952, 24.99545],
+  ESPOO: [60.205490, 24.755899],
+  VANTAA: [60.29414, 25.14099],
+};
+const defaultZoom = 12;
 
 export class UnconnectedResourceMapContainer extends React.Component {
   static propTypes = {
@@ -54,7 +59,7 @@ export class UnconnectedResourceMapContainer extends React.Component {
   getCenter = () => (
     this.props.position ?
     [this.props.position.lat, this.props.position.lon] :
-    defaultPosition
+    defaultPosition[getCurrentCustomization()]
   );
 
   hasBoundaries() {
