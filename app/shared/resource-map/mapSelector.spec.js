@@ -13,6 +13,13 @@ function getState({
   };
 }
 
+function getProps(props) {
+  return {
+    location: { query: {} },
+    ...props,
+  };
+}
+
 function createUnit(id, latitude, longitude) {
   return {
     id,
@@ -42,7 +49,7 @@ describe('shared/resource-map/mapSelector', () => {
           321: createResource('321', 1),
         },
       });
-      const props = { resourceIds: ['123', '321'] };
+      const props = getProps({ resourceIds: ['123', '321'] });
       const data = selector(state, props);
       expect(data.markers).to.deep.equal([
         { unitId: 1, latitude: 2, longitude: 3, resourceIds: ['321'] },
@@ -64,7 +71,7 @@ describe('shared/resource-map/mapSelector', () => {
           789: createResource('789', 12),
         },
       });
-      const props = { resourceIds: ['123', '321', '456'] };
+      const props = getProps({ resourceIds: ['123', '321', '456'] });
       const data = selector(state, props);
       expect(data.markers).to.deep.equal([
         { unitId: 12, latitude: 1, longitude: 2, resourceIds: ['456'] },
@@ -83,7 +90,7 @@ describe('shared/resource-map/mapSelector', () => {
           321: createResource('321', 1),
         },
       });
-      const props = { resourceIds: ['123'] };
+      const props = getProps({ resourceIds: ['123'] });
       const data = selector(state, props);
       expect(data.markers).to.deep.equal([
         { unitId: 21, latitude: 0, longitude: 1, resourceIds: ['123'] },
@@ -101,7 +108,7 @@ describe('shared/resource-map/mapSelector', () => {
           321: createResource('321', 31),
         },
       });
-      const props = { resourceIds: ['123', '321'] };
+      const props = getProps({ resourceIds: ['123', '321'] });
       const data = selector(state, props);
       expect(data.markers).to.deep.equal([
         { unitId: 21, latitude: 0, longitude: 1, resourceIds: ['123'] },
@@ -110,7 +117,7 @@ describe('shared/resource-map/mapSelector', () => {
   });
 
   it('returns boundaries', () => {
-    const data = selector(getState({
+    const state = getState({
       units: {
         1: createUnit('1', 5, 5),
         2: createUnit('2', 0, 10),
@@ -123,7 +130,9 @@ describe('shared/resource-map/mapSelector', () => {
         3: createResource('3', 3),
         4: createResource('4', 4),
       },
-    }), { resourceIds: ['1', '2', '3', '4'] });
+    });
+    const props = getProps({ resourceIds: ['1', '2', '3', '4'] });
+    const data = selector(state, props);
     expect(data.boundaries).to.deep.equal({
       maxLatitude: 5 + padding,
       minLatitude: 0 - padding,
@@ -134,22 +143,28 @@ describe('shared/resource-map/mapSelector', () => {
 
   describe('shouldMapFitBoundaries', () => {
     it('is false if no filters or seleted unit', () => {
-      const data = selector(getState(), { resourceIds: ['123'] });
+      const state = getState();
+      const props = getProps({ resourceIds: ['123'] });
+      const data = selector(state, props);
       expect(data.shouldMapFitBoundaries).to.equal(false);
     });
 
     it('is true if filters have some data', () => {
-      const data = selector(
-        getState({
-          filters: { date: '2012-02-02', search: 'search' },
-        }),
-        { resourceIds: ['123'] }
-      );
+      const state = getState();
+      const props = getProps({
+        location: {
+          query: { date: '2012-02-02', search: 'search' },
+        },
+        resourceIds: ['123'],
+      });
+      const data = selector(state, props);
       expect(data.shouldMapFitBoundaries).to.equal(true);
     });
 
-    it('is if unit is seleted', () => {
-      const data = selector(getState(), { resourceIds: ['123'], selectedUnitId: '123123' });
+    it('is true if unit is seleted', () => {
+      const state = getState();
+      const props = getProps({ resourceIds: ['123'], selectedUnitId: '123123' });
+      const data = selector(state, props);
       expect(data.shouldMapFitBoundaries).to.equal(true);
     });
   });
