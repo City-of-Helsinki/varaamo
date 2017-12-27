@@ -82,6 +82,7 @@ export class UnconnectedAppContainer extends Component {
                   <Notifications />
                 </Grid>
                 <ResourceMap
+                  location={this.props.location}
                   resourceIds={this.props.searchResultIds}
                   selectedUnitId={this.props.selectedUnitId}
                   showMap={this.props.showMap}
