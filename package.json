@@ -1,6 +1,10 @@
 {
   "name": "varaamo",
   "version": "0.0.0",
+  "engines": {
+    "node": "6.5.0",
+    "npm": "3.10.3"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/City-of-Helsinki/varaamo"
