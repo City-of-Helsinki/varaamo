@@ -186,6 +186,7 @@
   "ResourceIcons.free": "Maksuton",
   "ResourceInfo.equipmentHeader": "Tilan varusteet",
   "ResourceInfoContainer.unpublishedLabel": "ei julkaistu",
+  "ResourcePage.back": "Takaisin hakutuloksiin",
   "ResourcePage.reservationStatusHeader": "Varaustilanne",
   "ResourcePage.reserveHeader": "Varaa tila",
   "ResourcePage.showMap": "Näytä kartalla",

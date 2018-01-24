@@ -58,10 +58,12 @@ $content-padding: 10px;
     max-width: $app-SearchPage-max-width;
   }
 
-  &__toggle-map {
+  &__toggle-map,
+  &__back-button {
     @include button-variant($gray, $white, $white);
-    display: block;
+    display: inline-block;
     margin-top: 7px;
+    margin-right: 7px;
     margin-bottom: 7px;
     box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.2);
     border-style: none;
@@ -85,6 +87,10 @@ $content-padding: 10px;
       outline: none;
       background-color: $white;
     }
+  }
+
+  &__back-button {
+    line-height: 33px;
   }
 
   @media (max-width: $resource-page-width) {
