@@ -78,6 +78,31 @@ describe('pages/resource/ResourcePage', () => {
       expect(dateHeader.prop('scrollTo')).to.exist;
     });
 
+    it('renders back button', () => {
+      const wrapper = getWrapper();
+      const backButton = wrapper.find('.app-ResourcePage__back-button');
+      expect(backButton).to.have.length(1);
+      expect(backButton.find('span').text()).to.equal('ResourcePage.back');
+    });
+
+    describe('handleBackButton', () => {
+      let browserHistoryMock;
+
+      before(() => {
+        const instance = getWrapper().instance();
+        browserHistoryMock = simple.mock(browserHistory, 'goBack');
+        instance.handleBackButton();
+      });
+
+      after(() => {
+        simple.restore();
+      });
+
+      it('calls browserHistory goBack', () => {
+        expect(browserHistoryMock.callCount).to.equal(1);
+      });
+    });
+
     it('renders toggleMap button', () => {
       const wrapper = getWrapper();
       const toggleMapButton = wrapper.find('.app-ResourcePage__toggle-map');

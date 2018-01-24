@@ -51,6 +51,10 @@ class UnconnectedResourcePage extends Component {
     browserHistory.replace(getResourcePageUrl(resource, day));
   }
 
+  handleBackButton() {
+    browserHistory.goBack();
+  }
+
   render() {
     const {
       actions,
@@ -78,6 +82,12 @@ class UnconnectedResourcePage extends Component {
           }
           {!showMap &&
             <div>
+              <button
+                className="app-ResourcePage__back-button"
+                onClick={this.handleBackButton}
+              >
+                <span>{t('ResourcePage.back')}</span>
+              </button>
               <button
                 className="app-ResourcePage__toggle-map"
                 onClick={actions.toggleResourceMap}
