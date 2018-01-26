@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import ResourceCompactList from 'shared/resource-compact-list';
 import ResourceList from 'shared/resource-list';
 import { scrollTo } from 'utils/domUtils';
-import MapToggle from './MapToggle';
 import searchResultsSelector from './searchResultsSelector';
 
 export class UnconnectedSearchResults extends Component {
@@ -18,7 +17,6 @@ export class UnconnectedSearchResults extends Component {
     const {
       date,
       isFetching,
-      onToggleMap,
       searchResultIds,
       selectedUnitId,
       showMap,
@@ -26,11 +24,6 @@ export class UnconnectedSearchResults extends Component {
     return (
       <div className="app-SearchResults" id="search-results">
         <Loader loaded={!isFetching}>
-          <MapToggle
-            mapVisible={showMap}
-            onClick={onToggleMap}
-            resultsCount={searchResultIds.length || 0}
-          />
           {!showMap &&
             <ResourceList
               date={date}
@@ -53,7 +46,6 @@ export class UnconnectedSearchResults extends Component {
 UnconnectedSearchResults.propTypes = {
   date: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  onToggleMap: PropTypes.func.isRequired,
   searchResultIds: PropTypes.array.isRequired,
   selectedUnitId: PropTypes.string,
   showMap: PropTypes.bool.isRequired,

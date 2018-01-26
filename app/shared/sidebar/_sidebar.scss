@@ -5,5 +5,8 @@
     @media (max-width: $force-open-navbar-screen-width - 1px) {
       right: 0 !important;
     }
+    @media (min-width: $screen-lg-min) {
+      margin-right: $app-SideNavbar-width;
+    }
   }
 }

@@ -2,12 +2,14 @@ import { expect } from 'chai';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
+import Headroom from 'react-headroom';
 
 import PageWrapper from 'pages/PageWrapper';
 import { shallowWithIntl } from 'utils/testUtils';
 import { UnconnectedSearchPage as SearchPage } from './SearchPage';
 import SearchControls from './controls';
-import SearchResults from './results';
+import SearchResults from './results/SearchResults';
+import MapToggle from './results/MapToggle';
 
 describe('pages/search/SearchPage', () => {
   const defaultProps = {
@@ -49,12 +51,28 @@ describe('pages/search/SearchPage', () => {
       expect(pageWrapper.prop('title')).to.equal('SearchPage.title');
     });
 
+    it('renders Headroom with correct props', () => {
+      const headroom = getWrapper().find(Headroom);
+      expect(headroom.length).to.equal(1);
+      expect(headroom.prop('className')).to.equal('app-SearchPage__header');
+    });
+
     it('renders SearchControls with correct props', () => {
       const searchControls = getWrapper().find(SearchControls);
       expect(searchControls.length).to.equal(1);
       expect(searchControls.prop('location')).to.deep.equal(defaultProps.location);
       expect(searchControls.prop('params')).to.deep.equal(defaultProps.params);
       expect(searchControls.prop('scrollToSearchResults')).to.be.a('function');
+    });
+
+    it('renders a MapToggle component with correct props', () => {
+      const mapToggle = getWrapper().find(MapToggle);
+      expect(mapToggle).to.have.length(1);
+      expect(mapToggle.props()).to.deep.equal({
+        mapVisible: defaultProps.showMap,
+        onClick: defaultProps.actions.toggleMap,
+        resultsCount: defaultProps.searchResultIds.length,
+      });
     });
 
     describe('SearchResults', () => {
@@ -82,7 +100,6 @@ describe('pages/search/SearchPage', () => {
         const searchDone = true;
         const searchResults = getSearchResults({ isFetchingSearchResults, searchDone });
         expect(searchResults.props().isFetching).to.equal(isFetchingSearchResults);
-        expect(searchResults.props().onToggleMap).to.equal(defaultProps.actions.toggleMap);
         expect(searchResults.props().searchResultIds).to.deep.equal(defaultProps.searchResultIds);
         expect(searchResults.props().showMap).to.equal(defaultProps.showMap);
       });

@@ -7,7 +7,6 @@ import Immutable from 'seamless-immutable';
 import ResourceCompactList from 'shared/resource-compact-list';
 import ResourceList from 'shared/resource-list';
 import { UnconnectedSearchResults as SearchResults } from './SearchResults';
-import MapToggle from './MapToggle';
 
 describe('pages/search/results/SearchResults', () => {
   const defaultProps = {
@@ -37,16 +36,6 @@ describe('pages/search/results/SearchResults', () => {
       it('is not loaded if isFetching is true', () => {
         const loader = getWrapper({ isFetching: true }).find(Loader);
         expect(loader.props().loaded).to.be.false;
-      });
-    });
-
-    it('renders a MapToggle component with correct props', () => {
-      const mapToggle = getWrapper().find(MapToggle);
-      expect(mapToggle).to.have.length(1);
-      expect(mapToggle.props()).to.deep.equal({
-        mapVisible: defaultProps.showMap,
-        onClick: defaultProps.onToggleMap,
-        resultsCount: defaultProps.searchResultIds.length,
       });
     });
 
