@@ -45,6 +45,7 @@
     "react-document-title": "2.0.2",
     "react-dom": "15.3.2",
     "react-fontawesome": "1.6.1",
+    "react-headroom": "2.2.2",
     "react-helmet": "3.2.3",
     "react-intl": "2.1.5",
     "react-intl-redux": "0.2.0",

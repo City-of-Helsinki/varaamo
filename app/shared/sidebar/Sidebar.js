@@ -16,7 +16,15 @@ Sidebar.defaultProps = {
 };
 
 const styles = {
+  root: {
+    position: 'relative',
+  },
+  content: {
+    height: 'auto',
+    position: 'relative',
+  },
   sidebar: {
+    position: 'fixed',
     width: '90vw',
     maxWidth: '400px',
     zIndex: 20001,

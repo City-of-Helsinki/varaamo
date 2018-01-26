@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Headroom from 'react-headroom';
 
 import { searchResources, toggleMap } from 'actions/searchActions';
 import { changeSearchFilters } from 'actions/uiActions';
@@ -12,7 +13,8 @@ import { injectT } from 'i18n';
 import { scrollTo } from 'utils/domUtils';
 import SearchControls from './controls';
 import searchPageSelector from './searchPageSelector';
-import SearchResults from './results';
+import SearchResults from './results/SearchResults';
+import MapToggle from './results/MapToggle';
 
 class UnconnectedSearchPage extends Component {
   constructor(props) {
@@ -70,19 +72,29 @@ class UnconnectedSearchPage extends Component {
       showMap,
       t,
     } = this.props;
-
     return (
       <PageWrapper className="app-SearchPage" fluid title={t('SearchPage.title')} transparent>
         <div className="app-SearchPage__content">
-          <SearchControls
-            location={location}
-            params={params}
-            scrollToSearchResults={this.scrollToSearchResults}
-          />
+          <Headroom
+            className="app-SearchPage__header"
+            disableInlineStyles
+          >
+            <SearchControls
+              location={location}
+              params={params}
+              scrollToSearchResults={this.scrollToSearchResults}
+            />
+            {!isFetchingSearchResults &&
+              <MapToggle
+                mapVisible={showMap}
+                onClick={actions.toggleMap}
+                resultsCount={searchResultIds.length || 0}
+              />
+            }
+          </Headroom>
           {(searchDone || isFetchingSearchResults) &&
             <SearchResults
               isFetching={isFetchingSearchResults}
-              onToggleMap={actions.toggleMap}
               ref="searchResults"
               searchResultIds={searchResultIds}
               selectedUnitId={selectedUnitId}
