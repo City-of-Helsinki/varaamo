@@ -59,7 +59,7 @@ function AboutPageContent({ t }) {
       <p>
         {t('AboutPageContent.customerRegisterParagraph')}
         {' '}
-        <a href="http://www.helmet-kirjasto.fi/varaamo-palaute/rekisteriseloste.php">
+        <a href="https://app.helmet-kirjasto.fi/varaamo/rekisteriseloste.php">
           {t('AboutPageContent.customerRegisterLink')}
         </a>
       </p>
