@@ -1,4 +1,13 @@
 .reservation-success-modal {
+  .modal-title {
+    margin-bottom: 10px;
+  }
+  &__content {
+    background-color: $white;
+    border-radius: 2px;
+    color: $black;
+    padding: 10px;
+  }
   .reservation-access-code {
     font-weight: $font-weight-bold;
   }

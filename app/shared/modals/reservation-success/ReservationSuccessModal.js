@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import { FormattedHTMLMessage } from 'react-intl';
+import Modal from 'react-bootstrap/lib/Modal';
 
 import CompactReservationList from 'shared/compact-reservation-list';
 import ReservationAccessCode from 'shared/reservation-access-code';
+import ReservationDate from 'shared/reservation-date';
 import { injectT } from 'i18n';
-import ModalWrapper from '../ModalWrapper';
 
 function ReservationSuccessModal({
   closeReservationSuccessModal,
@@ -21,79 +22,89 @@ function ReservationSuccessModal({
   const isPreliminaryReservation = reservation.needManualConfirmation;
   const email = isPreliminaryReservation ? reservation.reserverEmailAddress : user.email;
   const resourceName = resource.name;
-  const reservationsCount = reservationsToShow.length;
 
   return (
-    <ModalWrapper
-      className="reservation-success-modal"
-      onClose={closeReservationSuccessModal}
+    <Modal
+      className="reservation-success-modal modal-city-theme"
+      onHide={closeReservationSuccessModal}
       show={show}
-      title={
-        isPreliminaryReservation ?
-        t('ReservationSuccessModal.preliminaryReservationTitle') :
-        t('ReservationSuccessModal.regularReservationTitle')
-      }
     >
-      <h5>
-        {isPreliminaryReservation ?
-          t('ReservationSuccessModal.preliminaryReservationLead', { reservationsCount, resourceName }) :
-          t('ReservationSuccessModal.regularReservationLead', { reservationsCount, resourceName })
-        }
-      </h5>
-      <CompactReservationList reservations={reservationsToShow} />
+      <Modal.Header closeButton>
+        <Modal.Title>
+          {
+            isPreliminaryReservation ?
+            t('ReservationSuccessModal.preliminaryReservationTitle') :
+            t('ReservationSuccessModal.regularReservationTitle')
+          }
+        </Modal.Title>
+        <ReservationDate
+          beginDate={reservation.begin}
+          endDate={reservation.end}
+        />
+      </Modal.Header>
+      <Modal.Body>
+        <div className="reservation-success-modal__content">
+          <h5>
+            {isPreliminaryReservation ?
+              t('ReservationSuccessModal.preliminaryReservationLead', { resourceName }) :
+              t('ReservationSuccessModal.regularReservationLead', { resourceName })
+            }
+          </h5>
+          <hr />
 
-      {Boolean(failedReservations.length) &&
-        <div>
-          <h5>{t('ReservationSuccessModal.failedReservationsHeader')}</h5>
-          <CompactReservationList
-            className="failed-reservations-list"
-            reservations={failedReservations}
-            subtitle="failReason"
-          />
-        </div>
-      }
+          {Boolean(failedReservations.length) &&
+            <div>
+              <h5>{t('ReservationSuccessModal.failedReservationsHeader')}</h5>
+              <CompactReservationList
+                className="failed-reservations-list"
+                reservations={failedReservations}
+                subtitle="failReason"
+              />
+            </div>
+          }
 
-      {reservation.accessCode && (
-        <div>
-          <p>
-            <ReservationAccessCode
-              reservation={reservation}
-              text={t('ReservationSuccessModal.reservationAccessCodeText')}
-            />
-          </p>
-          <p>
-            {t('ReservationSuccessModal.ownReservationsPageHelpText')}
-            {email &&
-              <span>
-                {' '}
-                <FormattedHTMLMessage
-                  id="ReservationSuccessModal.emailHelpText"
-                  values={{ email }}
+          {reservation.accessCode && (
+            <div>
+              <p>
+                <ReservationAccessCode
+                  reservation={reservation}
+                  text={t('ReservationSuccessModal.reservationAccessCodeText')}
                 />
-              </span>
-            }.
-          </p>
+              </p>
+              <p>
+                {t('ReservationSuccessModal.ownReservationsPageHelpText')}
+                {email &&
+                  <span>
+                    {' '}
+                    <FormattedHTMLMessage
+                      id="ReservationSuccessModal.emailHelpText"
+                      values={{ email }}
+                    />
+                  </span>
+                }.
+              </p>
+            </div>
+          )}
+
+          {isPreliminaryReservation && (
+            <p>
+              <FormattedHTMLMessage
+                id="ReservationSuccessModal.preliminaryReservationInfo"
+                values={{ email }}
+              />
+            </p>
+          )}
         </div>
-      )}
-
-      {isPreliminaryReservation && (
-        <p>
-          <FormattedHTMLMessage
-            id="ReservationSuccessModal.preliminaryReservationInfo"
-            values={{ email }}
-          />
-        </p>
-      )}
-
-      <div className="modal-controls">
+      </Modal.Body>
+      <Modal.Footer>
         <Button
-          bsStyle="default"
+          bsStyle="primary"
           onClick={closeReservationSuccessModal}
         >
           {t('common.ok')}
         </Button>
-      </div>
-    </ModalWrapper>
+      </Modal.Footer>
+    </Modal>
   );
 }
 
