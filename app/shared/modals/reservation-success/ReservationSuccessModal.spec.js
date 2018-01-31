@@ -3,15 +3,15 @@ import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import { FormattedHTMLMessage } from 'react-intl';
 import Immutable from 'seamless-immutable';
+import Modal from 'react-bootstrap/lib/Modal';
 import simple from 'simple-mock';
 
-import CompactReservationList from 'shared/compact-reservation-list';
 import ReservationAccessCode from 'shared/reservation-access-code';
 import Reservation from 'utils/fixtures/Reservation';
+import ReservationDate from 'shared/reservation-date';
 import Resource from 'utils/fixtures/Resource';
 import { shallowWithIntl } from 'utils/testUtils';
 import ReservationSuccessModal from './ReservationSuccessModal';
-import ModalWrapper from '../ModalWrapper';
 
 describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
   const resource = Resource.build();
@@ -30,9 +30,13 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
   }
 
   describe('if reservation is preliminary', () => {
+    const begin = '2018-01-31T13:00:00+02:00';
+    const end = '2018-01-31T13:30:00+02:00';
     const reserverEmailAddress = 'luke@skywalker.com';
     const reservationsToShow = Immutable([
       Reservation.build({
+        begin,
+        end,
         needManualConfirmation: true,
         reserverEmailAddress,
         resource: resource.id,
@@ -44,18 +48,48 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
       wrapper = getWrapper({ reservationsToShow });
     });
 
-    it('renders a ModalWrapper with correct props', () => {
-      const modalWrapper = wrapper.find(ModalWrapper);
-
-      expect(modalWrapper.length).to.equal(1);
-      expect(modalWrapper.prop('className')).to.equal('reservation-success-modal');
-      expect(modalWrapper.prop('onClose')).to.equal(
+    it('renders a Modal with correct props', () => {
+      const modalComponent = wrapper.find(Modal);
+      expect(modalComponent.length).to.equal(1);
+      expect(modalComponent.prop('className')).to.equal('reservation-success-modal modal-city-theme');
+      expect(modalComponent.prop('onHide')).to.equal(
         defaultProps.closeReservationSuccessModal
       );
-      expect(modalWrapper.prop('show')).to.equal(defaultProps.show);
-      expect(modalWrapper.prop('title')).to.equal(
-        'ReservationSuccessModal.preliminaryReservationTitle'
-      );
+      expect(modalComponent.prop('show')).to.equal(defaultProps.show);
+    });
+
+    it('renders a ModalHeader component with close button', () => {
+      const modalHeader = wrapper.find(Modal.Header);
+      expect(modalHeader.length).to.equal(1);
+      expect(modalHeader.props().closeButton).to.equal(true);
+    });
+
+    it('renders a ModalTitle with correct title', () => {
+      const modalTitle = wrapper.find(Modal.Title);
+      expect(modalTitle.length).to.equal(1);
+      expect(modalTitle.prop('children')).to.equal('ReservationSuccessModal.preliminaryReservationTitle');
+    });
+
+    it('renders a ModalBody', () => {
+      const modalBody = wrapper.find(Modal.Body);
+      expect(modalBody.length).to.equal(1);
+    });
+
+    it('renders a ModalFooter', () => {
+      const modalFooter = wrapper.find(Modal.Footer);
+      expect(modalFooter.length).to.equal(1);
+    });
+
+    it('renders a ReservationDate with correct end date prop', () => {
+      const reservationDate = wrapper.find(ReservationDate);
+      expect(reservationDate.length).to.equal(1);
+      expect(reservationDate.prop('beginDate')).to.equal(begin);
+      expect(reservationDate.prop('endDate')).to.equal(end);
+    });
+
+    it('renders a horizontal line', () => {
+      const hr = wrapper.find('hr');
+      expect(hr.length).to.equal(1);
     });
 
     describe('text content', () => {
@@ -84,19 +118,6 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
       });
     });
 
-    describe('reservation list', () => {
-      it('renders a CompactReservationList component', () => {
-        const list = wrapper.find(CompactReservationList);
-        expect(list.length).to.equal(1);
-      });
-
-      it('passes correct props to CompactReservationList component', () => {
-        const actualProps = wrapper.find(CompactReservationList).props();
-        expect(actualProps.reservations).to.deep.equal(reservationsToShow);
-        expect(actualProps.resources).to.equal(undefined);
-      });
-    });
-
     describe('Back button', () => {
       it('is rendered', () => {
         const button = wrapper.find(Button);
@@ -116,8 +137,15 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
   });
 
   describe('if reservation is regular', () => {
+    const begin = '2018-01-31T13:00:00+02:00';
+    const end = '2018-01-31T13:30:00+02:00';
     const reservationsToShow = Immutable([
-      Reservation.build({ needManualConfirmation: false, resource: resource.id }),
+      Reservation.build({
+        begin,
+        end,
+        needManualConfirmation: false,
+        resource: resource.id,
+      }),
     ]);
     let wrapper;
 
@@ -125,18 +153,43 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
       wrapper = getWrapper({ reservationsToShow });
     });
 
-    it('renders a ModalWrapper with correct props', () => {
-      const modalWrapper = wrapper.find(ModalWrapper);
-
-      expect(modalWrapper.length).to.equal(1);
-      expect(modalWrapper.prop('className')).to.equal('reservation-success-modal');
-      expect(modalWrapper.prop('onClose')).to.equal(
+    it('renders a Modal with correct props', () => {
+      const modalComponent = wrapper.find(Modal);
+      expect(modalComponent.length).to.equal(1);
+      expect(modalComponent.prop('className')).to.equal('reservation-success-modal modal-city-theme');
+      expect(modalComponent.prop('onHide')).to.equal(
         defaultProps.closeReservationSuccessModal
       );
-      expect(modalWrapper.prop('show')).to.equal(defaultProps.show);
-      expect(modalWrapper.prop('title')).to.equal(
-        'ReservationSuccessModal.regularReservationTitle'
-      );
+      expect(modalComponent.prop('show')).to.equal(defaultProps.show);
+    });
+
+    it('renders a ModalHeader component with close button', () => {
+      const modalHeader = wrapper.find(Modal.Header);
+      expect(modalHeader.length).to.equal(1);
+      expect(modalHeader.props().closeButton).to.equal(true);
+    });
+
+    it('renders a ModalTitle with correct title', () => {
+      const modalTitle = wrapper.find(Modal.Title);
+      expect(modalTitle.length).to.equal(1);
+      expect(modalTitle.prop('children')).to.equal('ReservationSuccessModal.regularReservationTitle');
+    });
+
+    it('renders a ModalBody', () => {
+      const modalBody = wrapper.find(Modal.Body);
+      expect(modalBody.length).to.equal(1);
+    });
+
+    it('renders a ModalFooter', () => {
+      const modalFooter = wrapper.find(Modal.Footer);
+      expect(modalFooter.length).to.equal(1);
+    });
+
+    it('renders a ReservationDate with correct end date prop', () => {
+      const reservationDate = wrapper.find(ReservationDate);
+      expect(reservationDate.length).to.equal(1);
+      expect(reservationDate.prop('beginDate')).to.equal(begin);
+      expect(reservationDate.prop('endDate')).to.equal(end);
     });
 
     describe('text content', () => {
@@ -162,19 +215,6 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
         const additionalInfo = wrapper.find(FormattedHTMLMessage)
           .filter({ id: 'ReservationSuccessModal.preliminaryReservationInfo' });
         expect(additionalInfo).to.have.length(0);
-      });
-    });
-
-    describe('reservation list', () => {
-      it('renders a CompactReservationList component', () => {
-        const list = wrapper.find(CompactReservationList);
-        expect(list.length).to.equal(1);
-      });
-
-      it('passes correct props to CompactReservationList component', () => {
-        const actualProps = wrapper.find(CompactReservationList).props();
-        expect(actualProps.reservations).to.deep.equal(reservationsToShow);
-        expect(actualProps.resources).to.equal(undefined);
       });
     });
 

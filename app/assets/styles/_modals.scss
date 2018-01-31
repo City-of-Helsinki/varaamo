@@ -30,6 +30,7 @@
       }
       .modal-title {
         margin-top: 80px;
+        text-align: center;
       }
       button.close {
         color: $white;
@@ -37,6 +38,10 @@
         opacity: 1;
       }
     }
+  }
+  .modal-footer {
+    border: none;
+    text-align: center;
   }
   .btn {
     border-radius: 10px;
