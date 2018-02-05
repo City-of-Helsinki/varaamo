@@ -1,10 +1,12 @@
 import React, { PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
-import Modal from 'react-bootstrap/lib/Modal';
+import ListGroup from 'react-bootstrap/lib/ListGroup';
+import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
+import Overlay from 'react-bootstrap/lib/Overlay';
 import FontAwesome from 'react-fontawesome';
-import Select from 'react-select';
 
 import { injectT } from 'i18n';
+import SearchControlOverlay from './SearchControlOverlay';
 
 class PurposeControl extends React.Component {
   static propTypes = {
@@ -19,18 +21,17 @@ class PurposeControl extends React.Component {
     visible: false,
   }
 
-  hideModal = () => {
+  hideOverlay = () => {
     this.setState({ visible: false });
   }
 
-  showModal = () => {
+  showOverlay = () => {
     this.setState({ visible: true });
   }
 
-  handleConfirm = (option) => {
-    const value = option ? option.value : '';
+  handleConfirm = (value) => {
     this.props.onConfirm(value);
-    this.hideModal();
+    this.hideOverlay();
   }
 
   render() {
@@ -42,38 +43,38 @@ class PurposeControl extends React.Component {
       },
       ...purposeOptions,
     ];
-    const originalOption = selectOptions.find(option => option.value === this.props.value) || {};
+    const originalOption = selectOptions.find(option => option.value === value) || {};
+    const listItems = selectOptions.map(option =>
+      <ListGroupItem key={option.value} onClick={() => this.handleConfirm(option.value)}>
+        {option.label}
+      </ListGroupItem>
+    );
 
     return (
       <div className="app-PurposeControl">
         <Button
           className="app-PurposeControl__show-button"
-          onClick={this.showModal}
+          onClick={this.showOverlay}
         >
           <div><FontAwesome name="bullseye" /> {t('PurposeControl.buttonLabel')}</div>
           <div>{originalOption.label}</div>
         </Button>
-        <Modal
-          dialogClassName="app-PurposeControl__modal"
-          onHide={this.hideModal}
+        <Overlay
+          container={this}
+          onHide={this.hideOverlay}
+          placement="bottom"
+          rootClose
           show={this.state.visible}
         >
-          <div className="app-PurposeControl__modal-header">
-            <h2>{t('PurposeControl.label')}</h2>
-          </div>
-          <div className="app-PurposeControl__modal-content">
-            <Select
-              clearable={false}
-              isLoading={isLoading}
-              name="purpose-filter-select"
-              onChange={this.handleConfirm}
-              options={selectOptions}
-              placeholder=" "
-              searchable={false}
-              value={value}
-            />
-          </div>
-        </Modal>
+          <SearchControlOverlay
+            onHide={this.hideOverlay}
+            title={t('PurposeControl.label')}
+          >
+            <ListGroup>
+              {!isLoading && listItems}
+            </ListGroup>
+          </SearchControlOverlay>
+        </Overlay>
       </div>
     );
   }

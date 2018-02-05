@@ -80,7 +80,6 @@
   }
 
   &__filters {
-    overflow-y: hidden;
     white-space: nowrap;
     margin-bottom: 10px;
 
@@ -96,13 +95,14 @@
 .app-PurposeControl {
   display: inline-block;
   margin-left: 0;
+  position: relative;
 
   &__show-button {
     @include search-control-button($blue);
   }
 
-  &__modal {
-    @include search-control-modal($blue);
+  .app-SearchControlOverlay__header {
+    background-color: $blue;
   }
 }
 
@@ -120,26 +120,51 @@
     }
   }
 
-  &__modal {
-    @include search-control-modal($copper);
+  &__content {
+    padding: 15px;
   }
-  &__toggle-content > label{
+
+  &__toggle-content > label {
     display: flex;
     justify-content: space-between;
+    font-weight: normal;
+    white-space: normal;
   }
-  &__geolocation-toggle {
+  &__geolocation-toggle.react-toggle {
     margin-left: 10px;
     vertical-align: middle;
 
     .react-toggle-track {
       position: relative;
+      background-color: $copper;
+    }
+    &:hover .react-toggle-track,
+    &:active .react-toggle-track {
+      background-color: $copper;
+    }
+    .react-toggle-thumb {
+      box-shadow: none;
+      border-color: $copper;
+    }
+    &:hover .react-toggle-thumb,
+    &:active .react-toggle-thumb {
+      box-shadow: none;
+      background-color: $copper;
     }
   }
+
   &__distance_slider{
     margin-top: 15px;
     &_tooltip {
       z-index: 40000;
     }
+    .rc-slider-track {
+      background-color: $copper;
+    }
+  }
+
+  .app-SearchControlOverlay__header {
+    background-color: $copper;
   }
 }
 
@@ -150,6 +175,7 @@
 .app-DatePickerControl {
   display: inline-block;
   margin-left: 10px;
+  position: relative;
 
   @media (min-width: $screen-sm-min) {
     margin-left: 15px;
@@ -159,8 +185,13 @@
     @include search-control-button($green);
   }
 
-  &__modal {
-    @include search-control-modal($green);
+  .app-SearchControlOverlay {
+    @media (max-width: $screen-sm-min) {
+      right: 2px;
+    }
+  }
+  .app-SearchControlOverlay__header {
+    background-color: $green;
   }
 }
 
@@ -182,16 +213,72 @@
 .app-PeopleCapacityControl {
   display: inline-block;
   margin-left: 10px;
+  position: relative;
 
   @media (min-width: $screen-sm-min) {
     margin-left: 15px;
+  }
+
+  .app-SearchControlOverlay {
+    @media (max-width: $screen-sm-min) {
+      right: 2px;
+    }
   }
 
   &__show-button {
     @include search-control-button($orange);
   }
 
-  &__modal {
-    @include search-control-modal($orange);
+  .app-SearchControlOverlay__header {
+    background-color: $orange;
+  }
+
+  .list-group {
+    max-height: 210px;
+    overflow-y: scroll;
+  }
+
+  .list-group-item {
+    padding: 8px 15px;
+  }
+}
+
+.app-SearchControlOverlay {
+  position: absolute;
+  z-index: 1;
+  padding: 5px 0 0 2px;
+
+  &__overlay {
+    box-shadow: 0px 1px 10px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  &__hide {
+    color: $white;
+    right: 0;
+    position: absolute;
+    top: 5px;
+  }
+
+  &__hide:active,
+  &__hide:focus,
+  &__hide:hover {
+    color: $medium-gray;
+    text-decoration: none;
+  }
+
+  &__header {
+    color: $white;
+    height: 40px;
+    h2 {
+      margin: 0 40px 0 15px;
+      line-height: 40px;
+      font-size: 1.6rem;
+      font-weight: $font-weight-light;
+    }
+  }
+
+  &__content {
+    max-width: 400px;
+    background-color: $white;
   }
 }

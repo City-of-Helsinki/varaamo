@@ -1,12 +1,13 @@
 import { expect } from 'chai';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
-import Modal from 'react-bootstrap/lib/Modal';
+import Overlay from 'react-bootstrap/lib/Overlay';
 import simple from 'simple-mock';
 import Toggle from 'react-toggle';
 
 import { shallowWithIntl } from 'utils/testUtils';
 import PositionControl from './PositionControl';
+import SearchControlOverlay from './SearchControlOverlay';
 
 function getWrapper(props) {
   const defaults = {
@@ -35,20 +36,34 @@ describe('pages/search/controls/PositionControl', () => {
       expect(button.prop('className')).to.contain('active');
     });
 
-    it('has showModal as onClick prop', () => {
+    it('has showOverlay as onClick prop', () => {
       const wrapper = getWrapper();
       const button = wrapper.find(Button);
-      expect(button.prop('onClick')).to.equal(wrapper.instance().showModal);
+      expect(button.prop('onClick')).to.equal(wrapper.instance().showOverlay);
     });
   });
 
-  describe('Modal', () => {
-    it('is rendered with correct props', () => {
+  describe('Overlay', () => {
+    it('renders Overlay with correct props', () => {
       const wrapper = getWrapper();
-      const modal = wrapper.find(Modal);
-      expect(modal).to.have.length(1);
-      expect(modal.prop('onHide')).to.equal(wrapper.instance().hideModal);
-      expect(modal.prop('show')).to.equal(wrapper.instance().state.visible);
+      const instance = wrapper.instance();
+      const overlay = wrapper.find(Overlay);
+      expect(overlay).to.have.length(1);
+      expect(overlay.prop('container')).to.equal(instance);
+      expect(overlay.prop('onHide')).to.equal(instance.hideOverlay);
+      expect(overlay.prop('placement')).to.equal('bottom');
+      expect(overlay.prop('rootClose')).to.be.true;
+      expect(overlay.prop('show')).to.equal(instance.state.visible);
+    });
+  });
+
+  describe('SearchControlOverlay', () => {
+    it('renders SearchControlOverlay with correct props', () => {
+      const wrapper = getWrapper();
+      const controlOverlay = wrapper.find(SearchControlOverlay);
+      expect(controlOverlay).to.have.length(1);
+      expect(controlOverlay.prop('onHide')).to.equal(wrapper.instance().hideOverlay);
+      expect(controlOverlay.prop('title')).to.equal('PositionControl.header');
     });
 
     it('renders a Toggle with correct props', () => {
@@ -99,11 +114,11 @@ describe('pages/search/controls/PositionControl', () => {
       expect(onConfirm.lastCall.args).to.deep.equal(['']);
     });
 
-    it('calls hideModal', () => {
+    it('calls hideOverlay', () => {
       const instance = getWrapper().instance();
-      simple.mock(instance, 'hideModal');
+      simple.mock(instance, 'hideOverlay');
       instance.handleConfirm();
-      expect(instance.hideModal.callCount).to.equal(1);
+      expect(instance.hideOverlay.callCount).to.equal(1);
       simple.restore();
     });
   });
@@ -137,20 +152,20 @@ describe('pages/search/controls/PositionControl', () => {
     });
   });
 
-  describe('hideModal', () => {
+  describe('hideOverlay', () => {
     it('sets state.visible to false', () => {
       const instance = getWrapper().instance();
       instance.state.visible = true;
-      instance.hideModal();
+      instance.hideOverlay();
       expect(instance.state.visible).to.be.false;
     });
   });
 
-  describe('showModal', () => {
+  describe('showOverlay', () => {
     it('sets state.visible to true', () => {
       const instance = getWrapper().instance();
       instance.state.visible = false;
-      instance.showModal();
+      instance.showOverlay();
       expect(instance.state.visible).to.be.true;
     });
   });
