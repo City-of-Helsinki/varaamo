@@ -1,11 +1,13 @@
 import range from 'lodash/range';
 import React, { PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
-import Modal from 'react-bootstrap/lib/Modal';
+import ListGroup from 'react-bootstrap/lib/ListGroup';
+import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
+import Overlay from 'react-bootstrap/lib/Overlay';
 import FontAwesome from 'react-fontawesome';
-import Select from 'react-select';
 
 import { injectT } from 'i18n';
+import SearchControlOverlay from './SearchControlOverlay';
 
 class PeopleCapacityControl extends React.Component {
   static propTypes = {
@@ -22,18 +24,17 @@ class PeopleCapacityControl extends React.Component {
     return { label: String(value), value };
   }
 
-  hideModal = () => {
+  hideOverlay = () => {
     this.setState({ visible: false });
   }
 
-  showModal = () => {
+  showOverlay = () => {
     this.setState({ visible: true });
   }
 
-  handleConfirm = (option) => {
-    const value = option ? option.value : '';
+  handleConfirm = (value) => {
     this.props.onConfirm(value);
-    this.hideModal();
+    this.hideOverlay();
   }
 
   render() {
@@ -41,35 +42,37 @@ class PeopleCapacityControl extends React.Component {
     const options = range(1, 10).map(this.getOption);
     range(10, 30, 5).forEach(index => options.push(this.getOption(index)));
     options.push({ label: '30+', value: 30 });
+    const listItems = options.map(option =>
+      <ListGroupItem key={option.value} onClick={() => this.handleConfirm(option.value)}>
+        {option.label}
+      </ListGroupItem>
+    );
+
     return (
       <div className="app-PeopleCapacityControl">
         <Button
           className="app-PeopleCapacityControl__show-button"
-          onClick={this.showModal}
+          onClick={this.showOverlay}
         >
           <div><FontAwesome name="users" /> {t('PeopleCapacityControl.buttonLabel')}</div>
           <div>{value || '1'}</div>
         </Button>
-        <Modal
-          dialogClassName="app-PeopleCapacityControl__modal"
-          onHide={this.hideModal}
+        <Overlay
+          container={this}
+          onHide={this.hideOverlay}
+          placement="bottom"
+          rootClose
           show={this.state.visible}
         >
-          <div className="app-PeopleCapacityControl__modal-header">
-            <h2>{t('PeopleCapacityControl.header')}</h2>
-          </div>
-          <div className="app-PeopleCapacityControl__modal-content">
-            <Select
-              clearable={false}
-              name="purpose-filter-select"
-              onChange={this.handleConfirm}
-              options={options}
-              placeholder=" "
-              searchable={false}
-              value={value}
-            />
-          </div>
-        </Modal>
+          <SearchControlOverlay
+            onHide={this.hideOverlay}
+            title={t('PeopleCapacityControl.header')}
+          >
+            <ListGroup>
+              {listItems}
+            </ListGroup>
+          </SearchControlOverlay>
+        </Overlay>
       </div>
     );
   }
