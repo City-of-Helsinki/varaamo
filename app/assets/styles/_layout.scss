@@ -35,8 +35,9 @@ footer {
 
 .app-content {
   flex: 1 0 auto; /* 2 */
-  padding-bottom: $layout-padding;
   width: 100%;
+  min-height: 550px;
+  overflow-y: hidden;
 }
 .app-content:after {
   content: '\00a0'; /* &nbsp; */

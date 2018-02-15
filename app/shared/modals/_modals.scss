@@ -3,6 +3,8 @@
 @import './reservation-success/reservation-success-modal';
 
 .modal-body {
+  overflow-y: scroll;
+  max-height: 70vh;
   .modal-controls {
     text-align: right;
     margin: $modal-inner-padding -$modal-inner-padding 0;

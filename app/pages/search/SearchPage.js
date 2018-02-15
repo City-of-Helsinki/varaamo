@@ -75,10 +75,7 @@ class UnconnectedSearchPage extends Component {
     return (
       <PageWrapper className="app-SearchPage" fluid title={t('SearchPage.title')} transparent>
         <div className="app-SearchPage__content">
-          <Headroom
-            className="app-SearchPage__header"
-            disableInlineStyles
-          >
+          <Headroom className="app-SearchPage__header">
             <SearchControls
               location={location}
               params={params}
