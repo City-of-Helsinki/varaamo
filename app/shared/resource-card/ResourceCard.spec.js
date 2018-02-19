@@ -40,6 +40,13 @@ describe('shared/resource-card/ResourceCard', () => {
   const defaultProps = {
     date: '2015-10-10',
     isLoggedIn: false,
+    location: {
+      pathname: 'somepath',
+      search: 'somesearch',
+      state: {
+        scrollTop: 123,
+      },
+    },
     resource: getResource(),
     unit: Immutable(Unit.build({
       name: 'unit_name',
@@ -252,6 +259,27 @@ describe('shared/resource-card/ResourceCard', () => {
 
       expect(browserHistoryMock.callCount).to.equal(1);
       expect(actualPath).to.equal(expectedPath);
+    });
+  });
+
+  describe('handleLinkClick', () => {
+    let browserHistoryMock;
+
+    before(() => {
+      browserHistoryMock = simple.mock(browserHistory, 'replace');
+    });
+
+    after(() => {
+      simple.restore();
+    });
+
+    it('calls browserHistory.replace', () => {
+      getWrapper().instance().handleLinkClick();
+
+      expect(browserHistoryMock.callCount).to.equal(1);
+      expect(browserHistoryMock.lastCall.args).to.have.length(1);
+      expect(browserHistoryMock.lastCall.args[0].pathname).to.equal(defaultProps.location.pathname);
+      expect(browserHistoryMock.lastCall.args[0].search).to.equal(defaultProps.location.search);
     });
   });
 });

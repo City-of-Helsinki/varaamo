@@ -25,7 +25,9 @@ describe('pages/search/SearchPage', () => {
       date: '2015-10-10',
       purpose: 'some-purpose',
     },
-    location: { query: {} },
+    location: {
+      query: {},
+    },
     params: {},
     position: null,
     searchDone: true,
@@ -143,6 +145,37 @@ describe('pages/search/SearchPage', () => {
       callComponentDidMount({}, { fetchUnits });
       expect(fetchUnits.callCount).to.equal(1);
     });
+
+    describe('scrolls to correct position', () => {
+      const setTimeoutMock = simple.mock();
+      const scrollToMock = simple.mock();
+      const scrollTop = 123;
+
+      before(() => {
+        const location = { state: { scrollTop } };
+        const props = Object.assign({}, defaultProps, { location });
+        simple.mock(window, 'setTimeout', setTimeoutMock);
+        simple.mock(window, 'scrollTo', scrollToMock);
+        callComponentDidMount(props, {});
+      });
+
+      after(() => {
+        simple.restore();
+      });
+
+      it('calls setTimeout and scrolls to correct position', () => {
+        expect(setTimeoutMock.callCount).to.equal(1);
+        const args = setTimeoutMock.lastCall.args;
+        expect(args).to.have.length(2);
+        expect(typeof args[0]).to.equal('function');
+        args[0]();
+        expect(scrollToMock.callCount).to.equal(1);
+        const args2 = scrollToMock.lastCall.args;
+        expect(args2).to.have.length(2);
+        expect(args2[0]).to.equal(0);
+        expect(args2[1]).to.equal(scrollTop);
+      });
+    });
   });
 
   describe('componentWillUpdate', () => {
@@ -156,6 +189,7 @@ describe('pages/search/SearchPage', () => {
         nextProps = {
           filters: defaultProps.filters,
           isLoggedIn: !defaultProps.isLoggedIn,
+          location: defaultProps.location,
           position: null,
           url: '/?search=some-search',
         };
@@ -181,6 +215,7 @@ describe('pages/search/SearchPage', () => {
         nextProps = {
           filters: { purpose: 'new-purpose' },
           isLoggedIn: defaultProps.isLoggedIn,
+          location: defaultProps.location,
           position: null,
           url: '/?purpose=new-purpose',
         };
@@ -212,6 +247,7 @@ describe('pages/search/SearchPage', () => {
         nextProps = {
           filters: defaultProps.filters,
           isLoggedIn: defaultProps.isLoggedIn,
+          location: defaultProps.location,
           position: null,
           url: '/?search=some-search',
         };
@@ -237,6 +273,7 @@ describe('pages/search/SearchPage', () => {
         nextProps = {
           filters: defaultProps.filters,
           isLoggedIn: defaultProps.isLoggedIn,
+          location: defaultProps.location,
           position: {
             lat: 12,
             lon: 11,
@@ -252,6 +289,31 @@ describe('pages/search/SearchPage', () => {
       it('includes position argument on searchResources call', () => {
         expect(defaultProps.actions.searchResources.lastCall.args[0].lat).to.equal(12);
         expect(defaultProps.actions.searchResources.lastCall.args[0].lon).to.equal(11);
+      });
+    });
+
+    describe('if location state changed', () => {
+      before(() => {
+        simple.mock(window, 'scrollTo');
+        const instance = getWrapper().instance();
+        const nextProps = {
+          filters: defaultProps.filters,
+          isLoggedIn: defaultProps.isLoggedIn,
+          location: {
+            state: null,
+          },
+          position: defaultProps.position,
+        };
+        instance.componentWillUpdate(nextProps);
+      });
+
+      after(() => {
+        simple.restore();
+      });
+
+      it('scrolls to top of page', () => {
+        expect(window.scrollTo.callCount).to.equal(1);
+        expect(window.scrollTo.lastCall.args).to.deep.equal([0, 0]);
       });
     });
   });

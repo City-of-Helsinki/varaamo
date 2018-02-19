@@ -17,6 +17,7 @@ export class UnconnectedSearchResults extends Component {
     const {
       date,
       isFetching,
+      location,
       searchResultIds,
       selectedUnitId,
       showMap,
@@ -27,6 +28,7 @@ export class UnconnectedSearchResults extends Component {
           {!showMap &&
             <ResourceList
               date={date}
+              location={location}
               resourceIds={searchResultIds}
             />
           }
@@ -46,6 +48,7 @@ export class UnconnectedSearchResults extends Component {
 UnconnectedSearchResults.propTypes = {
   date: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
+  location: PropTypes.object.isRequired,
   searchResultIds: PropTypes.array.isRequired,
   selectedUnitId: PropTypes.string,
   showMap: PropTypes.bool.isRequired,
