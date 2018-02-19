@@ -13,6 +13,7 @@ import Label from 'shared/label';
 import ResourceAvailability from './ResourceAvailability';
 
 class ResourceCard extends Component {
+
   handleSearchByType = () => {
     const filters = { search: this.props.resource.type.name };
     browserHistory.push(`/?${queryString.stringify(filters)}`);
@@ -21,6 +22,15 @@ class ResourceCard extends Component {
   handleSearchByUnitName = () => {
     const filters = { search: this.props.unit.name };
     browserHistory.push(`/?${queryString.stringify(filters)}`);
+  }
+
+  handleLinkClick = () => {
+    const scrollTop = window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop;
+    const { location } = this.props;
+    const { pathname, search } = location;
+    browserHistory.replace({ pathname, search, state: { scrollTop } });
   }
 
   renderEquipment(equipment) {
@@ -50,7 +60,11 @@ class ResourceCard extends Component {
           { 'app-ResourceCard__stacked': this.props.stacked },
         )}
       >
-        <Link className="app-ResourceCard__image-link" to={getResourcePageUrl(resource, date)}>
+        <Link
+          className="app-ResourceCard__image-link"
+          onClick={this.handleLinkClick}
+          to={getResourcePageUrl(resource, date)}
+        >
           <BackgroundImage
             height={420}
             image={getMainImage(resource.images)}
@@ -81,7 +95,7 @@ class ResourceCard extends Component {
           </BackgroundImage>
         </Link>
         <div className="app-ResourceCard__content">
-          <Link to={getResourcePageUrl(resource, date)}>
+          <Link onClick={this.handleLinkClick} to={getResourcePageUrl(resource, date)}>
             <h4>{resource.name}</h4>
           </Link>
           <div className="app-ResourceCard__unit-name">
@@ -120,6 +134,7 @@ class ResourceCard extends Component {
 
 ResourceCard.propTypes = {
   date: PropTypes.string.isRequired,
+  location: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   stacked: PropTypes.bool,
   t: PropTypes.func.isRequired,

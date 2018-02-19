@@ -12,6 +12,11 @@ describe('pages/search/results/SearchResults', () => {
   const defaultProps = {
     date: '2015-10-10',
     isFetching: false,
+    location: {
+      state: {
+        scrollTop: 123,
+      },
+    },
     onToggleMap: () => {},
     searchResultIds: Immutable(['resource-1', 'resource-2']),
     showMap: false,
@@ -44,6 +49,7 @@ describe('pages/search/results/SearchResults', () => {
       expect(resourceList).to.have.length(1);
       expect(resourceList.props().resourceIds).to.deep.equal(defaultProps.searchResultIds);
       expect(resourceList.props().date).to.deep.equal(defaultProps.date);
+      expect(resourceList.props().location).to.deep.equal(defaultProps.location);
     });
 
     describe('with showMap', () => {

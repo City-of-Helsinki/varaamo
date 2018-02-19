@@ -24,13 +24,18 @@ class UnconnectedSearchPage extends Component {
   }
 
   componentDidMount() {
-    const { actions, filters, searchDone, uiFilters } = this.props;
+    const { actions, filters, location, searchDone, uiFilters } = this.props;
     actions.fetchUnits();
     if (!searchDone) {
       this.searchResources(filters);
     }
     if (!isEqual(filters, uiFilters)) {
       this.searchResources(filters);
+    }
+    if (location.state && location.state.scrollTop) {
+      window.setTimeout(() => {
+        window.scrollTo(0, location.state.scrollTop);
+      }, 100);
     }
   }
 
@@ -46,6 +51,11 @@ class UnconnectedSearchPage extends Component {
       return;
     }
     if (isEqual(currentFilters, nextFilters)) {
+      const { state: currentState } = this.props.location;
+      const { state: nextState } = nextProps.location;
+      if (!isEqual(currentState, nextState)) {
+        window.scrollTo(0, 0);
+      }
       return;
     }
     actions.changeSearchFilters(nextFilters);
@@ -92,6 +102,7 @@ class UnconnectedSearchPage extends Component {
           {(searchDone || isFetchingSearchResults) &&
             <SearchResults
               isFetching={isFetchingSearchResults}
+              location={location}
               ref="searchResults"
               searchResultIds={searchResultIds}
               selectedUnitId={selectedUnitId}

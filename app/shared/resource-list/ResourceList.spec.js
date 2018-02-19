@@ -9,6 +9,11 @@ import ResourceList from './ResourceList';
 describe('shared/resource-list/ResourceList', () => {
   const defaultProps = {
     emptyMessage: 'Some empty message',
+    location: {
+      state: {
+        scrollTop: 123,
+      },
+    },
     resourceIds: Immutable(['resource-1', 'resource-2']),
     date: '2017-01-01',
   };
