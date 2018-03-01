@@ -65,7 +65,7 @@ class PositionControl extends React.Component {
   distanceFormatter = value => (
     value > this.state.maxDistance ?
     this.props.t('PositionControl.noDistanceLimit') :
-    `${value / 1000} Km`
+    `${value / 1000} km`
   );
 
   render() {

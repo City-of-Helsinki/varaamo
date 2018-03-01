@@ -114,7 +114,7 @@
   "PositionControl.buttonLabel": "Etäisyys",
   "PositionControl.geolocationOff": "Pois",
   "PositionControl.header": "Etäisyys",
-  "PositionControl.maxDistance": "Maksimi etäisyys",
+  "PositionControl.maxDistance": "Maksimietäisyys",
   "PositionControl.noDistanceLimit": "Kaikki",
   "PositionControl.useDistance": "Käytä sijaintia tilojen suodattamiseen etäisyyden perusteella",
   "PurposeControl.buttonLabel": "Mitä haluat tehdä?",

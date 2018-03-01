@@ -173,7 +173,7 @@ describe('pages/search/controls/PositionControl', () => {
   describe('distanceFormatter', () => {
     it('returns value and km', () => {
       const instance = getWrapper().instance();
-      expect(instance.distanceFormatter(2000)).to.equal('2 Km');
+      expect(instance.distanceFormatter(2000)).to.equal('2 km');
     });
 
     it('returns PositionControl.noDistanceLimit if distance is higher than maxDistance', () => {
