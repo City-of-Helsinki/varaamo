@@ -12,17 +12,20 @@ $theme-highlight-dark:  $hel-bus !default;
 $theme-highlight-light: $hel-copper !default;
 
 // Non brand
-
-$black:         #010f27;
+$white:         #ffffff;
+$light-gray:    #ebedf1;
 $dark-gray:     #525a65;
 $medium-gray:   #abb2bd;
-$light-gray:    #ebedf1;
-$white:         #ffffff;
+$black:         #000000;
 
-$theme-success: $hel-tram;
-$theme-info:    $hel-fog;
-$theme-warning: $hel-summer;
-$theme-danger:  $hel-brick;
+$theme-success:       $hel-tram;
+$theme-success-light: $hel-copper;
+$theme-info:          $hel-coat;
+$theme-info-light:    $hel-fog;
+$theme-warning:       $hel-summer;
+$theme-warning-light: $hel-engel;
+$theme-danger:        $hel-metro;
+$theme-danger-light:  $hel-suomenlinna;
 
 $blue: $hel-bus;
 $copper: $hel-copper;
