@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import React from 'react';
 import NavItem from 'react-bootstrap/lib/NavItem';
-import simple from 'simple-mock';
 
 import { shallowWithIntl } from 'utils/testUtils';
 import TopNavbar from './TopNavbar';
@@ -86,23 +85,6 @@ describe('shared/top-navbar/TopNavbar', () => {
       const loginLink = wrapper.find(NavItem).filter('#app-Navbar__login');
       expect(loginLink).to.have.length(1);
       expect(loginLink.at(0).prop('onClick')).to.equal(wrapper.instance().handleLoginClick);
-    });
-
-    describe('handleLoginClick', () => {
-      const assignMock = simple.mock();
-      const instance = getNotLoggedInWrapper().instance();
-      before(() => {
-        simple.mock(window.location, 'assign', assignMock);
-        instance.handleLoginClick();
-      });
-
-      after(() => {
-        simple.restore();
-      });
-
-      it('calls window.location.assign', () => {
-        expect(assignMock.callCount).to.equal(1);
-      });
     });
 
     it('does not render a logout link', () => {
