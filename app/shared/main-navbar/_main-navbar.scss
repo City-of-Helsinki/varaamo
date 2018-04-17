@@ -1,0 +1,21 @@
+.app-MainNavbar {
+  background-color: $theme-primary-dark;
+  .navbar-nav li,
+  .navbar-nav > .active {
+    a {
+      color: $white;
+    }
+    a:hover {
+      color: $white;
+    }
+    a:after,
+    a:hover:after {
+      color: $white;
+      border-color: $white;
+    }
+  }
+  .navbar-brand,
+  .navbar-brand:hover {
+    color: $white;
+  }
+}

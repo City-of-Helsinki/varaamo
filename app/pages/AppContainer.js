@@ -9,10 +9,10 @@ import { createStructuredSelector } from 'reselect';
 import { fetchUser } from 'actions/userActions';
 import { enableGeoposition } from 'actions/uiActions';
 import Favicon from 'shared/favicon';
+import Header from 'shared/header';
 import TestSiteMessage from 'shared/test-site-message';
 import Notifications from 'shared/notifications';
 import ResourceMap from 'shared/resource-map';
-import SideNavbar from 'shared/side-navbar';
 import { getCustomizationClassName } from 'utils/customizationUtils';
 
 const userIdSelector = state => state.auth.userId;
@@ -74,22 +74,22 @@ export class UnconnectedAppContainer extends Component {
       <BodyClassName className={getCustomizationClassName()} >
         <DocumentTitle title="Varaamo">
           <div className="app">
-            <SideNavbar>
+            <Header location={this.props.location}>
               <Favicon />
               <TestSiteMessage />
-              <div className="app-content">
-                <Grid>
-                  <Notifications />
-                </Grid>
-                <ResourceMap
-                  location={this.props.location}
-                  resourceIds={this.props.searchResultIds}
-                  selectedUnitId={this.props.selectedUnitId}
-                  showMap={this.props.showMap}
-                />
-                {this.props.children}
-              </div>
-            </SideNavbar>
+            </Header>
+            <div className="app-content">
+              <Grid>
+                <Notifications />
+              </Grid>
+              <ResourceMap
+                location={this.props.location}
+                resourceIds={this.props.searchResultIds}
+                selectedUnitId={this.props.selectedUnitId}
+                showMap={this.props.showMap}
+              />
+              {this.props.children}
+            </div>
           </div>
         </DocumentTitle>
       </BodyClassName>

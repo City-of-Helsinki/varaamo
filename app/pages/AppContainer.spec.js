@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
 import ResourceMap from 'shared/resource-map';
-import SideNavbar from 'shared/side-navbar';
+import Header from 'shared/header';
 import Notifications from 'shared/notifications';
 import { getState } from 'utils/testUtils';
 import { selector, UnconnectedAppContainer as AppContainer } from './AppContainer';
@@ -99,8 +99,8 @@ describe('pages/AppContainer', () => {
   describe('render', () => {
     const wrapper = getWrapper();
 
-    it('renders SideNavbar', () => {
-      expect(getWrapper().find(SideNavbar)).to.have.length(1);
+    it('renders Header', () => {
+      expect(getWrapper().find(Header)).to.have.length(1);
     });
 
     it('renders Notifications', () => {
