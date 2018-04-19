@@ -25,12 +25,9 @@
         margin-left: 2px;
       }
     }
-    .navbar-text {
+    li.disabled> a {
       padding-left: 0;
       margin-right: 0;
-      img {
-        margin-top: -2px;
-      }
     }
   }
 }

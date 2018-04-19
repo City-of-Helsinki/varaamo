@@ -5,6 +5,7 @@ import { createAction } from 'redux-actions';
 import AppContainer from 'pages/AppContainer';
 import AboutPage from 'pages/about';
 import AdminResourcesPage from 'pages/admin-resources';
+import HomePage from 'pages/home';
 import NotFoundPage from 'pages/not-found';
 import ResourcePage from 'pages/resource';
 import SearchPage from 'pages/search';
@@ -67,10 +68,10 @@ export default (params) => {
           path="/my-reservations"
         />
       </Route>
-      <IndexRoute component={SearchPage} {...getDispatchers('Search')} />
+      <IndexRoute component={HomePage} {...getDispatchers('Home')} />
+      <Route component={SearchPage} {...getDispatchers('Search')} path="/search" />
       <Route component={AboutPage} {...getDispatchers('About', { onEnter: scrollTop })} path="/about" />
       <Redirect from="/resources/:id/reservation" to="/resources/:id" />
-      <Redirect from="/search" to="/" />
       <Route
         {...getDispatchers('Resource', { onEnter: scrollTop })}
         component={ResourcePage}

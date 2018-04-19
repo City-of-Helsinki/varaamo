@@ -5,10 +5,11 @@ import TopNavbar from 'shared/top-navbar';
 
 function Header({ children, location }) {
   const { pathname } = location;
+  const activeLink = pathname === '/' ? 'home' : pathname.replace('/', '');
   return (
     <div className="app-Header">
       <TopNavbar />
-      <MainNavbar activeLink={pathname} />
+      <MainNavbar activeLink={activeLink} />
       {children}
     </div>
   );

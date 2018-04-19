@@ -39,9 +39,16 @@ class TopNavbar extends Component {
               <span className="brand-logo" />
             </Link>
           </Navbar.Brand>
+          <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav activeKey="none" id="user-nav" pullRight>
+            <NavItem disabled>
+              <img className="app-TopNavbar__icon" role="presentation" src={iconUser} />
+              {isLoggedIn && (
+                <span className="app-TopNavbar__user">{userName}</span>
+              )}
+            </NavItem>
             {isLoggedIn && (
               <NavItem href={`/logout?next=${window.location.origin}`}>
                 {t('Navbar.logout')}
@@ -53,13 +60,10 @@ class TopNavbar extends Component {
               </NavItem>
             )}
           </Nav>
-          <Navbar.Text pullRight>
-            <img className="app-TopNavbar__icon" role="presentation" src={iconUser} />
-            {isLoggedIn &&
-              <span className="app-TopNavbar__user">{userName}</span>
-            }
-          </Navbar.Text>
           <Nav activeKey="none" id="language-nav" onSelect={changeLocale} pullRight>
+            <NavItem disabled>
+              <img className="app-TopNavbar__icon" role="presentation" src={iconGlobe} />
+            </NavItem>
             {currentLanguage !== 'en' && <NavItem eventKey="en">
               EN
             </NavItem>}
@@ -70,9 +74,6 @@ class TopNavbar extends Component {
               SV
             </NavItem>}
           </Nav>
-          <Navbar.Text pullRight>
-            <img className="app-TopNavbar__icon" role="presentation" src={iconGlobe} />
-          </Navbar.Text>
         </Navbar.Collapse>
       </Navbar>
     );
@@ -80,77 +81,3 @@ class TopNavbar extends Component {
 }
 
 export default injectT(TopNavbar);
-
-/*
-
-export function handleLoginClick() {
-  const next = encodeURIComponent(window.location.href);
-  window.location.assign(`${window.location.origin}/login?next=${next}`);
-}
-
-function TopNavbar(props) {
-  const {
-    changeLocale,
-    currentLanguage,
-    isLoggedIn,
-    t,
-    userName,
-  } = props;
-
-  return (
-    <Navbar className="app-TopNavbar" fluid>
-      <Navbar.Header>
-        <Navbar.Brand>
-          <Link to="/">
-            <span className="brand-logo" />
-          </Link>
-        </Navbar.Brand>
-      </Navbar.Header>
-      <Navbar.Collapse>
-        <Nav id="user-nav" pullRight>
-          <Navbar.Text>
-            <img className="app-TopNavbar__icon" role="presentation" src={iconUser} />
-            {isLoggedIn &&
-              <span className="app-TopNavbar__user">{userName}</span>
-            }
-          </Navbar.Text>
-          {isLoggedIn && (
-            <NavItem href={`/logout?next=${window.location.origin}`}>
-              {t('Navbar.logout')}
-            </NavItem>
-          )}
-          {!isLoggedIn && (
-            <NavItem id="app-Navbar__login" onClick={handleLoginClick}>
-              {t('Navbar.login')}
-            </NavItem>
-          )}
-        </Nav>
-        <Nav id="language-nav" onSelect={changeLocale} pullRight>
-          <Navbar.Text>
-            <img className="app-TopNavbar__icon" role="presentation" src={iconGlobe} />
-          </Navbar.Text>
-          {currentLanguage !== 'en' && <NavItem eventKey="en">
-            EN
-          </NavItem>}
-          {currentLanguage !== 'fi' && <NavItem eventKey="fi">
-            FI
-          </NavItem>}
-          {currentLanguage !== 'sv' && <NavItem eventKey="sv">
-            SV
-          </NavItem>}
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
-  );
-}
-
-TopNavbar.propTypes = {
-  changeLocale: PropTypes.func.isRequired,
-  currentLanguage: PropTypes.string.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
-  t: PropTypes.func.isRequired,
-  userName: PropTypes.string.isRequired,
-};
-
-export default injectT(TopNavbar);
-*/

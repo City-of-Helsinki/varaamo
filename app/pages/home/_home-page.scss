@@ -1,0 +1,89 @@
+.app-HomePage {
+  background-color: $white;
+  background-image: url('./images/etusivu_tausta.jpg');
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  @media (max-width: $screen-md-min) {
+    background-size: auto;
+  }
+
+  &__content {
+    color: $white;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    h1 {
+      margin: 2px 0;
+    }
+  }
+
+  .app-HomeSearchBox {
+    margin: 60px 0;
+    &__textfield {
+      background-color: $white;
+      border-width: 2px;
+      display: inline-block;
+      padding: 6px;
+      max-width: 500px;
+
+      @media (max-width: $screen-md-min) {
+        max-width: 300px;
+      }
+    }
+    button {
+      display: inline-block;
+      margin-left: 12px;
+      text-transform: uppercase;
+    }
+  }
+
+  &__koro {
+    @include koro("storm", $white, 400);
+    height: 72px;
+    width: 100%;
+  }
+
+  .app-HomePageContent {
+    padding-bottom: 30px;
+    text-align: center;
+
+    h4 {
+      margin-top: 0;
+    }
+
+    &__banners {
+      display: flex;
+      flex-direction: row;
+
+      @media (max-width: $screen-md-min) {
+        display: block;
+      }
+    }
+
+    &__banner {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      > div {
+        background-color: $hel-copper;
+        height: 100%;
+        position: relative;
+      }
+      img {
+        max-width: 60%;
+        margin: 30px 0;
+      }
+      h5 {
+        margin: 12px 12px 90px 12px;
+      }
+      &-action {
+        position: absolute;
+        bottom: 30px;
+        width: 100%;
+      }
+      button {
+        text-transform: uppercase;
+      }
+    }
+  }
+}

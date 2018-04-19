@@ -1,5 +1,6 @@
 .app-MainNavbar {
   background-color: $theme-primary-dark;
+  margin-bottom: 0;
   .navbar-nav li,
   .navbar-nav > .active {
     a {
@@ -9,13 +10,15 @@
       color: $white;
     }
     a:after,
+    a:before,
     a:hover:after {
       color: $white;
       border-color: $white;
     }
   }
   .navbar-brand,
-  .navbar-brand:hover {
+  .navbar-brand:hover,
+  .navbar-toggle .icon-bar {
     color: $white;
   }
 }

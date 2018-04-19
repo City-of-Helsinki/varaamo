@@ -59,7 +59,7 @@ class UnconnectedSearchControlsContainer extends Component {
   handleSearch = (newFilters = {}, options = {}) => {
     const { scrollToSearchResults } = this.props;
     const filters = { ...this.props.filters, ...newFilters };
-    browserHistory.push(`/?${queryString.stringify(filters)}`);
+    browserHistory.push(`/search?${queryString.stringify(filters)}`);
     if (!options.preventScrolling) {
       scrollToSearchResults();
     }

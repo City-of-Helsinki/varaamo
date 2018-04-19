@@ -34,9 +34,10 @@ describe('shared/top-navbar/TopNavbar', () => {
     it('renders NavItems for other languages', () => {
       const currentLanguage = 'fi';
       const navItems = getLanguageNavWrapper({ currentLanguage }).find(NavItem);
-      expect(navItems).to.have.length(2);
-      expect(navItems.at(0).prop('eventKey')).to.equal('en');
-      expect(navItems.at(1).prop('eventKey')).to.equal('sv');
+      expect(navItems).to.have.length(3);
+      expect(navItems.at(0).prop('disabled')).to.exist;
+      expect(navItems.at(1).prop('eventKey')).to.equal('en');
+      expect(navItems.at(2).prop('eventKey')).to.equal('sv');
     });
   });
 

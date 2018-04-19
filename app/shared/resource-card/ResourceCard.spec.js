@@ -234,7 +234,7 @@ describe('shared/resource-card/ResourceCard', () => {
     it('calls browserHistory.push with correct path', () => {
       getWrapper().instance().handleSearchByType();
       const actualPath = browserHistoryMock.lastCall.args[0];
-      const expectedPath = '/?search=workplace';
+      const expectedPath = '/search?search=workplace';
 
       expect(browserHistoryMock.callCount).to.equal(1);
       expect(actualPath).to.equal(expectedPath);
@@ -255,7 +255,7 @@ describe('shared/resource-card/ResourceCard', () => {
     it('calls browserHistory.push with correct path', () => {
       getWrapper().instance().handleSearchByUnitName();
       const actualPath = browserHistoryMock.lastCall.args[0];
-      const expectedPath = '/?search=unit_name';
+      const expectedPath = '/search?search=unit_name';
 
       expect(browserHistoryMock.callCount).to.equal(1);
       expect(actualPath).to.equal(expectedPath);

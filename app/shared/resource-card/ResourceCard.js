@@ -16,12 +16,12 @@ class ResourceCard extends Component {
 
   handleSearchByType = () => {
     const filters = { search: this.props.resource.type.name };
-    browserHistory.push(`/?${queryString.stringify(filters)}`);
+    browserHistory.push(`/search?${queryString.stringify(filters)}`);
   }
 
   handleSearchByUnitName = () => {
     const filters = { search: this.props.unit.name };
-    browserHistory.push(`/?${queryString.stringify(filters)}`);
+    browserHistory.push(`/search?${queryString.stringify(filters)}`);
   }
 
   handleLinkClick = () => {
