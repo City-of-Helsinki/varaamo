@@ -18,11 +18,12 @@
 
   .nav {
     li {
-      position: relative;
-      display: inline-block;
       a {
         padding-left: 2px;
         margin-left: 2px;
+      }
+      a#language-nav-dropdown {
+        text-transform: uppercase;
       }
     }
     li.disabled> a {

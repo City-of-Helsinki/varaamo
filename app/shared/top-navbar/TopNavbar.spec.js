@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import React from 'react';
 import NavItem from 'react-bootstrap/lib/NavItem';
+import MenuItem from 'react-bootstrap/lib/MenuItem';
 
 import { shallowWithIntl } from 'utils/testUtils';
 import TopNavbar from './TopNavbar';
@@ -31,13 +32,12 @@ describe('shared/top-navbar/TopNavbar', () => {
       expect(actual).to.equal(changeLocale);
     });
 
-    it('renders NavItems for other languages', () => {
+    it('renders MenuItems for other languages', () => {
       const currentLanguage = 'fi';
-      const navItems = getLanguageNavWrapper({ currentLanguage }).find(NavItem);
-      expect(navItems).to.have.length(3);
-      expect(navItems.at(0).prop('disabled')).to.exist;
-      expect(navItems.at(1).prop('eventKey')).to.equal('en');
-      expect(navItems.at(2).prop('eventKey')).to.equal('sv');
+      const menuItems = getLanguageNavWrapper({ currentLanguage }).find(MenuItem);
+      expect(menuItems).to.have.length(2);
+      expect(menuItems.at(0).prop('eventKey')).to.equal('en');
+      expect(menuItems.at(1).prop('eventKey')).to.equal('sv');
     });
   });
 
@@ -52,15 +52,16 @@ describe('shared/top-navbar/TopNavbar', () => {
     }
 
     it('renders the name of the logged in user', () => {
-      const actual = getLoggedInNotAdminWrapper().find('.app-TopNavbar__user');
-      expect(actual.text()).to.equal(props.userName);
+      const userNavDropDown = getLoggedInNotAdminWrapper().find('#user-nav-dropdown');
+      expect(userNavDropDown).to.have.length(1);
+      expect(userNavDropDown.at(0).prop('title')).to.equal(props.userName);
     });
 
     it('renders a logout link', () => {
       const logoutHref = `/logout?next=${window.location.origin}`;
       const logoutLink = (
         getLoggedInNotAdminWrapper()
-        .find(NavItem)
+        .find(MenuItem)
         .filter({ href: logoutHref })
       );
       expect(logoutLink).to.have.length(1);

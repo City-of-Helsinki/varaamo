@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import MenuItem from 'react-bootstrap/lib/MenuItem';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
+import NavDropdown from 'react-bootstrap/lib/NavDropdown';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import iconGlobe from 'hel-icons/dist/shapes/globe.svg';
 import iconUser from 'hel-icons/dist/shapes/user-o.svg';
@@ -45,14 +47,16 @@ class TopNavbar extends Component {
           <Nav activeKey="none" id="user-nav" pullRight>
             <NavItem disabled>
               <img className="app-TopNavbar__icon" role="presentation" src={iconUser} />
-              {isLoggedIn && (
-                <span className="app-TopNavbar__user">{userName}</span>
-              )}
             </NavItem>
             {isLoggedIn && (
-              <NavItem href={`/logout?next=${window.location.origin}`}>
-                {t('Navbar.logout')}
-              </NavItem>
+              <NavDropdown eventKey="lang" id="user-nav-dropdown" noCaret title={userName}>
+                <MenuItem
+                  eventKey="logout"
+                  href={`/logout?next=${window.location.origin}`}
+                >
+                  {t('Navbar.logout')}
+                </MenuItem>
+              </NavDropdown>
             )}
             {!isLoggedIn && (
               <NavItem id="app-Navbar__login" onClick={this.handleLoginClick}>
@@ -64,15 +68,11 @@ class TopNavbar extends Component {
             <NavItem disabled>
               <img className="app-TopNavbar__icon" role="presentation" src={iconGlobe} />
             </NavItem>
-            {currentLanguage !== 'en' && <NavItem eventKey="en">
-              EN
-            </NavItem>}
-            {currentLanguage !== 'fi' && <NavItem eventKey="fi">
-              FI
-            </NavItem>}
-            {currentLanguage !== 'sv' && <NavItem eventKey="sv">
-              SV
-            </NavItem>}
+            <NavDropdown eventKey="lang" id="language-nav-dropdown" noCaret title={currentLanguage}>
+              {currentLanguage !== 'en' && <MenuItem eventKey="en">EN</MenuItem>}
+              {currentLanguage !== 'fi' && <MenuItem eventKey="fi">FI</MenuItem>}
+              {currentLanguage !== 'sv' && <MenuItem eventKey="sv">SV</MenuItem>}
+            </NavDropdown>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
