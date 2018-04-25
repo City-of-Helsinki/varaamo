@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import React from 'react';
+import Sticky from 'react-sticky-el';
 import { shallow } from 'enzyme';
 
 import MainNavbar from 'shared/main-navbar';
@@ -22,6 +23,11 @@ describe('shared/header/Header', () => {
   it('renders top navbar', () => {
     const topNavbar = getWrapper().find(TopNavbar);
     expect(topNavbar).to.have.length(1);
+  });
+
+  it('renders sticky', () => {
+    const sticky = getWrapper().find(Sticky);
+    expect(sticky).to.have.length(1);
   });
 
   it('renders main navbar', () => {

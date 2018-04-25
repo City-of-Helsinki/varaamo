@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import Sticky from 'react-sticky-el';
 
 import MainNavbar from 'shared/main-navbar';
 import TopNavbar from 'shared/top-navbar';
@@ -9,7 +10,9 @@ function Header({ children, location }) {
   return (
     <div className="app-Header">
       <TopNavbar />
-      <MainNavbar activeLink={activeLink} />
+      <Sticky>
+        <MainNavbar activeLink={activeLink} />
+      </Sticky>
       {children}
     </div>
   );
