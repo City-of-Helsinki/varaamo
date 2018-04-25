@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import keyBy from 'lodash/keyBy';
 
 import Purpose from 'utils/fixtures/Purpose';
+import Unit from 'utils/fixtures/Unit';
 import { getDefaultRouterProps, getState } from 'utils/testUtils';
 import searchControlsSelector from './searchControlsSelector';
 
@@ -63,6 +64,46 @@ describe('state/selectors/searchControlsSelector', () => {
       it('does not contain other properties than value and label', () => {
         const expected = { value: purpose.id, label: purpose.name };
         expect(getPurposeOption()).to.deep.equal(expected);
+      });
+    });
+  });
+
+  describe('unitOptions', () => {
+    function getUnitOptions(units) {
+      return getSelected({
+        'data.units': keyBy(units, 'id'),
+      }).unitOptions;
+    }
+
+    it('returns an empty array if state contains no units', () => {
+      expect(getUnitOptions([])).to.deep.equal([]);
+    });
+
+    it('returns an option object for each unit', () => {
+      const units = [
+        Unit.build(),
+        Unit.build(),
+      ];
+      expect(getUnitOptions(units)).to.have.length(units.length);
+    });
+
+    describe('a returned option object', () => {
+      const unit = Unit.build();
+      function getUnitOption() {
+        return getUnitOptions([unit])[0];
+      }
+
+      it('has unit.id as its value property', () => {
+        expect(getUnitOption().value).to.equal(unit.id);
+      });
+
+      it('has unit.name as its label property', () => {
+        expect(getUnitOption().label).to.equal(unit.name);
+      });
+
+      it('does not contain other properties than value and label', () => {
+        const expected = { value: unit.id, label: unit.name };
+        expect(getUnitOption()).to.deep.equal(expected);
       });
     });
   });

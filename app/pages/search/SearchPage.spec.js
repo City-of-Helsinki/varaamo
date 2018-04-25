@@ -2,7 +2,6 @@ import { expect } from 'chai';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
-import Headroom from 'react-headroom';
 
 import PageWrapper from 'pages/PageWrapper';
 import { shallowWithIntl } from 'utils/testUtils';
@@ -15,6 +14,7 @@ describe('pages/search/SearchPage', () => {
   const defaultProps = {
     actions: {
       changeSearchFilters: simple.stub(),
+      fetchPurposes: simple.stub(),
       fetchUnits: simple.stub(),
       searchResources: simple.stub(),
       toggleMap: () => {},
@@ -45,26 +45,20 @@ describe('pages/search/SearchPage', () => {
   }
 
   describe('render', () => {
-    it('renders PageWrapper with correct props', () => {
-      const pageWrapper = getWrapper().find(PageWrapper);
-      expect(pageWrapper).to.have.length(1);
-      expect(pageWrapper.prop('className')).to.equal('app-SearchPage');
-      expect(pageWrapper.prop('fluid')).to.be.true;
-      expect(pageWrapper.prop('title')).to.equal('SearchPage.title');
-    });
-
-    it('renders Headroom with correct props', () => {
-      const headroom = getWrapper().find(Headroom);
-      expect(headroom.length).to.equal(1);
-      expect(headroom.prop('className')).to.equal('app-SearchPage__header');
-    });
-
     it('renders SearchControls with correct props', () => {
       const searchControls = getWrapper().find(SearchControls);
       expect(searchControls.length).to.equal(1);
       expect(searchControls.prop('location')).to.deep.equal(defaultProps.location);
       expect(searchControls.prop('params')).to.deep.equal(defaultProps.params);
       expect(searchControls.prop('scrollToSearchResults')).to.be.a('function');
+    });
+
+    it('renders PageWrapper with correct props', () => {
+      const pageWrapper = getWrapper().find(PageWrapper);
+      expect(pageWrapper).to.have.length(1);
+      expect(pageWrapper.prop('className')).to.equal('app-SearchPage__wrapper');
+      expect(pageWrapper.prop('fluid')).to.be.true;
+      expect(pageWrapper.prop('title')).to.equal('SearchPage.title');
     });
 
     it('renders a MapToggle component with correct props', () => {

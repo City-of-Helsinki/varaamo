@@ -1,23 +1,53 @@
 .Select .Select-control {
-  border: 1px solid $input-border;
+  border: 2px solid $input-border;
   border-radius: 2px;
   box-sizing: border-box;
 
   .Select-value {
     padding-left: 15px;
     line-height: 39px;
+    color: $black;
   }
 
   .Select-clear {
     font-size: 30px;
-    margin-top: 7px;
     color: #000000;
+  }
+  .Select-placeholder {
+    color: $dark-gray;
   }
 }
 
 .Select {
   &.is-focused:not(.is-open) > .Select-control {
     border-color: $input-border-focus;
-    box-shadow: $input-box-shadow-focus;
+    box-shadow: none;
+  }
+}
+
+.Select,
+.Select.is-open {
+  .Select-control {
+    background-color: $hel-copper;
+    border-color: $black;
+    border-radius: 0;
+    border-width: 2px;
+    height: 40px;
+    .Select-arrow,
+    .Select-arrow:hover {
+      border-color: $black transparent transparent;
+    }
+  }
+  .Select-menu-outer {
+    border: 2px solid $black;
+    border-radius: 0;
+    z-index: 10;
+    .Select-menu {
+      max-height: 196px;
+      .Select-option {
+        border-radius: 0;
+        color: $black;
+      }
+    }
   }
 }

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import React from 'react';
-import Button from 'react-bootstrap/lib/Button';
+import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Overlay from 'react-bootstrap/lib/Overlay';
 import simple from 'simple-mock';
 import Toggle from 'react-toggle';
@@ -25,22 +25,11 @@ describe('pages/search/controls/PositionControl', () => {
     expect(wrapper.is('div.app-PositionControl')).to.be.true;
   });
 
-  describe('Button', () => {
-    it('does not have active class if not geolocated', () => {
-      const button = getWrapper({ geolocated: false }).find(Button);
-      expect(button.prop('className')).to.not.contain('active');
-    });
-
-    it('has active class if geolocated', () => {
-      const button = getWrapper({ geolocated: true }).find(Button);
-      expect(button.prop('className')).to.contain('active');
-    });
-
-    it('has showOverlay as onClick prop', () => {
-      const wrapper = getWrapper();
-      const button = wrapper.find(Button);
-      expect(button.prop('onClick')).to.equal(wrapper.instance().showOverlay);
-    });
+  it('renders FormGroup with correct props', () => {
+    const wrapper = getWrapper();
+    const formGroup = wrapper.find(FormGroup);
+    expect(formGroup).to.have.length(1);
+    expect(formGroup.prop('onClick')).to.equal(wrapper.instance().showOverlay);
   });
 
   describe('Overlay', () => {

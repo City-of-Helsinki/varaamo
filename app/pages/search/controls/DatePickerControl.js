@@ -1,11 +1,16 @@
 import React, { PropTypes } from 'react';
-import Button from 'react-bootstrap/lib/Button';
+import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import FormControl from 'react-bootstrap/lib/FormControl';
+import FormGroup from 'react-bootstrap/lib/FormGroup';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+import InputGroup from 'react-bootstrap/lib/InputGroup';
 import Overlay from 'react-bootstrap/lib/Overlay';
 import { Calendar } from 'react-date-picker';
-import FontAwesome from 'react-fontawesome';
+import moment from 'moment';
 
 import { injectT } from 'i18n';
 import SearchControlOverlay from './SearchControlOverlay';
+import iconCalendar from './images/calendar.svg';
 
 class DatePickerControl extends React.Component {
   static propTypes = {
@@ -33,15 +38,21 @@ class DatePickerControl extends React.Component {
 
   render() {
     const { t, value } = this.props;
+    const minDate = moment().format('L');
     return (
       <div className="app-DatePickerControl">
-        <Button
-          className="app-DatePickerControl__show-button"
-          onClick={this.showOverlay}
-        >
-          <div><FontAwesome name="calendar" /> {t('DatePickerControl.buttonLabel')}</div>
-          <div>{value || ''}</div>
-        </Button>
+        <ControlLabel>{t('DatePickerControl.label')}</ControlLabel>
+        <FormGroup onClick={this.showOverlay}>
+          <InputGroup>
+            <InputGroup.Addon>
+              <img alt="" className="app-DatePickerControl__icon" src={iconCalendar} />
+            </InputGroup.Addon>
+            <FormControl disabled type="text" value={value} />
+            <InputGroup.Addon>
+              <Glyphicon glyph="triangle-bottom" />
+            </InputGroup.Addon>
+          </InputGroup>
+        </FormGroup>
         <Overlay
           container={this}
           onHide={this.hideOverlay}
@@ -57,6 +68,7 @@ class DatePickerControl extends React.Component {
               className="app-DatePickerControl__calendar"
               dateFormat={'L'}
               defaultDate={value}
+              minDate={minDate}
               onChange={this.handleConfirm}
             />
           </SearchControlOverlay>

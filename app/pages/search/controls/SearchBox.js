@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Button from 'react-bootstrap/lib/Button';
+import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 
 import { injectT } from 'i18n';
@@ -26,20 +26,13 @@ class SearchBox extends React.Component {
     const { t, value } = this.props;
     return (
       <form className="app-SearchBox" onSubmit={this.handleSubmit}>
+        <ControlLabel>{t('SearchBox.placeholder')}</ControlLabel>
         <FormControl
           className="app-SearchBox__text-field"
           onChange={this.handleChange}
-          placeholder={t('SearchBox.placeholder')}
           type="text"
           value={value}
         />
-        <div className="app-SearchBox__divider" />
-        <Button
-          className="app-SearchBox__button"
-          type="submit"
-        >
-          {t('SearchBox.buttonText')}
-        </Button>
       </form>
     );
   }

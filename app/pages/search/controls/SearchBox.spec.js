@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import React from 'react';
-import Button from 'react-bootstrap/lib/Button';
+import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import simple from 'simple-mock';
 
@@ -32,10 +32,9 @@ describe('pages/search/controls/SearchBox', () => {
     expect(formControl.prop('value')).to.equal(value);
   });
 
-  it('renders search button', () => {
-    const button = getWrapper().find(Button);
-    expect(button).to.have.length(1);
-    expect(button.prop('children')).to.equal('SearchBox.buttonText');
+  it('renders ControlLabel', () => {
+    const controlLabel = getWrapper().find(ControlLabel);
+    expect(controlLabel).to.have.length(1);
   });
 
   describe('handleSubmit', () => {

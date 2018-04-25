@@ -45,6 +45,7 @@ export default {
   SHOW_TEST_SITE_MESSAGE: SETTINGS.SHOW_TEST_SITE_MESSAGE,
   SUPPORTED_LANGUAGES: ['en', 'fi', 'sv'],
   SUPPORTED_SEARCH_FILTERS: {
+    charge: false,
     date: '',
     distance: '',
     lat: '',
@@ -52,6 +53,7 @@ export default {
     people: '',
     purpose: '',
     search: '',
+    unit: '',
   },
   TIME_FORMAT: 'H:mm',
   TRACKING: SETTINGS.TRACKING,

@@ -1,7 +1,9 @@
-import classnames from 'classnames';
 import React, { PropTypes } from 'react';
-import Button from 'react-bootstrap/lib/Button';
+import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import FormControl from 'react-bootstrap/lib/FormControl';
+import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+import InputGroup from 'react-bootstrap/lib/InputGroup';
 import Overlay from 'react-bootstrap/lib/Overlay';
 import Toggle from 'react-toggle';
 import { createSliderWithTooltip } from 'rc-slider';
@@ -70,22 +72,21 @@ class PositionControl extends React.Component {
 
   render() {
     const { t, geolocated } = this.props;
+    const value = this.props.geolocated ?
+      this.distanceFormatter(this.state.distance) :
+      t('common.select');
+
     return (
       <div className="app-PositionControl">
-        <Button
-          className={classnames('app-PositionControl__show-button', {
-            'app-PositionControl__active': geolocated,
-          })}
-          onClick={this.showOverlay}
-        >
-          <div><Glyphicon glyph="map-marker" /> {t('PositionControl.buttonLabel')}</div>
-          <div>{
-            this.props.geolocated ?
-              this.distanceFormatter(this.state.distance) :
-              t('PositionControl.geolocationOff')
-            }
-          </div>
-        </Button>
+        <ControlLabel>{t('PositionControl.buttonLabel')}</ControlLabel>
+        <FormGroup onClick={this.showOverlay}>
+          <InputGroup>
+            <FormControl disabled type="text" value={value} />
+            <InputGroup.Addon>
+              <Glyphicon glyph="triangle-bottom" />
+            </InputGroup.Addon>
+          </InputGroup>
+        </FormGroup>
         <Overlay
           container={this}
           onHide={this.hideOverlay}

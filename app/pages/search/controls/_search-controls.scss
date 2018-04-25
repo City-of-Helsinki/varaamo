@@ -3,89 +3,100 @@
 }
 
 .app-SearchControlsContainer {
+  background-color: $hel-copper;
   margin-bottom: 20px;
 
-  .app-SearchBox {
-    $button-width-sm: 60px;
-    $button-width-lg: 100px;
-    $search-box-height: $app-SideNavbar-toggle-width;
-    $search-box-height-mobile: $app-SideNavbar-toggle-width-mobile;
-
-    position: relative;
-    margin-bottom: 10px;
-    width: calc(100vw - #{$app-SideNavbar-toggle-size-mobile} - #{$grid-gutter-width / 2 });
-    max-width: $app-SearchPage-max-width;
-
-    @media (min-width: $screen-sm-min) {
-      width: calc(100vw - #{$app-SideNavbar-toggle-size} - #{$grid-gutter-width / 2 });
-      margin-bottom: 20px;
-    }
-
-    &__text-field {
-      border: none;
-      padding: 20px $button-width-sm 20px 10px;
-      height: $search-box-height-mobile;
-      line-height: 15px;
-      border-radius: 6px;
-      box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.2);
-      font-size: 14px;
-
-      @media (min-width: $screen-sm-min) {
-        padding: 18px $button-width-lg 18px 30px;
-        height: $search-box-height;
-        line-height: 20px;
-        font-size: 16px;
-      }
-    }
-
-    &__divider {
-      position: absolute;
-      right: $button-width-sm;
-      top: 8px;
-      bottom: 8px;
-      width: 1px;
-      background: $gray-lighter;
-
-      @media (min-width: $screen-sm-min) {
-        right: $button-width-lg;
-      }
-    }
-
-    &__button {
-      height: $search-box-height-mobile;
-      line-height: $search-box-height-mobile;
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: $button-width-sm;
-      border: none;
-      border-radius: 6px;
-      text-transform: uppercase;
-      font-size: 1.2rem;
-      padding: 0;
-      text-align: center;
-
-      @media (min-width: $screen-sm-min) {
-        width: $button-width-lg;
-        font-size: 1.6rem;
-        height: $search-box-height;
-        line-height: $search-box-height;
-      }
-
-      &:hover {
-        background-color: transparent;
-        color: darken($brand-primary, 20%);
-      }
-    }
+  &__content {
+    padding: 30px;
   }
 
-  &__filters {
-    white-space: nowrap;
-    margin-bottom: 10px;
-
-    @media (min-width: $screen-sm-min) {
-      margin-bottom: 20px;
+  &__reset-button {
+    img {
+      width: $line-height-computed;
     }
+  }
+  .input-group-addon {
+    background-color: transparent;
+  }
+  .panel {
+    background-color: transparent;
+    box-shadow: none;
+    .panel-heading {
+      background-color: transparent;
+      padding-left: 0;
+      padding-right: 0;
+      .panel-title {
+        font-size: 16px;
+        a {
+          padding-left: 24px;
+          position: relative;
+          text-decoration: underline;
+          &::before {
+            background-image: url('./images/angle-right.svg');
+            background-repeat: no-repeat;
+            background-size: $line-height-computed;
+            content: ' ';
+            display: inline-block;
+            left: 0;
+            top: -2px;
+            position: absolute;
+            height: $line-height-computed;
+            width: $line-height-computed;
+          }
+        }
+        a[aria-selected="true"]::before {
+          background-image: url('./images/angle-down.svg');
+        }
+      }
+    }
+    .panel-body {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  .select:before {
+    background-color: $hel-copper;
+  }
+
+  .form-group {
+    margin-bottom: 0;
+  }
+
+  .form-control[disabled] {
+    background-color: transparent;
+    border-color: $black;
+    color: $black;
+    cursor: default;
+    transition: all 0s ease 0s;
+  }
+
+  .checkbox {
+    margin: 0;
+
+    input[type=checkbox] {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      font-size: 24px;
+      position: relative;
+    }
+
+    input[type=checkbox]:after {
+        content: "\2610";
+        background-color: $hel-copper;
+        display: inline-block;
+        visibility: visible;
+    }
+
+    input[type=checkbox]:checked:after {
+        content: "\2611";
+    }
+  }
+  .glyphicon-triangle-bottom {
+    font-size: 10px;
+  }
+  .btn.btn-link {
+    color: $black;
   }
 }
 
@@ -96,6 +107,7 @@
   display: inline-block;
   margin-left: 0;
   position: relative;
+  width: 100%;
 
   &__show-button {
     @include search-control-button($blue);
@@ -110,15 +122,6 @@
 // ---------------------
 
 .app-PositionControl {
-  display: inline-block;
-  margin-left: 10px;
-
-  &__show-button {
-    @include search-control-button($medium-gray);
-    &.app-PositionControl__active {
-      @include search-control-button($copper);
-    }
-  }
 
   &__content {
     padding: 15px;
@@ -174,15 +177,20 @@
 
 .app-DatePickerControl {
   display: inline-block;
-  margin-left: 10px;
+  margin-bottom: 0;
   position: relative;
 
-  @media (min-width: $screen-sm-min) {
-    margin-left: 15px;
+  &__icon {
+    width: 22px;
   }
 
-  &__show-button {
-    @include search-control-button($green);
+  .form-control[disabled] {
+    border-left-width: 0;
+    border-right-width: 0;
+  }
+
+  .app-SearchControlOverlay__overlay {
+    border-top: none;
   }
 
   .app-SearchControlOverlay {
@@ -193,17 +201,77 @@
   .app-SearchControlOverlay__header {
     background-color: $green;
   }
-}
 
-.app-DatePickerControl__calendar {
-  border: none;
-  width: 100%;
-  & > div {
+  .react-date-picker__calendar--theme-default {
+    border: none;
     width: 100%;
-  }
-  .react-date-picker__month-view-day-text {
-    // Forced line-height to center content in IE11
-    line-height: 36px;
+
+    .react-date-picker__month-view--theme-default {
+      border: none;
+      width: 100%;
+
+      .react-date-picker__month-view-day  {
+        line-height: 36px;
+
+        .react-date-picker__month-view-day-text {
+          background-color: $light-gray;
+          border-color: $white;
+          border-radius: 0;
+          color: $black;
+
+          &:hover {
+            background-color: $dark-gray;
+            color: $white;
+          }
+        }
+      }
+      .react-date-picker__month-view-day--today-highlight {
+        color: $dark-gray;
+        .react-date-picker__month-view-day-text {
+          border: 2px solid $black;
+        }
+      }
+      .react-date-picker__month-view-day--weekend-highlight {
+        color: $black;
+      }
+      .react-date-picker__month-view-day--disabled {
+        &.react-date-picker__month-view-day--prev-month,
+        &.react-date-picker__month-view-day--next-month {
+          color: $dark-gray;
+        }
+      }
+      .react-date-picker__month-view-day--disabled {
+        .react-date-picker__month-view-day-text {
+          background-color: $medium-gray;
+          color: $dark-gray;
+        }
+      }
+
+      .react-date-picker__month-view-day--in-hover-range.react-date-picker__month-view-day--today-highlight,
+      .react-date-picker__month-view-day--in-range.react-date-picker__month-view-day--today-highlight,
+      .react-date-picker__month-view-day--value.react-date-picker__month-view-day--today-highlight {
+        .react-date-picker__month-view-day-text {
+          border: 2px solid $black;
+          color: $white;
+        }
+      }
+
+      .react-date-picker__month-view-day--in-hover-range .react-date-picker__month-view-day-text,
+      .react-date-picker__month-view-day--in-range .react-date-picker__month-view-day-text,
+      .react-date-picker__month-view-day--value .react-date-picker__month-view-day-text,
+      .react-date-picker__month-view-day--in-hover-range .react-date-picker__month-view-day-text:hover,
+      .react-date-picker__month-view-day--in-range .react-date-picker__month-view-day-text:hover,
+      .react-date-picker__month-view-day--value .react-date-picker__month-view-day-text:hover {
+        background-color: $dark-gray;
+        border-radius: 0;
+        border-color: $white;
+        color: $white;
+      }
+
+      .react-date-picker__month-view-day--weekend-highlight.react-date-picker__month-view-day--next-month {
+        color: #b3b3b3;
+      }
+    }
   }
 }
 
@@ -245,11 +313,11 @@
 
 .app-SearchControlOverlay {
   position: absolute;
-  z-index: 1;
-  padding: 5px 0 0 2px;
+  width: 100%;
+  z-index: 2000;
 
   &__overlay {
-    box-shadow: 0px 1px 10px 5px rgba(0, 0, 0, 0.2);
+    border: 2px solid $black;
   }
 
   &__hide {
@@ -278,7 +346,7 @@
   }
 
   &__content {
-    max-width: 400px;
     background-color: $white;
+    padding: 20px;
   }
 }

@@ -8,11 +8,13 @@ function getState(date = '2015-10-10') {
     ui: {
       search: {
         filters: {
+          charge: false,
           date,
           distance: '',
           people: '',
           purpose: 'some-purpose',
           search: '',
+          unit: '',
         },
       },
     },

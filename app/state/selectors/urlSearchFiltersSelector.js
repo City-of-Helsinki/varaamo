@@ -13,9 +13,11 @@ const urlSearchFiltersSelector = createSelector(
       {},
       omit(constants.SUPPORTED_SEARCH_FILTERS, ['lat', 'lon']),
       filters,
-      { date: getDateString(filters.date) }
+      {
+        charge: (filters.charge === 'true' || filters.charge === true),
+        date: getDateString(filters.date),
+      },
     );
-
     return urlSearchFilters;
   }
 );

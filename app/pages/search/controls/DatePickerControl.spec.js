@@ -1,6 +1,8 @@
 import { expect } from 'chai';
 import React from 'react';
-import Button from 'react-bootstrap/lib/Button';
+import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import FormControl from 'react-bootstrap/lib/FormControl';
+import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Overlay from 'react-bootstrap/lib/Overlay';
 import { Calendar } from 'react-date-picker';
 import simple from 'simple-mock';
@@ -23,13 +25,27 @@ describe('pages/search/controls/DatePickerControl', () => {
     expect(wrapper.is('div.app-DatePickerControl')).to.be.true;
   });
 
-  it('renders Button with correct props', () => {
+  it('renders ControlLabel with correct text', () => {
+    const wrapper = getWrapper();
+    const controlLabel = wrapper.find(ControlLabel);
+    expect(controlLabel).to.have.length(1);
+  });
+
+  it('renders FormGroup with correct props', () => {
     const wrapper = getWrapper();
     const instance = wrapper.instance();
-    const button = wrapper.find(Button);
-    expect(button).to.have.length(1);
-    expect(button.prop('className')).to.equal('app-DatePickerControl__show-button');
-    expect(button.prop('onClick')).to.equal(instance.showOverlay);
+    const formGroup = wrapper.find(FormGroup);
+    expect(formGroup).to.have.length(1);
+    expect(formGroup.prop('onClick')).to.equal(instance.showOverlay);
+  });
+
+  it('renders FormControl with correct props', () => {
+    const wrapper = getWrapper();
+    const formControl = wrapper.find(FormControl);
+    expect(formControl).to.have.length(1);
+    expect(formControl.prop('disabled')).to.be.true;
+    expect(formControl.prop('type')).to.equal('text');
+    expect(formControl.prop('value')).to.equal(defaults.value);
   });
 
   it('renders Overlay with correct props', () => {

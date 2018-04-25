@@ -3,10 +3,10 @@ import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Headroom from 'react-headroom';
 
 import { searchResources, toggleMap } from 'actions/searchActions';
 import { changeSearchFilters } from 'actions/uiActions';
+import { fetchPurposes } from 'actions/purposeActions';
 import { fetchUnits } from 'actions/unitActions';
 import PageWrapper from 'pages/PageWrapper';
 import { injectT } from 'i18n';
@@ -25,6 +25,7 @@ class UnconnectedSearchPage extends Component {
 
   componentDidMount() {
     const { actions, filters, location, searchDone, uiFilters } = this.props;
+    actions.fetchPurposes();
     actions.fetchUnits();
     if (!searchDone) {
       this.searchResources(filters);
@@ -83,14 +84,14 @@ class UnconnectedSearchPage extends Component {
       t,
     } = this.props;
     return (
-      <PageWrapper className="app-SearchPage" fluid title={t('SearchPage.title')} transparent>
-        <div className="app-SearchPage__content">
-          <Headroom className="app-SearchPage__header">
-            <SearchControls
-              location={location}
-              params={params}
-              scrollToSearchResults={this.scrollToSearchResults}
-            />
+      <div className="app-SearchPage">
+        <SearchControls
+          location={location}
+          params={params}
+          scrollToSearchResults={this.scrollToSearchResults}
+        />
+        <PageWrapper className="app-SearchPage__wrapper" fluid title={t('SearchPage.title')} transparent>
+          <div className="app-SearchPage__content">
             {!isFetchingSearchResults &&
               <MapToggle
                 mapVisible={showMap}
@@ -98,19 +99,19 @@ class UnconnectedSearchPage extends Component {
                 resultsCount={searchResultIds.length || 0}
               />
             }
-          </Headroom>
-          {(searchDone || isFetchingSearchResults) &&
-            <SearchResults
-              isFetching={isFetchingSearchResults}
-              location={location}
-              ref="searchResults"
-              searchResultIds={searchResultIds}
-              selectedUnitId={selectedUnitId}
-              showMap={showMap}
-            />
-          }
-        </div>
-      </PageWrapper>
+            {(searchDone || isFetchingSearchResults) &&
+              <SearchResults
+                isFetching={isFetchingSearchResults}
+                location={location}
+                ref="searchResults"
+                searchResultIds={searchResultIds}
+                selectedUnitId={selectedUnitId}
+                showMap={showMap}
+              />
+            }
+          </div>
+        </PageWrapper>
+      </div>
     );
   }
 }
@@ -136,6 +137,7 @@ UnconnectedSearchPage = injectT(UnconnectedSearchPage); // eslint-disable-line
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
     changeSearchFilters,
+    fetchPurposes,
     fetchUnits,
     searchResources,
     toggleMap,
