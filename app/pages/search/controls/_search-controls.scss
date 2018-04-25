@@ -314,7 +314,7 @@
 .app-SearchControlOverlay {
   position: absolute;
   width: 100%;
-  z-index: 2000;
+  z-index: 2;
 
   &__overlay {
     border: 2px solid $black;

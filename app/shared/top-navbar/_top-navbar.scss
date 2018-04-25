@@ -9,7 +9,7 @@
   .brand-logo {
     @include helsinki-logo($black);
     display: block;
-    height: $line-height-computed;
+    height: 3rem;
     width: 120px;
   }
   &__icon {
