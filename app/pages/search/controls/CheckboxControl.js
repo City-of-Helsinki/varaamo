@@ -1,19 +1,20 @@
 import React, { PropTypes } from 'react';
-import Checkbox from 'react-bootstrap/lib/Checkbox';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
+import Toggle from 'react-toggle';
 
 import { injectT } from 'i18n';
 
 function CheckboxControl({ id, label, onConfirm, value }) {
   return (
     <div className="app-CheckboxControl">
-      <FormGroup controlId={id}>
-        <ControlLabel>{ }</ControlLabel>
-        <Checkbox checked={value} onClick={e => onConfirm(e.target.checked)}>
-          {label}
-        </Checkbox>
-      </FormGroup>
+      <Toggle
+        className="app-CheckboxControl__toggle"
+        defaultChecked={value}
+        id={id}
+        onChange={e => onConfirm(e.target.checked)}
+      />
+      <label className="app-CheckboxControl__label" htmlFor={id}>
+        {label}
+      </label>
     </div>
   );
 }

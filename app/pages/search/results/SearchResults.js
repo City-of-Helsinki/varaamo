@@ -35,6 +35,7 @@ export class UnconnectedSearchResults extends Component {
           {showMap && selectedUnitId &&
             <ResourceCompactList
               date={date}
+              location={location}
               resourceIds={searchResultIds}
               unitId={selectedUnitId}
             />

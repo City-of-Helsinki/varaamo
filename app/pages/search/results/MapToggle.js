@@ -1,5 +1,8 @@
 import React, { PropTypes } from 'react';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+import Button from 'react-bootstrap/lib/Button';
+import Col from 'react-bootstrap/lib/Col';
+import Grid from 'react-bootstrap/lib/Grid';
+import Row from 'react-bootstrap/lib/Row';
 
 import { injectT } from 'i18n';
 
@@ -12,20 +15,35 @@ MapToggle.propTypes = {
 
 function MapToggle({ mapVisible, onClick, resultsCount, t }) {
   return (
-    <button
-      className="app-MapToggle btn"
-      onClick={onClick}
-    >
-      <div className="app-MapToggle__icon">
-        {mapVisible ? <Glyphicon glyph="list" /> : <Glyphicon glyph="map-marker" />}
-      </div>
-      <div className="app-MapToggle__text">
-        <div className="app-MapToggle__results-count">
-          {resultsCount ? t('MapToggle.resultsText', { count: resultsCount }) : t('MapToggle.noResultsText')}
-        </div>
-        {mapVisible ? t('MapToggle.showList') : t('MapToggle.showMap')}
-      </div>
-    </button>
+    <div className="app-MapToggle">
+      <Grid>
+        <Row>
+          <Col sm={6}>
+            <div className="app-MapToggle__results-count">
+              {resultsCount ? t('MapToggle.resultsText', { count: resultsCount }) : t('MapToggle.noResultsText')}
+            </div>
+          </Col>
+          <Col sm={6}>
+            <div className="pull-right">
+              <Button
+                className="app-MapToggle__button-list"
+                disabled={!mapVisible}
+                onClick={onClick}
+              >
+                {t('MapToggle.showList')}
+              </Button>
+              <Button
+                className="app-MapToggle__button-map"
+                disabled={mapVisible}
+                onClick={onClick}
+              >
+                {t('MapToggle.showMap')}
+              </Button>
+            </div>
+          </Col>
+        </Row>
+      </Grid>
+    </div>
   );
 }
 

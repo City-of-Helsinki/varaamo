@@ -1,24 +1,38 @@
-
-
 .app-ResourceCompactList {
-  $button-size: 50px;
-  $button-offset: -20px;
+  $button-size: $line-height-computed;
+  $button-offset: 10px;
   $button-offset-mobile: 2px;
-  position: relative;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin: 0 15px 15px 15px;
+  width: 100%;
+  max-width: $app-SearchPage-max-width;
+
+  @media (min-width: $screen-xs-min) {
+    width: 50%;
+  }
+
+  @media (min-width: $screen-md-min) {
+    width: calc(100% - 30px);
+  }
+
   &_arrow {
     position: absolute;
-    border-radius: 50%;
     top: $app-ResourceCard-height / 2 - $button-size / 2;
     width: $button-size;
     height: $button-size;
-    background-color: white;
     border: none;
-    box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.2);
     z-index: 1;
-    color: $brand-primary;
+
+    img {
+      color: $white;
+      width: $button-size - 4;
+    }
 
     &-left {
       left: $button-offset-mobile;
+      @include icon-angle-left($white);
 
       @media (min-width: $screen-sm-min) {
         left: $button-offset;
@@ -27,6 +41,7 @@
 
     &-right {
       right: $button-offset-mobile;
+      @include icon-angle-right($white);
 
       @media (min-width: $screen-sm-min) {
         right: $button-offset;
@@ -35,5 +50,37 @@
   }
   .app-ResourceCard {
     margin: 0;
+    @media (min-width: $screen-md-min) {
+      height: $app-ResourceCard-height + 4px;
+    }
+    &__image-link{
+      display: block;
+      height: 100px;
+      width: 100%;
+      @media (min-width: $screen-md-min) {
+        height: $app-ResourceCard-height;
+      }
+    }
+    &__content {
+      @media (min-width: $screen-md-min) {
+        flex: 1 2 20%;
+        overflow: hidden;
+      }
+
+      .app-ResourceCard__description {
+        display: none;
+        @media (min-width: $screen-md-min) {
+          display: block;
+        }
+      }
+    }
+    &__info {
+      display: none;
+      @media (min-width: $screen-md-min) {
+        display: block;
+        flex: 1 2 30%;
+        overflow: hidden;
+      }
+    }
   }
 }

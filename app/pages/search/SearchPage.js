@@ -10,6 +10,7 @@ import { fetchPurposes } from 'actions/purposeActions';
 import { fetchUnits } from 'actions/unitActions';
 import PageWrapper from 'pages/PageWrapper';
 import { injectT } from 'i18n';
+import ResourceMap from 'shared/resource-map';
 import { scrollTo } from 'utils/domUtils';
 import SearchControls from './controls';
 import searchPageSelector from './searchPageSelector';
@@ -90,15 +91,23 @@ class UnconnectedSearchPage extends Component {
           params={params}
           scrollToSearchResults={this.scrollToSearchResults}
         />
-        <PageWrapper className="app-SearchPage__wrapper" fluid title={t('SearchPage.title')} transparent>
+        {!isFetchingSearchResults &&
+          <MapToggle
+            mapVisible={showMap}
+            onClick={actions.toggleMap}
+            resultsCount={searchResultIds.length || 0}
+          />
+        }
+        {showMap &&
+          <ResourceMap
+            location={location}
+            resourceIds={searchResultIds}
+            selectedUnitId={selectedUnitId}
+            showMap={showMap}
+          />
+        }
+        <PageWrapper className="app-SearchPage__wrapper" title={t('SearchPage.title')} transparent>
           <div className="app-SearchPage__content">
-            {!isFetchingSearchResults &&
-              <MapToggle
-                mapVisible={showMap}
-                onClick={actions.toggleMap}
-                resultsCount={searchResultIds.length || 0}
-              />
-            }
             {(searchDone || isFetchingSearchResults) &&
               <SearchResults
                 isFetching={isFetchingSearchResults}

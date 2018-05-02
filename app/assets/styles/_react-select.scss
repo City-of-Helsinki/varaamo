@@ -17,6 +17,9 @@
     color: $dark-gray;
   }
 }
+.has-value.Select--single > .Select-control .Select-value .Select-value-label {
+  color: $black;
+}
 
 .Select {
   &.is-focused:not(.is-open) > .Select-control {

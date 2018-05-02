@@ -111,14 +111,14 @@ class UnconnectedSearchControlsContainer extends Component {
           <div className="app-SearchControlsContainer__content">
             <h1>{t('SearchControlsContainer.title')}</h1>
             <Row>
-              <Col md={6} sm={12}>
+              <Col className="app-SearchControlsContainer__control" md={6} sm={12}>
                 <SearchBox
                   onChange={this.handleSearchBoxChange}
                   onSearch={this.handleSearch}
                   value={filters.search}
                 />
               </Col>
-              <Col md={6} sm={12}>
+              <Col className="app-SearchControlsContainer__control" md={6} sm={12}>
                 <DatePickerControl
                   onConfirm={this.handleDateChange}
                   value={moment(filters.date).format('L')}
@@ -127,7 +127,7 @@ class UnconnectedSearchControlsContainer extends Component {
             </Row>
             <Panel collapsible header={t('SearchControlsContainer.advancedSearch')}>
               <Row>
-                <Col md={4} sm={6}>
+                <Col className="app-SearchControlsContainer__control" md={4} sm={6}>
                   <SelectControl
                     id="purpose"
                     isLoading={isFetchingPurposes}
@@ -137,7 +137,7 @@ class UnconnectedSearchControlsContainer extends Component {
                     value={filters.purpose}
                   />
                 </Col>
-                <Col md={4} sm={6}>
+                <Col className="app-SearchControlsContainer__control" md={4} sm={6}>
                   <SelectControl
                     id="unit"
                     isLoading={isFetchingUnits}
@@ -147,7 +147,7 @@ class UnconnectedSearchControlsContainer extends Component {
                     value={filters.unit}
                   />
                 </Col>
-                <Col md={4} sm={6}>
+                <Col className="app-SearchControlsContainer__control" md={4} sm={6}>
                   <SelectControl
                     id="people"
                     isLoading={isFetchingUnits}
@@ -157,7 +157,7 @@ class UnconnectedSearchControlsContainer extends Component {
                     value={filters.people ? String(parseInt(filters.people, 10)) : ''}
                   />
                 </Col>
-                <Col md={4} sm={6}>
+                <Col className="app-SearchControlsContainer__control" md={4} sm={6}>
                   <PositionControl
                     geolocated={Boolean(this.props.position)}
                     onConfirm={distance => this.handleFiltersChange({ distance })}
@@ -165,7 +165,7 @@ class UnconnectedSearchControlsContainer extends Component {
                     value={parseInt(filters.distance, 10)}
                   />
                 </Col>
-                <Col md={4} sm={6}>
+                <Col className="app-SearchControlsContainer__control" md={4} sm={6}>
                   <CheckboxControl
                     id="charge"
                     label={t('SearchControlsContainer.chargeLabel')}
@@ -175,10 +175,11 @@ class UnconnectedSearchControlsContainer extends Component {
                 </Col>
               </Row>
             </Panel>
-            <Row>
+            <Row className="app-SearchControlsContainer__buttons">
               <Col sm={12}>
                 <Button
                   bsStyle="primary"
+                  className="app-SearchControlsContainer__submit-button"
                   key="submit-button"
                   onClick={() => this.handleSearch()}
                   type="submit"

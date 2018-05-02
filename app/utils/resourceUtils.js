@@ -90,13 +90,13 @@ function getAvailabilityDataForWholeDay(resource = {}, date = null) {
 
 function getHourlyPrice(t, { minPricePerHour, maxPricePerHour }) {
   if (!(minPricePerHour || maxPricePerHour)) {
-    return null;
+    return t('ResourceIcons.free');
   }
   if ((minPricePerHour && maxPricePerHour) && (minPricePerHour !== maxPricePerHour)) {
     return `${Number(minPricePerHour)} - ${Number(maxPricePerHour)} €/h`;
   }
   const priceString = maxPricePerHour || minPricePerHour;
-  const price = priceString !== 0 ? Number(priceString) : null;
+  const price = priceString !== 0 ? Number(priceString) : 0;
   if (price === 0) {
     return t('ResourceIcons.free');
   }

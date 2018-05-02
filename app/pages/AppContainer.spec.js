@@ -1,10 +1,8 @@
 import { expect } from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
-import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import ResourceMap from 'shared/resource-map';
 import Header from 'shared/header';
 import Notifications from 'shared/notifications';
 import { getState } from 'utils/testUtils';
@@ -18,9 +16,6 @@ describe('pages/AppContainer', () => {
       enableGeoposition: () => {},
       fetchUser: () => null,
       location: {},
-      searchResultIds: Immutable([]),
-      selectedUnitId: '123',
-      showMap: false,
       userId: null,
     };
     return shallow(<AppContainer {...defaults} {...props} />);
@@ -58,18 +53,6 @@ describe('pages/AppContainer', () => {
       it('returns userId from state', () => {
         expect(getSelected().userId).to.equal('u-1');
       });
-
-      it('returns searchResultIds', () => {
-        expect(getSelected().searchResultIds).to.deep.equal(searchResultIds);
-      });
-
-      it('returns showMap', () => {
-        expect(getSelected().showMap).to.be.true;
-      });
-
-      it('returns selectedUnitId', () => {
-        expect(getSelected().selectedUnitId).to.equal('search-unit');
-      });
     });
 
     describe('with path in /resources/', () => {
@@ -80,18 +63,6 @@ describe('pages/AppContainer', () => {
       };
       it('returns userId from state', () => {
         expect(getSelected(customProps).userId).to.equal('u-1');
-      });
-
-      it('returns searchResultIds', () => {
-        expect(getSelected(customProps).searchResultIds).to.deep.equal(['selected-resource']);
-      });
-
-      it('returns showMap', () => {
-        expect(getSelected(customProps).showMap).to.be.false;
-      });
-
-      it('returns selectedUnitId', () => {
-        expect(getSelected(customProps).selectedUnitId).to.equal('resource-unit');
       });
     });
   });
@@ -110,23 +81,6 @@ describe('pages/AppContainer', () => {
     it('renders props.children', () => {
       const children = wrapper.find('#child-div');
       expect(children).to.have.length(1);
-    });
-
-    it('renders a ResourceMap with correct props', () => {
-      const props = {
-        searchResultIds: Immutable(['resource-1', 'resource-2']),
-        selectedUnitId: '123',
-      };
-      const resourceMap = getWrapper(props).find(ResourceMap);
-      expect(resourceMap).to.have.length(1);
-      expect(resourceMap.prop('showMap')).to.equal(false);
-      expect(resourceMap.prop('resourceIds')).to.deep.equal(props.searchResultIds);
-      expect(resourceMap.prop('selectedUnitId')).to.equal(props.selectedUnitId);
-    });
-
-    it('passes showMap prop to ResourceMap', () => {
-      const resourceMap = getWrapper({ showMap: true }).find(ResourceMap);
-      expect(resourceMap.prop('showMap')).to.equal(true);
     });
   });
 

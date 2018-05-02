@@ -113,7 +113,6 @@ export class UnconnectedResourceMapContainer extends React.Component {
             />
           }
         </Map>
-        <div className="app-ResourceMap__overlay" />
       </div>
     );
   }

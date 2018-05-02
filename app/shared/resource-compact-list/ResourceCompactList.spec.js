@@ -10,6 +10,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
   const defaultProps = {
     resourceIds: Immutable(['resource-1', 'resource-2']),
     date: '2017-01-01',
+    location: {},
   };
 
   function getWrapper(extraProps) {
@@ -119,6 +120,17 @@ describe('shared/resource-list/ResourceCompactList', () => {
       wrapper.update();
       const rightArrow = wrapper.find('.app-ResourceCompactList_arrow-right');
       expect(rightArrow.prop('onClick')).to.equal(instance.onNextResource);
+    });
+  });
+
+  describe('componentWillReceiveProps', () => {
+    it('sets resourcePosition to 0', () => {
+      const instance = getWrapper().instance();
+      instance.setState({
+        resourcePosition: 1,
+      });
+      instance.componentWillReceiveProps();
+      expect(instance.state.resourcePosition).to.equal(0);
     });
   });
 

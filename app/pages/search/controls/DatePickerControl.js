@@ -6,7 +6,6 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import InputGroup from 'react-bootstrap/lib/InputGroup';
 import Overlay from 'react-bootstrap/lib/Overlay';
 import { Calendar } from 'react-date-picker';
-import moment from 'moment';
 
 import { injectT } from 'i18n';
 import SearchControlOverlay from './SearchControlOverlay';
@@ -38,7 +37,6 @@ class DatePickerControl extends React.Component {
 
   render() {
     const { t, value } = this.props;
-    const minDate = moment().format('L');
     return (
       <div className="app-DatePickerControl">
         <ControlLabel>{t('DatePickerControl.label')}</ControlLabel>
@@ -68,7 +66,6 @@ class DatePickerControl extends React.Component {
               className="app-DatePickerControl__calendar"
               dateFormat={'L'}
               defaultDate={value}
-              minDate={minDate}
               onChange={this.handleConfirm}
             />
           </SearchControlOverlay>

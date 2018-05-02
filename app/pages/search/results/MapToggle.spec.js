@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import React from 'react';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
 import { shallowWithIntl } from 'utils/testUtils';
 import MapToggle from './MapToggle';
@@ -15,8 +14,8 @@ describe('pages/search/results/MapToggle', () => {
     return shallowWithIntl(<MapToggle {...defaults} {...props} />);
   }
 
-  it('renders button.app-MapToggle', () => {
-    expect(getWrapper().is('button.app-MapToggle')).to.be.true;
+  it('renders div.app-MapToggle', () => {
+    expect(getWrapper().is('div.app-MapToggle')).to.be.true;
   });
 
   describe('results count text', () => {
@@ -33,31 +32,25 @@ describe('pages/search/results/MapToggle', () => {
     });
   });
 
-  describe('button text', () => {
-    function getButtonText(mapVisible) {
-      return getWrapper({ mapVisible }).text();
-    }
-
-    it('renders show map text if map is not visible', () => {
-      expect(getButtonText(false)).to.contain('MapToggle.showMap');
+  describe('buttons', () => {
+    it('renders list button disabled if map is not visible', () => {
+      const wrapper = getWrapper({ mapVisible: false });
+      const listButton = wrapper.find('.app-MapToggle__button-list');
+      const mapButton = wrapper.find('.app-MapToggle__button-map');
+      expect(listButton.length).to.equal(1);
+      expect(listButton.prop('disabled')).to.be.true;
+      expect(mapButton.length).to.equal(1);
+      expect(mapButton.prop('disabled')).to.be.false;
     });
 
-    it('renders show list text if map is visible', () => {
-      expect(getButtonText(true)).to.contain('MapToggle.showList');
-    });
-  });
-
-  describe('button text', () => {
-    function getButtonIcon(mapVisible) {
-      return getWrapper({ mapVisible }).find('.app-MapToggle__icon').find(Glyphicon);
-    }
-
-    it('renders show map icon if map is not visible', () => {
-      expect(getButtonIcon(false).prop('glyph')).to.equal('map-marker');
-    });
-
-    it('renders show list icon if map is visible', () => {
-      expect(getButtonIcon(true).prop('glyph')).to.equal('list');
+    it('renders map button disabled if map is visible', () => {
+      const wrapper = getWrapper({ mapVisible: true });
+      const listButton = wrapper.find('.app-MapToggle__button-list');
+      const mapButton = wrapper.find('.app-MapToggle__button-map');
+      expect(listButton.length).to.equal(1);
+      expect(listButton.prop('disabled')).to.be.false;
+      expect(mapButton.length).to.equal(1);
+      expect(mapButton.prop('disabled')).to.be.true;
     });
   });
 });

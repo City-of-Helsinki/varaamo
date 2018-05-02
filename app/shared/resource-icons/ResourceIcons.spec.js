@@ -136,8 +136,12 @@ describe('shared/resource-list/ResourceIcons', () => {
       expect(getSpanTextWithProps(props).text()).to.equal('ResourceIcons.free');
     });
 
-    it('is not rendered if prop is not passed', () => {
-      expect(wrapperNoProps.find({ glyph: 'euro' })).to.have.length(0);
+    it('renders "free" message if price prop is not passed', () => {
+      const props = {
+        maxPricePerHour: null,
+        minPricePerHour: null,
+      };
+      expect(getSpanTextWithProps(props).text()).to.equal('ResourceIcons.free');
     });
   });
 });

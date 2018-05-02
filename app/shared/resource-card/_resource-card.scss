@@ -1,23 +1,31 @@
 $card-border-color: #d6d6d6;
 .app-ResourceCard {
   $image-items-margin: 5px;
-
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: flex-start;
-  height: $app-ResourceCard-height;
   margin: 20px 0;
   background-color: white;
-  border: 1px solid $card-border-color;
+
+  @media (min-width: $screen-md-min) {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    height: $app-ResourceCard-height;
+  }
+
+  a {
+    text-decoration: none;
+  }
 
   &__image-link{
-    flex: 1 1;
-    min-width: 140px;
-    max-width: 200px;
-    padding: 10px;
-    height: 100%;
+    display: block;
     @media (min-width: $screen-xs-min) {
-      min-width: 180px;
+      height: $app-ResourceCard-height;
+      width: 100%;
+    }
+    @media (min-width: $screen-md-min) {
+      flex: 1 1;
+      min-width: $app-ResourceCard-height;
+      max-width: 200px;
+      height: 100%;
     }
   }
 
@@ -31,44 +39,12 @@ $card-border-color: #d6d6d6;
     background-size: cover;
   }
 
-  &__distance {
-    font-size: 1.1rem;
-    white-space: nowrap;
-    text-align: center;
-    position: absolute;
-    left: $image-items-margin;
-    top: $image-items-margin;
-  }
-
-  &__peopleCapacity {
-    font-size: 1.2rem;
-    text-align: center;
-    position: absolute;
-    right: $image-items-margin;
-    top: $image-items-margin;
-    .fa {
-      margin-left: 2px;
-    }
-  }
-
-  &__hourly-price {
-    position: absolute;
-    bottom: $image-items-margin;
-    left: $image-items-margin;
-    color: white;
-    font-size: 1.6rem;
-    font-weight: 700;
-    text-decoration: none;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-    @media (max-width: $screen-xs-max) {
-      font-size: 1.4rem;
-    }
-  }
-
   &__content {
-    position: relative;
-    flex: 1 2 30%;
-    padding: 10px;
+    padding: 15px;
+    @media (min-width: $screen-md-min) {
+      flex: 1 2 40%;
+      overflow: hidden;
+    }
   }
 
   h4 {
@@ -81,45 +57,66 @@ $card-border-color: #d6d6d6;
   }
 
   &__unit-name {
-    font-size: 1.2rem;
-    font-weight: normal;
-    color: $gray;
+    font-size: 1.5rem;
+    font-weight: bold;
     margin-bottom: 5px;
+    text-decoration: none;
     span:first-child {
       margin-right: 10px;
     }
   }
 
-  &__street-address {
-    font-size: 1.2rem;
-    font-weight: normal;
-    color: $gray;
-    margin-bottom: 5px;
-    span {
-      text-transform: capitalize;
-    }
-  }
-
   .resource-availability {
-    display: inline-block;
     color: $white;
-    font-size: 1.2rem;
-    margin-top: 10px;
-    padding: 10px;
   }
   .controls {
     text-align: center;
   }
+  &__description {
+    font-size: 1.4rem;
+    line-height: 2rem;
+    max-height: 2*3rem;
+    margin-top: 15px;
+    overflow: hidden;
+  }
 
-  &.app-ResourceCard__stacked::before {
-    content: '';
-    height: 100%;
-    width: 100%;
-    background-color: white;
-    border: 1px solid $card-border-color;
-    z-index: -1;
-    position: absolute;
-    margin-left: 6px;
-    margin-top: 6px;
+  &__info {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    &-link,
+    &-detail {
+      display: inline-block;
+      &-capitalize {
+        text-transform: capitalize;
+      }
+    }
+    > div {
+      padding-top: 15px;
+    }
+    &-label {
+      display: block;
+    }
+    &-icon {
+      width: $line-height-computed*1.2;
+    }
+    @media (min-width: $screen-xs-min) {
+      display: inline-block;
+      width: 100%;
+    }
+    @media (min-width: $screen-md-min) {
+      flex: 1 2 30%;
+    }
+  }
+
+  .label-success {
+    background-color: $hel-tram;
+  }
+  .label-danger {
+    background-color: $hel-brick;
+  }
+
+  &.app-ResourceCard__stacked {
+    border: 2px solid $hel-silver;
   }
 }

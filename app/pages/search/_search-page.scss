@@ -9,41 +9,43 @@
 
   &__content {
     position: relative;
-    max-width: $app-SearchPage-max-width;
   }
 
-  &__header {
-    margin-bottom: 20px;
-
-    .app-MapToggle {
-      @include button-variant($gray, $white, $white);
-      display: block;
-      margin: 0 auto 20px auto;
-      box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.2);
-      border-radius: 100px;
-      padding-left: 30px;
-      padding-right: 40px;
-      font-size: 1.3rem;
-
-      & > div {
-        display: inline-block;
-      }
-
-      .app-MapToggle__icon {
-        color: $brand-primary;
-        font-size: 33px;
-        margin-right: 7px;
-      }
-
-      &__results-count {
-        font-size: 1.6rem;
-        color: $brand-primary;
-      }
-
-      &:hover, &:focus, &:active {
-        outline: none;
-        background-color: $white;
-      }
+  .app-MapToggle {
+    background-color: $hel-copper;
+    display: block;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+    &__results-count {
+      padding-top: 8px;
     }
+    button {
+      background-color: $hel-copper;
+      border-color: $hel-copper;
+      color: $black;
+    }
+    button:hover,
+    button:active {
+      background-color: darken($hel-copper, 5);
+      border-color: darken($hel-copper, 5);
+      box-shadow: none;
+    }
+    .btn.disabled,
+    .btn[disabled] {
+      background-color: $hel-silver;
+      border-color: $hel-silver;
+      opacity: 1;
+      cursor: default;
+    }
+    .btn.disabled:hover,
+    .btn[disabled]:hover,
+    .btn.disabled:active,
+    .btn[disabled]:active {
+      border-color: $hel-silver;
+    }
+  }
+  .app-PageWrapper {
+    background-color: $hel-silver;
   }
 }

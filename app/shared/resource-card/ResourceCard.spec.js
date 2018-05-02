@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import React from 'react';
-import FontAwesome from 'react-fontawesome';
 import { browserHistory, Link } from 'react-router';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
@@ -11,7 +10,6 @@ import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import { shallowWithIntl } from 'utils/testUtils';
-import Label from 'shared/label';
 import ResourceAvailability from './ResourceAvailability';
 import ResourceCard from './ResourceCard';
 
@@ -49,6 +47,7 @@ describe('shared/resource-card/ResourceCard', () => {
     },
     resource: getResource(),
     unit: Immutable(Unit.build({
+      id: 'unit_value',
       name: 'unit_name',
       addressZip: '00100',
       municipality: 'helsinki',
@@ -83,65 +82,84 @@ describe('shared/resource-card/ResourceCard', () => {
       const backgroundImage = getBackgroundImageWrapper();
       const resourceMainImage = defaultProps.resource.images[0];
 
-      expect(backgroundImage.length).to.equal(1);
+      expect(backgroundImage).to.have.length(1);
       expect(backgroundImage.prop('image')).to.deep.equal(resourceMainImage);
     });
+  });
 
-    it('renders a label with people capacity', () => {
-      const peopleCapacityLabel = getBackgroundImageWrapper().find(
-        '.app-ResourceCard__peopleCapacity'
-      );
+  describe('people capacity', () => {
+    it('renders people capacity', () => {
+      const peopleCapacity = getWrapper().find('.app-ResourceCard__peopleCapacity');
 
-      expect(peopleCapacityLabel.is(Label)).to.be.true;
-      expect(peopleCapacityLabel.prop('shape')).to.equal('circle');
-      expect(peopleCapacityLabel.prop('size')).to.equal('medium');
-      expect(peopleCapacityLabel.prop('theme')).to.equal('orange');
-      expect(peopleCapacityLabel.children().at(0).text()).to.equal('16');
-      expect(peopleCapacityLabel.children().at(1).is(FontAwesome)).to.be.true;
-      expect(peopleCapacityLabel.children().at(1).prop('name')).to.equal('users');
+      expect(peopleCapacity).to.have.length(1);
+      expect(peopleCapacity.text()).to.contain('ResourceCard.peopleCapacity');
+    });
+  });
+
+  describe('distance', () => {
+    it('does not render distance if not available', () => {
+      const distanceLabel = getWrapper().find('.app-ResourceCard__distance');
+      expect(distanceLabel).to.have.length(1);
+      expect(distanceLabel.text()).to.equal(' ');
     });
 
-    it('does not render a label with distance if not available', () => {
-      const distanceLabel = getBackgroundImageWrapper().find(
-        '.app-ResourceCard__distance'
-      );
-
-      expect(distanceLabel).to.have.length(0);
-    });
-
-    it('renders a label with distance', () => {
-      const distanceLabel = getBackgroundImageWrapper({
+    it('renders distance', () => {
+      const distanceLabel = getWrapper({
         resource: getResource({ distance: 11123 }),
       }).find(
         '.app-ResourceCard__distance'
       );
 
       expect(distanceLabel).to.have.length(1);
-      expect(distanceLabel.is(Label)).to.be.true;
-      expect(distanceLabel.prop('shape')).to.equal('circle');
-      expect(distanceLabel.prop('size')).to.equal('medium');
-      expect(distanceLabel.prop('theme')).to.equal('copper');
-      expect(distanceLabel.children().text()).to.equal('11 km');
+      expect(distanceLabel.text()).to.equal('11 km');
     });
 
     it('renders distance with a decimal if distance is smaller than 10 km', () => {
-      const distanceLabel = getBackgroundImageWrapper({
+      const distanceLabel = getWrapper({
         resource: getResource({ distance: 123 }),
       }).find(
         '.app-ResourceCard__distance'
       );
 
       expect(distanceLabel).to.have.length(1);
-      expect(distanceLabel.children().text()).to.equal('0.1 km');
+      expect(distanceLabel.text()).to.equal('0.1 km');
     });
+  });
 
+  describe('price', () => {
     it('renders a hourly price', () => {
-      const hourlyPriceSpan = getBackgroundImageWrapper().find(
+      const hourlyPriceSpan = getWrapper().find(
         '.app-ResourceCard__hourly-price'
       );
 
       expect(hourlyPriceSpan.is('span')).to.be.true;
       expect(hourlyPriceSpan.text()).to.contain('30 €/h');
+    });
+
+    it('renders correct text if minPricePerHourand maxPricePerHour are 0', () => {
+      const resource = getResource({
+        maxPricePerHour: 0,
+        minPricePerHour: 0,
+      });
+      const hourlyPriceSpan = getWrapper({ resource }).find(
+        '.app-ResourceCard__hourly-price'
+      );
+
+      expect(hourlyPriceSpan.is('span')).to.be.true;
+      expect(hourlyPriceSpan.text()).to.contain('ResourceIcons.free');
+    });
+
+    it('renders correct text if resource minPricePerHour and maxPricePerHour is empty', () => {
+      const resource = getResource({
+        maxPricePerHour: '',
+        minPricePerHour: '',
+      });
+      const hourlyPriceSpan = getWrapper({ resource }).find(
+        '.app-ResourceCard__hourly-price'
+      );
+
+      expect(hourlyPriceSpan.is('span')).to.be.true;
+      expect(hourlyPriceSpan.text()).to.contain('ResourceIcons.free');
     });
   });
 
@@ -169,49 +187,35 @@ describe('shared/resource-card/ResourceCard', () => {
   });
 
   it('renders the street address of the given unit in props', () => {
-    const unitName = getWrapper().find('.app-ResourceCard__street-address');
+    const wrapper = getWrapper();
+    const streetAddress = wrapper.find('.app-ResourceCard__street-address');
+    const zipAddress = wrapper.find('.app-ResourceCard__zip-address');
 
-    expect(unitName.html()).to.contain(defaultProps.unit.addressZip);
-    expect(unitName.html()).to.contain(defaultProps.unit.municipality);
-    expect(unitName.html()).to.contain(defaultProps.unit.streetAddress);
+    expect(streetAddress).to.have.length(1);
+    expect(streetAddress.html()).to.contain(defaultProps.unit.streetAddress);
+    expect(zipAddress).to.have.length(1);
+    expect(zipAddress.html()).to.contain(defaultProps.unit.addressZip);
+    expect(zipAddress.html()).to.contain(defaultProps.unit.municipality);
   });
 
   it('renders an anchor that calls handleSearchByType on click', () => {
     const wrapper = getWrapper();
-    const typeAnchor = wrapper.find('.app-ResourceCard__resource-type-link').filter('a');
+    const typeAnchor = wrapper.find('.app-ResourceCard__info-link-capitalize').filter('a');
     expect(typeAnchor).to.have.length(1);
     expect(typeAnchor.prop('onClick')).to.equal(wrapper.instance().handleSearchByType);
   });
 
   it('renders an anchor that calls handleSearchByUnitName on click', () => {
     const wrapper = getWrapper();
-    const typeAnchor = wrapper.find('.app-ResourceCard__unit-name-link').filter('a');
-    expect(typeAnchor).to.have.length(1);
-    expect(typeAnchor.prop('onClick')).to.equal(wrapper.instance().handleSearchByUnitName);
+    const unitAnchor = wrapper.find('.app-ResourceCard__unit-name-link');
+    expect(unitAnchor).to.have.length(1);
+    expect(unitAnchor.prop('onClick')).to.equal(wrapper.instance().handleSearchByUnit);
   });
 
-  it('renders a label with the type of the given resource in props', () => {
-    const typeLabel = getWrapper().find('.app-ResourceCard__unit-name').find(Label);
-    expect(typeLabel.prop('size')).to.equal('mini');
-    expect(typeLabel.prop('theme')).to.equal('blue');
-    expect(typeLabel.children().text()).to.contain(defaultProps.resource.type.name);
-  });
-
-  it('renders correct number of labels for equipment', () => {
-    const equipmentLabels = getWrapper().find('.app-ResourceCard__equipment').find(Label);
-    expect(equipmentLabels).to.have.length(2);
-  });
-
-  it('renders labels with the equipment of the given resource in props', () => {
-    const equipmentLabels = getWrapper().find('.app-ResourceCard__equipment').find(Label);
-    const equipmentLabel = equipmentLabels.at(0);
-    expect(equipmentLabel.prop('shape')).to.equal('rounded');
-    expect(equipmentLabel.prop('size')).to.equal('mini');
-    expect(equipmentLabel.prop('theme')).to.equal('gold');
-    expect(equipmentLabel.children().text()).to.contain(defaultProps.resource.equipment[0].name);
-    expect(equipmentLabels.at(1).children().text()).to.contain(
-      defaultProps.resource.equipment[1].name
-    );
+  it('renders the type of the given resource in props', () => {
+    const typeLabel = getWrapper().find('.app-ResourceCard__unit-name').find('span');
+    expect(typeLabel).to.have.length(1);
+    expect(typeLabel.text()).to.equal(defaultProps.unit.name);
   });
 
   it('renders ResourceAvailability with correct props', () => {
@@ -241,7 +245,7 @@ describe('shared/resource-card/ResourceCard', () => {
     });
   });
 
-  describe('handleSearchByUnitName', () => {
+  describe('handleSearchByDistance', () => {
     let browserHistoryMock;
 
     before(() => {
@@ -253,9 +257,53 @@ describe('shared/resource-card/ResourceCard', () => {
     });
 
     it('calls browserHistory.push with correct path', () => {
-      getWrapper().instance().handleSearchByUnitName();
+      getWrapper({
+        resource: getResource({ distance: 5000 }),
+      }).instance().handleSearchByDistance();
       const actualPath = browserHistoryMock.lastCall.args[0];
-      const expectedPath = '/search?search=unit_name';
+      const expectedPath = '/search?distance=5000';
+
+      expect(browserHistoryMock.callCount).to.equal(1);
+      expect(actualPath).to.equal(expectedPath);
+    });
+  });
+
+  describe('handleSearchByPeopleCapacity', () => {
+    let browserHistoryMock;
+
+    before(() => {
+      browserHistoryMock = simple.mock(browserHistory, 'push');
+    });
+
+    after(() => {
+      simple.restore();
+    });
+
+    it('calls browserHistory.push with correct path', () => {
+      getWrapper().instance().handleSearchByPeopleCapacity();
+      const actualPath = browserHistoryMock.lastCall.args[0];
+      const expectedPath = '/search?people=16';
+
+      expect(browserHistoryMock.callCount).to.equal(1);
+      expect(actualPath).to.equal(expectedPath);
+    });
+  });
+
+  describe('handleSearchByUnit', () => {
+    let browserHistoryMock;
+
+    before(() => {
+      browserHistoryMock = simple.mock(browserHistory, 'push');
+    });
+
+    after(() => {
+      simple.restore();
+    });
+
+    it('calls browserHistory.push with correct path', () => {
+      getWrapper().instance().handleSearchByUnit();
+      const actualPath = browserHistoryMock.lastCall.args[0];
+      const expectedPath = '/search?unit=unit_value';
 
       expect(browserHistoryMock.callCount).to.equal(1);
       expect(actualPath).to.equal(expectedPath);

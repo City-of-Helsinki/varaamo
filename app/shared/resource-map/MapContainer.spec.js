@@ -104,11 +104,6 @@ describe('shared/resource-map/MapContainer', () => {
     expect(element).to.have.length(0);
   });
 
-  it('renders an overlay div', () => {
-    const element = getWrapper().find('.app-ResourceMap__overlay');
-    expect(element).to.have.length(1);
-  });
-
   describe('with a geolocalized user', () => {
     it('centers the map on users position', () => {
       const position = {

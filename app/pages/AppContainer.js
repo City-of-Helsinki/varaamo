@@ -12,34 +12,12 @@ import Favicon from 'shared/favicon';
 import Header from 'shared/header';
 import TestSiteMessage from 'shared/test-site-message';
 import Notifications from 'shared/notifications';
-import ResourceMap from 'shared/resource-map';
 import { getCustomizationClassName } from 'utils/customizationUtils';
 
 const userIdSelector = state => state.auth.userId;
-const searchResultIdsSelector = (state, props) => {
-  if (props.location.pathname.slice(0, 11) === '/resources/') {
-    return [state.ui.resourceMap.resourceId];
-  }
-  return state.ui.search.results;
-};
-const showMapSelector = (state, props) => {
-  if (props.location.pathname.slice(0, 11) === '/resources/') {
-    return state.ui.resourceMap.showMap;
-  }
-  return state.ui.search.showMap;
-};
-const selectedUnitIdSelector = (state, props) => {
-  if (props.location.pathname.slice(0, 11) === '/resources/') {
-    return state.ui.resourceMap.unitId;
-  }
-  return state.ui.search.unitId;
-};
 
 export const selector = createStructuredSelector({
   userId: userIdSelector,
-  searchResultIds: searchResultIdsSelector,
-  selectedUnitId: selectedUnitIdSelector,
-  showMap: showMapSelector,
 });
 
 export class UnconnectedAppContainer extends Component {
@@ -82,12 +60,6 @@ export class UnconnectedAppContainer extends Component {
               <Grid>
                 <Notifications />
               </Grid>
-              <ResourceMap
-                location={this.props.location}
-                resourceIds={this.props.searchResultIds}
-                selectedUnitId={this.props.selectedUnitId}
-                showMap={this.props.showMap}
-              />
               {this.props.children}
             </div>
           </div>
@@ -102,9 +74,6 @@ UnconnectedAppContainer.propTypes = {
   enableGeoposition: PropTypes.func.isRequired,
   fetchUser: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
-  searchResultIds: PropTypes.array.isRequired,
-  selectedUnitId: PropTypes.string,
-  showMap: PropTypes.bool.isRequired,
   userId: PropTypes.string,
 };
 

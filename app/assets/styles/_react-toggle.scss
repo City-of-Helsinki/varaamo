@@ -1,0 +1,38 @@
+.react-toggle {
+  margin-right: 10px;
+  vertical-align: middle;
+
+  &.react-toggle--checked .react-toggle-track,
+  &:not(.react-toggle--checked) .react-toggle-track {
+    background-color: $black;
+  }
+
+  &.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track,
+  &:focus:not(.react-toggle--disabled) .react-toggle-track,
+  &:hover:not(.react-toggle--disabled) .react-toggle-track {
+    background-color: $green !important;
+  }
+
+  .react-toggle-track {
+    position: relative;
+    background-color: $black;
+  }
+  &:hover .react-toggle-track,
+  &:active .react-toggle-track {
+    background-color: $black;
+  }
+  .react-toggle-thumb,
+  &.react-toggle--checked .react-toggle-thumb {
+    box-shadow: none;
+    border-color: $black;
+    border-width: 2px;
+  }
+  &:focus .react-toggle-thumb,
+  &:hover .react-toggle-thumb,
+  &:active .react-toggle-thumb,
+  &:active:not(.react-toggle--disabled) .react-toggle-thumb,
+  &.react-toggle--focus .react-toggle-thumb {
+    box-shadow: none !important;
+    background-color: $white;
+  }
+}

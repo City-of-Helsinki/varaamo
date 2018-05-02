@@ -47,3 +47,15 @@
     padding: 20px;
   }
 }
+
+@mixin icon-angle-left($_color) {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cstyle type='text/css'%3E .lc%7Bfill:%23#{str-slice(inspect($_color), 2)};%7D%3C/style%3E%3Cpath class='lc' d='M224 251l88.4-88.4-30.4-30.4-88.4 88.4-30.4 30.4 30.4 30.4 88.4 88.4 30.4-30.4z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+@mixin icon-angle-right($_color) {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cstyle type='text/css'%3E .lc%7Bfill:%23#{str-slice(inspect($_color), 2)};%7D%3C/style%3E%3Cpath class='lc' d='M289 251l-88.4 88.4 30.4 30.4 88.4-88.4 30.4-30.4-30.4-30.4-88.4-88.4-30.4 30.4z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+}

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
 
 import ResourceCard from 'shared/resource-card';
@@ -8,6 +8,7 @@ import selector from './ResourceCompactListSelector';
 export class UnconnectedResourceCompactList extends React.Component {
   static propTypes = {
     date: PropTypes.string.isRequired,
+    location: PropTypes.object.isRequired,
     resourceIds: PropTypes.array.isRequired,
   };
 
@@ -38,28 +39,32 @@ export class UnconnectedResourceCompactList extends React.Component {
   }
 
   render() {
+    const { resourcePosition } = this.state;
+    const { resourceIds } = this.props;
+    const resourceIdsLength = resourceIds.length;
     return (
       <div className="app-ResourceCompactList">
         {Boolean(this.props.resourceIds.length - 1) &&
-          <button
+          <Button
+            bsStyle="primary"
             className="app-ResourceCompactList_arrow app-ResourceCompactList_arrow-left"
+            disabled={resourcePosition === 0}
             onClick={this.onPreviousResource}
-          >
-            <Glyphicon glyph="chevron-left" />
-          </button>
+          />
         }
         <ResourceCard
           date={this.props.date}
-          resourceId={this.props.resourceIds[this.state.resourcePosition]}
-          stacked={Boolean(this.props.resourceIds.length - 1)}
+          location={this.props.location}
+          resourceId={resourceIds[resourcePosition]}
+          stacked={Boolean(resourceIdsLength - 1)}
         />
-        {Boolean(this.props.resourceIds.length - 1) &&
-          <button
+        {Boolean(resourceIdsLength - 1) &&
+          <Button
+            bsStyle="primary"
             className="app-ResourceCompactList_arrow app-ResourceCompactList_arrow-right"
+            disabled={resourcePosition === resourceIdsLength - 1}
             onClick={this.onNextResource}
-          >
-            <Glyphicon glyph="chevron-right" />
-          </button>
+          />
         }
       </div>
     );

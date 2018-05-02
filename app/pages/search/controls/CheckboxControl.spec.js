@@ -1,8 +1,6 @@
 import { expect } from 'chai';
 import React from 'react';
-import Checkbox from 'react-bootstrap/lib/Checkbox';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
+import Toggle from 'react-toggle';
 import simple from 'simple-mock';
 
 import { shallowWithIntl } from 'utils/testUtils';
@@ -24,34 +22,23 @@ describe('pages/search/controls/CheckboxControl', () => {
     expect(wrapper.is('div.app-CheckboxControl')).to.be.true;
   });
 
-  it('renders a FormGroup with correct props', () => {
-    const formGroup = getWrapper({}).find(FormGroup);
-    expect(formGroup).to.have.length(1);
-    expect(formGroup.prop('controlId')).to.equal(defaults.id);
+  it('renders a Toggle with correct props', () => {
+    const toggle = getWrapper({}).find(Toggle);
+    expect(toggle).to.have.length(1);
+    expect(toggle.prop('defaultChecked')).to.equal(defaults.value);
+    expect(toggle.prop('onChange')).to.be.a('function');
   });
 
-  it('renders a ControlLabel', () => {
-    const controlLabel = getWrapper({}).find(ControlLabel);
-    expect(controlLabel).to.have.length(1);
-  });
-
-  it('renders a Checkbox with correct props', () => {
-    const checkbox = getWrapper({}).find(Checkbox);
-    expect(checkbox).to.have.length(1);
-    expect(checkbox.prop('checked')).to.equal(defaults.value);
-    expect(checkbox.prop('onClick')).to.be.a('function');
-  });
-
-  it('Checkbox onClick calls prop onConfirm', () => {
+  it('Checkbox onChange calls prop onConfirm', () => {
     const onConfirm = simple.mock();
     const mockEvent = {
       target: {
         checked: true,
       },
     };
-    const checkbox = getWrapper({ onConfirm }).find(Checkbox);
-    expect(checkbox).to.have.length(1);
-    checkbox.prop('onClick')(mockEvent);
+    const toggle = getWrapper({ onConfirm }).find(Toggle);
+    expect(toggle).to.have.length(1);
+    toggle.prop('onChange')(mockEvent);
     expect(onConfirm.callCount).to.equal(1);
     expect(onConfirm.lastCall.args).to.deep.equal([true]);
   });

@@ -4,12 +4,21 @@
 
 .app-SearchControlsContainer {
   background-color: $hel-copper;
-  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
 
   &__content {
-    padding: 30px;
+    padding: 30px 0;
   }
-
+  &__control {
+    padding-top: 15px;
+  }
+  &__buttons {
+    padding-top: 15px;
+  }
+  &__submit-button {
+    min-width: 120px;
+  }
   &__reset-button {
     img {
       width: $line-height-computed;
@@ -21,6 +30,7 @@
   .panel {
     background-color: transparent;
     box-shadow: none;
+    margin: 15px 0;
     .panel-heading {
       background-color: transparent;
       padding-left: 0;
@@ -50,8 +60,7 @@
       }
     }
     .panel-body {
-      padding-left: 0;
-      padding-right: 0;
+      padding: 0;
     }
   }
   .select:before {
@@ -70,28 +79,6 @@
     transition: all 0s ease 0s;
   }
 
-  .checkbox {
-    margin: 0;
-
-    input[type=checkbox] {
-      width: 24px;
-      height: 24px;
-      cursor: pointer;
-      font-size: 24px;
-      position: relative;
-    }
-
-    input[type=checkbox]:after {
-        content: "\2610";
-        background-color: $hel-copper;
-        display: inline-block;
-        visibility: visible;
-    }
-
-    input[type=checkbox]:checked:after {
-        content: "\2611";
-    }
-  }
   .glyphicon-triangle-bottom {
     font-size: 10px;
   }
@@ -122,10 +109,7 @@
 // ---------------------
 
 .app-PositionControl {
-
-  &__content {
-    padding: 15px;
-  }
+  padding-top: 15px;
 
   &__toggle-content > label {
     display: flex;
@@ -133,27 +117,10 @@
     font-weight: normal;
     white-space: normal;
   }
-  &__geolocation-toggle.react-toggle {
-    margin-left: 10px;
-    vertical-align: middle;
-
-    .react-toggle-track {
-      position: relative;
-      background-color: $copper;
-    }
-    &:hover .react-toggle-track,
-    &:active .react-toggle-track {
-      background-color: $copper;
-    }
-    .react-toggle-thumb {
-      box-shadow: none;
-      border-color: $copper;
-    }
-    &:hover .react-toggle-thumb,
-    &:active .react-toggle-thumb {
-      box-shadow: none;
-      background-color: $copper;
-    }
+  &__label {
+    line-height: $line-height-computed;
+    display: inline-block;
+    font-weight: normal;
   }
 
   &__distance_slider{
@@ -162,7 +129,14 @@
       z-index: 40000;
     }
     .rc-slider-track {
-      background-color: $copper;
+      background-color: $black;
+    }
+    .rc-slider-handle,
+    .rc-slider-handle:active,
+    .rc-slider-handle:hover,
+    .rc-slider-handle:focus {
+      border-color: $black;
+      box-shadow: none;
     }
   }
 
@@ -275,39 +249,11 @@
   }
 }
 
-// PeopleCapacityControl styles
-// ----------------------------
+.app-CheckboxControl {
+  padding-top: 15px;
 
-.app-PeopleCapacityControl {
-  display: inline-block;
-  margin-left: 10px;
-  position: relative;
-
-  @media (min-width: $screen-sm-min) {
-    margin-left: 15px;
-  }
-
-  .app-SearchControlOverlay {
-    @media (max-width: $screen-sm-min) {
-      right: 2px;
-    }
-  }
-
-  &__show-button {
-    @include search-control-button($orange);
-  }
-
-  .app-SearchControlOverlay__header {
-    background-color: $orange;
-  }
-
-  .list-group {
-    max-height: 210px;
-    overflow-y: scroll;
-  }
-
-  .list-group-item {
-    padding: 8px 15px;
+  &__label {
+    font-weight: normal;
   }
 }
 

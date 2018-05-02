@@ -5,6 +5,7 @@ import simple from 'simple-mock';
 
 import PageWrapper from 'pages/PageWrapper';
 import { shallowWithIntl } from 'utils/testUtils';
+import ResourceMap from 'shared/resource-map';
 import { UnconnectedSearchPage as SearchPage } from './SearchPage';
 import SearchControls from './controls';
 import SearchResults from './results/SearchResults';
@@ -57,8 +58,8 @@ describe('pages/search/SearchPage', () => {
       const pageWrapper = getWrapper().find(PageWrapper);
       expect(pageWrapper).to.have.length(1);
       expect(pageWrapper.prop('className')).to.equal('app-SearchPage__wrapper');
-      expect(pageWrapper.prop('fluid')).to.be.true;
       expect(pageWrapper.prop('title')).to.equal('SearchPage.title');
+      expect(pageWrapper.prop('transparent')).to.be.true;
     });
 
     it('renders a MapToggle component with correct props', () => {
@@ -69,6 +70,19 @@ describe('pages/search/SearchPage', () => {
         onClick: defaultProps.actions.toggleMap,
         resultsCount: defaultProps.searchResultIds.length,
       });
+    });
+
+    it('renders a ResourceMap with correct props', () => {
+      const props = {
+        searchResultIds: Immutable(['resource-1', 'resource-2']),
+        selectedUnitId: '123',
+        showMap: true,
+      };
+      const resourceMap = getWrapper(props).find(ResourceMap);
+      expect(resourceMap).to.have.length(1);
+      expect(resourceMap.prop('showMap')).to.equal(true);
+      expect(resourceMap.prop('resourceIds')).to.deep.equal(props.searchResultIds);
+      expect(resourceMap.prop('selectedUnitId')).to.equal(props.selectedUnitId);
     });
 
     describe('SearchResults', () => {
