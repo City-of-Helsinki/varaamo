@@ -56,9 +56,11 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       const filters = { ...defaultProps.filters, search: 'my search' };
       const wrapper = getWrapper({ filters });
       const searchBox = wrapper.find(SearchBox);
+      const expectedOptions = defaultProps.purposeOptions.concat(defaultProps.unitOptions);
       expect(searchBox).to.have.length(1);
       expect(searchBox.prop('onChange')).to.be.a('function');
       expect(searchBox.prop('onSearch')).to.equal(wrapper.instance().handleSearch);
+      expect(searchBox.prop('options')).to.deep.equal(expectedOptions);
       expect(searchBox.prop('value')).to.equal(filters.search);
     });
 
@@ -374,10 +376,15 @@ describe('pages/search/controls/SearchControlsContainer', () => {
   });
 
   describe('handleReset', () => {
+    const disableGeoposition = simple.mock();
     let instance;
 
     before(() => {
-      instance = getWrapper().instance();
+      const props = {
+        actions: { disableGeoposition },
+        position: { lat: 1, lon: 2 },
+      };
+      instance = getWrapper(props).instance();
       instance.handleFiltersChange = simple.mock();
       instance.handleReset();
     });
@@ -390,6 +397,10 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       const emptyFilters = Object.assign({}, constants.SUPPORTED_SEARCH_FILTERS);
       expect(instance.handleFiltersChange.callCount).to.equal(1);
       expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal(emptyFilters);
+    });
+
+    it('calls disableGeoposition with empty filters', () => {
+      expect(disableGeoposition.callCount).to.equal(1);
     });
   });
 

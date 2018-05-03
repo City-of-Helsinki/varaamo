@@ -46,8 +46,8 @@ class UnconnectedSearchControlsContainer extends Component {
   }
 
   hasAdvancedFilters() {
-    const { filters } = this.props;
-    let hasFilters = false;
+    const { filters, position } = this.props;
+    let hasFilters = Boolean(position);
     ['charge', 'distance', 'purpose', 'unit'].forEach((key) => {
       if (filters[key]) {
         hasFilters = true;
@@ -90,6 +90,9 @@ class UnconnectedSearchControlsContainer extends Component {
 
   handleReset = () => {
     const emptyFilters = Object.assign({}, constants.SUPPORTED_SEARCH_FILTERS);
+    if (this.props.position) {
+      this.props.actions.disableGeoposition();
+    }
     this.handleFiltersChange(emptyFilters);
   }
 
@@ -103,6 +106,7 @@ class UnconnectedSearchControlsContainer extends Component {
       unitOptions,
     } = this.props;
     const peopleCapacityOptions = this.getPeopleCapacityOptions();
+    const searchBoxOptions = purposeOptions.concat(unitOptions);
     const hasFilters = this.hasAdvancedFilters();
 
     return (
@@ -115,6 +119,7 @@ class UnconnectedSearchControlsContainer extends Component {
                 <SearchBox
                   onChange={this.handleSearchBoxChange}
                   onSearch={this.handleSearch}
+                  options={searchBoxOptions}
                   value={filters.search}
                 />
               </Col>
