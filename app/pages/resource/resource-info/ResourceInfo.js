@@ -1,46 +1,14 @@
 import upperFirst from 'lodash/upperFirst';
 import React, { PropTypes } from 'react';
-import FontAwesome from 'react-fontawesome';
+import Col from 'react-bootstrap/lib/Col';
+import Panel from 'react-bootstrap/lib/Panel';
+import Row from 'react-bootstrap/lib/Row';
+import { Link } from 'react-router';
 
 import { injectT } from 'i18n';
 import WrappedText from 'shared/wrapped-text';
-import FavoriteButton from 'shared/favorite-button';
-import Label from 'shared/label';
-import { getHourlyPrice } from 'utils/resourceUtils';
-import ImageCarousel from './ImageCarousel';
-
-function getAddress({ addressZip, municipality, name, streetAddress }) {
-  const parts = [
-    name,
-    streetAddress,
-    `${addressZip} ${upperFirst(municipality)}`.trim(),
-  ];
-  return parts.filter(part => part).join(', ');
-}
-
-function renderEquipment(equipment, t) {
-  return equipment.length ?
-    <div className="app-ResourceInfo__equipment">
-      <h5 className="app-ResourceInfo__equipment-header">{t('ResourceInfo.equipmentHeader')}</h5>
-      <table>
-        {equipment.map(item =>
-          <tr key={`equipment-row-${item.id}`}>
-            <td>
-              <Label
-                className="app-ResourceInfo__equipment-label"
-                size="small"
-                theme="gold"
-              >
-                {item.name}
-              </Label>
-            </td>
-            <td>{item.description}</td>
-          </tr>
-        )}
-      </table>
-    </div> :
-    null;
-}
+import { getTermsAndConditions } from 'utils/resourceUtils';
+import ReservationInfo from '../reservation-info';
 
 function orderImages(images) {
   return [].concat(
@@ -49,51 +17,54 @@ function orderImages(images) {
   );
 }
 
-function ResourceInfo({ isAdmin, resource, unit, t }) {
+function ResourceInfo({ isLoggedIn, resource, unit, t }) {
+  const termsAndConditions = getTermsAndConditions(resource);
+  const images = orderImages(resource.images || []);
   return (
-    <section className="app-ResourceInfo">
-      <div className="app-ResourceInfo__images-wrapper">
-        <ImageCarousel images={orderImages(resource.images) || []} />
-        <div className="app-ResourceInfo__top-bar">
-          <h3>{resource.name} {isAdmin && <FavoriteButton resource={resource} />}</h3>
-          <p className="app-ResourceInfo__address">{getAddress(unit)}</p>
-        </div>
-        <div className="app-ResourceInfo__bottom-bar">
-          <div className="app-ResourceInfo__hourly-price">
-            {getHourlyPrice(t, resource)}
+    <Row>
+      <Col md={8} xs={12}>
+        <section className="app-ResourceInfo">
+          <div className="app-ResourceInfo__description">
+            {resource.description && <WrappedText text={resource.description} />}
           </div>
-          <div className="app-ResourceInfo__labels">
-            <Label
-              className="app-ResourceInfo__peopleCapacity app-ResourceInfo__label"
-              shape="rounded"
-              size="medium"
-              theme="orange"
-            >
-              <FontAwesome name="users" /> {resource.peopleCapacity}
-            </Label>
-            <Label
-              className="app-ResourceInfo__type app-ResourceInfo__label"
-              shape="rounded"
-              size="medium"
-              theme="blue"
-            >
-              <FontAwesome name="bullseye" /> {resource.type.name}
-            </Label>
+          <Panel collapsible header={t('ResourceInfo.reservationTitle')}>
+            {termsAndConditions &&
+              <WrappedText className="app-ResourceInfo__terms" text={termsAndConditions} />
+            }
+            <ReservationInfo
+              isLoggedIn={isLoggedIn}
+              resource={resource}
+            />
+          </Panel>
+          <Panel collapsible header={t('ResourceInfo.additionalInfoTitle')}>
+            <Row>
+              <Col className="app-ResourceInfo__address" xs={6}>
+                {unit.name && <span>{unit.name}</span>}
+                {unit.streetAddress && <span>{unit.streetAddress}</span>}
+                <span>{`${unit.addressZip} ${upperFirst(unit.municipality)}`.trim()}</span>
+              </Col>
+              <Col className="app-ResourceInfo__web" xs={6}>
+                {unit.wwwUrl &&
+                  <Link to={unit.wwwUrl}>{unit.wwwUrl}</Link>
+                }
+              </Col>
+            </Row>
+          </Panel>
+        </section>
+      </Col>
+      <Col md={4} xs={12}>
+        {images.map(image => (
+          <div className="app-ResourceInfo__image-wrapper" key={image.caption}>
+            <img alt={image.caption} className="app-ResourceInfo__image" src={image.url} />
           </div>
-        </div>
-      </div>
-      <div className="app-ResourceInfo__content">
-        <div className="app-ResourceInfo__description">
-          {resource.description && <WrappedText text={resource.description} />}
-        </div>
-        {renderEquipment(resource.equipment, t)}
-      </div>
-    </section>
+        ))}
+      </Col>
+    </Row>
   );
 }
 
 ResourceInfo.propTypes = {
-  isAdmin: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
   resource: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
   unit: PropTypes.object.isRequired,

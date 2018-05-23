@@ -1,4 +1,4 @@
-import pick from 'lodash/pick';
+import { first, last, orderBy, pick } from 'lodash';
 import camelCase from 'lodash/camelCase';
 import React, { Component, PropTypes } from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
@@ -78,7 +78,11 @@ class ConfirmReservationModal extends Component {
     if (isEditing) {
       reservation = reservationsToEdit.length ? reservationsToEdit[0] : null;
     } else {
-      reservation = selectedReservations.length ? selectedReservations[0] : null;
+      const orderedSelected = orderBy(selectedReservations, 'begin');
+      const firstReservation = first(orderedSelected);
+      const lastReservation = last(orderedSelected);
+      const endReservation = lastReservation ? { end: lastReservation.end } : {};
+      reservation = firstReservation ? Object.assign({}, firstReservation, endReservation) : null;
     }
 
     let rv = reservation ? pick(reservation, this.getFormFields()) : {};

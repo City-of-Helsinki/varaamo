@@ -1,9 +1,10 @@
-import moment from 'moment';
 import React, { PropTypes } from 'react';
 import { FormattedHTMLMessage } from 'react-intl';
-import Well from 'react-bootstrap/lib/Well';
+import iconUser from 'hel-icons/dist/shapes/user-o.svg';
 
+import iconClock from 'assets/icons/clock-o.svg';
 import WrappedText from 'shared/wrapped-text';
+import { getMaxPeriodText } from 'utils/resourceUtils';
 import { injectT } from 'i18n';
 
 function renderLoginText(isLoggedIn, resource) {
@@ -17,14 +18,15 @@ function renderLoginText(isLoggedIn, resource) {
   );
 }
 
-function renderMaxPeriodText(maxPeriod, t) {
-  if (!maxPeriod) {
+function renderMaxPeriodText(resource, t) {
+  if (!resource.maxPeriod) {
     return null;
   }
-  const asHours = moment.duration(maxPeriod).asHours();
+  const maxPeriodText = getMaxPeriodText(t, resource);
   return (
     <p className="max-length-text">
-      {t('ReservationInfo.reservationMaxLength', { asHours })}
+      <img alt="" className="app-ResourceHeader__info-icon" src={iconClock} />
+      <b>{t('ReservationInfo.reservationMaxLength')}</b> {maxPeriodText}
     </p>
   );
 }
@@ -35,19 +37,20 @@ function renderMaxReservationsPerUserText(maxReservationsPerUser, t) {
   }
   return (
     <p className="max-number-of-reservations-text">
-      {t('ReservationInfo.maxNumberOfReservations', { maxReservationsPerUser })}
+      <img alt="" className="app-ResourceHeader__info-icon" src={iconUser} />
+      <b>{t('ReservationInfo.maxNumberOfReservations')}</b> {maxReservationsPerUser}
     </p>
   );
 }
 
 function ReservationInfo({ isLoggedIn, resource, t }) {
   return (
-    <Well id="reservation-info">
+    <div className="app-ReservationInfo">
       <WrappedText text={resource.reservationInfo} />
-      {renderMaxPeriodText(resource.maxPeriod, t)}
+      {renderMaxPeriodText(resource, t)}
       {renderMaxReservationsPerUserText(resource.maxReservationsPerUser, t)}
       {renderLoginText(isLoggedIn, resource)}
-    </Well>
+    </div>
   );
 }
 

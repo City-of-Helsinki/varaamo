@@ -1,8 +1,13 @@
 $horizontal-margin: 20px;
 
 .app-ResourceInfo {
+  &__image-wrapper {
+    padding: 0 0 30px 0;
+    .app-ResourceInfo__image {
+      max-width: 100%;
+    }
+  }
   &__images-wrapper {
-    position: relative;
     color: $white;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     background-color: $medium-gray;
@@ -18,7 +23,6 @@ $horizontal-margin: 20px;
   }
 
   &__top-bar {
-    position: absolute;
     top: 0;
     left: 0;
     right: 0;
@@ -34,7 +38,9 @@ $horizontal-margin: 20px;
   }
 
   &__address {
-    font-size: 1.4rem;
+    span {
+      display: block;
+    }
   }
 
   &__bottom-bar {
@@ -68,11 +74,6 @@ $horizontal-margin: 20px;
 
   &__content {
     margin: $horizontal-margin;
-  }
-
-  &__description {
-    margin-top: 10px;
-    margin-bottom: 10px;
   }
 
   &__equipment {

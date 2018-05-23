@@ -1,5 +1,9 @@
-import includes from 'lodash/includes';
+import find from 'lodash/find';
+import first from 'lodash/first';
+import last from 'lodash/last';
+import orderBy from 'lodash/orderBy';
 import without from 'lodash/without';
+import moment from 'moment';
 import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
@@ -21,9 +25,12 @@ const initialState = Immutable({
 function selectReservationToEdit(state, action) {
   const { minPeriod, reservation } = action.payload;
   const selected = getTimeSlots(reservation.begin, reservation.end, minPeriod).map(
-    slot => slot.asISOString
+    slot => ({
+      begin: slot.start,
+      end: slot.end,
+      resource: reservation.resource,
+    })
   );
-
   return state.merge({
     selected,
     toEdit: [reservation],
@@ -114,8 +121,21 @@ function reservationsReducer(state = initialState, action) {
 
     case types.UI.TOGGLE_TIME_SLOT: {
       const slot = action.payload;
-      if (includes(state.selected, slot)) {
-        return state.merge({ selected: without(state.selected, slot) });
+      const stateSlot = find(state.selected, slot);
+      if (stateSlot) {
+        return state.merge({ selected: without(state.selected, stateSlot) });
+      } else if (state.selected.length <= 1) {
+        return state.merge({ selected: [...state.selected, slot] });
+      }
+      const orderedSelected = orderBy(state.selected, 'begin');
+      const firstSelected = first(orderedSelected);
+      const lastSelected = last(orderedSelected);
+      if (moment(lastSelected.start).isSameOrAfter(slot.start)) {
+        return state.merge({ selected: [...without(state.selected, lastSelected), slot] });
+      }
+      if (moment(firstSelected.start).isSameOrAfter(slot.start) &&
+        moment(lastSelected.start).isSameOrBefore(slot.start)) {
+        return state.merge({ selected: [...without(state.selected, lastSelected), slot] });
       }
       return state.merge({ selected: [...state.selected, slot] });
     }

@@ -110,6 +110,15 @@ function getHumanizedPeriod(period) {
   return `${moment.duration(period).hours()} h`;
 }
 
+function getMaxPeriodText(t, { maxPeriod }) {
+  const hours = moment.duration(maxPeriod).asHours();
+  const days = parseInt(moment.duration(maxPeriod).asDays(), 10);
+  if (days > 0) {
+    return t('ResourceHeader.maxPeriodDays', { days });
+  }
+  return t('ResourceHeader.maxPeriodHours', { hours });
+}
+
 function getOpeningHours(resource, selectedDate) {
   if (resource && resource.openingHours && resource.openingHours.length) {
     if (selectedDate) {
@@ -174,6 +183,7 @@ export {
   getAvailabilityDataForWholeDay,
   getHourlyPrice,
   getHumanizedPeriod,
+  getMaxPeriodText,
   getOpeningHours,
   getOpenReservations,
   getResourcePageUrl,

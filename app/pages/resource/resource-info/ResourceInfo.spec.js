@@ -1,36 +1,40 @@
 import { expect } from 'chai';
 import React from 'react';
-import FontAwesome from 'react-fontawesome';
+import Panel from 'react-bootstrap/lib/Panel';
 import Immutable from 'seamless-immutable';
+import { Link } from 'react-router';
 
 import WrappedText from 'shared/wrapped-text';
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
 import { shallowWithIntl } from 'utils/testUtils';
-import FavoriteButton from 'shared/favorite-button';
-import Label from 'shared/label';
-import ImageCarousel from './ImageCarousel';
 import ResourceInfo from './ResourceInfo';
+import ReservationInfo from '../reservation-info';
 
 describe('pages/resource/resource-info/ResourceInfo', () => {
   const defaultProps = {
-    isAdmin: false,
+    isLoggedIn: false,
     resource: Immutable(Resource.build({
       description: 'Some description',
       images: [
         {
-          foo: 'bar',
-          type: 'other',
-        },
-        {
-          foo: 'bar',
+          caption: 'caption 1',
+          url: 'url 1',
           type: 'main',
         },
         {
-          foo: 'bar',
+          caption: 'caption 2',
+          url: 'url 2',
+          type: 'other',
+        },
+        {
+          caption: 'caption 3',
+          url: 'url 3',
           type: 'other',
         },
       ],
+      genericTerms: 'some generic terms',
+      specificTerms: 'some specific terms',
       maxPricePerHour: '30',
       peopleCapacity: '16',
       type: {
@@ -44,26 +48,29 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
     return shallowWithIntl(<ResourceInfo {...defaultProps} {...extraProps} />);
   }
 
-  describe('FavoriteButton', () => {
-    it('is not rendered if user is not admin', () => {
-      const favoriteButton = getWrapper({ isAdmin: false }).find(FavoriteButton);
+  it('renders resource description as WrappedText', () => {
+    const wrappedText = getWrapper().find('.app-ResourceInfo__description').find(WrappedText);
+    const expectedText = defaultProps.resource.description;
 
-      expect(favoriteButton.length).to.equal(0);
-    });
-
-    it('is rendered with correct props if user is admin', () => {
-      const favoriteButton = getWrapper({ isAdmin: true }).find(FavoriteButton);
-
-      expect(favoriteButton.length).to.equal(1);
-      expect(favoriteButton.prop('resource')).to.deep.equal(defaultProps.resource);
-    });
+    expect(wrappedText).to.have.length(1);
+    expect(wrappedText.prop('text')).to.equal(expectedText);
   });
 
-  it('renders the name of the resource inside a h3 header', () => {
-    const header = getWrapper().find('h3');
-    const expected = defaultProps.resource.name;
+  it('renders collapsible panels with correct props', () => {
+    const panels = getWrapper().find(Panel);
 
-    expect(header.props().children).to.contain(expected);
+    expect(panels).to.have.length(2);
+    expect(panels.at(0).prop('header')).to.equal('ResourceInfo.reservationTitle');
+    expect(panels.at(0).prop('collapsible')).to.be.true;
+    expect(panels.at(1).prop('header')).to.equal('ResourceInfo.additionalInfoTitle');
+    expect(panels.at(1).prop('collapsible')).to.be.true;
+  });
+
+  it('renders ReservationInfo with correct props', () => {
+    const reservationInfo = getWrapper().find(ReservationInfo);
+    expect(reservationInfo).to.have.length(1);
+    expect(reservationInfo.prop('isLoggedIn')).to.equal(defaultProps.isLoggedIn);
+    expect(reservationInfo.prop('resource')).to.deep.equal(defaultProps.resource);
   });
 
   it('renders the unit name and address', () => {
@@ -73,112 +80,44 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
       name: 'Unit name',
       streetAddress: 'Test street 12',
     });
-    const address = getWrapper({ unit }).find('.app-ResourceInfo__address');
-    const expected = 'Unit name, Test street 12, 99999 Helsinki';
+    const addressSpan = getWrapper({ unit }).find('.app-ResourceInfo__address').find('span');
 
-    expect(address.props().children).to.equal(expected);
+    expect(addressSpan).to.have.length(3);
+    expect(addressSpan.at(0).text()).to.equal(unit.name);
+    expect(addressSpan.at(1).text()).to.equal(unit.streetAddress);
+    expect(addressSpan.at(2).text()).to.equal('99999 Helsinki');
   });
 
-  it('renders a hourly price', () => {
-    const hourlyPriceSpan = getWrapper().find(
-      '.app-ResourceInfo__hourly-price'
-    );
-
-    expect(hourlyPriceSpan.text()).to.contain('30 €/h');
-  });
-
-
-  it('renders a label with people capacity', () => {
-    const peopleCapacityLabel = getWrapper().find(
-      '.app-ResourceInfo__peopleCapacity'
-    );
-
-    expect(peopleCapacityLabel.is(Label)).to.be.true;
-    expect(peopleCapacityLabel.prop('shape')).to.equal('rounded');
-    expect(peopleCapacityLabel.prop('size')).to.equal('medium');
-    expect(peopleCapacityLabel.prop('theme')).to.equal('orange');
-    expect(peopleCapacityLabel.html()).to.contain('16');
-    expect(peopleCapacityLabel.find(FontAwesome)).to.have.length(1);
-    expect(peopleCapacityLabel.find(FontAwesome).prop('name')).to.equal('users');
-  });
-
-  it('renders a label with type name', () => {
-    const typeLabel = getWrapper().find(
-      '.app-ResourceInfo__type'
-    );
-
-    expect(typeLabel.is(Label)).to.be.true;
-    expect(typeLabel.prop('shape')).to.equal('rounded');
-    expect(typeLabel.prop('size')).to.equal('medium');
-    expect(typeLabel.prop('theme')).to.equal('blue');
-    expect(typeLabel.find(FontAwesome)).to.have.length(1);
-    expect(typeLabel.find(FontAwesome).prop('name')).to.equal('bullseye');
-    expect(typeLabel.html()).to.contain('workplace');
-  });
-
-  it('renders ImageCarousel component with ordered resource images', () => {
-    const imageCarousel = getWrapper().find(ImageCarousel);
-
-    expect(imageCarousel.length).to.equal(1);
-    expect(imageCarousel.prop('images')).to.deep.equal([
-      defaultProps.resource.images[1],     // main image
-      defaultProps.resource.images[0],
-      defaultProps.resource.images[2],
-    ]);
-  });
-  describe('equipment', () => {
-    const equippedResource = {
-      ...defaultProps.resource,
-      equipment: [
-        { id: 1,
-          name: 'projector',
-          description: 'description a',
-        },
-        { id: 2,
-          name: 'whiteboard',
-          description: 'description b',
-        },
-      ],
-    };
-    function getEquipmentWrapper(props) {
-      return getWrapper({ resource: equippedResource, ...props }).find('.app-ResourceInfo__equipment');
-    }
-
-    it('is rendered', () => {
-      const equipment = getEquipmentWrapper();
-      expect(equipment).to.have.length(1);
+  it('renders web address', () => {
+    const unit = Unit.build({
+      addressZip: '99999',
+      municipality: 'helsinki',
+      name: 'Unit name',
+      streetAddress: 'Test street 12',
+      wwwUrl: 'some-url',
     });
+    const link = getWrapper({ unit }).find(Link);
 
-    it('renders a header', () => {
-      const header = getEquipmentWrapper().find('.app-ResourceInfo__equipment-header');
-      expect(header.text()).to.equal('ResourceInfo.equipmentHeader');
-    });
-
-    it('renders the equipment name in labels', () => {
-      const labels = getEquipmentWrapper().find(Label);
-      expect(labels).to.have.length(2);
-      expect(labels.children().get(0)).to.equal('projector');
-      expect(labels.children().get(1)).to.equal('whiteboard');
-    });
-
-    it('renders the equipment description in table column', () => {
-      const columns = getEquipmentWrapper().find('td');
-      expect(columns).to.have.length(4);
-      expect(columns.children().get(1)).to.equal('description a');
-      expect(columns.children().get(3)).to.equal('description b');
-    });
+    expect(link).to.have.length(1);
+    expect(link.prop('to')).to.equal(unit.wwwUrl);
   });
 
-  it('does not render resource equipment if empty', () => {
-    const resourceEquipment = getWrapper().find('.resource-equipment');
-    expect(resourceEquipment).to.have.length(0);
+  it('renders termsAndConditions', () => {
+    const termsAndConditions = getWrapper().find('.app-ResourceInfo__terms');
+    const { genericTerms, specificTerms } = defaultProps.resource;
+    const expected = `${specificTerms}\n\n${genericTerms}`;
+    expect(termsAndConditions.is(WrappedText)).to.be.true;
+    expect(termsAndConditions.prop('text')).to.equal(expected);
   });
 
-  it('renders resource description as WrappedText', () => {
-    const wrappedText = getWrapper().find(WrappedText);
-    const expectedText = defaultProps.resource.description;
+  it('renders resource images', () => {
+    const images = getWrapper().find('.app-ResourceInfo__image');
 
-    expect(wrappedText.length).to.equal(1);
-    expect(wrappedText.props().text).to.equal(expectedText);
+    expect(images).to.have.length(defaultProps.resource.images.length);
+    images.forEach((image, index) => {
+      const imageProps = defaultProps.resource.images[index];
+      expect(image.props().alt).to.equal(imageProps.caption);
+      expect(image.props().src).to.equal(imageProps.url);
+    });
   });
 });

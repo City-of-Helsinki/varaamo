@@ -20,7 +20,7 @@ const staffEventSelectedSelector = state => (
 const selectedReservationsSelector = createSelector(
   (state, props) => props.selectedReservations,
   selectedReservationsFromStateSelector,
-  (fromProps, fromState) => fromProps || fromState
+  (fromProps, fromState) => fromProps || fromState,
 );
 
 const reservationConfirmationSelector = createStructuredSelector({

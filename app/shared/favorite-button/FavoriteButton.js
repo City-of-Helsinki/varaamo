@@ -1,23 +1,25 @@
 import React, { PropTypes } from 'react';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+import Button from 'react-bootstrap/lib/Button';
+import iconHeart from 'hel-icons/dist/shapes/heart-o.svg';
 
-function FavoriteButton({ favorited, onClick }) {
+import { injectT } from 'i18n';
+
+function FavoriteButton({ favorited, onClick, t }) {
+  const buttonText = t(`ResourceHeader.${favorited ? 'favoriteRemoveButton' : 'favoriteAddButton'}`);
   return (
-    <button
-      className="favorite-button"
-      onClick={onClick}
-    >
-      { favorited ?
-        <Glyphicon glyph="star" /> :
-          <Glyphicon glyph="star-empty" />
-      }
-    </button>
+    <Button className="favorite-button" onClick={onClick}>
+      <img alt={buttonText} className="favorite-button-icon" src={iconHeart} />
+      <span>{buttonText}</span>
+    </Button>
   );
 }
 
 FavoriteButton.propTypes = {
   favorited: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
 };
+
+FavoriteButton = injectT(FavoriteButton);  // eslint-disable-line
 
 export default FavoriteButton;

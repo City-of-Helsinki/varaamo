@@ -59,3 +59,15 @@
   background-size: contain;
   background-repeat: no-repeat;
 }
+
+@mixin icon-ban($_color) {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cstyle type='text/css'%3E .lc%7Bfill:%23#{str-slice(inspect($_color), 2)};%7D%3C/style%3E%3Cpath class='lc' d='M256 39.2c-120.5 0-218.2 97.7-218.2 218.2S135.5 475.7 256 475.7 474.2 378 474.2 257.5 376.5 39.2 256 39.2zM74.1 257.5c0-43.6 15.4-83.7 41.1-115l115 115 25.7 25.7 115 115c-31.4 25.7-71.4 41.1-115 41.1-100.2 0-181.8-81.6-181.8-181.8zm322.6 115l-115-115-25.7-25.8-115-115c31.4-25.7 71.4-41.1 115-41.1 100.3 0 181.9 81.6 181.9 181.9 0 43.6-15.5 83.6-41.2 115z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+@mixin icon-check($_color) {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cstyle type='text/css'%3E .lc%7Bfill:%23#{str-slice(inspect($_color), 2)};%7D%3C/style%3E%3Cpath class='lc' d='M198 342l-88.4-88.4L79.2 284l88.4 88.4 30.4 30.4 30.4-30.4L432.8 168l-30.4-30.4z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+}

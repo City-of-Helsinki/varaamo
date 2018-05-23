@@ -1,6 +1,8 @@
 .favorite-button {
-  border: none;
-  background-color: transparent;
-  font-size: 2.5rem;
-  color: $brand-danger;
+  .favorite-button-icon {
+    height: $line-height-computed;
+    width: $line-height-computed;
+    margin-right: 8px;
+    vertical-align: bottom;
+  }
 }

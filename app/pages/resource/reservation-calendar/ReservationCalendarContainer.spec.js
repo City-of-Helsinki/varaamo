@@ -25,8 +25,36 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     clearReservations: simple.stub(),
     openConfirmReservationModal: simple.stub(),
     selectReservationSlot: simple.stub(),
+    toggleTimeSlot: simple.stub(),
   };
   const resource = Resource.build();
+  const timeSlot1 = {
+    asISOString: '2016-10-10T10:00:00.000Z/2016-10-10T11:00:00.000Z',
+    asString: '10:00-11:00',
+    end: '2016-10-10T11:00:00.000Z',
+    index: 0,
+    reserved: false,
+    resource: 'some-resource-id',
+    start: '2016-10-10T10:00:00.000Z',
+  };
+  const timeSlot2 = {
+    asISOString: '2016-10-10T11:00:00.000Z/2016-10-10T12:00:00.000Z',
+    asString: '11:00-12:00',
+    end: '2016-10-10T12:00:00.000Z',
+    index: 1,
+    reserved: false,
+    resource: 'some-resource-id',
+    start: '2016-10-10T11:00:00.000Z',
+  };
+  const timeSlot3 = {
+    asISOString: '2016-10-11T10:00:00.000Z/2016-10-11T11:00:00.000Z',
+    asString: '10:00-11:00',
+    end: '2016-10-11T11:00:00.000Z',
+    index: 0,
+    reserved: false,
+    resource: 'some-resource-id',
+    start: '2016-10-11T10:00:00.000Z',
+  };
 
   const defaultProps = {
     actions,
@@ -41,8 +69,8 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     resource,
     selected: [],
     timeSlots: [
-      TimeSlot.build(),
-      TimeSlot.build(),
+      [TimeSlot.build()],
+      [TimeSlot.build()],
     ],
   };
   function getWrapper(props) {
@@ -89,8 +117,9 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       const confirmation = wrapper.find(ReservationConfirmation);
       expect(confirmation).to.have.length(1);
       expect(confirmation.prop('params')).to.deep.equal(defaultProps.params);
+      expect(confirmation.prop('selectedReservations')).to.deep.equal(props.selected);
       expect(confirmation.prop('showTimeControls')).to.be.true;
-      expect(confirmation.prop('timeSlots')).to.deep.equal(props.timeSlots || defaultProps.timeSlots);
+      expect(confirmation.prop('timeSlots')).to.deep.equal(props.timeSlots.length ? [timeSlot1, timeSlot2] : []);
     });
   }
 
@@ -106,11 +135,12 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     });
 
     describe('when date is in the past', () => {
-      const date = '2015-10-10';
+      const date = '2016-10-10';
+      const selected = [timeSlot1];
 
       describe('when resource is closed', () => {
         const timeSlots = [];
-        const props = { date, timeSlots };
+        const props = { date, selected, timeSlots };
         const options = {
           renderClosedText: true,
           renderRestrictedText: false,
@@ -120,8 +150,8 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       });
 
       describe('when resource is open', () => {
-        const timeSlots = [TimeSlot.build()];
-        const props = { date, timeSlots };
+        const timeSlots = [[timeSlot1, timeSlot2], [timeSlot3]];
+        const props = { date, selected, timeSlots };
         const options = {
           renderClosedText: false,
           renderRestrictedText: false,
@@ -133,10 +163,11 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
 
     describe('when date is not in the past', () => {
       const date = '2016-12-12';
+      const selected = [timeSlot1];
 
       describe('when resource is closed', () => {
         const timeSlots = [];
-        const props = { date, timeSlots };
+        const props = { date, selected, timeSlots };
         const options = {
           renderClosedText: true,
           renderRestrictedText: false,
@@ -146,14 +177,13 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       });
 
       describe('when resource is open', () => {
-        const timeSlots = [TimeSlot.build()];
-
+        const timeSlots = [[timeSlot1, timeSlot2], [timeSlot3]];
         describe('when reserving is restricted', () => {
           const restrictedResource = Resource.build({
             reservableBefore: '2016-11-11T06:00:00+03:00',
             reservableDaysInAdvance: 32,
           });
-          const props = { date, resource: restrictedResource, timeSlots };
+          const props = { date, resource: restrictedResource, selected, timeSlots };
           const options = {
             renderClosedText: false,
             renderRestrictedText: true,
@@ -163,7 +193,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
         });
 
         describe('when reserving is not restricted', () => {
-          const props = { date, timeSlots };
+          const props = { date, selected, timeSlots };
           const options = {
             renderClosedText: false,
             renderRestrictedText: false,
@@ -188,56 +218,6 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       const instance = getWrapper().instance();
       instance.handleEditCancel();
       expect(actions.cancelReservationEdit.callCount).to.equal(1);
-    });
-  });
-
-  describe('handleReserveButtonClick', () => {
-    function callHandleReserveButtonClick(extraActions, extraProps) {
-      const wrapper = getWrapper({ actions: { ...actions, ...extraActions }, ...extraProps });
-      wrapper.instance().handleReserveButtonClick();
-    }
-
-    it('calls openConfirmReservationModal', () => {
-      const openConfirmReservationModal = simple.mock();
-      callHandleReserveButtonClick({ openConfirmReservationModal });
-      expect(openConfirmReservationModal.callCount).to.equal(1);
-    });
-
-    it('calls changeRecurringBaseTime with correct time', () => {
-      const changeRecurringBaseTime = simple.mock();
-      const selected = [
-        '2017-04-19T07:00:00.000Z/2017-04-19T07:30:00.000Z',
-        '2017-04-19T07:30:00.000Z/2017-04-19T08:00:00.000Z',
-        '2017-04-19T08:00:00.000Z/2017-04-19T08:30:00.000Z',
-      ];
-      const expectedTime = {
-        begin: '2017-04-19T07:00:00.000Z',
-        end: '2017-04-19T08:30:00.000Z',
-      };
-      callHandleReserveButtonClick({ changeRecurringBaseTime }, { selected });
-      expect(changeRecurringBaseTime.callCount).to.equal(1);
-      expect(changeRecurringBaseTime.lastCall.args).to.deep.equal([expectedTime]);
-    });
-  });
-
-  describe('handleTimeSlotClick', () => {
-    function callHandleTimeSlotClick(extraActions, value) {
-      const wrapper = getWrapper({ actions: { ...actions, ...extraActions } });
-      wrapper.instance().handleTimeSlotClick(value);
-    }
-
-    it('calls selectReservationSlot with correct value', () => {
-      const slot = { begin: 'foo', end: 'bar', resource: 'r-1' };
-      const selectReservationSlot = simple.mock();
-      callHandleTimeSlotClick({ selectReservationSlot }, slot);
-      expect(selectReservationSlot.callCount).to.equal(1);
-      expect(selectReservationSlot.lastCall.args).to.deep.equal([slot]);
-    });
-
-    it('calls openConfirmReservationModal', () => {
-      const openConfirmReservationModal = simple.mock();
-      callHandleTimeSlotClick({ openConfirmReservationModal });
-      expect(openConfirmReservationModal.callCount).to.equal(1);
     });
   });
 });

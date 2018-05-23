@@ -1,23 +1,25 @@
 import isEmpty from 'lodash/isEmpty';
 import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
+import Col from 'react-bootstrap/lib/Col';
+import Panel from 'react-bootstrap/lib/Panel';
+import Row from 'react-bootstrap/lib/Row';
 
 import { fetchResource } from 'actions/resourceActions';
 import { toggleResourceMap } from 'actions/uiActions';
 import PageWrapper from 'pages/PageWrapper';
 import NotFoundPage from 'pages/not-found/NotFoundPage';
-import DateHeader from 'shared/date-header';
 import ResourceCard from 'shared/resource-card';
 import ResourceCalendar from 'shared/resource-calendar';
+import ResourceMap from 'shared/resource-map';
 import { injectT } from 'i18n';
-import { getResourcePageUrl } from 'utils/resourceUtils';
+import { getMaxPeriodText, getResourcePageUrl } from 'utils/resourceUtils';
 import ReservationCalendar from './reservation-calendar';
-import ReservationInfo from './reservation-info';
+import ResourceHeader from './resource-header';
 import ResourceInfo from './resource-info';
 import resourcePageSelector from './resourcePageSelector';
 
@@ -74,66 +76,65 @@ class UnconnectedResourcePage extends Component {
       return <NotFoundPage />;
     }
 
+    const maxPeriodText = getMaxPeriodText(t, resource);
+
     return (
-      <PageWrapper className="app-ResourcePage" title={resource.name || ''} transparent>
+      <div className="app-ResourcePage">
         <Loader loaded={!isEmpty(resource)}>
+          <ResourceHeader
+            isAdmin={isAdmin}
+            onBackClick={this.handleBackButton}
+            onMapClick={actions.toggleResourceMap}
+            resource={resource}
+            showMap={showMap}
+            unit={unit}
+          />
           {showMap &&
-            <ResourceCard date={date} resourceId={resource.id} />
+            <ResourceMap
+              location={location}
+              resourceIds={[resource.id]}
+              selectedUnitId={unit ? unit.id : null}
+              showMap={showMap}
+            />
           }
-          {!showMap &&
-            <div>
-              <button
-                className="app-ResourcePage__back-button"
-                onClick={this.handleBackButton}
-              >
-                <span>{t('ResourcePage.back')}</span>
-              </button>
-              <button
-                className="app-ResourcePage__toggle-map"
-                onClick={actions.toggleResourceMap}
-              >
-                <Glyphicon className="app-ResourcePage__map-icon" glyph="map-marker" />
-                <span>{t('ResourcePage.showMap')}</span>
-              </button>
-              <div className="app-ResourcePage__content">
-                <ResourceInfo
-                  isAdmin={isAdmin}
-                  resource={resource}
-                  unit={unit}
-                />
-                <h2 id="reservation-header">
-                  {isLoggedIn ?
-                    t('ResourcePage.reserveHeader') :
-                    t('ResourcePage.reservationStatusHeader')
-                  }
-                </h2>
-                <ReservationInfo
-                  isLoggedIn={isLoggedIn}
-                  resource={resource}
-                />
-                <div className="app-ResourcePage__calendar-time-wrapper">
-                  <ResourceCalendar
-                    onDateChange={this.handleDateChange}
-                    resourceId={resource.id}
-                    selectedDate={date}
+          <PageWrapper title={resource.name || ''} transparent>
+            {showMap &&
+              <ResourceCard
+                date={date}
+                location={location}
+                resourceId={resource.id}
+              />
+            }
+            {!showMap &&
+              <div>
+                <div className="app-ResourcePage__content">
+                  <ResourceInfo
+                    isLoggedIn={isLoggedIn}
+                    resource={resource}
+                    unit={unit}
                   />
-                  <div className="app-ResourcePage__reservation-calendar-wrapper">
-                    <DateHeader
-                      beforeText={t('ResourcePage.reservationStatusHeader')}
-                      date={date}
-                      scrollTo={location.hash === '#date-header'}
-                    />
-                    <ReservationCalendar
-                      location={location}
-                      params={params}
-                    />
-                  </div>
+                  <Row>
+                    <Col md={8} xs={12}>
+                      <Panel collapsible header={t('ResourceInfo.reserveTitle')}>
+                        {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
+                        <ResourceCalendar
+                          onDateChange={this.handleDateChange}
+                          resourceId={resource.id}
+                          selectedDate={date}
+                        />
+                        <ReservationCalendar
+                          location={location}
+                          params={params}
+                        />
+                      </Panel>
+                    </Col>
+                  </Row>
                 </div>
               </div>
-            </div>
-          }
+            }
+          </PageWrapper>
         </Loader>
-      </PageWrapper>
+      </div>
     );
   }
 }

@@ -1,9 +1,9 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+import Button from 'react-bootstrap/lib/Button';
 import simple from 'simple-mock';
 
+import { shallowWithIntl } from 'utils/testUtils';
 import FavoriteButton from './FavoriteButton';
 
 describe('shared/favorite-button/FavoriteButton', () => {
@@ -13,7 +13,7 @@ describe('shared/favorite-button/FavoriteButton', () => {
   };
 
   function getWrapper(props) {
-    return shallow(<FavoriteButton {...defaultProps} {...props} />);
+    return shallowWithIntl(<FavoriteButton {...defaultProps} {...props} />);
   }
   let wrapper;
 
@@ -21,8 +21,8 @@ describe('shared/favorite-button/FavoriteButton', () => {
     wrapper = getWrapper();
   });
 
-  it('is a button', () => {
-    expect(wrapper.is('button')).to.be.true;
+  it('is a Button', () => {
+    expect(wrapper.is(Button)).to.be.true;
   });
 
   it('has favorite-button class name', () => {
@@ -34,14 +34,15 @@ describe('shared/favorite-button/FavoriteButton', () => {
   });
 
 
-  it('has a star glyphicon if favorited', () => {
-    expect(wrapper.children().is(Glyphicon)).to.be.true;
-    expect(wrapper.children().prop('glyph')).to.equal('star');
+  it('has remove favorite text if favorited', () => {
+    const buttonText = getWrapper({ favorited: true }).find('span');
+    expect(buttonText).to.have.length(1);
+    expect(buttonText.text()).to.equal('ResourceHeader.favoriteRemoveButton');
   });
 
-  it('has a star-empty glyphicon if not favorited', () => {
-    const customWrapper = getWrapper({ favorited: false });
-    expect(customWrapper.children().is(Glyphicon)).to.be.true;
-    expect(customWrapper.children().prop('glyph')).to.equal('star-empty');
+  it('has add favorite text if not favorited', () => {
+    const buttonText = getWrapper({ favorited: false }).find('span');
+    expect(buttonText).to.have.length(1);
+    expect(buttonText.text()).to.equal('ResourceHeader.favoriteAddButton');
   });
 });

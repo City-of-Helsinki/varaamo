@@ -5,22 +5,25 @@ import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
 import PageWrapper from 'pages/PageWrapper';
-import DateHeader from 'shared/date-header';
 import ResourceCalendar from 'shared/resource-calendar';
 import ResourceCard from 'shared/resource-card';
+import ResourceMap from 'shared/resource-map';
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import { shallowWithIntl } from 'utils/testUtils';
 import { UnconnectedResourcePage as ResourcePage } from './ResourcePage';
-import ReservationInfo from './reservation-info';
+import ResourceHeader from './resource-header';
 import ResourceInfo from './resource-info';
 
 describe('pages/resource/ResourcePage', () => {
   const unit = Unit.build();
   const resource = Resource.build({ unit: Unit.id });
   const defaultProps = {
-    actions: { fetchResource: () => null },
+    actions: {
+      fetchResource: () => null,
+      toggleResourceMap: () => null,
+    },
     date: '2015-10-10',
     id: resource.id,
     isAdmin: false,
@@ -41,8 +44,21 @@ describe('pages/resource/ResourcePage', () => {
     it('renders PageWrapper with correct props', () => {
       const pageWrapper = getWrapper().find(PageWrapper);
       expect(pageWrapper).to.have.length(1);
-      expect(pageWrapper.prop('className')).to.equal('app-ResourcePage');
       expect(pageWrapper.prop('title')).to.equal(defaultProps.resource.name);
+      expect(pageWrapper.prop('transparent')).to.be.true;
+    });
+
+    it('renders ResourceHeader with correct props', () => {
+      const wrapper = getWrapper();
+      const instance = wrapper.instance();
+      const resourceInfo = wrapper.find(ResourceHeader);
+      expect(resourceInfo).to.have.length(1);
+      expect(resourceInfo.prop('isAdmin')).to.deep.equal(defaultProps.isAdmin);
+      expect(resourceInfo.prop('onBackClick')).to.equal(instance.handleBackButton);
+      expect(resourceInfo.prop('onMapClick')).to.deep.equal(defaultProps.actions.toggleResourceMap);
+      expect(resourceInfo.prop('resource')).to.deep.equal(defaultProps.resource);
+      expect(resourceInfo.prop('showMap')).to.deep.equal(defaultProps.showMap);
+      expect(resourceInfo.prop('unit')).to.deep.equal(defaultProps.unit);
     });
 
     it('renders ResourceInfo with correct props', () => {
@@ -52,13 +68,6 @@ describe('pages/resource/ResourcePage', () => {
       expect(resourceInfo.prop('unit')).to.deep.equal(defaultProps.unit);
     });
 
-    it('renders ReservationInfo with correct props', () => {
-      const reservationInfo = getWrapper().find(ReservationInfo);
-      expect(reservationInfo).to.have.length(1);
-      expect(reservationInfo.prop('isLoggedIn')).to.equal(defaultProps.isLoggedIn);
-      expect(reservationInfo.prop('resource')).to.deep.equal(defaultProps.resource);
-    });
-
     it('renders ResourceCalendar with correct props', () => {
       const wrapper = getWrapper();
       const calendar = wrapper.find(ResourceCalendar);
@@ -66,23 +75,6 @@ describe('pages/resource/ResourcePage', () => {
       expect(calendar.prop('onDateChange')).to.equal(wrapper.instance().handleDateChange);
       expect(calendar.prop('resourceId')).to.equal(defaultProps.resource.id);
       expect(calendar.prop('selectedDate')).to.equal(defaultProps.date);
-    });
-
-    it('renders DateHeader with correct props', () => {
-      const wrapper = getWrapper();
-      const dateHeader = wrapper.find(DateHeader);
-      expect(dateHeader).to.have.length(1);
-      expect(dateHeader.prop('date')).to.equal(defaultProps.date);
-      expect(dateHeader.prop('onDecreaseDateButtonClick')).to.equal(wrapper.instance().decreaseDate);
-      expect(dateHeader.prop('onIncreaseDateButtonClick')).to.equal(wrapper.instance().increaseDate);
-      expect(dateHeader.prop('scrollTo')).to.exist;
-    });
-
-    it('renders back button', () => {
-      const wrapper = getWrapper();
-      const backButton = wrapper.find('.app-ResourcePage__back-button');
-      expect(backButton).to.have.length(1);
-      expect(backButton.find('span').text()).to.equal('ResourcePage.back');
     });
 
     describe('handleBackButton', () => {
@@ -103,25 +95,21 @@ describe('pages/resource/ResourcePage', () => {
       });
     });
 
-    it('renders toggleMap button', () => {
-      const wrapper = getWrapper();
-      const toggleMapButton = wrapper.find('.app-ResourcePage__toggle-map');
-      expect(toggleMapButton).to.have.length(1);
-      expect(toggleMapButton.find('span').text()).to.equal('ResourcePage.showMap');
-    });
-
-    it('renders toggleMap button  with correct onClick toggleResourceMap action', () => {
-      const toggleResourceMap = () => {};
-      const wrapper = getWrapper({ actions: { ...defaultProps.actions, toggleResourceMap } });
-      const toggleMapButton = wrapper.find('.app-ResourcePage__toggle-map');
-      expect(toggleMapButton).to.have.length(1);
-      expect(toggleMapButton.prop('onClick')).to.equal(toggleResourceMap);
-    });
-
     describe('with showMap prop', () => {
       function getShowMapWrapper(props = {}) {
         return getWrapper({ ...props, showMap: true });
       }
+
+      it('renders a ResourceMap', () => {
+        const wrapper = getShowMapWrapper();
+        const resourceMap = wrapper.find(ResourceMap);
+        expect(resourceMap).to.have.length(1);
+        expect(resourceMap.prop('location')).to.equal(defaultProps.location);
+        expect(resourceMap.prop('resourceIds')).to.deep.equal([defaultProps.resource.id]);
+        expect(resourceMap.prop('selectedUnitId')).to.equal(defaultProps.unit.id);
+        expect(resourceMap.prop('showMap')).to.be.true;
+      });
+
       it('renders a ResourceCard', () => {
         const wrapper = getShowMapWrapper();
         const resourceCard = wrapper.find(ResourceCard);

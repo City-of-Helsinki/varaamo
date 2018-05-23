@@ -8,19 +8,20 @@ $content-padding: 10px;
 
 @import './reservation-calendar/reservation-calendar';
 @import './reservation-calendar/time-slots/time-slots';
+@import './resource-header/resource-header';
 @import './resource-info/image-carousel';
 @import './resource-info/resource-info';
 
 .app-ResourcePage {
-  position: relative;
-  max-width: $resource-page-width + $content-padding * 2;
+
+  a {
+    color: $blue;
+  }
 
   &__content {
-    padding: 10px;
+    padding: 30px 0;
     background-color: $white;
-    box-shadow: 0px 1px 10px 5px rgba(0, 0, 0, 0.2);
     box-sizing: content-box;
-    max-width: $resource-page-width;
     margin-bottom: 30px;
   }
   .date-header {
@@ -30,15 +31,16 @@ $content-padding: 10px;
     text-align: left;
   }
 
+  .app-ResourcePage__calendar {
+    display: block;
+    width: 100%;
+  }
+
   .app-ResourcePage__calendar-time-wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     margin-left: -($margin-between-items);
-  }
-
-  .app-ResourceCalendar {
-    margin-left: $margin-between-items;
   }
 
   &__reservation-calendar-wrapper {
@@ -91,6 +93,43 @@ $content-padding: 10px;
 
   &__back-button {
     line-height: 33px;
+  }
+
+  .panel {
+    background-color: transparent;
+    border-top: 3px solid $silver;
+    box-shadow: none;
+    margin: 15px 0;
+    .panel-heading {
+      background-color: transparent;
+      padding: 15px 0;
+      .panel-title {
+        a {
+          color: $black;
+          padding-left: 24px;
+          position: relative;
+          text-decoration: underline;
+          &::before {
+            background-image: url('./images/angle-right.svg');
+            background-repeat: no-repeat;
+            background-size: $line-height-computed;
+            content: ' ';
+            display: inline-block;
+            left: 0;
+            top: -2px;
+            position: absolute;
+            height: $line-height-computed;
+            width: $line-height-computed;
+          }
+        }
+        a[aria-selected="true"]::before {
+          background-image: url('./images/angle-down.svg');
+        }
+      }
+    }
+    .panel-body {
+      padding: 0;
+    }
   }
 
   @media (max-width: $resource-page-width) {

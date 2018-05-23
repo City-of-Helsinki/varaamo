@@ -84,11 +84,23 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
 
   describe('handleReservation', () => {
     const recurringReservations = [
-      Reservation.build({ resource: resource.id }),
+      Reservation.build({
+        begin: '2018-01-29T13:00:00+02:00',
+        end: '2018-01-29T13:30:00+02:00',
+        resource: resource.id,
+      }),
     ];
     const selectedReservations = [
-      Reservation.build({ resource: resource.id }),
-      Reservation.build({ resource: resource.id }),
+      Reservation.build({
+        begin: '2018-01-30T13:00:00+02:00',
+        end: '2018-01-30T13:30:00+02:00',
+        resource: resource.id,
+      }),
+      Reservation.build({
+        begin: '2018-01-31T13:00:00+02:00',
+        end: '2018-01-31T13:30:00+02:00',
+        resource: resource.id,
+      }),
     ];
     const reservavations = [...selectedReservations, ...recurringReservations];
     const instance = getWrapper({ recurringReservations, selectedReservations }).instance();

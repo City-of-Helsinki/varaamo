@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import React from 'react';
-import Well from 'react-bootstrap/lib/Well';
 import Immutable from 'seamless-immutable';
 
 import Resource from 'utils/fixtures/Resource';
@@ -23,9 +22,9 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
     return shallowWithIntl(<ReservationInfo {...defaultProps} {...props} />);
   }
 
-  it('renders a Well', () => {
-    const well = getWrapper().find(Well);
-    expect(well.length).to.equal(1);
+  it('renders a app-ReservationInfo', () => {
+    const element = getWrapper().find('.app-ReservationInfo');
+    expect(element.length).to.equal(1);
   });
 
   it('renders resource.reservationInfo as WrappedText', () => {

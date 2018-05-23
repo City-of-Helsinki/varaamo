@@ -11,6 +11,7 @@ class TimeSlot extends Component {
     addNotification: PropTypes.func.isRequired,
     isAdmin: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
+    isSelectable: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
     resource: PropTypes.object.isRequired,
     scrollTo: PropTypes.bool,
@@ -72,6 +73,7 @@ class TimeSlot extends Component {
     const {
       isAdmin,
       isLoggedIn,
+      isSelectable,
       resource,
       selected,
       slot,
@@ -79,12 +81,12 @@ class TimeSlot extends Component {
     const isPast = moment(slot.end) < moment();
     const disabled = (
       !isLoggedIn ||
+      !isSelectable ||
       !resource.userPermissions.canMakeReservations ||
       (!slot.editing && (slot.reserved || isPast))
     );
     const reservation = slot.reservation;
     const isOwnReservation = reservation && reservation.isOwn;
-
     return (
       <button
         className={classNames('app-TimeSlot', {
@@ -100,6 +102,7 @@ class TimeSlot extends Component {
         })}
         onClick={() => this.handleClick(disabled)}
       >
+        <span className="app-TimeSlot--icon" />
         <time dateTime={slot.asISOString}>
           {moment(slot.start).format('HH:mm')}
         </time>
