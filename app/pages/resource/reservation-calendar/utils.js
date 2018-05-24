@@ -47,19 +47,12 @@ function isSlotSelectable(slot, selected, resource, lastSelectableFound) {
   if (!slot || !selected || !selected.length || !resource) {
     return true;
   }
-  if (lastSelectableFound) {
+  if (slot.reserved || lastSelectableFound) {
     return false;
   }
   const firstSelected = getBeginOfSelection(selected);
-  if (slot.reserved) return false;
-  if (selected.length === 1) {
-    return moment(firstSelected.begin).isSame(slot.start, 'day');
-  }
-  return (
-    moment(firstSelected.begin).isSame(slot.start, 'day') &&
-    // moment(firstSelected.begin).isSameOrBefore(slot.start) &&
-    (!resource.openingHours || isInsideOpeningHours(slot, resource.openingHours || []))
-  );
+  return moment(firstSelected.begin).isSame(slot.start, 'day') &&
+    moment(firstSelected.begin).isSameOrBefore(slot.start);
 }
 
 function isSlotSelected(slot, selected) {

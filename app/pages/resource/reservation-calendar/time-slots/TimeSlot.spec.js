@@ -113,7 +113,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       const t = simple.stub().returnWith(message);
       const resource = Resource.build({ reservable: true });
       const instance = getWrapper().instance();
-      const result = instance.getReservationInfoNotification(false, resource, {}, t);
+      const result = instance.getReservationInfoNotification(false, resource, defaultProps.slot, t);
 
       expect(t.callCount).to.equal(1);
       expect(result.message).to.equal(message);
@@ -125,7 +125,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       const t = simple.stub();
       const resource = Resource.build({ reservationInfo: 'reservation info' });
       const instance = getWrapper().instance();
-      const result = instance.getReservationInfoNotification(true, resource, {}, t);
+      const result = instance.getReservationInfoNotification(true, resource, defaultProps.slot, t);
 
       expect(t.callCount).to.equal(0);
       expect(result.message).to.equal(resource.reservationInfo);
