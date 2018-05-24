@@ -13,7 +13,6 @@ import { fetchResource } from 'actions/resourceActions';
 import { toggleResourceMap } from 'actions/uiActions';
 import PageWrapper from 'pages/PageWrapper';
 import NotFoundPage from 'pages/not-found/NotFoundPage';
-import ResourceCard from 'shared/resource-card';
 import ResourceCalendar from 'shared/resource-calendar';
 import ResourceMap from 'shared/resource-map';
 import { injectT } from 'i18n';
@@ -97,15 +96,8 @@ class UnconnectedResourcePage extends Component {
               showMap={showMap}
             />
           }
-          <PageWrapper title={resource.name || ''} transparent>
-            {showMap &&
-              <ResourceCard
-                date={date}
-                location={location}
-                resourceId={resource.id}
-              />
-            }
-            {!showMap &&
+          {!showMap &&
+            <PageWrapper title={resource.name || ''} transparent>
               <div>
                 <div className="app-ResourcePage__content">
                   <ResourceInfo
@@ -131,8 +123,8 @@ class UnconnectedResourcePage extends Component {
                   </Row>
                 </div>
               </div>
-            }
-          </PageWrapper>
+            </PageWrapper>
+          }
         </Loader>
       </div>
     );

@@ -2,7 +2,6 @@ import { expect } from 'chai';
 import React from 'react';
 import Panel from 'react-bootstrap/lib/Panel';
 import Immutable from 'seamless-immutable';
-import { Link } from 'react-router';
 
 import WrappedText from 'shared/wrapped-text';
 import Resource from 'utils/fixtures/Resource';
@@ -90,16 +89,39 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
 
   it('renders web address', () => {
     const unit = Unit.build({
+      id: 'abc:123',
       addressZip: '99999',
       municipality: 'helsinki',
       name: 'Unit name',
       streetAddress: 'Test street 12',
       wwwUrl: 'some-url',
     });
-    const link = getWrapper({ unit }).find(Link);
+    const link = getWrapper({ unit }).find('.app-ResourceInfo__www').find('a');
 
     expect(link).to.have.length(1);
-    expect(link.prop('to')).to.equal(unit.wwwUrl);
+    expect(link.prop('href')).to.equal(unit.wwwUrl);
+  });
+
+  it('renders journey planner link', () => {
+    const unit = Unit.build({
+      id: 'abc:123',
+      addressZip: '99999',
+      municipality: 'helsinki',
+      name: 'Unit name',
+      streetAddress: 'Test street 12',
+      wwwUrl: 'some-url',
+    });
+    const expected = 'https://palvelukartta.hel.fi/unit/123#!route-details';
+    const link = getWrapper({ unit }).find('.app-ResourceInfo__journeyplanner').find('a');
+
+    expect(link).to.have.length(1);
+    expect(link.prop('href')).to.equal(expected);
+  });
+
+  it('does not render journey planner link if unit empty', () => {
+    const link = getWrapper({ unit: {} }).find('.app-ResourceInfo__journeyplanner').find('a');
+
+    expect(link).to.have.length(0);
   });
 
   it('renders termsAndConditions', () => {

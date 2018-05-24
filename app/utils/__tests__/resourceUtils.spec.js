@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import MockDate from 'mockdate';
 import moment from 'moment';
 import queryString from 'query-string';
+import simple from 'simple-mock';
 
 import constants from 'constants/AppConstants';
 import {
@@ -9,6 +10,7 @@ import {
   getAvailabilityDataForNow,
   getAvailabilityDataForWholeDay,
   getHumanizedPeriod,
+  getMaxPeriodText,
   getOpeningHours,
   getOpenReservations,
   getResourcePageUrl,
@@ -532,6 +534,30 @@ describe('Utils: resourceUtils', () => {
       const periodString = getHumanizedPeriod(period);
 
       expect(periodString).to.equal('4 h');
+    });
+  });
+
+  describe('getMaxPeriodText', () => {
+    it('returns max period as days', () => {
+      const t = simple.stub().returnWith('days');
+      const resource = { maxPeriod: '24:00:00' };
+      const result = getMaxPeriodText(t, resource);
+
+      expect(t.callCount).to.equal(1);
+      expect(t.lastCall.args[0]).to.deep.equal('ResourceHeader.maxPeriodDays');
+      expect(t.lastCall.args[1]).to.deep.equal({ days: 1 });
+      expect(result).to.equal('days');
+    });
+
+    it('returns max period as hours', () => {
+      const t = simple.stub().returnWith('hours');
+      const resource = { maxPeriod: '02:00:00' };
+      const result = getMaxPeriodText(t, resource);
+
+      expect(t.callCount).to.equal(1);
+      expect(t.lastCall.args[0]).to.deep.equal('ResourceHeader.maxPeriodHours');
+      expect(t.lastCall.args[1]).to.deep.equal({ hours: 2 });
+      expect(result).to.equal('hours');
     });
   });
 

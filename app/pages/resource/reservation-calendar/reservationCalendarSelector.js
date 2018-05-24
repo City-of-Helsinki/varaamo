@@ -81,7 +81,7 @@ const timeSlotsSelector = createSelector(
     }
     if (resource.openingHours && resource.openingHours.length) {
       const resourceDate = resource.openingHours[0].date;
-      const start = moment(resourceDate, 'YYYY-MM-DD');
+      const start = moment(resourceDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
       return resourceDate ? [{ start }] : [];
     }
     return [];

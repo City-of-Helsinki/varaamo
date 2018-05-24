@@ -213,6 +213,63 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     });
   });
 
+  describe('getSelectedDateSlots', () => {
+    it('returns selected date slots', () => {
+      const instance = getWrapper().instance();
+      const selectedSlot = {
+        begin: timeSlot1.start,
+        end: timeSlot1.end,
+        resource: 'some-resource',
+      };
+      const timeSlots = [[timeSlot1, timeSlot2], [timeSlot3], []];
+      const result = instance.getSelectedDateSlots(timeSlots, [selectedSlot]);
+      expect(result).to.deep.equal(timeSlots[0]);
+    });
+
+    it('returns empty if selected is not in date slots', () => {
+      const instance = getWrapper().instance();
+      const selectedSlot = {
+        begin: '2016-10-12T10:00:00.000Z',
+        end: '2016-10-12T11:00:00.000Z',
+        resource: 'some-resource',
+      };
+      const timeSlots = [[timeSlot1, timeSlot2], [timeSlot3], []];
+      const result = instance.getSelectedDateSlots(timeSlots, [selectedSlot]);
+      expect(result).to.deep.equal([]);
+    });
+  });
+
+  describe('getSelectedTimeText', () => {
+    let instance;
+    before(() => {
+      instance = getWrapper().instance();
+      simple.mock(instance, 'getDateTimeText').returnWith('some text');
+    });
+
+    after(() => {
+      simple.restore();
+    });
+
+    it('returns empty string if selected empty', () => {
+      const result = instance.getSelectedTimeText([]);
+
+      expect(result).to.equal('');
+      expect(instance.getDateTimeText.callCount).to.equal(0);
+    });
+
+    it('calls getDateTimeText when selected', () => {
+      const selectedSlot = {
+        begin: '2016-10-12T10:00:00.000Z',
+        end: '2016-10-12T11:00:00.000Z',
+        resource: 'some-resource',
+      };
+      const result = instance.getSelectedTimeText([selectedSlot]);
+
+      expect(instance.getDateTimeText.callCount).to.equal(2);
+      expect(result).to.equal('some text - some text');
+    });
+  });
+
   describe('handleEditCancel', () => {
     it('calls cancelReservationEdit', () => {
       const instance = getWrapper().instance();

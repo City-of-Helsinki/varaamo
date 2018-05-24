@@ -4,9 +4,9 @@ import { browserHistory } from 'react-router';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
+import NotFoundPage from 'pages/not-found/NotFoundPage';
 import PageWrapper from 'pages/PageWrapper';
 import ResourceCalendar from 'shared/resource-calendar';
-import ResourceCard from 'shared/resource-card';
 import ResourceMap from 'shared/resource-map';
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
@@ -77,6 +77,14 @@ describe('pages/resource/ResourcePage', () => {
       expect(calendar.prop('selectedDate')).to.equal(defaultProps.date);
     });
 
+    it('renders NotFoundPage when resource empty and not fetching resource', () => {
+      const notFoundPage = getWrapper({
+        isFetchingResource: false,
+        resource: {},
+      }).find(NotFoundPage);
+      expect(notFoundPage).to.have.length(1);
+    });
+
     describe('handleBackButton', () => {
       let browserHistoryMock;
 
@@ -110,23 +118,16 @@ describe('pages/resource/ResourcePage', () => {
         expect(resourceMap.prop('showMap')).to.be.true;
       });
 
-      it('renders a ResourceCard', () => {
-        const wrapper = getShowMapWrapper();
-        const resourceCard = wrapper.find(ResourceCard);
-        expect(resourceCard).to.have.length(1);
-        expect(resourceCard.prop('resourceId')).to.equal(defaultProps.resource.id);
-      });
-
       it('does not render a ResourceInfo', () => {
         const wrapper = getShowMapWrapper();
-        const resourceCard = wrapper.find(ResourceInfo);
-        expect(resourceCard).to.have.length(0);
+        const resourceInfo = wrapper.find(ResourceInfo);
+        expect(resourceInfo).to.have.length(0);
       });
 
       it('does not render a ResourceCalendar', () => {
         const wrapper = getShowMapWrapper();
-        const resourceCard = wrapper.find(ResourceCalendar);
-        expect(resourceCard).to.have.length(0);
+        const resourceCalendar = wrapper.find(ResourceCalendar);
+        expect(resourceCalendar).to.have.length(0);
       });
     });
   });

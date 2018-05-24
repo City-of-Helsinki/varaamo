@@ -204,6 +204,7 @@
   "ResourceIcons.free": "Avgiftsfri",
   "ResourceInfo.additionalInfoTitle": "Tilan lisätiedot",
   "ResourceInfo.equipmentHeader": "Utrustning",
+  "ResourceInfo.journeyPlannerLink": "Reseplanering Reittiopas",
   "ResourceInfo.loginMessage": "För att kunna boka detta utrymme måste du <a href=”/login”>logga in</a>.",
   "ResourceInfo.reservationTitle": "Bokningsinformation",
   "ResourceInfo.reserveTitle": "Boka utrymme",

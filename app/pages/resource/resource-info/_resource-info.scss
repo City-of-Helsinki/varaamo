@@ -37,7 +37,8 @@ $horizontal-margin: 20px;
     }
   }
 
-  &__address {
+  &__address,
+  &__web {
     span {
       display: block;
     }

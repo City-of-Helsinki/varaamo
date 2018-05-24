@@ -171,6 +171,33 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
       simple.restore();
     });
 
+    it('returns start day if resource is not open on that day', () => {
+      const expectedMockSlots = [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [{ start: '2015-10-10' }],
+        [{ start: '2015-10-11' }],
+        [],
+      ];
+      simple.mock(timeUtils, 'getTimeSlots').returnWith([]);
+
+      const state = getState(resource);
+      const props = getProps(resource.id);
+      const selected = reservationCalendarSelector(state, props);
+
+      expect(timeUtils.getTimeSlots.callCount).to.equal(8);
+      const actualArgs = timeUtils.getTimeSlots.calls[5].args;
+      expect(actualArgs[0]).to.equal('2015-10-10T12:00:00+03:00');
+      expect(actualArgs[1]).to.equal('2015-10-10T18:00:00+03:00');
+      expect(actualArgs[2]).to.equal(resource.minPeriod);
+      expect(actualArgs[3]).to.deep.equal(resource.reservations);
+      expect(selected.timeSlots).to.deep.equal(expectedMockSlots);
+      simple.restore();
+    });
+
     it('returns timeSlots as an empty array when date not in resource', () => {
       const state = getState(resource);
       const props = getProps(resource.id, '2015-10-15');
