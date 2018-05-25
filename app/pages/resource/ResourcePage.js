@@ -20,6 +20,7 @@ import { getMaxPeriodText, getResourcePageUrl } from 'utils/resourceUtils';
 import ReservationCalendar from './reservation-calendar';
 import ResourceHeader from './resource-header';
 import ResourceInfo from './resource-info';
+import ResourceMapInfo from './resource-map-info';
 import resourcePageSelector from './resourcePageSelector';
 
 class UnconnectedResourcePage extends Component {
@@ -88,6 +89,12 @@ class UnconnectedResourcePage extends Component {
             showMap={showMap}
             unit={unit}
           />
+          {showMap && unit &&
+            <ResourceMapInfo
+              resource={resource}
+              unit={unit}
+            />
+          }
           {showMap &&
             <ResourceMap
               location={location}

@@ -102,7 +102,7 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
     expect(link.prop('href')).to.equal(unit.wwwUrl);
   });
 
-  it('renders journey planner link', () => {
+  it('renders service map link', () => {
     const unit = Unit.build({
       id: 'abc:123',
       addressZip: '99999',
@@ -112,14 +112,14 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
       wwwUrl: 'some-url',
     });
     const expected = 'https://palvelukartta.hel.fi/unit/123#!route-details';
-    const link = getWrapper({ unit }).find('.app-ResourceInfo__journeyplanner').find('a');
+    const link = getWrapper({ unit }).find('.app-ResourceInfo__servicemap').find('a');
 
     expect(link).to.have.length(1);
     expect(link.prop('href')).to.equal(expected);
   });
 
-  it('does not render journey planner link if unit empty', () => {
-    const link = getWrapper({ unit: {} }).find('.app-ResourceInfo__journeyplanner').find('a');
+  it('does not render service map link if unit empty', () => {
+    const link = getWrapper({ unit: {} }).find('.app-ResourceInfo__servicemap').find('a');
 
     expect(link).to.have.length(0);
   });

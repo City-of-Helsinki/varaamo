@@ -15,6 +15,7 @@ import { shallowWithIntl } from 'utils/testUtils';
 import { UnconnectedResourcePage as ResourcePage } from './ResourcePage';
 import ResourceHeader from './resource-header';
 import ResourceInfo from './resource-info';
+import ResourceMapInfo from './resource-map-info';
 
 describe('pages/resource/ResourcePage', () => {
   const unit = Unit.build();
@@ -107,6 +108,13 @@ describe('pages/resource/ResourcePage', () => {
       function getShowMapWrapper(props = {}) {
         return getWrapper({ ...props, showMap: true });
       }
+
+      it('renders a ResourceMapInfo', () => {
+        const wrapper = getShowMapWrapper();
+        const resourceMapInfo = wrapper.find(ResourceMapInfo);
+        expect(resourceMapInfo).to.have.length(1);
+        expect(resourceMapInfo.prop('unit')).to.equal(defaultProps.unit);
+      });
 
       it('renders a ResourceMap', () => {
         const wrapper = getShowMapWrapper();

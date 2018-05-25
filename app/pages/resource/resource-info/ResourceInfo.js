@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/lib/Row';
 import { injectT } from 'i18n';
 import WrappedText from 'shared/wrapped-text';
 import { getTermsAndConditions } from 'utils/resourceUtils';
+import { getServiceMapUrl } from 'utils/unitUtils';
 import ReservationInfo from '../reservation-info';
 
 function orderImages(images) {
@@ -16,19 +17,10 @@ function orderImages(images) {
   );
 }
 
-function getJourneyPlannerUrl(unit) {
-  if (!unit || !unit.id) {
-    return '';
-  }
-  const unitIdSplit = unit ? unit.id.split(':') : [];
-  const unitId = unitIdSplit.length === 2 ? unitIdSplit[1] : '';
-  return `https://palvelukartta.hel.fi/unit/${unitId}#!route-details`;
-}
-
 function ResourceInfo({ isLoggedIn, resource, unit, t }) {
   const termsAndConditions = getTermsAndConditions(resource);
   const images = orderImages(resource.images || []);
-  const journeyPlannerUrl = getJourneyPlannerUrl(unit);
+  const serviceMapUrl = getServiceMapUrl(unit);
   return (
     <Row>
       <Col md={8} xs={12}>
@@ -55,9 +47,9 @@ function ResourceInfo({ isLoggedIn, resource, unit, t }) {
                 }
               </Col>
               <Col className="app-ResourceInfo__web" xs={6}>
-                {journeyPlannerUrl &&
-                  <span className="app-ResourceInfo__journeyplanner">
-                    <a href={journeyPlannerUrl}>{t('ResourceInfo.journeyPlannerLink')}</a>
+                {serviceMapUrl &&
+                  <span className="app-ResourceInfo__servicemap">
+                    <a href={serviceMapUrl}>{t('ResourceInfo.serviceMapLink')}</a>
                   </span>
                 }
                 {unit && unit.wwwUrl &&

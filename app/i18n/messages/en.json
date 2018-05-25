@@ -204,7 +204,7 @@
   "ResourceIcons.free": "Free of charge",
   "ResourceInfo.additionalInfoTitle": "Premise additional information",
   "ResourceInfo.equipmentHeader": "Premise equipment",
-  "ResourceInfo.journeyPlannerLink": "See route on Journey Planner",
+  "ResourceInfo.serviceMapLink": "Search route on Service Map",
   "ResourceInfo.loginMessage": "You must <a href=”/login”>log in</a> to reserve these premises.",
   "ResourceInfo.reservationTitle": "Reservation information",
   "ResourceInfo.reserveTitle": "Reserve",

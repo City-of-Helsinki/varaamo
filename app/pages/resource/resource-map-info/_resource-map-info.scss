@@ -1,0 +1,13 @@
+.app-ResourceMapInfo {
+  background-color: $white;
+
+  img {
+    height: $line-height-computed;
+    width: $line-height-computed;
+    vertical-align: text-bottom;
+  }
+
+  &__content {
+    text-align: center;
+  }
+}

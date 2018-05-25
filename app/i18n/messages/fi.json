@@ -204,7 +204,7 @@
   "ResourceIcons.free": "Maksuton",
   "ResourceInfo.additionalInfoTitle": "Tilan lisätiedot",
   "ResourceInfo.equipmentHeader": "Tilan varusteet",
-  "ResourceInfo.journeyPlannerLink": "Katso reitti reittioppaasta",
+  "ResourceInfo.serviceMapLink": "Katso reitti Palvelukartasta",
   "ResourceInfo.loginMessage": "Sinun täytyy <a href=\"/login\">kirjautua sisään</a>, jotta voit tehdä varauksen tähän tilaan.",
   "ResourceInfo.reservationTitle": "Varauksen tiedot",
   "ResourceInfo.reserveTitle": "Varaa tila",
