@@ -43,7 +43,7 @@ function isSlotAfterSelected(slot, selected) {
   return moment(firstSelected.begin).isSameOrBefore(slot.start);
 }
 
-function isSlotSelectable(slot, selected, resource, lastSelectableFound) {
+function isSlotSelectable(slot, selected, resource, lastSelectableFound, isAdmin) {
   if (!slot || !selected || !selected.length || !resource) {
     return true;
   }
@@ -51,6 +51,13 @@ function isSlotSelectable(slot, selected, resource, lastSelectableFound) {
     return false;
   }
   const firstSelected = getBeginOfSelection(selected);
+  if (!isAdmin && resource.maxPeriod) {
+    const maxPeriodMinutes = moment.duration(resource.maxPeriod).asMinutes();
+    const maxEndTime = moment(firstSelected.begin).add(maxPeriodMinutes, 'minutes');
+    if (moment(slot.start).isSameOrAfter(maxEndTime)) {
+      return false;
+    }
+  }
   return moment(firstSelected.begin).isSame(slot.start, 'day') &&
     moment(firstSelected.begin).isSameOrBefore(slot.start);
 }

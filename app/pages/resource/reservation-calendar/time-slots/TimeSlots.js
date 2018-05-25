@@ -79,7 +79,8 @@ class TimeSlots extends Component {
       );
     }
     const scrollTo = time && time === slot.start;
-    const isSelectable = utils.isSlotSelectable(slot, selected, resource, lastSelectableFound);
+    const isSelectable = utils.isSlotSelectable(slot, selected, resource,
+      lastSelectableFound, isAdmin);
     const isSelected = utils.isSlotSelected(slot, selected);
     return (
       <TimeSlot

@@ -86,41 +86,71 @@ describe('pages/resource/reservation-calendar/utils', () => {
 
   describe('isSlotSelectable', () => {
     const resource = Resource.build();
+    const isAdmin = false;
+    const lastSelectableFound = false;
 
     it('returns true if slot is empty', () => {
-      const actual = utils.isSlotSelectable(null, selected, resource, false);
+      const actual = utils.isSlotSelectable(null, selected, resource,
+        lastSelectableFound, isAdmin);
       expect(actual).to.be.true;
     });
 
     it('returns true if selected is empty', () => {
-      const actual = utils.isSlotSelectable(slot, [], resource, false);
+      const actual = utils.isSlotSelectable(slot, [], resource,
+        lastSelectableFound, isAdmin);
       expect(actual).to.be.true;
     });
 
     it('returns true if resource is empty', () => {
-      const actual = utils.isSlotSelectable(slot, selected, null, false);
+      const actual = utils.isSlotSelectable(slot, selected, null,
+        lastSelectableFound, isAdmin);
       expect(actual).to.be.true;
     });
 
     it('returns false if slot is reserved', () => {
       const slotReserved = TimeSlot.build({ reserved: true });
-      const actual = utils.isSlotSelectable(slotReserved, selected, resource, false);
+      const actual = utils.isSlotSelectable(slotReserved, selected, resource,
+        lastSelectableFound, isAdmin);
       expect(actual).to.be.false;
     });
 
     it('returns false if lastSelectableFound is true', () => {
-      const actual = utils.isSlotSelectable(slot, selected, resource, true);
+      const actual = utils.isSlotSelectable(slot, selected, resource, true, isAdmin);
       expect(actual).to.be.false;
     });
 
+    it('returns false if not admin and slot start is after max period since selected begin', () => {
+      const slotAfterMaxPeriod = {
+        start: '2015-10-10T13:00:00Z',
+        end: '2015-10-10T13:30:00Z',
+      };
+      const resourceMaxPeriod = Resource.build({ maxPeriod: '00:30:00' });
+      const actual = utils.isSlotSelectable(slotAfterMaxPeriod, selected,
+        resourceMaxPeriod, lastSelectableFound, isAdmin);
+      expect(actual).to.be.false;
+    });
+
+    it('returns true if is admin and slot start is after max period since selected begin', () => {
+      const slotAfterMaxPeriod = {
+        start: '2015-10-10T13:00:00Z',
+        end: '2015-10-10T13:30:00Z',
+      };
+      const resourceMaxPeriod = Resource.build({ maxPeriod: '00:30:00' });
+      const actual = utils.isSlotSelectable(slotAfterMaxPeriod, selected,
+        resourceMaxPeriod, lastSelectableFound, true);
+      expect(actual).to.be.true;
+    });
+
     it('returns true if selected begin is before slot start', () => {
-      const actual = utils.isSlotSelectable(slot, selected, resource, false);
+      const actual = utils.isSlotSelectable(slot, selected, resource,
+        lastSelectableFound, isAdmin);
       expect(actual).to.be.true;
     });
 
     it('returns false if selected begin is after slot start', () => {
       const selectedAfterSlot = [{ begin: '2015-10-10T13:00:00Z' }];
-      const actual = utils.isSlotSelectable(slot, selectedAfterSlot, resource, false);
+      const actual = utils.isSlotSelectable(slot, selectedAfterSlot, resource,
+        lastSelectableFound, isAdmin);
       expect(actual).to.be.false;
     });
   });
