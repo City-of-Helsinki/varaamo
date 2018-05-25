@@ -4,6 +4,7 @@ import moment from 'moment';
 import classnames from 'classnames';
 
 import constants from 'constants/AppConstants';
+import { injectT } from 'i18n';
 import TimeSlot from './TimeSlot';
 import utils from '../utils';
 
@@ -19,6 +20,7 @@ class TimeSlots extends Component {
     selected: PropTypes.array.isRequired,
     selectedDate: PropTypes.string.isRequired,
     slots: PropTypes.array.isRequired,
+    t: PropTypes.func.isRequired,
     time: PropTypes.string,
   };
 
@@ -66,10 +68,15 @@ class TimeSlots extends Component {
       onClick,
       resource,
       selected,
+      t,
       time,
     } = this.props;
     if (!slot.end) {
-      return null;
+      return (
+        <h6 className="app-TimeSlots--closed" key={slot.start}>
+          {t('TimeSlots.closedMessage')}
+        </h6>
+      );
     }
     const scrollTo = time && time === slot.start;
     const isSelectable = utils.isSlotSelectable(slot, selected, resource, lastSelectableFound);
@@ -103,5 +110,7 @@ class TimeSlots extends Component {
     );
   }
 }
+
+TimeSlots = injectT(TimeSlots);  // eslint-disable-line
 
 export default TimeSlots;

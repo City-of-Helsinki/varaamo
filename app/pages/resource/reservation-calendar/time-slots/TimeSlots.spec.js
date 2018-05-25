@@ -1,10 +1,10 @@
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
 import Resource from 'utils/fixtures/Resource';
+import { shallowWithIntl } from 'utils/testUtils';
 import TimeSlots from './TimeSlots';
 import TimeSlotComponent from './TimeSlot';
 
@@ -44,7 +44,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
   };
 
   function getWrapper(props) {
-    return shallow(<TimeSlots {...defaultProps} {...props} />);
+    return shallowWithIntl(<TimeSlots {...defaultProps} {...props} />);
   }
 
   it('renders div.app-TimeSlots', () => {
@@ -80,5 +80,67 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
       expect(timeSlots.at(0).props().selected).to.equal(true);
       expect(timeSlots.at(1).props().selected).to.equal(false);
     });
+  });
+
+  it('renders reserved slot and slots after reserved as not selectable', () => {
+    const slots = [[{
+      asISOString: '2016-10-10T10:00:00.000Z/2016-10-10T11:00:00.000Z',
+      asString: '10:00-11:00',
+      end: '2016-10-10T11:00:00.000Z',
+      index: 0,
+      reserved: false,
+      resource: 'some-resource-id',
+      start: '2016-10-10T10:00:00.000Z',
+    }, {
+      asISOString: '2016-10-10T11:00:00.000Z/2016-10-10T12:00:00.000Z',
+      asString: '11:00-12:00',
+      end: '2016-10-10T12:00:00.000Z',
+      index: 0,
+      reserved: true,
+      resource: 'some-resource-id',
+      start: '2016-10-10T11:00:00.000Z',
+    }], [{
+      asISOString: '2016-10-11T10:00:00.000Z/2016-10-11T11:00:00.000Z',
+      asString: '10:00-11:00',
+      end: '2016-10-11T11:00:00.000Z',
+      index: 0,
+      reserved: false,
+      resource: 'some-resource-id',
+      start: '2016-10-11T10:00:00.000Z',
+    }]];
+    const selected = [{
+      begin: slots[0][0].start,
+      end: slots[0][0].end,
+      resource: slots[0][0].resource,
+    }];
+    const timeSlots = getWrapper({ selected, slots }).find(TimeSlotComponent);
+
+    expect(timeSlots).to.have.length(3);
+    expect(timeSlots.at(0).props().isSelectable).to.be.true;
+    expect(timeSlots.at(1).props().isSelectable).to.be.false;
+    expect(timeSlots.at(2).props().isSelectable).to.be.false;
+  });
+
+  it('renders a closed message when resource is not open', () => {
+    const closedSlot = [[{ start: '2016-10-12T10:00:00.000Z' }]];
+    const props = {
+      slots: [...defaultProps.slots, ...closedSlot],
+    };
+    const wrapper = getWrapper(props);
+    const timeSlots = wrapper.find(TimeSlotComponent);
+    const closedMessage = wrapper.find('.app-TimeSlots--closed');
+
+    expect(timeSlots).to.have.length(2);
+    expect(closedMessage).to.have.length(1);
+  });
+
+  it('does not render empty slots', () => {
+    const emptySlot = [[]];
+    const props = {
+      slots: [...defaultProps.slots, ...emptySlot],
+    };
+    const timeSlots = getWrapper(props).find(TimeSlotComponent);
+
+    expect(timeSlots).to.have.length(2);
   });
 });

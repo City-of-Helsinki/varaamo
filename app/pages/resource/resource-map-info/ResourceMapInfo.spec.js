@@ -16,7 +16,7 @@ describe('pages/resource/resource-map-info/ResourceMapInfo', () => {
     return shallowWithIntl(<ResourceMapInfo {...defaultProps} />);
   }
 
-  it('renders resource description as Button', () => {
+  it('renders Service map link as a Button with correct url', () => {
     const button = getWrapper().find(Button);
     const expected = 'https://palvelukartta.hel.fi/unit/123#!route-details';
 
