@@ -88,7 +88,7 @@
   "Logo.helsinkiAlt": "Helsingin vaakuna",
   "Logo.vantaaAlt": "Vantaan kaupunki",
   "MapToggle.noResultsText": "Yhtään hakutulosta ei löytynyt.",
-  "MapToggle.resultsText": "{count} {count, plural, one {tila} other {tilaa}}",
+  "MapToggle.resultsText": "Tiloja löytyi {count} {count, plural, one {kpl} other {kpl}}",
   "MapToggle.showList": "Lista",
   "MapToggle.showMap": "Kartta",
   "MiniModal.buttonText": "Valmis",

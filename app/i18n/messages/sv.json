@@ -88,7 +88,7 @@
   "Logo.helsinkiAlt": "Helsingfors vapen",
   "Logo.vantaaAlt": "Vanda stad",
   "MapToggle.noResultsText": "Inga sökresultat.",
-  "MapToggle.resultsText": "{count} {count, plural, one {rum} other {rum}}",
+  "MapToggle.resultsText": "{count} {count, plural, one {rum} other {rum}} hittades",
   "MapToggle.showList": "Resultat",
   "MapToggle.showMap": "Karta",
   "MiniModal.buttonText": "Klart",

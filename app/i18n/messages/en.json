@@ -88,7 +88,7 @@
   "Logo.helsinkiAlt": "Helsinki coat-of-arms",
   "Logo.vantaaAlt": "City of Vantaa",
   "MapToggle.noResultsText": "Your search found no results.",
-  "MapToggle.resultsText": "{count} {count, plural, one {premise} other {premises}}",
+  "MapToggle.resultsText": "{count} {count, plural, one {premise} other {premises}} found",
   "MapToggle.showList": "List",
   "MapToggle.showMap": "Map",
   "MiniModal.buttonText": "Done",
