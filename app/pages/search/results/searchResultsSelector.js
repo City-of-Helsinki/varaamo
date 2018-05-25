@@ -1,9 +1,9 @@
 import { createSelector, createStructuredSelector } from 'reselect';
 
-import uiSearchFiltersSelector from 'state/selectors/uiSearchFiltersSelector';
+import urlSearchFiltersSelector from 'state/selectors/urlSearchFiltersSelector';
 
 const dateSelector = createSelector(
-  uiSearchFiltersSelector,
+  urlSearchFiltersSelector,
   filters => filters.date
 );
 

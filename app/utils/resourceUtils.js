@@ -16,8 +16,8 @@ function isOpenNow(resource) {
   return false;
 }
 
-function getAvailabilityDataForNow(resource = {}) {
-  const { closes, opens } = getOpeningHours(resource);
+function getAvailabilityDataForNow(resource = {}, date = null) {
+  const { closes, opens } = getOpeningHours(resource, date);
   const reservations = getOpenReservations(resource);
 
   if (!closes || !opens) {

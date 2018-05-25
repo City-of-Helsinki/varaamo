@@ -16,7 +16,7 @@ function ResourceAvailability({ date, resource, t }) {
   }
 
   if (moment(date).isSame(now, 'day')) {
-    const availabilityData = getAvailabilityDataForNow(resource);
+    const availabilityData = getAvailabilityDataForNow(resource, date);
     bsStyle = availabilityData.bsStyle;
     status = availabilityData.status;
     values = availabilityData.values;
