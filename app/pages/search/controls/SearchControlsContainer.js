@@ -56,11 +56,16 @@ class UnconnectedSearchControlsContainer extends Component {
     return hasFilters;
   }
 
-  handleDateChange = (date) => {
+  handleDateChange = ({ date, duration, end, start }) => {
     const dateInCorrectFormat = (
       moment(date, 'L').format(constants.DATE_FORMAT)
     );
-    this.handleFiltersChange({ date: dateInCorrectFormat });
+    this.handleFiltersChange({
+      date: dateInCorrectFormat,
+      duration,
+      end,
+      start,
+    });
   }
 
   handleFiltersChange = (newFilters) => {
@@ -98,6 +103,7 @@ class UnconnectedSearchControlsContainer extends Component {
 
   render() {
     const {
+      currentLanguage,
       filters,
       isFetchingPurposes,
       isFetchingUnits,
@@ -125,8 +131,12 @@ class UnconnectedSearchControlsContainer extends Component {
               </Col>
               <Col className="app-SearchControlsContainer__control" md={6} sm={12}>
                 <DatePickerControl
+                  currentLanguage={currentLanguage}
+                  date={moment(filters.date).format('L')}
+                  duration={parseInt(filters.duration, 10)}
+                  end={filters.end}
                   onConfirm={this.handleDateChange}
-                  value={moment(filters.date).format('L')}
+                  start={filters.start}
                 />
               </Col>
             </Row>
@@ -213,6 +223,7 @@ class UnconnectedSearchControlsContainer extends Component {
 
 UnconnectedSearchControlsContainer.propTypes = {
   actions: PropTypes.object.isRequired,
+  currentLanguage: PropTypes.string.isRequired,
   filters: PropTypes.object.isRequired,
   isFetchingPurposes: PropTypes.bool.isRequired,
   isFetchingUnits: PropTypes.bool.isRequired,

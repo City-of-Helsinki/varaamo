@@ -73,6 +73,8 @@
   "DatePickerControl.buttonLabel": "Päivämäärä",
   "DatePickerControl.header": "Valitse aika",
   "DatePickerControl.label": "Milloin?",
+  "DatePickerControl.timeRangeTitle": "Aikaväli ja varauksen minimipituus",
+  "DatePickerControl.title": "{date} klo {start}-{end} {hours}h varaus",
   "Footer.espooText": "Varaamo on Helsingin kaupungin tilanvarauspalvelu, jota kokeillaan Espoon kaupunginkirjaston tiloissa. Kyseessä on pilottiversio, josta                   toivomme Sinulta palautetta.",
   "Footer.feedbackLink": "Palautteesi voit lähettää täältä.",
   "Footer.helsinkiText": "Varaamo on Helsingin kaupungin tilanvarauspalvelu.                   Kyseessä on pilottiversio, josta toivomme Sinulta palautetta.",

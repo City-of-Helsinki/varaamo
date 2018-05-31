@@ -9,11 +9,11 @@ function getFetchParamsFromFilters(filters) {
   const all = Object.assign(
     {},
     pickSupportedFilters(filters),
-    getDateStartAndEndTimes(filters.date),
+    getDateStartAndEndTimes(filters.date, filters.start, filters.end, filters.duration),
     { purpose: filters.purpose === 'all' ? '' : filters.purpose }
   );
 
-  return omit(all, 'date');
+  return omit(all, 'date', 'duration', 'end', 'start');
 }
 
 function getSearchPageUrl(filters = {}) {

@@ -5,7 +5,7 @@ import selector from './mapSelector';
 function getState({
     units = {},
     resources = {},
-    filters = { date: '2012-02-02', search: '' },
+    filters = { date: '2012-02-02', duration: 30, end: '00:00', search: '', start: '08:30' },
   } = {}) {
   return {
     data: { units, resources },

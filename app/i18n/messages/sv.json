@@ -73,6 +73,8 @@
   "DatePickerControl.buttonLabel": "Datum",
   "DatePickerControl.header": "Välj dag",
   "DatePickerControl.label": "När?",
+  "DatePickerControl.timeRangeTitle": "Aikaväli ja varauksen minimipituus",
+  "DatePickerControl.title": "{date} kl. {start}-{end} {hours}h bokning",
   "Footer.espooText": "Varaamo är Helsingfors stads utrymmesbokningstjänst, som kommer att provas i vissa av Esbo stadsbiblioteks utrymmen. Det är frågan om en pilotversion och vi hoppas att Du ger oss respons på den.",
   "Footer.feedbackLink": "Du kan ge din respons här.",
   "Footer.helsinkiText": "Varaamo är Helsingfors stads utrymmesbokningstjänst.                   Det är frågan om en pilotversion och vi hoppas att Du ger oss respons på den.",

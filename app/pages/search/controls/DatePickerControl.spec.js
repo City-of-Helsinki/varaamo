@@ -1,10 +1,11 @@
 import { expect } from 'chai';
 import React from 'react';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Overlay from 'react-bootstrap/lib/Overlay';
-import { Calendar } from 'react-date-picker';
+import DayPicker from 'react-day-picker';
+import moment from 'moment';
+import mockDate from 'mockdate';
 import simple from 'simple-mock';
 
 import { shallowWithIntl } from 'utils/testUtils';
@@ -12,8 +13,12 @@ import DatePickerControl from './DatePickerControl';
 import SearchControlOverlay from './SearchControlOverlay';
 
 const defaults = {
+  currentLanguage: 'fi',
+  date: '2017-01-01',
+  duration: 30,
+  end: '16:00',
   onConfirm: () => null,
-  value: '01.01.2017',
+  start: '10:00',
 };
 function getWrapper(props) {
   return shallowWithIntl(<DatePickerControl {...defaults} {...props} />);
@@ -39,13 +44,10 @@ describe('pages/search/controls/DatePickerControl', () => {
     expect(formGroup.prop('onClick')).to.equal(instance.showOverlay);
   });
 
-  it('renders FormControl with correct props', () => {
+  it('renders app-DatePickerControl__title with correct text', () => {
     const wrapper = getWrapper();
-    const formControl = wrapper.find(FormControl);
-    expect(formControl).to.have.length(1);
-    expect(formControl.prop('disabled')).to.be.true;
-    expect(formControl.prop('type')).to.equal('text');
-    expect(formControl.prop('value')).to.equal(defaults.value);
+    const title = wrapper.find('.app-DatePickerControl__title');
+    expect(title).to.have.length(1);
   });
 
   it('renders Overlay with correct props', () => {
@@ -68,23 +70,90 @@ describe('pages/search/controls/DatePickerControl', () => {
     expect(controlOverlay.prop('title')).to.equal('DatePickerControl.header');
   });
 
-  it('renders calendar for selecting date', () => {
+  it('renders DayPicker for selecting date', () => {
+    const expected = moment(defaults.date).startOf('day').toDate();
     const wrapper = getWrapper();
-    const calendar = wrapper.find(Calendar);
-    expect(calendar).to.have.length(1);
-    expect(calendar.prop('dateFormat')).to.equal('L');
-    expect(calendar.prop('defaultDate')).to.equal(defaults.value);
-    expect(calendar.prop('onChange')).to.equal(wrapper.instance().handleConfirm);
+    const dayPicker = wrapper.find(DayPicker);
+    expect(dayPicker).to.have.length(1);
+    expect(dayPicker.prop('disabledDays')).to.exist;
+    expect(dayPicker.prop('enableOutsideDays')).to.be.true;
+    expect(dayPicker.prop('initialMonth')).to.deep.equal(expected);
+    expect(dayPicker.prop('locale')).to.equal(defaults.currentLanguage);
+    expect(dayPicker.prop('onDayClick')).to.equal(wrapper.instance().handleConfirm);
+    expect(dayPicker.prop('selectedDays')).to.deep.equal(expected);
+  });
+
+  describe('DayPicker disabledDays', () => {
+    const dayPicker = getWrapper().find(DayPicker);
+    const now = new Date();
+    const todayEarly = new Date();
+    todayEarly.setHours(0, 1, 0, 0);
+    const todayLate = new Date();
+    todayLate.setHours(23, 0, 0, 0);
+    const receivedToday = new Date(now);
+    const receivedYesterday = new Date(now.valueOf() - 86400000);
+    const receivedTomorrow = new Date(now.valueOf() + 86400000);
+    receivedToday.setHours(12, 0, 0, 0);
+    receivedTomorrow.setHours(12, 0, 0, 0);
+    receivedYesterday.setHours(12, 0, 0, 0);
+    let isDisabled;
+    before(() => {
+      isDisabled = dayPicker.prop('disabledDays');
+    });
+
+    afterEach(() => {
+      mockDate.reset();
+    });
+
+    it('disables yesterday', () => {
+      mockDate.set(now);
+      expect(isDisabled(receivedYesterday)).to.be.true;
+    });
+
+    it('enables today now', () => {
+      mockDate.set(now);
+      expect(isDisabled(receivedToday)).to.be.false;
+    });
+
+    it('enables today early', () => {
+      mockDate.set(todayEarly);
+      expect(isDisabled(receivedToday)).to.be.false;
+    });
+
+    it('enables today late', () => {
+      mockDate.set(todayLate);
+      expect(isDisabled(receivedToday)).to.be.false;
+    });
+
+    it('enables tomorrow', () => {
+      mockDate.set(now);
+      expect(isDisabled(receivedTomorrow)).to.be.false;
+    });
+  });
+
+  describe('componentWillUpdate', () => {
+    it('updates state with correct values', () => {
+      const duration = 90;
+      const end = '15:00';
+      const start = '11:00';
+      const instance = getWrapper().instance();
+      instance.componentWillUpdate({ duration, end, start });
+      expect(instance.state.duration).to.equal(duration);
+      expect(instance.state.end).to.equal(end);
+      expect(instance.state.start).to.equal(start);
+    });
   });
 
   describe('handleConfirm', () => {
     it('calls onConfirm with correct value', () => {
       const onConfirm = simple.mock();
-      const value = '12.12.2017';
+      const date = '12.12.2017';
+      const { duration, end, start } = defaults;
+      const expected = { date, duration, end, start };
       const instance = getWrapper({ onConfirm }).instance();
-      instance.handleConfirm(value);
+      instance.handleConfirm(date);
       expect(onConfirm.callCount).to.equal(1);
-      expect(onConfirm.lastCall.args).to.deep.equal([value]);
+      expect(onConfirm.lastCall.args).to.deep.equal([expected]);
     });
 
     it('calls hideOverlay', () => {
@@ -93,6 +162,45 @@ describe('pages/search/controls/DatePickerControl', () => {
       instance.handleConfirm();
       expect(instance.hideOverlay.callCount).to.equal(1);
       simple.restore();
+    });
+  });
+
+  describe('handleTimeRange', () => {
+    it('calls onConfirm with correct value', () => {
+      const onConfirm = simple.mock();
+      const { date } = defaults;
+      const duration = 60;
+      const end = '18:00';
+      const start = '10:00';
+      const props = { duration, end, start };
+      const expected = { ...props, date };
+      const instance = getWrapper({ onConfirm }).instance();
+      instance.state.visible = true;
+      instance.handleTimeRange(props);
+
+      expect(onConfirm.callCount).to.equal(1);
+      expect(onConfirm.lastCall.args).to.deep.equal([expected]);
+      expect(instance.state.duration).to.equal(duration);
+      expect(instance.state.end).to.equal(end);
+      expect(instance.state.start).to.equal(start);
+      expect(instance.state.visible).to.be.false;
+    });
+
+    it('calls onConfirm with correct end value when start is after end', () => {
+      const onConfirm = simple.mock();
+      const { date } = defaults;
+      const duration = 60;
+      const end = '09:00';
+      const start = '10:00';
+      const expectedEnd = '10:30';
+      const props = { duration, end, start };
+      const expected = { ...props, date, end: expectedEnd };
+      const instance = getWrapper({ onConfirm }).instance();
+      instance.handleTimeRange(props);
+
+      expect(onConfirm.callCount).to.equal(1);
+      expect(onConfirm.lastCall.args).to.deep.equal([expected]);
+      expect(instance.state.end).to.equal(expectedEnd);
     });
   });
 

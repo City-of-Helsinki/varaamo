@@ -3,8 +3,13 @@
 
 .app-SearchPage {
 
+  background-color: $silver;
+
   &__overlay {
     z-index: 5;
+  }
+  .app-PageWrapper {
+    min-height: 500px;
   }
 
   &__content {
@@ -45,7 +50,5 @@
       border-color: $hel-silver;
     }
   }
-  .app-PageWrapper {
-    background-color: $hel-silver;
-  }
+
 }

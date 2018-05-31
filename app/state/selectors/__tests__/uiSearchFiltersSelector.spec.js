@@ -3,7 +3,7 @@ import MockDate from 'mockdate';
 
 import uiSearchFiltersSelector from 'state/selectors/uiSearchFiltersSelector';
 
-function getState(date = '2015-10-10') {
+function getState(date = '2015-10-10', start = '08:30') {
   return {
     ui: {
       search: {
@@ -11,9 +11,12 @@ function getState(date = '2015-10-10') {
           charge: false,
           date,
           distance: '',
+          duration: 30,
+          end: '00:00',
           people: '',
           purpose: 'some-purpose',
           search: '',
+          start,
           unit: '',
         },
       },

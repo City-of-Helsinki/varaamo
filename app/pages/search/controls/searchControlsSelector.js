@@ -7,6 +7,7 @@ import { purposesSelector, unitsSelector } from 'state/selectors/dataSelectors';
 import uiSearchFiltersSelector from 'state/selectors/uiSearchFiltersSelector';
 import urlSearchFiltersSelector from 'state/selectors/urlSearchFiltersSelector';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
+import { currentLanguageSelector } from 'state/selectors/translationSelectors';
 
 const positionSelector = state => state.ui.search.position;
 
@@ -36,6 +37,7 @@ const unitOptionsSelector = createSelector(
 );
 
 const searchControlsSelector = createStructuredSelector({
+  currentLanguage: currentLanguageSelector,
   filters: uiSearchFiltersSelector,
   isFetchingPurposes: requestIsActiveSelectorFactory(ActionTypes.API.PURPOSES_GET_REQUEST),
   isFetchingUnits: requestIsActiveSelectorFactory(ActionTypes.API.UNITS_GET_REQUEST),
