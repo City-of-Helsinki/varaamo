@@ -15,8 +15,7 @@ import { getResourcePageUrl } from 'utils/resourceUtils';
 class ReservationListItem extends Component {
   renderImage(image) {
     if (image && image.url) {
-      const src = `${image.url}?dim=150x150`;
-      return <img alt={image.caption} src={src} />;
+      return <img alt={image.caption} src={image.url} />;
     }
     return null;
   }
@@ -35,12 +34,12 @@ class ReservationListItem extends Component {
 
     return (
       <li className="reservation">
-        <div className="col-xs-3 col-md-2 col-lg-2 image-container">
+        <div className="col-md-3 col-lg-2 image-container">
           <Link to={getResourcePageUrl(resource)}>
             {this.renderImage(getMainImage(resource.images))}
           </Link>
         </div>
-        <div className="col-xs-6 col-md-6 col-lg-7 reservation-details">
+        <div className="col-xs-9 col-md-6 col-lg-7 reservation-details">
           <ReservationStateLabel reservation={reservation} />
           <Link to={getResourcePageUrl(resource)}>
             <h4>
@@ -60,7 +59,7 @@ class ReservationListItem extends Component {
             text={t('ReservationListItem.accessCodeText')}
           />
         </div>
-        <div className="col-xs-3 col-md-4 col-lg-3 action-container">
+        <div className="col-xs-3 col-md-3 col-lg-3 action-container">
           <ReservationControls
             isAdmin={isAdmin}
             isStaff={isStaff}
