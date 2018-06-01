@@ -39,9 +39,10 @@ class DatePickerControl extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    const { duration, end, start } = nextProps;
-    if (duration !== this.props.duration || end !== this.props.end || start !== this.props.start) {
-      this.setState({ duration, end, start });
+    const { date, duration, end, start } = nextProps;
+    if (date !== this.props.date || duration !== this.props.duration ||
+      end !== this.props.end || start !== this.props.start) {
+      this.setState({ date, duration, end, start });
     }
   }
 
@@ -73,8 +74,8 @@ class DatePickerControl extends React.Component {
   }
 
   render() {
-    const { currentLanguage, date, t } = this.props;
-    const { duration, end, start } = this.state;
+    const { currentLanguage, t } = this.props;
+    const { date, duration, end, start } = this.state;
     const hours = getDurationHours(duration);
     const title = t('DatePickerControl.title', { date, hours, end, start });
     const selectedDay = moment(date, 'L').startOf('day').toDate();

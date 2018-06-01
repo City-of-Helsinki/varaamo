@@ -281,12 +281,6 @@
     &:focus {
       outline: none;
     }
-
-    &--disabled {
-      cursor: pointer;
-      background-color: $medium-gray;
-      color: $dark-gray;
-    }
     &--available:not(.DayPicker-Day--disabled) {
       background-color: $light-gray;
       &.DayPicker-Day--selected {
@@ -295,6 +289,11 @@
     }
     &--outside {
       color: $medium-gray;
+    }
+    &--disabled {
+      cursor: pointer;
+      background-color: $medium-gray;
+      color: $dark-gray;
     }
     &--selected,
     &--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
