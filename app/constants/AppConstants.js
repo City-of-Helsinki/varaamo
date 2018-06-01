@@ -47,6 +47,7 @@ export default {
       labelTextId: 'common.requested',
     },
   },
+  SEARCH_PAGE_SIZE: 10,
   SHOW_TEST_SITE_MESSAGE: SETTINGS.SHOW_TEST_SITE_MESSAGE,
   SUPPORTED_LANGUAGES: ['en', 'fi', 'sv'],
   SUPPORTED_SEARCH_FILTERS: {
@@ -57,6 +58,7 @@ export default {
     end: '',
     lat: '',
     lon: '',
+    page: 1,
     people: '',
     purpose: '',
     search: '',

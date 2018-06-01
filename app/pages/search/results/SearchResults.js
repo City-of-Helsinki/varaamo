@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import ResourceCompactList from 'shared/resource-compact-list';
 import ResourceList from 'shared/resource-list';
 import { scrollTo } from 'utils/domUtils';
+import SearchResultsPaging from './SearchResultsPaging';
 import searchResultsSelector from './searchResultsSelector';
 
 export class UnconnectedSearchResults extends Component {
@@ -15,9 +16,10 @@ export class UnconnectedSearchResults extends Component {
 
   render() {
     const {
-      date,
+      filters,
       isFetching,
       location,
+      resultCount,
       searchResultIds,
       selectedUnitId,
       showMap,
@@ -26,18 +28,23 @@ export class UnconnectedSearchResults extends Component {
       <div className="app-SearchResults" id="search-results">
         <Loader loaded={!isFetching}>
           {!showMap &&
-            <ResourceList
-              date={date}
-              location={location}
-              resourceIds={searchResultIds}
-            />
+            <div className="app-SearchResults__container">
+              <ResourceList
+                date={filters.date}
+                location={location}
+                resourceIds={searchResultIds}
+              />
+              <SearchResultsPaging
+                filters={filters}
+                resultCount={resultCount}
+              />
+            </div>
           }
           {showMap && selectedUnitId &&
             <ResourceCompactList
-              date={date}
+              date={filters.date}
               location={location}
               resourceIds={searchResultIds}
-              unitId={selectedUnitId}
             />
           }
         </Loader>
@@ -47,9 +54,10 @@ export class UnconnectedSearchResults extends Component {
 }
 
 UnconnectedSearchResults.propTypes = {
-  date: PropTypes.string.isRequired,
+  filters: PropTypes.object.isRequired,
   isFetching: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
+  resultCount: PropTypes.number.isRequired,
   searchResultIds: PropTypes.array.isRequired,
   selectedUnitId: PropTypes.string,
   showMap: PropTypes.bool.isRequired,

@@ -10,7 +10,8 @@ function getFetchParamsFromFilters(filters) {
     {},
     pickSupportedFilters(filters),
     getDateStartAndEndTimes(filters.date, filters.start, filters.end, filters.duration),
-    { purpose: filters.purpose === 'all' ? '' : filters.purpose }
+    { purpose: filters.purpose === 'all' ? '' : filters.purpose },
+    { page: filters.page || 1 }
   );
 
   return omit(all, 'date', 'duration', 'end', 'start');

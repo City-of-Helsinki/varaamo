@@ -18,6 +18,7 @@ const uiSearchFiltersSelector = createSelector(
         date: getDateString(filters.date),
         duration: getDuration(filters.duration),
         end: getEndTimeString(filters.end),
+        page: parseInt(filters.page, 10) || 1,
         start: getStartTimeString(filters.start),
       },
     );

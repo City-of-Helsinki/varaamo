@@ -31,6 +31,7 @@ describe('pages/search/SearchPage', () => {
     },
     params: {},
     position: null,
+    resultCount: 2,
     searchDone: true,
     searchResultIds: Immutable(['resource-1', 'resource-2']),
     selectedUnitId: '123',
@@ -68,7 +69,7 @@ describe('pages/search/SearchPage', () => {
       expect(mapToggle.props()).to.deep.equal({
         mapVisible: defaultProps.showMap,
         onClick: defaultProps.actions.toggleMap,
-        resultsCount: defaultProps.searchResultIds.length,
+        resultCount: defaultProps.resultCount,
       });
     });
 
@@ -110,6 +111,7 @@ describe('pages/search/SearchPage', () => {
         const searchDone = true;
         const searchResults = getSearchResults({ isFetchingSearchResults, searchDone });
         expect(searchResults.props().isFetching).to.equal(isFetchingSearchResults);
+        expect(searchResults.props().resultCount).to.equal(defaultProps.resultCount);
         expect(searchResults.props().searchResultIds).to.deep.equal(defaultProps.searchResultIds);
         expect(searchResults.props().showMap).to.equal(defaultProps.showMap);
       });

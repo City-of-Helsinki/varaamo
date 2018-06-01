@@ -12,6 +12,7 @@ function getProps(date = '2015-10-10', start = '08:30') {
         distance: '',
         duration: 30,
         end: '00:00',
+        page: 1,
         people: '',
         purpose: 'some-purpose',
         search: '',

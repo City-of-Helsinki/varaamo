@@ -19,7 +19,7 @@ const shouldMapFitBoundariesSelector = createSelector(
   urlSearchFiltersSelector,
   selectedUnitIdSelector,
   (filters, unitId) => (
-    Boolean(find(omit(filters, ['date', 'duration', 'end', 'start']), filter => filter !== '' && filter !== false)) || Boolean(unitId)
+    Boolean(find(omit(filters, ['date', 'duration', 'end', 'page', 'start']), filter => filter !== '' && filter !== false)) || Boolean(unitId)
   )
 );
 

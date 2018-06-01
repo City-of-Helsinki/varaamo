@@ -33,6 +33,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       date: '2015-10-10',
       duration: 30,
       end: '16:00',
+      page: 1,
       people: '12',
       purpose: 'some-purpose',
       search: 'search-query',
