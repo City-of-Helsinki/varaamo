@@ -18,88 +18,100 @@ $reservation-list-item-min-height-xs: (
   padding: 0;
 
   .reservation {
+    background-color: $white;
     position: relative;
-    min-height: $reservation-list-item-min-height;
-    padding-top: $reservation-list-padding;
-    padding-bottom: $reservation-list-padding;
-    padding-left: $reservation-list-image-width + $reservation-list-padding;
-    border-bottom: 1px solid $gray-lighter;
-
-    @media (max-width: $screen-xs-max) {
-      padding-left: $reservation-list-image-width-xs + $reservation-list-inner-margin;
-      min-height: $reservation-list-item-min-height-xs;
-    }
+    margin-bottom: 50px;
+    min-height: 150px;
+    // min-height: $reservation-list-item-min-height;
+    // padding-top: $reservation-list-padding;
+    // padding-bottom: $reservation-list-padding;
+    // padding-left: $reservation-list-image-width + $reservation-list-padding;
 
     .image-container {
-      position: absolute;
-      left: 0;
-      top: $reservation-list-padding;
-      width: $reservation-list-image-width;
+      background-color: #ebedf1;
+      min-height: 150px;
+
+      img {
+        margin-left: -13px;
+      }
+    }
+
+    .reservation-details {
+      margin-top: 10px;
+      min-height: 150px;
 
       .reservation-state-label-container {
         font-size: 18px;
+        margin-bottom: 8px;
+        margin-top: -8px;
         width: 100%;
-        margin-bottom: $reservation-list-inner-margin;
 
         .label {
-          display: block;
+          display: inline-block;
           line-height: $reservation-list-label-height;
           padding-top: 0;
           padding-bottom: 0;
         }
       }
 
-      img {
-        width: 100%;
-        background-color: $gray-light;
+      .location, .timeslot {
+        width: 28.8px;
+        margin-right: 5px
       }
 
-      @media (max-width: $screen-xs-max) {
-        width: $reservation-list-image-width-xs;
+      .reservation-access-code {
+        font-weight: bold;
+        margin-left: 33.8px;
+      }
 
-        .reservation-state-label-container {
-          font-size: 16px;
+    }
+
+    .action-container {
+      min-height: 150px;
+
+      .buttons {
+        position: absolute;
+        bottom: 0;
+        margin-bottom: 15px;
+
+        button {
+          margin-left: 14px;
         }
       }
     }
 
-    .names {
-      h4 {
-        margin-top: 0;
-        margin-bottom: $reservation-list-inner-margin;
-        @media (max-width: $screen-xs-max) {
-          font-size: 16px;
-          margin-bottom: 5px;
-          line-height: 1;
-        }
-      }
-      .unit-name {
-        font-size: 15px;
-        font-weight: normal;
-        color: $gray;
-      }
+
+    a {
+      text-decoration: none;
+    }
+    @media (max-width: $screen-xs-max) {
+      //padding-left: $reservation-list-image-width-xs + $reservation-list-inner-margin;
+      min-height: $reservation-list-item-min-height-xs;
     }
 
-    .time {
-      margin-bottom: $reservation-list-inner-margin;
-      @media (max-width: $screen-xs-max) {
-        margin-bottom: 5px;
-      }
-    }
 
-    .reservation-access-code {
-      display: block;
-      font-weight: bold;
-      margin-bottom: $reservation-list-inner-margin;
-    }
+    // .names {
+    //   h4 {
+    //     margin-top: 0;
+    //     margin-bottom: $reservation-list-inner-margin;
+    //     @media (max-width: $screen-xs-max) {
+    //       font-size: 16px;
+    //       margin-bottom: 5px;
+    //       line-height: 1;
+    //     }
+    //   }
+    //   .unit-name {
+    //     font-size: 15px;
+    //     font-weight: normal;
+    //     color: $gray;
+    //   }
+    // }
 
-    .buttons {
-      margin-left: -14px;
-
-      button {
-        width: 80px;
-        margin-left: 14px;
-      }
-    }
+    // .time {
+    //   margin-bottom: $reservation-list-inner-margin;
+    //   @media (max-width: $screen-xs-max) {
+    //     margin-bottom: 5px;
+    //   }
+    // }
   }
 }

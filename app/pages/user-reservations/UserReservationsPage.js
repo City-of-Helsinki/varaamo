@@ -58,9 +58,11 @@ class UnconnectedUserReservationsPage extends Component {
     } = this.props;
 
     return (
-      <PageWrapper title={t('UserReservationsPage.title')}>
-        <Loader loaded={resourcesLoaded}>
-          <div>
+      <div className="app-UserReservationPage">
+        <PageWrapper className="app-UserReservationPage__wrapper" title={t('UserReservationsPage.title')} transparent={false}>
+          <Loader loaded={resourcesLoaded}>
+            <div className="col-md-1 col-lg-1" />
+
             { !isAdmin && (
               <div>
                 <h1>{t('UserReservationsPage.title')}</h1>
@@ -70,8 +72,8 @@ class UnconnectedUserReservationsPage extends Component {
               </div>
             )}
             { isAdmin && (
-              <div>
-                <h1>{t('UserReservationsPage.preliminaryReservationsHeader')}</h1>
+              <div className="col-xs-12 col-md-10 col-lg-10">
+                <h1>{t('UserReservationsPage.title')}</h1>
                 <AdminReservationFilters
                   filters={adminReservationFilters}
                   onFiltersChange={this.handleFiltersChange}
@@ -91,9 +93,9 @@ class UnconnectedUserReservationsPage extends Component {
             )}
             <ReservationCancelModal />
             <ReservationInfoModal />
-          </div>
-        </Loader>
-      </PageWrapper>
+          </Loader>
+        </PageWrapper>
+      </div>
     );
   }
 }

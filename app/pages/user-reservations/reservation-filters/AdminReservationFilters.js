@@ -39,7 +39,7 @@ class AdminReservationFilters extends Component {
 
     return (
       <div className="reservation-filters">
-        <h4>{t('AdminReservationFilters.header')}</h4>
+        <h4>{t('UserReservationsPage.preliminaryReservationsHeader')}</h4>
         <Select
           className="reservation-state-select"
           clearable={false}

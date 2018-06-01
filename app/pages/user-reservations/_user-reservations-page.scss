@@ -1,2 +1,17 @@
 @import './reservation-filters/reservation-filters';
 @import './reservation-list/reservation-list';
+
+.app-UserReservationPage {
+
+  &__overlay {
+    z-index: 5;
+  }
+
+  &__content {
+    position: relative;
+  }
+
+  .app-PageWrapper {
+    background-color: $hel-silver;
+  }
+}

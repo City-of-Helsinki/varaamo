@@ -69,7 +69,7 @@ describe('pages/user-reservations/UserReservationsPage', () => {
 
       it('renders correct text inside the first header', () => {
         const headerText = wrapper.find('h1').at(0).text();
-        expect(headerText).to.equal('UserReservationsPage.preliminaryReservationsHeader');
+        expect(headerText).to.equal('UserReservationsPage.title');
       });
 
       it('renders correct text inside the second header', () => {

@@ -6,8 +6,7 @@
   z-index: 30010;
   &.modal-city-theme {
     .modal-content {
-      background-color: $brand-primary;
-      color: $white;
+      color: $black;
 
       h1, h2, h3, h4, h5, h6, label {
         font-weight: 300;
@@ -17,7 +16,7 @@
       border: none;
       &::before {
         content: '';
-        background: url('../../shared/logo/helsinki-logo-white.png');
+        @include helsinki-logo($black);
         position: absolute;
         background-repeat: no-repeat;
         background-size: contain;
@@ -33,7 +32,6 @@
         text-align: center;
       }
       button.close {
-        color: $white;
         font-weight: 300;
         opacity: 1;
       }
@@ -44,15 +42,11 @@
     text-align: center;
   }
   .btn {
-    border-radius: 10px;
-    &.btn-primary {
-      background-color: $blue;
-    }
     &+.btn {
       margin-left: 5px;
     }
   }
   .well {
-    background-color: darken($brand-primary, 7);
+    background-color: $white;
   }
 }
