@@ -20,6 +20,7 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
     reservation: Immutable(Reservation.build()),
     resource: Immutable(Resource.build({
       images: [Image.build()],
+      type: { name: 'test_type' },
     })),
     unit: Immutable(Unit.build()),
   };
@@ -36,7 +37,7 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
     });
 
     it('displays an image with correct props', () => {
-      const image = component.find('img');
+      const image = component.find('.resourceImg');
 
       expect(image).to.have.length(1);
       expect(image.props().alt).to.equal(props.resource.images[0].caption);
@@ -59,19 +60,7 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
     it('displays the name of the given unit in props', () => {
       const expected = props.unit.name;
 
-      expect(component.find('h4').text()).to.contain(expected);
-    });
-
-    it('contains a Link to resource page with correct time', () => {
-      const expectedUrl = getResourcePageUrl(
-        props.resource,
-        props.reservation.begin,
-        props.reservation.begin
-      );
-      const expectedProps = { to: expectedUrl };
-      const resourcePageLinkWithTime = component.find(expectedProps);
-
-      expect(resourcePageLinkWithTime.length).to.equal(1);
+      expect(component.find('.unit-name').text()).to.contain(expected);
     });
 
     it('contains TimeRange component with correct props', () => {

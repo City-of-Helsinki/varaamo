@@ -15,7 +15,7 @@ import { getResourcePageUrl } from 'utils/resourceUtils';
 class ReservationListItem extends Component {
   renderImage(image) {
     if (image && image.url) {
-      return <img alt={image.caption} src={image.url} />;
+      return <img alt={image.caption} className="resourceImg" src={image.url} />;
     }
     return null;
   }
