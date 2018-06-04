@@ -44,11 +44,35 @@ function getDurationHours(duration) {
   return value / 60;
 }
 
+function calculateDuration(duration, start, end) {
+  const { timeFormat, timePeriodType } = constants.FILTER;
+  const startTime = moment(start, timeFormat);
+  const endTime = moment(end, timeFormat);
+  if (end === '00:00') {
+    endTime.add(1, 'day').startOf('day');
+  }
+  const diffMinutes = endTime.diff(startTime, timePeriodType);
+  return Math.min(duration, diffMinutes);
+}
+
 function getEndTimeString(endTime) {
   if (!endTime) {
     return moment().startOf('day').format(constants.FILTER.timeFormat);
   }
   return endTime;
+}
+
+function calculateEndTime(end, start) {
+  if (end === '00:00') {
+    return end;
+  }
+  const { timeFormat, timePeriod, timePeriodType } = constants.FILTER;
+  const startTime = moment(start, timeFormat);
+  const endTime = moment(end, timeFormat);
+  if (startTime.isSameOrAfter(endTime)) {
+    return startTime.add(timePeriod, timePeriodType).format(timeFormat);
+  }
+  return end;
 }
 
 function getStartTimeString(startTime) {
@@ -140,6 +164,8 @@ function prettifyHours(hours, showMinutes = false) {
 
 export {
   addToDate,
+  calculateDuration,
+  calculateEndTime,
   getDateStartAndEndTimes,
   getDateString,
   getDuration,

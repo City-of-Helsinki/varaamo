@@ -5,6 +5,8 @@ import moment from 'moment';
 import constants from 'constants/AppConstants';
 import {
   addToDate,
+  calculateDuration,
+  calculateEndTime,
   getDateStartAndEndTimes,
   getDateString,
   getDuration,
@@ -137,6 +139,49 @@ describe('Utils: timeUtils', () => {
     });
   });
 
+  describe('calculateDuration', () => {
+    it('returns duration when given duration fits between start and end time range', () => {
+      const duration = 60;
+      const end = '18:00';
+      const start = '10:00';
+      expect(calculateDuration(duration, start, end)).to.equal(duration);
+    });
+
+    it('returns calculated duration when start and end time range less than given duration', () => {
+      const duration = 360;
+      const end = '12:00';
+      const start = '10:00';
+      expect(calculateDuration(duration, start, end)).to.equal(120);
+    });
+
+    it('returns duration when given duration first between start and end time range and end 00:00', () => {
+      const duration = 360;
+      const end = '00:00';
+      const start = '10:00';
+      expect(calculateDuration(duration, start, end)).to.equal(duration);
+    });
+  });
+
+  describe('calculateEndTime', () => {
+    it('returns given end time when start time is before end', () => {
+      const end = '18:00';
+      const start = '10:00';
+      expect(calculateEndTime(end, start)).to.equal(end);
+    });
+
+    it('calculates end time when start time is after end', () => {
+      const end = '09:00';
+      const start = '10:00';
+      expect(calculateEndTime(end, start)).to.equal('10:30');
+    });
+
+    it('returns 00:00 when end time is 00:00', () => {
+      const end = '00:00';
+      const start = '10:00';
+      expect(calculateEndTime(end, start)).to.equal(end);
+    });
+  });
+
   describe('getEndTimeString', () => {
     it('returns default end if parameter is undefined', () => {
       const end = undefined;
@@ -155,7 +200,7 @@ describe('Utils: timeUtils', () => {
   });
 
   describe('getStartTimeString', () => {
-    const now = '2016-10-10T06:00:00+03:00';
+    const now = '2016-10-10T06:45:00+03:00';
 
     before(() => {
       MockDate.set(now);
@@ -167,12 +212,12 @@ describe('Utils: timeUtils', () => {
 
     it('returns default start if parameter is undefined', () => {
       const start = undefined;
-      expect(getStartTimeString(start)).to.equal('06:30');
+      expect(getStartTimeString(start)).to.equal('07:00');
     });
 
     it('returns default start if parameter is empty', () => {
       const start = '';
-      expect(getStartTimeString(start)).to.equal('06:30');
+      expect(getStartTimeString(start)).to.equal('07:00');
     });
 
     it('returns the start unchanged', () => {

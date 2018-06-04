@@ -8,9 +8,12 @@ import DayPicker from 'react-day-picker';
 import moment from 'moment';
 import MomentLocaleUtils from 'react-day-picker/moment';
 
-import constants from 'constants/AppConstants';
 import { injectT } from 'i18n';
-import { getDurationHours } from 'utils/timeUtils';
+import {
+  calculateDuration,
+  calculateEndTime,
+  getDurationHours,
+} from 'utils/timeUtils';
 import SearchControlOverlay from './SearchControlOverlay';
 import TimeRangeControl from './TimeRangeControl';
 import iconCalendar from './images/calendar.svg';
@@ -63,14 +66,10 @@ class DatePickerControl extends React.Component {
 
   handleTimeRange = ({ duration, end, start }) => {
     const { date } = this.state;
-    const endMoment = moment(end, 'HH:mm');
-    let endValue = end;
-    if (moment(start, 'HH:mm').isSameOrAfter(endMoment)) {
-      endValue = moment(start, 'HH:mm')
-        .add(constants.FILTER.timePeriod, constants.FILTER.timePeriodType).format('HH:mm');
-    }
-    this.setState({ duration, start, end: endValue, visible: false });
-    this.props.onConfirm({ date, duration, end: endValue, start });
+    const endValue = calculateEndTime(end, start);
+    const durationValue = calculateDuration(duration, start, endValue);
+    this.setState({ duration: durationValue, start, end: endValue, visible: false });
+    this.props.onConfirm({ date, duration: durationValue, end: endValue, start });
   }
 
   render() {

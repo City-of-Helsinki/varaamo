@@ -29,15 +29,29 @@ class TimeRangeControl extends React.Component {
     return this.getTimeOptions(startTime, endOfDay);
   }
 
+  getEndTime() {
+    const { end, start } = this.props;
+    const startTime = moment(start, constants.FILTER.timeFormat);
+    const endTime = moment(end, constants.FILTER.timeFormat);
+    if (end === '00:00') {
+      endTime.add(1, 'day').startOf('day');
+    }
+    const diffMinutes = endTime.diff(startTime, 'minutes');
+    const minutes = Math.min(diffMinutes, 720);
+    return {
+      hours: Math.floor(minutes / 60),
+      minutes: minutes % 60,
+    };
+  }
+
   getDurationOptions() {
+    const { timePeriod, timePeriodType } = constants.FILTER;
+    const endTime = this.getEndTime();
     const start = moment(0, 'hours');
-    const end = moment(12, 'hours');
-    const durationStart = moment(constants.FILTER.timePeriod, constants.FILTER.timePeriodType);
+    const end = moment(endTime);
+    const durationStart = moment(timePeriod, timePeriodType);
     const range = moment.range(durationStart, end);
-    const duration = moment.duration(
-      constants.FILTER.timePeriod,
-      constants.FILTER.timePeriodType,
-    );
+    const duration = moment.duration(timePeriod, timePeriodType);
     const options = [];
     range.by(duration, (time) => {
       const hours = time.diff(start, 'hours', true);
