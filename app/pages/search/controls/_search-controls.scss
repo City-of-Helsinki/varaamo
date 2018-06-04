@@ -63,8 +63,12 @@
       padding: 0;
     }
   }
+  .Select .Select-control,
+  .Select.is-open .Select-control {
+    background-color: transparent;
+  }
   .select:before {
-    background-color: $hel-copper;
+    background-color: $copper;
   }
 
   .form-group {
