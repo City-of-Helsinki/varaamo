@@ -11,6 +11,10 @@ $reservation-list-label-height: 20px;
     margin-bottom: 50px;
     min-height: 180px;
 
+    @media (max-width: $screen-xs-max) {
+      min-height: 200px;
+    }
+
     .image-container {
       background-color: #ebedf1;
       min-height: 180px;
@@ -30,7 +34,7 @@ $reservation-list-label-height: 20px;
 
     .reservation-details {
       margin-top: 10px;
-      min-height: 185px;
+      min-height: 180px;
 
       .reservation-state-label-container {
         font-size: 18px;
@@ -63,7 +67,7 @@ $reservation-list-label-height: 20px;
       .buttons {
         position: absolute;
         bottom: 0;
-        margin-bottom: 15px;
+        margin-bottom: 25px;
 
         button {
           margin-left: 14px;
@@ -72,6 +76,10 @@ $reservation-list-label-height: 20px;
           @media (max-width: $screen-md-max) {
             margin-bottom: 10px;
           }
+
+          @media (max-width: $screen-xs-max) {
+            margin-left: -15px;
+          }
         }
       }
     }
@@ -79,9 +87,6 @@ $reservation-list-label-height: 20px;
 
     a {
       text-decoration: none;
-    }
-    @media (max-width: $screen-xs-max) {
-      min-height: 180px;
     }
   }
 }

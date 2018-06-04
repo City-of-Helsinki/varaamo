@@ -14,6 +14,7 @@ import {
   selectReservationToEdit,
   selectReservationToShow,
   showReservationInfoModal,
+  startReservationEditInInfoModal,
 } from 'actions/uiActions';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import ReservationControls from './ReservationControls';
@@ -113,6 +114,7 @@ function mapDispatchToProps(dispatch) {
     selectReservationToEdit,
     selectReservationToShow,
     showReservationInfoModal,
+    startReservationEditInInfoModal,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
