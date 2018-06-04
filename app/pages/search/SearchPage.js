@@ -78,6 +78,7 @@ class UnconnectedSearchPage extends Component {
       isFetchingSearchResults,
       location,
       params,
+      resultCount,
       searchResultIds,
       searchDone,
       selectedUnitId,
@@ -95,7 +96,7 @@ class UnconnectedSearchPage extends Component {
           <MapToggle
             mapVisible={showMap}
             onClick={actions.toggleMap}
-            resultsCount={searchResultIds.length || 0}
+            resultCount={resultCount}
           />
         }
         {showMap &&
@@ -113,12 +114,14 @@ class UnconnectedSearchPage extends Component {
                 isFetching={isFetchingSearchResults}
                 location={location}
                 ref="searchResults"
+                resultCount={resultCount}
                 searchResultIds={searchResultIds}
                 selectedUnitId={selectedUnitId}
                 showMap={showMap}
               />
             }
           </div>
+
         </PageWrapper>
       </div>
     );
@@ -133,6 +136,7 @@ UnconnectedSearchPage.propTypes = {
   location: PropTypes.object.isRequired,
   params: PropTypes.object.isRequired,
   position: PropTypes.object,
+  resultCount: PropTypes.number.isRequired,
   searchDone: PropTypes.bool.isRequired,
   searchResultIds: PropTypes.array.isRequired,
   selectedUnitId: PropTypes.string,

@@ -8,7 +8,10 @@ describe('pages/search/searchPageSelector', () => {
 
   function getSelected(extraState) {
     const state = getState({
-      'ui.search.results': searchResultIds,
+      'ui.search': {
+        resultCount: 2,
+        results: searchResultIds,
+      },
       'data.resources': {
         'resource-1': {
           id: 'resource-1',
@@ -33,6 +36,10 @@ describe('pages/search/searchPageSelector', () => {
 
   it('returns isLoggedIn', () => {
     expect(getSelected().isLoggedIn).to.exist;
+  });
+
+  it('returns resultCount', () => {
+    expect(getSelected().resultCount).to.deep.equal(2);
   });
 
   it('returns searchDone', () => {

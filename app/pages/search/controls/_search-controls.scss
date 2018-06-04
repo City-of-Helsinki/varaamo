@@ -177,96 +177,154 @@
     width: 22px;
   }
 
-  .form-control[disabled] {
-    border-left-width: 0;
+  &__title {
     border-right-width: 0;
+    text-align: left;
+    vertical-align: middle;
+
+    img {
+      margin-right: 6px;
+    }
+    img, span {
+      vertical-align: middle;
+    }
+  }
+
+  &__triangle {
+    text-align: right;
   }
 
   .app-SearchControlOverlay__overlay {
     border-top: none;
   }
 
-  .app-SearchControlOverlay {
-    @media (max-width: $screen-sm-min) {
-      right: 2px;
-    }
-  }
   .app-SearchControlOverlay__header {
     background-color: $green;
   }
 
-  .react-date-picker__calendar--theme-default {
-    border: none;
-    width: 100%;
+  .app-TimeRangeControl {
+    padding: 20px 0 0 0;
+    max-width: 400px;
+    margin: 0 auto;
 
-    .react-date-picker__month-view--theme-default {
-      border: none;
-      width: 100%;
-
-      .react-date-picker__month-view-day  {
-        line-height: 36px;
-
-        .react-date-picker__month-view-day-text {
-          background-color: $light-gray;
-          border-color: $white;
-          border-radius: 0;
-          color: $black;
-
-          &:hover {
-            background-color: $dark-gray;
-            color: $white;
-          }
+    &__header {
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+    &__range {
+      align-items: baseline;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      &-separator {
+        padding: 0;
+        margin: 0 6px;
+      }
+      .Select {
+        flex: 1 2 25%;
+        &:last-child {
+          margin-left: 15px;
         }
-      }
-      .react-date-picker__month-view-day--today-highlight {
-        color: $dark-gray;
-        .react-date-picker__month-view-day-text {
-          border: 2px solid $black;
+        .Select-control {
+          background-color: $white;
         }
-      }
-      .react-date-picker__month-view-day--weekend-highlight {
-        color: $black;
-      }
-      .react-date-picker__month-view-day--disabled {
-        &.react-date-picker__month-view-day--prev-month,
-        &.react-date-picker__month-view-day--next-month {
-          color: $dark-gray;
-        }
-      }
-      .react-date-picker__month-view-day--disabled {
-        .react-date-picker__month-view-day-text {
-          background-color: $medium-gray;
-          color: $dark-gray;
-        }
-      }
-
-      .react-date-picker__month-view-day--in-hover-range.react-date-picker__month-view-day--today-highlight,
-      .react-date-picker__month-view-day--in-range.react-date-picker__month-view-day--today-highlight,
-      .react-date-picker__month-view-day--value.react-date-picker__month-view-day--today-highlight {
-        .react-date-picker__month-view-day-text {
-          border: 2px solid $black;
-          color: $white;
-        }
-      }
-
-      .react-date-picker__month-view-day--in-hover-range .react-date-picker__month-view-day-text,
-      .react-date-picker__month-view-day--in-range .react-date-picker__month-view-day-text,
-      .react-date-picker__month-view-day--value .react-date-picker__month-view-day-text,
-      .react-date-picker__month-view-day--in-hover-range .react-date-picker__month-view-day-text:hover,
-      .react-date-picker__month-view-day--in-range .react-date-picker__month-view-day-text:hover,
-      .react-date-picker__month-view-day--value .react-date-picker__month-view-day-text:hover {
-        background-color: $dark-gray;
-        border-radius: 0;
-        border-color: $white;
-        color: $white;
-      }
-
-      .react-date-picker__month-view-day--weekend-highlight.react-date-picker__month-view-day--next-month {
-        color: #b3b3b3;
       }
     }
   }
+
+  .DayPicker {
+    padding: 0;
+    overflow-x: hidden;
+    max-width: 400px;
+    margin: 0 auto;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .DayPicker-NavBar {
+    padding: .75rem .5rem;
+  }
+
+  .DayPicker-Caption {
+    height: auto;
+    font-weight: 600;
+    line-height: 3rem;
+  }
+
+  .DayPicker-NavButton--prev {
+    @include icon-angle-left($black);
+    width: $line-height-computed;
+    height: $line-height-computed;
+  }
+
+  .DayPicker-NavButton--next {
+    @include icon-angle-right($black);
+    width: $line-height-computed;
+    height: $line-height-computed;
+  }
+
+  .DayPicker-Month {
+    margin: 0;
+    border-collapse: separate;
+  }
+
+  .DayPicker-Day {
+    border: 2px solid $white;
+    padding: 1.2rem;
+    margin: 1px;
+    line-height: 1rem;
+    color: $black;
+    background-color: $light-gray;
+
+    &:focus {
+      outline: none;
+    }
+    &--available:not(.DayPicker-Day--disabled) {
+      background-color: $light-gray;
+      &.DayPicker-Day--selected {
+        background-color: $light-gray;
+      }
+    }
+    &--outside {
+      color: $medium-gray;
+    }
+    &--disabled {
+      cursor: pointer;
+      background-color: $medium-gray;
+      color: $dark-gray;
+    }
+    &--selected,
+    &--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+      color: $white;
+      background-color: $dark-gray;
+    }
+  }
+
+  .DayPicker-Day--today {
+    border: 2px solid $black;
+  }
+
+  .DayPicker-WeekdaysRow {
+    padding: 0.2rem;
+  }
+
+  .DayPicker-Weekdays {
+    text-transform: uppercase;
+    font-weight: normal;
+    abbr {
+      border: none;
+      cursor: default;
+      vertical-align: text-top;
+    }
+  }
+  .DayPicker-Weekday {
+    color: $black;
+  }
 }
+
+
 
 .app-CheckboxControl {
   padding-top: 15px;

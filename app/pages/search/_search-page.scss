@@ -3,6 +3,8 @@
 
 .app-SearchPage {
 
+  background-color: $silver;
+
   &__overlay {
     z-index: 5;
   }
@@ -45,7 +47,5 @@
       border-color: $hel-silver;
     }
   }
-  .app-PageWrapper {
-    background-color: $hel-silver;
-  }
+
 }

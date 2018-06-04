@@ -11,7 +11,9 @@ const initialState = Immutable({
     search: '',
     distance: '',
   },
+  page: 1,
   position: null,
+  resultCount: 0,
   results: [],
   searchDone: false,
   showMap: false,
@@ -23,7 +25,10 @@ function searchReducer(state = initialState, action) {
 
     case types.API.SEARCH_RESULTS_GET_SUCCESS: {
       const results = Object.keys(action.payload.entities.resources || {});
+      const paginatedResources = Object.values(action.payload.entities.paginatedResources || {});
+      const resultCount = paginatedResources.length ? paginatedResources[0].count : 0;
       return state.merge({
+        resultCount,
         results,
         searchDone: true,
       });

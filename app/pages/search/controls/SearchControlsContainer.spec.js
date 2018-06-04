@@ -25,14 +25,19 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       fetchPurposes: () => null,
       searchResources: () => null,
     },
+    currentLanguage: 'fi',
     isFetchingPurposes: false,
     isFetchingUnits: false,
     filters: {
       charge: false,
       date: '2015-10-10',
+      duration: 30,
+      end: '16:00',
+      page: 1,
       people: '12',
       purpose: 'some-purpose',
       search: 'search-query',
+      start: '10:00',
       unit: 'some-unit',
     },
     purposeOptions: Immutable([
@@ -69,8 +74,12 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       const wrapper = getWrapper({ filters });
       const datePickerControl = wrapper.find(DatePickerControl);
       expect(datePickerControl).to.have.length(1);
-      expect(datePickerControl.prop('value')).to.equal(moment(filters.date).format('L'));
+      expect(datePickerControl.prop('currentLanguage')).to.equal(defaultProps.currentLanguage);
+      expect(datePickerControl.prop('date')).to.equal(moment(filters.date).format('L'));
+      expect(datePickerControl.prop('duration')).to.equal(filters.duration);
+      expect(datePickerControl.prop('end')).to.equal(filters.end);
       expect(datePickerControl.prop('onConfirm')).to.equal(wrapper.instance().handleDateChange);
+      expect(datePickerControl.prop('start')).to.equal(filters.start);
     });
 
     it('renders SelectControl for purpose with correct props', () => {
@@ -260,16 +269,14 @@ describe('pages/search/controls/SearchControlsContainer', () => {
   });
 
   describe('handleDateChange', () => {
-    const date = '25.04.2018';
-    const expectedDate = (
-      moment(date, 'L').format(constants.DATE_FORMAT)
-    );
+    const { date, duration, end, start } = defaultProps.filters;
+    const expected = { date, duration, end, start };
     let instance;
 
     before(() => {
       instance = getWrapper().instance();
       instance.handleFiltersChange = simple.mock();
-      instance.handleDateChange(date);
+      instance.handleDateChange(defaultProps.filters);
     });
 
     after(() => {
@@ -278,7 +285,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
 
     it('calls handleFiltersChange with given filters', () => {
       expect(instance.handleFiltersChange.callCount).to.equal(1);
-      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ date: expectedDate });
+      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal(expected);
     });
   });
 

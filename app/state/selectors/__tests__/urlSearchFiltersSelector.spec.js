@@ -3,16 +3,20 @@ import MockDate from 'mockdate';
 
 import urlSearchFiltersSelector from 'state/selectors/urlSearchFiltersSelector';
 
-function getProps(date = '2015-10-10') {
+function getProps(date = '2015-10-10', start = '08:30') {
   return {
     location: {
       query: {
         charge: false,
         date,
         distance: '',
+        duration: 30,
+        end: '00:00',
+        page: 1,
         people: '',
         purpose: 'some-purpose',
         search: '',
+        start,
         unit: '',
       },
     },

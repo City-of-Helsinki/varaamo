@@ -9,18 +9,18 @@ import { injectT } from 'i18n';
 MapToggle.propTypes = {
   mapVisible: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
-  resultsCount: PropTypes.number.isRequired,
+  resultCount: PropTypes.number.isRequired,
   t: PropTypes.func.isRequired,
 };
 
-function MapToggle({ mapVisible, onClick, resultsCount, t }) {
+function MapToggle({ mapVisible, onClick, resultCount, t }) {
   return (
     <div className="app-MapToggle">
       <Grid>
         <Row>
           <Col sm={6}>
             <div className="app-MapToggle__results-count">
-              {resultsCount ? t('MapToggle.resultsText', { count: resultsCount }) : t('MapToggle.noResultsText')}
+              {resultCount ? t('MapToggle.resultsText', { count: resultCount }) : t('MapToggle.noResultsText')}
             </div>
           </Col>
           <Col sm={6}>

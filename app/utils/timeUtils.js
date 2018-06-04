@@ -11,15 +11,17 @@ function addToDate(date, daysToIncrement) {
   return newDate.format(constants.DATE_FORMAT);
 }
 
-function getDateStartAndEndTimes(date) {
+function getDateStartAndEndTimes(date, startTime = '00:00', endTime = '00:00'/* , duration = constants.FILTER.timePeriod */) {
   if (!date) {
     return {};
   }
 
-  const start = `${date}T00:00:00Z`;
-  const end = `${date}T23:59:59Z`;
-
-  return { start, end };
+  const timeZone = moment().format('Z');
+  const endValue = endTime === '00:00' ? '23:59:59' : `${endTime}:00`;
+  const start = `${date}T${startTime}:00${timeZone}`;
+  const end = `${date}T${endValue}${timeZone}`;
+  const availableBetween = `${start},${end}`; // ,${duration}
+  return { availableBetween };
 }
 
 function getDateString(date) {
@@ -28,6 +30,39 @@ function getDateString(date) {
   }
 
   return date;
+}
+
+function getDuration(duration) {
+  if (!duration) {
+    return moment(constants.FILTER.timePeriod, constants.FILTER.timePeriodType).minutes();
+  }
+  return duration;
+}
+
+function getDurationHours(duration) {
+  const value = duration || constants.FILTER.timePeriod;
+  return value / 60;
+}
+
+function getEndTimeString(endTime) {
+  if (!endTime) {
+    return moment().startOf('day').format(constants.FILTER.timeFormat);
+  }
+  return endTime;
+}
+
+function getStartTimeString(startTime) {
+  if (!startTime) {
+    const now = moment();
+    const nextPeriod = moment().startOf('hour').add(
+      constants.FILTER.timePeriod,
+      constants.FILTER.timePeriodType);
+    while (nextPeriod.isBefore(now)) {
+      nextPeriod.add(constants.FILTER.timePeriod, constants.FILTER.timePeriodType);
+    }
+    return nextPeriod.format(constants.FILTER.timeFormat);
+  }
+  return startTime;
 }
 
 function getTimeSlots(start, end, period = '00:30:00', reservations = [], reservationsToEdit = []) {
@@ -107,6 +142,10 @@ export {
   addToDate,
   getDateStartAndEndTimes,
   getDateString,
+  getDuration,
+  getDurationHours,
+  getEndTimeString,
+  getStartTimeString,
   getTimeSlots,
   isPastDate,
   prettifyHours,

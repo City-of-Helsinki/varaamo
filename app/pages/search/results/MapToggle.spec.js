@@ -9,7 +9,7 @@ describe('pages/search/results/MapToggle', () => {
     const defaults = {
       mapVisible: false,
       onClick: () => null,
-      resultsCount: 0,
+      resultCount: 0,
     };
     return shallowWithIntl(<MapToggle {...defaults} {...props} />);
   }
@@ -18,9 +18,9 @@ describe('pages/search/results/MapToggle', () => {
     expect(getWrapper().is('div.app-MapToggle')).to.be.true;
   });
 
-  describe('results count text', () => {
-    function getResultsCountText(resultsCount) {
-      return getWrapper({ resultsCount }).find('.app-MapToggle__results-count').text();
+  describe('result count text', () => {
+    function getResultsCountText(resultCount) {
+      return getWrapper({ resultCount }).find('.app-MapToggle__results-count').text();
     }
 
     it('renders correct string if there are results', () => {

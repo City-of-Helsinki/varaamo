@@ -1,25 +1,49 @@
 import React, { PropTypes } from 'react';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import InputGroup from 'react-bootstrap/lib/InputGroup';
 import Overlay from 'react-bootstrap/lib/Overlay';
-import { Calendar } from 'react-date-picker';
+import DayPicker from 'react-day-picker';
+import moment from 'moment';
+import MomentLocaleUtils from 'react-day-picker/moment';
 
+import constants from 'constants/AppConstants';
 import { injectT } from 'i18n';
+import { getDurationHours } from 'utils/timeUtils';
 import SearchControlOverlay from './SearchControlOverlay';
+import TimeRangeControl from './TimeRangeControl';
 import iconCalendar from './images/calendar.svg';
 
 class DatePickerControl extends React.Component {
   static propTypes = {
+    currentLanguage: PropTypes.string.isRequired,
+    date: PropTypes.string,
+    duration: PropTypes.number,
+    end: PropTypes.string,
     onConfirm: PropTypes.func.isRequired,
+    start: PropTypes.string,
     t: PropTypes.func.isRequired,
-    value: PropTypes.string,
   };
 
-  state = {
-    visible: false,
+  constructor(props) {
+    super(props);
+    const { date, duration, end, start } = this.props;
+    this.state = {
+      date,
+      duration,
+      end,
+      start,
+      visible: false,
+    };
+  }
+
+  componentWillUpdate(nextProps) {
+    const { date, duration, end, start } = nextProps;
+    if (date !== this.props.date || duration !== this.props.duration ||
+      end !== this.props.end || start !== this.props.start) {
+      this.setState({ date, duration, end, start });
+    }
   }
 
   hideOverlay = () => {
@@ -31,22 +55,41 @@ class DatePickerControl extends React.Component {
   }
 
   handleConfirm = (value) => {
-    this.props.onConfirm(value);
+    const { duration, end, start } = this.state;
+    const date = value;
+    this.props.onConfirm({ date, duration, end, start });
     this.hideOverlay();
   }
 
+  handleTimeRange = ({ duration, end, start }) => {
+    const { date } = this.state;
+    const endMoment = moment(end, 'HH:mm');
+    let endValue = end;
+    if (moment(start, 'HH:mm').isSameOrAfter(endMoment)) {
+      endValue = moment(start, 'HH:mm')
+        .add(constants.FILTER.timePeriod, constants.FILTER.timePeriodType).format('HH:mm');
+    }
+    this.setState({ duration, start, end: endValue, visible: false });
+    this.props.onConfirm({ date, duration, end: endValue, start });
+  }
+
   render() {
-    const { t, value } = this.props;
+    const { currentLanguage, t } = this.props;
+    const { date, duration, end, start } = this.state;
+    const hours = getDurationHours(duration);
+    const title = t('DatePickerControl.title', { date, hours, end, start });
+    const selectedDay = moment(date, 'L').startOf('day').toDate();
+
     return (
       <div className="app-DatePickerControl">
         <ControlLabel>{t('DatePickerControl.label')}</ControlLabel>
         <FormGroup onClick={this.showOverlay}>
           <InputGroup>
-            <InputGroup.Addon>
+            <InputGroup.Addon className="app-DatePickerControl__title">
               <img alt="" className="app-DatePickerControl__icon" src={iconCalendar} />
+              <span>{title}</span>
             </InputGroup.Addon>
-            <FormControl disabled type="text" value={value} />
-            <InputGroup.Addon>
+            <InputGroup.Addon className="app-DatePickerControl__triangle">
               <Glyphicon glyph="triangle-bottom" />
             </InputGroup.Addon>
           </InputGroup>
@@ -62,11 +105,21 @@ class DatePickerControl extends React.Component {
             onHide={this.hideOverlay}
             title={t('DatePickerControl.header')}
           >
-            <Calendar
-              className="app-DatePickerControl__calendar"
-              dateFormat={'L'}
-              defaultDate={value}
-              onChange={this.handleConfirm}
+            <DayPicker
+              disabledDays={day => new Date(day).setHours(23, 59, 59, 59) < new Date()}
+              enableOutsideDays
+              initialMonth={selectedDay}
+              locale={currentLanguage}
+              localeUtils={MomentLocaleUtils}
+              onDayClick={this.handleConfirm}
+              selectedDays={selectedDay}
+              showWeekNumbers
+            />
+            <TimeRangeControl
+              duration={duration}
+              end={end}
+              onChange={this.handleTimeRange}
+              start={start}
             />
           </SearchControlOverlay>
         </Overlay>

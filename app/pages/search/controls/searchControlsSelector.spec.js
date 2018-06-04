@@ -6,7 +6,7 @@ import Unit from 'utils/fixtures/Unit';
 import { getDefaultRouterProps, getState } from 'utils/testUtils';
 import searchControlsSelector from './searchControlsSelector';
 
-describe('state/selectors/searchControlsSelector', () => {
+describe('pages/search/controls/searchControlsSelector', () => {
   function getSelected(extraState) {
     const state = getState(extraState);
     const props = getDefaultRouterProps();
