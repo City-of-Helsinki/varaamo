@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { LinkContainer } from 'react-router-bootstrap';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
@@ -23,25 +24,35 @@ function MainNavbar(props) {
       </Navbar.Header>
       <Navbar.Collapse>
         <Nav activeKey={activeLink}>
-          <NavItem eventKey="home" href="/">
-            {t('Navbar.homeLink')}
-          </NavItem>
-          <NavItem eventKey="search" href={getSearchPageUrl()} onClick={clearSearchResults}>
-            {t('Navbar.search')}
-          </NavItem>
-          {isAdmin && (
-            <NavItem eventKey="admin-resources" href="/admin-resources">
-              {t('Navbar.adminResources')}
+          <LinkContainer to="/home">
+            <NavItem className={activeLink === 'home' ? 'active' : ''} eventKey="home">
+              {t('Navbar.homeLink')}
             </NavItem>
+          </LinkContainer>
+          <LinkContainer to={getSearchPageUrl()}>
+            <NavItem eventKey="search" onClick={clearSearchResults}>
+              {t('Navbar.search')}
+            </NavItem>
+          </LinkContainer>
+          {isAdmin && (
+            <LinkContainer to="/admin-resources">
+              <NavItem eventKey="admin-resources">
+                {t('Navbar.adminResources')}
+              </NavItem>
+            </LinkContainer>
           )}
           {isLoggedIn && (
-            <NavItem eventKey="my-reservations" href="/my-reservations">
-              {t('Navbar.userResources')}
-            </NavItem>
+            <LinkContainer to="/my-reservations">
+              <NavItem eventKey="my-reservations">
+                {t('Navbar.userResources')}
+              </NavItem>
+            </LinkContainer>
           )}
-          <NavItem eventKey="about" href="/about">
-            {t('Navbar.aboutLink')}
-          </NavItem>
+          <LinkContainer to="/about">
+            <NavItem eventKey="about">
+              {t('Navbar.aboutLink')}
+            </NavItem>
+          </LinkContainer>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
