@@ -12,6 +12,7 @@ function getWrapper(props) {
   const defaults = {
     date: '2016-01-01',
     groups: [],
+    isAdmin: true,
     onDateChange: () => null,
   };
   return shallow(<AvailabilityView {...defaults} {...props} />);

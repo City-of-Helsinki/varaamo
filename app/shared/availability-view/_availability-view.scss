@@ -267,7 +267,7 @@
   }
   .reservation {
     height: $slot-height;
-    background-color: $brand-success;
+    background-color: $theme-info;
     color: white;
     font-size: $font-size-small;
     align-items: center;
@@ -279,7 +279,10 @@
       text-decoration: none;
     }
     &.requested {
-      background-color: $brand-primary;
+      background-color: $theme-warning;
+    }
+    &.disabled {
+      background-color: $red;
     }
     .names {
       height: 100%;

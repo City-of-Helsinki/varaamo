@@ -61,7 +61,6 @@ class UnconnectedResourcePage extends Component {
     const {
       actions,
       date,
-      isAdmin,
       isFetchingResource,
       isLoggedIn,
       location,
@@ -82,7 +81,7 @@ class UnconnectedResourcePage extends Component {
       <div className="app-ResourcePage">
         <Loader loaded={!isEmpty(resource)}>
           <ResourceHeader
-            isAdmin={isAdmin}
+            isLoggedIn={isLoggedIn}
             onBackClick={this.handleBackButton}
             onMapClick={actions.toggleResourceMap}
             resource={resource}
@@ -142,7 +141,6 @@ UnconnectedResourcePage.propTypes = {
   actions: PropTypes.object.isRequired,
   date: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  isAdmin: PropTypes.bool.isRequired,
   isFetchingResource: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,

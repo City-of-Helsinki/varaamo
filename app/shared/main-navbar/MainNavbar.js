@@ -29,9 +29,9 @@ function MainNavbar(props) {
           <NavItem eventKey="search" href={getSearchPageUrl()} onClick={clearSearchResults}>
             {t('Navbar.search')}
           </NavItem>
-          {isAdmin && (
+          {isLoggedIn && (
             <NavItem eventKey="admin-resources" href="/admin-resources">
-              {t('Navbar.adminResources')}
+              { isAdmin ? t('Navbar.adminResources') : t('Navbar.userFavorites') }
             </NavItem>
           )}
           {isLoggedIn && (

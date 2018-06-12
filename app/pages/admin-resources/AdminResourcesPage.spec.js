@@ -28,6 +28,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
     date: '2017-01-10',
     filteredResourceTypes: [],
     isAdmin: true,
+    isLoggedin: true,
     isFetchingResources: false,
     location: { id: '123' },
     resources: [],
@@ -43,7 +44,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
       const pageWrapper = getWrapper().find(PageWrapper);
       expect(pageWrapper).to.have.length(1);
       expect(pageWrapper.prop('className')).to.equal('admin-resources-page');
-      expect(pageWrapper.prop('title')).to.equal('AdminResourcesPage.title');
+      expect(pageWrapper.prop('title')).to.equal('AdminResourcesPage.adminTitle');
       expect(pageWrapper.prop('fluid')).to.be.true;
     });
 
@@ -56,10 +57,6 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
       it('renders a paragraph', () => {
         expect(wrapper.find('p')).to.have.length(1);
       });
-
-      it('renders correct text in paragraph', () => {
-        expect(wrapper.find('p').text()).to.equal('AdminResourcesPage.noRightsMessage');
-      });
     });
 
     describe('when user is an admin', () => {
@@ -69,7 +66,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
 
       it('displays correct title inside h1 tags', () => {
         const h1 = getIsAdminWrapper().find('h1');
-        expect(h1.text()).to.equal('AdminResourcesPage.title');
+        expect(h1.text()).to.equal('AdminResourcesPage.adminTitle');
       });
 
       describe('Loader', () => {

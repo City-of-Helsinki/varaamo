@@ -59,16 +59,18 @@ class UnconnectedAdminResourcesPage extends Component {
     const {
       filteredResourceTypes,
       isAdmin,
+      isLoggedin,
       isFetchingResources,
       resources,
       t,
       resourceTypes,
     } = this.props;
     return (
-      <PageWrapper className="admin-resources-page" fluid title={t('AdminResourcesPage.title')}>
-        <h1>{t('AdminResourcesPage.title')}</h1>
+      <PageWrapper className="admin-resources-page" fluid title={(t('AdminResourcesPage.adminTitle'))}>
+        {isAdmin && <h1>{t('AdminResourcesPage.adminTitle')}</h1>}
+        {!isAdmin && <h1>{t('AdminResourcesPage.favoriteTitle')}</h1>}
         <Loader loaded={Boolean(!isFetchingResources || resources.length)}>
-          {isAdmin && (
+          {isLoggedin && (
             <div>
               <ResourceTypeFilter
                 filteredResourceTypes={filteredResourceTypes}
@@ -79,15 +81,13 @@ class UnconnectedAdminResourcesPage extends Component {
               <AvailabilityView
                 date={this.props.date}
                 groups={[{ name: '', resources }]}
+                isAdmin={isAdmin}
                 onDateChange={this.props.actions.changeAdminResourcesPageDate}
                 onSelect={this.handleSelect}
               />
             </div>
           )}
-          {isAdmin && !resources.length && <p>{t('AdminResourcesPage.noResourcesMessage')}</p>}
-          {!isAdmin && (
-            <p>{t('AdminResourcesPage.noRightsMessage')}</p>
-          )}
+          {isLoggedin && !resources.length && <p>{t('AdminResourcesPage.noResourcesMessage')}</p>}
         </Loader>
         {this.state.selection &&
           <ReservationConfirmationContainer
@@ -109,6 +109,7 @@ UnconnectedAdminResourcesPage.propTypes = {
   date: PropTypes.string.isRequired,
   filteredResourceTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
   isAdmin: PropTypes.bool.isRequired,
+  isLoggedin: PropTypes.bool.isRequired,
   isFetchingResources: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
   resources: PropTypes.array.isRequired,

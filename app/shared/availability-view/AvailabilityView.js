@@ -10,6 +10,7 @@ export default class AvailabilityView extends React.Component {
   static propTypes = {
     date: PropTypes.string.isRequired,
     groups: PropTypes.arrayOf(PropTypes.object).isRequired,
+    isAdmin: PropTypes.bool.isRequired,
     onDateChange: PropTypes.func.isRequired,
     onSelect: PropTypes.func,
   };
@@ -78,7 +79,9 @@ export default class AvailabilityView extends React.Component {
   }
 
   startSelection(slot) {
-    this.setState({ selection: slot });
+    if (this.props.isAdmin) {
+      this.setState({ selection: slot });
+    }
   }
 
   render() {

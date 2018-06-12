@@ -12,7 +12,7 @@ import iconClock from 'assets/icons/clock-o.svg';
 import iconMap from 'assets/icons/map.svg';
 import FavoriteButton from 'shared/favorite-button';
 
-function ResourceHeader({ onBackClick, onMapClick, isAdmin, resource, showMap, unit, t }) {
+function ResourceHeader({ onBackClick, onMapClick, isLoggedIn, resource, showMap, unit, t }) {
   const peopleCapacityText = t('ResourceCard.peopleCapacity', { people: resource.peopleCapacity });
   const maxPeriodText = getMaxPeriodText(t, resource);
   const priceText = getHourlyPrice(t, resource);
@@ -70,7 +70,7 @@ function ResourceHeader({ onBackClick, onMapClick, isAdmin, resource, showMap, u
                   <span>{t('ResourceHeader.resourceButton')}</span>
                 </Button>
               }
-              {isAdmin && <FavoriteButton resource={resource} />}
+              {isLoggedIn && <FavoriteButton resource={resource} />}
             </div>
           </div>
         </div>
@@ -80,7 +80,7 @@ function ResourceHeader({ onBackClick, onMapClick, isAdmin, resource, showMap, u
 }
 
 ResourceHeader.propTypes = {
-  isAdmin: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
   onBackClick: PropTypes.func.isRequired,
   onMapClick: PropTypes.func.isRequired,
   resource: PropTypes.object.isRequired,

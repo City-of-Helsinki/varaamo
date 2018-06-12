@@ -54,6 +54,9 @@ describe('shared/availability-view/Reservation', () => {
       end: '2016-01-01T12:00:00Z',
       eventSubject: 'Meeting',
       id: 12345,
+      userPermissions: {
+        canModify: true,
+      },
     };
     const wrapper = getOuterWrapper({ ...reservation, onClick });
     const onClickProp = wrapper.prop('onClick');

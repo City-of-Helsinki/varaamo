@@ -5,7 +5,7 @@ import moment from 'moment';
 import { createSelector, createStructuredSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
-import { isAdminSelector } from 'state/selectors/authSelectors';
+import { isAdminSelector, isLoggedInSelector } from 'state/selectors/authSelectors';
 import { resourcesSelector } from 'state/selectors/dataSelectors';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
 
@@ -41,6 +41,7 @@ const adminResourcesPageSelector = createStructuredSelector({
   date: dateSelector,
   filteredResourceTypes: filteredResourceTypesSelector,
   isAdmin: isAdminSelector,
+  isLoggedin: isLoggedInSelector,
   isFetchingResources: requestIsActiveSelectorFactory(ActionTypes.API.RESOURCES_GET_REQUEST),
   resources: filteredAdminResourcesIdsSelector,
   resourceTypes: adminResourceTypesSelector,

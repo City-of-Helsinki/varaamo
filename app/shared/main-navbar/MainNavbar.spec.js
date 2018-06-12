@@ -53,10 +53,10 @@ describe('shared/main-navbar/MainNavbar', () => {
       expect(myReservationsLink).to.have.length(1);
     });
 
-    it('does not render a link to admin resources page', () => {
+    it('renders a link to resources page when logged in', () => {
       const myReservationsLink = getLoggedInNotAdminWrapper()
         .find(NavItem).filter({ href: '/admin-resources' });
-      expect(myReservationsLink).to.have.length(0);
+      expect(myReservationsLink).to.have.length(1);
     });
   });
 

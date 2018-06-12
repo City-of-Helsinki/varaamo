@@ -14,7 +14,7 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
   const defaultProps = {
     onBackClick: () => null,
     onMapClick: () => null,
-    isAdmin: false,
+    isLoggedIn: false,
     resource: Immutable(resource),
     showMap: false,
     unit: Immutable(unit),
@@ -66,13 +66,13 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
 
     describe('FavoriteButton', () => {
       it('is not rendered if user is not admin', () => {
-        const favoriteButton = getWrapper({ isAdmin: false }).find(FavoriteButton);
+        const favoriteButton = getWrapper({ isLoggedIn: false }).find(FavoriteButton);
 
         expect(favoriteButton.length).to.equal(0);
       });
 
       it('is rendered with correct props if user is admin', () => {
-        const favoriteButton = getWrapper({ isAdmin: true }).find(FavoriteButton);
+        const favoriteButton = getWrapper({ isLoggedIn: true }).find(FavoriteButton);
 
         expect(favoriteButton.length).to.equal(1);
         expect(favoriteButton.prop('resource')).to.deep.equal(defaultProps.resource);
