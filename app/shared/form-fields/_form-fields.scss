@@ -5,3 +5,18 @@
     margin-left: 20px;
   }
 }
+
+.terms-checkbox-field {
+  .checkbox {
+    display: inline;
+  }
+  .terms-checkbox-field-link {
+    cursor: pointer;
+    color: $blue;
+    display: inline;
+    min-height: 22px;
+    margin-bottom: 0;
+    text-decoration: underline;
+    font-size: 1.6rem;
+  }
+}

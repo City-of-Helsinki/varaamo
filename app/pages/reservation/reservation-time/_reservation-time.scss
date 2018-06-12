@@ -1,0 +1,15 @@
+.app-ReservationTime {
+  padding-bottom: 22px;
+
+  &__controls {
+    text-align: right;
+    .btn {
+      margin-left: 15px;
+    }
+  }
+  .reservation-calendar-reserve-info {
+    .btn {
+      display: none;
+    }
+  }
+}

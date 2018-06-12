@@ -10,7 +10,7 @@ import Panel from 'react-bootstrap/lib/Panel';
 import Row from 'react-bootstrap/lib/Row';
 
 import { fetchResource } from 'actions/resourceActions';
-import { toggleResourceMap } from 'actions/uiActions';
+import { clearReservations, toggleResourceMap } from 'actions/uiActions';
 import PageWrapper from 'pages/PageWrapper';
 import NotFoundPage from 'pages/not-found/NotFoundPage';
 import ResourceCalendar from 'shared/resource-calendar';
@@ -30,6 +30,7 @@ class UnconnectedResourcePage extends Component {
   }
 
   componentDidMount() {
+    this.props.actions.clearReservations();
     this.fetchResource();
   }
 
@@ -61,6 +62,7 @@ class UnconnectedResourcePage extends Component {
     const {
       actions,
       date,
+      isAdmin,
       isFetchingResource,
       isLoggedIn,
       location,
@@ -81,7 +83,7 @@ class UnconnectedResourcePage extends Component {
       <div className="app-ResourcePage">
         <Loader loaded={!isEmpty(resource)}>
           <ResourceHeader
-            isLoggedIn={isLoggedIn}
+            isAdmin={isAdmin}
             onBackClick={this.handleBackButton}
             onMapClick={actions.toggleResourceMap}
             resource={resource}
@@ -141,6 +143,7 @@ UnconnectedResourcePage.propTypes = {
   actions: PropTypes.object.isRequired,
   date: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
   isFetchingResource: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
@@ -154,6 +157,7 @@ UnconnectedResourcePage = injectT(UnconnectedResourcePage);  // eslint-disable-l
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
+    clearReservations,
     fetchResource,
     toggleResourceMap,
   };

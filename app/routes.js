@@ -7,6 +7,7 @@ import AboutPage from 'pages/about';
 import AdminResourcesPage from 'pages/admin-resources';
 import HomePage from 'pages/home';
 import NotFoundPage from 'pages/not-found';
+import ReservationPage from 'pages/reservation';
 import ResourcePage from 'pages/resource';
 import SearchPage from 'pages/search';
 import UserReservationsPage from 'pages/user-reservations';
@@ -66,6 +67,11 @@ export default (params) => {
           {...getDispatchers('MyReservations')}
           component={UserReservationsPage}
           path="/my-reservations"
+        />
+        <Route
+          {...getDispatchers('Reservation')}
+          component={ReservationPage}
+          path="/reservation"
         />
       </Route>
       <IndexRoute component={HomePage} {...getDispatchers('Home')} />

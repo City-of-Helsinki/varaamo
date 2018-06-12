@@ -39,6 +39,9 @@ function isInsideOpeningHours(slot, openingHours) {
 }
 
 function isSlotAfterSelected(slot, selected) {
+  if (slot.editing) {
+    return false;
+  }
   const firstSelected = getBeginOfSelection(selected);
   return moment(firstSelected.begin).isSameOrBefore(slot.start);
 }
@@ -47,7 +50,7 @@ function isSlotSelectable(slot, selected, resource, lastSelectableFound, isAdmin
   if (!slot || !selected || !selected.length || !resource) {
     return true;
   }
-  if (slot.reserved || lastSelectableFound) {
+  if ((!slot.editing && slot.reserved) || lastSelectableFound) {
     return false;
   }
   const firstSelected = getBeginOfSelection(selected);

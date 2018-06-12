@@ -16,7 +16,7 @@ import {
   showReservationInfoModal,
   startReservationEditInInfoModal,
 } from 'actions/uiActions';
-import { getResourcePageUrl } from 'utils/resourceUtils';
+import { getEditReservationUrl } from 'utils/reservationUtils';
 import ReservationControls from './ReservationControls';
 
 export class UnconnectedReservationControlsContainer extends Component {
@@ -61,11 +61,10 @@ export class UnconnectedReservationControlsContainer extends Component {
 
   handleEditClick() {
     const { actions, reservation, resource } = this.props;
-    const nextUrl = getResourcePageUrl(resource, reservation.begin, reservation.begin);
+    const nextUrl = getEditReservationUrl(reservation);
 
     actions.selectReservationToEdit({ reservation, minPeriod: resource.minPeriod });
     browserHistory.push(nextUrl);
-    actions.openConfirmReservationModal();
   }
 
   handleInfoClick() {

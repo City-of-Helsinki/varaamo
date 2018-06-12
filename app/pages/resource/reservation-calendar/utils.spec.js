@@ -82,6 +82,11 @@ describe('pages/resource/reservation-calendar/utils', () => {
       const actual = utils.isSlotAfterSelected(slot, [{ begin: '2015-10-10T13:00:00Z' }]);
       expect(actual).to.be.false;
     });
+
+    it('returns false if slot is editing', () => {
+      const actual = utils.isSlotAfterSelected({ editing: true }, selected);
+      expect(actual).to.be.false;
+    });
   });
 
   describe('isSlotSelectable', () => {

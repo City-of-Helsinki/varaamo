@@ -37,6 +37,11 @@ const closeReservationSuccessModal = createAction(
   () => ModalTypes.RESERVATION_SUCCESS
 );
 
+const closeResourceTermsModal = createAction(
+  types.UI.CLOSE_MODAL,
+  () => ModalTypes.RESOURCE_TERMS
+);
+
 const disableGeoposition = createAction(types.UI.DISABLE_GEOPOSITION);
 const enableGeopositionRequest = createAction(types.UI.ENABLE_GEOPOSITION_REQUEST);
 const enableGeopositionSuccess = createAction(types.UI.ENABLE_GEOPOSITION_SUCCESS);
@@ -88,6 +93,11 @@ const selectReservationToShow = createAction(
   types.UI.SELECT_RESERVATION_TO_SHOW
 );
 
+const openResourceTermsModal = createAction(
+  types.UI.OPEN_MODAL,
+  () => ModalTypes.RESOURCE_TERMS
+);
+
 const showReservationInfoModal = createAction(types.UI.SHOW_RESERVATION_INFO_MODAL);
 
 const startReservationEditInInfoModal = createAction(types.UI.START_RESERVATION_EDIT_IN_INFO_MODAL);
@@ -109,6 +119,7 @@ export {
   closeReservationCancelModal,
   closeReservationCommentModal,
   closeReservationSuccessModal,
+  closeResourceTermsModal,
   disableGeoposition,
   enableGeoposition,
   filterAdminResourceType,
@@ -116,6 +127,7 @@ export {
   openConfirmReservationModal,
   openReservationCancelModal,
   openReservationCommentModal,
+  openResourceTermsModal,
   selectReservationToCancel,
   selectReservationToEdit,
   selectReservationSlot,

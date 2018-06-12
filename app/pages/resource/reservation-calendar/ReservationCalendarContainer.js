@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { browserHistory } from 'react-router';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 import moment from 'moment';
@@ -9,7 +10,6 @@ import { first, last, orderBy } from 'lodash';
 import { addNotification } from 'actions/notificationsActions';
 import {
   cancelReservationEdit,
-  clearReservations,
   openConfirmReservationModal,
   selectReservationSlot,
   toggleTimeSlot,
@@ -21,6 +21,7 @@ import ReservationSuccessModal from 'shared/modals/reservation-success';
 import ReservationConfirmation from 'shared/reservation-confirmation';
 import recurringReservations from 'state/recurringReservations';
 import { injectT } from 'i18n';
+import { getEditReservationUrl } from 'utils/reservationUtils';
 import { reservingIsRestricted } from 'utils/resourceUtils';
 import reservationCalendarSelector from './reservationCalendarSelector';
 import ReservingRestrictedText from './ReservingRestrictedText';
@@ -47,10 +48,6 @@ export class UnconnectedReservationCalendarContainer extends Component {
     time: PropTypes.string,
     timeSlots: PropTypes.array.isRequired,
   };
-
-  componentWillUnmount() {
-    this.props.actions.clearReservations();
-  }
 
   getSelectedDateSlots = (timeSlots, selected) => {
     if (timeSlots && selected.length) {
@@ -90,6 +87,16 @@ export class UnconnectedReservationCalendarContainer extends Component {
 
   handleEditCancel = () => {
     this.props.actions.cancelReservationEdit();
+  }
+
+  handleReserveClick = () => {
+    const { selected } = this.props;
+    const orderedSelected = orderBy(selected, 'begin');
+    const { end } = last(orderedSelected);
+    const reservation = Object.assign({}, first(orderedSelected), { end });
+    const nextUrl = getEditReservationUrl(reservation);
+
+    browserHistory.push(nextUrl);
   }
 
   render() {
@@ -139,7 +146,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
             <Col xs={4}>
               <Button
                 bsStyle="primary"
-                onClick={actions.openConfirmReservationModal}
+                onClick={this.handleReserveClick}
               >
                 {t('TimeSlots.reserveButton')}
               </Button>
@@ -176,7 +183,6 @@ function mapDispatchToProps(dispatch) {
     addNotification,
     cancelReservationEdit,
     changeRecurringBaseTime: recurringReservations.changeBaseTime,
-    clearReservations,
     openConfirmReservationModal,
     selectReservationSlot,
     toggleTimeSlot,

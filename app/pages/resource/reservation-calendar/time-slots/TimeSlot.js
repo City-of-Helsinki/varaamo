@@ -81,7 +81,7 @@ class TimeSlot extends Component {
     const isPast = moment(slot.end) < moment();
     const disabled = (
       !isLoggedIn ||
-      !isSelectable ||
+      (!isSelectable && !selected) ||
       !resource.userPermissions.canMakeReservations ||
       (!slot.editing && (slot.reserved || isPast))
     );

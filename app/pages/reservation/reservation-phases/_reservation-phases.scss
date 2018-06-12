@@ -1,0 +1,66 @@
+.app-ReservationPage__phases {
+  padding: 20px;
+}
+
+.app-ReservationPage__phase {
+  display: inline-block;
+  z-index: 2;
+
+  &-index {
+    background-color: $light-gray;
+    border-radius: 25px;
+    font-size: 34px;
+    font-weight: bold;
+    height: 50px;
+    line-height: 50px;
+    margin: auto;
+    text-align: center;
+    width: 50px;
+  }
+
+  &:not(:first-child):before {
+    background-color: $light-gray;
+    content: "";
+    height: 10px;
+    margin: 0;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 50%;
+    z-index: -1;
+  }
+
+  &:not(:last-child):after {
+    background-color: $light-gray;
+    content: "";
+    height: 10px;
+    margin: 0;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    right: 0;
+    z-index: -1;
+  }
+
+  &-active,
+  &-completed {
+    .app-ReservationPage__phase-index {
+      background-color: $copper;
+    }
+  }
+
+  &-active:not(:first-child):before,
+  &-completed:not(:first-child):before,
+  &-completed:not(:last-child):after {
+    background-color: $copper;
+  }
+
+  &-title {
+    padding: 10px 0;
+    text-align: center;
+    .glyphicon {
+      margin-left: 5px;
+    }
+  }
+
+}

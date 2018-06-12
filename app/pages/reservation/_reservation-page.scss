@@ -1,0 +1,11 @@
+@import './reservation-confirmation/reservation-confirmation';
+@import './reservation-information/reservation-information';
+@import './reservation-phases/reservation-phases';
+@import './reservation-time/reservation-time';
+
+.app-ReservationPage {
+  .btn.btn-warning {
+    background-color: $yellow;
+    color: $black;
+  }
+}

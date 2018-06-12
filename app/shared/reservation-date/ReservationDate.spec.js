@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import React from 'react';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
 import { shallowWithIntl } from 'utils/testUtils';
 import ReservationDate from './ReservationDate';
@@ -47,12 +46,6 @@ describe('shared/reservation-date/ReservationDate', () => {
   it('renders a time heading', () => {
     const container = wrapper.find('h3');
     expect(container.length).to.equal(1);
-  });
-
-  it('renders a glyphicon', () => {
-    const glyphiconComponent = wrapper.find(Glyphicon);
-    expect(glyphiconComponent.length).to.equal(1);
-    expect(glyphiconComponent.prop('glyph')).to.equal('time');
   });
 
   it('renders empty', () => {

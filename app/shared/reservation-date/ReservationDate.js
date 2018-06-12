@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import moment from 'moment';
+
+import iconClock from 'assets/icons/clock-o.svg';
 
 function ReservationDate({ beginDate, endDate }) {
   if (!beginDate || !endDate) {
@@ -23,7 +24,7 @@ function ReservationDate({ beginDate, endDate }) {
         <h5 className="reservation-date__day-of-week">{dayOfWeek}</h5>
       </div>
       <h3>
-        <Glyphicon glyph="time" />
+        <img alt="" className="reservation-date__icon" src={iconClock} />
         {` ${beginTime} \u2013 ${endTime} (${hours}h)`}
       </h3>
     </div>

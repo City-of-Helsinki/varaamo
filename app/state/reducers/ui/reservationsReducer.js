@@ -20,17 +20,26 @@ const initialState = Immutable({
   toCancel: [],
   toEdit: [],
   toShow: [],
+  toShowEdited: [],
 });
 
 function selectReservationToEdit(state, action) {
   const { minPeriod, reservation } = action.payload;
-  const selected = getTimeSlots(reservation.begin, reservation.end, minPeriod).map(
-    slot => ({
-      begin: slot.start,
-      end: slot.end,
+  const slots = getTimeSlots(reservation.begin, reservation.end, minPeriod);
+  const firstSlot = first(slots);
+  const selected = [{
+    begin: firstSlot.start,
+    end: firstSlot.end,
+    resource: reservation.resource,
+  }];
+  if (slots.length > 1) {
+    const lastSlot = last(slots);
+    selected.push({
+      begin: lastSlot.start,
+      end: lastSlot.end,
       resource: reservation.resource,
-    })
-  );
+    });
+  }
   return state.merge({
     selected,
     toEdit: [reservation],
@@ -70,6 +79,7 @@ function reservationsReducer(state = initialState, action) {
         selected: [],
         toEdit: [],
         toShow: [],
+        toShowEdited: [...state.toShowEdited, action.payload],
       });
     }
 
@@ -130,11 +140,11 @@ function reservationsReducer(state = initialState, action) {
       const orderedSelected = orderBy(state.selected, 'begin');
       const firstSelected = first(orderedSelected);
       const lastSelected = last(orderedSelected);
-      if (moment(lastSelected.start).isSameOrAfter(slot.start)) {
+      if (moment(lastSelected.begin).isBefore(slot.begin)) {
         return state.merge({ selected: [...without(state.selected, lastSelected), slot] });
       }
-      if (moment(firstSelected.start).isSameOrAfter(slot.start) &&
-        moment(lastSelected.start).isSameOrBefore(slot.start)) {
+      if (moment(firstSelected.begin).isBefore(slot.begin) &&
+        moment(lastSelected.begin).isAfter(slot.begin)) {
         return state.merge({ selected: [...without(state.selected, lastSelected), slot] });
       }
       return state.merge({ selected: [...state.selected, slot] });

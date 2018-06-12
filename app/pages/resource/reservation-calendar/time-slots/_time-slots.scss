@@ -59,7 +59,7 @@
       }
     }
 
-    &--past, &--reserved {
+    &--past {
       &:hover {
         cursor: not-allowed;
         background-color: $gray-light;
@@ -76,6 +76,27 @@
     &--reserved {
       color: $white;
       background-color: $red;
+    }
+    &--reserved:not(.app-TimeSlot--editing) {
+      .app-TimeSlot--icon {
+        @include icon-ban($white);
+      }
+    }
+
+    &--own-reservation {
+      background-color: $theme-info;
+    }
+    &--own-reservation:not(.app-TimeSlot--editing) {
+      &:hover {
+        cursor: not-allowed;
+        background-color: $theme-info;
+      }
+      .app-TimeSlot--icon {
+        @include icon-ban($white);
+      }
+    }
+
+    &--own-reservation.app-TimeSlot--disabled {
       .app-TimeSlot--icon {
         @include icon-ban($white);
       }
@@ -84,20 +105,8 @@
     &--selected {
       color: $white;
       background-color: $dark-gray;
-    }
-
-    &--selected:not(.app-TimeSlot--disabled) {
       .app-TimeSlot--icon {
         @include icon-check($white);
-      }
-    }
-
-    &--own-reservation {
-      background-color: $theme-info;
-
-      &:hover {
-        cursor: not-allowed;
-        background-color: $theme-info;
       }
     }
 

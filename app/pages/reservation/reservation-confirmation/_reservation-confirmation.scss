@@ -1,0 +1,33 @@
+.app-ReservationConfirmation {
+  padding-bottom: 22px;
+
+  &__terms {
+    border: 1px solid $medium-gray;
+    padding: 10px;
+  }
+
+  &__button-wrapper {
+    text-align: right;
+  }
+
+  &__field {
+    padding-top: 12px;
+  }
+  a {
+    color: $blue;
+  }
+  &__icon {
+    height: 20px;
+    margin-right: 6px;
+  }
+
+  .reservation-date {
+    .reservation-date__content {
+      margin: 0;
+    }
+    h3 {
+      font-size: 1.6rem;
+      text-align: left;
+    }
+  }
+}

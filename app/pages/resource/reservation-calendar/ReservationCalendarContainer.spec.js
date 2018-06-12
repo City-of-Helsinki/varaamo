@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import MockDate from 'mockdate';
 import React from 'react';
+import { browserHistory } from 'react-router';
 import simple from 'simple-mock';
 
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
@@ -205,14 +206,6 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     });
   });
 
-  describe('componentWillUnmount', () => {
-    it('calls clearReservations', () => {
-      const instance = getWrapper().instance();
-      instance.componentWillUnmount();
-      expect(actions.clearReservations.callCount).to.equal(1);
-    });
-  });
-
   describe('getSelectedDateSlots', () => {
     it('returns selected date slots', () => {
       const instance = getWrapper().instance();
@@ -275,6 +268,34 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       const instance = getWrapper().instance();
       instance.handleEditCancel();
       expect(actions.cancelReservationEdit.callCount).to.equal(1);
+    });
+  });
+
+  describe('handleReserveClick', () => {
+    const selected = [{
+      begin: '2016-10-12T10:00:00+03:00',
+      end: '2016-10-12T11:00:00+03:00',
+      resource: 'some-resource',
+    }];
+    const expectedPath = `/reservation?begin=10:00&date=2016-10-12&end=11:00&id=&resource=${selected[0].resource}`;
+    const now = '2016-10-12T08:00:00+03:00';
+    let browserHistoryMock;
+
+    before(() => {
+      MockDate.set(now);
+      const instance = getWrapper({ selected }).instance();
+      browserHistoryMock = simple.mock(browserHistory, 'push');
+      instance.handleReserveClick();
+    });
+
+    after(() => {
+      simple.restore();
+      MockDate.reset();
+    });
+
+    it('calls browserHistory push with correct path', () => {
+      expect(browserHistoryMock.callCount).to.equal(1);
+      expect(browserHistoryMock.lastCall.args).to.deep.equal([expectedPath]);
     });
   });
 });
