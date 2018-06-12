@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import React from 'react';
 import Nav from 'react-bootstrap/lib/Nav';
-import NavItem from 'react-bootstrap/lib/NavItem';
+import { LinkContainer } from 'react-router-bootstrap';
 
 import { getSearchPageUrl } from 'utils/searchUtils';
 import { shallowWithIntl } from 'utils/testUtils';
@@ -28,12 +28,12 @@ describe('shared/main-navbar/MainNavbar', () => {
   });
 
   it('renders a link to search page', () => {
-    const searchLink = getWrapper().find(NavItem).filter({ href: getSearchPageUrl() });
+    const searchLink = getWrapper().find(LinkContainer).filter({ to: getSearchPageUrl() });
     expect(searchLink).to.have.length(1);
   });
 
   it('contains a link to about page', () => {
-    const link = getWrapper().find(NavItem).filter({ href: '/about' });
+    const link = getWrapper().find(LinkContainer).filter({ to: '/about' });
     expect(link).to.have.length(1);
   });
 
@@ -49,13 +49,13 @@ describe('shared/main-navbar/MainNavbar', () => {
 
     it('renders a link to my reservations page', () => {
       const myReservationsLink = getLoggedInNotAdminWrapper()
-        .find(NavItem).filter({ href: '/my-reservations' });
+        .find(LinkContainer).filter({ to: '/my-reservations' });
       expect(myReservationsLink).to.have.length(1);
     });
 
     it('renders a link to resources page when logged in', () => {
       const myReservationsLink = getLoggedInNotAdminWrapper()
-        .find(NavItem).filter({ href: '/admin-resources' });
+        .find(LinkContainer).filter({ to: '/admin-resources' });
       expect(myReservationsLink).to.have.length(1);
     });
   });
@@ -71,7 +71,7 @@ describe('shared/main-navbar/MainNavbar', () => {
 
     it('renders a link to admin resources page', () => {
       const myReservationsLink = getLoggedInAdminWrapper()
-        .find(NavItem).filter({ href: '/admin-resources' });
+        .find(LinkContainer).filter({ to: '/admin-resources' });
       expect(myReservationsLink).to.have.length(1);
     });
   });
@@ -87,13 +87,13 @@ describe('shared/main-navbar/MainNavbar', () => {
 
     it('does not render a link to my reservations page', () => {
       const myReservationsLink = getNotLoggedInWrapper()
-        .find(NavItem).filter({ href: '/my-reservations' });
+        .find(LinkContainer).filter({ to: '/my-reservations' });
       expect(myReservationsLink).to.have.length(0);
     });
 
     it('does not render a link to admin resources page', () => {
       const myReservationsLink = getNotLoggedInWrapper()
-        .find(NavItem).filter({ href: '/admin-resources' });
+        .find(LinkContainer).filter({ to: '/admin-resources' });
       expect(myReservationsLink).to.have.length(0);
     });
   });

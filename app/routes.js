@@ -69,6 +69,7 @@ export default (params) => {
         />
       </Route>
       <IndexRoute component={HomePage} {...getDispatchers('Home')} />
+      <Redirect from="/home" to="/" />
       <Route component={SearchPage} {...getDispatchers('Search')} path="/search" />
       <Route component={AboutPage} {...getDispatchers('About', { onEnter: scrollTop })} path="/about" />
       <Redirect from="/resources/:id/reservation" to="/resources/:id" />
