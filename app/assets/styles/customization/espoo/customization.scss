@@ -7,7 +7,6 @@
   // ----------
 
   h1, h2, h3, h4, h5, h6 {
-    color: $blue;
     font-family: $font-family;
     font-weight: $font-weight-bold;
   }
@@ -18,7 +17,7 @@
   }
 
   a {
-    color: $blue;
+    color: $black;
     font-family: $font-family;
 
     &:hover {
@@ -32,6 +31,14 @@
 
   // Navbar
   // ------
+
+  .brand-logo {
+    background-image: url('../../../../shared/logo/espoo-blue-logo.png');
+  }
+
+  .app-MainNavbar {
+    background-color: $blue;
+  }
 
   .app-SideNavbar .app-Sidebar__sidebar {
     background-color: $blue;
@@ -93,6 +100,94 @@
     }
   }
 
+  // Home-page
+  // ----------
+
+  .app-HomePage__koro {
+    visibility: hidden;
+  }
+
+  .app-HomePageContent {
+    padding-top: 50px;
+  }
+
+  .app-HomePage .app-HomePageContent__banner
+    div {
+      background-color: $blue-light;
+    }
+
+  // Search-page
+  // -----------
+
+  .app-SearchControlsContainer {
+    background-color: $blue-light;
+  }
+
+  .app-MapToggle {
+    background-color: $blue-light;
+    button {
+      background-color: $blue-light;
+      border-color: $blue-light;
+    }
+    button:hover,
+    button:active {
+      background-color: darken($blue-light, 5);
+      border-color: darken($blue-light, 5);
+    }
+  }
+
+  // Resource-page
+  // -------------
+
+  .app-ResourceHeader {
+    background-color: $blue-light;
+  }
+
+  .app-TimeSlot {
+    &--disabled {
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+
+    &--own-reservation {
+      background-color: $blue;
+
+      &:hover {
+        cursor: not-allowed;
+        background-color: $blue;
+      }
+    }
+  }
+
+  // Admin-resources-page
+  // --------------------
+
+  .availability-view {
+    .top-left, .date-selector {
+      background-color: $blue;
+    }
+    .reservation {
+      background-color: $blue;
+
+      &-link:hover {
+        text-decoration: none;
+      }
+      &.requested {
+        background-color: $warning;
+      }
+      &.disabled {
+        background-color: $red;
+      }
+    }
+
+    .reservation-slot {
+      &-selected {
+        background-color: $blue;
+      }
+    }
+  }
+
   // About-page
   // ----------
 
@@ -118,24 +213,11 @@
     }
   }
 
-  // Buttons
-  // -------
-
-  .btn-primary {
-    @include btn-styles($blue);
-  }
-
   // Modals
   // ------
   .modal {
-    &.modal-city-theme .modal-content {
-      background-color: $blue;
-      h1, h2, h3, h4, h5, h6 {
-        color: white;
-      }
-    }
     .modal-header::before {
-      background-image: url('../../shared/logo/espoo-logo.png');
+      background-image: url('../../shared/logo/espoo-blue-logo.png');
     }
   }
   .app-ResourceInfo__images-wrapper,
