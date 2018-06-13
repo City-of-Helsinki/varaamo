@@ -47,6 +47,8 @@ class ReservationConfirmation extends Component {
     } = this.props;
     const refUrl = window.location.href;
     const href = `${constants.FEEDBACK_URL}?ref=${refUrl}`;
+    const userEmail = reservation.user ? reservation.user.email : '';
+    const email = reservation.reserverEmailAddress || userEmail || '';
 
     return (
       <Row className="app-ReservationConfirmation">
@@ -66,7 +68,7 @@ class ReservationConfirmation extends Component {
             <p>
               <FormattedHTMLMessage
                 id="ReservationConfirmation.confirmationText"
-                values={{ email: reservation.user.email }}
+                values={{ email }}
               />
             </p>
             <p>
