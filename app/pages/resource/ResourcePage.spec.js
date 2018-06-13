@@ -28,7 +28,6 @@ describe('pages/resource/ResourcePage', () => {
     },
     date: '2015-10-10',
     id: resource.id,
-    isAdmin: false,
     isFetchingResource: false,
     isLoggedIn: true,
     location: { query: {} },
@@ -55,7 +54,6 @@ describe('pages/resource/ResourcePage', () => {
       const instance = wrapper.instance();
       const resourceInfo = wrapper.find(ResourceHeader);
       expect(resourceInfo).to.have.length(1);
-      expect(resourceInfo.prop('isAdmin')).to.deep.equal(defaultProps.isAdmin);
       expect(resourceInfo.prop('onBackClick')).to.equal(instance.handleBackButton);
       expect(resourceInfo.prop('onMapClick')).to.deep.equal(defaultProps.actions.toggleResourceMap);
       expect(resourceInfo.prop('resource')).to.deep.equal(defaultProps.resource);
