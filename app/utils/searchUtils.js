@@ -14,7 +14,7 @@ function getFetchParamsFromFilters(filters) {
     { page: filters.page || 1 }
   );
 
-  return omit(all, 'date', 'duration', 'end', 'start');
+  return omit(all, 'date', 'duration');
 }
 
 function getSearchPageUrl(filters = {}) {

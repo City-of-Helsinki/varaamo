@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import React from 'react';
 import { browserHistory } from 'react-router';
+import { FormattedHTMLMessage } from 'react-intl';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 import Button from 'react-bootstrap/lib/Button';
@@ -19,6 +20,7 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
     isEdited: false,
     reservation: Immutable(Reservation.build({ user: User.build() })),
     resource: Immutable(Resource.build()),
+    user: Immutable(User.build()),
   };
 
   function getWrapper(extraProps) {
@@ -52,6 +54,37 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
     const name = getWrapper().find('.app-ReservationConfirmation__resource-name');
     expect(name).to.have.length(1);
     expect(name.text()).to.equal(defaultProps.resource.name);
+  });
+
+  it('renders reserverEmailAddress', () => {
+    const reserverEmailAddress = 'reserver email address';
+    const wrapper = getWrapper({
+      reservation: Reservation.build({ reserverEmailAddress }),
+    });
+    const email = wrapper.find(FormattedHTMLMessage).filter({ id: 'ReservationConfirmation.confirmationText' });
+    expect(email).to.have.length(1);
+    expect(email.prop('values')).to.deep.equal({ email: reserverEmailAddress });
+  });
+
+  it('renders reservation.user.email', () => {
+    const user = User.build({ email: 'user email' });
+    const wrapper = getWrapper({
+      reservation: Reservation.build({ user }),
+    });
+    const email = wrapper.find(FormattedHTMLMessage).filter({ id: 'ReservationConfirmation.confirmationText' });
+    expect(email).to.have.length(1);
+    expect(email.prop('values')).to.deep.equal({ email: user.email });
+  });
+
+  it('renders user.email', () => {
+    const user = User.build({ email: 'user email' });
+    const wrapper = getWrapper({
+      reservation: Reservation.build(),
+      user,
+    });
+    const email = wrapper.find(FormattedHTMLMessage).filter({ id: 'ReservationConfirmation.confirmationText' });
+    expect(email).to.have.length(1);
+    expect(email.prop('values')).to.deep.equal({ email: user.email });
   });
 
   it('renders Button with correct props', () => {

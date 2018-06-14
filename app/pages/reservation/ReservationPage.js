@@ -146,6 +146,7 @@ class UnconnectedReservationPage extends Component {
       selected,
       t,
       unit,
+      user,
     } = this.props;
     const { view } = this.state;
 
@@ -204,6 +205,7 @@ class UnconnectedReservationPage extends Component {
                     isEdited={isEdited}
                     reservation={reservationCreated || reservationEdited}
                     resource={resource}
+                    user={user}
                   />
                 }
               </Loader>
@@ -231,6 +233,7 @@ UnconnectedReservationPage.propTypes = {
   selected: PropTypes.array.isRequired,
   t: PropTypes.func.isRequired,
   unit: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 };
 UnconnectedReservationPage = injectT(UnconnectedReservationPage);  // eslint-disable-line
 

@@ -144,4 +144,12 @@ describe('pages/reservation/reservationPageSelector', () => {
 
     expect(selected.unit).to.deep.equal(defaultUnit);
   });
+
+  it('returns user', () => {
+    const state = getState();
+    const props = getProps();
+    const selected = reservationPageSelector(state, props);
+
+    expect(selected.user).to.exist;
+  });
 });

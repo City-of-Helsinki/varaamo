@@ -18,6 +18,7 @@ class ReservationConfirmation extends Component {
     reservation: PropTypes.object.isRequired,
     resource: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired,
   };
 
   handleResourceButton() {
@@ -44,11 +45,18 @@ class ReservationConfirmation extends Component {
       reservation,
       resource,
       t,
+      user,
     } = this.props;
     const refUrl = window.location.href;
     const href = `${constants.FEEDBACK_URL}?ref=${refUrl}`;
-    const userEmail = reservation.user ? reservation.user.email : '';
-    const email = reservation.reserverEmailAddress || userEmail || '';
+    let email = '';
+    if (reservation.reserverEmailAddress) {
+      email = reservation.reserverEmailAddress;
+    } else if (reservation.user && reservation.user.email) {
+      email = reservation.user.email;
+    } else if (user.email) {
+      email = user.email;
+    }
 
     return (
       <Row className="app-ReservationConfirmation">
@@ -65,12 +73,14 @@ class ReservationConfirmation extends Component {
               <img alt={resource.name} className="app-ReservationConfirmation__icon" src={iconHome} />
               <b>{resource.name}</b>
             </p>
-            <p>
-              <FormattedHTMLMessage
-                id="ReservationConfirmation.confirmationText"
-                values={{ email }}
-              />
-            </p>
+            {!isEdited &&
+              <p>
+                <FormattedHTMLMessage
+                  id="ReservationConfirmation.confirmationText"
+                  values={{ email }}
+                />
+              </p>
+            }
             <p>
               <FormattedHTMLMessage
                 id="ReservationConfirmation.feedbackText"
