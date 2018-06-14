@@ -1,6 +1,12 @@
 $horizontal-margin: 20px;
 
 .app-ResourceInfo {
+  &__imgs-wrapper {
+
+    @media (min-width: $screen-md-min) {
+      padding-top: 30px;
+    }
+  }
   &__image-wrapper {
     padding: 0 0 30px 0;
     .app-ResourceInfo__image {

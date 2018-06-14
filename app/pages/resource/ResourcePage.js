@@ -7,7 +7,6 @@ import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import Col from 'react-bootstrap/lib/Col';
 import Panel from 'react-bootstrap/lib/Panel';
-import Row from 'react-bootstrap/lib/Row';
 
 import { fetchResource } from 'actions/resourceActions';
 import { clearReservations, toggleResourceMap } from 'actions/uiActions';
@@ -58,6 +57,13 @@ class UnconnectedResourcePage extends Component {
     browserHistory.goBack();
   }
 
+  orderImages(images) {
+    return [].concat(
+      images.filter(image => image.type === 'main'),
+      images.filter(image => image.type !== 'main'),
+    );
+  }
+
   render() {
     const {
       actions,
@@ -77,6 +83,8 @@ class UnconnectedResourcePage extends Component {
     }
 
     const maxPeriodText = getMaxPeriodText(t, resource);
+
+    const images = this.orderImages(resource.images || []);
 
     return (
       <div className="app-ResourcePage">
@@ -106,29 +114,35 @@ class UnconnectedResourcePage extends Component {
           {!showMap &&
             <PageWrapper title={resource.name || ''} transparent>
               <div>
-                <div className="app-ResourcePage__content">
+                <Col className="app-ResourcePage__content" lg={8} md={8} xs={12}>
                   <ResourceInfo
                     isLoggedIn={isLoggedIn}
                     resource={resource}
                     unit={unit}
                   />
-                  <Row>
-                    <Col md={8} xs={12}>
-                      <Panel collapsible defaultExpanded header={t('ResourceInfo.reserveTitle')}>
-                        {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
-                        <ResourceCalendar
-                          onDateChange={this.handleDateChange}
-                          resourceId={resource.id}
-                          selectedDate={date}
-                        />
-                        <ReservationCalendar
-                          location={location}
-                          params={params}
-                        />
-                      </Panel>
-                    </Col>
-                  </Row>
-                </div>
+
+                  <Panel collapsible defaultExpanded header={t('ResourceInfo.reserveTitle')}>
+                    {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
+                    <ResourceCalendar
+                      onDateChange={this.handleDateChange}
+                      resourceId={resource.id}
+                      selectedDate={date}
+                    />
+                    <ReservationCalendar
+                      location={location}
+                      params={params}
+                    />
+                  </Panel>
+                </Col>
+
+                <Col className="app-ResourceInfo__imgs-wrapper" lg={3} md={3} xs={12}>
+                  {images.map(image => (
+                    <div className="app-ResourceInfo__image-wrapper" key={image.url}>
+                      <img alt={image.caption} className="app-ResourceInfo__image" src={image.url} />
+                    </div>
+                  ))}
+                </Col>
+
               </div>
             </PageWrapper>
           }
