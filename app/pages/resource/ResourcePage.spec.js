@@ -19,7 +19,26 @@ import ResourceMapInfo from './resource-map-info';
 
 describe('pages/resource/ResourcePage', () => {
   const unit = Unit.build();
-  const resource = Resource.build({ unit: Unit.id });
+  const resource = Resource.build({
+    images: [
+      {
+        caption: 'caption 1',
+        url: 'url 1',
+        type: 'main',
+      },
+      {
+        caption: 'caption 2',
+        url: 'url 2',
+        type: 'other',
+      },
+      {
+        caption: 'caption 3',
+        url: 'url 3',
+        type: 'other',
+      },
+    ],
+    unit: Unit.id,
+  });
   const defaultProps = {
     actions: {
       clearReservations: () => null,
@@ -75,6 +94,17 @@ describe('pages/resource/ResourcePage', () => {
       expect(calendar.prop('onDateChange')).to.equal(wrapper.instance().handleDateChange);
       expect(calendar.prop('resourceId')).to.equal(defaultProps.resource.id);
       expect(calendar.prop('selectedDate')).to.equal(defaultProps.date);
+    });
+
+    it('renders resource images', () => {
+      const images = getWrapper().find('.app-ResourceInfo__image');
+
+      expect(images).to.have.length(defaultProps.resource.images.length);
+      images.forEach((image, index) => {
+        const imageProps = defaultProps.resource.images[index];
+        expect(image.props().alt).to.equal(imageProps.caption);
+        expect(image.props().src).to.equal(imageProps.url);
+      });
     });
 
     it('renders NotFoundPage when resource empty and not fetching resource', () => {

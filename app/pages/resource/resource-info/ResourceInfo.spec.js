@@ -15,23 +15,6 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
     isLoggedIn: false,
     resource: Immutable(Resource.build({
       description: 'Some description',
-      images: [
-        {
-          caption: 'caption 1',
-          url: 'url 1',
-          type: 'main',
-        },
-        {
-          caption: 'caption 2',
-          url: 'url 2',
-          type: 'other',
-        },
-        {
-          caption: 'caption 3',
-          url: 'url 3',
-          type: 'other',
-        },
-      ],
       genericTerms: 'some generic terms',
       specificTerms: 'some specific terms',
       maxPricePerHour: '30',
@@ -130,16 +113,5 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
     const expected = `${specificTerms}\n\n${genericTerms}`;
     expect(termsAndConditions.is(WrappedText)).to.be.true;
     expect(termsAndConditions.prop('text')).to.equal(expected);
-  });
-
-  it('renders resource images', () => {
-    const images = getWrapper().find('.app-ResourceInfo__image');
-
-    expect(images).to.have.length(defaultProps.resource.images.length);
-    images.forEach((image, index) => {
-      const imageProps = defaultProps.resource.images[index];
-      expect(image.props().alt).to.equal(imageProps.caption);
-      expect(image.props().src).to.equal(imageProps.url);
-    });
   });
 });
