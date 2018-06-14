@@ -10,6 +10,7 @@ import { shallowWithIntl } from 'utils/testUtils';
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
+import User from 'utils/fixtures/User';
 import ReservationConfirmation from './reservation-confirmation/ReservationConfirmation';
 import ReservationInformation from './reservation-information/ReservationInformation';
 import ReservationPhases from './reservation-phases/ReservationPhases';
@@ -48,6 +49,7 @@ describe('pages/reservation/ReservationPage', () => {
       resource: resource.id,
     }],
     unit: Immutable(Unit.build()),
+    user: Immutable(User.build()),
   };
 
   function getWrapper(extraProps) {
