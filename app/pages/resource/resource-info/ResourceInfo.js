@@ -21,6 +21,7 @@ function ResourceInfo({ isLoggedIn, resource, unit, t }) {
   const termsAndConditions = getTermsAndConditions(resource);
   const images = orderImages(resource.images || []);
   const serviceMapUrl = getServiceMapUrl(unit);
+
   return (
     <Row>
       <Col md={8} xs={12}>
@@ -28,7 +29,7 @@ function ResourceInfo({ isLoggedIn, resource, unit, t }) {
           <div className="app-ResourceInfo__description">
             {resource.description && <WrappedText text={resource.description} />}
           </div>
-          <Panel collapsible header={t('ResourceInfo.reservationTitle')}>
+          <Panel collapsible defaultExpanded header={t('ResourceInfo.reservationTitle')}>
             {termsAndConditions &&
               <WrappedText className="app-ResourceInfo__terms" text={termsAndConditions} />
             }
@@ -37,7 +38,7 @@ function ResourceInfo({ isLoggedIn, resource, unit, t }) {
               resource={resource}
             />
           </Panel>
-          <Panel collapsible header={t('ResourceInfo.additionalInfoTitle')}>
+          <Panel collapsible defaultExpanded header={t('ResourceInfo.additionalInfoTitle')}>
             <Row>
               <Col className="app-ResourceInfo__address" xs={6}>
                 {unit && unit.name && <span>{unit.name}</span>}

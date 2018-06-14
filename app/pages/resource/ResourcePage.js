@@ -114,7 +114,7 @@ class UnconnectedResourcePage extends Component {
                   />
                   <Row>
                     <Col md={8} xs={12}>
-                      <Panel collapsible header={t('ResourceInfo.reserveTitle')}>
+                      <Panel collapsible defaultExpanded header={t('ResourceInfo.reserveTitle')}>
                         {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
                         <ResourceCalendar
                           onDateChange={this.handleDateChange}
