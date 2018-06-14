@@ -73,12 +73,14 @@ class ReservationConfirmation extends Component {
               <img alt={resource.name} className="app-ReservationConfirmation__icon" src={iconHome} />
               <b>{resource.name}</b>
             </p>
-            <p>
-              <FormattedHTMLMessage
-                id="ReservationConfirmation.confirmationText"
-                values={{ email }}
-              />
-            </p>
+            {!isEdited &&
+              <p>
+                <FormattedHTMLMessage
+                  id="ReservationConfirmation.confirmationText"
+                  values={{ email }}
+                />
+              </p>
+            }
             <p>
               <FormattedHTMLMessage
                 id="ReservationConfirmation.feedbackText"
