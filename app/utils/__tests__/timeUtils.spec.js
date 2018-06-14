@@ -50,36 +50,42 @@ describe('Utils: timeUtils', () => {
       expect(getDateStartAndEndTimes(date)).to.deep.equal({});
     });
 
-    it('returns an object with availableBetween property', () => {
+    it('returns an object with availableBetween, end and start properties', () => {
       const date = '2015-10-10';
       const duration = 30;
       const actual = getDateStartAndEndTimes(date, duration);
 
       expect(actual.availableBetween).to.exist;
+      expect(actual.end).to.exist;
+      expect(actual.start).to.exist;
     });
 
-    it('returns an object with availableBetween in correct form ', () => {
+    it('returns an object with availableBetween, end and start in correct form ', () => {
       const date = '2015-10-10';
       const duration = 30;
       const end = '18:00';
       const start = '08:30';
       const timeZone = moment().format('Z');
-      const expected = `${date}T${start}:00${timeZone},${date}T${end}:00${timeZone}`;
+      const expected = `${date}T${start}:00${timeZone},${date}T${end}:00${timeZone},${duration}`;
       const actual = getDateStartAndEndTimes(date, start, end, duration);
 
       expect(actual.availableBetween).to.equal(expected);
+      expect(actual.end).to.equal(`${date}T23:59:59Z`);
+      expect(actual.start).to.equal(`${date}T00:00:00Z`);
     });
 
-    it('returns an object with availableBetween in correct form when end is 00:00', () => {
+    it('returns an object with availableBetween, end and start in correct form when end is 00:00', () => {
       const date = '2015-10-10';
       const duration = 30;
       const end = '00:00';
       const start = '08:30';
       const timeZone = moment().format('Z');
-      const expected = `${date}T${start}:00${timeZone},${date}T23:59:59${timeZone}`;
+      const expected = `${date}T${start}:00${timeZone},${date}T23:59:59${timeZone},${duration}`;
       const actual = getDateStartAndEndTimes(date, start, end, duration);
 
       expect(actual.availableBetween).to.equal(expected);
+      expect(actual.end).to.equal(`${date}T23:59:59Z`);
+      expect(actual.start).to.equal(`${date}T00:00:00Z`);
     });
   });
 
