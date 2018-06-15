@@ -1,4 +1,4 @@
-import { pick } from 'lodash';
+import { pick, uniq } from 'lodash';
 import camelCase from 'lodash/camelCase';
 import React, { Component, PropTypes } from 'react';
 import Col from 'react-bootstrap/lib/Col';
@@ -43,6 +43,9 @@ class ReservationInformation extends Component {
 
     if (isAdmin) {
       formFields.push('comments');
+      formFields.push('reserverName');
+      formFields.push('reserverEmailAddress');
+      formFields.push('reserverPhoneNumber');
     }
 
     if (resource.needManualConfirmation && isStaff) {
@@ -53,7 +56,7 @@ class ReservationInformation extends Component {
       formFields.push('termsAndConditions');
     }
 
-    return formFields;
+    return uniq(formFields);
   }
 
   getFormInitialValues = () => {

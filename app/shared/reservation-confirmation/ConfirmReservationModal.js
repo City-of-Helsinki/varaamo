@@ -1,4 +1,4 @@
-import { first, last, orderBy, pick } from 'lodash';
+import { first, last, orderBy, pick, uniq } from 'lodash';
 import camelCase from 'lodash/camelCase';
 import React, { Component, PropTypes } from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
@@ -53,6 +53,9 @@ class ConfirmReservationModal extends Component {
 
     if (isAdmin) {
       formFields.push('comments');
+      formFields.push('reserverName');
+      formFields.push('reserverEmailAddress');
+      formFields.push('reserverPhoneNumber');
     }
 
     if (resource.needManualConfirmation && isStaff) {
@@ -63,7 +66,7 @@ class ConfirmReservationModal extends Component {
       formFields.push('termsAndConditions');
     }
 
-    return formFields;
+    return uniq(formFields);
   }
 
   getFormInitialValues = () => {

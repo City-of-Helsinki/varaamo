@@ -98,12 +98,13 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
       expect(actual).to.deep.equal(supportedFields);
     });
 
-    it('returns supportedReservationExtraFields and comments when is admin', () => {
+    it('returns supportedReservationExtraFields and admin fields when is admin', () => {
       const wrapper = getWrapper({ isAdmin: true, resource });
       const instance = wrapper.instance();
       const actual = instance.getFormFields();
+      const adminFields = ['comments', 'reserverName', 'reserverEmailAddress', 'reserverPhoneNumber'];
 
-      expect(actual).to.deep.equal([...supportedFields, 'comments']);
+      expect(actual).to.deep.equal([...supportedFields, ...adminFields]);
     });
 
     it('returns supportedReservationExtraFields and staffEvent when needManualConfirmation and is staff', () => {
