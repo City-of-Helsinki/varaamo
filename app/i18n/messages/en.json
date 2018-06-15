@@ -157,6 +157,7 @@
   "ReservationConfirmation.reservationCreatedTitle": "Reservation saved",
   "ReservationConfirmation.reservationEditedTitle": "Reservation updated",
   "ReservationConfirmation.resourceButton": "Back to premise",
+  "ReservationConfirmation.ownReservationButton": "Back to your reservations",
   "ReservationConfirmation.confirmationText": "You will receive email (<a href='mailto:{email}'>{email}</a>) confirmation for your reservation.",
   "ReservationConfirmation.reservationDetailsTitle": "Reservation details",
   "ReservationControls.cancel": "Cancel",
