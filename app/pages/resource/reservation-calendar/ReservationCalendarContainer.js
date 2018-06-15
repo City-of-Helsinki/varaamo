@@ -72,17 +72,22 @@ export class UnconnectedReservationCalendarContainer extends Component {
     const orderedSelected = orderBy(selected, 'begin');
     const beginSlot = first(orderedSelected);
     const endSlot = last(orderedSelected);
-    const beginText = this.getDateTimeText(beginSlot.begin);
-    const endText = this.getDateTimeText(endSlot.end);
+    const beginText = this.getDateTimeText(beginSlot.begin, true);
+    const endText = this.getDateTimeText(endSlot.end, false);
     return `${beginText} - ${endText}`;
   }
 
-  getDateTimeText = (date) => {
+  getDateTimeText = (slot, returnDate) => {
     const { t } = this.props;
-    const dateText = moment(date).format('dd D.M.Y');
-    const time = moment(date).format('HH:mm');
+    const time = moment(slot).format('HH:mm');
     const timeText = t('TimeSlots.selectedTime', { time });
-    return `${dateText} ${timeText}`;
+
+    if (returnDate) {
+      const dateText = moment(slot).format('dd D.M.Y');
+      return `${dateText} ${timeText}`;
+    }
+
+    return `${timeText}`;
   }
 
   handleEditCancel = () => {
