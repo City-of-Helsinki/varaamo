@@ -141,9 +141,9 @@
     "lint": "./node_modules/.bin/eslint .",
     "start:production": "NODE_ENV=production node server/index.js",
     "start": "node server/index.js",
-    "test:ci": "./node_modules/karma/bin/karma start config/karma.ci.conf.js --single-run",
-    "test:coverage": "npm run lint && ./node_modules/karma/bin/karma start config/karma.coverage.conf.js --single-run",
-    "test:watch": "npm run lint && ./node_modules/karma/bin/karma start config/karma.conf.js",
-    "test": "npm run lint && ./node_modules/karma/bin/karma start config/karma.conf.js --single-run"
+    "test:ci": "karma start config/karma.ci.conf.js --single-run",
+    "test:coverage": "npm run lint && karma start config/karma.coverage.conf.js --single-run",
+    "test:watch": "npm run lint && karma start config/karma.conf.js",
+    "test": "npm run lint && karma start config/karma.conf.js --single-run"
   }
 }

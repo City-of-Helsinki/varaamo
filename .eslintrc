@@ -63,7 +63,8 @@
 
     "react/no-unused-prop-types": ["error", { "skipShapeProps": true }],
 
-    "react/prefer-stateless-function": "off"
+    "react/prefer-stateless-function": "off",
 
+    "linebreak-style": 0
   }
 }

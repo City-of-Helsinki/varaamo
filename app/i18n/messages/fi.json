@@ -49,7 +49,7 @@
   "common.continue": "Jatka",
   "common.denied": "Hylätty",
   "common.eventDescriptionLabel": "Tilaisuuden kuvaus",
-  "common.eventSubjectLabel": "Tilaisuuden nimi",
+  "common.eventSubjectLabel": "Varauksen tai tilaisuuden nimi",
   "common.numberOfParticipantsLabel": "Osallistujamäärä",
   "common.ok": "Valmis",
   "common.optionsAllLabel": "Kaikki",
