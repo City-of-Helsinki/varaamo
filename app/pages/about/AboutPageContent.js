@@ -63,6 +63,7 @@ function AboutPageContent({ t }) {
           {t('AboutPageContent.customerRegisterLink')}
         </a>
       </p>
+      <br />
     </div>
   );
 }

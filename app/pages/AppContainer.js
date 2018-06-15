@@ -9,6 +9,7 @@ import { createStructuredSelector } from 'reselect';
 import { fetchUser } from 'actions/userActions';
 import { enableGeoposition } from 'actions/uiActions';
 import Favicon from 'shared/favicon';
+import Footer from 'shared/footer';
 import Header from 'shared/header';
 import TestSiteMessage from 'shared/test-site-message';
 import Notifications from 'shared/notifications';
@@ -62,6 +63,7 @@ export class UnconnectedAppContainer extends Component {
               </Grid>
               {this.props.children}
             </div>
+            <Footer />
           </div>
         </DocumentTitle>
       </BodyClassName>
