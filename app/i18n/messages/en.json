@@ -65,6 +65,8 @@
   "common.save": "Save",
   "common.saving": "Saving...",
   "common.select": "Select",
+  "common.userNameLabel": "Account name",
+  "common.userEmailLabel": "Account email",
   "ConfirmReservationModal.beforeText": "Original reservation time:",
   "ConfirmReservationModal.editTitle": "Changing reservation",
   "ConfirmReservationModal.formInfo": "Please fill in the following data for your preliminary reservation. The fields marked with an asterisk (*) are mandatory.",

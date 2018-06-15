@@ -7,6 +7,7 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Form from 'react-bootstrap/lib/Form';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
+import Well from 'react-bootstrap/lib/Well';
 import { Field, Fields, reduxForm } from 'redux-form';
 
 import FormTypes from 'constants/FormTypes';
@@ -137,11 +138,12 @@ class UnconnectedReservationEditForm extends Component {
         horizontal
         onSubmit={handleSubmit}
       >
+        <Well>
+          {this.renderUserInfoRow('displayName', 'userName')}
+          {this.renderUserInfoRow('email', 'userEmail')}
+        </Well>
         {this.renderEditableInfoRow('eventSubject', 'text')}
-        {
-          this.renderStaticInfoRow('reserverName') ||
-          this.renderUserInfoRow('displayName', 'reserverName')
-        }
+        {this.renderStaticInfoRow('reserverName')}
         {this.renderEditableInfoRow('eventDescription', 'textarea')}
         {this.renderEditableInfoRow('numberOfParticipants', 'number')}
         {this.renderReservationTime()}
@@ -149,10 +151,7 @@ class UnconnectedReservationEditForm extends Component {
 
         {isStaff && this.renderStaticInfoRow('reserverId')}
         {this.renderStaticInfoRow('reserverPhoneNumber')}
-        {
-          this.renderStaticInfoRow('reserverEmailAddress') ||
-          this.renderUserInfoRow('email', 'reserverEmailAddress')
-        }
+        {this.renderStaticInfoRow('reserverEmailAddress')}
         {this.renderAddressRow('reserverAddress')}
         {this.renderAddressRow('billingAddress')}
         {this.renderStaticInfoRow('accessCode')}
