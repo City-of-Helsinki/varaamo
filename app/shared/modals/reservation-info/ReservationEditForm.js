@@ -84,6 +84,14 @@ class UnconnectedReservationEditForm extends Component {
     return this.renderInfoRow(label, value);
   }
 
+  renderUserInfoRow(userPropertyName, labelName) {
+    const { reservation, t } = this.props;
+    const user = reservation.user || {};
+    const value = user[userPropertyName];
+    const label = t(`common.${labelName}Label`);
+    return this.renderInfoRow(label, value);
+  }
+
   renderReservationTime() {
     const { isEditing, reservation, resource, t } = this.props;
     if (isEditing) {
@@ -130,7 +138,10 @@ class UnconnectedReservationEditForm extends Component {
         onSubmit={handleSubmit}
       >
         {this.renderEditableInfoRow('eventSubject', 'text')}
-        {this.renderStaticInfoRow('reserverName')}
+        {
+          this.renderStaticInfoRow('reserverName') ||
+          this.renderUserInfoRow('displayName', 'reserverName')
+        }
         {this.renderEditableInfoRow('eventDescription', 'textarea')}
         {this.renderEditableInfoRow('numberOfParticipants', 'number')}
         {this.renderReservationTime()}
@@ -138,7 +149,10 @@ class UnconnectedReservationEditForm extends Component {
 
         {isStaff && this.renderStaticInfoRow('reserverId')}
         {this.renderStaticInfoRow('reserverPhoneNumber')}
-        {this.renderStaticInfoRow('reserverEmailAddress')}
+        {
+          this.renderStaticInfoRow('reserverEmailAddress') ||
+          this.renderUserInfoRow('email', 'reserverEmailAddress')
+        }
         {this.renderAddressRow('reserverAddress')}
         {this.renderAddressRow('billingAddress')}
         {this.renderStaticInfoRow('accessCode')}

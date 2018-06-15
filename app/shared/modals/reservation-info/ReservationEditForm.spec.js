@@ -7,6 +7,7 @@ import { Field, Fields } from 'redux-form';
 
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
+import User from 'utils/fixtures/User';
 import { shallowWithIntl } from 'utils/testUtils';
 import { UnconnectedReservationEditForm as ReservationEditForm } from './ReservationEditForm';
 
@@ -138,6 +139,26 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
 
       it('renders reserverPhoneNumber', () => {
         expect(getData()).to.contain(reservation.reserverPhoneNumber);
+      });
+
+      describe('user name and email', () => {
+        const user = User.build({
+          displayName: 'display name',
+          email: 'some@email.com',
+        });
+        const userReservation = Reservation.build({
+          reserverName: null,
+          reserverEmailAddress: null,
+          user,
+        });
+
+        it('renders reservation user name when reserverName is empty', () => {
+          expect(getData({ reservation: userReservation })).to.contain(user.displayName);
+        });
+
+        it('renders reservation user email when reserverEmailAddress is empty', () => {
+          expect(getData({ reservation: userReservation })).to.contain(user.email);
+        });
       });
     });
 
