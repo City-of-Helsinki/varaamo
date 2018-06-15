@@ -11,7 +11,6 @@ import ReservationDate from 'shared/reservation-date';
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
 import User from 'utils/fixtures/User';
-import { getResourcePageUrl } from 'utils/resourceUtils';
 import { shallowWithIntl } from 'utils/testUtils';
 import ReservationConfirmation from './ReservationConfirmation';
 
@@ -123,35 +122,34 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
       const wrapper = getWrapper();
       button = wrapper.find(Button);
       instance = wrapper.instance();
-      instance.handleResourceButton = simple.mock();
+      instance.handleButtonClick = simple.mock();
     });
 
     afterEach(() => {
-      instance.handleResourceButton.reset();
+      instance.handleButtonClick.reset();
     });
 
     after(() => {
       simple.restore();
     });
 
-    it('calls handleResourceButton', () => {
+    it('calls handleButtonClick', () => {
       expect(button).to.have.length(1);
       expect(button.prop('onClick')).to.be.a('function');
       button.prop('onClick')();
-      expect(instance.handleResourceButton.callCount).to.equal(1);
+      expect(instance.handleButtonClick.callCount).to.equal(1);
     });
   });
 
-  describe('handleResourceButton', () => {
-    const day = defaultProps.reservation.begin.substring(0, 10);
-    const expectedPath = getResourcePageUrl(defaultProps.resource, day);
+  describe('handleButtonClick', () => {
+    const expectedPath = '/my-reservations';
     let instance;
     let browserHistoryMock;
 
     before(() => {
       instance = getWrapper().instance();
       browserHistoryMock = simple.mock(browserHistory, 'replace');
-      instance.handleResourceButton();
+      instance.handleButtonClick();
     });
 
     after(() => {

@@ -10,7 +10,6 @@ import iconHome from 'hel-icons/dist/shapes/home.svg';
 import constants from 'constants/AppConstants';
 import { injectT } from 'i18n';
 import ReservationDate from 'shared/reservation-date';
-import { getResourcePageUrl } from 'utils/resourceUtils';
 
 class ReservationConfirmation extends Component {
   static propTypes = {
@@ -21,10 +20,8 @@ class ReservationConfirmation extends Component {
     user: PropTypes.object.isRequired,
   };
 
-  handleResourceButton() {
-    const { reservation, resource } = this.props;
-    const day = reservation.begin.substring(0, 10);
-    browserHistory.replace(getResourcePageUrl(resource, day));
+  handleButtonClick() {
+    browserHistory.replace('/my-reservations');
   }
 
   renderField(field, label, value) {
@@ -91,9 +88,9 @@ class ReservationConfirmation extends Component {
               <Button
                 bsStyle="primary"
                 className="app-ReservationConfirmation__button"
-                onClick={() => this.handleResourceButton()}
+                onClick={() => this.handleButtonClick()}
               >
-                {t('ReservationConfirmation.resourceButton')}
+                {t('ReservationConfirmation.buttonText')}
               </Button>
             </p>
           </Well>

@@ -156,7 +156,7 @@
   "ReservationConfirmation.feedbackText": "Thank you for using Varaamo! <a href='{href}'>Send feedback</a>.",
   "ReservationConfirmation.reservationCreatedTitle": "Reservation saved",
   "ReservationConfirmation.reservationEditedTitle": "Reservation updated",
-  "ReservationConfirmation.resourceButton": "Back to premise",
+  "ReservationConfirmation.buttonText": "View my reservations",
   "ReservationConfirmation.confirmationText": "You will receive email (<a href='mailto:{email}'>{email}</a>) confirmation for your reservation.",
   "ReservationConfirmation.reservationDetailsTitle": "Reservation details",
   "ReservationControls.cancel": "Cancel",
