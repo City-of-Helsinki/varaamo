@@ -284,6 +284,9 @@
     &.disabled {
       background-color: $red;
     }
+    &.reserved {
+      background-color: $brand-success;
+    }
     .names {
       height: 100%;
       overflow: hidden;

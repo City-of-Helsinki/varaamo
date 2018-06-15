@@ -62,7 +62,8 @@ function Reservation({ onClick, ...reservation }) {
         <div
           className={classnames('reservation',
           { requested: reservation.state === 'requested' },
-          { disabled: reservation.state === 'confirmed' && !reservation.isOwn })}
+          { disabled: reservation.state === 'confirmed' && !reservation.isOwn && !reservation.userPermissions.canModify },
+          { reserved: reservation.state === 'confirmed' && !reservation.isOwn && reservation.userPermissions.canModify })}
           style={{ width }}
         >
           <div className="names">
