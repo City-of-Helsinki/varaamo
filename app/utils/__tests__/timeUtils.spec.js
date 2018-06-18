@@ -52,10 +52,9 @@ describe('Utils: timeUtils', () => {
 
     it('returns an object with availableBetween, end and start properties', () => {
       const date = '2015-10-10';
-      const duration = 30;
-      const actual = getDateStartAndEndTimes(date, duration);
+      const actual = getDateStartAndEndTimes(date);
 
-      expect(actual.availableBetween).to.exist;
+      expect(actual.availableBetween).to.not.exist;
       expect(actual.end).to.exist;
       expect(actual.start).to.exist;
     });
@@ -74,13 +73,13 @@ describe('Utils: timeUtils', () => {
       expect(actual.start).to.equal(`${date}T00:00:00Z`);
     });
 
-    it('returns an object with availableBetween, end and start in correct form when end is 00:00', () => {
+    it('returns an object with availableBetween, end and start in correct form when end is 23:30', () => {
       const date = '2015-10-10';
       const duration = 30;
-      const end = '00:00';
+      const end = '23:30';
       const start = '08:30';
       const timeZone = moment().format('Z');
-      const expected = `${date}T${start}:00${timeZone},${date}T23:59:59${timeZone},${duration}`;
+      const expected = `${date}T${start}:00${timeZone},${date}T${end}:00${timeZone},${duration}`;
       const actual = getDateStartAndEndTimes(date, start, end, duration);
 
       expect(actual.availableBetween).to.equal(expected);
@@ -160,9 +159,9 @@ describe('Utils: timeUtils', () => {
       expect(calculateDuration(duration, start, end)).to.equal(120);
     });
 
-    it('returns duration when given duration first between start and end time range and end 00:00', () => {
+    it('returns duration when given duration first between start and end time range and end 23:30', () => {
       const duration = 360;
-      const end = '00:00';
+      const end = '23:30';
       const start = '10:00';
       expect(calculateDuration(duration, start, end)).to.equal(duration);
     });
@@ -180,23 +179,17 @@ describe('Utils: timeUtils', () => {
       const start = '10:00';
       expect(calculateEndTime(end, start)).to.equal('10:30');
     });
-
-    it('returns 00:00 when end time is 00:00', () => {
-      const end = '00:00';
-      const start = '10:00';
-      expect(calculateEndTime(end, start)).to.equal(end);
-    });
   });
 
   describe('getEndTimeString', () => {
     it('returns default end if parameter is undefined', () => {
       const end = undefined;
-      expect(getEndTimeString(end)).to.equal('00:00');
+      expect(getEndTimeString(end)).to.equal('23:30');
     });
 
     it('returns default duration in hours if parameter is empty', () => {
       const end = '';
-      expect(getEndTimeString(end)).to.equal('00:00');
+      expect(getEndTimeString(end)).to.equal('23:30');
     });
 
     it('returns the end unchanged', () => {

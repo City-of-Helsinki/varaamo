@@ -175,9 +175,12 @@ describe('state/reducers/ui/searchReducer', () => {
         const expected = {
           date: '',
           distance: '',
+          duration: 0,
+          end: '',
           people: '',
           purpose: '',
           search: '',
+          start: '',
         };
         const action = clearSearchResults();
         const initialState = Immutable({ filters });

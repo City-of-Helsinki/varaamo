@@ -43,6 +43,7 @@ const closeResourceTermsModal = createAction(
 );
 
 const disableGeoposition = createAction(types.UI.DISABLE_GEOPOSITION);
+const disableTimeRange = createAction(types.UI.DISABLE_TIME_RANGE);
 const enableGeopositionRequest = createAction(types.UI.ENABLE_GEOPOSITION_REQUEST);
 const enableGeopositionSuccess = createAction(types.UI.ENABLE_GEOPOSITION_SUCCESS);
 const enableGeopositionError = createAction(types.UI.ENABLE_GEOPOSITION_ERROR);
@@ -57,6 +58,8 @@ const enableGeoposition = () => (dispatch) => {
     error => dispatch(enableGeopositionError(error)),
   );
 };
+
+const enableTimeRange = createAction(types.UI.ENABLE_TIME_RANGE);
 
 const filterAdminResourceType = createAction(types.UI.FILTER_ADMIN_RESOURCE_TYPE);
 
@@ -121,7 +124,9 @@ export {
   closeReservationSuccessModal,
   closeResourceTermsModal,
   disableGeoposition,
+  disableTimeRange,
   enableGeoposition,
+  enableTimeRange,
   filterAdminResourceType,
   hideReservationInfoModal,
   openConfirmReservationModal,

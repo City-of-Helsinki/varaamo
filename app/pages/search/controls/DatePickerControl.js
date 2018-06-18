@@ -12,10 +12,8 @@ import { injectT } from 'i18n';
 import {
   calculateDuration,
   calculateEndTime,
-  getDurationHours,
 } from 'utils/timeUtils';
 import SearchControlOverlay from './SearchControlOverlay';
-import TimeRangeControl from './TimeRangeControl';
 import iconCalendar from './images/calendar.svg';
 
 class DatePickerControl extends React.Component {
@@ -74,9 +72,7 @@ class DatePickerControl extends React.Component {
 
   render() {
     const { currentLanguage, t } = this.props;
-    const { date, duration, end, start } = this.state;
-    const hours = getDurationHours(duration);
-    const title = t('DatePickerControl.title', { date, hours, end, start });
+    const { date } = this.state;
     const selectedDay = moment(date, 'L').startOf('day').toDate();
 
     return (
@@ -86,7 +82,7 @@ class DatePickerControl extends React.Component {
           <InputGroup>
             <InputGroup.Addon className="app-DatePickerControl__title">
               <img alt="" className="app-DatePickerControl__icon" src={iconCalendar} />
-              <span>{title}</span>
+              <span>{date}</span>
             </InputGroup.Addon>
             <InputGroup.Addon className="app-DatePickerControl__triangle">
               <Glyphicon glyph="triangle-bottom" />
@@ -113,12 +109,6 @@ class DatePickerControl extends React.Component {
               onDayClick={this.handleConfirm}
               selectedDays={selectedDay}
               showWeekNumbers
-            />
-            <TimeRangeControl
-              duration={duration}
-              end={end}
-              onChange={this.handleTimeRange}
-              start={start}
             />
           </SearchControlOverlay>
         </Overlay>

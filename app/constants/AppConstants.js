@@ -54,7 +54,7 @@ export default {
     charge: false,
     date: '',
     distance: '',
-    duration: '',
+    duration: 0,
     end: '',
     lat: '',
     lon: '',

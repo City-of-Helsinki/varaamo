@@ -11,18 +11,20 @@ function addToDate(date, daysToIncrement) {
   return newDate.format(constants.DATE_FORMAT);
 }
 
-function getDateStartAndEndTimes(date, startTime = '00:00', endTime = '00:00', duration = constants.FILTER.timePeriod) {
+function getDateStartAndEndTimes(date, startTime, endTime, duration) {
   if (!date) {
     return {};
   }
   const start = `${date}T00:00:00Z`;
   const end = `${date}T23:59:59Z`;
-  const timeZone = moment().format('Z');
-  const endValue = endTime === '00:00' ? '23:59:59' : `${endTime}:00`;
-  const availableStart = `${date}T${startTime}:00${timeZone}`;
-  const availableEnd = `${date}T${endValue}${timeZone}`;
-  const availableBetween = `${availableStart},${availableEnd},${duration}`;
-  return { availableBetween, end, start };
+  if (endTime && startTime) {
+    const timeZone = moment().format('Z');
+    const availableStart = `${date}T${startTime}:00${timeZone}`;
+    const availableEnd = `${date}T${endTime}:00${timeZone}`;
+    const availableBetween = `${availableStart},${availableEnd},${duration}`;
+    return { availableBetween, end, start };
+  }
+  return { end, start };
 }
 
 function getDateString(date) {
@@ -49,24 +51,18 @@ function calculateDuration(duration, start, end) {
   const { timeFormat, timePeriodType } = constants.FILTER;
   const startTime = moment(start, timeFormat);
   const endTime = moment(end, timeFormat);
-  if (end === '00:00') {
-    endTime.add(1, 'day').startOf('day');
-  }
   const diffMinutes = endTime.diff(startTime, timePeriodType);
   return Math.min(duration, diffMinutes);
 }
 
 function getEndTimeString(endTime) {
   if (!endTime) {
-    return moment().startOf('day').format(constants.FILTER.timeFormat);
+    return '23:30';
   }
   return endTime;
 }
 
 function calculateEndTime(end, start) {
-  if (end === '00:00') {
-    return end;
-  }
   const { timeFormat, timePeriod, timePeriodType } = constants.FILTER;
   const startTime = moment(start, timeFormat);
   const endTime = moment(end, timeFormat);

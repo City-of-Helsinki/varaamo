@@ -258,6 +258,8 @@
   "SideNavbar.close": "Stäng",
   "SideNavbar.toggle": "Gäst",
   "TestSiteMessage.text": "Detta är Varaamo testversion",
+  "TimeRangeControl.timeRangeTitle": "Tidsurval och minsta reserveringstid",
+  "TimeRangeControl.title": "{date} kl. {start}-{end} {hours}h bokning",
   "TimeSlot.available": "Ledigt",
   "TimeSlot.editing": "Redigeras",
   "TimeSlot.ownReservation": "Egen bokning",
