@@ -19,14 +19,13 @@ function MainNavbar(props) {
   return (
     <Navbar className="app-MainNavbar" fluid>
       <Navbar.Header>
-        <Navbar.Brand>Varaamo</Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>
       <Navbar.Collapse>
         <Nav activeKey={activeLink}>
           <LinkContainer to="/home">
             <NavItem className={activeLink === 'home' ? 'active' : ''} eventKey="home">
-              {t('Navbar.homeLink')}
+              Varaamo
             </NavItem>
           </LinkContainer>
           <LinkContainer to={getSearchPageUrl()}>
