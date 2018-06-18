@@ -102,7 +102,9 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
       const wrapper = getWrapper({ isAdmin: true, resource });
       const instance = wrapper.instance();
       const actual = instance.getFormFields();
-      const adminFields = ['comments', 'reserverName', 'reserverEmailAddress', 'reserverPhoneNumber'];
+      // const adminFields = ['comments',
+      // 'reserverName', 'reserverEmailAddress', 'reserverPhoneNumber'];
+      const adminFields = ['comments'];
 
       expect(actual).to.deep.equal([...supportedFields, ...adminFields]);
     });

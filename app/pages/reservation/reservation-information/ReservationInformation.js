@@ -43,9 +43,11 @@ class ReservationInformation extends Component {
 
     if (isAdmin) {
       formFields.push('comments');
-      formFields.push('reserverName');
-      formFields.push('reserverEmailAddress');
-      formFields.push('reserverPhoneNumber');
+
+      /* waiting for backend implementation */
+      // formFields.push('reserverName');
+      // formFields.push('reserverEmailAddress');
+      // formFields.push('reserverPhoneNumber');
     }
 
     if (resource.needManualConfirmation && isStaff) {
