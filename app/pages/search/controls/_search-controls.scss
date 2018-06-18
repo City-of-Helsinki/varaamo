@@ -206,36 +206,6 @@
     background-color: $green;
   }
 
-  .app-TimeRangeControl {
-    padding: 20px 0 0 0;
-    max-width: 400px;
-    margin: 0 auto;
-
-    &__header {
-      display: inline-block;
-      margin-bottom: 15px;
-    }
-    &__range {
-      align-items: baseline;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      &-separator {
-        padding: 0;
-        margin: 0 6px;
-      }
-      .Select {
-        flex: 1 2 25%;
-        &:last-child {
-          margin-left: 15px;
-        }
-        .Select-control {
-          background-color: $white;
-        }
-      }
-    }
-  }
-
   .DayPicker {
     padding: 0;
     overflow-x: hidden;
@@ -328,7 +298,37 @@
   }
 }
 
+.app-TimeRangeControl {
+  padding: 15px 0 0 0;
+  max-width: 400px;
+  margin: 0 auto;
 
+  &__header {
+    display: inline-block;
+    margin-bottom: 15px;
+  }
+  &__label {
+    line-height: $line-height-computed;
+    display: inline-block;
+    font-weight: normal;
+  }
+  &__range {
+    align-items: baseline;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    &-separator {
+      padding: 0;
+      margin: 0 6px;
+    }
+    .Select {
+      flex: 1 2 25%;
+      &:last-child {
+        margin-left: 15px;
+      }
+    }
+  }
+}
 
 .app-CheckboxControl {
   padding-top: 15px;

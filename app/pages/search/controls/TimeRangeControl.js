@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import Select from 'react-select';
+import Toggle from 'react-toggle';
 import moment from 'moment';
 
 import { injectT } from 'i18n';
@@ -10,6 +11,7 @@ class TimeRangeControl extends React.Component {
     duration: PropTypes.number,
     end: PropTypes.string,
     onChange: PropTypes.func.isRequired,
+    onTimeRangeSwitch: PropTypes.func.isRequired,
     start: PropTypes.string,
     t: PropTypes.func.isRequired,
   };
@@ -25,7 +27,7 @@ class TimeRangeControl extends React.Component {
     const { start } = this.props;
     const startTime = moment(start, constants.FILTER.timeFormat)
       .add(constants.FILTER.timePeriod, constants.FILTER.timePeriodType);
-    const endOfDay = moment().add(1, 'day').startOf('day');
+    const endOfDay = moment('23:30', constants.FILTER.timeFormat);
     return this.getTimeOptions(startTime, endOfDay);
   }
 
@@ -33,9 +35,6 @@ class TimeRangeControl extends React.Component {
     const { end, start } = this.props;
     const startTime = moment(start, constants.FILTER.timeFormat);
     const endTime = moment(end, constants.FILTER.timeFormat);
-    if (end === '00:00') {
-      endTime.add(1, 'day').startOf('day');
-    }
     const diffMinutes = endTime.diff(startTime, 'minutes');
     const minutes = Math.min(diffMinutes, 720);
     return {
@@ -66,7 +65,7 @@ class TimeRangeControl extends React.Component {
 
   getStartTimeOptions() {
     const startOfDay = moment().startOf('day');
-    const endOfDay = moment().endOf('day');
+    const endOfDay = moment('23:00', constants.FILTER.timeFormat);
     return this.getTimeOptions(startOfDay, endOfDay);
   }
 
@@ -105,47 +104,60 @@ class TimeRangeControl extends React.Component {
     onChange({ duration, end, start });
   }
 
+  handleToggleChange = (e) => {
+    this.props.onTimeRangeSwitch(e.target.checked);
+  }
+
   render() {
     const { duration, end, start, t } = this.props;
+    const useTimeRange = Boolean(duration && end && start);
 
     return (
       <div className="app-TimeRangeControl">
-        <div className="app-TimeRangeControl__header">
-          {t('DatePickerControl.timeRangeTitle')}
-        </div>
-        <div className="app-TimeRangeControl__range">
-          <Select
-            className="app-TimeRangeControl__range-start"
-            clearable={false}
-            name="time-filter-start-select"
-            onChange={this.handleStart}
-            options={this.getStartTimeOptions()}
-            placeholder=""
-            searchable={false}
-            value={start}
-          />
-          <div className="app-TimeRangeControl__range-separator">-</div>
-          <Select
-            className="app-TimeRangeControl__range-end"
-            clearable={false}
-            name="time-filter-end-select"
-            onChange={this.handleEnd}
-            options={this.getEndTimeOptions()}
-            placeholder=""
-            searchable={false}
-            value={end}
-          />
-          <Select
-            className="app-TimeRangeControl__range-duration"
-            clearable={false}
-            name="time-filter-duration-select"
-            onChange={this.handleDuration}
-            options={this.getDurationOptions()}
-            placeholder=""
-            searchable={false}
-            value={duration}
-          />
-        </div>
+        <Toggle
+          checked={useTimeRange}
+          className="app-TimeRangeControl-toggle"
+          id="timerange-status"
+          onChange={this.handleToggleChange}
+        />
+        <label className="app-TimeRangeControl__label" htmlFor="timerange-status">
+          {t('TimeRangeControl.timeRangeTitle')}
+        </label>
+        {useTimeRange &&
+          <div className="app-TimeRangeControl__range">
+            <Select
+              className="app-TimeRangeControl__range-start"
+              clearable={false}
+              name="time-filter-start-select"
+              onChange={this.handleStart}
+              options={this.getStartTimeOptions()}
+              placeholder=""
+              searchable={false}
+              value={start}
+            />
+            <div className="app-TimeRangeControl__range-separator">-</div>
+            <Select
+              className="app-TimeRangeControl__range-end"
+              clearable={false}
+              name="time-filter-end-select"
+              onChange={this.handleEnd}
+              options={this.getEndTimeOptions()}
+              placeholder=""
+              searchable={false}
+              value={end}
+            />
+            <Select
+              className="app-TimeRangeControl__range-duration"
+              clearable={false}
+              name="time-filter-duration-select"
+              onChange={this.handleDuration}
+              options={this.getDurationOptions()}
+              placeholder=""
+              searchable={false}
+              value={duration}
+            />
+          </div>
+        }
       </div>
     );
   }

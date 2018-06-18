@@ -14,6 +14,7 @@ import DatePickerControl from './DatePickerControl';
 import PositionControl from './PositionControl';
 import SearchBox from './SearchBox';
 import SelectControl from './SelectControl';
+import TimeRangeControl from './TimeRangeControl';
 import {
   UnconnectedSearchControlsContainer as SearchControlsContainer,
 } from './SearchControlsContainer';
@@ -31,13 +32,13 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     filters: {
       charge: false,
       date: '2015-10-10',
-      duration: 30,
-      end: '16:00',
+      duration: 0,
+      end: '',
       page: 1,
       people: '12',
       purpose: 'some-purpose',
       search: 'search-query',
-      start: '10:00',
+      start: '',
       unit: 'some-unit',
     },
     purposeOptions: Immutable([
@@ -76,10 +77,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(datePickerControl).to.have.length(1);
       expect(datePickerControl.prop('currentLanguage')).to.equal(defaultProps.currentLanguage);
       expect(datePickerControl.prop('date')).to.equal(moment(filters.date).format('L'));
-      expect(datePickerControl.prop('duration')).to.equal(filters.duration);
-      expect(datePickerControl.prop('end')).to.equal(filters.end);
       expect(datePickerControl.prop('onConfirm')).to.equal(wrapper.instance().handleDateChange);
-      expect(datePickerControl.prop('start')).to.equal(filters.start);
     });
 
     it('renders SelectControl for purpose with correct props', () => {
@@ -142,6 +140,18 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(positionControl.prop('onConfirm')).to.exist;
       expect(positionControl.prop('onPositionSwitch')).to.exist;
       expect(positionControl.prop('value')).to.equal(5000);
+    });
+
+    it('renders TimeRangeControl with correct props', () => {
+      const filters = { ...defaultProps.filters, duration: 30, end: '23:30', start: '09:00' };
+      const wrapper = getWrapper({ filters });
+      const timeRangeControl = wrapper.find(TimeRangeControl);
+      expect(timeRangeControl).to.have.length(1);
+      expect(timeRangeControl.prop('duration')).to.equal(filters.duration);
+      expect(timeRangeControl.prop('end')).to.equal(filters.end);
+      expect(timeRangeControl.prop('onChange')).to.equal(wrapper.instance().handleTimeRangeChange);
+      expect(timeRangeControl.prop('onTimeRangeSwitch')).to.equal(wrapper.instance().handleTimeRangeSwitch);
+      expect(timeRangeControl.prop('start')).to.equal(filters.start);
     });
 
     it('renders CheckboxControl with correct props', () => {

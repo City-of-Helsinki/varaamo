@@ -2,6 +2,7 @@ import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
 import { pickSupportedFilters } from 'utils/searchUtils';
+import { getDuration, getEndTimeString, getStartTimeString } from 'utils/timeUtils';
 
 const initialState = Immutable({
   filters: {
@@ -10,6 +11,9 @@ const initialState = Immutable({
     purpose: '',
     search: '',
     distance: '',
+    duration: 0,
+    start: '',
+    end: '',
   },
   page: 1,
   position: null,
@@ -56,6 +60,22 @@ function searchReducer(state = initialState, action) {
     case types.UI.DISABLE_GEOPOSITION: {
       const position = null;
       return state.merge({ position });
+    }
+
+    case types.UI.DISABLE_TIME_RANGE: {
+      const duration = 0;
+      const end = '';
+      const start = '';
+      const filters = pickSupportedFilters({ duration, end, start });
+      return state.merge({ filters }, { deep: true });
+    }
+
+    case types.UI.ENABLE_TIME_RANGE: {
+      const duration = getDuration();
+      const end = getEndTimeString();
+      const start = getStartTimeString();
+      const filters = pickSupportedFilters({ duration, end, start });
+      return state.merge({ filters }, { deep: true });
     }
 
     case types.UI.TOGGLE_SEARCH_SHOW_MAP: {

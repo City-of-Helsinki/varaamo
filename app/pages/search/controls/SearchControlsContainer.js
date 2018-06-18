@@ -12,7 +12,13 @@ import Panel from 'react-bootstrap/lib/Panel';
 import Row from 'react-bootstrap/lib/Row';
 
 import { fetchPurposes } from 'actions/purposeActions';
-import { changeSearchFilters, disableGeoposition, enableGeoposition } from 'actions/uiActions';
+import {
+  changeSearchFilters,
+  disableGeoposition,
+  disableTimeRange,
+  enableGeoposition,
+  enableTimeRange,
+} from 'actions/uiActions';
 import constants from 'constants/AppConstants';
 import { injectT } from 'i18n';
 import CheckboxControl from './CheckboxControl';
@@ -21,6 +27,7 @@ import PositionControl from './PositionControl';
 import SearchBox from './SearchBox';
 import searchControlsSelector from './searchControlsSelector';
 import SelectControl from './SelectControl';
+import TimeRangeControl from './TimeRangeControl';
 import iconTimes from './images/times.svg';
 
 class UnconnectedSearchControlsContainer extends Component {
@@ -48,7 +55,7 @@ class UnconnectedSearchControlsContainer extends Component {
   hasAdvancedFilters() {
     const { filters, position } = this.props;
     let hasFilters = Boolean(position);
-    ['charge', 'distance', 'purpose', 'unit'].forEach((key) => {
+    ['charge', 'end', 'distance', 'duration', 'purpose', 'start', 'unit'].forEach((key) => {
       if (filters[key]) {
         hasFilters = true;
       }
@@ -82,6 +89,22 @@ class UnconnectedSearchControlsContainer extends Component {
 
   handleSearchBoxChange = (value) => {
     this.props.actions.changeSearchFilters({ search: value });
+  }
+
+  handleTimeRangeChange = ({ duration, end, start }) => {
+    this.handleFiltersChange({
+      duration,
+      end,
+      start,
+    });
+  }
+
+  handleTimeRangeSwitch = (value) => {
+    if (value) {
+      this.props.actions.enableTimeRange();
+    } else {
+      this.props.actions.disableTimeRange();
+    }
   }
 
   handleSearch = (newFilters = {}, options = {}) => {
@@ -134,10 +157,7 @@ class UnconnectedSearchControlsContainer extends Component {
                 <DatePickerControl
                   currentLanguage={currentLanguage}
                   date={moment(filters.date).format('L')}
-                  duration={parseInt(filters.duration, 10)}
-                  end={filters.end}
                   onConfirm={this.handleDateChange}
-                  start={filters.start}
                 />
               </Col>
             </Row>
@@ -179,6 +199,15 @@ class UnconnectedSearchControlsContainer extends Component {
                     onConfirm={distance => this.handleFiltersChange({ distance })}
                     onPositionSwitch={this.handlePositionSwitch}
                     value={parseInt(filters.distance, 10)}
+                  />
+                </Col>
+                <Col className="app-SearchControlsContainer__control" md={4} sm={6}>
+                  <TimeRangeControl
+                    duration={parseInt(filters.duration, 10)}
+                    end={filters.end}
+                    onChange={this.handleTimeRangeChange}
+                    onTimeRangeSwitch={this.handleTimeRangeSwitch}
+                    start={filters.start}
                   />
                 </Col>
                 <Col className="app-SearchControlsContainer__control" md={4} sm={6}>
@@ -242,7 +271,9 @@ function mapDispatchToProps(dispatch) {
   const actionCreators = {
     changeSearchFilters,
     disableGeoposition,
+    disableTimeRange,
     enableGeoposition,
+    enableTimeRange,
     fetchPurposes,
   };
 

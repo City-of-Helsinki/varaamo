@@ -9,6 +9,7 @@ const defaults = {
   duration: 30,
   end: '16:00',
   onChange: simple.mock(),
+  onTimeRangeSwitch: simple.mock(),
   start: '10:00',
 };
 function getWrapper(props) {
@@ -72,7 +73,6 @@ describe('pages/search/controls/TimeRangeControl', () => {
       { label: '22:00', value: '22:00' },
       { label: '22:30', value: '22:30' },
       { label: '23:00', value: '23:00' },
-      { label: '23:30', value: '23:30' },
     ];
 
     expect(startSelect).to.have.length(1);
@@ -116,7 +116,6 @@ describe('pages/search/controls/TimeRangeControl', () => {
       { label: '22:30', value: '22:30' },
       { label: '23:00', value: '23:00' },
       { label: '23:30', value: '23:30' },
-      { label: '00:00', value: '00:00' },
     ];
 
     expect(endSelect).to.have.length(1);
@@ -130,7 +129,7 @@ describe('pages/search/controls/TimeRangeControl', () => {
   });
 
   it('renders duration select control for 12h with correct props', () => {
-    const wrapper = getWrapper({ end: '00:00', start: '08:00' });
+    const wrapper = getWrapper({ end: '23:30', start: '08:00' });
     const endSelect = wrapper.find('.app-TimeRangeControl__range-duration');
     const expectedOptions = [
       { label: '0.5 h', value: 30 },
@@ -170,7 +169,7 @@ describe('pages/search/controls/TimeRangeControl', () => {
   });
 
   it('renders correct duration select control based on start and end time', () => {
-    const wrapper = getWrapper({ end: '00:00', start: '21:00' });
+    const wrapper = getWrapper({ end: '23:30', start: '20:30' });
     const endSelect = wrapper.find('.app-TimeRangeControl__range-duration');
     const expectedOptions = [
       { label: '0.5 h', value: 30 },

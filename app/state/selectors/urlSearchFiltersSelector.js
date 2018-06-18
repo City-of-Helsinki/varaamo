@@ -2,7 +2,7 @@ import omit from 'lodash/omit';
 import { createSelector } from 'reselect';
 
 import constants from 'constants/AppConstants';
-import { getDateString, getDuration, getEndTimeString, getStartTimeString } from 'utils/timeUtils';
+import { getDateString } from 'utils/timeUtils';
 
 const filtersSelector = (state, props) => props.location.query;
 
@@ -16,10 +16,7 @@ const urlSearchFiltersSelector = createSelector(
       {
         charge: (filters.charge === 'true' || filters.charge === true),
         date: getDateString(filters.date),
-        duration: getDuration(filters.duration),
-        end: getEndTimeString(filters.end),
         page: parseInt(filters.page, 10) || 1,
-        start: getStartTimeString(filters.start),
       },
     );
     return urlSearchFilters;
