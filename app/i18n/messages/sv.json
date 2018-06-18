@@ -65,6 +65,8 @@
   "common.save": "Spara",
   "common.saving": "Sparas...",
   "common.select": "Välj",
+  "common.userNameLabel": "Konto namn",
+  "common.userEmailLabel": "Konto e-post",
   "ConfirmReservationModal.beforeText": "Ursprunglig bokningstid",
   "ConfirmReservationModal.editTitle": "Ändra bokningen",
   "ConfirmReservationModal.formInfo": "Fyll ännu i följande uppgifter för den preliminära bokningen. Uppgifterna markerade med en asterisk (*) är obligatoriska.",
