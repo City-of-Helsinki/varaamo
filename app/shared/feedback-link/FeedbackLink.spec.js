@@ -31,7 +31,7 @@ describe('shared/feedback-link/FeedbackLink', () => {
     });
 
     it('has correct href', () => {
-      const expected = `${constants.FEEDBACK_URL}?ref=${window.location.href}`;
+      const expected = `${constants.FEEDBACK_URL}&ref=${window.location.href}`;
       expect(link.props().href).to.equal(expected);
     });
   });
@@ -58,7 +58,7 @@ describe('shared/feedback-link/FeedbackLink', () => {
     });
 
     it('has correct href', () => {
-      const expected = `${constants.FEEDBACK_URL}?ref=${window.location.href}`;
+      const expected = `${constants.FEEDBACK_URL}&ref=${window.location.href}`;
       expect(link.props().href).to.equal(expected);
     });
   });
