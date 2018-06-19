@@ -3,6 +3,7 @@ $card-border-color: #d6d6d6;
   $image-items-margin: 5px;
   margin: 20px 0;
   background-color: white;
+  display: flow-root;
 
   @media (min-width: $screen-md-min) {
     display: flex;
@@ -26,6 +27,10 @@ $card-border-color: #d6d6d6;
       min-width: $app-ResourceCard-height;
       max-width: 200px;
       height: 100%;
+    }
+    @media (max-width: $screen-md-min) {
+      height: $app-ResourceCard-height;
+      width: 100%;
     }
   }
 
