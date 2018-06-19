@@ -14,6 +14,7 @@
   }
 
   @media (min-width: $screen-md-min) {
+    position: absolute;
     width: calc(100% - 30px);
   }
 
