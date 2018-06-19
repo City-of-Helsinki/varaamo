@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
@@ -20,14 +21,14 @@ function MainNavbar(props) {
     <Navbar className="app-MainNavbar" fluid>
       <Navbar.Header>
         <Navbar.Toggle />
+        <Navbar.Brand>
+          <Link to="/">
+            Varaamo
+          </Link>
+        </Navbar.Brand>
       </Navbar.Header>
       <Navbar.Collapse>
         <Nav activeKey={activeLink}>
-          <LinkContainer to="/home">
-            <NavItem className={activeLink === 'home' ? 'active' : ''} eventKey="home">
-              Varaamo
-            </NavItem>
-          </LinkContainer>
           <LinkContainer to={getSearchPageUrl()}>
             <NavItem eventKey="search" onClick={clearSearchResults}>
               {t('Navbar.search')}
