@@ -277,15 +277,12 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       end: '2016-10-12T11:00:00+03:00',
       resource: 'some-resource',
     }];
-    const expectedPath = `/reservation?begin=10:00&date=2016-10-12&end=11:00&id=&resource=${selected[0].resource}`;
     const now = '2016-10-12T08:00:00+03:00';
     let browserHistoryMock;
 
     before(() => {
       MockDate.set(now);
-      const instance = getWrapper({ selected }).instance();
       browserHistoryMock = simple.mock(browserHistory, 'push');
-      instance.handleReserveClick();
     });
 
     after(() => {
@@ -293,7 +290,33 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       MockDate.reset();
     });
 
+    it('calls actions addNotification when user has max open reservations for resource', () => {
+      const isAdmin = false;
+      const maxReservationsPerUser = 1;
+      const reservations = [{
+        end: '2016-10-12T09:00:00+03:00',
+        isOwn: true,
+      }, {
+        end: '2016-10-12T10:00:00+03:00',
+        isOwn: false,
+      }];
+      const resourceWithReservations = Resource.build({
+        maxReservationsPerUser,
+        reservations,
+      });
+      const instance = getWrapper({
+        isAdmin,
+        resource: resourceWithReservations,
+        selected,
+      }).instance();
+      defaultProps.actions.addNotification.reset();
+      instance.handleReserveClick();
+      expect(defaultProps.actions.addNotification.callCount).to.equal(1);
+    });
     it('calls browserHistory push with correct path', () => {
+      const expectedPath = `/reservation?begin=10:00&date=2016-10-12&end=11:00&id=&resource=${selected[0].resource}`;
+      const instance = getWrapper({ selected }).instance();
+      instance.handleReserveClick();
       expect(browserHistoryMock.callCount).to.equal(1);
       expect(browserHistoryMock.lastCall.args).to.deep.equal([expectedPath]);
     });

@@ -265,6 +265,7 @@
   "TimeSlots.closedMessage": "The premises are closed today.",
   "TimeSlots.comments": "Comments",
   "TimeSlots.controls": "Operations",
+  "TimeSlots.maxReservationsPerUser": "You have too many open reservations for this premise",
   "TimeSlots.reservations": "Reservation situation",
   "TimeSlots.reserveButton": "Reserve",
   "TimeSlots.reserver": "Person making the reservation",

@@ -267,6 +267,7 @@
   "TimeSlots.closedMessage": "Utrymmet är stängt under den angivna dagen.",
   "TimeSlots.comments": "Kommentarer",
   "TimeSlots.controls": "Funktioner",
+  "TimeSlots.maxReservationsPerUser": "Du har för många bokningar för detta utrymme",
   "TimeSlots.reservations": "Bokningsläget",
   "TimeSlots.reserveButton": "Boka",
   "TimeSlots.reserver": "Bokare",

@@ -265,6 +265,7 @@
   "TimeSlots.closedMessage": "Tila on kiinni tänä päivänä.",
   "TimeSlots.comments": "Kommentit",
   "TimeSlots.controls": "Toiminnot",
+  "TimeSlots.maxReservationsPerUser": "Liikaa voimassa olevia varauksia tähän tilaan",
   "TimeSlots.reservations": "Varaustilanne",
   "TimeSlots.reserveButton": "Tee varaus",
   "TimeSlots.reserver": "Varaaja",

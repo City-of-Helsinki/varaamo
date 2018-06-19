@@ -22,7 +22,7 @@ import ReservationConfirmation from 'shared/reservation-confirmation';
 import recurringReservations from 'state/recurringReservations';
 import { injectT } from 'i18n';
 import { getEditReservationUrl } from 'utils/reservationUtils';
-import { reservingIsRestricted } from 'utils/resourceUtils';
+import { hasMaxReservations, reservingIsRestricted } from 'utils/resourceUtils';
 import reservationCalendarSelector from './reservationCalendarSelector';
 import ReservingRestrictedText from './ReservingRestrictedText';
 import TimeSlots from './time-slots';
@@ -95,13 +95,21 @@ export class UnconnectedReservationCalendarContainer extends Component {
   }
 
   handleReserveClick = () => {
-    const { selected } = this.props;
-    const orderedSelected = orderBy(selected, 'begin');
-    const { end } = last(orderedSelected);
-    const reservation = Object.assign({}, first(orderedSelected), { end });
-    const nextUrl = getEditReservationUrl(reservation);
+    const { actions, isAdmin, resource, selected, t } = this.props;
+    if (!isAdmin && hasMaxReservations(resource)) {
+      actions.addNotification({
+        message: t('TimeSlots.maxReservationsPerUser'),
+        type: 'error',
+        timeOut: 10000,
+      });
+    } else {
+      const orderedSelected = orderBy(selected, 'begin');
+      const { end } = last(orderedSelected);
+      const reservation = Object.assign({}, first(orderedSelected), { end });
+      const nextUrl = getEditReservationUrl(reservation);
 
-    browserHistory.push(nextUrl);
+      browserHistory.push(nextUrl);
+    }
   }
 
   render() {
@@ -124,6 +132,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
     const isOpen = Boolean(timeSlots.length);
     const showTimeSlots = isOpen && !reservingIsRestricted(resource, date);
     const selectedDateSlots = this.getSelectedDateSlots(timeSlots, selected);
+
     return (
       <div className="reservation-calendar">
         {showTimeSlots &&
