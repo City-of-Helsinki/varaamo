@@ -5,7 +5,7 @@ import { getCurrentCustomization } from 'utils/customizationUtils';
 
 function FeedbackLink({ children }) {
   const refUrl = window.location.href;
-  const href = `${constants.FEEDBACK_URL}?ref=${refUrl}`;
+  const href = `${constants.FEEDBACK_URL}&ref=${refUrl}`;
 
   switch (getCurrentCustomization()) {
     case 'ESPOO': {

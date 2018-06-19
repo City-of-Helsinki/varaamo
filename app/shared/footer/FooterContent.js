@@ -15,13 +15,6 @@ function FooterContent({ t }) {
   switch (getCurrentCustomization()) {
     case 'ESPOO': {
       return (
-        // <div>
-        //   <Link className="brand-link" onClick={onLinkClick} to="/">
-        //     <Logo />
-        //     Varaamo
-        //   </Link>
-        //   <p>{t('Footer.espooText')} {feedbackLink}</p>
-        // </div>
         <Grid>
           <Row>
             <Col lg={3} md={3}>
