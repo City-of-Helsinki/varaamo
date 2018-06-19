@@ -47,7 +47,7 @@ export default {
       labelTextId: 'common.requested',
     },
   },
-  SEARCH_PAGE_SIZE: 10,
+  SEARCH_PAGE_SIZE: 30,
   SHOW_TEST_SITE_MESSAGE: SETTINGS.SHOW_TEST_SITE_MESSAGE,
   SUPPORTED_LANGUAGES: ['en', 'fi', 'sv'],
   SUPPORTED_SEARCH_FILTERS: {
