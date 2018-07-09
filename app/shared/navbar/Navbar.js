@@ -19,9 +19,7 @@ export function handleLoginClick() {
 
 function Navbar(props) {
   const {
-    changeLocale,
     clearSearchResults,
-    currentLanguage,
     isAdmin,
     isLoggedIn,
     t,
@@ -77,21 +75,14 @@ function Navbar(props) {
           )}
         </Nav>
 
-        {/* Language nav is placed here so it is in the bottom in the navbar on mobile */}
-        <Nav id="language-nav" onSelect={changeLocale}>
-          {currentLanguage !== 'en' && <NavItem eventKey="en">EN</NavItem>}
-          {currentLanguage !== 'fi' && <NavItem eventKey="fi">FI</NavItem>}
-          {currentLanguage !== 'sv' && <NavItem eventKey="sv">SV</NavItem>}
-        </Nav>
+
       </RBNavbar.Collapse>
     </RBNavbar>
   );
 }
 
 Navbar.propTypes = {
-  changeLocale: PropTypes.func.isRequired,
   clearSearchResults: PropTypes.func.isRequired,
-  currentLanguage: PropTypes.string.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
