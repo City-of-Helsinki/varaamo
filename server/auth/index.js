@@ -6,6 +6,7 @@ import nocache from 'nocache';
 
 import configurePassport from './configurePassport';
 import getAuthState from './getAuthState';
+import util from 'util';
 
 const router = express.Router();  // eslint-disable-line new-cap
 const passport = configurePassport();
@@ -33,11 +34,11 @@ router.get('/login',
     req.session.next = req.query.next; // eslint-disable-line no-param-reassign
     next();
   },
-  passport.authenticate('helsinki')
+  passport.authenticate(process.env.AUTH_PROVIDER || 'helsinki')
 );
 
-router.get('/login/helsinki/return',
-  passport.authenticate('helsinki', { failureRedirect: '/login' }),
+router.get('/login/:provider/return', 
+  passport.authenticate(process.env.AUTH_PROVIDER || 'helsinki', { failureRedirect: '/login' }),
   (req, res) => {
     if (req.session.next) {
       const redirectUrl = req.session.next;
@@ -50,8 +51,9 @@ router.get('/login/helsinki/return',
 
 router.get('/logout', (req, res) => {
   req.logOut();
-  const redirectUrl = req.query.next || 'https://varaamo.hel.fi';
-  res.redirect(`https://api.hel.fi/sso/logout/?next=${redirectUrl}`);
+  const redirectUrl = req.query.next || process.env.LOGOUT_REDIRECT || 'https://varaamo.hel.fi';
+  const ssoLogoutUrl = process.env.SSO_LOGOUT || 'https://api.hel.fi/sso/logout/?next=%s'
+  res.redirect(util.format(ssoLogoutUrl, redirectUrl));
 });
 
 export default router;
