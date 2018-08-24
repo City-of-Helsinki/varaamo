@@ -137,4 +137,55 @@ $content-padding: 10px;
     margin-left: -15px;
     margin-right: -15px;
   }
+
+  @media (min-width: $screen-xs-max) {
+  /*Resurssi sivun korjaukset*/
+      /*turkoosin alueen padding*/
+
+      .app-ResourceHeader__content {
+         padding: 15px 15px 15px 15px;
+      }
+
+
+      /*otsikkoa pienemmäksi*/
+      .h1, h1 {
+         font-size: 32px;
+      }
+      /*leipätekstien korjaus*/
+      .row {
+         margin-left: 15px;
+         margin-right: 15px;
+         margin-top: 15px;
+      }
+      .app-ResourcePage__content {
+         padding: 0px;
+      }
+  }
+  @media (max-width: $screen-xs-max) {
+      /*Footerin fixi*/
+      #footer {
+         position: relative;
+         z-index: -15;
+      }
+
+      /*Resurssi sivun korjaukset*/
+      /*turkoosin alueen padding*/
+
+      .app-ResourceHeader__content {
+         padding: 15px 15px 15px 15px;
+      }
+      /*otsikkoa pienemmäksi*/
+      .h1, h1 {
+         font-size: 24px;
+      }
+      /*leipätekstien korjaus*/
+      .row {
+         margin-left: 15px;
+         margin-right: 15px;
+         margin-top: 15px;
+      }
+      .app-ResourcePage__content {
+         padding: 0px;
+      }
+   }
 }

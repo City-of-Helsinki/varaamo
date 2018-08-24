@@ -6,12 +6,10 @@ import Row from 'react-bootstrap/lib/Row';
 
 import { injectT } from 'i18n';
 import WrappedText from 'shared/wrapped-text';
-import { getTermsAndConditions } from 'utils/resourceUtils';
 import { getServiceMapUrl } from 'utils/unitUtils';
 import ReservationInfo from '../reservation-info';
 
 function ResourceInfo({ isLoggedIn, resource, unit, t }) {
-  const termsAndConditions = getTermsAndConditions(resource);
   const serviceMapUrl = getServiceMapUrl(unit);
 
   return (
@@ -21,9 +19,6 @@ function ResourceInfo({ isLoggedIn, resource, unit, t }) {
           {resource.description && <WrappedText text={resource.description} />}
         </div>
         <Panel collapsible defaultExpanded header={t('ResourceInfo.reservationTitle')}>
-          {termsAndConditions &&
-            <WrappedText className="app-ResourceInfo__terms" text={termsAndConditions} />
-          }
           <ReservationInfo
             isLoggedIn={isLoggedIn}
             resource={resource}

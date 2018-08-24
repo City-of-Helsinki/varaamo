@@ -48,4 +48,11 @@
     }
   }
 
+  @media (max-width: $screen-xs-max) {
+      /*karttapalikan fixi*/
+    .app-ResourceCompactList {
+       max-width: 90%;
+       font-size: 1.2em;
+    }
+  }
 }

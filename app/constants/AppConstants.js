@@ -20,6 +20,7 @@ export default {
     timeOut: 5000,
     hidden: false,
   },
+  OLD_VERSION_URL: 'https://varaamo.hel.ninja/',
   REQUIRED_API_HEADERS: {
     Accept: 'application/json',
     'Accept-Language': 'fi',

@@ -5,12 +5,14 @@ import Row from 'react-bootstrap/lib/Row';
 import { Link } from 'react-router';
 
 import FeedbackLink from 'shared/feedback-link';
+import OldVersionLink from 'shared/old-version-link';
 import Logo from 'shared/logo';
 import { injectT } from 'i18n';
 import { getCurrentCustomization } from 'utils/customizationUtils';
 
 function FooterContent({ t }) {
   const feedbackLink = <FeedbackLink>{t('Footer.feedbackLink')}</FeedbackLink>;
+  const oldVersionLink = <OldVersionLink>{t('Footer.oldVersionLink')}</OldVersionLink>;
 
   switch (getCurrentCustomization()) {
     case 'ESPOO': {
@@ -61,6 +63,7 @@ function FooterContent({ t }) {
             </Col>
             <Col lg={6} md={6}>
               <p>{t('Footer.helsinkiText')} {feedbackLink}</p>
+              <p>{oldVersionLink}</p>
             </Col>
           </Row>
         </Grid>
