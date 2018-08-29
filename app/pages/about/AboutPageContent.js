@@ -25,7 +25,7 @@ function AboutPageContent({ t }) {
       <p>
         {t('AboutPageContent.customerRegisterParagraph')}
         {' '}
-        <a href="http://www.helmet-kirjasto.fi/varaamo-palaute/rekisteriseloste.php">
+        <a href="https://cdn.metatavu.io/assets/mikkeli/varaamo-rekisteriseloste.pdf" rel="noopener noreferrer" target="_blank">
           {t('AboutPageContent.customerRegisterLink')}
         </a>
       </p>
