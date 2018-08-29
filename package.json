@@ -10,6 +10,7 @@
   "description": "Varaamo is the user interface for the City of Helsinki varaamo.hel.fi resource reservation service.",
   "license": "MIT",
   "dependencies": {
+    "@exlinc/keycloak-passport": "1.0.2",
     "classnames": "2.2.5",
     "dotenv": "2.0.0",
     "dragscroll": "0.0.8",

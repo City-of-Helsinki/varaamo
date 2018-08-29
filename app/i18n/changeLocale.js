@@ -1,14 +1,12 @@
 import moment from 'moment';
 import { updateIntl } from 'react-intl-redux';
 
-import enMessages from 'i18n/messages/en.json';
 import fiMessages from 'i18n/messages/fi.json';
-import svMessages from 'i18n/messages/sv.json';
 
 const messages = {
   fi: fiMessages,
-  en: enMessages,
-  sv: svMessages,
+  en: fiMessages,
+  sv: fiMessages,
 };
 
 function changeLocale(language) {

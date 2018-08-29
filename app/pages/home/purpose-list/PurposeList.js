@@ -2,17 +2,14 @@ import React, { PropTypes } from 'react';
 
 import { getSearchPageUrl } from 'utils/searchUtils';
 import PurposeListItem from './PurposeListItem';
-import manufacturingImage from './images/manufacturing.jpg';
-import meetingsAndWorkingImage from './images/meetings-and-working.jpg';
-import photoAndAudioImage from './images/photo-and-audio.jpg';
-import sportsImage from './images/sports.jpg';
+import PrintingImage from './images/3d-printing.jpg';
+import meetingsAndWorkingImage from './images/meeting-and-work.jpg';
 
 const images = {
-  manufacturing: manufacturingImage,
-  'meetings-and-working': meetingsAndWorkingImage,
-  'photo-and-audio': photoAndAudioImage,
-  sports: sportsImage,
+  '3d-printing-and-digitizing': PrintingImage,
+  'have-a-meeting-or-work': meetingsAndWorkingImage,
 };
+
 
 function renderPurposeListItem(purpose) {
   return (

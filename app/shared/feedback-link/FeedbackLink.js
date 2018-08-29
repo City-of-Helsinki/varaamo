@@ -4,8 +4,7 @@ import constants from 'constants/AppConstants';
 import { getCurrentCustomization } from 'utils/customizationUtils';
 
 function FeedbackLink({ children }) {
-  const refUrl = window.location.href;
-  const href = `${constants.FEEDBACK_URL}?ref=${refUrl}`;
+  const href = `${constants.FEEDBACK_URL}`;
 
   switch (getCurrentCustomization()) {
     case 'ESPOO': {
