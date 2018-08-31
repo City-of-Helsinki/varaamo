@@ -14,47 +14,20 @@ describe('shared/old-version-link/OldVersionLink', () => {
     return shallow(<OldVersionLink>{linkChildren}</OldVersionLink>);
   }
 
-  describe('When there is no customization in use', () => {
+  describe('Old version link in footer', () => {
     let link;
 
     before(() => {
       link = getWrapper();
     });
 
-    it('renders a link', () => {
-      expect(link.type()).to.equal('a');
-    });
-
-    it('renders children', () => {
-      const wrapper = getWrapper();
-      expect(wrapper.children().equals(linkChildren)).to.be.true;
-    });
-
-    it('has correct href', () => {
-      const expected = `${constants.OLD_VERSION_URL}&ref=${window.location.href}`;
-      expect(link.props().href).to.equal(expected);
-    });
-  });
-
-  describe('When Espoo customization is used', () => {
-    let link;
-
-    before(() => {
-      simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('ESPOO');
-      link = getWrapper();
-    });
-
-    after(() => {
-      simple.restore();
+    it('contains old-version-link link', () => {
+      const oldversionLink = content.find(OldVersionLink);
+      expect(oldversionLink.length).to.equal(1);
     });
 
     it('renders a link', () => {
       expect(link.type()).to.equal('a');
-    });
-
-    it('renders children', () => {
-      const wrapper = getWrapper();
-      expect(wrapper.children().equals(linkChildren)).to.be.true;
     });
 
     it('has correct href', () => {

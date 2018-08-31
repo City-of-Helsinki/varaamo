@@ -106,12 +106,4 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
 
     expect(link).to.have.length(0);
   });
-
-  it('renders termsAndConditions', () => {
-    const termsAndConditions = getWrapper().find('.app-ResourceInfo__terms');
-    const { genericTerms, specificTerms } = defaultProps.resource;
-    const expected = `${specificTerms}\n\n${genericTerms}`;
-    expect(termsAndConditions.is(WrappedText)).to.be.true;
-    expect(termsAndConditions.prop('text')).to.equal(expected);
-  });
 });

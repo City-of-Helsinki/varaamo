@@ -8,12 +8,13 @@ function OldVersionLink({ children }) {
   const href = `${constants.OLD_VERSION_URL}&ref=${refUrl}`;
 
   switch (getCurrentCustomization()) {
-    case 'ESPOO': {
-      return <a className="feedback-link" href={href}>{children}</a>;
+    case 'ESPOO':
+    case 'VANTAA': {
+      return <a className="oldversion-link" href={href}>{children}</a>;
     }
 
     default: {
-      return <a className="feedback-link" href={href}>{children}</a>;
+      return <a className="oldversion-link" href={href}>{children}</a>;
     }
   }
 }

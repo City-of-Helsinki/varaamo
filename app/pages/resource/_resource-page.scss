@@ -138,20 +138,19 @@ $content-padding: 10px;
     margin-right: -15px;
   }
 
+  /* Full width page */
   @media (min-width: $screen-xs-max) {
-  /*Resurssi sivun korjaukset*/
-      /*turkoosin alueen padding*/
 
+      /* Fix for resource page */
+      /* Padding for turquise area */
       .app-ResourceHeader__content {
          padding: 15px 15px 15px 15px;
       }
-
-
-      /*otsikkoa pienemmäksi*/
+      /* Smaller header */
       .h1, h1 {
          font-size: 32px;
       }
-      /*leipätekstien korjaus*/
+      /* margin for base texts */
       .row {
          margin-left: 15px;
          margin-right: 15px;
@@ -161,24 +160,23 @@ $content-padding: 10px;
          padding: 0px;
       }
   }
+
   @media (max-width: $screen-xs-max) {
-      /*Footerin fixi*/
+      /* Footer must be below map or other content */
       #footer {
          position: relative;
          z-index: -15;
       }
-
-      /*Resurssi sivun korjaukset*/
-      /*turkoosin alueen padding*/
-
+      /* Fix for resource page */
+      /* Padding for turquise area */
       .app-ResourceHeader__content {
          padding: 15px 15px 15px 15px;
       }
-      /*otsikkoa pienemmäksi*/
+      /* Smaller header */
       .h1, h1 {
          font-size: 24px;
       }
-      /*leipätekstien korjaus*/
+      /* margin for base texts */
       .row {
          margin-left: 15px;
          margin-right: 15px;
