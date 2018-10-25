@@ -88,6 +88,7 @@ class UnconnectedResourcePage extends Component {
 
     return (
       <div className="app-ResourcePage">
+
         <Loader loaded={!isEmpty(resource)}>
           <ResourceHeader
             isLoggedIn={isLoggedIn}
@@ -122,19 +123,28 @@ class UnconnectedResourcePage extends Component {
                   />
 
                   <Panel collapsible defaultExpanded header={t('ResourceInfo.reserveTitle')}>
-                    {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
-                    <ResourceCalendar
-                      onDateChange={this.handleDateChange}
-                      resourceId={resource.id}
-                      selectedDate={date}
-                    />
-                    <ReservationCalendar
-                      location={location}
-                      params={params}
-                    />
+
+                    {resource.externalCalendarUrl &&
+                      <form action={resource.externalCalendarUrl}>
+                        <input className="btn btn-primary" type="submit" value="Siirry ulkoiseen ajanvarauskalenteriin" />
+                      </form>
+                    }
+                    {!resource.externalCalendarUrl &&
+                      <PageWrapper title={''} transparent>
+                        {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
+                        <ResourceCalendar
+                          onDateChange={this.handleDateChange}
+                          resourceId={resource.id}
+                          selectedDate={date}
+                        />
+                        <ReservationCalendar
+                          location={location}
+                          params={params}
+                        />
+                      </PageWrapper>
+                    }
                   </Panel>
                 </Col>
-
                 <Col className="app-ResourceInfo__imgs-wrapper" lg={3} md={3} xs={12}>
                   {images.map(image => (
                     <div className="app-ResourceInfo__image-wrapper" key={image.url}>
