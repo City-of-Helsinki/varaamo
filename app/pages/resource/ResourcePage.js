@@ -123,14 +123,13 @@ class UnconnectedResourcePage extends Component {
                   />
 
                   <Panel collapsible defaultExpanded header={t('ResourceInfo.reserveTitle')}>
-
                     {resource.externalCalendarUrl &&
                       <form action={resource.externalCalendarUrl}>
                         <input className="btn btn-primary" type="submit" value="Siirry ulkoiseen ajanvarauskalenteriin" />
                       </form>
                     }
                     {!resource.externalCalendarUrl &&
-                      <PageWrapper title={''} transparent>
+                      <div>
                         {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
                         <ResourceCalendar
                           onDateChange={this.handleDateChange}
@@ -141,7 +140,7 @@ class UnconnectedResourcePage extends Component {
                           location={location}
                           params={params}
                         />
-                      </PageWrapper>
+                      </div>
                     }
                   </Panel>
                 </Col>
