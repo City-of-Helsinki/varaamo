@@ -47,5 +47,11 @@
       border-color: $hel-silver;
     }
   }
-
+  @media (max-width: $screen-xs-max) {
+       /* fix for map */
+     .app-ResourceCompactList {
+        max-width: 90%;
+        font-size: 1.2em;
+    }
+  }
 }
