@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { FormattedHTMLMessage } from 'react-intl';
 import Col from 'react-bootstrap/lib/Col';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
@@ -60,7 +61,7 @@ function FooterContent({ t }) {
               </Link>
             </Col>
             <Col lg={6} md={6}>
-              <p>{t('Footer.helsinkiText')} {feedbackLink}</p>
+              <p><FormattedHTMLMessage id="Footer.helsinkiText" /></p><p> {feedbackLink}</p>
             </Col>
           </Row>
         </Grid>

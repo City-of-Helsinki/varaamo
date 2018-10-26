@@ -137,4 +137,51 @@ $content-padding: 10px;
     margin-left: -15px;
     margin-right: -15px;
   }
+
+  /* Full width page */
+  @media (min-width: $screen-xs-max) {
+    /* Fix for resource page */
+      /* Padding for turquise area */
+      .app-ResourceHeader__content {
+         padding: 15px 15px 15px 15px;
+      }
+      /*smaller header*/
+      .h1, h1 {
+         font-size: 32px;
+      }
+      /*basetext fix*/
+      .row {
+         margin-left: 15px;
+         margin-right: 15px;
+         margin-top: 15px;
+      }
+      .app-ResourcePage__content {
+         padding: 0px;
+      }
+  }
+  @media (max-width: $screen-xs-max) {
+      /* Footer must be below map or other content */
+      #footer {
+         position: relative;
+         z-index: -15;
+      }
+      /* Fix for resource page */
+      /* Padding for turquise area */
+      .app-ResourceHeader__content {
+         padding: 15px 15px 15px 15px;
+      }
+      /* smaller header */
+      .h1, h1 {
+         font-size: 24px;
+      }
+      /* basetext fix */
+      .row {
+         margin-left: 15px;
+         margin-right: 15px;
+         margin-top: 15px;
+      }
+      .app-ResourcePage__content {
+         padding: 0px;
+      }
+   }
 }

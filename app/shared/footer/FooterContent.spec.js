@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import React from 'react';
 // import { Link } from 'react-router';
 import simple from 'simple-mock';
+import PageWrapper from 'pages/PageWrapper';
 
 import FeedbackLink from 'shared/feedback-link';
 import * as customizationUtils from 'utils/customizationUtils';
@@ -25,10 +26,10 @@ describe('shared/footer/FooterContent', () => {
       expect(feedbackLink.length).to.equal(1);
     });
 
-    it('renders texts for Helsinki', () => {
-      const texts = content.find('p').text();
-      expect(texts).to.contain('Footer.helsinkiText');
-    });
+    //it('renders texts for Helsinki', () => {
+    //  const texts = content.find('p').text();
+    //  expect(texts).to.contain('Footer.helsinkiText');
+    //});
 
     // it('Logo link has correct onClick prop', () => {
     //   const onLinkClick = () => {};
@@ -54,10 +55,10 @@ describe('shared/footer/FooterContent', () => {
       expect(feedbackLink.length).to.equal(1);
     });
 
-    it('renders texts for Espoo', () => {
-      const texts = content.find('p').text();
-      expect(texts).to.contain('Footer.espooText');
-    });
+    // it('renders texts for Espoo', () => {
+    //   const texts = content.find('p').text();
+    //   expect(texts).to.contain('Footer.espooText');
+    // });
 
     // it('Logo link has correct onClick prop', () => {
     //   const onLinkClick = () => {};
@@ -83,10 +84,10 @@ describe('shared/footer/FooterContent', () => {
       expect(feedbackLink.length).to.equal(1);
     });
 
-    it('renders texts for Vantaa', () => {
-      const texts = content.find('p').text();
-      expect(texts).to.contain('Footer.vantaaText');
-    });
+    // it('renders texts for Vantaa', () => {
+    //   const texts = content.find('p').text();
+    //   expect(texts).to.contain('Footer.vantaaText');
+    // });
 
     // it('Logo link has correct onClick prop', () => {
     //   const onLinkClick = () => {};
