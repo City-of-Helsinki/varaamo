@@ -7,6 +7,8 @@ import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import Col from 'react-bootstrap/lib/Col';
 import Panel from 'react-bootstrap/lib/Panel';
+import Lightbox from 'lightbox-react';
+import 'lightbox-react/style.css';
 
 import { fetchResource } from 'actions/resourceActions';
 import { clearReservations, toggleResourceMap } from 'actions/uiActions';
@@ -25,6 +27,12 @@ import resourcePageSelector from './resourcePageSelector';
 class UnconnectedResourcePage extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      photoIndex: 0,
+      isOpen: false,
+    };
+
     this.fetchResource = this.fetchResource.bind(this);
   }
 
@@ -37,6 +45,10 @@ class UnconnectedResourcePage extends Component {
     if (nextProps.date !== this.props.date || nextProps.isLoggedIn !== this.props.isLoggedIn) {
       this.fetchResource(nextProps.date);
     }
+  }
+
+  imageClick = () => {
+    this.setState({ isOpen: true });
   }
 
   fetchResource(date = this.props.date) {
@@ -77,6 +89,8 @@ class UnconnectedResourcePage extends Component {
       t,
       unit,
     } = this.props;
+
+    const { photoIndex, isOpen } = this.state;
 
     if (isEmpty(resource) && !isFetchingResource) {
       return <NotFoundPage />;
@@ -145,17 +159,48 @@ class UnconnectedResourcePage extends Component {
                   </Panel>
                 </Col>
                 <Col className="app-ResourceInfo__imgs-wrapper" lg={3} md={3} xs={12}>
+
                   {images.map(image => (
                     <div className="app-ResourceInfo__image-wrapper" key={image.url}>
-                      <img alt={image.caption} className="app-ResourceInfo__image" src={image.url} />
+                      <button onClick={this.imageClick}>
+                        <img
+                          alt={image.caption}
+                          className="app-ResourceInfo__image"
+                          src={`${image.url}?dim=700x420`}
+                        />
+                      </button>
                     </div>
                   ))}
+
                 </Col>
 
               </div>
             </PageWrapper>
           }
         </Loader>
+
+        <div>
+          {isOpen && (
+            <Lightbox
+              imageCaption={images[photoIndex].caption}
+              mainSrc={images[photoIndex].url}
+              nextSrc={images[(photoIndex + 1) % images.length].url}
+              onCloseRequest={() => this.setState({ isOpen: false })}
+              onMoveNextRequest={() =>
+                this.setState({
+                  photoIndex: (photoIndex + 1) % images.length,
+                })
+              }
+              onMovePrevRequest={() =>
+                this.setState({
+                  photoIndex: (photoIndex + (images.length - 1)) % images.length,
+                })
+              }
+              prevSrc={images[(photoIndex + (images.length - 1)) % images.length].url}
+            />
+          )}
+        </div>
+
       </div>
     );
   }

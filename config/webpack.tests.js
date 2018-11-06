@@ -36,6 +36,14 @@ module.exports = merge(common, {
           presets: ['es2015', 'node6', 'react', 'stage-2'],
         },
       },
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('style', 'css-loader!postcss-loader'),
+      },
+      {
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract('style', 'css-loader!resolve-url-loader!postcss-loader!sass-loader'),
+      },
     ],
   },
   plugins: [
