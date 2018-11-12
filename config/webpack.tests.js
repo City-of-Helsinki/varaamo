@@ -3,6 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const common = require('./webpack.common');
 
@@ -55,5 +56,6 @@ module.exports = merge(common, {
     }),
     new HtmlWebpackPlugin(),
     new webpack.IgnorePlugin(/ReactContext/),
+    new ExtractTextPlugin('app.css'),
   ],
 });

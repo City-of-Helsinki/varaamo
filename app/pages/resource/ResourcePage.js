@@ -166,7 +166,7 @@ class UnconnectedResourcePage extends Component {
                         <img
                           alt={image.caption}
                           className="app-ResourceInfo__image"
-                          src={`${image.url}?dim=700x420`}
+                          src={image.url}
                         />
                       </button>
                     </div>
