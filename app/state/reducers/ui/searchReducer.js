@@ -35,6 +35,7 @@ function searchReducer(state = initialState, action) {
         resultCount,
         results,
         searchDone: true,
+        unitId: null,
       });
     }
 
