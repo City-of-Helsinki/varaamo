@@ -2,7 +2,7 @@
   $button-size: $line-height-computed;
   $button-offset: 10px;
   $button-offset-mobile: 2px;
-  position: fixed;
+  position: absolute; //fixed
   bottom: 0;
   left: 0;
   margin: 0 15px 15px 15px;

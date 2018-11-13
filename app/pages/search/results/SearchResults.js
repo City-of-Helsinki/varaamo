@@ -45,6 +45,7 @@ export class UnconnectedSearchResults extends Component {
               date={filters.date}
               location={location}
               resourceIds={searchResultIds}
+              unitId={selectedUnitId}
             />
           }
         </Loader>
