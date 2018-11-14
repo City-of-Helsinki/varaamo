@@ -12,16 +12,16 @@ class MainNavbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      navCollapsed: true,
+      expanded: false,
     };
   }
 
   collapseItem() {
-    this.setState({ navCollapsed: true });
+    this.setState({ expanded: false });
   }
 
   toggleCollapse() {
-    this.setState({ navCollapsed: !this.state.navCollapsed });
+    this.setState({ expanded: !this.state.expanded });
   }
 
   render() {
@@ -34,7 +34,7 @@ class MainNavbar extends React.Component {
     } = this.props;
 
     return (
-      <Navbar className="app-MainNavbar" fluid>
+      <Navbar className="app-MainNavbar" expanded={this.state.expanded} fluid onToggle={() => this.toggleCollapse()}>
         <Navbar.Header>
           <Navbar.Toggle />
           <Navbar.Brand>
@@ -43,23 +43,29 @@ class MainNavbar extends React.Component {
             </Link>
           </Navbar.Brand>
         </Navbar.Header>
-        <Navbar.Collapse collapsed={this.state.navCollapsed} onToggle={() => this.toggleCollapse()}>
+        <Navbar.Collapse>
           <Nav activeKey={activeLink}>
             <LinkContainer to={getSearchPageUrl()}>
-              <NavItem eventKey="search" onClick={clearSearchResults}>
+              <NavItem
+                eventKey="search"
+                onClick={() => {
+                  this.collapseItem();
+                  clearSearchResults();
+                }}
+              >
                 {t('Navbar.search')}
               </NavItem>
             </LinkContainer>
             {isLoggedIn && (
               <LinkContainer to="/admin-resources">
-                <NavItem eventKey="admin-resources">
+                <NavItem eventKey="admin-resources" onClick={() => this.collapseItem()}>
                   { isAdmin ? t('Navbar.adminResources') : t('Navbar.userFavorites') }
                 </NavItem>
               </LinkContainer>
             )}
             {isLoggedIn && (
               <LinkContainer to="/my-reservations">
-                <NavItem eventKey="my-reservations">
+                <NavItem eventKey="my-reservations" onClick={() => this.collapseItem()}>
                   {t('Navbar.userResources')}
                 </NavItem>
               </LinkContainer>
