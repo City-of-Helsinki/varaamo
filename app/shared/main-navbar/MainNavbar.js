@@ -8,55 +8,72 @@ import NavItem from 'react-bootstrap/lib/NavItem';
 import { injectT } from 'i18n';
 import { getSearchPageUrl } from 'utils/searchUtils';
 
-function MainNavbar(props) {
-  const {
-    activeLink,
-    clearSearchResults,
-    isAdmin,
-    isLoggedIn,
-    t,
-  } = props;
+class MainNavbar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      navCollapsed: true,
+    };
+  }
 
-  return (
-    <Navbar className="app-MainNavbar" fluid>
-      <Navbar.Header>
-        <Navbar.Toggle />
-        <Navbar.Brand>
-          <Link to="/">
-            Varaamo
-          </Link>
-        </Navbar.Brand>
-      </Navbar.Header>
-      <Navbar.Collapse>
-        <Nav activeKey={activeLink}>
-          <LinkContainer to={getSearchPageUrl()}>
-            <NavItem eventKey="search" onClick={clearSearchResults}>
-              {t('Navbar.search')}
-            </NavItem>
-          </LinkContainer>
-          {isLoggedIn && (
-            <LinkContainer to="/admin-resources">
-              <NavItem eventKey="admin-resources">
-                { isAdmin ? t('Navbar.adminResources') : t('Navbar.userFavorites') }
+  collapseItem() {
+    this.setState({ navCollapsed: true });
+  }
+
+  toggleCollapse() {
+    this.setState({ navCollapsed: !this.state.navCollapsed });
+  }
+
+  render() {
+    const {
+      activeLink,
+      clearSearchResults,
+      isAdmin,
+      isLoggedIn,
+      t,
+    } = this.props;
+
+    return (
+      <Navbar className="app-MainNavbar" fluid>
+        <Navbar.Header>
+          <Navbar.Toggle />
+          <Navbar.Brand>
+            <Link to="/">
+              Varaamo
+            </Link>
+          </Navbar.Brand>
+        </Navbar.Header>
+        <Navbar.Collapse collapsed={this.state.navCollapsed} onToggle={() => this.toggleCollapse()}>
+          <Nav activeKey={activeLink}>
+            <LinkContainer to={getSearchPageUrl()}>
+              <NavItem eventKey="search" onClick={clearSearchResults}>
+                {t('Navbar.search')}
               </NavItem>
             </LinkContainer>
-          )}
-          {isLoggedIn && (
-            <LinkContainer to="/my-reservations">
-              <NavItem eventKey="my-reservations">
-                {t('Navbar.userResources')}
+            {isLoggedIn && (
+              <LinkContainer to="/admin-resources">
+                <NavItem eventKey="admin-resources">
+                  { isAdmin ? t('Navbar.adminResources') : t('Navbar.userFavorites') }
+                </NavItem>
+              </LinkContainer>
+            )}
+            {isLoggedIn && (
+              <LinkContainer to="/my-reservations">
+                <NavItem eventKey="my-reservations">
+                  {t('Navbar.userResources')}
+                </NavItem>
+              </LinkContainer>
+            )}
+            <LinkContainer to="/about">
+              <NavItem eventKey="about" onClick={() => this.collapseItem()}>
+                {t('Navbar.aboutLink')}
               </NavItem>
             </LinkContainer>
-          )}
-          <LinkContainer to="/about">
-            <NavItem eventKey="about">
-              {t('Navbar.aboutLink')}
-            </NavItem>
-          </LinkContainer>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
-  );
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+    );
+  }
 }
 
 MainNavbar.propTypes = {
