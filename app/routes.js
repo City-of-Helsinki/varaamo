@@ -68,12 +68,12 @@ export default (params) => {
           component={UserReservationsPage}
           path="/my-reservations"
         />
-        <Route
-          {...getDispatchers('Reservation')}
-          component={ReservationPage}
-          path="/reservation"
-        />
       </Route>
+      <Route
+        {...getDispatchers('Reservation')}
+        component={ReservationPage}
+        path="/reservation"
+      />
       <IndexRoute component={HomePage} {...getDispatchers('Home')} />
       <Redirect from="/home" to="/" />
       <Route component={SearchPage} {...getDispatchers('Search')} path="/search" />

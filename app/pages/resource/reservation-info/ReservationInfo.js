@@ -8,7 +8,7 @@ import { getMaxPeriodText } from 'utils/resourceUtils';
 import { injectT } from 'i18n';
 
 function renderLoginText(isLoggedIn, resource) {
-  if (isLoggedIn || !resource.reservable) {
+  if (isLoggedIn || !resource.reservable || resource.authentication === 'unauthenticated') {
     return null;
   }
   return (
