@@ -123,12 +123,12 @@ class UnconnectedResourcePage extends Component {
                   />
 
                   <Panel collapsible defaultExpanded header={t('ResourceInfo.reserveTitle')}>
-                    {resource.externalCalendarUrl &&
-                      <form action={resource.externalCalendarUrl}>
+                    {resource.externalReservationUrl &&
+                      <form action={resource.externalReservationUrl}>
                         <input className="btn btn-primary" type="submit" value="Siirry ulkoiseen ajanvarauskalenteriin" />
                       </form>
                     }
-                    {!resource.externalCalendarUrl &&
+                    {!resource.externalReservationUrl &&
                       <div>
                         {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
                         <ResourceCalendar
