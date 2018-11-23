@@ -25,7 +25,7 @@ function FooterContent({ t }) {
               </Link>
             </Col>
             <Col lg={6} md={6}>
-              <p>{t('Footer.espooText')} {feedbackLink}</p>
+              <p><FormattedHTMLMessage id="Footer.espooText" /></p><p> {feedbackLink}</p>
             </Col>
           </Row>
         </Grid>
@@ -43,7 +43,7 @@ function FooterContent({ t }) {
               </Link>
             </Col>
             <Col lg={6} md={6}>
-              <p>{t('Footer.vantaaText')} {feedbackLink}</p>
+              <p><FormattedHTMLMessage id="Footer.vantaaText" /></p><p> {feedbackLink}</p>
             </Col>
           </Row>
         </Grid>
