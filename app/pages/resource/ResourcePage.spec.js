@@ -3,6 +3,7 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
+import Lightbox from 'lightbox-react';
 
 import NotFoundPage from 'pages/not-found/NotFoundPage';
 import PageWrapper from 'pages/PageWrapper';
@@ -96,14 +97,14 @@ describe('pages/resource/ResourcePage', () => {
       expect(calendar.prop('selectedDate')).to.equal(defaultProps.date);
     });
 
-    it('renders resource images', () => {
+    it('renders resource images with thumbnail urls', () => {
       const images = getWrapper().find('.app-ResourceInfo__image');
 
       expect(images).to.have.length(defaultProps.resource.images.length);
       images.forEach((image, index) => {
         const imageProps = defaultProps.resource.images[index];
         expect(image.props().alt).to.equal(imageProps.caption);
-        expect(image.props().src).to.equal(imageProps.url);
+        expect(image.props().src).to.equal(`${imageProps.url}?dim=700x420`);
       });
     });
 
@@ -297,6 +298,19 @@ describe('pages/resource/ResourcePage', () => {
 
       expect(browserHistoryMock.callCount).to.equal(1);
       expect(actualPath).to.equal(expectedPath);
+    });
+  });
+
+  describe('Full sized image', () => {
+    it('is opened when an image is clicked', () => {
+      const wrapper = getWrapper();
+      wrapper
+        .find('.app-ResourceInfo__image-button')
+        .first()
+        .simulate('click');
+
+      const lightbox = wrapper.find(Lightbox);
+      expect(lightbox.length).to.equal(1);
     });
   });
 });

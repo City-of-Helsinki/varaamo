@@ -47,14 +47,23 @@ class UnconnectedResourcePage extends Component {
     }
   }
 
-  imageClick = () => {
-    this.setState({ isOpen: true });
+  getImageThumbnailUrl(image) {
+    const width = 700;
+    const height = 420;
+
+    return `${image.url}?dim=${width}x${height}`;
   }
 
   fetchResource(date = this.props.date) {
     const { actions, id } = this.props;
-    const start = moment(date).subtract(2, 'M').startOf('month').format();
-    const end = moment(date).add(2, 'M').endOf('month').format();
+    const start = moment(date)
+      .subtract(2, 'M')
+      .startOf('month')
+      .format();
+    const end = moment(date)
+      .add(2, 'M')
+      .endOf('month')
+      .format();
 
     actions.fetchResource(id, { start, end });
   }
@@ -63,16 +72,20 @@ class UnconnectedResourcePage extends Component {
     const { resource } = this.props;
     const day = newDate.toISOString().substring(0, 10);
     browserHistory.replace(getResourcePageUrl(resource, day));
-  }
+  };
 
   handleBackButton() {
     browserHistory.goBack();
   }
 
+  handleImageClick(photoIndex) {
+    this.setState(() => ({ isOpen: true, photoIndex }));
+  }
+
   orderImages(images) {
     return [].concat(
       images.filter(image => image.type === 'main'),
-      images.filter(image => image.type !== 'main'),
+      images.filter(image => image.type !== 'main')
     );
   }
 
@@ -90,7 +103,7 @@ class UnconnectedResourcePage extends Component {
       unit,
     } = this.props;
 
-    const { photoIndex, isOpen } = this.state;
+    const { isOpen, photoIndex } = this.state;
 
     if (isEmpty(resource) && !isFetchingResource) {
       return <NotFoundPage />;
@@ -102,7 +115,6 @@ class UnconnectedResourcePage extends Component {
 
     return (
       <div className="app-ResourcePage">
-
         <Loader loaded={!isEmpty(resource)}>
           <ResourceHeader
             isLoggedIn={isLoggedIn}
@@ -112,37 +124,32 @@ class UnconnectedResourcePage extends Component {
             showMap={showMap}
             unit={unit}
           />
-          {showMap && unit &&
-            <ResourceMapInfo
-              resource={resource}
-              unit={unit}
-            />
-          }
-          {showMap &&
+          {showMap && unit && <ResourceMapInfo resource={resource} unit={unit} />}
+          {showMap && (
             <ResourceMap
               location={location}
               resourceIds={[resource.id]}
               selectedUnitId={unit ? unit.id : null}
               showMap={showMap}
             />
-          }
-          {!showMap &&
+          )}
+          {!showMap && (
             <PageWrapper title={resource.name || ''} transparent>
               <div>
                 <Col className="app-ResourcePage__content" lg={8} md={8} xs={12}>
-                  <ResourceInfo
-                    isLoggedIn={isLoggedIn}
-                    resource={resource}
-                    unit={unit}
-                  />
+                  <ResourceInfo isLoggedIn={isLoggedIn} resource={resource} unit={unit} />
 
                   <Panel collapsible defaultExpanded header={t('ResourceInfo.reserveTitle')}>
-                    {resource.externalReservationUrl &&
+                    {resource.externalReservationUrl && (
                       <form action={resource.externalReservationUrl}>
-                        <input className="btn btn-primary" type="submit" value="Siirry ulkoiseen ajanvarauskalenteriin" />
+                        <input
+                          className="btn btn-primary"
+                          type="submit"
+                          value="Siirry ulkoiseen ajanvarauskalenteriin"
+                        />
                       </form>
-                    }
-                    {!resource.externalReservationUrl &&
+                    )}
+                    {!resource.externalReservationUrl && (
                       <div>
                         {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
                         <ResourceCalendar
@@ -150,33 +157,30 @@ class UnconnectedResourcePage extends Component {
                           resourceId={resource.id}
                           selectedDate={date}
                         />
-                        <ReservationCalendar
-                          location={location}
-                          params={params}
-                        />
+                        <ReservationCalendar location={location} params={params} />
                       </div>
-                    }
+                    )}
                   </Panel>
                 </Col>
-                <Col className="app-ResourceInfo__imgs-wrapper" lg={3} md={3} xs={12}>
-
-                  {images.map(image => (
+                <Col className="app-ResourceInfo__images" lg={3} md={3} xs={12}>
+                  {images.map((image, index) => (
                     <div className="app-ResourceInfo__image-wrapper" key={image.url}>
-                      <button onClick={this.imageClick}>
+                      <button
+                        className="app-ResourceInfo__image-button"
+                        onClick={() => this.handleImageClick(index)}
+                      >
                         <img
                           alt={image.caption}
                           className="app-ResourceInfo__image"
-                          src={image.url}
+                          src={this.getImageThumbnailUrl(image)}
                         />
                       </button>
                     </div>
                   ))}
-
                 </Col>
-
               </div>
             </PageWrapper>
-          }
+          )}
         </Loader>
 
         <div>
@@ -185,22 +189,21 @@ class UnconnectedResourcePage extends Component {
               imageCaption={images[photoIndex].caption}
               mainSrc={images[photoIndex].url}
               nextSrc={images[(photoIndex + 1) % images.length].url}
-              onCloseRequest={() => this.setState({ isOpen: false })}
+              onCloseRequest={() => this.setState(() => ({ isOpen: false }))}
               onMoveNextRequest={() =>
-                this.setState({
-                  photoIndex: (photoIndex + 1) % images.length,
-                })
+                this.setState(state => ({
+                  photoIndex: (state.photoIndex + 1) % images.length,
+                }))
               }
               onMovePrevRequest={() =>
-                this.setState({
-                  photoIndex: (photoIndex + (images.length - 1)) % images.length,
-                })
+                this.setState(state => ({
+                  photoIndex: (state.photoIndex + (images.length - 1)) % images.length,
+                }))
               }
               prevSrc={images[(photoIndex + (images.length - 1)) % images.length].url}
             />
           )}
         </div>
-
       </div>
     );
   }
@@ -219,7 +222,7 @@ UnconnectedResourcePage.propTypes = {
   t: PropTypes.func.isRequired,
   unit: PropTypes.object.isRequired,
 };
-UnconnectedResourcePage = injectT(UnconnectedResourcePage);  // eslint-disable-line
+UnconnectedResourcePage = injectT(UnconnectedResourcePage); // eslint-disable-line
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
@@ -232,4 +235,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export { UnconnectedResourcePage };
-export default connect(resourcePageSelector, mapDispatchToProps)(UnconnectedResourcePage);
+export default connect(
+  resourcePageSelector,
+  mapDispatchToProps
+)(UnconnectedResourcePage);
