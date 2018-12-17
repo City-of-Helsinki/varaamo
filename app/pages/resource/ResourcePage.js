@@ -201,6 +201,7 @@ class UnconnectedResourcePage extends Component {
                 }))
               }
               prevSrc={images[(photoIndex + (images.length - 1)) % images.length].url}
+              reactModalStyle={{ overlay: { zIndex: 2000 } }}
             />
           )}
         </div>
