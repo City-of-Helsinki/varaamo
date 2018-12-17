@@ -3,12 +3,13 @@ $horizontal-margin: 20px;
 .app-ResourceInfo {
   &__images {
     @media (min-width: $screen-md-min) {
-      padding-top: 30px;
+      padding-top: 15px;
     }
   }
 
   &__image-wrapper {
     margin-bottom: 30px;
+    text-align: center;
   }
 
   &__image-button {
