@@ -38,6 +38,27 @@ describe('shared/resource-list/ResourceAvailability', () => {
     });
   });
 
+  describe('if resource has an external reservation url', () => {
+    const resource = Resource.build({
+      externalReservationUrl: 'http://test.com',
+    });
+    const now = '2016-10-10T06:00:00+03:00';
+    const date = '2016-10-10';
+
+    beforeEach(() => {
+      MockDate.set(now);
+    });
+
+    afterEach(() => {
+      MockDate.reset();
+    });
+
+    it('renders an empty span', () => {
+      const wrapper = getWrapper({ date, resource });
+      expect(wrapper.equals(<span />)).to.be.true;
+    });
+  });
+
   describe('if date given in props is the current date', () => {
     const now = '2016-10-10T06:00:00+03:00';
     const date = '2016-10-10';

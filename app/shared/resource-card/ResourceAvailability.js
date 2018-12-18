@@ -6,28 +6,19 @@ import { injectT } from 'i18n';
 import { getAvailabilityDataForNow, getAvailabilityDataForWholeDay } from 'utils/resourceUtils';
 
 function ResourceAvailability({ date, resource, t }) {
-  let status;
-  let bsStyle;
-  let values;
-
+  const { externalReservationUrl } = resource;
   const now = moment();
-  if (moment(date).isBefore(now, 'day')) {
+  if (moment(date).isBefore(now, 'day') || !!externalReservationUrl) {
     return <span />;
   }
 
-  if (moment(date).isSame(now, 'day')) {
-    const availabilityData = getAvailabilityDataForNow(resource, date);
-    bsStyle = availabilityData.bsStyle;
-    status = availabilityData.status;
-    values = availabilityData.values;
-  }
+  const availabilityData = moment(date).isSame(now, 'day')
+    ? getAvailabilityDataForNow(resource, date)
+    : getAvailabilityDataForWholeDay(resource, date);
 
-  if (moment(date).isAfter(now, 'day')) {
-    const availabilityData = getAvailabilityDataForWholeDay(resource, date);
-    bsStyle = availabilityData.bsStyle;
-    status = availabilityData.status;
-    values = availabilityData.values;
-  }
+  const bsStyle = availabilityData.bsStyle;
+  const status = availabilityData.status;
+  const values = availabilityData.values;
 
   return (
     <Label bsStyle={bsStyle} className="resource-availability">
