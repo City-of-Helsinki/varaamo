@@ -52,7 +52,7 @@ function RecurringReservationControls({
             />
           </div>
         </Col>
-        {frequency !== '' &&
+        {frequency !== '' && (
           <Col sm={3} xs={12}>
             <FormGroup controlId="numberOfOccurrencesGroup">
               <ControlLabel>
@@ -66,22 +66,21 @@ function RecurringReservationControls({
               />
             </FormGroup>
           </Col>
-        }
-        {frequency !== '' &&
+        )}
+        {frequency !== '' && (
           <Col sm={4} xs={12}>
             <FormGroup controlId="LastTimeGroup">
-              <ControlLabel>
-                {t('RecurringReservationControls.lastTimeLabel')}
-              </ControlLabel>
+              <ControlLabel>{t('RecurringReservationControls.lastTimeLabel')}</ControlLabel>
               <DatePicker
                 dateFormat="D.M.YYYY"
                 formControl
                 onChange={changeLastTime}
+                positionRight
                 value={lastTime}
               />
             </FormGroup>
           </Col>
-        }
+        )}
       </Row>
     </div>
   );

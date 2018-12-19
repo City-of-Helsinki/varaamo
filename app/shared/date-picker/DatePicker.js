@@ -6,11 +6,11 @@ import { DateField, DatePicker as RDPDatePicker } from 'react-date-picker';
 const dateFormat = 'YYYY-MM-DD';
 const localizedDateFormat = 'D.M.YYYY';
 
-
 DatePicker.propTypes = {
   dateFormat: PropTypes.string,
   formControl: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
+  positionRight: PropTypes.bool,
   value: PropTypes.string.isRequired,
 };
 
@@ -21,7 +21,10 @@ function DatePicker(props) {
   }
   return (
     <DateField
-      className={classnames('date-picker', { 'form-control': props.formControl })}
+      className={classnames('date-picker', {
+        'date-picker--position-right': props.positionRight,
+        'form-control': props.formControl,
+      })}
       clearIcon={false}
       collapseOnDateClick
       dateFormat={pickerDateFormat}
@@ -31,10 +34,7 @@ function DatePicker(props) {
       updateOnDateClick
       value={moment(props.value).format(pickerDateFormat)}
     >
-      <RDPDatePicker
-        highlightWeekends={false}
-        weekNumbers={false}
-      />
+      <RDPDatePicker highlightWeekends={false} weekNumbers={false} />
     </DateField>
   );
 }
