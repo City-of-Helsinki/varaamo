@@ -7,7 +7,7 @@
     width: 70%;
   }
 
-  &.react-date-field--focused{
+  &.react-date-field--focused {
     border-color: $input-border-focus;
     box-shadow: $input-box-shadow-focus;
   }
@@ -49,12 +49,21 @@
     }
   }
 
-  & > .react-date-field__picker {
+  > .react-date-field__picker {
     // Forced width to avoid content hidden behind small container in IE11
     width: 282px;
   }
 
-  &.form-control[readOnly]{
+  &.form-control[readOnly] {
     background-color: $white;
+  }
+
+  &--position-right {
+    > .react-date-field__picker.react-date-picker__calendar {
+      @media (min-width: $screen-sm-min) {
+        left: auto;
+        right: -1px;
+      }
+    }
   }
 }
