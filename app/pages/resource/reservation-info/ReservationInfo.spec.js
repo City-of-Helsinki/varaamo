@@ -10,12 +10,14 @@ import ReservationInfo from './ReservationInfo';
 describe('pages/resource/reservation-info/ReservationInfo', () => {
   const defaultProps = {
     isLoggedIn: false,
-    resource: Immutable(Resource.build({
-      maxPeriod: '04:00:00',
-      maxReservationsPerUser: 2,
-      reservable: true,
-      reservationInfo: 'Some information',
-    })),
+    resource: Immutable(
+      Resource.build({
+        maxPeriod: '04:00:00',
+        maxReservationsPerUser: 2,
+        reservable: true,
+        reservationInfo: 'Some information',
+      })
+    ),
   };
 
   function getWrapper(props) {
@@ -31,6 +33,7 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
     const wrappedText = getWrapper().find(WrappedText);
     expect(wrappedText.length).to.equal(1);
     expect(wrappedText.props().text).to.equal(defaultProps.resource.reservationInfo);
+    expect(wrappedText.props().openLinksInNewTab).to.equal(true);
   });
 
   describe('max length text', () => {
