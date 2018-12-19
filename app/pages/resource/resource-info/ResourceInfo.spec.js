@@ -13,16 +13,18 @@ import ReservationInfo from '../reservation-info';
 describe('pages/resource/resource-info/ResourceInfo', () => {
   const defaultProps = {
     isLoggedIn: false,
-    resource: Immutable(Resource.build({
-      description: 'Some description',
-      genericTerms: 'some generic terms',
-      specificTerms: 'some specific terms',
-      maxPricePerHour: '30',
-      peopleCapacity: '16',
-      type: {
-        name: 'workplace',
-      },
-    })),
+    resource: Immutable(
+      Resource.build({
+        description: 'Some description',
+        genericTerms: 'some generic terms',
+        specificTerms: 'some specific terms',
+        maxPricePerHour: '30',
+        peopleCapacity: '16',
+        type: {
+          name: 'workplace',
+        },
+      })
+    ),
     unit: Immutable(Unit.build()),
   };
 
@@ -31,11 +33,14 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
   }
 
   it('renders resource description as WrappedText', () => {
-    const wrappedText = getWrapper().find('.app-ResourceInfo__description').find(WrappedText);
+    const wrappedText = getWrapper()
+      .find('.app-ResourceInfo__description')
+      .find(WrappedText);
     const expectedText = defaultProps.resource.description;
 
     expect(wrappedText).to.have.length(1);
     expect(wrappedText.prop('text')).to.equal(expectedText);
+    expect(wrappedText.prop('openLinksInNewTab')).to.equal(true);
   });
 
   it('renders collapsible panels with correct props', () => {
@@ -62,7 +67,9 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
       name: 'Unit name',
       streetAddress: 'Test street 12',
     });
-    const addressSpan = getWrapper({ unit }).find('.app-ResourceInfo__address').find('span');
+    const addressSpan = getWrapper({ unit })
+      .find('.app-ResourceInfo__address')
+      .find('span');
 
     expect(addressSpan).to.have.length(3);
     expect(addressSpan.at(0).text()).to.equal(unit.name);
@@ -79,10 +86,13 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
       streetAddress: 'Test street 12',
       wwwUrl: 'some-url',
     });
-    const link = getWrapper({ unit }).find('.app-ResourceInfo__www').find('a');
+    const link = getWrapper({ unit })
+      .find('.app-ResourceInfo__www')
+      .find('a');
 
     expect(link).to.have.length(1);
     expect(link.prop('href')).to.equal(unit.wwwUrl);
+    expect(link.prop('target')).to.equal('_blank');
   });
 
   it('renders service map link', () => {
@@ -95,14 +105,19 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
       wwwUrl: 'some-url',
     });
     const expected = 'https://palvelukartta.hel.fi/unit/123#!route-details';
-    const link = getWrapper({ unit }).find('.app-ResourceInfo__servicemap').find('a');
+    const link = getWrapper({ unit })
+      .find('.app-ResourceInfo__servicemap')
+      .find('a');
 
     expect(link).to.have.length(1);
     expect(link.prop('href')).to.equal(expected);
+    expect(link.prop('target')).to.equal('_blank');
   });
 
   it('does not render service map link if unit empty', () => {
-    const link = getWrapper({ unit: {} }).find('.app-ResourceInfo__servicemap').find('a');
+    const link = getWrapper({ unit: {} })
+      .find('.app-ResourceInfo__servicemap')
+      .find('a');
 
     expect(link).to.have.length(0);
   });

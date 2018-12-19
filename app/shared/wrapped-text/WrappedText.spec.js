@@ -73,4 +73,24 @@ describe('shared/wrapped-text/WrappedText', () => {
       });
     });
   });
+
+  describe('Opening links in new tabs', () => {
+    const text = 'Text and http://example.com/ and more text';
+    let content;
+
+    it('is not enabled by default', () => {
+      content = getWrapper({ text }).children();
+      const linkify = content.find(Linkify);
+      expect(linkify.length).to.equal(1);
+      expect(linkify.props().properties.target).to.be.undefined;
+    });
+
+    it('opens links in new tabs', () => {
+      content = getWrapper({ text, openLinksInNewTab: true }).children();
+      const linkify = content.find(Linkify);
+      expect(linkify.length).to.equal(1);
+      expect(linkify.props().properties.target).to.equal('_blank');
+      expect(linkify.props().properties.rel).to.equal('noopener noreferrer');
+    });
+  });
 });

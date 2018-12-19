@@ -16,34 +16,33 @@ function ResourceInfo({ isLoggedIn, resource, unit, t }) {
     <Row>
       <section className="app-ResourceInfo">
         <div className="app-ResourceInfo__description">
-          {resource.description && <WrappedText text={resource.description} />}
+          {resource.description && <WrappedText openLinksInNewTab text={resource.description} />}
         </div>
         <Panel collapsible defaultExpanded header={t('ResourceInfo.reservationTitle')}>
-          <ReservationInfo
-            isLoggedIn={isLoggedIn}
-            resource={resource}
-          />
+          <ReservationInfo isLoggedIn={isLoggedIn} resource={resource} />
         </Panel>
         <Panel collapsible defaultExpanded header={t('ResourceInfo.additionalInfoTitle')}>
           <Row>
             <Col className="app-ResourceInfo__address" xs={6}>
               {unit && unit.name && <span>{unit.name}</span>}
               {unit && unit.streetAddress && <span>{unit.streetAddress}</span>}
-              {unit &&
-                <span>{`${unit.addressZip} ${upperFirst(unit.municipality)}`.trim()}</span>
-              }
+              {unit && <span>{`${unit.addressZip} ${upperFirst(unit.municipality)}`.trim()}</span>}
             </Col>
             <Col className="app-ResourceInfo__web" xs={6}>
-              {serviceMapUrl &&
+              {serviceMapUrl && (
                 <span className="app-ResourceInfo__servicemap">
-                  <a href={serviceMapUrl}>{t('ResourceInfo.serviceMapLink')}</a>
+                  <a href={serviceMapUrl} rel="noopener noreferrer" target="_blank">
+                    {t('ResourceInfo.serviceMapLink')}
+                  </a>
                 </span>
-              }
-              {unit && unit.wwwUrl &&
+              )}
+              {unit && unit.wwwUrl && (
                 <span className="app-ResourceInfo__www">
-                  <a href={unit.wwwUrl}>{unit.wwwUrl}</a>
+                  <a href={unit.wwwUrl} rel="noopener noreferrer" target="_blank">
+                    {unit.wwwUrl}
+                  </a>
                 </span>
-              }
+              )}
             </Col>
           </Row>
         </Panel>
@@ -59,6 +58,6 @@ ResourceInfo.propTypes = {
   unit: PropTypes.object.isRequired,
 };
 
-ResourceInfo = injectT(ResourceInfo);  // eslint-disable-line
+ResourceInfo = injectT(ResourceInfo); // eslint-disable-line
 
 export default ResourceInfo;
