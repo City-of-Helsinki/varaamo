@@ -9,10 +9,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const common = require('./webpack.common');
 
 module.exports = merge(common, {
-  entry: [
-    'babel-polyfill',
-    path.resolve(__dirname, '../app/index.js'),
-  ],
+  entry: ['babel-polyfill', path.resolve(__dirname, '../app/index.js')],
   debug: false,
   devtool: 'source-map',
   output: {
@@ -32,11 +29,14 @@ module.exports = merge(common, {
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style', 'css-loader!postcss-loader'),
+        loader: ExtractTextPlugin.extract('style', 'css-loader?{"svgo":false}!postcss-loader'),
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style', 'css-loader!resolve-url-loader!postcss-loader!sass-loader'),
+        loader: ExtractTextPlugin.extract(
+          'style',
+          'css-loader?{"svgo":false}!resolve-url-loader!postcss-loader!sass-loader'
+        ),
       },
     ],
   },
