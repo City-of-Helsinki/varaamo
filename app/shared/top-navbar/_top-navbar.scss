@@ -12,8 +12,29 @@
     height: 3rem;
     width: 120px;
   }
-  &__icon {
-    height: $line-height-computed;
+
+  @mixin hel-background-icon($name) {
+    background-image: url('~hel-icons/dist/shapes/#{$name}.svg');
+    background-size: 24px 24px;
+    content: '';
+    width: 24px;
+    height: 24px;
+    float: left;
+    margin-right: 4px;
+  }
+
+  &__language > a::before {
+    @include hel-background-icon('globe');
+  }
+
+  &__name > a {
+    @media (max-width: $screen-xs-max) {
+      font-size: 0 !important;
+    }
+
+    &::before {
+      @include hel-background-icon('user-o');
+    }
   }
 
   .nav {
@@ -22,13 +43,77 @@
         padding-left: 2px;
         margin-left: 2px;
       }
+
       a#language-nav-dropdown {
         text-transform: uppercase;
       }
     }
-    li.disabled> a {
+
+    li.disabled > a {
       padding-left: 0;
       margin-right: 0;
     }
+  }
+
+  // Start: Remove responsive features from bootstrap nav to create a single-line top nav
+  .navbar-header {
+    float: left;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .navbar-nav {
+    float: left;
+    margin: 0;
+    margin-right: -15px;
+
+    > li {
+      float: left;
+
+      > a {
+        padding-top: 18px;
+        padding-bottom: 18px;
+        position: relative;
+        padding-right: 0;
+        margin-right: 15px;
+        font-weight: 500;
+        font-size: 15px;
+      }
+    }
+
+    > .active > a:after,
+    > li > a:hover:after {
+      content: '';
+      border-bottom: solid 3px #000000;
+      position: absolute;
+      bottom: 12px;
+      margin-left: auto;
+      margin-right: auto;
+      left: 0;
+      right: 0;
+    }
+
+    .open .dropdown-menu {
+      position: absolute;
+      float: left;
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    }
+  }
+
+  .navbar-right {
+    float: right;
+
+    .dropdown-menu {
+      right: 0;
+      left: auto;
+    }
+  }
+  // End: Remove responsive features
+
+  &.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover {
+    background-color: $hel-copper;
   }
 }
