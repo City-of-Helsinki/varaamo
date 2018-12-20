@@ -36,10 +36,12 @@ $horizontal-margin: 20px;
   &__image-button {
     border: 0;
     padding: 0;
+    max-width: 100%;
   }
 
   &__image {
     max-width: 100%;
+    transform: translate3d(0, 0, 0);
   }
 
   &__top-bar {
