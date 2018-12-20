@@ -1,4 +1,6 @@
+import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
+import findIndex from 'lodash/findIndex';
 import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 import Loader from 'react-loader';
@@ -89,6 +91,30 @@ class UnconnectedResourcePage extends Component {
     );
   }
 
+  renderImage = (image, index, { mainImageMobileVisibility = false }) => {
+    const isMainImage = image.type === 'main';
+    const className = classnames('app-ResourceInfo__image-wrapper', {
+      'app-ResourceInfo__image-wrapper--main-image': isMainImage,
+      'app-ResourceInfo__image-wrapper--mobile-main-image':
+        isMainImage && mainImageMobileVisibility,
+    });
+
+    return (
+      <div className={className} key={image.url}>
+        <button
+          className="app-ResourceInfo__image-button"
+          onClick={() => this.handleImageClick(index)}
+        >
+          <img
+            alt={image.caption}
+            className="app-ResourceInfo__image"
+            src={this.getImageThumbnailUrl(image)}
+          />
+        </button>
+      </div>
+    );
+  };
+
   render() {
     const {
       actions,
@@ -112,6 +138,9 @@ class UnconnectedResourcePage extends Component {
     const maxPeriodText = getMaxPeriodText(t, resource);
 
     const images = this.orderImages(resource.images || []);
+
+    const mainImageIndex = findIndex(images, image => image.type === 'main');
+    const mainImage = mainImageIndex != null ? images[mainImageIndex] : null;
 
     return (
       <div className="app-ResourcePage">
@@ -137,6 +166,10 @@ class UnconnectedResourcePage extends Component {
             <PageWrapper title={resource.name || ''} transparent>
               <div>
                 <Col className="app-ResourcePage__content" lg={8} md={8} xs={12}>
+                  {mainImage &&
+                    this.renderImage(mainImage, mainImageIndex, {
+                      mainImageMobileVisibility: true,
+                    })}
                   <ResourceInfo isLoggedIn={isLoggedIn} resource={resource} unit={unit} />
 
                   <Panel collapsible defaultExpanded header={t('ResourceInfo.reserveTitle')}>
@@ -163,20 +196,7 @@ class UnconnectedResourcePage extends Component {
                   </Panel>
                 </Col>
                 <Col className="app-ResourceInfo__images" lg={3} md={3} xs={12}>
-                  {images.map((image, index) => (
-                    <div className="app-ResourceInfo__image-wrapper" key={image.url}>
-                      <button
-                        className="app-ResourceInfo__image-button"
-                        onClick={() => this.handleImageClick(index)}
-                      >
-                        <img
-                          alt={image.caption}
-                          className="app-ResourceInfo__image"
-                          src={this.getImageThumbnailUrl(image)}
-                        />
-                      </button>
-                    </div>
-                  ))}
+                  {images.map(this.renderImage)}
                 </Col>
               </div>
             </PageWrapper>

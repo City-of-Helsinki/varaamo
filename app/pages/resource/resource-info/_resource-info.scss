@@ -10,6 +10,27 @@ $horizontal-margin: 20px;
   &__image-wrapper {
     margin-bottom: 30px;
     text-align: center;
+
+    &--main-image {
+      display: none;
+    }
+
+    &--mobile-main-image {
+      display: block;
+      margin-top: 30px;
+      margin-left: 15px;
+      margin-right: 15px;
+    }
+
+    @media (min-width: $screen-md-min) {
+      &--main-image {
+        display: block;
+      }
+
+      &--mobile-main-image {
+        display: none;
+      }
+    }
   }
 
   &__image-button {
