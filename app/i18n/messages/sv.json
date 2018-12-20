@@ -222,7 +222,7 @@
   "ResourceAvailability.closed": "Stängt",
   "ResourceAvailability.reserved": "Bokat hela dagen",
   "ResourceAvailability.reservingRestricted": "Kan inte bokas",
-  "ResourceCard.peopleCapacity": "{people} personen",
+  "ResourceCard.peopleCapacity": "{people} personer",
   "ResourceHeader.backButton": "Tillbaka till sökresultat",
   "ResourceHeader.maxPeriodDays": "max {days} dag",
   "ResourceHeader.maxPeriodHours": "max {hours}h",
