@@ -19,7 +19,7 @@ describe('shared/top-navbar/TopNavbar', () => {
 
   describe('language nav', () => {
     function getLanguageNavWrapper(props) {
-      return getWrapper(props).find('#language-nav');
+      return getWrapper(props).find('#language-nav-dropdown');
     }
 
     it('is rendered', () => {
@@ -59,17 +59,16 @@ describe('shared/top-navbar/TopNavbar', () => {
 
     it('renders a logout link', () => {
       const logoutHref = `/logout?next=${window.location.origin}`;
-      const logoutLink = (
-        getLoggedInNotAdminWrapper()
+      const logoutLink = getLoggedInNotAdminWrapper()
         .find(MenuItem)
-        .filter({ href: logoutHref })
-      );
+        .filter({ href: logoutHref });
       expect(logoutLink).to.have.length(1);
     });
 
     it('does not render a link to login page', () => {
       const loginLink = getLoggedInNotAdminWrapper()
-        .find(NavItem).filter('#app-Navbar__login');
+        .find(NavItem)
+        .filter('#app-Navbar__login');
       expect(loginLink).to.have.length(0);
     });
   });
@@ -91,7 +90,9 @@ describe('shared/top-navbar/TopNavbar', () => {
 
     it('does not render a logout link', () => {
       const logoutHref = `/logout?next=${window.location.origin}`;
-      const logoutLink = getNotLoggedInWrapper().find(NavItem).filter({ href: logoutHref });
+      const logoutLink = getNotLoggedInWrapper()
+        .find(NavItem)
+        .filter({ href: logoutHref });
       expect(logoutLink).to.have.length(0);
     });
   });
