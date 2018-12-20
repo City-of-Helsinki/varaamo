@@ -99,10 +99,11 @@ describe('pages/resource/ResourcePage', () => {
 
     it('renders resource images with thumbnail urls', () => {
       const images = getWrapper().find('.app-ResourceInfo__image');
+      // The first image is rendered twice
+      expect(images).to.have.length(defaultProps.resource.images.length + 1);
 
-      expect(images).to.have.length(defaultProps.resource.images.length);
       images.forEach((image, index) => {
-        const imageProps = defaultProps.resource.images[index];
+        const imageProps = defaultProps.resource.images[index > 0 ? index - 1 : 0];
         expect(image.props().alt).to.equal(imageProps.caption);
         expect(image.props().src).to.equal(`${imageProps.url}?dim=700x420`);
       });
