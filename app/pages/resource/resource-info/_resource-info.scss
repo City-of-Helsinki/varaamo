@@ -2,6 +2,8 @@ $horizontal-margin: 20px;
 
 .app-ResourceInfo {
   &__images {
+    min-height: 240px;
+
     @media (min-width: $screen-md-min) {
       padding-top: 15px;
     }

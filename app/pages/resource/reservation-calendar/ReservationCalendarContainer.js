@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
+import Row from 'react-bootstrap/lib/Row';
 import moment from 'moment';
 import { first, last, orderBy } from 'lodash';
 
@@ -36,10 +37,12 @@ export class UnconnectedReservationCalendarContainer extends Component {
     isFetchingResource: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     isStaff: PropTypes.bool.isRequired,
-    location: PropTypes.shape({ // eslint-disable-line react/no-unused-prop-types
+    // eslint-disable-next-line react/no-unused-prop-types
+    location: PropTypes.shape({
       query: PropTypes.object.isRequired,
     }).isRequired,
-    params: PropTypes.shape({ // eslint-disable-line react/no-unused-prop-types
+    params: PropTypes.shape({
+      // eslint-disable-line react/no-unused-prop-types
       id: PropTypes.string.isRequired,
     }).isRequired,
     resource: PropTypes.object.isRequired,
@@ -63,7 +66,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
       return dateSlot || [];
     }
     return [];
-  }
+  };
 
   getSelectedTimeText = (selected) => {
     if (!selected.length) {
@@ -75,7 +78,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
     const beginText = this.getDateTimeText(beginSlot.begin, true);
     const endText = this.getDateTimeText(endSlot.end, false);
     return `${beginText} - ${endText}`;
-  }
+  };
 
   getDateTimeText = (slot, returnDate) => {
     const { t } = this.props;
@@ -88,11 +91,11 @@ export class UnconnectedReservationCalendarContainer extends Component {
     }
 
     return `${timeText}`;
-  }
+  };
 
   handleEditCancel = () => {
     this.props.actions.cancelReservationEdit();
-  }
+  };
 
   handleReserveClick = () => {
     const { actions, isAdmin, resource, selected, t } = this.props;
@@ -110,7 +113,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
 
       browserHistory.push(nextUrl);
     }
-  }
+  };
 
   render() {
     const {
@@ -135,7 +138,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
 
     return (
       <div className="reservation-calendar">
-        {showTimeSlots &&
+        {showTimeSlots && (
           <TimeSlots
             addNotification={actions.addNotification}
             isAdmin={isAdmin}
@@ -150,32 +153,27 @@ export class UnconnectedReservationCalendarContainer extends Component {
             slots={timeSlots}
             time={time}
           />
-        }
-        {showTimeSlots && selected.length > 0 &&
-          <div className="reservation-calendar-reserve-info">
+        )}
+        {showTimeSlots && selected.length > 0 && (
+          <Row className="reservation-calendar-reserve-info">
             <Col xs={8}>
               <b>{t('TimeSlots.selectedDate')} </b>
               {this.getSelectedTimeText(selected)}
             </Col>
             <Col xs={4}>
-              <Button
-                bsStyle="primary"
-                onClick={this.handleReserveClick}
-              >
+              <Button bsStyle="primary" onClick={this.handleReserveClick}>
                 {t('TimeSlots.reserveButton')}
               </Button>
             </Col>
-          </div>
-        }
-        {!isOpen &&
-          <p className="info-text closed-text">{t('TimeSlots.closedMessage')}</p>
-        }
-        {isOpen && reservingIsRestricted(resource, date) &&
+          </Row>
+        )}
+        {!isOpen && <p className="info-text closed-text">{t('TimeSlots.closedMessage')}</p>}
+        {isOpen && reservingIsRestricted(resource, date) && (
           <ReservingRestrictedText
             reservableBefore={resource.reservableBefore}
             reservableDaysInAdvance={resource.reservableDaysInAdvance}
           />
-        }
+        )}
         <ReservationCancelModal />
         <ReservationInfoModal />
         <ReservationSuccessModal />
@@ -190,7 +188,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
   }
 }
 
-UnconnectedReservationCalendarContainer = injectT(UnconnectedReservationCalendarContainer);  // eslint-disable-line
+UnconnectedReservationCalendarContainer = injectT(UnconnectedReservationCalendarContainer); // eslint-disable-line
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
@@ -205,6 +203,7 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
-export default (
-  connect(reservationCalendarSelector, mapDispatchToProps)(UnconnectedReservationCalendarContainer)
-);
+export default connect(
+  reservationCalendarSelector,
+  mapDispatchToProps
+)(UnconnectedReservationCalendarContainer);

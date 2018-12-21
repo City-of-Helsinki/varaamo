@@ -1,3 +1,9 @@
+.reservation-calendar {
+  @media (min-width: $screen-md-min) {
+    margin-bottom: 240px;
+  }
+}
+
 .reservation-calendar-reserve-info {
   > div:first-child {
     padding-left: 0;
