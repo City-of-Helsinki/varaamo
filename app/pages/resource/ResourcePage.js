@@ -141,6 +141,7 @@ class UnconnectedResourcePage extends Component {
 
     const mainImageIndex = findIndex(images, image => image.type === 'main');
     const mainImage = mainImageIndex != null ? images[mainImageIndex] : null;
+    const showBackButton = !!location.state && !!location.state.fromSearchResults;
 
     return (
       <div className="app-ResourcePage">
@@ -150,6 +151,7 @@ class UnconnectedResourcePage extends Component {
             onBackClick={this.handleBackButton}
             onMapClick={actions.toggleResourceMap}
             resource={resource}
+            showBackButton={showBackButton}
             showMap={showMap}
             unit={unit}
           />
