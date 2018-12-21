@@ -16,6 +16,7 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
     onMapClick: () => null,
     isLoggedIn: false,
     resource: Immutable(resource),
+    showBackButton: true,
     showMap: false,
     unit: Immutable(unit),
   };
@@ -25,11 +26,23 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
   }
 
   describe('render', () => {
-    it('renders back button', () => {
-      const backButton = getWrapper().find('.app-ResourceHeader__back-button');
+    describe('Back button', () => {
+      it('renders when enabled', () => {
+        const backButton = getWrapper({ showBackButton: true }).find(
+          '.app-ResourceHeader__back-button'
+        );
 
-      expect(backButton).to.have.length(1);
-      expect(backButton.prop('onClick')).to.equal(defaultProps.onBackClick);
+        expect(backButton).to.have.length(1);
+        expect(backButton.prop('onClick')).to.equal(defaultProps.onBackClick);
+      });
+
+      it('does not render when not enabled', () => {
+        const backButton = getWrapper({ showBackButton: false }).find(
+          '.app-ResourceHeader__back-button'
+        );
+
+        expect(backButton).to.have.length(0);
+      });
     });
 
     it('renders title button', () => {

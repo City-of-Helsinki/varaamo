@@ -86,7 +86,8 @@ function getAvailabilityDataForWholeDay(resource = {}, date = null) {
       return;
     }
     const resEndMoment = moment(reservation.end);
-    total = (total - resEndMoment) + resBeginMoment;
+    total -= resEndMoment;
+    total += resBeginMoment;
   });
 
   const asHours = moment.duration(total).asHours();
@@ -107,7 +108,7 @@ function getHourlyPrice(t, { minPricePerHour, maxPricePerHour }) {
   if (!(minPricePerHour || maxPricePerHour)) {
     return t('ResourceIcons.free');
   }
-  if ((minPricePerHour && maxPricePerHour) && (minPricePerHour !== maxPricePerHour)) {
+  if (minPricePerHour && maxPricePerHour && minPricePerHour !== maxPricePerHour) {
     return `${Number(minPricePerHour)} - ${Number(maxPricePerHour)} €/h`;
   }
   const priceString = maxPricePerHour || minPricePerHour;
@@ -138,10 +139,12 @@ function getOpeningHours(resource, selectedDate) {
   if (resource && resource.openingHours && resource.openingHours.length) {
     if (selectedDate) {
       const openingHours = find(resource.openingHours, ({ date }) => date === selectedDate);
-      return openingHours ? {
-        closes: openingHours.closes,
-        opens: openingHours.opens,
-      } : {};
+      return openingHours
+        ? {
+          closes: openingHours.closes,
+          opens: openingHours.opens,
+        }
+        : {};
     }
     return {
       closes: resource.openingHours[0].closes,
@@ -153,21 +156,30 @@ function getOpeningHours(resource, selectedDate) {
 }
 
 function getOpenReservations(resource) {
-  return filter(resource.reservations, reservation => (
-    reservation.state !== 'cancelled' && reservation.state !== 'denied'
-  ));
+  return filter(
+    resource.reservations,
+    reservation => reservation.state !== 'cancelled' && reservation.state !== 'denied'
+  );
 }
 
 function getResourcePageUrl(resource, date, time) {
   if (!resource || !resource.id) {
     return '';
   }
+  const { pathname, query } = getResourcePageUrlComponents(resource, date, time);
+  return query ? `${pathname}?${query}` : pathname;
+}
+
+function getResourcePageUrlComponents(resource, date, time) {
+  if (!resource || !resource.id) {
+    return { pathname: '', query: '' };
+  }
   const pathname = `/resources/${resource.id}`;
   const query = queryString.stringify({
     date: date ? date.split('T')[0] : undefined,
     time,
   });
-  return query ? `${pathname}?${query}` : pathname;
+  return { pathname, query };
 }
 
 function getTermsAndConditions(resource = {}) {
@@ -185,10 +197,8 @@ function reservingIsRestricted(resource, date) {
     return false;
   }
   const isAdmin = resource.userPermissions && resource.userPermissions.isAdmin;
-  const isLimited = (
-    resource.reservableBefore &&
-    moment(resource.reservableBefore).isBefore(moment(date), 'day')
-  );
+  const isLimited =
+    resource.reservableBefore && moment(resource.reservableBefore).isBefore(moment(date), 'day');
   return Boolean(isLimited && !isAdmin);
 }
 
@@ -203,6 +213,7 @@ export {
   getOpeningHours,
   getOpenReservations,
   getResourcePageUrl,
+  getResourcePageUrlComponents,
   getTermsAndConditions,
   reservingIsRestricted,
 };

@@ -13,39 +13,37 @@ import { injectT } from 'i18n';
 import iconMap from 'assets/icons/map.svg';
 import BackgroundImage from 'shared/background-image';
 import { getMainImage } from 'utils/imageUtils';
-import { getResourcePageUrl, getHourlyPrice } from 'utils/resourceUtils';
+import { getHourlyPrice, getResourcePageUrlComponents } from 'utils/resourceUtils';
 import ResourceAvailability from './ResourceAvailability';
 
 class ResourceCard extends Component {
-
   handleSearchByType = () => {
     const filters = { search: this.props.resource.type.name };
     browserHistory.push(`/search?${queryString.stringify(filters)}`);
-  }
+  };
 
   handleSearchByDistance = () => {
     const filters = { distance: this.props.resource.distance };
     browserHistory.push(`/search?${queryString.stringify(filters)}`);
-  }
+  };
 
   handleSearchByPeopleCapacity = () => {
     const filters = { people: this.props.resource.peopleCapacity };
     browserHistory.push(`/search?${queryString.stringify(filters)}`);
-  }
+  };
 
   handleSearchByUnit = () => {
     const filters = { unit: this.props.unit.id };
     browserHistory.push(`/search?${queryString.stringify(filters)}`);
-  }
+  };
 
   handleLinkClick = () => {
-    const scrollTop = window.pageYOffset ||
-      document.documentElement.scrollTop ||
-      document.body.scrollTop;
+    const scrollTop =
+      window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
     const { location } = this.props;
     const { pathname, search } = location;
     browserHistory.replace({ pathname, search, state: { scrollTop } });
-  }
+  };
 
   renderDistance(distance) {
     const km = distance / 1000;
@@ -58,25 +56,21 @@ class ResourceCard extends Component {
 
   render() {
     const { date, resource, t, unit } = this.props;
+    const { pathname, query } = getResourcePageUrlComponents(resource, date);
+    const linkTo = {
+      pathname,
+      search: query ? `?${query}` : undefined,
+      state: { fromSearchResults: true },
+    };
 
     return (
       <div
-        className={classnames(
-          'app-ResourceCard',
-          { 'app-ResourceCard__stacked': this.props.stacked },
-        )}
-
+        className={classnames('app-ResourceCard', {
+          'app-ResourceCard__stacked': this.props.stacked,
+        })}
       >
-        <Link
-          className="app-ResourceCard__image-link"
-          onClick={this.handleLinkClick}
-          to={getResourcePageUrl(resource, date)}
-        >
-          <BackgroundImage
-            height={420}
-            image={getMainImage(resource.images)}
-            width={700}
-          />
+        <Link className="app-ResourceCard__image-link" onClick={this.handleLinkClick} to={linkTo}>
+          <BackgroundImage height={420} image={getMainImage(resource.images)} width={700} />
         </Link>
         <div className="app-ResourceCard__content">
           <div className="app-ResourceCard__unit-name">
@@ -90,12 +84,10 @@ class ResourceCard extends Component {
             </a>
             <ResourceAvailability date={date} resource={resource} />
           </div>
-          <Link onClick={this.handleLinkClick} to={getResourcePageUrl(resource, date)}>
+          <Link onClick={this.handleLinkClick} to={linkTo}>
             <h4>{resource.name}</h4>
           </Link>
-          <div className="app-ResourceCard__description">
-            {resource.description}
-          </div>
+          <div className="app-ResourceCard__description">{resource.description}</div>
         </div>
         <div className="app-ResourceCard__info">
           <Col md={4} sm={2} xs={4}>
@@ -105,8 +97,14 @@ class ResourceCard extends Component {
               role="button"
               tabIndex="-1"
             >
-              <img alt={resource.type.name} className="app-ResourceCard__info-icon" src={iconHome} />
-              <span className="app-ResourceCard__info-label">{resource.type ? resource.type.name : '\u00A0'}</span>
+              <img
+                alt={resource.type.name}
+                className="app-ResourceCard__info-icon"
+                src={iconHome}
+              />
+              <span className="app-ResourceCard__info-label">
+                {resource.type ? resource.type.name : '\u00A0'}
+              </span>
             </a>
           </Col>
           <Col md={4} sm={2} xs={4}>
@@ -116,7 +114,11 @@ class ResourceCard extends Component {
               role="button"
               tabIndex="-1"
             >
-              <img alt={resource.peopleCapacity} className="app-ResourceCard__info-icon" src={iconUser} />
+              <img
+                alt={resource.peopleCapacity}
+                className="app-ResourceCard__info-icon"
+                src={iconUser}
+              />
               <span className="app-ResourceCard__info-label app-ResourceCard__peopleCapacity">
                 {t('ResourceCard.peopleCapacity', { people: resource.peopleCapacity })}
               </span>
@@ -124,7 +126,11 @@ class ResourceCard extends Component {
           </Col>
           <Col md={4} sm={2} xs={4}>
             <div className="app-ResourceCard__info-detail">
-              <img alt={resource.type.name} className="app-ResourceCard__info-icon" src={iconTicket} />
+              <img
+                alt={resource.type.name}
+                className="app-ResourceCard__info-icon"
+                src={iconTicket}
+              />
               <span className="app-ResourceCard__info-label app-ResourceCard__hourly-price">
                 {getHourlyPrice(t, resource) || '\u00A0'}
               </span>
@@ -133,8 +139,12 @@ class ResourceCard extends Component {
           <Col md={4} sm={3} xs={4}>
             <div className="app-ResourceCard__info-detail">
               <img alt={resource.type.name} className="app-ResourceCard__info-icon" src={iconMap} />
-              <span className="app-ResourceCard__info-label app-ResourceCard__street-address">{unit.streetAddress}</span>
-              <span className="app-ResourceCard__info-label app-ResourceCard__zip-address">{unit.addressZip} {unit.municipality}</span>
+              <span className="app-ResourceCard__info-label app-ResourceCard__street-address">
+                {unit.streetAddress}
+              </span>
+              <span className="app-ResourceCard__info-label app-ResourceCard__zip-address">
+                {unit.addressZip} {unit.municipality}
+              </span>
             </div>
           </Col>
           <Col md={4} sm={2} xs={4}>
@@ -144,7 +154,11 @@ class ResourceCard extends Component {
               role="button"
               tabIndex="-1"
             >
-              <img alt={resource.type.name} className="app-ResourceCard__info-icon" src={iconMapMarker} />
+              <img
+                alt={resource.type.name}
+                className="app-ResourceCard__info-icon"
+                src={iconMapMarker}
+              />
               <span className="app-ResourceCard__info-label app-ResourceCard__distance">
                 {resource.distance ? this.renderDistance(resource.distance) : '\u00A0'}
               </span>

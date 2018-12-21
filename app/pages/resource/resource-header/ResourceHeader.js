@@ -12,7 +12,16 @@ import iconClock from 'assets/icons/clock-o.svg';
 import iconMap from 'assets/icons/map.svg';
 import FavoriteButton from 'shared/favorite-button';
 
-function ResourceHeader({ onBackClick, onMapClick, isLoggedIn, resource, showMap, unit, t }) {
+function ResourceHeader({
+  onBackClick,
+  onMapClick,
+  isLoggedIn,
+  resource,
+  showBackButton,
+  showMap,
+  unit,
+  t,
+}) {
   const peopleCapacityText = t('ResourceCard.peopleCapacity', { people: resource.peopleCapacity });
   const maxPeriodText = getMaxPeriodText(t, resource);
   const priceText = getHourlyPrice(t, resource);
@@ -22,13 +31,15 @@ function ResourceHeader({ onBackClick, onMapClick, isLoggedIn, resource, showMap
     <section className="app-ResourceHeader">
       <Grid>
         <div className="app-ResourceHeader__content">
-          <Button
-            bsStyle="link"
-            className="app-ResourceHeader__back-button"
-            onClick={onBackClick}
-          >
-            {t('ResourceHeader.backButton')}
-          </Button>
+          {showBackButton && (
+            <Button
+              bsStyle="link"
+              className="app-ResourceHeader__back-button"
+              onClick={onBackClick}
+            >
+              {t('ResourceHeader.backButton')}
+            </Button>
+          )}
           <h1>{resource.name}</h1>
           <div className="app-ResourceHeader__info-wrapper">
             <div className="app-ResourceHeader__info">
@@ -36,7 +47,11 @@ function ResourceHeader({ onBackClick, onMapClick, isLoggedIn, resource, showMap
               <span className="app-ResourceHeader__info-label">{typeName}</span>
             </div>
             <div className="app-ResourceHeader__info">
-              <img alt={peopleCapacityText} className="app-ResourceHeader__info-icon" src={iconUser} />
+              <img
+                alt={peopleCapacityText}
+                className="app-ResourceHeader__info-icon"
+                src={iconUser}
+              />
               <span className="app-ResourceHeader__info-label">{peopleCapacityText}</span>
             </div>
             <div className="app-ResourceHeader__info">
@@ -52,24 +67,18 @@ function ResourceHeader({ onBackClick, onMapClick, isLoggedIn, resource, showMap
               <span className="app-ResourceHeader__info-label">{unit.name}</span>
             </div>
             <div className="app-ResourceHeader__buttons">
-              {!showMap &&
-                <Button
-                  className="app-ResourceHeader__map-button"
-                  onClick={onMapClick}
-                >
+              {!showMap && (
+                <Button className="app-ResourceHeader__map-button" onClick={onMapClick}>
                   <img alt={t('ResourceHeader.mapButton')} src={iconMap} />
                   <span>{t('ResourceHeader.mapButton')}</span>
                 </Button>
-              }
-              {showMap &&
-                <Button
-                  className="app-ResourceHeader__map-button"
-                  onClick={onMapClick}
-                >
+              )}
+              {showMap && (
+                <Button className="app-ResourceHeader__map-button" onClick={onMapClick}>
                   <img alt={t('ResourceHeader.resourceButton')} src={iconMap} />
                   <span>{t('ResourceHeader.resourceButton')}</span>
                 </Button>
-              }
+              )}
               {isLoggedIn && <FavoriteButton resource={resource} />}
             </div>
           </div>
@@ -84,11 +93,12 @@ ResourceHeader.propTypes = {
   onBackClick: PropTypes.func.isRequired,
   onMapClick: PropTypes.func.isRequired,
   resource: PropTypes.object.isRequired,
+  showBackButton: PropTypes.bool.isRequired,
   showMap: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
   unit: PropTypes.object.isRequired,
 };
 
-ResourceHeader = injectT(ResourceHeader);  // eslint-disable-line
+ResourceHeader = injectT(ResourceHeader); // eslint-disable-line
 
 export default ResourceHeader;
