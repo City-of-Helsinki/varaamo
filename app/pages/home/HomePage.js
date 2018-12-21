@@ -15,11 +15,13 @@ import homePageSelector from './homePageSelector';
 import iconManufacturing from './images/frontpage_build.svg';
 import iconPhotoAndAudio from './images/frontpage_music.svg';
 import iconSports from './images/frontpage_sport.svg';
+import iconGuidance from './images/frontpage_guidance.svg';
 import iconMeetingsAndWorking from './images/frontpage_work.svg';
 
 const purposeIcons = {
   photoAndAudio: iconPhotoAndAudio,
   sports: iconSports,
+  guidance: iconGuidance,
   manufacturing: iconManufacturing,
   meetingsAndWorking: iconMeetingsAndWorking,
 };
@@ -107,4 +109,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export { UnconnectedHomePage };
-export default connect(homePageSelector, mapDispatchToProps)(UnconnectedHomePage);
+export default connect(
+  homePageSelector,
+  mapDispatchToProps
+)(UnconnectedHomePage);
