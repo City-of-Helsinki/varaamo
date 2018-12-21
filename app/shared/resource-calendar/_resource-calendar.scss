@@ -45,7 +45,7 @@
   }
 
   .DayPicker-NavBar {
-    padding: .75rem .5rem;
+    padding: 0.75rem 0.5rem;
   }
 
   .DayPicker-Caption {
@@ -78,7 +78,7 @@
       color: $dark-gray;
     }
     &--available:not(.DayPicker-Day--disabled) {
-      background-color: $available-color;
+      background-color: $copper;
       &.DayPicker-Day--selected {
         background-color: $available-color;
       }
@@ -137,7 +137,7 @@
       margin: 6px;
     }
     span.free::before {
-      background-color: $available-color;
+      background-color: $copper;
     }
     span.busy::before {
       background-color: $busy-color;
@@ -145,7 +145,6 @@
     span.booked::before {
       background-color: $booked-color;
     }
-
   }
 
   .app-ResourceCalendarOverlay {
