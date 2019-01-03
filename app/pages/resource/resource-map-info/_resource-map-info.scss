@@ -1,9 +1,10 @@
 .app-ResourceMapInfo {
   background-color: $white;
 
-  img {
+  &__icon {
     height: $line-height-computed;
     width: $line-height-computed;
+    margin-right: 8px;
     vertical-align: text-bottom;
   }
 

@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import React from 'react';
+import { FormattedNumber } from 'react-intl';
 import Immutable from 'seamless-immutable';
 
 import FavoriteButton from 'shared/favorite-button';
@@ -9,7 +10,7 @@ import { shallowWithIntl } from 'utils/testUtils';
 import ResourceHeader from './ResourceHeader';
 
 describe('pages/resource/resource-header/ResourceHeader', () => {
-  const unit = Unit.build();
+  const unit = Unit.build({ name: 'Test Unit' });
   const resource = Resource.build({ unit: Unit.id });
   const defaultProps = {
     onBackClick: () => null,
@@ -50,6 +51,48 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
 
       expect(h1).to.have.length(1);
       expect(h1.text()).to.equal(resource.name);
+    });
+
+    describe('Unit info', () => {
+      function createProps(resourceProps) {
+        return {
+          resource: Immutable(Resource.build(resourceProps)),
+        };
+      }
+
+      it('renders unit name with distance', () => {
+        const { name } = defaultProps.unit;
+        const props = createProps({ distance: 11500 });
+
+        const info = getWrapper(props).find('#app-ResourceHeader__info--unit-name');
+        expect(info).to.have.length(1);
+        expect(info.text()).to.contain(` km, ${name}`);
+
+        const number = info.find(FormattedNumber);
+        expect(number.prop('value')).to.equal(12);
+      });
+
+      it('renders unit name with distance < 10', () => {
+        const { name } = defaultProps.unit;
+        const props = createProps({ distance: 1412 });
+
+        const info = getWrapper(props).find('#app-ResourceHeader__info--unit-name');
+        expect(info).to.have.length(1);
+        expect(info.text()).to.contain(` km, ${name}`);
+
+        const number = info.find(FormattedNumber);
+        expect(number.prop('value')).to.equal(1.4);
+      });
+
+      it('does not render distance if resource has no distance', () => {
+        const { name } = defaultProps.unit;
+        const props = createProps({});
+        const expected = name;
+        const info = getWrapper(props).find('#app-ResourceHeader__info--unit-name');
+
+        expect(info).to.have.length(1);
+        expect(info.text()).to.equal(expected);
+      });
     });
 
     it('renders toggleMap button with correct props when showMap false', () => {

@@ -1,16 +1,18 @@
 import React, { PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Grid from 'react-bootstrap/lib/Grid';
+import { FormattedNumber } from 'react-intl';
+import { round } from 'lodash';
 import iconHome from 'hel-icons/dist/shapes/home.svg';
 import iconMapMarker from 'hel-icons/dist/shapes/map-marker.svg';
 import iconTicket from 'hel-icons/dist/shapes/ticket.svg';
 import iconUser from 'hel-icons/dist/shapes/user-o.svg';
 
 import { injectT } from 'i18n';
-import { getHourlyPrice, getMaxPeriodText } from 'utils/resourceUtils';
 import iconClock from 'assets/icons/clock-o.svg';
 import iconMap from 'assets/icons/map.svg';
 import FavoriteButton from 'shared/favorite-button';
+import { getHourlyPrice, getMaxPeriodText } from 'utils/resourceUtils';
 
 function ResourceHeader({
   onBackClick,
@@ -22,10 +24,25 @@ function ResourceHeader({
   unit,
   t,
 }) {
+  const formatDistance = (distance) => {
+    if (!distance) {
+      return '';
+    }
+
+    const km = distance / 1000;
+    const formattedDistance = km < 10 ? round(km, 1) : round(km);
+    return (
+      <span>
+        <FormattedNumber value={formattedDistance} /> km
+      </span>
+    );
+  };
+
   const peopleCapacityText = t('ResourceCard.peopleCapacity', { people: resource.peopleCapacity });
   const maxPeriodText = getMaxPeriodText(t, resource);
   const priceText = getHourlyPrice(t, resource);
   const typeName = resource.type ? resource.type.name : '\u00A0';
+  const distance = formatDistance(resource.distance);
 
   return (
     <section className="app-ResourceHeader">
@@ -62,9 +79,13 @@ function ResourceHeader({
               <img alt={priceText} className="app-ResourceHeader__info-icon" src={iconTicket} />
               <span className="app-ResourceHeader__info-label">{priceText}</span>
             </div>
-            <div className="app-ResourceHeader__info">
+            <div className="app-ResourceHeader__info" id="app-ResourceHeader__info--unit-name">
               <img alt={unit.name} className="app-ResourceHeader__info-icon" src={iconMapMarker} />
-              <span className="app-ResourceHeader__info-label">{unit.name}</span>
+              <span className="app-ResourceHeader__info-label">
+                {distance}
+                {distance && ', '}
+                {unit.name}
+              </span>
             </div>
             <div className="app-ResourceHeader__buttons">
               {!showMap && (
