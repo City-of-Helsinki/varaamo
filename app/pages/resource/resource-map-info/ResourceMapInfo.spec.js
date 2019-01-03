@@ -11,12 +11,14 @@ import ResourceMapInfo from './ResourceMapInfo';
 describe('pages/resource/resource-map-info/ResourceMapInfo', () => {
   const defaultProps = {
     resource: Immutable(Resource.build()),
-    unit: Immutable(Unit.build({
-      addressZip: '12345',
-      id: 'aaa:123',
-      municipality: 'some city',
-      streetAddress: 'Street address 123',
-    })),
+    unit: Immutable(
+      Unit.build({
+        addressZip: '12345',
+        id: 'aaa:123',
+        municipality: 'some city',
+        streetAddress: 'Street address 123',
+      })
+    ),
   };
 
   function getWrapper(props) {
@@ -31,30 +33,11 @@ describe('pages/resource/resource-map-info/ResourceMapInfo', () => {
     expect(button.prop('href')).to.equal(expected);
   });
 
-  it('renders address text with distance', () => {
+  it('renders address text', () => {
     const { addressZip, streetAddress } = defaultProps.unit;
     const resource = Immutable(Resource.build({ distance: 11500 }));
-    const expected = `12 km, ${streetAddress}, ${addressZip} Some city`;
-    const span = getWrapper({ resource }).find('span');
-
-    expect(span).to.have.length(1);
-    expect(span.text()).to.equal(expected);
-  });
-
-  it('renders address text with distance < 10', () => {
-    const { addressZip, streetAddress } = defaultProps.unit;
-    const resource = Immutable(Resource.build({ distance: 1500 }));
-    const expected = `1.5 km, ${streetAddress}, ${addressZip} Some city`;
-    const span = getWrapper({ resource }).find('span');
-
-    expect(span).to.have.length(1);
-    expect(span.text()).to.equal(expected);
-  });
-
-  it('does not render distance if resource has no distance', () => {
-    const { addressZip, streetAddress } = defaultProps.unit;
     const expected = `${streetAddress}, ${addressZip} Some city`;
-    const span = getWrapper().find('span');
+    const span = getWrapper({ resource }).find('span');
 
     expect(span).to.have.length(1);
     expect(span.text()).to.equal(expected);

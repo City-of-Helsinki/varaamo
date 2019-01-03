@@ -155,7 +155,7 @@ class UnconnectedResourcePage extends Component {
             showMap={showMap}
             unit={unit}
           />
-          {showMap && unit && <ResourceMapInfo resource={resource} unit={unit} />}
+          {showMap && unit && <ResourceMapInfo unit={unit} />}
           {showMap && (
             <ResourceMap
               location={location}
