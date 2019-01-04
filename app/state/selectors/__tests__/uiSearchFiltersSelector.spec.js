@@ -19,6 +19,7 @@ function getState(date = '2015-10-10', start = '08:30') {
           search: '',
           start,
           unit: '',
+          useTimeRange: false,
         },
       },
     },

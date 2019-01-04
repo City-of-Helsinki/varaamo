@@ -31,7 +31,6 @@ import TimeRangeControl from './TimeRangeControl';
 import iconTimes from './images/times.svg';
 
 class UnconnectedSearchControlsContainer extends Component {
-
   componentDidMount() {
     const { actions, urlSearchFilters } = this.props;
     actions.changeSearchFilters(urlSearchFilters);
@@ -64,20 +63,18 @@ class UnconnectedSearchControlsContainer extends Component {
   }
 
   handleDateChange = ({ date, duration, end, start }) => {
-    const dateInCorrectFormat = (
-      moment(date, 'L').format(constants.DATE_FORMAT)
-    );
+    const dateInCorrectFormat = moment(date, 'L').format(constants.DATE_FORMAT);
     this.handleFiltersChange({
       date: dateInCorrectFormat,
       duration,
       end,
       start,
     });
-  }
+  };
 
   handleFiltersChange = (newFilters) => {
     this.props.actions.changeSearchFilters(newFilters);
-  }
+  };
 
   handlePositionSwitch = () => {
     if (!this.props.position) {
@@ -85,11 +82,11 @@ class UnconnectedSearchControlsContainer extends Component {
     } else {
       this.props.actions.disableGeoposition();
     }
-  }
+  };
 
   handleSearchBoxChange = (value) => {
     this.props.actions.changeSearchFilters({ search: value });
-  }
+  };
 
   handleTimeRangeChange = ({ duration, end, start }) => {
     this.handleFiltersChange({
@@ -97,7 +94,7 @@ class UnconnectedSearchControlsContainer extends Component {
       end,
       start,
     });
-  }
+  };
 
   handleTimeRangeSwitch = (value) => {
     if (value) {
@@ -105,7 +102,7 @@ class UnconnectedSearchControlsContainer extends Component {
     } else {
       this.props.actions.disableTimeRange();
     }
-  }
+  };
 
   handleSearch = (newFilters = {}, options = {}) => {
     const { scrollToSearchResults } = this.props;
@@ -115,7 +112,7 @@ class UnconnectedSearchControlsContainer extends Component {
     if (!options.preventScrolling) {
       scrollToSearchResults();
     }
-  }
+  };
 
   handleReset = () => {
     const emptyFilters = Object.assign({}, constants.SUPPORTED_SEARCH_FILTERS);
@@ -123,7 +120,7 @@ class UnconnectedSearchControlsContainer extends Component {
       this.props.actions.disableGeoposition();
     }
     this.handleFiltersChange(emptyFilters);
-  }
+  };
 
   render() {
     const {
@@ -208,6 +205,7 @@ class UnconnectedSearchControlsContainer extends Component {
                     onChange={this.handleTimeRangeChange}
                     onTimeRangeSwitch={this.handleTimeRangeSwitch}
                     start={filters.start}
+                    useTimeRange={filters.useTimeRange}
                   />
                 </Col>
                 <Col className="app-SearchControlsContainer__control" md={4} sm={6}>
@@ -231,7 +229,7 @@ class UnconnectedSearchControlsContainer extends Component {
                 >
                   {t('SearchControlsContainer.searchButton')}
                 </Button>
-                {hasFilters &&
+                {hasFilters && (
                   <Button
                     bsStyle="link"
                     className="app-SearchControlsContainer__reset-button"
@@ -241,7 +239,7 @@ class UnconnectedSearchControlsContainer extends Component {
                     <img alt="" src={iconTimes} />
                     {t('SearchControlsContainer.resetButton')}
                   </Button>
-                }
+                )}
               </Col>
             </Row>
           </div>
@@ -281,6 +279,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export { UnconnectedSearchControlsContainer };
-export default connect(searchControlsSelector, mapDispatchToProps)(
-  UnconnectedSearchControlsContainer
-);
+export default connect(
+  searchControlsSelector,
+  mapDispatchToProps
+)(UnconnectedSearchControlsContainer);

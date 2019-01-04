@@ -65,10 +65,7 @@ describe('state/reducers/ui/searchReducer', () => {
           },
         })
       );
-      const resources = [
-        Resource.build(),
-        Resource.build(),
-      ];
+      const resources = [Resource.build(), Resource.build()];
 
       it('sets the given resource ids to results', () => {
         const action = searchResourcesSuccess(resources);
@@ -181,6 +178,7 @@ describe('state/reducers/ui/searchReducer', () => {
           purpose: '',
           search: '',
           start: '',
+          useTimeRange: false,
         };
         const action = clearSearchResults();
         const initialState = Immutable({ filters });
@@ -214,11 +212,13 @@ describe('state/reducers/ui/searchReducer', () => {
       const enableGeopositionSuccess = createAction(types.UI.ENABLE_GEOPOSITION_SUCCESS);
 
       it('sets the given position coords to filters', () => {
-        const position = { coords: {
-          accuracy: 10,
-          latitude: 11,
-          longitude: 12,
-        } };
+        const position = {
+          coords: {
+            accuracy: 10,
+            latitude: 11,
+            longitude: 12,
+          },
+        };
         const action = enableGeopositionSuccess(position);
         const initialState = Immutable({
           position: null,

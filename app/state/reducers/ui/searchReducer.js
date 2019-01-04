@@ -14,6 +14,7 @@ const initialState = Immutable({
     duration: 0,
     start: '',
     end: '',
+    useTimeRange: false,
   },
   page: 1,
   position: null,
@@ -26,7 +27,6 @@ const initialState = Immutable({
 
 function searchReducer(state = initialState, action) {
   switch (action.type) {
-
     case types.API.SEARCH_RESULTS_GET_SUCCESS: {
       const results = Object.keys(action.payload.entities.resources || {});
       const paginatedResources = Object.values(action.payload.entities.paginatedResources || {});
@@ -64,18 +64,16 @@ function searchReducer(state = initialState, action) {
     }
 
     case types.UI.DISABLE_TIME_RANGE: {
-      const duration = 0;
-      const end = '';
-      const start = '';
-      const filters = pickSupportedFilters({ duration, end, start });
+      const filters = pickSupportedFilters({ useTimeRange: false });
       return state.merge({ filters }, { deep: true });
     }
 
     case types.UI.ENABLE_TIME_RANGE: {
-      const duration = getDuration();
-      const end = getEndTimeString();
-      const start = getStartTimeString();
-      const filters = pickSupportedFilters({ duration, end, start });
+      const duration = getDuration(state.filters.duration);
+      const end = getEndTimeString(state.filters.end);
+      const start = getStartTimeString(state.filters.start);
+      const useTimeRange = true;
+      const filters = pickSupportedFilters({ duration, end, start, useTimeRange });
       return state.merge({ filters }, { deep: true });
     }
 

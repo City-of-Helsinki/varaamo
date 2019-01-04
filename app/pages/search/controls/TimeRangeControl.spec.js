@@ -11,6 +11,7 @@ const defaults = {
   onChange: simple.mock(),
   onTimeRangeSwitch: simple.mock(),
   start: '10:00',
+  useTimeRange: false,
 };
 function getWrapper(props) {
   return shallowWithIntl(<TimeRangeControl {...defaults} {...props} />);
