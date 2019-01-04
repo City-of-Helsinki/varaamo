@@ -39,6 +39,7 @@
         font-size: 16px;
         a {
           padding-left: 24px;
+          cursor: pointer;
           position: relative;
           text-decoration: underline;
           &::before {
@@ -54,7 +55,7 @@
             width: $line-height-computed;
           }
         }
-        a[aria-selected="true"]::before {
+        a[aria-selected='true']::before {
           background-image: url('./images/angle-down.svg');
         }
       }
@@ -146,7 +147,7 @@
     font-weight: normal;
   }
 
-  &__distance_slider{
+  &__distance_slider {
     margin-top: 15px;
     &_tooltip {
       z-index: 40000;
@@ -167,7 +168,6 @@
     background-color: $copper;
   }
 }
-
 
 // DatePickerControl styles
 // ------------------------
@@ -190,7 +190,8 @@
     img {
       margin-right: 6px;
     }
-    img, span {
+    img,
+    span {
       vertical-align: middle;
     }
   }
@@ -219,7 +220,7 @@
   }
 
   .DayPicker-NavBar {
-    padding: .75rem .5rem;
+    padding: 0.75rem 0.5rem;
   }
 
   .DayPicker-Caption {

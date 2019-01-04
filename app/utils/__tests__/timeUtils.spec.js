@@ -59,14 +59,15 @@ describe('Utils: timeUtils', () => {
       expect(actual.start).to.exist;
     });
 
-    it('returns an object with availableBetween, end and start in correct form ', () => {
+    it('returns an object with availableBetween, end and start in correct form', () => {
       const date = '2015-10-10';
       const duration = 30;
       const end = '18:00';
       const start = '08:30';
       const timeZone = moment().format('Z');
+      const useTimeRange = true;
       const expected = `${date}T${start}:00${timeZone},${date}T${end}:00${timeZone},${duration}`;
-      const actual = getDateStartAndEndTimes(date, start, end, duration);
+      const actual = getDateStartAndEndTimes(date, useTimeRange, start, end, duration);
 
       expect(actual.availableBetween).to.equal(expected);
       expect(actual.end).to.equal(`${date}T23:59:59Z`);
@@ -79,10 +80,24 @@ describe('Utils: timeUtils', () => {
       const end = '23:30';
       const start = '08:30';
       const timeZone = moment().format('Z');
+      const useTimeRange = true;
       const expected = `${date}T${start}:00${timeZone},${date}T${end}:00${timeZone},${duration}`;
-      const actual = getDateStartAndEndTimes(date, start, end, duration);
+      const actual = getDateStartAndEndTimes(date, useTimeRange, start, end, duration);
 
       expect(actual.availableBetween).to.equal(expected);
+      expect(actual.end).to.equal(`${date}T23:59:59Z`);
+      expect(actual.start).to.equal(`${date}T00:00:00Z`);
+    });
+
+    it('returns an object without availableBetween property when useTimeRange flag is not enabled', () => {
+      const date = '2015-10-10';
+      const duration = 30;
+      const end = '23:30';
+      const start = '08:30';
+      const useTimeRange = false;
+      const actual = getDateStartAndEndTimes(date, useTimeRange, start, end, duration);
+
+      expect(actual.availableBetween).not.to.exist;
       expect(actual.end).to.equal(`${date}T23:59:59Z`);
       expect(actual.start).to.equal(`${date}T00:00:00Z`);
     });
@@ -287,13 +302,19 @@ describe('Utils: timeUtils', () => {
         });
 
         it('the first time slot ends 30 minutes after start', () => {
-          const expected = moment.utc(start).add(duration).toISOString();
+          const expected = moment
+            .utc(start)
+            .add(duration)
+            .toISOString();
 
           expect(slots[0].end).to.equal(expected);
         });
 
         it('the last time slot starts 30 minutes before the time range ends', () => {
-          const expected = moment.utc(end).subtract(duration).toISOString();
+          const expected = moment
+            .utc(end)
+            .subtract(duration)
+            .toISOString();
 
           expect(slots[3].start).to.equal(expected);
         });
