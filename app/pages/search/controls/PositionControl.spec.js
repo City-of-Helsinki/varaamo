@@ -1,10 +1,10 @@
 import { expect } from 'chai';
 import React from 'react';
 import simple from 'simple-mock';
-import Toggle from 'react-toggle';
 
 import { shallowWithIntl } from 'utils/testUtils';
 import PositionControl from './PositionControl';
+import CheckboxControl from './CheckboxControl';
 
 function getWrapper(props) {
   const defaults = {
@@ -22,12 +22,12 @@ describe('pages/search/controls/PositionControl', () => {
     expect(wrapper.is('div.app-PositionControl')).to.be.true;
   });
 
-  it('renders a Toggle with correct props', () => {
+  it('renders a CheckboxControl with correct props', () => {
     const wrapper = getWrapper({ geolocated: true });
-    const modal = wrapper.find(Toggle);
+    const modal = wrapper.find(CheckboxControl);
     expect(modal).to.have.length(1);
-    expect(modal.prop('defaultChecked')).to.be.true;
-    expect(modal.prop('onChange')).to.equal(wrapper.instance().handleToggleChange);
+    expect(modal.prop('value')).to.be.true;
+    expect(modal.prop('onConfirm')).to.equal(wrapper.instance().handleToggleChange);
   });
 
   it('renders a slider with correct props if geolocation toggle is on', () => {
@@ -72,17 +72,15 @@ describe('pages/search/controls/PositionControl', () => {
   describe('handleToggleChange', () => {
     it('calls onPositionSwitch', () => {
       const onPositionSwitch = simple.mock();
-      const value = { target: { checked: true } };
       const instance = getWrapper({ onPositionSwitch }).instance();
-      instance.handleToggleChange(value);
+      instance.handleToggleChange(true);
       expect(onPositionSwitch.callCount).to.equal(1);
-      expect(onPositionSwitch.lastCall.args).to.deep.equal([value]);
     });
 
     it('sets toggled state', () => {
       const instance = getWrapper().instance();
       expect(instance.state.toggled).to.be.false;
-      const value = { target: { checked: true } };
+      const value = true;
       instance.handleToggleChange(value);
       expect(instance.state.toggled).to.be.true;
     });

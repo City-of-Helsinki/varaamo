@@ -133,18 +133,11 @@
 // ---------------------
 
 .app-PositionControl {
-  padding-top: 15px;
-
   &__toggle-content > label {
     display: flex;
     justify-content: space-between;
     font-weight: normal;
     white-space: normal;
-  }
-  &__label {
-    line-height: $line-height-computed;
-    display: inline-block;
-    font-weight: normal;
   }
 
   &__distance_slider {
@@ -301,28 +294,24 @@
 }
 
 .app-TimeRangeControl {
-  padding: 15px 0 0 0;
   max-width: 400px;
-  margin: 0 auto;
 
-  &__header {
-    display: inline-block;
-    margin-bottom: 15px;
+  @media (min-width: $screen-sm-min) {
+    margin: 0 auto;
   }
-  &__label {
-    line-height: $line-height-computed;
-    display: inline-block;
-    font-weight: normal;
-  }
+
   &__range {
     align-items: baseline;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-top: 8px;
+
     &-separator {
       padding: 0;
       margin: 0 6px;
     }
+
     .Select {
       flex: 1 2 25%;
       &:last-child {
@@ -377,5 +366,18 @@
   &__content {
     background-color: $white;
     padding: 20px;
+  }
+}
+
+.app-SearchControlsCheckbox {
+  @media (max-width: $screen-md-max) {
+    &__toggle {
+      float: left;
+    }
+
+    &__label {
+      display: block;
+      padding-left: 60px;
+    }
   }
 }

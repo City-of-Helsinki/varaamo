@@ -209,7 +209,9 @@ class UnconnectedSearchControlsContainer extends Component {
                   <CheckboxControl
                     id="charge"
                     label={t('SearchControlsContainer.chargeLabel')}
+                    labelClassName="app-SearchControlsCheckbox__label"
                     onConfirm={value => this.handleFiltersChange({ charge: value })}
+                    toggleClassName="app-SearchControlsCheckbox__toggle"
                     value={filters.charge}
                   />
                 </Col>

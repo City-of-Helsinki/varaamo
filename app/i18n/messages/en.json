@@ -256,7 +256,7 @@
   "SideNavbar.close": "Close",
   "SideNavbar.toggle": "Guest",
   "TestSiteMessage.text": "This is the test version of Varaamo",
-  "TimeRangeControl.timeRangeTitle": "Time range and minimun duration",
+  "TimeRangeControl.timeRangeTitle": "Time range and minimum duration",
   "TimeRangeControl.title": "{date} at {start}-{end} {hours}h booking",
   "TimeSlot.available": "Free",
   "TimeSlot.editing": "Edited",
