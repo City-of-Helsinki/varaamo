@@ -15,9 +15,7 @@ import PositionControl from './PositionControl';
 import SearchBox from './SearchBox';
 import SelectControl from './SelectControl';
 import TimeRangeControl from './TimeRangeControl';
-import {
-  UnconnectedSearchControlsContainer as SearchControlsContainer,
-} from './SearchControlsContainer';
+import { UnconnectedSearchControlsContainer as SearchControlsContainer } from './SearchControlsContainer';
 
 describe('pages/search/controls/SearchControlsContainer', () => {
   const defaultProps = {
@@ -123,7 +121,9 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(selectControl).to.have.length(3);
       expect(selectControl.at(2).prop('id')).to.equal('people');
       expect(selectControl.at(2).prop('isLoading')).to.equal(defaultProps.isFetchingPurposes);
-      expect(selectControl.at(2).prop('label')).to.equal('SearchControlsContainer.peopleCapacityLabel');
+      expect(selectControl.at(2).prop('label')).to.equal(
+        'SearchControlsContainer.peopleCapacityLabel'
+      );
       expect(selectControl.at(2).prop('onConfirm')).to.exist;
       expect(selectControl.at(2).prop('options')).to.deep.equal(peopleOptions);
       expect(selectControl.at(2).prop('value')).to.equal(defaultProps.filters.people);
@@ -150,7 +150,9 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(timeRangeControl.prop('duration')).to.equal(filters.duration);
       expect(timeRangeControl.prop('end')).to.equal(filters.end);
       expect(timeRangeControl.prop('onChange')).to.equal(wrapper.instance().handleTimeRangeChange);
-      expect(timeRangeControl.prop('onTimeRangeSwitch')).to.equal(wrapper.instance().handleTimeRangeSwitch);
+      expect(timeRangeControl.prop('onTimeRangeSwitch')).to.equal(
+        wrapper.instance().handleTimeRangeSwitch
+      );
       expect(timeRangeControl.prop('start')).to.equal(filters.start);
     });
 
@@ -279,8 +281,8 @@ describe('pages/search/controls/SearchControlsContainer', () => {
   });
 
   describe('handleDateChange', () => {
-    const { date, duration, end, start } = defaultProps.filters;
-    const expected = { date, duration, end, start };
+    const { date } = defaultProps.filters;
+    const expected = { date };
     let instance;
 
     before(() => {
@@ -376,7 +378,9 @@ describe('pages/search/controls/SearchControlsContainer', () => {
 
     before(() => {
       browserHistoryMock = simple.mock(browserHistory, 'push');
-      getWrapper().instance().handleSearch(newFilters);
+      getWrapper()
+        .instance()
+        .handleSearch(newFilters);
     });
 
     after(() => {
@@ -427,7 +431,9 @@ describe('pages/search/controls/SearchControlsContainer', () => {
         fetchPurposes: simple.mock(),
         changeSearchFilters: () => null,
       };
-      getWrapper({ actions }).instance().componentDidMount();
+      getWrapper({ actions })
+        .instance()
+        .componentDidMount();
 
       expect(actions.fetchPurposes.callCount).to.equal(1);
     });
