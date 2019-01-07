@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
-import Toggle from 'react-toggle';
 import { createSliderWithTooltip } from 'rc-slider';
 import Slider from 'rc-slider/lib/Slider';
 
 import { injectT } from 'i18n';
+import CheckboxControl from './CheckboxControl';
 
 const TooltipSlider = createSliderWithTooltip(Slider);
 
@@ -26,14 +26,14 @@ class PositionControl extends React.Component {
     };
   }
 
-  handleToggleChange = (e) => {
-    this.setState({ toggled: e.target.checked });
-    this.props.onPositionSwitch(e);
-  }
+  handleToggleChange = (value) => {
+    this.setState({ toggled: value });
+    this.props.onPositionSwitch();
+  };
 
   handleDistanceSliderChange = (value) => {
     this.setState({ distance: value });
-  }
+  };
 
   handleConfirm = (value) => {
     if (value > this.state.maxDistance) {
@@ -41,28 +41,28 @@ class PositionControl extends React.Component {
     } else {
       this.props.onConfirm(value);
     }
-  }
+  };
 
-  distanceFormatter = value => (
-    value > this.state.maxDistance ?
-    this.props.t('PositionControl.noDistanceLimit') :
-    `${value / 1000} km`
-  );
+  distanceFormatter = (value) => {
+    if (value > this.state.maxDistance) {
+      return this.props.t('PositionControl.noDistanceLimit');
+    }
+    return `${value / 1000} km`;
+  };
 
   render() {
     const { t, geolocated } = this.props;
     return (
       <div className="app-PositionControl">
-        <Toggle
-          className="app-PositionControl__geolocation-toggle"
-          defaultChecked={geolocated}
+        <CheckboxControl
           id="geolocation-status"
-          onChange={this.handleToggleChange}
+          label={t('PositionControl.useDistance')}
+          labelClassName="app-SearchControlsCheckbox__label"
+          onConfirm={this.handleToggleChange}
+          toggleClassName="app-SearchControlsCheckbox__toggle"
+          value={geolocated}
         />
-        <label className="app-PositionControl__label" htmlFor="geolocation-status">
-          {t('PositionControl.useDistance')}
-        </label>
-        {this.state.toggled &&
+        {this.state.toggled && (
           <TooltipSlider
             className="app-PositionControl__distance_slider"
             disabled={!this.state.toggled}
@@ -75,12 +75,12 @@ class PositionControl extends React.Component {
             tipProps={{ overlayClassName: 'app-PositionControl__distance_slider_tooltip' }}
             value={this.state.distance}
           />
-        }
-        {this.state.toggled &&
+        )}
+        {this.state.toggled && (
           <div>
             {t('PositionControl.maxDistance')}: {this.distanceFormatter(this.state.distance)}
           </div>
-        }
+        )}
       </div>
     );
   }

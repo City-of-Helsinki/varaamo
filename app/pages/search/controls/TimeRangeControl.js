@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
 import Select from 'react-select';
-import Toggle from 'react-toggle';
 import moment from 'moment';
 
 import { injectT } from 'i18n';
 import constants from 'constants/AppConstants';
 import { calculateDuration, calculateEndTime } from 'utils/timeUtils';
+import CheckboxControl from './CheckboxControl';
 
 class TimeRangeControl extends React.Component {
   static propTypes = {
@@ -108,8 +108,8 @@ class TimeRangeControl extends React.Component {
     onChange({ duration: durationValue, end: endValue, start });
   }
 
-  handleToggleChange = (e) => {
-    this.props.onTimeRangeSwitch(e.target.checked);
+  handleToggleChange = (value) => {
+    this.props.onTimeRangeSwitch(value);
   };
 
   render() {
@@ -117,16 +117,14 @@ class TimeRangeControl extends React.Component {
 
     return (
       <div className="app-TimeRangeControl">
-        <Toggle
-          checked={useTimeRange}
-          className="app-TimeRangeControl-toggle"
+        <CheckboxControl
           id="timerange-status"
-          onChange={this.handleToggleChange}
+          label={t('TimeRangeControl.timeRangeTitle')}
+          labelClassName="app-SearchControlsCheckbox__label"
+          onConfirm={this.handleToggleChange}
+          toggleClassName="app-SearchControlsCheckbox__toggle"
+          value={useTimeRange}
         />
-        <label className="app-TimeRangeControl__label" htmlFor="timerange-status">
-          {t('TimeRangeControl.timeRangeTitle')}
-        </label>
-
         <div className="app-TimeRangeControl__range">
           <Select
             className="app-TimeRangeControl__range-start"
