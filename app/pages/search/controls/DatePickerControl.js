@@ -9,10 +9,6 @@ import moment from 'moment';
 import MomentLocaleUtils from 'react-day-picker/moment';
 
 import { injectT } from 'i18n';
-import {
-  calculateDuration,
-  calculateEndTime,
-} from 'utils/timeUtils';
 import SearchControlOverlay from './SearchControlOverlay';
 import iconCalendar from './images/calendar.svg';
 
@@ -20,60 +16,46 @@ class DatePickerControl extends React.Component {
   static propTypes = {
     currentLanguage: PropTypes.string.isRequired,
     date: PropTypes.string,
-    duration: PropTypes.number,
-    end: PropTypes.string,
     onConfirm: PropTypes.func.isRequired,
-    start: PropTypes.string,
     t: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
-    const { date, duration, end, start } = this.props;
+    const { date } = this.props;
     this.state = {
       date,
-      duration,
-      end,
-      start,
       visible: false,
     };
   }
 
   componentWillUpdate(nextProps) {
-    const { date, duration, end, start } = nextProps;
-    if (date !== this.props.date || duration !== this.props.duration ||
-      end !== this.props.end || start !== this.props.start) {
-      this.setState({ date, duration, end, start });
+    const { date } = nextProps;
+    if (date !== this.props.date) {
+      this.setState({ date });
     }
   }
 
   hideOverlay = () => {
     this.setState({ visible: false });
-  }
+  };
 
   showOverlay = () => {
     this.setState({ visible: true });
-  }
+  };
 
   handleConfirm = (value) => {
-    const { duration, end, start } = this.state;
     const date = value;
-    this.props.onConfirm({ date, duration, end, start });
+    this.props.onConfirm({ date });
     this.hideOverlay();
-  }
-
-  handleTimeRange = ({ duration, end, start }) => {
-    const { date } = this.state;
-    const endValue = calculateEndTime(end, start);
-    const durationValue = calculateDuration(duration, start, endValue);
-    this.setState({ duration: durationValue, start, end: endValue, visible: false });
-    this.props.onConfirm({ date, duration: durationValue, end: endValue, start });
-  }
+  };
 
   render() {
     const { currentLanguage, t } = this.props;
     const { date } = this.state;
-    const selectedDay = moment(date, 'L').startOf('day').toDate();
+    const selectedDay = moment(date, 'L')
+      .startOf('day')
+      .toDate();
 
     return (
       <div className="app-DatePickerControl">
@@ -96,10 +78,7 @@ class DatePickerControl extends React.Component {
           rootClose
           show={this.state.visible}
         >
-          <SearchControlOverlay
-            onHide={this.hideOverlay}
-            title={t('DatePickerControl.header')}
-          >
+          <SearchControlOverlay onHide={this.hideOverlay} title={t('DatePickerControl.header')}>
             <DayPicker
               disabledDays={day => new Date(day).setHours(23, 59, 59, 59) < new Date()}
               enableOutsideDays

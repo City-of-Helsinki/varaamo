@@ -62,13 +62,10 @@ class UnconnectedSearchControlsContainer extends Component {
     return hasFilters;
   }
 
-  handleDateChange = ({ date, duration, end, start }) => {
+  handleDateChange = ({ date }) => {
     const dateInCorrectFormat = moment(date, 'L').format(constants.DATE_FORMAT);
     this.handleFiltersChange({
       date: dateInCorrectFormat,
-      duration,
-      end,
-      start,
     });
   };
 

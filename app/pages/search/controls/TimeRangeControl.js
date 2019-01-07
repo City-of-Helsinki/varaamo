@@ -5,6 +5,7 @@ import moment from 'moment';
 
 import { injectT } from 'i18n';
 import constants from 'constants/AppConstants';
+import { calculateDuration, calculateEndTime } from 'utils/timeUtils';
 
 class TimeRangeControl extends React.Component {
   static propTypes = {
@@ -95,13 +96,16 @@ class TimeRangeControl extends React.Component {
   handleEnd(option) {
     const end = option.value;
     const { duration, onChange, start } = this.props;
-    onChange({ duration, end, start });
+    const durationValue = calculateDuration(duration, start, end);
+    onChange({ duration: durationValue, end, start });
   }
 
   handleStart(option) {
     const start = option.value;
     const { duration, end, onChange } = this.props;
-    onChange({ duration, end, start });
+    const endValue = calculateEndTime(end, start);
+    const durationValue = calculateDuration(duration, start, endValue);
+    onChange({ duration: durationValue, end: endValue, start });
   }
 
   handleToggleChange = (e) => {

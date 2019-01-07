@@ -71,7 +71,9 @@ describe('pages/search/controls/DatePickerControl', () => {
   });
 
   it('renders DayPicker for selecting date', () => {
-    const expected = moment(defaults.date).startOf('day').toDate();
+    const expected = moment(defaults.date)
+      .startOf('day')
+      .toDate();
     const wrapper = getWrapper();
     const dayPicker = wrapper.find(DayPicker);
     expect(dayPicker).to.have.length(1);
@@ -131,25 +133,11 @@ describe('pages/search/controls/DatePickerControl', () => {
     });
   });
 
-  describe('componentWillUpdate', () => {
-    it('updates state with correct values', () => {
-      const duration = 90;
-      const end = '15:00';
-      const start = '11:00';
-      const instance = getWrapper().instance();
-      instance.componentWillUpdate({ duration, end, start });
-      expect(instance.state.duration).to.equal(duration);
-      expect(instance.state.end).to.equal(end);
-      expect(instance.state.start).to.equal(start);
-    });
-  });
-
   describe('handleConfirm', () => {
     it('calls onConfirm with correct value', () => {
       const onConfirm = simple.mock();
       const date = '12.12.2017';
-      const { duration, end, start } = defaults;
-      const expected = { date, duration, end, start };
+      const expected = { date };
       const instance = getWrapper({ onConfirm }).instance();
       instance.handleConfirm(date);
       expect(onConfirm.callCount).to.equal(1);
@@ -162,45 +150,6 @@ describe('pages/search/controls/DatePickerControl', () => {
       instance.handleConfirm();
       expect(instance.hideOverlay.callCount).to.equal(1);
       simple.restore();
-    });
-  });
-
-  describe('handleTimeRange', () => {
-    it('calls onConfirm with correct value', () => {
-      const onConfirm = simple.mock();
-      const { date } = defaults;
-      const duration = 60;
-      const end = '18:00';
-      const start = '10:00';
-      const props = { duration, end, start };
-      const expected = { ...props, date };
-      const instance = getWrapper({ onConfirm }).instance();
-      instance.state.visible = true;
-      instance.handleTimeRange(props);
-
-      expect(onConfirm.callCount).to.equal(1);
-      expect(onConfirm.lastCall.args).to.deep.equal([expected]);
-      expect(instance.state.duration).to.equal(duration);
-      expect(instance.state.end).to.equal(end);
-      expect(instance.state.start).to.equal(start);
-      expect(instance.state.visible).to.be.false;
-    });
-
-    it('calls onConfirm with correct end value when start is after end', () => {
-      const onConfirm = simple.mock();
-      const { date } = defaults;
-      const duration = 30;
-      const end = '09:00';
-      const start = '10:00';
-      const expectedEnd = '10:30';
-      const props = { duration, end, start };
-      const expected = { ...props, date, end: expectedEnd };
-      const instance = getWrapper({ onConfirm }).instance();
-      instance.handleTimeRange(props);
-
-      expect(onConfirm.callCount).to.equal(1);
-      expect(onConfirm.lastCall.args).to.deep.equal([expected]);
-      expect(instance.state.end).to.equal(expectedEnd);
     });
   });
 
