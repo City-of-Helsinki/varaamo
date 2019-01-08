@@ -28,7 +28,8 @@ const filteredAdminResourceSelector = createSelector(
   adminResourcesSelector,
   filteredResourceTypesSelector,
   (resources, filteredResourceTypes) => resources.filter(
-    resource => !includes(filteredResourceTypes, resource.type.name)
+    resource => filteredResourceTypes.length === 0
+    || includes(filteredResourceTypes, resource.type.name)
   )
 );
 

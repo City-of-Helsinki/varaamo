@@ -38,7 +38,7 @@ class ResourceTypeFilterContainer extends Component {
         <h6>{t('ResourceTypeFilter.title')}</h6>
         { this.props.resourceTypes.map(resourceType =>
           <ResourceTypeFilterButton
-            active={!includes(this.props.filteredResourceTypes, resourceType)}
+            active={includes(this.props.filteredResourceTypes, resourceType)}
             key={`resource-type-${resourceType}`}
             onClick={this.handleClick}
             resourceType={resourceType}
