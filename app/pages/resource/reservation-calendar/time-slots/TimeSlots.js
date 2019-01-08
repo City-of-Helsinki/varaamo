@@ -2,10 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import Loader from 'react-loader';
 import moment from 'moment';
 import classnames from 'classnames';
+import findIndex from 'lodash/findIndex';
+import minBy from 'lodash/minBy';
 
 import constants from 'constants/AppConstants';
 import { injectT } from 'i18n';
 import TimeSlot from './TimeSlot';
+import TimeSlotPlaceholder from './TimeSlotPlaceholder';
 import utils from '../utils';
 
 class TimeSlots extends Component {
@@ -24,30 +27,85 @@ class TimeSlots extends Component {
     time: PropTypes.string,
   };
 
+  calculatePlaceholders(selectedDate, slots) {
+    const firstTimeSlots = slots
+      .map(timeslots => timeslots && timeslots[0])
+      .filter(value => !!value && value.end);
+
+    if (firstTimeSlots.length === 0) {
+      return {
+        mobilePlaceholderOffset: 0,
+        timeSlotPlaceholderSizes: Array(slots.length).fill(0),
+      };
+    }
+
+    const earliestTimeSlot = minBy(firstTimeSlots, timeSlot =>
+      moment(timeSlot.start).format('HHMM')
+    );
+    const dateForTimeComparison = { year: 2000, dayOfYear: 1 };
+    const earliestStart = moment(earliestTimeSlot.start).set(dateForTimeComparison);
+
+    const timeSlotPlaceholderSizes = slots.map((slot) => {
+      if (!slot[0] || !slot[0].end) {
+        return null;
+      }
+      const currentStart = moment(slot[0].start).set(dateForTimeComparison);
+      return currentStart.diff(earliestStart, 'minutes') / 30;
+    });
+
+    const selectedDateIndex = findIndex(
+      slots,
+      slot => moment(slot[0].start).format(constants.DATE_FORMAT) === selectedDate
+    );
+
+    const mobilePlaceholderSizes = timeSlotPlaceholderSizes
+      .slice(selectedDateIndex, selectedDateIndex + 3)
+      .filter(size => size !== null);
+
+    const mobilePlaceholderOffset =
+      mobilePlaceholderSizes.length > 0 ? Math.min(...mobilePlaceholderSizes) : 0;
+
+    return {
+      mobilePlaceholderOffset,
+      timeSlotPlaceholderSizes,
+    };
+  }
+
   renderTimeSlots = () => {
     const { selected, selectedDate, slots } = this.props;
     let lastSelectableFound = false;
+
+    const { mobilePlaceholderOffset, timeSlotPlaceholderSizes } = this.calculatePlaceholders(
+      selectedDate,
+      slots
+    );
 
     return slots.map((timeSlots, index) => {
       if (!timeSlots.length) {
         return null;
       }
-      const slot = timeSlots.length ? timeSlots[0] : null;
+      const slot = timeSlots[0];
+      const placeholderSize = timeSlotPlaceholderSizes[index];
+
       const slotDate = moment(slot.start).format(constants.DATE_FORMAT);
       const nextFromSelectedDate = utils.getNextDayFromDate(selectedDate);
       const secondFromSelectedDate = utils.getSecondDayFromDate(selectedDate);
       const isNextWeek = moment(slot.start).week() !== moment(selectedDate).week();
+      const className = classnames('app-TimeSlots--date', {
+        'app-TimeSlots--date--selected': slotDate === selectedDate,
+        'app-TimeSlots--date--selected--next--day': slotDate === nextFromSelectedDate,
+        'app-TimeSlots--date--selected--second--day': slotDate === secondFromSelectedDate,
+        'app-TimeSlots--date--selected--next--week': isNextWeek,
+      });
+
       return (
-        <div
-          className={classnames('app-TimeSlots--date', {
-            'app-TimeSlots--date--selected': slotDate === selectedDate,
-            'app-TimeSlots--date--selected--next--day': slotDate === nextFromSelectedDate,
-            'app-TimeSlots--date--selected--second--day': slotDate === secondFromSelectedDate,
-            'app-TimeSlots--date--selected--next--week': isNextWeek,
-          })}
-          key={`dateslot-${index}`}
-        >
+        <div className={className} key={`dateslot-${index}`}>
           <h6>{slot && slot.start ? moment(slot.start).format('dd D.M') : ''}</h6>
+
+          {!!placeholderSize && (
+            <TimeSlotPlaceholder mobileOffset={mobilePlaceholderOffset} size={placeholderSize} />
+          )}
+
           {timeSlots.map((timeSlot) => {
             if (!lastSelectableFound && selected.length && timeSlot.reserved) {
               lastSelectableFound = utils.isSlotAfterSelected(timeSlot, selected);
@@ -57,7 +115,7 @@ class TimeSlots extends Component {
         </div>
       );
     });
-  }
+  };
 
   renderTimeSlot = (slot, lastSelectableFound) => {
     const {
@@ -79,8 +137,13 @@ class TimeSlots extends Component {
       );
     }
     const scrollTo = time && time === slot.start;
-    const isSelectable = utils.isSlotSelectable(slot, selected, resource,
-      lastSelectableFound, isAdmin);
+    const isSelectable = utils.isSlotSelectable(
+      slot,
+      selected,
+      resource,
+      lastSelectableFound,
+      isAdmin
+    );
     const isSelected = utils.isSlotSelected(slot, selected);
     return (
       <TimeSlot
@@ -97,21 +160,19 @@ class TimeSlots extends Component {
         slot={slot}
       />
     );
-  }
+  };
 
   render() {
     const { isFetching } = this.props;
 
     return (
       <Loader loaded={!isFetching}>
-        <div className="app-TimeSlots">
-          {this.renderTimeSlots()}
-        </div>
+        <div className="app-TimeSlots">{this.renderTimeSlots()}</div>
       </Loader>
     );
   }
 }
 
-TimeSlots = injectT(TimeSlots);  // eslint-disable-line
+TimeSlots = injectT(TimeSlots); // eslint-disable-line
 
 export default TimeSlots;
