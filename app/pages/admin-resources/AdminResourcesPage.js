@@ -7,9 +7,9 @@ import { bindActionCreators } from 'redux';
 import { fetchFavoritedResources } from 'actions/resourceActions';
 import {
   changeAdminResourcesPageDate,
-  filterAdminResourceType,
+  selectAdminResourceType,
   openConfirmReservationModal,
-  unfilterAdminResourceType,
+  unselectAdminResourceType,
 } from 'actions/uiActions';
 import { injectT } from 'i18n';
 import PageWrapper from 'pages/PageWrapper';
@@ -57,7 +57,7 @@ class UnconnectedAdminResourcesPage extends Component {
 
   render() {
     const {
-      filteredResourceTypes,
+      selectedResourceTypes,
       isAdmin,
       isLoggedin,
       isFetchingResources,
@@ -73,10 +73,10 @@ class UnconnectedAdminResourcesPage extends Component {
           {isLoggedin && (
             <div>
               <ResourceTypeFilter
-                filteredResourceTypes={filteredResourceTypes}
-                onFilterResourceType={this.props.actions.filterAdminResourceType}
-                onUnfilterResourceType={this.props.actions.unfilterAdminResourceType}
+                onSelectResourceType={this.props.actions.selectAdminResourceType}
+                onUnselectResourceType={this.props.actions.unselectAdminResourceType}
                 resourceTypes={resourceTypes}
+                selectedResourceTypes={selectedResourceTypes}
               />
               <AvailabilityView
                 date={this.props.date}
@@ -107,7 +107,7 @@ class UnconnectedAdminResourcesPage extends Component {
 UnconnectedAdminResourcesPage.propTypes = {
   actions: PropTypes.object.isRequired,
   date: PropTypes.string.isRequired,
-  filteredResourceTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectedResourceTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
   isAdmin: PropTypes.bool.isRequired,
   isLoggedin: PropTypes.bool.isRequired,
   isFetchingResources: PropTypes.bool.isRequired,
@@ -124,9 +124,9 @@ function mapDispatchToProps(dispatch) {
     changeAdminResourcesPageDate,
     changeRecurringBaseTime: recurringReservations.changeBaseTime,
     fetchFavoritedResources,
-    filterAdminResourceType,
+    selectAdminResourceType,
     openConfirmReservationModal,
-    unfilterAdminResourceType,
+    unselectAdminResourceType,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

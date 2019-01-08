@@ -22,8 +22,8 @@ describe('pages/admin-resources/adminResourcesPageSelector', () => {
     expect(getSelected().resources).to.exist;
   });
 
-  it('returns filteredResourceTypes', () => {
-    expect(getSelected().filteredResourceTypes).to.exist;
+  it('returns selectedResourceTypes', () => {
+    expect(getSelected().selectedResourceTypes).to.exist;
   });
 
   it('returns resourceTypes', () => {
@@ -75,7 +75,7 @@ describe('pages/admin-resources/adminResourcesPageSelector', () => {
     expect(selected.resourceTypes).to.deep.equal(expected);
   });
 
-  it('returns an array of filteredResourceTypes and filtered resourceIds', () => {
+  it('returns an array of selectedResourceTypes and filtered resourceIds', () => {
     const resource1 = { id: 1, name: { fi: 'Tatooine' }, type: { name: 'school' } };
     const resource2 = { id: 2, name: { fi: 'Dantooine' }, type: { name: 'library' } };
     const resource3 = { id: 3, name: { fi: 'Alderaan' }, type: { name: 'printer' } };
@@ -85,11 +85,11 @@ describe('pages/admin-resources/adminResourcesPageSelector', () => {
         [resource2.id]: resource2,
         [resource3.id]: resource3,
       },
-      'ui.pages.adminResources.filteredResourceTypes': ['school'],
+      'ui.pages.adminResources.selectedResourceTypes': ['school'],
       'ui.pages.adminResources.resourceIds': [resource1.id, resource3.id],
     };
     const selected = getSelected(extraState);
-    expect(selected.filteredResourceTypes).to.deep.equal(['school']);
+    expect(selected.selectedResourceTypes).to.deep.equal(['school']);
     expect(selected.resources).to.deep.equal([1]);
   });
 });

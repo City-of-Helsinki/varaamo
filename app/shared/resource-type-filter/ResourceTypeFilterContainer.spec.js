@@ -9,10 +9,10 @@ import ResourceTypeFilterButton from './ResourceTypeFilterButton';
 
 describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
   const defaultProps = {
-    onFilterResourceType: simple.mock(),
-    onUnfilterResourceType: simple.mock(),
+    onSelectResourceType: simple.mock(),
+    onUnselectResourceType: simple.mock(),
     resourceTypes: ['a', 'b', 'c'],
-    filteredResourceTypes: ['a'],
+    selectedResourceTypes: ['a'],
   };
 
   function getWrapper(props) {
@@ -39,7 +39,7 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
       expect(resourceTypeFilter.prop('resourceType')).to.equal('a');
     });
 
-    describe('filtered', () => {
+    describe('selected', () => {
       before(() => {
         resourceTypeFilter = wrapper.find(ResourceTypeFilterButton).at(0);
       });
@@ -48,7 +48,7 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
         expect(resourceTypeFilter.prop('active')).to.be.true;
       });
     });
-    describe('not filtered', () => {
+    describe('not selected', () => {
       before(() => {
         resourceTypeFilter = wrapper.find(ResourceTypeFilterButton).at(1);
       });
@@ -67,26 +67,26 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
     });
 
     beforeEach(() => {
-      defaultProps.onFilterResourceType.reset();
-      defaultProps.onUnfilterResourceType.reset();
+      defaultProps.onSelectResourceType.reset();
+      defaultProps.onUnselectResourceType.reset();
     });
 
-    it('calls onUnfilterResourceType if resource was on filtered list', () => {
-      instance.handleClick(defaultProps.filteredResourceTypes[0]);
-      expect(defaultProps.onUnfilterResourceType.callCount).to.equal(1);
-      expect(defaultProps.onUnfilterResourceType.lastCall.args).to.deep.equal(
-        [defaultProps.filteredResourceTypes[0]]
+    it('calls onUnselectResourceType if resource was on selected list', () => {
+      instance.handleClick(defaultProps.selectedResourceTypes[0]);
+      expect(defaultProps.onUnselectResourceType.callCount).to.equal(1);
+      expect(defaultProps.onUnselectResourceType.lastCall.args).to.deep.equal(
+        [defaultProps.selectedResourceTypes[0]]
       );
-      expect(defaultProps.onFilterResourceType.callCount).to.equal(0);
+      expect(defaultProps.onSelectResourceType.callCount).to.equal(0);
     });
 
-    it('calls onFilterResourceType if resource was not on filtered list', () => {
+    it('calls onSelectResourceType if resource was not on selected list', () => {
       instance.handleClick(defaultProps.resourceTypes[-1]);
-      expect(defaultProps.onFilterResourceType.callCount).to.equal(1);
-      expect(defaultProps.onFilterResourceType.lastCall.args).to.deep.equal(
+      expect(defaultProps.onSelectResourceType.callCount).to.equal(1);
+      expect(defaultProps.onSelectResourceType.lastCall.args).to.deep.equal(
         [defaultProps.resourceTypes[-1]]
       );
-      expect(defaultProps.onUnfilterResourceType.callCount).to.equal(0);
+      expect(defaultProps.onUnselectResourceType.callCount).to.equal(0);
     });
   });
 });

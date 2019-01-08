@@ -7,7 +7,7 @@ import types from 'constants/ActionTypes';
 
 const initialState = Immutable({
   date: undefined,
-  filteredResourceTypes: [],
+  selectedResourceTypes: [],
   resourceIds: [],
 });
 
@@ -17,15 +17,15 @@ function adminResourcesPageReducer(state = initialState, action) {
       return state.merge({ date: action.payload || undefined });
     }
 
-    case types.UI.FILTER_ADMIN_RESOURCE_TYPE: {
+    case types.UI.SELECT_ADMIN_RESOURCE_TYPE: {
       return state.merge({
-        filteredResourceTypes: uniq([...state.filteredResourceTypes, action.payload]),
+        selectedResourceTypes: uniq([...state.selectedResourceTypes, action.payload]),
       });
     }
 
-    case types.UI.UNFILTER_ADMIN_RESOURCE_TYPE: {
-      return state.merge({ filteredResourceTypes: filter(
-          state.filteredResourceTypes,
+    case types.UI.UNSELECT_ADMIN_RESOURCE_TYPE: {
+      return state.merge({ selectedResourceTypes: filter(
+          state.selectedResourceTypes,
           resourceType => resourceType !== action.payload
         ) });
     }

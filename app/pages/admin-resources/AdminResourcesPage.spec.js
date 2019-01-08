@@ -12,21 +12,21 @@ import { UnconnectedAdminResourcesPage as AdminResourcesPage } from './AdminReso
 describe('pages/admin-resources/AdminResourcesPage', () => {
   const changeAdminResourcesPageDate = simple.stub();
   const fetchFavoritedResources = simple.stub();
-  const filterAdminResourceType = simple.stub();
+  const selectAdminResourceType = simple.stub();
   const openConfirmReservationModal = simple.stub();
-  const unfilterAdminResourceType = simple.stub();
+  const unselectAdminResourceType = simple.stub();
 
   const defaultProps = {
     actions: {
       changeAdminResourcesPageDate,
       changeRecurringBaseTime: () => null,
       fetchFavoritedResources,
-      filterAdminResourceType,
+      selectAdminResourceType,
       openConfirmReservationModal,
-      unfilterAdminResourceType,
+      unselectAdminResourceType,
     },
     date: '2017-01-10',
-    filteredResourceTypes: [],
+    selectedResourceTypes: [],
     isAdmin: true,
     isLoggedin: true,
     isFetchingResources: false,
@@ -106,13 +106,13 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
         const wrapper = getIsAdminWrapper();
         const resourceTypeFilter = wrapper.find(ResourceTypeFilter);
         expect(resourceTypeFilter).to.have.length(1);
-        expect(resourceTypeFilter.prop('filteredResourceTypes')).to.deep.equal(
-          defaultProps.filteredResourceTypes
+        expect(resourceTypeFilter.prop('selectedResourceTypes')).to.deep.equal(
+          defaultProps.selectedResourceTypes
         );
         expect(resourceTypeFilter.prop('resourceTypes')).to.deep.equal(defaultProps.resourceTypes);
-        expect(resourceTypeFilter.prop('onFilterResourceType')).to.equal(filterAdminResourceType);
-        expect(resourceTypeFilter.prop('onUnfilterResourceType')).to.equal(
-          unfilterAdminResourceType
+        expect(resourceTypeFilter.prop('onSelectResourceType')).to.equal(selectAdminResourceType);
+        expect(resourceTypeFilter.prop('onUnselectResourceType')).to.equal(
+          unselectAdminResourceType
         );
       });
     });
