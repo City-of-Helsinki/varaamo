@@ -4,8 +4,8 @@ import Immutable from 'seamless-immutable';
 
 import {
   changeAdminResourcesPageDate,
-  filterAdminResourceType,
-  unfilterAdminResourceType,
+  selectAdminResourceType,
+  unselectAdminResourceType,
 } from 'actions/uiActions';
 import types from 'constants/ActionTypes';
 import Resource from 'utils/fixtures/Resource';
@@ -41,20 +41,20 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
     describe('UI.FILTER_ADMIN_RESOURCE_TYPE', () => {
       it('updates filtered types from payload', () => {
         const resourceType = 'new type';
-        const state = adminResourcesPageReducer(undefined, filterAdminResourceType(resourceType));
-        expect(state.filteredResourceTypes).to.deep.equal([resourceType]);
+        const state = adminResourcesPageReducer(undefined, selectAdminResourceType(resourceType));
+        expect(state.selectedResourceTypes).to.deep.equal([resourceType]);
       });
 
       it('does not duplicate types in array', () => {
         const resourceType = 'new type';
         const initialState = Immutable({
-          filteredResourceTypes: [resourceType],
+          selectedResourceTypes: [resourceType],
         });
         const state = adminResourcesPageReducer(
           initialState,
-          filterAdminResourceType(resourceType)
+          selectAdminResourceType(resourceType)
         );
-        expect(state.filteredResourceTypes).to.deep.equal([resourceType]);
+        expect(state.selectedResourceTypes).to.deep.equal([resourceType]);
       });
     });
 
@@ -63,13 +63,13 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
         const resourceType = 'type';
         const removedResourceType = 'old type';
         const initialState = Immutable({
-          filteredResourceTypes: [removedResourceType, resourceType],
+          selectedResourceTypes: [removedResourceType, resourceType],
         });
         const state = adminResourcesPageReducer(
           initialState,
-          unfilterAdminResourceType(removedResourceType)
+          unselectAdminResourceType(removedResourceType)
         );
-        expect(state.filteredResourceTypes).to.deep.equal([resourceType]);
+        expect(state.selectedResourceTypes).to.deep.equal([resourceType]);
       });
     });
 

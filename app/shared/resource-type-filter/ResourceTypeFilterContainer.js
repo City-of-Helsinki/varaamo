@@ -6,34 +6,34 @@ import ResourceTypeFilterButton from './ResourceTypeFilterButton';
 
 class ResourceTypeFilterContainer extends Component {
   static propTypes = {
-    filteredResourceTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
-    onFilterResourceType: PropTypes.func.isRequired,
-    onUnfilterResourceType: PropTypes.func.isRequired,
+    selectedResourceTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
+    onSelectResourceType: PropTypes.func.isRequired,
+    onUnselectResourceType: PropTypes.func.isRequired,
     resourceTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
     t: PropTypes.func.isRequired,
   };
 
   handleClick = (resourceType) => {
     const {
-      filteredResourceTypes,
-      onFilterResourceType,
-      onUnfilterResourceType,
+      selectedResourceTypes,
+      onSelectResourceType,
+      onUnselectResourceType,
     } = this.props;
-    if (includes(filteredResourceTypes, resourceType)) {
-      onUnfilterResourceType(resourceType);
+    if (includes(selectedResourceTypes, resourceType)) {
+      onUnselectResourceType(resourceType);
     } else {
-      onFilterResourceType(resourceType);
+      onSelectResourceType(resourceType);
     }
   }
 
   render() {
-    const t = this.props.t;
+    const { t, selectedResourceTypes, resourceTypes } = this.props;
     return (
       <div className="resource-type-filter-container">
         <h6>{t('ResourceTypeFilter.title')}</h6>
-        { this.props.resourceTypes.map(resourceType =>
+        { resourceTypes.map(resourceType =>
           <ResourceTypeFilterButton
-            active={includes(this.props.filteredResourceTypes, resourceType)}
+            active={includes(selectedResourceTypes, resourceType)}
             key={`resource-type-${resourceType}`}
             onClick={this.handleClick}
             resourceType={resourceType}

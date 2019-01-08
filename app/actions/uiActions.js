@@ -61,7 +61,7 @@ const enableGeoposition = () => (dispatch) => {
 
 const enableTimeRange = createAction(types.UI.ENABLE_TIME_RANGE);
 
-const filterAdminResourceType = createAction(types.UI.FILTER_ADMIN_RESOURCE_TYPE);
+const selectAdminResourceType = createAction(types.UI.SELECT_ADMIN_RESOURCE_TYPE);
 
 const hideReservationInfoModal = createAction(types.UI.HIDE_RESERVATION_INFO_MODAL);
 
@@ -109,7 +109,7 @@ const toggleTimeSlot = createAction(types.UI.TOGGLE_TIME_SLOT);
 
 const toggleResourceMap = createAction(types.UI.TOGGLE_RESOURCE_SHOW_MAP);
 
-const unfilterAdminResourceType = createAction(types.UI.UNFILTER_ADMIN_RESOURCE_TYPE);
+const unselectAdminResourceType = createAction(types.UI.UNSELECT_ADMIN_RESOURCE_TYPE);
 
 export {
   cancelReservationEdit,
@@ -127,7 +127,7 @@ export {
   disableTimeRange,
   enableGeoposition,
   enableTimeRange,
-  filterAdminResourceType,
+  selectAdminResourceType,
   hideReservationInfoModal,
   openConfirmReservationModal,
   openReservationCancelModal,
@@ -141,5 +141,5 @@ export {
   startReservationEditInInfoModal,
   toggleResourceMap,
   toggleTimeSlot,
-  unfilterAdminResourceType,
+  unselectAdminResourceType,
 };
