@@ -45,7 +45,7 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
       });
 
       it('passes correct active prop', () => {
-        expect(resourceTypeFilter.prop('active')).to.be.false;
+        expect(resourceTypeFilter.prop('active')).to.be.true;
       });
     });
     describe('not filtered', () => {
@@ -54,7 +54,7 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
       });
 
       it('passes correct active prop', () => {
-        expect(resourceTypeFilter.prop('active')).to.be.true;
+        expect(resourceTypeFilter.prop('active')).to.be.false;
       });
     });
   });

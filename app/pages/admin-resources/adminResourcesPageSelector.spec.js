@@ -90,6 +90,6 @@ describe('pages/admin-resources/adminResourcesPageSelector', () => {
     };
     const selected = getSelected(extraState);
     expect(selected.filteredResourceTypes).to.deep.equal(['school']);
-    expect(selected.resources).to.deep.equal([3]);
+    expect(selected.resources).to.deep.equal([1]);
   });
 });
