@@ -13,12 +13,7 @@ class ResourceTypeFilterContainer extends Component {
     t: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick(resourceType) {
+  handleClick = (resourceType) => {
     const {
       filteredResourceTypes,
       onFilterResourceType,
