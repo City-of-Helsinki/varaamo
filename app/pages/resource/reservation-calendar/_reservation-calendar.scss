@@ -2,11 +2,16 @@
   @media (min-width: $screen-md-min) {
     margin-bottom: 240px;
   }
+
+  &__reserve-button {
+    font-size: 24px;
+  }
 }
 
 .reservation-calendar-reserve-info {
   > div:first-child {
     padding-left: 0;
+    padding-top: 16px;
   }
   > div:not(:first-child) {
     padding-right: 0;

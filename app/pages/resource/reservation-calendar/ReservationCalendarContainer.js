@@ -163,7 +163,11 @@ export class UnconnectedReservationCalendarContainer extends Component {
               {this.getSelectedTimeText(selected)}
             </Col>
             <Col xs={4}>
-              <Button bsStyle="primary" onClick={this.handleReserveClick}>
+              <Button
+                bsStyle="primary"
+                className="reservation-calendar__reserve-button"
+                onClick={this.handleReserveClick}
+              >
                 {t('TimeSlots.reserveButton')}
               </Button>
             </Col>
