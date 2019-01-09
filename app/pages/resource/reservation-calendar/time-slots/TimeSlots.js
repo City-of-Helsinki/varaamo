@@ -55,7 +55,7 @@ class TimeSlots extends Component {
 
     const selectedDateIndex = findIndex(
       slots,
-      slot => moment(slot[0].start).format(constants.DATE_FORMAT) === selectedDate
+      slot => !!slot[0] && moment(slot[0].start).format(constants.DATE_FORMAT) === selectedDate
     );
 
     const mobilePlaceholderSizes = timeSlotPlaceholderSizes
