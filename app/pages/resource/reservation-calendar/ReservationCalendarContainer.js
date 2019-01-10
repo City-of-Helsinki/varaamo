@@ -11,6 +11,7 @@ import { first, last, orderBy } from 'lodash';
 import { addNotification } from 'actions/notificationsActions';
 import {
   cancelReservationEdit,
+  clearTimeSlots,
   openConfirmReservationModal,
   selectReservationSlot,
   toggleTimeSlot,
@@ -146,6 +147,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
             isFetching={isFetchingResource}
             isLoggedIn={isLoggedIn}
             isStaff={isStaff}
+            onClear={actions.clearTimeSlots}
             onClick={actions.toggleTimeSlot}
             resource={resource}
             selected={selected}
@@ -194,6 +196,7 @@ function mapDispatchToProps(dispatch) {
   const actionCreators = {
     addNotification,
     cancelReservationEdit,
+    clearTimeSlots,
     changeRecurringBaseTime: recurringReservations.changeBaseTime,
     openConfirmReservationModal,
     selectReservationSlot,

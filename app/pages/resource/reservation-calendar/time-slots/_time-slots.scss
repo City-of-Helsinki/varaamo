@@ -45,6 +45,31 @@
     background-color: $dark-gray;
   }
 
+  .app-TimeSlotWrapper {
+    position: relative;
+
+    .app-TimeSlotClear {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      height: 35px;
+      width: 35px;
+      padding: 0;
+      background-color: transparent;
+      border: none;
+      outline: none;
+      text-align: center;
+
+      &--icon {
+        display: inline-block;
+        height: 18px;
+        width: 18px;
+        vertical-align: middle;
+        @include icon-times($white);
+      }
+    }
+  }
+
   .app-TimeSlot {
     $slot-height: 32px;
     display: block;

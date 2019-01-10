@@ -10,8 +10,10 @@ class TimeSlot extends Component {
   static propTypes = {
     addNotification: PropTypes.func.isRequired,
     isAdmin: PropTypes.bool.isRequired,
+    isFirstSelected: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     isSelectable: PropTypes.bool.isRequired,
+    onClear: PropTypes.func.isRequired,
     onClick: PropTypes.func.isRequired,
     resource: PropTypes.object.isRequired,
     scrollTo: PropTypes.bool,
@@ -46,14 +48,7 @@ class TimeSlot extends Component {
   }
 
   handleClick = (disabled) => {
-    const {
-      addNotification,
-      isLoggedIn,
-      onClick,
-      resource,
-      slot,
-      t,
-    } = this.props;
+    const { addNotification, isLoggedIn, onClick, resource, slot, t } = this.props;
 
     if (disabled) {
       const notification = this.getReservationInfoNotification(isLoggedIn, resource, slot, t);
@@ -67,46 +62,54 @@ class TimeSlot extends Component {
         resource: resource.id,
       });
     }
-  }
+  };
 
   render() {
     const {
       isAdmin,
+      isFirstSelected,
       isLoggedIn,
       isSelectable,
+      onClear,
       resource,
       selected,
       slot,
     } = this.props;
     const isPast = moment(slot.end) < moment();
-    const disabled = (
+    const disabled =
       !isLoggedIn ||
       (!isSelectable && !selected) ||
       !resource.userPermissions.canMakeReservations ||
-      (!slot.editing && (slot.reserved || isPast))
-    );
+      (!slot.editing && (slot.reserved || isPast));
     const reservation = slot.reservation;
     const isOwnReservation = reservation && reservation.isOwn;
     return (
-      <button
-        className={classNames('app-TimeSlot', {
-          'app-TimeSlot--disabled': disabled,
-          'app-TimeSlot--is-admin': isAdmin,
-          'app-TimeSlot--editing': slot.editing,
-          'app-TimeSlot--past': isPast,
-          'app-TimeSlot--own-reservation': isOwnReservation,
-          'app-TimeSlot--reservation-starting': (isAdmin || isOwnReservation) && slot.reservationStarting,
-          'app-TimeSlot--reservation-ending': (isAdmin || isOwnReservation) && slot.reservationEnding,
-          'app-TimeSlot--reserved': slot.reserved,
-          'app-TimeSlot--selected': selected,
-        })}
-        onClick={() => this.handleClick(disabled)}
-      >
-        <span className="app-TimeSlot--icon" />
-        <time dateTime={slot.asISOString}>
-          {moment(slot.start).format('HH:mm')}
-        </time>
-      </button>
+      <div className="app-TimeSlotWrapper">
+        <button
+          className={classNames('app-TimeSlot', {
+            'app-TimeSlot--disabled': disabled,
+            'app-TimeSlot--is-admin': isAdmin,
+            'app-TimeSlot--editing': slot.editing,
+            'app-TimeSlot--past': isPast,
+            'app-TimeSlot--own-reservation': isOwnReservation,
+            'app-TimeSlot--reservation-starting':
+              (isAdmin || isOwnReservation) && slot.reservationStarting,
+            'app-TimeSlot--reservation-ending':
+              (isAdmin || isOwnReservation) && slot.reservationEnding,
+            'app-TimeSlot--reserved': slot.reserved,
+            'app-TimeSlot--selected': selected,
+          })}
+          onClick={() => this.handleClick(disabled)}
+        >
+          <span className="app-TimeSlot--icon" />
+          <time dateTime={slot.asISOString}>{moment(slot.start).format('HH:mm')}</time>
+        </button>
+        {isFirstSelected && (
+          <button className="app-TimeSlotClear" onClick={onClear}>
+            <span className="app-TimeSlotClear--icon" />
+          </button>
+        )}
+      </div>
     );
   }
 }
