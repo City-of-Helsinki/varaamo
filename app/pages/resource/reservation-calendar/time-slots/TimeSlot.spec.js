@@ -16,9 +16,11 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     isEditing: true,
     isLoggedIn: true,
     isSelectable: true,
+    onClear: simple.stub(),
     onClick: simple.stub(),
     resource: Resource.build(),
     selected: false,
+    showClear: false,
     slot: Immutable(TimeSlotFixture.build()),
   };
 
@@ -26,8 +28,20 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     return shallowWithIntl(<TimeSlot {...defaultProps} {...extraProps} />);
   }
 
+  function getClickableButton(props) {
+    return getWrapper(props).find('button.app-TimeSlot');
+  }
+
   it('renders button.app-TimeSlot', () => {
-    expect(getWrapper().is('button.app-TimeSlot')).to.be.true;
+    expect(getClickableButton()).to.have.length(1);
+  });
+
+  it('does not render clear button when clearing disabled', () => {
+    expect(getWrapper().find('button.app-TimeSlotClear')).to.have.length(0);
+  });
+
+  it('renders clear button when clearing enabled', () => {
+    expect(getWrapper({ showClear: true }).find('button.app-TimeSlotClear')).to.have.length(1);
   });
 
   it('renders slot start time as button text', () => {
@@ -38,10 +52,12 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
   describe('button onClick when user is not logged in', () => {
     let instance;
     let wrapper;
+    let button;
 
     before(() => {
       wrapper = getWrapper({ isLoggedIn: false });
       instance = wrapper.instance();
+      button = wrapper.find('button.app-TimeSlot');
       instance.handleClick = simple.mock();
     });
 
@@ -54,8 +70,8 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     });
 
     it('calls handleClick with disabled true', () => {
-      expect(wrapper.prop('onClick')).to.be.a('function');
-      wrapper.prop('onClick')();
+      expect(button.prop('onClick')).to.be.a('function');
+      button.prop('onClick')();
       expect(instance.handleClick.callCount).to.equal(1);
       expect(instance.handleClick.lastCall.args).to.deep.equal([true]);
     });
@@ -64,10 +80,12 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
   describe('button onClick when user is logged in', () => {
     let instance;
     let wrapper;
+    let button;
 
     before(() => {
       wrapper = getWrapper({ isLoggedIn: true });
       instance = wrapper.instance();
+      button = wrapper.find('button.app-TimeSlot');
       instance.handleClick = simple.mock();
     });
 
@@ -80,8 +98,8 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     });
 
     it('calls handleClick with disabled false', () => {
-      expect(wrapper.prop('onClick')).to.be.a('function');
-      wrapper.prop('onClick')();
+      expect(button.prop('onClick')).to.be.a('function');
+      button.prop('onClick')();
       expect(instance.handleClick.callCount).to.equal(1);
       expect(instance.handleClick.lastCall.args).to.deep.equal([false]);
     });
@@ -180,10 +198,33 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
 
     expect(addNotification.callCount).to.equal(0);
     expect(onClick.callCount).to.equal(1);
-    expect(onClick.lastCall.args).to.deep.equal([{
-      begin: defaultProps.slot.start,
-      end: defaultProps.slot.end,
-      resource: defaultProps.resource.id,
-    }]);
+    expect(onClick.lastCall.args).to.deep.equal([
+      {
+        begin: defaultProps.slot.start,
+        end: defaultProps.slot.end,
+        resource: defaultProps.resource.id,
+      },
+    ]);
+  });
+
+  describe('clear button onClick when clear button is available', () => {
+    let wrapper;
+    let button;
+    const onClear = simple.stub();
+
+    before(() => {
+      wrapper = getWrapper({ showClear: true, onClear });
+      button = wrapper.find('button.app-TimeSlotClear');
+    });
+
+    after(() => {
+      simple.restore();
+    });
+
+    it('calls onClear function', () => {
+      expect(button.prop('onClick')).to.be.a('function');
+      button.prop('onClick')();
+      expect(onClear.callCount).to.equal(1);
+    });
   });
 });

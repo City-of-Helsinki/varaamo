@@ -8,6 +8,7 @@ import {
   cancelReservationEdit,
   changeAdminReservationFilters,
   clearReservations,
+  clearTimeSlots,
   closeReservationCancelModal,
   closeReservationCommentModal,
   closeReservationSuccessModal,
@@ -104,10 +105,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
       });
 
       it('does not affect other reservations in toShow', () => {
-        const reservations = [
-          Reservation.build(),
-          Reservation.build(),
-        ];
+        const reservations = [Reservation.build(), Reservation.build()];
         const initialState = Immutable({
           toShow: [reservations[0]],
         });
@@ -124,7 +122,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
       const postReservationError = createAction(
         types.API.RESERVATION_POST_ERROR,
         () => ({ response: { non_field_errors: [`['${failReason}']`] } }),
-        reservation => ({ reservation }),
+        reservation => ({ reservation })
       );
 
       it('adds the reservation in meta info to failed', () => {
@@ -140,19 +138,13 @@ describe('state/reducers/ui/reservationsReducer', () => {
       });
 
       it('does not affect other reservations in failed', () => {
-        const reservations = [
-          Reservation.build(),
-          Reservation.build(),
-        ];
+        const reservations = [Reservation.build(), Reservation.build()];
         const initialState = Immutable({
           failed: [reservations[0]],
         });
         const action = postReservationError(reservations[1]);
         const nextState = reservationsReducer(initialState, action);
-        const expected = Immutable([
-          reservations[0],
-          { ...reservations[1], failReason },
-        ]);
+        const expected = Immutable([reservations[0], { ...reservations[1], failReason }]);
 
         expect(nextState.failed).to.deep.equal(expected);
       });
@@ -351,10 +343,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
       });
 
       it('does not affect other reservations in toCancel', () => {
-        const reservations = [
-          Reservation.build(),
-          Reservation.build(),
-        ];
+        const reservations = [Reservation.build(), Reservation.build()];
         const initialState = Immutable({
           toCancel: [reservations[0]],
         });
@@ -381,10 +370,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
       });
 
       it('removes other reservations in toEdit', () => {
-        const reservations = [
-          Reservation.build(),
-          Reservation.build(),
-        ];
+        const reservations = [Reservation.build(), Reservation.build()];
         const initialState = Immutable({
           selected: [],
           toEdit: [reservations[0]],
@@ -410,15 +396,18 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const slots = getTimeSlots(reservation.begin, reservation.end, minPeriod);
         const firstSlot = first(slots);
         const lastSlot = last(slots);
-        const expected = [{
-          begin: firstSlot.start,
-          end: firstSlot.end,
-          resource: reservation.resource,
-        }, {
-          begin: lastSlot.start,
-          end: lastSlot.end,
-          resource: reservation.resource,
-        }];
+        const expected = [
+          {
+            begin: firstSlot.start,
+            end: firstSlot.end,
+            resource: reservation.resource,
+          },
+          {
+            begin: lastSlot.start,
+            end: lastSlot.end,
+            resource: reservation.resource,
+          },
+        ];
 
         expect(nextState.selected).to.deep.equal(expected);
       });
@@ -438,10 +427,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
       });
 
       it('does not affect other reservations in toShow', () => {
-        const reservations = [
-          Reservation.build(),
-          Reservation.build(),
-        ];
+        const reservations = [Reservation.build(), Reservation.build()];
         const initialState = Immutable({
           toShow: [reservations[0]],
         });
@@ -473,11 +459,13 @@ describe('state/reducers/ui/reservationsReducer', () => {
 
         it('does not affect other selected slots ', () => {
           const initialState = Immutable({
-            selected: [{
-              begin: '2015-12-12T10:00:00Z',
-              end: '2015-12-12T11:00:00Z',
-              resource: 'some-resource',
-            }],
+            selected: [
+              {
+                begin: '2015-12-12T10:00:00Z',
+                end: '2015-12-12T11:00:00Z',
+                resource: 'some-resource',
+              },
+            ],
           });
           const slot = {
             begin: '2015-10-11T10:00:00Z',
@@ -493,15 +481,18 @@ describe('state/reducers/ui/reservationsReducer', () => {
 
         it('replaces selected end slot when end slot after selected end slot', () => {
           const initialState = Immutable({
-            selected: [{
-              begin: '2015-12-12T10:00:00Z',
-              end: '2015-12-12T11:00:00Z',
-              resource: 'some-resource',
-            }, {
-              begin: '2015-12-12T11:00:00Z',
-              end: '2015-12-12T12:00:00Z',
-              resource: 'some-resource',
-            }],
+            selected: [
+              {
+                begin: '2015-12-12T10:00:00Z',
+                end: '2015-12-12T11:00:00Z',
+                resource: 'some-resource',
+              },
+              {
+                begin: '2015-12-12T11:00:00Z',
+                end: '2015-12-12T12:00:00Z',
+                resource: 'some-resource',
+              },
+            ],
           });
           const slot = {
             begin: '2015-12-12T13:00:00Z',
@@ -518,15 +509,18 @@ describe('state/reducers/ui/reservationsReducer', () => {
 
         it('replaces selected end slot when slot in middle of selected', () => {
           const initialState = Immutable({
-            selected: [{
-              begin: '2015-12-12T10:00:00Z',
-              end: '2015-12-12T11:00:00Z',
-              resource: 'some-resource',
-            }, {
-              begin: '2015-12-12T13:00:00Z',
-              end: '2015-12-12T14:00:00Z',
-              resource: 'some-resource',
-            }],
+            selected: [
+              {
+                begin: '2015-12-12T10:00:00Z',
+                end: '2015-12-12T11:00:00Z',
+                resource: 'some-resource',
+              },
+              {
+                begin: '2015-12-12T13:00:00Z',
+                end: '2015-12-12T14:00:00Z',
+                resource: 'some-resource',
+              },
+            ],
           });
           const slot = {
             begin: '2015-12-12T11:00:00Z',
@@ -572,15 +566,49 @@ describe('state/reducers/ui/reservationsReducer', () => {
           };
           const action = toggleTimeSlot(slot2);
           const initialState = Immutable({
-            selected: [
-              slot1,
-              slot2,
-            ],
+            selected: [slot1, slot2],
           });
           const nextState = reservationsReducer(initialState, action);
           const expected = Immutable([slot1]);
 
           expect(nextState.selected).to.deep.equal(expected);
+        });
+      });
+
+      describe('UI.CLEAR_TIME_SLOTS', () => {
+        it('clears one selected slot', () => {
+          const action = clearTimeSlots();
+          const initialState = Immutable({
+            selected: [
+              {
+                begin: '2015-12-12T10:00:00Z',
+                end: '2015-12-12T11:00:00Z',
+                resource: 'some-resource',
+              },
+            ],
+          });
+          const nextState = reservationsReducer(initialState, action);
+          expect(nextState.selected).to.deep.equal([]);
+        });
+
+        it('clears many selected slots', () => {
+          const action = clearTimeSlots();
+          const initialState = Immutable({
+            selected: [
+              {
+                begin: '2015-12-12T10:00:00Z',
+                end: '2015-12-12T11:00:00Z',
+                resource: 'some-resource',
+              },
+              {
+                begin: '2015-12-12T13:00:00Z',
+                end: '2015-12-12T14:00:00Z',
+                resource: 'some-resource',
+              },
+            ],
+          });
+          const nextState = reservationsReducer(initialState, action);
+          expect(nextState.selected).to.deep.equal([]);
         });
       });
     });

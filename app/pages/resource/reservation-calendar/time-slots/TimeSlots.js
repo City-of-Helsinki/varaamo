@@ -155,7 +155,6 @@ class TimeSlots extends Component {
         addNotification={addNotification}
         isAdmin={isAdmin}
         isEditing={isEditing}
-        isFirstSelected={isFirstSelected}
         isLoggedIn={isLoggedIn}
         isSelectable={isSelectable}
         key={slot.start}
@@ -164,6 +163,7 @@ class TimeSlots extends Component {
         resource={resource}
         scrollTo={scrollTo}
         selected={isSelected}
+        showClear={isFirstSelected}
         slot={slot}
       />
     );
