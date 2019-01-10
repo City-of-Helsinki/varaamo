@@ -100,7 +100,9 @@ class TimeSlots extends Component {
 
       return (
         <div className={className} key={`dateslot-${index}`}>
-          <h6>{slot && slot.start ? moment(slot.start).format('dd D.M') : ''}</h6>
+          <h6 className="app-TimeSlots--date--header">
+            {slot && slot.start ? moment(slot.start).format('dd D.M') : ''}
+          </h6>
 
           {!!placeholderSize && (
             <TimeSlotPlaceholder mobileOffset={mobilePlaceholderOffset} size={placeholderSize} />
