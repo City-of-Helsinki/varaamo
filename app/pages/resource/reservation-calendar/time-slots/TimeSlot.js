@@ -10,7 +10,7 @@ class TimeSlot extends Component {
   static propTypes = {
     addNotification: PropTypes.func.isRequired,
     isAdmin: PropTypes.bool.isRequired,
-    isFirstSelected: PropTypes.bool.isRequired,
+    showClear: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     isSelectable: PropTypes.bool.isRequired,
     onClear: PropTypes.func.isRequired,
@@ -67,7 +67,7 @@ class TimeSlot extends Component {
   render() {
     const {
       isAdmin,
-      isFirstSelected,
+      showClear,
       isLoggedIn,
       isSelectable,
       onClear,
@@ -104,7 +104,7 @@ class TimeSlot extends Component {
           <span className="app-TimeSlot--icon" />
           <time dateTime={slot.asISOString}>{moment(slot.start).format('HH:mm')}</time>
         </button>
-        {isFirstSelected && (
+        {showClear && (
           <button className="app-TimeSlotClear" onClick={onClear}>
             <span className="app-TimeSlotClear--icon" />
           </button>

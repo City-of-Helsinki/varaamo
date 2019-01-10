@@ -40,6 +40,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
     isEditing: false,
     isFetching: false,
     isLoggedIn: true,
+    onClear: simple.stub(),
     onClick: simple.stub(),
     resource: Resource.build(),
     selected: [
