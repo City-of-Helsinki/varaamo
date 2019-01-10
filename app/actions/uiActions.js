@@ -37,10 +37,7 @@ const closeReservationSuccessModal = createAction(
   () => ModalTypes.RESERVATION_SUCCESS
 );
 
-const closeResourceTermsModal = createAction(
-  types.UI.CLOSE_MODAL,
-  () => ModalTypes.RESOURCE_TERMS
-);
+const closeResourceTermsModal = createAction(types.UI.CLOSE_MODAL, () => ModalTypes.RESOURCE_TERMS);
 
 const disableGeoposition = createAction(types.UI.DISABLE_GEOPOSITION);
 const disableTimeRange = createAction(types.UI.DISABLE_TIME_RANGE);
@@ -55,7 +52,7 @@ const enableGeoposition = () => (dispatch) => {
   }
   navigator.geolocation.getCurrentPosition(
     position => dispatch(enableGeopositionSuccess(position)),
-    error => dispatch(enableGeopositionError(error)),
+    error => dispatch(enableGeopositionError(error))
   );
 };
 
@@ -80,32 +77,23 @@ const openReservationCommentModal = createAction(
   () => ModalTypes.RESERVATION_COMMENT
 );
 
-const selectReservationSlot = createAction(
-  types.UI.SELECT_RESERVATION_SLOT,
-);
+const selectReservationSlot = createAction(types.UI.SELECT_RESERVATION_SLOT);
 
-const selectReservationToCancel = createAction(
-  types.UI.SELECT_RESERVATION_TO_CANCEL
-);
+const selectReservationToCancel = createAction(types.UI.SELECT_RESERVATION_TO_CANCEL);
 
-const selectReservationToEdit = createAction(
-  types.UI.SELECT_RESERVATION_TO_EDIT
-);
+const selectReservationToEdit = createAction(types.UI.SELECT_RESERVATION_TO_EDIT);
 
-const selectReservationToShow = createAction(
-  types.UI.SELECT_RESERVATION_TO_SHOW
-);
+const selectReservationToShow = createAction(types.UI.SELECT_RESERVATION_TO_SHOW);
 
-const openResourceTermsModal = createAction(
-  types.UI.OPEN_MODAL,
-  () => ModalTypes.RESOURCE_TERMS
-);
+const openResourceTermsModal = createAction(types.UI.OPEN_MODAL, () => ModalTypes.RESOURCE_TERMS);
 
 const showReservationInfoModal = createAction(types.UI.SHOW_RESERVATION_INFO_MODAL);
 
 const startReservationEditInInfoModal = createAction(types.UI.START_RESERVATION_EDIT_IN_INFO_MODAL);
 
 const toggleTimeSlot = createAction(types.UI.TOGGLE_TIME_SLOT);
+
+const clearTimeSlots = createAction(types.UI.CLEAR_TIME_SLOTS);
 
 const toggleResourceMap = createAction(types.UI.TOGGLE_RESOURCE_SHOW_MAP);
 
@@ -114,6 +102,7 @@ const unselectAdminResourceType = createAction(types.UI.UNSELECT_ADMIN_RESOURCE_
 export {
   cancelReservationEdit,
   cancelReservationEditInInfoModal,
+  clearTimeSlots,
   changeAdminReservationFilters,
   changeAdminResourcesPageDate,
   changeSearchFilters,

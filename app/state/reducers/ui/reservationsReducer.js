@@ -27,11 +27,13 @@ function selectReservationToEdit(state, action) {
   const { minPeriod, reservation } = action.payload;
   const slots = getTimeSlots(reservation.begin, reservation.end, minPeriod);
   const firstSlot = first(slots);
-  const selected = [{
-    begin: firstSlot.start,
-    end: firstSlot.end,
-    resource: reservation.resource,
-  }];
+  const selected = [
+    {
+      begin: firstSlot.start,
+      end: firstSlot.end,
+      resource: reservation.resource,
+    },
+  ];
   if (slots.length > 1) {
     const lastSlot = last(slots);
     selected.push({
@@ -48,7 +50,10 @@ function selectReservationToEdit(state, action) {
 
 function parseError(error) {
   if (error.response && error.response.non_field_errors && error.response.non_field_errors.length) {
-    return error.response.non_field_errors.join('. ').replace('[\'', '').replace('\']', '');
+    return error.response.non_field_errors
+      .join('. ')
+      .replace("['", '')
+      .replace("']", '');
   } else if (error.response && error.response.detail) {
     return error.response.detail;
   }
@@ -57,7 +62,6 @@ function parseError(error) {
 
 function reservationsReducer(state = initialState, action) {
   switch (action.type) {
-
     case types.API.RESERVATION_POST_SUCCESS: {
       return state.merge({
         selected: [],
@@ -143,11 +147,19 @@ function reservationsReducer(state = initialState, action) {
       if (moment(lastSelected.begin).isBefore(slot.begin)) {
         return state.merge({ selected: [...without(state.selected, lastSelected), slot] });
       }
-      if (moment(firstSelected.begin).isBefore(slot.begin) &&
-        moment(lastSelected.begin).isAfter(slot.begin)) {
+      if (
+        moment(firstSelected.begin).isBefore(slot.begin) &&
+        moment(lastSelected.begin).isAfter(slot.begin)
+      ) {
         return state.merge({ selected: [...without(state.selected, lastSelected), slot] });
       }
       return state.merge({ selected: [...state.selected, slot] });
+    }
+
+    case types.UI.CLEAR_TIME_SLOTS: {
+      return state.merge({
+        selected: [],
+      });
     }
 
     default: {

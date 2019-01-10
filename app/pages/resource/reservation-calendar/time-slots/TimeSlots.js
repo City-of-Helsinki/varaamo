@@ -18,6 +18,7 @@ class TimeSlots extends Component {
     isEditing: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
+    onClear: PropTypes.func.isRequired,
     onClick: PropTypes.func.isRequired,
     resource: PropTypes.object.isRequired,
     selected: PropTypes.array.isRequired,
@@ -125,6 +126,7 @@ class TimeSlots extends Component {
       isAdmin,
       isEditing,
       isLoggedIn,
+      onClear,
       onClick,
       resource,
       selected,
@@ -147,14 +149,17 @@ class TimeSlots extends Component {
       isAdmin
     );
     const isSelected = utils.isSlotSelected(slot, selected);
+    const isFirstSelected = utils.isFirstSelected(slot, selected);
     return (
       <TimeSlot
         addNotification={addNotification}
         isAdmin={isAdmin}
         isEditing={isEditing}
+        isFirstSelected={isFirstSelected}
         isLoggedIn={isLoggedIn}
         isSelectable={isSelectable}
         key={slot.start}
+        onClear={onClear}
         onClick={onClick}
         resource={resource}
         scrollTo={scrollTo}

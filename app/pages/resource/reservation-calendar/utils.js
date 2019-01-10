@@ -12,7 +12,11 @@ function getEndOfSelection(selected) {
 }
 
 function getNextDayFromDate(date) {
-  return date ? moment(date).add(1, 'days').format(constants.DATE_FORMAT) : null;
+  return date
+    ? moment(date)
+        .add(1, 'days')
+        .format(constants.DATE_FORMAT)
+    : null;
 }
 
 function getNextWeeksDays(date) {
@@ -26,16 +30,22 @@ function getNextWeeksDays(date) {
 }
 
 function getSecondDayFromDate(date) {
-  return date ? moment(date).add(2, 'days').format(constants.DATE_FORMAT) : null;
+  return date
+    ? moment(date)
+        .add(2, 'days')
+        .format(constants.DATE_FORMAT)
+    : null;
 }
 
 function isInsideOpeningHours(slot, openingHours) {
   const date = moment(slot.start).format(constants.DATE_FORMAT);
   const slotOpeningHours = filter(openingHours, { date });
-  return some(slotOpeningHours, opening => (
-    moment(opening.opens).isSameOrBefore(slot.start) &&
-    moment(slot.end).isSameOrBefore(opening.closes)
-  ));
+  return some(
+    slotOpeningHours,
+    opening =>
+      moment(opening.opens).isSameOrBefore(slot.start) &&
+      moment(slot.end).isSameOrBefore(opening.closes)
+  );
 }
 
 function isSlotAfterSelected(slot, selected) {
@@ -61,8 +71,10 @@ function isSlotSelectable(slot, selected, resource, lastSelectableFound, isAdmin
       return false;
     }
   }
-  return moment(firstSelected.begin).isSame(slot.start, 'day') &&
-    moment(firstSelected.begin).isSameOrBefore(slot.start);
+  return (
+    moment(firstSelected.begin).isSame(slot.start, 'day') &&
+    moment(firstSelected.begin).isSameOrBefore(slot.start)
+  );
 }
 
 function isSlotSelected(slot, selected) {
@@ -71,8 +83,18 @@ function isSlotSelected(slot, selected) {
   }
   const firstSelected = getBeginOfSelection(selected);
   const lastSelected = getEndOfSelection(selected);
-  return moment(firstSelected.begin).isSameOrBefore(slot.start) &&
-    moment(lastSelected.end).isSameOrAfter(slot.end);
+  return (
+    moment(firstSelected.begin).isSameOrBefore(slot.start) &&
+    moment(lastSelected.end).isSameOrAfter(slot.end)
+  );
+}
+
+function isFirstSelected(slot, selected) {
+  if (!slot || !selected || !selected.length) {
+    return false;
+  }
+  const firstSelected = getBeginOfSelection(selected);
+  return moment(firstSelected.begin).isSame(slot.start);
 }
 
 export default {
@@ -83,4 +105,5 @@ export default {
   isSlotAfterSelected,
   isSlotSelectable,
   isSlotSelected,
+  isFirstSelected,
 };
