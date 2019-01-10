@@ -35,6 +35,16 @@
     margin-top: 20px;
   }
 
+  &--date--header {
+    margin: 0 0 4px 0;
+    padding: 10px;
+  }
+
+  &--date--selected > &--date--header {
+    color: white;
+    background-color: $dark-gray;
+  }
+
   .app-TimeSlot {
     $slot-height: 32px;
     display: block;
