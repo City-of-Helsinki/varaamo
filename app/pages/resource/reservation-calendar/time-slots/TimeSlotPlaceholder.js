@@ -8,9 +8,8 @@ export default function TimeSlotPlaceholder({ mobileOffset, size }) {
       {Array(size)
         .fill()
         .map((_, placeholderIndex) => (
-          <button
+          <div
             className="app-TimeSlot app-TimeSlot--placeholder"
-            disabled
             key={`timeslot-placeholder-${placeholderIndex}`}
           />
         ))}

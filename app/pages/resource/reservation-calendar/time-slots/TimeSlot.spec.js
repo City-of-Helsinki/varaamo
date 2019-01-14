@@ -29,19 +29,19 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
   }
 
   function getClickableButton(props) {
-    return getWrapper(props).find('button.app-TimeSlot');
+    return getWrapper(props).find('button.app-TimeSlot__action');
   }
 
-  it('renders button.app-TimeSlot', () => {
+  it('renders button.app-TimeSlot__action', () => {
     expect(getClickableButton()).to.have.length(1);
   });
 
   it('does not render clear button when clearing disabled', () => {
-    expect(getWrapper().find('button.app-TimeSlotClear')).to.have.length(0);
+    expect(getWrapper().find('button.app-TimeSlot__clear')).to.have.length(0);
   });
 
   it('renders clear button when clearing enabled', () => {
-    expect(getWrapper({ showClear: true }).find('button.app-TimeSlotClear')).to.have.length(1);
+    expect(getWrapper({ showClear: true }).find('button.app-TimeSlot__clear')).to.have.length(1);
   });
 
   it('renders slot start time as button text', () => {
@@ -57,7 +57,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     before(() => {
       wrapper = getWrapper({ isLoggedIn: false });
       instance = wrapper.instance();
-      button = wrapper.find('button.app-TimeSlot');
+      button = wrapper.find('button.app-TimeSlot__action');
       instance.handleClick = simple.mock();
     });
 
@@ -85,7 +85,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     before(() => {
       wrapper = getWrapper({ isLoggedIn: true });
       instance = wrapper.instance();
-      button = wrapper.find('button.app-TimeSlot');
+      button = wrapper.find('button.app-TimeSlot__action');
       instance.handleClick = simple.mock();
     });
 
@@ -214,7 +214,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
 
     before(() => {
       wrapper = getWrapper({ showClear: true, onClear });
-      button = wrapper.find('button.app-TimeSlotClear');
+      button = wrapper.find('button.app-TimeSlot__clear');
     });
 
     after(() => {
