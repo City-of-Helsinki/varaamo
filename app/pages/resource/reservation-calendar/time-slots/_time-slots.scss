@@ -56,6 +56,11 @@
       ~ .app-TimeSlot:not(.app-TimeSlot--disabled):not(.app-TimeSlot--selected) {
       color: $black;
       background-color: $silver;
+
+      &.app-TimeSlot--own-reservation {
+        color: $white;
+        background-color: $theme-info;
+      }
     }
   }
 
