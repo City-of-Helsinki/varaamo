@@ -200,7 +200,7 @@
   "ReservationPhase.timeTitle": "Varauksen ajankohta",
   "ReservationPhase.informationTitle": "Varauksen lisätiedot",
   "ReservationPhase.confirmationTitle": "Valmis",
-  "ReservationSlot.selectionInfoHeader": "Valitse varauksen päättymisajankohta",
+  "ReservationPopover.selectionInfoHeader": "Valitse varauksen päättymisajankohta",
   "ReservationSuccessModal.emailHelpText": "sekä varausvahvistuksesta, joka on lähetetty sähköpostiosoitteeseen: <strong> {email}</strong>",
   "ReservationSuccessModal.failedReservationsHeader": "Seuraavien varausten tekeminen ei onnistunut:",
   "ReservationSuccessModal.ownReservationsPageHelpText": "PIN-koodin voit tarkistaa jatkossa \"Omat varaukset\" -sivulta",

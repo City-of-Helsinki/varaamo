@@ -31,7 +31,8 @@
       width: calc(100% - 122px);
     }
   }
-  .top-left, .date-selector {
+  .top-left,
+  .date-selector {
     display: flex;
     align-items: center;
     height: $av-header-height;
@@ -45,11 +46,13 @@
     justify-content: space-between;
     text-transform: lowercase;
 
-    a:hover, a:focus {
+    a:hover,
+    a:focus {
       text-decoration: none;
     }
 
-    .previous, .next {
+    .previous,
+    .next {
       color: white;
       cursor: pointer;
       line-height: $av-header-height;
@@ -57,16 +60,17 @@
       overflow-x: hidden;
       white-space: nowrap;
     }
-    .previous::before, .next::after {
+    .previous::before,
+    .next::after {
       font-family: 'Glyphicons Halflings';
       vertical-align: middle;
     }
     .previous::before {
-      content: "\e079";
+      content: '\e079';
       padding-right: 5px;
     }
     .next::after {
-      content: "\e080";
+      content: '\e080';
       padding-left: 5px;
     }
   }
@@ -98,7 +102,8 @@
       &:active {
         border: none;
       }
-      &::before, &::after {
+      &::before,
+      &::after {
         visibility: hidden;
       }
       .react-date-field__calendar-icon-inner {
@@ -117,7 +122,7 @@
 
         &::after {
           font-family: 'Glyphicons Halflings';
-          content: "\e252";
+          content: '\e252';
           visibility: visible;
           color: white;
           font-size: 18px;
@@ -129,7 +134,7 @@
     &.react-date-field--expanded {
       .react-date-field__calendar-icon-inner {
         &::after {
-          content: "\e253";
+          content: '\e253';
         }
       }
     }
@@ -137,7 +142,8 @@
   .group-info {
     background-color: $gray-lighter;
 
-    .group-name, .resource-info {
+    .group-name,
+    .resource-info {
       height: $slot-height;
     }
     .group-name {
@@ -225,10 +231,18 @@
         font-size: $font-size-small;
 
         &-start-selected {
-          background: linear-gradient(to right, $gray-light 49.9%, $gray-lighter 50%);
+          background: linear-gradient(
+            to right,
+            $gray-light 49.9%,
+            $gray-lighter 50%
+          );
         }
         &-end-selected {
-          background: linear-gradient(to left, $gray-light 49.9%, $gray-lighter 50%);
+          background: linear-gradient(
+            to left,
+            $gray-light 49.9%,
+            $gray-lighter 50%
+          );
         }
       }
     }
@@ -236,13 +250,14 @@
   .availability-timeline {
     display: flex;
   }
-  .reservation-link, .reservation-slot {
+  .reservation-link,
+  .reservation-slot {
     height: $slot-height;
     position: relative;
   }
   .reservation-link.with-comments::after {
     font-family: 'Glyphicons Halflings';
-    content: "\e111";
+    content: '\e111';
     position: absolute;
     top: -($slot-comment-bubble-size / 2 + $slot-border-size * 2);
     right: -($slot-comment-bubble-size / 2 + $slot-border-size * 2);
@@ -259,7 +274,8 @@
     z-index: 1;
     box-sizing: content-box;
   }
-  .reservation, .reservation-slot {
+  .reservation,
+  .reservation-slot {
     display: inline-flex;
     margin: 0;
     border: $slot-border;
@@ -313,23 +329,9 @@
   }
 }
 
-.reservation-slot-popover {
+.reservation-info-popover {
   z-index: 1000;
-  .popover-content {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: center;
-  }
-  &-cancel {
-    cursor: pointer;
-  }
-  .reservation-slot-popover-length {
-    color: $brand-primary;
-  }
-}
-.reservation-popover {
-  z-index: 1000;
+
   hr {
     margin-top: 5px;
     margin-bottom: 5px;

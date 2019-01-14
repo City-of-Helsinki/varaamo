@@ -1,0 +1,18 @@
+.reservation-popover {
+  z-index: 1000;
+
+  .popover-content {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__cancel {
+    cursor: pointer;
+  }
+
+  &__length {
+    color: $brand-primary;
+  }
+}

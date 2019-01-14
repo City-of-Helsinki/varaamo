@@ -7,6 +7,7 @@ import minBy from 'lodash/minBy';
 
 import constants from 'constants/AppConstants';
 import { injectT } from 'i18n';
+import ReservationPopover from 'shared/reservation-popover';
 import TimeSlot from './TimeSlot';
 import TimeSlotPlaceholder from './TimeSlotPlaceholder';
 import utils from '../utils';
@@ -26,6 +27,57 @@ class TimeSlots extends Component {
     slots: PropTypes.array.isRequired,
     t: PropTypes.func.isRequired,
     time: PropTypes.string,
+  };
+
+  state = {
+    hoveredTimeSlot: null,
+  };
+
+  onCancel = () => {
+    const { onClick, selected } = this.props;
+    if (selected.length < 1) {
+      return;
+    }
+    onClick(selected[0]);
+  };
+
+  onMouseEnter = (hoveredTimeSlot) => {
+    if (this.props.selected.length !== 1) {
+      return;
+    }
+    this.setState(() => ({
+      hoveredTimeSlot,
+    }));
+  };
+
+  onMouseLeave = () => {
+    if (this.props.selected.length !== 1) {
+      return;
+    }
+    this.setState(() => ({
+      hoveredTimeSlot: null,
+    }));
+  };
+
+  getReservationBegin = () => {
+    const { selected } = this.props;
+    if (selected.length < 1) {
+      return '';
+    }
+
+    return selected[0].begin;
+  };
+
+  getReservationEnd = () => {
+    const { selected } = this.props;
+    const { hoveredTimeSlot } = this.state;
+    if (selected.length < 1) {
+      return '';
+    }
+    if (!hoveredTimeSlot) {
+      return selected[selected.length - 1].end;
+    }
+    return hoveredTimeSlot.end;
   };
 
   calculatePlaceholders(selectedDate, slots) {
@@ -150,7 +202,9 @@ class TimeSlots extends Component {
     );
     const isSelected = utils.isSlotSelected(slot, selected);
     const isFirstSelected = utils.isFirstSelected(slot, selected);
-    return (
+    const shouldShowReservationPopover = selected.length === 1 && isFirstSelected;
+
+    const timeSlot = (
       <TimeSlot
         addNotification={addNotification}
         isAdmin={isAdmin}
@@ -160,12 +214,27 @@ class TimeSlots extends Component {
         key={slot.start}
         onClear={onClear}
         onClick={onClick}
+        onMouseEnter={this.onMouseEnter}
+        onMouseLeave={this.onMouseLeave}
         resource={resource}
         scrollTo={scrollTo}
         selected={isSelected}
         showClear={isFirstSelected}
         slot={slot}
       />
+    );
+
+    return shouldShowReservationPopover ? (
+      <ReservationPopover
+        begin={this.getReservationBegin()}
+        end={this.getReservationEnd()}
+        key="timeslots-reservation-popover"
+        onCancel={this.onCancel}
+      >
+        {timeSlot}
+      </ReservationPopover>
+    ) : (
+      timeSlot
     );
   };
 

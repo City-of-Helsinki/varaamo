@@ -2,9 +2,8 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import simple from 'simple-mock';
 import React from 'react';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
-import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 
+import ReservationPopover from 'shared/reservation-popover';
 import { UninjectedReservationSlot as ReservationSlot } from './ReservationSlot';
 import Link from './Link';
 import utils from '../utils';
@@ -39,20 +38,20 @@ describe('shared/availability-view/ReservationSlot', () => {
     expect(wrapper.prop('onClick')).to.equal(instance.handleClick);
   });
 
-  describe('OverlayTrigger', () => {
-    function getTrigger(props) {
+  describe('Popover', () => {
+    function getPopover(props) {
       const wrapper = getWrapper(props);
-      return wrapper.find(OverlayTrigger);
+      return wrapper.find(ReservationPopover);
     }
 
     describe('is not rendered when the slot', () => {
       it('has no selection', () => {
-        const trigger = getTrigger({ selection: null });
-        expect(trigger).to.have.length(0);
+        const popover = getPopover({ selection: null });
+        expect(popover).to.have.length(0);
       });
 
       it('is not in selection', () => {
-        const trigger = getTrigger({
+        const popover = getPopover({
           begin: '2016-01-01T10:00:00Z',
           end: '2016-01-01T10:30:00Z',
           selection: {
@@ -61,11 +60,11 @@ describe('shared/availability-view/ReservationSlot', () => {
             resourceId: '1',
           },
         });
-        expect(trigger).to.have.length(0);
+        expect(popover).to.have.length(0);
       });
 
       it('is inside selection but not the first slot', () => {
-        const trigger = getTrigger({
+        const popover = getPopover({
           begin: '2016-01-01T10:00:00Z',
           end: '2016-01-01T10:30:00Z',
           selection: {
@@ -74,11 +73,11 @@ describe('shared/availability-view/ReservationSlot', () => {
             resourceId: '1',
           },
         });
-        expect(trigger).to.have.length(0);
+        expect(popover).to.have.length(0);
       });
 
       it('is inside hover selection', () => {
-        const trigger = getTrigger({
+        const popover = getPopover({
           begin: '2016-01-01T10:00:00Z',
           end: '2016-01-01T10:30:00Z',
           selection: {
@@ -88,12 +87,12 @@ describe('shared/availability-view/ReservationSlot', () => {
             hover: true,
           },
         });
-        expect(trigger).to.have.length(0);
+        expect(popover).to.have.length(0);
       });
     });
 
     it('is rendered if beginning of selection', () => {
-      const trigger = getTrigger({
+      const popover = getPopover({
         begin: '2016-01-01T10:00:00Z',
         end: '2016-01-01T10:30:00Z',
         selection: {
@@ -102,48 +101,7 @@ describe('shared/availability-view/ReservationSlot', () => {
           resourceId: '1',
         },
       });
-      expect(trigger).to.have.length(1);
-    });
-
-    describe('popover', () => {
-      function getPopover(props) {
-        const trigger = getTrigger({
-          begin: '2016-01-01T10:00:00Z',
-          end: '2016-01-01T10:30:00Z',
-          selection: {
-            begin: '2016-01-01T10:00:00Z',
-            end: '2016-01-01T12:00:00Z',
-            resourceId: '1',
-          },
-          ...props,
-        });
-        return shallow(trigger.prop('overlay'));
-      }
-
-      it('renders length with hours and minutes', () => {
-        const span = getPopover().find('.reservation-slot-popover-length');
-        expect(span.text()).to.be.equal('(2h 0min)');
-      });
-
-      it('renders length with only minutes if less than an hour', () => {
-        const extraProps = {
-          selection: {
-            begin: '2016-01-01T10:00:00Z',
-            end: '2016-01-01T10:30:00Z',
-            resourceId: '1',
-          },
-        };
-        const span = getPopover(extraProps).find('.reservation-slot-popover-length');
-        expect(span.text()).to.be.equal('(30min)');
-      });
-
-      it('renders cancel icon', () => {
-        const onSelectionCancel = () => null;
-        const icon = getPopover({ onSelectionCancel }).find('.reservation-slot-popover-cancel');
-        expect(icon.is(Glyphicon)).to.be.true;
-        expect(icon.prop('glyph')).to.equal('trash');
-        expect(icon.prop('onClick')).to.equal(onSelectionCancel);
-      });
+      expect(popover).to.have.length(1);
     });
   });
 

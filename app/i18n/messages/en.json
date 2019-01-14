@@ -200,7 +200,7 @@
   "ReservationPhase.timeTitle": "Reservation time",
   "ReservationPhase.informationTitle": "Reservation details",
   "ReservationPhase.confirmationTitle": "Ready",
-  "ReservationSlot.selectionInfoHeader": "Select the reservation's end time",
+  "ReservationPopover.selectionInfoHeader": "Select the reservation's end time",
   "ReservationSuccessModal.emailHelpText": "as well as on the reservation confirmation sent to the following e-mail address: <strong> {email}</strong>",
   "ReservationSuccessModal.failedReservationsHeader": "We were not able to make the following reservations:",
   "ReservationSuccessModal.ownReservationsPageHelpText": "In the future, you can find the PIN code on the ‘My reservations’ page",
