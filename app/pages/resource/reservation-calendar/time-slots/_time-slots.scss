@@ -45,41 +45,12 @@
     background-color: $dark-gray;
   }
 
-  .app-TimeSlotWrapper {
-    position: relative;
-
-    .app-TimeSlotClear {
-      position: absolute;
-      top: -8px;
-      right: -8px;
-      height: 35px;
-      width: 35px;
-      padding: 0;
-      background-color: transparent;
-      border: none;
-      outline: none;
-      text-align: center;
-
-      &--icon {
-        display: inline-block;
-        height: 18px;
-        width: 18px;
-        vertical-align: middle;
-        @include icon-times($white);
-      }
-    }
-  }
-
   .app-TimeSlot {
-    $slot-height: 32px;
-    display: block;
-    margin-bottom: 4px;
+    $slot-height: 36px;
+    position: relative;
     height: $slot-height;
     width: 100%;
     line-height: $slot-height;
-    outline: none;
-    border: none;
-    padding: 0;
     color: $black;
     font-size: 16px;
     background-color: $silver;
@@ -105,7 +76,7 @@
     &--past {
       background-color: $gray-light;
       color: $dark-gray;
-      .app-TimeSlot--icon {
+      .app-TimeSlot__icon {
         @include icon-ban($dark-gray);
       }
     }
@@ -114,7 +85,7 @@
       background-color: $red;
     }
     &--reserved:not(.app-TimeSlot--editing) {
-      .app-TimeSlot--icon {
+      .app-TimeSlot__icon {
         @include icon-ban($white);
       }
     }
@@ -127,13 +98,13 @@
         cursor: not-allowed;
         background-color: $theme-info;
       }
-      .app-TimeSlot--icon {
+      .app-TimeSlot__icon {
         @include icon-ban($white);
       }
     }
 
     &--own-reservation.app-TimeSlot--disabled {
-      .app-TimeSlot--icon {
+      .app-TimeSlot__icon {
         @include icon-ban($white);
       }
     }
@@ -141,7 +112,7 @@
     &--selected {
       color: $white;
       background-color: $dark-gray;
-      .app-TimeSlot--icon {
+      .app-TimeSlot__icon {
         @include icon-check($white);
       }
     }
@@ -156,11 +127,36 @@
 
     &--placeholder {
       background: transparent;
-      pointer-events: none;
+    }
 
-      &:hover {
-        cursor: default;
-        background: transparent !important;
+    .app-TimeSlot__action {
+      display: block;
+      height: 100%;
+      width: 100%;
+      border: none;
+      outline: none;
+      padding: 0;
+      background-color: transparent;
+    }
+
+    .app-TimeSlot__clear {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      height: 35px;
+      width: 35px;
+      padding: 0;
+      background-color: transparent;
+      border: none;
+      outline: none;
+      text-align: center;
+
+      .app-TimeSlot__clear-icon {
+        display: inline-block;
+        height: 18px;
+        width: 18px;
+        vertical-align: middle;
+        @include icon-times($white);
       }
     }
   }

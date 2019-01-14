@@ -84,29 +84,28 @@ class TimeSlot extends Component {
     const reservation = slot.reservation;
     const isOwnReservation = reservation && reservation.isOwn;
     return (
-      <div className="app-TimeSlotWrapper">
-        <button
-          className={classNames('app-TimeSlot', {
-            'app-TimeSlot--disabled': disabled,
-            'app-TimeSlot--is-admin': isAdmin,
-            'app-TimeSlot--editing': slot.editing,
-            'app-TimeSlot--past': isPast,
-            'app-TimeSlot--own-reservation': isOwnReservation,
-            'app-TimeSlot--reservation-starting':
-              (isAdmin || isOwnReservation) && slot.reservationStarting,
-            'app-TimeSlot--reservation-ending':
-              (isAdmin || isOwnReservation) && slot.reservationEnding,
-            'app-TimeSlot--reserved': slot.reserved,
-            'app-TimeSlot--selected': selected,
-          })}
-          onClick={() => this.handleClick(disabled)}
-        >
-          <span className="app-TimeSlot--icon" />
+      <div
+        className={classNames('app-TimeSlot', {
+          'app-TimeSlot--disabled': disabled,
+          'app-TimeSlot--is-admin': isAdmin,
+          'app-TimeSlot--editing': slot.editing,
+          'app-TimeSlot--past': isPast,
+          'app-TimeSlot--own-reservation': isOwnReservation,
+          'app-TimeSlot--reservation-starting':
+            (isAdmin || isOwnReservation) && slot.reservationStarting,
+          'app-TimeSlot--reservation-ending':
+            (isAdmin || isOwnReservation) && slot.reservationEnding,
+          'app-TimeSlot--reserved': slot.reserved,
+          'app-TimeSlot--selected': selected,
+        })}
+      >
+        <button className="app-TimeSlot__action" onClick={() => this.handleClick(disabled)}>
+          <span className="app-TimeSlot__icon" />
           <time dateTime={slot.asISOString}>{moment(slot.start).format('HH:mm')}</time>
         </button>
         {showClear && (
-          <button className="app-TimeSlotClear" onClick={onClear}>
-            <span className="app-TimeSlotClear--icon" />
+          <button className="app-TimeSlot__clear" onClick={onClear}>
+            <span className="app-TimeSlot__clear-icon" />
           </button>
         )}
       </div>
