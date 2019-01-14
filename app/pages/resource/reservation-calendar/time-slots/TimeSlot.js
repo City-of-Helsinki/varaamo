@@ -1,12 +1,15 @@
 import classNames from 'classnames';
-import moment from 'moment';
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 
 import { injectT } from 'i18n';
 import { scrollTo } from 'utils/domUtils';
 
-class TimeSlot extends Component {
+function padLeft(number) {
+  return number < 10 ? `0${number}` : String(number);
+}
+
+class TimeSlot extends PureComponent {
   static propTypes = {
     addNotification: PropTypes.func.isRequired,
     isAdmin: PropTypes.bool.isRequired,
@@ -15,6 +18,8 @@ class TimeSlot extends Component {
     isSelectable: PropTypes.bool.isRequired,
     onClear: PropTypes.func.isRequired,
     onClick: PropTypes.func.isRequired,
+    onMouseEnter: PropTypes.func.isRequired,
+    onMouseLeave: PropTypes.func.isRequired,
     resource: PropTypes.object.isRequired,
     scrollTo: PropTypes.bool,
     selected: PropTypes.bool.isRequired,
@@ -29,7 +34,7 @@ class TimeSlot extends Component {
   }
 
   getReservationInfoNotification(isLoggedIn, resource, slot, t) {
-    if (moment(slot.end) < moment() || slot.reserved) {
+    if (new Date(slot.end) < new Date() || slot.reserved) {
       return null;
     }
 
@@ -71,11 +76,13 @@ class TimeSlot extends Component {
       isLoggedIn,
       isSelectable,
       onClear,
+      onMouseEnter,
+      onMouseLeave,
       resource,
       selected,
       slot,
     } = this.props;
-    const isPast = moment(slot.end) < moment();
+    const isPast = new Date(slot.end) < new Date();
     const disabled =
       !isLoggedIn ||
       (!isSelectable && !selected) ||
@@ -83,6 +90,9 @@ class TimeSlot extends Component {
       (!slot.editing && (slot.reserved || isPast));
     const reservation = slot.reservation;
     const isOwnReservation = reservation && reservation.isOwn;
+    const start = new Date(slot.start);
+    const startTime = `${padLeft(start.getHours())}:${padLeft(start.getMinutes())}`;
+
     return (
       <div
         className={classNames('app-TimeSlot', {
@@ -99,9 +109,14 @@ class TimeSlot extends Component {
           'app-TimeSlot--selected': selected,
         })}
       >
-        <button className="app-TimeSlot__action" onClick={() => this.handleClick(disabled)}>
+        <button
+          className="app-TimeSlot__action"
+          onClick={() => this.handleClick(disabled)}
+          onMouseEnter={() => !disabled && onMouseEnter(slot)}
+          onMouseLeave={() => !disabled && onMouseLeave()}
+        >
           <span className="app-TimeSlot__icon" />
-          <time dateTime={slot.asISOString}>{moment(slot.start).format('HH:mm')}</time>
+          <time dateTime={slot.asISOString}>{startTime}</time>
         </button>
         {showClear && (
           <button className="app-TimeSlot__clear" onClick={onClear}>

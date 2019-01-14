@@ -18,6 +18,8 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     isSelectable: true,
     onClear: simple.stub(),
     onClick: simple.stub(),
+    onMouseEnter: simple.stub(),
+    onMouseLeave: simple.stub(),
     resource: Resource.build(),
     selected: false,
     showClear: false,

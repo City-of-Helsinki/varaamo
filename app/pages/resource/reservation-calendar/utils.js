@@ -1,14 +1,14 @@
-import { filter, first, last, orderBy, some } from 'lodash';
+import { filter, maxBy, minBy, some } from 'lodash';
 import moment from 'moment';
 
 import constants from 'constants/AppConstants';
 
 function getBeginOfSelection(selected) {
-  return first(orderBy(selected, 'begin'));
+  return minBy(selected, 'begin');
 }
 
 function getEndOfSelection(selected) {
-  return last(orderBy(selected, 'begin'));
+  return maxBy(selected, 'begin');
 }
 
 function getNextDayFromDate(date) {
@@ -53,7 +53,7 @@ function isSlotAfterSelected(slot, selected) {
     return false;
   }
   const firstSelected = getBeginOfSelection(selected);
-  return moment(firstSelected.begin).isSameOrBefore(slot.start);
+  return firstSelected.begin <= slot.start;
 }
 
 function isSlotSelectable(slot, selected, resource, lastSelectableFound, isAdmin) {
@@ -65,15 +65,19 @@ function isSlotSelectable(slot, selected, resource, lastSelectableFound, isAdmin
   }
   const firstSelected = getBeginOfSelection(selected);
   if (!isAdmin && resource.maxPeriod) {
-    const maxPeriodMinutes = moment.duration(resource.maxPeriod).asMinutes();
-    const maxEndTime = moment(firstSelected.begin).add(maxPeriodMinutes, 'minutes');
-    if (moment(slot.start).isSameOrAfter(maxEndTime)) {
+    const durationParts = resource.maxPeriod.split(':');
+    // eslint-disable-next-line no-mixed-operators
+    const maxPeriodMinutes = 60 * durationParts[0] + durationParts[1];
+    const maxEndDate = new Date(firstSelected.begin);
+    maxEndDate.setMinutes(maxEndDate.getMinutes() + maxPeriodMinutes);
+    if (new Date(slot.start) >= maxEndDate) {
       return false;
     }
   }
+  const firstSelectedDate = new Date(firstSelected.begin);
+  const slotStartDate = new Date(slot.start);
   return (
-    moment(firstSelected.begin).isSame(slot.start, 'day') &&
-    moment(firstSelected.begin).isSameOrBefore(slot.start)
+    firstSelectedDate <= slotStartDate && firstSelectedDate.getDate() === slotStartDate.getDate()
   );
 }
 
@@ -83,10 +87,7 @@ function isSlotSelected(slot, selected) {
   }
   const firstSelected = getBeginOfSelection(selected);
   const lastSelected = getEndOfSelection(selected);
-  return (
-    moment(firstSelected.begin).isSameOrBefore(slot.start) &&
-    moment(lastSelected.end).isSameOrAfter(slot.end)
-  );
+  return firstSelected.begin <= slot.start && lastSelected.end >= slot.end;
 }
 
 function isFirstSelected(slot, selected) {
@@ -94,7 +95,7 @@ function isFirstSelected(slot, selected) {
     return false;
   }
   const firstSelected = getBeginOfSelection(selected);
-  return moment(firstSelected.begin).isSame(slot.start);
+  return firstSelected.begin === slot.start;
 }
 
 export default {
