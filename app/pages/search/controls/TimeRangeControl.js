@@ -129,6 +129,7 @@ class TimeRangeControl extends React.Component {
           <Select
             className="app-TimeRangeControl__range-start"
             clearable={false}
+            disabled={!useTimeRange}
             name="time-filter-start-select"
             onChange={this.handleStart}
             options={this.getStartTimeOptions()}
@@ -140,6 +141,7 @@ class TimeRangeControl extends React.Component {
           <Select
             className="app-TimeRangeControl__range-end"
             clearable={false}
+            disabled={!useTimeRange}
             name="time-filter-end-select"
             onChange={this.handleEnd}
             options={this.getEndTimeOptions()}
@@ -150,6 +152,7 @@ class TimeRangeControl extends React.Component {
           <Select
             className="app-TimeRangeControl__range-duration"
             clearable={false}
+            disabled={!useTimeRange}
             name="time-filter-duration-select"
             onChange={this.handleDuration}
             options={this.getDurationOptions()}

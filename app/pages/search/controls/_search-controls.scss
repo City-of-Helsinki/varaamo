@@ -64,10 +64,26 @@
       padding: 0;
     }
   }
-  .Select .Select-control,
-  .Select.is-open .Select-control {
-    background-color: transparent;
+
+  .Select {
+    .Select-control {
+      transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    }
+
+    &,
+    &.is-open {
+      .Select-control {
+        background-color: transparent;
+      }
+    }
+
+    &.is-disabled .Select-control {
+      background-color: $silver;
+      border: 2px solid $dark-gray;
+      color: $dark-gray;
+    }
   }
+
   .select:before {
     background-color: $copper;
   }
