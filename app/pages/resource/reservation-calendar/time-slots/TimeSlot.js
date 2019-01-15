@@ -11,6 +11,7 @@ class TimeSlot extends PureComponent {
     addNotification: PropTypes.func.isRequired,
     isAdmin: PropTypes.bool.isRequired,
     showClear: PropTypes.bool.isRequired,
+    isHighlighted: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     isSelectable: PropTypes.bool.isRequired,
     onClear: PropTypes.func.isRequired,
@@ -70,6 +71,7 @@ class TimeSlot extends PureComponent {
     const {
       isAdmin,
       showClear,
+      isHighlighted,
       isLoggedIn,
       isSelectable,
       onClear,
@@ -104,6 +106,7 @@ class TimeSlot extends PureComponent {
             (isAdmin || isOwnReservation) && slot.reservationEnding,
           'app-TimeSlot--reserved': slot.reserved,
           'app-TimeSlot--selected': selected,
+          'app-TimeSlot--highlight': isHighlighted,
         })}
       >
         <button

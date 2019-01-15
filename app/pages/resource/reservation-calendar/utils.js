@@ -98,10 +98,27 @@ function isFirstSelected(slot, selected) {
   return firstSelected.begin === slot.start;
 }
 
+function isHighlighted(slot, selected, hovered) {
+  if (!slot || !selected || !hovered || !selected.length) {
+    return false;
+  }
+  const firstSelected = getBeginOfSelection(selected);
+  const firstSelectedDate = new Date(firstSelected.begin);
+  const slotStartDate = new Date(slot.start);
+  const hoveredDate = new Date(hovered.start);
+  return (
+    slotStartDate > firstSelectedDate &&
+    slotStartDate < hoveredDate &&
+    firstSelectedDate.getDate() === slotStartDate.getDate() &&
+    slotStartDate.getDate() === slotStartDate.getDate()
+  );
+}
+
 export default {
   getNextDayFromDate,
   getNextWeeksDays,
   getSecondDayFromDate,
+  isHighlighted,
   isInsideOpeningHours,
   isSlotAfterSelected,
   isSlotSelectable,

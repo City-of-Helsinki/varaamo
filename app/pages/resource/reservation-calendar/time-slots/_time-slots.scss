@@ -45,25 +45,6 @@
     background-color: $dark-gray;
   }
 
-  /** This logic "hovers" all the timeslots between selected and hovered */
-  &--date:hover {
-    .app-TimeSlot--selected ~ .app-TimeSlot:not(.app-TimeSlot--disabled) {
-      color: $white;
-      background-color: $dark-gray;
-    }
-
-    .app-TimeSlot:hover
-      ~ .app-TimeSlot:not(.app-TimeSlot--disabled):not(.app-TimeSlot--selected) {
-      color: $black;
-      background-color: $silver;
-
-      &.app-TimeSlot--own-reservation {
-        color: $white;
-        background-color: $theme-info;
-      }
-    }
-  }
-
   .app-TimeSlot {
     $slot-height: 36px;
     position: relative;
@@ -134,6 +115,11 @@
       .app-TimeSlot__icon {
         @include icon-check($white);
       }
+    }
+
+    &--highlight {
+      color: $white;
+      background-color: $dark-gray;
     }
 
     &__icon {

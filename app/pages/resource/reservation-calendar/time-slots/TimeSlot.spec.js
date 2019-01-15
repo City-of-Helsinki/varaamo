@@ -14,6 +14,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     addNotification: simple.stub(),
     isAdmin: false,
     isEditing: true,
+    isHighlighted: false,
     isLoggedIn: true,
     isSelectable: true,
     onClear: simple.stub(),

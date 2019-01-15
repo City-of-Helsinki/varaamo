@@ -33,6 +33,12 @@ class TimeSlots extends Component {
     hoveredTimeSlot: null,
   };
 
+  onClear = () => {
+    const { onClear } = this.props;
+    onClear();
+    this.setState(() => ({ hoveredTimeSlot: null }));
+  };
+
   onCancel = () => {
     const { onClick, selected } = this.props;
     if (selected.length < 1) {
@@ -178,13 +184,13 @@ class TimeSlots extends Component {
       isAdmin,
       isEditing,
       isLoggedIn,
-      onClear,
       onClick,
       resource,
       selected,
       t,
       time,
     } = this.props;
+    const { hoveredTimeSlot } = this.state;
     if (!slot.end) {
       return (
         <h6 className="app-TimeSlots--closed" key={slot.start}>
@@ -203,16 +209,18 @@ class TimeSlots extends Component {
     const isSelected = utils.isSlotSelected(slot, selected);
     const isFirstSelected = utils.isFirstSelected(slot, selected);
     const shouldShowReservationPopover = selected.length === 1 && isFirstSelected;
+    const isHighlighted = utils.isHighlighted(slot, selected, hoveredTimeSlot);
 
     const timeSlot = (
       <TimeSlot
         addNotification={addNotification}
         isAdmin={isAdmin}
         isEditing={isEditing}
+        isHighlighted={isHighlighted}
         isLoggedIn={isLoggedIn}
         isSelectable={isSelectable}
         key={slot.start}
-        onClear={onClear}
+        onClear={this.onClear}
         onClick={onClick}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
