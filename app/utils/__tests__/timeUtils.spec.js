@@ -15,6 +15,7 @@ import {
   getStartTimeString,
   getTimeSlots,
   isPastDate,
+  padLeft,
   prettifyHours,
 } from 'utils/timeUtils';
 
@@ -539,6 +540,26 @@ describe('Utils: timeUtils', () => {
 
       it('returns the number of hours rounded to half an hour', () => {
         expect(prettifyHours(hours)).to.equal('2.5 h');
+      });
+    });
+  });
+
+  describe('padLeft', () => {
+    describe('if number is less than 10', () => {
+      it('returns the number with 0 added to the left as a string', () => {
+        const number = 6;
+        const expected = `0${number}`;
+
+        expect(padLeft(number)).to.equal(expected);
+      });
+    });
+
+    describe('if number is more than 10', () => {
+      const number = 16;
+      const expected = `${number}`;
+
+      it('returns the number as it is as a string', () => {
+        expect(padLeft(number)).to.equal(expected);
       });
     });
   });

@@ -4,10 +4,7 @@ import { findDOMNode } from 'react-dom';
 
 import { injectT } from 'i18n';
 import { scrollTo } from 'utils/domUtils';
-
-function padLeft(number) {
-  return number < 10 ? `0${number}` : String(number);
-}
+import { padLeft } from 'utils/timeUtils';
 
 class TimeSlot extends PureComponent {
   static propTypes = {

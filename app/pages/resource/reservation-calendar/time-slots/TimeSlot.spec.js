@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import moment from 'moment';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
@@ -7,6 +6,7 @@ import simple from 'simple-mock';
 import Resource from 'utils/fixtures/Resource';
 import TimeSlotFixture from 'utils/fixtures/TimeSlot';
 import { shallowWithIntl } from 'utils/testUtils';
+import { padLeft } from 'utils/timeUtils';
 import TimeSlot from './TimeSlot';
 
 describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
@@ -47,7 +47,8 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
   });
 
   it('renders slot start time as button text', () => {
-    const expected = moment.utc(defaultProps.slot.start).format('HH:mm');
+    const start = new Date(defaultProps.slot.start);
+    const expected = `${padLeft(start.getHours())}:${padLeft(start.getMinutes())}`;
     expect(getWrapper().text()).to.contain(expected);
   });
 
