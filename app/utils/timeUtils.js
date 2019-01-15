@@ -161,6 +161,10 @@ function prettifyHours(hours, showMinutes = false) {
   return `${rounded} h`;
 }
 
+function padLeft(number) {
+  return number < 10 ? `0${number}` : String(number);
+}
+
 export {
   addToDate,
   calculateDuration,
@@ -174,4 +178,5 @@ export {
   getTimeSlots,
   isPastDate,
   prettifyHours,
+  padLeft,
 };
