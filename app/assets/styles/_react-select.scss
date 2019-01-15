@@ -19,7 +19,7 @@
   }
 }
 
-.has-value.has-value.Select--single
+.has-value.has-value.Select--single:not(.is-disabled)
   > .Select-control
   .Select-value
   .Select-value-label {
