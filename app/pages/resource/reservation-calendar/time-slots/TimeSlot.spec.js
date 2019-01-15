@@ -47,7 +47,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
   });
 
   it('renders slot start time as button text', () => {
-    const expected = moment(defaultProps.slot.start).format('HH:mm');
+    const expected = moment.utc(defaultProps.slot.start).format('HH:mm');
     expect(getWrapper().text()).to.contain(expected);
   });
 
