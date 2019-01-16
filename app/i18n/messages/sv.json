@@ -180,7 +180,7 @@
   "ReservationForm.termsAndConditionsError": "För att kunna boka utrymmet måste du godkänna utrymmets användningsregler.",
   "ReservationForm.termsAndConditionsHeader": "Utrymmets användningsregler",
   "ReservationForm.termsAndConditionsLabel": "Jag har läst och godkänner utrymmets användningsregler",
-  "ReservationInfo.loginMessage": "För att kunna boka detta utrymme måste du <a href=”/login”>logga in</a>.",
+  "ReservationInfo.loginMessage": "För att kunna boka detta utrymme måste du <a href='/login?next={next}'>logga in</a>.",
   "ReservationInfo.maxNumberOfReservations": "Maximalt antal bokningar per användare:",
   "ReservationInfo.reservationMaxLength": "Bokningens maximala längd:",
   "ReservationInfoModal.cancelButton": "Annulera evenmanget",
