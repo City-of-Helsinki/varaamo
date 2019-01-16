@@ -178,7 +178,7 @@
   "ReservationForm.termsAndConditionsError": "Sinun on hyväksyttävä tilan käyttösäännöt varataksesi tilan",
   "ReservationForm.termsAndConditionsHeader": "Tilan käyttösäännöt",
   "ReservationForm.termsAndConditionsLabel": "Olen lukenut ja hyväksynyt tilan käyttösäännöt",
-  "ReservationInfo.loginMessage": "Sinun täytyy <a href=\"/login\">kirjautua sisään</a>, jotta voit tehdä varauksen tähän tilaan.",
+  "ReservationInfo.loginMessage": "Sinun täytyy <a href='/login?next={next}'>kirjautua sisään</a>, jotta voit tehdä varauksen tähän tilaan.",
   "ReservationInfo.maxNumberOfReservations": "Maksimimäärä varauksia per käyttäjä:",
   "ReservationInfo.reservationMaxLength": "Varauksen maksimipituus:",
   "ReservationInfoModal.cancelButton": "Peru tapahtuma",
