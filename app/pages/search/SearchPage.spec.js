@@ -52,7 +52,6 @@ describe('pages/search/SearchPage', () => {
       expect(searchControls.length).to.equal(1);
       expect(searchControls.prop('location')).to.deep.equal(defaultProps.location);
       expect(searchControls.prop('params')).to.deep.equal(defaultProps.params);
-      expect(searchControls.prop('scrollToSearchResults')).to.be.a('function');
     });
 
     it('renders PageWrapper with correct props', () => {

@@ -101,14 +101,10 @@ class UnconnectedSearchControlsContainer extends Component {
     }
   };
 
-  handleSearch = (newFilters = {}, options = {}) => {
-    const { scrollToSearchResults } = this.props;
+  handleSearch = (newFilters = {}) => {
     const page = 1;
     const filters = { ...this.props.filters, ...newFilters, page };
     browserHistory.push(`/search?${queryString.stringify(filters)}`);
-    if (!options.preventScrolling) {
-      scrollToSearchResults();
-    }
   };
 
   handleReset = () => {
@@ -256,7 +252,6 @@ UnconnectedSearchControlsContainer.propTypes = {
   isFetchingUnits: PropTypes.bool.isRequired,
   position: PropTypes.object,
   purposeOptions: PropTypes.array.isRequired,
-  scrollToSearchResults: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
   unitOptions: PropTypes.array.isRequired,
   urlSearchFilters: PropTypes.object.isRequired,
