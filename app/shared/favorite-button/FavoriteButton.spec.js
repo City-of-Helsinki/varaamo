@@ -26,13 +26,18 @@ describe('shared/favorite-button/FavoriteButton', () => {
   });
 
   it('has favorite-button class name', () => {
-    expect(wrapper.prop('className')).to.equal('favorite-button');
+    expect(getWrapper({ favorited: false }).prop('className')).to.equal('favorite-button');
+  });
+
+  it('has favorite class modifier if it is favorited', () => {
+    expect(getWrapper({ favorited: true }).prop('className')).to.equal(
+      'favorite-button favorite-button--favorite'
+    );
   });
 
   it('passes onClick prop', () => {
     expect(wrapper.prop('onClick')).to.deep.equal(defaultProps.onClick);
   });
-
 
   it('has remove favorite text if favorited', () => {
     const buttonText = getWrapper({ favorited: true }).find('span');
