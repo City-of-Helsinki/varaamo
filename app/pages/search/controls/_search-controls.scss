@@ -92,6 +92,10 @@
     margin-bottom: 0;
   }
 
+  .form-control {
+    color: $black;
+  }
+
   .form-control[disabled] {
     background-color: transparent;
     border-color: $black;
