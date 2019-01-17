@@ -1,6 +1,5 @@
 import isEqual from 'lodash/isEqual';
 import React, { Component, PropTypes } from 'react';
-import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -11,7 +10,6 @@ import { fetchUnits } from 'actions/unitActions';
 import PageWrapper from 'pages/PageWrapper';
 import { injectT } from 'i18n';
 import ResourceMap from 'shared/resource-map';
-import { scrollTo } from 'utils/domUtils';
 import SearchControls from './controls';
 import searchPageSelector from './searchPageSelector';
 import SearchResults from './results/SearchResults';
@@ -20,7 +18,6 @@ import MapToggle from './results/MapToggle';
 class UnconnectedSearchPage extends Component {
   constructor(props) {
     super(props);
-    this.scrollToSearchResults = this.scrollToSearchResults.bind(this);
     this.searchResources = this.searchResources.bind(this);
   }
 
@@ -64,10 +61,6 @@ class UnconnectedSearchPage extends Component {
     this.searchResources(nextFilters);
   }
 
-  scrollToSearchResults() {
-    scrollTo(findDOMNode(this.refs.searchResults));
-  }
-
   searchResources(filters, position = this.props.position || {}) {
     this.props.actions.searchResources({ ...filters, ...position });
   }
@@ -87,29 +80,21 @@ class UnconnectedSearchPage extends Component {
     } = this.props;
     return (
       <div className="app-SearchPage">
-        <SearchControls
-          location={location}
-          params={params}
-          scrollToSearchResults={this.scrollToSearchResults}
-        />
-        {!isFetchingSearchResults &&
-          <MapToggle
-            mapVisible={showMap}
-            onClick={actions.toggleMap}
-            resultCount={resultCount}
-          />
-        }
-        {showMap &&
+        <SearchControls location={location} params={params} />
+        {!isFetchingSearchResults && (
+          <MapToggle mapVisible={showMap} onClick={actions.toggleMap} resultCount={resultCount} />
+        )}
+        {showMap && (
           <ResourceMap
             location={location}
             resourceIds={searchResultIds}
             selectedUnitId={selectedUnitId}
             showMap={showMap}
           />
-        }
+        )}
         <PageWrapper className="app-SearchPage__wrapper" title={t('SearchPage.title')} transparent>
           <div className="app-SearchPage__content">
-            {(searchDone || isFetchingSearchResults) &&
+            {(searchDone || isFetchingSearchResults) && (
               <SearchResults
                 isFetching={isFetchingSearchResults}
                 location={location}
@@ -119,9 +104,8 @@ class UnconnectedSearchPage extends Component {
                 selectedUnitId={selectedUnitId}
                 showMap={showMap}
               />
-            }
+            )}
           </div>
-
         </PageWrapper>
       </div>
     );
@@ -160,4 +144,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export { UnconnectedSearchPage };
-export default connect(searchPageSelector, mapDispatchToProps)(UnconnectedSearchPage);
+export default connect(
+  searchPageSelector,
+  mapDispatchToProps
+)(UnconnectedSearchPage);
