@@ -36,7 +36,7 @@ function Reservation({ onClick, ...reservation }) {
   const width = utils.getTimeSlotWidth({ startTime, endTime });
   const reserverName = getReserverName(reservation.reserverName, reservation.user);
   const popover = (
-    <Popover className="reservation-popover" id={`popover-${reservation.id}`} title={reservation.eventSubject}>
+    <Popover className="reservation-info-popover" id={`popover-${reservation.id}`} title={reservation.eventSubject}>
       <div>
         <Glyphicon glyph="time" />
         {' '}
