@@ -1,8 +1,10 @@
 import forEach from 'lodash/forEach';
-import moment from 'moment';
-import 'moment-range';
 import React, { Component, PropTypes } from 'react';
 import Select from 'react-select';
+
+import { getMomentRange } from '../../utils/timeUtils';
+
+const moment = getMomentRange();
 
 function updateWithTime(initialValue, time, timeFormat) {
   const timeMoment = moment(time, timeFormat);

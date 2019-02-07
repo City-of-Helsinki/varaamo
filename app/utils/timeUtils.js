@@ -1,9 +1,11 @@
 import forEach from 'lodash/forEach';
 import map from 'lodash/map';
-import moment from 'moment';
-import 'moment-range';
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
 
 import constants from 'constants/AppConstants';
+
+const moment = getMomentRange();
 
 function addToDate(date, daysToIncrement) {
   const newDate = moment(date).add(daysToIncrement, 'days');
@@ -165,10 +167,15 @@ function padLeft(number) {
   return number < 10 ? `0${number}` : String(number);
 }
 
+function getMomentRange() {
+  return extendMoment(Moment);
+}
+
 export {
   addToDate,
   calculateDuration,
   calculateEndTime,
+  getMomentRange,
   getDateStartAndEndTimes,
   getDateString,
   getDuration,

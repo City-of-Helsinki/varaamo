@@ -1,7 +1,9 @@
 import 'moment/locale/en-gb';
 import 'moment/locale/fi';
 import 'moment/locale/sv';
-import 'moment-timezone';
+
+// eslint-disable-next-line import/order
+import * as momentTimeZone from 'moment-timezone';
 
 import get from 'lodash/get';
 import moment from 'moment';
@@ -21,7 +23,7 @@ const messages = {
   se: svMessages,
 };
 
-moment.tz.setDefault('Europe/Helsinki');
+momentTimeZone.tz.setDefault('Europe/Helsinki');
 
 moment.defineLocale('varaamo-en', {
   parentLocale: 'en-gb',

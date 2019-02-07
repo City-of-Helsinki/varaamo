@@ -1,9 +1,10 @@
-import moment from 'moment';
-import 'moment-range';
 import React, { Component, PropTypes } from 'react';
 import Select from 'react-select';
 
 import DatePicker from 'shared/date-picker';
+import { getMomentRange } from '../../utils/timeUtils';
+
+const moment = getMomentRange();
 
 function updateWithDate(initialValue, date) {
   const dateMoment = moment(date);
