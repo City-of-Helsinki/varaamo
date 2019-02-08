@@ -5,6 +5,7 @@ import Grid from 'react-bootstrap/lib/Grid';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { withRouter } from 'react-router-dom';
 
 import { fetchUser } from 'actions/userActions';
 import { enableGeoposition } from 'actions/uiActions';
@@ -40,6 +41,7 @@ export class UnconnectedAppContainer extends Component {
     if (this.props.userId) {
       this.props.fetchUser(this.props.userId);
     }
+    this.removeFacebookAppendedHash();
   }
 
   componentWillUpdate(nextProps) {
@@ -48,9 +50,15 @@ export class UnconnectedAppContainer extends Component {
     }
   }
 
+  removeFacebookAppendedHash() {
+    if (window.location.hash && window.location.hash.indexOf('_=_') !== -1) {
+      this.props.history.replace(window.location.hash.replace('_=_', ''));
+    }
+  }
+
   render() {
     return (
-      <BodyClassName className={getCustomizationClassName()} >
+      <BodyClassName className={getCustomizationClassName()}>
         <DocumentTitle title="Varaamo">
           <div className="app">
             <Header location={this.props.location}>
@@ -76,6 +84,7 @@ UnconnectedAppContainer.propTypes = {
   enableGeoposition: PropTypes.func.isRequired,
   fetchUser: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
   userId: PropTypes.string,
 };
 
@@ -85,4 +94,9 @@ UnconnectedAppContainer.childContextTypes = {
 
 const actions = { enableGeoposition, fetchUser };
 
-export default connect(selector, actions)(UnconnectedAppContainer);
+export default withRouter(
+  connect(
+    selector,
+    actions
+  )(UnconnectedAppContainer)
+);
