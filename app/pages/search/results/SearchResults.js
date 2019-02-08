@@ -18,6 +18,7 @@ export class UnconnectedSearchResults extends Component {
     const {
       filters,
       isFetching,
+      history,
       location,
       resultCount,
       searchResultIds,
@@ -27,27 +28,26 @@ export class UnconnectedSearchResults extends Component {
     return (
       <div className="app-SearchResults" id="search-results">
         <Loader loaded={!isFetching}>
-          {!showMap &&
+          {!showMap && (
             <div className="app-SearchResults__container">
               <ResourceList
                 date={filters.date}
+                history={history}
                 location={location}
                 resourceIds={searchResultIds}
               />
-              <SearchResultsPaging
-                filters={filters}
-                resultCount={resultCount}
-              />
+              <SearchResultsPaging filters={filters} history={history} resultCount={resultCount} />
             </div>
-          }
-          {showMap && selectedUnitId &&
+          )}
+          {showMap && selectedUnitId && (
             <ResourceCompactList
               date={filters.date}
+              history={history}
               location={location}
               resourceIds={searchResultIds}
               unitId={selectedUnitId}
             />
-          }
+          )}
         </Loader>
       </div>
     );
@@ -58,6 +58,7 @@ UnconnectedSearchResults.propTypes = {
   filters: PropTypes.object.isRequired,
   isFetching: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
   resultCount: PropTypes.number.isRequired,
   searchResultIds: PropTypes.array.isRequired,
   selectedUnitId: PropTypes.string,

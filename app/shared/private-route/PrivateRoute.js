@@ -36,7 +36,7 @@ class PrivateRoute extends Component {
 PrivateRoute.propTypes = {
   updateRoute: PropTypes.func.isRequired,
   userId: PropTypes.string,
-  component: PropTypes.element,
+  component: PropTypes.element.isRequired,
   componentName: PropTypes.string.isRequired,
 };
 
