@@ -1,10 +1,6 @@
 {
   "name": "varaamo",
   "version": "0.0.0",
-  "engines": {
-    "node": "6.5.0",
-    "npm": "3.10.3"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/City-of-Helsinki/varaamo"
@@ -42,7 +38,7 @@
     "react-addons-css-transition-group": "15.3.2",
     "react-body-classname": "1.2.0",
     "react-bootstrap": "0.30.5",
-    "react-date-picker": "git://github.com/YoYuUm/react-date-picker.git#build-readonly",
+    "react-date-picker": "5.3.28",
     "react-day-picker": "5.2.0",
     "react-document-title": "2.0.2",
     "react-dom": "15.3.2",
