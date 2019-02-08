@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Link as RRLink } from 'react-router';
+import { Link as RRLink } from 'react-router-dom';
 
 export default class Link extends React.Component {
   static propTypes = {

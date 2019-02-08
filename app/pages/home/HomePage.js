@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { browserHistory } from 'react-router';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 import Loader from 'react-loader';
@@ -27,7 +26,6 @@ const purposeIcons = {
 };
 
 class UnconnectedHomePage extends Component {
-
   constructor(props) {
     super(props);
     this.handleSearch = this.handleSearch.bind(this);
@@ -40,11 +38,11 @@ class UnconnectedHomePage extends Component {
   }
 
   handleSearch(value = '') {
-    browserHistory.push(`/search?search=${value}`);
+    this.props.history.push(`/search?search=${value}`);
   }
 
   handleBannerClick(purpose) {
-    browserHistory.push(`/search?purpose=${purpose}`);
+    this.props.history.push(`/search?purpose=${purpose}`);
   }
 
   renderPurposeBanner(purpose) {
@@ -98,6 +96,7 @@ UnconnectedHomePage.propTypes = {
   actions: PropTypes.object.isRequired,
   isFetchingPurposes: PropTypes.bool.isRequired,
   purposes: PropTypes.array.isRequired,
+  history: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
 };
 

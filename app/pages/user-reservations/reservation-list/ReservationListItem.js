@@ -1,6 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import iconHome from 'hel-icons/dist/shapes/home.svg';
 
 import iconCalendar from 'assets/icons/calendar.svg';
@@ -21,14 +21,7 @@ class ReservationListItem extends Component {
   }
 
   render() {
-    const {
-       isAdmin,
-       isStaff,
-       reservation,
-       resource,
-       t,
-       unit,
-     } = this.props;
+    const { isAdmin, isStaff, reservation, resource, t, unit } = this.props;
 
     const nameSeparator = isEmpty(resource) || isEmpty(unit) ? '' : ', ';
 
@@ -42,13 +35,13 @@ class ReservationListItem extends Component {
         <div className="col-xs-8 col-md-6 col-lg-7 reservation-details">
           <ReservationStateLabel reservation={reservation} />
           <Link to={getResourcePageUrl(resource)}>
-            <h4>
-              {resource.name}
-            </h4>
+            <h4>{resource.name}</h4>
           </Link>
           <div>
             <img alt={resource.type.name} className="location" src={iconHome} />
-            <span className="unit-name">{unit.name}</span>{nameSeparator}<span>{unit.streetAddress}</span>
+            <span className="unit-name">{unit.name}</span>
+            {nameSeparator}
+            <span>{unit.streetAddress}</span>
           </div>
           <div>
             <img alt={resource.type.name} className="timeslot" src={iconCalendar} />
