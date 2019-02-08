@@ -27,9 +27,10 @@ describe('pages/search/SearchPage', () => {
       purpose: 'some-purpose',
     },
     location: {
-      query: {},
+      search: 'data:2015-10-10',
     },
-    params: {},
+    history: {},
+    match: { params: {} },
     position: null,
     resultCount: 2,
     searchDone: true,
@@ -51,7 +52,7 @@ describe('pages/search/SearchPage', () => {
       const searchControls = getWrapper().find(SearchControls);
       expect(searchControls.length).to.equal(1);
       expect(searchControls.prop('location')).to.deep.equal(defaultProps.location);
-      expect(searchControls.prop('params')).to.deep.equal(defaultProps.params);
+      expect(searchControls.prop('params')).to.deep.equal(defaultProps.match.params);
     });
 
     it('renders PageWrapper with correct props', () => {

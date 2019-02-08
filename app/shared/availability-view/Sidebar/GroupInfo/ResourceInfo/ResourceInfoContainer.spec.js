@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { shallowWithIntl } from 'utils/testUtils';
 import { UnconnectedResourceInfo as ResourceInfo, selector } from './ResourceInfoContainer';

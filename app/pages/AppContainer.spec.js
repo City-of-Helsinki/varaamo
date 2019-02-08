@@ -8,10 +8,14 @@ import Notifications from 'shared/notifications';
 import { getState } from 'utils/testUtils';
 import { selector, UnconnectedAppContainer as AppContainer } from './AppContainer';
 
-
 describe('pages/AppContainer', () => {
+  const history = {
+    replace: () => {},
+  };
+
   function getWrapper(props) {
     const defaults = {
+      history,
       children: <div id="child-div" />,
       enableGeoposition: () => {},
       fetchUser: () => null,
