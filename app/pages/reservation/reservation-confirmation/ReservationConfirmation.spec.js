@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import React from 'react';
-import { browserHistory } from 'react-router';
 import { FormattedHTMLMessage } from 'react-intl';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
@@ -15,7 +14,12 @@ import { shallowWithIntl } from 'utils/testUtils';
 import ReservationConfirmation from './ReservationConfirmation';
 
 describe('pages/reservation/reservation-confirmation/ReservationConfirmation', () => {
+  const history = {
+    replace: () => {},
+  };
+
   const defaultProps = {
+    history,
     isEdited: false,
     reservation: Immutable(Reservation.build({ user: User.build() })),
     resource: Immutable(Resource.build()),
@@ -60,7 +64,9 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
     const wrapper = getWrapper({
       reservation: Reservation.build({ reserverEmailAddress }),
     });
-    const email = wrapper.find(FormattedHTMLMessage).filter({ id: 'ReservationConfirmation.confirmationText' });
+    const email = wrapper
+      .find(FormattedHTMLMessage)
+      .filter({ id: 'ReservationConfirmation.confirmationText' });
     expect(email).to.have.length(1);
     expect(email.prop('values')).to.deep.equal({ email: reserverEmailAddress });
   });
@@ -70,7 +76,9 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
     const wrapper = getWrapper({
       reservation: Reservation.build({ user }),
     });
-    const email = wrapper.find(FormattedHTMLMessage).filter({ id: 'ReservationConfirmation.confirmationText' });
+    const email = wrapper
+      .find(FormattedHTMLMessage)
+      .filter({ id: 'ReservationConfirmation.confirmationText' });
     expect(email).to.have.length(1);
     expect(email.prop('values')).to.deep.equal({ email: user.email });
   });
@@ -81,7 +89,9 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
       reservation: Reservation.build(),
       user,
     });
-    const email = wrapper.find(FormattedHTMLMessage).filter({ id: 'ReservationConfirmation.confirmationText' });
+    const email = wrapper
+      .find(FormattedHTMLMessage)
+      .filter({ id: 'ReservationConfirmation.confirmationText' });
     expect(email).to.have.length(1);
     expect(email.prop('values')).to.deep.equal({ email: user.email });
   });
@@ -144,11 +154,11 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
   describe('handleReservationsButton', () => {
     const expectedPath = '/my-reservations';
     let instance;
-    let browserHistoryMock;
+    let historyMock;
 
     before(() => {
       instance = getWrapper().instance();
-      browserHistoryMock = simple.mock(browserHistory, 'replace');
+      historyMock = simple.mock(history, 'replace');
       instance.handleReservationsButton();
     });
 
@@ -157,8 +167,8 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
     });
 
     it('calls browserHistory replace with correct path', () => {
-      expect(browserHistoryMock.callCount).to.equal(1);
-      expect(browserHistoryMock.lastCall.args).to.deep.equal([expectedPath]);
+      expect(historyMock.callCount).to.equal(1);
+      expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
     });
   });
 });

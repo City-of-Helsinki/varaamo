@@ -1,13 +1,17 @@
 import { expect } from 'chai';
 import React from 'react';
-import { browserHistory } from 'react-router';
 import Button from 'react-bootstrap/lib/Button';
 import simple from 'simple-mock';
 
 import { shallowWithIntl } from 'utils/testUtils';
 import SearchResultsPaging from './SearchResultsPaging';
 
+const history = {
+  push: () => {},
+};
+
 const defaults = {
+  history,
   filters: {
     date: '2018-06-01',
     page: 1,
@@ -61,11 +65,11 @@ describe('pages/search/results/SearchResultsPaging', () => {
   describe('handleClick', () => {
     const page = 3;
     const expectedPath = `/search?date=${defaults.filters.date}&page=${page}`;
-    let browserHistoryMock;
+    let historyMock;
 
     before(() => {
       const instance = getWrapper().instance();
-      browserHistoryMock = simple.mock(browserHistory, 'push');
+      historyMock = simple.mock(history, 'push');
       instance.handleClick(page);
     });
 
@@ -74,8 +78,8 @@ describe('pages/search/results/SearchResultsPaging', () => {
     });
 
     it('calls browserHistory push with correct path', () => {
-      expect(browserHistoryMock.callCount).to.equal(1);
-      expect(browserHistoryMock.lastCall.args).to.deep.equal([expectedPath]);
+      expect(historyMock.callCount).to.equal(1);
+      expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
     });
   });
 

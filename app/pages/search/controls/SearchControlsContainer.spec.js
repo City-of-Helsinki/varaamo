@@ -2,7 +2,6 @@ import { expect } from 'chai';
 import moment from 'moment';
 import queryString from 'query-string';
 import React from 'react';
-import { browserHistory } from 'react-router';
 import Button from 'react-bootstrap/lib/Button';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
@@ -18,7 +17,12 @@ import TimeRangeControl from './TimeRangeControl';
 import { UnconnectedSearchControlsContainer as SearchControlsContainer } from './SearchControlsContainer';
 
 describe('pages/search/controls/SearchControlsContainer', () => {
+  const history = {
+    push: () => {},
+  };
+
   const defaultProps = {
+    history,
     actions: {
       changeSearchFilters: () => null,
       fetchPurposes: () => null,
@@ -374,10 +378,10 @@ describe('pages/search/controls/SearchControlsContainer', () => {
 
   describe('handleSearch', () => {
     const newFilters = {};
-    let browserHistoryMock;
+    let historyMock;
 
     before(() => {
-      browserHistoryMock = simple.mock(browserHistory, 'push');
+      historyMock = simple.mock(history, 'push');
       getWrapper()
         .instance()
         .handleSearch(newFilters);
@@ -388,10 +392,10 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     });
 
     it('calls browserHistory.push with correct path', () => {
-      const actualPath = browserHistoryMock.lastCall.args[0];
+      const actualPath = historyMock.lastCall.args[0];
       const expectedPath = `/search?${queryString.stringify(defaultProps.filters)}`;
 
-      expect(browserHistoryMock.callCount).to.equal(1);
+      expect(historyMock.callCount).to.equal(1);
       expect(actualPath).to.equal(expectedPath);
     });
   });

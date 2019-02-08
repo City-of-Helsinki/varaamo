@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import React from 'react';
 import Loader from 'react-loader';
-import { browserHistory } from 'react-router';
 import simple from 'simple-mock';
 
 import PageWrapper from 'pages/PageWrapper';
@@ -10,24 +9,34 @@ import { UnconnectedHomePage as HomePage } from './HomePage';
 import HomeSearchBox from './HomeSearchBox';
 
 describe('pages/home/HomePage', () => {
+  const history = {
+    push: () => {},
+  };
+
   const defaultProps = {
+    history,
     actions: {
       fetchPurposes: simple.stub(),
     },
     isFetchingPurposes: false,
-    purposes: [{
-      label: 'Purpose 1',
-      value: 'purpose-1',
-    }, {
-      label: 'Purpose 2',
-      value: 'purpose-2',
-    }, {
-      label: 'Purpose 3',
-      value: 'purpose-3',
-    }, {
-      label: 'Purpose 4',
-      value: 'purpose-4',
-    }],
+    purposes: [
+      {
+        label: 'Purpose 1',
+        value: 'purpose-1',
+      },
+      {
+        label: 'Purpose 2',
+        value: 'purpose-2',
+      },
+      {
+        label: 'Purpose 3',
+        value: 'purpose-3',
+      },
+      {
+        label: 'Purpose 4',
+        value: 'purpose-4',
+      },
+    ],
   };
 
   function getWrapper(extraProps) {
@@ -110,11 +119,11 @@ describe('pages/home/HomePage', () => {
   describe('handleSearch', () => {
     const value = 'some value';
     const expectedPath = `/search?search=${value}`;
-    let browserHistoryMock;
+    let historyMock;
 
     before(() => {
       const instance = getWrapper().instance();
-      browserHistoryMock = simple.mock(browserHistory, 'push');
+      historyMock = simple.mock(history, 'push');
       instance.handleSearch(value);
     });
 
@@ -123,19 +132,19 @@ describe('pages/home/HomePage', () => {
     });
 
     it('calls browserHistory push with correct path', () => {
-      expect(browserHistoryMock.callCount).to.equal(1);
-      expect(browserHistoryMock.lastCall.args).to.deep.equal([expectedPath]);
+      expect(historyMock.callCount).to.equal(1);
+      expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
     });
   });
 
   describe('handleBannerClick', () => {
     const purpose = 'some purpose';
     const expectedPath = `/search?purpose=${purpose}`;
-    let browserHistoryMock;
+    let historyMock;
 
     before(() => {
       const instance = getWrapper().instance();
-      browserHistoryMock = simple.mock(browserHistory, 'push');
+      historyMock = simple.mock(history, 'push');
       instance.handleBannerClick(purpose);
     });
 
@@ -144,8 +153,8 @@ describe('pages/home/HomePage', () => {
     });
 
     it('calls browserHistory push with correct path', () => {
-      expect(browserHistoryMock.callCount).to.equal(1);
-      expect(browserHistoryMock.lastCall.args).to.deep.equal([expectedPath]);
+      expect(historyMock.callCount).to.equal(1);
+      expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
     });
   });
 });
