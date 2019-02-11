@@ -4,7 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { queryString } from 'query-string';
+import queryString from 'query-string';
 
 import { postReservation, putReservation } from 'actions/reservationActions';
 import { fetchResource } from 'actions/resourceActions';
@@ -47,6 +47,7 @@ class UnconnectedReservationPage extends Component {
       isEmpty(selected)
     ) {
       const query = queryString.parse(location.search);
+
       if (!query.id && query.resource) {
         history.replace(`/resources/${query.resource}`);
       } else {
@@ -155,6 +156,7 @@ class UnconnectedReservationPage extends Component {
       t,
       unit,
       user,
+      history,
     } = this.props;
     const { view } = this.state;
 
@@ -187,6 +189,7 @@ class UnconnectedReservationPage extends Component {
                 <ReservationPhases currentPhase={view} isEditing={isEditing || isEdited} />
                 {view === 'time' && isEditing && (
                   <ReservationTime
+                    history={history}
                     location={location}
                     onCancel={this.handleCancel}
                     onConfirm={this.handleConfirmTime}

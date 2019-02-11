@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import React from 'react';
-import { browserHistory } from 'react-router';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 import Lightbox from 'lightbox-react';
@@ -20,6 +19,7 @@ import ResourceMapInfo from './resource-map-info';
 
 describe('pages/resource/ResourcePage', () => {
   const unit = Unit.build();
+  const history = { replace: () => {}, goBack: () => {} };
   const resource = Resource.build({
     images: [
       {
@@ -41,6 +41,7 @@ describe('pages/resource/ResourcePage', () => {
     unit: Unit.id,
   });
   const defaultProps = {
+    history,
     actions: {
       clearReservations: () => null,
       fetchResource: () => null,
@@ -50,8 +51,8 @@ describe('pages/resource/ResourcePage', () => {
     id: resource.id,
     isFetchingResource: false,
     isLoggedIn: true,
-    location: { query: {} },
-    params: {},
+    location: { search: 'date' },
+    match: { params: {} },
     resource: Immutable(resource),
     showMap: false,
     unit: Immutable(unit),
@@ -118,11 +119,11 @@ describe('pages/resource/ResourcePage', () => {
     });
 
     describe('handleBackButton', () => {
-      let browserHistoryMock;
+      let historyMock;
 
       before(() => {
         const instance = getWrapper().instance();
-        browserHistoryMock = simple.mock(browserHistory, 'goBack');
+        historyMock = simple.mock(history, 'goBack');
         instance.handleBackButton();
       });
 
@@ -130,8 +131,8 @@ describe('pages/resource/ResourcePage', () => {
         simple.restore();
       });
 
-      it('calls browserHistory goBack', () => {
-        expect(browserHistoryMock.callCount).to.equal(1);
+      it('calls history goBack', () => {
+        expect(historyMock.callCount).to.equal(1);
       });
     });
 
@@ -282,10 +283,10 @@ describe('pages/resource/ResourcePage', () => {
   describe('handleDateChange', () => {
     const newDate = new Date('2015-12-24');
     const instance = getWrapper().instance();
-    let browserHistoryMock;
+    let historyMock;
 
     before(() => {
-      browserHistoryMock = simple.mock(browserHistory, 'replace');
+      historyMock = simple.mock(history, 'replace');
       instance.handleDateChange(newDate);
     });
 
@@ -293,11 +294,11 @@ describe('pages/resource/ResourcePage', () => {
       simple.restore();
     });
 
-    it('calls browserHistory.replace with correct path', () => {
-      const actualPath = browserHistoryMock.lastCall.args[0];
+    it('calls history.replace with correct path', () => {
+      const actualPath = historyMock.lastCall.args[0];
       const expectedPath = getResourcePageUrl(resource, '2015-12-24');
 
-      expect(browserHistoryMock.callCount).to.equal(1);
+      expect(historyMock.callCount).to.equal(1);
       expect(actualPath).to.equal(expectedPath);
     });
   });

@@ -29,11 +29,13 @@ function getState(resources = [], units = [], user = defaultUser) {
     }),
     ui: Immutable({
       reservations: {
-        selected: [{
-          begin: '2016-10-10T10:00:00+03:00',
-          end: '2016-10-10T11:00:00+03:00',
-          resource: defaultResource.id,
-        }],
+        selected: [
+          {
+            begin: '2016-10-10T10:00:00+03:00',
+            end: '2016-10-10T11:00:00+03:00',
+            resource: defaultResource.id,
+          },
+        ],
         toEdit: [defaultReservation],
         toShow: [defaultReservation],
         toShowEdited: [defaultReservation],
@@ -45,10 +47,7 @@ function getState(resources = [], units = [], user = defaultUser) {
 function getProps(id = 'some-id') {
   return {
     location: {
-      query: {
-        date: '2015-10-10',
-        resource: defaultResource.id,
-      },
+      search: `?date=2015-10-10&resource=${defaultResource.id}`,
     },
     params: {
       id,

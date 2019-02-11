@@ -35,10 +35,7 @@ function getState(resource) {
 function getProps(id = 'some-id', date = '2015-10-10') {
   return {
     location: {
-      query: {
-        date,
-        time: '2015-10-10T12:00:00+03:00',
-      },
+      search: `date=${date}&time=2015-10-10T12:00:00`,
       hash: '#some-hash',
     },
     params: {
