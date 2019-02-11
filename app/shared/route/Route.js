@@ -4,7 +4,7 @@ import { Route as ReactRouterRoute } from 'react-router-dom';
 import { createAction } from 'redux-actions';
 import { connect } from 'react-redux';
 
-class Route extends Component {
+export class Route extends Component {
   componentDidMount() {
     window.scrollTo(0, 0);
     this.props.updateRoute();
