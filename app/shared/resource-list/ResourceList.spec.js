@@ -9,6 +9,7 @@ import ResourceList from './ResourceList';
 describe('shared/resource-list/ResourceList', () => {
   const defaultProps = {
     emptyMessage: 'Some empty message',
+    history: {},
     location: {
       state: {
         scrollTop: 123,

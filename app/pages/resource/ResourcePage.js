@@ -35,6 +35,7 @@ class UnconnectedResourcePage extends Component {
     };
 
     this.fetchResource = this.fetchResource.bind(this);
+    this.handleBackButton = this.handleBackButton.bind(this);
   }
 
   componentDidMount() {
@@ -126,6 +127,7 @@ class UnconnectedResourcePage extends Component {
       showMap,
       t,
       unit,
+      history,
     } = this.props;
     const { params } = match;
     const { isOpen, photoIndex } = this.state;

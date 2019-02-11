@@ -11,6 +11,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
     resourceIds: Immutable(['resource-1', 'resource-2']),
     date: '2017-01-01',
     location: {},
+    history: {},
   };
 
   function getWrapper(extraProps) {
