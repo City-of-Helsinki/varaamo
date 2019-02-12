@@ -4,7 +4,7 @@ import simple from 'simple-mock';
 import { shallow } from 'enzyme';
 import { Route } from 'react-router-dom';
 
-import { PrivateRoute } from './PrivateRoute';
+import { UnconnectedPrivateRoute as PrivateRoute } from './PrivateRoute';
 
 describe('shared/reservation-controls/ReservationControls', () => {
   const component = () => <div>private route</div>;

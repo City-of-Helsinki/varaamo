@@ -4,7 +4,7 @@ import simple from 'simple-mock';
 import { shallow } from 'enzyme';
 import { Route as ReactRouterRoute } from 'react-router-dom';
 
-import { Route } from './Route';
+import { UnconnectedRoute as Route } from './Route';
 
 describe('shared/reservation-controls/ReservationControls', () => {
   const updateRoute = simple.mock();
