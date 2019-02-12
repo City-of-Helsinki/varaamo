@@ -52,7 +52,8 @@ export class UnconnectedAppContainer extends Component {
 
   removeFacebookAppendedHash() {
     if (window.location.hash && window.location.hash.indexOf('_=_') !== -1) {
-      this.props.history.replace(window.location.hash.replace('_=_', ''));
+      window.location.hash = ''; // for older browsers, leaves a # behind
+      window.history.pushState('', document.title, window.location.pathname);
     }
   }
 
