@@ -6,7 +6,7 @@ import { Route } from 'react-router-dom';
 
 import { UnconnectedPrivateRoute as PrivateRoute } from './PrivateRoute';
 
-describe('shared/reservation-controls/ReservationControls', () => {
+describe('shared/private-route/PrivateRoute', () => {
   const component = () => <div>private route</div>;
 
   const updateRoute = simple.mock();
@@ -19,6 +19,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
     redirectMock.reset();
     simple.mock(window, 'scrollTo', scrollToMock);
     simple.mock(window.location, 'replace', redirectMock);
+    window.onbeforeunload = () => '';
   });
 
   const getWrapper = (componentName, userId) => {
@@ -31,39 +32,37 @@ describe('shared/reservation-controls/ReservationControls', () => {
     return shallow(<PrivateRoute {...props} />);
   };
 
-  describe('shared/private-route/PrivateRoute', () => {
-    it('renders Route from react-router-dom', () => {
-      const wrapper = getWrapper('AdminPage', '1234');
+  it('renders Route from react-router-dom', () => {
+    const wrapper = getWrapper('AdminPage', '1234');
 
-      expect(wrapper.is(Route)).to.be.true;
-    });
+    expect(wrapper.is(Route)).to.be.true;
+  });
 
-    it('calls updateRoute when the component did mount', () => {
-      const wrapper = getWrapper('AdminPage', '1234');
-      wrapper.instance().componentDidMount();
+  it('calls updateRoute when the component did mount', () => {
+    const wrapper = getWrapper('AdminPage', '1234');
+    wrapper.instance().componentDidMount();
 
-      expect(updateRoute.callCount).to.equal(1);
-    });
+    expect(updateRoute.callCount).to.equal(1);
+  });
 
-    it('calls scrollTo when the component did update', () => {
-      const wrapper = getWrapper('AdminPage', '1234');
-      wrapper.instance().componentDidMount();
+  it('calls scrollTo when the component did update', () => {
+    const wrapper = getWrapper('AdminPage', '1234');
+    wrapper.instance().componentDidMount();
 
-      expect(scrollToMock.callCount).to.equal(1);
-    });
+    expect(scrollToMock.callCount).to.equal(1);
+  });
 
-    it('calls updateRoute when the component did update', () => {
-      const wrapper = getWrapper('AdminPage', '1234');
-      wrapper.instance().componentDidUpdate();
+  it('calls updateRoute when the component did update', () => {
+    const wrapper = getWrapper('AdminPage', '1234');
+    wrapper.instance().componentDidUpdate();
 
-      expect(updateRoute.callCount).to.equal(1);
-    });
+    expect(updateRoute.callCount).to.equal(1);
+  });
 
-    it('calls window.location.replace if the userId is not defined', () => {
-      const wrapper = getWrapper('AdminPage');
-      wrapper.instance().renderOrRedirect();
+  it('calls window.location.replace if the userId is not defined', () => {
+    const wrapper = getWrapper('AdminPage');
+    wrapper.instance().renderOrRedirect();
 
-      expect(redirectMock.callCount).to.equal(1);
-    });
+    expect(redirectMock.callCount).to.equal(1);
   });
 });
