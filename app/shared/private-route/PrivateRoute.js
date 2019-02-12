@@ -6,7 +6,13 @@ import { connect } from 'react-redux';
 
 import userIdSelector from 'state/selectors/userIdSelector';
 
-class PrivateRoute extends Component {
+export class PrivateRoute extends Component {
+  constructor(props) {
+    super(props);
+
+    this.renderOrRedirect = this.renderOrRedirect.bind(this);
+  }
+
   componentDidMount() {
     window.scrollTo(0, 0);
     this.props.updateRoute();
@@ -16,28 +22,25 @@ class PrivateRoute extends Component {
     this.props.updateRoute();
   }
 
-  render() {
-    const { userId, component: RouteComponent, ...rest } = this.props;
+  renderOrRedirect(routerProps) {
+    const { userId, component: RouteComponent } = this.props;
 
-    return (
-      <Route
-        {...rest}
-        render={(props) => {
-          if (userId) {
-            return <RouteComponent {...props} />;
-          }
-          return window.location.replace(`${window.location.origin}/login`);
-        }}
-      />
-    );
+    if (userId) {
+      return <RouteComponent {...routerProps} />;
+    }
+    return window.location.replace(`${window.location.origin}/login`);
+  }
+
+  render() {
+    return <Route {...this.props} render={this.renderOrRedirect} />;
   }
 }
 
 PrivateRoute.propTypes = {
   updateRoute: PropTypes.func.isRequired,
   userId: PropTypes.string,
-  component: PropTypes.element.isRequired,
-  componentName: PropTypes.string.isRequired,
+  component: PropTypes.func.isRequired,
+  componentName: PropTypes.string.isRequired, // eslint-disable-line react/no-unused-prop-types
 };
 
 const mapStateToProps = state => ({
