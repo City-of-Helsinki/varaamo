@@ -31,7 +31,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
     return shallow(<PrivateRoute {...props} />);
   };
 
-  describe.only('shared/private-route/PrivateRoute', () => {
+  describe('shared/private-route/PrivateRoute', () => {
     it('renders Route from react-router-dom', () => {
       const wrapper = getWrapper('AdminPage', '1234');
 
