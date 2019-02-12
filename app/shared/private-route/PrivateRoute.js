@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 import userIdSelector from 'state/selectors/userIdSelector';
 
-export class PrivateRoute extends Component {
+export class UnconnectedPrivateRoute extends Component {
   constructor(props) {
     super(props);
 
@@ -36,7 +36,7 @@ export class PrivateRoute extends Component {
   }
 }
 
-PrivateRoute.propTypes = {
+UnconnectedPrivateRoute.propTypes = {
   updateRoute: PropTypes.func.isRequired,
   userId: PropTypes.string,
   component: PropTypes.func.isRequired,
@@ -58,4 +58,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PrivateRoute);
+)(UnconnectedPrivateRoute);
