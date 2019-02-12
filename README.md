@@ -29,7 +29,19 @@ Architecture
 Usage
 -----
 
-### Starting development server
+### Starting dockerized development server
+1. Check if Docker and docker CLI installed
+2. Make sure you have env variables in `.env`, otherwise extend it from example by:
+    ```
+    $ cp .env.example .env
+    ```
+3. Start building docker image and start container:
+    ```
+    $ docker-compose up
+    ```
+4. Open `localhost:3000` on browser when Webpack bundling is ready.
+
+### Starting local development server
 
 Follow the instructions below to set up the development environment.
 By default the running app can be found at `localhost:3000`.
@@ -41,7 +53,13 @@ By default the running app can be found at `localhost:3000`.
     ```
 
 2. Make sure you have the following env variables set in an .env file in the root of the project:
+    Run command:
+    ```
+    $ cp .env.example .env
+    ```
 
+    OR prepare .env with default content:
+    
     ```
     API_URL
     CLIENT_ID
@@ -108,6 +126,12 @@ By default the running app uses port `8080`.
     ```
     $ npm run lint
     ```
+### Useful docker command
+- To rebuild the docker images `docker-compose up -d --force-recreate --build`
+- To enter inside docker container environment `docker-compose exec web sh`.
+- Remove docker container if needed `docker rm -f varaamo-frontend`
+- Remove docker image `docker rmi varaamo_web`
+- Encounter `node-sass` issue ? try to go inside docker container environment and run `npm rebuild node-sass`
 
 Code style and linting
 ----------------------
