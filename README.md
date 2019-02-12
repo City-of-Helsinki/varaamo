@@ -61,7 +61,6 @@ By default the running app can be found at `localhost:3000`.
     OR prepare .env with default content:
     
     ```
-    API_URL
     CLIENT_ID
     CLIENT_SECRET
     SESSION_SECRET
