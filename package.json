@@ -31,7 +31,7 @@
     "mobile-detect": "1.4.0",
     "moment": "2.19.3",
     "moment-range": "2.2.0",
-    "moment-timezone": "0.5.11",
+    "moment-timezone": "0.5.13",
     "nocache": "2.0.0",
     "normalizr": "2.2.1",
     "passport": "0.3.2",
