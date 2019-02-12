@@ -6,7 +6,7 @@ import { Route as ReactRouterRoute } from 'react-router-dom';
 
 import { Route } from './Route';
 
-describe.only('shared/reservation-controls/ReservationControls', () => {
+describe('shared/reservation-controls/ReservationControls', () => {
   const updateRoute = simple.mock();
   const scrollToMock = simple.mock();
 
