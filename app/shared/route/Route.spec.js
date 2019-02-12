@@ -6,7 +6,7 @@ import { Route as ReactRouterRoute } from 'react-router-dom';
 
 import { UnconnectedRoute as Route } from './Route';
 
-describe('shared/reservation-controls/ReservationControls', () => {
+describe('shared/route/Route', () => {
   const updateRoute = simple.mock();
   const scrollToMock = simple.mock();
 
@@ -24,32 +24,30 @@ describe('shared/reservation-controls/ReservationControls', () => {
     return shallow(<Route {...props} />);
   };
 
-  describe('shared/route/Route', () => {
-    it('renders Route from react-router-dom', () => {
-      const wrapper = getWrapper('Homepage');
+  it('renders Route from react-router-dom', () => {
+    const wrapper = getWrapper('Homepage');
 
-      expect(wrapper.is(ReactRouterRoute)).to.be.true;
-    });
+    expect(wrapper.is(ReactRouterRoute)).to.be.true;
+  });
 
-    it('calls updateRoute when the component did mount', () => {
-      const wrapper = getWrapper('Homepage');
-      wrapper.instance().componentDidMount();
+  it('calls updateRoute when the component did mount', () => {
+    const wrapper = getWrapper('Homepage');
+    wrapper.instance().componentDidMount();
 
-      expect(updateRoute.callCount).to.equal(1);
-    });
+    expect(updateRoute.callCount).to.equal(1);
+  });
 
-    it('calls scrollTo when the component did update', () => {
-      const wrapper = getWrapper('Homepage');
-      wrapper.instance().componentDidMount();
+  it('calls scrollTo when the component did update', () => {
+    const wrapper = getWrapper('Homepage');
+    wrapper.instance().componentDidMount();
 
-      expect(scrollToMock.callCount).to.equal(1);
-    });
+    expect(scrollToMock.callCount).to.equal(1);
+  });
 
-    it('calls updateRoute when the component did update', () => {
-      const wrapper = getWrapper('Homepage');
-      wrapper.instance().componentDidUpdate();
+  it('calls updateRoute when the component did update', () => {
+    const wrapper = getWrapper('Homepage');
+    wrapper.instance().componentDidUpdate();
 
-      expect(updateRoute.callCount).to.equal(1);
-    });
+    expect(updateRoute.callCount).to.equal(1);
   });
 });
