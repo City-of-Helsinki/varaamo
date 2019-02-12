@@ -1,8 +1,8 @@
 import React from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 
-import Route from 'shared/route/Route';
-import PrivateRoute from 'shared/private-route/PrivateRoute';
+import Route from 'shared/route';
+import PrivateRoute from 'shared/private-route';
 import AppContainer from 'pages/AppContainer';
 import AboutPage from 'pages/about';
 import AdminResourcesPage from 'pages/admin-resources';

@@ -4,7 +4,7 @@ import { Route as ReactRouterRoute } from 'react-router-dom';
 import { createAction } from 'redux-actions';
 import { connect } from 'react-redux';
 
-export class Route extends Component {
+export class UnconnectedRoute extends Component {
   componentDidMount() {
     window.scrollTo(0, 0);
     this.props.updateRoute();
@@ -19,7 +19,7 @@ export class Route extends Component {
   }
 }
 
-Route.propTypes = {
+UnconnectedRoute.propTypes = {
   updateRoute: PropTypes.func.isRequired,
   componentName: PropTypes.string.isRequired, // eslint-disable-line react/no-unused-prop-types
 };
@@ -35,4 +35,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 export default connect(
   null,
   mapDispatchToProps
-)(Route);
+)(UnconnectedRoute);
