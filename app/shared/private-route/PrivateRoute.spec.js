@@ -19,7 +19,6 @@ describe('shared/private-route/PrivateRoute', () => {
     redirectMock.reset();
     simple.mock(window, 'scrollTo', scrollToMock);
     simple.mock(window.location, 'replace', redirectMock);
-    window.onbeforeunload = () => '';
   });
 
   const getWrapper = (componentName, userId) => {
@@ -59,10 +58,10 @@ describe('shared/private-route/PrivateRoute', () => {
     expect(updateRoute.callCount).to.equal(1);
   });
 
-  it('calls window.location.replace if the userId is not defined', () => {
-    const wrapper = getWrapper('AdminPage');
+  it('does not calls window.location.replace if the userId is defined', () => {
+    const wrapper = getWrapper('AdminPage', '1234');
     wrapper.instance().renderOrRedirect();
 
-    expect(redirectMock.callCount).to.equal(1);
+    expect(redirectMock.callCount).to.equal(0);
   });
 });
