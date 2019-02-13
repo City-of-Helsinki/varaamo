@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import MockDate from 'mockdate';
-import moment from 'moment';
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
 
 import constants from 'constants/AppConstants';
 import {
@@ -18,6 +19,8 @@ import {
   padLeft,
   prettifyHours,
 } from 'utils/timeUtils';
+
+const moment = extendMoment(Moment);
 
 describe('Utils: timeUtils', () => {
   describe('addToDate', () => {

@@ -1,25 +1,33 @@
-import moment from 'moment';
-import 'moment-range';
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
 import React, { Component, PropTypes } from 'react';
 import Select from 'react-select';
+import map from 'lodash/map';
 
 import DatePicker from 'shared/date-picker';
+import constants from 'constants/AppConstants';
+
+const moment = extendMoment(Moment);
 
 function updateWithDate(initialValue, date) {
   const dateMoment = moment(date);
-  return moment(initialValue).set({
-    year: dateMoment.get('year'),
-    month: dateMoment.get('month'),
-    date: dateMoment.get('date'),
-  }).toISOString();
+  return moment(initialValue)
+    .set({
+      year: dateMoment.get('year'),
+      month: dateMoment.get('month'),
+      date: dateMoment.get('date'),
+    })
+    .toISOString();
 }
 
 function updateWithTime(initialValue, time, timeFormat) {
   const timeMoment = moment(time, timeFormat);
-  return moment(initialValue).set({
-    hour: timeMoment.get('hour'),
-    minute: timeMoment.get('minute'),
-  }).toISOString();
+  return moment(initialValue)
+    .set({
+      hour: timeMoment.get('hour'),
+      minute: timeMoment.get('minute'),
+    })
+    .toISOString();
 }
 
 class ReservationTimeControls extends Component {
@@ -48,31 +56,33 @@ class ReservationTimeControls extends Component {
     const end = moment().endOf('day');
     const range = moment.range(moment(start), moment(end));
     const duration = moment.duration(period);
-    const options = [];
-    range.by(duration, (beginMoment) => {
-      options.push({
+
+    const options = map(
+      Array.from(
+        range.by(constants.FILTER.timePeriodType, {
+          step: duration.as(constants.FILTER.timePeriodType),
+        })
+      ),
+      beginMoment => ({
         label: beginMoment.format(timeFormat),
         value: beginMoment.format(timeFormat),
-      });
-    });
+      })
+    );
+
     return options;
   }
 
   handleBeginTimeChange({ value }) {
     const { begin, timeFormat } = this.props;
     if (value) {
-      begin.input.onChange(
-        updateWithTime(begin.input.value, value, timeFormat)
-      );
+      begin.input.onChange(updateWithTime(begin.input.value, value, timeFormat));
     }
   }
 
   handleEndTimeChange({ value }) {
     const { end, timeFormat } = this.props;
     if (value) {
-      end.input.onChange(
-        updateWithTime(end.input.value, value, timeFormat)
-      );
+      end.input.onChange(updateWithTime(end.input.value, value, timeFormat));
     }
   }
 
@@ -88,10 +98,7 @@ class ReservationTimeControls extends Component {
     return (
       <div className="reservation-time-controls">
         <div className="reservation-time-controls-date-control">
-          <DatePicker
-            onChange={this.handleDateChange}
-            value={begin.input.value}
-          />
+          <DatePicker onChange={this.handleDateChange} value={begin.input.value} />
         </div>
         <div className="reservation-time-controls-time-control">
           <Select
@@ -104,9 +111,7 @@ class ReservationTimeControls extends Component {
             value={moment(begin.input.value).format(timeFormat)}
           />
         </div>
-        <div className="reservation-time-controls-separator">
-          -
-        </div>
+        <div className="reservation-time-controls-separator">-</div>
         <div className="reservation-time-controls-time-control">
           <Select
             clearable={false}
