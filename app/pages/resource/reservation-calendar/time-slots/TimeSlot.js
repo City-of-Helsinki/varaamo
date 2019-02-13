@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import React, { PureComponent, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
 import { findDOMNode } from 'react-dom';
 
 import { injectT } from 'i18n';

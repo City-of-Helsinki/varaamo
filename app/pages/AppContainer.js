@@ -1,5 +1,6 @@
 import MobileDetect from 'mobile-detect';
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import BodyClassName from 'react-body-classname';
 import Grid from 'react-bootstrap/lib/Grid';
 import DocumentTitle from 'react-document-title';
@@ -80,7 +81,7 @@ UnconnectedAppContainer.propTypes = {
 };
 
 UnconnectedAppContainer.childContextTypes = {
-  location: React.PropTypes.object,
+  location: PropTypes.object,
 };
 
 const actions = { enableGeoposition, fetchUser };

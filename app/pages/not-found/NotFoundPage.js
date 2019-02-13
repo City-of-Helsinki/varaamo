@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Well from 'react-bootstrap/lib/Well';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';

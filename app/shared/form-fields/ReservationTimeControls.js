@@ -1,6 +1,7 @@
 import moment from 'moment';
 import 'moment-range';
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Select from 'react-select';
 
 import DatePicker from 'shared/date-picker';

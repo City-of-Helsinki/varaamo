@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import moment from 'moment';
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Sticky from 'react-sticky-el';
 
 import { slotSize, slotWidth } from 'shared/availability-view';

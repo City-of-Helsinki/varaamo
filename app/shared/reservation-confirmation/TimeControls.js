@@ -1,7 +1,8 @@
 import forEach from 'lodash/forEach';
 import moment from 'moment';
 import 'moment-range';
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Select from 'react-select';
 
 function updateWithTime(initialValue, time, timeFormat) {

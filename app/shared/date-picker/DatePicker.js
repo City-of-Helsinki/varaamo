@@ -1,6 +1,7 @@
 import moment from 'moment';
 import classnames from 'classnames';
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { DateField, DatePicker as RDPDatePicker } from 'react-date-picker';
 
 const dateFormat = 'YYYY-MM-DD';

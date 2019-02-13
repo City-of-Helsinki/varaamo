@@ -1,6 +1,7 @@
 import { first, last, orderBy, pick, uniq } from 'lodash';
 import camelCase from 'lodash/camelCase';
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 
 import CompactReservationList from 'shared/compact-reservation-list';

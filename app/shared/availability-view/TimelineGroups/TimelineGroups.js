@@ -1,7 +1,8 @@
 import dragscroll from 'dragscroll';
 import throttle from 'lodash/throttle';
 import moment from 'moment';
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import TimelineGroup from './TimelineGroup';
 import utils from './TimelineGroup/utils';

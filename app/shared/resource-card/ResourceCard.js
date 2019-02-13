@@ -1,7 +1,8 @@
 import classnames from 'classnames';
 import round from 'lodash/round';
+import PropTypes from 'prop-types';
 import queryString from 'query-string';
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { browserHistory, Link } from 'react-router';
 import Col from 'react-bootstrap/lib/Col';
 import iconHome from 'hel-icons/dist/shapes/home.svg';
