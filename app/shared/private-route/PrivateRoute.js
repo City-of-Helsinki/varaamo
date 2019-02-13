@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
-import { createAction } from 'redux-actions';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
+import { updateRoute } from 'actions/routeActions';
 import userIdSelector from 'state/selectors/userIdSelector';
 
 export class UnconnectedPrivateRoute extends Component {
@@ -15,11 +16,11 @@ export class UnconnectedPrivateRoute extends Component {
 
   componentDidMount() {
     window.scrollTo(0, 0);
-    this.props.updateRoute();
+    this.props.actions.updateRoute(this.props.location);
   }
 
   componentDidUpdate() {
-    this.props.updateRoute();
+    this.props.actions.updateRoute(this.props.location);
   }
 
   renderOrRedirect(routerProps) {
@@ -37,7 +38,8 @@ export class UnconnectedPrivateRoute extends Component {
 }
 
 UnconnectedPrivateRoute.propTypes = {
-  updateRoute: PropTypes.func.isRequired,
+  actions: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
   userId: PropTypes.string,
   component: PropTypes.func.isRequired,
   componentName: PropTypes.string.isRequired, // eslint-disable-line react/no-unused-prop-types
@@ -48,11 +50,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const routeChangedAction = createAction(
-    `ENTER_OR_CHANGE_${ownProps.componentName.toUpperCase()}_PAGE`
-  );
+  const actionCreators = {
+    updateRoute: updateRoute(ownProps.componentName),
+  };
 
-  return { updateRoute: () => dispatch(routeChangedAction(ownProps.location)) };
+  return { actions: bindActionCreators(actionCreators, dispatch) };
 };
 
 export default connect(

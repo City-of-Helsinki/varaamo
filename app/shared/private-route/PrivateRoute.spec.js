@@ -23,7 +23,8 @@ describe('shared/private-route/PrivateRoute', () => {
 
   const getWrapper = (componentName, userId) => {
     const props = {
-      updateRoute,
+      actions: { updateRoute },
+      location: {},
       componentName,
       component,
       userId,
