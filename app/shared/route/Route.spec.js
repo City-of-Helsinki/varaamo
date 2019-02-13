@@ -18,7 +18,8 @@ describe('shared/route/Route', () => {
 
   const getWrapper = (componentName) => {
     const props = {
-      updateRoute,
+      actions: { updateRoute },
+      location: {},
       componentName,
     };
     return shallow(<Route {...props} />);
