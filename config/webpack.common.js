@@ -1,9 +1,8 @@
-const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 
 module.exports = {
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.json$/,
         loader: 'json',
@@ -30,12 +29,8 @@ module.exports = {
       },
     ],
   },
-  postcss: [
-    autoprefixer({ browsers: ['last 2 version', 'ie 9'] }),
-  ],
   resolve: {
-    extensions: ['', '.js', '.json'],
-    modulesDirectories: ['node_modules', 'app'],
+    modules: ['node_modules', 'app'],
   },
   plugins: [
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en-gb|fi|sv/),

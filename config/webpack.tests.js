@@ -16,8 +16,7 @@ module.exports = merge(common, {
   },
   devtool: 'inline-source-map',
   module: {
-    preLoaders: [],
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         include: [

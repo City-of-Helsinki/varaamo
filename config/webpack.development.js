@@ -13,7 +13,6 @@ module.exports = merge(common, {
     'webpack-hot-middleware/client',
     path.resolve(__dirname, '../app/index.js'),
   ],
-  debug: true,
   devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, '../dist'),
@@ -21,22 +20,12 @@ module.exports = merge(common, {
     publicPath: '/',
   },
   module: {
-    preLoaders: [
-      {
-        test: /\.js$/,
-        include: path.resolve(__dirname, '../app'),
-        loader: 'eslint-loader',
-      },
-    ],
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         include: path.resolve(__dirname, '../app'),
         exclude: path.resolve(__dirname, '../node_modules'),
         loader: 'babel-loader',
-        query: {
-          presets: ['es2015', 'node6', 'react', 'react-hmre', 'stage-2'],
-        },
       },
       {
         test: /\.css$/,

@@ -10,7 +10,6 @@ const common = require('./webpack.common');
 
 module.exports = merge(common, {
   entry: ['babel-polyfill', path.resolve(__dirname, '../app/index.js')],
-  debug: false,
   devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, '../dist'),
@@ -18,14 +17,11 @@ module.exports = merge(common, {
     filename: 'app.js',
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         include: path.resolve(__dirname, '../app'),
         loader: 'babel-loader',
-        query: {
-          presets: ['es2015', 'node6', 'react', 'stage-2'],
-        },
       },
       {
         test: /\.css$/,
