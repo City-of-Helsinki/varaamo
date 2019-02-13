@@ -5,6 +5,7 @@ import Grid from 'react-bootstrap/lib/Grid';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { withRouter } from 'react-router-dom';
 
 import { fetchUser } from 'actions/userActions';
 import { enableGeoposition } from 'actions/uiActions';
@@ -93,7 +94,9 @@ UnconnectedAppContainer.childContextTypes = {
 
 const actions = { enableGeoposition, fetchUser };
 
-export default connect(
-  selector,
-  actions
-)(UnconnectedAppContainer);
+export default withRouter(
+  connect(
+    selector,
+    actions
+  )(UnconnectedAppContainer)
+);
