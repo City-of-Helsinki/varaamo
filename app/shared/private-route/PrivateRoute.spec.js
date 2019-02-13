@@ -1,68 +1,116 @@
 import { expect } from 'chai';
 import React from 'react';
 import simple from 'simple-mock';
+import * as redux from 'redux';
 import { shallow } from 'enzyme';
 import { Route } from 'react-router-dom';
 
-import { UnconnectedPrivateRoute as PrivateRoute } from './PrivateRoute';
+import * as routeActions from 'actions/routeActions';
+import {
+  UnconnectedPrivateRoute as PrivateRoute,
+  mapStateToProps,
+  mapDispatchToProps,
+} from './PrivateRoute';
 
 describe('shared/private-route/PrivateRoute', () => {
-  const component = () => <div>private route</div>;
+  describe('UnconnectedPrivateRoute', () => {
+    const component = () => <div>private route</div>;
 
-  const updateRoute = simple.mock();
-  const scrollToMock = simple.mock();
-  const redirectMock = simple.mock();
+    const updateRoute = simple.mock();
+    const scrollToMock = simple.mock();
+    const redirectMock = simple.mock();
 
-  beforeEach(() => {
-    updateRoute.reset();
-    scrollToMock.reset();
-    redirectMock.reset();
-    simple.mock(window, 'scrollTo', scrollToMock);
-    simple.mock(window.location, 'replace', redirectMock);
-  });
+    beforeEach(() => {
+      updateRoute.reset();
+      scrollToMock.reset();
+      redirectMock.reset();
+      simple.mock(window, 'scrollTo', scrollToMock);
+      simple.mock(window.location, 'replace', redirectMock);
+    });
 
-  const getWrapper = (componentName, userId) => {
-    const props = {
-      actions: { updateRoute },
-      location: {},
-      componentName,
-      component,
-      userId,
+    const getWrapper = (componentName, userId) => {
+      const props = {
+        actions: { updateRoute },
+        location: {},
+        componentName,
+        component,
+        userId,
+      };
+      return shallow(<PrivateRoute {...props} />);
     };
-    return shallow(<PrivateRoute {...props} />);
-  };
 
-  it('renders Route from react-router-dom', () => {
-    const wrapper = getWrapper('AdminPage', '1234');
+    it('renders Route from react-router-dom', () => {
+      const wrapper = getWrapper('AdminPage', '1234');
 
-    expect(wrapper.is(Route)).to.be.true;
+      expect(wrapper.is(Route)).to.be.true;
+    });
+
+    it('calls updateRoute when the component did mount', () => {
+      const wrapper = getWrapper('AdminPage', '1234');
+      wrapper.instance().componentDidMount();
+
+      expect(updateRoute.callCount).to.equal(1);
+    });
+
+    it('calls scrollTo when the component did update', () => {
+      const wrapper = getWrapper('AdminPage', '1234');
+      wrapper.instance().componentDidMount();
+
+      expect(scrollToMock.callCount).to.equal(1);
+    });
+
+    it('calls updateRoute when the component did update', () => {
+      const wrapper = getWrapper('AdminPage', '1234');
+      wrapper.instance().componentDidUpdate();
+
+      expect(updateRoute.callCount).to.equal(1);
+    });
+
+    it('does not calls window.location.replace if the userId is defined', () => {
+      const wrapper = getWrapper('AdminPage', '1234');
+      wrapper.instance().renderOrRedirect();
+
+      expect(redirectMock.callCount).to.equal(0);
+    });
   });
 
-  it('calls updateRoute when the component did mount', () => {
-    const wrapper = getWrapper('AdminPage', '1234');
-    wrapper.instance().componentDidMount();
-
-    expect(updateRoute.callCount).to.equal(1);
+  describe('mapStateToProps', () => {
+    it('returns an object with userId property', () => {
+      expect(mapStateToProps({})).to.have.property('userId');
+    });
   });
 
-  it('calls scrollTo when the component did update', () => {
-    const wrapper = getWrapper('AdminPage', '1234');
-    wrapper.instance().componentDidMount();
+  describe('mapDispatchToProps', () => {
+    beforeEach(() => {
+      simple.mock(redux, 'bindActionCreators');
+      simple.mock(routeActions, 'updateRoute').returnWith(() => {});
+    });
 
-    expect(scrollToMock.callCount).to.equal(1);
-  });
+    afterEach(() => {
+      simple.restore();
+    });
 
-  it('calls updateRoute when the component did update', () => {
-    const wrapper = getWrapper('AdminPage', '1234');
-    wrapper.instance().componentDidUpdate();
+    const dispatch = () => {};
+    const ownProps = { componentName: 'adminPage' };
 
-    expect(updateRoute.callCount).to.equal(1);
-  });
+    it('returns an object with actions property', () => {
+      expect(mapDispatchToProps(dispatch, ownProps)).to.have.property('actions');
+    });
 
-  it('does not calls window.location.replace if the userId is defined', () => {
-    const wrapper = getWrapper('AdminPage', '1234');
-    wrapper.instance().renderOrRedirect();
+    it('calls updateRoute with componentName prop', () => {
+      mapDispatchToProps(dispatch, ownProps);
 
-    expect(redirectMock.callCount).to.equal(0);
+      expect(routeActions.updateRoute.calls[0].arg).to.equal(ownProps.componentName);
+    });
+
+    it('calls bindActionCreators with the correct arguments', () => {
+      mapDispatchToProps(dispatch, ownProps);
+
+      expect(redux.bindActionCreators.calls[0].args[0]).to.have.property(
+        'updateRoute',
+        routeActions.updateRoute(ownProps.componentName)
+      );
+      expect(redux.bindActionCreators.calls[0].args[1]).to.equal(dispatch);
+    });
   });
 });

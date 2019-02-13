@@ -27,7 +27,7 @@ UnconnectedRoute.propTypes = {
   componentName: PropTypes.string.isRequired, // eslint-disable-line react/no-unused-prop-types
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+export const mapDispatchToProps = (dispatch, ownProps) => {
   const actionCreators = {
     updateRoute: updateRoute(ownProps.componentName),
   };
