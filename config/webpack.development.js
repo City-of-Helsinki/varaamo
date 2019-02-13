@@ -14,7 +14,7 @@ module.exports = merge(common, {
     path.resolve(__dirname, '../app/index.js'),
   ],
   debug: true,
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: 'app.js',
@@ -58,6 +58,6 @@ module.exports = merge(common, {
       },
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
   ],
 });

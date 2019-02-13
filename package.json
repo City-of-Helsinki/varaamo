@@ -1,10 +1,6 @@
 {
   "name": "varaamo",
   "version": "0.0.0",
-  "engines": {
-    "node": "6.5.0",
-    "npm": "3.10.3"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/City-of-Helsinki/varaamo"
@@ -14,6 +10,8 @@
   "description": "Varaamo is the user interface for the City of Helsinki varaamo.hel.fi resource reservation service.",
   "license": "MIT",
   "dependencies": {
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
     "bootstrap-sass": "3.3.7",
     "classnames": "2.2.5",
     "dotenv": "2.0.0",
@@ -38,14 +36,12 @@
     "passport-helsinki": "git://github.com/City-of-Helsinki/passport-helsinki.git",
     "query-string": "4.2.3",
     "rc-slider": "8.3.1",
-    "react": "15.3.2",
     "react-addons-css-transition-group": "15.3.2",
     "react-body-classname": "1.2.0",
     "react-bootstrap": "0.30.5",
     "react-date-picker": "git://github.com/YoYuUm/react-date-picker.git#build-readonly",
     "react-day-picker": "5.2.0",
     "react-document-title": "2.0.2",
-    "react-dom": "15.3.2",
     "react-fontawesome": "1.6.1",
     "react-helmet": "3.2.3",
     "react-intl": "2.1.5",
@@ -132,7 +128,7 @@
     "simple-mock": "0.7.0",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
-    "webpack": "1.13.2",
+    "webpack": "^4.29.3",
     "webpack-dev-middleware": "1.8.4",
     "webpack-hot-middleware": "2.13.0",
     "webpack-merge": "0.14.1"
