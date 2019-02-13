@@ -4,28 +4,31 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.json$/,
-        loader: 'json',
-      },
-      {
         test: /\.png$/,
-        loader: 'url?limit=100000&mimetype=image/png',
+        loader: 'url-loader?limit=100000&mimetype=image/png',
       },
       {
         test: /\.gif$/,
-        loader: 'url?limit=100000&mimetype=image/gif',
+        loader: 'url-loader?limit=100000&mimetype=image/gif',
       },
       {
         test: /\.ico$/,
-        loader: 'url?limit=100000&mimetype=image/x-icon',
+        loader: 'url-loader?limit=100000&mimetype=image/x-icon',
       },
       {
         test: /\.jpg$/,
-        loader: 'file?name=[name].[ext]',
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+            },
+          },
+        ],
       },
       {
         test: /\.woff|\.woff2|\.svg|.eot|\.ttf/,
-        loader: 'url?prefix=font/&limit=10000',
+        loader: 'url-loader?prefix=font/&limit=10000',
       },
     ],
   },

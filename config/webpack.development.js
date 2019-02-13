@@ -4,12 +4,14 @@ require('dotenv').load({ path: path.resolve(__dirname, '../.env') });
 
 const webpack = require('webpack');
 const merge = require('webpack-merge');
+const autoprefixer = require('autoprefixer');
 
 const common = require('./webpack.common');
 
 module.exports = merge(common, {
+  mode: 'development',
   entry: [
-    'babel-polyfill',
+    '@babel/polyfill',
     'webpack-hot-middleware/client',
     path.resolve(__dirname, '../app/index.js'),
   ],
@@ -22,18 +24,37 @@ module.exports = merge(common, {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        enforce: "pre",
+        test: /\.(js|jsx)$/,
         include: path.resolve(__dirname, '../app'),
         exclude: path.resolve(__dirname, '../node_modules'),
-        loader: 'babel-loader',
+        loader: "eslint-loader",
+        options: {
+          configFile: path.join(__dirname, '../.eslintrc')
+        }
+      },
+      {
+        test: /\.(js|jsx)$/,
+        include: path.resolve(__dirname, '../app'),
+        exclude: path.resolve(__dirname, '../node_modules'),
+        loader: "babel-loader"
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader!postcss-loader',
+        use: [
+          'style-loader',
+          { loader: 'css-loader', options: { importLoaders: 1, url: false } },
+          { loader: 'postcss-loader', options: { plugins: [autoprefixer()] } },
+        ],
       },
       {
         test: /\.scss$/,
-        loader: 'style-loader!css-loader!resolve-url-loader!postcss-loader!sass-loader?source-map',
+        use: [
+          'style-loader',
+          { loader: 'css-loader', options: { importLoaders: 1, url: false } },
+          { loader: 'postcss-loader', options: { plugins: [autoprefixer()] } },
+          'sass-loader',
+        ],
       },
     ],
   },

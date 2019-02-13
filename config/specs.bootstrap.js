@@ -1,4 +1,4 @@
-import 'babel-polyfill';
+import '@babel/polyfill';
 
 /* eslint-disable no-console */
 console.warning = (...args) => { throw Error(`console.warning: ${args.join(' ')}`); };

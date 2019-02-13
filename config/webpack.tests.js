@@ -23,7 +23,7 @@ module.exports = merge(common, {
           path.resolve(__dirname, '../app'),
           path.resolve(__dirname, './'),
         ],
-        loader: 'babel',
+        use: ['babel-loader'],
         query: {
           plugins: [
             ['istanbul', {
@@ -33,7 +33,6 @@ module.exports = merge(common, {
               ],
             }],
           ],
-          presets: ['es2015', 'node6', 'react', 'stage-2'],
         },
       },
       {
