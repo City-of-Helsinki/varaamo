@@ -1,11 +1,15 @@
 import React, { PropTypes } from 'react';
 import Select from 'react-select';
-import moment from 'moment';
+import map from 'lodash/map';
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
 
 import { injectT } from 'i18n';
 import constants from 'constants/AppConstants';
 import { calculateDuration, calculateEndTime } from 'utils/timeUtils';
 import CheckboxControl from './CheckboxControl';
+
+const moment = extendMoment(Moment);
 
 class TimeRangeControl extends React.Component {
   static propTypes = {
@@ -54,16 +58,17 @@ class TimeRangeControl extends React.Component {
     const end = moment(endTime);
     const durationStart = moment(timePeriod, timePeriodType);
     const range = moment.range(durationStart, end);
-    const duration = moment.duration(timePeriod, timePeriodType);
-    const options = [];
-    range.by(duration, (time) => {
+
+    const options = map(Array.from(range.by(timePeriodType, { step: timePeriod })), (time) => {
       const hours = time.diff(start, 'hours', true);
       const minutes = time.diff(start, 'minutes', true);
-      options.push({
+
+      return {
         label: `${hours} h`,
         value: minutes,
-      });
+      };
     });
+
     return options;
   }
 
@@ -75,15 +80,18 @@ class TimeRangeControl extends React.Component {
 
   getTimeOptions(start, end) {
     const range = moment.range(start, end);
-    const duration = moment.duration(constants.FILTER.timePeriod, constants.FILTER.timePeriodType);
-    const options = [];
-    range.by(duration, (time) => {
-      const value = time.format(constants.FILTER.timeFormat);
-      options.push({
-        label: value,
-        value,
-      });
-    });
+    const options = map(
+      Array.from(range.by(constants.FILTER.timePeriodType, { step: constants.FILTER.timePeriod })),
+      (time) => {
+        const value = time.format(constants.FILTER.timeFormat);
+
+        return {
+          label: value,
+          value,
+        };
+      }
+    );
+
     return options;
   }
 
