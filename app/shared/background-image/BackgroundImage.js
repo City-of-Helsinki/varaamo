@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 function BackgroundImage({ children, image, height, width }) {
   const dimensions = height && width ? `dim=${width}x${height}` : '';

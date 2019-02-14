@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import indexOf from 'lodash/indexOf';
 
 import { injectT } from 'i18n';

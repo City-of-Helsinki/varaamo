@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { FormattedHTMLMessage } from 'react-intl';
 import moment from 'moment';
 import iconUser from 'hel-icons/dist/shapes/user-o.svg';
