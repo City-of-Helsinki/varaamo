@@ -1,5 +1,3 @@
-import constants from 'constants/AppConstants';
-
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { FormattedHTMLMessage } from 'react-intl';

@@ -1,3 +1,6 @@
+import PropTypes from 'prop-types';
+import React from 'react';
+
 import constants from 'constants/AppConstants';
 
 import PropTypes from 'prop-types';
