@@ -14,7 +14,7 @@
 
   "parser": "babel-eslint",
 
-  "plugins": ["import", "react", "jest"],
+  "plugins": ["import", "react"],
 
   "settings": {
     "import/resolver": {
