@@ -1,6 +1,6 @@
 import types from 'constants/ActionTypes';
 
-import { CALL_API } from 'redux-api-middleware';
+import { RSAA } from 'redux-api-middleware';
 
 import {
   buildAPIUrl,

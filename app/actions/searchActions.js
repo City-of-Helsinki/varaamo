@@ -2,7 +2,7 @@ import types from 'constants/ActionTypes';
 import constants from 'constants/AppConstants';
 
 import { createAction } from 'redux-actions';
-import { CALL_API } from 'redux-api-middleware';
+import { RSAA } from 'redux-api-middleware';
 
 
 import schemas from 'store/middleware/Schemas';

@@ -102,7 +102,7 @@ function createApiTest(options) {
 
     describe('types', () => {
       const mockAction = {
-        [CALL_API]: {
+        [RSAA]: {
           types: [{
             type: (
               (tests.request && tests.request.type) || 'Specify request.type'

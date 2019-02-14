@@ -5,8 +5,6 @@ require('dotenv').load({ path: path.resolve(__dirname, '../.env') });
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
-const autoprefixer = require('autoprefixer');
 
 const common = require('./webpack.common');
 
@@ -33,17 +31,19 @@ module.exports = merge(common, {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader?url=false',
-          'resolve-url-loader',
-          { loader: 'postcss-loader', options: { plugins: [autoprefixer({ browsers: ['last 2 version', 'ie 9'] })] } },
+          'css-loader',
+          'postcss-loader',
         ],
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract(
-          'style',
-          'css-loader?{"svgo":false}!resolve-url-loader!postcss-loader!sass-loader',
-        ),
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'resolve-url-loader',
+          'postcss-loader',
+          'sass-loader',
+        ],
       },
     ],
   },
