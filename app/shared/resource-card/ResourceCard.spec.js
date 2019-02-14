@@ -34,7 +34,7 @@ describe('shared/resource-card/ResourceCard', () => {
           name: 'workplace',
         },
         ...extra,
-      })
+      }),
     );
   }
 
@@ -62,7 +62,7 @@ describe('shared/resource-card/ResourceCard', () => {
         addressZip: '00100',
         municipality: 'helsinki',
         streetAddress: 'Fabiankatu',
-      })
+      }),
     ),
   };
 

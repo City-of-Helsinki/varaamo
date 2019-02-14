@@ -50,7 +50,7 @@ describe('shared/comment-form/CommentForm', () => {
           buttons.at(0),
           'back',
           'common.back',
-          defaultProps.onCancel
+          defaultProps.onCancel,
         );
       });
 

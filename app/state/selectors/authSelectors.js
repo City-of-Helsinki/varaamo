@@ -8,12 +8,12 @@ const usersSelector = state => state.data.users;
 const currentUserSelector = createSelector(
   userIdSelector,
   usersSelector,
-  (userId, users) => users[userId] || {}
+  (userId, users) => users[userId] || {},
 );
 
 const isAdminSelector = createSelector(
   currentUserSelector,
-  currentUser => Boolean(currentUser.isStaff)
+  currentUser => Boolean(currentUser.isStaff),
 );
 
 function isLoggedInSelector(state) {
@@ -33,14 +33,14 @@ const staffUnitsSelector = createSelector(
       }
     });
     return units;
-  }
+  },
 );
 
 function createIsStaffSelector(resourceSelector) {
   return createSelector(
     resourceSelector,
     staffUnitsSelector,
-    (resource, staffUnits) => includes(staffUnits, resource.unit)
+    (resource, staffUnits) => includes(staffUnits, resource.unit),
   );
 }
 

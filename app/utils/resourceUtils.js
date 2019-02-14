@@ -1,10 +1,11 @@
+import constants from 'constants/AppConstants';
+
 import filter from 'lodash/filter';
 import find from 'lodash/find';
 import forEach from 'lodash/forEach';
 import moment from 'moment';
 import queryString from 'query-string';
 
-import constants from 'constants/AppConstants';
 import { getCurrentReservation, getNextAvailableTime } from 'utils/reservationUtils';
 
 function hasMaxReservations(resource) {
@@ -158,7 +159,7 @@ function getOpeningHours(resource, selectedDate) {
 function getOpenReservations(resource) {
   return filter(
     resource.reservations,
-    reservation => reservation.state !== 'cancelled' && reservation.state !== 'denied'
+    reservation => reservation.state !== 'cancelled' && reservation.state !== 'denied',
   );
 }
 
@@ -197,8 +198,7 @@ function reservingIsRestricted(resource, date) {
     return false;
   }
   const isAdmin = resource.userPermissions && resource.userPermissions.isAdmin;
-  const isLimited =
-    resource.reservableBefore && moment(resource.reservableBefore).isBefore(moment(date), 'day');
+  const isLimited = resource.reservableBefore && moment(resource.reservableBefore).isBefore(moment(date), 'day');
   return Boolean(isLimited && !isAdmin);
 }
 

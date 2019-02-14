@@ -1,8 +1,9 @@
+import types from 'constants/ActionTypes';
+
 import { expect } from 'chai';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
-import types from 'constants/ActionTypes';
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
 import User from 'utils/fixtures/User';
@@ -326,7 +327,7 @@ describe('state/reducers/dataReducer', () => {
     describe('API.RESOURCES_GET_SUCCESS', () => {
       const resourcesGetSuccess = createAction(
         types.API.RESOURCES_GET_SUCCESS,
-        resource => ({ entities: { resources: { [resource.id]: resource } } })
+        resource => ({ entities: { resources: { [resource.id]: resource } } }),
       );
 
       it('adds resources to state', () => {
@@ -384,7 +385,7 @@ describe('state/reducers/dataReducer', () => {
     describe('API.SEARCH_RESULTS_GET_SUCCESS', () => {
       const searchResultsGetSuccess = createAction(
         types.API.SEARCH_RESULTS_GET_SUCCESS,
-        resource => ({ entities: { resources: { [resource.id]: resource } } })
+        resource => ({ entities: { resources: { [resource.id]: resource } } }),
       );
 
       it('adds resources to state', () => {
@@ -467,7 +468,7 @@ describe('state/reducers/dataReducer', () => {
       const unfavoriteResource = createAction(
         types.API.RESOURCE_UNFAVORITE_POST_SUCCESS,
         payload => payload,
-        () => ({ id: resource.id })
+        () => ({ id: resource.id }),
       );
 
       it('changes isFavorite attribute from resource', () => {
@@ -493,7 +494,7 @@ describe('state/reducers/dataReducer', () => {
       const unfavoriteResource = createAction(
         types.API.RESOURCE_FAVORITE_POST_SUCCESS,
         payload => payload,
-        () => ({ id: resource.id })
+        () => ({ id: resource.id }),
       );
 
       it('changes isFavorite attribute from resource', () => {

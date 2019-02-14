@@ -65,6 +65,10 @@
 
     "linebreak-style": 0,
 
-    "no-restricted-globals": ["error", "history"]
+    "no-restricted-globals": ["error", "history"],
+    
+    "prefer-destructuring": "off",
+
+    "react/destructuring-assignment": "off"
   }
 }

@@ -1,12 +1,13 @@
-import { createAction } from 'redux-actions';
 
 import types from 'constants/ActionTypes';
 import ModalTypes from 'constants/ModalTypes';
 
+import { createAction } from 'redux-actions';
+
 const cancelReservationEdit = createAction(types.UI.CANCEL_RESERVATION_EDIT);
 
 const cancelReservationEditInInfoModal = createAction(
-  types.UI.CANCEL_RESERVATION_EDIT_IN_INFO_MODAL
+  types.UI.CANCEL_RESERVATION_EDIT_IN_INFO_MODAL,
 );
 
 const changeAdminReservationFilters = createAction(types.UI.CHANGE_ADMIN_RESERVATIONS_FILTERS);
@@ -19,22 +20,22 @@ const clearReservations = createAction(types.UI.CLEAR_RESERVATIONS);
 
 const closeConfirmReservationModal = createAction(
   types.UI.CLOSE_MODAL,
-  () => ModalTypes.RESERVATION_CONFIRM
+  () => ModalTypes.RESERVATION_CONFIRM,
 );
 
 const closeReservationCancelModal = createAction(
   types.UI.CLOSE_MODAL,
-  () => ModalTypes.RESERVATION_CANCEL
+  () => ModalTypes.RESERVATION_CANCEL,
 );
 
 const closeReservationCommentModal = createAction(
   types.UI.CLOSE_MODAL,
-  () => ModalTypes.RESERVATION_COMMENT
+  () => ModalTypes.RESERVATION_COMMENT,
 );
 
 const closeReservationSuccessModal = createAction(
   types.UI.CLOSE_MODAL,
-  () => ModalTypes.RESERVATION_SUCCESS
+  () => ModalTypes.RESERVATION_SUCCESS,
 );
 
 const closeResourceTermsModal = createAction(types.UI.CLOSE_MODAL, () => ModalTypes.RESOURCE_TERMS);
@@ -52,7 +53,7 @@ const enableGeoposition = () => (dispatch) => {
   }
   navigator.geolocation.getCurrentPosition(
     position => dispatch(enableGeopositionSuccess(position)),
-    error => dispatch(enableGeopositionError(error))
+    error => dispatch(enableGeopositionError(error)),
   );
 };
 
@@ -64,17 +65,17 @@ const hideReservationInfoModal = createAction(types.UI.HIDE_RESERVATION_INFO_MOD
 
 const openConfirmReservationModal = createAction(
   types.UI.OPEN_MODAL,
-  () => ModalTypes.RESERVATION_CONFIRM
+  () => ModalTypes.RESERVATION_CONFIRM,
 );
 
 const openReservationCancelModal = createAction(
   types.UI.OPEN_MODAL,
-  () => ModalTypes.RESERVATION_CANCEL
+  () => ModalTypes.RESERVATION_CANCEL,
 );
 
 const openReservationCommentModal = createAction(
   types.UI.OPEN_MODAL,
-  () => ModalTypes.RESERVATION_COMMENT
+  () => ModalTypes.RESERVATION_COMMENT,
 );
 
 const selectReservationSlot = createAction(types.UI.SELECT_RESERVATION_SLOT);

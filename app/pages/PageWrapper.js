@@ -4,7 +4,9 @@ import React from 'react';
 import Grid from 'react-bootstrap/lib/Grid';
 import DocumentTitle from 'react-document-title';
 
-function PageWrapper({ children, className, fluid = false, title, transparent = false }) {
+function PageWrapper({
+  children, className, fluid = false, title, transparent = false,
+}) {
   return (
     <div className={classnames('app-PageWrapper', { 'app-PageWrapper__transparent': transparent })}>
       <Grid

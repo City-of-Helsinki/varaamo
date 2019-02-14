@@ -21,7 +21,9 @@ class CommentForm extends Component {
   }
 
   render() {
-    const { defaultValue, isSaving, onCancel, t } = this.props;
+    const {
+      defaultValue, isSaving, onCancel, t,
+    } = this.props;
 
     return (
       <form className="comment-form">

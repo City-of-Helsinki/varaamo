@@ -44,10 +44,10 @@ class UnconnectedReservationPage extends Component {
       history,
     } = this.props;
     if (
-      isEmpty(reservationCreated) &&
-      isEmpty(reservationEdited) &&
-      isEmpty(reservationToEdit) &&
-      isEmpty(selected)
+      isEmpty(reservationCreated)
+      && isEmpty(reservationEdited)
+      && isEmpty(reservationToEdit)
+      && isEmpty(selected)
     ) {
       const query = queryString.parse(location.search);
 
@@ -66,8 +66,8 @@ class UnconnectedReservationPage extends Component {
     const { reservationCreated: nextCreated, reservationEdited: nextEdited } = nextProps;
     const { reservationCreated, reservationEdited } = this.props;
     if (
-      (!isEmpty(nextCreated) || !isEmpty(nextEdited)) &&
-      (nextCreated !== reservationCreated || nextEdited !== reservationEdited)
+      (!isEmpty(nextCreated) || !isEmpty(nextEdited))
+      && (nextCreated !== reservationCreated || nextEdited !== reservationEdited)
     ) {
       this.setState({
         view: 'confirmation',
@@ -118,7 +118,9 @@ class UnconnectedReservationPage extends Component {
   };
 
   handleReservation = (values = {}) => {
-    const { actions, reservationToEdit, resource, selected } = this.props;
+    const {
+      actions, reservationToEdit, resource, selected,
+    } = this.props;
     if (!isEmpty(selected)) {
       const { begin } = first(selected);
       const { end } = last(selected);
@@ -164,11 +166,11 @@ class UnconnectedReservationPage extends Component {
     const { view } = this.state;
 
     if (
-      isEmpty(resource) &&
-      isEmpty(reservationCreated) &&
-      isEmpty(reservationEdited) &&
-      isEmpty(reservationToEdit) &&
-      !isFetchingResource
+      isEmpty(resource)
+      && isEmpty(reservationCreated)
+      && isEmpty(reservationEdited)
+      && isEmpty(reservationToEdit)
+      && !isFetchingResource
     ) {
       return <div />;
     }
@@ -179,7 +181,7 @@ class UnconnectedReservationPage extends Component {
     const end = !isEmpty(selected) ? last(selected).end : null;
     const selectedTime = begin && end ? { begin, end } : null;
     const title = t(
-      `ReservationPage.${isEditing || isEdited ? 'editReservationTitle' : 'newReservationTitle'}`
+      `ReservationPage.${isEditing || isEdited ? 'editReservationTitle' : 'newReservationTitle'}`,
     );
     const params = queryString.parse(location.search);
 
@@ -275,5 +277,5 @@ function mapDispatchToProps(dispatch) {
 export { UnconnectedReservationPage };
 export default connect(
   reservationPageSelector,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(UnconnectedReservationPage);

@@ -1,7 +1,8 @@
+import ModalTypes from 'constants/ModalTypes';
+
 import orderBy from 'lodash/orderBy';
 import { createStructuredSelector } from 'reselect';
 
-import ModalTypes from 'constants/ModalTypes';
 import { currentUserSelector } from 'state/selectors/authSelectors';
 import { resourcesSelector } from 'state/selectors/dataSelectors';
 import modalIsOpenSelectorFactory from 'state/selectors/factories/modalIsOpenSelectorFactory';

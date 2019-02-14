@@ -53,7 +53,9 @@ export class UnconnectedReservationControlsContainer extends Component {
   }
 
   handleEditClick() {
-    const { actions, reservation, resource, history } = this.props;
+    const {
+      actions, reservation, resource, history,
+    } = this.props;
     const nextUrl = getEditReservationUrl(reservation);
 
     actions.selectReservationToEdit({ reservation, minPeriod: resource.minPeriod });
@@ -112,6 +114,6 @@ function mapDispatchToProps(dispatch) {
 export default withRouter(
   connect(
     null,
-    mapDispatchToProps
-  )(UnconnectedReservationControlsContainer)
+    mapDispatchToProps,
+  )(UnconnectedReservationControlsContainer),
 );

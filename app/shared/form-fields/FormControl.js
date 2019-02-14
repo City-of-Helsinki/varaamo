@@ -8,11 +8,15 @@ import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
 import InfoPopover from 'shared/info-popover';
 
-function FormControl({ controlProps = {}, help, id, info, label, type, validationState }) {
+function FormControl({
+  controlProps = {}, help, id, info, label, type, validationState,
+}) {
   return (
     <FormGroup controlId={id} validationState={validationState}>
       <Col componentClass={ControlLabel} sm={3}>
-        {label} {info && <InfoPopover id={`${id}-info`} placement="right" text={info} />}
+        {label}
+        {' '}
+        {info && <InfoPopover id={`${id}-info`} placement="right" text={info} />}
       </Col>
       <Col sm={9}>
         <RBFormControl

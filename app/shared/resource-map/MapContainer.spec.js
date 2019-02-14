@@ -61,7 +61,9 @@ describe('shared/resource-map/MapContainer', () => {
   });
 
   it('renders Marker', () => {
-    const markers = [{ unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a'] }];
+    const markers = [{
+      unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a'],
+    }];
     const element = getWrapper({ markers }).find(Marker);
     expect(element).to.have.length(1);
     expect(element.props()).to.include(markers[0]);
@@ -69,9 +71,15 @@ describe('shared/resource-map/MapContainer', () => {
 
   it('renders Marker many markers', () => {
     const markers = [
-      { unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a'] },
-      { unitId: '2', longitude: 2, latitude: 2, resourceIds: ['b'] },
-      { unitId: '3', longitude: 1.5, latitude: 1.5, resourceIds: ['c', 'd'] },
+      {
+        unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a'],
+      },
+      {
+        unitId: '2', longitude: 2, latitude: 2, resourceIds: ['b'],
+      },
+      {
+        unitId: '3', longitude: 1.5, latitude: 1.5, resourceIds: ['c', 'd'],
+      },
     ];
     const element = getWrapper({ markers }).find(Marker);
     expect(element).to.have.length(3);
@@ -82,8 +90,12 @@ describe('shared/resource-map/MapContainer', () => {
 
   it('passes highlighted prop to Marker if unit is selected', () => {
     const markers = [
-      { unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a'] },
-      { unitId: '2', longitude: 2, latitude: 2, resourceIds: ['b'] },
+      {
+        unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a'],
+      },
+      {
+        unitId: '2', longitude: 2, latitude: 2, resourceIds: ['b'],
+      },
     ];
     const element = getWrapper({ markers, selectedUnitId: '1' }).find(Marker);
     expect(element).to.have.length(2);
@@ -93,7 +105,9 @@ describe('shared/resource-map/MapContainer', () => {
 
   it('renders Marker', () => {
     const selectUnit = () => {};
-    const markers = [{ unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a'] }];
+    const markers = [{
+      unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a'],
+    }];
     const element = getWrapper({ markers, selectUnit }).find(Marker);
     expect(element).to.have.length(1);
     expect(element.prop('selectUnit')).to.equal(selectUnit);
@@ -149,20 +163,24 @@ describe('shared/resource-map/MapContainer', () => {
 
   describe('componentDidUpdate', () => {
     function callComponentDidUpdate(
-        prevBoundaries,
-        boundaries,
-        fitBounds,
-        panTo,
-        shouldMapFitBoundaries = true
-      ) {
+      prevBoundaries,
+      boundaries,
+      fitBounds,
+      panTo,
+      shouldMapFitBoundaries = true,
+    ) {
       const instance = getWrapper({ boundaries, shouldMapFitBoundaries: true }).instance();
       instance.map = { leafletElement: { fitBounds, panTo } };
       instance.componentDidUpdate({ boundaries: prevBoundaries, shouldMapFitBoundaries });
     }
 
     it('calls fitBounds if boundaries changed', () => {
-      const prev = { maxLatitude: 0, minLatitude: 0, maxLongitude: 0, minLongitude: 0 };
-      const next = { maxLatitude: 1, minLatitude: 0, maxLongitude: 0, minLongitude: 0 };
+      const prev = {
+        maxLatitude: 0, minLatitude: 0, maxLongitude: 0, minLongitude: 0,
+      };
+      const next = {
+        maxLatitude: 1, minLatitude: 0, maxLongitude: 0, minLongitude: 0,
+      };
       const fitBounds = simple.mock();
       const panTo = simple.mock();
       callComponentDidUpdate(prev, next, fitBounds, panTo);
@@ -174,7 +192,9 @@ describe('shared/resource-map/MapContainer', () => {
     });
 
     it('does not call fitBounds if boundaries did not change', () => {
-      const prev = { maxLatitude: 1, minLatitude: 1, maxLongitude: 1, minLongitude: 1 };
+      const prev = {
+        maxLatitude: 1, minLatitude: 1, maxLongitude: 1, minLongitude: 1,
+      };
       const fitBounds = simple.mock();
       const panTo = simple.mock();
       callComponentDidUpdate(prev, prev, fitBounds, panTo);
@@ -183,8 +203,12 @@ describe('shared/resource-map/MapContainer', () => {
     });
 
     it('does call panTo if new boundaries are nulls', () => {
-      const prev = { maxLatitude: 0, minLatitude: 0, maxLongitude: 0, minLongitude: 0 };
-      const next = { maxLatitude: null, minLatitude: null, maxLongitude: null, minLongitude: null };
+      const prev = {
+        maxLatitude: 0, minLatitude: 0, maxLongitude: 0, minLongitude: 0,
+      };
+      const next = {
+        maxLatitude: null, minLatitude: null, maxLongitude: null, minLongitude: null,
+      };
       const fitBounds = simple.mock();
       const panTo = simple.mock();
       callComponentDidUpdate(prev, next, fitBounds, panTo);

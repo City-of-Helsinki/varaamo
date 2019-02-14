@@ -124,5 +124,5 @@ function mapDispatchToProps(dispatch) {
 
 export { UnconnectedUserReservationsPage };
 export default connect(userReservationsPageSelector, mapDispatchToProps)(
-  UnconnectedUserReservationsPage
+  UnconnectedUserReservationsPage,
 );

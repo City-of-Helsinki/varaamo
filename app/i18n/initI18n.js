@@ -3,6 +3,8 @@ import 'moment/locale/fi';
 import 'moment/locale/sv';
 import 'moment-timezone';
 
+import constants from 'constants/AppConstants';
+
 import get from 'lodash/get';
 import moment from 'moment';
 import { addLocaleData } from 'react-intl';
@@ -10,7 +12,6 @@ import en from 'react-intl/locale-data/en';
 import fi from 'react-intl/locale-data/fi';
 import se from 'react-intl/locale-data/se';
 
-import constants from 'constants/AppConstants';
 import enMessages from 'i18n/messages/en.json';
 import fiMessages from 'i18n/messages/fi.json';
 import svMessages from 'i18n/messages/sv.json';

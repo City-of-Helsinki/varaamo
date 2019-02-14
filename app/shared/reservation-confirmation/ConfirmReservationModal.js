@@ -112,7 +112,7 @@ class ConfirmReservationModal extends Component {
 
   getRequiredFormFields(resource, termsAndConditions) {
     const requiredFormFields = [...resource.requiredReservationExtraFields.map(
-      field => camelCase(field)
+      field => camelCase(field),
     )];
 
     if (termsAndConditions) {
@@ -148,9 +148,9 @@ class ConfirmReservationModal extends Component {
     } = this.props;
 
     const reservationsCount = selectedReservations.length + recurringReservations.length;
-    const introText = isPreliminaryReservation ?
-      t('ConfirmReservationModal.preliminaryReservationText', { reservationsCount }) :
-      t('ConfirmReservationModal.regularReservationText', { reservationsCount });
+    const introText = isPreliminaryReservation
+      ? t('ConfirmReservationModal.preliminaryReservationText', { reservationsCount })
+      : t('ConfirmReservationModal.regularReservationText', { reservationsCount });
 
     return (
       <div>

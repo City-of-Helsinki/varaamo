@@ -11,7 +11,6 @@ import WrappedText from 'shared/wrapped-text';
 import reservationTermsModalSelector from './reservationTermsModalSelector';
 
 class UnconnectedReservationTermsModal extends Component {
-
   render() {
     const {
       actions,
@@ -74,5 +73,5 @@ function mapDispatchToProps(dispatch) {
 
 export { UnconnectedReservationTermsModal };
 export default connect(reservationTermsModalSelector, mapDispatchToProps)(
-  UnconnectedReservationTermsModal
+  UnconnectedReservationTermsModal,
 );

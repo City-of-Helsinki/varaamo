@@ -1,6 +1,7 @@
+import types from 'constants/ActionTypes';
+
 import { CALL_API } from 'redux-api-middleware';
 
-import types from 'constants/ActionTypes';
 import schemas from 'store/middleware/Schemas';
 import {
   buildAPIUrl,
@@ -17,7 +18,7 @@ function fetchPurposes() {
         getRequestTypeDescriptor(types.API.PURPOSES_GET_REQUEST),
         getSuccessTypeDescriptor(
           types.API.PURPOSES_GET_SUCCESS,
-          { schema: schemas.paginatedPurposesSchema }
+          { schema: schemas.paginatedPurposesSchema },
         ),
         getErrorTypeDescriptor(types.API.PURPOSES_GET_ERROR),
       ],

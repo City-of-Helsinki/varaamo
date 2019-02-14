@@ -22,7 +22,9 @@ class ReservationListItem extends Component {
   }
 
   render() {
-    const { isAdmin, isStaff, reservation, resource, t, unit } = this.props;
+    const {
+      isAdmin, isStaff, reservation, resource, t, unit,
+    } = this.props;
 
     const nameSeparator = isEmpty(resource) || isEmpty(unit) ? '' : ', ';
 

@@ -20,18 +20,14 @@ const TimeSlot = new Factory()
       .toISOString();
     return `${start}/${end}`;
   })
-  .attr('start', ['index'], index =>
-    moment
-      .utc(BASE_DATE)
-      .set('hour', (index + 2) % 24)
-      .toISOString()
-  )
-  .attr('end', ['index'], index =>
-    moment
-      .utc(BASE_DATE)
-      .set('hour', (index + 3) % 24)
-      .toISOString()
-  )
+  .attr('start', ['index'], index => moment
+    .utc(BASE_DATE)
+    .set('hour', (index + 2) % 24)
+    .toISOString())
+  .attr('end', ['index'], index => moment
+    .utc(BASE_DATE)
+    .set('hour', (index + 3) % 24)
+    .toISOString())
   .attr('reserved', false)
   .attr('resource', 'some-resource-id');
 

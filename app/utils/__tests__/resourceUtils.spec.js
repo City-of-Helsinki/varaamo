@@ -1,10 +1,11 @@
+import constants from 'constants/AppConstants';
+
 import { expect } from 'chai';
 import MockDate from 'mockdate';
 import moment from 'moment';
 import queryString from 'query-string';
 import simple from 'simple-mock';
 
-import constants from 'constants/AppConstants';
 import {
   hasMaxReservations,
   isOpenNow,

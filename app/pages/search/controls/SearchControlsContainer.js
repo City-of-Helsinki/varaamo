@@ -1,3 +1,5 @@
+import constants from 'constants/AppConstants';
+
 import range from 'lodash/range';
 import moment from 'moment';
 import PropTypes from 'prop-types';
@@ -20,7 +22,6 @@ import {
   enableGeoposition,
   enableTimeRange,
 } from 'actions/uiActions';
-import constants from 'constants/AppConstants';
 import { injectT } from 'i18n';
 import CheckboxControl from './CheckboxControl';
 import DatePickerControl from './DatePickerControl';
@@ -303,6 +304,6 @@ export { UnconnectedSearchControlsContainer };
 export default withRouter(
   connect(
     searchControlsSelector,
-    mapDispatchToProps
-  )(UnconnectedSearchControlsContainer)
+    mapDispatchToProps,
+  )(UnconnectedSearchControlsContainer),
 );

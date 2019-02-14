@@ -39,8 +39,7 @@ class ResourceCard extends Component {
   };
 
   handleLinkClick = () => {
-    const scrollTop =
-      window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
     const { location, history } = this.props;
     const { pathname, search } = location;
     history.replace({ pathname, search, state: { scrollTop } });
@@ -56,7 +55,9 @@ class ResourceCard extends Component {
   }
 
   render() {
-    const { date, resource, t, unit } = this.props;
+    const {
+      date, resource, t, unit,
+    } = this.props;
     const { pathname, query } = getResourcePageUrlComponents(resource, date);
     const linkTo = {
       pathname,
@@ -144,7 +145,9 @@ class ResourceCard extends Component {
                 {unit.streetAddress}
               </span>
               <span className="app-ResourceCard__info-label app-ResourceCard__zip-address">
-                {unit.addressZip} {unit.municipality}
+                {unit.addressZip}
+                {' '}
+                {unit.municipality}
               </span>
             </div>
           </Col>

@@ -1,9 +1,10 @@
+import constants from 'constants/AppConstants';
+
 import { expect } from 'chai';
 import MockDate from 'mockdate';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 
-import constants from 'constants/AppConstants';
 import {
   addToDate,
   calculateDuration,

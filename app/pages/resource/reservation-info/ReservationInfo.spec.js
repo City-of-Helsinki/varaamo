@@ -17,7 +17,7 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
         reservable: true,
         reservableAfter: '2019-03-06T00:00:00Z',
         reservationInfo: 'Some information',
-      })
+      }),
     ),
   };
 

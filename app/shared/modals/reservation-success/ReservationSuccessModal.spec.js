@@ -53,7 +53,7 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
       expect(modalComponent.length).to.equal(1);
       expect(modalComponent.prop('className')).to.equal('reservation-success-modal modal-city-theme');
       expect(modalComponent.prop('onHide')).to.equal(
-        defaultProps.closeReservationSuccessModal
+        defaultProps.closeReservationSuccessModal,
       );
       expect(modalComponent.prop('show')).to.equal(defaultProps.show);
     });
@@ -158,7 +158,7 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
       expect(modalComponent.length).to.equal(1);
       expect(modalComponent.prop('className')).to.equal('reservation-success-modal modal-city-theme');
       expect(modalComponent.prop('onHide')).to.equal(
-        defaultProps.closeReservationSuccessModal
+        defaultProps.closeReservationSuccessModal,
       );
       expect(modalComponent.prop('show')).to.equal(defaultProps.show);
     });

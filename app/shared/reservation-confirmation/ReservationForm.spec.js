@@ -1,3 +1,5 @@
+import constants from 'constants/AppConstants';
+
 import { expect } from 'chai';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
@@ -5,7 +7,6 @@ import Form from 'react-bootstrap/lib/Form';
 import { Field } from 'redux-form';
 import simple from 'simple-mock';
 
-import constants from 'constants/AppConstants';
 import WrappedText from 'shared/wrapped-text';
 import { shallowWithIntl } from 'utils/testUtils';
 import { UnconnectedReservationForm as ReservationForm, validate } from './ReservationForm';

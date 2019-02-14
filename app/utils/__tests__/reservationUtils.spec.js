@@ -1,8 +1,9 @@
+import constants from 'constants/AppConstants';
+
 import { expect } from 'chai';
 import MockDate from 'mockdate';
 import moment from 'moment';
 
-import constants from 'constants/AppConstants';
 import Reservation from 'utils/fixtures/Reservation';
 import {
   combine,
@@ -117,7 +118,7 @@ describe('Utils: reservationUtils', () => {
         const reservation = {};
         const resource = { requiredReservationExtraFields: ['reserver_name'] };
         expect(isStaffEvent(reservation, resource)).to.equal(true);
-      }
+      },
     );
 
     it(
@@ -126,7 +127,7 @@ describe('Utils: reservationUtils', () => {
         const reservation = { reserverName: '' };
         const resource = { requiredReservationExtraFields: ['reserver_name'] };
         expect(isStaffEvent(reservation, resource)).to.equal(true);
-      }
+      },
     );
   });
 
@@ -134,7 +135,7 @@ describe('Utils: reservationUtils', () => {
     const previousReservation = Reservation.build({}, { startTime: moment().subtract(1, 'days') });
     const currentReservation = Reservation.build(
       {},
-      { startTime: moment().subtract(20, 'minutes') }
+      { startTime: moment().subtract(20, 'minutes') },
     );
     const nextReservation = Reservation.build({}, { startTime: moment().add(2, 'hours') });
     const lastReservation = Reservation.build({}, { startTime: moment().add(4, 'hours') });
@@ -273,7 +274,7 @@ describe('Utils: reservationUtils', () => {
     const previousReservation = Reservation.build({}, { startTime: moment().subtract(1, 'days') });
     const currentReservation = Reservation.build(
       {},
-      { startTime: moment().subtract(20, 'minutes') }
+      { startTime: moment().subtract(20, 'minutes') },
     );
     const nextReservation = Reservation.build({}, { startTime: moment().add(2, 'hours') });
     const lastReservation = Reservation.build({}, { startTime: moment().add(4, 'hours') });

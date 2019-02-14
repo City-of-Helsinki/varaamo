@@ -13,7 +13,7 @@ const filteredResourceIdsSelector = createSelector(
       return resourceIds;
     }
     return resourceIds.filter(id => resources[id].unit === unitId);
-  }
+  },
 );
 
 export default createStructuredSelector({

@@ -1,9 +1,10 @@
+import constants from 'constants/AppConstants';
+
 import { expect } from 'chai';
 import React from 'react';
 import Label from 'react-bootstrap/lib/Label';
 import Immutable from 'seamless-immutable';
 
-import constants from 'constants/AppConstants';
 import Reservation from 'utils/fixtures/Reservation';
 import { shallowWithIntl } from 'utils/testUtils';
 import ReservationStateLabel from './ReservationStateLabel';

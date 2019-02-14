@@ -108,7 +108,7 @@ describe('shared/private-route/PrivateRoute', () => {
 
       expect(redux.bindActionCreators.calls[0].args[0]).to.have.property(
         'updateRoute',
-        routeActions.updateRoute(ownProps.componentName)
+        routeActions.updateRoute(ownProps.componentName),
       );
       expect(redux.bindActionCreators.calls[0].args[1]).to.equal(dispatch);
     });

@@ -1,7 +1,9 @@
-import { createSelector, createStructuredSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
 import ModalTypes from 'constants/ModalTypes';
+
+import { createSelector, createStructuredSelector } from 'reselect';
+
 import { isAdminSelector } from 'state/selectors/authSelectors';
 import { createResourceSelector } from 'state/selectors/dataSelectors';
 import modalIsOpenSelectorFactory from 'state/selectors/factories/modalIsOpenSelectorFactory';
@@ -13,7 +15,7 @@ function reservationSelector(state) {
 
 const resourceIdSelector = createSelector(
   reservationSelector,
-  reservation => reservation.resource
+  reservation => reservation.resource,
 );
 
 const cancelAllowedSelector = createSelector(
@@ -21,13 +23,13 @@ const cancelAllowedSelector = createSelector(
   reservationSelector,
   (isAdmin, reservation) => (
     isAdmin || !reservation.needManualConfirmation || reservation.state !== 'confirmed'
-  )
+  ),
 );
 
 const reservationCancelModalSelector = createStructuredSelector({
   cancelAllowed: cancelAllowedSelector,
   isCancellingReservations: requestIsActiveSelectorFactory(
-    ActionTypes.API.RESERVATION_DELETE_REQUEST
+    ActionTypes.API.RESERVATION_DELETE_REQUEST,
   ),
   reservation: reservationSelector,
   resource: createResourceSelector(resourceIdSelector),

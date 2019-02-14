@@ -4,7 +4,9 @@ const initialState = Immutable({});
 
 function activeRequestsReducer(state = initialState, action) {
   if (action.meta && action.meta.API_ACTION) {
-    const { apiRequestStart, apiRequestFinish, countable, type } = action.meta.API_ACTION;
+    const {
+      apiRequestStart, apiRequestFinish, countable, type,
+    } = action.meta.API_ACTION;
     let nextState;
 
     if (apiRequestStart) {

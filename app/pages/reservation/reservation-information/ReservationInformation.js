@@ -78,7 +78,7 @@ class ReservationInformation extends Component {
 
   getRequiredFormFields(resource, termsAndConditions) {
     const requiredFormFields = [...resource.requiredReservationExtraFields.map(
-      field => camelCase(field)
+      field => camelCase(field),
     )];
 
     if (termsAndConditions) {
@@ -144,7 +144,8 @@ class ReservationInformation extends Component {
                 {t('common.resourceLabel')}
               </Col>
               <Col className="app-ReservationDetails__value" md={8}>
-                {resource.name}<br />
+                {resource.name}
+                <br />
                 {unit.name}
               </Col>
             </Row>

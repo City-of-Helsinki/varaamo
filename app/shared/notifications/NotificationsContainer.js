@@ -41,5 +41,5 @@ function mapDispatchToProps(dispatch) {
 
 export { UnconnectedNotificationsContainer };
 export default connect(notificationsSelector, mapDispatchToProps)(
-  UnconnectedNotificationsContainer
+  UnconnectedNotificationsContainer,
 );

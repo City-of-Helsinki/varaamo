@@ -1,6 +1,7 @@
+import types from 'constants/ActionTypes';
+
 import Immutable from 'seamless-immutable';
 
-import types from 'constants/ActionTypes';
 import { pickSupportedFilters } from 'utils/searchUtils';
 import { getDuration, getEndTimeString, getStartTimeString } from 'utils/timeUtils';
 
@@ -74,7 +75,9 @@ function searchReducer(state = initialState, action) {
       const end = getEndTimeString(state.filters.end);
       const start = getStartTimeString(state.filters.start);
       const useTimeRange = true;
-      const filters = pickSupportedFilters({ duration, end, start, useTimeRange });
+      const filters = pickSupportedFilters({
+        duration, end, start, useTimeRange,
+      });
       return state.merge({ filters }, { deep: true });
     }
 

@@ -105,5 +105,5 @@ function mapDispatchToProps(dispatch) {
 export { UnconnectedHomePage };
 export default connect(
   homePageSelector,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(UnconnectedHomePage);

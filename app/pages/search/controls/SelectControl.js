@@ -7,14 +7,28 @@ import isArray from 'lodash/isArray';
 
 import { injectT } from 'i18n';
 
-class SelectControl extends React.Component {
-  getValue = (value, options) => {
-    if (isArray(value)) {
-      return value.map(item => options.find(option => option.value === item));
-    }
-
-    return options.find(option => option.value === value);
-  };
+function SelectControl({
+  id, isLoading, label, onConfirm, options, t, value,
+}) {
+  return (
+    <div className="app-SelectControl">
+      <FormGroup controlId={id}>
+        <ControlLabel>{label}</ControlLabel>
+        {!isLoading && (
+        <Select
+          clearable
+          name={id}
+          onChange={option => onConfirm(option ? option.value : '')}
+          options={options}
+          placeholder={t('common.select')}
+          searchable
+          value={value || ''}
+        />
+        )}
+      </FormGroup>
+    </div>
+  );
+}
 
   render() {
     const {

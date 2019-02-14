@@ -1,3 +1,5 @@
+import ActionTypes from 'constants/ActionTypes';
+
 import filter from 'lodash/filter';
 import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
@@ -5,7 +7,6 @@ import { createSelector, createStructuredSelector } from 'reselect';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 
-import ActionTypes from 'constants/ActionTypes';
 import {
   createIsStaffSelector,
   isAdminSelector,
@@ -29,7 +30,7 @@ const toEditSelector = state => state.ui.reservations.toEdit;
 
 const isEditingSelector = createSelector(
   toEditSelector,
-  reservationsToEdit => Boolean(reservationsToEdit.length)
+  reservationsToEdit => Boolean(reservationsToEdit.length),
 );
 
 const dateRangeSelector = createSelector(
@@ -42,7 +43,7 @@ const dateRangeSelector = createSelector(
     const rangeDates = map(Array.from(range.by('days')), date => date.format('YYYY-MM-DD'));
 
     return rangeDates;
-  }
+  },
 );
 
 const resourceByDates = createSelector(
@@ -54,20 +55,20 @@ const resourceByDates = createSelector(
         ...resource,
         availableHours: filter(
           resource.availableHours,
-          range => range.starts.substring(0, 10) === rangeDate
+          range => range.starts.substring(0, 10) === rangeDate,
         ),
         openingHours: filter(
           resource.openingHours,
-          ({ date }) => date === rangeDate
+          ({ date }) => date === rangeDate,
         ),
         reservations: filter(
           resource.reservations,
-          ({ begin }) => begin.substring(0, 10) === rangeDate
+          ({ begin }) => begin.substring(0, 10) === rangeDate,
         ),
       }));
     }
     return [resource];
-  }
+  },
 );
 
 const timeSlotsSelector = createSelector(

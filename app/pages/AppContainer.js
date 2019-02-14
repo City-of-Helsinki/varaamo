@@ -98,6 +98,6 @@ const actions = { enableGeoposition, fetchUser };
 export default withRouter(
   connect(
     selector,
-    actions
-  )(UnconnectedAppContainer)
+    actions,
+  )(UnconnectedAppContainer),
 );

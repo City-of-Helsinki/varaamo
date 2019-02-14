@@ -68,7 +68,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
     it('calls props.actions.selectReservationToCancel with this reservation', () => {
       expect(props.actions.selectReservationToCancel.callCount).to.equal(1);
       expect(props.actions.selectReservationToCancel.lastCall.args[0]).to.deep.equal(
-        props.reservation
+        props.reservation,
       );
     });
 
@@ -114,7 +114,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
     it('calls the props.actions.showReservationInfoModal function with this reservation', () => {
       expect(props.actions.showReservationInfoModal.callCount).to.equal(1);
       expect(props.actions.showReservationInfoModal.lastCall.args[0]).to.deep.equal(
-        props.reservation
+        props.reservation,
       );
     });
   });

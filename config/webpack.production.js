@@ -35,7 +35,7 @@ module.exports = merge(common, {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract(
           'style',
-          'css-loader?{"svgo":false}!resolve-url-loader!postcss-loader!sass-loader'
+          'css-loader?{"svgo":false}!resolve-url-loader!postcss-loader!sass-loader',
         ),
       },
     ],

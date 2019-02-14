@@ -1,3 +1,6 @@
+import constants from 'constants/AppConstants';
+import FormTypes from 'constants/FormTypes';
+
 import includes from 'lodash/includes';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -7,8 +10,7 @@ import Well from 'react-bootstrap/lib/Well';
 import { Field, reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 
-import constants from 'constants/AppConstants';
-import FormTypes from 'constants/FormTypes';
+
 import ReduxFormField from 'shared/form-fields/ReduxFormField';
 import TermsField from 'shared/form-fields/TermsField';
 import { injectT } from 'i18n';
@@ -40,9 +42,9 @@ const maxLengths = {
 
 export function validate(values, { fields, requiredFields, t }) {
   const errors = {};
-  const currentRequiredFields = values.staffEvent ?
-    constants.REQUIRED_STAFF_EVENT_FIELDS :
-    requiredFields;
+  const currentRequiredFields = values.staffEvent
+    ? constants.REQUIRED_STAFF_EVENT_FIELDS
+    : requiredFields;
   fields.forEach((field) => {
     const validator = validators[field];
     if (validator) {
@@ -59,9 +61,9 @@ export function validate(values, { fields, requiredFields, t }) {
     if (includes(currentRequiredFields, field)) {
       if (!values[field]) {
         errors[field] = (
-          field === 'termsAndConditions' ?
-          t('ReservationForm.termsAndConditionsError') :
-          t('ReservationForm.requiredError')
+          field === 'termsAndConditions'
+            ? t('ReservationForm.termsAndConditionsError')
+            : t('ReservationForm.requiredError')
         );
       }
     }
@@ -120,9 +122,9 @@ class UnconnectedReservationInformationForm extends Component {
       termsAndConditions,
     } = this.props;
 
-    this.requiredFields = staffEventSelected ?
-      constants.REQUIRED_STAFF_EVENT_FIELDS :
-      requiredFields;
+    this.requiredFields = staffEventSelected
+      ? constants.REQUIRED_STAFF_EVENT_FIELDS
+      : requiredFields;
 
     return (
       <div>
@@ -145,73 +147,73 @@ class UnconnectedReservationInformationForm extends Component {
             'reserverName',
             'text',
             t('common.reserverNameLabel'),
-            { placeholder: t('common.reserverNameLabel') }
+            { placeholder: t('common.reserverNameLabel') },
           )}
           {this.renderField(
             'reserverId',
             'text',
             t('common.reserverIdLabel'),
-            { placeholder: t('common.reserverIdLabel') }
+            { placeholder: t('common.reserverIdLabel') },
           )}
           {this.renderField(
             'reserverPhoneNumber',
             'text',
             t('common.reserverPhoneNumberLabel'),
-            { placeholder: t('common.reserverPhoneNumberLabel') }
+            { placeholder: t('common.reserverPhoneNumberLabel') },
           )}
           {this.renderField(
             'reserverEmailAddress',
             'email',
             t('common.reserverEmailAddressLabel'),
-            { placeholder: t('common.reserverEmailAddressLabel') }
+            { placeholder: t('common.reserverEmailAddressLabel') },
           )}
-          {includes(this.props.fields, 'reserverAddressStreet') &&
-            this.renderField(
+          {includes(this.props.fields, 'reserverAddressStreet')
+            && this.renderField(
               'reserverAddressStreet',
               'text',
               t('common.addressStreetLabel'),
-              { placeholder: t('common.addressStreetLabel') }
+              { placeholder: t('common.addressStreetLabel') },
             )}
-          {includes(this.props.fields, 'reserverAddressZip') &&
-            this.renderField(
+          {includes(this.props.fields, 'reserverAddressZip')
+            && this.renderField(
               'reserverAddressZip',
               'text',
               t('common.addressZipLabel'),
-              { placeholder: t('common.addressZipLabel') }
+              { placeholder: t('common.addressZipLabel') },
             )}
-          {includes(this.props.fields, 'reserverAddressCity') &&
-            this.renderField(
+          {includes(this.props.fields, 'reserverAddressCity')
+            && this.renderField(
               'reserverAddressCity',
               'text',
               t('common.addressCityLabel'),
-              { placeholder: t('common.addressCityLabel') }
+              { placeholder: t('common.addressCityLabel') },
             )
           }
-          {includes(this.props.fields, 'billingAddressStreet') &&
-            <h3>{t('common.billingAddressLabel')}</h3>
+          {includes(this.props.fields, 'billingAddressStreet')
+            && <h3>{t('common.billingAddressLabel')}</h3>
           }
-          {includes(this.props.fields, 'billingAddressStreet') &&
-            this.renderField(
+          {includes(this.props.fields, 'billingAddressStreet')
+            && this.renderField(
               'billingAddressStreet',
               'text',
               t('common.addressStreetLabel'),
-              { placeholder: t('common.addressStreetLabel') }
+              { placeholder: t('common.addressStreetLabel') },
             )
           }
-          {includes(this.props.fields, 'billingAddressZip') &&
-            this.renderField(
+          {includes(this.props.fields, 'billingAddressZip')
+            && this.renderField(
               'billingAddressZip',
               'text',
               t('common.addressZipLabel'),
-              { placeholder: t('common.addressZipLabel') }
+              { placeholder: t('common.addressZipLabel') },
             )
           }
-          {includes(this.props.fields, 'billingAddressCity') &&
-            this.renderField(
+          {includes(this.props.fields, 'billingAddressCity')
+            && this.renderField(
               'billingAddressCity',
               'text',
               t('common.addressCityLabel'),
-              { placeholder: t('common.addressCityLabel') }
+              { placeholder: t('common.addressCityLabel') },
             )
           }
           <h3>{t('ReservationInformationForm.eventInformationTitle')}</h3>
@@ -227,13 +229,13 @@ class UnconnectedReservationInformationForm extends Component {
             'eventDescription',
             'textarea',
             t('common.eventDescriptionLabel'),
-            { rows: 5 }
+            { rows: 5 },
           )}
           {this.renderField(
             'numberOfParticipants',
             'number',
             t('common.numberOfParticipantsLabel'),
-            { min: '0' }
+            { min: '0' },
           )}
           {this.renderField(
             'comments',
@@ -242,10 +244,10 @@ class UnconnectedReservationInformationForm extends Component {
             {
               placeholder: t('common.commentsPlaceholder'),
               rows: 5,
-            }
+            },
           )}
-          {termsAndConditions &&
-            this.renderTermsField('termsAndConditions')
+          {termsAndConditions
+            && this.renderTermsField('termsAndConditions')
           }
           <div className="form-controls">
             <Button
@@ -254,13 +256,15 @@ class UnconnectedReservationInformationForm extends Component {
             >
               {isEditing ? t('ReservationInformationForm.cancelEdit') : t('common.cancel')}
             </Button>
-            {isEditing &&
+            {isEditing
+              && (
               <Button
                 bsStyle="default"
                 onClick={onBack}
               >
                 {t('common.previous')}
               </Button>
+              )
             }
             <Button
               bsStyle="primary"

@@ -11,7 +11,7 @@ describe('shared/background-image/BackgroundImage', () => {
 
   function getWrapper(extraProps) {
     return shallow(
-      <BackgroundImage {...defaultProps} {...extraProps} />
+      <BackgroundImage {...defaultProps} {...extraProps} />,
     );
   }
 

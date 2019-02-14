@@ -17,7 +17,7 @@ describe('pages/resource/resource-map-info/ResourceMapInfo', () => {
         id: 'aaa:123',
         municipality: 'some city',
         streetAddress: 'Street address 123',
-      })
+      }),
     ),
   };
 

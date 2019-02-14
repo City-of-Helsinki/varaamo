@@ -94,7 +94,7 @@ class UnconnectedResourcePage extends Component {
   orderImages(images) {
     return [].concat(
       images.filter(image => image.type === 'main'),
-      images.filter(image => image.type !== 'main')
+      images.filter(image => image.type !== 'main'),
     );
   }
 
@@ -176,8 +176,8 @@ class UnconnectedResourcePage extends Component {
             <PageWrapper title={resource.name || ''} transparent>
               <div>
                 <Col className="app-ResourcePage__content" lg={8} md={8} xs={12}>
-                  {mainImage &&
-                    this.renderImage(mainImage, mainImageIndex, {
+                  {mainImage
+                    && this.renderImage(mainImage, mainImageIndex, {
                       mainImageMobileVisibility: true,
                     })}
                   <ResourceInfo isLoggedIn={isLoggedIn} resource={resource} unit={unit} />
@@ -225,15 +225,13 @@ class UnconnectedResourcePage extends Component {
               mainSrc={images[photoIndex].url}
               nextSrc={images[(photoIndex + 1) % images.length].url}
               onCloseRequest={() => this.setState(() => ({ isOpen: false }))}
-              onMoveNextRequest={() =>
-                this.setState(state => ({
-                  photoIndex: (state.photoIndex + 1) % images.length,
-                }))
+              onMoveNextRequest={() => this.setState(state => ({
+                photoIndex: (state.photoIndex + 1) % images.length,
+              }))
               }
-              onMovePrevRequest={() =>
-                this.setState(state => ({
-                  photoIndex: (state.photoIndex + (images.length - 1)) % images.length,
-                }))
+              onMovePrevRequest={() => this.setState(state => ({
+                photoIndex: (state.photoIndex + (images.length - 1)) % images.length,
+              }))
               }
               prevSrc={images[(photoIndex + (images.length - 1)) % images.length].url}
               reactModalStyle={{ overlay: { zIndex: 2000 } }}
@@ -274,5 +272,5 @@ function mapDispatchToProps(dispatch) {
 export { UnconnectedResourcePage };
 export default connect(
   resourcePageSelector,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(UnconnectedResourcePage);

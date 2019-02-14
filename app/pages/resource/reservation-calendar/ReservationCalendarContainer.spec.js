@@ -113,7 +113,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       expect(confirmation.prop('selectedReservations')).to.deep.equal(props.selected);
       expect(confirmation.prop('showTimeControls')).to.be.true;
       expect(confirmation.prop('timeSlots')).to.deep.equal(
-        props.timeSlots.length ? [timeSlot1, timeSlot2] : []
+        props.timeSlots.length ? [timeSlot1, timeSlot2] : [],
       );
     });
   }
@@ -178,7 +178,9 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
             reservableBefore: '2016-11-11T06:00:00+03:00',
             reservableDaysInAdvance: 32,
           });
-          const props = { date, resource: restrictedResource, selected, timeSlots };
+          const props = {
+            date, resource: restrictedResource, selected, timeSlots,
+          };
           const options = {
             renderClosedText: false,
             renderRestrictedText: true,

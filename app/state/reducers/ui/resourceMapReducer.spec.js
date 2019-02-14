@@ -1,10 +1,11 @@
+import types from 'constants/ActionTypes';
+
 import { expect } from 'chai';
 import keyBy from 'lodash/keyBy';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
 import { toggleResourceMap } from 'actions/uiActions';
-import types from 'constants/ActionTypes';
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
 import resourceMapReducer from './resourceMapReducer';
@@ -35,7 +36,7 @@ describe('state/reducers/ui/resourceMapReducer', () => {
             resources: keyBy(resources, 'id'),
             units: keyBy(units, 'id'),
           },
-        })
+        }),
       );
       const units = [
         Unit.build(),
@@ -96,7 +97,7 @@ describe('state/reducers/ui/resourceMapReducer', () => {
       it('Sets resourceId from location pathname', () => {
         const resourcePageChange = createAction(
           'ENTER_OR_CHANGE_RESOURCE_PAGE',
-          location => (location)
+          location => (location),
         );
         const action = resourcePageChange({
           pathname: '/resources/qwertyasdfgh',

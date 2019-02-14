@@ -1,3 +1,5 @@
+import constants from 'constants/AppConstants';
+
 import { expect } from 'chai';
 import moment from 'moment';
 import queryString from 'query-string';
@@ -6,7 +8,6 @@ import Button from 'react-bootstrap/lib/Button';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import constants from 'constants/AppConstants';
 import { shallowWithIntl } from 'utils/testUtils';
 import CheckboxControl from './CheckboxControl';
 import DatePickerControl from './DatePickerControl';
@@ -137,11 +138,11 @@ describe('pages/search/controls/SearchControlsContainer', () => {
         { value: '30', label: '30+' },
       ];
       const selectControl = getWrapper({}).find(SelectControl);
-      expect(selectControl).to.have.length(4);
-      expect(selectControl.at(3).prop('id')).to.equal('people');
-      expect(selectControl.at(3).prop('isLoading')).to.equal(defaultProps.isFetchingPurposes);
-      expect(selectControl.at(3).prop('label')).to.equal(
-        'SearchControlsContainer.peopleCapacityLabel'
+      expect(selectControl).to.have.length(3);
+      expect(selectControl.at(2).prop('id')).to.equal('people');
+      expect(selectControl.at(2).prop('isLoading')).to.equal(defaultProps.isFetchingPurposes);
+      expect(selectControl.at(2).prop('label')).to.equal(
+        'SearchControlsContainer.peopleCapacityLabel',
       );
       expect(selectControl.at(3).prop('onChange')).to.exist;
       expect(selectControl.at(3).prop('options')).to.deep.equal(peopleOptions);
@@ -162,7 +163,9 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     });
 
     it('renders TimeRangeControl with correct props', () => {
-      const filters = { ...defaultProps.filters, duration: 30, end: '23:30', start: '09:00' };
+      const filters = {
+        ...defaultProps.filters, duration: 30, end: '23:30', start: '09:00',
+      };
       const wrapper = getWrapper({ filters });
       const timeRangeControl = wrapper.find(TimeRangeControl);
       expect(timeRangeControl).to.have.length(1);
@@ -170,7 +173,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(timeRangeControl.prop('end')).to.equal(filters.end);
       expect(timeRangeControl.prop('onConfirm')).to.equal(wrapper.instance().handleTimeRangeChange);
       expect(timeRangeControl.prop('onTimeRangeSwitch')).to.equal(
-        wrapper.instance().handleTimeRangeSwitch
+        wrapper.instance().handleTimeRangeSwitch,
       );
       expect(timeRangeControl.prop('start')).to.equal(filters.start);
     });

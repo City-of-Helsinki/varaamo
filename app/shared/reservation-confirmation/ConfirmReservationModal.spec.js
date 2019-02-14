@@ -67,7 +67,7 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
           const modalTitle = getModalHeaderWrapper({ isPreliminaryReservation: true })
             .find(Modal.Title);
           expect(modalTitle.prop('children')).to.equal(
-            'ConfirmReservationModal.preliminaryReservationTitle'
+            'ConfirmReservationModal.preliminaryReservationTitle',
           );
         });
 
@@ -75,7 +75,7 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
           const modalTitle = getModalHeaderWrapper({ isPreliminaryReservation: false })
             .find(Modal.Title);
           expect(modalTitle.prop('children')).to.equal(
-            'ConfirmReservationModal.regularReservationTitle'
+            'ConfirmReservationModal.regularReservationTitle',
           );
         });
       });
@@ -113,13 +113,13 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
 
         it('renders RecurringReservationControls if user is admin', () => {
           expect(
-            getModalBodyWrapper({ ...props, isAdmin: true }).find(RecurringReservationControls)
+            getModalBodyWrapper({ ...props, isAdmin: true }).find(RecurringReservationControls),
           ).to.have.length(1);
         });
 
         it('does not render RecurringReservationControls if user is not admin', () => {
           expect(
-            getModalBodyWrapper({ ...props, isAdmin: false }).find(RecurringReservationControls)
+            getModalBodyWrapper({ ...props, isAdmin: false }).find(RecurringReservationControls),
           ).to.have.length(0);
         });
       });

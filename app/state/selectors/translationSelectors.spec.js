@@ -1,6 +1,7 @@
+import constants from 'constants/AppConstants';
+
 import { expect } from 'chai';
 
-import constants from 'constants/AppConstants';
 import { getState } from 'utils/testUtils';
 import {
   createTranslatedSelector,
