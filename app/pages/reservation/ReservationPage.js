@@ -1,9 +1,10 @@
 import { first, isEmpty, last } from 'lodash';
 import moment from 'moment';
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 import queryString from 'query-string';
 
 import { postReservation, putReservation } from 'actions/reservationActions';
