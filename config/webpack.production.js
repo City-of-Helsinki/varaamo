@@ -9,7 +9,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const common = require('./webpack.common');
 
 module.exports = merge(common, {
-  entry: ['babel-polyfill', path.resolve(__dirname, '../app/index.js')],
+  entry: ['@babel/polyfill', path.resolve(__dirname, '../app/index.js')],
   debug: false,
   devtool: 'source-map',
   output: {
@@ -24,7 +24,7 @@ module.exports = merge(common, {
         include: path.resolve(__dirname, '../app'),
         loader: 'babel-loader',
         query: {
-          presets: ['es2015', 'node6', 'react', 'stage-2'],
+          presets: ["@babel/preset-env", "@babel/preset-react"],
         },
       },
       {
@@ -65,6 +65,8 @@ module.exports = merge(common, {
         warnings: false,
       },
     }),
-    new ExtractTextPlugin('app.css'),
+    new MiniCssExtractPlugin({
+      filename: 'app.css'
+    }),
   ],
 });

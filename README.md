@@ -6,12 +6,6 @@ Varaamo
 
 User interface for the City of Helsinki [varaamo.hel.fi](https://varaamo.hel.fi/) resource reservation service. Uses the [respa API](http://api.hel.fi/respa/v1/).
 
-Requirements
-------------
-
-- [node](http://nodejs.org/) `6.5.0`
-- [npm](https://www.npmjs.com/) `3.10.3`
-
 Architecture
 ------------
 
