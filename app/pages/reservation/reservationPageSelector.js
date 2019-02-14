@@ -1,5 +1,7 @@
 import { createSelector, createStructuredSelector } from 'reselect';
-import { first, isEmpty, orderBy } from 'lodash';
+import first from 'lodash/first';
+import isEmpty from 'lodash/isEmpty';
+import orderBy from 'lodash/orderBy';
 import queryString from 'query-string';
 
 import ActionTypes from 'constants/ActionTypes';

@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Grid from 'react-bootstrap/lib/Grid';
 import { FormattedNumber } from 'react-intl';
-import { round } from 'lodash';
+import round from 'lodash/round';
 import iconHome from 'hel-icons/dist/shapes/home.svg';
 import iconMapMarker from 'hel-icons/dist/shapes/map-marker.svg';
 import iconTicket from 'hel-icons/dist/shapes/ticket.svg';
