@@ -37,8 +37,8 @@ if (serverConfig.isProduction) {
       hash: false,
       progress: false,
       timings: false,
-      version: false
-    }
+      version: false,
+    },
   }));
 
   app.use(webpackHotMiddleware(compiler));

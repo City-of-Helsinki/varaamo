@@ -7,8 +7,8 @@ import Reservation from 'utils/fixtures/Reservation';
 function getState(reservations = []) {
   return {
     data: Immutable({
-      reservations: keyBy(reservations, 'url')
-    })
+      reservations: keyBy(reservations, 'url'),
+    }),
   };
 }
 
@@ -25,7 +25,7 @@ describe('Selector: sortedReservationsSelector', () => {
     it('returns all reservations in state in an array', () => {
       const reservations = [
         Reservation.build(),
-        Reservation.build()
+        Reservation.build(),
       ];
       const state = getState(reservations);
       const props = {};
@@ -38,7 +38,7 @@ describe('Selector: sortedReservationsSelector', () => {
       const reservations = [
         Reservation.build({ begin: '2015-10-10' }),
         Reservation.build({ begin: '2015-09-20' }),
-        Reservation.build({ begin: '2015-10-30' })
+        Reservation.build({ begin: '2015-10-30' }),
       ];
       const state = getState(reservations);
       const props = {};
@@ -66,7 +66,7 @@ describe('Selector: sortedReservationsSelector', () => {
           Reservation.build({ state: 'cancelled', needManualConfirmation: true }),
           Reservation.build({ state: 'confirmed', needManualConfirmation: true }),
           Reservation.build({ state: 'cancelled', needManualConfirmation: false }),
-          Reservation.build({ state: 'confirmed', needManualConfirmation: false })
+          Reservation.build({ state: 'confirmed', needManualConfirmation: false }),
         ];
         const state = getState(reservations);
         const actual = sortedReservationsSelector(state, props);
@@ -83,7 +83,7 @@ describe('Selector: sortedReservationsSelector', () => {
           Reservation.build({ state: 'confirmed', needManualConfirmation: true }),
           Reservation.build({ state: 'cancelled', needManualConfirmation: true }),
           Reservation.build({ state: 'confirmed', needManualConfirmation: false }),
-          Reservation.build({ state: 'cancelled', needManualConfirmation: false })
+          Reservation.build({ state: 'cancelled', needManualConfirmation: false }),
         ];
         const state = getState(reservations);
         const actual = sortedReservationsSelector(state, props);
@@ -100,7 +100,7 @@ describe('Selector: sortedReservationsSelector', () => {
           Reservation.build({ state: 'denied', needManualConfirmation: true }),
           Reservation.build({ state: 'cancelled', needManualConfirmation: true }),
           Reservation.build({ state: 'denied', needManualConfirmation: false }),
-          Reservation.build({ state: 'cancelled', needManualConfirmation: false })
+          Reservation.build({ state: 'cancelled', needManualConfirmation: false }),
         ];
         const state = getState(reservations);
         const actual = sortedReservationsSelector(state, props);
@@ -117,7 +117,7 @@ describe('Selector: sortedReservationsSelector', () => {
           Reservation.build({ state: 'requested', needManualConfirmation: true }),
           Reservation.build({ state: 'cancelled', needManualConfirmation: true }),
           Reservation.build({ state: 'requested', needManualConfirmation: false }),
-          Reservation.build({ state: 'cancelled', needManualConfirmation: false })
+          Reservation.build({ state: 'cancelled', needManualConfirmation: false }),
         ];
         const state = getState(reservations);
         const actual = sortedReservationsSelector(state, props);
@@ -129,7 +129,7 @@ describe('Selector: sortedReservationsSelector', () => {
     it('returns only preliminary reservations when filter is "all"', () => {
       const reservations = [
         Reservation.build({ needManualConfirmation: true }),
-        Reservation.build({ needManualConfirmation: false })
+        Reservation.build({ needManualConfirmation: false }),
       ];
       const state = getState(reservations);
       const props = { filter: 'all' };
@@ -141,7 +141,7 @@ describe('Selector: sortedReservationsSelector', () => {
     it('returns only preliminary reservations when filter is "preliminary"', () => {
       const reservations = [
         Reservation.build({ needManualConfirmation: true }),
-        Reservation.build({ needManualConfirmation: false })
+        Reservation.build({ needManualConfirmation: false }),
       ];
       const state = getState(reservations);
       const props = { filter: 'preliminary' };
@@ -153,7 +153,7 @@ describe('Selector: sortedReservationsSelector', () => {
     it('returns only regular reservations when filter is "regular"', () => {
       const reservations = [
         Reservation.build({ needManualConfirmation: true }),
-        Reservation.build({ needManualConfirmation: false })
+        Reservation.build({ needManualConfirmation: false }),
       ];
       const state = getState(reservations);
       const props = { filter: 'regular' };
@@ -165,7 +165,7 @@ describe('Selector: sortedReservationsSelector', () => {
     it('returns all reservations when filter is anything else', () => {
       const reservations = [
         Reservation.build({ needManualConfirmation: true }),
-        Reservation.build({ needManualConfirmation: false })
+        Reservation.build({ needManualConfirmation: false }),
       ];
       const state = getState(reservations);
       const props = { filter: 'whatever' };
@@ -178,7 +178,7 @@ describe('Selector: sortedReservationsSelector', () => {
       const reservations = [
         Reservation.build({ begin: '2015-10-10', needManualConfirmation: true }),
         Reservation.build({ begin: '2015-09-20', needManualConfirmation: true }),
-        Reservation.build({ begin: '2015-10-30', needManualConfirmation: true })
+        Reservation.build({ begin: '2015-10-30', needManualConfirmation: true }),
       ];
       const state = getState(reservations);
       const props = { filter: 'preliminary' };

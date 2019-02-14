@@ -10,7 +10,7 @@ class SideNavbar extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     initials: PropTypes.string,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
   };
 
   state = { open: true, forcedOpen: false };
@@ -39,7 +39,7 @@ class SideNavbar extends Component {
   onMediaQueryChanged = (mqlEvent) => {
     this.setState({
       open: true,
-      forcedOpen: mqlEvent.matches
+      forcedOpen: mqlEvent.matches,
     });
   }
 
@@ -97,7 +97,7 @@ class SideNavbar extends Component {
             'app-SideNavbar__toggle',
             {
               'app-SideNavbar__initials': this.props.initials,
-              'app-SideNavbar__docked': this.state.forcedOpen
+              'app-SideNavbar__docked': this.state.forcedOpen,
             },
           )}
           onClick={this.onToggleSideBar}

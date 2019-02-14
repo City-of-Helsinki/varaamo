@@ -17,5 +17,5 @@ export default combineReducers({
   intl: intlReducer,
   notifications: notificationsReducer,
   recurringReservations: recurringReservations.reducer,
-  ui: uiReducers
+  ui: uiReducers,
 });

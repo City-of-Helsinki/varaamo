@@ -60,8 +60,6 @@
 
     "linebreak-style": 0,
 
-    "no-restricted-globals": ["error", "history"],
-
-    "comma-dangle": ["error", "never"]
+    "no-restricted-globals": ["error", "history"]
   }
 }

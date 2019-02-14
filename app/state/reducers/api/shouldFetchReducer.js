@@ -6,26 +6,26 @@ import Immutable from 'seamless-immutable';
 const initialState = Immutable({
   purposes: true,
   resources: true,
-  units: true
+  units: true,
 });
 
 function shouldFetchReducer(state = initialState, action) {
   switch (action.type) {
     case types.API.PURPOSES_GET_SUCCESS: {
       return state.merge({
-        purposes: false
+        purposes: false,
       });
     }
 
     case types.API.RESOURCES_GET_SUCCESS: {
       return state.merge({
-        resources: false
+        resources: false,
       });
     }
 
     case types.API.UNITS_GET_SUCCESS: {
       return state.merge({
-        units: false
+        units: false,
       });
     }
 

@@ -23,7 +23,7 @@ const resourcePageSelector = createStructuredSelector({
   isLoggedIn: isLoggedInSelector,
   resource: resourceSelector,
   showMap: showMapSelector,
-  unit: unitSelector
+  unit: unitSelector,
 });
 
 export default resourcePageSelector;

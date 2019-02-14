@@ -13,13 +13,13 @@ module.exports = merge(common, {
   entry: [
     '@babel/polyfill',
     'webpack-hot-middleware/client',
-    path.resolve(__dirname, '../app/index.js')
+    path.resolve(__dirname, '../app/index.js'),
   ],
   devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: 'app.js',
-    publicPath: '/'
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -30,22 +30,22 @@ module.exports = merge(common, {
         exclude: path.resolve(__dirname, '../node_modules'),
         loader: 'eslint-loader',
         options: {
-          configFile: path.join(__dirname, '../.eslintrc')
-        }
+          configFile: path.join(__dirname, '../.eslintrc'),
+        },
       },
       {
         test: /\.(js|jsx)$/,
         include: path.resolve(__dirname, '../app'),
         exclude: path.resolve(__dirname, '../node_modules'),
-        loader: 'babel-loader'
+        loader: 'babel-loader',
       },
       {
         test: /\.css$/,
         use: [
           'style-loader',
           { loader: 'css-loader', options: { importLoaders: 1, url: false } },
-          { loader: 'postcss-loader', options: { plugins: [autoprefixer()] } }
-        ]
+          { loader: 'postcss-loader', options: { plugins: [autoprefixer()] } },
+        ],
       },
       {
         test: /\.scss$/,
@@ -53,10 +53,10 @@ module.exports = merge(common, {
           'style-loader',
           { loader: 'css-loader', options: { importLoaders: 1, url: false } },
           { loader: 'postcss-loader', options: { plugins: [autoprefixer()] } },
-          'sass-loader'
-        ]
-      }
-    ]
+          'sass-loader',
+        ],
+      },
+    ],
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -64,10 +64,10 @@ module.exports = merge(common, {
       SETTINGS: {
         API_URL: JSON.stringify(process.env.API_URL || 'https://api.hel.fi/respa-test/v1'),
         SHOW_TEST_SITE_MESSAGE: Boolean(process.env.SHOW_TEST_SITE_MESSAGE),
-        TRACKING: Boolean(process.env.PIWIK_SITE_ID)
-      }
+        TRACKING: Boolean(process.env.PIWIK_SITE_ID),
+      },
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
-  ]
+    new webpack.NoEmitOnErrorsPlugin(),
+  ],
 });

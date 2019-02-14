@@ -6,7 +6,7 @@ import Select from 'react-select';
 import { injectT } from 'i18n';
 
 function SelectControl({
-  id, isLoading, label, onConfirm, options, t, value
+  id, isLoading, label, onConfirm, options, t, value,
 }) {
   return (
     <div className="app-SelectControl">
@@ -35,7 +35,7 @@ SelectControl.propTypes = {
   onConfirm: PropTypes.func.isRequired,
   options: PropTypes.array.isRequired,
   t: PropTypes.func.isRequired,
-  value: PropTypes.string
+  value: PropTypes.string,
 };
 
 export default injectT(SelectControl);

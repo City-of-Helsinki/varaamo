@@ -36,7 +36,7 @@ function ResourceMapInfo({ unit, t }) {
 
 ResourceMapInfo.propTypes = {
   t: PropTypes.func.isRequired,
-  unit: PropTypes.object.isRequired
+  unit: PropTypes.object.isRequired,
 };
 
 ResourceMapInfo = injectT(ResourceMapInfo); // eslint-disable-line

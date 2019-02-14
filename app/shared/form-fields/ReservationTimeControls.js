@@ -16,7 +16,7 @@ function updateWithDate(initialValue, date) {
     .set({
       year: dateMoment.get('year'),
       month: dateMoment.get('month'),
-      date: dateMoment.get('date')
+      date: dateMoment.get('date'),
     })
     .toISOString();
 }
@@ -26,7 +26,7 @@ function updateWithTime(initialValue, time, timeFormat) {
   return moment(initialValue)
     .set({
       hour: timeMoment.get('hour'),
-      minute: timeMoment.get('minute')
+      minute: timeMoment.get('minute'),
     })
     .toISOString();
 }
@@ -36,12 +36,12 @@ class ReservationTimeControls extends Component {
     begin: PropTypes.object.isRequired,
     end: PropTypes.object.isRequired,
     period: PropTypes.string,
-    timeFormat: PropTypes.string
+    timeFormat: PropTypes.string,
   };
 
   static defaultProps = {
     period: '00:30:00',
-    timeFormat: 'HH:mm'
+    timeFormat: 'HH:mm',
   };
 
   constructor(props) {
@@ -61,13 +61,13 @@ class ReservationTimeControls extends Component {
     const options = map(
       Array.from(
         range.by(constants.FILTER.timePeriodType, {
-          step: duration.as(constants.FILTER.timePeriodType)
-        })
+          step: duration.as(constants.FILTER.timePeriodType),
+        }),
       ),
       beginMoment => ({
         label: beginMoment.format(timeFormat),
-        value: beginMoment.format(timeFormat)
-      })
+        value: beginMoment.format(timeFormat),
+      }),
     );
 
     return options;

@@ -5,7 +5,7 @@ import Checkbox from './Checkbox';
 import FormControl from './FormControl';
 
 function ReduxFormField({
-  controlProps = {}, help, info, input, label, meta, name, type
+  controlProps = {}, help, info, input, label, meta, name, type,
 }) {
   const showError = meta.error && meta.touched;
   const props = {
@@ -15,7 +15,7 @@ function ReduxFormField({
     info,
     label,
     type,
-    validationState: showError ? 'error' : undefined
+    validationState: showError ? 'error' : undefined,
   };
 
   if (type === 'checkbox') {
@@ -33,7 +33,7 @@ ReduxFormField.propTypes = {
   label: PropTypes.string.isRequired,
   meta: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired
+  type: PropTypes.string.isRequired,
 };
 
 export default ReduxFormField;

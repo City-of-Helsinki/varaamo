@@ -23,12 +23,12 @@ export class UnconnectedRoute extends Component {
 UnconnectedRoute.propTypes = {
   actions: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  componentName: PropTypes.string.isRequired // eslint-disable-line react/no-unused-prop-types
+  componentName: PropTypes.string.isRequired, // eslint-disable-line react/no-unused-prop-types
 };
 
 export const mapDispatchToProps = (dispatch, ownProps) => {
   const actionCreators = {
-    updateRoute: updateRoute(ownProps.componentName)
+    updateRoute: updateRoute(ownProps.componentName),
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
@@ -36,5 +36,5 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
 
 export default connect(
   null,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(UnconnectedRoute);

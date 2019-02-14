@@ -10,5 +10,5 @@ function scrollTo(domElement) {
 }
 
 export {
-  scrollTo
+  scrollTo,
 };

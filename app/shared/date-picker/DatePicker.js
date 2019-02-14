@@ -12,7 +12,7 @@ DatePicker.propTypes = {
   formControl: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   positionRight: PropTypes.bool,
-  value: PropTypes.string.isRequired
+  value: PropTypes.string.isRequired,
 };
 
 function DatePicker(props) {
@@ -24,7 +24,7 @@ function DatePicker(props) {
     <DateField
       className={classnames('date-picker', {
         'date-picker--position-right': props.positionRight,
-        'form-control': props.formControl
+        'form-control': props.formControl,
       })}
       clearIcon={false}
       collapseOnDateClick

@@ -32,9 +32,9 @@ ResourceIcons.propTypes = {
     peopleCapacity: PropTypes.number,
     maxPeriod: PropTypes.string,
     minPricePerHour: PropTypes.string,
-    maxPricePerHour: PropTypes.string
+    maxPricePerHour: PropTypes.string,
   }).isRequired,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 export default injectT(ResourceIcons);

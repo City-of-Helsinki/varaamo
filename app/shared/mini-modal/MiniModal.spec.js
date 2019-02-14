@@ -9,7 +9,7 @@ import MiniModal from './MiniModal';
 function getWrapper(props) {
   const defaults = {
     buttonContent: 'button text',
-    header: 'Modal header'
+    header: 'Modal header',
   };
   return shallowWithIntl(<MiniModal {...defaults} {...props} />);
 }

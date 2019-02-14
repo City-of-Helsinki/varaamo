@@ -36,10 +36,10 @@ function getErrorTypeDescriptor(type, options = {}) {
       API_ACTION: {
         apiRequestFinish: true,
         countable: options.countable,
-        type: action[CALL_API].types[0].type
+        type: action[CALL_API].types[0].type,
       },
-      ...options.meta
-    })
+      ...options.meta,
+    }),
   };
 }
 
@@ -60,9 +60,9 @@ function getRequestTypeDescriptor(type, options = {}) {
       API_ACTION: {
         apiRequestStart: true,
         countable: options.countable,
-        type
-      }
-    }, options.meta)
+        type,
+      },
+    }, options.meta),
   };
 }
 
@@ -93,10 +93,10 @@ function getSuccessTypeDescriptor(type, options = {}) {
         API_ACTION: {
           apiRequestFinish: true,
           countable: options.countable,
-          type: action[CALL_API].types[0].type
-        }
+          type: action[CALL_API].types[0].type,
+        },
       }, options.meta)
-    )
+    ),
   };
 }
 
@@ -107,5 +107,5 @@ export {
   getHeadersCreator,
   getRequestTypeDescriptor,
   getSearchParamsString,
-  getSuccessTypeDescriptor
+  getSuccessTypeDescriptor,
 };

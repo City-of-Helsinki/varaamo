@@ -11,7 +11,7 @@ describe('shared/header/Header', () => {
   const pathname = 'somepath';
   function getWrapper() {
     const defaults = {
-      location: { pathname }
+      location: { pathname },
     };
     return shallow(
       <Header {...defaults}>

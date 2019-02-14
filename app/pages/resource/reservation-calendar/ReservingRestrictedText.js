@@ -20,7 +20,7 @@ function ReservingRestrictedText({ reservableBefore, reservableDaysInAdvance, t 
 ReservingRestrictedText.propTypes = {
   reservableBefore: PropTypes.string.isRequired,
   reservableDaysInAdvance: PropTypes.number.isRequired,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 export default injectT(ReservingRestrictedText);

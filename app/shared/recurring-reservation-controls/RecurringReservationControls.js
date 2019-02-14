@@ -26,7 +26,7 @@ function RecurringReservationControls({
   isVisible,
   numberOfOccurrences,
   lastTime,
-  t
+  t,
 }) {
   if (!isVisible) {
     return <span />;
@@ -95,7 +95,7 @@ RecurringReservationControls.propTypes = {
   isVisible: PropTypes.bool.isRequired,
   numberOfOccurrences: PropTypes.number.isRequired,
   lastTime: PropTypes.string,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 export default injectT(RecurringReservationControls);

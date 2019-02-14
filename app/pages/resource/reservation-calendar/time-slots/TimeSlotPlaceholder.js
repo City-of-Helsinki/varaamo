@@ -20,5 +20,5 @@ export default function TimeSlotPlaceholder({ mobileOffset, size }) {
 
 TimeSlotPlaceholder.propTypes = {
   mobileOffset: PropTypes.number.isRequired,
-  size: PropTypes.number.isRequired
+  size: PropTypes.number.isRequired,
 };

@@ -6,7 +6,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
 function TermsField({
-  input, label, labelLink, meta, name, onClick
+  input, label, labelLink, meta, name, onClick,
 }) {
   const showError = meta.error && meta.touched;
   return (
@@ -36,7 +36,7 @@ TermsField.propTypes = {
   labelLink: PropTypes.string.isRequired,
   meta: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
 };
 
 export default TermsField;

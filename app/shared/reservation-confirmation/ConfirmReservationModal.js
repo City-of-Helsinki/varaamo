@@ -1,5 +1,5 @@
 import {
-  first, last, orderBy, pick, uniq
+  first, last, orderBy, pick, uniq,
 } from 'lodash';
 import camelCase from 'lodash/camelCase';
 import PropTypes from 'prop-types';
@@ -32,7 +32,7 @@ class ConfirmReservationModal extends Component {
     showTimeControls: PropTypes.bool,
     staffEventSelected: PropTypes.bool,
     t: PropTypes.func.isRequired,
-    timeSlots: PropTypes.array
+    timeSlots: PropTypes.array,
   };
 
   onConfirm = (values) => {
@@ -46,7 +46,7 @@ class ConfirmReservationModal extends Component {
       isAdmin,
       isStaff,
       resource,
-      showTimeControls
+      showTimeControls,
     } = this.props;
     const formFields = [...resource.supportedReservationExtraFields].map(value => camelCase(value));
 
@@ -77,7 +77,7 @@ class ConfirmReservationModal extends Component {
       isEditing,
       reservationsToEdit,
       resource,
-      selectedReservations
+      selectedReservations,
     } = this.props;
     let reservation;
 
@@ -142,7 +142,7 @@ class ConfirmReservationModal extends Component {
       onRemoveReservation,
       recurringReservations,
       selectedReservations,
-      t
+      t,
     } = this.props;
 
     const reservationsCount = selectedReservations.length + recurringReservations.length;
@@ -186,7 +186,7 @@ class ConfirmReservationModal extends Component {
       showTimeControls,
       staffEventSelected,
       t,
-      timeSlots
+      timeSlots,
     } = this.props;
 
     const termsAndConditions = isAdmin ? '' : getTermsAndConditions(resource);

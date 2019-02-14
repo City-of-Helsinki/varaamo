@@ -12,7 +12,7 @@ import AvailabilityTimelineContainer from './AvailabilityTimeline';
 function getWrapper(props) {
   const defaults = {
     date: '2016-01-01T00:00:00',
-    resources: []
+    resources: [],
   };
   return shallow(<TimelineGroup {...defaults} {...props} />);
 }
@@ -51,7 +51,7 @@ describe('shared/availability-view/TimelineGroup', () => {
       '20:00',
       '21:00',
       '22:00',
-      '23:00'
+      '23:00',
     ]);
   });
 
@@ -59,7 +59,7 @@ describe('shared/availability-view/TimelineGroup', () => {
     it('is .hour-start-selected if end time is XX:30', () => {
       const selection = {
         begin: '2016-01-01T00:00:00',
-        end: '2016-01-01T01:30:00'
+        end: '2016-01-01T01:30:00',
       };
       const hours = getWrapper({ selection }).find('.hour');
       const hour = hours.at(1);
@@ -70,7 +70,7 @@ describe('shared/availability-view/TimelineGroup', () => {
     it('is .hour-end-selected if end time is XX:00', () => {
       const selection = {
         begin: '2016-01-01T00:00:00',
-        end: '2016-01-01T02:00:00'
+        end: '2016-01-01T02:00:00',
       };
       const hours = getWrapper({ selection }).find('.hour');
       const hour = hours.at(1);

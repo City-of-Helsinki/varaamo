@@ -24,7 +24,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     resource: Resource.build(),
     selected: false,
     showClear: false,
-    slot: Immutable(TimeSlotFixture.build())
+    slot: Immutable(TimeSlotFixture.build()),
   };
 
   function getWrapper(extraProps) {
@@ -162,7 +162,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     const message = {
       message: 'some message',
       type: 'info',
-      timeOut: 100
+      timeOut: 100,
     };
     let instance;
     let wrapper;
@@ -171,7 +171,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       wrapper = getWrapper({
         addNotification,
         isLoggedIn: false,
-        onClick
+        onClick,
       });
       instance = wrapper.instance();
       simple.mock(instance, 'getReservationInfoNotification').returnWith(message);
@@ -206,8 +206,8 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       {
         begin: defaultProps.slot.start,
         end: defaultProps.slot.end,
-        resource: defaultProps.resource.id
-      }
+        resource: defaultProps.resource.id,
+      },
     ]);
   });
 

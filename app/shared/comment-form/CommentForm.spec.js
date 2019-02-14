@@ -13,7 +13,7 @@ describe('shared/comment-form/CommentForm', () => {
     defaultValue: 'This is a comment',
     isSaving: false,
     onCancel: simple.stub(),
-    onSave: simple.stub()
+    onSave: simple.stub(),
   };
 
   function getWrapper(extraProps = {}) {

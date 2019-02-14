@@ -19,7 +19,7 @@ function hideNotification(state, index) {
   return [
     ...state.slice(0, index),
     Object.assign({}, state[index], { hidden: true }),
-    ...state.slice(index + 1)
+    ...state.slice(index + 1),
   ];
 }
 
@@ -27,13 +27,13 @@ function getErrorNotification(error) {
   const defaults = {
     messageId: 'Notifications.errorMessage',
     type: 'error',
-    timeOut: 10000
+    timeOut: 10000,
   };
 
   if (error.status === 401) {
     return {
       ...defaults,
-      messageId: 'Notifications.loginMessage'
+      messageId: 'Notifications.loginMessage',
     };
   } if (
     error.response
@@ -42,12 +42,12 @@ function getErrorNotification(error) {
   ) {
     return {
       ...defaults,
-      message: error.response.non_field_errors.join('. ')
+      message: error.response.non_field_errors.join('. '),
     };
   } if (error.response && error.response.detail) {
     return {
       ...defaults,
-      message: error.response.detail
+      message: error.response.detail,
     };
   }
   return defaults;
@@ -72,7 +72,7 @@ function notificationsReducer(state = initialState, action) {
     case types.API.RESERVATION_DELETE_SUCCESS: {
       const notification = {
         messageId: 'Notifications.reservationDeleteSuccessMessage',
-        type: 'success'
+        type: 'success',
       };
       return addNotification(state, notification);
     }
@@ -80,7 +80,7 @@ function notificationsReducer(state = initialState, action) {
     case types.API.RESERVATION_PUT_SUCCESS: {
       const notification = {
         messageId: 'Notifications.reservationUpdateSuccessMessage',
-        type: 'success'
+        type: 'success',
       };
       return addNotification(state, notification);
     }

@@ -6,7 +6,7 @@ import Immutable from 'seamless-immutable';
 const initialState = Immutable({
   resourceId: null,
   showMap: false,
-  unitId: null
+  unitId: null,
 });
 
 function resourceMapReducer(state = initialState, action) {
@@ -25,7 +25,7 @@ function resourceMapReducer(state = initialState, action) {
 
     case 'ENTER_OR_CHANGE_RESOURCE_PAGE': {
       return initialState.merge({
-        resourceId: action.payload.pathname.slice(-12)
+        resourceId: action.payload.pathname.slice(-12),
       });
     }
 

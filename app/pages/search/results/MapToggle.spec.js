@@ -9,7 +9,7 @@ describe('pages/search/results/MapToggle', () => {
     const defaults = {
       mapVisible: false,
       onClick: () => null,
-      resultCount: 0
+      resultCount: 0,
     };
     return shallowWithIntl(<MapToggle {...defaults} {...props} />);
   }

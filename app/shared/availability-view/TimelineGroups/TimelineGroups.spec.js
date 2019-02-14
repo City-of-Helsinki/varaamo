@@ -9,7 +9,7 @@ import TimelineGroup from './TimelineGroup';
 function getWrapper(props) {
   const defaults = {
     date: '2016-01-01',
-    groups: []
+    groups: [],
   };
   return shallow(<TimelineGroups {...defaults} {...props} />);
 }

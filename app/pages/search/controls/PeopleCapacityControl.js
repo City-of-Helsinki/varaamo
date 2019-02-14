@@ -14,11 +14,11 @@ class PeopleCapacityControl extends React.Component {
   static propTypes = {
     onConfirm: PropTypes.func.isRequired,
     t: PropTypes.func.isRequired,
-    value: PropTypes.number
+    value: PropTypes.number,
   };
 
   state = {
-    visible: false
+    visible: false,
   }
 
   getOption(value) {

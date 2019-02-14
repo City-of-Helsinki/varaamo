@@ -12,7 +12,7 @@ describe('shared/resource-list/resourceCardSelector', () => {
   function getSelected() {
     const state = getState({
       'data.resources': { [resource.id]: resource },
-      'data.units': { [unit.id]: unit }
+      'data.units': { [unit.id]: unit },
     });
     const props = { resourceId: resource.id };
     return resourceCardSelector(state, props);

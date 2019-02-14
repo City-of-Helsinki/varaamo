@@ -5,7 +5,7 @@ import Grid from 'react-bootstrap/lib/Grid';
 import DocumentTitle from 'react-document-title';
 
 function PageWrapper({
-  children, className, fluid = false, title, transparent = false
+  children, className, fluid = false, title, transparent = false,
 }) {
   return (
     <div className={classnames('app-PageWrapper', { 'app-PageWrapper__transparent': transparent })}>
@@ -26,7 +26,7 @@ PageWrapper.propTypes = {
   className: PropTypes.string,
   fluid: PropTypes.bool,
   title: PropTypes.string.isRequired,
-  transparent: PropTypes.bool
+  transparent: PropTypes.bool,
 };
 
 export default PageWrapper;

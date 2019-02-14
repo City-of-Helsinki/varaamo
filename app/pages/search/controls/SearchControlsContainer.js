@@ -17,7 +17,7 @@ import {
   disableGeoposition,
   disableTimeRange,
   enableGeoposition,
-  enableTimeRange
+  enableTimeRange,
 } from 'actions/uiActions';
 import { injectT } from 'i18n';
 
@@ -65,7 +65,7 @@ class UnconnectedSearchControlsContainer extends Component {
   handleDateChange = ({ date }) => {
     const dateInCorrectFormat = moment(date, 'L').format(constants.DATE_FORMAT);
     this.handleFiltersChange({
-      date: dateInCorrectFormat
+      date: dateInCorrectFormat,
     });
   };
 
@@ -89,7 +89,7 @@ class UnconnectedSearchControlsContainer extends Component {
     this.handleFiltersChange({
       duration,
       end,
-      start
+      start,
     });
   };
 
@@ -123,7 +123,7 @@ class UnconnectedSearchControlsContainer extends Component {
       isFetchingUnits,
       purposeOptions,
       t,
-      unitOptions
+      unitOptions,
     } = this.props;
     const peopleCapacityOptions = this.getPeopleCapacityOptions();
     const searchBoxOptions = purposeOptions.concat(unitOptions);
@@ -255,7 +255,7 @@ UnconnectedSearchControlsContainer.propTypes = {
   t: PropTypes.func.isRequired,
   unitOptions: PropTypes.array.isRequired,
   urlSearchFilters: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
 };
 
 UnconnectedSearchControlsContainer = injectT(UnconnectedSearchControlsContainer); // eslint-disable-line
@@ -267,7 +267,7 @@ function mapDispatchToProps(dispatch) {
     disableTimeRange,
     enableGeoposition,
     enableTimeRange,
-    fetchPurposes
+    fetchPurposes,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
@@ -277,6 +277,6 @@ export { UnconnectedSearchControlsContainer };
 export default withRouter(
   connect(
     searchControlsSelector,
-    mapDispatchToProps
-  )(UnconnectedSearchControlsContainer)
+    mapDispatchToProps,
+  )(UnconnectedSearchControlsContainer),
 );

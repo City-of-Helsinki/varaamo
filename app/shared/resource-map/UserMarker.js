@@ -8,7 +8,7 @@ import iconUrl from 'assets/map/usermarker-icon.png';
 
 UserMarker.propTypes = {
   latitude: PropTypes.number.isRequired,
-  longitude: PropTypes.number.isRequired
+  longitude: PropTypes.number.isRequired,
 };
 
 function UserMarker(props) {
@@ -20,7 +20,7 @@ function UserMarker(props) {
     popupAnchor: [1, -34],
     shadowSize: [41, 41],
     shadowUrl,
-    tooltipAnchor: [16, -28]
+    tooltipAnchor: [16, -28],
   });
   return (
     <LeafletMarker

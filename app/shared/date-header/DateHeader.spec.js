@@ -8,7 +8,7 @@ import DateHeader from './DateHeader';
 
 describe('shared/date-header/DateHeader', () => {
   const defaultProps = {
-    date: '2015-10-11'
+    date: '2015-10-11',
   };
 
   function getWrapper(extraProps) {
@@ -42,7 +42,7 @@ describe('shared/date-header/DateHeader', () => {
     describe('decrease date button', () => {
       describe('when onDecreaseDateButtonClick function is given in props', () => {
         const extraProps = {
-          onDecreaseDateButtonClick: simple.stub()
+          onDecreaseDateButtonClick: simple.stub(),
         };
         let button;
 
@@ -64,7 +64,7 @@ describe('shared/date-header/DateHeader', () => {
 
       describe('when onDecreaseDateButtonClick function is not given in props', () => {
         const extraProps = {
-          onDecreaseDateButtonClick: undefined
+          onDecreaseDateButtonClick: undefined,
         };
         let button;
 
@@ -81,7 +81,7 @@ describe('shared/date-header/DateHeader', () => {
     describe('increase date button', () => {
       describe('when onIncreaseDateButtonClick function is given in props', () => {
         const extraProps = {
-          onIncreaseDateButtonClick: simple.stub()
+          onIncreaseDateButtonClick: simple.stub(),
         };
         let button;
 
@@ -103,7 +103,7 @@ describe('shared/date-header/DateHeader', () => {
 
       describe('when onIncreaseDateButtonClick function is not given in props', () => {
         const extraProps = {
-          onIncreaseDateButtonClick: undefined
+          onIncreaseDateButtonClick: undefined,
         };
         let button;
 

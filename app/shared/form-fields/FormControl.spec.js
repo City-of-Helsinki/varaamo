@@ -16,7 +16,7 @@ describe('shared/form-fields/FormControl', () => {
     id: 'email',
     label: 'Enter your email',
     type: 'text',
-    validationState: 'error'
+    validationState: 'error',
   };
 
   function getWrapper(props) {

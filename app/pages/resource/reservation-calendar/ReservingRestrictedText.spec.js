@@ -7,7 +7,7 @@ import ReservingRestrictedText from './ReservingRestrictedText';
 describe('pages/resource/reservation-calendar/ReservingRestrictedText', () => {
   const defaultProps = {
     reservableBefore: '2015-10-11',
-    reservableDaysInAdvance: 10
+    reservableDaysInAdvance: 10,
   };
 
   function getWrapper(extraProps) {

@@ -15,7 +15,7 @@ describe('pages/AppContainer', () => {
       enableGeoposition: () => {},
       fetchUser: () => null,
       location: {},
-      userId: null
+      userId: null,
     };
     return shallow(<AppContainer {...defaults} {...props} />);
   }
@@ -25,25 +25,25 @@ describe('pages/AppContainer', () => {
 
     const defaultProps = {
       location: {
-        pathname: '/'
-      }
+        pathname: '/',
+      },
     };
 
     function getSelected(props = defaultProps) {
       const state = getState({
         auth: {
-          userId: 'u-1'
+          userId: 'u-1',
         },
         'ui.search': {
           results: searchResultIds,
           showMap: true,
-          unitId: 'search-unit'
+          unitId: 'search-unit',
         },
         'ui.resourceMap': {
           resourceId: 'selected-resource',
           showMap: false,
-          unitId: 'resource-unit'
-        }
+          unitId: 'resource-unit',
+        },
       });
       return selector(state, props);
     }
@@ -57,8 +57,8 @@ describe('pages/AppContainer', () => {
     describe('with path in /resources/', () => {
       const customProps = {
         location: {
-          pathname: '/resources/qwertyqwerty'
-        }
+          pathname: '/resources/qwertyqwerty',
+        },
       };
       it('returns userId from state', () => {
         expect(getSelected(customProps).userId).to.equal('u-1');

@@ -15,11 +15,11 @@ class PurposeControl extends React.Component {
     onConfirm: PropTypes.func.isRequired,
     purposeOptions: PropTypes.array.isRequired,
     t: PropTypes.func.isRequired,
-    value: PropTypes.string
+    value: PropTypes.string,
   }
 
   state = {
-    visible: false
+    visible: false,
   }
 
   hideOverlay = () => {
@@ -37,14 +37,14 @@ class PurposeControl extends React.Component {
 
   render() {
     const {
-      isLoading, purposeOptions, t, value
+      isLoading, purposeOptions, t, value,
     } = this.props;
     const selectOptions = [
       {
         label: t('common.optionsAllLabel'),
-        value: ''
+        value: '',
       },
-      ...purposeOptions
+      ...purposeOptions,
     ];
     const originalOption = selectOptions.find(option => option.value === value) || {};
     const listItems = selectOptions.map(option => (

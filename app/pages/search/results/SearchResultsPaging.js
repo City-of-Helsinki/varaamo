@@ -9,7 +9,7 @@ class SearchResultsPaging extends React.Component {
   static propTypes = {
     filters: PropTypes.object.isRequired,
     resultCount: PropTypes.number.isRequired,
-    history: PropTypes.object.isRequired
+    history: PropTypes.object.isRequired,
   };
 
   handleClick(page) {
@@ -32,7 +32,7 @@ class SearchResultsPaging extends React.Component {
     return (
       <Button
         className={classnames('app-SearchResultsPaging__page', {
-          'app-SearchResultsPaging__selected': currentPage === page
+          'app-SearchResultsPaging__selected': currentPage === page,
         })}
         key={`page${page}`}
         onClick={() => this.handleClick(page)}

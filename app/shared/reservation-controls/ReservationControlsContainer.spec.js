@@ -13,7 +13,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
   const resource = Resource.build();
   const reservation = Reservation.build({ resource: resource.id });
   const history = {
-    push: () => {}
+    push: () => {},
   };
   const props = {
     history,
@@ -25,12 +25,12 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
       selectReservationToCancel: simple.stub(),
       selectReservationToEdit: simple.stub(),
       selectReservationToShow: simple.stub(),
-      showReservationInfoModal: simple.stub()
+      showReservationInfoModal: simple.stub(),
     },
     isAdmin: false,
     isStaff: false,
     reservation,
-    resource
+    resource,
   };
 
   let container;
@@ -68,7 +68,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
     it('calls props.actions.selectReservationToCancel with this reservation', () => {
       expect(props.actions.selectReservationToCancel.callCount).to.equal(1);
       expect(props.actions.selectReservationToCancel.lastCall.args[0]).to.deep.equal(
-        props.reservation
+        props.reservation,
       );
     });
 
@@ -93,7 +93,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
       expect(props.actions.selectReservationToEdit.callCount).to.equal(1);
       expect(props.actions.selectReservationToEdit.lastCall.args[0]).to.deep.equal({
         reservation: props.reservation,
-        minPeriod: props.resource.minPeriod
+        minPeriod: props.resource.minPeriod,
       });
     });
 
@@ -114,7 +114,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
     it('calls the props.actions.showReservationInfoModal function with this reservation', () => {
       expect(props.actions.showReservationInfoModal.callCount).to.equal(1);
       expect(props.actions.showReservationInfoModal.lastCall.args[0]).to.deep.equal(
-        props.reservation
+        props.reservation,
       );
     });
   });

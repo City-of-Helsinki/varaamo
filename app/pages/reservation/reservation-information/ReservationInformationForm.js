@@ -20,7 +20,7 @@ const validators = {
       return t('ReservationForm.emailError');
     }
     return null;
-  }
+  },
 };
 
 const maxLengths = {
@@ -35,7 +35,7 @@ const maxLengths = {
   reserverEmailAddress: 100,
   reserverId: 30,
   reserverName: 100,
-  reserverPhoneNumber: 30
+  reserverPhoneNumber: 30,
 };
 
 export function validate(values, { fields, requiredFields, t }) {
@@ -117,7 +117,7 @@ class UnconnectedReservationInformationForm extends Component {
       resource,
       staffEventSelected,
       t,
-      termsAndConditions
+      termsAndConditions,
     } = this.props;
 
     this.requiredFields = staffEventSelected
@@ -241,7 +241,7 @@ class UnconnectedReservationInformationForm extends Component {
             t('common.commentsLabel'),
             {
               placeholder: t('common.commentsPlaceholder'),
-              rows: 5
+              rows: 5,
             },
           )}
           {termsAndConditions
@@ -293,12 +293,12 @@ UnconnectedReservationInformationForm.propTypes = {
   resource: PropTypes.object.isRequired,
   staffEventSelected: PropTypes.bool,
   t: PropTypes.func.isRequired,
-  termsAndConditions: PropTypes.string.isRequired
+  termsAndConditions: PropTypes.string.isRequired,
 };
 UnconnectedReservationInformationForm = injectT(UnconnectedReservationInformationForm);  // eslint-disable-line
 
 export { UnconnectedReservationInformationForm };
 export default injectT(reduxForm({
   form: FormTypes.RESERVATION,
-  validate
+  validate,
 })(UnconnectedReservationInformationForm));

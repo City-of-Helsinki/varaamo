@@ -33,7 +33,7 @@ const reservationInfoModalSelector = createStructuredSelector({
   reservation: reservationSelector,
   reservationIsEditable: reservationIsEditableSelector,
   resource: resourceSelector,
-  show: state => state.ui.reservationInfoModal.show
+  show: state => state.ui.reservationInfoModal.show,
 });
 
 export default reservationInfoModalSelector;

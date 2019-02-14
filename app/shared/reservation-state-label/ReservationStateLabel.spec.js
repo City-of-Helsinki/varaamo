@@ -13,8 +13,8 @@ describe('shared/reservation-state-label/ReservationStateLabel', () => {
   const defaultProps = {
     reservation: Immutable(Reservation.build({
       needManualConfirmation: true,
-      state: 'confirmed'
-    }))
+      state: 'confirmed',
+    })),
   };
 
   function getWrapper(extraProps) {

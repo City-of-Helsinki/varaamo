@@ -29,9 +29,9 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
     resource: Resource.build(),
     selectedReservations: Immutable([
       Reservation.build(),
-      Reservation.build()
+      Reservation.build(),
     ]),
-    show: true
+    show: true,
   };
 
   function getWrapper(extraProps = {}) {
@@ -96,13 +96,13 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
 
       describe('when making a preliminary reservation', () => {
         const props = {
-          isPreliminaryReservation: true
+          isPreliminaryReservation: true,
         };
 
         it('renders CompactReservationList with correct props', () => {
           const recurringReservations = [
             Reservation.build(),
-            Reservation.build()
+            Reservation.build(),
           ];
           const list = getModalBodyWrapper({ ...props, recurringReservations })
             .find(CompactReservationList);
@@ -127,7 +127,7 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
       describe('when editing reservation', () => {
         const props = {
           isEditing: true,
-          reservationsToEdit: Immutable([Reservation.build()])
+          reservationsToEdit: Immutable([Reservation.build()]),
         };
 
         it('renders one CompactReservationList with reservations to edit', () => {
@@ -176,7 +176,7 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
       it('is not included if resource does not need manual confirmation', () => {
         const props = {
           isStaff: true,
-          resource: Resource.build({ needManualConfirmation: false })
+          resource: Resource.build({ needManualConfirmation: false }),
         };
         expect(getFormFields(props)).to.not.contain('staffEvent');
       });
@@ -184,7 +184,7 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
       it('is not included if user is not staff', () => {
         const props = {
           isStaff: false,
-          resource: Resource.build({ needManualConfirmation: true })
+          resource: Resource.build({ needManualConfirmation: true }),
         };
         expect(getFormFields(props)).to.not.contain('staffEvent');
       });
@@ -192,7 +192,7 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
       it('is included if user is staff and resource need manual confirmation', () => {
         const props = {
           isStaff: true,
-          resource: Resource.build({ needManualConfirmation: true })
+          resource: Resource.build({ needManualConfirmation: true }),
         };
         expect(getFormFields(props)).to.contain('staffEvent');
       });

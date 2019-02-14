@@ -23,7 +23,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
       fetchFavoritedResources,
       selectAdminResourceType,
       openConfirmReservationModal,
-      unselectAdminResourceType
+      unselectAdminResourceType,
     },
     date: '2017-01-10',
     selectedResourceTypes: [],
@@ -32,7 +32,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
     isFetchingResources: false,
     location: { id: '123' },
     resources: [],
-    resourceTypes: ['a', 'b', 'c']
+    resourceTypes: ['a', 'b', 'c'],
   };
 
   function getWrapper(extraProps = {}) {
@@ -95,7 +95,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
         const view = wrapper.find(AvailabilityView);
         expect(view).to.have.length(1);
         expect(view.prop('groups')).to.deep.equal([
-          { name: '', resources }
+          { name: '', resources },
         ]);
         expect(view.prop('date')).to.deep.equal('2017-01-10');
         expect(view.prop('onDateChange')).to.equal(changeAdminResourcesPageDate);
@@ -236,7 +236,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
       const selection = {
         begin: '2017-04-21T12:00:00+03:00',
         end: '2017-04-21T13:00:00+03:00',
-        resourceId: 'r-1'
+        resourceId: 'r-1',
       };
       const actions = { ...defaultProps.actions, changeRecurringBaseTime };
       const wrapper = getWrapper({ actions });

@@ -12,7 +12,7 @@ class MainNavbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      expanded: false
+      expanded: false,
     };
   }
 
@@ -26,7 +26,7 @@ class MainNavbar extends React.Component {
 
   render() {
     const {
-      activeLink, clearSearchResults, isAdmin, isLoggedIn, t
+      activeLink, clearSearchResults, isAdmin, isLoggedIn, t,
     } = this.props;
 
     return (
@@ -86,7 +86,7 @@ MainNavbar.propTypes = {
   clearSearchResults: PropTypes.func.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 export default injectT(MainNavbar);

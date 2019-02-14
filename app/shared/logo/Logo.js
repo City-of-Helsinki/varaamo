@@ -39,7 +39,7 @@ function Logo({ t }) {
 }
 
 Logo.propTypes = {
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 export default injectT(Logo);

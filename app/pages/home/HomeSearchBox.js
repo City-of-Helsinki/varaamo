@@ -8,13 +8,13 @@ import { injectT } from 'i18n';
 class HomeSearchBox extends React.Component {
   static propTypes = {
     onSearch: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      value: ''
+      value: '',
     };
   }
 

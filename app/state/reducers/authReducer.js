@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable';
 
 const initialState = Immutable({
   token: null,
-  userId: null
+  userId: null,
 });
 
 function authReducer(state = initialState, action) {

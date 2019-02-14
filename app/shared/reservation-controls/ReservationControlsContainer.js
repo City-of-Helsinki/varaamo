@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import {
   confirmPreliminaryReservation,
-  denyPreliminaryReservation
+  denyPreliminaryReservation,
 } from 'actions/reservationActions';
 import {
   openConfirmReservationModal,
@@ -14,7 +14,7 @@ import {
   selectReservationToEdit,
   selectReservationToShow,
   showReservationInfoModal,
-  startReservationEditInInfoModal
+  startReservationEditInInfoModal,
 } from 'actions/uiActions';
 import { getEditReservationUrl } from 'utils/reservationUtils';
 
@@ -54,7 +54,7 @@ export class UnconnectedReservationControlsContainer extends Component {
 
   handleEditClick() {
     const {
-      actions, reservation, resource, history
+      actions, reservation, resource, history,
     } = this.props;
     const nextUrl = getEditReservationUrl(reservation);
 
@@ -92,7 +92,7 @@ UnconnectedReservationControlsContainer.propTypes = {
   isStaff: PropTypes.bool.isRequired,
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -105,7 +105,7 @@ function mapDispatchToProps(dispatch) {
     selectReservationToEdit,
     selectReservationToShow,
     showReservationInfoModal,
-    startReservationEditInInfoModal
+    startReservationEditInInfoModal,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
@@ -114,6 +114,6 @@ function mapDispatchToProps(dispatch) {
 export default withRouter(
   connect(
     null,
-    mapDispatchToProps
-  )(UnconnectedReservationControlsContainer)
+    mapDispatchToProps,
+  )(UnconnectedReservationControlsContainer),
 );

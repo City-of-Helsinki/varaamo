@@ -11,7 +11,7 @@ import SideNavbar from './SideNavbar';
 function getWrapper(props = {}, children = 'Some text') {
   const defaultProps = {
     t: () => {},
-    initials: null
+    initials: null,
   };
   return shallowWithIntl(<SideNavbar {...defaultProps} {...props}>{children}</SideNavbar>);
 }

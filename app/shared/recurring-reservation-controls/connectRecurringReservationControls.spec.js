@@ -12,7 +12,7 @@ describe('shared/recurring-reservation-controls/connectRecurringReservationContr
     it('returns frequency from state', () => {
       const frequency = 'days';
       const state = getState({
-        recurringReservations: { frequency }
+        recurringReservations: { frequency },
       });
       expect(getSelected(state).frequency).to.equal(frequency);
     });
@@ -20,7 +20,7 @@ describe('shared/recurring-reservation-controls/connectRecurringReservationContr
     it('returns lastTime from state', () => {
       const lastTime = '2017-04-18';
       const state = getState({
-        recurringReservations: { lastTime }
+        recurringReservations: { lastTime },
       });
       expect(getSelected(state).lastTime).to.equal(lastTime);
     });
@@ -34,7 +34,7 @@ describe('shared/recurring-reservation-controls/connectRecurringReservationContr
       it('returns true if baseTime is set', () => {
         const baseTime = { begin: 'mock-begin', end: 'mock-end' };
         const state = getState({
-          recurringReservations: { baseTime }
+          recurringReservations: { baseTime },
         });
         expect(getSelected(state).isVisible).to.be.true;
       });
@@ -42,7 +42,7 @@ describe('shared/recurring-reservation-controls/connectRecurringReservationContr
       it('returns false if baseTime is not set', () => {
         const baseTime = null;
         const state = getState({
-          recurringReservations: { baseTime }
+          recurringReservations: { baseTime },
         });
         expect(getSelected(state).isVisible).to.be.false;
       });
@@ -51,7 +51,7 @@ describe('shared/recurring-reservation-controls/connectRecurringReservationContr
     it('returns numberOfOccurrences from state', () => {
       const numberOfOccurrences = 12;
       const state = getState({
-        recurringReservations: { numberOfOccurrences }
+        recurringReservations: { numberOfOccurrences },
       });
       expect(getSelected(state).numberOfOccurrences).to.equal(numberOfOccurrences);
     });

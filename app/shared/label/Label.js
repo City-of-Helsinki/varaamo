@@ -7,17 +7,17 @@ Label.propTypes = {
   className: PropTypes.string,
   shape: PropTypes.oneOf(['default', 'rounded', 'circle']),
   size: PropTypes.oneOf(['medium', 'small', 'mini']),
-  theme: PropTypes.string
+  theme: PropTypes.string,
 };
 
 Label.defaultProps = {
   shape: 'default',
   size: 'medium',
-  theme: 'gray'
+  theme: 'gray',
 };
 
 function Label({
-  children, className, shape, size, theme
+  children, className, shape, size, theme,
 }) {
   return (
     <div

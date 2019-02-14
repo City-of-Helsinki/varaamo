@@ -6,9 +6,9 @@ function getState(openModals) {
   return {
     ui: Immutable({
       modals: {
-        open: openModals
-      }
-    })
+        open: openModals,
+      },
+    }),
   };
 }
 

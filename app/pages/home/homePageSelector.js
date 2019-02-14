@@ -13,7 +13,7 @@ const purposeOptionsSelector = createSelector(
       .filter(purpose => purpose.parent === null)
       .map(purpose => ({
         value: purpose.id,
-        label: purpose.name
+        label: purpose.name,
       }));
     return sortBy(purposeOptions, 'label');
   },
@@ -21,7 +21,7 @@ const purposeOptionsSelector = createSelector(
 
 const homePageSelector = createStructuredSelector({
   isFetchingPurposes: requestIsActiveSelectorFactory(ActionTypes.API.PURPOSES_GET_REQUEST),
-  purposes: purposeOptionsSelector
+  purposes: purposeOptionsSelector,
 });
 
 export default homePageSelector;

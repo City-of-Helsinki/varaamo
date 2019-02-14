@@ -9,7 +9,7 @@ function getState({ resources = {} }) {
 function createResource(id, unitId) {
   return {
     id,
-    unit: unitId
+    unit: unitId,
   };
 }
 
@@ -25,8 +25,8 @@ describe('shared/resource-compact-list/ResourceCompactListSelector', () => {
     const state = getState({
       resources: {
         123: createResource('123', 'unitId'),
-        321: createResource('321', 'unitId2')
-      }
+        321: createResource('321', 'unitId2'),
+      },
     });
     const props = { resourceIds: ['123', '321'], unitId: 'unitId2' };
     const data = selector(state, props);

@@ -3,7 +3,7 @@ import React from 'react';
 import ResourceCard from 'shared/resource-card';
 
 function ResourceList({
-  date, emptyMessage, location, resourceIds, history
+  date, emptyMessage, location, resourceIds, history,
 }) {
   function renderResourceListItem(resourceId) {
     return (
@@ -28,7 +28,7 @@ ResourceList.propTypes = {
   history: PropTypes.object.isRequired,
   emptyMessage: PropTypes.string,
   location: PropTypes.object.isRequired,
-  resourceIds: PropTypes.array.isRequired
+  resourceIds: PropTypes.array.isRequired,
 };
 
 export default ResourceList;

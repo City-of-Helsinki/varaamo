@@ -10,7 +10,7 @@ function getWrapper(props) {
   const defaults = {
     value: '2016-11-01',
     onChange: () => null,
-    t: s => s
+    t: s => s,
   };
   return shallow(<DateSelector {...defaults} {...props} />);
 }

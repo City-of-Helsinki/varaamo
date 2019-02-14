@@ -24,12 +24,12 @@ export const selector = createStructuredSelector({
   isAdmin: isAdminSelector,
   isLoggedIn: isLoggedInSelector,
   currentLanguage: currentLanguageSelector,
-  userName: userNameSelector
+  userName: userNameSelector,
 });
 
 const actions = {
   changeLocale,
-  clearSearchResults
+  clearSearchResults,
 };
 
 export default connect(selector, actions)(Navbar);

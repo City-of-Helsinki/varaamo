@@ -16,7 +16,7 @@ describe('shared/main-navbar/MainNavbar', () => {
       clearSearchResults: () => null,
       isAdmin: false,
       isLoggedIn: false,
-      userName: 'Luke Skywalker'
+      userName: 'Luke Skywalker',
     };
     return shallowWithIntl(<MainNavbar {...defaults} {...props} />);
   }
@@ -41,7 +41,7 @@ describe('shared/main-navbar/MainNavbar', () => {
     const props = {
       isAdmin: false,
       isLoggedIn: true,
-      userName: 'Luke'
+      userName: 'Luke',
     };
     function getLoggedInNotAdminWrapper(extraProps) {
       return getWrapper({ ...props, ...extraProps });
@@ -63,7 +63,7 @@ describe('shared/main-navbar/MainNavbar', () => {
   describe('if user is logged in and is an admin', () => {
     const props = {
       isAdmin: true,
-      isLoggedIn: true
+      isLoggedIn: true,
     };
     function getLoggedInAdminWrapper(extraProps) {
       return getWrapper({ ...props, ...extraProps });
@@ -79,7 +79,7 @@ describe('shared/main-navbar/MainNavbar', () => {
   describe('if user is not logged in', () => {
     const props = {
       isAdmin: false,
-      isLoggedIn: false
+      isLoggedIn: false,
     };
     function getNotLoggedInWrapper(extraProps) {
       return getWrapper({ ...props, ...extraProps });

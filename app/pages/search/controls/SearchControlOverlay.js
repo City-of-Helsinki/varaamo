@@ -15,7 +15,7 @@ function SearchControlOverlay({ children }) {
 }
 
 SearchControlOverlay.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export default injectT(SearchControlOverlay);

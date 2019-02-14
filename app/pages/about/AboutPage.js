@@ -14,7 +14,7 @@ function AboutPage({ t }) {
 }
 
 AboutPage.propTypes = {
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 export default injectT(AboutPage);

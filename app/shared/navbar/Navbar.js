@@ -24,7 +24,7 @@ function Navbar(props) {
     isLoggedIn,
     onNavItemClick,
     t,
-    userName
+    userName,
   } = props;
 
   const onSearchNavItemClick = () => {
@@ -124,11 +124,11 @@ Navbar.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   onNavItemClick: PropTypes.func,
   t: PropTypes.func.isRequired,
-  userName: PropTypes.string.isRequired
+  userName: PropTypes.string.isRequired,
 };
 
 Navbar.defaultProps = {
-  onNavItemClick: () => {}
+  onNavItemClick: () => {},
 };
 
 export default injectT(Navbar);

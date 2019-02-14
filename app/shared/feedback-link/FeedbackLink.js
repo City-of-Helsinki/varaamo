@@ -20,7 +20,7 @@ function FeedbackLink({ children }) {
 }
 
 FeedbackLink.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export default FeedbackLink;

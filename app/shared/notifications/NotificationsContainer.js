@@ -13,7 +13,7 @@ class UnconnectedNotificationsContainer extends Component {
     const { actions, notifications, t } = this.props;
     const translatedNotifications = notifications.map(notification => ({
       ...notification,
-      message: notification.message || t(notification.messageId)
+      message: notification.message || t(notification.messageId),
     }));
     return (
       <ReactNotifications
@@ -27,13 +27,13 @@ class UnconnectedNotificationsContainer extends Component {
 UnconnectedNotificationsContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   notifications: PropTypes.array.isRequired,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 UnconnectedNotificationsContainer = injectT(UnconnectedNotificationsContainer);  // eslint-disable-line
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
-    hideNotification
+    hideNotification,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

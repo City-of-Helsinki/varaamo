@@ -7,7 +7,7 @@ import Immutable from 'seamless-immutable';
 
 
 const initialState = Immutable({
-  open: []
+  open: [],
 });
 
 function modalsReducer(state = initialState, action) {

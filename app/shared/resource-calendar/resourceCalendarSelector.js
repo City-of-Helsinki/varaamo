@@ -25,7 +25,7 @@ const AvailabilitySelector = createSelector(
       } else {
         availableTimeByDate[date] = {
           reservedMinutes: 0,
-          openMinutes
+          openMinutes,
         };
       }
     });
@@ -40,7 +40,7 @@ const AvailabilitySelector = createSelector(
     });
     return mapValues(availableTimeByDate, date => ({
       ...date,
-      percentage: ((date.openMinutes - date.reservedMinutes) * 100) / date.openMinutes
+      percentage: ((date.openMinutes - date.reservedMinutes) * 100) / date.openMinutes,
     }));
   },
 );
@@ -48,7 +48,7 @@ const AvailabilitySelector = createSelector(
 const reservationCalendarSelector = createStructuredSelector({
   availability: AvailabilitySelector,
   currentLanguage: currentLanguageSelector,
-  resource: resourceSelector
+  resource: resourceSelector,
 });
 
 export default reservationCalendarSelector;

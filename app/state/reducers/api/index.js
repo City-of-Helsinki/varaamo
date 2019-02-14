@@ -7,7 +7,7 @@ import shouldFetchReducer from './shouldFetchReducer';
 const apiReducers = combineReducers({
   activeRequests: activeRequestsReducer,
   fetchCounts: fetchCountsReducer,
-  shouldFetch: shouldFetchReducer
+  shouldFetch: shouldFetchReducer,
 });
 
 export default apiReducers;

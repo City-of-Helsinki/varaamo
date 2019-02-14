@@ -13,7 +13,7 @@ export default class AvailabilityView extends React.Component {
     groups: PropTypes.arrayOf(PropTypes.object).isRequired,
     isAdmin: PropTypes.bool.isRequired,
     onDateChange: PropTypes.func.isRequired,
-    onSelect: PropTypes.func
+    onSelect: PropTypes.func,
   };
 
   constructor(props) {

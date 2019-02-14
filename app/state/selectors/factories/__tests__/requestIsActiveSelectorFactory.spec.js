@@ -5,8 +5,8 @@ import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsA
 function getState(activeRequests) {
   return {
     api: Immutable({
-      activeRequests
-    })
+      activeRequests,
+    }),
   };
 }
 

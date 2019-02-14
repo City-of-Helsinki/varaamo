@@ -12,7 +12,7 @@ module.exports = merge(common, {
     cheerio: 'window',
     'react/addons': true,
     'react/lib/ExecutionEnvironment': true,
-    'react/lib/ReactContext': true
+    'react/lib/ReactContext': true,
   },
   devtool: 'inline-source-map',
   module: {
@@ -21,7 +21,7 @@ module.exports = merge(common, {
         test: /\.js$/,
         include: [
           path.resolve(__dirname, '../app'),
-          path.resolve(__dirname, './')
+          path.resolve(__dirname, './'),
         ],
         use: ['babel-loader'],
         query: {
@@ -29,31 +29,31 @@ module.exports = merge(common, {
             ['istanbul', {
               exclude: [
                 '**/*.spec.js',
-                '**/specs.bootstrap.js'
-              ]
-            }]
-          ]
-        }
+                '**/specs.bootstrap.js',
+              ],
+            }],
+          ],
+        },
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style', 'css-loader!postcss-loader')
+        loader: ExtractTextPlugin.extract('style', 'css-loader!postcss-loader'),
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style', 'css-loader!resolve-url-loader!postcss-loader!sass-loader')
-      }
-    ]
+        loader: ExtractTextPlugin.extract('style', 'css-loader!resolve-url-loader!postcss-loader!sass-loader'),
+      },
+    ],
   },
   plugins: [
     new webpack.DefinePlugin({
       SETTINGS: {
         API_URL: JSON.stringify('https://mock-api.fi'),
-        TRACKING: false
-      }
+        TRACKING: false,
+      },
     }),
     new HtmlWebpackPlugin(),
     new webpack.IgnorePlugin(/ReactContext/),
-    new ExtractTextPlugin('app.css')
-  ]
+    new ExtractTextPlugin('app.css'),
+  ],
 });

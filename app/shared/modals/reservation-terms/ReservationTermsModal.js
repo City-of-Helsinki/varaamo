@@ -16,7 +16,7 @@ class UnconnectedReservationTermsModal extends Component {
       actions,
       resource,
       show,
-      t
+      t,
     } = this.props;
 
     const { genericTerms, name } = resource;
@@ -58,14 +58,14 @@ UnconnectedReservationTermsModal.propTypes = {
   actions: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 UnconnectedReservationTermsModal = injectT(UnconnectedReservationTermsModal);  // eslint-disable-line
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
-    closeResourceTermsModal
+    closeResourceTermsModal,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

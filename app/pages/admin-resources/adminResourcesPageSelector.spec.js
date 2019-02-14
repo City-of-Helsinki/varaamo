@@ -48,10 +48,10 @@ describe('pages/admin-resources/adminResourcesPageSelector', () => {
       'data.resources': {
         [resource1.id]: resource1,
         [resource2.id]: resource2,
-        [resource3.id]: resource3
+        [resource3.id]: resource3,
       },
       'intl.locale': 'fi',
-      'ui.pages.adminResources.resourceIds': [resource1.id, resource3.id]
+      'ui.pages.adminResources.resourceIds': [resource1.id, resource3.id],
     };
     const expected = [3, 1];
     const selected = getSelected(extraState);
@@ -66,9 +66,9 @@ describe('pages/admin-resources/adminResourcesPageSelector', () => {
       'data.resources': {
         [resource1.id]: resource1,
         [resource2.id]: resource2,
-        [resource3.id]: resource3
+        [resource3.id]: resource3,
       },
-      'ui.pages.adminResources.resourceIds': [resource1.id, resource3.id]
+      'ui.pages.adminResources.resourceIds': [resource1.id, resource3.id],
     };
     const expected = ['school', 'printer'];
     const selected = getSelected(extraState);
@@ -83,10 +83,10 @@ describe('pages/admin-resources/adminResourcesPageSelector', () => {
       'data.resources': {
         [resource1.id]: resource1,
         [resource2.id]: resource2,
-        [resource3.id]: resource3
+        [resource3.id]: resource3,
       },
       'ui.pages.adminResources.selectedResourceTypes': ['school'],
-      'ui.pages.adminResources.resourceIds': [resource1.id, resource3.id]
+      'ui.pages.adminResources.resourceIds': [resource1.id, resource3.id],
     };
     const selected = getSelected(extraState);
     expect(selected.selectedResourceTypes).to.deep.equal(['school']);

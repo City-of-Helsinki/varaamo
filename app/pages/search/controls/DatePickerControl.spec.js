@@ -18,7 +18,7 @@ const defaults = {
   duration: 30,
   end: '16:00',
   onConfirm: () => null,
-  start: '10:00'
+  start: '10:00',
 };
 function getWrapper(props) {
   return shallowWithIntl(<DatePickerControl {...defaults} {...props} />);

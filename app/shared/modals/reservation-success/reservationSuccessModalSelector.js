@@ -14,7 +14,7 @@ const reservationSuccessModalSelector = createStructuredSelector({
   reservationsToShow: toShowSelector,
   resources: resourcesSelector,
   show: modalIsOpenSelectorFactory(ModalTypes.RESERVATION_SUCCESS),
-  user: currentUserSelector
+  user: currentUserSelector,
 });
 
 export default reservationSuccessModalSelector;

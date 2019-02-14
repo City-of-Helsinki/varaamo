@@ -33,7 +33,7 @@ function AboutPartners({ t }) {
 }
 
 AboutPartners.propTypes = {
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 export default injectT(AboutPartners);

@@ -9,7 +9,7 @@ const userReservationsPageSelector = createStructuredSelector({
   adminReservationFilters: adminReservationFiltersSelector,
   isAdmin: isAdminSelector,
   reservationsFetchCount: reservationsFetchCountSelector,
-  resourcesLoaded: resourcesLoadedSelector
+  resourcesLoaded: resourcesLoadedSelector,
 });
 
 export default userReservationsPageSelector;

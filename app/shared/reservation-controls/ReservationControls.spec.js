@@ -24,7 +24,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       onDenyClick,
       onEditClick,
       onInfoClick,
-      reservation: Immutable(reservation)
+      reservation: Immutable(reservation),
     };
     return shallowWithIntl(<ReservationControls {...props} />);
   }

@@ -10,11 +10,11 @@ MapToggle.propTypes = {
   mapVisible: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
   resultCount: PropTypes.number.isRequired,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 function MapToggle({
-  mapVisible, onClick, resultCount, t
+  mapVisible, onClick, resultCount, t,
 }) {
   return (
     <div className="app-MapToggle">

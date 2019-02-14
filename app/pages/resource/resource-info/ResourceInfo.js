@@ -11,7 +11,7 @@ import { getServiceMapUrl } from 'utils/unitUtils';
 import ReservationInfo from '../reservation-info';
 
 function ResourceInfo({
-  isLoggedIn, resource, unit, t
+  isLoggedIn, resource, unit, t,
 }) {
   const serviceMapUrl = getServiceMapUrl(unit);
 
@@ -58,7 +58,7 @@ ResourceInfo.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   resource: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
-  unit: PropTypes.object.isRequired
+  unit: PropTypes.object.isRequired,
 };
 
 ResourceInfo = injectT(ResourceInfo); // eslint-disable-line

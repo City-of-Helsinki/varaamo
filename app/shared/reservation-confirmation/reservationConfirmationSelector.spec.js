@@ -15,11 +15,11 @@ describe('shared/reservation-confirmation/reservationConfirmationSelector', () =
       'data.resources': { [resource.id]: resource },
       [`form.${FormTypes.RESERVATION}.values`]: { staffEvent: true },
       recurringReservations: { reservations: recurringReservations },
-      'ui.reservations.toEdit': ['mock-reservation']
+      'ui.reservations.toEdit': ['mock-reservation'],
     });
     const props = {
       params: { id: resource.id },
-      ...extraProps
+      ...extraProps,
     };
     return reservationConfirmationSelector(state, props);
   }

@@ -9,7 +9,7 @@ import { injectT } from 'i18n/index';
 class ReservationPopover extends PureComponent {
   render() {
     const {
-      begin, children, end, onCancel, t
+      begin, children, end, onCancel, t,
     } = this.props;
     const reservationLength = end ? moment.duration(moment(end).diff(moment(begin))) : null;
 
@@ -49,7 +49,7 @@ ReservationPopover.propTypes = {
   onCancel: PropTypes.func.isRequired,
   begin: PropTypes.string.isRequired,
   end: PropTypes.string.isRequired,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 export default injectT(ReservationPopover);

@@ -13,7 +13,7 @@ function getWrapper(props) {
     date: '2016-01-01',
     groups: [],
     isAdmin: true,
-    onDateChange: () => null
+    onDateChange: () => null,
   };
   return shallow(<AvailabilityView {...defaults} {...props} />);
 }
@@ -73,7 +73,7 @@ describe('shared/availability-view/AvailabilityView', () => {
       const hoverSelection = { some: 'data' };
       expect(getSelection(null, hoverSelection)).to.deep.equal({
         ...hoverSelection,
-        hover: true
+        hover: true,
       });
     });
 
@@ -87,7 +87,7 @@ describe('shared/availability-view/AvailabilityView', () => {
       expect(getSelection(selection, hoverSelection)).to.deep.equal({
         begin: '1-begin',
         end: '2-end',
-        resourceId: '1-resourceId'
+        resourceId: '1-resourceId',
       });
     });
   });
@@ -145,7 +145,7 @@ describe('shared/availability-view/AvailabilityView', () => {
       const existing = {
         begin: '2017-01-01T09:00:00Z',
         end: '2017-01-01T09:30:00Z',
-        resourceId
+        resourceId,
       };
       expect(getHoverSelection(selection, { selection: existing })).to.equal(selection);
     });
@@ -155,7 +155,7 @@ describe('shared/availability-view/AvailabilityView', () => {
       const existing = {
         begin: '2017-01-01T09:00:00Z',
         end: '2017-01-01T09:30:00Z',
-        resourceId: 'xiauenqi'
+        resourceId: 'xiauenqi',
       };
       expect(getHoverSelection(selection, { selection: existing })).to.be.undefined;
     });
@@ -165,7 +165,7 @@ describe('shared/availability-view/AvailabilityView', () => {
       const existing = {
         begin: '2017-01-01T10:30:00Z',
         end: '2017-01-01T11:00:00Z',
-        resourceId
+        resourceId,
       };
       expect(getHoverSelection(selection, { selection: existing })).to.be.undefined;
     });
@@ -190,7 +190,7 @@ describe('shared/availability-view/AvailabilityView', () => {
     it('clears selection and hoverSelection', () => {
       expect(handleSelectionCancel()).to.deep.equal({
         selection: null,
-        hoverSelection: null
+        hoverSelection: null,
       });
     });
   });
@@ -214,7 +214,7 @@ describe('shared/availability-view/AvailabilityView', () => {
         const selection = {
           begin: '2017-01-01T10:00:00Z',
           end: '2017-01-01T10:30:00Z',
-          resourceId: 'auuexui389aeoord'
+          resourceId: 'auuexui389aeoord',
         };
         const state = handleReservationSlotClick(selection);
         expect(state).to.deep.equal({ hoverSelection: null, selection });
@@ -253,7 +253,7 @@ describe('shared/availability-view/AvailabilityView', () => {
           expect(onSelect.lastCall.args).to.deep.equal([{
             resourceId,
             begin: '2016-01-01T10:30:00Z',
-            end: '2016-01-01T11:30:00Z'
+            end: '2016-01-01T11:30:00Z',
           }]);
         });
       });
@@ -280,7 +280,7 @@ describe('shared/availability-view/AvailabilityView', () => {
             {
               resourceId: 'r2',
               begin: '2016-01-01T10:30:00Z',
-              end: '2016-01-01T11:00:00Z'
+              end: '2016-01-01T11:00:00Z',
             },
           );
         });

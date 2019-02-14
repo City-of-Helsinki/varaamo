@@ -8,17 +8,17 @@ import Resource from 'utils/fixtures/Resource';
 import { shallowWithIntl } from 'utils/testUtils';
 
 import {
-  UnconnectedReservationTermsModal as ReservationTermsModal
+  UnconnectedReservationTermsModal as ReservationTermsModal,
 } from './ReservationTermsModal';
 
 describe('shared/modals/reservation-cancel/ReservationTermsModal', () => {
   const resource = Resource.build();
   const defaultProps = {
     actions: {
-      closeResourceTermsModal: () => null
+      closeResourceTermsModal: () => null,
     },
     resource,
-    show: true
+    show: true,
   };
 
   function getWrapper(extraProps = {}) {
@@ -68,7 +68,7 @@ describe('shared/modals/reservation-cancel/ReservationTermsModal', () => {
 
       it('renders generic terms', () => {
         const resourceWithTerms = Resource.build({
-          genericTerms: 'some generic terms'
+          genericTerms: 'some generic terms',
         });
         const wrappedText = getModalBodyWrapper({ resource: resourceWithTerms }).find(WrappedText);
         expect(wrappedText).to.have.length(1);

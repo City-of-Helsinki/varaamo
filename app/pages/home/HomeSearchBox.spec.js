@@ -11,7 +11,7 @@ function getWrapper(props) {
   const defaults = {
     onChange: () => null,
     onSearch: () => null,
-    value: 'meeting room'
+    value: 'meeting room',
   };
   return shallowWithIntl(<HomeSearchBox {...defaults} {...props} />);
 }

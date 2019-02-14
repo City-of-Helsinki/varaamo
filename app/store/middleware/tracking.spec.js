@@ -27,10 +27,10 @@ describe('store/middleware/tracking', () => {
         meta: {
           track: {
             event: 'trackEvent',
-            args: ['argument1', 'argument2']
-          }
+            args: ['argument1', 'argument2'],
+          },
         },
-        type: 'SOME_ACTION'
+        type: 'SOME_ACTION',
       };
       middleware(action);
     });
@@ -72,7 +72,7 @@ describe('store/middleware/tracking', () => {
       push = simple.mock();
       trackData = {
         event: 'trackEvent',
-        args: ['argument1', 'argument2']
+        args: ['argument1', 'argument2'],
       };
       window._paq = { push };
     });

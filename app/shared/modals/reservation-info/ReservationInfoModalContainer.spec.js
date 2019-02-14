@@ -17,7 +17,7 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
       hideReservationInfoModal: () => null,
       openReservationCancelModal: () => null,
       resetForm: () => null,
-      selectReservationToCancel: () => null
+      selectReservationToCancel: () => null,
     };
 
     function getProps(extraActions) {

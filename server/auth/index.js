@@ -16,7 +16,7 @@ router.use(cookieParser());
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(cookieSession({
   secret: process.env.SESSION_SECRET,
-  maxAge: maxSessionAge
+  maxAge: maxSessionAge,
 }));
 
 // Initialize Passport and restore authentication state, if any, from the

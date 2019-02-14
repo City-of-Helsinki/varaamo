@@ -12,11 +12,11 @@ describe('shared/resource-list/ResourceList', () => {
     history: {},
     location: {
       state: {
-        scrollTop: 123
-      }
+        scrollTop: 123,
+      },
     },
     resourceIds: Immutable(['resource-1', 'resource-2']),
-    date: '2017-01-01'
+    date: '2017-01-01',
   };
 
   function getWrapper(extraProps) {

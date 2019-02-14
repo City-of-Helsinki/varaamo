@@ -15,7 +15,7 @@ function getWrapper(props) {
     isLoading: false,
     onConfirm: () => null,
     purposeOptions: [],
-    value: ''
+    value: '',
   };
   return shallowWithIntl(<PurposeControl {...defaults} {...props} />);
 }

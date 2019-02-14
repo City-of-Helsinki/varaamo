@@ -6,7 +6,7 @@ import {
   currentUserSelector,
   isAdminSelector,
   isLoggedInSelector,
-  staffUnitsSelector
+  staffUnitsSelector,
 } from './authSelectors';
 
 describe('state/selectors/authSelectors', () => {
@@ -20,14 +20,14 @@ describe('state/selectors/authSelectors', () => {
       const user = User.build();
       const selected = getSelected({
         auth: { userId: user.id },
-        'data.users': { [user.id]: user }
+        'data.users': { [user.id]: user },
       });
       expect(selected).to.deep.equal(user);
     });
 
     it('returns an empty object if logged in user data does not exist', () => {
       const selected = getSelected({
-        auth: { userId: 'u-999' }
+        auth: { userId: 'u-999' },
       });
       expect(selected).to.deep.equal({});
     });
@@ -36,7 +36,7 @@ describe('state/selectors/authSelectors', () => {
       const user = User.build();
       const selected = getSelected({
         auth: { userId: null },
-        'data.users': { [user.id]: user }
+        'data.users': { [user.id]: user },
       });
       expect(selected).to.deep.equal({});
     });
@@ -46,7 +46,7 @@ describe('state/selectors/authSelectors', () => {
     function getSelected(user = {}) {
       const state = getState({
         auth: { userId: user.id },
-        'data.users': { [user.id]: user }
+        'data.users': { [user.id]: user },
       });
       return isAdminSelector(state);
     }
@@ -91,11 +91,11 @@ describe('state/selectors/authSelectors', () => {
       const state = {
         auth: {
           userId: user.id,
-          token: 'mock-token'
+          token: 'mock-token',
         },
         data: {
-          users: { [user.id]: user }
-        }
+          users: { [user.id]: user },
+        },
       };
       return staffUnitsSelector(state);
     }
@@ -105,9 +105,9 @@ describe('state/selectors/authSelectors', () => {
         staffPerms: {
           unit: {
             'unit-1': ['can_approve_reservation'],
-            'unit-2': ['can_approve_reservation']
-          }
-        }
+            'unit-2': ['can_approve_reservation'],
+          },
+        },
       });
       const selected = getSelected(user);
       const expected = ['unit-1', 'unit-2'];
@@ -123,9 +123,9 @@ describe('state/selectors/authSelectors', () => {
             unit: {
               'unit-1': ['can_approve_something_else'],
               'unit-2': ['can_approve_reservation'],
-              'unit-3': []
-            }
-          }
+              'unit-3': [],
+            },
+          },
         });
         const selected = getSelected(user);
         const expected = ['unit-2'];
@@ -144,8 +144,8 @@ describe('state/selectors/authSelectors', () => {
     it('returns an empty array if user has no staff permissions for units', () => {
       const user = User.build({
         staffPerms: {
-          unit: {}
-        }
+          unit: {},
+        },
       });
       const selected = getSelected(user);
 

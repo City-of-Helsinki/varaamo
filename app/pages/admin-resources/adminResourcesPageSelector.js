@@ -45,7 +45,7 @@ const adminResourcesPageSelector = createStructuredSelector({
   isLoggedin: isLoggedInSelector,
   isFetchingResources: requestIsActiveSelectorFactory(ActionTypes.API.RESOURCES_GET_REQUEST),
   resources: filteredAdminResourcesIdsSelector,
-  resourceTypes: adminResourceTypesSelector
+  resourceTypes: adminResourceTypesSelector,
 });
 
 export default adminResourcesPageSelector;

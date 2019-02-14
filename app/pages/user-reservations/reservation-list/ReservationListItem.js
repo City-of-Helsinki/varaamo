@@ -22,7 +22,7 @@ class ReservationListItem extends Component {
 
   render() {
     const {
-      isAdmin, isStaff, reservation, resource, t, unit
+      isAdmin, isStaff, reservation, resource, t, unit,
     } = this.props;
 
     const nameSeparator = isEmpty(resource) || isEmpty(unit) ? '' : ', ';
@@ -73,7 +73,7 @@ ReservationListItem.propTypes = {
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
-  unit: PropTypes.object.isRequired
+  unit: PropTypes.object.isRequired,
 };
 
 export default injectT(ReservationListItem);

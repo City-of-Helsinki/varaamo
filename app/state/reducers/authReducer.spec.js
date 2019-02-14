@@ -29,7 +29,7 @@ describe('state/reducers/authReducer', () => {
         const nextState = authReducer(initialState, action);
         const expectedState = Immutable({
           token: null,
-          userId: null
+          userId: null,
         });
 
         expect(nextState).to.deep.equal(expectedState);
@@ -54,7 +54,7 @@ describe('state/reducers/authReducer', () => {
         const nextState = authReducer(initialState, action);
         const expectedState = Immutable({
           token: null,
-          userId: null
+          userId: null,
         });
 
         expect(nextState).to.deep.equal(expectedState);
@@ -79,7 +79,7 @@ describe('state/reducers/authReducer', () => {
         const nextState = authReducer(initialState, action);
         const expectedState = Immutable({
           token: null,
-          userId: null
+          userId: null,
         });
 
         expect(nextState).to.deep.equal(expectedState);

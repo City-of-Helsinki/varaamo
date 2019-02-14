@@ -14,7 +14,7 @@ class PositionControl extends React.Component {
     onConfirm: PropTypes.func.isRequired,
     onPositionSwitch: PropTypes.func.isRequired,
     t: PropTypes.func.isRequired,
-    value: PropTypes.number
+    value: PropTypes.number,
   };
 
   constructor(props) {
@@ -23,7 +23,7 @@ class PositionControl extends React.Component {
       distance: this.props.value || 21000,
       maxDistance: 20000,
       step: 1000,
-      toggled: this.props.geolocated
+      toggled: this.props.geolocated,
     };
   }
 

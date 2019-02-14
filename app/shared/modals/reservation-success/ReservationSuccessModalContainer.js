@@ -5,7 +5,7 @@ import ReservationSuccessModal from './ReservationSuccessModal';
 import selector from './reservationSuccessModalSelector';
 
 const actions = {
-  closeReservationSuccessModal
+  closeReservationSuccessModal,
 };
 
 export default connect(selector, actions)(ReservationSuccessModal);

@@ -15,12 +15,12 @@ class SearchBox extends React.Component {
     onSearch: PropTypes.func.isRequired,
     options: PropTypes.array.isRequired,
     t: PropTypes.func.isRequired,
-    value: PropTypes.string.isRequired
+    value: PropTypes.string.isRequired,
   };
 
   state = {
     searchOptions: [],
-    visible: false
+    visible: false,
   }
 
   handleChange = (event) => {

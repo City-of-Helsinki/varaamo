@@ -32,7 +32,7 @@ const reservationConfirmationSelector = createStructuredSelector({
   reservationsToEdit: toEditSelector,
   resource: resourceSelector,
   selectedReservations: selectedReservationsSelector,
-  staffEventSelected: staffEventSelectedSelector
+  staffEventSelected: staffEventSelectedSelector,
 });
 
 export default reservationConfirmationSelector;

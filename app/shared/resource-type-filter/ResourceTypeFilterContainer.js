@@ -11,14 +11,14 @@ class ResourceTypeFilterContainer extends Component {
     onSelectResourceType: PropTypes.func.isRequired,
     onUnselectResourceType: PropTypes.func.isRequired,
     resourceTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
   };
 
   handleClick = (resourceType) => {
     const {
       selectedResourceTypes,
       onSelectResourceType,
-      onUnselectResourceType
+      onUnselectResourceType,
     } = this.props;
     if (includes(selectedResourceTypes, resourceType)) {
       onUnselectResourceType(resourceType);

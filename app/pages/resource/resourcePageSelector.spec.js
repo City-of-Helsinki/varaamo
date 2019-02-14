@@ -12,35 +12,35 @@ const defaultUser = User.build();
 function getState(resources = [], units = [], user = defaultUser) {
   return {
     api: Immutable({
-      activeRequests: []
+      activeRequests: [],
     }),
     auth: Immutable({
       userId: user.id,
-      token: 'mock-token'
+      token: 'mock-token',
     }),
     data: Immutable({
       resources: keyBy(resources, 'id'),
       units: keyBy(units, 'id'),
-      users: { [user.id]: user }
+      users: { [user.id]: user },
     }),
     ui: Immutable({
       resourceMap: Immutable({
-        showMap: true
-      })
-    })
+        showMap: true,
+      }),
+    }),
   };
 }
 
 function getProps(id = 'some-id') {
   return {
     location: {
-      search: 'date=2015-10-10'
+      search: 'date=2015-10-10',
     },
     match: {
       params: {
-        id
-      }
-    }
+        id,
+      },
+    },
   };
 }
 

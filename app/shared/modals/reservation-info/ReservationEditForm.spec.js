@@ -28,7 +28,7 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
     reserverEmailAddress: 'luke@sky.com',
     reserverName: 'Luke Skywalker',
     reserverPhoneNumber: '1234567',
-    resource: resource.id
+    resource: resource.id,
   });
   const defaultProps = {
     handleSubmit: () => null,
@@ -40,7 +40,7 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
     onStartEditClick: () => null,
     reservation: Immutable(reservation),
     reservationIsEditable: false,
-    resource: Immutable(resource)
+    resource: Immutable(resource),
   };
 
   function getWrapper(extraProps = {}) {
@@ -73,7 +73,7 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
         it('are not rendered if user is not an admin', () => {
           const props = {
             isAdmin: false,
-            reservationIsEditable: false
+            reservationIsEditable: false,
           };
           expect(getData(props)).to.not.contain(reservation.comments);
         });
@@ -81,7 +81,7 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
         it('are not rendered if reservation is editable', () => {
           const props = {
             isAdmin: true,
-            reservationIsEditable: true
+            reservationIsEditable: true,
           };
           expect(getData(props)).to.not.contain(reservation.comments);
         });
@@ -89,7 +89,7 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
         it('are rendered if user is admin and reservation is not editable', () => {
           const props = {
             isAdmin: true,
-            reservationIsEditable: false
+            reservationIsEditable: false,
           };
           expect(getData(props)).to.contain(reservation.comments);
         });
@@ -144,12 +144,12 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
       describe('user name and email', () => {
         const user = User.build({
           displayName: 'display name',
-          email: 'some@email.com'
+          email: 'some@email.com',
         });
         const userReservation = Reservation.build({
           reserverName: null,
           reserverEmailAddress: null,
-          user
+          user,
         });
 
         it('renders reservation user name when reserverName is empty', () => {
@@ -210,7 +210,7 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
       it('are not rendered if user is not an admin', () => {
         const props = {
           isAdmin: false,
-          reservationIsEditable: true
+          reservationIsEditable: true,
         };
         expect(getFormControls(props)).to.have.length(0);
       });
@@ -218,7 +218,7 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
       it('are not rendered if reservation is not editable', () => {
         const props = {
           isAdmin: true,
-          reservationIsEditable: false
+          reservationIsEditable: false,
         };
         expect(getFormControls(props)).to.have.length(0);
       });
@@ -226,7 +226,7 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
       it('are rendered if user is admin and reservation is editable', () => {
         const props = {
           isAdmin: true,
-          reservationIsEditable: true
+          reservationIsEditable: true,
         };
         expect(getFormControls(props)).to.have.length(1);
       });
@@ -237,7 +237,7 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
           const defaults = {
             isAdmin: true,
             onStartEditClick,
-            reservationIsEditable: true
+            reservationIsEditable: true,
           };
           const wrapper = getFormControls({ ...defaults, ...props });
           return wrapper.find(Button).filter({ onClick: onStartEditClick });
@@ -258,7 +258,7 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
           const defaults = {
             isAdmin: true,
             onCancelEditClick,
-            reservationIsEditable: true
+            reservationIsEditable: true,
           };
           const wrapper = getFormControls({ ...defaults, ...props });
           return wrapper.find(Button).filter({ onClick: onCancelEditClick });
@@ -277,7 +277,7 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
         function getSaveButton(props) {
           const defaults = {
             isAdmin: true,
-            reservationIsEditable: true
+            reservationIsEditable: true,
           };
           const wrapper = getFormControls({ ...defaults, ...props });
           return wrapper.find(Button).filter({ type: 'submit' });

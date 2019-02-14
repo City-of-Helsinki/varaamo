@@ -14,7 +14,7 @@ class TopNavbar extends Component {
     currentLanguage: PropTypes.string.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     t: PropTypes.func.isRequired,
-    userName: PropTypes.string.isRequired
+    userName: PropTypes.string.isRequired,
   };
 
   handleLoginClick() {
@@ -24,7 +24,7 @@ class TopNavbar extends Component {
 
   render() {
     const {
-      changeLocale, currentLanguage, isLoggedIn, t, userName
+      changeLocale, currentLanguage, isLoggedIn, t, userName,
     } = this.props;
 
     return (

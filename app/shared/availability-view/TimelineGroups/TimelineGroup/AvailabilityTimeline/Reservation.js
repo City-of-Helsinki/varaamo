@@ -27,8 +27,8 @@ Reservation.propTypes = {
   state: PropTypes.string,
   user: PropTypes.shape({
     displayName: PropTypes.string,
-    email: PropTypes.string
-  })
+    email: PropTypes.string,
+  }),
 };
 
 function Reservation({ onClick, ...reservation }) {

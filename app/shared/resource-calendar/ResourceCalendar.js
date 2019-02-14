@@ -19,7 +19,7 @@ export class UnconnectedResourceCalendar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: false
+      visible: false,
     };
   }
 
@@ -41,7 +41,7 @@ export class UnconnectedResourceCalendar extends Component {
       availability,
       currentLanguage,
       selectedDate,
-      t
+      t,
     } = this.props;
     const [year, month, dayNumber] = selectedDate.split('-');
     const selectedDay = new Date();
@@ -90,7 +90,7 @@ export class UnconnectedResourceCalendar extends Component {
                 booked: (day) => {
                   const dayDate = day.toISOString().substring(0, 10);
                   return availability[dayDate] && availability[dayDate].percentage === 0;
-                }
+                },
               }}
               onDayClick={this.handleDateChange}
               selectedDays={selectedDay}
@@ -112,7 +112,7 @@ UnconnectedResourceCalendar.propTypes = {
   currentLanguage: PropTypes.string.isRequired,
   selectedDate: PropTypes.string.isRequired,
   onDateChange: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 UnconnectedResourceCalendar = injectT(UnconnectedResourceCalendar) // eslint-disable-line
 

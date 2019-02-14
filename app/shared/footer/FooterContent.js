@@ -89,11 +89,11 @@ function FooterContent({ t }) {
 }
 
 FooterContent.propTypes = {
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 FooterContent.defaultProps = {
-  onLinkClick: () => {}
+  onLinkClick: () => {},
 };
 
 export default injectT(FooterContent);

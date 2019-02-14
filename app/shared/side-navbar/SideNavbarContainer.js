@@ -18,7 +18,7 @@ const userNameInitialsSelector = createSelector(
 );
 
 export const selector = createStructuredSelector({
-  initials: userNameInitialsSelector
+  initials: userNameInitialsSelector,
 });
 
 export default connect(selector)(SideNavbar);

@@ -8,7 +8,7 @@ import CommentButton from './CommentButton';
 
 describe('shared/comment-button/CommentButton', () => {
   const defaultProps = {
-    onClick: simple.mock()
+    onClick: simple.mock(),
   };
 
   function getWrapper(props) {

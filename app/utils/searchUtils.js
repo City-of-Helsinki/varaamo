@@ -40,5 +40,5 @@ function textBoolean(value) {
 }
 
 export {
-  getFetchParamsFromFilters, getSearchPageUrl, pickSupportedFilters, textBoolean
+  getFetchParamsFromFilters, getSearchPageUrl, pickSupportedFilters, textBoolean,
 };

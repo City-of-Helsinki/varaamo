@@ -8,12 +8,12 @@ import MainNavbar from './MainNavbar';
 
 export const selector = createStructuredSelector({
   isAdmin: isAdminSelector,
-  isLoggedIn: isLoggedInSelector
+  isLoggedIn: isLoggedInSelector,
 });
 
 const actions = {
   changeLocale,
-  clearSearchResults
+  clearSearchResults,
 };
 
 export default connect(selector, actions)(MainNavbar);

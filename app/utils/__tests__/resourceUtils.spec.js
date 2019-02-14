@@ -17,7 +17,7 @@ import {
   getResourcePageUrl,
   getTermsAndConditions,
   reservingIsRestricted,
-  getResourcePageUrlComponents
+  getResourcePageUrlComponents,
 } from 'utils/resourceUtils';
 
 describe('Utils: resourceUtils', () => {
@@ -28,16 +28,16 @@ describe('Utils: resourceUtils', () => {
       const reservations = [
         {
           end: '2015-10-10T07:00:00+03:00',
-          isOwn: true
+          isOwn: true,
         },
         {
           end: '2015-10-10T08:00:00+03:00',
-          isOwn: false
-        }
+          isOwn: false,
+        },
       ];
       const resource = {
         maxReservationsPerUser,
-        reservations
+        reservations,
       };
       beforeEach(() => {
         MockDate.set(now);
@@ -55,16 +55,16 @@ describe('Utils: resourceUtils', () => {
       const reservations = [
         {
           end: '2015-10-10T05:00:00+03:00',
-          isOwn: true
+          isOwn: true,
         },
         {
           end: '2015-10-10T08:00:00+03:00',
-          isOwn: false
-        }
+          isOwn: false,
+        },
       ];
       const resource = {
         maxReservationsPerUser,
-        reservations
+        reservations,
       };
       beforeEach(() => {
         MockDate.set(now);
@@ -83,7 +83,7 @@ describe('Utils: resourceUtils', () => {
     describe('if openingHours data is missing', () => {
       const openingHours = {
         opens: null,
-        closes: null
+        closes: null,
       };
       const now = '2015-10-10T06:00:00+03:00';
       const resource = { openingHours: [openingHours] };
@@ -105,7 +105,7 @@ describe('Utils: resourceUtils', () => {
       const openingHours = {
         opens: '2015-10-10T12:00:00+03:00',
         closes: '2015-10-10T18:00:00+03:00',
-        date: '2015-10-10'
+        date: '2015-10-10',
       };
       const now = '2015-10-10T06:00:00+03:00';
       const resource = { openingHours: [openingHours] };
@@ -127,7 +127,7 @@ describe('Utils: resourceUtils', () => {
       const openingHours = {
         opens: '2015-10-10T12:00:00+03:00',
         closes: '2015-10-10T18:00:00+03:00',
-        date: '2015-10-10'
+        date: '2015-10-10',
       };
       const now = '2015-10-10T14:00:00+03:00';
       const resource = { openingHours: [openingHours] };
@@ -149,7 +149,7 @@ describe('Utils: resourceUtils', () => {
       const openingHours = {
         opens: '2015-10-10T12:00:00+03:00',
         closes: '2015-10-10T18:00:00+03:00',
-        date: '2015-10-10'
+        date: '2015-10-10',
       };
       const now = '2015-10-10T23:00:00+03:00';
       const resource = { openingHours: [openingHours] };
@@ -198,7 +198,7 @@ describe('Utils: resourceUtils', () => {
           const openingHours = {
             opens: '2015-10-10T12:00:00+03:00',
             closes: '2015-10-10T18:00:00+03:00',
-            date: '2015-10-10'
+            date: '2015-10-10',
           };
           const reservations = [];
           const resource = getResource(openingHours, reservations);
@@ -207,7 +207,7 @@ describe('Utils: resourceUtils', () => {
           const expected = {
             status: 'availableAt',
             bsStyle: 'danger',
-            values: { time: expectedTime }
+            values: { time: expectedTime },
           };
 
           expect(availabilityData).to.deep.equal(expected);
@@ -219,17 +219,17 @@ describe('Utils: resourceUtils', () => {
           const openingHours = {
             opens: '2015-10-10T12:00:00+03:00',
             closes: '2015-10-10T18:00:00+03:00',
-            date: '2015-10-10'
+            date: '2015-10-10',
           };
           const reservations = [
             {
               begin: '2015-10-10T12:00:00+03:00',
-              end: '2015-10-10T14:00:00+03:00'
+              end: '2015-10-10T14:00:00+03:00',
             },
             {
               begin: '2015-10-10T16:00:00+03:00',
-              end: '2015-10-10T16:30:00+03:00'
-            }
+              end: '2015-10-10T16:30:00+03:00',
+            },
           ];
           const resource = getResource(openingHours, reservations);
           const availabilityData = getAvailabilityDataForNow(resource);
@@ -237,7 +237,7 @@ describe('Utils: resourceUtils', () => {
           const expected = {
             status: 'availableAt',
             bsStyle: 'danger',
-            values: { time: expectedTime }
+            values: { time: expectedTime },
           };
 
           expect(availabilityData).to.deep.equal(expected);
@@ -247,19 +247,19 @@ describe('Utils: resourceUtils', () => {
           const openingHours = {
             opens: '2015-10-10T12:00:00+03:00',
             closes: '2015-10-10T18:00:00+03:00',
-            date: '2015-10-10'
+            date: '2015-10-10',
           };
           const reservations = [
             {
               begin: '2015-10-10T12:00:00+03:00',
               end: '2015-10-10T14:00:00+03:00',
-              state: 'cancelled'
+              state: 'cancelled',
             },
             {
               begin: '2015-10-10T12:00:00+03:00',
               end: '2015-10-10T14:00:00+03:00',
-              state: 'denied'
-            }
+              state: 'denied',
+            },
           ];
           const resource = getResource(openingHours, reservations);
           const availabilityData = getAvailabilityDataForNow(resource);
@@ -267,7 +267,7 @@ describe('Utils: resourceUtils', () => {
           const expected = {
             status: 'availableAt',
             bsStyle: 'danger',
-            values: { time: expectedTime }
+            values: { time: expectedTime },
           };
 
           expect(availabilityData).to.deep.equal(expected);
@@ -289,7 +289,7 @@ describe('Utils: resourceUtils', () => {
           const openingHours = {
             opens: '2015-10-10T12:00:00+03:00',
             closes: '2015-10-10T18:00:00+03:00',
-            date: '2015-10-10'
+            date: '2015-10-10',
           };
           const resource = getResource(openingHours, []);
           const availabilityData = getAvailabilityDataForNow(resource);
@@ -304,13 +304,13 @@ describe('Utils: resourceUtils', () => {
           const openingHours = {
             opens: '2015-10-10T12:00:00+03:00',
             closes: '2015-10-10T18:00:00+03:00',
-            date: '2015-10-10'
+            date: '2015-10-10',
           };
           const reservations = [
             {
               begin: '2015-10-10T14:00:00+03:00',
-              end: '2015-10-10T16:00:00+03:00'
-            }
+              end: '2015-10-10T16:00:00+03:00',
+            },
           ];
           const resource = getResource(openingHours, reservations);
           const availabilityData = getAvailabilityDataForNow(resource);
@@ -318,7 +318,7 @@ describe('Utils: resourceUtils', () => {
           const expected = {
             status: 'availableAt',
             bsStyle: 'danger',
-            values: { time: expectedTime }
+            values: { time: expectedTime },
           };
 
           expect(availabilityData).to.deep.equal(expected);
@@ -328,19 +328,19 @@ describe('Utils: resourceUtils', () => {
           const openingHours = {
             opens: '2015-10-10T12:00:00+03:00',
             closes: '2015-10-10T18:00:00+03:00',
-            date: '2015-10-10'
+            date: '2015-10-10',
           };
           const reservations = [
             {
               begin: '2015-10-10T14:00:00+03:00',
               end: '2015-10-10T16:00:00+03:00',
-              state: 'cancelled'
+              state: 'cancelled',
             },
             {
               begin: '2015-10-10T14:00:00+03:00',
               end: '2015-10-10T16:00:00+03:00',
-              state: 'denied'
-            }
+              state: 'denied',
+            },
           ];
           const resource = getResource(openingHours, reservations);
           const availabilityData = getAvailabilityDataForNow(resource);
@@ -363,7 +363,7 @@ describe('Utils: resourceUtils', () => {
         const openingHours = {
           opens: '2015-10-10T12:00:00+03:00',
           closes: '2015-10-10T18:00:00+03:00',
-          date: '2015-10-10'
+          date: '2015-10-10',
         };
         const resource = getResource(openingHours, []);
         const availabilityData = getAvailabilityDataForNow(resource);
@@ -396,8 +396,8 @@ describe('Utils: resourceUtils', () => {
           {
             opens: '2016-12-12T12:00:00+03:00',
             closes: '2016-12-12T18:00:00+03:00',
-            date: '2016-12-12'
-          }
+            date: '2016-12-12',
+          },
         ];
         const date = '2016-12-12';
         const resource = { openingHours, reservableBefore: '2016-10-10' };
@@ -414,8 +414,8 @@ describe('Utils: resourceUtils', () => {
           {
             opens: '2015-10-10T12:00:00+03:00',
             closes: '2015-10-10T18:00:00+03:00',
-            date: '2015-10-10'
-          }
+            date: '2015-10-10',
+          },
         ];
         const reservations = [];
         const resource = getResource(openingHours, reservations);
@@ -423,7 +423,7 @@ describe('Utils: resourceUtils', () => {
         const expected = {
           status: 'availableTime',
           bsStyle: 'success',
-          values: { hours: 6 }
+          values: { hours: 6 },
         };
 
         expect(availabilityData).to.deep.equal(expected);
@@ -436,25 +436,25 @@ describe('Utils: resourceUtils', () => {
           {
             opens: '2015-10-10T12:00:00+03:00',
             closes: '2015-10-10T18:00:00+03:00',
-            date: '2015-10-10'
-          }
+            date: '2015-10-10',
+          },
         ];
         const reservations = [
           {
             begin: '2015-10-10T13:00:00+03:00',
-            end: '2015-10-10T14:00:00+03:00'
+            end: '2015-10-10T14:00:00+03:00',
           },
           {
             begin: '2015-10-10T16:00:00+03:00',
-            end: '2015-10-10T16:30:00+03:00'
-          }
+            end: '2015-10-10T16:30:00+03:00',
+          },
         ];
         const resource = getResource(openingHours, reservations);
         const availabilityData = getAvailabilityDataForWholeDay(resource);
         const expected = {
           status: 'availableTime',
           bsStyle: 'success',
-          values: { hours: 4.5 }
+          values: { hours: 4.5 },
         };
 
         expect(availabilityData).to.deep.equal(expected);
@@ -465,22 +465,22 @@ describe('Utils: resourceUtils', () => {
           {
             opens: '2015-10-10T12:00:00+03:00',
             closes: '2015-10-10T18:00:00+03:00',
-            date: '2015-10-10'
-          }
+            date: '2015-10-10',
+          },
         ];
         const reservations = [
           {
             begin: '2015-10-10T13:00:00+03:00',
             end: '2015-10-10T14:00:00+03:00',
-            state: 'cancelled'
-          }
+            state: 'cancelled',
+          },
         ];
         const resource = getResource(openingHours, reservations);
         const availabilityData = getAvailabilityDataForWholeDay(resource);
         const expected = {
           status: 'availableTime',
           bsStyle: 'success',
-          values: { hours: 6 }
+          values: { hours: 6 },
         };
 
         expect(availabilityData).to.deep.equal(expected);
@@ -491,22 +491,22 @@ describe('Utils: resourceUtils', () => {
           {
             opens: '2015-10-10T12:00:00+03:00',
             closes: '2015-10-10T18:00:00+03:00',
-            date: '2015-10-10'
-          }
+            date: '2015-10-10',
+          },
         ];
         const reservations = [
           {
             begin: '2015-10-10T13:00:00+03:00',
             end: '2015-10-10T14:00:00+03:00',
-            state: 'denied'
-          }
+            state: 'denied',
+          },
         ];
         const resource = getResource(openingHours, reservations);
         const availabilityData = getAvailabilityDataForWholeDay(resource);
         const expected = {
           status: 'availableTime',
           bsStyle: 'success',
-          values: { hours: 6 }
+          values: { hours: 6 },
         };
 
         expect(availabilityData).to.deep.equal(expected);
@@ -518,14 +518,14 @@ describe('Utils: resourceUtils', () => {
             {
               opens: '2015-10-10T12:00:00+03:00',
               closes: '2015-10-10T18:00:00+03:00',
-              date: '2015-10-10'
-            }
+              date: '2015-10-10',
+            },
           ];
           const reservations = [
             {
               begin: '2015-10-10T12:00:00+03:00',
-              end: '2015-10-10T18:00:00+03:00'
-            }
+              end: '2015-10-10T18:00:00+03:00',
+            },
           ];
           const resource = getResource(openingHours, reservations);
           const availabilityData = getAvailabilityDataForWholeDay(resource);
@@ -541,43 +541,43 @@ describe('Utils: resourceUtils', () => {
             {
               opens: '2015-10-10T12:00:00+03:00',
               closes: '2015-10-10T18:00:00+03:00',
-              date: '2015-10-10'
+              date: '2015-10-10',
             },
             {
               opens: '2015-10-11T12:00:00+03:00',
               closes: '2015-10-11T18:00:00+03:00',
-              date: '2015-10-11'
+              date: '2015-10-11',
             },
             {
               opens: '2015-10-12T12:00:00+03:00',
               closes: '2015-10-12T18:00:00+03:00',
-              date: '2015-10-12'
-            }
+              date: '2015-10-12',
+            },
           ];
           const reservations = [
             {
               begin: '2015-10-10T13:00:00+03:00',
-              end: '2015-10-10T14:00:00+03:00'
+              end: '2015-10-10T14:00:00+03:00',
             },
             {
               begin: '2015-10-11T13:00:00+03:00',
-              end: '2015-10-11T14:00:00+03:00'
+              end: '2015-10-11T14:00:00+03:00',
             },
             {
               begin: '2015-10-11T16:00:00+03:00',
-              end: '2015-10-11T16:30:00+03:00'
+              end: '2015-10-11T16:30:00+03:00',
             },
             {
               begin: '2015-10-12T13:00:00+03:00',
-              end: '2015-10-12T14:00:00+03:00'
-            }
+              end: '2015-10-12T14:00:00+03:00',
+            },
           ];
           const resource = getResource(openingHours, reservations);
           const availabilityData = getAvailabilityDataForWholeDay(resource, '2015-10-11');
           const expected = {
             status: 'availableTime',
             bsStyle: 'success',
-            values: { hours: 4.5 }
+            values: { hours: 4.5 },
           };
 
           expect(availabilityData).to.deep.equal(expected);
@@ -656,8 +656,8 @@ describe('Utils: resourceUtils', () => {
       const resource = {
         openingHours: [
           { closes: 'first-closes', opens: 'first-opens', date: 'date' },
-          { closes: 'second-closes', opens: 'second-opens', date: 'date' }
-        ]
+          { closes: 'second-closes', opens: 'second-opens', date: 'date' },
+        ],
       };
       const expected = { closes: 'first-closes', opens: 'first-opens' };
 
@@ -669,8 +669,8 @@ describe('Utils: resourceUtils', () => {
         openingHours: [
           { closes: 'first-closes', opens: 'first-opens', date: 'date1' },
           { closes: 'second-closes', opens: 'second-opens', date: 'date2' },
-          { closes: 'third-closes', opens: 'third-opens', date: 'date3' }
-        ]
+          { closes: 'third-closes', opens: 'third-opens', date: 'date3' },
+        ],
       };
       const expected = { closes: 'second-closes', opens: 'second-opens' };
 
@@ -690,7 +690,7 @@ describe('Utils: resourceUtils', () => {
         { id: 1, state: 'cancelled' },
         { id: 2, state: 'confirmed' },
         { id: 3, state: 'cancelled' },
-        { id: 4, state: 'something' }
+        { id: 4, state: 'something' },
       ];
       const resource = { reservations };
       const expected = [{ id: 2, state: 'confirmed' }, { id: 4, state: 'something' }];
@@ -703,7 +703,7 @@ describe('Utils: resourceUtils', () => {
         { id: 1, state: 'denied' },
         { id: 2, state: 'confirmed' },
         { id: 3, state: 'denied' },
-        { id: 4, state: 'something' }
+        { id: 4, state: 'something' },
       ];
       const resource = { reservations };
       const expected = [{ id: 2, state: 'confirmed' }, { id: 4, state: 'something' }];

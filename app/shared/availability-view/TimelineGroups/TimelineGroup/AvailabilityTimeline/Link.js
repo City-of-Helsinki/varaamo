@@ -4,7 +4,7 @@ import { Link as RRLink } from 'react-router-dom';
 
 export default class Link extends React.Component {
   static propTypes = {
-    onClick: PropTypes.func.isRequired
+    onClick: PropTypes.func.isRequired,
   };
 
   constructor(props) {

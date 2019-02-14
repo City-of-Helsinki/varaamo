@@ -24,7 +24,7 @@ describe('pages/search/controls/searchControlsSelector', () => {
   describe('purposeOptions', () => {
     function getPurposeOptions(purposes) {
       return getSelected({
-        'data.purposes': keyBy(purposes, 'id')
+        'data.purposes': keyBy(purposes, 'id'),
       }).purposeOptions;
     }
 
@@ -35,14 +35,14 @@ describe('pages/search/controls/searchControlsSelector', () => {
     it('returns an option object for each purpose without a parent', () => {
       const purposes = [
         Purpose.build({ parent: null }),
-        Purpose.build({ parent: null })
+        Purpose.build({ parent: null }),
       ];
       expect(getPurposeOptions(purposes)).to.have.length(purposes.length);
     });
 
     it('Does not return an option object for purposes with a parent', () => {
       const purposes = [
-        Purpose.build({ parent: 'some parent' })
+        Purpose.build({ parent: 'some parent' }),
       ];
       expect(getPurposeOptions(purposes)).to.have.length(0);
     });
@@ -71,7 +71,7 @@ describe('pages/search/controls/searchControlsSelector', () => {
   describe('unitOptions', () => {
     function getUnitOptions(units) {
       return getSelected({
-        'data.units': keyBy(units, 'id')
+        'data.units': keyBy(units, 'id'),
       }).unitOptions;
     }
 
@@ -82,7 +82,7 @@ describe('pages/search/controls/searchControlsSelector', () => {
     it('returns an option object for each unit', () => {
       const units = [
         Unit.build(),
-        Unit.build()
+        Unit.build(),
       ];
       expect(getUnitOptions(units)).to.have.length(units.length);
     });

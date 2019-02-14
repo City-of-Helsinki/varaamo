@@ -22,7 +22,7 @@ class TimeSlot extends PureComponent {
     scrollTo: PropTypes.bool,
     selected: PropTypes.bool.isRequired,
     slot: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -40,19 +40,19 @@ class TimeSlot extends PureComponent {
       return {
         message: t('Notifications.loginToReserve'),
         type: 'info',
-        timeOut: 10000
+        timeOut: 10000,
       };
     }
     return {
       message: resource.reservationInfo,
       type: 'info',
-      timeOut: 10000
+      timeOut: 10000,
     };
   }
 
   handleClick = (disabled) => {
     const {
-      addNotification, isLoggedIn, onClick, resource, slot, t
+      addNotification, isLoggedIn, onClick, resource, slot, t,
     } = this.props;
 
     if (disabled) {
@@ -64,7 +64,7 @@ class TimeSlot extends PureComponent {
       onClick({
         begin: slot.start,
         end: slot.end,
-        resource: resource.id
+        resource: resource.id,
       });
     }
   };
@@ -81,7 +81,7 @@ class TimeSlot extends PureComponent {
       onMouseLeave,
       resource,
       selected,
-      slot
+      slot,
     } = this.props;
     const isPast = new Date(slot.end) < new Date();
     const disabled = !isLoggedIn
@@ -107,7 +107,7 @@ class TimeSlot extends PureComponent {
             (isAdmin || isOwnReservation) && slot.reservationEnding,
           'app-TimeSlot--reserved': slot.reserved,
           'app-TimeSlot--selected': selected,
-          'app-TimeSlot--highlight': isHighlighted
+          'app-TimeSlot--highlight': isHighlighted,
         })}
       >
         <button

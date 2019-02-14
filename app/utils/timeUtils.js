@@ -103,8 +103,8 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = [], reserv
     Array.from(
       range.by(constants.FILTER.timePeriodType, {
         excludeEnd: true,
-        step: duration.as(constants.FILTER.timePeriodType)
-      })
+        step: duration.as(constants.FILTER.timePeriodType),
+      }),
     ),
     (startMoment) => {
       const endMoment = moment(startMoment).add(duration);
@@ -140,9 +140,9 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = [], reserv
         reservationEnding,
         reserved,
         start: startMoment.toISOString(),
-        end: endMoment.toISOString()
+        end: endMoment.toISOString(),
       };
-    }
+    },
   );
 
   return slots;
@@ -180,5 +180,5 @@ export {
   getTimeSlots,
   isPastDate,
   prettifyHours,
-  padLeft
+  padLeft,
 };

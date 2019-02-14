@@ -20,7 +20,7 @@ class ReservationTime extends Component {
     resource: PropTypes.object.isRequired,
     selectedReservation: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
-    unit: PropTypes.object.isRequired
+    unit: PropTypes.object.isRequired,
   };
 
   handleDateChange = (newDate) => {
@@ -39,7 +39,7 @@ class ReservationTime extends Component {
       resource,
       selectedReservation,
       t,
-      unit
+      unit,
     } = this.props;
     const { params } = match;
     const date = moment(selectedReservation.begin).format('YYYY-MM-DD');

@@ -7,7 +7,7 @@ import svMessages from 'i18n/messages/sv.json';
 const messages = {
   fi: fiMessages,
   en: enMessages,
-  sv: svMessages
+  sv: svMessages,
 };
 
 function changeLocale(language) {
@@ -15,7 +15,7 @@ function changeLocale(language) {
   moment.locale(`varaamo-${locale}`);
   return updateIntl({
     locale,
-    messages: messages[language]
+    messages: messages[language],
   });
 }
 

@@ -10,7 +10,7 @@ class TimeRange extends Component {
       className,
       beginFormat,
       end,
-      endFormat
+      endFormat,
     } = this.props;
     const beginMoment = moment(begin);
     const endMoment = moment(end);
@@ -30,12 +30,12 @@ TimeRange.propTypes = {
   beginFormat: PropTypes.string.isRequired,
   className: PropTypes.string,
   end: PropTypes.string.isRequired,
-  endFormat: PropTypes.string.isRequired
+  endFormat: PropTypes.string.isRequired,
 };
 
 TimeRange.defaultProps = {
   beginFormat: 'dddd, LLL',
-  endFormat: 'LT'
+  endFormat: 'LT',
 };
 
 export default TimeRange;

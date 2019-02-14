@@ -9,5 +9,5 @@ function getMainImage(images) {
 }
 
 export {
-  getMainImage
+  getMainImage,
 };

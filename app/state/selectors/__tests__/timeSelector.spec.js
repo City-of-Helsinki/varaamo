@@ -4,8 +4,8 @@ import timeSelector from 'state/selectors/timeSelector';
 function getProps(time) {
   return {
     location: {
-      search: time ? `?time=${time}` : ''
-    }
+      search: time ? `?time=${time}` : '',
+    },
   };
 }
 

@@ -8,7 +8,7 @@ import UserMarker from './UserMarker';
 function getWrapper(props) {
   const defaults = {
     latitude: 1,
-    longitude: 2
+    longitude: 2,
   };
   return shallow(<UserMarker {...defaults} {...props} />);
 }

@@ -17,7 +17,7 @@ describe('shared/availability-view/utils', () => {
     it('returns one slot width for 30 min span', () => {
       const actual = utils.getTimeSlotWidth({
         startTime: moment('2016-01-01T12:00:00Z'),
-        endTime: moment('2016-01-01T12:30:00Z')
+        endTime: moment('2016-01-01T12:30:00Z'),
       });
       expect(actual).to.equal(slotWidth - slotMargin);
     });
@@ -25,7 +25,7 @@ describe('shared/availability-view/utils', () => {
     it('returns two slot width for 1 hour span', () => {
       const actual = utils.getTimeSlotWidth({
         startTime: moment('2016-01-01T12:00:00Z'),
-        endTime: moment('2016-01-01T13:00:00Z')
+        endTime: moment('2016-01-01T13:00:00Z'),
       });
       expect(actual).to.equal((slotWidth * 2) - slotMargin);
     });
@@ -33,7 +33,7 @@ describe('shared/availability-view/utils', () => {
     it('returns twenty slot width for 10 hour span', () => {
       const actual = utils.getTimeSlotWidth({
         startTime: moment('2016-01-01T12:00:00Z'),
-        endTime: moment('2016-01-01T22:00:00Z')
+        endTime: moment('2016-01-01T22:00:00Z'),
       });
       expect(actual).to.equal((slotWidth * 20) - slotMargin);
     });
@@ -45,42 +45,42 @@ describe('shared/availability-view/utils', () => {
         data: {
           begin: '2016-01-01T11:00:00Z',
           end: '2016-01-01T11:30:00Z',
-          isSelectable: false
+          isSelectable: false,
         },
-        type: 'reservation-slot'
+        type: 'reservation-slot',
       },
       {
         data: {
           begin: '2016-01-01T11:30:00Z',
           end: '2016-01-01T12:00:00Z',
-          isSelectable: false
+          isSelectable: false,
         },
-        type: 'reservation-slot'
+        type: 'reservation-slot',
       },
       {
         data: {
           begin: '2016-01-01T12:00:00Z',
           end: '2016-01-01T12:30:00Z',
-          isSelectable: false
+          isSelectable: false,
         },
-        type: 'reservation'
+        type: 'reservation',
       },
       {
         data: {
           begin: '2016-01-01T12:30:00Z',
           end: '2016-01-01T13:00:00Z',
-          isSelectable: false
+          isSelectable: false,
         },
-        type: 'reservation-slot'
+        type: 'reservation-slot',
       },
       {
         data: {
           begin: '2016-01-01T13:00:00Z',
           end: '2016-01-01T13:30:00Z',
-          isSelectable: false
+          isSelectable: false,
         },
-        type: 'reservation-slot'
-      }
+        type: 'reservation-slot',
+      },
     ];
 
     function getItems(slot1, slot2, slot3, slot4) {
@@ -89,7 +89,7 @@ describe('shared/availability-view/utils', () => {
         { ...items[1], data: { ...items[1].data, isSelectable: slot2 } },
         items[2],
         { ...items[3], data: { ...items[3].data, isSelectable: slot3 } },
-        { ...items[4], data: { ...items[4].data, isSelectable: slot4 } }
+        { ...items[4], data: { ...items[4].data, isSelectable: slot4 } },
       ];
     }
 
@@ -141,8 +141,8 @@ describe('shared/availability-view/utils', () => {
         id: 'r1',
         openingHours: [
           { opens: '2016-01-01T11:30:00Z', closes: '2016-01-01T12:30:00Z' },
-          { opens: '2016-01-01T13:00:00Z', closes: '2016-01-01T13:30:00Z' }
-        ]
+          { opens: '2016-01-01T13:00:00Z', closes: '2016-01-01T13:30:00Z' },
+        ],
       };
       const actual = utils.addSelectionData(null, resource, items);
       expect(actual).to.deep.equal(expected);
@@ -169,7 +169,7 @@ describe('shared/availability-view/utils', () => {
       expect(actual[0]).to.deep.equal({
         key: '0',
         type: 'reservation',
-        data: reservation
+        data: reservation,
       });
     });
 
@@ -177,7 +177,7 @@ describe('shared/availability-view/utils', () => {
       const reservations = [
         { id: 11, begin: '2016-01-01T02:00:00', end: '2016-01-01T10:00:00' },
         { id: 12, begin: '2016-01-01T12:30:00', end: '2016-01-01T20:00:00' },
-        { id: 13, begin: '2016-01-01T20:00:00', end: '2016-01-01T20:30:00' }
+        { id: 13, begin: '2016-01-01T20:00:00', end: '2016-01-01T20:30:00' },
       ];
       const actual = utils.getTimelineItems(moment('2016-01-01T00:00:00'), reservations, '1');
       const expected = [
@@ -188,8 +188,8 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T00:00:00').format(),
             end: moment('2016-01-01T00:30:00').format(),
             resourceId: '1',
-            isSelectable: false
-          }
+            isSelectable: false,
+          },
         },
         {
           key: '1',
@@ -198,8 +198,8 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T00:30:00').format(),
             end: moment('2016-01-01T01:00:00').format(),
             resourceId: '1',
-            isSelectable: false
-          }
+            isSelectable: false,
+          },
         },
         {
           key: '2',
@@ -208,8 +208,8 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T01:00:00').format(),
             end: moment('2016-01-01T01:30:00').format(),
             resourceId: '1',
-            isSelectable: false
-          }
+            isSelectable: false,
+          },
         },
         {
           key: '3',
@@ -218,8 +218,8 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T01:30:00').format(),
             end: moment('2016-01-01T02:00:00').format(),
             resourceId: '1',
-            isSelectable: false
-          }
+            isSelectable: false,
+          },
         },
         { key: '4', type: 'reservation', data: reservations[0] },
         {
@@ -229,8 +229,8 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T10:00:00').format(),
             end: moment('2016-01-01T10:30:00').format(),
             resourceId: '1',
-            isSelectable: false
-          }
+            isSelectable: false,
+          },
         },
         {
           key: '6',
@@ -239,8 +239,8 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T10:30:00').format(),
             end: moment('2016-01-01T11:00:00').format(),
             resourceId: '1',
-            isSelectable: false
-          }
+            isSelectable: false,
+          },
         },
         {
           key: '7',
@@ -249,8 +249,8 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T11:00:00').format(),
             end: moment('2016-01-01T11:30:00').format(),
             resourceId: '1',
-            isSelectable: false
-          }
+            isSelectable: false,
+          },
         },
         {
           key: '8',
@@ -259,8 +259,8 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T11:30:00').format(),
             end: moment('2016-01-01T12:00:00').format(),
             resourceId: '1',
-            isSelectable: false
-          }
+            isSelectable: false,
+          },
         },
         {
           key: '9',
@@ -269,8 +269,8 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T12:00:00').format(),
             end: moment('2016-01-01T12:30:00').format(),
             resourceId: '1',
-            isSelectable: false
-          }
+            isSelectable: false,
+          },
         },
         { key: '10', type: 'reservation', data: reservations[1] },
         { key: '11', type: 'reservation', data: reservations[2] },
@@ -281,8 +281,8 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T20:30:00').format(),
             end: moment('2016-01-01T21:00:00').format(),
             resourceId: '1',
-            isSelectable: false
-          }
+            isSelectable: false,
+          },
         },
         {
           key: '13',
@@ -291,8 +291,8 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T21:00:00').format(),
             end: moment('2016-01-01T21:30:00').format(),
             resourceId: '1',
-            isSelectable: false
-          }
+            isSelectable: false,
+          },
         },
         {
           key: '14',
@@ -301,8 +301,8 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T21:30:00').format(),
             end: moment('2016-01-01T22:00:00').format(),
             resourceId: '1',
-            isSelectable: false
-          }
+            isSelectable: false,
+          },
         },
         {
           key: '15',
@@ -311,8 +311,8 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T22:00:00').format(),
             end: moment('2016-01-01T22:30:00').format(),
             resourceId: '1',
-            isSelectable: false
-          }
+            isSelectable: false,
+          },
         },
         {
           key: '16',
@@ -321,8 +321,8 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T22:30:00').format(),
             end: moment('2016-01-01T23:00:00').format(),
             resourceId: '1',
-            isSelectable: false
-          }
+            isSelectable: false,
+          },
         },
         {
           key: '17',
@@ -331,8 +331,8 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T23:00:00').format(),
             end: moment('2016-01-01T23:30:00').format(),
             resourceId: '1',
-            isSelectable: false
-          }
+            isSelectable: false,
+          },
         },
         {
           key: '18',
@@ -341,9 +341,9 @@ describe('shared/availability-view/utils', () => {
             begin: moment('2016-01-01T23:30:00').format(),
             end: moment('2016-01-02T00:00:00').format(),
             resourceId: '1',
-            isSelectable: false
-          }
-        }
+            isSelectable: false,
+          },
+        },
       ];
       expect(actual).to.deep.equal(expected);
     });

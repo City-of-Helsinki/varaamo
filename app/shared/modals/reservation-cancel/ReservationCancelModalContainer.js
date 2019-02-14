@@ -32,7 +32,7 @@ class UnconnectedReservationCancelModalContainer extends Component {
       reservation,
       resource,
       show,
-      t
+      t,
     } = this.props;
 
     return (
@@ -111,7 +111,7 @@ UnconnectedReservationCancelModalContainer.propTypes = {
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 UnconnectedReservationCancelModalContainer = injectT(UnconnectedReservationCancelModalContainer);  // eslint-disable-line
@@ -119,7 +119,7 @@ UnconnectedReservationCancelModalContainer = injectT(UnconnectedReservationCance
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
     closeReservationCancelModal,
-    deleteReservation
+    deleteReservation,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

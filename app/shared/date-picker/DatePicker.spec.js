@@ -9,7 +9,7 @@ import DatePicker from './DatePicker';
 function getWrapper(props) {
   const defaults = {
     onChange: () => null,
-    value: '2016-12-12'
+    value: '2016-12-12',
   };
   return shallow(<DatePicker {...defaults} {...props} />);
 }

@@ -11,7 +11,7 @@ const defaults = {
   onChange: simple.mock(),
   onTimeRangeSwitch: simple.mock(),
   start: '10:00',
-  useTimeRange: false
+  useTimeRange: false,
 };
 function getWrapper(props) {
   return shallowWithIntl(<TimeRangeControl {...defaults} {...props} />);
@@ -73,7 +73,7 @@ describe('pages/search/controls/TimeRangeControl', () => {
       { label: '21:30', value: '21:30' },
       { label: '22:00', value: '22:00' },
       { label: '22:30', value: '22:30' },
-      { label: '23:00', value: '23:00' }
+      { label: '23:00', value: '23:00' },
     ];
 
     expect(startSelect).to.have.length(1);
@@ -116,7 +116,7 @@ describe('pages/search/controls/TimeRangeControl', () => {
       { label: '22:00', value: '22:00' },
       { label: '22:30', value: '22:30' },
       { label: '23:00', value: '23:00' },
-      { label: '23:30', value: '23:30' }
+      { label: '23:30', value: '23:30' },
     ];
 
     expect(endSelect).to.have.length(1);
@@ -156,7 +156,7 @@ describe('pages/search/controls/TimeRangeControl', () => {
       { label: '10.5 h', value: 630 },
       { label: '11 h', value: 660 },
       { label: '11.5 h', value: 690 },
-      { label: '12 h', value: 720 }
+      { label: '12 h', value: 720 },
     ];
 
     expect(endSelect).to.have.length(1);
@@ -178,7 +178,7 @@ describe('pages/search/controls/TimeRangeControl', () => {
       { label: '1.5 h', value: 90 },
       { label: '2 h', value: 120 },
       { label: '2.5 h', value: 150 },
-      { label: '3 h', value: 180 }
+      { label: '3 h', value: 180 },
     ];
 
     expect(endSelect).to.have.length(1);
@@ -192,7 +192,7 @@ describe('pages/search/controls/TimeRangeControl', () => {
       const expected = {
         duration: defaults.duration,
         end: defaults.end,
-        start: '12:00'
+        start: '12:00',
       };
       instance.handleStart({ value: '12:00' });
       expect(onChange.callCount).to.equal(1);
@@ -207,7 +207,7 @@ describe('pages/search/controls/TimeRangeControl', () => {
       const expected = {
         duration: defaults.duration,
         end: '18:00',
-        start: defaults.start
+        start: defaults.start,
       };
       instance.handleEnd({ value: '18:00' });
       expect(onChange.callCount).to.equal(1);
@@ -222,7 +222,7 @@ describe('pages/search/controls/TimeRangeControl', () => {
       const expected = {
         duration: 60,
         end: defaults.end,
-        start: defaults.start
+        start: defaults.start,
       };
       instance.handleDuration({ value: 60 });
       expect(onChange.callCount).to.equal(1);

@@ -12,7 +12,7 @@ const reservationListSelector = createStructuredSelector({
   reservations: sortedReservationsSelector,
   resources: resourcesSelector,
   staffUnits: staffUnitsSelector,
-  units: unitsSelector
+  units: unitsSelector,
 });
 
 export default reservationListSelector;

@@ -16,7 +16,7 @@ function getHourRanges(date) {
     ranges.push({
       startTime: current.clone(),
       midPoint: current.clone().add(30, 'minutes'),
-      endTime: current.clone().add(1, 'hour')
+      endTime: current.clone().add(1, 'hour'),
     });
     current.add(1, 'hour');
   }
@@ -32,7 +32,7 @@ export default class TimelineGroup extends React.Component {
     onReservationSlotMouseLeave: PropTypes.func,
     onSelectionCancel: PropTypes.func,
     resources: PropTypes.arrayOf(PropTypes.string).isRequired,
-    selection: PropTypes.object
+    selection: PropTypes.object,
   };
 
   constructor(props) {
@@ -81,7 +81,7 @@ export default class TimelineGroup extends React.Component {
       onReservationSlotMouseEnter,
       onReservationSlotMouseLeave,
       onSelectionCancel,
-      selection
+      selection,
     } = this.props;
     return (
       <div
@@ -100,7 +100,7 @@ export default class TimelineGroup extends React.Component {
               <div
                 className={classNames('hour', {
                   'hour-start-selected': selection && range.midPoint.isSame(selection.end),
-                  'hour-end-selected': selection && range.endTime.isSame(selection.end)
+                  'hour-end-selected': selection && range.endTime.isSame(selection.end),
                 })}
                 key={range.startTime.format('HH')}
                 style={{ width: utils.getTimeSlotWidth(range) }}

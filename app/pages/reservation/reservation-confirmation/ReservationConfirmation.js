@@ -16,7 +16,7 @@ class ReservationConfirmation extends Component {
     resource: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired
+    history: PropTypes.object.isRequired,
   };
 
   handleReservationsButton() {
@@ -41,7 +41,7 @@ class ReservationConfirmation extends Component {
 
   render() {
     const {
-      isEdited, reservation, resource, t, user
+      isEdited, reservation, resource, t, user,
     } = this.props;
     const refUrl = window.location.href;
     const href = `${constants.FEEDBACK_URL}?ref=${refUrl}`;
@@ -99,7 +99,7 @@ class ReservationConfirmation extends Component {
               && this.renderField(
                 'reserverName',
                 t('common.reserverNameLabel'),
-                reservation.reserverName
+                reservation.reserverName,
               )}
             {reservation.reserverId
               && this.renderField('reserverId', t('common.reserverIdLabel'), reservation.reserverId)}
@@ -107,31 +107,31 @@ class ReservationConfirmation extends Component {
               && this.renderField(
                 'reserverPhoneNumber',
                 t('common.reserverPhoneNumberLabel'),
-                reservation.reserverPhoneNumber
+                reservation.reserverPhoneNumber,
               )}
             {reservation.reserverEmailAddress
               && this.renderField(
                 'reserverEmailAddress',
                 t('common.reserverEmailAddressLabel'),
-                reservation.reserverEmailAddress
+                reservation.reserverEmailAddress,
               )}
             {reservation.eventSubject
               && this.renderField(
                 'eventSubject',
                 t('common.eventSubjectLabel'),
-                reservation.eventSubject
+                reservation.eventSubject,
               )}
             {reservation.eventDescription
               && this.renderField(
                 'eventDescription',
                 t('common.eventDescriptionLabel'),
-                reservation.eventDescription
+                reservation.eventDescription,
               )}
             {reservation.numberOfParticipants
               && this.renderField(
                 'numberOfParticipants',
                 t('common.numberOfParticipantsLabel'),
-                reservation.numberOfParticipants
+                reservation.numberOfParticipants,
               )}
             {reservation.comments
               && this.renderField('comments', t('common.commentsLabel'), reservation.comments)}
@@ -139,19 +139,19 @@ class ReservationConfirmation extends Component {
               && this.renderField(
                 'reserverAddressStreet',
                 t('common.addressStreetLabel'),
-                reservation.reserverAddressStreet
+                reservation.reserverAddressStreet,
               )}
             {reservation.reserverAddressZip
               && this.renderField(
                 'reserverAddressZip',
                 t('common.addressZipLabel'),
-                reservation.reserverAddressZip
+                reservation.reserverAddressZip,
               )}
             {reservation.reserverAddressCity
               && this.renderField(
                 'reserverAddressCity',
                 t('common.addressCityLabel'),
-                reservation.reserverAddressCity
+                reservation.reserverAddressCity,
               )}
             {reservation.billingAddressStreet && (
               <Col xs={12}>{t('common.billingAddressLabel')}</Col>
@@ -160,19 +160,19 @@ class ReservationConfirmation extends Component {
               && this.renderField(
                 'billingAddressStreet',
                 t('common.addressStreetLabel'),
-                reservation.billingAddressStreet
+                reservation.billingAddressStreet,
               )}
             {reservation.billingAddressZip
               && this.renderField(
                 'billingAddressZip',
                 t('common.addressZipLabel'),
-                reservation.billingAddressZip
+                reservation.billingAddressZip,
               )}
             {reservation.billingAddressCity
               && this.renderField(
                 'billingAddressCity',
                 t('common.addressCityLabel'),
-                reservation.billingAddressCity
+                reservation.billingAddressCity,
               )}
           </Well>
         </Col>

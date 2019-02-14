@@ -65,9 +65,9 @@ ReservationInfo.propTypes = {
     maxPeriod: PropTypes.string,
     maxReservationsPerUser: PropTypes.number,
     reservable: PropTypes.bool,
-    reservationInfo: PropTypes.string
+    reservationInfo: PropTypes.string,
   }).isRequired,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 export default injectT(ReservationInfo);

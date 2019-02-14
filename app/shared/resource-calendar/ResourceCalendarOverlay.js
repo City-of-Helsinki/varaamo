@@ -15,7 +15,7 @@ function ResourceCalendarOverlay({ children }) {
 }
 
 ResourceCalendarOverlay.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export default injectT(ResourceCalendarOverlay);

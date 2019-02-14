@@ -13,18 +13,18 @@ describe('pages/search/results/SearchResults', () => {
     history: { push: () => {} },
     filters: {
       date: '2015-10-10',
-      page: 1
+      page: 1,
     },
     isFetching: false,
     location: {
       state: {
-        scrollTop: 123
-      }
+        scrollTop: 123,
+      },
     },
     onToggleMap: () => {},
     resultCount: 2,
     searchResultIds: Immutable(['resource-1', 'resource-2']),
-    showMap: false
+    showMap: false,
   };
 
   function getWrapper(extraProps) {

@@ -12,7 +12,7 @@ class DateHeader extends Component {
     date: PropTypes.string.isRequired,
     onDecreaseDateButtonClick: PropTypes.func,
     onIncreaseDateButtonClick: PropTypes.func,
-    scrollTo: PropTypes.bool
+    scrollTo: PropTypes.bool,
   };
 
   componentDidMount() {
@@ -26,7 +26,7 @@ class DateHeader extends Component {
 
   render() {
     const {
-      beforeText, date, onDecreaseDateButtonClick, onIncreaseDateButtonClick
+      beforeText, date, onDecreaseDateButtonClick, onIncreaseDateButtonClick,
     } = this.props;
     const dateString = moment(date).format('dddd, LL');
 

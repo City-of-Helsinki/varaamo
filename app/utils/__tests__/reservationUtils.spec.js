@@ -10,7 +10,7 @@ import {
   getCurrentReservation,
   getMissingValues,
   getNextAvailableTime,
-  getNextReservation
+  getNextReservation,
 } from 'utils/reservationUtils';
 
 describe('Utils: reservationUtils', () => {
@@ -18,20 +18,20 @@ describe('Utils: reservationUtils', () => {
     const slots = [
       {
         begin: '2015-10-16T08:00:00.000Z',
-        end: '2015-10-16T09:00:00.000Z'
+        end: '2015-10-16T09:00:00.000Z',
       },
       {
         begin: '2015-10-16T09:00:00.000Z',
-        end: '2015-10-16T10:00:00.000Z'
+        end: '2015-10-16T10:00:00.000Z',
       },
       {
         begin: '2015-10-16T10:00:00.000Z',
-        end: '2015-10-16T11:00:00.000Z'
+        end: '2015-10-16T11:00:00.000Z',
       },
       {
         begin: '2015-10-16T11:00:00.000Z',
-        end: '2015-10-16T12:00:00.000Z'
-      }
+        end: '2015-10-16T12:00:00.000Z',
+      },
     ];
 
     it('returns an empty array if reservations is undefined', () => {
@@ -56,7 +56,7 @@ describe('Utils: reservationUtils', () => {
       const reservations = [slots[0], slots[1]];
       const expected = [{
         begin: slots[0].begin,
-        end: slots[1].end
+        end: slots[1].end,
       }];
 
       expect(combine(reservations)).to.deep.equal(expected);
@@ -72,7 +72,7 @@ describe('Utils: reservationUtils', () => {
       const reservations = [slots[0], slots[1], slots[2]];
       const expected = [{
         begin: slots[0].begin,
-        end: slots[2].end
+        end: slots[2].end,
       }];
 
       expect(combine(reservations)).to.deep.equal(expected);
@@ -83,9 +83,9 @@ describe('Utils: reservationUtils', () => {
       const expected = [
         {
           begin: slots[0].begin,
-          end: slots[1].end
+          end: slots[1].end,
         },
-        slots[3]
+        slots[3],
       ];
 
       expect(combine(reservations)).to.deep.equal(expected);
@@ -142,7 +142,7 @@ describe('Utils: reservationUtils', () => {
       lastReservation,
       previousReservation,
       nextReservation,
-      currentReservation
+      currentReservation,
     ];
 
     it('returns the current reservation from a list of reservations', () => {
@@ -154,7 +154,7 @@ describe('Utils: reservationUtils', () => {
     function getReservation(extraValues) {
       const defaults = {
         eventDescription: 'Some description',
-        reserverName: 'Luke Skywalker'
+        reserverName: 'Luke Skywalker',
       };
       return Reservation.build(Object.assign({}, defaults, extraValues));
     }
@@ -208,16 +208,16 @@ describe('Utils: reservationUtils', () => {
       const reservations = [
         {
           begin: '2015-10-10T12:00:00+03:00',
-          end: '2015-10-10T14:00:00+03:00'
+          end: '2015-10-10T14:00:00+03:00',
         },
         {
           begin: '2015-10-10T16:00:00+03:00',
-          end: '2015-10-10T17:00:00+03:00'
+          end: '2015-10-10T17:00:00+03:00',
         },
         {
           begin: '2015-10-10T17:00:00+03:00',
-          end: '2015-10-10T18:00:00+03:00'
-        }
+          end: '2015-10-10T18:00:00+03:00',
+        },
       ];
 
       describe('if the fromMoment is before all of the reservations', () => {
@@ -281,7 +281,7 @@ describe('Utils: reservationUtils', () => {
       lastReservation,
       previousReservation,
       nextReservation,
-      currentReservation
+      currentReservation,
     ];
 
     it('returns the next reservation from a list of reservations', () => {

@@ -20,9 +20,9 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
     reservation: Immutable(Reservation.build()),
     resource: Immutable(Resource.build({
       images: [Image.build()],
-      type: { name: 'test_type' }
+      type: { name: 'test_type' },
     })),
-    unit: Immutable(Unit.build())
+    unit: Immutable(Unit.build()),
   };
 
   let component;

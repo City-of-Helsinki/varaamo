@@ -9,7 +9,7 @@ import FavoriteButton from './FavoriteButton';
 describe('shared/favorite-button/FavoriteButton', () => {
   const defaultProps = {
     favorited: true,
-    onClick: simple.mock()
+    onClick: simple.mock(),
   };
 
   function getWrapper(props) {

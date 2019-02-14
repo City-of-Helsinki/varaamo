@@ -7,14 +7,14 @@ import resourceCalendarSelector from './resourceCalendarSelector';
 function getState(resource) {
   return {
     data: Immutable({
-      resources: { [resource.id]: resource }
-    })
+      resources: { [resource.id]: resource },
+    }),
   };
 }
 
 function getProps(id = 'some-id') {
   return {
-    resourceId: id
+    resourceId: id,
   };
 }
 
@@ -25,22 +25,22 @@ describe('shared/resource-calendar/resourceCalendarSelector', () => {
       // Day 2015-10-01 is completely available
       {
         starts: '2015-10-01T10:00:00+03:00',
-        ends: '2015-10-01T15:00:00+03:00'
+        ends: '2015-10-01T15:00:00+03:00',
       },
       {
         starts: '2015-10-01T16:00:00+03:00',
-        ends: '2015-10-01T20:00:00+03:00'
+        ends: '2015-10-01T20:00:00+03:00',
       },
       // Day 2015-10-10 is partially available
       {
         starts: '2015-10-10T12:00:00+03:00',
-        ends: '2015-10-10T15:00:00+03:00'
+        ends: '2015-10-10T15:00:00+03:00',
       },
       // Day 2015-10-11 is fully booked
       {
         starts: '2015-10-11T20:00:00+03:00',
-        ends: '2015-10-11T20:00:00+03:00'
-      }
+        ends: '2015-10-11T20:00:00+03:00',
+      },
     ],
     minPeriod: '01:00:00',
     openingHours: openingHoursMonth,
@@ -49,27 +49,27 @@ describe('shared/resource-calendar/resourceCalendarSelector', () => {
       {
         begin: '2015-10-10T15:00:00+03:00',
         end: '2015-10-10T18:00:00+03:00',
-        state: 'confirmed'
+        state: 'confirmed',
       },
       // Day 2015-10-11 is fully booked
       {
         begin: '2015-10-11T10:00:00+03:00',
         end: '2015-10-11T20:00:00+03:00',
-        state: 'confirmed'
+        state: 'confirmed',
       },
       // Day 2015-10-30 is available with canceled reservation
       {
         begin: '2015-10-30T19:00:00+03:00',
         end: '2015-10-30T20:00:00+03:00',
-        state: 'cancelled'
+        state: 'cancelled',
       },
       // Day 2015-10-31 is available with denied reservation
       {
         begin: '2015-10-31T19:00:00+03:00',
         end: '2015-10-31T20:00:00+03:00',
-        state: 'denied'
-      }
-    ]
+        state: 'denied',
+      },
+    ],
   });
 
   before(() => {

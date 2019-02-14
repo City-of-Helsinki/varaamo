@@ -9,7 +9,7 @@ import {
   changeAdminResourcesPageDate,
   selectAdminResourceType,
   openConfirmReservationModal,
-  unselectAdminResourceType
+  unselectAdminResourceType,
 } from 'actions/uiActions';
 import { injectT } from 'i18n';
 import PageWrapper from 'pages/PageWrapper';
@@ -64,7 +64,7 @@ class UnconnectedAdminResourcesPage extends Component {
       isFetchingResources,
       resources,
       t,
-      resourceTypes
+      resourceTypes,
     } = this.props;
     return (
       <PageWrapper className="admin-resources-page" fluid title={(t('AdminResourcesPage.adminTitle'))}>
@@ -97,7 +97,7 @@ class UnconnectedAdminResourcesPage extends Component {
             selectedReservations={[{
               begin: this.state.selection.begin,
               end: this.state.selection.end,
-              resource: this.state.selection.resourceId
+              resource: this.state.selection.resourceId,
             }]}
           />
           )}
@@ -117,7 +117,7 @@ UnconnectedAdminResourcesPage.propTypes = {
   location: PropTypes.object.isRequired,
   resources: PropTypes.array.isRequired,
   t: PropTypes.func.isRequired,
-  resourceTypes: PropTypes.array.isRequired
+  resourceTypes: PropTypes.array.isRequired,
 };
 
 UnconnectedAdminResourcesPage = injectT(UnconnectedAdminResourcesPage);  // eslint-disable-line
@@ -129,7 +129,7 @@ function mapDispatchToProps(dispatch) {
     fetchFavoritedResources,
     selectAdminResourceType,
     openConfirmReservationModal,
-    unselectAdminResourceType
+    unselectAdminResourceType,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

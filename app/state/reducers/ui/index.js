@@ -13,7 +13,7 @@ const uiReducers = combineReducers({
   reservationInfoModal: reservationInfoModalReducer,
   reservations: reservationsReducer,
   resourceMap: resourceMapReducer,
-  search: searchReducer
+  search: searchReducer,
 });
 
 export default uiReducers;

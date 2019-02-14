@@ -13,7 +13,7 @@ const unitSelector = createSelector(
 const ResourceCardSelector = createStructuredSelector({
   isLoggedIn: isLoggedInSelector,
   resource: createResourceSelector(resourceIdSelector),
-  unit: unitSelector
+  unit: unitSelector,
 });
 
 export default ResourceCardSelector;

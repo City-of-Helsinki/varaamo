@@ -7,7 +7,7 @@ import {
   getErrorTypeDescriptor,
   getHeadersCreator,
   getRequestTypeDescriptor,
-  getSuccessTypeDescriptor
+  getSuccessTypeDescriptor,
 } from 'utils/apiUtils';
 
 function fetchUnits() {
@@ -21,16 +21,16 @@ function fetchUnits() {
           types.API.UNITS_GET_SUCCESS,
           { schema: schemas.paginatedUnitsSchema },
         ),
-        getErrorTypeDescriptor(types.API.UNITS_GET_ERROR)
+        getErrorTypeDescriptor(types.API.UNITS_GET_ERROR),
       ],
       endpoint: buildAPIUrl('unit', fetchParams),
       method: 'GET',
       headers: getHeadersCreator(),
-      bailout: state => !state.api.shouldFetch.units
-    }
+      bailout: state => !state.api.shouldFetch.units,
+    },
   };
 }
 
 export {
-  fetchUnits
+  fetchUnits,
 };

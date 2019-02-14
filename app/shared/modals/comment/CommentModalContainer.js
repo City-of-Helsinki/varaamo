@@ -28,7 +28,7 @@ class UnconnectedCommentModalContainer extends Component {
       isSaving,
       reservation,
       show,
-      t
+      t,
     } = this.props;
 
     return (
@@ -55,7 +55,7 @@ UnconnectedCommentModalContainer.propTypes = {
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 UnconnectedCommentModalContainer = injectT(UnconnectedCommentModalContainer);  // eslint-disable-line
@@ -63,7 +63,7 @@ UnconnectedCommentModalContainer = injectT(UnconnectedCommentModalContainer);  /
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
     closeReservationCommentModal,
-    commentReservation
+    commentReservation,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

@@ -17,7 +17,7 @@ import {
   selectReservationToCancel,
   selectReservationToEdit,
   selectReservationToShow,
-  toggleTimeSlot
+  toggleTimeSlot,
 } from 'actions/uiActions';
 import Reservation from 'utils/fixtures/Reservation';
 import { getTimeSlots } from 'utils/timeUtils';
@@ -75,7 +75,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const action = postReservationSuccess();
         const initialState = Immutable({
           selected: ['some-selected'],
-          toShow: []
+          toShow: [],
         });
         const nextState = reservationsReducer(initialState, action);
 
@@ -86,7 +86,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const action = postReservationSuccess();
         const initialState = Immutable({
           toEdit: ['something-to-edit'],
-          toShow: []
+          toShow: [],
         });
         const nextState = reservationsReducer(initialState, action);
 
@@ -95,7 +95,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
 
       it('adds the given reservation to toShow', () => {
         const initialState = Immutable({
-          toShow: []
+          toShow: [],
         });
         const reservation = Reservation.build();
         const action = postReservationSuccess(reservation);
@@ -108,7 +108,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
       it('does not affect other reservations in toShow', () => {
         const reservations = [Reservation.build(), Reservation.build()];
         const initialState = Immutable({
-          toShow: [reservations[0]]
+          toShow: [reservations[0]],
         });
         const action = postReservationSuccess(reservations[1]);
         const nextState = reservationsReducer(initialState, action);
@@ -128,7 +128,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
 
       it('adds the reservation in meta info to failed', () => {
         const initialState = Immutable({
-          failed: []
+          failed: [],
         });
         const reservation = Reservation.build();
         const action = postReservationError(reservation);
@@ -141,7 +141,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
       it('does not affect other reservations in failed', () => {
         const reservations = [Reservation.build(), Reservation.build()];
         const initialState = Immutable({
-          failed: [reservations[0]]
+          failed: [reservations[0]],
         });
         const action = postReservationError(reservations[1]);
         const nextState = reservationsReducer(initialState, action);
@@ -159,7 +159,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const action = putReservationSuccess(reservation);
         const initialState = Immutable({
           selected: ['some-selected'],
-          toShowEdited: []
+          toShowEdited: [],
         });
         const nextState = reservationsReducer(initialState, action);
 
@@ -170,7 +170,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const action = putReservationSuccess(reservation);
         const initialState = Immutable({
           toEdit: ['something-to-edit'],
-          toShowEdited: []
+          toShowEdited: [],
         });
         const nextState = reservationsReducer(initialState, action);
 
@@ -181,7 +181,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const action = putReservationSuccess(reservation);
         const initialState = Immutable({
           toShow: ['something-to-show'],
-          toShowEdited: []
+          toShowEdited: [],
         });
         const nextState = reservationsReducer(initialState, action);
 
@@ -191,7 +191,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
       it('adds the reservation in toShowEdited', () => {
         const action = putReservationSuccess(reservation);
         const initialState = Immutable({
-          toShowEdited: []
+          toShowEdited: [],
         });
         const expected = Immutable([reservation]);
         const nextState = reservationsReducer(initialState, action);
@@ -203,7 +203,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
     describe('UI.CANCEL_RESERVATION_EDIT', () => {
       it('clears toEdit array', () => {
         const initialState = Immutable({
-          toEdit: [Reservation.build()]
+          toEdit: [Reservation.build()],
         });
         const action = cancelReservationEdit();
         const nextState = reservationsReducer(initialState, action);
@@ -217,7 +217,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const adminReservationFilters = { state: 'some-state' };
         const action = changeAdminReservationFilters(adminReservationFilters);
         const initialState = Immutable({
-          adminReservationFilters: {}
+          adminReservationFilters: {},
         });
         const expected = Immutable(adminReservationFilters);
         const nextState = reservationsReducer(initialState, action);
@@ -229,7 +229,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const adminReservationFilters = { state: 'some-state' };
         const action = changeAdminReservationFilters(adminReservationFilters);
         const initialState = Immutable({
-          adminReservationFilters: { state: 'old-value' }
+          adminReservationFilters: { state: 'old-value' },
         });
         const expected = Immutable(adminReservationFilters);
         const nextState = reservationsReducer(initialState, action);
@@ -241,11 +241,11 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const adminReservationFilters = { state: 'some-state' };
         const action = changeAdminReservationFilters(adminReservationFilters);
         const initialState = Immutable({
-          adminReservationFilters: { otherFilter: 'other-value' }
+          adminReservationFilters: { otherFilter: 'other-value' },
         });
         const expected = Immutable({
           otherFilter: 'other-value',
-          state: 'some-state'
+          state: 'some-state',
         });
         const nextState = reservationsReducer(initialState, action);
 
@@ -262,7 +262,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
           selected: ['something'],
           toCancel: ['something'],
           toEdit: ['something'],
-          toShow: ['something']
+          toShow: ['something'],
         });
         const nextState = reservationsReducer(initialState, action);
 
@@ -274,7 +274,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
       describe('if closed modal is RESERVATION_CANCEL modal', () => {
         it('clears toCancel array', () => {
           const initialState = Immutable({
-            toCancel: [Reservation.build()]
+            toCancel: [Reservation.build()],
           });
           const action = closeReservationCancelModal();
           const nextState = reservationsReducer(initialState, action);
@@ -286,7 +286,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
       describe('if closed modal is RESERVATION_COMMENT modal', () => {
         it('clears toShow array', () => {
           const initialState = Immutable({
-            toShow: [Reservation.build()]
+            toShow: [Reservation.build()],
           });
           const action = closeReservationCommentModal();
           const nextState = reservationsReducer(initialState, action);
@@ -298,7 +298,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
       describe('if closed modal is RESERVATION_SUCCESS modal', () => {
         it('clears toShow array', () => {
           const initialState = Immutable({
-            toShow: [Reservation.build()]
+            toShow: [Reservation.build()],
           });
           const action = closeReservationSuccessModal();
           const nextState = reservationsReducer(initialState, action);
@@ -308,7 +308,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
 
         it('clears failed array', () => {
           const initialState = Immutable({
-            failed: [Reservation.build()]
+            failed: [Reservation.build()],
           });
           const action = closeReservationSuccessModal();
           const nextState = reservationsReducer(initialState, action);
@@ -321,7 +321,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
     describe('UI.SELECT_RESERVATION_SLOT', () => {
       it('sets the given slot to state', () => {
         const initialState = Immutable({
-          selectedSlot: { old: 'slot' }
+          selectedSlot: { old: 'slot' },
         });
         const newSlot = { new: 'slot' };
         const action = selectReservationSlot(newSlot);
@@ -333,7 +333,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
     describe('UI.SELECT_RESERVATION_TO_CANCEL', () => {
       it('adds the given reservation to toCancel', () => {
         const initialState = Immutable({
-          toCancel: []
+          toCancel: [],
         });
         const reservation = Reservation.build();
         const action = selectReservationToCancel(reservation);
@@ -346,7 +346,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
       it('does not affect other reservations in toCancel', () => {
         const reservations = [Reservation.build(), Reservation.build()];
         const initialState = Immutable({
-          toCancel: [reservations[0]]
+          toCancel: [reservations[0]],
         });
         const action = selectReservationToCancel(reservations[1]);
         const nextState = reservationsReducer(initialState, action);
@@ -360,7 +360,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
       it('sets the given reservation to toEdit', () => {
         const initialState = Immutable({
           selected: [],
-          toEdit: []
+          toEdit: [],
         });
         const reservation = Reservation.build();
         const action = selectReservationToEdit({ reservation });
@@ -374,7 +374,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const reservations = [Reservation.build(), Reservation.build()];
         const initialState = Immutable({
           selected: [],
-          toEdit: [reservations[0]]
+          toEdit: [reservations[0]],
         });
         const action = selectReservationToEdit({ reservation: reservations[1] });
         const nextState = reservationsReducer(initialState, action);
@@ -390,7 +390,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const reservation = Reservation.build({ begin, end });
         const initialState = Immutable({
           selected: [],
-          toEdit: []
+          toEdit: [],
         });
         const action = selectReservationToEdit({ reservation, minPeriod });
         const nextState = reservationsReducer(initialState, action);
@@ -401,13 +401,13 @@ describe('state/reducers/ui/reservationsReducer', () => {
           {
             begin: firstSlot.start,
             end: firstSlot.end,
-            resource: reservation.resource
+            resource: reservation.resource,
           },
           {
             begin: lastSlot.start,
             end: lastSlot.end,
-            resource: reservation.resource
-          }
+            resource: reservation.resource,
+          },
         ];
 
         expect(nextState.selected).to.deep.equal(expected);
@@ -417,7 +417,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
     describe('UI.SELECT_RESERVATION_TO_SHOW', () => {
       it('adds the given reservation to toShow', () => {
         const initialState = Immutable({
-          toShow: []
+          toShow: [],
         });
         const reservation = Reservation.build();
         const action = selectReservationToShow(reservation);
@@ -430,7 +430,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
       it('does not affect other reservations in toShow', () => {
         const reservations = [Reservation.build(), Reservation.build()];
         const initialState = Immutable({
-          toShow: [reservations[0]]
+          toShow: [reservations[0]],
         });
         const action = selectReservationToShow(reservations[1]);
         const nextState = reservationsReducer(initialState, action);
@@ -444,12 +444,12 @@ describe('state/reducers/ui/reservationsReducer', () => {
       describe('if slot is not already selected', () => {
         it('adds the given slot to selected', () => {
           const initialState = Immutable({
-            selected: []
+            selected: [],
           });
           const slot = {
             begin: '2015-10-11T10:00:00Z',
             end: '2015-10-11T11:00:00Z',
-            resource: 'some-resource'
+            resource: 'some-resource',
           };
           const action = toggleTimeSlot(slot);
           const nextState = reservationsReducer(initialState, action);
@@ -464,14 +464,14 @@ describe('state/reducers/ui/reservationsReducer', () => {
               {
                 begin: '2015-12-12T10:00:00Z',
                 end: '2015-12-12T11:00:00Z',
-                resource: 'some-resource'
-              }
-            ]
+                resource: 'some-resource',
+              },
+            ],
           });
           const slot = {
             begin: '2015-10-11T10:00:00Z',
             end: '2015-10-11T11:00:00ZZ',
-            resource: 'some-resource'
+            resource: 'some-resource',
           };
           const action = toggleTimeSlot(slot);
           const nextState = reservationsReducer(initialState, action);
@@ -486,19 +486,19 @@ describe('state/reducers/ui/reservationsReducer', () => {
               {
                 begin: '2015-12-12T10:00:00Z',
                 end: '2015-12-12T11:00:00Z',
-                resource: 'some-resource'
+                resource: 'some-resource',
               },
               {
                 begin: '2015-12-12T11:00:00Z',
                 end: '2015-12-12T12:00:00Z',
-                resource: 'some-resource'
-              }
-            ]
+                resource: 'some-resource',
+              },
+            ],
           });
           const slot = {
             begin: '2015-12-12T13:00:00Z',
             end: '2015-12-12T14:00:00Z',
-            resource: 'some-resource'
+            resource: 'some-resource',
           };
 
           const action = toggleTimeSlot(slot);
@@ -514,19 +514,19 @@ describe('state/reducers/ui/reservationsReducer', () => {
               {
                 begin: '2015-12-12T10:00:00Z',
                 end: '2015-12-12T11:00:00Z',
-                resource: 'some-resource'
+                resource: 'some-resource',
               },
               {
                 begin: '2015-12-12T13:00:00Z',
                 end: '2015-12-12T14:00:00Z',
-                resource: 'some-resource'
-              }
-            ]
+                resource: 'some-resource',
+              },
+            ],
           });
           const slot = {
             begin: '2015-12-12T11:00:00Z',
             end: '2015-12-12T12:00:00Z',
-            resource: 'some-resource'
+            resource: 'some-resource',
           };
 
           const action = toggleTimeSlot(slot);
@@ -542,11 +542,11 @@ describe('state/reducers/ui/reservationsReducer', () => {
           const slot = {
             begin: '2015-10-11T10:00:00Z',
             end: '2015-10-11T11:00:00Z',
-            resource: 'some-resource'
+            resource: 'some-resource',
           };
           const action = toggleTimeSlot(slot);
           const initialState = Immutable({
-            selected: [slot]
+            selected: [slot],
           });
           const nextState = reservationsReducer(initialState, action);
           const expected = Immutable([]);
@@ -558,16 +558,16 @@ describe('state/reducers/ui/reservationsReducer', () => {
           const slot1 = {
             begin: '2015-12-12T10:00:00Z',
             end: '2015-12-12T11:00:00Z',
-            resource: 'some-resource'
+            resource: 'some-resource',
           };
           const slot2 = {
             begin: '2015-10-11T10:00:00Z',
             end: '2015-10-11T11:00:00Z',
-            resource: 'some-resource'
+            resource: 'some-resource',
           };
           const action = toggleTimeSlot(slot2);
           const initialState = Immutable({
-            selected: [slot1, slot2]
+            selected: [slot1, slot2],
           });
           const nextState = reservationsReducer(initialState, action);
           const expected = Immutable([slot1]);
@@ -584,9 +584,9 @@ describe('state/reducers/ui/reservationsReducer', () => {
               {
                 begin: '2015-12-12T10:00:00Z',
                 end: '2015-12-12T11:00:00Z',
-                resource: 'some-resource'
-              }
-            ]
+                resource: 'some-resource',
+              },
+            ],
           });
           const nextState = reservationsReducer(initialState, action);
           expect(nextState.selected).to.deep.equal([]);
@@ -599,14 +599,14 @@ describe('state/reducers/ui/reservationsReducer', () => {
               {
                 begin: '2015-12-12T10:00:00Z',
                 end: '2015-12-12T11:00:00Z',
-                resource: 'some-resource'
+                resource: 'some-resource',
               },
               {
                 begin: '2015-12-12T13:00:00Z',
                 end: '2015-12-12T14:00:00Z',
-                resource: 'some-resource'
-              }
-            ]
+                resource: 'some-resource',
+              },
+            ],
           });
           const nextState = reservationsReducer(initialState, action);
           expect(nextState.selected).to.deep.equal([]);

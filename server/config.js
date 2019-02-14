@@ -27,10 +27,10 @@ module.exports = {
       isProduction
         ? `/_assets/app.js?${getAssetHash(path.resolve(__dirname, '../dist/app.js'))}`
         : '/app.js'
-    )
+    ),
   },
   isProduction,
   piwikSiteId: process.env.PIWIK_SITE_ID,
   port,
-  webpackStylesExtensions: ['css', 'scss']
+  webpackStylesExtensions: ['css', 'scss'],
 };

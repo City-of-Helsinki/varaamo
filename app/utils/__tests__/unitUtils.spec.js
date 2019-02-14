@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import {
-  getServiceMapUrl
+  getServiceMapUrl,
 } from 'utils/unitUtils';
 
 describe('Utils: unitUtils', () => {

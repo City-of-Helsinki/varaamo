@@ -52,7 +52,7 @@ class ReservationControls extends Component {
         >
           {props.t('ReservationControls.info')}
         </Button>
-      )
+      ),
     };
   }
 
@@ -127,7 +127,7 @@ ReservationControls.propTypes = {
   onEditClick: PropTypes.func.isRequired,
   onInfoClick: PropTypes.func.isRequired,
   reservation: PropTypes.object,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 export default injectT(ReservationControls);

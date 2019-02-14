@@ -9,7 +9,7 @@ import Immutable from 'seamless-immutable';
 const initialState = Immutable({
   date: undefined,
   selectedResourceTypes: [],
-  resourceIds: []
+  resourceIds: [],
 });
 
 function adminResourcesPageReducer(state = initialState, action) {
@@ -20,7 +20,7 @@ function adminResourcesPageReducer(state = initialState, action) {
 
     case types.UI.SELECT_ADMIN_RESOURCE_TYPE: {
       return state.merge({
-        selectedResourceTypes: uniq([...state.selectedResourceTypes, action.payload])
+        selectedResourceTypes: uniq([...state.selectedResourceTypes, action.payload]),
       });
     }
 
@@ -29,7 +29,7 @@ function adminResourcesPageReducer(state = initialState, action) {
         selectedResourceTypes: filter(
           state.selectedResourceTypes,
           resourceType => resourceType !== action.payload,
-        )
+        ),
       });
     }
 

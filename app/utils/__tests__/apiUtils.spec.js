@@ -9,7 +9,7 @@ import {
   getHeadersCreator,
   getRequestTypeDescriptor,
   getSearchParamsString,
-  getSuccessTypeDescriptor
+  getSuccessTypeDescriptor,
 } from 'utils/apiUtils';
 import schemas from 'store/middleware/Schemas';
 
@@ -48,13 +48,13 @@ describe('Utils: apiUtils', () => {
         const transformFunction = createTransformFunction();
         const initial = {
           some_key: {
-            nested_key: 'value'
-          }
+            nested_key: 'value',
+          },
         };
         const expected = {
           someKey: {
-            nestedKey: 'value'
-          }
+            nestedKey: 'value',
+          },
         };
 
         expect(transformFunction(initial)).to.deep.equal(expected);
@@ -66,19 +66,19 @@ describe('Utils: apiUtils', () => {
           const initialResourceData = {
             id: 'r-1',
             unit: {
-              id: 'u-1'
-            }
+              id: 'u-1',
+            },
           };
           const expectedResourceData = {
             entities: {
               resources: {
-                'r-1': { id: 'r-1', unit: 'u-1' }
+                'r-1': { id: 'r-1', unit: 'u-1' },
               },
               units: {
-                'u-1': { id: 'u-1' }
-              }
+                'u-1': { id: 'u-1' },
+              },
             },
-            result: 'r-1'
+            result: 'r-1',
           };
 
           expect(transformFunction(initialResourceData)).to.deep.equal(expectedResourceData);
@@ -107,8 +107,8 @@ describe('Utils: apiUtils', () => {
     describe('the meta function', () => {
       const mockAction = {
         [CALL_API]: {
-          types: [{ type: 'SOME_GET_REQUEST' }]
-        }
+          types: [{ type: 'SOME_GET_REQUEST' }],
+        },
       };
 
       it('returns an object with correct properties', () => {
@@ -118,8 +118,8 @@ describe('Utils: apiUtils', () => {
           API_ACTION: {
             apiRequestFinish: true,
             countable: undefined,
-            type: 'SOME_GET_REQUEST'
-          }
+            type: 'SOME_GET_REQUEST',
+          },
         };
 
         expect(actual).to.deep.equal(expected);
@@ -132,8 +132,8 @@ describe('Utils: apiUtils', () => {
           API_ACTION: {
             apiRequestFinish: true,
             countable: true,
-            type: 'SOME_GET_REQUEST'
-          }
+            type: 'SOME_GET_REQUEST',
+          },
         };
 
         expect(actual).to.deep.equal(expected);
@@ -146,9 +146,9 @@ describe('Utils: apiUtils', () => {
           API_ACTION: {
             apiRequestFinish: true,
             countable: undefined,
-            type: 'SOME_GET_REQUEST'
+            type: 'SOME_GET_REQUEST',
           },
-          test: 'test'
+          test: 'test',
         };
 
         expect(actual).to.deep.equal(expected);
@@ -165,8 +165,8 @@ describe('Utils: apiUtils', () => {
       describe('when user is logged in', () => {
         const state = {
           auth: {
-            token: 'mock-token'
-          }
+            token: 'mock-token',
+          },
         };
         const authorizationHeader = { Authorization: 'JWT mock-token' };
 
@@ -186,7 +186,7 @@ describe('Utils: apiUtils', () => {
         describe('if additional headers are specified', () => {
           it('returns the required, the additional and Authorization headers', () => {
             const additionalHeaders = {
-              header: 'value'
+              header: 'value',
             };
             const creator = getHeadersCreator(additionalHeaders);
             const expected = Object.assign(
@@ -203,7 +203,7 @@ describe('Utils: apiUtils', () => {
 
       describe('when user is logged out', () => {
         const state = {
-          auth: {}
+          auth: {},
         };
 
         describe('if no additional headers are specified', () => {
@@ -217,7 +217,7 @@ describe('Utils: apiUtils', () => {
         describe('if additional headers are specified', () => {
           it('returns the required headers and the additional headers', () => {
             const additionalHeaders = {
-              header: 'value'
+              header: 'value',
             };
             const creator = getHeadersCreator(additionalHeaders);
             const expected = Object.assign({}, constants.REQUIRED_API_HEADERS, additionalHeaders);
@@ -248,8 +248,8 @@ describe('Utils: apiUtils', () => {
         API_ACTION: {
           apiRequestStart: true,
           countable: undefined,
-          type: 'SOME_GET_REQUEST'
-        }
+          type: 'SOME_GET_REQUEST',
+        },
       };
 
       expect(actual).to.deep.equal(expected);
@@ -261,8 +261,8 @@ describe('Utils: apiUtils', () => {
         API_ACTION: {
           apiRequestStart: true,
           countable: true,
-          type: 'SOME_GET_REQUEST'
-        }
+          type: 'SOME_GET_REQUEST',
+        },
       };
 
       expect(actual).to.deep.equal(expected);
@@ -274,9 +274,9 @@ describe('Utils: apiUtils', () => {
         API_ACTION: {
           apiRequestStart: true,
           countable: undefined,
-          type: 'SOME_GET_REQUEST'
+          type: 'SOME_GET_REQUEST',
         },
-        test: 'test'
+        test: 'test',
       };
 
       expect(actual).to.deep.equal(expected);
@@ -337,8 +337,8 @@ describe('Utils: apiUtils', () => {
     describe('the meta function', () => {
       const mockAction = {
         [CALL_API]: {
-          types: [{ type: 'SOME_GET_REQUEST' }]
-        }
+          types: [{ type: 'SOME_GET_REQUEST' }],
+        },
       };
 
       it('returns an object with correct properties', () => {
@@ -348,8 +348,8 @@ describe('Utils: apiUtils', () => {
           API_ACTION: {
             apiRequestFinish: true,
             countable: undefined,
-            type: 'SOME_GET_REQUEST'
-          }
+            type: 'SOME_GET_REQUEST',
+          },
         };
 
         expect(actual).to.deep.equal(expected);
@@ -362,8 +362,8 @@ describe('Utils: apiUtils', () => {
           API_ACTION: {
             apiRequestFinish: true,
             countable: true,
-            type: 'SOME_GET_REQUEST'
-          }
+            type: 'SOME_GET_REQUEST',
+          },
         };
 
         expect(actual).to.deep.equal(expected);
@@ -382,9 +382,9 @@ describe('Utils: apiUtils', () => {
           API_ACTION: {
             apiRequestFinish: true,
             countable: undefined,
-            type: 'SOME_GET_REQUEST'
+            type: 'SOME_GET_REQUEST',
           },
-          test: 'test'
+          test: 'test',
         };
 
         expect(actual).to.deep.equal(expected);

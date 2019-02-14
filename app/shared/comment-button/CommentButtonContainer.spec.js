@@ -8,15 +8,15 @@ import { UnconnectedCommentButtonContainer } from './CommentButtonContainer';
 
 describe('shared/comment-button/CommentButtonContainer', () => {
   const reservation = {
-    comments: 'some comments'
+    comments: 'some comments',
   };
 
   const defaultProps = {
     actions: {
       openReservationCommentModal: simple.mock(),
-      selectReservationToShow: simple.mock()
+      selectReservationToShow: simple.mock(),
     },
-    reservation
+    reservation,
   };
 
   function getWrapper(props) {

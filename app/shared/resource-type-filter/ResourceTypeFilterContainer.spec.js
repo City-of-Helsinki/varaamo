@@ -12,7 +12,7 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
     onSelectResourceType: simple.mock(),
     onUnselectResourceType: simple.mock(),
     resourceTypes: ['a', 'b', 'c'],
-    selectedResourceTypes: ['a']
+    selectedResourceTypes: ['a'],
   };
 
   function getWrapper(props) {

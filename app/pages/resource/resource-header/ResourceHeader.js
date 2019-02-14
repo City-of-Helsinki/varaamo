@@ -22,7 +22,7 @@ function ResourceHeader({
   showBackButton,
   showMap,
   unit,
-  t
+  t,
 }) {
   const formatDistance = (distance) => {
     if (!distance) {
@@ -119,7 +119,7 @@ ResourceHeader.propTypes = {
   showBackButton: PropTypes.bool.isRequired,
   showMap: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
-  unit: PropTypes.object.isRequired
+  unit: PropTypes.object.isRequired,
 };
 
 ResourceHeader = injectT(ResourceHeader); // eslint-disable-line

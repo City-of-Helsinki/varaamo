@@ -11,13 +11,13 @@ const storeEnhancers = [
   applyMiddleware(thunk),
   applyMiddleware(apiMiddleware),
   applyMiddleware(tracking),
-  persistState
+  persistState,
 ];
 
 if (isDevelopment) {
   const loggerMiddleware = createLogger({
     collapsed: true,
-    duration: true
+    duration: true,
   });
   storeEnhancers.push(applyMiddleware(loggerMiddleware));
 }

@@ -14,17 +14,17 @@ describe('shared/modals/comment/CommentModalContainer', () => {
   const resource = Resource.build();
   const reservation = Reservation.build({
     comments: 'Some comments',
-    resource: resource.id
+    resource: resource.id,
   });
   const defaultProps = {
     actions: {
       closeReservationCommentModal: simple.stub(),
-      commentReservation: simple.stub()
+      commentReservation: simple.stub(),
     },
     isSaving: false,
     reservation: Immutable(reservation),
     resource: Immutable(resource),
-    show: true
+    show: true,
   };
 
   function getWrapper(extraProps = {}) {

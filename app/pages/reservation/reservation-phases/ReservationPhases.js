@@ -8,7 +8,7 @@ import ReservationPhase from './ReservationPhase';
 ReservationPhases.propTypes = {
   currentPhase: PropTypes.string.isRequired,
   isEditing: PropTypes.bool,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 function ReservationPhases({ currentPhase, isEditing, t }) {

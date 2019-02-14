@@ -8,11 +8,11 @@ ReservationPhase.propTypes = {
   isActive: PropTypes.bool.isRequired,
   isCompleted: PropTypes.bool.isRequired,
   index: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
 };
 
 function ReservationPhase({
-  cols, index, isActive, isCompleted, title
+  cols, index, isActive, isCompleted, title,
 }) {
   const active = isActive ? ' app-ReservationPage__phase-active' : '';
   const completed = isCompleted ? ' app-ReservationPage__phase-completed' : '';

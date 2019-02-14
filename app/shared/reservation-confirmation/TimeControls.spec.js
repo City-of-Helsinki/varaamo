@@ -13,16 +13,16 @@ describe('shared/reservation-confirmation/TimeControls', () => {
     begin: {
       input: {
         onChange: () => null,
-        value: '2017-01-01T10:00:00+02:00'
-      }
+        value: '2017-01-01T10:00:00+02:00',
+      },
     },
     end: {
       input: {
         onChange: () => null,
-        value: '2017-01-01T11:30:00+02:00'
-      }
+        value: '2017-01-01T11:30:00+02:00',
+      },
     },
-    timeSlots: []
+    timeSlots: [],
   };
 
   function getWrapper(props) {
@@ -64,7 +64,7 @@ describe('shared/reservation-confirmation/TimeControls', () => {
         { start: '2017-01-01T07:00+02:00', end: '2017-01-01T08:00+02:00', reserved: false },
         { start: '2017-01-01T08:00+02:00', end: '2017-01-01T09:00+02:00', reserved: false },
         { start: '2017-01-01T09:00+02:00', end: '2017-01-01T10:00+02:00', reserved: true },
-        { start: '2017-01-01T10:00+02:00', end: '2017-01-01T11:00+02:00', reserved: false }
+        { start: '2017-01-01T10:00+02:00', end: '2017-01-01T11:00+02:00', reserved: false },
       ];
       const wrapper = getWrapper({ timeSlots });
       const options = wrapper.instance().getBeginTimeOptions();
@@ -72,7 +72,7 @@ describe('shared/reservation-confirmation/TimeControls', () => {
         { label: '05:00', value: '05:00' },
         { label: '07:00', value: '07:00' },
         { label: '08:00', value: '08:00' },
-        { label: '10:00', value: '10:00' }
+        { label: '10:00', value: '10:00' },
       ];
       mockDate.reset();
       expect(options).to.deep.equal(expected);
@@ -85,13 +85,13 @@ describe('shared/reservation-confirmation/TimeControls', () => {
         { start: '2017-01-01T05:00+02:00', end: '2017-01-01T06:00+02:00', reserved: false },
         { start: '2017-01-01T06:00+02:00', end: '2017-01-01T07:00+02:00', reserved: false },
         { start: '2017-01-01T07:00+02:00', end: '2017-01-01T08:00+02:00', reserved: false },
-        { start: '2017-01-01T08:00+02:00', end: '2017-01-01T09:00+02:00', reserved: false }
+        { start: '2017-01-01T08:00+02:00', end: '2017-01-01T09:00+02:00', reserved: false },
       ];
       const wrapper = getWrapper({ timeSlots });
       const options = wrapper.instance().getBeginTimeOptions();
       const expected = [
         { label: '07:00', value: '07:00' },
-        { label: '08:00', value: '08:00' }
+        { label: '08:00', value: '08:00' },
       ];
       mockDate.reset();
       expect(options).to.deep.equal(expected);
@@ -103,8 +103,8 @@ describe('shared/reservation-confirmation/TimeControls', () => {
       const begin = {
         input: {
           onChange: () => null,
-          value: '2017-01-01T10:00:00+02:00'
-        }
+          value: '2017-01-01T10:00:00+02:00',
+        },
       };
       const timeSlots = [
         { end: '2017-01-01T05:00+02:00', reserved: false },
@@ -116,13 +116,13 @@ describe('shared/reservation-confirmation/TimeControls', () => {
         { end: '2017-01-01T11:00+02:00', reserved: false },
         { end: '2017-01-01T12:00+02:00', reserved: false },
         { end: '2017-01-01T13:00+02:00', reserved: true },
-        { end: '2017-01-01T14:00+02:00', reserved: false }
+        { end: '2017-01-01T14:00+02:00', reserved: false },
       ];
       const wrapper = getWrapper({ begin, timeSlots });
       const options = wrapper.instance().getEndTimeOptions();
       const expected = [
         { label: '11:00 (1 h)', value: '11:00' },
-        { label: '12:00 (2 h)', value: '12:00' }
+        { label: '12:00 (2 h)', value: '12:00' },
       ];
       expect(options).to.deep.equal(expected);
     });
@@ -131,8 +131,8 @@ describe('shared/reservation-confirmation/TimeControls', () => {
       const begin = {
         input: {
           onChange: () => null,
-          value: '2017-01-01T04:00:00+02:00'
-        }
+          value: '2017-01-01T04:00:00+02:00',
+        },
       };
       const maxReservationPeriod = '02:00:00';
       const timeSlots = [
@@ -141,13 +141,13 @@ describe('shared/reservation-confirmation/TimeControls', () => {
         { end: '2017-01-01T07:00+02:00', reserved: false },
         { end: '2017-01-01T08:00+02:00', reserved: false },
         { end: '2017-01-01T09:00+02:00', reserved: false },
-        { end: '2017-01-01T10:00+02:00', reserved: false }
+        { end: '2017-01-01T10:00+02:00', reserved: false },
       ];
       const wrapper = getWrapper({ begin, maxReservationPeriod, timeSlots });
       const options = wrapper.instance().getEndTimeOptions();
       const expected = [
         { label: '05:00 (1 h)', value: '05:00' },
-        { label: '06:00 (2 h)', value: '06:00' }
+        { label: '06:00 (2 h)', value: '06:00' },
       ];
       expect(options).to.deep.equal(expected);
     });
@@ -156,7 +156,7 @@ describe('shared/reservation-confirmation/TimeControls', () => {
   describe('handleBeginTimeChange', () => {
     const newEndOptions = [
       { label: '16:00', value: '16:00' },
-      { label: '16:00', value: '16:30' }
+      { label: '16:00', value: '16:30' },
     ];
 
     function callHandleBeginTimeChange(props, value) {
@@ -170,7 +170,7 @@ describe('shared/reservation-confirmation/TimeControls', () => {
       it('calls begin.input.onChange with time updated in begin.input.value', () => {
         const onChange = simple.mock();
         const props = {
-          begin: { input: { onChange, value: '2017-01-01T10:00:00+02:00' } }
+          begin: { input: { onChange, value: '2017-01-01T10:00:00+02:00' } },
         };
         const value = '15:30';
         const expectedArg = moment('2017-01-01T15:30:00').toISOString();
@@ -183,7 +183,7 @@ describe('shared/reservation-confirmation/TimeControls', () => {
         const onChange = simple.mock();
         const currentEndValue = moment('2017-01-01T10:00:00').toISOString();
         const props = {
-          end: { input: { onChange, value: currentEndValue } }
+          end: { input: { onChange, value: currentEndValue } },
         };
         const value = '15:30';
         callHandleBeginTimeChange(props, value);
@@ -196,7 +196,7 @@ describe('shared/reservation-confirmation/TimeControls', () => {
         const onChange = simple.mock();
         const currentEndValue = moment('2017-01-01T16:30:00').toISOString();
         const props = {
-          end: { input: { onChange, value: currentEndValue } }
+          end: { input: { onChange, value: currentEndValue } },
         };
         const value = '15:30';
         callHandleBeginTimeChange(props, value);
@@ -208,7 +208,7 @@ describe('shared/reservation-confirmation/TimeControls', () => {
       it('does not call begin.input.onChange', () => {
         const onChange = simple.mock();
         const props = {
-          begin: { input: { onChange, value: '2017-01-01T10:00:00+02:00' } }
+          begin: { input: { onChange, value: '2017-01-01T10:00:00+02:00' } },
         };
         const value = '';
         callHandleBeginTimeChange(props, value);
@@ -221,7 +221,7 @@ describe('shared/reservation-confirmation/TimeControls', () => {
     function callHandleEndTimeChange(onChange, value) {
       const currentValue = moment('2017-01-01T12:00:00').toISOString();
       const props = {
-        end: { input: { onChange, value: currentValue } }
+        end: { input: { onChange, value: currentValue } },
       };
       const wrapper = getWrapper(props);
       wrapper.instance().handleEndTimeChange({ value });

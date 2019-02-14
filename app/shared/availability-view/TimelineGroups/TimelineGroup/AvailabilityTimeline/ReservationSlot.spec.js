@@ -14,7 +14,7 @@ function getWrapper(props) {
     end: '2017-01-01T10:30:00Z',
     resourceId: '1',
     isSelectable: true,
-    t: s => s
+    t: s => s,
   };
   return shallow(<ReservationSlot {...defaults} {...props} />);
 }
@@ -57,8 +57,8 @@ describe('shared/availability-view/ReservationSlot', () => {
           selection: {
             begin: '2016-01-01T10:30:00Z',
             end: '2016-01-01T12:00:00Z',
-            resourceId: '1'
-          }
+            resourceId: '1',
+          },
         });
         expect(popover).to.have.length(0);
       });
@@ -70,8 +70,8 @@ describe('shared/availability-view/ReservationSlot', () => {
           selection: {
             begin: '2016-01-01T09:30:00Z',
             end: '2016-01-01T12:00:00Z',
-            resourceId: '1'
-          }
+            resourceId: '1',
+          },
         });
         expect(popover).to.have.length(0);
       });
@@ -84,8 +84,8 @@ describe('shared/availability-view/ReservationSlot', () => {
             begin: '2016-01-01T10:00:00Z',
             end: '2016-01-01T12:00:00Z',
             resourceId: '1',
-            hover: true
-          }
+            hover: true,
+          },
         });
         expect(popover).to.have.length(0);
       });
@@ -98,8 +98,8 @@ describe('shared/availability-view/ReservationSlot', () => {
         selection: {
           begin: '2016-01-01T10:00:00Z',
           end: '2016-01-01T12:00:00Z',
-          resourceId: '1'
-        }
+          resourceId: '1',
+        },
       });
       expect(popover).to.have.length(1);
     });
@@ -114,9 +114,9 @@ describe('shared/availability-view/ReservationSlot', () => {
           begin: '2016-01-01T10:00:00',
           end: '2016-01-01T11:00:00',
           resourceId: '1',
-          ...selection
+          ...selection,
         },
-        resourceId: '1'
+        resourceId: '1',
       };
       const wrapper = getWrapper({ ...defaultProps, ...props });
       return wrapper.find(Link).hasClass('reservation-slot-selected');
@@ -179,7 +179,7 @@ describe('shared/availability-view/ReservationSlot', () => {
         const end = '2017-01-02T14:30:00Z';
         const resourceId = 'auuxn391';
         callHandleClick({}, {
-          begin, end, onClick, resourceId
+          begin, end, onClick, resourceId,
         });
         expect(onClick.callCount).to.equal(1);
         expect(onClick.lastCall.args).to.deep.equal([{ begin, end, resourceId }]);
@@ -197,7 +197,7 @@ describe('shared/availability-view/ReservationSlot', () => {
         const wrapper = getWrapper({
           isSelectable: false,
           onSelectionCancel: () => null,
-          ...props
+          ...props,
         });
         const event = { preventDefault: preventDefault || (() => null) };
         return wrapper.instance().handleClick(event);

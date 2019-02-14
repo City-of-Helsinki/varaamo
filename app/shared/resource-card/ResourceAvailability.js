@@ -30,7 +30,7 @@ function ResourceAvailability({ date, resource, t }) {
 ResourceAvailability.propTypes = {
   date: PropTypes.string.isRequired,
   resource: PropTypes.object.isRequired,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 export default injectT(ResourceAvailability);

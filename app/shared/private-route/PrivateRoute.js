@@ -41,16 +41,16 @@ UnconnectedPrivateRoute.propTypes = {
   location: PropTypes.object.isRequired,
   userId: PropTypes.string,
   component: PropTypes.func.isRequired,
-  componentName: PropTypes.string.isRequired // eslint-disable-line react/no-unused-prop-types
+  componentName: PropTypes.string.isRequired, // eslint-disable-line react/no-unused-prop-types
 };
 
 export const mapStateToProps = state => ({
-  userId: userIdSelector(state)
+  userId: userIdSelector(state),
 });
 
 export const mapDispatchToProps = (dispatch, ownProps) => {
   const actionCreators = {
-    updateRoute: updateRoute(ownProps.componentName)
+    updateRoute: updateRoute(ownProps.componentName),
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
@@ -58,5 +58,5 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(UnconnectedPrivateRoute);

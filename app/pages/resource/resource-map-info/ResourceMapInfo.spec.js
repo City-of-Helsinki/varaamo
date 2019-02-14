@@ -16,9 +16,9 @@ describe('pages/resource/resource-map-info/ResourceMapInfo', () => {
         addressZip: '12345',
         id: 'aaa:123',
         municipality: 'some city',
-        streetAddress: 'Street address 123'
+        streetAddress: 'Street address 123',
       }),
-    )
+    ),
   };
 
   function getWrapper(props) {

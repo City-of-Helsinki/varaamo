@@ -21,7 +21,7 @@ class CommentForm extends Component {
 
   render() {
     const {
-      defaultValue, isSaving, onCancel, t
+      defaultValue, isSaving, onCancel, t,
     } = this.props;
 
     return (
@@ -62,7 +62,7 @@ CommentForm.propTypes = {
   isSaving: PropTypes.bool.isRequired,
   onCancel: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 export default injectT(CommentForm);

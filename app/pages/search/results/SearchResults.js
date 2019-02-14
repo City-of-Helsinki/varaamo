@@ -24,7 +24,7 @@ export class UnconnectedSearchResults extends Component {
       resultCount,
       searchResultIds,
       selectedUnitId,
-      showMap
+      showMap,
     } = this.props;
     return (
       <div className="app-SearchResults" id="search-results">
@@ -63,7 +63,7 @@ UnconnectedSearchResults.propTypes = {
   resultCount: PropTypes.number.isRequired,
   searchResultIds: PropTypes.array.isRequired,
   selectedUnitId: PropTypes.string,
-  showMap: PropTypes.bool.isRequired
+  showMap: PropTypes.bool.isRequired,
 };
 
 export default connect(searchResultsSelector)(UnconnectedSearchResults);

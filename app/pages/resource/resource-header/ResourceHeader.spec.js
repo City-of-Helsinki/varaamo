@@ -19,7 +19,7 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
     resource: Immutable(resource),
     showBackButton: true,
     showMap: false,
-    unit: Immutable(unit)
+    unit: Immutable(unit),
   };
 
   function getWrapper(props) {
@@ -56,7 +56,7 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
     describe('Unit info', () => {
       function createProps(resourceProps) {
         return {
-          resource: Immutable(Resource.build(resourceProps))
+          resource: Immutable(Resource.build(resourceProps)),
         };
       }
 

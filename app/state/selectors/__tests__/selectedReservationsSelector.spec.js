@@ -6,17 +6,17 @@ function getState(selected) {
   return {
     ui: Immutable({
       reservations: {
-        selected
-      }
-    })
+        selected,
+      },
+    }),
   };
 }
 
 function getProps() {
   return {
     params: {
-      id: 'some-id'
-    }
+      id: 'some-id',
+    },
   };
 }
 
@@ -24,11 +24,11 @@ describe('Selector: selectedReservationsSelector', () => {
   const selected = [{
     begin: '2015-12-12T12:00:00+03:00',
     end: '2015-12-12T13:00:00+03:00',
-    resource: 'some-id'
+    resource: 'some-id',
   }, {
     begin: '2015-12-12T13:00:00+03:00',
     end: '2015-12-12T14:00:00+03:00',
-    resource: 'some-id'
+    resource: 'some-id',
   }];
 
   it('returns an empty object if no reservations are selected', () => {
@@ -47,8 +47,8 @@ describe('Selector: selectedReservationsSelector', () => {
       {
         begin: '2015-12-12T12:00:00+03:00',
         end: '2015-12-12T13:00:00+03:00',
-        resource: 'some-id'
-      }
+        resource: 'some-id',
+      },
     ];
 
     expect(actual).to.deep.equal(expected);
@@ -62,8 +62,8 @@ describe('Selector: selectedReservationsSelector', () => {
       {
         begin: '2015-12-12T12:00:00+03:00',
         end: '2015-12-12T14:00:00+03:00',
-        resource: 'some-id'
-      }
+        resource: 'some-id',
+      },
     ];
 
     expect(actual).to.deep.equal(expected);

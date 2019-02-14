@@ -5,7 +5,7 @@ import { extendMoment } from 'moment-range';
 import {
   createIsStaffSelector,
   isAdminSelector,
-  isLoggedInSelector
+  isLoggedInSelector,
 } from 'state/selectors/authSelectors';
 import { createResourceSelector } from 'state/selectors/dataSelectors';
 import dateSelector from 'state/selectors/dateSelector';
@@ -60,7 +60,7 @@ const resourceByDates = createSelector(
         reservations: filter(
           resource.reservations,
           ({ begin }) => begin.substring(0, 10) === rangeDate,
-        )
+        ),
       }));
     }
     return [resource];
@@ -98,7 +98,7 @@ const reservationCalendarSelector = createStructuredSelector({
   selected: selectedSelector,
   selectedReservationSlot: selectedReservationSlotSelector,
   time: timeSelector,
-  timeSlots: timeSlotsSelector
+  timeSlots: timeSlotsSelector,
 });
 
 export default reservationCalendarSelector;

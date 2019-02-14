@@ -13,15 +13,15 @@ describe('shared/form-fields/ReservationTimeControls', () => {
     begin: {
       input: {
         onChange: () => null,
-        value: '2017-01-01T10:00:00+03:00'
-      }
+        value: '2017-01-01T10:00:00+03:00',
+      },
     },
     end: {
       input: {
         onChange: () => null,
-        value: '2017-01-01T11:30:00+03:00'
-      }
-    }
+        value: '2017-01-01T11:30:00+03:00',
+      },
+    },
   };
 
   function getWrapper(props) {
@@ -91,7 +91,7 @@ describe('shared/form-fields/ReservationTimeControls', () => {
         { label: '20:00', value: '20:00' },
         { label: '21:00', value: '21:00' },
         { label: '22:00', value: '22:00' },
-        { label: '23:00', value: '23:00' }
+        { label: '23:00', value: '23:00' },
       ];
       expect(options).to.deep.equal(expected);
     });
@@ -101,7 +101,7 @@ describe('shared/form-fields/ReservationTimeControls', () => {
     function callHandleBeginTimeChange(onChange, value) {
       const currentValue = moment('2017-01-01T10:00:00').toISOString();
       const props = {
-        begin: { input: { onChange, value: currentValue } }
+        begin: { input: { onChange, value: currentValue } },
       };
       const wrapper = getWrapper(props);
       wrapper.instance().handleBeginTimeChange({ value });
@@ -132,7 +132,7 @@ describe('shared/form-fields/ReservationTimeControls', () => {
     function callHandleEndTimeChange(onChange, value) {
       const currentValue = moment('2017-01-01T12:00:00').toISOString();
       const props = {
-        end: { input: { onChange, value: currentValue } }
+        end: { input: { onChange, value: currentValue } },
       };
       const wrapper = getWrapper(props);
       wrapper.instance().handleEndTimeChange({ value });
@@ -168,15 +168,15 @@ describe('shared/form-fields/ReservationTimeControls', () => {
         begin: {
           input: {
             onChange: simple.mock(),
-            value: moment('2017-01-01T10:00:00').toISOString()
-          }
+            value: moment('2017-01-01T10:00:00').toISOString(),
+          },
         },
         end: {
           input: {
             onChange: simple.mock(),
-            value: moment('2017-01-01T11:30:00').toISOString()
-          }
-        }
+            value: moment('2017-01-01T11:30:00').toISOString(),
+          },
+        },
       };
       getWrapper(props).instance().handleDateChange(newDate);
     });

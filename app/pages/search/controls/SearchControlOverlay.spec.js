@@ -7,7 +7,7 @@ import SearchControlOverlay from './SearchControlOverlay';
 const defaults = {
   children: <div id="child-div" />,
   onHide: () => null,
-  title: 'Test title'
+  title: 'Test title',
 };
 function getWrapper(props) {
   return shallowWithIntl(<SearchControlOverlay {...defaults} {...props} />);

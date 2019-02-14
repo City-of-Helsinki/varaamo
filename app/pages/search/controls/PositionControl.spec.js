@@ -11,7 +11,7 @@ function getWrapper(props) {
     geolocated: false,
     onPositionSwitch: () => null,
     onConfirm: () => null,
-    t: () => {}
+    t: () => {},
   };
   return shallowWithIntl(<PositionControl {...defaults} {...props} />);
 }

@@ -9,7 +9,7 @@ const initialState = Immutable({
   reservations: {},
   resources: {},
   units: {},
-  users: {}
+  users: {},
 });
 
 function handleData(state, data) {
@@ -19,8 +19,8 @@ function handleData(state, data) {
 function handleReservation(state, reservation) {
   const entities = {
     reservations: {
-      [reservation.url]: reservation
-    }
+      [reservation.url]: reservation,
+    },
   };
 
   if (state.resources[reservation.resource]) {
@@ -30,8 +30,8 @@ function handleReservation(state, reservation) {
     );
     entities.resources = {
       [reservation.resource]: {
-        reservations: [...reservations, reservation]
-      }
+        reservations: [...reservations, reservation],
+      },
     };
   }
 

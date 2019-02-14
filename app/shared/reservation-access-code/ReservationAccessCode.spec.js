@@ -8,7 +8,7 @@ import ReservationAccessCode from './ReservationAccessCode';
 
 describe('shared/reservation-access-code/ReservationAccessCode', () => {
   const defaultProps = {
-    reservation: Immutable(Reservation.build())
+    reservation: Immutable(Reservation.build()),
   };
 
   function getWrapper(extraProps) {

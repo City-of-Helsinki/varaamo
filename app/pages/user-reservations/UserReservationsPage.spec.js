@@ -19,12 +19,12 @@ describe('pages/user-reservations/UserReservationsPage', () => {
       changeAdminReservationFilters,
       fetchReservations,
       fetchResources,
-      fetchUnits
+      fetchUnits,
     },
     adminReservationFilters: { state: 'requested' },
     isAdmin: false,
     reservationsFetchCount: 1,
-    resourcesLoaded: true
+    resourcesLoaded: true,
   };
 
   function getWrapper(extraProps = {}) {

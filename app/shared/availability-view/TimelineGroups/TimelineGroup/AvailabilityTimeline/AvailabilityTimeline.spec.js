@@ -10,7 +10,7 @@ import ReservationSlot from './ReservationSlot';
 function getWrapper(props) {
   const defaults = {
     id: 'resource-id',
-    items: []
+    items: [],
   };
   return shallow(<AvailabilityTimeline {...defaults} {...props} />);
 }
@@ -31,11 +31,11 @@ describe('shared/availability-view/AvailabilityTimeline', () => {
       items: [{
         key: '1',
         type: 'reservation-slot',
-        data: { begin: moment().format(), end: moment().format(), resourceId: '' }
+        data: { begin: moment().format(), end: moment().format(), resourceId: '' },
       }],
       onReservationSlotClick,
       onReservationSlotMouseEnter,
-      onReservationSlotMouseLeave
+      onReservationSlotMouseLeave,
     });
     const slot = wrapper.find(ReservationSlot);
     expect(slot).to.have.length(1);
@@ -54,9 +54,9 @@ describe('shared/availability-view/AvailabilityTimeline', () => {
           begin: '',
           end: '',
           id: 12345,
-          name: 'My Reservation'
-        }
-      }]
+          name: 'My Reservation',
+        },
+      }],
     });
     const reservation = wrapper.find(Reservation);
     expect(reservation).to.have.length(1);
@@ -72,15 +72,15 @@ describe('shared/availability-view/AvailabilityTimeline', () => {
           data: {
             begin: moment().format(),
             end: moment().format(),
-            resourceId: ''
-          }
+            resourceId: '',
+          },
         },
         {
           key: '2',
           type: 'reservation',
           data: {
-            begin: '', end: '', id: 12345, name: ''
-          }
+            begin: '', end: '', id: 12345, name: '',
+          },
         },
         {
           key: '3',
@@ -88,10 +88,10 @@ describe('shared/availability-view/AvailabilityTimeline', () => {
           data: {
             begin: moment().format(),
             end: moment().format(),
-            resourceId: ''
-          }
-        }
-      ]
+            resourceId: '',
+          },
+        },
+      ],
     });
     const children = wrapper.children();
     expect(children.at(0).is(ReservationSlot)).to.be.true;

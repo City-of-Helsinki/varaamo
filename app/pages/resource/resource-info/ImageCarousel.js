@@ -27,7 +27,7 @@ function ImageCarousel({ images }) {
 }
 
 ImageCarousel.propTypes = {
-  images: PropTypes.array.isRequired
+  images: PropTypes.array.isRequired,
 };
 
 export default ImageCarousel;

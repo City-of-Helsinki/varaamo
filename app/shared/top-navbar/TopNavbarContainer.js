@@ -23,12 +23,12 @@ const userNameSelector = createSelector(
 export const selector = createStructuredSelector({
   isLoggedIn: isLoggedInSelector,
   currentLanguage: currentLanguageSelector,
-  userName: userNameSelector
+  userName: userNameSelector,
 });
 
 const actions = {
   changeLocale,
-  clearSearchResults
+  clearSearchResults,
 };
 
 export default connect(selector, actions)(TopNavbar);

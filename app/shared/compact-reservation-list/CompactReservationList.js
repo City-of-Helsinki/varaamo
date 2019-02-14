@@ -54,7 +54,7 @@ CompactReservationList.propTypes = {
   removableReservations: PropTypes.array,
   reservations: PropTypes.array.isRequired,
   resources: PropTypes.object,
-  subtitle: PropTypes.string
+  subtitle: PropTypes.string,
 };
 
 export default CompactReservationList;

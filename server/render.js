@@ -12,9 +12,9 @@ function render(req, res) {
       auth: { userId: user.id, token: user.token },
       data: {
         users: {
-          [user.id]: user
-        }
-      }
+          [user.id]: user,
+        },
+      },
     };
   }
 
@@ -25,7 +25,7 @@ function render(req, res) {
       initialState={initialState}
       isProduction={config.isProduction}
       piwikSiteId={config.piwikSiteId}
-    />
+    />,
   );
   const html = `<!DOCTYPE html>${htmlContent}`;
 

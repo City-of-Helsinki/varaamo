@@ -14,12 +14,12 @@ describe('shared/compact-reservation-list/CompactReservationList', () => {
   const defaultProps = {
     reservations: Immutable([
       Reservation.build({ resource: resource.id }),
-      Reservation.build({ resource: 'unfetched-resource' })
+      Reservation.build({ resource: 'unfetched-resource' }),
     ]),
     resources: Immutable({
-      [resource.id]: resource
+      [resource.id]: resource,
     }),
-    onRemoveClick: () => {}
+    onRemoveClick: () => {},
   };
 
   function getWrapper(extraProps) {
@@ -74,7 +74,7 @@ describe('shared/compact-reservation-list/CompactReservationList', () => {
       const reservations = [Reservation.build({ foo: 'bar' })];
       const removableReservations = [
         Reservation.build(),
-        Reservation.build()
+        Reservation.build(),
       ];
       const props = { reservations, removableReservations };
       const buttons = getWrapper(props).find({ glyph: 'remove-circle' });

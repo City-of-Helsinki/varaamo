@@ -15,7 +15,7 @@ import ReservationConfirmation from './ReservationConfirmation';
 
 describe('pages/reservation/reservation-confirmation/ReservationConfirmation', () => {
   const history = {
-    replace: () => {}
+    replace: () => {},
   };
 
   const defaultProps = {
@@ -23,7 +23,7 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
     isEdited: false,
     reservation: Immutable(Reservation.build({ user: User.build() })),
     resource: Immutable(Resource.build()),
-    user: Immutable(User.build())
+    user: Immutable(User.build()),
   };
 
   function getWrapper(extraProps) {
@@ -62,7 +62,7 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
   it('renders reserverEmailAddress', () => {
     const reserverEmailAddress = 'reserver email address';
     const wrapper = getWrapper({
-      reservation: Reservation.build({ reserverEmailAddress })
+      reservation: Reservation.build({ reserverEmailAddress }),
     });
     const email = wrapper
       .find(FormattedHTMLMessage)
@@ -74,7 +74,7 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
   it('renders reservation.user.email', () => {
     const user = User.build({ email: 'user email' });
     const wrapper = getWrapper({
-      reservation: Reservation.build({ user })
+      reservation: Reservation.build({ user }),
     });
     const email = wrapper
       .find(FormattedHTMLMessage)
@@ -87,7 +87,7 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
     const user = User.build({ email: 'user email' });
     const wrapper = getWrapper({
       reservation: Reservation.build(),
-      user
+      user,
     });
     const email = wrapper
       .find(FormattedHTMLMessage)
@@ -118,7 +118,7 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
       billingAddressStreet: 'billing address street',
       billingAddressZip: 'billing address zip',
       billingAddressCity: 'billing address city',
-      user: User.build()
+      user: User.build(),
     });
     const fields = getWrapper({ reservation }).find('.app-ReservationConfirmation__field');
     expect(fields).to.have.length(14);

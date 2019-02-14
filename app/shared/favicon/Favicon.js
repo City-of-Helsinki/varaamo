@@ -8,7 +8,7 @@ import vantaaFavicon from './vantaa-favicon.ico';
 
 const favicons = {
   ESPOO: espooFavicon,
-  VANTAA: vantaaFavicon
+  VANTAA: vantaaFavicon,
 };
 
 function Favicon() {

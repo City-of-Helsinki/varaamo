@@ -33,7 +33,7 @@ function ReservationDate({ beginDate, endDate }) {
 
 ReservationDate.propTypes = {
   beginDate: PropTypes.string,
-  endDate: PropTypes.string
+  endDate: PropTypes.string,
 };
 
 export default ReservationDate;

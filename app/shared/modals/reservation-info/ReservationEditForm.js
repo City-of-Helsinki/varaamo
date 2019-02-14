@@ -96,7 +96,7 @@ class UnconnectedReservationEditForm extends Component {
 
   renderReservationTime() {
     const {
-      isEditing, reservation, resource, t
+      isEditing, reservation, resource, t,
     } = this.props;
     if (isEditing) {
       return (
@@ -130,7 +130,7 @@ class UnconnectedReservationEditForm extends Component {
       reservation,
       reservationIsEditable,
       resource,
-      t
+      t,
     } = this.props;
 
     if (isEmpty(reservation)) return <span />;
@@ -206,11 +206,11 @@ UnconnectedReservationEditForm.propTypes = {
   reservation: PropTypes.object.isRequired,
   reservationIsEditable: PropTypes.bool.isRequired,
   resource: PropTypes.object.isRequired,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 UnconnectedReservationEditForm = injectT(UnconnectedReservationEditForm);  // eslint-disable-line
 
 export { UnconnectedReservationEditForm };
 export default injectT(reduxForm({
-  form: FormTypes.RESERVATION_EDIT
+  form: FormTypes.RESERVATION_EDIT,
 })(UnconnectedReservationEditForm));

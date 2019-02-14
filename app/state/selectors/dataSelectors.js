@@ -19,5 +19,5 @@ export {
   purposesSelector,
   reservationsSelector,
   resourcesSelector,
-  unitsSelector
+  unitsSelector,
 };

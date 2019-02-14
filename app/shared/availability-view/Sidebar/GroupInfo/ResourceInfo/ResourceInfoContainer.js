@@ -16,7 +16,7 @@ ResourceInfo.propTypes = {
   name: PropTypes.string.isRequired,
   peopleCapacity: PropTypes.number.isRequired,
   public: PropTypes.bool.isRequired,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 export function ResourceInfo(props) {
   return (
@@ -55,7 +55,7 @@ export function selector() {
     resource => ({
       name: resource.name,
       peopleCapacity: resource.peopleCapacity,
-      public: resource.public
+      public: resource.public,
     }),
   );
 }
@@ -65,6 +65,6 @@ export const UnconnectedResourceInfo = injectT(ResourceInfo);
 const ResourceInfoContainer = connect(selector)(UnconnectedResourceInfo);
 ResourceInfoContainer.propTypes = {
   id: PropTypes.string.isRequired,
-  isSelected: PropTypes.bool.isRequired
+  isSelected: PropTypes.bool.isRequired,
 };
 export default ResourceInfoContainer;

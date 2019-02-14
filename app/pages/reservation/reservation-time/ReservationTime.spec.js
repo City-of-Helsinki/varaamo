@@ -13,7 +13,7 @@ import ReservationTime from './ReservationTime';
 
 describe('pages/reservation/reservation-time/ReservationTime', () => {
   const history = {
-    replace: () => {}
+    replace: () => {},
   };
 
   const defaultProps = {
@@ -24,7 +24,7 @@ describe('pages/reservation/reservation-time/ReservationTime', () => {
     match: { params: {} },
     resource: Resource.build(),
     selectedReservation: Reservation.build(),
-    unit: Unit.build()
+    unit: Unit.build(),
   };
 
   function getWrapper(extraProps) {

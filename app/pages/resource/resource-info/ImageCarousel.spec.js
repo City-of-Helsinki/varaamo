@@ -11,11 +11,11 @@ import ImageCarousel from './ImageCarousel';
 describe('pages/resource/resource-info/ImageCarousel', () => {
   const images = [
     Image.build(),
-    Image.build({ caption: null })
+    Image.build({ caption: null }),
   ];
   const defaultProps = {
     altText: 'Some alt text',
-    images: Immutable(images)
+    images: Immutable(images),
   };
 
   function getWrapper(extraProps) {

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import {
   getFetchParamsFromFilters,
-  pickSupportedFilters
+  pickSupportedFilters,
 } from 'utils/searchUtils';
 import { getDateStartAndEndTimes } from 'utils/timeUtils';
 
@@ -11,7 +11,7 @@ describe('Utils: searchUtils', () => {
       date: '2015-10-10',
       purpose: 'some-purpose',
       search: 'search-query',
-      unsupported: 'filter'
+      unsupported: 'filter',
     };
 
     it('changes date to end and start', () => {
@@ -45,11 +45,11 @@ describe('Utils: searchUtils', () => {
       const filters = {
         purpose: 'some-purpose',
         search: 'search-query',
-        unsupported: 'invalid'
+        unsupported: 'invalid',
       };
       const expected = {
         purpose: 'some-purpose',
-        search: 'search-query'
+        search: 'search-query',
       };
 
       expect(pickSupportedFilters(filters)).to.deep.equal(expected);

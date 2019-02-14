@@ -7,14 +7,14 @@ import {
   getErrorTypeDescriptor,
   getHeadersCreator,
   getRequestTypeDescriptor,
-  getSuccessTypeDescriptor
+  getSuccessTypeDescriptor,
 } from 'utils/apiUtils';
 
 function fetchFavoritedResources(timeAsMoment, source) {
   const params = {
     end: timeAsMoment.endOf('day').toISOString(),
     is_favorite: true,
-    start: timeAsMoment.startOf('day').toISOString()
+    start: timeAsMoment.startOf('day').toISOString(),
   };
   return fetchResources(params, source);
 }
@@ -28,12 +28,12 @@ function fetchResource(id, params = {}) {
           types.API.RESOURCE_GET_SUCCESS,
           { schema: schemas.resourceSchema },
         ),
-        getErrorTypeDescriptor(types.API.RESOURCE_GET_ERROR)
+        getErrorTypeDescriptor(types.API.RESOURCE_GET_ERROR),
       ],
       endpoint: buildAPIUrl(`resource/${id}`, params),
       method: 'GET',
-      headers: getHeadersCreator()
-    }
+      headers: getHeadersCreator(),
+    },
   };
 }
 
@@ -48,15 +48,15 @@ function fetchResources(params = {}, source) {
           types.API.RESOURCES_GET_SUCCESS,
           {
             meta: { source },
-            schema: schemas.paginatedResourcesSchema
+            schema: schemas.paginatedResourcesSchema,
           },
         ),
-        getErrorTypeDescriptor(types.API.RESOURCES_GET_ERROR)
+        getErrorTypeDescriptor(types.API.RESOURCES_GET_ERROR),
       ],
       endpoint: buildAPIUrl('resource', fetchParams),
       method: 'GET',
-      headers: getHeadersCreator()
-    }
+      headers: getHeadersCreator(),
+    },
   };
 }
 
@@ -69,12 +69,12 @@ function favoriteResource(id) {
           types.API.RESOURCE_FAVORITE_POST_SUCCESS,
           { meta: { id } },
         ),
-        getErrorTypeDescriptor(types.API.RESOURCE_FAVORITE_POST_ERROR)
+        getErrorTypeDescriptor(types.API.RESOURCE_FAVORITE_POST_ERROR),
       ],
       endpoint: buildAPIUrl(`resource/${id}/favorite`),
       method: 'POST',
-      headers: getHeadersCreator()
-    }
+      headers: getHeadersCreator(),
+    },
   };
 }
 
@@ -87,12 +87,12 @@ function unfavoriteResource(id) {
           types.API.RESOURCE_UNFAVORITE_POST_SUCCESS,
           { meta: { id } },
         ),
-        getErrorTypeDescriptor(types.API.RESOURCE_UNFAVORITE_POST_ERROR)
+        getErrorTypeDescriptor(types.API.RESOURCE_UNFAVORITE_POST_ERROR),
       ],
       endpoint: buildAPIUrl(`resource/${id}/unfavorite`),
       method: 'POST',
-      headers: getHeadersCreator()
-    }
+      headers: getHeadersCreator(),
+    },
   };
 }
 
@@ -102,5 +102,5 @@ export {
   fetchResource,
   fetchResources,
   favoriteResource,
-  unfavoriteResource
+  unfavoriteResource,
 };

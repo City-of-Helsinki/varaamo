@@ -21,7 +21,7 @@ class TimeRangeControl extends React.Component {
     onTimeRangeSwitch: PropTypes.func.isRequired,
     start: PropTypes.string,
     t: PropTypes.func.isRequired,
-    useTimeRange: PropTypes.bool.isRequired
+    useTimeRange: PropTypes.bool.isRequired,
   };
 
   constructor(props) {
@@ -49,7 +49,7 @@ class TimeRangeControl extends React.Component {
     const minutes = Math.min(diffMinutes, 720);
     return {
       hours: Math.floor(minutes / 60),
-      minutes: minutes % 60
+      minutes: minutes % 60,
     };
   }
 
@@ -67,7 +67,7 @@ class TimeRangeControl extends React.Component {
 
       return {
         label: `${hours} h`,
-        value: minutes
+        value: minutes,
       };
     });
 
@@ -89,9 +89,9 @@ class TimeRangeControl extends React.Component {
 
         return {
           label: value,
-          value
+          value,
         };
-      }
+      },
     );
 
     return options;
@@ -124,7 +124,7 @@ class TimeRangeControl extends React.Component {
 
   render() {
     const {
-      duration, end, start, t, useTimeRange
+      duration, end, start, t, useTimeRange,
     } = this.props;
 
     return (

@@ -15,7 +15,7 @@ function ReservationSuccessModal({
   resources,
   show,
   t,
-  user
+  user,
 }) {
   const reservation = reservationsToShow.length ? reservationsToShow[0] : {};
   const resource = reservation.resource ? resources[reservation.resource] : {};
@@ -120,7 +120,7 @@ ReservationSuccessModal.propTypes = {
   resources: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
 };
 
 export default injectT(ReservationSuccessModal);

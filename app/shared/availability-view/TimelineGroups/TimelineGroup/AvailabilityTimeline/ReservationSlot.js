@@ -21,8 +21,8 @@ export class UninjectedReservationSlot extends React.Component {
       begin: PropTypes.string.isRequired,
       end: PropTypes.string.isRequired,
       hover: PropTypes.bool,
-      resourceId: PropTypes.string.isRequired
-    })
+      resourceId: PropTypes.string.isRequired,
+    }),
   };
 
   constructor(props) {
@@ -56,7 +56,7 @@ export class UninjectedReservationSlot extends React.Component {
     return {
       begin: this.props.begin,
       end: this.props.end,
-      resourceId: this.props.resourceId
+      resourceId: this.props.resourceId,
     };
   }
 
@@ -92,7 +92,7 @@ export class UninjectedReservationSlot extends React.Component {
       <Link
         className={classNames('reservation-slot', {
           'reservation-slot-selected': isSelected,
-          'reservation-slot-selectable': this.props.isSelectable
+          'reservation-slot-selectable': this.props.isSelectable,
         })}
         onClick={this.handleClick}
         onMouseEnter={this.handleMouseEnter}

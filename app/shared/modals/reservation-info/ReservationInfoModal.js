@@ -48,7 +48,7 @@ class ReservationInfoModal extends Component {
       reservationIsEditable,
       resource,
       show,
-      t
+      t,
     } = this.props;
 
     const disabled = isSaving || isEditing;
@@ -176,7 +176,7 @@ ReservationInfoModal.propTypes = {
   reservationIsEditable: PropTypes.bool.isRequired,
   resource: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 export default injectT(ReservationInfoModal);

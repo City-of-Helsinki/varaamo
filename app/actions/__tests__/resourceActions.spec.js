@@ -17,7 +17,7 @@ describe('Actions: resourceActions', () => {
         method: 'POST',
         endpoint: buildAPIUrl(`resource/${resourceId}/favorite`),
         request: {
-          type: types.API.RESOURCE_FAVORITE_POST_REQUEST
+          type: types.API.RESOURCE_FAVORITE_POST_REQUEST,
         },
         success: {
           type: types.API.RESOURCE_FAVORITE_POST_SUCCESS,
@@ -25,14 +25,14 @@ describe('Actions: resourceActions', () => {
             tests: {
               'contains resource id in meta': ({ meta }) => {
                 expect(meta.id).to.equal(resourceId);
-              }
-            }
-          }
+              },
+            },
+          },
         },
         error: {
-          type: types.API.RESOURCE_FAVORITE_POST_ERROR
-        }
-      }
+          type: types.API.RESOURCE_FAVORITE_POST_ERROR,
+        },
+      },
     });
   });
 
@@ -47,7 +47,7 @@ describe('Actions: resourceActions', () => {
         method: 'POST',
         endpoint: buildAPIUrl(`resource/${resourceId}/unfavorite`),
         request: {
-          type: types.API.RESOURCE_UNFAVORITE_POST_REQUEST
+          type: types.API.RESOURCE_UNFAVORITE_POST_REQUEST,
         },
         success: {
           type: types.API.RESOURCE_UNFAVORITE_POST_SUCCESS,
@@ -55,14 +55,14 @@ describe('Actions: resourceActions', () => {
             tests: {
               'contains resource id in meta': ({ meta }) => {
                 expect(meta.id).to.equal(resourceId);
-              }
-            }
-          }
+              },
+            },
+          },
         },
         error: {
-          type: types.API.RESOURCE_UNFAVORITE_POST_ERROR
-        }
-      }
+          type: types.API.RESOURCE_UNFAVORITE_POST_ERROR,
+        },
+      },
     });
   });
 });

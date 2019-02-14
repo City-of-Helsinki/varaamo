@@ -20,7 +20,7 @@ describe('Utils: imageUtils', () => {
       const images = [
         Image.build({ type: 'other' }),
         Image.build({ type: 'main' }),
-        Image.build({ type: 'other' })
+        Image.build({ type: 'other' }),
       ];
 
       expect(getMainImage(images)).to.deep.equal(images[1]);
@@ -30,7 +30,7 @@ describe('Utils: imageUtils', () => {
       const images = [
         Image.build({ type: 'other' }),
         Image.build({ type: 'main' }),
-        Image.build({ type: 'main' })
+        Image.build({ type: 'main' }),
       ];
 
       expect(getMainImage(images)).to.deep.equal(images[1]);
@@ -39,7 +39,7 @@ describe('Utils: imageUtils', () => {
     it('returns the first image if none of the images is of type "main"', () => {
       const images = [
         Image.build({ type: 'other' }),
-        Image.build({ type: 'other' })
+        Image.build({ type: 'other' }),
       ];
 
       expect(getMainImage(images)).to.deep.equal(images[0]);

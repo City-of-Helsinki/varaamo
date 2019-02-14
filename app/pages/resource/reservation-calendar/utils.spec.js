@@ -9,15 +9,15 @@ import utils from './utils';
 describe('pages/resource/reservation-calendar/utils', () => {
   const slot = {
     start: '2015-10-10T12:00:00Z',
-    end: '2015-10-10T12:30:00Z'
+    end: '2015-10-10T12:30:00Z',
   };
   const slotOutsideOpeningHours = {
     start: '2015-10-12T12:00:00Z',
-    end: '2015-10-12T12:30:00Z'
+    end: '2015-10-12T12:30:00Z',
   };
   const selected = [{
     begin: '2015-10-10T12:00:00Z',
-    end: '2015-10-10T12:30:00Z'
+    end: '2015-10-10T12:30:00Z',
   }];
 
   describe('getNextDayFromDate', () => {
@@ -128,7 +128,7 @@ describe('pages/resource/reservation-calendar/utils', () => {
     it('returns false if not admin and slot start is after max period since selected begin', () => {
       const slotAfterMaxPeriod = {
         start: '2015-10-10T13:00:00Z',
-        end: '2015-10-10T13:30:00Z'
+        end: '2015-10-10T13:30:00Z',
       };
       const resourceMaxPeriod = Resource.build({ maxPeriod: '00:30:00' });
       const actual = utils.isSlotSelectable(slotAfterMaxPeriod, selected,
@@ -139,7 +139,7 @@ describe('pages/resource/reservation-calendar/utils', () => {
     it('returns true if is admin and slot start is after max period since selected begin', () => {
       const slotAfterMaxPeriod = {
         start: '2015-10-10T13:00:00Z',
-        end: '2015-10-10T13:30:00Z'
+        end: '2015-10-10T13:30:00Z',
       };
       const resourceMaxPeriod = Resource.build({ maxPeriod: '00:30:00' });
       const actual = utils.isSlotSelectable(slotAfterMaxPeriod, selected,
@@ -180,7 +180,7 @@ describe('pages/resource/reservation-calendar/utils', () => {
     it('returns false if slot is not inside selected', () => {
       const selectedOutsideSlot = [{
         begin: '2015-10-10T10:00:00Z',
-        end: '2015-10-10T10:30:00Z'
+        end: '2015-10-10T10:30:00Z',
       }];
       const actual = utils.isSlotSelected(slot, selectedOutsideSlot);
       expect(actual).to.be.false;

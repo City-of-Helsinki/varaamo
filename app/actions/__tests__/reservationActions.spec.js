@@ -6,7 +6,7 @@ import * as reservationActions from 'actions/reservationActions';
 describe('Actions: reservationActions', () => {
   const reservation = {
     url: 'http://reservation.url',
-    resource: '1234qwert'
+    resource: '1234qwert',
   };
 
   let getRequestTypeDescriptorMock;
@@ -22,8 +22,8 @@ describe('Actions: reservationActions', () => {
         args: [
           'Reservation',
           'reservation-cancel',
-          reservation.resource
-        ]
+          reservation.resource,
+        ],
       });
     });
   });
@@ -35,8 +35,8 @@ describe('Actions: reservationActions', () => {
         args: [
           'Reservation',
           'reservation-add',
-          reservation.resource
-        ]
+          reservation.resource,
+        ],
       });
     });
   });
@@ -48,8 +48,8 @@ describe('Actions: reservationActions', () => {
         args: [
           'Reservation',
           'reservation-edit',
-          reservation.resource
-        ]
+          reservation.resource,
+        ],
       });
     });
   });

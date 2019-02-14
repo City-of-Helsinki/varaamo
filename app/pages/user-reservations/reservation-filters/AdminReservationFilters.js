@@ -24,18 +24,18 @@ class AdminReservationFilters extends Component {
     const stateOptions = [
       {
         label: t('common.optionsAllLabel'),
-        value: 'all'
+        value: 'all',
       },
       ...sortBy(
         map(
           constants.RESERVATION_STATE_LABELS,
           (value, key) => ({
             label: t(value.labelTextId),
-            value: key
+            value: key,
           }),
         ),
         'label',
-      )
+      ),
     ];
 
     return (
@@ -58,7 +58,7 @@ class AdminReservationFilters extends Component {
 AdminReservationFilters.propTypes = {
   filters: PropTypes.object.isRequired,
   onFiltersChange: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 export default injectT(AdminReservationFilters);

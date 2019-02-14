@@ -15,10 +15,10 @@ function getState() {
           extra: 'attribute',
           isFavorite: false,
           peopleCapacity: 9,
-          public: true
-        }
-      }
-    }
+          public: true,
+        },
+      },
+    },
   };
 }
 
@@ -31,7 +31,7 @@ describe('shared/availability-view/ResourceInfoContainer', () => {
       isSelected: false,
       name: 'Resource name',
       peopleCapacity: 19,
-      public: true
+      public: true,
     };
     return shallowWithIntl(<ResourceInfo {...defaults} {...props} />);
   }
@@ -81,7 +81,7 @@ describe('shared/availability-view/ResourceInfoContainer', () => {
       expect(actual).to.deep.equal({
         name: 'Resource Name',
         peopleCapacity: 9,
-        public: true
+        public: true,
       });
     });
   });

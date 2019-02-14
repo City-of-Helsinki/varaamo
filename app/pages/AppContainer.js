@@ -19,7 +19,7 @@ import { getCustomizationClassName } from 'utils/customizationUtils';
 const userIdSelector = state => state.auth.userId;
 
 export const selector = createStructuredSelector({
-  userId: userIdSelector
+  userId: userIdSelector,
 });
 
 export class UnconnectedAppContainer extends Component {
@@ -33,7 +33,7 @@ export class UnconnectedAppContainer extends Component {
 
   getChildContext() {
     return {
-      location: this.props.location
+      location: this.props.location,
     };
   }
 
@@ -85,11 +85,11 @@ UnconnectedAppContainer.propTypes = {
   enableGeoposition: PropTypes.func.isRequired,
   fetchUser: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
-  userId: PropTypes.string
+  userId: PropTypes.string,
 };
 
 UnconnectedAppContainer.childContextTypes = {
-  location: PropTypes.object
+  location: PropTypes.object,
 };
 
 const actions = { enableGeoposition, fetchUser };
@@ -97,6 +97,6 @@ const actions = { enableGeoposition, fetchUser };
 export default withRouter(
   connect(
     selector,
-    actions
-  )(UnconnectedAppContainer)
+    actions,
+  )(UnconnectedAppContainer),
 );

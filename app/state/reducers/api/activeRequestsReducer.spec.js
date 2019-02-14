@@ -23,7 +23,7 @@ describe('state/reducers/api/activeRequestsReducer', () => {
     describe('actions that have meta.API_ACTIONS.apiRequestStart', () => {
       const action = apiActionCreator({
         apiRequestStart: true,
-        type: 'SOME_REQUEST'
+        type: 'SOME_REQUEST',
       });
 
       describe('if activeRequests already contains the action', () => {
@@ -83,7 +83,7 @@ describe('state/reducers/api/activeRequestsReducer', () => {
           const action = apiActionCreator({
             apiRequestFinish: true,
             countable: true,
-            type: 'SOME_REQUEST'
+            type: 'SOME_REQUEST',
           });
 
           it('decreases the count of the action by one', () => {
@@ -114,7 +114,7 @@ describe('state/reducers/api/activeRequestsReducer', () => {
         describe('if the action does not have property "countable"', () => {
           const action = apiActionCreator({
             apiRequestFinish: true,
-            type: 'SOME_REQUEST'
+            type: 'SOME_REQUEST',
           });
 
           it('sets the count of the action to 0', () => {
@@ -146,7 +146,7 @@ describe('state/reducers/api/activeRequestsReducer', () => {
       describe('if activeRequests does not already contain the action', () => {
         const action = apiActionCreator({
           apiRequestFinish: true,
-          type: 'SOME_REQUEST'
+          type: 'SOME_REQUEST',
         });
 
         it('adds the action to activeRequests with count 0', () => {

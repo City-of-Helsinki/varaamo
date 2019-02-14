@@ -24,7 +24,7 @@ function NotFoundPage({ t }) {
                     <Link to={getSearchPageUrl()}>
                       <FormattedMessage id="NotFoundPage.searchPageLink" />
                     </Link>
-                  )
+                  ),
                 }}
               />
             </li>
@@ -38,7 +38,7 @@ function NotFoundPage({ t }) {
 }
 
 NotFoundPage.propTypes = {
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 export default injectT(NotFoundPage);

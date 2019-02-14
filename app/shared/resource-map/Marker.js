@@ -14,7 +14,7 @@ class Marker extends React.Component {
     const commonIcon = {
       className: 'marker-icon',
       iconAnchor: [12, 48],
-      iconSize: [25, 48]
+      iconSize: [25, 48],
     };
     const count = (
       this.props.resourceIds.length > 1
@@ -23,12 +23,12 @@ class Marker extends React.Component {
     );
     const icon = L.divIcon({
       ...commonIcon,
-      html: `<div>${count}</div><img src="${iconRetinaUrl}" />`
+      html: `<div>${count}</div><img src="${iconRetinaUrl}" />`,
     });
 
     const highlightedIcon = L.divIcon({
       ...commonIcon,
-      html: `<div>${count}</div><img src="${highlightedIconRetinaUrl}" />`
+      html: `<div>${count}</div><img src="${highlightedIconRetinaUrl}" />`,
     });
     return (
       <LeafletMarker
@@ -46,7 +46,7 @@ Marker.propTypes = {
   resourceIds: PropTypes.array.isRequired,
   unitId: PropTypes.string.isRequired,
   highlighted: PropTypes.bool,
-  selectUnit: PropTypes.func.isRequired
+  selectUnit: PropTypes.func.isRequired,
 };
 
 export default Marker;

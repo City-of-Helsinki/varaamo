@@ -9,26 +9,26 @@ import reservationCalendarSelector from './reservationCalendarSelector';
 function getState(resource) {
   return {
     api: Immutable({
-      activeRequests: []
+      activeRequests: [],
     }),
     auth: {
       token: null,
-      userId: null
+      userId: null,
     },
     data: Immutable({
       resources: { [resource.id]: resource },
-      users: {}
+      users: {},
     }),
     ui: Immutable({
       modals: {
-        open: []
+        open: [],
       },
       reservations: {
         selected: [],
         selectedSlot: { foo: 'bar' },
-        toEdit: ['mock-reservation']
-      }
-    })
+        toEdit: ['mock-reservation'],
+      },
+    }),
   };
 }
 
@@ -36,11 +36,11 @@ function getProps(id = 'some-id', date = '2015-10-10') {
   return {
     location: {
       search: `date=${date}&time=2015-10-10T12:00:00`,
-      hash: '#some-hash'
+      hash: '#some-hash',
     },
     params: {
-      id
-    }
+      id,
+    },
   };
 }
 
@@ -53,9 +53,9 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
       {
         begin: '2015-10-10T12:00:00+03:00',
         end: '2015-10-10T18:00:00+03:00',
-        state: 'confirmed'
-      }
-    ]
+        state: 'confirmed',
+      },
+    ],
   });
 
   it('returns date', () => {
@@ -150,7 +150,7 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
         mockSlots,
         mockSlots,
         mockSlots,
-        mockSlots
+        mockSlots,
       ];
       simple.mock(timeUtils, 'getTimeSlots').returnWith(mockSlots);
 
@@ -177,7 +177,7 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
         [],
         [{ start: '2015-10-10' }],
         [{ start: '2015-10-11' }],
-        []
+        [],
       ];
       simple.mock(timeUtils, 'getTimeSlots').returnWith([]);
 

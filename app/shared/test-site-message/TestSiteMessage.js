@@ -17,7 +17,7 @@ function TestSiteMessage({ t }) {
 }
 
 TestSiteMessage.propTypes = {
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 export default injectT(TestSiteMessage);

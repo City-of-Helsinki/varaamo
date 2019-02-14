@@ -131,5 +131,5 @@ export {
   startReservationEditInInfoModal,
   toggleResourceMap,
   toggleTimeSlot,
-  unselectAdminResourceType
+  unselectAdminResourceType,
 };

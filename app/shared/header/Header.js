@@ -20,7 +20,7 @@ function Header({ children, location }) {
 
 Header.propTypes = {
   children: PropTypes.node.isRequired,
-  location: PropTypes.object.isRequired
+  location: PropTypes.object.isRequired,
 };
 
 export default Header;

@@ -32,7 +32,7 @@ const reservationCancelModalSelector = createStructuredSelector({
   ),
   reservation: reservationSelector,
   resource: createResourceSelector(resourceIdSelector),
-  show: modalIsOpenSelectorFactory(ModalTypes.RESERVATION_CANCEL)
+  show: modalIsOpenSelectorFactory(ModalTypes.RESERVATION_CANCEL),
 });
 
 export default reservationCancelModalSelector;

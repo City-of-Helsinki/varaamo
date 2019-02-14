@@ -4,13 +4,13 @@ import ReactNotifications from 'react-notifications';
 import { shallowWithIntl } from 'utils/testUtils';
 
 import {
-  UnconnectedNotificationsContainer as NotificationsContainer
+  UnconnectedNotificationsContainer as NotificationsContainer,
 } from './NotificationsContainer';
 
 describe('shared/notifications/NotificationsContainer', () => {
   const defaultProps = {
     actions: { hideNotification: () => null },
-    notifications: []
+    notifications: [],
   };
 
   function getWrapper(props) {
@@ -26,18 +26,18 @@ describe('shared/notifications/NotificationsContainer', () => {
     it('gets correct props', () => {
       const notifications = [
         { message: 'Some message', type: 'success' },
-        { messageId: 'Notifications.errorMessage', type: 'error' }
+        { messageId: 'Notifications.errorMessage', type: 'error' },
       ];
       const expectedNotifications = [
         {
           message: 'Some message',
-          type: 'success'
+          type: 'success',
         },
         {
           message: 'Notifications.errorMessage',
           messageId: 'Notifications.errorMessage',
-          type: 'error'
-        }
+          type: 'error',
+        },
       ];
       const actualProps = getWrapper({ notifications }).find(ReactNotifications).props();
       expect(actualProps.notifications).to.deep.equal(expectedNotifications);

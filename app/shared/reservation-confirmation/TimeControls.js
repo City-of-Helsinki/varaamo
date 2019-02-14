@@ -12,7 +12,7 @@ function updateWithTime(initialValue, time, timeFormat) {
   return moment(initialValue)
     .set({
       hour: timeMoment.get('hour'),
-      minute: timeMoment.get('minute')
+      minute: timeMoment.get('minute'),
     })
     .toISOString();
 }
@@ -23,11 +23,11 @@ class TimeControls extends Component {
     end: PropTypes.object.isRequired,
     maxReservationPeriod: PropTypes.string,
     timeFormat: PropTypes.string,
-    timeSlots: PropTypes.array
+    timeSlots: PropTypes.array,
   };
 
   static defaultProps = {
-    timeFormat: 'HH:mm'
+    timeFormat: 'HH:mm',
   };
 
   getBeginTimeOptions() {
@@ -38,7 +38,7 @@ class TimeControls extends Component {
       if (now.isBefore(slot.end) && (!slot.reserved || slot.editing)) {
         options.push({
           label: moment(slot.start).format(timeFormat),
-          value: moment(slot.start).format(timeFormat)
+          value: moment(slot.start).format(timeFormat),
         });
       }
     });
@@ -47,7 +47,7 @@ class TimeControls extends Component {
 
   getEndTimeOptions(beginValue) {
     const {
-      begin, maxReservationPeriod, timeFormat, timeSlots
+      begin, maxReservationPeriod, timeFormat, timeSlots,
     } = this.props;
     const beginTime = beginValue || begin.input.value;
     const firstPossibleIndex = timeSlots.findIndex(slot => moment(slot.end).isAfter(beginTime));
@@ -61,7 +61,7 @@ class TimeControls extends Component {
         const time = moment(slot.end).format(timeFormat);
         options.push({
           label: `${time} (${hours} h)`,
-          value: time
+          value: time,
         });
       } else {
         return false; // Exits the lodash forEach

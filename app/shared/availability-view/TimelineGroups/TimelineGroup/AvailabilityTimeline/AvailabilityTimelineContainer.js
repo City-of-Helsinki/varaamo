@@ -54,7 +54,7 @@ export function selector() {
 }
 
 const actions = {
-  onReservationClick: showReservationInfoModal
+  onReservationClick: showReservationInfoModal,
 };
 
 const AvailabilityTimelineContainer = connect(selector, actions)(AvailabilityTimeline);
@@ -64,7 +64,7 @@ AvailabilityTimelineContainer.propTypes = {
   onReservationSlotClick: PropTypes.func,
   onReservationSlotMouseEnter: PropTypes.func,
   onReservationSlotMouseLeave: PropTypes.func,
-  selection: PropTypes.object
+  selection: PropTypes.object,
 };
 
 export default AvailabilityTimelineContainer;

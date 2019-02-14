@@ -21,9 +21,9 @@ function ReservationStateLabel({ reservation, t }) {
 ReservationStateLabel.propTypes = {
   reservation: PropTypes.shape({
     needManualConfirmation: PropTypes.bool.isRequired,
-    state: PropTypes.string.isRequired
+    state: PropTypes.string.isRequired,
   }).isRequired,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 export default injectT(ReservationStateLabel);

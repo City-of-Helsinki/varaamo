@@ -15,13 +15,13 @@ describe('Selector: urlSearchFiltersSelector', () => {
     search: '',
     start: '08:30',
     unit: '',
-    useTimeRange: false
+    useTimeRange: false,
   };
 
   const getProps = (date = filters.date, start = filters.start) => ({
     location: {
-      search: `?charge=false&date=${date}&distance=&duration=30&end=23:30&page=1&people=&purpose=some-purpose&search=&start=${start}&unit=&useTimeRange=false`
-    }
+      search: `?charge=false&date=${date}&distance=&duration=30&end=23:30&page=1&people=&purpose=some-purpose&search=&start=${start}&unit=&useTimeRange=false`,
+    },
   });
 
   it('returns search filters from the props', () => {

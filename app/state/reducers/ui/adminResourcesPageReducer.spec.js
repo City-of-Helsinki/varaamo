@@ -6,7 +6,7 @@ import Immutable from 'seamless-immutable';
 import {
   changeAdminResourcesPageDate,
   selectAdminResourceType,
-  unselectAdminResourceType
+  unselectAdminResourceType,
 } from 'actions/uiActions';
 import Resource from 'utils/fixtures/Resource';
 
@@ -49,7 +49,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
       it('does not duplicate types in array', () => {
         const resourceType = 'new type';
         const initialState = Immutable({
-          selectedResourceTypes: [resourceType]
+          selectedResourceTypes: [resourceType],
         });
         const state = adminResourcesPageReducer(
           initialState,
@@ -64,7 +64,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
         const resourceType = 'type';
         const removedResourceType = 'old type';
         const initialState = Immutable({
-          selectedResourceTypes: [removedResourceType, resourceType]
+          selectedResourceTypes: [removedResourceType, resourceType],
         });
         const state = adminResourcesPageReducer(
           initialState,
@@ -83,12 +83,12 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
       const resourcesList = [
         Resource.build(),
         Resource.build(),
-        Resource.build()
+        Resource.build(),
       ];
       const resources = {
         [resourcesList[0].id]: resourcesList[0],
         [resourcesList[1].id]: resourcesList[1],
-        [resourcesList[2].id]: resourcesList[2]
+        [resourcesList[2].id]: resourcesList[2],
       };
 
       describe('with correct meta source', () => {
@@ -97,7 +97,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
         before(() => {
           action = getResourceSuccess(
             {
-              entities: { resources }
+              entities: { resources },
             },
             { source: 'adminResourcesPage' },
           );
@@ -105,25 +105,25 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
 
         it('adds resources ids from action', () => {
           const initialState = Immutable({
-            resourceIds: []
+            resourceIds: [],
           });
           const nextState = adminResourcesPageReducer(initialState, action);
           expect(nextState.resourceIds).to.deep.equal([
             resourcesList[0].id,
             resourcesList[1].id,
-            resourcesList[2].id
+            resourcesList[2].id,
           ]);
         });
 
         it('overrides resources ids from action', () => {
           const initialState = Immutable({
-            resourceIds: ['1', '2', '3']
+            resourceIds: ['1', '2', '3'],
           });
           const nextState = adminResourcesPageReducer(initialState, action);
           expect(nextState.resourceIds).to.deep.equal([
             resourcesList[0].id,
             resourcesList[1].id,
-            resourcesList[2].id
+            resourcesList[2].id,
           ]);
         });
       });
@@ -133,14 +133,14 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
         before(() => {
           action = getResourceSuccess({
             entities: {
-              resources: { resources }
-            }
+              resources: { resources },
+            },
           });
         });
 
         it('does not add resources ids to state if meta source is not adminResourcesPage', () => {
           const initialState = Immutable({
-            resourceIds: []
+            resourceIds: [],
           });
           const nextState = adminResourcesPageReducer(initialState, action);
 
@@ -159,9 +159,9 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
               entities: {
                 resources: {
                   [publicResource.id]: publicResource,
-                  [nonPublicResource.id]: nonPublicResource
-                }
-              }
+                  [nonPublicResource.id]: nonPublicResource,
+                },
+              },
             },
             { source: 'adminResourcesPage' },
           );
@@ -169,7 +169,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
 
         it('adds resources ids to state', () => {
           const initialState = Immutable({
-            resourceIds: []
+            resourceIds: [],
           });
           const nextState = adminResourcesPageReducer(initialState, action);
 

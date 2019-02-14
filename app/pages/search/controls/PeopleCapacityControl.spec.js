@@ -13,7 +13,7 @@ import SearchControlOverlay from './SearchControlOverlay';
 function getWrapper(props) {
   const defaults = {
     onConfirm: () => null,
-    value: 5
+    value: 5,
   };
   return shallowWithIntl(<PeopleCapacityControl {...defaults} {...props} />);
 }

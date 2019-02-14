@@ -18,7 +18,7 @@ const uiSearchFiltersSelector = createSelector(
         charge: textBoolean(filters.charge),
         date: getDateString(filters.date),
         page: parseInt(filters.page, 10) || 1,
-        useTimeRange: textBoolean(filters.useTimeRange)
+        useTimeRange: textBoolean(filters.useTimeRange),
       },
     );
 

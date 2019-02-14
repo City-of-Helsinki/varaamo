@@ -15,9 +15,9 @@ const defaults = {
   onConfirm: () => null,
   options: [
     { value: 'filter-1', label: 'Label 1' },
-    { value: 'filter-2', label: 'Label 2' }
+    { value: 'filter-2', label: 'Label 2' },
   ],
-  value: 'filter-1'
+  value: 'filter-1',
 };
 function getWrapper(props) {
   return shallowWithIntl(<SelectControl {...defaults} {...props} />);

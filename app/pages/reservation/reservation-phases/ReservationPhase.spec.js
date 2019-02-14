@@ -10,7 +10,7 @@ describe('pages/reservation/reservation-phases/ReservationPhase', () => {
     isActive: false,
     isCompleted: false,
     index: 1,
-    title: 'some title'
+    title: 'some title',
   };
 
   function getWrapper(extraProps) {
@@ -24,35 +24,35 @@ describe('pages/reservation/reservation-phases/ReservationPhase', () => {
 
   it('renders with app-ReservationPage__phase-active className when isActive true', () => {
     const active = getWrapper({
-      isActive: true
+      isActive: true,
     }).find('.app-ReservationPage__phase-active');
     expect(active).to.have.length(1);
   });
 
   it('does not render app-ReservationPage__phase-active className when isActive false', () => {
     const active = getWrapper({
-      isActive: false
+      isActive: false,
     }).find('.app-ReservationPage__phase-active');
     expect(active).to.have.length(0);
   });
 
   it('renders with app-ReservationPage__phase-completed className when isCompleted true', () => {
     const completed = getWrapper({
-      isCompleted: true
+      isCompleted: true,
     }).find('.app-ReservationPage__phase-completed');
     expect(completed).to.have.length(1);
   });
 
   it('does not render app-ReservationPage__phase-completed className when isCompleted false', () => {
     const completed = getWrapper({
-      isCompleted: false
+      isCompleted: false,
     }).find('.app-ReservationPage__phase-completed');
     expect(completed).to.have.length(0);
   });
 
   it('renders with correct index', () => {
     const index = getWrapper({
-      index: 3
+      index: 3,
     }).find('.app-ReservationPage__phase-index');
     expect(index).to.have.length(1);
     expect(index.props().children).to.equal(3);

@@ -11,16 +11,16 @@ export class UnconnectedResourceCompactList extends React.Component {
     date: PropTypes.string.isRequired,
     location: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
-    resourceIds: PropTypes.array.isRequired
+    resourceIds: PropTypes.array.isRequired,
   };
 
   state = {
-    resourcePosition: 0
+    resourcePosition: 0,
   };
 
   componentWillReceiveProps() {
     this.setState({
-      resourcePosition: 0
+      resourcePosition: 0,
     });
   }
 
@@ -31,20 +31,20 @@ export class UnconnectedResourceCompactList extends React.Component {
       resourcePosition:
         // eslint-disable-next-line no-mixed-operators
         (this.state.resourcePosition - 1 + this.props.resourceIds.length)
-        % this.props.resourceIds.length
+        % this.props.resourceIds.length,
     });
   };
 
   onNextResource = () => {
     this.setState({
-      resourcePosition: (this.state.resourcePosition + 1) % this.props.resourceIds.length
+      resourcePosition: (this.state.resourcePosition + 1) % this.props.resourceIds.length,
     });
   };
 
   render() {
     const { resourcePosition } = this.state;
     const {
-      resourceIds, location, history, date
+      resourceIds, location, history, date,
     } = this.props;
     const resourceIdsLength = resourceIds.length;
     return (

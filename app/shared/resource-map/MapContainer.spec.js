@@ -16,13 +16,13 @@ describe('shared/resource-map/MapContainer', () => {
         maxLatitude: 0,
         minLatitude: 0,
         maxLongitude: 0,
-        minLongitude: 0
+        minLongitude: 0,
       },
       searchMapClick: () => {},
       selectedUnitId: null,
       selectUnit: () => {},
       shouldMapFitBoundaries: true,
-      showMap: true
+      showMap: true,
     };
     return shallow(<MapContainer {...defaults} {...props} />);
   }
@@ -62,7 +62,7 @@ describe('shared/resource-map/MapContainer', () => {
 
   it('renders Marker', () => {
     const markers = [{
-      unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a']
+      unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a'],
     }];
     const element = getWrapper({ markers }).find(Marker);
     expect(element).to.have.length(1);
@@ -72,14 +72,14 @@ describe('shared/resource-map/MapContainer', () => {
   it('renders Marker many markers', () => {
     const markers = [
       {
-        unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a']
+        unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a'],
       },
       {
-        unitId: '2', longitude: 2, latitude: 2, resourceIds: ['b']
+        unitId: '2', longitude: 2, latitude: 2, resourceIds: ['b'],
       },
       {
-        unitId: '3', longitude: 1.5, latitude: 1.5, resourceIds: ['c', 'd']
-      }
+        unitId: '3', longitude: 1.5, latitude: 1.5, resourceIds: ['c', 'd'],
+      },
     ];
     const element = getWrapper({ markers }).find(Marker);
     expect(element).to.have.length(3);
@@ -91,11 +91,11 @@ describe('shared/resource-map/MapContainer', () => {
   it('passes highlighted prop to Marker if unit is selected', () => {
     const markers = [
       {
-        unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a']
+        unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a'],
       },
       {
-        unitId: '2', longitude: 2, latitude: 2, resourceIds: ['b']
-      }
+        unitId: '2', longitude: 2, latitude: 2, resourceIds: ['b'],
+      },
     ];
     const element = getWrapper({ markers, selectedUnitId: '1' }).find(Marker);
     expect(element).to.have.length(2);
@@ -106,7 +106,7 @@ describe('shared/resource-map/MapContainer', () => {
   it('renders Marker', () => {
     const selectUnit = () => {};
     const markers = [{
-      unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a']
+      unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a'],
     }];
     const element = getWrapper({ markers, selectUnit }).find(Marker);
     expect(element).to.have.length(1);
@@ -122,7 +122,7 @@ describe('shared/resource-map/MapContainer', () => {
     it('centers the map on users position', () => {
       const position = {
         lat: 61,
-        lon: 26
+        lon: 26,
       };
       const map = getWrapper({ position }).find(Map);
       expect(map.prop('center')).to.deep.equal([61, 26]);
@@ -131,7 +131,7 @@ describe('shared/resource-map/MapContainer', () => {
     it('renders an userMarker', () => {
       const position = {
         lat: 61,
-        lon: 26
+        lon: 26,
       };
       const element = getWrapper({ position }).find(UserMarker);
       expect(element).to.have.length(1);
@@ -152,11 +152,11 @@ describe('shared/resource-map/MapContainer', () => {
         maxLatitude: 10,
         minLatitude: 5,
         maxLongitude: 20,
-        minLongitude: 15
+        minLongitude: 15,
       });
       expect(fitBounds.callCount).to.equal(1);
       expect(fitBounds.lastCall.args).to.deep.equal([
-        [[5, 15], [10, 20]]
+        [[5, 15], [10, 20]],
       ]);
     });
   });
@@ -176,24 +176,24 @@ describe('shared/resource-map/MapContainer', () => {
 
     it('calls fitBounds if boundaries changed', () => {
       const prev = {
-        maxLatitude: 0, minLatitude: 0, maxLongitude: 0, minLongitude: 0
+        maxLatitude: 0, minLatitude: 0, maxLongitude: 0, minLongitude: 0,
       };
       const next = {
-        maxLatitude: 1, minLatitude: 0, maxLongitude: 0, minLongitude: 0
+        maxLatitude: 1, minLatitude: 0, maxLongitude: 0, minLongitude: 0,
       };
       const fitBounds = simple.mock();
       const panTo = simple.mock();
       callComponentDidUpdate(prev, next, fitBounds, panTo);
       expect(fitBounds.callCount).to.equal(1);
       expect(fitBounds.lastCall.args).to.deep.equal([
-        [[0, 0], [1, 0]]
+        [[0, 0], [1, 0]],
       ]);
       expect(panTo.called).to.be.false;
     });
 
     it('does not call fitBounds if boundaries did not change', () => {
       const prev = {
-        maxLatitude: 1, minLatitude: 1, maxLongitude: 1, minLongitude: 1
+        maxLatitude: 1, minLatitude: 1, maxLongitude: 1, minLongitude: 1,
       };
       const fitBounds = simple.mock();
       const panTo = simple.mock();
@@ -204,10 +204,10 @@ describe('shared/resource-map/MapContainer', () => {
 
     it('does call panTo if new boundaries are nulls', () => {
       const prev = {
-        maxLatitude: 0, minLatitude: 0, maxLongitude: 0, minLongitude: 0
+        maxLatitude: 0, minLatitude: 0, maxLongitude: 0, minLongitude: 0,
       };
       const next = {
-        maxLatitude: null, minLatitude: null, maxLongitude: null, minLongitude: null
+        maxLatitude: null, minLatitude: null, maxLongitude: null, minLongitude: null,
       };
       const fitBounds = simple.mock();
       const panTo = simple.mock();

@@ -16,5 +16,5 @@ const filteredResourceIdsSelector = createSelector(
 );
 
 export default createStructuredSelector({
-  resourceIds: filteredResourceIdsSelector
+  resourceIds: filteredResourceIdsSelector,
 });

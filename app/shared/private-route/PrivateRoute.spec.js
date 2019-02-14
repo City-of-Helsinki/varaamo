@@ -9,7 +9,7 @@ import * as routeActions from 'actions/routeActions';
 import {
   UnconnectedPrivateRoute as PrivateRoute,
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 } from './PrivateRoute';
 
 describe('shared/private-route/PrivateRoute', () => {
@@ -34,7 +34,7 @@ describe('shared/private-route/PrivateRoute', () => {
         location: {},
         componentName,
         component,
-        userId
+        userId,
       };
       return shallow(<PrivateRoute {...props} />);
     };
@@ -108,7 +108,7 @@ describe('shared/private-route/PrivateRoute', () => {
 
       expect(redux.bindActionCreators.calls[0].args[0]).to.have.property(
         'updateRoute',
-        routeActions.updateRoute(ownProps.componentName)
+        routeActions.updateRoute(ownProps.componentName),
       );
       expect(redux.bindActionCreators.calls[0].args[1]).to.equal(dispatch);
     });

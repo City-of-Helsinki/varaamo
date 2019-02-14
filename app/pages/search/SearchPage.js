@@ -24,7 +24,7 @@ class UnconnectedSearchPage extends Component {
 
   componentDidMount() {
     const {
-      actions, filters, location, searchDone, uiFilters
+      actions, filters, location, searchDone, uiFilters,
     } = this.props;
     actions.fetchPurposes();
     actions.fetchUnits();
@@ -80,7 +80,7 @@ class UnconnectedSearchPage extends Component {
       searchDone,
       selectedUnitId,
       showMap,
-      t
+      t,
     } = this.props;
     return (
       <div className="app-SearchPage">
@@ -132,7 +132,7 @@ UnconnectedSearchPage.propTypes = {
   selectedUnitId: PropTypes.string,
   showMap: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
-  uiFilters: PropTypes.object.isRequired
+  uiFilters: PropTypes.object.isRequired,
 };
 
 UnconnectedSearchPage = injectT(UnconnectedSearchPage); // eslint-disable-line
@@ -143,7 +143,7 @@ function mapDispatchToProps(dispatch) {
     fetchPurposes,
     fetchUnits,
     searchResources,
-    toggleMap
+    toggleMap,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

@@ -19,7 +19,7 @@ describe('pages/home/homePageSelector', () => {
   describe('purposes', () => {
     function getPurposes(purposes) {
       return getSelected({
-        'data.purposes': keyBy(purposes, 'id')
+        'data.purposes': keyBy(purposes, 'id'),
       }).purposes;
     }
 
@@ -30,14 +30,14 @@ describe('pages/home/homePageSelector', () => {
     it('returns an option object for each purpose without a parent', () => {
       const purposes = [
         Purpose.build({ parent: null }),
-        Purpose.build({ parent: null })
+        Purpose.build({ parent: null }),
       ];
       expect(getPurposes(purposes)).to.have.length(purposes.length);
     });
 
     it('Does not return an option object for purposes with a parent', () => {
       const purposes = [
-        Purpose.build({ parent: 'some parent' })
+        Purpose.build({ parent: 'some parent' }),
       ];
       expect(getPurposes(purposes)).to.have.length(0);
     });

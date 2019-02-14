@@ -18,9 +18,9 @@ describe('pages/search/controls/SearchBox', () => {
     onSearch: () => null,
     options: Immutable([
       { value: 'filter-1', label: 'Label 1' },
-      { value: 'filter-2', label: 'Label 2' }
+      { value: 'filter-2', label: 'Label 2' },
     ]),
-    value: 'meeting room'
+    value: 'meeting room',
   };
 
   function getWrapper(props) {

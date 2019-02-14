@@ -18,7 +18,7 @@ class DatePickerControl extends React.Component {
     currentLanguage: PropTypes.string.isRequired,
     date: PropTypes.string,
     onConfirm: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -26,7 +26,7 @@ class DatePickerControl extends React.Component {
     const { date } = this.props;
     this.state = {
       date,
-      visible: false
+      visible: false,
     };
   }
 

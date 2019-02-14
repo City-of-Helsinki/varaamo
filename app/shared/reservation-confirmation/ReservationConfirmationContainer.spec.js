@@ -8,7 +8,7 @@ import Resource from 'utils/fixtures/Resource';
 
 import ConfirmReservationModal from './ConfirmReservationModal';
 import {
-  UnconnectedReservationConfirmationContainer as ReservationConfirmationContainer
+  UnconnectedReservationConfirmationContainer as ReservationConfirmationContainer,
 } from './ReservationConfirmationContainer';
 
 describe('pages/resource/reservation-calendar/ReservationConfirmationContainer', () => {
@@ -21,7 +21,7 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
       openConfirmReservationModal: simple.stub(),
       postReservation: simple.stub(),
       putReservation: simple.stub(),
-      removeReservation: simple.stub()
+      removeReservation: simple.stub(),
     },
     confirmReservationModalIsOpen: false,
     isMakingReservations: false,
@@ -32,8 +32,8 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
     resource: Immutable(resource),
     selectedReservations: Immutable([
       Reservation.build(),
-      Reservation.build()
-    ])
+      Reservation.build(),
+    ]),
   };
 
   function getWrapper(extraProps) {
@@ -87,20 +87,20 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
       Reservation.build({
         begin: '2018-01-29T13:00:00+02:00',
         end: '2018-01-29T13:30:00+02:00',
-        resource: resource.id
-      })
+        resource: resource.id,
+      }),
     ];
     const selectedReservations = [
       Reservation.build({
         begin: '2018-01-30T13:00:00+02:00',
         end: '2018-01-30T13:30:00+02:00',
-        resource: resource.id
+        resource: resource.id,
       }),
       Reservation.build({
         begin: '2018-01-30T15:00:00+02:00',
         end: '2018-01-30T15:30:00+02:00',
-        resource: resource.id
-      })
+        resource: resource.id,
+      }),
     ];
     const instance = getWrapper({ recurringReservations, selectedReservations }).instance();
 

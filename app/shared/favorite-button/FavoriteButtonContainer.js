@@ -35,14 +35,14 @@ UnconnectedFavoriteButtonContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   resource: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    isFavorite: PropTypes.bool.isRequired
-  }).isRequired
+    isFavorite: PropTypes.bool.isRequired,
+  }).isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
     favoriteResource,
-    unfavoriteResource
+    unfavoriteResource,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

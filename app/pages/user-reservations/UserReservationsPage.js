@@ -55,7 +55,7 @@ class UnconnectedUserReservationsPage extends Component {
       isAdmin,
       reservationsFetchCount,
       resourcesLoaded,
-      t
+      t,
     } = this.props;
 
     return (
@@ -106,7 +106,7 @@ UnconnectedUserReservationsPage.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
   reservationsFetchCount: PropTypes.number.isRequired,
   resourcesLoaded: PropTypes.bool.isRequired,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 UnconnectedUserReservationsPage = injectT(UnconnectedUserReservationsPage);  // eslint-disable-line
 
@@ -115,7 +115,7 @@ function mapDispatchToProps(dispatch) {
     changeAdminReservationFilters,
     fetchReservations,
     fetchResources,
-    fetchUnits
+    fetchUnits,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

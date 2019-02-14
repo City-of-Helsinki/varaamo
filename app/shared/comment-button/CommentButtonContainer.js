@@ -26,14 +26,14 @@ export class UnconnectedCommentButtonContainer extends Component {
 UnconnectedCommentButtonContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   reservation: PropTypes.shape({
-    comments: PropTypes.string
-  }).isRequired
+    comments: PropTypes.string,
+  }).isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
     openReservationCommentModal,
-    selectReservationToShow
+    selectReservationToShow,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

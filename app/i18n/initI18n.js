@@ -18,25 +18,25 @@ import svMessages from 'i18n/messages/sv.json';
 const messages = {
   en: enMessages,
   fi: fiMessages,
-  se: svMessages
+  se: svMessages,
 };
 
 moment.tz.setDefault('Europe/Helsinki');
 
 moment.defineLocale('varaamo-en', {
-  parentLocale: 'en-gb'
+  parentLocale: 'en-gb',
 });
 
 moment.defineLocale('varaamo-fi', {
   parentLocale: 'fi',
   longDateFormat: {
     LT: 'H:mm',
-    LLL: 'Do MMMM[ta] [klo] LT'
-  }
+    LLL: 'Do MMMM[ta] [klo] LT',
+  },
 });
 
 moment.defineLocale('varaamo-se', {
-  parentLocale: 'sv'
+  parentLocale: 'sv',
 });
 
 addLocaleData([...en, ...fi, ...se]);
@@ -49,8 +49,8 @@ function initI18n() {
     intl: {
       defaultLocale: constants.DEFAULT_LOCALE,
       locale,
-      messages: messages[locale]
-    }
+      messages: messages[locale],
+    },
   };
   return initialIntlState;
 }

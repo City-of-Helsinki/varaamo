@@ -11,7 +11,7 @@ describe('shared/time-range/TimeRange', () => {
     className: 'some-class',
     beginFormat: 'ddd, Do MMMM',
     end: '2015-10-11T14:00:00Z',
-    endFormat: 'H:mm'
+    endFormat: 'H:mm',
   };
 
   function getWrapper(extraProps) {
