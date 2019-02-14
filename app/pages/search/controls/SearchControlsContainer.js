@@ -1,7 +1,8 @@
 import range from 'lodash/range';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 import queryString from 'query-string';
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';

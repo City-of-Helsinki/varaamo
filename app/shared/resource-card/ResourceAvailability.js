@@ -1,5 +1,6 @@
 import moment from 'moment';
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Label from 'react-bootstrap/lib/Label';
 
 import { injectT } from 'i18n';

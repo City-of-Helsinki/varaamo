@@ -1,7 +1,8 @@
 import map from 'lodash/map';
 import sortBy from 'lodash/sortBy';
-import React, { Component, PropTypes } from 'react';
-import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import Select from 'react-select';
 
 import SelectControl from 'pages/search/controls/SelectControl';
 import constants from 'constants/AppConstants';
