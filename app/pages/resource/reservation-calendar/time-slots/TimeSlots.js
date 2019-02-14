@@ -121,7 +121,8 @@ class TimeSlots extends Component {
       .slice(selectedDateIndex, selectedDateIndex + 3)
       .filter(size => size !== null);
 
-    const mobilePlaceholderOffset = mobilePlaceholderSizes.length > 0 ? Math.min(...mobilePlaceholderSizes) : 0;
+    const mobilePlaceholderOffset = mobilePlaceholderSizes.length > 0
+      ? Math.min(...mobilePlaceholderSizes) : 0;
 
     return {
       mobilePlaceholderOffset,

@@ -97,7 +97,8 @@ class ReservationInfoModal extends Component {
                     defaultValue={reservation.comments}
                     disabled={disabled}
                     placeholder={t('common.commentsPlaceholder')}
-                    ref="commentsInput"
+                    // eslint-disable-next-line no-return-assign
+                    ref={node => this.commentsInput = node}
                     rows={5}
                   />
                 </FormGroup>
