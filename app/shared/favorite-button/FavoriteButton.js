@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import classnames from 'classnames';
 import iconHeart from 'hel-icons/dist/shapes/heart-o.svg';

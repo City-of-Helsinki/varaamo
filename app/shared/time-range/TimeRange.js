@@ -1,6 +1,7 @@
 import upperFirst from 'lodash/upperFirst';
 import moment from 'moment';
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 class TimeRange extends Component {
   render() {

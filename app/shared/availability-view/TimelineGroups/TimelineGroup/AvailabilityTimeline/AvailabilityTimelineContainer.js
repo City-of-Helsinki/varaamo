@@ -1,6 +1,6 @@
 import sortBy from 'lodash/sortBy';
 import moment from 'moment';
-import { PropTypes } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 

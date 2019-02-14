@@ -1,6 +1,7 @@
 import dragscroll from 'dragscroll';
 import moment from 'moment';
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import DateSelector from './DateSelector';
 import TimelineGroup from './TimelineGroups/TimelineGroup';

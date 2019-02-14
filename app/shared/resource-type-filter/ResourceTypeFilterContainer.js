@@ -1,5 +1,6 @@
 import includes from 'lodash/includes';
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 import { injectT } from 'i18n';
 import ResourceTypeFilterButton from './ResourceTypeFilterButton';

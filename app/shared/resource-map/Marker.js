@@ -1,6 +1,7 @@
 import L from 'leaflet';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { Marker as LeafletMarker } from 'react-leaflet';
 
 import highlightedIconRetinaUrl from 'assets/map/highlighted-marker-icon-2x.png';
