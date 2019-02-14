@@ -12,7 +12,7 @@ function getWrapper(props) {
     longitude: 2,
     resourceIds: ['123', '321'],
     selectUnit: () => {},
-    unitId: 'unitid',
+    unitId: 'unitid'
   };
   return shallow(<Marker {...defaults} {...props} />);
 }

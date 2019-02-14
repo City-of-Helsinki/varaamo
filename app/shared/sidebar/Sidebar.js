@@ -9,37 +9,37 @@ Sidebar.propTypes = {
   docked: PropTypes.bool,
   onSetOpen: PropTypes.func,
   open: PropTypes.bool.isRequired,
-  sidebar: PropTypes.node.isRequired,
+  sidebar: PropTypes.node.isRequired
 };
 
 Sidebar.defaultProps = {
-  docked: false,
+  docked: false
 };
 
 const styles = {
   root: {
-    position: 'relative',
+    position: 'relative'
   },
   content: {
     height: 'auto',
-    position: 'relative',
+    position: 'relative'
   },
   sidebar: {
     position: 'fixed',
     width: '90vw',
     maxWidth: '400px',
-    zIndex: 20001,
+    zIndex: 20001
   },
   overlay: {
-    zIndex: 20000,
+    zIndex: 20000
   },
   dragHandle: {
-    zIndex: 20000,
-  },
+    zIndex: 20000
+  }
 };
 
 function Sidebar({
-  children, className, docked, onSetOpen, open, sidebar,
+  children, className, docked, onSetOpen, open, sidebar
 }) {
   return (
     <div className={classnames('app-Sidebar', className)}>

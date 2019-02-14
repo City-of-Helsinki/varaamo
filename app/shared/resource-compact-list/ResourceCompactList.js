@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
-
 import ResourceCard from 'shared/resource-card';
+
 import selector from './ResourceCompactListSelector';
 
 export class UnconnectedResourceCompactList extends React.Component {
@@ -11,16 +11,16 @@ export class UnconnectedResourceCompactList extends React.Component {
     date: PropTypes.string.isRequired,
     location: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
-    resourceIds: PropTypes.array.isRequired,
+    resourceIds: PropTypes.array.isRequired
   };
 
   state = {
-    resourcePosition: 0,
+    resourcePosition: 0
   };
 
   componentWillReceiveProps() {
     this.setState({
-      resourcePosition: 0,
+      resourcePosition: 0
     });
   }
 
@@ -30,20 +30,22 @@ export class UnconnectedResourceCompactList extends React.Component {
     this.setState({
       resourcePosition:
         // eslint-disable-next-line no-mixed-operators
-        (this.state.resourcePosition - 1 + this.props.resourceIds.length) %
-        this.props.resourceIds.length,
+        (this.state.resourcePosition - 1 + this.props.resourceIds.length)
+        % this.props.resourceIds.length
     });
   };
 
   onNextResource = () => {
     this.setState({
-      resourcePosition: (this.state.resourcePosition + 1) % this.props.resourceIds.length,
+      resourcePosition: (this.state.resourcePosition + 1) % this.props.resourceIds.length
     });
   };
 
   render() {
     const { resourcePosition } = this.state;
-    const { resourceIds, location, history, date } = this.props;
+    const {
+      resourceIds, location, history, date
+    } = this.props;
     const resourceIdsLength = resourceIds.length;
     return (
       <div className="app-ResourceCompactList">

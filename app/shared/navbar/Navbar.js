@@ -4,7 +4,6 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import { LinkContainer } from 'react-router-bootstrap';
-
 import finlandFlagSrc from 'assets/flags/fi.svg';
 import swedenFlagSrc from 'assets/flags/sv.svg';
 import englandFlagSrc from 'assets/flags/gb.svg';
@@ -25,7 +24,7 @@ function Navbar(props) {
     isLoggedIn,
     onNavItemClick,
     t,
-    userName,
+    userName
   } = props;
 
   const onSearchNavItemClick = () => {
@@ -125,11 +124,11 @@ Navbar.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   onNavItemClick: PropTypes.func,
   t: PropTypes.func.isRequired,
-  userName: PropTypes.string.isRequired,
+  userName: PropTypes.string.isRequired
 };
 
 Navbar.defaultProps = {
-  onNavItemClick: () => {},
+  onNavItemClick: () => {}
 };
 
 export default injectT(Navbar);

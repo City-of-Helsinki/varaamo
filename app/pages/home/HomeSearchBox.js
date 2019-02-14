@@ -2,20 +2,19 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import FormControl from 'react-bootstrap/lib/FormControl';
-
 import { injectT } from 'i18n';
 
 
 class HomeSearchBox extends React.Component {
   static propTypes = {
     onSearch: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired,
+    t: PropTypes.func.isRequired
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
+      value: ''
     };
   }
 

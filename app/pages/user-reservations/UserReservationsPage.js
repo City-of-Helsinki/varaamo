@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import { fetchReservations } from 'actions/reservationActions';
 import { fetchResources } from 'actions/resourceActions';
 import { changeAdminReservationFilters } from 'actions/uiActions';
@@ -12,6 +11,7 @@ import ReservationInfoModal from 'shared/modals/reservation-info';
 import PageWrapper from 'pages/PageWrapper';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
 import { injectT } from 'i18n';
+
 import userReservationsPageSelector from './userReservationsPageSelector';
 import AdminReservationFilters from './reservation-filters/AdminReservationFilters';
 import ReservationList from './reservation-list';
@@ -55,7 +55,7 @@ class UnconnectedUserReservationsPage extends Component {
       isAdmin,
       reservationsFetchCount,
       resourcesLoaded,
-      t,
+      t
     } = this.props;
 
     return (
@@ -106,7 +106,7 @@ UnconnectedUserReservationsPage.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
   reservationsFetchCount: PropTypes.number.isRequired,
   resourcesLoaded: PropTypes.bool.isRequired,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 };
 UnconnectedUserReservationsPage = injectT(UnconnectedUserReservationsPage);  // eslint-disable-line
 
@@ -115,7 +115,7 @@ function mapDispatchToProps(dispatch) {
     changeAdminReservationFilters,
     fetchReservations,
     fetchResources,
-    fetchUnits,
+    fetchUnits
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

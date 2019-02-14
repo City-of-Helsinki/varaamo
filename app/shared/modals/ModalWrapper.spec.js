@@ -12,7 +12,7 @@ describe('shared/modals/ModalWrapper', () => {
     footerContent: <div>Footer content</div>,
     onClose: simple.mock(),
     show: true,
-    title: 'Modal title',
+    title: 'Modal title'
   };
 
   function getWrapper(extraProps) {

@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import { openReservationCommentModal, selectReservationToShow } from 'actions/uiActions';
+
 import CommentButton from './CommentButton';
 
 export class UnconnectedCommentButtonContainer extends Component {
@@ -26,14 +26,14 @@ export class UnconnectedCommentButtonContainer extends Component {
 UnconnectedCommentButtonContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   reservation: PropTypes.shape({
-    comments: PropTypes.string,
-  }).isRequired,
+    comments: PropTypes.string
+  }).isRequired
 };
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
     openReservationCommentModal,
-    selectReservationToShow,
+    selectReservationToShow
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

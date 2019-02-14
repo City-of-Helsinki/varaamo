@@ -9,12 +9,12 @@ import iconHome from 'hel-icons/dist/shapes/home.svg';
 import iconMapMarker from 'hel-icons/dist/shapes/map-marker.svg';
 import iconTicket from 'hel-icons/dist/shapes/ticket.svg';
 import iconUser from 'hel-icons/dist/shapes/user-o.svg';
-
 import { injectT } from 'i18n';
 import iconMap from 'assets/icons/map.svg';
 import BackgroundImage from 'shared/background-image';
 import { getMainImage } from 'utils/imageUtils';
 import { getHourlyPrice, getResourcePageUrlComponents } from 'utils/resourceUtils';
+
 import ResourceAvailability from './ResourceAvailability';
 
 class ResourceCard extends Component {
@@ -39,8 +39,7 @@ class ResourceCard extends Component {
   };
 
   handleLinkClick = () => {
-    const scrollTop =
-      window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
     const { location, history } = this.props;
     const { pathname, search } = location;
     history.replace({ pathname, search, state: { scrollTop } });
@@ -57,19 +56,19 @@ class ResourceCard extends Component {
 
   render() {
     const {
-      date, resource, t, unit,
+      date, resource, t, unit
     } = this.props;
     const { pathname, query } = getResourcePageUrlComponents(resource, date);
     const linkTo = {
       pathname,
       search: query ? `?${query}` : undefined,
-      state: { fromSearchResults: true },
+      state: { fromSearchResults: true }
     };
 
     return (
       <div
         className={classnames('app-ResourceCard', {
-          'app-ResourceCard__stacked': this.props.stacked,
+          'app-ResourceCard__stacked': this.props.stacked
         })}
       >
         <Link className="app-ResourceCard__image-link" onClick={this.handleLinkClick} to={linkTo}>
@@ -182,7 +181,7 @@ ResourceCard.propTypes = {
   resource: PropTypes.object.isRequired,
   stacked: PropTypes.bool,
   t: PropTypes.func.isRequired,
-  unit: PropTypes.object.isRequired,
+  unit: PropTypes.object.isRequired
 };
 
 export default injectT(ResourceCard);

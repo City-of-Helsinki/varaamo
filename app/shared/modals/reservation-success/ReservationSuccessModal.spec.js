@@ -5,12 +5,12 @@ import { FormattedHTMLMessage } from 'react-intl';
 import Immutable from 'seamless-immutable';
 import Modal from 'react-bootstrap/lib/Modal';
 import simple from 'simple-mock';
-
 import ReservationAccessCode from 'shared/reservation-access-code';
 import Reservation from 'utils/fixtures/Reservation';
 import ReservationDate from 'shared/reservation-date';
 import Resource from 'utils/fixtures/Resource';
 import { shallowWithIntl } from 'utils/testUtils';
+
 import ReservationSuccessModal from './ReservationSuccessModal';
 
 describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
@@ -22,7 +22,7 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
     reservationsToShow: Immutable([reservation]),
     resources: Immutable({ [resource.id]: resource }),
     show: true,
-    user: { email: 'han@solo.com' },
+    user: { email: 'han@solo.com' }
   };
 
   function getWrapper(extraProps = {}) {
@@ -39,8 +39,8 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
         end,
         needManualConfirmation: true,
         reserverEmailAddress,
-        resource: resource.id,
-      }),
+        resource: resource.id
+      })
     ]);
     let wrapper;
 
@@ -144,8 +144,8 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
         begin,
         end,
         needManualConfirmation: false,
-        resource: resource.id,
-      }),
+        resource: resource.id
+      })
     ]);
     let wrapper;
 
@@ -257,8 +257,8 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
       const reservationsToShow = Immutable([
         Reservation.build({
           accessCode: '9999',
-          resource: resource.id,
-        }),
+          resource: resource.id
+        })
       ]);
 
       it('renders ReservationAccessCode component with correct reservation', () => {
@@ -272,8 +272,8 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
     describe('if reservation does not have access code', () => {
       const reservationsToShow = Immutable([
         Reservation.build({
-          resource: resource.id,
-        }),
+          resource: resource.id
+        })
       ]);
 
       it('does not render ReservationAccessCode component', () => {

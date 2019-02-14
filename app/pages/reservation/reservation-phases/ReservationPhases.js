@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import indexOf from 'lodash/indexOf';
-
 import { injectT } from 'i18n';
+
 import ReservationPhase from './ReservationPhase';
 
 ReservationPhases.propTypes = {
   currentPhase: PropTypes.string.isRequired,
   isEditing: PropTypes.bool,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 };
 
 function ReservationPhases({ currentPhase, isEditing, t }) {

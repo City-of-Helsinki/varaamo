@@ -3,14 +3,13 @@ import types from 'constants/ActionTypes';
 import pickBy from 'lodash/pickBy';
 import { decamelizeKeys } from 'humps';
 import { CALL_API } from 'redux-api-middleware';
-
 import schemas from 'store/middleware/Schemas';
 import {
   buildAPIUrl,
   getErrorTypeDescriptor,
   getHeadersCreator,
   getRequestTypeDescriptor,
-  getSuccessTypeDescriptor,
+  getSuccessTypeDescriptor
 } from 'utils/apiUtils';
 import { getMissingValues, isStaffEvent } from 'utils/reservationUtils';
 
@@ -38,25 +37,25 @@ function deleteReservation(reservation) {
           types.API.RESERVATION_DELETE_REQUEST,
           {
             countable: true,
-            meta: { track: getTrackingInfo('cancel', reservation.resource) },
+            meta: { track: getTrackingInfo('cancel', reservation.resource) }
           },
         ),
         getSuccessTypeDescriptor(
           types.API.RESERVATION_DELETE_SUCCESS,
           {
             countable: true,
-            payload: () => reservation,
+            payload: () => reservation
           },
         ),
         getErrorTypeDescriptor(
           types.API.RESERVATION_DELETE_ERROR,
           { countable: true },
-        ),
+        )
       ],
       endpoint: reservation.url,
       method: 'DELETE',
-      headers: getHeadersCreator(),
-    },
+      headers: getHeadersCreator()
+    }
   };
 }
 
@@ -75,12 +74,12 @@ function fetchReservations(params = {}) {
           types.API.RESERVATIONS_GET_SUCCESS,
           { schema: schemas.paginatedReservationsSchema },
         ),
-        getErrorTypeDescriptor(types.API.RESERVATIONS_GET_ERROR),
+        getErrorTypeDescriptor(types.API.RESERVATIONS_GET_ERROR)
       ],
       endpoint: buildAPIUrl('reservation', fetchParams),
       method: 'GET',
-      headers: getHeadersCreator(),
-    },
+      headers: getHeadersCreator()
+    }
   };
 }
 
@@ -99,7 +98,7 @@ function postReservation(reservation) {
           types.API.RESERVATION_POST_REQUEST,
           {
             countable: true,
-            meta: { track: getTrackingInfo('add', reservation.resource) },
+            meta: { track: getTrackingInfo('add', reservation.resource) }
           },
         ),
         getSuccessTypeDescriptor(
@@ -109,13 +108,13 @@ function postReservation(reservation) {
         getErrorTypeDescriptor(
           types.API.RESERVATION_POST_ERROR,
           { countable: true, meta: { reservation } },
-        ),
+        )
       ],
       endpoint: url,
       method: 'POST',
       headers: getHeadersCreator(),
-      body: parseReservationData(reservation),
-    },
+      body: parseReservationData(reservation)
+    }
   };
 }
 
@@ -127,7 +126,7 @@ function putReservation(reservation) {
           types.API.RESERVATION_PUT_REQUEST,
           {
             countable: true,
-            meta: { track: getTrackingInfo('edit', reservation.resource) },
+            meta: { track: getTrackingInfo('edit', reservation.resource) }
           },
         ),
         getSuccessTypeDescriptor(
@@ -137,13 +136,13 @@ function putReservation(reservation) {
         getErrorTypeDescriptor(
           types.API.RESERVATION_PUT_ERROR,
           { countable: true },
-        ),
+        )
       ],
       endpoint: reservation.url,
       method: 'PUT',
       headers: getHeadersCreator(),
-      body: parseReservationData(reservation),
-    },
+      body: parseReservationData(reservation)
+    }
   };
 }
 
@@ -153,8 +152,8 @@ function getTrackingInfo(type, resource) {
     args: [
       'Reservation',
       `reservation-${type}`,
-      resource,
-    ],
+      resource
+    ]
   });
 }
 
@@ -165,5 +164,5 @@ export {
   denyPreliminaryReservation,
   fetchReservations,
   postReservation,
-  putReservation,
+  putReservation
 };

@@ -5,7 +5,6 @@ import find from 'lodash/find';
 import forEach from 'lodash/forEach';
 import moment from 'moment';
 import queryString from 'query-string';
-
 import { getCurrentReservation, getNextAvailableTime } from 'utils/reservationUtils';
 
 function hasMaxReservations(resource) {
@@ -56,7 +55,7 @@ function getAvailabilityDataForNow(resource = {}, date = null) {
       return {
         status: 'availableAt',
         bsStyle: 'danger',
-        values: { time: nextAvailableTime.format(constants.TIME_FORMAT) },
+        values: { time: nextAvailableTime.format(constants.TIME_FORMAT) }
       };
     }
     return { status: 'reserved', bsStyle: 'danger' };
@@ -101,7 +100,7 @@ function getAvailabilityDataForWholeDay(resource = {}, date = null) {
   return {
     status: 'availableTime',
     bsStyle: 'success',
-    values: { hours: rounded },
+    values: { hours: rounded }
   };
 }
 
@@ -143,13 +142,13 @@ function getOpeningHours(resource, selectedDate) {
       return openingHours
         ? {
           closes: openingHours.closes,
-          opens: openingHours.opens,
+          opens: openingHours.opens
         }
         : {};
     }
     return {
       closes: resource.openingHours[0].closes,
-      opens: resource.openingHours[0].opens,
+      opens: resource.openingHours[0].opens
     };
   }
 
@@ -178,7 +177,7 @@ function getResourcePageUrlComponents(resource, date, time) {
   const pathname = `/resources/${resource.id}`;
   const query = queryString.stringify({
     date: date ? date.split('T')[0] : undefined,
-    time,
+    time
   });
   return { pathname, query };
 }
@@ -215,5 +214,5 @@ export {
   getResourcePageUrl,
   getResourcePageUrlComponents,
   getTermsAndConditions,
-  reservingIsRestricted,
+  reservingIsRestricted
 };

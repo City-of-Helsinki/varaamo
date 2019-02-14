@@ -7,8 +7,8 @@ module.exports = (config) => {
     coverageReporters: [
       { type: 'lcov' },
       { type: 'text' },
-      { type: 'text-summary' },
+      { type: 'text-summary' }
     ],
-    disableLogging: true,
+    disableLogging: true
   }));
 };

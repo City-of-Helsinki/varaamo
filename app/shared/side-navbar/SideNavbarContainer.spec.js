@@ -8,11 +8,11 @@ describe('shared/side-navbar/SideNavbarContainer', () => {
       return {
         auth: {
           userId: user.id,
-          token: 'mock-token',
+          token: 'mock-token'
         },
         data: {
-          users: { [user.id]: user },
-        },
+          users: { [user.id]: user }
+        }
       };
     }
 

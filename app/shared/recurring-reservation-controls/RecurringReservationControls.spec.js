@@ -3,9 +3,9 @@ import React from 'react';
 import NumericInput from 'react-numeric-input';
 import Select from 'react-select';
 import simple from 'simple-mock';
-
 import DatePicker from 'shared/date-picker';
 import { shallowWithIntl } from 'utils/testUtils';
+
 import RecurringReservationControls from './RecurringReservationControls';
 
 function getWrapper(props) {
@@ -17,7 +17,7 @@ function getWrapper(props) {
     frequencyOptions: [{ label: '', value: '' }],
     isVisible: true,
     lastTime: null,
-    numberOfOccurrences: 1,
+    numberOfOccurrences: 1
   };
   return shallowWithIntl(<RecurringReservationControls {...defaults} {...props} />);
 }
@@ -33,7 +33,7 @@ describe('shared/RecurringReservationControls/RecurringReservationControls', () 
       changeFrequency: () => null,
       frequency: 'days',
       frequencyOptions: [{ label: '', value: '' }],
-      lastTime: '2017-04-09',
+      lastTime: '2017-04-09'
     };
     const select = getWrapper(props).find(Select);
     expect(select).to.have.length(1);
@@ -46,7 +46,7 @@ describe('shared/RecurringReservationControls/RecurringReservationControls', () 
     const props = {
       changeNumberOfOccurrences: () => null,
       lastTime: '2017-04-09',
-      numberOfOccurrences: 12,
+      numberOfOccurrences: 12
     };
     const control = getWrapper(props).find(NumericInput);
     expect(control).to.have.length(1);
@@ -59,7 +59,7 @@ describe('shared/RecurringReservationControls/RecurringReservationControls', () 
     const props = {
       lastTime: '2017-04-09',
       numberOfOccurrences: 12,
-      changeLastTime: simple.mock(),
+      changeLastTime: simple.mock()
     };
     const control = getWrapper(props).find(DatePicker);
     expect(control).to.have.length(1);

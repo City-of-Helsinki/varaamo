@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import iconHome from 'hel-icons/dist/shapes/home.svg';
-
 import iconCalendar from 'assets/icons/calendar.svg';
 import ReservationAccessCode from 'shared/reservation-access-code';
 import ReservationControls from 'shared/reservation-controls';
@@ -22,7 +21,9 @@ class ReservationListItem extends Component {
   }
 
   render() {
-    const { isAdmin, isStaff, reservation, resource, t, unit } = this.props;
+    const {
+      isAdmin, isStaff, reservation, resource, t, unit
+    } = this.props;
 
     const nameSeparator = isEmpty(resource) || isEmpty(unit) ? '' : ', ';
 
@@ -72,7 +73,7 @@ ReservationListItem.propTypes = {
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
-  unit: PropTypes.object.isRequired,
+  unit: PropTypes.object.isRequired
 };
 
 export default injectT(ReservationListItem);

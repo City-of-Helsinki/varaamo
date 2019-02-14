@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import React from 'react';
 import simple from 'simple-mock';
-
 import { shallowWithIntl } from 'utils/testUtils';
+
 import ResourceTypeFilterContainer from './ResourceTypeFilterContainer';
 import ResourceTypeFilterButton from './ResourceTypeFilterButton';
 
@@ -12,7 +12,7 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
     onSelectResourceType: simple.mock(),
     onUnselectResourceType: simple.mock(),
     resourceTypes: ['a', 'b', 'c'],
-    selectedResourceTypes: ['a'],
+    selectedResourceTypes: ['a']
   };
 
   function getWrapper(props) {

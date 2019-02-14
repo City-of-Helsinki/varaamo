@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import simple from 'simple-mock';
-
 import { getPiwikActionName, searchResources } from 'actions/searchActions';
 import * as apiUtils from 'utils/apiUtils';
 
@@ -14,7 +13,7 @@ describe('Actions: searchActions', () => {
     describe('when searchParams.search is non-empty string', () => {
       const searchParams = {
         search: 'my search',
-        purpose: 'some purpose',
+        purpose: 'some purpose'
       };
 
       it('returns searchParams.search', () => {
@@ -26,7 +25,7 @@ describe('Actions: searchActions', () => {
       describe('when searchParams.purpose exists', () => {
         const searchParams = {
           search: '',
-          purpose: 'some purpose',
+          purpose: 'some purpose'
         };
 
         it('returns text "category:" with searchParams.purpose', () => {
@@ -38,7 +37,7 @@ describe('Actions: searchActions', () => {
       describe('when searchParams.purpose does not exist', () => {
         const searchParams = {
           search: '',
-          purpose: '',
+          purpose: ''
         };
 
         it('returns text "-empty-search-"', () => {
@@ -57,8 +56,8 @@ describe('Actions: searchActions', () => {
         args: [
           'Search',
           'search-get',
-          'searchText',
-        ],
+          'searchText'
+        ]
       });
     });
   });

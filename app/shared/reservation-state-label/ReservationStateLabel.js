@@ -3,7 +3,6 @@ import constants from 'constants/AppConstants';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Label from 'react-bootstrap/lib/Label';
-
 import { injectT } from 'i18n';
 
 function ReservationStateLabel({ reservation, t }) {
@@ -22,9 +21,9 @@ function ReservationStateLabel({ reservation, t }) {
 ReservationStateLabel.propTypes = {
   reservation: PropTypes.shape({
     needManualConfirmation: PropTypes.bool.isRequired,
-    state: PropTypes.string.isRequired,
+    state: PropTypes.string.isRequired
   }).isRequired,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 };
 
 export default injectT(ReservationStateLabel);

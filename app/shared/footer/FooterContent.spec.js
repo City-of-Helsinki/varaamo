@@ -2,10 +2,10 @@ import { expect } from 'chai';
 import React from 'react';
 // import { Link } from 'react-router';
 import simple from 'simple-mock';
-
 import FeedbackLink from 'shared/feedback-link';
 import * as customizationUtils from 'utils/customizationUtils';
 import { shallowWithIntl } from 'utils/testUtils';
+
 import FooterContent from './FooterContent';
 
 describe('shared/footer/FooterContent', () => {

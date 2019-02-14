@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import { updateRoute } from 'actions/routeActions';
 import userIdSelector from 'state/selectors/userIdSelector';
 
@@ -42,16 +41,16 @@ UnconnectedPrivateRoute.propTypes = {
   location: PropTypes.object.isRequired,
   userId: PropTypes.string,
   component: PropTypes.func.isRequired,
-  componentName: PropTypes.string.isRequired, // eslint-disable-line react/no-unused-prop-types
+  componentName: PropTypes.string.isRequired // eslint-disable-line react/no-unused-prop-types
 };
 
 export const mapStateToProps = state => ({
-  userId: userIdSelector(state),
+  userId: userIdSelector(state)
 });
 
 export const mapDispatchToProps = (dispatch, ownProps) => {
   const actionCreators = {
-    updateRoute: updateRoute(ownProps.componentName),
+    updateRoute: updateRoute(ownProps.componentName)
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

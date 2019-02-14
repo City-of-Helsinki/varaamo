@@ -1,7 +1,7 @@
 import constants from 'constants/AppConstants';
 
 import {
-  filter, maxBy, minBy, some,
+  filter, maxBy, minBy, some
 } from 'lodash';
 import moment from 'moment';
 
@@ -125,5 +125,5 @@ export default {
   isSlotAfterSelected,
   isSlotSelectable,
   isSlotSelected,
-  isFirstSelected,
+  isFirstSelected
 };

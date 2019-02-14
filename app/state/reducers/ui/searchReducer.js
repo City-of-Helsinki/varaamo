@@ -1,7 +1,6 @@
 import types from 'constants/ActionTypes';
 
 import Immutable from 'seamless-immutable';
-
 import { pickSupportedFilters } from 'utils/searchUtils';
 import { getDuration, getEndTimeString, getStartTimeString } from 'utils/timeUtils';
 
@@ -15,7 +14,7 @@ const initialState = Immutable({
     duration: 0,
     start: '',
     end: '',
-    useTimeRange: false,
+    useTimeRange: false
   },
   page: 1,
   position: null,
@@ -23,7 +22,7 @@ const initialState = Immutable({
   results: [],
   searchDone: false,
   showMap: false,
-  unitId: null,
+  unitId: null
 });
 
 function searchReducer(state = initialState, action) {
@@ -36,7 +35,7 @@ function searchReducer(state = initialState, action) {
         resultCount,
         results,
         searchDone: true,
-        unitId: null,
+        unitId: null
       });
     }
 
@@ -53,7 +52,7 @@ function searchReducer(state = initialState, action) {
     case types.UI.ENABLE_GEOPOSITION_SUCCESS: {
       const position = {
         lat: action.payload.coords.latitude,
-        lon: action.payload.coords.longitude,
+        lon: action.payload.coords.longitude
       };
       return state.merge({ position });
     }
@@ -75,7 +74,7 @@ function searchReducer(state = initialState, action) {
       const start = getStartTimeString(state.filters.start);
       const useTimeRange = true;
       const filters = pickSupportedFilters({
-        duration, end, start, useTimeRange,
+        duration, end, start, useTimeRange
       });
       return state.merge({ filters }, { deep: true });
     }

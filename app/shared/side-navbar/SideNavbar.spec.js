@@ -1,17 +1,17 @@
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
-
 import { shallowWithIntl } from 'utils/testUtils';
 import Footer from 'shared/footer';
 import Navbar from 'shared/navbar';
 import Sidebar from 'shared/sidebar';
+
 import SideNavbar from './SideNavbar';
 
 function getWrapper(props = {}, children = 'Some text') {
   const defaultProps = {
     t: () => {},
-    initials: null,
+    initials: null
   };
   return shallowWithIntl(<SideNavbar {...defaultProps} {...props}>{children}</SideNavbar>);
 }

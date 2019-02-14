@@ -2,7 +2,6 @@ import ActionTypes from 'constants/ActionTypes';
 
 import moment from 'moment';
 import { createSelector, createStructuredSelector } from 'reselect';
-
 import { createIsStaffSelector, isAdminSelector } from 'state/selectors/authSelectors';
 import { createResourceSelector } from 'state/selectors/dataSelectors';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
@@ -34,7 +33,7 @@ const reservationInfoModalSelector = createStructuredSelector({
   reservation: reservationSelector,
   reservationIsEditable: reservationIsEditableSelector,
   resource: resourceSelector,
-  show: state => state.ui.reservationInfoModal.show,
+  show: state => state.ui.reservationInfoModal.show
 });
 
 export default reservationInfoModalSelector;

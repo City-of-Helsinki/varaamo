@@ -1,7 +1,6 @@
 import ActionTypes from 'constants/ActionTypes';
 
 import { createSelector, createStructuredSelector } from 'reselect';
-
 import { isAdminSelector, isLoggedInSelector } from 'state/selectors/authSelectors';
 import { createResourceSelector, unitsSelector } from 'state/selectors/dataSelectors';
 import dateSelector from 'state/selectors/dateSelector';
@@ -24,7 +23,7 @@ const resourcePageSelector = createStructuredSelector({
   isLoggedIn: isLoggedInSelector,
   resource: resourceSelector,
   showMap: showMapSelector,
-  unit: unitSelector,
+  unit: unitSelector
 });
 
 export default resourcePageSelector;

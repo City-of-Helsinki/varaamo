@@ -7,7 +7,7 @@ import WrappedText from './WrappedText';
 
 describe('shared/wrapped-text/WrappedText', () => {
   const defaultProps = {
-    text: 'Some text',
+    text: 'Some text'
   };
 
   function getWrapper(extraProps) {

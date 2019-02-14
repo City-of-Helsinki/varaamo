@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
 import PageWrapper from 'pages/PageWrapper';
 import { injectT } from 'i18n';
+
 import AboutPageContent from './AboutPageContent';
 
 function AboutPage({ t }) {
@@ -14,7 +14,7 @@ function AboutPage({ t }) {
 }
 
 AboutPage.propTypes = {
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 };
 
 export default injectT(AboutPage);

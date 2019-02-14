@@ -14,27 +14,27 @@ module.exports = merge(common, {
   output: {
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/_assets/',
-    filename: 'app.js',
+    filename: 'app.js'
   },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         include: path.resolve(__dirname, '../app'),
-        use: ['babel-loader'],
+        use: ['babel-loader']
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style', 'css-loader?{"svgo":false}!postcss-loader'),
+        loader: ExtractTextPlugin.extract('style', 'css-loader?{"svgo":false}!postcss-loader')
       },
       {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract(
           'style',
           'css-loader?{"svgo":false}!resolve-url-loader!postcss-loader!sass-loader'
-        ),
-      },
-    ],
+        )
+      }
+    ]
   },
   plugins: [
     // Important to keep React file size down
@@ -43,17 +43,17 @@ module.exports = merge(common, {
       SETTINGS: {
         API_URL: JSON.stringify(process.env.API_URL || 'https://api.hel.fi/respa/v1'),
         SHOW_TEST_SITE_MESSAGE: Boolean(process.env.SHOW_TEST_SITE_MESSAGE),
-        TRACKING: Boolean(process.env.PIWIK_SITE_ID),
-      },
+        TRACKING: Boolean(process.env.PIWIK_SITE_ID)
+      }
     }),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         screw_ie8: true,
-        warnings: false,
-      },
+        warnings: false
+      }
     }),
-    new ExtractTextPlugin('app.css'),
-  ],
+    new ExtractTextPlugin('app.css')
+  ]
 });

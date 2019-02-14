@@ -2,7 +2,6 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/lib/Button';
-
 import { injectT } from 'i18n';
 
 class ReservationControls extends Component {
@@ -53,7 +52,7 @@ class ReservationControls extends Component {
         >
           {props.t('ReservationControls.info')}
         </Button>
-      ),
+      )
     };
   }
 
@@ -128,7 +127,7 @@ ReservationControls.propTypes = {
   onEditClick: PropTypes.func.isRequired,
   onInfoClick: PropTypes.func.isRequired,
   reservation: PropTypes.object,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 };
 
 export default injectT(ReservationControls);

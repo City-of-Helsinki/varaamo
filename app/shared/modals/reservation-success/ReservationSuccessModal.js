@@ -3,7 +3,6 @@ import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import { FormattedHTMLMessage } from 'react-intl';
 import Modal from 'react-bootstrap/lib/Modal';
-
 import CompactReservationList from 'shared/compact-reservation-list';
 import ReservationAccessCode from 'shared/reservation-access-code';
 import ReservationDate from 'shared/reservation-date';
@@ -16,7 +15,7 @@ function ReservationSuccessModal({
   resources,
   show,
   t,
-  user,
+  user
 }) {
   const reservation = reservationsToShow.length ? reservationsToShow[0] : {};
   const resource = reservation.resource ? resources[reservation.resource] : {};
@@ -121,7 +120,7 @@ ReservationSuccessModal.propTypes = {
   resources: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 export default injectT(ReservationSuccessModal);

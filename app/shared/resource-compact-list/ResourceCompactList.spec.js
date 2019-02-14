@@ -2,8 +2,8 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
-
 import ResourceCard from 'shared/resource-card';
+
 import { UnconnectedResourceCompactList as ResourceCompactList } from './ResourceCompactList';
 
 describe('shared/resource-list/ResourceCompactList', () => {
@@ -11,7 +11,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
     resourceIds: Immutable(['resource-1', 'resource-2']),
     date: '2017-01-01',
     location: {},
-    history: {},
+    history: {}
   };
 
   function getWrapper(extraProps) {
@@ -45,7 +45,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
     it('renders second ResourceCard if resourcePosition is 1', () => {
       const instance = wrapper.instance();
       instance.setState({
-        resourcePosition: 1,
+        resourcePosition: 1
       });
       wrapper.update();
       const resourceCard = wrapper.find(ResourceCard);
@@ -66,7 +66,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
     it('renders left arrow if resourcePosition state is not 0', () => {
       const instance = wrapper.instance();
       instance.setState({
-        resourcePosition: 1,
+        resourcePosition: 1
       });
       wrapper.update();
       const leftArrow = wrapper.find('.app-ResourceCompactList_arrow-left');
@@ -76,7 +76,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
     it('renders left arrow if resourcePosition state is 0', () => {
       const instance = wrapper.instance();
       instance.setState({
-        resourcePosition: 0,
+        resourcePosition: 0
       });
       wrapper.update();
       const leftArrow = wrapper.find('.app-ResourceCompactList_arrow-left');
@@ -86,7 +86,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
     it('left arrow has correct onClick prop', () => {
       const instance = wrapper.instance();
       instance.setState({
-        resourcePosition: 1,
+        resourcePosition: 1
       });
       wrapper.update();
       const leftArrow = wrapper.find('.app-ResourceCompactList_arrow-left');
@@ -96,7 +96,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
     it('renders right arrow if resourcePosition state is 0', () => {
       const instance = wrapper.instance();
       instance.setState({
-        resourcePosition: 0,
+        resourcePosition: 0
       });
       wrapper.update();
       const rightArrow = wrapper.find('.app-ResourceCompactList_arrow-right');
@@ -106,7 +106,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
     it('renders right arrow if resourcePosition state is last resource position', () => {
       const instance = wrapper.instance();
       instance.setState({
-        resourcePosition: 1,
+        resourcePosition: 1
       });
       wrapper.update();
       const rightArrow = wrapper.find('.app-ResourceCompactList_arrow-right');
@@ -116,7 +116,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
     it('right arrow has correct onClick prop', () => {
       const instance = wrapper.instance();
       instance.setState({
-        resourcePosition: 0,
+        resourcePosition: 0
       });
       wrapper.update();
       const rightArrow = wrapper.find('.app-ResourceCompactList_arrow-right');
@@ -128,7 +128,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
     it('sets resourcePosition to 0', () => {
       const instance = getWrapper().instance();
       instance.setState({
-        resourcePosition: 1,
+        resourcePosition: 1
       });
       instance.componentWillReceiveProps();
       expect(instance.state.resourcePosition).to.equal(0);
@@ -139,7 +139,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
     it('decreases resourcePosition by 1', () => {
       const instance = getWrapper().instance();
       instance.setState({
-        resourcePosition: 1,
+        resourcePosition: 1
       });
       instance.onPreviousResource();
       expect(instance.state.resourcePosition).to.equal(0);
@@ -148,7 +148,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
     it('loops to last position if position is 0', () => {
       const instance = getWrapper().instance();
       instance.setState({
-        resourcePosition: 0,
+        resourcePosition: 0
       });
       instance.onPreviousResource();
       expect(instance.state.resourcePosition).to.equal(1);
@@ -159,7 +159,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
     it('decreases resourcePosition by 1', () => {
       const instance = getWrapper().instance();
       instance.setState({
-        resourcePosition: 0,
+        resourcePosition: 0
       });
       instance.onNextResource();
       expect(instance.state.resourcePosition).to.equal(1);
@@ -168,7 +168,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
     it('loops to first position if position is last', () => {
       const instance = getWrapper().instance();
       instance.setState({
-        resourcePosition: 1,
+        resourcePosition: 1
       });
       instance.onNextResource();
       expect(instance.state.resourcePosition).to.equal(0);

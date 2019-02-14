@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect';
-
 import { createTranslatedSelector } from 'state/selectors/translationSelectors';
 
 const purposesSelector = createTranslatedSelector(state => state.data.purposes);
@@ -20,5 +19,5 @@ export {
   purposesSelector,
   reservationsSelector,
   resourcesSelector,
-  unitsSelector,
+  unitsSelector
 };

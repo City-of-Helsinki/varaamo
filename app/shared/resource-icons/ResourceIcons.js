@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
-
 import { injectT } from 'i18n';
 import { getHumanizedPeriod, getHourlyPrice } from 'utils/resourceUtils';
 
@@ -33,9 +32,9 @@ ResourceIcons.propTypes = {
     peopleCapacity: PropTypes.number,
     maxPeriod: PropTypes.string,
     minPricePerHour: PropTypes.string,
-    maxPricePerHour: PropTypes.string,
+    maxPricePerHour: PropTypes.string
   }).isRequired,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 };
 
 export default injectT(ResourceIcons);

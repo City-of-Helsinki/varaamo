@@ -5,8 +5,8 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import ListGroup from 'react-bootstrap/lib/ListGroup';
 import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
 import Overlay from 'react-bootstrap/lib/Overlay';
-
 import { injectT } from 'i18n';
+
 import SearchControlOverlay from './SearchControlOverlay';
 
 class SearchBox extends React.Component {
@@ -15,12 +15,12 @@ class SearchBox extends React.Component {
     onSearch: PropTypes.func.isRequired,
     options: PropTypes.array.isRequired,
     t: PropTypes.func.isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired
   };
 
   state = {
     searchOptions: [],
-    visible: false,
+    visible: false
   }
 
   handleChange = (event) => {

@@ -13,7 +13,7 @@ describe('shared/form-fields/ReduxFormField', () => {
     label: 'Enter your email',
     meta: { error: 'some error' },
     name: 'email',
-    type: 'text',
+    type: 'text'
   };
 
   function getWrapper(props) {

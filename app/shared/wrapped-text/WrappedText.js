@@ -6,7 +6,7 @@ function renderParagraph(text, index, openLinksInNewTab) {
   const properties = openLinksInNewTab
     ? {
       rel: 'noopener noreferrer',
-      target: '_blank',
+      target: '_blank'
     }
     : {};
 
@@ -32,7 +32,7 @@ function WrappedText({ text, openLinksInNewTab = false }) {
 
 WrappedText.propTypes = {
   text: PropTypes.string,
-  openLinksInNewTab: PropTypes.bool,
+  openLinksInNewTab: PropTypes.bool
 };
 
 export default WrappedText;

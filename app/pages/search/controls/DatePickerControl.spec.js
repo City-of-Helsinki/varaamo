@@ -7,8 +7,8 @@ import DayPicker from 'react-day-picker';
 import moment from 'moment';
 import mockDate from 'mockdate';
 import simple from 'simple-mock';
-
 import { shallowWithIntl } from 'utils/testUtils';
+
 import DatePickerControl from './DatePickerControl';
 import SearchControlOverlay from './SearchControlOverlay';
 
@@ -18,7 +18,7 @@ const defaults = {
   duration: 30,
   end: '16:00',
   onConfirm: () => null,
-  start: '10:00',
+  start: '10:00'
 };
 function getWrapper(props) {
   return shallowWithIntl(<DatePickerControl {...defaults} {...props} />);

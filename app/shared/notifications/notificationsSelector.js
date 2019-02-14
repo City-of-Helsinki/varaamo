@@ -5,7 +5,7 @@ const notificationsInputSelector = state => state.notifications;
 
 const notificationsSelector = createSelector(
   notificationsInputSelector, notifications => ({
-    notifications: reject(notifications, 'hidden'),
+    notifications: reject(notifications, 'hidden')
   }),
 );
 

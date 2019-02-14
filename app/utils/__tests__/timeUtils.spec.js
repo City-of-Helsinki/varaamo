@@ -4,7 +4,6 @@ import { expect } from 'chai';
 import MockDate from 'mockdate';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
-
 import {
   addToDate,
   calculateDuration,
@@ -18,7 +17,7 @@ import {
   getTimeSlots,
   isPastDate,
   padLeft,
-  prettifyHours,
+  prettifyHours
 } from 'utils/timeUtils';
 
 const moment = extendMoment(Moment);
@@ -371,8 +370,8 @@ describe('Utils: timeUtils', () => {
         const reservations = [
           {
             begin: '2015-10-09T08:30:00+03:00',
-            end: '2015-10-09T09:30:00+03:00',
-          },
+            end: '2015-10-09T09:30:00+03:00'
+          }
         ];
         const slots = getTimeSlots(start, end, period, reservations);
 
@@ -394,12 +393,12 @@ describe('Utils: timeUtils', () => {
         const reservations = [
           {
             begin: '2015-10-09T08:30:00+03:00',
-            end: '2015-10-09T09:00:00+03:00',
+            end: '2015-10-09T09:00:00+03:00'
           },
           {
             begin: '2015-10-09T09:30:00+03:00',
-            end: '2015-10-09T10:00:00+03:00',
-          },
+            end: '2015-10-09T10:00:00+03:00'
+          }
         ];
         const slots = getTimeSlots(start, end, period, reservations);
 
@@ -419,8 +418,8 @@ describe('Utils: timeUtils', () => {
       const reservations = [
         {
           begin: '2015-10-09T08:00:00+03:00',
-          end: '2015-10-09T09:30:00+03:00',
-        },
+          end: '2015-10-09T09:30:00+03:00'
+        }
       ];
       const slots = getTimeSlots(start, end, period, reservations);
 
@@ -447,8 +446,8 @@ describe('Utils: timeUtils', () => {
         const reservationsToEdit = [
           {
             begin: '2015-10-09T08:30:00+03:00',
-            end: '2015-10-09T09:30:00+03:00',
-          },
+            end: '2015-10-09T09:30:00+03:00'
+          }
         ];
         const slots = getTimeSlots(start, end, period, reservations, reservationsToEdit);
 
@@ -470,12 +469,12 @@ describe('Utils: timeUtils', () => {
         const reservationsToEdit = [
           {
             begin: '2015-10-09T08:30:00+03:00',
-            end: '2015-10-09T09:00:00+03:00',
+            end: '2015-10-09T09:00:00+03:00'
           },
           {
             begin: '2015-10-09T09:30:00+03:00',
-            end: '2015-10-09T10:00:00+03:00',
-          },
+            end: '2015-10-09T10:00:00+03:00'
+          }
         ];
         const slots = getTimeSlots(start, end, period, reservations, reservationsToEdit);
 

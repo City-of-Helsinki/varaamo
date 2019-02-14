@@ -1,8 +1,8 @@
 import trim from 'lodash/trim';
 import { createSelector, createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
-
 import { currentUserSelector } from 'state/selectors/authSelectors';
+
 import SideNavbar from './SideNavbar';
 
 const userNameInitialsSelector = createSelector(
@@ -18,7 +18,7 @@ const userNameInitialsSelector = createSelector(
 );
 
 export const selector = createStructuredSelector({
-  initials: userNameInitialsSelector,
+  initials: userNameInitialsSelector
 });
 
 export default connect(selector)(SideNavbar);

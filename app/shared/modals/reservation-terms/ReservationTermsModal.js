@@ -4,10 +4,10 @@ import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-bootstrap/lib/Modal';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import { closeResourceTermsModal } from 'actions/uiActions';
 import { injectT } from 'i18n';
 import WrappedText from 'shared/wrapped-text';
+
 import reservationTermsModalSelector from './reservationTermsModalSelector';
 
 class UnconnectedReservationTermsModal extends Component {
@@ -16,7 +16,7 @@ class UnconnectedReservationTermsModal extends Component {
       actions,
       resource,
       show,
-      t,
+      t
     } = this.props;
 
     const { genericTerms, name } = resource;
@@ -58,14 +58,14 @@ UnconnectedReservationTermsModal.propTypes = {
   actions: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 };
 
 UnconnectedReservationTermsModal = injectT(UnconnectedReservationTermsModal);  // eslint-disable-line
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
-    closeResourceTermsModal,
+    closeResourceTermsModal
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

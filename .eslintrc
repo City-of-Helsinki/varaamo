@@ -19,8 +19,6 @@
   ],
 
   "rules": {
-    // Amendments to airbnb rules
-    // ##########################
 
     "class-methods-use-this": "off",
 
@@ -40,11 +38,8 @@
 
     "import/prefer-default-export": "off",
 
-    // allow use of constructors without new,
-    // makes working with seamless-immutable easier
     "new-cap": ["error", { "capIsNew": false, "newIsCap": true }],
 
-    // allow using underscore dangle with piwik
     "no-underscore-dangle": ["error", { "allow": ["_paq"] }],
 
     "no-unused-expressions": "off",
@@ -65,6 +60,8 @@
 
     "linebreak-style": 0,
 
-    "no-restricted-globals": ["error", "history"]
+    "no-restricted-globals": ["error", "history"],
+
+    "comma-dangle": ["error", "never"]
   }
 }

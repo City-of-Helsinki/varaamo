@@ -1,5 +1,4 @@
 import { createSelector, createStructuredSelector } from 'reselect';
-
 import { resourcesSelector } from 'state/selectors/dataSelectors';
 
 const resourceIdsSelector = (state, props) => props.resourceIds;
@@ -17,5 +16,5 @@ const filteredResourceIdsSelector = createSelector(
 );
 
 export default createStructuredSelector({
-  resourceIds: filteredResourceIdsSelector,
+  resourceIds: filteredResourceIdsSelector
 });

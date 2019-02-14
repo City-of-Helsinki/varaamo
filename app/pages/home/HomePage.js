@@ -6,10 +6,10 @@ import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import camelCase from 'lodash/camelCase';
-
 import { fetchPurposes } from 'actions/purposeActions';
 import { injectT } from 'i18n';
 import PageWrapper from 'pages/PageWrapper';
+
 import HomeSearchBox from './HomeSearchBox';
 import homePageSelector from './homePageSelector';
 import iconManufacturing from './images/frontpage_build.svg';
@@ -23,7 +23,7 @@ const purposeIcons = {
   sports: iconSports,
   guidance: iconGuidance,
   manufacturing: iconManufacturing,
-  meetingsAndWorking: iconMeetingsAndWorking,
+  meetingsAndWorking: iconMeetingsAndWorking
 };
 
 class UnconnectedHomePage extends Component {
@@ -98,7 +98,7 @@ UnconnectedHomePage.propTypes = {
   isFetchingPurposes: PropTypes.bool.isRequired,
   purposes: PropTypes.array.isRequired,
   history: PropTypes.object.isRequired,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 };
 
 UnconnectedHomePage = injectT(UnconnectedHomePage); // eslint-disable-line

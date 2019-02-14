@@ -1,7 +1,6 @@
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
-
 import { injectT } from 'i18n';
 
 function ReservingRestrictedText({ reservableBefore, reservableDaysInAdvance, t }) {
@@ -21,7 +20,7 @@ function ReservingRestrictedText({ reservableBefore, reservableDaysInAdvance, t 
 ReservingRestrictedText.propTypes = {
   reservableBefore: PropTypes.string.isRequired,
   reservableDaysInAdvance: PropTypes.number.isRequired,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 };
 
 export default injectT(ReservingRestrictedText);

@@ -3,7 +3,6 @@ import constants from 'constants/AppConstants';
 import omit from 'lodash/omit';
 import pick from 'lodash/pick';
 import queryString from 'query-string';
-
 import { getDateStartAndEndTimes, getDateString } from 'utils/timeUtils';
 
 function getFetchParamsFromFilters(filters) {
@@ -41,5 +40,5 @@ function textBoolean(value) {
 }
 
 export {
-  getFetchParamsFromFilters, getSearchPageUrl, pickSupportedFilters, textBoolean,
+  getFetchParamsFromFilters, getSearchPageUrl, pickSupportedFilters, textBoolean
 };

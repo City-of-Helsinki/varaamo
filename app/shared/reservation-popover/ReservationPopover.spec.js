@@ -4,8 +4,8 @@ import simple from 'simple-mock';
 import React from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
-
 import { shallowWithIntl } from 'utils/testUtils';
+
 import ReservationPopover from './ReservationPopover';
 
 function getWrapper(props) {
@@ -13,7 +13,7 @@ function getWrapper(props) {
     children: <div />,
     onCancel: simple.stub(),
     begin: '2016-01-01T10:00:00Z',
-    end: '2016-01-01T12:00:00Z',
+    end: '2016-01-01T12:00:00Z'
   };
   return shallowWithIntl(<ReservationPopover {...defaultProps} {...props} />);
 }
@@ -21,7 +21,7 @@ function getWrapper(props) {
 describe('shared/reservation-popover/ReservationPopover', () => {
   function getInternalPopover(props) {
     const overlay = getWrapper({
-      ...props,
+      ...props
     }).find(OverlayTrigger);
     return shallow(overlay.prop('overlay'));
   }
@@ -34,7 +34,7 @@ describe('shared/reservation-popover/ReservationPopover', () => {
   it('renders length with only minutes if less than an hour', () => {
     const extraProps = {
       begin: '2016-01-01T10:00:00Z',
-      end: '2016-01-01T10:30:00Z',
+      end: '2016-01-01T10:30:00Z'
     };
     const span = getInternalPopover(extraProps).find('.reservation-popover__length');
     expect(span.text()).to.be.equal('(30min)');

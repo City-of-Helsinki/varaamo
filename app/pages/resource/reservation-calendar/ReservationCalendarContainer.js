@@ -7,14 +7,13 @@ import Col from 'react-bootstrap/lib/Col';
 import Row from 'react-bootstrap/lib/Row';
 import moment from 'moment';
 import { first, last, orderBy } from 'lodash';
-
 import { addNotification } from 'actions/notificationsActions';
 import {
   cancelReservationEdit,
   clearTimeSlots,
   openConfirmReservationModal,
   selectReservationSlot,
-  toggleTimeSlot,
+  toggleTimeSlot
 } from 'actions/uiActions';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
 import ReservationInfoModal from 'shared/modals/reservation-info';
@@ -24,6 +23,7 @@ import recurringReservations from 'state/recurringReservations';
 import { injectT } from 'i18n';
 import { getEditReservationUrl } from 'utils/reservationUtils';
 import { hasMaxReservations, reservingIsRestricted } from 'utils/resourceUtils';
+
 import reservationCalendarSelector from './reservationCalendarSelector';
 import ReservingRestrictedText from './ReservingRestrictedText';
 import TimeSlots from './time-slots';
@@ -39,18 +39,18 @@ export class UnconnectedReservationCalendarContainer extends Component {
     isStaff: PropTypes.bool.isRequired,
     // eslint-disable-next-line react/no-unused-prop-types
     location: PropTypes.shape({
-      search: PropTypes.string.isRequired,
+      search: PropTypes.string.isRequired
     }).isRequired,
     params: PropTypes.shape({
       // eslint-disable-line react/no-unused-prop-types
-      id: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired
     }).isRequired,
     history: PropTypes.object.isRequired,
     resource: PropTypes.object.isRequired,
     selected: PropTypes.array.isRequired,
     t: PropTypes.func.isRequired,
     time: PropTypes.string,
-    timeSlots: PropTypes.array.isRequired,
+    timeSlots: PropTypes.array.isRequired
   };
 
   getSelectedDateSlots = (timeSlots, selected) => {
@@ -99,12 +99,14 @@ export class UnconnectedReservationCalendarContainer extends Component {
   };
 
   handleReserveClick = () => {
-    const { actions, isAdmin, resource, selected, t, history } = this.props;
+    const {
+      actions, isAdmin, resource, selected, t, history
+    } = this.props;
     if (!isAdmin && hasMaxReservations(resource)) {
       actions.addNotification({
         message: t('TimeSlots.maxReservationsPerUser'),
         type: 'error',
-        timeOut: 10000,
+        timeOut: 10000
       });
     } else {
       const orderedSelected = orderBy(selected, 'begin');
@@ -130,7 +132,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
       selected,
       t,
       time,
-      timeSlots,
+      timeSlots
     } = this.props;
 
     const isOpen = Boolean(timeSlots.length);
@@ -207,7 +209,7 @@ function mapDispatchToProps(dispatch) {
     changeRecurringBaseTime: recurringReservations.changeBaseTime,
     openConfirmReservationModal,
     selectReservationSlot,
-    toggleTimeSlot,
+    toggleTimeSlot
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

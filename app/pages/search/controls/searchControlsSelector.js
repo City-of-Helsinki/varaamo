@@ -3,7 +3,6 @@ import ActionTypes from 'constants/ActionTypes';
 import sortBy from 'lodash/sortBy';
 import values from 'lodash/values';
 import { createSelector, createStructuredSelector } from 'reselect';
-
 import { purposesSelector, unitsSelector } from 'state/selectors/dataSelectors';
 import uiSearchFiltersSelector from 'state/selectors/uiSearchFiltersSelector';
 import urlSearchFiltersSelector from 'state/selectors/urlSearchFiltersSelector';
@@ -19,7 +18,7 @@ const purposeOptionsSelector = createSelector(
       .filter(purpose => purpose.parent === null)
       .map(purpose => ({
         value: purpose.id,
-        label: purpose.name,
+        label: purpose.name
       }));
     return sortBy(purposeOptions, 'label');
   },
@@ -31,7 +30,7 @@ const unitOptionsSelector = createSelector(
     const unitOptions = values(units)
       .map(unit => ({
         value: unit.id,
-        label: unit.name,
+        label: unit.name
       }));
     return sortBy(unitOptions, 'label');
   },
@@ -45,7 +44,7 @@ const searchControlsSelector = createStructuredSelector({
   position: positionSelector,
   purposeOptions: purposeOptionsSelector,
   unitOptions: unitOptionsSelector,
-  urlSearchFilters: urlSearchFiltersSelector,
+  urlSearchFilters: urlSearchFiltersSelector
 });
 
 export default searchControlsSelector;

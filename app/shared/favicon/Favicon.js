@@ -1,14 +1,14 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-
 import { getCurrentCustomization } from 'utils/customizationUtils';
+
 import helsinkiFavicon from './helsinki-favicon.ico';
 import espooFavicon from './espoo-favicon.ico';
 import vantaaFavicon from './vantaa-favicon.ico';
 
 const favicons = {
   ESPOO: espooFavicon,
-  VANTAA: vantaaFavicon,
+  VANTAA: vantaaFavicon
 };
 
 function Favicon() {

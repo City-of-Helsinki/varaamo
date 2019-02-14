@@ -6,7 +6,6 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Row from 'react-bootstrap/lib/Row';
 import NumericInput from 'react-numeric-input';
 import Select from 'react-select';
-
 import { injectT } from 'i18n';
 import DatePicker from 'shared/date-picker';
 
@@ -27,7 +26,7 @@ function RecurringReservationControls({
   isVisible,
   numberOfOccurrences,
   lastTime,
-  t,
+  t
 }) {
   if (!isVisible) {
     return <span />;
@@ -96,7 +95,7 @@ RecurringReservationControls.propTypes = {
   isVisible: PropTypes.bool.isRequired,
   numberOfOccurrences: PropTypes.number.isRequired,
   lastTime: PropTypes.string,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 };
 
 export default injectT(RecurringReservationControls);

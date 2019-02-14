@@ -8,7 +8,7 @@ import Sidebar from './Sidebar';
 function getWrapper(props) {
   const defaults = {
     date: '2016-01-01',
-    groups: [],
+    groups: []
   };
   return shallow(<Sidebar {...defaults} {...props} />);
 }
@@ -28,7 +28,7 @@ describe('shared/availability-view/Sidebar', () => {
     const date = '2016-05-05';
     const groups = [
       { name: 'A', resources: [] },
-      { name: 'B', resources: ['a', 'b'] },
+      { name: 'B', resources: ['a', 'b'] }
     ];
     const elements = getWrapper({ date, groups }).find(GroupInfo);
     expect(elements).to.have.length(2);

@@ -6,7 +6,7 @@ import Immutable from 'seamless-immutable';
 const initialState = Immutable({
   isEditing: false,
   reservation: null,
-  show: false,
+  show: false
 });
 
 function reservationInfoModalReducer(state = initialState, action) {
@@ -18,14 +18,14 @@ function reservationInfoModalReducer(state = initialState, action) {
     case types.API.RESERVATION_PUT_SUCCESS: {
       return state.merge({
         isEditing: false,
-        reservation: action.payload,
+        reservation: action.payload
       });
     }
 
     case types.UI.SHOW_RESERVATION_INFO_MODAL: {
       return state.merge({
         reservation: action.payload,
-        show: true,
+        show: true
       });
     }
 

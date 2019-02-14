@@ -15,8 +15,8 @@ export default class SingleAvailabilityView extends React.Component {
     resource: PropTypes.string.isRequired,
     selection: PropTypes.shape({
       begin: PropTypes.string.isRequired,
-      end: PropTypes.string.isRequired,
-    }),
+      end: PropTypes.string.isRequired
+    })
   };
 
   constructor(props) {
@@ -34,11 +34,11 @@ export default class SingleAvailabilityView extends React.Component {
         this.props.selection
           ? utils.getTimeSlotWidth({
             startTime: moment(this.props.selection.begin).startOf('day'),
-            endTime: moment(this.props.selection.begin),
+            endTime: moment(this.props.selection.begin)
           })
           : utils.getTimeSlotWidth({
             startTime: moment('2016-01-01T00:00:00'),
-            endTime: moment('2016-01-01T08:00:00'),
+            endTime: moment('2016-01-01T08:00:00')
           })
       );
       component.scrollTo(target);

@@ -9,15 +9,15 @@ import FavoriteButton from './FavoriteButton';
 describe('shared/favorite-button/FavoriteButtonContainer', () => {
   const resource = {
     id: '123',
-    isFavorite: true,
+    isFavorite: true
   };
 
   const defaultProps = {
     actions: {
       favoriteResource: simple.mock(),
-      unfavoriteResource: simple.mock(),
+      unfavoriteResource: simple.mock()
     },
-    resource,
+    resource
   };
 
   function getWrapper(props) {
@@ -63,8 +63,8 @@ describe('shared/favorite-button/FavoriteButtonContainer', () => {
       const customInstance = getWrapper({
         resource: {
           id: '123',
-          isFavorite: false,
-        },
+          isFavorite: false
+        }
       }).instance();
       customInstance.handleClick();
       expect(defaultProps.actions.favoriteResource.callCount).to.equal(1);

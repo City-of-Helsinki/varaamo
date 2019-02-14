@@ -10,7 +10,7 @@ import InfoPopover from './InfoPopover';
 function getWrapper(props) {
   const defaults = {
     id: 'info-id',
-    text: 'This is a popover!',
+    text: 'This is a popover!'
   };
   return shallow(<InfoPopover {...defaults} {...props} />);
 }

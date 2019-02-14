@@ -7,7 +7,7 @@ import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 InfoPopover.propTypes = {
   id: PropTypes.string.isRequired,
   placement: PropTypes.string,
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired
 };
 function InfoPopover({ id, placement, text }) {
   const popover = <Popover id={id}>{text}</Popover>;

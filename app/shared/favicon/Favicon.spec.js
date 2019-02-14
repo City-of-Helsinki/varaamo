@@ -2,8 +2,8 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
-
 import * as customizationUtils from 'utils/customizationUtils';
+
 import Favicon from './Favicon';
 import espooFavicon from './espoo-favicon.ico';
 import vantaaFavicon from './vantaa-favicon.ico';

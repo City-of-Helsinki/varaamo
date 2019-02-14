@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import React from 'react';
 import simple from 'simple-mock';
-
 import PageWrapper from 'pages/PageWrapper';
 import { shallowWithIntl } from 'utils/testUtils';
+
 import { UnconnectedUserReservationsPage as UserReservationsPage } from './UserReservationsPage';
 import AdminReservationFilters from './reservation-filters/AdminReservationFilters';
 import ReservationList from './reservation-list';
@@ -19,12 +19,12 @@ describe('pages/user-reservations/UserReservationsPage', () => {
       changeAdminReservationFilters,
       fetchReservations,
       fetchResources,
-      fetchUnits,
+      fetchUnits
     },
     adminReservationFilters: { state: 'requested' },
     isAdmin: false,
     reservationsFetchCount: 1,
-    resourcesLoaded: true,
+    resourcesLoaded: true
   };
 
   function getWrapper(extraProps = {}) {

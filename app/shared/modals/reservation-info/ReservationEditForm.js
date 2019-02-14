@@ -12,7 +12,6 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Well from 'react-bootstrap/lib/Well';
 import { Field, Fields, reduxForm } from 'redux-form';
-
 import ReduxFormField from 'shared/form-fields/ReduxFormField';
 import ReservationTimeControls from 'shared/form-fields/ReservationTimeControls';
 import TimeRange from 'shared/time-range';
@@ -97,7 +96,7 @@ class UnconnectedReservationEditForm extends Component {
 
   renderReservationTime() {
     const {
-      isEditing, reservation, resource, t,
+      isEditing, reservation, resource, t
     } = this.props;
     if (isEditing) {
       return (
@@ -131,7 +130,7 @@ class UnconnectedReservationEditForm extends Component {
       reservation,
       reservationIsEditable,
       resource,
-      t,
+      t
     } = this.props;
 
     if (isEmpty(reservation)) return <span />;
@@ -207,11 +206,11 @@ UnconnectedReservationEditForm.propTypes = {
   reservation: PropTypes.object.isRequired,
   reservationIsEditable: PropTypes.bool.isRequired,
   resource: PropTypes.object.isRequired,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 };
 UnconnectedReservationEditForm = injectT(UnconnectedReservationEditForm);  // eslint-disable-line
 
 export { UnconnectedReservationEditForm };
 export default injectT(reduxForm({
-  form: FormTypes.RESERVATION_EDIT,
+  form: FormTypes.RESERVATION_EDIT
 })(UnconnectedReservationEditForm));

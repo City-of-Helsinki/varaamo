@@ -6,19 +6,19 @@ import ListGroup from 'react-bootstrap/lib/ListGroup';
 import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
 import Overlay from 'react-bootstrap/lib/Overlay';
 import FontAwesome from 'react-fontawesome';
-
 import { injectT } from 'i18n';
+
 import SearchControlOverlay from './SearchControlOverlay';
 
 class PeopleCapacityControl extends React.Component {
   static propTypes = {
     onConfirm: PropTypes.func.isRequired,
     t: PropTypes.func.isRequired,
-    value: PropTypes.number,
+    value: PropTypes.number
   };
 
   state = {
-    visible: false,
+    visible: false
   }
 
   getOption(value) {

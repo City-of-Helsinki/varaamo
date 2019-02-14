@@ -9,7 +9,7 @@ import PageWrapper from './PageWrapper';
 describe('pages/PageWrapper', () => {
   const defaultProps = {
     className: 'test-page',
-    title: 'Test title',
+    title: 'Test title'
   };
 
   function getWrapper(extraProps) {

@@ -2,7 +2,6 @@ import reduce from 'lodash/reduce';
 import find from 'lodash/find';
 import omit from 'lodash/omit';
 import { createSelector, createStructuredSelector } from 'reselect';
-
 import { resourcesSelector, unitsSelector } from 'state/selectors/dataSelectors';
 import urlSearchFiltersSelector from 'state/selectors/urlSearchFiltersSelector';
 
@@ -41,7 +40,7 @@ const markersSelector = createSelector(
           unitId: resource.unit,
           latitude: units[resource.unit].location.coordinates[1],
           longitude: units[resource.unit].location.coordinates[0],
-          resourceIds: [resource.id],
+          resourceIds: [resource.id]
         };
       }
       return memo;
@@ -75,7 +74,7 @@ const boundariesSelector = createSelector(
       maxLatitude: maxLatitude + padding,
       minLatitude: minLatitude - padding,
       maxLongitude: maxLongitude + padding,
-      minLongitude: minLongitude - padding,
+      minLongitude: minLongitude - padding
     };
   },
 );
@@ -84,5 +83,5 @@ export default createStructuredSelector({
   boundaries: boundariesSelector,
   shouldMapFitBoundaries: shouldMapFitBoundariesSelector,
   markers: markersSelector,
-  position: positionSelector,
+  position: positionSelector
 });

@@ -1,6 +1,6 @@
 import { compose, createStore } from 'redux';
-
 import rootReducer from 'state/rootReducer';
+
 import middleware from './middleware';
 
 const finalCreateStore = compose(...middleware)(createStore);

@@ -3,7 +3,6 @@ import constants from 'constants/AppConstants';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Alert from 'react-bootstrap/lib/Alert';
-
 import { injectT } from 'i18n';
 
 function TestSiteMessage({ t }) {
@@ -18,7 +17,7 @@ function TestSiteMessage({ t }) {
 }
 
 TestSiteMessage.propTypes = {
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 };
 
 export default injectT(TestSiteMessage);

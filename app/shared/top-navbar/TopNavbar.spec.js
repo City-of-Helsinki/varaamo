@@ -2,8 +2,8 @@ import { expect } from 'chai';
 import React from 'react';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
-
 import { shallowWithIntl } from 'utils/testUtils';
+
 import TopNavbar from './TopNavbar';
 
 describe('shared/top-navbar/TopNavbar', () => {
@@ -12,7 +12,7 @@ describe('shared/top-navbar/TopNavbar', () => {
       changeLocale: () => null,
       currentLanguage: 'fi',
       isLoggedIn: false,
-      userName: 'Luke Skywalker',
+      userName: 'Luke Skywalker'
     };
     return shallowWithIntl(<TopNavbar {...defaults} {...props} />);
   }
@@ -45,7 +45,7 @@ describe('shared/top-navbar/TopNavbar', () => {
     const props = {
       isAdmin: false,
       isLoggedIn: true,
-      userName: 'Luke',
+      userName: 'Luke'
     };
     function getLoggedInNotAdminWrapper() {
       return getWrapper({ ...props });
@@ -75,7 +75,7 @@ describe('shared/top-navbar/TopNavbar', () => {
 
   describe('if user is not logged in', () => {
     const props = {
-      isLoggedIn: false,
+      isLoggedIn: false
     };
     function getNotLoggedInWrapper() {
       return getWrapper({ ...props });

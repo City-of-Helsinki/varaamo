@@ -4,8 +4,8 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Select from 'react-select';
 import simple from 'simple-mock';
-
 import { shallowWithIntl } from 'utils/testUtils';
+
 import SelectControl from './SelectControl';
 
 const defaults = {
@@ -15,9 +15,9 @@ const defaults = {
   onConfirm: () => null,
   options: [
     { value: 'filter-1', label: 'Label 1' },
-    { value: 'filter-2', label: 'Label 2' },
+    { value: 'filter-2', label: 'Label 2' }
   ],
-  value: 'filter-1',
+  value: 'filter-1'
 };
 function getWrapper(props) {
   return shallowWithIntl(<SelectControl {...defaults} {...props} />);

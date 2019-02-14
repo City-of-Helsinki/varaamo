@@ -2,7 +2,6 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
-
 import { injectT } from 'i18n';
 import { getSearchPageUrl } from 'utils/searchUtils';
 
@@ -10,7 +9,7 @@ class SearchResultsPaging extends React.Component {
   static propTypes = {
     filters: PropTypes.object.isRequired,
     resultCount: PropTypes.number.isRequired,
-    history: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
   };
 
   handleClick(page) {
@@ -33,7 +32,7 @@ class SearchResultsPaging extends React.Component {
     return (
       <Button
         className={classnames('app-SearchResultsPaging__page', {
-          'app-SearchResultsPaging__selected': currentPage === page,
+          'app-SearchResultsPaging__selected': currentPage === page
         })}
         key={`page${page}`}
         onClick={() => this.handleClick(page)}

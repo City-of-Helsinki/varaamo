@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import moment from 'moment';
-
 import { injectT } from 'i18n';
 import DatePicker from 'shared/date-picker';
 
@@ -9,7 +8,7 @@ export class UninjectedDateSelector extends React.Component {
   static propTypes = {
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired,
+    t: PropTypes.func.isRequired
   };
 
   constructor(props) {

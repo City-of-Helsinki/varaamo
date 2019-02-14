@@ -5,7 +5,6 @@ import Col from 'react-bootstrap/lib/Col';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import { Link } from 'react-router-dom';
-
 import FeedbackLink from 'shared/feedback-link';
 import Logo from 'shared/logo';
 import { injectT } from 'i18n';
@@ -29,7 +28,10 @@ function FooterContent({ t }) {
               <p>
                 <FormattedHTMLMessage id="Footer.espooText" />
               </p>
-              <p> {feedbackLink}</p>
+              <p>
+                {' '}
+                {feedbackLink}
+              </p>
             </Col>
           </Row>
         </Grid>
@@ -50,7 +52,10 @@ function FooterContent({ t }) {
               <p>
                 <FormattedHTMLMessage id="Footer.vantaaText" />
               </p>
-              <p> {feedbackLink}</p>
+              <p>
+                {' '}
+                {feedbackLink}
+              </p>
             </Col>
           </Row>
         </Grid>
@@ -71,7 +76,10 @@ function FooterContent({ t }) {
               <p>
                 <FormattedHTMLMessage id="Footer.helsinkiText" />
               </p>
-              <p> {feedbackLink}</p>
+              <p>
+                {' '}
+                {feedbackLink}
+              </p>
             </Col>
           </Row>
         </Grid>
@@ -81,11 +89,11 @@ function FooterContent({ t }) {
 }
 
 FooterContent.propTypes = {
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 };
 
 FooterContent.defaultProps = {
-  onLinkClick: () => {},
+  onLinkClick: () => {}
 };
 
 export default injectT(FooterContent);

@@ -11,7 +11,6 @@ import { addLocaleData } from 'react-intl';
 import en from 'react-intl/locale-data/en';
 import fi from 'react-intl/locale-data/fi';
 import se from 'react-intl/locale-data/se';
-
 import enMessages from 'i18n/messages/en.json';
 import fiMessages from 'i18n/messages/fi.json';
 import svMessages from 'i18n/messages/sv.json';
@@ -19,25 +18,25 @@ import svMessages from 'i18n/messages/sv.json';
 const messages = {
   en: enMessages,
   fi: fiMessages,
-  se: svMessages,
+  se: svMessages
 };
 
 moment.tz.setDefault('Europe/Helsinki');
 
 moment.defineLocale('varaamo-en', {
-  parentLocale: 'en-gb',
+  parentLocale: 'en-gb'
 });
 
 moment.defineLocale('varaamo-fi', {
   parentLocale: 'fi',
   longDateFormat: {
     LT: 'H:mm',
-    LLL: 'Do MMMM[ta] [klo] LT',
-  },
+    LLL: 'Do MMMM[ta] [klo] LT'
+  }
 });
 
 moment.defineLocale('varaamo-se', {
-  parentLocale: 'sv',
+  parentLocale: 'sv'
 });
 
 addLocaleData([...en, ...fi, ...se]);
@@ -50,8 +49,8 @@ function initI18n() {
     intl: {
       defaultLocale: constants.DEFAULT_LOCALE,
       locale,
-      messages: messages[locale],
-    },
+      messages: messages[locale]
+    }
   };
   return initialIntlState;
 }

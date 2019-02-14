@@ -6,7 +6,6 @@ import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
 import NavDropdown from 'react-bootstrap/lib/NavDropdown';
 import NavItem from 'react-bootstrap/lib/NavItem';
-
 import { injectT } from 'i18n';
 
 class TopNavbar extends Component {
@@ -15,7 +14,7 @@ class TopNavbar extends Component {
     currentLanguage: PropTypes.string.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     t: PropTypes.func.isRequired,
-    userName: PropTypes.string.isRequired,
+    userName: PropTypes.string.isRequired
   };
 
   handleLoginClick() {
@@ -25,7 +24,7 @@ class TopNavbar extends Component {
 
   render() {
     const {
-      changeLocale, currentLanguage, isLoggedIn, t, userName,
+      changeLocale, currentLanguage, isLoggedIn, t, userName
     } = this.props;
 
     return (

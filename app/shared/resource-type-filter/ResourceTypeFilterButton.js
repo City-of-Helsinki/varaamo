@@ -18,7 +18,7 @@ function ResourceTypeFilterButton({ active, onClick, resourceType }) {
 ResourceTypeFilterButton.propTypes = {
   active: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
-  resourceType: PropTypes.string.isRequired,
+  resourceType: PropTypes.string.isRequired
 };
 
 export default ResourceTypeFilterButton;

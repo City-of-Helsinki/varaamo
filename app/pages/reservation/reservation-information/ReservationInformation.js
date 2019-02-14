@@ -6,10 +6,10 @@ import Col from 'react-bootstrap/lib/Col';
 import Row from 'react-bootstrap/lib/Row';
 import Well from 'react-bootstrap/lib/Well';
 import moment from 'moment';
-
 import { injectT } from 'i18n';
 import { isStaffEvent } from 'utils/reservationUtils';
 import { getTermsAndConditions } from 'utils/resourceUtils';
+
 import ReservationInformationForm from './ReservationInformationForm';
 
 class ReservationInformation extends Component {
@@ -26,7 +26,7 @@ class ReservationInformation extends Component {
     resource: PropTypes.object.isRequired,
     selectedTime: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
-    unit: PropTypes.object.isRequired,
+    unit: PropTypes.object.isRequired
   };
 
   onConfirm = (values) => {
@@ -38,7 +38,7 @@ class ReservationInformation extends Component {
     const {
       isAdmin,
       isStaff,
-      resource,
+      resource
     } = this.props;
     const formFields = [...resource.supportedReservationExtraFields].map(value => camelCase(value));
 
@@ -66,7 +66,7 @@ class ReservationInformation extends Component {
     const {
       isEditing,
       reservation,
-      resource,
+      resource
     } = this.props;
     let rv = reservation ? pick(reservation, this.getFormFields()) : {};
     if (isEditing) {
@@ -109,7 +109,7 @@ class ReservationInformation extends Component {
       resource,
       selectedTime,
       t,
-      unit,
+      unit
     } = this.props;
 
     const termsAndConditions = getTermsAndConditions(resource);

@@ -4,7 +4,7 @@ export default {
     'varaamo.espoo.fi': 'ESPOO',
     'varaamotest-espoo.hel.ninja': 'ESPOO',
     'varaamo.vantaa.fi': 'VANTAA',
-    'varaamotest-vantaa.hel.ninja': 'VANTAA',
+    'varaamotest-vantaa.hel.ninja': 'VANTAA'
   },
   DATE_FORMAT: 'YYYY-MM-DD',
   DEFAULT_LOCALE: 'fi',
@@ -12,37 +12,37 @@ export default {
   FILTER: {
     timeFormat: 'HH:mm',
     timePeriod: 30,
-    timePeriodType: 'minutes',
+    timePeriodType: 'minutes'
   },
   NOTIFICATION_DEFAULTS: {
     message: '',
     type: 'info',
     timeOut: 5000,
-    hidden: false,
+    hidden: false
   },
   REQUIRED_API_HEADERS: {
     Accept: 'application/json',
     'Accept-Language': 'fi',
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json'
   },
   REQUIRED_STAFF_EVENT_FIELDS: ['eventDescription', 'reserverName'],
   RESERVATION_STATE_LABELS: {
     cancelled: {
       labelBsStyle: 'default',
-      labelTextId: 'common.cancelled',
+      labelTextId: 'common.cancelled'
     },
     confirmed: {
       labelBsStyle: 'success',
-      labelTextId: 'common.confirmed',
+      labelTextId: 'common.confirmed'
     },
     denied: {
       labelBsStyle: 'danger',
-      labelTextId: 'common.denied',
+      labelTextId: 'common.denied'
     },
     requested: {
       labelBsStyle: 'primary',
-      labelTextId: 'common.requested',
-    },
+      labelTextId: 'common.requested'
+    }
   },
   SEARCH_PAGE_SIZE: 30,
   SHOW_TEST_SITE_MESSAGE: SETTINGS.SHOW_TEST_SITE_MESSAGE,
@@ -61,8 +61,8 @@ export default {
     search: '',
     start: '',
     unit: '',
-    useTimeRange: false,
+    useTimeRange: false
   },
   TIME_FORMAT: 'H:mm',
-  TRACKING: SETTINGS.TRACKING,
+  TRACKING: SETTINGS.TRACKING
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { expect } from 'chai';
-
 import { shallowWithIntl } from 'utils/testUtils';
+
 import AboutPartners from './AboutPartners';
 import aikaLogoSrc from './images/aika-logo.png';
 import eakrLogoSrc from './images/eakr-logo.png';
@@ -31,21 +31,21 @@ describe('pages/about/AboutPartners', () => {
     it('has 6 aika image', () => {
       expect(images.find({
         alt: 'AboutPartners.aikaLogoAlt',
-        src: aikaLogoSrc,
+        src: aikaLogoSrc
       })).to.have.length(1);
     });
 
     it('has EU Vipuvoimaa image', () => {
       expect(images.find({
         alt: 'AboutPartners.euVipuvoimaaLogoAlt',
-        src: euVipuvoimaaLogoSrc,
+        src: euVipuvoimaaLogoSrc
       })).to.have.length(1);
     });
 
     it('has eakr image', () => {
       expect(images.find({
         alt: 'AboutPartners.eakrLogoAlt',
-        src: eakrLogoSrc,
+        src: eakrLogoSrc
       })).to.have.length(1);
     });
   });

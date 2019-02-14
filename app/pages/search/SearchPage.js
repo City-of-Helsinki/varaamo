@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import { searchResources, toggleMap } from 'actions/searchActions';
 import { changeSearchFilters } from 'actions/uiActions';
 import { fetchPurposes } from 'actions/purposeActions';
@@ -11,6 +10,7 @@ import { fetchUnits } from 'actions/unitActions';
 import PageWrapper from 'pages/PageWrapper';
 import { injectT } from 'i18n';
 import ResourceMap from 'shared/resource-map';
+
 import SearchControls from './controls';
 import searchPageSelector from './searchPageSelector';
 import SearchResults from './results/SearchResults';
@@ -24,7 +24,7 @@ class UnconnectedSearchPage extends Component {
 
   componentDidMount() {
     const {
-      actions, filters, location, searchDone, uiFilters,
+      actions, filters, location, searchDone, uiFilters
     } = this.props;
     actions.fetchPurposes();
     actions.fetchUnits();
@@ -80,7 +80,7 @@ class UnconnectedSearchPage extends Component {
       searchDone,
       selectedUnitId,
       showMap,
-      t,
+      t
     } = this.props;
     return (
       <div className="app-SearchPage">
@@ -132,7 +132,7 @@ UnconnectedSearchPage.propTypes = {
   selectedUnitId: PropTypes.string,
   showMap: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
-  uiFilters: PropTypes.object.isRequired,
+  uiFilters: PropTypes.object.isRequired
 };
 
 UnconnectedSearchPage = injectT(UnconnectedSearchPage); // eslint-disable-line
@@ -143,7 +143,7 @@ function mapDispatchToProps(dispatch) {
     fetchPurposes,
     fetchUnits,
     searchResources,
-    toggleMap,
+    toggleMap
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

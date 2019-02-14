@@ -3,13 +3,12 @@ import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import classnames from 'classnames';
 import iconHeart from 'hel-icons/dist/shapes/heart-o.svg';
-
 import iconHeartWhite from 'assets/icons/heart-white.svg';
 import { injectT } from 'i18n';
 
 function FavoriteButton({ favorited, onClick, t }) {
   const buttonClassNames = classnames('favorite-button', {
-    'favorite-button--favorite': favorited,
+    'favorite-button--favorite': favorited
   });
   const buttonText = t(
     `ResourceHeader.${favorited ? 'favoriteRemoveButton' : 'favoriteAddButton'}`,
@@ -29,7 +28,7 @@ function FavoriteButton({ favorited, onClick, t }) {
 FavoriteButton.propTypes = {
   favorited: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 };
 
 FavoriteButton = injectT(FavoriteButton); // eslint-disable-line

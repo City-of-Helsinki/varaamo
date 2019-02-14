@@ -1,11 +1,11 @@
 import constants from 'constants/AppConstants';
 
 import { expect } from 'chai';
-
 import { getState } from 'utils/testUtils';
+
 import {
   createTranslatedSelector,
-  currentLanguageSelector,
+  currentLanguageSelector
 } from './translationSelectors';
 
 describe('state/selectors/dataSelectors', () => {
@@ -33,11 +33,11 @@ describe('state/selectors/dataSelectors', () => {
       it('are translated', () => {
         const items = [
           { id: 1, name: { en: 'Some name' } },
-          { id: 2, name: { en: 'Other name' } },
+          { id: 2, name: { en: 'Other name' } }
         ];
         const expected = [
           { id: 1, name: 'Some name' },
-          { id: 2, name: 'Other name' },
+          { id: 2, name: 'Other name' }
         ];
         const toTranslateSelector = () => items;
         const state = getState({ intl: { locale: 'en' } });
@@ -51,20 +51,20 @@ describe('state/selectors/dataSelectors', () => {
             id: 1,
             images: [
               { caption: { en: 'some caption' } },
-              { caption: { en: 'other caption' } },
+              { caption: { en: 'other caption' } }
             ],
-            regularArray: ['foo', 'bar'],
-          },
+            regularArray: ['foo', 'bar']
+          }
         ];
         const expected = [
           {
             id: 1,
             images: [
               { caption: 'some caption' },
-              { caption: 'other caption' },
+              { caption: 'other caption' }
             ],
-            regularArray: ['foo', 'bar'],
-          },
+            regularArray: ['foo', 'bar']
+          }
         ];
         const toTranslateSelector = () => items;
         const state = getState({ intl: { locale: 'en' } });
@@ -77,17 +77,17 @@ describe('state/selectors/dataSelectors', () => {
           {
             id: 1,
             type: {
-              name: { en: 'some name' },
-            },
-          },
+              name: { en: 'some name' }
+            }
+          }
         ];
         const expected = [
           {
             id: 1,
             type: {
-              name: 'some name',
-            },
-          },
+              name: 'some name'
+            }
+          }
         ];
         const toTranslateSelector = () => items;
         const state = getState({ intl: { locale: 'en' } });
@@ -100,11 +100,11 @@ describe('state/selectors/dataSelectors', () => {
       it('are translated', () => {
         const items = {
           1: { id: 1, name: { en: 'Some name' } },
-          2: { id: 2, name: { en: 'Other name' } },
+          2: { id: 2, name: { en: 'Other name' } }
         };
         const expected = {
           1: { id: 1, name: 'Some name' },
-          2: { id: 2, name: 'Other name' },
+          2: { id: 2, name: 'Other name' }
         };
         const toTranslateSelector = () => items;
         const state = getState({ intl: { locale: 'en' } });
@@ -118,20 +118,20 @@ describe('state/selectors/dataSelectors', () => {
             id: 1,
             images: [
               { caption: { en: 'some caption' } },
-              { caption: { en: 'other caption' } },
+              { caption: { en: 'other caption' } }
             ],
-            regularArray: ['foo', 'bar'],
-          },
+            regularArray: ['foo', 'bar']
+          }
         };
         const expected = {
           1: {
             id: 1,
             images: [
               { caption: 'some caption' },
-              { caption: 'other caption' },
+              { caption: 'other caption' }
             ],
-            regularArray: ['foo', 'bar'],
-          },
+            regularArray: ['foo', 'bar']
+          }
         };
         const toTranslateSelector = () => items;
         const state = getState({ intl: { locale: 'en' } });
@@ -144,17 +144,17 @@ describe('state/selectors/dataSelectors', () => {
           1: {
             id: 1,
             type: {
-              name: { en: 'some name' },
-            },
-          },
+              name: { en: 'some name' }
+            }
+          }
         };
         const expected = {
           1: {
             id: 1,
             type: {
-              name: 'some name',
-            },
-          },
+              name: 'some name'
+            }
+          }
         };
         const toTranslateSelector = () => items;
         const state = getState({ intl: { locale: 'en' } });

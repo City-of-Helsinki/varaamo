@@ -1,12 +1,12 @@
+import constants from 'constants/AppConstants';
+
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Select from 'react-select';
 import map from 'lodash/map';
-
 import DatePicker from 'shared/date-picker';
-import constants from 'constants/AppConstants';
 
 const moment = extendMoment(Moment);
 
@@ -16,7 +16,7 @@ function updateWithDate(initialValue, date) {
     .set({
       year: dateMoment.get('year'),
       month: dateMoment.get('month'),
-      date: dateMoment.get('date'),
+      date: dateMoment.get('date')
     })
     .toISOString();
 }
@@ -26,7 +26,7 @@ function updateWithTime(initialValue, time, timeFormat) {
   return moment(initialValue)
     .set({
       hour: timeMoment.get('hour'),
-      minute: timeMoment.get('minute'),
+      minute: timeMoment.get('minute')
     })
     .toISOString();
 }
@@ -36,12 +36,12 @@ class ReservationTimeControls extends Component {
     begin: PropTypes.object.isRequired,
     end: PropTypes.object.isRequired,
     period: PropTypes.string,
-    timeFormat: PropTypes.string,
+    timeFormat: PropTypes.string
   };
 
   static defaultProps = {
     period: '00:30:00',
-    timeFormat: 'HH:mm',
+    timeFormat: 'HH:mm'
   };
 
   constructor(props) {
@@ -61,12 +61,12 @@ class ReservationTimeControls extends Component {
     const options = map(
       Array.from(
         range.by(constants.FILTER.timePeriodType, {
-          step: duration.as(constants.FILTER.timePeriodType),
+          step: duration.as(constants.FILTER.timePeriodType)
         })
       ),
       beginMoment => ({
         label: beginMoment.format(timeFormat),
-        value: beginMoment.format(timeFormat),
+        value: beginMoment.format(timeFormat)
       })
     );
 

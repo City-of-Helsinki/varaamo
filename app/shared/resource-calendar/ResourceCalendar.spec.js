@@ -7,10 +7,10 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import MomentLocaleUtils from 'react-day-picker/moment';
 import simple from 'simple-mock';
-
 import { shallowWithIntl } from 'utils/testUtils';
+
 import {
-  UnconnectedResourceCalendar as ResourceCalendar,
+  UnconnectedResourceCalendar as ResourceCalendar
 } from './ResourceCalendar';
 import ResourceCalendarOverlay from './ResourceCalendarOverlay';
 
@@ -19,7 +19,7 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
     availability: {},
     currentLanguage: 'en',
     selectedDate: '2015-10-11',
-    onDateChange: simple.mock(),
+    onDateChange: simple.mock()
   };
   function getWrapper(props) {
     return shallowWithIntl(<ResourceCalendar {...defaultProps} {...props} />);
@@ -33,8 +33,8 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
         '2015-10-01': { percentage: 0 },
         '2015-10-02': { percentage: 50 },
         '2015-10-03': { percentage: 81 },
-        '2015-10-04': { percentage: 100 },
-      },
+        '2015-10-04': { percentage: 100 }
+      }
     });
     dayWrapper = wrapper.find(DayPicker);
   });

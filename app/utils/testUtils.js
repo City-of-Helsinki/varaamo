@@ -9,7 +9,6 @@ import set from 'lodash/set';
 import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { CALL_API } from 'redux-api-middleware';
-
 import rootReducer from 'state/rootReducer';
 import enMessages from 'i18n/messages/en.json';
 
@@ -106,9 +105,9 @@ function createApiTest(options) {
           types: [{
             type: (
               (tests.request && tests.request.type) || 'Specify request.type'
-            ),
-          }],
-        },
+            )
+          }]
+        }
       };
 
       ['request', 'success', 'error'].forEach((actionTypeName, index) => {
@@ -132,7 +131,7 @@ function createApiTest(options) {
                 actionTypeName === 'request'
                   ? typeAction.meta
                   : typeAction.meta(mockAction)
-              ),
+              )
             });
             const func = (
               value.length === 2
@@ -153,9 +152,9 @@ function createApiTest(options) {
               payload = typeAction.payload;
               response = {
                 headers: {
-                  get: () => 'application/json',
+                  get: () => 'application/json'
                 },
-                json: () => Promise.resolve(jsonData),
+                json: () => Promise.resolve(jsonData)
               };
             });
 
@@ -185,9 +184,9 @@ function createApiTest(options) {
 function getDefaultRouterProps() {
   return {
     location: {
-      query: {},
+      query: {}
     },
-    params: {},
+    params: {}
   };
 }
 
@@ -234,5 +233,5 @@ export {
   getInitialState,
   getState,
   makeButtonTests,
-  shallowWithIntl,
+  shallowWithIntl
 };

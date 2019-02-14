@@ -6,13 +6,13 @@ import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
 import { Field } from 'redux-form';
 import simple from 'simple-mock';
-
 import TermsField from 'shared/form-fields/TermsField';
 import { shallowWithIntl } from 'utils/testUtils';
 import Resource from 'utils/fixtures/Resource';
+
 import {
   UnconnectedReservationInformationForm as ReservationInformationForm,
-  validate,
+  validate
 } from './ReservationInformationForm';
 
 describe('pages/reservation/reservation-information/ReservationInformationForm', () => {
@@ -30,7 +30,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
             const props = {
               fields: [fieldName],
               requiredFields: [],
-              t,
+              t
             };
             const errors = validate(values, props);
             expect(errors[fieldName]).to.exist;
@@ -44,7 +44,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
             const props = {
               fields: [fieldName],
               requiredFields: [],
-              t,
+              t
             };
             const errors = validate(values, props);
             expect(errors[fieldName]).to.not.exist;
@@ -60,7 +60,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
           const props = {
             fields: [fieldName],
             requiredFields: [fieldName],
-            t,
+            t
           };
           const errors = validate(values, props);
           expect(errors[fieldName]).to.exist;
@@ -71,7 +71,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
           const props = {
             fields: [fieldName],
             requiredFields: [],
-            t,
+            t
           };
           const errors = validate(values, props);
           expect(errors[fieldName]).to.not.exist;
@@ -84,7 +84,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
         const props = {
           fields: ['name'],
           requiredFields: ['name'],
-          t,
+          t
         };
         const values = { name: 'Luke' };
         const errors = validate(values, props);
@@ -96,7 +96,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
       const props = {
         fields: ['reserverEmailAddress'],
         requiredFields: [],
-        t,
+        t
       };
 
       it('returns an error if reserverEmailAddress is invalid', () => {
@@ -125,7 +125,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
       openResourceTermsModal: simple.mock(),
       requiredFields: [],
       resource: Resource.build(),
-      termsAndConditions: '',
+      termsAndConditions: ''
     };
 
     function getWrapper(extraProps) {
@@ -156,7 +156,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
         it('displays an asterisk beside a required field label', () => {
           const props = {
             fields: [fieldName],
-            requiredFields: [fieldName],
+            requiredFields: [fieldName]
           };
           const input = getWrapper(props).find(Field);
           expect(input.props().label).to.contain('*');
@@ -165,7 +165,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
         it('does not display an asterisk beside a non required field label', () => {
           const props = {
             fields: [fieldName],
-            requiredFields: [],
+            requiredFields: []
           };
           const input = getWrapper(props).find(Field);
           expect(input.props().label).to.not.contain('*');
@@ -179,7 +179,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
             const props = {
               fields,
               requiredFields: [fieldName],
-              staffEventSelected,
+              staffEventSelected
             };
             const input = getWrapper(props).find(Field);
             expect(input.props().label).to.contain('*');
@@ -191,7 +191,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
             const props = {
               fields,
               requiredFields: [nonRequiredFieldName],
-              staffEventSelected,
+              staffEventSelected
             };
             const input = getWrapper(props).find(Field);
             expect(input.props().label).to.not.contain('*');

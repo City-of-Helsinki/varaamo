@@ -8,5 +8,5 @@ function getServiceMapUrl(unit) {
 }
 
 export {
-  getServiceMapUrl,
+  getServiceMapUrl
 };

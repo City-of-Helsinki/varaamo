@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedHTMLMessage } from 'react-intl';
 import iconUser from 'hel-icons/dist/shapes/user-o.svg';
-
 import iconClock from 'assets/icons/clock-o.svg';
 import WrappedText from 'shared/wrapped-text';
 import { getMaxPeriodText } from 'utils/resourceUtils';
@@ -66,9 +65,9 @@ ReservationInfo.propTypes = {
     maxPeriod: PropTypes.string,
     maxReservationsPerUser: PropTypes.number,
     reservable: PropTypes.bool,
-    reservationInfo: PropTypes.string,
+    reservationInfo: PropTypes.string
   }).isRequired,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 };
 
 export default injectT(ReservationInfo);

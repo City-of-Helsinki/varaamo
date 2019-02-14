@@ -6,7 +6,7 @@ import BackgroundImage from './BackgroundImage';
 
 describe('shared/background-image/BackgroundImage', () => {
   const defaultProps = {
-    image: { url: 'some/image.jpg' },
+    image: { url: 'some/image.jpg' }
   };
 
   function getWrapper(extraProps) {

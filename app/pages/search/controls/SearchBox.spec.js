@@ -7,8 +7,8 @@ import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
 import Overlay from 'react-bootstrap/lib/Overlay';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
-
 import { shallowWithIntl } from 'utils/testUtils';
+
 import SearchBox from './SearchBox';
 import SearchControlOverlay from './SearchControlOverlay';
 
@@ -18,9 +18,9 @@ describe('pages/search/controls/SearchBox', () => {
     onSearch: () => null,
     options: Immutable([
       { value: 'filter-1', label: 'Label 1' },
-      { value: 'filter-2', label: 'Label 2' },
+      { value: 'filter-2', label: 'Label 2' }
     ]),
-    value: 'meeting room',
+    value: 'meeting room'
   };
 
   function getWrapper(props) {

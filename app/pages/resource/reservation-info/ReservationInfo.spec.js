@@ -1,10 +1,10 @@
 import { expect } from 'chai';
 import React from 'react';
 import Immutable from 'seamless-immutable';
-
 import Resource from 'utils/fixtures/Resource';
 import { shallowWithIntl } from 'utils/testUtils';
 import WrappedText from 'shared/wrapped-text';
+
 import ReservationInfo from './ReservationInfo';
 
 describe('pages/resource/reservation-info/ReservationInfo', () => {
@@ -15,9 +15,9 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
         maxPeriod: '04:00:00',
         maxReservationsPerUser: 2,
         reservable: true,
-        reservationInfo: 'Some information',
+        reservationInfo: 'Some information'
       }),
-    ),
+    )
   };
 
   function getWrapper(props) {
@@ -70,7 +70,7 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
 
     it('is not rendered if resource is not reservable', () => {
       const resource = {
-        reservable: false,
+        reservable: false
       };
       const loginText = getWrapper({ resource }).find('.login-text');
       expect(loginText).to.have.length(0);
@@ -78,7 +78,7 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
 
     it('is rendered otherwise', () => {
       const resource = {
-        reservable: true,
+        reservable: true
       };
       const loginText = getWrapper({ isLoggedIn: false, resource }).find('.login-text');
       expect(loginText).to.have.length(1);

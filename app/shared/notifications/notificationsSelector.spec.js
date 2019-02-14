@@ -7,8 +7,8 @@ describe('shared/notifications/notificationsSelector', () => {
     const state = {
       notifications: [
         { text: 'first' },
-        { text: 'second' },
-      ],
+        { text: 'second' }
+      ]
     };
     const selected = notificationsSelector(state);
 
@@ -19,8 +19,8 @@ describe('shared/notifications/notificationsSelector', () => {
     const state = {
       notifications: [
         { text: 'first', hidden: true },
-        { text: 'second', hidden: false },
-      ],
+        { text: 'second', hidden: false }
+      ]
     };
     const selected = notificationsSelector(state);
     const expected = [state.notifications[1]];

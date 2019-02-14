@@ -4,14 +4,14 @@ import React from 'react';
 import Col from 'react-bootstrap/lib/Col';
 import Panel from 'react-bootstrap/lib/Panel';
 import Row from 'react-bootstrap/lib/Row';
-
 import { injectT } from 'i18n';
 import WrappedText from 'shared/wrapped-text';
 import { getServiceMapUrl } from 'utils/unitUtils';
+
 import ReservationInfo from '../reservation-info';
 
 function ResourceInfo({
-  isLoggedIn, resource, unit, t,
+  isLoggedIn, resource, unit, t
 }) {
   const serviceMapUrl = getServiceMapUrl(unit);
 
@@ -58,7 +58,7 @@ ResourceInfo.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   resource: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
-  unit: PropTypes.object.isRequired,
+  unit: PropTypes.object.isRequired
 };
 
 ResourceInfo = injectT(ResourceInfo); // eslint-disable-line

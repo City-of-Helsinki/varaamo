@@ -2,14 +2,14 @@ import { expect } from 'chai';
 import React from 'react';
 import Select from 'react-select';
 import simple from 'simple-mock';
-
 import { shallowWithIntl } from 'utils/testUtils';
+
 import AdminReservationFilters from './AdminReservationFilters';
 
 describe('pages/user-reservations/reservation-filters/AdminReservationFilters', () => {
   const defaultProps = {
     onFiltersChange: simple.stub(),
-    filters: { state: 'requested' },
+    filters: { state: 'requested' }
   };
 
   function getWrapper(extraProps) {
@@ -33,7 +33,7 @@ describe('pages/user-reservations/reservation-filters/AdminReservationFilters', 
         { label: 'common.cancelled', value: 'cancelled' },
         { label: 'common.confirmed', value: 'confirmed' },
         { label: 'common.denied', value: 'denied' },
-        { label: 'common.requested', value: 'requested' },
+        { label: 'common.requested', value: 'requested' }
       ];
       expect(select.props().options).to.deep.equal(expected);
     });

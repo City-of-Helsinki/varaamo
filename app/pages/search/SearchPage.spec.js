@@ -2,10 +2,10 @@ import { expect } from 'chai';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
-
 import PageWrapper from 'pages/PageWrapper';
 import { shallowWithIntl } from 'utils/testUtils';
 import ResourceMap from 'shared/resource-map';
+
 import { UnconnectedSearchPage as SearchPage } from './SearchPage';
 import SearchControls from './controls';
 import SearchResults from './results/SearchResults';
@@ -18,16 +18,16 @@ describe('pages/search/SearchPage', () => {
       fetchPurposes: simple.stub(),
       fetchUnits: simple.stub(),
       searchResources: simple.stub(),
-      toggleMap: () => {},
+      toggleMap: () => {}
     },
     isLoggedIn: false,
     isFetchingSearchResults: false,
     filters: {
       date: '2015-10-10',
-      purpose: 'some-purpose',
+      purpose: 'some-purpose'
     },
     location: {
-      search: 'data:2015-10-10',
+      search: 'data:2015-10-10'
     },
     history: {},
     match: { params: {} },
@@ -39,8 +39,8 @@ describe('pages/search/SearchPage', () => {
     showMap: false,
     uiFilters: {
       date: '2015-10-10',
-      purpose: 'some-purpose',
-    },
+      purpose: 'some-purpose'
+    }
   };
 
   function getWrapper(extraProps) {
@@ -69,7 +69,7 @@ describe('pages/search/SearchPage', () => {
       expect(mapToggle.props()).to.deep.equal({
         mapVisible: defaultProps.showMap,
         onClick: defaultProps.actions.toggleMap,
-        resultCount: defaultProps.resultCount,
+        resultCount: defaultProps.resultCount
       });
     });
 
@@ -77,7 +77,7 @@ describe('pages/search/SearchPage', () => {
       const props = {
         searchResultIds: Immutable(['resource-1', 'resource-2']),
         selectedUnitId: '123',
-        showMap: true,
+        showMap: true
       };
       const resourceMap = getWrapper(props).find(ResourceMap);
       expect(resourceMap).to.have.length(1);
@@ -137,7 +137,7 @@ describe('pages/search/SearchPage', () => {
       const props = {
         filters: { people: 1 },
         uiFilters: { people: 2 },
-        searchDone: true,
+        searchDone: true
       };
       callComponentDidMount(props, { searchResources });
       expect(searchResources.callCount).to.equal(1);
@@ -201,7 +201,7 @@ describe('pages/search/SearchPage', () => {
           isLoggedIn: !defaultProps.isLoggedIn,
           location: defaultProps.location,
           position: null,
-          url: '/?search=some-search',
+          url: '/?search=some-search'
         };
         instance.componentWillUpdate(nextProps);
       });
@@ -227,7 +227,7 @@ describe('pages/search/SearchPage', () => {
           isLoggedIn: defaultProps.isLoggedIn,
           location: defaultProps.location,
           position: null,
-          url: '/?purpose=new-purpose',
+          url: '/?purpose=new-purpose'
         };
         instance.componentWillUpdate(nextProps);
       });
@@ -259,7 +259,7 @@ describe('pages/search/SearchPage', () => {
           isLoggedIn: defaultProps.isLoggedIn,
           location: defaultProps.location,
           position: null,
-          url: '/?search=some-search',
+          url: '/?search=some-search'
         };
         instance.componentWillUpdate(nextProps);
       });
@@ -286,8 +286,8 @@ describe('pages/search/SearchPage', () => {
           location: defaultProps.location,
           position: {
             lat: 12,
-            lon: 11,
-          },
+            lon: 11
+          }
         };
         instance.componentWillUpdate(nextProps);
       });
@@ -310,9 +310,9 @@ describe('pages/search/SearchPage', () => {
           filters: defaultProps.filters,
           isLoggedIn: defaultProps.isLoggedIn,
           location: {
-            state: null,
+            state: null
           },
-          position: defaultProps.position,
+          position: defaultProps.position
         };
         instance.componentWillUpdate(nextProps);
       });

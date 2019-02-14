@@ -16,7 +16,7 @@ describe('shared/form-fields/TermsField', () => {
     labelLink: 'some link label',
     meta: {},
     name: 'terms',
-    onClick: () => null,
+    onClick: () => null
   };
 
   function getWrapper(props) {

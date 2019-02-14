@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Map, TileLayer, ZoomControl } from 'react-leaflet';
 import { connect } from 'react-redux';
-
 import { searchMapClick, selectUnit } from 'actions/searchActions';
 import { getCurrentCustomization } from 'utils/customizationUtils';
+
 import selector from './mapSelector';
 import Marker from './Marker';
 import UserMarker from './UserMarker';
@@ -13,7 +13,7 @@ import UserMarker from './UserMarker';
 const defaultPosition = {
   null: [60.18952, 24.99545],
   ESPOO: [60.205490, 24.755899],
-  VANTAA: [60.29414, 25.14099],
+  VANTAA: [60.29414, 25.14099]
 };
 const defaultZoom = 12;
 
@@ -23,7 +23,7 @@ export class UnconnectedResourceMapContainer extends React.Component {
       maxLatitude: PropTypes.number,
       minLatitude: PropTypes.number,
       maxLongitude: PropTypes.number,
-      minLongitude: PropTypes.number,
+      minLongitude: PropTypes.number
     }),
     markers: PropTypes.array,
     position: PropTypes.object,
@@ -31,7 +31,7 @@ export class UnconnectedResourceMapContainer extends React.Component {
     selectedUnitId: PropTypes.string,
     selectUnit: PropTypes.func.isRequired,
     shouldMapFitBoundaries: PropTypes.bool.isRequired,
-    showMap: PropTypes.bool.isRequired,
+    showMap: PropTypes.bool.isRequired
   };
 
   componentDidUpdate(prevProps) {
@@ -53,7 +53,7 @@ export class UnconnectedResourceMapContainer extends React.Component {
     const boundaries = this.props.boundaries;
     return [
       [boundaries.minLatitude, boundaries.minLongitude],
-      [boundaries.maxLatitude, boundaries.maxLongitude],
+      [boundaries.maxLatitude, boundaries.maxLongitude]
     ];
   }
 
@@ -125,7 +125,7 @@ export class UnconnectedResourceMapContainer extends React.Component {
 
 const actions = {
   selectUnit,
-  searchMapClick,
+  searchMapClick
 };
 
 export default connect(selector, actions)(UnconnectedResourceMapContainer);

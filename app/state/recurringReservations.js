@@ -14,7 +14,7 @@ const actions = {
   changeFrequency: createAction('app/recurringReservations/CHANGE_FREQUENCY'),
   changeLastTime: createAction('app/recurringReservations/CHANGE_LAST_TIME'),
   changeNumberOfOccurrences: createAction('app/recurringReservations/CHANGE_NUMBER_OF_OCCURRENCES'),
-  removeReservation: createAction('app/recurringReservations/REMOVE_RESERVATION'),
+  removeReservation: createAction('app/recurringReservations/REMOVE_RESERVATION')
 };
 
 // reducer
@@ -25,7 +25,7 @@ const initialState = {
   frequency: '',
   lastTime: null,
   numberOfOccurrences: 1,
-  reservations: [],
+  reservations: []
 };
 
 export function populateReservations({ baseTime, frequency, numberOfOccurrences }) {
@@ -38,7 +38,7 @@ export function populateReservations({ baseTime, frequency, numberOfOccurrences 
   for (let i = 1; i <= numberOfOccurrences; i += 1) {
     reservations.push({
       begin: begin.clone().add(i, frequency).toISOString(),
-      end: end.clone().add(i, frequency).toISOString(),
+      end: end.clone().add(i, frequency).toISOString()
     });
   }
   return reservations;
@@ -52,7 +52,7 @@ function setOccurrences(state, numberOfOccurrences) {
       moment(state.baseTime.begin)
         .add(numberOfOccurrences, state.frequency)
         .format('YYYY-MM-DD')
-    ),
+    )
   };
 }
 
@@ -90,16 +90,16 @@ function adjustState(state, changeLastTime = false) {
 
 const recurringReservationsReducer = handleActions({
   [actions.changeBaseTime]: (state, action) => adjustState({
-    ...state, baseTime: action.payload,
+    ...state, baseTime: action.payload
   }),
   [actions.changeFrequency]: (state, action) => adjustState({
-    ...state, frequency: action.payload,
+    ...state, frequency: action.payload
   }),
   [actions.changeLastTime]: (state, action) => adjustState({
-    ...state, lastTime: action.payload,
+    ...state, lastTime: action.payload
   }, true),
   [actions.changeNumberOfOccurrences]: (state, action) => adjustState({
-    ...state, numberOfOccurrences: parseInt(action.payload, 10),
+    ...state, numberOfOccurrences: parseInt(action.payload, 10)
   }),
   [actionTypes.UI.CLOSE_MODAL]: (state, action) => {
     const modalType = action.payload;
@@ -113,8 +113,8 @@ const recurringReservationsReducer = handleActions({
   },
   [actions.removeReservation]: (state, action) => ({
     ...state,
-    reservations: filter(state.reservations, reservation => reservation.begin !== action.payload),
-  }),
+    reservations: filter(state.reservations, reservation => reservation.begin !== action.payload)
+  })
 }, initialState);
 
 // selectors
@@ -138,11 +138,11 @@ const selectors = {
   },
   selectReservations(state) {
     return state.recurringReservations.reservations;
-  },
+  }
 };
 
 export default {
   ...actions,
   reducer: recurringReservationsReducer,
-  ...selectors,
+  ...selectors
 };

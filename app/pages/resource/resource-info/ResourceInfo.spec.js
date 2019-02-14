@@ -2,11 +2,11 @@ import { expect } from 'chai';
 import React from 'react';
 import Panel from 'react-bootstrap/lib/Panel';
 import Immutable from 'seamless-immutable';
-
 import WrappedText from 'shared/wrapped-text';
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
 import { shallowWithIntl } from 'utils/testUtils';
+
 import ResourceInfo from './ResourceInfo';
 import ReservationInfo from '../reservation-info';
 
@@ -21,11 +21,11 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
         maxPricePerHour: '30',
         peopleCapacity: '16',
         type: {
-          name: 'workplace',
-        },
+          name: 'workplace'
+        }
       }),
     ),
-    unit: Immutable(Unit.build()),
+    unit: Immutable(Unit.build())
   };
 
   function getWrapper(extraProps) {
@@ -65,7 +65,7 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
       addressZip: '99999',
       municipality: 'helsinki',
       name: 'Unit name',
-      streetAddress: 'Test street 12',
+      streetAddress: 'Test street 12'
     });
     const addressSpan = getWrapper({ unit })
       .find('.app-ResourceInfo__address')
@@ -84,7 +84,7 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
       municipality: 'helsinki',
       name: 'Unit name',
       streetAddress: 'Test street 12',
-      wwwUrl: 'some-url',
+      wwwUrl: 'some-url'
     });
     const link = getWrapper({ unit })
       .find('.app-ResourceInfo__www')
@@ -102,7 +102,7 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
       municipality: 'helsinki',
       name: 'Unit name',
       streetAddress: 'Test street 12',
-      wwwUrl: 'some-url',
+      wwwUrl: 'some-url'
     });
     const expected = 'https://palvelukartta.hel.fi/unit/123#!route-details';
     const link = getWrapper({ unit })

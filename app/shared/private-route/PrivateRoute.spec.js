@@ -4,12 +4,12 @@ import simple from 'simple-mock';
 import * as redux from 'redux';
 import { shallow } from 'enzyme';
 import { Route } from 'react-router-dom';
-
 import * as routeActions from 'actions/routeActions';
+
 import {
   UnconnectedPrivateRoute as PrivateRoute,
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 } from './PrivateRoute';
 
 describe('shared/private-route/PrivateRoute', () => {
@@ -34,7 +34,7 @@ describe('shared/private-route/PrivateRoute', () => {
         location: {},
         componentName,
         component,
-        userId,
+        userId
       };
       return shallow(<PrivateRoute {...props} />);
     };

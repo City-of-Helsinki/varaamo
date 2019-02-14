@@ -5,7 +5,6 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import { findDOMNode } from 'react-dom';
-
 import { injectT } from 'i18n';
 
 class CommentForm extends Component {
@@ -22,7 +21,7 @@ class CommentForm extends Component {
 
   render() {
     const {
-      defaultValue, isSaving, onCancel, t,
+      defaultValue, isSaving, onCancel, t
     } = this.props;
 
     return (
@@ -63,7 +62,7 @@ CommentForm.propTypes = {
   isSaving: PropTypes.bool.isRequired,
   onCancel: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 };
 
 export default injectT(CommentForm);

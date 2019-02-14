@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import React from 'react';
-
 import { shallowWithIntl } from 'utils/testUtils';
+
 import ReservationDate from './ReservationDate';
 
 describe('shared/reservation-date/ReservationDate', () => {
@@ -14,7 +14,7 @@ describe('shared/reservation-date/ReservationDate', () => {
   before(() => {
     wrapper = getWrapper({
       beginDate: '2018-01-31T13:00:00+02:00',
-      endDate: '2018-01-31T13:30:00+02:00',
+      endDate: '2018-01-31T13:30:00+02:00'
     });
   });
 

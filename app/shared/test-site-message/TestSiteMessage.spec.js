@@ -4,8 +4,8 @@ import { expect } from 'chai';
 import React from 'react';
 import Alert from 'react-bootstrap/lib/Alert';
 import simple from 'simple-mock';
-
 import { shallowWithIntl } from 'utils/testUtils';
+
 import TestSiteMessage from './TestSiteMessage';
 
 describe('shared/test-site-message/TestSiteMessage', () => {

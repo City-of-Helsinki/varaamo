@@ -7,9 +7,9 @@ import moment from 'moment';
 import classnames from 'classnames';
 import findIndex from 'lodash/findIndex';
 import minBy from 'lodash/minBy';
-
 import { injectT } from 'i18n';
 import ReservationPopover from 'shared/reservation-popover';
+
 import TimeSlot from './TimeSlot';
 import TimeSlotPlaceholder from './TimeSlotPlaceholder';
 import utils from '../utils';
@@ -28,11 +28,11 @@ class TimeSlots extends Component {
     selectedDate: PropTypes.string.isRequired,
     slots: PropTypes.array.isRequired,
     t: PropTypes.func.isRequired,
-    time: PropTypes.string,
+    time: PropTypes.string
   };
 
   state = {
-    hoveredTimeSlot: null,
+    hoveredTimeSlot: null
   };
 
   onClear = () => {
@@ -54,7 +54,7 @@ class TimeSlots extends Component {
       return;
     }
     this.setState(() => ({
-      hoveredTimeSlot,
+      hoveredTimeSlot
     }));
   };
 
@@ -63,7 +63,7 @@ class TimeSlots extends Component {
       return;
     }
     this.setState(() => ({
-      hoveredTimeSlot: null,
+      hoveredTimeSlot: null
     }));
   };
 
@@ -96,7 +96,7 @@ class TimeSlots extends Component {
     if (firstTimeSlots.length === 0) {
       return {
         mobilePlaceholderOffset: 0,
-        timeSlotPlaceholderSizes: Array(slots.length).fill(0),
+        timeSlotPlaceholderSizes: Array(slots.length).fill(0)
       };
     }
 
@@ -125,7 +125,7 @@ class TimeSlots extends Component {
 
     return {
       mobilePlaceholderOffset,
-      timeSlotPlaceholderSizes,
+      timeSlotPlaceholderSizes
     };
   }
 
@@ -153,7 +153,7 @@ class TimeSlots extends Component {
         'app-TimeSlots--date--selected': slotDate === selectedDate,
         'app-TimeSlots--date--selected--next--day': slotDate === nextFromSelectedDate,
         'app-TimeSlots--date--selected--second--day': slotDate === secondFromSelectedDate,
-        'app-TimeSlots--date--selected--next--week': isNextWeek,
+        'app-TimeSlots--date--selected--next--week': isNextWeek
       });
 
       return (
@@ -187,7 +187,7 @@ class TimeSlots extends Component {
       resource,
       selected,
       t,
-      time,
+      time
     } = this.props;
     const { hoveredTimeSlot } = this.state;
     if (!slot.end) {

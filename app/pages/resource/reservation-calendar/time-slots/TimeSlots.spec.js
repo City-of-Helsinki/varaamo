@@ -2,9 +2,9 @@ import { expect } from 'chai';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
-
 import Resource from 'utils/fixtures/Resource';
 import { shallowWithIntl } from 'utils/testUtils';
+
 import TimeSlots from './TimeSlots';
 import TimeSlotComponent from './TimeSlot';
 import TimeSlotPlaceholder from './TimeSlotPlaceholder';
@@ -19,8 +19,8 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
         index: 0,
         reserved: false,
         resource: 'some-resource-id',
-        start: '2016-10-10T10:00:00.000Z',
-      },
+        start: '2016-10-10T10:00:00.000Z'
+      }
     ],
     [
       {
@@ -30,9 +30,9 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
         index: 0,
         reserved: false,
         resource: 'some-resource-id',
-        start: '2016-10-11T10:00:00.000Z',
-      },
-    ],
+        start: '2016-10-11T10:00:00.000Z'
+      }
+    ]
   ];
   const defaultProps = {
     addNotification: simple.stub(),
@@ -47,11 +47,11 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
       {
         begin: defaultSlots[0][0].start,
         end: defaultSlots[0][0].end,
-        resource: defaultSlots[0][0].resource,
-      },
+        resource: defaultSlots[0][0].resource
+      }
     ],
     selectedDate: '2016-10-10',
-    slots: Immutable(defaultSlots),
+    slots: Immutable(defaultSlots)
   };
 
   function getWrapper(props) {
@@ -103,7 +103,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
           index: 0,
           reserved: false,
           resource: 'some-resource-id',
-          start: '2016-10-10T10:00:00.000Z',
+          start: '2016-10-10T10:00:00.000Z'
         },
         {
           asISOString: '2016-10-10T11:00:00.000Z/2016-10-10T12:00:00.000Z',
@@ -112,8 +112,8 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
           index: 0,
           reserved: true,
           resource: 'some-resource-id',
-          start: '2016-10-10T11:00:00.000Z',
-        },
+          start: '2016-10-10T11:00:00.000Z'
+        }
       ],
       [
         {
@@ -123,16 +123,16 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
           index: 0,
           reserved: false,
           resource: 'some-resource-id',
-          start: '2016-10-11T10:00:00.000Z',
-        },
-      ],
+          start: '2016-10-11T10:00:00.000Z'
+        }
+      ]
     ];
     const selected = [
       {
         begin: slots[0][0].start,
         end: slots[0][0].end,
-        resource: slots[0][0].resource,
-      },
+        resource: slots[0][0].resource
+      }
     ];
     const timeSlots = getWrapper({ selected, slots }).find(TimeSlotComponent);
 
@@ -145,7 +145,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
   it('renders a closed message when resource is not open', () => {
     const closedSlot = [[{ start: '2016-10-12T10:00:00.000Z' }]];
     const props = {
-      slots: [...defaultProps.slots, ...closedSlot],
+      slots: [...defaultProps.slots, ...closedSlot]
     };
     const wrapper = getWrapper(props);
     const timeSlots = wrapper.find(TimeSlotComponent);
@@ -158,7 +158,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
   it('does not render empty slots', () => {
     const emptySlot = [[]];
     const props = {
-      slots: [...defaultProps.slots, ...emptySlot],
+      slots: [...defaultProps.slots, ...emptySlot]
     };
     const timeSlots = getWrapper(props).find(TimeSlotComponent);
 
@@ -175,8 +175,8 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
           index: 0,
           reserved: false,
           resource: 'some-resource-id',
-          start: '2016-10-10T10:00:00.000Z',
-        },
+          start: '2016-10-10T10:00:00.000Z'
+        }
       ],
       [
         {
@@ -186,9 +186,9 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
           index: 0,
           reserved: false,
           resource: 'some-resource-id',
-          start: '2016-10-11T11:00:00.000Z',
-        },
-      ],
+          start: '2016-10-11T11:00:00.000Z'
+        }
+      ]
     ];
     const placeholder = getWrapper({ slots }).find(TimeSlotPlaceholder);
     expect(placeholder).to.have.length(1);
@@ -205,8 +205,8 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
           index: 0,
           reserved: false,
           resource: 'some-resource-id',
-          start: '2016-10-10T10:00:00.000Z',
-        },
+          start: '2016-10-10T10:00:00.000Z'
+        }
       ],
       [
         {
@@ -216,8 +216,8 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
           index: 0,
           reserved: false,
           resource: 'some-resource-id',
-          start: '2016-10-11T12:00:00.000Z',
-        },
+          start: '2016-10-11T12:00:00.000Z'
+        }
       ],
       [
         {
@@ -227,8 +227,8 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
           index: 0,
           reserved: false,
           resource: 'some-resource-id',
-          start: '2016-10-12T13:00:00.000Z',
-        },
+          start: '2016-10-12T13:00:00.000Z'
+        }
       ],
       [
         {
@@ -238,8 +238,8 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
           index: 0,
           reserved: false,
           resource: 'some-resource-id',
-          start: '2016-10-13T14:00:00.000Z',
-        },
+          start: '2016-10-13T14:00:00.000Z'
+        }
       ],
       [
         {
@@ -249,9 +249,9 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
           index: 0,
           reserved: false,
           resource: 'some-resource-id',
-          start: '2016-10-14T10:00:00.000Z',
-        },
-      ],
+          start: '2016-10-14T10:00:00.000Z'
+        }
+      ]
     ];
     const placeholder = getWrapper({ selectedDate: '2016-10-11', slots }).find(TimeSlotPlaceholder);
     expect(placeholder).to.have.length(3);

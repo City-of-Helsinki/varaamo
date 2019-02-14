@@ -109,7 +109,7 @@
     "mockdate": "1.0.4",
     "morgan": "1.7.0",
     "node-sass": "4.11.0",
-    "postcss-loader": "1.0.0",
+    "postcss-loader": "3.0.0",
     "react-addons-test-utils": "15.3.2",
     "react-transform-catch-errors": "1.0.2",
     "react-transform-hmr": "1.0.4",

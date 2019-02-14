@@ -4,8 +4,8 @@ import simple from 'simple-mock';
 import * as redux from 'redux';
 import { shallow } from 'enzyme';
 import { Route as ReactRouterRoute } from 'react-router-dom';
-
 import * as routeActions from 'actions/routeActions';
+
 import { UnconnectedRoute as Route, mapDispatchToProps } from './Route';
 
 describe('shared/route/Route', () => {
@@ -23,7 +23,7 @@ describe('shared/route/Route', () => {
       const props = {
         actions: { updateRoute },
         location: {},
-        componentName,
+        componentName
       };
       return shallow(<Route {...props} />);
     };

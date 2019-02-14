@@ -3,14 +3,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { first, last, orderBy } from 'lodash';
-
 import { deleteReservation, postReservation, putReservation } from 'actions/reservationActions';
 import {
   cancelReservationEdit,
   closeConfirmReservationModal,
-  openConfirmReservationModal,
+  openConfirmReservationModal
 } from 'actions/uiActions';
 import recurringReservationsConnector from 'state/recurringReservations';
+
 import ConfirmReservationModal from './ConfirmReservationModal';
 import reservationConfirmationSelector from './reservationConfirmationSelector';
 
@@ -21,7 +21,7 @@ export class UnconnectedReservationConfirmationContainer extends Component {
     isMakingReservations: PropTypes.bool.isRequired,
     isStaff: PropTypes.bool.isRequired,
     params: PropTypes.shape({ // eslint-disable-line react/no-unused-prop-types
-      id: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired
     }).isRequired,
     recurringReservations: PropTypes.array.isRequired,
     reservationsToEdit: PropTypes.array.isRequired,
@@ -29,20 +29,20 @@ export class UnconnectedReservationConfirmationContainer extends Component {
     showTimeControls: PropTypes.bool,
     selectedReservations: PropTypes.array.isRequired,
     staffEventSelected: PropTypes.bool,
-    timeSlots: PropTypes.array,
+    timeSlots: PropTypes.array
   };
 
   handleEdit = (values = {}) => {
     const { actions, reservationsToEdit } = this.props;
     actions.putReservation({
       ...reservationsToEdit[0],
-      ...values,
+      ...values
     });
   }
 
   handleReservation = (values = {}) => {
     const {
-      actions, recurringReservations, resource, selectedReservations,
+      actions, recurringReservations, resource, selectedReservations
     } = this.props;
     const orderedReservations = orderBy(selectedReservations, 'begin');
     const selectedReservation = Object.assign({}, first(orderedReservations));
@@ -53,7 +53,7 @@ export class UnconnectedReservationConfirmationContainer extends Component {
       actions.postReservation({
         ...reservation,
         ...values,
-        resource: resource.id,
+        resource: resource.id
       });
     });
   }
@@ -70,7 +70,7 @@ export class UnconnectedReservationConfirmationContainer extends Component {
       selectedReservations,
       showTimeControls,
       staffEventSelected,
-      timeSlots,
+      timeSlots
     } = this.props;
 
     const isAdmin = resource.userPermissions.isAdmin;
@@ -108,7 +108,7 @@ function mapDispatchToProps(dispatch) {
     openConfirmReservationModal,
     postReservation,
     putReservation,
-    removeReservation: recurringReservationsConnector.removeReservation,
+    removeReservation: recurringReservationsConnector.removeReservation
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

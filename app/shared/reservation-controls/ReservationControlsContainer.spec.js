@@ -2,10 +2,10 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
-
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
 import { getEditReservationUrl } from 'utils/reservationUtils';
+
 import ReservationControls from './ReservationControls';
 import { UnconnectedReservationControlsContainer as ReservationControlsContainer } from './ReservationControlsContainer';
 
@@ -13,7 +13,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
   const resource = Resource.build();
   const reservation = Reservation.build({ resource: resource.id });
   const history = {
-    push: () => {},
+    push: () => {}
   };
   const props = {
     history,
@@ -25,12 +25,12 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
       selectReservationToCancel: simple.stub(),
       selectReservationToEdit: simple.stub(),
       selectReservationToShow: simple.stub(),
-      showReservationInfoModal: simple.stub(),
+      showReservationInfoModal: simple.stub()
     },
     isAdmin: false,
     isStaff: false,
     reservation,
-    resource,
+    resource
   };
 
   let container;
@@ -93,7 +93,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
       expect(props.actions.selectReservationToEdit.callCount).to.equal(1);
       expect(props.actions.selectReservationToEdit.lastCall.args[0]).to.deep.equal({
         reservation: props.reservation,
-        minPeriod: props.resource.minPeriod,
+        minPeriod: props.resource.minPeriod
       });
     });
 

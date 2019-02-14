@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-bootstrap/lib/Modal';
-
 import { injectT } from 'i18n';
 
 class MiniModal extends React.Component {
@@ -12,15 +11,15 @@ class MiniModal extends React.Component {
     header: PropTypes.string.isRequired,
     onConfirm: PropTypes.func,
     t: PropTypes.func.isRequired,
-    theme: PropTypes.string,
+    theme: PropTypes.string
   }
 
   static defaultProps = {
-    theme: 'gray',
+    theme: 'gray'
   }
 
   state = {
-    visible: false,
+    visible: false
   }
 
   handleConfirm = () => {
@@ -39,7 +38,7 @@ class MiniModal extends React.Component {
 
   render() {
     const {
-      buttonContent, children, header, t, theme,
+      buttonContent, children, header, t, theme
     } = this.props;
     return (
       <div className={`app-MiniModal app-MiniModal--theme-${theme}`}>

@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import React from 'react';
 import Immutable from 'seamless-immutable';
-
 import ReservationStateLabel from 'shared/reservation-state-label';
 import TimeRange from 'shared/time-range';
 import Image from 'utils/fixtures/Image';
@@ -11,6 +10,7 @@ import Unit from 'utils/fixtures/Unit';
 import ReservationControls from 'shared/reservation-controls';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import { shallowWithIntl } from 'utils/testUtils';
+
 import ReservationListItem from './ReservationListItem';
 
 describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
@@ -20,9 +20,9 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
     reservation: Immutable(Reservation.build()),
     resource: Immutable(Resource.build({
       images: [Image.build()],
-      type: { name: 'test_type' },
+      type: { name: 'test_type' }
     })),
-    unit: Immutable(Unit.build()),
+    unit: Immutable(Unit.build())
   };
 
   let component;

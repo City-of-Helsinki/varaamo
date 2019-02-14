@@ -20,39 +20,39 @@ function getState() {
               id: 111,
               name: 'Reservation 1',
               begin: moment('2016-01-01T02:00:00').format(),
-              end: moment('2016-01-01T10:00:00').format(),
+              end: moment('2016-01-01T10:00:00').format()
             },
             {
               id: 222,
               name: 'Reservation 2',
               begin: moment('2016-01-01T11:30:00').format(),
-              end: moment('2016-01-01T18:00:00').format(),
+              end: moment('2016-01-01T18:00:00').format()
             },
             {
               id: 333,
               name: 'Reservation 3',
               begin: moment('2016-01-01T18:00:00').format(),
-              end: moment('2016-01-01T23:30:00').format(),
+              end: moment('2016-01-01T23:30:00').format()
             },
             {
               id: 444,
               name: 'Cancelled reservation',
               begin: moment('2016-01-01T10:00:00').format(),
               end: moment('2016-01-01T10:30:00').format(),
-              state: 'cancelled',
+              state: 'cancelled'
             },
             {
               id: 555,
               name: 'Denied reservation',
               begin: moment('2016-01-01T10:00:00').format(),
               end: moment('2016-01-01T10:30:00').format(),
-              state: 'denied',
-            },
-          ],
+              state: 'denied'
+            }
+          ]
         },
-        'resource-2': { id: 'resource-2' },
-      },
-    },
+        'resource-2': { id: 'resource-2' }
+      }
+    }
   };
 }
 
@@ -61,7 +61,7 @@ function getWrapper(props) {
     date: '2016-01-01T00:00:00',
     id: 'resource-1',
     onReservationClick: () => null,
-    store: { getState },
+    store: { getState }
   };
   return shallow(<AvailabilityTimelineContainer {...defaults} {...props} />);
 }
@@ -134,7 +134,7 @@ describe('shared/availability-view/AvailabilityTimelineContainer', () => {
         const selection = {
           begin: '2016-01-01T10:00:00',
           end: '2016-01-01T10:30:00',
-          resourceId: 'resource-1',
+          resourceId: 'resource-1'
         };
         const props = { id: 'resource-1', date: '2016-01-01', selection };
         const actual = selector()(state, props).items;

@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/lib/Button';
 import Grid from 'react-bootstrap/lib/Grid';
 import iconMapMarker from 'hel-icons/dist/shapes/map-marker.svg';
 import { upperFirst } from 'lodash';
-
 import { injectT } from 'i18n';
 import { getServiceMapUrl } from 'utils/unitUtils';
 
@@ -37,7 +36,7 @@ function ResourceMapInfo({ unit, t }) {
 
 ResourceMapInfo.propTypes = {
   t: PropTypes.func.isRequired,
-  unit: PropTypes.object.isRequired,
+  unit: PropTypes.object.isRequired
 };
 
 ResourceMapInfo = injectT(ResourceMapInfo); // eslint-disable-line

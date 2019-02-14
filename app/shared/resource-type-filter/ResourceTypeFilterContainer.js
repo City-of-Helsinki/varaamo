@@ -1,8 +1,8 @@
 import includes from 'lodash/includes';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-
 import { injectT } from 'i18n';
+
 import ResourceTypeFilterButton from './ResourceTypeFilterButton';
 
 class ResourceTypeFilterContainer extends Component {
@@ -11,14 +11,14 @@ class ResourceTypeFilterContainer extends Component {
     onSelectResourceType: PropTypes.func.isRequired,
     onUnselectResourceType: PropTypes.func.isRequired,
     resourceTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
-    t: PropTypes.func.isRequired,
+    t: PropTypes.func.isRequired
   };
 
   handleClick = (resourceType) => {
     const {
       selectedResourceTypes,
       onSelectResourceType,
-      onUnselectResourceType,
+      onUnselectResourceType
     } = this.props;
     if (includes(selectedResourceTypes, resourceType)) {
       onUnselectResourceType(resourceType);

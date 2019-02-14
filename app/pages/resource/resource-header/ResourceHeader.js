@@ -8,7 +8,6 @@ import iconHome from 'hel-icons/dist/shapes/home.svg';
 import iconMapMarker from 'hel-icons/dist/shapes/map-marker.svg';
 import iconTicket from 'hel-icons/dist/shapes/ticket.svg';
 import iconUser from 'hel-icons/dist/shapes/user-o.svg';
-
 import { injectT } from 'i18n';
 import iconClock from 'assets/icons/clock-o.svg';
 import iconMap from 'assets/icons/map.svg';
@@ -23,7 +22,7 @@ function ResourceHeader({
   showBackButton,
   showMap,
   unit,
-  t,
+  t
 }) {
   const formatDistance = (distance) => {
     if (!distance) {
@@ -120,7 +119,7 @@ ResourceHeader.propTypes = {
   showBackButton: PropTypes.bool.isRequired,
   showMap: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
-  unit: PropTypes.object.isRequired,
+  unit: PropTypes.object.isRequired
 };
 
 ResourceHeader = injectT(ResourceHeader); // eslint-disable-line

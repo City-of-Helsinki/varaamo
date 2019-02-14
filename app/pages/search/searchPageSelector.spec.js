@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-
 import { getDefaultRouterProps, getState } from 'utils/testUtils';
+
 import searchPageSelector from './searchPageSelector';
 
 describe('pages/search/searchPageSelector', () => {
@@ -10,17 +10,17 @@ describe('pages/search/searchPageSelector', () => {
     const state = getState({
       'ui.search': {
         resultCount: 2,
-        results: searchResultIds,
+        results: searchResultIds
       },
       'data.resources': {
         'resource-1': {
-          id: 'resource-1',
+          id: 'resource-1'
         },
         'resource-2': {
-          id: 'resource-2',
-        },
+          id: 'resource-2'
+        }
       },
-      ...extraState,
+      ...extraState
     });
     const props = getDefaultRouterProps();
     return searchPageSelector(state, props);
@@ -55,13 +55,13 @@ describe('pages/search/searchPageSelector', () => {
       'data.resources': {
         'resource-1': {
           id: 'resource-1',
-          distance: 4000,
+          distance: 4000
         },
         'resource-2': {
           id: 'resource-2',
-          distance: 2000,
-        },
-      },
+          distance: 2000
+        }
+      }
     }).searchResultIds).to.deep.equal(['resource-2', 'resource-1']);
   });
 

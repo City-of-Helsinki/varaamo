@@ -6,11 +6,11 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import Modal from 'react-bootstrap/lib/Modal';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
-
 import ReservationStateLabel from 'shared/reservation-state-label';
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
 import { shallowWithIntl } from 'utils/testUtils';
+
 import ReservationEditForm from './ReservationEditForm';
 import ReservationInfoModal from './ReservationInfoModal';
 
@@ -30,7 +30,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
     reserverEmailAddress: 'luke@sky.com',
     reserverName: 'Luke Skywalker',
     reserverPhoneNumber: '1234567',
-    resource: resource.id,
+    resource: resource.id
   });
   const defaultProps = {
     hideReservationInfoModal: () => null,
@@ -48,7 +48,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
     reservation: Immutable(reservation),
     reservationIsEditable: false,
     resource: Immutable(resource),
-    show: true,
+    show: true
   };
 
   function getWrapper(extraProps = {}) {
@@ -104,7 +104,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
         describe('if user has admin rights but reservation is not editable', () => {
           const props = {
             isAdmin: true,
-            reservationIsEditable: false,
+            reservationIsEditable: false
           };
 
           it('is not rendered', () => {
@@ -115,7 +115,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
         describe('if user has admin rights and reservation is editable', () => {
           const props = {
             isAdmin: true,
-            reservationIsEditable: true,
+            reservationIsEditable: true
           };
 
           it('is rendered', () => {
@@ -140,7 +140,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
 
         describe('if user does not have admin rights', () => {
           const props = {
-            isAdmin: false,
+            isAdmin: false
           };
 
           it('is not rendered', () => {
@@ -182,7 +182,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
           const props = {
             isStaff: false,
             reservationIsEditable: true,
-            reservation: { ...reservation, state: 'requested' },
+            reservation: { ...reservation, state: 'requested' }
           };
           expect(getDenyButton(props)).to.have.length(0);
         });
@@ -191,7 +191,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
           const props = {
             isStaff: true,
             reservationIsEditable: false,
-            reservation: { ...reservation, state: 'requested' },
+            reservation: { ...reservation, state: 'requested' }
           };
           expect(getDenyButton(props)).to.have.length(0);
         });
@@ -200,7 +200,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
           const props = {
             isStaff: true,
             reservationIsEditable: true,
-            reservation: { ...reservation, state: 'confirmed' },
+            reservation: { ...reservation, state: 'confirmed' }
           };
           expect(getDenyButton(props)).to.have.length(0);
         });
@@ -209,7 +209,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
           const props = {
             isStaff: true,
             reservationIsEditable: true,
-            reservation: { ...reservation, state: 'requested' },
+            reservation: { ...reservation, state: 'requested' }
           };
           expect(getDenyButton(props)).to.have.length(1);
         });
@@ -227,7 +227,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
           const props = {
             isStaff: false,
             reservationIsEditable: true,
-            reservation: { ...reservation, state: 'requested' },
+            reservation: { ...reservation, state: 'requested' }
           };
           expect(getConfirmButton(props)).to.have.length(0);
         });
@@ -236,7 +236,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
           const props = {
             isStaff: true,
             reservationIsEditable: false,
-            reservation: { ...reservation, state: 'requested' },
+            reservation: { ...reservation, state: 'requested' }
           };
           expect(getConfirmButton(props)).to.have.length(0);
         });
@@ -245,7 +245,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
           const props = {
             isStaff: true,
             reservationIsEditable: true,
-            reservation: { ...reservation, state: 'confirmed' },
+            reservation: { ...reservation, state: 'confirmed' }
           };
           expect(getConfirmButton(props)).to.have.length(0);
         });
@@ -254,7 +254,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
           const props = {
             isStaff: true,
             reservationIsEditable: true,
-            reservation: { ...reservation, state: 'requested' },
+            reservation: { ...reservation, state: 'requested' }
           };
           expect(getConfirmButton(props)).to.have.length(1);
         });
@@ -274,7 +274,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
           it('is not rendered', () => {
             const props = {
               reservationIsEditable,
-              reservation: { ...reservation, state: 'confirmed' },
+              reservation: { ...reservation, state: 'confirmed' }
             };
             expect(getCancelButton(props)).to.have.length(0);
           });
@@ -286,7 +286,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
           it('is rendered if reservation state is "confirmed"', () => {
             const props = {
               reservationIsEditable,
-              reservation: { ...reservation, state: 'confirmed' },
+              reservation: { ...reservation, state: 'confirmed' }
             };
             expect(getCancelButton(props)).to.have.length(1);
           });
@@ -295,7 +295,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
             const props = {
               isAdmin: false,
               reservationIsEditable,
-              reservation: { ...reservation, state: 'requested' },
+              reservation: { ...reservation, state: 'requested' }
             };
             expect(getCancelButton(props)).to.have.length(1);
           });
@@ -304,7 +304,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
             const props = {
               isAdmin: true,
               reservationIsEditable,
-              reservation: { ...reservation, state: 'requested' },
+              reservation: { ...reservation, state: 'requested' }
             };
             expect(getCancelButton(props)).to.have.length(0);
           });
@@ -312,7 +312,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
           it('is not rendered if reservation state is "cancelled"', () => {
             const props = {
               reservationIsEditable,
-              reservation: { ...reservation, state: 'cancelled' },
+              reservation: { ...reservation, state: 'cancelled' }
             };
             expect(getCancelButton(props)).to.have.length(0);
           });
@@ -320,7 +320,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
           it('is not rendered if reservation state is "denied"', () => {
             const props = {
               reservationIsEditable,
-              reservation: { ...reservation, state: 'denied' },
+              reservation: { ...reservation, state: 'denied' }
             };
             expect(getCancelButton(props)).to.have.length(0);
           });
@@ -340,7 +340,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
     it('calls onEditFormSubmit with updated reservation values', () => {
       const values = {
         eventDescription: 'Updated description',
-        reserverName: 'Han Solo',
+        reserverName: 'Han Solo'
       };
       callHandleEditFormSubmit(values);
       const expected = { ...reservation, ...values, staffEvent: false };

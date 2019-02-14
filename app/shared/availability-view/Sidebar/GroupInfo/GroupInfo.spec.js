@@ -9,7 +9,7 @@ function getWrapper(props) {
   const defaults = {
     date: '2016-01-01',
     name: 'Group name',
-    resources: [],
+    resources: []
   };
   return shallow(<GroupInfo {...defaults} {...props} />);
 }

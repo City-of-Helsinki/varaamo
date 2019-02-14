@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createSliderWithTooltip } from 'rc-slider';
 import Slider from 'rc-slider/lib/Slider';
-
 import { injectT } from 'i18n';
+
 import CheckboxControl from './CheckboxControl';
 
 const TooltipSlider = createSliderWithTooltip(Slider);
@@ -14,7 +14,7 @@ class PositionControl extends React.Component {
     onConfirm: PropTypes.func.isRequired,
     onPositionSwitch: PropTypes.func.isRequired,
     t: PropTypes.func.isRequired,
-    value: PropTypes.number,
+    value: PropTypes.number
   };
 
   constructor(props) {
@@ -23,7 +23,7 @@ class PositionControl extends React.Component {
       distance: this.props.value || 21000,
       maxDistance: 20000,
       step: 1000,
-      toggled: this.props.geolocated,
+      toggled: this.props.geolocated
     };
   }
 

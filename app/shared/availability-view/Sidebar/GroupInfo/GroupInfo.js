@@ -7,7 +7,7 @@ GroupInfo.propTypes = {
   date: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   resources: PropTypes.arrayOf(PropTypes.string).isRequired,
-  selectedResourceId: PropTypes.string,
+  selectedResourceId: PropTypes.string
 };
 export default function GroupInfo(props) {
   const date = props.date;

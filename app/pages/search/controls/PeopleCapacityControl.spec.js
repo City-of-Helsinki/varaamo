@@ -5,15 +5,15 @@ import ListGroup from 'react-bootstrap/lib/ListGroup';
 import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
 import Overlay from 'react-bootstrap/lib/Overlay';
 import simple from 'simple-mock';
-
 import { shallowWithIntl } from 'utils/testUtils';
+
 import PeopleCapacityControl from './PeopleCapacityControl';
 import SearchControlOverlay from './SearchControlOverlay';
 
 function getWrapper(props) {
   const defaults = {
     onConfirm: () => null,
-    value: 5,
+    value: 5
   };
   return shallowWithIntl(<PeopleCapacityControl {...defaults} {...props} />);
 }

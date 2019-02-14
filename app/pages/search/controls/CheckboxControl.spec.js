@@ -2,15 +2,15 @@ import { expect } from 'chai';
 import React from 'react';
 import Toggle from 'react-toggle';
 import simple from 'simple-mock';
-
 import { shallowWithIntl } from 'utils/testUtils';
+
 import CheckboxControl from './CheckboxControl';
 
 const defaults = {
   id: 'some-id',
   label: 'some-label',
   onConfirm: () => null,
-  value: true,
+  value: true
 };
 function getWrapper(props) {
   return shallowWithIntl(<CheckboxControl {...defaults} {...props} />);
@@ -33,8 +33,8 @@ describe('pages/search/controls/CheckboxControl', () => {
     const onConfirm = simple.mock();
     const mockEvent = {
       target: {
-        checked: true,
-      },
+        checked: true
+      }
     };
     const toggle = getWrapper({ onConfirm }).find(Toggle);
     expect(toggle).to.have.length(1);

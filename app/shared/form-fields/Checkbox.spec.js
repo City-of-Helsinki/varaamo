@@ -13,7 +13,7 @@ describe('shared/form-fields/Checkbox', () => {
     controlProps: { someProp: 'some', otherProp: 'other' },
     id: 'email',
     label: 'Enter your email',
-    validationState: 'error',
+    validationState: 'error'
   };
 
   function getWrapper(props) {

@@ -11,16 +11,16 @@ import Col from 'react-bootstrap/lib/Col';
 import Grid from 'react-bootstrap/lib/Grid';
 import Panel from 'react-bootstrap/lib/Panel';
 import Row from 'react-bootstrap/lib/Row';
-
 import { fetchPurposes } from 'actions/purposeActions';
 import {
   changeSearchFilters,
   disableGeoposition,
   disableTimeRange,
   enableGeoposition,
-  enableTimeRange,
+  enableTimeRange
 } from 'actions/uiActions';
 import { injectT } from 'i18n';
+
 import CheckboxControl from './CheckboxControl';
 import DatePickerControl from './DatePickerControl';
 import PositionControl from './PositionControl';
@@ -65,7 +65,7 @@ class UnconnectedSearchControlsContainer extends Component {
   handleDateChange = ({ date }) => {
     const dateInCorrectFormat = moment(date, 'L').format(constants.DATE_FORMAT);
     this.handleFiltersChange({
-      date: dateInCorrectFormat,
+      date: dateInCorrectFormat
     });
   };
 
@@ -89,7 +89,7 @@ class UnconnectedSearchControlsContainer extends Component {
     this.handleFiltersChange({
       duration,
       end,
-      start,
+      start
     });
   };
 
@@ -123,7 +123,7 @@ class UnconnectedSearchControlsContainer extends Component {
       isFetchingUnits,
       purposeOptions,
       t,
-      unitOptions,
+      unitOptions
     } = this.props;
     const peopleCapacityOptions = this.getPeopleCapacityOptions();
     const searchBoxOptions = purposeOptions.concat(unitOptions);
@@ -255,7 +255,7 @@ UnconnectedSearchControlsContainer.propTypes = {
   t: PropTypes.func.isRequired,
   unitOptions: PropTypes.array.isRequired,
   urlSearchFilters: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 UnconnectedSearchControlsContainer = injectT(UnconnectedSearchControlsContainer); // eslint-disable-line
@@ -267,7 +267,7 @@ function mapDispatchToProps(dispatch) {
     disableTimeRange,
     enableGeoposition,
     enableTimeRange,
-    fetchPurposes,
+    fetchPurposes
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

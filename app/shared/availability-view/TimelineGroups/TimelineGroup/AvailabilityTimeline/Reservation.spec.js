@@ -16,7 +16,7 @@ function getOuterWrapper(props) {
     end: '2016-01-01T12:00:00Z',
     eventSubject: 'Meeting',
     id: 12345,
-    onClick: () => {},
+    onClick: () => {}
   };
   return shallow(<Reservation {...defaults} {...props} />);
 }
@@ -55,8 +55,8 @@ describe('shared/availability-view/Reservation', () => {
       eventSubject: 'Meeting',
       id: 12345,
       userPermissions: {
-        canModify: true,
-      },
+        canModify: true
+      }
     };
     const wrapper = getOuterWrapper({ ...reservation, onClick });
     const onClickProp = wrapper.prop('onClick');
@@ -72,7 +72,7 @@ describe('shared/availability-view/Reservation', () => {
       end: '2016-01-01T12:00:00Z',
       eventSubject: 'Meeting',
       id: 12345,
-      comments: 'comment',
+      comments: 'comment'
     };
     const element = getOuterWrapper({ ...reservation }).find('.with-comments');
     expect(element).to.have.length(1);
@@ -83,7 +83,7 @@ describe('shared/availability-view/Reservation', () => {
       begin: '2016-01-01T10:00:00Z',
       end: '2016-01-01T12:00:00Z',
       eventSubject: 'Meeting',
-      id: 12345,
+      id: 12345
     };
     const element = getOuterWrapper({ ...reservation }).find('.with-comments');
     expect(element).to.have.length(0);
@@ -102,11 +102,11 @@ describe('shared/availability-view/Reservation', () => {
   it('has correct width', () => {
     const times = {
       end: '2016-01-01T20:00:00Z',
-      begin: '2016-01-01T10:00:00Z',
+      begin: '2016-01-01T10:00:00Z'
     };
     const expected = utils.getTimeSlotWidth({
       startTime: moment(times.begin),
-      endTime: moment(times.end),
+      endTime: moment(times.end)
     });
     const actual = getWrapper(times).prop('style');
     expect(actual).to.deep.equal({ width: expected });
@@ -125,9 +125,9 @@ describe('shared/availability-view/Reservation', () => {
         reserverName: 'Luke Skywalker',
         user: {
           displayName: 'DarthV',
-          email: 'dv@dark.side',
+          email: 'dv@dark.side'
         },
-        ...extra,
+        ...extra
       });
       return wrapper.find('.reserver-name').text();
     }

@@ -10,7 +10,7 @@ describe('shared/resource-type-filter/ResourceTypeFilterButton', () => {
   const defaultProps = {
     active: true,
     onClick: simple.mock(),
-    resourceType: 'room',
+    resourceType: 'room'
   };
 
   function getWrapper(props) {

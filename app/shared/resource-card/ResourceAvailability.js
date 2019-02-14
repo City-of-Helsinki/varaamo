@@ -2,7 +2,6 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Label from 'react-bootstrap/lib/Label';
-
 import { injectT } from 'i18n';
 import { getAvailabilityDataForNow, getAvailabilityDataForWholeDay } from 'utils/resourceUtils';
 
@@ -31,7 +30,7 @@ function ResourceAvailability({ date, resource, t }) {
 ResourceAvailability.propTypes = {
   date: PropTypes.string.isRequired,
   resource: PropTypes.object.isRequired,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 };
 
 export default injectT(ResourceAvailability);

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-
 import { getState } from 'utils/testUtils';
+
 import userReservationsPageSelector from './userReservationsPageSelector';
 
 describe('pages/user-reservations/userReservationsPageSelector', () => {

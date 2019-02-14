@@ -6,7 +6,7 @@ const resourceSchema = new Schema('resources');
 const unitSchema = new Schema('units');
 
 resourceSchema.define({
-  unit: unitSchema,
+  unit: unitSchema
 });
 
 const paginatedPurposesSchema = new Schema('paginatedPurposes');
@@ -15,19 +15,19 @@ const paginatedResourcesSchema = new Schema('paginatedResources');
 const paginatedUnitsSchema = new Schema('paginatedUnits');
 
 paginatedPurposesSchema.define({
-  results: arrayOf(purposeSchema),
+  results: arrayOf(purposeSchema)
 });
 
 paginatedReservationsSchema.define({
-  results: arrayOf(reservationSchema),
+  results: arrayOf(reservationSchema)
 });
 
 paginatedResourcesSchema.define({
-  results: arrayOf(resourceSchema),
+  results: arrayOf(resourceSchema)
 });
 
 paginatedUnitsSchema.define({
-  results: arrayOf(unitSchema),
+  results: arrayOf(unitSchema)
 });
 
 export default {
@@ -37,5 +37,5 @@ export default {
   paginatedUnitsSchema,
   purposeSchema,
   resourceSchema,
-  unitSchema,
+  unitSchema
 };

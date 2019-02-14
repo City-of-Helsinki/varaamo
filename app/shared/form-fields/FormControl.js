@@ -5,11 +5,10 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import RBFormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
-
 import InfoPopover from 'shared/info-popover';
 
 function FormControl({
-  controlProps = {}, help, id, info, label, type, validationState,
+  controlProps = {}, help, id, info, label, type, validationState
 }) {
   return (
     <FormGroup controlId={id} validationState={validationState}>
@@ -37,7 +36,7 @@ FormControl.propTypes = {
   info: PropTypes.string,
   label: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  validationState: PropTypes.string,
+  validationState: PropTypes.string
 };
 
 export default FormControl;

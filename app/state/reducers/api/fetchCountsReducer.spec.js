@@ -22,7 +22,7 @@ describe('state/reducers/api/fetchCountsReducer', () => {
       it('increases reservations by 1', () => {
         const action = getReservationsSuccess();
         const initialState = Immutable({
-          reservations: 3,
+          reservations: 3
         });
         const nextState = fetchCountsReducer(initialState, action);
 

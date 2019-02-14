@@ -9,5 +9,5 @@ const hideNotification = createAction(types.UI.HIDE_NOTIFICATION);
 
 export {
   addNotification,
-  hideNotification,
+  hideNotification
 };

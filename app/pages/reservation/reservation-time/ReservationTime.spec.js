@@ -2,18 +2,18 @@ import { expect } from 'chai';
 import React from 'react';
 import simple from 'simple-mock';
 import moment from 'moment';
-
 import ReservationCalendar from 'pages/resource/reservation-calendar';
 import ResourceCalendar from 'shared/resource-calendar';
 import { shallowWithIntl } from 'utils/testUtils';
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
+
 import ReservationTime from './ReservationTime';
 
 describe('pages/reservation/reservation-time/ReservationTime', () => {
   const history = {
-    replace: () => {},
+    replace: () => {}
   };
 
   const defaultProps = {
@@ -24,7 +24,7 @@ describe('pages/reservation/reservation-time/ReservationTime', () => {
     match: { params: {} },
     resource: Resource.build(),
     selectedReservation: Reservation.build(),
-    unit: Unit.build(),
+    unit: Unit.build()
   };
 
   function getWrapper(extraProps) {

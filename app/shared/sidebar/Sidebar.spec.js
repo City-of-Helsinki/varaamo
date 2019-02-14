@@ -9,7 +9,7 @@ const sidebarContent = <div>Sidebar Content</div>;
 
 const defaultProps = {
   sidebar: sidebarContent,
-  open: false,
+  open: false
 };
 
 function getWrapper(props, content = 'Some text') {

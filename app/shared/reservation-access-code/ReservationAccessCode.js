@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
 import { injectT } from 'i18n';
 
 function ReservationAccessCode({ reservation, t, text }) {
@@ -19,10 +18,10 @@ function ReservationAccessCode({ reservation, t, text }) {
 
 ReservationAccessCode.propTypes = {
   reservation: PropTypes.shape({
-    accessCode: PropTypes.string,
+    accessCode: PropTypes.string
   }).isRequired,
   t: PropTypes.func.isRequired,
-  text: PropTypes.string,
+  text: PropTypes.string
 };
 
 export default injectT(ReservationAccessCode);

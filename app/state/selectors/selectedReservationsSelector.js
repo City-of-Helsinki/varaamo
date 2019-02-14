@@ -1,6 +1,5 @@
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
-
 import { combine } from 'utils/reservationUtils';
 
 const idSelector = (state, props) => props.params.id;

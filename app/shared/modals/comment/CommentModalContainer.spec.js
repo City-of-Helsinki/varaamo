@@ -2,11 +2,11 @@ import { expect } from 'chai';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
-
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
 import { shallowWithIntl } from 'utils/testUtils';
 import CommentForm from 'shared/comment-form';
+
 import { UnconnectedCommentModalContainer as CommentModalContainer } from './CommentModalContainer';
 import ModalWrapper from '../ModalWrapper';
 
@@ -14,17 +14,17 @@ describe('shared/modals/comment/CommentModalContainer', () => {
   const resource = Resource.build();
   const reservation = Reservation.build({
     comments: 'Some comments',
-    resource: resource.id,
+    resource: resource.id
   });
   const defaultProps = {
     actions: {
       closeReservationCommentModal: simple.stub(),
-      commentReservation: simple.stub(),
+      commentReservation: simple.stub()
     },
     isSaving: false,
     reservation: Immutable(reservation),
     resource: Immutable(resource),
-    show: true,
+    show: true
   };
 
   function getWrapper(extraProps = {}) {

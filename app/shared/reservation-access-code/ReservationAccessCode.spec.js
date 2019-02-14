@@ -1,14 +1,14 @@
 import { expect } from 'chai';
 import React from 'react';
 import Immutable from 'seamless-immutable';
-
 import Reservation from 'utils/fixtures/Reservation';
 import { shallowWithIntl } from 'utils/testUtils';
+
 import ReservationAccessCode from './ReservationAccessCode';
 
 describe('shared/reservation-access-code/ReservationAccessCode', () => {
   const defaultProps = {
-    reservation: Immutable(Reservation.build()),
+    reservation: Immutable(Reservation.build())
   };
 
   function getWrapper(extraProps) {

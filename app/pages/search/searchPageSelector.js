@@ -2,7 +2,6 @@ import ActionTypes from 'constants/ActionTypes';
 
 import orderBy from 'lodash/orderBy';
 import { createStructuredSelector, createSelector } from 'reselect';
-
 import { isLoggedInSelector } from 'state/selectors/authSelectors';
 import uiSearchFiltersSelector from 'state/selectors/uiSearchFiltersSelector';
 import urlSearchFiltersSelector from 'state/selectors/urlSearchFiltersSelector';
@@ -36,7 +35,7 @@ const searchPageSelector = createStructuredSelector({
   searchResultIds: orderedSearchResultIdsSelector,
   selectedUnitId: selectedUnitIdSelector,
   showMap: showMapSelector,
-  uiFilters: uiSearchFiltersSelector,
+  uiFilters: uiSearchFiltersSelector
 });
 
 export default searchPageSelector;

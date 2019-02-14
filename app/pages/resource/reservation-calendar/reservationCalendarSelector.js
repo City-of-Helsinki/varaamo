@@ -2,11 +2,10 @@ import { filter, isEmpty, map } from 'lodash';
 import { createSelector, createStructuredSelector } from 'reselect';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
-
 import {
   createIsStaffSelector,
   isAdminSelector,
-  isLoggedInSelector,
+  isLoggedInSelector
 } from 'state/selectors/authSelectors';
 import { createResourceSelector } from 'state/selectors/dataSelectors';
 import dateSelector from 'state/selectors/dateSelector';
@@ -14,6 +13,7 @@ import timeSelector from 'state/selectors/timeSelector';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
 import { getOpeningHours, getOpenReservations } from 'utils/resourceUtils';
 import { getTimeSlots } from 'utils/timeUtils';
+
 import utils from './utils';
 
 const moment = extendMoment(Moment);
@@ -60,7 +60,7 @@ const resourceByDates = createSelector(
         reservations: filter(
           resource.reservations,
           ({ begin }) => begin.substring(0, 10) === rangeDate,
-        ),
+        )
       }));
     }
     return [resource];
@@ -98,7 +98,7 @@ const reservationCalendarSelector = createStructuredSelector({
   selected: selectedSelector,
   selectedReservationSlot: selectedReservationSlotSelector,
   time: timeSelector,
-  timeSlots: timeSlotsSelector,
+  timeSlots: timeSlotsSelector
 });
 
 export default reservationCalendarSelector;

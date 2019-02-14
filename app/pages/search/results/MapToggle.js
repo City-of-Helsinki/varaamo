@@ -4,18 +4,17 @@ import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
-
 import { injectT } from 'i18n';
 
 MapToggle.propTypes = {
   mapVisible: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
   resultCount: PropTypes.number.isRequired,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 };
 
 function MapToggle({
-  mapVisible, onClick, resultCount, t,
+  mapVisible, onClick, resultCount, t
 }) {
   return (
     <div className="app-MapToggle">

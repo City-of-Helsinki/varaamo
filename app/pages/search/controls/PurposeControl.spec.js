@@ -5,8 +5,8 @@ import ListGroup from 'react-bootstrap/lib/ListGroup';
 import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
 import Overlay from 'react-bootstrap/lib/Overlay';
 import simple from 'simple-mock';
-
 import { shallowWithIntl } from 'utils/testUtils';
+
 import PurposeControl from './PurposeControl';
 import SearchControlOverlay from './SearchControlOverlay';
 
@@ -15,7 +15,7 @@ function getWrapper(props) {
     isLoading: false,
     onConfirm: () => null,
     purposeOptions: [],
-    value: '',
+    value: ''
   };
   return shallowWithIntl(<PurposeControl {...defaults} {...props} />);
 }

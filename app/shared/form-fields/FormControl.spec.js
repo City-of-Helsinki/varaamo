@@ -6,8 +6,8 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import RBFormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
-
 import InfoPopover from 'shared/info-popover';
+
 import FormControl from './FormControl';
 
 describe('shared/form-fields/FormControl', () => {
@@ -16,7 +16,7 @@ describe('shared/form-fields/FormControl', () => {
     id: 'email',
     label: 'Enter your email',
     type: 'text',
-    validationState: 'error',
+    validationState: 'error'
   };
 
   function getWrapper(props) {

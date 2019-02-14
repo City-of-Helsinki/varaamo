@@ -23,5 +23,5 @@ function getCustomizationClassName() {
 
 export {
   getCurrentCustomization,
-  getCustomizationClassName,
+  getCustomizationClassName
 };

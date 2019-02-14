@@ -1,8 +1,8 @@
 import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
 import React from 'react';
-
 import ReservationInfoModal from 'shared/modals/reservation-info';
+
 import DateSelector from './DateSelector';
 import TimelineGroups from './TimelineGroups';
 import Sidebar from './Sidebar';
@@ -13,7 +13,7 @@ export default class AvailabilityView extends React.Component {
     groups: PropTypes.arrayOf(PropTypes.object).isRequired,
     isAdmin: PropTypes.bool.isRequired,
     onDateChange: PropTypes.func.isRequired,
-    onSelect: PropTypes.func,
+    onSelect: PropTypes.func
   };
 
   constructor(props) {

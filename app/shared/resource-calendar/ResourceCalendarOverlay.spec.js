@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import React from 'react';
-
 import { shallowWithIntl } from 'utils/testUtils';
+
 import ResourceCalendarOverlay from './ResourceCalendarOverlay';
 
 describe('shared/resource-calendar/ResourceCalendarOverlay', () => {

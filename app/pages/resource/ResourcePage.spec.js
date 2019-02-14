@@ -3,7 +3,6 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 import Lightbox from 'lightbox-react';
-
 import NotFoundPage from 'pages/not-found/NotFoundPage';
 import PageWrapper from 'pages/PageWrapper';
 import ResourceCalendar from 'shared/resource-calendar';
@@ -12,6 +11,7 @@ import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
 import { getResourcePageUrl } from 'utils/resourceUtils';
 import { shallowWithIntl } from 'utils/testUtils';
+
 import { UnconnectedResourcePage as ResourcePage } from './ResourcePage';
 import ResourceHeader from './resource-header';
 import ResourceInfo from './resource-info';
@@ -25,27 +25,27 @@ describe('pages/resource/ResourcePage', () => {
       {
         caption: 'caption 1',
         url: 'url 1',
-        type: 'main',
+        type: 'main'
       },
       {
         caption: 'caption 2',
         url: 'url 2',
-        type: 'other',
+        type: 'other'
       },
       {
         caption: 'caption 3',
         url: 'url 3',
-        type: 'other',
-      },
+        type: 'other'
+      }
     ],
-    unit: Unit.id,
+    unit: Unit.id
   });
   const defaultProps = {
     history,
     actions: {
       clearReservations: () => null,
       fetchResource: () => null,
-      toggleResourceMap: () => null,
+      toggleResourceMap: () => null
     },
     date: '2015-10-10',
     id: resource.id,
@@ -55,7 +55,7 @@ describe('pages/resource/ResourcePage', () => {
     match: { params: {} },
     resource: Immutable(resource),
     showMap: false,
-    unit: Immutable(unit),
+    unit: Immutable(unit)
   };
 
   function getWrapper(props) {
@@ -113,7 +113,7 @@ describe('pages/resource/ResourcePage', () => {
     it('renders NotFoundPage when resource empty and not fetching resource', () => {
       const notFoundPage = getWrapper({
         isFetchingResource: false,
-        resource: {},
+        resource: {}
       }).find(NotFoundPage);
       expect(notFoundPage).to.have.length(1);
     });

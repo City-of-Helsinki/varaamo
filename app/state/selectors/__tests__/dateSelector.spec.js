@@ -1,13 +1,12 @@
 import { expect } from 'chai';
 import MockDate from 'mockdate';
-
 import dateSelector from 'state/selectors/dateSelector';
 
 function getProps(date) {
   return {
     location: {
-      search: `?date=${date}`,
-    },
+      search: `?date=${date}`
+    }
   };
 }
 

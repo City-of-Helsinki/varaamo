@@ -4,17 +4,17 @@ import { expect } from 'chai';
 import React from 'react';
 import Label from 'react-bootstrap/lib/Label';
 import Immutable from 'seamless-immutable';
-
 import Reservation from 'utils/fixtures/Reservation';
 import { shallowWithIntl } from 'utils/testUtils';
+
 import ReservationStateLabel from './ReservationStateLabel';
 
 describe('shared/reservation-state-label/ReservationStateLabel', () => {
   const defaultProps = {
     reservation: Immutable(Reservation.build({
       needManualConfirmation: true,
-      state: 'confirmed',
-    })),
+      state: 'confirmed'
+    }))
   };
 
   function getWrapper(extraProps) {

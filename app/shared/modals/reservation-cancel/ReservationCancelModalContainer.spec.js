@@ -3,13 +3,13 @@ import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-bootstrap/lib/Modal';
 import simple from 'simple-mock';
-
 import CompactReservationList from 'shared/compact-reservation-list';
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
 import { shallowWithIntl } from 'utils/testUtils';
+
 import {
-  UnconnectedReservationCancelModalContainer as ReservationCancelModalContainer,
+  UnconnectedReservationCancelModalContainer as ReservationCancelModalContainer
 } from './ReservationCancelModalContainer';
 
 describe('shared/modals/reservation-cancel/ReservationCancelModalContainer', () => {
@@ -18,13 +18,13 @@ describe('shared/modals/reservation-cancel/ReservationCancelModalContainer', () 
   const defaultProps = {
     actions: {
       closeReservationCancelModal: () => null,
-      deleteReservation: () => null,
+      deleteReservation: () => null
     },
     cancelAllowed: false,
     isCancellingReservations: false,
     reservation,
     resource,
-    show: true,
+    show: true
   };
 
   function getWrapper(extraProps = {}) {

@@ -11,7 +11,7 @@ function scrollToInitial(element) {
   if (element) {
     const initialScroll = utils.getTimeSlotWidth({
       startTime: moment('2016-01-01T00:00:00'),
-      endTime: moment('2016-01-01T08:00:00'),
+      endTime: moment('2016-01-01T08:00:00')
     });
     element.scrollLeft = initialScroll; // eslint-disable-line no-param-reassign
   }
@@ -32,14 +32,14 @@ export default class TimelineGroups extends React.Component {
     date: PropTypes.string.isRequired,
     groups: PropTypes.arrayOf(
       PropTypes.shape({
-        name: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired
       }),
     ).isRequired,
     onReservationSlotClick: PropTypes.func,
     onReservationSlotMouseEnter: PropTypes.func,
     onReservationSlotMouseLeave: PropTypes.func,
     onSelectionCancel: PropTypes.func,
-    selection: PropTypes.object,
+    selection: PropTypes.object
   };
 
   constructor(props) {

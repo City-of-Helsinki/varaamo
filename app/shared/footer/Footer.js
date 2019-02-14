@@ -12,7 +12,7 @@ function Footer({ onLinkClick }) {
 }
 
 Footer.propTypes = {
-  onLinkClick: PropTypes.func,
+  onLinkClick: PropTypes.func
 };
 
 export default Footer;

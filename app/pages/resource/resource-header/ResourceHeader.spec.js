@@ -2,11 +2,11 @@ import { expect } from 'chai';
 import React from 'react';
 import { FormattedNumber } from 'react-intl';
 import Immutable from 'seamless-immutable';
-
 import FavoriteButton from 'shared/favorite-button';
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
 import { shallowWithIntl } from 'utils/testUtils';
+
 import ResourceHeader from './ResourceHeader';
 
 describe('pages/resource/resource-header/ResourceHeader', () => {
@@ -19,7 +19,7 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
     resource: Immutable(resource),
     showBackButton: true,
     showMap: false,
-    unit: Immutable(unit),
+    unit: Immutable(unit)
   };
 
   function getWrapper(props) {
@@ -56,7 +56,7 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
     describe('Unit info', () => {
       function createProps(resourceProps) {
         return {
-          resource: Immutable(Resource.build(resourceProps)),
+          resource: Immutable(Resource.build(resourceProps))
         };
       }
 

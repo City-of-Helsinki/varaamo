@@ -1,6 +1,5 @@
 import some from 'lodash/some';
 import moment from 'moment';
-
 import { slotSize, slotWidth, slotMargin } from 'shared/availability-view';
 
 function getTimeSlotWidth({ startTime, endTime } = {}) {
@@ -22,7 +21,7 @@ function getTimelineItems(date, reservations, resourceId) {
       items.push({
         key: String(items.length),
         type: 'reservation',
-        data: reservation,
+        data: reservation
       });
       timePointer = moment(reservation.end);
       reservationPointer += 1;
@@ -36,8 +35,8 @@ function getTimelineItems(date, reservations, resourceId) {
           resourceId,
           // isSelectable: false by default to improve selector performance by allowing
           // addSelectionData to make some assumptions.
-          isSelectable: false,
-        },
+          isSelectable: false
+        }
       });
       timePointer.add(slotSize, 'minutes');
     }
@@ -97,5 +96,5 @@ function addSelectionData(selection, resource, items) {
 export default {
   addSelectionData,
   getTimelineItems,
-  getTimeSlotWidth,
+  getTimeSlotWidth
 };

@@ -22,7 +22,7 @@ function injectT(WrappedComponent) {
   }
 
   InjectT.contextTypes = {
-    intl: intlShape,
+    intl: intlShape
   };
 
   InjectT.displayName = `InjectT(${getDisplayName(WrappedComponent)})`;

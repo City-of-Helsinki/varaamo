@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
-
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
 import User from 'utils/fixtures/User';
+
 import reservationPageSelector from './reservationPageSelector';
 
 const defaultUnit = Unit.build();
@@ -16,16 +16,16 @@ const defaultUser = User.build();
 function getState(resources = [], units = [], user = defaultUser) {
   return {
     api: Immutable({
-      activeRequests: [],
+      activeRequests: []
     }),
     auth: Immutable({
       userId: user.id,
-      token: 'mock-token',
+      token: 'mock-token'
     }),
     data: Immutable({
       resources: keyBy(resources, 'id'),
       units: keyBy(units, 'id'),
-      users: { [user.id]: user },
+      users: { [user.id]: user }
     }),
     ui: Immutable({
       reservations: {
@@ -33,25 +33,25 @@ function getState(resources = [], units = [], user = defaultUser) {
           {
             begin: '2016-10-10T10:00:00+03:00',
             end: '2016-10-10T11:00:00+03:00',
-            resource: defaultResource.id,
-          },
+            resource: defaultResource.id
+          }
         ],
         toEdit: [defaultReservation],
         toShow: [defaultReservation],
-        toShowEdited: [defaultReservation],
-      },
-    }),
+        toShowEdited: [defaultReservation]
+      }
+    })
   };
 }
 
 function getProps(id = 'some-id') {
   return {
     location: {
-      search: `?date=2015-10-10&resource=${defaultResource.id}`,
+      search: `?date=2015-10-10&resource=${defaultResource.id}`
     },
     params: {
-      id,
-    },
+      id
+    }
   };
 }
 

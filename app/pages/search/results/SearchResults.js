@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
-
 import ResourceCompactList from 'shared/resource-compact-list';
 import ResourceList from 'shared/resource-list';
 import { scrollTo } from 'utils/domUtils';
+
 import SearchResultsPaging from './SearchResultsPaging';
 import searchResultsSelector from './searchResultsSelector';
 
@@ -24,7 +24,7 @@ export class UnconnectedSearchResults extends Component {
       resultCount,
       searchResultIds,
       selectedUnitId,
-      showMap,
+      showMap
     } = this.props;
     return (
       <div className="app-SearchResults" id="search-results">
@@ -63,7 +63,7 @@ UnconnectedSearchResults.propTypes = {
   resultCount: PropTypes.number.isRequired,
   searchResultIds: PropTypes.array.isRequired,
   selectedUnitId: PropTypes.string,
-  showMap: PropTypes.bool.isRequired,
+  showMap: PropTypes.bool.isRequired
 };
 
 export default connect(searchResultsSelector)(UnconnectedSearchResults);

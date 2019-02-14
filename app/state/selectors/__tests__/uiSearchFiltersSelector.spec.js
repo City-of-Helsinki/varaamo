@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import MockDate from 'mockdate';
-
 import uiSearchFiltersSelector from 'state/selectors/uiSearchFiltersSelector';
 
 function getState(date = '2015-10-10', start = '08:30') {
@@ -19,10 +18,10 @@ function getState(date = '2015-10-10', start = '08:30') {
           search: '',
           start,
           unit: '',
-          useTimeRange: false,
-        },
-      },
-    },
+          useTimeRange: false
+        }
+      }
+    }
   };
 }
 

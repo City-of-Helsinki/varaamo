@@ -7,11 +7,11 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Modal from 'react-bootstrap/lib/Modal';
 import { findDOMNode } from 'react-dom';
-
 import { injectT } from 'i18n';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
 import ReservationStateLabel from 'shared/reservation-state-label';
 import { isStaffEvent } from 'utils/reservationUtils';
+
 import ReservationEditForm from './ReservationEditForm';
 
 class ReservationInfoModal extends Component {
@@ -48,7 +48,7 @@ class ReservationInfoModal extends Component {
       reservationIsEditable,
       resource,
       show,
-      t,
+      t
     } = this.props;
 
     const disabled = isSaving || isEditing;
@@ -176,7 +176,7 @@ ReservationInfoModal.propTypes = {
   reservationIsEditable: PropTypes.bool.isRequired,
   resource: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 };
 
 export default injectT(ReservationInfoModal);

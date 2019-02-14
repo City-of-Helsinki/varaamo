@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
 import { injectT } from 'i18n';
 
 function SearchControlOverlay({ children }) {
@@ -16,7 +15,7 @@ function SearchControlOverlay({ children }) {
 }
 
 SearchControlOverlay.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 };
 
 export default injectT(SearchControlOverlay);

@@ -4,16 +4,16 @@ import React from 'react';
 import Label from 'react-bootstrap/lib/Label';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
-
 import Resource from 'utils/fixtures/Resource';
 import * as resourceUtils from 'utils/resourceUtils';
 import { shallowWithIntl } from 'utils/testUtils';
+
 import ResourceAvailability from './ResourceAvailability';
 
 describe('shared/resource-list/ResourceAvailability', () => {
   const defaultProps = {
     date: '2015-10-10',
-    resource: Immutable(Resource.build()),
+    resource: Immutable(Resource.build())
   };
 
   function getWrapper(extraProps) {
@@ -40,7 +40,7 @@ describe('shared/resource-list/ResourceAvailability', () => {
 
   describe('if resource has an external reservation url', () => {
     const resource = Resource.build({
-      externalReservationUrl: 'http://test.com',
+      externalReservationUrl: 'http://test.com'
     });
     const now = '2016-10-10T06:00:00+03:00';
     const date = '2016-10-10';

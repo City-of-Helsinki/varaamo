@@ -6,9 +6,9 @@ import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
 import { Field } from 'redux-form';
 import simple from 'simple-mock';
-
 import WrappedText from 'shared/wrapped-text';
 import { shallowWithIntl } from 'utils/testUtils';
+
 import { UnconnectedReservationForm as ReservationForm, validate } from './ReservationForm';
 
 describe('shared/reservation-confirmation/ReservationForm', () => {
@@ -26,7 +26,7 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
             const props = {
               fields: [fieldName],
               requiredFields: [],
-              t,
+              t
             };
             const errors = validate(values, props);
             expect(errors[fieldName]).to.exist;
@@ -40,7 +40,7 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
             const props = {
               fields: [fieldName],
               requiredFields: [],
-              t,
+              t
             };
             const errors = validate(values, props);
             expect(errors[fieldName]).to.not.exist;
@@ -56,7 +56,7 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
           const props = {
             fields: [fieldName],
             requiredFields: [fieldName],
-            t,
+            t
           };
           const errors = validate(values, props);
           expect(errors[fieldName]).to.exist;
@@ -67,7 +67,7 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
           const props = {
             fields: [fieldName],
             requiredFields: [],
-            t,
+            t
           };
           const errors = validate(values, props);
           expect(errors[fieldName]).to.not.exist;
@@ -80,7 +80,7 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
         const props = {
           fields: ['name'],
           requiredFields: ['name'],
-          t,
+          t
         };
         const values = { name: 'Luke' };
         const errors = validate(values, props);
@@ -92,7 +92,7 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
       const props = {
         fields: ['reserverEmailAddress'],
         requiredFields: [],
-        t,
+        t
       };
 
       it('returns an error if reserverEmailAddress is invalid', () => {
@@ -118,7 +118,7 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
       onCancel: simple.mock(),
       onConfirm: simple.mock(),
       requiredFields: [],
-      termsAndConditions: '',
+      termsAndConditions: ''
     };
 
     function getWrapper(extraProps) {
@@ -149,7 +149,7 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
         it('displays an asterisk beside a required field label', () => {
           const props = {
             fields: [fieldName],
-            requiredFields: [fieldName],
+            requiredFields: [fieldName]
           };
           const input = getWrapper(props).find(Field);
           expect(input.props().label).to.contain('*');
@@ -158,7 +158,7 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
         it('does not display an asterisk beside a non required field label', () => {
           const props = {
             fields: [fieldName],
-            requiredFields: [],
+            requiredFields: []
           };
           const input = getWrapper(props).find(Field);
           expect(input.props().label).to.not.contain('*');
@@ -172,7 +172,7 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
             const props = {
               fields,
               requiredFields: [fieldName],
-              staffEventSelected,
+              staffEventSelected
             };
             const input = getWrapper(props).find(Field);
             expect(input.props().label).to.contain('*');
@@ -184,7 +184,7 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
             const props = {
               fields,
               requiredFields: [nonRequiredFieldName],
-              staffEventSelected,
+              staffEventSelected
             };
             const input = getWrapper(props).find(Field);
             expect(input.props().label).to.not.contain('*');

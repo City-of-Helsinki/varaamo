@@ -3,7 +3,6 @@ import React from 'react';
 import Well from 'react-bootstrap/lib/Well';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
-
 import PageWrapper from 'pages/PageWrapper';
 import { injectT } from 'i18n';
 import { getSearchPageUrl } from 'utils/searchUtils';
@@ -25,7 +24,7 @@ function NotFoundPage({ t }) {
                     <Link to={getSearchPageUrl()}>
                       <FormattedMessage id="NotFoundPage.searchPageLink" />
                     </Link>
-                  ),
+                  )
                 }}
               />
             </li>
@@ -39,7 +38,7 @@ function NotFoundPage({ t }) {
 }
 
 NotFoundPage.propTypes = {
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 };
 
 export default injectT(NotFoundPage);

@@ -4,10 +4,10 @@ import { expect } from 'chai';
 import keyBy from 'lodash/keyBy';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
-
 import { toggleResourceMap } from 'actions/uiActions';
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
+
 import resourceMapReducer from './resourceMapReducer';
 
 describe('state/reducers/ui/resourceMapReducer', () => {
@@ -34,15 +34,15 @@ describe('state/reducers/ui/resourceMapReducer', () => {
         ({ resources = [], units = [] }) => ({
           entities: {
             resources: keyBy(resources, 'id'),
-            units: keyBy(units, 'id'),
-          },
+            units: keyBy(units, 'id')
+          }
         }),
       );
       const units = [
-        Unit.build(),
+        Unit.build()
       ];
       const resources = [
-        Resource.build({ unit: units[0].id }),
+        Resource.build({ unit: units[0].id })
       ];
 
 
@@ -50,7 +50,7 @@ describe('state/reducers/ui/resourceMapReducer', () => {
         const action = searchResourcesSuccess({ resources, units });
         const initialState = Immutable({
           resourceId: resources[0].id,
-          unitId: null,
+          unitId: null
         });
         const expected = units[0].id;
         const nextState = resourceMapReducer(initialState, action);
@@ -62,7 +62,7 @@ describe('state/reducers/ui/resourceMapReducer', () => {
         const action = searchResourcesSuccess({ resources, units });
         const initialState = Immutable({
           resourceId: 'qwertyqwerty',
-          unitId: null,
+          unitId: null
         });
         const expected = null;
         const nextState = resourceMapReducer(initialState, action);
@@ -75,7 +75,7 @@ describe('state/reducers/ui/resourceMapReducer', () => {
       it('toggles showMap if false', () => {
         const action = toggleResourceMap();
         const initialState = Immutable({
-          showMap: false,
+          showMap: false
         });
         const nextState = resourceMapReducer(initialState, action);
 
@@ -85,7 +85,7 @@ describe('state/reducers/ui/resourceMapReducer', () => {
       it('toggles showMap if true', () => {
         const action = toggleResourceMap();
         const initialState = Immutable({
-          showMap: true,
+          showMap: true
         });
         const nextState = resourceMapReducer(initialState, action);
 
@@ -100,10 +100,10 @@ describe('state/reducers/ui/resourceMapReducer', () => {
           location => (location),
         );
         const action = resourcePageChange({
-          pathname: '/resources/qwertyasdfgh',
+          pathname: '/resources/qwertyasdfgh'
         });
         const initialState = Immutable({
-          resourceId: null,
+          resourceId: null
         });
         const nextState = resourceMapReducer(initialState, action);
 

@@ -3,9 +3,9 @@ import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
-
 import Reservation from 'utils/fixtures/Reservation';
 import { makeButtonTests, shallowWithIntl } from 'utils/testUtils';
+
 import ReservationControls from './ReservationControls';
 
 describe('shared/reservation-controls/ReservationControls', () => {
@@ -24,7 +24,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       onDenyClick,
       onEditClick,
       onInfoClick,
-      reservation: Immutable(reservation),
+      reservation: Immutable(reservation)
     };
     return shallowWithIntl(<ReservationControls {...props} />);
   }

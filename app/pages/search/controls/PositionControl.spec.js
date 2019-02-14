@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import React from 'react';
 import simple from 'simple-mock';
-
 import { shallowWithIntl } from 'utils/testUtils';
+
 import PositionControl from './PositionControl';
 import CheckboxControl from './CheckboxControl';
 
@@ -11,7 +11,7 @@ function getWrapper(props) {
     geolocated: false,
     onPositionSwitch: () => null,
     onConfirm: () => null,
-    t: () => {},
+    t: () => {}
   };
   return shallowWithIntl(<PositionControl {...defaults} {...props} />);
 }

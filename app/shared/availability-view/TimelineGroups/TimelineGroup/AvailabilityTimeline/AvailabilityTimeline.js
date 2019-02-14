@@ -11,7 +11,7 @@ export default class AvailabilityTimeline extends React.Component {
       PropTypes.shape({
         key: PropTypes.string.isRequired,
         type: PropTypes.oneOf(['reservation', 'reservation-slot']).isRequired,
-        data: PropTypes.object,
+        data: PropTypes.object
       }),
     ).isRequired,
     onReservationClick: PropTypes.func,
@@ -19,7 +19,7 @@ export default class AvailabilityTimeline extends React.Component {
     onReservationSlotMouseEnter: PropTypes.func,
     onReservationSlotMouseLeave: PropTypes.func,
     onSelectionCancel: PropTypes.func,
-    selection: PropTypes.object,
+    selection: PropTypes.object
   };
 
   shouldComponentUpdate(nextProps) {
@@ -35,7 +35,7 @@ export default class AvailabilityTimeline extends React.Component {
       onSelectionCancel,
       onReservationSlotMouseEnter,
       onReservationSlotMouseLeave,
-      selection,
+      selection
     } = this.props;
     return (
       <div className="availability-timeline">

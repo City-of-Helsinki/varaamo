@@ -2,8 +2,8 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
-
 import ResourceCard from 'shared/resource-card';
+
 import ResourceList from './ResourceList';
 
 describe('shared/resource-list/ResourceList', () => {
@@ -12,11 +12,11 @@ describe('shared/resource-list/ResourceList', () => {
     history: {},
     location: {
       state: {
-        scrollTop: 123,
-      },
+        scrollTop: 123
+      }
     },
     resourceIds: Immutable(['resource-1', 'resource-2']),
-    date: '2017-01-01',
+    date: '2017-01-01'
   };
 
   function getWrapper(extraProps) {

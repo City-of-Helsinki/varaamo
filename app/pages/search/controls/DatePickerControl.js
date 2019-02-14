@@ -8,8 +8,8 @@ import Overlay from 'react-bootstrap/lib/Overlay';
 import DayPicker from 'react-day-picker';
 import moment from 'moment';
 import MomentLocaleUtils from 'react-day-picker/moment';
-
 import { injectT } from 'i18n';
+
 import SearchControlOverlay from './SearchControlOverlay';
 import iconCalendar from './images/calendar.svg';
 
@@ -18,7 +18,7 @@ class DatePickerControl extends React.Component {
     currentLanguage: PropTypes.string.isRequired,
     date: PropTypes.string,
     onConfirm: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired,
+    t: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -26,7 +26,7 @@ class DatePickerControl extends React.Component {
     const { date } = this.props;
     this.state = {
       date,
-      visible: false,
+      visible: false
     };
   }
 

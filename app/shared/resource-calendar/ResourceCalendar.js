@@ -9,9 +9,9 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import InputGroup from 'react-bootstrap/lib/InputGroup';
 import Overlay from 'react-bootstrap/lib/Overlay';
 import moment from 'moment';
-
 import { injectT } from 'i18n';
 import iconCalendar from 'assets/icons/calendar.svg';
+
 import ResourceCalendarOverlay from './ResourceCalendarOverlay';
 import resourceCalendarSelector from './resourceCalendarSelector';
 
@@ -19,7 +19,7 @@ export class UnconnectedResourceCalendar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: false,
+      visible: false
     };
   }
 
@@ -41,7 +41,7 @@ export class UnconnectedResourceCalendar extends Component {
       availability,
       currentLanguage,
       selectedDate,
-      t,
+      t
     } = this.props;
     const [year, month, dayNumber] = selectedDate.split('-');
     const selectedDay = new Date();
@@ -90,7 +90,7 @@ export class UnconnectedResourceCalendar extends Component {
                 booked: (day) => {
                   const dayDate = day.toISOString().substring(0, 10);
                   return availability[dayDate] && availability[dayDate].percentage === 0;
-                },
+                }
               }}
               onDayClick={this.handleDateChange}
               selectedDays={selectedDay}
@@ -112,7 +112,7 @@ UnconnectedResourceCalendar.propTypes = {
   currentLanguage: PropTypes.string.isRequired,
   selectedDate: PropTypes.string.isRequired,
   onDateChange: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 };
 UnconnectedResourceCalendar = injectT(UnconnectedResourceCalendar) // eslint-disable-line
 

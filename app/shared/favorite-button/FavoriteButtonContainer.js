@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import { favoriteResource, unfavoriteResource } from 'actions/resourceActions';
+
 import FavoriteButton from './FavoriteButton';
 
 export class UnconnectedFavoriteButtonContainer extends Component {
@@ -35,14 +35,14 @@ UnconnectedFavoriteButtonContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   resource: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-  }).isRequired,
+    isFavorite: PropTypes.bool.isRequired
+  }).isRequired
 };
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
     favoriteResource,
-    unfavoriteResource,
+    unfavoriteResource
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

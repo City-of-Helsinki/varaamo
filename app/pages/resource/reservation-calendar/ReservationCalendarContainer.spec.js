@@ -2,7 +2,6 @@ import { expect } from 'chai';
 import MockDate from 'mockdate';
 import React from 'react';
 import simple from 'simple-mock';
-
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
 import ReservationInfoModal from 'shared/modals/reservation-info';
 import ReservationSuccessModal from 'shared/modals/reservation-success';
@@ -10,6 +9,7 @@ import ReservationConfirmation from 'shared/reservation-confirmation';
 import Resource from 'utils/fixtures/Resource';
 import TimeSlot from 'utils/fixtures/TimeSlot';
 import { shallowWithIntl } from 'utils/testUtils';
+
 import { UnconnectedReservationCalendarContainer as ReservationCalendarContainer } from './ReservationCalendarContainer';
 import ReservingRestrictedText from './ReservingRestrictedText';
 import TimeSlots from './time-slots';
@@ -22,7 +22,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     clearReservations: simple.stub(),
     openConfirmReservationModal: simple.stub(),
     selectReservationSlot: simple.stub(),
-    toggleTimeSlot: simple.stub(),
+    toggleTimeSlot: simple.stub()
   };
   const resource = Resource.build();
   const timeSlot1 = {
@@ -32,7 +32,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     index: 0,
     reserved: false,
     resource: 'some-resource-id',
-    start: '2016-10-10T10:00:00.000Z',
+    start: '2016-10-10T10:00:00.000Z'
   };
   const timeSlot2 = {
     asISOString: '2016-10-10T11:00:00.000Z/2016-10-10T12:00:00.000Z',
@@ -41,7 +41,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     index: 1,
     reserved: false,
     resource: 'some-resource-id',
-    start: '2016-10-10T11:00:00.000Z',
+    start: '2016-10-10T11:00:00.000Z'
   };
   const timeSlot3 = {
     asISOString: '2016-10-11T10:00:00.000Z/2016-10-11T11:00:00.000Z',
@@ -50,10 +50,10 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     index: 0,
     reserved: false,
     resource: 'some-resource-id',
-    start: '2016-10-11T10:00:00.000Z',
+    start: '2016-10-11T10:00:00.000Z'
   };
   const history = {
-    push: () => {},
+    push: () => {}
   };
   const defaultProps = {
     actions,
@@ -68,7 +68,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     params: { id: resource.id },
     resource,
     selected: [],
-    timeSlots: [[TimeSlot.build()], [TimeSlot.build()]],
+    timeSlots: [[TimeSlot.build()], [TimeSlot.build()]]
   };
   function getWrapper(props) {
     return shallowWithIntl(<ReservationCalendarContainer {...defaultProps} {...props} />);
@@ -139,7 +139,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
         const options = {
           renderClosedText: true,
           renderRestrictedText: false,
-          renderTimeSlots: false,
+          renderTimeSlots: false
         };
         makeRenderTests(props, options);
       });
@@ -150,7 +150,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
         const options = {
           renderClosedText: false,
           renderRestrictedText: false,
-          renderTimeSlots: true,
+          renderTimeSlots: true
         };
         makeRenderTests(props, options);
       });
@@ -166,7 +166,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
         const options = {
           renderClosedText: true,
           renderRestrictedText: false,
-          renderTimeSlots: false,
+          renderTimeSlots: false
         };
         makeRenderTests(props, options);
       });
@@ -176,15 +176,15 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
         describe('when reserving is restricted', () => {
           const restrictedResource = Resource.build({
             reservableBefore: '2016-11-11T06:00:00+03:00',
-            reservableDaysInAdvance: 32,
+            reservableDaysInAdvance: 32
           });
           const props = {
-            date, resource: restrictedResource, selected, timeSlots,
+            date, resource: restrictedResource, selected, timeSlots
           };
           const options = {
             renderClosedText: false,
             renderRestrictedText: true,
-            renderTimeSlots: false,
+            renderTimeSlots: false
           };
           makeRenderTests(props, options);
         });
@@ -194,7 +194,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
           const options = {
             renderClosedText: false,
             renderRestrictedText: false,
-            renderTimeSlots: true,
+            renderTimeSlots: true
           };
           makeRenderTests(props, options);
         });
@@ -208,7 +208,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       const selectedSlot = {
         begin: timeSlot1.start,
         end: timeSlot1.end,
-        resource: 'some-resource',
+        resource: 'some-resource'
       };
       const timeSlots = [[timeSlot1, timeSlot2], [timeSlot3], []];
       const result = instance.getSelectedDateSlots(timeSlots, [selectedSlot]);
@@ -220,7 +220,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       const selectedSlot = {
         begin: '2016-10-12T10:00:00.000Z',
         end: '2016-10-12T11:00:00.000Z',
-        resource: 'some-resource',
+        resource: 'some-resource'
       };
       const timeSlots = [[timeSlot1, timeSlot2], [timeSlot3], []];
       const result = instance.getSelectedDateSlots(timeSlots, [selectedSlot]);
@@ -250,7 +250,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       const selectedSlot = {
         begin: '2016-10-12T10:00:00.000Z',
         end: '2016-10-12T11:00:00.000Z',
-        resource: 'some-resource',
+        resource: 'some-resource'
       };
       const result = instance.getSelectedTimeText([selectedSlot]);
 
@@ -272,8 +272,8 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       {
         begin: '2016-10-12T10:00:00+03:00',
         end: '2016-10-12T11:00:00+03:00',
-        resource: 'some-resource',
-      },
+        resource: 'some-resource'
+      }
     ];
     const now = '2016-10-12T08:00:00+03:00';
     let historyMock;
@@ -294,21 +294,21 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       const reservations = [
         {
           end: '2016-10-12T09:00:00+03:00',
-          isOwn: true,
+          isOwn: true
         },
         {
           end: '2016-10-12T10:00:00+03:00',
-          isOwn: false,
-        },
+          isOwn: false
+        }
       ];
       const resourceWithReservations = Resource.build({
         maxReservationsPerUser,
-        reservations,
+        reservations
       });
       const instance = getWrapper({
         isAdmin,
         resource: resourceWithReservations,
-        selected,
+        selected
       }).instance();
       defaultProps.actions.addNotification.reset();
       instance.handleReserveClick();

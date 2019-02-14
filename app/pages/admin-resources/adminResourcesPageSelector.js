@@ -5,7 +5,6 @@ import sortBy from 'lodash/sortBy';
 import uniq from 'lodash/uniq';
 import moment from 'moment';
 import { createSelector, createStructuredSelector } from 'reselect';
-
 import { isAdminSelector, isLoggedInSelector } from 'state/selectors/authSelectors';
 import { resourcesSelector } from 'state/selectors/dataSelectors';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
@@ -46,7 +45,7 @@ const adminResourcesPageSelector = createStructuredSelector({
   isLoggedin: isLoggedInSelector,
   isFetchingResources: requestIsActiveSelectorFactory(ActionTypes.API.RESOURCES_GET_REQUEST),
   resources: filteredAdminResourcesIdsSelector,
-  resourceTypes: adminResourceTypesSelector,
+  resourceTypes: adminResourceTypesSelector
 });
 
 export default adminResourcesPageSelector;

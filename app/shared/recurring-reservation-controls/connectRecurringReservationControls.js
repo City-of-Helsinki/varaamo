@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
-
 import recurringReservations from 'state/recurringReservations';
 
 function selectFrequencyOptions() {
@@ -8,7 +7,7 @@ function selectFrequencyOptions() {
     { label: 'RecurringReservationControls.frequencyNone', value: '' },
     { label: 'RecurringReservationControls.frequencyDaily', value: 'days' },
     { label: 'RecurringReservationControls.frequencyWeekly', value: 'weeks' },
-    { label: 'RecurringReservationControls.frequencyMonthly', value: 'months' },
+    { label: 'RecurringReservationControls.frequencyMonthly', value: 'months' }
   ];
 }
 
@@ -22,20 +21,20 @@ export const selector = createStructuredSelector({
   frequencyOptions: selectFrequencyOptions,
   isVisible: isVisibleSelector,
   lastTime: recurringReservations.selectLastTime,
-  numberOfOccurrences: recurringReservations.selectNumberOfOccurrences,
+  numberOfOccurrences: recurringReservations.selectNumberOfOccurrences
 });
 
 const actions = {
   changeFrequency: recurringReservations.changeFrequency,
   changeLastTime: recurringReservations.changeLastTime,
-  changeNumberOfOccurrences: recurringReservations.changeNumberOfOccurrences,
+  changeNumberOfOccurrences: recurringReservations.changeNumberOfOccurrences
 };
 
 export function mergeProps(stateProps, dispatchProps) {
   return {
     ...stateProps,
     ...dispatchProps,
-    changeFrequency: ({ value }) => dispatchProps.changeFrequency(value),
+    changeFrequency: ({ value }) => dispatchProps.changeFrequency(value)
   };
 }
 

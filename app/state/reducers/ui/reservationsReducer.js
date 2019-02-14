@@ -8,13 +8,11 @@ import orderBy from 'lodash/orderBy';
 import without from 'lodash/without';
 import moment from 'moment';
 import Immutable from 'seamless-immutable';
-
-
 import { getTimeSlots } from 'utils/timeUtils';
 
 const initialState = Immutable({
   adminReservationFilters: {
-    state: 'all',
+    state: 'all'
   },
   failed: [],
   selected: [],
@@ -22,7 +20,7 @@ const initialState = Immutable({
   toCancel: [],
   toEdit: [],
   toShow: [],
-  toShowEdited: [],
+  toShowEdited: []
 });
 
 function selectReservationToEdit(state, action) {
@@ -33,20 +31,20 @@ function selectReservationToEdit(state, action) {
     {
       begin: firstSlot.start,
       end: firstSlot.end,
-      resource: reservation.resource,
-    },
+      resource: reservation.resource
+    }
   ];
   if (slots.length > 1) {
     const lastSlot = last(slots);
     selected.push({
       begin: lastSlot.start,
       end: lastSlot.end,
-      resource: reservation.resource,
+      resource: reservation.resource
     });
   }
   return state.merge({
     selected,
-    toEdit: [reservation],
+    toEdit: [reservation]
   });
 }
 
@@ -68,7 +66,7 @@ function reservationsReducer(state = initialState, action) {
       return state.merge({
         selected: [],
         toEdit: [],
-        toShow: [...state.toShow, action.payload],
+        toShow: [...state.toShow, action.payload]
       });
     }
 
@@ -76,7 +74,7 @@ function reservationsReducer(state = initialState, action) {
       const reservation = action.meta.reservation;
       const failReason = parseError(action.payload);
       return state.merge({
-        failed: [...state.failed, { ...reservation, failReason }],
+        failed: [...state.failed, { ...reservation, failReason }]
       });
     }
 
@@ -85,14 +83,14 @@ function reservationsReducer(state = initialState, action) {
         selected: [],
         toEdit: [],
         toShow: [],
-        toShowEdited: [...state.toShowEdited, action.payload],
+        toShowEdited: [...state.toShowEdited, action.payload]
       });
     }
 
     case types.UI.CANCEL_RESERVATION_EDIT: {
       return state.merge({
         selected: [],
-        toEdit: [],
+        toEdit: []
       });
     }
 
@@ -160,7 +158,7 @@ function reservationsReducer(state = initialState, action) {
 
     case types.UI.CLEAR_TIME_SLOTS: {
       return state.merge({
-        selected: [],
+        selected: []
       });
     }
 

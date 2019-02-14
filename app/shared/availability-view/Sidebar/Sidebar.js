@@ -8,7 +8,7 @@ Sidebar.propTypes = {
   groups: PropTypes.arrayOf(
     PropTypes.shape({ name: PropTypes.string.isRequired }),
   ).isRequired,
-  selectedResourceId: PropTypes.string,
+  selectedResourceId: PropTypes.string
 };
 export default function Sidebar(props) {
   const date = props.date;

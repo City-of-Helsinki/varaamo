@@ -3,13 +3,12 @@ import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Marker as LeafletMarker } from 'react-leaflet';
-
 import iconRetinaUrl from 'assets/map/usermarker-icon-2x.png';
 import iconUrl from 'assets/map/usermarker-icon.png';
 
 UserMarker.propTypes = {
   latitude: PropTypes.number.isRequired,
-  longitude: PropTypes.number.isRequired,
+  longitude: PropTypes.number.isRequired
 };
 
 function UserMarker(props) {
@@ -21,7 +20,7 @@ function UserMarker(props) {
     popupAnchor: [1, -34],
     shadowSize: [41, 41],
     shadowUrl,
-    tooltipAnchor: [16, -28],
+    tooltipAnchor: [16, -28]
   });
   return (
     <LeafletMarker

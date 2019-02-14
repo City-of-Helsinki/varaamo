@@ -2,11 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Toggle from 'react-toggle';
 import classnames from 'classnames';
-
 import { injectT } from 'i18n';
 
 function CheckboxControl({
-  id, label, labelClassName, onConfirm, toggleClassName, value,
+  id, label, labelClassName, onConfirm, toggleClassName, value
 }) {
   const toggleClassNames = classnames('app-CheckboxControl__toggle', toggleClassName);
   const labelClassNames = classnames('app-CheckboxControl__label', labelClassName);
@@ -32,7 +31,7 @@ CheckboxControl.propTypes = {
   labelClassName: PropTypes.string,
   onConfirm: PropTypes.func.isRequired,
   toggleClassName: PropTypes.string,
-  value: PropTypes.bool,
+  value: PropTypes.bool
 };
 
 export default injectT(CheckboxControl);

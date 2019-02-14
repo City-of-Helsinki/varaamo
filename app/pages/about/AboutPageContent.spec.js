@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import React from 'react';
 import simple from 'simple-mock';
-
 import * as customizationUtils from 'utils/customizationUtils';
 import { shallowWithIntl } from 'utils/testUtils';
+
 import AboutPageContent from './AboutPageContent';
 
 describe('Component: customization/AboutPageContent', () => {

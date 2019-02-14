@@ -12,9 +12,9 @@ function render(req, res) {
       auth: { userId: user.id, token: user.token },
       data: {
         users: {
-          [user.id]: user,
-        },
-      },
+          [user.id]: user
+        }
+      }
     };
   }
 

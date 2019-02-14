@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
-
 import TimeRange from 'shared/time-range';
 
 class CompactReservationList extends Component {
@@ -55,7 +54,7 @@ CompactReservationList.propTypes = {
   removableReservations: PropTypes.array,
   reservations: PropTypes.array.isRequired,
   resources: PropTypes.object,
-  subtitle: PropTypes.string,
+  subtitle: PropTypes.string
 };
 
 export default CompactReservationList;

@@ -2,41 +2,41 @@ import { expect } from 'chai';
 import React from 'react';
 import Loader from 'react-loader';
 import simple from 'simple-mock';
-
 import PageWrapper from 'pages/PageWrapper';
 import { shallowWithIntl } from 'utils/testUtils';
+
 import { UnconnectedHomePage as HomePage } from './HomePage';
 import HomeSearchBox from './HomeSearchBox';
 
 describe('pages/home/HomePage', () => {
   const history = {
-    push: () => {},
+    push: () => {}
   };
 
   const defaultProps = {
     history,
     actions: {
-      fetchPurposes: simple.stub(),
+      fetchPurposes: simple.stub()
     },
     isFetchingPurposes: false,
     purposes: [
       {
         label: 'Purpose 1',
-        value: 'purpose-1',
+        value: 'purpose-1'
       },
       {
         label: 'Purpose 2',
-        value: 'purpose-2',
+        value: 'purpose-2'
       },
       {
         label: 'Purpose 3',
-        value: 'purpose-3',
+        value: 'purpose-3'
       },
       {
         label: 'Purpose 4',
-        value: 'purpose-4',
-      },
-    ],
+        value: 'purpose-4'
+      }
+    ]
   };
 
   function getWrapper(extraProps) {

@@ -2,7 +2,6 @@ import constants from 'constants/AppConstants';
 
 import omit from 'lodash/omit';
 import { createSelector } from 'reselect';
-
 import { textBoolean } from 'utils/searchUtils';
 import { getDateString } from 'utils/timeUtils';
 
@@ -19,7 +18,7 @@ const uiSearchFiltersSelector = createSelector(
         charge: textBoolean(filters.charge),
         date: getDateString(filters.date),
         page: parseInt(filters.page, 10) || 1,
-        useTimeRange: textBoolean(filters.useTimeRange),
+        useTimeRange: textBoolean(filters.useTimeRange)
       },
     );
 

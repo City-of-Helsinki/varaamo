@@ -3,13 +3,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
-
 import BackgroundImage from 'shared/background-image';
 import Image from 'utils/fixtures/Image';
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
 import { getResourcePageUrlComponents } from 'utils/resourceUtils';
 import { shallowWithIntl } from 'utils/testUtils';
+
 import ResourceAvailability from './ResourceAvailability';
 import ResourceCard from './ResourceCard';
 
@@ -20,27 +20,27 @@ describe('shared/resource-card/ResourceCard', () => {
         equipment: [
           {
             id: '1',
-            name: 'television',
+            name: 'television'
           },
           {
             id: '2',
-            name: 'printer',
-          },
+            name: 'printer'
+          }
         ],
         images: [Image.build()],
         maxPricePerHour: '30',
         peopleCapacity: '16',
         type: {
-          name: 'workplace',
+          name: 'workplace'
         },
-        ...extra,
+        ...extra
       }),
     );
   }
 
   const history = {
     push: () => {},
-    replace: () => {},
+    replace: () => {}
   };
 
   const defaultProps = {
@@ -51,8 +51,8 @@ describe('shared/resource-card/ResourceCard', () => {
       pathname: 'somepath',
       search: 'somesearch',
       state: {
-        scrollTop: 123,
-      },
+        scrollTop: 123
+      }
     },
     resource: getResource(),
     unit: Immutable(
@@ -61,9 +61,9 @@ describe('shared/resource-card/ResourceCard', () => {
         name: 'unit_name',
         addressZip: '00100',
         municipality: 'helsinki',
-        streetAddress: 'Fabiankatu',
+        streetAddress: 'Fabiankatu'
       }),
-    ),
+    )
   };
 
   function getWrapper(extraProps) {
@@ -116,7 +116,7 @@ describe('shared/resource-card/ResourceCard', () => {
 
     it('renders distance', () => {
       const distanceLabel = getWrapper({
-        resource: getResource({ distance: 11123 }),
+        resource: getResource({ distance: 11123 })
       }).find('.app-ResourceCard__distance');
 
       expect(distanceLabel).to.have.length(1);
@@ -125,7 +125,7 @@ describe('shared/resource-card/ResourceCard', () => {
 
     it('renders distance with a decimal if distance is smaller than 10 km', () => {
       const distanceLabel = getWrapper({
-        resource: getResource({ distance: 123 }),
+        resource: getResource({ distance: 123 })
       }).find('.app-ResourceCard__distance');
 
       expect(distanceLabel).to.have.length(1);
@@ -144,7 +144,7 @@ describe('shared/resource-card/ResourceCard', () => {
     it('renders correct text if minPricePerHourand maxPricePerHour are 0', () => {
       const resource = getResource({
         maxPricePerHour: 0,
-        minPricePerHour: 0,
+        minPricePerHour: 0
       });
       const hourlyPriceSpan = getWrapper({ resource }).find('.app-ResourceCard__hourly-price');
 
@@ -155,7 +155,7 @@ describe('shared/resource-card/ResourceCard', () => {
     it('renders correct text if resource minPricePerHour and maxPricePerHour is empty', () => {
       const resource = getResource({
         maxPricePerHour: '',
-        minPricePerHour: '',
+        minPricePerHour: ''
       });
       const hourlyPriceSpan = getWrapper({ resource }).find('.app-ResourceCard__hourly-price');
 
@@ -170,7 +170,7 @@ describe('shared/resource-card/ResourceCard', () => {
     const expected = {
       pathname: urlComponents.pathname,
       search: `?${urlComponents.query}`,
-      state: { fromSearchResults: true },
+      state: { fromSearchResults: true }
     };
 
     expect(links.length).to.equal(2);
@@ -270,7 +270,7 @@ describe('shared/resource-card/ResourceCard', () => {
 
     it('calls history.push with correct path', () => {
       getWrapper({
-        resource: getResource({ distance: 5000 }),
+        resource: getResource({ distance: 5000 })
       })
         .instance()
         .handleSearchByDistance();

@@ -6,7 +6,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
 function Checkbox({
-  controlProps = {}, help, id, label, validationState,
+  controlProps = {}, help, id, label, validationState
 }) {
   return (
     <FormGroup controlId={id} validationState={validationState}>
@@ -25,7 +25,7 @@ Checkbox.propTypes = {
   help: PropTypes.string,
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  validationState: PropTypes.string,
+  validationState: PropTypes.string
 };
 
 export default Checkbox;

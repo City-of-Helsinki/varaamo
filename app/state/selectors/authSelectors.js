@@ -49,5 +49,5 @@ export {
   currentUserSelector,
   isAdminSelector,
   isLoggedInSelector,
-  staffUnitsSelector,
+  staffUnitsSelector
 };

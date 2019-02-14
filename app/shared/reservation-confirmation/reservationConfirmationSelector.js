@@ -5,7 +5,6 @@ import ModalTypes from 'constants/ModalTypes';
 
 import { createSelector, createStructuredSelector } from 'reselect';
 import { formValueSelector } from 'redux-form';
-
 import recurringReservations from 'state/recurringReservations';
 import { createIsStaffSelector } from 'state/selectors/authSelectors';
 import { createResourceSelector } from 'state/selectors/dataSelectors';
@@ -33,7 +32,7 @@ const reservationConfirmationSelector = createStructuredSelector({
   reservationsToEdit: toEditSelector,
   resource: resourceSelector,
   selectedReservations: selectedReservationsSelector,
-  staffEventSelected: staffEventSelectedSelector,
+  staffEventSelected: staffEventSelectedSelector
 });
 
 export default reservationConfirmationSelector;

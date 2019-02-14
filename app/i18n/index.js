@@ -5,5 +5,5 @@ import injectT from './injectT';
 export {
   changeLocale,
   initI18n,
-  injectT,
+  injectT
 };

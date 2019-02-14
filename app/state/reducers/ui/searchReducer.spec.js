@@ -4,9 +4,9 @@ import { expect } from 'chai';
 import keyBy from 'lodash/keyBy';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
-
 import { clearSearchResults, selectUnit, toggleMap } from 'actions/searchActions';
 import Resource from 'utils/fixtures/Resource';
+
 import searchReducer from './searchReducer';
 
 describe('state/reducers/ui/searchReducer', () => {
@@ -62,8 +62,8 @@ describe('state/reducers/ui/searchReducer', () => {
         types.API.SEARCH_RESULTS_GET_SUCCESS,
         resources => ({
           entities: {
-            resources: keyBy(resources, 'id'),
-          },
+            resources: keyBy(resources, 'id')
+          }
         }),
       );
       const resources = [Resource.build(), Resource.build()];
@@ -71,7 +71,7 @@ describe('state/reducers/ui/searchReducer', () => {
       it('sets the given resource ids to results', () => {
         const action = searchResourcesSuccess(resources);
         const initialState = Immutable({
-          results: [],
+          results: []
         });
         const expected = [resources[0].id, resources[1].id];
         const nextState = searchReducer(initialState, action);
@@ -82,7 +82,7 @@ describe('state/reducers/ui/searchReducer', () => {
       it('replaces the old ids in searchResults.ids', () => {
         const action = searchResourcesSuccess(resources);
         const initialState = Immutable({
-          results: ['replace-this'],
+          results: ['replace-this']
         });
         const expected = [resources[0].id, resources[1].id];
         const nextState = searchReducer(initialState, action);
@@ -93,7 +93,7 @@ describe('state/reducers/ui/searchReducer', () => {
       it('sets searchDone to true', () => {
         const action = searchResourcesSuccess(resources);
         const initialState = Immutable({
-          searchDone: false,
+          searchDone: false
         });
         const nextState = searchReducer(initialState, action);
 
@@ -108,7 +108,7 @@ describe('state/reducers/ui/searchReducer', () => {
         const filters = { purpose: 'some-purpose' };
         const action = changeSearchFilters(filters);
         const initialState = Immutable({
-          filters: {},
+          filters: {}
         });
         const expected = Immutable(filters);
         const nextState = searchReducer(initialState, action);
@@ -120,7 +120,7 @@ describe('state/reducers/ui/searchReducer', () => {
         const filters = { purpose: 'some-purpose' };
         const action = changeSearchFilters(filters);
         const initialState = Immutable({
-          filters: { purpose: 'old-value' },
+          filters: { purpose: 'old-value' }
         });
         const expected = Immutable(filters);
         const nextState = searchReducer(initialState, action);
@@ -132,11 +132,11 @@ describe('state/reducers/ui/searchReducer', () => {
         const filters = { purpose: 'some-purpose' };
         const action = changeSearchFilters(filters);
         const initialState = Immutable({
-          filters: { search: 'search-query' },
+          filters: { search: 'search-query' }
         });
         const expected = Immutable({
           purpose: 'some-purpose',
-          search: 'search-query',
+          search: 'search-query'
         });
         const nextState = searchReducer(initialState, action);
 
@@ -147,13 +147,13 @@ describe('state/reducers/ui/searchReducer', () => {
         const filters = {
           purpose: 'some-purpose',
           search: 'search-query',
-          unsupported: 'invalid',
+          unsupported: 'invalid'
         };
         const action = changeSearchFilters(filters);
         const initialState = Immutable({ filters: {} });
         const expected = Immutable({
           purpose: 'some-purpose',
-          search: 'search-query',
+          search: 'search-query'
         });
         const nextState = searchReducer(initialState, action);
 
@@ -168,7 +168,7 @@ describe('state/reducers/ui/searchReducer', () => {
           distance: '5000',
           people: '12',
           purpose: 'some-purpose',
-          search: 'search-query',
+          search: 'search-query'
         };
         const expected = {
           date: '',
@@ -179,7 +179,7 @@ describe('state/reducers/ui/searchReducer', () => {
           purpose: '',
           search: '',
           start: '',
-          useTimeRange: false,
+          useTimeRange: false
         };
         const action = clearSearchResults();
         const initialState = Immutable({ filters });
@@ -191,7 +191,7 @@ describe('state/reducers/ui/searchReducer', () => {
       it('does not empty the search results', () => {
         const action = clearSearchResults();
         const initialState = Immutable({
-          results: ['r-1', 'r-2'],
+          results: ['r-1', 'r-2']
         });
         const nextState = searchReducer(initialState, action);
 
@@ -201,7 +201,7 @@ describe('state/reducers/ui/searchReducer', () => {
       it('does not change searchDone', () => {
         const action = clearSearchResults();
         const initialState = Immutable({
-          searchDone: true,
+          searchDone: true
         });
         const nextState = searchReducer(initialState, action);
 
@@ -217,17 +217,17 @@ describe('state/reducers/ui/searchReducer', () => {
           coords: {
             accuracy: 10,
             latitude: 11,
-            longitude: 12,
-          },
+            longitude: 12
+          }
         };
         const action = enableGeopositionSuccess(position);
         const initialState = Immutable({
-          position: null,
+          position: null
         });
 
         const expected = Immutable({
           lat: 11,
-          lon: 12,
+          lon: 12
         });
         const nextState = searchReducer(initialState, action);
 
@@ -241,7 +241,7 @@ describe('state/reducers/ui/searchReducer', () => {
       it('sets position to null', () => {
         const position = {
           lat: 11,
-          lon: 12,
+          lon: 12
         };
         const action = enableGeopositionError();
         const initialState = Immutable({ position });
@@ -257,7 +257,7 @@ describe('state/reducers/ui/searchReducer', () => {
       it('sets position to null', () => {
         const position = {
           lat: 11,
-          lon: 12,
+          lon: 12
         };
         const action = disableGeoposition();
         const initialState = Immutable({ position });
@@ -271,7 +271,7 @@ describe('state/reducers/ui/searchReducer', () => {
       it('toggles showMap if false', () => {
         const action = toggleMap();
         const initialState = Immutable({
-          showMap: false,
+          showMap: false
         });
         const nextState = searchReducer(initialState, action);
 
@@ -281,7 +281,7 @@ describe('state/reducers/ui/searchReducer', () => {
       it('toggles showMap if true', () => {
         const action = toggleMap();
         const initialState = Immutable({
-          showMap: true,
+          showMap: true
         });
         const nextState = searchReducer(initialState, action);
 
@@ -293,7 +293,7 @@ describe('state/reducers/ui/searchReducer', () => {
       it('Sets action payload content to unitId', () => {
         const action = selectUnit('123');
         const initialState = Immutable({
-          unitId: null,
+          unitId: null
         });
         const nextState = searchReducer(initialState, action);
 

@@ -5,8 +5,8 @@ import React from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 import Popover from 'react-bootstrap/lib/Popover';
-
 import ReservationAccessCode from 'shared/reservation-access-code';
+
 import utils from '../utils';
 import Link from './Link';
 
@@ -27,8 +27,8 @@ Reservation.propTypes = {
   state: PropTypes.string,
   user: PropTypes.shape({
     displayName: PropTypes.string,
-    email: PropTypes.string,
-  }),
+    email: PropTypes.string
+  })
 };
 
 function Reservation({ onClick, ...reservation }) {

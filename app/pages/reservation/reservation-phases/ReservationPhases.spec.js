@@ -1,14 +1,14 @@
 import { expect } from 'chai';
 import React from 'react';
-
 import { shallowWithIntl } from 'utils/testUtils';
+
 import ReservationPhases from './ReservationPhases';
 import ReservationPhase from './ReservationPhase';
 
 describe('pages/reservation/reservation-phases/ReservationPhases', () => {
   const defaultProps = {
     currentPhase: 'information',
-    isEditing: false,
+    isEditing: false
   };
 
   function getWrapper(extraProps) {
@@ -19,7 +19,7 @@ describe('pages/reservation/reservation-phases/ReservationPhases', () => {
     it('renders two phases with correct props when isEditing false', () => {
       const phases = getWrapper({
         currentPhase: 'information',
-        isEditing: false,
+        isEditing: false
       }).find(ReservationPhase);
 
       expect(phases).to.have.length(2);
@@ -38,7 +38,7 @@ describe('pages/reservation/reservation-phases/ReservationPhases', () => {
     it('renders three phases with correct props when isEditing true', () => {
       const phases = getWrapper({
         currentPhase: 'information',
-        isEditing: true,
+        isEditing: true
       }).find(ReservationPhase);
 
       expect(phases).to.have.length(3);
@@ -64,7 +64,7 @@ describe('pages/reservation/reservation-phases/ReservationPhases', () => {
     it('renders two phases with correct props when isEditing false', () => {
       const phases = getWrapper({
         currentPhase: 'confirmation',
-        isEditing: false,
+        isEditing: false
       }).find(ReservationPhase);
 
       expect(phases).to.have.length(2);
@@ -83,7 +83,7 @@ describe('pages/reservation/reservation-phases/ReservationPhases', () => {
     it('renders three phases with correct props when isEditing true', () => {
       const phases = getWrapper({
         currentPhase: 'confirmation',
-        isEditing: true,
+        isEditing: true
       }).find(ReservationPhase);
 
       expect(phases).to.have.length(3);

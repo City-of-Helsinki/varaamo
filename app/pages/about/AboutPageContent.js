@@ -1,16 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedHTMLMessage } from 'react-intl';
-
 import FeedbackLink from 'shared/feedback-link';
 import { injectT } from 'i18n';
 import { getCurrentCustomization } from 'utils/customizationUtils';
+
 import AboutPartners from './AboutPartners';
 
 const defaultTranslationKeys = {
   header: 'AboutPageContent.defaultHeader',
   lead: 'AboutPageContent.defaultLead',
-  reservable: 'AboutPageContent.defaultReservableParagraph',
+  reservable: 'AboutPageContent.defaultReservableParagraph'
 };
 
 const customizedTranslationKeys = {
@@ -18,14 +18,14 @@ const customizedTranslationKeys = {
     header: 'AboutPageContent.espooHeader',
     lead: 'AboutPageContent.espooLead',
     reservable: 'AboutPageContent.espooReservableParagraph',
-    partners: 'AboutPageContent.espooPartnersHeader',
+    partners: 'AboutPageContent.espooPartnersHeader'
   },
   VANTAA: {
     header: 'AboutPageContent.vantaaHeader',
     lead: 'AboutPageContent.vantaaLead',
     reservable: 'AboutPageContent.vantaaReservableParagraph',
-    partners: 'AboutPageContent.vantaaPartnersHeader',
-  },
+    partners: 'AboutPageContent.vantaaPartnersHeader'
+  }
 };
 
 function AboutPageContent({ t }) {
@@ -70,7 +70,7 @@ function AboutPageContent({ t }) {
 }
 
 AboutPageContent.propTypes = {
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 };
 
 

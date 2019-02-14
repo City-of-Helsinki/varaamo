@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import { closeReservationCommentModal } from 'actions/uiActions';
 import { commentReservation } from 'actions/reservationActions';
 import CommentForm from 'shared/comment-form';
 import { injectT } from 'i18n';
+
 import commentModalSelector from './commentModalSelector';
 import ModalWrapper from '../ModalWrapper';
 
@@ -28,7 +28,7 @@ class UnconnectedCommentModalContainer extends Component {
       isSaving,
       reservation,
       show,
-      t,
+      t
     } = this.props;
 
     return (
@@ -55,7 +55,7 @@ UnconnectedCommentModalContainer.propTypes = {
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 };
 
 UnconnectedCommentModalContainer = injectT(UnconnectedCommentModalContainer);  // eslint-disable-line
@@ -63,7 +63,7 @@ UnconnectedCommentModalContainer = injectT(UnconnectedCommentModalContainer);  /
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
     closeReservationCommentModal,
-    commentReservation,
+    commentReservation
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

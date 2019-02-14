@@ -12,11 +12,11 @@ module.exports = (options) => {
     autoWatch: true,
 
     files: [
-      { pattern: './specs.bootstrap.js', watched: false },
+      { pattern: './specs.bootstrap.js', watched: false }
     ],
 
     preprocessors: {
-      './specs.bootstrap.js': ['webpack', 'sourcemap'],
+      './specs.bootstrap.js': ['webpack', 'sourcemap']
     },
 
     webpackMiddleware: {
@@ -29,18 +29,18 @@ module.exports = (options) => {
         hash: false,
         progress: false,
         timings: true,
-        version: false,
-      },
+        version: false
+      }
     },
 
     client: {
-      captureConsole: !options.disableLogging,
+      captureConsole: !options.disableLogging
     },
 
     reporters: ['mocha'],
 
     mochaReporter: {
-      showDiff: true,
+      showDiff: true
     },
 
     plugins: [
@@ -51,8 +51,8 @@ module.exports = (options) => {
       'karma-mocha',
       'karma-phantomjs-launcher',
       'karma-sourcemap-loader',
-      'karma-webpack',
-    ],
+      'karma-webpack'
+    ]
   };
 
   if (options.coverage) {
@@ -63,8 +63,8 @@ module.exports = (options) => {
       reporters: options.coverageReporters || [
         { type: 'lcov' },
         { type: 'text' },
-        { type: 'text-summary' },
-      ],
+        { type: 'text-summary' }
+      ]
     };
 
     karmaConfig.reporters.push('coverage');

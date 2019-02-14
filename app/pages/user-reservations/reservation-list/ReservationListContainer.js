@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
-
 import { injectT } from 'i18n';
+
 import ReservationListItem from './ReservationListItem';
 import reservationListSelector from './reservationListSelector';
 
@@ -19,7 +19,7 @@ class UnconnectedReservationListContainer extends Component {
       isAdmin,
       resources,
       staffUnits,
-      units,
+      units
     } = this.props;
     const resource = resources[reservation.resource] || {};
     const unit = resource.unit ? units[resource.unit] || {} : {};
@@ -41,7 +41,7 @@ class UnconnectedReservationListContainer extends Component {
       emptyMessage,
       loading,
       reservations,
-      t,
+      t
     } = this.props;
 
     return (
@@ -70,7 +70,7 @@ UnconnectedReservationListContainer.propTypes = {
   resources: PropTypes.object.isRequired,
   staffUnits: PropTypes.array.isRequired,
   t: PropTypes.func.isRequired,
-  units: PropTypes.object.isRequired,
+  units: PropTypes.object.isRequired
 };
 UnconnectedReservationListContainer = injectT(UnconnectedReservationListContainer);  // eslint-disable-line
 

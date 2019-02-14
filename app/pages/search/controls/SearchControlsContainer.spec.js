@@ -7,8 +7,8 @@ import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
-
 import { shallowWithIntl } from 'utils/testUtils';
+
 import CheckboxControl from './CheckboxControl';
 import DatePickerControl from './DatePickerControl';
 import PositionControl from './PositionControl';
@@ -19,7 +19,7 @@ import { UnconnectedSearchControlsContainer as SearchControlsContainer } from '.
 
 describe('pages/search/controls/SearchControlsContainer', () => {
   const history = {
-    push: () => {},
+    push: () => {}
   };
 
   const defaultProps = {
@@ -27,7 +27,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     actions: {
       changeSearchFilters: () => null,
       fetchPurposes: () => null,
-      searchResources: () => null,
+      searchResources: () => null
     },
     currentLanguage: 'fi',
     isFetchingPurposes: false,
@@ -42,18 +42,18 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       purpose: 'some-purpose',
       search: 'search-query',
       start: '',
-      unit: 'some-unit',
+      unit: 'some-unit'
     },
     purposeOptions: Immutable([
       { value: 'filter-1', label: 'Label 1' },
-      { value: 'filter-2', label: 'Label 2' },
+      { value: 'filter-2', label: 'Label 2' }
     ]),
     scrollToSearchResults: () => null,
     unitOptions: Immutable([
       { value: 'unit-1', label: 'Unit 1' },
-      { value: 'unit-2', label: 'Unit 2' },
+      { value: 'unit-2', label: 'Unit 2' }
     ]),
-    urlSearchFilters: {},
+    urlSearchFilters: {}
   };
 
   function getWrapper(props) {
@@ -120,7 +120,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
         { value: '15', label: '15' },
         { value: '20', label: '20' },
         { value: '25', label: '25' },
-        { value: '30', label: '30+' },
+        { value: '30', label: '30+' }
       ];
       const selectControl = getWrapper({}).find(SelectControl);
       expect(selectControl).to.have.length(3);
@@ -138,7 +138,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       const filters = { ...defaultProps.filters, distance: '5000' };
       const positionControl = getWrapper({
         filters,
-        position: { lat: 1, lon: 2 },
+        position: { lat: 1, lon: 2 }
       }).find(PositionControl);
       expect(positionControl).to.have.length(1);
       expect(positionControl.prop('geolocated')).to.be.true;
@@ -149,7 +149,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
 
     it('renders TimeRangeControl with correct props', () => {
       const filters = {
-        ...defaultProps.filters, duration: 30, end: '23:30', start: '09:00',
+        ...defaultProps.filters, duration: 30, end: '23:30', start: '09:00'
       };
       const wrapper = getWrapper({ filters });
       const timeRangeControl = wrapper.find(TimeRangeControl);
@@ -324,7 +324,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       const enableGeoposition = simple.mock();
       const disableGeoposition = simple.mock();
       const props = {
-        actions: { enableGeoposition, disableGeoposition },
+        actions: { enableGeoposition, disableGeoposition }
       };
       const instance = getWrapper(props).instance();
       instance.handlePositionSwitch();
@@ -336,7 +336,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       const disableGeoposition = simple.mock();
       const props = {
         actions: { enableGeoposition, disableGeoposition },
-        position: { lat: 1, lon: 2 },
+        position: { lat: 1, lon: 2 }
       };
       const instance = getWrapper(props).instance();
       instance.handlePositionSwitch();
@@ -410,7 +410,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     before(() => {
       const props = {
         actions: { disableGeoposition },
-        position: { lat: 1, lon: 2 },
+        position: { lat: 1, lon: 2 }
       };
       instance = getWrapper(props).instance();
       instance.handleFiltersChange = simple.mock();
@@ -436,7 +436,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     it('fetches resources when component mounts', () => {
       const actions = {
         fetchPurposes: simple.mock(),
-        changeSearchFilters: () => null,
+        changeSearchFilters: () => null
       };
       getWrapper({ actions })
         .instance()

@@ -55,7 +55,7 @@ class Html extends Component {
       appScriptSrc,
       initialState,
       isProduction,
-      piwikSiteId,
+      piwikSiteId
     } = this.props;
     const initialStateHtml = this.getInitialStateHtml(initialState);
 
@@ -87,7 +87,7 @@ Html.propTypes = {
   appScriptSrc: PropTypes.string.isRequired,
   initialState: PropTypes.object.isRequired,
   isProduction: PropTypes.bool.isRequired,
-  piwikSiteId: PropTypes.string,
+  piwikSiteId: PropTypes.string
 };
 
 export default Html;

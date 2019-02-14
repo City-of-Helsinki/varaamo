@@ -1,13 +1,13 @@
 import { expect } from 'chai';
 import React from 'react';
 import Immutable from 'seamless-immutable';
-
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
 import { shallowWithIntl } from 'utils/testUtils';
+
 import {
-  UnconnectedReservationListContainer as ReservationListContainer,
+  UnconnectedReservationListContainer as ReservationListContainer
 } from './ReservationListContainer';
 import ReservationListItem from './ReservationListItem';
 
@@ -19,7 +19,7 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
       reservations: [],
       resources: {},
       staffUnits: [],
-      units: {},
+      units: {}
     };
     return shallowWithIntl(<ReservationListContainer {...defaults} {...props} />);
   }
@@ -31,14 +31,14 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
       isAdmin: false,
       reservations: Immutable([
         Reservation.build({ resource: resource.id }),
-        Reservation.build({ resource: 'unfetched-resource' }),
+        Reservation.build({ resource: 'unfetched-resource' })
       ]),
       resources: Immutable({
-        [resource.id]: resource,
+        [resource.id]: resource
       }),
       units: Immutable({
-        [unit.id]: unit,
-      }),
+        [unit.id]: unit
+      })
     };
 
     function getWithReservationsWrapper() {

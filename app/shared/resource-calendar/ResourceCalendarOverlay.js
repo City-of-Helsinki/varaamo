@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
 import { injectT } from 'i18n';
 
 function ResourceCalendarOverlay({ children }) {
@@ -16,7 +15,7 @@ function ResourceCalendarOverlay({ children }) {
 }
 
 ResourceCalendarOverlay.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 };
 
 export default injectT(ResourceCalendarOverlay);

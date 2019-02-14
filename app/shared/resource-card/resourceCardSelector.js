@@ -1,5 +1,4 @@
 import { createSelector, createStructuredSelector } from 'reselect';
-
 import { isLoggedInSelector } from 'state/selectors/authSelectors';
 import { createResourceSelector, unitsSelector } from 'state/selectors/dataSelectors';
 
@@ -14,7 +13,7 @@ const unitSelector = createSelector(
 const ResourceCardSelector = createStructuredSelector({
   isLoggedIn: isLoggedInSelector,
   resource: createResourceSelector(resourceIdSelector),
-  unit: unitSelector,
+  unit: unitSelector
 });
 
 export default ResourceCardSelector;

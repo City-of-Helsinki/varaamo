@@ -6,16 +6,16 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
-
 import { postReservation, putReservation } from 'actions/reservationActions';
 import { fetchResource } from 'actions/resourceActions';
 import {
   clearReservations,
   closeReservationSuccessModal,
-  openResourceTermsModal,
+  openResourceTermsModal
 } from 'actions/uiActions';
 import PageWrapper from 'pages/PageWrapper';
 import { injectT } from 'i18n';
+
 import ReservationConfirmation from './reservation-confirmation/ReservationConfirmation';
 import ReservationInformation from './reservation-information/ReservationInformation';
 import ReservationPhases from './reservation-phases/ReservationPhases';
@@ -28,7 +28,7 @@ class UnconnectedReservationPage extends Component {
     this.fetchResource = this.fetchResource.bind(this);
     const { reservationToEdit } = this.props;
     this.state = {
-      view: !isEmpty(reservationToEdit) ? 'time' : 'information',
+      view: !isEmpty(reservationToEdit) ? 'time' : 'information'
     };
   }
 
@@ -39,13 +39,13 @@ class UnconnectedReservationPage extends Component {
       reservationEdited,
       reservationToEdit,
       selected,
-      history,
+      history
     } = this.props;
     if (
-      isEmpty(reservationCreated) &&
-      isEmpty(reservationEdited) &&
-      isEmpty(reservationToEdit) &&
-      isEmpty(selected)
+      isEmpty(reservationCreated)
+      && isEmpty(reservationEdited)
+      && isEmpty(reservationToEdit)
+      && isEmpty(selected)
     ) {
       const query = queryString.parse(location.search);
 
@@ -64,11 +64,11 @@ class UnconnectedReservationPage extends Component {
     const { reservationCreated: nextCreated, reservationEdited: nextEdited } = nextProps;
     const { reservationCreated, reservationEdited } = this.props;
     if (
-      (!isEmpty(nextCreated) || !isEmpty(nextEdited)) &&
-      (nextCreated !== reservationCreated || nextEdited !== reservationEdited)
+      (!isEmpty(nextCreated) || !isEmpty(nextEdited))
+      && (nextCreated !== reservationCreated || nextEdited !== reservationEdited)
     ) {
       this.setState({
-        view: 'confirmation',
+        view: 'confirmation'
       });
       window.scrollTo(0, 0);
     }
@@ -117,7 +117,7 @@ class UnconnectedReservationPage extends Component {
 
   handleReservation = (values = {}) => {
     const {
-      actions, reservationToEdit, resource, selected,
+      actions, reservationToEdit, resource, selected
     } = this.props;
     if (!isEmpty(selected)) {
       const { begin } = first(selected);
@@ -129,14 +129,14 @@ class UnconnectedReservationPage extends Component {
           ...reservation,
           ...values,
           begin,
-          end,
+          end
         });
       } else {
         actions.postReservation({
           ...values,
           begin,
           end,
-          resource: resource.id,
+          resource: resource.id
         });
       }
     }
@@ -159,16 +159,16 @@ class UnconnectedReservationPage extends Component {
       t,
       unit,
       user,
-      history,
+      history
     } = this.props;
     const { view } = this.state;
 
     if (
-      isEmpty(resource) &&
-      isEmpty(reservationCreated) &&
-      isEmpty(reservationEdited) &&
-      isEmpty(reservationToEdit) &&
-      !isFetchingResource
+      isEmpty(resource)
+      && isEmpty(reservationCreated)
+      && isEmpty(reservationEdited)
+      && isEmpty(reservationToEdit)
+      && !isFetchingResource
     ) {
       return <div />;
     }
@@ -252,7 +252,7 @@ UnconnectedReservationPage.propTypes = {
   t: PropTypes.func.isRequired,
   unit: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 };
 UnconnectedReservationPage = injectT(UnconnectedReservationPage); // eslint-disable-line
 
@@ -263,7 +263,7 @@ function mapDispatchToProps(dispatch) {
     fetchResource,
     openResourceTermsModal,
     putReservation,
-    postReservation,
+    postReservation
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

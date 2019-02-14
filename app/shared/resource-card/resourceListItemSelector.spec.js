@@ -1,8 +1,8 @@
 import { expect } from 'chai';
-
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
 import { getState } from 'utils/testUtils';
+
 import resourceCardSelector from './resourceCardSelector';
 
 describe('shared/resource-list/resourceCardSelector', () => {
@@ -12,7 +12,7 @@ describe('shared/resource-list/resourceCardSelector', () => {
   function getSelected() {
     const state = getState({
       'data.resources': { [resource.id]: resource },
-      'data.units': { [unit.id]: unit },
+      'data.units': { [unit.id]: unit }
     });
     const props = { resourceId: resource.id };
     return resourceCardSelector(state, props);

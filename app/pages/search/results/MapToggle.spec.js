@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import React from 'react';
-
 import { shallowWithIntl } from 'utils/testUtils';
+
 import MapToggle from './MapToggle';
 
 describe('pages/search/results/MapToggle', () => {
@@ -9,7 +9,7 @@ describe('pages/search/results/MapToggle', () => {
     const defaults = {
       mapVisible: false,
       onClick: () => null,
-      resultCount: 0,
+      resultCount: 0
     };
     return shallowWithIntl(<MapToggle {...defaults} {...props} />);
   }

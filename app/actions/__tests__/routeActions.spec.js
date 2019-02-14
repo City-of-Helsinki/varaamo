@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import simple from 'simple-mock';
 import * as reduxActions from 'redux-actions';
-
 import { updateRoute } from 'actions/routeActions';
 
 describe('Actions: resourceActions', () => {

@@ -5,15 +5,15 @@ module.exports = {
     rules: [
       {
         test: /\.png$/,
-        loader: 'url-loader?limit=100000&mimetype=image/png',
+        loader: 'url-loader?limit=100000&mimetype=image/png'
       },
       {
         test: /\.gif$/,
-        loader: 'url-loader?limit=100000&mimetype=image/gif',
+        loader: 'url-loader?limit=100000&mimetype=image/gif'
       },
       {
         test: /\.ico$/,
-        loader: 'url-loader?limit=100000&mimetype=image/x-icon',
+        loader: 'url-loader?limit=100000&mimetype=image/x-icon'
       },
       {
         test: /\.jpg$/,
@@ -21,21 +21,21 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: '[name].[ext]',
-            },
-          },
-        ],
+              name: '[name].[ext]'
+            }
+          }
+        ]
       },
       {
         test: /\.woff|\.woff2|\.svg|.eot|\.ttf/,
-        loader: 'url-loader?prefix=font/&limit=10000',
-      },
-    ],
+        loader: 'url-loader?prefix=font/&limit=10000'
+      }
+    ]
   },
   resolve: {
-    modules: ['node_modules', 'app'],
+    modules: ['node_modules', 'app']
   },
   plugins: [
-    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en-gb|fi|sv/),
-  ],
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en-gb|fi|sv/)
+  ]
 };

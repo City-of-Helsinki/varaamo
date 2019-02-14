@@ -2,11 +2,11 @@ import { expect } from 'chai';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
-
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
 import { shallowWithIntl } from 'utils/testUtils';
+
 import ReservationInformation from './ReservationInformation';
 import ReservationInformationForm from './ReservationInformationForm';
 
@@ -24,9 +24,9 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
     resource: Immutable(Resource.build()),
     selectedTime: {
       begin: '2016-10-10T10:00:00+03:00',
-      end: '2016-10-10T11:00:00+03:00',
+      end: '2016-10-10T11:00:00+03:00'
     },
-    unit: Immutable(Unit.build()),
+    unit: Immutable(Unit.build())
   };
 
   function getWrapper(extraProps) {
@@ -35,7 +35,7 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
 
   it('renders info texts when needManualConfirmation is true', () => {
     const resource = Resource.build({
-      needManualConfirmation: true,
+      needManualConfirmation: true
     });
     const infoTexts = getWrapper({ resource }).find('.app-ReservationInformation__info-texts');
     expect(infoTexts).to.have.length(1);
@@ -44,7 +44,7 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
 
   it('does not render info texts when needManualConfirmation is false', () => {
     const resource = Resource.build({
-      needManualConfirmation: false,
+      needManualConfirmation: false
     });
     const infoTexts = getWrapper({ resource }).find('.app-ReservationInformation__info-texts');
     expect(infoTexts).to.have.length(0);
@@ -86,7 +86,7 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
   describe('getFormFields', () => {
     const resource = Resource.build({
       needManualConfirmation: true,
-      supportedReservationExtraFields: ['some_field_1', 'some_field_2'],
+      supportedReservationExtraFields: ['some_field_1', 'some_field_2']
     });
     const supportedFields = ['someField1', 'someField2'];
 
@@ -130,17 +130,17 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
   describe('getFormInitialValues', () => {
     const reservation = Reservation.build({
       someField1: 'some value 1',
-      someField2: 'some value 2',
+      someField2: 'some value 2'
     });
     const resource = Resource.build({
       requiredReservationExtraFields: ['some_field_1'],
-      supportedReservationExtraFields: ['some_field_1', 'some_field_2'],
+      supportedReservationExtraFields: ['some_field_1', 'some_field_2']
     });
 
     it('returns correct form values', () => {
       const expected = {
         someField1: 'some value 1',
-        someField2: 'some value 2',
+        someField2: 'some value 2'
       };
       const wrapper = getWrapper({ reservation, resource });
       const instance = wrapper.instance();
@@ -153,7 +153,7 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
       const expected = {
         someField1: 'some value 1',
         someField2: 'some value 2',
-        staffEvent: false,
+        staffEvent: false
       };
       const wrapper = getWrapper({ isEditing: true, reservation, resource });
       const instance = wrapper.instance();
@@ -176,7 +176,7 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
   describe('getRequiredFormFields', () => {
     it('returns correct required form fields', () => {
       const resource = Resource.build({
-        requiredReservationExtraFields: ['some_field_1', 'some_field_2'],
+        requiredReservationExtraFields: ['some_field_1', 'some_field_2']
       });
       const actual = getWrapper().instance().getRequiredFormFields(resource);
 
@@ -185,7 +185,7 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
 
     it('returns required form fields and termsAndConditions', () => {
       const resource = Resource.build({
-        requiredReservationExtraFields: ['some_field_1', 'some_field_2'],
+        requiredReservationExtraFields: ['some_field_1', 'some_field_2']
       });
       const instance = getWrapper().instance();
       const actual = instance.getRequiredFormFields(resource, 'terms and conditions');

@@ -2,7 +2,6 @@ import constants from 'constants/AppConstants';
 
 import PropTypes from 'prop-types';
 import React from 'react';
-
 import { getCurrentCustomization } from 'utils/customizationUtils';
 
 function FeedbackLink({ children }) {
@@ -21,7 +20,7 @@ function FeedbackLink({ children }) {
 }
 
 FeedbackLink.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 };
 
 export default FeedbackLink;

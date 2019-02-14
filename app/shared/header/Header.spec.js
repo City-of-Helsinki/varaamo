@@ -2,16 +2,16 @@ import { expect } from 'chai';
 import React from 'react';
 import Sticky from 'react-sticky-el';
 import { shallow } from 'enzyme';
-
 import MainNavbar from 'shared/main-navbar';
 import TopNavbar from 'shared/top-navbar';
+
 import Header from './Header';
 
 describe('shared/header/Header', () => {
   const pathname = 'somepath';
   function getWrapper() {
     const defaults = {
-      location: { pathname },
+      location: { pathname }
     };
     return shallow(
       <Header {...defaults}>
