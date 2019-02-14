@@ -10,6 +10,7 @@ const common = require('./webpack.common');
 
 module.exports = merge(common, {
   entry: ['@babel/polyfill', path.resolve(__dirname, '../app/index.js')],
+  debug: false,
   devtool: 'source-map',
   mode: 'production',
   output: {
@@ -23,8 +24,8 @@ module.exports = merge(common, {
         test: /^(?!.*\.spec\.js$).*\.js$/,
         include: path.resolve(__dirname, '../app'),
         loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-env', '@babel/preset-react'],
+        query: {
+          presets: ["@babel/preset-env", "@babel/preset-react"],
         },
       },
       {
@@ -59,6 +60,9 @@ module.exports = merge(common, {
     }),
     new MiniCssExtractPlugin({
       filename: 'app.css',
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'app.css'
     }),
   ],
   optimization: {

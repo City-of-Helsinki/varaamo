@@ -1,5 +1,5 @@
 # Pull node image with locked node version
-FROM node:10.15.1
+FROM node:lts
 
 # Make guest app dir
 RUN mkdir -p /usr/src/app
