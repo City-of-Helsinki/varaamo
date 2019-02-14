@@ -4,7 +4,7 @@ import { camelizeKeys, decamelizeKeys } from 'humps';
 import pickBy from 'lodash/pickBy';
 import isEmpty from 'lodash/isEmpty';
 import { normalize } from 'normalizr';
-import { CALL_API, getJSON } from 'redux-api-middleware';
+import { RSAA, getJSON } from 'redux-api-middleware';
 
 
 function buildAPIUrl(endpoint, params) {
@@ -36,7 +36,7 @@ function getErrorTypeDescriptor(type, options = {}) {
       API_ACTION: {
         apiRequestFinish: true,
         countable: options.countable,
-        type: action[CALL_API].types[0].type,
+        type: action[RSAA].types[0].type,
       },
       ...options.meta,
     }),
@@ -93,7 +93,7 @@ function getSuccessTypeDescriptor(type, options = {}) {
         API_ACTION: {
           apiRequestFinish: true,
           countable: options.countable,
-          type: action[CALL_API].types[0].type,
+          type: action[RSAA].types[0].type,
         },
       }, options.meta)
     ),

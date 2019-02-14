@@ -4,7 +4,7 @@ require('dotenv').load({ path: path.resolve(__dirname, '../.env') });
 
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const common = require('./webpack.common');
 
@@ -29,14 +29,21 @@ module.exports = merge(common, {
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style', 'css-loader?{"svgo":false}!postcss-loader'),
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+        ],
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract(
-          'style',
-          'css-loader?{"svgo":false}!resolve-url-loader!postcss-loader!sass-loader',
-        ),
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'resolve-url-loader',
+          'postcss-loader',
+          'sass-loader',
+        ],
       },
     ],
   },

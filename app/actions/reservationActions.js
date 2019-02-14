@@ -2,7 +2,7 @@ import types from 'constants/ActionTypes';
 
 import pickBy from 'lodash/pickBy';
 import { decamelizeKeys } from 'humps';
-import { CALL_API } from 'redux-api-middleware';
+import { RSAA } from 'redux-api-middleware';
 
 import schemas from 'store/middleware/Schemas';
 import {
@@ -32,7 +32,7 @@ function confirmPreliminaryReservation(reservation) {
 
 function deleteReservation(reservation) {
   return {
-    [CALL_API]: {
+    [RSAA]: {
       types: [
         getRequestTypeDescriptor(
           types.API.RESERVATION_DELETE_REQUEST,
@@ -68,7 +68,7 @@ function fetchReservations(params = {}) {
   const fetchParams = Object.assign({}, params, { pageSize: 100 });
 
   return {
-    [CALL_API]: {
+    [RSAA]: {
       types: [
         getRequestTypeDescriptor(types.API.RESERVATIONS_GET_REQUEST),
         getSuccessTypeDescriptor(
@@ -93,7 +93,7 @@ function postReservation(reservation) {
   const url = buildAPIUrl('reservation');
 
   return {
-    [CALL_API]: {
+    [RSAA]: {
       types: [
         getRequestTypeDescriptor(
           types.API.RESERVATION_POST_REQUEST,
@@ -121,7 +121,7 @@ function postReservation(reservation) {
 
 function putReservation(reservation) {
   return {
-    [CALL_API]: {
+    [RSAA]: {
       types: [
         getRequestTypeDescriptor(
           types.API.RESERVATION_PUT_REQUEST,

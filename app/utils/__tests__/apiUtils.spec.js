@@ -1,7 +1,7 @@
 import constants from 'constants/AppConstants';
 
 import { expect } from 'chai';
-import { CALL_API } from 'redux-api-middleware';
+import { RSAA } from 'redux-api-middleware';
 
 import {
   buildAPIUrl,
@@ -107,7 +107,7 @@ describe('Utils: apiUtils', () => {
 
     describe('the meta function', () => {
       const mockAction = {
-        [CALL_API]: {
+        [RSAA]: {
           types: [{ type: 'SOME_GET_REQUEST' }],
         },
       };
@@ -337,7 +337,7 @@ describe('Utils: apiUtils', () => {
 
     describe('the meta function', () => {
       const mockAction = {
-        [CALL_API]: {
+        [RSAA]: {
           types: [{ type: 'SOME_GET_REQUEST' }],
         },
       };

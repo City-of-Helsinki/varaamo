@@ -1,6 +1,6 @@
 import types from 'constants/ActionTypes';
 
-import { CALL_API } from 'redux-api-middleware';
+import { RSAA } from 'redux-api-middleware';
 
 import {
   buildAPIUrl,
@@ -12,7 +12,7 @@ import {
 
 function fetchUser(id, params = {}) {
   return {
-    [CALL_API]: {
+    [RSAA]: {
       types: [
         getRequestTypeDescriptor(
           types.API.USER_GET_REQUEST,

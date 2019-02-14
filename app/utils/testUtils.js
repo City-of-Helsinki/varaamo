@@ -8,7 +8,7 @@ import merge from 'lodash/merge';
 import set from 'lodash/set';
 import React from 'react';
 import { IntlProvider } from 'react-intl';
-import { CALL_API } from 'redux-api-middleware';
+import { RSAA } from 'redux-api-middleware';
 
 import rootReducer from 'state/rootReducer';
 import enMessages from 'i18n/messages/en.json';
@@ -72,10 +72,10 @@ function createApiTest(options) {
 
     before(() => {
       action = options.action.apply(null, options.args);
-      callAPI = action[CALL_API];
+      callAPI = action[RSAA];
     });
 
-    it('returns an object with a CALL_API key', () => {
+    it('returns an object with a RSAA key', () => {
       expect(callAPI).to.exist;
     });
 
@@ -102,7 +102,7 @@ function createApiTest(options) {
 
     describe('types', () => {
       const mockAction = {
-        [CALL_API]: {
+        [RSAA]: {
           types: [{
             type: (
               (tests.request && tests.request.type) || 'Specify request.type'

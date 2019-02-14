@@ -1,6 +1,6 @@
 import types from 'constants/ActionTypes';
 
-import { CALL_API } from 'redux-api-middleware';
+import { RSAA } from 'redux-api-middleware';
 
 import schemas from 'store/middleware/Schemas';
 import {
@@ -15,7 +15,7 @@ function fetchUnits() {
   const fetchParams = { pageSize: 500, unit_has_resource: true };
 
   return {
-    [CALL_API]: {
+    [RSAA]: {
       types: [
         getRequestTypeDescriptor(types.API.UNITS_GET_REQUEST),
         getSuccessTypeDescriptor(
