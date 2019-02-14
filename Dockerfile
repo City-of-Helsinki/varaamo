@@ -1,5 +1,5 @@
 # Pull node image with locked node version
-FROM node:stable
+FROM node:10.15.1
 
 # Make guest app dir
 RUN mkdir -p /usr/src/app
@@ -8,8 +8,6 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 COPY package.json package.json
-
-RUN npm install -g yarn
 
 RUN yarn install --silent
 
