@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Grid from 'react-bootstrap/lib/Grid';
 import iconMapMarker from 'hel-icons/dist/shapes/map-marker.svg';
-import { upperFirst } from 'lodash';
+import upperFirst from 'lodash/upperFirst';
 
 import { injectT } from 'i18n';
 import { getServiceMapUrl } from 'utils/unitUtils';
