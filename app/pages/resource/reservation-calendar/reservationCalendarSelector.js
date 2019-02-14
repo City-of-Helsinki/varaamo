@@ -1,4 +1,5 @@
-import { filter, isEmpty } from 'lodash';
+import filter from 'lodash/filter';
+import isEmpty from 'lodash/isEmpty';
 import { createSelector, createStructuredSelector } from 'reselect';
 import moment from 'moment';
 

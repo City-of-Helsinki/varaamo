@@ -1,4 +1,7 @@
-import { filter, maxBy, minBy, some } from 'lodash';
+import filter from 'lodash/filter';
+import maxBy from 'lodash/maxBy';
+import minBy from 'lodash/minBy';
+import some from 'lodash/some';
 import moment from 'moment';
 
 import constants from 'constants/AppConstants';

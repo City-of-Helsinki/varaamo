@@ -1,5 +1,7 @@
 import { createSelector, createStructuredSelector } from 'reselect';
-import { first, isEmpty, orderBy } from 'lodash';
+import first from 'lodash/first';
+import isEmpty from 'lodash/isEmpty';
+import orderBy from 'lodash/orderBy';
 
 import ActionTypes from 'constants/ActionTypes';
 import { createIsStaffSelector, currentUserSelector, isAdminSelector } from 'state/selectors/authSelectors';

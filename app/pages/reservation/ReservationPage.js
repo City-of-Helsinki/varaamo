@@ -1,4 +1,6 @@
-import { first, isEmpty, last } from 'lodash';
+import first from 'lodash/first';
+import isEmpty from 'lodash/isEmpty';
+import last from 'lodash/last';
 import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 import Loader from 'react-loader';

@@ -6,7 +6,9 @@ import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 import Row from 'react-bootstrap/lib/Row';
 import moment from 'moment';
-import { first, last, orderBy } from 'lodash';
+import first from 'lodash/first';
+import last from 'lodash/last';
+import orderBy from 'lodash/orderBy';
 
 import { addNotification } from 'actions/notificationsActions';
 import {

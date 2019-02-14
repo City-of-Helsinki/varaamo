@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { first, last, orderBy } from 'lodash';
+import first from 'lodash/first';
+import last from 'lodash/last';
+import orderBy from 'lodash/orderBy';
 
 import { deleteReservation, postReservation, putReservation } from 'actions/reservationActions';
 import {

@@ -1,4 +1,8 @@
-import { first, last, orderBy, pick, uniq } from 'lodash';
+import first from 'lodash/first';
+import last from 'lodash/last';
+import orderBy from 'lodash/orderBy';
+import pick from 'lodash/pick';
+import uniq from 'lodash/uniq';
 import camelCase from 'lodash/camelCase';
 import React, { Component, PropTypes } from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
