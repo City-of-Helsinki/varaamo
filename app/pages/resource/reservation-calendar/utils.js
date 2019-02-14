@@ -113,6 +113,7 @@ function isHighlighted(slot, selected, hovered) {
     slotStartDate > firstSelectedDate
     && slotStartDate < hoveredDate
     && firstSelectedDate.getDate() === slotStartDate.getDate()
+    && slotStartDate.getDate() === slotStartDate.getDate()
   );
 }
 

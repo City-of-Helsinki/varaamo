@@ -63,6 +63,16 @@ export class UnconnectedResourceMapContainer extends React.Component {
       : defaultPosition[getCurrentCustomization()]
   );
 
+  hasBoundaries() {
+    const boundaries = this.props.boundaries;
+    return (
+      boundaries.minLatitude
+      || boundaries.minLongitude
+      || boundaries.maxLatitude
+      || boundaries.maxLongitude
+    );
+  }
+
   fitMapToBoundaries = () => {
     if (this.map) {
       if (this.hasBoundaries() && this.props.shouldMapFitBoundaries) {

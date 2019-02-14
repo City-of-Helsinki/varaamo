@@ -1,3 +1,5 @@
+import constants from 'constants/AppConstants';
+
 import PropTypes from 'prop-types';
 import React from 'react';
 import Label from 'react-bootstrap/lib/Label';

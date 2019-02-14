@@ -30,9 +30,9 @@ export class UnconnectedResourceCompactList extends React.Component {
     this.setState(prevState => ({
       resourcePosition:
         // eslint-disable-next-line no-mixed-operators
-        (prevState.resourcePosition - 1 + this.props.resourceIds.length)
+        (this.state.resourcePosition - 1 + this.props.resourceIds.length)
         % this.props.resourceIds.length,
-    }));
+    });
   };
 
   onNextResource = () => {

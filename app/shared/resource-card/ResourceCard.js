@@ -39,9 +39,7 @@ class ResourceCard extends Component {
   };
 
   handleLinkClick = () => {
-    const scrollTop = window.pageYOffset
-    || document.documentElement.scrollTop
-    || document.body.scrollTop;
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
     const { location, history } = this.props;
     const { pathname, search } = location;
     history.replace({ pathname, search, state: { scrollTop } });

@@ -40,13 +40,10 @@ module.exports = merge(common, {
       },
       {
         test: /\.scss$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader?url=false',
-          { loader: 'postcss-loader', options: { plugins: [autoprefixer({ browsers: ['last 2 version', 'ie 9'] })] } },
-          'resolve-url-loader',
-          'sass-loader',
-        ],
+        loader: ExtractTextPlugin.extract(
+          'style',
+          'css-loader?{"svgo":false}!resolve-url-loader!postcss-loader!sass-loader',
+        ),
       },
     ],
   },

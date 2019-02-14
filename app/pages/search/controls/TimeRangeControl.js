@@ -1,3 +1,5 @@
+import constants from 'constants/AppConstants';
+
 import PropTypes from 'prop-types';
 import React from 'react';
 import Select from 'react-select';
@@ -126,10 +128,6 @@ class TimeRangeControl extends React.Component {
     const {
       duration, end, start, t, useTimeRange,
     } = this.props;
-
-    const startTimeOptions = this.getStartTimeOptions();
-    const endTimeOptions = this.getEndTimeOptions();
-    const durationOptions = this.getDurationOptions();
 
     return (
       <div className="app-TimeRangeControl">

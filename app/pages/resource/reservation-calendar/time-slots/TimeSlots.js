@@ -1,3 +1,5 @@
+import constants from 'constants/AppConstants';
+
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Loader from 'react-loader';
@@ -119,8 +121,7 @@ class TimeSlots extends Component {
       .slice(selectedDateIndex, selectedDateIndex + 3)
       .filter(size => size !== null);
 
-    const mobilePlaceholderOffset = mobilePlaceholderSizes.length > 0
-      ? Math.min(...mobilePlaceholderSizes) : 0;
+    const mobilePlaceholderOffset = mobilePlaceholderSizes.length > 0 ? Math.min(...mobilePlaceholderSizes) : 0;
 
     return {
       mobilePlaceholderOffset,
