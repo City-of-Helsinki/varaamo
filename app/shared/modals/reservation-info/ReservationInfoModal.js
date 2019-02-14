@@ -6,7 +6,6 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Modal from 'react-bootstrap/lib/Modal';
-import { findDOMNode } from 'react-dom';
 
 import { injectT } from 'i18n';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
@@ -28,7 +27,7 @@ class ReservationInfoModal extends Component {
   }
 
   handleSaveCommentsClick() {
-    const comments = findDOMNode(this.refs.commentsInput).value;
+    const comments = this.commentsInput.value;
     this.props.onSaveCommentsClick(comments);
   }
 
@@ -98,7 +97,8 @@ class ReservationInfoModal extends Component {
                     defaultValue={reservation.comments}
                     disabled={disabled}
                     placeholder={t('common.commentsPlaceholder')}
-                    ref="commentsInput"
+                    // eslint-disable-next-line no-return-assign
+                    ref={node => this.commentsInput = node}
                     rows={5}
                   />
                 </FormGroup>

@@ -29,6 +29,7 @@ class TimeSlot extends PureComponent {
 
   componentDidMount() {
     if (this.props.scrollTo) {
+      // eslint-disable-next-line react/no-find-dom-node
       scrollTo(findDOMNode(this));
     }
   }
@@ -117,12 +118,17 @@ class TimeSlot extends PureComponent {
           onClick={() => this.handleClick(disabled)}
           onMouseEnter={() => !disabled && onMouseEnter(slot)}
           onMouseLeave={() => !disabled && onMouseLeave()}
+          type="button"
         >
           <span className="app-TimeSlot__icon" />
           <time dateTime={slot.asISOString}>{startTime}</time>
         </button>
         {showClear && (
-          <button className="app-TimeSlot__clear" onClick={onClear}>
+          <button
+            className="app-TimeSlot__clear"
+            onClick={onClear}
+            type="button"
+          >
             <span className="app-TimeSlot__clear-icon" />
           </button>
         )}

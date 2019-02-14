@@ -35,7 +35,7 @@ export class UninjectedDateSelector extends React.Component {
   render() {
     return (
       <div className="date-selector">
-        <a className="previous" onClick={this.handlePreviousClick} tabIndex="0">
+        <a className="previous" onClick={this.handlePreviousClick} role="button" tabIndex="0">
           {this.props.t('AvailabilityViewDateSelector.previousDay')}
         </a>
         <div className="current-value">
@@ -45,7 +45,7 @@ export class UninjectedDateSelector extends React.Component {
             value={this.props.value}
           />
         </div>
-        <a className="next" onClick={this.handleNextClick} tabIndex="0">
+        <a className="next" onClick={this.handleNextClick} role="button" tabIndex="0">
           {this.props.t('AvailabilityViewDateSelector.nextDay')}
         </a>
       </div>

@@ -53,23 +53,6 @@ class UnconnectedSearchControlsContainer extends Component {
     return options;
   }
 
-  getMunicipalityOptions = () =>
-    constants.SEARCH_MUNICIPALITY_OPTIONS.map(municipality => ({
-      value: municipality.toLowerCase(),
-      label: municipality,
-    }));
-
-  hasAdvancedFilters() {
-    const { filters, position } = this.props;
-    let hasFilters = Boolean(position);
-    ['charge', 'end', 'distance', 'duration', 'purpose', 'start', 'unit'].forEach((key) => {
-      if (filters[key]) {
-        hasFilters = true;
-      }
-    });
-    return hasFilters;
-  }
-
   handleDateChange = ({ date }) => {
     const dateInCorrectFormat = moment(date, 'L').format(constants.DATE_FORMAT);
     this.handleFiltersChange({
@@ -123,6 +106,17 @@ class UnconnectedSearchControlsContainer extends Component {
 
     this.handleFiltersChange(emptyFilters);
   };
+
+  hasAdvancedFilters() {
+    const { filters, position } = this.props;
+    let hasFilters = Boolean(position);
+    ['charge', 'end', 'distance', 'duration', 'purpose', 'start', 'unit'].forEach((key) => {
+      if (filters[key]) {
+        hasFilters = true;
+      }
+    });
+    return hasFilters;
+  }
 
   render() {
     const {

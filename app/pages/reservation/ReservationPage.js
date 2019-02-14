@@ -69,6 +69,7 @@ class UnconnectedReservationPage extends Component {
       (!isEmpty(nextCreated) || !isEmpty(nextEdited))
       && (nextCreated !== reservationCreated || nextEdited !== reservationEdited)
     ) {
+      // eslint-disable-next-line react/no-will-update-set-state
       this.setState({
         view: 'confirmation',
       });
@@ -79,21 +80,6 @@ class UnconnectedReservationPage extends Component {
   componentWillUnmount() {
     this.props.actions.clearReservations();
     this.props.actions.closeReservationSuccessModal();
-  }
-
-  fetchResource() {
-    const { actions, date, resource } = this.props;
-    if (!isEmpty(resource)) {
-      const start = moment(date)
-        .subtract(2, 'M')
-        .startOf('month')
-        .format();
-      const end = moment(date)
-        .add(2, 'M')
-        .endOf('month')
-        .format();
-      actions.fetchResource(resource.id, { start, end });
-    }
   }
 
   handleBack = () => {
@@ -143,6 +129,21 @@ class UnconnectedReservationPage extends Component {
       }
     }
   };
+
+  fetchResource() {
+    const { actions, date, resource } = this.props;
+    if (!isEmpty(resource)) {
+      const start = moment(date)
+        .subtract(2, 'M')
+        .startOf('month')
+        .format();
+      const end = moment(date)
+        .add(2, 'M')
+        .endOf('month')
+        .format();
+      actions.fetchResource(resource.id, { start, end });
+    }
+  }
 
   render() {
     const {

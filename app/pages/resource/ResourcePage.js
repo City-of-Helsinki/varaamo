@@ -57,26 +57,6 @@ class UnconnectedResourcePage extends Component {
     return `${image.url}?dim=${width}x${height}`;
   }
 
-  fetchResource(date = this.props.date) {
-    const { actions, id } = this.props;
-    const start = moment(date)
-      .subtract(2, 'M')
-      .startOf('month')
-      .format();
-    const end = moment(date)
-      .add(2, 'M')
-      .endOf('month')
-      .format();
-
-    actions.fetchResource(id, { start, end });
-  }
-
-  disableDays = (day) => {
-    const { resource: { reservableAfter } } = this.props;
-    const beforeDate = reservableAfter || moment();
-    return moment(day).isBefore(beforeDate);
-  }
-
   handleDateChange = (newDate) => {
     const { resource, history } = this.props;
     const day = newDate.toISOString().substring(0, 10);
@@ -111,6 +91,7 @@ class UnconnectedResourcePage extends Component {
         <button
           className="app-ResourceInfo__image-button"
           onClick={() => this.handleImageClick(index)}
+          type="button"
         >
           <img
             alt={image.caption}
@@ -121,6 +102,20 @@ class UnconnectedResourcePage extends Component {
       </div>
     );
   };
+
+  fetchResource(date = this.props.date) {
+    const { actions, id } = this.props;
+    const start = moment(date)
+      .subtract(2, 'M')
+      .startOf('month')
+      .format();
+    const end = moment(date)
+      .add(2, 'M')
+      .endOf('month')
+      .format();
+
+    actions.fetchResource(id, { start, end });
+  }
 
   render() {
     const {

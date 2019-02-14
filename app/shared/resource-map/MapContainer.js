@@ -63,16 +63,6 @@ export class UnconnectedResourceMapContainer extends React.Component {
       : defaultPosition[getCurrentCustomization()]
   );
 
-  hasBoundaries() {
-    const boundaries = this.props.boundaries;
-    return (
-      boundaries.minLatitude
-      || boundaries.minLongitude
-      || boundaries.maxLatitude
-      || boundaries.maxLongitude
-    );
-  }
-
   fitMapToBoundaries = () => {
     if (this.map) {
       if (this.hasBoundaries() && this.props.shouldMapFitBoundaries) {
@@ -81,6 +71,16 @@ export class UnconnectedResourceMapContainer extends React.Component {
         this.map.leafletElement.panTo(this.getCenter(), defaultZoom);
       }
     }
+  }
+
+  hasBoundaries() {
+    const boundaries = this.props.boundaries;
+    return (
+      boundaries.minLatitude
+      || boundaries.minLongitude
+      || boundaries.maxLatitude
+      || boundaries.maxLongitude
+    );
   }
 
   render() {

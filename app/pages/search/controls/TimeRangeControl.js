@@ -99,10 +99,16 @@ class TimeRangeControl extends React.Component {
     return options;
   }
 
-  handleDuration(option) {
-    const duration = option.value;
-    const { end, onConfirm, start } = this.props;
-    onConfirm({ duration, end, start });
+  handleToggleChange = (value) => {
+    this.props.onTimeRangeSwitch(value);
+  };
+
+  handleStart(option) {
+    const start = option.value;
+    const { duration, end, onChange } = this.props;
+    const endValue = calculateEndTime(end, start);
+    const durationValue = calculateDuration(duration, start, endValue);
+    onChange({ duration: durationValue, end: endValue, start });
   }
 
   handleEnd(option) {
@@ -112,17 +118,11 @@ class TimeRangeControl extends React.Component {
     onConfirm({ duration: durationValue, end, start });
   }
 
-  handleStart(option) {
-    const { duration, end, onConfirm } = this.props;
-    const start = option.value;
-    const endValue = calculateEndTime(end, start);
-    const durationValue = calculateDuration(duration, start, endValue);
-    onConfirm({ duration: durationValue, end: endValue, start });
+  handleDuration(option) {
+    const duration = option.value;
+    const { end, onChange, start } = this.props;
+    onChange({ duration, end, start });
   }
-
-  handleToggleChange = (value) => {
-    this.props.onTimeRangeSwitch(value);
-  };
 
   render() {
     const {

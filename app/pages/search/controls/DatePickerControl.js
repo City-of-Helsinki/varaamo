@@ -33,6 +33,7 @@ class DatePickerControl extends React.Component {
   componentWillUpdate(nextProps) {
     const { date } = nextProps;
     if (date !== this.props.date) {
+      // eslint-disable-next-line react/no-will-update-set-state
       this.setState({ date });
     }
   }

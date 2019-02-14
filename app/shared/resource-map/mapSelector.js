@@ -57,6 +57,7 @@ const boundariesSelector = createSelector(
     let minLatitude;
     let maxLongitude;
     let minLongitude;
+    // eslint-disable-next-line no-restricted-syntax
     for (const marker of markers) {
       if (maxLatitude === undefined || marker.latitude > maxLatitude) {
         maxLatitude = marker.latitude;

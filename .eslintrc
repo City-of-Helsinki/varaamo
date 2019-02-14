@@ -69,6 +69,16 @@
     
     "prefer-destructuring": "off",
 
-    "react/destructuring-assignment": "off"
+    "react/destructuring-assignment": "off",
+
+    "react/require-default-props": "off",
+    
+    "jsx-a11y/click-events-have-key-events": "off",
+
+    "jsx-a11y/anchor-is-valid": "off",
+
+    "jsx-a11y/label-has-for": "off",
+    
+    "react/no-array-index-key": "off"
   }
 }

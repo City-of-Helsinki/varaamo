@@ -12,6 +12,7 @@ import searchResultsSelector from './searchResultsSelector';
 
 export class UnconnectedSearchResults extends Component {
   componentDidMount() {
+    // eslint-disable-next-line react/no-find-dom-node
     scrollTo(findDOMNode(this));
   }
 
