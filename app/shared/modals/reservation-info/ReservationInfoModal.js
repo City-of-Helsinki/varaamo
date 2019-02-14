@@ -53,8 +53,8 @@ class ReservationInfoModal extends Component {
 
     const disabled = isSaving || isEditing;
     const showCancelButton = reservationIsEditable && (
-      reservation.state === 'confirmed' ||
-      (reservation.state === 'requested' && !isAdmin)
+      reservation.state === 'confirmed'
+      || (reservation.state === 'requested' && !isAdmin)
     );
 
     return (
@@ -68,7 +68,8 @@ class ReservationInfoModal extends Component {
         </Modal.Header>
 
         <Modal.Body>
-          {!isEmpty(reservation) &&
+          {!isEmpty(reservation)
+            && (
             <div>
               <ReservationStateLabel reservation={reservation} />
               <ReservationEditForm
@@ -86,30 +87,34 @@ class ReservationInfoModal extends Component {
                 resource={resource}
               />
               {isAdmin && reservationIsEditable && (
-                <form className="comments-form">
-                  <FormGroup controlId="commentsTextarea">
-                    <ControlLabel>{t('common.commentsLabel')}:</ControlLabel>
-                    <FormControl
-                      componentClass="textarea"
-                      defaultValue={reservation.comments}
-                      disabled={disabled}
-                      placeholder={t('common.commentsPlaceholder')}
-                      ref="commentsInput"
-                      rows={5}
-                    />
-                  </FormGroup>
-                  <div className="form-controls">
-                    <Button
-                      bsStyle="primary"
-                      disabled={disabled}
-                      onClick={this.handleSaveCommentsClick}
-                    >
-                      {isSaving ? t('common.saving') : t('ReservationInfoModal.saveComment')}
-                    </Button>
-                  </div>
-                </form>
+              <form className="comments-form">
+                <FormGroup controlId="commentsTextarea">
+                  <ControlLabel>
+                    {t('common.commentsLabel')}
+:
+                  </ControlLabel>
+                  <FormControl
+                    componentClass="textarea"
+                    defaultValue={reservation.comments}
+                    disabled={disabled}
+                    placeholder={t('common.commentsPlaceholder')}
+                    ref="commentsInput"
+                    rows={5}
+                  />
+                </FormGroup>
+                <div className="form-controls">
+                  <Button
+                    bsStyle="primary"
+                    disabled={disabled}
+                    onClick={this.handleSaveCommentsClick}
+                  >
+                    {isSaving ? t('common.saving') : t('ReservationInfoModal.saveComment')}
+                  </Button>
+                </div>
+              </form>
               )}
             </div>
+            )
           }
         </Modal.Body>
 

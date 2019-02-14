@@ -1,3 +1,5 @@
+import constants from 'constants/AppConstants';
+
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -17,7 +19,6 @@ import {
   selectReservationSlot,
   toggleTimeSlot,
 } from 'actions/uiActions';
-import constants from 'constants/AppConstants';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
 import ReservationInfoModal from 'shared/modals/reservation-info';
 import ReservationSuccessModal from 'shared/modals/reservation-success';
@@ -100,7 +101,9 @@ export class UnconnectedReservationCalendarContainer extends Component {
   };
 
   handleReserveClick = () => {
-    const { actions, isAdmin, resource, selected, t } = this.props;
+    const {
+      actions, isAdmin, resource, selected, t,
+    } = this.props;
     if (!isAdmin && hasMaxReservations(resource)) {
       actions.addNotification({
         message: t('TimeSlots.maxReservationsPerUser'),
@@ -160,7 +163,10 @@ export class UnconnectedReservationCalendarContainer extends Component {
         {showTimeSlots && selected.length > 0 && (
           <Row className="reservation-calendar-reserve-info">
             <Col xs={8}>
-              <b>{t('TimeSlots.selectedDate')} </b>
+              <b>
+                {t('TimeSlots.selectedDate')}
+                {' '}
+              </b>
               {this.getSelectedTimeText(selected)}
             </Col>
             <Col xs={4}>
@@ -213,5 +219,5 @@ function mapDispatchToProps(dispatch) {
 
 export default connect(
   reservationCalendarSelector,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(UnconnectedReservationCalendarContainer);

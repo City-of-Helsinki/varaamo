@@ -93,12 +93,8 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = [], reserv
 
   const range = moment.range(moment(start), moment(end));
   const duration = moment.duration(period);
-  const reservationRanges = map(reservations, reservation =>
-    moment.range(moment(reservation.begin), moment(reservation.end))
-  );
-  const editRanges = map(reservationsToEdit, reservation =>
-    moment.range(moment(reservation.begin), moment(reservation.end))
-  );
+  const reservationRanges = map(reservations, reservation => moment.range(moment(reservation.begin), moment(reservation.end)));
+  const editRanges = map(reservationsToEdit, reservation => moment.range(moment(reservation.begin), moment(reservation.end)));
   const slots = [];
 
   range.by(
@@ -107,7 +103,7 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = [], reserv
       const endMoment = moment(startMoment).add(duration);
       const asISOString = `${startMoment.toISOString()}/${endMoment.toISOString()}`;
       const asString = `${startMoment.format(constants.TIME_FORMAT)}\u2013${endMoment.format(
-        constants.TIME_FORMAT
+        constants.TIME_FORMAT,
       )}`;
 
       const slotRange = moment.range(startMoment, endMoment);
@@ -140,7 +136,7 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = [], reserv
         end: endMoment.toISOString(),
       });
     },
-    true
+    true,
   );
 
   return slots;

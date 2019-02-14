@@ -89,7 +89,7 @@ describe('shared/compact-reservation-list/CompactReservationList', () => {
       expect(onRemoveClick.callCount).to.equal(0);
       button.prop('onClick')();
       expect(onRemoveClick.lastCall.args).to.deep.equal(
-        [removableReservations[0].begin]
+        [removableReservations[0].begin],
       );
     });
   });

@@ -28,7 +28,8 @@ export class UnconnectedSearchResults extends Component {
     return (
       <div className="app-SearchResults" id="search-results">
         <Loader loaded={!isFetching}>
-          {!showMap &&
+          {!showMap
+            && (
             <div className="app-SearchResults__container">
               <ResourceList
                 date={filters.date}
@@ -40,14 +41,17 @@ export class UnconnectedSearchResults extends Component {
                 resultCount={resultCount}
               />
             </div>
+            )
           }
-          {showMap && selectedUnitId &&
+          {showMap && selectedUnitId
+            && (
             <ResourceCompactList
               date={filters.date}
               location={location}
               resourceIds={searchResultIds}
               unitId={selectedUnitId}
             />
+            )
           }
         </Loader>
       </div>

@@ -16,7 +16,6 @@ import ResourceCalendarOverlay from './ResourceCalendarOverlay';
 import resourceCalendarSelector from './resourceCalendarSelector';
 
 export class UnconnectedResourceCalendar extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -83,9 +82,9 @@ export class UnconnectedResourceCalendar extends Component {
                 busy: (day) => {
                   const dayDate = day.toISOString().substring(0, 10);
                   return (
-                    availability[dayDate] &&
-                    availability[dayDate].percentage < 80 &&
-                    availability[dayDate].percentage > 0
+                    availability[dayDate]
+                    && availability[dayDate].percentage < 80
+                    && availability[dayDate].percentage > 0
                   );
                 },
                 booked: (day) => {

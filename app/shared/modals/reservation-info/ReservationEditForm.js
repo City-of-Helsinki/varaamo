@@ -1,3 +1,5 @@
+import FormTypes from 'constants/FormTypes';
+
 import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
@@ -11,7 +13,6 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Well from 'react-bootstrap/lib/Well';
 import { Field, Fields, reduxForm } from 'redux-form';
 
-import FormTypes from 'constants/FormTypes';
 import ReduxFormField from 'shared/form-fields/ReduxFormField';
 import ReservationTimeControls from 'shared/form-fields/ReservationTimeControls';
 import TimeRange from 'shared/time-range';
@@ -44,7 +45,7 @@ class UnconnectedReservationEditForm extends Component {
     const value = this.getAddress(
       reservation[`${addressType}Street`],
       reservation[`${addressType}Zip`],
-      reservation[`${addressType}City`]
+      reservation[`${addressType}City`],
     );
     return this.renderInfoRow(label, value);
   }
@@ -95,7 +96,9 @@ class UnconnectedReservationEditForm extends Component {
   }
 
   renderReservationTime() {
-    const { isEditing, reservation, resource, t } = this.props;
+    const {
+      isEditing, reservation, resource, t,
+    } = this.props;
     if (isEditing) {
       return (
         <FormGroup id="reservation-time">

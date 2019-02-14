@@ -75,7 +75,7 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
       instance.handleClick(defaultProps.selectedResourceTypes[0]);
       expect(defaultProps.onUnselectResourceType.callCount).to.equal(1);
       expect(defaultProps.onUnselectResourceType.lastCall.args).to.deep.equal(
-        [defaultProps.selectedResourceTypes[0]]
+        [defaultProps.selectedResourceTypes[0]],
       );
       expect(defaultProps.onSelectResourceType.callCount).to.equal(0);
     });
@@ -84,7 +84,7 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
       instance.handleClick(defaultProps.resourceTypes[-1]);
       expect(defaultProps.onSelectResourceType.callCount).to.equal(1);
       expect(defaultProps.onSelectResourceType.lastCall.args).to.deep.equal(
-        [defaultProps.resourceTypes[-1]]
+        [defaultProps.resourceTypes[-1]],
       );
       expect(defaultProps.onUnselectResourceType.callCount).to.equal(0);
     });

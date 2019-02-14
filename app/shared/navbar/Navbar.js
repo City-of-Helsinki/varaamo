@@ -41,29 +41,35 @@ function Navbar(props) {
   return (
     <div className="app-Navbar">
       <Nav id="language-nav" onSelect={changeLocale}>
-        {currentLanguage !== 'en' && <NavItem eventKey="en" onClick={onNavItemClick}>
+        {currentLanguage !== 'en' && (
+        <NavItem eventKey="en" onClick={onNavItemClick}>
           <img
             alt={t('Navbar.language-english')}
             src={englandFlagSrc}
           />
-        </NavItem>}
-        {currentLanguage !== 'fi' && <NavItem eventKey="fi" onClick={onNavItemClick}>
+        </NavItem>
+        )}
+        {currentLanguage !== 'fi' && (
+        <NavItem eventKey="fi" onClick={onNavItemClick}>
           <img
             alt={t('Navbar.language-finnish')}
             src={finlandFlagSrc}
           />
-        </NavItem>}
-        {currentLanguage !== 'sv' && <NavItem eventKey="sv" onClick={onNavItemClick}>
+        </NavItem>
+        )}
+        {currentLanguage !== 'sv' && (
+        <NavItem eventKey="sv" onClick={onNavItemClick}>
           <img
             alt={t('Navbar.language-swedish')}
             src={swedenFlagSrc}
           />
-        </NavItem>}
+        </NavItem>
+        )}
       </Nav>
       <div className="main-nav">
-        {isLoggedIn ?
-          <h4>{userName}</h4> :
-            <h2>{t('Navbar.header')}</h2>
+        {isLoggedIn
+          ? <h4>{userName}</h4>
+          : <h2>{t('Navbar.header')}</h2>
         }
         <Nav id="main-nav" stacked>
           {isLoggedIn && (
@@ -81,7 +87,9 @@ function Navbar(props) {
           )}
           <LinkContainer to={getSearchPageUrl()}>
             <NavItem onClick={onSearchNavItemClick}>
-              <Glyphicon glyph="search" /> {t('Navbar.search')}
+              <Glyphicon glyph="search" />
+              {' '}
+              {t('Navbar.search')}
             </NavItem>
           </LinkContainer>
           {isAdmin && (

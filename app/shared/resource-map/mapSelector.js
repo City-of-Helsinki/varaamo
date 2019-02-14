@@ -13,20 +13,20 @@ const selectedUnitIdSelector = (state, props) => props.selectedUnitId;
 const filteredResourcesSelector = createSelector(
   resourceIdsSelector,
   resourcesSelector,
-  (resourceIds, resources) => resourceIds.map(id => resources[id])
+  (resourceIds, resources) => resourceIds.map(id => resources[id]),
 );
 const shouldMapFitBoundariesSelector = createSelector(
   urlSearchFiltersSelector,
   selectedUnitIdSelector,
   (filters, unitId) => (
     Boolean(find(omit(filters, ['date', 'duration', 'end', 'page', 'start']), filter => filter !== '' && filter !== false)) || Boolean(unitId)
-  )
+  ),
 );
 
 
 const fetchedResourcesSelector = createSelector(
   filteredResourcesSelector,
-  resources => resources.filter(resource => resource !== undefined)
+  resources => resources.filter(resource => resource !== undefined),
 );
 
 const markersSelector = createSelector(
@@ -45,8 +45,8 @@ const markersSelector = createSelector(
         };
       }
       return memo;
-    }, {})
-  )
+    }, {}),
+  ),
 );
 
 const boundariesSelector = createSelector(
@@ -77,7 +77,7 @@ const boundariesSelector = createSelector(
       maxLongitude: maxLongitude + padding,
       minLongitude: minLongitude - padding,
     };
-  }
+  },
 );
 
 export default createStructuredSelector({

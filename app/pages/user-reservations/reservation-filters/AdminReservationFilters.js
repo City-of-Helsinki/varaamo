@@ -1,10 +1,11 @@
+import constants from 'constants/AppConstants';
+
 import map from 'lodash/map';
 import sortBy from 'lodash/sortBy';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Select from 'react-select';
 
-import constants from 'constants/AppConstants';
 import { injectT } from 'i18n';
 
 class AdminReservationFilters extends Component {
@@ -32,9 +33,9 @@ class AdminReservationFilters extends Component {
           (value, key) => ({
             label: t(value.labelTextId),
             value: key,
-          })
+          }),
         ),
-        'label'
+        'label',
       ),
     ];
 

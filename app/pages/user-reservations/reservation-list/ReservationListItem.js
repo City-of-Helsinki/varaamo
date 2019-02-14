@@ -23,13 +23,13 @@ class ReservationListItem extends Component {
 
   render() {
     const {
-       isAdmin,
-       isStaff,
-       reservation,
-       resource,
-       t,
-       unit,
-     } = this.props;
+      isAdmin,
+      isStaff,
+      reservation,
+      resource,
+      t,
+      unit,
+    } = this.props;
 
     const nameSeparator = isEmpty(resource) || isEmpty(unit) ? '' : ', ';
 
@@ -49,7 +49,9 @@ class ReservationListItem extends Component {
           </Link>
           <div>
             <img alt={resource.type.name} className="location" src={iconHome} />
-            <span className="unit-name">{unit.name}</span>{nameSeparator}<span>{unit.streetAddress}</span>
+            <span className="unit-name">{unit.name}</span>
+            {nameSeparator}
+            <span>{unit.streetAddress}</span>
           </div>
           <div>
             <img alt={resource.type.name} className="timeslot" src={iconCalendar} />

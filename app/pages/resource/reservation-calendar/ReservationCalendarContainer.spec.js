@@ -184,7 +184,9 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
             reservableBefore: '2016-11-11T06:00:00+03:00',
             reservableDaysInAdvance: 32,
           });
-          const props = { date, resource: restrictedResource, selected, timeSlots };
+          const props = {
+            date, resource: restrictedResource, selected, timeSlots,
+          };
           const options = {
             renderClosedText: false,
             renderRestrictedText: true,

@@ -67,9 +67,9 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
     it('calls props.actions.selectReservationToCancel with this reservation', () => {
       expect(props.actions.selectReservationToCancel.callCount).to.equal(1);
       expect(
-        props.actions.selectReservationToCancel.lastCall.args[0]
+        props.actions.selectReservationToCancel.lastCall.args[0],
       ).to.deep.equal(
-        props.reservation
+        props.reservation,
       );
     });
 
@@ -93,9 +93,9 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
     it('calls props.actions.selectReservationToEdit with reservation and minPeriod', () => {
       expect(props.actions.selectReservationToEdit.callCount).to.equal(1);
       expect(
-        props.actions.selectReservationToEdit.lastCall.args[0]
+        props.actions.selectReservationToEdit.lastCall.args[0],
       ).to.deep.equal(
-        { reservation: props.reservation, minPeriod: props.resource.minPeriod }
+        { reservation: props.reservation, minPeriod: props.resource.minPeriod },
       );
     });
 
@@ -116,9 +116,9 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
     it('calls the props.actions.showReservationInfoModal function with this reservation', () => {
       expect(props.actions.showReservationInfoModal.callCount).to.equal(1);
       expect(
-        props.actions.showReservationInfoModal.lastCall.args[0]
+        props.actions.showReservationInfoModal.lastCall.args[0],
       ).to.deep.equal(
-        props.reservation
+        props.reservation,
       );
     });
   });

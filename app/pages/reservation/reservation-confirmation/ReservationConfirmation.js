@@ -1,3 +1,5 @@
+import constants from 'constants/AppConstants';
+
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
@@ -8,7 +10,6 @@ import Row from 'react-bootstrap/lib/Row';
 import Well from 'react-bootstrap/lib/Well';
 import iconHome from 'hel-icons/dist/shapes/home.svg';
 
-import constants from 'constants/AppConstants';
 import { injectT } from 'i18n';
 import ReservationDate from 'shared/reservation-date';
 
@@ -71,13 +72,15 @@ class ReservationConfirmation extends Component {
               <img alt={resource.name} className="app-ReservationConfirmation__icon" src={iconHome} />
               <b>{resource.name}</b>
             </p>
-            {!isEdited &&
+            {!isEdited
+              && (
               <p>
                 <FormattedHTMLMessage
                   id="ReservationConfirmation.confirmationText"
                   values={{ email }}
                 />
               </p>
+              )
             }
             <p>
               <FormattedHTMLMessage
@@ -104,77 +107,79 @@ class ReservationConfirmation extends Component {
             {reservation.reserverName && this.renderField(
               'reserverName',
               t('common.reserverNameLabel'),
-              reservation.reserverName
+              reservation.reserverName,
             )}
             {reservation.reserverId && this.renderField(
               'reserverId',
               t('common.reserverIdLabel'),
-              reservation.reserverId
+              reservation.reserverId,
             )}
             {reservation.reserverPhoneNumber && this.renderField(
               'reserverPhoneNumber',
               t('common.reserverPhoneNumberLabel'),
-              reservation.reserverPhoneNumber
+              reservation.reserverPhoneNumber,
             )}
             {reservation.reserverEmailAddress && this.renderField(
               'reserverEmailAddress',
               t('common.reserverEmailAddressLabel'),
-              reservation.reserverEmailAddress
+              reservation.reserverEmailAddress,
             )}
             {reservation.eventSubject && this.renderField(
               'eventSubject',
               t('common.eventSubjectLabel'),
-              reservation.eventSubject
+              reservation.eventSubject,
             )}
             {reservation.eventDescription && this.renderField(
               'eventDescription',
               t('common.eventDescriptionLabel'),
-              reservation.eventDescription
+              reservation.eventDescription,
             )}
             {reservation.numberOfParticipants && this.renderField(
               'numberOfParticipants',
               t('common.numberOfParticipantsLabel'),
-              reservation.numberOfParticipants
+              reservation.numberOfParticipants,
             )}
             {reservation.comments && this.renderField(
               'comments',
               t('common.commentsLabel'),
-              reservation.comments
+              reservation.comments,
             )}
             {reservation.reserverAddressStreet && this.renderField(
               'reserverAddressStreet',
               t('common.addressStreetLabel'),
-              reservation.reserverAddressStreet
+              reservation.reserverAddressStreet,
             )}
             {reservation.reserverAddressZip && this.renderField(
               'reserverAddressZip',
               t('common.addressZipLabel'),
-              reservation.reserverAddressZip
+              reservation.reserverAddressZip,
             )}
             {reservation.reserverAddressCity && this.renderField(
               'reserverAddressCity',
               t('common.addressCityLabel'),
-              reservation.reserverAddressCity
+              reservation.reserverAddressCity,
             )}
-            {reservation.billingAddressStreet &&
+            {reservation.billingAddressStreet
+              && (
               <Col xs={12}>
                 {t('common.billingAddressLabel')}
               </Col>
+              )
             }
             {reservation.billingAddressStreet && this.renderField(
               'billingAddressStreet',
               t('common.addressStreetLabel'),
-              reservation.billingAddressStreet
+              reservation.billingAddressStreet,
             )}
             {reservation.billingAddressZip && this.renderField(
               'billingAddressZip',
               t('common.addressZipLabel'),
-              reservation.billingAddressZip
+              reservation.billingAddressZip,
             )}
             {reservation.billingAddressCity && this.renderField(
               'billingAddressCity',
               t('common.addressCityLabel'),
-              reservation.billingAddressCity
+              reservation.billingAddressCity,
             )}
           </Well>
         </Col>

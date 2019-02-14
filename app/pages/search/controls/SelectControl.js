@@ -6,12 +6,15 @@ import Select from 'react-select';
 
 import { injectT } from 'i18n';
 
-function SelectControl({ id, isLoading, label, onConfirm, options, t, value }) {
+function SelectControl({
+  id, isLoading, label, onConfirm, options, t, value,
+}) {
   return (
     <div className="app-SelectControl">
       <FormGroup controlId={id}>
         <ControlLabel>{label}</ControlLabel>
-        {!isLoading && <Select
+        {!isLoading && (
+        <Select
           clearable
           name={id}
           onChange={option => onConfirm(option ? option.value : '')}
@@ -19,7 +22,8 @@ function SelectControl({ id, isLoading, label, onConfirm, options, t, value }) {
           placeholder={t('common.select')}
           searchable
           value={value || ''}
-        />}
+        />
+        )}
       </FormGroup>
     </div>
   );

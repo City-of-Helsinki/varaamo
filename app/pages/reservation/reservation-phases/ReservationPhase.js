@@ -12,7 +12,9 @@ ReservationPhase.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-function ReservationPhase({ cols, index, isActive, isCompleted, title }) {
+function ReservationPhase({
+  cols, index, isActive, isCompleted, title,
+}) {
   const active = isActive ? ' app-ReservationPage__phase-active' : '';
   const completed = isCompleted ? ' app-ReservationPage__phase-completed' : '';
   return (
@@ -20,8 +22,8 @@ function ReservationPhase({ cols, index, isActive, isCompleted, title }) {
       <div className="app-ReservationPage__phase-index">{index}</div>
       <div className="app-ReservationPage__phase-title">
         {title}
-        { isCompleted &&
-          <Glyphicon glyph="ok" />
+        { isCompleted
+          && <Glyphicon glyph="ok" />
         }
       </div>
     </div>

@@ -37,18 +37,18 @@ export class UninjectedReservationSlot extends React.Component {
     const wasSelected = this.getIsSelected(this.props.selection);
     const isSelectableChanged = this.props.isSelectable !== nextProps.isSelectable;
     return (
-      isSelectableChanged ||
-      isSelected !== wasSelected ||
-      this.shouldShowPopover(wasSelected, nextProps)
+      isSelectableChanged
+      || isSelected !== wasSelected
+      || this.shouldShowPopover(wasSelected, nextProps)
     );
   }
 
   getIsSelected(selection = this.props.selection) {
     return (
-      selection &&
-      ((!selection.resourceId || selection.resourceId === this.props.resourceId) &&
-        this.props.begin >= selection.begin &&
-        this.props.end <= selection.end)
+      selection
+      && ((!selection.resourceId || selection.resourceId === this.props.resourceId)
+        && this.props.begin >= selection.begin
+        && this.props.end <= selection.end)
     );
   }
 

@@ -11,7 +11,7 @@ function createResourceSelector(idSelector) {
   return createSelector(
     resourcesSelector,
     idSelector,
-    (resources, id) => resources[id] || {}
+    (resources, id) => resources[id] || {},
   );
 }
 

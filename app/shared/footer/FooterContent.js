@@ -26,7 +26,11 @@ function FooterContent({ t }) {
               </Link>
             </Col>
             <Col lg={6} md={6}>
-              <p><FormattedHTMLMessage id="Footer.espooText" /></p><p> {feedbackLink}</p>
+              <p><FormattedHTMLMessage id="Footer.espooText" /></p>
+              <p>
+                {' '}
+                {feedbackLink}
+              </p>
             </Col>
           </Row>
         </Grid>
@@ -44,7 +48,11 @@ function FooterContent({ t }) {
               </Link>
             </Col>
             <Col lg={6} md={6}>
-              <p><FormattedHTMLMessage id="Footer.vantaaText" /></p><p> {feedbackLink}</p>
+              <p><FormattedHTMLMessage id="Footer.vantaaText" /></p>
+              <p>
+                {' '}
+                {feedbackLink}
+              </p>
             </Col>
           </Row>
         </Grid>
@@ -62,7 +70,11 @@ function FooterContent({ t }) {
               </Link>
             </Col>
             <Col lg={6} md={6}>
-              <p><FormattedHTMLMessage id="Footer.helsinkiText" /></p><p> {feedbackLink}</p>
+              <p><FormattedHTMLMessage id="Footer.helsinkiText" /></p>
+              <p>
+                {' '}
+                {feedbackLink}
+              </p>
             </Col>
           </Row>
         </Grid>

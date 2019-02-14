@@ -4,7 +4,9 @@ import React from 'react';
 import ResourceCard from 'shared/resource-card';
 
 
-function ResourceList({ date, emptyMessage, location, resourceIds }) {
+function ResourceList({
+  date, emptyMessage, location, resourceIds,
+}) {
   function renderResourceListItem(resourceId) {
     return (
       <ResourceCard

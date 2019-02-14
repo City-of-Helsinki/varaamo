@@ -1,6 +1,7 @@
+import types from 'constants/ActionTypes';
+
 import Immutable from 'seamless-immutable';
 
-import types from 'constants/ActionTypes';
 
 const initialState = Immutable({
   isEditing: false,
@@ -10,7 +11,6 @@ const initialState = Immutable({
 
 function reservationInfoModalReducer(state = initialState, action) {
   switch (action.type) {
-
     case types.API.RESERVATION_DELETE_SUCCESS: {
       return initialState;
     }

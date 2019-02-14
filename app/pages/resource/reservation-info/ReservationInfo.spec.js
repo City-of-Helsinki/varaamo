@@ -16,7 +16,7 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
         maxReservationsPerUser: 2,
         reservable: true,
         reservationInfo: 'Some information',
-      })
+      }),
     ),
   };
 

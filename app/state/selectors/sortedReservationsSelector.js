@@ -1,9 +1,10 @@
+import constants from 'constants/AppConstants';
+
 import filter from 'lodash/filter';
 import orderBy from 'lodash/orderBy';
 import values from 'lodash/values';
 import { createSelector } from 'reselect';
 
-import constants from 'constants/AppConstants';
 
 const reservationsSelector = (state, props) => {
   if (constants.RESERVATION_STATE_LABELS[props.filter]) {
@@ -22,7 +23,7 @@ const reservationsSelector = (state, props) => {
 
 const sortedReservationsSelector = createSelector(
   reservationsSelector,
-  reservations => orderBy(values(reservations), ['begin'], ['asc'])
+  reservations => orderBy(values(reservations), ['begin'], ['asc']),
 );
 
 export default sortedReservationsSelector;

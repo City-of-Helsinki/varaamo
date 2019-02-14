@@ -1,6 +1,7 @@
+import types from 'constants/ActionTypes';
+
 import { CALL_API } from 'redux-api-middleware';
 
-import types from 'constants/ActionTypes';
 import {
   buildAPIUrl,
   getErrorTypeDescriptor,
@@ -22,7 +23,7 @@ function fetchUser(id, params = {}) {
                 args: ['User', 'user-get', id],
               },
             },
-          }
+          },
         ),
         getSuccessTypeDescriptor(types.API.USER_GET_SUCCESS),
         getErrorTypeDescriptor(types.API.USER_GET_ERROR),

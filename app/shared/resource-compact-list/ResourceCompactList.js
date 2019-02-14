@@ -45,13 +45,15 @@ export class UnconnectedResourceCompactList extends React.Component {
     const resourceIdsLength = resourceIds.length;
     return (
       <div className="app-ResourceCompactList">
-        {Boolean(this.props.resourceIds.length - 1) &&
+        {Boolean(this.props.resourceIds.length - 1)
+          && (
           <Button
             bsStyle="primary"
             className="app-ResourceCompactList_arrow app-ResourceCompactList_arrow-left"
             disabled={resourcePosition === 0}
             onClick={this.onPreviousResource}
           />
+          )
         }
         <ResourceCard
           date={this.props.date}
@@ -59,13 +61,15 @@ export class UnconnectedResourceCompactList extends React.Component {
           resourceId={resourceIds[resourcePosition]}
           stacked={Boolean(resourceIdsLength - 1)}
         />
-        {Boolean(resourceIdsLength - 1) &&
+        {Boolean(resourceIdsLength - 1)
+          && (
           <Button
             bsStyle="primary"
             className="app-ResourceCompactList_arrow app-ResourceCompactList_arrow-right"
             disabled={resourcePosition === resourceIdsLength - 1}
             onClick={this.onNextResource}
           />
+          )
         }
       </div>
     );

@@ -63,7 +63,7 @@ class ReservationTimeControls extends Component {
     const { begin, timeFormat } = this.props;
     if (value) {
       begin.input.onChange(
-        updateWithTime(begin.input.value, value, timeFormat)
+        updateWithTime(begin.input.value, value, timeFormat),
       );
     }
   }
@@ -72,7 +72,7 @@ class ReservationTimeControls extends Component {
     const { end, timeFormat } = this.props;
     if (value) {
       end.input.onChange(
-        updateWithTime(end.input.value, value, timeFormat)
+        updateWithTime(end.input.value, value, timeFormat),
       );
     }
   }

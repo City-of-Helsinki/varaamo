@@ -51,7 +51,7 @@ export class UnconnectedAppContainer extends Component {
 
   render() {
     return (
-      <BodyClassName className={getCustomizationClassName()} >
+      <BodyClassName className={getCustomizationClassName()}>
         <DocumentTitle title="Varaamo">
           <div className="app">
             <Header location={this.props.location}>

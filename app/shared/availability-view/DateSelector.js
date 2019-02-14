@@ -38,7 +38,7 @@ export class UninjectedDateSelector extends React.Component {
         <a className="previous" onClick={this.handlePreviousClick} tabIndex="0">
           {this.props.t('AvailabilityViewDateSelector.previousDay')}
         </a>
-        <div className="current-value" >
+        <div className="current-value">
           <DatePicker
             dateFormat="dd D.M.YYYY"
             onChange={date => this.handleChange(date)}

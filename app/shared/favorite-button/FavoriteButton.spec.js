@@ -31,7 +31,7 @@ describe('shared/favorite-button/FavoriteButton', () => {
 
   it('has favorite class modifier if it is favorited', () => {
     expect(getWrapper({ favorited: true }).prop('className')).to.equal(
-      'favorite-button favorite-button--favorite'
+      'favorite-button favorite-button--favorite',
     );
   });
 

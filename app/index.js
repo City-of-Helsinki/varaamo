@@ -19,7 +19,7 @@ const initialStoreState = createStore(rootReducer, {}).getState();
 const initialServerState = window.INITIAL_STATE;
 const initialIntlState = initI18n();
 const finalState = Immutable(initialStoreState).merge(
-  [initialServerState, initialIntlState], { deep: true }
+  [initialServerState, initialIntlState], { deep: true },
 );
 const store = configureStore(finalState);
 
@@ -29,5 +29,5 @@ render(
       {getRoutes(store)}
     </Router>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );

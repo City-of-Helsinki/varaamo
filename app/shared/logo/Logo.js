@@ -9,7 +9,6 @@ import vantaaLogoSrc from './vantaa-logo.png';
 
 function Logo({ t }) {
   switch (getCurrentCustomization()) {
-
     case 'ESPOO': {
       return (
         <img

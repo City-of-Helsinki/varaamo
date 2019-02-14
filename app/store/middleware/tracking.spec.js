@@ -1,7 +1,8 @@
+import AppConstants from 'constants/AppConstants';
+
 import { expect } from 'chai';
 import simple from 'simple-mock';
 
-import AppConstants from 'constants/AppConstants';
 import trackingMiddleware, { track } from './tracking';
 
 describe('store/middleware/tracking', () => {
@@ -95,7 +96,7 @@ describe('store/middleware/tracking', () => {
           expect(push.callCount).to.equal(1);
           done();
         },
-        500
+        500,
       );
     });
   });

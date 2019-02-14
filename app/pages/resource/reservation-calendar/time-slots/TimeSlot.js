@@ -52,7 +52,9 @@ class TimeSlot extends PureComponent {
   }
 
   handleClick = (disabled) => {
-    const { addNotification, isLoggedIn, onClick, resource, slot, t } = this.props;
+    const {
+      addNotification, isLoggedIn, onClick, resource, slot, t,
+    } = this.props;
 
     if (disabled) {
       const notification = this.getReservationInfoNotification(isLoggedIn, resource, slot, t);
@@ -83,11 +85,10 @@ class TimeSlot extends PureComponent {
       slot,
     } = this.props;
     const isPast = new Date(slot.end) < new Date();
-    const disabled =
-      !isLoggedIn ||
-      (!isSelectable && !selected) ||
-      !resource.userPermissions.canMakeReservations ||
-      (!slot.editing && (slot.reserved || isPast));
+    const disabled = !isLoggedIn
+      || (!isSelectable && !selected)
+      || !resource.userPermissions.canMakeReservations
+      || (!slot.editing && (slot.reserved || isPast));
     const reservation = slot.reservation;
     const isOwnReservation = reservation && reservation.isOwn;
     const start = new Date(slot.start);

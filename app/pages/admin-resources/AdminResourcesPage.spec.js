@@ -107,12 +107,12 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
         const resourceTypeFilter = wrapper.find(ResourceTypeFilter);
         expect(resourceTypeFilter).to.have.length(1);
         expect(resourceTypeFilter.prop('selectedResourceTypes')).to.deep.equal(
-          defaultProps.selectedResourceTypes
+          defaultProps.selectedResourceTypes,
         );
         expect(resourceTypeFilter.prop('resourceTypes')).to.deep.equal(defaultProps.resourceTypes);
         expect(resourceTypeFilter.prop('onSelectResourceType')).to.equal(selectAdminResourceType);
         expect(resourceTypeFilter.prop('onUnselectResourceType')).to.equal(
-          unselectAdminResourceType
+          unselectAdminResourceType,
         );
       });
     });

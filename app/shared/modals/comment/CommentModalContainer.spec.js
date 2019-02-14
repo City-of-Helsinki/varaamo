@@ -37,7 +37,7 @@ describe('shared/modals/comment/CommentModalContainer', () => {
 
       expect(modalWrapper.length).to.equal(1);
       expect(modalWrapper.prop('onClose')).to.equal(
-        defaultProps.actions.closeReservationCommentModal
+        defaultProps.actions.closeReservationCommentModal,
       );
       expect(modalWrapper.prop('show')).to.equal(defaultProps.show);
     });
@@ -50,7 +50,7 @@ describe('shared/modals/comment/CommentModalContainer', () => {
       expect(commentForm.prop('defaultValue')).to.equal(reservation.comments);
       expect(commentForm.prop('isSaving')).to.equal(defaultProps.isSaving);
       expect(commentForm.prop('onCancel')).to.equal(
-        defaultProps.actions.closeReservationCommentModal
+        defaultProps.actions.closeReservationCommentModal,
       );
       expect(commentForm.prop('onSave')).to.equal(wrapper.instance().handleSave);
     });

@@ -1,3 +1,5 @@
+import types from 'constants/ActionTypes';
+
 import { expect } from 'chai';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
@@ -7,7 +9,6 @@ import {
   selectAdminResourceType,
   unselectAdminResourceType,
 } from 'actions/uiActions';
-import types from 'constants/ActionTypes';
 import Resource from 'utils/fixtures/Resource';
 import adminResourcesPageReducer from './adminResourcesPageReducer';
 
@@ -52,7 +53,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
         });
         const state = adminResourcesPageReducer(
           initialState,
-          selectAdminResourceType(resourceType)
+          selectAdminResourceType(resourceType),
         );
         expect(state.selectedResourceTypes).to.deep.equal([resourceType]);
       });
@@ -67,7 +68,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
         });
         const state = adminResourcesPageReducer(
           initialState,
-          unselectAdminResourceType(removedResourceType)
+          unselectAdminResourceType(removedResourceType),
         );
         expect(state.selectedResourceTypes).to.deep.equal([resourceType]);
       });
@@ -77,7 +78,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
       const getResourceSuccess = createAction(
         types.API.RESOURCES_GET_SUCCESS,
         payload => payload,
-        (payload, meta) => meta
+        (payload, meta) => meta,
       );
       const resourcesList = [
         Resource.build(),
@@ -98,7 +99,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
             {
               entities: { resources },
             },
-            { source: 'adminResourcesPage' }
+            { source: 'adminResourcesPage' },
           );
         });
 
@@ -162,7 +163,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
                 },
               },
             },
-            { source: 'adminResourcesPage' }
+            { source: 'adminResourcesPage' },
           );
         });
 

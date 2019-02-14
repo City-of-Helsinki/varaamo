@@ -1,9 +1,10 @@
+import actionTypes from 'constants/ActionTypes';
+import modalTypes from 'constants/ModalTypes';
+
 import filter from 'lodash/filter';
 import moment from 'moment';
 import { createAction, handleActions } from 'redux-actions';
 
-import actionTypes from 'constants/ActionTypes';
-import modalTypes from 'constants/ModalTypes';
 
 // actions
 // -------
@@ -48,7 +49,7 @@ function setOccurrences(state, numberOfOccurrences) {
     ...state,
     numberOfOccurrences,
     lastTime: (
-        moment(state.baseTime.begin)
+      moment(state.baseTime.begin)
         .add(numberOfOccurrences, state.frequency)
         .format('YYYY-MM-DD')
     ),
@@ -103,8 +104,8 @@ const recurringReservationsReducer = handleActions({
   [actionTypes.UI.CLOSE_MODAL]: (state, action) => {
     const modalType = action.payload;
     if (
-      modalType === modalTypes.RESERVATION_SUCCESS ||
-      modalType === modalTypes.RESERVATION_CONFIRM
+      modalType === modalTypes.RESERVATION_SUCCESS
+      || modalType === modalTypes.RESERVATION_CONFIRM
     ) {
       return initialState;
     }

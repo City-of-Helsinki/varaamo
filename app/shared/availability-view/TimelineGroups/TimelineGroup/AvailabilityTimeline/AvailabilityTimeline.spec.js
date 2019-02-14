@@ -75,7 +75,13 @@ describe('shared/availability-view/AvailabilityTimeline', () => {
             resourceId: '',
           },
         },
-        { key: '2', type: 'reservation', data: { begin: '', end: '', id: 12345, name: '' } },
+        {
+          key: '2',
+          type: 'reservation',
+          data: {
+            begin: '', end: '', id: 12345, name: '',
+          },
+        },
         {
           key: '3',
           type: 'reservation-slot',

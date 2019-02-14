@@ -12,7 +12,7 @@ export default class AvailabilityTimeline extends React.Component {
         key: PropTypes.string.isRequired,
         type: PropTypes.oneOf(['reservation', 'reservation-slot']).isRequired,
         data: PropTypes.object,
-      })
+      }),
     ).isRequired,
     onReservationClick: PropTypes.func,
     onReservationSlotClick: PropTypes.func,

@@ -41,13 +41,28 @@ function Reservation({ onClick, ...reservation }) {
       <div>
         <Glyphicon glyph="time" />
         {' '}
-        {startTime.format('HH:mm')} - {endTime.format('HH:mm')}
+        {startTime.format('HH:mm')}
+        {' '}
+-
+        {endTime.format('HH:mm')}
       </div>
       {reserverName && <div>{reserverName}</div>}
-      {reservation.numberOfParticipants && <div><Glyphicon glyph="user" /> {reservation.numberOfParticipants}</div>}
+      {reservation.numberOfParticipants && (
+      <div>
+        <Glyphicon glyph="user" />
+        {' '}
+        {reservation.numberOfParticipants}
+      </div>
+      )}
       {reservation.accessCode && <div><ReservationAccessCode reservation={reservation} /></div>}
       {reservation.comments && <hr />}
-      {reservation.comments && <div><Glyphicon glyph="comment" /> {reservation.comments}</div>}
+      {reservation.comments && (
+      <div>
+        <Glyphicon glyph="comment" />
+        {' '}
+        {reservation.comments}
+      </div>
+      )}
     </Popover>
   );
   return (
@@ -62,9 +77,9 @@ function Reservation({ onClick, ...reservation }) {
       >
         <div
           className={classnames('reservation',
-          { requested: reservation.state === 'requested' },
-          { disabled: reservation.state === 'confirmed' && !reservation.isOwn && !reservation.userPermissions.canModify },
-          { reserved: reservation.state === 'confirmed' && !reservation.isOwn && reservation.userPermissions.canModify })}
+            { requested: reservation.state === 'requested' },
+            { disabled: reservation.state === 'confirmed' && !reservation.isOwn && !reservation.userPermissions.canModify },
+            { reserved: reservation.state === 'confirmed' && !reservation.isOwn && reservation.userPermissions.canModify })}
           style={{ width }}
         >
           <div className="names">

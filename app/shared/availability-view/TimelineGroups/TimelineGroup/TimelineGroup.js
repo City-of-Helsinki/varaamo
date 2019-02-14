@@ -96,7 +96,7 @@ export default class TimelineGroup extends React.Component {
         )}
         <Sticky>
           <div className="hours">
-            {getHourRanges(this.props.date).map(range =>
+            {getHourRanges(this.props.date).map(range => (
               <div
                 className={classNames('hour', {
                   'hour-start-selected': selection && range.midPoint.isSame(selection.end),
@@ -107,10 +107,10 @@ export default class TimelineGroup extends React.Component {
               >
                 {range.startTime.format('HH:mm')}
               </div>
-            )}
+            ))}
           </div>
         </Sticky>
-        {this.props.resources.map(resource =>
+        {this.props.resources.map(resource => (
           <AvailabilityTimelineContainer
             date={this.props.date}
             id={resource}
@@ -121,7 +121,7 @@ export default class TimelineGroup extends React.Component {
             onSelectionCancel={onSelectionCancel}
             selection={selection}
           />
-        )}
+        ))}
       </div>
     );
   }

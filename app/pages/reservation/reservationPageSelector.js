@@ -1,7 +1,8 @@
+import ActionTypes from 'constants/ActionTypes';
+
 import { createSelector, createStructuredSelector } from 'reselect';
 import { first, isEmpty, orderBy } from 'lodash';
 
-import ActionTypes from 'constants/ActionTypes';
 import { createIsStaffSelector, currentUserSelector, isAdminSelector } from 'state/selectors/authSelectors';
 import { createResourceSelector, unitsSelector } from 'state/selectors/dataSelectors';
 import dateSelector from 'state/selectors/dateSelector';
@@ -25,7 +26,7 @@ const resourceSelector = createResourceSelector(resourceIdSelector);
 const unitSelector = createSelector(
   resourceSelector,
   unitsSelector,
-  (resource, units) => units[resource.unit] || {}
+  (resource, units) => units[resource.unit] || {},
 );
 
 const reservationPageSelector = createStructuredSelector({

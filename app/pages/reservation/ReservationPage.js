@@ -40,8 +40,8 @@ class UnconnectedReservationPage extends Component {
       reservationToEdit,
       selected,
     } = this.props;
-    if (isEmpty(reservationCreated) && isEmpty(reservationEdited) &&
-      isEmpty(reservationToEdit) && isEmpty(selected)) {
+    if (isEmpty(reservationCreated) && isEmpty(reservationEdited)
+      && isEmpty(reservationToEdit) && isEmpty(selected)) {
       if (location.query && !location.query.id && location.query.resource) {
         browserHistory.replace(`/resources/${location.query.resource}`);
       } else {
@@ -62,8 +62,8 @@ class UnconnectedReservationPage extends Component {
       reservationCreated,
       reservationEdited,
     } = this.props;
-    if ((!isEmpty(nextCreated) || !isEmpty(nextEdited)) &&
-      (nextCreated !== reservationCreated || nextEdited !== reservationEdited)) {
+    if ((!isEmpty(nextCreated) || !isEmpty(nextEdited))
+      && (nextCreated !== reservationCreated || nextEdited !== reservationEdited)) {
       this.setState({
         view: 'confirmation',
       });
@@ -107,7 +107,9 @@ class UnconnectedReservationPage extends Component {
   }
 
   handleReservation = (values = {}) => {
-    const { actions, reservationToEdit, resource, selected } = this.props;
+    const {
+      actions, reservationToEdit, resource, selected,
+    } = this.props;
     if (!isEmpty(selected)) {
       const { begin } = first(selected);
       const { end } = last(selected);
@@ -151,8 +153,8 @@ class UnconnectedReservationPage extends Component {
     } = this.props;
     const { view } = this.state;
 
-    if (isEmpty(resource) && isEmpty(reservationCreated) &&
-      isEmpty(reservationEdited) && isEmpty(reservationToEdit) && !isFetchingResource) {
+    if (isEmpty(resource) && isEmpty(reservationCreated)
+      && isEmpty(reservationEdited) && isEmpty(reservationToEdit) && !isFetchingResource) {
       return <div />;
     }
 
@@ -174,7 +176,8 @@ class UnconnectedReservationPage extends Component {
                   currentPhase={view}
                   isEditing={isEditing || isEdited}
                 />
-                {view === 'time' && isEditing &&
+                {view === 'time' && isEditing
+                  && (
                   <ReservationTime
                     location={location}
                     onCancel={this.handleCancel}
@@ -184,8 +187,10 @@ class UnconnectedReservationPage extends Component {
                     selectedReservation={reservationToEdit}
                     unit={unit}
                   />
+                  )
                 }
-                {view === 'information' && selectedTime &&
+                {view === 'information' && selectedTime
+                  && (
                   <ReservationInformation
                     isAdmin={isAdmin}
                     isEditing={isEditing}
@@ -200,14 +205,17 @@ class UnconnectedReservationPage extends Component {
                     selectedTime={selectedTime}
                     unit={unit}
                   />
+                  )
                 }
-                {view === 'confirmation' && (reservationCreated || reservationEdited) &&
+                {view === 'confirmation' && (reservationCreated || reservationEdited)
+                  && (
                   <ReservationConfirmation
                     isEdited={isEdited}
                     reservation={reservationCreated || reservationEdited}
                     resource={resource}
                     user={user}
                   />
+                  )
                 }
               </Loader>
             </div>

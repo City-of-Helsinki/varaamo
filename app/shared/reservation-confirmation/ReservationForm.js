@@ -1,3 +1,6 @@
+import constants from 'constants/AppConstants';
+import FormTypes from 'constants/FormTypes';
+
 import includes from 'lodash/includes';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -10,8 +13,7 @@ import Well from 'react-bootstrap/lib/Well';
 import { Field, Fields, reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 
-import constants from 'constants/AppConstants';
-import FormTypes from 'constants/FormTypes';
+
 import WrappedText from 'shared/wrapped-text';
 import ReduxFormField from 'shared/form-fields/ReduxFormField';
 import { injectT } from 'i18n';
@@ -43,9 +45,9 @@ const maxLengths = {
 
 export function validate(values, { fields, requiredFields, t }) {
   const errors = {};
-  const currentRequiredFields = values.staffEvent ?
-    constants.REQUIRED_STAFF_EVENT_FIELDS :
-    requiredFields;
+  const currentRequiredFields = values.staffEvent
+    ? constants.REQUIRED_STAFF_EVENT_FIELDS
+    : requiredFields;
   fields.forEach((field) => {
     const validator = validators[field];
     if (validator) {
@@ -62,9 +64,9 @@ export function validate(values, { fields, requiredFields, t }) {
     if (includes(currentRequiredFields, field)) {
       if (!values[field]) {
         errors[field] = (
-          field === 'termsAndConditions' ?
-          t('ReservationForm.termsAndConditionsError') :
-          t('ReservationForm.requiredError')
+          field === 'termsAndConditions'
+            ? t('ReservationForm.termsAndConditionsError')
+            : t('ReservationForm.requiredError')
         );
       }
     }
@@ -93,7 +95,9 @@ class UnconnectedReservationForm extends Component {
   }
 
   renderTimeControls = () => {
-    const { fields, maxReservationPeriod, t, timeSlots } = this.props;
+    const {
+      fields, maxReservationPeriod, t, timeSlots,
+    } = this.props;
     if (!includes(fields, 'begin') || !includes(fields, 'end')) {
       return null;
     }
@@ -128,9 +132,9 @@ class UnconnectedReservationForm extends Component {
       termsAndConditions,
     } = this.props;
 
-    this.requiredFields = staffEventSelected ?
-      constants.REQUIRED_STAFF_EVENT_FIELDS :
-      requiredFields;
+    this.requiredFields = staffEventSelected
+      ? constants.REQUIRED_STAFF_EVENT_FIELDS
+      : requiredFields;
 
     return (
       <div>
@@ -158,34 +162,34 @@ class UnconnectedReservationForm extends Component {
           {this.renderField(
             'reserverName',
             'text',
-            t('common.reserverNameLabel')
+            t('common.reserverNameLabel'),
           )}
           {this.renderField(
             'reserverId',
             'text',
-            t('common.reserverIdLabel')
+            t('common.reserverIdLabel'),
           )}
           {this.renderField(
             'reserverPhoneNumber',
             'text',
-            t('common.reserverPhoneNumberLabel')
+            t('common.reserverPhoneNumberLabel'),
           )}
           {this.renderField(
             'reserverEmailAddress',
             'email',
-            t('common.reserverEmailAddressLabel')
+            t('common.reserverEmailAddressLabel'),
           )}
           {this.renderField(
             'eventDescription',
             'textarea',
             t('common.eventDescriptionLabel'),
-            { rows: 5 }
+            { rows: 5 },
           )}
           {this.renderField(
             'numberOfParticipants',
             'number',
             t('common.numberOfParticipantsLabel'),
-            { min: '0' }
+            { min: '0' },
           )}
           {includes(this.props.fields, 'reserverAddressStreet') && (
             <Well>
@@ -234,7 +238,7 @@ class UnconnectedReservationForm extends Component {
             {
               placeholder: t('common.commentsPlaceholder'),
               rows: 5,
-            }
+            },
           )}
           {termsAndConditions && (
             <div className="terms-and-conditions">

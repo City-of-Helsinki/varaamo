@@ -65,7 +65,8 @@ class ReservationTime extends Component {
                   {t('common.resourceLabel')}
                 </Col>
                 <Col className="app-ReservationDetails__value" md={8}>
-                  {resource.name}<br />
+                  {resource.name}
+                  <br />
                   {unit.name}
                 </Col>
               </Row>

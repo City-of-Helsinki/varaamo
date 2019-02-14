@@ -1,10 +1,11 @@
+import constants from 'constants/AppConstants';
+
 import { camelizeKeys, decamelizeKeys } from 'humps';
 import pickBy from 'lodash/pickBy';
 import isEmpty from 'lodash/isEmpty';
 import { normalize } from 'normalizr';
 import { CALL_API, getJSON } from 'redux-api-middleware';
 
-import constants from 'constants/AppConstants';
 
 function buildAPIUrl(endpoint, params) {
   let url = `${constants.API_URL}/${endpoint}/`;

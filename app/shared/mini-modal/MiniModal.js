@@ -38,7 +38,9 @@ class MiniModal extends React.Component {
   }
 
   render() {
-    const { buttonContent, children, header, t, theme } = this.props;
+    const {
+      buttonContent, children, header, t, theme,
+    } = this.props;
     return (
       <div className={`app-MiniModal app-MiniModal--theme-${theme}`}>
         <Button

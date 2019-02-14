@@ -1,6 +1,7 @@
+import types from 'constants/ActionTypes';
+
 import { CALL_API } from 'redux-api-middleware';
 
-import types from 'constants/ActionTypes';
 import schemas from 'store/middleware/Schemas';
 import {
   buildAPIUrl,
@@ -26,7 +27,7 @@ function fetchResource(id, params = {}) {
         getRequestTypeDescriptor(types.API.RESOURCE_GET_REQUEST),
         getSuccessTypeDescriptor(
           types.API.RESOURCE_GET_SUCCESS,
-          { schema: schemas.resourceSchema }
+          { schema: schemas.resourceSchema },
         ),
         getErrorTypeDescriptor(types.API.RESOURCE_GET_ERROR),
       ],
@@ -49,7 +50,7 @@ function fetchResources(params = {}, source) {
           {
             meta: { source },
             schema: schemas.paginatedResourcesSchema,
-          }
+          },
         ),
         getErrorTypeDescriptor(types.API.RESOURCES_GET_ERROR),
       ],

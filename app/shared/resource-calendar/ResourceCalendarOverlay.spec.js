@@ -7,7 +7,7 @@ import ResourceCalendarOverlay from './ResourceCalendarOverlay';
 describe('shared/resource-calendar/ResourceCalendarOverlay', () => {
   function getWrapper(props) {
     return shallowWithIntl(
-      <ResourceCalendarOverlay {...props} />
+      <ResourceCalendarOverlay {...props} />,
     );
   }
 

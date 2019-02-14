@@ -1,8 +1,9 @@
+import types from 'constants/ActionTypes';
+
 import pickBy from 'lodash/pickBy';
 import { decamelizeKeys } from 'humps';
 import { CALL_API } from 'redux-api-middleware';
 
-import types from 'constants/ActionTypes';
 import schemas from 'store/middleware/Schemas';
 import {
   buildAPIUrl,
@@ -21,7 +22,7 @@ function commentReservation(reservation, resource, comments) {
     reservation,
     missingValues,
     { comments },
-    { staffEvent }
+    { staffEvent },
   ));
 }
 
@@ -38,18 +39,18 @@ function deleteReservation(reservation) {
           {
             countable: true,
             meta: { track: getTrackingInfo('cancel', reservation.resource) },
-          }
+          },
         ),
         getSuccessTypeDescriptor(
           types.API.RESERVATION_DELETE_SUCCESS,
           {
             countable: true,
             payload: () => reservation,
-          }
+          },
         ),
         getErrorTypeDescriptor(
           types.API.RESERVATION_DELETE_ERROR,
-          { countable: true }
+          { countable: true },
         ),
       ],
       endpoint: reservation.url,
@@ -72,7 +73,7 @@ function fetchReservations(params = {}) {
         getRequestTypeDescriptor(types.API.RESERVATIONS_GET_REQUEST),
         getSuccessTypeDescriptor(
           types.API.RESERVATIONS_GET_SUCCESS,
-          { schema: schemas.paginatedReservationsSchema }
+          { schema: schemas.paginatedReservationsSchema },
         ),
         getErrorTypeDescriptor(types.API.RESERVATIONS_GET_ERROR),
       ],
@@ -99,15 +100,15 @@ function postReservation(reservation) {
           {
             countable: true,
             meta: { track: getTrackingInfo('add', reservation.resource) },
-          }
+          },
         ),
         getSuccessTypeDescriptor(
           types.API.RESERVATION_POST_SUCCESS,
-          { countable: true }
+          { countable: true },
         ),
         getErrorTypeDescriptor(
           types.API.RESERVATION_POST_ERROR,
-          { countable: true, meta: { reservation } }
+          { countable: true, meta: { reservation } },
         ),
       ],
       endpoint: url,
@@ -127,15 +128,15 @@ function putReservation(reservation) {
           {
             countable: true,
             meta: { track: getTrackingInfo('edit', reservation.resource) },
-          }
+          },
         ),
         getSuccessTypeDescriptor(
           types.API.RESERVATION_PUT_SUCCESS,
-          { countable: true }
+          { countable: true },
         ),
         getErrorTypeDescriptor(
           types.API.RESERVATION_PUT_ERROR,
-          { countable: true }
+          { countable: true },
         ),
       ],
       endpoint: reservation.url,

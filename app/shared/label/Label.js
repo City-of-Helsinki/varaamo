@@ -16,12 +16,14 @@ Label.defaultProps = {
   theme: 'gray',
 };
 
-function Label({ children, className, shape, size, theme }) {
+function Label({
+  children, className, shape, size, theme,
+}) {
   return (
     <div
       className={classnames(
         `app-Label app-Label--shape-${shape} app-Label--size-${size} app-Label--theme-${theme}`,
-        className
+        className,
       )}
     >
       {children}

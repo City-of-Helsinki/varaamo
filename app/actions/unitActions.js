@@ -1,6 +1,7 @@
+import types from 'constants/ActionTypes';
+
 import { CALL_API } from 'redux-api-middleware';
 
-import types from 'constants/ActionTypes';
 import schemas from 'store/middleware/Schemas';
 import {
   buildAPIUrl,
@@ -19,7 +20,7 @@ function fetchUnits() {
         getRequestTypeDescriptor(types.API.UNITS_GET_REQUEST),
         getSuccessTypeDescriptor(
           types.API.UNITS_GET_SUCCESS,
-          { schema: schemas.paginatedUnitsSchema }
+          { schema: schemas.paginatedUnitsSchema },
         ),
         getErrorTypeDescriptor(types.API.UNITS_GET_ERROR),
       ],

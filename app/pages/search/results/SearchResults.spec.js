@@ -65,11 +65,11 @@ describe('pages/search/results/SearchResults', () => {
       describe('with selectedUnitId', () => {
         it('renders a ResourceCompactList', () => {
           const resourceCompactList = getWrapper({ showMap: true, selectedUnitId: '1' }).find(
-            ResourceCompactList
+            ResourceCompactList,
           );
           expect(resourceCompactList).to.have.length(1);
           expect(resourceCompactList.prop('resourceIds')).to.deep.equal(
-            defaultProps.searchResultIds
+            defaultProps.searchResultIds,
           );
           expect(resourceCompactList.prop('date')).to.deep.equal(defaultProps.filters.date);
         });

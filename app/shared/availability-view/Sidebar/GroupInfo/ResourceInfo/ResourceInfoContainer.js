@@ -31,11 +31,15 @@ export function ResourceInfo(props) {
         </Link>
       </div>
       <div className="details">
-        <Glyphicon glyph="user" /> {props.peopleCapacity}
-        {!props.public &&
+        <Glyphicon glyph="user" />
+        {' '}
+        {props.peopleCapacity}
+        {!props.public
+          && (
           <Label bsStyle="default" className="unpublished-label">
             {props.t('ResourceInfoContainer.unpublishedLabel')}
           </Label>
+          )
         }
       </div>
     </div>
@@ -47,7 +51,7 @@ export function selector() {
   const resourceSelector = createSelector(
     resourcesSelector,
     idSelector,
-    (resources, id) => resources[id]
+    (resources, id) => resources[id],
   );
   return createSelector(
     resourceSelector,
@@ -55,7 +59,7 @@ export function selector() {
       name: resource.name,
       peopleCapacity: resource.peopleCapacity,
       public: resource.public,
-    })
+    }),
   );
 }
 

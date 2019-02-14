@@ -79,13 +79,13 @@ describe('shared/modals/reservation-cancel/ReservationCancelModalContainer', () 
 
         it('renders CompactReservationList', () => {
           expect(
-            getModalBodyWrapper({ cancelAllowed }).find(CompactReservationList)
+            getModalBodyWrapper({ cancelAllowed }).find(CompactReservationList),
           ).to.have.length(1);
         });
 
         it('does not render responsibleContactInfo', () => {
           expect(
-            getModalBodyWrapper({ cancelAllowed }).find('.responsible-contact-info')
+            getModalBodyWrapper({ cancelAllowed }).find('.responsible-contact-info'),
           ).to.have.length(0);
         });
       });
@@ -95,13 +95,13 @@ describe('shared/modals/reservation-cancel/ReservationCancelModalContainer', () 
 
         it('renders responsibleContactInfo', () => {
           expect(
-            getModalBodyWrapper({ cancelAllowed }).find('.responsible-contact-info')
+            getModalBodyWrapper({ cancelAllowed }).find('.responsible-contact-info'),
           ).to.have.length(1);
         });
 
         it('does not render CompactReservationList', () => {
           expect(
-            getModalBodyWrapper({ cancelAllowed }).find(CompactReservationList)
+            getModalBodyWrapper({ cancelAllowed }).find(CompactReservationList),
           ).to.have.length(0);
         });
       });

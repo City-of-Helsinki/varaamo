@@ -1,7 +1,8 @@
+import constants from 'constants/AppConstants';
+
 import { expect } from 'chai';
 import { CALL_API } from 'redux-api-middleware';
 
-import constants from 'constants/AppConstants';
 import {
   buildAPIUrl,
   createTransformFunction,
@@ -176,7 +177,7 @@ describe('Utils: apiUtils', () => {
             const expected = Object.assign(
               {},
               constants.REQUIRED_API_HEADERS,
-              authorizationHeader
+              authorizationHeader,
             );
 
             expect(creator(state)).to.deep.equal(expected);
@@ -193,7 +194,7 @@ describe('Utils: apiUtils', () => {
               {},
               constants.REQUIRED_API_HEADERS,
               additionalHeaders,
-              authorizationHeader
+              authorizationHeader,
             );
 
             expect(creator(state)).to.deep.equal(expected);

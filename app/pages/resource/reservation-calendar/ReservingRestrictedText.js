@@ -11,7 +11,8 @@ function ReservingRestrictedText({ reservableBefore, reservableDaysInAdvance, t 
 
   return (
     <p className="info-text">
-      {t('ReservingRestrictedText.reservationRestricted', { days: reservableDaysInAdvance })}{' '}
+      {t('ReservingRestrictedText.reservationRestricted', { days: reservableDaysInAdvance })}
+      {' '}
       {t('ReservingRestrictedText.reservationAvailableBetween', { today, until })}
     </p>
   );

@@ -6,7 +6,7 @@ import GroupInfo from './GroupInfo';
 Sidebar.propTypes = {
   date: PropTypes.string.isRequired,
   groups: PropTypes.arrayOf(
-    PropTypes.shape({ name: PropTypes.string.isRequired })
+    PropTypes.shape({ name: PropTypes.string.isRequired }),
   ).isRequired,
   selectedResourceId: PropTypes.string,
 };

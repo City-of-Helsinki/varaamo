@@ -26,7 +26,9 @@ class DateHeader extends Component {
   }
 
   render() {
-    const { beforeText, date, onDecreaseDateButtonClick, onIncreaseDateButtonClick } = this.props;
+    const {
+      beforeText, date, onDecreaseDateButtonClick, onIncreaseDateButtonClick,
+    } = this.props;
     const dateString = moment(date).format('dddd, LL');
 
     return (

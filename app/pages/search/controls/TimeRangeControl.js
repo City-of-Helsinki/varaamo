@@ -1,10 +1,11 @@
+import constants from 'constants/AppConstants';
+
 import PropTypes from 'prop-types';
 import React from 'react';
 import Select from 'react-select';
 import moment from 'moment';
 
 import { injectT } from 'i18n';
-import constants from 'constants/AppConstants';
 import { calculateDuration, calculateEndTime } from 'utils/timeUtils';
 import CheckboxControl from './CheckboxControl';
 
@@ -30,7 +31,7 @@ class TimeRangeControl extends React.Component {
     const { start } = this.props;
     const startTime = moment(start, constants.FILTER.timeFormat).add(
       constants.FILTER.timePeriod,
-      constants.FILTER.timePeriodType
+      constants.FILTER.timePeriodType,
     );
     const endOfDay = moment('23:30', constants.FILTER.timeFormat);
     return this.getTimeOptions(startTime, endOfDay);
@@ -114,7 +115,9 @@ class TimeRangeControl extends React.Component {
   };
 
   render() {
-    const { duration, end, start, t, useTimeRange } = this.props;
+    const {
+      duration, end, start, t, useTimeRange,
+    } = this.props;
 
     return (
       <div className="app-TimeRangeControl">

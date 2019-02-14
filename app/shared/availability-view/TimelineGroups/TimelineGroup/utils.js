@@ -53,9 +53,9 @@ function isInsideOpeningHours(item, openingHours) {
 
 function markItemSelectable(item, isSelectable, openingHours) {
   const selectable = (
-    isSelectable &&
-    moment().isSameOrBefore(item.data.end) &&
-    (!openingHours || isInsideOpeningHours(item, openingHours))
+    isSelectable
+    && moment().isSameOrBefore(item.data.end)
+    && (!openingHours || isInsideOpeningHours(item, openingHours))
   );
   return { ...item, data: { ...item.data, isSelectable: selectable } };
 }
@@ -70,7 +70,7 @@ function markItemsSelectable(items, isSelectable, openingHours) {
 function addSelectionData(selection, resource, items) {
   if (!selection) {
     return markItemsSelectable(items, true, resource.openingHours);
-  } else if (selection.resourceId !== resource.id) {
+  } if (selection.resourceId !== resource.id) {
     // isSelectable is false by default, so nothing needs to be done.
     // This is a pretty important performance optimization when there are tons of
     // resources in the AvailabilityView and the selection is in a state where the

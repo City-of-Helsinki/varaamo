@@ -45,8 +45,8 @@ export default class AvailabilityView extends React.Component {
   handleReservationSlotMouseEnter(slot) {
     const isSlotSelectable = (
       !this.state.selection || (
-        this.state.selection.resourceId === slot.resourceId &&
-        this.state.selection.begin < slot.begin
+        this.state.selection.resourceId === slot.resourceId
+        && this.state.selection.begin < slot.begin
       )
     );
     if (isSlotSelectable) {
@@ -68,8 +68,8 @@ export default class AvailabilityView extends React.Component {
 
   endSelection(slot) {
     const isValid = (
-      this.state.selection.resourceId === slot.resourceId &&
-      this.state.selection.begin <= slot.begin
+      this.state.selection.resourceId === slot.resourceId
+      && this.state.selection.begin <= slot.begin
     );
     if (!isValid) {
       return;

@@ -14,18 +14,9 @@
   "parser": "babel-eslint",
 
   "plugins": [
-    "babel",
     "import",
     "react"
   ],
-
-  "settings": {
-    "import/resolver": {
-      "webpack": {
-        "config": "./config/webpack.common.js"
-      }
-    }
-  },
 
   "rules": {
     "class-methods-use-this": "off",
@@ -58,6 +49,8 @@
 
     "react/prefer-stateless-function": "off",
 
-    "linebreak-style": 0
+    "linebreak-style": 0,
+
+    "react/destructuring-assignment": "off"
   }
 }

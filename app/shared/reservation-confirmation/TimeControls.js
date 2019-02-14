@@ -42,7 +42,9 @@ class TimeControls extends Component {
   }
 
   getEndTimeOptions(beginValue) {
-    const { begin, maxReservationPeriod, timeFormat, timeSlots } = this.props;
+    const {
+      begin, maxReservationPeriod, timeFormat, timeSlots,
+    } = this.props;
     const beginTime = beginValue || begin.input.value;
     const firstPossibleIndex = timeSlots.findIndex(slot => (
       moment(slot.end).isAfter(beginTime)
@@ -59,7 +61,7 @@ class TimeControls extends Component {
           value: time,
         });
       } else {
-        return false;  // Exits the lodash forEach
+        return false; // Exits the lodash forEach
       }
     });
     return options;
@@ -74,7 +76,7 @@ class TimeControls extends Component {
       const currentEndValue = moment(end.input.value).format(timeFormat);
       if (!newEndOptions.find(option => option.value === currentEndValue)) {
         end.input.onChange(
-          updateWithTime(end.input.value, newEndOptions[0].value, timeFormat)
+          updateWithTime(end.input.value, newEndOptions[0].value, timeFormat),
         );
       }
     }
@@ -84,7 +86,7 @@ class TimeControls extends Component {
     const { end, timeFormat } = this.props;
     if (value) {
       end.input.onChange(
-        updateWithTime(end.input.value, value, timeFormat)
+        updateWithTime(end.input.value, value, timeFormat),
       );
     }
   }

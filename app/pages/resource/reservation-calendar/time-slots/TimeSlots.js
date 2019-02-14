@@ -1,3 +1,5 @@
+import constants from 'constants/AppConstants';
+
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Loader from 'react-loader';
@@ -6,7 +8,6 @@ import classnames from 'classnames';
 import findIndex from 'lodash/findIndex';
 import minBy from 'lodash/minBy';
 
-import constants from 'constants/AppConstants';
 import { injectT } from 'i18n';
 import ReservationPopover from 'shared/reservation-popover';
 import TimeSlot from './TimeSlot';
@@ -99,9 +100,7 @@ class TimeSlots extends Component {
       };
     }
 
-    const earliestTimeSlot = minBy(firstTimeSlots, timeSlot =>
-      moment(timeSlot.start).format('HHMM')
-    );
+    const earliestTimeSlot = minBy(firstTimeSlots, timeSlot => moment(timeSlot.start).format('HHMM'));
     const dateForTimeComparison = { year: 2000, dayOfYear: 1 };
     const earliestStart = moment(earliestTimeSlot.start).set(dateForTimeComparison);
 
@@ -115,15 +114,14 @@ class TimeSlots extends Component {
 
     const selectedDateIndex = findIndex(
       slots,
-      slot => !!slot[0] && moment(slot[0].start).format(constants.DATE_FORMAT) === selectedDate
+      slot => !!slot[0] && moment(slot[0].start).format(constants.DATE_FORMAT) === selectedDate,
     );
 
     const mobilePlaceholderSizes = timeSlotPlaceholderSizes
       .slice(selectedDateIndex, selectedDateIndex + 3)
       .filter(size => size !== null);
 
-    const mobilePlaceholderOffset =
-      mobilePlaceholderSizes.length > 0 ? Math.min(...mobilePlaceholderSizes) : 0;
+    const mobilePlaceholderOffset = mobilePlaceholderSizes.length > 0 ? Math.min(...mobilePlaceholderSizes) : 0;
 
     return {
       mobilePlaceholderOffset,
@@ -137,7 +135,7 @@ class TimeSlots extends Component {
 
     const { mobilePlaceholderOffset, timeSlotPlaceholderSizes } = this.calculatePlaceholders(
       selectedDate,
-      slots
+      slots,
     );
 
     return slots.map((timeSlots, index) => {
@@ -205,7 +203,7 @@ class TimeSlots extends Component {
       selected,
       resource,
       lastSelectableFound,
-      isAdmin
+      isAdmin,
     );
     const isSelected = utils.isSlotSelected(slot, selected);
     const isFirstSelected = utils.isFirstSelected(slot, selected);

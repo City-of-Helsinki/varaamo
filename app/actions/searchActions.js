@@ -1,8 +1,10 @@
+import types from 'constants/ActionTypes';
+import constants from 'constants/AppConstants';
+
 import { createAction } from 'redux-actions';
 import { CALL_API } from 'redux-api-middleware';
 
-import types from 'constants/ActionTypes';
-import constants from 'constants/AppConstants';
+
 import schemas from 'store/middleware/Schemas';
 import {
   buildAPIUrl,
@@ -21,7 +23,7 @@ const selectUnit = createAction(types.UI.SELECT_SEARCH_RESULTS_UNIT);
 function getPiwikActionName(searchParams) {
   if (searchParams.search) {
     return searchParams.search;
-  } else if (searchParams.purpose) {
+  } if (searchParams.purpose) {
     return `category: ${searchParams.purpose}`;
   }
 
@@ -49,11 +51,11 @@ function searchResources(filters = {}) {
                 ],
               },
             },
-          }
+          },
         ),
         getSuccessTypeDescriptor(
           types.API.SEARCH_RESULTS_GET_SUCCESS,
-          { schema: schemas.paginatedResourcesSchema }
+          { schema: schemas.paginatedResourcesSchema },
         ),
         getErrorTypeDescriptor(types.API.SEARCH_RESULTS_GET_ERROR),
       ],

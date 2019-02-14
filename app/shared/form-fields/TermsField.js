@@ -5,7 +5,9 @@ import RBCheckbox from 'react-bootstrap/lib/Checkbox';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
-function TermsField({ input, label, labelLink, meta, name, onClick }) {
+function TermsField({
+  input, label, labelLink, meta, name, onClick,
+}) {
   const showError = meta.error && meta.touched;
   return (
     <FormGroup
@@ -15,7 +17,8 @@ function TermsField({ input, label, labelLink, meta, name, onClick }) {
     >
       <Col sm={9}>
         <RBCheckbox {...input}>
-          {label}{' '}
+          {label}
+          {' '}
           <HelpBlock className="terms-checkbox-field-link" onClick={onClick}>
             {labelLink}
           </HelpBlock>

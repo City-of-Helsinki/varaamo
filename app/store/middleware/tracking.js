@@ -19,7 +19,7 @@ const tracking = () => dispatch => (action) => {
   if (AppConstants.TRACKING && trackData) {
     window.setTimeout(
       () => track(trackData),
-      0
+      0,
     );
   }
   return dispatch(action);

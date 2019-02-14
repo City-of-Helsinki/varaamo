@@ -28,7 +28,6 @@ const purposeIcons = {
 };
 
 class UnconnectedHomePage extends Component {
-
   constructor(props) {
     super(props);
     this.handleSearch = this.handleSearch.bind(this);
@@ -112,5 +111,5 @@ function mapDispatchToProps(dispatch) {
 export { UnconnectedHomePage };
 export default connect(
   homePageSelector,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(UnconnectedHomePage);

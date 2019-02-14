@@ -1,9 +1,10 @@
+import constants from 'constants/AppConstants';
+
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
 
-import constants from 'constants/AppConstants';
 import * as customizationUtils from 'utils/customizationUtils';
 import FeedbackLink from './FeedbackLink';
 

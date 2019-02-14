@@ -131,7 +131,7 @@ describe('state/selectors/authSelectors', () => {
         const expected = ['unit-2'];
 
         expect(selected).to.deep.equal(expected);
-      }
+      },
     );
 
     it('returns an empty array if user has no staff permissions', () => {
