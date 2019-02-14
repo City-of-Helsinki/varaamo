@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import React from 'react';
 import Loader from 'react-loader';
-import { browserHistory } from 'react-router';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
@@ -19,7 +18,11 @@ import { UnconnectedReservationPage as ReservationPage } from './ReservationPage
 
 describe('pages/reservation/ReservationPage', () => {
   const resource = Immutable(Resource.build());
+  const history = {
+    replace: () => {},
+  };
   const defaultProps = {
+    history,
     actions: {
       clearReservations: simple.mock(),
       closeReservationSuccessModal: simple.mock(),
@@ -39,15 +42,18 @@ describe('pages/reservation/ReservationPage', () => {
     reservationCreated: null,
     reservationEdited: null,
     resource,
-    selected: [{
-      begin: '2016-10-10T10:00:00+03:00',
-      end: '2016-10-10T11:00:00+03:00',
-      resource: resource.id,
-    }, {
-      begin: '2016-10-10T11:00:00+03:00',
-      end: '2016-10-10T12:00:00+03:00',
-      resource: resource.id,
-    }],
+    selected: [
+      {
+        begin: '2016-10-10T10:00:00+03:00',
+        end: '2016-10-10T11:00:00+03:00',
+        resource: resource.id,
+      },
+      {
+        begin: '2016-10-10T11:00:00+03:00',
+        end: '2016-10-10T12:00:00+03:00',
+        resource: resource.id,
+      },
+    ],
     unit: Immutable(Unit.build()),
     user: Immutable(User.build()),
   };
@@ -180,10 +186,10 @@ describe('pages/reservation/ReservationPage', () => {
 
   describe('componentDidMount', () => {
     describe('when reservations and selected empty', () => {
-      let browserHistoryMock;
+      let historyMock;
 
       before(() => {
-        browserHistoryMock = simple.mock(browserHistory, 'replace');
+        historyMock = simple.mock(history, 'replace');
         const instance = getWrapper({
           reservationCreated: null,
           reservationEdited: null,
@@ -197,23 +203,21 @@ describe('pages/reservation/ReservationPage', () => {
         simple.restore();
       });
 
-      it('calls browserHistory.replace() with /my-reservations', () => {
+      it('calls history.replace() with /my-reservations', () => {
         const expectedPath = '/my-reservations';
-        expect(browserHistoryMock.callCount).to.equal(1);
-        expect(browserHistoryMock.lastCall.args).to.deep.equal([expectedPath]);
+        expect(historyMock.callCount).to.equal(1);
+        expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
       });
     });
 
-    describe('when reservations and selected empty and location query has resource', () => {
-      let browserHistoryMock;
+    describe('when reservations and selected empty and location search has resource', () => {
+      let historyMock;
 
       before(() => {
-        browserHistoryMock = simple.mock(browserHistory, 'replace');
+        historyMock = simple.mock(history, 'replace');
         const instance = getWrapper({
           location: {
-            query: {
-              resource: resource.id,
-            },
+            search: `?resource=${resource.id}`,
           },
           reservationCreated: null,
           reservationEdited: null,
@@ -227,10 +231,10 @@ describe('pages/reservation/ReservationPage', () => {
         simple.restore();
       });
 
-      it('calls browserHistory.replace() with /my-reservations', () => {
+      it('calls history.replace() with /my-reservations', () => {
         const expectedPath = `/resources/${resource.id}`;
-        expect(browserHistoryMock.callCount).to.equal(1);
-        expect(browserHistoryMock.lastCall.args).to.deep.equal([expectedPath]);
+        expect(historyMock.callCount).to.equal(1);
+        expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
       });
     });
 
@@ -335,10 +339,10 @@ describe('pages/reservation/ReservationPage', () => {
   });
 
   describe('handleCancel', () => {
-    let browserHistoryMock;
+    let historyMock;
 
     before(() => {
-      browserHistoryMock = simple.mock(browserHistory, 'replace');
+      historyMock = simple.mock(history, 'replace');
     });
 
     after(() => {
@@ -346,27 +350,27 @@ describe('pages/reservation/ReservationPage', () => {
     });
 
     it('calls browserHistory.replace() with /my-reservations when reservationToEdit not empty', () => {
-      browserHistoryMock.reset();
+      historyMock.reset();
       const expectedPath = '/my-reservations';
       const instance = getWrapper({
         reservationToEdit: Reservation.build(),
       }).instance();
       instance.handleCancel();
 
-      expect(browserHistoryMock.callCount).to.equal(1);
-      expect(browserHistoryMock.lastCall.args).to.deep.equal([expectedPath]);
+      expect(historyMock.callCount).to.equal(1);
+      expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
     });
 
-    it('calls browserHistory.replace() with /resources when reservationToEdit empty', () => {
-      browserHistoryMock.reset();
+    it('calls history.replace() with /resources when reservationToEdit empty', () => {
+      historyMock.reset();
       const expectedPath = `/resources/${resource.id}`;
       const instance = getWrapper({
         reservationToEdit: null,
       }).instance();
       instance.handleCancel();
 
-      expect(browserHistoryMock.callCount).to.equal(1);
-      expect(browserHistoryMock.lastCall.args).to.deep.equal([expectedPath]);
+      expect(historyMock.callCount).to.equal(1);
+      expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
     });
   });
 

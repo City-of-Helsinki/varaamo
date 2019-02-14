@@ -1,9 +1,5 @@
-import constants from 'constants/AppConstants';
-
 import classnames from 'classnames';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { browserHistory } from 'react-router';
+import React, { PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 
 import { injectT } from 'i18n';
@@ -13,12 +9,13 @@ class SearchResultsPaging extends React.Component {
   static propTypes = {
     filters: PropTypes.object.isRequired,
     resultCount: PropTypes.number.isRequired,
+    history: PropTypes.object.isRequired,
   };
 
   handleClick(page) {
-    const { filters } = this.props;
+    const { filters, history } = this.props;
     const nextPageFilters = { ...filters, page };
-    browserHistory.push(getSearchPageUrl(nextPageFilters));
+    history.push(getSearchPageUrl(nextPageFilters));
   }
 
   renderPageButtons(pageCount, currentPage) {
@@ -34,10 +31,9 @@ class SearchResultsPaging extends React.Component {
   renderPageButton(page, currentPage) {
     return (
       <Button
-        className={classnames(
-          'app-SearchResultsPaging__page',
-          { 'app-SearchResultsPaging__selected': currentPage === page },
-        )}
+        className={classnames('app-SearchResultsPaging__page', {
+          'app-SearchResultsPaging__selected': currentPage === page,
+        })}
         key={`page${page}`}
         onClick={() => this.handleClick(page)}
       >
@@ -49,7 +45,7 @@ class SearchResultsPaging extends React.Component {
   render() {
     const { resultCount } = this.props;
     if (!resultCount) {
-      return (<div />);
+      return <div />;
     }
 
     const { page } = this.props.filters || 1;

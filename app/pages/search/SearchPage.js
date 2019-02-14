@@ -73,7 +73,8 @@ class UnconnectedSearchPage extends Component {
       actions,
       isFetchingSearchResults,
       location,
-      params,
+      history,
+      match,
       resultCount,
       searchResultIds,
       searchDone,
@@ -83,7 +84,7 @@ class UnconnectedSearchPage extends Component {
     } = this.props;
     return (
       <div className="app-SearchPage">
-        <SearchControls location={location} params={params} />
+        <SearchControls location={location} params={match.params} />
         {!isFetchingSearchResults && (
           <MapToggle mapVisible={showMap} onClick={actions.toggleMap} resultCount={resultCount} />
         )}
@@ -99,6 +100,7 @@ class UnconnectedSearchPage extends Component {
           <div className="app-SearchPage__content">
             {(searchDone || isFetchingSearchResults) && (
               <SearchResults
+                history={history}
                 isFetching={isFetchingSearchResults}
                 location={location}
                 ref="searchResults"
@@ -121,7 +123,8 @@ UnconnectedSearchPage.propTypes = {
   filters: PropTypes.object.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
-  params: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
   position: PropTypes.object,
   resultCount: PropTypes.number.isRequired,
   searchDone: PropTypes.bool.isRequired,

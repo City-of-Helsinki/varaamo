@@ -6,6 +6,7 @@ import Grid from 'react-bootstrap/lib/Grid';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { withRouter } from 'react-router-dom';
 
 import { fetchUser } from 'actions/userActions';
 import { enableGeoposition } from 'actions/uiActions';
@@ -41,11 +42,19 @@ export class UnconnectedAppContainer extends Component {
     if (this.props.userId) {
       this.props.fetchUser(this.props.userId);
     }
+    this.removeFacebookAppendedHash();
   }
 
   componentWillUpdate(nextProps) {
     if (nextProps.userId && nextProps.userId !== this.props.userId) {
       this.props.fetchUser(nextProps.userId);
+    }
+  }
+
+  removeFacebookAppendedHash() {
+    if (window.location.hash && window.location.hash.indexOf('_=_') !== -1) {
+      window.location.hash = ''; // for older browsers, leaves a # behind
+      window.history.pushState('', document.title, window.location.pathname);
     }
   }
 
@@ -86,4 +95,9 @@ UnconnectedAppContainer.childContextTypes = {
 
 const actions = { enableGeoposition, fetchUser };
 
-export default connect(selector, actions)(UnconnectedAppContainer);
+export default withRouter(
+  connect(
+    selector,
+    actions
+  )(UnconnectedAppContainer)
+);

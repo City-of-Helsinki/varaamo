@@ -7,7 +7,7 @@ import { createResourceSelector, unitsSelector } from 'state/selectors/dataSelec
 import dateSelector from 'state/selectors/dateSelector';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
 
-const resourceIdSelector = (state, props) => props.params.id;
+const resourceIdSelector = (state, props) => props.match && props.match.params.id;
 const resourceSelector = createResourceSelector(resourceIdSelector);
 const showMapSelector = state => state.ui.resourceMap.showMap;
 const unitSelector = createSelector(

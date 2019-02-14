@@ -229,4 +229,16 @@ describe('pages/search/controls/TimeRangeControl', () => {
       expect(onChange.lastCall.args).to.deep.equal([expected]);
     });
   });
+
+  describe('handleToggleChange', () => {
+    it('calls onTimeRangeSwitch with the supplied value', () => {
+      const wrapper = getWrapper();
+      const instance = wrapper.instance();
+      const { onTimeRangeSwitch } = defaults;
+      const expected = true;
+      instance.handleToggleChange(expected);
+      expect(onTimeRangeSwitch.callCount).to.equal(1);
+      expect(onTimeRangeSwitch.calls[0].arg).to.equal(expected);
+    });
+  });
 });

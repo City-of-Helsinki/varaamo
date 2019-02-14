@@ -1,6 +1,5 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { Link } from 'react-router';
+import React, { PropTypes } from 'react';
+import { Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
@@ -26,22 +25,19 @@ class MainNavbar extends React.Component {
   }
 
   render() {
-    const {
-      activeLink,
-      clearSearchResults,
-      isAdmin,
-      isLoggedIn,
-      t,
-    } = this.props;
+    const { activeLink, clearSearchResults, isAdmin, isLoggedIn, t } = this.props;
 
     return (
-      <Navbar className="app-MainNavbar" expanded={this.state.expanded} fluid onToggle={() => this.toggleCollapse()}>
+      <Navbar
+        className="app-MainNavbar"
+        expanded={this.state.expanded}
+        fluid
+        onToggle={() => this.toggleCollapse()}
+      >
         <Navbar.Header>
           <Navbar.Toggle />
           <Navbar.Brand>
-            <Link to="/">
-              Varaamo
-            </Link>
+            <Link to="/">Varaamo</Link>
           </Navbar.Brand>
         </Navbar.Header>
         <Navbar.Collapse>
@@ -60,7 +56,7 @@ class MainNavbar extends React.Component {
             {isLoggedIn && (
               <LinkContainer to="/admin-resources">
                 <NavItem eventKey="admin-resources" onClick={() => this.collapseItem()}>
-                  { isAdmin ? t('Navbar.adminResources') : t('Navbar.userFavorites') }
+                  {isAdmin ? t('Navbar.adminResources') : t('Navbar.userFavorites')}
                 </NavItem>
               </LinkContainer>
             )}

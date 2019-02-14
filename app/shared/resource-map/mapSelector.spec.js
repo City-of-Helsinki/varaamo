@@ -5,9 +5,7 @@ import selector from './mapSelector';
 function getState({
   units = {},
   resources = {},
-  filters = {
-    date: '2012-02-02', duration: 30, end: '00:00', page: 1, search: '', start: '08:30',
-  },
+  filters = { date: '2012-02-02', duration: 30, end: '00:00', page: 1, search: '', start: '08:30' },
 } = {}) {
   return {
     data: { units, resources },
@@ -167,7 +165,7 @@ describe('shared/resource-map/mapSelector', () => {
       const state = getState();
       const props = getProps({
         location: {
-          query: { date: '2012-02-02', search: 'search' },
+          search: '?date=2012-02-02&search=search',
         },
         resourceIds: ['123'],
       });

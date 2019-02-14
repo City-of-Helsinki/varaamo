@@ -34,12 +34,12 @@ function getState(resources = [], units = [], user = defaultUser) {
 function getProps(id = 'some-id') {
   return {
     location: {
-      query: {
-        date: '2015-10-10',
-      },
+      search: 'date=2015-10-10',
     },
-    params: {
-      id,
+    match: {
+      params: {
+        id,
+      },
     },
   };
 }
@@ -57,7 +57,7 @@ describe('pages/resource/resourcePageSelector', () => {
     const state = getState();
     const props = getProps();
     const selected = resourcePageSelector(state, props);
-    const expected = props.params.id;
+    const expected = props.match.params.id;
 
     expect(selected.id).to.equal(expected);
   });

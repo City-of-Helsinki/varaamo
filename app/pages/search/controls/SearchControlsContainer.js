@@ -1,12 +1,10 @@
-import constants from 'constants/AppConstants';
-
 import range from 'lodash/range';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
@@ -106,7 +104,7 @@ class UnconnectedSearchControlsContainer extends Component {
   handleSearch = (newFilters = {}) => {
     const page = 1;
     const filters = { ...this.props.filters, ...newFilters, page };
-    browserHistory.push(`/search?${queryString.stringify(filters)}`);
+    this.props.history.push(`/search?${queryString.stringify(filters)}`);
   };
 
   handleReset = () => {
@@ -257,6 +255,7 @@ UnconnectedSearchControlsContainer.propTypes = {
   t: PropTypes.func.isRequired,
   unitOptions: PropTypes.array.isRequired,
   urlSearchFilters: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 UnconnectedSearchControlsContainer = injectT(UnconnectedSearchControlsContainer); // eslint-disable-line
@@ -275,7 +274,9 @@ function mapDispatchToProps(dispatch) {
 }
 
 export { UnconnectedSearchControlsContainer };
-export default connect(
-  searchControlsSelector,
-  mapDispatchToProps,
-)(UnconnectedSearchControlsContainer);
+export default withRouter(
+  connect(
+    searchControlsSelector,
+    mapDispatchToProps
+  )(UnconnectedSearchControlsContainer)
+);

@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import Col from 'react-bootstrap/lib/Col';
 import Panel from 'react-bootstrap/lib/Panel';
@@ -37,6 +36,7 @@ class UnconnectedResourcePage extends Component {
     };
 
     this.fetchResource = this.fetchResource.bind(this);
+    this.handleBackButton = this.handleBackButton.bind(this);
   }
 
   componentDidMount() {
@@ -72,13 +72,13 @@ class UnconnectedResourcePage extends Component {
   }
 
   handleDateChange = (newDate) => {
-    const { resource } = this.props;
+    const { resource, history } = this.props;
     const day = newDate.toISOString().substring(0, 10);
-    browserHistory.replace(getResourcePageUrl(resource, day));
+    history.replace(getResourcePageUrl(resource, day));
   };
 
   handleBackButton() {
-    browserHistory.goBack();
+    this.props.history.goBack();
   }
 
   handleImageClick(photoIndex) {
@@ -123,13 +123,14 @@ class UnconnectedResourcePage extends Component {
       isFetchingResource,
       isLoggedIn,
       location,
-      params,
+      match,
       resource,
       showMap,
       t,
       unit,
+      history,
     } = this.props;
-
+    const { params } = match;
     const { isOpen, photoIndex } = this.state;
 
     if (isEmpty(resource) && !isFetchingResource) {
@@ -193,7 +194,11 @@ class UnconnectedResourcePage extends Component {
                           resourceId={resource.id}
                           selectedDate={date}
                         />
-                        <ReservationCalendar location={location} params={params} />
+                        <ReservationCalendar
+                          history={history}
+                          location={location}
+                          params={params}
+                        />
                       </div>
                     )}
                   </Panel>
@@ -238,11 +243,12 @@ UnconnectedResourcePage.propTypes = {
   isFetchingResource: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
-  params: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   showMap: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
   unit: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 UnconnectedResourcePage = injectT(UnconnectedResourcePage); // eslint-disable-line
 

@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import MockDate from 'mockdate';
 import React from 'react';
-import { browserHistory } from 'react-router';
 import simple from 'simple-mock';
 
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
@@ -11,12 +10,9 @@ import ReservationConfirmation from 'shared/reservation-confirmation';
 import Resource from 'utils/fixtures/Resource';
 import TimeSlot from 'utils/fixtures/TimeSlot';
 import { shallowWithIntl } from 'utils/testUtils';
-import {
-  UnconnectedReservationCalendarContainer as ReservationCalendarContainer,
-} from './ReservationCalendarContainer';
+import { UnconnectedReservationCalendarContainer as ReservationCalendarContainer } from './ReservationCalendarContainer';
 import ReservingRestrictedText from './ReservingRestrictedText';
 import TimeSlots from './time-slots';
-
 
 describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () => {
   const actions = {
@@ -56,23 +52,23 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     resource: 'some-resource-id',
     start: '2016-10-11T10:00:00.000Z',
   };
-
+  const history = {
+    push: () => {},
+  };
   const defaultProps = {
     actions,
+    history,
     date: '2015-10-11',
     isAdmin: false,
     isEditing: false,
     isFetchingResource: false,
     isLoggedIn: true,
     isStaff: false,
-    location: { query: {} },
+    location: { search: '' },
     params: { id: resource.id },
     resource,
     selected: [],
-    timeSlots: [
-      [TimeSlot.build()],
-      [TimeSlot.build()],
-    ],
+    timeSlots: [[TimeSlot.build()], [TimeSlot.build()]],
   };
   function getWrapper(props) {
     return shallowWithIntl(<ReservationCalendarContainer {...defaultProps} {...props} />);
@@ -80,11 +76,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
 
   function makeRenderTests(props, options) {
     let wrapper;
-    const {
-      renderClosedText,
-      renderRestrictedText,
-      renderTimeSlots,
-    } = options;
+    const { renderClosedText, renderRestrictedText, renderTimeSlots } = options;
 
     before(() => {
       wrapper = getWrapper(props);
@@ -120,7 +112,9 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       expect(confirmation.prop('params')).to.deep.equal(defaultProps.params);
       expect(confirmation.prop('selectedReservations')).to.deep.equal(props.selected);
       expect(confirmation.prop('showTimeControls')).to.be.true;
-      expect(confirmation.prop('timeSlots')).to.deep.equal(props.timeSlots.length ? [timeSlot1, timeSlot2] : []);
+      expect(confirmation.prop('timeSlots')).to.deep.equal(
+        props.timeSlots.length ? [timeSlot1, timeSlot2] : []
+      );
     });
   }
 
@@ -274,17 +268,19 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
   });
 
   describe('handleReserveClick', () => {
-    const selected = [{
-      begin: '2016-10-12T10:00:00+03:00',
-      end: '2016-10-12T11:00:00+03:00',
-      resource: 'some-resource',
-    }];
+    const selected = [
+      {
+        begin: '2016-10-12T10:00:00+03:00',
+        end: '2016-10-12T11:00:00+03:00',
+        resource: 'some-resource',
+      },
+    ];
     const now = '2016-10-12T08:00:00+03:00';
-    let browserHistoryMock;
+    let historyMock;
 
     before(() => {
       MockDate.set(now);
-      browserHistoryMock = simple.mock(browserHistory, 'push');
+      historyMock = simple.mock(history, 'push');
     });
 
     after(() => {
@@ -295,13 +291,16 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     it('calls actions addNotification when user has max open reservations for resource', () => {
       const isAdmin = false;
       const maxReservationsPerUser = 1;
-      const reservations = [{
-        end: '2016-10-12T09:00:00+03:00',
-        isOwn: true,
-      }, {
-        end: '2016-10-12T10:00:00+03:00',
-        isOwn: false,
-      }];
+      const reservations = [
+        {
+          end: '2016-10-12T09:00:00+03:00',
+          isOwn: true,
+        },
+        {
+          end: '2016-10-12T10:00:00+03:00',
+          isOwn: false,
+        },
+      ];
       const resourceWithReservations = Resource.build({
         maxReservationsPerUser,
         reservations,
@@ -315,12 +314,14 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       instance.handleReserveClick();
       expect(defaultProps.actions.addNotification.callCount).to.equal(1);
     });
-    it('calls browserHistory push with correct path', () => {
-      const expectedPath = `/reservation?begin=10:00&date=2016-10-12&end=11:00&id=&resource=${selected[0].resource}`;
+    it('calls history push with correct path', () => {
+      const expectedPath = `/reservation?begin=10:00&date=2016-10-12&end=11:00&id=&resource=${
+        selected[0].resource
+      }`;
       const instance = getWrapper({ selected }).instance();
       instance.handleReserveClick();
-      expect(browserHistoryMock.callCount).to.equal(1);
-      expect(browserHistoryMock.lastCall.args).to.deep.equal([expectedPath]);
+      expect(historyMock.callCount).to.equal(1);
+      expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
     });
   });
 });

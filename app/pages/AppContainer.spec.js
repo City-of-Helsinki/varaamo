@@ -8,7 +8,6 @@ import Notifications from 'shared/notifications';
 import { getState } from 'utils/testUtils';
 import { selector, UnconnectedAppContainer as AppContainer } from './AppContainer';
 
-
 describe('pages/AppContainer', () => {
   function getWrapper(props) {
     const defaults = {
@@ -85,6 +84,14 @@ describe('pages/AppContainer', () => {
   });
 
   describe('componentDidMount', () => {
+    it('calls removeFacebookAppendedHash', () => {
+      const instance = getWrapper().instance();
+      simple.mock(instance, 'removeFacebookAppendedHash').returnWith('some text');
+      instance.componentDidMount();
+
+      expect(instance.removeFacebookAppendedHash.callCount).to.equal(1);
+    });
+
     describe('when user is not logged in', () => {
       it('does not fetch user data', () => {
         const fetchUser = simple.mock();
@@ -136,6 +143,18 @@ describe('pages/AppContainer', () => {
         instance.componentWillUpdate({ userId: newId });
         expect(fetchUser.callCount).to.equal(0);
       });
+    });
+  });
+
+  describe('removeFacebookAppendedHash', () => {
+    beforeEach(() => {
+      window.location.hash = '_=_';
+    });
+
+    it('removes "_=_" hash if it exists', () => {
+      const instance = getWrapper().instance();
+      instance.removeFacebookAppendedHash();
+      expect(window.location.hash).to.not.have.string('_=_');
     });
   });
 });

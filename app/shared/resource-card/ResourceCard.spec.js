@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import React from 'react';
-import { browserHistory, Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
@@ -37,7 +37,14 @@ describe('shared/resource-card/ResourceCard', () => {
       }),
     );
   }
+
+  const history = {
+    push: () => {},
+    replace: () => {},
+  };
+
   const defaultProps = {
+    history,
     date: '2015-10-10',
     isLoggedIn: false,
     location: {
@@ -228,81 +235,81 @@ describe('shared/resource-card/ResourceCard', () => {
   });
 
   describe('handleSearchByType', () => {
-    let browserHistoryMock;
+    let historyMock;
 
     before(() => {
-      browserHistoryMock = simple.mock(browserHistory, 'push');
+      historyMock = simple.mock(history, 'push');
     });
 
     after(() => {
       simple.restore();
     });
 
-    it('calls browserHistory.push with correct path', () => {
+    it('calls history.push with correct path', () => {
       getWrapper()
         .instance()
         .handleSearchByType();
-      const actualPath = browserHistoryMock.lastCall.args[0];
+      const actualPath = historyMock.lastCall.args[0];
       const expectedPath = '/search?search=workplace';
 
-      expect(browserHistoryMock.callCount).to.equal(1);
+      expect(historyMock.callCount).to.equal(1);
       expect(actualPath).to.equal(expectedPath);
     });
   });
 
   describe('handleSearchByDistance', () => {
-    let browserHistoryMock;
+    let historyMock;
 
     before(() => {
-      browserHistoryMock = simple.mock(browserHistory, 'push');
+      historyMock = simple.mock(history, 'push');
     });
 
     after(() => {
       simple.restore();
     });
 
-    it('calls browserHistory.push with correct path', () => {
+    it('calls history.push with correct path', () => {
       getWrapper({
         resource: getResource({ distance: 5000 }),
       })
         .instance()
         .handleSearchByDistance();
-      const actualPath = browserHistoryMock.lastCall.args[0];
+      const actualPath = historyMock.lastCall.args[0];
       const expectedPath = '/search?distance=5000';
 
-      expect(browserHistoryMock.callCount).to.equal(1);
+      expect(historyMock.callCount).to.equal(1);
       expect(actualPath).to.equal(expectedPath);
     });
   });
 
   describe('handleSearchByPeopleCapacity', () => {
-    let browserHistoryMock;
+    let historyMock;
 
     before(() => {
-      browserHistoryMock = simple.mock(browserHistory, 'push');
+      historyMock = simple.mock(history, 'push');
     });
 
     after(() => {
       simple.restore();
     });
 
-    it('calls browserHistory.push with correct path', () => {
+    it('calls history.push with correct path', () => {
       getWrapper()
         .instance()
         .handleSearchByPeopleCapacity();
-      const actualPath = browserHistoryMock.lastCall.args[0];
+      const actualPath = historyMock.lastCall.args[0];
       const expectedPath = '/search?people=16';
 
-      expect(browserHistoryMock.callCount).to.equal(1);
+      expect(historyMock.callCount).to.equal(1);
       expect(actualPath).to.equal(expectedPath);
     });
   });
 
   describe('handleSearchByUnit', () => {
-    let browserHistoryMock;
+    let historyMock;
 
     before(() => {
-      browserHistoryMock = simple.mock(browserHistory, 'push');
+      historyMock = simple.mock(history, 'push');
     });
 
     after(() => {
@@ -313,19 +320,19 @@ describe('shared/resource-card/ResourceCard', () => {
       getWrapper()
         .instance()
         .handleSearchByUnit();
-      const actualPath = browserHistoryMock.lastCall.args[0];
+      const actualPath = historyMock.lastCall.args[0];
       const expectedPath = '/search?unit=unit_value';
 
-      expect(browserHistoryMock.callCount).to.equal(1);
+      expect(historyMock.callCount).to.equal(1);
       expect(actualPath).to.equal(expectedPath);
     });
   });
 
   describe('handleLinkClick', () => {
-    let browserHistoryMock;
+    let historyMock;
 
     before(() => {
-      browserHistoryMock = simple.mock(browserHistory, 'replace');
+      historyMock = simple.mock(history, 'replace');
     });
 
     after(() => {
@@ -337,10 +344,10 @@ describe('shared/resource-card/ResourceCard', () => {
         .instance()
         .handleLinkClick();
 
-      expect(browserHistoryMock.callCount).to.equal(1);
-      expect(browserHistoryMock.lastCall.args).to.have.length(1);
-      expect(browserHistoryMock.lastCall.args[0].pathname).to.equal(defaultProps.location.pathname);
-      expect(browserHistoryMock.lastCall.args[0].search).to.equal(defaultProps.location.search);
+      expect(historyMock.callCount).to.equal(1);
+      expect(historyMock.lastCall.args).to.have.length(1);
+      expect(historyMock.lastCall.args[0].pathname).to.equal(defaultProps.location.pathname);
+      expect(historyMock.lastCall.args[0].search).to.equal(defaultProps.location.search);
     });
   });
 });

@@ -1,9 +1,8 @@
 import classnames from 'classnames';
 import round from 'lodash/round';
-import PropTypes from 'prop-types';
 import queryString from 'query-string';
-import React, { Component } from 'react';
-import { browserHistory, Link } from 'react-router';
+import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router-dom';
 import Col from 'react-bootstrap/lib/Col';
 import iconHome from 'hel-icons/dist/shapes/home.svg';
 import iconMapMarker from 'hel-icons/dist/shapes/map-marker.svg';
@@ -20,29 +19,30 @@ import ResourceAvailability from './ResourceAvailability';
 class ResourceCard extends Component {
   handleSearchByType = () => {
     const filters = { search: this.props.resource.type.name };
-    browserHistory.push(`/search?${queryString.stringify(filters)}`);
+    this.props.history.push(`/search?${queryString.stringify(filters)}`);
   };
 
   handleSearchByDistance = () => {
     const filters = { distance: this.props.resource.distance };
-    browserHistory.push(`/search?${queryString.stringify(filters)}`);
+    this.props.history.push(`/search?${queryString.stringify(filters)}`);
   };
 
   handleSearchByPeopleCapacity = () => {
     const filters = { people: this.props.resource.peopleCapacity };
-    browserHistory.push(`/search?${queryString.stringify(filters)}`);
+    this.props.history.push(`/search?${queryString.stringify(filters)}`);
   };
 
   handleSearchByUnit = () => {
     const filters = { unit: this.props.unit.id };
-    browserHistory.push(`/search?${queryString.stringify(filters)}`);
+    this.props.history.push(`/search?${queryString.stringify(filters)}`);
   };
 
   handleLinkClick = () => {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-    const { location } = this.props;
+    const scrollTop =
+      window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+    const { location, history } = this.props;
     const { pathname, search } = location;
-    browserHistory.replace({ pathname, search, state: { scrollTop } });
+    history.replace({ pathname, search, state: { scrollTop } });
   };
 
   renderDistance(distance) {
@@ -177,6 +177,7 @@ class ResourceCard extends Component {
 ResourceCard.propTypes = {
   date: PropTypes.string.isRequired,
   location: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   stacked: PropTypes.bool,
   t: PropTypes.func.isRequired,

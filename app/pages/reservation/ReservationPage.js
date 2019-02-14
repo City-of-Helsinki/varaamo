@@ -1,11 +1,10 @@
 import { first, isEmpty, last } from 'lodash';
 import moment from 'moment';
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
+import queryString from 'query-string';
 
 import { postReservation, putReservation } from 'actions/reservationActions';
 import { fetchResource } from 'actions/resourceActions';
@@ -39,13 +38,20 @@ class UnconnectedReservationPage extends Component {
       reservationEdited,
       reservationToEdit,
       selected,
+      history,
     } = this.props;
-    if (isEmpty(reservationCreated) && isEmpty(reservationEdited)
-      && isEmpty(reservationToEdit) && isEmpty(selected)) {
-      if (location.query && !location.query.id && location.query.resource) {
-        browserHistory.replace(`/resources/${location.query.resource}`);
+    if (
+      isEmpty(reservationCreated) &&
+      isEmpty(reservationEdited) &&
+      isEmpty(reservationToEdit) &&
+      isEmpty(selected)
+    ) {
+      const query = queryString.parse(location.search);
+
+      if (!query.id && query.resource) {
+        history.replace(`/resources/${query.resource}`);
       } else {
-        browserHistory.replace('/my-reservations');
+        history.replace('/my-reservations');
       }
     } else {
       this.fetchResource();
@@ -54,16 +60,12 @@ class UnconnectedReservationPage extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    const {
-      reservationCreated: nextCreated,
-      reservationEdited: nextEdited,
-    } = nextProps;
-    const {
-      reservationCreated,
-      reservationEdited,
-    } = this.props;
-    if ((!isEmpty(nextCreated) || !isEmpty(nextEdited))
-      && (nextCreated !== reservationCreated || nextEdited !== reservationEdited)) {
+    const { reservationCreated: nextCreated, reservationEdited: nextEdited } = nextProps;
+    const { reservationCreated, reservationEdited } = this.props;
+    if (
+      (!isEmpty(nextCreated) || !isEmpty(nextEdited)) &&
+      (nextCreated !== reservationCreated || nextEdited !== reservationEdited)
+    ) {
       this.setState({
         view: 'confirmation',
       });
@@ -79,8 +81,14 @@ class UnconnectedReservationPage extends Component {
   fetchResource() {
     const { actions, date, resource } = this.props;
     if (!isEmpty(resource)) {
-      const start = moment(date).subtract(2, 'M').startOf('month').format();
-      const end = moment(date).add(2, 'M').endOf('month').format();
+      const start = moment(date)
+        .subtract(2, 'M')
+        .startOf('month')
+        .format();
+      const end = moment(date)
+        .add(2, 'M')
+        .endOf('month')
+        .format();
       actions.fetchResource(resource.id, { start, end });
     }
   }
@@ -90,21 +98,21 @@ class UnconnectedReservationPage extends Component {
       this.setState({ view: 'time' });
       window.scrollTo(0, 0);
     }
-  }
+  };
 
   handleCancel = () => {
-    const { reservationToEdit, resource } = this.props;
+    const { reservationToEdit, resource, history } = this.props;
     if (!isEmpty(reservationToEdit)) {
-      browserHistory.replace('/my-reservations');
+      history.replace('/my-reservations');
     } else {
-      browserHistory.replace(`/resources/${resource.id}`);
+      history.replace(`/resources/${resource.id}`);
     }
-  }
+  };
 
   handleConfirmTime = () => {
     this.setState({ view: 'information' });
     window.scrollTo(0, 0);
-  }
+  };
 
   handleReservation = (values = {}) => {
     const {
@@ -131,7 +139,7 @@ class UnconnectedReservationPage extends Component {
         });
       }
     }
-  }
+  };
 
   render() {
     const {
@@ -150,11 +158,17 @@ class UnconnectedReservationPage extends Component {
       t,
       unit,
       user,
+      history,
     } = this.props;
     const { view } = this.state;
 
-    if (isEmpty(resource) && isEmpty(reservationCreated)
-      && isEmpty(reservationEdited) && isEmpty(reservationToEdit) && !isFetchingResource) {
+    if (
+      isEmpty(resource) &&
+      isEmpty(reservationCreated) &&
+      isEmpty(reservationEdited) &&
+      isEmpty(reservationToEdit) &&
+      !isFetchingResource
+    ) {
       return <div />;
     }
 
@@ -163,7 +177,9 @@ class UnconnectedReservationPage extends Component {
     const begin = !isEmpty(selected) ? first(selected).begin : null;
     const end = !isEmpty(selected) ? last(selected).end : null;
     const selectedTime = begin && end ? { begin, end } : null;
-    const title = t(`ReservationPage.${isEditing || isEdited ? 'editReservationTitle' : 'newReservationTitle'}`);
+    const title = t(
+      `ReservationPage.${isEditing || isEdited ? 'editReservationTitle' : 'newReservationTitle'}`
+    );
 
     return (
       <div className="app-ReservationPage">
@@ -172,13 +188,10 @@ class UnconnectedReservationPage extends Component {
             <div className="app-ReservationPage__content">
               <h1>{title}</h1>
               <Loader loaded={!isEmpty(resource)}>
-                <ReservationPhases
-                  currentPhase={view}
-                  isEditing={isEditing || isEdited}
-                />
-                {view === 'time' && isEditing
-                  && (
+                <ReservationPhases currentPhase={view} isEditing={isEditing || isEdited} />
+                {view === 'time' && isEditing && (
                   <ReservationTime
+                    history={history}
                     location={location}
                     onCancel={this.handleCancel}
                     onConfirm={this.handleConfirmTime}
@@ -187,10 +200,8 @@ class UnconnectedReservationPage extends Component {
                     selectedReservation={reservationToEdit}
                     unit={unit}
                   />
-                  )
-                }
-                {view === 'information' && selectedTime
-                  && (
+                )}
+                {view === 'information' && selectedTime && (
                   <ReservationInformation
                     isAdmin={isAdmin}
                     isEditing={isEditing}
@@ -205,18 +216,15 @@ class UnconnectedReservationPage extends Component {
                     selectedTime={selectedTime}
                     unit={unit}
                   />
-                  )
-                }
-                {view === 'confirmation' && (reservationCreated || reservationEdited)
-                  && (
+                )}
+                {view === 'confirmation' && (reservationCreated || reservationEdited) && (
                   <ReservationConfirmation
                     isEdited={isEdited}
                     reservation={reservationCreated || reservationEdited}
                     resource={resource}
                     user={user}
                   />
-                  )
-                }
+                )}
               </Loader>
             </div>
           </div>
@@ -243,8 +251,9 @@ UnconnectedReservationPage.propTypes = {
   t: PropTypes.func.isRequired,
   unit: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
-UnconnectedReservationPage = injectT(UnconnectedReservationPage);  // eslint-disable-line
+UnconnectedReservationPage = injectT(UnconnectedReservationPage); // eslint-disable-line
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
@@ -260,4 +269,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export { UnconnectedReservationPage };
-export default connect(reservationPageSelector, mapDispatchToProps)(UnconnectedReservationPage);
+export default connect(
+  reservationPageSelector,
+  mapDispatchToProps
+)(UnconnectedReservationPage);
