@@ -13,7 +13,7 @@
 
   "parser": "babel-eslint",
 
-  "plugins": ["babel", "import", "react"],
+  "plugins": ["import", "react"],
 
   "settings": {
     "import/resolver": {
@@ -24,8 +24,6 @@
   },
 
   "rules": {
-    // Amendments to airbnb rules
-    // ##########################
 
     "class-methods-use-this": "off",
 
@@ -45,17 +43,12 @@
 
     "import/prefer-default-export": "off",
 
-    // allow use of constructors without new,
-    // makes working with seamless-immutable easier
     "new-cap": ["error", { "capIsNew": false, "newIsCap": true }],
 
-    // allow using underscore dangle with piwik
     "no-underscore-dangle": ["error", { "allow": ["_paq"] }],
 
-    // makes testing easier with chai expect
     "no-unused-expressions": "off",
 
-    // allow functions to be used before they are defined
     "no-use-before-define": ["error", "nofunc"],
 
     "react/forbid-prop-types": "off",
