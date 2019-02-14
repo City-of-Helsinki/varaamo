@@ -1,6 +1,8 @@
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import Select from 'react-select';
 import map from 'lodash/map';
 
 import DatePicker from 'shared/date-picker';

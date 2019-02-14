@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Sticky from 'react-sticky-el';
 
 import MainNavbar from 'shared/main-navbar';
