@@ -3,7 +3,7 @@ sudo: required
 
 language: node_js
 node_js:
-  - "lts"
+  - "stable"
 
 cache:
   yarn: true
@@ -24,7 +24,5 @@ before_script:
 script:
   - yarn lint
   - yarn test:ci
-  - yarn test:coverage
-  
 after_success:
   - codecov < coverage/*/lcov.info
