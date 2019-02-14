@@ -1,10 +1,14 @@
 import moment from 'moment';
+import queryString from 'query-string';
 
 const timeSelector = (state, props) => {
-  const time = props.location.query.time;
+  const query = props && props.location ? queryString.parse(props.location.search) : {};
+  const time = query.time;
+
   if (time) {
     return moment.utc(time).toISOString();
   }
+
   return time;
 };
 

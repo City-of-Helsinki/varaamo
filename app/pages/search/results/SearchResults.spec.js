@@ -10,6 +10,7 @@ import { UnconnectedSearchResults as SearchResults } from './SearchResults';
 
 describe('pages/search/results/SearchResults', () => {
   const defaultProps = {
+    history: { push: () => {} },
     filters: {
       date: '2015-10-10',
       page: 1,

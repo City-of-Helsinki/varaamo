@@ -6,9 +6,7 @@ import dateSelector from 'state/selectors/dateSelector';
 function getProps(date) {
   return {
     location: {
-      query: {
-        date,
-      },
+      search: `?date=${date}`,
     },
   };
 }

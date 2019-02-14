@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import React from 'react';
-import { browserHistory } from 'react-router';
 import simple from 'simple-mock';
 import moment from 'moment';
 
@@ -13,11 +12,16 @@ import Unit from 'utils/fixtures/Unit';
 import ReservationTime from './ReservationTime';
 
 describe('pages/reservation/reservation-time/ReservationTime', () => {
+  const history = {
+    replace: () => {},
+  };
+
   const defaultProps = {
+    history,
     location: {},
     onCancel: simple.mock(),
     onConfirm: simple.mock(),
-    params: {},
+    match: { params: {} },
     resource: Resource.build(),
     selectedReservation: Reservation.build(),
     unit: Unit.build(),
@@ -60,11 +64,11 @@ describe('pages/reservation/reservation-time/ReservationTime', () => {
     const day = date.toISOString().substring(0, 10);
     const expectedPath = `/reservation?date=${day}&resource=${defaultProps.resource.id}`;
     let instance;
-    let browserHistoryMock;
+    let historyMock;
 
     before(() => {
       instance = getWrapper().instance();
-      browserHistoryMock = simple.mock(browserHistory, 'replace');
+      historyMock = simple.mock(history, 'replace');
       instance.handleDateChange(date);
     });
 
@@ -72,9 +76,9 @@ describe('pages/reservation/reservation-time/ReservationTime', () => {
       simple.restore();
     });
 
-    it('calls browserHistory replace with correct path', () => {
-      expect(browserHistoryMock.callCount).to.equal(1);
-      expect(browserHistoryMock.lastCall.args).to.deep.equal([expectedPath]);
+    it('calls history replace with correct path', () => {
+      expect(historyMock.callCount).to.equal(1);
+      expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
     });
   });
 });

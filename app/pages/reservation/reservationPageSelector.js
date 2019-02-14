@@ -2,9 +2,14 @@ import { createSelector, createStructuredSelector } from 'reselect';
 import first from 'lodash/first';
 import isEmpty from 'lodash/isEmpty';
 import orderBy from 'lodash/orderBy';
+import queryString from 'query-string';
 
 import ActionTypes from 'constants/ActionTypes';
-import { createIsStaffSelector, currentUserSelector, isAdminSelector } from 'state/selectors/authSelectors';
+import {
+  createIsStaffSelector,
+  currentUserSelector,
+  isAdminSelector,
+} from 'state/selectors/authSelectors';
 import { createResourceSelector, unitsSelector } from 'state/selectors/dataSelectors';
 import dateSelector from 'state/selectors/dateSelector';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
@@ -20,7 +25,7 @@ const editedSelector = (state) => {
 };
 const toEditSelector = state => first(state.ui.reservations.toEdit);
 const resourceIdSelector = (state, props) => {
-  const query = props && props.location ? props.location.query : {};
+  const query = props && props.location ? queryString.parse(props.location.search) : {};
   return query.resource;
 };
 const resourceSelector = createResourceSelector(resourceIdSelector);

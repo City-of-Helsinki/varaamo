@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { browserHistory } from 'react-router';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 import Row from 'react-bootstrap/lib/Row';
@@ -42,12 +41,13 @@ export class UnconnectedReservationCalendarContainer extends Component {
     isStaff: PropTypes.bool.isRequired,
     // eslint-disable-next-line react/no-unused-prop-types
     location: PropTypes.shape({
-      query: PropTypes.object.isRequired,
+      search: PropTypes.string.isRequired,
     }).isRequired,
     params: PropTypes.shape({
       // eslint-disable-line react/no-unused-prop-types
       id: PropTypes.string.isRequired,
     }).isRequired,
+    history: PropTypes.object.isRequired,
     resource: PropTypes.object.isRequired,
     selected: PropTypes.array.isRequired,
     t: PropTypes.func.isRequired,
@@ -101,7 +101,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
   };
 
   handleReserveClick = () => {
-    const { actions, isAdmin, resource, selected, t } = this.props;
+    const { actions, isAdmin, resource, selected, t, history } = this.props;
     if (!isAdmin && hasMaxReservations(resource)) {
       actions.addNotification({
         message: t('TimeSlots.maxReservationsPerUser'),
@@ -114,7 +114,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
       const reservation = Object.assign({}, first(orderedSelected), { end });
       const nextUrl = getEditReservationUrl(reservation);
 
-      browserHistory.push(nextUrl);
+      history.push(nextUrl);
     }
   };
 

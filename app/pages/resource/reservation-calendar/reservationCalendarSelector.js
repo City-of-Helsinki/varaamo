@@ -1,7 +1,9 @@
 import filter from 'lodash/filter';
 import isEmpty from 'lodash/isEmpty';
+import map from 'lodash/map';
 import { createSelector, createStructuredSelector } from 'reselect';
-import moment from 'moment';
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
 
 import ActionTypes from 'constants/ActionTypes';
 import {
@@ -16,6 +18,8 @@ import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsA
 import { getOpeningHours, getOpenReservations } from 'utils/resourceUtils';
 import { getTimeSlots } from 'utils/timeUtils';
 import utils from './utils';
+
+const moment = extendMoment(Moment);
 
 const resourceIdSelector = (state, props) => props.params.id;
 const resourceSelector = createResourceSelector(resourceIdSelector);
@@ -34,12 +38,9 @@ const dateRangeSelector = createSelector(
     const nextWeekDays = utils.getNextWeeksDays(selectedDate);
     const startDate = moment(selectedDate).startOf('week').format('YYYY-MM-DD');
     const endDate = moment(selectedDate).endOf('week').add(nextWeekDays, 'days').format('YYYY-MM-DD');
-    const duration = moment.duration({ days: 1 });
     const range = moment.range(moment(startDate), moment(endDate));
-    const rangeDates = [];
-    range.by(duration, (date) => {
-      rangeDates.push(date.format('YYYY-MM-DD'));
-    });
+    const rangeDates = map(Array.from(range.by('days')), date => date.format('YYYY-MM-DD'));
+
     return rangeDates;
   }
 );
