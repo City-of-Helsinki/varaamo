@@ -1,4 +1,5 @@
-import { pick, uniq } from 'lodash';
+import pick from 'lodash/pick';
+import uniq from 'lodash/uniq';
 import camelCase from 'lodash/camelCase';
 import React, { Component, PropTypes } from 'react';
 import Col from 'react-bootstrap/lib/Col';

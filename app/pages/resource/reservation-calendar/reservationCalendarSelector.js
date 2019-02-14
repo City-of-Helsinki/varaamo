@@ -1,4 +1,6 @@
-import { filter, isEmpty, map } from 'lodash';
+import filter from 'lodash/filter';
+import isEmpty from 'lodash/isEmpty';
+import map from 'lodash/map';
 import { createSelector, createStructuredSelector } from 'reselect';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
