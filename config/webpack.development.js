@@ -27,25 +27,23 @@ module.exports = merge(common, {
         enforce: 'pre',
         test: /\.(js|jsx)$/,
         include: path.resolve(__dirname, '../app'),
+        exclude: path.resolve(__dirname, '../node_modules'),
         loader: 'eslint-loader',
         options: {
-          configFile: path.resolve(__dirname, '../.eslintrc'),
-          eslintPath: require.resolve('eslint'),
+          configFile: path.join(__dirname, '../.eslintrc'),
         },
       },
       {
         test: /\.(js|jsx)$/,
         include: path.resolve(__dirname, '../app'),
-        options: {
-          presets: ['@babel/preset-env', '@babel/preset-react'],
-        },
+        exclude: path.resolve(__dirname, '../node_modules'),
         loader: 'babel-loader',
       },
       {
         test: /\.css$/,
         use: [
           'style-loader',
-          'css-loader?url=false',
+          { loader: 'css-loader', options: { importLoaders: 1, url: false } },
           { loader: 'postcss-loader', options: { plugins: [autoprefixer({ browsers: ['last 2 version', 'ie 9'] })] } },
         ],
       },
@@ -53,7 +51,7 @@ module.exports = merge(common, {
         test: /\.scss$/,
         use: [
           'style-loader',
-          'css-loader?url=false',
+          { loader: 'css-loader', options: { importLoaders: 1, url: false } },
           { loader: 'postcss-loader', options: { plugins: [autoprefixer({ browsers: ['last 2 version', 'ie 9'] })] } },
           'sass-loader',
         ],
