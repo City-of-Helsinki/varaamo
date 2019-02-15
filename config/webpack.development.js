@@ -27,16 +27,18 @@ module.exports = merge(common, {
         enforce: 'pre',
         test: /\.(js|jsx)$/,
         include: path.resolve(__dirname, '../app'),
-        exclude: path.resolve(__dirname, '../node_modules'),
         loader: 'eslint-loader',
         options: {
-          configFile: path.join(__dirname, '../.eslintrc'),
+          configFile: path.resolve(__dirname, '../.eslintrc'),
+          eslintPath: require.resolve('eslint'),
         },
       },
       {
         test: /\.(js|jsx)$/,
         include: path.resolve(__dirname, '../app'),
-        exclude: path.resolve(__dirname, '../node_modules'),
+        options: {
+          presets: ['@babel/preset-env', '@babel/preset-react'],
+        },
         loader: 'babel-loader',
       },
       {
