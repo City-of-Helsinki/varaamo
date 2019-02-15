@@ -56,9 +56,9 @@ module.exports = (options) => {
   };
 
   if (options.coverage) {
-    karmaConfig.plugins.push('karma-coverage');
+    karmaConfig.plugins.push('karma-coverage-istanbul-reporter');
 
-    karmaConfig.coverageReporter = {
+    karmaConfig.coverageIstanbulReporter = {
       dir: '../coverage',
       reporters: options.coverageReporters || [
         { type: 'lcov' },
@@ -67,7 +67,7 @@ module.exports = (options) => {
       ],
     };
 
-    karmaConfig.reporters.push('coverage');
+    karmaConfig.reporters.push('coverage-istanbul');
   }
 
   karmaConfig.webpack = webpackConfig;

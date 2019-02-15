@@ -5,20 +5,22 @@ require('dotenv').load({ path: path.resolve(__dirname, '../.env') });
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 
 const common = require('./webpack.common');
 
 module.exports = merge(common, {
   entry: ['@babel/polyfill', path.resolve(__dirname, '../app/index.js')],
-  debug: false,
   devtool: 'source-map',
+  mode: 'production',
   output: {
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/_assets/',
     filename: 'app.js',
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         include: path.resolve(__dirname, '../app'),
@@ -31,17 +33,18 @@ module.exports = merge(common, {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader',
-          'postcss-loader',
+          'css-loader?url=false',
+          'resolve-url-loader',
+          { loader: 'postcss-loader', options: { plugins: [autoprefixer({ browsers: ['last 2 version', 'ie 9'] })] } },
         ],
       },
       {
         test: /\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader',
+          'css-loader?url=false',
+          { loader: 'postcss-loader', options: { plugins: [autoprefixer({ browsers: ['last 2 version', 'ie 9'] })] } },
           'resolve-url-loader',
-          'postcss-loader',
           'sass-loader',
         ],
       },
@@ -57,16 +60,17 @@ module.exports = merge(common, {
         TRACKING: Boolean(process.env.PIWIK_SITE_ID),
       },
     }),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        screw_ie8: true,
-        warnings: false,
-      },
-    }),
     new MiniCssExtractPlugin({
       filename: 'app.css',
     }),
   ],
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true, // Must be set to true if using source-maps in production
+      }),
+    ],
+  },
 });
