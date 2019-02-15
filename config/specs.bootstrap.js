@@ -1,5 +1,10 @@
 import '@babel/polyfill';
 
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+Enzyme.configure({ adapter: new Adapter() });
+
 /* eslint-disable no-console */
 console.warning = (...args) => { throw Error(`console.warning: ${args.join(' ')}`); };
 console.error = (...args) => { throw Error(`console.error: ${args.join(' ')}`); };
