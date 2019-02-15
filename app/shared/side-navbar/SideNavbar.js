@@ -29,7 +29,7 @@ class SideNavbar extends Component {
 
   onToggleSideBar = () => {
     if (!this.state.forcedOpen) {
-      this.setState({ open: !this.state.open });
+      this.setState(prevState => ({ open: !prevState.open }));
     }
   }
 

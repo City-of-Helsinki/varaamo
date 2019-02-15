@@ -3,7 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const common = require('./webpack.common');
 
@@ -24,8 +24,8 @@ module.exports = merge(common, {
           path.resolve(__dirname, '../app'),
           path.resolve(__dirname, './'),
         ],
-        loader: 'babel',
-        query: {
+        loader: 'babel-loader',
+        options: {
           plugins: [
             ['istanbul', {
               exclude: [
@@ -34,16 +34,26 @@ module.exports = merge(common, {
               ],
             }],
           ],
-          presets: ['es2015', 'node6', 'react', 'stage-2'],
+          presets: ['@babel/preset-env', '@babel/preset-react'],
         },
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style', 'css-loader!postcss-loader'),
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+        ],
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style', 'css-loader!resolve-url-loader!postcss-loader!sass-loader'),
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'resolve-url-loader',
+          'postcss-loader',
+          'sass-loader',
+        ],
       },
     ],
   },
@@ -56,6 +66,8 @@ module.exports = merge(common, {
     }),
     new HtmlWebpackPlugin(),
     new webpack.IgnorePlugin(/ReactContext/),
-    new ExtractTextPlugin('app.css'),
+    new MiniCssExtractPlugin({
+      filename: 'app.css',
+    }),
   ],
 });

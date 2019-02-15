@@ -23,8 +23,8 @@ module.exports = merge(common, {
         test: /\.js$/,
         include: path.resolve(__dirname, '../app'),
         loader: 'babel-loader',
-        query: {
-          presets: ["@babel/preset-env", "@babel/preset-react"],
+        options: {
+          presets: ['@babel/preset-env', '@babel/preset-react'],
         },
       },
       {
@@ -66,7 +66,7 @@ module.exports = merge(common, {
       },
     }),
     new MiniCssExtractPlugin({
-      filename: 'app.css'
+      filename: 'app.css',
     }),
   ],
 });

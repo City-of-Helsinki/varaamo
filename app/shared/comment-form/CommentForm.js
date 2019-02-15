@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/lib/Button';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
-import { findDOMNode } from 'react-dom';
 
 import { injectT } from 'i18n';
 
@@ -16,7 +15,7 @@ class CommentForm extends Component {
 
   handleSave(event) {
     event.preventDefault();
-    const comments = findDOMNode(this.refs.commentsInput).value;
+    const comments = this.commentsInput.value;
     this.props.onSave(comments);
   }
 
@@ -33,7 +32,8 @@ class CommentForm extends Component {
             componentClass="textarea"
             defaultValue={defaultValue}
             placeholder={t('CommentForm.placeholder')}
-            ref="commentsInput"
+            // eslint-disable-next-line no-return-assign
+            ref={node => this.commentsInput = node}
             rows={5}
           />
         </FormGroup>

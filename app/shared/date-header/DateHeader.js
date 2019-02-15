@@ -20,6 +20,7 @@ class DateHeader extends Component {
     if (this.props.scrollTo) {
       // Use timeout to allow rest of the page render and the scrollTo to work properly.
       setTimeout(() => {
+        // eslint-disable-next-line react/no-find-dom-node
         scrollTo(findDOMNode(this));
       }, 100);
     }
@@ -37,6 +38,7 @@ class DateHeader extends Component {
           <button
             className="date-header-button decrease-date-button"
             onClick={onDecreaseDateButtonClick}
+            type="button"
           >
             <Glyphicon glyph="chevron-left" />
           </button>
@@ -45,6 +47,7 @@ class DateHeader extends Component {
           <button
             className="date-header-button increase-date-button"
             onClick={onIncreaseDateButtonClick}
+            type="button"
           >
             <Glyphicon glyph="chevron-right" />
           </button>
