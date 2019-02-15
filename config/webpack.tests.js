@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const autoprefixer = require('autoprefixer');
 
 const common = require('./webpack.common');
 
@@ -20,10 +21,7 @@ module.exports = merge(common, {
     rules: [
       {
         test: /\.js$/,
-        include: [
-          path.resolve(__dirname, '../app'),
-          path.resolve(__dirname, './'),
-        ],
+        include: path.resolve(__dirname, '../app'),
         loader: 'babel-loader',
         options: {
           plugins: [
@@ -41,17 +39,17 @@ module.exports = merge(common, {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader',
-          'postcss-loader',
+          'css-loader?url=false',
+          { loader: 'postcss-loader', options: { plugins: [autoprefixer({ browsers: ['last 2 version', 'ie 9'] })] } },
         ],
       },
       {
         test: /\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader',
+          'css-loader?url=false',
+          { loader: 'postcss-loader', options: { plugins: [autoprefixer({ browsers: ['last 2 version', 'ie 9'] })] } },
           'resolve-url-loader',
-          'postcss-loader',
           'sass-loader',
         ],
       },
@@ -65,7 +63,6 @@ module.exports = merge(common, {
       },
     }),
     new HtmlWebpackPlugin(),
-    new webpack.IgnorePlugin(/ReactContext/),
     new MiniCssExtractPlugin({
       filename: 'app.css',
     }),

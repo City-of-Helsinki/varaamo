@@ -5,12 +5,13 @@ require('dotenv').load({ path: path.resolve(__dirname, '../.env') });
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 
 const common = require('./webpack.common');
 
 module.exports = merge(common, {
   entry: ['@babel/polyfill', path.resolve(__dirname, '../app/index.js')],
-  debug: false,
   devtool: 'source-map',
   mode: 'production',
   output: {
@@ -32,17 +33,18 @@ module.exports = merge(common, {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader',
-          'postcss-loader',
+          'css-loader?url=false',
+          'resolve-url-loader',
+          { loader: 'postcss-loader', options: { plugins: [autoprefixer({ browsers: ['last 2 version', 'ie 9'] })] } },
         ],
       },
       {
         test: /\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader',
+          'css-loader?url=false',
+          { loader: 'postcss-loader', options: { plugins: [autoprefixer({ browsers: ['last 2 version', 'ie 9'] })] } },
           'resolve-url-loader',
-          'postcss-loader',
           'sass-loader',
         ],
       },
@@ -57,9 +59,6 @@ module.exports = merge(common, {
         SHOW_TEST_SITE_MESSAGE: Boolean(process.env.SHOW_TEST_SITE_MESSAGE),
         TRACKING: Boolean(process.env.PIWIK_SITE_ID),
       },
-    }),
-    new MiniCssExtractPlugin({
-      filename: 'app.css',
     }),
     new MiniCssExtractPlugin({
       filename: 'app.css',
