@@ -78,26 +78,21 @@ describe('pages/home/HomePage', () => {
       });
     });
 
-    describe('Purpose banners onClick', () => {
-      let buttons;
+    describe('Purpose banners', () => {
       let instance;
 
       before(() => {
         const wrapper = getWrapper();
         instance = wrapper.instance();
-        instance.handleBannerClick = simple.mock();
-        buttons = wrapper.find('.app-HomePageContent__button');
       });
 
       after(() => {
         simple.restore();
       });
 
-      it('calls handleBannerClick on purpose banner onClick', () => {
-        expect(buttons.length).to.equal(defaultProps.purposes.length);
-        expect(buttons.at(0).prop('onClick')).to.exist;
-        buttons.at(0).prop('onClick')();
-        expect(instance.handleBannerClick.callCount).to.equal(1);
+      it(' is a Link component', () => {
+        expect(instance.find('Link')).to.have.lengthOf(1);
+        expect(instance.find('Link').prop('to')).to.be.exist();
       });
     });
   });
@@ -125,27 +120,6 @@ describe('pages/home/HomePage', () => {
       const instance = getWrapper().instance();
       historyMock = simple.mock(history, 'push');
       instance.handleSearch(value);
-    });
-
-    after(() => {
-      simple.restore();
-    });
-
-    it('calls browserHistory push with correct path', () => {
-      expect(historyMock.callCount).to.equal(1);
-      expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
-    });
-  });
-
-  describe('handleBannerClick', () => {
-    const purpose = 'some purpose';
-    const expectedPath = `/search?purpose=${purpose}`;
-    let historyMock;
-
-    before(() => {
-      const instance = getWrapper().instance();
-      historyMock = simple.mock(history, 'push');
-      instance.handleBannerClick(purpose);
     });
 
     after(() => {
