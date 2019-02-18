@@ -19,6 +19,13 @@ module.exports = (options) => {
       './specs.bootstrap.js': ['webpack', 'sourcemap'],
     },
 
+    customLaunchers: {
+      ChromeDebugging: {
+        base: 'Chrome',
+        flags: ['--remote-debugging-port=9333'],
+      },
+    },
+
     webpackMiddleware: {
       noInfo: false,
       stats: {
