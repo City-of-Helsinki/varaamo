@@ -14,7 +14,7 @@ ResourceInfo.propTypes = {
   id: PropTypes.string.isRequired,
   isSelected: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
-  peopleCapacity: PropTypes.number.isRequired,
+  peopleCapacity: PropTypes.number,
   public: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
 };
