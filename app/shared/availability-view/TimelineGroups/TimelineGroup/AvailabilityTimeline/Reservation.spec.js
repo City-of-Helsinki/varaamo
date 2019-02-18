@@ -7,7 +7,6 @@ import Popover from 'react-bootstrap/lib/Popover';
 import simple from 'simple-mock';
 
 import Reservation from './Reservation';
-import Link from './Link';
 import utils from '../utils';
 
 function getOuterWrapper(props) {
@@ -16,7 +15,7 @@ function getOuterWrapper(props) {
     end: '2016-01-01T12:00:00Z',
     eventSubject: 'Meeting',
     id: 12345,
-    onClick: () => {},
+    onClick: () => { },
   };
   return shallow(<Reservation {...defaults} {...props} />);
 }
@@ -31,9 +30,9 @@ describe('shared/availability-view/Reservation', () => {
     expect(wrapper.is('div.reservation')).to.be.true;
   });
 
-  it('renders a link', () => {
+  it('renders a button', () => {
     const wrapper = getOuterWrapper();
-    expect(wrapper.is(Link)).to.be.true;
+    expect(wrapper.is('button')).to.be.true;
   });
 
   it('renders an OverlayTrigger', () => {

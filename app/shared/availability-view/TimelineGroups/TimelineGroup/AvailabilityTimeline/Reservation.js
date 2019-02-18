@@ -7,7 +7,6 @@ import Popover from 'react-bootstrap/lib/Popover';
 
 import ReservationAccessCode from 'shared/reservation-access-code';
 import utils from '../utils';
-import Link from './Link';
 
 function getReserverName(reserverName, user) {
   return reserverName || (user && (user.displayName || user.email));
@@ -50,7 +49,7 @@ function Reservation({ onClick, ...reservation }) {
     </Popover>
   );
   return (
-    <Link
+    <button
       className={classnames('reservation-link', { 'with-comments': reservation.comments })}
       onClick={() => onClick && reservation.userPermissions.canModify && onClick(reservation)}
     >
@@ -61,9 +60,9 @@ function Reservation({ onClick, ...reservation }) {
       >
         <div
           className={classnames('reservation',
-          { requested: reservation.state === 'requested' },
-          { disabled: reservation.state === 'confirmed' && !reservation.isOwn && !reservation.userPermissions.canModify },
-          { reserved: reservation.state === 'confirmed' && !reservation.isOwn && reservation.userPermissions.canModify })}
+            { requested: reservation.state === 'requested' },
+            { disabled: reservation.state === 'confirmed' && !reservation.isOwn && !reservation.userPermissions.canModify },
+            { reserved: reservation.state === 'confirmed' && !reservation.isOwn && reservation.userPermissions.canModify })}
           style={{ width }}
         >
           <div className="names">
@@ -72,7 +71,7 @@ function Reservation({ onClick, ...reservation }) {
           </div>
         </div>
       </OverlayTrigger>
-    </Link>
+    </button>
   );
 }
 
