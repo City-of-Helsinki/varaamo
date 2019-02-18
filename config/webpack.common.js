@@ -5,15 +5,27 @@ module.exports = {
     rules: [
       {
         test: /\.png$/,
-        loader: 'url-loader?limit=100000&mimetype=image/png',
+        loader: 'url-loader',
+        options: {
+          limit: 8192,
+          mimetype: 'image/png',
+        },
       },
       {
         test: /\.gif$/,
-        loader: 'url-loader?limit=100000&mimetype=image/gif',
+        loader: 'url-loader',
+        options: {
+          limit: 8192,
+          mimetype: 'image/gif',
+        },
       },
       {
         test: /\.ico$/,
-        loader: 'url-loader?limit=100000&mimetype=image/x-icon',
+        loader: 'url-loader',
+        options: {
+          limit: 8192,
+          mimetype: 'image/x-icon',
+        },
       },
       {
         test: /\.jpg$/,
