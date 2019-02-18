@@ -65,10 +65,32 @@
     &__banner {
       padding-top: 15px;
       padding-bottom: 15px;
-      > div {
+      display: flex;
+      &__linkWrapper {
+        flex: 1;
         background-color: $hel-copper;
         height: 100%;
         position: relative;
+        text-decoration: none;
+
+        h5 {
+          color: $black;
+        }
+
+        button {
+          color: $white;
+        }
+
+        &:hover,
+        &:focus {
+          h5 {
+            color: $black;
+          }
+        
+          button {
+            color: $white;
+          }
+        }
       }
       img {
         max-width: 60%;
