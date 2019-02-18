@@ -5,7 +5,6 @@ import React from 'react';
 
 import ReservationPopover from 'shared/reservation-popover';
 import { UninjectedReservationSlot as ReservationSlot } from './ReservationSlot';
-import Link from './Link';
 import utils from '../utils';
 
 function getWrapper(props) {
@@ -20,9 +19,9 @@ function getWrapper(props) {
 }
 
 describe('shared/availability-view/ReservationSlot', () => {
-  it('returns a Link.reservation-slot', () => {
+  it('returns a button.reservation-slot', () => {
     const wrapper = getWrapper();
-    expect(wrapper.is(Link)).to.be.true;
+    expect(wrapper.is('button')).to.be.true;
     expect(wrapper.hasClass('reservation-slot')).to.be.true;
   });
 
@@ -119,7 +118,7 @@ describe('shared/availability-view/ReservationSlot', () => {
         resourceId: '1',
       };
       const wrapper = getWrapper({ ...defaultProps, ...props });
-      return wrapper.find(Link).hasClass('reservation-slot-selected');
+      return wrapper.find('button').hasClass('reservation-slot-selected');
     }
 
     it('is selected if begin and end are same as selected', () => {

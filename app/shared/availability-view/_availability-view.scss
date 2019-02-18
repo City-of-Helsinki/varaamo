@@ -254,6 +254,9 @@
   .reservation-slot {
     height: $slot-height;
     position: relative;
+    margin: 0;
+    padding: 0;
+    border: none;
   }
   .reservation-link.with-comments::after {
     font-family: 'Glyphicons Halflings';
