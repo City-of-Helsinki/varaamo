@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import React from 'react';
 import Loader from 'react-loader';
 import simple from 'simple-mock';
+import Link from 'react-router-dom/Link';
 
 import PageWrapper from 'pages/PageWrapper';
 import { shallowWithIntl } from 'utils/testUtils';
@@ -91,8 +92,8 @@ describe('pages/home/HomePage', () => {
       });
 
       it(' is a Link component', () => {
-        expect(instance.find('Link')).to.have.lengthOf(1);
-        expect(instance.find('Link').prop('to')).to.be.exist();
+        expect(instance.find(Link)).to.have.lengthOf(1);
+        expect(instance.find(Link).prop('to')).to.be.exist();
       });
     });
   });
