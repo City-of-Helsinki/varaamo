@@ -80,20 +80,19 @@ describe('pages/home/HomePage', () => {
     });
 
     describe('Purpose banners', () => {
-      let instance;
+      let wrapper;
 
       before(() => {
-        const wrapper = getWrapper();
-        instance = wrapper.instance();
+        wrapper = getWrapper();
       });
 
       after(() => {
         simple.restore();
       });
 
-      it(' is a Link component', () => {
-        expect(instance.find(Link)).to.have.lengthOf(1);
-        expect(instance.find(Link).prop('to')).to.be.exist();
+      it(' have at least a Link component', () => {
+        expect(wrapper.find(Link)).to.have.lengthOf(defaultProps.purposes.length);
+        expect(wrapper.find(Link).first().prop('to')).to.contains(defaultProps.purposes[0].value);
       });
     });
   });
