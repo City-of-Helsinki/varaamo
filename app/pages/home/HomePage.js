@@ -5,6 +5,7 @@ import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import camelCase from 'lodash/camelCase';
+import { Link } from 'react-router-dom';
 
 import { fetchPurposes } from 'actions/purposeActions';
 import { injectT } from 'i18n';
@@ -29,7 +30,6 @@ class UnconnectedHomePage extends Component {
   constructor(props) {
     super(props);
     this.handleSearch = this.handleSearch.bind(this);
-    this.handleBannerClick = this.handleBannerClick.bind(this);
     this.renderPurposeBanner = this.renderPurposeBanner.bind(this);
   }
 
@@ -41,29 +41,23 @@ class UnconnectedHomePage extends Component {
     this.props.history.push(`/search?search=${value}`);
   }
 
-  handleBannerClick(purpose) {
-    this.props.history.push(`/search?purpose=${purpose}`);
-  }
-
   renderPurposeBanner(purpose) {
     const { t } = this.props;
     const image = purposeIcons[camelCase(purpose.value)];
     return (
-      <Col className="app-HomePageContent__banner" key={purpose.value} md={3} sm={6} xs={6}>
-        <div>
+      <Col className="app-HomePageContent__banner" key={purpose.value} md={3} sm={6} xs={12}>
+        <Link className="app-HomePageContent__banner__linkWrapper" to={`/search?purpose=${purpose.value}`}>
           <img alt={purpose.label} src={image} />
           <h5>{purpose.label}</h5>
           <div className="app-HomePageContent__banner-action">
             <Button
               bsStyle="primary"
               className="app-HomePageContent__button"
-              onClick={() => this.handleBannerClick(purpose.value)}
-              type="submit"
             >
               {t('HomePage.buttonText')}
             </Button>
           </div>
-        </div>
+        </Link>
       </Col>
     );
   }
