@@ -5,7 +5,7 @@ import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import camelCase from 'lodash/camelCase';
-import { Link } from 'react-router-dom';
+import Link from 'react-router-dom/Link';
 
 import { fetchPurposes } from 'actions/purposeActions';
 import { injectT } from 'i18n';
