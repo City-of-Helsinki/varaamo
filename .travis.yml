@@ -24,6 +24,7 @@ before_script:
 script:
   - yarn lint
   - yarn test:ci
-
+  - yarn test:coverage
+  
 after_success:
   - codecov < coverage/*/lcov.info
