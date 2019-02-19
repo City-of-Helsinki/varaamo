@@ -61,6 +61,7 @@
     "redux-api-middleware": "3.0.1",
     "redux-form": "8.1.0",
     "redux-persist": "^5.10.0",
+    "redux-persist-seamless-immutable": "^2.0.0",
     "redux-thunk": "2.3.0",
     "reselect": "2.5.4",
     "seamless-immutable": "6.1.4",

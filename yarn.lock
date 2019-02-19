@@ -7349,6 +7349,11 @@ redux-form@8.1.0:
     react-is "^16.7.0"
     react-lifecycles-compat "^3.0.4"
 
+redux-persist-seamless-immutable@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/redux-persist-seamless-immutable/-/redux-persist-seamless-immutable-2.0.0.tgz#7433d6b04f58a98bc1b7d57f6f2884884c57f8d4"
+  integrity sha512-o23ej9EcEzI61XgzRw23mde73Ejo3s4M5UpCuSq/ZXHbBHcLWw/I6holYnzrpytltdjUNU1MXLzb+AUiAjQ5tQ==
+
 redux-persist@^5.10.0:
   version "5.10.0"
   resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-5.10.0.tgz#5d8d802c5571e55924efc1c3a9b23575283be62b"
