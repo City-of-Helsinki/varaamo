@@ -2,14 +2,18 @@ import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
+import Row from 'react-bootstrap/lib/Row';
+import Col from 'react-bootstrap/lib/Col';
 
 import ResourceCompactList from 'shared/resource-compact-list';
 import ResourceList from 'shared/resource-list';
 import { scrollTo } from 'utils/domUtils';
 import SearchResultsPaging from './SearchResultsPaging';
 import searchResultsSelector from './searchResultsSelector';
+import Filter from '../filter';
 
 export class UnconnectedSearchResults extends Component {
+
   componentDidMount() {
     scrollTo(findDOMNode(this));
   }
@@ -25,11 +29,18 @@ export class UnconnectedSearchResults extends Component {
       selectedUnitId,
       showMap,
     } = this.props;
+
     return (
       <div className="app-SearchResults" id="search-results">
         <Loader loaded={!isFetching}>
           {!showMap && (
             <div className="app-SearchResults__container">
+              <Row>
+                <Col className="app-SearchControlsContainer__control sortControl" md={4} sm={6}>
+                  <Filter />
+                </Col>
+              </Row>
+              <div className="clearFloat" />
               <ResourceList
                 date={filters.date}
                 history={history}

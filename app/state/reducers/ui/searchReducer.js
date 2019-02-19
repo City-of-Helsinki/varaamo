@@ -1,8 +1,10 @@
 import Immutable from 'seamless-immutable';
+import _ from 'lodash';
 
 import types from 'constants/ActionTypes';
 import { pickSupportedFilters } from 'utils/searchUtils';
 import { getDuration, getEndTimeString, getStartTimeString } from 'utils/timeUtils';
+import { isOpenNow } from '../../../utils/resourceUtils';
 
 const initialState = Immutable({
   filters: {
@@ -89,6 +91,40 @@ function searchReducer(state = initialState, action) {
       return state.merge({ unitId: null });
     }
 
+    /*eslint-disable */
+    case 'FILTER_BY_NAME': {
+      let {lang, resources} = action.payload;
+      const sortedResources = _.orderBy( resources, resource=> resource.name[lang] , ['asc'] );
+      return {...state, ['results'] : sortedResources.map( data => data.id ) };
+    }
+
+    case 'FILTER_BY_TYPE': {
+      let {lang, resources} = action.payload;
+      const sortedResources = _.orderBy( resources, resource=> resource.type.name[lang], ['asc'] );
+      /* Lang is static because no data on other language */
+      return {...state, ['results'] : sortedResources.map( data => data.id ) };
+    }
+
+    case 'FILTER_BY_PEOPLE': {
+      let {lang, resources} = action.payload;
+      const sortedResources = _.orderBy( resources, resource=> resource.peopleCapacity, ['asc'] );
+      return {...state, ['results'] : sortedResources.map( data => data.id ) };
+    }
+
+    case 'FILTER_BY_PREMISES': {
+      let { lang, resources, units } = action.payload;
+      let data = _.mapValues( resources, resource=> ({...resource, ['unit']: units[resource.unit] }));
+      const sortedResources = _.orderBy( data, resource=> resource.unit.name[lang], ['asc'] );
+      return {...state, ['results'] : sortedResources.map( data => data.id ) };
+    }
+
+    case 'FILTER_BY_OPEN_NOW':{
+      let { resources } = action.payload;
+      const sortedResources = _.orderBy( resources, resource=>  isOpenNow(resource), ['desc'] );
+      return {...state, ['results'] : sortedResources.map( data => data.id ) };
+    }
+
+    /*eslint-enable*/
     default: {
       return state;
     }

@@ -47,6 +47,10 @@
       border-color: $hel-silver;
     }
   }
+  .sortControl {
+    margin-top: -10px;
+    margin-bottom: -30px;
+  }
   @media (max-width: $screen-xs-max) {
        /* fix for map */
      .app-ResourceCompactList {
