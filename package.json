@@ -97,16 +97,6 @@
     "express": "4.16.4",
     "file-loader": "3.0.1",
     "html-webpack-plugin": "3.2.0",
-    "karma": "4.0.0",
-    "karma-chai": "0.1.0",
-    "karma-chrome-launcher": "2.2.0",
-    "karma-coverage-istanbul-reporter": "^2.0.4",
-    "karma-intl-shim": "1.0.3",
-    "karma-mocha": "1.2.0",
-    "karma-mocha-reporter": "2.2.5",
-    "karma-phantomjs-launcher": "1.0.4",
-    "karma-sourcemap-loader": "0.3.7",
-    "karma-webpack": "4.0.0-rc.3",
     "mini-css-extract-plugin": "0.5.0",
     "mocha": "5.2.0",
     "mockdate": "1.0.4",
@@ -136,11 +126,6 @@
     "lint": "./node_modules/.bin/eslint .",
     "lint:fix": "./node_modules/.bin/eslint . --fix",
     "start:production": "NODE_ENV=production node server/index.js",
-    "start": "node server/index.js",
-    "test:ci": "karma start config/karma.ci.conf.js --single-run",
-    "test:coverage": "npm run lint && karma start config/karma.coverage.conf.js --single-run",
-    "test:watch": "npm run lint && karma start config/karma.conf.js",
-    "test": "npm run lint && karma start config/karma.conf.js --single-run",
-    "test:local": "karma start config/karma.local.conf.js --debug"
+    "start": "node server/index.js"
   }
 }
