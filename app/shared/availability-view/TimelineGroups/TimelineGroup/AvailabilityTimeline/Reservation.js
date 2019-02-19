@@ -58,18 +58,18 @@ function Reservation({ onClick, ...reservation }) {
         placement="top"
         trigger={['hover', 'focus']}
       >
-        <div
+        <span
           className={classnames('reservation',
             { requested: reservation.state === 'requested' },
             { disabled: reservation.state === 'confirmed' && !reservation.isOwn && !reservation.userPermissions.canModify },
             { reserved: reservation.state === 'confirmed' && !reservation.isOwn && reservation.userPermissions.canModify })}
           style={{ width }}
         >
-          <div className="names">
-            <div className="event-subject">{reservation.eventSubject}</div>
-            <div className="reserver-name">{reserverName}</div>
-          </div>
-        </div>
+          <span className="names">
+            <span className="event-subject">{reservation.eventSubject}</span>
+            <span className="reserver-name">{reserverName}</span>
+          </span>
+        </span>
       </OverlayTrigger>
     </button>
   );
