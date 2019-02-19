@@ -65,11 +65,11 @@ describe('shared/availability-view/TimelineGroups', () => {
   });
 
   describe('componentDidMount', () => {
-    before(() => {
+    beforeAll(() => {
       simple.mock(window, 'addEventListener');
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
@@ -83,11 +83,11 @@ describe('shared/availability-view/TimelineGroups', () => {
   });
 
   describe('componentWillUnmount', () => {
-    before(() => {
+    beforeAll(() => {
       simple.mock(window, 'removeEventListener');
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 

@@ -237,11 +237,11 @@ describe('shared/resource-card/ResourceCard', () => {
   describe('handleSearchByType', () => {
     let historyMock;
 
-    before(() => {
+    beforeAll(() => {
       historyMock = simple.mock(history, 'push');
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
@@ -260,11 +260,11 @@ describe('shared/resource-card/ResourceCard', () => {
   describe('handleSearchByDistance', () => {
     let historyMock;
 
-    before(() => {
+    beforeAll(() => {
       historyMock = simple.mock(history, 'push');
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
@@ -285,11 +285,11 @@ describe('shared/resource-card/ResourceCard', () => {
   describe('handleSearchByPeopleCapacity', () => {
     let historyMock;
 
-    before(() => {
+    beforeAll(() => {
       historyMock = simple.mock(history, 'push');
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
@@ -308,11 +308,11 @@ describe('shared/resource-card/ResourceCard', () => {
   describe('handleSearchByUnit', () => {
     let historyMock;
 
-    before(() => {
+    beforeAll(() => {
       historyMock = simple.mock(history, 'push');
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
@@ -331,11 +331,11 @@ describe('shared/resource-card/ResourceCard', () => {
   describe('handleLinkClick', () => {
     let historyMock;
 
-    before(() => {
+    beforeAll(() => {
       historyMock = simple.mock(history, 'replace');
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 

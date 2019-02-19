@@ -58,7 +58,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     let wrapper;
     let button;
 
-    before(() => {
+    beforeAll(() => {
       wrapper = getWrapper({ isLoggedIn: false });
       instance = wrapper.instance();
       button = wrapper.find('button.app-TimeSlot__action');
@@ -69,7 +69,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       instance.handleClick.reset();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
@@ -86,7 +86,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     let wrapper;
     let button;
 
-    before(() => {
+    beforeAll(() => {
       wrapper = getWrapper({ isLoggedIn: true });
       instance = wrapper.instance();
       button = wrapper.find('button.app-TimeSlot__action');
@@ -97,7 +97,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       instance.handleClick.reset();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
@@ -167,7 +167,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     let instance;
     let wrapper;
 
-    before(() => {
+    beforeAll(() => {
       wrapper = getWrapper({
         addNotification,
         isLoggedIn: false,
@@ -182,7 +182,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       instance.getReservationInfoNotification.reset();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
@@ -216,12 +216,12 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     let button;
     const onClear = simple.stub();
 
-    before(() => {
+    beforeAll(() => {
       wrapper = getWrapper({ showClear: true, onClear });
       button = wrapper.find('button.app-TimeSlot__clear');
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 

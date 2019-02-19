@@ -127,7 +127,7 @@ describe('pages/user-reservations/UserReservationsPage', () => {
 
   describe('componentDidMount', () => {
     describe('if user is not an admin', () => {
-      before(() => {
+      beforeAll(() => {
         fetchReservations.reset();
         fetchResources.reset();
         fetchUnits.reset();
@@ -149,7 +149,7 @@ describe('pages/user-reservations/UserReservationsPage', () => {
     });
 
     describe('if user is an admin', () => {
-      before(() => {
+      beforeAll(() => {
         fetchReservations.reset();
         fetchResources.reset();
         fetchUnits.reset();
@@ -222,7 +222,7 @@ describe('pages/user-reservations/UserReservationsPage', () => {
     describe('if filters.state is "all"', () => {
       const filters = { state: 'all' };
 
-      before(() => {
+      beforeAll(() => {
         changeAdminReservationFilters.reset();
         fetchReservations.reset();
         instance.handleFiltersChange(filters);
@@ -243,7 +243,7 @@ describe('pages/user-reservations/UserReservationsPage', () => {
     describe('if filters.state is anything but "all"', () => {
       const filters = { state: 'requested' };
 
-      before(() => {
+      beforeAll(() => {
         changeAdminReservationFilters.reset();
         fetchReservations.reset();
         instance.handleFiltersChange(filters);

@@ -46,7 +46,7 @@ describe('shared/date-header/DateHeader', () => {
         };
         let button;
 
-        before(() => {
+        beforeAll(() => {
           button = getWrapper(extraProps).find('button');
         });
 
@@ -68,7 +68,7 @@ describe('shared/date-header/DateHeader', () => {
         };
         let button;
 
-        before(() => {
+        beforeAll(() => {
           button = getWrapper(extraProps).find('button');
         });
 
@@ -85,7 +85,7 @@ describe('shared/date-header/DateHeader', () => {
         };
         let button;
 
-        before(() => {
+        beforeAll(() => {
           button = getWrapper(extraProps).find('button');
         });
 
@@ -107,7 +107,7 @@ describe('shared/date-header/DateHeader', () => {
         };
         let button;
 
-        before(() => {
+        beforeAll(() => {
           button = getWrapper(extraProps).find('button');
         });
 

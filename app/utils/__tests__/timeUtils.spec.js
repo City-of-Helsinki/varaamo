@@ -221,11 +221,11 @@ describe('Utils: timeUtils', () => {
   describe('getStartTimeString', () => {
     const now = '2016-10-10T06:45:00+03:00';
 
-    before(() => {
+    beforeAll(() => {
       MockDate.set(now);
     });
 
-    after(() => {
+    afterAll(() => {
       MockDate.reset();
     });
 
@@ -492,11 +492,11 @@ describe('Utils: timeUtils', () => {
   describe('isPastDate', () => {
     const now = '2016-10-10T06:00:00+03:00';
 
-    before(() => {
+    beforeAll(() => {
       MockDate.set(now);
     });
 
-    after(() => {
+    afterAll(() => {
       MockDate.reset();
     });
 

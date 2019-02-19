@@ -41,7 +41,7 @@ describe('pages/user-reservations/reservation-filters/AdminReservationFilters', 
     describe('onChange', () => {
       const filterOption = { label: 'Label', value: 'new-value' };
 
-      before(() => {
+      beforeAll(() => {
         select.props().onChange(filterOption);
       });
 

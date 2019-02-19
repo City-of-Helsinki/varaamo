@@ -163,7 +163,7 @@ describe('shared/form-fields/ReservationTimeControls', () => {
     let props;
     const newDate = '2018-12-30';
 
-    before(() => {
+    beforeAll(() => {
       props = {
         begin: {
           input: {

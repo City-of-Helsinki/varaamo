@@ -13,7 +13,7 @@
 
   "parser": "babel-eslint",
 
-  "plugins": ["import", "react"],
+  "plugins": ["import", "react", "jest"],
 
   "settings": {
     "import/resolver": {

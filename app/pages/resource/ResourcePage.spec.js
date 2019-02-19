@@ -121,13 +121,13 @@ describe('pages/resource/ResourcePage', () => {
     describe('handleBackButton', () => {
       let historyMock;
 
-      before(() => {
+      beforeAll(() => {
         const instance = getWrapper().instance();
         historyMock = simple.mock(history, 'goBack');
         instance.handleBackButton();
       });
 
-      after(() => {
+      afterAll(() => {
         simple.restore();
       });
 
@@ -192,7 +192,7 @@ describe('pages/resource/ResourcePage', () => {
       const nextProps = { date: '2016-12-12', isLoggedIn: defaultProps.isLoggedIn };
       const fetchResource = simple.mock();
 
-      before(() => {
+      beforeAll(() => {
         const instance = getWrapper().instance();
         instance.fetchResource = fetchResource;
         instance.componentWillUpdate(nextProps);
@@ -210,7 +210,7 @@ describe('pages/resource/ResourcePage', () => {
       const nextProps = { date: defaultProps.date, isLoggedIn: defaultProps.isLoggedIn };
       const fetchResource = simple.mock();
 
-      before(() => {
+      beforeAll(() => {
         const instance = getWrapper().instance();
         instance.fetchResource = fetchResource;
         instance.componentWillUpdate(nextProps);
@@ -225,7 +225,7 @@ describe('pages/resource/ResourcePage', () => {
       const nextProps = { date: defaultProps.date, isLoggedIn: !defaultProps.isLoggedIn };
       const fetchResource = simple.mock();
 
-      before(() => {
+      beforeAll(() => {
         const instance = getWrapper().instance();
         instance.fetchResource = fetchResource;
         instance.componentWillUpdate(nextProps);
@@ -243,7 +243,7 @@ describe('pages/resource/ResourcePage', () => {
       const nextProps = { date: defaultProps.date, isLoggedIn: defaultProps.isLoggedIn };
       const fetchResource = simple.mock();
 
-      before(() => {
+      beforeAll(() => {
         const instance = getWrapper({ actions: { fetchResource } }).instance();
         instance.componentWillUpdate(nextProps);
       });
@@ -328,12 +328,12 @@ describe('pages/resource/ResourcePage', () => {
     const instance = getWrapper().instance();
     let historyMock;
 
-    before(() => {
+    beforeAll(() => {
       historyMock = simple.mock(history, 'replace');
       instance.handleDateChange(newDate);
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 

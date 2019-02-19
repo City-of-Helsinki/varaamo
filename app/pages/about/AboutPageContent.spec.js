@@ -14,7 +14,7 @@ describe('Component: customization/AboutPageContent', () => {
   describe('When there is no customization in use', () => {
     let content;
 
-    before(() => {
+    beforeAll(() => {
       content = getWrapper();
     });
 
@@ -26,12 +26,12 @@ describe('Component: customization/AboutPageContent', () => {
   describe('When Espoo customization is used', () => {
     let content;
 
-    before(() => {
+    beforeAll(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('ESPOO');
       content = getWrapper();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
@@ -43,12 +43,12 @@ describe('Component: customization/AboutPageContent', () => {
   describe('When Vantaa customization is used', () => {
     let content;
 
-    before(() => {
+    beforeAll(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('VANTAA');
       content = getWrapper();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 

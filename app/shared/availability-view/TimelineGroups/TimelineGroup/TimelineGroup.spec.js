@@ -97,11 +97,11 @@ describe('shared/availability-view/TimelineGroup', () => {
   });
 
   describe('componentDidMount', () => {
-    before(() => {
+    beforeAll(() => {
       simple.mock(window, 'setInterval');
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
@@ -118,11 +118,11 @@ describe('shared/availability-view/TimelineGroup', () => {
   });
 
   describe('componentWillUnmount', () => {
-    before(() => {
+    beforeAll(() => {
       simple.mock(window, 'clearInterval');
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 

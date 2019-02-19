@@ -59,14 +59,14 @@ describe('shared/modals/comment/CommentModalContainer', () => {
   describe('handleSave', () => {
     const comments = 'Some comments';
 
-    before(() => {
+    beforeAll(() => {
       const instance = getWrapper().instance();
       defaultProps.actions.closeReservationCommentModal.reset();
       defaultProps.actions.commentReservation.reset();
       instance.handleSave(comments);
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 

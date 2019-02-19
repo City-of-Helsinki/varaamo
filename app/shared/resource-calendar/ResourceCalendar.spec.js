@@ -27,7 +27,7 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
 
   let dayWrapper;
   let wrapper;
-  before(() => {
+  beforeAll(() => {
     wrapper = getWrapper({
       availability: {
         '2015-10-01': { percentage: 0 },
@@ -88,28 +88,44 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
   });
 
   describe('disabledDays', () => {
-    describe('if the disableDays function prop is supplied as prop', () => {
-      const disableDays = simple.stub();
-      const date = new Date('2015-10-01');
-      const withDisableDays = getWrapper({ disableDays }).find(DayPicker);
-      let isDisabled;
-      before(() => {
-        isDisabled = withDisableDays.prop('disabledDays');
-      });
+    const now = new Date();
+    const todayEarly = new Date();
+    todayEarly.setHours(0, 1, 0, 0);
+    const todayLate = new Date();
+    todayLate.setHours(23, 0, 0, 0);
+    const receivedToday = new Date(now);
+    const receivedYesterday = new Date(now.valueOf() - 86400000);
+    const receivedTomorrow = new Date(now.valueOf() + 86400000);
+    receivedToday.setHours(12, 0, 0, 0);
+    receivedTomorrow.setHours(12, 0, 0, 0);
+    receivedYesterday.setHours(12, 0, 0, 0);
+    let isDisabled;
+    beforeAll(() => {
+      isDisabled = dayWrapper.prop('disabledDays');
+    });
 
-      afterEach(() => {
-        mockDate.reset();
-      });
+    afterEach(() => {
+      mockDate.reset();
+    });
 
-      it('calls disableDays function', () => {
-        isDisabled(date);
-        expect(disableDays.callCount).to.equal(1);
-      });
+    it('disables yesterday', () => {
+      mockDate.set(now);
+      expect(isDisabled(receivedYesterday)).to.be.true;
+    });
 
-      it('calls disableDays with the right arguments', () => {
-        isDisabled(date);
-        expect(disableDays.calls[0].arg).to.equal(date);
-      });
+    it('enables today now', () => {
+      mockDate.set(now);
+      expect(isDisabled(receivedToday)).to.be.false;
+    });
+
+    it('enables today early', () => {
+      mockDate.set(todayEarly);
+      expect(isDisabled(receivedToday)).to.be.false;
+    });
+
+    it('enables today late', () => {
+      mockDate.set(todayLate);
+      expect(isDisabled(receivedToday)).to.be.false;
     });
 
     describe('if the disableDays function is not supplied as prop', () => {

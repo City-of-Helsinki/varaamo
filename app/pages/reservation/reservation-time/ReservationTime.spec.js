@@ -66,13 +66,13 @@ describe('pages/reservation/reservation-time/ReservationTime', () => {
     let instance;
     let historyMock;
 
-    before(() => {
+    beforeAll(() => {
       instance = getWrapper().instance();
       historyMock = simple.mock(history, 'replace');
       instance.handleDateChange(date);
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 

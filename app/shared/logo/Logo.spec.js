@@ -17,7 +17,7 @@ describe('shared/logo/Logo', () => {
   describe('When there is no customization in use', () => {
     let logo;
 
-    before(() => {
+    beforeAll(() => {
       logo = getWrapper();
     });
 
@@ -34,12 +34,12 @@ describe('shared/logo/Logo', () => {
   describe('When Espoo customization is used', () => {
     let logo;
 
-    before(() => {
+    beforeAll(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('ESPOO');
       logo = getWrapper();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
@@ -56,12 +56,12 @@ describe('shared/logo/Logo', () => {
   describe('When Vantaa customization is used', () => {
     let logo;
 
-    before(() => {
+    beforeAll(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('VANTAA');
       logo = getWrapper();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 

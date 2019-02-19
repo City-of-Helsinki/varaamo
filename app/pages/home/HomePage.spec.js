@@ -82,11 +82,14 @@ describe('pages/home/HomePage', () => {
     describe('Purpose banners', () => {
       let wrapper;
 
-      before(() => {
-        wrapper = getWrapper();
+      beforeAll(() => {
+        const wrapper = getWrapper();
+        instance = wrapper.instance();
+        instance.handleBannerClick = simple.mock();
+        buttons = wrapper.find('.app-HomePageContent__button');
       });
 
-      after(() => {
+      afterAll(() => {
         simple.restore();
       });
 
@@ -116,13 +119,34 @@ describe('pages/home/HomePage', () => {
     const expectedPath = `/search?search=${value}`;
     let historyMock;
 
-    before(() => {
+    beforeAll(() => {
       const instance = getWrapper().instance();
       historyMock = simple.mock(history, 'push');
       instance.handleSearch(value);
     });
 
-    after(() => {
+    afterAll(() => {
+      simple.restore();
+    });
+
+    it('calls browserHistory push with correct path', () => {
+      expect(historyMock.callCount).to.equal(1);
+      expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
+    });
+  });
+
+  describe('handleBannerClick', () => {
+    const purpose = 'some purpose';
+    const expectedPath = `/search?purpose=${purpose}`;
+    let historyMock;
+
+    beforeAll(() => {
+      const instance = getWrapper().instance();
+      historyMock = simple.mock(history, 'push');
+      instance.handleBannerClick(purpose);
+    });
+
+    afterAll(() => {
       simple.restore();
     });
 
