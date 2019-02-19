@@ -25,9 +25,9 @@ function getWrapper(props) {
 }
 
 describe('shared/availability-view/Reservation', () => {
-  it('renders a div.reservation', () => {
+  it('renders a span.reservation', () => {
     const wrapper = getWrapper();
-    expect(wrapper.is('div.reservation')).to.be.true;
+    expect(wrapper.is('span.reservation')).to.be.true;
   });
 
   it('renders a button', () => {
