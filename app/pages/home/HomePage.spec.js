@@ -83,10 +83,7 @@ describe('pages/home/HomePage', () => {
       let wrapper;
 
       beforeAll(() => {
-        const wrapper = getWrapper();
-        instance = wrapper.instance();
-        instance.handleBannerClick = simple.mock();
-        buttons = wrapper.find('.app-HomePageContent__button');
+        wrapper = getWrapper();
       });
 
       afterAll(() => {

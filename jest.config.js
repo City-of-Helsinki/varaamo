@@ -18,11 +18,17 @@ module.exports = {
     // An array of file extensions your modules use
     moduleFileExtensions: ['js', 'jsx'],
   
+    // Mock files
+    moduleNameMapper:{
+      "\\.(css|less|sass|scss)$": "<rootDir>/config/jest/styleMock.js",
+      "\\.(gif|ttf|eot|svg)$": "<rootDir>/config/jest/fileMock.js"
+    },
+
     // Same with webpack module resolver
     moduleDirectories: ["node_modules", "app"],
 
     // The paths to modules that run some code to configure or set up the testing environment before each test
-    setupFiles: ['<rootDir>config/setupJest.js'],
+    setupFiles: ['<rootDir>config/jest/setupJest.js'],
   
     // The test environment that will be used for testing
     testEnvironment: 'jsdom',
