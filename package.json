@@ -77,6 +77,7 @@
     "@babel/register": "7.0.0",
     "autoprefixer": "9.4.7",
     "babel-eslint": "10.0.1",
+    "babel-jest": "^24.1.0",
     "babel-loader": "8.0.5",
     "babel-plugin-istanbul": "5.1.0",
     "body-parser": "1.18.3",
@@ -97,6 +98,8 @@
     "express": "4.16.4",
     "file-loader": "3.0.1",
     "html-webpack-plugin": "3.2.0",
+    "jest": "^24.1.0",
+    "jest-fetch-mock": "^2.1.1",
     "mini-css-extract-plugin": "0.5.0",
     "mocha": "5.2.0",
     "mockdate": "1.0.4",
@@ -126,6 +129,9 @@
     "lint": "./node_modules/.bin/eslint .",
     "lint:fix": "./node_modules/.bin/eslint . --fix",
     "start:production": "NODE_ENV=production node server/index.js",
-    "start": "node server/index.js"
+    "start": "node server/index.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage --colors"
   }
 }
