@@ -1,14 +1,18 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
 import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction';
 
 import rootReducer from 'state/rootReducer';
 import middleware from './middleware';
+import persistConfig from './middleware/persistConfig';
 
-const finalCreateStore = composeWithDevTools(...middleware)(createStore);
 
 function configureStore(initialState) {
-  const store = finalCreateStore(rootReducer, initialState);
-
+  const persistedReducer = persistReducer(persistConfig, rootReducer);
+  const store = createStore(
+    persistedReducer, initialState, composeWithDevTools(applyMiddleware(...middleware)),
+  );
+  const persistor = persistStore(store);
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
     module.hot.accept('state/rootReducer', () => {
@@ -18,7 +22,7 @@ function configureStore(initialState) {
     });
   }
 
-  return store;
+  return { store, persistor };
 }
 
 export default configureStore;

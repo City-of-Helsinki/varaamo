@@ -7,6 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { createStore } from 'redux';
 import Immutable from 'seamless-immutable';
 
+import { PersistGate } from 'redux-persist/integration/react';
 import 'assets/styles/main.scss';
 import 'assets/styles/customization/espoo/customization.scss';
 import 'assets/styles/customization/vantaa/customization.scss';
@@ -21,11 +22,13 @@ const initialIntlState = initI18n();
 const finalState = Immutable(initialStoreState).merge([initialServerState, initialIntlState], {
   deep: true,
 });
-const store = configureStore(finalState);
+const { store, persistor } = configureStore(finalState);
 
 render(
   <Provider store={store}>
-    <Router>{getRoutes()}</Router>
+    <PersistGate loading={null} persistor={persistor}>
+      <Router>{getRoutes()}</Router>
+    </PersistGate>
   </Provider>,
   document.getElementById('root'),
 );

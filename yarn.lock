@@ -7349,15 +7349,10 @@ redux-form@8.1.0:
     react-is "^16.7.0"
     react-lifecycles-compat "^3.0.4"
 
-redux-localstorage-filter@0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/redux-localstorage-filter/-/redux-localstorage-filter-0.1.1.tgz#94c5ab68d8cda479bb3cc6cdf03569f8f63a188d"
-  integrity sha1-lMWraNjNpHm7PMbN8DVp+PY6GI0=
-
-redux-localstorage@1.0.0-rc5:
-  version "1.0.0-rc5"
-  resolved "https://registry.yarnpkg.com/redux-localstorage/-/redux-localstorage-1.0.0-rc5.tgz#7067bc4cb0b03b5c791025ac33dde6175d50d5d1"
-  integrity sha1-cGe8TLCwO1x5ECWsM93mF11Q1dE=
+redux-persist@^5.10.0:
+  version "5.10.0"
+  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-5.10.0.tgz#5d8d802c5571e55924efc1c3a9b23575283be62b"
+  integrity sha512-sSJAzNq7zka3qVHKce1hbvqf0Vf5DuTVm7dr4GtsqQVOexnrvbV47RWFiPxQ8fscnyiuWyD2O92DOxPl0tGCRg==
 
 redux-thunk@2.3.0:
   version "2.3.0"
