@@ -343,7 +343,8 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     it('calls props actions changeSearchFilters with given filters', () => {
       const newFilters = { search: 'new search value' };
       const changeSearchFilters = simple.mock();
-      const instance = getWrapper({ actions: { changeSearchFilters } }).instance();
+      const fetchPurposes = simple.mock();
+      const instance = getWrapper({ actions: { changeSearchFilters, fetchPurposes } }).instance();
       instance.handleFiltersChange(newFilters);
       expect(changeSearchFilters.callCount).to.equal(1);
       expect(changeSearchFilters.lastCall.args[0]).to.equal(newFilters);
@@ -354,8 +355,10 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     it('calls props actions enableGeoposition when no position', () => {
       const enableGeoposition = simple.mock();
       const disableGeoposition = simple.mock();
+      const changeSearchFilters = simple.mock();
+
       const props = {
-        actions: { enableGeoposition, disableGeoposition },
+        actions: { enableGeoposition, disableGeoposition, changeSearchFilters },
       };
       const instance = getWrapper(props).instance();
       instance.handlePositionSwitch();

@@ -97,6 +97,7 @@ export class UninjectedReservationSlot extends React.Component {
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
         style={{ width: utils.getTimeSlotWidth() }}
+        type="button"
       >
         <span className="a11y-text">Make reservation</span>
       </button>

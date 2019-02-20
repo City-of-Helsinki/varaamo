@@ -22,7 +22,7 @@ module.exports = {
   // Mock files
   moduleNameMapper: {
     '\\.(css|less|sass|scss)$': '<rootDir>/config/jest/styleMock.js',
-    '\\.(gif|ttf|eot|svg)$': '<rootDir>/config/jest/fileMock.js',
+    '\\.(gif|ttf|eot|svg|png|ico)$': '<rootDir>/config/jest/fileMock.js',
   },
 
   // Same with webpack module resolver

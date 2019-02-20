@@ -7,7 +7,6 @@ module.exports = {
         test: /\.png$/,
         loader: 'url-loader',
         options: {
-          limit: 8192,
           mimetype: 'image/png',
         },
       },
@@ -15,7 +14,6 @@ module.exports = {
         test: /\.gif$/,
         loader: 'url-loader',
         options: {
-          limit: 8192,
           mimetype: 'image/gif',
         },
       },
@@ -23,7 +21,6 @@ module.exports = {
         test: /\.ico$/,
         loader: 'url-loader',
         options: {
-          limit: 8192,
           mimetype: 'image/x-icon',
         },
       },
@@ -31,7 +28,7 @@ module.exports = {
         test: /\.jpg$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: 'url-loader',
             options: {
               name: '[name].[ext]',
             },

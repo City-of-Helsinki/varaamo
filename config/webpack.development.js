@@ -45,7 +45,7 @@ module.exports = merge(common, {
         test: /\.css$/,
         use: [
           'style-loader',
-          'css-loader?url=false',
+          { loader: 'css-loader', options: { url: false } },
           { loader: 'postcss-loader', options: { plugins: [autoprefixer({ browsers: ['last 2 version', 'ie 9'] })] } },
         ],
       },
@@ -53,9 +53,10 @@ module.exports = merge(common, {
         test: /\.scss$/,
         use: [
           'style-loader',
-          'css-loader?url=false',
+          { loader: 'css-loader', options: { url: false } },
+          'resolve-url-loader',
+          { loader: 'sass-loader', options: { sourceMap: true, sourceMapContents: false } },
           { loader: 'postcss-loader', options: { plugins: [autoprefixer({ browsers: ['last 2 version', 'ie 9'] })] } },
-          'sass-loader',
         ],
       },
     ],

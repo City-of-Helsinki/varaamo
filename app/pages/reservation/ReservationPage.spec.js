@@ -281,11 +281,14 @@ describe('pages/reservation/ReservationPage', () => {
   describe('componentWillUnmount', () => {
     const clearReservations = simple.mock();
     const closeReservationSuccessModal = simple.mock();
+    const fetchResource = simple.mock();
+
     beforeAll(() => {
       const instance = getWrapper({
         actions: {
           clearReservations,
           closeReservationSuccessModal,
+          fetchResource,
         },
       }).instance();
       instance.componentWillUnmount();

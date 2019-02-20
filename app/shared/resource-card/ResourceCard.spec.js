@@ -67,7 +67,7 @@ describe('shared/resource-card/ResourceCard', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallowWithIntl(<ResourceCard {...defaultProps} {...extraProps} />, context);
+    return shallowWithIntl(<ResourceCard {...defaultProps} {...extraProps} />);
   }
 
   it('renders an div element', () => {

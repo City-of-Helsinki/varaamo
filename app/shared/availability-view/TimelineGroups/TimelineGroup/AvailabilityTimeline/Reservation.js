@@ -68,6 +68,7 @@ function Reservation({ onClick, ...reservation }) {
     <button
       className={classnames('reservation-link', { 'with-comments': reservation.comments })}
       onClick={() => onClick && reservation.userPermissions.canModify && onClick(reservation)}
+      type="button"
     >
       <OverlayTrigger
         overlay={popover}

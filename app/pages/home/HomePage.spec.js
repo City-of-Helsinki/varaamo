@@ -131,25 +131,4 @@ describe('pages/home/HomePage', () => {
       expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
     });
   });
-
-  describe('handleBannerClick', () => {
-    const purpose = 'some purpose';
-    const expectedPath = `/search?purpose=${purpose}`;
-    let historyMock;
-
-    beforeAll(() => {
-      const instance = getWrapper().instance();
-      historyMock = simple.mock(history, 'push');
-      instance.handleBannerClick(purpose);
-    });
-
-    afterAll(() => {
-      simple.restore();
-    });
-
-    it('calls browserHistory push with correct path', () => {
-      expect(historyMock.callCount).to.equal(1);
-      expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
-    });
-  });
 });
