@@ -47,7 +47,6 @@ export class UnconnectedResourceCalendar extends Component {
     const {
       availability,
       currentLanguage,
-      disableDays,
       selectedDate,
       t,
     } = this.props;
@@ -78,7 +77,7 @@ export class UnconnectedResourceCalendar extends Component {
         >
           <ResourceCalendarOverlay onHide={this.hideOverlay}>
             <DayPicker
-              disabledDays={disableDays || this.disableDays}
+              disabledDays={this.disableDays}
               enableOutsideDays
               initialMonth={new Date(selectedDate)}
               locale={currentLanguage}
