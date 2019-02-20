@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, { PureComponent, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
+import moment from 'moment';
 
 import { injectT } from 'i18n';
 import { scrollTo } from 'utils/domUtils';
@@ -82,10 +83,13 @@ class TimeSlot extends PureComponent {
       slot,
     } = this.props;
     const isPast = new Date(slot.end) < new Date();
+    const isReservable = (resource.reservableAfter
+      && moment(slot.start).isBefore(resource.reservableAfter));
     const disabled =
       !isLoggedIn ||
       (!isSelectable && !selected) ||
       !resource.userPermissions.canMakeReservations ||
+      isReservable ||
       (!slot.editing && (slot.reserved || isPast));
     const reservation = slot.reservation;
     const isOwnReservation = reservation && reservation.isOwn;
