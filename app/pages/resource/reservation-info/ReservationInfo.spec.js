@@ -15,6 +15,7 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
         maxPeriod: '04:00:00',
         maxReservationsPerUser: 2,
         reservable: true,
+        reservableAfter: '2019-03-06T00:00:00Z',
         reservationInfo: 'Some information',
       })
     ),
@@ -34,6 +35,19 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
     expect(wrappedText.length).to.equal(1);
     expect(wrappedText.props().text).to.equal(defaultProps.resource.reservationInfo);
     expect(wrappedText.props().openLinksInNewTab).to.equal(true);
+  });
+
+  describe('earliest reservation day text', () => {
+    it('is rendered correctly when resource.reservableAfter is defined', () => {
+      const resAfterText = getWrapper().find('.reservable-after-text');
+      expect(resAfterText).to.have.length(1);
+    });
+
+    it('is not rendered if resource.reservableAfter is not defined', () => {
+      const resource = {};
+      const maxLengthText = getWrapper({ resource }).find('.reservable-after-text');
+      expect(maxLengthText).to.have.length(0);
+    });
   });
 
   describe('max length text', () => {
