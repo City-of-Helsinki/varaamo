@@ -181,6 +181,7 @@
   "ReservationInfo.loginMessage": "You must <a href='/login?next={next}'>log in</a> to reserve these premises.",
   "ReservationInfo.maxNumberOfReservations": "Maximum number of reservations per user:",
   "ReservationInfo.reservationMaxLength": "Maximum duration of the reservation:",
+  "ReservationInfo.reservationEarliestDays": "Reservation at the earliest in {time}",
   "ReservationInfoModal.cancelButton": "Cancel event",
   "ReservationInfoModal.confirmButton": "Confirm reservation",
   "ReservationInfoModal.denyButton": "Deny reservation",
