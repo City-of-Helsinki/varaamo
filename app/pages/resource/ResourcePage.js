@@ -70,6 +70,11 @@ class UnconnectedResourcePage extends Component {
     actions.fetchResource(id, { start, end });
   }
 
+  disableDays = (day) => {
+    const { resource: { reservableAfter } } = this.props;
+    return !!reservableAfter && moment(day).isBefore(reservableAfter);
+  }
+
   handleDateChange = (newDate) => {
     const { resource, history } = this.props;
     const day = newDate.toISOString().substring(0, 10);
@@ -189,6 +194,7 @@ class UnconnectedResourcePage extends Component {
                       <div>
                         {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
                         <ResourceCalendar
+                          disableDays={this.disableDays}
                           onDateChange={this.handleDateChange}
                           resourceId={resource.id}
                           selectedDate={date}
