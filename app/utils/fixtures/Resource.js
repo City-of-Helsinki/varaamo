@@ -11,6 +11,7 @@ const Resource = new Factory()
   .attr('openingHours', [])
   .attr('requiredReservationExtraFields', [])
   .attr('reservable', true)
+  .attr('reservableAfter', null)
   .attr('supportedReservationExtraFields', [])
   .attr('userPermissions', { isAdmin: false, canMakeReservations: true });
 
