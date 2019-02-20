@@ -19,7 +19,7 @@ import ResourceMapInfo from './resource-map-info';
 
 describe('pages/resource/ResourcePage', () => {
   const unit = Unit.build();
-  const history = { replace: () => {}, goBack: () => {} };
+  const history = { replace: () => { }, goBack: () => { } };
   const resource = Resource.build({
     images: [
       {
@@ -277,6 +277,33 @@ describe('pages/resource/ResourcePage', () => {
       expect(actualArgs[0]).to.equal(defaultProps.id);
       expect(actualArgs[1].start).to.contain('2015-09-01');
       expect(actualArgs[1].end).to.contain('2016-01-31');
+    });
+  });
+
+  describe('disableDays', () => {
+    describe('resource.reservableAfter is not defined', () => {
+      const instance = getWrapper().instance();
+
+      it('returns false', () => {
+        const isDisabled = instance.disableDays('2019-03-06T00:00:00Z');
+        expect(isDisabled).to.equal(false);
+      });
+    });
+
+    describe('resource.reservableAfter is defined', () => {
+      const instance = getWrapper({ resource: { reservableAfter: '2019-03-09T00:00:00Z' } }).instance();
+
+      it('returns true if the supplied day is before reservableAfter', () => {
+        const dayBefore = '2019-03-06T00:00:00Z';
+        const isDisabled = instance.disableDays(dayBefore);
+        expect(isDisabled).to.equal(true);
+      });
+
+      it('returns false if the supplied day is after reservableAfter', () => {
+        const dayAfter = '2019-03-12T00:00:00Z';
+        const isDisabled = instance.disableDays(dayAfter);
+        expect(isDisabled).to.equal(false);
+      });
     });
   });
 

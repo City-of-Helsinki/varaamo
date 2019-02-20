@@ -23,6 +23,13 @@ export class UnconnectedResourceCalendar extends Component {
     };
   }
 
+  disableDays = (day) => {
+    if (this.props.disableDays) {
+      return this.props.disableDays(day);
+    }
+    return new Date(day).setHours(23, 59, 59, 59) < new Date();
+  }
+
   handleDateChange = (newDate) => {
     this.hideOverlay();
     this.props.onDateChange(newDate);
@@ -40,6 +47,7 @@ export class UnconnectedResourceCalendar extends Component {
     const {
       availability,
       currentLanguage,
+      disableDays,
       selectedDate,
       t,
     } = this.props;
@@ -47,6 +55,7 @@ export class UnconnectedResourceCalendar extends Component {
     const selectedDay = new Date();
     selectedDay.setFullYear(year, month - 1, dayNumber);
     const selectedDateText = moment(selectedDate).format('dddd D. MMMM YYYY');
+
     return (
       <div className="app-ResourceCalendar">
         <FormGroup onClick={this.showOverlay}>
@@ -69,7 +78,7 @@ export class UnconnectedResourceCalendar extends Component {
         >
           <ResourceCalendarOverlay onHide={this.hideOverlay}>
             <DayPicker
-              disabledDays={day => new Date(day).setHours(23, 59, 59, 59) < new Date()}
+              disabledDays={disableDays || this.disableDays}
               enableOutsideDays
               initialMonth={new Date(selectedDate)}
               locale={currentLanguage}
@@ -109,6 +118,7 @@ export class UnconnectedResourceCalendar extends Component {
 
 UnconnectedResourceCalendar.propTypes = {
   availability: PropTypes.object.isRequired,
+  disableDays: PropTypes.func,
   currentLanguage: PropTypes.string.isRequired,
   selectedDate: PropTypes.string.isRequired,
   onDateChange: PropTypes.func.isRequired,
