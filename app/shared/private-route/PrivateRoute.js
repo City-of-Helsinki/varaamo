@@ -35,7 +35,6 @@ export class UnconnectedPrivateRoute extends Component {
   render() {
     const { component, ...rest } = this.props; // eslint-disable-line no-unused-vars
 
-
     return <Route {...rest} render={this.renderOrRedirect} />;
   }
 }
