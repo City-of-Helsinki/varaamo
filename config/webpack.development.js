@@ -53,6 +53,7 @@ module.exports = merge(common, {
       'process.env.NODE_ENV': JSON.stringify('development'),
       SETTINGS: {
         API_URL: JSON.stringify(process.env.API_URL || 'https://api.hel.fi/respa-test/v1'),
+        SEARCH_MUNICIPALITY_OPTIONS: process.env.SEARCH_MUNICIPALITY_OPTIONS || [],
         SHOW_TEST_SITE_MESSAGE: Boolean(process.env.SHOW_TEST_SITE_MESSAGE),
         TRACKING: Boolean(process.env.PIWIK_SITE_ID),
       },
