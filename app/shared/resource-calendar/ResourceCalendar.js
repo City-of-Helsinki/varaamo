@@ -27,7 +27,7 @@ export class UnconnectedResourceCalendar extends Component {
     if (this.props.disableDays) {
       return this.props.disableDays(day);
     }
-    return new Date(day).setHours(23, 59, 59, 59) < new Date();
+    return moment(day).isBefore(moment(), 'day');
   }
 
   handleDateChange = (newDate) => {
