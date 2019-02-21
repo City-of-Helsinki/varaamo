@@ -72,7 +72,8 @@ class UnconnectedResourcePage extends Component {
 
   disableDays = (day) => {
     const { resource: { reservableAfter } } = this.props;
-    return !!reservableAfter && moment(day).isBefore(reservableAfter);
+    const beforeDate = reservableAfter || moment();
+    return moment(day).isBefore(beforeDate);
   }
 
   handleDateChange = (newDate) => {
