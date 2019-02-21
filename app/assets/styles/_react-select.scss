@@ -12,21 +12,27 @@
       border: 2px solid $input-border;
     }
 
-    .Select-value {
-      padding-left: 15px;
-      line-height: 39px;
-      color: $black;
-    }
-
     &--is-focused {
       outline: none;
+      border-color: $input-border-focus;
     }
 
     &--menu-is-open {
       border-color: $black;
       border-radius: 0;
       border-width: 2px;
-      height: 40px;
+    }
+
+    &--is-disabled {
+      background-color: $silver;
+      border: 2px solid $dark-gray;
+      color: $dark-gray;
+    }
+
+    .Select-value {
+      padding-left: 15px;
+      line-height: 39px;
+      color: $black;
     }
   }
 
@@ -37,6 +43,7 @@
   .app-Select__clear-indicator {
     font-size: 30px;
     color: #000000;
+    cursor: pointer;
 
     &:hover {
       color: #000000;
@@ -73,6 +80,25 @@
     }
   }
 
+  .app-Select__multi-value {
+    background: $black;
+    border-radius: 0;
+
+    &__label {
+      color: $white;
+    }
+
+    &__remove {
+      color: $white;
+      cursor: pointer;
+
+      &:hover {
+        color: $white;
+        background: transparent;
+      }
+    }
+  }
+
   .app-Select__placeholder {
     color: $dark-gray;
   }
@@ -85,7 +111,7 @@
   }
 
   .app-Select__option {
-    &:active, 
+    &:active,
     &--is-selected,
     &--is-focused {
       background-color: $copper;
