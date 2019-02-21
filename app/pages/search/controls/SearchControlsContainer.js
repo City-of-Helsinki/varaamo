@@ -51,6 +51,12 @@ class UnconnectedSearchControlsContainer extends Component {
     return options;
   }
 
+  getMunicipalityOptions = () =>
+    constants.SEARCH_MUNICIPALITY_OPTIONS.map(municipality => ({
+      value: municipality.toLowerCase(),
+      label: municipality,
+    }));
+
   hasAdvancedFilters() {
     const { filters, position } = this.props;
     let hasFilters = Boolean(position);
@@ -112,6 +118,7 @@ class UnconnectedSearchControlsContainer extends Component {
     if (this.props.position) {
       this.props.actions.disableGeoposition();
     }
+
     this.handleFiltersChange(emptyFilters);
   };
 
@@ -153,12 +160,25 @@ class UnconnectedSearchControlsContainer extends Component {
             </Row>
             <Panel collapsible header={t('SearchControlsContainer.advancedSearch')}>
               <Row>
+                <Col md={12}>
+                  <SelectControl
+                    id="municipality"
+                    isLoading={isFetchingUnits}
+                    isMulti
+                    label={t('SearchControlsContainer.municipalityLabel')}
+                    onChange={municipality => this.handleFiltersChange({ municipality })}
+                    options={this.getMunicipalityOptions()}
+                    value={filters.municipality}
+                  />
+                </Col>
+              </Row>
+              <Row>
                 <Col className="app-SearchControlsContainer__control" md={4} sm={6}>
                   <SelectControl
                     id="purpose"
                     isLoading={isFetchingPurposes}
                     label={t('SearchControlsContainer.purposeLabel')}
-                    onConfirm={purpose => this.handleFiltersChange({ purpose })}
+                    onChange={purpose => this.handleFiltersChange({ purpose })}
                     options={purposeOptions}
                     value={filters.purpose}
                   />
@@ -168,7 +188,7 @@ class UnconnectedSearchControlsContainer extends Component {
                     id="unit"
                     isLoading={isFetchingUnits}
                     label={t('SearchControlsContainer.unitLabel')}
-                    onConfirm={unit => this.handleFiltersChange({ unit })}
+                    onChange={unit => this.handleFiltersChange({ unit })}
                     options={unitOptions}
                     value={filters.unit}
                   />
@@ -178,7 +198,7 @@ class UnconnectedSearchControlsContainer extends Component {
                     id="people"
                     isLoading={isFetchingUnits}
                     label={t('SearchControlsContainer.peopleCapacityLabel')}
-                    onConfirm={people => this.handleFiltersChange({ people })}
+                    onChange={people => this.handleFiltersChange({ people })}
                     options={peopleCapacityOptions}
                     value={filters.people ? String(parseInt(filters.people, 10)) : ''}
                   />
