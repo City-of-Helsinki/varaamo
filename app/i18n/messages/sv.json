@@ -250,6 +250,7 @@
   "SearchControlsContainer.advancedSearch": "Avancerad sökning",
   "SearchControlsContainer.chargeLabel": "Avgiftsfri utrym",
   "SearchControlsContainer.peopleCapacityLabel": "Minsta personantal i utrymmet",
+  "SearchControlsContainer.municipalityLabel": "Kommun",
   "SearchControlsContainer.purposeLabel": "Utrymmets användningsändamål",
   "SearchControlsContainer.resetButton": "Tömma sökfilter",
   "SearchControlsContainer.searchButton": "Sök",
