@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import Select from 'react-select';
 import map from 'lodash/map';
 import Moment from 'moment';
+import classNames from 'classnames';
 import { extendMoment } from 'moment-range';
 
 import { injectT } from 'i18n';
@@ -10,6 +11,8 @@ import { calculateDuration, calculateEndTime } from 'utils/timeUtils';
 import CheckboxControl from './CheckboxControl';
 
 const moment = extendMoment(Moment);
+
+const getValue = (value, options) => options.find(option => option.value === value);
 
 class TimeRangeControl extends React.Component {
   static propTypes = {
@@ -123,6 +126,10 @@ class TimeRangeControl extends React.Component {
   render() {
     const { duration, end, start, t, useTimeRange } = this.props;
 
+    const startTimeOptions = this.getStartTimeOptions();
+    const endTimeOptions = this.getEndTimeOptions();
+    const durationOptions = this.getDurationOptions();
+
     return (
       <div className="app-TimeRangeControl">
         <CheckboxControl
@@ -135,43 +142,43 @@ class TimeRangeControl extends React.Component {
         />
         <div className="app-TimeRangeControl__range">
           <Select
-            className="app-TimeRangeControl__range-start"
-            classNamePrefix="app-TimeRangeControl__range-start"
-            disabled={!useTimeRange}
+            className={classNames('app-Select', 'app-TimeRangeControl__range-start')}
+            classNamePrefix="app-Select"
             isClearable={false}
+            isDisabled={!useTimeRange}
             isSearchable={false}
             name="time-filter-start-select"
             onChange={this.handleStart}
-            options={this.getStartTimeOptions()}
+            options={startTimeOptions}
             placeholder=""
-            value={start}
+            value={getValue(start, startTimeOptions)}
           />
           <div className="app-TimeRangeControl__range-separator">-</div>
           <Select
-            className="app-TimeRangeControl__range-end"
-            classNamePrefix="app-TimeRangeControl__range-end"
-            disabled={!useTimeRange}
+            className={classNames('app-Select', 'app-TimeRangeControl__range-end')}
+            classNamePrefix="app-Select"
             isClearable={false}
+            isDisabled={!useTimeRange}
             isSearchable={false}
             name="time-filter-end-select"
             onChange={this.handleEnd}
-            options={this.getEndTimeOptions()}
+            options={endTimeOptions}
             placeholder=""
             searchable={false}
-            value={end}
+            value={getValue(end, endTimeOptions)}
           />
           <Select
-            className="app-TimeRangeControl__range-duration"
-            classNamePrefix="app-TimeRangeControl__range-duration"
-            disabled={!useTimeRange}
+            className={classNames('app-Select', 'app-TimeRangeControl__range-duration')}
+            classNamePrefix="app-Select"
             isClearable={false}
+            isDisabled={!useTimeRange}
             isSearchable={false}
             name="time-filter-duration-select"
             onChange={this.handleDuration}
-            options={this.getDurationOptions()}
+            options={durationOptions}
             placeholder=""
             searchable={false}
-            value={duration}
+            value={getValue(duration, durationOptions)}
           />
         </div>
       </div>
