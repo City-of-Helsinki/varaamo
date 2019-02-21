@@ -248,6 +248,7 @@
   "SearchControlsContainer.advancedSearch": "Tarkennettu haku",
   "SearchControlsContainer.chargeLabel": "Maksuton tila",
   "SearchControlsContainer.peopleCapacityLabel": "Tilan henkilömäärä vähintään",
+  "SearchControlsContainer.municipalityLabel": "Kunta",
   "SearchControlsContainer.purposeLabel": "Tilan käyttötarkoitus",
   "SearchControlsContainer.resetButton": "Tyhjennä suodattimet",
   "SearchControlsContainer.searchButton": "Hae",

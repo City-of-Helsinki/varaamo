@@ -248,6 +248,7 @@
   "SearchControlsContainer.advancedSearch": "Advanced search",
   "SearchControlsContainer.chargeLabel": "Premises free of charge",
   "SearchControlsContainer.peopleCapacityLabel": "Minimum number of people permitted",
+  "SearchControlsContainer.municipalityLabel": "Municipality",
   "SearchControlsContainer.purposeLabel": "Purpose of use",
   "SearchControlsContainer.resetButton": "Reset filters",
   "SearchControlsContainer.searchButton": "Search",
