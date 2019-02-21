@@ -45,6 +45,7 @@ export default {
     },
   },
   SEARCH_PAGE_SIZE: 30,
+  SEARCH_MUNICIPALITY_OPTIONS: SETTINGS.SEARCH_MUNICIPALITY_OPTIONS,
   SHOW_TEST_SITE_MESSAGE: SETTINGS.SHOW_TEST_SITE_MESSAGE,
   SUPPORTED_LANGUAGES: ['en', 'fi', 'sv'],
   SUPPORTED_SEARCH_FILTERS: {
@@ -52,6 +53,7 @@ export default {
     date: '',
     distance: '',
     duration: 0,
+    municipality: null,
     end: '',
     lat: '',
     lon: '',
