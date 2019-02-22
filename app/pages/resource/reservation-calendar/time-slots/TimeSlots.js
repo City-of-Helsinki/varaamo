@@ -91,6 +91,9 @@ class TimeSlots extends Component {
     const firstTimeSlots = slots
       .map(timeslots => timeslots && timeslots[0])
       .filter(value => !!value && value.end);
+    const slotLength = firstTimeSlots[0]
+      ? moment(firstTimeSlots[0].end).diff(firstTimeSlots[0].start, 'm')
+      : 30;
 
     if (firstTimeSlots.length === 0) {
       return {
@@ -110,7 +113,7 @@ class TimeSlots extends Component {
         return null;
       }
       const currentStart = moment(slot[0].start).set(dateForTimeComparison);
-      return currentStart.diff(earliestStart, 'minutes') / 30;
+      return currentStart.diff(earliestStart, 'minutes') / slotLength;
     });
 
     const selectedDateIndex = findIndex(
