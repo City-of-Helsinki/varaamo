@@ -13,6 +13,11 @@ function getWrapper(props = {}, children = 'Some text') {
     t: () => {},
     initials: null,
   };
+
+  window.matchMedia = () => ({
+    addListener: jest.fn(),
+  });
+
   return shallowWithIntl(<SideNavbar {...defaultProps} {...props}>{children}</SideNavbar>);
 }
 

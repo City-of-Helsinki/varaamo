@@ -111,7 +111,7 @@ $content-padding: 10px;
           position: relative;
           text-decoration: underline;
           &::before {
-            // background-image: url('./images/angle-right.svg');
+            background-image: url('../search/controls/images/angle-right.svg');
             background-repeat: no-repeat;
             background-size: $line-height-computed;
             content: ' ';
@@ -124,7 +124,7 @@ $content-padding: 10px;
           }
         }
         a[aria-selected="true"]::before {
-          // background-image: url('./images/angle-down.svg');
+          background-image: url('../search/controls/images/angle-down.svg');
         }
       }
     }

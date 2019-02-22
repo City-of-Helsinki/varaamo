@@ -344,6 +344,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       const newFilters = { search: 'new search value' };
       const changeSearchFilters = simple.mock();
       const fetchPurposes = simple.mock();
+
       const instance = getWrapper({ actions: { changeSearchFilters, fetchPurposes } }).instance();
       instance.handleFiltersChange(newFilters);
       expect(changeSearchFilters.callCount).to.equal(1);
@@ -356,9 +357,12 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       const enableGeoposition = simple.mock();
       const disableGeoposition = simple.mock();
       const changeSearchFilters = simple.mock();
+      const fetchPurposes = simple.mock();
 
       const props = {
-        actions: { enableGeoposition, disableGeoposition, changeSearchFilters },
+        actions: {
+          enableGeoposition, disableGeoposition, changeSearchFilters, fetchPurposes,
+        },
       };
       const instance = getWrapper(props).instance();
       instance.handlePositionSwitch();
@@ -368,8 +372,13 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     it('calls props actions disableGeoposition when position', () => {
       const enableGeoposition = simple.mock();
       const disableGeoposition = simple.mock();
+      const fetchPurposes = simple.mock();
+      const changeSearchFilters = simple.mock();
+
       const props = {
-        actions: { enableGeoposition, disableGeoposition },
+        actions: {
+          enableGeoposition, disableGeoposition, fetchPurposes, changeSearchFilters,
+        },
         position: { lat: 1, lon: 2 },
       };
       const instance = getWrapper(props).instance();
@@ -383,7 +392,9 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     it('calls props actions changeSearchFilters with given filters', () => {
       const search = 'new search value';
       const changeSearchFilters = simple.mock();
-      const instance = getWrapper({ actions: { changeSearchFilters } }).instance();
+      const fetchPurposes = simple.mock();
+
+      const instance = getWrapper({ actions: { changeSearchFilters, fetchPurposes } }).instance();
       instance.handleSearchBoxChange(search);
       expect(changeSearchFilters.callCount).to.equal(1);
       expect(changeSearchFilters.lastCall.args[0]).to.deep.equal({ search });
@@ -439,11 +450,14 @@ describe('pages/search/controls/SearchControlsContainer', () => {
 
   describe('handleReset', () => {
     const disableGeoposition = simple.mock();
+    const changeSearchFilters = simple.mock();
+    const fetchPurposes = simple.mock();
+
     let instance;
 
     beforeAll(() => {
       const props = {
-        actions: { disableGeoposition },
+        actions: { disableGeoposition, changeSearchFilters, fetchPurposes },
         position: { lat: 1, lon: 2 },
       };
       instance = getWrapper(props).instance();

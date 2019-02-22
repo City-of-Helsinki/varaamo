@@ -29,7 +29,7 @@ module.exports = {
   moduleDirectories: ['node_modules', 'app'],
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
-  setupFiles: ['<rootDir>config/jest/setupJest.js'],
+  setupFiles: ['<rootDir>/config/jest/setupJest.js'],
 
   // The test environment that will be used for testing
   testEnvironment: 'jsdom',
@@ -43,12 +43,10 @@ module.exports = {
   // This option sets the URL for the jsdom environment. It is reflected in properties such as location.href
   testURL: 'http://localhost',
 
-  // Babel transform
-  transform: {
-    '^.+\\.jsx?$': 'babel-jest',
-  },
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  transformIgnorePatterns: ['<rootDir>/node_modules/'],
+  transformIgnorePatterns: [
+    '<rootDir>/node_modules/',
+  ],
 
   // Indicates whether each individual test should be reported during the run
   verbose: false,

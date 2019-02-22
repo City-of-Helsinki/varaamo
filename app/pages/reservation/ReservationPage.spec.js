@@ -395,10 +395,13 @@ describe('pages/reservation/ReservationPage', () => {
 
     it('calls putReservation action when reservationToEdit not empty', () => {
       const reservationToEdit = Reservation.build();
+      const fetchResource = simple.mock();
+
       const instance = getWrapper({
         actions: {
           postReservation,
           putReservation,
+          fetchResource,
         },
         reservationToEdit,
       }).instance();
@@ -410,10 +413,14 @@ describe('pages/reservation/ReservationPage', () => {
     it('calls postReservation action when reservationToEdit empty', () => {
       postReservation.reset();
       putReservation.reset();
+
+      const fetchResource = simple.mock();
+
       const instance = getWrapper({
         actions: {
           postReservation,
           putReservation,
+          fetchResource,
         },
       }).instance();
       instance.handleReservation(values);

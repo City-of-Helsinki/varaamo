@@ -176,8 +176,8 @@ describe('pages/resource/ResourcePage', () => {
     it('calls clearReservations and fetchResource', () => {
       const clearReservations = simple.mock();
       const fetchResource = simple.mock();
-      const instance = getWrapper({ actions: { clearReservations } }).instance();
-      instance.fetchResource = fetchResource;
+
+      const instance = getWrapper({ actions: { clearReservations, fetchResource } }).instance();
       instance.componentDidMount();
 
       expect(clearReservations.callCount).to.equal(1);
@@ -242,9 +242,10 @@ describe('pages/resource/ResourcePage', () => {
     describe('if isLoggedIn did not change', () => {
       const nextProps = { date: defaultProps.date, isLoggedIn: defaultProps.isLoggedIn };
       const fetchResource = simple.mock();
+      const clearReservations = simple.mock();
 
       beforeAll(() => {
-        const instance = getWrapper({ actions: { fetchResource } }).instance();
+        const instance = getWrapper({ actions: { fetchResource, clearReservations } }).instance();
         instance.componentWillUpdate(nextProps);
       });
 
@@ -257,7 +258,9 @@ describe('pages/resource/ResourcePage', () => {
   describe('fetchResource', () => {
     it('fetches resource with correct arguments', () => {
       const fetchResource = simple.mock();
-      const instance = getWrapper({ actions: { fetchResource } }).instance();
+      const clearReservations = simple.mock();
+
+      const instance = getWrapper({ actions: { fetchResource, clearReservations } }).instance();
       instance.fetchResource();
       const actualArgs = fetchResource.lastCall.args;
 
@@ -269,7 +272,9 @@ describe('pages/resource/ResourcePage', () => {
 
     it('fetches resource with correct arguments with a passed date', () => {
       const fetchResource = simple.mock();
-      const instance = getWrapper({ actions: { fetchResource } }).instance();
+      const clearReservations = simple.mock();
+
+      const instance = getWrapper({ actions: { fetchResource, clearReservations } }).instance();
       instance.fetchResource('2015-11-11');
       const actualArgs = fetchResource.lastCall.args;
 
