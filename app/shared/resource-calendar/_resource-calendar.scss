@@ -38,6 +38,7 @@
   .DayPicker {
     padding: 0;
     overflow-x: hidden;
+    width: 100%;
 
     &:focus {
       outline: none;
@@ -45,18 +46,40 @@
   }
 
   .DayPicker-NavBar {
-    padding: 0.75rem 0.5rem;
+    position: absolute;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .DayPicker-NavButton--prev {
+    @include icon-angle-left($black);
+    width: $line-height-computed;
+    height: $line-height-computed;
+    position: static;
+    margin-right: 0;
+  }
+
+  .DayPicker-NavButton--next {
+    @include icon-angle-right($black);
+    width: $line-height-computed;
+    height: $line-height-computed;
+    position: static;
   }
 
   .DayPicker-Caption {
     height: auto;
     font-weight: 600;
     line-height: 3rem;
+    font-size: 16px;
+    text-transform: capitalize;
+    text-align: center;
   }
 
   .DayPicker-Month {
     margin: 0;
     border-collapse: separate;
+    width: 100%;
   }
 
   .DayPicker-Day {
@@ -66,6 +89,8 @@
     line-height: 1rem;
     color: $black;
     background-color: $available-color;
+    border-radius: 0;
+    font-size: 1.6rem;
 
     &:focus {
       outline: none;
@@ -107,6 +132,7 @@
 
   .DayPicker-WeekdaysRow {
     padding: 0.2rem;
+    font-size: 1.4rem;
   }
 
   .DayPicker-Weekdays {
@@ -120,6 +146,10 @@
   }
   .DayPicker-Weekday {
     color: $black;
+  }
+
+  .DayPicker-WeekNumber {
+    font-size: 14px;
   }
 
   .calendar-legend {

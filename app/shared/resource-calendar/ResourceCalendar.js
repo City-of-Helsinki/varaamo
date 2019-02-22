@@ -104,6 +104,7 @@ export class UnconnectedResourceCalendar extends Component {
               }}
               onDayClick={this.handleDateChange}
               selectedDays={selectedDay}
+              showOutsideDays
             />
             <div className="calendar-legend">
               <span className="free">{t('ReservationCalendarPickerLegend.free')}</span>

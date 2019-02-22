@@ -47,7 +47,7 @@ class DatePickerControl extends React.Component {
   };
 
   handleConfirm = (value) => {
-    const date = value;
+    const date = moment(value);
     this.props.onConfirm({ date });
     this.hideOverlay();
   };
@@ -89,6 +89,7 @@ class DatePickerControl extends React.Component {
               localeUtils={MomentLocaleUtils}
               onDayClick={this.handleConfirm}
               selectedDays={selectedDay}
+              showOutsideDays
               showWeekNumbers
             />
           </SearchControlOverlay>
