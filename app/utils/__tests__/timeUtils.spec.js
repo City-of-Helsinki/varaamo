@@ -1,4 +1,5 @@
 import constants from 'constants/AppConstants';
+import testConstants from 'constants/TestConstants';
 
 import { expect } from 'chai';
 import MockDate from 'mockdate';
@@ -219,7 +220,7 @@ describe('Utils: timeUtils', () => {
   });
 
   describe('getStartTimeString', () => {
-    const now = '2016-10-10T06:45:00+03:00';
+    const now = testConstants.MOCK_TIME;
 
     beforeEach(() => {
       MockDate.set(now);
@@ -231,12 +232,12 @@ describe('Utils: timeUtils', () => {
 
     it('returns default start if parameter is undefined', () => {
       const start = undefined;
-      expect(getStartTimeString(start)).to.equal('07:00');
+      expect(getStartTimeString(start)).to.equal('15:00');
     });
 
     it('returns default start if parameter is empty', () => {
       const start = '';
-      expect(getStartTimeString(start)).to.equal('07:00');
+      expect(getStartTimeString(start)).to.equal('15:00');
     });
 
     it('returns the start unchanged', () => {
@@ -490,7 +491,7 @@ describe('Utils: timeUtils', () => {
   });
 
   describe('isPastDate', () => {
-    const now = '2016-10-10T06:00:00+03:00';
+    const now = testConstants.MOCK_TIME;
 
     beforeEach(() => {
       MockDate.set(now);
