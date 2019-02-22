@@ -35,7 +35,7 @@ describe('shared/wrapped-text/WrappedText', () => {
     const text = 'Just one line';
     let content;
 
-    beforeAll(() => {
+    beforeEach(() => {
       content = getWrapper({ text }).children();
     });
 
@@ -56,7 +56,7 @@ describe('shared/wrapped-text/WrappedText', () => {
     const text = lines.join('\n');
     let content;
 
-    beforeAll(() => {
+    beforeEach(() => {
       content = getWrapper({ text }).children();
     });
 

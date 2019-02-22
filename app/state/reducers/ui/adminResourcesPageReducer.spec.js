@@ -94,7 +94,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
       describe('with correct meta source', () => {
         let action;
 
-        beforeAll(() => {
+        beforeEach(() => {
           action = getResourceSuccess(
             {
               entities: { resources },
@@ -130,7 +130,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
       describe('with incorrect meta source', () => {
         let action;
 
-        beforeAll(() => {
+        beforeEach(() => {
           action = getResourceSuccess({
             entities: {
               resources: { resources },
@@ -153,7 +153,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
         const nonPublicResource = Resource.build({ public: false });
 
         let action;
-        beforeAll(() => {
+        beforeEach(() => {
           action = getResourceSuccess(
             {
               entities: {

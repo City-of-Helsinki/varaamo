@@ -27,7 +27,7 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
 
   let dayWrapper;
   let wrapper;
-  beforeAll(() => {
+  beforeEach(() => {
     wrapper = getWrapper({
       availability: {
         '2015-10-01': { percentage: 0 },
@@ -100,7 +100,7 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
     receivedTomorrow.setHours(12, 0, 0, 0);
     receivedYesterday.setHours(12, 0, 0, 0);
     let isDisabled;
-    beforeAll(() => {
+    beforeEach(() => {
       isDisabled = dayWrapper.prop('disabledDays');
     });
 

@@ -17,7 +17,7 @@ describe('shared/favorite-button/FavoriteButton', () => {
   }
   let wrapper;
 
-  beforeAll(() => {
+  beforeEach(() => {
     wrapper = getWrapper();
   });
 

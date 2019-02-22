@@ -24,7 +24,7 @@ describe('shared/comment-button/CommentButtonContainer', () => {
   }
   let wrapper;
 
-  beforeAll(() => {
+  beforeEach(() => {
     wrapper = getWrapper();
   });
 
@@ -43,7 +43,7 @@ describe('shared/comment-button/CommentButtonContainer', () => {
   describe('handleClick', () => {
     let instance;
 
-    beforeAll(() => {
+    beforeEach(() => {
       instance = wrapper.instance();
     });
 

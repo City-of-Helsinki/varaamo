@@ -26,7 +26,7 @@ describe('pages/resource/resource-info/ImageCarousel', () => {
     describe('when there are multiple images in the carousel', () => {
       let carousel;
 
-      beforeAll(() => {
+      beforeEach(() => {
         carousel = getWrapper().find(Carousel);
       });
 
@@ -46,7 +46,7 @@ describe('pages/resource/resource-info/ImageCarousel', () => {
     describe('when there is only one image in the carousel', () => {
       let carousel;
 
-      beforeAll(() => {
+      beforeEach(() => {
         carousel = getWrapper({ images: [Image.build()] }).find(Carousel);
       });
 

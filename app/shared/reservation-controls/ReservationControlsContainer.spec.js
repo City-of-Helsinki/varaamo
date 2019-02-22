@@ -36,7 +36,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
   let container;
   let instance;
 
-  beforeAll(() => {
+  beforeEach(() => {
     container = shallow(<ReservationControlsContainer {...props} />);
     instance = container.instance();
   });
@@ -61,7 +61,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
   });
 
   describe('handleCancelClick', () => {
-    beforeAll(() => {
+    beforeEach(() => {
       instance.handleCancelClick();
     });
 
@@ -80,12 +80,12 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
   describe('handleEditClick', () => {
     let historyMock;
 
-    beforeAll(() => {
+    beforeEach(() => {
       historyMock = simple.mock(history, 'push');
       instance.handleEditClick();
     });
 
-    afterAll(() => {
+    afterEach(() => {
       simple.restore();
     });
 
@@ -107,7 +107,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
   });
 
   describe('handleInfoClick', () => {
-    beforeAll(() => {
+    beforeEach(() => {
       instance.handleInfoClick();
     });
 

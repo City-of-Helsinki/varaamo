@@ -74,14 +74,14 @@ describe('shared/comment-form/CommentForm', () => {
     const comments = 'Some comments';
     const mockEvent = { preventDefault: () => null };
 
-    beforeAll(() => {
+    beforeEach(() => {
       simple.mock(ReactDom, 'findDOMNode').returnWith({ value: comments });
       const instance = getWrapper().instance();
       defaultProps.onSave.reset();
       instance.handleSave(mockEvent);
     });
 
-    afterAll(() => {
+    afterEach(() => {
       simple.restore();
     });
 

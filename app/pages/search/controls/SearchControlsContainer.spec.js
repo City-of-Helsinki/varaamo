@@ -209,14 +209,14 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     let instance;
     let selectControl;
 
-    beforeAll(() => {
+    beforeEach(() => {
       const wrapper = getWrapper();
       instance = wrapper.instance();
       instance.handleFiltersChange = simple.mock();
       selectControl = wrapper.find(SelectControl);
     });
 
-    afterAll(() => {
+    afterEach(() => {
       simple.restore();
     });
 
@@ -272,14 +272,14 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     let positionControl;
     let instance;
 
-    beforeAll(() => {
+    beforeEach(() => {
       const wrapper = getWrapper();
       instance = wrapper.instance();
       instance.handleFiltersChange = simple.mock();
       positionControl = wrapper.find(PositionControl);
     });
 
-    afterAll(() => {
+    afterEach(() => {
       simple.restore();
     });
 
@@ -297,14 +297,14 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     let checkboxControl;
     let instance;
 
-    beforeAll(() => {
+    beforeEach(() => {
       const wrapper = getWrapper();
       instance = wrapper.instance();
       instance.handleFiltersChange = simple.mock();
       checkboxControl = wrapper.find(CheckboxControl);
     });
 
-    afterAll(() => {
+    afterEach(() => {
       simple.restore();
     });
 
@@ -323,13 +323,13 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     const expected = { date };
     let instance;
 
-    beforeAll(() => {
+    beforeEach(() => {
       instance = getWrapper().instance();
       instance.handleFiltersChange = simple.mock();
       instance.handleDateChange(defaultProps.filters);
     });
 
-    afterAll(() => {
+    afterEach(() => {
       simple.restore();
     });
 
@@ -405,14 +405,14 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     let buttons;
     let instance;
 
-    beforeAll(() => {
+    beforeEach(() => {
       const wrapper = getWrapper();
       instance = wrapper.instance();
       instance.handleSearch = simple.mock();
       buttons = wrapper.find(Button);
     });
 
-    afterAll(() => {
+    afterEach(() => {
       simple.restore();
     });
 
@@ -428,14 +428,14 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     const newFilters = {};
     let historyMock;
 
-    beforeAll(() => {
+    beforeEach(() => {
       historyMock = simple.mock(history, 'push');
       getWrapper()
         .instance()
         .handleSearch(newFilters);
     });
 
-    afterAll(() => {
+    afterEach(() => {
       simple.restore();
     });
 
@@ -455,7 +455,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
 
     let instance;
 
-    beforeAll(() => {
+    beforeEach(() => {
       const props = {
         actions: { disableGeoposition, changeSearchFilters, fetchPurposes },
         position: { lat: 1, lon: 2 },
@@ -465,7 +465,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       instance.handleReset();
     });
 
-    afterAll(() => {
+    afterEach(() => {
       simple.restore();
     });
 

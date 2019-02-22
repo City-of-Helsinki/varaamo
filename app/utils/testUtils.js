@@ -70,7 +70,7 @@ function createApiTest(options) {
     let action;
     let callAPI;
 
-    beforeAll(() => {
+    beforeEach(() => {
       action = options.action.apply(null, options.args);
       callAPI = action[RSAA];
     });
@@ -116,7 +116,7 @@ function createApiTest(options) {
           const actionTests = tests[actionTypeName];
           const extraTests = actionTests.extra && actionTests.extra.tests;
           let typeAction;
-          beforeAll(() => {
+          beforeEach(() => {
             typeAction = callAPI.types[index];
           });
 
@@ -149,7 +149,7 @@ function createApiTest(options) {
             const payloadTests = actionTests.payload || {};
             const jsonData = payloadTests.data || {};
 
-            beforeAll(() => {
+            beforeEach(() => {
               payload = typeAction.payload;
               response = {
                 headers: {

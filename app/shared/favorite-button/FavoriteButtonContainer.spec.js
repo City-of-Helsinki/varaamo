@@ -25,7 +25,7 @@ describe('shared/favorite-button/FavoriteButtonContainer', () => {
   }
   let wrapper;
 
-  beforeAll(() => {
+  beforeEach(() => {
     wrapper = getWrapper();
   });
 
@@ -40,7 +40,7 @@ describe('shared/favorite-button/FavoriteButtonContainer', () => {
   describe('handleClick', () => {
     let instance;
 
-    beforeAll(() => {
+    beforeEach(() => {
       instance = wrapper.instance();
     });
 

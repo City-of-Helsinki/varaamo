@@ -161,7 +161,7 @@ describe('pages/search/SearchPage', () => {
       const scrollToMock = simple.mock();
       const scrollTop = 123;
 
-      beforeAll(() => {
+      beforeEach(() => {
         const location = { state: { scrollTop } };
         const props = Object.assign({}, defaultProps, { location });
         simple.mock(window, 'setTimeout', setTimeoutMock);
@@ -169,7 +169,7 @@ describe('pages/search/SearchPage', () => {
         callComponentDidMount(props, {});
       });
 
-      afterAll(() => {
+      afterEach(() => {
         simple.restore();
       });
 
@@ -192,7 +192,7 @@ describe('pages/search/SearchPage', () => {
     describe('if isLoggedIn changed', () => {
       let nextProps;
 
-      beforeAll(() => {
+      beforeEach(() => {
         defaultProps.actions.changeSearchFilters.reset();
         defaultProps.actions.searchResources.reset();
         const instance = getWrapper().instance();
@@ -218,7 +218,7 @@ describe('pages/search/SearchPage', () => {
     describe('if search filters did change and url has query part', () => {
       let nextProps;
 
-      beforeAll(() => {
+      beforeEach(() => {
         defaultProps.actions.changeSearchFilters.reset();
         defaultProps.actions.searchResources.reset();
         const instance = getWrapper().instance();
@@ -250,7 +250,7 @@ describe('pages/search/SearchPage', () => {
     describe('if search filters did not change', () => {
       let nextProps;
 
-      beforeAll(() => {
+      beforeEach(() => {
         defaultProps.actions.changeSearchFilters.reset();
         defaultProps.actions.searchResources.reset();
         const instance = getWrapper().instance();
@@ -276,7 +276,7 @@ describe('pages/search/SearchPage', () => {
     describe('if position changed', () => {
       let nextProps;
 
-      beforeAll(() => {
+      beforeEach(() => {
         defaultProps.actions.changeSearchFilters.reset();
         defaultProps.actions.searchResources.reset();
         const instance = getWrapper().instance();
@@ -303,7 +303,7 @@ describe('pages/search/SearchPage', () => {
     });
 
     describe('if location state changed', () => {
-      beforeAll(() => {
+      beforeEach(() => {
         simple.mock(window, 'scrollTo');
         const instance = getWrapper().instance();
         const nextProps = {
@@ -317,7 +317,7 @@ describe('pages/search/SearchPage', () => {
         instance.componentWillUpdate(nextProps);
       });
 
-      afterAll(() => {
+      afterEach(() => {
         simple.restore();
       });
 

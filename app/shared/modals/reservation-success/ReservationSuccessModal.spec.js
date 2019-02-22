@@ -44,7 +44,7 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
     ]);
     let wrapper;
 
-    beforeAll(() => {
+    beforeEach(() => {
       wrapper = getWrapper({ reservationsToShow });
     });
 
@@ -96,7 +96,7 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
       const texts = [];
       let textContent;
 
-      beforeAll(() => {
+      beforeEach(() => {
         wrapper.find('p').forEach((paragraph) => {
           texts.push(paragraph.text());
         });
@@ -149,7 +149,7 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
     ]);
     let wrapper;
 
-    beforeAll(() => {
+    beforeEach(() => {
       wrapper = getWrapper({ reservationsToShow });
     });
 
@@ -196,7 +196,7 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
       const texts = [];
       let textContent;
 
-      beforeAll(() => {
+      beforeEach(() => {
         wrapper.find('p').forEach((paragraph) => {
           texts.push(paragraph.text());
         });

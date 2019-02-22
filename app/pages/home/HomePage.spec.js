@@ -82,11 +82,11 @@ describe('pages/home/HomePage', () => {
     describe('Purpose banners', () => {
       let wrapper;
 
-      beforeAll(() => {
+      beforeEach(() => {
         wrapper = getWrapper();
       });
 
-      afterAll(() => {
+      afterEach(() => {
         simple.restore();
       });
 
@@ -116,13 +116,13 @@ describe('pages/home/HomePage', () => {
     const expectedPath = `/search?search=${value}`;
     let historyMock;
 
-    beforeAll(() => {
+    beforeEach(() => {
       const instance = getWrapper().instance();
       historyMock = simple.mock(history, 'push');
       instance.handleSearch(value);
     });
 
-    afterAll(() => {
+    afterEach(() => {
       simple.restore();
     });
 

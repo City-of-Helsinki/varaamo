@@ -20,7 +20,7 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
   }
   let wrapper;
 
-  beforeAll(() => {
+  beforeEach(() => {
     wrapper = getWrapper();
   });
 
@@ -30,7 +30,7 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
 
   describe('ResourceTypeFilter', () => {
     let resourceTypeFilter;
-    beforeAll(() => {
+    beforeEach(() => {
       resourceTypeFilter = wrapper.find(ResourceTypeFilterButton).at(0);
     });
 
@@ -40,7 +40,7 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
     });
 
     describe('selected', () => {
-      beforeAll(() => {
+      beforeEach(() => {
         resourceTypeFilter = wrapper.find(ResourceTypeFilterButton).at(0);
       });
 
@@ -49,7 +49,7 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
       });
     });
     describe('not selected', () => {
-      beforeAll(() => {
+      beforeEach(() => {
         resourceTypeFilter = wrapper.find(ResourceTypeFilterButton).at(1);
       });
 
@@ -62,7 +62,7 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
   describe('handleClick', () => {
     let instance;
 
-    beforeAll(() => {
+    beforeEach(() => {
       instance = wrapper.instance();
     });
 

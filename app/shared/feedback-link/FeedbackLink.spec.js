@@ -18,7 +18,7 @@ describe('shared/feedback-link/FeedbackLink', () => {
   describe('When there is no customization in use', () => {
     let link;
 
-    beforeAll(() => {
+    beforeEach(() => {
       link = getWrapper();
     });
 
@@ -40,12 +40,12 @@ describe('shared/feedback-link/FeedbackLink', () => {
   describe('When Espoo customization is used', () => {
     let link;
 
-    beforeAll(() => {
+    beforeEach(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('ESPOO');
       link = getWrapper();
     });
 
-    afterAll(() => {
+    afterEach(() => {
       simple.restore();
     });
 

@@ -50,7 +50,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
 
     describe('when user is not admin', () => {
       let wrapper;
-      beforeAll(() => {
+      beforeEach(() => {
         wrapper = getWrapper({ isAdmin: false });
       });
 
@@ -124,14 +124,14 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
       const timer = 5;
       let instance;
 
-      beforeAll(() => {
+      beforeEach(() => {
         fetchFavoritedResources.reset();
         simple.mock(window, 'setInterval').returnWith(timer);
         instance = getWrapper({ isAdmin }).instance();
         instance.componentDidMount();
       });
 
-      afterAll(() => {
+      afterEach(() => {
         simple.restore();
       });
 
@@ -164,7 +164,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
   describe('componentWillReceiveProps', () => {
     let instance;
 
-    beforeAll(() => {
+    beforeEach(() => {
       instance = getWrapper().instance();
       instance.fetchResources = simple.mock();
     });
@@ -173,7 +173,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
       instance.fetchResources.reset();
     });
 
-    afterAll(() => {
+    afterEach(() => {
       simple.restore();
     });
 
@@ -199,7 +199,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
     const timer = 5;
     let instance;
 
-    beforeAll(() => {
+    beforeEach(() => {
       changeAdminResourcesPageDate.reset();
       simple.mock(window, 'setInterval').returnWith(timer);
       simple.mock(window, 'clearInterval').returnWith(timer);
@@ -208,7 +208,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
       instance.componentWillUnmount();
     });
 
-    afterAll(() => {
+    afterEach(() => {
       simple.restore();
     });
 

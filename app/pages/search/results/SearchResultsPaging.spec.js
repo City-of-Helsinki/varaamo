@@ -67,13 +67,13 @@ describe('pages/search/results/SearchResultsPaging', () => {
     const expectedPath = `/search?date=${defaults.filters.date}&page=${page}`;
     let historyMock;
 
-    beforeAll(() => {
+    beforeEach(() => {
       const instance = getWrapper().instance();
       historyMock = simple.mock(history, 'push');
       instance.handleClick(page);
     });
 
-    afterAll(() => {
+    afterEach(() => {
       simple.restore();
     });
 
@@ -87,7 +87,7 @@ describe('pages/search/results/SearchResultsPaging', () => {
     let instance;
     let buttons;
 
-    beforeAll(() => {
+    beforeEach(() => {
       const filters = { page: 3 };
       const wrapper = getWrapper({ filters });
       instance = wrapper.instance();
@@ -99,7 +99,7 @@ describe('pages/search/results/SearchResultsPaging', () => {
       instance.handleClick.reset();
     });
 
-    afterAll(() => {
+    afterEach(() => {
       simple.restore();
     });
 

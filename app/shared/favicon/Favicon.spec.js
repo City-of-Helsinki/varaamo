@@ -17,7 +17,7 @@ describe('shared/favicon/Favicon', () => {
   describe('When there is no customization in use', () => {
     let favicon;
 
-    beforeAll(() => {
+    beforeEach(() => {
       favicon = getWrapper();
     });
 
@@ -29,12 +29,12 @@ describe('shared/favicon/Favicon', () => {
   describe('When Espoo customization is used', () => {
     let favicon;
 
-    beforeAll(() => {
+    beforeEach(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('ESPOO');
       favicon = getWrapper();
     });
 
-    afterAll(() => {
+    afterEach(() => {
       simple.restore();
     });
 
@@ -46,12 +46,12 @@ describe('shared/favicon/Favicon', () => {
   describe('When Vantaa customization is used', () => {
     let favicon;
 
-    beforeAll(() => {
+    beforeEach(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('VANTAA');
       favicon = getWrapper();
     });
 
-    afterAll(() => {
+    afterEach(() => {
       simple.restore();
     });
 

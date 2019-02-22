@@ -99,7 +99,7 @@ describe('pages/search/controls/DatePickerControl', () => {
     receivedTomorrow.setHours(12, 0, 0, 0);
     receivedYesterday.setHours(12, 0, 0, 0);
     let isDisabled;
-    beforeAll(() => {
+    beforeEach(() => {
       isDisabled = dayPicker.prop('disabledDays');
     });
 

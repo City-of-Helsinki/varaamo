@@ -14,11 +14,11 @@ describe('shared/test-site-message/TestSiteMessage', () => {
   }
 
   describe('if SETTINGS.SHOW_TEST_SITE_MESSAGE is true', () => {
-    beforeAll(() => {
+    beforeEach(() => {
       simple.mock(constants, 'SHOW_TEST_SITE_MESSAGE').returnWith(true);
     });
 
-    afterAll(() => {
+    afterEach(() => {
       simple.restore();
     });
 

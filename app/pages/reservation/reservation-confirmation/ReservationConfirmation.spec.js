@@ -128,7 +128,7 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
     let button;
     let instance;
 
-    beforeAll(() => {
+    beforeEach(() => {
       const wrapper = getWrapper();
       button = wrapper.find(Button);
       instance = wrapper.instance();
@@ -139,7 +139,7 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
       instance.handleReservationsButton.reset();
     });
 
-    afterAll(() => {
+    afterEach(() => {
       simple.restore();
     });
 
@@ -156,13 +156,13 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
     let instance;
     let historyMock;
 
-    beforeAll(() => {
+    beforeEach(() => {
       instance = getWrapper().instance();
       historyMock = simple.mock(history, 'replace');
       instance.handleReservationsButton();
     });
 
-    afterAll(() => {
+    afterEach(() => {
       simple.restore();
     });
 

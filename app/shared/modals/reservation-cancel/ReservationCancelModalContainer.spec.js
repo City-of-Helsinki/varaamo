@@ -141,7 +141,7 @@ describe('shared/modals/reservation-cancel/ReservationCancelModalContainer', () 
     const deleteReservation = simple.mock();
     const actions = { closeReservationCancelModal, deleteReservation };
 
-    beforeAll(() => {
+    beforeEach(() => {
       const instance = getWrapper({ actions }).instance();
       instance.handleCancel();
     });

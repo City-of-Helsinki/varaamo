@@ -59,11 +59,11 @@ describe('shared/modals/reservation-info/reservationInfoModalSelector', () => {
   });
 
   describe('reservationIsEditable', () => {
-    beforeAll(() => {
+    beforeEach(() => {
       mockDate.set('2017-03-01T10:00:00Z');
     });
 
-    afterAll(() => {
+    afterEach(() => {
       mockDate.reset();
     });
 

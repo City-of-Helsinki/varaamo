@@ -18,7 +18,7 @@ describe('shared/resource-type-filter/ResourceTypeFilterButton', () => {
   }
   let wrapper;
 
-  beforeAll(() => {
+  beforeEach(() => {
     wrapper = getWrapper();
   });
 

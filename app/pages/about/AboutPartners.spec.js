@@ -20,7 +20,7 @@ describe('pages/about/AboutPartners', () => {
   describe('images', () => {
     let images;
 
-    beforeAll(() => {
+    beforeEach(() => {
       images = getWrapper().find('img');
     });
 
