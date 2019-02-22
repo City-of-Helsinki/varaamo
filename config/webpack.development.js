@@ -36,6 +36,7 @@ module.exports = merge(common, {
       {
         test: /\.(js|jsx)$/,
         include: path.resolve(__dirname, '../app'),
+        exclude: path.resolve(__dirname, '../node_modules'),
         options: {
           presets: ['@babel/preset-env', '@babel/preset-react'],
         },
@@ -45,7 +46,7 @@ module.exports = merge(common, {
         test: /\.css$/,
         use: [
           'style-loader',
-          { loader: 'css-loader', options: { url: false } },
+          'css-loader',
           { loader: 'postcss-loader', options: { plugins: [autoprefixer({ browsers: ['last 2 version', 'ie 9'] })] } },
         ],
       },
@@ -53,7 +54,7 @@ module.exports = merge(common, {
         test: /\.scss$/,
         use: [
           'style-loader',
-          { loader: 'css-loader', options: { url: false } },
+          'css-loader',
           'resolve-url-loader',
           { loader: 'sass-loader', options: { sourceMap: true, sourceMapContents: false } },
           { loader: 'postcss-loader', options: { plugins: [autoprefixer({ browsers: ['last 2 version', 'ie 9'] })] } },

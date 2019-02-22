@@ -21,14 +21,16 @@ module.exports = merge(common, {
     rules: [
       {
         test: /\.js$/,
-        include: path.resolve(__dirname, '../app'),
+        include: [
+          path.resolve(__dirname, '../app'),
+          path.resolve(__dirname, './'),
+        ],
         loader: 'babel-loader',
         options: {
           plugins: [
             ['istanbul', {
               exclude: [
                 '**/*.spec.js',
-                '**/specs.bootstrap.js',
               ],
             }],
           ],
@@ -39,7 +41,7 @@ module.exports = merge(common, {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          { loader: 'css-loader', options: { url: false } },
+          'css-loader',
           { loader: 'postcss-loader', options: { plugins: [autoprefixer({ browsers: ['last 2 version', 'ie 9'] })] } },
         ],
       },
@@ -47,7 +49,7 @@ module.exports = merge(common, {
         test: /\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          { loader: 'css-loader', options: { url: false } },
+          'css-loader',
           'resolve-url-loader',
           { loader: 'sass-loader', options: { sourceMap: true, sourceMapContents: false } },
           { loader: 'postcss-loader', options: { plugins: [autoprefixer({ browsers: ['last 2 version', 'ie 9'] })] } },
@@ -63,6 +65,7 @@ module.exports = merge(common, {
       },
     }),
     new HtmlWebpackPlugin(),
+    new webpack.IgnorePlugin(/ReactContext/),
     new MiniCssExtractPlugin({
       filename: 'app.css',
     }),
