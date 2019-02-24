@@ -53,7 +53,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     start: '2016-10-11T10:00:00.000Z',
   };
   const history = {
-    push: () => {},
+    push: () => { },
   };
   const defaultProps = {
     actions,
@@ -253,7 +253,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       const result = instance.getSelectedTimeText([selectedSlot]);
 
       expect(instance.getDateTimeText.callCount).to.equal(2);
-      expect(result).to.equal('some text - some text');
+      expect(result).to.equal('some text - some text (1h 0min)');
     });
   });
 
@@ -315,7 +315,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     it('calls history push with correct path', () => {
       const expectedPath = `/reservation?begin=10:00&date=2016-10-12&end=11:00&id=&resource=${
         selected[0].resource
-      }`;
+        }`;
       const instance = getWrapper({ selected }).instance();
       instance.handleReserveClick();
       expect(historyMock.callCount).to.equal(1);

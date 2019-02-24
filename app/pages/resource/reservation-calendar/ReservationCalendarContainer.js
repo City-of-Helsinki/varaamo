@@ -81,7 +81,11 @@ export class UnconnectedReservationCalendarContainer extends Component {
     const endSlot = last(orderedSelected);
     const beginText = this.getDateTimeText(beginSlot.begin, true);
     const endText = this.getDateTimeText(endSlot.end, false);
-    return `${beginText} - ${endText}`;
+    const duration = moment.duration(moment(endSlot.end).diff(moment(beginSlot.begin)));
+    const hours = duration.hours();
+    const mins = duration.minutes();
+    const durationText = `${hours > 0 ? `${hours}h ` : ''}${mins}min`;
+    return `${beginText} - ${endText} (${durationText})`;
   };
 
   getDateTimeText = (slot, returnDate) => {
@@ -162,7 +166,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
         {showTimeSlots && selected.length > 0 && (
           <Row className="reservation-calendar-reserve-info">
             <Col xs={8}>
-              <b>{t('TimeSlots.selectedDate')} </b>
+              <strong>{t('TimeSlots.selectedDate')} </strong>
               {this.getSelectedTimeText(selected)}
             </Col>
             <Col xs={4}>
