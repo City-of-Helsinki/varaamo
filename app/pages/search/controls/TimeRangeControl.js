@@ -12,8 +12,6 @@ import CheckboxControl from './CheckboxControl';
 
 const moment = extendMoment(Moment);
 
-const getValue = (value, options) => options.find(option => option.value === value);
-
 class TimeRangeControl extends React.Component {
   static propTypes = {
     duration: PropTypes.number,
@@ -98,6 +96,10 @@ class TimeRangeControl extends React.Component {
     return options;
   }
 
+  getTimeOptionFromValue(value, options) {
+    return options.find(option => option.value === value);
+  }
+
   handleDuration(option) {
     const duration = option.value;
     const { end, onChange, start } = this.props;
@@ -151,7 +153,7 @@ class TimeRangeControl extends React.Component {
             onChange={this.handleStart}
             options={startTimeOptions}
             placeholder=""
-            value={getValue(start, startTimeOptions)}
+            value={this.getTimeOptionFromValue(start, startTimeOptions)}
           />
           <div className="app-TimeRangeControl__range-separator">-</div>
           <Select
@@ -165,7 +167,7 @@ class TimeRangeControl extends React.Component {
             options={endTimeOptions}
             placeholder=""
             searchable={false}
-            value={getValue(end, endTimeOptions)}
+            value={this.getTimeOptionFromValue(end, endTimeOptions)}
           />
           <Select
             className={classNames('app-Select', 'app-TimeRangeControl__range-duration')}
@@ -178,7 +180,7 @@ class TimeRangeControl extends React.Component {
             options={durationOptions}
             placeholder=""
             searchable={false}
-            value={getValue(duration, durationOptions)}
+            value={this.getTimeOptionFromValue(duration, durationOptions)}
           />
         </div>
       </div>
