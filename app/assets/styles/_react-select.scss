@@ -1,4 +1,7 @@
 // Increase specificity with class name repetition
+
+$selectBorderWidth: 2px;
+
 .app-Select {
   .app-Select__control {
     border: 2px solid $input-border;
@@ -9,7 +12,7 @@
     box-shadow: none;
 
     &:hover {
-      border: 2px solid $input-border;
+      border: $selectBorderWidth solid $input-border;
     }
 
     &--is-focused {
@@ -20,7 +23,7 @@
     &--menu-is-open {
       border-color: $black;
       border-radius: 0;
-      border-width: 2px;
+      border-width: $selectBorderWidth;
     }
 
     &--is-disabled {
@@ -105,7 +108,7 @@
 
   .app-Select__menu {
     margin-top: -2px;
-    border: 2px solid $black;
+    border: $selectBorderWidth solid $black;
     border-radius: 0;
     box-shadow: none;
   }
