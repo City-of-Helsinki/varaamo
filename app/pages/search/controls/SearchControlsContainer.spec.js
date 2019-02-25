@@ -42,6 +42,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       search: 'search-query',
       start: '',
       unit: 'some-unit',
+      municipality: '',
     },
     purposeOptions: Immutable([
       { value: 'filter-1', label: 'Label 1' },
@@ -82,26 +83,36 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(datePickerControl.prop('onConfirm')).to.equal(wrapper.instance().handleDateChange);
     });
 
+    it('renders SelectControl for municipality with correct props', () => {
+      const selectControl = getWrapper({}).find(SelectControl);
+      expect(selectControl).to.have.length(4);
+      expect(selectControl.at(0).prop('id')).to.equal('municipality');
+      expect(selectControl.at(0).prop('label')).to.equal('SearchControlsContainer.municipalityLabel');
+      expect(selectControl.at(0).prop('onChange')).to.exist;
+      expect(selectControl.at(1).prop('options')).to.exist;
+      expect(selectControl.at(0).prop('value')).to.equal(defaultProps.filters.municipality);
+    });
+
     it('renders SelectControl for purpose with correct props', () => {
       const selectControl = getWrapper({}).find(SelectControl);
-      expect(selectControl).to.have.length(3);
-      expect(selectControl.at(0).prop('id')).to.equal('purpose');
-      expect(selectControl.at(0).prop('isLoading')).to.equal(defaultProps.isFetchingPurposes);
-      expect(selectControl.at(0).prop('label')).to.equal('SearchControlsContainer.purposeLabel');
-      expect(selectControl.at(0).prop('onConfirm')).to.exist;
-      expect(selectControl.at(0).prop('options')).to.deep.equal(defaultProps.purposeOptions);
-      expect(selectControl.at(0).prop('value')).to.equal(defaultProps.filters.purpose);
+      expect(selectControl).to.have.length(4);
+      expect(selectControl.at(1).prop('id')).to.equal('purpose');
+      expect(selectControl.at(1).prop('isLoading')).to.equal(defaultProps.isFetchingPurposes);
+      expect(selectControl.at(1).prop('label')).to.equal('SearchControlsContainer.purposeLabel');
+      expect(selectControl.at(1).prop('onChange')).to.exist;
+      expect(selectControl.at(1).prop('options')).to.deep.equal(defaultProps.purposeOptions);
+      expect(selectControl.at(1).prop('value')).to.equal(defaultProps.filters.purpose);
     });
 
     it('renders SelectControl for unit with correct props', () => {
       const selectControl = getWrapper({}).find(SelectControl);
-      expect(selectControl).to.have.length(3);
-      expect(selectControl.at(1).prop('id')).to.equal('unit');
-      expect(selectControl.at(1).prop('isLoading')).to.equal(defaultProps.isFetchingUnits);
-      expect(selectControl.at(1).prop('label')).to.equal('SearchControlsContainer.unitLabel');
-      expect(selectControl.at(1).prop('onConfirm')).to.exist;
-      expect(selectControl.at(1).prop('options')).to.deep.equal(defaultProps.unitOptions);
-      expect(selectControl.at(1).prop('value')).to.equal(defaultProps.filters.unit);
+      expect(selectControl).to.have.length(4);
+      expect(selectControl.at(2).prop('id')).to.equal('unit');
+      expect(selectControl.at(2).prop('isLoading')).to.equal(defaultProps.isFetchingUnits);
+      expect(selectControl.at(2).prop('label')).to.equal('SearchControlsContainer.unitLabel');
+      expect(selectControl.at(2).prop('onChange')).to.exist;
+      expect(selectControl.at(2).prop('options')).to.deep.equal(defaultProps.unitOptions);
+      expect(selectControl.at(2).prop('value')).to.equal(defaultProps.filters.unit);
     });
 
     it('renders SelectControl for people with correct props', () => {
@@ -122,15 +133,15 @@ describe('pages/search/controls/SearchControlsContainer', () => {
         { value: '30', label: '30+' },
       ];
       const selectControl = getWrapper({}).find(SelectControl);
-      expect(selectControl).to.have.length(3);
-      expect(selectControl.at(2).prop('id')).to.equal('people');
-      expect(selectControl.at(2).prop('isLoading')).to.equal(defaultProps.isFetchingPurposes);
-      expect(selectControl.at(2).prop('label')).to.equal(
+      expect(selectControl).to.have.length(4);
+      expect(selectControl.at(3).prop('id')).to.equal('people');
+      expect(selectControl.at(3).prop('isLoading')).to.equal(defaultProps.isFetchingPurposes);
+      expect(selectControl.at(3).prop('label')).to.equal(
         'SearchControlsContainer.peopleCapacityLabel'
       );
-      expect(selectControl.at(2).prop('onConfirm')).to.exist;
-      expect(selectControl.at(2).prop('options')).to.deep.equal(peopleOptions);
-      expect(selectControl.at(2).prop('value')).to.equal(defaultProps.filters.people);
+      expect(selectControl.at(3).prop('onChange')).to.exist;
+      expect(selectControl.at(3).prop('options')).to.deep.equal(peopleOptions);
+      expect(selectControl.at(3).prop('value')).to.equal(defaultProps.filters.people);
     });
 
     it('renders PositionControl with correct props', () => {
