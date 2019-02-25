@@ -60,7 +60,7 @@ SelectControl.propTypes = {
   onChange: PropTypes.func.isRequired,
   options: PropTypes.array.isRequired,
   t: PropTypes.func.isRequired,
-  value: PropTypes.oneOfType(PropTypes.string, PropTypes.arrayOf(PropTypes.string)),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
 };
 
 export default injectT(SelectControl);
