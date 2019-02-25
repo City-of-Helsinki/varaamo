@@ -217,29 +217,38 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       instance.handleFiltersChange.reset();
     });
 
-    it('calls handleFiltersChange on purpose SelectControl onConfirm', () => {
+    it('calls handleFiltersChange on miniciple SelectControl onChange', () => {
+      const municipality = 'some-municipality';
+      expect(selectControl).to.have.length(4);
+      expect(selectControl.at(0).prop('onChange')).to.be.a('function');
+      selectControl.at(0).prop('onChange')(municipality);
+      expect(instance.handleFiltersChange.callCount).to.equal(1);
+      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ municipality });
+    });
+
+    it('calls handleFiltersChange on purpose SelectControl onChange', () => {
       const purpose = 'some-purpose';
-      expect(selectControl).to.have.length(3);
-      expect(selectControl.at(0).prop('onConfirm')).to.be.a('function');
-      selectControl.at(0).prop('onConfirm')(purpose);
+      expect(selectControl).to.have.length(4);
+      expect(selectControl.at(1).prop('onChange')).to.be.a('function');
+      selectControl.at(1).prop('onChange')(purpose);
       expect(instance.handleFiltersChange.callCount).to.equal(1);
       expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ purpose });
     });
 
-    it('calls handleFiltersChange on unit SelectControl onConfirm', () => {
+    it('calls handleFiltersChange on unit SelectControl onChange', () => {
       const unit = 'some-unit';
-      expect(selectControl).to.have.length(3);
-      expect(selectControl.at(1).prop('onConfirm')).to.be.a('function');
-      selectControl.at(1).prop('onConfirm')(unit);
+      expect(selectControl).to.have.length(4);
+      expect(selectControl.at(2).prop('onChange')).to.be.a('function');
+      selectControl.at(2).prop('onChange')(unit);
       expect(instance.handleFiltersChange.callCount).to.equal(1);
       expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ unit });
     });
 
-    it('calls handleFiltersChange on people SelectControl onConfirm', () => {
+    it('calls handleFiltersChange on people SelectControl onChange', () => {
       const people = '5';
-      expect(selectControl).to.have.length(3);
-      expect(selectControl.at(2).prop('onConfirm')).to.be.a('function');
-      selectControl.at(2).prop('onConfirm')(people);
+      expect(selectControl).to.have.length(4);
+      expect(selectControl.at(3).prop('onChange')).to.be.a('function');
+      selectControl.at(3).prop('onChange')(people);
       expect(instance.handleFiltersChange.callCount).to.equal(1);
       expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ people });
     });
