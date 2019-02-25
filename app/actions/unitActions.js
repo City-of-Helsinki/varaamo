@@ -11,7 +11,7 @@ import {
 } from 'utils/apiUtils';
 
 function fetchUnits() {
-  const fetchParams = { pageSize: 500 };
+  const fetchParams = { pageSize: 500, unit_has_resource: true };
 
   return {
     [CALL_API]: {
