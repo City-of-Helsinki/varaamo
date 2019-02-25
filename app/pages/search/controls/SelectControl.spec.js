@@ -24,6 +24,10 @@ function getWrapper(props) {
 }
 
 describe('pages/search/controls/SelectControl', () => {
+  afterEach(() => {
+    simple.restore();
+  });
+
   it('renders a div.app-SelectControl', () => {
     const wrapper = getWrapper({});
     expect(wrapper.is('div.app-SelectControl')).to.be.true;
@@ -40,6 +44,12 @@ describe('pages/search/controls/SelectControl', () => {
     expect(controlLabel).to.have.length(1);
   });
 
+  it('hide Select when isLoading=true', () => {
+    const select = getWrapper({ isLoading: true }).find(Select);
+
+    expect(select).to.have.length(0);
+  });
+
   it('renders a Select with correct props', () => {
     const select = getWrapper({}).find(Select);
     expect(select).to.have.length(1);
@@ -48,15 +58,25 @@ describe('pages/search/controls/SelectControl', () => {
     expect(select.prop('onChange')).to.be.a('function');
     expect(select.prop('placeholder')).to.equal('common.select');
     expect(select.prop('isSearchable')).to.be.true;
-    expect(select.prop('value')).to.equal(defaults.value);
+    expect(select.prop('value')).to.equal(defaults.options[0]);
   });
 
   it('Select onChange calls prop onChange', () => {
     const onChange = simple.mock();
     const select = getWrapper({ onChange }).find(Select);
     expect(select).to.have.length(1);
-    select.prop('onChange')(defaults.options[1]);
+    select.prop('onChange')(defaults.options[1], {});
     expect(onChange.callCount).to.equal(1);
-    expect(onChange.lastCall.args).to.deep.equal([defaults.options[1].value]);
+    expect(onChange.lastCall.args[0]).to.deep.equal(defaults.options[1].value);
+  });
+
+  it('call props onChange with multi select if isMulti is true', () => {
+    const onChange = simple.mock();
+    const select = getWrapper({ onChange, isMulti: true }).find(Select);
+
+    expect(select).to.have.length(1);
+    select.prop('onChange')(defaults.options, {});
+    expect(onChange.callCount).to.equal(1);
+    expect(onChange.lastCall.args[0]).to.deep.equal(['filter-1', 'filter-2']);
   });
 });

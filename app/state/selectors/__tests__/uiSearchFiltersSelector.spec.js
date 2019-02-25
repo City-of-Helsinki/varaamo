@@ -13,6 +13,7 @@ function getState(date = '2015-10-10', start = '08:30') {
           distance: '',
           duration: 30,
           end: '23:30',
+          municipality: '',
           page: 1,
           people: '',
           purpose: 'some-purpose',
