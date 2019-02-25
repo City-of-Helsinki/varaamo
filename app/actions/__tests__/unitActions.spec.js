@@ -14,6 +14,10 @@ describe('Actions: unitActions', () => {
     buildAPIUrlMock = simple.mock(apiUtils, 'buildAPIUrl');
   });
 
+  afterEach(() => {
+    simple.restore();
+  });
+
   describe('fetchUnit', () => {
     it('includes correct type', () => {
       fetchUnits();
