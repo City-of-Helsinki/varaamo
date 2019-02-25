@@ -215,7 +215,7 @@ class UnconnectedSearchControlsContainer extends Component {
                   <TimeRangeControl
                     duration={parseInt(filters.duration, 10)}
                     end={filters.end}
-                    onChange={this.handleTimeRangeChange}
+                    onConfirm={this.handleTimeRangeChange}
                     onTimeRangeSwitch={this.handleTimeRangeSwitch}
                     start={filters.start}
                     useTimeRange={filters.useTimeRange}

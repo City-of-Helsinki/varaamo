@@ -7,60 +7,73 @@ import isArray from 'lodash/isArray';
 import { injectT } from 'i18n';
 
 const getValue = (value, options) => {
-  if (value) {
-    if (isArray(value)) {
-      return value.map(item => options.find(option => option.value === item));
-    }
-
-    return options.find(option => option.value === value);
+  if (isArray(value)) {
+    return value.map(item => options.find(option => option.value === item));
   }
 
-  return null;
+  return options.find(option => option.value === value);
 };
 
-function SelectControl({ id, isLoading, isMulti, label, onChange, options, t, value }) {
+function SelectControl({
+  id,
+  className = 'app-Select',
+  isLoading = false,
+  isClearable = true,
+  isSearchable = true,
+  isMulti,
+  label,
+  onChange,
+  options,
+  t,
+  value,
+  ...rest }) {
   return (
     <div className="app-SelectControl">
       <FormGroup controlId={id}>
         <ControlLabel>{label}</ControlLabel>
-        {!isLoading && <Select
-          className="app-Select"
-          classNamePrefix="app-Select"
-          isClearable
-          isMulti={!!isMulti}
-          isSearchable
-          name={id}
-          onChange={(selected, { action }) => {
-            switch (action) {
-              case 'clear':
-                onChange('', action);
-                break;
-              default:
-                onChange(
-                  !isMulti ? selected.value : selected.map(option => option.value),
-                  action
-                );
-                break;
-            }
-          }}
-          options={options}
-          placeholder={t('common.select')}
-          value={getValue(value, options)}
-        />}
+        {!isLoading &&
+          <Select
+            {...rest}
+            className={className}
+            classNamePrefix="app-Select"
+            isClearable={isClearable}
+            isMulti={isMulti}
+            isSearchable={isSearchable}
+            name={id}
+            onChange={(selected, { action }) => {
+              switch (action) {
+                case 'clear':
+                  onChange('', action);
+                  break;
+                default:
+                  onChange(
+                    !isMulti ? selected.value : selected.map(option => option.value),
+                    action
+                  );
+                  break;
+              }
+            }}
+            options={options}
+            placeholder={t('common.select')}
+            value={getValue(value, options)}
+          />}
       </FormGroup>
     </div>
   );
 }
 
 SelectControl.propTypes = {
+  className: PropTypes.string,
   id: PropTypes.string.isRequired,
-  isLoading: PropTypes.bool.isRequired,
+  isClearable: PropTypes.bool,
+  isSearchable: PropTypes.bool,
+  isLoading: PropTypes.bool,
   isMulti: PropTypes.bool,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   options: PropTypes.array.isRequired,
   t: PropTypes.func.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.number]),
 };
 
 export default injectT(SelectControl);
