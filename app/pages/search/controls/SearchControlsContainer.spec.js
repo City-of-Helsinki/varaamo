@@ -164,7 +164,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(timeRangeControl).to.have.length(1);
       expect(timeRangeControl.prop('duration')).to.equal(filters.duration);
       expect(timeRangeControl.prop('end')).to.equal(filters.end);
-      expect(timeRangeControl.prop('onChange')).to.equal(wrapper.instance().handleTimeRangeChange);
+      expect(timeRangeControl.prop('onConfirm')).to.equal(wrapper.instance().handleTimeRangeChange);
       expect(timeRangeControl.prop('onTimeRangeSwitch')).to.equal(
         wrapper.instance().handleTimeRangeSwitch
       );

@@ -8,7 +8,7 @@ import TimeRangeControl from './TimeRangeControl';
 const defaults = {
   duration: 30,
   end: '16:00',
-  onChange: simple.mock(),
+  onConfirm: simple.mock(),
   onTimeRangeSwitch: simple.mock(),
   start: '10:00',
   useTimeRange: false,
@@ -77,12 +77,12 @@ describe('pages/search/controls/TimeRangeControl', () => {
     ];
 
     expect(startSelect).to.have.length(1);
-    expect(startSelect.prop('clearable')).to.be.false;
-    expect(startSelect.prop('name')).to.equal('time-filter-start-select');
+    expect(startSelect.prop('isClearable')).to.be.false;
+    expect(startSelect.prop('id')).to.equal('time-filter-start-select');
     expect(startSelect.prop('onChange')).to.equal(wrapper.instance().handleStart);
     expect(startSelect.prop('options')).to.deep.equal(expectedOptions);
     expect(startSelect.prop('placeholder')).to.be.empty;
-    expect(startSelect.prop('searchable')).to.be.false;
+    expect(startSelect.prop('isSearchable')).to.be.false;
     expect(startSelect.prop('value')).to.equal(defaults.start);
   });
 
@@ -120,12 +120,12 @@ describe('pages/search/controls/TimeRangeControl', () => {
     ];
 
     expect(endSelect).to.have.length(1);
-    expect(endSelect.prop('clearable')).to.be.false;
-    expect(endSelect.prop('name')).to.equal('time-filter-end-select');
+    expect(endSelect.prop('isClearable')).to.be.false;
+    expect(endSelect.prop('id')).to.equal('time-filter-end-select');
     expect(endSelect.prop('onChange')).to.equal(wrapper.instance().handleEnd);
     expect(endSelect.prop('options')).to.deep.equal(expectedOptions);
     expect(endSelect.prop('placeholder')).to.be.empty;
-    expect(endSelect.prop('searchable')).to.be.false;
+    expect(endSelect.prop('isSearchable')).to.be.false;
     expect(endSelect.prop('value')).to.equal(defaults.end);
   });
 
@@ -160,12 +160,12 @@ describe('pages/search/controls/TimeRangeControl', () => {
     ];
 
     expect(endSelect).to.have.length(1);
-    expect(endSelect.prop('clearable')).to.be.false;
-    expect(endSelect.prop('name')).to.equal('time-filter-duration-select');
+    expect(endSelect.prop('isClearable')).to.be.false;
+    expect(endSelect.prop('id')).to.equal('time-filter-duration-select');
     expect(endSelect.prop('onChange')).to.equal(wrapper.instance().handleDuration);
     expect(endSelect.prop('options')).to.deep.equal(expectedOptions);
     expect(endSelect.prop('placeholder')).to.be.empty;
-    expect(endSelect.prop('searchable')).to.be.false;
+    expect(endSelect.prop('isSearchable')).to.be.false;
     expect(endSelect.prop('value')).to.equal(defaults.duration);
   });
 
@@ -186,47 +186,47 @@ describe('pages/search/controls/TimeRangeControl', () => {
   });
 
   describe('handleStart', () => {
-    it('calls onChange with correct propTypes', () => {
-      const onChange = simple.mock();
-      const instance = getWrapper({ onChange }).instance();
+    it('calls onConfirm with correct propTypes', () => {
+      const onConfirm = simple.mock();
+      const instance = getWrapper({ onConfirm }).instance();
       const expected = {
         duration: defaults.duration,
         end: defaults.end,
         start: '12:00',
       };
-      instance.handleStart({ value: '12:00' });
-      expect(onChange.callCount).to.equal(1);
-      expect(onChange.lastCall.args).to.deep.equal([expected]);
+      instance.handleStart('12:00');
+      expect(onConfirm.callCount).to.equal(1);
+      expect(onConfirm.lastCall.args).to.deep.equal([expected]);
     });
   });
 
   describe('handleEnd', () => {
-    it('calls onChange with correct propTypes', () => {
-      const onChange = simple.mock();
-      const instance = getWrapper({ onChange }).instance();
+    it('calls onConfirm with correct propTypes', () => {
+      const onConfirm = simple.mock();
+      const instance = getWrapper({ onConfirm }).instance();
       const expected = {
         duration: defaults.duration,
         end: '18:00',
         start: defaults.start,
       };
-      instance.handleEnd({ value: '18:00' });
-      expect(onChange.callCount).to.equal(1);
-      expect(onChange.lastCall.args).to.deep.equal([expected]);
+      instance.handleEnd('18:00');
+      expect(onConfirm.callCount).to.equal(1);
+      expect(onConfirm.lastCall.args).to.deep.equal([expected]);
     });
   });
 
   describe('handleDuration', () => {
-    it('calls onChange with correct propTypes', () => {
-      const onChange = simple.mock();
-      const instance = getWrapper({ onChange }).instance();
+    it('calls onConfirm with correct propTypes', () => {
+      const onConfirm = simple.mock();
+      const instance = getWrapper({ onConfirm }).instance();
       const expected = {
         duration: 60,
         end: defaults.end,
         start: defaults.start,
       };
-      instance.handleDuration({ value: 60 });
-      expect(onChange.callCount).to.equal(1);
-      expect(onChange.lastCall.args).to.deep.equal([expected]);
+      instance.handleDuration(60);
+      expect(onConfirm.callCount).to.equal(1);
+      expect(onConfirm.lastCall.args).to.deep.equal([expected]);
     });
   });
 
