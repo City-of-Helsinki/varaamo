@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import Select from 'react-select';
 import map from 'lodash/map';
 import Moment from 'moment';
 import classNames from 'classnames';
@@ -9,6 +8,7 @@ import { injectT } from 'i18n';
 import constants from 'constants/AppConstants';
 import { calculateDuration, calculateEndTime } from 'utils/timeUtils';
 import CheckboxControl from './CheckboxControl';
+import SelectControl from './SelectControl';
 
 const moment = extendMoment(Moment);
 
@@ -16,7 +16,7 @@ class TimeRangeControl extends React.Component {
   static propTypes = {
     duration: PropTypes.number,
     end: PropTypes.string,
-    onChange: PropTypes.func.isRequired,
+    onConfirm: PropTypes.func.isRequired,
     onTimeRangeSwitch: PropTypes.func.isRequired,
     start: PropTypes.string,
     t: PropTypes.func.isRequired,
@@ -96,29 +96,22 @@ class TimeRangeControl extends React.Component {
     return options;
   }
 
-  getTimeOptionFromValue(value, options) {
-    return options.find(option => option.value === value);
+  handleDuration(duration) {
+    const { end, onConfirm, start } = this.props;
+    onConfirm({ duration, end, start });
   }
 
-  handleDuration(option) {
-    const duration = option.value;
-    const { end, onChange, start } = this.props;
-    onChange({ duration, end, start });
-  }
-
-  handleEnd(option) {
-    const end = option.value;
-    const { duration, onChange, start } = this.props;
+  handleEnd(end) {
+    const { duration, onConfirm, start } = this.props;
     const durationValue = calculateDuration(duration, start, end);
-    onChange({ duration: durationValue, end, start });
+    onConfirm({ duration: durationValue, end, start });
   }
 
-  handleStart(option) {
-    const start = option.value;
-    const { duration, end, onChange } = this.props;
+  handleStart(start) {
+    const { duration, end, onConfirm } = this.props;
     const endValue = calculateEndTime(end, start);
     const durationValue = calculateDuration(duration, start, endValue);
-    onChange({ duration: durationValue, end: endValue, start });
+    onConfirm({ duration: durationValue, end: endValue, start });
   }
 
   handleToggleChange = (value) => {
@@ -143,44 +136,41 @@ class TimeRangeControl extends React.Component {
           value={useTimeRange}
         />
         <div className="app-TimeRangeControl__range">
-          <Select
+          <SelectControl
             className={classNames('app-Select', 'app-TimeRangeControl__range-start')}
-            classNamePrefix="app-Select"
+            id="time-filter-start-select"
             isClearable={false}
             isDisabled={!useTimeRange}
             isSearchable={false}
-            name="time-filter-start-select"
             onChange={this.handleStart}
             options={startTimeOptions}
             placeholder=""
-            value={this.getTimeOptionFromValue(start, startTimeOptions)}
+            value={start}
           />
           <div className="app-TimeRangeControl__range-separator">-</div>
-          <Select
+          <SelectControl
             className={classNames('app-Select', 'app-TimeRangeControl__range-end')}
-            classNamePrefix="app-Select"
+            id="time-filter-end-select"
             isClearable={false}
             isDisabled={!useTimeRange}
             isSearchable={false}
-            name="time-filter-end-select"
             onChange={this.handleEnd}
             options={endTimeOptions}
             placeholder=""
             searchable={false}
-            value={this.getTimeOptionFromValue(end, endTimeOptions)}
+            value={end}
           />
-          <Select
+          <SelectControl
             className={classNames('app-Select', 'app-TimeRangeControl__range-duration')}
-            classNamePrefix="app-Select"
+            id="time-filter-duration-select"
             isClearable={false}
             isDisabled={!useTimeRange}
             isSearchable={false}
-            name="time-filter-duration-select"
             onChange={this.handleDuration}
             options={durationOptions}
             placeholder=""
             searchable={false}
-            value={this.getTimeOptionFromValue(duration, durationOptions)}
+            value={duration}
           />
         </div>
       </div>

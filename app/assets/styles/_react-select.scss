@@ -133,11 +133,9 @@ $selectFocusedOptionColor: lighten($hel-fog, 15%);
     }
   }
 
-  .app-Select__value-container:not(.is-disabled) {
-    &.has-value {
-      .app-select__single-value {
-        color: $black;
-      }
+  .app-Select__value-container--has-value {
+    .app-Select__single-value {
+      color: $black;
     }
-  }
+  } 
 }

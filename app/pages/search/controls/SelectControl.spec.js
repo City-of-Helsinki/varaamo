@@ -12,7 +12,7 @@ const defaults = {
   id: 'some-id',
   isLoading: false,
   label: 'some-label',
-  onConfirm: () => null,
+  onChange: () => null,
   options: [
     { value: 'filter-1', label: 'Label 1' },
     { value: 'filter-2', label: 'Label 2' },
@@ -43,20 +43,20 @@ describe('pages/search/controls/SelectControl', () => {
   it('renders a Select with correct props', () => {
     const select = getWrapper({}).find(Select);
     expect(select).to.have.length(1);
-    expect(select.prop('clearable')).to.be.true;
+    expect(select.prop('isClearable')).to.be.true;
     expect(select.prop('name')).to.equal(defaults.id);
     expect(select.prop('onChange')).to.be.a('function');
     expect(select.prop('placeholder')).to.equal('common.select');
-    expect(select.prop('searchable')).to.be.true;
+    expect(select.prop('isSearchable')).to.be.true;
     expect(select.prop('value')).to.equal(defaults.value);
   });
 
-  it('Select onChange calls prop onConfirm', () => {
-    const onConfirm = simple.mock();
-    const select = getWrapper({ onConfirm }).find(Select);
+  it('Select onChange calls prop onChange', () => {
+    const onChange = simple.mock();
+    const select = getWrapper({ onChange }).find(Select);
     expect(select).to.have.length(1);
     select.prop('onChange')(defaults.options[1]);
-    expect(onConfirm.callCount).to.equal(1);
-    expect(onConfirm.lastCall.args).to.deep.equal([defaults.options[1].value]);
+    expect(onChange.callCount).to.equal(1);
+    expect(onChange.lastCall.args).to.deep.equal([defaults.options[1].value]);
   });
 });
