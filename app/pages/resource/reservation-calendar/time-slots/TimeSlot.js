@@ -112,10 +112,8 @@ class TimeSlot extends PureComponent {
           'app-TimeSlot--editing': slot.editing,
           'app-TimeSlot--past': isPast,
           'app-TimeSlot--own-reservation': isOwnReservation,
-          'app-TimeSlot--reservation-starting':
-            (isAdmin || isOwnReservation) && slot.reservationStarting,
-          'app-TimeSlot--reservation-ending':
-            (isAdmin || isOwnReservation) && slot.reservationEnding,
+          'app-TimeSlot--reservation-starting': slot.reservationStarting,
+          'app-TimeSlot--reservation-ending': slot.reservationEnding,
           'app-TimeSlot--reserved': slot.reserved,
           'app-TimeSlot--selected': selected,
           'app-TimeSlot--highlight': isHighlighted,
