@@ -33,6 +33,10 @@ export class UnconnectedResourceCalendar extends Component {
     return this.now.isAfter(day, 'day');
   }
 
+  setCalendarWrapper = (element) => {
+    this.calendarWrapper = element;
+  }
+
   handleDateChange = (newDate) => {
     this.hideOverlay();
     this.props.onDateChange(newDate);
@@ -68,7 +72,7 @@ export class UnconnectedResourceCalendar extends Component {
           }
           type="button"
         />
-        <div className="app-ResourceCalendar__wrapper" ref={(wrapper) => { this.calendarWrapper = wrapper; }}>
+        <div className="app-ResourceCalendar__wrapper" ref={this.setCalendarWrapper}>
           <FormGroup onClick={this.showOverlay}>
             <InputGroup>
               <InputGroup.Addon>

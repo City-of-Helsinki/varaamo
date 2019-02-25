@@ -160,6 +160,16 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
     });
   });
 
+  describe('setCalendarWrapper', () => {
+    it('sets calendarWrapper property to the supplied element', () => {
+      const element = {};
+      const instance = getWrapper().instance();
+      instance.setCalendarWrapper(element);
+
+      expect(instance.calendarWrapper).to.equal(element);
+    });
+  });
+
   describe('modifiers', () => {
     it('is available if percentage is greater than 80', () => {
       const func = dayWrapper.prop('modifiers').available;
