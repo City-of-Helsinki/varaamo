@@ -192,6 +192,36 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
     ];
     const placeholder = getWrapper({ slots }).find(TimeSlotPlaceholder);
     expect(placeholder).to.have.length(1);
+    expect(placeholder.prop('size')).to.equal(1);
+  });
+
+  it('changes the size of the placeholder based on the length of the time slot', () => {
+    const slots = [
+      [
+        {
+          asISOString: '2016-10-10T10:00:00.000Z/2016-10-10T10:30:00.000Z',
+          asString: '10:00-10:30',
+          end: '2016-10-10T10:30:00.000Z',
+          index: 0,
+          reserved: false,
+          resource: 'some-resource-id',
+          start: '2016-10-10T10:00:00.000Z',
+        },
+      ],
+      [
+        {
+          asISOString: '2016-10-11T11:00:00.000Z/2016-10-11T11:30:00.000Z',
+          asString: '11:00-11:30',
+          end: '2016-10-11T11:30:00.000Z',
+          index: 0,
+          reserved: false,
+          resource: 'some-resource-id',
+          start: '2016-10-11T11:00:00.000Z',
+        },
+      ],
+    ];
+    const placeholder = getWrapper({ slots }).find(TimeSlotPlaceholder);
+    expect(placeholder).to.have.length(1);
     expect(placeholder.prop('size')).to.equal(2);
   });
 
@@ -255,7 +285,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
     ];
     const placeholder = getWrapper({ selectedDate: '2016-10-11', slots }).find(TimeSlotPlaceholder);
     expect(placeholder).to.have.length(3);
-    expect(placeholder.first().prop('mobileOffset')).to.equal(4);
+    expect(placeholder.first().prop('mobileOffset')).to.equal(2);
   });
 
   describe('getReservationBegin', () => {

@@ -215,4 +215,45 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
       expect(instance.state.visible).to.be.true;
     });
   });
+
+  describe('weeks buttons', () => {
+    const prevWeekDate = (new Date(defaultProps.selectedDate)).getDate() - 7;
+    const nextWeekDate = (new Date(defaultProps.selectedDate)).getDate() + 7;
+
+    let resourceCalWrapper;
+    let instance;
+
+    beforeEach(() => {
+      resourceCalWrapper = getWrapper();
+      instance = resourceCalWrapper.instance();
+      instance.handleDateChange = simple.mock();
+    });
+
+    afterEach(() => {
+      instance.handleDateChange.reset();
+    });
+
+    it('renders two buttons with className of app-ResourceCalendar__week-button', () => {
+      const buttons = resourceCalWrapper.find('button.app-ResourceCalendar__week-button');
+      expect(buttons.length).to.equal(2);
+    });
+    it('calls handleDateChange method when the previous week button is clicked', () => {
+      const prevWeekBtn = resourceCalWrapper
+        .find('button.app-ResourceCalendar__week-button--prev')
+        .first();
+      prevWeekBtn.simulate('click');
+
+      expect(instance.handleDateChange.callCount).to.equal(1);
+      expect(instance.handleDateChange.lastCall.arg.getDate()).to.equal(prevWeekDate);
+    });
+    it('calls handleDateChange method when the next week button is clicked', () => {
+      const prevWeekBtn = resourceCalWrapper
+        .find('button.app-ResourceCalendar__week-button--next')
+        .first();
+      prevWeekBtn.simulate('click');
+
+      expect(instance.handleDateChange.callCount).to.equal(1);
+      expect(instance.handleDateChange.lastCall.arg.getDate()).to.equal(nextWeekDate);
+    });
+  });
 });
