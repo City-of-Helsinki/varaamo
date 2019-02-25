@@ -84,6 +84,9 @@
       color: $white;
       background-color: $red;
     }
+    &--reservation-ending + .app-TimeSlot--reservation-starting {
+      border-top: solid $white 1px;
+    }
     &--reserved:not(.app-TimeSlot--editing) {
       .app-TimeSlot__icon {
         @include icon-ban($white);
