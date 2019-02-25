@@ -53,7 +53,7 @@ export default {
     date: '',
     distance: '',
     duration: 0,
-    municipality: null,
+    municipality: '',
     end: '',
     lat: '',
     lon: '',
