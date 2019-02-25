@@ -11,7 +11,7 @@ services:
       - '/usr/src/app/node_modules'
     ports:
       - '3000:3000'
-      - '5858':'5858'
-      - '9229':'9229'
+      - '5858:5858'
+      - '9229:9229'
     environment:
       - NODE_ENV='development'
