@@ -17,6 +17,7 @@ describe('Selector: urlSearchFiltersSelector', () => {
     start: '08:30',
     unit: '',
     useTimeRange: false,
+    municipality: '',
   };
 
   const getProps = (date = filters.date, start = filters.start) => ({
