@@ -14,7 +14,7 @@ describe('Actions: unitActions', () => {
     buildAPIUrlMock = simple.mock(apiUtils, 'buildAPIUrl');
   });
 
-  describe.only('fetchUnit', () => {
+  describe('fetchUnit', () => {
     it('includes correct type', () => {
       fetchUnits();
       expect(getRequestTypeDescriptorMock.lastCall.args[0]).to.equal(
