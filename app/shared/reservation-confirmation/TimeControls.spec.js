@@ -3,9 +3,9 @@ import { shallow } from 'enzyme';
 import mockDate from 'mockdate';
 import moment from 'moment';
 import React from 'react';
-import Select from 'react-select';
 import simple from 'simple-mock';
 
+import SelectControl from 'pages/search/controls/SelectControl';
 import TimeControls from './TimeControls';
 
 describe('shared/reservation-confirmation/TimeControls', () => {
@@ -36,7 +36,7 @@ describe('shared/reservation-confirmation/TimeControls', () => {
 
     it('renders Select for changing reservation begin time', () => {
       const wrapper = getWrapper();
-      const beginTimeControl = wrapper.find(Select).at(0);
+      const beginTimeControl = wrapper.find(SelectControl).at(0);
       const expectedValue = moment(defaultProps.begin.input.value).format('HH:mm');
       expect(beginTimeControl).to.have.length(1);
       expect(beginTimeControl.prop('value')).to.equal(expectedValue);
@@ -46,7 +46,7 @@ describe('shared/reservation-confirmation/TimeControls', () => {
 
     it('renders time Select for changing reservation end time', () => {
       const wrapper = getWrapper();
-      const endTimeControl = wrapper.find(Select).at(1);
+      const endTimeControl = wrapper.find(SelectControl).at(1);
       const expectedValue = moment(defaultProps.end.input.value).format('HH:mm');
       expect(endTimeControl).to.have.length(1);
       expect(endTimeControl.prop('value')).to.equal(expectedValue);

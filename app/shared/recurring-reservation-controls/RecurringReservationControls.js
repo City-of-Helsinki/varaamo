@@ -4,10 +4,10 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Row from 'react-bootstrap/lib/Row';
 import NumericInput from 'react-numeric-input';
-import Select from 'react-select';
 
 import { injectT } from 'i18n';
 import DatePicker from 'shared/date-picker';
+import SelectControl from 'pages/search/controls/SelectControl';
 
 function createOptionRenderer(t) {
   return option => t(option.label);
@@ -39,10 +39,10 @@ function RecurringReservationControls({
             <label htmlFor="recurrence-frequency-select">
               {t('RecurringReservationControls.frequencyLabel')}
             </label>
-            <Select
+            <SelectControl
               className="recurrence-frequency-select"
-              clearable={false}
               inputProps={{ id: 'recurrence-frequency-select' }}
+              isClearable={false}
               name="recurrence-frequency-select"
               onChange={changeFrequency}
               optionRenderer={createOptionRenderer(t)}
