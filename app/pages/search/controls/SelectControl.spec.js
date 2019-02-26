@@ -100,7 +100,8 @@ describe('pages/search/controls/SelectControl', () => {
   describe('getValue', () => {
     it('fill selected option when default value is passed in', () => {
       const wrapper = getWrapper({});
-      const selectedOption = wrapper.instance().getValue(defaults.options[0].value, defaults.options);
+      const selectedOption = wrapper.instance().getValue(
+        defaults.options[0].value, defaults.options);
       expect(selectedOption).to.deep.equal(defaults.options[0]);
     });
 
