@@ -1,28 +1,28 @@
-/*eslint-disable */
-import React, { Component } from 'react';
-import { connect } from 'react-redux'; 
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import SelectControl from './controls/SelectControl';
 import * as filterActions from '../../actions/filterActions';
-import { bindActionCreators } from 'redux';
 
 class Filter extends Component {
   constructor() {
     super();
-    this.state ={
-        selected: ''
-    }
+    this.state = {
+      selected: '',
+    };
     this.filterOptions = [
       { label: 'Name', value: 'filterByName' },
       { label: 'Type', value: 'filterByType' },
       { label: 'Premises', value: 'filterByPremises' },
       { label: 'People', value: 'filterByPeople' },
-      { label: 'Open now', value: 'filterByOpenNow' }
+      { label: 'Open now', value: 'filterByOpenNow' },
     ];
   }
 
-  dispatchFilter = filterName => {
-    let {actions, lang, resources, units} = this.props;
-    this.setState({ selected : filterName })
+  dispatchFilter = (filterName) => {
+    const { actions, lang, resources, units } = this.props;
+    this.setState({ selected: filterName });
     actions[filterName]({ lang, resources, units });
   }
 
@@ -32,7 +32,7 @@ class Filter extends Component {
         id="filter"
         isLoading={false}
         label="Sort By"
-        onConfirm={ this.dispatchFilter }
+        onConfirm={this.dispatchFilter}
         options={this.filterOptions}
         t={() => {}}
         value={this.state.selected}
@@ -41,18 +41,24 @@ class Filter extends Component {
   }
 }
 
-const mapStateToProps = state =>({
-  lang:state.intl.locale,
-  resources:state.data.resources,
+const mapStateToProps = state => ({
+  lang: state.intl.locale,
+  resources: state.data.resources,
   units: state.data.units,
-})
-const mapDispatchToProps = dispatch =>({
-  actions: bindActionCreators(filterActions, dispatch)
+});
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(filterActions, dispatch),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Filter)
-/*eslint-enable*/
+)(Filter);
 
+
+Filter.propTypes = {
+  actions: PropTypes.object.isRequired,
+  lang: PropTypes.string.isRequired,
+  resources: PropTypes.array.isRequired,
+  units: PropTypes.array.isRequired,
+};
