@@ -51,6 +51,12 @@ describe('pages/search/controls/SelectControl', () => {
     expect(select).to.have.length(0);
   });
 
+  it('disable Select when isDisable was true', () => {
+    const select = getWrapper({ isDisable: true }).find(Select);
+
+    expect(select.prop('isDisable')).to.be.true;
+  });
+
   it('renders a Select with correct props', () => {
     const select = getWrapper({}).find(Select);
     expect(select).to.have.length(1);
@@ -72,6 +78,15 @@ describe('pages/search/controls/SelectControl', () => {
     expect(onChange.lastCall.args[0]).to.deep.equal(defaults.options[1]);
   });
 
+  it('Select onChange calls prop onChange when clear selected field', () => {
+    const onChange = simple.mock();
+    const multiSelect = getWrapper({ onChange, isMulti: true }).find(Select);
+    expect(multiSelect).to.have.length(1);
+    multiSelect.prop('onChange')(defaults.options, { action: 'clear' });
+    expect(onChange.callCount).to.equal(1);
+    expect(onChange.lastCall.args[0]).to.equal([]);
+  });
+
   it('call props onChange with multi select if isMulti is true', () => {
     const onChange = simple.mock();
     const select = getWrapper({ onChange, isMulti: true }).find(Select);
@@ -80,5 +95,25 @@ describe('pages/search/controls/SelectControl', () => {
     select.prop('onChange')(defaults.options, {});
     expect(onChange.callCount).to.equal(1);
     expect(onChange.lastCall.args[0]).to.deep.equal(defaults.options);
+  });
+
+  describe('getValue', () => {
+    it('fill selected option when default value is passed in', () => {
+      const wrapper = getWrapper({});
+      const selectedOption = wrapper.instance().getValue(defaults.options[0].value, defaults.options);
+      expect(selectedOption).to.deep.equal(defaults.options[0]);
+    });
+
+    it('return underfined if value is not exist in any options', () => {
+      const wrapper = getWrapper({});
+      const selectedOption = wrapper.instance().getValue('foo', defaults.options);
+      expect(selectedOption).to.be.undefined;
+    });
+
+    it('return array of options if value is array', () => {
+      const wrapper = getWrapper({});
+      const selectedOption = wrapper.instance().getValue(['filter-1', 'filter-2'], defaults.options);
+      expect(selectedOption).to.deep.equal(defaults.options);
+    });
   });
 });

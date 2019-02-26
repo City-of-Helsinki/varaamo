@@ -6,59 +6,62 @@ import isArray from 'lodash/isArray';
 
 import { injectT } from 'i18n';
 
-const getValue = (value, options) => {
-  if (isArray(value)) {
-    return value.map(item => options.find(option => option.value === item));
+class SelectControl extends React.Component {
+  getValue = (value, options) => {
+    if (isArray(value)) {
+      return value.map(item => options.find(option => option.value === item));
+    }
+
+    return options.find(option => option.value === value);
+  };
+
+  render() {
+    const {
+      id,
+      className = 'app-Select',
+      isLoading = false,
+      isClearable = true,
+      isSearchable = true,
+      isMulti,
+      label,
+      onChange,
+      options,
+      t,
+      value,
+      ...rest } = this.props;
+
+    return (
+      <div className="app-SelectControl">
+        <FormGroup controlId={id}>
+          <ControlLabel>{label}</ControlLabel>
+          {!isLoading &&
+            <Select
+              {...rest}
+              className={className}
+              classNamePrefix="app-Select"
+              id={id}
+              isClearable={isClearable}
+              isMulti={isMulti}
+              isSearchable={isSearchable}
+              onChange={(selected, { action }) => {
+                switch (action) {
+                  case 'clear':
+                    onChange(isMulti ? [] : {}, action);
+                    break;
+                  default:
+                    onChange(selected, action);
+                    break;
+                }
+              }}
+              options={options}
+              placeholder={t('common.select')}
+              value={this.getValue(value, options)}
+            />}
+        </FormGroup>
+      </div>
+    );
   }
-
-  return options.find(option => option.value === value);
-};
-
-function SelectControl({
-  id,
-  className = 'app-Select',
-  isLoading = false,
-  isClearable = true,
-  isSearchable = true,
-  isMulti,
-  label,
-  onChange,
-  options,
-  t,
-  value,
-  ...rest }) {
-  return (
-    <div className="app-SelectControl">
-      <FormGroup controlId={id}>
-        <ControlLabel>{label}</ControlLabel>
-        {!isLoading &&
-          <Select
-            {...rest}
-            className={className}
-            classNamePrefix="app-Select"
-            id={id}
-            isClearable={isClearable}
-            isMulti={isMulti}
-            isSearchable={isSearchable}
-            onChange={(selected, { action }) => {
-              switch (action) {
-                case 'clear':
-                  onChange(isMulti ? [] : {}, action);
-                  break;
-                default:
-                  onChange(selected, action);
-                  break;
-              }
-            }}
-            options={options}
-            placeholder={t('common.select')}
-            value={getValue(value, options)}
-          />}
-      </FormGroup>
-    </div>
-  );
 }
-
 SelectControl.propTypes = {
   className: PropTypes.string,
   id: PropTypes.string.isRequired,

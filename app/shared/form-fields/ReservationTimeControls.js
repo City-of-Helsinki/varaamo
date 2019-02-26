@@ -103,7 +103,7 @@ class ReservationTimeControls extends Component {
         <div className="reservation-time-controls-time-control">
           <SelectControl
             id="reservation-time-start-select"
-            isClearable
+            isClearable={false}
             isSearchable
             name="reservation-time-controls-begin-time-select"
             onChange={this.handleBeginTimeChange}
@@ -116,7 +116,7 @@ class ReservationTimeControls extends Component {
         <div className="reservation-time-controls-time-control">
           <SelectControl
             id="reservation-time-end-select"
-            isClearable
+            isClearable={false}
             isSearchable
             name="reservation-time-controls-end-time-select"
             onChange={this.handleEndTimeChange}
