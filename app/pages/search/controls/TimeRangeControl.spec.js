@@ -194,7 +194,10 @@ describe('pages/search/controls/TimeRangeControl', () => {
         end: defaults.end,
         start: '12:00',
       };
-      instance.handleStart('12:00');
+      instance.handleStart({
+        value: '12:00',
+        label: '12:00',
+      });
       expect(onConfirm.callCount).to.equal(1);
       expect(onConfirm.lastCall.args).to.deep.equal([expected]);
     });
@@ -209,7 +212,10 @@ describe('pages/search/controls/TimeRangeControl', () => {
         end: '18:00',
         start: defaults.start,
       };
-      instance.handleEnd('18:00');
+      instance.handleEnd({
+        value: '18:00',
+        label: '18:00',
+      });
       expect(onConfirm.callCount).to.equal(1);
       expect(onConfirm.lastCall.args).to.deep.equal([expected]);
     });
@@ -224,7 +230,10 @@ describe('pages/search/controls/TimeRangeControl', () => {
         end: defaults.end,
         start: defaults.start,
       };
-      instance.handleDuration(60);
+      instance.handleDuration({
+        value: 60,
+        label: '1h',
+      });
       expect(onConfirm.callCount).to.equal(1);
       expect(onConfirm.lastCall.args).to.deep.equal([expected]);
     });

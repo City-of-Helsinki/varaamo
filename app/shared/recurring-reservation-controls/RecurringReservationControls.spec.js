@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 import React from 'react';
 import NumericInput from 'react-numeric-input';
-import Select from 'react-select';
 import simple from 'simple-mock';
 
 import DatePicker from 'shared/date-picker';
 import { shallowWithIntl } from 'utils/testUtils';
+import SelectControl from 'pages/search/controls/SelectControl';
 import RecurringReservationControls from './RecurringReservationControls';
 
 function getWrapper(props) {
@@ -35,7 +35,7 @@ describe('shared/RecurringReservationControls/RecurringReservationControls', () 
       frequencyOptions: [{ label: '', value: '' }],
       lastTime: '2017-04-09',
     };
-    const select = getWrapper(props).find(Select);
+    const select = getWrapper(props).find(SelectControl);
     expect(select).to.have.length(1);
     expect(select.prop('onChange')).to.equal(props.changeFrequency);
     expect(select.prop('options')).to.equal(props.frequencyOptions);

@@ -1,11 +1,11 @@
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 import React, { Component, PropTypes } from 'react';
-import Select from 'react-select';
 import map from 'lodash/map';
 
 import DatePicker from 'shared/date-picker';
 import constants from 'constants/AppConstants';
+import SelectControl from 'pages/search/controls/SelectControl';
 
 const moment = extendMoment(Moment);
 
@@ -101,25 +101,27 @@ class ReservationTimeControls extends Component {
           <DatePicker onChange={this.handleDateChange} value={begin.input.value} />
         </div>
         <div className="reservation-time-controls-time-control">
-          <Select
-            clearable={false}
+          <SelectControl
+            id="reservation-time-start-select"
+            isClearable
+            isSearchable
             name="reservation-time-controls-begin-time-select"
             onChange={this.handleBeginTimeChange}
             options={this.getTimeOptions()}
             placeholder=" "
-            searchable
             value={moment(begin.input.value).format(timeFormat)}
           />
         </div>
         <div className="reservation-time-controls-separator">-</div>
         <div className="reservation-time-controls-time-control">
-          <Select
-            clearable={false}
+          <SelectControl
+            id="reservation-time-end-select"
+            isClearable
+            isSearchable
             name="reservation-time-controls-end-time-select"
             onChange={this.handleEndTimeChange}
             options={this.getTimeOptions()}
             placeholder=" "
-            searchable
             value={moment(end.input.value).format(timeFormat)}
           />
         </div>

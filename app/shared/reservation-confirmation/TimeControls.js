@@ -1,8 +1,9 @@
 import forEach from 'lodash/forEach';
 import React, { Component, PropTypes } from 'react';
-import Select from 'react-select';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
+
+import SelectControl from 'pages/search/controls/SelectControl';
 
 const moment = extendMoment(Moment);
 
@@ -93,25 +94,25 @@ class TimeControls extends Component {
     return (
       <div className="app-TimeControls">
         <div className="app-TimeControls__begin-time-control">
-          <Select
-            clearable={false}
+          <SelectControl
+            isClearable={false}
+            isSearchable
             name="app-TimeControls-begin-time-select"
             onChange={this.handleBeginTimeChange}
             options={this.getBeginTimeOptions()}
             placeholder=" "
-            searchable
             value={moment(begin.input.value).format(timeFormat)}
           />
         </div>
         <div className="app-TimeControls__separator">-</div>
         <div className="app-TimeControls__end-time-control">
-          <Select
-            clearable={false}
+          <SelectControl
+            isClearable={false}
+            isSearchable
             name="app-TimeControls-end-time-select"
             onChange={this.handleEndTimeChange}
             options={this.getEndTimeOptions()}
             placeholder=" "
-            searchable
             value={moment(end.input.value).format(timeFormat)}
           />
         </div>

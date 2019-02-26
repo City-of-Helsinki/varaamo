@@ -167,7 +167,8 @@ class UnconnectedSearchControlsContainer extends Component {
                     isMulti
                     label={t('SearchControlsContainer.municipalityLabel')}
                     name="app-SearchControls-municipality-select"
-                    onChange={municipality => this.handleFiltersChange({ municipality })}
+                    onChange={municipalities => this.handleFiltersChange(
+                      { municipality: municipalities.map(mun => mun.value) })}
                     options={this.getMunicipalityOptions()}
                     value={filters.municipality}
                   />
@@ -180,7 +181,7 @@ class UnconnectedSearchControlsContainer extends Component {
                     isLoading={isFetchingPurposes}
                     label={t('SearchControlsContainer.purposeLabel')}
                     name="app-SearchControls-purpose-select"
-                    onChange={purpose => this.handleFiltersChange({ purpose })}
+                    onChange={purpose => this.handleFiltersChange({ purpose: purpose.value })}
                     options={purposeOptions}
                     value={filters.purpose}
                   />
@@ -191,7 +192,7 @@ class UnconnectedSearchControlsContainer extends Component {
                     isLoading={isFetchingUnits}
                     label={t('SearchControlsContainer.unitLabel')}
                     name="app-SearchControls-unit-select"
-                    onChange={unit => this.handleFiltersChange({ unit })}
+                    onChange={unit => this.handleFiltersChange({ unit: unit.value })}
                     options={unitOptions}
                     value={filters.unit}
                   />
@@ -202,7 +203,7 @@ class UnconnectedSearchControlsContainer extends Component {
                     isLoading={isFetchingUnits}
                     label={t('SearchControlsContainer.peopleCapacityLabel')}
                     name="app-SearchControls-people-select"
-                    onChange={people => this.handleFiltersChange({ people })}
+                    onChange={people => this.handleFiltersChange({ people: people.value })}
                     options={peopleCapacityOptions}
                     value={filters.people ? String(parseInt(filters.people, 10)) : ''}
                   />
