@@ -166,6 +166,7 @@ class UnconnectedSearchControlsContainer extends Component {
                     isLoading={isFetchingUnits}
                     isMulti
                     label={t('SearchControlsContainer.municipalityLabel')}
+                    name="app-SearchControls-municipality-select"
                     onChange={municipality => this.handleFiltersChange({ municipality })}
                     options={this.getMunicipalityOptions()}
                     value={filters.municipality}
@@ -178,6 +179,7 @@ class UnconnectedSearchControlsContainer extends Component {
                     id="purpose"
                     isLoading={isFetchingPurposes}
                     label={t('SearchControlsContainer.purposeLabel')}
+                    name="app-SearchControls-purpose-select"
                     onChange={purpose => this.handleFiltersChange({ purpose })}
                     options={purposeOptions}
                     value={filters.purpose}
@@ -188,6 +190,7 @@ class UnconnectedSearchControlsContainer extends Component {
                     id="unit"
                     isLoading={isFetchingUnits}
                     label={t('SearchControlsContainer.unitLabel')}
+                    name="app-SearchControls-unit-select"
                     onChange={unit => this.handleFiltersChange({ unit })}
                     options={unitOptions}
                     value={filters.unit}
@@ -198,6 +201,7 @@ class UnconnectedSearchControlsContainer extends Component {
                     id="people"
                     isLoading={isFetchingUnits}
                     label={t('SearchControlsContainer.peopleCapacityLabel')}
+                    name="app-SearchControls-people-select"
                     onChange={people => this.handleFiltersChange({ people })}
                     options={peopleCapacityOptions}
                     value={filters.people ? String(parseInt(filters.people, 10)) : ''}
