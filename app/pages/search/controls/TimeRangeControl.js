@@ -172,7 +172,6 @@ class TimeRangeControl extends React.Component {
             onChange={this.handleDuration}
             options={durationOptions}
             placeholder=""
-            searchable={false}
             value={duration}
           />
         </div>
