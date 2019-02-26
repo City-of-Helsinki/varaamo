@@ -78,13 +78,30 @@ describe('pages/search/controls/SelectControl', () => {
     expect(onChange.lastCall.args[0]).to.deep.equal(defaults.options[1]);
   });
 
-  it('Select onChange calls prop onChange when clear selected field', () => {
+  it('Select onChange calls prop onChange when clear multi selected field', () => {
     const onChange = simple.mock();
     const multiSelect = getWrapper({ onChange, isMulti: true }).find(Select);
     expect(multiSelect).to.have.length(1);
     multiSelect.prop('onChange')(defaults.options, { action: 'clear' });
     expect(onChange.callCount).to.equal(1);
-    expect(onChange.lastCall.args[0]).to.equal([]);
+    expect(onChange.lastCall.args[0]).to.deep.equal([]);
+  });
+
+  it('Select onChange calls prop onChange when clear non multi selected field', () => {
+    const onChange = simple.mock();
+    const select = getWrapper({ onChange }).find(Select);
+    expect(select).to.have.length(1);
+    select.prop('onChange')(defaults.options, { action: 'clear' });
+    expect(onChange.callCount).to.equal(1);
+    expect(onChange.lastCall.args[0]).to.deep.equal({});
+  });
+
+  it('Select onChange calls prop onChange as fallback', () => {
+    const onChange = simple.mock();
+    const select = getWrapper({ onChange }).find(Select);
+    expect(select).to.have.length(1);
+    select.prop('onChange')(defaults.options, { action: 'foo' });
+    expect(onChange.callCount).to.equal(1);
   });
 
   it('call props onChange with multi select if isMulti is true', () => {
