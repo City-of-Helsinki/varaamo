@@ -10,6 +10,7 @@ import SelectControl from './SelectControl';
 
 const defaults = {
   id: 'some-id',
+  name: 'some-name',
   isLoading: false,
   label: 'some-label',
   onChange: () => null,
@@ -54,7 +55,8 @@ describe('pages/search/controls/SelectControl', () => {
     const select = getWrapper({}).find(Select);
     expect(select).to.have.length(1);
     expect(select.prop('isClearable')).to.be.true;
-    expect(select.prop('name')).to.equal(defaults.id);
+    expect(select.prop('id')).to.equal(defaults.id);
+    expect(select.prop('name')).to.equal(defaults.name);
     expect(select.prop('onChange')).to.be.a('function');
     expect(select.prop('placeholder')).to.equal('common.select');
     expect(select.prop('isSearchable')).to.be.true;

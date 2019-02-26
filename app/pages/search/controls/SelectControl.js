@@ -36,10 +36,10 @@ function SelectControl({
             {...rest}
             className={className}
             classNamePrefix="app-Select"
+            id={id}
             isClearable={isClearable}
             isMulti={isMulti}
             isSearchable={isSearchable}
-            name={id}
             onChange={(selected, { action }) => {
               switch (action) {
                 case 'clear':
