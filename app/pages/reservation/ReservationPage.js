@@ -149,7 +149,7 @@ class UnconnectedReservationPage extends Component {
       isFetchingResource,
       isMakingReservations,
       location,
-      params,
+      match,
       reservationCreated,
       reservationEdited,
       reservationToEdit,
@@ -180,6 +180,7 @@ class UnconnectedReservationPage extends Component {
     const title = t(
       `ReservationPage.${isEditing || isEdited ? 'editReservationTitle' : 'newReservationTitle'}`
     );
+    const params = queryString.parse(location.search);
 
     return (
       <div className="app-ReservationPage">
@@ -193,6 +194,7 @@ class UnconnectedReservationPage extends Component {
                   <ReservationTime
                     history={history}
                     location={location}
+                    match={match}
                     onCancel={this.handleCancel}
                     onConfirm={this.handleConfirmTime}
                     params={params}
@@ -219,6 +221,7 @@ class UnconnectedReservationPage extends Component {
                 )}
                 {view === 'confirmation' && (reservationCreated || reservationEdited) && (
                   <ReservationConfirmation
+                    history={history}
                     isEdited={isEdited}
                     reservation={reservationCreated || reservationEdited}
                     resource={resource}
@@ -242,7 +245,7 @@ UnconnectedReservationPage.propTypes = {
   isFetchingResource: PropTypes.bool.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
-  params: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
   reservationToEdit: PropTypes.object,
   reservationCreated: PropTypes.object,
   reservationEdited: PropTypes.object,

@@ -19,7 +19,7 @@ import { UnconnectedReservationPage as ReservationPage } from './ReservationPage
 describe('pages/reservation/ReservationPage', () => {
   const resource = Immutable(Resource.build());
   const history = {
-    replace: () => {},
+    replace: () => { },
   };
   const defaultProps = {
     history,
@@ -37,7 +37,7 @@ describe('pages/reservation/ReservationPage', () => {
     isFetchingResource: false,
     isMakingReservations: false,
     location: {},
-    params: {},
+    match: { search: '' },
     reservationToEdit: null,
     reservationCreated: null,
     reservationEdited: null,
