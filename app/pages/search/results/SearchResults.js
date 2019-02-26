@@ -36,7 +36,7 @@ export class UnconnectedSearchResults extends Component {
           {!showMap && (
             <div className="app-SearchResults__container">
               <Row>
-                <Col className="app-SearchControlsContainer__control sortControl" md={4} sm={6} >
+                <Col className="app-SearchControlsContainer__control sortControl col-md-offset-8" md={4} sm={6} >
                   <Filter />
                 </Col>
               </Row>
