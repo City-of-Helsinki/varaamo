@@ -15,19 +15,20 @@ import ResourceCalendarOverlay from './ResourceCalendarOverlay';
 import resourceCalendarSelector from './resourceCalendarSelector';
 
 export class UnconnectedResourceCalendar extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       visible: false,
     };
+
+    this.now = moment();
   }
 
   disableDays = (day) => {
     if (this.props.disableDays) {
       return this.props.disableDays(day);
     }
-    return moment().isAfter(day, 'day');
+    return this.now.isAfter(day, 'day');
   }
 
   handleDateChange = (newDate) => {
