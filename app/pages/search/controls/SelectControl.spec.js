@@ -69,7 +69,7 @@ describe('pages/search/controls/SelectControl', () => {
     expect(select).to.have.length(1);
     select.prop('onChange')(defaults.options[1], {});
     expect(onChange.callCount).to.equal(1);
-    expect(onChange.lastCall.args[0]).to.deep.equal(defaults.options[1].value);
+    expect(onChange.lastCall.args[0]).to.deep.equal(defaults.options[1]);
   });
 
   it('call props onChange with multi select if isMulti is true', () => {
@@ -79,6 +79,6 @@ describe('pages/search/controls/SelectControl', () => {
     expect(select).to.have.length(1);
     select.prop('onChange')(defaults.options, {});
     expect(onChange.callCount).to.equal(1);
-    expect(onChange.lastCall.args[0]).to.deep.equal(['filter-1', 'filter-2']);
+    expect(onChange.lastCall.args[0]).to.deep.equal(defaults.options);
   });
 });

@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import React from 'react';
-import Select from 'react-select';
 import simple from 'simple-mock';
 
+import SelectControl from 'pages/search/controls/SelectControl';
 import { shallowWithIntl } from 'utils/testUtils';
 import AdminReservationFilters from './AdminReservationFilters';
 
@@ -17,7 +17,7 @@ describe('pages/user-reservations/reservation-filters/AdminReservationFilters', 
   }
 
   describe('state filter', () => {
-    const select = getWrapper().find(Select);
+    const select = getWrapper().find(SelectControl);
 
     it('renders a Select component', () => {
       expect(select.length).to.equal(1);

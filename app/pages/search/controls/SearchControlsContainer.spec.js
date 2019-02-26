@@ -53,6 +53,10 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       { value: 'unit-1', label: 'Unit 1' },
       { value: 'unit-2', label: 'Unit 2' },
     ]),
+    peopleOptions: Immutable([
+      { value: '1', label: 'foo' },
+      { value: '2', label: 'bar' },
+    ]),
     urlSearchFilters: {},
   };
 
@@ -218,39 +222,46 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     });
 
     it('calls handleFiltersChange on miniciple SelectControl onChange', () => {
-      const municipality = 'some-municipality';
+      const municipalities = [{
+        value: 'some-municipality',
+        label: 'some-municipality',
+      }];
       expect(selectControl).to.have.length(4);
       expect(selectControl.at(0).prop('onChange')).to.be.a('function');
-      selectControl.at(0).prop('onChange')(municipality);
+      selectControl.at(0).prop('onChange')(municipalities, {});
       expect(instance.handleFiltersChange.callCount).to.equal(1);
-      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ municipality });
+      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({
+        municipality: [municipalities[0].value],
+      });
     });
 
     it('calls handleFiltersChange on purpose SelectControl onChange', () => {
-      const purpose = 'some-purpose';
+      const purpose = defaultProps.purposeOptions[0];
       expect(selectControl).to.have.length(4);
       expect(selectControl.at(1).prop('onChange')).to.be.a('function');
       selectControl.at(1).prop('onChange')(purpose);
       expect(instance.handleFiltersChange.callCount).to.equal(1);
-      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ purpose });
+      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({
+        purpose: purpose.value });
     });
 
     it('calls handleFiltersChange on unit SelectControl onChange', () => {
-      const unit = 'some-unit';
+      const unit = defaultProps.unitOptions[0];
+
       expect(selectControl).to.have.length(4);
       expect(selectControl.at(2).prop('onChange')).to.be.a('function');
       selectControl.at(2).prop('onChange')(unit);
       expect(instance.handleFiltersChange.callCount).to.equal(1);
-      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ unit });
+      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ unit: unit.value });
     });
 
     it('calls handleFiltersChange on people SelectControl onChange', () => {
-      const people = '5';
+      const people = defaultProps.peopleOptions[0];
       expect(selectControl).to.have.length(4);
       expect(selectControl.at(3).prop('onChange')).to.be.a('function');
       selectControl.at(3).prop('onChange')(people);
       expect(instance.handleFiltersChange.callCount).to.equal(1);
-      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ people });
+      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ people: people.value });
     });
   });
 

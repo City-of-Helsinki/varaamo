@@ -43,13 +43,10 @@ function SelectControl({
             onChange={(selected, { action }) => {
               switch (action) {
                 case 'clear':
-                  onChange('', action);
+                  onChange(isMulti ? [] : {}, action);
                   break;
                 default:
-                  onChange(
-                    !isMulti ? selected.value : selected.map(option => option.value),
-                    action
-                  );
+                  onChange(selected, action);
                   break;
               }
             }}
