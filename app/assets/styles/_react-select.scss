@@ -4,6 +4,11 @@ $selectBoxPaddingLeft: 15px;
 $selectLineHeight: 39px;
 $selectDropdownBorderWidth: 5px 5px 2.5px;
 $selectFocusedOptionColor: lighten($hel-fog, 15%);
+$selectFontSize: 30px;
+$selectDropdownPadding: 0 5px 0 0;
+$selectDropdownWidth: 25px;
+$selectMenuPaddingTop: -2px;
+$selectDropdownAfterMarginTop: 4px;
 
 .app-Select {
   .app-Select__control {
@@ -47,7 +52,7 @@ $selectFocusedOptionColor: lighten($hel-fog, 15%);
   }
 
   .app-Select__clear-indicator {
-    font-size: 30px;
+    font-size: $selectFontSize;
     color: $black;
     cursor: pointer;
 
@@ -57,14 +62,14 @@ $selectFocusedOptionColor: lighten($hel-fog, 15%);
   }
 
   .app-Select__dropdown-indicator {
-    font-size: 30px;
+    font-size: $selectFontSize;
     color: $black;
     display: flex;
     justify-content: center;
-    width: 25px;
+    width: $selectDropdownWidth;
     height: 100%;
     align-items: center;
-    padding: 0 5px 0 0;
+    padding: $selectDropdownPadding;
 
     &:hover {
       color: $black;
@@ -73,7 +78,7 @@ $selectFocusedOptionColor: lighten($hel-fog, 15%);
     &:after {
       display: block;
       content: "";
-      margin-top: 4px;
+      margin-top: $selectDropdownAfterMarginTop;
       width: 0;
       height: 0;
       border-color: $black transparent transparent;
@@ -110,7 +115,7 @@ $selectFocusedOptionColor: lighten($hel-fog, 15%);
   }
 
   .app-Select__menu {
-    margin-top: -2px;
+    margin-top: $selectMenuPaddingTop;
     border: $selectBorderWidth solid $black;
     border-radius: 0;
     box-shadow: none;
