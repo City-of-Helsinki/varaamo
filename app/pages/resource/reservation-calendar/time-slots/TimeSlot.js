@@ -11,6 +11,7 @@ import { padLeft } from 'utils/timeUtils';
 class TimeSlot extends PureComponent {
   static propTypes = {
     addNotification: PropTypes.func.isRequired,
+    isDisabled: PropTypes.bool,
     isAdmin: PropTypes.bool.isRequired,
     showClear: PropTypes.bool.isRequired,
     isHighlighted: PropTypes.bool.isRequired,
@@ -26,6 +27,10 @@ class TimeSlot extends PureComponent {
     slot: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
   };
+
+  static defaultProps = {
+    isDisabled: false,
+  }
 
   componentDidMount() {
     if (this.props.scrollTo) {
@@ -71,6 +76,7 @@ class TimeSlot extends PureComponent {
 
   render() {
     const {
+      isDisabled,
       isAdmin,
       showClear,
       isHighlighted,
@@ -87,6 +93,7 @@ class TimeSlot extends PureComponent {
     const isReservable = (resource.reservableAfter
       && moment(slot.start).isBefore(resource.reservableAfter));
     const disabled =
+      isDisabled ||
       !isLoggedIn ||
       (!isSelectable && !selected) ||
       !resource.userPermissions.canMakeReservations ||
