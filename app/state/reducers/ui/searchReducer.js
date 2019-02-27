@@ -1,5 +1,6 @@
 import Immutable from 'seamless-immutable';
-import _ from 'lodash';
+import orderBy from 'lodash/orderBy';
+import mapValues from 'lodash/mapValues';
 
 import types from 'constants/ActionTypes';
 import { pickSupportedFilters } from 'utils/searchUtils';
@@ -93,35 +94,35 @@ function searchReducer(state = initialState, action) {
 
     case 'FILTER_BY_NAME': {
       const { lang, resources } = action.payload;
-      const sortedResources = _.orderBy(resources, resource => resource.name[lang], ['asc']);
+      const sortedResources = orderBy(resources, resource => resource.name[lang], ['asc']);
       return { ...state, results: sortedResources.map(data => data.id) };
     }
 
     case 'FILTER_BY_TYPE': {
       const { lang, resources } = action.payload;
-      const sortedResources = _.orderBy(resources, resource => resource.type.name[lang], ['asc']);
+      const sortedResources = orderBy(resources, resource => resource.type.name[lang], ['asc']);
       /* Lang is static because no data on other language */
       return { ...state, results: sortedResources.map(data => data.id) };
     }
 
     case 'FILTER_BY_PEOPLE': {
       const { resources } = action.payload;
-      const sortedResources = _.orderBy(resources, resource => resource.peopleCapacity, ['asc']);
+      const sortedResources = orderBy(resources, resource => resource.peopleCapacity, ['asc']);
       return { ...state, results: sortedResources.map(data => data.id) };
     }
 
     case 'FILTER_BY_PREMISES': {
       const { lang, resources, units } = action.payload;
-      const data = _.mapValues(resources, resource => (
+      const data = mapValues(resources, resource => (
         { ...resource, unit: units[resource.unit] })
       );
-      const sortedResources = _.orderBy(data, resource => resource.unit.name[lang], ['asc']);
+      const sortedResources = orderBy(data, resource => resource.unit.name[lang], ['asc']);
       return { ...state, results: sortedResources.map(obj => obj.id) };
     }
 
     case 'FILTER_BY_OPEN_NOW': {
       const { resources } = action.payload;
-      const sortedResources = _.orderBy(resources, resource => isOpenNow(resource), ['desc']);
+      const sortedResources = orderBy(resources, resource => isOpenNow(resource), ['desc']);
       return { ...state, results: sortedResources.map(data => data.id) };
     }
 

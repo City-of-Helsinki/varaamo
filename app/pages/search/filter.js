@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { injectT } from 'i18n';
 import SelectControl from './controls/SelectControl';
 import * as filterActions from '../../actions/filterActions';
 
@@ -31,10 +32,9 @@ class Filter extends Component {
       <SelectControl
         id="filter"
         isLoading={false}
-        label="Sort By"
+        label={this.props.t('SortBy.label')}
         onConfirm={this.dispatchFilter}
         options={this.filterOptions}
-        t={() => {}}
         value={this.state.selected}
       />
     );
@@ -53,12 +53,14 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Filter);
+)(injectT(Filter));
 
 
 Filter.propTypes = {
   actions: PropTypes.object.isRequired,
   lang: PropTypes.string.isRequired,
-  resources: PropTypes.array.isRequired,
-  units: PropTypes.array.isRequired,
+  resources: PropTypes.object.isRequired,
+  units: PropTypes.object.isRequired,
+  t: PropTypes.func.isRequired,
 };
+
