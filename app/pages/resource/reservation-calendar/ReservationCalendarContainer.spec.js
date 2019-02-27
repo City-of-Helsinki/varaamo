@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import MockDate from 'mockdate';
 import React from 'react';
+import moment from 'moment';
 import simple from 'simple-mock';
 
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
@@ -223,6 +224,22 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       const timeSlots = [[timeSlot1, timeSlot2], [timeSlot3], []];
       const result = instance.getSelectedDateSlots(timeSlots, [selectedSlot]);
       expect(result).to.deep.equal([]);
+    });
+  });
+
+  describe('getDurationText', () => {
+    const instance = getWrapper().instance();
+
+    it('returns string that contains hours and minutes when the duration over 60 minutes', () => {
+      const duration = moment.duration({ minutes: 90 });
+      const durationText = instance.getDurationText(duration);
+      expect(durationText).to.equal('1h 30min');
+    });
+
+    it('returns string that contains only minutes when the duration shorter than 60 minutes', () => {
+      const duration = moment.duration({ minutes: 50 });
+      const durationText = instance.getDurationText(duration);
+      expect(durationText).to.equal('50min');
     });
   });
 
