@@ -82,11 +82,15 @@ export class UnconnectedReservationCalendarContainer extends Component {
     const beginText = this.getDateTimeText(beginSlot.begin, true);
     const endText = this.getDateTimeText(endSlot.end, false);
     const duration = moment.duration(moment(endSlot.end).diff(moment(beginSlot.begin)));
-    const hours = duration.hours();
-    const mins = duration.minutes();
-    const durationText = `${hours > 0 ? `${hours}h ` : ''}${mins}min`;
+    const durationText = this.getDurationText(duration);
     return `${beginText} - ${endText} (${durationText})`;
   };
+
+  getDurationText = (duration) => {
+    const hours = duration.hours();
+    const mins = duration.minutes();
+    return `${hours > 0 ? `${hours}h ` : ''}${mins}min`;
+  }
 
   getDateTimeText = (slot, returnDate) => {
     const { t } = this.props;
