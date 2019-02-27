@@ -213,12 +213,12 @@ class TimeSlots extends Component {
     const isHighlighted = utils.isHighlighted(slot, selected, hoveredTimeSlot);
     const resBegin = this.getReservationBegin();
     const resEnd = this.getReservationEnd();
-    const resLengthInMins = moment(slot.end).diff(resBegin, 'minutes');
-    const maxPeriodInMins = moment.duration(resource.maxPeriod).asMinutes();
 
     let isMaxExceeded = false;
 
     if (resBegin && resource.maxPeriod) {
+      const resLengthInMins = moment(slot.end).diff(resBegin, 'minutes');
+      const maxPeriodInMins = moment.duration(resource.maxPeriod).asMinutes();
       isMaxExceeded = resLengthInMins > maxPeriodInMins;
     }
 
