@@ -1,7 +1,6 @@
 import forEach from 'lodash/forEach';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import Select from 'react-select';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 
