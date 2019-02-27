@@ -211,11 +211,22 @@ class TimeSlots extends Component {
     const isFirstSelected = utils.isFirstSelected(slot, selected);
     const shouldShowReservationPopover = selected.length === 1 && isFirstSelected;
     const isHighlighted = utils.isHighlighted(slot, selected, hoveredTimeSlot);
+    const resBegin = this.getReservationBegin();
+    const resEnd = this.getReservationEnd();
+    const resLengthInMins = moment(slot.end).diff(resBegin, 'minutes');
+    const maxPeriodInMins = moment.duration(resource.maxPeriod).asMinutes();
+
+    let isMaxExceeded = false;
+
+    if (resBegin && resource.maxPeriod) {
+      isMaxExceeded = resLengthInMins > maxPeriodInMins;
+    }
 
     const timeSlot = (
       <TimeSlot
         addNotification={addNotification}
         isAdmin={isAdmin}
+        isDisabled={isMaxExceeded}
         isEditing={isEditing}
         isHighlighted={isHighlighted}
         isLoggedIn={isLoggedIn}
@@ -235,16 +246,16 @@ class TimeSlots extends Component {
 
     return shouldShowReservationPopover ? (
       <ReservationPopover
-        begin={this.getReservationBegin()}
-        end={this.getReservationEnd()}
+        begin={resBegin}
+        end={resEnd}
         key="timeslots-reservation-popover"
         onCancel={this.onCancel}
       >
         {timeSlot}
       </ReservationPopover>
     ) : (
-      timeSlot
-    );
+        timeSlot
+      );
   };
 
   render() {
