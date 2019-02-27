@@ -26,15 +26,15 @@ export class UnconnectedResourceCalendar extends Component {
     this.now = moment();
   }
 
+  setCalendarWrapper = (element) => {
+    this.calendarWrapper = element;
+  }
+
   disableDays = (day) => {
     if (this.props.disableDays) {
       return this.props.disableDays(day);
     }
     return this.now.isAfter(day, 'day');
-  }
-
-  setCalendarWrapper = (element) => {
-    this.calendarWrapper = element;
   }
 
   handleDateChange = (newDate) => {
@@ -93,7 +93,7 @@ export class UnconnectedResourceCalendar extends Component {
           >
             <ResourceCalendarOverlay onHide={this.hideOverlay}>
               <DayPicker
-                disabledDays={day => new Date(day).setHours(23, 59, 59, 59) < new Date()}
+                disabledDays={this.disableDays}
                 enableOutsideDays
                 initialMonth={new Date(selectedDate)}
                 locale={currentLanguage}
