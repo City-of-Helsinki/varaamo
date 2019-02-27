@@ -33,7 +33,7 @@ class SelectControl extends React.Component {
     return (
       <div className="app-SelectControl">
         <FormGroup controlId={id}>
-          <ControlLabel>{label}</ControlLabel>
+          {label && <ControlLabel>{label}</ControlLabel>}
           {!isLoading &&
             <Select
               {...rest}

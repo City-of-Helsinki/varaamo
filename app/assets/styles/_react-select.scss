@@ -1,14 +1,14 @@
 $selectBorderWidth: 2px;
 $selectBorderRadius: 2px;
-$selectBoxPaddingLeft: 15px;
+$selectBoxPadding: 0 0 0 8px;
 $selectLineHeight: 39px;
 $selectDropdownBorderWidth: 5px 5px 2.5px;
 $selectFocusedOptionColor: lighten($hel-fog, 15%);
 $selectFontSize: 30px;
-$selectDropdownPadding: 0 5px 0 0;
 $selectDropdownWidth: 25px;
 $selectMenuPaddingTop: -2px;
 $selectDropdownAfterMarginTop: 4px;
+$selectDropdownPaddingRight: 4px;
 
 .app-Select {
   .app-Select__control {
@@ -39,12 +39,6 @@ $selectDropdownAfterMarginTop: 4px;
       border: $selectBorderWidth solid $dark-gray;
       color: $dark-gray;
     }
-
-    .Select-value {
-      padding-left: $selectBoxPaddingLeft;
-      line-height: $selectLineHeight;
-      color: $black;
-    }
   }
 
   .app-Select__indicator-separator {
@@ -61,6 +55,9 @@ $selectDropdownAfterMarginTop: 4px;
     }
   }
 
+  .app-Select__indicators {
+    padding-right: $selectDropdownPaddingRight;
+  }
   .app-Select__dropdown-indicator {
     font-size: $selectFontSize;
     color: $black;
@@ -69,7 +66,6 @@ $selectDropdownAfterMarginTop: 4px;
     width: $selectDropdownWidth;
     height: 100%;
     align-items: center;
-    padding: $selectDropdownPadding;
 
     &:hover {
       color: $black;
@@ -142,5 +138,15 @@ $selectDropdownAfterMarginTop: 4px;
     .app-Select__single-value {
       color: $black;
     }
-  } 
+  }
+  
+  .app-Select__value-container {
+    padding: $selectBoxPadding;
+  }
+}
+
+.app-SelectControl {
+  .form-group {
+    margin: 0 !important;
+  }
 }
