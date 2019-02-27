@@ -53,6 +53,10 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     expect(getWrapper().text()).to.contain(expected);
   });
 
+  it('disables the time slot when isDisabled prop is true', () => {
+    expect(getWrapper({ isDisabled: true }).find('div.app-TimeSlot--disabled')).to.have.length(1);
+  });
+
   describe('button onClick when user is not logged in', () => {
     let instance;
     let wrapper;
