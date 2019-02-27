@@ -3,6 +3,7 @@ import sortBy from 'lodash/sortBy';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import classNames from 'classnames';
+
 import SelectControl from 'pages/search/controls/SelectControl';
 import constants from 'constants/AppConstants';
 import { injectT } from 'i18n';
