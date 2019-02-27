@@ -93,7 +93,7 @@ class TimeSlots extends Component {
       .filter(value => !!value && value.end);
     const slotLength = firstTimeSlots[0]
       ? moment(firstTimeSlots[0].end).diff(firstTimeSlots[0].start, 'm')
-      : 30;
+      : constants.TIME_SLOT_DEFAULT_LENGTH;
 
     if (firstTimeSlots.length === 0) {
       return {

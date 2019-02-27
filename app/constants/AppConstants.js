@@ -66,5 +66,6 @@ export default {
     useTimeRange: false,
   },
   TIME_FORMAT: 'H:mm',
+  TIME_SLOT_DEFAULT_LENGTH: 30,
   TRACKING: SETTINGS.TRACKING,
 };
