@@ -257,4 +257,45 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
     expect(placeholder).to.have.length(3);
     expect(placeholder.first().prop('mobileOffset')).to.equal(4);
   });
+
+  describe('getReservationBegin', () => {
+    it('returns the begin value of the selected slot', () => {
+      const instance = getWrapper().instance();
+      const firstSelectedSlot = defaultProps.selected[0];
+      expect(instance.getReservationBegin()).to.equal(firstSelectedSlot.begin);
+    });
+
+    it('returns an empty string if the there are no selected slots', () => {
+      const instance = getWrapper({ selected: [] }).instance();
+      expect(instance.getReservationBegin()).to.equal('');
+    });
+  });
+
+  describe('getReservationEnd', () => {
+    it('returns the end value of the lest selected slot', () => {
+      const instance = getWrapper().instance();
+      const lastSelectedSlot = defaultProps.selected[defaultProps.selected.length - 1];
+      expect(instance.getReservationEnd()).to.equal(lastSelectedSlot.end);
+    });
+
+    it('returns an empty string if the there are no selected slots', () => {
+      const instance = getWrapper({ selected: [] }).instance();
+      expect(instance.getReservationEnd()).to.equal('');
+    });
+  });
+
+  describe('isMaxExceeded', () => {
+    it('enables all TimeSlots if maxPeriod in not defined', () => {
+      const renderedTimeSlots = getWrapper().find(TimeSlotComponent);
+      expect(renderedTimeSlots.first().prop('isDisabled')).to.be.false;
+      expect(renderedTimeSlots.at(1).prop('isDisabled')).to.be.false;
+    });
+
+    it('disables TimeSlot when the reservation length is longer than maxPeriod', () => {
+      const resourceMaxPeriod = Resource.build({ maxPeriod: '00:60:00' });
+      const renderedTimeSlots = getWrapper({ resource: resourceMaxPeriod }).find(TimeSlotComponent);
+      expect(renderedTimeSlots.first().prop('isDisabled')).to.be.false;
+      expect(renderedTimeSlots.at(1).prop('isDisabled')).to.be.true;
+    });
+  });
 });
