@@ -5,7 +5,7 @@ import urlSearchFiltersSelector from 'state/selectors/urlSearchFiltersSelector';
 
 describe('Selector: urlSearchFiltersSelector', () => {
   const filters = {
-    charge: false,
+    freeOfCharge: '',
     date: '2015-10-10',
     distance: '',
     duration: '30',
@@ -20,9 +20,13 @@ describe('Selector: urlSearchFiltersSelector', () => {
     municipality: '',
   };
 
-  const getProps = (date = filters.date, start = filters.start) => ({
+  const getProps = (
+    date = filters.date,
+    start = filters.start,
+    freeOfCharge = filters.freeOfCharge
+  ) => ({
     location: {
-      search: `?charge=false&date=${date}&distance=&duration=30&end=23:30&page=1&people=&purpose=some-purpose&search=&start=${start}&unit=&useTimeRange=false`,
+      search: `?freeOfCharge=${freeOfCharge}&date=${date}&distance=&duration=30&end=23:30&page=1&people=&purpose=some-purpose&search=&start=${start}&unit=&useTimeRange=false`,
     },
   });
 
@@ -44,5 +48,23 @@ describe('Selector: urlSearchFiltersSelector', () => {
     const expected = Object.assign({}, filters, { date: '2015-12-24' });
 
     expect(actual).to.deep.equal(expected);
+  });
+
+  describe('freeOfCharge', () => {
+    it('assigns true value when the correspondent param is given a true value', () => {
+      const state = {};
+      const props = getProps(undefined, undefined, true);
+      const actual = urlSearchFiltersSelector(state, props);
+
+      expect(actual.freeOfCharge).to.be.true;
+    });
+
+    it('assigns an empty string when the correspondent param is not true', () => {
+      const state = {};
+      const props = getProps(undefined, undefined, false);
+      const actual = urlSearchFiltersSelector(state, props);
+
+      expect(actual.freeOfCharge).to.equal('');
+    });
   });
 });

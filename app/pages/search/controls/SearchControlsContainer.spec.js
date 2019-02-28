@@ -18,7 +18,7 @@ import { UnconnectedSearchControlsContainer as SearchControlsContainer } from '.
 
 describe('pages/search/controls/SearchControlsContainer', () => {
   const history = {
-    push: () => {},
+    push: () => { },
   };
 
   const defaultProps = {
@@ -32,7 +32,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     isFetchingPurposes: false,
     isFetchingUnits: false,
     filters: {
-      charge: false,
+      freeOfCharge: '',
       date: '2015-10-10',
       duration: 0,
       end: '',
@@ -176,12 +176,13 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     });
 
     it('renders CheckboxControl with correct props', () => {
-      const checkboxControl = getWrapper({}).find(CheckboxControl);
+      const filters = { ...defaultProps.filters, freeOfCharge: '' };
+      const checkboxControl = getWrapper(filters).find(CheckboxControl);
       expect(checkboxControl).to.have.length(1);
       expect(checkboxControl.prop('id')).to.equal('charge');
       expect(checkboxControl.prop('label')).to.equal('SearchControlsContainer.chargeLabel');
       expect(checkboxControl.prop('onConfirm')).to.be.a('function');
-      expect(checkboxControl.prop('value')).to.equal(defaultProps.filters.charge);
+      expect(checkboxControl.prop('value')).to.be.false;
     });
 
     it('renders search Button with correct props', () => {
@@ -242,7 +243,8 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       selectControl.at(1).prop('onChange')(purpose);
       expect(instance.handleFiltersChange.callCount).to.equal(1);
       expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({
-        purpose: purpose.value });
+        purpose: purpose.value,
+      });
     });
 
     it('calls handleFiltersChange on unit SelectControl onChange', () => {
@@ -306,12 +308,12 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     });
 
     it('calls handleFiltersChange on charge CheckboxControl control onConfirm', () => {
-      const charge = true;
+      const freeOfCharge = true;
       expect(checkboxControl).to.have.length(1);
       expect(checkboxControl.at(0).prop('onConfirm')).to.be.a('function');
-      checkboxControl.at(0).prop('onConfirm')(charge);
+      checkboxControl.at(0).prop('onConfirm')(freeOfCharge);
       expect(instance.handleFiltersChange.callCount).to.equal(1);
-      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ charge });
+      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ freeOfCharge });
     });
   });
 
