@@ -53,7 +53,8 @@ $selectDropdownPaddingRight: 4px;
     font-size: $selectFontSize;
     color: $black;
     cursor: pointer;
-
+    padding: 0;
+    
     &:hover {
       color: $black;
     }
