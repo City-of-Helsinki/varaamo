@@ -49,7 +49,7 @@ export default {
   SHOW_TEST_SITE_MESSAGE: SETTINGS.SHOW_TEST_SITE_MESSAGE,
   SUPPORTED_LANGUAGES: ['en', 'fi', 'sv'],
   SUPPORTED_SEARCH_FILTERS: {
-    charge: false,
+    freeOfCharge: '',
     date: '',
     distance: '',
     duration: 0,

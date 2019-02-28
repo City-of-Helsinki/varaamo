@@ -3,12 +3,12 @@ import MockDate from 'mockdate';
 
 import uiSearchFiltersSelector from 'state/selectors/uiSearchFiltersSelector';
 
-function getState(date = '2015-10-10', start = '08:30') {
+function getState(date = '2015-10-10', start = '08:30', freeOfCharge = '') {
   return {
     ui: {
       search: {
         filters: {
-          charge: false,
+          freeOfCharge,
           date,
           distance: '',
           duration: 30,
@@ -45,5 +45,21 @@ describe('Selector: uiSearchFiltersSelector', () => {
     const expected = Object.assign({}, filters, { date: '2015-12-24' });
 
     expect(actual).to.deep.equal(expected);
+  });
+
+  describe('freeOfCharge', () => {
+    it('assigns true value when the correspondent argument is given a true value', () => {
+      const state = getState(undefined, undefined, true);
+      const actual = uiSearchFiltersSelector(state);
+
+      expect(actual.freeOfCharge).to.be.true;
+    });
+
+    it('assigns an empty string when the correspondent argument is not true', () => {
+      const state = getState(undefined, undefined, false);
+      const actual = uiSearchFiltersSelector(state);
+
+      expect(actual.freeOfCharge).to.equal('');
+    });
   });
 });
