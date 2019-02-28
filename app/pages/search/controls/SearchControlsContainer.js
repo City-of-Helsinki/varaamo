@@ -176,7 +176,7 @@ class UnconnectedSearchControlsContainer extends Component {
                 </Col>
               </Row>
               <Row>
-                <Col className="app-SearchControlsContainer__control" md={4} sm={6}>
+                <Col className="app-SearchControlsContainer__control" md={4} sm={12}>
                   <SelectControl
                     id="purpose"
                     isLoading={isFetchingPurposes}
@@ -227,7 +227,7 @@ class UnconnectedSearchControlsContainer extends Component {
                     useTimeRange={filters.useTimeRange}
                   />
                 </Col>
-                <Col className="app-SearchControlsContainer__control" md={4} sm={6}>
+                <Col className="app-SearchControlsContainer__control" md={4} sm={12}>
                   <CheckboxControl
                     id="charge"
                     label={t('SearchControlsContainer.chargeLabel')}
