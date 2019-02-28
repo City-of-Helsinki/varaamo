@@ -159,7 +159,11 @@ class UnconnectedSearchControlsContainer extends Component {
                 />
               </Col>
             </Row>
-            <Panel collapsible header={t('SearchControlsContainer.advancedSearch')}>
+            <Panel
+              collapsible
+              defaultExpanded={hasFilters}
+              header={t('SearchControlsContainer.advancedSearch')}
+            >
               <Row>
                 <Col md={12}>
                   <SelectControl
