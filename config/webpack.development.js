@@ -9,7 +9,7 @@ const common = require('./webpack.common');
 
 module.exports = merge(common, {
   entry: [
-    'babel-polyfill',
+    '@babel/polyfill',
     'webpack-hot-middleware/client',
     path.resolve(__dirname, '../app/index.js'),
   ],
