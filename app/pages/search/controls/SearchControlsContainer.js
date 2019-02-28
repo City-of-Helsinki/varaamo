@@ -213,6 +213,8 @@ class UnconnectedSearchControlsContainer extends Component {
                     value={filters.people ? String(parseInt(filters.people, 10)) : ''}
                   />
                 </Col>
+              </Row>
+              <Row>
                 <Col className="app-SearchControlsContainer__control" md={4} sm={6}>
                   <PositionControl
                     geolocated={Boolean(this.props.position)}
