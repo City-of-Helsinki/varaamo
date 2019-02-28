@@ -3,11 +3,13 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const autoprefixer = require('autoprefixer');
 
 const common = require('./webpack.common');
 
 module.exports = merge(common, {
+  mode: 'development',
   externals: {
     cheerio: 'window',
     'react/addons': true,
@@ -16,34 +18,42 @@ module.exports = merge(common, {
   },
   devtool: 'inline-source-map',
   module: {
-    preLoaders: [],
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         include: [
           path.resolve(__dirname, '../app'),
           path.resolve(__dirname, './'),
         ],
-        loader: 'babel',
-        query: {
+        loader: 'babel-loader',
+        options: {
           plugins: [
             ['istanbul', {
               exclude: [
                 '**/*.spec.js',
-                '**/specs.bootstrap.js',
               ],
             }],
           ],
-          presets: ['es2015', 'node6', 'react', 'stage-2'],
+          presets: ['@babel/preset-env', '@babel/preset-react'],
         },
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style', 'css-loader!postcss-loader'),
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          { loader: 'postcss-loader', options: { plugins: [autoprefixer({ browsers: ['last 2 version', 'ie 9'] })] } },
+        ],
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style', 'css-loader!resolve-url-loader!postcss-loader!sass-loader'),
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'resolve-url-loader',
+          { loader: 'sass-loader', options: { sourceMap: true, sourceMapContents: false } },
+          { loader: 'postcss-loader', options: { plugins: [autoprefixer({ browsers: ['last 2 version', 'ie 9'] })] } },
+        ],
       },
     ],
   },
@@ -56,6 +66,8 @@ module.exports = merge(common, {
     }),
     new HtmlWebpackPlugin(),
     new webpack.IgnorePlugin(/ReactContext/),
-    new ExtractTextPlugin('app.css'),
+    new MiniCssExtractPlugin({
+      filename: 'app.css',
+    }),
   ],
 });
