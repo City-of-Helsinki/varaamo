@@ -61,7 +61,7 @@ class UnconnectedSearchControlsContainer extends Component {
   hasAdvancedFilters() {
     const { filters, position } = this.props;
     let hasFilters = Boolean(position);
-    ['charge', 'end', 'distance', 'duration', 'purpose', 'start', 'unit'].forEach((key) => {
+    ['freeOfCharge', 'end', 'distance', 'duration', 'purpose', 'start', 'unit'].forEach((key) => {
       if (filters[key]) {
         hasFilters = true;
       }
@@ -236,9 +236,9 @@ class UnconnectedSearchControlsContainer extends Component {
                     id="charge"
                     label={t('SearchControlsContainer.chargeLabel')}
                     labelClassName="app-SearchControlsCheckbox__label"
-                    onConfirm={value => this.handleFiltersChange({ charge: value })}
+                    onConfirm={value => this.handleFiltersChange({ freeOfCharge: value })}
                     toggleClassName="app-SearchControlsCheckbox__toggle"
-                    value={filters.charge}
+                    value={!!filters.freeOfCharge}
                   />
                 </Col>
               </Row>
