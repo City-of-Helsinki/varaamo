@@ -1,3 +1,5 @@
+import { slotSize } from 'constants/SlotConstants';
+
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import mockDate from 'mockdate';
@@ -6,8 +8,6 @@ import React from 'react';
 
 import AvailabilityTimeline from './AvailabilityTimeline';
 import AvailabilityTimelineContainer, { selector } from './AvailabilityTimelineContainer';
-
-const slotSize = 30; // minutes
 
 function getState() {
   return {
