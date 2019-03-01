@@ -1,10 +1,12 @@
+import { slotSize, slotWidth } from 'constants/SlotConstants';
+
 import classNames from 'classnames';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Sticky from 'react-sticky-el';
 
-import { slotSize, slotWidth } from 'shared/availability-view';
+
 import AvailabilityTimelineContainer from './AvailabilityTimeline';
 import utils from './utils';
 
@@ -96,7 +98,7 @@ export default class TimelineGroup extends React.Component {
         )}
         <Sticky>
           <div className="hours">
-            {getHourRanges(this.props.date).map(range =>
+            {getHourRanges(this.props.date).map(range => (
               <div
                 className={classNames('hour', {
                   'hour-start-selected': selection && range.midPoint.isSame(selection.end),
@@ -107,10 +109,10 @@ export default class TimelineGroup extends React.Component {
               >
                 {range.startTime.format('HH:mm')}
               </div>
-            )}
+            ))}
           </div>
         </Sticky>
-        {this.props.resources.map(resource =>
+        {this.props.resources.map(resource => (
           <AvailabilityTimelineContainer
             date={this.props.date}
             id={resource}
@@ -121,7 +123,7 @@ export default class TimelineGroup extends React.Component {
             onSelectionCancel={onSelectionCancel}
             selection={selection}
           />
-        )}
+        ))}
       </div>
     );
   }
