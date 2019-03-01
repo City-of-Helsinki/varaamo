@@ -1,8 +1,10 @@
+import { availableHours, openingHoursMonth } from 'constants/ResourceConstants';
+
 import { expect } from 'chai';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import Resource, { availableHours, openingHoursMonth } from 'utils/fixtures/Resource';
+import Resource from 'utils/fixtures/Resource';
 import * as timeUtils from 'utils/timeUtils';
 import reservationCalendarSelector from './reservationCalendarSelector';
 
