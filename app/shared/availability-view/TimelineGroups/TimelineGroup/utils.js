@@ -1,7 +1,7 @@
+import { slotSize, slotWidth, slotMargin } from 'constants/SlotConstants';
+
 import some from 'lodash/some';
 import moment from 'moment';
-
-import { slotSize, slotWidth, slotMargin } from 'shared/availability-view';
 
 function getTimeSlotWidth({ startTime, endTime } = {}) {
   const diff = endTime ? endTime.diff(startTime, 'minutes') : slotSize;
