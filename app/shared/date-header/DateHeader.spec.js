@@ -24,7 +24,7 @@ describe('shared/date-header/DateHeader', () => {
     it('displays the weekday of the given date', () => {
       const header = getWrapper().find('h3');
       const expected = moment(defaultProps.date).format('dddd');
-      expect(header.text().toLowerCase()).to.contain(expected);
+      expect(header.text().toLowerCase()).to.contain(expected.toLowerCase());
     });
 
     it('displays the date in humanized format', () => {

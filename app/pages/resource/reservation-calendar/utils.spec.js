@@ -1,7 +1,9 @@
+import { openingHoursMonth } from 'constants/ResourceConstants';
+
 import { expect } from 'chai';
 // import moment from 'moment';
 
-import Resource, { openingHoursMonth } from 'utils/fixtures/Resource';
+import Resource from 'utils/fixtures/Resource';
 import TimeSlot from 'utils/fixtures/TimeSlot';
 import utils from './utils';
 

@@ -35,7 +35,7 @@ describe('shared/sidebar/Sidebar', () => {
     const sidebar = getSidebar();
     expect(sidebar.prop('contentClassName')).to.equal('app-Sidebar__content');
     expect(sidebar.prop('docked')).to.be.false;
-    expect(sidebar.prop('onSetOpen')).not.to.be.defined;
+    expect(sidebar.prop('onSetOpen')).to.be.a('function');
     expect(sidebar.prop('open')).to.be.false;
     expect(sidebar.prop('pullRight')).to.be.true;
     expect(sidebar.prop('sidebar')).to.deep.equal(sidebarContent);
