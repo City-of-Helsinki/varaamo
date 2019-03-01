@@ -1,7 +1,9 @@
+import { openingHoursMonth } from 'constants/ResourceConstants';
+
 import { expect } from 'chai';
 import Immutable from 'seamless-immutable';
 
-import Resource, { openingHoursMonth } from 'utils/fixtures/Resource';
+import Resource from 'utils/fixtures/Resource';
 import resourceCalendarSelector from './resourceCalendarSelector';
 
 function getState(resource) {
