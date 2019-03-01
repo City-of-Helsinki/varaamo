@@ -81,7 +81,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
         expect(timeSlot.props().isLoggedIn).to.equal(defaultProps.isLoggedIn);
         expect(timeSlot.props().isStaff).to.equal(defaultProps.isStaff);
         expect(timeSlot.props().onClick).to.equal(defaultProps.onClick);
-        expect(timeSlot.props().resource).to.equal(defaultProps.resource);
+        expect(timeSlot.props().resource).to.deep.equal(defaultProps.resource);
         expect(timeSlot.props().slot).to.deep.equal(defaultProps.slots[index][0]);
       });
     });
