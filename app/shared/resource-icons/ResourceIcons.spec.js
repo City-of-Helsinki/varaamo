@@ -46,7 +46,7 @@ describe('shared/resource-list/ResourceIcons', () => {
     let spanText;
     before(() => {
       userIcon = wrapper.find({ glyph: 'user' });
-      spanText = userIcon.parent().find('.text');
+      spanText = userIcon.closest('span').find('.text');
     });
 
     it('is rendered', () => {
@@ -67,7 +67,7 @@ describe('shared/resource-list/ResourceIcons', () => {
     let spanText;
     before(() => {
       timeIcon = wrapper.find({ glyph: 'time' });
-      spanText = timeIcon.parent().find('.text');
+      spanText = timeIcon.closest('span').find('.text');
     });
 
     it('is rendered', () => {
@@ -89,11 +89,11 @@ describe('shared/resource-list/ResourceIcons', () => {
 
     function getSpanTextWithProps(resourceProps) {
       const resource = defaultProps.resource.merge(resourceProps);
-      return getWrapper({ resource }).find({ glyph: 'euro' }).parent().find('.text');
+      return getWrapper({ resource }).find({ glyph: 'euro' }).closest('span').find('.text');
     }
     before(() => {
       euroIcon = wrapper.find({ glyph: 'euro' });
-      spanText = euroIcon.parent().find('.text');
+      spanText = euroIcon.closest('span').find('.text');
     });
 
     it('is rendered', () => {

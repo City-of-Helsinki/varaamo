@@ -39,8 +39,8 @@ describe('shared/resource-card/ResourceCard', () => {
   }
 
   const history = {
-    push: () => {},
-    replace: () => {},
+    push: () => { },
+    replace: () => { },
   };
 
   const defaultProps = {
@@ -111,7 +111,7 @@ describe('shared/resource-card/ResourceCard', () => {
     it('does not render distance if not available', () => {
       const distanceLabel = getWrapper().find('.app-ResourceCard__distance');
       expect(distanceLabel).to.have.length(1);
-      expect(distanceLabel.text()).to.equal(' ');
+      expect(distanceLabel.text()).to.equal('\u00A0');
     });
 
     it('renders distance', () => {
