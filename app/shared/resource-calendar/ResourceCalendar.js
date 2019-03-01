@@ -61,6 +61,24 @@ export class UnconnectedResourceCalendar extends Component {
     const selectedDay = new Date();
     selectedDay.setFullYear(year, month - 1, dayNumber);
     const selectedDateText = moment(selectedDate).format('dddd D. MMMM YYYY');
+    const modifiers = {
+      available: (day) => {
+        const dayDate = day.toISOString().substring(0, 10);
+        return availability[dayDate] && availability[dayDate].percentage >= 80;
+      },
+      busy: (day) => {
+        const dayDate = day.toISOString().substring(0, 10);
+        return (
+          availability[dayDate] &&
+          availability[dayDate].percentage < 80 &&
+          availability[dayDate].percentage > 0
+        );
+      },
+      booked: (day) => {
+        const dayDate = day.toISOString().substring(0, 10);
+        return availability[dayDate] && availability[dayDate].percentage === 0;
+      },
+    };
 
     return (
       <div className="app-ResourceCalendar">
@@ -68,8 +86,7 @@ export class UnconnectedResourceCalendar extends Component {
           className="app-ResourceCalendar__week-button app-ResourceCalendar__week-button--prev"
           onClick={() => this.handleDateChange(
             moment(selectedDay).subtract(1, 'w').toDate()
-          )
-          }
+          )}
           type="button"
         />
         <div className="app-ResourceCalendar__wrapper" ref={this.setCalendarWrapper}>
@@ -98,24 +115,7 @@ export class UnconnectedResourceCalendar extends Component {
                 initialMonth={new Date(selectedDate)}
                 locale={currentLanguage}
                 localeUtils={MomentLocaleUtils}
-                modifiers={{
-                  available: (day) => {
-                    const dayDate = day.toISOString().substring(0, 10);
-                    return availability[dayDate] && availability[dayDate].percentage >= 80;
-                  },
-                  busy: (day) => {
-                    const dayDate = day.toISOString().substring(0, 10);
-                    return (
-                      availability[dayDate] &&
-                      availability[dayDate].percentage < 80 &&
-                      availability[dayDate].percentage > 0
-                    );
-                  },
-                  booked: (day) => {
-                    const dayDate = day.toISOString().substring(0, 10);
-                    return availability[dayDate] && availability[dayDate].percentage === 0;
-                  },
-                }}
+                modifiers={modifiers}
                 onDayClick={this.handleDateChange}
                 selectedDays={selectedDay}
               />
@@ -131,8 +131,7 @@ export class UnconnectedResourceCalendar extends Component {
           className="app-ResourceCalendar__week-button app-ResourceCalendar__week-button--next"
           onClick={() => this.handleDateChange(
             moment(selectedDay).add(1, 'w').toDate()
-          )
-          }
+          )}
           type="button"
         />
       </div>
