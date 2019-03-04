@@ -10,14 +10,6 @@ import { injectT } from 'i18n';
 import DatePicker from 'shared/date-picker';
 import SelectControl from 'pages/search/controls/SelectControl';
 
-function createOptionRenderer(t) {
-  return option => t(option.label);
-}
-
-function createValueRenderer(t) {
-  return option => t(option.label);
-}
-
 function RecurringReservationControls({
   changeFrequency,
   changeLastTime,
@@ -42,14 +34,13 @@ function RecurringReservationControls({
             </label>
             <SelectControl
               className="recurrence-frequency-select"
-              inputProps={{ id: 'recurrence-frequency-select' }}
+              getOptionLabel={({ label }) => t(label)}
+              id="recurrence-frequency-select"
               isClearable={false}
               name="recurrence-frequency-select"
               onChange={changeFrequency}
-              optionRenderer={createOptionRenderer(t)}
               options={frequencyOptions}
               value={frequency}
-              valueRenderer={createValueRenderer(t)}
             />
           </div>
         </Col>

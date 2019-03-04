@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import map from 'lodash/map';
 import Moment from 'moment';
-import classNames from 'classnames';
 import { extendMoment } from 'moment-range';
 
 import { injectT } from 'i18n';
@@ -141,7 +140,7 @@ class TimeRangeControl extends React.Component {
         />
         <div className="app-TimeRangeControl__range">
           <SelectControl
-            className={classNames('app-Select', 'app-TimeRangeControl__range-start')}
+            className="app-TimeRangeControl__range-start"
             id="time-filter-start-select"
             isClearable={false}
             isDisabled={!useTimeRange}
@@ -153,7 +152,7 @@ class TimeRangeControl extends React.Component {
           />
           <div className="app-TimeRangeControl__range-separator">-</div>
           <SelectControl
-            className={classNames('app-Select', 'app-TimeRangeControl__range-end')}
+            className="app-TimeRangeControl__range-end"
             id="time-filter-end-select"
             isClearable={false}
             isDisabled={!useTimeRange}
@@ -165,7 +164,7 @@ class TimeRangeControl extends React.Component {
             value={end}
           />
           <SelectControl
-            className={classNames('app-Select', 'app-TimeRangeControl__range-duration')}
+            className="app-TimeRangeControl__range-duration"
             id="time-filter-duration-select"
             isClearable={false}
             isDisabled={!useTimeRange}
