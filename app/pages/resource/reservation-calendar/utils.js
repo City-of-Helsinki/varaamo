@@ -22,16 +22,6 @@ function getNextDayFromDate(date) {
     : null;
 }
 
-function getNextWeeksDays(date) {
-  const selectedWeekDay = moment(date).day();
-  if (selectedWeekDay === 0) {
-    return 2;
-  } else if (selectedWeekDay === 6) {
-    return 1;
-  }
-  return 0;
-}
-
 function getSecondDayFromDate(date) {
   return date
     ? moment(date)
@@ -119,7 +109,6 @@ function isHighlighted(slot, selected, hovered) {
 
 export default {
   getNextDayFromDate,
-  getNextWeeksDays,
   getSecondDayFromDate,
   isHighlighted,
   isInsideOpeningHours,

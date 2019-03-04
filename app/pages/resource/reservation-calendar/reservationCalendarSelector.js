@@ -17,7 +17,6 @@ import timeSelector from 'state/selectors/timeSelector';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
 import { getOpeningHours, getOpenReservations } from 'utils/resourceUtils';
 import { getTimeSlots } from 'utils/timeUtils';
-import utils from './utils';
 
 const moment = extendMoment(Moment);
 
@@ -35,9 +34,8 @@ const isEditingSelector = createSelector(
 const dateRangeSelector = createSelector(
   dateSelector,
   (selectedDate) => {
-    const nextWeekDays = utils.getNextWeeksDays(selectedDate);
-    const startDate = moment(selectedDate).startOf('week').format('YYYY-MM-DD');
-    const endDate = moment(selectedDate).endOf('week').add(nextWeekDays, 'days').format('YYYY-MM-DD');
+    const startDate = moment(selectedDate).startOf('isoWeek').format('YYYY-MM-DD');
+    const endDate = moment(selectedDate).endOf('isoWeek').format('YYYY-MM-DD');
     const range = moment.range(moment(startDate), moment(endDate));
     const rangeDates = map(Array.from(range.by('days')), date => date.format('YYYY-MM-DD'));
 

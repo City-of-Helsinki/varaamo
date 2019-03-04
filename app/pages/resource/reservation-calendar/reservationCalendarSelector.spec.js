@@ -150,7 +150,6 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
         mockSlots,
         mockSlots,
         mockSlots,
-        mockSlots,
       ];
       simple.mock(timeUtils, 'getTimeSlots').returnWith(mockSlots);
 
@@ -158,7 +157,7 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
       const props = getProps(resource.id);
       const selected = reservationCalendarSelector(state, props);
 
-      expect(timeUtils.getTimeSlots.callCount).to.equal(8);
+      expect(timeUtils.getTimeSlots.callCount).to.equal(7);
       const actualArgs = timeUtils.getTimeSlots.calls[5].args;
       expect(actualArgs[0]).to.equal('2015-10-10T12:00:00+03:00');
       expect(actualArgs[1]).to.equal('2015-10-10T18:00:00+03:00');
@@ -177,7 +176,6 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
         [],
         [{ start: '2015-10-10' }],
         [{ start: '2015-10-11' }],
-        [],
       ];
       simple.mock(timeUtils, 'getTimeSlots').returnWith([]);
 
@@ -185,7 +183,7 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
       const props = getProps(resource.id);
       const selected = reservationCalendarSelector(state, props);
 
-      expect(timeUtils.getTimeSlots.callCount).to.equal(8);
+      expect(timeUtils.getTimeSlots.callCount).to.equal(7);
       const actualArgs = timeUtils.getTimeSlots.calls[5].args;
       expect(actualArgs[0]).to.equal('2015-10-10T12:00:00+03:00');
       expect(actualArgs[1]).to.equal('2015-10-10T18:00:00+03:00');

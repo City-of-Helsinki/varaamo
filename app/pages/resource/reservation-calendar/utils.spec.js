@@ -31,23 +31,6 @@ describe('pages/resource/reservation-calendar/utils', () => {
     });
   });
 
-  describe('getNextWeeksDays', () => {
-    it('0 if date is Monday', () => {
-      const actual = utils.getNextWeeksDays('2018-05-21');
-      expect(actual).to.equal(0);
-    });
-
-    it('1 if date is Saturday', () => {
-      const actual = utils.getNextWeeksDays('2018-05-26');
-      expect(actual).to.equal(1);
-    });
-
-    it('2 if date is Sunday', () => {
-      const actual = utils.getNextWeeksDays('2018-05-27');
-      expect(actual).to.equal(2);
-    });
-  });
-
   describe('getSecondDayFromDate', () => {
     it('returns null if no date', () => {
       const actual = utils.getSecondDayFromDate();
