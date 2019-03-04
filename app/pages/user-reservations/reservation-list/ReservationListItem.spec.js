@@ -27,7 +27,7 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
 
   let component;
 
-  before(() => {
+  beforeEach(() => {
     component = shallowWithIntl(<ReservationListItem {...props} />);
   });
 

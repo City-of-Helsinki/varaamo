@@ -79,7 +79,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     let wrapper;
     const { renderClosedText, renderRestrictedText, renderTimeSlots } = options;
 
-    before(() => {
+    beforeEach(() => {
       wrapper = getWrapper(props);
     });
 
@@ -122,11 +122,11 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
   describe('render', () => {
     const now = '2016-10-10T06:00:00+03:00';
 
-    before(() => {
+    beforeEach(() => {
       MockDate.set(now);
     });
 
-    after(() => {
+    afterEach(() => {
       MockDate.reset();
     });
 
@@ -245,12 +245,12 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
 
   describe('getSelectedTimeText', () => {
     let instance;
-    before(() => {
+    beforeEach(() => {
       instance = getWrapper().instance();
       simple.mock(instance, 'getDateTimeText').returnWith('some text');
     });
 
-    after(() => {
+    afterEach(() => {
       simple.restore();
     });
 
@@ -293,12 +293,12 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     const now = '2016-10-12T08:00:00+03:00';
     let historyMock;
 
-    before(() => {
+    beforeEach(() => {
       MockDate.set(now);
       historyMock = simple.mock(history, 'push');
     });
 
-    after(() => {
+    afterEach(() => {
       simple.restore();
       MockDate.reset();
     });

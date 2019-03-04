@@ -74,7 +74,7 @@ describe('shared/resource-calendar/resourceCalendarSelector', () => {
     ],
   });
 
-  before(() => {
+  beforeEach(() => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = resourceCalendarSelector(state, props);

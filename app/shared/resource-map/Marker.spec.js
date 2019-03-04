@@ -21,11 +21,11 @@ describe('shared/resource-map/Marker', () => {
   describe('handleClick', () => {
     let selectUnitMock;
 
-    before(() => {
+    beforeEach(() => {
       selectUnitMock = simple.mock();
     });
 
-    after(() => {
+    afterEach(() => {
       simple.restore();
     });
 

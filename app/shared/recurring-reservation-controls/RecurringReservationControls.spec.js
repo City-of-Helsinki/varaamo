@@ -70,7 +70,7 @@ describe('shared/RecurringReservationControls/RecurringReservationControls', () 
 
   describe('without set frecuency', () => {
     let wrapper;
-    before(() => {
+    beforeEach(() => {
       wrapper = getWrapper({ frequency: '' });
     });
 

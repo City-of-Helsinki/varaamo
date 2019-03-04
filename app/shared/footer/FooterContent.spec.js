@@ -16,7 +16,7 @@ describe('shared/footer/FooterContent', () => {
   describe('When there is no customization in use', () => {
     let content;
 
-    before(() => {
+    beforeEach(() => {
       content = getWrapper();
     });
 
@@ -40,12 +40,12 @@ describe('shared/footer/FooterContent', () => {
   describe('When Espoo customization is used', () => {
     let content;
 
-    before(() => {
+    beforeEach(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('ESPOO');
       content = getWrapper();
     });
 
-    after(() => {
+    afterEach(() => {
       simple.restore();
     });
 
@@ -69,12 +69,12 @@ describe('shared/footer/FooterContent', () => {
   describe('When Vantaa customization is used', () => {
     let content;
 
-    before(() => {
+    beforeEach(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('VANTAA');
       content = getWrapper();
     });
 
-    after(() => {
+    afterEach(() => {
       simple.restore();
     });
 
