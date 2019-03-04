@@ -83,4 +83,19 @@ describe('shared/RecurringReservationControls/RecurringReservationControls', () 
       expect(wrapper.find(DatePicker)).to.have.length(0);
     });
   });
+
+  describe.only('has recurring select option', () => {
+    it('translated', () => {
+      const arg = 'foo';
+      const tMock = simple.mock();
+
+
+      const wrapper = getWrapper({ frequency: '' });
+      wrapper.setProps({ t: tMock });
+      const getOptionLabel = wrapper.find(SelectControl).prop('getOptionLabel');
+      getOptionLabel({ label: arg });
+
+      expect(tMock.lastCall.arg).to.equal(arg);
+    });
+  });
 });
