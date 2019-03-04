@@ -69,6 +69,16 @@ describe('pages/search/controls/SelectControl', () => {
     expect(select.prop('value')).to.equal(defaults.options[0]);
   });
 
+  it('renders a Select with props className contain app-Select, so the styling will work', () => {
+    const select = getWrapper({ className: 'foo' }).find(Select);
+    const defaultSelect = getWrapper().find(Select);
+
+    expect(select).to.have.length(1);
+    expect(select.prop('className')).to.include('app-Select');
+    expect(select.prop('className')).to.include('foo');
+    expect(defaultSelect.prop('className')).to.include('app-Select');
+  });
+
   it('Select onChange calls prop onChange', () => {
     const onChange = simple.mock();
     const select = getWrapper({ onChange }).find(Select);

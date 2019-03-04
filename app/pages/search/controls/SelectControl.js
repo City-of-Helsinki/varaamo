@@ -4,6 +4,7 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Select from 'react-select';
 import isArray from 'lodash/isArray';
+import classNames from 'classnames';
 
 import { injectT } from 'i18n';
 
@@ -19,7 +20,7 @@ class SelectControl extends React.Component {
   render() {
     const {
       id,
-      className = 'app-Select',
+      className,
       isLoading = false,
       isClearable = true,
       isSearchable = true,
@@ -30,7 +31,6 @@ class SelectControl extends React.Component {
       t,
       value,
       ...rest } = this.props;
-
     return (
       <div className="app-SelectControl">
         <FormGroup controlId={id}>
@@ -38,7 +38,7 @@ class SelectControl extends React.Component {
           {!isLoading &&
             <Select
               {...rest}
-              className={className}
+              className={classNames('app-Select', className)}
               classNamePrefix="app-Select"
               id={id}
               isClearable={isClearable}
