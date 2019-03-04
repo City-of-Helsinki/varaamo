@@ -437,7 +437,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     const disableGeoposition = simple.mock();
     let instance;
 
-    beforeEach(() => {
+    beforeAll(() => {
       const props = {
         actions: { disableGeoposition },
         position: { lat: 1, lon: 2 },
@@ -447,7 +447,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       instance.handleReset();
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 

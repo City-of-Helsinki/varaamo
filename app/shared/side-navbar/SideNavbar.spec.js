@@ -7,12 +7,18 @@ import Footer from 'shared/footer';
 import Navbar from 'shared/navbar';
 import Sidebar from 'shared/sidebar';
 import SideNavbar from './SideNavbar';
+import simple from 'simple-mock';
 
 function getWrapper(props = {}, children = 'Some text') {
   const defaultProps = {
     t: () => {},
     initials: null,
   };
+
+  window.matchMedia = () => ({
+    addListener: () => {}
+  })
+
   return shallowWithIntl(<SideNavbar {...defaultProps} {...props}>{children}</SideNavbar>);
 }
 
