@@ -27,7 +27,7 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
 
   let dayWrapper;
   let wrapper;
-  before(() => {
+  beforeEach(() => {
     wrapper = getWrapper({
       availability: {
         '2015-10-01': { percentage: 0 },
@@ -93,7 +93,7 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
       const date = new Date('2015-10-01');
       const withDisableDays = getWrapper({ disableDays }).find(DayPicker);
       let isDisabled;
-      before(() => {
+      beforeEach(() => {
         isDisabled = withDisableDays.prop('disabledDays');
       });
 
@@ -125,7 +125,7 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
       receivedTomorrow.setHours(12, 0, 0, 0);
       receivedYesterday.setHours(12, 0, 0, 0);
       let isDisabled;
-      before(() => {
+      beforeEach(() => {
         isDisabled = dayWrapper.prop('disabledDays');
       });
 

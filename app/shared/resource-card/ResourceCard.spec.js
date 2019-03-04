@@ -67,7 +67,7 @@ describe('shared/resource-card/ResourceCard', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallowWithIntl(<ResourceCard {...defaultProps} {...extraProps} />, context);
+    return shallowWithIntl(<ResourceCard {...defaultProps} {...extraProps} />);
   }
 
   it('renders an div element', () => {
@@ -237,11 +237,11 @@ describe('shared/resource-card/ResourceCard', () => {
   describe('handleSearchByType', () => {
     let historyMock;
 
-    before(() => {
+    beforeEach(() => {
       historyMock = simple.mock(history, 'push');
     });
 
-    after(() => {
+    afterEach(() => {
       simple.restore();
     });
 
@@ -260,11 +260,11 @@ describe('shared/resource-card/ResourceCard', () => {
   describe('handleSearchByDistance', () => {
     let historyMock;
 
-    before(() => {
+    beforeEach(() => {
       historyMock = simple.mock(history, 'push');
     });
 
-    after(() => {
+    afterEach(() => {
       simple.restore();
     });
 
@@ -285,11 +285,11 @@ describe('shared/resource-card/ResourceCard', () => {
   describe('handleSearchByPeopleCapacity', () => {
     let historyMock;
 
-    before(() => {
+    beforeEach(() => {
       historyMock = simple.mock(history, 'push');
     });
 
-    after(() => {
+    afterEach(() => {
       simple.restore();
     });
 
@@ -308,11 +308,11 @@ describe('shared/resource-card/ResourceCard', () => {
   describe('handleSearchByUnit', () => {
     let historyMock;
 
-    before(() => {
+    beforeEach(() => {
       historyMock = simple.mock(history, 'push');
     });
 
-    after(() => {
+    afterEach(() => {
       simple.restore();
     });
 
@@ -331,11 +331,11 @@ describe('shared/resource-card/ResourceCard', () => {
   describe('handleLinkClick', () => {
     let historyMock;
 
-    before(() => {
+    beforeEach(() => {
       historyMock = simple.mock(history, 'replace');
     });
 
-    after(() => {
+    afterEach(() => {
       simple.restore();
     });
 

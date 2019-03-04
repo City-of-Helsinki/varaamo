@@ -26,7 +26,7 @@ describe('shared/resource-list/ResourceList', () => {
   describe('with resourceIds', () => {
     let wrapper;
 
-    before(() => {
+    beforeEach(() => {
       wrapper = getWrapper();
     });
 
@@ -42,7 +42,7 @@ describe('shared/resource-list/ResourceList', () => {
     describe('rendering individual ResourceCards', () => {
       let resourceCards;
 
-      before(() => {
+      beforeEach(() => {
         resourceCards = wrapper.find(ResourceCard);
       });
 

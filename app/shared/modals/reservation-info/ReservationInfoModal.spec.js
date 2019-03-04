@@ -353,13 +353,13 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
     const onSaveCommentsClick = simple.mock();
     const comments = 'Updated comments';
 
-    before(() => {
+    beforeEach(() => {
       simple.mock(ReactDom, 'findDOMNode').returnWith({ value: comments });
       const instance = getWrapper({ onSaveCommentsClick }).instance();
       instance.handleSaveCommentsClick();
     });
 
-    after(() => {
+    afterEach(() => {
       simple.restore();
     });
 
