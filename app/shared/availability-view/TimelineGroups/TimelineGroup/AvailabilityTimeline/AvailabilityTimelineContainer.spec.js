@@ -84,11 +84,11 @@ describe('shared/availability-view/AvailabilityTimelineContainer', () => {
     }
 
     describe('items', () => {
-      before(() => {
+      beforeEach(() => {
         mockDate.set('2015-12-01T10:00:00Z');
       });
 
-      after(() => {
+      afterEach(() => {
         mockDate.reset();
       });
 

@@ -21,7 +21,7 @@ describe('shared/resource-list/ResourceIcons', () => {
   }
   let wrapper;
   let wrapperNoProps;
-  before(() => {
+  beforeEach(() => {
     wrapper = getWrapper();
     wrapperNoProps = getWrapper({
       resource: Immutable(Resource.build({
@@ -44,7 +44,7 @@ describe('shared/resource-list/ResourceIcons', () => {
   describe('capacity icon', () => {
     let userIcon;
     let spanText;
-    before(() => {
+    beforeEach(() => {
       userIcon = wrapper.find({ glyph: 'user' });
       spanText = userIcon.closest('span').find('.text');
     });
@@ -65,7 +65,7 @@ describe('shared/resource-list/ResourceIcons', () => {
   describe('time icon', () => {
     let timeIcon;
     let spanText;
-    before(() => {
+    beforeEach(() => {
       timeIcon = wrapper.find({ glyph: 'time' });
       spanText = timeIcon.closest('span').find('.text');
     });
@@ -91,7 +91,7 @@ describe('shared/resource-list/ResourceIcons', () => {
       const resource = defaultProps.resource.merge(resourceProps);
       return getWrapper({ resource }).find({ glyph: 'euro' }).closest('span').find('.text');
     }
-    before(() => {
+    beforeEach(() => {
       euroIcon = wrapper.find({ glyph: 'euro' });
       spanText = euroIcon.closest('span').find('.text');
     });

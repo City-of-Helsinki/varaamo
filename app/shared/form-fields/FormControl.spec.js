@@ -72,7 +72,7 @@ describe('shared/form-fields/FormControl', () => {
     describe('the second Col', () => {
       let col;
 
-      before(() => {
+      beforeEach(() => {
         col = getWrapper().find(Col).at(1);
       });
 

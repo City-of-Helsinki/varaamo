@@ -188,7 +188,7 @@ describe('pages/reservation/ReservationPage', () => {
     describe('when reservations and selected empty', () => {
       let historyMock;
 
-      before(() => {
+      beforeEach(() => {
         historyMock = simple.mock(history, 'replace');
         const instance = getWrapper({
           reservationCreated: null,
@@ -199,7 +199,7 @@ describe('pages/reservation/ReservationPage', () => {
         instance.componentDidMount();
       });
 
-      after(() => {
+      afterEach(() => {
         simple.restore();
       });
 
@@ -213,7 +213,7 @@ describe('pages/reservation/ReservationPage', () => {
     describe('when reservations and selected empty and location search has resource', () => {
       let historyMock;
 
-      before(() => {
+      beforeEach(() => {
         historyMock = simple.mock(history, 'replace');
         const instance = getWrapper({
           location: {
@@ -227,7 +227,7 @@ describe('pages/reservation/ReservationPage', () => {
         instance.componentDidMount();
       });
 
-      after(() => {
+      afterEach(() => {
         simple.restore();
       });
 
@@ -240,7 +240,7 @@ describe('pages/reservation/ReservationPage', () => {
 
     describe('when selected not empty', () => {
       let instance;
-      before(() => {
+      beforeEach(() => {
         instance = getWrapper({
           selected: defaultProps.selected,
         }).instance();
@@ -248,7 +248,7 @@ describe('pages/reservation/ReservationPage', () => {
         instance.componentDidMount();
       });
 
-      after(() => {
+      afterEach(() => {
         simple.restore();
       });
 
@@ -281,7 +281,7 @@ describe('pages/reservation/ReservationPage', () => {
   describe('componentWillUnmount', () => {
     const clearReservations = simple.mock();
     const closeReservationSuccessModal = simple.mock();
-    before(() => {
+    beforeAll(() => {
       const instance = getWrapper({
         actions: {
           clearReservations,
@@ -291,7 +291,7 @@ describe('pages/reservation/ReservationPage', () => {
       instance.componentWillUnmount();
     });
 
-    after(() => {
+    afterEach(() => {
       simple.restore();
     });
 
@@ -308,7 +308,7 @@ describe('pages/reservation/ReservationPage', () => {
 
   describe('fetchResource', () => {
     const fetchResource = simple.mock();
-    before(() => {
+    beforeEach(() => {
       const instance = getWrapper({
         actions: {
           fetchResource,
@@ -317,7 +317,7 @@ describe('pages/reservation/ReservationPage', () => {
       instance.fetchResource();
     });
 
-    after(() => {
+    afterEach(() => {
       simple.restore();
     });
 
@@ -341,11 +341,11 @@ describe('pages/reservation/ReservationPage', () => {
   describe('handleCancel', () => {
     let historyMock;
 
-    before(() => {
+    beforeEach(() => {
       historyMock = simple.mock(history, 'replace');
     });
 
-    after(() => {
+    afterEach(() => {
       simple.restore();
     });
 

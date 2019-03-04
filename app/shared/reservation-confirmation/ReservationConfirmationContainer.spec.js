@@ -104,7 +104,7 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
     ];
     const instance = getWrapper({ recurringReservations, selectedReservations }).instance();
 
-    before(() => {
+    beforeEach(() => {
       defaultProps.actions.postReservation.reset();
     });
 

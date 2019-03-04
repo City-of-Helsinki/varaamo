@@ -16,7 +16,7 @@ describe('shared/comment-button/CommentButton', () => {
   }
   let wrapper;
 
-  before(() => {
+  beforeEach(() => {
     wrapper = getWrapper();
   });
 
