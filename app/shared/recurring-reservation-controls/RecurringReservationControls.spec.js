@@ -84,11 +84,10 @@ describe('shared/RecurringReservationControls/RecurringReservationControls', () 
     });
   });
 
-  describe.only('has recurring select option', () => {
+  describe('has recurring select option', () => {
     it('translated', () => {
       const arg = 'foo';
       const tMock = simple.mock();
-
 
       const wrapper = getWrapper({ frequency: '' });
       wrapper.setProps({ t: tMock });
