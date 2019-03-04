@@ -23,16 +23,16 @@ module.exports = merge(common, {
   },
   module: {
     rules: [
-      {
-        enforce: 'pre',
-        test: /\.(js|jsx)$/,
-        include: path.resolve(__dirname, '../app'),
-        loader: 'eslint-loader',
-        options: {
-          configFile: path.resolve(__dirname, '../.eslintrc'),
-          eslintPath: require.resolve('eslint'),
-        },
-      },
+      // {
+      //   enforce: 'pre',
+      //   test: /\.(js|jsx)$/,
+      //   include: path.resolve(__dirname, '../app'),
+      //   loader: 'eslint-loader',
+      //   options: {
+      //     configFile: path.resolve(__dirname, '../.eslintrc'),
+      //     eslintPath: require.resolve('eslint'),
+      //   },
+      // },
       {
         test: /\.(js|jsx)$/,
         include: path.resolve(__dirname, '../app'),
