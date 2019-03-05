@@ -33,8 +33,8 @@ describe('shared/resource-list/ResourceIcons', () => {
     });
   });
 
-  it('is rendered', () => {
-    expect(wrapper).to.be.defined;
+  it('is rendered as a div', () => {
+    expect(wrapper.is('div')).to.be.true;
   });
 
   it('has icons class', () => {

@@ -171,7 +171,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     let instance;
     let wrapper;
 
-    beforeEach(() => {
+    beforeAll(() => {
       wrapper = getWrapper({
         addNotification,
         isLoggedIn: false,
@@ -182,7 +182,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       wrapper.instance().handleClick(true);
     });
 
-    afterEach(() => {
+    afterAll(() => {
       instance.getReservationInfoNotification.reset();
     });
 
