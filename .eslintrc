@@ -4,7 +4,7 @@
   "env": {
     "browser": true,
     "node": true,
-    "jest/globals": true
+    "jest": true
   },
 
   "globals": {
@@ -79,6 +79,8 @@
 
     "jsx-a11y/label-has-for": "off",
     
-    "react/no-array-index-key": "off"
+    "react/no-array-index-key": "off",
+
+    "comma-dangle": "off"
   }
 }

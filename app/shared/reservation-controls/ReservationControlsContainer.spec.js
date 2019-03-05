@@ -36,7 +36,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
   let container;
   let instance;
 
-  beforeEach(() => {
+  beforeAll(() => {
     container = shallow(<ReservationControlsContainer {...props} />);
     instance = container.instance();
   });
@@ -61,7 +61,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
   });
 
   describe('handleCancelClick', () => {
-    beforeEach(() => {
+    beforeAll(() => {
       instance.handleCancelClick();
     });
 
