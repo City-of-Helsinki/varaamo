@@ -118,6 +118,7 @@ export class UnconnectedResourceCalendar extends Component {
                 modifiers={modifiers}
                 onDayClick={this.handleDateChange}
                 selectedDays={selectedDay}
+                showOutsideDays
               />
               <div className="calendar-legend">
                 <span className="free">{t('ReservationCalendarPickerLegend.free')}</span>
@@ -147,6 +148,6 @@ UnconnectedResourceCalendar.propTypes = {
   onDateChange: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
 };
-UnconnectedResourceCalendar = injectT(UnconnectedResourceCalendar) // eslint-disable-line
+UnconnectedResourceCalendar = injectT(UnconnectedResourceCalendar); // eslint-disable-line
 
 export default connect(resourceCalendarSelector)(UnconnectedResourceCalendar);
