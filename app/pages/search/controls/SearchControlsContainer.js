@@ -110,6 +110,7 @@ class UnconnectedSearchControlsContainer extends Component {
     }
 
     this.handleFiltersChange(emptyFilters);
+    this.handleSearch(emptyFilters);
   };
 
   hasAdvancedFilters() {
