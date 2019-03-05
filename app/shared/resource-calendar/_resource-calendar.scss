@@ -11,7 +11,7 @@
   &__icon {
     width: 22px;
   }
-  
+
   &__week-button {
     background: none;
     border: none;
@@ -19,7 +19,7 @@
     margin: 0;
     width: 40px;
     height: 40px;
-    
+
     &--prev {
       @include icon-angle-left($black);
     }
@@ -34,6 +34,7 @@
     max-width: 400px;
     flex-grow: 1;
     position: relative;
+
     .form-group {
       margin-bottom: 0;
     }
@@ -44,44 +45,67 @@
       cursor: default;
       transition: all 0s ease 0s;
     }
-  
+
     .input-group-addon {
       background-color: transparent;
     }
-  
+
     .glyphicon-triangle-bottom {
       font-size: 10px;
     }
-  
+
     .form-control[disabled] {
       border-left-width: 0;
       border-right-width: 0;
     }
-  
+
     .DayPicker {
       padding: 0;
       overflow-x: hidden;
-  
+      width: 100%;
+
       &:focus {
         outline: none;
       }
     }
-  
+
     .DayPicker-NavBar {
-      padding: 0.75rem 0.5rem;
+      position: absolute;
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
     }
-  
+
+    .DayPicker-NavButton--prev {
+      @include icon-angle-left($black);
+      width: $line-height-computed;
+      height: $line-height-computed;
+      position: static;
+      margin-right: 0;
+    }
+
+    .DayPicker-NavButton--next {
+      @include icon-angle-right($black);
+      width: $line-height-computed;
+      height: $line-height-computed;
+      position: static;
+    }
+
     .DayPicker-Caption {
       height: auto;
       font-weight: 600;
       line-height: 3rem;
+      font-size: 16px;
+      text-transform: capitalize;
+      text-align: center;
     }
-  
+
     .DayPicker-Month {
       margin: 0;
       border-collapse: separate;
+      width: 100%;
     }
-  
+
     .DayPicker-Day {
       border: 2px solid $white;
       padding: 1.2rem;
@@ -89,11 +113,13 @@
       line-height: 1rem;
       color: $black;
       background-color: $available-color;
-  
+      border-radius: 0;
+      font-size: 1.6rem;
+
       &:focus {
         outline: none;
       }
-  
+
       &--disabled {
         cursor: pointer;
         text-decoration: line-through;
@@ -127,11 +153,12 @@
         color: $dark-gray;
       }
     }
-  
+
     .DayPicker-WeekdaysRow {
       padding: 0.2rem;
+      font-size: 1.4rem;
     }
-  
+
     .DayPicker-Weekdays {
       text-transform: uppercase;
       font-weight: normal;
@@ -144,7 +171,11 @@
     .DayPicker-Weekday {
       color: $black;
     }
-  
+
+    .DayPicker-WeekNumber {
+      font-size: 14px;
+    }
+
     .calendar-legend {
       display: flex;
       justify-content: space-between;
@@ -169,32 +200,32 @@
         background-color: $booked-color;
       }
     }
-    
+
     .app-ResourceCalendarOverlay {
       position: absolute;
       width: 100%;
       z-index: 2222;
-  
+
       &__overlay {
         border-style: solid;
         border-color: $black;
         border-width: 0 2px 2px 2px;
       }
-  
+
       &__hide {
         color: $white;
         right: 0;
         position: absolute;
         top: 5px;
       }
-  
+
       &__hide:active,
       &__hide:focus,
       &__hide:hover {
         color: $medium-gray;
         text-decoration: none;
       }
-  
+
       &__header {
         color: $white;
         height: 40px;
@@ -205,12 +236,12 @@
           font-weight: $font-weight-light;
         }
       }
-  
+
       &__content {
         background-color: $white;
         padding: 20px;
       }
-    } 
+    }
     @media (max-width: $screen-xs-max) {
       order: -1;
       width: 100%;
