@@ -78,7 +78,7 @@ describe('pages/search/controls/DatePickerControl', () => {
     const dayPicker = wrapper.find(DayPicker);
     expect(dayPicker).to.have.length(1);
     expect(dayPicker.prop('disabledDays')).to.exist;
-    expect(dayPicker.prop('enableOutsideDays')).to.be.true;
+    expect(dayPicker.prop('showOutsideDays')).to.be.true;
     expect(dayPicker.prop('initialMonth')).to.deep.equal(expected);
     expect(dayPicker.prop('locale')).to.equal(defaults.currentLanguage);
     expect(dayPicker.prop('onDayClick')).to.equal(wrapper.instance().handleConfirm);

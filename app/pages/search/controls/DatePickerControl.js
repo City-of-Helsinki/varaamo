@@ -82,12 +82,12 @@ class DatePickerControl extends React.Component {
           <SearchControlOverlay onHide={this.hideOverlay} title={t('DatePickerControl.header')}>
             <DayPicker
               disabledDays={day => new Date(day).setHours(23, 59, 59, 59) < new Date()}
-              enableOutsideDays
               initialMonth={selectedDay}
               locale={currentLanguage}
               localeUtils={MomentLocaleUtils}
               onDayClick={this.handleConfirm}
               selectedDays={selectedDay}
+              showOutsideDays
               showWeekNumbers
             />
           </SearchControlOverlay>

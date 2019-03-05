@@ -11,9 +11,7 @@ const localizedDateFormat = 'D.M.YYYY';
 
 DatePicker.propTypes = {
   dateFormat: PropTypes.string,
-  // formControl: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
-  // positionRight: PropTypes.bool,
   value: PropTypes.string.isRequired,
 };
 
