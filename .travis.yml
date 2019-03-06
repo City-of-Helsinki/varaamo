@@ -27,4 +27,4 @@ script:
   - yarn test:coverage
   
 after_success:
-  - codecov < coverage/*/lcov.info
+  - codecov < coverage/lcov.info
