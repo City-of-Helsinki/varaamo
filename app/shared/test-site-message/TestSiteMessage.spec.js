@@ -1,9 +1,10 @@
+import constants from 'constants/AppConstants';
+
 import { expect } from 'chai';
 import React from 'react';
 import Alert from 'react-bootstrap/lib/Alert';
 import simple from 'simple-mock';
 
-import constants from 'constants/AppConstants';
 import { shallowWithIntl } from 'utils/testUtils';
 import TestSiteMessage from './TestSiteMessage';
 

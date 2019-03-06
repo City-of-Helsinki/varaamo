@@ -76,7 +76,7 @@ export default class TimelineGroups extends React.Component {
         onScroll={this.handleScroll}
         ref={this.setElement}
       >
-        {this.props.groups.map(group =>
+        {this.props.groups.map(group => (
           <TimelineGroup
             date={this.props.date}
             key={group.name}
@@ -87,7 +87,7 @@ export default class TimelineGroups extends React.Component {
             selection={this.props.selection}
             {...group}
           />
-        )}
+        ))}
       </div>
     );
   }

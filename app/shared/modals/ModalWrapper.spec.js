@@ -19,7 +19,8 @@ describe('shared/modals/ModalWrapper', () => {
     return shallow(
       <ModalWrapper {...defaultProps} {...extraProps}>
         <p>Modal content</p>
-      </ModalWrapper>);
+      </ModalWrapper>
+    );
   }
 
   test('renders a Modal component with correct props', () => {

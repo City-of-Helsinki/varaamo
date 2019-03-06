@@ -1,3 +1,5 @@
+import FormTypes from 'constants/FormTypes';
+
 import { connect } from 'react-redux';
 import { reset as resetForm } from 'redux-form';
 
@@ -14,7 +16,6 @@ import {
   selectReservationToCancel,
   startReservationEditInInfoModal,
 } from 'actions/uiActions';
-import FormTypes from 'constants/FormTypes';
 import ReservationInfoModal from './ReservationInfoModal';
 import reservationInfoModalSelector from './reservationInfoModalSelector';
 

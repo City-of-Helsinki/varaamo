@@ -90,7 +90,8 @@ class UnconnectedAdminResourcesPage extends Component {
           )}
           {isLoggedin && !resources.length && <p>{t('AdminResourcesPage.noResourcesMessage')}</p>}
         </Loader>
-        {this.state.selection &&
+        {this.state.selection
+          && (
           <ReservationConfirmationContainer
             params={{ id: this.state.selection.resourceId }}
             selectedReservations={[{
@@ -98,7 +99,8 @@ class UnconnectedAdminResourcesPage extends Component {
               end: this.state.selection.end,
               resource: this.state.selection.resourceId,
             }]}
-          />}
+          />
+          )}
         <ReservationSuccessModal />
       </PageWrapper>
     );

@@ -43,7 +43,9 @@ export class UnconnectedReservationConfirmationContainer extends Component {
   }
 
   handleReservation = (values = {}) => {
-    const { actions, recurringReservations, resource, selectedReservations } = this.props;
+    const {
+      actions, recurringReservations, resource, selectedReservations
+    } = this.props;
     const orderedReservations = orderBy(selectedReservations, 'begin');
     const selectedReservation = Object.assign({}, first(orderedReservations));
     selectedReservation.end = last(orderedReservations).end;

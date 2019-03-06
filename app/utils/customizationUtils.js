@@ -7,7 +7,6 @@ function getCurrentCustomization() {
 
 function getCustomizationClassName() {
   switch (getCurrentCustomization()) {
-
     case 'ESPOO': {
       return 'espoo-customizations';
     }

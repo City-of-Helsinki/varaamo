@@ -29,7 +29,7 @@ class SideNavbar extends Component {
 
   onToggleSideBar = () => {
     if (!this.state.forcedOpen) {
-      this.setState({ open: !this.state.open });
+      this.setState((prevState) => { !prevState.open; });
     }
   }
 
@@ -52,7 +52,8 @@ class SideNavbar extends Component {
 
   renderCloseBar() {
     return (
-      !this.state.forcedOpen &&
+      !this.state.forcedOpen
+        && (
         <a
           className="app-SideNavbar__close-bar"
           onClick={this.onToggleSideBar}
@@ -61,6 +62,7 @@ class SideNavbar extends Component {
         >
           <span>{this.props.t('SideNavbar.close')}</span>
         </a>
+        )
     );
   }
 

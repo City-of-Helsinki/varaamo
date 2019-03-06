@@ -1,9 +1,11 @@
-import { formValueSelector } from 'redux-form';
-import { createSelector, createStructuredSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
 import FormTypes from 'constants/FormTypes';
 import ModalTypes from 'constants/ModalTypes';
+
+import { createSelector, createStructuredSelector } from 'reselect';
+import { formValueSelector } from 'redux-form';
+
 import recurringReservations from 'state/recurringReservations';
 import { createIsStaffSelector } from 'state/selectors/authSelectors';
 import { createResourceSelector } from 'state/selectors/dataSelectors';

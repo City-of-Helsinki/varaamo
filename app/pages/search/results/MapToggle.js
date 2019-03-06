@@ -14,7 +14,9 @@ MapToggle.propTypes = {
   t: PropTypes.func.isRequired,
 };
 
-function MapToggle({ mapVisible, onClick, resultCount, t }) {
+function MapToggle({
+  mapVisible, onClick, resultCount, t
+}) {
   return (
     <div className="app-MapToggle">
       <Grid>

@@ -36,7 +36,9 @@ class PurposeControl extends React.Component {
   }
 
   render() {
-    const { isLoading, purposeOptions, t, value } = this.props;
+    const {
+      isLoading, purposeOptions, t, value
+    } = this.props;
     const selectOptions = [
       {
         label: t('common.optionsAllLabel'),
@@ -45,11 +47,11 @@ class PurposeControl extends React.Component {
       ...purposeOptions,
     ];
     const originalOption = selectOptions.find(option => option.value === value) || {};
-    const listItems = selectOptions.map(option =>
+    const listItems = selectOptions.map(option => (
       <ListGroupItem key={option.value} onClick={() => this.handleConfirm(option.value)}>
         {option.label}
       </ListGroupItem>
-    );
+    ));
 
     return (
       <div className="app-PurposeControl">
@@ -57,7 +59,11 @@ class PurposeControl extends React.Component {
           className="app-PurposeControl__show-button"
           onClick={this.showOverlay}
         >
-          <div><FontAwesome name="bullseye" /> {t('PurposeControl.buttonLabel')}</div>
+          <div>
+            <FontAwesome name="bullseye" />
+            {' '}
+            {t('PurposeControl.buttonLabel')}
+          </div>
           <div>{originalOption.label}</div>
         </Button>
         <Overlay

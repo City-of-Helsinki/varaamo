@@ -34,7 +34,9 @@ function ResourceHeader({
     const formattedDistance = km < 10 ? round(km, 1) : round(km);
     return (
       <span>
-        <FormattedNumber value={formattedDistance} /> km
+        <FormattedNumber value={formattedDistance} />
+        {' '}
+km
       </span>
     );
   };

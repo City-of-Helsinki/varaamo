@@ -1,7 +1,9 @@
-import { expect } from 'chai';
 
 import ActionTypes from 'constants/ActionTypes';
 import ModalTypes from 'constants/ModalTypes';
+
+import { expect } from 'chai';
+
 import { getState } from 'utils/testUtils';
 import commentModalSelector from './commentModalSelector';
 

@@ -137,7 +137,8 @@ describe('pages/search/controls/SelectControl', () => {
     test('fill selected option when default value is passed in', () => {
       const wrapper = getWrapper({});
       const selectedOption = wrapper.instance().getValue(
-        defaults.options[0].value, defaults.options);
+        defaults.options[0].value, defaults.options
+      );
       expect(selectedOption).to.deep.equal(defaults.options[0]);
     });
 

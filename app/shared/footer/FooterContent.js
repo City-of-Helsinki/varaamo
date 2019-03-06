@@ -29,7 +29,10 @@ function FooterContent({ t }) {
               <p>
                 <FormattedHTMLMessage id="Footer.espooText" />
               </p>
-              <p> {feedbackLink}</p>
+              <p>
+                {' '}
+                {feedbackLink}
+              </p>
             </Col>
           </Row>
         </Grid>
@@ -50,7 +53,10 @@ function FooterContent({ t }) {
               <p>
                 <FormattedHTMLMessage id="Footer.vantaaText" />
               </p>
-              <p> {feedbackLink}</p>
+              <p>
+                {' '}
+                {feedbackLink}
+              </p>
             </Col>
           </Row>
         </Grid>
@@ -71,7 +77,10 @@ function FooterContent({ t }) {
               <p>
                 <FormattedHTMLMessage id="Footer.helsinkiText" />
               </p>
-              <p> {feedbackLink}</p>
+              <p>
+                {' '}
+                {feedbackLink}
+              </p>
             </Col>
           </Row>
         </Grid>

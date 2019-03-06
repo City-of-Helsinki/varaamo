@@ -26,7 +26,9 @@ class MainNavbar extends React.Component {
   }
 
   render() {
-    const { activeLink, clearSearchResults, isAdmin, isLoggedIn, t } = this.props;
+    const {
+      activeLink, clearSearchResults, isAdmin, isLoggedIn, t
+    } = this.props;
 
     return (
       <Navbar

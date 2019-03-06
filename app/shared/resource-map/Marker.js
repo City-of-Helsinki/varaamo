@@ -18,9 +18,9 @@ class Marker extends React.Component {
       iconSize: [25, 48],
     };
     const count = (
-      this.props.resourceIds.length > 1 ?
-      this.props.resourceIds.length :
-      ''
+      this.props.resourceIds.length > 1
+        ? this.props.resourceIds.length
+        : ''
     );
     const icon = L.divIcon({
       ...commonIcon,

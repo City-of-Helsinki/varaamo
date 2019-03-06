@@ -1,7 +1,8 @@
+import constants from 'constants/AppConstants';
+
 import { expect } from 'chai';
 import { CALL_API } from 'redux-api-middleware';
 
-import constants from 'constants/AppConstants';
 import {
   buildAPIUrl,
   createTransformFunction,

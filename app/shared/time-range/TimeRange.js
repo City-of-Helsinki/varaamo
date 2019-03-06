@@ -27,10 +27,10 @@ class TimeRange extends Component {
 
 TimeRange.propTypes = {
   begin: PropTypes.string.isRequired,
-  beginFormat: PropTypes.string.isRequired,
+  beginFormat: PropTypes.string,
   className: PropTypes.string,
   end: PropTypes.string.isRequired,
-  endFormat: PropTypes.string.isRequired,
+  endFormat: PropTypes.string,
 };
 
 TimeRange.defaultProps = {

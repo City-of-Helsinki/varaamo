@@ -1,3 +1,5 @@
+import constants from 'constants/AppConstants';
+
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 import PropTypes from 'prop-types';
@@ -5,7 +7,6 @@ import React, { Component } from 'react';
 import map from 'lodash/map';
 
 import DatePicker from 'shared/date-picker';
-import constants from 'constants/AppConstants';
 import SelectControl from 'pages/search/controls/SelectControl';
 
 const moment = extendMoment(Moment);

@@ -1,10 +1,11 @@
+import ActionTypes from 'constants/ActionTypes';
+
 import includes from 'lodash/includes';
 import sortBy from 'lodash/sortBy';
 import uniq from 'lodash/uniq';
 import moment from 'moment';
 import { createSelector, createStructuredSelector } from 'reselect';
 
-import ActionTypes from 'constants/ActionTypes';
 import { isAdminSelector, isLoggedInSelector } from 'state/selectors/authSelectors';
 import { resourcesSelector } from 'state/selectors/dataSelectors';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';

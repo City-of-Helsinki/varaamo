@@ -23,7 +23,9 @@ class UnconnectedSearchPage extends Component {
   }
 
   componentDidMount() {
-    const { actions, filters, location, searchDone, uiFilters } = this.props;
+    const {
+      actions, filters, location, searchDone, uiFilters
+    } = this.props;
     actions.fetchPurposes();
     actions.fetchUnits();
     if (!searchDone) {
