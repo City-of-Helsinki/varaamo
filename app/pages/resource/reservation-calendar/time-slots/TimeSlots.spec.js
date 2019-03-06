@@ -334,7 +334,9 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
       'disables TimeSlot when the reservation length is longer than maxPeriod',
       () => {
         const resourceMaxPeriod = Resource.build({ maxPeriod: '00:60:00' });
-        const renderedTimeSlots = getWrapper({ resource: resourceMaxPeriod }).find(TimeSlotComponent);
+        const renderedTimeSlots = getWrapper(
+          { resource: resourceMaxPeriod }
+        ).find(TimeSlotComponent);
         expect(renderedTimeSlots.first().prop('isDisabled')).to.be.false;
         expect(renderedTimeSlots.at(1).prop('isDisabled')).to.be.true;
       }
