@@ -58,17 +58,6 @@ class UnconnectedSearchControlsContainer extends Component {
     label: municipality,
   }));
 
-  hasAdvancedFilters() {
-    const { filters, position } = this.props;
-    let hasFilters = Boolean(position);
-    ['freeOfCharge', 'end', 'distance', 'duration', 'purpose', 'start', 'unit'].forEach((key) => {
-      if (filters[key]) {
-        hasFilters = true;
-      }
-    });
-    return hasFilters;
-  }
-
   handleDateChange = ({ date }) => {
     const dateInCorrectFormat = moment(date, 'L').format(constants.DATE_FORMAT);
     this.handleFiltersChange({
@@ -122,6 +111,17 @@ class UnconnectedSearchControlsContainer extends Component {
 
     this.handleFiltersChange(emptyFilters);
   };
+
+  hasAdvancedFilters() {
+    const { filters, position } = this.props;
+    let hasFilters = Boolean(position);
+    ['freeOfCharge', 'end', 'distance', 'duration', 'purpose', 'start', 'unit'].forEach((key) => {
+      if (filters[key]) {
+        hasFilters = true;
+      }
+    });
+    return hasFilters;
+  }
 
   render() {
     const {
