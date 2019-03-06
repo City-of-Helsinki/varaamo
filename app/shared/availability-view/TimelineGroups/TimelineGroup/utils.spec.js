@@ -9,12 +9,12 @@ describe('shared/availability-view/utils', () => {
     const slotWidth = 30;
     const slotMargin = 0;
 
-    it('returns one slot width with no arguments', () => {
+    test('returns one slot width with no arguments', () => {
       const actual = utils.getTimeSlotWidth();
       expect(actual).to.equal(slotWidth - slotMargin);
     });
 
-    it('returns one slot width for 30 min span', () => {
+    test('returns one slot width for 30 min span', () => {
       const actual = utils.getTimeSlotWidth({
         startTime: moment('2016-01-01T12:00:00Z'),
         endTime: moment('2016-01-01T12:30:00Z'),
@@ -22,7 +22,7 @@ describe('shared/availability-view/utils', () => {
       expect(actual).to.equal(slotWidth - slotMargin);
     });
 
-    it('returns two slot width for 1 hour span', () => {
+    test('returns two slot width for 1 hour span', () => {
       const actual = utils.getTimeSlotWidth({
         startTime: moment('2016-01-01T12:00:00Z'),
         endTime: moment('2016-01-01T13:00:00Z'),
@@ -30,7 +30,7 @@ describe('shared/availability-view/utils', () => {
       expect(actual).to.equal((slotWidth * 2) - slotMargin);
     });
 
-    it('returns twenty slot width for 10 hour span', () => {
+    test('returns twenty slot width for 10 hour span', () => {
       const actual = utils.getTimeSlotWidth({
         startTime: moment('2016-01-01T12:00:00Z'),
         endTime: moment('2016-01-01T22:00:00Z'),
@@ -97,45 +97,45 @@ describe('shared/availability-view/utils', () => {
       mockDate.set('2015-12-01T10:00:00Z');
     });
 
-    afterEach(() => {
+    afterAll(() => {
       mockDate.reset();
     });
 
-    it('marks all selectable if no selection', () => {
+    test('marks all selectable if no selection', () => {
       const expected = getItems(true, true, true, true);
       const actual = utils.addSelectionData(null, { id: 'r1' }, items);
       expect(actual).to.deep.equal(expected);
     });
 
-    it('marks all not selectable if selection in another resource', () => {
+    test('marks all not selectable if selection in another resource', () => {
       const expected = getItems(false, false, false, false);
       const selection = { begin: '2016-01-01T11:30:00Z', resourceId: 'r2' };
       const actual = utils.addSelectionData(selection, { id: 'r1' }, items);
       expect(actual).to.deep.equal(expected);
     });
 
-    it('marks selectable if selection in this resource', () => {
+    test('marks selectable if selection in this resource', () => {
       const expected = getItems(false, false, false, true);
       const selection = { begin: '2016-01-01T13:00:00Z', resourceId: 'r1' };
       const actual = utils.addSelectionData(selection, { id: 'r1' }, items);
       expect(actual).to.deep.equal(expected);
     });
 
-    it('only marks selectable until next reservation', () => {
+    test('only marks selectable until next reservation', () => {
       const expected = getItems(true, true, false, false);
       const selection = { begin: '2016-01-01T11:00:00Z', resourceId: 'r1' };
       const actual = utils.addSelectionData(selection, { id: 'r1' }, items);
       expect(actual).to.deep.equal(expected);
     });
 
-    it('marks not selectable if in the past', () => {
+    test('marks not selectable if in the past', () => {
       mockDate.set('2016-02-01T10:00:00Z');
       const expected = getItems(false, false, false, false);
       const actual = utils.addSelectionData(null, { id: 'r1' }, items);
       expect(actual).to.deep.equal(expected);
     });
 
-    it('marks not selectable if outside available hours', () => {
+    test('marks not selectable if outside available hours', () => {
       const expected = getItems(false, true, false, true);
       const resource = {
         id: 'r1',
@@ -150,19 +150,19 @@ describe('shared/availability-view/utils', () => {
   });
 
   describe('getTimelineItems', () => {
-    it('returns reservation slots if reservations is undefined', () => {
+    test('returns reservation slots if reservations is undefined', () => {
       const actual = utils.getTimelineItems(moment('2016-01-01T00:00:00Z'), undefined, '1');
       expect(actual).to.have.length(48);
       actual.forEach(item => expect(item.type).to.equal('reservation-slot'));
     });
 
-    it('returns reservation slots if reservations is empty', () => {
+    test('returns reservation slots if reservations is empty', () => {
       const actual = utils.getTimelineItems(moment('2016-01-01T00:00:00Z'), [], '1');
       expect(actual).to.have.length(48);
       actual.forEach(item => expect(item.type).to.equal('reservation-slot'));
     });
 
-    it('returns one reservation if entire day is a reservation', () => {
+    test('returns one reservation if entire day is a reservation', () => {
       const reservation = { id: 11, begin: '2016-01-01T00:00:00', end: '2016-01-02T00:00:00' };
       const actual = utils.getTimelineItems(moment('2016-01-01T00:00:00'), [reservation], '1');
       expect(actual).to.have.length(1);
@@ -173,7 +173,7 @@ describe('shared/availability-view/utils', () => {
       });
     });
 
-    it('returns reservations and slots', () => {
+    test('returns reservations and slots', () => {
       const reservations = [
         { id: 11, begin: '2016-01-01T02:00:00', end: '2016-01-01T10:00:00' },
         { id: 12, begin: '2016-01-01T12:30:00', end: '2016-01-01T20:00:00' },

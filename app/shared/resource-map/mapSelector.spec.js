@@ -38,7 +38,7 @@ const padding = 0.004;
 
 describe('shared/resource-map/mapSelector', () => {
   describe('markers', () => {
-    it('are returned', () => {
+    test('are returned', () => {
       const state = getState({
         units: {
           21: createUnit('21', 0, 1),
@@ -57,7 +57,7 @@ describe('shared/resource-map/mapSelector', () => {
       ]);
     });
 
-    it('are grouped by unit if resources in the same unit', () => {
+    test('are grouped by unit if resources in the same unit', () => {
       const state = getState({
         units: {
           21: createUnit('21', 0, 1),
@@ -79,7 +79,7 @@ describe('shared/resource-map/mapSelector', () => {
       ]);
     });
 
-    it('are returned if id in resourceIds prop', () => {
+    test('are returned if id in resourceIds prop', () => {
       const state = getState({
         units: {
           21: createUnit('21', 0, 1),
@@ -97,7 +97,7 @@ describe('shared/resource-map/mapSelector', () => {
       ]);
     });
 
-    it('are not returned if unit id not in state', () => {
+    test('are not returned if unit id not in state', () => {
       const state = getState({
         units: {
           21: createUnit('21', 0, 1),
@@ -116,7 +116,7 @@ describe('shared/resource-map/mapSelector', () => {
     });
   });
 
-  it('returns boundaries', () => {
+  test('returns boundaries', () => {
     const state = getState({
       units: {
         1: createUnit('1', 5, 5),
@@ -142,14 +142,14 @@ describe('shared/resource-map/mapSelector', () => {
   });
 
   describe('shouldMapFitBoundaries', () => {
-    it('is false if no filters or selected unit', () => {
+    test('is false if no filters or selected unit', () => {
       const state = getState();
       const props = getProps({ resourceIds: ['123'] });
       const data = selector(state, props);
       expect(data.shouldMapFitBoundaries).to.equal(false);
     });
 
-    it('is true if filters have some data', () => {
+    test('is true if filters have some data', () => {
       const state = getState();
       const props = getProps({
         location: {
@@ -161,7 +161,7 @@ describe('shared/resource-map/mapSelector', () => {
       expect(data.shouldMapFitBoundaries).to.equal(true);
     });
 
-    it('is true if unit is seleted', () => {
+    test('is true if unit is seleted', () => {
       const state = getState();
       const props = getProps({ resourceIds: ['123'], selectedUnitId: '123123' });
       const data = selector(state, props);

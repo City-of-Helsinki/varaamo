@@ -39,7 +39,7 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
   }
 
   describe('modal', () => {
-    it('renders a Modal component', () => {
+    test('renders a Modal component', () => {
       const modalComponent = getWrapper().find(Modal);
       expect(modalComponent.length).to.equal(1);
     });
@@ -49,21 +49,21 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
         return getWrapper(props).find(Modal.Header);
       }
 
-      it('is rendered', () => {
+      test('is rendered', () => {
         expect(getModalHeaderWrapper()).to.have.length(1);
       });
 
-      it('contains a close button', () => {
+      test('contains a close button', () => {
         expect(getModalHeaderWrapper().props().closeButton).to.equal(true);
       });
 
       describe('title', () => {
-        it('is correct if editing', () => {
+        test('is correct if editing', () => {
           const modalTitle = getModalHeaderWrapper({ isEditing: true }).find(Modal.Title);
           expect(modalTitle.prop('children')).to.equal('ConfirmReservationModal.editTitle');
         });
 
-        it('is correct if confirming preliminary reservation', () => {
+        test('is correct if confirming preliminary reservation', () => {
           const modalTitle = getModalHeaderWrapper({ isPreliminaryReservation: true })
             .find(Modal.Title);
           expect(modalTitle.prop('children')).to.equal(
@@ -71,7 +71,7 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
           );
         });
 
-        it('is correct if confirming regular reservation', () => {
+        test('is correct if confirming regular reservation', () => {
           const modalTitle = getModalHeaderWrapper({ isPreliminaryReservation: false })
             .find(Modal.Title);
           expect(modalTitle.prop('children')).to.equal(
@@ -86,11 +86,11 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
         return getWrapper(props).find(Modal.Body);
       }
 
-      it('is rendered', () => {
+      test('is rendered', () => {
         expect(getModalBodyWrapper).to.have.length(1);
       });
 
-      it('renders ReservationForm', () => {
+      test('renders ReservationForm', () => {
         expect(getModalBodyWrapper().find(ReservationForm)).to.have.length(1);
       });
 
@@ -99,7 +99,7 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
           isPreliminaryReservation: true,
         };
 
-        it('renders CompactReservationList with correct props', () => {
+        test('renders CompactReservationList with correct props', () => {
           const recurringReservations = [
             Reservation.build(),
             Reservation.build(),
@@ -111,17 +111,20 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
           expect(list.prop('removableReservations')).to.deep.equal(recurringReservations);
         });
 
-        it('renders RecurringReservationControls if user is admin', () => {
+        test('renders RecurringReservationControls if user is admin', () => {
           expect(
             getModalBodyWrapper({ ...props, isAdmin: true }).find(RecurringReservationControls)
           ).to.have.length(1);
         });
 
-        it('does not render RecurringReservationControls if user is not admin', () => {
-          expect(
-            getModalBodyWrapper({ ...props, isAdmin: false }).find(RecurringReservationControls)
-          ).to.have.length(0);
-        });
+        test(
+          'does not render RecurringReservationControls if user is not admin',
+          () => {
+            expect(
+              getModalBodyWrapper({ ...props, isAdmin: false }).find(RecurringReservationControls)
+            ).to.have.length(0);
+          }
+        );
       });
 
       describe('when editing reservation', () => {
@@ -130,19 +133,22 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
           reservationsToEdit: Immutable([Reservation.build()]),
         };
 
-        it('renders one CompactReservationList with reservations to edit', () => {
+        test('renders one CompactReservationList with reservations to edit', () => {
           const list = getModalBodyWrapper(props).find(CompactReservationList).at(0);
           expect(list).to.have.length(1);
           expect(list.prop('reservations')).to.deep.equal(props.reservationsToEdit);
         });
 
-        it('renders one CompactReservationList with reservations selected reservations', () => {
-          const list = getModalBodyWrapper(props).find(CompactReservationList).at(1);
-          expect(list).to.have.length(1);
-          expect(list.prop('reservations')).to.deep.equal(defaultProps.selectedReservations);
-        });
+        test(
+          'renders one CompactReservationList with reservations selected reservations',
+          () => {
+            const list = getModalBodyWrapper(props).find(CompactReservationList).at(1);
+            expect(list).to.have.length(1);
+            expect(list.prop('reservations')).to.deep.equal(defaultProps.selectedReservations);
+          }
+        );
 
-        it('does not render RecurringReservationControls', () => {
+        test('does not render RecurringReservationControls', () => {
           expect(getModalBodyWrapper(props).find(RecurringReservationControls)).to.have.length(0);
         });
       });
@@ -154,7 +160,7 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
       return getWrapper(props).find(ReservationForm).props().fields;
     }
 
-    it('contain resource.supportedReservationExtraFields', () => {
+    test('contain resource.supportedReservationExtraFields', () => {
       const supportedReservationExtraFields = ['firstField', 'secondField'];
       const resource = Resource.build({ supportedReservationExtraFields });
       forEach(supportedReservationExtraFields, (field) => {
@@ -163,17 +169,17 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
     });
 
     describe('comments', () => {
-      it('is included if user is an admin', () => {
+      test('is included if user is an admin', () => {
         expect(getFormFields({ isAdmin: true })).to.contain('comments');
       });
 
-      it('is not included if user is not an admin', () => {
+      test('is not included if user is not an admin', () => {
         expect(getFormFields({ isAdmin: false })).to.not.contain('comments');
       });
     });
 
     describe('staffEvent', () => {
-      it('is not included if resource does not need manual confirmation', () => {
+      test('is not included if resource does not need manual confirmation', () => {
         const props = {
           isStaff: true,
           resource: Resource.build({ needManualConfirmation: false }),
@@ -181,7 +187,7 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
         expect(getFormFields(props)).to.not.contain('staffEvent');
       });
 
-      it('is not included if user is not staff', () => {
+      test('is not included if user is not staff', () => {
         const props = {
           isStaff: false,
           resource: Resource.build({ needManualConfirmation: true }),
@@ -189,22 +195,25 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
         expect(getFormFields(props)).to.not.contain('staffEvent');
       });
 
-      it('is included if user is staff and resource need manual confirmation', () => {
-        const props = {
-          isStaff: true,
-          resource: Resource.build({ needManualConfirmation: true }),
-        };
-        expect(getFormFields(props)).to.contain('staffEvent');
-      });
+      test(
+        'is included if user is staff and resource need manual confirmation',
+        () => {
+          const props = {
+            isStaff: true,
+            resource: Resource.build({ needManualConfirmation: true }),
+          };
+          expect(getFormFields(props)).to.contain('staffEvent');
+        }
+      );
     });
 
     describe('termsAndConditions', () => {
-      it('is included if resource contains terms', () => {
+      test('is included if resource contains terms', () => {
         const resource = Resource.build({ genericTerms: 'Some terms' });
         expect(getFormFields({ resource })).to.contain('termsAndConditions');
       });
 
-      it('is not included if resource does not contain any terms', () => {
+      test('is not included if resource does not contain any terms', () => {
         const resource = Resource.build({ genericTerms: null });
         expect(getFormFields({ resource })).to.not.contain('termsAndConditions');
       });

@@ -79,35 +79,38 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     let wrapper;
     const { renderClosedText, renderRestrictedText, renderTimeSlots } = options;
 
-    beforeEach(() => {
+    beforeAll(() => {
       wrapper = getWrapper(props);
     });
 
-    it(`${renderTimeSlots ? 'renders' : 'does not render'} TimeSlots`, () => {
+    test(`${renderTimeSlots ? 'renders' : 'does not render'} TimeSlots`, () => {
       expect(wrapper.find(TimeSlots).length === 1).to.equal(renderTimeSlots);
     });
 
-    it(`${renderClosedText ? 'renders' : 'does not render'} closed text`, () => {
+    test(`${renderClosedText ? 'renders' : 'does not render'} closed text`, () => {
       expect(wrapper.find('.closed-text').length === 1).to.equal(renderClosedText);
     });
 
-    it(`${renderRestrictedText ? 'renders' : 'does not render'} restricted text`, () => {
-      expect(wrapper.find(ReservingRestrictedText).length === 1).to.equal(renderRestrictedText);
-    });
+    test(
+      `${renderRestrictedText ? 'renders' : 'does not render'} restricted text`,
+      () => {
+        expect(wrapper.find(ReservingRestrictedText).length === 1).to.equal(renderRestrictedText);
+      }
+    );
 
-    it('renders ReservationCancelModal', () => {
+    test('renders ReservationCancelModal', () => {
       expect(wrapper.find(ReservationCancelModal).length).to.equal(1);
     });
 
-    it('renders ReservationInfoModal', () => {
+    test('renders ReservationInfoModal', () => {
       expect(wrapper.find(ReservationInfoModal).length).to.equal(1);
     });
 
-    it('renders ReservationSuccessModal', () => {
+    test('renders ReservationSuccessModal', () => {
       expect(wrapper.find(ReservationSuccessModal).length).to.equal(1);
     });
 
-    it('renders ReservationConfirmation', () => {
+    test('renders ReservationConfirmation', () => {
       const confirmation = wrapper.find(ReservationConfirmation);
       expect(confirmation).to.have.length(1);
       expect(confirmation.prop('params')).to.deep.equal(defaultProps.params);
@@ -122,11 +125,11 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
   describe('render', () => {
     const now = '2016-10-10T06:00:00+03:00';
 
-    beforeEach(() => {
+    beforeAll(() => {
       MockDate.set(now);
     });
 
-    afterEach(() => {
+    afterAll(() => {
       MockDate.reset();
     });
 
@@ -202,7 +205,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
   });
 
   describe('getSelectedDateSlots', () => {
-    it('returns selected date slots', () => {
+    test('returns selected date slots', () => {
       const instance = getWrapper().instance();
       const selectedSlot = {
         begin: timeSlot1.start,
@@ -214,7 +217,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       expect(result).to.deep.equal(timeSlots[0]);
     });
 
-    it('returns empty if selected is not in date slots', () => {
+    test('returns empty if selected is not in date slots', () => {
       const instance = getWrapper().instance();
       const selectedSlot = {
         begin: '2016-10-12T10:00:00.000Z',
@@ -230,38 +233,44 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
   describe('getDurationText', () => {
     const instance = getWrapper().instance();
 
-    it('returns string that contains hours and minutes when the duration over 60 minutes', () => {
-      const duration = moment.duration({ minutes: 90 });
-      const durationText = instance.getDurationText(duration);
-      expect(durationText).to.equal('1h 30min');
-    });
+    test(
+      'returns string that contains hours and minutes when the duration over 60 minutes',
+      () => {
+        const duration = moment.duration({ minutes: 90 });
+        const durationText = instance.getDurationText(duration);
+        expect(durationText).to.equal('1h 30min');
+      }
+    );
 
-    it('returns string that contains only minutes when the duration shorter than 60 minutes', () => {
-      const duration = moment.duration({ minutes: 50 });
-      const durationText = instance.getDurationText(duration);
-      expect(durationText).to.equal('50min');
-    });
+    test(
+      'returns string that contains only minutes when the duration shorter than 60 minutes',
+      () => {
+        const duration = moment.duration({ minutes: 50 });
+        const durationText = instance.getDurationText(duration);
+        expect(durationText).to.equal('50min');
+      }
+    );
   });
 
   describe('getSelectedTimeText', () => {
     let instance;
-    beforeEach(() => {
+    beforeAll(() => {
       instance = getWrapper().instance();
       simple.mock(instance, 'getDateTimeText').returnWith('some text');
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('returns empty string if selected empty', () => {
+    test('returns empty string if selected empty', () => {
       const result = instance.getSelectedTimeText([]);
 
       expect(result).to.equal('');
       expect(instance.getDateTimeText.callCount).to.equal(0);
     });
 
-    it('calls getDateTimeText when selected', () => {
+    test('calls getDateTimeText when selected', () => {
       const selectedSlot = {
         begin: '2016-10-12T10:00:00.000Z',
         end: '2016-10-12T11:00:00.000Z',
@@ -275,7 +284,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
   });
 
   describe('handleEditCancel', () => {
-    it('calls cancelReservationEdit', () => {
+    test('calls cancelReservationEdit', () => {
       const instance = getWrapper().instance();
       instance.handleEditCancel();
       expect(actions.cancelReservationEdit.callCount).to.equal(1);
@@ -293,43 +302,46 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     const now = '2016-10-12T08:00:00+03:00';
     let historyMock;
 
-    beforeEach(() => {
+    beforeAll(() => {
       MockDate.set(now);
       historyMock = simple.mock(history, 'push');
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
       MockDate.reset();
     });
 
-    it('calls actions addNotification when user has max open reservations for resource', () => {
-      const isAdmin = false;
-      const maxReservationsPerUser = 1;
-      const reservations = [
-        {
-          end: '2016-10-12T09:00:00+03:00',
-          isOwn: true,
-        },
-        {
-          end: '2016-10-12T10:00:00+03:00',
-          isOwn: false,
-        },
-      ];
-      const resourceWithReservations = Resource.build({
-        maxReservationsPerUser,
-        reservations,
-      });
-      const instance = getWrapper({
-        isAdmin,
-        resource: resourceWithReservations,
-        selected,
-      }).instance();
-      defaultProps.actions.addNotification.reset();
-      instance.handleReserveClick();
-      expect(defaultProps.actions.addNotification.callCount).to.equal(1);
-    });
-    it('calls history push with correct path', () => {
+    test(
+      'calls actions addNotification when user has max open reservations for resource',
+      () => {
+        const isAdmin = false;
+        const maxReservationsPerUser = 1;
+        const reservations = [
+          {
+            end: '2016-10-12T09:00:00+03:00',
+            isOwn: true,
+          },
+          {
+            end: '2016-10-12T10:00:00+03:00',
+            isOwn: false,
+          },
+        ];
+        const resourceWithReservations = Resource.build({
+          maxReservationsPerUser,
+          reservations,
+        });
+        const instance = getWrapper({
+          isAdmin,
+          resource: resourceWithReservations,
+          selected,
+        }).instance();
+        defaultProps.actions.addNotification.reset();
+        instance.handleReserveClick();
+        expect(defaultProps.actions.addNotification.callCount).to.equal(1);
+      }
+    );
+    test('calls history push with correct path', () => {
       const expectedPath = `/reservation?begin=10:00&date=2016-10-12&end=11:00&id=&resource=${
         selected[0].resource
         }`;

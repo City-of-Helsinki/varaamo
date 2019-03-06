@@ -15,27 +15,27 @@ function getWrapper(props) {
 }
 
 describe('shared/mini-modal/MiniModal', () => {
-  it('renders a div.app-MiniModal', () => {
+  test('renders a div.app-MiniModal', () => {
     const wrapper = getWrapper();
     expect(wrapper.is('div.app-MiniModal')).to.be.true;
   });
 
   describe('show modal button', () => {
-    it('is rendered with correct props', () => {
+    test('is rendered with correct props', () => {
       const wrapper = getWrapper();
       const showButton = wrapper.find('.app-MiniModal__show-button');
       expect(showButton).to.have.length(1);
       expect(showButton.prop('onClick')).to.equal(wrapper.instance().showModal);
     });
 
-    it('has the content given in props', () => {
+    test('has the content given in props', () => {
       const buttonContent = <span>Some text inside a span</span>;
       const showButton = getWrapper({ buttonContent }).find('.app-MiniModal__show-button');
       expect(showButton).to.have.length(1);
       expect(showButton.prop('children')).to.equal(buttonContent);
     });
 
-    it('has correct theme given in the props', () => {
+    test('has correct theme given in the props', () => {
       const theme = 'gold';
       const showButton = getWrapper({ theme }).find('.app-MiniModal__show-button');
       expect(showButton).to.have.length(1);
@@ -44,7 +44,7 @@ describe('shared/mini-modal/MiniModal', () => {
   });
 
   describe('Modal', () => {
-    it('is rendered with correct props', () => {
+    test('is rendered with correct props', () => {
       const wrapper = getWrapper();
       const modal = wrapper.find(Modal);
       expect(modal).to.have.length(1);
@@ -52,26 +52,26 @@ describe('shared/mini-modal/MiniModal', () => {
       expect(modal.prop('show')).to.equal(wrapper.instance().state.visible);
     });
 
-    it('has the header given in props', () => {
+    test('has the header given in props', () => {
       const header = 'Some header';
       const modalHeader = getWrapper({ header }).find(Modal).find('h2');
       expect(modalHeader.text()).to.equal(header);
     });
 
-    it('has the children given in props as content', () => {
+    test('has the children given in props as content', () => {
       const children = <span>Some text inside a span</span>;
       const modalContent = getWrapper({ children }).find(Modal).find('.app-MiniModal__modal-content');
       expect(modalContent.prop('children')).to.equal(children);
     });
 
-    it('has a button for confirming the modal', () => {
+    test('has a button for confirming the modal', () => {
       const wrapper = getWrapper();
       const handleConfirm = wrapper.instance().handleConfirm;
       const modalCloseButton = wrapper.find(Modal).find('button').filter({ onClick: handleConfirm });
       expect(modalCloseButton).to.have.length(1);
     });
 
-    it('has correct theme given in the props', () => {
+    test('has correct theme given in the props', () => {
       const theme = 'gold';
       const modal = getWrapper({ theme }).find(Modal);
       expect(modal).to.have.length(1);
@@ -80,14 +80,14 @@ describe('shared/mini-modal/MiniModal', () => {
   });
 
   describe('handleConfirm', () => {
-    it('calls onConfirm if given in props', () => {
+    test('calls onConfirm if given in props', () => {
       const onConfirm = simple.mock();
       const instance = getWrapper({ onConfirm }).instance();
       instance.handleConfirm();
       expect(onConfirm.callCount).to.equal(1);
     });
 
-    it('calls hideModal', () => {
+    test('calls hideModal', () => {
       const instance = getWrapper().instance();
       simple.mock(instance, 'hideModal');
       instance.handleConfirm();
@@ -97,7 +97,7 @@ describe('shared/mini-modal/MiniModal', () => {
   });
 
   describe('hideModal', () => {
-    it('sets state.visible to false', () => {
+    test('sets state.visible to false', () => {
       const instance = getWrapper().instance();
       instance.state.visible = true;
       instance.hideModal();
@@ -106,7 +106,7 @@ describe('shared/mini-modal/MiniModal', () => {
   });
 
   describe('showModal', () => {
-    it('sets state.visible to true', () => {
+    test('sets state.visible to true', () => {
       const instance = getWrapper().instance();
       instance.state.visible = false;
       instance.showModal();

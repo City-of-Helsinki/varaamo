@@ -17,19 +17,19 @@ function getWrapper(props) {
 }
 
 describe('pages/search/controls/CheckboxControl', () => {
-  it('renders a div.app-CheckboxControl', () => {
+  test('renders a div.app-CheckboxControl', () => {
     const wrapper = getWrapper({});
     expect(wrapper.is('div.app-CheckboxControl')).to.be.true;
   });
 
-  it('renders a Toggle with correct props', () => {
+  test('renders a Toggle with correct props', () => {
     const toggle = getWrapper({}).find(Toggle);
     expect(toggle).to.have.length(1);
     expect(toggle.prop('defaultChecked')).to.equal(defaults.value);
     expect(toggle.prop('onChange')).to.be.a('function');
   });
 
-  it('Checkbox onChange calls prop onConfirm', () => {
+  test('Checkbox onChange calls prop onConfirm', () => {
     const onConfirm = simple.mock();
     const mockEvent = {
       target: {

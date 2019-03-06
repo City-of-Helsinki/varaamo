@@ -11,14 +11,14 @@ describe('pages/about/AboutPage', () => {
     return shallowWithIntl(<AboutPage />);
   }
 
-  it('renders PageWrapper with correct props', () => {
+  test('renders PageWrapper with correct props', () => {
     const pageWrapper = getWrapper().find(PageWrapper);
     expect(pageWrapper).to.have.length(1);
     expect(pageWrapper.prop('className')).to.equal('about-page');
     expect(pageWrapper.prop('title')).to.equal('AboutPage.title');
   });
 
-  it('renders AboutPageContent component', () => {
+  test('renders AboutPageContent component', () => {
     expect(getWrapper().find(AboutPageContent).length).to.equal(1);
   });
 });

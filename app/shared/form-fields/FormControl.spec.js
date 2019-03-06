@@ -24,12 +24,12 @@ describe('shared/form-fields/FormControl', () => {
   }
 
   describe('FormGroup component', () => {
-    it('is rendered', () => {
+    test('is rendered', () => {
       const formGroup = getWrapper().find(FormGroup);
       expect(formGroup.length).to.equal(1);
     });
 
-    it('gets correct props', () => {
+    test('gets correct props', () => {
       const actualProps = getWrapper().find(FormGroup).props();
       expect(actualProps.controlId).to.equal(defaultProps.id);
       expect(actualProps.validationState).to.equal(defaultProps.validationState);
@@ -37,7 +37,7 @@ describe('shared/form-fields/FormControl', () => {
   });
 
   describe('Col components', () => {
-    it('renders 2 Col components', () => {
+    test('renders 2 Col components', () => {
       const cols = getWrapper().find(Col);
       expect(cols.length).to.equal(2);
     });
@@ -47,21 +47,21 @@ describe('shared/form-fields/FormControl', () => {
         return getWrapper(props).find(Col).at(0);
       }
 
-      it('gets correct props', () => {
+      test('gets correct props', () => {
         expect(getColWrapper().props().componentClass).to.equal(ControlLabel);
         expect(getColWrapper().props().sm).to.equal(3);
       });
 
-      it('contains the label text given in props', () => {
+      test('contains the label text given in props', () => {
         expect(getColWrapper().props().children).to.contain(defaultProps.label);
       });
 
-      it('does not contain InfoPopover if info not given', () => {
+      test('does not contain InfoPopover if info not given', () => {
         const popover = getColWrapper().find(InfoPopover);
         expect(popover).to.have.length(0);
       });
 
-      it('contains InfoPopover if info is given', () => {
+      test('contains InfoPopover if info is given', () => {
         const info = 'Some info';
         const popover = getColWrapper({ info }).find(InfoPopover);
         expect(popover).to.have.length(1);
@@ -72,15 +72,15 @@ describe('shared/form-fields/FormControl', () => {
     describe('the second Col', () => {
       let col;
 
-      beforeEach(() => {
+      beforeAll(() => {
         col = getWrapper().find(Col).at(1);
       });
 
-      it('gets correct props', () => {
+      test('gets correct props', () => {
         expect(col.props().sm).to.equal(9);
       });
 
-      it('contains React Bootstrap FormControl', () => {
+      test('contains React Bootstrap FormControl', () => {
         const rbFormControl = col.find(RBFormControl);
         expect(rbFormControl.length).to.equal(1);
       });
@@ -88,13 +88,13 @@ describe('shared/form-fields/FormControl', () => {
   });
 
   describe('React Bootstrap FormControl component', () => {
-    it('is rendered', () => {
+    test('is rendered', () => {
       const rbFormControl = getWrapper().find(RBFormControl);
       expect(rbFormControl.length).to.equal(1);
     });
 
     describe('when type of the control is "textarea"', () => {
-      it('gets correct props', () => {
+      test('gets correct props', () => {
         const type = 'textarea';
         const actualProps = getWrapper({ type }).find(RBFormControl).props();
         Object.keys(defaultProps.controlProps).forEach((key) => {
@@ -106,7 +106,7 @@ describe('shared/form-fields/FormControl', () => {
     });
 
     describe('when type of the control is anything but "textarea"', () => {
-      it('gets correct props', () => {
+      test('gets correct props', () => {
         const type = 'text';
         const actualProps = getWrapper({ type }).find(RBFormControl).props();
         Object.keys(defaultProps.controlProps).forEach((key) => {
@@ -121,12 +121,12 @@ describe('shared/form-fields/FormControl', () => {
     describe('if help is given in props', () => {
       const help = 'some help';
 
-      it('is rendered', () => {
+      test('is rendered', () => {
         const helpBlock = getWrapper({ help }).find(HelpBlock);
         expect(helpBlock.length).to.equal(1);
       });
 
-      it('displays the help text given in props', () => {
+      test('displays the help text given in props', () => {
         const helpBlock = getWrapper({ help }).find(HelpBlock);
         expect(helpBlock.props().children).to.equal(help);
       });
@@ -135,7 +135,7 @@ describe('shared/form-fields/FormControl', () => {
     describe('if help is not given in props', () => {
       const help = undefined;
 
-      it('is not rendered', () => {
+      test('is not rendered', () => {
         const helpBlock = getWrapper({ help }).find(HelpBlock);
         expect(helpBlock.length).to.equal(0);
       });

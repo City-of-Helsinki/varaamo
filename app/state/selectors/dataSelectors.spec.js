@@ -11,7 +11,7 @@ import {
 
 describe('state/selectors/dataSelectors', () => {
   describe('purposesSelector', () => {
-    it('returns purposes translated in current language from the state', () => {
+    test('returns purposes translated in current language from the state', () => {
       const locale = 'en';
       const state = getState({
         'data.purposes': {
@@ -30,7 +30,7 @@ describe('state/selectors/dataSelectors', () => {
   });
 
   describe('reservationsSelector', () => {
-    it('returns reservations from the state', () => {
+    test('returns reservations from the state', () => {
       const locale = 'en';
       const state = getState({
         'data.reservations': {
@@ -49,7 +49,7 @@ describe('state/selectors/dataSelectors', () => {
   });
 
   describe('resourcesSelector', () => {
-    it('returns resources translated in current language from the state', () => {
+    test('returns resources translated in current language from the state', () => {
       const locale = 'en';
       const state = getState({
         'data.resources': {
@@ -68,7 +68,7 @@ describe('state/selectors/dataSelectors', () => {
   });
 
   describe('unitsSelector', () => {
-    it('returns units translated in current language from the state', () => {
+    test('returns units translated in current language from the state', () => {
       const locale = 'en';
       const state = getState({
         'data.units': {
@@ -87,7 +87,7 @@ describe('state/selectors/dataSelectors', () => {
   });
 
   describe('createResourceSelector', () => {
-    it('returns the resource specified by the given id selector', () => {
+    test('returns the resource specified by the given id selector', () => {
       const resource = { id: 'r-1' };
       const idSelector = () => resource.id;
       const state = getState({
@@ -97,7 +97,7 @@ describe('state/selectors/dataSelectors', () => {
       expect(selected).to.deep.equal(resource);
     });
 
-    it('returns an empty object if resource does not exist', () => {
+    test('returns an empty object if resource does not exist', () => {
       const idSelector = () => 'r-999';
       const state = getState();
       const selected = createResourceSelector(idSelector)(state);

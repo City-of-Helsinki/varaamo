@@ -36,17 +36,17 @@ describe('shared/availability-view/ResourceInfoContainer', () => {
     return shallowWithIntl(<ResourceInfo {...defaults} {...props} />);
   }
 
-  it('renders a div.resource-info', () => {
+  test('renders a div.resource-info', () => {
     const wrapper = getWrapper();
     expect(wrapper.is('div.resource-info')).to.be.true;
   });
 
-  it('has selected class if isSelected', () => {
+  test('has selected class if isSelected', () => {
     const wrapper = getWrapper({ isSelected: true });
     expect(wrapper.is('.resource-info-selected')).to.be.true;
   });
 
-  it('renders the name and link to resource page', () => {
+  test('renders the name and link to resource page', () => {
     const date = '2017-02-03';
     const link = getWrapper({ date, id: 'r-1', name: 'Room 1' }).find(Link);
     expect(link).to.have.length(1);
@@ -54,18 +54,18 @@ describe('shared/availability-view/ResourceInfoContainer', () => {
     expect(link.prop('children')).to.equal('Room 1');
   });
 
-  it('renders the capacity in details', () => {
+  test('renders the capacity in details', () => {
     const details = getWrapper({ peopleCapacity: 3 }).find('.details');
     expect(details).to.have.length(1);
     expect(details.text()).to.contain('3');
   });
 
-  it('renders unpublished label if public is false', () => {
+  test('renders unpublished label if public is false', () => {
     const label = getWrapper({ public: false }).find('.unpublished-label');
     expect(label).to.have.length(1);
   });
 
-  it('does not render unpublished label if public is true', () => {
+  test('does not render unpublished label if public is true', () => {
     const label = getWrapper({ public: true }).find('.unpublished-label');
     expect(label).to.have.length(0);
   });
@@ -76,7 +76,7 @@ describe('shared/availability-view/ResourceInfoContainer', () => {
       return selector()(getState(), { ...defaults, ...props });
     }
 
-    it('returns resource info', () => {
+    test('returns resource info', () => {
       const actual = getSelected();
       expect(actual).to.deep.equal({
         name: 'Resource Name',

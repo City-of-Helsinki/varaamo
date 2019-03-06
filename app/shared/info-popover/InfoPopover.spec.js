@@ -16,14 +16,14 @@ function getWrapper(props) {
 }
 
 describe('shared/info-popover/InfoPopover', () => {
-  it('renders an OverlayTrigger with correct placement', () => {
+  test('renders an OverlayTrigger with correct placement', () => {
     const placement = 'right';
     const trigger = getWrapper({ placement }).find(OverlayTrigger);
     expect(trigger).to.have.length(1);
     expect(trigger.prop('placement')).to.equal(placement);
   });
 
-  it('renders a popover with correct text', () => {
+  test('renders a popover with correct text', () => {
     const text = 'Some text';
     const overlayTrigger = getWrapper({ text }).find(OverlayTrigger);
     const overlay = overlayTrigger.prop('overlay');
@@ -31,7 +31,7 @@ describe('shared/info-popover/InfoPopover', () => {
     expect(overlay.props.children).to.equal(text);
   });
 
-  it('renders a "question-sign" glyphicon', () => {
+  test('renders a "question-sign" glyphicon', () => {
     const glyphicon = getWrapper().find(Glyphicon);
     expect(glyphicon).to.have.length(1);
     expect(glyphicon.prop('glyph')).to.equal('question-sign');

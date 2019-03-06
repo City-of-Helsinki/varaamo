@@ -26,7 +26,7 @@ describe('shared/modals/reservation-cancel/ReservationTermsModal', () => {
   }
 
   describe('render', () => {
-    it('renders a Modal component', () => {
+    test('renders a Modal component', () => {
       const modalComponent = getWrapper().find(Modal);
       expect(modalComponent.length).to.equal(1);
     });
@@ -36,15 +36,15 @@ describe('shared/modals/reservation-cancel/ReservationTermsModal', () => {
         return getWrapper(props).find(Modal.Header);
       }
 
-      it('is rendered', () => {
+      test('is rendered', () => {
         expect(getModalHeaderWrapper()).to.have.length(1);
       });
 
-      it('contains a close button', () => {
+      test('contains a close button', () => {
         expect(getModalHeaderWrapper().props().closeButton).to.equal(true);
       });
 
-      it('contains title', () => {
+      test('contains title', () => {
         const modalTitle = getModalHeaderWrapper().find(Modal.Title);
         expect(modalTitle.length).to.equal(1);
         expect(modalTitle.prop('children')).to.equal('ReservationTermsModal.resourceTermsTitle');
@@ -56,17 +56,17 @@ describe('shared/modals/reservation-cancel/ReservationTermsModal', () => {
         return getWrapper(props).find(Modal.Body);
       }
 
-      it('is rendered', () => {
+      test('is rendered', () => {
         expect(getModalBodyWrapper()).to.have.length(1);
       });
 
-      it('renders resource name', () => {
+      test('renders resource name', () => {
         const texts = getModalBodyWrapper().find('span');
         expect(texts).to.have.length(2);
         expect(texts.at(0).text()).to.contain('ReservationTermsModal.resourceTermsSubTitle');
       });
 
-      it('renders generic terms', () => {
+      test('renders generic terms', () => {
         const resourceWithTerms = Resource.build({
           genericTerms: 'some generic terms',
         });
@@ -81,11 +81,11 @@ describe('shared/modals/reservation-cancel/ReservationTermsModal', () => {
         return getWrapper(props).find(Modal.Footer);
       }
 
-      it('is rendered', () => {
+      test('is rendered', () => {
         expect(getModalFooterWrapper).to.have.length(1);
       });
 
-      it('renders button', () => {
+      test('renders button', () => {
         const closeResourceTermsModal = simple.mock();
         const actions = { closeResourceTermsModal };
         const button = getModalFooterWrapper({ actions }).find(Button);

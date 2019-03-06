@@ -18,17 +18,17 @@ describe('shared/time-range/TimeRange', () => {
     return shallow(<TimeRange {...defaultProps} {...extraProps} />);
   }
 
-  it('renders a time element', () => {
+  test('renders a time element', () => {
     const time = getWrapper().find('time');
     expect(time.length).to.equal(1);
   });
 
-  it('adds the given className to the time element', () => {
+  test('adds the given className to the time element', () => {
     const time = getWrapper().find('time');
     expect(time.props().className).to.equal(defaultProps.className);
   });
 
-  it('passes correct dateTime range to the time element', () => {
+  test('passes correct dateTime range to the time element', () => {
     const time = getWrapper().find('time');
     const expected = `${defaultProps.begin}/${defaultProps.end}`;
     expect(time.props().dateTime).to.equal(expected);
@@ -37,12 +37,12 @@ describe('shared/time-range/TimeRange', () => {
   describe('the datetime range string', () => {
     const rangeString = getWrapper().find('time').props().children;
 
-    it('displays the begin in given beginFormat', () => {
+    test('displays the begin in given beginFormat', () => {
       const expected = moment(defaultProps.begin).format(defaultProps.beginFormat);
       expect(rangeString.toLowerCase()).to.contain(expected.toLowerCase());
     });
 
-    it('displays the end time in given endFormat', () => {
+    test('displays the end time in given endFormat', () => {
       const expected = moment(defaultProps.end).format(defaultProps.endFormat);
       expect(rangeString).to.contain(expected);
     });

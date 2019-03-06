@@ -29,35 +29,35 @@ describe('pages/search/controls/SelectControl', () => {
     simple.restore();
   });
 
-  it('renders a div.app-SelectControl', () => {
+  test('renders a div.app-SelectControl', () => {
     const wrapper = getWrapper({});
     expect(wrapper.is('div.app-SelectControl')).to.be.true;
   });
 
-  it('renders a FormGroup with correct props', () => {
+  test('renders a FormGroup with correct props', () => {
     const formGroup = getWrapper({}).find(FormGroup);
     expect(formGroup).to.have.length(1);
     expect(formGroup.prop('controlId')).to.equal(defaults.id);
   });
 
-  it('renders a ControlLabel', () => {
+  test('renders a ControlLabel', () => {
     const controlLabel = getWrapper({}).find(ControlLabel);
     expect(controlLabel).to.have.length(1);
   });
 
-  it('hide Select when isLoading=true', () => {
+  test('hide Select when isLoading=true', () => {
     const select = getWrapper({ isLoading: true }).find(Select);
 
     expect(select).to.have.length(0);
   });
 
-  it('disable Select when isDisable was true', () => {
+  test('disable Select when isDisable was true', () => {
     const select = getWrapper({ isDisable: true }).find(Select);
 
     expect(select.prop('isDisable')).to.be.true;
   });
 
-  it('renders a Select with correct props', () => {
+  test('renders a Select with correct props', () => {
     const select = getWrapper({}).find(Select);
     expect(select).to.have.length(1);
     expect(select.prop('isClearable')).to.be.true;
@@ -69,17 +69,20 @@ describe('pages/search/controls/SelectControl', () => {
     expect(select.prop('value')).to.equal(defaults.options[0]);
   });
 
-  it('renders a Select with props className contain app-Select, so the styling will work', () => {
-    const select = getWrapper({ className: 'foo' }).find(Select);
-    const defaultSelect = getWrapper().find(Select);
+  test(
+    'renders a Select with props className contain app-Select, so the styling will work',
+    () => {
+      const select = getWrapper({ className: 'foo' }).find(Select);
+      const defaultSelect = getWrapper().find(Select);
 
-    expect(select).to.have.length(1);
-    expect(select.prop('className')).to.include('app-Select');
-    expect(select.prop('className')).to.include('foo');
-    expect(defaultSelect.prop('className')).to.include('app-Select');
-  });
+      expect(select).to.have.length(1);
+      expect(select.prop('className')).to.include('app-Select');
+      expect(select.prop('className')).to.include('foo');
+      expect(defaultSelect.prop('className')).to.include('app-Select');
+    }
+  );
 
-  it('Select onChange calls prop onChange', () => {
+  test('Select onChange calls prop onChange', () => {
     const onChange = simple.mock();
     const select = getWrapper({ onChange }).find(Select);
     expect(select).to.have.length(1);
@@ -88,25 +91,31 @@ describe('pages/search/controls/SelectControl', () => {
     expect(onChange.lastCall.args[0]).to.deep.equal(defaults.options[1]);
   });
 
-  it('Select onChange calls prop onChange when clear multi selected field', () => {
-    const onChange = simple.mock();
-    const multiSelect = getWrapper({ onChange, isMulti: true }).find(Select);
-    expect(multiSelect).to.have.length(1);
-    multiSelect.prop('onChange')(defaults.options, { action: 'clear' });
-    expect(onChange.callCount).to.equal(1);
-    expect(onChange.lastCall.args[0]).to.deep.equal([]);
-  });
+  test(
+    'Select onChange calls prop onChange when clear multi selected field',
+    () => {
+      const onChange = simple.mock();
+      const multiSelect = getWrapper({ onChange, isMulti: true }).find(Select);
+      expect(multiSelect).to.have.length(1);
+      multiSelect.prop('onChange')(defaults.options, { action: 'clear' });
+      expect(onChange.callCount).to.equal(1);
+      expect(onChange.lastCall.args[0]).to.deep.equal([]);
+    }
+  );
 
-  it('Select onChange calls prop onChange when clear non multi selected field', () => {
-    const onChange = simple.mock();
-    const select = getWrapper({ onChange }).find(Select);
-    expect(select).to.have.length(1);
-    select.prop('onChange')(defaults.options, { action: 'clear' });
-    expect(onChange.callCount).to.equal(1);
-    expect(onChange.lastCall.args[0]).to.deep.equal({});
-  });
+  test(
+    'Select onChange calls prop onChange when clear non multi selected field',
+    () => {
+      const onChange = simple.mock();
+      const select = getWrapper({ onChange }).find(Select);
+      expect(select).to.have.length(1);
+      select.prop('onChange')(defaults.options, { action: 'clear' });
+      expect(onChange.callCount).to.equal(1);
+      expect(onChange.lastCall.args[0]).to.deep.equal({});
+    }
+  );
 
-  it('Select onChange calls prop onChange as fallback', () => {
+  test('Select onChange calls prop onChange as fallback', () => {
     const onChange = simple.mock();
     const select = getWrapper({ onChange }).find(Select);
     expect(select).to.have.length(1);
@@ -114,7 +123,7 @@ describe('pages/search/controls/SelectControl', () => {
     expect(onChange.callCount).to.equal(1);
   });
 
-  it('call props onChange with multi select if isMulti is true', () => {
+  test('call props onChange with multi select if isMulti is true', () => {
     const onChange = simple.mock();
     const select = getWrapper({ onChange, isMulti: true }).find(Select);
 
@@ -125,20 +134,20 @@ describe('pages/search/controls/SelectControl', () => {
   });
 
   describe('getValue', () => {
-    it('fill selected option when default value is passed in', () => {
+    test('fill selected option when default value is passed in', () => {
       const wrapper = getWrapper({});
       const selectedOption = wrapper.instance().getValue(
         defaults.options[0].value, defaults.options);
       expect(selectedOption).to.deep.equal(defaults.options[0]);
     });
 
-    it('return underfined if value is not exist in any options', () => {
+    test('return underfined if value is not exist in any options', () => {
       const wrapper = getWrapper({});
       const selectedOption = wrapper.instance().getValue('foo', defaults.options);
       expect(selectedOption).to.be.undefined;
     });
 
-    it('return array of options if value is array', () => {
+    test('return array of options if value is array', () => {
       const wrapper = getWrapper({});
       const selectedOption = wrapper.instance().getValue(['filter-1', 'filter-2'], defaults.options);
       expect(selectedOption).to.deep.equal(defaults.options);

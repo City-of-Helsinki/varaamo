@@ -25,22 +25,22 @@ describe('shared/favorite-button/FavoriteButtonContainer', () => {
   }
   let wrapper;
 
-  beforeEach(() => {
+  beforeAll(() => {
     wrapper = getWrapper();
   });
 
-  it('renders a FavoriteButton', () => {
+  test('renders a FavoriteButton', () => {
     expect(wrapper.is(FavoriteButton)).to.be.true;
   });
 
-  it('has favorited prop', () => {
+  test('has favorited prop', () => {
     expect(wrapper.prop('favorited')).to.be.true;
   });
 
   describe('handleClick', () => {
     let instance;
 
-    beforeEach(() => {
+    beforeAll(() => {
       instance = wrapper.instance();
     });
 
@@ -49,17 +49,17 @@ describe('shared/favorite-button/FavoriteButtonContainer', () => {
       defaultProps.actions.favoriteResource.reset();
     });
 
-    it('gets passed as onClick prop', () => {
+    test('gets passed as onClick prop', () => {
       expect(wrapper.prop('onClick')).to.equal(instance.handleClick);
     });
 
-    it('calls unfavoriteResource if resource was favorite', () => {
+    test('calls unfavoriteResource if resource was favorite', () => {
       instance.handleClick();
       expect(defaultProps.actions.unfavoriteResource.callCount).to.equal(1);
       expect(defaultProps.actions.unfavoriteResource.lastCall.args).to.deep.equal(['123']);
     });
 
-    it('calls favoriteResource if resource was not favorite', () => {
+    test('calls favoriteResource if resource was not favorite', () => {
       const customInstance = getWrapper({
         resource: {
           id: '123',

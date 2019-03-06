@@ -20,28 +20,28 @@ describe('pages/PageWrapper', () => {
     );
   }
 
-  it('renders DocumentTitle component', () => {
+  test('renders DocumentTitle component', () => {
     const title = getWrapper().find(DocumentTitle);
     expect(title.prop('title')).to.equal('Test title - Varaamo');
   });
 
-  it('renders a div with the className given in props', () => {
+  test('renders a div with the className given in props', () => {
     const div = getWrapper().find(`.${defaultProps.className}`);
     expect(div.length).to.equal(1);
   });
 
-  it('renders the page content', () => {
+  test('renders the page content', () => {
     const content = getWrapper().find('h1');
     expect(content).to.have.length(1);
     expect(content.text()).to.equal('Rendered content');
   });
 
-  it('renders a normal Grid', () => {
+  test('renders a normal Grid', () => {
     const gridWrapper = getWrapper().find(Grid);
     expect(gridWrapper).to.have.length(1);
   });
 
-  it('renders a fluid Grid if fluid prop', () => {
+  test('renders a fluid Grid if fluid prop', () => {
     const gridWrapper = getWrapper({ fluid: true }).find(Grid);
     expect(gridWrapper).to.have.length(1);
   });

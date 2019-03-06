@@ -35,25 +35,25 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     return getWrapper(props).find('button.app-TimeSlot__action');
   }
 
-  it('renders button.app-TimeSlot__action', () => {
+  test('renders button.app-TimeSlot__action', () => {
     expect(getClickableButton()).to.have.length(1);
   });
 
-  it('does not render clear button when clearing disabled', () => {
+  test('does not render clear button when clearing disabled', () => {
     expect(getWrapper().find('button.app-TimeSlot__clear')).to.have.length(0);
   });
 
-  it('renders clear button when clearing enabled', () => {
+  test('renders clear button when clearing enabled', () => {
     expect(getWrapper({ showClear: true }).find('button.app-TimeSlot__clear')).to.have.length(1);
   });
 
-  it('renders slot start time as button text', () => {
+  test('renders slot start time as button text', () => {
     const start = new Date(defaultProps.slot.start);
     const expected = `${padLeft(start.getHours())}:${padLeft(start.getMinutes())}`;
     expect(getWrapper().text()).to.contain(expected);
   });
 
-  it('disables the time slot when isDisabled prop is true', () => {
+  test('disables the time slot when isDisabled prop is true', () => {
     expect(getWrapper({ isDisabled: true }).find('div.app-TimeSlot--disabled')).to.have.length(1);
   });
 
@@ -62,7 +62,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     let wrapper;
     let button;
 
-    beforeEach(() => {
+    beforeAll(() => {
       wrapper = getWrapper({ isLoggedIn: false });
       instance = wrapper.instance();
       button = wrapper.find('button.app-TimeSlot__action');
@@ -73,11 +73,11 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       instance.handleClick.reset();
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls handleClick with disabled true', () => {
+    test('calls handleClick with disabled true', () => {
       expect(button.prop('onClick')).to.be.a('function');
       button.prop('onClick')();
       expect(instance.handleClick.callCount).to.equal(1);
@@ -90,7 +90,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     let wrapper;
     let button;
 
-    beforeEach(() => {
+    beforeAll(() => {
       wrapper = getWrapper({ isLoggedIn: true });
       instance = wrapper.instance();
       button = wrapper.find('button.app-TimeSlot__action');
@@ -101,11 +101,11 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       instance.handleClick.reset();
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls handleClick with disabled false', () => {
+    test('calls handleClick with disabled false', () => {
       expect(button.prop('onClick')).to.be.a('function');
       button.prop('onClick')();
       expect(instance.handleClick.callCount).to.equal(1);
@@ -114,7 +114,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
   });
 
   describe('getReservationInfoNotification', () => {
-    it('returns null when slot end in past', () => {
+    test('returns null when slot end in past', () => {
       const t = simple.stub();
       const slot = { end: '2016-10-11T10:00:00.000Z' };
       const instance = getWrapper().instance();
@@ -124,7 +124,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       expect(t.callCount).to.equal(0);
     });
 
-    it('returns null when slot reserved', () => {
+    test('returns null when slot reserved', () => {
       const t = simple.stub();
       const slot = { reserved: true };
       const instance = getWrapper().instance();
@@ -134,7 +134,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       expect(t.callCount).to.equal(0);
     });
 
-    it('returns message when not logged in and resource is reservable', () => {
+    test('returns message when not logged in and resource is reservable', () => {
       const message = 'some message';
       const t = simple.stub().returnWith(message);
       const resource = Resource.build({ reservable: true });
@@ -147,7 +147,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       expect(result.timeOut).to.equal(10000);
     });
 
-    it('returns correct message when logged in', () => {
+    test('returns correct message when logged in', () => {
       const t = simple.stub();
       const resource = Resource.build({ reservationInfo: 'reservation info' });
       const instance = getWrapper().instance();
@@ -186,11 +186,11 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       instance.getReservationInfoNotification.reset();
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls addNotification prop', () => {
+    test('calls addNotification prop', () => {
       expect(onClick.callCount).to.equal(0);
       expect(instance.getReservationInfoNotification.callCount).to.equal(1);
       expect(addNotification.callCount).to.equal(1);
@@ -198,7 +198,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     });
   });
 
-  it('when disabled is false', () => {
+  test('when disabled is false', () => {
     const addNotification = simple.stub();
     const onClick = simple.stub();
     const wrapper = getWrapper({ addNotification, onClick });
@@ -220,16 +220,16 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     let button;
     const onClear = simple.stub();
 
-    beforeEach(() => {
+    beforeAll(() => {
       wrapper = getWrapper({ showClear: true, onClear });
       button = wrapper.find('button.app-TimeSlot__clear');
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls onClear function', () => {
+    test('calls onClear function', () => {
       expect(button.prop('onClick')).to.be.a('function');
       button.prop('onClick')();
       expect(onClear.callCount).to.equal(1);

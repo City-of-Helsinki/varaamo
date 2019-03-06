@@ -21,18 +21,18 @@ describe('shared/main-navbar/MainNavbar', () => {
     return shallowWithIntl(<MainNavbar {...defaults} {...props} />);
   }
 
-  it('renders nav with correct activeKey', () => {
+  test('renders nav with correct activeKey', () => {
     const nav = getWrapper().find(Nav);
     expect(nav).to.have.length(1);
     expect(nav.at(0).prop('activeKey')).to.equal(pathname);
   });
 
-  it('renders a link to search page', () => {
+  test('renders a link to search page', () => {
     const searchLink = getWrapper().find(LinkContainer).filter({ to: getSearchPageUrl() });
     expect(searchLink).to.have.length(1);
   });
 
-  it('contains a link to about page', () => {
+  test('contains a link to about page', () => {
     const link = getWrapper().find(LinkContainer).filter({ to: '/about' });
     expect(link).to.have.length(1);
   });
@@ -47,13 +47,13 @@ describe('shared/main-navbar/MainNavbar', () => {
       return getWrapper({ ...props, ...extraProps });
     }
 
-    it('renders a link to my reservations page', () => {
+    test('renders a link to my reservations page', () => {
       const myReservationsLink = getLoggedInNotAdminWrapper()
         .find(LinkContainer).filter({ to: '/my-reservations' });
       expect(myReservationsLink).to.have.length(1);
     });
 
-    it('renders a link to resources page when logged in', () => {
+    test('renders a link to resources page when logged in', () => {
       const myReservationsLink = getLoggedInNotAdminWrapper()
         .find(LinkContainer).filter({ to: '/admin-resources' });
       expect(myReservationsLink).to.have.length(1);
@@ -69,7 +69,7 @@ describe('shared/main-navbar/MainNavbar', () => {
       return getWrapper({ ...props, ...extraProps });
     }
 
-    it('renders a link to admin resources page', () => {
+    test('renders a link to admin resources page', () => {
       const myReservationsLink = getLoggedInAdminWrapper()
         .find(LinkContainer).filter({ to: '/admin-resources' });
       expect(myReservationsLink).to.have.length(1);
@@ -85,13 +85,13 @@ describe('shared/main-navbar/MainNavbar', () => {
       return getWrapper({ ...props, ...extraProps });
     }
 
-    it('does not render a link to my reservations page', () => {
+    test('does not render a link to my reservations page', () => {
       const myReservationsLink = getNotLoggedInWrapper()
         .find(LinkContainer).filter({ to: '/my-reservations' });
       expect(myReservationsLink).to.have.length(0);
     });
 
-    it('does not render a link to admin resources page', () => {
+    test('does not render a link to admin resources page', () => {
       const myReservationsLink = getNotLoggedInWrapper()
         .find(LinkContainer).filter({ to: '/admin-resources' });
       expect(myReservationsLink).to.have.length(0);

@@ -18,12 +18,12 @@ describe('shared/notifications/NotificationsContainer', () => {
   }
 
   describe('ReactNotifications component', () => {
-    it('is rendered', () => {
+    test('is rendered', () => {
       const reactNotifications = getWrapper().find(ReactNotifications);
       expect(reactNotifications.length).to.equal(1);
     });
 
-    it('gets correct props', () => {
+    test('gets correct props', () => {
       const notifications = [
         { message: 'Some message', type: 'success' },
         { messageId: 'Notifications.errorMessage', type: 'error' },

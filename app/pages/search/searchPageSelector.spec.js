@@ -26,31 +26,31 @@ describe('pages/search/searchPageSelector', () => {
     return searchPageSelector(state, props);
   }
 
-  it('returns filters', () => {
+  test('returns filters', () => {
     expect(getSelected().filters).to.exist;
   });
 
-  it('returns isFetchingSearchResults', () => {
+  test('returns isFetchingSearchResults', () => {
     expect(getSelected().isFetchingSearchResults).to.exist;
   });
 
-  it('returns isLoggedIn', () => {
+  test('returns isLoggedIn', () => {
     expect(getSelected().isLoggedIn).to.exist;
   });
 
-  it('returns resultCount', () => {
+  test('returns resultCount', () => {
     expect(getSelected().resultCount).to.deep.equal(2);
   });
 
-  it('returns searchDone', () => {
+  test('returns searchDone', () => {
     expect(getSelected().searchDone).to.exist;
   });
 
-  it('returns searchResultIds', () => {
+  test('returns searchResultIds', () => {
     expect(getSelected().searchResultIds).to.deep.equal(searchResultIds);
   });
 
-  it('returns searchResultIds ordered by distance', () => {
+  test('returns searchResultIds ordered by distance', () => {
     expect(getSelected({
       'data.resources': {
         'resource-1': {
@@ -65,15 +65,15 @@ describe('pages/search/searchPageSelector', () => {
     }).searchResultIds).to.deep.equal(['resource-2', 'resource-1']);
   });
 
-  it('returns showMap', () => {
+  test('returns showMap', () => {
     expect(getSelected().showMap).to.exist;
   });
 
-  it('returns selectedUnitId', () => {
+  test('returns selectedUnitId', () => {
     expect(getSelected().selectedUnitId).to.equal(null);
   });
 
-  it('returns uiFilters', () => {
+  test('returns uiFilters', () => {
     expect(getSelected().uiFilters).to.exist;
   });
 });

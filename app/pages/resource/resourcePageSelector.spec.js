@@ -45,7 +45,7 @@ function getProps(id = 'some-id') {
 }
 
 describe('pages/resource/resourcePageSelector', () => {
-  it('returns date', () => {
+  test('returns date', () => {
     const state = getState();
     const props = getProps();
     const selected = resourcePageSelector(state, props);
@@ -53,7 +53,7 @@ describe('pages/resource/resourcePageSelector', () => {
     expect(selected.date).to.exist;
   });
 
-  it('returns the id in router.params.id', () => {
+  test('returns the id in router.params.id', () => {
     const state = getState();
     const props = getProps();
     const selected = resourcePageSelector(state, props);
@@ -62,7 +62,7 @@ describe('pages/resource/resourcePageSelector', () => {
     expect(selected.id).to.equal(expected);
   });
 
-  it('returns isAdmin', () => {
+  test('returns isAdmin', () => {
     const state = getState();
     const props = getProps();
     const selected = resourcePageSelector(state, props);
@@ -70,7 +70,7 @@ describe('pages/resource/resourcePageSelector', () => {
     expect(selected.isAdmin).to.exist;
   });
 
-  it('returns isFetchingResource', () => {
+  test('returns isFetchingResource', () => {
     const state = getState();
     const props = getProps();
     const selected = resourcePageSelector(state, props);
@@ -78,7 +78,7 @@ describe('pages/resource/resourcePageSelector', () => {
     expect(selected.isFetchingResource).to.exist;
   });
 
-  it('returns isLoggedIn', () => {
+  test('returns isLoggedIn', () => {
     const state = getState();
     const props = getProps();
     const selected = resourcePageSelector(state, props);
@@ -86,7 +86,7 @@ describe('pages/resource/resourcePageSelector', () => {
     expect(selected.isLoggedIn).to.exist;
   });
 
-  it('returns resource', () => {
+  test('returns resource', () => {
     const state = getState();
     const props = getProps();
     const selected = resourcePageSelector(state, props);
@@ -94,7 +94,7 @@ describe('pages/resource/resourcePageSelector', () => {
     expect(selected.resource).to.exist;
   });
 
-  it('returns showMap', () => {
+  test('returns showMap', () => {
     const state = getState();
     const props = getProps();
     const selected = resourcePageSelector(state, props);
@@ -102,7 +102,7 @@ describe('pages/resource/resourcePageSelector', () => {
     expect(selected.showMap).to.exist;
   });
 
-  it('returns the unit corresponding to the resource.unit', () => {
+  test('returns the unit corresponding to the resource.unit', () => {
     const unit = Unit.build();
     const resource = Resource.build({ unit: unit.id });
     const state = getState([resource], [unit]);
@@ -112,16 +112,19 @@ describe('pages/resource/resourcePageSelector', () => {
     expect(selected.unit).to.deep.equal(unit);
   });
 
-  it('returns an empty object as the unit if unit with the given id is not fetched', () => {
-    const resource = Resource.build();
-    const state = getState([resource], []);
-    const props = getProps(resource.id);
-    const selected = resourcePageSelector(state, props);
+  test(
+    'returns an empty object as the unit if unit with the given id is not fetched',
+    () => {
+      const resource = Resource.build();
+      const state = getState([resource], []);
+      const props = getProps(resource.id);
+      const selected = resourcePageSelector(state, props);
 
-    expect(selected.unit).to.deep.equal({});
-  });
+      expect(selected.unit).to.deep.equal({});
+    }
+  );
 
-  it('returns an empty object as the unit if resource is not fetched', () => {
+  test('returns an empty object as the unit if resource is not fetched', () => {
     const state = getState([], []);
     const props = getProps('unfetched-id');
     const selected = resourcePageSelector(state, props);

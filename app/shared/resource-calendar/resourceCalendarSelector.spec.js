@@ -74,30 +74,30 @@ describe('shared/resource-calendar/resourceCalendarSelector', () => {
     ],
   });
 
-  beforeEach(() => {
+  beforeAll(() => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = resourceCalendarSelector(state, props);
     availability = selected.availability;
   });
 
-  it('calculates correct percentages for completely available', () => {
+  test('calculates correct percentages for completely available', () => {
     expect(availability['2015-10-01'].percentage).to.equal(100);
   });
 
-  it('calculates correct percentages for partially available', () => {
+  test('calculates correct percentages for partially available', () => {
     expect(availability['2015-10-10'].percentage).to.equal(50);
   });
 
-  it('calculates correct percentages for fully booked', () => {
+  test('calculates correct percentages for fully booked', () => {
     expect(availability['2015-10-11'].percentage).to.equal(0);
   });
 
-  it('calculates correct percentages if reservation is cancelled', () => {
+  test('calculates correct percentages if reservation is cancelled', () => {
     expect(availability['2015-10-30'].percentage).to.equal(100);
   });
 
-  it('calculates correct percentages if reservation is cancelled', () => {
+  test('calculates correct percentages if reservation is cancelled', () => {
     expect(availability['2015-10-31'].percentage).to.equal(100);
   });
 });

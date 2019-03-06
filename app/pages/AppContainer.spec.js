@@ -49,7 +49,7 @@ describe('pages/AppContainer', () => {
     }
 
     describe('with path in root', () => {
-      it('returns userId from state', () => {
+      test('returns userId from state', () => {
         expect(getSelected().userId).to.equal('u-1');
       });
     });
@@ -60,7 +60,7 @@ describe('pages/AppContainer', () => {
           pathname: '/resources/qwertyqwerty',
         },
       };
-      it('returns userId from state', () => {
+      test('returns userId from state', () => {
         expect(getSelected(customProps).userId).to.equal('u-1');
       });
     });
@@ -69,22 +69,22 @@ describe('pages/AppContainer', () => {
   describe('render', () => {
     const wrapper = getWrapper();
 
-    it('renders Header', () => {
+    test('renders Header', () => {
       expect(getWrapper().find(Header)).to.have.length(1);
     });
 
-    it('renders Notifications', () => {
+    test('renders Notifications', () => {
       expect(getWrapper().find(Notifications)).to.have.length(1);
     });
 
-    it('renders props.children', () => {
+    test('renders props.children', () => {
       const children = wrapper.find('#child-div');
       expect(children).to.have.length(1);
     });
   });
 
   describe('componentDidMount', () => {
-    it('calls removeFacebookAppendedHash', () => {
+    test('calls removeFacebookAppendedHash', () => {
       const instance = getWrapper().instance();
       simple.mock(instance, 'removeFacebookAppendedHash').returnWith('some text');
       instance.componentDidMount();
@@ -93,7 +93,7 @@ describe('pages/AppContainer', () => {
     });
 
     describe('when user is not logged in', () => {
-      it('does not fetch user data', () => {
+      test('does not fetch user data', () => {
         const fetchUser = simple.mock();
         const instance = getWrapper({ fetchUser, userId: null }).instance();
         instance.componentDidMount();
@@ -102,7 +102,7 @@ describe('pages/AppContainer', () => {
     });
 
     describe('when user is logged in', () => {
-      it('fetches user data', () => {
+      test('fetches user data', () => {
         const fetchUser = simple.mock();
         const userId = 'u-1';
         const instance = getWrapper({ fetchUser, userId }).instance();
@@ -115,7 +115,7 @@ describe('pages/AppContainer', () => {
 
   describe('componentWillUpdate', () => {
     describe('when userId does not change', () => {
-      it('does not fetch user data', () => {
+      test('does not fetch user data', () => {
         const fetchUser = simple.mock();
         const userId = 'u-1';
         const instance = getWrapper({ fetchUser, userId }).instance();
@@ -125,7 +125,7 @@ describe('pages/AppContainer', () => {
     });
 
     describe('when userId does change', () => {
-      it('fetches user data if new userId is not null', () => {
+      test('fetches user data if new userId is not null', () => {
         const fetchUser = simple.mock();
         const userId = 'u-1';
         const newId = 'u-99';
@@ -135,7 +135,7 @@ describe('pages/AppContainer', () => {
         expect(fetchUser.lastCall.arg).to.equal(newId);
       });
 
-      it('does not fetch user data if new userId is null', () => {
+      test('does not fetch user data if new userId is null', () => {
         const fetchUser = simple.mock();
         const userId = 'u-1';
         const newId = null;
@@ -151,7 +151,7 @@ describe('pages/AppContainer', () => {
       window.location.hash = '_=_';
     });
 
-    it('removes "_=_" hash if it exists', () => {
+    test('removes "_=_" hash if it exists', () => {
       const instance = getWrapper().instance();
       instance.removeFacebookAppendedHash();
       expect(window.location.hash).to.not.have.string('_=_');

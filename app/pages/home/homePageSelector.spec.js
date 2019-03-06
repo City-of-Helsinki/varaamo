@@ -12,7 +12,7 @@ describe('pages/home/homePageSelector', () => {
     return homePageSelector(state, props);
   }
 
-  it('returns isFetchingPurposes', () => {
+  test('returns isFetchingPurposes', () => {
     expect(getSelected().isFetchingPurposes).to.exist;
   });
 
@@ -23,11 +23,11 @@ describe('pages/home/homePageSelector', () => {
       }).purposes;
     }
 
-    it('returns an empty array if state contains no purposes', () => {
+    test('returns an empty array if state contains no purposes', () => {
       expect(getPurposes([])).to.deep.equal([]);
     });
 
-    it('returns an option object for each purpose without a parent', () => {
+    test('returns an option object for each purpose without a parent', () => {
       const purposes = [
         Purpose.build({ parent: null }),
         Purpose.build({ parent: null }),
@@ -35,7 +35,7 @@ describe('pages/home/homePageSelector', () => {
       expect(getPurposes(purposes)).to.have.length(purposes.length);
     });
 
-    it('Does not return an option object for purposes with a parent', () => {
+    test('Does not return an option object for purposes with a parent', () => {
       const purposes = [
         Purpose.build({ parent: 'some parent' }),
       ];
@@ -48,15 +48,15 @@ describe('pages/home/homePageSelector', () => {
         return getPurposes([purpose])[0];
       }
 
-      it('has purpose.id as its value property', () => {
+      test('has purpose.id as its value property', () => {
         expect(getPurpose().value).to.equal(purpose.id);
       });
 
-      it('has purpose.name as its label property', () => {
+      test('has purpose.name as its label property', () => {
         expect(getPurpose().label).to.equal(purpose.name);
       });
 
-      it('does not contain other properties than value and label', () => {
+      test('does not contain other properties than value and label', () => {
         const expected = { value: purpose.id, label: purpose.name };
         expect(getPurpose()).to.deep.equal(expected);
       });

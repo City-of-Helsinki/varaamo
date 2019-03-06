@@ -14,11 +14,11 @@ describe('Component: customization/AboutPageContent', () => {
   describe('When there is no customization in use', () => {
     let content;
 
-    beforeEach(() => {
+    beforeAll(() => {
       content = getWrapper();
     });
 
-    it('renders header for Helsinki', () => {
+    test('renders header for Helsinki', () => {
       expect(content.find('h1').text()).to.contain('AboutPageContent.defaultHeader');
     });
   });
@@ -26,16 +26,16 @@ describe('Component: customization/AboutPageContent', () => {
   describe('When Espoo customization is used', () => {
     let content;
 
-    beforeEach(() => {
+    beforeAll(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('ESPOO');
       content = getWrapper();
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('renders header for Espoo', () => {
+    test('renders header for Espoo', () => {
       expect(content.find('h1').text()).to.contain('AboutPageContent.espooHeader');
     });
   });
@@ -43,16 +43,16 @@ describe('Component: customization/AboutPageContent', () => {
   describe('When Vantaa customization is used', () => {
     let content;
 
-    beforeEach(() => {
+    beforeAll(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('VANTAA');
       content = getWrapper();
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('renders header for Vantaa', () => {
+    test('renders header for Vantaa', () => {
       expect(content.find('h1').text()).to.contain('AboutPageContent.vantaaHeader');
     });
   });

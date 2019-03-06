@@ -28,40 +28,40 @@ describe('state/reducers/ui/reservationsReducer', () => {
     const initialState = reservationsReducer(undefined, {});
 
     describe('adminReservationFilters', () => {
-      it('is an object', () => {
+      test('is an object', () => {
         expect(typeof initialState.adminReservationFilters).to.equal('object');
       });
 
-      it('state is "all"', () => {
+      test('state is "all"', () => {
         expect(initialState.adminReservationFilters.state).to.equal('all');
       });
     });
 
-    it('failed is an empty array', () => {
+    test('failed is an empty array', () => {
       expect(initialState.failed).to.deep.equal([]);
     });
 
-    it('selected is an empty array', () => {
+    test('selected is an empty array', () => {
       expect(initialState.selected).to.deep.equal([]);
     });
 
-    it('selectedSlot is null', () => {
+    test('selectedSlot is null', () => {
       expect(initialState.selectedSlot).to.be.null;
     });
 
-    it('toCancel is an empty array', () => {
+    test('toCancel is an empty array', () => {
       expect(initialState.toCancel).to.deep.equal([]);
     });
 
-    it('toEdit is an empty array', () => {
+    test('toEdit is an empty array', () => {
       expect(initialState.toEdit).to.deep.equal([]);
     });
 
-    it('toShow is an empty array', () => {
+    test('toShow is an empty array', () => {
       expect(initialState.toShow).to.deep.equal([]);
     });
 
-    it('toShowEdited is an empty array', () => {
+    test('toShowEdited is an empty array', () => {
       expect(initialState.toShowEdited).to.deep.equal([]);
     });
   });
@@ -70,7 +70,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
     describe('API.RESERVATION_POST_SUCCESS', () => {
       const postReservationSuccess = createAction(types.API.RESERVATION_POST_SUCCESS);
 
-      it('clears selected', () => {
+      test('clears selected', () => {
         const action = postReservationSuccess();
         const initialState = Immutable({
           selected: ['some-selected'],
@@ -81,7 +81,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         expect(nextState.selected).to.deep.equal([]);
       });
 
-      it('clears the toEdit', () => {
+      test('clears the toEdit', () => {
         const action = postReservationSuccess();
         const initialState = Immutable({
           toEdit: ['something-to-edit'],
@@ -92,7 +92,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         expect(nextState.toEdit).to.deep.equal([]);
       });
 
-      it('adds the given reservation to toShow', () => {
+      test('adds the given reservation to toShow', () => {
         const initialState = Immutable({
           toShow: [],
         });
@@ -104,7 +104,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         expect(nextState.toShow).to.deep.equal(expected);
       });
 
-      it('does not affect other reservations in toShow', () => {
+      test('does not affect other reservations in toShow', () => {
         const reservations = [Reservation.build(), Reservation.build()];
         const initialState = Immutable({
           toShow: [reservations[0]],
@@ -125,7 +125,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         reservation => ({ reservation })
       );
 
-      it('adds the reservation in meta info to failed', () => {
+      test('adds the reservation in meta info to failed', () => {
         const initialState = Immutable({
           failed: [],
         });
@@ -137,7 +137,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         expect(nextState.failed).to.deep.equal(expected);
       });
 
-      it('does not affect other reservations in failed', () => {
+      test('does not affect other reservations in failed', () => {
         const reservations = [Reservation.build(), Reservation.build()];
         const initialState = Immutable({
           failed: [reservations[0]],
@@ -154,7 +154,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
       const reservation = Reservation.build();
       const putReservationSuccess = createAction(types.API.RESERVATION_PUT_SUCCESS);
 
-      it('clears selected', () => {
+      test('clears selected', () => {
         const action = putReservationSuccess(reservation);
         const initialState = Immutable({
           selected: ['some-selected'],
@@ -165,7 +165,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         expect(nextState.selected).to.deep.equal([]);
       });
 
-      it('clears the toEdit', () => {
+      test('clears the toEdit', () => {
         const action = putReservationSuccess(reservation);
         const initialState = Immutable({
           toEdit: ['something-to-edit'],
@@ -176,7 +176,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         expect(nextState.toEdit).to.deep.equal([]);
       });
 
-      it('clears the toShow', () => {
+      test('clears the toShow', () => {
         const action = putReservationSuccess(reservation);
         const initialState = Immutable({
           toShow: ['something-to-show'],
@@ -187,7 +187,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         expect(nextState.toShow).to.deep.equal([]);
       });
 
-      it('adds the reservation in toShowEdited', () => {
+      test('adds the reservation in toShowEdited', () => {
         const action = putReservationSuccess(reservation);
         const initialState = Immutable({
           toShowEdited: [],
@@ -200,7 +200,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
     });
 
     describe('UI.CANCEL_RESERVATION_EDIT', () => {
-      it('clears toEdit array', () => {
+      test('clears toEdit array', () => {
         const initialState = Immutable({
           toEdit: [Reservation.build()],
         });
@@ -212,7 +212,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
     });
 
     describe('UI.CHANGE_ADMIN_RESERVATIONS_FILTERS', () => {
-      it('sets the given filters to adminReservationFilters', () => {
+      test('sets the given filters to adminReservationFilters', () => {
         const adminReservationFilters = { state: 'some-state' };
         const action = changeAdminReservationFilters(adminReservationFilters);
         const initialState = Immutable({
@@ -224,7 +224,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         expect(nextState.adminReservationFilters).to.deep.equal(expected);
       });
 
-      it('overrides previous values of same adminReservationFilters', () => {
+      test('overrides previous values of same adminReservationFilters', () => {
         const adminReservationFilters = { state: 'some-state' };
         const action = changeAdminReservationFilters(adminReservationFilters);
         const initialState = Immutable({
@@ -236,7 +236,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         expect(nextState.adminReservationFilters).to.deep.equal(expected);
       });
 
-      it('does not override unspecified adminReservationFilters', () => {
+      test('does not override unspecified adminReservationFilters', () => {
         const adminReservationFilters = { state: 'some-state' };
         const action = changeAdminReservationFilters(adminReservationFilters);
         const initialState = Immutable({
@@ -253,7 +253,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
     });
 
     describe('UI.CLEAR_RESERVATIONS', () => {
-      it('sets the given date to date', () => {
+      test('sets the given date to date', () => {
         const resetedState = reservationsReducer(undefined, {});
         const action = clearReservations();
         const initialState = Immutable({
@@ -271,7 +271,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
 
     describe('UI.CLOSE_MODAL', () => {
       describe('if closed modal is RESERVATION_CANCEL modal', () => {
-        it('clears toCancel array', () => {
+        test('clears toCancel array', () => {
           const initialState = Immutable({
             toCancel: [Reservation.build()],
           });
@@ -283,7 +283,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
       });
 
       describe('if closed modal is RESERVATION_COMMENT modal', () => {
-        it('clears toShow array', () => {
+        test('clears toShow array', () => {
           const initialState = Immutable({
             toShow: [Reservation.build()],
           });
@@ -295,7 +295,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
       });
 
       describe('if closed modal is RESERVATION_SUCCESS modal', () => {
-        it('clears toShow array', () => {
+        test('clears toShow array', () => {
           const initialState = Immutable({
             toShow: [Reservation.build()],
           });
@@ -305,7 +305,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
           expect(nextState.toShow).to.deep.equal([]);
         });
 
-        it('clears failed array', () => {
+        test('clears failed array', () => {
           const initialState = Immutable({
             failed: [Reservation.build()],
           });
@@ -318,7 +318,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
     });
 
     describe('UI.SELECT_RESERVATION_SLOT', () => {
-      it('sets the given slot to state', () => {
+      test('sets the given slot to state', () => {
         const initialState = Immutable({
           selectedSlot: { old: 'slot' },
         });
@@ -330,7 +330,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
     });
 
     describe('UI.SELECT_RESERVATION_TO_CANCEL', () => {
-      it('adds the given reservation to toCancel', () => {
+      test('adds the given reservation to toCancel', () => {
         const initialState = Immutable({
           toCancel: [],
         });
@@ -342,7 +342,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         expect(nextState.toCancel).to.deep.equal(expected);
       });
 
-      it('does not affect other reservations in toCancel', () => {
+      test('does not affect other reservations in toCancel', () => {
         const reservations = [Reservation.build(), Reservation.build()];
         const initialState = Immutable({
           toCancel: [reservations[0]],
@@ -356,7 +356,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
     });
 
     describe('UI.SELECT_RESERVATION_TO_EDIT', () => {
-      it('sets the given reservation to toEdit', () => {
+      test('sets the given reservation to toEdit', () => {
         const initialState = Immutable({
           selected: [],
           toEdit: [],
@@ -369,7 +369,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         expect(nextState.toEdit).to.deep.equal(expected);
       });
 
-      it('removes other reservations in toEdit', () => {
+      test('removes other reservations in toEdit', () => {
         const reservations = [Reservation.build(), Reservation.build()];
         const initialState = Immutable({
           selected: [],
@@ -382,7 +382,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         expect(nextState.toEdit).to.deep.equal(expected);
       });
 
-      it('splits the given reservation to slots and add to selected', () => {
+      test('splits the given reservation to slots and add to selected', () => {
         const begin = '2015-10-09T08:00:00+03:00';
         const end = '2015-10-09T10:00:00+03:00';
         const minPeriod = '00:30:00';
@@ -414,7 +414,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
     });
 
     describe('UI.SELECT_RESERVATION_TO_SHOW', () => {
-      it('adds the given reservation to toShow', () => {
+      test('adds the given reservation to toShow', () => {
         const initialState = Immutable({
           toShow: [],
         });
@@ -426,7 +426,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         expect(nextState.toShow).to.deep.equal(expected);
       });
 
-      it('does not affect other reservations in toShow', () => {
+      test('does not affect other reservations in toShow', () => {
         const reservations = [Reservation.build(), Reservation.build()];
         const initialState = Immutable({
           toShow: [reservations[0]],
@@ -441,7 +441,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
 
     describe('UI.TOGGLE_TIME_SLOT', () => {
       describe('if slot is not already selected', () => {
-        it('adds the given slot to selected', () => {
+        test('adds the given slot to selected', () => {
           const initialState = Immutable({
             selected: [],
           });
@@ -457,7 +457,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
           expect(nextState.selected).to.deep.equal(expected);
         });
 
-        it('does not affect other selected slots ', () => {
+        test('does not affect other selected slots ', () => {
           const initialState = Immutable({
             selected: [
               {
@@ -479,35 +479,38 @@ describe('state/reducers/ui/reservationsReducer', () => {
           expect(nextState.selected).to.deep.equal(expected);
         });
 
-        it('replaces selected end slot when end slot after selected end slot', () => {
-          const initialState = Immutable({
-            selected: [
-              {
-                begin: '2015-12-12T10:00:00Z',
-                end: '2015-12-12T11:00:00Z',
-                resource: 'some-resource',
-              },
-              {
-                begin: '2015-12-12T11:00:00Z',
-                end: '2015-12-12T12:00:00Z',
-                resource: 'some-resource',
-              },
-            ],
-          });
-          const slot = {
-            begin: '2015-12-12T13:00:00Z',
-            end: '2015-12-12T14:00:00Z',
-            resource: 'some-resource',
-          };
+        test(
+          'replaces selected end slot when end slot after selected end slot',
+          () => {
+            const initialState = Immutable({
+              selected: [
+                {
+                  begin: '2015-12-12T10:00:00Z',
+                  end: '2015-12-12T11:00:00Z',
+                  resource: 'some-resource',
+                },
+                {
+                  begin: '2015-12-12T11:00:00Z',
+                  end: '2015-12-12T12:00:00Z',
+                  resource: 'some-resource',
+                },
+              ],
+            });
+            const slot = {
+              begin: '2015-12-12T13:00:00Z',
+              end: '2015-12-12T14:00:00Z',
+              resource: 'some-resource',
+            };
 
-          const action = toggleTimeSlot(slot);
-          const nextState = reservationsReducer(initialState, action);
-          const expected = Immutable([initialState.selected[0], slot]);
+            const action = toggleTimeSlot(slot);
+            const nextState = reservationsReducer(initialState, action);
+            const expected = Immutable([initialState.selected[0], slot]);
 
-          expect(nextState.selected).to.deep.equal(expected);
-        });
+            expect(nextState.selected).to.deep.equal(expected);
+          }
+        );
 
-        it('replaces selected end slot when slot in middle of selected', () => {
+        test('replaces selected end slot when slot in middle of selected', () => {
           const initialState = Immutable({
             selected: [
               {
@@ -537,7 +540,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
       });
 
       describe('if slot is already selected', () => {
-        it('removes the given slot from selected', () => {
+        test('removes the given slot from selected', () => {
           const slot = {
             begin: '2015-10-11T10:00:00Z',
             end: '2015-10-11T11:00:00Z',
@@ -553,7 +556,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
           expect(nextState.selected).to.deep.equal(expected);
         });
 
-        it('does not affect other selected slots ', () => {
+        test('does not affect other selected slots ', () => {
           const slot1 = {
             begin: '2015-12-12T10:00:00Z',
             end: '2015-12-12T11:00:00Z',
@@ -576,7 +579,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
       });
 
       describe('UI.CLEAR_TIME_SLOTS', () => {
-        it('clears one selected slot', () => {
+        test('clears one selected slot', () => {
           const action = clearTimeSlots();
           const initialState = Immutable({
             selected: [
@@ -591,7 +594,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
           expect(nextState.selected).to.deep.equal([]);
         });
 
-        it('clears many selected slots', () => {
+        test('clears many selected slots', () => {
           const action = clearTimeSlots();
           const initialState = Immutable({
             selected: [

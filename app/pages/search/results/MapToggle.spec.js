@@ -14,7 +14,7 @@ describe('pages/search/results/MapToggle', () => {
     return shallowWithIntl(<MapToggle {...defaults} {...props} />);
   }
 
-  it('renders div.app-MapToggle', () => {
+  test('renders div.app-MapToggle', () => {
     expect(getWrapper().is('div.app-MapToggle')).to.be.true;
   });
 
@@ -23,17 +23,17 @@ describe('pages/search/results/MapToggle', () => {
       return getWrapper({ resultCount }).find('.app-MapToggle__results-count').text();
     }
 
-    it('renders correct string if there are results', () => {
+    test('renders correct string if there are results', () => {
       expect(getResultsCountText(12)).to.equal('MapToggle.resultsText');
     });
 
-    it('renders empty message string if no results', () => {
+    test('renders empty message string if no results', () => {
       expect(getResultsCountText(0)).to.equal('MapToggle.noResultsText');
     });
   });
 
   describe('buttons', () => {
-    it('renders list button disabled if map is not visible', () => {
+    test('renders list button disabled if map is not visible', () => {
       const wrapper = getWrapper({ mapVisible: false });
       const listButton = wrapper.find('.app-MapToggle__button-list');
       const mapButton = wrapper.find('.app-MapToggle__button-map');
@@ -43,7 +43,7 @@ describe('pages/search/results/MapToggle', () => {
       expect(mapButton.prop('disabled')).to.be.false;
     });
 
-    it('renders map button disabled if map is visible', () => {
+    test('renders map button disabled if map is visible', () => {
       const wrapper = getWrapper({ mapVisible: true });
       const listButton = wrapper.find('.app-MapToggle__button-list');
       const mapButton = wrapper.find('.app-MapToggle__button-map');

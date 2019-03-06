@@ -23,12 +23,12 @@ function getWrapper(props) {
 }
 
 describe('shared/RecurringReservationControls/RecurringReservationControls', () => {
-  it('renders an empty span if isVisible is false', () => {
+  test('renders an empty span if isVisible is false', () => {
     const wrapper = getWrapper({ isVisible: false });
     expect(wrapper.equals(<span />)).to.be.true;
   });
 
-  it('renders Select with correct props', () => {
+  test('renders Select with correct props', () => {
     const props = {
       changeFrequency: () => null,
       frequency: 'days',
@@ -42,7 +42,7 @@ describe('shared/RecurringReservationControls/RecurringReservationControls', () 
     expect(select.prop('value')).to.equal(props.frequency);
   });
 
-  it('renders NumericInput to change number of occurrences', () => {
+  test('renders NumericInput to change number of occurrences', () => {
     const props = {
       changeNumberOfOccurrences: () => null,
       lastTime: '2017-04-09',
@@ -55,7 +55,7 @@ describe('shared/RecurringReservationControls/RecurringReservationControls', () 
     expect(control.prop('onChange')).to.equal(props.changeNumberOfOccurrences);
   });
 
-  it('renders DatePicker with correct props', () => {
+  test('renders DatePicker with correct props', () => {
     const props = {
       lastTime: '2017-04-09',
       numberOfOccurrences: 12,
@@ -70,21 +70,21 @@ describe('shared/RecurringReservationControls/RecurringReservationControls', () 
 
   describe('without set frecuency', () => {
     let wrapper;
-    beforeEach(() => {
+    beforeAll(() => {
       wrapper = getWrapper({ frequency: '' });
     });
 
-    it('does not render numbrerOfOcurrences NumericInput', () => {
+    test('does not render numbrerOfOcurrences NumericInput', () => {
       expect(wrapper.find(NumericInput)).to.have.length(0);
     });
 
-    it('does not render DatePicker', () => {
+    test('does not render DatePicker', () => {
       expect(wrapper.find(DatePicker)).to.have.length(0);
     });
   });
 
   describe('has recurring select option', () => {
-    it('translated', () => {
+    test('translated', () => {
       const arg = 'foo';
       const tMock = simple.mock();
 

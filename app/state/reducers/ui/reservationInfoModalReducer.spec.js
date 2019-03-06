@@ -10,13 +10,13 @@ describe('state/reducers/ui/reservationInfoModalReducer', () => {
     show: false,
   });
 
-  it('returns correct initial state', () => {
+  test('returns correct initial state', () => {
     const actual = reducer(undefined, { type: 'NOOP' });
     expect(actual).to.deep.equal(initialState);
   });
 
   describe('RESERVATION_DELETE_SUCCESS', () => {
-    it('resets state', () => {
+    test('resets state', () => {
       const actual = reducer({ show: true, reservation: {} }, {
         type: 'RESERVATION_DELETE_SUCCESS',
       });
@@ -31,12 +31,12 @@ describe('state/reducers/ui/reservationInfoModalReducer', () => {
       payload: reservation,
     };
 
-    it('sets payload as reservation', () => {
+    test('sets payload as reservation', () => {
       const actual = reducer(Immutable({ reservation: { id: 'r-1', foo: 'old value' } }), action);
       expect(actual.reservation).to.deep.equal(reservation);
     });
 
-    it('sets isEditing to false', () => {
+    test('sets isEditing to false', () => {
       const actual = reducer(Immutable({ isEditing: true }), action);
       expect(actual.isEditing).to.be.false;
     });
@@ -49,26 +49,26 @@ describe('state/reducers/ui/reservationInfoModalReducer', () => {
       payload: reservation,
     };
 
-    it('sets show to true', () => {
+    test('sets show to true', () => {
       const actual = reducer(Immutable({ show: false }), action);
       expect(actual.show).to.be.true;
     });
 
-    it('sets payload as reservation', () => {
+    test('sets payload as reservation', () => {
       const actual = reducer(Immutable({ reservation: null }), action);
       expect(actual.reservation).to.deep.equal(reservation);
     });
   });
 
   describe('HIDE_RESERVATION_INFO_MODAL', () => {
-    it('sets show to false', () => {
+    test('sets show to false', () => {
       const actual = reducer(Immutable({ show: true }), {
         type: 'HIDE_RESERVATION_INFO_MODAL',
       });
       expect(actual.show).to.be.false;
     });
 
-    it('sets isEditing to false', () => {
+    test('sets isEditing to false', () => {
       const actual = reducer(Immutable({ isEditing: true }), {
         type: 'HIDE_RESERVATION_INFO_MODAL',
       });
@@ -77,7 +77,7 @@ describe('state/reducers/ui/reservationInfoModalReducer', () => {
   });
 
   describe('START_RESERVATION_EDIT_IN_INFO_MODAL', () => {
-    it('sets isEditing to true', () => {
+    test('sets isEditing to true', () => {
       const actual = reducer(Immutable({ isEditing: false }), {
         type: 'START_RESERVATION_EDIT_IN_INFO_MODAL',
       });
@@ -86,7 +86,7 @@ describe('state/reducers/ui/reservationInfoModalReducer', () => {
   });
 
   describe('CANCEL_RESERVATION_EDIT_IN_INFO_MODAL', () => {
-    it('sets isEditing to false', () => {
+    test('sets isEditing to false', () => {
       const actual = reducer(Immutable({ isEditing: true }), {
         type: 'CANCEL_RESERVATION_EDIT_IN_INFO_MODAL',
       });

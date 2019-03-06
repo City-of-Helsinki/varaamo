@@ -20,40 +20,40 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
   }
   let wrapper;
 
-  beforeEach(() => {
+  beforeAll(() => {
     wrapper = getWrapper();
   });
 
-  it('renders ResourceTypeFilter components', () => {
+  test('renders ResourceTypeFilter components', () => {
     expect(wrapper.find(ResourceTypeFilterButton)).to.have.length(3);
   });
 
   describe('ResourceTypeFilter', () => {
     let resourceTypeFilter;
-    beforeEach(() => {
+    beforeAll(() => {
       resourceTypeFilter = wrapper.find(ResourceTypeFilterButton).at(0);
     });
 
-    it('passes correct props', () => {
+    test('passes correct props', () => {
       expect(resourceTypeFilter.prop('onClick')).to.equal(wrapper.instance().handleClick);
       expect(resourceTypeFilter.prop('resourceType')).to.equal('a');
     });
 
     describe('selected', () => {
-      beforeEach(() => {
+      beforeAll(() => {
         resourceTypeFilter = wrapper.find(ResourceTypeFilterButton).at(0);
       });
 
-      it('passes correct active prop', () => {
+      test('passes correct active prop', () => {
         expect(resourceTypeFilter.prop('active')).to.be.true;
       });
     });
     describe('not selected', () => {
-      beforeEach(() => {
+      beforeAll(() => {
         resourceTypeFilter = wrapper.find(ResourceTypeFilterButton).at(1);
       });
 
-      it('passes correct active prop', () => {
+      test('passes correct active prop', () => {
         expect(resourceTypeFilter.prop('active')).to.be.false;
       });
     });
@@ -62,7 +62,7 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
   describe('handleClick', () => {
     let instance;
 
-    beforeEach(() => {
+    beforeAll(() => {
       instance = wrapper.instance();
     });
 
@@ -71,7 +71,7 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
       defaultProps.onUnselectResourceType.reset();
     });
 
-    it('calls onUnselectResourceType if resource was on selected list', () => {
+    test('calls onUnselectResourceType if resource was on selected list', () => {
       instance.handleClick(defaultProps.selectedResourceTypes[0]);
       expect(defaultProps.onUnselectResourceType.callCount).to.equal(1);
       expect(defaultProps.onUnselectResourceType.lastCall.args).to.deep.equal(
@@ -80,7 +80,7 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
       expect(defaultProps.onSelectResourceType.callCount).to.equal(0);
     });
 
-    it('calls onSelectResourceType if resource was not on selected list', () => {
+    test('calls onSelectResourceType if resource was not on selected list', () => {
       instance.handleClick(defaultProps.resourceTypes[-1]);
       expect(defaultProps.onSelectResourceType.callCount).to.equal(1);
       expect(defaultProps.onSelectResourceType.lastCall.args).to.deep.equal(

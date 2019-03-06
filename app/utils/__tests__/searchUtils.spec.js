@@ -15,7 +15,7 @@ describe('Utils: searchUtils', () => {
       unsupported: 'filter',
     };
 
-    it('changes date to end and start', () => {
+    test('changes date to end and start', () => {
       const params = getFetchParamsFromFilters(filters);
       const { start, end } = getDateStartAndEndTimes(filters.date);
 
@@ -23,26 +23,26 @@ describe('Utils: searchUtils', () => {
       expect(params.end).to.equal(end);
     });
 
-    it('does not return date', () => {
+    test('does not return date', () => {
       const params = getFetchParamsFromFilters(filters);
       expect(params.date).to.not.exist;
     });
 
-    it('returns only supported filters beside end and start', () => {
+    test('returns only supported filters beside end and start', () => {
       const params = getFetchParamsFromFilters(filters);
       expect(params.purpose).to.equal(filters.purpose);
       expect(params.search).to.equal(filters.search);
       expect(params.unsupported).to.not.exist;
     });
 
-    it('returns purpose as empty string if filters.purpose is "all"', () => {
+    test('returns purpose as empty string if filters.purpose is "all"', () => {
       const params = getFetchParamsFromFilters({ purpose: 'all' });
       expect(params.purpose).to.equal('');
     });
   });
 
   describe('pickSupportedFilters', () => {
-    it('returns only supported filters', () => {
+    test('returns only supported filters', () => {
       const filters = {
         purpose: 'some-purpose',
         search: 'search-query',

@@ -17,16 +17,16 @@ describe('shared/logo/Logo', () => {
   describe('When there is no customization in use', () => {
     let logo;
 
-    beforeEach(() => {
+    beforeAll(() => {
       logo = getWrapper();
     });
 
-    it('renders logo of Helsinki', () => {
+    test('renders logo of Helsinki', () => {
       expect(logo.type()).to.equal('img');
       expect(logo.props().src).to.equal(helsinkiLogoSrc);
     });
 
-    it('renders Helsinki alt text', () => {
+    test('renders Helsinki alt text', () => {
       expect(logo.props().alt).to.equal('Logo.helsinkiAlt');
     });
   });
@@ -34,21 +34,21 @@ describe('shared/logo/Logo', () => {
   describe('When Espoo customization is used', () => {
     let logo;
 
-    beforeEach(() => {
+    beforeAll(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('ESPOO');
       logo = getWrapper();
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('renders logo of Espoo', () => {
+    test('renders logo of Espoo', () => {
       expect(logo.type()).to.equal('img');
       expect(logo.props().src).to.equal(espooLogoSrc);
     });
 
-    it('renders Espoo alt text', () => {
+    test('renders Espoo alt text', () => {
       expect(logo.props().alt).to.equal('Logo.espooAlt');
     });
   });
@@ -56,21 +56,21 @@ describe('shared/logo/Logo', () => {
   describe('When Vantaa customization is used', () => {
     let logo;
 
-    beforeEach(() => {
+    beforeAll(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('VANTAA');
       logo = getWrapper();
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('renders logo of Vantaa', () => {
+    test('renders logo of Vantaa', () => {
       expect(logo.type()).to.equal('img');
       expect(logo.props().src).to.equal(vantaaLogoSrc);
     });
 
-    it('renders Vantaa alt text', () => {
+    test('renders Vantaa alt text', () => {
       expect(logo.props().alt).to.equal('Logo.vantaaAlt');
     });
   });

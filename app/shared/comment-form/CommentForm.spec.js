@@ -21,14 +21,14 @@ describe('shared/comment-form/CommentForm', () => {
   }
 
   describe('render', () => {
-    it('renders a form', () => {
+    test('renders a form', () => {
       const form = getWrapper().find('form');
 
       expect(form.length).to.equal(1);
     });
 
     describe('comments textarea', () => {
-      it('renders a FormControl with correct props', () => {
+      test('renders a FormControl with correct props', () => {
         const formControl = getWrapper().find(FormControl);
 
         expect(formControl.length).to.equal(1);
@@ -41,7 +41,7 @@ describe('shared/comment-form/CommentForm', () => {
       const wrapper = getWrapper();
       const buttons = wrapper.find(Button);
 
-      it('renders two buttons', () => {
+      test('renders two buttons', () => {
         expect(buttons.length).to.equal(2);
       });
 
@@ -57,11 +57,11 @@ describe('shared/comment-form/CommentForm', () => {
       describe('the second button', () => {
         const button = buttons.at(1);
 
-        it('is save button', () => {
+        test('is save button', () => {
           expect(button.props().children).to.equal('common.save');
         });
 
-        it('has handleSave as its onClick prop', () => {
+        test('has handleSave as its onClick prop', () => {
           const instance = wrapper.instance();
 
           expect(button.props().onClick).to.equal(instance.handleSave);
@@ -74,22 +74,22 @@ describe('shared/comment-form/CommentForm', () => {
     const comments = 'Some comments';
     const mockEvent = { preventDefault: () => null };
 
-    beforeEach(() => {
+    beforeAll(() => {
       simple.mock(ReactDom, 'findDOMNode').returnWith({ value: comments });
       const instance = getWrapper().instance();
       defaultProps.onSave.reset();
       instance.handleSave(mockEvent);
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls onSave given in props', () => {
+    test('calls onSave given in props', () => {
       expect(defaultProps.onSave.callCount).to.equal(1);
     });
 
-    it('calls commentReservation with correct arguments', () => {
+    test('calls commentReservation with correct arguments', () => {
       const actualArgs = defaultProps.onSave.lastCall.args;
 
       expect(actualArgs[0]).to.deep.equal(comments);

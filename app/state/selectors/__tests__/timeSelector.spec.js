@@ -11,7 +11,7 @@ function getProps(time) {
 }
 
 describe('Selector: timeSelector', () => {
-  it('returns the time ISOString in utc time if time is defined', () => {
+  test('returns the time ISOString in utc time if time is defined', () => {
     const time = '2015-11-12 07:00:00.000';
     const expected = '2015-11-12T07:00:00.000Z';
     const state = {};
@@ -21,7 +21,7 @@ describe('Selector: timeSelector', () => {
     expect(actual).to.equal(expected);
   });
 
-  it('returns undefined if time is not defined', () => {
+  test('returns undefined if time is not defined', () => {
     const state = {};
     const props = getProps();
     const actual = timeSelector(state, props);

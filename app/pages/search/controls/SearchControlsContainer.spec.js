@@ -65,7 +65,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
   }
 
   describe('render', () => {
-    it('renders SearchBox with correct props', () => {
+    test('renders SearchBox with correct props', () => {
       const filters = { ...defaultProps.filters, search: 'my search' };
       const wrapper = getWrapper({ filters });
       const searchBox = wrapper.find(SearchBox);
@@ -77,7 +77,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(searchBox.prop('value')).to.equal(filters.search);
     });
 
-    it('renders DatePickerControl with correct props', () => {
+    test('renders DatePickerControl with correct props', () => {
       const filters = { ...defaultProps.filters, date: '2015-10-10' };
       const wrapper = getWrapper({ filters });
       const datePickerControl = wrapper.find(DatePickerControl);
@@ -87,7 +87,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(datePickerControl.prop('onConfirm')).to.equal(wrapper.instance().handleDateChange);
     });
 
-    it('renders SelectControl for municipality with correct props', () => {
+    test('renders SelectControl for municipality with correct props', () => {
       const selectControl = getWrapper({}).find(SelectControl);
       expect(selectControl).to.have.length(4);
       expect(selectControl.at(0).prop('id')).to.equal('municipality');
@@ -97,7 +97,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(selectControl.at(0).prop('value')).to.equal(defaultProps.filters.municipality);
     });
 
-    it('renders SelectControl for purpose with correct props', () => {
+    test('renders SelectControl for purpose with correct props', () => {
       const selectControl = getWrapper({}).find(SelectControl);
       expect(selectControl).to.have.length(4);
       expect(selectControl.at(1).prop('id')).to.equal('purpose');
@@ -108,7 +108,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(selectControl.at(1).prop('value')).to.equal(defaultProps.filters.purpose);
     });
 
-    it('renders SelectControl for unit with correct props', () => {
+    test('renders SelectControl for unit with correct props', () => {
       const selectControl = getWrapper({}).find(SelectControl);
       expect(selectControl).to.have.length(4);
       expect(selectControl.at(2).prop('id')).to.equal('unit');
@@ -119,7 +119,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(selectControl.at(2).prop('value')).to.equal(defaultProps.filters.unit);
     });
 
-    it('renders SelectControl for people with correct props', () => {
+    test('renders SelectControl for people with correct props', () => {
       const peopleOptions = [
         { value: '1', label: '1' },
         { value: '2', label: '2' },
@@ -148,7 +148,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(selectControl.at(3).prop('value')).to.equal(defaultProps.filters.people);
     });
 
-    it('renders PositionControl with correct props', () => {
+    test('renders PositionControl with correct props', () => {
       const filters = { ...defaultProps.filters, distance: '5000' };
       const positionControl = getWrapper({
         filters,
@@ -161,7 +161,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(positionControl.prop('value')).to.equal(5000);
     });
 
-    it('renders TimeRangeControl with correct props', () => {
+    test('renders TimeRangeControl with correct props', () => {
       const filters = { ...defaultProps.filters, duration: 30, end: '23:30', start: '09:00' };
       const wrapper = getWrapper({ filters });
       const timeRangeControl = wrapper.find(TimeRangeControl);
@@ -175,7 +175,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(timeRangeControl.prop('start')).to.equal(filters.start);
     });
 
-    it('renders CheckboxControl with correct props', () => {
+    test('renders CheckboxControl with correct props', () => {
       const filters = { ...defaultProps.filters, freeOfCharge: '' };
       const checkboxControl = getWrapper(filters).find(CheckboxControl);
       expect(checkboxControl).to.have.length(1);
@@ -185,7 +185,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(checkboxControl.prop('value')).to.be.false;
     });
 
-    it('renders search Button with correct props', () => {
+    test('renders search Button with correct props', () => {
       const buttons = getWrapper({}).find(Button);
       expect(buttons).to.have.length(2);
       expect(buttons.at(0).prop('bsStyle')).to.be.equal('primary');
@@ -193,7 +193,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(buttons.at(0).prop('type')).to.be.equal('submit');
     });
 
-    it('renders reset Button with correct props', () => {
+    test('renders reset Button with correct props', () => {
       const wrapper = getWrapper({});
       const instance = wrapper.instance();
       const buttons = wrapper.find(Button);
@@ -207,14 +207,14 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     let instance;
     let selectControl;
 
-    beforeEach(() => {
+    beforeAll(() => {
       const wrapper = getWrapper();
       instance = wrapper.instance();
       instance.handleFiltersChange = simple.mock();
       selectControl = wrapper.find(SelectControl);
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
@@ -222,7 +222,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       instance.handleFiltersChange.reset();
     });
 
-    it('calls handleFiltersChange on miniciple SelectControl onChange', () => {
+    test('calls handleFiltersChange on miniciple SelectControl onChange', () => {
       const municipalities = [{
         value: 'some-municipality',
         label: 'some-municipality',
@@ -236,7 +236,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       });
     });
 
-    it('calls handleFiltersChange on purpose SelectControl onChange', () => {
+    test('calls handleFiltersChange on purpose SelectControl onChange', () => {
       const purpose = defaultProps.purposeOptions[0];
       expect(selectControl).to.have.length(4);
       expect(selectControl.at(1).prop('onChange')).to.be.a('function');
@@ -247,7 +247,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       });
     });
 
-    it('calls handleFiltersChange on unit SelectControl onChange', () => {
+    test('calls handleFiltersChange on unit SelectControl onChange', () => {
       const unit = defaultProps.unitOptions[0];
 
       expect(selectControl).to.have.length(4);
@@ -257,7 +257,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ unit: unit.value });
     });
 
-    it('calls handleFiltersChange on people SelectControl onChange', () => {
+    test('calls handleFiltersChange on people SelectControl onChange', () => {
       const people = defaultProps.peopleOptions[0];
       expect(selectControl).to.have.length(4);
       expect(selectControl.at(3).prop('onChange')).to.be.a('function');
@@ -271,18 +271,18 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     let positionControl;
     let instance;
 
-    beforeEach(() => {
+    beforeAll(() => {
       const wrapper = getWrapper();
       instance = wrapper.instance();
       instance.handleFiltersChange = simple.mock();
       positionControl = wrapper.find(PositionControl);
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls handleFiltersChange on PositionControl onConfirm', () => {
+    test('calls handleFiltersChange on PositionControl onConfirm', () => {
       const distance = 1000;
       expect(positionControl).to.have.length(1);
       expect(positionControl.at(0).prop('onConfirm')).to.be.a('function');
@@ -296,25 +296,28 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     let checkboxControl;
     let instance;
 
-    beforeEach(() => {
+    beforeAll(() => {
       const wrapper = getWrapper();
       instance = wrapper.instance();
       instance.handleFiltersChange = simple.mock();
       checkboxControl = wrapper.find(CheckboxControl);
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls handleFiltersChange on charge CheckboxControl control onConfirm', () => {
-      const freeOfCharge = true;
-      expect(checkboxControl).to.have.length(1);
-      expect(checkboxControl.at(0).prop('onConfirm')).to.be.a('function');
-      checkboxControl.at(0).prop('onConfirm')(freeOfCharge);
-      expect(instance.handleFiltersChange.callCount).to.equal(1);
-      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ freeOfCharge });
-    });
+    test(
+      'calls handleFiltersChange on charge CheckboxControl control onConfirm',
+      () => {
+        const freeOfCharge = true;
+        expect(checkboxControl).to.have.length(1);
+        expect(checkboxControl.at(0).prop('onConfirm')).to.be.a('function');
+        checkboxControl.at(0).prop('onConfirm')(freeOfCharge);
+        expect(instance.handleFiltersChange.callCount).to.equal(1);
+        expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ freeOfCharge });
+      }
+    );
   });
 
   describe('handleDateChange', () => {
@@ -322,24 +325,24 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     const expected = { date };
     let instance;
 
-    beforeEach(() => {
+    beforeAll(() => {
       instance = getWrapper().instance();
       instance.handleFiltersChange = simple.mock();
       instance.handleDateChange(defaultProps.filters);
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls handleFiltersChange with given filters', () => {
+    test('calls handleFiltersChange with given filters', () => {
       expect(instance.handleFiltersChange.callCount).to.equal(1);
       expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal(expected);
     });
   });
 
   describe('handleFiltersChange', () => {
-    it('calls props actions changeSearchFilters with given filters', () => {
+    test('calls props actions changeSearchFilters with given filters', () => {
       const newFilters = { search: 'new search value' };
       const changeSearchFilters = simple.mock();
       const instance = getWrapper({ actions: { changeSearchFilters } }).instance();
@@ -350,7 +353,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
   });
 
   describe('handlePositionSwitch', () => {
-    it('calls props actions enableGeoposition when no position', () => {
+    test('calls props actions enableGeoposition when no position', () => {
       const enableGeoposition = simple.mock();
       const disableGeoposition = simple.mock();
       const props = {
@@ -361,7 +364,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(enableGeoposition.callCount).to.equal(1);
       expect(disableGeoposition.callCount).to.equal(0);
     });
-    it('calls props actions disableGeoposition when position', () => {
+    test('calls props actions disableGeoposition when position', () => {
       const enableGeoposition = simple.mock();
       const disableGeoposition = simple.mock();
       const props = {
@@ -376,7 +379,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
   });
 
   describe('handleSearchBoxChange', () => {
-    it('calls props actions changeSearchFilters with given filters', () => {
+    test('calls props actions changeSearchFilters with given filters', () => {
       const search = 'new search value';
       const changeSearchFilters = simple.mock();
       const instance = getWrapper({ actions: { changeSearchFilters } }).instance();
@@ -390,18 +393,18 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     let buttons;
     let instance;
 
-    beforeEach(() => {
+    beforeAll(() => {
       const wrapper = getWrapper();
       instance = wrapper.instance();
       instance.handleSearch = simple.mock();
       buttons = wrapper.find(Button);
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls handleSearch on search button onClick', () => {
+    test('calls handleSearch on search button onClick', () => {
       expect(buttons).to.have.length(2);
       expect(buttons.at(0).prop('onClick')).to.be.a('function');
       buttons.at(0).prop('onClick')();
@@ -413,18 +416,18 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     const newFilters = {};
     let historyMock;
 
-    beforeEach(() => {
+    beforeAll(() => {
       historyMock = simple.mock(history, 'push');
       getWrapper()
         .instance()
         .handleSearch(newFilters);
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls browserHistory.push with correct path', () => {
+    test('calls browserHistory.push with correct path', () => {
       const actualPath = historyMock.lastCall.args[0];
       const expectedPath = `/search?${queryString.stringify(defaultProps.filters)}`;
 
@@ -451,19 +454,19 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       simple.restore();
     });
 
-    it('calls handleFiltersChange with empty filters', () => {
+    test('calls handleFiltersChange with empty filters', () => {
       const emptyFilters = Object.assign({}, constants.SUPPORTED_SEARCH_FILTERS);
       expect(instance.handleFiltersChange.callCount).to.equal(1);
       expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal(emptyFilters);
     });
 
-    it('calls disableGeoposition with empty filters', () => {
+    test('calls disableGeoposition with empty filters', () => {
       expect(disableGeoposition.callCount).to.equal(1);
     });
   });
 
   describe('componentDidMount', () => {
-    it('fetches resources when component mounts', () => {
+    test('fetches resources when component mounts', () => {
       const actions = {
         fetchPurposes: simple.mock(),
         changeSearchFilters: () => null,

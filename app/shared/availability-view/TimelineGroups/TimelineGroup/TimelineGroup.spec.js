@@ -19,12 +19,12 @@ function getWrapper(props) {
 }
 
 describe('shared/availability-view/TimelineGroup', () => {
-  it('renders a div.timeline-group', () => {
+  test('renders a div.timeline-group', () => {
     const wrapper = getWrapper();
     expect(wrapper.is('div.timeline-group')).to.be.true;
   });
 
-  it('renders hours', () => {
+  test('renders hours', () => {
     const hours = getWrapper().find('.hour');
     expect(hours).to.have.length(24);
     const texts = hours.map(hour => hour.text());
@@ -57,7 +57,7 @@ describe('shared/availability-view/TimelineGroup', () => {
   });
 
   describe('end hour of selection', () => {
-    it('is .hour-start-selected if end time is XX:30', () => {
+    test('is .hour-start-selected if end time is XX:30', () => {
       const selection = {
         begin: '2016-01-01T00:00:00',
         end: '2016-01-01T01:30:00',
@@ -68,7 +68,7 @@ describe('shared/availability-view/TimelineGroup', () => {
       expect(hour.is('.hour-end-selected')).to.be.false;
     });
 
-    it('is .hour-end-selected if end time is XX:00', () => {
+    test('is .hour-end-selected if end time is XX:00', () => {
       const selection = {
         begin: '2016-01-01T00:00:00',
         end: '2016-01-01T02:00:00',
@@ -80,13 +80,13 @@ describe('shared/availability-view/TimelineGroup', () => {
     });
   });
 
-  it('renders no resources if none given', () => {
+  test('renders no resources if none given', () => {
     const wrapper = getWrapper({ resources: [] });
     const resources = wrapper.find(AvailabilityTimelineContainer);
     expect(resources).to.have.length(0);
   });
 
-  it('renders resources', () => {
+  test('renders resources', () => {
     const resources = ['1234', '5678', '90ab', 'cdef'];
     const wrapper = getWrapper({ resources });
     const elements = wrapper.find(AvailabilityTimelineContainer);
@@ -98,15 +98,15 @@ describe('shared/availability-view/TimelineGroup', () => {
   });
 
   describe('componentDidMount', () => {
-    beforeEach(() => {
+    beforeAll(() => {
       simple.mock(window, 'setInterval');
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('starts interval', () => {
+    test('starts interval', () => {
       const interval = {};
       window.setInterval.reset();
       window.setInterval.returnWith(interval);
@@ -119,15 +119,15 @@ describe('shared/availability-view/TimelineGroup', () => {
   });
 
   describe('componentWillUnmount', () => {
-    beforeEach(() => {
+    beforeAll(() => {
       simple.mock(window, 'clearInterval');
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('clears interval', () => {
+    test('clears interval', () => {
       const interval = { some: 'data' };
       window.clearInterval.reset();
       const instance = getWrapper().instance();
@@ -150,22 +150,22 @@ describe('shared/availability-view/TimelineGroup', () => {
       mockDate.reset();
     });
 
-    it('returns null if date is before current date', () => {
+    test('returns null if date is before current date', () => {
       const offset = getOffset('2017-01-01', '2017-01-02T10:00:00');
       expect(offset).to.be.null;
     });
 
-    it('returns null if date is after current date', () => {
+    test('returns null if date is after current date', () => {
       const offset = getOffset('2017-01-03', '2017-01-02T10:00:00');
       expect(offset).to.be.null;
     });
 
-    it('returns 0 if currently at the beginning of the day', () => {
+    test('returns 0 if currently at the beginning of the day', () => {
       const offset = getOffset('2017-01-02', '2017-01-02T00:00:00');
       expect(offset).to.equal(0);
     });
 
-    it('returns correct value if during day', () => {
+    test('returns correct value if during day', () => {
       const offset = getOffset('2017-01-02', '2017-01-02T12:32:00');
       const minutes = (12 * 60) + 32;
       const expected = (minutes / slotSize) * slotWidth;

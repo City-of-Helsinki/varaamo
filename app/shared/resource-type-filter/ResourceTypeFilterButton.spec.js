@@ -18,28 +18,28 @@ describe('shared/resource-type-filter/ResourceTypeFilterButton', () => {
   }
   let wrapper;
 
-  beforeEach(() => {
+  beforeAll(() => {
     wrapper = getWrapper();
   });
 
-  it('is a button', () => {
+  test('is a button', () => {
     expect(wrapper.is(Button)).to.be.true;
   });
 
-  it('has primary bsStyle if active prop is true', () => {
+  test('has primary bsStyle if active prop is true', () => {
     expect(wrapper.prop('bsStyle')).to.equal('primary');
   });
 
-  it('has default bsStyle if active prop is false', () => {
+  test('has default bsStyle if active prop is false', () => {
     expect(getWrapper({ active: false }).prop('bsStyle')).to.equal('default');
   });
 
-  it('passes onClick prop with correct args', () => {
+  test('passes onClick prop with correct args', () => {
     wrapper.prop('onClick')();
     expect(defaultProps.onClick.lastCall.args).to.deep.equal([defaultProps.resourceType]);
   });
 
-  it('renders resource type name', () => {
+  test('renders resource type name', () => {
     expect(wrapper.children().text()).to.equal(defaultProps.resourceType);
   });
 });
