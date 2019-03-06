@@ -29,7 +29,9 @@ export function ResourceInfo(props) {
         <Link to={`/resources/${props.id}?date=${props.date}`}>{props.name}</Link>
       </div>
       <div className="details">
-        <Glyphicon glyph="user" /> {props.peopleCapacity}
+        <Glyphicon glyph="user" />
+        {' '}
+        {props.peopleCapacity}
         {!props.public && (
           <Label bsStyle="default" className="unpublished-label">
             {props.t('ResourceInfoContainer.unpublishedLabel')}

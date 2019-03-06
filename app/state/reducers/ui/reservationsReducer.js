@@ -1,3 +1,6 @@
+import types from 'constants/ActionTypes';
+import ModalTypes from 'constants/ModalTypes';
+
 import find from 'lodash/find';
 import first from 'lodash/first';
 import last from 'lodash/last';
@@ -6,8 +9,7 @@ import without from 'lodash/without';
 import moment from 'moment';
 import Immutable from 'seamless-immutable';
 
-import types from 'constants/ActionTypes';
-import ModalTypes from 'constants/ModalTypes';
+
 import { getTimeSlots } from 'utils/timeUtils';
 
 const initialState = Immutable({
@@ -54,7 +56,7 @@ function parseError(error) {
       .join('. ')
       .replace("['", '')
       .replace("']", '');
-  } else if (error.response && error.response.detail) {
+  } if (error.response && error.response.detail) {
     return error.response.detail;
   }
   return 'Jotain meni vikaan';
@@ -138,7 +140,7 @@ function reservationsReducer(state = initialState, action) {
       const stateSlot = find(state.selected, slot);
       if (stateSlot) {
         return state.merge({ selected: without(state.selected, stateSlot) });
-      } else if (state.selected.length <= 1) {
+      } if (state.selected.length <= 1) {
         return state.merge({ selected: [...state.selected, slot] });
       }
       const orderedSelected = orderBy(state.selected, 'begin');
@@ -148,8 +150,8 @@ function reservationsReducer(state = initialState, action) {
         return state.merge({ selected: [...without(state.selected, lastSelected), slot] });
       }
       if (
-        moment(firstSelected.begin).isBefore(slot.begin) &&
-        moment(lastSelected.begin).isAfter(slot.begin)
+        moment(firstSelected.begin).isBefore(slot.begin)
+        && moment(lastSelected.begin).isAfter(slot.begin)
       ) {
         return state.merge({ selected: [...without(state.selected, lastSelected), slot] });
       }

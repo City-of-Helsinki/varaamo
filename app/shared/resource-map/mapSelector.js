@@ -57,7 +57,7 @@ const boundariesSelector = createSelector(
     let minLatitude;
     let maxLongitude;
     let minLongitude;
-    for (const marker of markers) {
+    markers.forEach((marker) => {
       if (maxLatitude === undefined || marker.latitude > maxLatitude) {
         maxLatitude = marker.latitude;
       }
@@ -70,7 +70,8 @@ const boundariesSelector = createSelector(
       if (minLongitude === undefined || marker.longitude < minLongitude) {
         minLongitude = marker.longitude;
       }
-    }
+    });
+
     return {
       maxLatitude: maxLatitude + padding,
       minLatitude: minLatitude - padding,

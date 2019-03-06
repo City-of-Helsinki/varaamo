@@ -1,6 +1,7 @@
+import FormTypes from 'constants/FormTypes';
+
 import { expect } from 'chai';
 
-import FormTypes from 'constants/FormTypes';
 import Resource from 'utils/fixtures/Resource';
 import { getState } from 'utils/testUtils';
 import reservationConfirmationSelector from './reservationConfirmationSelector';

@@ -1,3 +1,5 @@
+import types from 'constants/ActionTypes';
+
 import { expect } from 'chai';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
@@ -7,7 +9,6 @@ import {
   selectAdminResourceType,
   unselectAdminResourceType,
 } from 'actions/uiActions';
-import types from 'constants/ActionTypes';
 import Resource from 'utils/fixtures/Resource';
 import adminResourcesPageReducer from './adminResourcesPageReducer';
 

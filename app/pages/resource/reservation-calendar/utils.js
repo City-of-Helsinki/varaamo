@@ -1,10 +1,11 @@
+import constants from 'constants/AppConstants';
+
 import filter from 'lodash/filter';
 import maxBy from 'lodash/maxBy';
 import minBy from 'lodash/minBy';
 import some from 'lodash/some';
 import moment from 'moment';
 
-import constants from 'constants/AppConstants';
 
 function getBeginOfSelection(selected) {
   return minBy(selected, 'begin');
@@ -17,8 +18,8 @@ function getEndOfSelection(selected) {
 function getNextDayFromDate(date) {
   return date
     ? moment(date)
-        .add(1, 'days')
-        .format(constants.DATE_FORMAT)
+      .add(1, 'days')
+      .format(constants.DATE_FORMAT)
     : null;
 }
 
@@ -26,7 +27,7 @@ function getNextWeeksDays(date) {
   const selectedWeekDay = moment(date).day();
   if (selectedWeekDay === 0) {
     return 2;
-  } else if (selectedWeekDay === 6) {
+  } if (selectedWeekDay === 6) {
     return 1;
   }
   return 0;
@@ -35,8 +36,8 @@ function getNextWeeksDays(date) {
 function getSecondDayFromDate(date) {
   return date
     ? moment(date)
-        .add(2, 'days')
-        .format(constants.DATE_FORMAT)
+      .add(2, 'days')
+      .format(constants.DATE_FORMAT)
     : null;
 }
 
@@ -45,9 +46,8 @@ function isInsideOpeningHours(slot, openingHours) {
   const slotOpeningHours = filter(openingHours, { date });
   return some(
     slotOpeningHours,
-    opening =>
-      moment(opening.opens).isSameOrBefore(slot.start) &&
-      moment(slot.end).isSameOrBefore(opening.closes)
+    opening => moment(opening.opens).isSameOrBefore(slot.start)
+      && moment(slot.end).isSameOrBefore(opening.closes)
   );
 }
 
@@ -110,10 +110,10 @@ function isHighlighted(slot, selected, hovered) {
   const slotStartDate = new Date(slot.start);
   const hoveredDate = new Date(hovered.start);
   return (
-    slotStartDate > firstSelectedDate &&
-    slotStartDate < hoveredDate &&
-    firstSelectedDate.getDate() === slotStartDate.getDate() &&
-    slotStartDate.getDate() === slotStartDate.getDate()
+    slotStartDate > firstSelectedDate
+    && slotStartDate < hoveredDate
+    && firstSelectedDate.getDate() === slotStartDate.getDate()
+    && slotStartDate.getDate() === slotStartDate.getDate()
   );
 }
 

@@ -46,12 +46,14 @@ class UnconnectedReservationListContainer extends Component {
 
     return (
       <Loader loaded={!loading}>
-        {reservations.length ?
-          <div>
-            <ul className="reservation-list">
-              {reservations.map(this.renderReservationListItem)}
-            </ul>
-          </div>
+        {reservations.length
+          ? (
+            <div>
+              <ul className="reservation-list">
+                {reservations.map(this.renderReservationListItem)}
+              </ul>
+            </div>
+          )
           : <p>{emptyMessage || t('ReservationListContainer.emptyMessage')}</p>
         }
       </Loader>

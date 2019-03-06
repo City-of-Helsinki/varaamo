@@ -1,7 +1,8 @@
+import types from 'constants/ActionTypes';
+
 import { expect } from 'chai';
 
 import { favoriteResource, unfavoriteResource } from 'actions/resourceActions';
-import types from 'constants/ActionTypes';
 import { buildAPIUrl } from 'utils/apiUtils';
 import { createApiTest } from 'utils/testUtils';
 

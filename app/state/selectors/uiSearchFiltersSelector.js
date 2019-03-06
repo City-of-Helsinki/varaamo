@@ -1,7 +1,8 @@
+import constants from 'constants/AppConstants';
+
 import omit from 'lodash/omit';
 import { createSelector } from 'reselect';
 
-import constants from 'constants/AppConstants';
 import { textBoolean } from 'utils/searchUtils';
 import { getDateString } from 'utils/timeUtils';
 

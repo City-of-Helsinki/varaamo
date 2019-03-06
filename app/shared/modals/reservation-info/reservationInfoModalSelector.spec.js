@@ -1,7 +1,8 @@
+import ActionTypes from 'constants/ActionTypes';
+
 import { expect } from 'chai';
 import mockDate from 'mockdate';
 
-import ActionTypes from 'constants/ActionTypes';
 import { getState } from 'utils/testUtils';
 import reservationInfoModalSelector from './reservationInfoModalSelector';
 

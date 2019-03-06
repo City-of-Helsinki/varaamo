@@ -30,12 +30,14 @@ class SelectControl extends React.Component {
       options,
       t,
       value,
-      ...rest } = this.props;
+      ...rest
+    } = this.props;
     return (
       <div className="app-SelectControl">
         <FormGroup controlId={id}>
           {label && <ControlLabel>{label}</ControlLabel>}
-          {!isLoading &&
+          {!isLoading
+            && (
             <Select
               {...rest}
               className={classNames('app-Select', className)}
@@ -57,7 +59,8 @@ class SelectControl extends React.Component {
               options={options}
               placeholder={t('common.select')}
               value={this.getValue(value, options)}
-            />}
+            />
+            )}
         </FormGroup>
       </div>
     );

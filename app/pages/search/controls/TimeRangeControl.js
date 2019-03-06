@@ -1,3 +1,5 @@
+import constants from 'constants/AppConstants';
+
 import PropTypes from 'prop-types';
 import React from 'react';
 import map from 'lodash/map';
@@ -5,7 +7,6 @@ import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 
 import { injectT } from 'i18n';
-import constants from 'constants/AppConstants';
 import { calculateDuration, calculateEndTime } from 'utils/timeUtils';
 import CheckboxControl from './CheckboxControl';
 import SelectControl from './SelectControl';
@@ -122,7 +123,9 @@ class TimeRangeControl extends React.Component {
   };
 
   render() {
-    const { duration, end, start, t, useTimeRange } = this.props;
+    const {
+      duration, end, start, t, useTimeRange
+    } = this.props;
 
     const startTimeOptions = this.getStartTimeOptions();
     const endTimeOptions = this.getEndTimeOptions();

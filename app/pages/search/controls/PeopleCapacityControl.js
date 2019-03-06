@@ -43,11 +43,11 @@ class PeopleCapacityControl extends React.Component {
     const options = range(1, 10).map(this.getOption);
     range(10, 30, 5).forEach(index => options.push(this.getOption(index)));
     options.push({ label: '30+', value: 30 });
-    const listItems = options.map(option =>
+    const listItems = options.map(option => (
       <ListGroupItem key={option.value} onClick={() => this.handleConfirm(option.value)}>
         {option.label}
       </ListGroupItem>
-    );
+    ));
 
     return (
       <div className="app-PeopleCapacityControl">
@@ -55,7 +55,11 @@ class PeopleCapacityControl extends React.Component {
           className="app-PeopleCapacityControl__show-button"
           onClick={this.showOverlay}
         >
-          <div><FontAwesome name="users" /> {t('PeopleCapacityControl.buttonLabel')}</div>
+          <div>
+            <FontAwesome name="users" />
+            {' '}
+            {t('PeopleCapacityControl.buttonLabel')}
+          </div>
           <div>{value || '1'}</div>
         </Button>
         <Overlay

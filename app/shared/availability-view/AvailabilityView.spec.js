@@ -277,9 +277,11 @@ describe('shared/availability-view/AvailabilityView', () => {
         test('if different resource', () => {
           checkInvalid(
             { resourceId: 'r1', begin: '2016-01-01T10:00:00Z' },
-            { resourceId: 'r2',
+            {
+              resourceId: 'r2',
               begin: '2016-01-01T10:30:00Z',
-              end: '2016-01-01T11:00:00Z' }
+              end: '2016-01-01T11:00:00Z'
+            }
           );
         });
       });

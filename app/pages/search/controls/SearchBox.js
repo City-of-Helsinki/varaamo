@@ -74,11 +74,11 @@ class SearchBox extends React.Component {
             title={t('DatePickerControl.header')}
           >
             <ListGroup>
-              {this.state.searchOptions.map(option =>
+              {this.state.searchOptions.map(option => (
                 <ListGroupItem key={option.label} onClick={() => this.handleSelect(option.label)}>
                   {option.label}
                 </ListGroupItem>
-              )}
+              ))}
             </ListGroup>
           </SearchControlOverlay>
         </Overlay>
