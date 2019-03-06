@@ -16,7 +16,8 @@ function getWrapper(props = {}, children = 'Some text') {
   };
 
   window.matchMedia = () => ({
-    addListener: () => {}
+    addListener: () => {},
+    matches: false
   })
 
   return shallowWithIntl(<SideNavbar {...defaultProps} {...props}>{children}</SideNavbar>);
@@ -36,7 +37,7 @@ describe('shared/side-navbar/SideNavbar', () => {
     expect(wrapper.prop('open')).to.be.true;
   });
 
-  it('has correct initial state', () => {
+  it.only('has correct initial state', () => {
     const state = getWrapper().instance().state;
     expect(state.open).to.be.true;
     expect(state.forcedOpen).to.be.false;
