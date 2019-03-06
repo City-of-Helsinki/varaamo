@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import { findDOMNode } from 'react-dom';
 import moment from 'moment';
 
 import { injectT } from 'i18n';
@@ -34,7 +33,7 @@ class TimeSlot extends PureComponent {
 
   componentDidMount() {
     if (this.props.scrollTo) {
-      scrollTo(findDOMNode(this));
+      scrollTo(this.timeSlotRef);
     }
   }
 
@@ -58,7 +57,9 @@ class TimeSlot extends PureComponent {
   }
 
   handleClick = (disabled) => {
-    const { addNotification, isLoggedIn, onClick, resource, slot, t } = this.props;
+    const {
+      addNotification, isLoggedIn, onClick, resource, slot, t
+    } = this.props;
 
     if (disabled) {
       const notification = this.getReservationInfoNotification(isLoggedIn, resource, slot, t);
@@ -92,13 +93,12 @@ class TimeSlot extends PureComponent {
     const isPast = new Date(slot.end) < new Date();
     const isReservable = (resource.reservableAfter
       && moment(slot.start).isBefore(resource.reservableAfter));
-    const disabled =
-      isDisabled ||
-      !isLoggedIn ||
-      (!isSelectable && !selected) ||
-      !resource.userPermissions.canMakeReservations ||
-      isReservable ||
-      (!slot.editing && (slot.reserved || isPast));
+    const disabled = isDisabled
+      || !isLoggedIn
+      || (!isSelectable && !selected)
+      || !resource.userPermissions.canMakeReservations
+      || isReservable
+      || (!slot.editing && (slot.reserved || isPast));
     const reservation = slot.reservation;
     const isOwnReservation = reservation && reservation.isOwn;
     const start = new Date(slot.start);
@@ -118,18 +118,20 @@ class TimeSlot extends PureComponent {
           'app-TimeSlot--selected': selected,
           'app-TimeSlot--highlight': isHighlighted,
         })}
+        ref={this.timeSlotRef}
       >
         <button
           className="app-TimeSlot__action"
           onClick={() => this.handleClick(disabled)}
           onMouseEnter={() => !disabled && onMouseEnter(slot)}
           onMouseLeave={() => !disabled && onMouseLeave()}
+          type="button"
         >
           <span className="app-TimeSlot__icon" />
           <time dateTime={slot.asISOString}>{startTime}</time>
         </button>
         {showClear && (
-          <button className="app-TimeSlot__clear" onClick={onClear}>
+          <button className="app-TimeSlot__clear" onClick={onClear} type="button">
             <span className="app-TimeSlot__clear-icon" />
           </button>
         )}

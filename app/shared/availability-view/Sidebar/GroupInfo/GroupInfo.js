@@ -14,14 +14,14 @@ export default function GroupInfo(props) {
   return (
     <div className="group-info" title={props.name}>
       <div className="group-name"><div className="name">{props.name}</div></div>
-      {props.resources.map(resource =>
+      {props.resources.map(resource => (
         <ResourceInfoContainer
           date={date}
           id={resource}
           isSelected={resource === props.selectedResourceId}
           key={resource}
         />
-      )}
+      ))}
     </div>
   );
 }

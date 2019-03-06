@@ -14,7 +14,8 @@ function configurePassport() {
         const profileWithToken = Object.assign({}, profile, { token });
         return cb(null, profileWithToken);
       });
-    });
+    }
+  );
 
   passport.use(helsinkiStrategy);
 

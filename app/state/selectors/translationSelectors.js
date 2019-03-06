@@ -1,10 +1,11 @@
+import constants from 'constants/AppConstants';
+
 import isArray from 'lodash/isArray';
 import isObject from 'lodash/isObject';
 import mapValues from 'lodash/mapValues';
 import some from 'lodash/some';
 import { createSelector } from 'reselect';
 
-import constants from 'constants/AppConstants';
 
 function currentLanguageSelector(state) {
   const locale = state.intl ? state.intl.locale : constants.DEFAULT_LOCALE;
@@ -21,7 +22,7 @@ function isTranslatable(prop) {
 function translateValue(prop, language) {
   if (prop[language]) {
     return prop[language];
-  } else if (prop[constants.DEFAULT_LOCALE]) {
+  } if (prop[constants.DEFAULT_LOCALE]) {
     return prop[constants.DEFAULT_LOCALE];
   }
   return '';
@@ -33,9 +34,9 @@ function translateValue(prop, language) {
 function translateItem(item, language) {
   if (isTranslatable(item)) {
     return translateValue(item, language);
-  } else if (isArray(item)) {
+  } if (isArray(item)) {
     return item.map(value => translateItem(value, language));
-  } else if (isObject(item)) {
+  } if (isObject(item)) {
     return mapValues(item, value => translateItem(value, language));
   }
   return item;

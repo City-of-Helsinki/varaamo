@@ -1,7 +1,8 @@
-import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
 import constants from 'constants/AppConstants';
+
+import Immutable from 'seamless-immutable';
 
 const initialState = Immutable({});
 
@@ -34,16 +35,16 @@ function getErrorNotification(error) {
       ...defaults,
       messageId: 'Notifications.loginMessage',
     };
-  } else if (
-    error.response &&
-    error.response.non_field_errors &&
-    error.response.non_field_errors.length
+  } if (
+    error.response
+    && error.response.non_field_errors
+    && error.response.non_field_errors.length
   ) {
     return {
       ...defaults,
       message: error.response.non_field_errors.join('. '),
     };
-  } else if (error.response && error.response.detail) {
+  } if (error.response && error.response.detail) {
     return {
       ...defaults,
       message: error.response.detail,
@@ -54,7 +55,6 @@ function getErrorNotification(error) {
 
 function notificationsReducer(state = initialState, action) {
   switch (action.type) {
-
   // Notification handling
 
     case types.UI.ADD_NOTIFICATION: {

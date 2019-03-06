@@ -27,10 +27,8 @@ export function selector() {
     dateSelector,
     (resource, date) => resource.reservations && sortBy(
       resource.reservations
-        .filter(reservation =>
-          reservation.state !== 'cancelled' &&
-          reservation.state !== 'denied'
-        )
+        .filter(reservation => reservation.state !== 'cancelled'
+          && reservation.state !== 'denied')
         .filter(reservation => reservation.begin.slice(0, 10) === date),
       'begin'
     )
@@ -39,16 +37,14 @@ export function selector() {
     reservationsSelector,
     dateSelector,
     resourceIdSelector,
-    (reservations, date, resourceId) =>
-      utils.getTimelineItems(moment(date), reservations, resourceId)
+    (reservations, date, resourceId) => utils.getTimelineItems(moment(date), reservations, resourceId)
   );
 
   const itemsWithSelectionDataSelector = createSelector(
     itemsSelector,
     nonHoverSelectionSelector,
     resourceSelector,
-    (items, selection, resource) =>
-      utils.addSelectionData(selection, resource, items)
+    (items, selection, resource) => utils.addSelectionData(selection, resource, items)
   );
 
   return createSelector(

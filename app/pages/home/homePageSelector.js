@@ -1,8 +1,9 @@
+import ActionTypes from 'constants/ActionTypes';
+
 import sortBy from 'lodash/sortBy';
 import values from 'lodash/values';
 import { createSelector, createStructuredSelector } from 'reselect';
 
-import ActionTypes from 'constants/ActionTypes';
 import { purposesSelector } from 'state/selectors/dataSelectors';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
 

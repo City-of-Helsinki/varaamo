@@ -1,3 +1,5 @@
+import constants from 'constants/AppConstants';
+
 import { expect } from 'chai';
 import moment from 'moment';
 import queryString from 'query-string';
@@ -6,7 +8,6 @@ import Button from 'react-bootstrap/lib/Button';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import constants from 'constants/AppConstants';
 import { shallowWithIntl } from 'utils/testUtils';
 import CheckboxControl from './CheckboxControl';
 import DatePickerControl from './DatePickerControl';
@@ -162,7 +163,9 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     });
 
     test('renders TimeRangeControl with correct props', () => {
-      const filters = { ...defaultProps.filters, duration: 30, end: '23:30', start: '09:00' };
+      const filters = {
+        ...defaultProps.filters, duration: 30, end: '23:30', start: '09:00'
+      };
       const wrapper = getWrapper({ filters });
       const timeRangeControl = wrapper.find(TimeRangeControl);
       expect(timeRangeControl).to.have.length(1);

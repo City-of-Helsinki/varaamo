@@ -33,9 +33,9 @@ function ReservationSuccessModal({
       <Modal.Header closeButton>
         <Modal.Title>
           {
-            isPreliminaryReservation ?
-            t('ReservationSuccessModal.preliminaryReservationTitle') :
-            t('ReservationSuccessModal.regularReservationTitle')
+            isPreliminaryReservation
+              ? t('ReservationSuccessModal.preliminaryReservationTitle')
+              : t('ReservationSuccessModal.regularReservationTitle')
           }
         </Modal.Title>
         <ReservationDate
@@ -46,14 +46,15 @@ function ReservationSuccessModal({
       <Modal.Body>
         <div className="reservation-success-modal__content">
           <h5>
-            {isPreliminaryReservation ?
-              t('ReservationSuccessModal.preliminaryReservationLead', { resourceName }) :
-              t('ReservationSuccessModal.regularReservationLead', { resourceName })
+            {isPreliminaryReservation
+              ? t('ReservationSuccessModal.preliminaryReservationLead', { resourceName })
+              : t('ReservationSuccessModal.regularReservationLead', { resourceName })
             }
           </h5>
           <hr />
 
-          {Boolean(failedReservations.length) &&
+          {Boolean(failedReservations.length)
+            && (
             <div>
               <h5>{t('ReservationSuccessModal.failedReservationsHeader')}</h5>
               <CompactReservationList
@@ -62,6 +63,7 @@ function ReservationSuccessModal({
                 subtitle="failReason"
               />
             </div>
+            )
           }
 
           {reservation.accessCode && (
@@ -74,7 +76,8 @@ function ReservationSuccessModal({
               </p>
               <p>
                 {t('ReservationSuccessModal.ownReservationsPageHelpText')}
-                {email &&
+                {email
+                  && (
                   <span>
                     {' '}
                     <FormattedHTMLMessage
@@ -82,7 +85,9 @@ function ReservationSuccessModal({
                       values={{ email }}
                     />
                   </span>
-                }.
+                  )
+                }
+.
               </p>
             </div>
           )}

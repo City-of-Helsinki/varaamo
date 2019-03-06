@@ -85,9 +85,9 @@ function createApiTest(options) {
 
     tests.body && test('has correct body', () => {
       const body = (
-        tests.body instanceof Object ?
-          JSON.parse(callAPI.body) :
-          callAPI.body
+        tests.body instanceof Object
+          ? JSON.parse(callAPI.body)
+          : callAPI.body
       );
       expect(body).to.deep.equal(tests.body);
     });
@@ -103,9 +103,11 @@ function createApiTest(options) {
     describe('types', () => {
       const mockAction = {
         [CALL_API]: {
-          types: [{ type: (
-            (tests.request && tests.request.type) || 'Specify request.type'
-          ) }],
+          types: [{
+            type: (
+              (tests.request && tests.request.type) || 'Specify request.type'
+            )
+          }],
         },
       };
 
@@ -127,15 +129,15 @@ function createApiTest(options) {
               typeAction,
               mockAction,
               meta: (
-                actionTypeName === 'request' ?
-                  typeAction.meta :
-                  typeAction.meta(mockAction)
+                actionTypeName === 'request'
+                  ? typeAction.meta
+                  : typeAction.meta(mockAction)
               ),
             });
             const func = (
-              value.length === 2 ?
-              done => value(getParams(), done) :
-              () => value(getParams())
+              value.length === 2
+                ? done => value(getParams(), done)
+                : () => value(getParams())
             );
             test(name, func);
           });
@@ -167,9 +169,9 @@ function createApiTest(options) {
 
             payloadTests.tests && forIn(payloadTests.tests, (value, name) => {
               const func = (
-                value.length === 2 ?
-                done => value({ promise, payload, response }, done) :
-                () => value({ promise, payload, response })
+                value.length === 2
+                  ? done => value({ promise, payload, response }, done)
+                  : () => value({ promise, payload, response })
               );
               test(name, func);
             });

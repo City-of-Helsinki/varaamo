@@ -53,7 +53,9 @@ export class UnconnectedReservationControlsContainer extends Component {
   }
 
   handleEditClick() {
-    const { actions, reservation, resource, history } = this.props;
+    const {
+      actions, reservation, resource, history
+    } = this.props;
     const nextUrl = getEditReservationUrl(reservation);
 
     actions.selectReservationToEdit({ reservation, minPeriod: resource.minPeriod });

@@ -1,3 +1,5 @@
+import types from 'constants/ActionTypes';
+
 import { expect } from 'chai';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
@@ -18,7 +20,6 @@ import {
   selectReservationToShow,
   toggleTimeSlot,
 } from 'actions/uiActions';
-import types from 'constants/ActionTypes';
 import Reservation from 'utils/fixtures/Reservation';
 import { getTimeSlots } from 'utils/timeUtils';
 import reservationsReducer from './reservationsReducer';

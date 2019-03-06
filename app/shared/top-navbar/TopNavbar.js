@@ -24,7 +24,9 @@ class TopNavbar extends Component {
   }
 
   render() {
-    const { changeLocale, currentLanguage, isLoggedIn, t, userName } = this.props;
+    const {
+      changeLocale, currentLanguage, isLoggedIn, t, userName
+    } = this.props;
 
     return (
       <Navbar className="app-TopNavbar" fluid>

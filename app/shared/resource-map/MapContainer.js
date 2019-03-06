@@ -36,9 +36,9 @@ export class UnconnectedResourceMapContainer extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.map && (
-        prevProps.boundaries !== this.props.boundaries ||
-        prevProps.shouldMapFitBoundaries !== this.props.shouldMapFitBoundaries
-      )
+      prevProps.boundaries !== this.props.boundaries
+        || prevProps.shouldMapFitBoundaries !== this.props.shouldMapFitBoundaries
+    )
     ) {
       this.fitMapToBoundaries();
     }
@@ -58,18 +58,18 @@ export class UnconnectedResourceMapContainer extends React.Component {
   }
 
   getCenter = () => (
-    this.props.position ?
-    [this.props.position.lat, this.props.position.lon] :
-    defaultPosition[getCurrentCustomization()]
+    this.props.position
+      ? [this.props.position.lat, this.props.position.lon]
+      : defaultPosition[getCurrentCustomization()]
   );
 
   hasBoundaries() {
     const boundaries = this.props.boundaries;
     return (
-      boundaries.minLatitude ||
-      boundaries.minLongitude ||
-      boundaries.maxLatitude ||
-      boundaries.maxLongitude
+      boundaries.minLatitude
+      || boundaries.minLongitude
+      || boundaries.maxLatitude
+      || boundaries.maxLongitude
     );
   }
 
@@ -100,18 +100,22 @@ export class UnconnectedResourceMapContainer extends React.Component {
           />
           <ZoomControl position="bottomright" />
           {this.props.markers && this.props.markers.map(
-            marker => <Marker
-              {...marker}
-              highlighted={this.props.selectedUnitId === marker.unitId}
-              key={marker.unitId}
-              selectUnit={this.props.selectUnit}
-            />
+            marker => (
+              <Marker
+                {...marker}
+                highlighted={this.props.selectedUnitId === marker.unitId}
+                key={marker.unitId}
+                selectUnit={this.props.selectUnit}
+              />
+            )
           )}
-          {this.props.position &&
+          {this.props.position
+            && (
             <UserMarker
               latitude={this.props.position.lat}
               longitude={this.props.position.lon}
             />
+            )
           }
         </Map>
       </div>
