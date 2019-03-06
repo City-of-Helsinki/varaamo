@@ -13,22 +13,22 @@ describe('shared/test-site-message/TestSiteMessage', () => {
   }
 
   describe('if SETTINGS.SHOW_TEST_SITE_MESSAGE is true', () => {
-    beforeEach(() => {
+    beforeAll(() => {
       simple.mock(constants, 'SHOW_TEST_SITE_MESSAGE').returnWith(true);
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('renders an Alert', () => {
+    test('renders an Alert', () => {
       const alert = getWrapper().find(Alert);
       expect(alert).to.have.length(1);
     });
   });
 
   describe('if SETTINGS.SHOW_TEST_SITE_MESSAGE is not true', () => {
-    it('renders an empty span', () => {
+    test('renders an empty span', () => {
       expect(getWrapper().equals(<span />)).to.be.true;
     });
   });

@@ -63,14 +63,14 @@ describe('pages/resource/ResourcePage', () => {
   }
 
   describe('render', () => {
-    it('renders PageWrapper with correct props', () => {
+    test('renders PageWrapper with correct props', () => {
       const pageWrapper = getWrapper().find(PageWrapper);
       expect(pageWrapper).to.have.length(1);
       expect(pageWrapper.prop('title')).to.equal(defaultProps.resource.name);
       expect(pageWrapper.prop('transparent')).to.be.true;
     });
 
-    it('renders ResourceHeader with correct props', () => {
+    test('renders ResourceHeader with correct props', () => {
       const wrapper = getWrapper();
       const instance = wrapper.instance();
       const resourceInfo = wrapper.find(ResourceHeader);
@@ -82,14 +82,14 @@ describe('pages/resource/ResourcePage', () => {
       expect(resourceInfo.prop('unit')).to.deep.equal(defaultProps.unit);
     });
 
-    it('renders ResourceInfo with correct props', () => {
+    test('renders ResourceInfo with correct props', () => {
       const resourceInfo = getWrapper().find(ResourceInfo);
       expect(resourceInfo).to.have.length(1);
       expect(resourceInfo.prop('resource')).to.deep.equal(defaultProps.resource);
       expect(resourceInfo.prop('unit')).to.deep.equal(defaultProps.unit);
     });
 
-    it('renders ResourceCalendar with correct props', () => {
+    test('renders ResourceCalendar with correct props', () => {
       const wrapper = getWrapper();
       const calendar = wrapper.find(ResourceCalendar);
       expect(calendar).to.have.length(1);
@@ -98,7 +98,7 @@ describe('pages/resource/ResourcePage', () => {
       expect(calendar.prop('selectedDate')).to.equal(defaultProps.date);
     });
 
-    it('renders resource images with thumbnail urls', () => {
+    test('renders resource images with thumbnail urls', () => {
       const images = getWrapper().find('.app-ResourceInfo__image');
       // The first image is rendered twice
       expect(images).to.have.length(defaultProps.resource.images.length + 1);
@@ -110,28 +110,31 @@ describe('pages/resource/ResourcePage', () => {
       });
     });
 
-    it('renders NotFoundPage when resource empty and not fetching resource', () => {
-      const notFoundPage = getWrapper({
-        isFetchingResource: false,
-        resource: {},
-      }).find(NotFoundPage);
-      expect(notFoundPage).to.have.length(1);
-    });
+    test(
+      'renders NotFoundPage when resource empty and not fetching resource',
+      () => {
+        const notFoundPage = getWrapper({
+          isFetchingResource: false,
+          resource: {},
+        }).find(NotFoundPage);
+        expect(notFoundPage).to.have.length(1);
+      }
+    );
 
     describe('handleBackButton', () => {
       let historyMock;
 
-      beforeEach(() => {
+      beforeAll(() => {
         const instance = getWrapper().instance();
         historyMock = simple.mock(history, 'goBack');
         instance.handleBackButton();
       });
 
-      afterEach(() => {
+      afterAll(() => {
         simple.restore();
       });
 
-      it('calls history goBack', () => {
+      test('calls history goBack', () => {
         expect(historyMock.callCount).to.equal(1);
       });
     });
@@ -141,14 +144,14 @@ describe('pages/resource/ResourcePage', () => {
         return getWrapper({ ...props, showMap: true });
       }
 
-      it('renders a ResourceMapInfo', () => {
+      test('renders a ResourceMapInfo', () => {
         const wrapper = getShowMapWrapper();
         const resourceMapInfo = wrapper.find(ResourceMapInfo);
         expect(resourceMapInfo).to.have.length(1);
         expect(resourceMapInfo.prop('unit')).to.equal(defaultProps.unit);
       });
 
-      it('renders a ResourceMap', () => {
+      test('renders a ResourceMap', () => {
         const wrapper = getShowMapWrapper();
         const resourceMap = wrapper.find(ResourceMap);
         expect(resourceMap).to.have.length(1);
@@ -158,13 +161,13 @@ describe('pages/resource/ResourcePage', () => {
         expect(resourceMap.prop('showMap')).to.be.true;
       });
 
-      it('does not render a ResourceInfo', () => {
+      test('does not render a ResourceInfo', () => {
         const wrapper = getShowMapWrapper();
         const resourceInfo = wrapper.find(ResourceInfo);
         expect(resourceInfo).to.have.length(0);
       });
 
-      it('does not render a ResourceCalendar', () => {
+      test('does not render a ResourceCalendar', () => {
         const wrapper = getShowMapWrapper();
         const resourceCalendar = wrapper.find(ResourceCalendar);
         expect(resourceCalendar).to.have.length(0);
@@ -173,7 +176,7 @@ describe('pages/resource/ResourcePage', () => {
   });
 
   describe('componentDidMount', () => {
-    it('calls clearReservations and fetchResource', () => {
+    test('calls clearReservations and fetchResource', () => {
       const clearReservations = simple.mock();
       const fetchResource = simple.mock();
       const instance = getWrapper({ actions: { clearReservations } }).instance();
@@ -192,13 +195,13 @@ describe('pages/resource/ResourcePage', () => {
       const nextProps = { date: '2016-12-12', isLoggedIn: defaultProps.isLoggedIn };
       const fetchResource = simple.mock();
 
-      beforeEach(() => {
+      beforeAll(() => {
         const instance = getWrapper().instance();
         instance.fetchResource = fetchResource;
         instance.componentWillUpdate(nextProps);
       });
 
-      it('fetches resource data with new date', () => {
+      test('fetches resource data with new date', () => {
         const actualArgs = fetchResource.lastCall.args;
 
         expect(fetchResource.callCount).to.equal(1);
@@ -210,13 +213,13 @@ describe('pages/resource/ResourcePage', () => {
       const nextProps = { date: defaultProps.date, isLoggedIn: defaultProps.isLoggedIn };
       const fetchResource = simple.mock();
 
-      beforeEach(() => {
+      beforeAll(() => {
         const instance = getWrapper().instance();
         instance.fetchResource = fetchResource;
         instance.componentWillUpdate(nextProps);
       });
 
-      it('does not fetch resource data', () => {
+      test('does not fetch resource data', () => {
         expect(fetchResource.callCount).to.equal(0);
       });
     });
@@ -225,13 +228,13 @@ describe('pages/resource/ResourcePage', () => {
       const nextProps = { date: defaultProps.date, isLoggedIn: !defaultProps.isLoggedIn };
       const fetchResource = simple.mock();
 
-      beforeEach(() => {
+      beforeAll(() => {
         const instance = getWrapper().instance();
         instance.fetchResource = fetchResource;
         instance.componentWillUpdate(nextProps);
       });
 
-      it('fetches resource data correct date', () => {
+      test('fetches resource data correct date', () => {
         const actualArgs = fetchResource.lastCall.args;
 
         expect(fetchResource.callCount).to.equal(1);
@@ -243,19 +246,19 @@ describe('pages/resource/ResourcePage', () => {
       const nextProps = { date: defaultProps.date, isLoggedIn: defaultProps.isLoggedIn };
       const fetchResource = simple.mock();
 
-      beforeEach(() => {
+      beforeAll(() => {
         const instance = getWrapper({ actions: { fetchResource } }).instance();
         instance.componentWillUpdate(nextProps);
       });
 
-      it('does not fetch resource data', () => {
+      test('does not fetch resource data', () => {
         expect(fetchResource.callCount).to.equal(0);
       });
     });
   });
 
   describe('fetchResource', () => {
-    it('fetches resource with correct arguments', () => {
+    test('fetches resource with correct arguments', () => {
       const fetchResource = simple.mock();
       const instance = getWrapper({ actions: { fetchResource } }).instance();
       instance.fetchResource();
@@ -267,7 +270,7 @@ describe('pages/resource/ResourcePage', () => {
       expect(actualArgs[1].end).to.contain('2015-12-31');
     });
 
-    it('fetches resource with correct arguments with a passed date', () => {
+    test('fetches resource with correct arguments with a passed date', () => {
       const fetchResource = simple.mock();
       const instance = getWrapper({ actions: { fetchResource } }).instance();
       instance.fetchResource('2015-11-11');
@@ -284,18 +287,18 @@ describe('pages/resource/ResourcePage', () => {
     describe('resource.reservableAfter is not defined', () => {
       const instance = getWrapper().instance();
 
-      it('returns true when the day is before today', () => {
+      test('returns true when the day is before today', () => {
         const isDisabled = instance.disableDays('1990-03-06T00:00:00Z');
         expect(isDisabled).to.equal(true);
       });
 
-      it('returns false when the day is today', () => {
+      test('returns false when the day is today', () => {
         const today = new Date();
         const isDisabled = instance.disableDays(today.toISOString());
         expect(isDisabled).to.equal(false);
       });
 
-      it('returns false when the day is after today', () => {
+      test('returns false when the day is after today', () => {
         const date = new Date();
         date.setDate(date.getDate() + 1);
 
@@ -309,13 +312,13 @@ describe('pages/resource/ResourcePage', () => {
     describe('resource.reservableAfter is defined', () => {
       const instance = getWrapper({ resource: { reservableAfter: '2019-03-09T00:00:00Z' } }).instance();
 
-      it('returns true if the day is before reservableAfter', () => {
+      test('returns true if the day is before reservableAfter', () => {
         const dayBefore = '2019-03-06T00:00:00Z';
         const isDisabled = instance.disableDays(dayBefore);
         expect(isDisabled).to.equal(true);
       });
 
-      it('returns false if the day is after reservableAfter', () => {
+      test('returns false if the day is after reservableAfter', () => {
         const dayAfter = '2019-03-12T00:00:00Z';
         const isDisabled = instance.disableDays(dayAfter);
         expect(isDisabled).to.equal(false);
@@ -328,16 +331,16 @@ describe('pages/resource/ResourcePage', () => {
     const instance = getWrapper().instance();
     let historyMock;
 
-    beforeEach(() => {
+    beforeAll(() => {
       historyMock = simple.mock(history, 'replace');
       instance.handleDateChange(newDate);
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls history.replace with correct path', () => {
+    test('calls history.replace with correct path', () => {
       const actualPath = historyMock.lastCall.args[0];
       const expectedPath = getResourcePageUrl(resource, '2015-12-24');
 
@@ -347,7 +350,7 @@ describe('pages/resource/ResourcePage', () => {
   });
 
   describe('Full sized image', () => {
-    it('is opened when an image is clicked', () => {
+    test('is opened when an image is clicked', () => {
       const wrapper = getWrapper();
       wrapper
         .find('.app-ResourceInfo__image-button')

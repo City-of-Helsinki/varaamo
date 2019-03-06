@@ -45,14 +45,14 @@ describe('pages/home/HomePage', () => {
   }
 
   describe('render', () => {
-    it('renders PageWrapper with correct props', () => {
+    test('renders PageWrapper with correct props', () => {
       const pageWrapper = getWrapper().find(PageWrapper);
       expect(pageWrapper).to.have.length(1);
       expect(pageWrapper.prop('className')).to.equal('app-HomePageContent');
       expect(pageWrapper.prop('title')).to.equal('HomePage.title');
     });
 
-    it('renders HomeSearchBox with correct props', () => {
+    test('renders HomeSearchBox with correct props', () => {
       const wrapper = getWrapper();
       const instance = wrapper.instance();
       const homeSearchBox = wrapper.find(HomeSearchBox);
@@ -61,19 +61,19 @@ describe('pages/home/HomePage', () => {
     });
 
     describe('Loader', () => {
-      it('renders Loader with correct props when not fetching purposes', () => {
+      test('renders Loader with correct props when not fetching purposes', () => {
         const loader = getWrapper().find(Loader);
         expect(loader.length).to.equal(1);
         expect(loader.at(0).prop('loaded')).to.be.true;
       });
 
-      it('renders Loader with correct props when fetching purposes', () => {
+      test('renders Loader with correct props when fetching purposes', () => {
         const loader = getWrapper({ isFetchingPurposes: true }).find(Loader);
         expect(loader.length).to.equal(1);
         expect(loader.at(0).prop('loaded')).to.be.false;
       });
 
-      it('renders purpose banners', () => {
+      test('renders purpose banners', () => {
         const banners = getWrapper().find('.app-HomePageContent__banner');
         expect(banners.length).to.equal(defaultProps.purposes.length);
       });
@@ -82,15 +82,15 @@ describe('pages/home/HomePage', () => {
     describe('Purpose banners', () => {
       let wrapper;
 
-      beforeEach(() => {
+      beforeAll(() => {
         wrapper = getWrapper();
       });
 
-      afterEach(() => {
+      afterAll(() => {
         simple.restore();
       });
 
-      it(' have at least a Link component', () => {
+      test(' have at least a Link component', () => {
         expect(wrapper.find(Link)).to.have.lengthOf(defaultProps.purposes.length);
         expect(wrapper.find(Link).first().prop('to')).to.contains(defaultProps.purposes[0].value);
       });
@@ -104,7 +104,7 @@ describe('pages/home/HomePage', () => {
       instance.componentDidMount();
     }
 
-    it('fetches purposes', () => {
+    test('fetches purposes', () => {
       const fetchPurposes = simple.mock();
       callComponentDidMount({}, { fetchPurposes });
       expect(fetchPurposes.callCount).to.equal(1);
@@ -116,17 +116,17 @@ describe('pages/home/HomePage', () => {
     const expectedPath = `/search?search=${value}`;
     let historyMock;
 
-    beforeEach(() => {
+    beforeAll(() => {
       const instance = getWrapper().instance();
       historyMock = simple.mock(history, 'push');
       instance.handleSearch(value);
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls browserHistory push with correct path', () => {
+    test('calls browserHistory push with correct path', () => {
       expect(historyMock.callCount).to.equal(1);
       expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
     });

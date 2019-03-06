@@ -32,7 +32,7 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
     return shallowWithIntl(<ResourceInfo {...defaultProps} {...extraProps} />);
   }
 
-  it('renders resource description as WrappedText', () => {
+  test('renders resource description as WrappedText', () => {
     const wrappedText = getWrapper()
       .find('.app-ResourceInfo__description')
       .find(WrappedText);
@@ -43,7 +43,7 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
     expect(wrappedText.prop('openLinksInNewTab')).to.equal(true);
   });
 
-  it('renders collapsible panels with correct props', () => {
+  test('renders collapsible panels with correct props', () => {
     const panels = getWrapper().find(Panel);
 
     expect(panels).to.have.length(2);
@@ -53,14 +53,14 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
     expect(panels.at(1).prop('collapsible')).to.be.true;
   });
 
-  it('renders ReservationInfo with correct props', () => {
+  test('renders ReservationInfo with correct props', () => {
     const reservationInfo = getWrapper().find(ReservationInfo);
     expect(reservationInfo).to.have.length(1);
     expect(reservationInfo.prop('isLoggedIn')).to.equal(defaultProps.isLoggedIn);
     expect(reservationInfo.prop('resource')).to.deep.equal(defaultProps.resource);
   });
 
-  it('renders the unit name and address', () => {
+  test('renders the unit name and address', () => {
     const unit = Unit.build({
       addressZip: '99999',
       municipality: 'helsinki',
@@ -77,7 +77,7 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
     expect(addressSpan.at(2).text()).to.equal('99999 Helsinki');
   });
 
-  it('renders web address', () => {
+  test('renders web address', () => {
     const unit = Unit.build({
       id: 'abc:123',
       addressZip: '99999',
@@ -95,7 +95,7 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
     expect(link.prop('target')).to.equal('_blank');
   });
 
-  it('renders service map link', () => {
+  test('renders service map link', () => {
     const unit = Unit.build({
       id: 'abc:123',
       addressZip: '99999',
@@ -114,7 +114,7 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
     expect(link.prop('target')).to.equal('_blank');
   });
 
-  it('does not render service map link if unit empty', () => {
+  test('does not render service map link if unit empty', () => {
     const link = getWrapper({ unit: {} })
       .find('.app-ResourceInfo__servicemap')
       .find('a');

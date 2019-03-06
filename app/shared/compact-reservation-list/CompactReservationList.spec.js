@@ -28,35 +28,35 @@ describe('shared/compact-reservation-list/CompactReservationList', () => {
 
   const wrapper = getWrapper();
 
-  it('renders a list for selected reservations', () => {
+  test('renders a list for selected reservations', () => {
     const ul = wrapper.find('ul');
     expect(ul.length).to.equal(1);
   });
 
-  it('renders a list element for each selected reservation', () => {
+  test('renders a list element for each selected reservation', () => {
     const li = wrapper.find('li');
     expect(li.length).to.equal(defaultProps.reservations.length);
   });
 
-  it('displays a TimeRange for each selected reservation', () => {
+  test('displays a TimeRange for each selected reservation', () => {
     const timeRange = wrapper.find(TimeRange);
     expect(timeRange.length).to.equal(defaultProps.reservations.length);
   });
 
   describe('rendering resource name', () => {
-    it('renders resource name if correct resource is given', () => {
+    test('renders resource name if correct resource is given', () => {
       const li = wrapper.find('li').at(0);
       expect(li.text()).to.contain(resource.name);
     });
 
-    it('does not render resource name if correct resource is not given', () => {
+    test('does not render resource name if correct resource is not given', () => {
       const li = getWrapper({ resources: undefined }).find('li').at(0);
       expect(li.text()).to.not.contain(resource.name);
     });
   });
 
   describe('subtitle', () => {
-    it('is rendered if subtitle is specified', () => {
+    test('is rendered if subtitle is specified', () => {
       const reservations = [Reservation.build({ foo: 'bar' })];
       const props = { reservations, subtitle: 'foo' };
       const subtitle = getWrapper(props).find('.compact-reservation-list-subtitle');
@@ -64,13 +64,13 @@ describe('shared/compact-reservation-list/CompactReservationList', () => {
       expect(subtitle.text()).to.equal(reservations[0].foo);
     });
 
-    it('is not rendered if subtitle is not specified', () => {
+    test('is not rendered if subtitle is not specified', () => {
       expect(getWrapper().find('.compact-reservation-list-subtitle')).to.have.length(0);
     });
   });
 
   describe('remove button', () => {
-    it('is rendered if reservation is in removableReservations', () => {
+    test('is rendered if reservation is in removableReservations', () => {
       const reservations = [Reservation.build({ foo: 'bar' })];
       const removableReservations = [
         Reservation.build(),
@@ -81,7 +81,7 @@ describe('shared/compact-reservation-list/CompactReservationList', () => {
       expect(buttons).to.have.length(2);
     });
 
-    it('passes onRemoveClick func to onClick prop', () => {
+    test('passes onRemoveClick func to onClick prop', () => {
       const onRemoveClick = simple.mock();
       const removableReservations = [Reservation.build()];
       const props = { onRemoveClick, removableReservations };

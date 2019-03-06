@@ -24,16 +24,16 @@ describe('shared/comment-button/CommentButtonContainer', () => {
   }
   let wrapper;
 
-  beforeEach(() => {
+  beforeAll(() => {
     wrapper = getWrapper();
   });
 
-  it('renders a CommentButton', () => {
+  test('renders a CommentButton', () => {
     const commentButton = wrapper.find(CommentButton);
     expect(commentButton.length).to.equal(1);
   });
 
-  it('passes correct onClick prop to CommentButton', () => {
+  test('passes correct onClick prop to CommentButton', () => {
     const commentButton = wrapper.find(CommentButton);
     const expected = wrapper.instance().handleClick;
 
@@ -43,7 +43,7 @@ describe('shared/comment-button/CommentButtonContainer', () => {
   describe('handleClick', () => {
     let instance;
 
-    beforeEach(() => {
+    beforeAll(() => {
       instance = wrapper.instance();
     });
 
@@ -52,14 +52,14 @@ describe('shared/comment-button/CommentButtonContainer', () => {
       defaultProps.actions.selectReservationToShow.reset();
     });
 
-    it('calls selectReservationToShow with the reservation', () => {
+    test('calls selectReservationToShow with the reservation', () => {
       instance.handleClick();
       expect(defaultProps.actions.selectReservationToShow.callCount).to.equal(1);
       expect(defaultProps.actions.selectReservationToShow.lastCall.args[0])
         .to.deep.equal(reservation);
     });
 
-    it('calls openReservationCommentModal', () => {
+    test('calls openReservationCommentModal', () => {
       instance.handleClick();
       expect(defaultProps.actions.openReservationCommentModal.callCount).to.equal(1);
     });

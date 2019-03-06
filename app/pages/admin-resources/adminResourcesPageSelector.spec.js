@@ -10,37 +10,37 @@ describe('pages/admin-resources/adminResourcesPageSelector', () => {
     return adminResourcesPageSelector(state);
   }
 
-  it('returns isAdmin', () => {
+  test('returns isAdmin', () => {
     expect(getSelected().isAdmin).to.exist;
   });
 
-  it('returns isFetchingResources', () => {
+  test('returns isFetchingResources', () => {
     expect(getSelected().isFetchingResources).to.exist;
   });
 
-  it('returns resources', () => {
+  test('returns resources', () => {
     expect(getSelected().resources).to.exist;
   });
 
-  it('returns selectedResourceTypes', () => {
+  test('returns selectedResourceTypes', () => {
     expect(getSelected().selectedResourceTypes).to.exist;
   });
 
-  it('returns resourceTypes', () => {
+  test('returns resourceTypes', () => {
     expect(getSelected().resourceTypes).to.exist;
   });
 
-  it('returns date', () => {
+  test('returns date', () => {
     const selected = getSelected({ 'ui.pages.adminResources': { date: '2017-02-01' } });
     expect(selected.date).to.equal('2017-02-01');
   });
 
-  it('returns current date by default', () => {
+  test('returns current date by default', () => {
     const current = moment().format('YYYY-MM-DD');
     expect(getSelected().date).to.equal(current);
   });
 
-  it('returns an array of resource ids ordered by translated name', () => {
+  test('returns an array of resource ids ordered by translated name', () => {
     const resource1 = { id: 1, name: { fi: 'Tatooine' }, type: { name: 'school' } };
     const resource2 = { id: 2, name: { fi: 'Dantooine' }, type: { name: 'library' } };
     const resource3 = { id: 3, name: { fi: 'Alderaan' }, type: { name: 'printer' } };
@@ -58,7 +58,7 @@ describe('pages/admin-resources/adminResourcesPageSelector', () => {
     expect(selected.resources).to.deep.equal(expected);
   });
 
-  it('returns an array of resourceTypes', () => {
+  test('returns an array of resourceTypes', () => {
     const resource1 = { id: 1, name: { fi: 'Tatooine' }, type: { name: 'school' } };
     const resource2 = { id: 2, name: { fi: 'Dantooine' }, type: { name: 'library' } };
     const resource3 = { id: 3, name: { fi: 'Alderaan' }, type: { name: 'printer' } };
@@ -75,21 +75,24 @@ describe('pages/admin-resources/adminResourcesPageSelector', () => {
     expect(selected.resourceTypes).to.deep.equal(expected);
   });
 
-  it('returns an array of selectedResourceTypes and filtered resourceIds', () => {
-    const resource1 = { id: 1, name: { fi: 'Tatooine' }, type: { name: 'school' } };
-    const resource2 = { id: 2, name: { fi: 'Dantooine' }, type: { name: 'library' } };
-    const resource3 = { id: 3, name: { fi: 'Alderaan' }, type: { name: 'printer' } };
-    const extraState = {
-      'data.resources': {
-        [resource1.id]: resource1,
-        [resource2.id]: resource2,
-        [resource3.id]: resource3,
-      },
-      'ui.pages.adminResources.selectedResourceTypes': ['school'],
-      'ui.pages.adminResources.resourceIds': [resource1.id, resource3.id],
-    };
-    const selected = getSelected(extraState);
-    expect(selected.selectedResourceTypes).to.deep.equal(['school']);
-    expect(selected.resources).to.deep.equal([1]);
-  });
+  test(
+    'returns an array of selectedResourceTypes and filtered resourceIds',
+    () => {
+      const resource1 = { id: 1, name: { fi: 'Tatooine' }, type: { name: 'school' } };
+      const resource2 = { id: 2, name: { fi: 'Dantooine' }, type: { name: 'library' } };
+      const resource3 = { id: 3, name: { fi: 'Alderaan' }, type: { name: 'printer' } };
+      const extraState = {
+        'data.resources': {
+          [resource1.id]: resource1,
+          [resource2.id]: resource2,
+          [resource3.id]: resource3,
+        },
+        'ui.pages.adminResources.selectedResourceTypes': ['school'],
+        'ui.pages.adminResources.resourceIds': [resource1.id, resource3.id],
+      };
+      const selected = getSelected(extraState);
+      expect(selected.selectedResourceTypes).to.deep.equal(['school']);
+      expect(selected.resources).to.deep.equal([1]);
+    }
+  );
 });

@@ -34,7 +34,7 @@ describe('store/middleware/tracking', () => {
       middleware(action);
     });
 
-    it('calls setTimeout', () => {
+    test('calls setTimeout', () => {
       expect(window.setTimeout.callCount).to.equal(1);
       const args = window.setTimeout.lastCall.args;
       expect(args).to.have.length(2);
@@ -42,7 +42,7 @@ describe('store/middleware/tracking', () => {
       expect(args[1]).to.equal(0);
     });
 
-    it('dispatches action', () => {
+    test('dispatches action', () => {
       expect(dispatch.callCount).to.equal(1);
       expect(dispatch.lastCall.args).to.deep.equal([action]);
     });
@@ -54,11 +54,11 @@ describe('store/middleware/tracking', () => {
       middleware(action);
     });
 
-    it('does not call setTimeout', () => {
+    test('does not call setTimeout', () => {
       expect(window.setTimeout.callCount).to.equal(0);
     });
 
-    it('dispatches action', () => {
+    test('dispatches action', () => {
       expect(dispatch.callCount).to.equal(1);
       expect(dispatch.lastCall.args).to.deep.equal([action]);
     });
@@ -81,13 +81,13 @@ describe('store/middleware/tracking', () => {
       push.reset();
     });
 
-    it('pushes track with correct data', () => {
+    test('pushes track with correct data', () => {
       track(trackData);
       expect(push.callCount).to.equal(1);
       expect(push.lastCall.args[0]).to.deep.equal(['trackEvent', 'argument1', 'argument2']);
     });
 
-    it('waits for _paq to be defined', (done) => {
+    test('waits for _paq to be defined', (done) => {
       track(trackData);
       simple.mock(window, '_paq').returnWith({ push });
       timeoutFunc(

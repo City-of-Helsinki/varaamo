@@ -16,7 +16,7 @@ describe('pages/reservation/reservation-phases/ReservationPhases', () => {
   }
 
   describe('when currentPhase is information', () => {
-    it('renders two phases with correct props when isEditing false', () => {
+    test('renders two phases with correct props when isEditing false', () => {
       const phases = getWrapper({
         currentPhase: 'information',
         isEditing: false,
@@ -35,7 +35,7 @@ describe('pages/reservation/reservation-phases/ReservationPhases', () => {
       expect(phases.at(1).prop('title')).to.equal('ReservationPhase.confirmationTitle');
     });
 
-    it('renders three phases with correct props when isEditing true', () => {
+    test('renders three phases with correct props when isEditing true', () => {
       const phases = getWrapper({
         currentPhase: 'information',
         isEditing: true,
@@ -61,7 +61,7 @@ describe('pages/reservation/reservation-phases/ReservationPhases', () => {
   });
 
   describe('when currentPhase is confirmation', () => {
-    it('renders two phases with correct props when isEditing false', () => {
+    test('renders two phases with correct props when isEditing false', () => {
       const phases = getWrapper({
         currentPhase: 'confirmation',
         isEditing: false,
@@ -80,7 +80,7 @@ describe('pages/reservation/reservation-phases/ReservationPhases', () => {
       expect(phases.at(1).prop('title')).to.equal('ReservationPhase.confirmationTitle');
     });
 
-    it('renders three phases with correct props when isEditing true', () => {
+    test('renders three phases with correct props when isEditing true', () => {
       const phases = getWrapper({
         currentPhase: 'confirmation',
         isEditing: true,

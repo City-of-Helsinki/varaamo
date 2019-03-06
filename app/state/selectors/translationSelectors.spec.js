@@ -9,18 +9,18 @@ import {
 
 describe('state/selectors/dataSelectors', () => {
   describe('currentLanguageSelector', () => {
-    it('returns default language if state does not contain locale', () => {
+    test('returns default language if state does not contain locale', () => {
       const state = {};
       expect(currentLanguageSelector(state)).to.equal(constants.DEFAULT_LOCALE);
     });
 
-    it('returns locale from state', () => {
+    test('returns locale from state', () => {
       const locale = 'en';
       const state = getState({ intl: { locale } });
       expect(currentLanguageSelector(state)).to.equal(locale);
     });
 
-    it('returns sv if locale is se', () => {
+    test('returns sv if locale is se', () => {
       const locale = 'se';
       const state = getState({ intl: { locale } });
       expect(currentLanguageSelector(state)).to.equal('sv');
@@ -29,7 +29,7 @@ describe('state/selectors/dataSelectors', () => {
 
   describe('createTranslatedSelector', () => {
     describe('items in an array', () => {
-      it('are translated', () => {
+      test('are translated', () => {
         const items = [
           { id: 1, name: { en: 'Some name' } },
           { id: 2, name: { en: 'Other name' } },
@@ -44,7 +44,7 @@ describe('state/selectors/dataSelectors', () => {
         expect(selected).to.deep.equal(expected);
       });
 
-      it('support translating values in arrays', () => {
+      test('support translating values in arrays', () => {
         const items = [
           {
             id: 1,
@@ -71,7 +71,7 @@ describe('state/selectors/dataSelectors', () => {
         expect(selected).to.deep.equal(expected);
       });
 
-      it('support translating values in an object', () => {
+      test('support translating values in an object', () => {
         const items = [
           {
             id: 1,
@@ -96,7 +96,7 @@ describe('state/selectors/dataSelectors', () => {
     });
 
     describe('items in an object', () => {
-      it('are translated', () => {
+      test('are translated', () => {
         const items = {
           1: { id: 1, name: { en: 'Some name' } },
           2: { id: 2, name: { en: 'Other name' } },
@@ -111,7 +111,7 @@ describe('state/selectors/dataSelectors', () => {
         expect(selected).to.deep.equal(expected);
       });
 
-      it('support translating values in arrays', () => {
+      test('support translating values in arrays', () => {
         const items = {
           1: {
             id: 1,
@@ -138,7 +138,7 @@ describe('state/selectors/dataSelectors', () => {
         expect(selected).to.deep.equal(expected);
       });
 
-      it('support translating values in an object', () => {
+      test('support translating values in an object', () => {
         const items = {
           1: {
             id: 1,

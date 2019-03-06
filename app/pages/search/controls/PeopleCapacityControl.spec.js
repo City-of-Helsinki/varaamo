@@ -19,12 +19,12 @@ function getWrapper(props) {
 }
 
 describe('pages/search/controls/PeopleCapacityControl', () => {
-  it('renders a div.app-PeopleCapacityControl', () => {
+  test('renders a div.app-PeopleCapacityControl', () => {
     const wrapper = getWrapper();
     expect(wrapper.is('div.app-PeopleCapacityControl')).to.be.true;
   });
 
-  it('renders Button with correct props', () => {
+  test('renders Button with correct props', () => {
     const wrapper = getWrapper();
     const instance = wrapper.instance();
     const button = wrapper.find(Button);
@@ -33,7 +33,7 @@ describe('pages/search/controls/PeopleCapacityControl', () => {
     expect(button.prop('onClick')).to.equal(instance.showOverlay);
   });
 
-  it('renders Overlay with correct props', () => {
+  test('renders Overlay with correct props', () => {
     const wrapper = getWrapper();
     const instance = wrapper.instance();
     const overlay = wrapper.find(Overlay);
@@ -45,7 +45,7 @@ describe('pages/search/controls/PeopleCapacityControl', () => {
     expect(overlay.prop('show')).to.equal(instance.state.visible);
   });
 
-  it('renders SearchControlOverlay with correct props', () => {
+  test('renders SearchControlOverlay with correct props', () => {
     const wrapper = getWrapper();
     const controlOverlay = wrapper.find(SearchControlOverlay);
     expect(controlOverlay).to.have.length(1);
@@ -53,20 +53,20 @@ describe('pages/search/controls/PeopleCapacityControl', () => {
     expect(controlOverlay.prop('title')).to.equal('PeopleCapacityControl.header');
   });
 
-  it('renders ListGroup with correct props', () => {
+  test('renders ListGroup with correct props', () => {
     const wrapper = getWrapper();
     const listGroup = wrapper.find(ListGroup);
     expect(listGroup).to.have.length(1);
   });
 
-  it('renders ListGroupItem with correct props', () => {
+  test('renders ListGroupItem with correct props', () => {
     const wrapper = getWrapper();
     const listGroupItems = wrapper.find(ListGroupItem);
     expect(listGroupItems).to.have.length(14);
   });
 
   describe('handleConfirm', () => {
-    it('calls onConfirm with correct value', () => {
+    test('calls onConfirm with correct value', () => {
       const onConfirm = simple.mock();
       const value = 12;
       const instance = getWrapper({ onConfirm }).instance();
@@ -75,7 +75,7 @@ describe('pages/search/controls/PeopleCapacityControl', () => {
       expect(onConfirm.lastCall.args).to.deep.equal([value]);
     });
 
-    it('calls hideOverlay', () => {
+    test('calls hideOverlay', () => {
       const instance = getWrapper().instance();
       simple.mock(instance, 'hideOverlay');
       instance.handleConfirm();
@@ -85,7 +85,7 @@ describe('pages/search/controls/PeopleCapacityControl', () => {
   });
 
   describe('hideOverlay', () => {
-    it('sets state.visible to false', () => {
+    test('sets state.visible to false', () => {
       const instance = getWrapper().instance();
       instance.state.visible = true;
       instance.hideOverlay();
@@ -94,7 +94,7 @@ describe('pages/search/controls/PeopleCapacityControl', () => {
   });
 
   describe('showOverlay', () => {
-    it('sets state.visible to true', () => {
+    test('sets state.visible to true', () => {
       const instance = getWrapper().instance();
       instance.state.visible = false;
       instance.showOverlay();

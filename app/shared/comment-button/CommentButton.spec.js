@@ -16,23 +16,23 @@ describe('shared/comment-button/CommentButton', () => {
   }
   let wrapper;
 
-  beforeEach(() => {
+  beforeAll(() => {
     wrapper = getWrapper();
   });
 
-  it('is a button', () => {
+  test('is a button', () => {
     expect(wrapper.is('button')).to.be.true;
   });
 
-  it('has comment-button class name', () => {
+  test('has comment-button class name', () => {
     expect(wrapper.prop('className')).to.equal('comment-button');
   });
 
-  it('has correct onClick prop', () => {
+  test('has correct onClick prop', () => {
     expect(wrapper.prop('onClick')).to.equal(defaultProps.onClick);
   });
 
-  it('displays a comment glyphicon', () => {
+  test('displays a comment glyphicon', () => {
     expect(wrapper.children().is(Glyphicon)).to.be.true;
     expect(wrapper.children().prop('glyph')).to.equal('comment');
   });

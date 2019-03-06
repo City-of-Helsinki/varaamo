@@ -27,16 +27,16 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
 
   let component;
 
-  beforeEach(() => {
+  beforeAll(() => {
     component = shallowWithIntl(<ReservationListItem {...props} />);
   });
 
   describe('rendering', () => {
-    it('renders a li element', () => {
+    test('renders a li element', () => {
       expect(component.is('li')).to.be.true;
     });
 
-    it('displays an image with correct props', () => {
+    test('displays an image with correct props', () => {
       const image = component.find('.resourceImg');
 
       expect(image).to.have.length(1);
@@ -44,43 +44,43 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
       expect(image.props().src).to.contain(props.resource.images[0].url);
     });
 
-    it('contains a link to resources page', () => {
+    test('contains a link to resources page', () => {
       const expectedUrl = getResourcePageUrl(props.resource);
       const resourceLink = component.find({ to: expectedUrl });
 
       expect(resourceLink.length > 0).to.be.true;
     });
 
-    it('displays the name of the resource', () => {
+    test('displays the name of the resource', () => {
       const expected = props.resource.name;
 
       expect(component.find('h4').text()).to.contain(expected);
     });
 
-    it('displays the name of the given unit in props', () => {
+    test('displays the name of the given unit in props', () => {
       const expected = props.unit.name;
 
       expect(component.find('.unit-name').text()).to.contain(expected);
     });
 
-    it('contains TimeRange component with correct props', () => {
+    test('contains TimeRange component with correct props', () => {
       const timeRange = component.find(TimeRange);
       expect(timeRange).to.have.length(1);
       expect(timeRange.prop('begin')).to.equal(props.reservation.begin);
       expect(timeRange.prop('end')).to.equal(props.reservation.end);
     });
 
-    it('renders ReservationStateLabel component', () => {
+    test('renders ReservationStateLabel component', () => {
       const reservationStateLabel = component.find(ReservationStateLabel);
       expect(reservationStateLabel.length).to.equal(1);
     });
 
-    it('renders ReservationControls component', () => {
+    test('renders ReservationControls component', () => {
       const reservationControls = component.find(ReservationControls);
       expect(reservationControls).to.have.length(1);
     });
 
-    it('passes correct props to ReservationControls component', () => {
+    test('passes correct props to ReservationControls component', () => {
       const actualProps = component.find(ReservationControls).props();
 
       expect(actualProps.isAdmin).to.equal(false);

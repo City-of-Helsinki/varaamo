@@ -14,17 +14,17 @@ function getWrapper(props) {
 }
 
 describe('shared/availability-view/Sidebar', () => {
-  it('renders a div.sidebar', () => {
+  test('renders a div.sidebar', () => {
     const wrapper = getWrapper();
     expect(wrapper.is('div.sidebar')).to.be.true;
   });
 
-  it('renders no groups if none given', () => {
+  test('renders no groups if none given', () => {
     const elements = getWrapper({ groups: [] }).find(GroupInfo);
     expect(elements).to.have.length(0);
   });
 
-  it('renders groups', () => {
+  test('renders groups', () => {
     const date = '2016-05-05';
     const groups = [
       { name: 'A', resources: [] },

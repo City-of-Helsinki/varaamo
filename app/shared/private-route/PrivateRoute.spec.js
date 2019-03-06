@@ -39,34 +39,34 @@ describe('shared/private-route/PrivateRoute', () => {
       return shallow(<PrivateRoute {...props} />);
     };
 
-    it('renders Route from react-router-dom', () => {
+    test('renders Route from react-router-dom', () => {
       const wrapper = getWrapper('AdminPage', '1234');
 
       expect(wrapper.is(Route)).to.be.true;
     });
 
-    it('calls updateRoute when the component did mount', () => {
+    test('calls updateRoute when the component did mount', () => {
       const wrapper = getWrapper('AdminPage', '1234');
       wrapper.instance().componentDidMount();
 
       expect(updateRoute.callCount).to.equal(1);
     });
 
-    it('calls scrollTo when the component did update', () => {
+    test('calls scrollTo when the component did update', () => {
       const wrapper = getWrapper('AdminPage', '1234');
       wrapper.instance().componentDidMount();
 
       expect(scrollToMock.callCount).to.equal(1);
     });
 
-    it('calls updateRoute when the component did update', () => {
+    test('calls updateRoute when the component did update', () => {
       const wrapper = getWrapper('AdminPage', '1234');
       wrapper.instance().componentDidUpdate();
 
       expect(updateRoute.callCount).to.equal(1);
     });
 
-    it('does not calls window.location.replace if the userId is defined', () => {
+    test('does not calls window.location.replace if the userId is defined', () => {
       const wrapper = getWrapper('AdminPage', '1234');
       wrapper.instance().renderOrRedirect();
 
@@ -75,7 +75,7 @@ describe('shared/private-route/PrivateRoute', () => {
   });
 
   describe('mapStateToProps', () => {
-    it('returns an object with userId property', () => {
+    test('returns an object with userId property', () => {
       expect(mapStateToProps({})).to.have.property('userId');
     });
   });
@@ -93,17 +93,17 @@ describe('shared/private-route/PrivateRoute', () => {
     const dispatch = () => {};
     const ownProps = { componentName: 'adminPage' };
 
-    it('returns an object with actions property', () => {
+    test('returns an object with actions property', () => {
       expect(mapDispatchToProps(dispatch, ownProps)).to.have.property('actions');
     });
 
-    it('calls updateRoute with componentName prop', () => {
+    test('calls updateRoute with componentName prop', () => {
       mapDispatchToProps(dispatch, ownProps);
 
       expect(routeActions.updateRoute.calls[0].arg).to.equal(ownProps.componentName);
     });
 
-    it('calls bindActionCreators with the correct arguments', () => {
+    test('calls bindActionCreators with the correct arguments', () => {
       mapDispatchToProps(dispatch, ownProps);
 
       expect(redux.bindActionCreators.calls[0].args[0]).to.have.property(

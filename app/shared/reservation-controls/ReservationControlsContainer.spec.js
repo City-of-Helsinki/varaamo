@@ -42,11 +42,11 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
   });
 
   describe('rendering', () => {
-    it('renders ReservationControls component', () => {
+    test('renders ReservationControls component', () => {
       expect(container.find(ReservationControls)).to.have.length(1);
     });
 
-    it('passes correct props to ReservationControls component', () => {
+    test('passes correct props to ReservationControls component', () => {
       const actualProps = container.find(ReservationControls).props();
 
       expect(actualProps.isAdmin).to.equal(props.isAdmin);
@@ -65,14 +65,17 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
       instance.handleCancelClick();
     });
 
-    it('calls props.actions.selectReservationToCancel with this reservation', () => {
-      expect(props.actions.selectReservationToCancel.callCount).to.equal(1);
-      expect(props.actions.selectReservationToCancel.lastCall.args[0]).to.deep.equal(
-        props.reservation
-      );
-    });
+    test(
+      'calls props.actions.selectReservationToCancel with this reservation',
+      () => {
+        expect(props.actions.selectReservationToCancel.callCount).to.equal(1);
+        expect(props.actions.selectReservationToCancel.lastCall.args[0]).to.deep.equal(
+          props.reservation
+        );
+      }
+    );
 
-    it('calls the props.actions.openReservationCancelModal function', () => {
+    test('calls the props.actions.openReservationCancelModal function', () => {
       expect(props.actions.openReservationCancelModal.callCount).to.equal(1);
     });
   });
@@ -80,24 +83,27 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
   describe('handleEditClick', () => {
     let historyMock;
 
-    beforeEach(() => {
+    beforeAll(() => {
       historyMock = simple.mock(history, 'push');
       instance.handleEditClick();
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls props.actions.selectReservationToEdit with reservation and minPeriod', () => {
-      expect(props.actions.selectReservationToEdit.callCount).to.equal(1);
-      expect(props.actions.selectReservationToEdit.lastCall.args[0]).to.deep.equal({
-        reservation: props.reservation,
-        minPeriod: props.resource.minPeriod,
-      });
-    });
+    test(
+      'calls props.actions.selectReservationToEdit with reservation and minPeriod',
+      () => {
+        expect(props.actions.selectReservationToEdit.callCount).to.equal(1);
+        expect(props.actions.selectReservationToEdit.lastCall.args[0]).to.deep.equal({
+          reservation: props.reservation,
+          minPeriod: props.resource.minPeriod,
+        });
+      }
+    );
 
-    it('calls history.push with correct path', () => {
+    test('calls history.push with correct path', () => {
       const actualPath = historyMock.lastCall.args[0];
       const expectedPath = getEditReservationUrl(props.reservation);
 
@@ -107,15 +113,18 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
   });
 
   describe('handleInfoClick', () => {
-    beforeEach(() => {
+    beforeAll(() => {
       instance.handleInfoClick();
     });
 
-    it('calls the props.actions.showReservationInfoModal function with this reservation', () => {
-      expect(props.actions.showReservationInfoModal.callCount).to.equal(1);
-      expect(props.actions.showReservationInfoModal.lastCall.args[0]).to.deep.equal(
-        props.reservation
-      );
-    });
+    test(
+      'calls the props.actions.showReservationInfoModal function with this reservation',
+      () => {
+        expect(props.actions.showReservationInfoModal.callCount).to.equal(1);
+        expect(props.actions.showReservationInfoModal.lastCall.args[0]).to.deep.equal(
+          props.reservation
+        );
+      }
+    );
   });
 });

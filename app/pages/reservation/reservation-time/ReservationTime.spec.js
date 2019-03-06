@@ -31,7 +31,7 @@ describe('pages/reservation/reservation-time/ReservationTime', () => {
     return shallowWithIntl(<ReservationTime {...defaultProps} {...extraProps} />);
   }
 
-  it('renders ResourceCalendar', () => {
+  test('renders ResourceCalendar', () => {
     const wrapper = getWrapper();
     const instance = wrapper.instance();
     const resourceCalendar = wrapper.find(ResourceCalendar);
@@ -42,7 +42,7 @@ describe('pages/reservation/reservation-time/ReservationTime', () => {
     expect(resourceCalendar.prop('selectedDate')).to.equal(date);
   });
 
-  it('renders ReservationCalendar', () => {
+  test('renders ReservationCalendar', () => {
     const location = { query: { q: 1 } };
     const reservationCalendar = getWrapper({ location }).find(ReservationCalendar);
 
@@ -51,7 +51,7 @@ describe('pages/reservation/reservation-time/ReservationTime', () => {
     expect(reservationCalendar.prop('params')).to.deep.equal({ id: defaultProps.resource.id });
   });
 
-  it('renders resource and unit names', () => {
+  test('renders resource and unit names', () => {
     const details = getWrapper().find('.app-ReservationDetails__value');
 
     expect(details).to.have.length(1);
@@ -66,17 +66,17 @@ describe('pages/reservation/reservation-time/ReservationTime', () => {
     let instance;
     let historyMock;
 
-    beforeEach(() => {
+    beforeAll(() => {
       instance = getWrapper().instance();
       historyMock = simple.mock(history, 'replace');
       instance.handleDateChange(date);
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls history replace with correct path', () => {
+    test('calls history replace with correct path', () => {
       expect(historyMock.callCount).to.equal(1);
       expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
     });

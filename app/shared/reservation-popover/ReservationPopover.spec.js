@@ -26,12 +26,12 @@ describe('shared/reservation-popover/ReservationPopover', () => {
     return shallow(overlay.prop('overlay'));
   }
 
-  it('renders length with hours and minutes', () => {
+  test('renders length with hours and minutes', () => {
     const span = getInternalPopover().find('.reservation-popover__length');
     expect(span.text()).to.be.equal('(2h 0min)');
   });
 
-  it('renders length with only minutes if less than an hour', () => {
+  test('renders length with only minutes if less than an hour', () => {
     const extraProps = {
       begin: '2016-01-01T10:00:00Z',
       end: '2016-01-01T10:30:00Z',
@@ -40,7 +40,7 @@ describe('shared/reservation-popover/ReservationPopover', () => {
     expect(span.text()).to.be.equal('(30min)');
   });
 
-  it('renders cancel icon', () => {
+  test('renders cancel icon', () => {
     const onCancel = () => null;
     const icon = getInternalPopover({ onCancel }).find('.reservation-popover__cancel');
     expect(icon.is(Glyphicon)).to.be.true;

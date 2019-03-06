@@ -14,18 +14,18 @@ describe('shared/wrapped-text/WrappedText', () => {
     return shallow(<WrappedText {...defaultProps} {...extraProps} />);
   }
 
-  it('has class "wrapped-text"', () => {
+  test('has class "wrapped-text"', () => {
     const wrapper = getWrapper();
     expect(wrapper.hasClass('wrapped-text')).to.be.true;
   });
 
-  it('renders an empty div if no text is given in props', () => {
+  test('renders an empty div if no text is given in props', () => {
     const text = undefined;
     const wrapper = getWrapper({ text });
     expect(wrapper.matchesElement(<div />)).to.be.true;
   });
 
-  it('renders an empty div if empty string is given as text in props', () => {
+  test('renders an empty div if empty string is given as text in props', () => {
     const text = '';
     const wrapper = getWrapper({ text });
     expect(wrapper.matchesElement(<div />)).to.be.true;
@@ -35,16 +35,16 @@ describe('shared/wrapped-text/WrappedText', () => {
     const text = 'Just one line';
     let content;
 
-    beforeEach(() => {
+    beforeAll(() => {
       content = getWrapper({ text }).children();
     });
 
-    it('renders a div for the text', () => {
+    test('renders a div for the text', () => {
       const div = content.find('div');
       expect(div.length).to.equal(1);
     });
 
-    it('uses Linkify to autolink the text', () => {
+    test('uses Linkify to autolink the text', () => {
       const linkify = content.find(Linkify);
       expect(linkify.length).to.equal(1);
       expect(linkify.props().children).to.equal(text);
@@ -56,16 +56,16 @@ describe('shared/wrapped-text/WrappedText', () => {
     const text = lines.join('\n');
     let content;
 
-    beforeEach(() => {
+    beforeAll(() => {
       content = getWrapper({ text }).children();
     });
 
-    it('renders a div for each line', () => {
+    test('renders a div for each line', () => {
       const div = content.find('div');
       expect(div.length).to.equal(lines.length);
     });
 
-    it('uses Linkify to autolink each line', () => {
+    test('uses Linkify to autolink each line', () => {
       const linkifies = content.find(Linkify);
       expect(linkifies.length).to.equal(lines.length);
       lines.forEach((line, index) => {
@@ -78,14 +78,14 @@ describe('shared/wrapped-text/WrappedText', () => {
     const text = 'Text and http://example.com/ and more text';
     let content;
 
-    it('is not enabled by default', () => {
+    test('is not enabled by default', () => {
       content = getWrapper({ text }).children();
       const linkify = content.find(Linkify);
       expect(linkify.length).to.equal(1);
       expect(linkify.props().properties.target).to.be.undefined;
     });
 
-    it('opens links in new tabs', () => {
+    test('opens links in new tabs', () => {
       content = getWrapper({ text, openLinksInNewTab: true }).children();
       const linkify = content.find(Linkify);
       expect(linkify.length).to.equal(1);

@@ -12,7 +12,7 @@ describe('shared/modals/comment/commentModalSelector', () => {
   }
 
   describe('isSaving', () => {
-    it('returns true if RESERVATION_PUT_REQUEST is active', () => {
+    test('returns true if RESERVATION_PUT_REQUEST is active', () => {
       const activeRequests = { [ActionTypes.API.RESERVATION_PUT_REQUEST]: 1 };
       const selected = getSelected({
         'api.activeRequests': activeRequests,
@@ -20,12 +20,12 @@ describe('shared/modals/comment/commentModalSelector', () => {
       expect(selected.isSaving).to.be.true;
     });
 
-    it('returns false if RESERVATION_PUT_REQUEST is not active', () => {
+    test('returns false if RESERVATION_PUT_REQUEST is not active', () => {
       expect(getSelected().isSaving).to.be.false;
     });
   });
 
-  it('returns correct reservation from the state', () => {
+  test('returns correct reservation from the state', () => {
     const reservation = { id: 'reservation-1' };
     const selected = getSelected({
       'ui.reservations.toShow': [reservation],
@@ -33,7 +33,7 @@ describe('shared/modals/comment/commentModalSelector', () => {
     expect(selected.reservation).to.deep.equal(reservation);
   });
 
-  it('returns correct resource from the state', () => {
+  test('returns correct resource from the state', () => {
     const resource = { id: 'resource-1' };
     const reservation = { id: 'reservation-1', resource: resource.id };
     const selected = getSelected({
@@ -45,18 +45,21 @@ describe('shared/modals/comment/commentModalSelector', () => {
   });
 
   describe('show', () => {
-    it('returns true if modals.open contain RESERVATION_COMMENT', () => {
+    test('returns true if modals.open contain RESERVATION_COMMENT', () => {
       const selected = getSelected({
         'ui.modals.open': [ModalTypes.RESERVATION_COMMENT],
       });
       expect(selected.show).to.be.true;
     });
 
-    it('returns false if modals.open does not contain RESERVATION_COMMENT', () => {
-      const selected = getSelected({
-        'ui.modals.open': [],
-      });
-      expect(selected.show).to.be.false;
-    });
+    test(
+      'returns false if modals.open does not contain RESERVATION_COMMENT',
+      () => {
+        const selected = getSelected({
+          'ui.modals.open': [],
+        });
+        expect(selected.show).to.be.false;
+      }
+    );
   });
 });

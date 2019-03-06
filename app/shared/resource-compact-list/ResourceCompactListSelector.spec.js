@@ -14,14 +14,14 @@ function createResource(id, unitId) {
 }
 
 describe('shared/resource-compact-list/ResourceCompactListSelector', () => {
-  it('all resourceIds are returned if not unitId is passed', () => {
+  test('all resourceIds are returned if not unitId is passed', () => {
     const state = getState({});
     const props = { resourceIds: ['123', '321'] };
     const data = selector(state, props);
     expect(data.resourceIds).to.deep.equal(props.resourceIds);
   });
 
-  it('filtered resourceIds by unit are returned if unitId is passed', () => {
+  test('filtered resourceIds by unit are returned if unitId is passed', () => {
     const state = getState({
       resources: {
         123: createResource('123', 'unitId'),

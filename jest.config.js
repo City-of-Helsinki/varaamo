@@ -10,10 +10,6 @@ module.exports = {
   // Automatically clear mock calls and instances between every test
   clearMocks: true,
 
-  // Enable coverage collect
-
-  collectCoverage: true,
-
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   collectCoverageFrom: ['app/**/*.{js,jsx,mjs}'],
 

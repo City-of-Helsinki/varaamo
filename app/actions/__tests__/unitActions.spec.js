@@ -19,14 +19,14 @@ describe('Actions: unitActions', () => {
   });
 
   describe('fetchUnit', () => {
-    it('includes correct type', () => {
+    test('includes correct type', () => {
       fetchUnits();
       expect(getRequestTypeDescriptorMock.lastCall.args[0]).to.equal(
           types.API.UNITS_GET_REQUEST
         );
     });
 
-    it('that has resources as default in query', () => {
+    test('that has resources as default in query', () => {
       fetchUnits();
       expect(buildAPIUrlMock.lastCall.args[1].unit_has_resource).to.be.true;
     });

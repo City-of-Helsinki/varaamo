@@ -17,20 +17,20 @@ describe('shared/feedback-link/FeedbackLink', () => {
   describe('When there is no customization in use', () => {
     let link;
 
-    beforeEach(() => {
+    beforeAll(() => {
       link = getWrapper();
     });
 
-    it('renders a link', () => {
+    test('renders a link', () => {
       expect(link.type()).to.equal('a');
     });
 
-    it('renders children', () => {
+    test('renders children', () => {
       const wrapper = getWrapper();
       expect(wrapper.children().equals(linkChildren)).to.be.true;
     });
 
-    it('has correct href', () => {
+    test('has correct href', () => {
       const expected = `${constants.FEEDBACK_URL}&ref=${window.location.href}`;
       expect(link.props().href).to.equal(expected);
     });
@@ -39,25 +39,25 @@ describe('shared/feedback-link/FeedbackLink', () => {
   describe('When Espoo customization is used', () => {
     let link;
 
-    beforeEach(() => {
+    beforeAll(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('ESPOO');
       link = getWrapper();
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('renders a link', () => {
+    test('renders a link', () => {
       expect(link.type()).to.equal('a');
     });
 
-    it('renders children', () => {
+    test('renders children', () => {
       const wrapper = getWrapper();
       expect(wrapper.children().equals(linkChildren)).to.be.true;
     });
 
-    it('has correct href', () => {
+    test('has correct href', () => {
       const expected = `${constants.FEEDBACK_URL}&ref=${window.location.href}`;
       expect(link.props().href).to.equal(expected);
     });

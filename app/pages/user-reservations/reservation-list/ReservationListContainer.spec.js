@@ -45,18 +45,18 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
       return getWrapper(props);
     }
 
-    it('renders a ul element', () => {
+    test('renders a ul element', () => {
       const ul = getWithReservationsWrapper().find('ul');
       expect(ul).to.have.length(1);
     });
 
     describe('rendering individual reservations', () => {
-      it('renders a ReservationListItem for every reservation in props', () => {
+      test('renders a ReservationListItem for every reservation in props', () => {
         const reservationListItems = getWithReservationsWrapper().find(ReservationListItem);
         expect(reservationListItems).to.have.length(props.reservations.length);
       });
 
-      it('passes isAdmin, isStaff and reservation', () => {
+      test('passes isAdmin, isStaff and reservation', () => {
         const reservationListItems = getWithReservationsWrapper().find(ReservationListItem);
         reservationListItems.forEach((reservationListItem, index) => {
           const actualProps = reservationListItem.props();
@@ -81,14 +81,14 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
     describe('when emptyMessage is given in props', () => {
       const emptyMessage = 'No reservations found';
 
-      it('displays the emptyMessage', () => {
+      test('displays the emptyMessage', () => {
         const message = getWithouReservationsWrapper(emptyMessage).find('p').text();
         expect(message).to.equal(emptyMessage);
       });
     });
 
     describe('when emptyMessage is not given in props', () => {
-      it('renders a message telling no reservations were found', () => {
+      test('renders a message telling no reservations were found', () => {
         const message = getWithouReservationsWrapper().find('p').text();
         expect(message).to.equal('ReservationListContainer.emptyMessage');
       });

@@ -22,17 +22,17 @@ describe('shared/top-navbar/TopNavbar', () => {
       return getWrapper(props).find('#language-nav-dropdown');
     }
 
-    it('is rendered', () => {
+    test('is rendered', () => {
       expect(getLanguageNavWrapper()).to.have.length(1);
     });
 
-    it('has changeLocale as onSelect prop', () => {
+    test('has changeLocale as onSelect prop', () => {
       const changeLocale = () => null;
       const actual = getLanguageNavWrapper({ changeLocale }).prop('onSelect');
       expect(actual).to.equal(changeLocale);
     });
 
-    it('renders MenuItems for other languages', () => {
+    test('renders MenuItems for other languages', () => {
       const currentLanguage = 'fi';
       const menuItems = getLanguageNavWrapper({ currentLanguage }).find(MenuItem);
       expect(menuItems).to.have.length(2);
@@ -51,13 +51,13 @@ describe('shared/top-navbar/TopNavbar', () => {
       return getWrapper({ ...props });
     }
 
-    it('renders the name of the logged in user', () => {
+    test('renders the name of the logged in user', () => {
       const userNavDropDown = getLoggedInNotAdminWrapper().find('#user-nav-dropdown');
       expect(userNavDropDown).to.have.length(1);
       expect(userNavDropDown.at(0).prop('title')).to.equal(props.userName);
     });
 
-    it('renders a logout link', () => {
+    test('renders a logout link', () => {
       const logoutHref = `/logout?next=${window.location.origin}`;
       const logoutLink = getLoggedInNotAdminWrapper()
         .find(MenuItem)
@@ -65,7 +65,7 @@ describe('shared/top-navbar/TopNavbar', () => {
       expect(logoutLink).to.have.length(1);
     });
 
-    it('does not render a link to login page', () => {
+    test('does not render a link to login page', () => {
       const loginLink = getLoggedInNotAdminWrapper()
         .find(NavItem)
         .filter('#app-Navbar__login');
@@ -81,14 +81,14 @@ describe('shared/top-navbar/TopNavbar', () => {
       return getWrapper({ ...props });
     }
 
-    it('renders a link to login page', () => {
+    test('renders a link to login page', () => {
       const wrapper = getNotLoggedInWrapper();
       const loginLink = wrapper.find(NavItem).filter('#app-Navbar__login');
       expect(loginLink).to.have.length(1);
       expect(loginLink.at(0).prop('onClick')).to.equal(wrapper.instance().handleLoginClick);
     });
 
-    it('does not render a logout link', () => {
+    test('does not render a logout link', () => {
       const logoutHref = `/logout?next=${window.location.origin}`;
       const logoutLink = getNotLoggedInWrapper()
         .find(NavItem)

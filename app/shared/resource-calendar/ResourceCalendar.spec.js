@@ -27,7 +27,7 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
 
   let dayWrapper;
   let wrapper;
-  beforeEach(() => {
+  beforeAll(() => {
     wrapper = getWrapper({
       availability: {
         '2015-10-01': { percentage: 0 },
@@ -39,18 +39,18 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
     dayWrapper = wrapper.find(DayPicker);
   });
 
-  it('renders DayPicker', () => {
+  test('renders DayPicker', () => {
     expect(dayWrapper.length).to.equal(1);
   });
 
-  it('renders FormGroup with correct props', () => {
+  test('renders FormGroup with correct props', () => {
     const formGroup = wrapper.find(FormGroup);
 
     expect(formGroup.length).to.equal(1);
     expect(formGroup.prop('onClick')).to.equal(wrapper.instance().showOverlay);
   });
 
-  it('renders FormControl with correct props', () => {
+  test('renders FormControl with correct props', () => {
     const formControl = wrapper.find(FormControl);
     const expected = moment('2015-10-11').format('dddd D. MMMM YYYY');
 
@@ -60,13 +60,13 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
     expect(formControl.prop('value')).to.equal(expected);
   });
 
-  it('renders ResourceCalendarOverlay with correct props', () => {
+  test('renders ResourceCalendarOverlay with correct props', () => {
     const resourceCalendarOverlay = wrapper.find(ResourceCalendarOverlay);
 
     expect(resourceCalendarOverlay.length).to.equal(1);
   });
 
-  it('renders a calendar-legend with correct labels', () => {
+  test('renders a calendar-legend with correct labels', () => {
     expect(wrapper.find('.calendar-legend .free').text())
       .to.equal('ReservationCalendarPickerLegend.free');
     expect(wrapper.find('.calendar-legend .busy').text())
@@ -75,7 +75,7 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
       .to.equal('ReservationCalendarPickerLegend.booked');
   });
 
-  it('renders correct props', () => {
+  test('renders correct props', () => {
     expect(dayWrapper.prop('disabledDays')).to.exist;
     expect(dayWrapper.prop('enableOutsideDays')).to.be.true;
     expect(dayWrapper.prop('initialMonth')).to.deep.equal(new Date(defaultProps.selectedDate));
@@ -93,7 +93,7 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
       const date = new Date('2015-10-01');
       const withDisableDays = getWrapper({ disableDays }).find(DayPicker);
       let isDisabled;
-      beforeEach(() => {
+      beforeAll(() => {
         isDisabled = withDisableDays.prop('disabledDays');
       });
 
@@ -101,12 +101,12 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
         mockDate.reset();
       });
 
-      it('calls disableDays function', () => {
+      test('calls disableDays function', () => {
         isDisabled(date);
         expect(disableDays.callCount).to.equal(1);
       });
 
-      it('calls disableDays with the right arguments', () => {
+      test('calls disableDays with the right arguments', () => {
         isDisabled(date);
         expect(disableDays.calls[0].arg).to.equal(date);
       });
@@ -125,7 +125,7 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
       receivedTomorrow.setHours(12, 0, 0, 0);
       receivedYesterday.setHours(12, 0, 0, 0);
       let isDisabled;
-      beforeEach(() => {
+      beforeAll(() => {
         isDisabled = dayWrapper.prop('disabledDays');
       });
 
@@ -133,27 +133,27 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
         mockDate.reset();
       });
 
-      it('disables yesterday', () => {
+      test('disables yesterday', () => {
         mockDate.set(now);
         expect(isDisabled(receivedYesterday)).to.be.true;
       });
 
-      it('enables today now', () => {
+      test('enables today now', () => {
         mockDate.set(now);
         expect(isDisabled(receivedToday)).to.be.false;
       });
 
-      it('enables today early', () => {
+      test('enables today early', () => {
         mockDate.set(todayEarly);
         expect(isDisabled(receivedToday)).to.be.false;
       });
 
-      it('enables today late', () => {
+      test('enables today late', () => {
         mockDate.set(todayLate);
         expect(isDisabled(receivedToday)).to.be.false;
       });
 
-      it('enables tomorrow', () => {
+      test('enables tomorrow', () => {
         mockDate.set(now);
         expect(isDisabled(receivedTomorrow)).to.be.false;
       });
@@ -161,7 +161,7 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
   });
 
   describe('setCalendarWrapper', () => {
-    it('sets calendarWrapper property to the supplied element', () => {
+    test('sets calendarWrapper property to the supplied element', () => {
       const element = {};
       const instance = getWrapper().instance();
       instance.setCalendarWrapper(element);
@@ -171,21 +171,21 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
   });
 
   describe('modifiers', () => {
-    it('is available if percentage is greater than 80', () => {
+    test('is available if percentage is greater than 80', () => {
       const func = dayWrapper.prop('modifiers').available;
       expect(func(new Date('2015-10-01'))).to.be.false;
       expect(func(new Date('2015-10-02'))).to.be.false;
       expect(func(new Date('2015-10-03'))).to.be.true;
       expect(func(new Date('2015-10-04'))).to.be.true;
     });
-    it('is busy if percentage is lower than 80', () => {
+    test('is busy if percentage is lower than 80', () => {
       const func = dayWrapper.prop('modifiers').busy;
       expect(func(new Date('2015-10-01'))).to.be.false;
       expect(func(new Date('2015-10-02'))).to.be.true;
       expect(func(new Date('2015-10-03'))).to.be.false;
       expect(func(new Date('2015-10-04'))).to.be.false;
     });
-    it('is booked if percentage is 0', () => {
+    test('is booked if percentage is 0', () => {
       const func = dayWrapper.prop('modifiers').booked;
       expect(func(new Date('2015-10-01'))).to.be.true;
       expect(func(new Date('2015-10-02'))).to.be.false;
@@ -195,7 +195,7 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
   });
 
   describe('handleDateChange', () => {
-    it('sets state visible false and calls prop onDateChange', () => {
+    test('sets state visible false and calls prop onDateChange', () => {
       const onDateChange = simple.stub();
       const date = new Date('2015-10-01');
       const instance = getWrapper({ onDateChange }).instance();
@@ -209,7 +209,7 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
   });
 
   describe('hideOverlay', () => {
-    it('sets state.visible to false', () => {
+    test('sets state.visible to false', () => {
       const instance = getWrapper().instance();
       instance.state.visible = true;
       instance.hideOverlay();
@@ -218,7 +218,7 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
   });
 
   describe('showOverlay', () => {
-    it('sets state.visible to true', () => {
+    test('sets state.visible to true', () => {
       const instance = getWrapper().instance();
       instance.state.visible = false;
       instance.showOverlay();
@@ -243,27 +243,36 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
       instance.handleDateChange.reset();
     });
 
-    it('renders two buttons with className of app-ResourceCalendar__week-button', () => {
-      const buttons = resourceCalWrapper.find('button.app-ResourceCalendar__week-button');
-      expect(buttons.length).to.equal(2);
-    });
-    it('calls handleDateChange method when the previous week button is clicked', () => {
-      const prevWeekBtn = resourceCalWrapper
-        .find('button.app-ResourceCalendar__week-button--prev')
-        .first();
-      prevWeekBtn.simulate('click');
+    test(
+      'renders two buttons with className of app-ResourceCalendar__week-button',
+      () => {
+        const buttons = resourceCalWrapper.find('button.app-ResourceCalendar__week-button');
+        expect(buttons.length).to.equal(2);
+      }
+    );
+    test(
+      'calls handleDateChange method when the previous week button is clicked',
+      () => {
+        const prevWeekBtn = resourceCalWrapper
+          .find('button.app-ResourceCalendar__week-button--prev')
+          .first();
+        prevWeekBtn.simulate('click');
 
-      expect(instance.handleDateChange.callCount).to.equal(1);
-      expect(instance.handleDateChange.lastCall.arg.getDate()).to.equal(prevWeekDate);
-    });
-    it('calls handleDateChange method when the next week button is clicked', () => {
-      const prevWeekBtn = resourceCalWrapper
-        .find('button.app-ResourceCalendar__week-button--next')
-        .first();
-      prevWeekBtn.simulate('click');
+        expect(instance.handleDateChange.callCount).to.equal(1);
+        expect(instance.handleDateChange.lastCall.arg.getDate()).to.equal(prevWeekDate);
+      }
+    );
+    test(
+      'calls handleDateChange method when the next week button is clicked',
+      () => {
+        const prevWeekBtn = resourceCalWrapper
+          .find('button.app-ResourceCalendar__week-button--next')
+          .first();
+        prevWeekBtn.simulate('click');
 
-      expect(instance.handleDateChange.callCount).to.equal(1);
-      expect(instance.handleDateChange.lastCall.arg.getDate()).to.equal(nextWeekDate);
-    });
+        expect(instance.handleDateChange.callCount).to.equal(1);
+        expect(instance.handleDateChange.lastCall.arg.getDate()).to.equal(nextWeekDate);
+      }
+    );
   });
 });

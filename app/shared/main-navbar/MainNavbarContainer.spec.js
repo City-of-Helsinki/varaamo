@@ -19,12 +19,12 @@ describe('shared/main-navbar/MainNavbarContainer', () => {
       };
     }
 
-    it('returns isAdmin', () => {
+    test('returns isAdmin', () => {
       const selected = selector(getState());
       expect(selected.isAdmin).to.exist;
     });
 
-    it('returns isLoggedIn', () => {
+    test('returns isLoggedIn', () => {
       const selected = selector(getState());
       expect(selected.isLoggedIn).to.exist;
     });

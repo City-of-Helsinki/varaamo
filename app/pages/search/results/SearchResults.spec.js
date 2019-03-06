@@ -33,23 +33,23 @@ describe('pages/search/results/SearchResults', () => {
 
   describe('rendering', () => {
     describe('Loader', () => {
-      it('is rendered', () => {
+      test('is rendered', () => {
         const loader = getWrapper().find(Loader);
         expect(loader).to.have.length(1);
       });
 
-      it('is loaded if isFetching is false', () => {
+      test('is loaded if isFetching is false', () => {
         const loader = getWrapper({ isFetching: false }).find(Loader);
         expect(loader.props().loaded).to.be.true;
       });
 
-      it('is not loaded if isFetching is true', () => {
+      test('is not loaded if isFetching is true', () => {
         const loader = getWrapper({ isFetching: true }).find(Loader);
         expect(loader.props().loaded).to.be.false;
       });
     });
 
-    it('renders ResourceList with correct props', () => {
+    test('renders ResourceList with correct props', () => {
       const resourceList = getWrapper().find(ResourceList);
       expect(resourceList).to.have.length(1);
       expect(resourceList.props().resourceIds).to.deep.equal(defaultProps.searchResultIds);
@@ -58,13 +58,13 @@ describe('pages/search/results/SearchResults', () => {
     });
 
     describe('with showMap', () => {
-      it('does not render ResourceList', () => {
+      test('does not render ResourceList', () => {
         const resourceList = getWrapper({ showMap: true }).find(ResourceList);
         expect(resourceList).to.have.length(0);
       });
 
       describe('with selectedUnitId', () => {
-        it('renders a ResourceCompactList', () => {
+        test('renders a ResourceCompactList', () => {
           const resourceCompactList = getWrapper({ showMap: true, selectedUnitId: '1' }).find(
             ResourceCompactList
           );

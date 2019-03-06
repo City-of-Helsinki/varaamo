@@ -17,11 +17,11 @@ describe('shared/favicon/Favicon', () => {
   describe('When there is no customization in use', () => {
     let favicon;
 
-    beforeEach(() => {
+    beforeAll(() => {
       favicon = getWrapper();
     });
 
-    it('renders favicon of Helsinki', () => {
+    test('renders favicon of Helsinki', () => {
       expect(favicon.prop('link')[0].href).to.deep.equal(helsinkiFavicon);
     });
   });
@@ -29,16 +29,16 @@ describe('shared/favicon/Favicon', () => {
   describe('When Espoo customization is used', () => {
     let favicon;
 
-    beforeEach(() => {
+    beforeAll(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('ESPOO');
       favicon = getWrapper();
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('renders favicon of Espoo', () => {
+    test('renders favicon of Espoo', () => {
       expect(favicon.prop('link')[0].href).to.deep.equal(espooFavicon);
     });
   });
@@ -46,16 +46,16 @@ describe('shared/favicon/Favicon', () => {
   describe('When Vantaa customization is used', () => {
     let favicon;
 
-    beforeEach(() => {
+    beforeAll(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('VANTAA');
       favicon = getWrapper();
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('renders favicon of Vantaa', () => {
+    test('renders favicon of Vantaa', () => {
       expect(favicon.prop('link')[0].href).to.deep.equal(vantaaFavicon);
     });
   });

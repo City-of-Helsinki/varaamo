@@ -10,27 +10,27 @@ describe('pages/user-reservations/reservation-list/reservationListSelector', () 
     return reservationListSelector(state, props);
   }
 
-  it('returns isAdmin', () => {
+  test('returns isAdmin', () => {
     expect(getSelected().isAdmin).to.exist;
   });
 
-  it('returns isFetchingReservations', () => {
+  test('returns isFetchingReservations', () => {
     expect(getSelected().isFetchingReservations).to.exist;
   });
 
-  it('returns reservations', () => {
+  test('returns reservations', () => {
     expect(getSelected().reservations).to.exist;
   });
 
-  it('returns resources from the state', () => {
+  test('returns resources from the state', () => {
     expect(getSelected().resources).to.exist;
   });
 
-  it('returns staffUnits', () => {
+  test('returns staffUnits', () => {
     expect(getSelected().staffUnits).to.exist;
   });
 
-  it('returns units from the state', () => {
+  test('returns units from the state', () => {
     expect(getSelected().units).to.exist;
   });
 });

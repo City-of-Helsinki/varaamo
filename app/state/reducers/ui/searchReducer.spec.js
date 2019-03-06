@@ -13,44 +13,44 @@ describe('state/reducers/ui/searchReducer', () => {
     const initialState = searchReducer(undefined, {});
 
     describe('filters', () => {
-      it('is an object', () => {
+      test('is an object', () => {
         expect(typeof initialState.filters).to.equal('object');
       });
 
-      it('date is an empty string', () => {
+      test('date is an empty string', () => {
         expect(initialState.filters.date).to.equal('');
       });
 
-      it('distance is an empty string', () => {
+      test('distance is an empty string', () => {
         expect(initialState.filters.distance).to.equal('');
       });
 
-      it('people is an empty string', () => {
+      test('people is an empty string', () => {
         expect(initialState.filters.people).to.equal('');
       });
 
-      it('purpose is an empty string', () => {
+      test('purpose is an empty string', () => {
         expect(initialState.filters.purpose).to.equal('');
       });
 
-      it('search is an empty string', () => {
+      test('search is an empty string', () => {
         expect(initialState.filters.search).to.equal('');
       });
     });
 
-    it('position is null', () => {
+    test('position is null', () => {
       expect(initialState.position).to.equal(null);
     });
 
-    it('results is an empty array', () => {
+    test('results is an empty array', () => {
       expect(initialState.results).to.deep.equal([]);
     });
 
-    it('searchDone is false', () => {
+    test('searchDone is false', () => {
       expect(initialState.searchDone).to.equal(false);
     });
 
-    it('unitId is null', () => {
+    test('unitId is null', () => {
       expect(initialState.unitId).to.equal(null);
     });
   });
@@ -67,7 +67,7 @@ describe('state/reducers/ui/searchReducer', () => {
       );
       const resources = [Resource.build(), Resource.build()];
 
-      it('sets the given resource ids to results', () => {
+      test('sets the given resource ids to results', () => {
         const action = searchResourcesSuccess(resources);
         const initialState = Immutable({
           results: [],
@@ -78,7 +78,7 @@ describe('state/reducers/ui/searchReducer', () => {
         expect(nextState.results).to.deep.equal(expected);
       });
 
-      it('replaces the old ids in searchResults.ids', () => {
+      test('replaces the old ids in searchResults.ids', () => {
         const action = searchResourcesSuccess(resources);
         const initialState = Immutable({
           results: ['replace-this'],
@@ -89,7 +89,7 @@ describe('state/reducers/ui/searchReducer', () => {
         expect(nextState.results).to.deep.equal(expected);
       });
 
-      it('sets searchDone to true', () => {
+      test('sets searchDone to true', () => {
         const action = searchResourcesSuccess(resources);
         const initialState = Immutable({
           searchDone: false,
@@ -103,7 +103,7 @@ describe('state/reducers/ui/searchReducer', () => {
     describe('UI.CHANGE_SEARCH_FILTERS', () => {
       const changeSearchFilters = createAction(types.UI.CHANGE_SEARCH_FILTERS);
 
-      it('sets the given filters to filters', () => {
+      test('sets the given filters to filters', () => {
         const filters = { purpose: 'some-purpose' };
         const action = changeSearchFilters(filters);
         const initialState = Immutable({
@@ -115,7 +115,7 @@ describe('state/reducers/ui/searchReducer', () => {
         expect(nextState.filters).to.deep.equal(expected);
       });
 
-      it('overrides previous values of same filters', () => {
+      test('overrides previous values of same filters', () => {
         const filters = { purpose: 'some-purpose' };
         const action = changeSearchFilters(filters);
         const initialState = Immutable({
@@ -127,7 +127,7 @@ describe('state/reducers/ui/searchReducer', () => {
         expect(nextState.filters).to.deep.equal(expected);
       });
 
-      it('does not override unspecified filters', () => {
+      test('does not override unspecified filters', () => {
         const filters = { purpose: 'some-purpose' };
         const action = changeSearchFilters(filters);
         const initialState = Immutable({
@@ -142,7 +142,7 @@ describe('state/reducers/ui/searchReducer', () => {
         expect(nextState.filters).to.deep.equal(expected);
       });
 
-      it('saves only supported filters', () => {
+      test('saves only supported filters', () => {
         const filters = {
           purpose: 'some-purpose',
           search: 'search-query',
@@ -161,7 +161,7 @@ describe('state/reducers/ui/searchReducer', () => {
     });
 
     describe('UI.CLEAR_SEARCH_FILTERS', () => {
-      it('clears filters', () => {
+      test('clears filters', () => {
         const filters = {
           date: '2017-12-12',
           distance: '5000',
@@ -188,7 +188,7 @@ describe('state/reducers/ui/searchReducer', () => {
         expect(nextState.filters).to.deep.equal(expected);
       });
 
-      it('does not empty the search results', () => {
+      test('does not empty the search results', () => {
         const action = clearSearchResults();
         const initialState = Immutable({
           results: ['r-1', 'r-2'],
@@ -198,7 +198,7 @@ describe('state/reducers/ui/searchReducer', () => {
         expect(nextState.results).to.deep.equal(initialState.results);
       });
 
-      it('does not change searchDone', () => {
+      test('does not change searchDone', () => {
         const action = clearSearchResults();
         const initialState = Immutable({
           searchDone: true,
@@ -212,7 +212,7 @@ describe('state/reducers/ui/searchReducer', () => {
     describe('UI.ENABLE_GEOPOSITION_SUCCESS', () => {
       const enableGeopositionSuccess = createAction(types.UI.ENABLE_GEOPOSITION_SUCCESS);
 
-      it('sets the given position coords to filters', () => {
+      test('sets the given position coords to filters', () => {
         const position = {
           coords: {
             accuracy: 10,
@@ -238,7 +238,7 @@ describe('state/reducers/ui/searchReducer', () => {
     describe('UI.ENABLE_GEOPOSITION_ERROR', () => {
       const enableGeopositionError = createAction(types.UI.ENABLE_GEOPOSITION_ERROR);
 
-      it('sets position to null', () => {
+      test('sets position to null', () => {
         const position = {
           lat: 11,
           lon: 12,
@@ -254,7 +254,7 @@ describe('state/reducers/ui/searchReducer', () => {
     describe('UI.DISABLE_GEOPOSITION', () => {
       const disableGeoposition = createAction(types.UI.DISABLE_GEOPOSITION);
 
-      it('sets position to null', () => {
+      test('sets position to null', () => {
         const position = {
           lat: 11,
           lon: 12,
@@ -268,7 +268,7 @@ describe('state/reducers/ui/searchReducer', () => {
     });
 
     describe('UI.TOGGLE_SEARCH_SHOW_MAP', () => {
-      it('toggles showMap if false', () => {
+      test('toggles showMap if false', () => {
         const action = toggleMap();
         const initialState = Immutable({
           showMap: false,
@@ -278,7 +278,7 @@ describe('state/reducers/ui/searchReducer', () => {
         expect(nextState.showMap).to.be.true;
       });
 
-      it('toggles showMap if true', () => {
+      test('toggles showMap if true', () => {
         const action = toggleMap();
         const initialState = Immutable({
           showMap: true,
@@ -290,7 +290,7 @@ describe('state/reducers/ui/searchReducer', () => {
     });
 
     describe('UI.SELECT_SEARCH_RESULTS_UNIT', () => {
-      it('Sets action payload content to unitId', () => {
+      test('Sets action payload content to unitId', () => {
         const action = selectUnit('123');
         const initialState = Immutable({
           unitId: null,

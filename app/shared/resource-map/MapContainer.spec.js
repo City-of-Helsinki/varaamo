@@ -27,47 +27,50 @@ describe('shared/resource-map/MapContainer', () => {
     return shallow(<MapContainer {...defaults} {...props} />);
   }
 
-  it('renders a Leaflet Map', () => {
+  test('renders a Leaflet Map', () => {
     const map = getWrapper().find(Map);
     expect(map).to.have.length(1);
   });
 
-  it('adds showMap classname to wrapper div if showMap prop is passed', () => {
+  test('adds showMap classname to wrapper div if showMap prop is passed', () => {
     const wrapper = getWrapper();
     expect(wrapper.prop('className')).to.contain('app-ResourceMap__showMap');
   });
 
-  it('does not add showMap classname to wrapper div if showMap prop is not passed', () => {
-    const wrapper = getWrapper({ showMap: false });
-    expect(wrapper.prop('className')).to.not.contain('app-ResourceMap__showMap');
-  });
+  test(
+    'does not add showMap classname to wrapper div if showMap prop is not passed',
+    () => {
+      const wrapper = getWrapper({ showMap: false });
+      expect(wrapper.prop('className')).to.not.contain('app-ResourceMap__showMap');
+    }
+  );
 
-  it('Map is centered at default position', () => {
+  test('Map is centered at default position', () => {
     const defaultPosition = [60.18952, 24.99545];
     const map = getWrapper().find(Map);
     expect(map.prop('center')).to.deep.equal(defaultPosition);
   });
 
-  it('Map gets correct onClick prop', () => {
+  test('Map gets correct onClick prop', () => {
     const searchMapClick = () => {};
     const map = getWrapper({ searchMapClick }).find(Map);
     expect(map.prop('onClick')).to.equal(searchMapClick);
   });
 
-  it('does not render Marker if no markers', () => {
+  test('does not render Marker if no markers', () => {
     const markers = [];
     const element = getWrapper({ markers }).find(Marker);
     expect(element).to.have.length(0);
   });
 
-  it('renders Marker', () => {
+  test('renders Marker', () => {
     const markers = [{ unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a'] }];
     const element = getWrapper({ markers }).find(Marker);
     expect(element).to.have.length(1);
     expect(element.props()).to.include(markers[0]);
   });
 
-  it('renders Marker many markers', () => {
+  test('renders Marker many markers', () => {
     const markers = [
       { unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a'] },
       { unitId: '2', longitude: 2, latitude: 2, resourceIds: ['b'] },
@@ -80,7 +83,7 @@ describe('shared/resource-map/MapContainer', () => {
     expect(element.at(2).props()).to.include(markers[2]);
   });
 
-  it('passes highlighted prop to Marker if unit is selected', () => {
+  test('passes highlighted prop to Marker if unit is selected', () => {
     const markers = [
       { unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a'] },
       { unitId: '2', longitude: 2, latitude: 2, resourceIds: ['b'] },
@@ -91,7 +94,7 @@ describe('shared/resource-map/MapContainer', () => {
     expect(element.at(1).prop('highlighted')).to.be.false;
   });
 
-  it('renders Marker', () => {
+  test('renders Marker', () => {
     const selectUnit = () => {};
     const markers = [{ unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a'] }];
     const element = getWrapper({ markers, selectUnit }).find(Marker);
@@ -99,13 +102,13 @@ describe('shared/resource-map/MapContainer', () => {
     expect(element.prop('selectUnit')).to.equal(selectUnit);
   });
 
-  it('does not render an userMarker', () => {
+  test('does not render an userMarker', () => {
     const element = getWrapper().find(UserMarker);
     expect(element).to.have.length(0);
   });
 
   describe('with a geolocalized user', () => {
-    it('centers the map on users position', () => {
+    test('centers the map on users position', () => {
       const position = {
         lat: 61,
         lon: 26,
@@ -114,7 +117,7 @@ describe('shared/resource-map/MapContainer', () => {
       expect(map.prop('center')).to.deep.equal([61, 26]);
     });
 
-    it('renders an userMarker', () => {
+    test('renders an userMarker', () => {
       const position = {
         lat: 61,
         lon: 26,
@@ -132,7 +135,7 @@ describe('shared/resource-map/MapContainer', () => {
       wrapper.instance().onMapRef({ leafletElement: { fitBounds } });
     }
 
-    it('calls fitBounds on Leaflet map', () => {
+    test('calls fitBounds on Leaflet map', () => {
       const fitBounds = simple.mock();
       callOnMapRef(fitBounds, {
         maxLatitude: 10,
@@ -160,7 +163,7 @@ describe('shared/resource-map/MapContainer', () => {
       instance.componentDidUpdate({ boundaries: prevBoundaries, shouldMapFitBoundaries });
     }
 
-    it('calls fitBounds if boundaries changed', () => {
+    test('calls fitBounds if boundaries changed', () => {
       const prev = { maxLatitude: 0, minLatitude: 0, maxLongitude: 0, minLongitude: 0 };
       const next = { maxLatitude: 1, minLatitude: 0, maxLongitude: 0, minLongitude: 0 };
       const fitBounds = simple.mock();
@@ -173,7 +176,7 @@ describe('shared/resource-map/MapContainer', () => {
       expect(panTo.called).to.be.false;
     });
 
-    it('does not call fitBounds if boundaries did not change', () => {
+    test('does not call fitBounds if boundaries did not change', () => {
       const prev = { maxLatitude: 1, minLatitude: 1, maxLongitude: 1, minLongitude: 1 };
       const fitBounds = simple.mock();
       const panTo = simple.mock();
@@ -182,7 +185,7 @@ describe('shared/resource-map/MapContainer', () => {
       expect(panTo.called).to.be.false;
     });
 
-    it('does call panTo if new boundaries are nulls', () => {
+    test('does call panTo if new boundaries are nulls', () => {
       const prev = { maxLatitude: 0, minLatitude: 0, maxLongitude: 0, minLongitude: 0 };
       const next = { maxLatitude: null, minLatitude: null, maxLongitude: null, minLongitude: null };
       const fitBounds = simple.mock();

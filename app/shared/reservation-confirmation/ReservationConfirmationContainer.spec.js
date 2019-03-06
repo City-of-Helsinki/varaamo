@@ -42,13 +42,13 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
 
   describe('render', () => {
     describe('ConfirmReservationModal', () => {
-      it('is rendered', () => {
+      test('is rendered', () => {
         const modal = getWrapper().find(ConfirmReservationModal);
 
         expect(modal.length).to.equal(1);
       });
 
-      it('gets correct props', () => {
+      test('gets correct props', () => {
         const wrapper = getWrapper();
         const actualProps = wrapper.find(ConfirmReservationModal).props();
 
@@ -71,7 +71,7 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
   });
 
   describe('handleEdit', () => {
-    it('edits the selected reservation', () => {
+    test('edits the selected reservation', () => {
       const reservationsToEdit = [Reservation.build()];
       const instance = getWrapper({ reservationsToEdit }).instance();
       const newValues = { begin: 'foo', end: 'bar' };
@@ -104,17 +104,20 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
     ];
     const instance = getWrapper({ recurringReservations, selectedReservations }).instance();
 
-    beforeEach(() => {
+    beforeAll(() => {
       defaultProps.actions.postReservation.reset();
     });
 
-    it('calls postReservation for each selected and recurring reservation', () => {
-      instance.handleReservation();
-      expect(defaultProps.actions.postReservation.callCount)
-        .to.equal(2);
-    });
+    test(
+      'calls postReservation for each selected and recurring reservation',
+      () => {
+        instance.handleReservation();
+        expect(defaultProps.actions.postReservation.callCount)
+          .to.equal(2);
+      }
+    );
 
-    it('calls postReservation with correct arguments', () => {
+    test('calls postReservation with correct arguments', () => {
       instance.handleReservation();
       const actualArgs = defaultProps.actions.postReservation.lastCall.args;
       const expected = recurringReservations[0];
@@ -122,7 +125,7 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
       expect(actualArgs[0]).to.deep.equal(expected);
     });
 
-    it('adds given values to the reservation', () => {
+    test('adds given values to the reservation', () => {
       const values = { comments: 'Some random comment' };
       instance.handleReservation(values);
       const actualArgs = defaultProps.actions.postReservation.lastCall.args;

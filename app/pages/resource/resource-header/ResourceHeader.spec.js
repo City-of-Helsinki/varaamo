@@ -28,7 +28,7 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
 
   describe('render', () => {
     describe('Back button', () => {
-      it('renders when enabled', () => {
+      test('renders when enabled', () => {
         const backButton = getWrapper({ showBackButton: true }).find(
           '.app-ResourceHeader__back-button'
         );
@@ -37,7 +37,7 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
         expect(backButton.prop('onClick')).to.equal(defaultProps.onBackClick);
       });
 
-      it('does not render when not enabled', () => {
+      test('does not render when not enabled', () => {
         const backButton = getWrapper({ showBackButton: false }).find(
           '.app-ResourceHeader__back-button'
         );
@@ -46,7 +46,7 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
       });
     });
 
-    it('renders title button', () => {
+    test('renders title button', () => {
       const h1 = getWrapper().find('h1');
 
       expect(h1).to.have.length(1);
@@ -60,7 +60,7 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
         };
       }
 
-      it('renders unit name with distance', () => {
+      test('renders unit name with distance', () => {
         const { name } = defaultProps.unit;
         const props = createProps({ distance: 11500 });
 
@@ -72,7 +72,7 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
         expect(number.prop('value')).to.equal(12);
       });
 
-      it('renders unit name with distance < 10', () => {
+      test('renders unit name with distance < 10', () => {
         const { name } = defaultProps.unit;
         const props = createProps({ distance: 1412 });
 
@@ -84,7 +84,7 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
         expect(number.prop('value')).to.equal(1.4);
       });
 
-      it('does not render distance if resource has no distance', () => {
+      test('does not render distance if resource has no distance', () => {
         const { name } = defaultProps.unit;
         const props = createProps({});
         const expected = name;
@@ -95,7 +95,7 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
       });
     });
 
-    it('renders toggleMap button with correct props when showMap false', () => {
+    test('renders toggleMap button with correct props when showMap false', () => {
       const toggleMapButton = getWrapper().find('.app-ResourceHeader__map-button');
       const img = toggleMapButton.find('img');
       const span = toggleMapButton.find('span');
@@ -108,7 +108,7 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
       expect(span.text()).to.equal('ResourceHeader.mapButton');
     });
 
-    it('renders toggleMap button with correct props when showMap true', () => {
+    test('renders toggleMap button with correct props when showMap true', () => {
       const toggleMapButton = getWrapper({ showMap: true }).find('.app-ResourceHeader__map-button');
       const img = toggleMapButton.find('img');
       const span = toggleMapButton.find('span');
@@ -121,13 +121,13 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
     });
 
     describe('FavoriteButton', () => {
-      it('is not rendered if user is not admin', () => {
+      test('is not rendered if user is not admin', () => {
         const favoriteButton = getWrapper({ isLoggedIn: false }).find(FavoriteButton);
 
         expect(favoriteButton.length).to.equal(0);
       });
 
-      it('is rendered with correct props if user is admin', () => {
+      test('is rendered with correct props if user is admin', () => {
         const favoriteButton = getWrapper({ isLoggedIn: true }).find(FavoriteButton);
 
         expect(favoriteButton.length).to.equal(1);

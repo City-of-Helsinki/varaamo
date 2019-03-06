@@ -9,19 +9,19 @@ describe('pages/user-reservations/userReservationsPageSelector', () => {
     return userReservationsPageSelector(state);
   }
 
-  it('returns adminReservationFilters', () => {
+  test('returns adminReservationFilters', () => {
     expect(getSelected().adminReservationFilters).to.exist;
   });
 
-  it('returns isAdmin', () => {
+  test('returns isAdmin', () => {
     expect(getSelected().isAdmin).to.exist;
   });
 
-  it('returns reservationsFetchCount', () => {
+  test('returns reservationsFetchCount', () => {
     expect(getSelected().reservationsFetchCount).to.exist;
   });
 
-  it('returns resourcesLoaded', () => {
+  test('returns resourcesLoaded', () => {
     expect(getSelected().resourcesLoaded).to.exist;
   });
 });
