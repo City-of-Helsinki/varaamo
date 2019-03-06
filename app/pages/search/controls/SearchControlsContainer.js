@@ -1,3 +1,5 @@
+import constants from 'constants/AppConstants';
+
 import range from 'lodash/range';
 import moment from 'moment';
 import PropTypes from 'prop-types';
@@ -20,7 +22,6 @@ import {
   enableGeoposition,
   enableTimeRange,
 } from 'actions/uiActions';
-import constants from 'constants/AppConstants';
 import { injectT } from 'i18n';
 import CheckboxControl from './CheckboxControl';
 import DatePickerControl from './DatePickerControl';
@@ -52,11 +53,10 @@ class UnconnectedSearchControlsContainer extends Component {
     return options;
   }
 
-  getMunicipalityOptions = () =>
-    constants.SEARCH_MUNICIPALITY_OPTIONS.map(municipality => ({
-      value: municipality.toLowerCase(),
-      label: municipality,
-    }));
+  getMunicipalityOptions = () => constants.SEARCH_MUNICIPALITY_OPTIONS.map(municipality => ({
+    value: municipality.toLowerCase(),
+    label: municipality,
+  }));
 
   hasAdvancedFilters() {
     const { filters, position } = this.props;
@@ -173,7 +173,8 @@ class UnconnectedSearchControlsContainer extends Component {
                     label={t('SearchControlsContainer.municipalityLabel')}
                     name="app-SearchControls-municipality-select"
                     onChange={municipalities => this.handleFiltersChange(
-                      { municipality: municipalities.map(mun => mun.value) })}
+                      { municipality: municipalities.map(mun => mun.value) }
+                    )}
                     options={this.getMunicipalityOptions()}
                     value={filters.municipality}
                   />

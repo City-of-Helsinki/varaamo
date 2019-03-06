@@ -13,7 +13,7 @@ const userNameSelector = createSelector(
   (user) => {
     if (user.firstName || user.lastName) {
       return trim([user.firstName, user.lastName].join(' '));
-    } else if (user.email) {
+    } if (user.email) {
       return user.email;
     }
     return user.emails && user.emails.length ? user.emails[0].value : '';

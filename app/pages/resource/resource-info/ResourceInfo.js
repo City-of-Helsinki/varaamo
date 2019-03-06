@@ -10,7 +10,9 @@ import WrappedText from 'shared/wrapped-text';
 import { getServiceMapUrl } from 'utils/unitUtils';
 import ReservationInfo from '../reservation-info';
 
-function ResourceInfo({ isLoggedIn, resource, unit, t }) {
+function ResourceInfo({
+  isLoggedIn, resource, unit, t
+}) {
   const serviceMapUrl = getServiceMapUrl(unit);
 
   return (

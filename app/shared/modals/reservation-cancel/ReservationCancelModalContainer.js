@@ -42,31 +42,37 @@ class UnconnectedReservationCancelModalContainer extends Component {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-            {cancelAllowed ?
-              t('ReservationCancelModal.cancelAllowedTitle') :
-              t('ReservationCancelModal.cancelNotAllowedTitle')
+            {cancelAllowed
+              ? t('ReservationCancelModal.cancelAllowedTitle')
+              : t('ReservationCancelModal.cancelNotAllowedTitle')
             }
           </Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-          {cancelAllowed &&
+          {cancelAllowed
+            && (
             <div>
               <p><strong>{t('ReservationCancelModal.lead')}</strong></p>
-              {reservation.resource &&
+              {reservation.resource
+                && (
                 <CompactReservationList
                   reservations={[reservation]}
                   resources={{ [resource.id]: resource }}
                 />
+                )
               }
             </div>
+            )
           }
-          {!cancelAllowed &&
+          {!cancelAllowed
+            && (
             <div>
               <p>{t('ReservationCancelModal.cancelNotAllowedInfo')}</p>
               <p><FormattedHTMLMessage id="ReservationCancelModal.takeIntoAccount" /></p>
               <p className="responsible-contact-info">{resource.responsibleContactInfo}</p>
             </div>
+            )
           }
         </Modal.Body>
 
@@ -75,9 +81,9 @@ class UnconnectedReservationCancelModalContainer extends Component {
             bsStyle="default"
             onClick={actions.closeReservationCancelModal}
           >
-            {cancelAllowed ?
-              t('ReservationCancelModal.cancelAllowedCancel') :
-              t('common.back')
+            {cancelAllowed
+              ? t('ReservationCancelModal.cancelAllowedCancel')
+              : t('common.back')
             }
           </Button>
           {cancelAllowed && (
@@ -86,9 +92,9 @@ class UnconnectedReservationCancelModalContainer extends Component {
               disabled={isCancellingReservations}
               onClick={this.handleCancel}
             >
-              {isCancellingReservations ?
-                t('common.cancelling') :
-                t('ReservationCancelModal.cancelAllowedConfirm')
+              {isCancellingReservations
+                ? t('common.cancelling')
+                : t('ReservationCancelModal.cancelAllowedConfirm')
               }
             </Button>
           )}

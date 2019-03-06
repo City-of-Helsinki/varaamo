@@ -1,10 +1,11 @@
+import types from 'constants/ActionTypes';
+
 import { expect } from 'chai';
 import keyBy from 'lodash/keyBy';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
 import { toggleResourceMap } from 'actions/uiActions';
-import types from 'constants/ActionTypes';
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
 import resourceMapReducer from './resourceMapReducer';

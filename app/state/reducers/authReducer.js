@@ -1,6 +1,7 @@
+import types from 'constants/ActionTypes';
+
 import Immutable from 'seamless-immutable';
 
-import types from 'constants/ActionTypes';
 
 const initialState = Immutable({
   token: null,
@@ -9,7 +10,6 @@ const initialState = Immutable({
 
 function authReducer(state = initialState, action) {
   switch (action.type) {
-
     case types.API.AUTH_GET_SUCCESS: {
       return { ...initialState, ...action.payload.auth };
     }

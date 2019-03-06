@@ -5,7 +5,9 @@ import selector from './mapSelector';
 function getState({
   units = {},
   resources = {},
-  filters = { date: '2012-02-02', duration: 30, end: '00:00', page: 1, search: '', start: '08:30' },
+  filters = {
+    date: '2012-02-02', duration: 30, end: '00:00', page: 1, search: '', start: '08:30'
+  },
 } = {}) {
   return {
     data: { units, resources },
@@ -52,8 +54,12 @@ describe('shared/resource-map/mapSelector', () => {
       const props = getProps({ resourceIds: ['123', '321'] });
       const data = selector(state, props);
       expect(data.markers).to.deep.equal([
-        { unitId: 1, latitude: 2, longitude: 3, resourceIds: ['321'] },
-        { unitId: 21, latitude: 0, longitude: 1, resourceIds: ['123'] },
+        {
+          unitId: 1, latitude: 2, longitude: 3, resourceIds: ['321']
+        },
+        {
+          unitId: 21, latitude: 0, longitude: 1, resourceIds: ['123']
+        },
       ]);
     });
 
@@ -74,8 +80,12 @@ describe('shared/resource-map/mapSelector', () => {
       const props = getProps({ resourceIds: ['123', '321', '456'] });
       const data = selector(state, props);
       expect(data.markers).to.deep.equal([
-        { unitId: 12, latitude: 1, longitude: 2, resourceIds: ['456'] },
-        { unitId: 21, latitude: 0, longitude: 1, resourceIds: ['123', '321'] },
+        {
+          unitId: 12, latitude: 1, longitude: 2, resourceIds: ['456']
+        },
+        {
+          unitId: 21, latitude: 0, longitude: 1, resourceIds: ['123', '321']
+        },
       ]);
     });
 
@@ -93,7 +103,9 @@ describe('shared/resource-map/mapSelector', () => {
       const props = getProps({ resourceIds: ['123'] });
       const data = selector(state, props);
       expect(data.markers).to.deep.equal([
-        { unitId: 21, latitude: 0, longitude: 1, resourceIds: ['123'] },
+        {
+          unitId: 21, latitude: 0, longitude: 1, resourceIds: ['123']
+        },
       ]);
     });
 
@@ -111,7 +123,9 @@ describe('shared/resource-map/mapSelector', () => {
       const props = getProps({ resourceIds: ['123', '321'] });
       const data = selector(state, props);
       expect(data.markers).to.deep.equal([
-        { unitId: 21, latitude: 0, longitude: 1, resourceIds: ['123'] },
+        {
+          unitId: 21, latitude: 0, longitude: 1, resourceIds: ['123']
+        },
       ]);
     });
   });

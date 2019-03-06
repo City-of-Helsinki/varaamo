@@ -19,16 +19,20 @@ class CompactReservationList extends Component {
       <li key={reservation.begin}>
         {resourceName ? `${resourceName}: ` : ''}
         <TimeRange begin={reservation.begin} end={reservation.end} />
-        {removable &&
+        {removable
+          && (
           <Glyphicon
             glyph="remove-circle"
             onClick={() => this.props.onRemoveClick(reservation.begin)}
           />
+          )
         }
-        {this.props.subtitle &&
+        {this.props.subtitle
+          && (
           <div className="compact-reservation-list-subtitle">
             {reservation[this.props.subtitle]}
           </div>
+          )
         }
       </li>
     );

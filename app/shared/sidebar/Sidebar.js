@@ -38,9 +38,11 @@ const styles = {
   },
 };
 
-function Sidebar({ children, className, docked, onSetOpen, open, sidebar }) {
+function Sidebar({
+  children, className, docked, onSetOpen, open, sidebar
+}) {
   return (
-    <div className={classnames('app-Sidebar', className)} >
+    <div className={classnames('app-Sidebar', className)}>
       <ReactSidebar
         contentClassName="app-Sidebar__content"
         docked={docked && open}

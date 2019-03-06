@@ -1,8 +1,9 @@
+import ActionTypes from 'constants/ActionTypes';
+
 import sortBy from 'lodash/sortBy';
 import values from 'lodash/values';
 import { createSelector, createStructuredSelector } from 'reselect';
 
-import ActionTypes from 'constants/ActionTypes';
 import { purposesSelector, unitsSelector } from 'state/selectors/dataSelectors';
 import uiSearchFiltersSelector from 'state/selectors/uiSearchFiltersSelector';
 import urlSearchFiltersSelector from 'state/selectors/urlSearchFiltersSelector';

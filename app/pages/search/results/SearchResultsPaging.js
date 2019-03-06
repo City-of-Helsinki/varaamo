@@ -1,9 +1,10 @@
+import constants from 'constants/AppConstants';
+
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 
-import constants from 'constants/AppConstants';
 import { injectT } from 'i18n';
 import { getSearchPageUrl } from 'utils/searchUtils';
 

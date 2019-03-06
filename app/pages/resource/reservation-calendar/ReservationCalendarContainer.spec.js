@@ -182,7 +182,9 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
             reservableBefore: '2016-11-11T06:00:00+03:00',
             reservableDaysInAdvance: 32,
           });
-          const props = { date, resource: restrictedResource, selected, timeSlots };
+          const props = {
+            date, resource: restrictedResource, selected, timeSlots
+          };
           const options = {
             renderClosedText: false,
             renderRestrictedText: true,
@@ -344,7 +346,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     test('calls history push with correct path', () => {
       const expectedPath = `/reservation?begin=10:00&date=2016-10-12&end=11:00&id=&resource=${
         selected[0].resource
-        }`;
+      }`;
       const instance = getWrapper({ selected }).instance();
       instance.handleReserveClick();
       expect(historyMock.callCount).to.equal(1);

@@ -1,3 +1,6 @@
+import constants from 'constants/AppConstants';
+import FormTypes from 'constants/FormTypes';
+
 import includes from 'lodash/includes';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -10,8 +13,7 @@ import Well from 'react-bootstrap/lib/Well';
 import { Field, Fields, reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 
-import constants from 'constants/AppConstants';
-import FormTypes from 'constants/FormTypes';
+
 import WrappedText from 'shared/wrapped-text';
 import ReduxFormField from 'shared/form-fields/ReduxFormField';
 import { injectT } from 'i18n';
@@ -43,9 +45,9 @@ const maxLengths = {
 
 export function validate(values, { fields, requiredFields, t }) {
   const errors = {};
-  const currentRequiredFields = values.staffEvent ?
-    constants.REQUIRED_STAFF_EVENT_FIELDS :
-    requiredFields;
+  const currentRequiredFields = values.staffEvent
+    ? constants.REQUIRED_STAFF_EVENT_FIELDS
+    : requiredFields;
   fields.forEach((field) => {
     const validator = validators[field];
     if (validator) {
@@ -62,9 +64,9 @@ export function validate(values, { fields, requiredFields, t }) {
     if (includes(currentRequiredFields, field)) {
       if (!values[field]) {
         errors[field] = (
-          field === 'termsAndConditions' ?
-          t('ReservationForm.termsAndConditionsError') :
-          t('ReservationForm.requiredError')
+          field === 'termsAndConditions'
+            ? t('ReservationForm.termsAndConditionsError')
+            : t('ReservationForm.requiredError')
         );
       }
     }
@@ -93,7 +95,9 @@ class UnconnectedReservationForm extends Component {
   }
 
   renderTimeControls = () => {
-    const { fields, maxReservationPeriod, t, timeSlots } = this.props;
+    const {
+      fields, maxReservationPeriod, t, timeSlots
+    } = this.props;
     if (!includes(fields, 'begin') || !includes(fields, 'end')) {
       return null;
     }
@@ -128,9 +132,9 @@ class UnconnectedReservationForm extends Component {
       termsAndConditions,
     } = this.props;
 
-    this.requiredFields = staffEventSelected ?
-      constants.REQUIRED_STAFF_EVENT_FIELDS :
-      requiredFields;
+    this.requiredFields = staffEventSelected
+      ? constants.REQUIRED_STAFF_EVENT_FIELDS
+      : requiredFields;
 
     return (
       <div>

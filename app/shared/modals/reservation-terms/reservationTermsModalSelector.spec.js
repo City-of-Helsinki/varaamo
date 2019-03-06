@@ -1,6 +1,7 @@
+import ModalTypes from 'constants/ModalTypes';
+
 import { expect } from 'chai';
 
-import ModalTypes from 'constants/ModalTypes';
 import { getState } from 'utils/testUtils';
 import reservationTermsModalSelector from './reservationTermsModalSelector';
 

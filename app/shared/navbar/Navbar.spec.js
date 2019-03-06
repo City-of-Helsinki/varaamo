@@ -107,8 +107,8 @@ describe('shared/navbar/Navbar', () => {
       const logoutHref = `/logout?next=${window.location.origin}`;
       const logoutLink = (
         getLoggedInNotAdminWrapper()
-        .find(NavItem)
-        .filter({ href: logoutHref })
+          .find(NavItem)
+          .filter({ href: logoutHref })
       );
       expect(logoutLink).to.have.length(1);
     });

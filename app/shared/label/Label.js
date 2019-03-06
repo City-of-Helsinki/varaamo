@@ -16,7 +16,9 @@ Label.defaultProps = {
   theme: 'gray',
 };
 
-function Label({ children, className, shape, size, theme }) {
+function Label({
+  children, className, shape, size, theme
+}) {
   return (
     <div
       className={classnames(
