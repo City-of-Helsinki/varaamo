@@ -11,7 +11,7 @@ describe('shared/resource-calendar/ResourceCalendarOverlay', () => {
     );
   }
 
-  it('renders app-ResourceCalendarOverlay with correct children', () => {
+  test('renders app-ResourceCalendarOverlay with correct children', () => {
     const children = '<div id="child-div" />';
     const wrapper = getWrapper({ children });
     const overlay = wrapper.find('.app-ResourceCalendarOverlay__overlay');

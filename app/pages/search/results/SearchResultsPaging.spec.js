@@ -23,23 +23,26 @@ function getWrapper(props) {
 }
 
 describe('pages/search/results/SearchResultsPaging', () => {
-  it('renders app-SearchResultsPaging if resultCount > 0', () => {
+  test('renders app-SearchResultsPaging if resultCount > 0', () => {
     const wrapper = getWrapper();
     expect(wrapper.is('div.app-SearchResultsPaging')).to.be.true;
   });
 
-  it('renders null if resultCount is 0', () => {
+  test('renders null if resultCount is 0', () => {
     const wrapper = getWrapper({ resultCount: 0 });
     expect(wrapper.is('div')).to.be.true;
     expect(wrapper.is('div.app-SearchResultsPaging')).to.be.false;
   });
 
-  it('renders prev and next buttons and correct number of page buttons', () => {
-    const buttons = getWrapper().find(Button);
-    expect(buttons).to.have.length(4);
-  });
+  test(
+    'renders prev and next buttons and correct number of page buttons',
+    () => {
+      const buttons = getWrapper().find(Button);
+      expect(buttons).to.have.length(4);
+    }
+  );
 
-  it('prev button is disabled when current page is 1', () => {
+  test('prev button is disabled when current page is 1', () => {
     const filters = { page: 1 };
     const buttons = getWrapper({ filters }).find(Button);
     expect(buttons).to.have.length(4);
@@ -47,7 +50,7 @@ describe('pages/search/results/SearchResultsPaging', () => {
     expect(buttons.at(3).prop('disabled')).to.be.false;
   });
 
-  it('next button is disabled when on last page', () => {
+  test('next button is disabled when on last page', () => {
     const filters = { page: 2 };
     const buttons = getWrapper({ filters }).find(Button);
     expect(buttons).to.have.length(4);
@@ -55,7 +58,7 @@ describe('pages/search/results/SearchResultsPaging', () => {
     expect(buttons.at(3).prop('disabled')).to.be.true;
   });
 
-  it('sets correct page button as selected', () => {
+  test('sets correct page button as selected', () => {
     const buttons = getWrapper().find(Button);
     const expected = 'app-SearchResultsPaging__page app-SearchResultsPaging__selected';
     expect(buttons).to.have.length(4);
@@ -67,17 +70,17 @@ describe('pages/search/results/SearchResultsPaging', () => {
     const expectedPath = `/search?date=${defaults.filters.date}&page=${page}`;
     let historyMock;
 
-    beforeEach(() => {
+    beforeAll(() => {
       const instance = getWrapper().instance();
       historyMock = simple.mock(history, 'push');
       instance.handleClick(page);
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls browserHistory push with correct path', () => {
+    test('calls browserHistory push with correct path', () => {
       expect(historyMock.callCount).to.equal(1);
       expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
     });
@@ -87,7 +90,7 @@ describe('pages/search/results/SearchResultsPaging', () => {
     let instance;
     let buttons;
 
-    beforeEach(() => {
+    beforeAll(() => {
       const filters = { page: 3 };
       const wrapper = getWrapper({ filters });
       instance = wrapper.instance();
@@ -99,25 +102,25 @@ describe('pages/search/results/SearchResultsPaging', () => {
       instance.handleClick.reset();
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('page button onClick calls handleClick', () => {
+    test('page button onClick calls handleClick', () => {
       expect(buttons).to.have.length(4);
       buttons.at(2).prop('onClick')();
       expect(instance.handleClick.callCount).to.equal(1);
       expect(instance.handleClick.lastCall.args).to.deep.equal([2]);
     });
 
-    it('prev button onClick calls handleClick', () => {
+    test('prev button onClick calls handleClick', () => {
       expect(buttons).to.have.length(4);
       buttons.at(0).prop('onClick')();
       expect(instance.handleClick.callCount).to.equal(1);
       expect(instance.handleClick.lastCall.args).to.deep.equal([2]);
     });
 
-    it('next button onClick calls handleClick', () => {
+    test('next button onClick calls handleClick', () => {
       expect(buttons).to.have.length(4);
       buttons.at(3).prop('onClick')();
       expect(instance.handleClick.callCount).to.equal(1);

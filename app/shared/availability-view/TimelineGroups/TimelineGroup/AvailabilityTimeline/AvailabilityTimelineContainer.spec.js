@@ -67,12 +67,12 @@ function getWrapper(props) {
 }
 
 describe('shared/availability-view/AvailabilityTimelineContainer', () => {
-  it('renders a AvailabilityTimeline', () => {
+  test('renders a AvailabilityTimeline', () => {
     const wrapper = getWrapper();
     expect(wrapper.is(AvailabilityTimeline)).to.be.true;
   });
 
-  it('renders a AvailabilityTimeline even if no reservations', () => {
+  test('renders a AvailabilityTimeline even if no reservations', () => {
     const wrapper = getWrapper({ id: 'resource-2' });
     expect(wrapper.is(AvailabilityTimeline)).to.be.true;
   });
@@ -84,27 +84,27 @@ describe('shared/availability-view/AvailabilityTimelineContainer', () => {
     }
 
     describe('items', () => {
-      beforeEach(() => {
+      beforeAll(() => {
         mockDate.set('2015-12-01T10:00:00Z');
       });
 
-      afterEach(() => {
+      afterAll(() => {
         mockDate.reset();
       });
 
-      it('contains slots if no reservations', () => {
+      test('contains slots if no reservations', () => {
         const actual = getSelected({ id: 'resource-2' }).items;
         expect(actual).to.have.length((24 * 60) / slotSize);
         actual.forEach(slot => expect(slot.type).to.equal('reservation-slot'));
       });
 
-      it('contains slots if no reservations for date', () => {
+      test('contains slots if no reservations for date', () => {
         const actual = getSelected({ date: '2016-01-02T00:00:00' }).items;
         expect(actual).to.have.length((24 * 60) / slotSize);
         actual.forEach(slot => expect(slot.type).to.equal('reservation-slot'));
       });
 
-      it('contains reservations and slots', () => {
+      test('contains reservations and slots', () => {
         const state = getState();
         const reservations = state.data.resources['resource-1'].reservations;
         const props = { id: 'resource-1', date: '2016-01-01' };
@@ -128,7 +128,7 @@ describe('shared/availability-view/AvailabilityTimelineContainer', () => {
         expect(actual[10].type).to.equal('reservation-slot');
       });
 
-      it('contains selectability info', () => {
+      test('contains selectability info', () => {
         const state = getState();
         const reservations = state.data.resources['resource-1'].reservations;
         const selection = {

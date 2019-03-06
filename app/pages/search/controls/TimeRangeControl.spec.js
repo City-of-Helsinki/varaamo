@@ -18,12 +18,12 @@ function getWrapper(props) {
 }
 
 describe('pages/search/controls/TimeRangeControl', () => {
-  it('renders a div.app-TimeRangeControl', () => {
+  test('renders a div.app-TimeRangeControl', () => {
     const wrapper = getWrapper();
     expect(wrapper.is('div.app-TimeRangeControl')).to.be.true;
   });
 
-  it('renders start select control with correct props', () => {
+  test('renders start select control with correct props', () => {
     const wrapper = getWrapper();
     const startSelect = wrapper.find('.app-TimeRangeControl__range-start');
     const expectedOptions = [
@@ -86,7 +86,7 @@ describe('pages/search/controls/TimeRangeControl', () => {
     expect(startSelect.prop('value')).to.equal(defaults.start);
   });
 
-  it('renders end select control with correct props', () => {
+  test('renders end select control with correct props', () => {
     const wrapper = getWrapper();
     const endSelect = wrapper.find('.app-TimeRangeControl__range-end');
     const expectedOptions = [
@@ -129,7 +129,7 @@ describe('pages/search/controls/TimeRangeControl', () => {
     expect(endSelect.prop('value')).to.equal(defaults.end);
   });
 
-  it('renders duration select control for 12h with correct props', () => {
+  test('renders duration select control for 12h with correct props', () => {
     const wrapper = getWrapper({ end: '23:30', start: '08:00' });
     const endSelect = wrapper.find('.app-TimeRangeControl__range-duration');
     const expectedOptions = [
@@ -169,24 +169,27 @@ describe('pages/search/controls/TimeRangeControl', () => {
     expect(endSelect.prop('value')).to.equal(defaults.duration);
   });
 
-  it('renders correct duration select control based on start and end time', () => {
-    const wrapper = getWrapper({ end: '23:30', start: '20:30' });
-    const endSelect = wrapper.find('.app-TimeRangeControl__range-duration');
-    const expectedOptions = [
-      { label: '0.5 h', value: 30 },
-      { label: '1 h', value: 60 },
-      { label: '1.5 h', value: 90 },
-      { label: '2 h', value: 120 },
-      { label: '2.5 h', value: 150 },
-      { label: '3 h', value: 180 },
-    ];
+  test(
+    'renders correct duration select control based on start and end time',
+    () => {
+      const wrapper = getWrapper({ end: '23:30', start: '20:30' });
+      const endSelect = wrapper.find('.app-TimeRangeControl__range-duration');
+      const expectedOptions = [
+        { label: '0.5 h', value: 30 },
+        { label: '1 h', value: 60 },
+        { label: '1.5 h', value: 90 },
+        { label: '2 h', value: 120 },
+        { label: '2.5 h', value: 150 },
+        { label: '3 h', value: 180 },
+      ];
 
-    expect(endSelect).to.have.length(1);
-    expect(endSelect.prop('options')).to.deep.equal(expectedOptions);
-  });
+      expect(endSelect).to.have.length(1);
+      expect(endSelect.prop('options')).to.deep.equal(expectedOptions);
+    }
+  );
 
   describe('handleStart', () => {
-    it('calls onConfirm with correct propTypes', () => {
+    test('calls onConfirm with correct propTypes', () => {
       const onConfirm = simple.mock();
       const instance = getWrapper({ onConfirm }).instance();
       const expected = {
@@ -204,7 +207,7 @@ describe('pages/search/controls/TimeRangeControl', () => {
   });
 
   describe('handleEnd', () => {
-    it('calls onConfirm with correct propTypes', () => {
+    test('calls onConfirm with correct propTypes', () => {
       const onConfirm = simple.mock();
       const instance = getWrapper({ onConfirm }).instance();
       const expected = {
@@ -222,7 +225,7 @@ describe('pages/search/controls/TimeRangeControl', () => {
   });
 
   describe('handleDuration', () => {
-    it('calls onConfirm with correct propTypes', () => {
+    test('calls onConfirm with correct propTypes', () => {
       const onConfirm = simple.mock();
       const instance = getWrapper({ onConfirm }).instance();
       const expected = {
@@ -240,7 +243,7 @@ describe('pages/search/controls/TimeRangeControl', () => {
   });
 
   describe('handleToggleChange', () => {
-    it('calls onTimeRangeSwitch with the supplied value', () => {
+    test('calls onTimeRangeSwitch with the supplied value', () => {
       const wrapper = getWrapper();
       const instance = wrapper.instance();
       const { onTimeRangeSwitch } = defaults;

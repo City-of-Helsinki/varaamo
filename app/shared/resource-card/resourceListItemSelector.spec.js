@@ -18,15 +18,15 @@ describe('shared/resource-list/resourceCardSelector', () => {
     return resourceCardSelector(state, props);
   }
 
-  it('returns isLoggedIn', () => {
+  test('returns isLoggedIn', () => {
     expect(getSelected().isLoggedIn).to.exist;
   });
 
-  it('returns correct resource from state', () => {
+  test('returns correct resource from state', () => {
     expect(getSelected().resource).to.deep.equal(resource);
   });
 
-  it('returns correct unit from state', () => {
+  test('returns correct unit from state', () => {
     expect(getSelected().unit).to.deep.equal(unit);
   });
 });

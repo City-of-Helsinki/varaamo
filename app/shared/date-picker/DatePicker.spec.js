@@ -20,11 +20,11 @@ describe('shared/date-picker/DatePicker', () => {
       return getWrapper(props).find(DayPickerInput);
     }
 
-    it('is rendered', () => {
+    test('is rendered', () => {
       expect(getDateFieldWrapper()).to.have.length(1);
     });
 
-    it('changing date calls onDayChange with date in correct format', () => {
+    test('changing date calls onDayChange with date in correct format', () => {
       const onChange = simple.mock();
       const dateField = getDateFieldWrapper({ onChange });
       const newDate = 'Tue Mar 05 2019';

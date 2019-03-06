@@ -25,18 +25,18 @@ function getWrapper(props) {
 }
 
 describe('pages/search/controls/DatePickerControl', () => {
-  it('renders a div.app-DatePickerControl', () => {
+  test('renders a div.app-DatePickerControl', () => {
     const wrapper = getWrapper();
     expect(wrapper.is('div.app-DatePickerControl')).to.be.true;
   });
 
-  it('renders ControlLabel with correct text', () => {
+  test('renders ControlLabel with correct text', () => {
     const wrapper = getWrapper();
     const controlLabel = wrapper.find(ControlLabel);
     expect(controlLabel).to.have.length(1);
   });
 
-  it('renders FormGroup with correct props', () => {
+  test('renders FormGroup with correct props', () => {
     const wrapper = getWrapper();
     const instance = wrapper.instance();
     const formGroup = wrapper.find(FormGroup);
@@ -44,13 +44,13 @@ describe('pages/search/controls/DatePickerControl', () => {
     expect(formGroup.prop('onClick')).to.equal(instance.showOverlay);
   });
 
-  it('renders app-DatePickerControl__title with correct text', () => {
+  test('renders app-DatePickerControl__title with correct text', () => {
     const wrapper = getWrapper();
     const title = wrapper.find('.app-DatePickerControl__title');
     expect(title).to.have.length(1);
   });
 
-  it('renders Overlay with correct props', () => {
+  test('renders Overlay with correct props', () => {
     const wrapper = getWrapper();
     const instance = wrapper.instance();
     const overlay = wrapper.find(Overlay);
@@ -62,7 +62,7 @@ describe('pages/search/controls/DatePickerControl', () => {
     expect(overlay.prop('show')).to.equal(instance.state.visible);
   });
 
-  it('renders SearchControlOverlay with correct props', () => {
+  test('renders SearchControlOverlay with correct props', () => {
     const wrapper = getWrapper();
     const controlOverlay = wrapper.find(SearchControlOverlay);
     expect(controlOverlay).to.have.length(1);
@@ -70,7 +70,7 @@ describe('pages/search/controls/DatePickerControl', () => {
     expect(controlOverlay.prop('title')).to.equal('DatePickerControl.header');
   });
 
-  it('renders DayPicker for selecting date', () => {
+  test('renders DayPicker for selecting date', () => {
     const expected = moment(defaults.date)
       .startOf('day')
       .toDate();
@@ -99,7 +99,7 @@ describe('pages/search/controls/DatePickerControl', () => {
     receivedTomorrow.setHours(12, 0, 0, 0);
     receivedYesterday.setHours(12, 0, 0, 0);
     let isDisabled;
-    beforeEach(() => {
+    beforeAll(() => {
       isDisabled = dayPicker.prop('disabledDays');
     });
 
@@ -107,34 +107,34 @@ describe('pages/search/controls/DatePickerControl', () => {
       mockDate.reset();
     });
 
-    it('disables yesterday', () => {
+    test('disables yesterday', () => {
       mockDate.set(now);
       expect(isDisabled(receivedYesterday)).to.be.true;
     });
 
-    it('enables today now', () => {
+    test('enables today now', () => {
       mockDate.set(now);
       expect(isDisabled(receivedToday)).to.be.false;
     });
 
-    it('enables today early', () => {
+    test('enables today early', () => {
       mockDate.set(todayEarly);
       expect(isDisabled(receivedToday)).to.be.false;
     });
 
-    it('enables today late', () => {
+    test('enables today late', () => {
       mockDate.set(todayLate);
       expect(isDisabled(receivedToday)).to.be.false;
     });
 
-    it('enables tomorrow', () => {
+    test('enables tomorrow', () => {
       mockDate.set(now);
       expect(isDisabled(receivedTomorrow)).to.be.false;
     });
   });
 
   describe('handleConfirm', () => {
-    it('calls onConfirm with correct value', () => {
+    test('calls onConfirm with correct value', () => {
       const onConfirm = simple.mock();
       const date = '12.12.2017';
       const expected = { date };
@@ -144,7 +144,7 @@ describe('pages/search/controls/DatePickerControl', () => {
       expect(onConfirm.lastCall.args).to.deep.equal([expected]);
     });
 
-    it('calls hideOverlay', () => {
+    test('calls hideOverlay', () => {
       const instance = getWrapper().instance();
       simple.mock(instance, 'hideOverlay');
       instance.handleConfirm();
@@ -154,7 +154,7 @@ describe('pages/search/controls/DatePickerControl', () => {
   });
 
   describe('hideOverlay', () => {
-    it('sets state.visible to false', () => {
+    test('sets state.visible to false', () => {
       const instance = getWrapper().instance();
       instance.state.visible = true;
       instance.hideOverlay();
@@ -163,7 +163,7 @@ describe('pages/search/controls/DatePickerControl', () => {
   });
 
   describe('showOverlay', () => {
-    it('sets state.visible to true', () => {
+    test('sets state.visible to true', () => {
       const instance = getWrapper().instance();
       instance.state.visible = false;
       instance.showOverlay();

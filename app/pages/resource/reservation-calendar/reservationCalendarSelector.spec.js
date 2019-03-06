@@ -60,7 +60,7 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
     ],
   });
 
-  it('returns date', () => {
+  test('returns date', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = reservationCalendarSelector(state, props);
@@ -68,7 +68,7 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
     expect(selected.date).to.exist;
   });
 
-  it('returns isFetchingResource', () => {
+  test('returns isFetchingResource', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = reservationCalendarSelector(state, props);
@@ -76,7 +76,7 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
     expect(selected.isFetchingResource).to.exist;
   });
 
-  it('returns isAdmin', () => {
+  test('returns isAdmin', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = reservationCalendarSelector(state, props);
@@ -84,7 +84,7 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
     expect(selected.isAdmin).to.exist;
   });
 
-  it('returns isEditing based on reservationsToEdit', () => {
+  test('returns isEditing based on reservationsToEdit', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = reservationCalendarSelector(state, props);
@@ -93,7 +93,7 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
     expect(selected.isEditing).to.equal(expected);
   });
 
-  it('returns isLoggedIn', () => {
+  test('returns isLoggedIn', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = reservationCalendarSelector(state, props);
@@ -101,7 +101,7 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
     expect(selected.isLoggedIn).to.exist;
   });
 
-  it('returns isStaff', () => {
+  test('returns isStaff', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = reservationCalendarSelector(state, props);
@@ -109,7 +109,7 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
     expect(selected.isStaff).to.exist;
   });
 
-  it('returns the reservation.selected from the state', () => {
+  test('returns the reservation.selected from the state', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = reservationCalendarSelector(state, props);
@@ -118,14 +118,14 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
     expect(selected.selected).to.equal(expected);
   });
 
-  it('returns reservation.selectedSlot from state', () => {
+  test('returns reservation.selectedSlot from state', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = reservationCalendarSelector(state, props);
     expect(selected.selectedReservationSlot).to.deep.equal(state.ui.reservations.selectedSlot);
   });
 
-  it('returns resource', () => {
+  test('returns resource', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = reservationCalendarSelector(state, props);
@@ -133,7 +133,7 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
     expect(selected.resource).to.exist;
   });
 
-  it('returns time', () => {
+  test('returns time', () => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = reservationCalendarSelector(state, props);
@@ -142,7 +142,7 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
   });
 
   describe('timeSlots', () => {
-    it('uses resource properties to calculate correct time slots', () => {
+    test('uses resource properties to calculate correct time slots', () => {
       const mockSlots = ['slot-1', 'slot-2'];
       const expectedMockSlots = [
         mockSlots,
@@ -170,7 +170,7 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
       simple.restore();
     });
 
-    it('returns start day if resource is not open on that day', () => {
+    test('returns start day if resource is not open on that day', () => {
       const expectedMockSlots = [
         [],
         [],
@@ -197,7 +197,7 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
       simple.restore();
     });
 
-    it('returns timeSlots as an empty array when date not in resource', () => {
+    test('returns timeSlots as an empty array when date not in resource', () => {
       const state = getState(resource);
       const props = getProps(resource.id, '2015-10-15');
       const selected = reservationCalendarSelector(state, props);
@@ -205,7 +205,7 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
       expect(selected.timeSlots).to.deep.equal([[], [], [], [], [], [], []]);
     });
 
-    it('returns timeSlots as an empty array when resource is not found', () => {
+    test('returns timeSlots as an empty array when resource is not found', () => {
       const state = getState(resource);
       const props = getProps('unfetched-resource-id');
       const selected = reservationCalendarSelector(state, props);

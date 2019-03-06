@@ -11,7 +11,7 @@ describe('Actions: userActions', () => {
   });
 
   describe('fetchUser', () => {
-    it('includes correct track in meta', () => {
+    test('includes correct track in meta', () => {
       const id = '1234qwert';
       fetchUser(id);
       expect(getRequestTypeDescriptorMock.lastCall.args[1].meta.track).to.deep.equal({

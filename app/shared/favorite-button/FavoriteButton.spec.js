@@ -17,35 +17,35 @@ describe('shared/favorite-button/FavoriteButton', () => {
   }
   let wrapper;
 
-  beforeEach(() => {
+  beforeAll(() => {
     wrapper = getWrapper();
   });
 
-  it('is a Button', () => {
+  test('is a Button', () => {
     expect(wrapper.is(Button)).to.be.true;
   });
 
-  it('has favorite-button class name', () => {
+  test('has favorite-button class name', () => {
     expect(getWrapper({ favorited: false }).prop('className')).to.equal('favorite-button');
   });
 
-  it('has favorite class modifier if it is favorited', () => {
+  test('has favorite class modifier if it is favorited', () => {
     expect(getWrapper({ favorited: true }).prop('className')).to.equal(
       'favorite-button favorite-button--favorite'
     );
   });
 
-  it('passes onClick prop', () => {
+  test('passes onClick prop', () => {
     expect(wrapper.prop('onClick')).to.deep.equal(defaultProps.onClick);
   });
 
-  it('has remove favorite text if favorited', () => {
+  test('has remove favorite text if favorited', () => {
     const buttonText = getWrapper({ favorited: true }).find('span');
     expect(buttonText).to.have.length(1);
     expect(buttonText.text()).to.equal('ResourceHeader.favoriteRemoveButton');
   });
 
-  it('has add favorite text if not favorited', () => {
+  test('has add favorite text if not favorited', () => {
     const buttonText = getWrapper({ favorited: false }).find('span');
     expect(buttonText).to.have.length(1);
     expect(buttonText.text()).to.equal('ResourceHeader.favoriteAddButton');

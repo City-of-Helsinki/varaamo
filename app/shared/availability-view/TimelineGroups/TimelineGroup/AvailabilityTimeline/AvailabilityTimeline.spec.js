@@ -16,12 +16,12 @@ function getWrapper(props) {
 }
 
 describe('shared/availability-view/AvailabilityTimeline', () => {
-  it('renders a div.availability-timeline', () => {
+  test('renders a div.availability-timeline', () => {
     const wrapper = getWrapper();
     expect(wrapper.is('div.availability-timeline')).to.be.true;
   });
 
-  it('renders given reservation slot', () => {
+  test('renders given reservation slot', () => {
     const id = 'resource-auuxnane';
     const onReservationSlotClick = () => null;
     const onReservationSlotMouseEnter = () => null;
@@ -45,7 +45,7 @@ describe('shared/availability-view/AvailabilityTimeline', () => {
     expect(slot.prop('onMouseLeave')).to.equal(onReservationSlotMouseLeave);
   });
 
-  it('renders given reservation', () => {
+  test('renders given reservation', () => {
     const wrapper = getWrapper({
       items: [{
         key: '1',
@@ -63,7 +63,7 @@ describe('shared/availability-view/AvailabilityTimeline', () => {
     expect(reservation.prop('name')).to.equal('My Reservation');
   });
 
-  it('renders slots and reservations', () => {
+  test('renders slots and reservations', () => {
     const wrapper = getWrapper({
       items: [
         {

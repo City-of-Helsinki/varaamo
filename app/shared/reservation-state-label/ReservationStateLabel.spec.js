@@ -24,7 +24,7 @@ describe('shared/reservation-state-label/ReservationStateLabel', () => {
     const reservation = Reservation.build({ needManualConfirmation, state });
     const wrapper = getWrapper({ reservation });
 
-    it('renders a container div with correct className', () => {
+    test('renders a container div with correct className', () => {
       const container = wrapper.find('div');
       expect(container.length).to.equal(1);
       expect(container.prop('className')).to.equal('reservation-state-label-container');
@@ -34,15 +34,15 @@ describe('shared/reservation-state-label/ReservationStateLabel', () => {
       const label = wrapper.find(Label);
       const { labelBsStyle, labelTextId } = constants.RESERVATION_STATE_LABELS[reservation.state];
 
-      it('is rendered', () => {
+      test('is rendered', () => {
         expect(label.length).to.equal(1);
       });
 
-      it('has correct bsStyle prop', () => {
+      test('has correct bsStyle prop', () => {
         expect(label.prop('bsStyle')).to.equal(labelBsStyle);
       });
 
-      it('has correct text', () => {
+      test('has correct text', () => {
         expect(label.prop('children')).to.equal(labelTextId);
       });
     });
@@ -83,7 +83,7 @@ describe('shared/reservation-state-label/ReservationStateLabel', () => {
     describe('if reservation state is "confirmed"', () => {
       const state = 'confirmed';
 
-      it('renders an empty span', () => {
+      test('renders an empty span', () => {
         const reservation = Reservation.build({ needManualConfirmation, state });
         const wrapper = getWrapper({ reservation });
         expect(wrapper.equals(<span />)).to.be.true;
@@ -93,7 +93,7 @@ describe('shared/reservation-state-label/ReservationStateLabel', () => {
     describe('if reservation state is "denied"', () => {
       const state = 'denied';
 
-      it('renders an empty span', () => {
+      test('renders an empty span', () => {
         const reservation = Reservation.build({ needManualConfirmation, state });
         const wrapper = getWrapper({ reservation });
         expect(wrapper.equals(<span />)).to.be.true;
@@ -103,7 +103,7 @@ describe('shared/reservation-state-label/ReservationStateLabel', () => {
     describe('if reservation state is "requested"', () => {
       const state = 'requested';
 
-      it('renders an empty span', () => {
+      test('renders an empty span', () => {
         const reservation = Reservation.build({ needManualConfirmation, state });
         const wrapper = getWrapper({ reservation });
         expect(wrapper.equals(<span />)).to.be.true;

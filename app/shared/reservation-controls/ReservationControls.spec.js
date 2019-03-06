@@ -36,7 +36,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: false, state: 'confirmed' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('renders two buttons', () => {
+      test('renders two buttons', () => {
         expect(buttons.length).to.equal(2);
       });
 
@@ -56,7 +56,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
         const isStaff = true;
         const buttons = getWrapper(reservation, isAdmin, isStaff).find(Button);
 
-        it('renders four buttons', () => {
+        test('renders four buttons', () => {
           expect(buttons.length).to.equal(4);
         });
 
@@ -81,7 +81,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
         const isStaff = false;
         const buttons = getWrapper(reservation, isAdmin, isStaff).find(Button);
 
-        it('renders two buttons', () => {
+        test('renders two buttons', () => {
           expect(buttons.length).to.equal(2);
         });
 
@@ -99,7 +99,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: true, state: 'cancelled' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('renders one button', () => {
+      test('renders one button', () => {
         expect(buttons.length).to.equal(1);
       });
 
@@ -112,7 +112,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: true, state: 'denied' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('renders one button', () => {
+      test('renders one button', () => {
         expect(buttons.length).to.equal(1);
       });
 
@@ -128,7 +128,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
         const isStaff = true;
         const buttons = getWrapper(reservation, isAdmin, isStaff).find(Button);
 
-        it('renders three buttons', () => {
+        test('renders three buttons', () => {
           expect(buttons.length).to.equal(3);
         });
 
@@ -149,7 +149,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
         const isStaff = false;
         const buttons = getWrapper(reservation, isAdmin, isStaff).find(Button);
 
-        it('renders two buttons', () => {
+        test('renders two buttons', () => {
           expect(buttons.length).to.equal(2);
         });
 
@@ -171,7 +171,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: false, state: 'confirmed' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('renders two buttons', () => {
+      test('renders two buttons', () => {
         expect(buttons.length).to.equal(2);
       });
 
@@ -188,7 +188,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: true, state: 'requested' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('renders three buttons', () => {
+      test('renders three buttons', () => {
         expect(buttons.length).to.equal(3);
       });
 
@@ -209,7 +209,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: true, state: 'cancelled' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('renders one button', () => {
+      test('renders one button', () => {
         expect(buttons.length).to.equal(1);
       });
 
@@ -222,7 +222,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: true, state: 'denied' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('renders one button', () => {
+      test('renders one button', () => {
         expect(buttons.length).to.equal(1);
       });
 
@@ -235,7 +235,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       const reservation = Reservation.build({ needManualConfirmation: true, state: 'confirmed' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      it('renders two buttons', () => {
+      test('renders two buttons', () => {
         expect(buttons.length).to.equal(2);
       });
 

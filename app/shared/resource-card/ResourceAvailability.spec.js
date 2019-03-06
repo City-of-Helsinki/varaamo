@@ -32,7 +32,7 @@ describe('shared/resource-list/ResourceAvailability', () => {
       MockDate.reset();
     });
 
-    it('renders an empty span', () => {
+    test('renders an empty span', () => {
       const wrapper = getWrapper({ date });
       expect(wrapper.equals(<span />)).to.be.true;
     });
@@ -53,7 +53,7 @@ describe('shared/resource-list/ResourceAvailability', () => {
       MockDate.reset();
     });
 
-    it('renders an empty span', () => {
+    test('renders an empty span', () => {
       const wrapper = getWrapper({ date, resource });
       expect(wrapper.equals(<span />)).to.be.true;
     });
@@ -71,12 +71,12 @@ describe('shared/resource-list/ResourceAvailability', () => {
       MockDate.reset();
     });
 
-    it('renders a Label component', () => {
+    test('renders a Label component', () => {
       const label = getWrapper({ date }).find(Label);
       expect(label.length).to.equal(1);
     });
 
-    it('uses getAvailabilityDataForNow for Label props', () => {
+    test('uses getAvailabilityDataForNow for Label props', () => {
       const expectedData = { status: 'closed', bsStyle: 'danger' };
       simple.mock(resourceUtils, 'getAvailabilityDataForNow').returnWith(expectedData);
       const label = getWrapper({ date }).find(Label);
@@ -99,12 +99,12 @@ describe('shared/resource-list/ResourceAvailability', () => {
       MockDate.reset();
     });
 
-    it('renders a Label component', () => {
+    test('renders a Label component', () => {
       const label = getWrapper({ date }).find(Label);
       expect(label.length).to.equal(1);
     });
 
-    it('uses getAvailabilityDataForWholeDay for Label props', () => {
+    test('uses getAvailabilityDataForWholeDay for Label props', () => {
       const expectedData = { status: 'closed', bsStyle: 'danger' };
       simple.mock(resourceUtils, 'getAvailabilityDataForWholeDay').returnWith(expectedData);
       const label = getWrapper({ date }).find(Label);

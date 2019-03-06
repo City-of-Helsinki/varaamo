@@ -10,7 +10,7 @@ describe('shared/modals/reservation-success/reservationSuccessModalSelector', ()
     return reservationSuccessModalSelector(state);
   }
 
-  it('returns reservationsToShow from the state ordered by begin time', () => {
+  test('returns reservationsToShow from the state ordered by begin time', () => {
     const reservationsToShow = [
       {
         id: 'r-1',
@@ -51,7 +51,7 @@ describe('shared/modals/reservation-success/reservationSuccessModalSelector', ()
     expect(selected.reservationsToShow).to.deep.equal(expected);
   });
 
-  it('returns failedReservations from the state ordered by begin time', () => {
+  test('returns failedReservations from the state ordered by begin time', () => {
     const failedReservations = [
       {
         id: 'r-1',
@@ -92,27 +92,30 @@ describe('shared/modals/reservation-success/reservationSuccessModalSelector', ()
     expect(selected.failedReservations).to.deep.equal(expected);
   });
 
-  it('returns resources from the state', () => {
+  test('returns resources from the state', () => {
     expect(getSelected().resources).to.exist;
   });
 
   describe('show', () => {
-    it('returns true if modals.open contain RESERVATION_SUCCESS', () => {
+    test('returns true if modals.open contain RESERVATION_SUCCESS', () => {
       const selected = getSelected({
         'ui.modals.open': [ModalTypes.RESERVATION_SUCCESS],
       });
       expect(selected.show).to.be.true;
     });
 
-    it('returns false if modals.open does not contain RESERVATION_SUCCESS', () => {
-      const selected = getSelected({
-        'ui.modals.open': [],
-      });
-      expect(selected.show).to.be.false;
-    });
+    test(
+      'returns false if modals.open does not contain RESERVATION_SUCCESS',
+      () => {
+        const selected = getSelected({
+          'ui.modals.open': [],
+        });
+        expect(selected.show).to.be.false;
+      }
+    );
   });
 
-  it('returns user', () => {
+  test('returns user', () => {
     expect(getSelected().user).to.exist;
   });
 });

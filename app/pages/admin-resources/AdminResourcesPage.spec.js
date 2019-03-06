@@ -40,7 +40,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
   }
 
   describe('rendering', () => {
-    it('renders PageWrapper with correct props', () => {
+    test('renders PageWrapper with correct props', () => {
       const pageWrapper = getWrapper().find(PageWrapper);
       expect(pageWrapper).to.have.length(1);
       expect(pageWrapper.prop('className')).to.equal('admin-resources-page');
@@ -50,11 +50,11 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
 
     describe('when user is not admin', () => {
       let wrapper;
-      beforeEach(() => {
+      beforeAll(() => {
         wrapper = getWrapper({ isAdmin: false });
       });
 
-      it('renders a paragraph', () => {
+      test('renders a paragraph', () => {
         expect(wrapper.find('p')).to.have.length(1);
       });
     });
@@ -64,32 +64,35 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
         return getWrapper({ ...props, isAdmin: true });
       }
 
-      it('displays correct title inside h1 tags', () => {
+      test('displays correct title inside h1 tags', () => {
         const h1 = getIsAdminWrapper().find('h1');
         expect(h1.text()).to.equal('AdminResourcesPage.adminTitle');
       });
 
       describe('Loader', () => {
-        it('is not loaded if fetching resources and no resources in the state', () => {
-          const props = { isFetchingResources: true, resources: [] };
-          const loader = getIsAdminWrapper(props).find(Loader);
-          expect(loader.prop('loaded')).to.be.false;
-        });
+        test(
+          'is not loaded if fetching resources and no resources in the state',
+          () => {
+            const props = { isFetchingResources: true, resources: [] };
+            const loader = getIsAdminWrapper(props).find(Loader);
+            expect(loader.prop('loaded')).to.be.false;
+          }
+        );
 
-        it('is loaded if not fetching resource', () => {
+        test('is loaded if not fetching resource', () => {
           const props = { isFetchingResources: false, resources: [] };
           const loader = getIsAdminWrapper(props).find(Loader);
           expect(loader.prop('loaded')).to.be.true;
         });
 
-        it('is loaded if resources in state', () => {
+        test('is loaded if resources in state', () => {
           const props = { isFetchingResources: true, resources: [{ id: 'r-1' }] };
           const loader = getIsAdminWrapper(props).find(Loader);
           expect(loader.prop('loaded')).to.be.true;
         });
       });
 
-      it('renders AvailabilityView with correct props', () => {
+      test('renders AvailabilityView with correct props', () => {
         const resources = [{ foo: 'bar' }];
         const wrapper = getIsAdminWrapper({ resources });
         const view = wrapper.find(AvailabilityView);
@@ -102,7 +105,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
         expect(view.prop('onSelect')).to.equal(wrapper.instance().handleSelect);
       });
 
-      it('renders ResourceTypeFilter with correct props', () => {
+      test('renders ResourceTypeFilter with correct props', () => {
         const wrapper = getIsAdminWrapper();
         const resourceTypeFilter = wrapper.find(ResourceTypeFilter);
         expect(resourceTypeFilter).to.have.length(1);
@@ -124,38 +127,38 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
       const timer = 5;
       let instance;
 
-      beforeEach(() => {
+      beforeAll(() => {
         fetchFavoritedResources.reset();
         simple.mock(window, 'setInterval').returnWith(timer);
         instance = getWrapper({ isAdmin }).instance();
         instance.componentDidMount();
       });
 
-      afterEach(() => {
+      afterAll(() => {
         simple.restore();
       });
 
-      it('fetches favorited resources', () => {
+      test('fetches favorited resources', () => {
         expect(fetchFavoritedResources.callCount).to.equal(1);
       });
 
-      it('fetches date\'s resources', () => {
+      test('fetches date\'s resources', () => {
         const args = fetchFavoritedResources.lastCall.args;
         expect(args[0].format('YYYY-MM-DD')).to.equal('2017-01-10');
       });
 
-      it('passes adminResourcesPage as source', () => {
+      test('passes adminResourcesPage as source', () => {
         const args = fetchFavoritedResources.lastCall.args;
         expect(args[1]).to.equal('adminResourcesPage');
       });
 
-      it('starts fetching resources every ten minutes', () => {
+      test('starts fetching resources every ten minutes', () => {
         expect(window.setInterval.callCount).to.equal(1);
         const interval = 10 * 60 * 1000;
         expect(window.setInterval.lastCall.args).to.deep.equal([instance.fetchResources, interval]);
       });
 
-      it('saves interval to this.updateResourcesTimer', () => {
+      test('saves interval to this.updateResourcesTimer', () => {
         expect(instance.updateResourcesTimer).to.equal(timer);
       });
     });
@@ -164,7 +167,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
   describe('componentWillReceiveProps', () => {
     let instance;
 
-    beforeEach(() => {
+    beforeAll(() => {
       instance = getWrapper().instance();
       instance.fetchResources = simple.mock();
     });
@@ -173,22 +176,22 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
       instance.fetchResources.reset();
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('does not call fetchResources if props have not changed', () => {
+    test('does not call fetchResources if props have not changed', () => {
       instance.componentWillReceiveProps(defaultProps);
       expect(instance.fetchResources.callCount).to.equal(0);
     });
 
-    it('calls fetchResources if props have changed date', () => {
+    test('calls fetchResources if props have changed date', () => {
       instance.componentWillReceiveProps({ ...defaultProps, date: '2017-01-12' });
       expect(instance.fetchResources.callCount).to.equal(1);
       expect(instance.fetchResources.lastCall.args).to.deep.equal(['2017-01-12']);
     });
 
-    it('calls fetchResources if props have changed location', () => {
+    test('calls fetchResources if props have changed location', () => {
       instance.componentWillReceiveProps({ ...defaultProps, location: { id: '321' } });
       expect(instance.fetchResources.callCount).to.equal(1);
       expect(instance.fetchResources.lastCall.args).to.deep.equal([defaultProps.date]);
@@ -199,7 +202,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
     const timer = 5;
     let instance;
 
-    beforeEach(() => {
+    beforeAll(() => {
       changeAdminResourcesPageDate.reset();
       simple.mock(window, 'setInterval').returnWith(timer);
       simple.mock(window, 'clearInterval').returnWith(timer);
@@ -208,30 +211,30 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
       instance.componentWillUnmount();
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('sets date to null', () => {
+    test('sets date to null', () => {
       expect(changeAdminResourcesPageDate.callCount).to.equal(1);
       expect(changeAdminResourcesPageDate.lastCall.args).to.deep.equal([null]);
     });
 
-    it('it clears fetchResources interval', () => {
+    test('it clears fetchResources interval', () => {
       expect(window.clearInterval.callCount).to.equal(1);
       expect(window.clearInterval.lastCall.args).to.deep.equal([timer]);
     });
   });
 
   describe('handleSelect', () => {
-    it('saves selection to state', () => {
+    test('saves selection to state', () => {
       const wrapper = getWrapper();
       const selection = { some: 'data' };
       wrapper.instance().handleSelect(selection);
       expect(wrapper.state()).to.deep.equal({ selection });
     });
 
-    it('calls changeRecurringBaseTime with correct time', () => {
+    test('calls changeRecurringBaseTime with correct time', () => {
       const changeRecurringBaseTime = simple.mock();
       const selection = {
         begin: '2017-04-21T12:00:00+03:00',
@@ -245,7 +248,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
       expect(changeRecurringBaseTime.lastCall.args).to.deep.equal([selection]);
     });
 
-    it('opens the confirm reservation modal', () => {
+    test('opens the confirm reservation modal', () => {
       openConfirmReservationModal.reset();
       const wrapper = getWrapper();
       wrapper.instance().handleSelect({});

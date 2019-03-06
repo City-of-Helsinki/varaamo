@@ -70,16 +70,16 @@ describe('shared/resource-card/ResourceCard', () => {
     return shallowWithIntl(<ResourceCard {...defaultProps} {...extraProps} />);
   }
 
-  it('renders an div element', () => {
+  test('renders an div element', () => {
     expect(getWrapper().is('div')).to.be.true;
   });
 
-  it('renders stacked className if stacked prop is passed', () => {
+  test('renders stacked className if stacked prop is passed', () => {
     const resourceCard = getWrapper({ stacked: true }).filter('.app-ResourceCard__stacked');
     expect(resourceCard).to.have.length(1);
   });
 
-  it('does not render stacked className if stacked prop is not passed', () => {
+  test('does not render stacked className if stacked prop is not passed', () => {
     const resourceCard = getWrapper().filter('.app-ResourceCard__stacked');
     expect(resourceCard).to.have.length(0);
   });
@@ -89,7 +89,7 @@ describe('shared/resource-card/ResourceCard', () => {
       return getWrapper(extraProps).find(BackgroundImage);
     }
 
-    it('renders BackgroundImage component with correct image', () => {
+    test('renders BackgroundImage component with correct image', () => {
       const backgroundImage = getBackgroundImageWrapper();
       const resourceMainImage = defaultProps.resource.images[0];
 
@@ -99,7 +99,7 @@ describe('shared/resource-card/ResourceCard', () => {
   });
 
   describe('people capacity', () => {
-    it('renders people capacity', () => {
+    test('renders people capacity', () => {
       const peopleCapacity = getWrapper().find('.app-ResourceCard__peopleCapacity');
 
       expect(peopleCapacity).to.have.length(1);
@@ -108,13 +108,13 @@ describe('shared/resource-card/ResourceCard', () => {
   });
 
   describe('distance', () => {
-    it('does not render distance if not available', () => {
+    test('does not render distance if not available', () => {
       const distanceLabel = getWrapper().find('.app-ResourceCard__distance');
       expect(distanceLabel).to.have.length(1);
       expect(distanceLabel.text()).to.equal('\u00A0');
     });
 
-    it('renders distance', () => {
+    test('renders distance', () => {
       const distanceLabel = getWrapper({
         resource: getResource({ distance: 11123 }),
       }).find('.app-ResourceCard__distance');
@@ -123,48 +123,57 @@ describe('shared/resource-card/ResourceCard', () => {
       expect(distanceLabel.text()).to.equal('11 km');
     });
 
-    it('renders distance with a decimal if distance is smaller than 10 km', () => {
-      const distanceLabel = getWrapper({
-        resource: getResource({ distance: 123 }),
-      }).find('.app-ResourceCard__distance');
+    test(
+      'renders distance with a decimal if distance is smaller than 10 km',
+      () => {
+        const distanceLabel = getWrapper({
+          resource: getResource({ distance: 123 }),
+        }).find('.app-ResourceCard__distance');
 
-      expect(distanceLabel).to.have.length(1);
-      expect(distanceLabel.text()).to.equal('0.1 km');
-    });
+        expect(distanceLabel).to.have.length(1);
+        expect(distanceLabel.text()).to.equal('0.1 km');
+      }
+    );
   });
 
   describe('price', () => {
-    it('renders a hourly price', () => {
+    test('renders a hourly price', () => {
       const hourlyPriceSpan = getWrapper().find('.app-ResourceCard__hourly-price');
 
       expect(hourlyPriceSpan.is('span')).to.be.true;
       expect(hourlyPriceSpan.text()).to.contain('30 €/h');
     });
 
-    it('renders correct text if minPricePerHourand maxPricePerHour are 0', () => {
-      const resource = getResource({
-        maxPricePerHour: 0,
-        minPricePerHour: 0,
-      });
-      const hourlyPriceSpan = getWrapper({ resource }).find('.app-ResourceCard__hourly-price');
+    test(
+      'renders correct text if minPricePerHourand maxPricePerHour are 0',
+      () => {
+        const resource = getResource({
+          maxPricePerHour: 0,
+          minPricePerHour: 0,
+        });
+        const hourlyPriceSpan = getWrapper({ resource }).find('.app-ResourceCard__hourly-price');
 
-      expect(hourlyPriceSpan.is('span')).to.be.true;
-      expect(hourlyPriceSpan.text()).to.contain('ResourceIcons.free');
-    });
+        expect(hourlyPriceSpan.is('span')).to.be.true;
+        expect(hourlyPriceSpan.text()).to.contain('ResourceIcons.free');
+      }
+    );
 
-    it('renders correct text if resource minPricePerHour and maxPricePerHour is empty', () => {
-      const resource = getResource({
-        maxPricePerHour: '',
-        minPricePerHour: '',
-      });
-      const hourlyPriceSpan = getWrapper({ resource }).find('.app-ResourceCard__hourly-price');
+    test(
+      'renders correct text if resource minPricePerHour and maxPricePerHour is empty',
+      () => {
+        const resource = getResource({
+          maxPricePerHour: '',
+          minPricePerHour: '',
+        });
+        const hourlyPriceSpan = getWrapper({ resource }).find('.app-ResourceCard__hourly-price');
 
-      expect(hourlyPriceSpan.is('span')).to.be.true;
-      expect(hourlyPriceSpan.text()).to.contain('ResourceIcons.free');
-    });
+        expect(hourlyPriceSpan.is('span')).to.be.true;
+        expect(hourlyPriceSpan.text()).to.contain('ResourceIcons.free');
+      }
+    );
   });
 
-  it('contains links to correct resource page', () => {
+  test('contains links to correct resource page', () => {
     const links = getWrapper().find(Link);
     const urlComponents = getResourcePageUrlComponents(defaultProps.resource, defaultProps.date);
     const expected = {
@@ -178,14 +187,14 @@ describe('shared/resource-card/ResourceCard', () => {
     expect(links.at(1).props().to).to.deep.equal(expected);
   });
 
-  it('renders the name of the resource inside a h4 header', () => {
+  test('renders the name of the resource inside a h4 header', () => {
     const header = getWrapper().find('h4');
     const expected = defaultProps.resource.name;
 
     expect(header.html()).to.contain(expected);
   });
 
-  it('renders the name of the given unit in props', () => {
+  test('renders the name of the given unit in props', () => {
     const unitName = getWrapper()
       .find('.app-ResourceCard__unit-name')
       .find('span');
@@ -194,7 +203,7 @@ describe('shared/resource-card/ResourceCard', () => {
     expect(unitName.text()).to.contain(expected);
   });
 
-  it('renders the street address of the given unit in props', () => {
+  test('renders the street address of the given unit in props', () => {
     const wrapper = getWrapper();
     const streetAddress = wrapper.find('.app-ResourceCard__street-address');
     const zipAddress = wrapper.find('.app-ResourceCard__zip-address');
@@ -206,21 +215,21 @@ describe('shared/resource-card/ResourceCard', () => {
     expect(zipAddress.html()).to.contain(defaultProps.unit.municipality);
   });
 
-  it('renders an anchor that calls handleSearchByType on click', () => {
+  test('renders an anchor that calls handleSearchByType on click', () => {
     const wrapper = getWrapper();
     const typeAnchor = wrapper.find('.app-ResourceCard__info-link-capitalize').filter('a');
     expect(typeAnchor).to.have.length(1);
     expect(typeAnchor.prop('onClick')).to.equal(wrapper.instance().handleSearchByType);
   });
 
-  it('renders an anchor that calls handleSearchByUnitName on click', () => {
+  test('renders an anchor that calls handleSearchByUnitName on click', () => {
     const wrapper = getWrapper();
     const unitAnchor = wrapper.find('.app-ResourceCard__unit-name-link');
     expect(unitAnchor).to.have.length(1);
     expect(unitAnchor.prop('onClick')).to.equal(wrapper.instance().handleSearchByUnit);
   });
 
-  it('renders the type of the given resource in props', () => {
+  test('renders the type of the given resource in props', () => {
     const typeLabel = getWrapper()
       .find('.app-ResourceCard__unit-name')
       .find('span');
@@ -228,7 +237,7 @@ describe('shared/resource-card/ResourceCard', () => {
     expect(typeLabel.text()).to.equal(defaultProps.unit.name);
   });
 
-  it('renders ResourceAvailability with correct props', () => {
+  test('renders ResourceAvailability with correct props', () => {
     const resourceAvailability = getWrapper().find(ResourceAvailability);
     expect(resourceAvailability.prop('date')).to.equal(defaultProps.date);
     expect(resourceAvailability.prop('resource').id).to.equal(defaultProps.resource.id);
@@ -237,15 +246,15 @@ describe('shared/resource-card/ResourceCard', () => {
   describe('handleSearchByType', () => {
     let historyMock;
 
-    beforeEach(() => {
+    beforeAll(() => {
       historyMock = simple.mock(history, 'push');
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls history.push with correct path', () => {
+    test('calls history.push with correct path', () => {
       getWrapper()
         .instance()
         .handleSearchByType();
@@ -260,15 +269,15 @@ describe('shared/resource-card/ResourceCard', () => {
   describe('handleSearchByDistance', () => {
     let historyMock;
 
-    beforeEach(() => {
+    beforeAll(() => {
       historyMock = simple.mock(history, 'push');
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls history.push with correct path', () => {
+    test('calls history.push with correct path', () => {
       getWrapper({
         resource: getResource({ distance: 5000 }),
       })
@@ -285,15 +294,15 @@ describe('shared/resource-card/ResourceCard', () => {
   describe('handleSearchByPeopleCapacity', () => {
     let historyMock;
 
-    beforeEach(() => {
+    beforeAll(() => {
       historyMock = simple.mock(history, 'push');
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls history.push with correct path', () => {
+    test('calls history.push with correct path', () => {
       getWrapper()
         .instance()
         .handleSearchByPeopleCapacity();
@@ -308,15 +317,15 @@ describe('shared/resource-card/ResourceCard', () => {
   describe('handleSearchByUnit', () => {
     let historyMock;
 
-    beforeEach(() => {
+    beforeAll(() => {
       historyMock = simple.mock(history, 'push');
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls browserHistory.push with correct path', () => {
+    test('calls browserHistory.push with correct path', () => {
       getWrapper()
         .instance()
         .handleSearchByUnit();
@@ -331,15 +340,15 @@ describe('shared/resource-card/ResourceCard', () => {
   describe('handleLinkClick', () => {
     let historyMock;
 
-    beforeEach(() => {
+    beforeAll(() => {
       historyMock = simple.mock(history, 'replace');
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls browserHistory.replace', () => {
+    test('calls browserHistory.replace', () => {
       getWrapper()
         .instance()
         .handleLinkClick();

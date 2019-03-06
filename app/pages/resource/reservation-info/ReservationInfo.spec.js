@@ -25,12 +25,12 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
     return shallowWithIntl(<ReservationInfo {...defaultProps} {...props} />);
   }
 
-  it('renders a app-ReservationInfo', () => {
+  test('renders a app-ReservationInfo', () => {
     const element = getWrapper().find('.app-ReservationInfo');
     expect(element.length).to.equal(1);
   });
 
-  it('renders resource.reservationInfo as WrappedText', () => {
+  test('renders resource.reservationInfo as WrappedText', () => {
     const wrappedText = getWrapper().find(WrappedText);
     expect(wrappedText.length).to.equal(1);
     expect(wrappedText.props().text).to.equal(defaultProps.resource.reservationInfo);
@@ -38,12 +38,12 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
   });
 
   describe('earliest reservation day text', () => {
-    it('is rendered correctly when resource.reservableAfter is defined', () => {
+    test('is rendered correctly when resource.reservableAfter is defined', () => {
       const resAfterText = getWrapper().find('.reservable-after-text');
       expect(resAfterText).to.have.length(1);
     });
 
-    it('is not rendered if resource.reservableAfter is not defined', () => {
+    test('is not rendered if resource.reservableAfter is not defined', () => {
       const resource = {};
       const maxLengthText = getWrapper({ resource }).find('.reservable-after-text');
       expect(maxLengthText).to.have.length(0);
@@ -51,12 +51,12 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
   });
 
   describe('max length text', () => {
-    it('is rendered correctly when resource.maxPeriod is defined', () => {
+    test('is rendered correctly when resource.maxPeriod is defined', () => {
       const maxLengthText = getWrapper().find('.max-length-text');
       expect(maxLengthText).to.have.length(1);
     });
 
-    it('is not rendered if resource.maxPeriod is not defined', () => {
+    test('is not rendered if resource.maxPeriod is not defined', () => {
       const resource = {};
       const maxLengthText = getWrapper({ resource }).find('.max-length-text');
       expect(maxLengthText).to.have.length(0);
@@ -64,25 +64,31 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
   });
 
   describe('max reservations per user text', () => {
-    it('is rendered correctly when resource.maxReservationsPerUser is defined', () => {
-      const maxReservationsText = getWrapper().find('.max-number-of-reservations-text');
-      expect(maxReservationsText).to.have.length(1);
-    });
+    test(
+      'is rendered correctly when resource.maxReservationsPerUser is defined',
+      () => {
+        const maxReservationsText = getWrapper().find('.max-number-of-reservations-text');
+        expect(maxReservationsText).to.have.length(1);
+      }
+    );
 
-    it('is not rendered if resource.maxReservationsPerUser is not defined', () => {
-      const resource = {};
-      const maxReservationsText = getWrapper({ resource }).find('.max-number-of-reservations-text');
-      expect(maxReservationsText).to.have.length(0);
-    });
+    test(
+      'is not rendered if resource.maxReservationsPerUser is not defined',
+      () => {
+        const resource = {};
+        const maxReservationsText = getWrapper({ resource }).find('.max-number-of-reservations-text');
+        expect(maxReservationsText).to.have.length(0);
+      }
+    );
   });
 
   describe('login text', () => {
-    it('is not rendered if user is logged in', () => {
+    test('is not rendered if user is logged in', () => {
       const loginText = getWrapper({ isLoggedIn: true }).find('.login-text');
       expect(loginText).to.have.length(0);
     });
 
-    it('is not rendered if resource is not reservable', () => {
+    test('is not rendered if resource is not reservable', () => {
       const resource = {
         reservable: false,
       };
@@ -90,7 +96,7 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
       expect(loginText).to.have.length(0);
     });
 
-    it('is rendered otherwise', () => {
+    test('is rendered otherwise', () => {
       const resource = {
         reservable: true,
       };

@@ -19,15 +19,15 @@ describe('pages/user-reservations/reservation-filters/AdminReservationFilters', 
   describe('state filter', () => {
     const select = getWrapper().find(SelectControl);
 
-    it('renders a Select component', () => {
+    test('renders a Select component', () => {
       expect(select.length).to.equal(1);
     });
 
-    it('passes correct value to the Select component', () => {
+    test('passes correct value to the Select component', () => {
       expect(select.props().value).to.equal(defaultProps.filters.state);
     });
 
-    it('passes correct options to the Select component', () => {
+    test('passes correct options to the Select component', () => {
       const expected = [
         { label: 'common.optionsAllLabel', value: 'all' },
         { label: 'common.cancelled', value: 'cancelled' },
@@ -41,15 +41,15 @@ describe('pages/user-reservations/reservation-filters/AdminReservationFilters', 
     describe('onChange', () => {
       const filterOption = { label: 'Label', value: 'new-value' };
 
-      beforeEach(() => {
+      beforeAll(() => {
         select.props().onChange(filterOption);
       });
 
-      it('calls onFiltersChange ', () => {
+      test('calls onFiltersChange ', () => {
         expect(defaultProps.onFiltersChange.callCount).to.equal(1);
       });
 
-      it('calls onFiltersChange with correct arguments', () => {
+      test('calls onFiltersChange with correct arguments', () => {
         const expected = { state: filterOption.value };
         expect(defaultProps.onFiltersChange.lastCall.args[0]).to.deep.equal(expected);
       });

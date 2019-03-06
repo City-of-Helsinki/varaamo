@@ -10,17 +10,17 @@ describe('shared/footer/Footer', () => {
     return shallow(<Footer {...props} />);
   }
 
-  it('renders a footer element', () => {
+  test('renders a footer element', () => {
     const footer = getWrapper().find('footer');
     expect(footer.length).to.equal(1);
   });
 
-  it('renders FooterContent component', () => {
+  test('renders FooterContent component', () => {
     const footerContent = getWrapper().find(FooterContent);
     expect(footerContent.length).to.equal(1);
   });
 
-  it('passes onLinkClick prop to FooterContent', () => {
+  test('passes onLinkClick prop to FooterContent', () => {
     const onLinkClick = () => {};
     const footerContent = getWrapper({ onLinkClick }).find(FooterContent);
     expect(footerContent.prop('onLinkClick')).to.equal(onLinkClick);

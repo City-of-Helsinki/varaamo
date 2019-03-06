@@ -56,7 +56,7 @@ function getProps(id = 'some-id') {
 }
 
 describe('pages/reservation/reservationPageSelector', () => {
-  it('returns date', () => {
+  test('returns date', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
@@ -64,7 +64,7 @@ describe('pages/reservation/reservationPageSelector', () => {
     expect(selected.date).to.exist;
   });
 
-  it('returns isAdmin', () => {
+  test('returns isAdmin', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
@@ -72,7 +72,7 @@ describe('pages/reservation/reservationPageSelector', () => {
     expect(selected.isAdmin).to.exist;
   });
 
-  it('returns isStaff', () => {
+  test('returns isStaff', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
@@ -80,7 +80,7 @@ describe('pages/reservation/reservationPageSelector', () => {
     expect(selected.isStaff).to.exist;
   });
 
-  it('returns isFetchingResource', () => {
+  test('returns isFetchingResource', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
@@ -88,7 +88,7 @@ describe('pages/reservation/reservationPageSelector', () => {
     expect(selected.isFetchingResource).to.exist;
   });
 
-  it('returns isMakingReservations', () => {
+  test('returns isMakingReservations', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
@@ -96,7 +96,7 @@ describe('pages/reservation/reservationPageSelector', () => {
     expect(selected.isMakingReservations).to.exist;
   });
 
-  it('returns resource', () => {
+  test('returns resource', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
@@ -104,7 +104,7 @@ describe('pages/reservation/reservationPageSelector', () => {
     expect(selected.resource).to.exist;
   });
 
-  it('returns resourceId', () => {
+  test('returns resourceId', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
@@ -112,7 +112,7 @@ describe('pages/reservation/reservationPageSelector', () => {
     expect(selected.resourceId).to.exist;
   });
 
-  it('returns reservationToEdit', () => {
+  test('returns reservationToEdit', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
@@ -120,7 +120,7 @@ describe('pages/reservation/reservationPageSelector', () => {
     expect(selected.reservationToEdit).to.exist;
   });
 
-  it('returns reservationCreated', () => {
+  test('returns reservationCreated', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
@@ -128,7 +128,7 @@ describe('pages/reservation/reservationPageSelector', () => {
     expect(selected.reservationCreated).to.exist;
   });
 
-  it('returns reservationEdited', () => {
+  test('returns reservationEdited', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
@@ -136,7 +136,7 @@ describe('pages/reservation/reservationPageSelector', () => {
     expect(selected.reservationEdited).to.exist;
   });
 
-  it('returns the unit corresponding to the resource.unit', () => {
+  test('returns the unit corresponding to the resource.unit', () => {
     const state = getState([defaultResource], [defaultUnit]);
     const props = getProps(defaultResource.id);
     const selected = reservationPageSelector(state, props);
@@ -144,7 +144,7 @@ describe('pages/reservation/reservationPageSelector', () => {
     expect(selected.unit).to.deep.equal(defaultUnit);
   });
 
-  it('returns user', () => {
+  test('returns user', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);

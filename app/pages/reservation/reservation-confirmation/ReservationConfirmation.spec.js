@@ -30,36 +30,36 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
     return shallowWithIntl(<ReservationConfirmation {...defaultProps} {...extraProps} />);
   }
 
-  it('renders an Row element', () => {
+  test('renders an Row element', () => {
     expect(getWrapper().find(Row)).to.have.length(1);
   });
 
-  it('renders correct header when prop isEdited is false', () => {
+  test('renders correct header when prop isEdited is false', () => {
     const header = getWrapper({ isEdited: false }).find('.app-ReservationPage__header');
     expect(header).to.have.length(1);
     expect(header.text()).to.equal('ReservationConfirmation.reservationCreatedTitle');
   });
 
-  it('renders correct header when prop isEdited is false', () => {
+  test('renders correct header when prop isEdited is false', () => {
     const header = getWrapper({ isEdited: true }).find('.app-ReservationPage__header');
     expect(header).to.have.length(1);
     expect(header.text()).to.equal('ReservationConfirmation.reservationEditedTitle');
   });
 
-  it('renders ReservationDate with correct props', () => {
+  test('renders ReservationDate with correct props', () => {
     const reservationDate = getWrapper().find(ReservationDate);
     expect(reservationDate).to.have.length(1);
     expect(reservationDate.prop('beginDate')).to.equal(defaultProps.reservation.begin);
     expect(reservationDate.prop('endDate')).to.equal(defaultProps.reservation.end);
   });
 
-  it('renders resource name', () => {
+  test('renders resource name', () => {
     const name = getWrapper().find('.app-ReservationConfirmation__resource-name');
     expect(name).to.have.length(1);
     expect(name.text()).to.equal(defaultProps.resource.name);
   });
 
-  it('renders reserverEmailAddress', () => {
+  test('renders reserverEmailAddress', () => {
     const reserverEmailAddress = 'reserver email address';
     const wrapper = getWrapper({
       reservation: Reservation.build({ reserverEmailAddress }),
@@ -71,7 +71,7 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
     expect(email.prop('values')).to.deep.equal({ email: reserverEmailAddress });
   });
 
-  it('renders reservation.user.email', () => {
+  test('renders reservation.user.email', () => {
     const user = User.build({ email: 'user email' });
     const wrapper = getWrapper({
       reservation: Reservation.build({ user }),
@@ -83,7 +83,7 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
     expect(email.prop('values')).to.deep.equal({ email: user.email });
   });
 
-  it('renders user.email', () => {
+  test('renders user.email', () => {
     const user = User.build({ email: 'user email' });
     const wrapper = getWrapper({
       reservation: Reservation.build(),
@@ -96,13 +96,13 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
     expect(email.prop('values')).to.deep.equal({ email: user.email });
   });
 
-  it('renders Button with correct props', () => {
+  test('renders Button with correct props', () => {
     const button = getWrapper().find(Button);
     expect(button).to.have.length(1);
     expect(button.prop('onClick')).to.be.a('function');
   });
 
-  it('renders reserverName', () => {
+  test('renders reserverName', () => {
     const reservation = Reservation.build({
       reserverName: 'reserver name',
       reserverId: 'reserver id',
@@ -128,7 +128,7 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
     let button;
     let instance;
 
-    beforeEach(() => {
+    beforeAll(() => {
       const wrapper = getWrapper();
       button = wrapper.find(Button);
       instance = wrapper.instance();
@@ -139,11 +139,11 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
       instance.handleReservationsButton.reset();
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls handleReservationsButton', () => {
+    test('calls handleReservationsButton', () => {
       expect(button).to.have.length(1);
       expect(button.prop('onClick')).to.be.a('function');
       button.prop('onClick')();
@@ -156,17 +156,17 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
     let instance;
     let historyMock;
 
-    beforeEach(() => {
+    beforeAll(() => {
       instance = getWrapper().instance();
       historyMock = simple.mock(history, 'replace');
       instance.handleReservationsButton();
     });
 
-    afterEach(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls browserHistory replace with correct path', () => {
+    test('calls browserHistory replace with correct path', () => {
       expect(historyMock.callCount).to.equal(1);
       expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
     });

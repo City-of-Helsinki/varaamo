@@ -30,7 +30,7 @@ describe('Selector: urlSearchFiltersSelector', () => {
     },
   });
 
-  it('returns search filters from the props', () => {
+  test('returns search filters from the props', () => {
     const state = {};
     const props = getProps();
     const actual = urlSearchFiltersSelector(state, props);
@@ -39,32 +39,41 @@ describe('Selector: urlSearchFiltersSelector', () => {
     expect(actual).to.deep.equal(expected);
   });
 
-  it('returns current date as the date filter if date is an empty string in props', () => {
-    const state = {};
-    const props = getProps('');
-    MockDate.set('2015-12-24T16:07:37Z');
-    const actual = urlSearchFiltersSelector(state, props);
-    MockDate.reset();
-    const expected = Object.assign({}, filters, { date: '2015-12-24' });
+  test(
+    'returns current date as the date filter if date is an empty string in props',
+    () => {
+      const state = {};
+      const props = getProps('');
+      MockDate.set('2015-12-24T16:07:37Z');
+      const actual = urlSearchFiltersSelector(state, props);
+      MockDate.reset();
+      const expected = Object.assign({}, filters, { date: '2015-12-24' });
 
-    expect(actual).to.deep.equal(expected);
-  });
+      expect(actual).to.deep.equal(expected);
+    }
+  );
 
   describe('freeOfCharge', () => {
-    it('assigns true value when the correspondent param is given a true value', () => {
-      const state = {};
-      const props = getProps(undefined, undefined, true);
-      const actual = urlSearchFiltersSelector(state, props);
+    test(
+      'assigns true value when the correspondent param is given a true value',
+      () => {
+        const state = {};
+        const props = getProps(undefined, undefined, true);
+        const actual = urlSearchFiltersSelector(state, props);
 
-      expect(actual.freeOfCharge).to.be.true;
-    });
+        expect(actual.freeOfCharge).to.be.true;
+      }
+    );
 
-    it('assigns an empty string when the correspondent param is not true', () => {
-      const state = {};
-      const props = getProps(undefined, undefined, false);
-      const actual = urlSearchFiltersSelector(state, props);
+    test(
+      'assigns an empty string when the correspondent param is not true',
+      () => {
+        const state = {};
+        const props = getProps(undefined, undefined, false);
+        const actual = urlSearchFiltersSelector(state, props);
 
-      expect(actual.freeOfCharge).to.equal('');
-    });
+        expect(actual.freeOfCharge).to.equal('');
+      }
+    );
   });
 });

@@ -10,7 +10,7 @@ describe('pages/search/results/searchResultsSelector', () => {
     return searchResultsSelector(state, props);
   }
 
-  it('returns filters', () => {
+  test('returns filters', () => {
     expect(getSelected().filters).to.exist;
   });
 });

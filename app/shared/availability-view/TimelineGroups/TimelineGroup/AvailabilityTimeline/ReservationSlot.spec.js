@@ -19,19 +19,19 @@ function getWrapper(props) {
 }
 
 describe('shared/availability-view/ReservationSlot', () => {
-  it('returns a button.reservation-slot', () => {
+  test('returns a button.reservation-slot', () => {
     const wrapper = getWrapper();
     expect(wrapper.is('button')).to.be.true;
     expect(wrapper.hasClass('reservation-slot')).to.be.true;
   });
 
-  it('has correct width', () => {
+  test('has correct width', () => {
     const expected = utils.getTimeSlotWidth();
     const actual = getWrapper().prop('style');
     expect(actual).to.deep.equal({ width: expected });
   });
 
-  it('binds onClick to handleClick', () => {
+  test('binds onClick to handleClick', () => {
     const wrapper = getWrapper();
     const instance = wrapper.instance();
     expect(wrapper.prop('onClick')).to.equal(instance.handleClick);
@@ -44,12 +44,12 @@ describe('shared/availability-view/ReservationSlot', () => {
     }
 
     describe('is not rendered when the slot', () => {
-      it('has no selection', () => {
+      test('has no selection', () => {
         const popover = getPopover({ selection: null });
         expect(popover).to.have.length(0);
       });
 
-      it('is not in selection', () => {
+      test('is not in selection', () => {
         const popover = getPopover({
           begin: '2016-01-01T10:00:00Z',
           end: '2016-01-01T10:30:00Z',
@@ -62,7 +62,7 @@ describe('shared/availability-view/ReservationSlot', () => {
         expect(popover).to.have.length(0);
       });
 
-      it('is inside selection but not the first slot', () => {
+      test('is inside selection but not the first slot', () => {
         const popover = getPopover({
           begin: '2016-01-01T10:00:00Z',
           end: '2016-01-01T10:30:00Z',
@@ -75,7 +75,7 @@ describe('shared/availability-view/ReservationSlot', () => {
         expect(popover).to.have.length(0);
       });
 
-      it('is inside hover selection', () => {
+      test('is inside hover selection', () => {
         const popover = getPopover({
           begin: '2016-01-01T10:00:00Z',
           end: '2016-01-01T10:30:00Z',
@@ -90,7 +90,7 @@ describe('shared/availability-view/ReservationSlot', () => {
       });
     });
 
-    it('is rendered if beginning of selection', () => {
+    test('is rendered if beginning of selection', () => {
       const popover = getPopover({
         begin: '2016-01-01T10:00:00Z',
         end: '2016-01-01T10:30:00Z',
@@ -121,38 +121,38 @@ describe('shared/availability-view/ReservationSlot', () => {
       return wrapper.find('button').hasClass('reservation-slot-selected');
     }
 
-    it('is selected if begin and end are same as selected', () => {
+    test('is selected if begin and end are same as selected', () => {
       const actual = isSelected({}, { end: '2016-01-01T10:30:00' });
       expect(actual).to.be.true;
     });
 
-    it('is selected if begin and end are inside selected', () => {
+    test('is selected if begin and end are inside selected', () => {
       const actual = isSelected({}, { begin: '2016-01-01T09:00:00' });
       expect(actual).to.be.true;
     });
 
-    it('is not selected if begin before selection', () => {
+    test('is not selected if begin before selection', () => {
       const actual = isSelected({}, { begin: '2016-01-01T10:15:00' });
       expect(actual).to.be.false;
     });
 
-    it('is not selected if end after selection', () => {
+    test('is not selected if end after selection', () => {
       const actual = isSelected({}, { end: '2016-01-01T10:15:00' });
       expect(actual).to.be.false;
     });
 
-    it('is not selected if no selection', () => {
+    test('is not selected if no selection', () => {
       const wrapper = getWrapper();
       const actual = wrapper.hasClass('reservation-slot-selected');
       expect(actual).to.be.false;
     });
 
-    it('is not selected if selection.resourceId is different', () => {
+    test('is not selected if selection.resourceId is different', () => {
       const actual = isSelected({}, { resourceId: '2' });
       expect(actual).to.be.false;
     });
 
-    it('is selected if selection.resourceId is the same', () => {
+    test('is selected if selection.resourceId is the same', () => {
       const actual = isSelected({}, { resourceId: '1' });
       expect(actual).to.be.true;
     });
@@ -166,13 +166,13 @@ describe('shared/availability-view/ReservationSlot', () => {
         return wrapper.instance().handleClick(event);
       }
 
-      it('calls event.preventDefault', () => {
+      test('calls event.preventDefault', () => {
         const preventDefault = simple.mock();
         callHandleClick({ preventDefault });
         expect(preventDefault.callCount).to.equal(1);
       });
 
-      it('calls onClick', () => {
+      test('calls onClick', () => {
         const onClick = simple.mock();
         const begin = '2017-01-02T14:00:00Z';
         const end = '2017-01-02T14:30:00Z';
@@ -182,7 +182,7 @@ describe('shared/availability-view/ReservationSlot', () => {
         expect(onClick.lastCall.args).to.deep.equal([{ begin, end, resourceId }]);
       });
 
-      it('does not call onSelectionCancel', () => {
+      test('does not call onSelectionCancel', () => {
         const onSelectionCancel = simple.mock();
         callHandleClick({}, { onSelectionCancel, isSelectable: true });
         expect(onSelectionCancel.called).to.be.false;
@@ -200,19 +200,19 @@ describe('shared/availability-view/ReservationSlot', () => {
         return wrapper.instance().handleClick(event);
       }
 
-      it('calls event.preventDefault', () => {
+      test('calls event.preventDefault', () => {
         const preventDefault = simple.mock();
         callHandleClick({ preventDefault });
         expect(preventDefault.callCount).to.equal(1);
       });
 
-      it('does not call onClick', () => {
+      test('does not call onClick', () => {
         const onClick = simple.mock();
         callHandleClick({}, { onClick });
         expect(onClick.called).to.be.false;
       });
 
-      it('calls onSelectionCancel', () => {
+      test('calls onSelectionCancel', () => {
         const onSelectionCancel = simple.mock();
         callHandleClick({}, { onSelectionCancel });
         expect(onSelectionCancel.callCount).to.equal(1);
@@ -226,7 +226,7 @@ describe('shared/availability-view/ReservationSlot', () => {
         return wrapper.instance().handleClick(event);
       }
 
-      it('does not call event.preventDefault', () => {
+      test('does not call event.preventDefault', () => {
         const preventDefault = simple.mock();
         callHandleClick({ preventDefault });
         expect(preventDefault.called).to.be.false;

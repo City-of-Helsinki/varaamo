@@ -26,15 +26,15 @@ describe('shared/resource-list/ResourceList', () => {
   describe('with resourceIds', () => {
     let wrapper;
 
-    beforeEach(() => {
+    beforeAll(() => {
       wrapper = getWrapper();
     });
 
-    it('renders a div', () => {
+    test('renders a div', () => {
       expect(wrapper.is('div')).to.be.true;
     });
 
-    it('does not render the empty message', () => {
+    test('does not render the empty message', () => {
       const emptyMessage = wrapper.find('p');
       expect(emptyMessage.length).to.equal(0);
     });
@@ -42,15 +42,15 @@ describe('shared/resource-list/ResourceList', () => {
     describe('rendering individual ResourceCards', () => {
       let resourceCards;
 
-      beforeEach(() => {
+      beforeAll(() => {
         resourceCards = wrapper.find(ResourceCard);
       });
 
-      it('renders a ResourceCard for every resource in props', () => {
+      test('renders a ResourceCard for every resource in props', () => {
         expect(resourceCards.length).to.equal(defaultProps.resourceIds.length);
       });
 
-      it('passes correct props to ResourceCard', () => {
+      test('passes correct props to ResourceCard', () => {
         resourceCards.forEach((resourceListItem, index) => {
           expect(resourceListItem.props().resourceId).to.equal(defaultProps.resourceIds[index]);
           expect(resourceListItem.props().date).to.equal(defaultProps.date);
@@ -62,19 +62,19 @@ describe('shared/resource-list/ResourceList', () => {
   describe('without resourceIds', () => {
     const resourceIds = [];
 
-    it('does not render a list', () => {
+    test('does not render a list', () => {
       const list = getWrapper({ resourceIds }).find('ul');
       expect(list.length).to.equal(0);
     });
 
     describe('empty message', () => {
-      it('renders the emptyMessage given in props', () => {
+      test('renders the emptyMessage given in props', () => {
         const emptyMessage = 'Some empty message';
         const message = getWrapper({ emptyMessage, resourceIds }).find('p');
         expect(message.text()).to.equal(emptyMessage);
       });
 
-      it('renders an empty div if no emptyMessage is given in props', () => {
+      test('renders an empty div if no emptyMessage is given in props', () => {
         const emptyMessage = undefined;
         const wrapper = getWrapper({ emptyMessage, resourceIds });
         expect(wrapper.matchesElement(<div />)).to.be.true;

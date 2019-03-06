@@ -13,7 +13,7 @@ function getProps(date) {
 
 describe('Selector: dateSelector', () => {
   describe('if props.location exists', () => {
-    it('returns the date if it is defined', () => {
+    test('returns the date if it is defined', () => {
       const date = '2015-10-10';
       const state = {};
       const props = getProps(date);
@@ -22,7 +22,7 @@ describe('Selector: dateSelector', () => {
       expect(actual).to.equal(date);
     });
 
-    it('returns current date string if date is not defined', () => {
+    test('returns current date string if date is not defined', () => {
       const state = {};
       const props = getProps('');
       MockDate.set('2015-12-24T12:00:00Z');
