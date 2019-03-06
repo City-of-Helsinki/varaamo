@@ -64,6 +64,7 @@ class MiniModal extends React.Component {
             <button
               className="app-MiniModal__modal-footer-close-button"
               onClick={this.handleConfirm}
+              type="button"
             >
               {t('MiniModal.buttonText')}
             </button>

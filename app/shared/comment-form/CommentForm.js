@@ -16,6 +16,8 @@ class CommentForm extends Component {
 
   handleSave(event) {
     event.preventDefault();
+    // TODO: fix this lint
+    // eslint-disable-next-line react/no-find-dom-node
     const comments = findDOMNode(this.refs.commentsInput).value;
     this.props.onSave(comments);
   }

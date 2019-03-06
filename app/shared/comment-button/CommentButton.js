@@ -7,6 +7,7 @@ function CommentButton({ onClick }) {
     <button
       className="comment-button"
       onClick={onClick}
+      type="button"
     >
       <Glyphicon glyph="comment" />
     </button>
