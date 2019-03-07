@@ -30,8 +30,7 @@ function FooterContent({ t }) {
                 <FormattedHTMLMessage id="Footer.espooText" />
               </p>
               <p>
-                {' '}
-                {feedbackLink}
+                {` ${feedbackLink}`}
               </p>
             </Col>
           </Row>
