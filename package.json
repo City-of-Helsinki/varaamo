@@ -135,6 +135,6 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:ci": "jest --verbose --runInBand --collectCoverage",
-    "test-vscode": "node --inspect-brk node_modules/.bin/jest --runInBand"
+    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand"
   }
 }
