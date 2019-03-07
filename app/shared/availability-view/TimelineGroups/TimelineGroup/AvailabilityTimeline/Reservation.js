@@ -39,11 +39,7 @@ function Reservation({ onClick, ...reservation }) {
     <Popover className="reservation-info-popover" id={`popover-${reservation.id}`} title={reservation.eventSubject}>
       <div>
         <Glyphicon glyph="time" />
-        {' '}
-        {startTime.format('HH:mm')}
-        {' '}
--
-        {endTime.format('HH:mm')}
+        {`${startTime.format('HH:mm')} - ${endTime.format('HH:mm')}`}
       </div>
       {reserverName && <div>{reserverName}</div>}
       {reservation.numberOfParticipants && (

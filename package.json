@@ -129,7 +129,7 @@
   "scripts": {
     "build": "./node_modules/.bin/webpack --config config/webpack.production.js",
     "lint": "./node_modules/.bin/eslint .",
-    "lint:fix" : "./node_modules/.bin/eslint --fix .",
+    "lint:fix": "./node_modules/.bin/eslint --fix .",
     "start:production": "NODE_ENV=production node server/index.js",
     "start": "node server/index.js",
     "test": "jest",
