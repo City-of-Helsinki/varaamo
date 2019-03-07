@@ -79,9 +79,7 @@ class PositionControl extends React.Component {
         )}
         {this.state.toggled && (
           <div>
-            {t('PositionControl.maxDistance')}
-:
-            {this.distanceFormatter(this.state.distance)}
+            {`${t('PositionControl.maxDistance')} : ${this.distanceFormatter(this.state.distance)}`}
           </div>
         )}
       </div>
