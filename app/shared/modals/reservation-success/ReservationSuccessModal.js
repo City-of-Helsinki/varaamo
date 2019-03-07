@@ -76,8 +76,7 @@ function ReservationSuccessModal({
               </p>
               <p>
                 {t('ReservationSuccessModal.ownReservationsPageHelpText')}
-                {email
-                  && (
+                {email && (
                   <span>
                     {' '}
                     <FormattedHTMLMessage
@@ -85,9 +84,7 @@ function ReservationSuccessModal({
                       values={{ email }}
                     />
                   </span>
-                  )
-                }
-.
+                )}
               </p>
             </div>
           )}
