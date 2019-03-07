@@ -6,11 +6,12 @@ Varaamo
 
 User interface for the City of Helsinki [varaamo.hel.fi](https://varaamo.hel.fi/) resource reservation service. Uses the [respa API](http://api.hel.fi/respa/v1/).
 
-Requirements
+Recommended requirements
 ------------
 
-- [node](http://nodejs.org/) `6.5.0`
-- [npm](https://www.npmjs.com/) `3.10.3`
+- [node](http://nodejs.org/) >6 | Suggestion: `10.15.1`
+- [npm](https://www.npmjs.com/) >`3.10.3` | Suggestion: `6.4.1`
+- [yarn](https://yarnpkg.com/) Optional, if `yarn` is not included as part of your current node version. `npm` can be used.
 
 Architecture
 ------------
@@ -30,7 +31,9 @@ Usage
 -----
 
 ### Starting dockerized development server
-1. Check if Docker and docker CLI installed
+
+1. Check if Docker and docker CLI installed, port `3000` is free, not occupied by running server.
+
 2. Make sure you have env variables in `.env`, otherwise extend it from example by:
     ```
     $ cp .env.example .env
@@ -49,7 +52,7 @@ By default the running app can be found at `localhost:3000`.
 1. Install npm dependencies:
 
     ```
-    $ npm install
+    $ yarn install
     ```
 
 2. Make sure you have the following env variables set in an .env file in the root of the project:
@@ -70,7 +73,7 @@ By default the running app can be found at `localhost:3000`.
 3. Then, start the development server:
 
     ```
-    $ npm start
+    $ yarn start
     ```
 
 ### Starting production server
@@ -81,13 +84,13 @@ By default the running app uses port `8080`.
 1. Install npm dependencies:
 
     ```
-    $ npm install
+    $ yarn install
     ```
 
 2. Build the production bundle:
 
     ```
-    $ npm run build
+    $ yarn build
     ```
 
 3. Make sure you have the required env variables set.
@@ -95,7 +98,7 @@ By default the running app uses port `8080`.
 4. Then, start the production server:
 
     ```
-    $ npm run start:production
+    $ yarn start:production
     ```
 
 ### Running tests
@@ -103,19 +106,19 @@ By default the running app uses port `8080`.
 - Run tests:
 
     ```
-    $ npm test
+    $ yarn test
     ```
 
 - Run tests in watch mode:
 
     ```
-    $ npm run test:watch
+    $ yarn test:watch
     ```
 
 - Run tests with coverage:
 
     ```
-    $ npm run test:coverage
+    $ yarn test:coverage
     ```
 
 ### Running code linter
@@ -123,13 +126,37 @@ By default the running app uses port `8080`.
 - To check the code for linting errors:
 
     ```
-    $ npm run lint
+    $ yarn lint
     ```
+- To automate fixing lint:
+
+    ```
+    $ yarn lint:fix
+    ```
+OR enable `eslint --fix` onSave config in your code editor config.
+
 ### Useful docker command
-- To rebuild the docker images `docker-compose up -d --force-recreate --build`
-- To enter inside docker container environment `docker-compose exec web sh`.
-- Remove docker container if needed `docker rm -f varaamo-frontend`
-- Remove docker image `docker rmi varaamo_web`
+- To rebuild the docker images:
+    ```
+    $ docker-compose up --force-recreate --build
+    ```
+- To enter inside docker container environment:
+    ```
+    $ docker-compose exec web sh
+    ```
+- Remove docker container if needed: 
+    ```
+    $ docker rm -f varaamo-frontend
+    ```
+- Remove docker image:
+    ```
+    $ docker rmi varaamo_web
+    ```
+- Running command inside Docker environment (test for example):
+(Make sure docker container is running)
+    ```
+    $ docker-compose run web YOUR_COMMAND_HERE
+    ```
 - Encounter `node-sass` issue ? try to go inside docker container environment and run `npm rebuild node-sass`
 
 Code style and linting
@@ -148,11 +175,19 @@ Styles and Stylesheets
 Testing framework
 -----------------
 
-- [Karma](http://karma-runner.github.io/0.13/index.html) is used to run the tests. On local machines tests are run on [PhantomJS](http://phantomjs.org/) to make running tests in watch mode as smooth as possible. On CI the tests are run on Chrome.
-- [Mocha](https://mochajs.org/) is used as the test framework.
-- [Chai](http://chaijs.com/) is used for test assertions.
+- [Jest](https://jestjs.io/) is used to run the tests, as well as assertion tool. Running on [Jsdom](https://github.com/jsdom/jsdom) environment by default, which was a headless browser. 
 - [simple-mock](https://github.com/jupiter/simple-mock) and [MockDate](https://github.com/boblauer/MockDate) are used for mocking and spies.
 - [Enzyme](https://github.com/airbnb/enzyme) is used to make testing React Components easier.
+
+Running Vscode debugger
+----------------------
+
+All setting was included under .vscode directory.
+
+- On Chrome:
+    [Guideline](https://code.visualstudio.com/blogs/2016/02/23/introducing-chrome-debugger-for-vs-code). Setting was under `Vscode debugger` name 
+- On Jest test:
+    [Guideline](https://jestjs.io/docs/en/troubleshooting#debugging-in-vs-code). Setting was under `Vscode Jest debugger` name.
 
 License
 -------
