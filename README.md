@@ -188,6 +188,12 @@ All setting was included under .vscode directory.
     [Guideline](https://code.visualstudio.com/blogs/2016/02/23/introducing-chrome-debugger-for-vs-code). Setting was under `Vscode debugger` name 
 - On Jest test:
     [Guideline](https://jestjs.io/docs/en/troubleshooting#debugging-in-vs-code). Setting was under `Vscode Jest debugger` name.
+    
+    Put breakpoint in test file `(*.spec.js)`
+    Run command:
+    ```
+    $ yarn test:debug
+    ``` 
 
 License
 -------
