@@ -43,8 +43,7 @@ function renderMaxPeriodText(resource, t) {
     <p className="max-length-text">
       <img alt="" className="app-ResourceHeader__info-icon" src={iconClock} />
       <strong>{t('ReservationInfo.reservationMaxLength')}</strong>
-      {' '}
-      {maxPeriodText}
+      {` ${maxPeriodText}`}
     </p>
   );
 }
@@ -57,8 +56,7 @@ function renderMaxReservationsPerUserText(maxReservationsPerUser, t) {
     <p className="max-number-of-reservations-text">
       <img alt="" className="app-ResourceHeader__info-icon" src={iconUser} />
       <strong>{t('ReservationInfo.maxNumberOfReservations')}</strong>
-      {' '}
-      {maxReservationsPerUser}
+      {` ${maxReservationsPerUser}`}
     </p>
   );
 }

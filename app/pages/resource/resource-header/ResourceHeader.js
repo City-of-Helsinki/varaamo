@@ -35,8 +35,7 @@ function ResourceHeader({
     return (
       <span>
         <FormattedNumber value={formattedDistance} />
-        {' '}
-km
+        {' km'}
       </span>
     );
   };
