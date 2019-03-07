@@ -134,6 +134,7 @@
     "start": "node server/index.js",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:coverage": "jest --collectCoverage",
     "test:ci": "jest --verbose --runInBand --collectCoverage",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand"
   }
