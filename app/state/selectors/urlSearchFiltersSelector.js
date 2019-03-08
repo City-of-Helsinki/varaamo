@@ -17,6 +17,7 @@ const urlSearchFiltersSelector = createSelector(
       omit(constants.SUPPORTED_SEARCH_FILTERS, ['lat', 'lon']),
       filters,
       {
+        duration: Number(filters.duration),
         freeOfCharge: textBoolean(filters.freeOfCharge) || '',
         date: getDateString(filters.date),
         page: parseInt(filters.page, 10) || 1,

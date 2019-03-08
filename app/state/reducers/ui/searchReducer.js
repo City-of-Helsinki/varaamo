@@ -71,7 +71,7 @@ function searchReducer(state = initialState, action) {
     }
 
     case types.UI.ENABLE_TIME_RANGE: {
-      const duration = getDuration(state.filters.duration);
+      const duration = getDuration(Number(state.filters.duration));
       const end = getEndTimeString(state.filters.end);
       const start = getStartTimeString(state.filters.start);
       const useTimeRange = true;

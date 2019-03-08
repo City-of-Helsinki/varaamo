@@ -13,7 +13,6 @@ class SelectControl extends React.Component {
     if (isArray(value)) {
       return value.map(item => options.find(option => option.value === item));
     }
-
     return options.find(option => option.value === value);
   };
 
