@@ -108,7 +108,6 @@ class UnconnectedSearchControlsContainer extends Component {
     if (this.props.position) {
       this.props.actions.disableGeoposition();
     }
-
     this.handleFiltersChange(emptyFilters);
     this.handleSearch(emptyFilters);
   };
