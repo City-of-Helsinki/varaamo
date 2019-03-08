@@ -7,7 +7,7 @@ describe('Selector: urlSearchFiltersSelector', () => {
     freeOfCharge: '',
     date: '2015-10-10',
     distance: '',
-    duration: '30',
+    duration: 30,
     end: '23:30',
     page: 1,
     people: '',
