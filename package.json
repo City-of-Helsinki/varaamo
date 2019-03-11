@@ -5,6 +5,10 @@
     "type": "git",
     "url": "https://github.com/City-of-Helsinki/varaamo"
   },
+  "engines": {
+    "node": ">=8.15.1",
+    "npm": ">=6.4.1"
+  },
   "main": "server/index.js",
   "homepage": "https://varaamo.hel.fi/",
   "description": "Varaamo is the user interface for the City of Helsinki varaamo.hel.fi resource reservation service.",
