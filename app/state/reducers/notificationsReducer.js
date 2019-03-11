@@ -20,7 +20,7 @@ function addNotification(state, notification) {
 }
 
 function hideNotification(state, index) {
-  return state.set(index, { hidden: true });
+  return Number(index) >= 0 ? state.setIn([index, 'hidden'], true) : state;
 }
 
 function getErrorNotification(error) {
