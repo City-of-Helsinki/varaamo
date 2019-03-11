@@ -324,22 +324,33 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
   });
 
   describe('isMaxExceeded', () => {
-    test('enables all TimeSlots if maxPeriod in not defined', () => {
-      const renderedTimeSlots = getWrapper().find(TimeSlotComponent);
-      expect(renderedTimeSlots.first().prop('isDisabled')).to.be.false;
-      expect(renderedTimeSlots.at(1).prop('isDisabled')).to.be.false;
+    describe('is Admin', () => {
+      test('enables all TimeSlots even if maxPeriod is specified', () => {
+        const renderedTimeSlots = getWrapper({ isAdmin: true, maxPeriod: '00:60:00' })
+          .find(TimeSlotComponent);
+        expect(renderedTimeSlots.first().prop('isDisabled')).to.be.false;
+        expect(renderedTimeSlots.at(1).prop('isDisabled')).to.be.false;
+      });
     });
 
-    test(
-      'disables TimeSlot when the reservation length is longer than maxPeriod',
-      () => {
-        const resourceMaxPeriod = Resource.build({ maxPeriod: '00:60:00' });
-        const renderedTimeSlots = getWrapper(
-          { resource: resourceMaxPeriod }
-        ).find(TimeSlotComponent);
+    describe('is not Admin', () => {
+      test('enables all TimeSlots if maxPeriod in not defined', () => {
+        const renderedTimeSlots = getWrapper().find(TimeSlotComponent);
         expect(renderedTimeSlots.first().prop('isDisabled')).to.be.false;
-        expect(renderedTimeSlots.at(1).prop('isDisabled')).to.be.true;
-      }
-    );
+        expect(renderedTimeSlots.at(1).prop('isDisabled')).to.be.false;
+      });
+
+      test(
+        'disables TimeSlot when the reservation length is longer than maxPeriod',
+        () => {
+          const resourceMaxPeriod = Resource.build({ maxPeriod: '00:60:00' });
+          const renderedTimeSlots = getWrapper(
+            { resource: resourceMaxPeriod }
+          ).find(TimeSlotComponent);
+          expect(renderedTimeSlots.first().prop('isDisabled')).to.be.false;
+          expect(renderedTimeSlots.at(1).prop('isDisabled')).to.be.true;
+        }
+      );
+    });
   });
 });
