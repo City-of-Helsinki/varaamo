@@ -4,23 +4,23 @@ import constants from 'constants/AppConstants';
 
 import Immutable from 'seamless-immutable';
 
-const initialState = Immutable({});
+const initialState = Immutable([]);
 
 function addNotification(state, notification) {
-  return [...state, Object.assign(
+  const mutableState = Immutable.asMutable(state);
+
+  mutableState.push(Object.assign(
     {},
     constants.NOTIFICATION_DEFAULTS,
     notification,
     { id: (state.length || 0) + 1 }
-  )];
+  ));
+
+  return Immutable(mutableState);
 }
 
 function hideNotification(state, index) {
-  return [
-    ...state.slice(0, index),
-    Object.assign({}, state[index], { hidden: true }),
-    ...state.slice(index + 1),
-  ];
+  return state.set(index, { hidden: true });
 }
 
 function getErrorNotification(error) {
