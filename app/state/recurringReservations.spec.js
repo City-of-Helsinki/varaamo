@@ -402,7 +402,9 @@ describe('state/recurringReservations', () => {
         const state = {
           recurringReservations: { baseTime: { begin: '', end: '' } },
         };
-        expect(recurringReservations.selectBaseTime(state)).toEqual(state.recurringReservations.baseTime);
+        expect(
+          recurringReservations.selectBaseTime(state)
+        ).toEqual(state.recurringReservations.baseTime);
       });
     });
 
@@ -411,7 +413,9 @@ describe('state/recurringReservations', () => {
         const state = {
           recurringReservations: { frequency: 'days' },
         };
-        expect(recurringReservations.selectFrequency(state)).toBe(state.recurringReservations.frequency);
+        expect(
+          recurringReservations.selectFrequency(state)
+        ).toBe(state.recurringReservations.frequency);
       });
     });
 
@@ -420,7 +424,9 @@ describe('state/recurringReservations', () => {
         const state = {
           recurringReservations: { numberOfOccurrences: 12 },
         };
-        expect(recurringReservations.selectNumberOfOccurrences(state)).toBe(state.recurringReservations.numberOfOccurrences);
+        expect(
+          recurringReservations.selectNumberOfOccurrences(state)
+        ).toBe(state.recurringReservations.numberOfOccurrences);
       });
     });
 
@@ -431,7 +437,9 @@ describe('state/recurringReservations', () => {
             reservations: [{ begin: '', end: '' }, { begin: '', end: '' }],
           },
         };
-        expect(recurringReservations.selectReservations(state)).toEqual(state.recurringReservations.reservations);
+        expect(
+          recurringReservations.selectReservations(state)
+        ).toEqual(state.recurringReservations.reservations);
       });
     });
   });
