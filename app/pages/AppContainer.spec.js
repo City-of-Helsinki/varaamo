@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
 import simple from 'simple-mock';
@@ -50,7 +49,7 @@ describe('pages/AppContainer', () => {
 
     describe('with path in root', () => {
       test('returns userId from state', () => {
-        expect(getSelected().userId).to.equal('u-1');
+        expect(getSelected().userId).toBe('u-1');
       });
     });
 
@@ -61,7 +60,7 @@ describe('pages/AppContainer', () => {
         },
       };
       test('returns userId from state', () => {
-        expect(getSelected(customProps).userId).to.equal('u-1');
+        expect(getSelected(customProps).userId).toBe('u-1');
       });
     });
   });
@@ -70,16 +69,16 @@ describe('pages/AppContainer', () => {
     const wrapper = getWrapper();
 
     test('renders Header', () => {
-      expect(getWrapper().find(Header)).to.have.length(1);
+      expect(getWrapper().find(Header)).toHaveLength(1);
     });
 
     test('renders Notifications', () => {
-      expect(getWrapper().find(Notifications)).to.have.length(1);
+      expect(getWrapper().find(Notifications)).toHaveLength(1);
     });
 
     test('renders props.children', () => {
       const children = wrapper.find('#child-div');
-      expect(children).to.have.length(1);
+      expect(children).toHaveLength(1);
     });
   });
 
@@ -89,7 +88,7 @@ describe('pages/AppContainer', () => {
       simple.mock(instance, 'removeFacebookAppendedHash').returnWith('some text');
       instance.componentDidMount();
 
-      expect(instance.removeFacebookAppendedHash.callCount).to.equal(1);
+      expect(instance.removeFacebookAppendedHash.callCount).toBe(1);
     });
 
     describe('when user is not logged in', () => {
@@ -97,7 +96,7 @@ describe('pages/AppContainer', () => {
         const fetchUser = simple.mock();
         const instance = getWrapper({ fetchUser, userId: null }).instance();
         instance.componentDidMount();
-        expect(fetchUser.callCount).to.equal(0);
+        expect(fetchUser.callCount).toBe(0);
       });
     });
 
@@ -107,8 +106,8 @@ describe('pages/AppContainer', () => {
         const userId = 'u-1';
         const instance = getWrapper({ fetchUser, userId }).instance();
         instance.componentDidMount();
-        expect(fetchUser.callCount).to.equal(1);
-        expect(fetchUser.lastCall.arg).to.equal(userId);
+        expect(fetchUser.callCount).toBe(1);
+        expect(fetchUser.lastCall.arg).toBe(userId);
       });
     });
   });
@@ -120,7 +119,7 @@ describe('pages/AppContainer', () => {
         const userId = 'u-1';
         const instance = getWrapper({ fetchUser, userId }).instance();
         instance.componentWillUpdate({ userId });
-        expect(fetchUser.callCount).to.equal(0);
+        expect(fetchUser.callCount).toBe(0);
       });
     });
 
@@ -131,8 +130,8 @@ describe('pages/AppContainer', () => {
         const newId = 'u-99';
         const instance = getWrapper({ fetchUser, userId }).instance();
         instance.componentWillUpdate({ userId: newId });
-        expect(fetchUser.callCount).to.equal(1);
-        expect(fetchUser.lastCall.arg).to.equal(newId);
+        expect(fetchUser.callCount).toBe(1);
+        expect(fetchUser.lastCall.arg).toBe(newId);
       });
 
       test('does not fetch user data if new userId is null', () => {
@@ -141,7 +140,7 @@ describe('pages/AppContainer', () => {
         const newId = null;
         const instance = getWrapper({ fetchUser, userId }).instance();
         instance.componentWillUpdate({ userId: newId });
-        expect(fetchUser.callCount).to.equal(0);
+        expect(fetchUser.callCount).toBe(0);
       });
     });
   });
@@ -154,7 +153,7 @@ describe('pages/AppContainer', () => {
     test('removes "_=_" hash if it exists', () => {
       const instance = getWrapper().instance();
       instance.removeFacebookAppendedHash();
-      expect(window.location.hash).to.not.have.string('_=_');
+      expect(window.location.hash).toEqual(expect.not.arrayContaining(['_=_']));
     });
   });
 });

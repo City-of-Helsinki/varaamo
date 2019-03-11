@@ -1,6 +1,5 @@
 import constants from 'constants/AppConstants';
 
-import { expect } from 'chai';
 import MockDate from 'mockdate';
 import moment from 'moment';
 
@@ -38,13 +37,13 @@ describe('Utils: reservationUtils', () => {
     test('returns an empty array if reservations is undefined', () => {
       const reservations = undefined;
 
-      expect(combine(reservations)).to.deep.equal([]);
+      expect(combine(reservations)).toEqual([]);
     });
 
     test('returns an empty array if reservations is empty', () => {
       const reservations = [];
 
-      expect(combine(reservations)).to.deep.equal([]);
+      expect(combine(reservations)).toEqual([]);
     });
 
     test(
@@ -52,7 +51,7 @@ describe('Utils: reservationUtils', () => {
       () => {
         const reservations = ['mock reservation'];
 
-        expect(combine(reservations)).to.deep.equal(reservations);
+        expect(combine(reservations)).toEqual(reservations);
       }
     );
 
@@ -63,13 +62,13 @@ describe('Utils: reservationUtils', () => {
         end: slots[1].end,
       }];
 
-      expect(combine(reservations)).to.deep.equal(expected);
+      expect(combine(reservations)).toEqual(expected);
     });
 
     test('does not combine two reservations if they are not continual', () => {
       const reservations = [slots[0], slots[2]];
 
-      expect(combine(reservations)).to.deep.equal(reservations);
+      expect(combine(reservations)).toEqual(reservations);
     });
 
     test('combines three reservations if they are continual', () => {
@@ -79,7 +78,7 @@ describe('Utils: reservationUtils', () => {
         end: slots[2].end,
       }];
 
-      expect(combine(reservations)).to.deep.equal(expected);
+      expect(combine(reservations)).toEqual(expected);
     });
 
     test('only combines reservations that are continual', () => {
@@ -92,7 +91,7 @@ describe('Utils: reservationUtils', () => {
         slots[3],
       ];
 
-      expect(combine(reservations)).to.deep.equal(expected);
+      expect(combine(reservations)).toEqual(expected);
     });
   });
 
@@ -100,7 +99,7 @@ describe('Utils: reservationUtils', () => {
     test('returns false if resource does not exist', () => {
       const reservation = { reserverName: 'Luke' };
       const resource = undefined;
-      expect(isStaffEvent(reservation, resource)).to.equal(false);
+      expect(isStaffEvent(reservation, resource)).toBe(false);
     });
 
     test(
@@ -108,7 +107,7 @@ describe('Utils: reservationUtils', () => {
       () => {
         const reservation = { reserverName: 'Luke' };
         const resource = {};
-        expect(isStaffEvent(reservation, resource)).to.equal(false);
+        expect(isStaffEvent(reservation, resource)).toBe(false);
       }
     );
 
@@ -117,7 +116,7 @@ describe('Utils: reservationUtils', () => {
       () => {
         const reservation = { reserverName: 'Luke' };
         const resource = { requiredReservationExtraFields: ['reserver_name'] };
-        expect(isStaffEvent(reservation, resource)).to.equal(false);
+        expect(isStaffEvent(reservation, resource)).toBe(false);
       }
     );
 
@@ -126,7 +125,7 @@ describe('Utils: reservationUtils', () => {
       () => {
         const reservation = {};
         const resource = { requiredReservationExtraFields: ['reserver_name'] };
-        expect(isStaffEvent(reservation, resource)).to.equal(true);
+        expect(isStaffEvent(reservation, resource)).toBe(true);
       }
     );
 
@@ -135,7 +134,7 @@ describe('Utils: reservationUtils', () => {
       () => {
         const reservation = { reserverName: '' };
         const resource = { requiredReservationExtraFields: ['reserver_name'] };
-        expect(isStaffEvent(reservation, resource)).to.equal(true);
+        expect(isStaffEvent(reservation, resource)).toBe(true);
       }
     );
   });
@@ -156,7 +155,7 @@ describe('Utils: reservationUtils', () => {
     ];
 
     test('returns the current reservation from a list of reservations', () => {
-      expect(getCurrentReservation(unorderedReservations)).to.deep.equal(currentReservation);
+      expect(getCurrentReservation(unorderedReservations)).toEqual(currentReservation);
     });
   });
 
@@ -173,7 +172,7 @@ describe('Utils: reservationUtils', () => {
       const reservation = getReservation();
       const actual = getMissingValues(reservation);
 
-      expect(typeof actual).to.equal('object');
+      expect(typeof actual).toBe('object');
     });
 
     describe('the returned object', () => {
@@ -181,7 +180,7 @@ describe('Utils: reservationUtils', () => {
         const reservation = getReservation();
         const actual = getMissingValues(reservation);
 
-        expect(actual).to.deep.equal({});
+        expect(actual).toEqual({});
       });
 
       constants.REQUIRED_STAFF_EVENT_FIELDS.forEach((field) => {
@@ -190,7 +189,7 @@ describe('Utils: reservationUtils', () => {
           const actual = getMissingValues(reservation);
           const expected = { [field]: '-' };
 
-          expect(actual).to.deep.equal(expected);
+          expect(actual).toEqual(expected);
         });
       });
     });
@@ -203,13 +202,13 @@ describe('Utils: reservationUtils', () => {
       test('returns the fromMoment given in function arguments', () => {
         const fromMoment = moment();
 
-        expect(getNextAvailableTime(reservations, fromMoment)).to.equal(fromMoment);
+        expect(getNextAvailableTime(reservations, fromMoment)).toBe(fromMoment);
       });
 
       test('returns current time if fromMoment is not given', () => {
         const mockTime = '2015-10-10T10:00:00+03:00';
         MockDate.set(mockTime);
-        expect(getNextAvailableTime(reservations).isSame(mockTime)).to.equal(true);
+        expect(getNextAvailableTime(reservations).isSame(mockTime)).toBe(true);
         MockDate.reset();
       });
     });
@@ -235,7 +234,7 @@ describe('Utils: reservationUtils', () => {
 
         test('returns the fromMoment', () => {
           const nextAvailableTime = getNextAvailableTime(reservations, fromMoment);
-          expect(nextAvailableTime).to.equal(fromMoment);
+          expect(nextAvailableTime).toBe(fromMoment);
         });
       });
 
@@ -245,7 +244,7 @@ describe('Utils: reservationUtils', () => {
         test('returns the end moment of the ongoing reservation', () => {
           const nextAvailableTime = getNextAvailableTime(reservations, fromMoment);
           const expected = '2015-10-10T14:00:00+03:00';
-          expect(nextAvailableTime.isSame(expected)).to.equal(true);
+          expect(nextAvailableTime.isSame(expected)).toBe(true);
         });
       });
 
@@ -255,7 +254,7 @@ describe('Utils: reservationUtils', () => {
         test('returns the end moment of the last ongoing reservation', () => {
           const nextAvailableTime = getNextAvailableTime(reservations, fromMoment);
           const expected = '2015-10-10T18:00:00+03:00';
-          expect(nextAvailableTime.isSame(expected)).to.equal(true);
+          expect(nextAvailableTime.isSame(expected)).toBe(true);
         });
       });
 
@@ -264,7 +263,7 @@ describe('Utils: reservationUtils', () => {
 
         test('returns the fromMoment', () => {
           const nextAvailableTime = getNextAvailableTime(reservations, fromMoment);
-          expect(nextAvailableTime).to.equal(fromMoment);
+          expect(nextAvailableTime).toBe(fromMoment);
         });
       });
 
@@ -273,7 +272,7 @@ describe('Utils: reservationUtils', () => {
 
         test('returns the fromMoment', () => {
           const nextAvailableTime = getNextAvailableTime(reservations, fromMoment);
-          expect(nextAvailableTime).to.equal(fromMoment);
+          expect(nextAvailableTime).toBe(fromMoment);
         });
       });
     });
@@ -295,7 +294,7 @@ describe('Utils: reservationUtils', () => {
     ];
 
     test('returns the next reservation from a list of reservations', () => {
-      expect(getNextReservation(unorderedReservations)).to.deep.equal(nextReservation);
+      expect(getNextReservation(unorderedReservations)).toEqual(nextReservation);
     });
   });
 });

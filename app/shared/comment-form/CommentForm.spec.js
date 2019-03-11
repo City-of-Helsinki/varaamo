@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import ReactDom from 'react-dom';
 import Button from 'react-bootstrap/lib/Button';
@@ -24,16 +23,16 @@ describe('shared/comment-form/CommentForm', () => {
     test('renders a form', () => {
       const form = getWrapper().find('form');
 
-      expect(form.length).to.equal(1);
+      expect(form.length).toBe(1);
     });
 
     describe('comments textarea', () => {
       test('renders a FormControl with correct props', () => {
         const formControl = getWrapper().find(FormControl);
 
-        expect(formControl.length).to.equal(1);
-        expect(formControl.prop('componentClass')).to.equal('textarea');
-        expect(formControl.prop('defaultValue')).to.equal(defaultProps.defaultValue);
+        expect(formControl.length).toBe(1);
+        expect(formControl.prop('componentClass')).toBe('textarea');
+        expect(formControl.prop('defaultValue')).toBe(defaultProps.defaultValue);
       });
     });
 
@@ -42,7 +41,7 @@ describe('shared/comment-form/CommentForm', () => {
       const buttons = wrapper.find(Button);
 
       test('renders two buttons', () => {
-        expect(buttons.length).to.equal(2);
+        expect(buttons.length).toBe(2);
       });
 
       describe('the first button', () => {
@@ -58,13 +57,13 @@ describe('shared/comment-form/CommentForm', () => {
         const button = buttons.at(1);
 
         test('is save button', () => {
-          expect(button.props().children).to.equal('common.save');
+          expect(button.props().children).toBe('common.save');
         });
 
         test('has handleSave as its onClick prop', () => {
           const instance = wrapper.instance();
 
-          expect(button.props().onClick).to.equal(instance.handleSave);
+          expect(button.props().onClick).toBe(instance.handleSave);
         });
       });
     });
@@ -86,13 +85,13 @@ describe('shared/comment-form/CommentForm', () => {
     });
 
     test('calls onSave given in props', () => {
-      expect(defaultProps.onSave.callCount).to.equal(1);
+      expect(defaultProps.onSave.callCount).toBe(1);
     });
 
     test('calls commentReservation with correct arguments', () => {
       const actualArgs = defaultProps.onSave.lastCall.args;
 
-      expect(actualArgs[0]).to.deep.equal(comments);
+      expect(actualArgs[0]).toEqual(comments);
     });
   });
 });

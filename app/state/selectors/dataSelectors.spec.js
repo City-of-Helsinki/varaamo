@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import { getState } from 'utils/testUtils';
 import {
   createResourceSelector,
@@ -25,7 +23,7 @@ describe('state/selectors/dataSelectors', () => {
         2: { id: 2, name: 'Gaming' },
       };
       const selected = purposesSelector(state);
-      expect(selected).to.deep.equal(expected);
+      expect(selected).toEqual(expected);
     });
   });
 
@@ -44,7 +42,7 @@ describe('state/selectors/dataSelectors', () => {
         2: { id: 2, foo: 'bar' },
       };
       const selected = reservationsSelector(state);
-      expect(selected).to.deep.equal(expected);
+      expect(selected).toEqual(expected);
     });
   });
 
@@ -63,7 +61,7 @@ describe('state/selectors/dataSelectors', () => {
         2: { id: 2, name: 'Gaming' },
       };
       const selected = resourcesSelector(state);
-      expect(selected).to.deep.equal(expected);
+      expect(selected).toEqual(expected);
     });
   });
 
@@ -82,7 +80,7 @@ describe('state/selectors/dataSelectors', () => {
         2: { id: 2, name: 'Gaming' },
       };
       const selected = unitsSelector(state);
-      expect(selected).to.deep.equal(expected);
+      expect(selected).toEqual(expected);
     });
   });
 
@@ -94,14 +92,14 @@ describe('state/selectors/dataSelectors', () => {
         'data.resources': { [resource.id]: resource },
       });
       const selected = createResourceSelector(idSelector)(state);
-      expect(selected).to.deep.equal(resource);
+      expect(selected).toEqual(resource);
     });
 
     test('returns an empty object if resource does not exist', () => {
       const idSelector = () => 'r-999';
       const state = getState();
       const selected = createResourceSelector(idSelector)(state);
-      expect(selected).to.deep.equal({});
+      expect(selected).toEqual({});
     });
   });
 });

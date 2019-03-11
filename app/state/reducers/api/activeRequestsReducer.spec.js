@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
@@ -9,7 +8,7 @@ describe('state/reducers/api/activeRequestsReducer', () => {
     const initialState = activeRequestsReducer(undefined, {});
 
     test('is an empty object', () => {
-      expect(initialState).to.deep.equal({});
+      expect(initialState).toEqual({});
     });
   });
 
@@ -36,7 +35,7 @@ describe('state/reducers/api/activeRequestsReducer', () => {
             { SOME_REQUEST: 3 }
           );
 
-          expect(nextState).to.deep.equal(expected);
+          expect(nextState).toEqual(expected);
         });
 
         test('does not affect the existing activeRequests', () => {
@@ -48,7 +47,7 @@ describe('state/reducers/api/activeRequestsReducer', () => {
             { SOME_REQUEST: 3, OTHER_REQUEST: 1 }
           );
 
-          expect(nextState).to.deep.equal(expected);
+          expect(nextState).toEqual(expected);
         });
       });
 
@@ -60,7 +59,7 @@ describe('state/reducers/api/activeRequestsReducer', () => {
             { SOME_REQUEST: 1 }
           );
 
-          expect(nextState).to.deep.equal(expected);
+          expect(nextState).toEqual(expected);
         });
 
         test('does not affect the existing activeRequests', () => {
@@ -72,7 +71,7 @@ describe('state/reducers/api/activeRequestsReducer', () => {
             { SOME_REQUEST: 1, OTHER_REQUEST: 1 }
           );
 
-          expect(nextState).to.deep.equal(expected);
+          expect(nextState).toEqual(expected);
         });
       });
     });
@@ -95,7 +94,7 @@ describe('state/reducers/api/activeRequestsReducer', () => {
               { SOME_REQUEST: 1 }
             );
 
-            expect(nextState).to.deep.equal(expected);
+            expect(nextState).toEqual(expected);
           });
 
           test('does not affect the existing activeRequests', () => {
@@ -107,7 +106,7 @@ describe('state/reducers/api/activeRequestsReducer', () => {
               { SOME_REQUEST: 1, OTHER_REQUEST: 1 }
             );
 
-            expect(nextState).to.deep.equal(expected);
+            expect(nextState).toEqual(expected);
           });
         });
 
@@ -126,7 +125,7 @@ describe('state/reducers/api/activeRequestsReducer', () => {
               { SOME_REQUEST: 0 }
             );
 
-            expect(nextState).to.deep.equal(expected);
+            expect(nextState).toEqual(expected);
           });
 
           test('does not affect the existing activeRequests', () => {
@@ -138,7 +137,7 @@ describe('state/reducers/api/activeRequestsReducer', () => {
               { SOME_REQUEST: 0, OTHER_REQUEST: 1 }
             );
 
-            expect(nextState).to.deep.equal(expected);
+            expect(nextState).toEqual(expected);
           });
         });
       });
@@ -156,7 +155,7 @@ describe('state/reducers/api/activeRequestsReducer', () => {
             { SOME_REQUEST: 0 }
           );
 
-          expect(nextState).to.deep.equal(expected);
+          expect(nextState).toEqual(expected);
         });
 
         test('does not affect the existing activeRequests', () => {
@@ -168,7 +167,7 @@ describe('state/reducers/api/activeRequestsReducer', () => {
             { SOME_REQUEST: 0, OTHER_REQUEST: 1 }
           );
 
-          expect(nextState).to.deep.equal(expected);
+          expect(nextState).toEqual(expected);
         });
       });
     });

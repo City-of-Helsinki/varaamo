@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -38,36 +37,36 @@ describe('shared/availability-view/ResourceInfoContainer', () => {
 
   test('renders a div.resource-info', () => {
     const wrapper = getWrapper();
-    expect(wrapper.is('div.resource-info')).to.be.true;
+    expect(wrapper.is('div.resource-info')).toBe(true);
   });
 
   test('has selected class if isSelected', () => {
     const wrapper = getWrapper({ isSelected: true });
-    expect(wrapper.is('.resource-info-selected')).to.be.true;
+    expect(wrapper.is('.resource-info-selected')).toBe(true);
   });
 
   test('renders the name and link to resource page', () => {
     const date = '2017-02-03';
     const link = getWrapper({ date, id: 'r-1', name: 'Room 1' }).find(Link);
-    expect(link).to.have.length(1);
-    expect(link.prop('to')).to.equal(`/resources/r-1?date=${date}`);
-    expect(link.prop('children')).to.equal('Room 1');
+    expect(link).toHaveLength(1);
+    expect(link.prop('to')).toBe(`/resources/r-1?date=${date}`);
+    expect(link.prop('children')).toBe('Room 1');
   });
 
   test('renders the capacity in details', () => {
     const details = getWrapper({ peopleCapacity: 3 }).find('.details');
-    expect(details).to.have.length(1);
-    expect(details.text()).to.contain('3');
+    expect(details).toHaveLength(1);
+    expect(details.text()).toContain('3');
   });
 
   test('renders unpublished label if public is false', () => {
     const label = getWrapper({ public: false }).find('.unpublished-label');
-    expect(label).to.have.length(1);
+    expect(label).toHaveLength(1);
   });
 
   test('does not render unpublished label if public is true', () => {
     const label = getWrapper({ public: true }).find('.unpublished-label');
-    expect(label).to.have.length(0);
+    expect(label).toHaveLength(0);
   });
 
   describe('selector', () => {
@@ -78,7 +77,7 @@ describe('shared/availability-view/ResourceInfoContainer', () => {
 
     test('returns resource info', () => {
       const actual = getSelected();
-      expect(actual).to.deep.equal({
+      expect(actual).toEqual({
         name: 'Resource Name',
         peopleCapacity: 9,
         public: true,

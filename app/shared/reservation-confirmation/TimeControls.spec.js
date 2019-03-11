@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import mockDate from 'mockdate';
 import moment from 'moment';
@@ -31,27 +30,27 @@ describe('shared/reservation-confirmation/TimeControls', () => {
 
   describe('render', () => {
     test('renders div.app-TimeControls', () => {
-      expect(getWrapper().find('div.app-TimeControls')).to.have.length(1);
+      expect(getWrapper().find('div.app-TimeControls')).toHaveLength(1);
     });
 
     test('renders Select for changing reservation begin time', () => {
       const wrapper = getWrapper();
       const beginTimeControl = wrapper.find(SelectControl).at(0);
       const expectedValue = moment(defaultProps.begin.input.value).format('HH:mm');
-      expect(beginTimeControl).to.have.length(1);
-      expect(beginTimeControl.prop('value')).to.equal(expectedValue);
-      expect(beginTimeControl.prop('onChange')).to.equal(wrapper.instance().handleBeginTimeChange);
-      expect(beginTimeControl.prop('options')).to.deep.equal(wrapper.instance().getBeginTimeOptions());
+      expect(beginTimeControl).toHaveLength(1);
+      expect(beginTimeControl.prop('value')).toBe(expectedValue);
+      expect(beginTimeControl.prop('onChange')).toBe(wrapper.instance().handleBeginTimeChange);
+      expect(beginTimeControl.prop('options')).toEqual(wrapper.instance().getBeginTimeOptions());
     });
 
     test('renders time Select for changing reservation end time', () => {
       const wrapper = getWrapper();
       const endTimeControl = wrapper.find(SelectControl).at(1);
       const expectedValue = moment(defaultProps.end.input.value).format('HH:mm');
-      expect(endTimeControl).to.have.length(1);
-      expect(endTimeControl.prop('value')).to.equal(expectedValue);
-      expect(endTimeControl.prop('onChange')).to.equal(wrapper.instance().handleEndTimeChange);
-      expect(endTimeControl.prop('options')).to.deep.equal(wrapper.instance().getEndTimeOptions());
+      expect(endTimeControl).toHaveLength(1);
+      expect(endTimeControl.prop('value')).toBe(expectedValue);
+      expect(endTimeControl.prop('onChange')).toBe(wrapper.instance().handleEndTimeChange);
+      expect(endTimeControl.prop('options')).toEqual(wrapper.instance().getEndTimeOptions());
     });
   });
 
@@ -75,7 +74,7 @@ describe('shared/reservation-confirmation/TimeControls', () => {
         { label: '10:00', value: '10:00' },
       ];
       mockDate.reset();
-      expect(options).to.deep.equal(expected);
+      expect(options).toEqual(expected);
     });
 
     test('does not return start times before the current time', () => {
@@ -94,7 +93,7 @@ describe('shared/reservation-confirmation/TimeControls', () => {
         { label: '08:00', value: '08:00' },
       ];
       mockDate.reset();
-      expect(options).to.deep.equal(expected);
+      expect(options).toEqual(expected);
     });
   });
 
@@ -126,7 +125,7 @@ describe('shared/reservation-confirmation/TimeControls', () => {
           { label: '11:00 (1 h)', value: '11:00' },
           { label: '12:00 (2 h)', value: '12:00' },
         ];
-        expect(options).to.deep.equal(expected);
+        expect(options).toEqual(expected);
       }
     );
 
@@ -154,7 +153,7 @@ describe('shared/reservation-confirmation/TimeControls', () => {
           { label: '05:00 (1 h)', value: '05:00' },
           { label: '06:00 (2 h)', value: '06:00' },
         ];
-        expect(options).to.deep.equal(expected);
+        expect(options).toEqual(expected);
       }
     );
   });
@@ -183,8 +182,8 @@ describe('shared/reservation-confirmation/TimeControls', () => {
           const value = '15:30';
           const expectedArg = moment('2017-01-01T15:30:00').toISOString();
           callHandleBeginTimeChange(props, value);
-          expect(onChange.callCount).to.equal(1);
-          expect(onChange.lastCall.args).to.deep.equal([expectedArg]);
+          expect(onChange.callCount).toBe(1);
+          expect(onChange.lastCall.args).toEqual([expectedArg]);
         }
       );
 
@@ -199,8 +198,8 @@ describe('shared/reservation-confirmation/TimeControls', () => {
           const value = '15:30';
           callHandleBeginTimeChange(props, value);
           const expectedArg = moment('2017-01-01T16:00:00').toISOString();
-          expect(onChange.callCount).to.equal(1);
-          expect(onChange.lastCall.args).to.deep.equal([expectedArg]);
+          expect(onChange.callCount).toBe(1);
+          expect(onChange.lastCall.args).toEqual([expectedArg]);
         }
       );
 
@@ -212,7 +211,7 @@ describe('shared/reservation-confirmation/TimeControls', () => {
         };
         const value = '15:30';
         callHandleBeginTimeChange(props, value);
-        expect(onChange.callCount).to.equal(0);
+        expect(onChange.callCount).toBe(0);
       });
     });
 
@@ -224,7 +223,7 @@ describe('shared/reservation-confirmation/TimeControls', () => {
         };
         const value = '';
         callHandleBeginTimeChange(props, value);
-        expect(onChange.callCount).to.equal(0);
+        expect(onChange.callCount).toBe(0);
       });
     });
   });
@@ -245,8 +244,8 @@ describe('shared/reservation-confirmation/TimeControls', () => {
         const value = '18:00';
         const expectedArg = moment('2017-01-01T18:00:00').toISOString();
         callHandleEndTimeChange(onChange, value);
-        expect(onChange.callCount).to.equal(1);
-        expect(onChange.lastCall.args).to.deep.equal([expectedArg]);
+        expect(onChange.callCount).toBe(1);
+        expect(onChange.lastCall.args).toEqual([expectedArg]);
       });
     });
 
@@ -255,7 +254,7 @@ describe('shared/reservation-confirmation/TimeControls', () => {
         const onChange = simple.mock();
         const value = '';
         callHandleEndTimeChange(onChange, value);
-        expect(onChange.callCount).to.equal(0);
+        expect(onChange.callCount).toBe(0);
       });
     });
   });

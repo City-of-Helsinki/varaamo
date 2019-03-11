@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import Immutable from 'seamless-immutable';
 
 import selectedReservationsSelector from 'state/selectors/selectedReservationsSelector';
@@ -37,7 +36,7 @@ describe('Selector: selectedReservationsSelector', () => {
     const props = getProps();
     const actual = selectedReservationsSelector(state, props);
 
-    expect(actual).to.deep.equal([]);
+    expect(actual).toEqual([]);
   });
 
   test('returns selectedReservations in correct form', () => {
@@ -52,7 +51,7 @@ describe('Selector: selectedReservationsSelector', () => {
       },
     ];
 
-    expect(actual).to.deep.equal(expected);
+    expect(actual).toEqual(expected);
   });
 
   test('combines reservations that if they are continual', () => {
@@ -67,6 +66,6 @@ describe('Selector: selectedReservationsSelector', () => {
       },
     ];
 
-    expect(actual).to.deep.equal(expected);
+    expect(actual).toEqual(expected);
   });
 });

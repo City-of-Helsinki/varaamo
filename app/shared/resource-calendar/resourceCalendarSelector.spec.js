@@ -1,6 +1,5 @@
 import { openingHoursMonth } from 'constants/ResourceConstants';
 
-import { expect } from 'chai';
 import Immutable from 'seamless-immutable';
 
 import Resource from 'utils/fixtures/Resource';
@@ -82,22 +81,22 @@ describe('shared/resource-calendar/resourceCalendarSelector', () => {
   });
 
   test('calculates correct percentages for completely available', () => {
-    expect(availability['2015-10-01'].percentage).to.equal(100);
+    expect(availability['2015-10-01'].percentage).toBe(100);
   });
 
   test('calculates correct percentages for partially available', () => {
-    expect(availability['2015-10-10'].percentage).to.equal(50);
+    expect(availability['2015-10-10'].percentage).toBe(50);
   });
 
   test('calculates correct percentages for fully booked', () => {
-    expect(availability['2015-10-11'].percentage).to.equal(0);
+    expect(availability['2015-10-11'].percentage).toBe(0);
   });
 
   test('calculates correct percentages if reservation is cancelled', () => {
-    expect(availability['2015-10-30'].percentage).to.equal(100);
+    expect(availability['2015-10-30'].percentage).toBe(100);
   });
 
   test('calculates correct percentages if reservation is cancelled', () => {
-    expect(availability['2015-10-31'].percentage).to.equal(100);
+    expect(availability['2015-10-31'].percentage).toBe(100);
   });
 });

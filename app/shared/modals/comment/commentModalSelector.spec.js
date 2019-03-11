@@ -2,8 +2,6 @@
 import ActionTypes from 'constants/ActionTypes';
 import ModalTypes from 'constants/ModalTypes';
 
-import { expect } from 'chai';
-
 import { getState } from 'utils/testUtils';
 import commentModalSelector from './commentModalSelector';
 
@@ -19,11 +17,11 @@ describe('shared/modals/comment/commentModalSelector', () => {
       const selected = getSelected({
         'api.activeRequests': activeRequests,
       });
-      expect(selected.isSaving).to.be.true;
+      expect(selected.isSaving).toBe(true);
     });
 
     test('returns false if RESERVATION_PUT_REQUEST is not active', () => {
-      expect(getSelected().isSaving).to.be.false;
+      expect(getSelected().isSaving).toBe(false);
     });
   });
 
@@ -32,7 +30,7 @@ describe('shared/modals/comment/commentModalSelector', () => {
     const selected = getSelected({
       'ui.reservations.toShow': [reservation],
     });
-    expect(selected.reservation).to.deep.equal(reservation);
+    expect(selected.reservation).toEqual(reservation);
   });
 
   test('returns correct resource from the state', () => {
@@ -43,7 +41,7 @@ describe('shared/modals/comment/commentModalSelector', () => {
       'ui.reservations.toShow': [reservation],
     });
 
-    expect(selected.resource).to.deep.equal(resource);
+    expect(selected.resource).toEqual(resource);
   });
 
   describe('show', () => {
@@ -51,7 +49,7 @@ describe('shared/modals/comment/commentModalSelector', () => {
       const selected = getSelected({
         'ui.modals.open': [ModalTypes.RESERVATION_COMMENT],
       });
-      expect(selected.show).to.be.true;
+      expect(selected.show).toBe(true);
     });
 
     test(
@@ -60,7 +58,7 @@ describe('shared/modals/comment/commentModalSelector', () => {
         const selected = getSelected({
           'ui.modals.open': [],
         });
-        expect(selected.show).to.be.false;
+        expect(selected.show).toBe(false);
       }
     );
   });

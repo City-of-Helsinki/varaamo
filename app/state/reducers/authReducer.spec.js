@@ -1,6 +1,5 @@
 import types from 'constants/ActionTypes';
 
-import { expect } from 'chai';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
@@ -11,11 +10,11 @@ describe('state/reducers/authReducer', () => {
     const initialState = authReducer(undefined, {});
 
     test('token is null', () => {
-      expect(initialState.token).to.equal(null);
+      expect(initialState.token).toBeNull();
     });
 
     test('userId is null', () => {
-      expect(initialState.userId).to.equal(null);
+      expect(initialState.userId).toBeNull();
     });
   });
 
@@ -32,7 +31,7 @@ describe('state/reducers/authReducer', () => {
           userId: null,
         });
 
-        expect(nextState).to.deep.equal(expectedState);
+        expect(nextState).toEqual(expectedState);
       });
 
       test('does not affect state if error status is not 401', () => {
@@ -41,7 +40,7 @@ describe('state/reducers/authReducer', () => {
         const nextState = authReducer(initialState, action);
         const expectedState = initialState;
 
-        expect(nextState).to.deep.equal(expectedState);
+        expect(nextState).toEqual(expectedState);
       });
     });
 
@@ -57,7 +56,7 @@ describe('state/reducers/authReducer', () => {
           userId: null,
         });
 
-        expect(nextState).to.deep.equal(expectedState);
+        expect(nextState).toEqual(expectedState);
       });
 
       test('does not affect state if error status is not 401', () => {
@@ -66,7 +65,7 @@ describe('state/reducers/authReducer', () => {
         const nextState = authReducer(initialState, action);
         const expectedState = initialState;
 
-        expect(nextState).to.deep.equal(expectedState);
+        expect(nextState).toEqual(expectedState);
       });
     });
 
@@ -82,7 +81,7 @@ describe('state/reducers/authReducer', () => {
           userId: null,
         });
 
-        expect(nextState).to.deep.equal(expectedState);
+        expect(nextState).toEqual(expectedState);
       });
 
       test('does not affect state if error status is not 401', () => {
@@ -91,7 +90,7 @@ describe('state/reducers/authReducer', () => {
         const nextState = authReducer(initialState, action);
         const expectedState = initialState;
 
-        expect(nextState).to.deep.equal(expectedState);
+        expect(nextState).toEqual(expectedState);
       });
     });
   });

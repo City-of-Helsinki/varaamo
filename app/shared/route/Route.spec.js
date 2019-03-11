@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import simple from 'simple-mock';
 import * as redux from 'redux';
@@ -31,28 +30,28 @@ describe('shared/route/Route', () => {
     test('renders Route from react-router-dom', () => {
       const wrapper = getWrapper('Homepage');
 
-      expect(wrapper.is(ReactRouterRoute)).to.be.true;
+      expect(wrapper.is(ReactRouterRoute)).toBe(true);
     });
 
     test('calls updateRoute when the component did mount', () => {
       const wrapper = getWrapper('Homepage');
       wrapper.instance().componentDidMount();
 
-      expect(updateRoute.callCount).to.equal(1);
+      expect(updateRoute.callCount).toBe(1);
     });
 
     test('calls scrollTo when the component did update', () => {
       const wrapper = getWrapper('Homepage');
       wrapper.instance().componentDidMount();
 
-      expect(scrollToMock.callCount).to.equal(1);
+      expect(scrollToMock.callCount).toBe(1);
     });
 
     test('calls updateRoute when the component did update', () => {
       const wrapper = getWrapper('Homepage');
       wrapper.instance().componentDidUpdate();
 
-      expect(updateRoute.callCount).to.equal(1);
+      expect(updateRoute.callCount).toBe(1);
     });
   });
 
@@ -70,23 +69,20 @@ describe('shared/route/Route', () => {
     const ownProps = { componentName: 'homepage' };
 
     test('returns an object with actions property', () => {
-      expect(mapDispatchToProps(dispatch, ownProps)).to.have.property('actions');
+      expect(mapDispatchToProps(dispatch, ownProps)).toHaveProperty('actions');
     });
 
     test('calls updateRoute with componentName prop', () => {
       mapDispatchToProps(dispatch, ownProps);
 
-      expect(routeActions.updateRoute.calls[0].arg).to.equal(ownProps.componentName);
+      expect(routeActions.updateRoute.calls[0].arg).toBe(ownProps.componentName);
     });
 
     test('calls bindActionCreators with the correct arguments', () => {
       mapDispatchToProps(dispatch, ownProps);
 
-      expect(redux.bindActionCreators.calls[0].args[0]).to.have.property(
-        'updateRoute',
-        routeActions.updateRoute(ownProps.componentName)
-      );
-      expect(redux.bindActionCreators.calls[0].args[1]).to.equal(dispatch);
+      expect(redux.bindActionCreators.calls[0].args[0]).toHaveProperty('updateRoute', routeActions.updateRoute(ownProps.componentName));
+      expect(redux.bindActionCreators.calls[0].args[1]).toBe(dispatch);
     });
   });
 });

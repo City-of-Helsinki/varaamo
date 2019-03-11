@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import FormControl from 'react-bootstrap/lib/FormControl';
@@ -19,23 +18,23 @@ function getWrapper(props) {
 describe('pages/home/HomeSearchBox', () => {
   test('renders a form.app-HomeSearchBox', () => {
     const wrapper = getWrapper();
-    expect(wrapper.is('form.app-HomeSearchBox')).to.be.true;
+    expect(wrapper.is('form.app-HomeSearchBox')).toBe(true);
   });
 
   test('renders FormControl with correct props', () => {
     const value = 'some search query';
     const wrapper = getWrapper({ value });
     const formControl = wrapper.find(FormControl);
-    expect(formControl).to.have.length(1);
-    expect(formControl.prop('onChange')).to.equal(wrapper.instance().handleChange);
-    expect(formControl.prop('type')).to.equal('text');
-    expect(formControl.prop('placeholder')).to.equal('HomeSearchBox.searchPlaceholder');
+    expect(formControl).toHaveLength(1);
+    expect(formControl.prop('onChange')).toBe(wrapper.instance().handleChange);
+    expect(formControl.prop('type')).toBe('text');
+    expect(formControl.prop('placeholder')).toBe('HomeSearchBox.searchPlaceholder');
   });
 
   test('renders search button', () => {
     const button = getWrapper().find(Button);
-    expect(button).to.have.length(1);
-    expect(button.prop('children')).to.equal('HomeSearchBox.buttonText');
+    expect(button).toHaveLength(1);
+    expect(button.prop('children')).toBe('HomeSearchBox.buttonText');
   });
 
   describe('handleSubmit', () => {
@@ -44,14 +43,14 @@ describe('pages/home/HomeSearchBox', () => {
       const onSearch = simple.mock();
       const instance = getWrapper({ onSearch }).instance();
       instance.handleSubmit(mockEvent);
-      expect(onSearch.callCount).to.equal(1);
+      expect(onSearch.callCount).toBe(1);
     });
 
     test('calls event.preventDefault', () => {
       const mockEvent = { preventDefault: simple.mock() };
       const instance = getWrapper().instance();
       instance.handleSubmit(mockEvent);
-      expect(mockEvent.preventDefault.callCount).to.equal(1);
+      expect(mockEvent.preventDefault.callCount).toBe(1);
     });
   });
 
@@ -60,7 +59,7 @@ describe('pages/home/HomeSearchBox', () => {
       const instance = getWrapper().instance();
       const mockEvent = { preventDefault: simple.mock(), target: { value: 'some value' } };
       instance.handleChange(mockEvent);
-      expect(instance.state.value).to.equal(mockEvent.target.value);
+      expect(instance.state.value).toBe(mockEvent.target.value);
     });
   });
 });

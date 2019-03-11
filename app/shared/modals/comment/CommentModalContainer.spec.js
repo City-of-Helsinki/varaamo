@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
@@ -35,24 +34,20 @@ describe('shared/modals/comment/CommentModalContainer', () => {
     test('renders a ModalWrapper with correct props', () => {
       const modalWrapper = getWrapper().find(ModalWrapper);
 
-      expect(modalWrapper.length).to.equal(1);
-      expect(modalWrapper.prop('onClose')).to.equal(
-        defaultProps.actions.closeReservationCommentModal
-      );
-      expect(modalWrapper.prop('show')).to.equal(defaultProps.show);
+      expect(modalWrapper.length).toBe(1);
+      expect(modalWrapper.prop('onClose')).toBe(defaultProps.actions.closeReservationCommentModal);
+      expect(modalWrapper.prop('show')).toBe(defaultProps.show);
     });
 
     test('renders CommentForm with correct props', () => {
       const wrapper = getWrapper();
       const commentForm = wrapper.find(CommentForm);
 
-      expect(commentForm.length).to.equal(1);
-      expect(commentForm.prop('defaultValue')).to.equal(reservation.comments);
-      expect(commentForm.prop('isSaving')).to.equal(defaultProps.isSaving);
-      expect(commentForm.prop('onCancel')).to.equal(
-        defaultProps.actions.closeReservationCommentModal
-      );
-      expect(commentForm.prop('onSave')).to.equal(wrapper.instance().handleSave);
+      expect(commentForm.length).toBe(1);
+      expect(commentForm.prop('defaultValue')).toBe(reservation.comments);
+      expect(commentForm.prop('isSaving')).toBe(defaultProps.isSaving);
+      expect(commentForm.prop('onCancel')).toBe(defaultProps.actions.closeReservationCommentModal);
+      expect(commentForm.prop('onSave')).toBe(wrapper.instance().handleSave);
     });
   });
 
@@ -71,19 +66,19 @@ describe('shared/modals/comment/CommentModalContainer', () => {
     });
 
     test('calls commentReservation', () => {
-      expect(defaultProps.actions.commentReservation.callCount).to.equal(1);
+      expect(defaultProps.actions.commentReservation.callCount).toBe(1);
     });
 
     test('calls commentReservation with correct arguments', () => {
       const actualArgs = defaultProps.actions.commentReservation.lastCall.args;
 
-      expect(actualArgs[0]).to.deep.equal(reservation);
-      expect(actualArgs[1]).to.deep.equal(resource);
-      expect(actualArgs[2]).to.deep.equal(comments);
+      expect(actualArgs[0]).toEqual(reservation);
+      expect(actualArgs[1]).toEqual(resource);
+      expect(actualArgs[2]).toEqual(comments);
     });
 
     test('closes the CommentModal', () => {
-      expect(defaultProps.actions.closeReservationCommentModal.callCount).to.equal(1);
+      expect(defaultProps.actions.closeReservationCommentModal.callCount).toBe(1);
     });
   });
 });

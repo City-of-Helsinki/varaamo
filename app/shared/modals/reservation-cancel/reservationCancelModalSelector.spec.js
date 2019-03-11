@@ -2,8 +2,6 @@
 import ActionTypes from 'constants/ActionTypes';
 import ModalTypes from 'constants/ModalTypes';
 
-import { expect } from 'chai';
-
 import { getState } from 'utils/testUtils';
 import reservationCancelModalSelector from './reservationCancelModalSelector';
 
@@ -19,7 +17,7 @@ describe('shared/modals/reservation-cancel/reservationCancelModalSelector', () =
         auth: { userId: 'u-1' },
         'data.users': { 'u-1': { isStaff: true } },
       });
-      expect(selected.cancelAllowed).to.be.true;
+      expect(selected.cancelAllowed).toBe(true);
     });
 
     test('returns true if reservation is not preliminary', () => {
@@ -27,7 +25,7 @@ describe('shared/modals/reservation-cancel/reservationCancelModalSelector', () =
       const selected = getSelected({
         'ui.reservations.toCancel': [reservation],
       });
-      expect(selected.cancelAllowed).to.be.true;
+      expect(selected.cancelAllowed).toBe(true);
     });
 
     test('returns true if reservation state is not confirmed', () => {
@@ -35,7 +33,7 @@ describe('shared/modals/reservation-cancel/reservationCancelModalSelector', () =
       const selected = getSelected({
         'ui.reservations.toCancel': [reservation],
       });
-      expect(selected.cancelAllowed).to.be.true;
+      expect(selected.cancelAllowed).toBe(true);
     });
 
     test(
@@ -49,7 +47,7 @@ describe('shared/modals/reservation-cancel/reservationCancelModalSelector', () =
         const selected = getSelected({
           'ui.reservations.toCancel': [reservation],
         });
-        expect(selected.cancelAllowed).to.be.false;
+        expect(selected.cancelAllowed).toBe(false);
       }
     );
   });
@@ -60,11 +58,11 @@ describe('shared/modals/reservation-cancel/reservationCancelModalSelector', () =
       const selected = getSelected({
         'api.activeRequests': activeRequests,
       });
-      expect(selected.isCancellingReservations).to.be.true;
+      expect(selected.isCancellingReservations).toBe(true);
     });
 
     test('returns false if RESERVATION_DELETE_REQUEST is not active', () => {
-      expect(getSelected().isCancellingReservations).to.be.false;
+      expect(getSelected().isCancellingReservations).toBe(false);
     });
   });
 
@@ -73,7 +71,7 @@ describe('shared/modals/reservation-cancel/reservationCancelModalSelector', () =
     const selected = getSelected({
       'ui.reservations.toCancel': [reservation],
     });
-    expect(selected.reservation).to.deep.equal(reservation);
+    expect(selected.reservation).toEqual(reservation);
   });
 
   test('returns correct resource from the state', () => {
@@ -84,7 +82,7 @@ describe('shared/modals/reservation-cancel/reservationCancelModalSelector', () =
       'ui.reservations.toCancel': [reservation],
     });
 
-    expect(selected.resource).to.deep.equal(resource);
+    expect(selected.resource).toEqual(resource);
   });
 
   describe('show', () => {
@@ -92,7 +90,7 @@ describe('shared/modals/reservation-cancel/reservationCancelModalSelector', () =
       const selected = getSelected({
         'ui.modals.open': [ModalTypes.RESERVATION_CANCEL],
       });
-      expect(selected.show).to.be.true;
+      expect(selected.show).toBe(true);
     });
 
     test(
@@ -101,7 +99,7 @@ describe('shared/modals/reservation-cancel/reservationCancelModalSelector', () =
         const selected = getSelected({
           'ui.modals.open': [],
         });
-        expect(selected.show).to.be.false;
+        expect(selected.show).toBe(false);
       }
     );
   });

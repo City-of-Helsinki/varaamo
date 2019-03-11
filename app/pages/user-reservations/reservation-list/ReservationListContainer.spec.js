@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
@@ -47,26 +46,26 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
 
     test('renders a ul element', () => {
       const ul = getWithReservationsWrapper().find('ul');
-      expect(ul).to.have.length(1);
+      expect(ul).toHaveLength(1);
     });
 
     describe('rendering individual reservations', () => {
       test('renders a ReservationListItem for every reservation in props', () => {
         const reservationListItems = getWithReservationsWrapper().find(ReservationListItem);
-        expect(reservationListItems).to.have.length(props.reservations.length);
+        expect(reservationListItems).toHaveLength(props.reservations.length);
       });
 
       test('passes isAdmin, isStaff and reservation', () => {
         const reservationListItems = getWithReservationsWrapper().find(ReservationListItem);
         reservationListItems.forEach((reservationListItem, index) => {
           const actualProps = reservationListItem.props();
-          expect(actualProps.isAdmin).to.equal(props.isAdmin);
-          expect(actualProps.isStaff).to.equal(false);
-          expect(actualProps.reservation).to.deep.equal(props.reservations[index]);
-          expect(reservationListItems.at(0).prop('resource')).to.deep.equal(resource);
-          expect(reservationListItems.at(1).prop('resource')).to.deep.equal({});
-          expect(reservationListItems.at(0).prop('unit')).to.deep.equal(unit);
-          expect(reservationListItems.at(1).prop('unit')).to.deep.equal({});
+          expect(actualProps.isAdmin).toBe(props.isAdmin);
+          expect(actualProps.isStaff).toBe(false);
+          expect(actualProps.reservation).toEqual(props.reservations[index]);
+          expect(reservationListItems.at(0).prop('resource')).toEqual(resource);
+          expect(reservationListItems.at(1).prop('resource')).toEqual({});
+          expect(reservationListItems.at(0).prop('unit')).toEqual(unit);
+          expect(reservationListItems.at(1).prop('unit')).toEqual({});
         });
       });
     });
@@ -83,14 +82,14 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
 
       test('displays the emptyMessage', () => {
         const message = getWithouReservationsWrapper(emptyMessage).find('p').text();
-        expect(message).to.equal(emptyMessage);
+        expect(message).toBe(emptyMessage);
       });
     });
 
     describe('when emptyMessage is not given in props', () => {
       test('renders a message telling no reservations were found', () => {
         const message = getWithouReservationsWrapper().find('p').text();
-        expect(message).to.equal('ReservationListContainer.emptyMessage');
+        expect(message).toBe('ReservationListContainer.emptyMessage');
       });
     });
   });

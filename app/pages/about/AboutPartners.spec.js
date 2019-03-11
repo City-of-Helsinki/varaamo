@@ -1,5 +1,4 @@
 import React from 'react';
-import { expect } from 'chai';
 
 import { shallowWithIntl } from 'utils/testUtils';
 import AboutPartners from './AboutPartners';
@@ -14,7 +13,7 @@ describe('pages/about/AboutPartners', () => {
 
   test('renders div.about-page-logos', () => {
     const div = getWrapper().find('div.about-page-logos');
-    expect(div).to.have.length(1);
+    expect(div).toHaveLength(1);
   });
 
   describe('images', () => {
@@ -25,28 +24,28 @@ describe('pages/about/AboutPartners', () => {
     });
 
     test('contains 3 images', () => {
-      expect(images).to.have.length(3);
+      expect(images).toHaveLength(3);
     });
 
     test('has 6 aika image', () => {
       expect(images.find({
         alt: 'AboutPartners.aikaLogoAlt',
         src: aikaLogoSrc,
-      })).to.have.length(1);
+      })).toHaveLength(1);
     });
 
     test('has EU Vipuvoimaa image', () => {
       expect(images.find({
         alt: 'AboutPartners.euVipuvoimaaLogoAlt',
         src: euVipuvoimaaLogoSrc,
-      })).to.have.length(1);
+      })).toHaveLength(1);
     });
 
     test('has eakr image', () => {
       expect(images.find({
         alt: 'AboutPartners.eakrLogoAlt',
         src: eakrLogoSrc,
-      })).to.have.length(1);
+      })).toHaveLength(1);
     });
   });
 });

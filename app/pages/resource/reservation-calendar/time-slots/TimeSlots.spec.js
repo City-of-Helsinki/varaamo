@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
@@ -60,7 +59,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
 
   test('renders div.app-TimeSlots', () => {
     const div = getWrapper().find('div.app-TimeSlots');
-    expect(div).to.have.length(1);
+    expect(div).toHaveLength(1);
   });
 
   describe('rendering individual time slots', () => {
@@ -69,27 +68,27 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
     }
 
     test('renders a TimeSlot component for every time slot in props', () => {
-      expect(getTimeSlotsWrapper()).to.have.length(2);
+      expect(getTimeSlotsWrapper()).toHaveLength(2);
     });
 
     test('passes correct props to TimeSlots', () => {
       const timeSlots = getTimeSlotsWrapper();
       timeSlots.forEach((timeSlot, index) => {
-        expect(timeSlot.props().addNotification).to.equal(defaultProps.addNotification);
-        expect(timeSlot.props().isAdmin).to.equal(defaultProps.isAdmin);
-        expect(timeSlot.props().isEditing).to.equal(defaultProps.isEditing);
-        expect(timeSlot.props().isLoggedIn).to.equal(defaultProps.isLoggedIn);
-        expect(timeSlot.props().isStaff).to.equal(defaultProps.isStaff);
-        expect(timeSlot.props().onClick).to.equal(defaultProps.onClick);
-        expect(timeSlot.props().resource).to.deep.equal(defaultProps.resource);
-        expect(timeSlot.props().slot).to.deep.equal(defaultProps.slots[index][0]);
+        expect(timeSlot.props().addNotification).toBe(defaultProps.addNotification);
+        expect(timeSlot.props().isAdmin).toBe(defaultProps.isAdmin);
+        expect(timeSlot.props().isEditing).toBe(defaultProps.isEditing);
+        expect(timeSlot.props().isLoggedIn).toBe(defaultProps.isLoggedIn);
+        expect(timeSlot.props().isStaff).toBe(defaultProps.isStaff);
+        expect(timeSlot.props().onClick).toBe(defaultProps.onClick);
+        expect(timeSlot.props().resource).toEqual(defaultProps.resource);
+        expect(timeSlot.props().slot).toEqual(defaultProps.slots[index][0]);
       });
     });
 
     test('passes correct selected as a prop to TimeSlot', () => {
       const timeSlots = getTimeSlotsWrapper();
-      expect(timeSlots.at(0).props().selected).to.equal(true);
-      expect(timeSlots.at(1).props().selected).to.equal(false);
+      expect(timeSlots.at(0).props().selected).toBe(true);
+      expect(timeSlots.at(1).props().selected).toBe(false);
     });
   });
 
@@ -138,10 +137,10 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
       ];
       const timeSlots = getWrapper({ selected, slots }).find(TimeSlotComponent);
 
-      expect(timeSlots).to.have.length(3);
-      expect(timeSlots.at(0).props().isSelectable).to.be.true;
-      expect(timeSlots.at(1).props().isSelectable).to.be.false;
-      expect(timeSlots.at(2).props().isSelectable).to.be.false;
+      expect(timeSlots).toHaveLength(3);
+      expect(timeSlots.at(0).props().isSelectable).toBe(true);
+      expect(timeSlots.at(1).props().isSelectable).toBe(false);
+      expect(timeSlots.at(2).props().isSelectable).toBe(false);
     }
   );
 
@@ -154,8 +153,8 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
     const timeSlots = wrapper.find(TimeSlotComponent);
     const closedMessage = wrapper.find('.app-TimeSlots--closed');
 
-    expect(timeSlots).to.have.length(2);
-    expect(closedMessage).to.have.length(1);
+    expect(timeSlots).toHaveLength(2);
+    expect(closedMessage).toHaveLength(1);
   });
 
   test('does not render empty slots', () => {
@@ -165,7 +164,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
     };
     const timeSlots = getWrapper(props).find(TimeSlotComponent);
 
-    expect(timeSlots).to.have.length(2);
+    expect(timeSlots).toHaveLength(2);
   });
 
   test('renders a positional placeholder if the start times differ', () => {
@@ -194,8 +193,8 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
       ],
     ];
     const placeholder = getWrapper({ slots }).find(TimeSlotPlaceholder);
-    expect(placeholder).to.have.length(1);
-    expect(placeholder.prop('size')).to.equal(1);
+    expect(placeholder).toHaveLength(1);
+    expect(placeholder.prop('size')).toBe(1);
   });
 
   test(
@@ -226,8 +225,8 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
         ],
       ];
       const placeholder = getWrapper({ slots }).find(TimeSlotPlaceholder);
-      expect(placeholder).to.have.length(1);
-      expect(placeholder.prop('size')).to.equal(2);
+      expect(placeholder).toHaveLength(1);
+      expect(placeholder.prop('size')).toBe(2);
     }
   );
 
@@ -292,8 +291,8 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
         ],
       ];
       const placeholder = getWrapper({ selectedDate: '2016-10-11', slots }).find(TimeSlotPlaceholder);
-      expect(placeholder).to.have.length(3);
-      expect(placeholder.first().prop('mobileOffset')).to.equal(2);
+      expect(placeholder).toHaveLength(3);
+      expect(placeholder.first().prop('mobileOffset')).toBe(2);
     }
   );
 
@@ -301,12 +300,12 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
     test('returns the begin value of the selected slot', () => {
       const instance = getWrapper().instance();
       const firstSelectedSlot = defaultProps.selected[0];
-      expect(instance.getReservationBegin()).to.equal(firstSelectedSlot.begin);
+      expect(instance.getReservationBegin()).toBe(firstSelectedSlot.begin);
     });
 
     test('returns an empty string if the there are no selected slots', () => {
       const instance = getWrapper({ selected: [] }).instance();
-      expect(instance.getReservationBegin()).to.equal('');
+      expect(instance.getReservationBegin()).toBe('');
     });
   });
 
@@ -314,12 +313,12 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
     test('returns the end value of the lest selected slot', () => {
       const instance = getWrapper().instance();
       const lastSelectedSlot = defaultProps.selected[defaultProps.selected.length - 1];
-      expect(instance.getReservationEnd()).to.equal(lastSelectedSlot.end);
+      expect(instance.getReservationEnd()).toBe(lastSelectedSlot.end);
     });
 
     test('returns an empty string if the there are no selected slots', () => {
       const instance = getWrapper({ selected: [] }).instance();
-      expect(instance.getReservationEnd()).to.equal('');
+      expect(instance.getReservationEnd()).toBe('');
     });
   });
 
@@ -328,16 +327,16 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
       test('enables all TimeSlots even if maxPeriod is specified', () => {
         const renderedTimeSlots = getWrapper({ isAdmin: true, maxPeriod: '00:60:00' })
           .find(TimeSlotComponent);
-        expect(renderedTimeSlots.first().prop('isDisabled')).to.be.false;
-        expect(renderedTimeSlots.at(1).prop('isDisabled')).to.be.false;
+        expect(renderedTimeSlots.first().prop('isDisabled')).toBe(false);
+        expect(renderedTimeSlots.at(1).prop('isDisabled')).toBe(false);
       });
     });
 
     describe('is not Admin', () => {
       test('enables all TimeSlots if maxPeriod in not defined', () => {
         const renderedTimeSlots = getWrapper().find(TimeSlotComponent);
-        expect(renderedTimeSlots.first().prop('isDisabled')).to.be.false;
-        expect(renderedTimeSlots.at(1).prop('isDisabled')).to.be.false;
+        expect(renderedTimeSlots.first().prop('isDisabled')).toBe(false);
+        expect(renderedTimeSlots.at(1).prop('isDisabled')).toBe(false);
       });
 
       test(
@@ -347,8 +346,8 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
           const renderedTimeSlots = getWrapper(
             { resource: resourceMaxPeriod }
           ).find(TimeSlotComponent);
-          expect(renderedTimeSlots.first().prop('isDisabled')).to.be.false;
-          expect(renderedTimeSlots.at(1).prop('isDisabled')).to.be.true;
+          expect(renderedTimeSlots.first().prop('isDisabled')).toBe(false);
+          expect(renderedTimeSlots.at(1).prop('isDisabled')).toBe(true);
         }
       );
     });

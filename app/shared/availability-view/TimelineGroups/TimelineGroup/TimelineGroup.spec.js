@@ -1,6 +1,5 @@
 import { slotSize, slotWidth } from 'constants/SlotConstants';
 
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import mockDate from 'mockdate';
 import moment from 'moment';
@@ -21,14 +20,14 @@ function getWrapper(props) {
 describe('shared/availability-view/TimelineGroup', () => {
   test('renders a div.timeline-group', () => {
     const wrapper = getWrapper();
-    expect(wrapper.is('div.timeline-group')).to.be.true;
+    expect(wrapper.is('div.timeline-group')).toBe(true);
   });
 
   test('renders hours', () => {
     const hours = getWrapper().find('.hour');
-    expect(hours).to.have.length(24);
+    expect(hours).toHaveLength(24);
     const texts = hours.map(hour => hour.text());
-    expect(texts).to.deep.equal([
+    expect(texts).toEqual([
       '00:00',
       '01:00',
       '02:00',
@@ -64,8 +63,8 @@ describe('shared/availability-view/TimelineGroup', () => {
       };
       const hours = getWrapper({ selection }).find('.hour');
       const hour = hours.at(1);
-      expect(hour.is('.hour-start-selected')).to.be.true;
-      expect(hour.is('.hour-end-selected')).to.be.false;
+      expect(hour.is('.hour-start-selected')).toBe(true);
+      expect(hour.is('.hour-end-selected')).toBe(false);
     });
 
     test('is .hour-end-selected if end time is XX:00', () => {
@@ -75,26 +74,26 @@ describe('shared/availability-view/TimelineGroup', () => {
       };
       const hours = getWrapper({ selection }).find('.hour');
       const hour = hours.at(1);
-      expect(hour.is('.hour-start-selected')).to.be.false;
-      expect(hour.is('.hour-end-selected')).to.be.true;
+      expect(hour.is('.hour-start-selected')).toBe(false);
+      expect(hour.is('.hour-end-selected')).toBe(true);
     });
   });
 
   test('renders no resources if none given', () => {
     const wrapper = getWrapper({ resources: [] });
     const resources = wrapper.find(AvailabilityTimelineContainer);
-    expect(resources).to.have.length(0);
+    expect(resources).toHaveLength(0);
   });
 
   test('renders resources', () => {
     const resources = ['1234', '5678', '90ab', 'cdef'];
     const wrapper = getWrapper({ resources });
     const elements = wrapper.find(AvailabilityTimelineContainer);
-    expect(elements).to.have.length(4);
-    expect(elements.at(0).prop('id')).to.equal(resources[0]);
-    expect(elements.at(1).prop('id')).to.equal(resources[1]);
-    expect(elements.at(2).prop('id')).to.equal(resources[2]);
-    expect(elements.at(3).prop('id')).to.equal(resources[3]);
+    expect(elements).toHaveLength(4);
+    expect(elements.at(0).prop('id')).toBe(resources[0]);
+    expect(elements.at(1).prop('id')).toBe(resources[1]);
+    expect(elements.at(2).prop('id')).toBe(resources[2]);
+    expect(elements.at(3).prop('id')).toBe(resources[3]);
   });
 
   describe('componentDidMount', () => {
@@ -112,9 +111,9 @@ describe('shared/availability-view/TimelineGroup', () => {
       window.setInterval.returnWith(interval);
       const instance = getWrapper().instance();
       instance.componentDidMount();
-      expect(window.setInterval.callCount).to.equal(1);
-      expect(window.setInterval.lastCall.args).to.deep.equal([instance.updateTime, 60000]);
-      expect(instance.updateTimeInterval).to.equal(interval);
+      expect(window.setInterval.callCount).toBe(1);
+      expect(window.setInterval.lastCall.args).toEqual([instance.updateTime, 60000]);
+      expect(instance.updateTimeInterval).toBe(interval);
     });
   });
 
@@ -133,9 +132,9 @@ describe('shared/availability-view/TimelineGroup', () => {
       const instance = getWrapper().instance();
       instance.updateTimeInterval = interval;
       instance.componentWillUnmount();
-      expect(window.clearInterval.callCount).to.equal(1);
-      expect(window.clearInterval.lastCall.args).to.deep.equal([interval]);
-      expect(instance.updateTimeInterval).to.be.null;
+      expect(window.clearInterval.callCount).toBe(1);
+      expect(window.clearInterval.lastCall.args).toEqual([interval]);
+      expect(instance.updateTimeInterval).toBeNull();
     });
   });
 
@@ -152,24 +151,24 @@ describe('shared/availability-view/TimelineGroup', () => {
 
     test('returns null if date is before current date', () => {
       const offset = getOffset('2017-01-01', '2017-01-02T10:00:00');
-      expect(offset).to.be.null;
+      expect(offset).toBeNull();
     });
 
     test('returns null if date is after current date', () => {
       const offset = getOffset('2017-01-03', '2017-01-02T10:00:00');
-      expect(offset).to.be.null;
+      expect(offset).toBeNull();
     });
 
     test('returns 0 if currently at the beginning of the day', () => {
       const offset = getOffset('2017-01-02', '2017-01-02T00:00:00');
-      expect(offset).to.equal(0);
+      expect(offset).toBe(0);
     });
 
     test('returns correct value if during day', () => {
       const offset = getOffset('2017-01-02', '2017-01-02T12:32:00');
       const minutes = (12 * 60) + 32;
       const expected = (minutes / slotSize) * slotWidth;
-      expect(offset).to.equal(expected);
+      expect(offset).toBe(expected);
     });
   });
 });

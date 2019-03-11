@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import NumericInput from 'react-numeric-input';
 import simple from 'simple-mock';
@@ -25,7 +24,7 @@ function getWrapper(props) {
 describe('shared/RecurringReservationControls/RecurringReservationControls', () => {
   test('renders an empty span if isVisible is false', () => {
     const wrapper = getWrapper({ isVisible: false });
-    expect(wrapper.equals(<span />)).to.be.true;
+    expect(wrapper.equals(<span />)).toBe(true);
   });
 
   test('renders Select with correct props', () => {
@@ -36,10 +35,10 @@ describe('shared/RecurringReservationControls/RecurringReservationControls', () 
       lastTime: '2017-04-09',
     };
     const select = getWrapper(props).find(SelectControl);
-    expect(select).to.have.length(1);
-    expect(select.prop('onChange')).to.equal(props.changeFrequency);
-    expect(select.prop('options')).to.equal(props.frequencyOptions);
-    expect(select.prop('value')).to.equal(props.frequency);
+    expect(select).toHaveLength(1);
+    expect(select.prop('onChange')).toBe(props.changeFrequency);
+    expect(select.prop('options')).toBe(props.frequencyOptions);
+    expect(select.prop('value')).toBe(props.frequency);
   });
 
   test('renders NumericInput to change number of occurrences', () => {
@@ -49,10 +48,10 @@ describe('shared/RecurringReservationControls/RecurringReservationControls', () 
       numberOfOccurrences: 12,
     };
     const control = getWrapper(props).find(NumericInput);
-    expect(control).to.have.length(1);
-    expect(control.prop('min')).to.equal(1);
-    expect(control.prop('value')).to.equal(props.numberOfOccurrences);
-    expect(control.prop('onChange')).to.equal(props.changeNumberOfOccurrences);
+    expect(control).toHaveLength(1);
+    expect(control.prop('min')).toBe(1);
+    expect(control.prop('value')).toBe(props.numberOfOccurrences);
+    expect(control.prop('onChange')).toBe(props.changeNumberOfOccurrences);
   });
 
   test('renders DatePicker with correct props', () => {
@@ -62,10 +61,10 @@ describe('shared/RecurringReservationControls/RecurringReservationControls', () 
       changeLastTime: simple.mock(),
     };
     const control = getWrapper(props).find(DatePicker);
-    expect(control).to.have.length(1);
-    expect(control.prop('dateFormat')).to.equal('D.M.YYYY');
-    expect(control.prop('onChange')).to.equal(props.changeLastTime);
-    expect(control.prop('value')).to.equal(props.lastTime);
+    expect(control).toHaveLength(1);
+    expect(control.prop('dateFormat')).toBe('D.M.YYYY');
+    expect(control.prop('onChange')).toBe(props.changeLastTime);
+    expect(control.prop('value')).toBe(props.lastTime);
   });
 
   describe('without set frecuency', () => {
@@ -75,11 +74,11 @@ describe('shared/RecurringReservationControls/RecurringReservationControls', () 
     });
 
     test('does not render numbrerOfOcurrences NumericInput', () => {
-      expect(wrapper.find(NumericInput)).to.have.length(0);
+      expect(wrapper.find(NumericInput)).toHaveLength(0);
     });
 
     test('does not render DatePicker', () => {
-      expect(wrapper.find(DatePicker)).to.have.length(0);
+      expect(wrapper.find(DatePicker)).toHaveLength(0);
     });
   });
 
@@ -93,7 +92,7 @@ describe('shared/RecurringReservationControls/RecurringReservationControls', () 
       const getOptionLabel = wrapper.find(SelectControl).prop('getOptionLabel');
       getOptionLabel({ label: arg });
 
-      expect(tMock.lastCall.arg).to.equal(arg);
+      expect(tMock.lastCall.arg).toBe(arg);
     });
   });
 });

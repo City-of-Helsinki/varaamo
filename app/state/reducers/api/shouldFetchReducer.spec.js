@@ -1,6 +1,5 @@
 import types from 'constants/ActionTypes';
 
-import { expect } from 'chai';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
@@ -11,15 +10,15 @@ describe('state/reducers/api/shouldFetchReducer', () => {
     const initialState = shouldFetchReducer(undefined, {});
 
     test('purposes is true', () => {
-      expect(initialState.purposes).to.equal(true);
+      expect(initialState.purposes).toBe(true);
     });
 
     test('resources is true', () => {
-      expect(initialState.resources).to.equal(true);
+      expect(initialState.resources).toBe(true);
     });
 
     test('units is true', () => {
-      expect(initialState.units).to.equal(true);
+      expect(initialState.units).toBe(true);
     });
   });
 
@@ -32,7 +31,7 @@ describe('state/reducers/api/shouldFetchReducer', () => {
         const initialState = Immutable({ purposes: true });
         const nextState = shouldFetchReducer(initialState, action);
 
-        expect(nextState.purposes).to.equal(false);
+        expect(nextState.purposes).toBe(false);
       });
     });
 
@@ -44,7 +43,7 @@ describe('state/reducers/api/shouldFetchReducer', () => {
         const initialState = Immutable({ resources: true });
         const nextState = shouldFetchReducer(initialState, action);
 
-        expect(nextState.resources).to.equal(false);
+        expect(nextState.resources).toBe(false);
       });
     });
 
@@ -56,7 +55,7 @@ describe('state/reducers/api/shouldFetchReducer', () => {
         const initialState = Immutable({ units: true });
         const nextState = shouldFetchReducer(initialState, action);
 
-        expect(nextState.units).to.equal(false);
+        expect(nextState.units).toBe(false);
       });
     });
   });

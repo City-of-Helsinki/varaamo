@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import forEach from 'lodash/forEach';
 import forIn from 'lodash/forIn';
@@ -76,11 +75,11 @@ function createApiTest(options) {
     });
 
     test('returns an object with a CALL_API key', () => {
-      expect(callAPI).to.exist;
+      expect(callAPI).toBeDefined();
     });
 
     tests.method && test(`uses ${tests.method}`, () => {
-      expect(callAPI.method).to.equal(tests.method);
+      expect(callAPI.method).toBe(tests.method);
     });
 
     tests.body && test('has correct body', () => {
@@ -89,15 +88,15 @@ function createApiTest(options) {
           ? JSON.parse(callAPI.body)
           : callAPI.body
       );
-      expect(body).to.deep.equal(tests.body);
+      expect(body).toEqual(tests.body);
     });
 
     tests.endpoint && test('uses correct endpoint', () => {
-      expect(callAPI.endpoint).to.equal(tests.endpoint);
+      expect(callAPI.endpoint).toBe(tests.endpoint);
     });
 
     tests.meta && test('has correct meta', () => {
-      expect(action.meta).to.deep.equal(tests.meta);
+      expect(action.meta).toEqual(tests.meta);
     });
 
     describe('types', () => {
@@ -121,7 +120,7 @@ function createApiTest(options) {
           });
 
           actionTests.type && test('has correct type', () => {
-            expect(typeAction.type).to.equal(actionTests.type);
+            expect(typeAction.type).toBe(actionTests.type);
           });
 
           extraTests && forIn(extraTests, (value, name) => {
@@ -164,7 +163,7 @@ function createApiTest(options) {
             });
 
             test('exists', () => {
-              expect(payload).to.exist;
+              expect(payload).toBeDefined();
             });
 
             payloadTests.tests && forIn(payloadTests.tests, (value, name) => {
@@ -208,14 +207,14 @@ function getState(extraState = {}) {
 
 function makeButtonTests(button, name, expectedText, expectedOnClickFunction) {
   test(`is an ${name} button`, () => {
-    expect(button.props().children).to.equal(expectedText);
+    expect(button.props().children).toBe(expectedText);
   });
 
   test('clicking the button calls correct onClick function', () => {
     expectedOnClickFunction.reset();
     button.props().onClick();
 
-    expect(expectedOnClickFunction.callCount).to.equal(1);
+    expect(expectedOnClickFunction.callCount).toBe(1);
   });
 }
 

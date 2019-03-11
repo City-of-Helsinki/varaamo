@@ -1,6 +1,5 @@
 import ActionTypes from 'constants/ActionTypes';
 
-import { expect } from 'chai';
 import mockDate from 'mockdate';
 
 import { getState } from 'utils/testUtils';
@@ -13,7 +12,7 @@ describe('shared/modals/reservation-info/reservationInfoModalSelector', () => {
   }
 
   test('returns isAdmin', () => {
-    expect(getSelected().isAdmin).to.exist;
+    expect(getSelected().isAdmin).toBeDefined();
   });
 
   describe('isEditing', () => {
@@ -21,14 +20,14 @@ describe('shared/modals/reservation-info/reservationInfoModalSelector', () => {
       const selected = getSelected({
         'ui.reservationInfoModal': { isEditing: true },
       });
-      expect(selected.isEditing).to.be.true;
+      expect(selected.isEditing).toBe(true);
     });
 
     test('returns false if ui.reservationInfoModal.isEditing is false', () => {
       const selected = getSelected({
         'ui.reservationInfoModal': { isEditing: false },
       });
-      expect(selected.isEditing).to.be.false;
+      expect(selected.isEditing).toBe(false);
     });
   });
 
@@ -38,16 +37,16 @@ describe('shared/modals/reservation-info/reservationInfoModalSelector', () => {
       const selected = getSelected({
         'api.activeRequests': activeRequests,
       });
-      expect(selected.isSaving).to.be.true;
+      expect(selected.isSaving).toBe(true);
     });
 
     test('returns false if RESERVATION_PUT_REQUEST is not active', () => {
-      expect(getSelected().isSaving).to.be.false;
+      expect(getSelected().isSaving).toBe(false);
     });
   });
 
   test('returns isStaff', () => {
-    expect(getSelected().isStaff).to.exist;
+    expect(getSelected().isStaff).toBeDefined();
   });
 
   test('returns correct reservation from the state', () => {
@@ -55,7 +54,7 @@ describe('shared/modals/reservation-info/reservationInfoModalSelector', () => {
     const selected = getSelected({
       'ui.reservationInfoModal.reservation': reservation,
     });
-    expect(selected.reservation).to.deep.equal(reservation);
+    expect(selected.reservation).toEqual(reservation);
   });
 
   describe('reservationIsEditable', () => {
@@ -72,7 +71,7 @@ describe('shared/modals/reservation-info/reservationInfoModalSelector', () => {
       const selected = getSelected({
         'ui.reservationInfoModal.reservation': reservation,
       });
-      expect(selected.reservationIsEditable).to.be.false;
+      expect(selected.reservationIsEditable).toBe(false);
     });
 
     test('returns false if reservation is cancelled', () => {
@@ -80,7 +79,7 @@ describe('shared/modals/reservation-info/reservationInfoModalSelector', () => {
       const selected = getSelected({
         'ui.reservationInfoModal.reservation': reservation,
       });
-      expect(selected.reservationIsEditable).to.be.false;
+      expect(selected.reservationIsEditable).toBe(false);
     });
 
     test('returns true otherwise', () => {
@@ -88,7 +87,7 @@ describe('shared/modals/reservation-info/reservationInfoModalSelector', () => {
       const selected = getSelected({
         'ui.reservationInfoModal.reservation': reservation,
       });
-      expect(selected.reservationIsEditable).to.be.true;
+      expect(selected.reservationIsEditable).toBe(true);
     });
   });
 
@@ -100,7 +99,7 @@ describe('shared/modals/reservation-info/reservationInfoModalSelector', () => {
       'ui.reservationInfoModal.reservation': reservation,
     });
 
-    expect(selected.resource).to.deep.equal(resource);
+    expect(selected.resource).toEqual(resource);
   });
 
   describe('show', () => {
@@ -108,14 +107,14 @@ describe('shared/modals/reservation-info/reservationInfoModalSelector', () => {
       const selected = getSelected({
         'ui.reservationInfoModal': { show: true },
       });
-      expect(selected.show).to.be.true;
+      expect(selected.show).toBe(true);
     });
 
     test('returns false if ui.reservationInfoModal.show is false', () => {
       const selected = getSelected({
         'ui.reservationInfoModal': { show: false },
       });
-      expect(selected.show).to.be.false;
+      expect(selected.show).toBe(false);
     });
   });
 });

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import simple from 'simple-mock';
 
@@ -20,11 +19,11 @@ describe('pages/user-reservations/reservation-filters/AdminReservationFilters', 
     const select = getWrapper().find(SelectControl);
 
     test('renders a Select component', () => {
-      expect(select.length).to.equal(1);
+      expect(select.length).toBe(1);
     });
 
     test('passes correct value to the Select component', () => {
-      expect(select.props().value).to.equal(defaultProps.filters.state);
+      expect(select.props().value).toBe(defaultProps.filters.state);
     });
 
     test('passes correct options to the Select component', () => {
@@ -35,7 +34,7 @@ describe('pages/user-reservations/reservation-filters/AdminReservationFilters', 
         { label: 'common.denied', value: 'denied' },
         { label: 'common.requested', value: 'requested' },
       ];
-      expect(select.props().options).to.deep.equal(expected);
+      expect(select.props().options).toEqual(expected);
     });
 
     describe('onChange', () => {
@@ -46,12 +45,12 @@ describe('pages/user-reservations/reservation-filters/AdminReservationFilters', 
       });
 
       test('calls onFiltersChange ', () => {
-        expect(defaultProps.onFiltersChange.callCount).to.equal(1);
+        expect(defaultProps.onFiltersChange.callCount).toBe(1);
       });
 
       test('calls onFiltersChange with correct arguments', () => {
         const expected = { state: filterOption.value };
-        expect(defaultProps.onFiltersChange.lastCall.args[0]).to.deep.equal(expected);
+        expect(defaultProps.onFiltersChange.lastCall.args[0]).toEqual(expected);
       });
     });
   });

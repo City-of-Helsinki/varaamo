@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
@@ -21,39 +20,39 @@ function getWrapper(props) {
 describe('shared/availability-view/AvailabilityView', () => {
   test('renders a div.availability-view', () => {
     const wrapper = getWrapper();
-    expect(wrapper.is('div.availability-view')).to.be.true;
+    expect(wrapper.is('div.availability-view')).toBe(true);
   });
 
   test('renders DateSelector', () => {
     const date = '2016-11-12';
     const onDateChange = () => null;
     const element = getWrapper({ date, onDateChange }).find(DateSelector);
-    expect(element).to.have.length(1);
-    expect(element.prop('value')).to.equal(date);
-    expect(element.prop('onChange')).to.equal(onDateChange);
+    expect(element).toHaveLength(1);
+    expect(element.prop('value')).toBe(date);
+    expect(element.prop('onChange')).toBe(onDateChange);
   });
 
   test('renders Sidebar', () => {
     const date = '2016-11-12';
     const groups = [];
     const element = getWrapper({ date, groups }).find(Sidebar);
-    expect(element).to.have.length(1);
-    expect(element.prop('date')).to.equal(date);
-    expect(element.prop('groups')).to.equal(groups);
+    expect(element).toHaveLength(1);
+    expect(element.prop('date')).toBe(date);
+    expect(element.prop('groups')).toBe(groups);
   });
 
   test('renders TimelineGroups', () => {
     const date = '2016-11-12';
     const groups = [];
     const element = getWrapper({ date, groups }).find(TimelineGroups);
-    expect(element).to.have.length(1);
-    expect(element.prop('date')).to.equal(date);
-    expect(element.prop('groups')).to.equal(groups);
+    expect(element).toHaveLength(1);
+    expect(element.prop('date')).toBe(date);
+    expect(element.prop('groups')).toBe(groups);
   });
 
   test('has correct initial state', () => {
     const wrapper = getWrapper();
-    expect(wrapper.state()).to.deep.equal({ hoverSelection: null, selection: null });
+    expect(wrapper.state()).toEqual({ hoverSelection: null, selection: null });
   });
 
   describe('getSelection', () => {
@@ -66,25 +65,25 @@ describe('shared/availability-view/AvailabilityView', () => {
 
     test('returns selection if only selection', () => {
       const selection = {};
-      expect(getSelection(selection, null)).to.equal(selection);
+      expect(getSelection(selection, null)).toBe(selection);
     });
 
     test('returns hoverSelection if only hoverSelection', () => {
       const hoverSelection = { some: 'data' };
-      expect(getSelection(null, hoverSelection)).to.deep.equal({
+      expect(getSelection(null, hoverSelection)).toEqual({
         ...hoverSelection,
         hover: true,
       });
     });
 
     test('returns null if neither', () => {
-      expect(getSelection(null, null)).to.be.null;
+      expect(getSelection(null, null)).toBeNull();
     });
 
     test('returns selection with hoverSelection.end if both', () => {
       const selection = { begin: '1-begin', end: '1-end', resourceId: '1-resourceId' };
       const hoverSelection = { begin: '2-begin', end: '2-end', resourceId: '2-resourceId' };
-      expect(getSelection(selection, hoverSelection)).to.deep.equal({
+      expect(getSelection(selection, hoverSelection)).toEqual({
         begin: '1-begin',
         end: '2-end',
         resourceId: '1-resourceId',
@@ -106,19 +105,19 @@ describe('shared/availability-view/AvailabilityView', () => {
     }
 
     test('does nothing if existing hoverSelection is null', () => {
-      expect(getHoverSelection({ begin, end, resourceId })).to.be.null;
+      expect(getHoverSelection({ begin, end, resourceId })).toBeNull();
     });
 
     test('does nothing if existing hoverSelection is different', () => {
       const selection = { begin, end, resourceId };
       const hoverSelection = { begin: 'foo' };
-      expect(getHoverSelection(selection, { hoverSelection })).to.equal(hoverSelection);
+      expect(getHoverSelection(selection, { hoverSelection })).toBe(hoverSelection);
     });
 
     test('sets hoverSelection to null if existing is the same', () => {
       const selection = { begin, end, resourceId };
       const hoverSelection = { begin, end, resourceId };
-      expect(getHoverSelection(selection, { hoverSelection })).to.be.null;
+      expect(getHoverSelection(selection, { hoverSelection })).toBeNull();
     });
   });
 
@@ -137,7 +136,7 @@ describe('shared/availability-view/AvailabilityView', () => {
 
     test('updates hoverSelection if no state.selection', () => {
       const selection = { begin, end, resourceId };
-      expect(getHoverSelection(selection)).to.equal(selection);
+      expect(getHoverSelection(selection)).toBe(selection);
     });
 
     test('updates hoverSelection if is selectable', () => {
@@ -147,7 +146,7 @@ describe('shared/availability-view/AvailabilityView', () => {
         end: '2017-01-01T09:30:00Z',
         resourceId,
       };
-      expect(getHoverSelection(selection, { selection: existing })).to.equal(selection);
+      expect(getHoverSelection(selection, { selection: existing })).toBe(selection);
     });
 
     test('does not update hoverSelection if different resource', () => {
@@ -157,7 +156,7 @@ describe('shared/availability-view/AvailabilityView', () => {
         end: '2017-01-01T09:30:00Z',
         resourceId: 'xiauenqi',
       };
-      expect(getHoverSelection(selection, { selection: existing })).to.be.undefined;
+      expect(getHoverSelection(selection, { selection: existing })).toBeUndefined();
     });
 
     test('does not update hoverSelection if before selection', () => {
@@ -167,7 +166,7 @@ describe('shared/availability-view/AvailabilityView', () => {
         end: '2017-01-01T11:00:00Z',
         resourceId,
       };
-      expect(getHoverSelection(selection, { selection: existing })).to.be.undefined;
+      expect(getHoverSelection(selection, { selection: existing })).toBeUndefined();
     });
   });
 
@@ -184,11 +183,11 @@ describe('shared/availability-view/AvailabilityView', () => {
       const wrapper = getWrapper();
       const groups = wrapper.find(TimelineGroups);
       const handler = wrapper.instance().handleSelectionCancel;
-      expect(groups.prop('onSelectionCancel')).to.equal(handler);
+      expect(groups.prop('onSelectionCancel')).toBe(handler);
     });
 
     test('clears selection and hoverSelection', () => {
-      expect(handleSelectionCancel()).to.deep.equal({
+      expect(handleSelectionCancel()).toEqual({
         selection: null,
         hoverSelection: null,
       });
@@ -206,7 +205,7 @@ describe('shared/availability-view/AvailabilityView', () => {
       const wrapper = getWrapper();
       const groups = wrapper.find(TimelineGroups);
       const handler = wrapper.instance().handleReservationSlotClick;
-      expect(groups.prop('onReservationSlotClick')).to.equal(handler);
+      expect(groups.prop('onReservationSlotClick')).toBe(handler);
     });
 
     describe('when no existing selection', () => {
@@ -217,7 +216,7 @@ describe('shared/availability-view/AvailabilityView', () => {
           resourceId: 'auuexui389aeoord',
         };
         const state = handleReservationSlotClick(selection);
-        expect(state).to.deep.equal({ hoverSelection: null, selection });
+        expect(state).toEqual({ hoverSelection: null, selection });
       });
     });
 
@@ -238,7 +237,7 @@ describe('shared/availability-view/AvailabilityView', () => {
             { resourceId, begin: '2016-01-01T10:00:00Z' },
             { resourceId, begin: '2016-01-01T10:00:00Z', end: '2016-01-01T10:30:00Z' }
           );
-          expect(wrapper.state()).to.deep.equal({ hoverSelection: null, selection: null });
+          expect(wrapper.state()).toEqual({ hoverSelection: null, selection: null });
         });
 
         test('calls props.onSelect', () => {
@@ -249,8 +248,8 @@ describe('shared/availability-view/AvailabilityView', () => {
             { resourceId, begin: '2016-01-01T10:30:00Z', end: '2016-01-01T11:00:00Z' },
             { resourceId, begin: '2016-01-01T11:00:00Z', end: '2016-01-01T11:30:00Z' }
           );
-          expect(onSelect.callCount).to.equal(1);
-          expect(onSelect.lastCall.args).to.deep.equal([{
+          expect(onSelect.callCount).toBe(1);
+          expect(onSelect.lastCall.args).toEqual([{
             resourceId,
             begin: '2016-01-01T10:30:00Z',
             end: '2016-01-01T11:30:00Z',
@@ -262,8 +261,8 @@ describe('shared/availability-view/AvailabilityView', () => {
         function checkInvalid(begin, end) {
           const onSelect = simple.mock();
           const wrapper = doSelect({ onSelect }, begin, end);
-          expect(wrapper.state()).to.deep.equal({ hoverSelection: null, selection: begin });
-          expect(onSelect.called).to.be.false;
+          expect(wrapper.state()).toEqual({ hoverSelection: null, selection: begin });
+          expect(onSelect.called).toBe(false);
         }
 
         test('if after start time', () => {

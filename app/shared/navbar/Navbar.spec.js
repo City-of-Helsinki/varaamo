@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -17,7 +16,7 @@ function createNavItemsTest(wrapperFunction) {
       onNavItemClick.reset();
       if (navItem.prop('id') !== 'app-Navbar__login') {
         navItem.prop('onClick')();
-        expect(onNavItemClick.callCount).to.equal(1);
+        expect(onNavItemClick.callCount).toBe(1);
       }
     });
   });
@@ -40,12 +39,12 @@ describe('shared/navbar/Navbar', () => {
 
   test('renders a link to search page', () => {
     const searchLink = getWrapper().find(LinkContainer).filter({ to: getSearchPageUrl() });
-    expect(searchLink).to.have.length(1);
+    expect(searchLink).toHaveLength(1);
   });
 
   test('contains a link to about page', () => {
     const link = getWrapper().find(LinkContainer).filter({ to: '/about' });
-    expect(link).to.have.length(1);
+    expect(link).toHaveLength(1);
   });
 
   describe('language nav', () => {
@@ -54,23 +53,23 @@ describe('shared/navbar/Navbar', () => {
     }
 
     test('is rendered', () => {
-      expect(getLanguageNavWrapper()).to.have.length(1);
+      expect(getLanguageNavWrapper()).toHaveLength(1);
     });
 
     test('has changeLocale as onSelect prop', () => {
       const changeLocale = () => null;
       const actual = getLanguageNavWrapper({ changeLocale }).prop('onSelect');
-      expect(actual).to.equal(changeLocale);
+      expect(actual).toBe(changeLocale);
     });
 
     test('renders NavItems for other languages', () => {
       const currentLanguage = 'fi';
       const navItems = getLanguageNavWrapper({ currentLanguage }).find(NavItem);
-      expect(navItems).to.have.length(2);
-      expect(navItems.at(0).prop('eventKey')).to.equal('en');
-      expect(navItems.at(0).find('img')).to.have.length(1);
-      expect(navItems.at(1).prop('eventKey')).to.equal('sv');
-      expect(navItems.at(1).find('img')).to.have.length(1);
+      expect(navItems).toHaveLength(2);
+      expect(navItems.at(0).prop('eventKey')).toBe('en');
+      expect(navItems.at(0).find('img')).toHaveLength(1);
+      expect(navItems.at(1).prop('eventKey')).toBe('sv');
+      expect(navItems.at(1).find('img')).toHaveLength(1);
     });
   });
 
@@ -88,19 +87,19 @@ describe('shared/navbar/Navbar', () => {
 
     test('renders a h4 with the name of the logged in user', () => {
       const actual = getLoggedInNotAdminWrapper().find('h4');
-      expect(actual.text()).to.equal(props.userName);
+      expect(actual.text()).toBe(props.userName);
     });
 
     test('renders a link to my reservations page', () => {
       const myReservationsLink = getLoggedInNotAdminWrapper()
         .find(LinkContainer).filter({ to: '/my-reservations' });
-      expect(myReservationsLink).to.have.length(1);
+      expect(myReservationsLink).toHaveLength(1);
     });
 
     test('does not render a link to admin resources page', () => {
       const myReservationsLink = getLoggedInNotAdminWrapper()
         .find(LinkContainer).filter({ to: '/admin-resources' });
-      expect(myReservationsLink).to.have.length(0);
+      expect(myReservationsLink).toHaveLength(0);
     });
 
     test('renders a logout link in header', () => {
@@ -110,13 +109,13 @@ describe('shared/navbar/Navbar', () => {
           .find(NavItem)
           .filter({ href: logoutHref })
       );
-      expect(logoutLink).to.have.length(1);
+      expect(logoutLink).toHaveLength(1);
     });
 
     test('does not render a link to login page', () => {
       const loginLink = getLoggedInNotAdminWrapper()
         .find(NavItem).filter('#app-Navbar__login');
-      expect(loginLink).to.have.length(0);
+      expect(loginLink).toHaveLength(0);
     });
   });
 
@@ -134,7 +133,7 @@ describe('shared/navbar/Navbar', () => {
     test('renders a link to admin resources page', () => {
       const myReservationsLink = getLoggedInAdminWrapper()
         .find(LinkContainer).filter({ to: '/admin-resources' });
-      expect(myReservationsLink).to.have.length(1);
+      expect(myReservationsLink).toHaveLength(1);
     });
   });
 
@@ -151,31 +150,31 @@ describe('shared/navbar/Navbar', () => {
 
     test('renders a h4 with the header message', () => {
       const actual = getNotLoggedInWrapper().find('h2');
-      expect(actual.text()).to.equal('Navbar.header');
+      expect(actual.text()).toBe('Navbar.header');
     });
 
     test('renders a link to login page', () => {
       const loginLink = getNotLoggedInWrapper()
         .find(NavItem).filter('#app-Navbar__login');
-      expect(loginLink).to.have.length(1);
+      expect(loginLink).toHaveLength(1);
     });
 
     test('does not render a logout link', () => {
       const logoutHref = `/logout?next=${window.location.origin}`;
       const logoutLink = getNotLoggedInWrapper().find(NavItem).filter({ href: logoutHref });
-      expect(logoutLink).to.have.length(0);
+      expect(logoutLink).toHaveLength(0);
     });
 
     test('does not render a link to my reservations page', () => {
       const myReservationsLink = getNotLoggedInWrapper()
         .find(LinkContainer).filter({ to: '/my-reservations' });
-      expect(myReservationsLink).to.have.length(0);
+      expect(myReservationsLink).toHaveLength(0);
     });
 
     test('does not render a link to admin resources page', () => {
       const myReservationsLink = getNotLoggedInWrapper()
         .find(LinkContainer).filter({ to: '/admin-resources' });
-      expect(myReservationsLink).to.have.length(0);
+      expect(myReservationsLink).toHaveLength(0);
     });
   });
 });

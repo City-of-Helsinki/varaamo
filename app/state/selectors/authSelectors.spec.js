@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import User from 'utils/fixtures/User';
 import { getState } from 'utils/testUtils';
 import {
@@ -22,14 +20,14 @@ describe('state/selectors/authSelectors', () => {
         auth: { userId: user.id },
         'data.users': { [user.id]: user },
       });
-      expect(selected).to.deep.equal(user);
+      expect(selected).toEqual(user);
     });
 
     test('returns an empty object if logged in user data does not exist', () => {
       const selected = getSelected({
         auth: { userId: 'u-999' },
       });
-      expect(selected).to.deep.equal({});
+      expect(selected).toEqual({});
     });
 
     test('returns an empty object if user is not logged in', () => {
@@ -38,7 +36,7 @@ describe('state/selectors/authSelectors', () => {
         auth: { userId: null },
         'data.users': { [user.id]: user },
       });
-      expect(selected).to.deep.equal({});
+      expect(selected).toEqual({});
     });
   });
 
@@ -53,17 +51,17 @@ describe('state/selectors/authSelectors', () => {
 
     test('returns false if user is not logged in', () => {
       const user = {};
-      expect(getSelected(user)).to.be.false;
+      expect(getSelected(user)).toBe(false);
     });
 
     test('returns false if user.isStaff is false', () => {
       const user = { id: 'u-1', isStaff: false };
-      expect(getSelected(user)).to.be.false;
+      expect(getSelected(user)).toBe(false);
     });
 
     test('returns true if user.isStaff is true', () => {
       const user = { id: 'u-1', isStaff: true };
-      expect(getSelected(user)).to.be.true;
+      expect(getSelected(user)).toBe(true);
     });
   });
 
@@ -74,15 +72,15 @@ describe('state/selectors/authSelectors', () => {
     }
 
     test('returns false if token is null', () => {
-      expect(getSelected({ token: null, userId: 'u-1' })).to.be.false;
+      expect(getSelected({ token: null, userId: 'u-1' })).toBe(false);
     });
 
     test('returns false if userId is null', () => {
-      expect(getSelected({ token: 'mock-token', userId: null })).to.be.false;
+      expect(getSelected({ token: 'mock-token', userId: null })).toBe(false);
     });
 
     test('returns true if both token and userId are defined', () => {
-      expect(getSelected({ token: 'mock-token', userId: 'u-1' })).to.be.true;
+      expect(getSelected({ token: 'mock-token', userId: 'u-1' })).toBe(true);
     });
   });
 
@@ -114,7 +112,7 @@ describe('state/selectors/authSelectors', () => {
         const selected = getSelected(user);
         const expected = ['unit-1', 'unit-2'];
 
-        expect(selected).to.deep.equal(expected);
+        expect(selected).toEqual(expected);
       }
     );
 
@@ -133,7 +131,7 @@ describe('state/selectors/authSelectors', () => {
         const selected = getSelected(user);
         const expected = ['unit-2'];
 
-        expect(selected).to.deep.equal(expected);
+        expect(selected).toEqual(expected);
       }
     );
 
@@ -141,7 +139,7 @@ describe('state/selectors/authSelectors', () => {
       const user = User.build();
       const selected = getSelected(user);
 
-      expect(selected).to.deep.equal([]);
+      expect(selected).toEqual([]);
     });
 
     test(
@@ -154,7 +152,7 @@ describe('state/selectors/authSelectors', () => {
         });
         const selected = getSelected(user);
 
-        expect(selected).to.deep.equal([]);
+        expect(selected).toEqual([]);
       }
     );
   });

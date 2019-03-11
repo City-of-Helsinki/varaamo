@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import { getDefaultRouterProps, getState } from 'utils/testUtils';
 import reservationListSelector from './reservationListSelector';
 
@@ -11,26 +9,26 @@ describe('pages/user-reservations/reservation-list/reservationListSelector', () 
   }
 
   test('returns isAdmin', () => {
-    expect(getSelected().isAdmin).to.exist;
+    expect(getSelected().isAdmin).toBeDefined();
   });
 
   test('returns isFetchingReservations', () => {
-    expect(getSelected().isFetchingReservations).to.exist;
+    expect(getSelected().isFetchingReservations).toBeDefined();
   });
 
   test('returns reservations', () => {
-    expect(getSelected().reservations).to.exist;
+    expect(getSelected().reservations).toBeDefined();
   });
 
   test('returns resources from the state', () => {
-    expect(getSelected().resources).to.exist;
+    expect(getSelected().resources).toBeDefined();
   });
 
   test('returns staffUnits', () => {
-    expect(getSelected().staffUnits).to.exist;
+    expect(getSelected().staffUnits).toBeDefined();
   });
 
   test('returns units from the state', () => {
-    expect(getSelected().units).to.exist;
+    expect(getSelected().units).toBeDefined();
   });
 });

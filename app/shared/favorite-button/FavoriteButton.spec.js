@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import simple from 'simple-mock';
@@ -22,32 +21,30 @@ describe('shared/favorite-button/FavoriteButton', () => {
   });
 
   test('is a Button', () => {
-    expect(wrapper.is(Button)).to.be.true;
+    expect(wrapper.is(Button)).toBe(true);
   });
 
   test('has favorite-button class name', () => {
-    expect(getWrapper({ favorited: false }).prop('className')).to.equal('favorite-button');
+    expect(getWrapper({ favorited: false }).prop('className')).toBe('favorite-button');
   });
 
   test('has favorite class modifier if it is favorited', () => {
-    expect(getWrapper({ favorited: true }).prop('className')).to.equal(
-      'favorite-button favorite-button--favorite'
-    );
+    expect(getWrapper({ favorited: true }).prop('className')).toBe('favorite-button favorite-button--favorite');
   });
 
   test('passes onClick prop', () => {
-    expect(wrapper.prop('onClick')).to.deep.equal(defaultProps.onClick);
+    expect(wrapper.prop('onClick')).toEqual(defaultProps.onClick);
   });
 
   test('has remove favorite text if favorited', () => {
     const buttonText = getWrapper({ favorited: true }).find('span');
-    expect(buttonText).to.have.length(1);
-    expect(buttonText.text()).to.equal('ResourceHeader.favoriteRemoveButton');
+    expect(buttonText).toHaveLength(1);
+    expect(buttonText.text()).toBe('ResourceHeader.favoriteRemoveButton');
   });
 
   test('has add favorite text if not favorited', () => {
     const buttonText = getWrapper({ favorited: false }).find('span');
-    expect(buttonText).to.have.length(1);
-    expect(buttonText.text()).to.equal('ResourceHeader.favoriteAddButton');
+    expect(buttonText).toHaveLength(1);
+    expect(buttonText.text()).toBe('ResourceHeader.favoriteAddButton');
   });
 });

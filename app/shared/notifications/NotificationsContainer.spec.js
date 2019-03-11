@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import ReactNotifications from 'react-notifications';
 
@@ -20,7 +19,7 @@ describe('shared/notifications/NotificationsContainer', () => {
   describe('ReactNotifications component', () => {
     test('is rendered', () => {
       const reactNotifications = getWrapper().find(ReactNotifications);
-      expect(reactNotifications.length).to.equal(1);
+      expect(reactNotifications.length).toBe(1);
     });
 
     test('gets correct props', () => {
@@ -40,8 +39,8 @@ describe('shared/notifications/NotificationsContainer', () => {
         },
       ];
       const actualProps = getWrapper({ notifications }).find(ReactNotifications).props();
-      expect(actualProps.notifications).to.deep.equal(expectedNotifications);
-      expect(actualProps.onRequestHide).to.equal(defaultProps.actions.hideNotification);
+      expect(actualProps.notifications).toEqual(expectedNotifications);
+      expect(actualProps.onRequestHide).toBe(defaultProps.actions.hideNotification);
     });
   });
 });

@@ -1,6 +1,5 @@
 import constants from 'constants/AppConstants';
 
-import { expect } from 'chai';
 import MockDate from 'mockdate';
 import moment from 'moment';
 import queryString from 'query-string';
@@ -49,7 +48,7 @@ describe('Utils: resourceUtils', () => {
       });
 
       test('returns true', () => {
-        expect(hasMaxReservations(resource)).to.equal(true);
+        expect(hasMaxReservations(resource)).toBe(true);
       });
     });
     describe('if has more own passed reservations than maxReservationsPerUser', () => {
@@ -76,7 +75,7 @@ describe('Utils: resourceUtils', () => {
       });
 
       test('returns false', () => {
-        expect(hasMaxReservations(resource)).to.equal(false);
+        expect(hasMaxReservations(resource)).toBe(false);
       });
     });
   });
@@ -98,7 +97,7 @@ describe('Utils: resourceUtils', () => {
       });
 
       test('returns false', () => {
-        expect(isOpenNow(resource)).to.equal(false);
+        expect(isOpenNow(resource)).toBe(false);
       });
     });
 
@@ -120,7 +119,7 @@ describe('Utils: resourceUtils', () => {
       });
 
       test('returns false', () => {
-        expect(isOpenNow(resource)).to.equal(false);
+        expect(isOpenNow(resource)).toBe(false);
       });
     });
 
@@ -142,7 +141,7 @@ describe('Utils: resourceUtils', () => {
       });
 
       test('returns true', () => {
-        expect(isOpenNow(resource)).to.equal(true);
+        expect(isOpenNow(resource)).toBe(true);
       });
     });
 
@@ -164,7 +163,7 @@ describe('Utils: resourceUtils', () => {
       });
 
       test('returns false', () => {
-        expect(isOpenNow(resource)).to.equal(false);
+        expect(isOpenNow(resource)).toBe(false);
       });
     });
   });
@@ -181,7 +180,7 @@ describe('Utils: resourceUtils', () => {
         const availabilityData = getAvailabilityDataForNow(resource);
         const expected = { status: 'closed', bsStyle: 'danger' };
 
-        expect(availabilityData).to.deep.equal(expected);
+        expect(availabilityData).toEqual(expected);
       });
     });
 
@@ -211,7 +210,7 @@ describe('Utils: resourceUtils', () => {
             values: { time: expectedTime },
           };
 
-          expect(availabilityData).to.deep.equal(expected);
+          expect(availabilityData).toEqual(expected);
         });
       });
 
@@ -241,7 +240,7 @@ describe('Utils: resourceUtils', () => {
             values: { time: expectedTime },
           };
 
-          expect(availabilityData).to.deep.equal(expected);
+          expect(availabilityData).toEqual(expected);
         });
 
         test('works with cancelled and denied reservations', () => {
@@ -271,7 +270,7 @@ describe('Utils: resourceUtils', () => {
             values: { time: expectedTime },
           };
 
-          expect(availabilityData).to.deep.equal(expected);
+          expect(availabilityData).toEqual(expected);
         });
       });
     });
@@ -296,7 +295,7 @@ describe('Utils: resourceUtils', () => {
           const availabilityData = getAvailabilityDataForNow(resource);
           const expected = { status: 'available', bsStyle: 'success' };
 
-          expect(availabilityData).to.deep.equal(expected);
+          expect(availabilityData).toEqual(expected);
         });
       });
 
@@ -322,7 +321,7 @@ describe('Utils: resourceUtils', () => {
             values: { time: expectedTime },
           };
 
-          expect(availabilityData).to.deep.equal(expected);
+          expect(availabilityData).toEqual(expected);
         });
 
         test('works with cancelled and denied reservations', () => {
@@ -346,7 +345,7 @@ describe('Utils: resourceUtils', () => {
           const resource = getResource(openingHours, reservations);
           const availabilityData = getAvailabilityDataForNow(resource);
           const expected = { status: 'available', bsStyle: 'success' };
-          expect(availabilityData).to.deep.equal(expected);
+          expect(availabilityData).toEqual(expected);
         });
       });
     });
@@ -370,7 +369,7 @@ describe('Utils: resourceUtils', () => {
         const availabilityData = getAvailabilityDataForNow(resource);
         const expected = { status: 'closed', bsStyle: 'danger' };
 
-        expect(availabilityData).to.deep.equal(expected);
+        expect(availabilityData).toEqual(expected);
       });
     });
   });
@@ -387,7 +386,7 @@ describe('Utils: resourceUtils', () => {
         const availabilityData = getAvailabilityDataForWholeDay(resource);
         const expected = { status: 'closed', bsStyle: 'danger' };
 
-        expect(availabilityData).to.deep.equal(expected);
+        expect(availabilityData).toEqual(expected);
       });
     });
 
@@ -405,7 +404,7 @@ describe('Utils: resourceUtils', () => {
         const availabilityData = getAvailabilityDataForWholeDay(resource, date);
         const expected = { status: 'reservingRestricted', bsStyle: 'danger' };
 
-        expect(availabilityData).to.deep.equal(expected);
+        expect(availabilityData).toEqual(expected);
       });
     });
 
@@ -427,7 +426,7 @@ describe('Utils: resourceUtils', () => {
           values: { hours: 6 },
         };
 
-        expect(availabilityData).to.deep.equal(expected);
+        expect(availabilityData).toEqual(expected);
       });
     });
 
@@ -458,7 +457,7 @@ describe('Utils: resourceUtils', () => {
           values: { hours: 4.5 },
         };
 
-        expect(availabilityData).to.deep.equal(expected);
+        expect(availabilityData).toEqual(expected);
       });
 
       test('does not minus cancelled reservations from available time', () => {
@@ -484,7 +483,7 @@ describe('Utils: resourceUtils', () => {
           values: { hours: 6 },
         };
 
-        expect(availabilityData).to.deep.equal(expected);
+        expect(availabilityData).toEqual(expected);
       });
 
       test('does not minus denied reservations from available time', () => {
@@ -510,7 +509,7 @@ describe('Utils: resourceUtils', () => {
           values: { hours: 6 },
         };
 
-        expect(availabilityData).to.deep.equal(expected);
+        expect(availabilityData).toEqual(expected);
       });
 
       describe('if the whole day is reserved', () => {
@@ -532,7 +531,7 @@ describe('Utils: resourceUtils', () => {
           const availabilityData = getAvailabilityDataForWholeDay(resource);
           const expected = { status: 'reserved', bsStyle: 'danger' };
 
-          expect(availabilityData).to.deep.equal(expected);
+          expect(availabilityData).toEqual(expected);
         });
       });
 
@@ -581,7 +580,7 @@ describe('Utils: resourceUtils', () => {
             values: { hours: 4.5 },
           };
 
-          expect(availabilityData).to.deep.equal(expected);
+          expect(availabilityData).toEqual(expected);
         });
       });
     });
@@ -592,21 +591,21 @@ describe('Utils: resourceUtils', () => {
       const period = undefined;
       const periodString = getHumanizedPeriod(period);
 
-      expect(periodString).to.equal('');
+      expect(periodString).toBe('');
     });
 
     test('returns an empty string if period is null', () => {
       const period = null;
       const periodString = getHumanizedPeriod(period);
 
-      expect(periodString).to.equal('');
+      expect(periodString).toBe('');
     });
 
     test('returns a correct period string if proper period is given', () => {
       const period = '04:00:00';
       const periodString = getHumanizedPeriod(period);
 
-      expect(periodString).to.equal('4 h');
+      expect(periodString).toBe('4 h');
     });
   });
 
@@ -616,10 +615,10 @@ describe('Utils: resourceUtils', () => {
       const resource = { maxPeriod: '24:00:00' };
       const result = getMaxPeriodText(t, resource);
 
-      expect(t.callCount).to.equal(1);
-      expect(t.lastCall.args[0]).to.deep.equal('ResourceHeader.maxPeriodDays');
-      expect(t.lastCall.args[1]).to.deep.equal({ days: 1 });
-      expect(result).to.equal('days');
+      expect(t.callCount).toBe(1);
+      expect(t.lastCall.args[0]).toEqual('ResourceHeader.maxPeriodDays');
+      expect(t.lastCall.args[1]).toEqual({ days: 1 });
+      expect(result).toBe('days');
     });
 
     test('returns max period as hours', () => {
@@ -627,10 +626,10 @@ describe('Utils: resourceUtils', () => {
       const resource = { maxPeriod: '02:00:00' };
       const result = getMaxPeriodText(t, resource);
 
-      expect(t.callCount).to.equal(1);
-      expect(t.lastCall.args[0]).to.deep.equal('ResourceHeader.maxPeriodHours');
-      expect(t.lastCall.args[1]).to.deep.equal({ hours: 2 });
-      expect(result).to.equal('hours');
+      expect(t.callCount).toBe(1);
+      expect(t.lastCall.args[0]).toEqual('ResourceHeader.maxPeriodHours');
+      expect(t.lastCall.args[1]).toEqual({ hours: 2 });
+      expect(result).toBe('hours');
     });
   });
 
@@ -638,19 +637,19 @@ describe('Utils: resourceUtils', () => {
     test('returns an empty object if given resource is undefined', () => {
       const resource = undefined;
 
-      expect(getOpeningHours(resource)).to.deep.equal({});
+      expect(getOpeningHours(resource)).toEqual({});
     });
 
     test('returns an empty object if given resource is empty', () => {
       const resource = {};
 
-      expect(getOpeningHours(resource)).to.deep.equal({});
+      expect(getOpeningHours(resource)).toEqual({});
     });
 
     test('returns an empty object if resource.openingHours is empty', () => {
       const resource = { openingHours: [] };
 
-      expect(getOpeningHours(resource)).to.deep.equal({});
+      expect(getOpeningHours(resource)).toEqual({});
     });
 
     test(
@@ -664,7 +663,7 @@ describe('Utils: resourceUtils', () => {
         };
         const expected = { closes: 'first-closes', opens: 'first-opens' };
 
-        expect(getOpeningHours(resource)).to.deep.equal(expected);
+        expect(getOpeningHours(resource)).toEqual(expected);
       }
     );
 
@@ -680,7 +679,7 @@ describe('Utils: resourceUtils', () => {
         };
         const expected = { closes: 'second-closes', opens: 'second-opens' };
 
-        expect(getOpeningHours(resource, 'date2')).to.deep.equal(expected);
+        expect(getOpeningHours(resource, 'date2')).toEqual(expected);
       }
     );
   });
@@ -689,7 +688,7 @@ describe('Utils: resourceUtils', () => {
     test('returns resource reservations', () => {
       const resource = { reservations: [{ foo: 'bar' }] };
 
-      expect(getOpenReservations(resource)).to.deep.equal(resource.reservations);
+      expect(getOpenReservations(resource)).toEqual(resource.reservations);
     });
 
     test('does not return cancelled reservations', () => {
@@ -702,7 +701,7 @@ describe('Utils: resourceUtils', () => {
       const resource = { reservations };
       const expected = [{ id: 2, state: 'confirmed' }, { id: 4, state: 'something' }];
 
-      expect(getOpenReservations(resource)).to.deep.equal(expected);
+      expect(getOpenReservations(resource)).toEqual(expected);
     });
 
     test('does not return denied reservations', () => {
@@ -715,7 +714,7 @@ describe('Utils: resourceUtils', () => {
       const resource = { reservations };
       const expected = [{ id: 2, state: 'confirmed' }, { id: 4, state: 'something' }];
 
-      expect(getOpenReservations(resource)).to.deep.equal(expected);
+      expect(getOpenReservations(resource)).toEqual(expected);
     });
   });
 
@@ -724,14 +723,14 @@ describe('Utils: resourceUtils', () => {
       const resource = undefined;
       const resourcePageUrl = getResourcePageUrl(resource);
 
-      expect(resourcePageUrl).to.equal('');
+      expect(resourcePageUrl).toBe('');
     });
 
     test('returns an empty string if resource does not have id', () => {
       const resource = {};
       const resourcePageUrl = getResourcePageUrl(resource);
 
-      expect(resourcePageUrl).to.equal('');
+      expect(resourcePageUrl).toBe('');
     });
 
     test('returns correct url if date is not given', () => {
@@ -739,7 +738,7 @@ describe('Utils: resourceUtils', () => {
       const resourcePageUrl = getResourcePageUrl(resource);
       const expected = `/resources/${resource.id}`;
 
-      expect(resourcePageUrl).to.equal(expected);
+      expect(resourcePageUrl).toBe(expected);
     });
 
     test('returns correct url if date is given', () => {
@@ -748,7 +747,7 @@ describe('Utils: resourceUtils', () => {
       const resourcePageUrl = getResourcePageUrl(resource, date);
       const expected = `/resources/${resource.id}?date=2015-10-10`;
 
-      expect(resourcePageUrl).to.equal(expected);
+      expect(resourcePageUrl).toBe(expected);
     });
 
     test('returns correct url if date is given in datetime format', () => {
@@ -757,7 +756,7 @@ describe('Utils: resourceUtils', () => {
       const resourcePageUrl = getResourcePageUrl(resource, date);
       const expected = `/resources/${resource.id}?date=2015-10-10`;
 
-      expect(resourcePageUrl).to.equal(expected);
+      expect(resourcePageUrl).toBe(expected);
     });
 
     test('returns correct url if date and time are given', () => {
@@ -767,7 +766,7 @@ describe('Utils: resourceUtils', () => {
       const resourcePageUrl = getResourcePageUrl(resource, date, time);
       const expected = `/resources/${resource.id}?${queryString.stringify({ date, time })}`;
 
-      expect(resourcePageUrl).to.equal(expected);
+      expect(resourcePageUrl).toBe(expected);
     });
   });
 
@@ -776,16 +775,16 @@ describe('Utils: resourceUtils', () => {
       const resource = undefined;
       const resourcePageUrlComponents = getResourcePageUrlComponents(resource);
 
-      expect(resourcePageUrlComponents.pathname).to.equal('');
-      expect(resourcePageUrlComponents.query).to.equal('');
+      expect(resourcePageUrlComponents.pathname).toBe('');
+      expect(resourcePageUrlComponents.query).toBe('');
     });
 
     test('returns an empty string if resource does not have id', () => {
       const resource = {};
       const resourcePageUrlComponents = getResourcePageUrlComponents(resource);
 
-      expect(resourcePageUrlComponents.pathname).to.equal('');
-      expect(resourcePageUrlComponents.query).to.equal('');
+      expect(resourcePageUrlComponents.pathname).toBe('');
+      expect(resourcePageUrlComponents.query).toBe('');
     });
 
     test('returns correct url if date is not given', () => {
@@ -793,8 +792,8 @@ describe('Utils: resourceUtils', () => {
       const resourcePageUrlComponents = getResourcePageUrlComponents(resource);
       const expected = `/resources/${resource.id}`;
 
-      expect(resourcePageUrlComponents.pathname).to.equal(expected);
-      expect(resourcePageUrlComponents.query).to.equal('');
+      expect(resourcePageUrlComponents.pathname).toBe(expected);
+      expect(resourcePageUrlComponents.query).toBe('');
     });
 
     test('returns correct url if date is given', () => {
@@ -804,8 +803,8 @@ describe('Utils: resourceUtils', () => {
       const expectedPathname = `/resources/${resource.id}`;
       const expectedQuery = 'date=2015-10-10';
 
-      expect(resourcePageUrlComponents.pathname).to.equal(expectedPathname);
-      expect(resourcePageUrlComponents.query).to.equal(expectedQuery);
+      expect(resourcePageUrlComponents.pathname).toBe(expectedPathname);
+      expect(resourcePageUrlComponents.query).toBe(expectedQuery);
     });
 
     test('returns correct url if date is given in datetime format', () => {
@@ -815,8 +814,8 @@ describe('Utils: resourceUtils', () => {
       const expectedPathname = `/resources/${resource.id}`;
       const expectedQuery = 'date=2015-10-10';
 
-      expect(resourcePageUrlComponents.pathname).to.equal(expectedPathname);
-      expect(resourcePageUrlComponents.query).to.equal(expectedQuery);
+      expect(resourcePageUrlComponents.pathname).toBe(expectedPathname);
+      expect(resourcePageUrlComponents.query).toBe(expectedQuery);
     });
 
     test('returns correct url if date and time are given', () => {
@@ -827,8 +826,8 @@ describe('Utils: resourceUtils', () => {
       const expectedPathname = `/resources/${resource.id}`;
       const expectedQuery = queryString.stringify({ date, time });
 
-      expect(resourcePageUrlComponents.pathname).to.equal(expectedPathname);
-      expect(resourcePageUrlComponents.query).to.equal(expectedQuery);
+      expect(resourcePageUrlComponents.pathname).toBe(expectedPathname);
+      expect(resourcePageUrlComponents.query).toBe(expectedQuery);
     });
   });
 
@@ -840,7 +839,7 @@ describe('Utils: resourceUtils', () => {
       test('returns specific and generic terms separated by blank lines', () => {
         const resource = { genericTerms, specificTerms };
         const expected = `${specificTerms}\n\n${genericTerms}`;
-        expect(getTermsAndConditions(resource)).to.equal(expected);
+        expect(getTermsAndConditions(resource)).toBe(expected);
       });
     });
 
@@ -850,7 +849,7 @@ describe('Utils: resourceUtils', () => {
 
       test('returns only specific terms', () => {
         const resource = { genericTerms, specificTerms };
-        expect(getTermsAndConditions(resource)).to.equal(specificTerms);
+        expect(getTermsAndConditions(resource)).toBe(specificTerms);
       });
     });
 
@@ -860,7 +859,7 @@ describe('Utils: resourceUtils', () => {
 
       test('returns only specific terms', () => {
         const resource = { genericTerms, specificTerms };
-        expect(getTermsAndConditions(resource)).to.equal(genericTerms);
+        expect(getTermsAndConditions(resource)).toBe(genericTerms);
       });
     });
 
@@ -871,7 +870,7 @@ describe('Utils: resourceUtils', () => {
       test('returns an empty string', () => {
         const resource = { genericTerms, specificTerms };
 
-        expect(getTermsAndConditions(resource)).to.equal('');
+        expect(getTermsAndConditions(resource)).toBe('');
       });
     });
   });
@@ -883,7 +882,7 @@ describe('Utils: resourceUtils', () => {
 
       test('returns false', () => {
         const isLimited = reservingIsRestricted(resource, date);
-        expect(isLimited).to.be.false;
+        expect(isLimited).toBe(false);
       });
     });
 
@@ -893,13 +892,13 @@ describe('Utils: resourceUtils', () => {
       test('returns false if user is an admin', () => {
         const resource = { userPermissions: { isAdmin: true } };
         const isLimited = reservingIsRestricted(resource, date);
-        expect(isLimited).to.be.false;
+        expect(isLimited).toBe(false);
       });
 
       test('returns false if user is a regular user', () => {
         const resource = { userPermissions: { isAdmin: false } };
         const isLimited = reservingIsRestricted(resource, date);
-        expect(isLimited).to.be.false;
+        expect(isLimited).toBe(false);
       });
     });
 
@@ -910,13 +909,13 @@ describe('Utils: resourceUtils', () => {
       test('returns false if user is an admin', () => {
         const resource = { userPermissions: { isAdmin: true }, reservableBefore };
         const isLimited = reservingIsRestricted(resource, date);
-        expect(isLimited).to.be.false;
+        expect(isLimited).toBe(false);
       });
 
       test('returns false if user is a regular user', () => {
         const resource = { userPermissions: { isAdmin: false }, reservableBefore };
         const isLimited = reservingIsRestricted(resource, date);
-        expect(isLimited).to.be.false;
+        expect(isLimited).toBe(false);
       });
     });
 
@@ -927,13 +926,13 @@ describe('Utils: resourceUtils', () => {
       test('returns false if user is an admin', () => {
         const resource = { userPermissions: { isAdmin: true }, reservableBefore };
         const isLimited = reservingIsRestricted(resource, date);
-        expect(isLimited).to.be.false;
+        expect(isLimited).toBe(false);
       });
 
       test('returns true if user is a regular user', () => {
         const resource = { userPermissions: { isAdmin: false }, reservableBefore };
         const isLimited = reservingIsRestricted(resource, date);
-        expect(isLimited).to.be.true;
+        expect(isLimited).toBe(true);
       });
     });
   });

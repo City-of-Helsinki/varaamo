@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import simple from 'simple-mock';
 import * as reduxActions from 'redux-actions';
 
@@ -19,7 +18,7 @@ describe('Actions: resourceActions', () => {
       () => {
         updateRoute('homepage');
 
-        expect(reduxActions.createAction.calls[0].arg).to.equal('ENTER_OR_CHANGE_HOMEPAGE_PAGE');
+        expect(reduxActions.createAction.calls[0].arg).toBe('ENTER_OR_CHANGE_HOMEPAGE_PAGE');
       }
     );
   });

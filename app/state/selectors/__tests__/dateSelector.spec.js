@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import MockDate from 'mockdate';
 
 import dateSelector from 'state/selectors/dateSelector';
@@ -19,7 +18,7 @@ describe('Selector: dateSelector', () => {
       const props = getProps(date);
       const actual = dateSelector(state, props);
 
-      expect(actual).to.equal(date);
+      expect(actual).toBe(date);
     });
 
     test('returns current date string if date is not defined', () => {
@@ -30,7 +29,7 @@ describe('Selector: dateSelector', () => {
       MockDate.reset();
       const expected = '2015-12-24';
 
-      expect(actual).to.equal(expected);
+      expect(actual).toBe(expected);
     });
   });
 });

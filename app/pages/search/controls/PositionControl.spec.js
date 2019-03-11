@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import simple from 'simple-mock';
 
@@ -19,34 +18,34 @@ function getWrapper(props) {
 describe('pages/search/controls/PositionControl', () => {
   test('renders a div.app-PositionControl', () => {
     const wrapper = getWrapper();
-    expect(wrapper.is('div.app-PositionControl')).to.be.true;
+    expect(wrapper.is('div.app-PositionControl')).toBe(true);
   });
 
   test('renders a CheckboxControl with correct props', () => {
     const wrapper = getWrapper({ geolocated: true });
     const modal = wrapper.find(CheckboxControl);
-    expect(modal).to.have.length(1);
-    expect(modal.prop('value')).to.be.true;
-    expect(modal.prop('onConfirm')).to.equal(wrapper.instance().handleToggleChange);
+    expect(modal).toHaveLength(1);
+    expect(modal.prop('value')).toBe(true);
+    expect(modal.prop('onConfirm')).toBe(wrapper.instance().handleToggleChange);
   });
 
   test('renders a slider with correct props if geolocation toggle is on', () => {
     const wrapper = getWrapper({ geolocated: true });
     const modal = wrapper.find('.app-PositionControl__distance_slider');
-    expect(modal).to.have.length(1);
-    expect(modal.prop('disabled')).to.be.false;
-    expect(modal.prop('max')).to.equal(21000);
-    expect(modal.prop('min')).to.equal(1000);
-    expect(modal.prop('onAfterChange')).to.equal(wrapper.instance().handleConfirm);
-    expect(modal.prop('onChange')).to.equal(wrapper.instance().handleDistanceSliderChange);
-    expect(modal.prop('step')).to.equal(1000);
-    expect(modal.prop('value')).to.equal(21000);
+    expect(modal).toHaveLength(1);
+    expect(modal.prop('disabled')).toBe(false);
+    expect(modal.prop('max')).toBe(21000);
+    expect(modal.prop('min')).toBe(1000);
+    expect(modal.prop('onAfterChange')).toBe(wrapper.instance().handleConfirm);
+    expect(modal.prop('onChange')).toBe(wrapper.instance().handleDistanceSliderChange);
+    expect(modal.prop('step')).toBe(1000);
+    expect(modal.prop('value')).toBe(21000);
   });
 
   test('does not render slider if geolocation toggle is off', () => {
     const wrapper = getWrapper();
     const modal = wrapper.find('.app-PositionControl__distance_slider');
-    expect(modal).to.have.length(0);
+    expect(modal).toHaveLength(0);
   });
 
   describe('handleConfirm', () => {
@@ -55,8 +54,8 @@ describe('pages/search/controls/PositionControl', () => {
       const value = 100;
       const instance = getWrapper({ onConfirm }).instance();
       instance.handleConfirm(value);
-      expect(onConfirm.callCount).to.equal(1);
-      expect(onConfirm.lastCall.args).to.deep.equal([value]);
+      expect(onConfirm.callCount).toBe(1);
+      expect(onConfirm.lastCall.args).toEqual([value]);
     });
 
     test(
@@ -66,8 +65,8 @@ describe('pages/search/controls/PositionControl', () => {
         const value = 100000;
         const instance = getWrapper({ onConfirm }).instance();
         instance.handleConfirm(value);
-        expect(onConfirm.callCount).to.equal(1);
-        expect(onConfirm.lastCall.args).to.deep.equal(['']);
+        expect(onConfirm.callCount).toBe(1);
+        expect(onConfirm.lastCall.args).toEqual(['']);
       }
     );
   });
@@ -77,39 +76,39 @@ describe('pages/search/controls/PositionControl', () => {
       const onPositionSwitch = simple.mock();
       const instance = getWrapper({ onPositionSwitch }).instance();
       instance.handleToggleChange(true);
-      expect(onPositionSwitch.callCount).to.equal(1);
+      expect(onPositionSwitch.callCount).toBe(1);
     });
 
     test('sets toggled state', () => {
       const instance = getWrapper().instance();
-      expect(instance.state.toggled).to.be.false;
+      expect(instance.state.toggled).toBe(false);
       const value = true;
       instance.handleToggleChange(value);
-      expect(instance.state.toggled).to.be.true;
+      expect(instance.state.toggled).toBe(true);
     });
   });
 
   describe('handleDistanceSliderChange', () => {
     test('sets distance state', () => {
       const instance = getWrapper().instance();
-      expect(instance.state.distance).to.equal(21000);
+      expect(instance.state.distance).toBe(21000);
       const value = 100;
       instance.handleDistanceSliderChange(value);
-      expect(instance.state.distance).to.equal(value);
+      expect(instance.state.distance).toBe(value);
     });
   });
 
   describe('distanceFormatter', () => {
     test('returns value and km', () => {
       const instance = getWrapper().instance();
-      expect(instance.distanceFormatter(2000)).to.equal('2 km');
+      expect(instance.distanceFormatter(2000)).toBe('2 km');
     });
 
     test(
       'returns PositionControl.noDistanceLimit if distance is higher than maxDistance',
       () => {
         const instance = getWrapper().instance();
-        expect(instance.distanceFormatter(999999)).to.equal('PositionControl.noDistanceLimit');
+        expect(instance.distanceFormatter(999999)).toBe('PositionControl.noDistanceLimit');
       }
     );
   });

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-bootstrap/lib/Modal';
@@ -28,7 +27,7 @@ describe('shared/modals/reservation-cancel/ReservationTermsModal', () => {
   describe('render', () => {
     test('renders a Modal component', () => {
       const modalComponent = getWrapper().find(Modal);
-      expect(modalComponent.length).to.equal(1);
+      expect(modalComponent.length).toBe(1);
     });
 
     describe('Modal header', () => {
@@ -37,17 +36,17 @@ describe('shared/modals/reservation-cancel/ReservationTermsModal', () => {
       }
 
       test('is rendered', () => {
-        expect(getModalHeaderWrapper()).to.have.length(1);
+        expect(getModalHeaderWrapper()).toHaveLength(1);
       });
 
       test('contains a close button', () => {
-        expect(getModalHeaderWrapper().props().closeButton).to.equal(true);
+        expect(getModalHeaderWrapper().props().closeButton).toBe(true);
       });
 
       test('contains title', () => {
         const modalTitle = getModalHeaderWrapper().find(Modal.Title);
-        expect(modalTitle.length).to.equal(1);
-        expect(modalTitle.prop('children')).to.equal('ReservationTermsModal.resourceTermsTitle');
+        expect(modalTitle.length).toBe(1);
+        expect(modalTitle.prop('children')).toBe('ReservationTermsModal.resourceTermsTitle');
       });
     });
 
@@ -57,13 +56,13 @@ describe('shared/modals/reservation-cancel/ReservationTermsModal', () => {
       }
 
       test('is rendered', () => {
-        expect(getModalBodyWrapper()).to.have.length(1);
+        expect(getModalBodyWrapper()).toHaveLength(1);
       });
 
       test('renders resource name', () => {
         const texts = getModalBodyWrapper().find('span');
-        expect(texts).to.have.length(2);
-        expect(texts.at(0).text()).to.contain('ReservationTermsModal.resourceTermsSubTitle');
+        expect(texts).toHaveLength(2);
+        expect(texts.at(0).text()).toContain('ReservationTermsModal.resourceTermsSubTitle');
       });
 
       test('renders generic terms', () => {
@@ -71,8 +70,8 @@ describe('shared/modals/reservation-cancel/ReservationTermsModal', () => {
           genericTerms: 'some generic terms',
         });
         const wrappedText = getModalBodyWrapper({ resource: resourceWithTerms }).find(WrappedText);
-        expect(wrappedText).to.have.length(1);
-        expect(wrappedText.prop('text')).to.equal(resourceWithTerms.genericTerms);
+        expect(wrappedText).toHaveLength(1);
+        expect(wrappedText.prop('text')).toBe(resourceWithTerms.genericTerms);
       });
     });
 
@@ -82,15 +81,15 @@ describe('shared/modals/reservation-cancel/ReservationTermsModal', () => {
       }
 
       test('is rendered', () => {
-        expect(getModalFooterWrapper).to.have.length(1);
+        expect(getModalFooterWrapper).toHaveLength(1);
       });
 
       test('renders button', () => {
         const closeResourceTermsModal = simple.mock();
         const actions = { closeResourceTermsModal };
         const button = getModalFooterWrapper({ actions }).find(Button);
-        expect(button).to.have.length(1);
-        expect(button.prop('onClick')).to.equal(closeResourceTermsModal);
+        expect(button).toHaveLength(1);
+        expect(button.prop('onClick')).toBe(closeResourceTermsModal);
       });
     });
   });

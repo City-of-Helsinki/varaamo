@@ -1,7 +1,5 @@
 import constants from 'constants/AppConstants';
 
-import { expect } from 'chai';
-
 import { getState } from 'utils/testUtils';
 import {
   createTranslatedSelector,
@@ -12,19 +10,19 @@ describe('state/selectors/dataSelectors', () => {
   describe('currentLanguageSelector', () => {
     test('returns default language if state does not contain locale', () => {
       const state = {};
-      expect(currentLanguageSelector(state)).to.equal(constants.DEFAULT_LOCALE);
+      expect(currentLanguageSelector(state)).toBe(constants.DEFAULT_LOCALE);
     });
 
     test('returns locale from state', () => {
       const locale = 'en';
       const state = getState({ intl: { locale } });
-      expect(currentLanguageSelector(state)).to.equal(locale);
+      expect(currentLanguageSelector(state)).toBe(locale);
     });
 
     test('returns sv if locale is se', () => {
       const locale = 'se';
       const state = getState({ intl: { locale } });
-      expect(currentLanguageSelector(state)).to.equal('sv');
+      expect(currentLanguageSelector(state)).toBe('sv');
     });
   });
 
@@ -42,7 +40,7 @@ describe('state/selectors/dataSelectors', () => {
         const toTranslateSelector = () => items;
         const state = getState({ intl: { locale: 'en' } });
         const selected = createTranslatedSelector(toTranslateSelector)(state);
-        expect(selected).to.deep.equal(expected);
+        expect(selected).toEqual(expected);
       });
 
       test('support translating values in arrays', () => {
@@ -69,7 +67,7 @@ describe('state/selectors/dataSelectors', () => {
         const toTranslateSelector = () => items;
         const state = getState({ intl: { locale: 'en' } });
         const selected = createTranslatedSelector(toTranslateSelector)(state);
-        expect(selected).to.deep.equal(expected);
+        expect(selected).toEqual(expected);
       });
 
       test('support translating values in an object', () => {
@@ -92,7 +90,7 @@ describe('state/selectors/dataSelectors', () => {
         const toTranslateSelector = () => items;
         const state = getState({ intl: { locale: 'en' } });
         const selected = createTranslatedSelector(toTranslateSelector)(state);
-        expect(selected).to.deep.equal(expected);
+        expect(selected).toEqual(expected);
       });
     });
 
@@ -109,7 +107,7 @@ describe('state/selectors/dataSelectors', () => {
         const toTranslateSelector = () => items;
         const state = getState({ intl: { locale: 'en' } });
         const selected = createTranslatedSelector(toTranslateSelector)(state);
-        expect(selected).to.deep.equal(expected);
+        expect(selected).toEqual(expected);
       });
 
       test('support translating values in arrays', () => {
@@ -136,7 +134,7 @@ describe('state/selectors/dataSelectors', () => {
         const toTranslateSelector = () => items;
         const state = getState({ intl: { locale: 'en' } });
         const selected = createTranslatedSelector(toTranslateSelector)(state);
-        expect(selected).to.deep.equal(expected);
+        expect(selected).toEqual(expected);
       });
 
       test('support translating values in an object', () => {
@@ -159,7 +157,7 @@ describe('state/selectors/dataSelectors', () => {
         const toTranslateSelector = () => items;
         const state = getState({ intl: { locale: 'en' } });
         const selected = createTranslatedSelector(toTranslateSelector)(state);
-        expect(selected).to.deep.equal(expected);
+        expect(selected).toEqual(expected);
       });
     });
   });

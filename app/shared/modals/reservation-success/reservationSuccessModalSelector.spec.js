@@ -1,7 +1,5 @@
 import ModalTypes from 'constants/ModalTypes';
 
-import { expect } from 'chai';
-
 import { getState } from 'utils/testUtils';
 import reservationSuccessModalSelector from './reservationSuccessModalSelector';
 
@@ -49,7 +47,7 @@ describe('shared/modals/reservation-success/reservationSuccessModalSelector', ()
     const selected = getSelected({
       'ui.reservations.toShow': reservationsToShow,
     });
-    expect(selected.reservationsToShow).to.deep.equal(expected);
+    expect(selected.reservationsToShow).toEqual(expected);
   });
 
   test('returns failedReservations from the state ordered by begin time', () => {
@@ -90,11 +88,11 @@ describe('shared/modals/reservation-success/reservationSuccessModalSelector', ()
     const selected = getSelected({
       'ui.reservations.failed': failedReservations,
     });
-    expect(selected.failedReservations).to.deep.equal(expected);
+    expect(selected.failedReservations).toEqual(expected);
   });
 
   test('returns resources from the state', () => {
-    expect(getSelected().resources).to.exist;
+    expect(getSelected().resources).toBeDefined();
   });
 
   describe('show', () => {
@@ -102,7 +100,7 @@ describe('shared/modals/reservation-success/reservationSuccessModalSelector', ()
       const selected = getSelected({
         'ui.modals.open': [ModalTypes.RESERVATION_SUCCESS],
       });
-      expect(selected.show).to.be.true;
+      expect(selected.show).toBe(true);
     });
 
     test(
@@ -111,12 +109,12 @@ describe('shared/modals/reservation-success/reservationSuccessModalSelector', ()
         const selected = getSelected({
           'ui.modals.open': [],
         });
-        expect(selected.show).to.be.false;
+        expect(selected.show).toBe(false);
       }
     );
   });
 
   test('returns user', () => {
-    expect(getSelected().user).to.exist;
+    expect(getSelected().user).toBeDefined();
   });
 });

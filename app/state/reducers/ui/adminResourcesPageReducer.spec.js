@@ -1,6 +1,5 @@
 import types from 'constants/ActionTypes';
 
-import { expect } from 'chai';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
@@ -17,11 +16,11 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
     const initialState = adminResourcesPageReducer(undefined, {});
 
     test('resourceIds is an empty array', () => {
-      expect(initialState.resourceIds).to.deep.equal([]);
+      expect(initialState.resourceIds).toEqual([]);
     });
 
     test('date is undefined', () => {
-      expect(initialState.date).to.be.undefined;
+      expect(initialState.date).toBeUndefined();
     });
   });
 
@@ -30,12 +29,12 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
       test('updates date from payload', () => {
         const date = '2017-01-20';
         const state = adminResourcesPageReducer(undefined, changeAdminResourcesPageDate(date));
-        expect(state.date).to.equal(date);
+        expect(state.date).toBe(date);
       });
 
       test('sets date to undefined if set to null', () => {
         const state = adminResourcesPageReducer(undefined, changeAdminResourcesPageDate(null));
-        expect(state.date).to.be.undefined;
+        expect(state.date).toBeUndefined();
       });
     });
 
@@ -43,7 +42,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
       test('updates filtered types from payload', () => {
         const resourceType = 'new type';
         const state = adminResourcesPageReducer(undefined, selectAdminResourceType(resourceType));
-        expect(state.selectedResourceTypes).to.deep.equal([resourceType]);
+        expect(state.selectedResourceTypes).toEqual([resourceType]);
       });
 
       test('does not duplicate types in array', () => {
@@ -55,7 +54,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
           initialState,
           selectAdminResourceType(resourceType)
         );
-        expect(state.selectedResourceTypes).to.deep.equal([resourceType]);
+        expect(state.selectedResourceTypes).toEqual([resourceType]);
       });
     });
 
@@ -70,7 +69,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
           initialState,
           unselectAdminResourceType(removedResourceType)
         );
-        expect(state.selectedResourceTypes).to.deep.equal([resourceType]);
+        expect(state.selectedResourceTypes).toEqual([resourceType]);
       });
     });
 
@@ -108,7 +107,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
             resourceIds: [],
           });
           const nextState = adminResourcesPageReducer(initialState, action);
-          expect(nextState.resourceIds).to.deep.equal([
+          expect(nextState.resourceIds).toEqual([
             resourcesList[0].id,
             resourcesList[1].id,
             resourcesList[2].id,
@@ -120,7 +119,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
             resourceIds: ['1', '2', '3'],
           });
           const nextState = adminResourcesPageReducer(initialState, action);
-          expect(nextState.resourceIds).to.deep.equal([
+          expect(nextState.resourceIds).toEqual([
             resourcesList[0].id,
             resourcesList[1].id,
             resourcesList[2].id,
@@ -146,7 +145,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
             });
             const nextState = adminResourcesPageReducer(initialState, action);
 
-            expect(nextState.resourceIds).to.deep.equal([]);
+            expect(nextState.resourceIds).toEqual([]);
           }
         );
       });
@@ -176,7 +175,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
           });
           const nextState = adminResourcesPageReducer(initialState, action);
 
-          expect(nextState.resourceIds).to.deep.equal([publicResource.id, nonPublicResource.id]);
+          expect(nextState.resourceIds).toEqual([publicResource.id, nonPublicResource.id]);
         });
       });
     });

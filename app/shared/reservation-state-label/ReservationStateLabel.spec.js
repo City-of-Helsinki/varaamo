@@ -1,6 +1,5 @@
 import constants from 'constants/AppConstants';
 
-import { expect } from 'chai';
 import React from 'react';
 import Label from 'react-bootstrap/lib/Label';
 import Immutable from 'seamless-immutable';
@@ -27,8 +26,8 @@ describe('shared/reservation-state-label/ReservationStateLabel', () => {
 
     test('renders a container div with correct className', () => {
       const container = wrapper.find('div');
-      expect(container.length).to.equal(1);
-      expect(container.prop('className')).to.equal('reservation-state-label-container');
+      expect(container.length).toBe(1);
+      expect(container.prop('className')).toBe('reservation-state-label-container');
     });
 
     describe('Label', () => {
@@ -36,15 +35,15 @@ describe('shared/reservation-state-label/ReservationStateLabel', () => {
       const { labelBsStyle, labelTextId } = constants.RESERVATION_STATE_LABELS[reservation.state];
 
       test('is rendered', () => {
-        expect(label.length).to.equal(1);
+        expect(label.length).toBe(1);
       });
 
       test('has correct bsStyle prop', () => {
-        expect(label.prop('bsStyle')).to.equal(labelBsStyle);
+        expect(label.prop('bsStyle')).toBe(labelBsStyle);
       });
 
       test('has correct text', () => {
-        expect(label.prop('children')).to.equal(labelTextId);
+        expect(label.prop('children')).toBe(labelTextId);
       });
     });
   }
@@ -87,7 +86,7 @@ describe('shared/reservation-state-label/ReservationStateLabel', () => {
       test('renders an empty span', () => {
         const reservation = Reservation.build({ needManualConfirmation, state });
         const wrapper = getWrapper({ reservation });
-        expect(wrapper.equals(<span />)).to.be.true;
+        expect(wrapper.equals(<span />)).toBe(true);
       });
     });
 
@@ -97,7 +96,7 @@ describe('shared/reservation-state-label/ReservationStateLabel', () => {
       test('renders an empty span', () => {
         const reservation = Reservation.build({ needManualConfirmation, state });
         const wrapper = getWrapper({ reservation });
-        expect(wrapper.equals(<span />)).to.be.true;
+        expect(wrapper.equals(<span />)).toBe(true);
       });
     });
 
@@ -107,7 +106,7 @@ describe('shared/reservation-state-label/ReservationStateLabel', () => {
       test('renders an empty span', () => {
         const reservation = Reservation.build({ needManualConfirmation, state });
         const wrapper = getWrapper({ reservation });
-        expect(wrapper.equals(<span />)).to.be.true;
+        expect(wrapper.equals(<span />)).toBe(true);
       });
     });
   });
