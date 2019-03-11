@@ -445,11 +445,18 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       };
       instance = getWrapper(props).instance();
       instance.handleFiltersChange = simple.mock();
+      instance.handleSearch = simple.mock();
       instance.handleReset();
     });
 
     afterAll(() => {
       simple.restore();
+    });
+
+    test('calls handleSearch with empty filters', () => {
+      const emptyFilters = Object.assign({}, constants.SUPPORTED_SEARCH_FILTERS);
+      expect(instance.handleSearch.callCount).to.equal(1);
+      expect(instance.handleSearch.lastCall.args[0]).to.deep.equal(emptyFilters);
     });
 
     test('calls handleFiltersChange with empty filters', () => {
