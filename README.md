@@ -9,7 +9,7 @@ User interface for the City of Helsinki [varaamo.hel.fi](https://varaamo.hel.fi/
 Recommended requirements
 ------------
 
-- [node](http://nodejs.org/) `>=8` | Suggestion: `10.15.1`
+- [node](http://nodejs.org/) `>=8.15.1` | Suggestion: `10.15.1`
 - [npm](https://www.npmjs.com/) `>=6.4.1` | Suggestion: `6.4.1`
 - [yarn](https://yarnpkg.com/) Optional, if `yarn` is not included as part of your current node version. `npm` can be used.
 
