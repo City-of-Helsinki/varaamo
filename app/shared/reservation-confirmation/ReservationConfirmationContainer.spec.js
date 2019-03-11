@@ -54,7 +54,9 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
         expect(actualProps.isAdmin).toBeDefined();
         expect(actualProps.isEditing).toBeDefined();
         expect(actualProps.isMakingReservations).toBe(defaultProps.isMakingReservations);
-        expect(actualProps.isPreliminaryReservation).toBe(defaultProps.resource.needManualConfirmation);
+        expect(
+          actualProps.isPreliminaryReservation
+        ).toBe(defaultProps.resource.needManualConfirmation);
         expect(actualProps.isStaff).toBeDefined();
         expect(actualProps.onCancel).toBe(defaultProps.actions.cancelReservationEdit);
         expect(actualProps.onClose).toBe(defaultProps.actions.closeConfirmReservationModal);

@@ -52,7 +52,9 @@ describe('shared/form-fields/FormControl', () => {
       });
 
       test('contains the label text given in props', () => {
-        expect(getColWrapper().props().children).toEqual(expect.arrayContaining([defaultProps.label]));
+        expect(
+          getColWrapper().props().children
+        ).toEqual(expect.arrayContaining([defaultProps.label]));
       });
 
       test('does not contain InfoPopover if info not given', () => {
