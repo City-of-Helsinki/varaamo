@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 
@@ -12,17 +11,17 @@ describe('shared/footer/Footer', () => {
 
   test('renders a footer element', () => {
     const footer = getWrapper().find('footer');
-    expect(footer.length).to.equal(1);
+    expect(footer.length).toBe(1);
   });
 
   test('renders FooterContent component', () => {
     const footerContent = getWrapper().find(FooterContent);
-    expect(footerContent.length).to.equal(1);
+    expect(footerContent.length).toBe(1);
   });
 
   test('passes onLinkClick prop to FooterContent', () => {
     const onLinkClick = () => {};
     const footerContent = getWrapper({ onLinkClick }).find(FooterContent);
-    expect(footerContent.prop('onLinkClick')).to.equal(onLinkClick);
+    expect(footerContent.prop('onLinkClick')).toBe(onLinkClick);
   });
 });

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
@@ -45,27 +44,26 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
       test('is rendered', () => {
         const modal = getWrapper().find(ConfirmReservationModal);
 
-        expect(modal.length).to.equal(1);
+        expect(modal.length).toBe(1);
       });
 
       test('gets correct props', () => {
         const wrapper = getWrapper();
         const actualProps = wrapper.find(ConfirmReservationModal).props();
 
-        expect(actualProps.isAdmin).to.exist;
-        expect(actualProps.isEditing).to.exist;
-        expect(actualProps.isMakingReservations).to.equal(defaultProps.isMakingReservations);
-        expect(actualProps.isPreliminaryReservation)
-          .to.equal(defaultProps.resource.needManualConfirmation);
-        expect(actualProps.isStaff).to.exist;
-        expect(actualProps.onCancel).to.equal(defaultProps.actions.cancelReservationEdit);
-        expect(actualProps.onClose).to.equal(defaultProps.actions.closeConfirmReservationModal);
-        expect(actualProps.onConfirm).to.equal(wrapper.instance().handleReservation);
-        expect(actualProps.onRemoveReservation).to.equal(defaultProps.actions.removeReservation);
-        expect(actualProps.recurringReservations).to.deep.equal(defaultProps.recurringReservations);
-        expect(actualProps.reservationsToEdit).to.deep.equal(defaultProps.reservationsToEdit);
-        expect(actualProps.selectedReservations).to.deep.equal(defaultProps.selectedReservations);
-        expect(actualProps.show).to.equal(defaultProps.confirmReservationModalIsOpen);
+        expect(actualProps.isAdmin).toBeDefined();
+        expect(actualProps.isEditing).toBeDefined();
+        expect(actualProps.isMakingReservations).toBe(defaultProps.isMakingReservations);
+        expect(actualProps.isPreliminaryReservation).toBe(defaultProps.resource.needManualConfirmation);
+        expect(actualProps.isStaff).toBeDefined();
+        expect(actualProps.onCancel).toBe(defaultProps.actions.cancelReservationEdit);
+        expect(actualProps.onClose).toBe(defaultProps.actions.closeConfirmReservationModal);
+        expect(actualProps.onConfirm).toBe(wrapper.instance().handleReservation);
+        expect(actualProps.onRemoveReservation).toBe(defaultProps.actions.removeReservation);
+        expect(actualProps.recurringReservations).toEqual(defaultProps.recurringReservations);
+        expect(actualProps.reservationsToEdit).toEqual(defaultProps.reservationsToEdit);
+        expect(actualProps.selectedReservations).toEqual(defaultProps.selectedReservations);
+        expect(actualProps.show).toBe(defaultProps.confirmReservationModalIsOpen);
       });
     });
   });
@@ -77,8 +75,8 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
       const newValues = { begin: 'foo', end: 'bar' };
       instance.handleEdit(newValues);
       const expectedArgs = [{ ...reservationsToEdit[0], ...newValues }];
-      expect(defaultProps.actions.putReservation.callCount).to.equal(1);
-      expect(defaultProps.actions.putReservation.lastCall.args).to.deep.equal(expectedArgs);
+      expect(defaultProps.actions.putReservation.callCount).toBe(1);
+      expect(defaultProps.actions.putReservation.lastCall.args).toEqual(expectedArgs);
     });
   });
 
@@ -112,8 +110,7 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
       'calls postReservation for each selected and recurring reservation',
       () => {
         instance.handleReservation();
-        expect(defaultProps.actions.postReservation.callCount)
-          .to.equal(2);
+        expect(defaultProps.actions.postReservation.callCount).toBe(2);
       }
     );
 
@@ -122,7 +119,7 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
       const actualArgs = defaultProps.actions.postReservation.lastCall.args;
       const expected = recurringReservations[0];
 
-      expect(actualArgs[0]).to.deep.equal(expected);
+      expect(actualArgs[0]).toEqual(expected);
     });
 
     test('adds given values to the reservation', () => {
@@ -130,7 +127,7 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
       instance.handleReservation(values);
       const actualArgs = defaultProps.actions.postReservation.lastCall.args;
 
-      expect(actualArgs[0].comments).to.equal(values.comments);
+      expect(actualArgs[0].comments).toBe(values.comments);
     });
   });
 });

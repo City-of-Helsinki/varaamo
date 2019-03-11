@@ -1,6 +1,5 @@
 import types from 'constants/ActionTypes';
 
-import { expect } from 'chai';
 import simple from 'simple-mock';
 
 import * as apiUtils from 'utils/apiUtils';
@@ -22,14 +21,12 @@ describe('Actions: unitActions', () => {
   describe('fetchUnit', () => {
     test('includes correct type', () => {
       fetchUnits();
-      expect(getRequestTypeDescriptorMock.lastCall.args[0]).to.equal(
-        types.API.UNITS_GET_REQUEST
-      );
+      expect(getRequestTypeDescriptorMock.lastCall.args[0]).toBe(types.API.UNITS_GET_REQUEST);
     });
 
     test('that has resources as default in query', () => {
       fetchUnits();
-      expect(buildAPIUrlMock.lastCall.args[1].unit_has_resource).to.be.true;
+      expect(buildAPIUrlMock.lastCall.args[1].unit_has_resource).toBe(true);
     });
   });
 });

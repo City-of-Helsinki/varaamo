@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
@@ -22,7 +21,7 @@ describe('shared/favicon/Favicon', () => {
     });
 
     test('renders favicon of Helsinki', () => {
-      expect(favicon.prop('link')[0].href).to.deep.equal(helsinkiFavicon);
+      expect(favicon.prop('link')[0].href).toEqual(helsinkiFavicon);
     });
   });
 
@@ -39,7 +38,7 @@ describe('shared/favicon/Favicon', () => {
     });
 
     test('renders favicon of Espoo', () => {
-      expect(favicon.prop('link')[0].href).to.deep.equal(espooFavicon);
+      expect(favicon.prop('link')[0].href).toEqual(espooFavicon);
     });
   });
 
@@ -56,7 +55,7 @@ describe('shared/favicon/Favicon', () => {
     });
 
     test('renders favicon of Vantaa', () => {
-      expect(favicon.prop('link')[0].href).to.deep.equal(vantaaFavicon);
+      expect(favicon.prop('link')[0].href).toEqual(vantaaFavicon);
     });
   });
 });

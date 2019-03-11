@@ -1,6 +1,5 @@
 import constants from 'constants/AppConstants';
 
-import { expect } from 'chai';
 import React from 'react';
 import Alert from 'react-bootstrap/lib/Alert';
 import simple from 'simple-mock';
@@ -24,13 +23,13 @@ describe('shared/test-site-message/TestSiteMessage', () => {
 
     test('renders an Alert', () => {
       const alert = getWrapper().find(Alert);
-      expect(alert).to.have.length(1);
+      expect(alert).toHaveLength(1);
     });
   });
 
   describe('if SETTINGS.SHOW_TEST_SITE_MESSAGE is not true', () => {
     test('renders an empty span', () => {
-      expect(getWrapper().equals(<span />)).to.be.true;
+      expect(getWrapper().equals(<span />)).toBe(true);
     });
   });
 });

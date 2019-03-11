@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import selector from './ResourceCompactListSelector';
 
 function getState({ resources = {} }) {
@@ -18,7 +16,7 @@ describe('shared/resource-compact-list/ResourceCompactListSelector', () => {
     const state = getState({});
     const props = { resourceIds: ['123', '321'] };
     const data = selector(state, props);
-    expect(data.resourceIds).to.deep.equal(props.resourceIds);
+    expect(data.resourceIds).toEqual(props.resourceIds);
   });
 
   test('filtered resourceIds by unit are returned if unitId is passed', () => {
@@ -30,6 +28,6 @@ describe('shared/resource-compact-list/ResourceCompactListSelector', () => {
     });
     const props = { resourceIds: ['123', '321'], unitId: 'unitId2' };
     const data = selector(state, props);
-    expect(data.resourceIds).to.deep.equal(['321']);
+    expect(data.resourceIds).toEqual(['321']);
   });
 });

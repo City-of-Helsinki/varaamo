@@ -1,7 +1,5 @@
 import ModalTypes from 'constants/ModalTypes';
 
-import { expect } from 'chai';
-
 import { getState } from 'utils/testUtils';
 import reservationTermsModalSelector from './reservationTermsModalSelector';
 
@@ -16,14 +14,14 @@ describe('shared/modals/reservation-terms/reservationTermsModalSelector', () => 
       const selected = getSelected({
         'ui.modals.open': [ModalTypes.RESOURCE_TERMS],
       });
-      expect(selected.show).to.be.true;
+      expect(selected.show).toBe(true);
     });
 
     test('returns false if modals.open does not contain RESOURCE_TERMS', () => {
       const selected = getSelected({
         'ui.modals.open': [],
       });
-      expect(selected.show).to.be.false;
+      expect(selected.show).toBe(false);
     });
   });
 });

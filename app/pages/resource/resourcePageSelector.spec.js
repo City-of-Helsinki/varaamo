@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
@@ -50,7 +49,7 @@ describe('pages/resource/resourcePageSelector', () => {
     const props = getProps();
     const selected = resourcePageSelector(state, props);
 
-    expect(selected.date).to.exist;
+    expect(selected.date).toBeDefined();
   });
 
   test('returns the id in router.params.id', () => {
@@ -59,7 +58,7 @@ describe('pages/resource/resourcePageSelector', () => {
     const selected = resourcePageSelector(state, props);
     const expected = props.match.params.id;
 
-    expect(selected.id).to.equal(expected);
+    expect(selected.id).toBe(expected);
   });
 
   test('returns isAdmin', () => {
@@ -67,7 +66,7 @@ describe('pages/resource/resourcePageSelector', () => {
     const props = getProps();
     const selected = resourcePageSelector(state, props);
 
-    expect(selected.isAdmin).to.exist;
+    expect(selected.isAdmin).toBeDefined();
   });
 
   test('returns isFetchingResource', () => {
@@ -75,7 +74,7 @@ describe('pages/resource/resourcePageSelector', () => {
     const props = getProps();
     const selected = resourcePageSelector(state, props);
 
-    expect(selected.isFetchingResource).to.exist;
+    expect(selected.isFetchingResource).toBeDefined();
   });
 
   test('returns isLoggedIn', () => {
@@ -83,7 +82,7 @@ describe('pages/resource/resourcePageSelector', () => {
     const props = getProps();
     const selected = resourcePageSelector(state, props);
 
-    expect(selected.isLoggedIn).to.exist;
+    expect(selected.isLoggedIn).toBeDefined();
   });
 
   test('returns resource', () => {
@@ -91,7 +90,7 @@ describe('pages/resource/resourcePageSelector', () => {
     const props = getProps();
     const selected = resourcePageSelector(state, props);
 
-    expect(selected.resource).to.exist;
+    expect(selected.resource).toBeDefined();
   });
 
   test('returns showMap', () => {
@@ -99,7 +98,7 @@ describe('pages/resource/resourcePageSelector', () => {
     const props = getProps();
     const selected = resourcePageSelector(state, props);
 
-    expect(selected.showMap).to.exist;
+    expect(selected.showMap).toBeDefined();
   });
 
   test('returns the unit corresponding to the resource.unit', () => {
@@ -109,7 +108,7 @@ describe('pages/resource/resourcePageSelector', () => {
     const props = getProps(resource.id);
     const selected = resourcePageSelector(state, props);
 
-    expect(selected.unit).to.deep.equal(unit);
+    expect(selected.unit).toEqual(unit);
   });
 
   test(
@@ -120,7 +119,7 @@ describe('pages/resource/resourcePageSelector', () => {
       const props = getProps(resource.id);
       const selected = resourcePageSelector(state, props);
 
-      expect(selected.unit).to.deep.equal({});
+      expect(selected.unit).toEqual({});
     }
   );
 
@@ -129,6 +128,6 @@ describe('pages/resource/resourcePageSelector', () => {
     const props = getProps('unfetched-id');
     const selected = resourcePageSelector(state, props);
 
-    expect(selected.unit).to.deep.equal({});
+    expect(selected.unit).toEqual({});
   });
 });

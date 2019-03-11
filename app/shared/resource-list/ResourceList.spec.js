@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
@@ -31,12 +30,12 @@ describe('shared/resource-list/ResourceList', () => {
     });
 
     test('renders a div', () => {
-      expect(wrapper.is('div')).to.be.true;
+      expect(wrapper.is('div')).toBe(true);
     });
 
     test('does not render the empty message', () => {
       const emptyMessage = wrapper.find('p');
-      expect(emptyMessage.length).to.equal(0);
+      expect(emptyMessage.length).toBe(0);
     });
 
     describe('rendering individual ResourceCards', () => {
@@ -47,13 +46,13 @@ describe('shared/resource-list/ResourceList', () => {
       });
 
       test('renders a ResourceCard for every resource in props', () => {
-        expect(resourceCards.length).to.equal(defaultProps.resourceIds.length);
+        expect(resourceCards.length).toBe(defaultProps.resourceIds.length);
       });
 
       test('passes correct props to ResourceCard', () => {
         resourceCards.forEach((resourceListItem, index) => {
-          expect(resourceListItem.props().resourceId).to.equal(defaultProps.resourceIds[index]);
-          expect(resourceListItem.props().date).to.equal(defaultProps.date);
+          expect(resourceListItem.props().resourceId).toBe(defaultProps.resourceIds[index]);
+          expect(resourceListItem.props().date).toBe(defaultProps.date);
         });
       });
     });
@@ -64,20 +63,20 @@ describe('shared/resource-list/ResourceList', () => {
 
     test('does not render a list', () => {
       const list = getWrapper({ resourceIds }).find('ul');
-      expect(list.length).to.equal(0);
+      expect(list.length).toBe(0);
     });
 
     describe('empty message', () => {
       test('renders the emptyMessage given in props', () => {
         const emptyMessage = 'Some empty message';
         const message = getWrapper({ emptyMessage, resourceIds }).find('p');
-        expect(message.text()).to.equal(emptyMessage);
+        expect(message.text()).toBe(emptyMessage);
       });
 
       test('renders an empty div if no emptyMessage is given in props', () => {
         const emptyMessage = undefined;
         const wrapper = getWrapper({ emptyMessage, resourceIds });
-        expect(wrapper.matchesElement(<div />)).to.be.true;
+        expect(wrapper.matchesElement(<div />)).toBe(true);
       });
     });
   });

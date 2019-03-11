@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 // import { Link } from 'react-router';
 import simple from 'simple-mock';
@@ -22,7 +21,7 @@ describe('shared/footer/FooterContent', () => {
 
     test('contains feedback link', () => {
       const feedbackLink = content.find(FeedbackLink);
-      expect(feedbackLink.length).to.equal(1);
+      expect(feedbackLink.length).toBe(1);
     });
 
     // it('renders texts for Helsinki', () => {
@@ -51,7 +50,7 @@ describe('shared/footer/FooterContent', () => {
 
     test('contains feedback link', () => {
       const feedbackLink = content.find(FeedbackLink);
-      expect(feedbackLink.length).to.equal(1);
+      expect(feedbackLink.length).toBe(1);
     });
 
     // it('renders texts for Espoo', () => {
@@ -80,7 +79,7 @@ describe('shared/footer/FooterContent', () => {
 
     test('contains feedback link', () => {
       const feedbackLink = content.find(FeedbackLink);
-      expect(feedbackLink.length).to.equal(1);
+      expect(feedbackLink.length).toBe(1);
     });
 
     // it('renders texts for Vantaa', () => {

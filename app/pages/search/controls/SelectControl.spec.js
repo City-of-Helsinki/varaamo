@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -31,42 +30,42 @@ describe('pages/search/controls/SelectControl', () => {
 
   test('renders a div.app-SelectControl', () => {
     const wrapper = getWrapper({});
-    expect(wrapper.is('div.app-SelectControl')).to.be.true;
+    expect(wrapper.is('div.app-SelectControl')).toBe(true);
   });
 
   test('renders a FormGroup with correct props', () => {
     const formGroup = getWrapper({}).find(FormGroup);
-    expect(formGroup).to.have.length(1);
-    expect(formGroup.prop('controlId')).to.equal(defaults.id);
+    expect(formGroup).toHaveLength(1);
+    expect(formGroup.prop('controlId')).toBe(defaults.id);
   });
 
   test('renders a ControlLabel', () => {
     const controlLabel = getWrapper({}).find(ControlLabel);
-    expect(controlLabel).to.have.length(1);
+    expect(controlLabel).toHaveLength(1);
   });
 
   test('hide Select when isLoading=true', () => {
     const select = getWrapper({ isLoading: true }).find(Select);
 
-    expect(select).to.have.length(0);
+    expect(select).toHaveLength(0);
   });
 
   test('disable Select when isDisable was true', () => {
     const select = getWrapper({ isDisable: true }).find(Select);
 
-    expect(select.prop('isDisable')).to.be.true;
+    expect(select.prop('isDisable')).toBe(true);
   });
 
   test('renders a Select with correct props', () => {
     const select = getWrapper({}).find(Select);
-    expect(select).to.have.length(1);
-    expect(select.prop('isClearable')).to.be.true;
-    expect(select.prop('id')).to.equal(defaults.id);
-    expect(select.prop('name')).to.equal(defaults.name);
-    expect(select.prop('onChange')).to.be.a('function');
-    expect(select.prop('placeholder')).to.equal('common.select');
-    expect(select.prop('isSearchable')).to.be.true;
-    expect(select.prop('value')).to.equal(defaults.options[0]);
+    expect(select).toHaveLength(1);
+    expect(select.prop('isClearable')).toBe(true);
+    expect(select.prop('id')).toBe(defaults.id);
+    expect(select.prop('name')).toBe(defaults.name);
+    expect(typeof select.prop('onChange')).toBe('function');
+    expect(select.prop('placeholder')).toBe('common.select');
+    expect(select.prop('isSearchable')).toBe(true);
+    expect(select.prop('value')).toBe(defaults.options[0]);
   });
 
   test(
@@ -75,20 +74,20 @@ describe('pages/search/controls/SelectControl', () => {
       const select = getWrapper({ className: 'foo' }).find(Select);
       const defaultSelect = getWrapper().find(Select);
 
-      expect(select).to.have.length(1);
-      expect(select.prop('className')).to.include('app-Select');
-      expect(select.prop('className')).to.include('foo');
-      expect(defaultSelect.prop('className')).to.include('app-Select');
+      expect(select).toHaveLength(1);
+      expect(select.prop('className')).toContain('app-Select');
+      expect(select.prop('className')).toContain('foo');
+      expect(defaultSelect.prop('className')).toContain('app-Select');
     }
   );
 
   test('Select onChange calls prop onChange', () => {
     const onChange = simple.mock();
     const select = getWrapper({ onChange }).find(Select);
-    expect(select).to.have.length(1);
+    expect(select).toHaveLength(1);
     select.prop('onChange')(defaults.options[1], {});
-    expect(onChange.callCount).to.equal(1);
-    expect(onChange.lastCall.args[0]).to.deep.equal(defaults.options[1]);
+    expect(onChange.callCount).toBe(1);
+    expect(onChange.lastCall.args[0]).toEqual(defaults.options[1]);
   });
 
   test(
@@ -96,10 +95,10 @@ describe('pages/search/controls/SelectControl', () => {
     () => {
       const onChange = simple.mock();
       const multiSelect = getWrapper({ onChange, isMulti: true }).find(Select);
-      expect(multiSelect).to.have.length(1);
+      expect(multiSelect).toHaveLength(1);
       multiSelect.prop('onChange')(defaults.options, { action: 'clear' });
-      expect(onChange.callCount).to.equal(1);
-      expect(onChange.lastCall.args[0]).to.deep.equal([]);
+      expect(onChange.callCount).toBe(1);
+      expect(onChange.lastCall.args[0]).toEqual([]);
     }
   );
 
@@ -108,29 +107,29 @@ describe('pages/search/controls/SelectControl', () => {
     () => {
       const onChange = simple.mock();
       const select = getWrapper({ onChange }).find(Select);
-      expect(select).to.have.length(1);
+      expect(select).toHaveLength(1);
       select.prop('onChange')(defaults.options, { action: 'clear' });
-      expect(onChange.callCount).to.equal(1);
-      expect(onChange.lastCall.args[0]).to.deep.equal({});
+      expect(onChange.callCount).toBe(1);
+      expect(onChange.lastCall.args[0]).toEqual({});
     }
   );
 
   test('Select onChange calls prop onChange as fallback', () => {
     const onChange = simple.mock();
     const select = getWrapper({ onChange }).find(Select);
-    expect(select).to.have.length(1);
+    expect(select).toHaveLength(1);
     select.prop('onChange')(defaults.options, { action: 'foo' });
-    expect(onChange.callCount).to.equal(1);
+    expect(onChange.callCount).toBe(1);
   });
 
   test('call props onChange with multi select if isMulti is true', () => {
     const onChange = simple.mock();
     const select = getWrapper({ onChange, isMulti: true }).find(Select);
 
-    expect(select).to.have.length(1);
+    expect(select).toHaveLength(1);
     select.prop('onChange')(defaults.options, {});
-    expect(onChange.callCount).to.equal(1);
-    expect(onChange.lastCall.args[0]).to.deep.equal(defaults.options);
+    expect(onChange.callCount).toBe(1);
+    expect(onChange.lastCall.args[0]).toEqual(defaults.options);
   });
 
   describe('getValue', () => {
@@ -139,19 +138,19 @@ describe('pages/search/controls/SelectControl', () => {
       const selectedOption = wrapper.instance().getValue(
         defaults.options[0].value, defaults.options
       );
-      expect(selectedOption).to.deep.equal(defaults.options[0]);
+      expect(selectedOption).toEqual(defaults.options[0]);
     });
 
     test('return underfined if value is not exist in any options', () => {
       const wrapper = getWrapper({});
       const selectedOption = wrapper.instance().getValue('foo', defaults.options);
-      expect(selectedOption).to.be.undefined;
+      expect(selectedOption).toBeUndefined();
     });
 
     test('return array of options if value is array', () => {
       const wrapper = getWrapper({});
       const selectedOption = wrapper.instance().getValue(['filter-1', 'filter-2'], defaults.options);
-      expect(selectedOption).to.deep.equal(defaults.options);
+      expect(selectedOption).toEqual(defaults.options);
     });
   });
 });

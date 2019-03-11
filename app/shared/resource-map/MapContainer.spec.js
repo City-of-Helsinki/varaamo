@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import { Map } from 'react-leaflet';
@@ -29,38 +28,38 @@ describe('shared/resource-map/MapContainer', () => {
 
   test('renders a Leaflet Map', () => {
     const map = getWrapper().find(Map);
-    expect(map).to.have.length(1);
+    expect(map).toHaveLength(1);
   });
 
   test('adds showMap classname to wrapper div if showMap prop is passed', () => {
     const wrapper = getWrapper();
-    expect(wrapper.prop('className')).to.contain('app-ResourceMap__showMap');
+    expect(wrapper.prop('className')).toContain('app-ResourceMap__showMap');
   });
 
   test(
     'does not add showMap classname to wrapper div if showMap prop is not passed',
     () => {
       const wrapper = getWrapper({ showMap: false });
-      expect(wrapper.prop('className')).to.not.contain('app-ResourceMap__showMap');
+      expect(wrapper.prop('className')).not.toContain('app-ResourceMap__showMap');
     }
   );
 
   test('Map is centered at default position', () => {
     const defaultPosition = [60.18952, 24.99545];
     const map = getWrapper().find(Map);
-    expect(map.prop('center')).to.deep.equal(defaultPosition);
+    expect(map.prop('center')).toEqual(defaultPosition);
   });
 
   test('Map gets correct onClick prop', () => {
     const searchMapClick = () => {};
     const map = getWrapper({ searchMapClick }).find(Map);
-    expect(map.prop('onClick')).to.equal(searchMapClick);
+    expect(map.prop('onClick')).toBe(searchMapClick);
   });
 
   test('does not render Marker if no markers', () => {
     const markers = [];
     const element = getWrapper({ markers }).find(Marker);
-    expect(element).to.have.length(0);
+    expect(element).toHaveLength(0);
   });
 
   it('renders Marker', () => {
@@ -68,8 +67,8 @@ describe('shared/resource-map/MapContainer', () => {
       unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a']
     }];
     const element = getWrapper({ markers }).find(Marker);
-    expect(element).to.have.length(1);
-    expect(element.props()).to.include(markers[0]);
+    expect(element).toHaveLength(1);
+    expect(element.props()).toEqual(expect.objectContaining(markers[0]));
   });
 
   test('renders Marker many markers', () => {
@@ -85,10 +84,10 @@ describe('shared/resource-map/MapContainer', () => {
       },
     ];
     const element = getWrapper({ markers }).find(Marker);
-    expect(element).to.have.length(3);
-    expect(element.at(0).props()).to.include(markers[0]);
-    expect(element.at(1).props()).to.include(markers[1]);
-    expect(element.at(2).props()).to.include(markers[2]);
+    expect(element).toHaveLength(3);
+    expect(element.at(0).props()).toEqual(expect.objectContaining(markers[0]));
+    expect(element.at(1).props()).toEqual(expect.objectContaining(markers[1]));
+    expect(element.at(2).props()).toEqual(expect.objectContaining(markers[2]));
   });
 
   test('passes highlighted prop to Marker if unit is selected', () => {
@@ -101,9 +100,9 @@ describe('shared/resource-map/MapContainer', () => {
       },
     ];
     const element = getWrapper({ markers, selectedUnitId: '1' }).find(Marker);
-    expect(element).to.have.length(2);
-    expect(element.at(0).prop('highlighted')).to.be.true;
-    expect(element.at(1).prop('highlighted')).to.be.false;
+    expect(element).toHaveLength(2);
+    expect(element.at(0).prop('highlighted')).toBe(true);
+    expect(element.at(1).prop('highlighted')).toBe(false);
   });
 
   test('renders Marker', () => {
@@ -112,13 +111,13 @@ describe('shared/resource-map/MapContainer', () => {
       unitId: '1', longitude: 1, latitude: 1, resourceIds: ['a']
     }];
     const element = getWrapper({ markers, selectUnit }).find(Marker);
-    expect(element).to.have.length(1);
-    expect(element.prop('selectUnit')).to.equal(selectUnit);
+    expect(element).toHaveLength(1);
+    expect(element.prop('selectUnit')).toBe(selectUnit);
   });
 
   test('does not render an userMarker', () => {
     const element = getWrapper().find(UserMarker);
-    expect(element).to.have.length(0);
+    expect(element).toHaveLength(0);
   });
 
   describe('with a geolocalized user', () => {
@@ -128,7 +127,7 @@ describe('shared/resource-map/MapContainer', () => {
         lon: 26,
       };
       const map = getWrapper({ position }).find(Map);
-      expect(map.prop('center')).to.deep.equal([61, 26]);
+      expect(map.prop('center')).toEqual([61, 26]);
     });
 
     test('renders an userMarker', () => {
@@ -137,9 +136,9 @@ describe('shared/resource-map/MapContainer', () => {
         lon: 26,
       };
       const element = getWrapper({ position }).find(UserMarker);
-      expect(element).to.have.length(1);
-      expect(element.prop('latitude')).to.deep.equal(position.lat);
-      expect(element.prop('longitude')).to.deep.equal(position.lon);
+      expect(element).toHaveLength(1);
+      expect(element.prop('latitude')).toEqual(position.lat);
+      expect(element.prop('longitude')).toEqual(position.lon);
     });
   });
 
@@ -157,8 +156,8 @@ describe('shared/resource-map/MapContainer', () => {
         maxLongitude: 20,
         minLongitude: 15,
       });
-      expect(fitBounds.callCount).to.equal(1);
-      expect(fitBounds.lastCall.args).to.deep.equal([
+      expect(fitBounds.callCount).toBe(1);
+      expect(fitBounds.lastCall.args).toEqual([
         [[5, 15], [10, 20]],
       ]);
     });
@@ -187,11 +186,11 @@ describe('shared/resource-map/MapContainer', () => {
       const fitBounds = simple.mock();
       const panTo = simple.mock();
       callComponentDidUpdate(prev, next, fitBounds, panTo);
-      expect(fitBounds.callCount).to.equal(1);
-      expect(fitBounds.lastCall.args).to.deep.equal([
+      expect(fitBounds.callCount).toBe(1);
+      expect(fitBounds.lastCall.args).toEqual([
         [[0, 0], [1, 0]],
       ]);
-      expect(panTo.called).to.be.false;
+      expect(panTo.called).toBe(false);
     });
 
     it('does not call fitBounds if boundaries did not change', () => {
@@ -201,8 +200,8 @@ describe('shared/resource-map/MapContainer', () => {
       const fitBounds = simple.mock();
       const panTo = simple.mock();
       callComponentDidUpdate(prev, prev, fitBounds, panTo);
-      expect(fitBounds.called).to.be.false;
-      expect(panTo.called).to.be.false;
+      expect(fitBounds.called).toBe(false);
+      expect(panTo.called).toBe(false);
     });
 
     it('does call panTo if new boundaries are nulls', () => {
@@ -215,8 +214,8 @@ describe('shared/resource-map/MapContainer', () => {
       const fitBounds = simple.mock();
       const panTo = simple.mock();
       callComponentDidUpdate(prev, next, fitBounds, panTo);
-      expect(fitBounds.called).to.be.false;
-      expect(panTo.called).to.be.true;
+      expect(fitBounds.called).toBe(false);
+      expect(panTo.called).toBe(true);
     });
   });
 });

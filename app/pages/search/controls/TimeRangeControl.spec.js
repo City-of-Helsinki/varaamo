@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import simple from 'simple-mock';
 
@@ -20,7 +19,7 @@ function getWrapper(props) {
 describe('pages/search/controls/TimeRangeControl', () => {
   test('renders a div.app-TimeRangeControl', () => {
     const wrapper = getWrapper();
-    expect(wrapper.is('div.app-TimeRangeControl')).to.be.true;
+    expect(wrapper.is('div.app-TimeRangeControl')).toBe(true);
   });
 
   test('renders start select control with correct props', () => {
@@ -76,14 +75,14 @@ describe('pages/search/controls/TimeRangeControl', () => {
       { label: '23:00', value: '23:00' },
     ];
 
-    expect(startSelect).to.have.length(1);
-    expect(startSelect.prop('isClearable')).to.be.false;
-    expect(startSelect.prop('id')).to.equal('time-filter-start-select');
-    expect(startSelect.prop('onChange')).to.equal(wrapper.instance().handleStart);
-    expect(startSelect.prop('options')).to.deep.equal(expectedOptions);
-    expect(startSelect.prop('placeholder')).to.be.empty;
-    expect(startSelect.prop('isSearchable')).to.be.false;
-    expect(startSelect.prop('value')).to.equal(defaults.start);
+    expect(startSelect).toHaveLength(1);
+    expect(startSelect.prop('isClearable')).toBe(false);
+    expect(startSelect.prop('id')).toBe('time-filter-start-select');
+    expect(startSelect.prop('onChange')).toBe(wrapper.instance().handleStart);
+    expect(startSelect.prop('options')).toEqual(expectedOptions);
+    expect(startSelect.prop('placeholder')).toHaveLength(0);
+    expect(startSelect.prop('isSearchable')).toBe(false);
+    expect(startSelect.prop('value')).toBe(defaults.start);
   });
 
   test('renders end select control with correct props', () => {
@@ -119,14 +118,14 @@ describe('pages/search/controls/TimeRangeControl', () => {
       { label: '23:30', value: '23:30' },
     ];
 
-    expect(endSelect).to.have.length(1);
-    expect(endSelect.prop('isClearable')).to.be.false;
-    expect(endSelect.prop('id')).to.equal('time-filter-end-select');
-    expect(endSelect.prop('onChange')).to.equal(wrapper.instance().handleEnd);
-    expect(endSelect.prop('options')).to.deep.equal(expectedOptions);
-    expect(endSelect.prop('placeholder')).to.be.empty;
-    expect(endSelect.prop('isSearchable')).to.be.false;
-    expect(endSelect.prop('value')).to.equal(defaults.end);
+    expect(endSelect).toHaveLength(1);
+    expect(endSelect.prop('isClearable')).toBe(false);
+    expect(endSelect.prop('id')).toBe('time-filter-end-select');
+    expect(endSelect.prop('onChange')).toBe(wrapper.instance().handleEnd);
+    expect(endSelect.prop('options')).toEqual(expectedOptions);
+    expect(endSelect.prop('placeholder')).toHaveLength(0);
+    expect(endSelect.prop('isSearchable')).toBe(false);
+    expect(endSelect.prop('value')).toBe(defaults.end);
   });
 
   test('renders duration select control for 12h with correct props', () => {
@@ -159,14 +158,14 @@ describe('pages/search/controls/TimeRangeControl', () => {
       { label: '12 h', value: 720 },
     ];
 
-    expect(endSelect).to.have.length(1);
-    expect(endSelect.prop('isClearable')).to.be.false;
-    expect(endSelect.prop('id')).to.equal('time-filter-duration-select');
-    expect(endSelect.prop('onChange')).to.equal(wrapper.instance().handleDuration);
-    expect(endSelect.prop('options')).to.deep.equal(expectedOptions);
-    expect(endSelect.prop('placeholder')).to.be.empty;
-    expect(endSelect.prop('isSearchable')).to.be.false;
-    expect(endSelect.prop('value')).to.equal(defaults.duration);
+    expect(endSelect).toHaveLength(1);
+    expect(endSelect.prop('isClearable')).toBe(false);
+    expect(endSelect.prop('id')).toBe('time-filter-duration-select');
+    expect(endSelect.prop('onChange')).toBe(wrapper.instance().handleDuration);
+    expect(endSelect.prop('options')).toEqual(expectedOptions);
+    expect(endSelect.prop('placeholder')).toHaveLength(0);
+    expect(endSelect.prop('isSearchable')).toBe(false);
+    expect(endSelect.prop('value')).toBe(defaults.duration);
   });
 
   test(
@@ -183,8 +182,8 @@ describe('pages/search/controls/TimeRangeControl', () => {
         { label: '3 h', value: 180 },
       ];
 
-      expect(endSelect).to.have.length(1);
-      expect(endSelect.prop('options')).to.deep.equal(expectedOptions);
+      expect(endSelect).toHaveLength(1);
+      expect(endSelect.prop('options')).toEqual(expectedOptions);
     }
   );
 
@@ -201,8 +200,8 @@ describe('pages/search/controls/TimeRangeControl', () => {
         value: '12:00',
         label: '12:00',
       });
-      expect(onConfirm.callCount).to.equal(1);
-      expect(onConfirm.lastCall.args).to.deep.equal([expected]);
+      expect(onConfirm.callCount).toBe(1);
+      expect(onConfirm.lastCall.args).toEqual([expected]);
     });
   });
 
@@ -219,8 +218,8 @@ describe('pages/search/controls/TimeRangeControl', () => {
         value: '18:00',
         label: '18:00',
       });
-      expect(onConfirm.callCount).to.equal(1);
-      expect(onConfirm.lastCall.args).to.deep.equal([expected]);
+      expect(onConfirm.callCount).toBe(1);
+      expect(onConfirm.lastCall.args).toEqual([expected]);
     });
   });
 
@@ -237,8 +236,8 @@ describe('pages/search/controls/TimeRangeControl', () => {
         value: 60,
         label: '1h',
       });
-      expect(onConfirm.callCount).to.equal(1);
-      expect(onConfirm.lastCall.args).to.deep.equal([expected]);
+      expect(onConfirm.callCount).toBe(1);
+      expect(onConfirm.lastCall.args).toEqual([expected]);
     });
   });
 
@@ -249,8 +248,8 @@ describe('pages/search/controls/TimeRangeControl', () => {
       const { onTimeRangeSwitch } = defaults;
       const expected = true;
       instance.handleToggleChange(expected);
-      expect(onTimeRangeSwitch.callCount).to.equal(1);
-      expect(onTimeRangeSwitch.calls[0].arg).to.equal(expected);
+      expect(onTimeRangeSwitch.callCount).toBe(1);
+      expect(onTimeRangeSwitch.calls[0].arg).toBe(expected);
     });
   });
 });

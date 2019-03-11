@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import simple from 'simple-mock';
 
@@ -19,7 +18,7 @@ describe('Component: customization/AboutPageContent', () => {
     });
 
     test('renders header for Helsinki', () => {
-      expect(content.find('h1').text()).to.contain('AboutPageContent.defaultHeader');
+      expect(content.find('h1').text()).toContain('AboutPageContent.defaultHeader');
     });
   });
 
@@ -36,7 +35,7 @@ describe('Component: customization/AboutPageContent', () => {
     });
 
     test('renders header for Espoo', () => {
-      expect(content.find('h1').text()).to.contain('AboutPageContent.espooHeader');
+      expect(content.find('h1').text()).toContain('AboutPageContent.espooHeader');
     });
   });
 
@@ -53,7 +52,7 @@ describe('Component: customization/AboutPageContent', () => {
     });
 
     test('renders header for Vantaa', () => {
-      expect(content.find('h1').text()).to.contain('AboutPageContent.vantaaHeader');
+      expect(content.find('h1').text()).toContain('AboutPageContent.vantaaHeader');
     });
   });
 });

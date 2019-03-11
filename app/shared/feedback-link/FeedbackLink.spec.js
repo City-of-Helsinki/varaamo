@@ -1,6 +1,5 @@
 import constants from 'constants/AppConstants';
 
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
@@ -23,17 +22,17 @@ describe('shared/feedback-link/FeedbackLink', () => {
     });
 
     test('renders a link', () => {
-      expect(link.type()).to.equal('a');
+      expect(link.type()).toBe('a');
     });
 
     test('renders children', () => {
       const wrapper = getWrapper();
-      expect(wrapper.children().equals(linkChildren)).to.be.true;
+      expect(wrapper.children().equals(linkChildren)).toBe(true);
     });
 
     test('has correct href', () => {
       const expected = `${constants.FEEDBACK_URL}&ref=${window.location.href}`;
-      expect(link.props().href).to.equal(expected);
+      expect(link.props().href).toBe(expected);
     });
   });
 
@@ -50,17 +49,17 @@ describe('shared/feedback-link/FeedbackLink', () => {
     });
 
     test('renders a link', () => {
-      expect(link.type()).to.equal('a');
+      expect(link.type()).toBe('a');
     });
 
     test('renders children', () => {
       const wrapper = getWrapper();
-      expect(wrapper.children().equals(linkChildren)).to.be.true;
+      expect(wrapper.children().equals(linkChildren)).toBe(true);
     });
 
     test('has correct href', () => {
       const expected = `${constants.FEEDBACK_URL}&ref=${window.location.href}`;
-      expect(link.props().href).to.equal(expected);
+      expect(link.props().href).toBe(expected);
     });
   });
 });

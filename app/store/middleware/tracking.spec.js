@@ -1,6 +1,5 @@
 import AppConstants from 'constants/AppConstants';
 
-import { expect } from 'chai';
 import simple from 'simple-mock';
 
 import trackingMiddleware, { track } from './tracking';
@@ -36,16 +35,16 @@ describe('store/middleware/tracking', () => {
     });
 
     test('calls setTimeout', () => {
-      expect(window.setTimeout.callCount).to.equal(1);
+      expect(window.setTimeout.callCount).toBe(1);
       const args = window.setTimeout.lastCall.args;
-      expect(args).to.have.length(2);
-      expect(typeof args[0]).to.equal('function');
-      expect(args[1]).to.equal(0);
+      expect(args).toHaveLength(2);
+      expect(typeof args[0]).toBe('function');
+      expect(args[1]).toBe(0);
     });
 
     test('dispatches action', () => {
-      expect(dispatch.callCount).to.equal(1);
-      expect(dispatch.lastCall.args).to.deep.equal([action]);
+      expect(dispatch.callCount).toBe(1);
+      expect(dispatch.lastCall.args).toEqual([action]);
     });
   });
 
@@ -56,12 +55,12 @@ describe('store/middleware/tracking', () => {
     });
 
     test('does not call setTimeout', () => {
-      expect(window.setTimeout.callCount).to.equal(0);
+      expect(window.setTimeout.callCount).toBe(0);
     });
 
     test('dispatches action', () => {
-      expect(dispatch.callCount).to.equal(1);
-      expect(dispatch.lastCall.args).to.deep.equal([action]);
+      expect(dispatch.callCount).toBe(1);
+      expect(dispatch.lastCall.args).toEqual([action]);
     });
   });
 
@@ -84,8 +83,8 @@ describe('store/middleware/tracking', () => {
 
     test('pushes track with correct data', () => {
       track(trackData);
-      expect(push.callCount).to.equal(1);
-      expect(push.lastCall.args[0]).to.deep.equal(['trackEvent', 'argument1', 'argument2']);
+      expect(push.callCount).toBe(1);
+      expect(push.lastCall.args[0]).toEqual(['trackEvent', 'argument1', 'argument2']);
     });
 
     test('waits for _paq to be defined', (done) => {
@@ -93,7 +92,7 @@ describe('store/middleware/tracking', () => {
       simple.mock(window, '_paq').returnWith({ push });
       timeoutFunc(
         () => {
-          expect(push.callCount).to.equal(1);
+          expect(push.callCount).toBe(1);
           done();
         },
         500

@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import { getState } from 'utils/testUtils';
 import userReservationsPageSelector from './userReservationsPageSelector';
 
@@ -10,18 +8,18 @@ describe('pages/user-reservations/userReservationsPageSelector', () => {
   }
 
   test('returns adminReservationFilters', () => {
-    expect(getSelected().adminReservationFilters).to.exist;
+    expect(getSelected().adminReservationFilters).toBeDefined();
   });
 
   test('returns isAdmin', () => {
-    expect(getSelected().isAdmin).to.exist;
+    expect(getSelected().isAdmin).toBeDefined();
   });
 
   test('returns reservationsFetchCount', () => {
-    expect(getSelected().reservationsFetchCount).to.exist;
+    expect(getSelected().reservationsFetchCount).toBeDefined();
   });
 
   test('returns resourcesLoaded', () => {
-    expect(getSelected().resourcesLoaded).to.exist;
+    expect(getSelected().resourcesLoaded).toBeDefined();
   });
 });

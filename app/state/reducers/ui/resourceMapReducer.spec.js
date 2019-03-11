@@ -1,6 +1,5 @@
 import types from 'constants/ActionTypes';
 
-import { expect } from 'chai';
 import keyBy from 'lodash/keyBy';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
@@ -15,15 +14,15 @@ describe('state/reducers/ui/resourceMapReducer', () => {
     const initialState = resourceMapReducer(undefined, {});
 
     test('resourceId is null', () => {
-      expect(initialState.resourceId).to.be.null;
+      expect(initialState.resourceId).toBeNull();
     });
 
     test('showMap is false', () => {
-      expect(initialState.showMap).to.equal(false);
+      expect(initialState.showMap).toBe(false);
     });
 
     test('unitId is null', () => {
-      expect(initialState.unitId).to.equal(null);
+      expect(initialState.unitId).toBeNull();
     });
   });
 
@@ -57,7 +56,7 @@ describe('state/reducers/ui/resourceMapReducer', () => {
           const expected = units[0].id;
           const nextState = resourceMapReducer(initialState, action);
 
-          expect(nextState.unitId).to.deep.equal(expected);
+          expect(nextState.unitId).toEqual(expected);
         }
       );
 
@@ -72,7 +71,7 @@ describe('state/reducers/ui/resourceMapReducer', () => {
           const expected = null;
           const nextState = resourceMapReducer(initialState, action);
 
-          expect(nextState.unitId).to.deep.equal(expected);
+          expect(nextState.unitId).toEqual(expected);
         }
       );
     });
@@ -85,7 +84,7 @@ describe('state/reducers/ui/resourceMapReducer', () => {
         });
         const nextState = resourceMapReducer(initialState, action);
 
-        expect(nextState.showMap).to.be.true;
+        expect(nextState.showMap).toBe(true);
       });
 
       test('toggles showMap if true', () => {
@@ -95,7 +94,7 @@ describe('state/reducers/ui/resourceMapReducer', () => {
         });
         const nextState = resourceMapReducer(initialState, action);
 
-        expect(nextState.showMap).to.be.false;
+        expect(nextState.showMap).toBe(false);
       });
     });
 
@@ -113,7 +112,7 @@ describe('state/reducers/ui/resourceMapReducer', () => {
         });
         const nextState = resourceMapReducer(initialState, action);
 
-        expect(nextState.resourceId).to.equal('qwertyasdfgh');
+        expect(nextState.resourceId).toBe('qwertyasdfgh');
       });
     });
   });

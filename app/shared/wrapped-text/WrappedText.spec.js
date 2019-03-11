@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import Linkify from 'react-linkify';
@@ -16,19 +15,19 @@ describe('shared/wrapped-text/WrappedText', () => {
 
   test('has class "wrapped-text"', () => {
     const wrapper = getWrapper();
-    expect(wrapper.hasClass('wrapped-text')).to.be.true;
+    expect(wrapper.hasClass('wrapped-text')).toBe(true);
   });
 
   test('renders an empty div if no text is given in props', () => {
     const text = undefined;
     const wrapper = getWrapper({ text });
-    expect(wrapper.matchesElement(<div />)).to.be.true;
+    expect(wrapper.matchesElement(<div />)).toBe(true);
   });
 
   test('renders an empty div if empty string is given as text in props', () => {
     const text = '';
     const wrapper = getWrapper({ text });
-    expect(wrapper.matchesElement(<div />)).to.be.true;
+    expect(wrapper.matchesElement(<div />)).toBe(true);
   });
 
   describe('Text with one line', () => {
@@ -41,13 +40,13 @@ describe('shared/wrapped-text/WrappedText', () => {
 
     test('renders a div for the text', () => {
       const div = content.find('div');
-      expect(div.length).to.equal(1);
+      expect(div.length).toBe(1);
     });
 
     test('uses Linkify to autolink the text', () => {
       const linkify = content.find(Linkify);
-      expect(linkify.length).to.equal(1);
-      expect(linkify.props().children).to.equal(text);
+      expect(linkify.length).toBe(1);
+      expect(linkify.props().children).toBe(text);
     });
   });
 
@@ -62,14 +61,14 @@ describe('shared/wrapped-text/WrappedText', () => {
 
     test('renders a div for each line', () => {
       const div = content.find('div');
-      expect(div.length).to.equal(lines.length);
+      expect(div.length).toBe(lines.length);
     });
 
     test('uses Linkify to autolink each line', () => {
       const linkifies = content.find(Linkify);
-      expect(linkifies.length).to.equal(lines.length);
+      expect(linkifies.length).toBe(lines.length);
       lines.forEach((line, index) => {
-        expect(linkifies.at(index).props().children).to.equal(line);
+        expect(linkifies.at(index).props().children).toBe(line);
       });
     });
   });
@@ -81,16 +80,16 @@ describe('shared/wrapped-text/WrappedText', () => {
     test('is not enabled by default', () => {
       content = getWrapper({ text }).children();
       const linkify = content.find(Linkify);
-      expect(linkify.length).to.equal(1);
-      expect(linkify.props().properties.target).to.be.undefined;
+      expect(linkify.length).toBe(1);
+      expect(linkify.props().properties.target).toBeUndefined();
     });
 
     test('opens links in new tabs', () => {
       content = getWrapper({ text, openLinksInNewTab: true }).children();
       const linkify = content.find(Linkify);
-      expect(linkify.length).to.equal(1);
-      expect(linkify.props().properties.target).to.equal('_blank');
-      expect(linkify.props().properties.rel).to.equal('noopener noreferrer');
+      expect(linkify.length).toBe(1);
+      expect(linkify.props().properties.target).toBe('_blank');
+      expect(linkify.props().properties.rel).toBe('noopener noreferrer');
     });
   });
 });

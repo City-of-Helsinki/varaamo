@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
@@ -61,7 +60,7 @@ describe('pages/reservation/reservationPageSelector', () => {
     const props = getProps();
     const selected = reservationPageSelector(state, props);
 
-    expect(selected.date).to.exist;
+    expect(selected.date).toBeDefined();
   });
 
   test('returns isAdmin', () => {
@@ -69,7 +68,7 @@ describe('pages/reservation/reservationPageSelector', () => {
     const props = getProps();
     const selected = reservationPageSelector(state, props);
 
-    expect(selected.isAdmin).to.exist;
+    expect(selected.isAdmin).toBeDefined();
   });
 
   test('returns isStaff', () => {
@@ -77,7 +76,7 @@ describe('pages/reservation/reservationPageSelector', () => {
     const props = getProps();
     const selected = reservationPageSelector(state, props);
 
-    expect(selected.isStaff).to.exist;
+    expect(selected.isStaff).toBeDefined();
   });
 
   test('returns isFetchingResource', () => {
@@ -85,7 +84,7 @@ describe('pages/reservation/reservationPageSelector', () => {
     const props = getProps();
     const selected = reservationPageSelector(state, props);
 
-    expect(selected.isFetchingResource).to.exist;
+    expect(selected.isFetchingResource).toBeDefined();
   });
 
   test('returns isMakingReservations', () => {
@@ -93,7 +92,7 @@ describe('pages/reservation/reservationPageSelector', () => {
     const props = getProps();
     const selected = reservationPageSelector(state, props);
 
-    expect(selected.isMakingReservations).to.exist;
+    expect(selected.isMakingReservations).toBeDefined();
   });
 
   test('returns resource', () => {
@@ -101,7 +100,7 @@ describe('pages/reservation/reservationPageSelector', () => {
     const props = getProps();
     const selected = reservationPageSelector(state, props);
 
-    expect(selected.resource).to.exist;
+    expect(selected.resource).toBeDefined();
   });
 
   test('returns resourceId', () => {
@@ -109,7 +108,7 @@ describe('pages/reservation/reservationPageSelector', () => {
     const props = getProps();
     const selected = reservationPageSelector(state, props);
 
-    expect(selected.resourceId).to.exist;
+    expect(selected.resourceId).toBeDefined();
   });
 
   test('returns reservationToEdit', () => {
@@ -117,7 +116,7 @@ describe('pages/reservation/reservationPageSelector', () => {
     const props = getProps();
     const selected = reservationPageSelector(state, props);
 
-    expect(selected.reservationToEdit).to.exist;
+    expect(selected.reservationToEdit).toBeDefined();
   });
 
   test('returns reservationCreated', () => {
@@ -125,7 +124,7 @@ describe('pages/reservation/reservationPageSelector', () => {
     const props = getProps();
     const selected = reservationPageSelector(state, props);
 
-    expect(selected.reservationCreated).to.exist;
+    expect(selected.reservationCreated).toBeDefined();
   });
 
   test('returns reservationEdited', () => {
@@ -133,7 +132,7 @@ describe('pages/reservation/reservationPageSelector', () => {
     const props = getProps();
     const selected = reservationPageSelector(state, props);
 
-    expect(selected.reservationEdited).to.exist;
+    expect(selected.reservationEdited).toBeDefined();
   });
 
   test('returns the unit corresponding to the resource.unit', () => {
@@ -141,7 +140,7 @@ describe('pages/reservation/reservationPageSelector', () => {
     const props = getProps(defaultResource.id);
     const selected = reservationPageSelector(state, props);
 
-    expect(selected.unit).to.deep.equal(defaultUnit);
+    expect(selected.unit).toEqual(defaultUnit);
   });
 
   test('returns user', () => {
@@ -149,6 +148,6 @@ describe('pages/reservation/reservationPageSelector', () => {
     const props = getProps();
     const selected = reservationPageSelector(state, props);
 
-    expect(selected.user).to.exist;
+    expect(selected.user).toBeDefined();
   });
 });

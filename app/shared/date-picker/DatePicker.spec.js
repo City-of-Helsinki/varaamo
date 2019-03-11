@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
@@ -21,7 +20,7 @@ describe('shared/date-picker/DatePicker', () => {
     }
 
     test('is rendered', () => {
-      expect(getDateFieldWrapper()).to.have.length(1);
+      expect(getDateFieldWrapper()).toHaveLength(1);
     });
 
     test('changing date calls onDayChange with date in correct format', () => {
@@ -30,8 +29,8 @@ describe('shared/date-picker/DatePicker', () => {
       const newDate = 'Tue Mar 05 2019';
       const expectedDate = '2019-03-05';
       dateField.prop('onDayChange')(newDate);
-      expect(onChange.callCount).to.equal(1);
-      expect(onChange.lastCall.arg).to.equal(expectedDate);
+      expect(onChange.callCount).toBe(1);
+      expect(onChange.lastCall.arg).toBe(expectedDate);
     });
   });
 });

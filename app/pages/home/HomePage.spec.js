@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import Loader from 'react-loader';
 import simple from 'simple-mock';
@@ -47,35 +46,35 @@ describe('pages/home/HomePage', () => {
   describe('render', () => {
     test('renders PageWrapper with correct props', () => {
       const pageWrapper = getWrapper().find(PageWrapper);
-      expect(pageWrapper).to.have.length(1);
-      expect(pageWrapper.prop('className')).to.equal('app-HomePageContent');
-      expect(pageWrapper.prop('title')).to.equal('HomePage.title');
+      expect(pageWrapper).toHaveLength(1);
+      expect(pageWrapper.prop('className')).toBe('app-HomePageContent');
+      expect(pageWrapper.prop('title')).toBe('HomePage.title');
     });
 
     test('renders HomeSearchBox with correct props', () => {
       const wrapper = getWrapper();
       const instance = wrapper.instance();
       const homeSearchBox = wrapper.find(HomeSearchBox);
-      expect(homeSearchBox).to.have.length(1);
-      expect(homeSearchBox.prop('onSearch')).to.equal(instance.handleSearch);
+      expect(homeSearchBox).toHaveLength(1);
+      expect(homeSearchBox.prop('onSearch')).toBe(instance.handleSearch);
     });
 
     describe('Loader', () => {
       test('renders Loader with correct props when not fetching purposes', () => {
         const loader = getWrapper().find(Loader);
-        expect(loader.length).to.equal(1);
-        expect(loader.at(0).prop('loaded')).to.be.true;
+        expect(loader.length).toBe(1);
+        expect(loader.at(0).prop('loaded')).toBe(true);
       });
 
       test('renders Loader with correct props when fetching purposes', () => {
         const loader = getWrapper({ isFetchingPurposes: true }).find(Loader);
-        expect(loader.length).to.equal(1);
-        expect(loader.at(0).prop('loaded')).to.be.false;
+        expect(loader.length).toBe(1);
+        expect(loader.at(0).prop('loaded')).toBe(false);
       });
 
       test('renders purpose banners', () => {
         const banners = getWrapper().find('.app-HomePageContent__banner');
-        expect(banners.length).to.equal(defaultProps.purposes.length);
+        expect(banners.length).toBe(defaultProps.purposes.length);
       });
     });
 
@@ -91,8 +90,8 @@ describe('pages/home/HomePage', () => {
       });
 
       test(' have at least a Link component', () => {
-        expect(wrapper.find(Link)).to.have.lengthOf(defaultProps.purposes.length);
-        expect(wrapper.find(Link).first().prop('to')).to.contains(defaultProps.purposes[0].value);
+        expect(wrapper.find(Link)).toHaveLength(defaultProps.purposes.length);
+        expect(wrapper.find(Link).first().prop('to')).toContain(defaultProps.purposes[0].value);
       });
     });
   });
@@ -107,7 +106,7 @@ describe('pages/home/HomePage', () => {
     test('fetches purposes', () => {
       const fetchPurposes = simple.mock();
       callComponentDidMount({}, { fetchPurposes });
-      expect(fetchPurposes.callCount).to.equal(1);
+      expect(fetchPurposes.callCount).toBe(1);
     });
   });
 
@@ -127,8 +126,8 @@ describe('pages/home/HomePage', () => {
     });
 
     test('calls browserHistory push with correct path', () => {
-      expect(historyMock.callCount).to.equal(1);
-      expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
+      expect(historyMock.callCount).toBe(1);
+      expect(historyMock.lastCall.args).toEqual([expectedPath]);
     });
   });
 });

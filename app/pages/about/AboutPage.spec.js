@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 
 import PageWrapper from 'pages/PageWrapper';
@@ -13,12 +12,12 @@ describe('pages/about/AboutPage', () => {
 
   test('renders PageWrapper with correct props', () => {
     const pageWrapper = getWrapper().find(PageWrapper);
-    expect(pageWrapper).to.have.length(1);
-    expect(pageWrapper.prop('className')).to.equal('about-page');
-    expect(pageWrapper.prop('title')).to.equal('AboutPage.title');
+    expect(pageWrapper).toHaveLength(1);
+    expect(pageWrapper.prop('className')).toBe('about-page');
+    expect(pageWrapper.prop('title')).toBe('AboutPage.title');
   });
 
   test('renders AboutPageContent component', () => {
-    expect(getWrapper().find(AboutPageContent).length).to.equal(1);
+    expect(getWrapper().find(AboutPageContent).length).toBe(1);
   });
 });

@@ -1,7 +1,6 @@
 import types from 'constants/ActionTypes';
 import ModalTypes from 'constants/ModalTypes';
 
-import { expect } from 'chai';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
@@ -13,7 +12,7 @@ describe('state/reducers/ui/modalsReducer', () => {
     const initialState = modalsReducer(undefined, {});
 
     test('open is an empty array', () => {
-      expect(initialState.open).to.deep.equal([]);
+      expect(initialState.open).toEqual([]);
     });
   });
 
@@ -27,7 +26,7 @@ describe('state/reducers/ui/modalsReducer', () => {
         const nextState = modalsReducer(initialState, action);
         const expected = Immutable({ open: [ModalTypes.RESERVATION_SUCCESS] });
 
-        expect(nextState).to.deep.equal(expected);
+        expect(nextState).toEqual(expected);
       });
     });
 
@@ -41,7 +40,7 @@ describe('state/reducers/ui/modalsReducer', () => {
           const nextState = modalsReducer(initialState, action);
           const expected = Immutable({ open: [] });
 
-          expect(nextState).to.deep.equal(expected);
+          expect(nextState).toEqual(expected);
         });
 
         test('does not affect other modals in open', () => {
@@ -50,7 +49,7 @@ describe('state/reducers/ui/modalsReducer', () => {
           const nextState = modalsReducer(initialState, action);
           const expected = Immutable({ open: ['other-modal'] });
 
-          expect(nextState).to.deep.equal(expected);
+          expect(nextState).toEqual(expected);
         });
       });
 
@@ -60,7 +59,7 @@ describe('state/reducers/ui/modalsReducer', () => {
           const initialState = Immutable({ open: ['other-modal'] });
           const nextState = modalsReducer(initialState, action);
 
-          expect(nextState).to.deep.equal(initialState);
+          expect(nextState).toEqual(initialState);
         });
       });
     });
@@ -75,7 +74,7 @@ describe('state/reducers/ui/modalsReducer', () => {
           const nextState = modalsReducer(initialState, action);
           const expected = Immutable({ open: ['some-modal'] });
 
-          expect(nextState).to.deep.equal(expected);
+          expect(nextState).toEqual(expected);
         });
 
         test('does not affect other modals in open', () => {
@@ -84,7 +83,7 @@ describe('state/reducers/ui/modalsReducer', () => {
           const nextState = modalsReducer(initialState, action);
           const expected = Immutable({ open: ['other-modal', 'some-modal'] });
 
-          expect(nextState).to.deep.equal(expected);
+          expect(nextState).toEqual(expected);
         });
       });
 
@@ -94,7 +93,7 @@ describe('state/reducers/ui/modalsReducer', () => {
           const initialState = Immutable({ open: ['other-modal', 'some-modal'] });
           const nextState = modalsReducer(initialState, action);
 
-          expect(nextState).to.deep.equal(initialState);
+          expect(nextState).toEqual(initialState);
         });
       });
     });

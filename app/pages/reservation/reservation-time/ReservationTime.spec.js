@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import simple from 'simple-mock';
 import moment from 'moment';
@@ -37,26 +36,26 @@ describe('pages/reservation/reservation-time/ReservationTime', () => {
     const resourceCalendar = wrapper.find(ResourceCalendar);
     const date = moment(defaultProps.selectedReservation.begin).format('YYYY-MM-DD');
 
-    expect(resourceCalendar).to.have.length(1);
-    expect(resourceCalendar.prop('onDateChange')).to.equal(instance.handleDateChange);
-    expect(resourceCalendar.prop('selectedDate')).to.equal(date);
+    expect(resourceCalendar).toHaveLength(1);
+    expect(resourceCalendar.prop('onDateChange')).toBe(instance.handleDateChange);
+    expect(resourceCalendar.prop('selectedDate')).toBe(date);
   });
 
   test('renders ReservationCalendar', () => {
     const location = { query: { q: 1 } };
     const reservationCalendar = getWrapper({ location }).find(ReservationCalendar);
 
-    expect(reservationCalendar).to.have.length(1);
-    expect(reservationCalendar.prop('location')).to.deep.equal(location);
-    expect(reservationCalendar.prop('params')).to.deep.equal({ id: defaultProps.resource.id });
+    expect(reservationCalendar).toHaveLength(1);
+    expect(reservationCalendar.prop('location')).toEqual(location);
+    expect(reservationCalendar.prop('params')).toEqual({ id: defaultProps.resource.id });
   });
 
   test('renders resource and unit names', () => {
     const details = getWrapper().find('.app-ReservationDetails__value');
 
-    expect(details).to.have.length(1);
-    expect(details.props().children).to.contain(defaultProps.resource.name);
-    expect(details.props().children).to.contain(defaultProps.unit.name);
+    expect(details).toHaveLength(1);
+    expect(details.props().children).toEqual(expect.arrayContaining([defaultProps.resource.name]));
+    expect(details.props().children).toEqual(expect.arrayContaining([defaultProps.unit.name]));
   });
 
   describe('handleDateChange', () => {
@@ -77,8 +76,8 @@ describe('pages/reservation/reservation-time/ReservationTime', () => {
     });
 
     test('calls history replace with correct path', () => {
-      expect(historyMock.callCount).to.equal(1);
-      expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
+      expect(historyMock.callCount).toBe(1);
+      expect(historyMock.lastCall.args).toEqual([expectedPath]);
     });
   });
 });

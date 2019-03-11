@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import { getDefaultRouterProps, getState } from 'utils/testUtils';
 import searchPageSelector from './searchPageSelector';
 
@@ -27,27 +25,27 @@ describe('pages/search/searchPageSelector', () => {
   }
 
   test('returns filters', () => {
-    expect(getSelected().filters).to.exist;
+    expect(getSelected().filters).toBeDefined();
   });
 
   test('returns isFetchingSearchResults', () => {
-    expect(getSelected().isFetchingSearchResults).to.exist;
+    expect(getSelected().isFetchingSearchResults).toBeDefined();
   });
 
   test('returns isLoggedIn', () => {
-    expect(getSelected().isLoggedIn).to.exist;
+    expect(getSelected().isLoggedIn).toBeDefined();
   });
 
   test('returns resultCount', () => {
-    expect(getSelected().resultCount).to.deep.equal(2);
+    expect(getSelected().resultCount).toEqual(2);
   });
 
   test('returns searchDone', () => {
-    expect(getSelected().searchDone).to.exist;
+    expect(getSelected().searchDone).toBeDefined();
   });
 
   test('returns searchResultIds', () => {
-    expect(getSelected().searchResultIds).to.deep.equal(searchResultIds);
+    expect(getSelected().searchResultIds).toEqual(searchResultIds);
   });
 
   test('returns searchResultIds ordered by distance', () => {
@@ -62,18 +60,18 @@ describe('pages/search/searchPageSelector', () => {
           distance: 2000,
         },
       },
-    }).searchResultIds).to.deep.equal(['resource-2', 'resource-1']);
+    }).searchResultIds).toEqual(['resource-2', 'resource-1']);
   });
 
   test('returns showMap', () => {
-    expect(getSelected().showMap).to.exist;
+    expect(getSelected().showMap).toBeDefined();
   });
 
   test('returns selectedUnitId', () => {
-    expect(getSelected().selectedUnitId).to.equal(null);
+    expect(getSelected().selectedUnitId).toBeNull();
   });
 
   test('returns uiFilters', () => {
-    expect(getSelected().uiFilters).to.exist;
+    expect(getSelected().uiFilters).toBeDefined();
   });
 });

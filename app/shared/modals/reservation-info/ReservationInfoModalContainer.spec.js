@@ -1,6 +1,5 @@
 import FormTypes from 'constants/FormTypes';
 
-import { expect } from 'chai';
 import simple from 'simple-mock';
 
 import { mergeProps } from './ReservationInfoModalContainer';
@@ -32,14 +31,14 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
       test('calls selectReservationToCancel with props.reservation', () => {
         const selectReservationToCancel = simple.mock();
         callOnCancelClick({ selectReservationToCancel });
-        expect(selectReservationToCancel.callCount).to.equal(1);
-        expect(selectReservationToCancel.lastCall.args).to.deep.equal([reservation]);
+        expect(selectReservationToCancel.callCount).toBe(1);
+        expect(selectReservationToCancel.lastCall.args).toEqual([reservation]);
       });
 
       test('calls the props.actions.openReservationCancelModal', () => {
         const openReservationCancelModal = simple.mock();
         callOnCancelClick({ openReservationCancelModal });
-        expect(openReservationCancelModal.callCount).to.equal(1);
+        expect(openReservationCancelModal.callCount).toBe(1);
       });
     });
 
@@ -51,14 +50,14 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
       test('calls cancelReservationEditInInfoModal', () => {
         const cancelReservationEditInInfoModal = simple.mock();
         callOnCancelEditClick({ cancelReservationEditInInfoModal });
-        expect(cancelReservationEditInInfoModal.callCount).to.equal(1);
+        expect(cancelReservationEditInInfoModal.callCount).toBe(1);
       });
 
       test('calls resetForm for reservation edit form', () => {
         const resetForm = simple.mock();
         callOnCancelEditClick({ resetForm });
-        expect(resetForm.callCount).to.equal(1);
-        expect(resetForm.lastCall.args).to.deep.equal([FormTypes.RESERVATION_EDIT]);
+        expect(resetForm.callCount).toBe(1);
+        expect(resetForm.lastCall.args).toEqual([FormTypes.RESERVATION_EDIT]);
       });
     });
 
@@ -70,8 +69,8 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
       test('calls confirmPreliminaryReservation with props.reservation', () => {
         const confirmPreliminaryReservation = simple.mock();
         callOnConfirmClick({ confirmPreliminaryReservation });
-        expect(confirmPreliminaryReservation.callCount).to.equal(1);
-        expect(confirmPreliminaryReservation.lastCall.args).to.deep.equal([reservation]);
+        expect(confirmPreliminaryReservation.callCount).toBe(1);
+        expect(confirmPreliminaryReservation.lastCall.args).toEqual([reservation]);
       });
     });
 
@@ -83,8 +82,8 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
       test('calls denyPreliminaryReservation with props.reservation', () => {
         const denyPreliminaryReservation = simple.mock();
         callOnDenyClick({ denyPreliminaryReservation });
-        expect(denyPreliminaryReservation.callCount).to.equal(1);
-        expect(denyPreliminaryReservation.lastCall.args).to.deep.equal([reservation]);
+        expect(denyPreliminaryReservation.callCount).toBe(1);
+        expect(denyPreliminaryReservation.lastCall.args).toEqual([reservation]);
       });
     });
 
@@ -100,8 +99,8 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
         () => {
           const commentReservation = simple.mock();
           callOnSaveCommentsClick({ commentReservation });
-          expect(commentReservation.callCount).to.equal(1);
-          expect(commentReservation.lastCall.args).to.deep.equal([reservation, resource, comments]);
+          expect(commentReservation.callCount).toBe(1);
+          expect(commentReservation.lastCall.args).toEqual([reservation, resource, comments]);
         }
       );
     });

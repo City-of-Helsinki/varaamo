@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import { FormattedHTMLMessage } from 'react-intl';
 import Immutable from 'seamless-immutable';
@@ -31,32 +30,32 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
   }
 
   test('renders an Row element', () => {
-    expect(getWrapper().find(Row)).to.have.length(1);
+    expect(getWrapper().find(Row)).toHaveLength(1);
   });
 
   test('renders correct header when prop isEdited is false', () => {
     const header = getWrapper({ isEdited: false }).find('.app-ReservationPage__header');
-    expect(header).to.have.length(1);
-    expect(header.text()).to.equal('ReservationConfirmation.reservationCreatedTitle');
+    expect(header).toHaveLength(1);
+    expect(header.text()).toBe('ReservationConfirmation.reservationCreatedTitle');
   });
 
   test('renders correct header when prop isEdited is false', () => {
     const header = getWrapper({ isEdited: true }).find('.app-ReservationPage__header');
-    expect(header).to.have.length(1);
-    expect(header.text()).to.equal('ReservationConfirmation.reservationEditedTitle');
+    expect(header).toHaveLength(1);
+    expect(header.text()).toBe('ReservationConfirmation.reservationEditedTitle');
   });
 
   test('renders ReservationDate with correct props', () => {
     const reservationDate = getWrapper().find(ReservationDate);
-    expect(reservationDate).to.have.length(1);
-    expect(reservationDate.prop('beginDate')).to.equal(defaultProps.reservation.begin);
-    expect(reservationDate.prop('endDate')).to.equal(defaultProps.reservation.end);
+    expect(reservationDate).toHaveLength(1);
+    expect(reservationDate.prop('beginDate')).toBe(defaultProps.reservation.begin);
+    expect(reservationDate.prop('endDate')).toBe(defaultProps.reservation.end);
   });
 
   test('renders resource name', () => {
     const name = getWrapper().find('.app-ReservationConfirmation__resource-name');
-    expect(name).to.have.length(1);
-    expect(name.text()).to.equal(defaultProps.resource.name);
+    expect(name).toHaveLength(1);
+    expect(name.text()).toBe(defaultProps.resource.name);
   });
 
   test('renders reserverEmailAddress', () => {
@@ -67,8 +66,8 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
     const email = wrapper
       .find(FormattedHTMLMessage)
       .filter({ id: 'ReservationConfirmation.confirmationText' });
-    expect(email).to.have.length(1);
-    expect(email.prop('values')).to.deep.equal({ email: reserverEmailAddress });
+    expect(email).toHaveLength(1);
+    expect(email.prop('values')).toEqual({ email: reserverEmailAddress });
   });
 
   test('renders reservation.user.email', () => {
@@ -79,8 +78,8 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
     const email = wrapper
       .find(FormattedHTMLMessage)
       .filter({ id: 'ReservationConfirmation.confirmationText' });
-    expect(email).to.have.length(1);
-    expect(email.prop('values')).to.deep.equal({ email: user.email });
+    expect(email).toHaveLength(1);
+    expect(email.prop('values')).toEqual({ email: user.email });
   });
 
   test('renders user.email', () => {
@@ -92,14 +91,14 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
     const email = wrapper
       .find(FormattedHTMLMessage)
       .filter({ id: 'ReservationConfirmation.confirmationText' });
-    expect(email).to.have.length(1);
-    expect(email.prop('values')).to.deep.equal({ email: user.email });
+    expect(email).toHaveLength(1);
+    expect(email.prop('values')).toEqual({ email: user.email });
   });
 
   test('renders Button with correct props', () => {
     const button = getWrapper().find(Button);
-    expect(button).to.have.length(1);
-    expect(button.prop('onClick')).to.be.a('function');
+    expect(button).toHaveLength(1);
+    expect(typeof button.prop('onClick')).toBe('function');
   });
 
   test('renders reserverName', () => {
@@ -121,7 +120,7 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
       user: User.build(),
     });
     const fields = getWrapper({ reservation }).find('.app-ReservationConfirmation__field');
-    expect(fields).to.have.length(14);
+    expect(fields).toHaveLength(14);
   });
 
   describe('Button onClick', () => {
@@ -144,10 +143,10 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
     });
 
     test('calls handleReservationsButton', () => {
-      expect(button).to.have.length(1);
-      expect(button.prop('onClick')).to.be.a('function');
+      expect(button).toHaveLength(1);
+      expect(typeof button.prop('onClick')).toBe('function');
       button.prop('onClick')();
-      expect(instance.handleReservationsButton.callCount).to.equal(1);
+      expect(instance.handleReservationsButton.callCount).toBe(1);
     });
   });
 
@@ -167,8 +166,8 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
     });
 
     test('calls browserHistory replace with correct path', () => {
-      expect(historyMock.callCount).to.equal(1);
-      expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
+      expect(historyMock.callCount).toBe(1);
+      expect(historyMock.lastCall.args).toEqual([expectedPath]);
     });
   });
 });

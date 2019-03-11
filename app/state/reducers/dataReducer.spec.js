@@ -1,6 +1,5 @@
 import types from 'constants/ActionTypes';
 
-import { expect } from 'chai';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
@@ -14,19 +13,19 @@ describe('state/reducers/dataReducer', () => {
     const initialState = dataReducer(undefined, {});
 
     test('reservations is an empty object', () => {
-      expect(initialState.reservations).to.deep.equal({});
+      expect(initialState.reservations).toEqual({});
     });
 
     test('resources is an empty object', () => {
-      expect(initialState.resources).to.deep.equal({});
+      expect(initialState.resources).toEqual({});
     });
 
     test('units is an empty object', () => {
-      expect(initialState.units).to.deep.equal({});
+      expect(initialState.units).toEqual({});
     });
 
     test('users is an empty object', () => {
-      expect(initialState.users).to.deep.equal({});
+      expect(initialState.users).toEqual({});
     });
   });
 
@@ -48,7 +47,7 @@ describe('state/reducers/dataReducer', () => {
       });
       const nextState = handleData(initialState, data);
 
-      expect(nextState).to.deep.equal(expectedState);
+      expect(nextState).toEqual(expectedState);
     });
 
     test('does not remove other entities in the same data collection', () => {
@@ -65,7 +64,7 @@ describe('state/reducers/dataReducer', () => {
       });
       const nextState = handleData(initialState, data);
 
-      expect(nextState).to.deep.equal(expectedState);
+      expect(nextState).toEqual(expectedState);
     });
 
     test('overrides values with the same id in the same data collection', () => {
@@ -81,7 +80,7 @@ describe('state/reducers/dataReducer', () => {
       });
       const nextState = handleData(initialState, data);
 
-      expect(nextState).to.deep.equal(expectedState);
+      expect(nextState).toEqual(expectedState);
     });
 
     test('does not change the other data collections', () => {
@@ -101,8 +100,8 @@ describe('state/reducers/dataReducer', () => {
       });
       const nextState = handleData(initialState, data);
 
-      expect(nextState).to.deep.equal(expectedState);
-      expect(nextState.units).to.equal(initialState.units);
+      expect(nextState).toEqual(expectedState);
+      expect(nextState.units).toBe(initialState.units);
     });
   });
 
@@ -124,7 +123,7 @@ describe('state/reducers/dataReducer', () => {
           [reservation.url]: reservation,
         });
 
-        expect(actualReservations).to.deep.equal(expectedReservations);
+        expect(actualReservations).toEqual(expectedReservations);
       });
 
       test('adds the given reservation to correct resource', () => {
@@ -139,7 +138,7 @@ describe('state/reducers/dataReducer', () => {
         const actualReservations = nextState.resources[resource.id].reservations;
         const expectedReservations = Immutable([reservation]);
 
-        expect(actualReservations).to.deep.equal(expectedReservations);
+        expect(actualReservations).toEqual(expectedReservations);
       });
 
       test('does not touch other resource values', () => {
@@ -156,7 +155,7 @@ describe('state/reducers/dataReducer', () => {
         const expectedValue = resource.otherValue;
         const actualvalue = nextState.resources[resource.id].otherValue;
 
-        expect(expectedValue).to.deep.equal(actualvalue);
+        expect(expectedValue).toEqual(actualvalue);
       });
     });
 
@@ -178,7 +177,7 @@ describe('state/reducers/dataReducer', () => {
             [reservation.url]: reservation,
           });
 
-          expect(actualReservations).to.deep.equal(expectedReservations);
+          expect(actualReservations).toEqual(expectedReservations);
         });
 
         test('updates a reservation already in reservations', () => {
@@ -203,7 +202,7 @@ describe('state/reducers/dataReducer', () => {
             [updatedReservation.url]: updatedReservation,
           });
 
-          expect(actualReservations).to.deep.equal(expectedReservations);
+          expect(actualReservations).toEqual(expectedReservations);
         });
       });
 
@@ -220,7 +219,7 @@ describe('state/reducers/dataReducer', () => {
           const actualReservations = nextState.resources[resource.id].reservations;
           const expectedReservations = Immutable([reservation]);
 
-          expect(actualReservations).to.deep.equal(expectedReservations);
+          expect(actualReservations).toEqual(expectedReservations);
         });
 
         test('updates a reservation already in resource reservations', () => {
@@ -248,7 +247,7 @@ describe('state/reducers/dataReducer', () => {
           const actualReservations = nextState.resources[resource.id].reservations;
           const expectedReservations = Immutable([updatedReservation]);
 
-          expect(actualReservations).to.deep.equal(expectedReservations);
+          expect(actualReservations).toEqual(expectedReservations);
         });
 
         test('does not touch other resource values', () => {
@@ -265,7 +264,7 @@ describe('state/reducers/dataReducer', () => {
           const expectedValue = resource.otherValue;
           const actualvalue = nextState.resources[resource.id].otherValue;
 
-          expect(expectedValue).to.deep.equal(actualvalue);
+          expect(expectedValue).toEqual(actualvalue);
         });
       });
     });
@@ -285,7 +284,7 @@ describe('state/reducers/dataReducer', () => {
         const actual = nextState.reservations[reservation.url];
         const expected = Object.assign({}, reservation, { state: 'cancelled' });
 
-        expect(actual).to.deep.equal(expected);
+        expect(actual).toEqual(expected);
       });
 
       test('changes reservation state to cancelled in resource reservations', () => {
@@ -303,7 +302,7 @@ describe('state/reducers/dataReducer', () => {
         const actualReservations = nextState.resources[resource.id].reservations;
         const expected = Immutable([Object.assign({}, reservation, { state: 'cancelled' })]);
 
-        expect(actualReservations[0].state).to.deep.equal(expected[0].state);
+        expect(actualReservations[0].state).toEqual(expected[0].state);
       });
 
       test('does not touch other resource values', () => {
@@ -320,7 +319,7 @@ describe('state/reducers/dataReducer', () => {
         const expectedValue = resource.otherValue;
         const actualvalue = nextState.resources[resource.id].otherValue;
 
-        expect(expectedValue).to.deep.equal(actualvalue);
+        expect(expectedValue).toEqual(actualvalue);
       });
     });
 
@@ -342,7 +341,7 @@ describe('state/reducers/dataReducer', () => {
           [resource.id]: resource,
         });
 
-        expect(nextState.resources).to.deep.equal(expected);
+        expect(nextState.resources).toEqual(expected);
       });
 
       test('removes resource.reservations if it is null', () => {
@@ -357,7 +356,7 @@ describe('state/reducers/dataReducer', () => {
           [resource.id]: { id: 'resource-1' },
         });
 
-        expect(nextState.resources).to.deep.equal(expected);
+        expect(nextState.resources).toEqual(expected);
       });
 
       test('does not replace old reservations value with null', () => {
@@ -377,8 +376,8 @@ describe('state/reducers/dataReducer', () => {
         const nextState = dataReducer(initialState, action);
         const actualResource = nextState.resources[originalResource.id];
 
-        expect(actualResource.reservations).to.deep.equal(originalResource.reservations);
-        expect(actualResource.state).to.equal(updatedResource.state);
+        expect(actualResource.reservations).toEqual(originalResource.reservations);
+        expect(actualResource.state).toBe(updatedResource.state);
       });
     });
 
@@ -400,7 +399,7 @@ describe('state/reducers/dataReducer', () => {
           [resource.id]: resource,
         });
 
-        expect(nextState.resources).to.deep.equal(expected);
+        expect(nextState.resources).toEqual(expected);
       });
 
 
@@ -420,7 +419,7 @@ describe('state/reducers/dataReducer', () => {
         const nextState = dataReducer(initialState, action);
         const actualResource = nextState.resources[originalResource.id];
 
-        expect(actualResource).to.deep.equal(updatedResource);
+        expect(actualResource).toEqual(updatedResource);
       });
     });
 
@@ -441,7 +440,7 @@ describe('state/reducers/dataReducer', () => {
           [user.uuid]: user,
         });
 
-        expect(actualUsers).to.deep.equal(expectedUsers);
+        expect(actualUsers).toEqual(expectedUsers);
       });
 
       test('does not affect previous user values', () => {
@@ -454,8 +453,8 @@ describe('state/reducers/dataReducer', () => {
         const nextState = dataReducer(initialState, action);
         const actualUser = nextState.users[user.uuid];
 
-        expect(actualUser.previousValue).to.equal(user.previousValue);
-        expect(actualUser.newValue).to.equal(updatedUser.newValue);
+        expect(actualUser.previousValue).toBe(user.previousValue);
+        expect(actualUser.newValue).toBe(updatedUser.newValue);
       });
     });
 
@@ -481,7 +480,7 @@ describe('state/reducers/dataReducer', () => {
         const action = unfavoriteResource(user);
         const nextState = dataReducer(initialState, action);
 
-        expect(nextState.resources[resource.id].isFavorite).to.be.false;
+        expect(nextState.resources[resource.id].isFavorite).toBe(false);
       });
     });
 
@@ -507,7 +506,7 @@ describe('state/reducers/dataReducer', () => {
         const action = unfavoriteResource(user);
         const nextState = dataReducer(initialState, action);
 
-        expect(nextState.resources[resource.id].isFavorite).to.be.true;
+        expect(nextState.resources[resource.id].isFavorite).toBe(true);
       });
     });
   });

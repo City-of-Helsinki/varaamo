@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import moment from 'moment';
 
 import { getState } from 'utils/testUtils';
@@ -11,33 +10,33 @@ describe('pages/admin-resources/adminResourcesPageSelector', () => {
   }
 
   test('returns isAdmin', () => {
-    expect(getSelected().isAdmin).to.exist;
+    expect(getSelected().isAdmin).toBeDefined();
   });
 
   test('returns isFetchingResources', () => {
-    expect(getSelected().isFetchingResources).to.exist;
+    expect(getSelected().isFetchingResources).toBeDefined();
   });
 
   test('returns resources', () => {
-    expect(getSelected().resources).to.exist;
+    expect(getSelected().resources).toBeDefined();
   });
 
   test('returns selectedResourceTypes', () => {
-    expect(getSelected().selectedResourceTypes).to.exist;
+    expect(getSelected().selectedResourceTypes).toBeDefined();
   });
 
   test('returns resourceTypes', () => {
-    expect(getSelected().resourceTypes).to.exist;
+    expect(getSelected().resourceTypes).toBeDefined();
   });
 
   test('returns date', () => {
     const selected = getSelected({ 'ui.pages.adminResources': { date: '2017-02-01' } });
-    expect(selected.date).to.equal('2017-02-01');
+    expect(selected.date).toBe('2017-02-01');
   });
 
   test('returns current date by default', () => {
     const current = moment().format('YYYY-MM-DD');
-    expect(getSelected().date).to.equal(current);
+    expect(getSelected().date).toBe(current);
   });
 
   test('returns an array of resource ids ordered by translated name', () => {
@@ -55,7 +54,7 @@ describe('pages/admin-resources/adminResourcesPageSelector', () => {
     };
     const expected = [3, 1];
     const selected = getSelected(extraState);
-    expect(selected.resources).to.deep.equal(expected);
+    expect(selected.resources).toEqual(expected);
   });
 
   test('returns an array of resourceTypes', () => {
@@ -72,7 +71,7 @@ describe('pages/admin-resources/adminResourcesPageSelector', () => {
     };
     const expected = ['school', 'printer'];
     const selected = getSelected(extraState);
-    expect(selected.resourceTypes).to.deep.equal(expected);
+    expect(selected.resourceTypes).toEqual(expected);
   });
 
   test(
@@ -91,8 +90,8 @@ describe('pages/admin-resources/adminResourcesPageSelector', () => {
         'ui.pages.adminResources.resourceIds': [resource1.id, resource3.id],
       };
       const selected = getSelected(extraState);
-      expect(selected.selectedResourceTypes).to.deep.equal(['school']);
-      expect(selected.resources).to.deep.equal([1]);
+      expect(selected.selectedResourceTypes).toEqual(['school']);
+      expect(selected.resources).toEqual([1]);
     }
   );
 });

@@ -1,6 +1,5 @@
 import constants from 'constants/AppConstants';
 
-import { expect } from 'chai';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
@@ -33,7 +32,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
               t,
             };
             const errors = validate(values, props);
-            expect(errors[fieldName]).to.exist;
+            expect(errors[fieldName]).toBeDefined();
           });
         });
 
@@ -47,7 +46,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
               t,
             };
             const errors = validate(values, props);
-            expect(errors[fieldName]).to.not.exist;
+            expect(errors[fieldName]).toBeFalsy();
           });
         });
       });
@@ -63,7 +62,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
             t,
           };
           const errors = validate(values, props);
-          expect(errors[fieldName]).to.exist;
+          expect(errors[fieldName]).toBeDefined();
         });
 
         test('does not return an error if field is not in requiredFields', () => {
@@ -74,7 +73,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
             t,
           };
           const errors = validate(values, props);
-          expect(errors[fieldName]).to.not.exist;
+          expect(errors[fieldName]).toBeFalsy();
         });
       });
     });
@@ -88,7 +87,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
         };
         const values = { name: 'Luke' };
         const errors = validate(values, props);
-        expect(errors.name).to.not.exist;
+        expect(errors.name).toBeFalsy();
       });
     });
 
@@ -102,13 +101,13 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
       test('returns an error if reserverEmailAddress is invalid', () => {
         const values = { reserverEmailAddress: 'luke@' };
         const errors = validate(values, props);
-        expect(errors.reserverEmailAddress).to.exist;
+        expect(errors.reserverEmailAddress).toBeDefined();
       });
 
       test('does not return an error if reserverEmailAddress is valid', () => {
         const values = { reserverEmailAddress: 'luke@skywalker.com' };
         const errors = validate(values, props);
-        expect(errors.reserverEmailAddress).to.not.exist;
+        expect(errors.reserverEmailAddress).toBeFalsy();
       });
     });
   });
@@ -134,7 +133,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
 
     test('renders a Form component', () => {
       const form = getWrapper().find(Form);
-      expect(form.length).to.equal(1);
+      expect(form.length).toBe(1);
     });
 
     describe('form fields', () => {
@@ -143,13 +142,13 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
       test('renders a field if it is included in props.fields', () => {
         const fields = [fieldName];
         const input = getWrapper({ fields }).find(Field);
-        expect(input.length).to.equal(1);
+        expect(input.length).toBe(1);
       });
 
       test('does not render a field if it is not included in props.fields', () => {
         const fields = [];
         const input = getWrapper({ fields }).find(Field);
-        expect(input.length).to.equal(0);
+        expect(input.length).toBe(0);
       });
 
       describe('required fields', () => {
@@ -159,7 +158,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
             requiredFields: [fieldName],
           };
           const input = getWrapper(props).find(Field);
-          expect(input.props().label).to.contain('*');
+          expect(input.props().label).toContain('*');
         });
 
         test('does not display an asterisk beside a non required field label', () => {
@@ -168,7 +167,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
             requiredFields: [],
           };
           const input = getWrapper(props).find(Field);
-          expect(input.props().label).to.not.contain('*');
+          expect(input.props().label).not.toContain('*');
         });
 
         describe('if staffEvent checkbox is checked', () => {
@@ -182,7 +181,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
               staffEventSelected,
             };
             const input = getWrapper(props).find(Field);
-            expect(input.props().label).to.contain('*');
+            expect(input.props().label).toContain('*');
           });
 
           test(
@@ -196,7 +195,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
                 staffEventSelected,
               };
               const input = getWrapper(props).find(Field);
-              expect(input.props().label).to.not.contain('*');
+              expect(input.props().label).not.toContain('*');
             }
           );
         });
@@ -210,7 +209,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
           const wrapper = getWrapper({ termsAndConditions });
           const field = wrapper.find(Field).filter({ component: TermsField });
 
-          expect(field.length).to.equal(1);
+          expect(field.length).toBe(1);
         });
       });
 
@@ -220,7 +219,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
           const wrapper = getWrapper({ termsAndConditions });
           const field = wrapper.find(Field).filter({ component: TermsField });
 
-          expect(field.length).to.equal(0);
+          expect(field.length).toBe(0);
         });
       });
     });
@@ -229,21 +228,21 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
       describe('when is editing is false', () => {
         const buttons = getWrapper({ isEditing: false }).find(Button);
         test('renders two buttons', () => {
-          expect(buttons.length).to.equal(2);
+          expect(buttons.length).toBe(2);
         });
 
         describe('the first button', () => {
           const button = buttons.at(0);
 
           test('has correct text', () => {
-            expect(button.props().children).to.equal('common.cancel');
+            expect(button.props().children).toBe('common.cancel');
           });
 
           test('clicking it calls props.onCancel', () => {
             defaultProps.onCancel.reset();
             button.props().onClick();
 
-            expect(defaultProps.onCancel.callCount).to.equal(1);
+            expect(defaultProps.onCancel.callCount).toBe(1);
           });
         });
 
@@ -251,7 +250,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
           const button = buttons.at(1);
 
           test('has correct text', () => {
-            expect(button.props().children).to.equal('common.save');
+            expect(button.props().children).toBe('common.save');
           });
         });
       });
@@ -259,21 +258,21 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
       describe('when is editing is true', () => {
         const buttons = getWrapper({ isEditing: true }).find(Button);
         test('renders three buttons', () => {
-          expect(buttons.length).to.equal(3);
+          expect(buttons.length).toBe(3);
         });
 
         describe('the first button', () => {
           const button = buttons.at(0);
 
           test('has correct text', () => {
-            expect(button.props().children).to.equal('ReservationInformationForm.cancelEdit');
+            expect(button.props().children).toBe('ReservationInformationForm.cancelEdit');
           });
 
           test('clicking it calls props.onCancel', () => {
             defaultProps.onCancel.reset();
             button.props().onClick();
 
-            expect(defaultProps.onCancel.callCount).to.equal(1);
+            expect(defaultProps.onCancel.callCount).toBe(1);
           });
         });
 
@@ -281,14 +280,14 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
           const button = buttons.at(1);
 
           test('has correct text', () => {
-            expect(button.props().children).to.equal('common.previous');
+            expect(button.props().children).toBe('common.previous');
           });
 
           test('clicking it calls props.onBack', () => {
             defaultProps.onBack.reset();
             button.props().onClick();
 
-            expect(defaultProps.onBack.callCount).to.equal(1);
+            expect(defaultProps.onBack.callCount).toBe(1);
           });
         });
 
@@ -296,7 +295,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
           const button = buttons.at(2);
 
           test('has correct text', () => {
-            expect(button.props().children).to.equal('common.save');
+            expect(button.props().children).toBe('common.save');
           });
         });
       });

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import Carousel from 'react-bootstrap/lib/Carousel';
@@ -31,15 +30,15 @@ describe('pages/resource/resource-info/ImageCarousel', () => {
       });
 
       test('is rendered', () => {
-        expect(carousel.length).to.equal(1);
+        expect(carousel.length).toBe(1);
       });
 
       test('does not have indicators', () => {
-        expect(carousel.prop('indicators')).to.equal(false);
+        expect(carousel.prop('indicators')).toBe(false);
       });
 
       test('has controls', () => {
-        expect(carousel.prop('controls')).to.equal(true);
+        expect(carousel.prop('controls')).toBe(true);
       });
     });
 
@@ -51,15 +50,15 @@ describe('pages/resource/resource-info/ImageCarousel', () => {
       });
 
       test('is rendered', () => {
-        expect(carousel.length).to.equal(1);
+        expect(carousel.length).toBe(1);
       });
 
       test('does not have indicators', () => {
-        expect(carousel.prop('indicators')).to.equal(false);
+        expect(carousel.prop('indicators')).toBe(false);
       });
 
       test('has controls', () => {
-        expect(carousel.prop('controls')).to.equal(false);
+        expect(carousel.prop('controls')).toBe(false);
       });
     });
   });
@@ -67,7 +66,7 @@ describe('pages/resource/resource-info/ImageCarousel', () => {
   describe('Carousel items', () => {
     test('renders a Carousel.Item for each image in props', () => {
       const carouselItems = getWrapper().find(Carousel.Item);
-      expect(carouselItems.length).to.equal(defaultProps.images.length);
+      expect(carouselItems.length).toBe(defaultProps.images.length);
     });
 
     describe('BackgroundImage component', () => {
@@ -76,7 +75,7 @@ describe('pages/resource/resource-info/ImageCarousel', () => {
         carouselItems.forEach((carouselItem) => {
           const backgroundImage = carouselItem.find(BackgroundImage);
 
-          expect(backgroundImage.length).to.equal(1);
+          expect(backgroundImage.length).toBe(1);
         });
       });
 
@@ -85,7 +84,7 @@ describe('pages/resource/resource-info/ImageCarousel', () => {
         carouselItems.forEach((carouselItem, index) => {
           const backgroundImage = carouselItem.find(BackgroundImage);
 
-          expect(backgroundImage.prop('image')).to.deep.equal(defaultProps.images[index]);
+          expect(backgroundImage.prop('image')).toEqual(defaultProps.images[index]);
         });
       });
     });

@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import { selector } from './SideNavbarContainer';
 
 describe('shared/side-navbar/SideNavbarContainer', () => {
@@ -19,19 +17,19 @@ describe('shared/side-navbar/SideNavbarContainer', () => {
     describe('initials', () => {
       test('returns an empty string if user is not logged in', () => {
         const selected = selector(getState());
-        expect(selected.initials).to.equal(null);
+        expect(selected.initials).toBeNull();
       });
 
       test('returns user firstName + lastName initials', () => {
         const user = { firstName: 'Luke', lastName: 'Skywalker' };
         const selected = selector(getState(user));
-        expect(selected.initials).to.equal('LS');
+        expect(selected.initials).toBe('LS');
       });
 
       test('returns user email initial if not firstName or lastName', () => {
         const user = { email: 'luke@skywalker.com' };
         const selected = selector(getState(user));
-        expect(selected.initials).to.equal('l');
+        expect(selected.initials).toBe('l');
       });
 
       test(
@@ -39,7 +37,7 @@ describe('shared/side-navbar/SideNavbarContainer', () => {
         () => {
           const user = { emails: [{ value: 'luke@skywalker.com' }] };
           const selected = selector(getState(user));
-          expect(selected.initials).to.equal('l');
+          expect(selected.initials).toBe('l');
         }
       );
     });

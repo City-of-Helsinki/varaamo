@@ -1,6 +1,5 @@
 import constants from 'constants/AppConstants';
 
-import { expect } from 'chai';
 import { CALL_API } from 'redux-api-middleware';
 
 import {
@@ -21,27 +20,27 @@ describe('Utils: apiUtils', () => {
     test('returns API_URL + given endpoint if params is empty', () => {
       const expected = `${constants.API_URL}/${endpoint}/`;
 
-      expect(buildAPIUrl(endpoint)).to.equal(expected);
+      expect(buildAPIUrl(endpoint)).toBe(expected);
     });
 
     test('rejects params with empty values', () => {
       const params = { empty: '' };
       const expected = `${constants.API_URL}/${endpoint}/`;
 
-      expect(buildAPIUrl(endpoint, params)).to.equal(expected);
+      expect(buildAPIUrl(endpoint, params)).toBe(expected);
     });
 
     test('appends search params at the end if params is not empty', () => {
       const params = { param: 'hello_world' };
       const expected = `${constants.API_URL}/${endpoint}/?param=hello_world`;
 
-      expect(buildAPIUrl(endpoint, params)).to.equal(expected);
+      expect(buildAPIUrl(endpoint, params)).toBe(expected);
     });
   });
 
   describe('createTransformFunction', () => {
     test('returns a function', () => {
-      expect(typeof createTransformFunction()).to.equal('function');
+      expect(typeof createTransformFunction()).toBe('function');
     });
 
     describe('the returned function', () => {
@@ -58,7 +57,7 @@ describe('Utils: apiUtils', () => {
           },
         };
 
-        expect(transformFunction(initial)).to.deep.equal(expected);
+        expect(transformFunction(initial)).toEqual(expected);
       });
 
       describe('if normalizr Schema is provided', () => {
@@ -82,7 +81,7 @@ describe('Utils: apiUtils', () => {
             result: 'r-1',
           };
 
-          expect(transformFunction(initialResourceData)).to.deep.equal(expectedResourceData);
+          expect(transformFunction(initialResourceData)).toEqual(expectedResourceData);
         });
       });
     });
@@ -92,17 +91,17 @@ describe('Utils: apiUtils', () => {
     const actionType = 'SOME_GET_ERROR';
 
     test('returns an object', () => {
-      expect(typeof getErrorTypeDescriptor(actionType)).to.equal('object');
+      expect(typeof getErrorTypeDescriptor(actionType)).toBe('object');
     });
 
     test('contains the given action type', () => {
       const actual = getErrorTypeDescriptor(actionType).type;
 
-      expect(actual).to.equal(actionType);
+      expect(actual).toBe(actionType);
     });
 
     test('contains a meta function', () => {
-      expect(typeof getErrorTypeDescriptor(actionType).meta).to.equal('function');
+      expect(typeof getErrorTypeDescriptor(actionType).meta).toBe('function');
     });
 
     describe('the meta function', () => {
@@ -123,7 +122,7 @@ describe('Utils: apiUtils', () => {
           },
         };
 
-        expect(actual).to.deep.equal(expected);
+        expect(actual).toEqual(expected);
       });
 
       test('supports adding a countable property', () => {
@@ -137,7 +136,7 @@ describe('Utils: apiUtils', () => {
           },
         };
 
-        expect(actual).to.deep.equal(expected);
+        expect(actual).toEqual(expected);
       });
 
       test('supports adding extra meta properties', () => {
@@ -152,14 +151,14 @@ describe('Utils: apiUtils', () => {
           test: 'test',
         };
 
-        expect(actual).to.deep.equal(expected);
+        expect(actual).toEqual(expected);
       });
     });
   });
 
   describe('getHeadersCreator', () => {
     test('returns a function', () => {
-      expect(typeof getHeadersCreator()).to.equal('function');
+      expect(typeof getHeadersCreator()).toBe('function');
     });
 
     describe('the returned function', () => {
@@ -180,7 +179,7 @@ describe('Utils: apiUtils', () => {
               authorizationHeader
             );
 
-            expect(creator(state)).to.deep.equal(expected);
+            expect(creator(state)).toEqual(expected);
           });
         });
 
@@ -197,7 +196,7 @@ describe('Utils: apiUtils', () => {
               authorizationHeader
             );
 
-            expect(creator(state)).to.deep.equal(expected);
+            expect(creator(state)).toEqual(expected);
           });
         });
       });
@@ -211,7 +210,7 @@ describe('Utils: apiUtils', () => {
           test('returns the just the required headers', () => {
             const creator = getHeadersCreator();
 
-            expect(creator(state)).to.deep.equal(constants.REQUIRED_API_HEADERS);
+            expect(creator(state)).toEqual(constants.REQUIRED_API_HEADERS);
           });
         });
 
@@ -223,7 +222,7 @@ describe('Utils: apiUtils', () => {
             const creator = getHeadersCreator(additionalHeaders);
             const expected = Object.assign({}, constants.REQUIRED_API_HEADERS, additionalHeaders);
 
-            expect(creator(state)).to.deep.equal(expected);
+            expect(creator(state)).toEqual(expected);
           });
         });
       });
@@ -234,13 +233,13 @@ describe('Utils: apiUtils', () => {
     const actionType = 'SOME_GET_REQUEST';
 
     test('returns an object', () => {
-      expect(typeof getRequestTypeDescriptor(actionType)).to.equal('object');
+      expect(typeof getRequestTypeDescriptor(actionType)).toBe('object');
     });
 
     test('contains the given action type', () => {
       const actual = getRequestTypeDescriptor(actionType).type;
 
-      expect(actual).to.equal(actionType);
+      expect(actual).toBe(actionType);
     });
 
     test('contains a meta object with correct properties', () => {
@@ -253,7 +252,7 @@ describe('Utils: apiUtils', () => {
         },
       };
 
-      expect(actual).to.deep.equal(expected);
+      expect(actual).toEqual(expected);
     });
 
     test('supports adding coutable property to meta object', () => {
@@ -266,7 +265,7 @@ describe('Utils: apiUtils', () => {
         },
       };
 
-      expect(actual).to.deep.equal(expected);
+      expect(actual).toEqual(expected);
     });
 
     test('supports adding extra meta properties', () => {
@@ -280,7 +279,7 @@ describe('Utils: apiUtils', () => {
         test: 'test',
       };
 
-      expect(actual).to.deep.equal(expected);
+      expect(actual).toEqual(expected);
     });
   });
 
@@ -289,28 +288,28 @@ describe('Utils: apiUtils', () => {
       const params = { param: 'hello' };
       const expected = 'param=hello';
 
-      expect(getSearchParamsString(params)).to.equal(expected);
+      expect(getSearchParamsString(params)).toBe(expected);
     });
 
     test('returns multiple params separated with "&"', () => {
       const params = { param: 'hello', other: 'world' };
       const expected = 'param=hello&other=world';
 
-      expect(getSearchParamsString(params)).to.equal(expected);
+      expect(getSearchParamsString(params)).toBe(expected);
     });
 
     test('uses encodeURIComponent to both keys and values', () => {
       const params = { päräm: 'hellö' };
       const expected = `${encodeURIComponent('päräm')}=${encodeURIComponent('hellö')}`;
 
-      expect(getSearchParamsString(params)).to.equal(expected);
+      expect(getSearchParamsString(params)).toBe(expected);
     });
 
     test('decamelizes keys of the given params', () => {
       const params = { camelizedParam: 'hello' };
       const expected = 'camelized_param=hello';
 
-      expect(getSearchParamsString(params)).to.equal(expected);
+      expect(getSearchParamsString(params)).toBe(expected);
     });
   });
 
@@ -318,21 +317,21 @@ describe('Utils: apiUtils', () => {
     const actionType = 'SOME_GET_SUCCESS';
 
     test('returns an object', () => {
-      expect(typeof getSuccessTypeDescriptor(actionType)).to.equal('object');
+      expect(typeof getSuccessTypeDescriptor(actionType)).toBe('object');
     });
 
     test('contains the given action type', () => {
       const actual = getSuccessTypeDescriptor(actionType).type;
 
-      expect(actual).to.equal(actionType);
+      expect(actual).toBe(actionType);
     });
 
     test('contains a payload function', () => {
-      expect(typeof getSuccessTypeDescriptor(actionType).payload).to.equal('function');
+      expect(typeof getSuccessTypeDescriptor(actionType).payload).toBe('function');
     });
 
     test('contains a meta function', () => {
-      expect(typeof getSuccessTypeDescriptor(actionType).meta).to.equal('function');
+      expect(typeof getSuccessTypeDescriptor(actionType).meta).toBe('function');
     });
 
     describe('the meta function', () => {
@@ -353,7 +352,7 @@ describe('Utils: apiUtils', () => {
           },
         };
 
-        expect(actual).to.deep.equal(expected);
+        expect(actual).toEqual(expected);
       });
 
       test('supports adding a countable property', () => {
@@ -367,13 +366,13 @@ describe('Utils: apiUtils', () => {
           },
         };
 
-        expect(actual).to.deep.equal(expected);
+        expect(actual).toEqual(expected);
       });
 
       test('supports adding payload property', () => {
         const typeDescriptor = getSuccessTypeDescriptor(actionType, { payload: 'mock-payload' });
 
-        expect(typeDescriptor.payload).to.equal('mock-payload');
+        expect(typeDescriptor.payload).toBe('mock-payload');
       });
 
       test('supports adding extra meta properties', () => {
@@ -388,7 +387,7 @@ describe('Utils: apiUtils', () => {
           test: 'test',
         };
 
-        expect(actual).to.deep.equal(expected);
+        expect(actual).toEqual(expected);
       });
     });
   });

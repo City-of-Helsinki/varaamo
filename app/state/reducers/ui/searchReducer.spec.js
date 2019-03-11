@@ -1,6 +1,5 @@
 import types from 'constants/ActionTypes';
 
-import { expect } from 'chai';
 import keyBy from 'lodash/keyBy';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
@@ -15,44 +14,44 @@ describe('state/reducers/ui/searchReducer', () => {
 
     describe('filters', () => {
       test('is an object', () => {
-        expect(typeof initialState.filters).to.equal('object');
+        expect(typeof initialState.filters).toBe('object');
       });
 
       test('date is an empty string', () => {
-        expect(initialState.filters.date).to.equal('');
+        expect(initialState.filters.date).toBe('');
       });
 
       test('distance is an empty string', () => {
-        expect(initialState.filters.distance).to.equal('');
+        expect(initialState.filters.distance).toBe('');
       });
 
       test('people is an empty string', () => {
-        expect(initialState.filters.people).to.equal('');
+        expect(initialState.filters.people).toBe('');
       });
 
       test('purpose is an empty string', () => {
-        expect(initialState.filters.purpose).to.equal('');
+        expect(initialState.filters.purpose).toBe('');
       });
 
       test('search is an empty string', () => {
-        expect(initialState.filters.search).to.equal('');
+        expect(initialState.filters.search).toBe('');
       });
     });
 
     test('position is null', () => {
-      expect(initialState.position).to.equal(null);
+      expect(initialState.position).toBeNull();
     });
 
     test('results is an empty array', () => {
-      expect(initialState.results).to.deep.equal([]);
+      expect(initialState.results).toEqual([]);
     });
 
     test('searchDone is false', () => {
-      expect(initialState.searchDone).to.equal(false);
+      expect(initialState.searchDone).toBe(false);
     });
 
     test('unitId is null', () => {
-      expect(initialState.unitId).to.equal(null);
+      expect(initialState.unitId).toBeNull();
     });
   });
 
@@ -76,7 +75,7 @@ describe('state/reducers/ui/searchReducer', () => {
         const expected = [resources[0].id, resources[1].id];
         const nextState = searchReducer(initialState, action);
 
-        expect(nextState.results).to.deep.equal(expected);
+        expect(nextState.results).toEqual(expected);
       });
 
       test('replaces the old ids in searchResults.ids', () => {
@@ -87,7 +86,7 @@ describe('state/reducers/ui/searchReducer', () => {
         const expected = [resources[0].id, resources[1].id];
         const nextState = searchReducer(initialState, action);
 
-        expect(nextState.results).to.deep.equal(expected);
+        expect(nextState.results).toEqual(expected);
       });
 
       test('sets searchDone to true', () => {
@@ -97,7 +96,7 @@ describe('state/reducers/ui/searchReducer', () => {
         });
         const nextState = searchReducer(initialState, action);
 
-        expect(nextState.searchDone).to.equal(true);
+        expect(nextState.searchDone).toBe(true);
       });
     });
 
@@ -113,7 +112,7 @@ describe('state/reducers/ui/searchReducer', () => {
         const expected = Immutable(filters);
         const nextState = searchReducer(initialState, action);
 
-        expect(nextState.filters).to.deep.equal(expected);
+        expect(nextState.filters).toEqual(expected);
       });
 
       test('overrides previous values of same filters', () => {
@@ -125,7 +124,7 @@ describe('state/reducers/ui/searchReducer', () => {
         const expected = Immutable(filters);
         const nextState = searchReducer(initialState, action);
 
-        expect(nextState.filters).to.deep.equal(expected);
+        expect(nextState.filters).toEqual(expected);
       });
 
       test('does not override unspecified filters', () => {
@@ -140,7 +139,7 @@ describe('state/reducers/ui/searchReducer', () => {
         });
         const nextState = searchReducer(initialState, action);
 
-        expect(nextState.filters).to.deep.equal(expected);
+        expect(nextState.filters).toEqual(expected);
       });
 
       test('saves only supported filters', () => {
@@ -157,7 +156,7 @@ describe('state/reducers/ui/searchReducer', () => {
         });
         const nextState = searchReducer(initialState, action);
 
-        expect(nextState.filters).to.deep.equal(expected);
+        expect(nextState.filters).toEqual(expected);
       });
     });
 
@@ -186,7 +185,7 @@ describe('state/reducers/ui/searchReducer', () => {
         const initialState = Immutable({ filters });
         const nextState = searchReducer(initialState, action);
 
-        expect(nextState.filters).to.deep.equal(expected);
+        expect(nextState.filters).toEqual(expected);
       });
 
       test('does not empty the search results', () => {
@@ -196,7 +195,7 @@ describe('state/reducers/ui/searchReducer', () => {
         });
         const nextState = searchReducer(initialState, action);
 
-        expect(nextState.results).to.deep.equal(initialState.results);
+        expect(nextState.results).toEqual(initialState.results);
       });
 
       test('does not change searchDone', () => {
@@ -206,7 +205,7 @@ describe('state/reducers/ui/searchReducer', () => {
         });
         const nextState = searchReducer(initialState, action);
 
-        expect(nextState.searchDone).to.equal(true);
+        expect(nextState.searchDone).toBe(true);
       });
     });
 
@@ -232,7 +231,7 @@ describe('state/reducers/ui/searchReducer', () => {
         });
         const nextState = searchReducer(initialState, action);
 
-        expect(nextState.position).to.deep.equal(expected);
+        expect(nextState.position).toEqual(expected);
       });
     });
 
@@ -248,7 +247,7 @@ describe('state/reducers/ui/searchReducer', () => {
         const initialState = Immutable({ position });
         const nextState = searchReducer(initialState, action);
 
-        expect(nextState.position).to.deep.equal(null);
+        expect(nextState.position).toEqual(null);
       });
     });
 
@@ -264,7 +263,7 @@ describe('state/reducers/ui/searchReducer', () => {
         const initialState = Immutable({ position });
         const nextState = searchReducer(initialState, action);
 
-        expect(nextState.position).to.deep.equal(null);
+        expect(nextState.position).toEqual(null);
       });
     });
 
@@ -276,7 +275,7 @@ describe('state/reducers/ui/searchReducer', () => {
         });
         const nextState = searchReducer(initialState, action);
 
-        expect(nextState.showMap).to.be.true;
+        expect(nextState.showMap).toBe(true);
       });
 
       test('toggles showMap if true', () => {
@@ -286,7 +285,7 @@ describe('state/reducers/ui/searchReducer', () => {
         });
         const nextState = searchReducer(initialState, action);
 
-        expect(nextState.showMap).to.be.false;
+        expect(nextState.showMap).toBe(false);
       });
     });
 
@@ -298,7 +297,7 @@ describe('state/reducers/ui/searchReducer', () => {
         });
         const nextState = searchReducer(initialState, action);
 
-        expect(nextState.unitId).to.equal('123');
+        expect(nextState.unitId).toBe('123');
       });
     });
   });
