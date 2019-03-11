@@ -218,7 +218,7 @@ class TimeSlots extends Component {
 
     let isMaxExceeded = false;
 
-    if (resBegin && resource.maxPeriod) {
+    if (!isAdmin && resBegin && resource.maxPeriod) {
       const resLengthInMins = moment(slot.end).diff(resBegin, 'minutes');
       const maxPeriodInMins = moment.duration(resource.maxPeriod).asMinutes();
       isMaxExceeded = resLengthInMins > maxPeriodInMins;
