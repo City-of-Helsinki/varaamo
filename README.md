@@ -175,8 +175,7 @@ Styles and Stylesheets
 Testing framework
 -----------------
 
-- [Jest](https://jestjs.io/) is used to run the tests. Running on [Jsdom](https://github.com/jsdom/jsdom) environment by default, which was a headless browser.
-- [Chai](http://chaijs.com/) is used for test assertions. 
+- [Jest](https://jestjs.io/) is used for running the tests and for test assertions. Running on [Jsdom](https://github.com/jsdom/jsdom) environment by default, which was a headless browser.
 - [simple-mock](https://github.com/jupiter/simple-mock) and [MockDate](https://github.com/boblauer/MockDate) are used for mocking and spies.
 - [Enzyme](https://github.com/airbnb/enzyme) is used to make testing React Components easier.
 
