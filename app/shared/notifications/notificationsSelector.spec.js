@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import notificationsSelector from './notificationsSelector';
 
 describe('shared/notifications/notificationsSelector', () => {
@@ -12,7 +10,7 @@ describe('shared/notifications/notificationsSelector', () => {
     };
     const selected = notificationsSelector(state);
 
-    expect(selected.notifications).to.deep.equal(state.notifications);
+    expect(selected.notifications).toEqual(state.notifications);
   });
 
   test('returns only non hidden notifications', () => {
@@ -25,6 +23,6 @@ describe('shared/notifications/notificationsSelector', () => {
     const selected = notificationsSelector(state);
     const expected = [state.notifications[1]];
 
-    expect(selected.notifications).to.deep.equal(expected);
+    expect(selected.notifications).toEqual(expected);
   });
 });

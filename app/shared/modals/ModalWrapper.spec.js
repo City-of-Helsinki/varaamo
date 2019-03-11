@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
@@ -26,43 +25,43 @@ describe('shared/modals/ModalWrapper', () => {
   test('renders a Modal component with correct props', () => {
     const modal = getWrapper().find(Modal);
 
-    expect(modal.length).to.equal(1);
-    expect(modal.props().className).to.equal(defaultProps.className);
-    expect(modal.props().onHide).to.equal(defaultProps.onClose);
-    expect(modal.props().show).to.equal(defaultProps.show);
+    expect(modal.length).toBe(1);
+    expect(modal.props().className).toBe(defaultProps.className);
+    expect(modal.props().onHide).toBe(defaultProps.onClose);
+    expect(modal.props().show).toBe(defaultProps.show);
   });
 
   test('renders ModalHeader component with closeButton', () => {
     const modalHeader = getWrapper().find(Modal.Header);
 
-    expect(modalHeader.length).to.equal(1);
-    expect(modalHeader.props().closeButton).to.equal(true);
+    expect(modalHeader.length).toBe(1);
+    expect(modalHeader.props().closeButton).toBe(true);
   });
 
   test('renders ModalTitle component with correct title', () => {
     const modalTitle = getWrapper().find(Modal.Title);
 
-    expect(modalTitle.length).to.equal(1);
-    expect(modalTitle.props().children).to.equal(defaultProps.title);
+    expect(modalTitle.length).toBe(1);
+    expect(modalTitle.props().children).toBe(defaultProps.title);
   });
 
   test('renders ModalBody component', () => {
     const modalBody = getWrapper().find(Modal.Body);
 
-    expect(modalBody.length).to.equal(1);
+    expect(modalBody.length).toBe(1);
   });
 
   test('renders content of the modal inside ModalBody', () => {
     const modalBody = getWrapper().find(Modal.Body);
     const expectedContent = <p>Modal content</p>;
 
-    expect(modalBody.children().equals(expectedContent)).to.be.true;
+    expect(modalBody.children().equals(expectedContent)).toBe(true);
   });
 
   test('renders ModalFooter component', () => {
     const modalFooter = getWrapper().find(Modal.Footer);
 
-    expect(modalFooter.length).to.equal(1);
+    expect(modalFooter.length).toBe(1);
   });
 
   describe('footerContent', () => {
@@ -71,7 +70,7 @@ describe('shared/modals/ModalWrapper', () => {
       () => {
         const modalFooter = getWrapper().find(Modal.Footer);
 
-        expect(modalFooter.children().equals(defaultProps.footerContent)).to.be.true;
+        expect(modalFooter.children().equals(defaultProps.footerContent)).toBe(true);
       }
     );
 
@@ -79,7 +78,7 @@ describe('shared/modals/ModalWrapper', () => {
       const footerContent = undefined;
       const modalFooter = getWrapper({ footerContent }).find(Modal.Footer);
 
-      expect(modalFooter.length).to.equal(0);
+      expect(modalFooter.length).toBe(0);
     });
   });
 });

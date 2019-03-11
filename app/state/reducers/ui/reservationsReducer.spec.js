@@ -1,6 +1,5 @@
 import types from 'constants/ActionTypes';
 
-import { expect } from 'chai';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 import first from 'lodash/first';
@@ -30,40 +29,40 @@ describe('state/reducers/ui/reservationsReducer', () => {
 
     describe('adminReservationFilters', () => {
       test('is an object', () => {
-        expect(typeof initialState.adminReservationFilters).to.equal('object');
+        expect(typeof initialState.adminReservationFilters).toBe('object');
       });
 
       test('state is "all"', () => {
-        expect(initialState.adminReservationFilters.state).to.equal('all');
+        expect(initialState.adminReservationFilters.state).toBe('all');
       });
     });
 
     test('failed is an empty array', () => {
-      expect(initialState.failed).to.deep.equal([]);
+      expect(initialState.failed).toEqual([]);
     });
 
     test('selected is an empty array', () => {
-      expect(initialState.selected).to.deep.equal([]);
+      expect(initialState.selected).toEqual([]);
     });
 
     test('selectedSlot is null', () => {
-      expect(initialState.selectedSlot).to.be.null;
+      expect(initialState.selectedSlot).toBeNull();
     });
 
     test('toCancel is an empty array', () => {
-      expect(initialState.toCancel).to.deep.equal([]);
+      expect(initialState.toCancel).toEqual([]);
     });
 
     test('toEdit is an empty array', () => {
-      expect(initialState.toEdit).to.deep.equal([]);
+      expect(initialState.toEdit).toEqual([]);
     });
 
     test('toShow is an empty array', () => {
-      expect(initialState.toShow).to.deep.equal([]);
+      expect(initialState.toShow).toEqual([]);
     });
 
     test('toShowEdited is an empty array', () => {
-      expect(initialState.toShowEdited).to.deep.equal([]);
+      expect(initialState.toShowEdited).toEqual([]);
     });
   });
 
@@ -79,7 +78,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         });
         const nextState = reservationsReducer(initialState, action);
 
-        expect(nextState.selected).to.deep.equal([]);
+        expect(nextState.selected).toEqual([]);
       });
 
       test('clears the toEdit', () => {
@@ -90,7 +89,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         });
         const nextState = reservationsReducer(initialState, action);
 
-        expect(nextState.toEdit).to.deep.equal([]);
+        expect(nextState.toEdit).toEqual([]);
       });
 
       test('adds the given reservation to toShow', () => {
@@ -102,7 +101,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const nextState = reservationsReducer(initialState, action);
         const expected = Immutable([reservation]);
 
-        expect(nextState.toShow).to.deep.equal(expected);
+        expect(nextState.toShow).toEqual(expected);
       });
 
       test('does not affect other reservations in toShow', () => {
@@ -114,7 +113,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const nextState = reservationsReducer(initialState, action);
         const expected = Immutable([reservations[0], reservations[1]]);
 
-        expect(nextState.toShow).to.deep.equal(expected);
+        expect(nextState.toShow).toEqual(expected);
       });
     });
 
@@ -135,7 +134,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const nextState = reservationsReducer(initialState, action);
         const expected = Immutable([{ ...reservation, failReason }]);
 
-        expect(nextState.failed).to.deep.equal(expected);
+        expect(nextState.failed).toEqual(expected);
       });
 
       test('does not affect other reservations in failed', () => {
@@ -147,7 +146,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const nextState = reservationsReducer(initialState, action);
         const expected = Immutable([reservations[0], { ...reservations[1], failReason }]);
 
-        expect(nextState.failed).to.deep.equal(expected);
+        expect(nextState.failed).toEqual(expected);
       });
     });
 
@@ -163,7 +162,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         });
         const nextState = reservationsReducer(initialState, action);
 
-        expect(nextState.selected).to.deep.equal([]);
+        expect(nextState.selected).toEqual([]);
       });
 
       test('clears the toEdit', () => {
@@ -174,7 +173,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         });
         const nextState = reservationsReducer(initialState, action);
 
-        expect(nextState.toEdit).to.deep.equal([]);
+        expect(nextState.toEdit).toEqual([]);
       });
 
       test('clears the toShow', () => {
@@ -185,7 +184,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         });
         const nextState = reservationsReducer(initialState, action);
 
-        expect(nextState.toShow).to.deep.equal([]);
+        expect(nextState.toShow).toEqual([]);
       });
 
       test('adds the reservation in toShowEdited', () => {
@@ -196,7 +195,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const expected = Immutable([reservation]);
         const nextState = reservationsReducer(initialState, action);
 
-        expect(nextState.toShowEdited).to.deep.equal(expected);
+        expect(nextState.toShowEdited).toEqual(expected);
       });
     });
 
@@ -208,7 +207,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const action = cancelReservationEdit();
         const nextState = reservationsReducer(initialState, action);
 
-        expect(nextState.toEdit).to.deep.equal([]);
+        expect(nextState.toEdit).toEqual([]);
       });
     });
 
@@ -222,7 +221,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const expected = Immutable(adminReservationFilters);
         const nextState = reservationsReducer(initialState, action);
 
-        expect(nextState.adminReservationFilters).to.deep.equal(expected);
+        expect(nextState.adminReservationFilters).toEqual(expected);
       });
 
       test('overrides previous values of same adminReservationFilters', () => {
@@ -234,7 +233,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const expected = Immutable(adminReservationFilters);
         const nextState = reservationsReducer(initialState, action);
 
-        expect(nextState.adminReservationFilters).to.deep.equal(expected);
+        expect(nextState.adminReservationFilters).toEqual(expected);
       });
 
       test('does not override unspecified adminReservationFilters', () => {
@@ -249,7 +248,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         });
         const nextState = reservationsReducer(initialState, action);
 
-        expect(nextState.adminReservationFilters).to.deep.equal(expected);
+        expect(nextState.adminReservationFilters).toEqual(expected);
       });
     });
 
@@ -266,7 +265,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         });
         const nextState = reservationsReducer(initialState, action);
 
-        expect(nextState).to.deep.equal(resetedState);
+        expect(nextState).toEqual(resetedState);
       });
     });
 
@@ -279,7 +278,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
           const action = closeReservationCancelModal();
           const nextState = reservationsReducer(initialState, action);
 
-          expect(nextState.toCancel).to.deep.equal([]);
+          expect(nextState.toCancel).toEqual([]);
         });
       });
 
@@ -291,7 +290,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
           const action = closeReservationCommentModal();
           const nextState = reservationsReducer(initialState, action);
 
-          expect(nextState.toShow).to.deep.equal([]);
+          expect(nextState.toShow).toEqual([]);
         });
       });
 
@@ -303,7 +302,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
           const action = closeReservationSuccessModal();
           const nextState = reservationsReducer(initialState, action);
 
-          expect(nextState.toShow).to.deep.equal([]);
+          expect(nextState.toShow).toEqual([]);
         });
 
         test('clears failed array', () => {
@@ -313,7 +312,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
           const action = closeReservationSuccessModal();
           const nextState = reservationsReducer(initialState, action);
 
-          expect(nextState.failed).to.deep.equal([]);
+          expect(nextState.failed).toEqual([]);
         });
       });
     });
@@ -326,7 +325,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const newSlot = { new: 'slot' };
         const action = selectReservationSlot(newSlot);
         const nextState = reservationsReducer(initialState, action);
-        expect(nextState.selectedSlot).to.deep.equal(newSlot);
+        expect(nextState.selectedSlot).toEqual(newSlot);
       });
     });
 
@@ -340,7 +339,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const nextState = reservationsReducer(initialState, action);
         const expected = Immutable([reservation]);
 
-        expect(nextState.toCancel).to.deep.equal(expected);
+        expect(nextState.toCancel).toEqual(expected);
       });
 
       test('does not affect other reservations in toCancel', () => {
@@ -352,7 +351,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const nextState = reservationsReducer(initialState, action);
         const expected = Immutable([reservations[0], reservations[1]]);
 
-        expect(nextState.toCancel).to.deep.equal(expected);
+        expect(nextState.toCancel).toEqual(expected);
       });
     });
 
@@ -367,7 +366,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const nextState = reservationsReducer(initialState, action);
         const expected = Immutable([reservation]);
 
-        expect(nextState.toEdit).to.deep.equal(expected);
+        expect(nextState.toEdit).toEqual(expected);
       });
 
       test('removes other reservations in toEdit', () => {
@@ -380,7 +379,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const nextState = reservationsReducer(initialState, action);
         const expected = Immutable([reservations[1]]);
 
-        expect(nextState.toEdit).to.deep.equal(expected);
+        expect(nextState.toEdit).toEqual(expected);
       });
 
       test('splits the given reservation to slots and add to selected', () => {
@@ -410,7 +409,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
           },
         ];
 
-        expect(nextState.selected).to.deep.equal(expected);
+        expect(nextState.selected).toEqual(expected);
       });
     });
 
@@ -424,7 +423,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const nextState = reservationsReducer(initialState, action);
         const expected = Immutable([reservation]);
 
-        expect(nextState.toShow).to.deep.equal(expected);
+        expect(nextState.toShow).toEqual(expected);
       });
 
       test('does not affect other reservations in toShow', () => {
@@ -436,7 +435,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const nextState = reservationsReducer(initialState, action);
         const expected = Immutable([reservations[0], reservations[1]]);
 
-        expect(nextState.toShow).to.deep.equal(expected);
+        expect(nextState.toShow).toEqual(expected);
       });
     });
 
@@ -455,7 +454,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
           const nextState = reservationsReducer(initialState, action);
           const expected = Immutable([slot]);
 
-          expect(nextState.selected).to.deep.equal(expected);
+          expect(nextState.selected).toEqual(expected);
         });
 
         test('does not affect other selected slots ', () => {
@@ -477,7 +476,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
           const nextState = reservationsReducer(initialState, action);
           const expected = Immutable([...initialState.selected, slot]);
 
-          expect(nextState.selected).to.deep.equal(expected);
+          expect(nextState.selected).toEqual(expected);
         });
 
         test(
@@ -507,7 +506,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
             const nextState = reservationsReducer(initialState, action);
             const expected = Immutable([initialState.selected[0], slot]);
 
-            expect(nextState.selected).to.deep.equal(expected);
+            expect(nextState.selected).toEqual(expected);
           }
         );
 
@@ -536,7 +535,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
           const nextState = reservationsReducer(initialState, action);
           const expected = Immutable([initialState.selected[0], slot]);
 
-          expect(nextState.selected).to.deep.equal(expected);
+          expect(nextState.selected).toEqual(expected);
         });
       });
 
@@ -554,7 +553,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
           const nextState = reservationsReducer(initialState, action);
           const expected = Immutable([]);
 
-          expect(nextState.selected).to.deep.equal(expected);
+          expect(nextState.selected).toEqual(expected);
         });
 
         test('does not affect other selected slots ', () => {
@@ -575,7 +574,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
           const nextState = reservationsReducer(initialState, action);
           const expected = Immutable([slot1]);
 
-          expect(nextState.selected).to.deep.equal(expected);
+          expect(nextState.selected).toEqual(expected);
         });
       });
 
@@ -592,7 +591,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
             ],
           });
           const nextState = reservationsReducer(initialState, action);
-          expect(nextState.selected).to.deep.equal([]);
+          expect(nextState.selected).toEqual([]);
         });
 
         test('clears many selected slots', () => {
@@ -612,7 +611,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
             ],
           });
           const nextState = reservationsReducer(initialState, action);
-          expect(nextState.selected).to.deep.equal([]);
+          expect(nextState.selected).toEqual([]);
         });
       });
     });

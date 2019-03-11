@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
@@ -19,21 +18,21 @@ describe('shared/info-popover/InfoPopover', () => {
   test('renders an OverlayTrigger with correct placement', () => {
     const placement = 'right';
     const trigger = getWrapper({ placement }).find(OverlayTrigger);
-    expect(trigger).to.have.length(1);
-    expect(trigger.prop('placement')).to.equal(placement);
+    expect(trigger).toHaveLength(1);
+    expect(trigger.prop('placement')).toBe(placement);
   });
 
   test('renders a popover with correct text', () => {
     const text = 'Some text';
     const overlayTrigger = getWrapper({ text }).find(OverlayTrigger);
     const overlay = overlayTrigger.prop('overlay');
-    expect(overlay.type).to.equal(Popover);
-    expect(overlay.props.children).to.equal(text);
+    expect(overlay.type).toBe(Popover);
+    expect(overlay.props.children).toBe(text);
   });
 
   test('renders a "question-sign" glyphicon', () => {
     const glyphicon = getWrapper().find(Glyphicon);
-    expect(glyphicon).to.have.length(1);
-    expect(glyphicon.prop('glyph')).to.equal('question-sign');
+    expect(glyphicon).toHaveLength(1);
+    expect(glyphicon.prop('glyph')).toBe('question-sign');
   });
 });

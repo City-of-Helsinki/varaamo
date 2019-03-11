@@ -1,6 +1,5 @@
 import constants from 'constants/AppConstants';
 
-import { expect } from 'chai';
 import moment from 'moment';
 import queryString from 'query-string';
 import React from 'react';
@@ -71,53 +70,53 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       const wrapper = getWrapper({ filters });
       const searchBox = wrapper.find(SearchBox);
       const expectedOptions = defaultProps.purposeOptions.concat(defaultProps.unitOptions);
-      expect(searchBox).to.have.length(1);
-      expect(searchBox.prop('onChange')).to.be.a('function');
-      expect(searchBox.prop('onSearch')).to.equal(wrapper.instance().handleSearch);
-      expect(searchBox.prop('options')).to.deep.equal(expectedOptions);
-      expect(searchBox.prop('value')).to.equal(filters.search);
+      expect(searchBox).toHaveLength(1);
+      expect(typeof searchBox.prop('onChange')).toBe('function');
+      expect(searchBox.prop('onSearch')).toBe(wrapper.instance().handleSearch);
+      expect(searchBox.prop('options')).toEqual(expectedOptions);
+      expect(searchBox.prop('value')).toBe(filters.search);
     });
 
     test('renders DatePickerControl with correct props', () => {
       const filters = { ...defaultProps.filters, date: '2015-10-10' };
       const wrapper = getWrapper({ filters });
       const datePickerControl = wrapper.find(DatePickerControl);
-      expect(datePickerControl).to.have.length(1);
-      expect(datePickerControl.prop('currentLanguage')).to.equal(defaultProps.currentLanguage);
-      expect(datePickerControl.prop('date')).to.equal(moment(filters.date).format('L'));
-      expect(datePickerControl.prop('onConfirm')).to.equal(wrapper.instance().handleDateChange);
+      expect(datePickerControl).toHaveLength(1);
+      expect(datePickerControl.prop('currentLanguage')).toBe(defaultProps.currentLanguage);
+      expect(datePickerControl.prop('date')).toBe(moment(filters.date).format('L'));
+      expect(datePickerControl.prop('onConfirm')).toBe(wrapper.instance().handleDateChange);
     });
 
     test('renders SelectControl for municipality with correct props', () => {
       const selectControl = getWrapper({}).find(SelectControl);
-      expect(selectControl).to.have.length(4);
-      expect(selectControl.at(0).prop('id')).to.equal('municipality');
-      expect(selectControl.at(0).prop('label')).to.equal('SearchControlsContainer.municipalityLabel');
-      expect(selectControl.at(0).prop('onChange')).to.exist;
-      expect(selectControl.at(1).prop('options')).to.exist;
-      expect(selectControl.at(0).prop('value')).to.equal(defaultProps.filters.municipality);
+      expect(selectControl).toHaveLength(4);
+      expect(selectControl.at(0).prop('id')).toBe('municipality');
+      expect(selectControl.at(0).prop('label')).toBe('SearchControlsContainer.municipalityLabel');
+      expect(selectControl.at(0).prop('onChange')).toBeDefined();
+      expect(selectControl.at(1).prop('options')).toBeDefined();
+      expect(selectControl.at(0).prop('value')).toBe(defaultProps.filters.municipality);
     });
 
     test('renders SelectControl for purpose with correct props', () => {
       const selectControl = getWrapper({}).find(SelectControl);
-      expect(selectControl).to.have.length(4);
-      expect(selectControl.at(1).prop('id')).to.equal('purpose');
-      expect(selectControl.at(1).prop('isLoading')).to.equal(defaultProps.isFetchingPurposes);
-      expect(selectControl.at(1).prop('label')).to.equal('SearchControlsContainer.purposeLabel');
-      expect(selectControl.at(1).prop('onChange')).to.exist;
-      expect(selectControl.at(1).prop('options')).to.deep.equal(defaultProps.purposeOptions);
-      expect(selectControl.at(1).prop('value')).to.equal(defaultProps.filters.purpose);
+      expect(selectControl).toHaveLength(4);
+      expect(selectControl.at(1).prop('id')).toBe('purpose');
+      expect(selectControl.at(1).prop('isLoading')).toBe(defaultProps.isFetchingPurposes);
+      expect(selectControl.at(1).prop('label')).toBe('SearchControlsContainer.purposeLabel');
+      expect(selectControl.at(1).prop('onChange')).toBeDefined();
+      expect(selectControl.at(1).prop('options')).toEqual(defaultProps.purposeOptions);
+      expect(selectControl.at(1).prop('value')).toBe(defaultProps.filters.purpose);
     });
 
     test('renders SelectControl for unit with correct props', () => {
       const selectControl = getWrapper({}).find(SelectControl);
-      expect(selectControl).to.have.length(4);
-      expect(selectControl.at(2).prop('id')).to.equal('unit');
-      expect(selectControl.at(2).prop('isLoading')).to.equal(defaultProps.isFetchingUnits);
-      expect(selectControl.at(2).prop('label')).to.equal('SearchControlsContainer.unitLabel');
-      expect(selectControl.at(2).prop('onChange')).to.exist;
-      expect(selectControl.at(2).prop('options')).to.deep.equal(defaultProps.unitOptions);
-      expect(selectControl.at(2).prop('value')).to.equal(defaultProps.filters.unit);
+      expect(selectControl).toHaveLength(4);
+      expect(selectControl.at(2).prop('id')).toBe('unit');
+      expect(selectControl.at(2).prop('isLoading')).toBe(defaultProps.isFetchingUnits);
+      expect(selectControl.at(2).prop('label')).toBe('SearchControlsContainer.unitLabel');
+      expect(selectControl.at(2).prop('onChange')).toBeDefined();
+      expect(selectControl.at(2).prop('options')).toEqual(defaultProps.unitOptions);
+      expect(selectControl.at(2).prop('value')).toBe(defaultProps.filters.unit);
     });
 
     test('renders SelectControl for people with correct props', () => {
@@ -138,15 +137,13 @@ describe('pages/search/controls/SearchControlsContainer', () => {
         { value: '30', label: '30+' },
       ];
       const selectControl = getWrapper({}).find(SelectControl);
-      expect(selectControl).to.have.length(4);
-      expect(selectControl.at(3).prop('id')).to.equal('people');
-      expect(selectControl.at(3).prop('isLoading')).to.equal(defaultProps.isFetchingPurposes);
-      expect(selectControl.at(3).prop('label')).to.equal(
-        'SearchControlsContainer.peopleCapacityLabel'
-      );
-      expect(selectControl.at(3).prop('onChange')).to.exist;
-      expect(selectControl.at(3).prop('options')).to.deep.equal(peopleOptions);
-      expect(selectControl.at(3).prop('value')).to.equal(defaultProps.filters.people);
+      expect(selectControl).toHaveLength(4);
+      expect(selectControl.at(3).prop('id')).toBe('people');
+      expect(selectControl.at(3).prop('isLoading')).toBe(defaultProps.isFetchingPurposes);
+      expect(selectControl.at(3).prop('label')).toBe('SearchControlsContainer.peopleCapacityLabel');
+      expect(selectControl.at(3).prop('onChange')).toBeDefined();
+      expect(selectControl.at(3).prop('options')).toEqual(peopleOptions);
+      expect(selectControl.at(3).prop('value')).toBe(defaultProps.filters.people);
     });
 
     test('renders PositionControl with correct props', () => {
@@ -155,11 +152,11 @@ describe('pages/search/controls/SearchControlsContainer', () => {
         filters,
         position: { lat: 1, lon: 2 },
       }).find(PositionControl);
-      expect(positionControl).to.have.length(1);
-      expect(positionControl.prop('geolocated')).to.be.true;
-      expect(positionControl.prop('onConfirm')).to.exist;
-      expect(positionControl.prop('onPositionSwitch')).to.exist;
-      expect(positionControl.prop('value')).to.equal(5000);
+      expect(positionControl).toHaveLength(1);
+      expect(positionControl.prop('geolocated')).toBe(true);
+      expect(positionControl.prop('onConfirm')).toBeDefined();
+      expect(positionControl.prop('onPositionSwitch')).toBeDefined();
+      expect(positionControl.prop('value')).toBe(5000);
     });
 
     test('renders TimeRangeControl with correct props', () => {
@@ -168,41 +165,39 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       };
       const wrapper = getWrapper({ filters });
       const timeRangeControl = wrapper.find(TimeRangeControl);
-      expect(timeRangeControl).to.have.length(1);
-      expect(timeRangeControl.prop('duration')).to.equal(filters.duration);
-      expect(timeRangeControl.prop('end')).to.equal(filters.end);
-      expect(timeRangeControl.prop('onConfirm')).to.equal(wrapper.instance().handleTimeRangeChange);
-      expect(timeRangeControl.prop('onTimeRangeSwitch')).to.equal(
-        wrapper.instance().handleTimeRangeSwitch
-      );
-      expect(timeRangeControl.prop('start')).to.equal(filters.start);
+      expect(timeRangeControl).toHaveLength(1);
+      expect(timeRangeControl.prop('duration')).toBe(filters.duration);
+      expect(timeRangeControl.prop('end')).toBe(filters.end);
+      expect(timeRangeControl.prop('onConfirm')).toBe(wrapper.instance().handleTimeRangeChange);
+      expect(timeRangeControl.prop('onTimeRangeSwitch')).toBe(wrapper.instance().handleTimeRangeSwitch);
+      expect(timeRangeControl.prop('start')).toBe(filters.start);
     });
 
     test('renders CheckboxControl with correct props', () => {
       const filters = { ...defaultProps.filters, freeOfCharge: '' };
       const checkboxControl = getWrapper(filters).find(CheckboxControl);
-      expect(checkboxControl).to.have.length(1);
-      expect(checkboxControl.prop('id')).to.equal('charge');
-      expect(checkboxControl.prop('label')).to.equal('SearchControlsContainer.chargeLabel');
-      expect(checkboxControl.prop('onConfirm')).to.be.a('function');
-      expect(checkboxControl.prop('value')).to.be.false;
+      expect(checkboxControl).toHaveLength(1);
+      expect(checkboxControl.prop('id')).toBe('charge');
+      expect(checkboxControl.prop('label')).toBe('SearchControlsContainer.chargeLabel');
+      expect(typeof checkboxControl.prop('onConfirm')).toBe('function');
+      expect(checkboxControl.prop('value')).toBe(false);
     });
 
     test('renders search Button with correct props', () => {
       const buttons = getWrapper({}).find(Button);
-      expect(buttons).to.have.length(2);
-      expect(buttons.at(0).prop('bsStyle')).to.be.equal('primary');
-      expect(buttons.at(0).prop('onClick')).to.be.a('function');
-      expect(buttons.at(0).prop('type')).to.be.equal('submit');
+      expect(buttons).toHaveLength(2);
+      expect(buttons.at(0).prop('bsStyle')).toBe('primary');
+      expect(typeof buttons.at(0).prop('onClick')).toBe('function');
+      expect(buttons.at(0).prop('type')).toBe('submit');
     });
 
     test('renders reset Button with correct props', () => {
       const wrapper = getWrapper({});
       const instance = wrapper.instance();
       const buttons = wrapper.find(Button);
-      expect(buttons).to.have.length(2);
-      expect(buttons.at(1).prop('bsStyle')).to.be.equal('link');
-      expect(buttons.at(1).prop('onClick')).to.equal(instance.handleReset);
+      expect(buttons).toHaveLength(2);
+      expect(buttons.at(1).prop('bsStyle')).toBe('link');
+      expect(buttons.at(1).prop('onClick')).toBe(instance.handleReset);
     });
   });
 
@@ -230,22 +225,22 @@ describe('pages/search/controls/SearchControlsContainer', () => {
         value: 'some-municipality',
         label: 'some-municipality',
       }];
-      expect(selectControl).to.have.length(4);
-      expect(selectControl.at(0).prop('onChange')).to.be.a('function');
+      expect(selectControl).toHaveLength(4);
+      expect(typeof selectControl.at(0).prop('onChange')).toBe('function');
       selectControl.at(0).prop('onChange')(municipalities, {});
-      expect(instance.handleFiltersChange.callCount).to.equal(1);
-      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({
+      expect(instance.handleFiltersChange.callCount).toBe(1);
+      expect(instance.handleFiltersChange.lastCall.args[0]).toEqual({
         municipality: [municipalities[0].value],
       });
     });
 
     test('calls handleFiltersChange on purpose SelectControl onChange', () => {
       const purpose = defaultProps.purposeOptions[0];
-      expect(selectControl).to.have.length(4);
-      expect(selectControl.at(1).prop('onChange')).to.be.a('function');
+      expect(selectControl).toHaveLength(4);
+      expect(typeof selectControl.at(1).prop('onChange')).toBe('function');
       selectControl.at(1).prop('onChange')(purpose);
-      expect(instance.handleFiltersChange.callCount).to.equal(1);
-      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({
+      expect(instance.handleFiltersChange.callCount).toBe(1);
+      expect(instance.handleFiltersChange.lastCall.args[0]).toEqual({
         purpose: purpose.value,
       });
     });
@@ -253,20 +248,20 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     test('calls handleFiltersChange on unit SelectControl onChange', () => {
       const unit = defaultProps.unitOptions[0];
 
-      expect(selectControl).to.have.length(4);
-      expect(selectControl.at(2).prop('onChange')).to.be.a('function');
+      expect(selectControl).toHaveLength(4);
+      expect(typeof selectControl.at(2).prop('onChange')).toBe('function');
       selectControl.at(2).prop('onChange')(unit);
-      expect(instance.handleFiltersChange.callCount).to.equal(1);
-      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ unit: unit.value });
+      expect(instance.handleFiltersChange.callCount).toBe(1);
+      expect(instance.handleFiltersChange.lastCall.args[0]).toEqual({ unit: unit.value });
     });
 
     test('calls handleFiltersChange on people SelectControl onChange', () => {
       const people = defaultProps.peopleOptions[0];
-      expect(selectControl).to.have.length(4);
-      expect(selectControl.at(3).prop('onChange')).to.be.a('function');
+      expect(selectControl).toHaveLength(4);
+      expect(typeof selectControl.at(3).prop('onChange')).toBe('function');
       selectControl.at(3).prop('onChange')(people);
-      expect(instance.handleFiltersChange.callCount).to.equal(1);
-      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ people: people.value });
+      expect(instance.handleFiltersChange.callCount).toBe(1);
+      expect(instance.handleFiltersChange.lastCall.args[0]).toEqual({ people: people.value });
     });
   });
 
@@ -287,11 +282,11 @@ describe('pages/search/controls/SearchControlsContainer', () => {
 
     test('calls handleFiltersChange on PositionControl onConfirm', () => {
       const distance = 1000;
-      expect(positionControl).to.have.length(1);
-      expect(positionControl.at(0).prop('onConfirm')).to.be.a('function');
+      expect(positionControl).toHaveLength(1);
+      expect(typeof positionControl.at(0).prop('onConfirm')).toBe('function');
       positionControl.at(0).prop('onConfirm')(distance);
-      expect(instance.handleFiltersChange.callCount).to.equal(1);
-      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ distance });
+      expect(instance.handleFiltersChange.callCount).toBe(1);
+      expect(instance.handleFiltersChange.lastCall.args[0]).toEqual({ distance });
     });
   });
 
@@ -314,11 +309,11 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       'calls handleFiltersChange on charge CheckboxControl control onConfirm',
       () => {
         const freeOfCharge = true;
-        expect(checkboxControl).to.have.length(1);
-        expect(checkboxControl.at(0).prop('onConfirm')).to.be.a('function');
+        expect(checkboxControl).toHaveLength(1);
+        expect(typeof checkboxControl.at(0).prop('onConfirm')).toBe('function');
         checkboxControl.at(0).prop('onConfirm')(freeOfCharge);
-        expect(instance.handleFiltersChange.callCount).to.equal(1);
-        expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ freeOfCharge });
+        expect(instance.handleFiltersChange.callCount).toBe(1);
+        expect(instance.handleFiltersChange.lastCall.args[0]).toEqual({ freeOfCharge });
       }
     );
   });
@@ -339,8 +334,8 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     });
 
     test('calls handleFiltersChange with given filters', () => {
-      expect(instance.handleFiltersChange.callCount).to.equal(1);
-      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal(expected);
+      expect(instance.handleFiltersChange.callCount).toBe(1);
+      expect(instance.handleFiltersChange.lastCall.args[0]).toEqual(expected);
     });
   });
 
@@ -350,8 +345,8 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       const changeSearchFilters = simple.mock();
       const instance = getWrapper({ actions: { changeSearchFilters } }).instance();
       instance.handleFiltersChange(newFilters);
-      expect(changeSearchFilters.callCount).to.equal(1);
-      expect(changeSearchFilters.lastCall.args[0]).to.equal(newFilters);
+      expect(changeSearchFilters.callCount).toBe(1);
+      expect(changeSearchFilters.lastCall.args[0]).toBe(newFilters);
     });
   });
 
@@ -364,8 +359,8 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       };
       const instance = getWrapper(props).instance();
       instance.handlePositionSwitch();
-      expect(enableGeoposition.callCount).to.equal(1);
-      expect(disableGeoposition.callCount).to.equal(0);
+      expect(enableGeoposition.callCount).toBe(1);
+      expect(disableGeoposition.callCount).toBe(0);
     });
     test('calls props actions disableGeoposition when position', () => {
       const enableGeoposition = simple.mock();
@@ -376,8 +371,8 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       };
       const instance = getWrapper(props).instance();
       instance.handlePositionSwitch();
-      expect(disableGeoposition.callCount).to.equal(1);
-      expect(enableGeoposition.callCount).to.equal(0);
+      expect(disableGeoposition.callCount).toBe(1);
+      expect(enableGeoposition.callCount).toBe(0);
     });
   });
 
@@ -387,8 +382,8 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       const changeSearchFilters = simple.mock();
       const instance = getWrapper({ actions: { changeSearchFilters } }).instance();
       instance.handleSearchBoxChange(search);
-      expect(changeSearchFilters.callCount).to.equal(1);
-      expect(changeSearchFilters.lastCall.args[0]).to.deep.equal({ search });
+      expect(changeSearchFilters.callCount).toBe(1);
+      expect(changeSearchFilters.lastCall.args[0]).toEqual({ search });
     });
   });
 
@@ -408,10 +403,10 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     });
 
     test('calls handleSearch on search button onClick', () => {
-      expect(buttons).to.have.length(2);
-      expect(buttons.at(0).prop('onClick')).to.be.a('function');
+      expect(buttons).toHaveLength(2);
+      expect(typeof buttons.at(0).prop('onClick')).toBe('function');
       buttons.at(0).prop('onClick')();
-      expect(instance.handleSearch.callCount).to.equal(1);
+      expect(instance.handleSearch.callCount).toBe(1);
     });
   });
 
@@ -434,8 +429,8 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       const actualPath = historyMock.lastCall.args[0];
       const expectedPath = `/search?${queryString.stringify(defaultProps.filters)}`;
 
-      expect(historyMock.callCount).to.equal(1);
-      expect(actualPath).to.equal(expectedPath);
+      expect(historyMock.callCount).toBe(1);
+      expect(actualPath).toBe(expectedPath);
     });
   });
 
@@ -459,12 +454,12 @@ describe('pages/search/controls/SearchControlsContainer', () => {
 
     test('calls handleFiltersChange with empty filters', () => {
       const emptyFilters = Object.assign({}, constants.SUPPORTED_SEARCH_FILTERS);
-      expect(instance.handleFiltersChange.callCount).to.equal(1);
-      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal(emptyFilters);
+      expect(instance.handleFiltersChange.callCount).toBe(1);
+      expect(instance.handleFiltersChange.lastCall.args[0]).toEqual(emptyFilters);
     });
 
     test('calls disableGeoposition with empty filters', () => {
-      expect(disableGeoposition.callCount).to.equal(1);
+      expect(disableGeoposition.callCount).toBe(1);
     });
   });
 
@@ -478,7 +473,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
         .instance()
         .componentDidMount();
 
-      expect(actions.fetchPurposes.callCount).to.equal(1);
+      expect(actions.fetchPurposes.callCount).toBe(1);
     });
   });
 });

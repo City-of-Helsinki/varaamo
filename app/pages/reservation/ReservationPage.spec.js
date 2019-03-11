@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import Loader from 'react-loader';
 import Immutable from 'seamless-immutable';
@@ -71,8 +70,8 @@ describe('pages/reservation/ReservationPage', () => {
           reservationEdited: null,
         }).find(PageWrapper);
 
-        expect(pageWrapper).to.have.length(1);
-        expect(pageWrapper.prop('title')).to.equal('ReservationPage.newReservationTitle');
+        expect(pageWrapper).toHaveLength(1);
+        expect(pageWrapper.prop('title')).toBe('ReservationPage.newReservationTitle');
       }
     );
 
@@ -81,8 +80,8 @@ describe('pages/reservation/ReservationPage', () => {
         reservationToEdit: Reservation.build(),
       }).find(PageWrapper);
 
-      expect(pageWrapper).to.have.length(1);
-      expect(pageWrapper.prop('title')).to.equal('ReservationPage.editReservationTitle');
+      expect(pageWrapper).toHaveLength(1);
+      expect(pageWrapper.prop('title')).toBe('ReservationPage.editReservationTitle');
     });
 
     test('renders edit reservation title when reservationEdited not empty', () => {
@@ -90,8 +89,8 @@ describe('pages/reservation/ReservationPage', () => {
         reservationEdited: Reservation.build(),
       }).find(PageWrapper);
 
-      expect(pageWrapper).to.have.length(1);
-      expect(pageWrapper.prop('title')).to.equal('ReservationPage.editReservationTitle');
+      expect(pageWrapper).toHaveLength(1);
+      expect(pageWrapper.prop('title')).toBe('ReservationPage.editReservationTitle');
     });
   });
 
@@ -101,8 +100,8 @@ describe('pages/reservation/ReservationPage', () => {
         resource,
       }).find(Loader);
 
-      expect(loader).to.have.length(1);
-      expect(loader.prop('loaded')).to.be.true;
+      expect(loader).toHaveLength(1);
+      expect(loader.prop('loaded')).toBe(true);
     });
 
     test('not rendered when resource empty', () => {
@@ -110,7 +109,7 @@ describe('pages/reservation/ReservationPage', () => {
         resource: {},
       }).find(Loader);
 
-      expect(loader).to.have.length(0);
+      expect(loader).toHaveLength(0);
     });
   });
 
@@ -119,18 +118,18 @@ describe('pages/reservation/ReservationPage', () => {
       const reservationPhases = getWrapper({
         reservationToEdit: null,
       }).find(ReservationPhases);
-      expect(reservationPhases).to.have.length(1);
-      expect(reservationPhases.prop('currentPhase')).to.equal('information');
-      expect(reservationPhases.prop('isEditing')).to.be.false;
+      expect(reservationPhases).toHaveLength(1);
+      expect(reservationPhases.prop('currentPhase')).toBe('information');
+      expect(reservationPhases.prop('isEditing')).toBe(false);
     });
 
     test('renders correct props when reservationToEdit not null', () => {
       const reservationPhases = getWrapper({
         reservationToEdit: Reservation.build(),
       }).find(ReservationPhases);
-      expect(reservationPhases).to.have.length(1);
-      expect(reservationPhases.prop('currentPhase')).to.equal('time');
-      expect(reservationPhases.prop('isEditing')).to.be.true;
+      expect(reservationPhases).toHaveLength(1);
+      expect(reservationPhases.prop('currentPhase')).toBe('time');
+      expect(reservationPhases.prop('isEditing')).toBe(true);
     });
   });
 
@@ -139,14 +138,14 @@ describe('pages/reservation/ReservationPage', () => {
       const reservationTime = getWrapper({
         reservationToEdit: Reservation.build(),
       }).find(ReservationTime);
-      expect(reservationTime).to.have.length(1);
+      expect(reservationTime).toHaveLength(1);
     });
 
     test('does not render ReservationTime when reservationToEdit is empty', () => {
       const reservationTime = getWrapper({
         reservationToEdit: null,
       }).find(ReservationTime);
-      expect(reservationTime).to.have.length(0);
+      expect(reservationTime).toHaveLength(0);
     });
   });
 
@@ -155,7 +154,7 @@ describe('pages/reservation/ReservationPage', () => {
       'renders ReservationInformation when view is information and selected not empty',
       () => {
         const reservationInformation = getWrapper().find(ReservationInformation);
-        expect(reservationInformation).to.have.length(1);
+        expect(reservationInformation).toHaveLength(1);
       }
     );
 
@@ -165,7 +164,7 @@ describe('pages/reservation/ReservationPage', () => {
         const reservationInformation = getWrapper({
           reservationToEdit: Reservation.build(),
         }).find(ReservationInformation);
-        expect(reservationInformation).to.have.length(0);
+        expect(reservationInformation).toHaveLength(0);
       }
     );
   });
@@ -173,7 +172,7 @@ describe('pages/reservation/ReservationPage', () => {
   describe('ReservationConfirmation', () => {
     test('does not render ReservationInformation by default', () => {
       const reservationConfirmation = getWrapper().find(ReservationConfirmation);
-      expect(reservationConfirmation).to.have.length(0);
+      expect(reservationConfirmation).toHaveLength(0);
     });
   });
 
@@ -182,14 +181,14 @@ describe('pages/reservation/ReservationPage', () => {
       const instance = getWrapper({
         reservationToEdit: Reservation.build(),
       }).instance();
-      expect(instance.state.view).to.equal('time');
+      expect(instance.state.view).toBe('time');
     });
 
     test('state view is information when prop reservationToEdit empty', () => {
       const instance = getWrapper({
         reservationToEdit: null,
       }).instance();
-      expect(instance.state.view).to.equal('information');
+      expect(instance.state.view).toBe('information');
     });
   });
 
@@ -214,8 +213,8 @@ describe('pages/reservation/ReservationPage', () => {
 
       test('calls history.replace() with /my-reservations', () => {
         const expectedPath = '/my-reservations';
-        expect(historyMock.callCount).to.equal(1);
-        expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
+        expect(historyMock.callCount).toBe(1);
+        expect(historyMock.lastCall.args).toEqual([expectedPath]);
       });
     });
 
@@ -242,8 +241,8 @@ describe('pages/reservation/ReservationPage', () => {
 
       test('calls history.replace() with /my-reservations', () => {
         const expectedPath = `/resources/${resource.id}`;
-        expect(historyMock.callCount).to.equal(1);
-        expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
+        expect(historyMock.callCount).toBe(1);
+        expect(historyMock.lastCall.args).toEqual([expectedPath]);
       });
     });
 
@@ -262,8 +261,8 @@ describe('pages/reservation/ReservationPage', () => {
       });
 
       test('calls fetch resource', () => {
-        expect(instance.fetchResource.callCount).to.equal(1);
-        expect(instance.fetchResource.lastCall.args).to.deep.equal([]);
+        expect(instance.fetchResource.callCount).toBe(1);
+        expect(instance.fetchResource.lastCall.args).toEqual([]);
       });
     });
   });
@@ -277,7 +276,7 @@ describe('pages/reservation/ReservationPage', () => {
           reservationCreated: Reservation.build(),
         };
         instance.componentWillUpdate(nextProps);
-        expect(instance.state.view).to.equal('confirmation');
+        expect(instance.state.view).toBe('confirmation');
       }
     );
 
@@ -289,7 +288,7 @@ describe('pages/reservation/ReservationPage', () => {
           reservationCreated: Reservation.build(),
         };
         instance.componentWillUpdate(nextProps);
-        expect(instance.state.view).to.equal('confirmation');
+        expect(instance.state.view).toBe('confirmation');
       }
     );
   });
@@ -311,13 +310,13 @@ describe('pages/reservation/ReservationPage', () => {
     });
 
     test('calls clearReservations', () => {
-      expect(clearReservations.callCount).to.equal(1);
-      expect(clearReservations.lastCall.args).to.deep.equal([]);
+      expect(clearReservations.callCount).toBe(1);
+      expect(clearReservations.lastCall.args).toEqual([]);
     });
 
     test('calls closeReservationSuccessModal', () => {
-      expect(closeReservationSuccessModal.callCount).to.equal(1);
-      expect(closeReservationSuccessModal.lastCall.args).to.deep.equal([]);
+      expect(closeReservationSuccessModal.callCount).toBe(1);
+      expect(closeReservationSuccessModal.lastCall.args).toEqual([]);
     });
   });
 
@@ -337,9 +336,9 @@ describe('pages/reservation/ReservationPage', () => {
     });
 
     test('calls actions.fetchResource', () => {
-      expect(fetchResource.callCount).to.equal(1);
-      expect(fetchResource.lastCall.args).to.have.length(2);
-      expect(fetchResource.lastCall.args[0]).to.deep.equal(resource.id);
+      expect(fetchResource.callCount).toBe(1);
+      expect(fetchResource.lastCall.args).toHaveLength(2);
+      expect(fetchResource.lastCall.args[0]).toEqual(resource.id);
     });
   });
 
@@ -349,7 +348,7 @@ describe('pages/reservation/ReservationPage', () => {
         reservationToEdit: Reservation.build(),
       }).instance();
       instance.handleBack();
-      expect(instance.state.view).to.equal('time');
+      expect(instance.state.view).toBe('time');
     });
   });
 
@@ -374,8 +373,8 @@ describe('pages/reservation/ReservationPage', () => {
         }).instance();
         instance.handleCancel();
 
-        expect(historyMock.callCount).to.equal(1);
-        expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
+        expect(historyMock.callCount).toBe(1);
+        expect(historyMock.lastCall.args).toEqual([expectedPath]);
       }
     );
 
@@ -389,8 +388,8 @@ describe('pages/reservation/ReservationPage', () => {
         }).instance();
         instance.handleCancel();
 
-        expect(historyMock.callCount).to.equal(1);
-        expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
+        expect(historyMock.callCount).toBe(1);
+        expect(historyMock.lastCall.args).toEqual([expectedPath]);
       }
     );
   });
@@ -400,7 +399,7 @@ describe('pages/reservation/ReservationPage', () => {
       const instance = getWrapper().instance();
       instance.state.view = 'time';
       instance.handleConfirmTime();
-      expect(instance.state.view).to.equal('information');
+      expect(instance.state.view).toBe('information');
     });
   });
 
@@ -421,8 +420,8 @@ describe('pages/reservation/ReservationPage', () => {
         reservationToEdit,
       }).instance();
       instance.handleReservation(values);
-      expect(postReservation.callCount).to.equal(0);
-      expect(putReservation.callCount).to.equal(1);
+      expect(postReservation.callCount).toBe(0);
+      expect(putReservation.callCount).toBe(1);
     });
 
     test('calls postReservation action when reservationToEdit empty', () => {
@@ -435,8 +434,8 @@ describe('pages/reservation/ReservationPage', () => {
         },
       }).instance();
       instance.handleReservation(values);
-      expect(postReservation.callCount).to.equal(1);
-      expect(putReservation.callCount).to.equal(0);
+      expect(postReservation.callCount).toBe(1);
+      expect(putReservation.callCount).toBe(0);
     });
   });
 });

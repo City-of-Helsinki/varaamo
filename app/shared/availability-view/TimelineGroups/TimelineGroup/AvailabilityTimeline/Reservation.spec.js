@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import moment from 'moment';
 import React from 'react';
@@ -27,23 +26,23 @@ function getWrapper(props) {
 describe('shared/availability-view/Reservation', () => {
   test('renders a span.reservation', () => {
     const wrapper = getWrapper();
-    expect(wrapper.is('span.reservation')).to.be.true;
+    expect(wrapper.is('span.reservation')).toBe(true);
   });
 
   test('renders a button', () => {
     const wrapper = getOuterWrapper();
-    expect(wrapper.is('button')).to.be.true;
+    expect(wrapper.is('button')).toBe(true);
   });
 
   test('renders an OverlayTrigger', () => {
     const trigger = getOuterWrapper().find(OverlayTrigger);
-    expect(trigger).to.have.length(1);
+    expect(trigger).toHaveLength(1);
   });
 
   test('renders a popover', () => {
     const overlayTrigger = getOuterWrapper().find(OverlayTrigger);
     const overlay = overlayTrigger.prop('overlay');
-    expect(overlay.type).to.equal(Popover);
+    expect(overlay.type).toBe(Popover);
   });
 
   test('on click it calls prop.onClick and passes reservation data', () => {
@@ -59,10 +58,10 @@ describe('shared/availability-view/Reservation', () => {
     };
     const wrapper = getOuterWrapper({ ...reservation, onClick });
     const onClickProp = wrapper.prop('onClick');
-    expect(onClick.callCount).to.equal(0);
+    expect(onClick.callCount).toBe(0);
     onClickProp();
-    expect(onClick.callCount).to.equal(1);
-    expect(onClick.lastCall.args[0]).to.deep.equal(reservation);
+    expect(onClick.callCount).toBe(1);
+    expect(onClick.lastCall.args[0]).toEqual(reservation);
   });
 
   test(
@@ -76,7 +75,7 @@ describe('shared/availability-view/Reservation', () => {
         comments: 'comment',
       };
       const element = getOuterWrapper({ ...reservation }).find('.with-comments');
-      expect(element).to.have.length(1);
+      expect(element).toHaveLength(1);
     }
   );
 
@@ -90,7 +89,7 @@ describe('shared/availability-view/Reservation', () => {
         id: 12345,
       };
       const element = getOuterWrapper({ ...reservation }).find('.with-comments');
-      expect(element).to.have.length(0);
+      expect(element).toHaveLength(0);
     }
   );
 
@@ -98,7 +97,7 @@ describe('shared/availability-view/Reservation', () => {
     'adds class requested to reservation if reservation state is requested',
     () => {
       const element = getWrapper({ state: 'requested' }).find('.requested');
-      expect(element).to.have.length(1);
+      expect(element).toHaveLength(1);
     }
   );
 
@@ -106,7 +105,7 @@ describe('shared/availability-view/Reservation', () => {
     'does not add class requested to reservation if reservation state is not requested',
     () => {
       const element = getWrapper({ state: 'approved' }).find('.requested');
-      expect(element).to.have.length(0);
+      expect(element).toHaveLength(0);
     }
   );
 
@@ -120,14 +119,14 @@ describe('shared/availability-view/Reservation', () => {
       endTime: moment(times.end),
     });
     const actual = getWrapper(times).prop('style');
-    expect(actual).to.deep.equal({ width: expected });
+    expect(actual).toEqual({ width: expected });
   });
 
   test('renders eventSubject', () => {
     const eventSubject = 'Meeting GUQ';
     const element = getWrapper({ eventSubject }).find('.event-subject');
-    expect(element).to.have.length(1);
-    expect(element.text()).to.equal(eventSubject);
+    expect(element).toHaveLength(1);
+    expect(element.text()).toBe(eventSubject);
   });
 
   describe('reserver name', () => {
@@ -144,16 +143,16 @@ describe('shared/availability-view/Reservation', () => {
     }
 
     test('is rendered from reserverName', () => {
-      expect(getReserverName()).to.equal('Luke Skywalker');
+      expect(getReserverName()).toBe('Luke Skywalker');
     });
 
     test('is rendered from user.displayName if no reserverName', () => {
-      expect(getReserverName({ reserverName: undefined })).to.equal('DarthV');
+      expect(getReserverName({ reserverName: undefined })).toBe('DarthV');
     });
 
     test('is rendered from email if no others', () => {
       const props = { reserverName: undefined, user: { email: 'dv@dark.side' } };
-      expect(getReserverName(props)).to.equal('dv@dark.side');
+      expect(getReserverName(props)).toBe('dv@dark.side');
     });
   });
 });

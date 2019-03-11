@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import simple from 'simple-mock';
 
@@ -22,12 +21,12 @@ describe('shared/logo/Logo', () => {
     });
 
     test('renders logo of Helsinki', () => {
-      expect(logo.type()).to.equal('img');
-      expect(logo.props().src).to.equal(helsinkiLogoSrc);
+      expect(logo.type()).toBe('img');
+      expect(logo.props().src).toBe(helsinkiLogoSrc);
     });
 
     test('renders Helsinki alt text', () => {
-      expect(logo.props().alt).to.equal('Logo.helsinkiAlt');
+      expect(logo.props().alt).toBe('Logo.helsinkiAlt');
     });
   });
 
@@ -44,12 +43,12 @@ describe('shared/logo/Logo', () => {
     });
 
     test('renders logo of Espoo', () => {
-      expect(logo.type()).to.equal('img');
-      expect(logo.props().src).to.equal(espooLogoSrc);
+      expect(logo.type()).toBe('img');
+      expect(logo.props().src).toBe(espooLogoSrc);
     });
 
     test('renders Espoo alt text', () => {
-      expect(logo.props().alt).to.equal('Logo.espooAlt');
+      expect(logo.props().alt).toBe('Logo.espooAlt');
     });
   });
 
@@ -66,12 +65,12 @@ describe('shared/logo/Logo', () => {
     });
 
     test('renders logo of Vantaa', () => {
-      expect(logo.type()).to.equal('img');
-      expect(logo.props().src).to.equal(vantaaLogoSrc);
+      expect(logo.type()).toBe('img');
+      expect(logo.props().src).toBe(vantaaLogoSrc);
     });
 
     test('renders Vantaa alt text', () => {
-      expect(logo.props().alt).to.equal('Logo.vantaaAlt');
+      expect(logo.props().alt).toBe('Logo.vantaaAlt');
     });
   });
 });

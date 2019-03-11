@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
@@ -34,11 +33,11 @@ describe('shared/resource-list/ResourceIcons', () => {
   });
 
   test('is rendered as a div', () => {
-    expect(wrapper.is('div')).to.be.true;
+    expect(wrapper.is('div')).toBe(true);
   });
 
   test('has icons class', () => {
-    expect(wrapper.prop('className')).to.equal('resource-icons');
+    expect(wrapper.prop('className')).toBe('resource-icons');
   });
 
   describe('capacity icon', () => {
@@ -50,15 +49,15 @@ describe('shared/resource-list/ResourceIcons', () => {
     });
 
     test('is rendered', () => {
-      expect(userIcon).to.have.length(1);
+      expect(userIcon).toHaveLength(1);
     });
 
     test('renders correct text', () => {
-      expect(spanText.text()).to.equal('10');
+      expect(spanText.text()).toBe('10');
     });
 
     test('is not rendered if prop is not passed', () => {
-      expect(wrapperNoProps.find({ glyph: 'user' })).to.have.length(0);
+      expect(wrapperNoProps.find({ glyph: 'user' })).toHaveLength(0);
     });
   });
 
@@ -71,15 +70,15 @@ describe('shared/resource-list/ResourceIcons', () => {
     });
 
     test('is rendered', () => {
-      expect(timeIcon).to.have.length(1);
+      expect(timeIcon).toHaveLength(1);
     });
 
     test('renders correct text', () => {
-      expect(spanText.text()).to.equal('2 h');
+      expect(spanText.text()).toBe('2 h');
     });
 
     test('is not rendered if prop is not passed', () => {
-      expect(wrapperNoProps.find({ glyph: 'time' })).to.have.length(0);
+      expect(wrapperNoProps.find({ glyph: 'time' })).toHaveLength(0);
     });
   });
 
@@ -97,11 +96,11 @@ describe('shared/resource-list/ResourceIcons', () => {
     });
 
     test('is rendered', () => {
-      expect(euroIcon).to.have.length(1);
+      expect(euroIcon).toHaveLength(1);
     });
 
     test('renders range of prices', () => {
-      expect(spanText.text()).to.equal('10 - 25 €/h');
+      expect(spanText.text()).toBe('10 - 25 €/h');
     });
 
     test('renders max euro if no min price', () => {
@@ -109,7 +108,7 @@ describe('shared/resource-list/ResourceIcons', () => {
         maxPricePerHour: '25.00',
         minPricePerHour: null,
       };
-      expect(getSpanTextWithProps(props).text()).to.equal('25 €/h');
+      expect(getSpanTextWithProps(props).text()).toBe('25 €/h');
     });
 
     test('renders min price if no max price', () => {
@@ -117,7 +116,7 @@ describe('shared/resource-list/ResourceIcons', () => {
         maxPricePerHour: '10.00',
         minPricePerHour: null,
       };
-      expect(getSpanTextWithProps(props).text()).to.equal('10 €/h');
+      expect(getSpanTextWithProps(props).text()).toBe('10 €/h');
     });
 
     test('renders one price if min and max prices are the same', () => {
@@ -125,7 +124,7 @@ describe('shared/resource-list/ResourceIcons', () => {
         maxPricePerHour: '10.00',
         minPricePerHour: '10.00',
       };
-      expect(getSpanTextWithProps(props).text()).to.equal('10 €/h');
+      expect(getSpanTextWithProps(props).text()).toBe('10 €/h');
     });
 
     test('renders "free" message if price is 0', () => {
@@ -133,7 +132,7 @@ describe('shared/resource-list/ResourceIcons', () => {
         maxPricePerHour: null,
         minPricePerHour: '0.00',
       };
-      expect(getSpanTextWithProps(props).text()).to.equal('ResourceIcons.free');
+      expect(getSpanTextWithProps(props).text()).toBe('ResourceIcons.free');
     });
 
     test('renders "free" message if price prop is not passed', () => {
@@ -141,7 +140,7 @@ describe('shared/resource-list/ResourceIcons', () => {
         maxPricePerHour: null,
         minPricePerHour: null,
       };
-      expect(getSpanTextWithProps(props).text()).to.equal('ResourceIcons.free');
+      expect(getSpanTextWithProps(props).text()).toBe('ResourceIcons.free');
     });
   });
 });

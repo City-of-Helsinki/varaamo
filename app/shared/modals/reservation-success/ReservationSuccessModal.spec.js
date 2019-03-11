@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import { FormattedHTMLMessage } from 'react-intl';
@@ -50,46 +49,44 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
 
     test('renders a Modal with correct props', () => {
       const modalComponent = wrapper.find(Modal);
-      expect(modalComponent.length).to.equal(1);
-      expect(modalComponent.prop('className')).to.equal('reservation-success-modal modal-city-theme');
-      expect(modalComponent.prop('onHide')).to.equal(
-        defaultProps.closeReservationSuccessModal
-      );
-      expect(modalComponent.prop('show')).to.equal(defaultProps.show);
+      expect(modalComponent.length).toBe(1);
+      expect(modalComponent.prop('className')).toBe('reservation-success-modal modal-city-theme');
+      expect(modalComponent.prop('onHide')).toBe(defaultProps.closeReservationSuccessModal);
+      expect(modalComponent.prop('show')).toBe(defaultProps.show);
     });
 
     test('renders a ModalHeader component with close button', () => {
       const modalHeader = wrapper.find(Modal.Header);
-      expect(modalHeader.length).to.equal(1);
-      expect(modalHeader.props().closeButton).to.equal(true);
+      expect(modalHeader.length).toBe(1);
+      expect(modalHeader.props().closeButton).toBe(true);
     });
 
     test('renders a ModalTitle with correct title', () => {
       const modalTitle = wrapper.find(Modal.Title);
-      expect(modalTitle.length).to.equal(1);
-      expect(modalTitle.prop('children')).to.equal('ReservationSuccessModal.preliminaryReservationTitle');
+      expect(modalTitle.length).toBe(1);
+      expect(modalTitle.prop('children')).toBe('ReservationSuccessModal.preliminaryReservationTitle');
     });
 
     test('renders a ModalBody', () => {
       const modalBody = wrapper.find(Modal.Body);
-      expect(modalBody.length).to.equal(1);
+      expect(modalBody.length).toBe(1);
     });
 
     test('renders a ModalFooter', () => {
       const modalFooter = wrapper.find(Modal.Footer);
-      expect(modalFooter.length).to.equal(1);
+      expect(modalFooter.length).toBe(1);
     });
 
     test('renders a ReservationDate with correct end date prop', () => {
       const reservationDate = wrapper.find(ReservationDate);
-      expect(reservationDate.length).to.equal(1);
-      expect(reservationDate.prop('beginDate')).to.equal(begin);
-      expect(reservationDate.prop('endDate')).to.equal(end);
+      expect(reservationDate.length).toBe(1);
+      expect(reservationDate.prop('beginDate')).toBe(begin);
+      expect(reservationDate.prop('endDate')).toBe(end);
     });
 
     test('renders a horizontal line', () => {
       const hr = wrapper.find('hr');
-      expect(hr.length).to.equal(1);
+      expect(hr.length).toBe(1);
     });
 
     describe('text content', () => {
@@ -107,31 +104,31 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
       });
 
       test('renders correct intro text', () => {
-        expect(textContent).to.contain('ReservationSuccessModal.preliminaryReservationLead');
-        expect(textContent).to.not.contain('ReservationSuccessModal.regularReservationLead');
+        expect(textContent).toContain('ReservationSuccessModal.preliminaryReservationLead');
+        expect(textContent).not.toContain('ReservationSuccessModal.regularReservationLead');
       });
 
       test('renders additional info', () => {
         const additionalInfo = wrapper.find(FormattedHTMLMessage)
           .filter({ id: 'ReservationSuccessModal.preliminaryReservationInfo' });
-        expect(additionalInfo).to.have.length(1);
+        expect(additionalInfo).toHaveLength(1);
       });
     });
 
     describe('Back button', () => {
       test('is rendered', () => {
         const button = wrapper.find(Button);
-        expect(button.length).to.equal(1);
+        expect(button.length).toBe(1);
       });
 
       test('has corrext text', () => {
         const buttonText = wrapper.find(Button).props().children;
-        expect(buttonText).to.equal('common.ok');
+        expect(buttonText).toBe('common.ok');
       });
 
       test('has closeReservationSuccessModal as its onClick prop ', () => {
         const button = wrapper.find(Button);
-        expect(button.prop('onClick')).to.equal(defaultProps.closeReservationSuccessModal);
+        expect(button.prop('onClick')).toBe(defaultProps.closeReservationSuccessModal);
       });
     });
   });
@@ -155,41 +152,39 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
 
     test('renders a Modal with correct props', () => {
       const modalComponent = wrapper.find(Modal);
-      expect(modalComponent.length).to.equal(1);
-      expect(modalComponent.prop('className')).to.equal('reservation-success-modal modal-city-theme');
-      expect(modalComponent.prop('onHide')).to.equal(
-        defaultProps.closeReservationSuccessModal
-      );
-      expect(modalComponent.prop('show')).to.equal(defaultProps.show);
+      expect(modalComponent.length).toBe(1);
+      expect(modalComponent.prop('className')).toBe('reservation-success-modal modal-city-theme');
+      expect(modalComponent.prop('onHide')).toBe(defaultProps.closeReservationSuccessModal);
+      expect(modalComponent.prop('show')).toBe(defaultProps.show);
     });
 
     test('renders a ModalHeader component with close button', () => {
       const modalHeader = wrapper.find(Modal.Header);
-      expect(modalHeader.length).to.equal(1);
-      expect(modalHeader.props().closeButton).to.equal(true);
+      expect(modalHeader.length).toBe(1);
+      expect(modalHeader.props().closeButton).toBe(true);
     });
 
     test('renders a ModalTitle with correct title', () => {
       const modalTitle = wrapper.find(Modal.Title);
-      expect(modalTitle.length).to.equal(1);
-      expect(modalTitle.prop('children')).to.equal('ReservationSuccessModal.regularReservationTitle');
+      expect(modalTitle.length).toBe(1);
+      expect(modalTitle.prop('children')).toBe('ReservationSuccessModal.regularReservationTitle');
     });
 
     test('renders a ModalBody', () => {
       const modalBody = wrapper.find(Modal.Body);
-      expect(modalBody.length).to.equal(1);
+      expect(modalBody.length).toBe(1);
     });
 
     test('renders a ModalFooter', () => {
       const modalFooter = wrapper.find(Modal.Footer);
-      expect(modalFooter.length).to.equal(1);
+      expect(modalFooter.length).toBe(1);
     });
 
     test('renders a ReservationDate with correct end date prop', () => {
       const reservationDate = wrapper.find(ReservationDate);
-      expect(reservationDate.length).to.equal(1);
-      expect(reservationDate.prop('beginDate')).to.equal(begin);
-      expect(reservationDate.prop('endDate')).to.equal(end);
+      expect(reservationDate.length).toBe(1);
+      expect(reservationDate.prop('beginDate')).toBe(begin);
+      expect(reservationDate.prop('endDate')).toBe(end);
     });
 
     describe('text content', () => {
@@ -207,31 +202,31 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
       });
 
       test('renders correct intro text', () => {
-        expect(textContent).to.contain('ReservationSuccessModal.regularReservationLead');
-        expect(textContent).to.not.contain('ReservationSuccessModal.preliminaryReservationLead');
+        expect(textContent).toContain('ReservationSuccessModal.regularReservationLead');
+        expect(textContent).not.toContain('ReservationSuccessModal.preliminaryReservationLead');
       });
 
       test('does not render additional info', () => {
         const additionalInfo = wrapper.find(FormattedHTMLMessage)
           .filter({ id: 'ReservationSuccessModal.preliminaryReservationInfo' });
-        expect(additionalInfo).to.have.length(0);
+        expect(additionalInfo).toHaveLength(0);
       });
     });
 
     describe('Back button', () => {
       test('is rendered', () => {
         const button = wrapper.find(Button);
-        expect(button.length).to.equal(1);
+        expect(button.length).toBe(1);
       });
 
       test('has correct text', () => {
         const buttonText = wrapper.find(Button).props().children;
-        expect(buttonText).to.equal('common.ok');
+        expect(buttonText).toBe('common.ok');
       });
 
       test('has closeReservationSuccessModal as its onClick prop ', () => {
         const button = wrapper.find(Button);
-        expect(button.prop('onClick')).to.equal(defaultProps.closeReservationSuccessModal);
+        expect(button.prop('onClick')).toBe(defaultProps.closeReservationSuccessModal);
       });
     });
   });
@@ -243,12 +238,12 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
 
     test('are rendered if there are any', () => {
       const failedReservations = [Reservation.build()];
-      expect(getFailedReservationsList(failedReservations)).to.have.length(1);
+      expect(getFailedReservationsList(failedReservations)).toHaveLength(1);
     });
 
     test('are not rendered if there are none', () => {
       const failedReservations = [];
-      expect(getFailedReservationsList(failedReservations)).to.have.length(0);
+      expect(getFailedReservationsList(failedReservations)).toHaveLength(0);
     });
   });
 
@@ -266,8 +261,8 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
         () => {
           const accessCode = getWrapper({ reservationsToShow }).find(ReservationAccessCode);
 
-          expect(accessCode.length).to.equal(1);
-          expect(accessCode.prop('reservation')).to.deep.equal(reservationsToShow[0]);
+          expect(accessCode.length).toBe(1);
+          expect(accessCode.prop('reservation')).toEqual(reservationsToShow[0]);
         }
       );
     });
@@ -282,7 +277,7 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
       test('does not render ReservationAccessCode component', () => {
         const accessCode = getWrapper({ reservationsToShow }).find(ReservationAccessCode);
 
-        expect(accessCode.length).to.equal(0);
+        expect(accessCode.length).toBe(0);
       });
     });
   });

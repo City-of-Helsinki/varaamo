@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Immutable from 'seamless-immutable';
@@ -71,17 +70,17 @@ describe('shared/resource-card/ResourceCard', () => {
   }
 
   test('renders an div element', () => {
-    expect(getWrapper().is('div')).to.be.true;
+    expect(getWrapper().is('div')).toBe(true);
   });
 
   test('renders stacked className if stacked prop is passed', () => {
     const resourceCard = getWrapper({ stacked: true }).filter('.app-ResourceCard__stacked');
-    expect(resourceCard).to.have.length(1);
+    expect(resourceCard).toHaveLength(1);
   });
 
   test('does not render stacked className if stacked prop is not passed', () => {
     const resourceCard = getWrapper().filter('.app-ResourceCard__stacked');
-    expect(resourceCard).to.have.length(0);
+    expect(resourceCard).toHaveLength(0);
   });
 
   describe('backgroundImage', () => {
@@ -93,8 +92,8 @@ describe('shared/resource-card/ResourceCard', () => {
       const backgroundImage = getBackgroundImageWrapper();
       const resourceMainImage = defaultProps.resource.images[0];
 
-      expect(backgroundImage).to.have.length(1);
-      expect(backgroundImage.prop('image')).to.deep.equal(resourceMainImage);
+      expect(backgroundImage).toHaveLength(1);
+      expect(backgroundImage.prop('image')).toEqual(resourceMainImage);
     });
   });
 
@@ -102,16 +101,16 @@ describe('shared/resource-card/ResourceCard', () => {
     test('renders people capacity', () => {
       const peopleCapacity = getWrapper().find('.app-ResourceCard__peopleCapacity');
 
-      expect(peopleCapacity).to.have.length(1);
-      expect(peopleCapacity.text()).to.contain('ResourceCard.peopleCapacity');
+      expect(peopleCapacity).toHaveLength(1);
+      expect(peopleCapacity.text()).toContain('ResourceCard.peopleCapacity');
     });
   });
 
   describe('distance', () => {
     test('does not render distance if not available', () => {
       const distanceLabel = getWrapper().find('.app-ResourceCard__distance');
-      expect(distanceLabel).to.have.length(1);
-      expect(distanceLabel.text()).to.equal('\u00A0');
+      expect(distanceLabel).toHaveLength(1);
+      expect(distanceLabel.text()).toBe('\u00A0');
     });
 
     test('renders distance', () => {
@@ -119,8 +118,8 @@ describe('shared/resource-card/ResourceCard', () => {
         resource: getResource({ distance: 11123 }),
       }).find('.app-ResourceCard__distance');
 
-      expect(distanceLabel).to.have.length(1);
-      expect(distanceLabel.text()).to.equal('11 km');
+      expect(distanceLabel).toHaveLength(1);
+      expect(distanceLabel.text()).toBe('11 km');
     });
 
     test(
@@ -130,8 +129,8 @@ describe('shared/resource-card/ResourceCard', () => {
           resource: getResource({ distance: 123 }),
         }).find('.app-ResourceCard__distance');
 
-        expect(distanceLabel).to.have.length(1);
-        expect(distanceLabel.text()).to.equal('0.1 km');
+        expect(distanceLabel).toHaveLength(1);
+        expect(distanceLabel.text()).toBe('0.1 km');
       }
     );
   });
@@ -140,8 +139,8 @@ describe('shared/resource-card/ResourceCard', () => {
     test('renders a hourly price', () => {
       const hourlyPriceSpan = getWrapper().find('.app-ResourceCard__hourly-price');
 
-      expect(hourlyPriceSpan.is('span')).to.be.true;
-      expect(hourlyPriceSpan.text()).to.contain('30 €/h');
+      expect(hourlyPriceSpan.is('span')).toBe(true);
+      expect(hourlyPriceSpan.text()).toContain('30 €/h');
     });
 
     test(
@@ -153,8 +152,8 @@ describe('shared/resource-card/ResourceCard', () => {
         });
         const hourlyPriceSpan = getWrapper({ resource }).find('.app-ResourceCard__hourly-price');
 
-        expect(hourlyPriceSpan.is('span')).to.be.true;
-        expect(hourlyPriceSpan.text()).to.contain('ResourceIcons.free');
+        expect(hourlyPriceSpan.is('span')).toBe(true);
+        expect(hourlyPriceSpan.text()).toContain('ResourceIcons.free');
       }
     );
 
@@ -167,8 +166,8 @@ describe('shared/resource-card/ResourceCard', () => {
         });
         const hourlyPriceSpan = getWrapper({ resource }).find('.app-ResourceCard__hourly-price');
 
-        expect(hourlyPriceSpan.is('span')).to.be.true;
-        expect(hourlyPriceSpan.text()).to.contain('ResourceIcons.free');
+        expect(hourlyPriceSpan.is('span')).toBe(true);
+        expect(hourlyPriceSpan.text()).toContain('ResourceIcons.free');
       }
     );
   });
@@ -182,16 +181,16 @@ describe('shared/resource-card/ResourceCard', () => {
       state: { fromSearchResults: true },
     };
 
-    expect(links.length).to.equal(2);
-    expect(links.at(0).props().to).to.deep.equal(expected);
-    expect(links.at(1).props().to).to.deep.equal(expected);
+    expect(links.length).toBe(2);
+    expect(links.at(0).props().to).toEqual(expected);
+    expect(links.at(1).props().to).toEqual(expected);
   });
 
   test('renders the name of the resource inside a h4 header', () => {
     const header = getWrapper().find('h4');
     const expected = defaultProps.resource.name;
 
-    expect(header.html()).to.contain(expected);
+    expect(header.html()).toContain(expected);
   });
 
   test('renders the name of the given unit in props', () => {
@@ -200,7 +199,7 @@ describe('shared/resource-card/ResourceCard', () => {
       .find('span');
     const expected = defaultProps.unit.name;
 
-    expect(unitName.text()).to.contain(expected);
+    expect(unitName.text()).toContain(expected);
   });
 
   test('renders the street address of the given unit in props', () => {
@@ -208,39 +207,39 @@ describe('shared/resource-card/ResourceCard', () => {
     const streetAddress = wrapper.find('.app-ResourceCard__street-address');
     const zipAddress = wrapper.find('.app-ResourceCard__zip-address');
 
-    expect(streetAddress).to.have.length(1);
-    expect(streetAddress.html()).to.contain(defaultProps.unit.streetAddress);
-    expect(zipAddress).to.have.length(1);
-    expect(zipAddress.html()).to.contain(defaultProps.unit.addressZip);
-    expect(zipAddress.html()).to.contain(defaultProps.unit.municipality);
+    expect(streetAddress).toHaveLength(1);
+    expect(streetAddress.html()).toContain(defaultProps.unit.streetAddress);
+    expect(zipAddress).toHaveLength(1);
+    expect(zipAddress.html()).toContain(defaultProps.unit.addressZip);
+    expect(zipAddress.html()).toContain(defaultProps.unit.municipality);
   });
 
   test('renders an anchor that calls handleSearchByType on click', () => {
     const wrapper = getWrapper();
     const typeAnchor = wrapper.find('.app-ResourceCard__info-link-capitalize').filter('a');
-    expect(typeAnchor).to.have.length(1);
-    expect(typeAnchor.prop('onClick')).to.equal(wrapper.instance().handleSearchByType);
+    expect(typeAnchor).toHaveLength(1);
+    expect(typeAnchor.prop('onClick')).toBe(wrapper.instance().handleSearchByType);
   });
 
   test('renders an anchor that calls handleSearchByUnitName on click', () => {
     const wrapper = getWrapper();
     const unitAnchor = wrapper.find('.app-ResourceCard__unit-name-link');
-    expect(unitAnchor).to.have.length(1);
-    expect(unitAnchor.prop('onClick')).to.equal(wrapper.instance().handleSearchByUnit);
+    expect(unitAnchor).toHaveLength(1);
+    expect(unitAnchor.prop('onClick')).toBe(wrapper.instance().handleSearchByUnit);
   });
 
   test('renders the type of the given resource in props', () => {
     const typeLabel = getWrapper()
       .find('.app-ResourceCard__unit-name')
       .find('span');
-    expect(typeLabel).to.have.length(1);
-    expect(typeLabel.text()).to.equal(defaultProps.unit.name);
+    expect(typeLabel).toHaveLength(1);
+    expect(typeLabel.text()).toBe(defaultProps.unit.name);
   });
 
   test('renders ResourceAvailability with correct props', () => {
     const resourceAvailability = getWrapper().find(ResourceAvailability);
-    expect(resourceAvailability.prop('date')).to.equal(defaultProps.date);
-    expect(resourceAvailability.prop('resource').id).to.equal(defaultProps.resource.id);
+    expect(resourceAvailability.prop('date')).toBe(defaultProps.date);
+    expect(resourceAvailability.prop('resource').id).toBe(defaultProps.resource.id);
   });
 
   describe('handleSearchByType', () => {
@@ -261,8 +260,8 @@ describe('shared/resource-card/ResourceCard', () => {
       const actualPath = historyMock.lastCall.args[0];
       const expectedPath = '/search?search=workplace';
 
-      expect(historyMock.callCount).to.equal(1);
-      expect(actualPath).to.equal(expectedPath);
+      expect(historyMock.callCount).toBe(1);
+      expect(actualPath).toBe(expectedPath);
     });
   });
 
@@ -286,8 +285,8 @@ describe('shared/resource-card/ResourceCard', () => {
       const actualPath = historyMock.lastCall.args[0];
       const expectedPath = '/search?distance=5000';
 
-      expect(historyMock.callCount).to.equal(1);
-      expect(actualPath).to.equal(expectedPath);
+      expect(historyMock.callCount).toBe(1);
+      expect(actualPath).toBe(expectedPath);
     });
   });
 
@@ -309,8 +308,8 @@ describe('shared/resource-card/ResourceCard', () => {
       const actualPath = historyMock.lastCall.args[0];
       const expectedPath = '/search?people=16';
 
-      expect(historyMock.callCount).to.equal(1);
-      expect(actualPath).to.equal(expectedPath);
+      expect(historyMock.callCount).toBe(1);
+      expect(actualPath).toBe(expectedPath);
     });
   });
 
@@ -332,8 +331,8 @@ describe('shared/resource-card/ResourceCard', () => {
       const actualPath = historyMock.lastCall.args[0];
       const expectedPath = '/search?unit=unit_value';
 
-      expect(historyMock.callCount).to.equal(1);
-      expect(actualPath).to.equal(expectedPath);
+      expect(historyMock.callCount).toBe(1);
+      expect(actualPath).toBe(expectedPath);
     });
   });
 
@@ -353,10 +352,10 @@ describe('shared/resource-card/ResourceCard', () => {
         .instance()
         .handleLinkClick();
 
-      expect(historyMock.callCount).to.equal(1);
-      expect(historyMock.lastCall.args).to.have.length(1);
-      expect(historyMock.lastCall.args[0].pathname).to.equal(defaultProps.location.pathname);
-      expect(historyMock.lastCall.args[0].search).to.equal(defaultProps.location.search);
+      expect(historyMock.callCount).toBe(1);
+      expect(historyMock.lastCall.args).toHaveLength(1);
+      expect(historyMock.lastCall.args[0].pathname).toBe(defaultProps.location.pathname);
+      expect(historyMock.lastCall.args[0].search).toBe(defaultProps.location.search);
     });
   });
 });

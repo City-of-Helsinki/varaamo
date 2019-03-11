@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
@@ -27,39 +26,39 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
 
   test('renders a app-ReservationInfo', () => {
     const element = getWrapper().find('.app-ReservationInfo');
-    expect(element.length).to.equal(1);
+    expect(element.length).toBe(1);
   });
 
   test('renders resource.reservationInfo as WrappedText', () => {
     const wrappedText = getWrapper().find(WrappedText);
-    expect(wrappedText.length).to.equal(1);
-    expect(wrappedText.props().text).to.equal(defaultProps.resource.reservationInfo);
-    expect(wrappedText.props().openLinksInNewTab).to.equal(true);
+    expect(wrappedText.length).toBe(1);
+    expect(wrappedText.props().text).toBe(defaultProps.resource.reservationInfo);
+    expect(wrappedText.props().openLinksInNewTab).toBe(true);
   });
 
   describe('earliest reservation day text', () => {
     test('is rendered correctly when resource.reservableAfter is defined', () => {
       const resAfterText = getWrapper().find('.reservable-after-text');
-      expect(resAfterText).to.have.length(1);
+      expect(resAfterText).toHaveLength(1);
     });
 
     test('is not rendered if resource.reservableAfter is not defined', () => {
       const resource = {};
       const maxLengthText = getWrapper({ resource }).find('.reservable-after-text');
-      expect(maxLengthText).to.have.length(0);
+      expect(maxLengthText).toHaveLength(0);
     });
   });
 
   describe('max length text', () => {
     test('is rendered correctly when resource.maxPeriod is defined', () => {
       const maxLengthText = getWrapper().find('.max-length-text');
-      expect(maxLengthText).to.have.length(1);
+      expect(maxLengthText).toHaveLength(1);
     });
 
     test('is not rendered if resource.maxPeriod is not defined', () => {
       const resource = {};
       const maxLengthText = getWrapper({ resource }).find('.max-length-text');
-      expect(maxLengthText).to.have.length(0);
+      expect(maxLengthText).toHaveLength(0);
     });
   });
 
@@ -68,7 +67,7 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
       'is rendered correctly when resource.maxReservationsPerUser is defined',
       () => {
         const maxReservationsText = getWrapper().find('.max-number-of-reservations-text');
-        expect(maxReservationsText).to.have.length(1);
+        expect(maxReservationsText).toHaveLength(1);
       }
     );
 
@@ -77,7 +76,7 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
       () => {
         const resource = {};
         const maxReservationsText = getWrapper({ resource }).find('.max-number-of-reservations-text');
-        expect(maxReservationsText).to.have.length(0);
+        expect(maxReservationsText).toHaveLength(0);
       }
     );
   });
@@ -85,7 +84,7 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
   describe('login text', () => {
     test('is not rendered if user is logged in', () => {
       const loginText = getWrapper({ isLoggedIn: true }).find('.login-text');
-      expect(loginText).to.have.length(0);
+      expect(loginText).toHaveLength(0);
     });
 
     test('is not rendered if resource is not reservable', () => {
@@ -93,7 +92,7 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
         reservable: false,
       };
       const loginText = getWrapper({ resource }).find('.login-text');
-      expect(loginText).to.have.length(0);
+      expect(loginText).toHaveLength(0);
     });
 
     test('is rendered otherwise', () => {
@@ -101,7 +100,7 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
         reservable: true,
       };
       const loginText = getWrapper({ isLoggedIn: false, resource }).find('.login-text');
-      expect(loginText).to.have.length(1);
+      expect(loginText).toHaveLength(1);
     });
   });
 });

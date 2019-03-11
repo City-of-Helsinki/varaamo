@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import keyBy from 'lodash/keyBy';
 
 import Purpose from 'utils/fixtures/Purpose';
@@ -14,11 +13,11 @@ describe('pages/search/controls/searchControlsSelector', () => {
   }
 
   test('returns filters', () => {
-    expect(getSelected().filters).to.exist;
+    expect(getSelected().filters).toBeDefined();
   });
 
   test('returns isFetchingPurposes', () => {
-    expect(getSelected().isFetchingPurposes).to.exist;
+    expect(getSelected().isFetchingPurposes).toBeDefined();
   });
 
   describe('purposeOptions', () => {
@@ -29,7 +28,7 @@ describe('pages/search/controls/searchControlsSelector', () => {
     }
 
     test('returns an empty array if state contains no purposes', () => {
-      expect(getPurposeOptions([])).to.deep.equal([]);
+      expect(getPurposeOptions([])).toEqual([]);
     });
 
     test('returns an option object for each purpose without a parent', () => {
@@ -37,14 +36,14 @@ describe('pages/search/controls/searchControlsSelector', () => {
         Purpose.build({ parent: null }),
         Purpose.build({ parent: null }),
       ];
-      expect(getPurposeOptions(purposes)).to.have.length(purposes.length);
+      expect(getPurposeOptions(purposes)).toHaveLength(purposes.length);
     });
 
     test('Does not return an option object for purposes with a parent', () => {
       const purposes = [
         Purpose.build({ parent: 'some parent' }),
       ];
-      expect(getPurposeOptions(purposes)).to.have.length(0);
+      expect(getPurposeOptions(purposes)).toHaveLength(0);
     });
 
     describe('a returned option object', () => {
@@ -54,16 +53,16 @@ describe('pages/search/controls/searchControlsSelector', () => {
       }
 
       test('has purpose.id as its value property', () => {
-        expect(getPurposeOption().value).to.equal(purpose.id);
+        expect(getPurposeOption().value).toBe(purpose.id);
       });
 
       test('has purpose.name as its label property', () => {
-        expect(getPurposeOption().label).to.equal(purpose.name);
+        expect(getPurposeOption().label).toBe(purpose.name);
       });
 
       test('does not contain other properties than value and label', () => {
         const expected = { value: purpose.id, label: purpose.name };
-        expect(getPurposeOption()).to.deep.equal(expected);
+        expect(getPurposeOption()).toEqual(expected);
       });
     });
   });
@@ -76,7 +75,7 @@ describe('pages/search/controls/searchControlsSelector', () => {
     }
 
     test('returns an empty array if state contains no units', () => {
-      expect(getUnitOptions([])).to.deep.equal([]);
+      expect(getUnitOptions([])).toEqual([]);
     });
 
     test('returns an option object for each unit', () => {
@@ -84,7 +83,7 @@ describe('pages/search/controls/searchControlsSelector', () => {
         Unit.build(),
         Unit.build(),
       ];
-      expect(getUnitOptions(units)).to.have.length(units.length);
+      expect(getUnitOptions(units)).toHaveLength(units.length);
     });
 
     describe('a returned option object', () => {
@@ -94,21 +93,21 @@ describe('pages/search/controls/searchControlsSelector', () => {
       }
 
       test('has unit.id as its value property', () => {
-        expect(getUnitOption().value).to.equal(unit.id);
+        expect(getUnitOption().value).toBe(unit.id);
       });
 
       test('has unit.name as its label property', () => {
-        expect(getUnitOption().label).to.equal(unit.name);
+        expect(getUnitOption().label).toBe(unit.name);
       });
 
       test('does not contain other properties than value and label', () => {
         const expected = { value: unit.id, label: unit.name };
-        expect(getUnitOption()).to.deep.equal(expected);
+        expect(getUnitOption()).toEqual(expected);
       });
     });
   });
 
   test('returns urlSearchFilters', () => {
-    expect(getSelected().urlSearchFilters).to.exist;
+    expect(getSelected().urlSearchFilters).toBeDefined();
   });
 });

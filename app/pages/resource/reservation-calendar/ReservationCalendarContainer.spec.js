@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import MockDate from 'mockdate';
 import React from 'react';
 import moment from 'moment';
@@ -84,41 +83,39 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     });
 
     test(`${renderTimeSlots ? 'renders' : 'does not render'} TimeSlots`, () => {
-      expect(wrapper.find(TimeSlots).length === 1).to.equal(renderTimeSlots);
+      expect(wrapper.find(TimeSlots).length === 1).toBe(renderTimeSlots);
     });
 
     test(`${renderClosedText ? 'renders' : 'does not render'} closed text`, () => {
-      expect(wrapper.find('.closed-text').length === 1).to.equal(renderClosedText);
+      expect(wrapper.find('.closed-text').length === 1).toBe(renderClosedText);
     });
 
     test(
       `${renderRestrictedText ? 'renders' : 'does not render'} restricted text`,
       () => {
-        expect(wrapper.find(ReservingRestrictedText).length === 1).to.equal(renderRestrictedText);
+        expect(wrapper.find(ReservingRestrictedText).length === 1).toBe(renderRestrictedText);
       }
     );
 
     test('renders ReservationCancelModal', () => {
-      expect(wrapper.find(ReservationCancelModal).length).to.equal(1);
+      expect(wrapper.find(ReservationCancelModal).length).toBe(1);
     });
 
     test('renders ReservationInfoModal', () => {
-      expect(wrapper.find(ReservationInfoModal).length).to.equal(1);
+      expect(wrapper.find(ReservationInfoModal).length).toBe(1);
     });
 
     test('renders ReservationSuccessModal', () => {
-      expect(wrapper.find(ReservationSuccessModal).length).to.equal(1);
+      expect(wrapper.find(ReservationSuccessModal).length).toBe(1);
     });
 
     test('renders ReservationConfirmation', () => {
       const confirmation = wrapper.find(ReservationConfirmation);
-      expect(confirmation).to.have.length(1);
-      expect(confirmation.prop('params')).to.deep.equal(defaultProps.params);
-      expect(confirmation.prop('selectedReservations')).to.deep.equal(props.selected);
-      expect(confirmation.prop('showTimeControls')).to.be.true;
-      expect(confirmation.prop('timeSlots')).to.deep.equal(
-        props.timeSlots.length ? [timeSlot1, timeSlot2] : []
-      );
+      expect(confirmation).toHaveLength(1);
+      expect(confirmation.prop('params')).toEqual(defaultProps.params);
+      expect(confirmation.prop('selectedReservations')).toEqual(props.selected);
+      expect(confirmation.prop('showTimeControls')).toBe(true);
+      expect(confirmation.prop('timeSlots')).toEqual(props.timeSlots.length ? [timeSlot1, timeSlot2] : []);
     });
   }
 
@@ -216,7 +213,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       };
       const timeSlots = [[timeSlot1, timeSlot2], [timeSlot3], []];
       const result = instance.getSelectedDateSlots(timeSlots, [selectedSlot]);
-      expect(result).to.deep.equal(timeSlots[0]);
+      expect(result).toEqual(timeSlots[0]);
     });
 
     test('returns empty if selected is not in date slots', () => {
@@ -228,7 +225,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       };
       const timeSlots = [[timeSlot1, timeSlot2], [timeSlot3], []];
       const result = instance.getSelectedDateSlots(timeSlots, [selectedSlot]);
-      expect(result).to.deep.equal([]);
+      expect(result).toEqual([]);
     });
   });
 
@@ -240,7 +237,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       () => {
         const duration = moment.duration({ minutes: 90 });
         const durationText = instance.getDurationText(duration);
-        expect(durationText).to.equal('1h 30min');
+        expect(durationText).toBe('1h 30min');
       }
     );
 
@@ -249,7 +246,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       () => {
         const duration = moment.duration({ minutes: 50 });
         const durationText = instance.getDurationText(duration);
-        expect(durationText).to.equal('50min');
+        expect(durationText).toBe('50min');
       }
     );
   });
@@ -268,8 +265,8 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     test('returns empty string if selected empty', () => {
       const result = instance.getSelectedTimeText([]);
 
-      expect(result).to.equal('');
-      expect(instance.getDateTimeText.callCount).to.equal(0);
+      expect(result).toBe('');
+      expect(instance.getDateTimeText.callCount).toBe(0);
     });
 
     test('calls getDateTimeText when selected', () => {
@@ -280,8 +277,8 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       };
       const result = instance.getSelectedTimeText([selectedSlot]);
 
-      expect(instance.getDateTimeText.callCount).to.equal(2);
-      expect(result).to.equal('some text - some text (1h 0min)');
+      expect(instance.getDateTimeText.callCount).toBe(2);
+      expect(result).toBe('some text - some text (1h 0min)');
     });
   });
 
@@ -289,7 +286,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
     test('calls cancelReservationEdit', () => {
       const instance = getWrapper().instance();
       instance.handleEditCancel();
-      expect(actions.cancelReservationEdit.callCount).to.equal(1);
+      expect(actions.cancelReservationEdit.callCount).toBe(1);
     });
   });
 
@@ -340,7 +337,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
         }).instance();
         defaultProps.actions.addNotification.reset();
         instance.handleReserveClick();
-        expect(defaultProps.actions.addNotification.callCount).to.equal(1);
+        expect(defaultProps.actions.addNotification.callCount).toBe(1);
       }
     );
     test('calls history push with correct path', () => {
@@ -349,8 +346,8 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       }`;
       const instance = getWrapper({ selected }).instance();
       instance.handleReserveClick();
-      expect(historyMock.callCount).to.equal(1);
-      expect(historyMock.lastCall.args).to.deep.equal([expectedPath]);
+      expect(historyMock.callCount).toBe(1);
+      expect(historyMock.lastCall.args).toEqual([expectedPath]);
     });
   });
 });

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
@@ -27,19 +26,19 @@ describe('shared/resource-list/ResourceCompactList', () => {
 
     test('renders a div with correct className', () => {
       const div = wrapper.find('div.app-ResourceCompactList');
-      expect(div.length).to.equal(1);
+      expect(div.length).toBe(1);
     });
 
     test('renders first ResourceCard', () => {
       const resourceCard = wrapper.find(ResourceCard);
-      expect(resourceCard.length).to.equal(1);
-      expect(resourceCard.prop('resourceId')).to.equal('resource-1');
+      expect(resourceCard.length).toBe(1);
+      expect(resourceCard.prop('resourceId')).toBe('resource-1');
     });
 
     test('passes date prop to ResourceCard', () => {
       const resourceCard = wrapper.find(ResourceCard);
-      expect(resourceCard.length).to.equal(1);
-      expect(resourceCard.prop('date')).to.equal(defaultProps.date);
+      expect(resourceCard.length).toBe(1);
+      expect(resourceCard.prop('date')).toBe(defaultProps.date);
     });
 
     test('renders second ResourceCard if resourcePosition is 1', () => {
@@ -49,20 +48,20 @@ describe('shared/resource-list/ResourceCompactList', () => {
       });
       wrapper.update();
       const resourceCard = wrapper.find(ResourceCard);
-      expect(resourceCard.length).to.equal(1);
-      expect(resourceCard.prop('resourceId')).to.equal('resource-2');
+      expect(resourceCard.length).toBe(1);
+      expect(resourceCard.prop('resourceId')).toBe('resource-2');
     });
 
     test('passes stacked prop to ResourceCard if more than one resource', () => {
       const resourceCard = wrapper.find(ResourceCard);
-      expect(resourceCard.prop('stacked')).to.be.true;
+      expect(resourceCard.prop('stacked')).toBe(true);
     });
 
     test(
       'does not pass stacked prop to ResourceCard if more only one resource',
       () => {
         const resourceCard = getWrapper({ resourceIds: ['resource-1'] }).find(ResourceCard);
-        expect(resourceCard.prop('stacked')).to.be.false;
+        expect(resourceCard.prop('stacked')).toBe(false);
       }
     );
 
@@ -73,7 +72,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
       });
       wrapper.update();
       const leftArrow = wrapper.find('.app-ResourceCompactList_arrow-left');
-      expect(leftArrow.length).to.equal(1);
+      expect(leftArrow.length).toBe(1);
     });
 
     test('renders left arrow if resourcePosition state is 0', () => {
@@ -83,7 +82,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
       });
       wrapper.update();
       const leftArrow = wrapper.find('.app-ResourceCompactList_arrow-left');
-      expect(leftArrow.length).to.equal(1);
+      expect(leftArrow.length).toBe(1);
     });
 
     test('left arrow has correct onClick prop', () => {
@@ -93,7 +92,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
       });
       wrapper.update();
       const leftArrow = wrapper.find('.app-ResourceCompactList_arrow-left');
-      expect(leftArrow.prop('onClick')).to.equal(instance.onPreviousResource);
+      expect(leftArrow.prop('onClick')).toBe(instance.onPreviousResource);
     });
 
     test('renders right arrow if resourcePosition state is 0', () => {
@@ -103,7 +102,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
       });
       wrapper.update();
       const rightArrow = wrapper.find('.app-ResourceCompactList_arrow-right');
-      expect(rightArrow.length).to.equal(1);
+      expect(rightArrow.length).toBe(1);
     });
 
     test(
@@ -115,7 +114,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
         });
         wrapper.update();
         const rightArrow = wrapper.find('.app-ResourceCompactList_arrow-right');
-        expect(rightArrow.length).to.equal(1);
+        expect(rightArrow.length).toBe(1);
       }
     );
 
@@ -126,7 +125,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
       });
       wrapper.update();
       const rightArrow = wrapper.find('.app-ResourceCompactList_arrow-right');
-      expect(rightArrow.prop('onClick')).to.equal(instance.onNextResource);
+      expect(rightArrow.prop('onClick')).toBe(instance.onNextResource);
     });
   });
 
@@ -137,7 +136,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
         resourcePosition: 1,
       });
       instance.componentWillReceiveProps();
-      expect(instance.state.resourcePosition).to.equal(0);
+      expect(instance.state.resourcePosition).toBe(0);
     });
   });
 
@@ -148,7 +147,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
         resourcePosition: 1,
       });
       instance.onPreviousResource();
-      expect(instance.state.resourcePosition).to.equal(0);
+      expect(instance.state.resourcePosition).toBe(0);
     });
 
     test('loops to last position if position is 0', () => {
@@ -157,7 +156,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
         resourcePosition: 0,
       });
       instance.onPreviousResource();
-      expect(instance.state.resourcePosition).to.equal(1);
+      expect(instance.state.resourcePosition).toBe(1);
     });
   });
 
@@ -168,7 +167,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
         resourcePosition: 0,
       });
       instance.onNextResource();
-      expect(instance.state.resourcePosition).to.equal(1);
+      expect(instance.state.resourcePosition).toBe(1);
     });
 
     test('loops to first position if position is last', () => {
@@ -177,7 +176,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
         resourcePosition: 1,
       });
       instance.onNextResource();
-      expect(instance.state.resourcePosition).to.equal(0);
+      expect(instance.state.resourcePosition).toBe(0);
     });
   });
 });

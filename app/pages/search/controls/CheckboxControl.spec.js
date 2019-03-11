@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import Toggle from 'react-toggle';
 import simple from 'simple-mock';
@@ -19,14 +18,14 @@ function getWrapper(props) {
 describe('pages/search/controls/CheckboxControl', () => {
   test('renders a div.app-CheckboxControl', () => {
     const wrapper = getWrapper({});
-    expect(wrapper.is('div.app-CheckboxControl')).to.be.true;
+    expect(wrapper.is('div.app-CheckboxControl')).toBe(true);
   });
 
   test('renders a Toggle with correct props', () => {
     const toggle = getWrapper({}).find(Toggle);
-    expect(toggle).to.have.length(1);
-    expect(toggle.prop('defaultChecked')).to.equal(defaults.value);
-    expect(toggle.prop('onChange')).to.be.a('function');
+    expect(toggle).toHaveLength(1);
+    expect(toggle.prop('defaultChecked')).toBe(defaults.value);
+    expect(typeof toggle.prop('onChange')).toBe('function');
   });
 
   test('Checkbox onChange calls prop onConfirm', () => {
@@ -37,9 +36,9 @@ describe('pages/search/controls/CheckboxControl', () => {
       },
     };
     const toggle = getWrapper({ onConfirm }).find(Toggle);
-    expect(toggle).to.have.length(1);
+    expect(toggle).toHaveLength(1);
     toggle.prop('onChange')(mockEvent);
-    expect(onConfirm.callCount).to.equal(1);
-    expect(onConfirm.lastCall.args).to.deep.equal([true]);
+    expect(onConfirm.callCount).toBe(1);
+    expect(onConfirm.lastCall.args).toEqual([true]);
   });
 });

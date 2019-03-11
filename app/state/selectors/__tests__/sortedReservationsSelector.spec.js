@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
@@ -20,7 +19,7 @@ describe('Selector: sortedReservationsSelector', () => {
       const props = {};
       const actual = sortedReservationsSelector(state, props);
 
-      expect(actual).to.deep.equal([]);
+      expect(actual).toEqual([]);
     });
 
     test('returns all reservations in state in an array', () => {
@@ -32,7 +31,7 @@ describe('Selector: sortedReservationsSelector', () => {
       const props = {};
       const actual = sortedReservationsSelector(state, props);
 
-      expect(actual.length).to.equal(reservations.length);
+      expect(actual.length).toBe(reservations.length);
     });
 
     test('returns the results ordered from oldest to newest', () => {
@@ -46,7 +45,7 @@ describe('Selector: sortedReservationsSelector', () => {
       const actual = sortedReservationsSelector(state, props);
       const expected = [reservations[1], reservations[0], reservations[2]];
 
-      expect(actual).to.deep.equal(expected);
+      expect(actual).toEqual(expected);
     });
   });
 
@@ -56,7 +55,7 @@ describe('Selector: sortedReservationsSelector', () => {
       const props = { filter: 'preliminary' };
       const actual = sortedReservationsSelector(state, props);
 
-      expect(actual).to.deep.equal([]);
+      expect(actual).toEqual([]);
     });
 
     describe('when filter is "cancelled"', () => {
@@ -72,7 +71,7 @@ describe('Selector: sortedReservationsSelector', () => {
         const state = getState(reservations);
         const actual = sortedReservationsSelector(state, props);
 
-        expect(actual).to.deep.equal([reservations[0]]);
+        expect(actual).toEqual([reservations[0]]);
       });
     });
 
@@ -89,7 +88,7 @@ describe('Selector: sortedReservationsSelector', () => {
         const state = getState(reservations);
         const actual = sortedReservationsSelector(state, props);
 
-        expect(actual).to.deep.equal([reservations[0]]);
+        expect(actual).toEqual([reservations[0]]);
       });
     });
 
@@ -106,7 +105,7 @@ describe('Selector: sortedReservationsSelector', () => {
         const state = getState(reservations);
         const actual = sortedReservationsSelector(state, props);
 
-        expect(actual).to.deep.equal([reservations[0]]);
+        expect(actual).toEqual([reservations[0]]);
       });
     });
 
@@ -123,7 +122,7 @@ describe('Selector: sortedReservationsSelector', () => {
         const state = getState(reservations);
         const actual = sortedReservationsSelector(state, props);
 
-        expect(actual).to.deep.equal([reservations[0]]);
+        expect(actual).toEqual([reservations[0]]);
       });
     });
 
@@ -136,7 +135,7 @@ describe('Selector: sortedReservationsSelector', () => {
       const props = { filter: 'all' };
       const actual = sortedReservationsSelector(state, props);
 
-      expect(actual).to.deep.equal([reservations[0]]);
+      expect(actual).toEqual([reservations[0]]);
     });
 
     test(
@@ -150,7 +149,7 @@ describe('Selector: sortedReservationsSelector', () => {
         const props = { filter: 'preliminary' };
         const actual = sortedReservationsSelector(state, props);
 
-        expect(actual).to.deep.equal([reservations[0]]);
+        expect(actual).toEqual([reservations[0]]);
       }
     );
 
@@ -163,7 +162,7 @@ describe('Selector: sortedReservationsSelector', () => {
       const props = { filter: 'regular' };
       const actual = sortedReservationsSelector(state, props);
 
-      expect(actual).to.deep.equal([reservations[1]]);
+      expect(actual).toEqual([reservations[1]]);
     });
 
     test('returns all reservations when filter is anything else', () => {
@@ -175,7 +174,7 @@ describe('Selector: sortedReservationsSelector', () => {
       const props = { filter: 'whatever' };
       const actual = sortedReservationsSelector(state, props);
 
-      expect(actual.length).to.equal(reservations.length);
+      expect(actual.length).toBe(reservations.length);
     });
 
     test('returns the results ordered from oldest to newest', () => {
@@ -189,7 +188,7 @@ describe('Selector: sortedReservationsSelector', () => {
       const actual = sortedReservationsSelector(state, props);
       const expected = [reservations[1], reservations[0], reservations[2]];
 
-      expect(actual).to.deep.equal(expected);
+      expect(actual).toEqual(expected);
     });
   });
 });

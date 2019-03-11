@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
@@ -30,14 +29,14 @@ describe('shared/comment-button/CommentButtonContainer', () => {
 
   test('renders a CommentButton', () => {
     const commentButton = wrapper.find(CommentButton);
-    expect(commentButton.length).to.equal(1);
+    expect(commentButton.length).toBe(1);
   });
 
   test('passes correct onClick prop to CommentButton', () => {
     const commentButton = wrapper.find(CommentButton);
     const expected = wrapper.instance().handleClick;
 
-    expect(commentButton.prop('onClick')).to.equal(expected);
+    expect(commentButton.prop('onClick')).toBe(expected);
   });
 
   describe('handleClick', () => {
@@ -54,14 +53,13 @@ describe('shared/comment-button/CommentButtonContainer', () => {
 
     test('calls selectReservationToShow with the reservation', () => {
       instance.handleClick();
-      expect(defaultProps.actions.selectReservationToShow.callCount).to.equal(1);
-      expect(defaultProps.actions.selectReservationToShow.lastCall.args[0])
-        .to.deep.equal(reservation);
+      expect(defaultProps.actions.selectReservationToShow.callCount).toBe(1);
+      expect(defaultProps.actions.selectReservationToShow.lastCall.args[0]).toEqual(reservation);
     });
 
     test('calls openReservationCommentModal', () => {
       instance.handleClick();
-      expect(defaultProps.actions.openReservationCommentModal.callCount).to.equal(1);
+      expect(defaultProps.actions.openReservationCommentModal.callCount).toBe(1);
     });
   });
 });

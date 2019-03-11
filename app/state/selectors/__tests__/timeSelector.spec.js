@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import timeSelector from 'state/selectors/timeSelector';
 
 function getProps(time) {
@@ -18,7 +16,7 @@ describe('Selector: timeSelector', () => {
     const props = getProps(time);
     const actual = timeSelector(state, props);
 
-    expect(actual).to.equal(expected);
+    expect(actual).toBe(expected);
   });
 
   test('returns undefined if time is not defined', () => {
@@ -26,6 +24,6 @@ describe('Selector: timeSelector', () => {
     const props = getProps();
     const actual = timeSelector(state, props);
 
-    expect(actual).to.equal(undefined);
+    expect(actual).toBeUndefined();
   });
 });

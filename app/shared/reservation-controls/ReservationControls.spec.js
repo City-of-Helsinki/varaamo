@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Immutable from 'seamless-immutable';
@@ -37,7 +36,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
       test('renders two buttons', () => {
-        expect(buttons.length).to.equal(2);
+        expect(buttons.length).toBe(2);
       });
 
       describe('the first button', () => {
@@ -57,7 +56,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
         const buttons = getWrapper(reservation, isAdmin, isStaff).find(Button);
 
         test('renders four buttons', () => {
-          expect(buttons.length).to.equal(4);
+          expect(buttons.length).toBe(4);
         });
 
         describe('the first button', () => {
@@ -82,7 +81,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
         const buttons = getWrapper(reservation, isAdmin, isStaff).find(Button);
 
         test('renders two buttons', () => {
-          expect(buttons.length).to.equal(2);
+          expect(buttons.length).toBe(2);
         });
 
         describe('the first button', () => {
@@ -100,7 +99,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
       test('renders one button', () => {
-        expect(buttons.length).to.equal(1);
+        expect(buttons.length).toBe(1);
       });
 
       describe('the button', () => {
@@ -113,7 +112,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
       test('renders one button', () => {
-        expect(buttons.length).to.equal(1);
+        expect(buttons.length).toBe(1);
       });
 
       describe('the button', () => {
@@ -129,7 +128,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
         const buttons = getWrapper(reservation, isAdmin, isStaff).find(Button);
 
         test('renders three buttons', () => {
-          expect(buttons.length).to.equal(3);
+          expect(buttons.length).toBe(3);
         });
 
         describe('the first button', () => {
@@ -150,7 +149,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
         const buttons = getWrapper(reservation, isAdmin, isStaff).find(Button);
 
         test('renders two buttons', () => {
-          expect(buttons.length).to.equal(2);
+          expect(buttons.length).toBe(2);
         });
 
         describe('the first button', () => {
@@ -172,7 +171,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
       test('renders two buttons', () => {
-        expect(buttons.length).to.equal(2);
+        expect(buttons.length).toBe(2);
       });
 
       describe('the first button', () => {
@@ -189,7 +188,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
       test('renders three buttons', () => {
-        expect(buttons.length).to.equal(3);
+        expect(buttons.length).toBe(3);
       });
 
       describe('the first button', () => {
@@ -210,7 +209,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
       test('renders one button', () => {
-        expect(buttons.length).to.equal(1);
+        expect(buttons.length).toBe(1);
       });
 
       describe('the button', () => {
@@ -223,7 +222,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
       test('renders one button', () => {
-        expect(buttons.length).to.equal(1);
+        expect(buttons.length).toBe(1);
       });
 
       describe('the button', () => {
@@ -236,7 +235,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
       test('renders two buttons', () => {
-        expect(buttons.length).to.equal(2);
+        expect(buttons.length).toBe(2);
       });
 
       describe('the first button', () => {

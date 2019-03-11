@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import simple from 'simple-mock';
 import React from 'react';
@@ -28,7 +27,7 @@ describe('shared/reservation-popover/ReservationPopover', () => {
 
   test('renders length with hours and minutes', () => {
     const span = getInternalPopover().find('.reservation-popover__length');
-    expect(span.text()).to.be.equal('(2h 0min)');
+    expect(span.text()).toBe('(2h 0min)');
   });
 
   test('renders length with only minutes if less than an hour', () => {
@@ -37,14 +36,14 @@ describe('shared/reservation-popover/ReservationPopover', () => {
       end: '2016-01-01T10:30:00Z',
     };
     const span = getInternalPopover(extraProps).find('.reservation-popover__length');
-    expect(span.text()).to.be.equal('(30min)');
+    expect(span.text()).toBe('(30min)');
   });
 
   test('renders cancel icon', () => {
     const onCancel = () => null;
     const icon = getInternalPopover({ onCancel }).find('.reservation-popover__cancel');
-    expect(icon.is(Glyphicon)).to.be.true;
-    expect(icon.prop('glyph')).to.equal('trash');
-    expect(icon.prop('onClick')).to.equal(onCancel);
+    expect(icon.is(Glyphicon)).toBe(true);
+    expect(icon.prop('glyph')).toBe('trash');
+    expect(icon.prop('onClick')).toBe(onCancel);
   });
 });

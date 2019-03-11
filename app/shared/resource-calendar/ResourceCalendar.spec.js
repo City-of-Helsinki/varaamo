@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import mockDate from 'mockdate';
 import moment from 'moment';
 import React from 'react';
@@ -40,51 +39,48 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
   });
 
   test('renders DayPicker', () => {
-    expect(dayWrapper.length).to.equal(1);
+    expect(dayWrapper.length).toBe(1);
   });
 
   test('renders FormGroup with correct props', () => {
     const formGroup = wrapper.find(FormGroup);
 
-    expect(formGroup.length).to.equal(1);
-    expect(formGroup.prop('onClick')).to.equal(wrapper.instance().showOverlay);
+    expect(formGroup.length).toBe(1);
+    expect(formGroup.prop('onClick')).toBe(wrapper.instance().showOverlay);
   });
 
   test('renders FormControl with correct props', () => {
     const formControl = wrapper.find(FormControl);
     const expected = moment('2015-10-11').format('dddd D. MMMM YYYY');
 
-    expect(formControl.length).to.equal(1);
-    expect(formControl.prop('disabled')).to.be.true;
-    expect(formControl.prop('type')).to.equal('text');
-    expect(formControl.prop('value')).to.equal(expected);
+    expect(formControl.length).toBe(1);
+    expect(formControl.prop('disabled')).toBe(true);
+    expect(formControl.prop('type')).toBe('text');
+    expect(formControl.prop('value')).toBe(expected);
   });
 
   test('renders ResourceCalendarOverlay with correct props', () => {
     const resourceCalendarOverlay = wrapper.find(ResourceCalendarOverlay);
 
-    expect(resourceCalendarOverlay.length).to.equal(1);
+    expect(resourceCalendarOverlay.length).toBe(1);
   });
 
   test('renders a calendar-legend with correct labels', () => {
-    expect(wrapper.find('.calendar-legend .free').text())
-      .to.equal('ReservationCalendarPickerLegend.free');
-    expect(wrapper.find('.calendar-legend .busy').text())
-      .to.equal('ReservationCalendarPickerLegend.busy');
-    expect(wrapper.find('.calendar-legend .booked').text())
-      .to.equal('ReservationCalendarPickerLegend.booked');
+    expect(wrapper.find('.calendar-legend .free').text()).toBe('ReservationCalendarPickerLegend.free');
+    expect(wrapper.find('.calendar-legend .busy').text()).toBe('ReservationCalendarPickerLegend.busy');
+    expect(wrapper.find('.calendar-legend .booked').text()).toBe('ReservationCalendarPickerLegend.booked');
   });
 
   test('renders correct props', () => {
-    expect(dayWrapper.prop('disabledDays')).to.exist;
-    expect(dayWrapper.prop('enableOutsideDays')).to.be.true;
-    expect(dayWrapper.prop('initialMonth')).to.deep.equal(new Date(defaultProps.selectedDate));
-    expect(dayWrapper.prop('locale')).to.equal('en');
-    expect(dayWrapper.prop('localeUtils')).to.equal(MomentLocaleUtils);
-    expect(dayWrapper.prop('onDayClick')).to.equal(wrapper.instance().handleDateChange);
-    expect(dayWrapper.prop('selectedDays').getFullYear()).to.equal(2015);
-    expect(dayWrapper.prop('selectedDays').getMonth()).to.equal(9);
-    expect(dayWrapper.prop('selectedDays').getDate()).to.equal(11);
+    expect(dayWrapper.prop('disabledDays')).toBeDefined();
+    expect(dayWrapper.prop('enableOutsideDays')).toBe(true);
+    expect(dayWrapper.prop('initialMonth')).toEqual(new Date(defaultProps.selectedDate));
+    expect(dayWrapper.prop('locale')).toBe('en');
+    expect(dayWrapper.prop('localeUtils')).toBe(MomentLocaleUtils);
+    expect(dayWrapper.prop('onDayClick')).toBe(wrapper.instance().handleDateChange);
+    expect(dayWrapper.prop('selectedDays').getFullYear()).toBe(2015);
+    expect(dayWrapper.prop('selectedDays').getMonth()).toBe(9);
+    expect(dayWrapper.prop('selectedDays').getDate()).toBe(11);
   });
 
   describe('disabledDays', () => {
@@ -103,12 +99,12 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
 
       test('calls disableDays function', () => {
         isDisabled(date);
-        expect(disableDays.callCount).to.equal(1);
+        expect(disableDays.callCount).toBe(1);
       });
 
       test('calls disableDays with the right arguments', () => {
         isDisabled(date);
-        expect(disableDays.calls[0].arg).to.equal(date);
+        expect(disableDays.calls[0].arg).toBe(date);
       });
     });
 
@@ -135,27 +131,27 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
 
       test('disables yesterday', () => {
         mockDate.set(now);
-        expect(isDisabled(receivedYesterday)).to.be.true;
+        expect(isDisabled(receivedYesterday)).toBe(true);
       });
 
       test('enables today now', () => {
         mockDate.set(now);
-        expect(isDisabled(receivedToday)).to.be.false;
+        expect(isDisabled(receivedToday)).toBe(false);
       });
 
       test('enables today early', () => {
         mockDate.set(todayEarly);
-        expect(isDisabled(receivedToday)).to.be.false;
+        expect(isDisabled(receivedToday)).toBe(false);
       });
 
       test('enables today late', () => {
         mockDate.set(todayLate);
-        expect(isDisabled(receivedToday)).to.be.false;
+        expect(isDisabled(receivedToday)).toBe(false);
       });
 
       test('enables tomorrow', () => {
         mockDate.set(now);
-        expect(isDisabled(receivedTomorrow)).to.be.false;
+        expect(isDisabled(receivedTomorrow)).toBe(false);
       });
     });
   });
@@ -166,31 +162,31 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
       const instance = getWrapper().instance();
       instance.setCalendarWrapper(element);
 
-      expect(instance.calendarWrapper).to.equal(element);
+      expect(instance.calendarWrapper).toBe(element);
     });
   });
 
   describe('modifiers', () => {
     test('is available if percentage is greater than 80', () => {
       const func = dayWrapper.prop('modifiers').available;
-      expect(func(new Date('2015-10-01'))).to.be.false;
-      expect(func(new Date('2015-10-02'))).to.be.false;
-      expect(func(new Date('2015-10-03'))).to.be.true;
-      expect(func(new Date('2015-10-04'))).to.be.true;
+      expect(func(new Date('2015-10-01'))).toBe(false);
+      expect(func(new Date('2015-10-02'))).toBe(false);
+      expect(func(new Date('2015-10-03'))).toBe(true);
+      expect(func(new Date('2015-10-04'))).toBe(true);
     });
     test('is busy if percentage is lower than 80', () => {
       const func = dayWrapper.prop('modifiers').busy;
-      expect(func(new Date('2015-10-01'))).to.be.false;
-      expect(func(new Date('2015-10-02'))).to.be.true;
-      expect(func(new Date('2015-10-03'))).to.be.false;
-      expect(func(new Date('2015-10-04'))).to.be.false;
+      expect(func(new Date('2015-10-01'))).toBe(false);
+      expect(func(new Date('2015-10-02'))).toBe(true);
+      expect(func(new Date('2015-10-03'))).toBe(false);
+      expect(func(new Date('2015-10-04'))).toBe(false);
     });
     test('is booked if percentage is 0', () => {
       const func = dayWrapper.prop('modifiers').booked;
-      expect(func(new Date('2015-10-01'))).to.be.true;
-      expect(func(new Date('2015-10-02'))).to.be.false;
-      expect(func(new Date('2015-10-03'))).to.be.false;
-      expect(func(new Date('2015-10-04'))).to.be.false;
+      expect(func(new Date('2015-10-01'))).toBe(true);
+      expect(func(new Date('2015-10-02'))).toBe(false);
+      expect(func(new Date('2015-10-03'))).toBe(false);
+      expect(func(new Date('2015-10-04'))).toBe(false);
     });
   });
 
@@ -202,9 +198,9 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
       instance.state.visible = true;
       instance.handleDateChange(date);
 
-      expect(instance.state.visible).to.be.false;
-      expect(onDateChange.callCount).to.equal(1);
-      expect(onDateChange.lastCall.args).to.deep.equal([date]);
+      expect(instance.state.visible).toBe(false);
+      expect(onDateChange.callCount).toBe(1);
+      expect(onDateChange.lastCall.args).toEqual([date]);
     });
   });
 
@@ -213,7 +209,7 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
       const instance = getWrapper().instance();
       instance.state.visible = true;
       instance.hideOverlay();
-      expect(instance.state.visible).to.be.false;
+      expect(instance.state.visible).toBe(false);
     });
   });
 
@@ -222,7 +218,7 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
       const instance = getWrapper().instance();
       instance.state.visible = false;
       instance.showOverlay();
-      expect(instance.state.visible).to.be.true;
+      expect(instance.state.visible).toBe(true);
     });
   });
 
@@ -247,7 +243,7 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
       'renders two buttons with className of app-ResourceCalendar__week-button',
       () => {
         const buttons = resourceCalWrapper.find('button.app-ResourceCalendar__week-button');
-        expect(buttons.length).to.equal(2);
+        expect(buttons.length).toBe(2);
       }
     );
     test(
@@ -258,8 +254,8 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
           .first();
         prevWeekBtn.simulate('click');
 
-        expect(instance.handleDateChange.callCount).to.equal(1);
-        expect(instance.handleDateChange.lastCall.arg.getDate()).to.equal(prevWeekDate);
+        expect(instance.handleDateChange.callCount).toBe(1);
+        expect(instance.handleDateChange.lastCall.arg.getDate()).toBe(prevWeekDate);
       }
     );
     test(
@@ -270,8 +266,8 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
           .first();
         prevWeekBtn.simulate('click');
 
-        expect(instance.handleDateChange.callCount).to.equal(1);
-        expect(instance.handleDateChange.lastCall.arg.getDate()).to.equal(nextWeekDate);
+        expect(instance.handleDateChange.callCount).toBe(1);
+        expect(instance.handleDateChange.lastCall.arg.getDate()).toBe(nextWeekDate);
       }
     );
   });

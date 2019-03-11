@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import Immutable from 'seamless-immutable';
 
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
@@ -13,7 +12,7 @@ function getState(activeRequests) {
 
 describe('Selector factory: requestIsActiveSelectorFactory', () => {
   test('returns a function', () => {
-    expect(typeof requestIsActiveSelectorFactory()).to.equal('function');
+    expect(typeof requestIsActiveSelectorFactory()).toBe('function');
   });
 
   describe('the returned function', () => {
@@ -25,7 +24,7 @@ describe('Selector factory: requestIsActiveSelectorFactory', () => {
         const selector = requestIsActiveSelectorFactory(requestActionType);
         const state = getState({ [requestActionType]: 1 });
 
-        expect(selector(state)).to.equal(true);
+        expect(selector(state)).toBe(true);
       }
     );
 
@@ -35,7 +34,7 @@ describe('Selector factory: requestIsActiveSelectorFactory', () => {
         const selector = requestIsActiveSelectorFactory(requestActionType);
         const state = getState({ [requestActionType]: 0 });
 
-        expect(selector(state)).to.equal(false);
+        expect(selector(state)).toBe(false);
       }
     );
 
@@ -43,7 +42,7 @@ describe('Selector factory: requestIsActiveSelectorFactory', () => {
       const selector = requestIsActiveSelectorFactory(requestActionType);
       const state = getState({});
 
-      expect(selector(state)).to.equal(false);
+      expect(selector(state)).toBe(false);
     });
   });
 });

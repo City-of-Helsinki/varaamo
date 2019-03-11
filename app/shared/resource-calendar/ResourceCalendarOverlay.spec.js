@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 
 import { shallowWithIntl } from 'utils/testUtils';
@@ -17,10 +16,10 @@ describe('shared/resource-calendar/ResourceCalendarOverlay', () => {
     const overlay = wrapper.find('.app-ResourceCalendarOverlay__overlay');
     const content = wrapper.find('.app-ResourceCalendarOverlay__content');
 
-    expect(wrapper.length).to.equal(1);
-    expect(overlay.length).to.equal(1);
-    expect(content.length).to.equal(1);
-    expect(wrapper.prop('className')).to.equal('app-ResourceCalendarOverlay');
-    expect(content.children().equals(children)).to.be.true;
+    expect(wrapper.length).toBe(1);
+    expect(overlay.length).toBe(1);
+    expect(content.length).toBe(1);
+    expect(wrapper.prop('className')).toBe('app-ResourceCalendarOverlay');
+    expect(content.children().equals(children)).toBe(true);
   });
 });

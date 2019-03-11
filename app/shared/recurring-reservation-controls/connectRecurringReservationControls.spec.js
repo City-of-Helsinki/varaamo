@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import { getState } from 'utils/testUtils';
 import { selector } from './connectRecurringReservationControls';
 
@@ -14,7 +12,7 @@ describe('shared/recurring-reservation-controls/connectRecurringReservationContr
       const state = getState({
         recurringReservations: { frequency },
       });
-      expect(getSelected(state).frequency).to.equal(frequency);
+      expect(getSelected(state).frequency).toBe(frequency);
     });
 
     test('returns lastTime from state', () => {
@@ -22,12 +20,12 @@ describe('shared/recurring-reservation-controls/connectRecurringReservationContr
       const state = getState({
         recurringReservations: { lastTime },
       });
-      expect(getSelected(state).lastTime).to.equal(lastTime);
+      expect(getSelected(state).lastTime).toBe(lastTime);
     });
 
     test('returns frequencyOptions', () => {
       const state = getState();
-      expect(getSelected(state).frequencyOptions).to.exist;
+      expect(getSelected(state).frequencyOptions).toBeDefined();
     });
 
     describe('isVisible', () => {
@@ -36,7 +34,7 @@ describe('shared/recurring-reservation-controls/connectRecurringReservationContr
         const state = getState({
           recurringReservations: { baseTime },
         });
-        expect(getSelected(state).isVisible).to.be.true;
+        expect(getSelected(state).isVisible).toBe(true);
       });
 
       test('returns false if baseTime is not set', () => {
@@ -44,7 +42,7 @@ describe('shared/recurring-reservation-controls/connectRecurringReservationContr
         const state = getState({
           recurringReservations: { baseTime },
         });
-        expect(getSelected(state).isVisible).to.be.false;
+        expect(getSelected(state).isVisible).toBe(false);
       });
     });
 
@@ -53,7 +51,7 @@ describe('shared/recurring-reservation-controls/connectRecurringReservationContr
       const state = getState({
         recurringReservations: { numberOfOccurrences },
       });
-      expect(getSelected(state).numberOfOccurrences).to.equal(numberOfOccurrences);
+      expect(getSelected(state).numberOfOccurrences).toBe(numberOfOccurrences);
     });
   });
 });

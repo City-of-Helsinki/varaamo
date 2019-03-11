@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 
@@ -16,12 +15,12 @@ function getWrapper(props) {
 describe('shared/availability-view/Sidebar', () => {
   test('renders a div.sidebar', () => {
     const wrapper = getWrapper();
-    expect(wrapper.is('div.sidebar')).to.be.true;
+    expect(wrapper.is('div.sidebar')).toBe(true);
   });
 
   test('renders no groups if none given', () => {
     const elements = getWrapper({ groups: [] }).find(GroupInfo);
-    expect(elements).to.have.length(0);
+    expect(elements).toHaveLength(0);
   });
 
   test('renders groups', () => {
@@ -31,12 +30,12 @@ describe('shared/availability-view/Sidebar', () => {
       { name: 'B', resources: ['a', 'b'] },
     ];
     const elements = getWrapper({ date, groups }).find(GroupInfo);
-    expect(elements).to.have.length(2);
-    expect(elements.at(0).prop('date')).to.equal(date);
-    expect(elements.at(0).prop('name')).to.equal(groups[0].name);
-    expect(elements.at(0).prop('resources')).to.equal(groups[0].resources);
-    expect(elements.at(1).prop('date')).to.equal(date);
-    expect(elements.at(1).prop('name')).to.equal(groups[1].name);
-    expect(elements.at(1).prop('resources')).to.equal(groups[1].resources);
+    expect(elements).toHaveLength(2);
+    expect(elements.at(0).prop('date')).toBe(date);
+    expect(elements.at(0).prop('name')).toBe(groups[0].name);
+    expect(elements.at(0).prop('resources')).toBe(groups[0].resources);
+    expect(elements.at(1).prop('date')).toBe(date);
+    expect(elements.at(1).prop('name')).toBe(groups[1].name);
+    expect(elements.at(1).prop('resources')).toBe(groups[1].resources);
   });
 });

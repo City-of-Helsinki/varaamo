@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 
 import { shallowWithIntl } from 'utils/testUtils';
@@ -19,7 +18,7 @@ describe('pages/reservation/reservation-phases/ReservationPhase', () => {
 
   test('renders with correct col-sm- className', () => {
     const col = getWrapper({ cols: 6 }).find('.col-sm-6');
-    expect(col).to.have.length(1);
+    expect(col).toHaveLength(1);
   });
 
   test(
@@ -28,7 +27,7 @@ describe('pages/reservation/reservation-phases/ReservationPhase', () => {
       const active = getWrapper({
         isActive: true,
       }).find('.app-ReservationPage__phase-active');
-      expect(active).to.have.length(1);
+      expect(active).toHaveLength(1);
     }
   );
 
@@ -38,7 +37,7 @@ describe('pages/reservation/reservation-phases/ReservationPhase', () => {
       const active = getWrapper({
         isActive: false,
       }).find('.app-ReservationPage__phase-active');
-      expect(active).to.have.length(0);
+      expect(active).toHaveLength(0);
     }
   );
 
@@ -48,7 +47,7 @@ describe('pages/reservation/reservation-phases/ReservationPhase', () => {
       const completed = getWrapper({
         isCompleted: true,
       }).find('.app-ReservationPage__phase-completed');
-      expect(completed).to.have.length(1);
+      expect(completed).toHaveLength(1);
     }
   );
 
@@ -58,7 +57,7 @@ describe('pages/reservation/reservation-phases/ReservationPhase', () => {
       const completed = getWrapper({
         isCompleted: false,
       }).find('.app-ReservationPage__phase-completed');
-      expect(completed).to.have.length(0);
+      expect(completed).toHaveLength(0);
     }
   );
 
@@ -66,7 +65,7 @@ describe('pages/reservation/reservation-phases/ReservationPhase', () => {
     const index = getWrapper({
       index: 3,
     }).find('.app-ReservationPage__phase-index');
-    expect(index).to.have.length(1);
-    expect(index.props().children).to.equal(3);
+    expect(index).toHaveLength(1);
+    expect(index.props().children).toBe(3);
   });
 });

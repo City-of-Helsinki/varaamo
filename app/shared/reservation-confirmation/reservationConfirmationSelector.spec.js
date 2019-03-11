@@ -1,7 +1,5 @@
 import FormTypes from 'constants/FormTypes';
 
-import { expect } from 'chai';
-
 import Resource from 'utils/fixtures/Resource';
 import { getState } from 'utils/testUtils';
 import reservationConfirmationSelector from './reservationConfirmationSelector';
@@ -25,40 +23,40 @@ describe('shared/reservation-confirmation/reservationConfirmationSelector', () =
   }
 
   test('returns confirmReservationModalIsOpen', () => {
-    expect(getSelected().confirmReservationModalIsOpen).to.exist;
+    expect(getSelected().confirmReservationModalIsOpen).toBeDefined();
   });
 
   test('returns isMakingReservations', () => {
-    expect(getSelected().isMakingReservations).to.exist;
+    expect(getSelected().isMakingReservations).toBeDefined();
   });
 
   test('returns isStaff', () => {
-    expect(getSelected().isStaff).to.exist;
+    expect(getSelected().isStaff).toBeDefined();
   });
 
   test('returns recurringReservations from the state', () => {
-    expect(getSelected().recurringReservations).to.deep.equal(recurringReservations);
+    expect(getSelected().recurringReservations).toEqual(recurringReservations);
   });
 
   test('returns reservationsToEdit from the state', () => {
-    expect(getSelected().reservationsToEdit).to.deep.equal(['mock-reservation']);
+    expect(getSelected().reservationsToEdit).toEqual(['mock-reservation']);
   });
 
   test('returns correct resource', () => {
-    expect(getSelected().resource).to.deep.equal(resource);
+    expect(getSelected().resource).toEqual(resource);
   });
 
   test('returns selectedReservations', () => {
-    expect(getSelected().selectedReservations).to.exist;
+    expect(getSelected().selectedReservations).toBeDefined();
   });
 
   test('returns selectedReservations from props', () => {
     const selectedReservations = { some: 'data' };
     const selected = getSelected({ selectedReservations });
-    expect(selected.selectedReservations).to.equal(selectedReservations);
+    expect(selected.selectedReservations).toBe(selectedReservations);
   });
 
   test('returns staffEventSelected from state', () => {
-    expect(getSelected().staffEventSelected).to.be.true;
+    expect(getSelected().staffEventSelected).toBe(true);
   });
 });

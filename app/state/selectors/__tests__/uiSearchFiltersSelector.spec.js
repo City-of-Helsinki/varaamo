@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import MockDate from 'mockdate';
 
 import uiSearchFiltersSelector from 'state/selectors/uiSearchFiltersSelector';
@@ -33,7 +32,7 @@ describe('Selector: uiSearchFiltersSelector', () => {
     const actual = uiSearchFiltersSelector(state);
     const expected = state.ui.search.filters;
 
-    expect(actual).to.deep.equal(expected);
+    expect(actual).toEqual(expected);
   });
 
   test(
@@ -46,7 +45,7 @@ describe('Selector: uiSearchFiltersSelector', () => {
       const filters = state.ui.search.filters;
       const expected = Object.assign({}, filters, { date: '2015-12-24' });
 
-      expect(actual).to.deep.equal(expected);
+      expect(actual).toEqual(expected);
     }
   );
 
@@ -57,7 +56,7 @@ describe('Selector: uiSearchFiltersSelector', () => {
         const state = getState(undefined, undefined, true);
         const actual = uiSearchFiltersSelector(state);
 
-        expect(actual.freeOfCharge).to.be.true;
+        expect(actual.freeOfCharge).toBe(true);
       }
     );
 
@@ -67,7 +66,7 @@ describe('Selector: uiSearchFiltersSelector', () => {
         const state = getState(undefined, undefined, false);
         const actual = uiSearchFiltersSelector(state);
 
-        expect(actual.freeOfCharge).to.equal('');
+        expect(actual.freeOfCharge).toBe('');
       }
     );
   });

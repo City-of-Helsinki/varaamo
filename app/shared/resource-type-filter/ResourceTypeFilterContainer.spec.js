@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import simple from 'simple-mock';
 
@@ -25,7 +24,7 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
   });
 
   test('renders ResourceTypeFilter components', () => {
-    expect(wrapper.find(ResourceTypeFilterButton)).to.have.length(3);
+    expect(wrapper.find(ResourceTypeFilterButton)).toHaveLength(3);
   });
 
   describe('ResourceTypeFilter', () => {
@@ -35,8 +34,8 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
     });
 
     test('passes correct props', () => {
-      expect(resourceTypeFilter.prop('onClick')).to.equal(wrapper.instance().handleClick);
-      expect(resourceTypeFilter.prop('resourceType')).to.equal('a');
+      expect(resourceTypeFilter.prop('onClick')).toBe(wrapper.instance().handleClick);
+      expect(resourceTypeFilter.prop('resourceType')).toBe('a');
     });
 
     describe('selected', () => {
@@ -45,7 +44,7 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
       });
 
       test('passes correct active prop', () => {
-        expect(resourceTypeFilter.prop('active')).to.be.true;
+        expect(resourceTypeFilter.prop('active')).toBe(true);
       });
     });
     describe('not selected', () => {
@@ -54,7 +53,7 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
       });
 
       test('passes correct active prop', () => {
-        expect(resourceTypeFilter.prop('active')).to.be.false;
+        expect(resourceTypeFilter.prop('active')).toBe(false);
       });
     });
   });
@@ -73,20 +72,16 @@ describe('shared/resource-type-filter/ResourceTypeFilterContainer', () => {
 
     test('calls onUnselectResourceType if resource was on selected list', () => {
       instance.handleClick(defaultProps.selectedResourceTypes[0]);
-      expect(defaultProps.onUnselectResourceType.callCount).to.equal(1);
-      expect(defaultProps.onUnselectResourceType.lastCall.args).to.deep.equal(
-        [defaultProps.selectedResourceTypes[0]]
-      );
-      expect(defaultProps.onSelectResourceType.callCount).to.equal(0);
+      expect(defaultProps.onUnselectResourceType.callCount).toBe(1);
+      expect(defaultProps.onUnselectResourceType.lastCall.args).toEqual([defaultProps.selectedResourceTypes[0]]);
+      expect(defaultProps.onSelectResourceType.callCount).toBe(0);
     });
 
     test('calls onSelectResourceType if resource was not on selected list', () => {
       instance.handleClick(defaultProps.resourceTypes[-1]);
-      expect(defaultProps.onSelectResourceType.callCount).to.equal(1);
-      expect(defaultProps.onSelectResourceType.lastCall.args).to.deep.equal(
-        [defaultProps.resourceTypes[-1]]
-      );
-      expect(defaultProps.onUnselectResourceType.callCount).to.equal(0);
+      expect(defaultProps.onSelectResourceType.callCount).toBe(1);
+      expect(defaultProps.onSelectResourceType.lastCall.args).toEqual([defaultProps.resourceTypes[-1]]);
+      expect(defaultProps.onUnselectResourceType.callCount).toBe(0);
     });
   });
 });

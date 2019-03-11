@@ -1,6 +1,5 @@
 import types from 'constants/ActionTypes';
 
-import { expect } from 'chai';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
@@ -11,7 +10,7 @@ describe('state/reducers/api/fetchCountsReducer', () => {
     const initialState = fetchCountsReducer(undefined, {});
 
     test('reservations is 0', () => {
-      expect(initialState.reservations).to.equal(0);
+      expect(initialState.reservations).toBe(0);
     });
   });
 
@@ -26,7 +25,7 @@ describe('state/reducers/api/fetchCountsReducer', () => {
         });
         const nextState = fetchCountsReducer(initialState, action);
 
-        expect(nextState.reservations).to.equal(4);
+        expect(nextState.reservations).toBe(4);
       });
     });
   });
