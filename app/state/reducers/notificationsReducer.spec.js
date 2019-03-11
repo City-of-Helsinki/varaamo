@@ -4,7 +4,6 @@ import constants from 'constants/AppConstants';
 
 import Immutable from 'seamless-immutable';
 import { createAction } from 'redux-actions';
-import { expect } from 'chai';
 
 import notificationsReducer from './notificationsReducer';
 
