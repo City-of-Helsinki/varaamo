@@ -455,8 +455,8 @@ describe('pages/search/controls/SearchControlsContainer', () => {
 
     test('calls handleSearch with empty filters', () => {
       const emptyFilters = Object.assign({}, constants.SUPPORTED_SEARCH_FILTERS);
-      expect(instance.handleSearch.callCount).to.equal(1);
-      expect(instance.handleSearch.lastCall.args[0]).to.deep.equal(emptyFilters);
+      expect(instance.handleSearch.callCount).toBe(1);
+      expect(instance.handleSearch.lastCall.args[0]).toEqual(emptyFilters);
     });
 
     test('calls handleFiltersChange with empty filters', () => {
