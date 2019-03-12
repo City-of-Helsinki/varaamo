@@ -1,7 +1,7 @@
 import MobileDetect from 'mobile-detect';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import BodyClassName from 'react-body-classname';
+import classNames from 'classnames';
 import Grid from 'react-bootstrap/lib/Grid';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
@@ -60,25 +60,23 @@ export class UnconnectedAppContainer extends Component {
 
   render() {
     return (
-      <BodyClassName className={getCustomizationClassName()}>
+      <div className={classNames('app', getCustomizationClassName())}>
         <Helmet>
           <title>Varaamo</title>
         </Helmet>
 
-        <div className="app">
-          <Header location={this.props.location}>
-            <Favicon />
-            <TestSiteMessage />
-          </Header>
-          <div className="app-content">
-            <Grid>
-              <Notifications />
-            </Grid>
-            {this.props.children}
-          </div>
-          <Footer />
+        <Header location={this.props.location}>
+          <Favicon />
+          <TestSiteMessage />
+        </Header>
+        <div className="app-content">
+          <Grid>
+            <Notifications />
+          </Grid>
+          {this.props.children}
         </div>
-      </BodyClassName>
+        <Footer />
+      </div>
     );
   }
 }
