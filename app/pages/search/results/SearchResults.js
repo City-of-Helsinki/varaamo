@@ -2,12 +2,15 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
+import Row from 'react-bootstrap/lib/Row';
+import Col from 'react-bootstrap/lib/Col';
 
 import ResourceCompactList from 'shared/resource-compact-list';
 import ResourceList from 'shared/resource-list';
 import { scrollTo } from 'utils/domUtils';
 import SearchResultsPaging from './SearchResultsPaging';
 import searchResultsSelector from './searchResultsSelector';
+import Sort from '../Sort';
 
 export class UnconnectedSearchResults extends Component {
   constructor(props) {
@@ -35,6 +38,12 @@ export class UnconnectedSearchResults extends Component {
         <Loader loaded={!isFetching}>
           {!showMap && (
             <div className="app-SearchResults__container">
+              <Row>
+                <Col className="app-SearchControlsContainer__control sortControl col-md-offset-8" md={4} sm={6}>
+                  <Sort />
+                </Col>
+              </Row>
+              <div className="clearFloat" />
               <ResourceList
                 date={filters.date}
                 history={history}
