@@ -12,7 +12,7 @@ describe('state/reducers/notificationReducer', () => {
     const initialState = notificationsReducer(undefined, {});
 
     test('notifications is an empty array', () => {
-      expect(initialState).to.deep.equal([]);
+      expect(initialState).toEqual([]);
     });
   });
 
@@ -31,32 +31,32 @@ describe('state/reducers/notificationReducer', () => {
       const actualNotifications = notificationsReducer(initialState, action);
 
       test('add new notification object to state array', () => {
-        expect(actualNotifications[0]).to.deep.include(mockNotification);
+        expect(actualNotifications[0]).toMatchObject(mockNotification);
       });
 
       test('will contain hidden property false by default', () => {
-        expect(actualNotifications[0].hidden).to.be.false;
+        expect(actualNotifications[0].hidden).toBeFalsy();
       });
 
       test('will have default id as 1 if there is only no other noti', () => {
-        expect(actualNotifications[0].id).to.be.equal(1);
+        expect(actualNotifications[0].id).toEqual(1);
       });
 
       test('have increased id number', () => {
         const nextAction = addNotification(mockNotification);
         const nextState = notificationsReducer(actualNotifications, nextAction);
 
-        expect(nextState[0].id).to.be.equal(1);
+        expect(nextState[0].id).toEqual(1);
 
-        expect(nextState[1].id).to.be.equal(2);
+        expect(nextState[1].id).toEqual(2);
       });
 
       test('will fill object with default data', () => {
         const nextAction = addNotification({});
         const nextState = notificationsReducer(actualNotifications, nextAction);
 
-        expect(nextState[1]).to.deep.include(constants.NOTIFICATION_DEFAULTS);
-        expect(nextState[1].id).to.deep.equal(2);
+        expect(nextState[1]).toMatchObject(constants.NOTIFICATION_DEFAULTS);
+        expect(nextState[1].id).toEqual(2);
       });
     });
 
@@ -76,7 +76,7 @@ describe('state/reducers/notificationReducer', () => {
 
         const actualNotifications = notificationsReducer(initialState, action);
 
-        expect(actualNotifications[0].hidden).to.be.true;
+        expect(actualNotifications[0].hidden).toBeTruthy();
       });
 
       test('will not delete current notification', () => {
@@ -86,7 +86,7 @@ describe('state/reducers/notificationReducer', () => {
 
         const actualNotifications = notificationsReducer(initialState, action);
 
-        expect(actualNotifications[0].message).to.be.equal(initialState[0].message);
+        expect(actualNotifications[0].message).toEqual(initialState[0].message);
       });
 
       test('will not do anything if id was provided wrong', () => {
@@ -96,8 +96,8 @@ describe('state/reducers/notificationReducer', () => {
 
         const actualNotifications = notificationsReducer(initialState, action);
 
-        expect(actualNotifications[0].message).to.be.equal(initialState[0].message);
-        expect(actualNotifications[0].hidden).to.be.equal(initialState[0].hidden);
+        expect(actualNotifications[0].message).toEqual(initialState[0].message);
+        expect(actualNotifications[0].hidden).toEqual(initialState[0].hidden);
       });
     });
 
@@ -117,7 +117,7 @@ describe('state/reducers/notificationReducer', () => {
         });
 
         const actualNotifications = notificationsReducer(initialState, action);
-        expect(actualNotifications[0]).to.include(defaults);
+        expect(actualNotifications[0]).toMatchObject(defaults);
       });
 
       test('show login message when status is 401', () => {
@@ -127,7 +127,7 @@ describe('state/reducers/notificationReducer', () => {
         });
 
         const actualNotifications = notificationsReducer(initialState, action);
-        expect(actualNotifications[0].messageId).to.equal('Notifications.loginMessage');
+        expect(actualNotifications[0].messageId).toEqual('Notifications.loginMessage');
       });
 
       test('show detail message when response is specified', () => {
@@ -139,7 +139,7 @@ describe('state/reducers/notificationReducer', () => {
         });
 
         const actualNotifications = notificationsReducer(initialState, action);
-        expect(actualNotifications[0].message).to.equal('System error');
+        expect(actualNotifications[0].message).toEqual('System error');
       });
     });
   });
