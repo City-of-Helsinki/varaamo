@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import Grid from 'react-bootstrap/lib/Grid';
-import DocumentTitle from 'react-document-title';
+import { Helmet } from 'react-helmet';
 
 import PageWrapper from './PageWrapper';
 
@@ -19,8 +19,8 @@ describe('pages/PageWrapper', () => {
     );
   }
 
-  test('renders DocumentTitle component', () => {
-    const title = getWrapper().find(DocumentTitle);
+  test('renders Helmet component', () => {
+    const title = getWrapper().find(Helmet);
     expect(title.prop('title')).toBe('Test title - Varaamo');
   });
 
