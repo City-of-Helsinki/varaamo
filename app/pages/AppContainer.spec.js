@@ -5,6 +5,7 @@ import simple from 'simple-mock';
 import Header from 'shared/header';
 import Notifications from 'shared/notifications';
 import { getState } from 'utils/testUtils';
+import * as customizationUtils from 'utils/customizationUtils';
 import { selector, UnconnectedAppContainer as AppContainer } from './AppContainer';
 
 describe('pages/AppContainer', () => {
@@ -79,6 +80,26 @@ describe('pages/AppContainer', () => {
     test('renders props.children', () => {
       const children = wrapper.find('#child-div');
       expect(children).toHaveLength(1);
+    });
+  });
+
+  describe('render Espoo/Vantaa custom classname', () => {
+    const mockCity = 'ESPOO';
+
+    beforeAll(() => {
+      simple.mock(customizationUtils, 'getCustomizationClassName').returnWith(mockCity);
+    });
+
+    afterAll(() => {
+      simple.restore();
+    });
+
+    test('have custom classname for Espoo when specified in config', () => {
+      expect(getWrapper().prop('className')).toContain(mockCity);
+    });
+
+    test('render app className normally', () => {
+      expect(getWrapper().prop('className')).toContain('app');
     });
   });
 
