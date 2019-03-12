@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import BodyClassName from 'react-body-classname';
 import Grid from 'react-bootstrap/lib/Grid';
-import DocumentTitle from 'react-document-title';
+import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { withRouter } from 'react-router-dom';
@@ -61,21 +61,23 @@ export class UnconnectedAppContainer extends Component {
   render() {
     return (
       <BodyClassName className={getCustomizationClassName()}>
-        <DocumentTitle title="Varaamo">
-          <div className="app">
-            <Header location={this.props.location}>
-              <Favicon />
-              <TestSiteMessage />
-            </Header>
-            <div className="app-content">
-              <Grid>
-                <Notifications />
-              </Grid>
-              {this.props.children}
-            </div>
-            <Footer />
+        <Helmet>
+          <title>Varaamo</title>
+        </Helmet>
+
+        <div className="app">
+          <Header location={this.props.location}>
+            <Favicon />
+            <TestSiteMessage />
+          </Header>
+          <div className="app-content">
+            <Grid>
+              <Notifications />
+            </Grid>
+            {this.props.children}
           </div>
-        </DocumentTitle>
+          <Footer />
+        </div>
       </BodyClassName>
     );
   }
