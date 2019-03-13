@@ -1,5 +1,3 @@
-import simple from 'simple-mock';
-
 import { loadPersistedLocale, savePersistLocale } from './persistState';
 
 describe('loadPersistedLocale', () => {
