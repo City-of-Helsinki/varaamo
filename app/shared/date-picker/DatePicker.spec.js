@@ -26,8 +26,8 @@ describe('shared/date-picker/DatePicker', () => {
     test('changing date calls onDayChange with date in correct format', () => {
       const onChange = simple.mock();
       const dateField = getDateFieldWrapper({ onChange });
-      const newDate = 'Tue Mar 05 2019';
-      const expectedDate = '2019-03-05';
+      const newDate = '2011-10-05T14:48:00.000Z';
+      const expectedDate = '2011-10-05';
       dateField.prop('onDayChange')(newDate);
       expect(onChange.callCount).toBe(1);
       expect(onChange.lastCall.arg).toBe(expectedDate);

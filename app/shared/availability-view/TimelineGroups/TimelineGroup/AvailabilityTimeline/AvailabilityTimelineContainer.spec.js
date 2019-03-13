@@ -1,12 +1,9 @@
 import { slotSize } from 'constants/SlotConstants';
 
-import { shallow } from 'enzyme';
 import mockDate from 'mockdate';
 import moment from 'moment';
-import React from 'react';
 
-import AvailabilityTimeline from './AvailabilityTimeline';
-import AvailabilityTimelineContainer, { selector } from './AvailabilityTimelineContainer';
+import { selector } from './AvailabilityTimelineContainer';
 
 function getState() {
   return {
@@ -55,27 +52,7 @@ function getState() {
   };
 }
 
-function getWrapper(props) {
-  const defaults = {
-    date: '2016-01-01T00:00:00',
-    id: 'resource-1',
-    onReservationClick: () => null,
-    store: { getState },
-  };
-  return shallow(<AvailabilityTimelineContainer {...defaults} {...props} />);
-}
-
 describe('shared/availability-view/AvailabilityTimelineContainer', () => {
-  test('renders a AvailabilityTimeline', () => {
-    const wrapper = getWrapper();
-    expect(wrapper.is(AvailabilityTimeline)).toBe(true);
-  });
-
-  test('renders a AvailabilityTimeline even if no reservations', () => {
-    const wrapper = getWrapper({ id: 'resource-2' });
-    expect(wrapper.is(AvailabilityTimeline)).toBe(true);
-  });
-
   describe('selector', () => {
     function getSelected(props) {
       const defaults = { id: 'resource-1', date: '2016-01-01T00:00:00' };
