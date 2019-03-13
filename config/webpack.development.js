@@ -1,6 +1,6 @@
 const path = require('path');
 
-require('dotenv').load({ path: path.resolve(__dirname, '../.env') });
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
 const webpack = require('webpack');
 const merge = require('webpack-merge');
