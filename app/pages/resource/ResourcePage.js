@@ -183,7 +183,7 @@ class UnconnectedResourcePage extends Component {
                     })}
                   <ResourceInfo isLoggedIn={isLoggedIn} resource={resource} unit={unit} />
 
-                  <Panel collapsible defaultExpanded header={t('ResourceInfo.reserveTitle')}>
+                  <Panel defaultExpanded header={t('ResourceInfo.reserveTitle')}>
                     {resource.externalReservationUrl && (
                       <form action={resource.externalReservationUrl}>
                         <input

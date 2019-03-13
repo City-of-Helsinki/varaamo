@@ -42,14 +42,12 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
     expect(wrappedText.prop('openLinksInNewTab')).toBe(true);
   });
 
-  test('renders collapsible panels with correct props', () => {
+  test('renders panels with correct header', () => {
     const panels = getWrapper().find(Panel);
 
     expect(panels).toHaveLength(2);
     expect(panels.at(0).prop('header')).toBe('ResourceInfo.reservationTitle');
-    expect(panels.at(0).prop('collapsible')).toBe(true);
     expect(panels.at(1).prop('header')).toBe('ResourceInfo.additionalInfoTitle');
-    expect(panels.at(1).prop('collapsible')).toBe(true);
   });
 
   test('renders ReservationInfo with correct props', () => {

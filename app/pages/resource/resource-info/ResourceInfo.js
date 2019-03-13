@@ -21,10 +21,10 @@ function ResourceInfo({
         <div className="app-ResourceInfo__description">
           {resource.description && <WrappedText openLinksInNewTab text={resource.description} />}
         </div>
-        <Panel collapsible defaultExpanded header={t('ResourceInfo.reservationTitle')}>
+        <Panel defaultExpanded header={t('ResourceInfo.reservationTitle')}>
           <ReservationInfo isLoggedIn={isLoggedIn} resource={resource} />
         </Panel>
-        <Panel collapsible defaultExpanded header={t('ResourceInfo.additionalInfoTitle')}>
+        <Panel defaultExpanded header={t('ResourceInfo.additionalInfoTitle')}>
           <Row>
             <Col className="app-ResourceInfo__address" xs={6}>
               {unit && unit.name && <span>{unit.name}</span>}
