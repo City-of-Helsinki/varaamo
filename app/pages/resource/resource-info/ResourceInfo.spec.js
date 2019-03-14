@@ -42,7 +42,7 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
     expect(wrappedText.prop('openLinksInNewTab')).toBe(true);
   });
 
-  test('renders panels with correct header', () => {
+  test('renders panels with correct header text', () => {
     const panels = getWrapper().find(Panel);
 
     expect(panels).toHaveLength(2);
