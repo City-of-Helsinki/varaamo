@@ -10,11 +10,12 @@ import TermsField from './TermsField';
 
 describe('shared/form-fields/TermsField', () => {
   const defaultProps = {
-    input: {},
+    input: {
+      name: 'terms',
+    },
     label: 'some label',
     labelLink: 'some link label',
     meta: {},
-    name: 'terms',
     onClick: () => null,
   };
 
@@ -30,7 +31,7 @@ describe('shared/form-fields/TermsField', () => {
 
     test('gets correct props', () => {
       const actualProps = getWrapper().find(FormGroup).props();
-      expect(actualProps.controlId).toBe(defaultProps.name);
+      expect(actualProps.controlId).toBe(defaultProps.input.name);
     });
 
     test('gets correct props if error', () => {
