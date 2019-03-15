@@ -3,7 +3,6 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
-import { findDOMNode } from 'react-dom';
 
 import { scrollTo } from 'utils/domUtils';
 
@@ -16,13 +15,16 @@ class DateHeader extends Component {
     scrollTo: PropTypes.bool,
   };
 
+  constructor(props) {
+    super(props);
+    this.dateHeaderComponent = React.createRef();
+  }
+
   componentDidMount() {
     if (this.props.scrollTo) {
       // Use timeout to allow rest of the page render and the scrollTo to work properly.
       setTimeout(() => {
-        // TODO: fix this lint
-        // eslint-disable-next-line react/no-find-dom-node
-        scrollTo(findDOMNode(this));
+        scrollTo(this.dateHeaderComponent.current);
       }, 100);
     }
   }
@@ -34,7 +36,7 @@ class DateHeader extends Component {
     const dateString = moment(date).format('dddd, LL');
 
     return (
-      <h3 className="date-header" id="date-header">
+      <h3 className="date-header" id="date-header" ref={this.dateHeaderComponent}>
         {onDecreaseDateButtonClick && (
           <button
             className="date-header-button decrease-date-button"

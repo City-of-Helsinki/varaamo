@@ -74,8 +74,10 @@ describe('shared/comment-form/CommentForm', () => {
     const mockEvent = { preventDefault: () => null };
 
     beforeAll(() => {
-      simple.mock(ReactDom, 'findDOMNode').returnWith({ value: comments });
       const instance = getWrapper().instance();
+      // override ref value to mock
+      instance.commentsInput.current = { value: comments };
+
       defaultProps.onSave.reset();
       instance.handleSave(mockEvent);
     });

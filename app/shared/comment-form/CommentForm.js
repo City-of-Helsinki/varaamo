@@ -4,21 +4,20 @@ import Button from 'react-bootstrap/lib/Button';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
-import { findDOMNode } from 'react-dom';
 
 import { injectT } from 'i18n';
 
 class CommentForm extends Component {
   constructor(props) {
     super(props);
+    this.commentsInput = React.createRef();
+
     this.handleSave = this.handleSave.bind(this);
   }
 
   handleSave(event) {
     event.preventDefault();
-    // TODO: fix this lint
-    // eslint-disable-next-line react/no-find-dom-node
-    const comments = findDOMNode(this.refs.commentsInput).value;
+    const comments = this.commentsInput.current.value;
     this.props.onSave(comments);
   }
 
@@ -35,7 +34,7 @@ class CommentForm extends Component {
             componentClass="textarea"
             defaultValue={defaultValue}
             placeholder={t('CommentForm.placeholder')}
-            ref="commentsInput"
+            ref={this.commentsInput}
             rows={5}
           />
         </FormGroup>

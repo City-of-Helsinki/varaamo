@@ -6,7 +6,6 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Modal from 'react-bootstrap/lib/Modal';
-import { findDOMNode } from 'react-dom';
 
 import { injectT } from 'i18n';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
@@ -17,6 +16,8 @@ import ReservationEditForm from './ReservationEditForm';
 class ReservationInfoModal extends Component {
   constructor(props) {
     super(props);
+    this.commentsInput = React.createRef();
+
     this.handleEditFormSubmit = this.handleEditFormSubmit.bind(this);
     this.handleSaveCommentsClick = this.handleSaveCommentsClick.bind(this);
   }
@@ -30,7 +31,7 @@ class ReservationInfoModal extends Component {
   handleSaveCommentsClick() {
     // TODO: fix this lint
     // eslint-disable-next-line react/no-find-dom-node
-    const comments = findDOMNode(this.refs.commentsInput).value;
+    const comments = this.commentsInput.current.value;
     this.props.onSaveCommentsClick(comments);
   }
 
@@ -100,7 +101,7 @@ class ReservationInfoModal extends Component {
                     defaultValue={reservation.comments}
                     disabled={disabled}
                     placeholder={t('common.commentsPlaceholder')}
-                    ref="commentsInput"
+                    ref={this.commentsInput}
                     rows={5}
                   />
                 </FormGroup>
