@@ -11,10 +11,13 @@ import SearchResultsPaging from './SearchResultsPaging';
 import searchResultsSelector from './searchResultsSelector';
 
 export class UnconnectedSearchResults extends Component {
+  constructor(props) {
+    super(props);
+    this.searchResultsComponent = React.createRef();
+  }
+
   componentDidMount() {
-    // TODO: fix this lint
-    // eslint-disable-next-line react/no-find-dom-node
-    scrollTo(findDOMNode(this));
+    scrollTo(this.searchResultsComponent);
   }
 
   render() {
