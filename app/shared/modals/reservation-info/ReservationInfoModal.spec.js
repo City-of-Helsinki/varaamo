@@ -362,8 +362,9 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
     const comments = 'Updated comments';
 
     beforeAll(() => {
-      simple.mock(ReactDom, 'findDOMNode').returnWith({ value: comments });
       const instance = getWrapper({ onSaveCommentsClick }).instance();
+      // override ref value to mock
+      instance.commentsInput.current = { value: comments };
       instance.handleSaveCommentsClick();
     });
 
