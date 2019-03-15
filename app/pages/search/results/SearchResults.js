@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { findDOMNode } from 'react-dom';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 
@@ -17,7 +16,7 @@ export class UnconnectedSearchResults extends Component {
   }
 
   componentDidMount() {
-    scrollTo(this.searchResultsComponent);
+    scrollTo(this.searchResultsComponent.current);
   }
 
   render() {
@@ -32,7 +31,7 @@ export class UnconnectedSearchResults extends Component {
       showMap,
     } = this.props;
     return (
-      <div className="app-SearchResults" id="search-results">
+      <div className="app-SearchResults" id="search-results" ref={this.searchResultsComponent}>
         <Loader loaded={!isFetching}>
           {!showMap && (
             <div className="app-SearchResults__container">

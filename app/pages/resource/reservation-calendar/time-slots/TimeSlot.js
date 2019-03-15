@@ -31,9 +31,14 @@ class TimeSlot extends PureComponent {
     isDisabled: false,
   }
 
+  constructor(props) {
+    super(props);
+    this.timeSlotRef = React.createRef();
+  }
+
   componentDidMount() {
     if (this.props.scrollTo) {
-      scrollTo(this.timeSlotRef);
+      scrollTo(this.timeSlotRef.current);
     }
   }
 
