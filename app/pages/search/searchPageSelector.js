@@ -21,7 +21,6 @@ const orderedSearchResultIdsSelector = createSelector(
   resourcesSelector,
   (resourceIds, resources) => {
     const selectedResources = resourceIds.map(id => resources[id]);
-    console.log(orderBy(selectedResources, 'distance').map(resource => resource.id));
     return orderBy(selectedResources, 'distance').map(resource => resource.id);
   }
 );
