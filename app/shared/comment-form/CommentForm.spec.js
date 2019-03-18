@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDom from 'react-dom';
 import Button from 'react-bootstrap/lib/Button';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import simple from 'simple-mock';
