@@ -32,12 +32,6 @@ export class UnconnectedAppContainer extends Component {
     }
   }
 
-  getChildContext() {
-    return {
-      location: this.props.location,
-    };
-  }
-
   componentDidMount() {
     if (this.props.userId) {
       this.props.fetchUser(this.props.userId);
@@ -87,10 +81,6 @@ UnconnectedAppContainer.propTypes = {
   fetchUser: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
   userId: PropTypes.string,
-};
-
-UnconnectedAppContainer.childContextTypes = {
-  location: PropTypes.object,
 };
 
 const actions = { enableGeoposition, fetchUser };
