@@ -2,7 +2,10 @@ import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import queryString from 'query-string';
 import { bindActionCreators } from 'redux';
+import Row from 'react-bootstrap/lib/Row';
+import Col from 'react-bootstrap/lib/Col';
 
 import { searchResources, toggleMap } from 'actions/searchActions';
 import { changeSearchFilters } from 'actions/uiActions';
@@ -14,6 +17,7 @@ import ResourceMap from 'shared/resource-map';
 import SearchControls from './controls';
 import searchPageSelector from './searchPageSelector';
 import SearchResults from './results/SearchResults';
+import Sort from './Sort';
 import MapToggle from './results/MapToggle';
 
 class UnconnectedSearchPage extends Component {
@@ -68,6 +72,12 @@ class UnconnectedSearchPage extends Component {
     this.props.actions.searchResources({ ...filters, ...position });
   }
 
+  sortBy(newFilters = {}) {
+    const page = 1;
+    const filters = { ...this.props.filters, ...newFilters, page };
+    this.props.history.push(`/search?${queryString.stringify(filters)}`);
+  }
+
   render() {
     const {
       actions,
@@ -96,6 +106,15 @@ class UnconnectedSearchPage extends Component {
             showMap={showMap}
           />
         )}
+
+        <div className="container">
+          <Row>
+            <Col className="app-SearchControlsContainer__control sortControl col-md-offset-8" md={4} sm={6}>
+              <Sort sortBy={filters => this.sortBy(filters)} />
+            </Col>
+          </Row>
+        </div>
+
         <PageWrapper className="app-SearchPage__wrapper" title={t('SearchPage.title')} transparent>
           <div className="app-SearchPage__content">
             {(searchDone || isFetchingSearchResults) && (
