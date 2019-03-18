@@ -29,8 +29,6 @@ class ReservationInfoModal extends Component {
   }
 
   handleSaveCommentsClick() {
-    // TODO: fix this lint
-    // eslint-disable-next-line react/no-find-dom-node
     const comments = this.commentsInput.current.value;
     this.props.onSaveCommentsClick(comments);
   }
