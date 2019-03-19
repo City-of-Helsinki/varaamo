@@ -41,6 +41,19 @@ function searchReducer(state = initialState, action) {
       });
     }
 
+    case types.API.SORT_RESULTS_GET_SUCCESS: {
+      const results = Object.keys(action.payload.entities.resources || {});
+      console.log(results, 'results');
+      const paginatedResources = Object.values(action.payload.entities.paginatedResources || {});
+      const resultCount = paginatedResources.length ? paginatedResources[0].count : 0;
+      return state.merge({
+        resultCount,
+        results,
+        searchDone: true,
+        unitId: null,
+      });
+    }
+
     case types.UI.CHANGE_SEARCH_FILTERS: {
       const filters = pickSupportedFilters(action.payload);
       return state.merge({ filters }, { deep: true });
