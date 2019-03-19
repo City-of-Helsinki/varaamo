@@ -11,6 +11,7 @@ import { getResourcePageUrlComponents } from 'utils/resourceUtils';
 import { shallowWithIntl } from 'utils/testUtils';
 import ResourceAvailability from './ResourceAvailability';
 import ResourceCard from './ResourceCard';
+import UnpublishedLabel from 'shared/label/Unpublished';
 
 describe('shared/resource-card/ResourceCard', () => {
   function getResource(extra) {
@@ -240,6 +241,14 @@ describe('shared/resource-card/ResourceCard', () => {
     const resourceAvailability = getWrapper().find(ResourceAvailability);
     expect(resourceAvailability.prop('date')).toBe(defaultProps.date);
     expect(resourceAvailability.prop('resource').id).toBe(defaultProps.resource.id);
+  });
+
+  test('renders UnpublishedLabel when resource public is false', () => {
+    const unpublishedLabel = getWrapper(
+      { resource: getResource({ public: false }) }
+    ).find(UnpublishedLabel);
+
+    expect(unpublishedLabel.length).toEqual(1);
   });
 
   describe('handleSearchByType', () => {

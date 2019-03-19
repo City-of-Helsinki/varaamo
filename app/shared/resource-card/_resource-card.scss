@@ -69,6 +69,13 @@ $card-border-color: #d6d6d6;
     span:first-child {
       margin-right: 10px;
     }
+
+    display: inline-flex;
+    align-items: center;
+
+    &-labels {
+      display: inline-flex;
+    }
   }
 
   .resource-availability {
