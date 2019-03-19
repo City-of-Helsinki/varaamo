@@ -89,7 +89,7 @@ class ResourceCard extends Component {
             </a>
             <div className="app-ResourceCard__unit-name-labels">
               <ResourceAvailability date={date} resource={resource} />
-              {resource.public === false && <UnpublishedLabel />}
+              {!resource.public && <UnpublishedLabel />}
             </div>
           </div>
           <Link onClick={this.handleLinkClick} to={linkTo}>
