@@ -257,7 +257,6 @@
   "ShowResourcesLink.text": "Näytä kaikki tilat ja laitteet",
   "SideNavbar.close": "Sulje",
   "SideNavbar.toggle": "Vieras",
-  "SortBy.label": "Järjestä:",
   "TimeRangeControl.timeRangeTitle": "Käytä aikaväliä ja varauksen minimipituutta",
   "TimeRangeControl.title": "{date} klo {start}-{end} {hours}h varaus",
   "TestSiteMessage.text": "Tämä on Varaamon testiversio",
