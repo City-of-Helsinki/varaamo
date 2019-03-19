@@ -10,6 +10,7 @@ import iconMapMarker from 'hel-icons/dist/shapes/map-marker.svg';
 import iconTicket from 'hel-icons/dist/shapes/ticket.svg';
 import iconUser from 'hel-icons/dist/shapes/user-o.svg';
 
+import UnpublishedLabel from 'shared/label/Unpublished';
 import { injectT } from 'i18n';
 import iconMap from 'assets/icons/map.svg';
 import BackgroundImage from 'shared/background-image';
@@ -86,7 +87,10 @@ class ResourceCard extends Component {
             >
               <span>{unit.name}</span>
             </a>
-            <ResourceAvailability date={date} resource={resource} />
+            <div className="app-ResourceCard__unit-name-labels">
+              <ResourceAvailability date={date} resource={resource} />
+              {resource.public === false && <UnpublishedLabel />}
+            </div>
           </div>
           <Link onClick={this.handleLinkClick} to={linkTo}>
             <h4>{resource.name}</h4>
