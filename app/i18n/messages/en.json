@@ -257,7 +257,6 @@
   "ShowResourcesLink.text": "Show all premises and equipment",
   "SideNavbar.close": "Close",
   "SideNavbar.toggle": "Guest",
-  "SortBy.label": "Sort By:",
   "TestSiteMessage.text": "This is the test version of Varaamo",
   "TimeRangeControl.timeRangeTitle": "Time range and minimum duration",
   "TimeRangeControl.title": "{date} at {start}-{end} {hours}h booking",
