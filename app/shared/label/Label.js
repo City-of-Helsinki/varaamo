@@ -1,32 +1,26 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
+import BootstrapLabel from 'react-bootstrap/lib/Label';
 
 Label.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
-  shape: PropTypes.oneOf(['default', 'rounded', 'circle']),
-  size: PropTypes.oneOf(['medium', 'small', 'mini']),
-  theme: PropTypes.string,
-};
-
-Label.defaultProps = {
-  shape: 'default',
-  size: 'medium',
-  theme: 'gray',
 };
 
 function Label({
-  children, className, shape, size, theme
+  children, className, ...rest
 }) {
   return (
     <div
       className={classnames(
-        `app-Label app-Label--shape-${shape} app-Label--size-${size} app-Label--theme-${theme}`,
+        'app-Label',
         className
       )}
     >
-      {children}
+      <BootstrapLabel {...rest}>
+        {children}
+      </BootstrapLabel>
     </div>
   );
 }
