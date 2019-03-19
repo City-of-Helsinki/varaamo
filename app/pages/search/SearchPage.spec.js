@@ -1,6 +1,7 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
+import Grid from 'react-bootstrap/lib/Grid';
 
 import PageWrapper from 'pages/PageWrapper';
 import { shallowWithIntl } from 'utils/testUtils';
@@ -83,6 +84,11 @@ describe('pages/search/SearchPage', () => {
       expect(resourceMap.prop('showMap')).toBe(true);
       expect(resourceMap.prop('resourceIds')).toEqual(props.searchResultIds);
       expect(resourceMap.prop('selectedUnitId')).toBe(props.selectedUnitId);
+    });
+
+    test('renders a normal Grid', () => {
+      const gridWrapper = getWrapper().find(Grid);
+      expect(gridWrapper).toHaveLength(1);
     });
 
     describe('SearchResults', () => {
