@@ -1,9 +1,9 @@
 import constants from 'constants/AppConstants';
 
 import React from 'react';
-import Label from 'react-bootstrap/lib/Label';
 import Immutable from 'seamless-immutable';
 
+import Label from 'shared/label';
 import Reservation from 'utils/fixtures/Reservation';
 import { shallowWithIntl } from 'utils/testUtils';
 import ReservationStateLabel from './ReservationStateLabel';
