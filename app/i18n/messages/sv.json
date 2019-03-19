@@ -261,7 +261,7 @@
   "ShowResourcesLink.text": "Visa alla utrymmen och apparater",
   "SideNavbar.close": "Stäng",
   "SideNavbar.toggle": "Gäst",
-  "SortBy.label": "sortera efter:",
+  "SortBy.label": "Sortera efter:",
   "TestSiteMessage.text": "Detta är Varaamo testversion",
   "TimeRangeControl.timeRangeTitle": "Tidsurval och minsta reserveringstid",
   "TimeRangeControl.title": "{date} kl. {start}-{end} {hours}h bokning",
