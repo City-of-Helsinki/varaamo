@@ -38,9 +38,4 @@ describe('pages/PageWrapper', () => {
     const gridWrapper = getWrapper().find(Grid);
     expect(gridWrapper).toHaveLength(1);
   });
-
-  test('renders a fluid Grid if fluid prop', () => {
-    const gridWrapper = getWrapper({ fluid: true }).find(Grid);
-    expect(gridWrapper).toHaveLength(1);
-  });
 });
