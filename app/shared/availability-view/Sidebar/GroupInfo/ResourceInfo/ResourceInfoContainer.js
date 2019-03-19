@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { createSelector } from 'reselect';
 
-import Label from 'shared/label';
+import UnpublishedLabel from 'shared/label/Unpublished';
 import { injectT } from 'i18n';
 import { resourcesSelector } from 'state/selectors/dataSelectors';
 
@@ -17,7 +17,6 @@ ResourceInfo.propTypes = {
   name: PropTypes.string.isRequired,
   peopleCapacity: PropTypes.number,
   public: PropTypes.bool.isRequired,
-  t: PropTypes.func.isRequired,
 };
 export function ResourceInfo(props) {
   return (
@@ -33,9 +32,7 @@ export function ResourceInfo(props) {
         {' '}
         {props.peopleCapacity}
         {!props.public && (
-          <Label bsStyle="default" className="unpublished-label">
-            {props.t('ResourceInfoContainer.unpublishedLabel')}
-          </Label>
+          <UnpublishedLabel />
         )}
       </div>
     </div>

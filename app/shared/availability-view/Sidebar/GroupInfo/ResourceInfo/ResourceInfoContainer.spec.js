@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { shallowWithIntl } from 'utils/testUtils';
 import { UnconnectedResourceInfo as ResourceInfo, selector } from './ResourceInfoContainer';
+import UnpublishedLabel from 'shared/label/Unpublished';
 
 function getState() {
   return {
@@ -60,12 +61,12 @@ describe('shared/availability-view/ResourceInfoContainer', () => {
   });
 
   test('renders unpublished label if public is false', () => {
-    const label = getWrapper({ public: false }).find('.unpublished-label');
+    const label = getWrapper({ public: false }).find(UnpublishedLabel);
     expect(label).toHaveLength(1);
   });
 
   test('does not render unpublished label if public is true', () => {
-    const label = getWrapper({ public: true }).find('.unpublished-label');
+    const label = getWrapper({ public: true }).find(UnpublishedLabel);
     expect(label).toHaveLength(0);
   });
 
