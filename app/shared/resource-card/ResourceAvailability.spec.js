@@ -1,9 +1,9 @@
 import MockDate from 'mockdate';
 import React from 'react';
-import Label from 'react-bootstrap/lib/Label';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
+import Label from 'shared/label';
 import Resource from 'utils/fixtures/Resource';
 import * as resourceUtils from 'utils/resourceUtils';
 import { shallowWithIntl } from 'utils/testUtils';
