@@ -251,6 +251,14 @@ describe('shared/resource-card/ResourceCard', () => {
     expect(unpublishedLabel.length).toEqual(1);
   });
 
+  test('no renders UnpublishedLabel when resource public is true', () => {
+    const unpublishedLabel = getWrapper(
+      { resource: getResource({ public: true }) }
+    ).find(UnpublishedLabel);
+
+    expect(unpublishedLabel.length).toEqual(0);
+  });
+
   describe('handleSearchByType', () => {
     let historyMock;
 
