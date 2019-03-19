@@ -6,6 +6,7 @@ import queryString from 'query-string';
 import { bindActionCreators } from 'redux';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
+import Grid from 'react-bootstrap/lib/Grid';
 
 import { searchResources, toggleMap } from 'actions/searchActions';
 import { changeSearchFilters } from 'actions/uiActions';
@@ -107,30 +108,30 @@ class UnconnectedSearchPage extends Component {
           />
         )}
 
-        <div className="container">
+        <Grid>
           <Row>
             <Col className="app-SearchControlsContainer__control sortControl col-md-offset-8" md={4} sm={6}>
               <Sort sortBy={filters => this.sortBy(filters)} />
             </Col>
           </Row>
-        </div>
 
-        <PageWrapper className="app-SearchPage__wrapper" title={t('SearchPage.title')} transparent>
-          <div className="app-SearchPage__content">
-            {(searchDone || isFetchingSearchResults) && (
-              <SearchResults
-                history={history}
-                isFetching={isFetchingSearchResults}
-                location={location}
-                ref="searchResults"
-                resultCount={resultCount}
-                searchResultIds={searchResultIds}
-                selectedUnitId={selectedUnitId}
-                showMap={showMap}
-              />
-            )}
-          </div>
-        </PageWrapper>
+          <PageWrapper className="app-SearchPage__wrapper" title={t('SearchPage.title')} transparent>
+            <div className="app-SearchPage__content">
+              {(searchDone || isFetchingSearchResults) && (
+                <SearchResults
+                  history={history}
+                  isFetching={isFetchingSearchResults}
+                  location={location}
+                  ref="searchResults"
+                  resultCount={resultCount}
+                  searchResultIds={searchResultIds}
+                  selectedUnitId={selectedUnitId}
+                  showMap={showMap}
+                />
+              )}
+            </div>
+          </PageWrapper>
+        </Grid>
       </div>
     );
   }
