@@ -18,12 +18,9 @@ function getFetchParamsFromFilters(filters) {
       filters.duration
     ),
     { purpose: filters.purpose === 'all' ? '' : filters.purpose },
-    { page: filters.page || 1 },
-    { order_by: filters.orderBy || '' }
+    { page: filters.page || 1 }
   );
-  if (filters.available_between) {
-    all.available_between = filters.available_between;
-  }
+
   return omit(all, 'date', 'duration', 'useTimeRange');
 }
 
