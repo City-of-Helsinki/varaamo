@@ -6353,10 +6353,6 @@ react-side-effect@^1.1.0:
     exenv "^1.2.1"
     shallowequal "^1.0.1"
 
-react-sidebar@2.3.2:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/react-sidebar/-/react-sidebar-2.3.2.tgz#ec140bea8a6f5fa3d8ea7a56479665b44cf4f9cf"
-
 react-sticky-el@1.0.20:
   version "1.0.20"
   resolved "https://registry.yarnpkg.com/react-sticky-el/-/react-sticky-el-1.0.20.tgz#b3c5e7128218633f440dc67aec239d1cd078342d"
