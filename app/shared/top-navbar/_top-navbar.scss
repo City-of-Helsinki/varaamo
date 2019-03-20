@@ -1,11 +1,7 @@
 .app-TopNavbar {
   background-color: $white;
   margin-bottom: 0;
-
-  .app-Navbar__logout-button {
-    text-transform: uppercase;
-  }
-
+  
   .brand-logo {
     @include helsinki-logo($black);
     display: block;
