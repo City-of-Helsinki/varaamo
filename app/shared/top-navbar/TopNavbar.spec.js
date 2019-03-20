@@ -67,7 +67,7 @@ describe('shared/top-navbar/TopNavbar', () => {
     test('does not render a link to login page', () => {
       const loginLink = getLoggedInNotAdminWrapper()
         .find(NavItem)
-        .filter('#app-Navbar__login');
+        .filter('#app-TopNavbar__login');
       expect(loginLink).toHaveLength(0);
     });
   });
@@ -82,7 +82,7 @@ describe('shared/top-navbar/TopNavbar', () => {
 
     test('renders a link to login page', () => {
       const wrapper = getNotLoggedInWrapper();
-      const loginLink = wrapper.find(NavItem).filter('#app-Navbar__login');
+      const loginLink = wrapper.find(NavItem).filter('#app-TopNavbar__login');
       expect(loginLink).toHaveLength(1);
       expect(loginLink.at(0).prop('onClick')).toBe(wrapper.instance().handleLoginClick);
     });

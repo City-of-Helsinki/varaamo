@@ -67,7 +67,7 @@ class TopNavbar extends Component {
           )}
 
           {!isLoggedIn && (
-            <NavItem id="app-Navbar__login" onClick={this.handleLoginClick}>
+            <NavItem id="app-TopNavbar__login" onClick={this.handleLoginClick}>
               {t('Navbar.login')}
             </NavItem>
           )}
