@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { injectT } from 'i18n';
+import CONSTANTS from '../../constants/AppConstants';
 import SelectControl from './controls/SelectControl';
 
 class Sort extends Component {
@@ -11,20 +12,19 @@ class Sort extends Component {
     this.state = {
       selected: '',
     };
-
     const { lang } = props;
     this.sortOptions = [
-      { label: 'Name', value: `resource_name_${lang}` },
-      { label: 'Type', value: 'type' },
-      { label: 'Premises', value: `unit_name_${lang}` },
-      { label: 'People', value: 'people_capacity' },
-      { label: 'Open now', value: 'sortByOpenNow' },
+      { label: 'Name', value: CONSTANTS.SORT_BY_OPTIONS.RESOURCE_NAME.replace('lang', lang) },
+      { label: 'Type', value: CONSTANTS.SORT_BY_OPTIONS.TYPE.replace('lang', lang) },
+      { label: 'Premises', value: CONSTANTS.SORT_BY_OPTIONS.PREMISES.replace('lang', lang) },
+      { label: 'People', value: CONSTANTS.SORT_BY_OPTIONS.PEOPLE },
+      { label: 'Open now', value: CONSTANTS.SORT_BY_OPTIONS.OPEN_NOW },
     ];
   }
 
   handleChange = ({ value }) => {
     const filters = {};
-    if (value === 'sortByOpenNow') {
+    if (value === CONSTANTS.SORT_BY_OPTIONS.OPEN_NOW) {
       const now = (new Date()).toISOString();
       filters.orderBy = null;
       filters.available_between = `${now},${now}`;
