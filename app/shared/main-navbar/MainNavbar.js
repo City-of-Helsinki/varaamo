@@ -70,6 +70,13 @@ class MainNavbar extends React.Component {
                 </NavItem>
               </LinkContainer>
             )}
+            {isAdmin
+              && (
+              <NavItem eventKey="adminMaintenance" href="https://api.hel.fi/respa/ra/">
+                {t('Navbar.adminMaintenance')}
+              </NavItem>
+              )
+            }
             <LinkContainer to="/about">
               <NavItem eventKey="about" onClick={() => this.collapseItem()}>
                 {t('Navbar.aboutLink')}

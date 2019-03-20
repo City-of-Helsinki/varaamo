@@ -1,6 +1,7 @@
 import React from 'react';
 import Nav from 'react-bootstrap/lib/Nav';
 import { LinkContainer } from 'react-router-bootstrap';
+import NavItem from 'react-bootstrap/lib/NavItem';
 
 import { getSearchPageUrl } from 'utils/searchUtils';
 import { shallowWithIntl } from 'utils/testUtils';
@@ -57,6 +58,12 @@ describe('shared/main-navbar/MainNavbar', () => {
         .find(LinkContainer).filter({ to: '/admin-resources' });
       expect(myReservationsLink).toHaveLength(1);
     });
+
+    test('does not renders a link to respa admin UI', () => {
+      const maintenanceLink = getLoggedInNotAdminWrapper()
+        .find(NavItem).filter({ href: 'https://api.hel.fi/respa/ra/' });
+      expect(maintenanceLink).toHaveLength(0);
+    });
   });
 
   describe('if user is logged in and is an admin', () => {
@@ -72,6 +79,12 @@ describe('shared/main-navbar/MainNavbar', () => {
       const myReservationsLink = getLoggedInAdminWrapper()
         .find(LinkContainer).filter({ to: '/admin-resources' });
       expect(myReservationsLink).toHaveLength(1);
+    });
+
+    test('renders a link to respa admin UI', () => {
+      const maintenanceLink = getLoggedInAdminWrapper()
+        .find(NavItem).filter({ href: 'https://api.hel.fi/respa/ra/' });
+      expect(maintenanceLink).toHaveLength(1);
     });
   });
 
@@ -94,6 +107,12 @@ describe('shared/main-navbar/MainNavbar', () => {
       const myReservationsLink = getNotLoggedInWrapper()
         .find(LinkContainer).filter({ to: '/admin-resources' });
       expect(myReservationsLink).toHaveLength(0);
+    });
+
+    test('does not render a link to respa admin UI', () => {
+      const maintenanceLink = getNotLoggedInWrapper()
+        .find(NavItem).filter({ href: 'https://api.hel.fi/respa/ra/' });
+      expect(maintenanceLink).toHaveLength(0);
     });
   });
 });
