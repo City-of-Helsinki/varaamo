@@ -1,3 +1,13 @@
 .app-Label {
   display: inline-block;
+
+  .label {
+    color: #fff;
+  }
+
+  &.unpublished-label {
+    .label {
+      color: #000;
+    }
+  }
 }
