@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import { injectT } from 'i18n';
 import CONSTANTS from '../../constants/AppConstants';
@@ -26,8 +27,9 @@ class Sort extends Component {
     const filters = {};
     if (value === CONSTANTS.SORT_BY_OPTIONS.OPEN_NOW) {
       const now = (new Date()).toISOString();
+      const endOfDay = (moment().endOf('day')).toISOString();
       filters.orderBy = null;
-      filters.available_between = `${now},${now}`;
+      filters.available_between = `${now},${endOfDay}`;
     } else {
       filters.orderBy = value;
     }
