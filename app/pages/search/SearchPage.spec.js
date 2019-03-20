@@ -86,11 +86,6 @@ describe('pages/search/SearchPage', () => {
       expect(resourceMap.prop('selectedUnitId')).toBe(props.selectedUnitId);
     });
 
-    test('renders a normal Grid', () => {
-      const gridWrapper = getWrapper().find(Grid);
-      expect(gridWrapper).toHaveLength(1);
-    });
-
     describe('SearchResults', () => {
       function getSearchResults(props) {
         return getWrapper(props).find(SearchResults);
