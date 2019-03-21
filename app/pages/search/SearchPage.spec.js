@@ -1,11 +1,13 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
+import Row from 'react-bootstrap/lib/Row';
 import simple from 'simple-mock';
 
 import PageWrapper from 'pages/PageWrapper';
 import { shallowWithIntl } from 'utils/testUtils';
 import ResourceMap from 'shared/resource-map';
 import { UnconnectedSearchPage as SearchPage } from './SearchPage';
+import Sort from './Sort';
 import SearchControls from './controls';
 import SearchResults from './results/SearchResults';
 import MapToggle from './results/MapToggle';
@@ -83,6 +85,16 @@ describe('pages/search/SearchPage', () => {
       expect(resourceMap.prop('showMap')).toBe(true);
       expect(resourceMap.prop('resourceIds')).toEqual(props.searchResultIds);
       expect(resourceMap.prop('selectedUnitId')).toBe(props.selectedUnitId);
+    });
+
+    test('renders an Row element', () => {
+      expect(getWrapper().find(Row)).toHaveLength(1);
+    });
+
+    test('renders a Sort component with correct props', () => {
+      const sort = getWrapper().find(Sort);
+      expect(sort).toHaveLength(1);
+      expect(typeof sort.prop('sortBy')).toBe('function');
     });
 
     describe('SearchResults', () => {
@@ -211,6 +223,24 @@ describe('pages/search/SearchPage', () => {
 
       test('does not update search filters in state', () => {
         expect(defaultProps.actions.changeSearchFilters.callCount).toBe(0);
+      });
+    });
+
+    describe('sortBy', () => {
+      const pushMock = simple.mock();
+      beforeAll(() => {
+        const instance = getWrapper(
+          {
+            history: { push: pushMock }
+          }
+        ).instance();
+        instance.sortBy({ orderBy: 'name' });
+      });
+      test('changes history with correct queryString', () => {
+        expect(pushMock.callCount).toBe(1);
+        expect(pushMock.lastCall.args[0]).toEqual(
+          '/search?date=2015-10-10&orderBy=name&page=1&purpose=some-purpose'
+        );
       });
     });
 
