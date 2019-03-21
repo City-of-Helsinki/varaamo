@@ -98,10 +98,22 @@ describe('shared/main-navbar/MainNavbar', () => {
       expect(maintenanceLink).toHaveLength(1);
     });
 
+    test('renders a link to respa admin UI, open new tab when clicked', () => {
+      const maintenanceLink = getLoggedInAdminWrapper()
+        .find(NavItem).filter({ href: respaURL });
+      expect(maintenanceLink.prop('target')).toEqual('_blank');
+    });
+
     test('renders a link to varaamo gitbook', () => {
       const gitbookLink = getLoggedInAdminWrapper()
         .find(NavItem).filter({ href: gitbookURL });
       expect(gitbookLink).toHaveLength(1);
+    });
+
+    test('renders a link to varaamo gitbook, open new tab when clicked', () => {
+      const gitbookLink = getLoggedInAdminWrapper()
+        .find(NavItem).filter({ href: gitbookURL });
+      expect(gitbookLink.prop('target')).toEqual('_blank');
     });
 
     test('renders a external link icon to next to respa admin UI text', () => {
