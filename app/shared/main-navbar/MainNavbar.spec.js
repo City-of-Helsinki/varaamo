@@ -6,9 +6,13 @@ import NavItem from 'react-bootstrap/lib/NavItem';
 import { getSearchPageUrl } from 'utils/searchUtils';
 import { shallowWithIntl } from 'utils/testUtils';
 import MainNavbar from './MainNavbar';
+import FAIcon from 'shared/fontawesome-icon';
 
 describe('shared/main-navbar/MainNavbar', () => {
   const pathname = 'somepath';
+  const gitbookURL = 'https://cityofhelsinki.gitbook.io/varaamo';
+  const respaURL = 'https://api.hel.fi/respa/ra/';
+
   function getWrapper(props) {
     const defaults = {
       activeLink: pathname,
@@ -61,13 +65,13 @@ describe('shared/main-navbar/MainNavbar', () => {
 
     test('does not render a link to respa admin UI', () => {
       const maintenanceLink = getLoggedInNotAdminWrapper()
-        .find(NavItem).filter({ href: 'https://api.hel.fi/respa/ra/' });
+        .find(NavItem).filter({ href: respaURL });
       expect(maintenanceLink).toHaveLength(0);
     });
 
     test('does not render a link to varaamo gitbook', () => {
       const gitbookLink = getLoggedInNotAdminWrapper()
-        .find(NavItem).filter({ href: 'https://cityofhelsinki.gitbook.io/varaamo' });
+        .find(NavItem).filter({ href: gitbookURL });
       expect(gitbookLink).toHaveLength(0);
     });
   });
@@ -77,6 +81,7 @@ describe('shared/main-navbar/MainNavbar', () => {
       isAdmin: true,
       isLoggedIn: true,
     };
+
     function getLoggedInAdminWrapper(extraProps) {
       return getWrapper({ ...props, ...extraProps });
     }
@@ -89,14 +94,30 @@ describe('shared/main-navbar/MainNavbar', () => {
 
     test('renders a link to respa admin UI', () => {
       const maintenanceLink = getLoggedInAdminWrapper()
-        .find(NavItem).filter({ href: 'https://api.hel.fi/respa/ra/' });
+        .find(NavItem).filter({ href: respaURL });
       expect(maintenanceLink).toHaveLength(1);
     });
 
     test('renders a link to varaamo gitbook', () => {
       const gitbookLink = getLoggedInAdminWrapper()
-        .find(NavItem).filter({ href: 'https://cityofhelsinki.gitbook.io/varaamo' });
+        .find(NavItem).filter({ href: gitbookURL });
       expect(gitbookLink).toHaveLength(1);
+    });
+
+    test('renders a external link icon to next to respa admin UI text', () => {
+      const maintenanceLink = getLoggedInAdminWrapper()
+        .find(NavItem).filter({ href: respaURL });
+      const icon = maintenanceLink.find(FAIcon);
+
+      expect(icon).toHaveLength(1);
+    });
+
+    test('renders an icon next to varaamo gitbook text', () => {
+      const gitbookLink = getLoggedInAdminWrapper()
+        .find(NavItem).filter({ href: gitbookURL });
+
+      const icon = gitbookLink.find(FAIcon);
+      expect(icon).toHaveLength(1);
     });
   });
 
@@ -123,13 +144,13 @@ describe('shared/main-navbar/MainNavbar', () => {
 
     test('does not render a link to respa admin UI', () => {
       const maintenanceLink = getNotLoggedInWrapper()
-        .find(NavItem).filter({ href: 'https://api.hel.fi/respa/ra/' });
+        .find(NavItem).filter({ href: respaURL });
       expect(maintenanceLink).toHaveLength(0);
     });
 
     test('does not render a link to varaamo gitbook', () => {
       const gitbookLink = getNotLoggedInWrapper()
-        .find(NavItem).filter({ href: 'https://cityofhelsinki.gitbook.io/varaamo' });
+        .find(NavItem).filter({ href: gitbookURL });
       expect(gitbookLink).toHaveLength(0);
     });
   });
