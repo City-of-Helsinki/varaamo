@@ -59,10 +59,16 @@ describe('shared/main-navbar/MainNavbar', () => {
       expect(myReservationsLink).toHaveLength(1);
     });
 
-    test('does not renders a link to respa admin UI', () => {
+    test('does not render a link to respa admin UI', () => {
       const maintenanceLink = getLoggedInNotAdminWrapper()
         .find(NavItem).filter({ href: 'https://api.hel.fi/respa/ra/' });
       expect(maintenanceLink).toHaveLength(0);
+    });
+
+    test('does not render a link to varaamo gitbook', () => {
+      const gitbookLink = getLoggedInNotAdminWrapper()
+        .find(NavItem).filter({ href: 'https://cityofhelsinki.gitbook.io/varaamo' });
+      expect(gitbookLink).toHaveLength(0);
     });
   });
 
@@ -85,6 +91,12 @@ describe('shared/main-navbar/MainNavbar', () => {
       const maintenanceLink = getLoggedInAdminWrapper()
         .find(NavItem).filter({ href: 'https://api.hel.fi/respa/ra/' });
       expect(maintenanceLink).toHaveLength(1);
+    });
+
+    test('renders a link to varaamo gitbook', () => {
+      const gitbookLink = getLoggedInAdminWrapper()
+        .find(NavItem).filter({ href: 'https://cityofhelsinki.gitbook.io/varaamo' });
+      expect(gitbookLink).toHaveLength(1);
     });
   });
 
@@ -113,6 +125,12 @@ describe('shared/main-navbar/MainNavbar', () => {
       const maintenanceLink = getNotLoggedInWrapper()
         .find(NavItem).filter({ href: 'https://api.hel.fi/respa/ra/' });
       expect(maintenanceLink).toHaveLength(0);
+    });
+
+    test('does not render a link to varaamo gitbook', () => {
+      const gitbookLink = getNotLoggedInWrapper()
+        .find(NavItem).filter({ href: 'https://cityofhelsinki.gitbook.io/varaamo' });
+      expect(gitbookLink).toHaveLength(0);
     });
   });
 });
