@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 
+import FAIcon from 'shared/fontawesome-icon';
 import { injectT } from 'i18n';
 import { getSearchPageUrl } from 'utils/searchUtils';
 
@@ -72,9 +74,15 @@ class MainNavbar extends React.Component {
             )}
             {isAdmin
               && (
-              <NavItem eventKey="adminMaintenance" href="https://api.hel.fi/respa/ra/">
-                {t('Navbar.adminMaintenance')}
-              </NavItem>
+                <Fragment>
+                  <NavItem eventKey="adminMaintenance" href="https://api.hel.fi/respa/ra/">
+                    {t('Navbar.adminMaintenance')}
+                    <FAIcon icon={faExternalLinkAlt} />
+                  </NavItem>
+                  <NavItem eventKey="adminGuide" href="https://cityofhelsinki.gitbook.io/varaamo">
+                    {t('Navbar.adminGuide')}
+                  </NavItem>
+                </Fragment>
               )
             }
             <LinkContainer to="/about">
