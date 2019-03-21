@@ -14,6 +14,9 @@
   "description": "Varaamo is the user interface for the City of Helsinki varaamo.hel.fi resource reservation service.",
   "license": "MIT",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.16",
+    "@fortawesome/free-solid-svg-icons": "^5.8.0",
+    "@fortawesome/react-fontawesome": "^0.1.4",
     "bootstrap-sass": "3.4.1",
     "classnames": "2.2.5",
     "dotenv": "7.0.0",
@@ -41,7 +44,6 @@
     "react-bootstrap": "0.32.3",
     "react-day-picker": "7.3.0",
     "react-dom": "16.8.4",
-    "react-fontawesome": "1.6.1",
     "react-helmet": "5.2.0",
     "react-intl": "2.8.0",
     "react-intl-redux": "2.1.0",

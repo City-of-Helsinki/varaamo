@@ -21,4 +21,13 @@
   .navbar-toggle .icon-bar {
     color: $white;
   }
+
+  .navbar-nav {
+    li {
+      a {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
 }

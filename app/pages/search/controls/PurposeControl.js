@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/lib/Button';
 import ListGroup from 'react-bootstrap/lib/ListGroup';
 import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
 import Overlay from 'react-bootstrap/lib/Overlay';
-import FontAwesome from 'react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { injectT } from 'i18n';
 import SearchControlOverlay from './SearchControlOverlay';
@@ -60,7 +60,7 @@ class PurposeControl extends React.Component {
           onClick={this.showOverlay}
         >
           <div>
-            <FontAwesome name="bullseye" />
+            <FontAwesomeIcon icon="bullseye" />
             {' '}
             {t('PurposeControl.buttonLabel')}
           </div>
