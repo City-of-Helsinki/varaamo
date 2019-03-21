@@ -9,7 +9,9 @@ import iconHome from 'hel-icons/dist/shapes/home.svg';
 import iconMapMarker from 'hel-icons/dist/shapes/map-marker.svg';
 import iconTicket from 'hel-icons/dist/shapes/ticket.svg';
 import iconUser from 'hel-icons/dist/shapes/user-o.svg';
+import iconHeart from 'hel-icons/dist/shapes/heart-o.svg';
 
+import iconHeartWhite from 'assets/icons/heart-white.svg';
 import UnpublishedLabel from 'shared/label/Unpublished';
 import { injectT } from 'i18n';
 import iconMap from 'assets/icons/map.svg';
@@ -146,7 +148,11 @@ class ResourceCard extends Component {
           </Col>
           <Col md={4} sm={3} xs={4}>
             <div className="app-ResourceCard__info-detail">
-              <img alt={resource.type.name} className="app-ResourceCard__info-icon" src={iconMap} />
+              <img
+                alt={resource.type.name}
+                className="app-ResourceCard__info-icon"
+                src={iconMap}
+              />
               <span className="app-ResourceCard__info-label app-ResourceCard__street-address">
                 {unit.streetAddress}
               </span>
@@ -173,6 +179,23 @@ class ResourceCard extends Component {
                 {resource.distance ? this.renderDistance(resource.distance) : '\u00A0'}
               </span>
             </a>
+          </Col>
+
+          <Col md={4} sm={2} xs={4}>
+            <div className="app-ResourceCard__info-detail">
+              <a
+                className="app-ResourceCard__info-link"
+                onClick={this.handleSearchByDistance}
+                role="button"
+                tabIndex="-1"
+              >
+                <img
+                  alt={resource.type.name}
+                  className="app-ResourceCard__info-icon"
+                  src={resource.favorite ? iconHeartWhite : iconHeart}
+                />
+              </a>
+            </div>
           </Col>
         </div>
       </div>
