@@ -75,12 +75,12 @@ class MainNavbar extends React.Component {
             {isAdmin
               && (
                 <Fragment>
-                  <NavItem eventKey="adminMaintenance" href="https://api.hel.fi/respa/ra/">
+                  <NavItem eventKey="adminMaintenance" href="https://api.hel.fi/respa/ra/" target="_blank">
                     {t('Navbar.adminMaintenance')}
                     <FAIcon icon={faExternalLinkAlt} />
                   </NavItem>
 
-                  <NavItem eventKey="adminGuide" href="https://cityofhelsinki.gitbook.io/varaamo">
+                  <NavItem eventKey="adminGuide" href="https://cityofhelsinki.gitbook.io/varaamo" target="_blank">
                     {t('Navbar.adminGuide')}
                     <FAIcon icon={faExternalLinkAlt} />
                   </NavItem>
