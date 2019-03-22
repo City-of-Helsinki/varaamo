@@ -1,17 +1,28 @@
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
+import PropTypes from 'prop-types';
 
-export default function ResourceCardIcon({ className, }) {
+function ResourceCardIcon({
+  className, alt, icon, label, labelClassname, onClick
+}) {
   return (
-    <Button>
+    <Button onClick={onClick}>
       <img
         alt={alt}
-        className="app-ResourceCard__info-icon"
-        src={iconHome}
+        className
+        src={icon}
       />
-      <span className="app-ResourceCard__info-label">
-        {resource.type ? resource.type.name : '\u00A0'}
+      <span className={labelClassname}>
+        {label}
       </span>
     </Button>
   );
 }
+
+ResourceCardIcon.propTypes = {
+  className: PropTypes.string,
+  alt: PropTypes.string,
+
+};
+
+export default ResourceCardIcon;
