@@ -18,7 +18,7 @@ import iconMap from 'assets/icons/map.svg';
 import BackgroundImage from 'shared/background-image';
 import { getMainImage } from 'utils/imageUtils';
 import { getHourlyPrice, getResourcePageUrlComponents } from 'utils/resourceUtils';
-import ResourceAvailability from './ResourceAvailability';
+import ResourceAvailability from './label/ResourceAvailability';
 
 class ResourceCard extends Component {
   handleSearchByType = () => {

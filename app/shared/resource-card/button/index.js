@@ -1,3 +1,3 @@
-import ResourceCardIcon from './ResourceCardIcon';
+import ResourceCardButton from './ResourceCardButton';
 
-export default ResourceCardIcon;
+export default ResourceCardButton;
