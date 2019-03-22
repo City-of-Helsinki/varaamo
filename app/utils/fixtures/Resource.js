@@ -13,6 +13,6 @@ const Resource = new Factory()
   .attr('reservable', true)
   .attr('reservableAfter', null)
   .attr('supportedReservationExtraFields', [])
-  .attr('userPermissions', { isAdmin: false, canMakeReservations: true });
-
+  .attr('userPermissions', { isAdmin: false, canMakeReservations: true })
+  .attr('isFavorite', false);
 export default Resource;
