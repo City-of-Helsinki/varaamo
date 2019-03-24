@@ -20,7 +20,6 @@ function getFetchParamsFromFilters(filters) {
     { purpose: filters.purpose === 'all' ? '' : filters.purpose },
     { page: filters.page || 1 },
     { ...(filters.orderBy ? { order_by: filters.orderBy } : {}) },
-    { ...(filters.available_between ? { available_between: filters.available_between } : {}) }
   );
   return omit(all, 'date', 'duration', 'useTimeRange');
 }
