@@ -6,7 +6,7 @@ import { injectT } from 'i18n';
 import CONSTANTS from '../../constants/AppConstants';
 import SelectControl from './controls/SelectControl';
 
-class Sort extends Component {
+export class Sort extends Component {
   constructor(props) {
     super();
     this.state = {
