@@ -11,12 +11,12 @@ import Unit from 'utils/fixtures/Unit';
 import { getResourcePageUrlComponents } from 'utils/resourceUtils';
 import { shallowWithIntl } from 'utils/testUtils';
 import ResourceAvailability from './label/ResourceAvailability';
-import ResourceCard from './ResourceCard';
+import { UnconnectedResourceCard } from './ResourceCardContainer';
 import UnpublishedLabel from 'shared/label/Unpublished';
 import ResourceCardInfoCell from './info';
 import iconHeartWhite from 'assets/icons/heart-white.svg';
 
-describe('shared/resource-card/ResourceCard', () => {
+describe('shared/resource-card/ResourceCardContainer', () => {
   function getResource(extra) {
     return Immutable(
       Resource.build({
@@ -74,7 +74,7 @@ describe('shared/resource-card/ResourceCard', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallowWithIntl(<ResourceCard {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(<UnconnectedResourceCard {...defaultProps} {...extraProps} />);
   }
 
   test('renders an div element', () => {
