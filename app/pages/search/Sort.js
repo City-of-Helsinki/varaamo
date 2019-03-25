@@ -6,7 +6,7 @@ import { injectT } from 'i18n';
 import CONSTANTS from '../../constants/AppConstants';
 import SelectControl from './controls/SelectControl';
 
-export class Sort extends Component {
+export class UnconnectedSort extends Component {
   constructor(props) {
     super();
     this.state = {
@@ -48,10 +48,10 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {}
-)(injectT(Sort));
+)(injectT(UnconnectedSort));
 
 
-Sort.propTypes = {
+UnconnectedSort.propTypes = {
   lang: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
   sortBy: PropTypes.func.isRequired
