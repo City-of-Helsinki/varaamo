@@ -106,10 +106,10 @@ describe('shared/resource-card/ResourceCard', () => {
   });
 
   describe('info box', () => {
-    test('render with 6 ResourceCardInfoCell cells', () => {
+    test('render with 5 ResourceCardInfoCell cells', () => {
       const info = getWrapper().find('.app-ResourceCard__info');
       const cells = info.find(ResourceCardInfoCell);
-      expect(cells.length).toEqual(6);
+      expect(cells.length).toEqual(5);
     });
 
     test('render with first ResourceCardInfoCell', () => {
@@ -121,8 +121,15 @@ describe('shared/resource-card/ResourceCard', () => {
       expect(cell.prop('onClick')).toBeDefined();
     });
 
-    test('render with favorite icon as default', () => {
+    test('will not render favorite icon as default if user not logged in', () => {
       const info = getWrapper().find('.app-ResourceCard__info');
+      const cell = info.find(ResourceCardInfoCell)[5];
+
+      expect(cell).toBeUndefined();
+    });
+
+    test('render with favorite icon as default if user logged in', () => {
+      const info = getWrapper({ isLoggedIn: true }).find('.app-ResourceCard__info');
       const cell = info.find(ResourceCardInfoCell).last();
 
       expect(cell.prop('alt')).toEqual(defaultProps.resource.type.name);
@@ -130,9 +137,9 @@ describe('shared/resource-card/ResourceCard', () => {
       expect(cell.prop('onClick')).toBeDefined();
     });
 
-    test('render with unfavorite icon when isFavorite is true', () => {
+    test('render with unfavorite icon when isFavorite is true, user logged in', () => {
       const info = getWrapper({
-        resource: getResource({ isFavorite: true })
+        resource: getResource({ isFavorite: true, isLoggedIn: true })
       }).find('.app-ResourceCard__info');
       const cell = info.find(ResourceCardInfoCell).last();
 
@@ -141,16 +148,17 @@ describe('shared/resource-card/ResourceCard', () => {
       expect(cell.prop('onClick')).toBeDefined();
     });
 
-    test('invoke favorite func when favorite icon is clicked as default', () => {
-      const info = getWrapper().find('.app-ResourceCard__info');
+    test('invoke favorite func when favorite icon is clicked as default, user logged in', () => {
+      const info = getWrapper({ isLoggedIn: true }).find('.app-ResourceCard__info');
       const cell = info.find(ResourceCardInfoCell).last();
       cell.simulate('click');
       expect(defaultProps.actions.favoriteResource).toHaveBeenCalledTimes(1);
     });
 
-    test('invoke set unfavorite func when favorite icon is clicked', () => {
+    test('invoke set unfavorite func when favorite icon is clicked, user logged in', () => {
       const info = getWrapper({
-        resource: getResource({ isFavorite: true })
+        resource: getResource({ isFavorite: true }),
+        isLoggedIn: true
       }).find('.app-ResourceCard__info');
       const cell = info.find(ResourceCardInfoCell).last();
       cell.simulate('click');
