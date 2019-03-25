@@ -3,7 +3,7 @@ import simple from 'simple-mock';
 import { shallow } from 'enzyme';
 
 import SelectControl from './controls/SelectControl';
-import { Sort } from './Sort';
+import { UnconnectedSort as Sort } from './Sort';
 import CONSTANTS from '../../constants/AppConstants';
 
 describe('pages/search/Sort', () => {
