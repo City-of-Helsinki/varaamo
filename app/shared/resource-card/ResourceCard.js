@@ -51,10 +51,6 @@ class ResourceCard extends Component {
     history.replace({ pathname, search, state: { scrollTop } });
   };
 
-  toggleFavourite() {
-
-  }
-
   renderDistance(distance) {
     const km = distance / 1000;
     let formatedDistance = round(km);

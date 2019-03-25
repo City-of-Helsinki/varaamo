@@ -48,6 +48,11 @@ module.exports = {
     '<rootDir>/node_modules/',
   ],
 
+  // ignore watch to include node_modules by mistake.
+  watchPathIgnorePatterns: [
+    '<rootDir>/node_modules/',
+  ],
+
   // Indicates whether each individual test should be reported during the run
   verbose: false,
 };
