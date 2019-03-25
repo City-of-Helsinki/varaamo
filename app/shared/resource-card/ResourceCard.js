@@ -10,7 +10,7 @@ import iconTicket from 'hel-icons/dist/shapes/ticket.svg';
 import iconUser from 'hel-icons/dist/shapes/user-o.svg';
 import iconHeart from 'hel-icons/dist/shapes/heart-o.svg';
 
-import iconHeartWhite from 'assets/icons/heart-white.svg';
+import iconHeartFilled from 'assets/icons/heart-filled.svg';
 import UnpublishedLabel from 'shared/label/Unpublished';
 import { injectT } from 'i18n';
 import iconMap from 'assets/icons/map.svg';
@@ -62,7 +62,7 @@ class ResourceCard extends Component {
 
   render() {
     const {
-      date, resource, t, unit, actions: { favoriteResource, unfavoriteResource }
+      date, resource, t, unit, actions: { favoriteResource, unfavoriteResource }, isLoggedIn
     } = this.props;
     const { pathname, query } = getResourcePageUrlComponents(resource, date);
     const linkTo = {
@@ -157,15 +157,19 @@ class ResourceCard extends Component {
             </span>
           </ResourceCardInfoCell>
 
-          <ResourceCardInfoCell
-            alt={resource.type.name}
-            icon={resource.isFavorite ? iconHeartWhite : iconHeart}
-            onClick={
+          {isLoggedIn
+            && (
+            <ResourceCardInfoCell
+              alt={resource.type.name}
+              icon={resource.isFavorite ? iconHeartFilled : iconHeart}
+              onClick={
               resource.isFavorite
                 ? () => unfavoriteResource(resource.id)
                 : () => favoriteResource(resource.id)
             }
-          />
+            />
+            )
+          }
         </div>
       </div>
     );
@@ -181,6 +185,7 @@ ResourceCard.propTypes = {
   t: PropTypes.func.isRequired,
   unit: PropTypes.object.isRequired,
   actions: PropTypes.object,
+  isLoggedIn: PropTypes.bool,
 };
 
 export default injectT(ResourceCard);
