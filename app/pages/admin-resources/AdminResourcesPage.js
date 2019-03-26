@@ -24,9 +24,10 @@ import adminResourcesPageSelector from './adminResourcesPageSelector';
 class UnconnectedAdminResourcesPage extends Component {
   constructor(props) {
     super(props);
-    this.state = { selection: null };
+    this.state = { selection: null, range: 'day' };
     this.fetchResources = this.fetchResources.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
+    this.handleRangeClick = this.handleRangeClick.bind(this);
   }
 
   componentDidMount() {
@@ -41,19 +42,36 @@ class UnconnectedAdminResourcesPage extends Component {
     }
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.range !== this.state.range) {
+      window.clearInterval(this.updateResourcesTimer);
+      const interval = 10 * 60 * 1000;
+      this.fetchResources();
+      this.updateResourcesTimer = window.setInterval(this.fetchResources, interval);
+    }
+  }
+
   componentWillUnmount() {
     this.props.actions.changeAdminResourcesPageDate(null);
     window.clearInterval(this.updateResourcesTimer);
   }
 
   fetchResources(date = this.props.date) {
-    this.props.actions.fetchFavoritedResources(moment(date), 'adminResourcesPage');
+    this.props.actions.fetchFavoritedResources(
+      moment(date),
+      'adminResourcesPage',
+      this.state.range
+    );
   }
 
   handleSelect(selection) {
     this.setState({ selection });
     this.props.actions.changeRecurringBaseTime(selection);
     this.props.actions.openConfirmReservationModal();
+  }
+
+  handleRangeClick(range) {
+    this.setState({ range });
   }
 
   render() {
@@ -74,8 +92,11 @@ class UnconnectedAdminResourcesPage extends Component {
           {isLoggedin && (
             <div>
               <ResourceTypeFilter
+                activeRange={this.state.range}
+                handleRangeClick={this.handleRangeClick}
                 onSelectResourceType={this.props.actions.selectAdminResourceType}
                 onUnselectResourceType={this.props.actions.unselectAdminResourceType}
+                ranges={['day', 'week']}
                 resourceTypes={resourceTypes}
                 selectedResourceTypes={selectedResourceTypes}
               />
@@ -85,6 +106,7 @@ class UnconnectedAdminResourcesPage extends Component {
                 isAdmin={isAdmin}
                 onDateChange={this.props.actions.changeAdminResourcesPageDate}
                 onSelect={this.handleSelect}
+                range={this.state.range}
               />
             </div>
           )}

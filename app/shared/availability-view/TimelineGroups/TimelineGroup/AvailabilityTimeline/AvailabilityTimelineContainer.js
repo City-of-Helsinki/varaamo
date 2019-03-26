@@ -8,7 +8,7 @@ import { showReservationInfoModal } from 'actions/uiActions';
 import AvailabilityTimeline from './AvailabilityTimeline';
 import utils from '../utils';
 
-export function selector() {
+export function selector(_, ownProps) {
   function dateSelector(state, props) { return props.date; }
   function resourceIdSelector(state, props) { return props.id; }
   function resourcesSelector(state) { return state.data.resources; }
@@ -29,7 +29,7 @@ export function selector() {
       resource.reservations
         .filter(reservation => reservation.state !== 'cancelled'
           && reservation.state !== 'denied')
-        .filter(reservation => reservation.begin.slice(0, 10) === date),
+        .filter(reservation => moment(date).isSame(moment(reservation.begin), ownProps.range)),
       'begin'
     )
   );
@@ -38,7 +38,7 @@ export function selector() {
     dateSelector,
     resourceIdSelector,
     (reservations, date, resourceId) => utils.getTimelineItems(
-      moment(date), reservations, resourceId
+      moment(date), reservations, resourceId, ownProps.range
     )
   );
 
@@ -66,6 +66,7 @@ AvailabilityTimelineContainer.propTypes = {
   onReservationSlotClick: PropTypes.func,
   onReservationSlotMouseEnter: PropTypes.func,
   onReservationSlotMouseLeave: PropTypes.func,
+  range: PropTypes.oneOf(['day', 'week']).isRequired,
   selection: PropTypes.object,
 };
 

@@ -11,11 +11,11 @@ import {
   getSuccessTypeDescriptor,
 } from 'utils/apiUtils';
 
-function fetchFavoritedResources(timeAsMoment, source) {
+function fetchFavoritedResources(timeAsMoment, source, range) {
   const params = {
-    end: timeAsMoment.endOf('day').toISOString(),
+    end: timeAsMoment.clone().endOf(range).toISOString(),
     is_favorite: true,
-    start: timeAsMoment.startOf('day').toISOString(),
+    start: timeAsMoment.clone().startOf(range).toISOString(),
   };
   return fetchResources(params, source);
 }
