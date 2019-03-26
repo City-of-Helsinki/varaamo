@@ -11,6 +11,9 @@ class ResourceTypeFilterContainer extends Component {
     onSelectResourceType: PropTypes.func.isRequired,
     onUnselectResourceType: PropTypes.func.isRequired,
     resourceTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
+    handleRangeClick: PropTypes.func.isRequired,
+    activeRange: PropTypes.string.isRequired,
+    ranges: PropTypes.arrayOf(PropTypes.string).isRequired,
     t: PropTypes.func.isRequired,
   };
 
@@ -28,18 +31,39 @@ class ResourceTypeFilterContainer extends Component {
   }
 
   render() {
-    const { t, selectedResourceTypes, resourceTypes } = this.props;
+    const {
+      t,
+      activeRange,
+      selectedResourceTypes,
+      ranges,
+      resourceTypes,
+      handleRangeClick
+    } = this.props;
     return (
       <div className="resource-type-filter-container">
         <h6>{t('ResourceTypeFilter.title')}</h6>
-        { resourceTypes.map(resourceType => (
-          <ResourceTypeFilterButton
-            active={includes(selectedResourceTypes, resourceType)}
-            key={`resource-type-${resourceType}`}
-            onClick={this.handleClick}
-            resourceType={resourceType}
-          />
-        ))}
+        <div className="resource-type__filter-groups">
+          <div className="resource-type__single-group">
+            { ranges.map(range => (
+              <ResourceTypeFilterButton
+                active={range === activeRange}
+                key={`resource-range-${range}`}
+                onClick={handleRangeClick}
+                resourceType={range}
+              />
+            ))}
+          </div>
+          <div className="resource-type-filter-group">
+            { resourceTypes.map(resourceType => (
+              <ResourceTypeFilterButton
+                active={includes(selectedResourceTypes, resourceType)}
+                key={`resource-type-${resourceType}`}
+                onClick={this.handleClick}
+                resourceType={resourceType}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     );
   }

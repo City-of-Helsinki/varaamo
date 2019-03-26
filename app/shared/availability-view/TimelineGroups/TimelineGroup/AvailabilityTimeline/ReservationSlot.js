@@ -11,10 +11,13 @@ export class UninjectedReservationSlot extends React.Component {
     begin: PropTypes.string.isRequired,
     end: PropTypes.string.isRequired,
     isSelectable: PropTypes.bool.isRequired,
+    className: PropTypes.string,
+    disabled: PropTypes.bool,
     onClick: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
     onSelectionCancel: PropTypes.func,
+    range: PropTypes.oneOf(['day', 'week']).isRequired,
     resourceId: PropTypes.string.isRequired,
     selection: PropTypes.shape({
       begin: PropTypes.string.isRequired,
@@ -92,11 +95,13 @@ export class UninjectedReservationSlot extends React.Component {
         className={classNames('reservation-slot', {
           'reservation-slot-selected': isSelected,
           'reservation-slot-selectable': this.props.isSelectable,
-        })}
+        },
+        this.props.className)}
+        disabled={this.props.disabled}
         onClick={this.handleClick}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
-        style={{ width: utils.getTimeSlotWidth() }}
+        style={{ width: utils.getTimeSlotWidth(undefined, this.props.range) }}
         type="button"
       >
         <span className="a11y-text">Make reservation</span>

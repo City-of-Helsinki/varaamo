@@ -3,18 +3,19 @@ import { slotSize, slotWidth, slotMargin } from 'constants/SlotConstants';
 import some from 'lodash/some';
 import moment from 'moment';
 
-function getTimeSlotWidth({ startTime, endTime } = {}) {
+function getTimeSlotWidth({ startTime, endTime } = {}, rangeMode = 'day') {
   const diff = endTime ? endTime.diff(startTime, 'minutes') : slotSize;
   const slots = Math.floor(diff / slotSize);
+  const slotWidthDayView = (slotWidth * slots) - slotMargin;
 
-  return (slotWidth * slots) - slotMargin;
+  return rangeMode === 'week' ? slotWidthDayView / 5 : slotWidthDayView;
 }
 
-function getTimelineItems(date, reservations, resourceId) {
+function getTimelineItems(date, reservations, resourceId, fullRange) {
   const items = [];
   let reservationPointer = 0;
-  let timePointer = date.clone().startOf('day');
-  const end = date.clone().endOf('day');
+  let timePointer = date.clone().startOf(fullRange);
+  const end = date.clone().endOf(fullRange);
   while (timePointer.isBefore(end)) {
     const reservation = reservations && reservations[reservationPointer];
     const isSlotReservation = reservation && timePointer.isSame(reservation.begin);

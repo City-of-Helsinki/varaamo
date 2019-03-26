@@ -9,6 +9,7 @@ export class UninjectedDateSelector extends React.Component {
   static propTypes = {
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
+    range: PropTypes.oneOf(['day', 'week']).isRequired,
     t: PropTypes.func.isRequired,
   };
 
@@ -25,28 +26,38 @@ export class UninjectedDateSelector extends React.Component {
   }
 
   handleNextClick() {
-    this.handleChange(moment(this.props.value).add(1, 'day').format('YYYY-MM-DD'));
+    const { range } = this.props;
+    this.handleChange(moment(this.props.value).add(1, range).format('YYYY-MM-DD'));
   }
 
   handlePreviousClick() {
-    this.handleChange(moment(this.props.value).subtract(1, 'day').format('YYYY-MM-DD'));
+    const { range } = this.props;
+    this.handleChange(moment(this.props.value).subtract(1, range).format('YYYY-MM-DD'));
   }
 
   render() {
+    const { range, value } = this.props;
+
     return (
       <div className="date-selector">
         <a className="previous" onClick={this.handlePreviousClick} tabIndex="0">
-          {this.props.t('AvailabilityViewDateSelector.previousDay')}
+          {range === 'week'
+            ? this.props.t('AvailabilityViewDateSelector.previousWeek')
+            : this.props.t('AvailabilityViewDateSelector.previousDay')
+          }
         </a>
         <div className="current-value">
           <DatePicker
             dateFormat="dd D.M.YYYY"
             onChange={date => this.handleChange(date)}
-            value={this.props.value}
+            value={value}
           />
         </div>
         <a className="next" onClick={this.handleNextClick} tabIndex="0">
-          {this.props.t('AvailabilityViewDateSelector.nextDay')}
+          {range === 'week'
+            ? this.props.t('AvailabilityViewDateSelector.nextWeek')
+            : this.props.t('AvailabilityViewDateSelector.nextDay')
+          }
         </a>
       </div>
     );

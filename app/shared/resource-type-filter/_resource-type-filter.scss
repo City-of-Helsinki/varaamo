@@ -14,3 +14,15 @@
     color: $gray-darker;
   }
 }
+
+.resource-type {
+  &__filter-groups {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__single-group {
+    margin-bottom: 10px;
+    flex-grow: 1;
+  }
+}

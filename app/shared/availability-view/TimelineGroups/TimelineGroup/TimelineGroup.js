@@ -1,4 +1,4 @@
-import { slotSize, slotWidth } from 'constants/SlotConstants';
+import { slotSize } from 'constants/SlotConstants';
 
 import classNames from 'classnames';
 import moment from 'moment';
@@ -6,21 +6,20 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Sticky from 'react-sticky-el';
 
-
 import AvailabilityTimelineContainer from './AvailabilityTimeline';
 import utils from './utils';
 
-function getHourRanges(date) {
+function getHourRanges(date, range) {
   const ranges = [];
-  const current = moment(date);
-  const end = moment(date).add(1, 'day');
-  while (current.isBefore(end)) {
+  const start = moment(date).startOf(range);
+  const end = moment(date).endOf(range);
+  while (start.isBefore(end)) {
     ranges.push({
-      startTime: current.clone(),
-      midPoint: current.clone().add(30, 'minutes'),
-      endTime: current.clone().add(1, 'hour'),
+      startTime: start.clone(),
+      midPoint: start.clone().add(0.5, 'day'),
+      endTime: start.clone().add(1, 'day'),
     });
-    current.add(1, 'hour');
+    start.add(1, 'day');
   }
   return ranges;
 }
@@ -33,6 +32,7 @@ export default class TimelineGroup extends React.Component {
     onReservationSlotMouseEnter: PropTypes.func,
     onReservationSlotMouseLeave: PropTypes.func,
     onSelectionCancel: PropTypes.func,
+    range: PropTypes.oneOf(['day', 'week']).isRequired,
     resources: PropTypes.arrayOf(PropTypes.string).isRequired,
     selection: PropTypes.object,
   };
@@ -48,6 +48,12 @@ export default class TimelineGroup extends React.Component {
     this.updateTimeInterval = window.setInterval(this.updateTime, 60000);
   }
 
+  componentDidUpdate() {
+    window.clearInterval(this.updateTimeInterval);
+    this.updateTime();
+    this.updateTimeInterval = window.setInterval(this.updateTime, 60000);
+  }
+
   componentWillUnmount() {
     window.clearInterval(this.updateTimeInterval);
     this.updateTimeInterval = null;
@@ -55,10 +61,15 @@ export default class TimelineGroup extends React.Component {
 
   getTimeOffset() {
     const now = moment();
-    const isToday = now.isSame(this.props.date, 'day');
-    if (!isToday) return null;
-    const offsetMinutes = now.diff(this.props.date, 'minutes');
-    const offsetPixels = (offsetMinutes / slotSize) * slotWidth;
+    const within = now.isSame(this.props.date, this.props.range);
+    if (!within) return null;
+    const timeSlotWidth = utils.getTimeSlotWidth(
+      moment.range(now, now.clone().add(slotSize)), this.props.range
+    );
+    const start = moment(this.props.date).startOf(this.props.range);
+    const offsetMinutes = now.diff(start, 'minutes');
+    const offsetPixels = (offsetMinutes / slotSize) * timeSlotWidth;
+
     return offsetPixels;
   }
 
@@ -84,7 +95,9 @@ export default class TimelineGroup extends React.Component {
       onReservationSlotMouseLeave,
       onSelectionCancel,
       selection,
+      range: rangeMode,
     } = this.props;
+    const ranges = getHourRanges(this.props.date, rangeMode);
     return (
       <div
         className={classNames('timeline-group', this.props.className)}
@@ -98,16 +111,16 @@ export default class TimelineGroup extends React.Component {
         )}
         <Sticky>
           <div className="hours">
-            {getHourRanges(this.props.date).map(range => (
+            {ranges.map(range => (
               <div
                 className={classNames('hour', {
                   'hour-start-selected': selection && range.midPoint.isSame(selection.end),
                   'hour-end-selected': selection && range.endTime.isSame(selection.end),
                 })}
-                key={range.startTime.format('HH')}
-                style={{ width: utils.getTimeSlotWidth(range) }}
+                key={range.startTime.format('DD HH')}
+                style={{ width: utils.getTimeSlotWidth(range, rangeMode) }}
               >
-                {range.startTime.format('HH:mm')}
+                {range.startTime.format('dd D.M')}
               </div>
             ))}
           </div>
@@ -116,11 +129,12 @@ export default class TimelineGroup extends React.Component {
           <AvailabilityTimelineContainer
             date={this.props.date}
             id={resource}
-            key={resource}
+            key={resource.concat(rangeMode)}
             onReservationSlotClick={onReservationSlotClick}
             onReservationSlotMouseEnter={onReservationSlotMouseEnter}
             onReservationSlotMouseLeave={onReservationSlotMouseLeave}
             onSelectionCancel={onSelectionCancel}
+            range={rangeMode}
             selection={selection}
           />
         ))}

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import classNames from 'classnames';
 
 import Reservation from './Reservation';
 import ReservationSlot from './ReservationSlot';
@@ -19,6 +20,7 @@ export default class AvailabilityTimeline extends React.Component {
     onReservationSlotMouseEnter: PropTypes.func,
     onReservationSlotMouseLeave: PropTypes.func,
     onSelectionCancel: PropTypes.func,
+    range: PropTypes.oneOf(['day', 'week']).isRequired,
     selection: PropTypes.object,
   };
 
@@ -35,6 +37,7 @@ export default class AvailabilityTimeline extends React.Component {
       onSelectionCancel,
       onReservationSlotMouseEnter,
       onReservationSlotMouseLeave,
+      range,
       selection,
     } = this.props;
     return (
@@ -44,11 +47,14 @@ export default class AvailabilityTimeline extends React.Component {
             return (
               <ReservationSlot
                 {...item.data}
+                className={classNames({ 'reservation-slot--week': range === 'week' })}
+                disabled={range === 'week'}
                 key={item.key}
                 onClick={onReservationSlotClick}
                 onMouseEnter={onReservationSlotMouseEnter}
                 onMouseLeave={onReservationSlotMouseLeave}
                 onSelectionCancel={onSelectionCancel}
+                range={range}
                 resourceId={this.props.id}
                 selection={selection}
               />
@@ -59,6 +65,7 @@ export default class AvailabilityTimeline extends React.Component {
               {...item.data}
               key={item.key}
               onClick={onReservationClick}
+              range={range}
             />
           );
         })}

@@ -40,6 +40,7 @@ export default class TimelineGroups extends React.Component {
     onReservationSlotMouseLeave: PropTypes.func,
     onSelectionCancel: PropTypes.func,
     selection: PropTypes.object,
+    range: PropTypes.oneOf(['day', 'week']).isRequired,
   };
 
   constructor(props) {
@@ -84,6 +85,7 @@ export default class TimelineGroups extends React.Component {
             onReservationSlotMouseEnter={this.props.onReservationSlotMouseEnter}
             onReservationSlotMouseLeave={this.props.onReservationSlotMouseLeave}
             onSelectionCancel={this.props.onSelectionCancel}
+            range={this.props.range}
             selection={this.props.selection}
             {...group}
           />

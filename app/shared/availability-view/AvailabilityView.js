@@ -14,6 +14,7 @@ export default class AvailabilityView extends React.Component {
     isAdmin: PropTypes.bool.isRequired,
     onDateChange: PropTypes.func.isRequired,
     onSelect: PropTypes.func,
+    range: PropTypes.oneOf(['day', 'week']).isRequired
   };
 
   constructor(props) {
@@ -98,7 +99,11 @@ export default class AvailabilityView extends React.Component {
           />
         </div>
         <div className="right">
-          <DateSelector onChange={this.props.onDateChange} value={this.props.date} />
+          <DateSelector
+            onChange={this.props.onDateChange}
+            range={this.props.range}
+            value={this.props.date}
+          />
           <TimelineGroups
             date={this.props.date}
             groups={this.props.groups}
@@ -106,6 +111,7 @@ export default class AvailabilityView extends React.Component {
             onReservationSlotMouseEnter={this.handleReservationSlotMouseEnter}
             onReservationSlotMouseLeave={this.handleReservationSlotMouseLeave}
             onSelectionCancel={this.handleSelectionCancel}
+            range={this.props.range}
             selection={selection}
           />
         </div>

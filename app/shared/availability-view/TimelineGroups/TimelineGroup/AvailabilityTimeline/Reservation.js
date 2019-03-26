@@ -22,6 +22,7 @@ Reservation.propTypes = {
   id: PropTypes.number.isRequired,
   numberOfParticipants: PropTypes.number,
   onClick: PropTypes.func,
+  range: PropTypes.oneOf(['day', 'week']).isRequired,
   reserverName: PropTypes.string,
   state: PropTypes.string,
   user: PropTypes.shape({
@@ -30,10 +31,10 @@ Reservation.propTypes = {
   }),
 };
 
-function Reservation({ onClick, ...reservation }) {
+function Reservation({ onClick, range, ...reservation }) {
   const startTime = moment(reservation.begin);
   const endTime = moment(reservation.end);
-  const width = utils.getTimeSlotWidth({ startTime, endTime });
+  const width = utils.getTimeSlotWidth({ startTime, endTime }, range);
   const reserverName = getReserverName(reservation.reserverName, reservation.user);
   const popover = (
     <Popover className="reservation-info-popover" id={`popover-${reservation.id}`} title={reservation.eventSubject}>
@@ -63,6 +64,7 @@ function Reservation({ onClick, ...reservation }) {
   return (
     <button
       className={classnames('reservation-link', { 'with-comments': reservation.comments })}
+      disabled={range !== 'day'}
       onClick={() => onClick && reservation.userPermissions.canModify && onClick(reservation)}
       type="button"
     >
@@ -80,7 +82,7 @@ function Reservation({ onClick, ...reservation }) {
         >
           <span className="names">
             <span className="event-subject">{reservation.eventSubject}</span>
-            <span className="reserver-name">{reserverName}</span>
+            {range === 'day' && <span className="reserver-name">{reserverName}</span>}
           </span>
         </span>
       </OverlayTrigger>
