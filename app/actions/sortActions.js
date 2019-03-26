@@ -1,7 +1,7 @@
 
 import types from 'constants/ActionTypes';
 
-import { CALL_API } from 'redux-api-middleware';
+import { RSAA } from 'redux-api-middleware';
 
 import schemas from 'store/middleware/Schemas';
 import {
@@ -14,7 +14,7 @@ import {
 
 function sortResources(orderBy) {
   return {
-    [CALL_API]: {
+    [RSAA]: {
       types: [
         getRequestTypeDescriptor(types.API.SORT_RESULTS_GET_REQUEST),
         getSuccessTypeDescriptor(
