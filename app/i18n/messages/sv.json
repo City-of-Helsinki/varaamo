@@ -30,6 +30,8 @@
   "AdminResourcesPage.favoriteTitle": "Egna favoriter",
   "AvailabilityViewDateSelector.nextDay": "följande dag",
   "AvailabilityViewDateSelector.previousDay": "föregående dag",
+  "AvailabilityViewDateSelector.nextWeek": "nästa vecka",
+  "AvailabilityViewDateSelector.previousWeek": "föregående vecka",
   "CommentForm.label": "Kommentarer:",
   "CommentForm.placeholder": "Eventuell ytterligare information om bokningen",
   "CommentModal.title": "Kommentarer till bokningen",

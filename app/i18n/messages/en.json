@@ -30,6 +30,8 @@
   "AdminResourcesPage.favoriteTitle": "My favorites",
   "AvailabilityViewDateSelector.nextDay": "next day",
   "AvailabilityViewDateSelector.previousDay": "previous day",
+  "AvailabilityViewDateSelector.nextWeek": "next week",
+  "AvailabilityViewDateSelector.previousWeek": "previous week",
   "CommentForm.label": "Comments:",
   "CommentForm.placeholder": "Any additional information about the reservation",
   "CommentModal.title": "Comments concerning the reservation",

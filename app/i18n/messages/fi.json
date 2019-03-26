@@ -30,6 +30,8 @@
   "AdminResourcesPage.favoriteTitle": "Suosikit",
   "AvailabilityViewDateSelector.nextDay": "seuraava päivä",
   "AvailabilityViewDateSelector.previousDay": "edellinen päivä",
+  "AvailabilityViewDateSelector.nextWeek": "seuraava viikko",
+  "AvailabilityViewDateSelector.previousWeek": "edellinen viikko",
   "CommentForm.label": "Kommentit:",
   "CommentForm.placeholder": "Varauksen mahdolliset lisätiedot",
   "CommentModal.title": "Varauksen kommentit",
