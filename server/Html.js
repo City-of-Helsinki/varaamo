@@ -30,7 +30,7 @@ class Html extends Component {
         s.parentNode.insertBefore(g,s);
       })();
     `;
-    const imgSrc = `//analytics.hel.ninja/piwik/piwik.php?idsite=${piwikSiteId}`;
+    const imgSrc = `//analytics.hel.ninja/matomo.php?idsite=${piwikSiteId}&amp;rec=1`;
     return (
       <div>
         <script dangerouslySetInnerHTML={{ __html: scriptString }} />
