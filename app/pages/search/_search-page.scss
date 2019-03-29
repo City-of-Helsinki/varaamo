@@ -13,6 +13,10 @@
     position: relative;
   }
 
+  &__sortControlRow {
+    margin-top: 10px;
+  }
+
   .app-MapToggle {
     background-color: $hel-copper;
     display: block;
