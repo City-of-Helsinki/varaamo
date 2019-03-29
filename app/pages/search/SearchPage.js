@@ -109,7 +109,7 @@ class UnconnectedSearchPage extends Component {
 
         <PageWrapper className="app-SearchPage__wrapper" title={t('SearchPage.title')} transparent>
           <Row>
-            <Col className="app-SearchControlsContainer__control col-md-offset-8" md={4} sm={6}>
+            <Col className="app-SearchPage__sortControl" md={4} mdOffset={8} sm={6}>
               <Sort sortBy={filters => this.sortBy(filters)} />
             </Col>
           </Row>
