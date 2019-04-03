@@ -69,7 +69,7 @@ export default {
   TIME_SLOT_DEFAULT_LENGTH: 30,
   TRACKING: SETTINGS.TRACKING,
   SORT_BY_OPTIONS: {
-    RESOURCE_NAME: 'resource_name_lang',
+    NAME: 'resource_name_lang',
     TYPE: 'type_name_lang',
     PREMISES: 'unit_name_lang',
     PEOPLE: 'people_capacity',
