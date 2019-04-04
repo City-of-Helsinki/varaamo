@@ -19,7 +19,6 @@ function getFetchParamsFromFilters(filters) {
     ),
     { purpose: filters.purpose === 'all' ? '' : filters.purpose },
     { page: filters.page || 1 },
-    filters.orderBy && { order_by: filters.orderBy },
   );
   return omit(all, 'date', 'duration', 'useTimeRange');
 }

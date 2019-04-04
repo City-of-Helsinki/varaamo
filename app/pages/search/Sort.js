@@ -7,13 +7,6 @@ import CONSTANTS from '../../constants/AppConstants';
 import SelectControl from './controls/SelectControl';
 
 export class UnconnectedSort extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected: '',
-    };
-  }
-
   getSortOptions = () => {
     const { lang, t } = this.props;
 
@@ -33,7 +26,7 @@ export class UnconnectedSort extends Component {
         label={this.props.t('SortBy.label')}
         onChange={({ value }) => this.props.onChange(value)}
         options={this.getSortOptions()}
-        value={this.state.selected}
+        value={this.props.sortValue}
       />
     );
   }
@@ -52,5 +45,6 @@ export default connect(
 UnconnectedSort.propTypes = {
   lang: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  sortValue: PropTypes.string,
 };

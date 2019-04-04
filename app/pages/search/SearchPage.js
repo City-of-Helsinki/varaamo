@@ -90,6 +90,7 @@ class UnconnectedSearchPage extends Component {
       searchDone,
       selectedUnitId,
       showMap,
+      filters,
       t,
     } = this.props;
     return (
@@ -110,7 +111,7 @@ class UnconnectedSearchPage extends Component {
         <PageWrapper className="app-SearchPage__wrapper" title={t('SearchPage.title')} transparent>
           <Row className="app-SearchPage__sortControlRow">
             <Col className="app-SearchPage__sortControl" md={4} mdOffset={8} sm={6}>
-              <Sort onChange={this.sortResource} />
+              <Sort onChange={this.sortResource} sortValue={filters.orderBy} />
             </Col>
           </Row>
           <div className="app-SearchPage__content">

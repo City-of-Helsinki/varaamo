@@ -20,6 +20,7 @@ function getState(date = '2015-10-10', start = '08:30', freeOfCharge = '') {
           start,
           unit: '',
           useTimeRange: false,
+          orderBy: ''
         },
       },
     },
