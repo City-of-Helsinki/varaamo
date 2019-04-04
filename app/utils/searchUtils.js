@@ -18,8 +18,9 @@ function getFetchParamsFromFilters(filters) {
       filters.duration
     ),
     { purpose: filters.purpose === 'all' ? '' : filters.purpose },
-    { page: filters.page || 1 },
+    { page: filters.page || 1 }
   );
+
   return omit(all, 'date', 'duration', 'useTimeRange');
 }
 
