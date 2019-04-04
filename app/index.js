@@ -15,6 +15,7 @@ import { initI18n } from 'i18n';
 import configureStore from 'store/configureStore';
 import rootReducer from 'state/rootReducer';
 import getRoutes from './routes';
+import BrowserWarning from './pages/browser-warning';
 
 const initialStoreState = createStore(rootReducer, {}).getState();
 const initialServerState = window.INITIAL_STATE;
@@ -26,30 +27,7 @@ const store = configureStore(finalState);
 
 if (browserName === 'IE') {
   render(
-    <div>
-      <p className="alert alert-warning">
-        Currently, Varaamo does not support IE11.
-        We are investigating this issue and finding a solution.
-        Meanwhile, use another browser (such as
-        <a href="https://www.google.com/chrome/"> Chrome</a>
-        ,
-        <a href="https://www.mozilla.org/en-US/firefox/new/"> Firefox </a>
-        or
-        <a href="https://www.microsoft.com/en-us/windows/microsoft-edge"> Edge</a>
-        ).
-      </p>
-      <p className="alert alert-warning">
-        Varaamo ei tue IE11 selainta tällä hetkellä.
-        Selvitämme ongelmaa sen ratkaisemiseksi.
-        Sillävälin, käytä toista selainta (kuten
-        <a href="https://www.google.com/chrome/"> Chrome</a>
-        ,
-        <a href="https://www.mozilla.org/en-US/firefox/new/"> Firefox </a>
-        tai
-        <a href="https://www.microsoft.com/en-us/windows/microsoft-edge"> Edge</a>
-        ).
-      </p>
-    </div>,
+    <BrowserWarning />,
     document.getElementById('root')
   );
 } else {
