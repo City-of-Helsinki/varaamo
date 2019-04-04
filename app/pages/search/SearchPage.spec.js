@@ -94,7 +94,7 @@ describe('pages/search/SearchPage', () => {
     test('renders a Sort component with correct props', () => {
       const sort = getWrapper().find(Sort);
       expect(sort).toHaveLength(1);
-      expect(typeof sort.prop('sortBy')).toBe('function');
+      expect(typeof sort.prop('onChange')).toBe('function');
     });
 
     describe('SearchResults', () => {
@@ -226,7 +226,7 @@ describe('pages/search/SearchPage', () => {
       });
     });
 
-    describe('sortBy', () => {
+    describe('sortResource', () => {
       const pushMock = simple.mock();
       beforeAll(() => {
         const instance = getWrapper(
@@ -234,8 +234,9 @@ describe('pages/search/SearchPage', () => {
             history: { push: pushMock }
           }
         ).instance();
-        instance.sortBy({ orderBy: 'name' });
+        instance.sortResource('name');
       });
+
       test('changes history with correct queryString', () => {
         expect(pushMock.callCount).toBe(1);
         expect(pushMock.lastCall.args[0]).toEqual(
