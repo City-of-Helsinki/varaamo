@@ -55,17 +55,6 @@ footer {
   }
 }
 
-.warningStyle {
-  margin: 20px;
-  padding: 20px;
-  color: #5d3d08;
-  background-color: #fcf8e3;
-  border: 2px solid #faebcc;
-  a {
-    text-decoration: none;
-  }
-}
-
 @media (min-width: $screen-lg-min ) {
   .container {
     width: 1170px;

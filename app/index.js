@@ -27,7 +27,7 @@ const store = configureStore(finalState);
 if (browserName === 'IE') {
   render(
     <div>
-      <p className="warningStyle">
+      <p className="alert alert-warning">
         Currently, Varaamo does not support IE11.
         We are investigating this issue and finding a solution.
         Meanwhile, use another browser (such as
@@ -38,7 +38,7 @@ if (browserName === 'IE') {
         <a href="https://www.microsoft.com/en-us/windows/microsoft-edge"> Edge</a>
         ).
       </p>
-      <p className="warningStyle">
+      <p className="alert alert-warning">
         Varaamo ei tue IE11 selainta tällä hetkellä.
         Selvitämme ongelmaa sen ratkaisemiseksi.
         Sillävälin, käytä toista selainta (kuten
