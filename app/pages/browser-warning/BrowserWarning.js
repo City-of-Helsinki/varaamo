@@ -17,7 +17,7 @@ function BrowserWarning() {
       <p className="alert alert-warning">
         Varaamo ei tue IE11 selainta tällä hetkellä.
         Selvitämme ongelmaa sen ratkaisemiseksi.
-        Sillävälin, käytä toista selainta (kuten
+        Sillä välin, käytä toista selainta (kuten
         <a href="https://www.google.com/chrome/"> Chrome</a>
         ,
         <a href="https://www.mozilla.org/en-US/firefox/new/"> Firefox </a>
