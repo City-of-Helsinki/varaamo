@@ -1,5 +1,4 @@
 import React from 'react';
-import simple from 'simple-mock';
 import { shallow } from 'enzyme';
 
 import SelectControl from './controls/SelectControl';
@@ -12,13 +11,6 @@ describe('pages/search/Sort', () => {
     lang: 'en',
     onChange: () => {},
   };
-
-  const mockOptions = [
-    {
-      label: 'Name',
-      value: 'resource_name_en',
-    }
-  ];
 
   function getWrapper(props) {
     return shallow(<Sort {...defaultProps} {...props} />);
