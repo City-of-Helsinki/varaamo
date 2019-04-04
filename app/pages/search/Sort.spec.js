@@ -1,10 +1,11 @@
+import CONSTANTS from 'constants/AppConstants';
+
 import React from 'react';
 import simple from 'simple-mock';
 import { shallow } from 'enzyme';
 
 import SelectControl from './controls/SelectControl';
 import { UnconnectedSort as Sort } from './Sort';
-import CONSTANTS from '../../constants/AppConstants';
 
 describe('pages/search/Sort', () => {
   const defaultProps = {
@@ -21,7 +22,7 @@ describe('pages/search/Sort', () => {
       const wrapper = getWrapper({});
       const selectControl = wrapper.find(SelectControl);
       expect(selectControl).toHaveLength(1);
-      expect(selectControl.prop('id')).toBe('sort');
+      expect(selectControl.prop('id')).toBe('app-Sort');
       expect(selectControl.prop('label')).toBeDefined();
       expect(selectControl.prop('onChange')).toBeDefined();
       expect(selectControl.prop('value')).toBeDefined();

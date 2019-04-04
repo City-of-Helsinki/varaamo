@@ -14,12 +14,6 @@ export class UnconnectedSort extends Component {
     };
   }
 
-  handleChange = ({ value }) => {
-    const filters = {};
-    filters.orderBy = value;
-    this.props.sortBy(filters);
-  }
-
   getSortOptions = () => {
     const { lang, t } = this.props;
 
@@ -34,10 +28,10 @@ export class UnconnectedSort extends Component {
   render() {
     return (
       <SelectControl
-        id="sort"
+        id="app-Sort"
         isLoading={false}
         label={this.props.t('SortBy.label')}
-        onChange={this.handleChange}
+        onChange={({ value }) => this.props.onChange(value)}
         options={this.getSortOptions()}
         value={this.state.selected}
       />
@@ -58,5 +52,5 @@ export default connect(
 UnconnectedSort.propTypes = {
   lang: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
-  sortBy: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired
 };
