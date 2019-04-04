@@ -24,6 +24,7 @@ class UnconnectedSearchPage extends Component {
   constructor(props) {
     super(props);
     this.searchResources = this.searchResources.bind(this);
+    this.sortResource = this.sortResource.bind(this);
   }
 
   componentDidMount() {
@@ -72,9 +73,8 @@ class UnconnectedSearchPage extends Component {
     this.props.actions.searchResources({ ...filters, ...position });
   }
 
-  sortBy(newFilters = {}) {
-    const page = 1;
-    const filters = { ...this.props.filters, ...newFilters, page };
+  sortResource(value) {
+    const filters = { ...this.props.filters, ...{ orderBy: value } };
     this.props.history.push(`/search?${queryString.stringify(filters)}`);
   }
 
@@ -110,7 +110,7 @@ class UnconnectedSearchPage extends Component {
         <PageWrapper className="app-SearchPage__wrapper" title={t('SearchPage.title')} transparent>
           <Row className="app-SearchPage__sortControlRow">
             <Col className="app-SearchPage__sortControl" md={4} mdOffset={8} sm={6}>
-              <Sort sortBy={filters => this.sortBy(filters)} />
+              <Sort onChange={this.sortResource} />
             </Col>
           </Row>
           <div className="app-SearchPage__content">

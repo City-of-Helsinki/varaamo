@@ -57,6 +57,7 @@ export default {
     end: '',
     lat: '',
     lon: '',
+    orderBy: '',
     page: 1,
     people: '',
     purpose: '',
