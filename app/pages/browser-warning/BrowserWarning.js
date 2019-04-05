@@ -25,6 +25,17 @@ function BrowserWarning() {
         <a href="https://www.microsoft.com/en-us/windows/microsoft-edge"> Edge</a>
         ).
       </p>
+      <p className="alert alert-warning">
+        Varaamo fungerar inte längre med Internet Explorer 11.
+        Vi arbetar med att lösa problemet.
+        Under tiden så var vänlig och använd någon annan browser (t.ex
+        <a href="https://www.google.com/chrome/"> Chrome</a>
+        ,
+        <a href="https://www.mozilla.org/en-US/firefox/new/"> Firefox </a>
+        eller
+        <a href="https://www.microsoft.com/en-us/windows/microsoft-edge"> Edge</a>
+        ).
+      </p>
     </div>
   );
 }
