@@ -15,11 +15,11 @@ describe('pages/browser-warning/BrowserWarning', () => {
 
   test('renders a browser warning paragraph', () => {
     const p = getWrapper().find('p');
-    expect(p.length).toBe(2);
+    expect(p.length).toBe(3);
   });
 
   test('renders all specified browser links', () => {
     const a = getWrapper().find('a');
-    expect(a.length).toBe(6);
+    expect(a.length).toBe(9);
   });
 });
