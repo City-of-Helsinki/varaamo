@@ -29,7 +29,7 @@ class ReservationInfoModal extends Component {
   }
 
   handleSaveCommentsClick() {
-    const comments = this.commentsInput.current.value;
+    const comments = this.commentsInput.value;
     this.props.onSaveCommentsClick(comments);
   }
 
@@ -98,8 +98,9 @@ class ReservationInfoModal extends Component {
                     componentClass="textarea"
                     defaultValue={reservation.comments}
                     disabled={disabled}
+                    // eslint-disable-next-line no-return-assign
+                    inputRef={ref => this.commentsInput = ref}
                     placeholder={t('common.commentsPlaceholder')}
-                    ref={this.commentsInput}
                     rows={5}
                   />
                 </FormGroup>

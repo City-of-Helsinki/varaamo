@@ -17,7 +17,7 @@ class CommentForm extends Component {
 
   handleSave(event) {
     event.preventDefault();
-    const comments = this.commentsInput.current.value;
+    const comments = this.commentsInput.value;
     this.props.onSave(comments);
   }
 
@@ -33,8 +33,9 @@ class CommentForm extends Component {
           <FormControl
             componentClass="textarea"
             defaultValue={defaultValue}
+            // eslint-disable-next-line no-return-assign
+            inputRef={ref => this.commentsInput = ref}
             placeholder={t('CommentForm.placeholder')}
-            ref={this.commentsInput}
             rows={5}
           />
         </FormGroup>

@@ -75,7 +75,7 @@ describe('shared/comment-form/CommentForm', () => {
     beforeAll(() => {
       const instance = getWrapper().instance();
       // override ref value to mock
-      instance.commentsInput.current = { value: comments };
+      instance.commentsInput = { value: comments };
 
       defaultProps.onSave.reset();
       instance.handleSave(mockEvent);

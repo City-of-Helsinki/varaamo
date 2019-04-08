@@ -363,7 +363,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
     beforeAll(() => {
       const instance = getWrapper({ onSaveCommentsClick }).instance();
       // override ref value to mock
-      instance.commentsInput.current = { value: comments };
+      instance.commentsInput = { value: comments };
       instance.handleSaveCommentsClick();
     });
 
