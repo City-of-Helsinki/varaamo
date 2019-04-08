@@ -32,6 +32,7 @@ describe('shared/comment-form/CommentForm', () => {
         expect(formControl.length).toBe(1);
         expect(formControl.prop('componentClass')).toBe('textarea');
         expect(formControl.prop('defaultValue')).toBe(defaultProps.defaultValue);
+        expect(typeof formControl.prop('inputRef')).toBe('function');
       });
     });
 

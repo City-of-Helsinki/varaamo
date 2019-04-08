@@ -125,6 +125,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
             expect(formControl).toHaveLength(1);
             expect(formControl.prop('componentClass')).toBe('textarea');
             expect(formControl.prop('defaultValue')).toBe(reservation.comments);
+            expect(typeof formControl.prop('inputRef')).toBe('function');
           });
 
           test('renders a save button with correct onClick prop', () => {
