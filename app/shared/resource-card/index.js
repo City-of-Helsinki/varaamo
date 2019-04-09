@@ -1,3 +1,3 @@
-import ResourceCardContainer from './ResourceCardContainer';
+import ResourceCard from './ResourceCard';
 
-export default ResourceCardContainer;
+export default ResourceCard;

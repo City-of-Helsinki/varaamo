@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
+import iconHeart from 'hel-icons/dist/shapes/heart-o.svg';
 
 import BackgroundImage from 'shared/background-image';
 import Image from 'utils/fixtures/Image';
@@ -9,9 +10,11 @@ import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
 import { getResourcePageUrlComponents } from 'utils/resourceUtils';
 import { shallowWithIntl } from 'utils/testUtils';
-import ResourceAvailability from './ResourceAvailability';
-import ResourceCard from './ResourceCard';
+import ResourceAvailability from './label/ResourceAvailability';
+import { UnconnectedResourceCard } from './ResourceCard';
 import UnpublishedLabel from 'shared/label/Unpublished';
+import ResourceCardInfoCell from './info';
+import iconHeartWhite from 'assets/icons/heart-white.svg';
 
 describe('shared/resource-card/ResourceCard', () => {
   function getResource(extra) {
@@ -44,6 +47,10 @@ describe('shared/resource-card/ResourceCard', () => {
   };
 
   const defaultProps = {
+    actions: {
+      favoriteResource: jest.fn(),
+      unfavoriteResource: jest.fn(),
+    },
     history,
     date: '2015-10-10',
     isLoggedIn: false,
@@ -67,7 +74,7 @@ describe('shared/resource-card/ResourceCard', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallowWithIntl(<ResourceCard {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(<UnconnectedResourceCard {...defaultProps} {...extraProps} />);
   }
 
   test('renders an div element', () => {
@@ -95,6 +102,67 @@ describe('shared/resource-card/ResourceCard', () => {
 
       expect(backgroundImage).toHaveLength(1);
       expect(backgroundImage.prop('image')).toEqual(resourceMainImage);
+    });
+  });
+
+  describe('info box', () => {
+    test('render with 5 ResourceCardInfoCell cells', () => {
+      const info = getWrapper().find('.app-ResourceCard__info');
+      const cells = info.find(ResourceCardInfoCell);
+      expect(cells.length).toEqual(5);
+    });
+
+    test('render with first ResourceCardInfoCell', () => {
+      const info = getWrapper().find('.app-ResourceCard__info');
+      const cell = info.find(ResourceCardInfoCell).first();
+
+      expect(cell.prop('alt')).toEqual(defaultProps.resource.type.name);
+      expect(cell.prop('icon')).toBeDefined();
+      expect(cell.prop('onClick')).toBeDefined();
+    });
+
+    test('will not render favorite icon as default if user not logged in', () => {
+      const info = getWrapper().find('.app-ResourceCard__info');
+      const cell = info.find(ResourceCardInfoCell)[5];
+
+      expect(cell).toBeUndefined();
+    });
+
+    test('render with favorite icon as default if user logged in', () => {
+      const info = getWrapper({ isLoggedIn: true }).find('.app-ResourceCard__info');
+      const cell = info.find(ResourceCardInfoCell).last();
+
+      expect(cell.prop('alt')).toEqual(defaultProps.resource.type.name);
+      expect(cell.prop('icon')).toEqual(iconHeart);
+      expect(cell.prop('onClick')).toBeDefined();
+    });
+
+    test('render with unfavorite icon when isFavorite is true, user logged in', () => {
+      const info = getWrapper({
+        resource: getResource({ isFavorite: true, isLoggedIn: true })
+      }).find('.app-ResourceCard__info');
+      const cell = info.find(ResourceCardInfoCell).last();
+
+      expect(cell.prop('alt')).toEqual(defaultProps.resource.type.name);
+      expect(cell.prop('icon')).toEqual(iconHeartWhite);
+      expect(cell.prop('onClick')).toBeDefined();
+    });
+
+    test('invoke favorite func when favorite icon is clicked as default, user logged in', () => {
+      const info = getWrapper({ isLoggedIn: true }).find('.app-ResourceCard__info');
+      const cell = info.find(ResourceCardInfoCell).last();
+      cell.simulate('click');
+      expect(defaultProps.actions.favoriteResource).toHaveBeenCalledTimes(1);
+    });
+
+    test('invoke set unfavorite func when favorite icon is clicked, user logged in', () => {
+      const info = getWrapper({
+        resource: getResource({ isFavorite: true }),
+        isLoggedIn: true
+      }).find('.app-ResourceCard__info');
+      const cell = info.find(ResourceCardInfoCell).last();
+      cell.simulate('click');
+      expect(defaultProps.actions.unfavoriteResource).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -213,13 +281,6 @@ describe('shared/resource-card/ResourceCard', () => {
     expect(zipAddress).toHaveLength(1);
     expect(zipAddress.html()).toContain(defaultProps.unit.addressZip);
     expect(zipAddress.html()).toContain(defaultProps.unit.municipality);
-  });
-
-  test('renders an anchor that calls handleSearchByType on click', () => {
-    const wrapper = getWrapper();
-    const typeAnchor = wrapper.find('.app-ResourceCard__info-link-capitalize').filter('a');
-    expect(typeAnchor).toHaveLength(1);
-    expect(typeAnchor.prop('onClick')).toBe(wrapper.instance().handleSearchByType);
   });
 
   test('renders an anchor that calls handleSearchByUnitName on click', () => {

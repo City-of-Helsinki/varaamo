@@ -2,7 +2,10 @@ import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import queryString from 'query-string';
 import { bindActionCreators } from 'redux';
+import Row from 'react-bootstrap/lib/Row';
+import Col from 'react-bootstrap/lib/Col';
 
 import { searchResources, toggleMap } from 'actions/searchActions';
 import { changeSearchFilters } from 'actions/uiActions';
@@ -14,12 +17,14 @@ import ResourceMap from 'shared/resource-map';
 import SearchControls from './controls';
 import searchPageSelector from './searchPageSelector';
 import SearchResults from './results/SearchResults';
+import Sort from './Sort';
 import MapToggle from './results/MapToggle';
 
 class UnconnectedSearchPage extends Component {
   constructor(props) {
     super(props);
     this.searchResources = this.searchResources.bind(this);
+    this.sortResource = this.sortResource.bind(this);
   }
 
   componentDidMount() {
@@ -68,6 +73,11 @@ class UnconnectedSearchPage extends Component {
     this.props.actions.searchResources({ ...filters, ...position });
   }
 
+  sortResource(value) {
+    const filters = { ...this.props.filters, ...{ orderBy: value } };
+    this.props.history.push(`/search?${queryString.stringify(filters)}`);
+  }
+
   render() {
     const {
       actions,
@@ -80,6 +90,7 @@ class UnconnectedSearchPage extends Component {
       searchDone,
       selectedUnitId,
       showMap,
+      filters,
       t,
     } = this.props;
     return (
@@ -96,7 +107,13 @@ class UnconnectedSearchPage extends Component {
             showMap={showMap}
           />
         )}
+
         <PageWrapper className="app-SearchPage__wrapper" title={t('SearchPage.title')} transparent>
+          <Row className="app-SearchPage__sortControlRow">
+            <Col className="app-SearchPage__sortControl" md={4} mdOffset={8} sm={6}>
+              <Sort onChange={this.sortResource} sortValue={filters.orderBy} />
+            </Col>
+          </Row>
           <div className="app-SearchPage__content">
             {(searchDone || isFetchingSearchResults) && (
               <SearchResults

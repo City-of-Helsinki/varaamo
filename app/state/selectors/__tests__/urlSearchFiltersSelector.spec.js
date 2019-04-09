@@ -17,6 +17,7 @@ describe('Selector: urlSearchFiltersSelector', () => {
     unit: '',
     useTimeRange: false,
     municipality: '',
+    orderBy: ''
   };
 
   const getProps = (
