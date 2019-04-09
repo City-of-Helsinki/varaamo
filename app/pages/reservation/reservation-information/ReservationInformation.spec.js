@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
@@ -33,53 +32,53 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
     return shallowWithIntl(<ReservationInformation {...defaultProps} {...extraProps} />);
   }
 
-  it('renders info texts when needManualConfirmation is true', () => {
+  test('renders info texts when needManualConfirmation is true', () => {
     const resource = Resource.build({
       needManualConfirmation: true,
     });
     const infoTexts = getWrapper({ resource }).find('.app-ReservationInformation__info-texts');
-    expect(infoTexts).to.have.length(1);
-    expect(infoTexts.text()).to.contain('ConfirmReservationModal.priceInfo');
+    expect(infoTexts).toHaveLength(1);
+    expect(infoTexts.text()).toContain('ConfirmReservationModal.priceInfo');
   });
 
-  it('does not render info texts when needManualConfirmation is false', () => {
+  test('does not render info texts when needManualConfirmation is false', () => {
     const resource = Resource.build({
       needManualConfirmation: false,
     });
     const infoTexts = getWrapper({ resource }).find('.app-ReservationInformation__info-texts');
-    expect(infoTexts).to.have.length(0);
+    expect(infoTexts).toHaveLength(0);
   });
 
-  it('renders an ReservationInformationForm element', () => {
+  test('renders an ReservationInformationForm element', () => {
     const form = getWrapper().find(ReservationInformationForm);
-    expect(form).to.have.length(1);
-    expect(form.prop('isEditing')).to.equal(defaultProps.isEditing);
-    expect(form.prop('isMakingReservations')).to.equal(defaultProps.isMakingReservations);
-    expect(form.prop('onBack')).to.equal(defaultProps.onBack);
-    expect(form.prop('onCancel')).to.equal(defaultProps.onCancel);
-    expect(form.prop('openResourceTermsModal')).to.equal(defaultProps.openResourceTermsModal);
-    expect(form.prop('resource')).to.equal(defaultProps.resource);
+    expect(form).toHaveLength(1);
+    expect(form.prop('isEditing')).toBe(defaultProps.isEditing);
+    expect(form.prop('isMakingReservations')).toBe(defaultProps.isMakingReservations);
+    expect(form.prop('onBack')).toBe(defaultProps.onBack);
+    expect(form.prop('onCancel')).toBe(defaultProps.onCancel);
+    expect(form.prop('openResourceTermsModal')).toBe(defaultProps.openResourceTermsModal);
+    expect(form.prop('resource')).toBe(defaultProps.resource);
   });
 
-  it('renders correct reservation details and time', () => {
+  test('renders correct reservation details and time', () => {
     const details = getWrapper().find('.app-ReservationDetails__value');
-    expect(details).to.have.length(2);
-    expect(details.at(0).props().children).to.contain(defaultProps.resource.name);
-    expect(details.at(0).props().children).to.contain(defaultProps.unit.name);
-    expect(details.at(1).props().children).to.contain('10.10.2016');
-    expect(details.at(1).props().children).to.contain('(1 h)');
+    expect(details).toHaveLength(2);
+    expect(details.at(0).props().children).toContain(defaultProps.resource.name);
+    expect(details.at(0).props().children).toContain(defaultProps.unit.name);
+    expect(details.at(1).props().children).toContain('10.10.2016');
+    expect(details.at(1).props().children).toContain('(1 h)');
   });
 
   describe('onConfirm', () => {
-    it('calls prop onConfirm with correct values', () => {
+    test('calls prop onConfirm with correct values', () => {
       const value = 'some value';
       const onConfirm = simple.mock();
       const wrapper = getWrapper({ onConfirm });
       const instance = wrapper.instance();
       instance.onConfirm(value);
 
-      expect(onConfirm.callCount).to.equal(1);
-      expect(onConfirm.lastCall.args).to.deep.equal([value]);
+      expect(onConfirm.callCount).toBe(1);
+      expect(onConfirm.lastCall.args).toEqual([value]);
     });
   });
 
@@ -90,40 +89,46 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
     });
     const supportedFields = ['someField1', 'someField2'];
 
-    it('returns supportedReservationExtraFields', () => {
+    test('returns supportedReservationExtraFields', () => {
       const wrapper = getWrapper({ resource });
       const instance = wrapper.instance();
       const actual = instance.getFormFields();
 
-      expect(actual).to.deep.equal(supportedFields);
+      expect(actual).toEqual(supportedFields);
     });
 
-    it('returns supportedReservationExtraFields and admin fields when is admin', () => {
-      const wrapper = getWrapper({ isAdmin: true, resource });
-      const instance = wrapper.instance();
-      const actual = instance.getFormFields();
-      // const adminFields = ['comments',
-      // 'reserverName', 'reserverEmailAddress', 'reserverPhoneNumber'];
-      const adminFields = ['comments'];
+    test(
+      'returns supportedReservationExtraFields and admin fields when is admin',
+      () => {
+        const wrapper = getWrapper({ isAdmin: true, resource });
+        const instance = wrapper.instance();
+        const actual = instance.getFormFields();
+        // const adminFields = ['comments',
+        // 'reserverName', 'reserverEmailAddress', 'reserverPhoneNumber'];
+        const adminFields = ['comments'];
 
-      expect(actual).to.deep.equal([...supportedFields, ...adminFields]);
-    });
+        expect(actual).toEqual([...supportedFields, ...adminFields]);
+      }
+    );
 
-    it('returns supportedReservationExtraFields and staffEvent when needManualConfirmation and is staff', () => {
-      const wrapper = getWrapper({ isStaff: true, resource });
-      const instance = wrapper.instance();
-      const actual = instance.getFormFields();
+    test(
+      'returns supportedReservationExtraFields and staffEvent when needManualConfirmation and is staff',
+      () => {
+        const wrapper = getWrapper({ isStaff: true, resource });
+        const instance = wrapper.instance();
+        const actual = instance.getFormFields();
 
-      expect(actual).to.deep.equal([...supportedFields, 'staffEvent']);
-    });
+        expect(actual).toEqual([...supportedFields, 'staffEvent']);
+      }
+    );
 
-    it('returns supportedReservationExtraFields and termsAndConditions', () => {
+    test('returns supportedReservationExtraFields and termsAndConditions', () => {
       const termsAndConditions = 'some terms and conditions';
       const wrapper = getWrapper({ resource });
       const instance = wrapper.instance();
       const actual = instance.getFormFields(termsAndConditions);
 
-      expect(actual).to.deep.equal([...supportedFields, 'termsAndConditions']);
+      expect(actual).toEqual([...supportedFields, 'termsAndConditions']);
     });
   });
 
@@ -137,7 +142,7 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
       supportedReservationExtraFields: ['some_field_1', 'some_field_2'],
     });
 
-    it('returns correct form values', () => {
+    test('returns correct form values', () => {
       const expected = {
         someField1: 'some value 1',
         someField2: 'some value 2',
@@ -146,10 +151,10 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
       const instance = wrapper.instance();
       const actual = instance.getFormInitialValues();
 
-      expect(actual).to.deep.equal(expected);
+      expect(actual).toEqual(expected);
     });
 
-    it('returns staffEvent false when is editing', () => {
+    test('returns staffEvent false when is editing', () => {
       const expected = {
         someField1: 'some value 1',
         someField2: 'some value 2',
@@ -159,38 +164,41 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
       const instance = wrapper.instance();
       const actual = instance.getFormInitialValues();
 
-      expect(actual).to.deep.equal(expected);
+      expect(actual).toEqual(expected);
     });
 
-    it('returns staffEvent true when is editing and reservation supportedReservationExtraFields are empty but not requiredReservationExtraFields', () => {
-      const reservation2 = Reservation.build();
-      const expected = { staffEvent: true };
-      const wrapper = getWrapper({ isEditing: true, reservation: reservation2, resource });
-      const instance = wrapper.instance();
-      const actual = instance.getFormInitialValues();
+    test(
+      'returns staffEvent true when is editing and reservation supportedReservationExtraFields are empty but not requiredReservationExtraFields',
+      () => {
+        const reservation2 = Reservation.build();
+        const expected = { staffEvent: true };
+        const wrapper = getWrapper({ isEditing: true, reservation: reservation2, resource });
+        const instance = wrapper.instance();
+        const actual = instance.getFormInitialValues();
 
-      expect(actual).to.deep.equal(expected);
-    });
+        expect(actual).toEqual(expected);
+      }
+    );
   });
 
   describe('getRequiredFormFields', () => {
-    it('returns correct required form fields', () => {
+    test('returns correct required form fields', () => {
       const resource = Resource.build({
         requiredReservationExtraFields: ['some_field_1', 'some_field_2'],
       });
       const actual = getWrapper().instance().getRequiredFormFields(resource);
 
-      expect(actual).to.deep.equal(['someField1', 'someField2']);
+      expect(actual).toEqual(['someField1', 'someField2']);
     });
 
-    it('returns required form fields and termsAndConditions', () => {
+    test('returns required form fields and termsAndConditions', () => {
       const resource = Resource.build({
         requiredReservationExtraFields: ['some_field_1', 'some_field_2'],
       });
       const instance = getWrapper().instance();
       const actual = instance.getRequiredFormFields(resource, 'terms and conditions');
 
-      expect(actual).to.deep.equal(['someField1', 'someField2', 'termsAndConditions']);
+      expect(actual).toEqual(['someField1', 'someField2', 'termsAndConditions']);
     });
   });
 });

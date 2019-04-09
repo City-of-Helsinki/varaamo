@@ -1,69 +1,138 @@
 .date-picker {
+  position: relative;
   border: 1px solid $input-border;
-  display: flex;
+
+  &::after {
+    $arrow-size: 6px;
+    display: inline-block;
+    content: '';
+    position: absolute;
+    top: calc(50% - #{$arrow-size / 2});
+    right: 5px;
+    border-left: $arrow-size solid transparent;
+    border-right: $arrow-size solid transparent;
+    border-top: $arrow-size solid $white;
+    pointer-events: none;
+  }
+
   input {
-    // Width value won't be taken in account because date-picker display is flex
-    // and this element has a flex-grow, flex-shrink and flex-basis values.
-    width: 70%;
+    border: none;
+  }
+  
+  .date-picker-overlay {
+    background-color: white;
+    position: absolute;
+    z-index: 100;
+    border: solid 2px $brand-primary;;
+    padding: 20px;
   }
 
-  &.react-date-field--focused {
-    border-color: $input-border-focus;
-    box-shadow: $input-box-shadow-focus;
+  .DayPicker {
+    padding: 0;
+    overflow-x: hidden;
+    max-width: 400px;
+    margin: 0 auto;
+    width: 100%;
+  
+    &:focus {
+      outline: none;
+    }
   }
-
-  // Selected value
-  .react-date-picker__decade-view--theme-default,
-  .react-date-picker__year-view--theme-default,
-  .react-date-picker__month-view-day--value {
-    .react-date-picker__decade-view-year--value,
-    .react-date-picker__year-view-month--value,
-    .react-date-picker__month-view-day-text {
-      background-color: $brand-primary;
-
-      &:hover {
-        background-color: $brand-primary;
+  
+  .DayPicker-NavBar {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .DayPicker-Caption {
+    height: auto;
+    font-weight: 600;
+    line-height: 3rem;
+    font-size: 16px;
+    text-transform: capitalize;
+    text-align: center;
+  }
+  
+  .DayPicker-NavButton--prev {
+    @include icon-angle-left($black);
+    width: $line-height-computed;
+    height: $line-height-computed;
+    position: static;
+    margin-right: 0;
+  }
+  
+  .DayPicker-NavButton--next {
+    @include icon-angle-right($black);
+    width: $line-height-computed;
+    height: $line-height-computed;
+    position: static;
+  }
+  
+  .DayPicker-Month {
+    margin: 0;
+    border-collapse: separate;
+    width: 100%;
+  }
+  
+  .DayPicker-Day {
+    border: 2px solid $white;
+    margin: 1px;
+    line-height: 1rem;
+    color: $black;
+    background-color: $light-gray;
+    border-radius: 0;
+    font-size: 1.6rem;
+  
+    &:focus {
+      outline: none;
+    }
+    &--available:not(.DayPicker-Day--disabled) {
+      background-color: $light-gray;
+      &.DayPicker-Day--selected {
+        background-color: $light-gray;
       }
     }
-  }
-
-  // Active value
-  .react-date-picker__decade-view--theme-default,
-  .react-date-picker__year-view--theme-default,
-  .react-date-picker__month-view-day--active {
-    .react-date-picker__decade-view-year--active,
-    .react-date-picker__year-view-month--active,
-    .react-date-picker__month-view-day-text {
-      border-color: $brand-primary;
+    &--outside {
+      color: $medium-gray;
+    }
+    &--disabled {
+      cursor: pointer;
+      background-color: $medium-gray;
+      color: $dark-gray;
+    }
+    &--selected,
+    &--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+      color: $white;
+      background-color: $dark-gray;
     }
   }
-
-  // Regular
-  .react-date-picker__month-view--theme-default {
-    .react-date-picker__month-view-day-text {
-      // Forced line-height to center content in IE11
-      line-height: 36px;
-      &:hover {
-        background-color: lighten($brand-primary, 25%);
-      }
+  
+  .DayPicker-Day--today {
+    border: 2px solid $black;
+  }
+  
+  .DayPicker-WeekdaysRow {
+    padding: 0.2rem;
+    font-size: 1.4rem;
+  }
+  
+  .DayPicker-Weekdays {
+    text-transform: uppercase;
+    font-weight: normal;
+    abbr {
+      border: none;
+      cursor: default;
+      vertical-align: text-top;
     }
   }
-
-  > .react-date-field__picker {
-    // Forced width to avoid content hidden behind small container in IE11
-    width: 282px;
+  
+  .DayPicker-Weekday {
+    color: $black;
   }
-
-  &.form-control[readOnly] {
-    background-color: $white;
-  }
-
-  &--position-right {
-    > .react-date-field__picker.react-date-picker__calendar {
-      @media (min-width: $screen-sm-min) {
-        left: auto;
-        right: -1px;
-      }
-    }
+  
+  .DayPicker-WeekNumber {
+    font-size: 14px;
   }
 }

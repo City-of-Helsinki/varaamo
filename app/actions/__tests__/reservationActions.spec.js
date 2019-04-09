@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import simple from 'simple-mock';
 
 import * as apiUtils from 'utils/apiUtils';
@@ -16,9 +15,9 @@ describe('Actions: reservationActions', () => {
   });
 
   describe('deleteReservation', () => {
-    it('includes correct track in meta', () => {
+    test('includes correct track in meta', () => {
       reservationActions.deleteReservation(reservation);
-      expect(getRequestTypeDescriptorMock.lastCall.args[1].meta.track).to.deep.equal({
+      expect(getRequestTypeDescriptorMock.lastCall.args[1].meta.track).toEqual({
         event: 'trackEvent',
         args: [
           'Reservation',
@@ -29,9 +28,9 @@ describe('Actions: reservationActions', () => {
     });
   });
   describe('postReservation', () => {
-    it('includes correct track in meta', () => {
+    test('includes correct track in meta', () => {
       reservationActions.postReservation(reservation);
-      expect(getRequestTypeDescriptorMock.lastCall.args[1].meta.track).to.deep.equal({
+      expect(getRequestTypeDescriptorMock.lastCall.args[1].meta.track).toEqual({
         event: 'trackEvent',
         args: [
           'Reservation',
@@ -42,9 +41,9 @@ describe('Actions: reservationActions', () => {
     });
   });
   describe('putReservation', () => {
-    it('includes correct track in meta', () => {
+    test('includes correct track in meta', () => {
       reservationActions.putReservation(reservation);
-      expect(getRequestTypeDescriptorMock.lastCall.args[1].meta.track).to.deep.equal({
+      expect(getRequestTypeDescriptorMock.lastCall.args[1].meta.track).toEqual({
         event: 'trackEvent',
         args: [
           'Reservation',

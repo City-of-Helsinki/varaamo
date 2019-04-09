@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import {
   getFetchParamsFromFilters,
   pickSupportedFilters,
@@ -15,34 +13,34 @@ describe('Utils: searchUtils', () => {
       unsupported: 'filter',
     };
 
-    it('changes date to end and start', () => {
+    test('changes date to end and start', () => {
       const params = getFetchParamsFromFilters(filters);
       const { start, end } = getDateStartAndEndTimes(filters.date);
 
-      expect(params.start).to.equal(start);
-      expect(params.end).to.equal(end);
+      expect(params.start).toBe(start);
+      expect(params.end).toBe(end);
     });
 
-    it('does not return date', () => {
+    test('does not return date', () => {
       const params = getFetchParamsFromFilters(filters);
-      expect(params.date).to.not.exist;
+      expect(params.date).toBeFalsy();
     });
 
-    it('returns only supported filters beside end and start', () => {
+    test('returns only supported filters beside end and start', () => {
       const params = getFetchParamsFromFilters(filters);
-      expect(params.purpose).to.equal(filters.purpose);
-      expect(params.search).to.equal(filters.search);
-      expect(params.unsupported).to.not.exist;
+      expect(params.purpose).toBe(filters.purpose);
+      expect(params.search).toBe(filters.search);
+      expect(params.unsupported).toBeFalsy();
     });
 
-    it('returns purpose as empty string if filters.purpose is "all"', () => {
+    test('returns purpose as empty string if filters.purpose is "all"', () => {
       const params = getFetchParamsFromFilters({ purpose: 'all' });
-      expect(params.purpose).to.equal('');
+      expect(params.purpose).toBe('');
     });
   });
 
   describe('pickSupportedFilters', () => {
-    it('returns only supported filters', () => {
+    test('returns only supported filters', () => {
       const filters = {
         purpose: 'some-purpose',
         search: 'search-query',
@@ -53,7 +51,7 @@ describe('Utils: searchUtils', () => {
         search: 'search-query',
       };
 
-      expect(pickSupportedFilters(filters)).to.deep.equal(expected);
+      expect(pickSupportedFilters(filters)).toEqual(expected);
     });
   });
 });

@@ -2,10 +2,10 @@ import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import findIndex from 'lodash/findIndex';
 import moment from 'moment';
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import Col from 'react-bootstrap/lib/Col';
 import Panel from 'react-bootstrap/lib/Panel';
@@ -36,6 +36,7 @@ class UnconnectedResourcePage extends Component {
     };
 
     this.fetchResource = this.fetchResource.bind(this);
+    this.handleBackButton = this.handleBackButton.bind(this);
   }
 
   componentDidMount() {
@@ -56,28 +57,20 @@ class UnconnectedResourcePage extends Component {
     return `${image.url}?dim=${width}x${height}`;
   }
 
-  fetchResource(date = this.props.date) {
-    const { actions, id } = this.props;
-    const start = moment(date)
-      .subtract(2, 'M')
-      .startOf('month')
-      .format();
-    const end = moment(date)
-      .add(2, 'M')
-      .endOf('month')
-      .format();
-
-    actions.fetchResource(id, { start, end });
+  disableDays = (day) => {
+    const { resource: { reservableAfter } } = this.props;
+    const beforeDate = reservableAfter || moment();
+    return moment(day).isBefore(beforeDate);
   }
 
   handleDateChange = (newDate) => {
-    const { resource } = this.props;
+    const { resource, history } = this.props;
     const day = newDate.toISOString().substring(0, 10);
-    browserHistory.replace(getResourcePageUrl(resource, day));
+    history.replace(getResourcePageUrl(resource, day));
   };
 
   handleBackButton() {
-    browserHistory.goBack();
+    this.props.history.goBack();
   }
 
   handleImageClick(photoIndex) {
@@ -104,6 +97,7 @@ class UnconnectedResourcePage extends Component {
         <button
           className="app-ResourceInfo__image-button"
           onClick={() => this.handleImageClick(index)}
+          type="button"
         >
           <img
             alt={image.caption}
@@ -115,6 +109,20 @@ class UnconnectedResourcePage extends Component {
     );
   };
 
+  fetchResource(date = this.props.date) {
+    const { actions, id } = this.props;
+    const start = moment(date)
+      .subtract(2, 'M')
+      .startOf('month')
+      .format();
+    const end = moment(date)
+      .add(2, 'M')
+      .endOf('month')
+      .format();
+
+    actions.fetchResource(id, { start, end });
+  }
+
   render() {
     const {
       actions,
@@ -122,13 +130,14 @@ class UnconnectedResourcePage extends Component {
       isFetchingResource,
       isLoggedIn,
       location,
-      params,
+      match,
       resource,
       showMap,
       t,
       unit,
+      history,
     } = this.props;
-
+    const { params } = match;
     const { isOpen, photoIndex } = this.state;
 
     if (isEmpty(resource) && !isFetchingResource) {
@@ -168,13 +177,13 @@ class UnconnectedResourcePage extends Component {
             <PageWrapper title={resource.name || ''} transparent>
               <div>
                 <Col className="app-ResourcePage__content" lg={8} md={8} xs={12}>
-                  {mainImage &&
-                    this.renderImage(mainImage, mainImageIndex, {
+                  {mainImage
+                    && this.renderImage(mainImage, mainImageIndex, {
                       mainImageMobileVisibility: true,
                     })}
                   <ResourceInfo isLoggedIn={isLoggedIn} resource={resource} unit={unit} />
 
-                  <Panel collapsible defaultExpanded header={t('ResourceInfo.reserveTitle')}>
+                  <Panel defaultExpanded header={t('ResourceInfo.reserveTitle')}>
                     {resource.externalReservationUrl && (
                       <form action={resource.externalReservationUrl}>
                         <input
@@ -188,11 +197,16 @@ class UnconnectedResourcePage extends Component {
                       <div>
                         {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
                         <ResourceCalendar
+                          disableDays={this.disableDays}
                           onDateChange={this.handleDateChange}
                           resourceId={resource.id}
                           selectedDate={date}
                         />
-                        <ReservationCalendar location={location} params={params} />
+                        <ReservationCalendar
+                          history={history}
+                          location={location}
+                          params={params}
+                        />
                       </div>
                     )}
                   </Panel>
@@ -212,15 +226,13 @@ class UnconnectedResourcePage extends Component {
               mainSrc={images[photoIndex].url}
               nextSrc={images[(photoIndex + 1) % images.length].url}
               onCloseRequest={() => this.setState(() => ({ isOpen: false }))}
-              onMoveNextRequest={() =>
-                this.setState(state => ({
-                  photoIndex: (state.photoIndex + 1) % images.length,
-                }))
+              onMoveNextRequest={() => this.setState(state => ({
+                photoIndex: (state.photoIndex + 1) % images.length,
+              }))
               }
-              onMovePrevRequest={() =>
-                this.setState(state => ({
-                  photoIndex: (state.photoIndex + (images.length - 1)) % images.length,
-                }))
+              onMovePrevRequest={() => this.setState(state => ({
+                photoIndex: (state.photoIndex + (images.length - 1)) % images.length,
+              }))
               }
               prevSrc={images[(photoIndex + (images.length - 1)) % images.length].url}
               reactModalStyle={{ overlay: { zIndex: 2000 } }}
@@ -239,11 +251,12 @@ UnconnectedResourcePage.propTypes = {
   isFetchingResource: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
-  params: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   showMap: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
   unit: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 UnconnectedResourcePage = injectT(UnconnectedResourcePage); // eslint-disable-line
 

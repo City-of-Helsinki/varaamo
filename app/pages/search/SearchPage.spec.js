@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
@@ -27,9 +26,10 @@ describe('pages/search/SearchPage', () => {
       purpose: 'some-purpose',
     },
     location: {
-      query: {},
+      search: 'data:2015-10-10',
     },
-    params: {},
+    history: {},
+    match: { params: {} },
     position: null,
     resultCount: 2,
     searchDone: true,
@@ -47,42 +47,42 @@ describe('pages/search/SearchPage', () => {
   }
 
   describe('render', () => {
-    it('renders SearchControls with correct props', () => {
+    test('renders SearchControls with correct props', () => {
       const searchControls = getWrapper().find(SearchControls);
-      expect(searchControls.length).to.equal(1);
-      expect(searchControls.prop('location')).to.deep.equal(defaultProps.location);
-      expect(searchControls.prop('params')).to.deep.equal(defaultProps.params);
+      expect(searchControls.length).toBe(1);
+      expect(searchControls.prop('location')).toEqual(defaultProps.location);
+      expect(searchControls.prop('params')).toEqual(defaultProps.match.params);
     });
 
-    it('renders PageWrapper with correct props', () => {
+    test('renders PageWrapper with correct props', () => {
       const pageWrapper = getWrapper().find(PageWrapper);
-      expect(pageWrapper).to.have.length(1);
-      expect(pageWrapper.prop('className')).to.equal('app-SearchPage__wrapper');
-      expect(pageWrapper.prop('title')).to.equal('SearchPage.title');
-      expect(pageWrapper.prop('transparent')).to.be.true;
+      expect(pageWrapper).toHaveLength(1);
+      expect(pageWrapper.prop('className')).toBe('app-SearchPage__wrapper');
+      expect(pageWrapper.prop('title')).toBe('SearchPage.title');
+      expect(pageWrapper.prop('transparent')).toBe(true);
     });
 
-    it('renders a MapToggle component with correct props', () => {
+    test('renders a MapToggle component with correct props', () => {
       const mapToggle = getWrapper().find(MapToggle);
-      expect(mapToggle).to.have.length(1);
-      expect(mapToggle.props()).to.deep.equal({
+      expect(mapToggle).toHaveLength(1);
+      expect(mapToggle.props()).toEqual({
         mapVisible: defaultProps.showMap,
         onClick: defaultProps.actions.toggleMap,
         resultCount: defaultProps.resultCount,
       });
     });
 
-    it('renders a ResourceMap with correct props', () => {
+    test('renders a ResourceMap with correct props', () => {
       const props = {
         searchResultIds: Immutable(['resource-1', 'resource-2']),
         selectedUnitId: '123',
         showMap: true,
       };
       const resourceMap = getWrapper(props).find(ResourceMap);
-      expect(resourceMap).to.have.length(1);
-      expect(resourceMap.prop('showMap')).to.equal(true);
-      expect(resourceMap.prop('resourceIds')).to.deep.equal(props.searchResultIds);
-      expect(resourceMap.prop('selectedUnitId')).to.equal(props.selectedUnitId);
+      expect(resourceMap).toHaveLength(1);
+      expect(resourceMap.prop('showMap')).toBe(true);
+      expect(resourceMap.prop('resourceIds')).toEqual(props.searchResultIds);
+      expect(resourceMap.prop('selectedUnitId')).toBe(props.selectedUnitId);
     });
 
     describe('SearchResults', () => {
@@ -90,29 +90,29 @@ describe('pages/search/SearchPage', () => {
         return getWrapper(props).find(SearchResults);
       }
 
-      it('are not rendered when no search has been done', () => {
+      test('are not rendered when no search has been done', () => {
         const isFetchingSearchResults = false;
         const searchDone = false;
         const searchResults = getSearchResults({ isFetchingSearchResults, searchDone });
-        expect(searchResults.length).to.equal(0);
+        expect(searchResults.length).toBe(0);
       });
 
-      it('are rendered when fetching search results', () => {
+      test('are rendered when fetching search results', () => {
         const isFetchingSearchResults = true;
         const searchDone = false;
         const searchResults = getSearchResults({ isFetchingSearchResults, searchDone });
-        expect(searchResults.props().isFetching).to.equal(isFetchingSearchResults);
-        expect(searchResults.props().searchResultIds).to.deep.equal(defaultProps.searchResultIds);
+        expect(searchResults.props().isFetching).toBe(isFetchingSearchResults);
+        expect(searchResults.props().searchResultIds).toEqual(defaultProps.searchResultIds);
       });
 
-      it('are rendered when search is done', () => {
+      test('are rendered when search is done', () => {
         const isFetchingSearchResults = false;
         const searchDone = true;
         const searchResults = getSearchResults({ isFetchingSearchResults, searchDone });
-        expect(searchResults.props().isFetching).to.equal(isFetchingSearchResults);
-        expect(searchResults.props().resultCount).to.equal(defaultProps.resultCount);
-        expect(searchResults.props().searchResultIds).to.deep.equal(defaultProps.searchResultIds);
-        expect(searchResults.props().showMap).to.equal(defaultProps.showMap);
+        expect(searchResults.props().isFetching).toBe(isFetchingSearchResults);
+        expect(searchResults.props().resultCount).toBe(defaultProps.resultCount);
+        expect(searchResults.props().searchResultIds).toEqual(defaultProps.searchResultIds);
+        expect(searchResults.props().showMap).toBe(defaultProps.showMap);
       });
     });
   });
@@ -124,14 +124,14 @@ describe('pages/search/SearchPage', () => {
       instance.componentDidMount();
     }
 
-    it('fetches resources if searchDone is false', () => {
+    test('fetches resources if searchDone is false', () => {
       const searchResources = simple.mock();
       callComponentDidMount({ searchDone: false }, { searchResources });
-      expect(searchResources.callCount).to.equal(1);
-      expect(searchResources.lastCall.args).to.deep.equal([defaultProps.filters]);
+      expect(searchResources.callCount).toBe(1);
+      expect(searchResources.lastCall.args).toEqual([defaultProps.filters]);
     });
 
-    it('fetches resources if ui filters do not match url filters', () => {
+    test('fetches resources if ui filters do not match url filters', () => {
       const searchResources = simple.mock();
       const props = {
         filters: { people: 1 },
@@ -139,20 +139,20 @@ describe('pages/search/SearchPage', () => {
         searchDone: true,
       };
       callComponentDidMount(props, { searchResources });
-      expect(searchResources.callCount).to.equal(1);
-      expect(searchResources.lastCall.args).to.deep.equal([props.filters]);
+      expect(searchResources.callCount).toBe(1);
+      expect(searchResources.lastCall.args).toEqual([props.filters]);
     });
 
-    it('does not fetch resources otherwise', () => {
+    test('does not fetch resources otherwise', () => {
       const searchResources = simple.mock();
       callComponentDidMount({ searchDone: true }, { searchResources });
-      expect(searchResources.callCount).to.equal(0);
+      expect(searchResources.callCount).toBe(0);
     });
 
-    it('fetches units', () => {
+    test('fetches units', () => {
       const fetchUnits = simple.mock();
       callComponentDidMount({}, { fetchUnits });
-      expect(fetchUnits.callCount).to.equal(1);
+      expect(fetchUnits.callCount).toBe(1);
     });
 
     describe('scrolls to correct position', () => {
@@ -160,7 +160,7 @@ describe('pages/search/SearchPage', () => {
       const scrollToMock = simple.mock();
       const scrollTop = 123;
 
-      before(() => {
+      beforeAll(() => {
         const location = { state: { scrollTop } };
         const props = Object.assign({}, defaultProps, { location });
         simple.mock(window, 'setTimeout', setTimeoutMock);
@@ -168,21 +168,21 @@ describe('pages/search/SearchPage', () => {
         callComponentDidMount(props, {});
       });
 
-      after(() => {
+      afterAll(() => {
         simple.restore();
       });
 
-      it('calls setTimeout and scrolls to correct position', () => {
-        expect(setTimeoutMock.callCount).to.equal(1);
+      test('calls setTimeout and scrolls to correct position', () => {
+        expect(setTimeoutMock.callCount).toBe(1);
         const args = setTimeoutMock.lastCall.args;
-        expect(args).to.have.length(2);
-        expect(typeof args[0]).to.equal('function');
+        expect(args).toHaveLength(2);
+        expect(typeof args[0]).toBe('function');
         args[0]();
-        expect(scrollToMock.callCount).to.equal(1);
+        expect(scrollToMock.callCount).toBe(1);
         const args2 = scrollToMock.lastCall.args;
-        expect(args2).to.have.length(2);
-        expect(args2[0]).to.equal(0);
-        expect(args2[1]).to.equal(scrollTop);
+        expect(args2).toHaveLength(2);
+        expect(args2[0]).toBe(0);
+        expect(args2[1]).toBe(scrollTop);
       });
     });
   });
@@ -191,7 +191,7 @@ describe('pages/search/SearchPage', () => {
     describe('if isLoggedIn changed', () => {
       let nextProps;
 
-      before(() => {
+      beforeAll(() => {
         defaultProps.actions.changeSearchFilters.reset();
         defaultProps.actions.searchResources.reset();
         const instance = getWrapper().instance();
@@ -205,19 +205,19 @@ describe('pages/search/SearchPage', () => {
         instance.componentWillUpdate(nextProps);
       });
 
-      it('refetches search results', () => {
-        expect(defaultProps.actions.searchResources.callCount).to.equal(1);
+      test('refetches search results', () => {
+        expect(defaultProps.actions.searchResources.callCount).toBe(1);
       });
 
-      it('does not update search filters in state', () => {
-        expect(defaultProps.actions.changeSearchFilters.callCount).to.equal(0);
+      test('does not update search filters in state', () => {
+        expect(defaultProps.actions.changeSearchFilters.callCount).toBe(0);
       });
     });
 
     describe('if search filters did change and url has query part', () => {
       let nextProps;
 
-      before(() => {
+      beforeAll(() => {
         defaultProps.actions.changeSearchFilters.reset();
         defaultProps.actions.searchResources.reset();
         const instance = getWrapper().instance();
@@ -231,25 +231,25 @@ describe('pages/search/SearchPage', () => {
         instance.componentWillUpdate(nextProps);
       });
 
-      it('updates search filters in state with the new filters', () => {
+      test('updates search filters in state with the new filters', () => {
         const actualArg = defaultProps.actions.changeSearchFilters.lastCall.args[0];
 
-        expect(defaultProps.actions.changeSearchFilters.callCount).to.equal(1);
-        expect(actualArg).to.deep.equal(nextProps.filters);
+        expect(defaultProps.actions.changeSearchFilters.callCount).toBe(1);
+        expect(actualArg).toEqual(nextProps.filters);
       });
 
-      it('searches resources with given filters', () => {
+      test('searches resources with given filters', () => {
         const actualArg = defaultProps.actions.searchResources.lastCall.args[0];
 
-        expect(defaultProps.actions.searchResources.callCount).to.equal(1);
-        expect(actualArg).to.deep.equal(nextProps.filters);
+        expect(defaultProps.actions.searchResources.callCount).toBe(1);
+        expect(actualArg).toEqual(nextProps.filters);
       });
     });
 
     describe('if search filters did not change', () => {
       let nextProps;
 
-      before(() => {
+      beforeAll(() => {
         defaultProps.actions.changeSearchFilters.reset();
         defaultProps.actions.searchResources.reset();
         const instance = getWrapper().instance();
@@ -263,19 +263,19 @@ describe('pages/search/SearchPage', () => {
         instance.componentWillUpdate(nextProps);
       });
 
-      it('does not update search filters in state', () => {
-        expect(defaultProps.actions.changeSearchFilters.callCount).to.equal(0);
+      test('does not update search filters in state', () => {
+        expect(defaultProps.actions.changeSearchFilters.callCount).toBe(0);
       });
 
-      it('does not do a search', () => {
-        expect(defaultProps.actions.searchResources.callCount).to.equal(0);
+      test('does not do a search', () => {
+        expect(defaultProps.actions.searchResources.callCount).toBe(0);
       });
     });
 
     describe('if position changed', () => {
       let nextProps;
 
-      before(() => {
+      beforeAll(() => {
         defaultProps.actions.changeSearchFilters.reset();
         defaultProps.actions.searchResources.reset();
         const instance = getWrapper().instance();
@@ -291,18 +291,18 @@ describe('pages/search/SearchPage', () => {
         instance.componentWillUpdate(nextProps);
       });
 
-      it('refetches search results', () => {
-        expect(defaultProps.actions.searchResources.callCount).to.equal(1);
+      test('refetches search results', () => {
+        expect(defaultProps.actions.searchResources.callCount).toBe(1);
       });
 
-      it('includes position argument on searchResources call', () => {
-        expect(defaultProps.actions.searchResources.lastCall.args[0].lat).to.equal(12);
-        expect(defaultProps.actions.searchResources.lastCall.args[0].lon).to.equal(11);
+      test('includes position argument on searchResources call', () => {
+        expect(defaultProps.actions.searchResources.lastCall.args[0].lat).toBe(12);
+        expect(defaultProps.actions.searchResources.lastCall.args[0].lon).toBe(11);
       });
     });
 
     describe('if location state changed', () => {
-      before(() => {
+      beforeAll(() => {
         simple.mock(window, 'scrollTo');
         const instance = getWrapper().instance();
         const nextProps = {
@@ -316,13 +316,13 @@ describe('pages/search/SearchPage', () => {
         instance.componentWillUpdate(nextProps);
       });
 
-      after(() => {
+      afterAll(() => {
         simple.restore();
       });
 
-      it('scrolls to top of page', () => {
-        expect(window.scrollTo.callCount).to.equal(1);
-        expect(window.scrollTo.lastCall.args).to.deep.equal([0, 0]);
+      test('scrolls to top of page', () => {
+        expect(window.scrollTo.callCount).toBe(1);
+        expect(window.scrollTo.lastCall.args).toEqual([0, 0]);
       });
     });
   });

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 
@@ -15,31 +14,31 @@ function getWrapper(props) {
 }
 
 describe('shared/availability-view/GroupInfo', () => {
-  it('renders a div.group-info', () => {
+  test('renders a div.group-info', () => {
     const wrapper = getWrapper();
-    expect(wrapper.is('div.group-info')).to.be.true;
+    expect(wrapper.is('div.group-info')).toBe(true);
   });
 
-  it('renders name', () => {
+  test('renders name', () => {
     const name = 'Aleksanterinkatu 20';
     const element = getWrapper({ name }).find('.group-name');
-    expect(element).to.have.length(1);
-    expect(element.text()).to.equal(name);
+    expect(element).toHaveLength(1);
+    expect(element.text()).toBe(name);
   });
 
-  it('renders no resources if none given', () => {
+  test('renders no resources if none given', () => {
     const elements = getWrapper({ resources: [] }).find(ResourceInfoContainer);
-    expect(elements).to.have.length(0);
+    expect(elements).toHaveLength(0);
   });
 
-  it('renders given resources', () => {
+  test('renders given resources', () => {
     const date = '2016-05-02';
     const resources = ['abcd', 'efgh'];
     const elements = getWrapper({ date, resources }).find(ResourceInfoContainer);
-    expect(elements).to.have.length(2);
-    expect(elements.at(0).prop('date')).to.equal(date);
-    expect(elements.at(0).prop('id')).to.equal(resources[0]);
-    expect(elements.at(1).prop('date')).to.equal(date);
-    expect(elements.at(1).prop('id')).to.equal(resources[1]);
+    expect(elements).toHaveLength(2);
+    expect(elements.at(0).prop('date')).toBe(date);
+    expect(elements.at(0).prop('id')).toBe(resources[0]);
+    expect(elements.at(1).prop('date')).toBe(date);
+    expect(elements.at(1).prop('id')).toBe(resources[1]);
   });
 });

@@ -1,61 +1,165 @@
-// Increase specificity with class name repetition
-.Select.Select .Select-control {
-  border: 2px solid $input-border;
-  border-radius: 2px;
-  box-sizing: border-box;
+$selectBorderWidth: 2px;
+$selectBorderRadius: 2px;
+$selectBoxPadding: 0 0 0 8px;
+$selectLineHeight: 39px;
+$selectDropdownBorderWidth: 5px 5px 2.5px;
+$selectFocusedOptionColor: lighten($hel-fog, 15%);
+$selectFontSize: 30px;
+$selectDropdownWidth: 25px;
+$selectMenuPaddingTop: -2px;
+$selectDropdownAfterMarginTop: 4px;
+$selectDropdownPaddingRight: 4px;
 
-  .Select-value {
-    padding-left: 15px;
-    line-height: 39px;
-    color: $black;
-  }
+.app-Select {
+  display: flex;
+  flex: 1;
 
-  .Select-clear {
-    font-size: 30px;
-    color: #000000;
-  }
-  .Select-placeholder {
-    color: $dark-gray;
-  }
-}
-
-.has-value.has-value.Select--single:not(.is-disabled)
-  > .Select-control
-  .Select-value
-  .Select-value-label {
-  color: $black;
-}
-
-.Select {
-  &.is-focused:not(.is-open) > .Select-control {
-    border-color: $input-border-focus;
+  .app-Select__control {
+    border: $selectBorderWidth solid $input-border;
+    border-radius: $selectBorderRadius;
+    box-sizing: border-box;
+    background: transparent;
+    outline: none;
     box-shadow: none;
-  }
-}
+    flex: 1;
 
-.Select,
-.Select.is-open {
-  .Select-control {
-    background-color: $white;
-    border-color: $black;
-    border-radius: 0;
-    border-width: 2px;
-    height: 40px;
-    .Select-arrow,
-    .Select-arrow:hover {
-      border-color: $black transparent transparent;
+    &:hover {
+      border: $selectBorderWidth solid $input-border;
+    }
+
+    &--is-focused {
+      outline: none;
+      border-color: $input-border-focus;
+    }
+
+    &--menu-is-open {
+      border-color: $black;
+      border-radius: 0;
+      border-width: $selectBorderWidth;
+    }
+
+    &--is-disabled {
+      background-color: $silver;
+      border: $selectBorderWidth solid $dark-gray;
+      color: $dark-gray;
     }
   }
-  .Select-menu-outer {
-    border: 2px solid $black;
+
+  .app-Select__indicator-separator {
+    display: none;
+  }
+
+  .app-Select__clear-indicator {
+    font-size: $selectFontSize;
+    color: $black;
+    cursor: pointer;
+    padding: 0;
+    
+    &:hover {
+      color: $black;
+    }
+  }
+
+  .app-Select__indicators {
+    padding-right: $selectDropdownPaddingRight;
+  }
+  .app-Select__dropdown-indicator {
+    font-size: $selectFontSize;
+    color: $black;
+    display: flex;
+    justify-content: center;
+    width: $selectDropdownWidth;
+    height: 100%;
+    align-items: center;
+
+    &:hover {
+      color: $black;
+    }
+
+    &:after {
+      display: block;
+      content: "";
+      margin-top: $selectDropdownAfterMarginTop;
+      width: 0;
+      height: 0;
+      border-color: $black transparent transparent;
+      border-width: $selectDropdownBorderWidth;
+      border-style: solid;
+    }
+
+    svg {
+      display: none;
+    }
+  }
+
+  .app-Select__multi-value {
+    background: $black;
     border-radius: 0;
-    z-index: 10;
-    .Select-menu {
-      max-height: 196px;
-      .Select-option {
-        border-radius: 0;
-        color: $black;
+
+    &__label {
+      color: $white;
+    }
+
+    &__remove {
+      color: $white;
+      cursor: pointer;
+
+      &:hover {
+        color: $white;
+        background: transparent;
       }
     }
   }
+
+  .app-Select__placeholder {
+    color: $dark-gray;
+  }
+
+  .app-Select__menu {
+    margin-top: $selectMenuPaddingTop;
+    border: $selectBorderWidth solid $black;
+    border-radius: 0;
+    box-shadow: none;
+
+    &-list {
+      padding: 0;
+    }
+  }
+
+  .app-Select__option {
+    &:active,
+    &--is-focused {
+      background-color: $selectFocusedOptionColor;;
+      color: $black;
+    }
+
+    &--is-selected {
+      background-color: $hel-fog;
+      color: $black;
+    }
+  }
+
+  .app-Select__value-container--has-value {
+    .app-Select__single-value {
+      color: $black;
+    }
+  }
+  
+  .app-Select__value-container {
+    padding: $selectBoxPadding;
+  }
 }
+
+.app-SelectControl {
+  display: flex;
+  flex: 1;
+  height: 100%;
+
+  .form-group {
+    margin: 0 !important;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+}
+

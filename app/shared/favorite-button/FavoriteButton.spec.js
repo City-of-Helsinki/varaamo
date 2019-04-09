@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import simple from 'simple-mock';
@@ -17,37 +16,35 @@ describe('shared/favorite-button/FavoriteButton', () => {
   }
   let wrapper;
 
-  before(() => {
+  beforeAll(() => {
     wrapper = getWrapper();
   });
 
-  it('is a Button', () => {
-    expect(wrapper.is(Button)).to.be.true;
+  test('is a Button', () => {
+    expect(wrapper.is(Button)).toBe(true);
   });
 
-  it('has favorite-button class name', () => {
-    expect(getWrapper({ favorited: false }).prop('className')).to.equal('favorite-button');
+  test('has favorite-button class name', () => {
+    expect(getWrapper({ favorited: false }).prop('className')).toBe('favorite-button');
   });
 
-  it('has favorite class modifier if it is favorited', () => {
-    expect(getWrapper({ favorited: true }).prop('className')).to.equal(
-      'favorite-button favorite-button--favorite'
-    );
+  test('has favorite class modifier if it is favorited', () => {
+    expect(getWrapper({ favorited: true }).prop('className')).toBe('favorite-button favorite-button--favorite');
   });
 
-  it('passes onClick prop', () => {
-    expect(wrapper.prop('onClick')).to.deep.equal(defaultProps.onClick);
+  test('passes onClick prop', () => {
+    expect(wrapper.prop('onClick')).toEqual(defaultProps.onClick);
   });
 
-  it('has remove favorite text if favorited', () => {
+  test('has remove favorite text if favorited', () => {
     const buttonText = getWrapper({ favorited: true }).find('span');
-    expect(buttonText).to.have.length(1);
-    expect(buttonText.text()).to.equal('ResourceHeader.favoriteRemoveButton');
+    expect(buttonText).toHaveLength(1);
+    expect(buttonText.text()).toBe('ResourceHeader.favoriteRemoveButton');
   });
 
-  it('has add favorite text if not favorited', () => {
+  test('has add favorite text if not favorited', () => {
     const buttonText = getWrapper({ favorited: false }).find('span');
-    expect(buttonText).to.have.length(1);
-    expect(buttonText.text()).to.equal('ResourceHeader.favoriteAddButton');
+    expect(buttonText).toHaveLength(1);
+    expect(buttonText.text()).toBe('ResourceHeader.favoriteAddButton');
   });
 });

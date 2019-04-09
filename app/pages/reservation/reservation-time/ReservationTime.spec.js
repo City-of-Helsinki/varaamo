@@ -1,6 +1,4 @@
-import { expect } from 'chai';
 import React from 'react';
-import { browserHistory } from 'react-router';
 import simple from 'simple-mock';
 import moment from 'moment';
 
@@ -13,11 +11,16 @@ import Unit from 'utils/fixtures/Unit';
 import ReservationTime from './ReservationTime';
 
 describe('pages/reservation/reservation-time/ReservationTime', () => {
+  const history = {
+    replace: () => {},
+  };
+
   const defaultProps = {
+    history,
     location: {},
     onCancel: simple.mock(),
     onConfirm: simple.mock(),
-    params: {},
+    match: { params: {} },
     resource: Resource.build(),
     selectedReservation: Reservation.build(),
     unit: Unit.build(),
@@ -27,32 +30,32 @@ describe('pages/reservation/reservation-time/ReservationTime', () => {
     return shallowWithIntl(<ReservationTime {...defaultProps} {...extraProps} />);
   }
 
-  it('renders ResourceCalendar', () => {
+  test('renders ResourceCalendar', () => {
     const wrapper = getWrapper();
     const instance = wrapper.instance();
     const resourceCalendar = wrapper.find(ResourceCalendar);
     const date = moment(defaultProps.selectedReservation.begin).format('YYYY-MM-DD');
 
-    expect(resourceCalendar).to.have.length(1);
-    expect(resourceCalendar.prop('onDateChange')).to.equal(instance.handleDateChange);
-    expect(resourceCalendar.prop('selectedDate')).to.equal(date);
+    expect(resourceCalendar).toHaveLength(1);
+    expect(resourceCalendar.prop('onDateChange')).toBe(instance.handleDateChange);
+    expect(resourceCalendar.prop('selectedDate')).toBe(date);
   });
 
-  it('renders ReservationCalendar', () => {
+  test('renders ReservationCalendar', () => {
     const location = { query: { q: 1 } };
     const reservationCalendar = getWrapper({ location }).find(ReservationCalendar);
 
-    expect(reservationCalendar).to.have.length(1);
-    expect(reservationCalendar.prop('location')).to.deep.equal(location);
-    expect(reservationCalendar.prop('params')).to.deep.equal({ id: defaultProps.resource.id });
+    expect(reservationCalendar).toHaveLength(1);
+    expect(reservationCalendar.prop('location')).toEqual(location);
+    expect(reservationCalendar.prop('params')).toEqual({ id: defaultProps.resource.id });
   });
 
-  it('renders resource and unit names', () => {
+  test('renders resource and unit names', () => {
     const details = getWrapper().find('.app-ReservationDetails__value');
 
-    expect(details).to.have.length(1);
-    expect(details.props().children).to.contain(defaultProps.resource.name);
-    expect(details.props().children).to.contain(defaultProps.unit.name);
+    expect(details).toHaveLength(1);
+    expect(details.props().children).toEqual(expect.arrayContaining([defaultProps.resource.name]));
+    expect(details.props().children).toEqual(expect.arrayContaining([defaultProps.unit.name]));
   });
 
   describe('handleDateChange', () => {
@@ -60,21 +63,21 @@ describe('pages/reservation/reservation-time/ReservationTime', () => {
     const day = date.toISOString().substring(0, 10);
     const expectedPath = `/reservation?date=${day}&resource=${defaultProps.resource.id}`;
     let instance;
-    let browserHistoryMock;
+    let historyMock;
 
-    before(() => {
+    beforeAll(() => {
       instance = getWrapper().instance();
-      browserHistoryMock = simple.mock(browserHistory, 'replace');
+      historyMock = simple.mock(history, 'replace');
       instance.handleDateChange(date);
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls browserHistory replace with correct path', () => {
-      expect(browserHistoryMock.callCount).to.equal(1);
-      expect(browserHistoryMock.lastCall.args).to.deep.equal([expectedPath]);
+    test('calls history replace with correct path', () => {
+      expect(historyMock.callCount).toBe(1);
+      expect(historyMock.lastCall.args).toEqual([expectedPath]);
     });
   });
 });

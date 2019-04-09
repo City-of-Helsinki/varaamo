@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
@@ -25,22 +24,22 @@ describe('shared/favorite-button/FavoriteButtonContainer', () => {
   }
   let wrapper;
 
-  before(() => {
+  beforeAll(() => {
     wrapper = getWrapper();
   });
 
-  it('renders a FavoriteButton', () => {
-    expect(wrapper.is(FavoriteButton)).to.be.true;
+  test('renders a FavoriteButton', () => {
+    expect(wrapper.is(FavoriteButton)).toBe(true);
   });
 
-  it('has favorited prop', () => {
-    expect(wrapper.prop('favorited')).to.be.true;
+  test('has favorited prop', () => {
+    expect(wrapper.prop('favorited')).toBe(true);
   });
 
   describe('handleClick', () => {
     let instance;
 
-    before(() => {
+    beforeAll(() => {
       instance = wrapper.instance();
     });
 
@@ -49,17 +48,17 @@ describe('shared/favorite-button/FavoriteButtonContainer', () => {
       defaultProps.actions.favoriteResource.reset();
     });
 
-    it('gets passed as onClick prop', () => {
-      expect(wrapper.prop('onClick')).to.equal(instance.handleClick);
+    test('gets passed as onClick prop', () => {
+      expect(wrapper.prop('onClick')).toBe(instance.handleClick);
     });
 
-    it('calls unfavoriteResource if resource was favorite', () => {
+    test('calls unfavoriteResource if resource was favorite', () => {
       instance.handleClick();
-      expect(defaultProps.actions.unfavoriteResource.callCount).to.equal(1);
-      expect(defaultProps.actions.unfavoriteResource.lastCall.args).to.deep.equal(['123']);
+      expect(defaultProps.actions.unfavoriteResource.callCount).toBe(1);
+      expect(defaultProps.actions.unfavoriteResource.lastCall.args).toEqual(['123']);
     });
 
-    it('calls favoriteResource if resource was not favorite', () => {
+    test('calls favoriteResource if resource was not favorite', () => {
       const customInstance = getWrapper({
         resource: {
           id: '123',
@@ -67,8 +66,8 @@ describe('shared/favorite-button/FavoriteButtonContainer', () => {
         },
       }).instance();
       customInstance.handleClick();
-      expect(defaultProps.actions.favoriteResource.callCount).to.equal(1);
-      expect(defaultProps.actions.favoriteResource.lastCall.args).to.deep.equal(['123']);
+      expect(defaultProps.actions.favoriteResource.callCount).toBe(1);
+      expect(defaultProps.actions.favoriteResource.lastCall.args).toEqual(['123']);
     });
   });
 });

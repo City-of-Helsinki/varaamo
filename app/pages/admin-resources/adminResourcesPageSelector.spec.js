@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import moment from 'moment';
 
 import { getState } from 'utils/testUtils';
@@ -10,37 +9,37 @@ describe('pages/admin-resources/adminResourcesPageSelector', () => {
     return adminResourcesPageSelector(state);
   }
 
-  it('returns isAdmin', () => {
-    expect(getSelected().isAdmin).to.exist;
+  test('returns isAdmin', () => {
+    expect(getSelected().isAdmin).toBeDefined();
   });
 
-  it('returns isFetchingResources', () => {
-    expect(getSelected().isFetchingResources).to.exist;
+  test('returns isFetchingResources', () => {
+    expect(getSelected().isFetchingResources).toBeDefined();
   });
 
-  it('returns resources', () => {
-    expect(getSelected().resources).to.exist;
+  test('returns resources', () => {
+    expect(getSelected().resources).toBeDefined();
   });
 
-  it('returns selectedResourceTypes', () => {
-    expect(getSelected().selectedResourceTypes).to.exist;
+  test('returns selectedResourceTypes', () => {
+    expect(getSelected().selectedResourceTypes).toBeDefined();
   });
 
-  it('returns resourceTypes', () => {
-    expect(getSelected().resourceTypes).to.exist;
+  test('returns resourceTypes', () => {
+    expect(getSelected().resourceTypes).toBeDefined();
   });
 
-  it('returns date', () => {
+  test('returns date', () => {
     const selected = getSelected({ 'ui.pages.adminResources': { date: '2017-02-01' } });
-    expect(selected.date).to.equal('2017-02-01');
+    expect(selected.date).toBe('2017-02-01');
   });
 
-  it('returns current date by default', () => {
+  test('returns current date by default', () => {
     const current = moment().format('YYYY-MM-DD');
-    expect(getSelected().date).to.equal(current);
+    expect(getSelected().date).toBe(current);
   });
 
-  it('returns an array of resource ids ordered by translated name', () => {
+  test('returns an array of resource ids ordered by translated name', () => {
     const resource1 = { id: 1, name: { fi: 'Tatooine' }, type: { name: 'school' } };
     const resource2 = { id: 2, name: { fi: 'Dantooine' }, type: { name: 'library' } };
     const resource3 = { id: 3, name: { fi: 'Alderaan' }, type: { name: 'printer' } };
@@ -55,10 +54,10 @@ describe('pages/admin-resources/adminResourcesPageSelector', () => {
     };
     const expected = [3, 1];
     const selected = getSelected(extraState);
-    expect(selected.resources).to.deep.equal(expected);
+    expect(selected.resources).toEqual(expected);
   });
 
-  it('returns an array of resourceTypes', () => {
+  test('returns an array of resourceTypes', () => {
     const resource1 = { id: 1, name: { fi: 'Tatooine' }, type: { name: 'school' } };
     const resource2 = { id: 2, name: { fi: 'Dantooine' }, type: { name: 'library' } };
     const resource3 = { id: 3, name: { fi: 'Alderaan' }, type: { name: 'printer' } };
@@ -72,24 +71,27 @@ describe('pages/admin-resources/adminResourcesPageSelector', () => {
     };
     const expected = ['school', 'printer'];
     const selected = getSelected(extraState);
-    expect(selected.resourceTypes).to.deep.equal(expected);
+    expect(selected.resourceTypes).toEqual(expected);
   });
 
-  it('returns an array of selectedResourceTypes and filtered resourceIds', () => {
-    const resource1 = { id: 1, name: { fi: 'Tatooine' }, type: { name: 'school' } };
-    const resource2 = { id: 2, name: { fi: 'Dantooine' }, type: { name: 'library' } };
-    const resource3 = { id: 3, name: { fi: 'Alderaan' }, type: { name: 'printer' } };
-    const extraState = {
-      'data.resources': {
-        [resource1.id]: resource1,
-        [resource2.id]: resource2,
-        [resource3.id]: resource3,
-      },
-      'ui.pages.adminResources.selectedResourceTypes': ['school'],
-      'ui.pages.adminResources.resourceIds': [resource1.id, resource3.id],
-    };
-    const selected = getSelected(extraState);
-    expect(selected.selectedResourceTypes).to.deep.equal(['school']);
-    expect(selected.resources).to.deep.equal([1]);
-  });
+  test(
+    'returns an array of selectedResourceTypes and filtered resourceIds',
+    () => {
+      const resource1 = { id: 1, name: { fi: 'Tatooine' }, type: { name: 'school' } };
+      const resource2 = { id: 2, name: { fi: 'Dantooine' }, type: { name: 'library' } };
+      const resource3 = { id: 3, name: { fi: 'Alderaan' }, type: { name: 'printer' } };
+      const extraState = {
+        'data.resources': {
+          [resource1.id]: resource1,
+          [resource2.id]: resource2,
+          [resource3.id]: resource3,
+        },
+        'ui.pages.adminResources.selectedResourceTypes': ['school'],
+        'ui.pages.adminResources.resourceIds': [resource1.id, resource3.id],
+      };
+      const selected = getSelected(extraState);
+      expect(selected.selectedResourceTypes).toEqual(['school']);
+      expect(selected.resources).toEqual([1]);
+    }
+  );
 });

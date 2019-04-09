@@ -1,7 +1,8 @@
 import dragscroll from 'dragscroll';
 import throttle from 'lodash/throttle';
 import moment from 'moment';
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import TimelineGroup from './TimelineGroup';
 import utils from './TimelineGroup/utils';
@@ -75,7 +76,7 @@ export default class TimelineGroups extends React.Component {
         onScroll={this.handleScroll}
         ref={this.setElement}
       >
-        {this.props.groups.map(group =>
+        {this.props.groups.map(group => (
           <TimelineGroup
             date={this.props.date}
             key={group.name}
@@ -86,7 +87,7 @@ export default class TimelineGroups extends React.Component {
             selection={this.props.selection}
             {...group}
           />
-        )}
+        ))}
       </div>
     );
   }

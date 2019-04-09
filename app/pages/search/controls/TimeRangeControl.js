@@ -1,17 +1,23 @@
-import React, { PropTypes } from 'react';
-import Select from 'react-select';
-import moment from 'moment';
+import constants from 'constants/AppConstants';
+
+import PropTypes from 'prop-types';
+import React from 'react';
+import map from 'lodash/map';
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
 
 import { injectT } from 'i18n';
-import constants from 'constants/AppConstants';
 import { calculateDuration, calculateEndTime } from 'utils/timeUtils';
 import CheckboxControl from './CheckboxControl';
+import SelectControl from './SelectControl';
+
+const moment = extendMoment(Moment);
 
 class TimeRangeControl extends React.Component {
   static propTypes = {
     duration: PropTypes.number,
     end: PropTypes.string,
-    onChange: PropTypes.func.isRequired,
+    onConfirm: PropTypes.func.isRequired,
     onTimeRangeSwitch: PropTypes.func.isRequired,
     start: PropTypes.string,
     t: PropTypes.func.isRequired,
@@ -54,16 +60,17 @@ class TimeRangeControl extends React.Component {
     const end = moment(endTime);
     const durationStart = moment(timePeriod, timePeriodType);
     const range = moment.range(durationStart, end);
-    const duration = moment.duration(timePeriod, timePeriodType);
-    const options = [];
-    range.by(duration, (time) => {
+
+    const options = map(Array.from(range.by(timePeriodType, { step: timePeriod })), (time) => {
       const hours = time.diff(start, 'hours', true);
       const minutes = time.diff(start, 'minutes', true);
-      options.push({
+
+      return {
         label: `${hours} h`,
         value: minutes,
-      });
+      };
     });
+
     return options;
   }
 
@@ -75,45 +82,54 @@ class TimeRangeControl extends React.Component {
 
   getTimeOptions(start, end) {
     const range = moment.range(start, end);
-    const duration = moment.duration(constants.FILTER.timePeriod, constants.FILTER.timePeriodType);
-    const options = [];
-    range.by(duration, (time) => {
-      const value = time.format(constants.FILTER.timeFormat);
-      options.push({
-        label: value,
-        value,
-      });
-    });
+    const options = map(
+      Array.from(range.by(constants.FILTER.timePeriodType, { step: constants.FILTER.timePeriod })),
+      (time) => {
+        const value = time.format(constants.FILTER.timeFormat);
+
+        return {
+          label: value,
+          value,
+        };
+      }
+    );
+
     return options;
-  }
-
-  handleDuration(option) {
-    const duration = option.value;
-    const { end, onChange, start } = this.props;
-    onChange({ duration, end, start });
-  }
-
-  handleEnd(option) {
-    const end = option.value;
-    const { duration, onChange, start } = this.props;
-    const durationValue = calculateDuration(duration, start, end);
-    onChange({ duration: durationValue, end, start });
-  }
-
-  handleStart(option) {
-    const start = option.value;
-    const { duration, end, onChange } = this.props;
-    const endValue = calculateEndTime(end, start);
-    const durationValue = calculateDuration(duration, start, endValue);
-    onChange({ duration: durationValue, end: endValue, start });
   }
 
   handleToggleChange = (value) => {
     this.props.onTimeRangeSwitch(value);
   };
 
+  handleDuration(option) {
+    const duration = option.value;
+    const { end, onConfirm, start } = this.props;
+    onConfirm({ duration, end, start });
+  }
+
+  handleEnd(option) {
+    const end = option.value;
+    const { duration, onConfirm, start } = this.props;
+    const durationValue = calculateDuration(duration, start, end);
+    onConfirm({ duration: durationValue, end, start });
+  }
+
+  handleStart(option) {
+    const { duration, end, onConfirm } = this.props;
+    const start = option.value;
+    const endValue = calculateEndTime(end, start);
+    const durationValue = calculateDuration(duration, start, endValue);
+    onConfirm({ duration: durationValue, end: endValue, start });
+  }
+
   render() {
-    const { duration, end, start, t, useTimeRange } = this.props;
+    const {
+      duration, end, start, t, useTimeRange
+    } = this.props;
+
+    const startTimeOptions = this.getStartTimeOptions();
+    const endTimeOptions = this.getEndTimeOptions();
+    const durationOptions = this.getDurationOptions();
 
     return (
       <div className="app-TimeRangeControl">
@@ -126,38 +142,39 @@ class TimeRangeControl extends React.Component {
           value={useTimeRange}
         />
         <div className="app-TimeRangeControl__range">
-          <Select
+          <SelectControl
             className="app-TimeRangeControl__range-start"
-            clearable={false}
-            disabled={!useTimeRange}
-            name="time-filter-start-select"
+            id="time-filter-start-select"
+            isClearable={false}
+            isDisabled={!useTimeRange}
+            isSearchable={false}
             onChange={this.handleStart}
-            options={this.getStartTimeOptions()}
+            options={startTimeOptions}
             placeholder=""
-            searchable={false}
             value={start}
           />
           <div className="app-TimeRangeControl__range-separator">-</div>
-          <Select
+          <SelectControl
             className="app-TimeRangeControl__range-end"
-            clearable={false}
-            disabled={!useTimeRange}
-            name="time-filter-end-select"
+            id="time-filter-end-select"
+            isClearable={false}
+            isDisabled={!useTimeRange}
+            isSearchable={false}
             onChange={this.handleEnd}
-            options={this.getEndTimeOptions()}
+            options={endTimeOptions}
             placeholder=""
             searchable={false}
             value={end}
           />
-          <Select
+          <SelectControl
             className="app-TimeRangeControl__range-duration"
-            clearable={false}
-            disabled={!useTimeRange}
-            name="time-filter-duration-select"
+            id="time-filter-duration-select"
+            isClearable={false}
+            isDisabled={!useTimeRange}
+            isSearchable={false}
             onChange={this.handleDuration}
-            options={this.getDurationOptions()}
+            options={durationOptions}
             placeholder=""
-            searchable={false}
             value={duration}
           />
         </div>

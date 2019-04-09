@@ -1,6 +1,8 @@
-import React, { PropTypes } from 'react';
-
 import constants from 'constants/AppConstants';
+
+import PropTypes from 'prop-types';
+import React from 'react';
+
 import { getCurrentCustomization } from 'utils/customizationUtils';
 
 function FeedbackLink({ children }) {

@@ -1,7 +1,6 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
-import { DateField, DatePicker as RDPDatePicker } from 'react-date-picker';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
 import simple from 'simple-mock';
 
 import DatePicker from './DatePicker';
@@ -17,39 +16,21 @@ function getWrapper(props) {
 describe('shared/date-picker/DatePicker', () => {
   describe('DateField', () => {
     function getDateFieldWrapper(props) {
-      return getWrapper(props).find(DateField);
+      return getWrapper(props).find(DayPickerInput);
     }
 
-    it('is rendered', () => {
-      expect(getDateFieldWrapper()).to.have.length(1);
+    test('is rendered', () => {
+      expect(getDateFieldWrapper()).toHaveLength(1);
     });
 
-    it('has value in localized date format', () => {
-      const value = '2016-12-12';
-      const expected = '12.12.2016';
-      expect(getDateFieldWrapper({ value }).prop('value')).to.equal(expected);
-    });
-
-    it('has value custom date format', () => {
-      const dateFormat = 'YYYY.MM.DD';
-      const value = '2016-12-12';
-      const expected = '2016.12.12';
-      expect(getDateFieldWrapper({ dateFormat, value }).prop('value')).to.equal(expected);
-    });
-
-    it('changing date calls onChange with date in correct format', () => {
+    test('changing date calls onDayChange with date in correct format', () => {
       const onChange = simple.mock();
       const dateField = getDateFieldWrapper({ onChange });
-      const newDate = '12.12.2016';
-      const expectedDate = '2016-12-12';
-      dateField.prop('onChange')(newDate);
-      expect(onChange.callCount).to.equal(1);
-      expect(onChange.lastCall.arg).to.deep.equal(expectedDate);
+      const newDate = '2011-10-05T14:48:00.000Z';
+      const expectedDate = '2011-10-05';
+      dateField.prop('onDayChange')(newDate);
+      expect(onChange.callCount).toBe(1);
+      expect(onChange.lastCall.arg).toBe(expectedDate);
     });
-  });
-
-  it('renders a react-date-picker DatePicker', () => {
-    const datePicker = getWrapper().find(RDPDatePicker);
-    expect(datePicker).to.have.length(1);
   });
 });

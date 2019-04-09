@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import Panel from 'react-bootstrap/lib/Panel';
 import Immutable from 'seamless-immutable';
@@ -32,35 +31,33 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
     return shallowWithIntl(<ResourceInfo {...defaultProps} {...extraProps} />);
   }
 
-  it('renders resource description as WrappedText', () => {
+  test('renders resource description as WrappedText', () => {
     const wrappedText = getWrapper()
       .find('.app-ResourceInfo__description')
       .find(WrappedText);
     const expectedText = defaultProps.resource.description;
 
-    expect(wrappedText).to.have.length(1);
-    expect(wrappedText.prop('text')).to.equal(expectedText);
-    expect(wrappedText.prop('openLinksInNewTab')).to.equal(true);
+    expect(wrappedText).toHaveLength(1);
+    expect(wrappedText.prop('text')).toBe(expectedText);
+    expect(wrappedText.prop('openLinksInNewTab')).toBe(true);
   });
 
-  it('renders collapsible panels with correct props', () => {
+  test('renders panels with correct header text', () => {
     const panels = getWrapper().find(Panel);
 
-    expect(panels).to.have.length(2);
-    expect(panels.at(0).prop('header')).to.equal('ResourceInfo.reservationTitle');
-    expect(panels.at(0).prop('collapsible')).to.be.true;
-    expect(panels.at(1).prop('header')).to.equal('ResourceInfo.additionalInfoTitle');
-    expect(panels.at(1).prop('collapsible')).to.be.true;
+    expect(panels).toHaveLength(2);
+    expect(panels.at(0).prop('header')).toBe('ResourceInfo.reservationTitle');
+    expect(panels.at(1).prop('header')).toBe('ResourceInfo.additionalInfoTitle');
   });
 
-  it('renders ReservationInfo with correct props', () => {
+  test('renders ReservationInfo with correct props', () => {
     const reservationInfo = getWrapper().find(ReservationInfo);
-    expect(reservationInfo).to.have.length(1);
-    expect(reservationInfo.prop('isLoggedIn')).to.equal(defaultProps.isLoggedIn);
-    expect(reservationInfo.prop('resource')).to.deep.equal(defaultProps.resource);
+    expect(reservationInfo).toHaveLength(1);
+    expect(reservationInfo.prop('isLoggedIn')).toBe(defaultProps.isLoggedIn);
+    expect(reservationInfo.prop('resource')).toEqual(defaultProps.resource);
   });
 
-  it('renders the unit name and address', () => {
+  test('renders the unit name and address', () => {
     const unit = Unit.build({
       addressZip: '99999',
       municipality: 'helsinki',
@@ -71,13 +68,13 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
       .find('.app-ResourceInfo__address')
       .find('span');
 
-    expect(addressSpan).to.have.length(3);
-    expect(addressSpan.at(0).text()).to.equal(unit.name);
-    expect(addressSpan.at(1).text()).to.equal(unit.streetAddress);
-    expect(addressSpan.at(2).text()).to.equal('99999 Helsinki');
+    expect(addressSpan).toHaveLength(3);
+    expect(addressSpan.at(0).text()).toBe(unit.name);
+    expect(addressSpan.at(1).text()).toBe(unit.streetAddress);
+    expect(addressSpan.at(2).text()).toBe('99999 Helsinki');
   });
 
-  it('renders web address', () => {
+  test('renders web address', () => {
     const unit = Unit.build({
       id: 'abc:123',
       addressZip: '99999',
@@ -90,12 +87,12 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
       .find('.app-ResourceInfo__www')
       .find('a');
 
-    expect(link).to.have.length(1);
-    expect(link.prop('href')).to.equal(unit.wwwUrl);
-    expect(link.prop('target')).to.equal('_blank');
+    expect(link).toHaveLength(1);
+    expect(link.prop('href')).toBe(unit.wwwUrl);
+    expect(link.prop('target')).toBe('_blank');
   });
 
-  it('renders service map link', () => {
+  test('renders service map link', () => {
     const unit = Unit.build({
       id: 'abc:123',
       addressZip: '99999',
@@ -109,16 +106,16 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
       .find('.app-ResourceInfo__servicemap')
       .find('a');
 
-    expect(link).to.have.length(1);
-    expect(link.prop('href')).to.equal(expected);
-    expect(link.prop('target')).to.equal('_blank');
+    expect(link).toHaveLength(1);
+    expect(link.prop('href')).toBe(expected);
+    expect(link.prop('target')).toBe('_blank');
   });
 
-  it('does not render service map link if unit empty', () => {
+  test('does not render service map link if unit empty', () => {
     const link = getWrapper({ unit: {} })
       .find('.app-ResourceInfo__servicemap')
       .find('a');
 
-    expect(link).to.have.length(0);
+    expect(link).toHaveLength(0);
   });
 });

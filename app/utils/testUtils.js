@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import forEach from 'lodash/forEach';
 import forIn from 'lodash/forIn';
@@ -8,7 +7,7 @@ import merge from 'lodash/merge';
 import set from 'lodash/set';
 import React from 'react';
 import { IntlProvider } from 'react-intl';
-import { CALL_API } from 'redux-api-middleware';
+import { RSAA } from 'redux-api-middleware';
 
 import rootReducer from 'state/rootReducer';
 import enMessages from 'i18n/messages/en.json';
@@ -70,42 +69,44 @@ function createApiTest(options) {
     let action;
     let callAPI;
 
-    before(() => {
+    beforeAll(() => {
       action = options.action.apply(null, options.args);
-      callAPI = action[CALL_API];
+      callAPI = action[RSAA];
     });
 
-    it('returns an object with a CALL_API key', () => {
-      expect(callAPI).to.exist;
+    test('returns an object with a RSAA key', () => {
+      expect(callAPI).toBeDefined();
     });
 
-    tests.method && it(`uses ${tests.method}`, () => {
-      expect(callAPI.method).to.equal(tests.method);
+    tests.method && test(`uses ${tests.method}`, () => {
+      expect(callAPI.method).toBe(tests.method);
     });
 
-    tests.body && it('has correct body', () => {
+    tests.body && test('has correct body', () => {
       const body = (
-        tests.body instanceof Object ?
-          JSON.parse(callAPI.body) :
-          callAPI.body
+        tests.body instanceof Object
+          ? JSON.parse(callAPI.body)
+          : callAPI.body
       );
-      expect(body).to.deep.equal(tests.body);
+      expect(body).toEqual(tests.body);
     });
 
-    tests.endpoint && it('uses correct endpoint', () => {
-      expect(callAPI.endpoint).to.equal(tests.endpoint);
+    tests.endpoint && test('uses correct endpoint', () => {
+      expect(callAPI.endpoint).toBe(tests.endpoint);
     });
 
-    tests.meta && it('has correct meta', () => {
-      expect(action.meta).to.deep.equal(tests.meta);
+    tests.meta && test('has correct meta', () => {
+      expect(action.meta).toEqual(tests.meta);
     });
 
     describe('types', () => {
       const mockAction = {
-        [CALL_API]: {
-          types: [{ type: (
-            (tests.request && tests.request.type) || 'Specify request.type'
-          ) }],
+        [RSAA]: {
+          types: [{
+            type: (
+              (tests.request && tests.request.type) || 'Specify request.type'
+            )
+          }],
         },
       };
 
@@ -114,12 +115,12 @@ function createApiTest(options) {
           const actionTests = tests[actionTypeName];
           const extraTests = actionTests.extra && actionTests.extra.tests;
           let typeAction;
-          before(() => {
+          beforeAll(() => {
             typeAction = callAPI.types[index];
           });
 
-          actionTests.type && it('has correct type', () => {
-            expect(typeAction.type).to.equal(actionTests.type);
+          actionTests.type && test('has correct type', () => {
+            expect(typeAction.type).toBe(actionTests.type);
           });
 
           extraTests && forIn(extraTests, (value, name) => {
@@ -127,17 +128,17 @@ function createApiTest(options) {
               typeAction,
               mockAction,
               meta: (
-                actionTypeName === 'request' ?
-                  typeAction.meta :
-                  typeAction.meta(mockAction)
+                actionTypeName === 'request'
+                  ? typeAction.meta
+                  : typeAction.meta(mockAction)
               ),
             });
             const func = (
-              value.length === 2 ?
-              done => value(getParams(), done) :
-              () => value(getParams())
+              value.length === 2
+                ? done => value(getParams(), done)
+                : () => value(getParams())
             );
-            it(name, func);
+            test(name, func);
           });
 
           actionTypeName === 'success' && describe('payload', () => {
@@ -147,7 +148,7 @@ function createApiTest(options) {
             const payloadTests = actionTests.payload || {};
             const jsonData = payloadTests.data || {};
 
-            before(() => {
+            beforeAll(() => {
               payload = typeAction.payload;
               response = {
                 headers: {
@@ -161,17 +162,17 @@ function createApiTest(options) {
               promise = payload({ type: actionTests.type }, {}, response);
             });
 
-            it('exists', () => {
-              expect(payload).to.exist;
+            test('exists', () => {
+              expect(payload).toBeDefined();
             });
 
             payloadTests.tests && forIn(payloadTests.tests, (value, name) => {
               const func = (
-                value.length === 2 ?
-                done => value({ promise, payload, response }, done) :
-                () => value({ promise, payload, response })
+                value.length === 2
+                  ? done => value({ promise, payload, response }, done)
+                  : () => value({ promise, payload, response })
               );
-              it(name, func);
+              test(name, func);
             });
           });
         });
@@ -205,15 +206,15 @@ function getState(extraState = {}) {
 }
 
 function makeButtonTests(button, name, expectedText, expectedOnClickFunction) {
-  it(`is an ${name} button`, () => {
-    expect(button.props().children).to.equal(expectedText);
+  test(`is an ${name} button`, () => {
+    expect(button.props().children).toBe(expectedText);
   });
 
-  it('clicking the button calls correct onClick function', () => {
+  test('clicking the button calls correct onClick function', () => {
     expectedOnClickFunction.reset();
     button.props().onClick();
 
-    expect(expectedOnClickFunction.callCount).to.equal(1);
+    expect(expectedOnClickFunction.callCount).toBe(1);
   });
 }
 

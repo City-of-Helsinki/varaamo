@@ -1,117 +1,13 @@
 .app-Label {
   display: inline-block;
-  height: $element-size-medium;
-  line-height: $element-size-medium;
-  padding: 0 15px;
-  color: $white;
-  background: $medium-gray;
 
-  // Shapes
-  // ------
-
-  &--shape-default {
-    border-radius: 8px;
+  .label {
+    color: #fff;
   }
 
-  &--shape-circle {
-    width: $element-size-medium;
-    padding: 0;
-    border-radius: 50%;
-    text-align: center;
-  }
-
-  &--shape-rounded {
-    border-radius: 30px;
-  }
-
-  // Sizes
-  // ------
-
-  &--size-small {
-    height: $element-size-small;
-    line-height: $element-size-small;
-    font-size: 1.4rem;
-    padding: 0 12px;
-
-    &.app-Label--shape-default {
-      border-radius: 6px;
+  &.unpublished-label {
+    .label {
+      color: #000;
     }
-
-    &.app-Label--shape-circle {
-      width: $element-size-small;
-      padding: 0;
-    }
-  }
-
-  &--size-mini {
-    height: $element-size-mini;
-    line-height: $element-size-mini;
-    font-size: 1.2rem;
-    padding: 0 8px;
-
-    &.app-Label--shape-default {
-      border-radius: 5px;
-    }
-
-    &.app-Label--shape-circle {
-      width: $element-size-mini;
-      padding: 0;
-    }
-  }
-
-  // Themes
-  // ------
-
-  &--theme-blue {
-    color: $white;
-    background-color: $blue;
-  }
-
-  &--theme-copper {
-    color: $white;
-    background-color: $copper;
-  }
-
-  &--theme-gold {
-    color: $white;
-    background-color: $gold;
-  }
-
-  &--theme-green {
-    color: $white;
-    background-color: $green;
-  }
-
-  &--theme-inverse {
-    color: $white;
-    background-color: $brand-primary;
-    border: 2px solid $white;
-    line-height: $element-size-medium - 4px;
-    &.app-Label--size-small {
-      line-height: $element-size-small - 4px;
-    }
-    &.app-Label--size-mini {
-      line-height: $element-size-mini - 4px;
-    }
-  }
-
-  &--theme-orange {
-    color: $white;
-    background-color: $orange;
-  }
-
-  &--theme-pink {
-    color: $white;
-    background-color: $pink;
-  }
-
-  &--theme-red {
-    color: $white;
-    background-color: $red;
-  }
-
-  &--theme-yellow {
-    color: $white;
-    background-color: $yellow;
   }
 }

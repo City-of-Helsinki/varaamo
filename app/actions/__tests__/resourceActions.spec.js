@@ -1,7 +1,6 @@
-import { expect } from 'chai';
+import types from 'constants/ActionTypes';
 
 import { favoriteResource, unfavoriteResource } from 'actions/resourceActions';
-import types from 'constants/ActionTypes';
 import { buildAPIUrl } from 'utils/apiUtils';
 import { createApiTest } from 'utils/testUtils';
 
@@ -24,7 +23,7 @@ describe('Actions: resourceActions', () => {
           extra: {
             tests: {
               'contains resource id in meta': ({ meta }) => {
-                expect(meta.id).to.equal(resourceId);
+                expect(meta.id).toBe(resourceId);
               },
             },
           },
@@ -54,7 +53,7 @@ describe('Actions: resourceActions', () => {
           extra: {
             tests: {
               'contains resource id in meta': ({ meta }) => {
-                expect(meta.id).to.equal(resourceId);
+                expect(meta.id).toBe(resourceId);
               },
             },
           },

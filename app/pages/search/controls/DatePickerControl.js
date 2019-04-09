@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
@@ -32,6 +33,8 @@ class DatePickerControl extends React.Component {
   componentWillUpdate(nextProps) {
     const { date } = nextProps;
     if (date !== this.props.date) {
+      // TODO: fix this lint
+      // eslint-disable-next-line react/no-will-update-set-state
       this.setState({ date });
     }
   }
@@ -81,12 +84,12 @@ class DatePickerControl extends React.Component {
           <SearchControlOverlay onHide={this.hideOverlay} title={t('DatePickerControl.header')}>
             <DayPicker
               disabledDays={day => new Date(day).setHours(23, 59, 59, 59) < new Date()}
-              enableOutsideDays
               initialMonth={selectedDay}
               locale={currentLanguage}
               localeUtils={MomentLocaleUtils}
               onDayClick={this.handleConfirm}
               selectedDays={selectedDay}
+              showOutsideDays
               showWeekNumbers
             />
           </SearchControlOverlay>

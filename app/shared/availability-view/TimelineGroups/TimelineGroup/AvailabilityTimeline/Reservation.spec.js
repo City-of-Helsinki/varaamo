@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import moment from 'moment';
 import React from 'react';
@@ -7,7 +6,6 @@ import Popover from 'react-bootstrap/lib/Popover';
 import simple from 'simple-mock';
 
 import Reservation from './Reservation';
-import Link from './Link';
 import utils from '../utils';
 
 function getOuterWrapper(props) {
@@ -16,7 +14,7 @@ function getOuterWrapper(props) {
     end: '2016-01-01T12:00:00Z',
     eventSubject: 'Meeting',
     id: 12345,
-    onClick: () => {},
+    onClick: () => { },
   };
   return shallow(<Reservation {...defaults} {...props} />);
 }
@@ -26,28 +24,28 @@ function getWrapper(props) {
 }
 
 describe('shared/availability-view/Reservation', () => {
-  it('renders a div.reservation', () => {
+  test('renders a span.reservation', () => {
     const wrapper = getWrapper();
-    expect(wrapper.is('div.reservation')).to.be.true;
+    expect(wrapper.is('span.reservation')).toBe(true);
   });
 
-  it('renders a link', () => {
+  test('renders a button', () => {
     const wrapper = getOuterWrapper();
-    expect(wrapper.is(Link)).to.be.true;
+    expect(wrapper.is('button')).toBe(true);
   });
 
-  it('renders an OverlayTrigger', () => {
+  test('renders an OverlayTrigger', () => {
     const trigger = getOuterWrapper().find(OverlayTrigger);
-    expect(trigger).to.have.length(1);
+    expect(trigger).toHaveLength(1);
   });
 
-  it('renders a popover', () => {
+  test('renders a popover', () => {
     const overlayTrigger = getOuterWrapper().find(OverlayTrigger);
     const overlay = overlayTrigger.prop('overlay');
-    expect(overlay.type).to.equal(Popover);
+    expect(overlay.type).toBe(Popover);
   });
 
-  it('on click it calls prop.onClick and passes reservation data', () => {
+  test('on click it calls prop.onClick and passes reservation data', () => {
     const onClick = simple.mock();
     const reservation = {
       begin: '2016-01-01T10:00:00Z',
@@ -60,46 +58,58 @@ describe('shared/availability-view/Reservation', () => {
     };
     const wrapper = getOuterWrapper({ ...reservation, onClick });
     const onClickProp = wrapper.prop('onClick');
-    expect(onClick.callCount).to.equal(0);
+    expect(onClick.callCount).toBe(0);
     onClickProp();
-    expect(onClick.callCount).to.equal(1);
-    expect(onClick.lastCall.args[0]).to.deep.equal(reservation);
+    expect(onClick.callCount).toBe(1);
+    expect(onClick.lastCall.args[0]).toEqual(reservation);
   });
 
-  it('adds class with-comments to reservation-link if reservation has comments', () => {
-    const reservation = {
-      begin: '2016-01-01T10:00:00Z',
-      end: '2016-01-01T12:00:00Z',
-      eventSubject: 'Meeting',
-      id: 12345,
-      comments: 'comment',
-    };
-    const element = getOuterWrapper({ ...reservation }).find('.with-comments');
-    expect(element).to.have.length(1);
-  });
+  test(
+    'adds class with-comments to reservation-link if reservation has comments',
+    () => {
+      const reservation = {
+        begin: '2016-01-01T10:00:00Z',
+        end: '2016-01-01T12:00:00Z',
+        eventSubject: 'Meeting',
+        id: 12345,
+        comments: 'comment',
+      };
+      const element = getOuterWrapper({ ...reservation }).find('.with-comments');
+      expect(element).toHaveLength(1);
+    }
+  );
 
-  it('does not add class with-comments to reservation-link if reservation has no comments', () => {
-    const reservation = {
-      begin: '2016-01-01T10:00:00Z',
-      end: '2016-01-01T12:00:00Z',
-      eventSubject: 'Meeting',
-      id: 12345,
-    };
-    const element = getOuterWrapper({ ...reservation }).find('.with-comments');
-    expect(element).to.have.length(0);
-  });
+  test(
+    'does not add class with-comments to reservation-link if reservation has no comments',
+    () => {
+      const reservation = {
+        begin: '2016-01-01T10:00:00Z',
+        end: '2016-01-01T12:00:00Z',
+        eventSubject: 'Meeting',
+        id: 12345,
+      };
+      const element = getOuterWrapper({ ...reservation }).find('.with-comments');
+      expect(element).toHaveLength(0);
+    }
+  );
 
-  it('adds class requested to reservation if reservation state is requested', () => {
-    const element = getWrapper({ state: 'requested' }).find('.requested');
-    expect(element).to.have.length(1);
-  });
+  test(
+    'adds class requested to reservation if reservation state is requested',
+    () => {
+      const element = getWrapper({ state: 'requested' }).find('.requested');
+      expect(element).toHaveLength(1);
+    }
+  );
 
-  it('does not add class requested to reservation if reservation state is not requested', () => {
-    const element = getWrapper({ state: 'approved' }).find('.requested');
-    expect(element).to.have.length(0);
-  });
+  test(
+    'does not add class requested to reservation if reservation state is not requested',
+    () => {
+      const element = getWrapper({ state: 'approved' }).find('.requested');
+      expect(element).toHaveLength(0);
+    }
+  );
 
-  it('has correct width', () => {
+  test('has correct width', () => {
     const times = {
       end: '2016-01-01T20:00:00Z',
       begin: '2016-01-01T10:00:00Z',
@@ -109,14 +119,14 @@ describe('shared/availability-view/Reservation', () => {
       endTime: moment(times.end),
     });
     const actual = getWrapper(times).prop('style');
-    expect(actual).to.deep.equal({ width: expected });
+    expect(actual).toEqual({ width: expected });
   });
 
-  it('renders eventSubject', () => {
+  test('renders eventSubject', () => {
     const eventSubject = 'Meeting GUQ';
     const element = getWrapper({ eventSubject }).find('.event-subject');
-    expect(element).to.have.length(1);
-    expect(element.text()).to.equal(eventSubject);
+    expect(element).toHaveLength(1);
+    expect(element.text()).toBe(eventSubject);
   });
 
   describe('reserver name', () => {
@@ -132,17 +142,17 @@ describe('shared/availability-view/Reservation', () => {
       return wrapper.find('.reserver-name').text();
     }
 
-    it('is rendered from reserverName', () => {
-      expect(getReserverName()).to.equal('Luke Skywalker');
+    test('is rendered from reserverName', () => {
+      expect(getReserverName()).toBe('Luke Skywalker');
     });
 
-    it('is rendered from user.displayName if no reserverName', () => {
-      expect(getReserverName({ reserverName: undefined })).to.equal('DarthV');
+    test('is rendered from user.displayName if no reserverName', () => {
+      expect(getReserverName({ reserverName: undefined })).toBe('DarthV');
     });
 
-    it('is rendered from email if no others', () => {
+    test('is rendered from email if no others', () => {
       const props = { reserverName: undefined, user: { email: 'dv@dark.side' } };
-      expect(getReserverName(props)).to.equal('dv@dark.side');
+      expect(getReserverName(props)).toBe('dv@dark.side');
     });
   });
 });

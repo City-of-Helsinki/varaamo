@@ -1,4 +1,5 @@
-import React, { PureComponent, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 import Popover from 'react-bootstrap/lib/Popover';
@@ -8,7 +9,9 @@ import { injectT } from 'i18n/index';
 
 class ReservationPopover extends PureComponent {
   render() {
-    const { begin, children, end, onCancel, t } = this.props;
+    const {
+      begin, children, end, onCancel, t
+    } = this.props;
     const reservationLength = end ? moment.duration(moment(end).diff(moment(begin))) : null;
 
     const popover = (
@@ -18,7 +21,9 @@ class ReservationPopover extends PureComponent {
         title={t('ReservationPopover.selectionInfoHeader')}
       >
         <span>
-          {moment(begin).format('HH:mm')}–{end && moment(end).format('HH:mm')}
+          {moment(begin).format('HH:mm')}
+–
+          {end && moment(end).format('HH:mm')}
         </span>
 
         {reservationLength && (

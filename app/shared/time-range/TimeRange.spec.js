@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import moment from 'moment';
 import React from 'react';
@@ -18,33 +17,33 @@ describe('shared/time-range/TimeRange', () => {
     return shallow(<TimeRange {...defaultProps} {...extraProps} />);
   }
 
-  it('renders a time element', () => {
+  test('renders a time element', () => {
     const time = getWrapper().find('time');
-    expect(time.length).to.equal(1);
+    expect(time.length).toBe(1);
   });
 
-  it('adds the given className to the time element', () => {
+  test('adds the given className to the time element', () => {
     const time = getWrapper().find('time');
-    expect(time.props().className).to.equal(defaultProps.className);
+    expect(time.props().className).toBe(defaultProps.className);
   });
 
-  it('passes correct dateTime range to the time element', () => {
+  test('passes correct dateTime range to the time element', () => {
     const time = getWrapper().find('time');
     const expected = `${defaultProps.begin}/${defaultProps.end}`;
-    expect(time.props().dateTime).to.equal(expected);
+    expect(time.props().dateTime).toBe(expected);
   });
 
   describe('the datetime range string', () => {
     const rangeString = getWrapper().find('time').props().children;
 
-    it('displays the begin in given beginFormat', () => {
+    test('displays the begin in given beginFormat', () => {
       const expected = moment(defaultProps.begin).format(defaultProps.beginFormat);
-      expect(rangeString.toLowerCase()).to.contain(expected.toLowerCase());
+      expect(rangeString.toLowerCase()).toContain(expected.toLowerCase());
     });
 
-    it('displays the end time in given endFormat', () => {
+    test('displays the end time in given endFormat', () => {
       const expected = moment(defaultProps.end).format(defaultProps.endFormat);
-      expect(rangeString).to.contain(expected);
+      expect(rangeString).toContain(expected);
     });
   });
 });

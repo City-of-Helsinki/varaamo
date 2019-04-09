@@ -1,13 +1,13 @@
 import classnames from 'classnames';
 import moment from 'moment';
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 import Popover from 'react-bootstrap/lib/Popover';
 
 import ReservationAccessCode from 'shared/reservation-access-code';
 import utils from '../utils';
-import Link from './Link';
 
 function getReserverName(reserverName, user) {
   return reserverName || (user && (user.displayName || user.email));
@@ -39,40 +39,52 @@ function Reservation({ onClick, ...reservation }) {
     <Popover className="reservation-info-popover" id={`popover-${reservation.id}`} title={reservation.eventSubject}>
       <div>
         <Glyphicon glyph="time" />
-        {' '}
-        {startTime.format('HH:mm')} - {endTime.format('HH:mm')}
+        {`${startTime.format('HH:mm')} - ${endTime.format('HH:mm')}`}
       </div>
       {reserverName && <div>{reserverName}</div>}
-      {reservation.numberOfParticipants && <div><Glyphicon glyph="user" /> {reservation.numberOfParticipants}</div>}
+      {reservation.numberOfParticipants && (
+      <div>
+        <Glyphicon glyph="user" />
+        {' '}
+        {reservation.numberOfParticipants}
+      </div>
+      )}
       {reservation.accessCode && <div><ReservationAccessCode reservation={reservation} /></div>}
       {reservation.comments && <hr />}
-      {reservation.comments && <div><Glyphicon glyph="comment" /> {reservation.comments}</div>}
+      {reservation.comments && (
+      <div>
+        <Glyphicon glyph="comment" />
+        {' '}
+        {reservation.comments}
+      </div>
+      )}
     </Popover>
   );
   return (
-    <Link
+    <button
       className={classnames('reservation-link', { 'with-comments': reservation.comments })}
       onClick={() => onClick && reservation.userPermissions.canModify && onClick(reservation)}
+      type="button"
     >
       <OverlayTrigger
         overlay={popover}
         placement="top"
         trigger={['hover', 'focus']}
       >
-        <div
+        <span
           className={classnames('reservation',
-          { requested: reservation.state === 'requested' },
-          { disabled: reservation.state === 'confirmed' && !reservation.isOwn && !reservation.userPermissions.canModify },
-          { reserved: reservation.state === 'confirmed' && !reservation.isOwn && reservation.userPermissions.canModify })}
+            { requested: reservation.state === 'requested' },
+            { disabled: reservation.state === 'confirmed' && !reservation.isOwn && !reservation.userPermissions.canModify },
+            { reserved: reservation.state === 'confirmed' && !reservation.isOwn && reservation.userPermissions.canModify })}
           style={{ width }}
         >
-          <div className="names">
-            <div className="event-subject">{reservation.eventSubject}</div>
-            <div className="reserver-name">{reserverName}</div>
-          </div>
-        </div>
+          <span className="names">
+            <span className="event-subject">{reservation.eventSubject}</span>
+            <span className="reserver-name">{reserverName}</span>
+          </span>
+        </span>
       </OverlayTrigger>
-    </Link>
+    </button>
   );
 }
 

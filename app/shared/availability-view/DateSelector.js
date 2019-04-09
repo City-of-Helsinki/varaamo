@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import moment from 'moment';
 
 import { injectT } from 'i18n';
@@ -37,7 +38,7 @@ export class UninjectedDateSelector extends React.Component {
         <a className="previous" onClick={this.handlePreviousClick} tabIndex="0">
           {this.props.t('AvailabilityViewDateSelector.previousDay')}
         </a>
-        <div className="current-value" >
+        <div className="current-value">
           <DatePicker
             dateFormat="dd D.M.YYYY"
             onChange={date => this.handleChange(date)}

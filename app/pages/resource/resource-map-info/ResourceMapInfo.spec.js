@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Immutable from 'seamless-immutable';
@@ -25,21 +24,21 @@ describe('pages/resource/resource-map-info/ResourceMapInfo', () => {
     return shallowWithIntl(<ResourceMapInfo {...defaultProps} {...props} />);
   }
 
-  it('renders Service map link as a Button with correct url', () => {
+  test('renders Service map link as a Button with correct url', () => {
     const button = getWrapper().find(Button);
     const expected = 'https://palvelukartta.hel.fi/unit/123#!route-details';
 
-    expect(button).to.have.length(1);
-    expect(button.prop('href')).to.equal(expected);
+    expect(button).toHaveLength(1);
+    expect(button.prop('href')).toBe(expected);
   });
 
-  it('renders address text', () => {
+  test('renders address text', () => {
     const { addressZip, streetAddress } = defaultProps.unit;
     const resource = Immutable(Resource.build({ distance: 11500 }));
     const expected = `${streetAddress}, ${addressZip} Some city`;
     const span = getWrapper({ resource }).find('span');
 
-    expect(span).to.have.length(1);
-    expect(span.text()).to.equal(expected);
+    expect(span).toHaveLength(1);
+    expect(span.text()).toBe(expected);
   });
 });

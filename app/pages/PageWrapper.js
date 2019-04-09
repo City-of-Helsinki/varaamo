@@ -1,15 +1,21 @@
 import classnames from 'classnames';
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Grid from 'react-bootstrap/lib/Grid';
-import DocumentTitle from 'react-document-title';
+import { Helmet } from 'react-helmet';
 
-function PageWrapper({ children, className, fluid = false, title, transparent = false }) {
+function PageWrapper({
+  children, className, fluid = false, title, transparent = false
+}) {
   return (
     <div className={classnames('app-PageWrapper', { 'app-PageWrapper__transparent': transparent })}>
       <Grid
         fluid={fluid}
       >
-        <DocumentTitle title={`${title} - Varaamo`} />
+        <Helmet>
+          <title>{`${title} - Varaamo`}</title>
+        </Helmet>
+
         <div className={className}>
           {children}
         </div>

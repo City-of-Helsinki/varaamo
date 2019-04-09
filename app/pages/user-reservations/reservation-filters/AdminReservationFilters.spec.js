@@ -1,8 +1,7 @@
-import { expect } from 'chai';
 import React from 'react';
-import Select from 'react-select';
 import simple from 'simple-mock';
 
+import SelectControl from 'pages/search/controls/SelectControl';
 import { shallowWithIntl } from 'utils/testUtils';
 import AdminReservationFilters from './AdminReservationFilters';
 
@@ -17,17 +16,17 @@ describe('pages/user-reservations/reservation-filters/AdminReservationFilters', 
   }
 
   describe('state filter', () => {
-    const select = getWrapper().find(Select);
+    const select = getWrapper().find(SelectControl);
 
-    it('renders a Select component', () => {
-      expect(select.length).to.equal(1);
+    test('renders a Select component', () => {
+      expect(select.length).toBe(1);
     });
 
-    it('passes correct value to the Select component', () => {
-      expect(select.props().value).to.equal(defaultProps.filters.state);
+    test('passes correct value to the Select component', () => {
+      expect(select.props().value).toBe(defaultProps.filters.state);
     });
 
-    it('passes correct options to the Select component', () => {
+    test('passes correct options to the Select component', () => {
       const expected = [
         { label: 'common.optionsAllLabel', value: 'all' },
         { label: 'common.cancelled', value: 'cancelled' },
@@ -35,23 +34,23 @@ describe('pages/user-reservations/reservation-filters/AdminReservationFilters', 
         { label: 'common.denied', value: 'denied' },
         { label: 'common.requested', value: 'requested' },
       ];
-      expect(select.props().options).to.deep.equal(expected);
+      expect(select.props().options).toEqual(expected);
     });
 
     describe('onChange', () => {
       const filterOption = { label: 'Label', value: 'new-value' };
 
-      before(() => {
+      beforeAll(() => {
         select.props().onChange(filterOption);
       });
 
-      it('calls onFiltersChange ', () => {
-        expect(defaultProps.onFiltersChange.callCount).to.equal(1);
+      test('calls onFiltersChange ', () => {
+        expect(defaultProps.onFiltersChange.callCount).toBe(1);
       });
 
-      it('calls onFiltersChange with correct arguments', () => {
+      test('calls onFiltersChange with correct arguments', () => {
         const expected = { state: filterOption.value };
-        expect(defaultProps.onFiltersChange.lastCall.args[0]).to.deep.equal(expected);
+        expect(defaultProps.onFiltersChange.lastCall.args[0]).toEqual(expected);
       });
     });
   });

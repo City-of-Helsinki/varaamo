@@ -1,6 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 
 import {
@@ -36,11 +37,7 @@ export class UnconnectedReservationControlsContainer extends Component {
   }
 
   handleConfirmClick() {
-    const {
-      actions,
-      isAdmin,
-      reservation,
-    } = this.props;
+    const { actions, isAdmin, reservation } = this.props;
 
     if (isAdmin && reservation.state === 'requested') {
       actions.confirmPreliminaryReservation(reservation);
@@ -48,11 +45,7 @@ export class UnconnectedReservationControlsContainer extends Component {
   }
 
   handleDenyClick() {
-    const {
-      actions,
-      isAdmin,
-      reservation,
-    } = this.props;
+    const { actions, isAdmin, reservation } = this.props;
 
     if (isAdmin && reservation.state === 'requested') {
       actions.denyPreliminaryReservation(reservation);
@@ -60,11 +53,13 @@ export class UnconnectedReservationControlsContainer extends Component {
   }
 
   handleEditClick() {
-    const { actions, reservation, resource } = this.props;
+    const {
+      actions, reservation, resource, history
+    } = this.props;
     const nextUrl = getEditReservationUrl(reservation);
 
     actions.selectReservationToEdit({ reservation, minPeriod: resource.minPeriod });
-    browserHistory.push(nextUrl);
+    history.push(nextUrl);
   }
 
   handleInfoClick() {
@@ -74,11 +69,7 @@ export class UnconnectedReservationControlsContainer extends Component {
   }
 
   render() {
-    const {
-      isAdmin,
-      isStaff,
-      reservation,
-    } = this.props;
+    const { isAdmin, isStaff, reservation } = this.props;
 
     return (
       <ReservationControls
@@ -101,6 +92,7 @@ UnconnectedReservationControlsContainer.propTypes = {
   isStaff: PropTypes.bool.isRequired,
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -119,4 +111,9 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
-export default connect(null, mapDispatchToProps)(UnconnectedReservationControlsContainer);
+export default withRouter(
+  connect(
+    null,
+    mapDispatchToProps
+  )(UnconnectedReservationControlsContainer)
+);

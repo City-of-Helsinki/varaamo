@@ -7,9 +7,9 @@ import nocache from 'nocache';
 import configurePassport from './configurePassport';
 import getAuthState from './getAuthState';
 
-const router = express.Router();  // eslint-disable-line new-cap
+const router = express.Router(); // eslint-disable-line new-cap
 const passport = configurePassport();
-const maxSessionAge = 9 * 60 * 60 * 1000;  // 9 hours
+const maxSessionAge = 9 * 60 * 60 * 1000; // 9 hours
 
 // Session handling
 router.use(cookieParser());
@@ -33,8 +33,7 @@ router.get('/login',
     req.session.next = req.query.next; // eslint-disable-line no-param-reassign
     next();
   },
-  passport.authenticate('helsinki')
-);
+  passport.authenticate('helsinki'));
 
 router.get('/login/helsinki/return',
   passport.authenticate('helsinki', { failureRedirect: '/login' }),

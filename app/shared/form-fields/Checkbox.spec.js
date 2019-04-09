@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import Col from 'react-bootstrap/lib/Col';
@@ -21,47 +20,47 @@ describe('shared/form-fields/Checkbox', () => {
   }
 
   describe('FormGroup component', () => {
-    it('is rendered', () => {
+    test('is rendered', () => {
       const formGroup = getWrapper().find(FormGroup);
-      expect(formGroup.length).to.equal(1);
+      expect(formGroup.length).toBe(1);
     });
 
-    it('gets correct props', () => {
+    test('gets correct props', () => {
       const actualProps = getWrapper().find(FormGroup).props();
-      expect(actualProps.controlId).to.equal(defaultProps.id);
-      expect(actualProps.validationState).to.equal(defaultProps.validationState);
+      expect(actualProps.controlId).toBe(defaultProps.id);
+      expect(actualProps.validationState).toBe(defaultProps.validationState);
     });
   });
 
   describe('Col component', () => {
-    it('is rendered', () => {
+    test('is rendered', () => {
       const col = getWrapper().find(Col);
-      expect(col.length).to.equal(1);
+      expect(col.length).toBe(1);
     });
 
-    it('gets correct props', () => {
+    test('gets correct props', () => {
       const actualProps = getWrapper().find(Col).props();
-      expect(actualProps.sm).to.equal(9);
-      expect(actualProps.smOffset).to.equal(3);
+      expect(actualProps.sm).toBe(9);
+      expect(actualProps.smOffset).toBe(3);
     });
   });
 
   describe('React Bootstrap Checkbox component', () => {
-    it('is rendered', () => {
+    test('is rendered', () => {
       const rbCheckbox = getWrapper().find(RBCheckbox);
-      expect(rbCheckbox.length).to.equal(1);
+      expect(rbCheckbox.length).toBe(1);
     });
 
-    it('gets correct props', () => {
+    test('gets correct props', () => {
       const actualProps = getWrapper().find(RBCheckbox).props();
       Object.keys(defaultProps.controlProps).forEach((key) => {
-        expect(actualProps[key]).to.equal(defaultProps.controlProps[key]);
+        expect(actualProps[key]).toBe(defaultProps.controlProps[key]);
       });
     });
 
-    it('gets the label as its children', () => {
+    test('gets the label as its children', () => {
       const rbCheckbox = getWrapper().find(RBCheckbox);
-      expect(rbCheckbox.props().children).to.equal(defaultProps.label);
+      expect(rbCheckbox.props().children).toBe(defaultProps.label);
     });
   });
 
@@ -69,23 +68,23 @@ describe('shared/form-fields/Checkbox', () => {
     describe('if help is given in props', () => {
       const help = 'some help';
 
-      it('is rendered', () => {
+      test('is rendered', () => {
         const helpBlock = getWrapper({ help }).find(HelpBlock);
-        expect(helpBlock.length).to.equal(1);
+        expect(helpBlock.length).toBe(1);
       });
 
-      it('displays the help text given in props', () => {
+      test('displays the help text given in props', () => {
         const helpBlock = getWrapper({ help }).find(HelpBlock);
-        expect(helpBlock.props().children).to.equal(help);
+        expect(helpBlock.props().children).toBe(help);
       });
     });
 
     describe('if help is not given in props', () => {
       const help = undefined;
 
-      it('is not rendered', () => {
+      test('is not rendered', () => {
         const helpBlock = getWrapper({ help }).find(HelpBlock);
-        expect(helpBlock.length).to.equal(0);
+        expect(helpBlock.length).toBe(0);
       });
     });
   });

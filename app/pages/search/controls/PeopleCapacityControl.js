@@ -1,11 +1,12 @@
 import range from 'lodash/range';
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import ListGroup from 'react-bootstrap/lib/ListGroup';
 import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
 import Overlay from 'react-bootstrap/lib/Overlay';
-import FontAwesome from 'react-fontawesome';
 
+import FAIcon from 'shared/fontawesome-icon';
 import { injectT } from 'i18n';
 import SearchControlOverlay from './SearchControlOverlay';
 
@@ -42,11 +43,11 @@ class PeopleCapacityControl extends React.Component {
     const options = range(1, 10).map(this.getOption);
     range(10, 30, 5).forEach(index => options.push(this.getOption(index)));
     options.push({ label: '30+', value: 30 });
-    const listItems = options.map(option =>
+    const listItems = options.map(option => (
       <ListGroupItem key={option.value} onClick={() => this.handleConfirm(option.value)}>
         {option.label}
       </ListGroupItem>
-    );
+    ));
 
     return (
       <div className="app-PeopleCapacityControl">
@@ -54,7 +55,11 @@ class PeopleCapacityControl extends React.Component {
           className="app-PeopleCapacityControl__show-button"
           onClick={this.showOverlay}
         >
-          <div><FontAwesome name="users" /> {t('PeopleCapacityControl.buttonLabel')}</div>
+          <div>
+            <FAIcon icon="users" />
+            {' '}
+            {t('PeopleCapacityControl.buttonLabel')}
+          </div>
           <div>{value || '1'}</div>
         </Button>
         <Overlay

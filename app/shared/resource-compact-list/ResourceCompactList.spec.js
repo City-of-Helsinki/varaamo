@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
@@ -11,6 +10,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
     resourceIds: Immutable(['resource-1', 'resource-2']),
     date: '2017-01-01',
     location: {},
+    history: {},
   };
 
   function getWrapper(extraProps) {
@@ -24,153 +24,159 @@ describe('shared/resource-list/ResourceCompactList', () => {
       wrapper = getWrapper();
     });
 
-    it('renders a div with correct className', () => {
+    test('renders a div with correct className', () => {
       const div = wrapper.find('div.app-ResourceCompactList');
-      expect(div.length).to.equal(1);
+      expect(div.length).toBe(1);
     });
 
-    it('renders first ResourceCard', () => {
+    test('renders first ResourceCard', () => {
       const resourceCard = wrapper.find(ResourceCard);
-      expect(resourceCard.length).to.equal(1);
-      expect(resourceCard.prop('resourceId')).to.equal('resource-1');
+      expect(resourceCard.length).toBe(1);
+      expect(resourceCard.prop('resourceId')).toBe('resource-1');
     });
 
-    it('passes date prop to ResourceCard', () => {
+    test('passes date prop to ResourceCard', () => {
       const resourceCard = wrapper.find(ResourceCard);
-      expect(resourceCard.length).to.equal(1);
-      expect(resourceCard.prop('date')).to.equal(defaultProps.date);
+      expect(resourceCard.length).toBe(1);
+      expect(resourceCard.prop('date')).toBe(defaultProps.date);
     });
 
-    it('renders second ResourceCard if resourcePosition is 1', () => {
+    test('renders second ResourceCard if resourcePosition is 1', () => {
       const instance = wrapper.instance();
       instance.setState({
         resourcePosition: 1,
       });
       wrapper.update();
       const resourceCard = wrapper.find(ResourceCard);
-      expect(resourceCard.length).to.equal(1);
-      expect(resourceCard.prop('resourceId')).to.equal('resource-2');
+      expect(resourceCard.length).toBe(1);
+      expect(resourceCard.prop('resourceId')).toBe('resource-2');
     });
 
-    it('passes stacked prop to ResourceCard if more than one resource', () => {
+    test('passes stacked prop to ResourceCard if more than one resource', () => {
       const resourceCard = wrapper.find(ResourceCard);
-      expect(resourceCard.prop('stacked')).to.be.true;
+      expect(resourceCard.prop('stacked')).toBe(true);
     });
 
-    it('does not pass stacked prop to ResourceCard if more only one resource', () => {
-      const resourceCard = getWrapper({ resourceIds: ['resource-1'] }).find(ResourceCard);
-      expect(resourceCard.prop('stacked')).to.be.false;
-    });
+    test(
+      'does not pass stacked prop to ResourceCard if more only one resource',
+      () => {
+        const resourceCard = getWrapper({ resourceIds: ['resource-1'] }).find(ResourceCard);
+        expect(resourceCard.prop('stacked')).toBe(false);
+      }
+    );
 
-    it('renders left arrow if resourcePosition state is not 0', () => {
-      const instance = wrapper.instance();
-      instance.setState({
-        resourcePosition: 1,
-      });
-      wrapper.update();
-      const leftArrow = wrapper.find('.app-ResourceCompactList_arrow-left');
-      expect(leftArrow.length).to.equal(1);
-    });
-
-    it('renders left arrow if resourcePosition state is 0', () => {
-      const instance = wrapper.instance();
-      instance.setState({
-        resourcePosition: 0,
-      });
-      wrapper.update();
-      const leftArrow = wrapper.find('.app-ResourceCompactList_arrow-left');
-      expect(leftArrow.length).to.equal(1);
-    });
-
-    it('left arrow has correct onClick prop', () => {
+    test('renders left arrow if resourcePosition state is not 0', () => {
       const instance = wrapper.instance();
       instance.setState({
         resourcePosition: 1,
       });
       wrapper.update();
       const leftArrow = wrapper.find('.app-ResourceCompactList_arrow-left');
-      expect(leftArrow.prop('onClick')).to.equal(instance.onPreviousResource);
+      expect(leftArrow.length).toBe(1);
     });
 
-    it('renders right arrow if resourcePosition state is 0', () => {
+    test('renders left arrow if resourcePosition state is 0', () => {
       const instance = wrapper.instance();
       instance.setState({
         resourcePosition: 0,
       });
       wrapper.update();
-      const rightArrow = wrapper.find('.app-ResourceCompactList_arrow-right');
-      expect(rightArrow.length).to.equal(1);
+      const leftArrow = wrapper.find('.app-ResourceCompactList_arrow-left');
+      expect(leftArrow.length).toBe(1);
     });
 
-    it('renders right arrow if resourcePosition state is last resource position', () => {
+    test('left arrow has correct onClick prop', () => {
       const instance = wrapper.instance();
       instance.setState({
         resourcePosition: 1,
       });
       wrapper.update();
-      const rightArrow = wrapper.find('.app-ResourceCompactList_arrow-right');
-      expect(rightArrow.length).to.equal(1);
+      const leftArrow = wrapper.find('.app-ResourceCompactList_arrow-left');
+      expect(leftArrow.prop('onClick')).toBe(instance.onPreviousResource);
     });
 
-    it('right arrow has correct onClick prop', () => {
+    test('renders right arrow if resourcePosition state is 0', () => {
       const instance = wrapper.instance();
       instance.setState({
         resourcePosition: 0,
       });
       wrapper.update();
       const rightArrow = wrapper.find('.app-ResourceCompactList_arrow-right');
-      expect(rightArrow.prop('onClick')).to.equal(instance.onNextResource);
+      expect(rightArrow.length).toBe(1);
+    });
+
+    test(
+      'renders right arrow if resourcePosition state is last resource position',
+      () => {
+        const instance = wrapper.instance();
+        instance.setState({
+          resourcePosition: 1,
+        });
+        wrapper.update();
+        const rightArrow = wrapper.find('.app-ResourceCompactList_arrow-right');
+        expect(rightArrow.length).toBe(1);
+      }
+    );
+
+    test('right arrow has correct onClick prop', () => {
+      const instance = wrapper.instance();
+      instance.setState({
+        resourcePosition: 0,
+      });
+      wrapper.update();
+      const rightArrow = wrapper.find('.app-ResourceCompactList_arrow-right');
+      expect(rightArrow.prop('onClick')).toBe(instance.onNextResource);
     });
   });
 
   describe('componentWillReceiveProps', () => {
-    it('sets resourcePosition to 0', () => {
+    test('sets resourcePosition to 0', () => {
       const instance = getWrapper().instance();
       instance.setState({
         resourcePosition: 1,
       });
       instance.componentWillReceiveProps();
-      expect(instance.state.resourcePosition).to.equal(0);
+      expect(instance.state.resourcePosition).toBe(0);
     });
   });
 
   describe('onPreviousResource', () => {
-    it('decreases resourcePosition by 1', () => {
+    test('decreases resourcePosition by 1', () => {
       const instance = getWrapper().instance();
       instance.setState({
         resourcePosition: 1,
       });
       instance.onPreviousResource();
-      expect(instance.state.resourcePosition).to.equal(0);
+      expect(instance.state.resourcePosition).toBe(0);
     });
 
-    it('loops to last position if position is 0', () => {
+    test('loops to last position if position is 0', () => {
       const instance = getWrapper().instance();
       instance.setState({
         resourcePosition: 0,
       });
       instance.onPreviousResource();
-      expect(instance.state.resourcePosition).to.equal(1);
+      expect(instance.state.resourcePosition).toBe(1);
     });
   });
 
   describe('onNextResource', () => {
-    it('decreases resourcePosition by 1', () => {
+    test('decreases resourcePosition by 1', () => {
       const instance = getWrapper().instance();
       instance.setState({
         resourcePosition: 0,
       });
       instance.onNextResource();
-      expect(instance.state.resourcePosition).to.equal(1);
+      expect(instance.state.resourcePosition).toBe(1);
     });
 
-    it('loops to first position if position is last', () => {
+    test('loops to first position if position is last', () => {
       const instance = getWrapper().instance();
       instance.setState({
         resourcePosition: 1,
       });
       instance.onNextResource();
-      expect(instance.state.resourcePosition).to.equal(0);
+      expect(instance.state.resourcePosition).toBe(0);
     });
   });
 });

@@ -1,8 +1,8 @@
-import { expect } from 'chai';
+import constants from 'constants/AppConstants';
+
 import MockDate from 'mockdate';
 import moment from 'moment';
 
-import constants from 'constants/AppConstants';
 import Reservation from 'utils/fixtures/Reservation';
 import {
   combine,
@@ -34,51 +34,54 @@ describe('Utils: reservationUtils', () => {
       },
     ];
 
-    it('returns an empty array if reservations is undefined', () => {
+    test('returns an empty array if reservations is undefined', () => {
       const reservations = undefined;
 
-      expect(combine(reservations)).to.deep.equal([]);
+      expect(combine(reservations)).toEqual([]);
     });
 
-    it('returns an empty array if reservations is empty', () => {
+    test('returns an empty array if reservations is empty', () => {
       const reservations = [];
 
-      expect(combine(reservations)).to.deep.equal([]);
+      expect(combine(reservations)).toEqual([]);
     });
 
-    it('returns the reservations unchanged if it contains only one element', () => {
-      const reservations = ['mock reservation'];
+    test(
+      'returns the reservations unchanged if it contains only one element',
+      () => {
+        const reservations = ['mock reservation'];
 
-      expect(combine(reservations)).to.deep.equal(reservations);
-    });
+        expect(combine(reservations)).toEqual(reservations);
+      }
+    );
 
-    it('combines two reservations if they are continual', () => {
+    test('combines two reservations if they are continual', () => {
       const reservations = [slots[0], slots[1]];
       const expected = [{
         begin: slots[0].begin,
         end: slots[1].end,
       }];
 
-      expect(combine(reservations)).to.deep.equal(expected);
+      expect(combine(reservations)).toEqual(expected);
     });
 
-    it('does not combine two reservations if they are not continual', () => {
+    test('does not combine two reservations if they are not continual', () => {
       const reservations = [slots[0], slots[2]];
 
-      expect(combine(reservations)).to.deep.equal(reservations);
+      expect(combine(reservations)).toEqual(reservations);
     });
 
-    it('combines three reservations if they are continual', () => {
+    test('combines three reservations if they are continual', () => {
       const reservations = [slots[0], slots[1], slots[2]];
       const expected = [{
         begin: slots[0].begin,
         end: slots[2].end,
       }];
 
-      expect(combine(reservations)).to.deep.equal(expected);
+      expect(combine(reservations)).toEqual(expected);
     });
 
-    it('only combines reservations that are continual', () => {
+    test('only combines reservations that are continual', () => {
       const reservations = [slots[0], slots[1], slots[3]];
       const expected = [
         {
@@ -88,44 +91,50 @@ describe('Utils: reservationUtils', () => {
         slots[3],
       ];
 
-      expect(combine(reservations)).to.deep.equal(expected);
+      expect(combine(reservations)).toEqual(expected);
     });
   });
 
   describe('isStaffEvent', () => {
-    it('returns false if resource does not exist', () => {
+    test('returns false if resource does not exist', () => {
       const reservation = { reserverName: 'Luke' };
       const resource = undefined;
-      expect(isStaffEvent(reservation, resource)).to.equal(false);
+      expect(isStaffEvent(reservation, resource)).toBe(false);
     });
 
-    it('returns false if resource does not have any requiredReservationExtraFields', () => {
-      const reservation = { reserverName: 'Luke' };
-      const resource = {};
-      expect(isStaffEvent(reservation, resource)).to.equal(false);
-    });
+    test(
+      'returns false if resource does not have any requiredReservationExtraFields',
+      () => {
+        const reservation = { reserverName: 'Luke' };
+        const resource = {};
+        expect(isStaffEvent(reservation, resource)).toBe(false);
+      }
+    );
 
-    it('returns false if reservation has values for requiredReservationExtraFields', () => {
-      const reservation = { reserverName: 'Luke' };
-      const resource = { requiredReservationExtraFields: ['reserver_name'] };
-      expect(isStaffEvent(reservation, resource)).to.equal(false);
-    });
+    test(
+      'returns false if reservation has values for requiredReservationExtraFields',
+      () => {
+        const reservation = { reserverName: 'Luke' };
+        const resource = { requiredReservationExtraFields: ['reserver_name'] };
+        expect(isStaffEvent(reservation, resource)).toBe(false);
+      }
+    );
 
-    it(
+    test(
       'returns true if reservation is missing values for requiredReservationExtraFields',
       () => {
         const reservation = {};
         const resource = { requiredReservationExtraFields: ['reserver_name'] };
-        expect(isStaffEvent(reservation, resource)).to.equal(true);
+        expect(isStaffEvent(reservation, resource)).toBe(true);
       }
     );
 
-    it(
+    test(
       'returns true if reservation has empty strings for requiredReservationExtraFields',
       () => {
         const reservation = { reserverName: '' };
         const resource = { requiredReservationExtraFields: ['reserver_name'] };
-        expect(isStaffEvent(reservation, resource)).to.equal(true);
+        expect(isStaffEvent(reservation, resource)).toBe(true);
       }
     );
   });
@@ -145,8 +154,8 @@ describe('Utils: reservationUtils', () => {
       currentReservation,
     ];
 
-    it('returns the current reservation from a list of reservations', () => {
-      expect(getCurrentReservation(unorderedReservations)).to.deep.equal(currentReservation);
+    test('returns the current reservation from a list of reservations', () => {
+      expect(getCurrentReservation(unorderedReservations)).toEqual(currentReservation);
     });
   });
 
@@ -159,28 +168,28 @@ describe('Utils: reservationUtils', () => {
       return Reservation.build(Object.assign({}, defaults, extraValues));
     }
 
-    it('returns an object', () => {
+    test('returns an object', () => {
       const reservation = getReservation();
       const actual = getMissingValues(reservation);
 
-      expect(typeof actual).to.equal('object');
+      expect(typeof actual).toBe('object');
     });
 
     describe('the returned object', () => {
-      it('is empty if reservation is not missing any required values', () => {
+      test('is empty if reservation is not missing any required values', () => {
         const reservation = getReservation();
         const actual = getMissingValues(reservation);
 
-        expect(actual).to.deep.equal({});
+        expect(actual).toEqual({});
       });
 
       constants.REQUIRED_STAFF_EVENT_FIELDS.forEach((field) => {
-        it(`contains ${field} as "-" if ${field} is missing`, () => {
+        test(`contains ${field} as "-" if ${field} is missing`, () => {
           const reservation = getReservation({ [field]: undefined });
           const actual = getMissingValues(reservation);
           const expected = { [field]: '-' };
 
-          expect(actual).to.deep.equal(expected);
+          expect(actual).toEqual(expected);
         });
       });
     });
@@ -190,16 +199,16 @@ describe('Utils: reservationUtils', () => {
     describe('if there are no reservations', () => {
       const reservations = [];
 
-      it('returns the fromMoment given in function arguments', () => {
+      test('returns the fromMoment given in function arguments', () => {
         const fromMoment = moment();
 
-        expect(getNextAvailableTime(reservations, fromMoment)).to.equal(fromMoment);
+        expect(getNextAvailableTime(reservations, fromMoment)).toBe(fromMoment);
       });
 
-      it('returns current time if fromMoment is not given', () => {
+      test('returns current time if fromMoment is not given', () => {
         const mockTime = '2015-10-10T10:00:00+03:00';
         MockDate.set(mockTime);
-        expect(getNextAvailableTime(reservations).isSame(mockTime)).to.equal(true);
+        expect(getNextAvailableTime(reservations).isSame(mockTime)).toBe(true);
         MockDate.reset();
       });
     });
@@ -223,47 +232,47 @@ describe('Utils: reservationUtils', () => {
       describe('if the fromMoment is before all of the reservations', () => {
         const fromMoment = moment('2015-10-10T10:00:00+03:00');
 
-        it('returns the fromMoment', () => {
+        test('returns the fromMoment', () => {
           const nextAvailableTime = getNextAvailableTime(reservations, fromMoment);
-          expect(nextAvailableTime).to.equal(fromMoment);
+          expect(nextAvailableTime).toBe(fromMoment);
         });
       });
 
       describe('if the fromMoment is during one ongoing reservations', () => {
         const fromMoment = moment('2015-10-10T13:00:00+03:00');
 
-        it('returns the end moment of the ongoing reservation', () => {
+        test('returns the end moment of the ongoing reservation', () => {
           const nextAvailableTime = getNextAvailableTime(reservations, fromMoment);
           const expected = '2015-10-10T14:00:00+03:00';
-          expect(nextAvailableTime.isSame(expected)).to.equal(true);
+          expect(nextAvailableTime.isSame(expected)).toBe(true);
         });
       });
 
       describe('if the fromMoment is during multiple ongoing reservations', () => {
         const fromMoment = moment('2015-10-10T16:30:00+03:00');
 
-        it('returns the end moment of the last ongoing reservation', () => {
+        test('returns the end moment of the last ongoing reservation', () => {
           const nextAvailableTime = getNextAvailableTime(reservations, fromMoment);
           const expected = '2015-10-10T18:00:00+03:00';
-          expect(nextAvailableTime.isSame(expected)).to.equal(true);
+          expect(nextAvailableTime.isSame(expected)).toBe(true);
         });
       });
 
       describe('if the fromMoment is between reservations', () => {
         const fromMoment = moment('2015-10-10T15:00:00+03:00');
 
-        it('returns the fromMoment', () => {
+        test('returns the fromMoment', () => {
           const nextAvailableTime = getNextAvailableTime(reservations, fromMoment);
-          expect(nextAvailableTime).to.equal(fromMoment);
+          expect(nextAvailableTime).toBe(fromMoment);
         });
       });
 
       describe('if the fromMoment is after all of the reservations', () => {
         const fromMoment = moment('2015-10-10T20:00:00+03:00');
 
-        it('returns the fromMoment', () => {
+        test('returns the fromMoment', () => {
           const nextAvailableTime = getNextAvailableTime(reservations, fromMoment);
-          expect(nextAvailableTime).to.equal(fromMoment);
+          expect(nextAvailableTime).toBe(fromMoment);
         });
       });
     });
@@ -284,8 +293,8 @@ describe('Utils: reservationUtils', () => {
       currentReservation,
     ];
 
-    it('returns the next reservation from a list of reservations', () => {
-      expect(getNextReservation(unorderedReservations)).to.deep.equal(nextReservation);
+    test('returns the next reservation from a list of reservations', () => {
+      expect(getNextReservation(unorderedReservations)).toEqual(nextReservation);
     });
   });
 });

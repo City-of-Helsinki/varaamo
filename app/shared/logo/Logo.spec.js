@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import simple from 'simple-mock';
 
@@ -17,61 +16,61 @@ describe('shared/logo/Logo', () => {
   describe('When there is no customization in use', () => {
     let logo;
 
-    before(() => {
+    beforeAll(() => {
       logo = getWrapper();
     });
 
-    it('renders logo of Helsinki', () => {
-      expect(logo.type()).to.equal('img');
-      expect(logo.props().src).to.equal(helsinkiLogoSrc);
+    test('renders logo of Helsinki', () => {
+      expect(logo.type()).toBe('img');
+      expect(logo.props().src).toBe(helsinkiLogoSrc);
     });
 
-    it('renders Helsinki alt text', () => {
-      expect(logo.props().alt).to.equal('Logo.helsinkiAlt');
+    test('renders Helsinki alt text', () => {
+      expect(logo.props().alt).toBe('Logo.helsinkiAlt');
     });
   });
 
   describe('When Espoo customization is used', () => {
     let logo;
 
-    before(() => {
+    beforeAll(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('ESPOO');
       logo = getWrapper();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('renders logo of Espoo', () => {
-      expect(logo.type()).to.equal('img');
-      expect(logo.props().src).to.equal(espooLogoSrc);
+    test('renders logo of Espoo', () => {
+      expect(logo.type()).toBe('img');
+      expect(logo.props().src).toBe(espooLogoSrc);
     });
 
-    it('renders Espoo alt text', () => {
-      expect(logo.props().alt).to.equal('Logo.espooAlt');
+    test('renders Espoo alt text', () => {
+      expect(logo.props().alt).toBe('Logo.espooAlt');
     });
   });
 
   describe('When Vantaa customization is used', () => {
     let logo;
 
-    before(() => {
+    beforeAll(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('VANTAA');
       logo = getWrapper();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('renders logo of Vantaa', () => {
-      expect(logo.type()).to.equal('img');
-      expect(logo.props().src).to.equal(vantaaLogoSrc);
+    test('renders logo of Vantaa', () => {
+      expect(logo.type()).toBe('img');
+      expect(logo.props().src).toBe(vantaaLogoSrc);
     });
 
-    it('renders Vantaa alt text', () => {
-      expect(logo.props().alt).to.equal('Logo.vantaaAlt');
+    test('renders Vantaa alt text', () => {
+      expect(logo.props().alt).toBe('Logo.vantaaAlt');
     });
   });
 });

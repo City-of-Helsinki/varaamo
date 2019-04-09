@@ -1,6 +1,5 @@
-import { expect } from 'chai';
-
 import ModalTypes from 'constants/ModalTypes';
+
 import { getState } from 'utils/testUtils';
 import reservationSuccessModalSelector from './reservationSuccessModalSelector';
 
@@ -10,7 +9,7 @@ describe('shared/modals/reservation-success/reservationSuccessModalSelector', ()
     return reservationSuccessModalSelector(state);
   }
 
-  it('returns reservationsToShow from the state ordered by begin time', () => {
+  test('returns reservationsToShow from the state ordered by begin time', () => {
     const reservationsToShow = [
       {
         id: 'r-1',
@@ -48,10 +47,10 @@ describe('shared/modals/reservation-success/reservationSuccessModalSelector', ()
     const selected = getSelected({
       'ui.reservations.toShow': reservationsToShow,
     });
-    expect(selected.reservationsToShow).to.deep.equal(expected);
+    expect(selected.reservationsToShow).toEqual(expected);
   });
 
-  it('returns failedReservations from the state ordered by begin time', () => {
+  test('returns failedReservations from the state ordered by begin time', () => {
     const failedReservations = [
       {
         id: 'r-1',
@@ -89,30 +88,33 @@ describe('shared/modals/reservation-success/reservationSuccessModalSelector', ()
     const selected = getSelected({
       'ui.reservations.failed': failedReservations,
     });
-    expect(selected.failedReservations).to.deep.equal(expected);
+    expect(selected.failedReservations).toEqual(expected);
   });
 
-  it('returns resources from the state', () => {
-    expect(getSelected().resources).to.exist;
+  test('returns resources from the state', () => {
+    expect(getSelected().resources).toBeDefined();
   });
 
   describe('show', () => {
-    it('returns true if modals.open contain RESERVATION_SUCCESS', () => {
+    test('returns true if modals.open contain RESERVATION_SUCCESS', () => {
       const selected = getSelected({
         'ui.modals.open': [ModalTypes.RESERVATION_SUCCESS],
       });
-      expect(selected.show).to.be.true;
+      expect(selected.show).toBe(true);
     });
 
-    it('returns false if modals.open does not contain RESERVATION_SUCCESS', () => {
-      const selected = getSelected({
-        'ui.modals.open': [],
-      });
-      expect(selected.show).to.be.false;
-    });
+    test(
+      'returns false if modals.open does not contain RESERVATION_SUCCESS',
+      () => {
+        const selected = getSelected({
+          'ui.modals.open': [],
+        });
+        expect(selected.show).toBe(false);
+      }
+    );
   });
 
-  it('returns user', () => {
-    expect(getSelected().user).to.exist;
+  test('returns user', () => {
+    expect(getSelected().user).toBeDefined();
   });
 });

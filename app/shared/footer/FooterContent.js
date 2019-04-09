@@ -1,9 +1,10 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { FormattedHTMLMessage } from 'react-intl';
 import Col from 'react-bootstrap/lib/Col';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import FeedbackLink from 'shared/feedback-link';
 import Logo from 'shared/logo';
@@ -25,7 +26,12 @@ function FooterContent({ t }) {
               </Link>
             </Col>
             <Col lg={6} md={6}>
-              <p><FormattedHTMLMessage id="Footer.espooText" /></p><p> {feedbackLink}</p>
+              <p>
+                <FormattedHTMLMessage id="Footer.espooText" />
+              </p>
+              <p>
+                {feedbackLink}
+              </p>
             </Col>
           </Row>
         </Grid>
@@ -43,7 +49,12 @@ function FooterContent({ t }) {
               </Link>
             </Col>
             <Col lg={6} md={6}>
-              <p><FormattedHTMLMessage id="Footer.vantaaText" /></p><p> {feedbackLink}</p>
+              <p>
+                <FormattedHTMLMessage id="Footer.vantaaText" />
+              </p>
+              <p>
+                {feedbackLink}
+              </p>
             </Col>
           </Row>
         </Grid>
@@ -61,7 +72,12 @@ function FooterContent({ t }) {
               </Link>
             </Col>
             <Col lg={6} md={6}>
-              <p><FormattedHTMLMessage id="Footer.helsinkiText" /></p><p> {feedbackLink}</p>
+              <p>
+                <FormattedHTMLMessage id="Footer.helsinkiText" />
+              </p>
+              <p>
+                {feedbackLink}
+              </p>
             </Col>
           </Row>
         </Grid>

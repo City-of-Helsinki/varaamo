@@ -1,6 +1,11 @@
-import { first, last, orderBy, pick, uniq } from 'lodash';
+import first from 'lodash/first';
+import last from 'lodash/last';
+import orderBy from 'lodash/orderBy';
+import pick from 'lodash/pick';
+import uniq from 'lodash/uniq';
 import camelCase from 'lodash/camelCase';
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 
 import CompactReservationList from 'shared/compact-reservation-list';
@@ -143,9 +148,9 @@ class ConfirmReservationModal extends Component {
     } = this.props;
 
     const reservationsCount = selectedReservations.length + recurringReservations.length;
-    const introText = isPreliminaryReservation ?
-      t('ConfirmReservationModal.preliminaryReservationText', { reservationsCount }) :
-      t('ConfirmReservationModal.regularReservationText', { reservationsCount });
+    const introText = isPreliminaryReservation
+      ? t('ConfirmReservationModal.preliminaryReservationText', { reservationsCount })
+      : t('ConfirmReservationModal.regularReservationText', { reservationsCount });
 
     return (
       <div>

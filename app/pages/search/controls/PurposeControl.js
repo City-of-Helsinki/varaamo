@@ -1,10 +1,11 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import ListGroup from 'react-bootstrap/lib/ListGroup';
 import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
 import Overlay from 'react-bootstrap/lib/Overlay';
-import FontAwesome from 'react-fontawesome';
 
+import FAIcon from 'shared/fontawesome-icon';
 import { injectT } from 'i18n';
 import SearchControlOverlay from './SearchControlOverlay';
 
@@ -35,7 +36,9 @@ class PurposeControl extends React.Component {
   }
 
   render() {
-    const { isLoading, purposeOptions, t, value } = this.props;
+    const {
+      isLoading, purposeOptions, t, value
+    } = this.props;
     const selectOptions = [
       {
         label: t('common.optionsAllLabel'),
@@ -44,11 +47,11 @@ class PurposeControl extends React.Component {
       ...purposeOptions,
     ];
     const originalOption = selectOptions.find(option => option.value === value) || {};
-    const listItems = selectOptions.map(option =>
+    const listItems = selectOptions.map(option => (
       <ListGroupItem key={option.value} onClick={() => this.handleConfirm(option.value)}>
         {option.label}
       </ListGroupItem>
-    );
+    ));
 
     return (
       <div className="app-PurposeControl">
@@ -56,7 +59,11 @@ class PurposeControl extends React.Component {
           className="app-PurposeControl__show-button"
           onClick={this.showOverlay}
         >
-          <div><FontAwesome name="bullseye" /> {t('PurposeControl.buttonLabel')}</div>
+          <div>
+            <FAIcon icon="bullseye" />
+            {' '}
+            {t('PurposeControl.buttonLabel')}
+          </div>
           <div>{originalOption.label}</div>
         </Button>
         <Overlay

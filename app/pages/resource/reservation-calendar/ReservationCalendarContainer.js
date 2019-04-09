@@ -1,12 +1,16 @@
-import React, { Component, PropTypes } from 'react';
+import constants from 'constants/AppConstants';
+
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { browserHistory } from 'react-router';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 import Row from 'react-bootstrap/lib/Row';
 import moment from 'moment';
-import { first, last, orderBy } from 'lodash';
+import first from 'lodash/first';
+import last from 'lodash/last';
+import orderBy from 'lodash/orderBy';
 
 import { addNotification } from 'actions/notificationsActions';
 import {
@@ -16,7 +20,6 @@ import {
   selectReservationSlot,
   toggleTimeSlot,
 } from 'actions/uiActions';
-import constants from 'constants/AppConstants';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
 import ReservationInfoModal from 'shared/modals/reservation-info';
 import ReservationSuccessModal from 'shared/modals/reservation-success';
@@ -40,12 +43,13 @@ export class UnconnectedReservationCalendarContainer extends Component {
     isStaff: PropTypes.bool.isRequired,
     // eslint-disable-next-line react/no-unused-prop-types
     location: PropTypes.shape({
-      query: PropTypes.object.isRequired,
+      search: PropTypes.string.isRequired,
     }).isRequired,
     params: PropTypes.shape({
       // eslint-disable-line react/no-unused-prop-types
       id: PropTypes.string.isRequired,
     }).isRequired,
+    history: PropTypes.object.isRequired,
     resource: PropTypes.object.isRequired,
     selected: PropTypes.array.isRequired,
     t: PropTypes.func.isRequired,
@@ -78,8 +82,16 @@ export class UnconnectedReservationCalendarContainer extends Component {
     const endSlot = last(orderedSelected);
     const beginText = this.getDateTimeText(beginSlot.begin, true);
     const endText = this.getDateTimeText(endSlot.end, false);
-    return `${beginText} - ${endText}`;
+    const duration = moment.duration(moment(endSlot.end).diff(moment(beginSlot.begin)));
+    const durationText = this.getDurationText(duration);
+    return `${beginText} - ${endText} (${durationText})`;
   };
+
+  getDurationText = (duration) => {
+    const hours = duration.hours();
+    const mins = duration.minutes();
+    return `${hours > 0 ? `${hours}h ` : ''}${mins}min`;
+  }
 
   getDateTimeText = (slot, returnDate) => {
     const { t } = this.props;
@@ -99,7 +111,9 @@ export class UnconnectedReservationCalendarContainer extends Component {
   };
 
   handleReserveClick = () => {
-    const { actions, isAdmin, resource, selected, t } = this.props;
+    const {
+      actions, isAdmin, resource, selected, t, history
+    } = this.props;
     if (!isAdmin && hasMaxReservations(resource)) {
       actions.addNotification({
         message: t('TimeSlots.maxReservationsPerUser'),
@@ -112,7 +126,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
       const reservation = Object.assign({}, first(orderedSelected), { end });
       const nextUrl = getEditReservationUrl(reservation);
 
-      browserHistory.push(nextUrl);
+      history.push(nextUrl);
     }
   };
 
@@ -159,7 +173,10 @@ export class UnconnectedReservationCalendarContainer extends Component {
         {showTimeSlots && selected.length > 0 && (
           <Row className="reservation-calendar-reserve-info">
             <Col xs={8}>
-              <b>{t('TimeSlots.selectedDate')} </b>
+              <strong>
+                {t('TimeSlots.selectedDate')}
+                {' '}
+              </strong>
               {this.getSelectedTimeText(selected)}
             </Col>
             <Col xs={4}>

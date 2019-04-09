@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
@@ -8,8 +7,8 @@ describe('state/reducers/api/activeRequestsReducer', () => {
   describe('initial state', () => {
     const initialState = activeRequestsReducer(undefined, {});
 
-    it('is an empty object', () => {
-      expect(initialState).to.deep.equal({});
+    test('is an empty object', () => {
+      expect(initialState).toEqual({});
     });
   });
 
@@ -27,7 +26,7 @@ describe('state/reducers/api/activeRequestsReducer', () => {
       });
 
       describe('if activeRequests already contains the action', () => {
-        it('increases the count of the action by one', () => {
+        test('increases the count of the action by one', () => {
           const initialState = Immutable(
             { SOME_REQUEST: 2 }
           );
@@ -36,10 +35,10 @@ describe('state/reducers/api/activeRequestsReducer', () => {
             { SOME_REQUEST: 3 }
           );
 
-          expect(nextState).to.deep.equal(expected);
+          expect(nextState).toEqual(expected);
         });
 
-        it('does not affect the existing activeRequests', () => {
+        test('does not affect the existing activeRequests', () => {
           const initialState = Immutable(
             { SOME_REQUEST: 2, OTHER_REQUEST: 1 }
           );
@@ -48,22 +47,22 @@ describe('state/reducers/api/activeRequestsReducer', () => {
             { SOME_REQUEST: 3, OTHER_REQUEST: 1 }
           );
 
-          expect(nextState).to.deep.equal(expected);
+          expect(nextState).toEqual(expected);
         });
       });
 
       describe('if activeRequests does not already contain the action', () => {
-        it('adds the action to activeRequests with count 1', () => {
+        test('adds the action to activeRequests with count 1', () => {
           const initialState = Immutable({});
           const nextState = activeRequestsReducer(initialState, action);
           const expected = Immutable(
             { SOME_REQUEST: 1 }
           );
 
-          expect(nextState).to.deep.equal(expected);
+          expect(nextState).toEqual(expected);
         });
 
-        it('does not affect the existing activeRequests', () => {
+        test('does not affect the existing activeRequests', () => {
           const initialState = Immutable(
             { OTHER_REQUEST: 1 }
           );
@@ -72,7 +71,7 @@ describe('state/reducers/api/activeRequestsReducer', () => {
             { SOME_REQUEST: 1, OTHER_REQUEST: 1 }
           );
 
-          expect(nextState).to.deep.equal(expected);
+          expect(nextState).toEqual(expected);
         });
       });
     });
@@ -86,7 +85,7 @@ describe('state/reducers/api/activeRequestsReducer', () => {
             type: 'SOME_REQUEST',
           });
 
-          it('decreases the count of the action by one', () => {
+          test('decreases the count of the action by one', () => {
             const initialState = Immutable(
               { SOME_REQUEST: 2 }
             );
@@ -95,10 +94,10 @@ describe('state/reducers/api/activeRequestsReducer', () => {
               { SOME_REQUEST: 1 }
             );
 
-            expect(nextState).to.deep.equal(expected);
+            expect(nextState).toEqual(expected);
           });
 
-          it('does not affect the existing activeRequests', () => {
+          test('does not affect the existing activeRequests', () => {
             const initialState = Immutable(
               { SOME_REQUEST: 2, OTHER_REQUEST: 1 }
             );
@@ -107,7 +106,7 @@ describe('state/reducers/api/activeRequestsReducer', () => {
               { SOME_REQUEST: 1, OTHER_REQUEST: 1 }
             );
 
-            expect(nextState).to.deep.equal(expected);
+            expect(nextState).toEqual(expected);
           });
         });
 
@@ -117,7 +116,7 @@ describe('state/reducers/api/activeRequestsReducer', () => {
             type: 'SOME_REQUEST',
           });
 
-          it('sets the count of the action to 0', () => {
+          test('sets the count of the action to 0', () => {
             const initialState = Immutable(
               { SOME_REQUEST: 2 }
             );
@@ -126,10 +125,10 @@ describe('state/reducers/api/activeRequestsReducer', () => {
               { SOME_REQUEST: 0 }
             );
 
-            expect(nextState).to.deep.equal(expected);
+            expect(nextState).toEqual(expected);
           });
 
-          it('does not affect the existing activeRequests', () => {
+          test('does not affect the existing activeRequests', () => {
             const initialState = Immutable(
               { SOME_REQUEST: 2, OTHER_REQUEST: 1 }
             );
@@ -138,7 +137,7 @@ describe('state/reducers/api/activeRequestsReducer', () => {
               { SOME_REQUEST: 0, OTHER_REQUEST: 1 }
             );
 
-            expect(nextState).to.deep.equal(expected);
+            expect(nextState).toEqual(expected);
           });
         });
       });
@@ -149,17 +148,17 @@ describe('state/reducers/api/activeRequestsReducer', () => {
           type: 'SOME_REQUEST',
         });
 
-        it('adds the action to activeRequests with count 0', () => {
+        test('adds the action to activeRequests with count 0', () => {
           const initialState = Immutable({});
           const nextState = activeRequestsReducer(initialState, action);
           const expected = Immutable(
             { SOME_REQUEST: 0 }
           );
 
-          expect(nextState).to.deep.equal(expected);
+          expect(nextState).toEqual(expected);
         });
 
-        it('does not affect the existing activeRequests', () => {
+        test('does not affect the existing activeRequests', () => {
           const initialState = Immutable(
             { OTHER_REQUEST: 1 }
           );
@@ -168,7 +167,7 @@ describe('state/reducers/api/activeRequestsReducer', () => {
             { SOME_REQUEST: 0, OTHER_REQUEST: 1 }
           );
 
-          expect(nextState).to.deep.equal(expected);
+          expect(nextState).toEqual(expected);
         });
       });
     });

@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
@@ -23,7 +24,9 @@ class TopNavbar extends Component {
   }
 
   render() {
-    const { changeLocale, currentLanguage, isLoggedIn, t, userName } = this.props;
+    const {
+      changeLocale, currentLanguage, isLoggedIn, t, userName
+    } = this.props;
 
     return (
       <Navbar className="app-TopNavbar" fluid>
@@ -64,7 +67,7 @@ class TopNavbar extends Component {
           )}
 
           {!isLoggedIn && (
-            <NavItem id="app-Navbar__login" onClick={this.handleLoginClick}>
+            <NavItem id="app-TopNavbar__login" onClick={this.handleLoginClick}>
               {t('Navbar.login')}
             </NavItem>
           )}

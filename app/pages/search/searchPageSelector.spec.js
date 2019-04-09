@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import { getDefaultRouterProps, getState } from 'utils/testUtils';
 import searchPageSelector from './searchPageSelector';
 
@@ -26,31 +24,31 @@ describe('pages/search/searchPageSelector', () => {
     return searchPageSelector(state, props);
   }
 
-  it('returns filters', () => {
-    expect(getSelected().filters).to.exist;
+  test('returns filters', () => {
+    expect(getSelected().filters).toBeDefined();
   });
 
-  it('returns isFetchingSearchResults', () => {
-    expect(getSelected().isFetchingSearchResults).to.exist;
+  test('returns isFetchingSearchResults', () => {
+    expect(getSelected().isFetchingSearchResults).toBeDefined();
   });
 
-  it('returns isLoggedIn', () => {
-    expect(getSelected().isLoggedIn).to.exist;
+  test('returns isLoggedIn', () => {
+    expect(getSelected().isLoggedIn).toBeDefined();
   });
 
-  it('returns resultCount', () => {
-    expect(getSelected().resultCount).to.deep.equal(2);
+  test('returns resultCount', () => {
+    expect(getSelected().resultCount).toEqual(2);
   });
 
-  it('returns searchDone', () => {
-    expect(getSelected().searchDone).to.exist;
+  test('returns searchDone', () => {
+    expect(getSelected().searchDone).toBeDefined();
   });
 
-  it('returns searchResultIds', () => {
-    expect(getSelected().searchResultIds).to.deep.equal(searchResultIds);
+  test('returns searchResultIds', () => {
+    expect(getSelected().searchResultIds).toEqual(searchResultIds);
   });
 
-  it('returns searchResultIds ordered by distance', () => {
+  test('returns searchResultIds ordered by distance', () => {
     expect(getSelected({
       'data.resources': {
         'resource-1': {
@@ -62,18 +60,18 @@ describe('pages/search/searchPageSelector', () => {
           distance: 2000,
         },
       },
-    }).searchResultIds).to.deep.equal(['resource-2', 'resource-1']);
+    }).searchResultIds).toEqual(['resource-2', 'resource-1']);
   });
 
-  it('returns showMap', () => {
-    expect(getSelected().showMap).to.exist;
+  test('returns showMap', () => {
+    expect(getSelected().showMap).toBeDefined();
   });
 
-  it('returns selectedUnitId', () => {
-    expect(getSelected().selectedUnitId).to.equal(null);
+  test('returns selectedUnitId', () => {
+    expect(getSelected().selectedUnitId).toBeNull();
   });
 
-  it('returns uiFilters', () => {
-    expect(getSelected().uiFilters).to.exist;
+  test('returns uiFilters', () => {
+    expect(getSelected().uiFilters).toBeDefined();
   });
 });

@@ -1,5 +1,6 @@
 import includes from 'lodash/includes';
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 
@@ -45,12 +46,14 @@ class UnconnectedReservationListContainer extends Component {
 
     return (
       <Loader loaded={!loading}>
-        {reservations.length ?
-          <div>
-            <ul className="reservation-list">
-              {reservations.map(this.renderReservationListItem)}
-            </ul>
-          </div>
+        {reservations.length
+          ? (
+            <div>
+              <ul className="reservation-list">
+                {reservations.map(this.renderReservationListItem)}
+              </ul>
+            </div>
+          )
           : <p>{emptyMessage || t('ReservationListContainer.emptyMessage')}</p>
         }
       </Loader>

@@ -1,14 +1,17 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import Checkbox from './Checkbox';
 import FormControl from './FormControl';
 
-function ReduxFormField({ controlProps = {}, help, info, input, label, meta, name, type }) {
+function ReduxFormField({
+  controlProps = {}, help, info, input, label, meta, type
+}) {
   const showError = meta.error && meta.touched;
   const props = {
     controlProps: Object.assign({}, input, controlProps),
     help: showError ? meta.error : help,
-    id: name,
+    id: input.name,
     info,
     label,
     type,
@@ -29,7 +32,6 @@ ReduxFormField.propTypes = {
   input: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired,
   meta: PropTypes.object.isRequired,
-  name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
 };
 

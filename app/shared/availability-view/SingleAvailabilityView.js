@@ -1,6 +1,7 @@
 import dragscroll from 'dragscroll';
 import moment from 'moment';
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import DateSelector from './DateSelector';
 import TimelineGroup from './TimelineGroups/TimelineGroup';
@@ -31,14 +32,14 @@ export default class SingleAvailabilityView extends React.Component {
     if (component) {
       const target = (
         this.props.selection
-        ? utils.getTimeSlotWidth({
-          startTime: moment(this.props.selection.begin).startOf('day'),
-          endTime: moment(this.props.selection.begin),
-        })
-        : utils.getTimeSlotWidth({
-          startTime: moment('2016-01-01T00:00:00'),
-          endTime: moment('2016-01-01T08:00:00'),
-        })
+          ? utils.getTimeSlotWidth({
+            startTime: moment(this.props.selection.begin).startOf('day'),
+            endTime: moment(this.props.selection.begin),
+          })
+          : utils.getTimeSlotWidth({
+            startTime: moment('2016-01-01T00:00:00'),
+            endTime: moment('2016-01-01T08:00:00'),
+          })
       );
       component.scrollTo(target);
     }

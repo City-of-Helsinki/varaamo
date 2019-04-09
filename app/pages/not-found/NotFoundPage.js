@@ -1,7 +1,8 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Well from 'react-bootstrap/lib/Well';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import PageWrapper from 'pages/PageWrapper';
 import { injectT } from 'i18n';

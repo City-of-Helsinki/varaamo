@@ -1,10 +1,13 @@
-import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import PropTypes from 'prop-types';
+import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 
+import FAIcon from 'shared/fontawesome-icon';
 import { injectT } from 'i18n';
 import { getSearchPageUrl } from 'utils/searchUtils';
 
@@ -21,26 +24,25 @@ class MainNavbar extends React.Component {
   }
 
   toggleCollapse() {
-    this.setState({ expanded: !this.state.expanded });
+    this.setState(prevState => ({ expanded: !prevState.expanded }));
   }
 
   render() {
     const {
-      activeLink,
-      clearSearchResults,
-      isAdmin,
-      isLoggedIn,
-      t,
+      activeLink, clearSearchResults, isAdmin, isLoggedIn, t
     } = this.props;
 
     return (
-      <Navbar className="app-MainNavbar" expanded={this.state.expanded} fluid onToggle={() => this.toggleCollapse()}>
+      <Navbar
+        className="app-MainNavbar"
+        expanded={this.state.expanded}
+        fluid
+        onToggle={() => this.toggleCollapse()}
+      >
         <Navbar.Header>
           <Navbar.Toggle />
           <Navbar.Brand>
-            <Link to="/">
-              Varaamo
-            </Link>
+            <Link to="/">Varaamo</Link>
           </Navbar.Brand>
         </Navbar.Header>
         <Navbar.Collapse>
@@ -59,7 +61,7 @@ class MainNavbar extends React.Component {
             {isLoggedIn && (
               <LinkContainer to="/admin-resources">
                 <NavItem eventKey="admin-resources" onClick={() => this.collapseItem()}>
-                  { isAdmin ? t('Navbar.adminResources') : t('Navbar.userFavorites') }
+                  {isAdmin ? t('Navbar.adminResources') : t('Navbar.userFavorites')}
                 </NavItem>
               </LinkContainer>
             )}
@@ -70,6 +72,21 @@ class MainNavbar extends React.Component {
                 </NavItem>
               </LinkContainer>
             )}
+            {isAdmin
+              && (
+                <Fragment>
+                  <NavItem eventKey="adminMaintenance" href="https://api.hel.fi/respa/ra/" target="_blank">
+                    {t('Navbar.adminMaintenance')}
+                    <FAIcon icon={faExternalLinkAlt} />
+                  </NavItem>
+
+                  <NavItem eventKey="adminGuide" href="https://cityofhelsinki.gitbook.io/varaamo" target="_blank">
+                    {t('Navbar.adminGuide')}
+                    <FAIcon icon={faExternalLinkAlt} />
+                  </NavItem>
+                </Fragment>
+              )
+            }
             <LinkContainer to="/about">
               <NavItem eventKey="about" onClick={() => this.collapseItem()}>
                 {t('Navbar.aboutLink')}

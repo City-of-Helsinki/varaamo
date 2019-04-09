@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
@@ -48,8 +47,8 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
   }
 
   describe('render', () => {
-    it('renders a Form component', () => {
-      expect(getWrapper().find(Form)).to.have.length(1);
+    test('renders a Form component', () => {
+      expect(getWrapper().find(Form)).toHaveLength(1);
     });
 
     describe('reservation data', () => {
@@ -57,88 +56,88 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
         return getWrapper(props).find(Form).html();
       }
 
-      it('renders billingAddressCity', () => {
-        expect(getData()).to.contain(reservation.billingAddressCity);
+      test('renders billingAddressCity', () => {
+        expect(getData()).toContain(reservation.billingAddressCity);
       });
 
-      it('renders billingAddressStreet', () => {
-        expect(getData()).to.contain(reservation.billingAddressStreet);
+      test('renders billingAddressStreet', () => {
+        expect(getData()).toContain(reservation.billingAddressStreet);
       });
 
-      it('renders billingAddressZip', () => {
-        expect(getData()).to.contain(reservation.billingAddressZip);
+      test('renders billingAddressZip', () => {
+        expect(getData()).toContain(reservation.billingAddressZip);
       });
 
       describe('comments', () => {
-        it('are not rendered if user is not an admin', () => {
+        test('are not rendered if user is not an admin', () => {
           const props = {
             isAdmin: false,
             reservationIsEditable: false,
           };
-          expect(getData(props)).to.not.contain(reservation.comments);
+          expect(getData(props)).not.toContain(reservation.comments);
         });
 
-        it('are not rendered if reservation is editable', () => {
+        test('are not rendered if reservation is editable', () => {
           const props = {
             isAdmin: true,
             reservationIsEditable: true,
           };
-          expect(getData(props)).to.not.contain(reservation.comments);
+          expect(getData(props)).not.toContain(reservation.comments);
         });
 
-        it('are rendered if user is admin and reservation is not editable', () => {
+        test('are rendered if user is admin and reservation is not editable', () => {
           const props = {
             isAdmin: true,
             reservationIsEditable: false,
           };
-          expect(getData(props)).to.contain(reservation.comments);
+          expect(getData(props)).toContain(reservation.comments);
         });
       });
 
-      it('renders eventDescription', () => {
-        expect(getData()).to.contain(reservation.eventDescription);
+      test('renders eventDescription', () => {
+        expect(getData()).toContain(reservation.eventDescription);
       });
 
-      it('renders eventSubject', () => {
-        expect(getData()).to.contain(reservation.eventSubject);
+      test('renders eventSubject', () => {
+        expect(getData()).toContain(reservation.eventSubject);
       });
 
-      it('renders numberOfParticipants', () => {
-        expect(getData()).to.contain(reservation.numberOfParticipants);
+      test('renders numberOfParticipants', () => {
+        expect(getData()).toContain(reservation.numberOfParticipants);
       });
 
-      it('renders reserverAddressCity', () => {
-        expect(getData()).to.contain(reservation.reserverAddressCity);
+      test('renders reserverAddressCity', () => {
+        expect(getData()).toContain(reservation.reserverAddressCity);
       });
 
-      it('renders reserverAddressStreet', () => {
-        expect(getData()).to.contain(reservation.reserverAddressStreet);
+      test('renders reserverAddressStreet', () => {
+        expect(getData()).toContain(reservation.reserverAddressStreet);
       });
 
-      it('renders reserverAddressZip', () => {
-        expect(getData()).to.contain(reservation.reserverAddressZip);
+      test('renders reserverAddressZip', () => {
+        expect(getData()).toContain(reservation.reserverAddressZip);
       });
 
-      it('renders reserverEmailAddress', () => {
-        expect(getData()).to.contain(reservation.reserverEmailAddress);
+      test('renders reserverEmailAddress', () => {
+        expect(getData()).toContain(reservation.reserverEmailAddress);
       });
 
       describe('reserverId', () => {
-        it('is rendered if user has staff rights', () => {
-          expect(getData({ isStaff: true })).to.contain(reservation.reserverId);
+        test('is rendered if user has staff rights', () => {
+          expect(getData({ isStaff: true })).toContain(reservation.reserverId);
         });
 
-        it('is not rendered if user does not have staff rights', () => {
-          expect(getData({ isStaff: false })).to.not.contain(reservation.reserverId);
+        test('is not rendered if user does not have staff rights', () => {
+          expect(getData({ isStaff: false })).not.toContain(reservation.reserverId);
         });
       });
 
-      it('renders reserverName', () => {
-        expect(getData()).to.contain(reservation.reserverName);
+      test('renders reserverName', () => {
+        expect(getData()).toContain(reservation.reserverName);
       });
 
-      it('renders reserverPhoneNumber', () => {
-        expect(getData()).to.contain(reservation.reserverPhoneNumber);
+      test('renders reserverPhoneNumber', () => {
+        expect(getData()).toContain(reservation.reserverPhoneNumber);
       });
 
       describe('user name and email', () => {
@@ -152,13 +151,16 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
           user,
         });
 
-        it('renders reservation user name when reserverName is empty', () => {
-          expect(getData({ reservation: userReservation })).to.contain(user.displayName);
+        test('renders reservation user name when reserverName is empty', () => {
+          expect(getData({ reservation: userReservation })).toContain(user.displayName);
         });
 
-        it('renders reservation user email when reserverEmailAddress is empty', () => {
-          expect(getData({ reservation: userReservation })).to.contain(user.email);
-        });
+        test(
+          'renders reservation user email when reserverEmailAddress is empty',
+          () => {
+            expect(getData({ reservation: userReservation })).toContain(user.email);
+          }
+        );
       });
     });
 
@@ -168,36 +170,36 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
           return getWrapper({ isEditing: true }).find(Field).filter({ name });
         }
 
-        it('renders a text field for eventSubject', () => {
+        test('renders a text field for eventSubject', () => {
           const field = getFormField('eventSubject');
-          expect(field).to.have.length(1);
-          expect(field.prop('type')).to.equal('text');
+          expect(field).toHaveLength(1);
+          expect(field.prop('type')).toBe('text');
         });
 
-        it('renders a textarea field for eventDescription', () => {
+        test('renders a textarea field for eventDescription', () => {
           const field = getFormField('eventDescription');
-          expect(field).to.have.length(1);
-          expect(field.prop('type')).to.equal('textarea');
+          expect(field).toHaveLength(1);
+          expect(field.prop('type')).toBe('textarea');
         });
 
-        it('renders a number field for numberOfParticipants', () => {
+        test('renders a number field for numberOfParticipants', () => {
           const field = getFormField('numberOfParticipants');
-          expect(field).to.have.length(1);
-          expect(field.prop('type')).to.equal('number');
+          expect(field).toHaveLength(1);
+          expect(field.prop('type')).toBe('number');
         });
 
-        it('renders ReservationTimeControls', () => {
+        test('renders ReservationTimeControls', () => {
           const timeControls = getWrapper({ isEditing: true })
             .find(Fields)
             .filter({ names: ['begin', 'end'] });
-          expect(timeControls).to.have.length(1);
+          expect(timeControls).toHaveLength(1);
         });
       });
 
       describe('when not editing', () => {
-        it('does not render any form fields', () => {
-          expect(getWrapper({ isEditing: false }).find(Field)).to.have.length(0);
-          expect(getWrapper({ isEditing: false }).find(Fields)).to.have.length(0);
+        test('does not render any form fields', () => {
+          expect(getWrapper({ isEditing: false }).find(Field)).toHaveLength(0);
+          expect(getWrapper({ isEditing: false }).find(Fields)).toHaveLength(0);
         });
       });
     });
@@ -207,28 +209,28 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
         return getWrapper(props).find('.form-controls');
       }
 
-      it('are not rendered if user is not an admin', () => {
+      test('are not rendered if user is not an admin', () => {
         const props = {
           isAdmin: false,
           reservationIsEditable: true,
         };
-        expect(getFormControls(props)).to.have.length(0);
+        expect(getFormControls(props)).toHaveLength(0);
       });
 
-      it('are not rendered if reservation is not editable', () => {
+      test('are not rendered if reservation is not editable', () => {
         const props = {
           isAdmin: true,
           reservationIsEditable: false,
         };
-        expect(getFormControls(props)).to.have.length(0);
+        expect(getFormControls(props)).toHaveLength(0);
       });
 
-      it('are rendered if user is admin and reservation is editable', () => {
+      test('are rendered if user is admin and reservation is editable', () => {
         const props = {
           isAdmin: true,
           reservationIsEditable: true,
         };
-        expect(getFormControls(props)).to.have.length(1);
+        expect(getFormControls(props)).toHaveLength(1);
       });
 
       describe('edit button', () => {
@@ -243,12 +245,12 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
           return wrapper.find(Button).filter({ onClick: onStartEditClick });
         }
 
-        it('is rendered if isEditing is false', () => {
-          expect(getEditButton({ isEditing: false })).to.have.length(1);
+        test('is rendered if isEditing is false', () => {
+          expect(getEditButton({ isEditing: false })).toHaveLength(1);
         });
 
-        it('is not rendered if isEditing is true', () => {
-          expect(getEditButton({ isEditing: true })).to.have.length(0);
+        test('is not rendered if isEditing is true', () => {
+          expect(getEditButton({ isEditing: true })).toHaveLength(0);
         });
       });
 
@@ -264,12 +266,12 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
           return wrapper.find(Button).filter({ onClick: onCancelEditClick });
         }
 
-        it('is rendered if isEditing is true', () => {
-          expect(getEditButton({ isEditing: true })).to.have.length(1);
+        test('is rendered if isEditing is true', () => {
+          expect(getEditButton({ isEditing: true })).toHaveLength(1);
         });
 
-        it('is not rendered if isEditing is false', () => {
-          expect(getEditButton({ isEditing: false })).to.have.length(0);
+        test('is not rendered if isEditing is false', () => {
+          expect(getEditButton({ isEditing: false })).toHaveLength(0);
         });
       });
 
@@ -283,12 +285,12 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
           return wrapper.find(Button).filter({ type: 'submit' });
         }
 
-        it('is rendered if isEditing is true', () => {
-          expect(getSaveButton({ isEditing: true })).to.have.length(1);
+        test('is rendered if isEditing is true', () => {
+          expect(getSaveButton({ isEditing: true })).toHaveLength(1);
         });
 
-        it('is not rendered if isEditing is false', () => {
-          expect(getSaveButton({ isEditing: false })).to.have.length(0);
+        test('is not rendered if isEditing is false', () => {
+          expect(getSaveButton({ isEditing: false })).toHaveLength(0);
         });
       });
     });

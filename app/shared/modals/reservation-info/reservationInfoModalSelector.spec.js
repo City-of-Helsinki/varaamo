@@ -1,7 +1,7 @@
-import { expect } from 'chai';
+import ActionTypes from 'constants/ActionTypes';
+
 import mockDate from 'mockdate';
 
-import ActionTypes from 'constants/ActionTypes';
 import { getState } from 'utils/testUtils';
 import reservationInfoModalSelector from './reservationInfoModalSelector';
 
@@ -11,87 +11,87 @@ describe('shared/modals/reservation-info/reservationInfoModalSelector', () => {
     return reservationInfoModalSelector(state);
   }
 
-  it('returns isAdmin', () => {
-    expect(getSelected().isAdmin).to.exist;
+  test('returns isAdmin', () => {
+    expect(getSelected().isAdmin).toBeDefined();
   });
 
   describe('isEditing', () => {
-    it('returns true if ui.reservationInfoModal.isEditing is true', () => {
+    test('returns true if ui.reservationInfoModal.isEditing is true', () => {
       const selected = getSelected({
         'ui.reservationInfoModal': { isEditing: true },
       });
-      expect(selected.isEditing).to.be.true;
+      expect(selected.isEditing).toBe(true);
     });
 
-    it('returns false if ui.reservationInfoModal.isEditing is false', () => {
+    test('returns false if ui.reservationInfoModal.isEditing is false', () => {
       const selected = getSelected({
         'ui.reservationInfoModal': { isEditing: false },
       });
-      expect(selected.isEditing).to.be.false;
+      expect(selected.isEditing).toBe(false);
     });
   });
 
   describe('isSaving', () => {
-    it('returns true if RESERVATION_PUT_REQUEST is active', () => {
+    test('returns true if RESERVATION_PUT_REQUEST is active', () => {
       const activeRequests = { [ActionTypes.API.RESERVATION_PUT_REQUEST]: 1 };
       const selected = getSelected({
         'api.activeRequests': activeRequests,
       });
-      expect(selected.isSaving).to.be.true;
+      expect(selected.isSaving).toBe(true);
     });
 
-    it('returns false if RESERVATION_PUT_REQUEST is not active', () => {
-      expect(getSelected().isSaving).to.be.false;
+    test('returns false if RESERVATION_PUT_REQUEST is not active', () => {
+      expect(getSelected().isSaving).toBe(false);
     });
   });
 
-  it('returns isStaff', () => {
-    expect(getSelected().isStaff).to.exist;
+  test('returns isStaff', () => {
+    expect(getSelected().isStaff).toBeDefined();
   });
 
-  it('returns correct reservation from the state', () => {
+  test('returns correct reservation from the state', () => {
     const reservation = { id: 'reservation-1' };
     const selected = getSelected({
       'ui.reservationInfoModal.reservation': reservation,
     });
-    expect(selected.reservation).to.deep.equal(reservation);
+    expect(selected.reservation).toEqual(reservation);
   });
 
   describe('reservationIsEditable', () => {
-    before(() => {
+    beforeAll(() => {
       mockDate.set('2017-03-01T10:00:00Z');
     });
 
-    after(() => {
+    afterAll(() => {
       mockDate.reset();
     });
 
-    it('returns false if reservation is in the past', () => {
+    test('returns false if reservation is in the past', () => {
       const reservation = { end: '2016-12-12T10:00:00Z' };
       const selected = getSelected({
         'ui.reservationInfoModal.reservation': reservation,
       });
-      expect(selected.reservationIsEditable).to.be.false;
+      expect(selected.reservationIsEditable).toBe(false);
     });
 
-    it('returns false if reservation is cancelled', () => {
+    test('returns false if reservation is cancelled', () => {
       const reservation = { end: '2017-12-12T10:00:00Z', state: 'cancelled' };
       const selected = getSelected({
         'ui.reservationInfoModal.reservation': reservation,
       });
-      expect(selected.reservationIsEditable).to.be.false;
+      expect(selected.reservationIsEditable).toBe(false);
     });
 
-    it('returns true otherwise', () => {
+    test('returns true otherwise', () => {
       const reservation = { end: '2017-12-12T10:00:00Z', state: 'confirmed' };
       const selected = getSelected({
         'ui.reservationInfoModal.reservation': reservation,
       });
-      expect(selected.reservationIsEditable).to.be.true;
+      expect(selected.reservationIsEditable).toBe(true);
     });
   });
 
-  it('returns correct resource from the state', () => {
+  test('returns correct resource from the state', () => {
     const resource = { id: 'resource-1' };
     const reservation = { id: 'reservation-1', resource: resource.id };
     const selected = getSelected({
@@ -99,22 +99,22 @@ describe('shared/modals/reservation-info/reservationInfoModalSelector', () => {
       'ui.reservationInfoModal.reservation': reservation,
     });
 
-    expect(selected.resource).to.deep.equal(resource);
+    expect(selected.resource).toEqual(resource);
   });
 
   describe('show', () => {
-    it('returns true if ui.reservationInfoModal.show is true', () => {
+    test('returns true if ui.reservationInfoModal.show is true', () => {
       const selected = getSelected({
         'ui.reservationInfoModal': { show: true },
       });
-      expect(selected.show).to.be.true;
+      expect(selected.show).toBe(true);
     });
 
-    it('returns false if ui.reservationInfoModal.show is false', () => {
+    test('returns false if ui.reservationInfoModal.show is false', () => {
       const selected = getSelected({
         'ui.reservationInfoModal': { show: false },
       });
-      expect(selected.show).to.be.false;
+      expect(selected.show).toBe(false);
     });
   });
 });

@@ -1,50 +1,64 @@
 const path = require('path');
 
-require('dotenv').load({ path: path.resolve(__dirname, '../.env') });
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
 const webpack = require('webpack');
 const merge = require('webpack-merge');
+const autoprefixer = require('autoprefixer');
 
 const common = require('./webpack.common');
 
 module.exports = merge(common, {
+  mode: 'development',
   entry: [
-    'babel-polyfill',
+    '@babel/polyfill',
     'webpack-hot-middleware/client',
     path.resolve(__dirname, '../app/index.js'),
   ],
-  debug: true,
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: 'app.js',
     publicPath: '/',
   },
   module: {
-    preLoaders: [
+    rules: [
       {
-        test: /\.js$/,
+        enforce: 'pre',
+        test: /\.(js|jsx)$/,
         include: path.resolve(__dirname, '../app'),
         loader: 'eslint-loader',
-      },
-    ],
-    loaders: [
-      {
-        test: /\.js$/,
-        include: path.resolve(__dirname, '../app'),
-        exclude: path.resolve(__dirname, '../node_modules'),
-        loader: 'babel-loader',
-        query: {
-          presets: ['es2015', 'node6', 'react', 'react-hmre', 'stage-2'],
+        options: {
+          configFile: path.resolve(__dirname, '../.eslintrc'),
+          eslintPath: require.resolve('eslint'),
         },
       },
       {
+        test: /\.(js|jsx)$/,
+        include: path.resolve(__dirname, '../app'),
+        exclude: path.resolve(__dirname, '../node_modules'),
+        options: {
+          presets: ['@babel/preset-env', '@babel/preset-react'],
+        },
+        loader: 'babel-loader',
+      },
+      {
         test: /\.css$/,
-        loader: 'style-loader!css-loader!postcss-loader',
+        use: [
+          'style-loader',
+          'css-loader',
+          { loader: 'postcss-loader', options: { plugins: [autoprefixer({ browsers: ['last 2 version', 'ie 9'] })] } },
+        ],
       },
       {
         test: /\.scss$/,
-        loader: 'style-loader!css-loader!resolve-url-loader!postcss-loader!sass-loader?source-map',
+        use: [
+          'style-loader',
+          'css-loader',
+          'resolve-url-loader',
+          { loader: 'sass-loader', options: { sourceMap: true, sourceMapContents: false } },
+          { loader: 'postcss-loader', options: { plugins: [autoprefixer({ browsers: ['last 2 version', 'ie 9'] })] } },
+        ],
       },
     ],
   },
@@ -58,6 +72,6 @@ module.exports = merge(common, {
       },
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
   ],
 });

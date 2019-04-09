@@ -1,6 +1,7 @@
-import { CALL_API } from 'redux-api-middleware';
-
 import types from 'constants/ActionTypes';
+
+import { RSAA } from 'redux-api-middleware';
+
 import schemas from 'store/middleware/Schemas';
 import {
   buildAPIUrl,
@@ -12,7 +13,7 @@ import {
 
 function fetchPurposes() {
   return {
-    [CALL_API]: {
+    [RSAA]: {
       types: [
         getRequestTypeDescriptor(types.API.PURPOSES_GET_REQUEST),
         getSuccessTypeDescriptor(

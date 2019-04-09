@@ -45,13 +45,15 @@ export default {
     },
   },
   SEARCH_PAGE_SIZE: 30,
+  SEARCH_MUNICIPALITY_OPTIONS: ['Helsinki', 'Espoo', 'Vantaa'],
   SHOW_TEST_SITE_MESSAGE: SETTINGS.SHOW_TEST_SITE_MESSAGE,
   SUPPORTED_LANGUAGES: ['en', 'fi', 'sv'],
   SUPPORTED_SEARCH_FILTERS: {
-    charge: false,
+    freeOfCharge: '',
     date: '',
     distance: '',
     duration: 0,
+    municipality: '',
     end: '',
     lat: '',
     lon: '',
@@ -64,5 +66,6 @@ export default {
     useTimeRange: false,
   },
   TIME_FORMAT: 'H:mm',
+  TIME_SLOT_DEFAULT_LENGTH: 30,
   TRACKING: SETTINGS.TRACKING,
 };

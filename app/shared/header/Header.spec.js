@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import Sticky from 'react-sticky-el';
 import { shallow } from 'enzyme';
@@ -20,24 +19,24 @@ describe('shared/header/Header', () => {
     );
   }
 
-  it('renders top navbar', () => {
+  test('renders top navbar', () => {
     const topNavbar = getWrapper().find(TopNavbar);
-    expect(topNavbar).to.have.length(1);
+    expect(topNavbar).toHaveLength(1);
   });
 
-  it('renders sticky', () => {
+  test('renders sticky', () => {
     const sticky = getWrapper().find(Sticky);
-    expect(sticky).to.have.length(1);
+    expect(sticky).toHaveLength(1);
   });
 
-  it('renders main navbar', () => {
+  test('renders main navbar', () => {
     const mainNavbar = getWrapper().find(MainNavbar);
-    expect(mainNavbar).to.have.length(1);
-    expect(mainNavbar.at(0).prop('activeLink')).to.equal(pathname);
+    expect(mainNavbar).toHaveLength(1);
+    expect(mainNavbar.at(0).prop('activeLink')).toBe(pathname);
   });
 
-  it('renders props.children', () => {
+  test('renders props.children', () => {
     const children = getWrapper().find('#child-div');
-    expect(children).to.have.length(1);
+    expect(children).toHaveLength(1);
   });
 });

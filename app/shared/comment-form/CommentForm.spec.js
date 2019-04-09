@@ -1,6 +1,4 @@
-import { expect } from 'chai';
 import React from 'react';
-import ReactDom from 'react-dom';
 import Button from 'react-bootstrap/lib/Button';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import simple from 'simple-mock';
@@ -21,19 +19,19 @@ describe('shared/comment-form/CommentForm', () => {
   }
 
   describe('render', () => {
-    it('renders a form', () => {
+    test('renders a form', () => {
       const form = getWrapper().find('form');
 
-      expect(form.length).to.equal(1);
+      expect(form.length).toBe(1);
     });
 
     describe('comments textarea', () => {
-      it('renders a FormControl with correct props', () => {
+      test('renders a FormControl with correct props', () => {
         const formControl = getWrapper().find(FormControl);
 
-        expect(formControl.length).to.equal(1);
-        expect(formControl.prop('componentClass')).to.equal('textarea');
-        expect(formControl.prop('defaultValue')).to.equal(defaultProps.defaultValue);
+        expect(formControl.length).toBe(1);
+        expect(formControl.prop('componentClass')).toBe('textarea');
+        expect(formControl.prop('defaultValue')).toBe(defaultProps.defaultValue);
       });
     });
 
@@ -41,8 +39,8 @@ describe('shared/comment-form/CommentForm', () => {
       const wrapper = getWrapper();
       const buttons = wrapper.find(Button);
 
-      it('renders two buttons', () => {
-        expect(buttons.length).to.equal(2);
+      test('renders two buttons', () => {
+        expect(buttons.length).toBe(2);
       });
 
       describe('the first button', () => {
@@ -57,14 +55,14 @@ describe('shared/comment-form/CommentForm', () => {
       describe('the second button', () => {
         const button = buttons.at(1);
 
-        it('is save button', () => {
-          expect(button.props().children).to.equal('common.save');
+        test('is save button', () => {
+          expect(button.props().children).toBe('common.save');
         });
 
-        it('has handleSave as its onClick prop', () => {
+        test('has handleSave as its onClick prop', () => {
           const instance = wrapper.instance();
 
-          expect(button.props().onClick).to.equal(instance.handleSave);
+          expect(button.props().onClick).toBe(instance.handleSave);
         });
       });
     });
@@ -74,25 +72,27 @@ describe('shared/comment-form/CommentForm', () => {
     const comments = 'Some comments';
     const mockEvent = { preventDefault: () => null };
 
-    before(() => {
-      simple.mock(ReactDom, 'findDOMNode').returnWith({ value: comments });
+    beforeAll(() => {
       const instance = getWrapper().instance();
+      // override ref value to mock
+      instance.commentsInput.current = { value: comments };
+
       defaultProps.onSave.reset();
       instance.handleSave(mockEvent);
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls onSave given in props', () => {
-      expect(defaultProps.onSave.callCount).to.equal(1);
+    test('calls onSave given in props', () => {
+      expect(defaultProps.onSave.callCount).toBe(1);
     });
 
-    it('calls commentReservation with correct arguments', () => {
+    test('calls commentReservation with correct arguments', () => {
       const actualArgs = defaultProps.onSave.lastCall.args;
 
-      expect(actualArgs[0]).to.deep.equal(comments);
+      expect(actualArgs[0]).toEqual(comments);
     });
   });
 });

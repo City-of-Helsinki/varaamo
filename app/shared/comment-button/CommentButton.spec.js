@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
@@ -16,24 +15,24 @@ describe('shared/comment-button/CommentButton', () => {
   }
   let wrapper;
 
-  before(() => {
+  beforeAll(() => {
     wrapper = getWrapper();
   });
 
-  it('is a button', () => {
-    expect(wrapper.is('button')).to.be.true;
+  test('is a button', () => {
+    expect(wrapper.is('button')).toBe(true);
   });
 
-  it('has comment-button class name', () => {
-    expect(wrapper.prop('className')).to.equal('comment-button');
+  test('has comment-button class name', () => {
+    expect(wrapper.prop('className')).toBe('comment-button');
   });
 
-  it('has correct onClick prop', () => {
-    expect(wrapper.prop('onClick')).to.equal(defaultProps.onClick);
+  test('has correct onClick prop', () => {
+    expect(wrapper.prop('onClick')).toBe(defaultProps.onClick);
   });
 
-  it('displays a comment glyphicon', () => {
-    expect(wrapper.children().is(Glyphicon)).to.be.true;
-    expect(wrapper.children().prop('glyph')).to.equal('comment');
+  test('displays a comment glyphicon', () => {
+    expect(wrapper.children().is(Glyphicon)).toBe(true);
+    expect(wrapper.children().prop('glyph')).toBe('comment');
   });
 });

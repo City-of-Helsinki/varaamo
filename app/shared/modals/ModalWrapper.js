@@ -1,7 +1,10 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 
-function ModalWrapper({ children, className, footerContent, onClose, show, title }) {
+function ModalWrapper({
+  children, className, footerContent, onClose, show, title
+}) {
   return (
     <Modal className={className} onHide={onClose} show={show}>
       <Modal.Header closeButton>

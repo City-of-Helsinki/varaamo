@@ -1,13 +1,12 @@
-import { expect } from 'chai';
+import constants from 'constants/AppConstants';
+
 import moment from 'moment';
 import queryString from 'query-string';
 import React from 'react';
-import { browserHistory } from 'react-router';
 import Button from 'react-bootstrap/lib/Button';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import constants from 'constants/AppConstants';
 import { shallowWithIntl } from 'utils/testUtils';
 import CheckboxControl from './CheckboxControl';
 import DatePickerControl from './DatePickerControl';
@@ -18,7 +17,12 @@ import TimeRangeControl from './TimeRangeControl';
 import { UnconnectedSearchControlsContainer as SearchControlsContainer } from './SearchControlsContainer';
 
 describe('pages/search/controls/SearchControlsContainer', () => {
+  const history = {
+    push: () => { },
+  };
+
   const defaultProps = {
+    history,
     actions: {
       changeSearchFilters: () => null,
       fetchPurposes: () => null,
@@ -28,7 +32,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     isFetchingPurposes: false,
     isFetchingUnits: false,
     filters: {
-      charge: false,
+      freeOfCharge: '',
       date: '2015-10-10',
       duration: 0,
       end: '',
@@ -38,6 +42,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       search: 'search-query',
       start: '',
       unit: 'some-unit',
+      municipality: '',
     },
     purposeOptions: Immutable([
       { value: 'filter-1', label: 'Label 1' },
@@ -48,6 +53,10 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       { value: 'unit-1', label: 'Unit 1' },
       { value: 'unit-2', label: 'Unit 2' },
     ]),
+    peopleOptions: Immutable([
+      { value: '1', label: 'foo' },
+      { value: '2', label: 'bar' },
+    ]),
     urlSearchFilters: {},
   };
 
@@ -56,51 +65,61 @@ describe('pages/search/controls/SearchControlsContainer', () => {
   }
 
   describe('render', () => {
-    it('renders SearchBox with correct props', () => {
+    test('renders SearchBox with correct props', () => {
       const filters = { ...defaultProps.filters, search: 'my search' };
       const wrapper = getWrapper({ filters });
       const searchBox = wrapper.find(SearchBox);
       const expectedOptions = defaultProps.purposeOptions.concat(defaultProps.unitOptions);
-      expect(searchBox).to.have.length(1);
-      expect(searchBox.prop('onChange')).to.be.a('function');
-      expect(searchBox.prop('onSearch')).to.equal(wrapper.instance().handleSearch);
-      expect(searchBox.prop('options')).to.deep.equal(expectedOptions);
-      expect(searchBox.prop('value')).to.equal(filters.search);
+      expect(searchBox).toHaveLength(1);
+      expect(typeof searchBox.prop('onChange')).toBe('function');
+      expect(searchBox.prop('onSearch')).toBe(wrapper.instance().handleSearch);
+      expect(searchBox.prop('options')).toEqual(expectedOptions);
+      expect(searchBox.prop('value')).toBe(filters.search);
     });
 
-    it('renders DatePickerControl with correct props', () => {
+    test('renders DatePickerControl with correct props', () => {
       const filters = { ...defaultProps.filters, date: '2015-10-10' };
       const wrapper = getWrapper({ filters });
       const datePickerControl = wrapper.find(DatePickerControl);
-      expect(datePickerControl).to.have.length(1);
-      expect(datePickerControl.prop('currentLanguage')).to.equal(defaultProps.currentLanguage);
-      expect(datePickerControl.prop('date')).to.equal(moment(filters.date).format('L'));
-      expect(datePickerControl.prop('onConfirm')).to.equal(wrapper.instance().handleDateChange);
+      expect(datePickerControl).toHaveLength(1);
+      expect(datePickerControl.prop('currentLanguage')).toBe(defaultProps.currentLanguage);
+      expect(datePickerControl.prop('date')).toBe(moment(filters.date).format('L'));
+      expect(datePickerControl.prop('onConfirm')).toBe(wrapper.instance().handleDateChange);
     });
 
-    it('renders SelectControl for purpose with correct props', () => {
+    test('renders SelectControl for municipality with correct props', () => {
       const selectControl = getWrapper({}).find(SelectControl);
-      expect(selectControl).to.have.length(3);
-      expect(selectControl.at(0).prop('id')).to.equal('purpose');
-      expect(selectControl.at(0).prop('isLoading')).to.equal(defaultProps.isFetchingPurposes);
-      expect(selectControl.at(0).prop('label')).to.equal('SearchControlsContainer.purposeLabel');
-      expect(selectControl.at(0).prop('onConfirm')).to.exist;
-      expect(selectControl.at(0).prop('options')).to.deep.equal(defaultProps.purposeOptions);
-      expect(selectControl.at(0).prop('value')).to.equal(defaultProps.filters.purpose);
+      expect(selectControl).toHaveLength(4);
+      expect(selectControl.at(0).prop('id')).toBe('municipality');
+      expect(selectControl.at(0).prop('label')).toBe('SearchControlsContainer.municipalityLabel');
+      expect(selectControl.at(0).prop('onChange')).toBeDefined();
+      expect(selectControl.at(1).prop('options')).toBeDefined();
+      expect(selectControl.at(0).prop('value')).toBe(defaultProps.filters.municipality);
     });
 
-    it('renders SelectControl for unit with correct props', () => {
+    test('renders SelectControl for purpose with correct props', () => {
       const selectControl = getWrapper({}).find(SelectControl);
-      expect(selectControl).to.have.length(3);
-      expect(selectControl.at(1).prop('id')).to.equal('unit');
-      expect(selectControl.at(1).prop('isLoading')).to.equal(defaultProps.isFetchingUnits);
-      expect(selectControl.at(1).prop('label')).to.equal('SearchControlsContainer.unitLabel');
-      expect(selectControl.at(1).prop('onConfirm')).to.exist;
-      expect(selectControl.at(1).prop('options')).to.deep.equal(defaultProps.unitOptions);
-      expect(selectControl.at(1).prop('value')).to.equal(defaultProps.filters.unit);
+      expect(selectControl).toHaveLength(4);
+      expect(selectControl.at(1).prop('id')).toBe('purpose');
+      expect(selectControl.at(1).prop('isLoading')).toBe(defaultProps.isFetchingPurposes);
+      expect(selectControl.at(1).prop('label')).toBe('SearchControlsContainer.purposeLabel');
+      expect(selectControl.at(1).prop('onChange')).toBeDefined();
+      expect(selectControl.at(1).prop('options')).toEqual(defaultProps.purposeOptions);
+      expect(selectControl.at(1).prop('value')).toBe(defaultProps.filters.purpose);
     });
 
-    it('renders SelectControl for people with correct props', () => {
+    test('renders SelectControl for unit with correct props', () => {
+      const selectControl = getWrapper({}).find(SelectControl);
+      expect(selectControl).toHaveLength(4);
+      expect(selectControl.at(2).prop('id')).toBe('unit');
+      expect(selectControl.at(2).prop('isLoading')).toBe(defaultProps.isFetchingUnits);
+      expect(selectControl.at(2).prop('label')).toBe('SearchControlsContainer.unitLabel');
+      expect(selectControl.at(2).prop('onChange')).toBeDefined();
+      expect(selectControl.at(2).prop('options')).toEqual(defaultProps.unitOptions);
+      expect(selectControl.at(2).prop('value')).toBe(defaultProps.filters.unit);
+    });
+
+    test('renders SelectControl for people with correct props', () => {
       const peopleOptions = [
         { value: '1', label: '1' },
         { value: '2', label: '2' },
@@ -118,68 +137,67 @@ describe('pages/search/controls/SearchControlsContainer', () => {
         { value: '30', label: '30+' },
       ];
       const selectControl = getWrapper({}).find(SelectControl);
-      expect(selectControl).to.have.length(3);
-      expect(selectControl.at(2).prop('id')).to.equal('people');
-      expect(selectControl.at(2).prop('isLoading')).to.equal(defaultProps.isFetchingPurposes);
-      expect(selectControl.at(2).prop('label')).to.equal(
-        'SearchControlsContainer.peopleCapacityLabel'
-      );
-      expect(selectControl.at(2).prop('onConfirm')).to.exist;
-      expect(selectControl.at(2).prop('options')).to.deep.equal(peopleOptions);
-      expect(selectControl.at(2).prop('value')).to.equal(defaultProps.filters.people);
+      expect(selectControl).toHaveLength(4);
+      expect(selectControl.at(3).prop('id')).toBe('people');
+      expect(selectControl.at(3).prop('isLoading')).toBe(defaultProps.isFetchingPurposes);
+      expect(selectControl.at(3).prop('label')).toBe('SearchControlsContainer.peopleCapacityLabel');
+      expect(selectControl.at(3).prop('onChange')).toBeDefined();
+      expect(selectControl.at(3).prop('options')).toEqual(peopleOptions);
+      expect(selectControl.at(3).prop('value')).toBe(defaultProps.filters.people);
     });
 
-    it('renders PositionControl with correct props', () => {
+    test('renders PositionControl with correct props', () => {
       const filters = { ...defaultProps.filters, distance: '5000' };
       const positionControl = getWrapper({
         filters,
         position: { lat: 1, lon: 2 },
       }).find(PositionControl);
-      expect(positionControl).to.have.length(1);
-      expect(positionControl.prop('geolocated')).to.be.true;
-      expect(positionControl.prop('onConfirm')).to.exist;
-      expect(positionControl.prop('onPositionSwitch')).to.exist;
-      expect(positionControl.prop('value')).to.equal(5000);
+      expect(positionControl).toHaveLength(1);
+      expect(positionControl.prop('geolocated')).toBe(true);
+      expect(positionControl.prop('onConfirm')).toBeDefined();
+      expect(positionControl.prop('onPositionSwitch')).toBeDefined();
+      expect(positionControl.prop('value')).toBe(5000);
     });
 
-    it('renders TimeRangeControl with correct props', () => {
-      const filters = { ...defaultProps.filters, duration: 30, end: '23:30', start: '09:00' };
+    test('renders TimeRangeControl with correct props', () => {
+      const filters = {
+        ...defaultProps.filters, duration: 30, end: '23:30', start: '09:00'
+      };
       const wrapper = getWrapper({ filters });
       const timeRangeControl = wrapper.find(TimeRangeControl);
-      expect(timeRangeControl).to.have.length(1);
-      expect(timeRangeControl.prop('duration')).to.equal(filters.duration);
-      expect(timeRangeControl.prop('end')).to.equal(filters.end);
-      expect(timeRangeControl.prop('onChange')).to.equal(wrapper.instance().handleTimeRangeChange);
-      expect(timeRangeControl.prop('onTimeRangeSwitch')).to.equal(
-        wrapper.instance().handleTimeRangeSwitch
-      );
-      expect(timeRangeControl.prop('start')).to.equal(filters.start);
+      expect(timeRangeControl).toHaveLength(1);
+      expect(timeRangeControl.prop('duration')).toBe(filters.duration);
+      expect(timeRangeControl.prop('end')).toBe(filters.end);
+      expect(timeRangeControl.prop('onConfirm')).toBe(wrapper.instance().handleTimeRangeChange);
+      expect(timeRangeControl.prop('onTimeRangeSwitch')).toBe(wrapper.instance().handleTimeRangeSwitch);
+      expect(timeRangeControl.prop('start')).toBe(filters.start);
     });
 
-    it('renders CheckboxControl with correct props', () => {
-      const checkboxControl = getWrapper({}).find(CheckboxControl);
-      expect(checkboxControl).to.have.length(1);
-      expect(checkboxControl.prop('id')).to.equal('charge');
-      expect(checkboxControl.prop('label')).to.equal('SearchControlsContainer.chargeLabel');
-      expect(checkboxControl.prop('onConfirm')).to.be.a('function');
-      expect(checkboxControl.prop('value')).to.equal(defaultProps.filters.charge);
+    test('renders CheckboxControl with correct props', () => {
+      const filters = { ...defaultProps.filters, freeOfCharge: '' };
+      const checkboxControl = getWrapper(filters).find(CheckboxControl);
+      expect(checkboxControl).toHaveLength(1);
+      expect(checkboxControl.prop('id')).toBe('charge');
+      expect(checkboxControl.prop('label')).toBe('SearchControlsContainer.chargeLabel');
+      expect(typeof checkboxControl.prop('onConfirm')).toBe('function');
+      expect(checkboxControl.prop('value')).toBe(false);
     });
 
-    it('renders search Button with correct props', () => {
+    test('renders search Button with correct props', () => {
       const buttons = getWrapper({}).find(Button);
-      expect(buttons).to.have.length(2);
-      expect(buttons.at(0).prop('bsStyle')).to.be.equal('primary');
-      expect(buttons.at(0).prop('onClick')).to.be.a('function');
-      expect(buttons.at(0).prop('type')).to.be.equal('submit');
+      expect(buttons).toHaveLength(2);
+      expect(buttons.at(0).prop('bsStyle')).toBe('primary');
+      expect(typeof buttons.at(0).prop('onClick')).toBe('function');
+      expect(buttons.at(0).prop('type')).toBe('submit');
     });
 
-    it('renders reset Button with correct props', () => {
+    test('renders reset Button with correct props', () => {
       const wrapper = getWrapper({});
       const instance = wrapper.instance();
       const buttons = wrapper.find(Button);
-      expect(buttons).to.have.length(2);
-      expect(buttons.at(1).prop('bsStyle')).to.be.equal('link');
-      expect(buttons.at(1).prop('onClick')).to.equal(instance.handleReset);
+      expect(buttons).toHaveLength(2);
+      expect(buttons.at(1).prop('bsStyle')).toBe('link');
+      expect(buttons.at(1).prop('onClick')).toBe(instance.handleReset);
     });
   });
 
@@ -187,14 +205,14 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     let instance;
     let selectControl;
 
-    before(() => {
+    beforeAll(() => {
       const wrapper = getWrapper();
       instance = wrapper.instance();
       instance.handleFiltersChange = simple.mock();
       selectControl = wrapper.find(SelectControl);
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
@@ -202,31 +220,48 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       instance.handleFiltersChange.reset();
     });
 
-    it('calls handleFiltersChange on purpose SelectControl onConfirm', () => {
-      const purpose = 'some-purpose';
-      expect(selectControl).to.have.length(3);
-      expect(selectControl.at(0).prop('onConfirm')).to.be.a('function');
-      selectControl.at(0).prop('onConfirm')(purpose);
-      expect(instance.handleFiltersChange.callCount).to.equal(1);
-      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ purpose });
+    test('calls handleFiltersChange on miniciple SelectControl onChange', () => {
+      const municipalities = [{
+        value: 'some-municipality',
+        label: 'some-municipality',
+      }];
+      expect(selectControl).toHaveLength(4);
+      expect(typeof selectControl.at(0).prop('onChange')).toBe('function');
+      selectControl.at(0).prop('onChange')(municipalities, {});
+      expect(instance.handleFiltersChange.callCount).toBe(1);
+      expect(instance.handleFiltersChange.lastCall.args[0]).toEqual({
+        municipality: [municipalities[0].value],
+      });
     });
 
-    it('calls handleFiltersChange on unit SelectControl onConfirm', () => {
-      const unit = 'some-unit';
-      expect(selectControl).to.have.length(3);
-      expect(selectControl.at(1).prop('onConfirm')).to.be.a('function');
-      selectControl.at(1).prop('onConfirm')(unit);
-      expect(instance.handleFiltersChange.callCount).to.equal(1);
-      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ unit });
+    test('calls handleFiltersChange on purpose SelectControl onChange', () => {
+      const purpose = defaultProps.purposeOptions[0];
+      expect(selectControl).toHaveLength(4);
+      expect(typeof selectControl.at(1).prop('onChange')).toBe('function');
+      selectControl.at(1).prop('onChange')(purpose);
+      expect(instance.handleFiltersChange.callCount).toBe(1);
+      expect(instance.handleFiltersChange.lastCall.args[0]).toEqual({
+        purpose: purpose.value,
+      });
     });
 
-    it('calls handleFiltersChange on people SelectControl onConfirm', () => {
-      const people = '5';
-      expect(selectControl).to.have.length(3);
-      expect(selectControl.at(2).prop('onConfirm')).to.be.a('function');
-      selectControl.at(2).prop('onConfirm')(people);
-      expect(instance.handleFiltersChange.callCount).to.equal(1);
-      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ people });
+    test('calls handleFiltersChange on unit SelectControl onChange', () => {
+      const unit = defaultProps.unitOptions[0];
+
+      expect(selectControl).toHaveLength(4);
+      expect(typeof selectControl.at(2).prop('onChange')).toBe('function');
+      selectControl.at(2).prop('onChange')(unit);
+      expect(instance.handleFiltersChange.callCount).toBe(1);
+      expect(instance.handleFiltersChange.lastCall.args[0]).toEqual({ unit: unit.value });
+    });
+
+    test('calls handleFiltersChange on people SelectControl onChange', () => {
+      const people = defaultProps.peopleOptions[0];
+      expect(selectControl).toHaveLength(4);
+      expect(typeof selectControl.at(3).prop('onChange')).toBe('function');
+      selectControl.at(3).prop('onChange')(people);
+      expect(instance.handleFiltersChange.callCount).toBe(1);
+      expect(instance.handleFiltersChange.lastCall.args[0]).toEqual({ people: people.value });
     });
   });
 
@@ -234,24 +269,24 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     let positionControl;
     let instance;
 
-    before(() => {
+    beforeAll(() => {
       const wrapper = getWrapper();
       instance = wrapper.instance();
       instance.handleFiltersChange = simple.mock();
       positionControl = wrapper.find(PositionControl);
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls handleFiltersChange on PositionControl onConfirm', () => {
+    test('calls handleFiltersChange on PositionControl onConfirm', () => {
       const distance = 1000;
-      expect(positionControl).to.have.length(1);
-      expect(positionControl.at(0).prop('onConfirm')).to.be.a('function');
+      expect(positionControl).toHaveLength(1);
+      expect(typeof positionControl.at(0).prop('onConfirm')).toBe('function');
       positionControl.at(0).prop('onConfirm')(distance);
-      expect(instance.handleFiltersChange.callCount).to.equal(1);
-      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ distance });
+      expect(instance.handleFiltersChange.callCount).toBe(1);
+      expect(instance.handleFiltersChange.lastCall.args[0]).toEqual({ distance });
     });
   });
 
@@ -259,25 +294,28 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     let checkboxControl;
     let instance;
 
-    before(() => {
+    beforeAll(() => {
       const wrapper = getWrapper();
       instance = wrapper.instance();
       instance.handleFiltersChange = simple.mock();
       checkboxControl = wrapper.find(CheckboxControl);
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls handleFiltersChange on charge CheckboxControl control onConfirm', () => {
-      const charge = true;
-      expect(checkboxControl).to.have.length(1);
-      expect(checkboxControl.at(0).prop('onConfirm')).to.be.a('function');
-      checkboxControl.at(0).prop('onConfirm')(charge);
-      expect(instance.handleFiltersChange.callCount).to.equal(1);
-      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal({ charge });
-    });
+    test(
+      'calls handleFiltersChange on charge CheckboxControl control onConfirm',
+      () => {
+        const freeOfCharge = true;
+        expect(checkboxControl).toHaveLength(1);
+        expect(typeof checkboxControl.at(0).prop('onConfirm')).toBe('function');
+        checkboxControl.at(0).prop('onConfirm')(freeOfCharge);
+        expect(instance.handleFiltersChange.callCount).toBe(1);
+        expect(instance.handleFiltersChange.lastCall.args[0]).toEqual({ freeOfCharge });
+      }
+    );
   });
 
   describe('handleDateChange', () => {
@@ -285,35 +323,35 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     const expected = { date };
     let instance;
 
-    before(() => {
+    beforeAll(() => {
       instance = getWrapper().instance();
       instance.handleFiltersChange = simple.mock();
       instance.handleDateChange(defaultProps.filters);
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls handleFiltersChange with given filters', () => {
-      expect(instance.handleFiltersChange.callCount).to.equal(1);
-      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal(expected);
+    test('calls handleFiltersChange with given filters', () => {
+      expect(instance.handleFiltersChange.callCount).toBe(1);
+      expect(instance.handleFiltersChange.lastCall.args[0]).toEqual(expected);
     });
   });
 
   describe('handleFiltersChange', () => {
-    it('calls props actions changeSearchFilters with given filters', () => {
+    test('calls props actions changeSearchFilters with given filters', () => {
       const newFilters = { search: 'new search value' };
       const changeSearchFilters = simple.mock();
       const instance = getWrapper({ actions: { changeSearchFilters } }).instance();
       instance.handleFiltersChange(newFilters);
-      expect(changeSearchFilters.callCount).to.equal(1);
-      expect(changeSearchFilters.lastCall.args[0]).to.equal(newFilters);
+      expect(changeSearchFilters.callCount).toBe(1);
+      expect(changeSearchFilters.lastCall.args[0]).toBe(newFilters);
     });
   });
 
   describe('handlePositionSwitch', () => {
-    it('calls props actions enableGeoposition when no position', () => {
+    test('calls props actions enableGeoposition when no position', () => {
       const enableGeoposition = simple.mock();
       const disableGeoposition = simple.mock();
       const props = {
@@ -321,10 +359,10 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       };
       const instance = getWrapper(props).instance();
       instance.handlePositionSwitch();
-      expect(enableGeoposition.callCount).to.equal(1);
-      expect(disableGeoposition.callCount).to.equal(0);
+      expect(enableGeoposition.callCount).toBe(1);
+      expect(disableGeoposition.callCount).toBe(0);
     });
-    it('calls props actions disableGeoposition when position', () => {
+    test('calls props actions disableGeoposition when position', () => {
       const enableGeoposition = simple.mock();
       const disableGeoposition = simple.mock();
       const props = {
@@ -333,19 +371,19 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       };
       const instance = getWrapper(props).instance();
       instance.handlePositionSwitch();
-      expect(disableGeoposition.callCount).to.equal(1);
-      expect(enableGeoposition.callCount).to.equal(0);
+      expect(disableGeoposition.callCount).toBe(1);
+      expect(enableGeoposition.callCount).toBe(0);
     });
   });
 
   describe('handleSearchBoxChange', () => {
-    it('calls props actions changeSearchFilters with given filters', () => {
+    test('calls props actions changeSearchFilters with given filters', () => {
       const search = 'new search value';
       const changeSearchFilters = simple.mock();
       const instance = getWrapper({ actions: { changeSearchFilters } }).instance();
       instance.handleSearchBoxChange(search);
-      expect(changeSearchFilters.callCount).to.equal(1);
-      expect(changeSearchFilters.lastCall.args[0]).to.deep.equal({ search });
+      expect(changeSearchFilters.callCount).toBe(1);
+      expect(changeSearchFilters.lastCall.args[0]).toEqual({ search });
     });
   });
 
@@ -353,46 +391,46 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     let buttons;
     let instance;
 
-    before(() => {
+    beforeAll(() => {
       const wrapper = getWrapper();
       instance = wrapper.instance();
       instance.handleSearch = simple.mock();
       buttons = wrapper.find(Button);
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls handleSearch on search button onClick', () => {
-      expect(buttons).to.have.length(2);
-      expect(buttons.at(0).prop('onClick')).to.be.a('function');
+    test('calls handleSearch on search button onClick', () => {
+      expect(buttons).toHaveLength(2);
+      expect(typeof buttons.at(0).prop('onClick')).toBe('function');
       buttons.at(0).prop('onClick')();
-      expect(instance.handleSearch.callCount).to.equal(1);
+      expect(instance.handleSearch.callCount).toBe(1);
     });
   });
 
   describe('handleSearch', () => {
     const newFilters = {};
-    let browserHistoryMock;
+    let historyMock;
 
-    before(() => {
-      browserHistoryMock = simple.mock(browserHistory, 'push');
+    beforeAll(() => {
+      historyMock = simple.mock(history, 'push');
       getWrapper()
         .instance()
         .handleSearch(newFilters);
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls browserHistory.push with correct path', () => {
-      const actualPath = browserHistoryMock.lastCall.args[0];
+    test('calls browserHistory.push with correct path', () => {
+      const actualPath = historyMock.lastCall.args[0];
       const expectedPath = `/search?${queryString.stringify(defaultProps.filters)}`;
 
-      expect(browserHistoryMock.callCount).to.equal(1);
-      expect(actualPath).to.equal(expectedPath);
+      expect(historyMock.callCount).toBe(1);
+      expect(actualPath).toBe(expectedPath);
     });
   });
 
@@ -400,33 +438,40 @@ describe('pages/search/controls/SearchControlsContainer', () => {
     const disableGeoposition = simple.mock();
     let instance;
 
-    before(() => {
+    beforeAll(() => {
       const props = {
         actions: { disableGeoposition },
         position: { lat: 1, lon: 2 },
       };
       instance = getWrapper(props).instance();
       instance.handleFiltersChange = simple.mock();
+      instance.handleSearch = simple.mock();
       instance.handleReset();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls handleFiltersChange with empty filters', () => {
+    test('calls handleSearch with empty filters', () => {
       const emptyFilters = Object.assign({}, constants.SUPPORTED_SEARCH_FILTERS);
-      expect(instance.handleFiltersChange.callCount).to.equal(1);
-      expect(instance.handleFiltersChange.lastCall.args[0]).to.deep.equal(emptyFilters);
+      expect(instance.handleSearch.callCount).toBe(1);
+      expect(instance.handleSearch.lastCall.args[0]).toEqual(emptyFilters);
     });
 
-    it('calls disableGeoposition with empty filters', () => {
-      expect(disableGeoposition.callCount).to.equal(1);
+    test('calls handleFiltersChange with empty filters', () => {
+      const emptyFilters = Object.assign({}, constants.SUPPORTED_SEARCH_FILTERS);
+      expect(instance.handleFiltersChange.callCount).toBe(1);
+      expect(instance.handleFiltersChange.lastCall.args[0]).toEqual(emptyFilters);
+    });
+
+    test('calls disableGeoposition with empty filters', () => {
+      expect(disableGeoposition.callCount).toBe(1);
     });
   });
 
   describe('componentDidMount', () => {
-    it('fetches resources when component mounts', () => {
+    test('fetches resources when component mounts', () => {
       const actions = {
         fetchPurposes: simple.mock(),
         changeSearchFilters: () => null,
@@ -435,7 +480,7 @@ describe('pages/search/controls/SearchControlsContainer', () => {
         .instance()
         .componentDidMount();
 
-      expect(actions.fetchPurposes.callCount).to.equal(1);
+      expect(actions.fetchPurposes.callCount).toBe(1);
     });
   });
 });

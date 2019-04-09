@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import { Marker } from 'react-leaflet';
@@ -15,15 +14,15 @@ function getWrapper(props) {
 
 describe('shared/resource-map/UserMarker', () => {
   describe('render', () => {
-    it('is a marker', () => {
+    test('is a marker', () => {
       const wrapper = getWrapper();
-      expect(wrapper.is(Marker)).to.be.true;
+      expect(wrapper.is(Marker)).toBe(true);
     });
 
-    it('is rendered at correct positions', () => {
+    test('is rendered at correct positions', () => {
       const marker = getWrapper();
-      expect(marker).to.have.length(1);
-      expect(marker.prop('position')).to.deep.equal([1, 2]);
+      expect(marker).toHaveLength(1);
+      expect(marker.prop('position')).toEqual([1, 2]);
     });
   });
 });

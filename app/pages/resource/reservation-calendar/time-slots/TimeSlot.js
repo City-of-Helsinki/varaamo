@@ -1,6 +1,7 @@
 import classNames from 'classnames';
-import React, { PureComponent, PropTypes } from 'react';
-import { findDOMNode } from 'react-dom';
+import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
+import moment from 'moment';
 
 import { injectT } from 'i18n';
 import { scrollTo } from 'utils/domUtils';
@@ -9,6 +10,7 @@ import { padLeft } from 'utils/timeUtils';
 class TimeSlot extends PureComponent {
   static propTypes = {
     addNotification: PropTypes.func.isRequired,
+    isDisabled: PropTypes.bool,
     isAdmin: PropTypes.bool.isRequired,
     showClear: PropTypes.bool.isRequired,
     isHighlighted: PropTypes.bool.isRequired,
@@ -25,9 +27,18 @@ class TimeSlot extends PureComponent {
     t: PropTypes.func.isRequired,
   };
 
+  static defaultProps = {
+    isDisabled: false,
+  }
+
+  constructor(props) {
+    super(props);
+    this.timeSlotRef = React.createRef();
+  }
+
   componentDidMount() {
     if (this.props.scrollTo) {
-      scrollTo(findDOMNode(this));
+      scrollTo(this.timeSlotRef.current);
     }
   }
 
@@ -51,7 +62,9 @@ class TimeSlot extends PureComponent {
   }
 
   handleClick = (disabled) => {
-    const { addNotification, isLoggedIn, onClick, resource, slot, t } = this.props;
+    const {
+      addNotification, isLoggedIn, onClick, resource, slot, t
+    } = this.props;
 
     if (disabled) {
       const notification = this.getReservationInfoNotification(isLoggedIn, resource, slot, t);
@@ -69,6 +82,7 @@ class TimeSlot extends PureComponent {
 
   render() {
     const {
+      isDisabled,
       isAdmin,
       showClear,
       isHighlighted,
@@ -82,11 +96,14 @@ class TimeSlot extends PureComponent {
       slot,
     } = this.props;
     const isPast = new Date(slot.end) < new Date();
-    const disabled =
-      !isLoggedIn ||
-      (!isSelectable && !selected) ||
-      !resource.userPermissions.canMakeReservations ||
-      (!slot.editing && (slot.reserved || isPast));
+    const isReservable = (resource.reservableAfter
+      && moment(slot.start).isBefore(resource.reservableAfter));
+    const disabled = isDisabled
+      || !isLoggedIn
+      || (!isSelectable && !selected)
+      || !resource.userPermissions.canMakeReservations
+      || isReservable
+      || (!slot.editing && (slot.reserved || isPast));
     const reservation = slot.reservation;
     const isOwnReservation = reservation && reservation.isOwn;
     const start = new Date(slot.start);
@@ -100,26 +117,26 @@ class TimeSlot extends PureComponent {
           'app-TimeSlot--editing': slot.editing,
           'app-TimeSlot--past': isPast,
           'app-TimeSlot--own-reservation': isOwnReservation,
-          'app-TimeSlot--reservation-starting':
-            (isAdmin || isOwnReservation) && slot.reservationStarting,
-          'app-TimeSlot--reservation-ending':
-            (isAdmin || isOwnReservation) && slot.reservationEnding,
+          'app-TimeSlot--reservation-starting': slot.reservationStarting,
+          'app-TimeSlot--reservation-ending': slot.reservationEnding,
           'app-TimeSlot--reserved': slot.reserved,
           'app-TimeSlot--selected': selected,
           'app-TimeSlot--highlight': isHighlighted,
         })}
+        ref={this.timeSlotRef}
       >
         <button
           className="app-TimeSlot__action"
           onClick={() => this.handleClick(disabled)}
           onMouseEnter={() => !disabled && onMouseEnter(slot)}
           onMouseLeave={() => !disabled && onMouseLeave()}
+          type="button"
         >
           <span className="app-TimeSlot__icon" />
           <time dateTime={slot.asISOString}>{startTime}</time>
         </button>
         {showClear && (
-          <button className="app-TimeSlot__clear" onClick={onClear}>
+          <button className="app-TimeSlot__clear" onClick={onClear} type="button">
             <span className="app-TimeSlot__clear-icon" />
           </button>
         )}

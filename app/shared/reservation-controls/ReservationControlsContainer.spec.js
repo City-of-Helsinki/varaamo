@@ -1,21 +1,21 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
-import { browserHistory } from 'react-router';
 import simple from 'simple-mock';
 
 import Reservation from 'utils/fixtures/Reservation';
 import Resource from 'utils/fixtures/Resource';
 import { getEditReservationUrl } from 'utils/reservationUtils';
 import ReservationControls from './ReservationControls';
-import {
-  UnconnectedReservationControlsContainer as ReservationControlsContainer,
-} from './ReservationControlsContainer';
+import { UnconnectedReservationControlsContainer as ReservationControlsContainer } from './ReservationControlsContainer';
 
 describe('shared/reservation-controls/ReservationControlsContainer', () => {
   const resource = Resource.build();
   const reservation = Reservation.build({ resource: resource.id });
+  const history = {
+    push: () => {},
+  };
   const props = {
+    history,
     actions: {
       confirmPreliminaryReservation: simple.stub(),
       denyPreliminaryReservation: simple.stub(),
@@ -35,91 +35,91 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
   let container;
   let instance;
 
-  before(() => {
+  beforeAll(() => {
     container = shallow(<ReservationControlsContainer {...props} />);
     instance = container.instance();
   });
 
   describe('rendering', () => {
-    it('renders ReservationControls component', () => {
-      expect(container.find(ReservationControls)).to.have.length(1);
+    test('renders ReservationControls component', () => {
+      expect(container.find(ReservationControls)).toHaveLength(1);
     });
 
-    it('passes correct props to ReservationControls component', () => {
+    test('passes correct props to ReservationControls component', () => {
       const actualProps = container.find(ReservationControls).props();
 
-      expect(actualProps.isAdmin).to.equal(props.isAdmin);
-      expect(actualProps.isStaff).to.equal(props.isStaff);
-      expect(actualProps.onCancelClick).to.equal(instance.handleCancelClick);
-      expect(actualProps.onConfirmClick).to.equal(instance.handleConfirmClick);
-      expect(actualProps.onDenyClick).to.equal(instance.handleDenyClick);
-      expect(actualProps.onEditClick).to.equal(instance.handleEditClick);
-      expect(actualProps.onInfoClick).to.equal(instance.handleInfoClick);
-      expect(actualProps.reservation).to.equal(props.reservation);
+      expect(actualProps.isAdmin).toBe(props.isAdmin);
+      expect(actualProps.isStaff).toBe(props.isStaff);
+      expect(actualProps.onCancelClick).toBe(instance.handleCancelClick);
+      expect(actualProps.onConfirmClick).toBe(instance.handleConfirmClick);
+      expect(actualProps.onDenyClick).toBe(instance.handleDenyClick);
+      expect(actualProps.onEditClick).toBe(instance.handleEditClick);
+      expect(actualProps.onInfoClick).toBe(instance.handleInfoClick);
+      expect(actualProps.reservation).toBe(props.reservation);
     });
   });
 
   describe('handleCancelClick', () => {
-    before(() => {
+    beforeAll(() => {
       instance.handleCancelClick();
     });
 
-    it('calls props.actions.selectReservationToCancel with this reservation', () => {
-      expect(props.actions.selectReservationToCancel.callCount).to.equal(1);
-      expect(
-        props.actions.selectReservationToCancel.lastCall.args[0]
-      ).to.deep.equal(
-        props.reservation
-      );
-    });
+    test(
+      'calls props.actions.selectReservationToCancel with this reservation',
+      () => {
+        expect(props.actions.selectReservationToCancel.callCount).toBe(1);
+        expect(props.actions.selectReservationToCancel.lastCall.args[0]).toEqual(props.reservation);
+      }
+    );
 
-    it('calls the props.actions.openReservationCancelModal function', () => {
-      expect(props.actions.openReservationCancelModal.callCount).to.equal(1);
+    test('calls the props.actions.openReservationCancelModal function', () => {
+      expect(props.actions.openReservationCancelModal.callCount).toBe(1);
     });
   });
 
   describe('handleEditClick', () => {
-    let browserHistoryMock;
+    let historyMock;
 
-    before(() => {
-      browserHistoryMock = simple.mock(browserHistory, 'push');
+    beforeAll(() => {
+      historyMock = simple.mock(history, 'push');
       instance.handleEditClick();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls props.actions.selectReservationToEdit with reservation and minPeriod', () => {
-      expect(props.actions.selectReservationToEdit.callCount).to.equal(1);
-      expect(
-        props.actions.selectReservationToEdit.lastCall.args[0]
-      ).to.deep.equal(
-        { reservation: props.reservation, minPeriod: props.resource.minPeriod }
-      );
-    });
+    test(
+      'calls props.actions.selectReservationToEdit with reservation and minPeriod',
+      () => {
+        expect(props.actions.selectReservationToEdit.callCount).toBe(1);
+        expect(props.actions.selectReservationToEdit.lastCall.args[0]).toEqual({
+          reservation: props.reservation,
+          minPeriod: props.resource.minPeriod,
+        });
+      }
+    );
 
-    it('calls browserHistory.push with correct path', () => {
-      const actualPath = browserHistoryMock.lastCall.args[0];
+    test('calls history.push with correct path', () => {
+      const actualPath = historyMock.lastCall.args[0];
       const expectedPath = getEditReservationUrl(props.reservation);
 
-      expect(browserHistoryMock.callCount).to.equal(1);
-      expect(actualPath).to.equal(expectedPath);
+      expect(historyMock.callCount).toBe(1);
+      expect(actualPath).toBe(expectedPath);
     });
   });
 
   describe('handleInfoClick', () => {
-    before(() => {
+    beforeAll(() => {
       instance.handleInfoClick();
     });
 
-    it('calls the props.actions.showReservationInfoModal function with this reservation', () => {
-      expect(props.actions.showReservationInfoModal.callCount).to.equal(1);
-      expect(
-        props.actions.showReservationInfoModal.lastCall.args[0]
-      ).to.deep.equal(
-        props.reservation
-      );
-    });
+    test(
+      'calls the props.actions.showReservationInfoModal function with this reservation',
+      () => {
+        expect(props.actions.showReservationInfoModal.callCount).toBe(1);
+        expect(props.actions.showReservationInfoModal.lastCall.args[0]).toEqual(props.reservation);
+      }
+    );
   });
 });

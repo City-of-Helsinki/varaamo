@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import Resource from 'utils/fixtures/Resource';
 import Unit from 'utils/fixtures/Unit';
 import { getState } from 'utils/testUtils';
@@ -18,15 +16,15 @@ describe('shared/resource-list/resourceCardSelector', () => {
     return resourceCardSelector(state, props);
   }
 
-  it('returns isLoggedIn', () => {
-    expect(getSelected().isLoggedIn).to.exist;
+  test('returns isLoggedIn', () => {
+    expect(getSelected().isLoggedIn).toBeDefined();
   });
 
-  it('returns correct resource from state', () => {
-    expect(getSelected().resource).to.deep.equal(resource);
+  test('returns correct resource from state', () => {
+    expect(getSelected().resource).toEqual(resource);
   });
 
-  it('returns correct unit from state', () => {
-    expect(getSelected().unit).to.deep.equal(unit);
+  test('returns correct unit from state', () => {
+    expect(getSelected().unit).toEqual(unit);
   });
 });

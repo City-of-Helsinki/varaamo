@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import Loader from 'react-loader';
 import simple from 'simple-mock';
@@ -40,22 +39,22 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
   }
 
   describe('rendering', () => {
-    it('renders PageWrapper with correct props', () => {
+    test('renders PageWrapper with correct props', () => {
       const pageWrapper = getWrapper().find(PageWrapper);
-      expect(pageWrapper).to.have.length(1);
-      expect(pageWrapper.prop('className')).to.equal('admin-resources-page');
-      expect(pageWrapper.prop('title')).to.equal('AdminResourcesPage.adminTitle');
-      expect(pageWrapper.prop('fluid')).to.be.true;
+      expect(pageWrapper).toHaveLength(1);
+      expect(pageWrapper.prop('className')).toBe('admin-resources-page');
+      expect(pageWrapper.prop('title')).toBe('AdminResourcesPage.adminTitle');
+      expect(pageWrapper.prop('fluid')).toBe(true);
     });
 
     describe('when user is not admin', () => {
       let wrapper;
-      before(() => {
+      beforeAll(() => {
         wrapper = getWrapper({ isAdmin: false });
       });
 
-      it('renders a paragraph', () => {
-        expect(wrapper.find('p')).to.have.length(1);
+      test('renders a paragraph', () => {
+        expect(wrapper.find('p')).toHaveLength(1);
       });
     });
 
@@ -64,56 +63,55 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
         return getWrapper({ ...props, isAdmin: true });
       }
 
-      it('displays correct title inside h1 tags', () => {
+      test('displays correct title inside h1 tags', () => {
         const h1 = getIsAdminWrapper().find('h1');
-        expect(h1.text()).to.equal('AdminResourcesPage.adminTitle');
+        expect(h1.text()).toBe('AdminResourcesPage.adminTitle');
       });
 
       describe('Loader', () => {
-        it('is not loaded if fetching resources and no resources in the state', () => {
-          const props = { isFetchingResources: true, resources: [] };
-          const loader = getIsAdminWrapper(props).find(Loader);
-          expect(loader.prop('loaded')).to.be.false;
-        });
+        test(
+          'is not loaded if fetching resources and no resources in the state',
+          () => {
+            const props = { isFetchingResources: true, resources: [] };
+            const loader = getIsAdminWrapper(props).find(Loader);
+            expect(loader.prop('loaded')).toBe(false);
+          }
+        );
 
-        it('is loaded if not fetching resource', () => {
+        test('is loaded if not fetching resource', () => {
           const props = { isFetchingResources: false, resources: [] };
           const loader = getIsAdminWrapper(props).find(Loader);
-          expect(loader.prop('loaded')).to.be.true;
+          expect(loader.prop('loaded')).toBe(true);
         });
 
-        it('is loaded if resources in state', () => {
+        test('is loaded if resources in state', () => {
           const props = { isFetchingResources: true, resources: [{ id: 'r-1' }] };
           const loader = getIsAdminWrapper(props).find(Loader);
-          expect(loader.prop('loaded')).to.be.true;
+          expect(loader.prop('loaded')).toBe(true);
         });
       });
 
-      it('renders AvailabilityView with correct props', () => {
+      test('renders AvailabilityView with correct props', () => {
         const resources = [{ foo: 'bar' }];
         const wrapper = getIsAdminWrapper({ resources });
         const view = wrapper.find(AvailabilityView);
-        expect(view).to.have.length(1);
-        expect(view.prop('groups')).to.deep.equal([
+        expect(view).toHaveLength(1);
+        expect(view.prop('groups')).toEqual([
           { name: '', resources },
         ]);
-        expect(view.prop('date')).to.deep.equal('2017-01-10');
-        expect(view.prop('onDateChange')).to.equal(changeAdminResourcesPageDate);
-        expect(view.prop('onSelect')).to.equal(wrapper.instance().handleSelect);
+        expect(view.prop('date')).toEqual('2017-01-10');
+        expect(view.prop('onDateChange')).toBe(changeAdminResourcesPageDate);
+        expect(view.prop('onSelect')).toBe(wrapper.instance().handleSelect);
       });
 
-      it('renders ResourceTypeFilter with correct props', () => {
+      test('renders ResourceTypeFilter with correct props', () => {
         const wrapper = getIsAdminWrapper();
         const resourceTypeFilter = wrapper.find(ResourceTypeFilter);
-        expect(resourceTypeFilter).to.have.length(1);
-        expect(resourceTypeFilter.prop('selectedResourceTypes')).to.deep.equal(
-          defaultProps.selectedResourceTypes
-        );
-        expect(resourceTypeFilter.prop('resourceTypes')).to.deep.equal(defaultProps.resourceTypes);
-        expect(resourceTypeFilter.prop('onSelectResourceType')).to.equal(selectAdminResourceType);
-        expect(resourceTypeFilter.prop('onUnselectResourceType')).to.equal(
-          unselectAdminResourceType
-        );
+        expect(resourceTypeFilter).toHaveLength(1);
+        expect(resourceTypeFilter.prop('selectedResourceTypes')).toEqual(defaultProps.selectedResourceTypes);
+        expect(resourceTypeFilter.prop('resourceTypes')).toEqual(defaultProps.resourceTypes);
+        expect(resourceTypeFilter.prop('onSelectResourceType')).toBe(selectAdminResourceType);
+        expect(resourceTypeFilter.prop('onUnselectResourceType')).toBe(unselectAdminResourceType);
       });
     });
   });
@@ -124,39 +122,39 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
       const timer = 5;
       let instance;
 
-      before(() => {
+      beforeAll(() => {
         fetchFavoritedResources.reset();
         simple.mock(window, 'setInterval').returnWith(timer);
         instance = getWrapper({ isAdmin }).instance();
         instance.componentDidMount();
       });
 
-      after(() => {
+      afterAll(() => {
         simple.restore();
       });
 
-      it('fetches favorited resources', () => {
-        expect(fetchFavoritedResources.callCount).to.equal(1);
+      test('fetches favorited resources', () => {
+        expect(fetchFavoritedResources.callCount).toBe(1);
       });
 
-      it('fetches date\'s resources', () => {
+      test('fetches date\'s resources', () => {
         const args = fetchFavoritedResources.lastCall.args;
-        expect(args[0].format('YYYY-MM-DD')).to.equal('2017-01-10');
+        expect(args[0].format('YYYY-MM-DD')).toBe('2017-01-10');
       });
 
-      it('passes adminResourcesPage as source', () => {
+      test('passes adminResourcesPage as source', () => {
         const args = fetchFavoritedResources.lastCall.args;
-        expect(args[1]).to.equal('adminResourcesPage');
+        expect(args[1]).toBe('adminResourcesPage');
       });
 
-      it('starts fetching resources every ten minutes', () => {
-        expect(window.setInterval.callCount).to.equal(1);
+      test('starts fetching resources every ten minutes', () => {
+        expect(window.setInterval.callCount).toBe(1);
         const interval = 10 * 60 * 1000;
-        expect(window.setInterval.lastCall.args).to.deep.equal([instance.fetchResources, interval]);
+        expect(window.setInterval.lastCall.args).toEqual([instance.fetchResources, interval]);
       });
 
-      it('saves interval to this.updateResourcesTimer', () => {
-        expect(instance.updateResourcesTimer).to.equal(timer);
+      test('saves interval to this.updateResourcesTimer', () => {
+        expect(instance.updateResourcesTimer).toBe(timer);
       });
     });
   });
@@ -164,7 +162,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
   describe('componentWillReceiveProps', () => {
     let instance;
 
-    before(() => {
+    beforeAll(() => {
       instance = getWrapper().instance();
       instance.fetchResources = simple.mock();
     });
@@ -173,25 +171,25 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
       instance.fetchResources.reset();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('does not call fetchResources if props have not changed', () => {
+    test('does not call fetchResources if props have not changed', () => {
       instance.componentWillReceiveProps(defaultProps);
-      expect(instance.fetchResources.callCount).to.equal(0);
+      expect(instance.fetchResources.callCount).toBe(0);
     });
 
-    it('calls fetchResources if props have changed date', () => {
+    test('calls fetchResources if props have changed date', () => {
       instance.componentWillReceiveProps({ ...defaultProps, date: '2017-01-12' });
-      expect(instance.fetchResources.callCount).to.equal(1);
-      expect(instance.fetchResources.lastCall.args).to.deep.equal(['2017-01-12']);
+      expect(instance.fetchResources.callCount).toBe(1);
+      expect(instance.fetchResources.lastCall.args).toEqual(['2017-01-12']);
     });
 
-    it('calls fetchResources if props have changed location', () => {
+    test('calls fetchResources if props have changed location', () => {
       instance.componentWillReceiveProps({ ...defaultProps, location: { id: '321' } });
-      expect(instance.fetchResources.callCount).to.equal(1);
-      expect(instance.fetchResources.lastCall.args).to.deep.equal([defaultProps.date]);
+      expect(instance.fetchResources.callCount).toBe(1);
+      expect(instance.fetchResources.lastCall.args).toEqual([defaultProps.date]);
     });
   });
 
@@ -199,7 +197,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
     const timer = 5;
     let instance;
 
-    before(() => {
+    beforeAll(() => {
       changeAdminResourcesPageDate.reset();
       simple.mock(window, 'setInterval').returnWith(timer);
       simple.mock(window, 'clearInterval').returnWith(timer);
@@ -208,30 +206,30 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
       instance.componentWillUnmount();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('sets date to null', () => {
-      expect(changeAdminResourcesPageDate.callCount).to.equal(1);
-      expect(changeAdminResourcesPageDate.lastCall.args).to.deep.equal([null]);
+    test('sets date to null', () => {
+      expect(changeAdminResourcesPageDate.callCount).toBe(1);
+      expect(changeAdminResourcesPageDate.lastCall.args).toEqual([null]);
     });
 
-    it('it clears fetchResources interval', () => {
-      expect(window.clearInterval.callCount).to.equal(1);
-      expect(window.clearInterval.lastCall.args).to.deep.equal([timer]);
+    test('it clears fetchResources interval', () => {
+      expect(window.clearInterval.callCount).toBe(1);
+      expect(window.clearInterval.lastCall.args).toEqual([timer]);
     });
   });
 
   describe('handleSelect', () => {
-    it('saves selection to state', () => {
+    test('saves selection to state', () => {
       const wrapper = getWrapper();
       const selection = { some: 'data' };
       wrapper.instance().handleSelect(selection);
-      expect(wrapper.state()).to.deep.equal({ selection });
+      expect(wrapper.state()).toEqual({ selection });
     });
 
-    it('calls changeRecurringBaseTime with correct time', () => {
+    test('calls changeRecurringBaseTime with correct time', () => {
       const changeRecurringBaseTime = simple.mock();
       const selection = {
         begin: '2017-04-21T12:00:00+03:00',
@@ -241,15 +239,15 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
       const actions = { ...defaultProps.actions, changeRecurringBaseTime };
       const wrapper = getWrapper({ actions });
       wrapper.instance().handleSelect(selection);
-      expect(changeRecurringBaseTime.callCount).to.equal(1);
-      expect(changeRecurringBaseTime.lastCall.args).to.deep.equal([selection]);
+      expect(changeRecurringBaseTime.callCount).toBe(1);
+      expect(changeRecurringBaseTime.lastCall.args).toEqual([selection]);
     });
 
-    it('opens the confirm reservation modal', () => {
+    test('opens the confirm reservation modal', () => {
       openConfirmReservationModal.reset();
       const wrapper = getWrapper();
       wrapper.instance().handleSelect({});
-      expect(openConfirmReservationModal.callCount).to.equal(1);
+      expect(openConfirmReservationModal.callCount).toBe(1);
     });
   });
 });

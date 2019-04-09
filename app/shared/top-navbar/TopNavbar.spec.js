@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
@@ -22,22 +21,22 @@ describe('shared/top-navbar/TopNavbar', () => {
       return getWrapper(props).find('#language-nav-dropdown');
     }
 
-    it('is rendered', () => {
-      expect(getLanguageNavWrapper()).to.have.length(1);
+    test('is rendered', () => {
+      expect(getLanguageNavWrapper()).toHaveLength(1);
     });
 
-    it('has changeLocale as onSelect prop', () => {
+    test('has changeLocale as onSelect prop', () => {
       const changeLocale = () => null;
       const actual = getLanguageNavWrapper({ changeLocale }).prop('onSelect');
-      expect(actual).to.equal(changeLocale);
+      expect(actual).toBe(changeLocale);
     });
 
-    it('renders MenuItems for other languages', () => {
+    test('renders MenuItems for other languages', () => {
       const currentLanguage = 'fi';
       const menuItems = getLanguageNavWrapper({ currentLanguage }).find(MenuItem);
-      expect(menuItems).to.have.length(2);
-      expect(menuItems.at(0).prop('eventKey')).to.equal('en');
-      expect(menuItems.at(1).prop('eventKey')).to.equal('sv');
+      expect(menuItems).toHaveLength(2);
+      expect(menuItems.at(0).prop('eventKey')).toBe('en');
+      expect(menuItems.at(1).prop('eventKey')).toBe('sv');
     });
   });
 
@@ -51,25 +50,25 @@ describe('shared/top-navbar/TopNavbar', () => {
       return getWrapper({ ...props });
     }
 
-    it('renders the name of the logged in user', () => {
+    test('renders the name of the logged in user', () => {
       const userNavDropDown = getLoggedInNotAdminWrapper().find('#user-nav-dropdown');
-      expect(userNavDropDown).to.have.length(1);
-      expect(userNavDropDown.at(0).prop('title')).to.equal(props.userName);
+      expect(userNavDropDown).toHaveLength(1);
+      expect(userNavDropDown.at(0).prop('title')).toBe(props.userName);
     });
 
-    it('renders a logout link', () => {
+    test('renders a logout link', () => {
       const logoutHref = `/logout?next=${window.location.origin}`;
       const logoutLink = getLoggedInNotAdminWrapper()
         .find(MenuItem)
         .filter({ href: logoutHref });
-      expect(logoutLink).to.have.length(1);
+      expect(logoutLink).toHaveLength(1);
     });
 
-    it('does not render a link to login page', () => {
+    test('does not render a link to login page', () => {
       const loginLink = getLoggedInNotAdminWrapper()
         .find(NavItem)
-        .filter('#app-Navbar__login');
-      expect(loginLink).to.have.length(0);
+        .filter('#app-TopNavbar__login');
+      expect(loginLink).toHaveLength(0);
     });
   });
 
@@ -81,19 +80,19 @@ describe('shared/top-navbar/TopNavbar', () => {
       return getWrapper({ ...props });
     }
 
-    it('renders a link to login page', () => {
+    test('renders a link to login page', () => {
       const wrapper = getNotLoggedInWrapper();
-      const loginLink = wrapper.find(NavItem).filter('#app-Navbar__login');
-      expect(loginLink).to.have.length(1);
-      expect(loginLink.at(0).prop('onClick')).to.equal(wrapper.instance().handleLoginClick);
+      const loginLink = wrapper.find(NavItem).filter('#app-TopNavbar__login');
+      expect(loginLink).toHaveLength(1);
+      expect(loginLink.at(0).prop('onClick')).toBe(wrapper.instance().handleLoginClick);
     });
 
-    it('does not render a logout link', () => {
+    test('does not render a logout link', () => {
       const logoutHref = `/logout?next=${window.location.origin}`;
       const logoutLink = getNotLoggedInWrapper()
         .find(NavItem)
         .filter({ href: logoutHref });
-      expect(logoutLink).to.have.length(0);
+      expect(logoutLink).toHaveLength(0);
     });
   });
 });

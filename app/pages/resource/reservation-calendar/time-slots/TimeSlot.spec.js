@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
@@ -35,22 +34,26 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     return getWrapper(props).find('button.app-TimeSlot__action');
   }
 
-  it('renders button.app-TimeSlot__action', () => {
-    expect(getClickableButton()).to.have.length(1);
+  test('renders button.app-TimeSlot__action', () => {
+    expect(getClickableButton()).toHaveLength(1);
   });
 
-  it('does not render clear button when clearing disabled', () => {
-    expect(getWrapper().find('button.app-TimeSlot__clear')).to.have.length(0);
+  test('does not render clear button when clearing disabled', () => {
+    expect(getWrapper().find('button.app-TimeSlot__clear')).toHaveLength(0);
   });
 
-  it('renders clear button when clearing enabled', () => {
-    expect(getWrapper({ showClear: true }).find('button.app-TimeSlot__clear')).to.have.length(1);
+  test('renders clear button when clearing enabled', () => {
+    expect(getWrapper({ showClear: true }).find('button.app-TimeSlot__clear')).toHaveLength(1);
   });
 
-  it('renders slot start time as button text', () => {
+  test('renders slot start time as button text', () => {
     const start = new Date(defaultProps.slot.start);
     const expected = `${padLeft(start.getHours())}:${padLeft(start.getMinutes())}`;
-    expect(getWrapper().text()).to.contain(expected);
+    expect(getWrapper().text()).toContain(expected);
+  });
+
+  test('disables the time slot when isDisabled prop is true', () => {
+    expect(getWrapper({ isDisabled: true }).find('div.app-TimeSlot--disabled')).toHaveLength(1);
   });
 
   describe('button onClick when user is not logged in', () => {
@@ -58,7 +61,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     let wrapper;
     let button;
 
-    before(() => {
+    beforeAll(() => {
       wrapper = getWrapper({ isLoggedIn: false });
       instance = wrapper.instance();
       button = wrapper.find('button.app-TimeSlot__action');
@@ -69,15 +72,15 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       instance.handleClick.reset();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls handleClick with disabled true', () => {
-      expect(button.prop('onClick')).to.be.a('function');
+    test('calls handleClick with disabled true', () => {
+      expect(typeof button.prop('onClick')).toBe('function');
       button.prop('onClick')();
-      expect(instance.handleClick.callCount).to.equal(1);
-      expect(instance.handleClick.lastCall.args).to.deep.equal([true]);
+      expect(instance.handleClick.callCount).toBe(1);
+      expect(instance.handleClick.lastCall.args).toEqual([true]);
     });
   });
 
@@ -86,7 +89,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     let wrapper;
     let button;
 
-    before(() => {
+    beforeAll(() => {
       wrapper = getWrapper({ isLoggedIn: true });
       instance = wrapper.instance();
       button = wrapper.find('button.app-TimeSlot__action');
@@ -97,62 +100,62 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       instance.handleClick.reset();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls handleClick with disabled false', () => {
-      expect(button.prop('onClick')).to.be.a('function');
+    test('calls handleClick with disabled false', () => {
+      expect(typeof button.prop('onClick')).toBe('function');
       button.prop('onClick')();
-      expect(instance.handleClick.callCount).to.equal(1);
-      expect(instance.handleClick.lastCall.args).to.deep.equal([false]);
+      expect(instance.handleClick.callCount).toBe(1);
+      expect(instance.handleClick.lastCall.args).toEqual([false]);
     });
   });
 
   describe('getReservationInfoNotification', () => {
-    it('returns null when slot end in past', () => {
+    test('returns null when slot end in past', () => {
       const t = simple.stub();
       const slot = { end: '2016-10-11T10:00:00.000Z' };
       const instance = getWrapper().instance();
       const result = instance.getReservationInfoNotification(true, {}, slot, t);
 
-      expect(result).to.equal(null);
-      expect(t.callCount).to.equal(0);
+      expect(result).toBeNull();
+      expect(t.callCount).toBe(0);
     });
 
-    it('returns null when slot reserved', () => {
+    test('returns null when slot reserved', () => {
       const t = simple.stub();
       const slot = { reserved: true };
       const instance = getWrapper().instance();
       const result = instance.getReservationInfoNotification(true, {}, slot, t);
 
-      expect(result).to.equal(null);
-      expect(t.callCount).to.equal(0);
+      expect(result).toBeNull();
+      expect(t.callCount).toBe(0);
     });
 
-    it('returns message when not logged in and resource is reservable', () => {
+    test('returns message when not logged in and resource is reservable', () => {
       const message = 'some message';
       const t = simple.stub().returnWith(message);
       const resource = Resource.build({ reservable: true });
       const instance = getWrapper().instance();
       const result = instance.getReservationInfoNotification(false, resource, defaultProps.slot, t);
 
-      expect(t.callCount).to.equal(1);
-      expect(result.message).to.equal(message);
-      expect(result.type).to.equal('info');
-      expect(result.timeOut).to.equal(10000);
+      expect(t.callCount).toBe(1);
+      expect(result.message).toBe(message);
+      expect(result.type).toBe('info');
+      expect(result.timeOut).toBe(10000);
     });
 
-    it('returns correct message when logged in', () => {
+    test('returns correct message when logged in', () => {
       const t = simple.stub();
       const resource = Resource.build({ reservationInfo: 'reservation info' });
       const instance = getWrapper().instance();
       const result = instance.getReservationInfoNotification(true, resource, defaultProps.slot, t);
 
-      expect(t.callCount).to.equal(0);
-      expect(result.message).to.equal(resource.reservationInfo);
-      expect(result.type).to.equal('info');
-      expect(result.timeOut).to.equal(10000);
+      expect(t.callCount).toBe(0);
+      expect(result.message).toBe(resource.reservationInfo);
+      expect(result.type).toBe('info');
+      expect(result.timeOut).toBe(10000);
     });
   });
 
@@ -167,7 +170,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     let instance;
     let wrapper;
 
-    before(() => {
+    beforeAll(() => {
       wrapper = getWrapper({
         addNotification,
         isLoggedIn: false,
@@ -178,31 +181,31 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       wrapper.instance().handleClick(true);
     });
 
-    afterEach(() => {
+    afterAll(() => {
       instance.getReservationInfoNotification.reset();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls addNotification prop', () => {
-      expect(onClick.callCount).to.equal(0);
-      expect(instance.getReservationInfoNotification.callCount).to.equal(1);
-      expect(addNotification.callCount).to.equal(1);
-      expect(addNotification.lastCall.args).to.deep.equal([message]);
+    test('calls addNotification prop', () => {
+      expect(onClick.callCount).toBe(0);
+      expect(instance.getReservationInfoNotification.callCount).toBe(1);
+      expect(addNotification.callCount).toBe(1);
+      expect(addNotification.lastCall.args).toEqual([message]);
     });
   });
 
-  it('when disabled is false', () => {
+  test('when disabled is false', () => {
     const addNotification = simple.stub();
     const onClick = simple.stub();
     const wrapper = getWrapper({ addNotification, onClick });
     wrapper.instance().handleClick(false);
 
-    expect(addNotification.callCount).to.equal(0);
-    expect(onClick.callCount).to.equal(1);
-    expect(onClick.lastCall.args).to.deep.equal([
+    expect(addNotification.callCount).toBe(0);
+    expect(onClick.callCount).toBe(1);
+    expect(onClick.lastCall.args).toEqual([
       {
         begin: defaultProps.slot.start,
         end: defaultProps.slot.end,
@@ -216,19 +219,19 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     let button;
     const onClear = simple.stub();
 
-    before(() => {
+    beforeAll(() => {
       wrapper = getWrapper({ showClear: true, onClear });
       button = wrapper.find('button.app-TimeSlot__clear');
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls onClear function', () => {
-      expect(button.prop('onClick')).to.be.a('function');
+    test('calls onClear function', () => {
+      expect(typeof button.prop('onClick')).toBe('function');
       button.prop('onClick')();
-      expect(onClear.callCount).to.equal(1);
+      expect(onClear.callCount).toBe(1);
     });
   });
 });

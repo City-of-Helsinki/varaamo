@@ -1,7 +1,5 @@
-import { expect } from 'chai';
 import React from 'react';
 import Loader from 'react-loader';
-import { browserHistory } from 'react-router';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
@@ -19,7 +17,11 @@ import { UnconnectedReservationPage as ReservationPage } from './ReservationPage
 
 describe('pages/reservation/ReservationPage', () => {
   const resource = Immutable(Resource.build());
+  const history = {
+    replace: () => { },
+  };
   const defaultProps = {
+    history,
     actions: {
       clearReservations: simple.mock(),
       closeReservationSuccessModal: simple.mock(),
@@ -34,20 +36,23 @@ describe('pages/reservation/ReservationPage', () => {
     isFetchingResource: false,
     isMakingReservations: false,
     location: {},
-    params: {},
+    match: { search: '' },
     reservationToEdit: null,
     reservationCreated: null,
     reservationEdited: null,
     resource,
-    selected: [{
-      begin: '2016-10-10T10:00:00+03:00',
-      end: '2016-10-10T11:00:00+03:00',
-      resource: resource.id,
-    }, {
-      begin: '2016-10-10T11:00:00+03:00',
-      end: '2016-10-10T12:00:00+03:00',
-      resource: resource.id,
-    }],
+    selected: [
+      {
+        begin: '2016-10-10T10:00:00+03:00',
+        end: '2016-10-10T11:00:00+03:00',
+        resource: resource.id,
+      },
+      {
+        begin: '2016-10-10T11:00:00+03:00',
+        end: '2016-10-10T12:00:00+03:00',
+        resource: resource.id,
+      },
+    ],
     unit: Immutable(Unit.build()),
     user: Immutable(User.build()),
   };
@@ -57,133 +62,142 @@ describe('pages/reservation/ReservationPage', () => {
   }
 
   describe('PageWrapper title', () => {
-    it('renders new reservation title when reservationToEdit and reservationEdited is empty', () => {
-      const pageWrapper = getWrapper({
-        reservationToEdit: null,
-        reservationEdited: null,
-      }).find(PageWrapper);
+    test(
+      'renders new reservation title when reservationToEdit and reservationEdited is empty',
+      () => {
+        const pageWrapper = getWrapper({
+          reservationToEdit: null,
+          reservationEdited: null,
+        }).find(PageWrapper);
 
-      expect(pageWrapper).to.have.length(1);
-      expect(pageWrapper.prop('title')).to.equal('ReservationPage.newReservationTitle');
-    });
+        expect(pageWrapper).toHaveLength(1);
+        expect(pageWrapper.prop('title')).toBe('ReservationPage.newReservationTitle');
+      }
+    );
 
-    it('renders edit reservation title when reservationToEdit not empty', () => {
+    test('renders edit reservation title when reservationToEdit not empty', () => {
       const pageWrapper = getWrapper({
         reservationToEdit: Reservation.build(),
       }).find(PageWrapper);
 
-      expect(pageWrapper).to.have.length(1);
-      expect(pageWrapper.prop('title')).to.equal('ReservationPage.editReservationTitle');
+      expect(pageWrapper).toHaveLength(1);
+      expect(pageWrapper.prop('title')).toBe('ReservationPage.editReservationTitle');
     });
 
-    it('renders edit reservation title when reservationEdited not empty', () => {
+    test('renders edit reservation title when reservationEdited not empty', () => {
       const pageWrapper = getWrapper({
         reservationEdited: Reservation.build(),
       }).find(PageWrapper);
 
-      expect(pageWrapper).to.have.length(1);
-      expect(pageWrapper.prop('title')).to.equal('ReservationPage.editReservationTitle');
+      expect(pageWrapper).toHaveLength(1);
+      expect(pageWrapper.prop('title')).toBe('ReservationPage.editReservationTitle');
     });
   });
 
   describe('Loader', () => {
-    it('prop loaded true when resource not empty', () => {
+    test('prop loaded true when resource not empty', () => {
       const loader = getWrapper({
         resource,
       }).find(Loader);
 
-      expect(loader).to.have.length(1);
-      expect(loader.prop('loaded')).to.be.true;
+      expect(loader).toHaveLength(1);
+      expect(loader.prop('loaded')).toBe(true);
     });
 
-    it('not rendered when resource empty', () => {
+    test('not rendered when resource empty', () => {
       const loader = getWrapper({
         resource: {},
       }).find(Loader);
 
-      expect(loader).to.have.length(0);
+      expect(loader).toHaveLength(0);
     });
   });
 
   describe('ReservationPhases', () => {
-    it('renders correct props when reservationToEdit null', () => {
+    test('renders correct props when reservationToEdit null', () => {
       const reservationPhases = getWrapper({
         reservationToEdit: null,
       }).find(ReservationPhases);
-      expect(reservationPhases).to.have.length(1);
-      expect(reservationPhases.prop('currentPhase')).to.equal('information');
-      expect(reservationPhases.prop('isEditing')).to.be.false;
+      expect(reservationPhases).toHaveLength(1);
+      expect(reservationPhases.prop('currentPhase')).toBe('information');
+      expect(reservationPhases.prop('isEditing')).toBe(false);
     });
 
-    it('renders correct props when reservationToEdit not null', () => {
+    test('renders correct props when reservationToEdit not null', () => {
       const reservationPhases = getWrapper({
         reservationToEdit: Reservation.build(),
       }).find(ReservationPhases);
-      expect(reservationPhases).to.have.length(1);
-      expect(reservationPhases.prop('currentPhase')).to.equal('time');
-      expect(reservationPhases.prop('isEditing')).to.be.true;
+      expect(reservationPhases).toHaveLength(1);
+      expect(reservationPhases.prop('currentPhase')).toBe('time');
+      expect(reservationPhases.prop('isEditing')).toBe(true);
     });
   });
 
   describe('ReservationTime', () => {
-    it('renders ReservationTime when reservationToEdit not empty', () => {
+    test('renders ReservationTime when reservationToEdit not empty', () => {
       const reservationTime = getWrapper({
         reservationToEdit: Reservation.build(),
       }).find(ReservationTime);
-      expect(reservationTime).to.have.length(1);
+      expect(reservationTime).toHaveLength(1);
     });
 
-    it('does not render ReservationTime when reservationToEdit is empty', () => {
+    test('does not render ReservationTime when reservationToEdit is empty', () => {
       const reservationTime = getWrapper({
         reservationToEdit: null,
       }).find(ReservationTime);
-      expect(reservationTime).to.have.length(0);
+      expect(reservationTime).toHaveLength(0);
     });
   });
 
   describe('ReservationInformation', () => {
-    it('renders ReservationInformation when view is information and selected not empty', () => {
-      const reservationInformation = getWrapper().find(ReservationInformation);
-      expect(reservationInformation).to.have.length(1);
-    });
+    test(
+      'renders ReservationInformation when view is information and selected not empty',
+      () => {
+        const reservationInformation = getWrapper().find(ReservationInformation);
+        expect(reservationInformation).toHaveLength(1);
+      }
+    );
 
-    it('does not render ReservationInformation by default when reservationToEdit is not empty', () => {
-      const reservationInformation = getWrapper({
-        reservationToEdit: Reservation.build(),
-      }).find(ReservationInformation);
-      expect(reservationInformation).to.have.length(0);
-    });
+    test(
+      'does not render ReservationInformation by default when reservationToEdit is not empty',
+      () => {
+        const reservationInformation = getWrapper({
+          reservationToEdit: Reservation.build(),
+        }).find(ReservationInformation);
+        expect(reservationInformation).toHaveLength(0);
+      }
+    );
   });
 
   describe('ReservationConfirmation', () => {
-    it('does not render ReservationInformation by default', () => {
+    test('does not render ReservationInformation by default', () => {
       const reservationConfirmation = getWrapper().find(ReservationConfirmation);
-      expect(reservationConfirmation).to.have.length(0);
+      expect(reservationConfirmation).toHaveLength(0);
     });
   });
 
   describe('constructor', () => {
-    it('state view is time when prop reservationToEdit not empty', () => {
+    test('state view is time when prop reservationToEdit not empty', () => {
       const instance = getWrapper({
         reservationToEdit: Reservation.build(),
       }).instance();
-      expect(instance.state.view).to.equal('time');
+      expect(instance.state.view).toBe('time');
     });
 
-    it('state view is information when prop reservationToEdit empty', () => {
+    test('state view is information when prop reservationToEdit empty', () => {
       const instance = getWrapper({
         reservationToEdit: null,
       }).instance();
-      expect(instance.state.view).to.equal('information');
+      expect(instance.state.view).toBe('information');
     });
   });
 
   describe('componentDidMount', () => {
     describe('when reservations and selected empty', () => {
-      let browserHistoryMock;
+      let historyMock;
 
-      before(() => {
-        browserHistoryMock = simple.mock(browserHistory, 'replace');
+      beforeAll(() => {
+        historyMock = simple.mock(history, 'replace');
         const instance = getWrapper({
           reservationCreated: null,
           reservationEdited: null,
@@ -193,27 +207,25 @@ describe('pages/reservation/ReservationPage', () => {
         instance.componentDidMount();
       });
 
-      after(() => {
+      afterAll(() => {
         simple.restore();
       });
 
-      it('calls browserHistory.replace() with /my-reservations', () => {
+      test('calls history.replace() with /my-reservations', () => {
         const expectedPath = '/my-reservations';
-        expect(browserHistoryMock.callCount).to.equal(1);
-        expect(browserHistoryMock.lastCall.args).to.deep.equal([expectedPath]);
+        expect(historyMock.callCount).toBe(1);
+        expect(historyMock.lastCall.args).toEqual([expectedPath]);
       });
     });
 
-    describe('when reservations and selected empty and location query has resource', () => {
-      let browserHistoryMock;
+    describe('when reservations and selected empty and location search has resource', () => {
+      let historyMock;
 
-      before(() => {
-        browserHistoryMock = simple.mock(browserHistory, 'replace');
+      beforeAll(() => {
+        historyMock = simple.mock(history, 'replace');
         const instance = getWrapper({
           location: {
-            query: {
-              resource: resource.id,
-            },
+            search: `?resource=${resource.id}`,
           },
           reservationCreated: null,
           reservationEdited: null,
@@ -223,20 +235,20 @@ describe('pages/reservation/ReservationPage', () => {
         instance.componentDidMount();
       });
 
-      after(() => {
+      afterAll(() => {
         simple.restore();
       });
 
-      it('calls browserHistory.replace() with /my-reservations', () => {
+      test('calls history.replace() with /my-reservations', () => {
         const expectedPath = `/resources/${resource.id}`;
-        expect(browserHistoryMock.callCount).to.equal(1);
-        expect(browserHistoryMock.lastCall.args).to.deep.equal([expectedPath]);
+        expect(historyMock.callCount).toBe(1);
+        expect(historyMock.lastCall.args).toEqual([expectedPath]);
       });
     });
 
     describe('when selected not empty', () => {
       let instance;
-      before(() => {
+      beforeAll(() => {
         instance = getWrapper({
           selected: defaultProps.selected,
         }).instance();
@@ -244,40 +256,46 @@ describe('pages/reservation/ReservationPage', () => {
         instance.componentDidMount();
       });
 
-      after(() => {
+      afterAll(() => {
         simple.restore();
       });
 
-      it('calls fetch resource', () => {
-        expect(instance.fetchResource.callCount).to.equal(1);
-        expect(instance.fetchResource.lastCall.args).to.deep.equal([]);
+      test('calls fetch resource', () => {
+        expect(instance.fetchResource.callCount).toBe(1);
+        expect(instance.fetchResource.lastCall.args).toEqual([]);
       });
     });
   });
 
   describe('componentWillUpdate', () => {
-    it('sets state view confirmation when next props has reservationCreated', () => {
-      const instance = getWrapper().instance();
-      const nextProps = {
-        reservationCreated: Reservation.build(),
-      };
-      instance.componentWillUpdate(nextProps);
-      expect(instance.state.view).to.equal('confirmation');
-    });
+    test(
+      'sets state view confirmation when next props has reservationCreated',
+      () => {
+        const instance = getWrapper().instance();
+        const nextProps = {
+          reservationCreated: Reservation.build(),
+        };
+        instance.componentWillUpdate(nextProps);
+        expect(instance.state.view).toBe('confirmation');
+      }
+    );
 
-    it('sets state view confirmation when next props has reservationEdited', () => {
-      const instance = getWrapper().instance();
-      const nextProps = {
-        reservationCreated: Reservation.build(),
-      };
-      instance.componentWillUpdate(nextProps);
-      expect(instance.state.view).to.equal('confirmation');
-    });
+    test(
+      'sets state view confirmation when next props has reservationEdited',
+      () => {
+        const instance = getWrapper().instance();
+        const nextProps = {
+          reservationCreated: Reservation.build(),
+        };
+        instance.componentWillUpdate(nextProps);
+        expect(instance.state.view).toBe('confirmation');
+      }
+    );
   });
   describe('componentWillUnmount', () => {
     const clearReservations = simple.mock();
     const closeReservationSuccessModal = simple.mock();
-    before(() => {
+    beforeAll(() => {
       const instance = getWrapper({
         actions: {
           clearReservations,
@@ -287,24 +305,24 @@ describe('pages/reservation/ReservationPage', () => {
       instance.componentWillUnmount();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls clearReservations', () => {
-      expect(clearReservations.callCount).to.equal(1);
-      expect(clearReservations.lastCall.args).to.deep.equal([]);
+    test('calls clearReservations', () => {
+      expect(clearReservations.callCount).toBe(1);
+      expect(clearReservations.lastCall.args).toEqual([]);
     });
 
-    it('calls closeReservationSuccessModal', () => {
-      expect(closeReservationSuccessModal.callCount).to.equal(1);
-      expect(closeReservationSuccessModal.lastCall.args).to.deep.equal([]);
+    test('calls closeReservationSuccessModal', () => {
+      expect(closeReservationSuccessModal.callCount).toBe(1);
+      expect(closeReservationSuccessModal.lastCall.args).toEqual([]);
     });
   });
 
   describe('fetchResource', () => {
     const fetchResource = simple.mock();
-    before(() => {
+    beforeAll(() => {
       const instance = getWrapper({
         actions: {
           fetchResource,
@@ -313,69 +331,75 @@ describe('pages/reservation/ReservationPage', () => {
       instance.fetchResource();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls actions.fetchResource', () => {
-      expect(fetchResource.callCount).to.equal(1);
-      expect(fetchResource.lastCall.args).to.have.length(2);
-      expect(fetchResource.lastCall.args[0]).to.deep.equal(resource.id);
+    test('calls actions.fetchResource', () => {
+      expect(fetchResource.callCount).toBe(1);
+      expect(fetchResource.lastCall.args).toHaveLength(2);
+      expect(fetchResource.lastCall.args[0]).toEqual(resource.id);
     });
   });
 
   describe('handleBack', () => {
-    it('sets state view time when reservationToEdit no empty', () => {
+    test('sets state view time when reservationToEdit no empty', () => {
       const instance = getWrapper({
         reservationToEdit: Reservation.build(),
       }).instance();
       instance.handleBack();
-      expect(instance.state.view).to.equal('time');
+      expect(instance.state.view).toBe('time');
     });
   });
 
   describe('handleCancel', () => {
-    let browserHistoryMock;
+    let historyMock;
 
-    before(() => {
-      browserHistoryMock = simple.mock(browserHistory, 'replace');
+    beforeAll(() => {
+      historyMock = simple.mock(history, 'replace');
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls browserHistory.replace() with /my-reservations when reservationToEdit not empty', () => {
-      browserHistoryMock.reset();
-      const expectedPath = '/my-reservations';
-      const instance = getWrapper({
-        reservationToEdit: Reservation.build(),
-      }).instance();
-      instance.handleCancel();
+    test(
+      'calls browserHistory.replace() with /my-reservations when reservationToEdit not empty',
+      () => {
+        historyMock.reset();
+        const expectedPath = '/my-reservations';
+        const instance = getWrapper({
+          reservationToEdit: Reservation.build(),
+        }).instance();
+        instance.handleCancel();
 
-      expect(browserHistoryMock.callCount).to.equal(1);
-      expect(browserHistoryMock.lastCall.args).to.deep.equal([expectedPath]);
-    });
+        expect(historyMock.callCount).toBe(1);
+        expect(historyMock.lastCall.args).toEqual([expectedPath]);
+      }
+    );
 
-    it('calls browserHistory.replace() with /resources when reservationToEdit empty', () => {
-      browserHistoryMock.reset();
-      const expectedPath = `/resources/${resource.id}`;
-      const instance = getWrapper({
-        reservationToEdit: null,
-      }).instance();
-      instance.handleCancel();
+    test(
+      'calls history.replace() with /resources when reservationToEdit empty',
+      () => {
+        historyMock.reset();
+        const expectedPath = `/resources/${resource.id}`;
+        const instance = getWrapper({
+          reservationToEdit: null,
+        }).instance();
+        instance.handleCancel();
 
-      expect(browserHistoryMock.callCount).to.equal(1);
-      expect(browserHistoryMock.lastCall.args).to.deep.equal([expectedPath]);
-    });
+        expect(historyMock.callCount).toBe(1);
+        expect(historyMock.lastCall.args).toEqual([expectedPath]);
+      }
+    );
   });
 
   describe('handleConfirmTime', () => {
-    it('sets state view information when reservationToEdit no empty', () => {
+    test('sets state view information when reservationToEdit no empty', () => {
       const instance = getWrapper().instance();
       instance.state.view = 'time';
       instance.handleConfirmTime();
-      expect(instance.state.view).to.equal('information');
+      expect(instance.state.view).toBe('information');
     });
   });
 
@@ -386,7 +410,7 @@ describe('pages/reservation/ReservationPage', () => {
       someField: 'some value',
     };
 
-    it('calls putReservation action when reservationToEdit not empty', () => {
+    test('calls putReservation action when reservationToEdit not empty', () => {
       const reservationToEdit = Reservation.build();
       const instance = getWrapper({
         actions: {
@@ -396,11 +420,11 @@ describe('pages/reservation/ReservationPage', () => {
         reservationToEdit,
       }).instance();
       instance.handleReservation(values);
-      expect(postReservation.callCount).to.equal(0);
-      expect(putReservation.callCount).to.equal(1);
+      expect(postReservation.callCount).toBe(0);
+      expect(putReservation.callCount).toBe(1);
     });
 
-    it('calls postReservation action when reservationToEdit empty', () => {
+    test('calls postReservation action when reservationToEdit empty', () => {
       postReservation.reset();
       putReservation.reset();
       const instance = getWrapper({
@@ -410,8 +434,8 @@ describe('pages/reservation/ReservationPage', () => {
         },
       }).instance();
       instance.handleReservation(values);
-      expect(postReservation.callCount).to.equal(1);
-      expect(putReservation.callCount).to.equal(0);
+      expect(postReservation.callCount).toBe(1);
+      expect(putReservation.callCount).toBe(0);
     });
   });
 });

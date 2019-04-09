@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import { injectT } from 'i18n';
 import { getCurrentCustomization } from 'utils/customizationUtils';
@@ -8,7 +9,6 @@ import vantaaLogoSrc from './vantaa-logo.png';
 
 function Logo({ t }) {
   switch (getCurrentCustomization()) {
-
     case 'ESPOO': {
       return (
         <img

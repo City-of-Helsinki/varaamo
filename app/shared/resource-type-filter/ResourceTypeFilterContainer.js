@@ -1,5 +1,6 @@
 import includes from 'lodash/includes';
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 import { injectT } from 'i18n';
 import ResourceTypeFilterButton from './ResourceTypeFilterButton';
@@ -31,14 +32,14 @@ class ResourceTypeFilterContainer extends Component {
     return (
       <div className="resource-type-filter-container">
         <h6>{t('ResourceTypeFilter.title')}</h6>
-        { resourceTypes.map(resourceType =>
+        { resourceTypes.map(resourceType => (
           <ResourceTypeFilterButton
             active={includes(selectedResourceTypes, resourceType)}
             key={`resource-type-${resourceType}`}
             onClick={this.handleClick}
             resourceType={resourceType}
           />
-        )}
+        ))}
       </div>
     );
   }

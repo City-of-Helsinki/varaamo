@@ -1,6 +1,7 @@
-import { CALL_API } from 'redux-api-middleware';
-
 import types from 'constants/ActionTypes';
+
+import { RSAA } from 'redux-api-middleware';
+
 import schemas from 'store/middleware/Schemas';
 import {
   buildAPIUrl,
@@ -21,7 +22,7 @@ function fetchFavoritedResources(timeAsMoment, source) {
 
 function fetchResource(id, params = {}) {
   return {
-    [CALL_API]: {
+    [RSAA]: {
       types: [
         getRequestTypeDescriptor(types.API.RESOURCE_GET_REQUEST),
         getSuccessTypeDescriptor(
@@ -41,7 +42,7 @@ function fetchResources(params = {}, source) {
   const fetchParams = Object.assign({}, params, { pageSize: 500 });
 
   return {
-    [CALL_API]: {
+    [RSAA]: {
       types: [
         getRequestTypeDescriptor(types.API.RESOURCES_GET_REQUEST),
         getSuccessTypeDescriptor(
@@ -62,7 +63,7 @@ function fetchResources(params = {}, source) {
 
 function favoriteResource(id) {
   return {
-    [CALL_API]: {
+    [RSAA]: {
       types: [
         getRequestTypeDescriptor(types.API.RESOURCE_FAVORITE_POST_REQUEST),
         getSuccessTypeDescriptor(
@@ -80,7 +81,7 @@ function favoriteResource(id) {
 
 function unfavoriteResource(id) {
   return {
-    [CALL_API]: {
+    [RSAA]: {
       types: [
         getRequestTypeDescriptor(types.API.RESOURCE_UNFAVORITE_POST_REQUEST),
         getSuccessTypeDescriptor(

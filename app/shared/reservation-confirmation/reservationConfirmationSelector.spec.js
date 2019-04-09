@@ -1,6 +1,5 @@
-import { expect } from 'chai';
-
 import FormTypes from 'constants/FormTypes';
+
 import Resource from 'utils/fixtures/Resource';
 import { getState } from 'utils/testUtils';
 import reservationConfirmationSelector from './reservationConfirmationSelector';
@@ -23,41 +22,41 @@ describe('shared/reservation-confirmation/reservationConfirmationSelector', () =
     return reservationConfirmationSelector(state, props);
   }
 
-  it('returns confirmReservationModalIsOpen', () => {
-    expect(getSelected().confirmReservationModalIsOpen).to.exist;
+  test('returns confirmReservationModalIsOpen', () => {
+    expect(getSelected().confirmReservationModalIsOpen).toBeDefined();
   });
 
-  it('returns isMakingReservations', () => {
-    expect(getSelected().isMakingReservations).to.exist;
+  test('returns isMakingReservations', () => {
+    expect(getSelected().isMakingReservations).toBeDefined();
   });
 
-  it('returns isStaff', () => {
-    expect(getSelected().isStaff).to.exist;
+  test('returns isStaff', () => {
+    expect(getSelected().isStaff).toBeDefined();
   });
 
-  it('returns recurringReservations from the state', () => {
-    expect(getSelected().recurringReservations).to.deep.equal(recurringReservations);
+  test('returns recurringReservations from the state', () => {
+    expect(getSelected().recurringReservations).toEqual(recurringReservations);
   });
 
-  it('returns reservationsToEdit from the state', () => {
-    expect(getSelected().reservationsToEdit).to.deep.equal(['mock-reservation']);
+  test('returns reservationsToEdit from the state', () => {
+    expect(getSelected().reservationsToEdit).toEqual(['mock-reservation']);
   });
 
-  it('returns correct resource', () => {
-    expect(getSelected().resource).to.deep.equal(resource);
+  test('returns correct resource', () => {
+    expect(getSelected().resource).toEqual(resource);
   });
 
-  it('returns selectedReservations', () => {
-    expect(getSelected().selectedReservations).to.exist;
+  test('returns selectedReservations', () => {
+    expect(getSelected().selectedReservations).toBeDefined();
   });
 
-  it('returns selectedReservations from props', () => {
+  test('returns selectedReservations from props', () => {
     const selectedReservations = { some: 'data' };
     const selected = getSelected({ selectedReservations });
-    expect(selected.selectedReservations).to.equal(selectedReservations);
+    expect(selected.selectedReservations).toBe(selectedReservations);
   });
 
-  it('returns staffEventSelected from state', () => {
-    expect(getSelected().staffEventSelected).to.be.true;
+  test('returns staffEventSelected from state', () => {
+    expect(getSelected().staffEventSelected).toBe(true);
   });
 });

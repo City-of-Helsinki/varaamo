@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
 function CommentButton({ onClick }) {
@@ -6,6 +7,7 @@ function CommentButton({ onClick }) {
     <button
       className="comment-button"
       onClick={onClick}
+      type="button"
     >
       <Glyphicon glyph="comment" />
     </button>

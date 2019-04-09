@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-bootstrap/lib/Modal';
 
@@ -37,7 +38,9 @@ class MiniModal extends React.Component {
   }
 
   render() {
-    const { buttonContent, children, header, t, theme } = this.props;
+    const {
+      buttonContent, children, header, t, theme
+    } = this.props;
     return (
       <div className={`app-MiniModal app-MiniModal--theme-${theme}`}>
         <Button
@@ -61,6 +64,7 @@ class MiniModal extends React.Component {
             <button
               className="app-MiniModal__modal-footer-close-button"
               onClick={this.handleConfirm}
+              type="button"
             >
               {t('MiniModal.buttonText')}
             </button>

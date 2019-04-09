@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
@@ -28,49 +27,49 @@ describe('shared/compact-reservation-list/CompactReservationList', () => {
 
   const wrapper = getWrapper();
 
-  it('renders a list for selected reservations', () => {
+  test('renders a list for selected reservations', () => {
     const ul = wrapper.find('ul');
-    expect(ul.length).to.equal(1);
+    expect(ul.length).toBe(1);
   });
 
-  it('renders a list element for each selected reservation', () => {
+  test('renders a list element for each selected reservation', () => {
     const li = wrapper.find('li');
-    expect(li.length).to.equal(defaultProps.reservations.length);
+    expect(li.length).toBe(defaultProps.reservations.length);
   });
 
-  it('displays a TimeRange for each selected reservation', () => {
+  test('displays a TimeRange for each selected reservation', () => {
     const timeRange = wrapper.find(TimeRange);
-    expect(timeRange.length).to.equal(defaultProps.reservations.length);
+    expect(timeRange.length).toBe(defaultProps.reservations.length);
   });
 
   describe('rendering resource name', () => {
-    it('renders resource name if correct resource is given', () => {
+    test('renders resource name if correct resource is given', () => {
       const li = wrapper.find('li').at(0);
-      expect(li.text()).to.contain(resource.name);
+      expect(li.text()).toContain(resource.name);
     });
 
-    it('does not render resource name if correct resource is not given', () => {
+    test('does not render resource name if correct resource is not given', () => {
       const li = getWrapper({ resources: undefined }).find('li').at(0);
-      expect(li.text()).to.not.contain(resource.name);
+      expect(li.text()).not.toContain(resource.name);
     });
   });
 
   describe('subtitle', () => {
-    it('is rendered if subtitle is specified', () => {
+    test('is rendered if subtitle is specified', () => {
       const reservations = [Reservation.build({ foo: 'bar' })];
       const props = { reservations, subtitle: 'foo' };
       const subtitle = getWrapper(props).find('.compact-reservation-list-subtitle');
-      expect(subtitle).to.have.length(1);
-      expect(subtitle.text()).to.equal(reservations[0].foo);
+      expect(subtitle).toHaveLength(1);
+      expect(subtitle.text()).toBe(reservations[0].foo);
     });
 
-    it('is not rendered if subtitle is not specified', () => {
-      expect(getWrapper().find('.compact-reservation-list-subtitle')).to.have.length(0);
+    test('is not rendered if subtitle is not specified', () => {
+      expect(getWrapper().find('.compact-reservation-list-subtitle')).toHaveLength(0);
     });
   });
 
   describe('remove button', () => {
-    it('is rendered if reservation is in removableReservations', () => {
+    test('is rendered if reservation is in removableReservations', () => {
       const reservations = [Reservation.build({ foo: 'bar' })];
       const removableReservations = [
         Reservation.build(),
@@ -78,19 +77,17 @@ describe('shared/compact-reservation-list/CompactReservationList', () => {
       ];
       const props = { reservations, removableReservations };
       const buttons = getWrapper(props).find({ glyph: 'remove-circle' });
-      expect(buttons).to.have.length(2);
+      expect(buttons).toHaveLength(2);
     });
 
-    it('passes onRemoveClick func to onClick prop', () => {
+    test('passes onRemoveClick func to onClick prop', () => {
       const onRemoveClick = simple.mock();
       const removableReservations = [Reservation.build()];
       const props = { onRemoveClick, removableReservations };
       const button = getWrapper(props).find({ glyph: 'remove-circle' });
-      expect(onRemoveClick.callCount).to.equal(0);
+      expect(onRemoveClick.callCount).toBe(0);
       button.prop('onClick')();
-      expect(onRemoveClick.lastCall.args).to.deep.equal(
-        [removableReservations[0].begin]
-      );
+      expect(onRemoveClick.lastCall.args).toEqual([removableReservations[0].begin]);
     });
   });
 });

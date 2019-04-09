@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import User from 'utils/fixtures/User';
 import { getState } from 'utils/testUtils';
 import {
@@ -16,29 +14,29 @@ describe('state/selectors/authSelectors', () => {
       return currentUserSelector(state);
     }
 
-    it('returns user corresponding to the auth.userId', () => {
+    test('returns user corresponding to the auth.userId', () => {
       const user = User.build();
       const selected = getSelected({
         auth: { userId: user.id },
         'data.users': { [user.id]: user },
       });
-      expect(selected).to.deep.equal(user);
+      expect(selected).toEqual(user);
     });
 
-    it('returns an empty object if logged in user data does not exist', () => {
+    test('returns an empty object if logged in user data does not exist', () => {
       const selected = getSelected({
         auth: { userId: 'u-999' },
       });
-      expect(selected).to.deep.equal({});
+      expect(selected).toEqual({});
     });
 
-    it('returns an empty object if user is not logged in', () => {
+    test('returns an empty object if user is not logged in', () => {
       const user = User.build();
       const selected = getSelected({
         auth: { userId: null },
         'data.users': { [user.id]: user },
       });
-      expect(selected).to.deep.equal({});
+      expect(selected).toEqual({});
     });
   });
 
@@ -51,19 +49,19 @@ describe('state/selectors/authSelectors', () => {
       return isAdminSelector(state);
     }
 
-    it('returns false if user is not logged in', () => {
+    test('returns false if user is not logged in', () => {
       const user = {};
-      expect(getSelected(user)).to.be.false;
+      expect(getSelected(user)).toBe(false);
     });
 
-    it('returns false if user.isStaff is false', () => {
+    test('returns false if user.isStaff is false', () => {
       const user = { id: 'u-1', isStaff: false };
-      expect(getSelected(user)).to.be.false;
+      expect(getSelected(user)).toBe(false);
     });
 
-    it('returns true if user.isStaff is true', () => {
+    test('returns true if user.isStaff is true', () => {
       const user = { id: 'u-1', isStaff: true };
-      expect(getSelected(user)).to.be.true;
+      expect(getSelected(user)).toBe(true);
     });
   });
 
@@ -73,16 +71,16 @@ describe('state/selectors/authSelectors', () => {
       return isLoggedInSelector(state);
     }
 
-    it('returns false if token is null', () => {
-      expect(getSelected({ token: null, userId: 'u-1' })).to.be.false;
+    test('returns false if token is null', () => {
+      expect(getSelected({ token: null, userId: 'u-1' })).toBe(false);
     });
 
-    it('returns false if userId is null', () => {
-      expect(getSelected({ token: 'mock-token', userId: null })).to.be.false;
+    test('returns false if userId is null', () => {
+      expect(getSelected({ token: 'mock-token', userId: null })).toBe(false);
     });
 
-    it('returns true if both token and userId are defined', () => {
-      expect(getSelected({ token: 'mock-token', userId: 'u-1' })).to.be.true;
+    test('returns true if both token and userId are defined', () => {
+      expect(getSelected({ token: 'mock-token', userId: 'u-1' })).toBe(true);
     });
   });
 
@@ -100,22 +98,25 @@ describe('state/selectors/authSelectors', () => {
       return staffUnitsSelector(state);
     }
 
-    it('returns unit ids where user has can_approve_reservation permission', () => {
-      const user = User.build({
-        staffPerms: {
-          unit: {
-            'unit-1': ['can_approve_reservation'],
-            'unit-2': ['can_approve_reservation'],
+    test(
+      'returns unit ids where user has can_approve_reservation permission',
+      () => {
+        const user = User.build({
+          staffPerms: {
+            unit: {
+              'unit-1': ['can_approve_reservation'],
+              'unit-2': ['can_approve_reservation'],
+            },
           },
-        },
-      });
-      const selected = getSelected(user);
-      const expected = ['unit-1', 'unit-2'];
+        });
+        const selected = getSelected(user);
+        const expected = ['unit-1', 'unit-2'];
 
-      expect(selected).to.deep.equal(expected);
-    });
+        expect(selected).toEqual(expected);
+      }
+    );
 
-    it(
+    test(
       'does not return unit ids where user does not have can_approve_reservation permission',
       () => {
         const user = User.build({
@@ -130,26 +131,29 @@ describe('state/selectors/authSelectors', () => {
         const selected = getSelected(user);
         const expected = ['unit-2'];
 
-        expect(selected).to.deep.equal(expected);
+        expect(selected).toEqual(expected);
       }
     );
 
-    it('returns an empty array if user has no staff permissions', () => {
+    test('returns an empty array if user has no staff permissions', () => {
       const user = User.build();
       const selected = getSelected(user);
 
-      expect(selected).to.deep.equal([]);
+      expect(selected).toEqual([]);
     });
 
-    it('returns an empty array if user has no staff permissions for units', () => {
-      const user = User.build({
-        staffPerms: {
-          unit: {},
-        },
-      });
-      const selected = getSelected(user);
+    test(
+      'returns an empty array if user has no staff permissions for units',
+      () => {
+        const user = User.build({
+          staffPerms: {
+            unit: {},
+          },
+        });
+        const selected = getSelected(user);
 
-      expect(selected).to.deep.equal([]);
-    });
+        expect(selected).toEqual([]);
+      }
+    );
   });
 });

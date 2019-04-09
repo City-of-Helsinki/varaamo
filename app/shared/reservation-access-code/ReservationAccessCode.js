@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import { injectT } from 'i18n';
 
@@ -9,7 +10,9 @@ function ReservationAccessCode({ reservation, t, text }) {
 
   return (
     <span className="reservation-access-code">
-      {text || t('ReservationAccessCode.defaultText')} {reservation.accessCode}
+      {text || t('ReservationAccessCode.defaultText')}
+      {' '}
+      {reservation.accessCode}
     </span>
   );
 }

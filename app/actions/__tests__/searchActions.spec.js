@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import simple from 'simple-mock';
 
 import { getPiwikActionName, searchResources } from 'actions/searchActions';
@@ -17,8 +16,8 @@ describe('Actions: searchActions', () => {
         purpose: 'some purpose',
       };
 
-      it('returns searchParams.search', () => {
-        expect(getPiwikActionName(searchParams)).to.equal(searchParams.search);
+      test('returns searchParams.search', () => {
+        expect(getPiwikActionName(searchParams)).toBe(searchParams.search);
       });
     });
 
@@ -29,9 +28,9 @@ describe('Actions: searchActions', () => {
           purpose: 'some purpose',
         };
 
-        it('returns text "category:" with searchParams.purpose', () => {
+        test('returns text "category:" with searchParams.purpose', () => {
           const expected = `category: ${searchParams.purpose}`;
-          expect(getPiwikActionName(searchParams)).to.equal(expected);
+          expect(getPiwikActionName(searchParams)).toBe(expected);
         });
       });
 
@@ -41,18 +40,18 @@ describe('Actions: searchActions', () => {
           purpose: '',
         };
 
-        it('returns text "-empty-search-"', () => {
-          expect(getPiwikActionName(searchParams)).to.equal('-empty-search-');
+        test('returns text "-empty-search-"', () => {
+          expect(getPiwikActionName(searchParams)).toBe('-empty-search-');
         });
       });
     });
   });
 
   describe('searchResources', () => {
-    it('includes correct track in meta', () => {
+    test('includes correct track in meta', () => {
       const params = { search: 'searchText' };
       searchResources(params);
-      expect(getRequestTypeDescriptorMock.lastCall.args[1].meta.track).to.deep.equal({
+      expect(getRequestTypeDescriptorMock.lastCall.args[1].meta.track).toEqual({
         event: 'trackEvent',
         args: [
           'Search',

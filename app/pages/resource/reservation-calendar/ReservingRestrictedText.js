@@ -1,5 +1,6 @@
 import moment from 'moment';
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import { injectT } from 'i18n';
 
@@ -10,7 +11,8 @@ function ReservingRestrictedText({ reservableBefore, reservableDaysInAdvance, t 
 
   return (
     <p className="info-text">
-      {t('ReservingRestrictedText.reservationRestricted', { days: reservableDaysInAdvance })}{' '}
+      {t('ReservingRestrictedText.reservationRestricted', { days: reservableDaysInAdvance })}
+      {' '}
       {t('ReservingRestrictedText.reservationAvailableBetween', { today, until })}
     </p>
   );

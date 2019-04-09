@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import simple from 'simple-mock';
 
@@ -14,46 +13,46 @@ describe('Component: customization/AboutPageContent', () => {
   describe('When there is no customization in use', () => {
     let content;
 
-    before(() => {
+    beforeAll(() => {
       content = getWrapper();
     });
 
-    it('renders header for Helsinki', () => {
-      expect(content.find('h1').text()).to.contain('AboutPageContent.defaultHeader');
+    test('renders header for Helsinki', () => {
+      expect(content.find('h1').text()).toContain('AboutPageContent.defaultHeader');
     });
   });
 
   describe('When Espoo customization is used', () => {
     let content;
 
-    before(() => {
+    beforeAll(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('ESPOO');
       content = getWrapper();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('renders header for Espoo', () => {
-      expect(content.find('h1').text()).to.contain('AboutPageContent.espooHeader');
+    test('renders header for Espoo', () => {
+      expect(content.find('h1').text()).toContain('AboutPageContent.espooHeader');
     });
   });
 
   describe('When Vantaa customization is used', () => {
     let content;
 
-    before(() => {
+    beforeAll(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('VANTAA');
       content = getWrapper();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('renders header for Vantaa', () => {
-      expect(content.find('h1').text()).to.contain('AboutPageContent.vantaaHeader');
+    test('renders header for Vantaa', () => {
+      expect(content.find('h1').text()).toContain('AboutPageContent.vantaaHeader');
     });
   });
 });

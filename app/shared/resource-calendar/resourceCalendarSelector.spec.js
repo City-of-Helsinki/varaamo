@@ -1,7 +1,8 @@
-import { expect } from 'chai';
+import { openingHoursMonth } from 'constants/ResourceConstants';
+
 import Immutable from 'seamless-immutable';
 
-import Resource, { openingHoursMonth } from 'utils/fixtures/Resource';
+import Resource from 'utils/fixtures/Resource';
 import resourceCalendarSelector from './resourceCalendarSelector';
 
 function getState(resource) {
@@ -72,30 +73,30 @@ describe('shared/resource-calendar/resourceCalendarSelector', () => {
     ],
   });
 
-  before(() => {
+  beforeAll(() => {
     const state = getState(resource);
     const props = getProps(resource.id);
     const selected = resourceCalendarSelector(state, props);
     availability = selected.availability;
   });
 
-  it('calculates correct percentages for completely available', () => {
-    expect(availability['2015-10-01'].percentage).to.equal(100);
+  test('calculates correct percentages for completely available', () => {
+    expect(availability['2015-10-01'].percentage).toBe(100);
   });
 
-  it('calculates correct percentages for partially available', () => {
-    expect(availability['2015-10-10'].percentage).to.equal(50);
+  test('calculates correct percentages for partially available', () => {
+    expect(availability['2015-10-10'].percentage).toBe(50);
   });
 
-  it('calculates correct percentages for fully booked', () => {
-    expect(availability['2015-10-11'].percentage).to.equal(0);
+  test('calculates correct percentages for fully booked', () => {
+    expect(availability['2015-10-11'].percentage).toBe(0);
   });
 
-  it('calculates correct percentages if reservation is cancelled', () => {
-    expect(availability['2015-10-30'].percentage).to.equal(100);
+  test('calculates correct percentages if reservation is cancelled', () => {
+    expect(availability['2015-10-30'].percentage).toBe(100);
   });
 
-  it('calculates correct percentages if reservation is cancelled', () => {
-    expect(availability['2015-10-31'].percentage).to.equal(100);
+  test('calculates correct percentages if reservation is cancelled', () => {
+    expect(availability['2015-10-31'].percentage).toBe(100);
   });
 });

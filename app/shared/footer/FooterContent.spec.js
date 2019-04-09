@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 // import { Link } from 'react-router';
 import simple from 'simple-mock';
@@ -16,13 +15,13 @@ describe('shared/footer/FooterContent', () => {
   describe('When there is no customization in use', () => {
     let content;
 
-    before(() => {
+    beforeAll(() => {
       content = getWrapper();
     });
 
-    it('contains feedback link', () => {
+    test('contains feedback link', () => {
       const feedbackLink = content.find(FeedbackLink);
-      expect(feedbackLink.length).to.equal(1);
+      expect(feedbackLink.length).toBe(1);
     });
 
     // it('renders texts for Helsinki', () => {
@@ -40,18 +39,18 @@ describe('shared/footer/FooterContent', () => {
   describe('When Espoo customization is used', () => {
     let content;
 
-    before(() => {
+    beforeAll(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('ESPOO');
       content = getWrapper();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('contains feedback link', () => {
+    test('contains feedback link', () => {
       const feedbackLink = content.find(FeedbackLink);
-      expect(feedbackLink.length).to.equal(1);
+      expect(feedbackLink.length).toBe(1);
     });
 
     // it('renders texts for Espoo', () => {
@@ -69,18 +68,18 @@ describe('shared/footer/FooterContent', () => {
   describe('When Vantaa customization is used', () => {
     let content;
 
-    before(() => {
+    beforeAll(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('VANTAA');
       content = getWrapper();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('contains feedback link', () => {
+    test('contains feedback link', () => {
       const feedbackLink = content.find(FeedbackLink);
-      expect(feedbackLink.length).to.equal(1);
+      expect(feedbackLink.length).toBe(1);
     });
 
     // it('renders texts for Vantaa', () => {

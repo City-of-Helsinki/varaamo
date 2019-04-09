@@ -1,6 +1,7 @@
+import types from 'constants/ActionTypes';
+
 import Immutable from 'seamless-immutable';
 
-import types from 'constants/ActionTypes';
 
 const initialState = Immutable({
   resourceId: null,
@@ -10,7 +11,6 @@ const initialState = Immutable({
 
 function resourceMapReducer(state = initialState, action) {
   switch (action.type) {
-
     case types.API.RESOURCE_GET_SUCCESS: {
       const resource = action.payload.entities.resources[state.resourceId];
       if (resource) {

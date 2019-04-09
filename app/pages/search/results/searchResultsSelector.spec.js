@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import { getDefaultRouterProps, getState } from 'utils/testUtils';
 import searchResultsSelector from './searchResultsSelector';
 
@@ -10,7 +8,7 @@ describe('pages/search/results/searchResultsSelector', () => {
     return searchResultsSelector(state, props);
   }
 
-  it('returns filters', () => {
-    expect(getSelected().filters).to.exist;
+  test('returns filters', () => {
+    expect(getSelected().filters).toBeDefined();
   });
 });

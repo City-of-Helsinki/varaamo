@@ -1,5 +1,6 @@
 import upperFirst from 'lodash/upperFirst';
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Col from 'react-bootstrap/lib/Col';
 import Panel from 'react-bootstrap/lib/Panel';
 import Row from 'react-bootstrap/lib/Row';
@@ -9,7 +10,9 @@ import WrappedText from 'shared/wrapped-text';
 import { getServiceMapUrl } from 'utils/unitUtils';
 import ReservationInfo from '../reservation-info';
 
-function ResourceInfo({ isLoggedIn, resource, unit, t }) {
+function ResourceInfo({
+  isLoggedIn, resource, unit, t
+}) {
   const serviceMapUrl = getServiceMapUrl(unit);
 
   return (
@@ -18,10 +21,10 @@ function ResourceInfo({ isLoggedIn, resource, unit, t }) {
         <div className="app-ResourceInfo__description">
           {resource.description && <WrappedText openLinksInNewTab text={resource.description} />}
         </div>
-        <Panel collapsible defaultExpanded header={t('ResourceInfo.reservationTitle')}>
+        <Panel defaultExpanded header={t('ResourceInfo.reservationTitle')}>
           <ReservationInfo isLoggedIn={isLoggedIn} resource={resource} />
         </Panel>
-        <Panel collapsible defaultExpanded header={t('ResourceInfo.additionalInfoTitle')}>
+        <Panel defaultExpanded header={t('ResourceInfo.additionalInfoTitle')}>
           <Row>
             <Col className="app-ResourceInfo__address" xs={6}>
               {unit && unit.name && <span>{unit.name}</span>}

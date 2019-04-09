@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
@@ -17,46 +16,46 @@ describe('shared/favicon/Favicon', () => {
   describe('When there is no customization in use', () => {
     let favicon;
 
-    before(() => {
+    beforeAll(() => {
       favicon = getWrapper();
     });
 
-    it('renders favicon of Helsinki', () => {
-      expect(favicon.prop('link')[0].href).to.deep.equal(helsinkiFavicon);
+    test('renders favicon of Helsinki', () => {
+      expect(favicon.prop('link')[0].href).toEqual(helsinkiFavicon);
     });
   });
 
   describe('When Espoo customization is used', () => {
     let favicon;
 
-    before(() => {
+    beforeAll(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('ESPOO');
       favicon = getWrapper();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('renders favicon of Espoo', () => {
-      expect(favicon.prop('link')[0].href).to.deep.equal(espooFavicon);
+    test('renders favicon of Espoo', () => {
+      expect(favicon.prop('link')[0].href).toEqual(espooFavicon);
     });
   });
 
   describe('When Vantaa customization is used', () => {
     let favicon;
 
-    before(() => {
+    beforeAll(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('VANTAA');
       favicon = getWrapper();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('renders favicon of Vantaa', () => {
-      expect(favicon.prop('link')[0].href).to.deep.equal(vantaaFavicon);
+    test('renders favicon of Vantaa', () => {
+      expect(favicon.prop('link')[0].href).toEqual(vantaaFavicon);
     });
   });
 });

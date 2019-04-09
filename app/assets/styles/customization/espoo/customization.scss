@@ -40,47 +40,6 @@
     background-color: $blue;
   }
 
-  .app-SideNavbar .app-Sidebar__sidebar {
-    background-color: $blue;
-
-    h1, h2, h3, h4, h5, h6, p, a {
-      color: $white;
-      &:hover, &:focus {
-        color: $white;
-      }
-    }
-
-    .app-Navbar {
-      background-color: $blue;
-      .main-nav {
-        .nav.nav-stacked {
-          li {
-            border-bottom: 1px solid lighten($blue, 6);
-            &:first-of-type {
-              border-top: 1px solid lighten($blue, 6);
-            }
-          }
-        }
-      }
-    }
-
-    .feedback-link {
-      color: #bbb;
-      &:hover, &:focus {
-        color: #bbb;
-      }
-    }
-  }
-
-  .app-SideNavbar__toggle {
-    background-color: $blue;
-    color: $white;
-
-    &:hover, &:focus {
-      color: $white;
-    }
-  }
-
   // Footer
   // ------
 
@@ -110,12 +69,12 @@
   .app-HomePageContent {
     padding-top: 50px;
   }
-
-  .app-HomePage .app-HomePageContent__banner
-    div {
+    
+  .app-HomePageContent__banner {
+    &__linkWrapper {
       background-color: $blue-light;
     }
-
+  }
   // Search-page
   // -----------
 
@@ -217,7 +176,7 @@
   // ------
   .modal {
     .modal-header::before {
-      background-image: url('../../shared/logo/espoo-blue-logo.png');
+      background-image: url('../../../../shared/logo/espoo-blue-logo.png');
     }
   }
   .app-DatePickerControl__modal-header,

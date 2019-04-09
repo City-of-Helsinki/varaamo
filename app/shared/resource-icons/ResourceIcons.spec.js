@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
@@ -21,7 +20,7 @@ describe('shared/resource-list/ResourceIcons', () => {
   }
   let wrapper;
   let wrapperNoProps;
-  before(() => {
+  beforeAll(() => {
     wrapper = getWrapper();
     wrapperNoProps = getWrapper({
       resource: Immutable(Resource.build({
@@ -33,53 +32,53 @@ describe('shared/resource-list/ResourceIcons', () => {
     });
   });
 
-  it('is rendered', () => {
-    expect(wrapper).to.be.defined;
+  test('is rendered as a div', () => {
+    expect(wrapper.is('div')).toBe(true);
   });
 
-  it('has icons class', () => {
-    expect(wrapper.prop('className')).to.equal('resource-icons');
+  test('has icons class', () => {
+    expect(wrapper.prop('className')).toBe('resource-icons');
   });
 
   describe('capacity icon', () => {
     let userIcon;
     let spanText;
-    before(() => {
+    beforeAll(() => {
       userIcon = wrapper.find({ glyph: 'user' });
-      spanText = userIcon.parent().find('.text');
+      spanText = userIcon.closest('span').find('.text');
     });
 
-    it('is rendered', () => {
-      expect(userIcon).to.have.length(1);
+    test('is rendered', () => {
+      expect(userIcon).toHaveLength(1);
     });
 
-    it('renders correct text', () => {
-      expect(spanText.text()).to.equal('10');
+    test('renders correct text', () => {
+      expect(spanText.text()).toBe('10');
     });
 
-    it('is not rendered if prop is not passed', () => {
-      expect(wrapperNoProps.find({ glyph: 'user' })).to.have.length(0);
+    test('is not rendered if prop is not passed', () => {
+      expect(wrapperNoProps.find({ glyph: 'user' })).toHaveLength(0);
     });
   });
 
   describe('time icon', () => {
     let timeIcon;
     let spanText;
-    before(() => {
+    beforeAll(() => {
       timeIcon = wrapper.find({ glyph: 'time' });
-      spanText = timeIcon.parent().find('.text');
+      spanText = timeIcon.closest('span').find('.text');
     });
 
-    it('is rendered', () => {
-      expect(timeIcon).to.have.length(1);
+    test('is rendered', () => {
+      expect(timeIcon).toHaveLength(1);
     });
 
-    it('renders correct text', () => {
-      expect(spanText.text()).to.equal('2 h');
+    test('renders correct text', () => {
+      expect(spanText.text()).toBe('2 h');
     });
 
-    it('is not rendered if prop is not passed', () => {
-      expect(wrapperNoProps.find({ glyph: 'time' })).to.have.length(0);
+    test('is not rendered if prop is not passed', () => {
+      expect(wrapperNoProps.find({ glyph: 'time' })).toHaveLength(0);
     });
   });
 
@@ -89,59 +88,59 @@ describe('shared/resource-list/ResourceIcons', () => {
 
     function getSpanTextWithProps(resourceProps) {
       const resource = defaultProps.resource.merge(resourceProps);
-      return getWrapper({ resource }).find({ glyph: 'euro' }).parent().find('.text');
+      return getWrapper({ resource }).find({ glyph: 'euro' }).closest('span').find('.text');
     }
-    before(() => {
+    beforeAll(() => {
       euroIcon = wrapper.find({ glyph: 'euro' });
-      spanText = euroIcon.parent().find('.text');
+      spanText = euroIcon.closest('span').find('.text');
     });
 
-    it('is rendered', () => {
-      expect(euroIcon).to.have.length(1);
+    test('is rendered', () => {
+      expect(euroIcon).toHaveLength(1);
     });
 
-    it('renders range of prices', () => {
-      expect(spanText.text()).to.equal('10 - 25 €/h');
+    test('renders range of prices', () => {
+      expect(spanText.text()).toBe('10 - 25 €/h');
     });
 
-    it('renders max euro if no min price', () => {
+    test('renders max euro if no min price', () => {
       const props = {
         maxPricePerHour: '25.00',
         minPricePerHour: null,
       };
-      expect(getSpanTextWithProps(props).text()).to.equal('25 €/h');
+      expect(getSpanTextWithProps(props).text()).toBe('25 €/h');
     });
 
-    it('renders min price if no max price', () => {
+    test('renders min price if no max price', () => {
       const props = {
         maxPricePerHour: '10.00',
         minPricePerHour: null,
       };
-      expect(getSpanTextWithProps(props).text()).to.equal('10 €/h');
+      expect(getSpanTextWithProps(props).text()).toBe('10 €/h');
     });
 
-    it('renders one price if min and max prices are the same', () => {
+    test('renders one price if min and max prices are the same', () => {
       const props = {
         maxPricePerHour: '10.00',
         minPricePerHour: '10.00',
       };
-      expect(getSpanTextWithProps(props).text()).to.equal('10 €/h');
+      expect(getSpanTextWithProps(props).text()).toBe('10 €/h');
     });
 
-    it('renders "free" message if price is 0', () => {
+    test('renders "free" message if price is 0', () => {
       const props = {
         maxPricePerHour: null,
         minPricePerHour: '0.00',
       };
-      expect(getSpanTextWithProps(props).text()).to.equal('ResourceIcons.free');
+      expect(getSpanTextWithProps(props).text()).toBe('ResourceIcons.free');
     });
 
-    it('renders "free" message if price prop is not passed', () => {
+    test('renders "free" message if price prop is not passed', () => {
       const props = {
         maxPricePerHour: null,
         minPricePerHour: null,
       };
-      expect(getSpanTextWithProps(props).text()).to.equal('ResourceIcons.free');
+      expect(getSpanTextWithProps(props).text()).toBe('ResourceIcons.free');
     });
   });
 });

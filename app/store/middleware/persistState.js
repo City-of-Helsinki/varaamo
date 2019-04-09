@@ -1,10 +1,20 @@
-import { compose } from 'redux';
-import persistState from 'redux-localstorage';
-import adapter from 'redux-localstorage/lib/adapters/localStorage';
-import filter from 'redux-localstorage-filter';
+export const loadPersistedLocale = () => {
+  try {
+    const locale = localStorage.getItem('userLocale');
+    if (locale === null) {
+      return undefined;
+    }
 
-const storage = compose(
-  filter('intl.locale')
-)(adapter(window.localStorage));
+    return locale;
+  } catch (err) {
+    return undefined;
+  }
+};
 
-export default persistState(storage);
+export const savePersistLocale = (locale) => {
+  try {
+    return locale && typeof locale === 'string' ? localStorage.setItem('userLocale', locale) : undefined;
+  } catch (err) {
+    return undefined;
+  }
+};

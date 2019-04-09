@@ -1,6 +1,9 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
-function BackgroundImage({ children, image, height, width }) {
+function BackgroundImage({
+  children, image, height, width
+}) {
   const dimensions = height && width ? `dim=${width}x${height}` : '';
   const imageUrl = dimensions ? `${image.url}?${dimensions}` : image.url;
   const style = imageUrl ? { backgroundImage: `url(${imageUrl})` } : {};

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 
 import PageWrapper from 'pages/PageWrapper';
@@ -10,21 +9,21 @@ describe('pages/not-found/NotFoundPage', () => {
     return shallowWithIntl(<NotFoundPage />);
   }
 
-  it('renders PageWrapper with correct title', () => {
+  test('renders PageWrapper with correct title', () => {
     const pageWrapper = getWrapper().find(PageWrapper);
-    expect(pageWrapper).to.have.length(1);
-    expect(pageWrapper.prop('title')).to.equal('NotFoundPage.title');
+    expect(pageWrapper).toHaveLength(1);
+    expect(pageWrapper.prop('title')).toBe('NotFoundPage.title');
   });
 
-  it('renders correct title inside h1 tags', () => {
+  test('renders correct title inside h1 tags', () => {
     const h1 = getWrapper().find('h1');
-    expect(h1.props().children).to.equal('NotFoundPage.title');
+    expect(h1.props().children).toBe('NotFoundPage.title');
   });
 
-  it('renders a list and list elements for displaying help to user', () => {
+  test('renders a list and list elements for displaying help to user', () => {
     const ul = getWrapper().find('ul');
     const lis = getWrapper().find('li');
-    expect(ul.length).to.equal(1);
-    expect(lis.length).to.equal(3);
+    expect(ul.length).toBe(1);
+    expect(lis.length).toBe(3);
   });
 });

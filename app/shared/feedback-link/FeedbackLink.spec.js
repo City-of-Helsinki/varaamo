@@ -1,9 +1,9 @@
-import { expect } from 'chai';
+import constants from 'constants/AppConstants';
+
 import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
 
-import constants from 'constants/AppConstants';
 import * as customizationUtils from 'utils/customizationUtils';
 import FeedbackLink from './FeedbackLink';
 
@@ -17,49 +17,49 @@ describe('shared/feedback-link/FeedbackLink', () => {
   describe('When there is no customization in use', () => {
     let link;
 
-    before(() => {
+    beforeAll(() => {
       link = getWrapper();
     });
 
-    it('renders a link', () => {
-      expect(link.type()).to.equal('a');
+    test('renders a link', () => {
+      expect(link.type()).toBe('a');
     });
 
-    it('renders children', () => {
+    test('renders children', () => {
       const wrapper = getWrapper();
-      expect(wrapper.children().equals(linkChildren)).to.be.true;
+      expect(wrapper.children().equals(linkChildren)).toBe(true);
     });
 
-    it('has correct href', () => {
+    test('has correct href', () => {
       const expected = `${constants.FEEDBACK_URL}&ref=${window.location.href}`;
-      expect(link.props().href).to.equal(expected);
+      expect(link.props().href).toBe(expected);
     });
   });
 
   describe('When Espoo customization is used', () => {
     let link;
 
-    before(() => {
+    beforeAll(() => {
       simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('ESPOO');
       link = getWrapper();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('renders a link', () => {
-      expect(link.type()).to.equal('a');
+    test('renders a link', () => {
+      expect(link.type()).toBe('a');
     });
 
-    it('renders children', () => {
+    test('renders children', () => {
       const wrapper = getWrapper();
-      expect(wrapper.children().equals(linkChildren)).to.be.true;
+      expect(wrapper.children().equals(linkChildren)).toBe(true);
     });
 
-    it('has correct href', () => {
+    test('has correct href', () => {
       const expected = `${constants.FEEDBACK_URL}&ref=${window.location.href}`;
-      expect(link.props().href).to.equal(expected);
+      expect(link.props().href).toBe(expected);
     });
   });
 });

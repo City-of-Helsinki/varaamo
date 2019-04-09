@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { createSliderWithTooltip } from 'rc-slider';
 import Slider from 'rc-slider/lib/Slider';
 
@@ -78,7 +79,7 @@ class PositionControl extends React.Component {
         )}
         {this.state.toggled && (
           <div>
-            {t('PositionControl.maxDistance')}: {this.distanceFormatter(this.state.distance)}
+            {`${t('PositionControl.maxDistance')} : ${this.distanceFormatter(this.state.distance)}`}
           </div>
         )}
       </div>

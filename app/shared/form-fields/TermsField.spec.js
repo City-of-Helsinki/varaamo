@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import Col from 'react-bootstrap/lib/Col';
@@ -11,11 +10,12 @@ import TermsField from './TermsField';
 
 describe('shared/form-fields/TermsField', () => {
   const defaultProps = {
-    input: {},
+    input: {
+      name: 'terms',
+    },
     label: 'some label',
     labelLink: 'some link label',
     meta: {},
-    name: 'terms',
     onClick: () => null,
   };
 
@@ -24,87 +24,87 @@ describe('shared/form-fields/TermsField', () => {
   }
 
   describe('FormGroup component', () => {
-    it('is rendered', () => {
+    test('is rendered', () => {
       const formGroup = getWrapper().find(FormGroup);
-      expect(formGroup.length).to.equal(1);
+      expect(formGroup.length).toBe(1);
     });
 
-    it('gets correct props', () => {
+    test('gets correct props', () => {
       const actualProps = getWrapper().find(FormGroup).props();
-      expect(actualProps.controlId).to.equal(defaultProps.name);
+      expect(actualProps.controlId).toBe(defaultProps.input.name);
     });
 
-    it('gets correct props if error', () => {
+    test('gets correct props if error', () => {
       const meta = { error: 'some error', touched: true };
       const actualProps = getWrapper({ meta }).find(FormGroup).props();
-      expect(actualProps.validationState).to.equal('error');
+      expect(actualProps.validationState).toBe('error');
     });
   });
 
   describe('Col component', () => {
-    it('is rendered', () => {
+    test('is rendered', () => {
       const col = getWrapper().find(Col);
-      expect(col.length).to.equal(1);
+      expect(col.length).toBe(1);
     });
 
-    it('gets correct props', () => {
+    test('gets correct props', () => {
       const actualProps = getWrapper().find(Col).props();
-      expect(actualProps.sm).to.equal(9);
+      expect(actualProps.sm).toBe(9);
     });
   });
 
   describe('React Bootstrap Checkbox component', () => {
-    it('is rendered', () => {
+    test('is rendered', () => {
       const rbCheckbox = getWrapper().find(RBCheckbox);
-      expect(rbCheckbox.length).to.equal(1);
+      expect(rbCheckbox.length).toBe(1);
     });
 
-    it('gets the label as its children', () => {
+    test('gets the label as its children', () => {
       const rbCheckbox = getWrapper().find(RBCheckbox);
-      expect(rbCheckbox.props().children).to.contain(defaultProps.label);
+      expect(rbCheckbox.props().children).toEqual(expect.arrayContaining([defaultProps.label]));
     });
   });
 
   describe('HelpBlock component with link', () => {
-    it('is rendered', () => {
+    test('is rendered', () => {
       const link = getWrapper().find('.terms-checkbox-field-link');
-      expect(link.length).to.equal(1);
+      expect(link.length).toBe(1);
     });
 
-    it('displays the help text given in props', () => {
+    test('displays the help text given in props', () => {
       const link = getWrapper().find('.terms-checkbox-field-link');
-      expect(link.props().children).to.equal(defaultProps.labelLink);
+      expect(link.props().children).toBe(defaultProps.labelLink);
     });
 
-    it('onClick calls prop onClick', () => {
+    test('onClick calls prop onClick', () => {
       const onClick = simple.mock();
       const link = getWrapper({ onClick }).find('.terms-checkbox-field-link');
-      expect(link.length).to.equal(1);
-      expect(link.prop('onClick')).to.exist;
+      expect(link.length).toBe(1);
+      expect(link.prop('onClick')).toBeDefined();
       link.prop('onClick')();
-      expect(onClick.callCount).to.equal(1);
+      expect(onClick.callCount).toBe(1);
     });
   });
 
   describe('HelpBlock component', () => {
     describe('if error', () => {
       const meta = { error: 'some error', touched: true };
-      it('is rendered', () => {
+      test('is rendered', () => {
         const helpBlock = getWrapper({ meta }).find(HelpBlock);
-        expect(helpBlock.length).to.equal(2);
+        expect(helpBlock.length).toBe(2);
       });
 
-      it('displays the error text given in props', () => {
+      test('displays the error text given in props', () => {
         const helpBlock = getWrapper({ meta }).find(HelpBlock);
-        expect(helpBlock.at(1).props().children).to.equal(meta.error);
+        expect(helpBlock.at(1).props().children).toBe(meta.error);
       });
     });
 
     describe('if error is not given in props', () => {
       const meta = {};
-      it('is not rendered', () => {
+      test('is not rendered', () => {
         const helpBlock = getWrapper({ meta }).find(HelpBlock);
-        expect(helpBlock.length).to.equal(1);
+        expect(helpBlock.length).toBe(1);
       });
     });
   });

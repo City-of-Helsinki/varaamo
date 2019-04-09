@@ -1,11 +1,13 @@
-import React, { Component, PropTypes } from 'react';
+import constants from 'constants/AppConstants';
+
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Loader from 'react-loader';
 import moment from 'moment';
 import classnames from 'classnames';
 import findIndex from 'lodash/findIndex';
 import minBy from 'lodash/minBy';
 
-import constants from 'constants/AppConstants';
 import { injectT } from 'i18n';
 import ReservationPopover from 'shared/reservation-popover';
 import TimeSlot from './TimeSlot';
@@ -90,6 +92,9 @@ class TimeSlots extends Component {
     const firstTimeSlots = slots
       .map(timeslots => timeslots && timeslots[0])
       .filter(value => !!value && value.end);
+    const slotLength = firstTimeSlots[0]
+      ? moment(firstTimeSlots[0].end).diff(firstTimeSlots[0].start, 'm')
+      : constants.TIME_SLOT_DEFAULT_LENGTH;
 
     if (firstTimeSlots.length === 0) {
       return {
@@ -98,9 +103,7 @@ class TimeSlots extends Component {
       };
     }
 
-    const earliestTimeSlot = minBy(firstTimeSlots, timeSlot =>
-      moment(timeSlot.start).format('HHMM')
-    );
+    const earliestTimeSlot = minBy(firstTimeSlots, timeSlot => moment(timeSlot.start).format('HHMM'));
     const dateForTimeComparison = { year: 2000, dayOfYear: 1 };
     const earliestStart = moment(earliestTimeSlot.start).set(dateForTimeComparison);
 
@@ -109,7 +112,7 @@ class TimeSlots extends Component {
         return null;
       }
       const currentStart = moment(slot[0].start).set(dateForTimeComparison);
-      return currentStart.diff(earliestStart, 'minutes') / 30;
+      return currentStart.diff(earliestStart, 'minutes') / slotLength;
     });
 
     const selectedDateIndex = findIndex(
@@ -121,8 +124,8 @@ class TimeSlots extends Component {
       .slice(selectedDateIndex, selectedDateIndex + 3)
       .filter(size => size !== null);
 
-    const mobilePlaceholderOffset =
-      mobilePlaceholderSizes.length > 0 ? Math.min(...mobilePlaceholderSizes) : 0;
+    const mobilePlaceholderOffset = mobilePlaceholderSizes.length > 0
+      ? Math.min(...mobilePlaceholderSizes) : 0;
 
     return {
       mobilePlaceholderOffset,
@@ -210,11 +213,22 @@ class TimeSlots extends Component {
     const isFirstSelected = utils.isFirstSelected(slot, selected);
     const shouldShowReservationPopover = selected.length === 1 && isFirstSelected;
     const isHighlighted = utils.isHighlighted(slot, selected, hoveredTimeSlot);
+    const resBegin = this.getReservationBegin();
+    const resEnd = this.getReservationEnd();
+
+    let isMaxExceeded = false;
+
+    if (!isAdmin && resBegin && resource.maxPeriod) {
+      const resLengthInMins = moment(slot.end).diff(resBegin, 'minutes');
+      const maxPeriodInMins = moment.duration(resource.maxPeriod).asMinutes();
+      isMaxExceeded = resLengthInMins > maxPeriodInMins;
+    }
 
     const timeSlot = (
       <TimeSlot
         addNotification={addNotification}
         isAdmin={isAdmin}
+        isDisabled={isMaxExceeded}
         isEditing={isEditing}
         isHighlighted={isHighlighted}
         isLoggedIn={isLoggedIn}
@@ -234,8 +248,8 @@ class TimeSlots extends Component {
 
     return shouldShowReservationPopover ? (
       <ReservationPopover
-        begin={this.getReservationBegin()}
-        end={this.getReservationEnd()}
+        begin={resBegin}
+        end={resEnd}
         key="timeslots-reservation-popover"
         onCancel={this.onCancel}
       >

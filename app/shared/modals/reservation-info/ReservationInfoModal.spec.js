@@ -1,6 +1,4 @@
-import { expect } from 'chai';
 import React from 'react';
-import ReactDom from 'react-dom';
 import Button from 'react-bootstrap/lib/Button';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import Modal from 'react-bootstrap/lib/Modal';
@@ -56,44 +54,44 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
   }
 
   describe('render', () => {
-    it('renders a Modal component', () => {
+    test('renders a Modal component', () => {
       const modalComponent = getWrapper().find(Modal);
 
-      expect(modalComponent.length).to.equal(1);
+      expect(modalComponent.length).toBe(1);
     });
 
     describe('Modal header', () => {
       const modalHeader = getWrapper().find(Modal.Header);
 
-      it('renders a ModalHeader component', () => {
-        expect(modalHeader.length).to.equal(1);
+      test('renders a ModalHeader component', () => {
+        expect(modalHeader.length).toBe(1);
       });
 
-      it('contains a close button', () => {
-        expect(modalHeader.props().closeButton).to.equal(true);
+      test('contains a close button', () => {
+        expect(modalHeader.props().closeButton).toBe(true);
       });
 
-      it('renders a ModalTitle with correct title', () => {
+      test('renders a ModalTitle with correct title', () => {
         const modalTitle = getWrapper().find(Modal.Title);
-        expect(modalTitle.length).to.equal(1);
-        expect(modalTitle.prop('children')).to.equal('ReservationInfoModal.title');
+        expect(modalTitle.length).toBe(1);
+        expect(modalTitle.prop('children')).toBe('ReservationInfoModal.title');
       });
     });
 
     describe('Modal body', () => {
       const modalBody = getWrapper().find(Modal.Body);
 
-      it('renders a ModalBody component', () => {
-        expect(modalBody.length).to.equal(1);
+      test('renders a ModalBody component', () => {
+        expect(modalBody.length).toBe(1);
       });
 
-      it('renders ReservationStateLabel component', () => {
+      test('renders ReservationStateLabel component', () => {
         const reservationStateLabel = getWrapper().find(ReservationStateLabel);
-        expect(reservationStateLabel.length).to.equal(1);
+        expect(reservationStateLabel.length).toBe(1);
       });
 
-      it('renders ReservationEditForm component', () => {
-        expect(getWrapper().find(ReservationEditForm)).to.have.length(1);
+      test('renders ReservationEditForm component', () => {
+        expect(getWrapper().find(ReservationEditForm)).toHaveLength(1);
       });
 
       describe('comments form', () => {
@@ -107,8 +105,8 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
             reservationIsEditable: false,
           };
 
-          it('is not rendered', () => {
-            expect(getCommentsForm(props)).to.have.length(0);
+          test('is not rendered', () => {
+            expect(getCommentsForm(props)).toHaveLength(0);
           });
         });
 
@@ -118,23 +116,23 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
             reservationIsEditable: true,
           };
 
-          it('is rendered', () => {
-            expect(getCommentsForm(props)).to.have.length(1);
+          test('is rendered', () => {
+            expect(getCommentsForm(props)).toHaveLength(1);
           });
 
-          it('renders textarea FormControl for comments with correct props', () => {
+          test('renders textarea FormControl for comments with correct props', () => {
             const formControl = getCommentsForm(props).find(FormControl);
-            expect(formControl).to.have.length(1);
-            expect(formControl.prop('componentClass')).to.equal('textarea');
-            expect(formControl.prop('defaultValue')).to.equal(reservation.comments);
+            expect(formControl).toHaveLength(1);
+            expect(formControl.prop('componentClass')).toBe('textarea');
+            expect(formControl.prop('defaultValue')).toBe(reservation.comments);
           });
 
-          it('renders a save button with correct onClick prop', () => {
+          test('renders a save button with correct onClick prop', () => {
             const wrapper = getWrapper(props);
             const button = wrapper.find('.comments-form').find(Button);
             const instance = wrapper.instance();
-            expect(button.props().children).to.equal('ReservationInfoModal.saveComment');
-            expect(button.props().onClick).to.equal(instance.handleSaveCommentsClick);
+            expect(button.props().children).toBe('ReservationInfoModal.saveComment');
+            expect(button.props().onClick).toBe(instance.handleSaveCommentsClick);
           });
         });
 
@@ -143,8 +141,8 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
             isAdmin: false,
           };
 
-          it('is not rendered', () => {
-            expect(getCommentsForm(props)).to.have.length(0);
+          test('is not rendered', () => {
+            expect(getCommentsForm(props)).toHaveLength(0);
           });
         });
       });
@@ -159,14 +157,14 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
           return buttons.filter({ onClick: hideReservationInfoModal });
         }
 
-        it('is rendered if user is a regular user', () => {
+        test('is rendered if user is a regular user', () => {
           const button = getBackButton({ isAdmin: false });
-          expect(button).to.have.length(1);
+          expect(button).toHaveLength(1);
         });
 
-        it('is rendered if user is an admin', () => {
+        test('is rendered if user is an admin', () => {
           const button = getBackButton({ isAdmin: true });
-          expect(button).to.have.length(1);
+          expect(button).toHaveLength(1);
         });
       });
 
@@ -178,41 +176,44 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
           return buttons.filter({ onClick: onDenyClick });
         }
 
-        it('is not rendered if user is not a staff member', () => {
+        test('is not rendered if user is not a staff member', () => {
           const props = {
             isStaff: false,
             reservationIsEditable: true,
             reservation: { ...reservation, state: 'requested' },
           };
-          expect(getDenyButton(props)).to.have.length(0);
+          expect(getDenyButton(props)).toHaveLength(0);
         });
 
-        it('is not rendered if reservation is not editable', () => {
+        test('is not rendered if reservation is not editable', () => {
           const props = {
             isStaff: true,
             reservationIsEditable: false,
             reservation: { ...reservation, state: 'requested' },
           };
-          expect(getDenyButton(props)).to.have.length(0);
+          expect(getDenyButton(props)).toHaveLength(0);
         });
 
-        it('is not rendered if reservation state is not "requested"', () => {
+        test('is not rendered if reservation state is not "requested"', () => {
           const props = {
             isStaff: true,
             reservationIsEditable: true,
             reservation: { ...reservation, state: 'confirmed' },
           };
-          expect(getDenyButton(props)).to.have.length(0);
+          expect(getDenyButton(props)).toHaveLength(0);
         });
 
-        it('is rendered if user is staff, reservation is editable and in "requested" state', () => {
-          const props = {
-            isStaff: true,
-            reservationIsEditable: true,
-            reservation: { ...reservation, state: 'requested' },
-          };
-          expect(getDenyButton(props)).to.have.length(1);
-        });
+        test(
+          'is rendered if user is staff, reservation is editable and in "requested" state',
+          () => {
+            const props = {
+              isStaff: true,
+              reservationIsEditable: true,
+              reservation: { ...reservation, state: 'requested' },
+            };
+            expect(getDenyButton(props)).toHaveLength(1);
+          }
+        );
       });
 
       describe('confirm button', () => {
@@ -223,41 +224,44 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
           return buttons.filter({ onClick: onConfirmClick });
         }
 
-        it('is not rendered if user is not a staff member', () => {
+        test('is not rendered if user is not a staff member', () => {
           const props = {
             isStaff: false,
             reservationIsEditable: true,
             reservation: { ...reservation, state: 'requested' },
           };
-          expect(getConfirmButton(props)).to.have.length(0);
+          expect(getConfirmButton(props)).toHaveLength(0);
         });
 
-        it('is not rendered if reservation is not editable', () => {
+        test('is not rendered if reservation is not editable', () => {
           const props = {
             isStaff: true,
             reservationIsEditable: false,
             reservation: { ...reservation, state: 'requested' },
           };
-          expect(getConfirmButton(props)).to.have.length(0);
+          expect(getConfirmButton(props)).toHaveLength(0);
         });
 
-        it('is not rendered if reservation state is not "requested"', () => {
+        test('is not rendered if reservation state is not "requested"', () => {
           const props = {
             isStaff: true,
             reservationIsEditable: true,
             reservation: { ...reservation, state: 'confirmed' },
           };
-          expect(getConfirmButton(props)).to.have.length(0);
+          expect(getConfirmButton(props)).toHaveLength(0);
         });
 
-        it('is rendered if user is staff, reservation is editable and in "requested" state', () => {
-          const props = {
-            isStaff: true,
-            reservationIsEditable: true,
-            reservation: { ...reservation, state: 'requested' },
-          };
-          expect(getConfirmButton(props)).to.have.length(1);
-        });
+        test(
+          'is rendered if user is staff, reservation is editable and in "requested" state',
+          () => {
+            const props = {
+              isStaff: true,
+              reservationIsEditable: true,
+              reservation: { ...reservation, state: 'requested' },
+            };
+            expect(getConfirmButton(props)).toHaveLength(1);
+          }
+        );
       });
 
       describe('cancel button', () => {
@@ -271,58 +275,61 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
         describe('if reservation is not editable', () => {
           const reservationIsEditable = false;
 
-          it('is not rendered', () => {
+          test('is not rendered', () => {
             const props = {
               reservationIsEditable,
               reservation: { ...reservation, state: 'confirmed' },
             };
-            expect(getCancelButton(props)).to.have.length(0);
+            expect(getCancelButton(props)).toHaveLength(0);
           });
         });
 
         describe('if reservation is editable', () => {
           const reservationIsEditable = true;
 
-          it('is rendered if reservation state is "confirmed"', () => {
+          test('is rendered if reservation state is "confirmed"', () => {
             const props = {
               reservationIsEditable,
               reservation: { ...reservation, state: 'confirmed' },
             };
-            expect(getCancelButton(props)).to.have.length(1);
+            expect(getCancelButton(props)).toHaveLength(1);
           });
 
-          it('is rendered for regular users if reservation state is "requested"', () => {
-            const props = {
-              isAdmin: false,
-              reservationIsEditable,
-              reservation: { ...reservation, state: 'requested' },
-            };
-            expect(getCancelButton(props)).to.have.length(1);
-          });
+          test(
+            'is rendered for regular users if reservation state is "requested"',
+            () => {
+              const props = {
+                isAdmin: false,
+                reservationIsEditable,
+                reservation: { ...reservation, state: 'requested' },
+              };
+              expect(getCancelButton(props)).toHaveLength(1);
+            }
+          );
 
-          it('is not rendered for admins if reservation state is "requested"', () => {
+          test('is not rendered for admins if reservation state is "requested"', () => {
             const props = {
               isAdmin: true,
               reservationIsEditable,
               reservation: { ...reservation, state: 'requested' },
             };
-            expect(getCancelButton(props)).to.have.length(0);
+            expect(getCancelButton(props)).toHaveLength(0);
           });
 
-          it('is not rendered if reservation state is "cancelled"', () => {
+          test('is not rendered if reservation state is "cancelled"', () => {
             const props = {
               reservationIsEditable,
               reservation: { ...reservation, state: 'cancelled' },
             };
-            expect(getCancelButton(props)).to.have.length(0);
+            expect(getCancelButton(props)).toHaveLength(0);
           });
 
-          it('is not rendered if reservation state is "denied"', () => {
+          test('is not rendered if reservation state is "denied"', () => {
             const props = {
               reservationIsEditable,
               reservation: { ...reservation, state: 'denied' },
             };
-            expect(getCancelButton(props)).to.have.length(0);
+            expect(getCancelButton(props)).toHaveLength(0);
           });
         });
       });
@@ -337,15 +344,15 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
       instance.handleEditFormSubmit(values);
     }
 
-    it('calls onEditFormSubmit with updated reservation values', () => {
+    test('calls onEditFormSubmit with updated reservation values', () => {
       const values = {
         eventDescription: 'Updated description',
         reserverName: 'Han Solo',
       };
       callHandleEditFormSubmit(values);
       const expected = { ...reservation, ...values, staffEvent: false };
-      expect(onEditFormSubmit.callCount).to.equal(1);
-      expect(onEditFormSubmit.lastCall.args).to.deep.equal([expected]);
+      expect(onEditFormSubmit.callCount).toBe(1);
+      expect(onEditFormSubmit.lastCall.args).toEqual([expected]);
     });
   });
 
@@ -353,19 +360,20 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
     const onSaveCommentsClick = simple.mock();
     const comments = 'Updated comments';
 
-    before(() => {
-      simple.mock(ReactDom, 'findDOMNode').returnWith({ value: comments });
+    beforeAll(() => {
       const instance = getWrapper({ onSaveCommentsClick }).instance();
+      // override ref value to mock
+      instance.commentsInput.current = { value: comments };
       instance.handleSaveCommentsClick();
     });
 
-    after(() => {
+    afterAll(() => {
       simple.restore();
     });
 
-    it('calls onSaveCommentsClick with correct comments', () => {
-      expect(onSaveCommentsClick.callCount).to.equal(1);
-      expect(onSaveCommentsClick.lastCall.args).to.deep.equal([comments]);
+    test('calls onSaveCommentsClick with correct comments', () => {
+      expect(onSaveCommentsClick.callCount).toBe(1);
+      expect(onSaveCommentsClick.lastCall.args).toEqual([comments]);
     });
   });
 });

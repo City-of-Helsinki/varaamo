@@ -1,6 +1,7 @@
 import upperFirst from 'lodash/upperFirst';
 import moment from 'moment';
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 class TimeRange extends Component {
   render() {
@@ -26,10 +27,10 @@ class TimeRange extends Component {
 
 TimeRange.propTypes = {
   begin: PropTypes.string.isRequired,
-  beginFormat: PropTypes.string.isRequired,
+  beginFormat: PropTypes.string,
   className: PropTypes.string,
   end: PropTypes.string.isRequired,
-  endFormat: PropTypes.string.isRequired,
+  endFormat: PropTypes.string,
 };
 
 TimeRange.defaultProps = {

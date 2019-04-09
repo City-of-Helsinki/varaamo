@@ -1,6 +1,8 @@
-import { pick, uniq } from 'lodash';
+import pick from 'lodash/pick';
+import uniq from 'lodash/uniq';
 import camelCase from 'lodash/camelCase';
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Col from 'react-bootstrap/lib/Col';
 import Row from 'react-bootstrap/lib/Row';
 import Well from 'react-bootstrap/lib/Well';
@@ -142,7 +144,8 @@ class ReservationInformation extends Component {
                 {t('common.resourceLabel')}
               </Col>
               <Col className="app-ReservationDetails__value" md={8}>
-                {resource.name}<br />
+                {resource.name}
+                <br />
                 {unit.name}
               </Col>
             </Row>

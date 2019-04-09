@@ -1,9 +1,12 @@
+import constants from 'constants/AppConstants';
+
 import range from 'lodash/range';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 import queryString from 'query-string';
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
@@ -19,7 +22,6 @@ import {
   enableGeoposition,
   enableTimeRange,
 } from 'actions/uiActions';
-import constants from 'constants/AppConstants';
 import { injectT } from 'i18n';
 import CheckboxControl from './CheckboxControl';
 import DatePickerControl from './DatePickerControl';
@@ -51,16 +53,10 @@ class UnconnectedSearchControlsContainer extends Component {
     return options;
   }
 
-  hasAdvancedFilters() {
-    const { filters, position } = this.props;
-    let hasFilters = Boolean(position);
-    ['charge', 'end', 'distance', 'duration', 'purpose', 'start', 'unit'].forEach((key) => {
-      if (filters[key]) {
-        hasFilters = true;
-      }
-    });
-    return hasFilters;
-  }
+  getMunicipalityOptions = () => constants.SEARCH_MUNICIPALITY_OPTIONS.map(municipality => ({
+    value: municipality.toLowerCase(),
+    label: municipality,
+  }));
 
   handleDateChange = ({ date }) => {
     const dateInCorrectFormat = moment(date, 'L').format(constants.DATE_FORMAT);
@@ -104,7 +100,7 @@ class UnconnectedSearchControlsContainer extends Component {
   handleSearch = (newFilters = {}) => {
     const page = 1;
     const filters = { ...this.props.filters, ...newFilters, page };
-    browserHistory.push(`/search?${queryString.stringify(filters)}`);
+    this.props.history.push(`/search?${queryString.stringify(filters)}`);
   };
 
   handleReset = () => {
@@ -112,8 +108,21 @@ class UnconnectedSearchControlsContainer extends Component {
     if (this.props.position) {
       this.props.actions.disableGeoposition();
     }
+
     this.handleFiltersChange(emptyFilters);
+    this.handleSearch(emptyFilters);
   };
+
+  hasAdvancedFilters() {
+    const { filters, position } = this.props;
+    let hasFilters = Boolean(position);
+    ['freeOfCharge', 'end', 'distance', 'duration', 'purpose', 'start', 'unit'].forEach((key) => {
+      if (filters[key]) {
+        hasFilters = true;
+      }
+    });
+    return hasFilters;
+  }
 
   render() {
     const {
@@ -151,14 +160,34 @@ class UnconnectedSearchControlsContainer extends Component {
                 />
               </Col>
             </Row>
-            <Panel collapsible header={t('SearchControlsContainer.advancedSearch')}>
+            <Panel
+              defaultExpanded={hasFilters}
+              header={t('SearchControlsContainer.advancedSearch')}
+            >
               <Row>
-                <Col className="app-SearchControlsContainer__control" md={4} sm={6}>
+                <Col md={12}>
+                  <SelectControl
+                    id="municipality"
+                    isLoading={isFetchingUnits}
+                    isMulti
+                    label={t('SearchControlsContainer.municipalityLabel')}
+                    name="app-SearchControls-municipality-select"
+                    onChange={municipalities => this.handleFiltersChange(
+                      { municipality: municipalities.map(mun => mun.value) }
+                    )}
+                    options={this.getMunicipalityOptions()}
+                    value={filters.municipality}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col className="app-SearchControlsContainer__control" md={4} sm={12}>
                   <SelectControl
                     id="purpose"
                     isLoading={isFetchingPurposes}
                     label={t('SearchControlsContainer.purposeLabel')}
-                    onConfirm={purpose => this.handleFiltersChange({ purpose })}
+                    name="app-SearchControls-purpose-select"
+                    onChange={purpose => this.handleFiltersChange({ purpose: purpose.value })}
                     options={purposeOptions}
                     value={filters.purpose}
                   />
@@ -168,7 +197,8 @@ class UnconnectedSearchControlsContainer extends Component {
                     id="unit"
                     isLoading={isFetchingUnits}
                     label={t('SearchControlsContainer.unitLabel')}
-                    onConfirm={unit => this.handleFiltersChange({ unit })}
+                    name="app-SearchControls-unit-select"
+                    onChange={unit => this.handleFiltersChange({ unit: unit.value })}
                     options={unitOptions}
                     value={filters.unit}
                   />
@@ -178,11 +208,14 @@ class UnconnectedSearchControlsContainer extends Component {
                     id="people"
                     isLoading={isFetchingUnits}
                     label={t('SearchControlsContainer.peopleCapacityLabel')}
-                    onConfirm={people => this.handleFiltersChange({ people })}
+                    name="app-SearchControls-people-select"
+                    onChange={people => this.handleFiltersChange({ people: people.value })}
                     options={peopleCapacityOptions}
                     value={filters.people ? String(parseInt(filters.people, 10)) : ''}
                   />
                 </Col>
+              </Row>
+              <Row>
                 <Col className="app-SearchControlsContainer__control" md={4} sm={6}>
                   <PositionControl
                     geolocated={Boolean(this.props.position)}
@@ -195,20 +228,20 @@ class UnconnectedSearchControlsContainer extends Component {
                   <TimeRangeControl
                     duration={parseInt(filters.duration, 10)}
                     end={filters.end}
-                    onChange={this.handleTimeRangeChange}
+                    onConfirm={this.handleTimeRangeChange}
                     onTimeRangeSwitch={this.handleTimeRangeSwitch}
                     start={filters.start}
                     useTimeRange={filters.useTimeRange}
                   />
                 </Col>
-                <Col className="app-SearchControlsContainer__control" md={4} sm={6}>
+                <Col className="app-SearchControlsContainer__control" md={4} sm={12}>
                   <CheckboxControl
                     id="charge"
                     label={t('SearchControlsContainer.chargeLabel')}
                     labelClassName="app-SearchControlsCheckbox__label"
-                    onConfirm={value => this.handleFiltersChange({ charge: value })}
+                    onConfirm={value => this.handleFiltersChange({ freeOfCharge: value })}
                     toggleClassName="app-SearchControlsCheckbox__toggle"
-                    value={filters.charge}
+                    value={!!filters.freeOfCharge}
                   />
                 </Col>
               </Row>
@@ -255,6 +288,7 @@ UnconnectedSearchControlsContainer.propTypes = {
   t: PropTypes.func.isRequired,
   unitOptions: PropTypes.array.isRequired,
   urlSearchFilters: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 UnconnectedSearchControlsContainer = injectT(UnconnectedSearchControlsContainer); // eslint-disable-line
@@ -273,7 +307,9 @@ function mapDispatchToProps(dispatch) {
 }
 
 export { UnconnectedSearchControlsContainer };
-export default connect(
-  searchControlsSelector,
-  mapDispatchToProps
-)(UnconnectedSearchControlsContainer);
+export default withRouter(
+  connect(
+    searchControlsSelector,
+    mapDispatchToProps
+  )(UnconnectedSearchControlsContainer)
+);

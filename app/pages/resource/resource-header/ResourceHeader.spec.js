@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 import { FormattedNumber } from 'react-intl';
 import Immutable from 'seamless-immutable';
@@ -28,29 +27,29 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
 
   describe('render', () => {
     describe('Back button', () => {
-      it('renders when enabled', () => {
+      test('renders when enabled', () => {
         const backButton = getWrapper({ showBackButton: true }).find(
           '.app-ResourceHeader__back-button'
         );
 
-        expect(backButton).to.have.length(1);
-        expect(backButton.prop('onClick')).to.equal(defaultProps.onBackClick);
+        expect(backButton).toHaveLength(1);
+        expect(backButton.prop('onClick')).toBe(defaultProps.onBackClick);
       });
 
-      it('does not render when not enabled', () => {
+      test('does not render when not enabled', () => {
         const backButton = getWrapper({ showBackButton: false }).find(
           '.app-ResourceHeader__back-button'
         );
 
-        expect(backButton).to.have.length(0);
+        expect(backButton).toHaveLength(0);
       });
     });
 
-    it('renders title button', () => {
+    test('renders title button', () => {
       const h1 = getWrapper().find('h1');
 
-      expect(h1).to.have.length(1);
-      expect(h1.text()).to.equal(resource.name);
+      expect(h1).toHaveLength(1);
+      expect(h1.text()).toBe(resource.name);
     });
 
     describe('Unit info', () => {
@@ -60,78 +59,78 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
         };
       }
 
-      it('renders unit name with distance', () => {
+      test('renders unit name with distance', () => {
         const { name } = defaultProps.unit;
         const props = createProps({ distance: 11500 });
 
         const info = getWrapper(props).find('#app-ResourceHeader__info--unit-name');
-        expect(info).to.have.length(1);
-        expect(info.text()).to.contain(` km, ${name}`);
+        expect(info).toHaveLength(1);
+        expect(info.text()).toContain(` km, ${name}`);
 
         const number = info.find(FormattedNumber);
-        expect(number.prop('value')).to.equal(12);
+        expect(number.prop('value')).toBe(12);
       });
 
-      it('renders unit name with distance < 10', () => {
+      test('renders unit name with distance < 10', () => {
         const { name } = defaultProps.unit;
         const props = createProps({ distance: 1412 });
 
         const info = getWrapper(props).find('#app-ResourceHeader__info--unit-name');
-        expect(info).to.have.length(1);
-        expect(info.text()).to.contain(` km, ${name}`);
+        expect(info).toHaveLength(1);
+        expect(info.text()).toContain(` km, ${name}`);
 
         const number = info.find(FormattedNumber);
-        expect(number.prop('value')).to.equal(1.4);
+        expect(number.prop('value')).toBe(1.4);
       });
 
-      it('does not render distance if resource has no distance', () => {
+      test('does not render distance if resource has no distance', () => {
         const { name } = defaultProps.unit;
         const props = createProps({});
         const expected = name;
         const info = getWrapper(props).find('#app-ResourceHeader__info--unit-name');
 
-        expect(info).to.have.length(1);
-        expect(info.text()).to.equal(expected);
+        expect(info).toHaveLength(1);
+        expect(info.text()).toBe(expected);
       });
     });
 
-    it('renders toggleMap button with correct props when showMap false', () => {
+    test('renders toggleMap button with correct props when showMap false', () => {
       const toggleMapButton = getWrapper().find('.app-ResourceHeader__map-button');
       const img = toggleMapButton.find('img');
       const span = toggleMapButton.find('span');
 
-      expect(toggleMapButton).to.have.length(1);
-      expect(toggleMapButton.prop('onClick')).to.equal(defaultProps.onMapClick);
-      expect(img).to.have.length(1);
-      expect(img.prop('alt')).to.equal('ResourceHeader.mapButton');
-      expect(span).to.have.length(1);
-      expect(span.text()).to.equal('ResourceHeader.mapButton');
+      expect(toggleMapButton).toHaveLength(1);
+      expect(toggleMapButton.prop('onClick')).toBe(defaultProps.onMapClick);
+      expect(img).toHaveLength(1);
+      expect(img.prop('alt')).toBe('ResourceHeader.mapButton');
+      expect(span).toHaveLength(1);
+      expect(span.text()).toBe('ResourceHeader.mapButton');
     });
 
-    it('renders toggleMap button with correct props when showMap true', () => {
+    test('renders toggleMap button with correct props when showMap true', () => {
       const toggleMapButton = getWrapper({ showMap: true }).find('.app-ResourceHeader__map-button');
       const img = toggleMapButton.find('img');
       const span = toggleMapButton.find('span');
 
-      expect(toggleMapButton).to.have.length(1);
-      expect(toggleMapButton.prop('onClick')).to.equal(defaultProps.onMapClick);
-      expect(img.prop('alt')).to.equal('ResourceHeader.resourceButton');
-      expect(span).to.have.length(1);
-      expect(span.text()).to.equal('ResourceHeader.resourceButton');
+      expect(toggleMapButton).toHaveLength(1);
+      expect(toggleMapButton.prop('onClick')).toBe(defaultProps.onMapClick);
+      expect(img.prop('alt')).toBe('ResourceHeader.resourceButton');
+      expect(span).toHaveLength(1);
+      expect(span.text()).toBe('ResourceHeader.resourceButton');
     });
 
     describe('FavoriteButton', () => {
-      it('is not rendered if user is not admin', () => {
+      test('is not rendered if user is not admin', () => {
         const favoriteButton = getWrapper({ isLoggedIn: false }).find(FavoriteButton);
 
-        expect(favoriteButton.length).to.equal(0);
+        expect(favoriteButton.length).toBe(0);
       });
 
-      it('is rendered with correct props if user is admin', () => {
+      test('is rendered with correct props if user is admin', () => {
         const favoriteButton = getWrapper({ isLoggedIn: true }).find(FavoriteButton);
 
-        expect(favoriteButton.length).to.equal(1);
-        expect(favoriteButton.prop('resource')).to.deep.equal(defaultProps.resource);
+        expect(favoriteButton.length).toBe(1);
+        expect(favoriteButton.prop('resource')).toEqual(defaultProps.resource);
       });
     });
   });

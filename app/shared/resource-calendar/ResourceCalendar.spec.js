@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import mockDate from 'mockdate';
 import moment from 'moment';
 import React from 'react';
@@ -27,7 +26,7 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
 
   let dayWrapper;
   let wrapper;
-  before(() => {
+  beforeAll(() => {
     wrapper = getWrapper({
       availability: {
         '2015-10-01': { percentage: 0 },
@@ -39,154 +38,237 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
     dayWrapper = wrapper.find(DayPicker);
   });
 
-  it('renders DayPicker', () => {
-    expect(dayWrapper.length).to.equal(1);
+  test('renders DayPicker', () => {
+    expect(dayWrapper.length).toBe(1);
   });
 
-  it('renders FormGroup with correct props', () => {
+  test('renders FormGroup with correct props', () => {
     const formGroup = wrapper.find(FormGroup);
 
-    expect(formGroup.length).to.equal(1);
-    expect(formGroup.prop('onClick')).to.equal(wrapper.instance().showOverlay);
+    expect(formGroup.length).toBe(1);
+    expect(formGroup.prop('onClick')).toBe(wrapper.instance().showOverlay);
   });
 
-  it('renders FormControl with correct props', () => {
+  test('renders FormControl with correct props', () => {
     const formControl = wrapper.find(FormControl);
     const expected = moment('2015-10-11').format('dddd D. MMMM YYYY');
 
-    expect(formControl.length).to.equal(1);
-    expect(formControl.prop('disabled')).to.be.true;
-    expect(formControl.prop('type')).to.equal('text');
-    expect(formControl.prop('value')).to.equal(expected);
+    expect(formControl.length).toBe(1);
+    expect(formControl.prop('disabled')).toBe(true);
+    expect(formControl.prop('type')).toBe('text');
+    expect(formControl.prop('value')).toBe(expected);
   });
 
-  it('renders ResourceCalendarOverlay with correct props', () => {
+  test('renders ResourceCalendarOverlay with correct props', () => {
     const resourceCalendarOverlay = wrapper.find(ResourceCalendarOverlay);
 
-    expect(resourceCalendarOverlay.length).to.equal(1);
+    expect(resourceCalendarOverlay.length).toBe(1);
   });
 
-  it('renders a calendar-legend with correct labels', () => {
-    expect(wrapper.find('.calendar-legend .free').text())
-      .to.equal('ReservationCalendarPickerLegend.free');
-    expect(wrapper.find('.calendar-legend .busy').text())
-      .to.equal('ReservationCalendarPickerLegend.busy');
-    expect(wrapper.find('.calendar-legend .booked').text())
-      .to.equal('ReservationCalendarPickerLegend.booked');
+  test('renders a calendar-legend with correct labels', () => {
+    expect(wrapper.find('.calendar-legend .free').text()).toBe('ReservationCalendarPickerLegend.free');
+    expect(wrapper.find('.calendar-legend .busy').text()).toBe('ReservationCalendarPickerLegend.busy');
+    expect(wrapper.find('.calendar-legend .booked').text()).toBe('ReservationCalendarPickerLegend.booked');
   });
 
-  it('renders correct props', () => {
-    expect(dayWrapper.prop('disabledDays')).to.exist;
-    expect(dayWrapper.prop('enableOutsideDays')).to.be.true;
-    expect(dayWrapper.prop('initialMonth')).to.deep.equal(new Date(defaultProps.selectedDate));
-    expect(dayWrapper.prop('locale')).to.equal('en');
-    expect(dayWrapper.prop('localeUtils')).to.equal(MomentLocaleUtils);
-    expect(dayWrapper.prop('onDayClick')).to.equal(wrapper.instance().handleDateChange);
-    expect(dayWrapper.prop('selectedDays').getFullYear()).to.equal(2015);
-    expect(dayWrapper.prop('selectedDays').getMonth()).to.equal(9);
-    expect(dayWrapper.prop('selectedDays').getDate()).to.equal(11);
+  test('renders correct props', () => {
+    expect(dayWrapper.prop('disabledDays')).toBeDefined();
+    expect(dayWrapper.prop('enableOutsideDays')).toBe(true);
+    expect(dayWrapper.prop('initialMonth')).toEqual(new Date(defaultProps.selectedDate));
+    expect(dayWrapper.prop('locale')).toBe('en');
+    expect(dayWrapper.prop('localeUtils')).toBe(MomentLocaleUtils);
+    expect(dayWrapper.prop('onDayClick')).toBe(wrapper.instance().handleDateChange);
+    expect(dayWrapper.prop('selectedDays').getFullYear()).toBe(2015);
+    expect(dayWrapper.prop('selectedDays').getMonth()).toBe(9);
+    expect(dayWrapper.prop('selectedDays').getDate()).toBe(11);
   });
 
   describe('disabledDays', () => {
-    const now = new Date();
-    const todayEarly = new Date();
-    todayEarly.setHours(0, 1, 0, 0);
-    const todayLate = new Date();
-    todayLate.setHours(23, 0, 0, 0);
-    const receivedToday = new Date(now);
-    const receivedYesterday = new Date(now.valueOf() - 86400000);
-    const receivedTomorrow = new Date(now.valueOf() + 86400000);
-    receivedToday.setHours(12, 0, 0, 0);
-    receivedTomorrow.setHours(12, 0, 0, 0);
-    receivedYesterday.setHours(12, 0, 0, 0);
-    let isDisabled;
-    before(() => {
-      isDisabled = dayWrapper.prop('disabledDays');
+    describe('if the disableDays function prop is supplied as prop', () => {
+      const disableDays = simple.stub();
+      const date = new Date('2015-10-01');
+      const withDisableDays = getWrapper({ disableDays }).find(DayPicker);
+      let isDisabled;
+      beforeAll(() => {
+        isDisabled = withDisableDays.prop('disabledDays');
+      });
+
+      afterEach(() => {
+        mockDate.reset();
+      });
+
+      test('calls disableDays function', () => {
+        isDisabled(date);
+        expect(disableDays.callCount).toBe(1);
+      });
+
+      test('calls disableDays with the right arguments', () => {
+        isDisabled(date);
+        expect(disableDays.calls[0].arg).toBe(date);
+      });
     });
 
-    afterEach(() => {
-      mockDate.reset();
-    });
+    describe('if the disableDays function is not supplied as prop', () => {
+      const now = new Date();
+      const todayEarly = new Date();
+      todayEarly.setHours(0, 1, 0, 0);
+      const todayLate = new Date();
+      todayLate.setHours(23, 0, 0, 0);
+      const receivedToday = new Date(now);
+      const receivedYesterday = new Date(now.valueOf() - 86400000);
+      const receivedTomorrow = new Date(now.valueOf() + 86400000);
+      receivedToday.setHours(12, 0, 0, 0);
+      receivedTomorrow.setHours(12, 0, 0, 0);
+      receivedYesterday.setHours(12, 0, 0, 0);
+      let isDisabled;
+      beforeAll(() => {
+        isDisabled = dayWrapper.prop('disabledDays');
+      });
 
-    it('disables yesterday', () => {
-      mockDate.set(now);
-      expect(isDisabled(receivedYesterday)).to.be.true;
-    });
+      afterEach(() => {
+        mockDate.reset();
+      });
 
-    it('enables today now', () => {
-      mockDate.set(now);
-      expect(isDisabled(receivedToday)).to.be.false;
-    });
+      test('disables yesterday', () => {
+        mockDate.set(now);
+        expect(isDisabled(receivedYesterday)).toBe(true);
+      });
 
-    it('enables today early', () => {
-      mockDate.set(todayEarly);
-      expect(isDisabled(receivedToday)).to.be.false;
-    });
+      test('enables today now', () => {
+        mockDate.set(now);
+        expect(isDisabled(receivedToday)).toBe(false);
+      });
 
-    it('enables today late', () => {
-      mockDate.set(todayLate);
-      expect(isDisabled(receivedToday)).to.be.false;
-    });
+      test('enables today early', () => {
+        mockDate.set(todayEarly);
+        expect(isDisabled(receivedToday)).toBe(false);
+      });
 
-    it('enables tomorrow', () => {
-      mockDate.set(now);
-      expect(isDisabled(receivedTomorrow)).to.be.false;
+      test('enables today late', () => {
+        mockDate.set(todayLate);
+        expect(isDisabled(receivedToday)).toBe(false);
+      });
+
+      test('enables tomorrow', () => {
+        mockDate.set(now);
+        expect(isDisabled(receivedTomorrow)).toBe(false);
+      });
+    });
+  });
+
+  describe('setCalendarWrapper', () => {
+    test('sets calendarWrapper property to the supplied element', () => {
+      const element = {};
+      const instance = getWrapper().instance();
+      instance.setCalendarWrapper(element);
+
+      expect(instance.calendarWrapper).toBe(element);
     });
   });
 
   describe('modifiers', () => {
-    it('is available if percentage is greater than 80', () => {
+    test('is available if percentage is greater than 80', () => {
       const func = dayWrapper.prop('modifiers').available;
-      expect(func(new Date('2015-10-01'))).to.be.false;
-      expect(func(new Date('2015-10-02'))).to.be.false;
-      expect(func(new Date('2015-10-03'))).to.be.true;
-      expect(func(new Date('2015-10-04'))).to.be.true;
+      expect(func(new Date('2015-10-01'))).toBe(false);
+      expect(func(new Date('2015-10-02'))).toBe(false);
+      expect(func(new Date('2015-10-03'))).toBe(true);
+      expect(func(new Date('2015-10-04'))).toBe(true);
     });
-    it('is busy if percentage is lower than 80', () => {
+    test('is busy if percentage is lower than 80', () => {
       const func = dayWrapper.prop('modifiers').busy;
-      expect(func(new Date('2015-10-01'))).to.be.false;
-      expect(func(new Date('2015-10-02'))).to.be.true;
-      expect(func(new Date('2015-10-03'))).to.be.false;
-      expect(func(new Date('2015-10-04'))).to.be.false;
+      expect(func(new Date('2015-10-01'))).toBe(false);
+      expect(func(new Date('2015-10-02'))).toBe(true);
+      expect(func(new Date('2015-10-03'))).toBe(false);
+      expect(func(new Date('2015-10-04'))).toBe(false);
     });
-    it('is booked if percentage is 0', () => {
+    test('is booked if percentage is 0', () => {
       const func = dayWrapper.prop('modifiers').booked;
-      expect(func(new Date('2015-10-01'))).to.be.true;
-      expect(func(new Date('2015-10-02'))).to.be.false;
-      expect(func(new Date('2015-10-03'))).to.be.false;
-      expect(func(new Date('2015-10-04'))).to.be.false;
+      expect(func(new Date('2015-10-01'))).toBe(true);
+      expect(func(new Date('2015-10-02'))).toBe(false);
+      expect(func(new Date('2015-10-03'))).toBe(false);
+      expect(func(new Date('2015-10-04'))).toBe(false);
     });
   });
 
   describe('handleDateChange', () => {
-    it('sets state visible false and calls prop onDateChange', () => {
+    test('sets state visible false and calls prop onDateChange', () => {
       const onDateChange = simple.stub();
       const date = new Date('2015-10-01');
       const instance = getWrapper({ onDateChange }).instance();
       instance.state.visible = true;
       instance.handleDateChange(date);
 
-      expect(instance.state.visible).to.be.false;
-      expect(onDateChange.callCount).to.equal(1);
-      expect(onDateChange.lastCall.args).to.deep.equal([date]);
+      expect(instance.state.visible).toBe(false);
+      expect(onDateChange.callCount).toBe(1);
+      expect(onDateChange.lastCall.args).toEqual([date]);
     });
   });
 
   describe('hideOverlay', () => {
-    it('sets state.visible to false', () => {
+    test('sets state.visible to false', () => {
       const instance = getWrapper().instance();
       instance.state.visible = true;
       instance.hideOverlay();
-      expect(instance.state.visible).to.be.false;
+      expect(instance.state.visible).toBe(false);
     });
   });
 
   describe('showOverlay', () => {
-    it('sets state.visible to true', () => {
+    test('sets state.visible to true', () => {
       const instance = getWrapper().instance();
       instance.state.visible = false;
       instance.showOverlay();
-      expect(instance.state.visible).to.be.true;
+      expect(instance.state.visible).toBe(true);
     });
+  });
+
+  describe('weeks buttons', () => {
+    const prevWeekDate = (new Date(defaultProps.selectedDate)).getDate() - 7;
+    const nextWeekDate = (new Date(defaultProps.selectedDate)).getDate() + 7;
+
+    let resourceCalWrapper;
+    let instance;
+
+    beforeEach(() => {
+      resourceCalWrapper = getWrapper();
+      instance = resourceCalWrapper.instance();
+      instance.handleDateChange = simple.mock();
+    });
+
+    afterEach(() => {
+      instance.handleDateChange.reset();
+    });
+
+    test(
+      'renders two buttons with className of app-ResourceCalendar__week-button',
+      () => {
+        const buttons = resourceCalWrapper.find('button.app-ResourceCalendar__week-button');
+        expect(buttons.length).toBe(2);
+      }
+    );
+    test(
+      'calls handleDateChange method when the previous week button is clicked',
+      () => {
+        const prevWeekBtn = resourceCalWrapper
+          .find('button.app-ResourceCalendar__week-button--prev')
+          .first();
+        prevWeekBtn.simulate('click');
+
+        expect(instance.handleDateChange.callCount).toBe(1);
+        expect(instance.handleDateChange.lastCall.arg.getDate()).toBe(prevWeekDate);
+      }
+    );
+    test(
+      'calls handleDateChange method when the next week button is clicked',
+      () => {
+        const prevWeekBtn = resourceCalWrapper
+          .find('button.app-ResourceCalendar__week-button--next')
+          .first();
+        prevWeekBtn.simulate('click');
+
+        expect(instance.handleDateChange.callCount).toBe(1);
+        expect(instance.handleDateChange.lastCall.arg.getDate()).toBe(nextWeekDate);
+      }
+    );
   });
 });

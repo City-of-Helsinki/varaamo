@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import { selector } from './MainNavbarContainer';
 
 describe('shared/main-navbar/MainNavbarContainer', () => {
@@ -19,14 +17,14 @@ describe('shared/main-navbar/MainNavbarContainer', () => {
       };
     }
 
-    it('returns isAdmin', () => {
+    test('returns isAdmin', () => {
       const selected = selector(getState());
-      expect(selected.isAdmin).to.exist;
+      expect(selected.isAdmin).toBeDefined();
     });
 
-    it('returns isLoggedIn', () => {
+    test('returns isLoggedIn', () => {
       const selected = selector(getState());
-      expect(selected.isLoggedIn).to.exist;
+      expect(selected.isLoggedIn).toBeDefined();
     });
   });
 });

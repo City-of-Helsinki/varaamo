@@ -1,9 +1,11 @@
+import constants from 'constants/AppConstants';
+
 import map from 'lodash/map';
 import sortBy from 'lodash/sortBy';
-import React, { Component, PropTypes } from 'react';
-import Select from 'react-select';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
-import constants from 'constants/AppConstants';
+import SelectControl from 'pages/search/controls/SelectControl';
 import { injectT } from 'i18n';
 
 class AdminReservationFilters extends Component {
@@ -40,13 +42,14 @@ class AdminReservationFilters extends Component {
     return (
       <div className="reservation-filters">
         <h4>{t('UserReservationsPage.preliminaryReservationsHeader')}</h4>
-        <Select
+        <SelectControl
           className="reservation-state-select"
-          clearable={false}
+          id="reservation"
+          isClearable={false}
+          isSearchable={false}
           name="reservation-state-select"
           onChange={this.handleChange}
           options={stateOptions}
-          searchable={false}
           value={filters.state}
         />
       </div>

@@ -1,9 +1,12 @@
+import constants from 'constants/AppConstants';
+
 import forEach from 'lodash/forEach';
 import map from 'lodash/map';
-import moment from 'moment';
-import 'moment-range';
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
 
-import constants from 'constants/AppConstants';
+
+const moment = extendMoment(Moment);
 
 function addToDate(date, daysToIncrement) {
   const newDate = moment(date).add(daysToIncrement, 'days');
@@ -93,16 +96,26 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = [], reserv
 
   const range = moment.range(moment(start), moment(end));
   const duration = moment.duration(period);
-  const reservationRanges = map(reservations, reservation =>
-    moment.range(moment(reservation.begin), moment(reservation.end))
-  );
-  const editRanges = map(reservationsToEdit, reservation =>
-    moment.range(moment(reservation.begin), moment(reservation.end))
-  );
-  const slots = [];
 
-  range.by(
-    duration,
+  const reservationRanges = map(
+    reservations, reservation => moment.range(
+      moment(reservation.begin), moment(reservation.end)
+    )
+  );
+
+  const editRanges = map(
+    reservationsToEdit, reservation => moment.range(
+      moment(reservation.begin), moment(reservation.end)
+    )
+  );
+
+  const slots = map(
+    Array.from(
+      range.by(constants.FILTER.timePeriodType, {
+        excludeEnd: true,
+        step: duration.as(constants.FILTER.timePeriodType),
+      })
+    ),
     (startMoment) => {
       const endMoment = moment(startMoment).add(duration);
       const asISOString = `${startMoment.toISOString()}/${endMoment.toISOString()}`;
@@ -128,7 +141,7 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = [], reserv
         }
       });
 
-      slots.push({
+      return {
         asISOString,
         asString,
         editing,
@@ -138,9 +151,8 @@ function getTimeSlots(start, end, period = '00:30:00', reservations = [], reserv
         reserved,
         start: startMoment.toISOString(),
         end: endMoment.toISOString(),
-      });
-    },
-    true
+      };
+    }
   );
 
   return slots;

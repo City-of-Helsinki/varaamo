@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import Immutable from 'seamless-immutable';
 
 import modalIsOpenSelectorFactory from 'state/selectors/factories/modalIsOpenSelectorFactory';
@@ -14,25 +13,25 @@ function getState(openModals) {
 }
 
 describe('Selector factory: modalIsOpenSelectorFactory', () => {
-  it('returns a function', () => {
-    expect(typeof modalIsOpenSelectorFactory()).to.equal('function');
+  test('returns a function', () => {
+    expect(typeof modalIsOpenSelectorFactory()).toBe('function');
   });
 
   describe('the returned function', () => {
     const modalType = 'SOME_MODAL';
 
-    it('returns true if given modal is in open modals', () => {
+    test('returns true if given modal is in open modals', () => {
       const selector = modalIsOpenSelectorFactory(modalType);
       const state = getState([modalType]);
 
-      expect(selector(state)).to.equal(true);
+      expect(selector(state)).toBe(true);
     });
 
-    it('returns false if given modal is not in open modals', () => {
+    test('returns false if given modal is not in open modals', () => {
       const selector = modalIsOpenSelectorFactory(modalType);
       const state = getState([]);
 
-      expect(selector(state)).to.equal(false);
+      expect(selector(state)).toBe(false);
     });
   });
 });

@@ -1,7 +1,9 @@
-import { createSelector, createStructuredSelector } from 'reselect';
 
 import ActionTypes from 'constants/ActionTypes';
 import ModalTypes from 'constants/ModalTypes';
+
+import { createSelector, createStructuredSelector } from 'reselect';
+
 import { createResourceSelector } from 'state/selectors/dataSelectors';
 import modalIsOpenSelectorFactory from 'state/selectors/factories/modalIsOpenSelectorFactory';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';

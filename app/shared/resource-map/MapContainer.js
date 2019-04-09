@@ -1,5 +1,6 @@
 import classnames from 'classnames';
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { Map, TileLayer, ZoomControl } from 'react-leaflet';
 import { connect } from 'react-redux';
 
@@ -35,9 +36,9 @@ export class UnconnectedResourceMapContainer extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.map && (
-        prevProps.boundaries !== this.props.boundaries ||
-        prevProps.shouldMapFitBoundaries !== this.props.shouldMapFitBoundaries
-      )
+      prevProps.boundaries !== this.props.boundaries
+        || prevProps.shouldMapFitBoundaries !== this.props.shouldMapFitBoundaries
+    )
     ) {
       this.fitMapToBoundaries();
     }
@@ -57,20 +58,10 @@ export class UnconnectedResourceMapContainer extends React.Component {
   }
 
   getCenter = () => (
-    this.props.position ?
-    [this.props.position.lat, this.props.position.lon] :
-    defaultPosition[getCurrentCustomization()]
+    this.props.position
+      ? [this.props.position.lat, this.props.position.lon]
+      : defaultPosition[getCurrentCustomization()]
   );
-
-  hasBoundaries() {
-    const boundaries = this.props.boundaries;
-    return (
-      boundaries.minLatitude ||
-      boundaries.minLongitude ||
-      boundaries.maxLatitude ||
-      boundaries.maxLongitude
-    );
-  }
 
   fitMapToBoundaries = () => {
     if (this.map) {
@@ -80,6 +71,16 @@ export class UnconnectedResourceMapContainer extends React.Component {
         this.map.leafletElement.panTo(this.getCenter(), defaultZoom);
       }
     }
+  }
+
+  hasBoundaries() {
+    const boundaries = this.props.boundaries;
+    return (
+      boundaries.minLatitude
+      || boundaries.minLongitude
+      || boundaries.maxLatitude
+      || boundaries.maxLongitude
+    );
   }
 
   render() {
@@ -99,18 +100,22 @@ export class UnconnectedResourceMapContainer extends React.Component {
           />
           <ZoomControl position="bottomright" />
           {this.props.markers && this.props.markers.map(
-            marker => <Marker
-              {...marker}
-              highlighted={this.props.selectedUnitId === marker.unitId}
-              key={marker.unitId}
-              selectUnit={this.props.selectUnit}
-            />
+            marker => (
+              <Marker
+                {...marker}
+                highlighted={this.props.selectedUnitId === marker.unitId}
+                key={marker.unitId}
+                selectUnit={this.props.selectUnit}
+              />
+            )
           )}
-          {this.props.position &&
+          {this.props.position
+            && (
             <UserMarker
               latitude={this.props.position.lat}
               longitude={this.props.position.lon}
             />
+            )
           }
         </Map>
       </div>

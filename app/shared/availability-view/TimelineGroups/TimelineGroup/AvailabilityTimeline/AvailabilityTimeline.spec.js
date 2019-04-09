@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import moment from 'moment';
 import React from 'react';
@@ -16,12 +15,12 @@ function getWrapper(props) {
 }
 
 describe('shared/availability-view/AvailabilityTimeline', () => {
-  it('renders a div.availability-timeline', () => {
+  test('renders a div.availability-timeline', () => {
     const wrapper = getWrapper();
-    expect(wrapper.is('div.availability-timeline')).to.be.true;
+    expect(wrapper.is('div.availability-timeline')).toBe(true);
   });
 
-  it('renders given reservation slot', () => {
+  test('renders given reservation slot', () => {
     const id = 'resource-auuxnane';
     const onReservationSlotClick = () => null;
     const onReservationSlotMouseEnter = () => null;
@@ -38,14 +37,14 @@ describe('shared/availability-view/AvailabilityTimeline', () => {
       onReservationSlotMouseLeave,
     });
     const slot = wrapper.find(ReservationSlot);
-    expect(slot).to.have.length(1);
-    expect(slot.prop('resourceId')).to.equal(id);
-    expect(slot.prop('onClick')).to.equal(onReservationSlotClick);
-    expect(slot.prop('onMouseEnter')).to.equal(onReservationSlotMouseEnter);
-    expect(slot.prop('onMouseLeave')).to.equal(onReservationSlotMouseLeave);
+    expect(slot).toHaveLength(1);
+    expect(slot.prop('resourceId')).toBe(id);
+    expect(slot.prop('onClick')).toBe(onReservationSlotClick);
+    expect(slot.prop('onMouseEnter')).toBe(onReservationSlotMouseEnter);
+    expect(slot.prop('onMouseLeave')).toBe(onReservationSlotMouseLeave);
   });
 
-  it('renders given reservation', () => {
+  test('renders given reservation', () => {
     const wrapper = getWrapper({
       items: [{
         key: '1',
@@ -59,11 +58,11 @@ describe('shared/availability-view/AvailabilityTimeline', () => {
       }],
     });
     const reservation = wrapper.find(Reservation);
-    expect(reservation).to.have.length(1);
-    expect(reservation.prop('name')).to.equal('My Reservation');
+    expect(reservation).toHaveLength(1);
+    expect(reservation.prop('name')).toBe('My Reservation');
   });
 
-  it('renders slots and reservations', () => {
+  test('renders slots and reservations', () => {
     const wrapper = getWrapper({
       items: [
         {
@@ -75,7 +74,13 @@ describe('shared/availability-view/AvailabilityTimeline', () => {
             resourceId: '',
           },
         },
-        { key: '2', type: 'reservation', data: { begin: '', end: '', id: 12345, name: '' } },
+        {
+          key: '2',
+          type: 'reservation',
+          data: {
+            begin: '', end: '', id: 12345, name: ''
+          }
+        },
         {
           key: '3',
           type: 'reservation-slot',
@@ -88,8 +93,8 @@ describe('shared/availability-view/AvailabilityTimeline', () => {
       ],
     });
     const children = wrapper.children();
-    expect(children.at(0).is(ReservationSlot)).to.be.true;
-    expect(children.at(1).is(Reservation)).to.be.true;
-    expect(children.at(2).is(ReservationSlot)).to.be.true;
+    expect(children.at(0).is(ReservationSlot)).toBe(true);
+    expect(children.at(1).is(Reservation)).toBe(true);
+    expect(children.at(2).is(ReservationSlot)).toBe(true);
   });
 });

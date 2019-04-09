@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import ListGroup from 'react-bootstrap/lib/ListGroup';
@@ -73,11 +74,11 @@ class SearchBox extends React.Component {
             title={t('DatePickerControl.header')}
           >
             <ListGroup>
-              {this.state.searchOptions.map(option =>
+              {this.state.searchOptions.map(option => (
                 <ListGroupItem key={option.label} onClick={() => this.handleSelect(option.label)}>
                   {option.label}
                 </ListGroupItem>
-              )}
+              ))}
             </ListGroup>
           </SearchControlOverlay>
         </Overlay>

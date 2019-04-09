@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
@@ -18,28 +17,28 @@ describe('shared/resource-type-filter/ResourceTypeFilterButton', () => {
   }
   let wrapper;
 
-  before(() => {
+  beforeAll(() => {
     wrapper = getWrapper();
   });
 
-  it('is a button', () => {
-    expect(wrapper.is(Button)).to.be.true;
+  test('is a button', () => {
+    expect(wrapper.is(Button)).toBe(true);
   });
 
-  it('has primary bsStyle if active prop is true', () => {
-    expect(wrapper.prop('bsStyle')).to.equal('primary');
+  test('has primary bsStyle if active prop is true', () => {
+    expect(wrapper.prop('bsStyle')).toBe('primary');
   });
 
-  it('has default bsStyle if active prop is false', () => {
-    expect(getWrapper({ active: false }).prop('bsStyle')).to.equal('default');
+  test('has default bsStyle if active prop is false', () => {
+    expect(getWrapper({ active: false }).prop('bsStyle')).toBe('default');
   });
 
-  it('passes onClick prop with correct args', () => {
+  test('passes onClick prop with correct args', () => {
     wrapper.prop('onClick')();
-    expect(defaultProps.onClick.lastCall.args).to.deep.equal([defaultProps.resourceType]);
+    expect(defaultProps.onClick.lastCall.args).toEqual([defaultProps.resourceType]);
   });
 
-  it('renders resource type name', () => {
-    expect(wrapper.children().text()).to.equal(defaultProps.resourceType);
+  test('renders resource type name', () => {
+    expect(wrapper.children().text()).toBe(defaultProps.resourceType);
   });
 });

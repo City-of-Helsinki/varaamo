@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
@@ -29,11 +28,13 @@ function getState(resources = [], units = [], user = defaultUser) {
     }),
     ui: Immutable({
       reservations: {
-        selected: [{
-          begin: '2016-10-10T10:00:00+03:00',
-          end: '2016-10-10T11:00:00+03:00',
-          resource: defaultResource.id,
-        }],
+        selected: [
+          {
+            begin: '2016-10-10T10:00:00+03:00',
+            end: '2016-10-10T11:00:00+03:00',
+            resource: defaultResource.id,
+          },
+        ],
         toEdit: [defaultReservation],
         toShow: [defaultReservation],
         toShowEdited: [defaultReservation],
@@ -45,10 +46,7 @@ function getState(resources = [], units = [], user = defaultUser) {
 function getProps(id = 'some-id') {
   return {
     location: {
-      query: {
-        date: '2015-10-10',
-        resource: defaultResource.id,
-      },
+      search: `?date=2015-10-10&resource=${defaultResource.id}`,
     },
     params: {
       id,
@@ -57,99 +55,99 @@ function getProps(id = 'some-id') {
 }
 
 describe('pages/reservation/reservationPageSelector', () => {
-  it('returns date', () => {
+  test('returns date', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
 
-    expect(selected.date).to.exist;
+    expect(selected.date).toBeDefined();
   });
 
-  it('returns isAdmin', () => {
+  test('returns isAdmin', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
 
-    expect(selected.isAdmin).to.exist;
+    expect(selected.isAdmin).toBeDefined();
   });
 
-  it('returns isStaff', () => {
+  test('returns isStaff', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
 
-    expect(selected.isStaff).to.exist;
+    expect(selected.isStaff).toBeDefined();
   });
 
-  it('returns isFetchingResource', () => {
+  test('returns isFetchingResource', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
 
-    expect(selected.isFetchingResource).to.exist;
+    expect(selected.isFetchingResource).toBeDefined();
   });
 
-  it('returns isMakingReservations', () => {
+  test('returns isMakingReservations', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
 
-    expect(selected.isMakingReservations).to.exist;
+    expect(selected.isMakingReservations).toBeDefined();
   });
 
-  it('returns resource', () => {
+  test('returns resource', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
 
-    expect(selected.resource).to.exist;
+    expect(selected.resource).toBeDefined();
   });
 
-  it('returns resourceId', () => {
+  test('returns resourceId', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
 
-    expect(selected.resourceId).to.exist;
+    expect(selected.resourceId).toBeDefined();
   });
 
-  it('returns reservationToEdit', () => {
+  test('returns reservationToEdit', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
 
-    expect(selected.reservationToEdit).to.exist;
+    expect(selected.reservationToEdit).toBeDefined();
   });
 
-  it('returns reservationCreated', () => {
+  test('returns reservationCreated', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
 
-    expect(selected.reservationCreated).to.exist;
+    expect(selected.reservationCreated).toBeDefined();
   });
 
-  it('returns reservationEdited', () => {
+  test('returns reservationEdited', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
 
-    expect(selected.reservationEdited).to.exist;
+    expect(selected.reservationEdited).toBeDefined();
   });
 
-  it('returns the unit corresponding to the resource.unit', () => {
+  test('returns the unit corresponding to the resource.unit', () => {
     const state = getState([defaultResource], [defaultUnit]);
     const props = getProps(defaultResource.id);
     const selected = reservationPageSelector(state, props);
 
-    expect(selected.unit).to.deep.equal(defaultUnit);
+    expect(selected.unit).toEqual(defaultUnit);
   });
 
-  it('returns user', () => {
+  test('returns user', () => {
     const state = getState();
     const props = getProps();
     const selected = reservationPageSelector(state, props);
 
-    expect(selected.user).to.exist;
+    expect(selected.user).toBeDefined();
   });
 });

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
@@ -34,98 +33,101 @@ function getState(resources = [], units = [], user = defaultUser) {
 function getProps(id = 'some-id') {
   return {
     location: {
-      query: {
-        date: '2015-10-10',
-      },
+      search: 'date=2015-10-10',
     },
-    params: {
-      id,
+    match: {
+      params: {
+        id,
+      },
     },
   };
 }
 
 describe('pages/resource/resourcePageSelector', () => {
-  it('returns date', () => {
+  test('returns date', () => {
     const state = getState();
     const props = getProps();
     const selected = resourcePageSelector(state, props);
 
-    expect(selected.date).to.exist;
+    expect(selected.date).toBeDefined();
   });
 
-  it('returns the id in router.params.id', () => {
+  test('returns the id in router.params.id', () => {
     const state = getState();
     const props = getProps();
     const selected = resourcePageSelector(state, props);
-    const expected = props.params.id;
+    const expected = props.match.params.id;
 
-    expect(selected.id).to.equal(expected);
+    expect(selected.id).toBe(expected);
   });
 
-  it('returns isAdmin', () => {
-    const state = getState();
-    const props = getProps();
-    const selected = resourcePageSelector(state, props);
-
-    expect(selected.isAdmin).to.exist;
-  });
-
-  it('returns isFetchingResource', () => {
+  test('returns isAdmin', () => {
     const state = getState();
     const props = getProps();
     const selected = resourcePageSelector(state, props);
 
-    expect(selected.isFetchingResource).to.exist;
+    expect(selected.isAdmin).toBeDefined();
   });
 
-  it('returns isLoggedIn', () => {
+  test('returns isFetchingResource', () => {
     const state = getState();
     const props = getProps();
     const selected = resourcePageSelector(state, props);
 
-    expect(selected.isLoggedIn).to.exist;
+    expect(selected.isFetchingResource).toBeDefined();
   });
 
-  it('returns resource', () => {
+  test('returns isLoggedIn', () => {
     const state = getState();
     const props = getProps();
     const selected = resourcePageSelector(state, props);
 
-    expect(selected.resource).to.exist;
+    expect(selected.isLoggedIn).toBeDefined();
   });
 
-  it('returns showMap', () => {
+  test('returns resource', () => {
     const state = getState();
     const props = getProps();
     const selected = resourcePageSelector(state, props);
 
-    expect(selected.showMap).to.exist;
+    expect(selected.resource).toBeDefined();
   });
 
-  it('returns the unit corresponding to the resource.unit', () => {
+  test('returns showMap', () => {
+    const state = getState();
+    const props = getProps();
+    const selected = resourcePageSelector(state, props);
+
+    expect(selected.showMap).toBeDefined();
+  });
+
+  test('returns the unit corresponding to the resource.unit', () => {
     const unit = Unit.build();
     const resource = Resource.build({ unit: unit.id });
     const state = getState([resource], [unit]);
     const props = getProps(resource.id);
     const selected = resourcePageSelector(state, props);
 
-    expect(selected.unit).to.deep.equal(unit);
+    expect(selected.unit).toEqual(unit);
   });
 
-  it('returns an empty object as the unit if unit with the given id is not fetched', () => {
-    const resource = Resource.build();
-    const state = getState([resource], []);
-    const props = getProps(resource.id);
-    const selected = resourcePageSelector(state, props);
+  test(
+    'returns an empty object as the unit if unit with the given id is not fetched',
+    () => {
+      const resource = Resource.build();
+      const state = getState([resource], []);
+      const props = getProps(resource.id);
+      const selected = resourcePageSelector(state, props);
 
-    expect(selected.unit).to.deep.equal({});
-  });
+      expect(selected.unit).toEqual({});
+    }
+  );
 
-  it('returns an empty object as the unit if resource is not fetched', () => {
+  test('returns an empty object as the unit if resource is not fetched', () => {
     const state = getState([], []);
     const props = getProps('unfetched-id');
     const selected = resourcePageSelector(state, props);
 
-    expect(selected.unit).to.deep.equal({});
+    expect(selected.unit).toEqual({});
   });
 });

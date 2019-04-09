@@ -1,11 +1,11 @@
-import { expect } from 'chai';
+import constants from 'constants/AppConstants';
+
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
 import { Field } from 'redux-form';
 import simple from 'simple-mock';
 
-import constants from 'constants/AppConstants';
 import WrappedText from 'shared/wrapped-text';
 import { shallowWithIntl } from 'utils/testUtils';
 import { UnconnectedReservationForm as ReservationForm, validate } from './ReservationForm';
@@ -21,28 +21,28 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
         describe('if field belongs to REQUIRED_STAFF_EVENT_FIELDS', () => {
           const fieldName = constants.REQUIRED_STAFF_EVENT_FIELDS[0];
 
-          it('returns an error', () => {
+          test('returns an error', () => {
             const props = {
               fields: [fieldName],
               requiredFields: [],
               t,
             };
             const errors = validate(values, props);
-            expect(errors[fieldName]).to.exist;
+            expect(errors[fieldName]).toBeDefined();
           });
         });
 
         describe('if field does not belong to REQUIRED_STAFF_EVENT_FIELDS', () => {
           const fieldName = 'someField';
 
-          it('does not return an error', () => {
+          test('does not return an error', () => {
             const props = {
               fields: [fieldName],
               requiredFields: [],
               t,
             };
             const errors = validate(values, props);
-            expect(errors[fieldName]).to.not.exist;
+            expect(errors[fieldName]).toBeFalsy();
           });
         });
       });
@@ -50,7 +50,7 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
       describe('if user is reserving a regular event', () => {
         const values = {};
 
-        it('returns an error if field is in requiredFields', () => {
+        test('returns an error if field is in requiredFields', () => {
           const fieldName = 'someField';
           const props = {
             fields: [fieldName],
@@ -58,10 +58,10 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
             t,
           };
           const errors = validate(values, props);
-          expect(errors[fieldName]).to.exist;
+          expect(errors[fieldName]).toBeDefined();
         });
 
-        it('does not return an error if field is not in requiredFields', () => {
+        test('does not return an error if field is not in requiredFields', () => {
           const fieldName = 'someField';
           const props = {
             fields: [fieldName],
@@ -69,13 +69,13 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
             t,
           };
           const errors = validate(values, props);
-          expect(errors[fieldName]).to.not.exist;
+          expect(errors[fieldName]).toBeFalsy();
         });
       });
     });
 
     describe('if field has a value', () => {
-      it('does not return an error even if field is required', () => {
+      test('does not return an error even if field is required', () => {
         const props = {
           fields: ['name'],
           requiredFields: ['name'],
@@ -83,7 +83,7 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
         };
         const values = { name: 'Luke' };
         const errors = validate(values, props);
-        expect(errors.name).to.not.exist;
+        expect(errors.name).toBeFalsy();
       });
     });
 
@@ -94,16 +94,16 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
         t,
       };
 
-      it('returns an error if reserverEmailAddress is invalid', () => {
+      test('returns an error if reserverEmailAddress is invalid', () => {
         const values = { reserverEmailAddress: 'luke@' };
         const errors = validate(values, props);
-        expect(errors.reserverEmailAddress).to.exist;
+        expect(errors.reserverEmailAddress).toBeDefined();
       });
 
-      it('does not return an error if reserverEmailAddress is valid', () => {
+      test('does not return an error if reserverEmailAddress is valid', () => {
         const values = { reserverEmailAddress: 'luke@skywalker.com' };
         const errors = validate(values, props);
-        expect(errors.reserverEmailAddress).to.not.exist;
+        expect(errors.reserverEmailAddress).toBeFalsy();
       });
     });
   });
@@ -124,49 +124,49 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
       return shallowWithIntl(<ReservationForm {...defaultProps} {...extraProps} />);
     }
 
-    it('renders a Form component', () => {
+    test('renders a Form component', () => {
       const form = getWrapper().find(Form);
-      expect(form.length).to.equal(1);
+      expect(form.length).toBe(1);
     });
 
     describe('form fields', () => {
       const fieldName = 'reserverName';
 
-      it('renders a field if it is included in props.fields', () => {
+      test('renders a field if it is included in props.fields', () => {
         const fields = [fieldName];
         const input = getWrapper({ fields }).find(Field);
-        expect(input.length).to.equal(1);
+        expect(input.length).toBe(1);
       });
 
-      it('does not render a field if it is not included in props.fields', () => {
+      test('does not render a field if it is not included in props.fields', () => {
         const fields = [];
         const input = getWrapper({ fields }).find(Field);
-        expect(input.length).to.equal(0);
+        expect(input.length).toBe(0);
       });
 
       describe('required fields', () => {
-        it('displays an asterisk beside a required field label', () => {
+        test('displays an asterisk beside a required field label', () => {
           const props = {
             fields: [fieldName],
             requiredFields: [fieldName],
           };
           const input = getWrapper(props).find(Field);
-          expect(input.props().label).to.contain('*');
+          expect(input.props().label).toContain('*');
         });
 
-        it('does not display an asterisk beside a non required field label', () => {
+        test('does not display an asterisk beside a non required field label', () => {
           const props = {
             fields: [fieldName],
             requiredFields: [],
           };
           const input = getWrapper(props).find(Field);
-          expect(input.props().label).to.not.contain('*');
+          expect(input.props().label).not.toContain('*');
         });
 
         describe('if staffEvent checkbox is checked', () => {
           const staffEventSelected = true;
 
-          it('shows an asterisk beside REQUIRED_STAFF_EVENT_FIELDS', () => {
+          test('shows an asterisk beside REQUIRED_STAFF_EVENT_FIELDS', () => {
             const fields = [fieldName];
             const props = {
               fields,
@@ -174,20 +174,23 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
               staffEventSelected,
             };
             const input = getWrapper(props).find(Field);
-            expect(input.props().label).to.contain('*');
+            expect(input.props().label).toContain('*');
           });
 
-          it('does not show an asterisk beside non REQUIRED_STAFF_EVENT_FIELDS', () => {
-            const nonRequiredFieldName = 'reserverEmailAddress';
-            const fields = [nonRequiredFieldName];
-            const props = {
-              fields,
-              requiredFields: [nonRequiredFieldName],
-              staffEventSelected,
-            };
-            const input = getWrapper(props).find(Field);
-            expect(input.props().label).to.not.contain('*');
-          });
+          test(
+            'does not show an asterisk beside non REQUIRED_STAFF_EVENT_FIELDS',
+            () => {
+              const nonRequiredFieldName = 'reserverEmailAddress';
+              const fields = [nonRequiredFieldName];
+              const props = {
+                fields,
+                requiredFields: [nonRequiredFieldName],
+                staffEventSelected,
+              };
+              const input = getWrapper(props).find(Field);
+              expect(input.props().label).not.toContain('*');
+            }
+          );
         });
       });
     });
@@ -198,28 +201,31 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
         const wrapper = getWrapper({ termsAndConditions });
         const termsAndConditionsDiv = wrapper.find('.terms-and-conditions');
 
-        it('renders a div for terms and conditions', () => {
-          expect(termsAndConditionsDiv.length).to.equal(1);
+        test('renders a div for terms and conditions', () => {
+          expect(termsAndConditionsDiv.length).toBe(1);
         });
 
-        it('renders a header for terms and conditions', () => {
+        test('renders a header for terms and conditions', () => {
           const header = termsAndConditionsDiv.find('h5');
 
-          expect(header.length).to.equal(1);
-          expect(header.text()).to.equal('ReservationForm.termsAndConditionsHeader');
+          expect(header.length).toBe(1);
+          expect(header.text()).toBe('ReservationForm.termsAndConditionsHeader');
         });
 
-        it('renders the terms and conditions text inside WrappedText component', () => {
-          const wrappedText = termsAndConditionsDiv.find(WrappedText);
+        test(
+          'renders the terms and conditions text inside WrappedText component',
+          () => {
+            const wrappedText = termsAndConditionsDiv.find(WrappedText);
 
-          expect(wrappedText.length).to.equal(1);
-          expect(wrappedText.prop('text')).to.equal(termsAndConditions);
-        });
+            expect(wrappedText.length).toBe(1);
+            expect(wrappedText.prop('text')).toBe(termsAndConditions);
+          }
+        );
 
-        it('renders terms and conditions input wrapper', () => {
+        test('renders terms and conditions input wrapper', () => {
           const inputWrapper = wrapper.find('.terms-and-conditions-input-wrapper');
 
-          expect(inputWrapper.length).to.equal(1);
+          expect(inputWrapper.length).toBe(1);
         });
       });
 
@@ -227,16 +233,16 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
         const termsAndConditions = '';
         const wrapper = getWrapper({ termsAndConditions });
 
-        it('does not render a div for terms and conditions', () => {
+        test('does not render a div for terms and conditions', () => {
           const termsAndConditionsDiv = wrapper.find('.terms-and-conditions');
 
-          expect(termsAndConditionsDiv.length).to.equal(0);
+          expect(termsAndConditionsDiv.length).toBe(0);
         });
 
-        it('does not render terms and conditions input wrapper', () => {
+        test('does not render terms and conditions input wrapper', () => {
           const inputWrapper = wrapper.find('.terms-and-conditions-input-wrapper');
 
-          expect(inputWrapper.length).to.equal(0);
+          expect(inputWrapper.length).toBe(0);
         });
       });
     });
@@ -244,30 +250,30 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
     describe('form buttons', () => {
       const buttons = getWrapper().find(Button);
 
-      it('renders two buttons', () => {
-        expect(buttons.length).to.equal(2);
+      test('renders two buttons', () => {
+        expect(buttons.length).toBe(2);
       });
 
       describe('the first button', () => {
         const button = buttons.at(0);
 
-        it('has correct text', () => {
-          expect(button.props().children).to.equal('common.back');
+        test('has correct text', () => {
+          expect(button.props().children).toBe('common.back');
         });
 
-        it('clicking it calls props.onCancel', () => {
+        test('clicking it calls props.onCancel', () => {
           defaultProps.onCancel.reset();
           button.props().onClick();
 
-          expect(defaultProps.onCancel.callCount).to.equal(1);
+          expect(defaultProps.onCancel.callCount).toBe(1);
         });
       });
 
       describe('the second button', () => {
         const button = buttons.at(1);
 
-        it('has correct text', () => {
-          expect(button.props().children).to.equal('common.save');
+        test('has correct text', () => {
+          expect(button.props().children).toBe('common.save');
         });
       });
     });

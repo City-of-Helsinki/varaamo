@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import React from 'react';
 
 import { shallowWithIntl } from 'utils/testUtils';
@@ -14,18 +13,18 @@ describe('pages/resource/reservation-calendar/ReservingRestrictedText', () => {
     return shallowWithIntl(<ReservingRestrictedText {...defaultProps} {...extraProps} />);
   }
 
-  it('renders a p tag', () => {
+  test('renders a p tag', () => {
     const paragraph = getWrapper().find('p');
-    expect(paragraph.length).to.equal(1);
+    expect(paragraph.length).toBe(1);
   });
 
-  it('renders correct info text', () => {
+  test('renders correct info text', () => {
     const text = getWrapper().find('p').text();
-    expect(text).to.contain('ReservingRestrictedText.reservationRestricted');
+    expect(text).toContain('ReservingRestrictedText.reservationRestricted');
   });
 
-  it('display the date range when reserving is possible', () => {
+  test('display the date range when reserving is possible', () => {
     const text = getWrapper().find('p').text();
-    expect(text).to.contain('ReservingRestrictedText.reservationAvailableBetween');
+    expect(text).toContain('ReservingRestrictedText.reservationAvailableBetween');
   });
 });

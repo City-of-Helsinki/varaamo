@@ -1,10 +1,10 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import classNames from 'classnames';
 
 import { injectT } from 'i18n';
 import ReservationPopover from 'shared/reservation-popover';
 import utils from '../utils';
-import Link from './Link';
 
 export class UninjectedReservationSlot extends React.Component {
   static propTypes = {
@@ -36,18 +36,18 @@ export class UninjectedReservationSlot extends React.Component {
     const wasSelected = this.getIsSelected(this.props.selection);
     const isSelectableChanged = this.props.isSelectable !== nextProps.isSelectable;
     return (
-      isSelectableChanged ||
-      isSelected !== wasSelected ||
-      this.shouldShowPopover(wasSelected, nextProps)
+      isSelectableChanged
+      || isSelected !== wasSelected
+      || this.shouldShowPopover(wasSelected, nextProps)
     );
   }
 
   getIsSelected(selection = this.props.selection) {
     return (
-      selection &&
-      ((!selection.resourceId || selection.resourceId === this.props.resourceId) &&
-        this.props.begin >= selection.begin &&
-        this.props.end <= selection.end)
+      selection
+      && ((!selection.resourceId || selection.resourceId === this.props.resourceId)
+        && this.props.begin >= selection.begin
+        && this.props.end <= selection.end)
     );
   }
 
@@ -88,7 +88,7 @@ export class UninjectedReservationSlot extends React.Component {
   render() {
     const isSelected = this.getIsSelected();
     const slot = (
-      <Link
+      <button
         className={classNames('reservation-slot', {
           'reservation-slot-selected': isSelected,
           'reservation-slot-selectable': this.props.isSelectable,
@@ -97,9 +97,10 @@ export class UninjectedReservationSlot extends React.Component {
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
         style={{ width: utils.getTimeSlotWidth() }}
+        type="button"
       >
         <span className="a11y-text">Make reservation</span>
-      </Link>
+      </button>
     );
     if (this.shouldShowPopover(isSelected)) {
       return (

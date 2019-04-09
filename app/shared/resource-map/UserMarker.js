@@ -1,6 +1,7 @@
 import L from 'leaflet';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { Marker as LeafletMarker } from 'react-leaflet';
 
 import iconRetinaUrl from 'assets/map/usermarker-icon-2x.png';

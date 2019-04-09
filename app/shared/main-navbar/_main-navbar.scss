@@ -1,3 +1,5 @@
+$externalIconMarginLeft: 5px;
+
 .app-MainNavbar {
   background-color: $theme-primary-dark;
   margin-bottom: 0;
@@ -20,5 +22,18 @@
   .navbar-brand:hover,
   .navbar-toggle .icon-bar {
     color: $white;
+  }
+
+  .navbar-nav {
+    li {
+      a {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+
+  .app-fontAwesome {
+    margin-left: $externalIconMarginLeft;
   }
 }

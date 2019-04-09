@@ -1,25 +1,26 @@
-import Immutable from 'seamless-immutable';
 
 import types from 'constants/ActionTypes';
 import constants from 'constants/AppConstants';
 
-const initialState = Immutable({});
+import Immutable from 'seamless-immutable';
+
+const initialState = Immutable([]);
 
 function addNotification(state, notification) {
-  return [...state, Object.assign(
+  const mutableState = Immutable.asMutable(state);
+
+  mutableState.push(Object.assign(
     {},
     constants.NOTIFICATION_DEFAULTS,
     notification,
     { id: (state.length || 0) + 1 }
-  )];
+  ));
+
+  return Immutable(mutableState);
 }
 
 function hideNotification(state, index) {
-  return [
-    ...state.slice(0, index),
-    Object.assign({}, state[index], { hidden: true }),
-    ...state.slice(index + 1),
-  ];
+  return Number(index) >= 0 ? state.setIn([index, 'hidden'], true) : state;
 }
 
 function getErrorNotification(error) {
@@ -34,16 +35,16 @@ function getErrorNotification(error) {
       ...defaults,
       messageId: 'Notifications.loginMessage',
     };
-  } else if (
-    error.response &&
-    error.response.non_field_errors &&
-    error.response.non_field_errors.length
+  } if (
+    error.response
+    && error.response.non_field_errors
+    && error.response.non_field_errors.length
   ) {
     return {
       ...defaults,
       message: error.response.non_field_errors.join('. '),
     };
-  } else if (error.response && error.response.detail) {
+  } if (error.response && error.response.detail) {
     return {
       ...defaults,
       message: error.response.detail,
@@ -54,7 +55,6 @@ function getErrorNotification(error) {
 
 function notificationsReducer(state = initialState, action) {
   switch (action.type) {
-
   // Notification handling
 
     case types.UI.ADD_NOTIFICATION: {

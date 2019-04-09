@@ -1,11 +1,12 @@
-import React, { Component, PropTypes } from 'react';
-import { browserHistory } from 'react-router';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import camelCase from 'lodash/camelCase';
+import Link from 'react-router-dom/Link';
 
 import { fetchPurposes } from 'actions/purposeActions';
 import { injectT } from 'i18n';
@@ -27,11 +28,9 @@ const purposeIcons = {
 };
 
 class UnconnectedHomePage extends Component {
-
   constructor(props) {
     super(props);
     this.handleSearch = this.handleSearch.bind(this);
-    this.handleBannerClick = this.handleBannerClick.bind(this);
     this.renderPurposeBanner = this.renderPurposeBanner.bind(this);
   }
 
@@ -40,32 +39,26 @@ class UnconnectedHomePage extends Component {
   }
 
   handleSearch(value = '') {
-    browserHistory.push(`/search?search=${value}`);
-  }
-
-  handleBannerClick(purpose) {
-    browserHistory.push(`/search?purpose=${purpose}`);
+    this.props.history.push(`/search?search=${value}`);
   }
 
   renderPurposeBanner(purpose) {
     const { t } = this.props;
     const image = purposeIcons[camelCase(purpose.value)];
     return (
-      <Col className="app-HomePageContent__banner" key={purpose.value} md={3} sm={6} xs={6}>
-        <div>
+      <Col className="app-HomePageContent__banner" key={purpose.value} md={3} sm={6} xs={12}>
+        <Link className="app-HomePageContent__banner__linkWrapper" to={`/search?purpose=${purpose.value}`}>
           <img alt={purpose.label} src={image} />
           <h5>{purpose.label}</h5>
           <div className="app-HomePageContent__banner-action">
             <Button
               bsStyle="primary"
               className="app-HomePageContent__button"
-              onClick={() => this.handleBannerClick(purpose.value)}
-              type="submit"
             >
               {t('HomePage.buttonText')}
             </Button>
           </div>
-        </div>
+        </Link>
       </Col>
     );
   }
@@ -98,6 +91,7 @@ UnconnectedHomePage.propTypes = {
   actions: PropTypes.object.isRequired,
   isFetchingPurposes: PropTypes.bool.isRequired,
   purposes: PropTypes.array.isRequired,
+  history: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
 };
 

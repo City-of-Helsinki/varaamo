@@ -1,7 +1,7 @@
-import { expect } from 'chai';
+import AppConstants from 'constants/AppConstants';
+
 import simple from 'simple-mock';
 
-import AppConstants from 'constants/AppConstants';
 import trackingMiddleware, { track } from './tracking';
 
 describe('store/middleware/tracking', () => {
@@ -34,17 +34,17 @@ describe('store/middleware/tracking', () => {
       middleware(action);
     });
 
-    it('calls setTimeout', () => {
-      expect(window.setTimeout.callCount).to.equal(1);
+    test('calls setTimeout', () => {
+      expect(window.setTimeout.callCount).toBe(1);
       const args = window.setTimeout.lastCall.args;
-      expect(args).to.have.length(2);
-      expect(typeof args[0]).to.equal('function');
-      expect(args[1]).to.equal(0);
+      expect(args).toHaveLength(2);
+      expect(typeof args[0]).toBe('function');
+      expect(args[1]).toBe(0);
     });
 
-    it('dispatches action', () => {
-      expect(dispatch.callCount).to.equal(1);
-      expect(dispatch.lastCall.args).to.deep.equal([action]);
+    test('dispatches action', () => {
+      expect(dispatch.callCount).toBe(1);
+      expect(dispatch.lastCall.args).toEqual([action]);
     });
   });
 
@@ -54,13 +54,13 @@ describe('store/middleware/tracking', () => {
       middleware(action);
     });
 
-    it('does not call setTimeout', () => {
-      expect(window.setTimeout.callCount).to.equal(0);
+    test('does not call setTimeout', () => {
+      expect(window.setTimeout.callCount).toBe(0);
     });
 
-    it('dispatches action', () => {
-      expect(dispatch.callCount).to.equal(1);
-      expect(dispatch.lastCall.args).to.deep.equal([action]);
+    test('dispatches action', () => {
+      expect(dispatch.callCount).toBe(1);
+      expect(dispatch.lastCall.args).toEqual([action]);
     });
   });
 
@@ -81,18 +81,18 @@ describe('store/middleware/tracking', () => {
       push.reset();
     });
 
-    it('pushes track with correct data', () => {
+    test('pushes track with correct data', () => {
       track(trackData);
-      expect(push.callCount).to.equal(1);
-      expect(push.lastCall.args[0]).to.deep.equal(['trackEvent', 'argument1', 'argument2']);
+      expect(push.callCount).toBe(1);
+      expect(push.lastCall.args[0]).toEqual(['trackEvent', 'argument1', 'argument2']);
     });
 
-    it('waits for _paq to be defined', (done) => {
+    test('waits for _paq to be defined', (done) => {
       track(trackData);
       simple.mock(window, '_paq').returnWith({ push });
       timeoutFunc(
         () => {
-          expect(push.callCount).to.equal(1);
+          expect(push.callCount).toBe(1);
           done();
         },
         500
