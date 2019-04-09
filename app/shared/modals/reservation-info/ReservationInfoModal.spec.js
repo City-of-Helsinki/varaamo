@@ -121,10 +121,18 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
           });
 
           test('renders textarea FormControl for comments with correct props', () => {
-            const formControl = getCommentsForm(props).find(FormControl);
+            const wrapper = getWrapper(props);
+            const formControl = wrapper.find('.comments-form').find(FormControl);
+            const mockRef = { value: 'foo' };
+
+            formControl.prop('inputRef')(mockRef);
+            // change input value
+
             expect(formControl).toHaveLength(1);
             expect(formControl.prop('componentClass')).toBe('textarea');
             expect(formControl.prop('defaultValue')).toBe(reservation.comments);
+            expect(typeof formControl.prop('inputRef')).toBe('function');
+            expect(wrapper.instance().commentsInput).toEqual(mockRef);
           });
 
           test('renders a save button with correct onClick prop', () => {
@@ -363,7 +371,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
     beforeAll(() => {
       const instance = getWrapper({ onSaveCommentsClick }).instance();
       // override ref value to mock
-      instance.commentsInput.current = { value: comments };
+      instance.commentsInput = { value: comments };
       instance.handleSaveCommentsClick();
     });
 
