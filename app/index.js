@@ -24,17 +24,13 @@ const finalState = Immutable(initialStoreState).merge([initialServerState, initi
   deep: true,
 });
 const store = configureStore(finalState);
+const isIEBrowser = browserName === 'IE';
 
-if (browserName === 'IE') {
-  render(
-    <BrowserWarning />,
-    document.getElementById('root')
-  );
-} else {
-  render(
+// TODO: Support IE11 in the future.
+render(isIEBrowser ? <BrowserWarning />
+  : (
     <Provider store={store}>
       <Router>{getRoutes()}</Router>
-    </Provider>,
-    document.getElementById('root')
-  );
-}
+    </Provider>
+  ),
+document.getElementById('root'));
