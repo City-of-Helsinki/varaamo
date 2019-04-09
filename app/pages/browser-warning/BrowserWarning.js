@@ -4,7 +4,7 @@ function BrowserWarning() {
   return (
     <div>
       <p className="alert alert-warning">
-        Currently, Varaamo does not support IE11.
+        Currently, Varaamo does not support Internet Explorer.
         We are investigating this issue and finding a solution.
         Meanwhile, use another browser (such as
         <a href="https://www.google.com/chrome/"> Chrome</a>
@@ -15,7 +15,7 @@ function BrowserWarning() {
         ).
       </p>
       <p className="alert alert-warning">
-        Varaamo ei tue IE11 selainta tällä hetkellä.
+        Varaamo ei tue Internet Explorer selainta tällä hetkellä.
         Selvitämme ongelmaa sen ratkaisemiseksi.
         Sillä välin, käytä toista selainta (kuten
         <a href="https://www.google.com/chrome/"> Chrome</a>
@@ -26,7 +26,7 @@ function BrowserWarning() {
         ).
       </p>
       <p className="alert alert-warning">
-        Varaamo fungerar inte längre med Internet Explorer 11.
+        Varaamo fungerar inte längre med Internet Explorer.
         Vi arbetar med att lösa problemet.
         Under tiden så var vänlig och använd någon annan browser (t.ex
         <a href="https://www.google.com/chrome/"> Chrome</a>
