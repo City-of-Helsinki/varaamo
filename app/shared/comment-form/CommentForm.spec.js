@@ -27,11 +27,18 @@ describe('shared/comment-form/CommentForm', () => {
 
     describe('comments textarea', () => {
       test('renders a FormControl with correct props', () => {
-        const formControl = getWrapper().find(FormControl);
+        const wrapper = getWrapper();
+        const formControl = wrapper.find(FormControl);
+        const mockRef = { value: 'foo' };
+
+        formControl.prop('inputRef')(mockRef);
+        // change input
 
         expect(formControl.length).toBe(1);
         expect(formControl.prop('componentClass')).toBe('textarea');
         expect(formControl.prop('defaultValue')).toBe(defaultProps.defaultValue);
+        expect(typeof formControl.prop('inputRef')).toBe('function');
+        expect(wrapper.instance().commentsInput).toEqual(mockRef);
       });
     });
 
@@ -75,7 +82,7 @@ describe('shared/comment-form/CommentForm', () => {
     beforeAll(() => {
       const instance = getWrapper().instance();
       // override ref value to mock
-      instance.commentsInput.current = { value: comments };
+      instance.commentsInput = { value: comments };
 
       defaultProps.onSave.reset();
       instance.handleSave(mockEvent);
