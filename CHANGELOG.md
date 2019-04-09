@@ -1,3 +1,7 @@
+* 0.1.1
+    ** HOTFIX **
+
+    - [#913](https://github.com/City-of-Helsinki/varaamo/pull/913) Fix issue staff comment section is not working. Reason: React-bootstrap ref prop which is deprecated and replace with inputProps
 * 0.1.0
     ** MAJOR CHANGES **
 
@@ -21,7 +25,7 @@
 
     - #875: Expand advanced search panel when filters are applied.
 
-    - #876: Free-of-charge filter for resources. 
+    - #876: Free-of-charge filter for resources.
 
     - #878: Remove the link for old website from the footer.
 
