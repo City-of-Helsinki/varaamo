@@ -17,6 +17,7 @@ const initialState = Immutable({
     start: '',
     end: '',
     useTimeRange: false,
+    orderBy: '',
   },
   page: 1,
   position: null,

@@ -180,6 +180,7 @@ describe('state/reducers/ui/searchReducer', () => {
           search: '',
           start: '',
           useTimeRange: false,
+          orderBy: ''
         };
         const action = clearSearchResults();
         const initialState = Immutable({ filters });
