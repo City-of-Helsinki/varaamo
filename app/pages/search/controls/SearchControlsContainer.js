@@ -164,7 +164,7 @@ class UnconnectedSearchControlsContainer extends Component {
               defaultExpanded={hasFilters}
               header={t('SearchControlsContainer.advancedSearch')}
             >
-              <Row>
+              <Row className="app-SearchControlsContainer__municipalityRow">
                 <Col md={12}>
                   <SelectControl
                     id="municipality"
@@ -180,7 +180,7 @@ class UnconnectedSearchControlsContainer extends Component {
                   />
                 </Col>
               </Row>
-              <Row>
+              <Row className="app-SearchControlsContainer__filter-dropdown-row">
                 <Col className="app-SearchControlsContainer__control" md={4} sm={12}>
                   <SelectControl
                     id="purpose"
@@ -215,7 +215,7 @@ class UnconnectedSearchControlsContainer extends Component {
                   />
                 </Col>
               </Row>
-              <Row>
+              <Row className="app-SearchControlsContainer__radio-buttons-row">
                 <Col className="app-SearchControlsContainer__control" md={4} sm={6}>
                   <PositionControl
                     geolocated={Boolean(this.props.position)}
