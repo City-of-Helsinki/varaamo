@@ -11,9 +11,6 @@ $selectDropdownAfterMarginTop: 4px;
 $selectDropdownPaddingRight: 4px;
 
 .app-Select {
-  display: flex;
-  flex: 1;
-
   .app-Select__control {
     border: $selectBorderWidth solid $input-border;
     border-radius: $selectBorderRadius;
