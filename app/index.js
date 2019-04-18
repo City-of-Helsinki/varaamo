@@ -1,5 +1,4 @@
 import 'react-app-polyfill/ie11';
-import { browserName } from 'react-device-detect';
 import 'location-origin';
 import React from 'react';
 import { render } from 'react-dom';
@@ -15,7 +14,6 @@ import { initI18n } from 'i18n';
 import configureStore from 'store/configureStore';
 import rootReducer from 'state/rootReducer';
 import getRoutes from './routes';
-import BrowserWarning from './pages/browser-warning';
 
 const initialStoreState = createStore(rootReducer, {}).getState();
 const initialServerState = window.INITIAL_STATE;
@@ -24,13 +22,10 @@ const finalState = Immutable(initialStoreState).merge([initialServerState, initi
   deep: true,
 });
 const store = configureStore(finalState);
-const isIEBrowser = browserName === 'IE';
 
-// TODO: Support IE11 in the future.
-render(isIEBrowser ? <BrowserWarning />
-  : (
-    <Provider store={store}>
-      <Router>{getRoutes()}</Router>
-    </Provider>
-  ),
-document.getElementById('root'));
+render(
+  <Provider store={store}>
+    <Router>{getRoutes()}</Router>
+  </Provider>,
+  document.getElementById('root')
+);
