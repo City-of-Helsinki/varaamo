@@ -99,36 +99,36 @@ class UnconnectedSearchPage extends Component {
         {!isFetchingSearchResults && (
           <MapToggle mapVisible={showMap} onClick={actions.toggleMap} resultCount={resultCount} />
         )}
-        {showMap && (
+        {showMap ? (
           <ResourceMap
             location={location}
             resourceIds={searchResultIds}
             selectedUnitId={selectedUnitId}
             showMap={showMap}
           />
+        ) : (
+          <PageWrapper className="app-SearchPage__wrapper" title={t('SearchPage.title')} transparent>
+            <Row className="app-SearchPage__sortControlRow">
+              <Col className="app-SearchPage__sortControl" md={4} mdOffset={8} sm={6}>
+                <Sort onChange={this.sortResource} sortValue={filters.orderBy} />
+              </Col>
+            </Row>
+            <div className="app-SearchPage__content">
+              {(searchDone || isFetchingSearchResults) && (
+                <SearchResults
+                  history={history}
+                  isFetching={isFetchingSearchResults}
+                  location={location}
+                  ref="searchResults"
+                  resultCount={resultCount}
+                  searchResultIds={searchResultIds}
+                  selectedUnitId={selectedUnitId}
+                  showMap={showMap}
+                />
+              )}
+            </div>
+          </PageWrapper>
         )}
-
-        <PageWrapper className="app-SearchPage__wrapper" title={t('SearchPage.title')} transparent>
-          <Row className="app-SearchPage__sortControlRow">
-            <Col className="app-SearchPage__sortControl" md={4} mdOffset={8} sm={6}>
-              <Sort onChange={this.sortResource} sortValue={filters.orderBy} />
-            </Col>
-          </Row>
-          <div className="app-SearchPage__content">
-            {(searchDone || isFetchingSearchResults) && (
-              <SearchResults
-                history={history}
-                isFetching={isFetchingSearchResults}
-                location={location}
-                ref="searchResults"
-                resultCount={resultCount}
-                searchResultIds={searchResultIds}
-                selectedUnitId={selectedUnitId}
-                showMap={showMap}
-              />
-            )}
-          </div>
-        </PageWrapper>
       </div>
     );
   }
