@@ -13,8 +13,9 @@ const messages = {
 };
 
 function changeLocale(language) {
-  savePersistLocale(language);
   const locale = language === 'sv' ? 'se' : language;
+  savePersistLocale(locale);
+
   moment.locale(`varaamo-${locale}`);
   return updateIntl({
     locale,
