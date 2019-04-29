@@ -84,6 +84,13 @@ describe('Utils: timeUtils', () => {
       }
     );
 
+    test('default timezone is your local timezone', () => {
+      const timeZoneFromDate = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const timeZoneFromMoment = moment.tz.guess(true);
+
+      expect(timeZoneFromMoment).toEqual(timeZoneFromDate);
+    });
+
     test(
       'returns an object with availableBetween, end and start in correct form when end is 23:30',
       () => {
