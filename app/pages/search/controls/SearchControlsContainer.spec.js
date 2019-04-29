@@ -504,16 +504,16 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(options[0].label).toEqual('Foo');
     });
 
-    test('still work with single item', () => {
+    test('doesnt work with empty array', () => {
       const instance = getWrapper().instance();
 
       global.SETTINGS = {
-        CUSTOM_MUNICIPALITY_OPTIONS: ['Foo']
+        CUSTOM_MUNICIPALITY_OPTIONS: []
       };
 
       const options = instance.getMunicipalityOptions();
 
-      expect(options[0].label).toEqual('Foo');
+      expect(options[0].label).toEqual(constants.DEFAULT_MUNICIPALITY_OPTIONS[0]);
     });
 
     test('use default in case of error, bad env var', () => {
@@ -526,6 +526,31 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       const options = instance.getMunicipalityOptions();
 
       expect(options[0].label).toEqual(constants.DEFAULT_MUNICIPALITY_OPTIONS[0]);
+    });
+
+    test('still work if value is number instead of string', () => {
+      const instance = getWrapper().instance();
+
+      global.SETTINGS = {
+        CUSTOM_MUNICIPALITY_OPTIONS: [123, 456]
+      };
+
+      const options = instance.getMunicipalityOptions();
+
+      expect(options[0].label).toEqual('123');
+    });
+
+    test('label is capitalized, value is in lowercase', () => {
+      const instance = getWrapper().instance();
+
+      global.SETTINGS = {
+        CUSTOM_MUNICIPALITY_OPTIONS: ['foo']
+      };
+
+      const options = instance.getMunicipalityOptions();
+
+      expect(options[0].label).toEqual('Foo');
+      expect(options[0].value).toEqual('foo');
     });
 
     afterAll(() => {

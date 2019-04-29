@@ -1,6 +1,7 @@
 import constants from 'constants/AppConstants';
 
 import range from 'lodash/range';
+import capitalize from 'lodash/capitalize';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
@@ -61,10 +62,14 @@ class UnconnectedSearchControlsContainer extends Component {
       municipalities = SETTINGS.CUSTOM_MUNICIPALITY_OPTIONS;
     }
 
-    return municipalities.map(municipality => ({
-      value: municipality.toLowerCase(),
-      label: municipality,
-    }));
+    return municipalities.map((municipality) => {
+      const municipalityStr = typeof municipality === 'string' ? municipality : municipality.toString();
+
+      return {
+        value: municipalityStr.toLowerCase(),
+        label: capitalize(municipalityStr),
+      };
+    });
   };
 
   handleDateChange = ({ date }) => {
