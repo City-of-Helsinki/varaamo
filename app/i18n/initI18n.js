@@ -1,7 +1,7 @@
 import 'moment/locale/en-gb';
 import 'moment/locale/fi';
 import 'moment/locale/sv';
-import 'moment-timezone';
+import 'moment-timezone/builds/moment-timezone-with-data-10-year-range';
 
 import constants from 'constants/AppConstants';
 
@@ -22,7 +22,6 @@ const messages = {
   fi: fiMessages,
   se: svMessages,
 };
-moment.tz.setDefault('Europe/Helsinki');
 
 moment.defineLocale('varaamo-en', {
   parentLocale: 'en-gb',
