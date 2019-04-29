@@ -45,7 +45,7 @@ export default {
     },
   },
   SEARCH_PAGE_SIZE: 30,
-  SEARCH_MUNICIPALITY_OPTIONS: ['Helsinki', 'Espoo', 'Vantaa'],
+  DEFAULT_MUNICIPALITY_OPTIONS: ['Helsinki', 'Espoo', 'Vantaa'],
   SHOW_TEST_SITE_MESSAGE: SETTINGS.SHOW_TEST_SITE_MESSAGE,
   SUPPORTED_LANGUAGES: ['en', 'fi', 'sv'],
   SUPPORTED_SEARCH_FILTERS: {

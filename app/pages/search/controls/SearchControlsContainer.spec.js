@@ -483,4 +483,53 @@ describe('pages/search/controls/SearchControlsContainer', () => {
       expect(actions.fetchPurposes.callCount).toBe(1);
     });
   });
+
+  describe('getMunicipalityOptions', () => {
+    test('return options default from 3 central cities', () => {
+      const instance = getWrapper().instance();
+      const options = instance.getMunicipalityOptions();
+
+      expect(options[0].label).toEqual(constants.DEFAULT_MUNICIPALITY_OPTIONS[0]);
+    });
+
+    test('return options custom from env', () => {
+      const instance = getWrapper().instance();
+
+      global.SETTINGS = {
+        CUSTOM_MUNICIPALITY_OPTIONS: ['Foo', 'Bar']
+      };
+
+      const options = instance.getMunicipalityOptions();
+
+      expect(options[0].label).toEqual('Foo');
+    });
+
+    test('still work with single item', () => {
+      const instance = getWrapper().instance();
+
+      global.SETTINGS = {
+        CUSTOM_MUNICIPALITY_OPTIONS: ['Foo']
+      };
+
+      const options = instance.getMunicipalityOptions();
+
+      expect(options[0].label).toEqual('Foo');
+    });
+
+    test('use default in case of error, bad env var', () => {
+      const instance = getWrapper().instance();
+
+      global.SETTINGS = {
+        CUSTOM_MUNICIPALITY_OPTIONS: 'fooo'
+      };
+
+      const options = instance.getMunicipalityOptions();
+
+      expect(options[0].label).toEqual(constants.DEFAULT_MUNICIPALITY_OPTIONS[0]);
+    });
+
+    afterAll(() => {
+      delete global.SETTINGS;
+    });
+  });
 });

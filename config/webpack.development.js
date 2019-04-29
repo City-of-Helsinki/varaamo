@@ -69,6 +69,7 @@ module.exports = merge(common, {
         API_URL: JSON.stringify(process.env.API_URL || 'https://api.hel.fi/respa-test/v1'),
         SHOW_TEST_SITE_MESSAGE: Boolean(process.env.SHOW_TEST_SITE_MESSAGE),
         TRACKING: Boolean(process.env.PIWIK_SITE_ID),
+        CUSTOM_MUNICIPALITY_OPTIONS: process.env.CUSTOM_MUNICIPALITY_OPTIONS
       },
     }),
     new webpack.HotModuleReplacementPlugin(),

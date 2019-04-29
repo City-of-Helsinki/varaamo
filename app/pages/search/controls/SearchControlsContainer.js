@@ -53,10 +53,19 @@ class UnconnectedSearchControlsContainer extends Component {
     return options;
   }
 
-  getMunicipalityOptions = () => constants.SEARCH_MUNICIPALITY_OPTIONS.map(municipality => ({
-    value: municipality.toLowerCase(),
-    label: municipality,
-  }));
+  getMunicipalityOptions = () => {
+    let municipalities = constants.DEFAULT_MUNICIPALITY_OPTIONS;
+
+    if (Array.isArray(SETTINGS.CUSTOM_MUNICIPALITY_OPTIONS)
+    && SETTINGS.CUSTOM_MUNICIPALITY_OPTIONS.length) {
+      municipalities = SETTINGS.CUSTOM_MUNICIPALITY_OPTIONS;
+    }
+
+    return municipalities.map(municipality => ({
+      value: municipality.toLowerCase(),
+      label: municipality,
+    }));
+  };
 
   handleDateChange = ({ date }) => {
     const dateInCorrectFormat = moment(date, 'L').format(constants.DATE_FORMAT);
