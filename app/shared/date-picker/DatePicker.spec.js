@@ -3,7 +3,7 @@ import React from 'react';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import simple from 'simple-mock';
 
-import DatePicker from './DatePicker';
+import { UnconnectedDatePicker as DatePicker } from './DatePicker';
 
 function getWrapper(props) {
   const defaults = {
@@ -31,6 +31,20 @@ describe('shared/date-picker/DatePicker', () => {
       dateField.prop('onDayChange')(newDate);
       expect(onChange.callCount).toBe(1);
       expect(onChange.lastCall.arg).toBe(expectedDate);
+    });
+
+    test('have default locale prop', () => {
+      const defaultLocale = 'fi';
+      const dateField = getDateFieldWrapper();
+
+      expect(dateField.prop('dayPickerProps').locale).toEqual(defaultLocale);
+    });
+
+    test('have locale prop passed from redux state', () => {
+      const mockLocale = 'se';
+      const dateField = getDateFieldWrapper({ currentLocale: mockLocale });
+
+      expect(dateField.prop('dayPickerProps').locale).toEqual(mockLocale);
     });
   });
 });

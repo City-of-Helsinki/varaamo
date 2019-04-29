@@ -1,3 +1,5 @@
+import AppConstants from 'constants/AppConstants';
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
@@ -5,18 +7,19 @@ import MomentLocaleUtils, {
   formatDate,
   parseDate,
 } from 'react-day-picker/moment';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
-const dateFormat = 'YYYY-MM-DD';
+
+import { currentLanguageSelector } from 'state/selectors/translationSelectors';
+
+const defaultDateFormat = 'YYYY-MM-DD';
 const localizedDateFormat = 'D.M.YYYY';
 
-DatePicker.propTypes = {
-  dateFormat: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
-};
-
-function DatePicker(props) {
-  const pickerDateFormat = props.dateFormat || localizedDateFormat;
+export function UnconnectedDatePicker({
+  dateFormat, onChange, currentLocale, value, rest
+}) {
+  const pickerDateFormat = dateFormat || localizedDateFormat;
 
   return (
     <DayPickerInput
@@ -27,15 +30,33 @@ function DatePicker(props) {
       dayPickerProps={{
         showOutsideDays: true,
         localeUtils: MomentLocaleUtils,
+        locale: currentLocale
       }}
       format={pickerDateFormat}
       formatDate={formatDate}
       keepFocus={false}
-      onDayChange={date => props.onChange(formatDate(date, dateFormat))}
+      onDayChange={date => onChange(formatDate(date, defaultDateFormat))}
       parseDate={parseDate}
-      value={new Date(props.value)}
+      value={new Date(value)}
+      {...rest}
     />
   );
 }
 
-export default DatePicker;
+UnconnectedDatePicker.propTypes = {
+  dateFormat: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  currentLocale: PropTypes.string,
+  rest: PropTypes.object
+};
+
+UnconnectedDatePicker.defaultProps = {
+  currentLocale: AppConstants.DEFAULT_LOCALE
+};
+
+const languageSelector = createStructuredSelector({
+  currentLocale: currentLanguageSelector
+});
+
+export default connect(languageSelector)(UnconnectedDatePicker);
