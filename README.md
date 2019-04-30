@@ -62,13 +62,26 @@ By default the running app can be found at `localhost:3000`.
     ```
 
     OR prepare .env with default content:
-    
+
     ```
     CLIENT_ID
     CLIENT_SECRET
     SESSION_SECRET
     TARGET_APP
+    API_URL
+    CUSTOM_MUNICIPALITY_OPTIONS
     ```
+
+    Environment's variable guideline:
+
+    - `API_URL`:
+      Custom config to replace global application's api URL. Expected value is valid URL string.
+
+    - `CUSTOM_MUNICIPALITY_OPTIONS`:
+      Config for custom municipalities. Expected value is array of municipalities: `['example_city']`.
+
+      Without this config, default to use 3 central cities Helsinki, Espoo, Vantaa as options.
+
 
 3. Then, start the development server:
 
@@ -144,7 +157,7 @@ OR enable `eslint --fix` onSave config in your code editor config.
     ```
     $ docker-compose exec web sh
     ```
-- Remove docker container if needed: 
+- Remove docker container if needed:
     ```
     $ docker rm -f varaamo-frontend
     ```
@@ -185,17 +198,17 @@ Running Vscode debugger
 All setting was included under .vscode directory.
 
 - On Chrome:
-    [Guideline](https://code.visualstudio.com/blogs/2016/02/23/introducing-chrome-debugger-for-vs-code). Setting was under `Vscode debugger` name 
+    [Guideline](https://code.visualstudio.com/blogs/2016/02/23/introducing-chrome-debugger-for-vs-code). Setting was under `Vscode debugger` name
 - On Jest test:
     [Guideline](https://jestjs.io/docs/en/troubleshooting#debugging-in-vs-code). Setting was under `Vscode Jest debugger` name.
-    
+
     - Put breakpoint in test file `(*.spec.js)`
-    
+
     - Run command:
 
     ```
     $ yarn test:debug
-    ``` 
+    ```
 
 License
 -------
