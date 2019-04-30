@@ -78,7 +78,7 @@ By default the running app can be found at `localhost:3000`.
       Custom config to replace global application's api URL. Expected value is valid URL string.
 
     - `CUSTOM_MUNICIPALITY_OPTIONS`:
-      Config for custom municipalities. Expected value is array of municipalities: `['example_city']`.
+      Config for custom municipalities. Expected value should be array of cities: `['Tampere','Jyväskylä','Oulu']`.
 
       Without this config, default to use 3 central cities Helsinki, Espoo, Vantaa as options.
 
