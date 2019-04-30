@@ -1,6 +1,7 @@
 import constants from 'constants/AppConstants';
 
 import range from 'lodash/range';
+import capitalize from 'lodash/capitalize';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
@@ -53,10 +54,23 @@ class UnconnectedSearchControlsContainer extends Component {
     return options;
   }
 
-  getMunicipalityOptions = () => constants.SEARCH_MUNICIPALITY_OPTIONS.map(municipality => ({
-    value: municipality.toLowerCase(),
-    label: municipality,
-  }));
+  getMunicipalityOptions = () => {
+    let municipalities = constants.DEFAULT_MUNICIPALITY_OPTIONS;
+
+    if (Array.isArray(SETTINGS.CUSTOM_MUNICIPALITY_OPTIONS)
+    && SETTINGS.CUSTOM_MUNICIPALITY_OPTIONS.length) {
+      municipalities = SETTINGS.CUSTOM_MUNICIPALITY_OPTIONS;
+    }
+
+    return municipalities.map((municipality) => {
+      const municipalityStr = typeof municipality === 'string' ? municipality : municipality.toString();
+
+      return {
+        value: municipalityStr.toLowerCase(),
+        label: capitalize(municipalityStr),
+      };
+    });
+  };
 
   handleDateChange = ({ date }) => {
     const dateInCorrectFormat = moment(date, 'L').format(constants.DATE_FORMAT);
