@@ -2,6 +2,7 @@ import constants from 'constants/AppConstants';
 
 import range from 'lodash/range';
 import capitalize from 'lodash/capitalize';
+import isEmpty from 'lodash/isEmpty';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
@@ -130,8 +131,8 @@ class UnconnectedSearchControlsContainer extends Component {
   hasAdvancedFilters() {
     const { filters, position } = this.props;
     let hasFilters = Boolean(position);
-    ['freeOfCharge', 'end', 'distance', 'duration', 'purpose', 'start', 'unit'].forEach((key) => {
-      if (filters[key]) {
+    ['freeOfCharge', 'end', 'distance', 'duration', 'purpose', 'start', 'unit', 'municipality'].forEach((key) => {
+      if (!isEmpty(filters[key])) {
         hasFilters = true;
       }
     });

@@ -10,7 +10,7 @@ const initialState = Immutable({
     date: '',
     people: '',
     purpose: '',
-    municipality: '',
+    municipality: [],
     search: '',
     distance: '',
     duration: 0,

@@ -174,7 +174,7 @@ describe('state/reducers/ui/searchReducer', () => {
           distance: '',
           duration: 0,
           end: '',
-          municipality: '',
+          municipality: [],
           people: '',
           purpose: '',
           search: '',
