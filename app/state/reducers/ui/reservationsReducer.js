@@ -26,8 +26,8 @@ const initialState = Immutable({
 });
 
 function selectReservationToEdit(state, action) {
-  const { minPeriod, reservation } = action.payload;
-  const slots = getTimeSlots(reservation.begin, reservation.end, minPeriod);
+  const { slotSize, reservation } = action.payload;
+  const slots = getTimeSlots(reservation.begin, reservation.end, slotSize);
   const firstSlot = first(slots);
   const selected = [
     {

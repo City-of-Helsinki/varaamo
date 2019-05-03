@@ -1,3 +1,5 @@
+import { DEFAULT_SLOT_SIZE } from 'constants/SlotConstants';
+
 import { Factory } from 'rosie';
 
 const Resource = new Factory()
@@ -14,5 +16,6 @@ const Resource = new Factory()
   .attr('reservableAfter', null)
   .attr('supportedReservationExtraFields', [])
   .attr('userPermissions', { isAdmin: false, canMakeReservations: true })
-  .attr('isFavorite', false);
+  .attr('isFavorite', false)
+  .attr('slot_size', DEFAULT_SLOT_SIZE);
 export default Resource;

@@ -385,15 +385,15 @@ describe('state/reducers/ui/reservationsReducer', () => {
       test('splits the given reservation to slots and add to selected', () => {
         const begin = '2015-10-09T08:00:00+03:00';
         const end = '2015-10-09T10:00:00+03:00';
-        const minPeriod = '00:30:00';
+        const slotSize = '00:30:00';
         const reservation = Reservation.build({ begin, end });
         const initialState = Immutable({
           selected: [],
           toEdit: [],
         });
-        const action = selectReservationToEdit({ reservation, minPeriod });
+        const action = selectReservationToEdit({ reservation, slotSize });
         const nextState = reservationsReducer(initialState, action);
-        const slots = getTimeSlots(reservation.begin, reservation.end, minPeriod);
+        const slots = getTimeSlots(reservation.begin, reservation.end, slotSize);
         const firstSlot = first(slots);
         const lastSlot = last(slots);
         const expected = [
