@@ -281,6 +281,14 @@ describe('Utils: timeUtils', () => {
       const end = '2015-10-09T10:00:00+03:00';
       const period = '00:30:00';
 
+      test('default period to 30 mins', () => {
+        const slots = getTimeSlots(start, end);
+        const startTime = moment(slots[0].start);
+        const endTime = moment(slots[0].end);
+
+        expect(moment.duration(endTime.diff(startTime)).asMinutes()).toEqual(30);
+      });
+
       test('returns an empty array if start is missing', () => {
         const actual = getTimeSlots(undefined, end, period);
 

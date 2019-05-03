@@ -1,4 +1,5 @@
 import constants from 'constants/AppConstants';
+import { DEFAULT_SLOT_SIZE } from 'constants/SlotConstants';
 
 import forEach from 'lodash/forEach';
 import map from 'lodash/map';
@@ -89,7 +90,12 @@ function getStartTimeString(startTime) {
   return startTime;
 }
 
-function getTimeSlots(start, end, period = '00:30:00', reservations = [], reservationsToEdit = []) {
+function getTimeSlots(
+  start, end,
+  period = DEFAULT_SLOT_SIZE,
+  reservations = [],
+  reservationsToEdit = []
+) {
   if (!start || !end) {
     return [];
   }

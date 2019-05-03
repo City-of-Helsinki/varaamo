@@ -1,4 +1,5 @@
 import ActionTypes from 'constants/ActionTypes';
+import { DEFAULT_SLOT_SIZE } from 'constants/SlotConstants';
 
 import filter from 'lodash/filter';
 import isEmpty from 'lodash/isEmpty';
@@ -76,7 +77,7 @@ const timeSlotsSelector = createSelector(
   toEditSelector,
   (resourceDates, reservationsToEdit) => resourceDates.map((resource) => {
     const { closes, opens } = getOpeningHours(resource);
-    const period = resource.minPeriod ? resource.minPeriod : undefined;
+    const period = resource.slot_size || DEFAULT_SLOT_SIZE;
     const reservations = getOpenReservations(resource);
     const timeSlots = getTimeSlots(opens, closes, period, reservations, reservationsToEdit);
     if (timeSlots.length) {
