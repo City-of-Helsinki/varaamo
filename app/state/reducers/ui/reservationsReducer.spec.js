@@ -1,9 +1,11 @@
 import types from 'constants/ActionTypes';
+import { DEFAULT_SLOT_SIZE } from 'constants/SlotConstants';
 
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 import first from 'lodash/first';
 import last from 'lodash/last';
+
 
 import {
   cancelReservationEdit,
@@ -385,7 +387,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
       test('splits the given reservation to slots and add to selected', () => {
         const begin = '2015-10-09T08:00:00+03:00';
         const end = '2015-10-09T10:00:00+03:00';
-        const slotSize = '00:30:00';
+        const slotSize = DEFAULT_SLOT_SIZE;
         const reservation = Reservation.build({ begin, end });
         const initialState = Immutable({
           selected: [],

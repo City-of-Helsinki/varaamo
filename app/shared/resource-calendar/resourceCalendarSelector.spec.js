@@ -43,7 +43,7 @@ describe('shared/resource-calendar/resourceCalendarSelector', () => {
         ends: '2015-10-11T20:00:00+03:00',
       },
     ],
-    minPeriod: '01:00:00',
+    slot_size: '01:00:00',
     openingHours: openingHoursMonth,
     reservations: [
       // Day 2015-10-10 is partially available

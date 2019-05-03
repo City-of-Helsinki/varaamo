@@ -1,4 +1,5 @@
 import constants from 'constants/AppConstants';
+import { DEFAULT_SLOT_SIZE } from 'constants/SlotConstants';
 
 import MockDate from 'mockdate';
 import Moment from 'moment';
@@ -279,7 +280,7 @@ describe('Utils: timeUtils', () => {
     describe('When critical info is missing', () => {
       const start = '2015-10-09T08:00:00+03:00';
       const end = '2015-10-09T10:00:00+03:00';
-      const period = '00:30:00';
+      const period = DEFAULT_SLOT_SIZE;
 
       test('default period to 30 mins', () => {
         const slots = getTimeSlots(start, end);
@@ -322,7 +323,7 @@ describe('Utils: timeUtils', () => {
     describe('When dividing 2 hours into 30 min slots', () => {
       const start = '2015-10-09T08:00:00+03:00';
       const end = '2015-10-09T10:00:00+03:00';
-      const period = '00:30:00';
+      const period = DEFAULT_SLOT_SIZE;
       const duration = moment.duration(period);
       const slots = getTimeSlots(start, end, period);
 
@@ -406,7 +407,7 @@ describe('Utils: timeUtils', () => {
     describe('slot reserved property', () => {
       const start = '2015-10-09T08:00:00+03:00';
       const end = '2015-10-09T10:00:00+03:00';
-      const period = '00:30:00';
+      const period = DEFAULT_SLOT_SIZE;
 
       describe('with one reservation', () => {
         const reservations = [
@@ -462,7 +463,7 @@ describe('Utils: timeUtils', () => {
     describe('slot reservationStarting and reservationEnding properties during reservation', () => {
       const start = '2015-10-09T08:00:00+03:00';
       const end = '2015-10-09T09:30:00+03:00';
-      const period = '00:30:00';
+      const period = DEFAULT_SLOT_SIZE;
       const reservations = [
         {
           begin: '2015-10-09T08:00:00+03:00',
@@ -487,7 +488,7 @@ describe('Utils: timeUtils', () => {
     describe('slot editing property', () => {
       const start = '2015-10-09T08:00:00+03:00';
       const end = '2015-10-09T10:00:00+03:00';
-      const period = '00:30:00';
+      const period = DEFAULT_SLOT_SIZE;
       const reservations = [];
 
       describe('with one reservation to edit', () => {

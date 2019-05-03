@@ -1,4 +1,5 @@
 import constants from 'constants/AppConstants';
+import { DEFAULT_SLOT_SIZE } from 'constants/SlotConstants';
 
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
@@ -41,7 +42,7 @@ class ReservationTimeControls extends Component {
   };
 
   static defaultProps = {
-    period: '00:30:00',
+    period: DEFAULT_SLOT_SIZE,
     timeFormat: 'HH:mm',
   };
 

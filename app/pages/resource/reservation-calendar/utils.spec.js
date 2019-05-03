@@ -1,5 +1,5 @@
 import { openingHoursMonth } from 'constants/ResourceConstants';
-
+import { DEFAULT_SLOT_SIZE } from 'constants/SlotConstants';
 // import moment from 'moment';
 
 import Resource from 'utils/fixtures/Resource';
@@ -132,7 +132,7 @@ describe('pages/resource/reservation-calendar/utils', () => {
           start: '2015-10-10T13:00:00Z',
           end: '2015-10-10T13:30:00Z',
         };
-        const resourceMaxPeriod = Resource.build({ maxPeriod: '00:30:00' });
+        const resourceMaxPeriod = Resource.build({ maxPeriod: DEFAULT_SLOT_SIZE });
         const actual = utils.isSlotSelectable(slotAfterMaxPeriod, selected,
           resourceMaxPeriod, lastSelectableFound, isAdmin);
         expect(actual).toBe(false);
@@ -146,7 +146,7 @@ describe('pages/resource/reservation-calendar/utils', () => {
           start: '2015-10-10T13:00:00Z',
           end: '2015-10-10T13:30:00Z',
         };
-        const resourceMaxPeriod = Resource.build({ maxPeriod: '00:30:00' });
+        const resourceMaxPeriod = Resource.build({ maxPeriod: DEFAULT_SLOT_SIZE });
         const actual = utils.isSlotSelectable(slotAfterMaxPeriod, selected,
           resourceMaxPeriod, lastSelectableFound, true);
         expect(actual).toBe(true);
