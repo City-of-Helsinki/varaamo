@@ -302,12 +302,6 @@ describe('Utils: timeUtils', () => {
         expect(actual).toEqual([]);
       });
 
-      test('uses 30 minutes as default duration if period is missing', () => {
-        const actual = getTimeSlots(start, end, undefined);
-
-        expect(actual.length).toBe(4);
-      });
-
       test(
         'uses empty array as default reservations if no reservations is given',
         () => {
