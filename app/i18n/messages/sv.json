@@ -125,6 +125,7 @@
   "Notifications.loginToReserve": "Logga in för att boka detta utrymme.",
   "Notifications.reservationDeleteSuccessMessage": "Bokningen avbokades.",
   "Notifications.reservationUpdateSuccessMessage": "Bokningen uppdaterades.",
+  "Notifications.selectTimeToReserve.warning": "The reservation overlaps with the existing reservation or is outside the opening hours.",
   "Notifications.selectTimeToReserve": "Välj en tidpunkt som du vill boka.",
   "Partners.kaupunginkirjatoImageAlt": "Helsingfors stadsbibliotek",
   "Partners.nuorisoasiainkeskusImageAlt": "Helsingfors stad - ungdomscentralen",

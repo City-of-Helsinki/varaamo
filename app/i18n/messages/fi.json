@@ -123,6 +123,7 @@
   "Notifications.loginToReserve": "Kirjaudu sisään tehdäksesi varauksen tähän tilaan.",
   "Notifications.reservationDeleteSuccessMessage": "Varauksen peruminen onnistui.",
   "Notifications.reservationUpdateSuccessMessage": "Varaus päivitetty.",
+  "Notifications.selectTimeToReserve.warning": "The reservation overlaps with the existing reservation or is outside the opening hours.",
   "Notifications.selectTimeToReserve": "Valitse aika, jolle haluat tehdä varauksen.",
   "Partners.kaupunginkirjatoImageAlt": "Helsingin kaupunginkirjasto",
   "Partners.nuorisoasiainkeskusImageAlt": "Helsingin kaupunki - nuorisoasiainkeskus",

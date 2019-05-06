@@ -201,7 +201,6 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
   describe('show warning notification', () => {
     const addNotification = simple.stub();
     const onClick = simple.stub();
-    const t = jest.fn();
     let instance;
     let wrapper;
 
