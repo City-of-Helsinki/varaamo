@@ -91,7 +91,7 @@ class TimeSlot extends PureComponent {
       if (notification && notification.message) {
         addNotification(notification);
       }
-    } if (isUnderMinPeriod) {
+    } else if (isUnderMinPeriod) {
       this.renderMinPeriodWarning();
     } else {
       onClick({

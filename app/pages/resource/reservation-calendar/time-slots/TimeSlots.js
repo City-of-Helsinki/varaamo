@@ -174,7 +174,7 @@ class TimeSlots extends Component {
           )}
 
           {timeSlots.map((timeSlot) => {
-            const isUnderMinPeriod = utils.isSlotOverMinPeriod(
+            const isUnderMinPeriod = utils.isUnderMinPeriod(
               selected, timeSlot, lastSlot, resource.minPeriod
             );
 
