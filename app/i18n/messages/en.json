@@ -123,6 +123,7 @@
   "Notifications.loginToReserve": "Log in to reserve these premises.",
   "Notifications.reservationDeleteSuccessMessage": "Your reservation was successfully cancelled.",
   "Notifications.reservationUpdateSuccessMessage": "Your reservation has been updated.",
+  "Notifications.selectTimeToReserve.warning": "Mimimum time reservation is required, please select earlier time slot",
   "Notifications.selectTimeToReserve": "Select the time for which you wish to make the reservation",
   "Partners.kaupunginkirjatoImageAlt": "Helsinki City Library",
   "Partners.nuorisoasiainkeskusImageAlt": "City of Helsinki – Youth Department",

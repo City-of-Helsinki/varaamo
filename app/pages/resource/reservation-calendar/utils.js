@@ -115,6 +115,27 @@ function isHighlighted(slot, selected, hovered) {
     && firstSelectedDate.getDate() === slotStartDate.getDate()
   );
 }
+/**
+ * Check if current slot will over minPeriod
+ * by adding minPeriod to slot start time
+ * and compare with last slot end time
+ *
+ * @param {Object} selected
+ * @param {Object} slot
+ * @param {Object} lastSlot
+ * @param {String | undefined} minPeriod: minPeriod limit, usuall HH:MM:SS
+ * @returns
+ */
+function isUnderMinPeriod(selected, slot, lastSlot, minPeriod) {
+  let isUnder = false;
+
+  if (!selected.length && minPeriod) {
+    const minPeriodInMinutes = moment.duration(minPeriod).asMinutes();
+    isUnder = moment(slot.start).add(minPeriodInMinutes, 'minutes') > (moment(lastSlot.end));
+  }
+
+  return isUnder;
+}
 
 export default {
   getNextDayFromDate,
@@ -126,4 +147,5 @@ export default {
   isSlotSelectable,
   isSlotSelected,
   isFirstSelected,
+  isUnderMinPeriod,
 };

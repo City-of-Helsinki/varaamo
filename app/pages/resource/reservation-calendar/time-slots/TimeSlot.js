@@ -16,6 +16,7 @@ class TimeSlot extends PureComponent {
     isHighlighted: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     isSelectable: PropTypes.bool.isRequired,
+    isUnderMinPeriod: PropTypes.bool.isRequired,
     onClear: PropTypes.func.isRequired,
     onClick: PropTypes.func.isRequired,
     onMouseEnter: PropTypes.func.isRequired,
@@ -61,9 +62,28 @@ class TimeSlot extends PureComponent {
     };
   }
 
+  /**
+   * Render notification warning message when user
+   * trying to select a timeslot that are able to shorter than reservation minPeriod.
+   *
+   * For example: last reservation close at 3pm, minPeriod = 3h, warn user when
+   * select time slot later on 12am
+   *
+   * @memberof TimeSlot
+   */
+  renderMinPeriodWarning = () => {
+    const { t, addNotification } = this.props;
+
+    addNotification({
+      message: t('Notifications.selectTimeToReserve.warning'),
+      type: 'info',
+      timeOut: 10000,
+    });
+  }
+
   handleClick = (disabled) => {
     const {
-      addNotification, isLoggedIn, onClick, resource, slot, t
+      addNotification, isLoggedIn, onClick, resource, slot, t, isUnderMinPeriod
     } = this.props;
 
     if (disabled) {
@@ -71,6 +91,8 @@ class TimeSlot extends PureComponent {
       if (notification && notification.message) {
         addNotification(notification);
       }
+    } if (isUnderMinPeriod) {
+      this.renderMinPeriodWarning();
     } else {
       onClick({
         begin: slot.start,

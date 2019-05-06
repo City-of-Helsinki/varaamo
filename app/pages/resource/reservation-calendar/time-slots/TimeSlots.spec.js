@@ -39,6 +39,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
     isEditing: false,
     isFetching: false,
     isLoggedIn: true,
+    isUnderMinPeriod: false,
     onClear: simple.stub(),
     onClick: simple.stub(),
     resource: Resource.build(),
@@ -78,6 +79,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
         expect(timeSlot.props().isAdmin).toBe(defaultProps.isAdmin);
         expect(timeSlot.props().isEditing).toBe(defaultProps.isEditing);
         expect(timeSlot.props().isLoggedIn).toBe(defaultProps.isLoggedIn);
+        expect(timeSlot.props().isUnderMinPeriod).toBe(defaultProps.isUnderMinPeriod);
         expect(timeSlot.props().isStaff).toBe(defaultProps.isStaff);
         expect(timeSlot.props().onClick).toBe(defaultProps.onClick);
         expect(timeSlot.props().resource).toEqual(defaultProps.resource);

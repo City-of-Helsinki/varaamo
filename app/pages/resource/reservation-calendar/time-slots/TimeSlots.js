@@ -134,7 +134,9 @@ class TimeSlots extends Component {
   }
 
   renderTimeSlots = () => {
-    const { selected, selectedDate, slots } = this.props;
+    const {
+      selected, selectedDate, slots, resource
+    } = this.props;
     let lastSelectableFound = false;
 
     const { mobilePlaceholderOffset, timeSlotPlaceholderSizes } = this.calculatePlaceholders(
@@ -147,6 +149,7 @@ class TimeSlots extends Component {
         return null;
       }
       const slot = timeSlots[0];
+      const lastSlot = timeSlots[timeSlots.length - 1];
       const placeholderSize = timeSlotPlaceholderSizes[index];
 
       const slotDate = moment(slot.start).format(constants.DATE_FORMAT);
@@ -171,17 +174,21 @@ class TimeSlots extends Component {
           )}
 
           {timeSlots.map((timeSlot) => {
+            const isUnderMinPeriod = utils.isSlotOverMinPeriod(
+              selected, timeSlot, lastSlot, resource.minPeriod
+            );
+
             if (!lastSelectableFound && selected.length && timeSlot.reserved) {
               lastSelectableFound = utils.isSlotAfterSelected(timeSlot, selected);
             }
-            return this.renderTimeSlot(timeSlot, lastSelectableFound);
+            return this.renderTimeSlot(timeSlot, lastSelectableFound, isUnderMinPeriod);
           })}
         </div>
       );
     });
   };
 
-  renderTimeSlot = (slot, lastSelectableFound) => {
+  renderTimeSlot = (slot, lastSelectableFound, isUnderMinPeriod) => {
     const {
       addNotification,
       isAdmin,
@@ -233,6 +240,7 @@ class TimeSlots extends Component {
         isHighlighted={isHighlighted}
         isLoggedIn={isLoggedIn}
         isSelectable={isSelectable}
+        isUnderMinPeriod={isUnderMinPeriod}
         key={slot.start}
         onClear={this.onClear}
         onClick={onClick}
