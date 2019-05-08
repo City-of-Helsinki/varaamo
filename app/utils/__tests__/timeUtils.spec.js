@@ -16,9 +16,12 @@ import {
   getEndTimeString,
   getStartTimeString,
   getTimeSlots,
+  getTimeDiff,
   isPastDate,
   padLeft,
   prettifyHours,
+  periodToMinute,
+  getEndTimeSlotWithMinPeriod
 } from 'utils/timeUtils';
 
 const moment = extendMoment(Moment);
@@ -613,6 +616,61 @@ describe('Utils: timeUtils', () => {
       test('returns the number as it is as a string', () => {
         expect(padLeft(number)).toBe(expected);
       });
+    });
+  });
+
+  describe('getTimeDiff', () => {
+    test('return timediff in number by default', () => {
+      const startDate = '2019-05-09T05:00:01.000Z';
+      const endDate = '2019-05-09T05:00:00.000Z';
+
+      const expected = 1000;
+
+      expect(getTimeDiff(startDate, endDate)).toEqual(expected);
+    });
+
+    test('return timediff in defined unit', () => {
+      const startDate = '2019-05-09T05:30:01.000Z';
+      const endDate = '2019-05-09T05:00:00.000Z';
+      const unit = 'minutes';
+      const expected = 30;
+
+      expect(getTimeDiff(startDate, endDate, unit)).toEqual(expected);
+    });
+
+    test('can be used to compare time', () => {
+      const startDate = '2019-05-09T05:30:00.000Z';
+      const endDate = '2019-05-09T05:00:00.000Z';
+
+      // > 0 => startTime > endTime
+      expect(getTimeDiff(startDate, endDate) > 0).toBeTruthy();
+    });
+  });
+
+  describe('getEndTimeSlotWithMinPeriod', () => {
+    test('return end time slot with timediff equal minPeriod', () => {
+      const slot = {
+        begin: '2019-05-09T05:00:00.000Z',
+        end: '2019-05-09T05:30:00.000Z',
+        resource: 'abc'
+      };
+
+      const minPeriod = '01:00:00';
+      const result = getEndTimeSlotWithMinPeriod(slot, minPeriod);
+
+      expect(getTimeDiff(result.begin, slot.begin, 'minutes')).toEqual(periodToMinute(minPeriod));
+      expect(getTimeDiff(result.end, slot.end, 'minutes')).toEqual(periodToMinute(minPeriod));
+      expect(result.resource).toEqual(slot.resource);
+    });
+  });
+
+  describe('periodToMinute', () => {
+    test('convert time period to minutes', () => {
+      const period = '01:00:00';
+
+      const result = periodToMinute(period);
+
+      expect(result).toEqual(60);
     });
   });
 });

@@ -210,15 +210,16 @@ function getEndTimeSlotWithMinPeriod(startSlot, minPeriod) {
     end: moment(startSlot.end).add(minPeriodInMinutes, 'minutes').toISOString()
   };
 }
+
 /**
  * Get time different
- *
+ * This function can be use to compare time
  * @param {string} startTime ISO Time String
  * @param {string} endTime ISO Time String
  * @returns {int} timediff
  */
-function getTimeDiff(startTime, endTime) {
-  return moment(startTime).diff(moment(endTime));
+function getTimeDiff(startTime, endTime, unit) {
+  return moment(startTime).diff(moment(endTime), unit);
 }
 
 export {
