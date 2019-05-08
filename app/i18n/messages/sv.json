@@ -162,7 +162,7 @@
   "ReservationConfirmation.reservationEditedTitle": "Bokningen uppdaterad",
   "ReservationConfirmation.resourceButton": "Tillbaka till sökresultat",
   "ReservationConfirmation.ownReservationButton": "Visa mina bokningar",
-  "ReservationConfirmation.confirmationText": "Du får ett bekräftelsemeddelande till din (<a href='mailto:{email}'>{email}</a>) epostadress.",
+  "ReservationConfirmation.confirmationText": "Du får en påminnelse till din (<a href='mailto:{email}'>{email}</a>) epostadress.",
   "ReservationConfirmation.reservationDetailsTitle": "Bokningens detaljer",
   "ReservationControls.cancel": "Avbryt",
   "ReservationControls.confirm": "Godkänn",
