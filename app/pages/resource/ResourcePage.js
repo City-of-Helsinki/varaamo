@@ -19,7 +19,7 @@ import NotFoundPage from 'pages/not-found/NotFoundPage';
 import ResourceCalendar from 'shared/resource-calendar';
 import ResourceMap from 'shared/resource-map';
 import { injectT } from 'i18n';
-import { getMaxPeriodText, getResourcePageUrl } from 'utils/resourceUtils';
+import { getMaxPeriodText, getResourcePageUrl, getMinPeriodText } from 'utils/resourceUtils';
 import ReservationCalendar from './reservation-calendar';
 import ResourceHeader from './resource-header';
 import ResourceInfo from './resource-info';
@@ -145,7 +145,7 @@ class UnconnectedResourcePage extends Component {
     }
 
     const maxPeriodText = getMaxPeriodText(t, resource);
-
+    const minPeriodText = getMinPeriodText(t, resource);
     const images = this.orderImages(resource.images || []);
 
     const mainImageIndex = findIndex(images, image => image.type === 'main');
@@ -195,7 +195,22 @@ class UnconnectedResourcePage extends Component {
                     )}
                     {!resource.externalReservationUrl && (
                       <div>
-                        {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
+                        {/* Show reservation max period text */}
+                        {resource.maxPeriod && (
+                        <div className="app-ResourcePage__content-max-period">
+                          {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
+                        </div>
+                        )}
+
+                        {/* Show reservation max period text */}
+                        {resource.minPeriod
+                        && (
+                        <div className="app-ResourcePage__content-min-period">
+                          <p>{`${t('ReservationInfo.reservationMinLength')} ${minPeriodText}`}</p>
+                        </div>
+                        )
+                        }
+
                         <ResourceCalendar
                           disableDays={this.disableDays}
                           onDateChange={this.handleDateChange}

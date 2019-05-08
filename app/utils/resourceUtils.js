@@ -136,6 +136,15 @@ function getMaxPeriodText(t, { maxPeriod }) {
   return t('ResourceHeader.maxPeriodHours', { hours });
 }
 
+function getMinPeriodText(t, { minPeriod }) {
+  const hours = moment.duration(minPeriod).asHours();
+  const days = parseInt(moment.duration(minPeriod).asDays(), 10);
+  if (days > 0) {
+    return t('ResourceHeader.minPeriodDays', { days });
+  }
+  return t('ResourceHeader.minPeriodHours', { hours });
+}
+
 function getOpeningHours(resource, selectedDate) {
   if (resource && resource.openingHours && resource.openingHours.length) {
     if (selectedDate) {
@@ -216,4 +225,5 @@ export {
   getResourcePageUrlComponents,
   getTermsAndConditions,
   reservingIsRestricted,
+  getMinPeriodText
 };
