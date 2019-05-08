@@ -98,6 +98,7 @@ class TimeSlot extends PureComponent {
         begin: slot.start,
         end: slot.end,
         resource: resource.id,
+        minPeriod: resource.minPeriod
       });
     }
   };

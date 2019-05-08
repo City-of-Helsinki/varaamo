@@ -1,16 +1,14 @@
 import types from 'constants/ActionTypes';
 import ModalTypes from 'constants/ModalTypes';
 
-import find from 'lodash/find';
+import omit from 'lodash/omit';
+import isEmpty from 'lodash/isEmpty';
 import first from 'lodash/first';
 import last from 'lodash/last';
-import orderBy from 'lodash/orderBy';
-import without from 'lodash/without';
-import moment from 'moment';
 import Immutable from 'seamless-immutable';
 
 
-import { getTimeSlots } from 'utils/timeUtils';
+import { getTimeSlots, getEndTimeSlotWithMinPeriod, getTimeDiff } from 'utils/timeUtils';
 
 const initialState = Immutable({
   adminReservationFilters: {
@@ -136,26 +134,38 @@ function reservationsReducer(state = initialState, action) {
     }
 
     case types.UI.TOGGLE_TIME_SLOT: {
-      const slot = action.payload;
-      const stateSlot = find(state.selected, slot);
-      if (stateSlot) {
-        return state.merge({ selected: without(state.selected, stateSlot) });
-      } if (state.selected.length <= 1) {
-        return state.merge({ selected: [...state.selected, slot] });
+      const minPeriod = action.payload.minPeriod;
+      let minPeriodSlot;
+
+      const startSlot = omit(action.payload, 'minPeriod');
+      // Remove minPeriod of slot information from payload.
+      // startSlot is known as input slot from payload.
+
+      if (isEmpty(state.selected)) {
+        // No time slot have been selected.
+        // auto append minPeriodSlot to selected state to make sure minPeriod time is selected.
+        // If minPeriod exist
+        minPeriodSlot = getEndTimeSlotWithMinPeriod(startSlot, minPeriod);
+
+        return state.merge({ selected: [startSlot, minPeriod && minPeriodSlot] });
       }
-      const orderedSelected = orderBy(state.selected, 'begin');
-      const firstSelected = first(orderedSelected);
-      const lastSelected = last(orderedSelected);
-      if (moment(lastSelected.begin).isBefore(slot.begin)) {
-        return state.merge({ selected: [...without(state.selected, lastSelected), slot] });
+
+      if (!minPeriod) {
+        // no minPeriod, make startSlot as end timeslot
+
+        return state.merge({ selected: [state.selected[0], startSlot] });
       }
-      if (
-        moment(firstSelected.begin).isBefore(slot.begin)
-        && moment(lastSelected.begin).isAfter(slot.begin)
-      ) {
-        return state.merge({ selected: [...without(state.selected, lastSelected), slot] });
-      }
-      return state.merge({ selected: [...state.selected, slot] });
+
+      // startSlot > minPeriodSlot => payload slot is larger than minPeriod
+      // startSlot === minPeriodSlot => make one of them as end timeslot
+      // startSlot < minPeriodSlot => keep minPeriod as selected.
+      minPeriodSlot = getEndTimeSlotWithMinPeriod(state.selected[0], minPeriod);
+      const timeDiff = getTimeDiff(startSlot.begin, minPeriodSlot.begin);
+
+      return state.merge({
+        selected: [state.selected[0],
+          timeDiff > 0 ? startSlot : minPeriodSlot]
+      });
     }
 
     case types.UI.CLEAR_TIME_SLOTS: {
