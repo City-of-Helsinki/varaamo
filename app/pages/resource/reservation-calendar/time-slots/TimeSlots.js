@@ -149,7 +149,9 @@ class TimeSlots extends Component {
         return null;
       }
       const slot = timeSlots[0];
-      const lastSlot = timeSlots[timeSlots.length - 1];
+      const lastSlot = timeSlots[timeSlots.length - 2];
+      // last slot is selectable slot, which is slot before last slot in array
+
       const placeholderSize = timeSlotPlaceholderSizes[index];
 
       const slotDate = moment(slot.start).format(constants.DATE_FORMAT);
