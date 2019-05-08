@@ -128,6 +128,9 @@ function isHighlighted(slot, selected, hovered) {
  */
 function isUnderMinPeriod(selected, slot, lastSlot, minPeriod) {
   let isUnder = false;
+  if (!slot.end || !lastSlot.end) {
+    return isUnder;
+  }
 
   if (!selected.length && minPeriod) {
     const minPeriodInMinutes = moment.duration(minPeriod).asMinutes();

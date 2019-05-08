@@ -48,7 +48,7 @@ function getProps(id = 'some-id', date = '2015-10-10') {
 describe('pages/resource/reservation-calendar/reservationCalendarSelector', () => {
   const resource = Resource.build({
     availableHours,
-    slot_size: '01:00:00',
+    slotSize: '01:00:00',
     openingHours: openingHoursMonth,
     reservations: [
       {
@@ -163,7 +163,7 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
       const actualArgs = timeUtils.getTimeSlots.calls[5].args;
       expect(actualArgs[0]).toBe('2015-10-10T12:00:00+03:00');
       expect(actualArgs[1]).toBe('2015-10-10T18:00:00+03:00');
-      expect(actualArgs[2]).toBe(resource.slot_size);
+      expect(actualArgs[2]).toBe(resource.slotSize);
       expect(actualArgs[3]).toEqual(resource.reservations);
       expect(selected.timeSlots).toEqual(expectedMockSlots);
       simple.restore();
@@ -190,7 +190,7 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
       const actualArgs = timeUtils.getTimeSlots.calls[5].args;
       expect(actualArgs[0]).toBe('2015-10-10T12:00:00+03:00');
       expect(actualArgs[1]).toBe('2015-10-10T18:00:00+03:00');
-      expect(actualArgs[2]).toBe(resource.slot_size);
+      expect(actualArgs[2]).toBe(resource.slotSize);
       expect(actualArgs[3]).toEqual(resource.reservations);
       expect(selected.timeSlots).toEqual(expectedMockSlots);
       simple.restore();

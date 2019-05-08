@@ -58,7 +58,7 @@ export class UnconnectedReservationControlsContainer extends Component {
     } = this.props;
     const nextUrl = getEditReservationUrl(reservation);
 
-    actions.selectReservationToEdit({ reservation, slotSize: resource.slot_size });
+    actions.selectReservationToEdit({ reservation, slotSize: resource.slotSize });
     history.push(nextUrl);
   }
 

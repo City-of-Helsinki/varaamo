@@ -109,7 +109,7 @@ class UnconnectedReservationEditForm extends Component {
             <Fields
               component={ReservationTimeControls}
               names={['begin', 'end']}
-              period={resource.slot_size}
+              period={resource.slotSize}
             />
           </Col>
         </FormGroup>

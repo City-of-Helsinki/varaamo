@@ -17,5 +17,5 @@ const Resource = new Factory()
   .attr('supportedReservationExtraFields', [])
   .attr('userPermissions', { isAdmin: false, canMakeReservations: true })
   .attr('isFavorite', false)
-  .attr('slot_size', DEFAULT_SLOT_SIZE);
+  .attr('slotSize', DEFAULT_SLOT_SIZE);
 export default Resource;

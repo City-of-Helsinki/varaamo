@@ -95,7 +95,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
         expect(props.actions.selectReservationToEdit.callCount).toBe(1);
         expect(props.actions.selectReservationToEdit.lastCall.args[0]).toEqual({
           reservation: props.reservation,
-          slotSize: props.resource.slot_size,
+          slotSize: props.resource.slotSize,
         });
       }
     );

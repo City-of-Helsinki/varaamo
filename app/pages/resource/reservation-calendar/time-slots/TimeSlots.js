@@ -50,18 +50,12 @@ class TimeSlots extends Component {
   };
 
   onMouseEnter = (hoveredTimeSlot) => {
-    if (this.props.selected.length !== 1) {
-      return;
-    }
     this.setState(() => ({
       hoveredTimeSlot,
     }));
   };
 
   onMouseLeave = () => {
-    if (this.props.selected.length !== 1) {
-      return;
-    }
     this.setState(() => ({
       hoveredTimeSlot: null,
     }));
@@ -219,8 +213,12 @@ class TimeSlots extends Component {
       isAdmin
     );
     const isSelected = utils.isSlotSelected(slot, selected);
+    const isHoveredSlotSelected = utils.isSlotSelected(hoveredTimeSlot, selected);
+
     const isFirstSelected = utils.isFirstSelected(slot, selected);
-    const shouldShowReservationPopover = selected.length === 1 && isFirstSelected;
+    const shouldShowReservationPopover = hoveredTimeSlot
+    && isFirstSelected && !isHoveredSlotSelected;
+
     const isHighlighted = utils.isHighlighted(slot, selected, hoveredTimeSlot);
     const resBegin = this.getReservationBegin();
     const resEnd = this.getReservationEnd();
