@@ -197,17 +197,17 @@ class UnconnectedResourcePage extends Component {
                       <div>
                         {/* Show reservation max period text */}
                         {resource.maxPeriod && (
-                        <div className="app-ResourcePage__content-max-period">
-                          {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
-                        </div>
+                          <div className="app-ResourcePage__content-max-period">
+                            {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
+                          </div>
                         )}
 
                         {/* Show reservation max period text */}
                         {resource.minPeriod
                         && (
-                        <div className="app-ResourcePage__content-min-period">
-                          <p>{`${t('ReservationInfo.reservationMinLength')} ${minPeriodText}`}</p>
-                        </div>
+                          <div className="app-ResourcePage__content-min-period">
+                            <p>{`${t('ReservationInfo.reservationMinLength')} ${minPeriodText}`}</p>
+                          </div>
                         )
                         }
 
