@@ -542,22 +542,6 @@ describe('state/reducers/ui/reservationsReducer', () => {
       });
 
       describe('if slot is already selected', () => {
-        test('removes the given slot from selected', () => {
-          const slot = {
-            begin: '2015-10-11T10:00:00Z',
-            end: '2015-10-11T11:00:00Z',
-            resource: 'some-resource',
-          };
-          const action = toggleTimeSlot(slot);
-          const initialState = Immutable({
-            selected: [slot],
-          });
-          const nextState = reservationsReducer(initialState, action);
-          const expected = Immutable([]);
-
-          expect(nextState.selected).toEqual(expected);
-        });
-
         test('does not affect other selected slots ', () => {
           const slot1 = {
             begin: '2015-12-12T10:00:00Z',
@@ -574,7 +558,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
             selected: [slot1, slot2],
           });
           const nextState = reservationsReducer(initialState, action);
-          const expected = Immutable([slot1]);
+          const expected = Immutable([slot1, slot2]);
 
           expect(nextState.selected).toEqual(expected);
         });

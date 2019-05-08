@@ -145,9 +145,9 @@ function reservationsReducer(state = initialState, action) {
         // No time slot have been selected.
         // auto append minPeriodSlot to selected state to make sure minPeriod time is selected.
         // If minPeriod exist
-        minPeriodSlot = getEndTimeSlotWithMinPeriod(startSlot, minPeriod);
+        minPeriodSlot = minPeriod && getEndTimeSlotWithMinPeriod(startSlot, minPeriod);
 
-        return state.merge({ selected: [startSlot, minPeriod && minPeriodSlot] });
+        return state.merge({ selected: minPeriod ? [startSlot, minPeriodSlot] : [startSlot] });
       }
 
       if (!minPeriod) {

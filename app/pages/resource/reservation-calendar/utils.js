@@ -127,17 +127,20 @@ function isHighlighted(slot, selected, hovered) {
  * @returns
  */
 function isUnderMinPeriod(selected, slot, lastSlot, minPeriod) {
-  let isUnder = false;
+  if (!selected || !slot || !lastSlot) {
+    return false;
+  }
+
   if (!slot.end || !lastSlot.end) {
-    return isUnder;
+    return false;
   }
 
   if (!selected.length && minPeriod) {
     const minPeriodInMinutes = moment.duration(minPeriod).asMinutes();
-    isUnder = moment(slot.start).add(minPeriodInMinutes, 'minutes') > (moment(lastSlot.end));
+    return moment(slot.start).add(minPeriodInMinutes, 'minutes') > (moment(lastSlot.end));
   }
 
-  return isUnder;
+  return false;
 }
 
 export default {
