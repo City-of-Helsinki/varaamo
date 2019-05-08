@@ -7,6 +7,7 @@ import moment from 'moment';
 import classnames from 'classnames';
 import findIndex from 'lodash/findIndex';
 import minBy from 'lodash/minBy';
+import round from 'lodash/round';
 
 import { injectT } from 'i18n';
 import ReservationPopover from 'shared/reservation-popover';
@@ -87,7 +88,7 @@ class TimeSlots extends Component {
       .map(timeslots => timeslots && timeslots[0])
       .filter(value => !!value && value.end);
     const slotLength = firstTimeSlots[0]
-      ? moment(firstTimeSlots[0].end).diff(firstTimeSlots[0].start, 'm')
+      ? moment(firstTimeSlots[0].end).diff(firstTimeSlots[0].start, 'minutes')
       : constants.TIME_SLOT_DEFAULT_LENGTH;
 
     if (firstTimeSlots.length === 0) {
@@ -106,7 +107,8 @@ class TimeSlots extends Component {
         return null;
       }
       const currentStart = moment(slot[0].start).set(dateForTimeComparison);
-      return currentStart.diff(earliestStart, 'minutes') / slotLength;
+      return round(currentStart.diff(earliestStart, 'minutes') / slotLength);
+      // TODO: Please fix me, i have no idea what im doing.
     });
 
     const selectedDateIndex = findIndex(
