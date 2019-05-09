@@ -14,6 +14,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
     isAdmin: false,
     isEditing: true,
     isHighlighted: false,
+    isUnderMinPeriod: false,
     isLoggedIn: true,
     isSelectable: true,
     onClear: simple.stub(),
@@ -194,6 +195,38 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       expect(instance.getReservationInfoNotification.callCount).toBe(1);
       expect(addNotification.callCount).toBe(1);
       expect(addNotification.lastCall.args).toEqual([message]);
+    });
+  });
+
+  describe('show warning notification', () => {
+    const addNotification = simple.stub();
+    const onClick = simple.stub();
+    let instance;
+    let wrapper;
+
+    beforeAll(() => {
+      wrapper = getWrapper({
+        addNotification,
+        isLoggedIn: true,
+        onClick,
+        isUnderMinPeriod: true
+      });
+      instance = wrapper.instance();
+      instance.handleClick(false);
+    });
+
+    afterAll(() => {
+      simple.restore();
+    });
+
+    test('when isUnderMinPeriod is true', () => {
+      expect(onClick.callCount).toBe(0);
+      expect(addNotification.callCount).toBe(1);
+      expect(addNotification.lastCall.args).toEqual([{
+        message: 'Notifications.selectTimeToReserve.warning',
+        type: 'info',
+        timeOut: 10000,
+      }]);
     });
   });
 

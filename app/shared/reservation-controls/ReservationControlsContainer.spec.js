@@ -90,12 +90,12 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
     });
 
     test(
-      'calls props.actions.selectReservationToEdit with reservation and minPeriod',
+      'calls props.actions.selectReservationToEdit with reservation and slotSize',
       () => {
         expect(props.actions.selectReservationToEdit.callCount).toBe(1);
         expect(props.actions.selectReservationToEdit.lastCall.args[0]).toEqual({
           reservation: props.reservation,
-          minPeriod: props.resource.minPeriod,
+          slotSize: props.resource.slotSize,
         });
       }
     );

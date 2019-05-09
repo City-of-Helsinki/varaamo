@@ -18,6 +18,7 @@ import {
   getTermsAndConditions,
   reservingIsRestricted,
   getResourcePageUrlComponents,
+  getMinPeriodText
 } from 'utils/resourceUtils';
 
 describe('Utils: resourceUtils', () => {
@@ -628,6 +629,30 @@ describe('Utils: resourceUtils', () => {
 
       expect(t.callCount).toBe(1);
       expect(t.lastCall.args[0]).toEqual('ResourceHeader.maxPeriodHours');
+      expect(t.lastCall.args[1]).toEqual({ hours: 2 });
+      expect(result).toBe('hours');
+    });
+  });
+
+  describe('getMinPeriodText', () => {
+    test('returns min period as days', () => {
+      const t = simple.stub().returnWith('days');
+      const resource = { minPeriod: '24:00:00' };
+      const result = getMinPeriodText(t, resource);
+
+      expect(t.callCount).toBe(1);
+      expect(t.lastCall.args[0]).toEqual('ResourceHeader.minPeriodDays');
+      expect(t.lastCall.args[1]).toEqual({ days: 1 });
+      expect(result).toBe('days');
+    });
+
+    test('returns min period as hours', () => {
+      const t = simple.stub().returnWith('hours');
+      const resource = { minPeriod: '02:00:00' };
+      const result = getMinPeriodText(t, resource);
+
+      expect(t.callCount).toBe(1);
+      expect(t.lastCall.args[0]).toEqual('ResourceHeader.minPeriodHours');
       expect(t.lastCall.args[1]).toEqual({ hours: 2 });
       expect(result).toBe('hours');
     });

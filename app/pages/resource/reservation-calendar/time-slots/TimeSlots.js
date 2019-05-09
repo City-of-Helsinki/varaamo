@@ -7,6 +7,7 @@ import moment from 'moment';
 import classnames from 'classnames';
 import findIndex from 'lodash/findIndex';
 import minBy from 'lodash/minBy';
+import round from 'lodash/round';
 
 import { injectT } from 'i18n';
 import ReservationPopover from 'shared/reservation-popover';
@@ -50,18 +51,12 @@ class TimeSlots extends Component {
   };
 
   onMouseEnter = (hoveredTimeSlot) => {
-    if (this.props.selected.length !== 1) {
-      return;
-    }
     this.setState(() => ({
       hoveredTimeSlot,
     }));
   };
 
   onMouseLeave = () => {
-    if (this.props.selected.length !== 1) {
-      return;
-    }
     this.setState(() => ({
       hoveredTimeSlot: null,
     }));
@@ -93,7 +88,7 @@ class TimeSlots extends Component {
       .map(timeslots => timeslots && timeslots[0])
       .filter(value => !!value && value.end);
     const slotLength = firstTimeSlots[0]
-      ? moment(firstTimeSlots[0].end).diff(firstTimeSlots[0].start, 'm')
+      ? moment(firstTimeSlots[0].end).diff(firstTimeSlots[0].start, 'minutes')
       : constants.TIME_SLOT_DEFAULT_LENGTH;
 
     if (firstTimeSlots.length === 0) {
@@ -112,7 +107,8 @@ class TimeSlots extends Component {
         return null;
       }
       const currentStart = moment(slot[0].start).set(dateForTimeComparison);
-      return currentStart.diff(earliestStart, 'minutes') / slotLength;
+      return round(currentStart.diff(earliestStart, 'minutes') / slotLength);
+      // TODO: Please fix me, i have no idea what im doing.
     });
 
     const selectedDateIndex = findIndex(
@@ -134,7 +130,9 @@ class TimeSlots extends Component {
   }
 
   renderTimeSlots = () => {
-    const { selected, selectedDate, slots } = this.props;
+    const {
+      selected, selectedDate, slots, resource
+    } = this.props;
     let lastSelectableFound = false;
 
     const { mobilePlaceholderOffset, timeSlotPlaceholderSizes } = this.calculatePlaceholders(
@@ -147,6 +145,9 @@ class TimeSlots extends Component {
         return null;
       }
       const slot = timeSlots[0];
+      const lastSlot = timeSlots[timeSlots.length - 2];
+      // last slot is selectable slot, which is slot before last slot in array
+
       const placeholderSize = timeSlotPlaceholderSizes[index];
 
       const slotDate = moment(slot.start).format(constants.DATE_FORMAT);
@@ -171,17 +172,21 @@ class TimeSlots extends Component {
           )}
 
           {timeSlots.map((timeSlot) => {
+            const isUnderMinPeriod = utils.isUnderMinPeriod(
+              selected, timeSlot, lastSlot, resource.minPeriod
+            );
+
             if (!lastSelectableFound && selected.length && timeSlot.reserved) {
               lastSelectableFound = utils.isSlotAfterSelected(timeSlot, selected);
             }
-            return this.renderTimeSlot(timeSlot, lastSelectableFound);
+            return this.renderTimeSlot(timeSlot, lastSelectableFound, isUnderMinPeriod);
           })}
         </div>
       );
     });
   };
 
-  renderTimeSlot = (slot, lastSelectableFound) => {
+  renderTimeSlot = (slot, lastSelectableFound, isUnderMinPeriod) => {
     const {
       addNotification,
       isAdmin,
@@ -210,8 +215,12 @@ class TimeSlots extends Component {
       isAdmin
     );
     const isSelected = utils.isSlotSelected(slot, selected);
+    const isHoveredSlotSelected = utils.isSlotSelected(hoveredTimeSlot, selected);
+
     const isFirstSelected = utils.isFirstSelected(slot, selected);
-    const shouldShowReservationPopover = selected.length === 1 && isFirstSelected;
+    const shouldShowReservationPopover = hoveredTimeSlot
+    && isFirstSelected && !isHoveredSlotSelected;
+
     const isHighlighted = utils.isHighlighted(slot, selected, hoveredTimeSlot);
     const resBegin = this.getReservationBegin();
     const resEnd = this.getReservationEnd();
@@ -233,6 +242,7 @@ class TimeSlots extends Component {
         isHighlighted={isHighlighted}
         isLoggedIn={isLoggedIn}
         isSelectable={isSelectable}
+        isUnderMinPeriod={isUnderMinPeriod}
         key={slot.start}
         onClear={this.onClear}
         onClick={onClick}
