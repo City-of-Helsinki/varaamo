@@ -242,5 +242,15 @@ describe('pages/resource/reservation-calendar/utils', () => {
       const actual = utils.isUnderMinPeriod(selected, inValidSlot, lastSlot, minPeriod);
       expect(actual).toBe(false);
     });
+
+    test('return false if selected slot fulfill minPeriod', () => {
+      const validSlot = {
+        start: '2015-10-10T14:00:00Z',
+        end: '2015-10-10T14:30:00Z',
+      };
+
+      const actual = utils.isUnderMinPeriod(selected, validSlot, lastSlot, minPeriod);
+      expect(actual).toBe(false);
+    });
   });
 });
