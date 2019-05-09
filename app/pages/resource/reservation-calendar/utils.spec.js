@@ -204,6 +204,16 @@ describe('pages/resource/reservation-calendar/utils', () => {
       start: '2015-10-10T14:30:00Z',
       end: '2015-10-10T15:00:00Z',
     };
+
+    test('return false if required data is missing, wont throw error', () => {
+      const noLastSlot = utils.isUnderMinPeriod(selected, slot, undefined, minPeriod);
+      const noStartSlot = utils.isUnderMinPeriod(selected, undefined, lastSlot, minPeriod);
+      const noSelected = utils.isUnderMinPeriod(undefined, slot, lastSlot, minPeriod);
+
+      expect(noLastSlot).toBeFalsy();
+      expect(noStartSlot).toBeFalsy();
+      expect(noSelected).toBeFalsy();
+    });
     test('returns false if minPeriod is not defined', () => {
       const actual = utils.isUnderMinPeriod(selected);
       expect(actual).toBe(false);
