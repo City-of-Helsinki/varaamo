@@ -219,6 +219,15 @@ describe('pages/resource/reservation-calendar/utils', () => {
       expect(actual).toBe(false);
     });
 
+    test('return false if slot have no end property (closed one)', () => {
+      const closeSlot = {
+        start: '2015-10-10T15:00:00Z',
+      };
+
+      const actual = utils.isUnderMinPeriod(selected, slot, closeSlot, minPeriod);
+      expect(actual).toBe(false);
+    });
+
     test('return true if selected slot will not fulfill minPeriod', () => {
       const actual = utils.isUnderMinPeriod(selected, inValidSlot, lastSlot, minPeriod);
       expect(actual).toBe(false);
