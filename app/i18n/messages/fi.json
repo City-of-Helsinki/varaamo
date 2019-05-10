@@ -67,6 +67,7 @@
   "common.select": "Valitse",
   "common.userNameLabel": "Tilin nimi",
   "common.userEmailLabel": "Tilin sähköposti",
+  "SelectControl.noOptions": "Ei valintoja",
   "ConfirmReservationModal.beforeText": "Alkuperäinen varausaika:",
   "ConfirmReservationModal.editTitle": "Varauksen muuttaminen",
   "ConfirmReservationModal.formInfo": "Täytä vielä seuraavat tiedot alustavaa varausta varten. Tähdellä (*) merkityt tiedot ovat pakollisia.",

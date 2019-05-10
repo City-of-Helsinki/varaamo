@@ -17,6 +17,8 @@ class SelectControl extends React.Component {
     return options.find(option => option.value === value);
   };
 
+  noOptionsMessage = () => this.props.t('SelectControl.noOptions')
+
   render() {
     const {
       id,
@@ -46,6 +48,7 @@ class SelectControl extends React.Component {
               isClearable={isClearable}
               isMulti={isMulti}
               isSearchable={isSearchable}
+              noOptionsMessage={this.noOptionsMessage}
               onChange={(selected, { action }) => {
                 switch (action) {
                   case 'clear':
