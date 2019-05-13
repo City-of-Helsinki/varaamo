@@ -203,8 +203,10 @@ function periodToMinute(period) {
  * @param {string} minPeriod
  * @return {object} endSlot
  */
-function getEndTimeSlotWithMinPeriod(startSlot, minPeriod) {
-  const minPeriodInMinutes = periodToMinute(minPeriod);
+function getEndTimeSlotWithMinPeriod(startSlot, minPeriod, slotSize) {
+  const minPeriodInMinutes = periodToMinute(minPeriod) - periodToMinute(slotSize);
+  // minPeriod always >= slotSize
+  // minus 1 timeSlot here so the timediff between start slot and end slot is equal with minPeriod.
 
   return {
     resource: startSlot.resource,

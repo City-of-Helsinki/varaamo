@@ -153,4 +153,18 @@ describe('pages/search/controls/SelectControl', () => {
       expect(selectedOption).toEqual(defaults.options);
     });
   });
+
+  describe('displays noOptions-text when no options available', () => {
+    test('no options at all', () => {
+      const wrapper = getWrapper({ menuIsOpen: true, options: [] });
+      const text = wrapper.render().text();
+      expect(text).toContain('SelectControl.noOptions');
+    });
+
+    test('selected all values in multi', () => {
+      const wrapper = getWrapper({ isMulti: true, menuIsOpen: true, value: ['filter-1', 'filter-2'] });
+      const text = wrapper.render().text();
+      expect(text).toContain('SelectControl.noOptions');
+    });
+  });
 });
