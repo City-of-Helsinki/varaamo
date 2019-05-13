@@ -242,7 +242,7 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
       {
         begin: defaultProps.slot.start,
         end: defaultProps.slot.end,
-        resource: defaultProps.resource.id,
+        resource: defaultProps.resource,
       },
     ]);
   });
