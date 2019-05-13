@@ -97,9 +97,7 @@ class TimeSlot extends PureComponent {
       onClick({
         begin: slot.start,
         end: slot.end,
-        resource: resource.id,
-        minPeriod: resource.minPeriod === resource.slotSize ? null : resource.minPeriod
-        // Ignore minPeriod if minPeriod is equal slotSize
+        resource,
       });
     }
   };
