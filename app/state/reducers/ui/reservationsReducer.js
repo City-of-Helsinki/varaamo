@@ -1,7 +1,6 @@
 import types from 'constants/ActionTypes';
 import ModalTypes from 'constants/ModalTypes';
 
-import omit from 'lodash/omit';
 import isEmpty from 'lodash/isEmpty';
 import first from 'lodash/first';
 import last from 'lodash/last';
@@ -134,10 +133,15 @@ function reservationsReducer(state = initialState, action) {
     }
 
     case types.UI.TOGGLE_TIME_SLOT: {
-      const minPeriod = action.payload.minPeriod;
+      const { minPeriod, slotSize, id } = action.payload.resource;
+
       let minPeriodSlot;
 
-      const startSlot = omit(action.payload, 'minPeriod');
+      const startSlot = {
+        begin: action.payload.begin,
+        end: action.payload.end,
+        resource: id
+      };
       // Remove minPeriod of slot information from payload.
       // startSlot is known as input slot from payload.
 
@@ -145,7 +149,7 @@ function reservationsReducer(state = initialState, action) {
         // No time slot have been selected.
         // auto append minPeriodSlot to selected state to make sure minPeriod time is selected.
         // If minPeriod exist
-        minPeriodSlot = minPeriod && getEndTimeSlotWithMinPeriod(startSlot, minPeriod);
+        minPeriodSlot = minPeriod && getEndTimeSlotWithMinPeriod(startSlot, minPeriod, slotSize);
 
         return state.merge({ selected: minPeriod ? [startSlot, minPeriodSlot] : [startSlot] });
       }
@@ -159,7 +163,7 @@ function reservationsReducer(state = initialState, action) {
       // startSlot > minPeriodSlot => payload slot is larger than minPeriod
       // startSlot === minPeriodSlot => make one of them as end timeslot
       // startSlot < minPeriodSlot => keep minPeriod as selected.
-      minPeriodSlot = getEndTimeSlotWithMinPeriod(state.selected[0], minPeriod);
+      minPeriodSlot = getEndTimeSlotWithMinPeriod(state.selected[0], minPeriod, slotSize);
       const timeDiff = getTimeDiff(startSlot.begin, minPeriodSlot.begin);
 
       return state.merge({
