@@ -13,17 +13,13 @@ class TimeSlot extends PureComponent {
     isDisabled: PropTypes.bool,
     isAdmin: PropTypes.bool.isRequired,
     showClear: PropTypes.bool.isRequired,
-    isHighlighted: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
-    isSelectable: PropTypes.bool.isRequired,
-    isUnderMinPeriod: PropTypes.bool.isRequired,
     onClear: PropTypes.func.isRequired,
     onClick: PropTypes.func.isRequired,
     onMouseEnter: PropTypes.func.isRequired,
     onMouseLeave: PropTypes.func.isRequired,
     resource: PropTypes.object.isRequired,
     scrollTo: PropTypes.bool,
-    selected: PropTypes.bool.isRequired,
     slot: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
   };
@@ -83,7 +79,7 @@ class TimeSlot extends PureComponent {
 
   handleClick = (disabled) => {
     const {
-      addNotification, isLoggedIn, onClick, resource, slot, t, isUnderMinPeriod
+      addNotification, isLoggedIn, onClick, resource, slot, t
     } = this.props;
 
     if (disabled) {
@@ -91,16 +87,8 @@ class TimeSlot extends PureComponent {
       if (notification && notification.message) {
         addNotification(notification);
       }
-    } else if (isUnderMinPeriod) {
-      this.renderMinPeriodWarning();
     } else {
-      onClick({
-        begin: slot.start,
-        end: slot.end,
-        resource: resource.id,
-        minPeriod: resource.minPeriod === resource.slotSize ? null : resource.minPeriod
-        // Ignore minPeriod if minPeriod is equal slotSize
-      });
+      onClick(slot);
     }
   };
 
@@ -108,15 +96,12 @@ class TimeSlot extends PureComponent {
     const {
       isDisabled,
       isAdmin,
-      showClear,
-      isHighlighted,
       isLoggedIn,
-      isSelectable,
       onClear,
       onMouseEnter,
       onMouseLeave,
       resource,
-      selected,
+      showClear,
       slot,
     } = this.props;
     const isPast = new Date(slot.end) < new Date();
@@ -124,7 +109,7 @@ class TimeSlot extends PureComponent {
       && moment(slot.start).isBefore(resource.reservableAfter));
     const disabled = isDisabled
       || !isLoggedIn
-      || (!isSelectable && !selected)
+      || (!slot.isSelectable)
       || !resource.userPermissions.canMakeReservations
       || isReservable
       || (!slot.editing && (slot.reserved || isPast));
@@ -144,8 +129,7 @@ class TimeSlot extends PureComponent {
           'app-TimeSlot--reservation-starting': slot.reservationStarting,
           'app-TimeSlot--reservation-ending': slot.reservationEnding,
           'app-TimeSlot--reserved': slot.reserved,
-          'app-TimeSlot--selected': selected,
-          'app-TimeSlot--highlight': isHighlighted,
+          'app-TimeSlot--highlight': slot.isHighLighted,
         })}
         ref={this.timeSlotRef}
       >

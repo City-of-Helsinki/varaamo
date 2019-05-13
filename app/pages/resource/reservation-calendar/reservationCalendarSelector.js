@@ -1,5 +1,4 @@
 import ActionTypes from 'constants/ActionTypes';
-import { DEFAULT_SLOT_SIZE } from 'constants/SlotConstants';
 
 import filter from 'lodash/filter';
 import isEmpty from 'lodash/isEmpty';
@@ -17,9 +16,8 @@ import { createResourceSelector } from 'state/selectors/dataSelectors';
 import dateSelector from 'state/selectors/dateSelector';
 import timeSelector from 'state/selectors/timeSelector';
 import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
-import { getOpeningHours, getOpenReservations } from 'utils/resourceUtils';
-import { getTimeSlots } from 'utils/timeUtils';
 import utils from './utils';
+
 
 const moment = extendMoment(Moment);
 
@@ -28,6 +26,9 @@ const resourceSelector = createResourceSelector(resourceIdSelector);
 const selectedSelector = state => state.ui.reservations.selected;
 const selectedReservationSlotSelector = state => state.ui.reservations.selectedSlot;
 const toEditSelector = state => state.ui.reservations.toEdit;
+const daySlotsSelector = state => state.ui.timeSlot.daySlots;
+const startSlotSelector = state => state.ui.timeSlot.startSlot;
+const endSlotSelector = state => state.ui.timeSlot.endSlot;
 
 const isEditingSelector = createSelector(
   toEditSelector,
@@ -72,26 +73,6 @@ const resourceByDates = createSelector(
   }
 );
 
-const timeSlotsSelector = createSelector(
-  resourceByDates,
-  toEditSelector,
-  (resourceDates, reservationsToEdit) => resourceDates.map((resource) => {
-    const { closes, opens } = getOpeningHours(resource);
-    const period = resource.slotSize || DEFAULT_SLOT_SIZE;
-    const reservations = getOpenReservations(resource);
-    const timeSlots = getTimeSlots(opens, closes, period, reservations, reservationsToEdit);
-    if (timeSlots.length) {
-      return timeSlots;
-    }
-    if (resource.openingHours && resource.openingHours.length) {
-      const resourceDate = resource.openingHours[0].date;
-      const start = moment(resourceDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
-      return resourceDate ? [{ start }] : [];
-    }
-    return [];
-  }),
-);
-
 const reservationCalendarSelector = createStructuredSelector({
   date: dateSelector,
   isAdmin: isAdminSelector,
@@ -103,7 +84,11 @@ const reservationCalendarSelector = createStructuredSelector({
   selected: selectedSelector,
   selectedReservationSlot: selectedReservationSlotSelector,
   time: timeSelector,
-  timeSlots: timeSlotsSelector,
+  resourceDates: resourceByDates,
+  reservationToEdit: toEditSelector,
+  daySlots: daySlotsSelector,
+  startSlotSelector,
+  endSlotSelector
 });
 
 export default reservationCalendarSelector;

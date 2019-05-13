@@ -1,5 +1,3 @@
-import constants from 'constants/AppConstants';
-
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -8,17 +6,13 @@ import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 import Row from 'react-bootstrap/lib/Row';
 import moment from 'moment';
-import first from 'lodash/first';
-import last from 'lodash/last';
-import orderBy from 'lodash/orderBy';
 
 import { addNotification } from 'actions/notificationsActions';
+import { createDaysSlots, clearTimeSlotSelection, selectTimeSlot } from 'actions/timeSlotActions';
 import {
   cancelReservationEdit,
-  clearTimeSlots,
   openConfirmReservationModal,
   selectReservationSlot,
-  toggleTimeSlot,
 } from 'actions/uiActions';
 import ReservationCancelModal from 'shared/modals/reservation-cancel';
 import ReservationInfoModal from 'shared/modals/reservation-info';
@@ -31,6 +25,7 @@ import { hasMaxReservations, reservingIsRestricted } from 'utils/resourceUtils';
 import reservationCalendarSelector from './reservationCalendarSelector';
 import ReservingRestrictedText from './ReservingRestrictedText';
 import TimeSlots from './time-slots';
+import { getTimeDiff } from 'utils/timeUtils';
 
 export class UnconnectedReservationCalendarContainer extends Component {
   static propTypes = {
@@ -50,47 +45,21 @@ export class UnconnectedReservationCalendarContainer extends Component {
       id: PropTypes.string.isRequired,
     }).isRequired,
     history: PropTypes.object.isRequired,
+
     resource: PropTypes.object.isRequired,
-    selected: PropTypes.array.isRequired,
+    startSlot: PropTypes.object,
+    endSlot: PropTypes.object,
     t: PropTypes.func.isRequired,
     time: PropTypes.string,
-    timeSlots: PropTypes.array.isRequired,
+    resourceDates: PropTypes.array,
+    reservationToEdit: PropTypes.array,
+    daySlots: PropTypes.array.isRequired
   };
 
-  getSelectedDateSlots = (timeSlots, selected) => {
-    if (timeSlots && selected.length) {
-      const firstSelected = first(selected);
-      const selectedDate = moment(firstSelected.begin).format(constants.DATE_FORMAT);
-      const dateSlot = timeSlots.find((slot) => {
-        if (slot && slot.length) {
-          const slotDate = moment(slot[0].start).format(constants.DATE_FORMAT);
-          return selectedDate === slotDate;
-        }
-        return false;
-      });
-      return dateSlot || [];
-    }
-    return [];
-  };
+  componentDidMount() {
+    const { actions, resourceDates, reservationToEdit } = this.props;
 
-  getSelectedTimeText = (selected) => {
-    if (!selected.length) {
-      return '';
-    }
-    const orderedSelected = orderBy(selected, 'begin');
-    const beginSlot = first(orderedSelected);
-    const endSlot = last(orderedSelected);
-    const beginText = this.getDateTimeText(beginSlot.begin, true);
-    const endText = this.getDateTimeText(endSlot.end, false);
-    const duration = moment.duration(moment(endSlot.end).diff(moment(beginSlot.begin)));
-    const durationText = this.getDurationText(duration);
-    return `${beginText} - ${endText} (${durationText})`;
-  };
-
-  getDurationText = (duration) => {
-    const hours = duration.hours();
-    const mins = duration.minutes();
-    return `${hours > 0 ? `${hours}h ` : ''}${mins}min`;
+    actions.createDaysSlots({ resourceDates, reservationToEdit });
   }
 
   getDateTimeText = (slot, returnDate) => {
@@ -106,13 +75,32 @@ export class UnconnectedReservationCalendarContainer extends Component {
     return `${timeText}`;
   };
 
+  getSelectedTimeText = (startSlot) => {
+    if (!startSlot) {
+      return '';
+    }
+
+    const beginText = this.getDateTimeText(startSlot.start, true);
+    const endText = this.getDateTimeText(startSlot.end, false);
+    const duration = moment.duration(getTimeDiff(startSlot.end, startSlot.start));
+    const durationText = this.getDurationText(duration);
+
+    return `${beginText} - ${endText} (${durationText})`;
+  };
+
+  getDurationText = (duration) => {
+    const hours = duration.hours();
+    const mins = duration.minutes();
+    return `${hours > 0 ? `${hours}h ` : ''}${mins}min`;
+  }
+
   handleEditCancel = () => {
     this.props.actions.cancelReservationEdit();
   };
 
   handleReserveClick = () => {
     const {
-      actions, isAdmin, resource, selected, t, history
+      actions, isAdmin, resource, startSlot, t, history, endSlot
     } = this.props;
     if (!isAdmin && hasMaxReservations(resource)) {
       actions.addNotification({
@@ -121,14 +109,12 @@ export class UnconnectedReservationCalendarContainer extends Component {
         timeOut: 10000,
       });
     } else {
-      const orderedSelected = orderBy(selected, 'begin');
-      const { end } = last(orderedSelected);
-      const reservation = Object.assign({}, first(orderedSelected), { end });
-      const nextUrl = getEditReservationUrl(reservation);
+      const nextUrl = getEditReservationUrl({ start: startSlot.start, end: endSlot.end });
 
       history.push(nextUrl);
     }
   };
+
 
   render() {
     const {
@@ -141,43 +127,44 @@ export class UnconnectedReservationCalendarContainer extends Component {
       isStaff,
       params,
       resource,
-      selected,
       t,
       time,
-      timeSlots,
+      daySlots,
+      startSlot,
+      endSlot
     } = this.props;
 
-    const isOpen = Boolean(timeSlots.length);
+    const isOpen = Boolean(daySlots.length);
     const showTimeSlots = isOpen && !reservingIsRestricted(resource, date);
-    const selectedDateSlots = this.getSelectedDateSlots(timeSlots, selected);
 
     return (
       <div className="reservation-calendar">
         {showTimeSlots && (
           <TimeSlots
             addNotification={actions.addNotification}
+            endSlot={endSlot}
             isAdmin={isAdmin}
             isEditing={isEditing}
             isFetching={isFetchingResource}
             isLoggedIn={isLoggedIn}
             isStaff={isStaff}
-            onClear={actions.clearTimeSlots}
-            onClick={actions.toggleTimeSlot}
+            onClear={actions.clearTimeSlotSelection}
+            onClick={actions.selectTimeSlot}
             resource={resource}
-            selected={selected}
             selectedDate={date}
-            slots={timeSlots}
+            slots={daySlots}
+            startSlot={startSlot}
             time={time}
           />
         )}
-        {showTimeSlots && selected.length > 0 && (
+        {showTimeSlots && startSlot && (
           <Row className="reservation-calendar-reserve-info">
             <Col xs={8}>
               <strong>
                 {t('TimeSlots.selectedDate')}
                 {' '}
               </strong>
-              {this.getSelectedTimeText(selected)}
+              {this.getSelectedTimeText(startSlot)}
             </Col>
             <Col xs={4}>
               <Button
@@ -202,9 +189,9 @@ export class UnconnectedReservationCalendarContainer extends Component {
         <ReservationSuccessModal />
         <ReservationConfirmation
           params={params}
-          selectedReservations={selected}
+          // selectedReservations={selected}
           showTimeControls
-          timeSlots={selectedDateSlots}
+          // timeSlots={selectedDateSlots}
         />
       </div>
     );
@@ -217,11 +204,12 @@ function mapDispatchToProps(dispatch) {
   const actionCreators = {
     addNotification,
     cancelReservationEdit,
-    clearTimeSlots,
     changeRecurringBaseTime: recurringReservations.changeBaseTime,
     openConfirmReservationModal,
     selectReservationSlot,
-    toggleTimeSlot,
+    createDaysSlots,
+    clearTimeSlotSelection,
+    selectTimeSlot
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

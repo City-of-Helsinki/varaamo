@@ -157,6 +157,8 @@ function getTimeSlots(
         reserved,
         start: startMoment.toISOString(),
         end: endMoment.toISOString(),
+        isSelectable: true,
+        isHightlighted: false,
       };
     }
   );

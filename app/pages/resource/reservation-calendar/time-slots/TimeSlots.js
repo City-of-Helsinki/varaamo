@@ -10,7 +10,6 @@ import minBy from 'lodash/minBy';
 import round from 'lodash/round';
 
 import { injectT } from 'i18n';
-import ReservationPopover from 'shared/reservation-popover';
 import TimeSlot from './TimeSlot';
 import TimeSlotPlaceholder from './TimeSlotPlaceholder';
 import utils from '../utils';
@@ -19,14 +18,14 @@ class TimeSlots extends Component {
   static propTypes = {
     addNotification: PropTypes.func.isRequired,
     isAdmin: PropTypes.bool.isRequired,
-    isEditing: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     onClear: PropTypes.func.isRequired,
     onClick: PropTypes.func.isRequired,
     resource: PropTypes.object.isRequired,
-    selected: PropTypes.array.isRequired,
     selectedDate: PropTypes.string.isRequired,
+    startSlot: PropTypes.object,
+    endSlot: PropTypes.object,
     slots: PropTypes.array.isRequired,
     t: PropTypes.func.isRequired,
     time: PropTypes.string,
@@ -43,11 +42,11 @@ class TimeSlots extends Component {
   };
 
   onCancel = () => {
-    const { onClick, selected } = this.props;
-    if (selected.length < 1) {
+    const { onClick, startSlot, endSlot } = this.props;
+    if (startSlot || endSlot) {
       return;
     }
-    onClick(selected[0]);
+    onClick(startSlot);
   };
 
   onMouseEnter = (hoveredTimeSlot) => {
@@ -63,22 +62,22 @@ class TimeSlots extends Component {
   };
 
   getReservationBegin = () => {
-    const { selected } = this.props;
-    if (selected.length < 1) {
+    const { startSlot } = this.props;
+    if (!startSlot) {
       return '';
     }
 
-    return selected[0].begin;
+    return startSlot.start;
   };
 
   getReservationEnd = () => {
-    const { selected } = this.props;
+    const { endSlot } = this.props;
     const { hoveredTimeSlot } = this.state;
-    if (selected.length < 1) {
+    if (!endSlot) {
       return '';
     }
     if (!hoveredTimeSlot) {
-      return selected[selected.length - 1].end;
+      return endSlot.end;
     }
     return hoveredTimeSlot.end;
   };
@@ -131,9 +130,8 @@ class TimeSlots extends Component {
 
   renderTimeSlots = () => {
     const {
-      selected, selectedDate, slots, resource
+      selectedDate, slots
     } = this.props;
-    let lastSelectableFound = false;
 
     const { mobilePlaceholderOffset, timeSlotPlaceholderSizes } = this.calculatePlaceholders(
       selectedDate,
@@ -145,8 +143,6 @@ class TimeSlots extends Component {
         return null;
       }
       const slot = timeSlots[0];
-      const lastSlot = timeSlots[timeSlots.length - 2];
-      // last slot is selectable slot, which is slot before last slot in array
 
       const placeholderSize = timeSlotPlaceholderSizes[index];
 
@@ -170,35 +166,23 @@ class TimeSlots extends Component {
           {!!placeholderSize && (
             <TimeSlotPlaceholder mobileOffset={mobilePlaceholderOffset} size={placeholderSize} />
           )}
-
-          {timeSlots.map((timeSlot) => {
-            const isUnderMinPeriod = utils.isUnderMinPeriod(
-              selected, timeSlot, lastSlot, resource.minPeriod
-            );
-
-            if (!lastSelectableFound && selected.length && timeSlot.reserved) {
-              lastSelectableFound = utils.isSlotAfterSelected(timeSlot, selected);
-            }
-            return this.renderTimeSlot(timeSlot, lastSelectableFound, isUnderMinPeriod);
-          })}
+          {timeSlots.map(timeSlot => this.renderTimeSlot(timeSlot))}
         </div>
       );
     });
   };
 
-  renderTimeSlot = (slot, lastSelectableFound, isUnderMinPeriod) => {
+  renderTimeSlot = (slot) => {
     const {
       addNotification,
       isAdmin,
-      isEditing,
       isLoggedIn,
       onClick,
       resource,
-      selected,
       t,
       time,
+      startSlot,
     } = this.props;
-    const { hoveredTimeSlot } = this.state;
     if (!slot.end) {
       return (
         <h6 className="app-TimeSlots--closed" key={slot.start}>
@@ -207,42 +191,12 @@ class TimeSlots extends Component {
       );
     }
     const scrollTo = time && time === slot.start;
-    const isSelectable = utils.isSlotSelectable(
-      slot,
-      selected,
-      resource,
-      lastSelectableFound,
-      isAdmin
-    );
-    const isSelected = utils.isSlotSelected(slot, selected);
-    const isHoveredSlotSelected = utils.isSlotSelected(hoveredTimeSlot, selected);
-
-    const isFirstSelected = utils.isFirstSelected(slot, selected);
-    const shouldShowReservationPopover = hoveredTimeSlot
-    && isFirstSelected && !isHoveredSlotSelected;
-
-    const isHighlighted = utils.isHighlighted(slot, selected, hoveredTimeSlot);
-    const resBegin = this.getReservationBegin();
-    const resEnd = this.getReservationEnd();
-
-    let isMaxExceeded = false;
-
-    if (!isAdmin && resBegin && resource.maxPeriod) {
-      const resLengthInMins = moment(slot.end).diff(resBegin, 'minutes');
-      const maxPeriodInMins = moment.duration(resource.maxPeriod).asMinutes();
-      isMaxExceeded = resLengthInMins > maxPeriodInMins;
-    }
 
     const timeSlot = (
       <TimeSlot
         addNotification={addNotification}
         isAdmin={isAdmin}
-        isDisabled={isMaxExceeded}
-        isEditing={isEditing}
-        isHighlighted={isHighlighted}
         isLoggedIn={isLoggedIn}
-        isSelectable={isSelectable}
-        isUnderMinPeriod={isUnderMinPeriod}
         key={slot.start}
         onClear={this.onClear}
         onClick={onClick}
@@ -250,24 +204,12 @@ class TimeSlots extends Component {
         onMouseLeave={this.onMouseLeave}
         resource={resource}
         scrollTo={scrollTo}
-        selected={isSelected}
-        showClear={isFirstSelected}
+        showClear={!!startSlot}
         slot={slot}
       />
     );
 
-    return shouldShowReservationPopover ? (
-      <ReservationPopover
-        begin={resBegin}
-        end={resEnd}
-        key="timeslots-reservation-popover"
-        onCancel={this.onCancel}
-      >
-        {timeSlot}
-      </ReservationPopover>
-    ) : (
-      timeSlot
-    );
+    return timeSlot;
   };
 
   render() {
