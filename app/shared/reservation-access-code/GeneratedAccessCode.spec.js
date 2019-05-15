@@ -3,9 +3,9 @@ import Immutable from 'seamless-immutable';
 
 import Reservation from 'utils/fixtures/Reservation';
 import { shallowWithIntl } from 'utils/testUtils';
-import ReservationAccessCode from './ReservationAccessCode';
+import ReservationAccessCode from './GeneratedAccessCode';
 
-describe('shared/reservation-access-code/ReservationAccessCode', () => {
+describe('shared/reservation-access-code/GeneratedAccessCode', () => {
   const defaultProps = {
     reservation: Immutable(Reservation.build()),
   };
