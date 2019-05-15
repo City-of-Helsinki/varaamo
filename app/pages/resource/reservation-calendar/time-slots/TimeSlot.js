@@ -10,11 +10,13 @@ import { padLeft } from 'utils/timeUtils';
 class TimeSlot extends PureComponent {
   static propTypes = {
     addNotification: PropTypes.func.isRequired,
+    // eslint-disable-next-line react/no-unused-prop-types
     isDisabled: PropTypes.bool,
     isAdmin: PropTypes.bool.isRequired,
     showClear: PropTypes.bool.isRequired,
     isHighlighted: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
+    // eslint-disable-next-line react/no-unused-prop-types
     isSelectable: PropTypes.bool.isRequired,
     isUnderMinPeriod: PropTypes.bool.isRequired,
     onClear: PropTypes.func.isRequired,
@@ -32,14 +34,48 @@ class TimeSlot extends PureComponent {
     isDisabled: false,
   }
 
+  static getDerivedStateFromProps(prop) {
+    const {
+      slot, resource, isDisabled, isSelectable, selected, isLoggedIn
+    } = prop;
+    const isPast = new Date(slot.end) < new Date();
+    const isReservable = (resource.reservableAfter
+      && moment(slot.start).isBefore(resource.reservableAfter));
+    const disabled = isDisabled
+      || !isLoggedIn
+      || (!isSelectable && !selected)
+      || !resource.userPermissions.canMakeReservations
+      || isReservable
+      || (!slot.editing && (slot.reserved || isPast));
+
+    return {
+      disabled,
+      isPast
+    };
+  }
+
   constructor(props) {
     super(props);
     this.timeSlotRef = React.createRef();
+
+    this.state = {
+      disabled: false,
+      isPast: false,
+    };
   }
 
   componentDidMount() {
     if (this.props.scrollTo) {
       scrollTo(this.timeSlotRef.current);
+    }
+  }
+
+  componentDidUpdate() {
+    const { selected } = this.props;
+
+    if (selected && selected === this.state.disabled) {
+      this.renderMinPeriodWarning();
+      this.props.onClear();
     }
   }
 
@@ -104,28 +140,18 @@ class TimeSlot extends PureComponent {
 
   render() {
     const {
-      isDisabled,
       isAdmin,
       showClear,
       isHighlighted,
-      isLoggedIn,
-      isSelectable,
       onClear,
       onMouseEnter,
       onMouseLeave,
-      resource,
       selected,
       slot,
     } = this.props;
-    const isPast = new Date(slot.end) < new Date();
-    const isReservable = (resource.reservableAfter
-      && moment(slot.start).isBefore(resource.reservableAfter));
-    const disabled = isDisabled
-      || !isLoggedIn
-      || (!isSelectable && !selected)
-      || !resource.userPermissions.canMakeReservations
-      || isReservable
-      || (!slot.editing && (slot.reserved || isPast));
+
+    const { disabled, isPast } = this.state;
+
     const reservation = slot.reservation;
     const isOwnReservation = reservation && reservation.isOwn;
     const start = new Date(slot.start);
