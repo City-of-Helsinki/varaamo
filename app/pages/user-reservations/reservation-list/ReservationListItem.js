@@ -52,6 +52,7 @@ class ReservationListItem extends Component {
           </div>
           <ReservationAccessCode
             reservation={reservation}
+            resource={resource}
             text={t('ReservationListItem.accessCodeText')}
           />
         </div>

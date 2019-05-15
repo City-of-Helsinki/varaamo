@@ -71,6 +71,7 @@ function ReservationSuccessModal({
               <p>
                 <ReservationAccessCode
                   reservation={reservation}
+                  resource={resource}
                   text={t('ReservationSuccessModal.reservationAccessCodeText')}
                 />
               </p>
