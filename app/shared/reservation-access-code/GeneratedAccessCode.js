@@ -3,24 +3,18 @@ import React from 'react';
 
 import { injectT } from 'i18n';
 
-function ReservationAccessCode({ reservation, t, text }) {
-  if (!reservation.accessCode) {
-    return <span />;
-  }
-
+function ReservationAccessCode({ accessCode, t, text }) {
   return (
     <span className="reservation-access-code">
       {text || t('ReservationAccessCode.defaultText')}
       {' '}
-      {reservation.accessCode}
+      {accessCode}
     </span>
   );
 }
 
 ReservationAccessCode.propTypes = {
-  reservation: PropTypes.shape({
-    accessCode: PropTypes.string,
-  }).isRequired,
+  accessCode: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
   text: PropTypes.string,
 };

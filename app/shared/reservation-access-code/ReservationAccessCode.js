@@ -7,7 +7,7 @@ import { isAccessCodeGenerated, isAccessCodePending } from './helpers';
 
 const ReservationAccessCode = ({ reservation, resource, text }) => {
   if (isAccessCodeGenerated(reservation)) {
-    return <GeneratedAccessCode reservation={reservation} text={text} />;
+    return <GeneratedAccessCode accessCode={reservation.accessCode} text={text} />;
   }
   if (resource && isAccessCodePending(reservation, resource)) {
     return <PendingAccessCode />;
