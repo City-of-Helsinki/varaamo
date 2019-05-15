@@ -120,22 +120,20 @@ function isHighlighted(slot, selected, hovered) {
  * by adding minPeriod to slot start time
  * and compare with last slot end time
  *
- * @param {Object} selected
  * @param {Object} slot
  * @param {Object} lastSlot
  * @param {String | undefined} minPeriod: minPeriod limit, usuall HH:MM:SS
  * @returns
  */
-function isUnderMinPeriod(selected, slot, lastSlot, minPeriod) {
-  if (!selected || !slot || !lastSlot) {
+function isUnderMinPeriod(slot, lastSlot, minPeriod) {
+  if (!slot || !lastSlot) {
     return false;
   }
 
   if (!slot.end || !lastSlot.end) {
     return false;
   }
-
-  if (!selected.length && minPeriod) {
+  if (minPeriod) {
     const minPeriodInMinutes = moment.duration(minPeriod).asMinutes();
     return moment(slot.start).add(minPeriodInMinutes, 'minutes') > (moment(lastSlot.end));
   }

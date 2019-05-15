@@ -11,6 +11,7 @@ import moment from 'moment';
 import first from 'lodash/first';
 import last from 'lodash/last';
 import orderBy from 'lodash/orderBy';
+import debounce from 'lodash/debounce';
 
 import { addNotification } from 'actions/notificationsActions';
 import {
@@ -150,12 +151,12 @@ export class UnconnectedReservationCalendarContainer extends Component {
     const isOpen = Boolean(timeSlots.length);
     const showTimeSlots = isOpen && !reservingIsRestricted(resource, date);
     const selectedDateSlots = this.getSelectedDateSlots(timeSlots, selected);
-
     return (
       <div className="reservation-calendar">
         {showTimeSlots && (
           <TimeSlots
-            addNotification={actions.addNotification}
+            addNotification={debounce(actions.addNotification, 100)}
+            // TODO: Im a h@ck, remove me
             isAdmin={isAdmin}
             isEditing={isEditing}
             isFetching={isFetchingResource}

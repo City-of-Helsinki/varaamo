@@ -145,9 +145,8 @@ class TimeSlots extends Component {
         return null;
       }
       const slot = timeSlots[0];
-      const lastSlot = timeSlots[timeSlots.length - 2];
+      const lastSlot = timeSlots[timeSlots.length - 1];
       // last slot is selectable slot, which is slot before last slot in array
-
       const placeholderSize = timeSlotPlaceholderSizes[index];
 
       const slotDate = moment(slot.start).format(constants.DATE_FORMAT);
@@ -172,9 +171,7 @@ class TimeSlots extends Component {
           )}
 
           {timeSlots.map((timeSlot) => {
-            const isUnderMinPeriod = utils.isUnderMinPeriod(
-              selected, timeSlot, lastSlot, resource.minPeriod
-            );
+            const isUnderMinPeriod = utils.isUnderMinPeriod(timeSlot, lastSlot, resource.minPeriod);
 
             if (!lastSelectableFound && selected.length && timeSlot.reserved) {
               lastSelectableFound = utils.isSlotAfterSelected(timeSlot, selected);
