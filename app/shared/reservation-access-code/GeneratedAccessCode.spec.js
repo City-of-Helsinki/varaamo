@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { shallowWithIntl } from 'utils/testUtils';
-import ReservationAccessCode from './GeneratedAccessCode';
+import GeneratedAccessCode from './GeneratedAccessCode';
 
 describe('shared/reservation-access-code/GeneratedAccessCode', () => {
   const defaultProps = {
@@ -9,7 +9,7 @@ describe('shared/reservation-access-code/GeneratedAccessCode', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallowWithIntl(<ReservationAccessCode {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(<GeneratedAccessCode {...defaultProps} {...extraProps} />);
   }
 
   describe('if reservation has accessCode', () => {
