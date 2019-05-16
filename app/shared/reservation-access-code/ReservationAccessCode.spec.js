@@ -35,4 +35,11 @@ describe('shared/reservation-access-code/ReservationAccessCode', () => {
     const wrapper = getWrapper();
     expect(wrapper.equals(<span />)).toBe(true);
   });
+
+  test('renders empty span when reservation that would produce pending PIN is cancelled', () => {
+    const reservation = createReservation({ state: 'cancelled' });
+    const resource = createResource({ generateAccessCodes: false });
+    const wrapper = getWrapper({ reservation, resource });
+    expect(wrapper.equals(<span />)).toBe(true);
+  });
 });

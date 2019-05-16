@@ -9,3 +9,5 @@ export const isAccessCodePending = (reservation, resource) => {
   // false => an access_code will be generated for reservation 24h before it starts
   return !isAccessCodeGenerated(reservation) && resource.generateAccessCodes === false;
 };
+
+export const isReservationCancelled = reservation => reservation.state === 'cancelled';
