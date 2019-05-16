@@ -12,27 +12,25 @@ describe('shared/reservation-access-code/GeneratedAccessCode', () => {
     return shallowWithIntl(<GeneratedAccessCode {...defaultProps} {...extraProps} />);
   }
 
-  describe('if reservation has accessCode', () => {
-    test('renders a span with correct class', () => {
-      const span = getWrapper().find('span');
-      expect(span.length).toBe(1);
-      expect(span.prop('className')).toBe('reservation-access-code');
-    });
+  test('renders a span with correct class', () => {
+    const span = getWrapper().find('span');
+    expect(span.length).toBe(1);
+    expect(span.prop('className')).toBe('reservation-access-code');
+  });
 
-    test('renders the reservation access code', () => {
-      const content = getWrapper().text();
-      expect(content).toContain('1234');
-    });
+  test('renders the reservation access code', () => {
+    const content = getWrapper().text();
+    expect(content).toContain('1234');
+  });
 
-    test('renders text given in props', () => {
-      const text = 'Some text';
-      const content = getWrapper({ text }).text();
-      expect(content).toContain(text);
-    });
+  test('renders text given in props', () => {
+    const text = 'Some text';
+    const content = getWrapper({ text }).text();
+    expect(content).toContain(text);
+  });
 
-    test('renders default text if no text is given in props', () => {
-      const content = getWrapper().text();
-      expect(content).toContain('ReservationAccessCode.defaultText');
-    });
+  test('renders default text if no text is given in props', () => {
+    const content = getWrapper().text();
+    expect(content).toContain('ReservationAccessCode.defaultText');
   });
 });
