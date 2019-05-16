@@ -3,7 +3,7 @@ import React from 'react';
 
 import { injectT } from 'i18n';
 
-function ReservationAccessCode({ accessCode, t, text }) {
+function GeneratedAccessCode({ accessCode, t, text }) {
   return (
     <span className="reservation-access-code">
       {text || t('ReservationAccessCode.defaultText')}
@@ -13,10 +13,10 @@ function ReservationAccessCode({ accessCode, t, text }) {
   );
 }
 
-ReservationAccessCode.propTypes = {
+GeneratedAccessCode.propTypes = {
   accessCode: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
   text: PropTypes.string,
 };
 
-export default injectT(ReservationAccessCode);
+export default injectT(GeneratedAccessCode);
