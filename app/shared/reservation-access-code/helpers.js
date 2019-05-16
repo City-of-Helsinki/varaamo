@@ -1,6 +1,6 @@
 import has from 'lodash/has';
 
-export const isAccessCodeGenerated = reservation => has(reservation, 'accessCode');
+export const isAccessCodeGenerated = reservation => has(reservation, 'accessCode') && reservation.accessCode !== null;
 
 // eslint-disable-next-line arrow-body-style
 export const isAccessCodePending = (reservation, resource) => {
