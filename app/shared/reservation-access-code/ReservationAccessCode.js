@@ -12,7 +12,7 @@ const ReservationAccessCode = ({ reservation, resource, text }) => {
   if (resource && isAccessCodePending(reservation, resource)) {
     return <PendingAccessCode />;
   }
-  return null;
+  return <span />;
 };
 
 ReservationAccessCode.propTypes = {
