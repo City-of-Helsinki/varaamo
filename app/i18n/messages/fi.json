@@ -147,6 +147,7 @@
   "RecurringReservationControls.lastTimeLabel": "Päättyy",
   "RecurringReservationControls.numberOfOccurrencesLabel": "Toistokertoja",
   "ReservationAccessCode.defaultText": "PIN-koodi",
+  "ReservationAccessCode.pending": "PIN-koodi näkyy tässä. Se luodaan 24 tuntia ennen varauksen alkua ja lähetetään sähköpostiisi.",
   "ReservationCalendarPickerLegend.booked": "Varattu",
   "ReservationCalendarPickerLegend.busy": "Osittain vapaa",
   "ReservationCalendarPickerLegend.free": "Vapaa",
