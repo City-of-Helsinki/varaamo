@@ -1,6 +1,6 @@
 {
   "name": "varaamo",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/City-of-Helsinki/varaamo"
@@ -33,7 +33,7 @@
     "mobile-detect": "1.4.0",
     "moment": "2.24.0",
     "moment-range": "4.0.1",
-    "moment-timezone": "0.5.23",
+    "moment-timezone": "0.5.25",
     "nocache": "2.0.0",
     "normalizr": "2.2.1",
     "passport": "0.3.2",

@@ -18,12 +18,13 @@ install:
 
 # We are running browser tests
 before_script:
+  - export TZ=Europe/Helsinki
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 
 script:
   - yarn lint
   - yarn test:ci
-  
+
 after_success:
   - codecov < coverage/lcov.info

@@ -1,9 +1,11 @@
 import types from 'constants/ActionTypes';
+import { DEFAULT_SLOT_SIZE } from 'constants/SlotConstants';
 
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 import first from 'lodash/first';
 import last from 'lodash/last';
+
 
 import {
   cancelReservationEdit,
@@ -385,15 +387,15 @@ describe('state/reducers/ui/reservationsReducer', () => {
       test('splits the given reservation to slots and add to selected', () => {
         const begin = '2015-10-09T08:00:00+03:00';
         const end = '2015-10-09T10:00:00+03:00';
-        const minPeriod = '00:30:00';
+        const slotSize = DEFAULT_SLOT_SIZE;
         const reservation = Reservation.build({ begin, end });
         const initialState = Immutable({
           selected: [],
           toEdit: [],
         });
-        const action = selectReservationToEdit({ reservation, minPeriod });
+        const action = selectReservationToEdit({ reservation, slotSize });
         const nextState = reservationsReducer(initialState, action);
-        const slots = getTimeSlots(reservation.begin, reservation.end, minPeriod);
+        const slots = getTimeSlots(reservation.begin, reservation.end, slotSize);
         const firstSlot = first(slots);
         const lastSlot = last(slots);
         const expected = [
@@ -440,8 +442,155 @@ describe('state/reducers/ui/reservationsReducer', () => {
     });
 
     describe('UI.TOGGLE_TIME_SLOT', () => {
+      describe('minPeriod', () => {
+        test('from payload is omit from slot data, add start slot to selected normally if minPeriod is undefined', () => {
+          const initialState = Immutable({
+            selected: [],
+          });
+
+          const payload = {
+            begin: '2015-10-11T10:00:00Z',
+            end: '2015-10-11T11:00:00Z',
+            resource: {
+              id: 'some-resource'
+            },
+          };
+
+          const expected = Immutable([{
+            begin: '2015-10-11T10:00:00Z',
+            end: '2015-10-11T11:00:00Z',
+            resource: 'some-resource'
+          }
+
+          ]);
+          const action = toggleTimeSlot(payload);
+          const nextState = reservationsReducer(initialState, action);
+
+          expect(nextState.selected).toEqual(expected);
+          expect(expected).not.toHaveProperty('minPeriod');
+        });
+
+        test('auto populate start time slot with end time slot, range between equal minPeriod', () => {
+          const initialState = Immutable({
+            selected: []
+          });
+          const minPeriod = '02:00:00';
+
+          const payload = {
+            begin: '2019-05-09T05:00:00.000Z',
+            end: '2019-05-09T06:00:00.000Z',
+            resource: {
+              id: 'some-resource',
+              minPeriod,
+              slotSize: '01:00:00'
+            },
+          };
+
+          const startTimeSlot = {
+            begin: '2019-05-09T05:00:00.000Z',
+            end: '2019-05-09T06:00:00.000Z',
+            resource: 'some-resource'
+          };
+
+          const expectedEndSlot = {
+            begin: '2019-05-09T06:00:00.000Z',
+            end: '2019-05-09T07:00:00.000Z',
+            resource: 'some-resource',
+          };
+          const action = toggleTimeSlot(payload);
+          const nextState = reservationsReducer(initialState, action);
+          const expected = Immutable([startTimeSlot, expectedEndSlot]);
+
+          expect(nextState.selected).toEqual(expected);
+        });
+
+        test('push new end time slot if its larger than current end time slot', () => {
+          const newEndTimeSlot = {
+            begin: '2019-05-09T08:00:00.000Z',
+            end: '2019-05-09T09:00:00.000Z',
+            resource: 'some-resource',
+          };
+
+          const originalStartTimeSlot = {
+            begin: '2019-05-09T05:00:00.000Z',
+            end: '2019-05-09T06:00:00.000Z',
+            resource: 'some-resource',
+          };
+
+          const initialState = Immutable({
+            selected: [
+              originalStartTimeSlot,
+              {
+                begin: '2019-05-09T06:00:00.000Z',
+                end: '2019-05-09T07:00:00.000Z',
+                resource: 'some-resource',
+              },
+            ]
+          });
+          const minPeriod = '01:00:00';
+
+          const payload = {
+            ...newEndTimeSlot,
+            resource: {
+              id: 'some-resource',
+              minPeriod
+            }
+          };
+
+          const action = toggleTimeSlot(payload);
+          const nextState = reservationsReducer(initialState, action);
+          const expected = Immutable([originalStartTimeSlot, newEndTimeSlot]);
+
+          expect(nextState.selected).toEqual(expected);
+        });
+
+        test('in case new end time is less than minPeriod, keep end time slot to minPeriod', () => {
+          const minPeriod = '03:00:00';
+
+          const newEndTimeSlot = {
+            begin: '2019-05-09T06:00:00.000Z',
+            end: '2019-05-09T07:00:00.000Z',
+            resource: 'some-resource',
+          };
+          // 1h diff from original start time slot. 2h is minPeriod, not allowed to change
+
+          const originalStartTimeSlot = {
+            begin: '2019-05-09T05:00:00.000Z',
+            end: '2019-05-09T06:00:00.000Z',
+            resource: 'some-resource',
+          };
+
+          const generatedEndTimeSlot = {
+            begin: '2019-05-09T07:00:00.000Z',
+            end: '2019-05-09T08:00:00.000Z',
+            resource: 'some-resource',
+          };
+
+          const initialState = Immutable({
+            selected: [
+              originalStartTimeSlot,
+              generatedEndTimeSlot,
+            ]
+          });
+
+          const payload = {
+            ...newEndTimeSlot,
+            resource: {
+              id: 'some-resource',
+              minPeriod,
+              slotSize: '01:00:00'
+            }
+          };
+
+          const action = toggleTimeSlot(payload);
+          const nextState = reservationsReducer(initialState, action);
+          const expected = Immutable([originalStartTimeSlot, generatedEndTimeSlot]);
+
+          expect(nextState.selected).toEqual(expected);
+        });
+      });
       describe('if slot is not already selected', () => {
-        test('adds the given slot to selected', () => {
+        test('adds the given slot to selected, known as start time slot', () => {
           const initialState = Immutable({
             selected: [],
           });
@@ -450,14 +599,17 @@ describe('state/reducers/ui/reservationsReducer', () => {
             end: '2015-10-11T11:00:00Z',
             resource: 'some-resource',
           };
-          const action = toggleTimeSlot(slot);
+
+          const payload = { ...slot, resource: { id: 'some-resource' } };
+
+          const action = toggleTimeSlot(payload);
           const nextState = reservationsReducer(initialState, action);
           const expected = Immutable([slot]);
 
           expect(nextState.selected).toEqual(expected);
         });
 
-        test('does not affect other selected slots ', () => {
+        test('does not affect other selected slots, add 2nd time slot, known as end time slot ', () => {
           const initialState = Immutable({
             selected: [
               {
@@ -472,7 +624,10 @@ describe('state/reducers/ui/reservationsReducer', () => {
             end: '2015-10-11T11:00:00ZZ',
             resource: 'some-resource',
           };
-          const action = toggleTimeSlot(slot);
+
+          const payload = { ...slot, resource: { id: 'some-resource' } };
+
+          const action = toggleTimeSlot(payload);
           const nextState = reservationsReducer(initialState, action);
           const expected = Immutable([...initialState.selected, slot]);
 
@@ -480,7 +635,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
         });
 
         test(
-          'replaces selected end slot when end slot after selected end slot',
+          'replaces selected end slot with new end slot',
           () => {
             const initialState = Immutable({
               selected: [
@@ -502,7 +657,10 @@ describe('state/reducers/ui/reservationsReducer', () => {
               resource: 'some-resource',
             };
 
-            const action = toggleTimeSlot(slot);
+            const payload = { ...slot, resource: { id: 'some-resource' } };
+
+
+            const action = toggleTimeSlot(payload);
             const nextState = reservationsReducer(initialState, action);
             const expected = Immutable([initialState.selected[0], slot]);
 
@@ -531,7 +689,10 @@ describe('state/reducers/ui/reservationsReducer', () => {
             resource: 'some-resource',
           };
 
-          const action = toggleTimeSlot(slot);
+          const payload = { ...slot, resource: { id: 'some-resource' } };
+
+
+          const action = toggleTimeSlot(payload);
           const nextState = reservationsReducer(initialState, action);
           const expected = Immutable([initialState.selected[0], slot]);
 
@@ -540,23 +701,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
       });
 
       describe('if slot is already selected', () => {
-        test('removes the given slot from selected', () => {
-          const slot = {
-            begin: '2015-10-11T10:00:00Z',
-            end: '2015-10-11T11:00:00Z',
-            resource: 'some-resource',
-          };
-          const action = toggleTimeSlot(slot);
-          const initialState = Immutable({
-            selected: [slot],
-          });
-          const nextState = reservationsReducer(initialState, action);
-          const expected = Immutable([]);
-
-          expect(nextState.selected).toEqual(expected);
-        });
-
-        test('does not affect other selected slots ', () => {
+        test('duplicated will not affect other selected slots ', () => {
           const slot1 = {
             begin: '2015-12-12T10:00:00Z',
             end: '2015-12-12T11:00:00Z',
@@ -567,12 +712,15 @@ describe('state/reducers/ui/reservationsReducer', () => {
             end: '2015-10-11T11:00:00Z',
             resource: 'some-resource',
           };
-          const action = toggleTimeSlot(slot2);
+
+          const payload = { ...slot2, resource: { id: 'some-resource' } };
+
+          const action = toggleTimeSlot(payload);
           const initialState = Immutable({
             selected: [slot1, slot2],
           });
           const nextState = reservationsReducer(initialState, action);
-          const expected = Immutable([slot1]);
+          const expected = Immutable([slot1, slot2]);
 
           expect(nextState.selected).toEqual(expected);
         });

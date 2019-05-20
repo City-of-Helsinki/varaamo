@@ -1,5 +1,5 @@
 import { openingHoursMonth } from 'constants/ResourceConstants';
-
+import { DEFAULT_SLOT_SIZE } from 'constants/SlotConstants';
 // import moment from 'moment';
 
 import Resource from 'utils/fixtures/Resource';
@@ -132,7 +132,7 @@ describe('pages/resource/reservation-calendar/utils', () => {
           start: '2015-10-10T13:00:00Z',
           end: '2015-10-10T13:30:00Z',
         };
-        const resourceMaxPeriod = Resource.build({ maxPeriod: '00:30:00' });
+        const resourceMaxPeriod = Resource.build({ maxPeriod: DEFAULT_SLOT_SIZE });
         const actual = utils.isSlotSelectable(slotAfterMaxPeriod, selected,
           resourceMaxPeriod, lastSelectableFound, isAdmin);
         expect(actual).toBe(false);
@@ -146,7 +146,7 @@ describe('pages/resource/reservation-calendar/utils', () => {
           start: '2015-10-10T13:00:00Z',
           end: '2015-10-10T13:30:00Z',
         };
-        const resourceMaxPeriod = Resource.build({ maxPeriod: '00:30:00' });
+        const resourceMaxPeriod = Resource.build({ maxPeriod: DEFAULT_SLOT_SIZE });
         const actual = utils.isSlotSelectable(slotAfterMaxPeriod, selected,
           resourceMaxPeriod, lastSelectableFound, true);
         expect(actual).toBe(true);
@@ -189,6 +189,65 @@ describe('pages/resource/reservation-calendar/utils', () => {
         end: '2015-10-10T10:30:00Z',
       }];
       const actual = utils.isSlotSelected(slot, selectedOutsideSlot);
+      expect(actual).toBe(false);
+    });
+  });
+
+  describe('isUnderMinPeriod', () => {
+    const minPeriod = '2:00:00';
+    const lastSlot = {
+      start: '2015-10-10T15:00:00Z',
+      end: '2015-10-10T15:30:00Z',
+    };
+
+    const inValidSlot = {
+      start: '2015-10-10T14:30:00Z',
+      end: '2015-10-10T15:00:00Z',
+    };
+
+    test('return false if required data is missing, wont throw error', () => {
+      const noLastSlot = utils.isUnderMinPeriod(slot, undefined, minPeriod);
+      const noStartSlot = utils.isUnderMinPeriod(undefined, lastSlot, minPeriod);
+
+      expect(noLastSlot).toBeFalsy();
+      expect(noStartSlot).toBeFalsy();
+    });
+    test('returns false if minPeriod is not defined', () => {
+      const actual = utils.isUnderMinPeriod(slot, lastSlot);
+      expect(actual).toBe(false);
+    });
+
+    test('returns false if minPeriod is defined but start time slot already selected (allow time slot to be selected if start time is already selected)', () => {
+      const actual = utils.isUnderMinPeriod(null, null, minPeriod);
+      expect(actual).toBe(false);
+    });
+
+    test('return false if its safe to select slot', () => {
+      const actual = utils.isUnderMinPeriod(slot, lastSlot, minPeriod);
+      expect(actual).toBe(false);
+    });
+
+    test('return false if slot have no end property (closed one)', () => {
+      const closeSlot = {
+        start: '2015-10-10T15:00:00Z',
+      };
+
+      const actual = utils.isUnderMinPeriod(slot, closeSlot, minPeriod);
+      expect(actual).toBe(false);
+    });
+
+    test('return true if selected slot will not fulfill minPeriod', () => {
+      const actual = utils.isUnderMinPeriod(inValidSlot, lastSlot, minPeriod);
+      expect(actual).toBe(true);
+    });
+
+    test('return false if selected slot fulfill minPeriod', () => {
+      const validSlot = {
+        start: '2015-10-10T13:30:00Z',
+        end: '2015-10-10T14:00:00Z',
+      };
+
+      const actual = utils.isUnderMinPeriod(validSlot, lastSlot, minPeriod);
       expect(actual).toBe(false);
     });
   });

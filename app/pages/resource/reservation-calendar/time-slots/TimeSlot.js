@@ -10,12 +10,15 @@ import { padLeft } from 'utils/timeUtils';
 class TimeSlot extends PureComponent {
   static propTypes = {
     addNotification: PropTypes.func.isRequired,
+    // eslint-disable-next-line react/no-unused-prop-types
     isDisabled: PropTypes.bool,
     isAdmin: PropTypes.bool.isRequired,
     showClear: PropTypes.bool.isRequired,
     isHighlighted: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
+    // eslint-disable-next-line react/no-unused-prop-types
     isSelectable: PropTypes.bool.isRequired,
+    isUnderMinPeriod: PropTypes.bool.isRequired,
     onClear: PropTypes.func.isRequired,
     onClick: PropTypes.func.isRequired,
     onMouseEnter: PropTypes.func.isRequired,
@@ -31,14 +34,48 @@ class TimeSlot extends PureComponent {
     isDisabled: false,
   }
 
+  static getDerivedStateFromProps(prop) {
+    const {
+      slot, resource, isDisabled, isSelectable, selected, isLoggedIn
+    } = prop;
+    const isPast = new Date(slot.end) < new Date();
+    const isReservable = (resource.reservableAfter
+      && moment(slot.start).isBefore(resource.reservableAfter));
+    const disabled = isDisabled
+      || !isLoggedIn
+      || (!isSelectable && !selected)
+      || !resource.userPermissions.canMakeReservations
+      || isReservable
+      || (!slot.editing && (slot.reserved || isPast));
+
+    return {
+      disabled,
+      isPast
+    };
+  }
+
   constructor(props) {
     super(props);
     this.timeSlotRef = React.createRef();
+
+    this.state = {
+      disabled: false,
+      isPast: false,
+    };
   }
 
   componentDidMount() {
     if (this.props.scrollTo) {
       scrollTo(this.timeSlotRef.current);
+    }
+  }
+
+  componentDidUpdate() {
+    const { selected } = this.props;
+
+    if (selected && selected === this.state.disabled) {
+      this.renderMinPeriodWarning();
+      this.props.onClear();
     }
   }
 
@@ -61,9 +98,28 @@ class TimeSlot extends PureComponent {
     };
   }
 
+  /**
+   * Render notification warning message when user
+   * trying to select a timeslot that are able to shorter than reservation minPeriod.
+   *
+   * For example: last reservation close at 3pm, minPeriod = 3h, warn user when
+   * select time slot later on 12am
+   *
+   * @memberof TimeSlot
+   */
+  renderMinPeriodWarning = () => {
+    const { t, addNotification } = this.props;
+
+    addNotification({
+      message: t('Notifications.selectTimeToReserve.warning'),
+      type: 'info',
+      timeOut: 10000,
+    });
+  }
+
   handleClick = (disabled) => {
     const {
-      addNotification, isLoggedIn, onClick, resource, slot, t
+      addNotification, isLoggedIn, onClick, resource, slot, t, isUnderMinPeriod
     } = this.props;
 
     if (disabled) {
@@ -71,39 +127,31 @@ class TimeSlot extends PureComponent {
       if (notification && notification.message) {
         addNotification(notification);
       }
+    } else if (isUnderMinPeriod) {
+      this.renderMinPeriodWarning();
     } else {
       onClick({
         begin: slot.start,
         end: slot.end,
-        resource: resource.id,
+        resource,
       });
     }
   };
 
   render() {
     const {
-      isDisabled,
       isAdmin,
       showClear,
       isHighlighted,
-      isLoggedIn,
-      isSelectable,
       onClear,
       onMouseEnter,
       onMouseLeave,
-      resource,
       selected,
       slot,
     } = this.props;
-    const isPast = new Date(slot.end) < new Date();
-    const isReservable = (resource.reservableAfter
-      && moment(slot.start).isBefore(resource.reservableAfter));
-    const disabled = isDisabled
-      || !isLoggedIn
-      || (!isSelectable && !selected)
-      || !resource.userPermissions.canMakeReservations
-      || isReservable
-      || (!slot.editing && (slot.reserved || isPast));
+
+    const { disabled, isPast } = this.state;
+
     const reservation = slot.reservation;
     const isOwnReservation = reservation && reservation.isOwn;
     const start = new Date(slot.start);

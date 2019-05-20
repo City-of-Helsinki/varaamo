@@ -16,7 +16,7 @@ describe('Selector: urlSearchFiltersSelector', () => {
     start: '08:30',
     unit: '',
     useTimeRange: false,
-    municipality: '',
+    municipality: [],
     orderBy: ''
   };
 

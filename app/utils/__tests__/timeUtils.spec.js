@@ -1,4 +1,5 @@
 import constants from 'constants/AppConstants';
+import { DEFAULT_SLOT_SIZE } from 'constants/SlotConstants';
 
 import MockDate from 'mockdate';
 import Moment from 'moment';
@@ -15,9 +16,12 @@ import {
   getEndTimeString,
   getStartTimeString,
   getTimeSlots,
+  getTimeDiff,
   isPastDate,
   padLeft,
   prettifyHours,
+  periodToMinute,
+  getEndTimeSlotWithMinPeriod
 } from 'utils/timeUtils';
 
 const moment = extendMoment(Moment);
@@ -83,6 +87,13 @@ describe('Utils: timeUtils', () => {
         expect(actual.start).toBe(`${date}T00:00:00Z`);
       }
     );
+
+    test('default timezone is your local timezone', () => {
+      const timeZoneFromDate = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const timeZoneFromMoment = moment.tz.guess(true);
+
+      expect(timeZoneFromMoment).toEqual(timeZoneFromDate);
+    });
 
     test(
       'returns an object with availableBetween, end and start in correct form when end is 23:30',
@@ -272,7 +283,15 @@ describe('Utils: timeUtils', () => {
     describe('When critical info is missing', () => {
       const start = '2015-10-09T08:00:00+03:00';
       const end = '2015-10-09T10:00:00+03:00';
-      const period = '00:30:00';
+      const period = DEFAULT_SLOT_SIZE;
+
+      test('default period to 30 mins', () => {
+        const slots = getTimeSlots(start, end);
+        const startTime = moment(slots[0].start);
+        const endTime = moment(slots[0].end);
+
+        expect(moment.duration(endTime.diff(startTime)).asMinutes()).toEqual(30);
+      });
 
       test('returns an empty array if start is missing', () => {
         const actual = getTimeSlots(undefined, end, period);
@@ -284,12 +303,6 @@ describe('Utils: timeUtils', () => {
         const actual = getTimeSlots(start, undefined, period);
 
         expect(actual).toEqual([]);
-      });
-
-      test('uses 30 minutes as default duration if period is missing', () => {
-        const actual = getTimeSlots(start, end, undefined);
-
-        expect(actual.length).toBe(4);
       });
 
       test(
@@ -307,7 +320,7 @@ describe('Utils: timeUtils', () => {
     describe('When dividing 2 hours into 30 min slots', () => {
       const start = '2015-10-09T08:00:00+03:00';
       const end = '2015-10-09T10:00:00+03:00';
-      const period = '00:30:00';
+      const period = DEFAULT_SLOT_SIZE;
       const duration = moment.duration(period);
       const slots = getTimeSlots(start, end, period);
 
@@ -391,7 +404,7 @@ describe('Utils: timeUtils', () => {
     describe('slot reserved property', () => {
       const start = '2015-10-09T08:00:00+03:00';
       const end = '2015-10-09T10:00:00+03:00';
-      const period = '00:30:00';
+      const period = DEFAULT_SLOT_SIZE;
 
       describe('with one reservation', () => {
         const reservations = [
@@ -447,7 +460,7 @@ describe('Utils: timeUtils', () => {
     describe('slot reservationStarting and reservationEnding properties during reservation', () => {
       const start = '2015-10-09T08:00:00+03:00';
       const end = '2015-10-09T09:30:00+03:00';
-      const period = '00:30:00';
+      const period = DEFAULT_SLOT_SIZE;
       const reservations = [
         {
           begin: '2015-10-09T08:00:00+03:00',
@@ -472,7 +485,7 @@ describe('Utils: timeUtils', () => {
     describe('slot editing property', () => {
       const start = '2015-10-09T08:00:00+03:00';
       const end = '2015-10-09T10:00:00+03:00';
-      const period = '00:30:00';
+      const period = DEFAULT_SLOT_SIZE;
       const reservations = [];
 
       describe('with one reservation to edit', () => {
@@ -603,6 +616,61 @@ describe('Utils: timeUtils', () => {
       test('returns the number as it is as a string', () => {
         expect(padLeft(number)).toBe(expected);
       });
+    });
+  });
+
+  describe('getTimeDiff', () => {
+    test('return timediff in number by default', () => {
+      const startDate = '2019-05-09T05:00:01.000Z';
+      const endDate = '2019-05-09T05:00:00.000Z';
+
+      const expected = 1000;
+
+      expect(getTimeDiff(startDate, endDate)).toEqual(expected);
+    });
+
+    test('return timediff in defined unit', () => {
+      const startDate = '2019-05-09T05:30:01.000Z';
+      const endDate = '2019-05-09T05:00:00.000Z';
+      const unit = 'minutes';
+      const expected = 30;
+
+      expect(getTimeDiff(startDate, endDate, unit)).toEqual(expected);
+    });
+
+    test('can be used to compare time', () => {
+      const startDate = '2019-05-09T05:30:00.000Z';
+      const endDate = '2019-05-09T05:00:00.000Z';
+
+      // > 0 => startTime > endTime
+      expect(getTimeDiff(startDate, endDate) > 0).toBeTruthy();
+    });
+  });
+
+  describe('getEndTimeSlotWithMinPeriod', () => {
+    test('return end time slot with timediff equal minPeriod', () => {
+      const slot = {
+        begin: '2019-05-09T05:00:00.000Z',
+        end: '2019-05-09T05:30:00.000Z',
+        resource: 'abc'
+      };
+
+      const minPeriod = '01:00:00';
+      const result = getEndTimeSlotWithMinPeriod(slot, minPeriod);
+
+      expect(getTimeDiff(result.begin, slot.begin, 'minutes')).toEqual(periodToMinute(minPeriod));
+      expect(getTimeDiff(result.end, slot.end, 'minutes')).toEqual(periodToMinute(minPeriod));
+      expect(result.resource).toEqual(slot.resource);
+    });
+  });
+
+  describe('periodToMinute', () => {
+    test('convert time period to minutes', () => {
+      const period = '01:00:00';
+
+      const result = periodToMinute(period);
+
+      expect(result).toEqual(60);
     });
   });
 });
