@@ -11,7 +11,7 @@ const autoprefixer = require('autoprefixer');
 const common = require('./webpack.common');
 
 module.exports = merge(common, {
-  entry: ['@babel/polyfill', path.resolve(__dirname, '../app/index.js')],
+  entry: ['@babel/polyfill', path.resolve(__dirname, '../src/index.js')],
   devtool: 'source-map',
   mode: 'production',
   output: {
@@ -23,7 +23,7 @@ module.exports = merge(common, {
     rules: [
       {
         test: /^(?!.*\.spec\.js$).*\.js$/,
-        include: path.resolve(__dirname, '../app'),
+        include: [path.resolve(__dirname, '../app'), path.resolve(__dirname, '../src')],
         loader: 'babel-loader',
         options: {
           presets: ['@babel/preset-env', '@babel/preset-react'],

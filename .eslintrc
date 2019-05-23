@@ -41,6 +41,10 @@
       }
     ],
 
+    "no-debugger": "warn",
+
+    "no-unused-vars": "warn",
+
     "import/prefer-default-export": "off",
 
     "new-cap": ["error", { "capIsNew": false, "newIsCap": true }],

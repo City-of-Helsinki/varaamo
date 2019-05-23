@@ -1,17 +1,17 @@
 import React from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 
-import Route from 'shared/route';
-import PrivateRoute from 'shared/private-route';
-import AppContainer from 'pages/AppContainer';
-import AboutPage from 'pages/about';
-import AdminResourcesPage from 'pages/admin-resources';
-import HomePage from 'pages/home';
-import NotFoundPage from 'pages/not-found';
-import ReservationPage from 'pages/reservation';
-import ResourcePage from 'pages/resource';
-import SearchPage from 'pages/search';
-import UserReservationsPage from 'pages/user-reservations';
+import Route from '../app/shared/route';
+import PrivateRoute from '../app/shared/private-route';
+import AppContainer from '../app/pages/AppContainer';
+import AboutPage from '../app/pages/about';
+import AdminResourcesPage from '../app/pages/admin-resources';
+import HomePage from '../app/pages/home';
+import NotFoundPage from '../app/pages/not-found';
+import ReservationPage from '../app/pages/reservation';
+import ResourcePage from '../app/pages/resource';
+import SearchPage from '../app/pages/search';
+import UserReservationsPage from '../app/pages/user-reservations';
 
 export default () => (
   <AppContainer>
