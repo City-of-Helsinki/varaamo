@@ -1,4 +1,4 @@
-import classnames from 'classnames';
+import classNames from 'classnames';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -62,7 +62,7 @@ function Reservation({ onClick, ...reservation }) {
   );
   return (
     <button
-      className={classnames('reservation-link', { 'with-comments': reservation.comments })}
+      className={classNames('reservation-link', { 'with-comments': reservation.comments })}
       onClick={() => onClick && reservation.userPermissions.canModify && onClick(reservation)}
       type="button"
     >
@@ -72,7 +72,7 @@ function Reservation({ onClick, ...reservation }) {
         trigger={['hover', 'focus']}
       >
         <span
-          className={classnames('reservation',
+          className={classNames('reservation',
             { requested: reservation.state === 'requested' },
             { disabled: reservation.state === 'confirmed' && !reservation.isOwn && !reservation.userPermissions.canModify },
             { reserved: reservation.state === 'confirmed' && !reservation.isOwn && reservation.userPermissions.canModify })}
