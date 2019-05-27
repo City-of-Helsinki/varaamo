@@ -61,11 +61,18 @@ $purposeCellHeight: 350px;
       display: flex;
       height: $purposeCellHeight;
 
+      &-icon {
+        height: 30%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
       &__linkWrapper {
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
         flex: 1;
+        justify-content: space-around;
         background-color: $hel-copper;
         height: 100%;
         position: relative;
@@ -74,10 +81,16 @@ $purposeCellHeight: 350px;
         &:hover, &:active, &:focus {
           color: $black;
         }
-        img, svg {
-          height: 30%;
+        img {
+          height: 100%;
           width: 100%;
         }
+
+        svg {
+          height: 50%;
+          width: 100%;
+        }
+
         h5 {
           color: $black;
         }
