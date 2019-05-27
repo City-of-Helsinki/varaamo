@@ -1,4 +1,4 @@
-import classnames from 'classnames';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Map, TileLayer, ZoomControl } from 'react-leaflet';
@@ -85,7 +85,7 @@ export class UnconnectedResourceMapContainer extends React.Component {
 
   render() {
     return (
-      <div className={classnames('app-ResourceMap', { 'app-ResourceMap__showMap': this.props.showMap })}>
+      <div className={classNames('app-ResourceMap', { 'app-ResourceMap__showMap': this.props.showMap })}>
         <Map
           center={this.getCenter()}
           className="app-ResourceMap__map"

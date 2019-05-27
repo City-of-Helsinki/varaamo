@@ -1,4 +1,4 @@
-import classnames from 'classnames';
+import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import findIndex from 'lodash/findIndex';
 import moment from 'moment';
@@ -86,7 +86,7 @@ class UnconnectedResourcePage extends Component {
 
   renderImage = (image, index, { mainImageMobileVisibility = false }) => {
     const isMainImage = image.type === 'main';
-    const className = classnames('app-ResourceInfo__image-wrapper', {
+    const className = classNames('app-ResourceInfo__image-wrapper', {
       'app-ResourceInfo__image-wrapper--main-image': isMainImage,
       'app-ResourceInfo__image-wrapper--mobile-main-image':
         isMainImage && mainImageMobileVisibility,

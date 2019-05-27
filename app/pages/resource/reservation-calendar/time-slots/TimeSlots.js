@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Loader from 'react-loader';
 import moment from 'moment';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import findIndex from 'lodash/findIndex';
 import minBy from 'lodash/minBy';
 import round from 'lodash/round';
@@ -152,7 +152,7 @@ class TimeSlots extends Component {
       const nextFromSelectedDate = utils.getNextDayFromDate(selectedDate);
       const secondFromSelectedDate = utils.getSecondDayFromDate(selectedDate);
       const isNextWeek = moment(slot.start).week() !== moment(selectedDate).week();
-      const className = classnames('app-TimeSlots--date', {
+      const className = classNames('app-TimeSlots--date', {
         'app-TimeSlots--date--selected': slotDate === selectedDate,
         'app-TimeSlots--date--selected--next--day': slotDate === nextFromSelectedDate,
         'app-TimeSlots--date--selected--second--day': slotDate === secondFromSelectedDate,
