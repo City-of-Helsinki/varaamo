@@ -49,13 +49,14 @@ class UnconnectedHomePage extends Component {
   renderPurposeBanner(purpose) {
     const { t } = this.props;
     const image = purposeIcons[camelCase(purpose.value)];
+
     return (
       <Col className="app-HomePageContent__banner" key={purpose.value} md={3} sm={6} xs={12}>
         <Link className="app-HomePageContent__banner__linkWrapper" to={`/search?purpose=${purpose.value}`}>
           {typeof image === 'string' ? <img alt={purpose.label} src={image} />
           // TODO: VAR-80 | VAR-81 Replace those icon with designed icon.
 
-            : <FAIcon icon={purposeIcons[purpose.value]} />}
+            : <FAIcon icon={image} />}
 
           <h5>{purpose.label}</h5>
           <div className="app-HomePageContent__banner-action">
