@@ -8,6 +8,7 @@ import camelCase from 'lodash/camelCase';
 import Link from 'react-router-dom/Link';
 import { faHotTub as iconSauna, faCalendarAlt as iconOrganizeEvents } from '@fortawesome/free-solid-svg-icons';
 
+// TODO: VAR-80 | VAR-81 Replace those icon with designed icon.
 import { fetchPurposes } from 'actions/purposeActions';
 import { injectT } from 'i18n';
 import PageWrapper from 'pages/PageWrapper';
@@ -52,6 +53,8 @@ class UnconnectedHomePage extends Component {
       <Col className="app-HomePageContent__banner" key={purpose.value} md={3} sm={6} xs={12}>
         <Link className="app-HomePageContent__banner__linkWrapper" to={`/search?purpose=${purpose.value}`}>
           {typeof image === 'string' ? <img alt={purpose.label} src={image} />
+          // TODO: VAR-80 | VAR-81 Replace those icon with designed icon.
+
             : <FAIcon icon={purposeIcons[purpose.value]} />}
 
           <h5>{purpose.label}</h5>

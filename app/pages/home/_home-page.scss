@@ -70,6 +70,10 @@ $purposeCellHeight: 350px;
         height: 100%;
         position: relative;
         text-decoration: none;
+
+        &:hover, &:active, &:focus {
+          color: $black;
+        }
         img, svg {
           height: 40%;
           width: 100%;
