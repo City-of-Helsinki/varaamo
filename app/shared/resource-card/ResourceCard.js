@@ -1,4 +1,4 @@
-import classnames from 'classnames';
+import classNames from 'classnames';
 import round from 'lodash/round';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
@@ -79,7 +79,7 @@ class ResourceCard extends Component {
 
     return (
       <div
-        className={classnames('app-ResourceCard', {
+        className={classNames('app-ResourceCard', {
           'app-ResourceCard__stacked': this.props.stacked,
         })}
       >

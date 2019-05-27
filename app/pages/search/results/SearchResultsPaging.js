@@ -1,6 +1,6 @@
 import constants from 'constants/AppConstants';
 
-import classnames from 'classnames';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
@@ -34,7 +34,7 @@ class SearchResultsPaging extends React.Component {
   renderPageButton(page, currentPage) {
     return (
       <Button
-        className={classnames('app-SearchResultsPaging__page', {
+        className={classNames('app-SearchResultsPaging__page', {
           'app-SearchResultsPaging__selected': currentPage === page,
         })}
         key={`page${page}`}
