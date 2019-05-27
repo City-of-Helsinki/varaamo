@@ -1,3 +1,5 @@
+$purposeCellHeight: 350px;
+
 .app-HomePage {
   background-color: $white;
   background-image: url("./images/etusivu_tausta.jpg");
@@ -53,26 +55,25 @@
       margin-top: 0;
     }
 
-    &__banners {
-      display: flex;
-      flex-direction: row;
-
-      @media (max-width: $screen-md-min) {
-        display: block;
-      }
-    }
-
     &__banner {
       padding-top: 15px;
       padding-bottom: 15px;
       display: flex;
+      height: $purposeCellHeight;
+
       &__linkWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
         flex: 1;
         background-color: $hel-copper;
         height: 100%;
         position: relative;
         text-decoration: none;
-
+        img, svg {
+          height: 40%;
+          width: 100%;
+        }
         h5 {
           color: $black;
         }
@@ -86,24 +87,11 @@
           h5 {
             color: $black;
           }
-        
+
           button {
             color: $white;
           }
         }
-      }
-      img {
-        max-width: 60%;
-        max-height: 30%;
-        margin: 30px 0;
-      }
-      h5 {
-        margin: 12px 12px 90px 12px;
-      }
-      &-action {
-        position: absolute;
-        bottom: 30px;
-        width: 100%;
       }
       button {
         text-transform: uppercase;

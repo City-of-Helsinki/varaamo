@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import Button from 'react-bootstrap/lib/Button';
-import Col from 'react-bootstrap/lib/Col';
+import { Button, Col, Row } from 'react-bootstrap';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import camelCase from 'lodash/camelCase';
 import Link from 'react-router-dom/Link';
+import { faHotTub as iconSauna, faCalendarAlt as iconOrganizeEvents } from '@fortawesome/free-solid-svg-icons';
 
 import { fetchPurposes } from 'actions/purposeActions';
 import { injectT } from 'i18n';
@@ -18,6 +18,7 @@ import iconPhotoAndAudio from './images/frontpage_music.svg';
 import iconSports from './images/frontpage_sport.svg';
 import iconGuidance from './images/frontpage_guidance.svg';
 import iconMeetingsAndWorking from './images/frontpage_work.svg';
+import FAIcon from 'shared/fontawesome-icon';
 
 const purposeIcons = {
   photoAndAudio: iconPhotoAndAudio,
@@ -25,6 +26,8 @@ const purposeIcons = {
   guidance: iconGuidance,
   manufacturing: iconManufacturing,
   meetingsAndWorking: iconMeetingsAndWorking,
+  events: iconOrganizeEvents,
+  sauna: iconSauna
 };
 
 class UnconnectedHomePage extends Component {
@@ -48,7 +51,9 @@ class UnconnectedHomePage extends Component {
     return (
       <Col className="app-HomePageContent__banner" key={purpose.value} md={3} sm={6} xs={12}>
         <Link className="app-HomePageContent__banner__linkWrapper" to={`/search?purpose=${purpose.value}`}>
-          <img alt={purpose.label} src={image} />
+          {typeof image === 'string' ? <img alt={purpose.label} src={image} />
+            : <FAIcon icon={purposeIcons[purpose.value]} />}
+
           <h5>{purpose.label}</h5>
           <div className="app-HomePageContent__banner-action">
             <Button
@@ -78,7 +83,9 @@ class UnconnectedHomePage extends Component {
           <h4>{t('HomePage.bannersTitle')}</h4>
           <Loader loaded={!isFetchingPurposes}>
             <div className="app-HomePageContent__banners">
-              {purposes.map(this.renderPurposeBanner)}
+              <Row>
+                {purposes.map(this.renderPurposeBanner)}
+              </Row>
             </div>
           </Loader>
         </PageWrapper>
