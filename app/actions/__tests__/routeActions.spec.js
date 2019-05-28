@@ -1,7 +1,7 @@
 import simple from 'simple-mock';
 import * as reduxActions from 'redux-actions';
 
-import { updateRoute } from 'actions/routeActions';
+import { updateRoute } from '../routeActions';
 
 describe('Actions: resourceActions', () => {
   describe('updateRoute', () => {

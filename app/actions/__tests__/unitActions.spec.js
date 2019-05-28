@@ -1,9 +1,8 @@
-import types from 'constants/ActionTypes';
-
 import simple from 'simple-mock';
 
-import * as apiUtils from 'utils/apiUtils';
-import { fetchUnits } from 'actions/unitActions';
+import types from '../../constants/ActionTypes';
+import * as apiUtils from '../../utils/apiUtils';
+import { fetchUnits } from '../unitActions';
 
 describe('Actions: unitActions', () => {
   let getRequestTypeDescriptorMock;

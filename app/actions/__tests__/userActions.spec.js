@@ -1,7 +1,7 @@
 import simple from 'simple-mock';
 
-import * as apiUtils from 'utils/apiUtils';
-import { fetchUser } from 'actions/userActions';
+import * as apiUtils from '../../utils/apiUtils';
+import { fetchUser } from '../userActions';
 
 describe('Actions: userActions', () => {
   let getRequestTypeDescriptorMock;

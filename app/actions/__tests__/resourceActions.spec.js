@@ -1,8 +1,7 @@
-import types from 'constants/ActionTypes';
-
-import { favoriteResource, unfavoriteResource } from 'actions/resourceActions';
-import { buildAPIUrl } from 'utils/apiUtils';
-import { createApiTest } from 'utils/testUtils';
+import types from '../../constants/ActionTypes';
+import { favoriteResource, unfavoriteResource } from '../resourceActions';
+import { buildAPIUrl } from '../../utils/apiUtils';
+import { createApiTest } from '../../utils/testUtils';
 
 describe('Actions: resourceActions', () => {
   describe('favoriteResource', () => {

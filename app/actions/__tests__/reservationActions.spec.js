@@ -1,7 +1,7 @@
 import simple from 'simple-mock';
 
-import * as apiUtils from 'utils/apiUtils';
-import * as reservationActions from 'actions/reservationActions';
+import * as apiUtils from '../../utils/apiUtils';
+import * as reservationActions from '../reservationActions';
 
 describe('Actions: reservationActions', () => {
   const reservation = {

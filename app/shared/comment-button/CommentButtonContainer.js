@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { openReservationCommentModal, selectReservationToShow } from 'actions/uiActions';
+import { openReservationCommentModal, selectReservationToShow } from '../../actions/uiActions';
 import CommentButton from './CommentButton';
 
 export class UnconnectedCommentButtonContainer extends Component {
