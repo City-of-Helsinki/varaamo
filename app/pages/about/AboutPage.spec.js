@@ -1,7 +1,7 @@
 import React from 'react';
 
-import PageWrapper from 'pages/PageWrapper';
-import { shallowWithIntl } from 'utils/testUtils';
+import PageWrapper from '../PageWrapper';
+import { shallowWithIntl } from '../../utils/testUtils';
 import AboutPage from './AboutPage';
 import AboutPageContent from './AboutPageContent';
 
