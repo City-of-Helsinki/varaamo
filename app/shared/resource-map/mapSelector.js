@@ -3,9 +3,8 @@ import find from 'lodash/find';
 import omit from 'lodash/omit';
 import { createSelector, createStructuredSelector } from 'reselect';
 
-import { resourcesSelector, unitsSelector } from 'state/selectors/dataSelectors';
-import urlSearchFiltersSelector from 'state/selectors/urlSearchFiltersSelector';
-
+import { resourcesSelector, unitsSelector } from '../../state/selectors/dataSelectors';
+import urlSearchFiltersSelector from '../../state/selectors/urlSearchFiltersSelector';
 
 const positionSelector = state => state.ui.search.position;
 const resourceIdsSelector = (state, props) => props.resourceIds;
