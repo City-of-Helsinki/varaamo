@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 
-import selectedReservationsSelector from 'state/selectors/selectedReservationsSelector';
+import selectedReservationsSelector from '../selectedReservationsSelector';
 
 function getState(selected) {
   return {

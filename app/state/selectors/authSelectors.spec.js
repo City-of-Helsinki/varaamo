@@ -1,5 +1,5 @@
-import User from 'utils/fixtures/User';
-import { getState } from 'utils/testUtils';
+import User from '../../utils/fixtures/User';
+import { getState } from '../../utils/testUtils';
 import {
   currentUserSelector,
   isAdminSelector,

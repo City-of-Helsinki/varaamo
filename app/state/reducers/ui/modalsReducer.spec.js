@@ -1,10 +1,8 @@
-import types from 'constants/ActionTypes';
-import ModalTypes from 'constants/ModalTypes';
-
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
-
+import types from '../../../constants/ActionTypes';
+import ModalTypes from '../../../constants/ModalTypes';
 import modalsReducer from './modalsReducer';
 
 describe('state/reducers/ui/modalsReducer', () => {

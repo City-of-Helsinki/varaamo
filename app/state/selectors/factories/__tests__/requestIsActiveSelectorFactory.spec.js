@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 
-import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
+import requestIsActiveSelectorFactory from '../requestIsActiveSelectorFactory';
 
 function getState(activeRequests) {
   return {

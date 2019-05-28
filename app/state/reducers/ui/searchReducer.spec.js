@@ -1,11 +1,10 @@
-import types from 'constants/ActionTypes';
-
 import keyBy from 'lodash/keyBy';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
-import { clearSearchResults, selectUnit, toggleMap } from 'actions/searchActions';
-import Resource from 'utils/fixtures/Resource';
+import types from '../../../constants/ActionTypes';
+import { clearSearchResults, selectUnit, toggleMap } from '../../../actions/searchActions';
+import Resource from '../../../utils/fixtures/Resource';
 import searchReducer from './searchReducer';
 
 describe('state/reducers/ui/searchReducer', () => {

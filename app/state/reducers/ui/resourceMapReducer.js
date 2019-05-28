@@ -1,7 +1,6 @@
-import types from 'constants/ActionTypes';
-
 import Immutable from 'seamless-immutable';
 
+import types from '../../../constants/ActionTypes';
 
 const initialState = Immutable({
   resourceId: null,

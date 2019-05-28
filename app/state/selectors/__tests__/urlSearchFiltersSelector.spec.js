@@ -1,6 +1,6 @@
 import MockDate from 'mockdate';
 
-import urlSearchFiltersSelector from 'state/selectors/urlSearchFiltersSelector';
+import urlSearchFiltersSelector from '../urlSearchFiltersSelector';
 
 describe('Selector: urlSearchFiltersSelector', () => {
   const filters = {

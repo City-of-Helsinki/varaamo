@@ -1,4 +1,4 @@
-import { getState } from 'utils/testUtils';
+import { getState } from '../../utils/testUtils';
 import {
   createResourceSelector,
   purposesSelector,
