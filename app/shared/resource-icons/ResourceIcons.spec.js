@@ -1,8 +1,8 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
-import Resource from 'utils/fixtures/Resource';
-import { shallowWithIntl } from 'utils/testUtils';
+import Resource from '../../utils/fixtures/Resource';
+import { shallowWithIntl } from '../../utils/testUtils';
 import ResourceIcons from './ResourceIcons';
 
 describe('shared/resource-list/ResourceIcons', () => {
