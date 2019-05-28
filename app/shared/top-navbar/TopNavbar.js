@@ -7,7 +7,7 @@ import Nav from 'react-bootstrap/lib/Nav';
 import NavDropdown from 'react-bootstrap/lib/NavDropdown';
 import NavItem from 'react-bootstrap/lib/NavItem';
 
-import { injectT } from 'i18n';
+import injectT from '../../i18n/injectT';
 
 class TopNavbar extends Component {
   static propTypes = {
