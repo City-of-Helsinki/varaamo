@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import indexOf from 'lodash/indexOf';
 
-import { injectT } from 'i18n';
+import injectT from '../../../i18n/injectT';
 import ReservationPhase from './ReservationPhase';
 
 ReservationPhases.propTypes = {

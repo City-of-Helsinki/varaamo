@@ -2,10 +2,10 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import Reservation from 'utils/fixtures/Reservation';
-import Resource from 'utils/fixtures/Resource';
-import Unit from 'utils/fixtures/Unit';
-import { shallowWithIntl } from 'utils/testUtils';
+import Reservation from '../../../utils/fixtures/Reservation';
+import Resource from '../../../utils/fixtures/Resource';
+import Unit from '../../../utils/fixtures/Unit';
+import { shallowWithIntl } from '../../../utils/testUtils';
 import ReservationInformation from './ReservationInformation';
 import ReservationInformationForm from './ReservationInformationForm';
 

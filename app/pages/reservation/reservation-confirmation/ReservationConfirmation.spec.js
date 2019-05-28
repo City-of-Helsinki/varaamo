@@ -5,11 +5,11 @@ import simple from 'simple-mock';
 import Button from 'react-bootstrap/lib/Button';
 import Row from 'react-bootstrap/lib/Row';
 
-import ReservationDate from 'shared/reservation-date';
-import Reservation from 'utils/fixtures/Reservation';
-import Resource from 'utils/fixtures/Resource';
-import User from 'utils/fixtures/User';
-import { shallowWithIntl } from 'utils/testUtils';
+import ReservationDate from '../../../shared/reservation-date';
+import Reservation from '../../../utils/fixtures/Reservation';
+import Resource from '../../../utils/fixtures/Resource';
+import User from '../../../utils/fixtures/User';
+import { shallowWithIntl } from '../../../utils/testUtils';
 import ReservationConfirmation from './ReservationConfirmation';
 
 describe('pages/reservation/reservation-confirmation/ReservationConfirmation', () => {
