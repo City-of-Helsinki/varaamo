@@ -1,7 +1,7 @@
 import React from 'react';
 
 import UnpublishedLabel from './UnpublishedLabel';
-import { shallowWithIntl } from 'utils/testUtils';
+import { shallowWithIntl } from '../../../utils/testUtils';
 
 function getWrapper() {
   return shallowWithIntl(<UnpublishedLabel />);
