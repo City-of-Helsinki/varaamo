@@ -5,11 +5,11 @@ import Immutable from 'seamless-immutable';
 import Modal from 'react-bootstrap/lib/Modal';
 import simple from 'simple-mock';
 
-import ReservationAccessCode from 'shared/reservation-access-code';
-import Reservation from 'utils/fixtures/Reservation';
-import ReservationDate from 'shared/reservation-date';
-import Resource from 'utils/fixtures/Resource';
-import { shallowWithIntl } from 'utils/testUtils';
+import ReservationAccessCode from '../../reservation-access-code';
+import ReservationDate from '../../reservation-date';
+import Reservation from '../../../utils/fixtures/Reservation';
+import Resource from '../../../utils/fixtures/Resource';
+import { shallowWithIntl } from '../../../utils/testUtils';
 import ReservationSuccessModal from './ReservationSuccessModal';
 
 describe('shared/modals/reservation-success/ReservationSuccessModal', () => {

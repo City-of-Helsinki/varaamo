@@ -1,5 +1,3 @@
-import FormTypes from 'constants/FormTypes';
-
 import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
@@ -13,10 +11,11 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Well from 'react-bootstrap/lib/Well';
 import { Field, Fields, reduxForm } from 'redux-form';
 
-import ReduxFormField from 'shared/form-fields/ReduxFormField';
-import ReservationTimeControls from 'shared/form-fields/ReservationTimeControls';
-import TimeRange from 'shared/time-range';
-import { injectT } from 'i18n';
+import FormTypes from '../../../constants/FormTypes';
+import ReduxFormField from '../../form-fields/ReduxFormField';
+import ReservationTimeControls from '../../form-fields/ReservationTimeControls';
+import TimeRange from '../../time-range';
+import injectT from '../../../i18n/injectT';
 
 class UnconnectedReservationEditForm extends Component {
   constructor(props) {

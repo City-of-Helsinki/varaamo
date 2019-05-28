@@ -2,10 +2,10 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import Reservation from 'utils/fixtures/Reservation';
-import Resource from 'utils/fixtures/Resource';
-import { shallowWithIntl } from 'utils/testUtils';
-import CommentForm from 'shared/comment-form';
+import Reservation from '../../../utils/fixtures/Reservation';
+import Resource from '../../../utils/fixtures/Resource';
+import { shallowWithIntl } from '../../../utils/testUtils';
+import CommentForm from '../../comment-form';
 import { UnconnectedCommentModalContainer as CommentModalContainer } from './CommentModalContainer';
 import ModalWrapper from '../ModalWrapper';
 

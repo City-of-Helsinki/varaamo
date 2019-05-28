@@ -1,8 +1,7 @@
-import ActionTypes from 'constants/ActionTypes';
-
 import mockDate from 'mockdate';
 
-import { getState } from 'utils/testUtils';
+import ActionTypes from '../../../constants/ActionTypes';
+import { getState } from '../../../utils/testUtils';
 import reservationInfoModalSelector from './reservationInfoModalSelector';
 
 describe('shared/modals/reservation-info/reservationInfoModalSelector', () => {

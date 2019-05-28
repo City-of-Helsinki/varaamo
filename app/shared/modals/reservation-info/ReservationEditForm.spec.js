@@ -4,10 +4,10 @@ import Form from 'react-bootstrap/lib/Form';
 import Immutable from 'seamless-immutable';
 import { Field, Fields } from 'redux-form';
 
-import Reservation from 'utils/fixtures/Reservation';
-import Resource from 'utils/fixtures/Resource';
-import User from 'utils/fixtures/User';
-import { shallowWithIntl } from 'utils/testUtils';
+import Reservation from '../../../utils/fixtures/Reservation';
+import Resource from '../../../utils/fixtures/Resource';
+import User from '../../../utils/fixtures/User';
+import { shallowWithIntl } from '../../../utils/testUtils';
 import { UnconnectedReservationEditForm as ReservationEditForm } from './ReservationEditForm';
 
 describe('shared/modals/reservation-info/ReservationEditForm', () => {

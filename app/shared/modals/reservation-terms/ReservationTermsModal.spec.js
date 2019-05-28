@@ -3,9 +3,9 @@ import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-bootstrap/lib/Modal';
 import simple from 'simple-mock';
 
-import WrappedText from 'shared/wrapped-text';
-import Resource from 'utils/fixtures/Resource';
-import { shallowWithIntl } from 'utils/testUtils';
+import WrappedText from '../../wrapped-text';
+import Resource from '../../../utils/fixtures/Resource';
+import { shallowWithIntl } from '../../../utils/testUtils';
 import {
   UnconnectedReservationTermsModal as ReservationTermsModal,
 } from './ReservationTermsModal';

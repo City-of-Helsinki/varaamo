@@ -3,10 +3,10 @@ import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-bootstrap/lib/Modal';
 import simple from 'simple-mock';
 
-import CompactReservationList from 'shared/compact-reservation-list';
-import Reservation from 'utils/fixtures/Reservation';
-import Resource from 'utils/fixtures/Resource';
-import { shallowWithIntl } from 'utils/testUtils';
+import CompactReservationList from '../../compact-reservation-list';
+import Reservation from '../../../utils/fixtures/Reservation';
+import Resource from '../../../utils/fixtures/Resource';
+import { shallowWithIntl } from '../../../utils/testUtils';
 import {
   UnconnectedReservationCancelModalContainer as ReservationCancelModalContainer,
 } from './ReservationCancelModalContainer';

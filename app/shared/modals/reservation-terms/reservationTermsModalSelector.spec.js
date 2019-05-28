@@ -1,6 +1,5 @@
-import ModalTypes from 'constants/ModalTypes';
-
-import { getState } from 'utils/testUtils';
+import ModalTypes from '../../../constants/ModalTypes';
+import { getState } from '../../../utils/testUtils';
 import reservationTermsModalSelector from './reservationTermsModalSelector';
 
 describe('shared/modals/reservation-terms/reservationTermsModalSelector', () => {

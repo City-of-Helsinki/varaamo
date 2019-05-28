@@ -5,10 +5,10 @@ import Modal from 'react-bootstrap/lib/Modal';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import ReservationStateLabel from 'shared/reservation-state-label';
-import Reservation from 'utils/fixtures/Reservation';
-import Resource from 'utils/fixtures/Resource';
-import { shallowWithIntl } from 'utils/testUtils';
+import ReservationStateLabel from '../../reservation-state-label';
+import Reservation from '../../../utils/fixtures/Reservation';
+import Resource from '../../../utils/fixtures/Resource';
+import { shallowWithIntl } from '../../../utils/testUtils';
 import ReservationEditForm from './ReservationEditForm';
 import ReservationInfoModal from './ReservationInfoModal';
 
