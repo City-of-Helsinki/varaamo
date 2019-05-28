@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactNotifications from 'react-notifications';
 
-import { shallowWithIntl } from 'utils/testUtils';
+import { shallowWithIntl } from '../../utils/testUtils';
 import {
   UnconnectedNotificationsContainer as NotificationsContainer,
 } from './NotificationsContainer';
