@@ -1,5 +1,5 @@
-import constants from 'constants/AppConstants';
-import FormTypes from 'constants/FormTypes';
+import constants from '../../constants/AppConstants';
+import FormTypes from '../../constants/FormTypes';
 
 import includes from 'lodash/includes';
 import PropTypes from 'prop-types';
@@ -14,9 +14,9 @@ import { Field, Fields, reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 
 
-import WrappedText from 'shared/wrapped-text';
-import ReduxFormField from 'shared/form-fields/ReduxFormField';
-import { injectT } from 'i18n';
+import WrappedText from '../wrapped-text';
+import ReduxFormField from '../form-fields/ReduxFormField';
+import injectT from '../../i18n/injectT';
 import TimeControls from './TimeControls';
 
 const validators = {

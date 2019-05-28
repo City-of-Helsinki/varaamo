@@ -8,11 +8,11 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 
-import CompactReservationList from 'shared/compact-reservation-list';
-import RecurringReservationControls from 'shared/recurring-reservation-controls';
-import { injectT } from 'i18n';
-import { isStaffEvent } from 'utils/reservationUtils';
-import { getTermsAndConditions } from 'utils/resourceUtils';
+import CompactReservationList from '../compact-reservation-list';
+import RecurringReservationControls from '../recurring-reservation-controls';
+import injectT from '../../i18n/injectT';
+import { isStaffEvent } from '../../utils/reservationUtils';
+import { getTermsAndConditions } from '../../utils/resourceUtils';
 import ReservationForm from './ReservationForm';
 
 class ConfirmReservationModal extends Component {

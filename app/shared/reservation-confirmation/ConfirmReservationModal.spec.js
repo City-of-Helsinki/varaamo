@@ -4,11 +4,11 @@ import Modal from 'react-bootstrap/lib/Modal';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import CompactReservationList from 'shared/compact-reservation-list';
-import RecurringReservationControls from 'shared/recurring-reservation-controls';
-import Reservation from 'utils/fixtures/Reservation';
-import Resource from 'utils/fixtures/Resource';
-import { shallowWithIntl } from 'utils/testUtils';
+import CompactReservationList from '../compact-reservation-list';
+import RecurringReservationControls from '../recurring-reservation-controls';
+import Reservation from '../../utils/fixtures/Reservation';
+import Resource from '../../utils/fixtures/Resource';
+import { shallowWithIntl } from '../../utils/testUtils';
 import ConfirmReservationModal from './ConfirmReservationModal';
 import ReservationForm from './ReservationForm';
 
