@@ -5,7 +5,7 @@ import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
 import Overlay from 'react-bootstrap/lib/Overlay';
 import simple from 'simple-mock';
 
-import { shallowWithIntl } from 'utils/testUtils';
+import { shallowWithIntl } from '../../../utils/testUtils';
 import PeopleCapacityControl from './PeopleCapacityControl';
 import SearchControlOverlay from './SearchControlOverlay';
 

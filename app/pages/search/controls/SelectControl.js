@@ -6,7 +6,7 @@ import Select from 'react-select';
 import isArray from 'lodash/isArray';
 import classNames from 'classnames';
 
-import { injectT } from 'i18n';
+import injectT from '../../../i18n/injectT';
 
 class SelectControl extends React.Component {
   getValue = (value, options) => {

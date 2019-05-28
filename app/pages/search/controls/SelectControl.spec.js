@@ -4,7 +4,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Select from 'react-select';
 import simple from 'simple-mock';
 
-import { shallowWithIntl } from 'utils/testUtils';
+import { shallowWithIntl } from '../../../utils/testUtils';
 import SelectControl from './SelectControl';
 
 const defaults = {

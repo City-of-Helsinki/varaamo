@@ -3,9 +3,9 @@ import Immutable from 'seamless-immutable';
 import Row from 'react-bootstrap/lib/Row';
 import simple from 'simple-mock';
 
-import PageWrapper from 'pages/PageWrapper';
-import { shallowWithIntl } from 'utils/testUtils';
-import ResourceMap from 'shared/resource-map';
+import PageWrapper from '../PageWrapper';
+import { shallowWithIntl } from '../../utils/testUtils';
+import ResourceMap from '../../shared/resource-map';
 import { UnconnectedSearchPage as SearchPage } from './SearchPage';
 import Sort from './Sort';
 import SearchControls from './controls';

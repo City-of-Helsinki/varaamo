@@ -6,8 +6,8 @@ import ListGroup from 'react-bootstrap/lib/ListGroup';
 import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
 import Overlay from 'react-bootstrap/lib/Overlay';
 
-import FAIcon from 'shared/fontawesome-icon';
-import { injectT } from 'i18n';
+import FAIcon from '../../../shared/fontawesome-icon';
+import injectT from '../../../i18n/injectT';
 import SearchControlOverlay from './SearchControlOverlay';
 
 class PeopleCapacityControl extends React.Component {

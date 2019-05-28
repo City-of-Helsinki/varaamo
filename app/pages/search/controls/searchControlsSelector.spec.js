@@ -1,8 +1,8 @@
 import keyBy from 'lodash/keyBy';
 
-import Purpose from 'utils/fixtures/Purpose';
-import Unit from 'utils/fixtures/Unit';
-import { getDefaultRouterProps, getState } from 'utils/testUtils';
+import Purpose from '../../../utils/fixtures/Purpose';
+import Unit from '../../../utils/fixtures/Unit';
+import { getDefaultRouterProps, getState } from '../../../utils/testUtils';
 import searchControlsSelector from './searchControlsSelector';
 
 describe('pages/search/controls/searchControlsSelector', () => {

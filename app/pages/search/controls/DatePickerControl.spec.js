@@ -7,7 +7,7 @@ import moment from 'moment';
 import mockDate from 'mockdate';
 import simple from 'simple-mock';
 
-import { shallowWithIntl } from 'utils/testUtils';
+import { shallowWithIntl } from '../../../utils/testUtils';
 import DatePickerControl from './DatePickerControl';
 import SearchControlOverlay from './SearchControlOverlay';
 

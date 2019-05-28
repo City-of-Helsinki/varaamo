@@ -7,7 +7,7 @@ import Overlay from 'react-bootstrap/lib/Overlay';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import { shallowWithIntl } from 'utils/testUtils';
+import { shallowWithIntl } from '../../../utils/testUtils';
 import SearchBox from './SearchBox';
 import SearchControlOverlay from './SearchControlOverlay';
 

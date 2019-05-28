@@ -1,4 +1,4 @@
-import { getDefaultRouterProps, getState } from 'utils/testUtils';
+import { getDefaultRouterProps, getState } from '../../utils/testUtils';
 import searchPageSelector from './searchPageSelector';
 
 describe('pages/search/searchPageSelector', () => {

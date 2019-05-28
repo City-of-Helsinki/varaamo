@@ -9,7 +9,7 @@ import DayPicker from 'react-day-picker';
 import moment from 'moment';
 import MomentLocaleUtils from 'react-day-picker/moment';
 
-import { injectT } from 'i18n';
+import injectT from '../../../i18n/injectT';
 import SearchControlOverlay from './SearchControlOverlay';
 import iconCalendar from './images/calendar.svg';
 

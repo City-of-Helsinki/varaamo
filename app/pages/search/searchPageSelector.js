@@ -1,13 +1,12 @@
-import ActionTypes from 'constants/ActionTypes';
-
 import orderBy from 'lodash/orderBy';
 import { createStructuredSelector, createSelector } from 'reselect';
 
-import { isLoggedInSelector } from 'state/selectors/authSelectors';
-import uiSearchFiltersSelector from 'state/selectors/uiSearchFiltersSelector';
-import urlSearchFiltersSelector from 'state/selectors/urlSearchFiltersSelector';
-import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
-import { resourcesSelector } from 'state/selectors/dataSelectors';
+import ActionTypes from '../../constants/ActionTypes';
+import { isLoggedInSelector } from '../../state/selectors/authSelectors';
+import uiSearchFiltersSelector from '../../state/selectors/uiSearchFiltersSelector';
+import urlSearchFiltersSelector from '../../state/selectors/urlSearchFiltersSelector';
+import requestIsActiveSelectorFactory from '../../state/selectors/factories/requestIsActiveSelectorFactory';
+import { resourcesSelector } from '../../state/selectors/dataSelectors';
 
 const searchDoneSelector = state => state.ui.search.searchDone;
 const searchResultIdsSelector = state => state.ui.search.results;
