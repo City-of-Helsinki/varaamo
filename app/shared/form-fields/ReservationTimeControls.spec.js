@@ -3,8 +3,8 @@ import moment from 'moment';
 import React from 'react';
 import simple from 'simple-mock';
 
-import SelectControl from 'pages/search/controls/SelectControl';
-import DatePicker from 'shared/date-picker';
+import SelectControl from '../../pages/search/controls/SelectControl';
+import DatePicker from '../date-picker';
 import ReservationTimeControls from './ReservationTimeControls';
 
 describe('shared/form-fields/ReservationTimeControls', () => {
