@@ -2,9 +2,9 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Label from 'shared/label';
-import { injectT } from 'i18n';
-import { getAvailabilityDataForNow, getAvailabilityDataForWholeDay } from 'utils/resourceUtils';
+import Label from '../../label';
+import injectT from '../../../i18n/injectT';
+import { getAvailabilityDataForNow, getAvailabilityDataForWholeDay } from '../../../utils/resourceUtils';
 
 function ResourceAvailability({ date, resource, t }) {
   const { externalReservationUrl } = resource;

@@ -1,7 +1,7 @@
 import { createSelector, createStructuredSelector } from 'reselect';
 
-import { isLoggedInSelector } from 'state/selectors/authSelectors';
-import { createResourceSelector, unitsSelector } from 'state/selectors/dataSelectors';
+import { isLoggedInSelector } from '../../state/selectors/authSelectors';
+import { createResourceSelector, unitsSelector } from '../../state/selectors/dataSelectors';
 
 const resourceIdSelector = (state, props) => props.resourceId;
 const resourceSelector = createResourceSelector(resourceIdSelector);

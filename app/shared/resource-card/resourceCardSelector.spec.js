@@ -1,6 +1,6 @@
-import Resource from 'utils/fixtures/Resource';
-import Unit from 'utils/fixtures/Unit';
-import { getState } from 'utils/testUtils';
+import Resource from '../../utils/fixtures/Resource';
+import Unit from '../../utils/fixtures/Unit';
+import { getState } from '../../utils/testUtils';
 import resourceCardSelector from './resourceCardSelector';
 
 describe('shared/resource-list/resourceCardSelector', () => {

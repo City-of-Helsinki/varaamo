@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 
 import ResourceCardInfoCell from './ResourceCardInfoCell';
-import iconMap from 'assets/icons/map.svg';
+import iconMap from '../../../assets/icons/map.svg';
 
 describe('/shared/resource-card/info/ResourceCardInfoCell', () => {
   const defaultProps = {
