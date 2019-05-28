@@ -1,9 +1,9 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
-import Resource from 'utils/fixtures/Resource';
-import { shallowWithIntl } from 'utils/testUtils';
-import WrappedText from 'shared/wrapped-text';
+import Resource from '../../../utils/fixtures/Resource';
+import { shallowWithIntl } from '../../../utils/testUtils';
+import WrappedText from '../../../shared/wrapped-text';
 import ReservationInfo from './ReservationInfo';
 
 describe('pages/resource/reservation-info/ReservationInfo', () => {

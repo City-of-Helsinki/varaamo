@@ -1,9 +1,7 @@
-import { openingHoursMonth } from 'constants/ResourceConstants';
-import { DEFAULT_SLOT_SIZE } from 'constants/SlotConstants';
-// import moment from 'moment';
-
-import Resource from 'utils/fixtures/Resource';
-import TimeSlot from 'utils/fixtures/TimeSlot';
+import { openingHoursMonth } from '../../../constants/ResourceConstants';
+import { DEFAULT_SLOT_SIZE } from '../../../constants/SlotConstants';
+import Resource from '../../../utils/fixtures/Resource';
+import TimeSlot from '../../../utils/fixtures/TimeSlot';
 import utils from './utils';
 
 describe('pages/resource/reservation-calendar/utils', () => {

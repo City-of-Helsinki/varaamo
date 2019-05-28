@@ -3,8 +3,8 @@ import React from 'react';
 import Carousel from 'react-bootstrap/lib/Carousel';
 import Immutable from 'seamless-immutable';
 
-import BackgroundImage from 'shared/background-image';
-import Image from 'utils/fixtures/Image';
+import BackgroundImage from '../../../shared/background-image';
+import Image from '../../../utils/fixtures/Image';
 import ImageCarousel from './ImageCarousel';
 
 describe('pages/resource/resource-info/ImageCarousel', () => {

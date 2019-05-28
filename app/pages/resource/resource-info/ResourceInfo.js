@@ -5,10 +5,10 @@ import Col from 'react-bootstrap/lib/Col';
 import Panel from 'react-bootstrap/lib/Panel';
 import Row from 'react-bootstrap/lib/Row';
 
-import { injectT } from 'i18n';
-import WrappedText from 'shared/wrapped-text';
-import { getServiceMapUrl } from 'utils/unitUtils';
-import ReservationInfo from '../reservation-info';
+import injectT from '../../../i18n/injectT';
+import WrappedText from '../../../shared/wrapped-text';
+import { getServiceMapUrl } from '../../../utils/unitUtils';
+import ReservationInfo from '../reservation-info/ReservationInfo';
 
 function ResourceInfo({
   isLoggedIn, resource, unit, t

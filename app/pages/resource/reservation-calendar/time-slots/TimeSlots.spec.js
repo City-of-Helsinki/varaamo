@@ -2,8 +2,8 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import Resource from 'utils/fixtures/Resource';
-import { shallowWithIntl } from 'utils/testUtils';
+import Resource from '../../../../utils/fixtures/Resource';
+import { shallowWithIntl } from '../../../../utils/testUtils';
 import TimeSlots from './TimeSlots';
 import TimeSlotComponent from './TimeSlot';
 import TimeSlotPlaceholder from './TimeSlotPlaceholder';

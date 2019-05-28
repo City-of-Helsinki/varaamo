@@ -1,9 +1,9 @@
 import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
-import Resource from 'utils/fixtures/Resource';
-import Unit from 'utils/fixtures/Unit';
-import User from 'utils/fixtures/User';
+import Resource from '../../utils/fixtures/Resource';
+import Unit from '../../utils/fixtures/Unit';
+import User from '../../utils/fixtures/User';
 import resourcePageSelector from './resourcePageSelector';
 
 const defaultUser = User.build();

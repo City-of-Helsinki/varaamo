@@ -2,10 +2,10 @@ import React from 'react';
 import { FormattedNumber } from 'react-intl';
 import Immutable from 'seamless-immutable';
 
-import FavoriteButton from 'shared/favorite-button';
-import Resource from 'utils/fixtures/Resource';
-import Unit from 'utils/fixtures/Unit';
-import { shallowWithIntl } from 'utils/testUtils';
+import FavoriteButton from '../../../shared/favorite-button';
+import Resource from '../../../utils/fixtures/Resource';
+import Unit from '../../../utils/fixtures/Unit';
+import { shallowWithIntl } from '../../../utils/testUtils';
 import ResourceHeader from './ResourceHeader';
 
 describe('pages/resource/resource-header/ResourceHeader', () => {

@@ -1,10 +1,9 @@
-import { availableHours, openingHoursMonth } from 'constants/ResourceConstants';
-
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import Resource from 'utils/fixtures/Resource';
-import * as timeUtils from 'utils/timeUtils';
+import { availableHours, openingHoursMonth } from '../../../constants/ResourceConstants';
+import Resource from '../../../utils/fixtures/Resource';
+import * as timeUtils from '../../../utils/timeUtils';
 import reservationCalendarSelector from './reservationCalendarSelector';
 
 function getState(resource) {
