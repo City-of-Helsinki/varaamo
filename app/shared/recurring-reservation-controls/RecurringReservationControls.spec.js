@@ -2,9 +2,9 @@ import React from 'react';
 import NumericInput from 'react-numeric-input';
 import simple from 'simple-mock';
 
-import DatePicker from 'shared/date-picker';
-import { shallowWithIntl } from 'utils/testUtils';
-import SelectControl from 'pages/search/controls/SelectControl';
+import DatePicker from '../date-picker';
+import { shallowWithIntl } from '../../utils/testUtils';
+import SelectControl from '../../pages/search/controls/SelectControl';
 import RecurringReservationControls from './RecurringReservationControls';
 
 function getWrapper(props) {

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
 
-import recurringReservations from 'state/recurringReservations';
+import recurringReservations from '../../state/recurringReservations';
 
 function selectFrequencyOptions() {
   return [
