@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { shallowWithIntl } from 'utils/testUtils';
+import { shallowWithIntl } from '../../utils/testUtils';
 import PendingAccessCode from './PendingAccessCode';
 
 describe('shared/reservation-access-code/PendingAccessCode', () => {
