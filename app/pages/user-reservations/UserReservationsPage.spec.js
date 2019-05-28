@@ -1,8 +1,8 @@
 import React from 'react';
 import simple from 'simple-mock';
 
-import PageWrapper from 'pages/PageWrapper';
-import { shallowWithIntl } from 'utils/testUtils';
+import PageWrapper from '../PageWrapper';
+import { shallowWithIntl } from '../../utils/testUtils';
 import { UnconnectedUserReservationsPage as UserReservationsPage } from './UserReservationsPage';
 import AdminReservationFilters from './reservation-filters/AdminReservationFilters';
 import ReservationList from './reservation-list';

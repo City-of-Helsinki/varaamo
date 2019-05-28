@@ -1,4 +1,4 @@
-import { getDefaultRouterProps, getState } from 'utils/testUtils';
+import { getDefaultRouterProps, getState } from '../../../utils/testUtils';
 import reservationListSelector from './reservationListSelector';
 
 describe('pages/user-reservations/reservation-list/reservationListSelector', () => {
