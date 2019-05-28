@@ -1,5 +1,3 @@
-import AppConstants from 'constants/AppConstants';
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
@@ -10,8 +8,8 @@ import MomentLocaleUtils, {
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-
-import { currentLanguageSelector } from 'state/selectors/translationSelectors';
+import AppConstants from '../../constants/AppConstants';
+import { currentLanguageSelector } from '../../state/selectors/translationSelectors';
 
 const defaultDateFormat = 'YYYY-MM-DD';
 const localizedDateFormat = 'D.M.YYYY';
