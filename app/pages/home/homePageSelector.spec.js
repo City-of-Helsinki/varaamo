@@ -1,7 +1,7 @@
 import keyBy from 'lodash/keyBy';
 
-import Purpose from 'utils/fixtures/Purpose';
-import { getDefaultRouterProps, getState } from 'utils/testUtils';
+import Purpose from '../../utils/fixtures/Purpose';
+import { getDefaultRouterProps, getState } from '../../utils/testUtils';
 import homePageSelector from './homePageSelector';
 
 describe('pages/home/homePageSelector', () => {

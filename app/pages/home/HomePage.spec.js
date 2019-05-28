@@ -3,8 +3,8 @@ import Loader from 'react-loader';
 import simple from 'simple-mock';
 import Link from 'react-router-dom/Link';
 
-import PageWrapper from 'pages/PageWrapper';
-import { shallowWithIntl } from 'utils/testUtils';
+import PageWrapper from '../PageWrapper';
+import { shallowWithIntl } from '../../utils/testUtils';
 import { UnconnectedHomePage as HomePage } from './HomePage';
 import HomeSearchBox from './HomeSearchBox';
 
