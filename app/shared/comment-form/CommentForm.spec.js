@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/lib/Button';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import simple from 'simple-mock';
 
-import { makeButtonTests, shallowWithIntl } from 'utils/testUtils';
+import { makeButtonTests, shallowWithIntl } from '../../utils/testUtils';
 import CommentForm from './CommentForm';
 
 describe('shared/comment-form/CommentForm', () => {
