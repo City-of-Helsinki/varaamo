@@ -10,8 +10,8 @@ import InputGroup from 'react-bootstrap/lib/InputGroup';
 import Overlay from 'react-bootstrap/lib/Overlay';
 import moment from 'moment';
 
-import { injectT } from 'i18n';
-import iconCalendar from 'assets/icons/calendar.svg';
+import injectT from '../../i18n/injectT';
+import iconCalendar from '../../assets/icons/calendar.svg';
 import ResourceCalendarOverlay from './ResourceCalendarOverlay';
 import resourceCalendarSelector from './resourceCalendarSelector';
 
