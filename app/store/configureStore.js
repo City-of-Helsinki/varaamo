@@ -1,7 +1,7 @@
 import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction';
 
-import rootReducer from 'state/rootReducer';
+import rootReducer from '../state/rootReducer';
 import middleware from './middleware';
 
 const finalCreateStore = composeWithDevTools(...middleware)(createStore);
