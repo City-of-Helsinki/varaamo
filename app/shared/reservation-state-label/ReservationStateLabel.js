@@ -1,10 +1,9 @@
-import constants from 'constants/AppConstants';
-
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import Label from 'shared/label';
-import { injectT } from 'i18n';
+import constants from '../../constants/AppConstants';
+import Label from '../label';
+import injectT from '../../i18n/injectT';
 
 function ReservationStateLabel({ reservation, t }) {
   if (!reservation.needManualConfirmation && reservation.state !== 'cancelled') {

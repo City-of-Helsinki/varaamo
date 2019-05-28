@@ -1,11 +1,10 @@
-import constants from 'constants/AppConstants';
-
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
-import Label from 'shared/label';
-import Reservation from 'utils/fixtures/Reservation';
-import { shallowWithIntl } from 'utils/testUtils';
+import constants from '../../constants/AppConstants';
+import Label from '../label';
+import Reservation from '../../utils/fixtures/Reservation';
+import { shallowWithIntl } from '../../utils/testUtils';
 import ReservationStateLabel from './ReservationStateLabel';
 
 describe('shared/reservation-state-label/ReservationStateLabel', () => {
