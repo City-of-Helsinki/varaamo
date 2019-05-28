@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import {
   confirmPreliminaryReservation,
   denyPreliminaryReservation,
-} from 'actions/reservationActions';
+} from '../../actions/reservationActions';
 import {
   openConfirmReservationModal,
   openReservationCancelModal,
@@ -16,8 +16,8 @@ import {
   selectReservationToShow,
   showReservationInfoModal,
   startReservationEditInInfoModal,
-} from 'actions/uiActions';
-import { getEditReservationUrl } from 'utils/reservationUtils';
+} from '../../actions/uiActions';
+import { getEditReservationUrl } from '../../utils/reservationUtils';
 import ReservationControls from './ReservationControls';
 
 export class UnconnectedReservationControlsContainer extends Component {
