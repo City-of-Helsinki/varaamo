@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import { getState } from 'utils/testUtils';
+import { getState } from '../../utils/testUtils';
 import adminResourcesPageSelector from './adminResourcesPageSelector';
 
 describe('pages/admin-resources/adminResourcesPageSelector', () => {

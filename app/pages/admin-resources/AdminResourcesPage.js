@@ -5,20 +5,20 @@ import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { fetchFavoritedResources } from 'actions/resourceActions';
+import { fetchFavoritedResources } from '../../actions/resourceActions';
 import {
   changeAdminResourcesPageDate,
   selectAdminResourceType,
   openConfirmReservationModal,
   unselectAdminResourceType,
-} from 'actions/uiActions';
-import { injectT } from 'i18n';
-import PageWrapper from 'pages/PageWrapper';
-import AvailabilityView from 'shared/availability-view';
-import ResourceTypeFilter from 'shared/resource-type-filter';
-import ReservationSuccessModal from 'shared/modals/reservation-success';
-import ReservationConfirmationContainer from 'shared/reservation-confirmation';
-import recurringReservations from 'state/recurringReservations';
+} from '../../actions/uiActions';
+import injectT from '../../i18n/injectT';
+import PageWrapper from '../PageWrapper';
+import AvailabilityView from '../../shared/availability-view';
+import ResourceTypeFilter from '../../shared/resource-type-filter';
+import ReservationSuccessModal from '../../shared/modals/reservation-success';
+import ReservationConfirmationContainer from '../../shared/reservation-confirmation';
+import recurringReservations from '../../state/recurringReservations';
 import adminResourcesPageSelector from './adminResourcesPageSelector';
 
 class UnconnectedAdminResourcesPage extends Component {
