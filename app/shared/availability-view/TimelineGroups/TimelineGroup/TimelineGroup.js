@@ -1,12 +1,10 @@
-import { slotSize, slotWidth } from 'constants/SlotConstants';
-
 import classNames from 'classnames';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Sticky from 'react-sticky-el';
 
-
+import { slotSize, slotWidth } from '../../../../constants/SlotConstants';
 import AvailabilityTimelineContainer from './AvailabilityTimeline';
 import utils from './utils';
 

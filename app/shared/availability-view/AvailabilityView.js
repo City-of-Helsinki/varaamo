@@ -2,7 +2,7 @@ import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import ReservationInfoModal from 'shared/modals/reservation-info';
+import ReservationInfoModal from '../modals/reservation-info';
 import DateSelector from './DateSelector';
 import TimelineGroups from './TimelineGroups';
 import Sidebar from './Sidebar';

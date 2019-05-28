@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
-import { showReservationInfoModal } from 'actions/uiActions';
+import { showReservationInfoModal } from '../../../../../actions/uiActions';
 import AvailabilityTimeline from './AvailabilityTimeline';
 import utils from '../utils';
 
