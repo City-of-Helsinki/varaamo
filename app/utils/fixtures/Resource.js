@@ -1,6 +1,6 @@
-import { DEFAULT_SLOT_SIZE } from 'constants/SlotConstants';
-
 import { Factory } from 'rosie';
+
+import { DEFAULT_SLOT_SIZE } from '../../constants/SlotConstants';
 
 const Resource = new Factory()
   .sequence('id', index => `r-${index}`)

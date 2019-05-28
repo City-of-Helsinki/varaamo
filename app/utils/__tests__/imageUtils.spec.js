@@ -1,5 +1,5 @@
-import Image from 'utils/fixtures/Image';
-import { getMainImage } from 'utils/imageUtils';
+import Image from '../fixtures/Image';
+import { getMainImage } from '../imageUtils';
 
 describe('Utils: imageUtils', () => {
   describe('getMainImage', () => {

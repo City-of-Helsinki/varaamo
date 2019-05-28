@@ -1,6 +1,6 @@
 import {
   getServiceMapUrl,
-} from 'utils/unitUtils';
+} from '../unitUtils';
 
 describe('Utils: unitUtils', () => {
   describe('getServiceMapUrl', () => {
