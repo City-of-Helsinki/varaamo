@@ -1,6 +1,3 @@
-import constants from '../../constants/AppConstants';
-import FormTypes from '../../constants/FormTypes';
-
 import includes from 'lodash/includes';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -13,7 +10,8 @@ import Well from 'react-bootstrap/lib/Well';
 import { Field, Fields, reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 
-
+import constants from '../../constants/AppConstants';
+import FormTypes from '../../constants/FormTypes';
 import WrappedText from '../wrapped-text';
 import ReduxFormField from '../form-fields/ReduxFormField';
 import injectT from '../../i18n/injectT';
