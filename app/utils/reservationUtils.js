@@ -89,9 +89,13 @@ function getEditReservationUrl(reservation) {
  * @param {String} begin Begin timestamp in ISO string
  * @param {String} end End timestamp in ISO string
  * @param {Array} products Resource product data.
- * @returns {number | null} Price or no price.
+ * @returns {string | null} Price or no price.
  */
 function getReservationPrice(begin, end, products) {
+  if (!begin || !end || !products) {
+    return null;
+  }
+
   const currentProduct = products && products[0];
   const timeDiff = getTimeDiff(end, begin, 'hours', true);
   // TODO: Replace those getter with generic data when price
