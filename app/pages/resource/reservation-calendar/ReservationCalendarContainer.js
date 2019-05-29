@@ -27,11 +27,11 @@ import ReservationSuccessModal from 'shared/modals/reservation-success';
 import ReservationConfirmation from 'shared/reservation-confirmation';
 import recurringReservations from 'state/recurringReservations';
 import { injectT } from 'i18n';
-import { getEditReservationUrl } from 'utils/reservationUtils';
 import { hasMaxReservations, reservingIsRestricted } from 'utils/resourceUtils';
 import reservationCalendarSelector from './reservationCalendarSelector';
 import ReservingRestrictedText from './ReservingRestrictedText';
 import TimeSlots from './time-slots';
+import { getReservationPrice, getEditReservationUrl } from '../../../utils/reservationUtils';
 
 export class UnconnectedReservationCalendarContainer extends Component {
   static propTypes = {
@@ -57,6 +57,16 @@ export class UnconnectedReservationCalendarContainer extends Component {
     time: PropTypes.string,
     timeSlots: PropTypes.array.isRequired,
   };
+
+  static getDerivedStateFromProps(props) {
+    const { resource, selected } = props;
+    let reservationPrice;
+
+    if (selected && resource && selected.length === 2) {
+      reservationPrice = getReservationPrice(selected[0].begin, selected[1].end, resource.products);
+    }
+    return { reservationPrice };
+  }
 
   getSelectedDateSlots = (timeSlots, selected) => {
     if (timeSlots && selected.length) {
@@ -89,9 +99,11 @@ export class UnconnectedReservationCalendarContainer extends Component {
   };
 
   getDurationText = (duration) => {
+    const { reservationPrice } = this.state;
+
     const hours = duration.hours();
     const mins = duration.minutes();
-    return `${hours > 0 ? `${hours}h ` : ''}${mins}min`;
+    return `${hours > 0 ? `${hours}h ` : ''}${mins}min ${reservationPrice}€`;
   }
 
   getDateTimeText = (slot, returnDate) => {

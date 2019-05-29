@@ -261,6 +261,7 @@ class TimeSlots extends Component {
         end={resEnd}
         key="timeslots-reservation-popover"
         onCancel={this.onCancel}
+        products={resource.products}
       >
         {timeSlot}
       </ReservationPopover>
