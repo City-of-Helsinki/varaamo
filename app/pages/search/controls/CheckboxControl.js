@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Toggle from 'react-toggle';
-import classnames from 'classnames';
+import classNames from 'classnames';
 
 import { injectT } from 'i18n';
 
 function CheckboxControl({
   id, label, labelClassName, onConfirm, toggleClassName, value
 }) {
-  const toggleClassNames = classnames('app-CheckboxControl__toggle', toggleClassName);
-  const labelClassNames = classnames('app-CheckboxControl__label', labelClassName);
+  const toggleClassNames = classNames('app-CheckboxControl__toggle', toggleClassName);
+  const labelClassNames = classNames('app-CheckboxControl__label', labelClassName);
 
   return (
     <div className="app-CheckboxControl">

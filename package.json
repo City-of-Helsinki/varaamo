@@ -1,6 +1,6 @@
 {
   "name": "varaamo",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/City-of-Helsinki/varaamo"
@@ -14,8 +14,8 @@
   "description": "Varaamo is the user interface for the City of Helsinki varaamo.hel.fi resource reservation service.",
   "license": "MIT",
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.16",
-    "@fortawesome/free-solid-svg-icons": "^5.8.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.18",
+    "@fortawesome/free-solid-svg-icons": "^5.8.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
     "bootstrap-sass": "3.4.1",
     "classnames": "2.2.5",

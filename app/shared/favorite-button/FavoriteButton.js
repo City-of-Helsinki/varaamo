@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import iconHeart from 'hel-icons/dist/shapes/heart-o.svg';
 
 import iconHeartWhite from 'assets/icons/heart-white.svg';
 import { injectT } from 'i18n';
 
 function FavoriteButton({ favorited, onClick, t }) {
-  const buttonClassNames = classnames('favorite-button', {
+  const buttonClassNames = classNames('favorite-button', {
     'favorite-button--favorite': favorited,
   });
   const buttonText = t(

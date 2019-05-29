@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import BootstrapLabel from 'react-bootstrap/lib/Label';
 
 Label.propTypes = {
@@ -13,7 +13,7 @@ function Label({
 }) {
   return (
     <div
-      className={classnames(
+      className={classNames(
         'app-Label',
         className
       )}
