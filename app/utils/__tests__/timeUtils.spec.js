@@ -645,6 +645,13 @@ describe('Utils: timeUtils', () => {
       // > 0 => startTime > endTime
       expect(getTimeDiff(startDate, endDate) > 0).toBeTruthy();
     });
+
+    test('can return float value instead of round number', () => {
+      const startDate = '2019-05-09T05:42:00.000Z';
+      const endDate = '2019-05-09T05:30:00.000Z';
+      const result = parseFloat(getTimeDiff(startDate, endDate, 'hours', true));
+      expect(result).toEqual(0.2);
+    });
   });
 
   describe('getEndTimeSlotWithMinPeriod', () => {
