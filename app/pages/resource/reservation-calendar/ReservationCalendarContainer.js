@@ -58,6 +58,10 @@ export class UnconnectedReservationCalendarContainer extends Component {
     timeSlots: PropTypes.array.isRequired,
   };
 
+  state= {
+    reservationPrice: null,
+  }
+
   static getDerivedStateFromProps(props) {
     const { resource, selected } = props;
     let reservationPrice;
@@ -85,6 +89,9 @@ export class UnconnectedReservationCalendarContainer extends Component {
   };
 
   getSelectedTimeText = (selected) => {
+    const { reservationPrice } = this.state;
+    const { t } = this.props;
+
     if (!selected.length) {
       return '';
     }
@@ -95,15 +102,15 @@ export class UnconnectedReservationCalendarContainer extends Component {
     const endText = this.getDateTimeText(endSlot.end, false);
     const duration = moment.duration(moment(endSlot.end).diff(moment(beginSlot.begin)));
     const durationText = this.getDurationText(duration);
-    return `${beginText} - ${endText} (${durationText})`;
+    return t('ReservationCalendar.selectedTime.infoText', {
+      beginText, endText, durationText, price: reservationPrice
+    });
   };
 
   getDurationText = (duration) => {
-    const { reservationPrice } = this.state;
-
     const hours = duration.hours();
     const mins = duration.minutes();
-    return `${hours > 0 ? `${hours}h ` : ''}${mins}min ${reservationPrice}€`;
+    return `${hours > 0 ? `${hours}h ` : ''}${mins}min`;
   }
 
   getDateTimeText = (slot, returnDate) => {

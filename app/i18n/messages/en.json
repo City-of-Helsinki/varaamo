@@ -151,6 +151,7 @@
   "ReservationCalendarPickerLegend.booked": "Booked",
   "ReservationCalendarPickerLegend.busy": "Partially booked",
   "ReservationCalendarPickerLegend.free": "Free",
+  "ReservationCalendar.selectedTime.infoText": "{beginText} - {endText} ({durationText}) for {price}€",
   "ReservationCancelModal.cancelAllowedCancel": "Do not cancel the reservation",
   "ReservationCancelModal.cancelAllowedConfirm": "Cancel the reservation",
   "ReservationCancelModal.cancelAllowedTitle": "Confirming the cancellation",
