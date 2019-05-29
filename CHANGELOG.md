@@ -1,3 +1,14 @@
+# 0.4.0
+  **MAJOR CHANGES**
+  ```
+  - Add new purpose section for sauna and organize events. As well as mock placeholder icon.
+  - Some technical improvements.
+  ```
+  **CHANGELOG**
+  - [#940](https://github.com/City-of-Helsinki/varaamo/pull/940) Upgrade fortawesome, add new temp purpose icon.
+  - [#939](https://github.com/City-of-Helsinki/varaamo/pull/939) Rename all classnames imports to classNames
+  - [#934](https://github.com/City-of-Helsinki/varaamo/pull/934) New folder structure
+
 # 0.3.0
   **MAJOR CHANGES**
   ```
