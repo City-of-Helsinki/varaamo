@@ -94,12 +94,12 @@ function getEditReservationUrl(reservation) {
 function getReservationPrice(begin, end, products) {
   const currentProduct = products && products[0];
   const timeDiff = getTimeDiff(end, begin, 'hours', true);
-
   // TODO: Replace those getter with generic data when price
   // not only by hours and product is more than 1.
 
   if (currentProduct.priceType === 'per_hour' && currentProduct.price) {
-    return timeDiff * currentProduct.price;
+    return (timeDiff * currentProduct.price).toFixed(1);
+    // Round result to 1 floating number
   }
 
   return null;
