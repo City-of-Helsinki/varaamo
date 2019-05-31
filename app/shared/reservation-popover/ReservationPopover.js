@@ -6,14 +6,15 @@ import Popover from 'react-bootstrap/lib/Popover';
 import moment from 'moment';
 
 import { injectT } from 'i18n/index';
+import { getReservationPrice } from '../../utils/reservationUtils';
 
 class ReservationPopover extends PureComponent {
   render() {
     const {
-      begin, children, end, onCancel, t
+      begin, children, end, onCancel, t, products
     } = this.props;
     const reservationLength = end ? moment.duration(moment(end).diff(moment(begin))) : null;
-
+    const reservationPrice = getReservationPrice(begin, end, products);
     const popover = (
       <Popover
         className="reservation-popover"
@@ -25,7 +26,11 @@ class ReservationPopover extends PureComponent {
 –
           {end && moment(end).format('HH:mm')}
         </span>
-
+        {reservationPrice && (
+          <span className="reservation-popover__price">
+            {`${reservationPrice}€`}
+          </span>
+        )}
         {reservationLength && (
           <span className="reservation-popover__length">
             {reservationLength.hours()
@@ -51,6 +56,7 @@ ReservationPopover.propTypes = {
   begin: PropTypes.string.isRequired,
   end: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
+  products: PropTypes.array.isRequired,
 };
 
 export default injectT(ReservationPopover);

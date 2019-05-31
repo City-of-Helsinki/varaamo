@@ -153,6 +153,7 @@
   "ReservationCalendarPickerLegend.booked": "Reserverad",
   "ReservationCalendarPickerLegend.busy": "Delvis ledig",
   "ReservationCalendarPickerLegend.free": "Ledig",
+  "ReservationCalendar.selectedTime.infoText": "{beginText} - {endText} ({durationText}) för {price}€",
   "ReservationCancelModal.cancelAllowedCancel": "Avboka inte bokningen",
   "ReservationCancelModal.cancelAllowedConfirm": "Avboka bokningen",
   "ReservationCancelModal.cancelAllowedTitle": "Bekräfta avbokningen",

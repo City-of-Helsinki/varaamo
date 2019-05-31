@@ -151,6 +151,7 @@
   "ReservationCalendarPickerLegend.booked": "Varattu",
   "ReservationCalendarPickerLegend.busy": "Osittain vapaa",
   "ReservationCalendarPickerLegend.free": "Vapaa",
+  "ReservationCalendar.selectedTime.infoText": "{beginText} - {endText} ({durationText}) yht {price}€",
   "ReservationCancelModal.cancelAllowedCancel": "Älä peru varausta",
   "ReservationCancelModal.cancelAllowedConfirm": "Peru varaus",
   "ReservationCancelModal.cancelAllowedTitle": "Perumisen vahvistus",

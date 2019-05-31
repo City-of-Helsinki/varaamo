@@ -27,11 +27,11 @@ import ReservationSuccessModal from 'shared/modals/reservation-success';
 import ReservationConfirmation from 'shared/reservation-confirmation';
 import recurringReservations from 'state/recurringReservations';
 import { injectT } from 'i18n';
-import { getEditReservationUrl } from 'utils/reservationUtils';
 import { hasMaxReservations, reservingIsRestricted } from 'utils/resourceUtils';
 import reservationCalendarSelector from './reservationCalendarSelector';
 import ReservingRestrictedText from './ReservingRestrictedText';
 import TimeSlots from './time-slots';
+import { getReservationPrice, getEditReservationUrl } from '../../../utils/reservationUtils';
 
 export class UnconnectedReservationCalendarContainer extends Component {
   static propTypes = {
@@ -58,6 +58,20 @@ export class UnconnectedReservationCalendarContainer extends Component {
     timeSlots: PropTypes.array.isRequired,
   };
 
+  state= {
+    reservationPrice: null,
+  }
+
+  static getDerivedStateFromProps(props) {
+    const { resource, selected } = props;
+    let reservationPrice;
+
+    if (selected && resource && selected.length === 2) {
+      reservationPrice = getReservationPrice(selected[0].begin, selected[1].end, resource.products);
+    }
+    return { reservationPrice };
+  }
+
   getSelectedDateSlots = (timeSlots, selected) => {
     if (timeSlots && selected.length) {
       const firstSelected = first(selected);
@@ -75,6 +89,9 @@ export class UnconnectedReservationCalendarContainer extends Component {
   };
 
   getSelectedTimeText = (selected) => {
+    const { reservationPrice } = this.state;
+    const { t } = this.props;
+
     if (!selected.length) {
       return '';
     }
@@ -85,7 +102,9 @@ export class UnconnectedReservationCalendarContainer extends Component {
     const endText = this.getDateTimeText(endSlot.end, false);
     const duration = moment.duration(moment(endSlot.end).diff(moment(beginSlot.begin)));
     const durationText = this.getDurationText(duration);
-    return `${beginText} - ${endText} (${durationText})`;
+    return t('ReservationCalendar.selectedTime.infoText', {
+      beginText, endText, durationText, price: reservationPrice
+    });
   };
 
   getDurationText = (duration) => {
