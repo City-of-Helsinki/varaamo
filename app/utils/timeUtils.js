@@ -220,7 +220,7 @@ function getEndTimeSlotWithMinPeriod(startSlot, minPeriod, slotSize) {
  * @param {string} endTime ISO Time String
  * @param {string} unit Define time unit
  * @param {boolean} isFloat Should result in float, default integer
- * @returns {int} timediff
+ * @returns {int | float} timediff
  */
 function getTimeDiff(startTime, endTime, unit, isFloat = false) {
   return moment(startTime).diff(moment(endTime), unit, isFloat);
