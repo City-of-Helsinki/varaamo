@@ -10,6 +10,7 @@ import {
   getMissingValues,
   getNextAvailableTime,
   getNextReservation,
+  getReservationPrice
 } from '../reservationUtils';
 
 describe('Utils: reservationUtils', () => {
@@ -294,6 +295,37 @@ describe('Utils: reservationUtils', () => {
 
     test('returns the next reservation from a list of reservations', () => {
       expect(getNextReservation(unorderedReservations)).toEqual(nextReservation);
+    });
+  });
+
+  describe('getReservationPrice', () => {
+    const begin = '2015-10-09T08:00:00+03:00';
+    const end = '2015-10-09T10:00:00+03:00';
+    const products = [{
+      id: 'foo',
+      type: 'rent',
+      name: {
+        fi: 'testivuokra',
+        en: 'test rent'
+      },
+      description: {
+        fi: 'Testivuokran kuvaus.',
+        en: 'Test rent description.'
+      },
+      pretaxPrice: 10.00,
+      taxPercentage: 24.00,
+      price: 12.40,
+      priceType: 'per_hour'
+    }];
+
+    test('return null if no product data', () => {
+      const result = getReservationPrice(begin, end);
+      expect(result).toEqual(null);
+    });
+
+    test('return price multiply by hour, rounded by 1 digit after comma', () => {
+      const result = getReservationPrice(begin, end, products);
+      expect(result).toEqual('24.8');
     });
   });
 });

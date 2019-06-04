@@ -7,6 +7,7 @@ import sortBy from 'lodash/sortBy';
 import tail from 'lodash/tail';
 import moment from 'moment';
 
+import { getTimeDiff } from './timeUtils';
 import constants from '../constants/AppConstants';
 
 function combine(reservations) {
@@ -80,6 +81,31 @@ function getEditReservationUrl(reservation) {
 
   return `/reservation?begin=${beginStr}&date=${date}&end=${endStr}&id=${id || ''}&resource=${resource}`;
 }
+/**
+ * Get reservation price from resource. Get time conver
+ *
+ * @param {String} begin Begin timestamp in ISO string
+ * @param {String} end End timestamp in ISO string
+ * @param {Array} products Resource product data.
+ * @returns {string | null} Price or no price.
+ */
+function getReservationPrice(begin, end, products) {
+  if (!begin || !end || !products) {
+    return null;
+  }
+
+  const currentProduct = products && products[0];
+  const timeDiff = getTimeDiff(end, begin, 'hours', true);
+  // TODO: Replace those getter with generic data when price
+  // not only by hours and product is more than 1.
+
+  if (currentProduct.priceType === 'per_hour' && currentProduct.price) {
+    return (timeDiff * currentProduct.price).toFixed(1);
+    // Round result to 1 floating number
+  }
+
+  return null;
+}
 
 export {
   combine,
@@ -89,4 +115,5 @@ export {
   getMissingValues,
   getNextAvailableTime,
   getNextReservation,
+  getReservationPrice,
 };

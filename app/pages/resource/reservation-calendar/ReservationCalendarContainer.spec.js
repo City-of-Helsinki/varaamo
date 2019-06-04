@@ -278,7 +278,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       const result = instance.getSelectedTimeText([selectedSlot]);
 
       expect(instance.getDateTimeText.callCount).toBe(2);
-      expect(result).toBe('some text - some text (1h 0min)');
+      expect(result).toBe('ReservationCalendar.selectedTime.infoText');
     });
   });
 
