@@ -34,7 +34,7 @@ function FooterContent({ t }) {
               </p>
             </Col>
             <Col lg={3} md={3}>
-              <p className="npm-version">v0.3.0</p>
+              <p className="app-varaamo-version">v0.3.0</p>
             </Col>
           </Row>
         </Grid>
@@ -60,7 +60,7 @@ function FooterContent({ t }) {
               </p>
             </Col>
             <Col lg={3} md={3}>
-              <p className="npm-version">v0.3.0</p>
+              <p className="app-varaamo-version">v0.3.0</p>
             </Col>
           </Row>
         </Grid>
@@ -86,7 +86,7 @@ function FooterContent({ t }) {
               </p>
             </Col>
             <Col lg={3} md={3}>
-              <p className="npm-version">v0.3.0</p>
+              <p className="app-varaamo-version">v0.3.0</p>
             </Col>
           </Row>
         </Grid>
