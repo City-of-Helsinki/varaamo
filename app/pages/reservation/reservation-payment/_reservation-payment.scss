@@ -1,0 +1,32 @@
+.reservation-payment-StepOne {
+  .StepOne-input-group {
+    margin-bottom: 20px;
+  }
+  .StepOne-terms {
+    margin-bottom: 20px;
+    label,
+    input {
+      display: inline-block;
+      width: auto;
+    }
+    label {
+      margin-left: 10px;
+    }
+  }
+  input,
+  textarea {
+    display: block;
+    padding: 5px 10px;
+    width: 100%;
+    &:focus {
+      border: 2px solid $blue;
+    }
+  }
+  label {
+    display: block;
+    font-size: 14px;
+  }
+  label a {
+    color: $blue;
+  }
+}
