@@ -6,6 +6,7 @@ import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import { Link } from 'react-router-dom';
 
+import { version } from '../../../package.json';
 import FeedbackLink from 'shared/feedback-link';
 import Logo from 'shared/logo';
 import { injectT } from 'i18n';
@@ -34,7 +35,7 @@ function FooterContent({ t }) {
               </p>
             </Col>
             <Col lg={3} md={3}>
-              <p className="app-varaamo-version">v0.3.0</p>
+              <p className="app-varaamo-version">{`v${version}`}</p>
             </Col>
           </Row>
         </Grid>
@@ -60,7 +61,7 @@ function FooterContent({ t }) {
               </p>
             </Col>
             <Col lg={3} md={3}>
-              <p className="app-varaamo-version">v0.3.0</p>
+              <p className="app-varaamo-version">{`v${version}`}</p>
             </Col>
           </Row>
         </Grid>
@@ -86,7 +87,7 @@ function FooterContent({ t }) {
               </p>
             </Col>
             <Col lg={3} md={3}>
-              <p className="app-varaamo-version">v0.3.0</p>
+              <p className="app-varaamo-version">{`v${version}`}</p>
             </Col>
           </Row>
         </Grid>
