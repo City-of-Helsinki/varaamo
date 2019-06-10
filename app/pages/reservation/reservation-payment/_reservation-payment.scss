@@ -1,32 +1,48 @@
 .reservation-payment-StepOne {
-  .StepOne-input-group {
+
+  .StepOne--input {
     margin-bottom: 20px;
+    input,
+    textarea {
+      border: 1px solid $medium-gray;
+      display: block;
+      font-weight: normal;
+      padding: 10px;
+      width: 100%;
+      &:focus {
+        border: 2px solid $blue;
+        padding: 9px;
+      }
+    }
+    label {
+      display: block;
+      font-size: 14px;
+    }
   }
-  .StepOne-terms {
+
+  .StepOne--error {
+    display: block;
+    color: $red;
+  }
+
+  .StepOne--terms {
     margin-bottom: 20px;
     label,
     input {
       display: inline-block;
       width: auto;
     }
-    label {
-      margin-left: 10px;
+    input {
+      margin-right: 10px;
+    }
+    a {
+      color: $blue;
     }
   }
-  input,
-  textarea {
-    display: block;
-    padding: 5px 10px;
-    width: 100%;
-    &:focus {
-      border: 2px solid $blue;
+
+  @media (min-width: $screen-sm-min) {
+    button {
+      width: 200px;
     }
-  }
-  label {
-    display: block;
-    font-size: 14px;
-  }
-  label a {
-    color: $blue;
   }
 }
