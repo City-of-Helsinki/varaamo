@@ -73,7 +73,9 @@ class UnconnectedSearchControlsContainer extends Component {
   };
 
   handleDateChange = ({ date }) => {
-    const dateInCorrectFormat = moment(date, 'L').format(constants.DATE_FORMAT);
+    const dateInCorrectFormat = moment(date)
+      .format(constants.DATE_FORMAT);
+
     this.handleFiltersChange({
       date: dateInCorrectFormat,
     });
