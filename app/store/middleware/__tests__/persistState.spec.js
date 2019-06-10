@@ -1,4 +1,4 @@
-import { loadPersistedLocale, savePersistLocale } from './persistState';
+import { loadPersistedLocale, savePersistLocale } from '../persistState';
 
 describe('loadPersistedLocale', () => {
   beforeEach(() => {
