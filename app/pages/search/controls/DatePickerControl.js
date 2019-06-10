@@ -56,7 +56,7 @@ class DatePickerControl extends React.Component {
   render() {
     const { currentLanguage, t } = this.props;
     const { date } = this.state;
-    const selectedDay = moment(date, 'L')
+    const selectedDay = moment(date)
       .startOf('day')
       .toDate();
 
