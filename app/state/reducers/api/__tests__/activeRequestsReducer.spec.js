@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
-import activeRequestsReducer from './activeRequestsReducer';
+import activeRequestsReducer from '../activeRequestsReducer';
 
 describe('state/reducers/api/activeRequestsReducer', () => {
   describe('initial state', () => {

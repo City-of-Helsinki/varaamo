@@ -1,14 +1,14 @@
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
-import types from '../../../constants/ActionTypes';
+import types from '../../../../constants/ActionTypes';
 import {
   changeAdminResourcesPageDate,
   selectAdminResourceType,
   unselectAdminResourceType,
-} from '../../../actions/uiActions';
-import Resource from '../../../utils/fixtures/Resource';
-import adminResourcesPageReducer from './adminResourcesPageReducer';
+} from '../../../../actions/uiActions';
+import Resource from '../../../../utils/fixtures/Resource';
+import adminResourcesPageReducer from '../adminResourcesPageReducer';
 
 describe('state/reducers/ui/adminResourcesPageReducer', () => {
   describe('initial state', () => {

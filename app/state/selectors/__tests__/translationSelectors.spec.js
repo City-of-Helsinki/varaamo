@@ -1,9 +1,9 @@
-import constants from '../../constants/AppConstants';
-import { getState } from '../../utils/testUtils';
+import constants from '../../../constants/AppConstants';
+import { getState } from '../../../utils/testUtils';
 import {
   createTranslatedSelector,
   currentLanguageSelector,
-} from './translationSelectors';
+} from '../translationSelectors';
 
 describe('state/selectors/dataSelectors', () => {
   describe('currentLanguageSelector', () => {

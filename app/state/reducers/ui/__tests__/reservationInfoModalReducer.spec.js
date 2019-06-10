@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 
-import reducer from './reservationInfoModalReducer';
+import reducer from '../reservationInfoModalReducer';
 
 describe('state/reducers/ui/reservationInfoModalReducer', () => {
   const initialState = Immutable({

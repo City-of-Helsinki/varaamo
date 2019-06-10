@@ -1,11 +1,11 @@
-import { getState } from '../../utils/testUtils';
+import { getState } from '../../../utils/testUtils';
 import {
   createResourceSelector,
   purposesSelector,
   reservationsSelector,
   resourcesSelector,
   unitsSelector,
-} from './dataSelectors';
+} from '../dataSelectors';
 
 describe('state/selectors/dataSelectors', () => {
   describe('purposesSelector', () => {

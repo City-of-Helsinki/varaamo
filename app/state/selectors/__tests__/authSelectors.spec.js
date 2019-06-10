@@ -1,11 +1,11 @@
-import User from '../../utils/fixtures/User';
-import { getState } from '../../utils/testUtils';
+import User from '../../../utils/fixtures/User';
+import { getState } from '../../../utils/testUtils';
 import {
   currentUserSelector,
   isAdminSelector,
   isLoggedInSelector,
   staffUnitsSelector,
-} from './authSelectors';
+} from '../authSelectors';
 
 describe('state/selectors/authSelectors', () => {
   describe('currentUserSelector', () => {

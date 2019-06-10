@@ -2,8 +2,8 @@ import {
   closeConfirmReservationModal,
   closeReservationCommentModal,
   closeReservationSuccessModal,
-} from '../actions/uiActions';
-import recurringReservations, { populateReservations } from './recurringReservations';
+} from '../../actions/uiActions';
+import recurringReservations, { populateReservations } from '../recurringReservations';
 
 describe('state/recurringReservations', () => {
   describe('reducer', () => {

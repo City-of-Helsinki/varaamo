@@ -1,8 +1,8 @@
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
-import types from '../../../constants/ActionTypes';
-import shouldFetchReducer from './shouldFetchReducer';
+import types from '../../../../constants/ActionTypes';
+import shouldFetchReducer from '../shouldFetchReducer';
 
 describe('state/reducers/api/shouldFetchReducer', () => {
   describe('initial state', () => {

@@ -1,8 +1,8 @@
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
-import types from '../../constants/ActionTypes';
-import authReducer from './authReducer';
+import types from '../../../constants/ActionTypes';
+import authReducer from '../authReducer';
 
 describe('state/reducers/authReducer', () => {
   describe('initial state', () => {
