@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import moment from 'moment';
 
-import { injectT } from 'i18n';
-import DatePicker from 'shared/date-picker';
+import injectT from '../../i18n/injectT';
+import DatePicker from '../date-picker';
 
 export class UninjectedDateSelector extends React.Component {
   static propTypes = {

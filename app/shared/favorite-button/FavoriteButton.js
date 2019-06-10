@@ -4,8 +4,8 @@ import Button from 'react-bootstrap/lib/Button';
 import classNames from 'classnames';
 import iconHeart from 'hel-icons/dist/shapes/heart-o.svg';
 
-import iconHeartWhite from 'assets/icons/heart-white.svg';
-import { injectT } from 'i18n';
+import iconHeartWhite from '../../assets/icons/heart-white.svg';
+import injectT from '../../i18n/injectT';
 
 function FavoriteButton({ favorited, onClick, t }) {
   const buttonClassNames = classNames('favorite-button', {

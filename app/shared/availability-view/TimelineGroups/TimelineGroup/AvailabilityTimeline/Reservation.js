@@ -6,7 +6,7 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 import Popover from 'react-bootstrap/lib/Popover';
 
-import ReservationAccessCode from 'shared/reservation-access-code';
+import ReservationAccessCode from '../../../../reservation-access-code';
 import utils from '../utils';
 
 function getReserverName(reserverName, user) {

@@ -5,7 +5,7 @@ import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 import Popover from 'react-bootstrap/lib/Popover';
 import moment from 'moment';
 
-import { injectT } from 'i18n/index';
+import injectT from '../../i18n/injectT';
 import { getReservationPrice } from '../../utils/reservationUtils';
 
 class ReservationPopover extends PureComponent {

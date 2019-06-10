@@ -3,7 +3,7 @@ import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
 
-import ResourceCard from 'shared/resource-card';
+import ResourceCard from '../resource-card';
 import selector from './ResourceCompactListSelector';
 
 export class UnconnectedResourceCompactList extends React.Component {

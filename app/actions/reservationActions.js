@@ -1,18 +1,17 @@
-import types from 'constants/ActionTypes';
-
-import pickBy from 'lodash/pickBy';
 import { decamelizeKeys } from 'humps';
+import pickBy from 'lodash/pickBy';
 import { RSAA } from 'redux-api-middleware';
 
-import schemas from 'store/middleware/Schemas';
+import types from '../constants/ActionTypes';
+import schemas from '../store/middleware/Schemas';
 import {
   buildAPIUrl,
   getErrorTypeDescriptor,
   getHeadersCreator,
   getRequestTypeDescriptor,
   getSuccessTypeDescriptor,
-} from 'utils/apiUtils';
-import { getMissingValues, isStaffEvent } from 'utils/reservationUtils';
+} from '../utils/apiUtils';
+import { getMissingValues, isStaffEvent } from '../utils/reservationUtils';
 
 function commentReservation(reservation, resource, comments) {
   const missingValues = getMissingValues(reservation);

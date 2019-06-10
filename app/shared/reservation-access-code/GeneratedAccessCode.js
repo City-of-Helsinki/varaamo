@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { injectT } from 'i18n';
+import injectT from '../../i18n/injectT';
 
 function GeneratedAccessCode({ accessCode, t, text }) {
   return (

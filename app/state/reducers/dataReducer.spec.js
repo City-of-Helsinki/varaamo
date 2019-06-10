@@ -1,11 +1,10 @@
-import types from 'constants/ActionTypes';
-
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
-import Reservation from 'utils/fixtures/Reservation';
-import Resource from 'utils/fixtures/Resource';
-import User from 'utils/fixtures/User';
+import types from '../../constants/ActionTypes';
+import Reservation from '../../utils/fixtures/Reservation';
+import Resource from '../../utils/fixtures/Resource';
+import User from '../../utils/fixtures/User';
 import dataReducer, { handleData } from './dataReducer';
 
 describe('state/reducers/dataReducer', () => {

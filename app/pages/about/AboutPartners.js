@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { injectT } from 'i18n';
+import injectT from '../../i18n/injectT';
 import aikaLogoSrc from './images/aika-logo.png';
 import eakrLogoSrc from './images/eakr-logo.png';
 import euVipuvoimaaLogoSrc from './images/eu-vipuvoimaa-logo.png';

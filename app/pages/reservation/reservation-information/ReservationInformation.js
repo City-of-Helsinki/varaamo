@@ -8,9 +8,9 @@ import Row from 'react-bootstrap/lib/Row';
 import Well from 'react-bootstrap/lib/Well';
 import moment from 'moment';
 
-import { injectT } from 'i18n';
-import { isStaffEvent } from 'utils/reservationUtils';
-import { getTermsAndConditions } from 'utils/resourceUtils';
+import injectT from '../../../i18n/injectT';
+import { isStaffEvent } from '../../../utils/reservationUtils';
+import { getTermsAndConditions } from '../../../utils/resourceUtils';
 import ReservationInformationForm from './ReservationInformationForm';
 
 class ReservationInformation extends Component {

@@ -4,7 +4,7 @@ import * as redux from 'redux';
 import { shallow } from 'enzyme';
 import { Route as ReactRouterRoute } from 'react-router-dom';
 
-import * as routeActions from 'actions/routeActions';
+import * as routeActions from '../../actions/routeActions';
 import { UnconnectedRoute as Route, mapDispatchToProps } from './Route';
 
 describe('shared/route/Route', () => {

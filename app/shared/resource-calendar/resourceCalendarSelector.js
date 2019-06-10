@@ -3,9 +3,9 @@ import mapValues from 'lodash/mapValues';
 import moment from 'moment';
 import { createSelector, createStructuredSelector } from 'reselect';
 
-import { createResourceSelector } from 'state/selectors/dataSelectors';
-import { currentLanguageSelector } from 'state/selectors/translationSelectors';
-import { getOpenReservations } from 'utils/resourceUtils';
+import { createResourceSelector } from '../../state/selectors/dataSelectors';
+import { currentLanguageSelector } from '../../state/selectors/translationSelectors';
+import { getOpenReservations } from '../../utils/resourceUtils';
 
 const resourceIdSelector = (state, props) => props.resourceId;
 const resourceSelector = createResourceSelector(resourceIdSelector);

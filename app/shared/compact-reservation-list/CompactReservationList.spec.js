@@ -3,9 +3,9 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import Reservation from 'utils/fixtures/Reservation';
-import Resource from 'utils/fixtures/Resource';
-import TimeRange from 'shared/time-range';
+import Reservation from '../../utils/fixtures/Reservation';
+import Resource from '../../utils/fixtures/Resource';
+import TimeRange from '../time-range';
 import CompactReservationList from './CompactReservationList';
 
 describe('shared/compact-reservation-list/CompactReservationList', () => {

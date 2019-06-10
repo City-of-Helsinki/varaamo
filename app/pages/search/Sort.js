@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { injectT } from 'i18n';
+import injectT from '../../i18n/injectT';
 import CONSTANTS from '../../constants/AppConstants';
 import SelectControl from './controls/SelectControl';
 

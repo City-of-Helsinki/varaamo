@@ -4,10 +4,10 @@ import Button from 'react-bootstrap/lib/Button';
 import { FormattedHTMLMessage } from 'react-intl';
 import Modal from 'react-bootstrap/lib/Modal';
 
-import CompactReservationList from 'shared/compact-reservation-list';
-import ReservationAccessCode from 'shared/reservation-access-code';
-import ReservationDate from 'shared/reservation-date';
-import { injectT } from 'i18n';
+import CompactReservationList from '../../compact-reservation-list';
+import ReservationAccessCode from '../../reservation-access-code';
+import ReservationDate from '../../reservation-date';
+import injectT from '../../../i18n/injectT';
 
 function ReservationSuccessModal({
   closeReservationSuccessModal,

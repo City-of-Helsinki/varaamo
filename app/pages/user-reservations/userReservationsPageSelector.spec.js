@@ -1,4 +1,4 @@
-import { getState } from 'utils/testUtils';
+import { getState } from '../../utils/testUtils';
 import userReservationsPageSelector from './userReservationsPageSelector';
 
 describe('pages/user-reservations/userReservationsPageSelector', () => {

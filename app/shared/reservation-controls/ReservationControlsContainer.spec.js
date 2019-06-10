@@ -2,9 +2,9 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
 
-import Reservation from 'utils/fixtures/Reservation';
-import Resource from 'utils/fixtures/Resource';
-import { getEditReservationUrl } from 'utils/reservationUtils';
+import Reservation from '../../utils/fixtures/Reservation';
+import Resource from '../../utils/fixtures/Resource';
+import { getEditReservationUrl } from '../../utils/reservationUtils';
 import ReservationControls from './ReservationControls';
 import { UnconnectedReservationControlsContainer as ReservationControlsContainer } from './ReservationControlsContainer';
 

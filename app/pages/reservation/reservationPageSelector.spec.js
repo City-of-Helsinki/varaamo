@@ -1,10 +1,10 @@
 import keyBy from 'lodash/keyBy';
 import Immutable from 'seamless-immutable';
 
-import Reservation from 'utils/fixtures/Reservation';
-import Resource from 'utils/fixtures/Resource';
-import Unit from 'utils/fixtures/Unit';
-import User from 'utils/fixtures/User';
+import Reservation from '../../utils/fixtures/Reservation';
+import Resource from '../../utils/fixtures/Resource';
+import Unit from '../../utils/fixtures/Unit';
+import User from '../../utils/fixtures/User';
 import reservationPageSelector from './reservationPageSelector';
 
 const defaultUnit = Unit.build();

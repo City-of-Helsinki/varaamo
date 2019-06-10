@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { injectT } from 'i18n';
-import { getCurrentCustomization } from 'utils/customizationUtils';
+import injectT from '../../i18n/injectT';
+import { getCurrentCustomization } from '../../utils/customizationUtils';
 import helsinkiLogoSrc from './helsinki-logo-white.png';
 import espooLogoSrc from './espoo-blue-logo.png';
 import vantaaLogoSrc from './vantaa-logo.png';

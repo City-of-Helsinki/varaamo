@@ -1,7 +1,6 @@
-import FormTypes from 'constants/FormTypes';
-
-import Resource from 'utils/fixtures/Resource';
-import { getState } from 'utils/testUtils';
+import FormTypes from '../../constants/FormTypes';
+import Resource from '../../utils/fixtures/Resource';
+import { getState } from '../../utils/testUtils';
 import reservationConfirmationSelector from './reservationConfirmationSelector';
 
 describe('shared/reservation-confirmation/reservationConfirmationSelector', () => {

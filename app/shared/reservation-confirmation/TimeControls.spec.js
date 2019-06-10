@@ -4,7 +4,7 @@ import moment from 'moment';
 import React from 'react';
 import simple from 'simple-mock';
 
-import SelectControl from 'pages/search/controls/SelectControl';
+import SelectControl from '../../pages/search/controls/SelectControl';
 import TimeControls from './TimeControls';
 
 describe('shared/reservation-confirmation/TimeControls', () => {

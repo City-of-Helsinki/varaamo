@@ -1,10 +1,9 @@
-import constants from 'constants/AppConstants';
-
 import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
 
-import * as customizationUtils from 'utils/customizationUtils';
+import constants from '../../constants/AppConstants';
+import * as customizationUtils from '../../utils/customizationUtils';
 import FeedbackLink from './FeedbackLink';
 
 describe('shared/feedback-link/FeedbackLink', () => {

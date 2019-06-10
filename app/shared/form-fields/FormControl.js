@@ -6,7 +6,7 @@ import RBFormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
-import InfoPopover from 'shared/info-popover';
+import InfoPopover from '../info-popover';
 
 function FormControl({
   controlProps = {}, help, id, info, label, type, validationState

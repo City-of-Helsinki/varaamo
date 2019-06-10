@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
-import { scrollTo } from 'utils/domUtils';
+import { scrollTo } from '../../utils/domUtils';
 
 class DateHeader extends Component {
   static propTypes = {

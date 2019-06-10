@@ -1,12 +1,10 @@
-import types from 'constants/ActionTypes';
-import { DEFAULT_SLOT_SIZE } from 'constants/SlotConstants';
-
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 import first from 'lodash/first';
 import last from 'lodash/last';
 
-
+import types from '../../../constants/ActionTypes';
+import { DEFAULT_SLOT_SIZE } from '../../../constants/SlotConstants';
 import {
   cancelReservationEdit,
   changeAdminReservationFilters,
@@ -20,9 +18,9 @@ import {
   selectReservationToEdit,
   selectReservationToShow,
   toggleTimeSlot,
-} from 'actions/uiActions';
-import Reservation from 'utils/fixtures/Reservation';
-import { getTimeSlots } from 'utils/timeUtils';
+} from '../../../actions/uiActions';
+import Reservation from '../../../utils/fixtures/Reservation';
+import { getTimeSlots } from '../../../utils/timeUtils';
 import reservationsReducer from './reservationsReducer';
 
 describe('state/reducers/ui/reservationsReducer', () => {

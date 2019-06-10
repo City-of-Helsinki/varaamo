@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { shallowWithIntl } from 'utils/testUtils';
+import { shallowWithIntl } from '../../../utils/testUtils';
 import SearchControlOverlay from './SearchControlOverlay';
 
 const defaults = {

@@ -1,8 +1,6 @@
-
-import ActionTypes from 'constants/ActionTypes';
-import ModalTypes from 'constants/ModalTypes';
-
-import { getState } from 'utils/testUtils';
+import ActionTypes from '../../../constants/ActionTypes';
+import ModalTypes from '../../../constants/ModalTypes';
+import { getState } from '../../../utils/testUtils';
 import commentModalSelector from './commentModalSelector';
 
 describe('shared/modals/comment/commentModalSelector', () => {

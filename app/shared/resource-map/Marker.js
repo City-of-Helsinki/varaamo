@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Marker as LeafletMarker } from 'react-leaflet';
 
-import highlightedIconRetinaUrl from 'assets/map/highlighted-marker-icon-2x.png';
+import highlightedIconRetinaUrl from '../../assets/map/highlighted-marker-icon-2x.png';
 
 class Marker extends React.Component {
   handleClick = () => {
     this.props.selectUnit(this.props.unitId);
-  }
+  };
 
   render() {
     const commonIcon = {

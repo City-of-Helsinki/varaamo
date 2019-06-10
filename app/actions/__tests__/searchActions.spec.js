@@ -1,7 +1,7 @@
 import simple from 'simple-mock';
 
-import { getPiwikActionName, searchResources } from 'actions/searchActions';
-import * as apiUtils from 'utils/apiUtils';
+import { getPiwikActionName, searchResources } from '../searchActions';
+import * as apiUtils from '../../utils/apiUtils';
 
 describe('Actions: searchActions', () => {
   let getRequestTypeDescriptorMock;

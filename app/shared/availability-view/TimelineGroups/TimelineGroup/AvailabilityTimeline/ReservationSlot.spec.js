@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import simple from 'simple-mock';
 import React from 'react';
 
-import ReservationPopover from 'shared/reservation-popover';
+import ReservationPopover from '../../../../reservation-popover';
 import { UninjectedReservationSlot as ReservationSlot } from './ReservationSlot';
 import utils from '../utils';
 

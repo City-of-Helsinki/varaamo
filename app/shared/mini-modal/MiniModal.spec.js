@@ -2,7 +2,7 @@ import React from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 import simple from 'simple-mock';
 
-import { shallowWithIntl } from 'utils/testUtils';
+import { shallowWithIntl } from '../../utils/testUtils';
 import MiniModal from './MiniModal';
 
 function getWrapper(props) {

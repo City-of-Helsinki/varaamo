@@ -1,14 +1,13 @@
-import ActionTypes from 'constants/ActionTypes';
-
 import includes from 'lodash/includes';
 import sortBy from 'lodash/sortBy';
 import uniq from 'lodash/uniq';
 import moment from 'moment';
 import { createSelector, createStructuredSelector } from 'reselect';
 
-import { isAdminSelector, isLoggedInSelector } from 'state/selectors/authSelectors';
-import { resourcesSelector } from 'state/selectors/dataSelectors';
-import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
+import ActionTypes from '../../constants/ActionTypes';
+import { isAdminSelector, isLoggedInSelector } from '../../state/selectors/authSelectors';
+import { resourcesSelector } from '../../state/selectors/dataSelectors';
+import requestIsActiveSelectorFactory from '../../state/selectors/factories/requestIsActiveSelectorFactory';
 
 const dateSelector = state => state.ui.pages.adminResources.date || moment().format('YYYY-MM-DD');
 const resourceIdsSelector = state => state.ui.pages.adminResources.resourceIds;

@@ -1,6 +1,5 @@
-import ModalTypes from 'constants/ModalTypes';
-
-import { getState } from 'utils/testUtils';
+import ModalTypes from '../../../constants/ModalTypes';
+import { getState } from '../../../utils/testUtils';
 import reservationSuccessModalSelector from './reservationSuccessModalSelector';
 
 describe('shared/modals/reservation-success/reservationSuccessModalSelector', () => {

@@ -1,6 +1,6 @@
 import MockDate from 'mockdate';
 
-import dateSelector from 'state/selectors/dateSelector';
+import dateSelector from '../dateSelector';
 
 function getProps(date) {
   return {

@@ -5,7 +5,7 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 
-import { injectT } from 'i18n';
+import injectT from '../../i18n/injectT';
 
 class CommentForm extends Component {
   constructor(props) {

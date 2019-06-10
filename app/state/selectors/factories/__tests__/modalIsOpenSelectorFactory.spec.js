@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 
-import modalIsOpenSelectorFactory from 'state/selectors/factories/modalIsOpenSelectorFactory';
+import modalIsOpenSelectorFactory from '../modalIsOpenSelectorFactory';
 
 function getState(openModals) {
   return {

@@ -4,17 +4,17 @@ import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 import iconHeart from 'hel-icons/dist/shapes/heart-o.svg';
 
-import BackgroundImage from 'shared/background-image';
-import Image from 'utils/fixtures/Image';
-import Resource from 'utils/fixtures/Resource';
-import Unit from 'utils/fixtures/Unit';
-import { getResourcePageUrlComponents } from 'utils/resourceUtils';
-import { shallowWithIntl } from 'utils/testUtils';
+import BackgroundImage from '../background-image';
+import Image from '../../utils/fixtures/Image';
+import Resource from '../../utils/fixtures/Resource';
+import Unit from '../../utils/fixtures/Unit';
+import { getResourcePageUrlComponents } from '../../utils/resourceUtils';
+import { shallowWithIntl } from '../../utils/testUtils';
 import ResourceAvailability from './label/ResourceAvailability';
 import { UnconnectedResourceCard } from './ResourceCard';
-import UnpublishedLabel from 'shared/label/Unpublished';
+import UnpublishedLabel from '../label/Unpublished';
 import ResourceCardInfoCell from './info';
-import iconHeartWhite from 'assets/icons/heart-white.svg';
+import iconHeartWhite from '../../assets/icons/heart-white.svg';
 
 describe('shared/resource-card/ResourceCard', () => {
   function getResource(extra) {

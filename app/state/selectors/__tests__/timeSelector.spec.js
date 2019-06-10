@@ -1,4 +1,4 @@
-import timeSelector from 'state/selectors/timeSelector';
+import timeSelector from '../timeSelector';
 
 function getProps(time) {
   return {

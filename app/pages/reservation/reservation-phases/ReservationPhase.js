@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
-import { injectT } from 'i18n';
+import injectT from '../../../i18n/injectT';
 
 ReservationPhase.propTypes = {
   cols: PropTypes.number.isRequired,

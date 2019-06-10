@@ -1,7 +1,6 @@
-import AppConstants from 'constants/AppConstants';
-
 import simple from 'simple-mock';
 
+import AppConstants from '../../constants/AppConstants';
 import trackingMiddleware, { track } from './tracking';
 
 describe('store/middleware/tracking', () => {

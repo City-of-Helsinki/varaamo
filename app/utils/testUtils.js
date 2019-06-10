@@ -9,8 +9,8 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { RSAA } from 'redux-api-middleware';
 
-import rootReducer from 'state/rootReducer';
-import enMessages from 'i18n/messages/en.json';
+import rootReducer from '../state/rootReducer';
+import enMessages from '../i18n/messages/en.json';
 
 const testMessages = mapValues(enMessages, (value, key) => key);
 

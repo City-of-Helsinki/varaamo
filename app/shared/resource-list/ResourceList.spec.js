@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
-import ResourceCard from 'shared/resource-card';
+import ResourceCard from '../resource-card';
 import ResourceList from './ResourceList';
 
 describe('shared/resource-list/ResourceList', () => {

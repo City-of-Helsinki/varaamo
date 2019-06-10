@@ -1,6 +1,3 @@
-import constants from 'constants/AppConstants';
-import FormTypes from 'constants/FormTypes';
-
 import includes from 'lodash/includes';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -10,11 +7,12 @@ import Well from 'react-bootstrap/lib/Well';
 import { Field, reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 
-
-import ReduxFormField from 'shared/form-fields/ReduxFormField';
-import TermsField from 'shared/form-fields/TermsField';
-import { injectT } from 'i18n';
-import ReservationTermsModal from 'shared/modals/reservation-terms';
+import constants from '../../../constants/AppConstants';
+import FormTypes from '../../../constants/FormTypes';
+import ReduxFormField from '../../../shared/form-fields/ReduxFormField';
+import TermsField from '../../../shared/form-fields/TermsField';
+import injectT from '../../../i18n/injectT';
+import ReservationTermsModal from '../../../shared/modals/reservation-terms';
 
 const validators = {
   reserverEmailAddress: (t, { reserverEmailAddress }) => {

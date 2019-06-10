@@ -4,7 +4,7 @@ import * as redux from 'redux';
 import { shallow } from 'enzyme';
 import { Route } from 'react-router-dom';
 
-import * as routeActions from 'actions/routeActions';
+import * as routeActions from '../../actions/routeActions';
 import {
   UnconnectedPrivateRoute as PrivateRoute,
   mapStateToProps,

@@ -1,7 +1,6 @@
-import FormTypes from 'constants/FormTypes';
-
 import simple from 'simple-mock';
 
+import FormTypes from '../../../constants/FormTypes';
 import { mergeProps } from './ReservationInfoModalContainer';
 
 describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {

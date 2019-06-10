@@ -3,8 +3,8 @@ import Button from 'react-bootstrap/lib/Button';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import Reservation from 'utils/fixtures/Reservation';
-import { makeButtonTests, shallowWithIntl } from 'utils/testUtils';
+import Reservation from '../../utils/fixtures/Reservation';
+import { makeButtonTests, shallowWithIntl } from '../../utils/testUtils';
 import ReservationControls from './ReservationControls';
 
 describe('shared/reservation-controls/ReservationControls', () => {

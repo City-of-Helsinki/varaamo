@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { shallowWithIntl } from 'utils/testUtils';
+import { shallowWithIntl } from '../../utils/testUtils';
 import AboutPartners from './AboutPartners';
 import aikaLogoSrc from './images/aika-logo.png';
 import eakrLogoSrc from './images/eakr-logo.png';

@@ -1,7 +1,7 @@
 import React from 'react';
 import simple from 'simple-mock';
 
-import { shallowWithIntl } from 'utils/testUtils';
+import { shallowWithIntl } from '../../utils/testUtils';
 import ResourceTypeFilterContainer from './ResourceTypeFilterContainer';
 import ResourceTypeFilterButton from './ResourceTypeFilterButton';
 

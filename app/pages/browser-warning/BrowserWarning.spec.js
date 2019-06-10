@@ -1,7 +1,7 @@
 import React from 'react';
 
 import BrowserWarning from './BrowserWarning';
-import { shallowWithIntl } from 'utils/testUtils';
+import { shallowWithIntl } from '../../utils/testUtils';
 
 describe('pages/browser-warning/BrowserWarning', () => {
   function getWrapper() {

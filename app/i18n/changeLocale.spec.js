@@ -1,5 +1,5 @@
 import changeLocale from './changeLocale';
-import * as persistState from 'store/middleware/persistState';
+import * as persistState from '../store/middleware/persistState';
 
 describe('changeLocale', () => {
   test('should invoke savePersistLocale', () => {

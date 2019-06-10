@@ -1,8 +1,8 @@
 import {
   getFetchParamsFromFilters,
   pickSupportedFilters,
-} from 'utils/searchUtils';
-import { getDateStartAndEndTimes } from 'utils/timeUtils';
+} from '../searchUtils';
+import { getDateStartAndEndTimes } from '../timeUtils';
 
 describe('Utils: searchUtils', () => {
   describe('getFetchParamsFromFilters', () => {

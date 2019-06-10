@@ -2,10 +2,10 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import Resource from 'utils/fixtures/Resource';
-import TimeSlotFixture from 'utils/fixtures/TimeSlot';
-import { shallowWithIntl } from 'utils/testUtils';
-import { padLeft } from 'utils/timeUtils';
+import Resource from '../../../../utils/fixtures/Resource';
+import TimeSlotFixture from '../../../../utils/fixtures/TimeSlot';
+import { shallowWithIntl } from '../../../../utils/testUtils';
+import { padLeft } from '../../../../utils/timeUtils';
 import TimeSlot from './TimeSlot';
 
 describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {

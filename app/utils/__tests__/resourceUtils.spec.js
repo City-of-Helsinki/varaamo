@@ -1,10 +1,9 @@
-import constants from 'constants/AppConstants';
-
 import MockDate from 'mockdate';
 import moment from 'moment';
 import queryString from 'query-string';
 import simple from 'simple-mock';
 
+import constants from '../../constants/AppConstants';
 import {
   hasMaxReservations,
   isOpenNow,
@@ -19,7 +18,7 @@ import {
   reservingIsRestricted,
   getResourcePageUrlComponents,
   getMinPeriodText
-} from 'utils/resourceUtils';
+} from '../resourceUtils';
 
 describe('Utils: resourceUtils', () => {
   describe('hasMaxReservations', () => {

@@ -1,12 +1,11 @@
-import types from 'constants/ActionTypes';
-
 import keyBy from 'lodash/keyBy';
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
-import { toggleResourceMap } from 'actions/uiActions';
-import Resource from 'utils/fixtures/Resource';
-import Unit from 'utils/fixtures/Unit';
+import types from '../../../constants/ActionTypes';
+import { toggleResourceMap } from '../../../actions/uiActions';
+import Resource from '../../../utils/fixtures/Resource';
+import Unit from '../../../utils/fixtures/Unit';
 import resourceMapReducer from './resourceMapReducer';
 
 describe('state/reducers/ui/resourceMapReducer', () => {

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import moment from 'moment';
 
-import iconClock from 'assets/icons/clock-o.svg';
+import iconClock from '../../assets/icons/clock-o.svg';
 
 function ReservationDate({ beginDate, endDate }) {
   if (!beginDate || !endDate) {

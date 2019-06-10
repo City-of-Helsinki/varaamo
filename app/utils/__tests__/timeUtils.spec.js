@@ -1,10 +1,9 @@
-import constants from 'constants/AppConstants';
-import { DEFAULT_SLOT_SIZE } from 'constants/SlotConstants';
-
 import MockDate from 'mockdate';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 
+import constants from '../../constants/AppConstants';
+import { DEFAULT_SLOT_SIZE } from '../../constants/SlotConstants';
 import {
   addToDate,
   calculateDuration,
@@ -22,7 +21,7 @@ import {
   prettifyHours,
   periodToMinute,
   getEndTimeSlotWithMinPeriod
-} from 'utils/timeUtils';
+} from '../timeUtils';
 
 const moment = extendMoment(Moment);
 

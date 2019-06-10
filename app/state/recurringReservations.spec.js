@@ -2,7 +2,7 @@ import {
   closeConfirmReservationModal,
   closeReservationCommentModal,
   closeReservationSuccessModal,
-} from 'actions/uiActions';
+} from '../actions/uiActions';
 import recurringReservations, { populateReservations } from './recurringReservations';
 
 describe('state/recurringReservations', () => {

@@ -1,10 +1,8 @@
-
-import types from 'constants/ActionTypes';
-import constants from 'constants/AppConstants';
-
 import Immutable from 'seamless-immutable';
 import { createAction } from 'redux-actions';
 
+import types from '../../constants/ActionTypes';
+import constants from '../../constants/AppConstants';
 import notificationsReducer from './notificationsReducer';
 
 describe('state/reducers/notificationReducer', () => {

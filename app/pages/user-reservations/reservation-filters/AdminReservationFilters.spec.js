@@ -1,8 +1,8 @@
 import React from 'react';
 import simple from 'simple-mock';
 
-import SelectControl from 'pages/search/controls/SelectControl';
-import { shallowWithIntl } from 'utils/testUtils';
+import SelectControl from '../../search/controls/SelectControl';
+import { shallowWithIntl } from '../../../utils/testUtils';
 import AdminReservationFilters from './AdminReservationFilters';
 
 describe('pages/user-reservations/reservation-filters/AdminReservationFilters', () => {

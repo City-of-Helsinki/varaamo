@@ -2,12 +2,12 @@ import React from 'react';
 import Panel from 'react-bootstrap/lib/Panel';
 import Immutable from 'seamless-immutable';
 
-import WrappedText from 'shared/wrapped-text';
-import Resource from 'utils/fixtures/Resource';
-import Unit from 'utils/fixtures/Unit';
-import { shallowWithIntl } from 'utils/testUtils';
+import WrappedText from '../../../shared/wrapped-text';
+import Resource from '../../../utils/fixtures/Resource';
+import Unit from '../../../utils/fixtures/Unit';
+import { shallowWithIntl } from '../../../utils/testUtils';
 import ResourceInfo from './ResourceInfo';
-import ReservationInfo from '../reservation-info';
+import ReservationInfo from '../reservation-info/ReservationInfo';
 
 describe('pages/resource/resource-info/ResourceInfo', () => {
   const defaultProps = {

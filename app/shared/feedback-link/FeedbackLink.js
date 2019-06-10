@@ -1,9 +1,8 @@
-import constants from 'constants/AppConstants';
-
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import { getCurrentCustomization } from 'utils/customizationUtils';
+import constants from '../../constants/AppConstants';
+import { getCurrentCustomization } from '../../utils/customizationUtils';
 
 function FeedbackLink({ children }) {
   const refUrl = window.location.href;

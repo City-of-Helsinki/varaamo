@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedHTMLMessage } from 'react-intl';
 
-import FeedbackLink from 'shared/feedback-link';
-import { injectT } from 'i18n';
-import { getCurrentCustomization } from 'utils/customizationUtils';
+import FeedbackLink from '../../shared/feedback-link';
+import injectT from '../../i18n/injectT';
+import { getCurrentCustomization } from '../../utils/customizationUtils';
 import AboutPartners from './AboutPartners';
 
 const defaultTranslationKeys = {

@@ -3,12 +3,12 @@ import Loader from 'react-loader';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import PageWrapper from 'pages/PageWrapper';
-import { shallowWithIntl } from 'utils/testUtils';
-import Reservation from 'utils/fixtures/Reservation';
-import Resource from 'utils/fixtures/Resource';
-import Unit from 'utils/fixtures/Unit';
-import User from 'utils/fixtures/User';
+import PageWrapper from '../PageWrapper';
+import { shallowWithIntl } from '../../utils/testUtils';
+import Reservation from '../../utils/fixtures/Reservation';
+import Resource from '../../utils/fixtures/Resource';
+import Unit from '../../utils/fixtures/Unit';
+import User from '../../utils/fixtures/User';
 import ReservationConfirmation from './reservation-confirmation/ReservationConfirmation';
 import ReservationInformation from './reservation-information/ReservationInformation';
 import ReservationPhases from './reservation-phases/ReservationPhases';

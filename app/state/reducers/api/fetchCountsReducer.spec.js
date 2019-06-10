@@ -1,8 +1,7 @@
-import types from 'constants/ActionTypes';
-
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
+import types from '../../../constants/ActionTypes';
 import fetchCountsReducer from './fetchCountsReducer';
 
 describe('state/reducers/api/fetchCountsReducer', () => {

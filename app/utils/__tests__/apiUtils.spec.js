@@ -1,7 +1,6 @@
-import constants from 'constants/AppConstants';
-
 import { RSAA } from 'redux-api-middleware';
 
+import constants from '../../constants/AppConstants';
 import {
   buildAPIUrl,
   createTransformFunction,
@@ -10,8 +9,8 @@ import {
   getRequestTypeDescriptor,
   getSearchParamsString,
   getSuccessTypeDescriptor,
-} from 'utils/apiUtils';
-import schemas from 'store/middleware/Schemas';
+} from '../apiUtils';
+import schemas from '../../store/middleware/Schemas';
 
 describe('Utils: apiUtils', () => {
   describe('buildAPIUrl', () => {

@@ -6,9 +6,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { createSelector } from 'reselect';
 
-import UnpublishedLabel from 'shared/label/Unpublished';
-import { injectT } from 'i18n';
-import { resourcesSelector } from 'state/selectors/dataSelectors';
+import UnpublishedLabel from '../../../../label/Unpublished';
+import injectT from '../../../../../i18n/injectT';
+import { resourcesSelector } from '../../../../../state/selectors/dataSelectors';
 
 ResourceInfo.propTypes = {
   date: PropTypes.string.isRequired,

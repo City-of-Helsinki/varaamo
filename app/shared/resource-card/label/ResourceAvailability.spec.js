@@ -3,10 +3,10 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import Label from 'shared/label';
-import Resource from 'utils/fixtures/Resource';
-import * as resourceUtils from 'utils/resourceUtils';
-import { shallowWithIntl } from 'utils/testUtils';
+import Label from '../../label';
+import Resource from '../../../utils/fixtures/Resource';
+import * as resourceUtils from '../../../utils/resourceUtils';
+import { shallowWithIntl } from '../../../utils/testUtils';
 import ResourceAvailability from './ResourceAvailability';
 
 describe('shared/resource-list/ResourceAvailability', () => {

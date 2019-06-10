@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { shallowWithIntl } from 'utils/testUtils';
+import { shallowWithIntl } from '../../../utils/testUtils';
 import MapToggle from './MapToggle';
 
 describe('pages/search/results/MapToggle', () => {

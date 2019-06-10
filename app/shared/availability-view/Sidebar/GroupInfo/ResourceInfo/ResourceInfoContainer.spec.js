@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { shallowWithIntl } from 'utils/testUtils';
+import { shallowWithIntl } from '../../../../../utils/testUtils';
 import { UnconnectedResourceInfo as ResourceInfo, selector } from './ResourceInfoContainer';
-import UnpublishedLabel from 'shared/label/Unpublished';
+import UnpublishedLabel from '../../../../label/Unpublished';
 
 function getState() {
   return {

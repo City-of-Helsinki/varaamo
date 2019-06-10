@@ -2,10 +2,10 @@ import React from 'react';
 import Loader from 'react-loader';
 import simple from 'simple-mock';
 
-import PageWrapper from 'pages/PageWrapper';
-import AvailabilityView from 'shared/availability-view';
-import ResourceTypeFilter from 'shared/resource-type-filter';
-import { shallowWithIntl } from 'utils/testUtils';
+import PageWrapper from '../PageWrapper';
+import AvailabilityView from '../../shared/availability-view';
+import ResourceTypeFilter from '../../shared/resource-type-filter';
+import { shallowWithIntl } from '../../utils/testUtils';
 import { UnconnectedAdminResourcesPage as AdminResourcesPage } from './AdminResourcesPage';
 
 describe('pages/admin-resources/AdminResourcesPage', () => {

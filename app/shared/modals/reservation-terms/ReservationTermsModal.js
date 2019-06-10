@@ -5,9 +5,9 @@ import Modal from 'react-bootstrap/lib/Modal';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { closeResourceTermsModal } from 'actions/uiActions';
-import { injectT } from 'i18n';
-import WrappedText from 'shared/wrapped-text';
+import { closeResourceTermsModal } from '../../../actions/uiActions';
+import injectT from '../../../i18n/injectT';
+import WrappedText from '../../wrapped-text';
 import reservationTermsModalSelector from './reservationTermsModalSelector';
 
 class UnconnectedReservationTermsModal extends Component {

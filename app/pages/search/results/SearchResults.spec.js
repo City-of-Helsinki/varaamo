@@ -3,8 +3,8 @@ import React from 'react';
 import Loader from 'react-loader';
 import Immutable from 'seamless-immutable';
 
-import ResourceCompactList from 'shared/resource-compact-list';
-import ResourceList from 'shared/resource-list';
+import ResourceCompactList from '../../../shared/resource-compact-list';
+import ResourceList from '../../../shared/resource-list';
 import { UnconnectedSearchResults as SearchResults } from './SearchResults';
 
 describe('pages/search/results/SearchResults', () => {

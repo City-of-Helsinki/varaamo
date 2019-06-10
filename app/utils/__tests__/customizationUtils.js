@@ -1,4 +1,4 @@
-import { getCurrentCustomization } from 'utils/customizationUtils';
+import { getCurrentCustomization } from '../customizationUtils';
 
 describe('Utils: customizationUtils', () => {
   describe('getCurrentCustomization', () => {

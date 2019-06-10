@@ -1,14 +1,13 @@
-import constants from 'constants/AppConstants';
-
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
 import { Field } from 'redux-form';
 import simple from 'simple-mock';
 
-import TermsField from 'shared/form-fields/TermsField';
-import { shallowWithIntl } from 'utils/testUtils';
-import Resource from 'utils/fixtures/Resource';
+import constants from '../../../constants/AppConstants';
+import TermsField from '../../../shared/form-fields/TermsField';
+import { shallowWithIntl } from '../../../utils/testUtils';
+import Resource from '../../../utils/fixtures/Resource';
 import {
   UnconnectedReservationInformationForm as ReservationInformationForm,
   validate,

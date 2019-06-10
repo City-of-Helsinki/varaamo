@@ -2,8 +2,8 @@ import React from 'react';
 import Sticky from 'react-sticky-el';
 import { shallow } from 'enzyme';
 
-import MainNavbar from 'shared/main-navbar';
-import TopNavbar from 'shared/top-navbar';
+import MainNavbar from '../main-navbar';
+import TopNavbar from '../top-navbar';
 import Header from './Header';
 
 describe('shared/header/Header', () => {

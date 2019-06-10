@@ -4,7 +4,7 @@ import React from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 
-import { shallowWithIntl } from 'utils/testUtils';
+import { shallowWithIntl } from '../../utils/testUtils';
 import ReservationPopover from './ReservationPopover';
 
 function getWrapper(props) {

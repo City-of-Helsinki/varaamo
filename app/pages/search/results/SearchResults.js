@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 
-import ResourceCompactList from 'shared/resource-compact-list';
-import ResourceList from 'shared/resource-list';
-import { scrollTo } from 'utils/domUtils';
+import ResourceCompactList from '../../../shared/resource-compact-list';
+import ResourceList from '../../../shared/resource-list';
+import { scrollTo } from '../../../utils/domUtils';
 import SearchResultsPaging from './SearchResultsPaging';
 import searchResultsSelector from './searchResultsSelector';
 

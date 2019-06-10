@@ -2,7 +2,7 @@ import includes from 'lodash/includes';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import { injectT } from 'i18n';
+import injectT from '../../i18n/injectT';
 import ResourceTypeFilterButton from './ResourceTypeFilterButton';
 
 class ResourceTypeFilterContainer extends Component {

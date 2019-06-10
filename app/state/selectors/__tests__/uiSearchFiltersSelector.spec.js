@@ -1,6 +1,6 @@
 import MockDate from 'mockdate';
 
-import uiSearchFiltersSelector from 'state/selectors/uiSearchFiltersSelector';
+import uiSearchFiltersSelector from '../uiSearchFiltersSelector';
 
 function getState(date = '2015-10-10', start = '08:30', freeOfCharge = '') {
   return {

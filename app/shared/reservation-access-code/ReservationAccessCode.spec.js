@@ -1,9 +1,9 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
-import Reservation from 'utils/fixtures/Reservation';
-import Resource from 'utils/fixtures/Resource';
-import { shallowWithIntl } from 'utils/testUtils';
+import Reservation from '../../utils/fixtures/Reservation';
+import Resource from '../../utils/fixtures/Resource';
+import { shallowWithIntl } from '../../utils/testUtils';
 import ReservationAccessCode from './ReservationAccessCode';
 
 describe('shared/reservation-access-code/ReservationAccessCode', () => {

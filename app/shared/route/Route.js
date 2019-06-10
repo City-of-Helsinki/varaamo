@@ -4,7 +4,7 @@ import { Route as ReactRouterRoute } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { updateRoute } from 'actions/routeActions';
+import { updateRoute } from '../../actions/routeActions';
 
 export class UnconnectedRoute extends Component {
   componentDidMount() {

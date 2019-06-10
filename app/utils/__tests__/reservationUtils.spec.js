@@ -1,9 +1,8 @@
-import constants from 'constants/AppConstants';
-
 import MockDate from 'mockdate';
 import moment from 'moment';
 
-import Reservation from 'utils/fixtures/Reservation';
+import constants from '../../constants/AppConstants';
+import Reservation from '../fixtures/Reservation';
 import {
   combine,
   isStaffEvent,
@@ -12,7 +11,7 @@ import {
   getNextAvailableTime,
   getNextReservation,
   getReservationPrice
-} from 'utils/reservationUtils';
+} from '../reservationUtils';
 
 describe('Utils: reservationUtils', () => {
   describe('combine', () => {

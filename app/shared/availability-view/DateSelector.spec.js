@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
 
-import DatePicker from 'shared/date-picker';
+import DatePicker from '../date-picker';
 import { UninjectedDateSelector as DateSelector } from './DateSelector';
 
 function getWrapper(props) {

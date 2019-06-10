@@ -1,11 +1,10 @@
-import { slotSize, slotWidth } from 'constants/SlotConstants';
-
 import { shallow } from 'enzyme';
 import mockDate from 'mockdate';
 import moment from 'moment';
 import React from 'react';
 import simple from 'simple-mock';
 
+import { slotSize, slotWidth } from '../../../../constants/SlotConstants';
 import TimelineGroup from './TimelineGroup';
 import AvailabilityTimelineContainer from './AvailabilityTimeline';
 

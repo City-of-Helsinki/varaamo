@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 
-import { injectT } from 'i18n';
+import injectT from '../../../i18n/injectT';
 import ReservationListItem from './ReservationListItem';
 import reservationListSelector from './reservationListSelector';
 

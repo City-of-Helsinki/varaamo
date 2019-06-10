@@ -2,10 +2,10 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import simple from 'simple-mock';
 
-import Header from 'shared/header';
-import Notifications from 'shared/notifications';
-import { getState } from 'utils/testUtils';
-import * as customizationUtils from 'utils/customizationUtils';
+import Header from '../shared/header';
+import Notifications from '../shared/notifications';
+import { getState } from '../utils/testUtils';
+import * as customizationUtils from '../utils/customizationUtils';
 import { selector, UnconnectedAppContainer as AppContainer } from './AppContainer';
 
 describe('pages/AppContainer', () => {

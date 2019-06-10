@@ -2,7 +2,7 @@ import React from 'react';
 import Toggle from 'react-toggle';
 import simple from 'simple-mock';
 
-import { shallowWithIntl } from 'utils/testUtils';
+import { shallowWithIntl } from '../../../utils/testUtils';
 import CheckboxControl from './CheckboxControl';
 
 const defaults = {

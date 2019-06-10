@@ -7,7 +7,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import MomentLocaleUtils from 'react-day-picker/moment';
 import simple from 'simple-mock';
 
-import { shallowWithIntl } from 'utils/testUtils';
+import { shallowWithIntl } from '../../utils/testUtils';
 import {
   UnconnectedResourceCalendar as ResourceCalendar,
 } from './ResourceCalendar';

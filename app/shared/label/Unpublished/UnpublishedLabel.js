@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Label from 'shared/label';
-import { injectT } from 'i18n';
+import Label from '../Label';
+import injectT from '../../../i18n/injectT';
 
 function UnpublishedLabel({ t }) {
   return (

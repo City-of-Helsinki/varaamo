@@ -7,9 +7,9 @@ import Well from 'react-bootstrap/lib/Well';
 import isEmpty from 'lodash/isEmpty';
 import moment from 'moment';
 
-import { injectT } from 'i18n';
-import ReservationCalendar from 'pages/resource/reservation-calendar';
-import ResourceCalendar from 'shared/resource-calendar';
+import injectT from '../../../i18n/injectT';
+import ReservationCalendar from '../../resource/reservation-calendar';
+import ResourceCalendar from '../../../shared/resource-calendar';
 
 class ReservationTime extends Component {
   static propTypes = {
