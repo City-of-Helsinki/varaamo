@@ -71,10 +71,11 @@ const FormActions = ({
   rejected,
   rejectText,
   acceptText,
+  isSubmitEnabled,
 }) => (
   <div>
     <Button bsSize="large" onClick={rejected} type="button">{rejectText}</Button>
-    <Button bsSize="large" bsStyle="primary" onClick={accepted}>{acceptText}</Button>
+    <Button bsSize="large" bsStyle="primary" disabled={!isSubmitEnabled} onClick={accepted}>{acceptText}</Button>
   </div>
 );
 /* eslint-enable react/prop-types */
@@ -85,6 +86,7 @@ class StepOne extends React.Component {
     t: PropTypes.func,
     onCancel: PropTypes.func,
     onSubmit: PropTypes.func,
+    valid: PropTypes.bool,
   };
 
   submit = () => {
@@ -98,7 +100,7 @@ class StepOne extends React.Component {
   }
 
   render() {
-    const { t } = this.props;
+    const { t, valid: isFormValid } = this.props;
     return (
       <form className="reservation-payment-StepOne" noValidate>
         <p>{t('reservationPayment.formAsterisk')}</p>
@@ -115,6 +117,7 @@ class StepOne extends React.Component {
         <FormActions
           accepted={this.submit}
           acceptText={t('reservationPayment.pay')}
+          isSubmitEnabled={isFormValid}
           rejected={this.cancel}
           rejectText={t('common.cancel')}
         />
