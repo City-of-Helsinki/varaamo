@@ -5,8 +5,8 @@ import Lightbox from 'lightbox-react';
 
 import NotFoundPage from '../../not-found/NotFoundPage';
 import PageWrapper from '../../PageWrapper';
-import ResourceCalendar from '../../../shared/resource-calendar';
-import ResourceMap from '../../../shared/resource-map';
+import ResourceCalendar from '../../../shared/resource-calendar/ResourceCalendar';
+import ResourceMap from '../../../shared/resource-map/MapContainer';
 import Resource from '../../../utils/fixtures/Resource';
 import Unit from '../../../utils/fixtures/Unit';
 import { getResourcePageUrl } from '../../../utils/resourceUtils';

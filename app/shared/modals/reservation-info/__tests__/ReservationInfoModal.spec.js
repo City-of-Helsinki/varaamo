@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/lib/Modal';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import ReservationStateLabel from '../../../reservation-state-label';
+import ReservationStateLabel from '../../../reservation-state-label/ReservationStateLabel';
 import Reservation from '../../../../utils/fixtures/Reservation';
 import Resource from '../../../../utils/fixtures/Resource';
 import { shallowWithIntl } from '../../../../utils/testUtils';

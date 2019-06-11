@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
-import ResourceCard from '../../resource-card';
+import ResourceCard from '../../resource-card/ResourceCard';
 import { UnconnectedResourceCompactList as ResourceCompactList } from '../ResourceCompactList';
 
 describe('shared/resource-list/ResourceCompactList', () => {

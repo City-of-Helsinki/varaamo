@@ -19,8 +19,8 @@ import iconMap from '../../assets/icons/map.svg';
 import BackgroundImage from '../background-image/BackgroundImage';
 import { getMainImage } from '../../utils/imageUtils';
 import { getHourlyPrice, getResourcePageUrlComponents } from '../../utils/resourceUtils';
-import ResourceAvailability from './label/ResourceAvailability';
-import ResourceCardInfoCell from './info';
+import ResourceAvailability from './resource-availability/ResourceAvailability';
+import ResourceCardInfoCell from './info-cell/ResourceCardInfoCell';
 import resourceCardSelector from './resourceCardSelector';
 import {
   favoriteResource,

@@ -3,7 +3,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 import injectT from '../../../../../i18n/injectT';
-import ReservationPopover from '../../../../reservation-popover';
+import ReservationPopover from '../../../../reservation-popover/ReservationPopover';
 import utils from '../utils';
 
 export class UninjectedReservationSlot extends React.Component {

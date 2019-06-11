@@ -9,7 +9,7 @@ import * as resourceUtils from '../../../../utils/resourceUtils';
 import { shallowWithIntl } from '../../../../utils/testUtils';
 import ResourceAvailability from '../ResourceAvailability';
 
-describe('shared/resource-list/ResourceAvailability', () => {
+describe('shared/resource-card/resource-availability/ResourceAvailability', () => {
   const defaultProps = {
     date: '2015-10-10',
     resource: Immutable(Resource.build()),

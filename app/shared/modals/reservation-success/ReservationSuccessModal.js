@@ -6,7 +6,7 @@ import Modal from 'react-bootstrap/lib/Modal';
 
 import CompactReservationList from '../../compact-reservation-list/CompactReservationList';
 import ReservationAccessCode from '../../reservation-access-code/ReservationAccessCode';
-import ReservationDate from '../../reservation-date';
+import ReservationDate from '../../reservation-date/ReservationDate';
 import injectT from '../../../i18n/injectT';
 
 function ReservationSuccessModal({

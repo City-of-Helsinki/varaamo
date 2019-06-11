@@ -5,7 +5,7 @@ import simple from 'simple-mock';
 
 import PageWrapper from '../../PageWrapper';
 import { shallowWithIntl } from '../../../utils/testUtils';
-import ResourceMap from '../../../shared/resource-map';
+import ResourceMap from '../../../shared/resource-map/MapContainer';
 import { UnconnectedSearchPage as SearchPage } from '../SearchPage';
 import Sort from '../Sort';
 import SearchControls from '../controls/SearchControlsContainer';

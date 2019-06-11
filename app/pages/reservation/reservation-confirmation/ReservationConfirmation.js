@@ -9,7 +9,7 @@ import iconHome from 'hel-icons/dist/shapes/home.svg';
 
 import constants from '../../../constants/AppConstants';
 import injectT from '../../../i18n/injectT';
-import ReservationDate from '../../../shared/reservation-date';
+import ReservationDate from '../../../shared/reservation-date/ReservationDate';
 
 class ReservationConfirmation extends Component {
   static propTypes = {
