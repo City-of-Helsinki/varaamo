@@ -4,8 +4,8 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import TimelineGroup from './TimelineGroup';
-import utils from './TimelineGroup/utils';
+import TimelineGroup from './timeline-group/TimelineGroup';
+import utils from './timeline-group/utils';
 
 function scrollToInitial(element) {
   if (element) {

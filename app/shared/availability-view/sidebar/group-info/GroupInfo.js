@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import ResourceInfoContainer from './ResourceInfo';
+import ResourceInfoContainer from './resource-info/ResourceInfoContainer';
 
 GroupInfo.propTypes = {
   date: PropTypes.string.isRequired,

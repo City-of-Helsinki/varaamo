@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 
-import GroupInfo from '../GroupInfo';
+import GroupInfo from '../group-info/GroupInfo';
 import Sidebar from '../Sidebar';
 
 function getWrapper(props) {
@@ -12,7 +12,7 @@ function getWrapper(props) {
   return shallow(<Sidebar {...defaults} {...props} />);
 }
 
-describe('shared/availability-view/Sidebar', () => {
+describe('shared/availability-view/sidebar/Sidebar', () => {
   test('renders a div.sidebar', () => {
     const wrapper = getWrapper();
     expect(wrapper.is('div.sidebar')).toBe(true);

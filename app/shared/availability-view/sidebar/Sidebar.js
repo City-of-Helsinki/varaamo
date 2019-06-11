@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import GroupInfo from './GroupInfo';
+import GroupInfo from './group-info/GroupInfo';
 
 Sidebar.propTypes = {
   date: PropTypes.string.isRequired,

@@ -3,7 +3,7 @@ import React from 'react';
 import simple from 'simple-mock';
 
 import TimelineGroups from '../TimelineGroups';
-import TimelineGroup from '../TimelineGroup';
+import TimelineGroup from '../timeline-group/TimelineGroup';
 
 function getWrapper(props) {
   const defaults = {

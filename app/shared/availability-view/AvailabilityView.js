@@ -4,8 +4,8 @@ import React from 'react';
 
 import ReservationInfoModal from '../modals/reservation-info';
 import DateSelector from './DateSelector';
-import TimelineGroups from './TimelineGroups';
-import Sidebar from './Sidebar';
+import TimelineGroups from './timeline-groups/TimelineGroups';
+import Sidebar from './sidebar/Sidebar';
 
 export default class AvailabilityView extends React.Component {
   static propTypes = {
