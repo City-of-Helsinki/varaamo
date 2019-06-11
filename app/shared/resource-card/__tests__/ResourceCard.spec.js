@@ -4,7 +4,7 @@ import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 import iconHeart from 'hel-icons/dist/shapes/heart-o.svg';
 
-import BackgroundImage from '../../background-image';
+import BackgroundImage from '../../background-image/BackgroundImage';
 import Image from '../../../utils/fixtures/Image';
 import Resource from '../../../utils/fixtures/Resource';
 import Unit from '../../../utils/fixtures/Unit';

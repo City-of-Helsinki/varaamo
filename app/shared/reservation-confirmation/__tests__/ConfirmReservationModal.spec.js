@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/lib/Modal';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import CompactReservationList from '../../compact-reservation-list';
+import CompactReservationList from '../../compact-reservation-list/CompactReservationList';
 import RecurringReservationControls from '../../recurring-reservation-controls';
 import Reservation from '../../../utils/fixtures/Reservation';
 import Resource from '../../../utils/fixtures/Resource';

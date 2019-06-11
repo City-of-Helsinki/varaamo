@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import { closeReservationCommentModal } from '../../../actions/uiActions';
 import { commentReservation } from '../../../actions/reservationActions';
-import CommentForm from '../../comment-form';
+import CommentForm from '../../comment-form/CommentForm';
 import injectT from '../../../i18n/injectT';
 import commentModalSelector from './commentModalSelector';
 import ModalWrapper from '../ModalWrapper';

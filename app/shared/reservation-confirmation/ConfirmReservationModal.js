@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 
-import CompactReservationList from '../compact-reservation-list';
+import CompactReservationList from '../compact-reservation-list/CompactReservationList';
 import RecurringReservationControls from '../recurring-reservation-controls';
 import injectT from '../../i18n/injectT';
 import { isStaffEvent } from '../../utils/reservationUtils';

@@ -4,7 +4,7 @@ import React from 'react';
 import simple from 'simple-mock';
 
 import SelectControl from '../../../pages/search/controls/SelectControl';
-import DatePicker from '../../date-picker';
+import DatePicker from '../../date-picker/DatePicker';
 import ReservationTimeControls from '../ReservationTimeControls';
 
 describe('shared/form-fields/ReservationTimeControls', () => {
