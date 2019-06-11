@@ -282,18 +282,18 @@ describe('pages/resource/ResourcePage', () => {
     });
   });
 
-  describe('disableDays', () => {
+  describe('isDayReservable', () => {
     describe('resource.reservableAfter is not defined', () => {
       const instance = getWrapper().instance();
 
       test('returns true when the day is before today', () => {
-        const isDisabled = instance.disableDays('1990-03-06T00:00:00Z');
+        const isDisabled = instance.isDayReservable('1990-03-06T00:00:00Z');
         expect(isDisabled).toBe(true);
       });
 
       test('returns false when the day is today', () => {
         const today = new Date();
-        const isDisabled = instance.disableDays(today.toISOString());
+        const isDisabled = instance.isDayReservable(today.toISOString());
         expect(isDisabled).toBe(false);
       });
 
@@ -302,7 +302,7 @@ describe('pages/resource/ResourcePage', () => {
         date.setDate(date.getDate() + 1);
 
         const tomorrow = date.toISOString();
-        const isDisabled = instance.disableDays(tomorrow);
+        const isDisabled = instance.isDayReservable(tomorrow);
 
         expect(isDisabled).toBe(false);
       });
@@ -313,13 +313,13 @@ describe('pages/resource/ResourcePage', () => {
 
       test('returns true if the day is before reservableAfter', () => {
         const dayBefore = '2019-03-06T00:00:00Z';
-        const isDisabled = instance.disableDays(dayBefore);
+        const isDisabled = instance.isDayReservable(dayBefore);
         expect(isDisabled).toBe(true);
       });
 
       test('returns false if the day is after reservableAfter', () => {
         const dayAfter = '2019-03-12T00:00:00Z';
-        const isDisabled = instance.disableDays(dayAfter);
+        const isDisabled = instance.isDayReservable(dayAfter);
         expect(isDisabled).toBe(false);
       });
     });

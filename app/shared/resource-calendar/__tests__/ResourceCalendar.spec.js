@@ -84,10 +84,10 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
   });
 
   describe('disabledDays', () => {
-    describe('if the disableDays function prop is supplied as prop', () => {
-      const disableDays = simple.stub();
+    describe('if the isDayReservable function prop is supplied as prop', () => {
+      const isDayReservable = simple.stub();
       const date = new Date('2015-10-01');
-      const withDisableDays = getWrapper({ disableDays }).find(DayPicker);
+      const withDisableDays = getWrapper({ isDayReservable }).find(DayPicker);
       let isDisabled;
       beforeAll(() => {
         isDisabled = withDisableDays.prop('disabledDays');
@@ -97,18 +97,18 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
         mockDate.reset();
       });
 
-      test('calls disableDays function', () => {
+      test('calls isDayReservable function', () => {
         isDisabled(date);
-        expect(disableDays.callCount).toBe(1);
+        expect(isDayReservable.callCount).toBe(1);
       });
 
-      test('calls disableDays with the right arguments', () => {
+      test('calls isDayReservable with the right arguments', () => {
         isDisabled(date);
-        expect(disableDays.calls[0].arg).toBe(date);
+        expect(isDayReservable.calls[0].arg).toBe(date);
       });
     });
 
-    describe('if the disableDays function is not supplied as prop', () => {
+    describe('if the isDayReservable function is not supplied as prop', () => {
       const now = new Date();
       const todayEarly = new Date();
       todayEarly.setHours(0, 1, 0, 0);

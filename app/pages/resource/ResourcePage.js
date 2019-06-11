@@ -57,11 +57,11 @@ class UnconnectedResourcePage extends Component {
     return `${image.url}?dim=${width}x${height}`;
   }
 
-  disableDays = (day) => {
+  isDayReservable = (day) => {
     const { resource: { reservableAfter } } = this.props;
     const beforeDate = reservableAfter || moment();
-    return moment(day).isBefore(beforeDate);
-  }
+    return moment(day).isBefore(beforeDate, 'day');
+  };
 
   handleDateChange = (newDate) => {
     const { resource, history } = this.props;
@@ -212,7 +212,7 @@ class UnconnectedResourcePage extends Component {
                         }
 
                         <ResourceCalendar
-                          disableDays={this.disableDays}
+                          isDayReservable={this.isDayReservable}
                           onDateChange={this.handleDateChange}
                           resourceId={resource.id}
                           selectedDate={date}

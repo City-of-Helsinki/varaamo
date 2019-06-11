@@ -28,27 +28,27 @@ export class UnconnectedResourceCalendar extends Component {
 
   setCalendarWrapper = (element) => {
     this.calendarWrapper = element;
-  }
+  };
 
-  disableDays = (day) => {
-    if (this.props.disableDays) {
-      return this.props.disableDays(day);
+  isDayDisabled = (day) => {
+    if (this.props.isDayReservable) {
+      return this.props.isDayReservable(day);
     }
     return this.now.isAfter(day, 'day');
-  }
+  };
 
   handleDateChange = (newDate) => {
     this.hideOverlay();
     this.props.onDateChange(newDate);
-  }
+  };
 
   hideOverlay = () => {
     this.setState({ visible: false });
-  }
+  };
 
   showOverlay = () => {
     this.setState({ visible: true });
-  }
+  };
 
   render() {
     const {
@@ -110,7 +110,7 @@ export class UnconnectedResourceCalendar extends Component {
           >
             <ResourceCalendarOverlay onHide={this.hideOverlay}>
               <DayPicker
-                disabledDays={this.disableDays}
+                disabledDays={this.isDayDisabled}
                 enableOutsideDays
                 initialMonth={new Date(selectedDate)}
                 locale={currentLanguage}
@@ -142,7 +142,7 @@ export class UnconnectedResourceCalendar extends Component {
 
 UnconnectedResourceCalendar.propTypes = {
   availability: PropTypes.object.isRequired,
-  disableDays: PropTypes.func,
+  isDayReservable: PropTypes.func,
   currentLanguage: PropTypes.string.isRequired,
   selectedDate: PropTypes.string.isRequired,
   onDateChange: PropTypes.func.isRequired,
