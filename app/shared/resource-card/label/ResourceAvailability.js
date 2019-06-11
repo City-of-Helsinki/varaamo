@@ -2,7 +2,7 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Label from '../../label';
+import Label from '../../label/Label';
 import injectT from '../../../i18n/injectT';
 import { getAvailabilityDataForNow, getAvailabilityDataForWholeDay } from '../../../utils/resourceUtils';
 

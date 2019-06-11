@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import constants from '../../constants/AppConstants';
-import Label from '../label';
+import Label from '../label/Label';
 import injectT from '../../i18n/injectT';
 
 function ReservationStateLabel({ reservation, t }) {

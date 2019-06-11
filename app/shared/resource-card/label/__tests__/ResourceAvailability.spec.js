@@ -3,7 +3,7 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
-import Label from '../../../label';
+import Label from '../../../label/Label';
 import Resource from '../../../../utils/fixtures/Resource';
 import * as resourceUtils from '../../../../utils/resourceUtils';
 import { shallowWithIntl } from '../../../../utils/testUtils';

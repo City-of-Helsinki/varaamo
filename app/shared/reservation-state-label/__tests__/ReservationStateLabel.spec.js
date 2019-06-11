@@ -2,7 +2,7 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 
 import constants from '../../../constants/AppConstants';
-import Label from '../../label';
+import Label from '../../label/Label';
 import Reservation from '../../../utils/fixtures/Reservation';
 import { shallowWithIntl } from '../../../utils/testUtils';
 import ReservationStateLabel from '../ReservationStateLabel';

@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import BootstrapLabel from 'react-bootstrap/lib/Label';
 
-import Label from './Label';
+import Label from '../Label';
 
 function getWrapper(props, content = 'Some text') {
   const defaults = {};

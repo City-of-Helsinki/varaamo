@@ -2,7 +2,7 @@ import React from 'react';
 import Sticky from 'react-sticky-el';
 import { shallow } from 'enzyme';
 
-import MainNavbar from '../../main-navbar';
+import MainNavbar from '../../main-navbar/MainNavbarContainer';
 import TopNavbar from '../../top-navbar';
 import Header from '../Header';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import simple from 'simple-mock';
 
-import Header from '../../shared/header';
+import Header from '../../shared/header/Header';
 import Notifications from '../../shared/notifications';
 import { getState } from '../../utils/testUtils';
 import * as customizationUtils from '../../utils/customizationUtils';

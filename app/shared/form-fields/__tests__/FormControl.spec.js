@@ -6,7 +6,7 @@ import RBFormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
-import InfoPopover from '../../info-popover';
+import InfoPopover from '../../info-popover/InfoPopover';
 import FormControl from '../FormControl';
 
 describe('shared/form-fields/FormControl', () => {

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { shallowWithIntl } from '../../../../../../utils/testUtils';
 import { UnconnectedResourceInfo as ResourceInfo, selector } from '../ResourceInfoContainer';
-import UnpublishedLabel from '../../../../../label/Unpublished';
+import UnpublishedLabel from '../../../../../label/un-published/UnpublishedLabel';
 
 function getState() {
   return {

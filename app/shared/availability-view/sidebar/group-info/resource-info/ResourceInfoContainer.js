@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { createSelector } from 'reselect';
 
-import UnpublishedLabel from '../../../../label/Unpublished';
+import UnpublishedLabel from '../../../../label/un-published/UnpublishedLabel';
 import injectT from '../../../../../i18n/injectT';
 import { resourcesSelector } from '../../../../../state/selectors/dataSelectors';
 
