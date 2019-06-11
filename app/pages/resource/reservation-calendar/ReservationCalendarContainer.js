@@ -20,10 +20,10 @@ import {
   selectReservationSlot,
   toggleTimeSlot,
 } from '../../../actions/uiActions';
-import ReservationCancelModal from '../../../shared/modals/reservation-cancel';
-import ReservationInfoModal from '../../../shared/modals/reservation-info';
-import ReservationSuccessModal from '../../../shared/modals/reservation-success';
-import ReservationConfirmation from '../../../shared/reservation-confirmation';
+import ReservationCancelModal from '../../../shared/modals/reservation-cancel/ReservationCancelModalContainer';
+import ReservationInfoModal from '../../../shared/modals/reservation-info/ReservationInfoModalContainer';
+import ReservationSuccessModal from '../../../shared/modals/reservation-success/ReservationSuccessModalContainer';
+import ReservationConfirmation from '../../../shared/reservation-confirmation/ReservationConfirmationContainer';
 import recurringReservations from '../../../state/recurringReservations';
 import injectT from '../../../i18n/injectT';
 import { hasMaxReservations, reservingIsRestricted } from '../../../utils/resourceUtils';

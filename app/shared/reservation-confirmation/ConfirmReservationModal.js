@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 
 import CompactReservationList from '../compact-reservation-list/CompactReservationList';
-import RecurringReservationControls from '../recurring-reservation-controls';
+import RecurringReservationControls from '../recurring-reservation-controls/RecurringReservationControls';
 import injectT from '../../i18n/injectT';
 import { isStaffEvent } from '../../utils/reservationUtils';
 import { getTermsAndConditions } from '../../utils/resourceUtils';

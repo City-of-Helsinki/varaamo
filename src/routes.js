@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 
 import Route from '../app/shared/route';
-import PrivateRoute from '../app/shared/private-route';
+import PrivateRoute from '../app/shared/private-route/PrivateRoute';
 import AppContainer from '../app/pages/AppContainer';
 import AboutPage from '../app/pages/about/AboutPage';
 import AdminResourcesPage from '../app/pages/admin-resources/AdminResourcesPage';

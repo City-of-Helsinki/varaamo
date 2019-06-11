@@ -16,8 +16,8 @@ import injectT from '../../i18n/injectT';
 import PageWrapper from '../PageWrapper';
 import AvailabilityView from '../../shared/availability-view/AvailabilityView';
 import ResourceTypeFilter from '../../shared/resource-type-filter';
-import ReservationSuccessModal from '../../shared/modals/reservation-success';
-import ReservationConfirmationContainer from '../../shared/reservation-confirmation';
+import ReservationSuccessModal from '../../shared/modals/reservation-success/ReservationSuccessModalContainer';
+import ReservationConfirmationContainer from '../../shared/reservation-confirmation/ReservationConfirmationContainer';
 import recurringReservations from '../../state/recurringReservations';
 import adminResourcesPageSelector from './adminResourcesPageSelector';
 

@@ -3,10 +3,10 @@ import React from 'react';
 import moment from 'moment';
 import simple from 'simple-mock';
 
-import ReservationCancelModal from '../../../../shared/modals/reservation-cancel';
-import ReservationInfoModal from '../../../../shared/modals/reservation-info';
-import ReservationSuccessModal from '../../../../shared/modals/reservation-success';
-import ReservationConfirmation from '../../../../shared/reservation-confirmation';
+import ReservationCancelModal from '../../../../shared/modals/reservation-cancel/ReservationCancelModalContainer';
+import ReservationInfoModal from '../../../../shared/modals/reservation-info/ReservationInfoModalContainer';
+import ReservationSuccessModal from '../../../../shared/modals/reservation-success/ReservationSuccessModalContainer';
+import ReservationConfirmation from '../../../../shared/reservation-confirmation/ReservationConfirmationContainer';
 import Resource from '../../../../utils/fixtures/Resource';
 import TimeSlot from '../../../../utils/fixtures/TimeSlot';
 import { shallowWithIntl } from '../../../../utils/testUtils';

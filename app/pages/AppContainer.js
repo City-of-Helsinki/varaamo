@@ -14,7 +14,7 @@ import Favicon from '../shared/favicon/Favicon';
 import Footer from '../shared/footer/Footer';
 import Header from '../shared/header/Header';
 import TestSiteMessage from '../shared/test-site-message';
-import Notifications from '../shared/notifications';
+import Notifications from '../shared/notifications/NotificationsContainer';
 import { getCustomizationClassName } from '../utils/customizationUtils';
 
 const userIdSelector = state => state.auth.userId;

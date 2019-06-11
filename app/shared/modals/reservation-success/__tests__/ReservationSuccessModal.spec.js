@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable';
 import Modal from 'react-bootstrap/lib/Modal';
 import simple from 'simple-mock';
 
-import ReservationAccessCode from '../../../reservation-access-code';
+import ReservationAccessCode from '../../../reservation-access-code/ReservationAccessCode';
 import ReservationDate from '../../../reservation-date';
 import Reservation from '../../../../utils/fixtures/Reservation';
 import Resource from '../../../../utils/fixtures/Resource';

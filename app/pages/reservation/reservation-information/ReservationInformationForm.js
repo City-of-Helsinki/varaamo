@@ -12,7 +12,7 @@ import FormTypes from '../../../constants/FormTypes';
 import ReduxFormField from '../../../shared/form-fields/ReduxFormField';
 import TermsField from '../../../shared/form-fields/TermsField';
 import injectT from '../../../i18n/injectT';
-import ReservationTermsModal from '../../../shared/modals/reservation-terms';
+import ReservationTermsModal from '../../../shared/modals/reservation-terms/ReservationTermsModal';
 
 const validators = {
   reserverEmailAddress: (t, { reserverEmailAddress }) => {
