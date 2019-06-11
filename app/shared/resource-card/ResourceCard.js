@@ -14,7 +14,7 @@ import iconHeart from 'hel-icons/dist/shapes/heart-o.svg';
 
 import injectT from '../../i18n/injectT';
 import iconHeartFilled from '../../assets/icons/heart-filled.svg';
-import UnpublishedLabel from '../label/un-published/UnpublishedLabel';
+import UnpublishedLabel from '../label/unpublished/UnpublishedLabel';
 import iconMap from '../../assets/icons/map.svg';
 import BackgroundImage from '../background-image/BackgroundImage';
 import { getMainImage } from '../../utils/imageUtils';

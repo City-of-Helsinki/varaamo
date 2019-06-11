@@ -12,7 +12,7 @@ import { getResourcePageUrlComponents } from '../../../utils/resourceUtils';
 import { shallowWithIntl } from '../../../utils/testUtils';
 import ResourceAvailability from '../resource-availability/ResourceAvailability';
 import { UnconnectedResourceCard } from '../ResourceCard';
-import UnpublishedLabel from '../../label/un-published/UnpublishedLabel';
+import UnpublishedLabel from '../../label/unpublished/UnpublishedLabel';
 import ResourceCardInfoCell from '../info-cell/ResourceCardInfoCell';
 import iconHeartWhite from '../../../assets/icons/heart-white.svg';
 
