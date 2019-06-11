@@ -29,7 +29,7 @@ import injectT from '../../../i18n/injectT';
 import { hasMaxReservations, reservingIsRestricted } from '../../../utils/resourceUtils';
 import reservationCalendarSelector from './reservationCalendarSelector';
 import ReservingRestrictedText from './ReservingRestrictedText';
-import TimeSlots from './time-slots';
+import TimeSlots from './time-slots/TimeSlots';
 import { getReservationPrice, getEditReservationUrl } from '../../../utils/reservationUtils';
 
 export class UnconnectedReservationCalendarContainer extends Component {

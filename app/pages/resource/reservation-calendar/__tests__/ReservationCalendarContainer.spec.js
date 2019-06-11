@@ -12,7 +12,7 @@ import TimeSlot from '../../../../utils/fixtures/TimeSlot';
 import { shallowWithIntl } from '../../../../utils/testUtils';
 import { UnconnectedReservationCalendarContainer as ReservationCalendarContainer } from '../ReservationCalendarContainer';
 import ReservingRestrictedText from '../ReservingRestrictedText';
-import TimeSlots from '../time-slots';
+import TimeSlots from '../time-slots/TimeSlots';
 
 describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () => {
   const actions = {

@@ -8,7 +8,7 @@ import isEmpty from 'lodash/isEmpty';
 import moment from 'moment';
 
 import injectT from '../../../i18n/injectT';
-import ReservationCalendar from '../../resource/reservation-calendar';
+import ReservationCalendar from '../../resource/reservation-calendar/ReservationCalendarContainer';
 import ResourceCalendar from '../../../shared/resource-calendar';
 
 class ReservationTime extends Component {

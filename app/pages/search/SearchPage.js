@@ -14,7 +14,7 @@ import { fetchUnits } from '../../actions/unitActions';
 import PageWrapper from '../PageWrapper';
 import injectT from '../../i18n/injectT';
 import ResourceMap from '../../shared/resource-map';
-import SearchControls from './controls';
+import SearchControls from './controls/SearchControlsContainer';
 import searchPageSelector from './searchPageSelector';
 import SearchResults from './results/SearchResults';
 import Sort from './Sort';

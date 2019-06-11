@@ -14,7 +14,7 @@ import ReservationCancelModal from '../../shared/modals/reservation-cancel';
 import injectT from '../../i18n/injectT';
 import userReservationsPageSelector from './userReservationsPageSelector';
 import AdminReservationFilters from './reservation-filters/AdminReservationFilters';
-import ReservationList from './reservation-list';
+import ReservationList from './reservation-list/ReservationListContainer';
 
 class UnconnectedUserReservationsPage extends Component {
   constructor(props) {

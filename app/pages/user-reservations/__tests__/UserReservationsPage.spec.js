@@ -5,7 +5,7 @@ import PageWrapper from '../../PageWrapper';
 import { shallowWithIntl } from '../../../utils/testUtils';
 import { UnconnectedUserReservationsPage as UserReservationsPage } from '../UserReservationsPage';
 import AdminReservationFilters from '../reservation-filters/AdminReservationFilters';
-import ReservationList from '../reservation-list';
+import ReservationList from '../reservation-list/ReservationListContainer';
 
 describe('pages/user-reservations/UserReservationsPage', () => {
   const changeAdminReservationFilters = simple.stub();
