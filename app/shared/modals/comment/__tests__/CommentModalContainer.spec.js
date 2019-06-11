@@ -5,7 +5,7 @@ import simple from 'simple-mock';
 import Reservation from '../../../../utils/fixtures/Reservation';
 import Resource from '../../../../utils/fixtures/Resource';
 import { shallowWithIntl } from '../../../../utils/testUtils';
-import CommentForm from '../../../comment-form';
+import CommentForm from '../../../comment-form/CommentForm';
 import { UnconnectedCommentModalContainer as CommentModalContainer } from '../CommentModalContainer';
 import ModalWrapper from '../../ModalWrapper';
 

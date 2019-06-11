@@ -6,7 +6,7 @@ import map from 'lodash/map';
 
 import constants from '../../constants/AppConstants';
 import { DEFAULT_SLOT_SIZE } from '../../constants/SlotConstants';
-import DatePicker from '../date-picker';
+import DatePicker from '../date-picker/DatePicker';
 import SelectControl from '../../pages/search/controls/SelectControl';
 
 const moment = extendMoment(Moment);

@@ -2,8 +2,8 @@ import React from 'react';
 import simple from 'simple-mock';
 import moment from 'moment';
 
-import ReservationCalendar from '../../../resource/reservation-calendar';
-import ResourceCalendar from '../../../../shared/resource-calendar';
+import ReservationCalendar from '../../../resource/reservation-calendar/ReservationCalendarContainer';
+import ResourceCalendar from '../../../../shared/resource-calendar/ResourceCalendar';
 import { shallowWithIntl } from '../../../../utils/testUtils';
 import Reservation from '../../../../utils/fixtures/Reservation';
 import Resource from '../../../../utils/fixtures/Resource';

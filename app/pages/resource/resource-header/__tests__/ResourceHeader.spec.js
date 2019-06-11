@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedNumber } from 'react-intl';
 import Immutable from 'seamless-immutable';
 
-import FavoriteButton from '../../../../shared/favorite-button';
+import FavoriteButton from '../../../../shared/favorite-button/FavoriteButtonContainer';
 import Resource from '../../../../utils/fixtures/Resource';
 import Unit from '../../../../utils/fixtures/Unit';
 import { shallowWithIntl } from '../../../../utils/testUtils';

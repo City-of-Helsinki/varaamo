@@ -6,7 +6,7 @@ import NavItem from 'react-bootstrap/lib/NavItem';
 import { getSearchPageUrl } from '../../../utils/searchUtils';
 import { shallowWithIntl } from '../../../utils/testUtils';
 import MainNavbar from '../MainNavbar';
-import FAIcon from '../../fontawesome-icon';
+import FAIcon from '../../fontawesome-icon/FontAwesomeIcon';
 
 describe('shared/main-navbar/MainNavbar', () => {
   const pathname = 'somepath';

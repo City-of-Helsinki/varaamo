@@ -6,7 +6,7 @@ import Panel from 'react-bootstrap/lib/Panel';
 import Row from 'react-bootstrap/lib/Row';
 
 import injectT from '../../../i18n/injectT';
-import WrappedText from '../../../shared/wrapped-text';
+import WrappedText from '../../../shared/wrapped-text/WrappedText';
 import { getServiceMapUrl } from '../../../utils/unitUtils';
 import ReservationInfo from '../reservation-info/ReservationInfo';
 

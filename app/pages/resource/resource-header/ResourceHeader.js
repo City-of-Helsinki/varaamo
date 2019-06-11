@@ -12,7 +12,7 @@ import iconUser from 'hel-icons/dist/shapes/user-o.svg';
 import injectT from '../../../i18n/injectT';
 import iconClock from '../../../assets/icons/clock-o.svg';
 import iconMap from '../../../assets/icons/map.svg';
-import FavoriteButton from '../../../shared/favorite-button';
+import FavoriteButton from '../../../shared/favorite-button/FavoriteButtonContainer';
 import { getHourlyPrice, getMaxPeriodText } from '../../../utils/resourceUtils';
 
 function ResourceHeader({

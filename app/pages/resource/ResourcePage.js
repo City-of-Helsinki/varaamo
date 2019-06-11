@@ -16,14 +16,14 @@ import { fetchResource } from '../../actions/resourceActions';
 import { clearReservations, toggleResourceMap } from '../../actions/uiActions';
 import PageWrapper from '../PageWrapper';
 import NotFoundPage from '../not-found/NotFoundPage';
-import ResourceCalendar from '../../shared/resource-calendar';
-import ResourceMap from '../../shared/resource-map';
+import ResourceCalendar from '../../shared/resource-calendar/ResourceCalendar';
+import ResourceMap from '../../shared/resource-map/MapContainer';
 import injectT from '../../i18n/injectT';
 import { getMaxPeriodText, getResourcePageUrl, getMinPeriodText } from '../../utils/resourceUtils';
-import ReservationCalendar from './reservation-calendar';
-import ResourceHeader from './resource-header';
-import ResourceInfo from './resource-info';
-import ResourceMapInfo from './resource-map-info';
+import ReservationCalendar from './reservation-calendar/ReservationCalendarContainer';
+import ResourceHeader from './resource-header/ResourceHeader';
+import ResourceInfo from './resource-info/ResourceInfo';
+import ResourceMapInfo from './resource-map-info/ResourceMapInfo';
 import resourcePageSelector from './resourcePageSelector';
 
 class UnconnectedResourcePage extends Component {

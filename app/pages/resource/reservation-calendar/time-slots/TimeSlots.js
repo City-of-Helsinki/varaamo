@@ -9,7 +9,7 @@ import round from 'lodash/round';
 
 import constants from '../../../../constants/AppConstants';
 import injectT from '../../../../i18n/injectT';
-import ReservationPopover from '../../../../shared/reservation-popover';
+import ReservationPopover from '../../../../shared/reservation-popover/ReservationPopover';
 import TimeSlot from './TimeSlot';
 import TimeSlotPlaceholder from './TimeSlotPlaceholder';
 import utils from '../utils';

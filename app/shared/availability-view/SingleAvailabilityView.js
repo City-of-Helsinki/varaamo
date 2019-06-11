@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import DateSelector from './DateSelector';
-import TimelineGroup from './TimelineGroups/TimelineGroup';
-import utils from './TimelineGroups/TimelineGroup/utils';
+import TimelineGroup from './timeline-groups/timeline-group/TimelineGroup';
+import utils from './timeline-groups/timeline-group/utils';
 
 export default class SingleAvailabilityView extends React.Component {
   static propTypes = {

@@ -19,7 +19,7 @@ import iconPhotoAndAudio from './images/frontpage_music.svg';
 import iconSports from './images/frontpage_sport.svg';
 import iconGuidance from './images/frontpage_guidance.svg';
 import iconMeetingsAndWorking from './images/frontpage_work.svg';
-import FAIcon from '../../shared/fontawesome-icon';
+import FAIcon from '../../shared/fontawesome-icon/FontAwesomeIcon';
 
 const purposeIcons = {
   photoAndAudio: iconPhotoAndAudio,

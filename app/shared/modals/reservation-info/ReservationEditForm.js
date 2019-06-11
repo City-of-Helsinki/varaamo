@@ -14,7 +14,7 @@ import { Field, Fields, reduxForm } from 'redux-form';
 import FormTypes from '../../../constants/FormTypes';
 import ReduxFormField from '../../form-fields/ReduxFormField';
 import ReservationTimeControls from '../../form-fields/ReservationTimeControls';
-import TimeRange from '../../time-range';
+import TimeRange from '../../time-range/TimeRange';
 import injectT from '../../../i18n/injectT';
 
 class UnconnectedReservationEditForm extends Component {

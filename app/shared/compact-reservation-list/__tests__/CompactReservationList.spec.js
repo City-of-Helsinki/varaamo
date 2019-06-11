@@ -5,7 +5,7 @@ import simple from 'simple-mock';
 
 import Reservation from '../../../utils/fixtures/Reservation';
 import Resource from '../../../utils/fixtures/Resource';
-import TimeRange from '../../time-range';
+import TimeRange from '../../time-range/TimeRange';
 import CompactReservationList from '../CompactReservationList';
 
 describe('shared/compact-reservation-list/CompactReservationList', () => {

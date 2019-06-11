@@ -1,13 +1,13 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
-import ReservationStateLabel from '../../../../shared/reservation-state-label';
-import TimeRange from '../../../../shared/time-range';
+import ReservationStateLabel from '../../../../shared/reservation-state-label/ReservationStateLabel';
+import TimeRange from '../../../../shared/time-range/TimeRange';
 import Image from '../../../../utils/fixtures/Image';
 import Reservation from '../../../../utils/fixtures/Reservation';
 import Resource from '../../../../utils/fixtures/Resource';
 import Unit from '../../../../utils/fixtures/Unit';
-import ReservationControls from '../../../../shared/reservation-controls';
+import ReservationControls from '../../../../shared/reservation-controls/ReservationControlsContainer';
 import { getResourcePageUrl } from '../../../../utils/resourceUtils';
 import { shallowWithIntl } from '../../../../utils/testUtils';
 import ReservationListItem from '../ReservationListItem';

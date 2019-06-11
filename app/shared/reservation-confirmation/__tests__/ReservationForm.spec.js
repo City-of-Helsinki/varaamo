@@ -5,7 +5,7 @@ import { Field } from 'redux-form';
 import simple from 'simple-mock';
 
 import constants from '../../../constants/AppConstants';
-import WrappedText from '../../wrapped-text';
+import WrappedText from '../../wrapped-text/WrappedText';
 import { shallowWithIntl } from '../../../utils/testUtils';
 import { UnconnectedReservationForm as ReservationForm, validate } from '../ReservationForm';
 

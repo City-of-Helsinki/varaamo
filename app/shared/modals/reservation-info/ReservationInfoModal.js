@@ -8,8 +8,8 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Modal from 'react-bootstrap/lib/Modal';
 
 import injectT from '../../../i18n/injectT';
-import ReservationCancelModal from '../reservation-cancel';
-import ReservationStateLabel from '../../reservation-state-label';
+import ReservationCancelModal from '../reservation-cancel/ReservationCancelModalContainer';
+import ReservationStateLabel from '../../reservation-state-label/ReservationStateLabel';
 import { isStaffEvent } from '../../../utils/reservationUtils';
 import ReservationEditForm from './ReservationEditForm';
 

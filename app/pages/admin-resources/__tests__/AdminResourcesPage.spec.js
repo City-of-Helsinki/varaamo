@@ -3,8 +3,8 @@ import Loader from 'react-loader';
 import simple from 'simple-mock';
 
 import PageWrapper from '../../PageWrapper';
-import AvailabilityView from '../../../shared/availability-view';
-import ResourceTypeFilter from '../../../shared/resource-type-filter';
+import AvailabilityView from '../../../shared/availability-view/AvailabilityView';
+import ResourceTypeFilter from '../../../shared/resource-type-filter/ResourceTypeFilterContainer';
 import { shallowWithIntl } from '../../../utils/testUtils';
 import { UnconnectedAdminResourcesPage as AdminResourcesPage } from '../AdminResourcesPage';
 

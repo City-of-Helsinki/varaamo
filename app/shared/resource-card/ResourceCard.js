@@ -14,13 +14,13 @@ import iconHeart from 'hel-icons/dist/shapes/heart-o.svg';
 
 import injectT from '../../i18n/injectT';
 import iconHeartFilled from '../../assets/icons/heart-filled.svg';
-import UnpublishedLabel from '../label/Unpublished';
+import UnpublishedLabel from '../label/unpublished/UnpublishedLabel';
 import iconMap from '../../assets/icons/map.svg';
-import BackgroundImage from '../background-image';
+import BackgroundImage from '../background-image/BackgroundImage';
 import { getMainImage } from '../../utils/imageUtils';
 import { getHourlyPrice, getResourcePageUrlComponents } from '../../utils/resourceUtils';
-import ResourceAvailability from './label';
-import ResourceCardInfoCell from './info';
+import ResourceAvailability from './resource-availability/ResourceAvailability';
+import ResourceCardInfoCell from './info-cell/ResourceCardInfoCell';
 import resourceCardSelector from './resourceCardSelector';
 import {
   favoriteResource,

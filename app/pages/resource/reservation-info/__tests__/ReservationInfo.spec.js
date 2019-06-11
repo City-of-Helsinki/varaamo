@@ -3,7 +3,7 @@ import Immutable from 'seamless-immutable';
 
 import Resource from '../../../../utils/fixtures/Resource';
 import { shallowWithIntl } from '../../../../utils/testUtils';
-import WrappedText from '../../../../shared/wrapped-text';
+import WrappedText from '../../../../shared/wrapped-text/WrappedText';
 import ReservationInfo from '../ReservationInfo';
 
 describe('pages/resource/reservation-info/ReservationInfo', () => {

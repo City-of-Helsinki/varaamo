@@ -3,7 +3,7 @@ import React from 'react';
 import moment from 'moment';
 
 import injectT from '../../i18n/injectT';
-import DatePicker from '../date-picker';
+import DatePicker from '../date-picker/DatePicker';
 
 export class UninjectedDateSelector extends React.Component {
   static propTypes = {

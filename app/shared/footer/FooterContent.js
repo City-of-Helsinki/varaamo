@@ -6,8 +6,8 @@ import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import { Link } from 'react-router-dom';
 
-import FeedbackLink from '../feedback-link';
-import Logo from '../logo';
+import FeedbackLink from '../feedback-link/FeedbackLink';
+import Logo from '../logo/Logo';
 import injectT from '../../i18n/injectT';
 import { getCurrentCustomization } from '../../utils/customizationUtils';
 

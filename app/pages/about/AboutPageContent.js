@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedHTMLMessage } from 'react-intl';
 
-import FeedbackLink from '../../shared/feedback-link';
+import FeedbackLink from '../../shared/feedback-link/FeedbackLink';
 import injectT from '../../i18n/injectT';
 import { getCurrentCustomization } from '../../utils/customizationUtils';
 import AboutPartners from './AboutPartners';

@@ -3,9 +3,9 @@ import React from 'react';
 import simple from 'simple-mock';
 
 import DateSelector from '../DateSelector';
-import TimelineGroups from '../TimelineGroups';
+import TimelineGroups from '../timeline-groups/TimelineGroups';
 import AvailabilityView from '../AvailabilityView';
-import Sidebar from '../Sidebar';
+import Sidebar from '../sidebar/Sidebar';
 
 function getWrapper(props) {
   const defaults = {

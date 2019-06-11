@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 
 import { closeResourceTermsModal } from '../../../actions/uiActions';
 import injectT from '../../../i18n/injectT';
-import WrappedText from '../../wrapped-text';
+import WrappedText from '../../wrapped-text/WrappedText';
 import reservationTermsModalSelector from './reservationTermsModalSelector';
 
 class UnconnectedReservationTermsModal extends Component {

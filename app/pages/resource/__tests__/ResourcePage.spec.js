@@ -5,16 +5,16 @@ import Lightbox from 'lightbox-react';
 
 import NotFoundPage from '../../not-found/NotFoundPage';
 import PageWrapper from '../../PageWrapper';
-import ResourceCalendar from '../../../shared/resource-calendar';
-import ResourceMap from '../../../shared/resource-map';
+import ResourceCalendar from '../../../shared/resource-calendar/ResourceCalendar';
+import ResourceMap from '../../../shared/resource-map/MapContainer';
 import Resource from '../../../utils/fixtures/Resource';
 import Unit from '../../../utils/fixtures/Unit';
 import { getResourcePageUrl } from '../../../utils/resourceUtils';
 import { shallowWithIntl } from '../../../utils/testUtils';
 import { UnconnectedResourcePage as ResourcePage } from '../ResourcePage';
-import ResourceHeader from '../resource-header';
-import ResourceInfo from '../resource-info';
-import ResourceMapInfo from '../resource-map-info';
+import ResourceHeader from '../resource-header/ResourceHeader';
+import ResourceInfo from '../resource-info/ResourceInfo';
+import ResourceMapInfo from '../resource-map-info/ResourceMapInfo';
 
 describe('pages/resource/ResourcePage', () => {
   const unit = Unit.build();
