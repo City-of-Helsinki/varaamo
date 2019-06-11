@@ -6,7 +6,7 @@ import simple from 'simple-mock';
 
 import { slotSize, slotWidth } from '../../../../../constants/SlotConstants';
 import TimelineGroup from '../TimelineGroup';
-import AvailabilityTimelineContainer from '../AvailabilityTimeline';
+import AvailabilityTimelineContainer from '../availability-timeline/AvailabilityTimelineContainer';
 
 function getWrapper(props) {
   const defaults = {

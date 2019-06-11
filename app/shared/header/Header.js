@@ -3,7 +3,7 @@ import React from 'react';
 import Sticky from 'react-sticky-el';
 
 import MainNavbar from '../main-navbar/MainNavbarContainer';
-import TopNavbar from '../top-navbar';
+import TopNavbar from '../top-navbar/TopNavbarContainer';
 
 function Header({ children, location }) {
   const { pathname } = location;

@@ -12,7 +12,7 @@ import isEmail from 'validator/lib/isEmail';
 
 import constants from '../../constants/AppConstants';
 import FormTypes from '../../constants/FormTypes';
-import WrappedText from '../wrapped-text';
+import WrappedText from '../wrapped-text/WrappedText';
 import ReduxFormField from '../form-fields/ReduxFormField';
 import injectT from '../../i18n/injectT';
 import TimeControls from './TimeControls';

@@ -15,7 +15,7 @@ import {
 import injectT from '../../i18n/injectT';
 import PageWrapper from '../PageWrapper';
 import AvailabilityView from '../../shared/availability-view/AvailabilityView';
-import ResourceTypeFilter from '../../shared/resource-type-filter';
+import ResourceTypeFilter from '../../shared/resource-type-filter/ResourceTypeFilterContainer';
 import ReservationSuccessModal from '../../shared/modals/reservation-success/ReservationSuccessModalContainer';
 import ReservationConfirmationContainer from '../../shared/reservation-confirmation/ReservationConfirmationContainer';
 import recurringReservations from '../../state/recurringReservations';

@@ -4,7 +4,7 @@ import simple from 'simple-mock';
 
 import PageWrapper from '../../PageWrapper';
 import AvailabilityView from '../../../shared/availability-view/AvailabilityView';
-import ResourceTypeFilter from '../../../shared/resource-type-filter';
+import ResourceTypeFilter from '../../../shared/resource-type-filter/ResourceTypeFilterContainer';
 import { shallowWithIntl } from '../../../utils/testUtils';
 import { UnconnectedAdminResourcesPage as AdminResourcesPage } from '../AdminResourcesPage';
 

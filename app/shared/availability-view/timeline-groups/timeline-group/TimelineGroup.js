@@ -5,7 +5,7 @@ import React from 'react';
 import Sticky from 'react-sticky-el';
 
 import { slotSize, slotWidth } from '../../../../constants/SlotConstants';
-import AvailabilityTimelineContainer from './AvailabilityTimeline';
+import AvailabilityTimelineContainer from './availability-timeline/AvailabilityTimelineContainer';
 import utils from './utils';
 
 function getHourRanges(date) {

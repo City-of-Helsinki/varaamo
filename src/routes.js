@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 
-import Route from '../app/shared/route';
+import Route from '../app/shared/route/Route';
 import PrivateRoute from '../app/shared/private-route/PrivateRoute';
 import AppContainer from '../app/pages/AppContainer';
 import AboutPage from '../app/pages/about/AboutPage';

@@ -2,7 +2,7 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 
 import ReservationStateLabel from '../../../../shared/reservation-state-label/ReservationStateLabel';
-import TimeRange from '../../../../shared/time-range';
+import TimeRange from '../../../../shared/time-range/TimeRange';
 import Image from '../../../../utils/fixtures/Image';
 import Reservation from '../../../../utils/fixtures/Reservation';
 import Resource from '../../../../utils/fixtures/Resource';

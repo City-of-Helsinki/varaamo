@@ -8,7 +8,7 @@ import iconCalendar from '../../../assets/icons/calendar.svg';
 import ReservationAccessCode from '../../../shared/reservation-access-code/ReservationAccessCode';
 import ReservationControls from '../../../shared/reservation-controls/ReservationControlsContainer';
 import ReservationStateLabel from '../../../shared/reservation-state-label/ReservationStateLabel';
-import TimeRange from '../../../shared/time-range';
+import TimeRange from '../../../shared/time-range/TimeRange';
 import injectT from '../../../i18n/injectT';
 import { getMainImage } from '../../../utils/imageUtils';
 import { getResourcePageUrl } from '../../../utils/resourceUtils';
