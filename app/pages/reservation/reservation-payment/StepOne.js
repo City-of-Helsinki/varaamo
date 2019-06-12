@@ -6,7 +6,7 @@ import { FormattedHTMLMessage } from 'react-intl';
 import compose from 'lodash/flow';
 
 import FormTypes from '../../../constants/FormTypes';
-import { injectT } from '../../../i18n';
+import injectT from '../../../i18n/injectT';
 
 
 const requiredValidator = value => (value ? undefined : 'validation.required');
