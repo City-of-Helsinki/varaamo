@@ -1,19 +1,18 @@
-import ActionTypes from 'constants/ActionTypes';
-
 import { createSelector, createStructuredSelector } from 'reselect';
 import first from 'lodash/first';
 import isEmpty from 'lodash/isEmpty';
 import orderBy from 'lodash/orderBy';
 import queryString from 'query-string';
 
+import ActionTypes from '../../constants/ActionTypes';
 import {
   createIsStaffSelector,
   currentUserSelector,
   isAdminSelector,
-} from 'state/selectors/authSelectors';
-import { createResourceSelector, unitsSelector } from 'state/selectors/dataSelectors';
-import dateSelector from 'state/selectors/dateSelector';
-import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
+} from '../../state/selectors/authSelectors';
+import { createResourceSelector, unitsSelector } from '../../state/selectors/dataSelectors';
+import dateSelector from '../../state/selectors/dateSelector';
+import requestIsActiveSelectorFactory from '../../state/selectors/factories/requestIsActiveSelectorFactory';
 
 const selectedSelector = state => orderBy(state.ui.reservations.selected, 'begin');
 const createdSelector = (state) => {

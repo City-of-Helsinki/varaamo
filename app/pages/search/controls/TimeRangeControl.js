@@ -1,13 +1,12 @@
-import constants from 'constants/AppConstants';
-
 import PropTypes from 'prop-types';
 import React from 'react';
 import map from 'lodash/map';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 
-import { injectT } from 'i18n';
-import { calculateDuration, calculateEndTime } from 'utils/timeUtils';
+import constants from '../../../constants/AppConstants';
+import injectT from '../../../i18n/injectT';
+import { calculateDuration, calculateEndTime } from '../../../utils/timeUtils';
 import CheckboxControl from './CheckboxControl';
 import SelectControl from './SelectControl';
 

@@ -6,9 +6,10 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Row from 'react-bootstrap/lib/Row';
 import NumericInput from 'react-numeric-input';
 
-import { injectT } from 'i18n';
-import DatePicker from 'shared/date-picker';
-import SelectControl from 'pages/search/controls/SelectControl';
+import injectT from '../../i18n/injectT';
+import DatePicker from '../date-picker/DatePicker';
+import SelectControl from '../../pages/search/controls/SelectControl';
+import connect from './connectRecurringReservationControls';
 
 function RecurringReservationControls({
   changeFrequency,
@@ -88,4 +89,5 @@ RecurringReservationControls.propTypes = {
   t: PropTypes.func.isRequired,
 };
 
-export default injectT(RecurringReservationControls);
+export const UnconnectedRecurringReservationControls = injectT(RecurringReservationControls);
+export default connect(UnconnectedRecurringReservationControls);

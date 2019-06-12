@@ -8,7 +8,7 @@ import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
-import auth from './auth';
+import auth from './auth/auth';
 import webpackConfig from '../config/webpack.development';
 import serverConfig from './config';
 import render from './render';

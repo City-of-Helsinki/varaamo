@@ -6,7 +6,7 @@ import ListGroup from 'react-bootstrap/lib/ListGroup';
 import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
 import Overlay from 'react-bootstrap/lib/Overlay';
 
-import { injectT } from 'i18n';
+import injectT from '../../../i18n/injectT';
 import SearchControlOverlay from './SearchControlOverlay';
 
 class SearchBox extends React.Component {

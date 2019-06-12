@@ -1,6 +1,6 @@
 import { createSelector, createStructuredSelector } from 'reselect';
 
-import { resourcesSelector } from 'state/selectors/dataSelectors';
+import { resourcesSelector } from '../../state/selectors/dataSelectors';
 
 const resourceIdsSelector = (state, props) => props.resourceIds;
 const unitIdSelector = (state, props) => props.unitId;

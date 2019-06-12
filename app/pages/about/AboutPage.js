@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import PageWrapper from 'pages/PageWrapper';
-import { injectT } from 'i18n';
+import PageWrapper from '../PageWrapper';
+import injectT from '../../i18n/injectT';
 import AboutPageContent from './AboutPageContent';
 
 function AboutPage({ t }) {

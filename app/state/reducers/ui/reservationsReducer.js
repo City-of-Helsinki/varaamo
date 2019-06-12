@@ -1,13 +1,11 @@
-import types from 'constants/ActionTypes';
-import ModalTypes from 'constants/ModalTypes';
-
 import isEmpty from 'lodash/isEmpty';
 import first from 'lodash/first';
 import last from 'lodash/last';
 import Immutable from 'seamless-immutable';
 
-
-import { getTimeSlots, getEndTimeSlotWithMinPeriod, getTimeDiff } from 'utils/timeUtils';
+import types from '../../../constants/ActionTypes';
+import ModalTypes from '../../../constants/ModalTypes';
+import { getTimeSlots, getEndTimeSlotWithMinPeriod, getTimeDiff } from '../../../utils/timeUtils';
 
 const initialState = Immutable({
   adminReservationFilters: {

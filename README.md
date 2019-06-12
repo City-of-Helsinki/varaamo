@@ -202,7 +202,7 @@ All setting was included under .vscode directory.
 - On Jest test:
     [Guideline](https://jestjs.io/docs/en/troubleshooting#debugging-in-vs-code). Setting was under `Vscode Jest debugger` name.
 
-    - Put breakpoint in test file `(*.spec.js)`
+    - Put breakpoint in test file `(*.test.js)`
 
     - Run command:
 

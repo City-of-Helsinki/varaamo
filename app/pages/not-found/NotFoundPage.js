@@ -4,9 +4,9 @@ import Well from 'react-bootstrap/lib/Well';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 
-import PageWrapper from 'pages/PageWrapper';
-import { injectT } from 'i18n';
-import { getSearchPageUrl } from 'utils/searchUtils';
+import PageWrapper from '../PageWrapper';
+import injectT from '../../i18n/injectT';
+import { getSearchPageUrl } from '../../utils/searchUtils';
 
 function NotFoundPage({ t }) {
   return (

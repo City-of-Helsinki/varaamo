@@ -1,11 +1,10 @@
-import ActionTypes from 'constants/ActionTypes';
-
 import { createSelector, createStructuredSelector } from 'reselect';
 
-import { isAdminSelector, isLoggedInSelector } from 'state/selectors/authSelectors';
-import { createResourceSelector, unitsSelector } from 'state/selectors/dataSelectors';
-import dateSelector from 'state/selectors/dateSelector';
-import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
+import ActionTypes from '../../constants/ActionTypes';
+import { isAdminSelector, isLoggedInSelector } from '../../state/selectors/authSelectors';
+import { createResourceSelector, unitsSelector } from '../../state/selectors/dataSelectors';
+import dateSelector from '../../state/selectors/dateSelector';
+import requestIsActiveSelectorFactory from '../../state/selectors/factories/requestIsActiveSelectorFactory';
 
 const resourceIdSelector = (state, props) => props.match && props.match.params.id;
 const resourceSelector = createResourceSelector(resourceIdSelector);

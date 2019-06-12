@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
-import TimeRange from 'shared/time-range';
+import TimeRange from '../time-range/TimeRange';
 
 class CompactReservationList extends Component {
   renderFixedReservation = reservation => this.renderReservation(reservation);

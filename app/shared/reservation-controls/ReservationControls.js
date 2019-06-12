@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 
-import { injectT } from 'i18n';
+import injectT from '../../i18n/injectT';
 
 class ReservationControls extends Component {
   constructor(props) {

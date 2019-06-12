@@ -1,8 +1,7 @@
-
-import types from 'constants/ActionTypes';
-import ModalTypes from 'constants/ModalTypes';
-
 import { createAction } from 'redux-actions';
+
+import types from '../constants/ActionTypes';
+import ModalTypes from '../constants/ModalTypes';
 
 const cancelReservationEdit = createAction(types.UI.CANCEL_RESERVATION_EDIT);
 

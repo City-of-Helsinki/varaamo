@@ -1,5 +1,3 @@
-import constants from 'constants/AppConstants';
-
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { FormattedHTMLMessage } from 'react-intl';
@@ -9,8 +7,9 @@ import Row from 'react-bootstrap/lib/Row';
 import Well from 'react-bootstrap/lib/Well';
 import iconHome from 'hel-icons/dist/shapes/home.svg';
 
-import { injectT } from 'i18n';
-import ReservationDate from 'shared/reservation-date';
+import constants from '../../../constants/AppConstants';
+import injectT from '../../../i18n/injectT';
+import ReservationDate from '../../../shared/reservation-date/ReservationDate';
 
 class ReservationConfirmation extends Component {
   static propTypes = {

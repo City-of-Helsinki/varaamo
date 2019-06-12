@@ -2,10 +2,10 @@ import trim from 'lodash/trim';
 import { createSelector, createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 
-import { clearSearchResults } from 'actions/searchActions';
-import { currentUserSelector, isLoggedInSelector } from 'state/selectors/authSelectors';
-import { currentLanguageSelector } from 'state/selectors/translationSelectors';
-import { changeLocale } from 'i18n';
+import { clearSearchResults } from '../../actions/searchActions';
+import { currentUserSelector, isLoggedInSelector } from '../../state/selectors/authSelectors';
+import { currentLanguageSelector } from '../../state/selectors/translationSelectors';
+import changeLocale from '../../i18n/changeLocale';
 import TopNavbar from './TopNavbar';
 
 const userNameSelector = createSelector(

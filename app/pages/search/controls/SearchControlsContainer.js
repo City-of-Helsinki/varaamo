@@ -1,5 +1,3 @@
-import constants from 'constants/AppConstants';
-
 import range from 'lodash/range';
 import capitalize from 'lodash/capitalize';
 import isEmpty from 'lodash/isEmpty';
@@ -16,15 +14,16 @@ import Grid from 'react-bootstrap/lib/Grid';
 import Panel from 'react-bootstrap/lib/Panel';
 import Row from 'react-bootstrap/lib/Row';
 
-import { fetchPurposes } from 'actions/purposeActions';
+import constants from '../../../constants/AppConstants';
+import { fetchPurposes } from '../../../actions/purposeActions';
 import {
   changeSearchFilters,
   disableGeoposition,
   disableTimeRange,
   enableGeoposition,
   enableTimeRange,
-} from 'actions/uiActions';
-import { injectT } from 'i18n';
+} from '../../../actions/uiActions';
+import injectT from '../../../i18n/injectT';
 import CheckboxControl from './CheckboxControl';
 import DatePickerControl from './DatePickerControl';
 import PositionControl from './PositionControl';
@@ -74,7 +73,9 @@ class UnconnectedSearchControlsContainer extends Component {
   };
 
   handleDateChange = ({ date }) => {
-    const dateInCorrectFormat = moment(date, 'L').format(constants.DATE_FORMAT);
+    const dateInCorrectFormat = moment(date)
+      .format(constants.DATE_FORMAT);
+
     this.handleFiltersChange({
       date: dateInCorrectFormat,
     });

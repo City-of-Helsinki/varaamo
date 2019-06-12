@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
-import { injectT } from 'i18n';
-import { getHumanizedPeriod, getHourlyPrice } from 'utils/resourceUtils';
+import injectT from '../../i18n/injectT';
+import { getHumanizedPeriod, getHourlyPrice } from '../../utils/resourceUtils';
 
 function renderIcon(glyph, text) {
   if (!text) {

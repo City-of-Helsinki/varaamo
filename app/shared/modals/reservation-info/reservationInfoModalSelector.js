@@ -1,11 +1,10 @@
-import ActionTypes from 'constants/ActionTypes';
-
 import moment from 'moment';
 import { createSelector, createStructuredSelector } from 'reselect';
 
-import { createIsStaffSelector, isAdminSelector } from 'state/selectors/authSelectors';
-import { createResourceSelector } from 'state/selectors/dataSelectors';
-import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
+import ActionTypes from '../../../constants/ActionTypes';
+import { createIsStaffSelector, isAdminSelector } from '../../../state/selectors/authSelectors';
+import { createResourceSelector } from '../../../state/selectors/dataSelectors';
+import requestIsActiveSelectorFactory from '../../../state/selectors/factories/requestIsActiveSelectorFactory';
 
 function reservationSelector(state) {
   return state.ui.reservationInfoModal.reservation || {};

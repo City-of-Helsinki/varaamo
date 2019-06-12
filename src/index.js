@@ -11,11 +11,11 @@ import Immutable from 'seamless-immutable';
 import '../app/assets/styles/main.scss';
 import '../app/assets/styles/customization/espoo/customization.scss';
 import '../app/assets/styles/customization/vantaa/customization.scss';
-import { initI18n } from '../app/i18n';
+import initI18n from '../app/i18n/initI18n';
 import configureStore from '../app/store/configureStore';
 import rootReducer from '../app/state/rootReducer';
 import getRoutes from './routes';
-import BrowserWarning from '../app/pages/browser-warning';
+import BrowserWarning from '../app/pages/browser-warning/BrowserWarning';
 
 const initialStoreState = createStore(rootReducer, {}).getState();
 const initialServerState = window.INITIAL_STATE;

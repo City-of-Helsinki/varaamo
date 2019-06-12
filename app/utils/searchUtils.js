@@ -1,10 +1,9 @@
-import constants from 'constants/AppConstants';
-
 import omit from 'lodash/omit';
 import pick from 'lodash/pick';
 import queryString from 'query-string';
 
-import { getDateStartAndEndTimes, getDateString } from 'utils/timeUtils';
+import constants from '../constants/AppConstants';
+import { getDateStartAndEndTimes, getDateString } from './timeUtils';
 
 function getFetchParamsFromFilters(filters) {
   const all = Object.assign(
