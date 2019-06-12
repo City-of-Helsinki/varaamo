@@ -9,7 +9,7 @@ import FormTypes from '../../../constants/FormTypes';
 import injectT from '../../../i18n/injectT';
 
 
-const requiredValidator = value => (value ? undefined : 'validation.required');
+const requiredValidator = value => (String(value).length >= 1 ? undefined : 'validation.required');
 
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
