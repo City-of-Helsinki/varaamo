@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Field } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import Button from 'react-bootstrap/lib/Button';
 import { FormattedHTMLMessage } from 'react-intl';
+import compose from 'lodash/flow';
 
+import FormTypes from '../../../constants/FormTypes';
 import { injectT } from '../../../i18n';
 
 
@@ -126,4 +128,9 @@ class StepOne extends React.Component {
   }
 }
 
-export default injectT(StepOne);
+export default compose(
+  reduxForm({
+    form: FormTypes.RESERVATION_PAYMENT,
+  }),
+  injectT,
+)(StepOne);
