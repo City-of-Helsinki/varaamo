@@ -1,3 +1,9 @@
+# 0.4.1
+  **HOTFIX**
+  ```
+  - Fix security warnings for dependencies: react-select, jest, postcss-loader, codecov, node-sass, eslint
+  ```
+
 # 0.4.0
   **MAJOR CHANGES**
   ```
