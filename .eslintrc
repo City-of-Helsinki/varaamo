@@ -63,7 +63,9 @@
 
     "react/no-string-refs": "off",
 
-    "react/no-unused-prop-types": ["error", { "skipShapeProps": true }],
+    "react/no-unused-state": "warn",
+
+    "react/no-unused-prop-types": ["warn", { "skipShapeProps": true }],
 
     "react/prefer-stateless-function": "off",
 
@@ -89,6 +91,16 @@
     
     "react/no-array-index-key": "off",
 
-    "comma-dangle": "off"
+    "comma-dangle": "off",
+
+    "max-len": ["warn", { "code":  120}],
+
+    "no-plusplus": "off",
+
+    "no-undef": "warn",
+
+    "arrow-body-style": "off",
+
+    "quote-props": "off"
   }
 }
