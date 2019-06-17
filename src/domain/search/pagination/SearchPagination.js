@@ -21,7 +21,7 @@ class SearchPagination extends React.Component {
       buttons.push(
         <Button
           className={classNames('app-SearchPagination__page', {
-            'app-searchPagination__selected': i + 1 === page,
+            'app-SearchPagination__selected': i + 1 === page,
           })}
           key={`pageButton-${i}`}
           onClick={() => onChange(i + 1)}
@@ -43,9 +43,9 @@ class SearchPagination extends React.Component {
     } = this.props;
 
     return (
-      <div className="app-searchPagination">
+      <div className="app-SearchPagination">
         <Button
-          className="app-searchPagination__prev"
+          className="app-SearchPagination__prev"
           disabled={page === 1}
           onClick={() => onChange(page - 1)}
         >
@@ -53,7 +53,7 @@ class SearchPagination extends React.Component {
         </Button>
         {this.renderPages()}
         <Button
-          className="app-searchPagination__next"
+          className="app-SearchPagination__next"
           disabled={page >= pages}
           onClick={() => onChange(page + 1)}
         >
