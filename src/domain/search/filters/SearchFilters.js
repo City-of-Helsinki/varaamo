@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import omit from 'lodash/omit';
 import isEmpty from 'lodash/isEmpty';
+import isEqual from 'lodash/isEqual';
+import capitalize from 'lodash/capitalize';
+import range from 'lodash/range';
 import moment from 'moment';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
@@ -14,6 +17,7 @@ import constants from '../../../../app/constants/AppConstants';
 import injectT from '../../../../app/i18n/injectT';
 import TextFilter from './filter/TextFilter';
 import DateFilter from './filter/DateFilter';
+import SelectFilter from './filter/SelectFilter';
 import SelectControl from '../../../../app/pages/search/controls/SelectControl';
 import PositionControl from '../../../../app/pages/search/controls/PositionControl';
 import TimeRangeControl from '../../../../app/pages/search/controls/TimeRangeControl';
@@ -38,7 +42,9 @@ class SearchFilters extends React.Component {
   componentDidUpdate(prevProps) {
     const { filters } = this.props;
 
-    if (prevProps.filters !== filters) {
+    // TODO: This is an anti pattern, so we should find a better way of doing this.
+    if (!isEqual(filters, prevProps.filters)) {
+      // eslint-disable-next-line
       this.setState({
         filters,
       });
@@ -48,11 +54,16 @@ class SearchFilters extends React.Component {
   onFilterChange = (filterName, filterValue) => {
     const { filters } = this.state;
 
+    const newFilters = {
+      ...omit(filters, filterName),
+    };
+
+    if (filterValue) {
+      newFilters[filterName] = filterValue;
+    }
+
     this.setState({
-      filters: {
-        ...filters,
-        [filterName]: filterValue,
-      },
+      filters: newFilters,
     });
   };
 
@@ -70,9 +81,43 @@ class SearchFilters extends React.Component {
   };
 
   hasFilters = () => {
-    const { filters } = this.state;
+    const { filters } = this.props;
 
     return !isEmpty(omit(filters, 'page'));
+  };
+
+  /**
+   * Getter for people capacity options.
+   * @returns {{label: number, value: number}[]}
+   */
+  getPeopleCapacityOptions = () => {
+    return [
+      ...range(1, 10),
+      ...range(10, 35, 5),
+      ...range(40, 110, 10),
+    ].map(number => ({ label: number, value: number }));
+  };
+
+  /**
+   * Getter for municipality options.
+   * @returns {{label: string, value: string}[]}
+   */
+  getMunicipalityOptions = () => {
+    let municipalities = constants.DEFAULT_MUNICIPALITY_OPTIONS;
+
+    if (Array.isArray(SETTINGS.CUSTOM_MUNICIPALITY_OPTIONS)
+      && SETTINGS.CUSTOM_MUNICIPALITY_OPTIONS.length) {
+      municipalities = SETTINGS.CUSTOM_MUNICIPALITY_OPTIONS;
+    }
+
+    return municipalities.map((municipality) => {
+      const municipalityStr = typeof municipality === 'string' ? municipality : municipality.toString();
+
+      return {
+        value: municipalityStr.toLowerCase(),
+        label: capitalize(municipalityStr),
+      };
+    });
   };
 
   render() {
@@ -80,6 +125,8 @@ class SearchFilters extends React.Component {
       t,
     } = this.props;
     const { filters } = this.state;
+
+    const municipality = get(filters, 'municipality', '');
 
     return (
       <div className="app-SearchFilters">
@@ -98,7 +145,7 @@ class SearchFilters extends React.Component {
               </Col>
               <Col className="app-SearchFilters__control" md={6} sm={12}>
                 <DateFilter
-                  date={moment(filters.date).toDate()}
+                  date={moment(get(filters, 'date', new Date())).toDate()}
                   label={t('SearchFilters.dateLabel')}
                   onChange={(newValue) => {
                     this.onFilterChange('date', moment(newValue).format(constants.DATE_FORMAT));
@@ -112,17 +159,16 @@ class SearchFilters extends React.Component {
             >
               <Row>
                 <Col md={12}>
-                  <SelectControl
+                  <SelectFilter
                     id="municipality"
                     isLoading={false}
                     isMulti
                     label={t('SearchFilters.municipalityLabel')}
-                    name="app-SearchControls-municipality-select"
-                    onChange={municipalities => this.handleFiltersChange(
-                      { municipality: municipalities.map(mun => mun.value) }
-                    )}
-                    options={[]}
-                    value={filters.municipality}
+                    onChange={(items) => {
+                      this.onFilterChange('municipality', items.map(item => item.value).join(','));
+                    }}
+                    options={this.getMunicipalityOptions()}
+                    value={municipality.split(',')}
                   />
                 </Col>
               </Row>
@@ -150,14 +196,14 @@ class SearchFilters extends React.Component {
                   />
                 </Col>
                 <Col className="app-SearchFilters__control" md={4} sm={6}>
-                  <SelectControl
+                  <SelectFilter
                     id="people"
                     isLoading={false}
                     label={t('SearchFilters.peopleCapacityLabel')}
                     name="app-SearchFilters-people-select"
-                    onChange={people => this.handleFiltersChange({ people: people.value })}
-                    options={[]}
-                    value={filters.people ? String(parseInt(filters.people, 10)) : ''}
+                    onChange={item => this.onFilterChange('people', item.value)}
+                    options={this.getPeopleCapacityOptions()}
+                    value={Number(get(filters, 'people'))}
                   />
                 </Col>
               </Row>

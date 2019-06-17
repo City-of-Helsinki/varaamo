@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { createStructuredSelector } from 'reselect';
+import DayPicker from 'react-day-picker';
+import MomentLocaleUtils from 'react-day-picker/moment';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import InputGroup from 'react-bootstrap/lib/InputGroup';
 import Overlay from 'react-bootstrap/lib/Overlay';
-import DayPicker from 'react-day-picker';
-import moment from 'moment';
-import MomentLocaleUtils from 'react-day-picker/moment';
 
 import { currentLanguageSelector } from '../../../../../app/state/selectors/translationSelectors';
 import iconCalendar from './images/calendar.svg';
@@ -33,9 +33,9 @@ class DateFilter extends React.Component {
   onChange = (newDate) => {
     const { onChange } = this.props;
 
-    // this.setState({
-    //   isOpen: false,
-    // });
+    this.setState({
+      isOpen: false,
+    });
 
     onChange(newDate);
   };

@@ -45,6 +45,8 @@ class SearchPage extends React.Component {
   onFiltersChange = (newFilters) => {
     const { history } = this.props;
 
+    console.warn(newFilters);
+
     history.push({
       search: searchUtils.getSearchFromFilters(newFilters),
     });

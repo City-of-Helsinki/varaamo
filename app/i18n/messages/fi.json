@@ -263,6 +263,7 @@
   "SearchFilters.searchButton": "Hae",
   "SearchFilters.unitLabel": "Toimipiste",
   "SearchFilters.searchLabel": "Etsi tilaa syöttämällä tilaan liittyvää tietoa",
+  "SelectFilter.noOptionsMessage": "Ei valintoja",
   "SearchBox.buttonText": "Hae",
   "SearchBox.placeholder": "Etsi tilaa syöttämällä tilaan liittyvää tietoa",
   "SearchControlsContainer.title": "Mitä haluat tehdä?",
