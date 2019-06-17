@@ -24,7 +24,7 @@ class SearchPagination extends React.Component {
             'app-searchPagination__selected': i + 1 === page,
           })}
           key={`pageButton-${i}`}
-          onClick={() => onChange(page)}
+          onClick={() => onChange(i + 1)}
         >
           {i + 1}
         </Button>
