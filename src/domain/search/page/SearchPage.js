@@ -25,7 +25,7 @@ class SearchPage extends React.Component {
 
     this.state = {
       isLoading: false,
-      items: null,
+      items: [],
       totalCount: 0,
     };
   }
@@ -44,8 +44,6 @@ class SearchPage extends React.Component {
 
   onFiltersChange = (newFilters) => {
     const { history } = this.props;
-
-    console.warn(newFilters);
 
     history.push({
       search: searchUtils.getSearchFromFilters(newFilters),
@@ -90,6 +88,7 @@ class SearchPage extends React.Component {
             <div className="app-SearchPage__results">
               <ul>
                 {items && items.map((item, i) => <li key={`item-${i}`}>{item.id}: {item.name.fi}</li>)}
+                {items && !items.length && <p>{t('SearchPage.emptyMessage')}</p>}
               </ul>
             </div>
           </Loader>

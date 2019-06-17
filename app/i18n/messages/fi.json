@@ -276,6 +276,7 @@
   "SearchControlsContainer.searchButton": "Hae",
   "SearchControlsContainer.unitLabel": "Toimipiste",
   "SearchPage.title": "Haku",
+  "SearchPage.emptyMessage": "Ei yhtään hakutulosta, koita muuttaa hakuehtoja.",
   "ShowResourcesLink.text": "Näytä kaikki tilat ja laitteet",
   "SortBy.label": "Järjestä:",
   "SortBy.name.label": "Nimi",

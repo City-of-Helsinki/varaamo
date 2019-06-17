@@ -4,9 +4,8 @@ import get from 'lodash/get';
 import omit from 'lodash/omit';
 import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
-import capitalize from 'lodash/capitalize';
-import range from 'lodash/range';
 import moment from 'moment';
+import { injectIntl, intlShape } from 'react-intl';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
@@ -14,11 +13,12 @@ import Panel from 'react-bootstrap/lib/Panel';
 import Grid from 'react-bootstrap/lib/Grid';
 
 import constants from '../../../../app/constants/AppConstants';
+import * as searchUtils from '../utils';
+import client from '../../../common/api/client';
 import injectT from '../../../../app/i18n/injectT';
 import TextFilter from './filter/TextFilter';
 import DateFilter from './filter/DateFilter';
 import SelectFilter from './filter/SelectFilter';
-import SelectControl from '../../../../app/pages/search/controls/SelectControl';
 import PositionControl from '../../../../app/pages/search/controls/PositionControl';
 import TimeRangeControl from '../../../../app/pages/search/controls/TimeRangeControl';
 import CheckboxControl from '../../../../app/pages/search/controls/CheckboxControl';
@@ -29,6 +29,7 @@ class SearchFilters extends React.Component {
     filters: PropTypes.object,
     onChange: PropTypes.func.isRequired,
     t: PropTypes.func.isRequired,
+    intl: intlShape.isRequired,
   };
 
   constructor(props) {
@@ -36,7 +37,34 @@ class SearchFilters extends React.Component {
 
     this.state = {
       filters: props.filters,
+      isLoadingPurposes: false,
+      isLoadingUnits: false,
+      purposes: [],
+      units: [],
     };
+  }
+
+  componentDidMount() {
+    this.setState({
+      isLoadingPurposes: true,
+      isLoadingUnits: true,
+    });
+
+    client.get('purpose')
+      .then(({ data }) => {
+        this.setState({
+          isLoadingPurposes: false,
+          purposes: get(data, 'results', []),
+        });
+      });
+
+    client.get('unit')
+      .then(({ data }) => {
+        this.setState({
+          isLoadingUnits: false,
+          units: get(data, 'results', []),
+        });
+      });
   }
 
   componentDidUpdate(prevProps) {
@@ -86,48 +114,20 @@ class SearchFilters extends React.Component {
     return !isEmpty(omit(filters, 'page'));
   };
 
-  /**
-   * Getter for people capacity options.
-   * @returns {{label: number, value: number}[]}
-   */
-  getPeopleCapacityOptions = () => {
-    return [
-      ...range(1, 10),
-      ...range(10, 35, 5),
-      ...range(40, 110, 10),
-    ].map(number => ({ label: number, value: number }));
-  };
-
-  /**
-   * Getter for municipality options.
-   * @returns {{label: string, value: string}[]}
-   */
-  getMunicipalityOptions = () => {
-    let municipalities = constants.DEFAULT_MUNICIPALITY_OPTIONS;
-
-    if (Array.isArray(SETTINGS.CUSTOM_MUNICIPALITY_OPTIONS)
-      && SETTINGS.CUSTOM_MUNICIPALITY_OPTIONS.length) {
-      municipalities = SETTINGS.CUSTOM_MUNICIPALITY_OPTIONS;
-    }
-
-    return municipalities.map((municipality) => {
-      const municipalityStr = typeof municipality === 'string' ? municipality : municipality.toString();
-
-      return {
-        value: municipalityStr.toLowerCase(),
-        label: capitalize(municipalityStr),
-      };
-    });
-  };
-
   render() {
     const {
       t,
+      intl,
     } = this.props;
-    const { filters } = this.state;
+    const {
+      filters,
+      isLoadingPurposes,
+      isLoadingUnits,
+      purposes,
+      units,
+    } = this.state;
 
     const municipality = get(filters, 'municipality', '');
-
     return (
       <div className="app-SearchFilters">
         <Grid>
@@ -161,48 +161,46 @@ class SearchFilters extends React.Component {
                 <Col md={12}>
                   <SelectFilter
                     id="municipality"
-                    isLoading={false}
                     isMulti
                     label={t('SearchFilters.municipalityLabel')}
                     onChange={(items) => {
                       this.onFilterChange('municipality', items.map(item => item.value).join(','));
                     }}
-                    options={this.getMunicipalityOptions()}
+                    options={searchUtils.getMunicipalityOptions()}
                     value={municipality.split(',')}
                   />
                 </Col>
               </Row>
               <Row>
                 <Col className="app-SearchFilters__control" md={4} sm={12}>
-                  <SelectControl
+                  <SelectFilter
                     id="purpose"
-                    isLoading={false}
+                    isLoading={isLoadingPurposes}
                     label={t('SearchFilters.purposeLabel')}
                     name="app-SearchFilters-purpose-select"
-                    onChange={purpose => this.handleFiltersChange({ purpose: purpose.value })}
-                    options={[]}
+                    onChange={item => this.onFilterChange('purpose', item.value)}
+                    options={searchUtils.getPurposeOptions(purposes, intl.locale)}
                     value={filters.purpose}
                   />
                 </Col>
                 <Col className="app-SearchFilters__control" md={4} sm={6}>
-                  <SelectControl
+                  <SelectFilter
                     id="unit"
-                    isLoading={false}
+                    isLoading={isLoadingUnits}
                     label={t('SearchFilters.unitLabel')}
                     name="app-SearchControls-unit-select"
-                    onChange={unit => this.handleFiltersChange({ unit: unit.value })}
-                    options={[]}
+                    onChange={item => this.onFilterChange('unit', item.value)}
+                    options={searchUtils.getUnitOptions(units, intl.locale)}
                     value={filters.unit}
                   />
                 </Col>
                 <Col className="app-SearchFilters__control" md={4} sm={6}>
                   <SelectFilter
                     id="people"
-                    isLoading={false}
                     label={t('SearchFilters.peopleCapacityLabel')}
                     name="app-SearchFilters-people-select"
                     onChange={item => this.onFilterChange('people', item.value)}
-                    options={this.getPeopleCapacityOptions()}
+                    options={searchUtils.getPeopleCapacityOptions()}
                     value={Number(get(filters, 'people'))}
                   />
                 </Col>
@@ -269,4 +267,4 @@ class SearchFilters extends React.Component {
   }
 }
 
-export default injectT(SearchFilters);
+export default injectT(injectIntl(SearchFilters));
