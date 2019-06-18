@@ -2,6 +2,7 @@
 @import './filter/selectFilter';
 @import './filter/textFilter';
 @import './filter/toggleFilter';
+@import './filter/timeRangeFilter';
 
 .tooltip_class {
   z-index: 9999999;
@@ -58,7 +59,7 @@
           text-decoration: underline;
 
           &::before {
-            // background-image: url('./images/angle-right.svg');
+            background-image: url('./images/angle-right.svg');
             background-repeat: no-repeat;
             background-size: $line-height-computed;
             content: ' ';
@@ -72,7 +73,7 @@
         }
 
         a[aria-selected='true']::before {
-          // background-image: url('./images/angle-down.svg');
+          background-image: url('./images/angle-down.svg');
         }
       }
     }

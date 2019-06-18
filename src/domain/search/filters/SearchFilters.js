@@ -20,9 +20,9 @@ import TextFilter from './filter/TextFilter';
 import DateFilter from './filter/DateFilter';
 import SelectFilter from './filter/SelectFilter';
 import ToggleFilter from './filter/ToggleFilter';
+import TimeRangeFilter from './filter/TimeRangeFilter';
 import PositionControl from '../../../../app/pages/search/controls/PositionControl';
-import TimeRangeControl from '../../../../app/pages/search/controls/TimeRangeControl';
-import iconTimes from '../../../../app/pages/search/controls/images/times.svg';
+import iconTimes from './images/times.svg';
 
 class SearchFilters extends React.Component {
   static propTypes = {
@@ -127,7 +127,10 @@ class SearchFilters extends React.Component {
       units,
     } = this.state;
 
+    const date = get(filters, 'date', moment().format(constants.DATE_FORMAT));
     const municipality = get(filters, 'municipality', '');
+    const availableBetween = get(filters, 'availableBetween', '');
+
     return (
       <div className="app-SearchFilters">
         <Grid>
@@ -215,13 +218,11 @@ class SearchFilters extends React.Component {
                   />
                 </Col>
                 <Col className="app-SearchFilters__control" md={4} sm={6}>
-                  <TimeRangeControl
-                    duration={parseInt(filters.duration, 10)}
-                    end={filters.end}
-                    onConfirm={() => null}
-                    onTimeRangeSwitch={() => null}
-                    start={filters.start}
-                    useTimeRange={get(filters, 'useTimeRange', false)}
+                  <TimeRangeFilter
+                    date={date}
+                    label={t('TimeRangeControl.timeRangeTitle')}
+                    onChange={value => this.onFilterChange('availableBetween', value)}
+                    value={availableBetween}
                   />
                 </Col>
                 <Col className="app-SearchFilters__control" md={4} sm={12}>

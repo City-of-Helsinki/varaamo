@@ -5,6 +5,7 @@ import sortBy from 'lodash/sortBy';
 
 import constants from '../../../app/constants/AppConstants';
 
+// TODO: Change to use query-string module.
 export const getFiltersFromUrl = (location) => {
   const query = new URLSearchParams(location.search);
   const filters = {};
@@ -18,6 +19,7 @@ export const getFiltersFromUrl = (location) => {
   return filters;
 };
 
+// TODO: Change to use query-string module.
 export const getSearchFromFilters = (filters) => {
   const query = new URLSearchParams(filters);
   return query.toString();
