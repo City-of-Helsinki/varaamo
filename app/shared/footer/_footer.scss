@@ -6,6 +6,10 @@ footer {
   text-align: center;
   font-size: 1.6rem;
 
+  .flex-container {
+    display: flex;
+  }
+
   .brand-link {
     display: block;
     color: #fff;
@@ -39,9 +43,16 @@ footer {
     color: #eee;
   }
 
+  .app-varaamo-version-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    justify-content: center;
+  }
+
   .app-varaamo-version {
     font-size: $font-size-small;
     color: $white;
-    line-height: 13;
+    text-align: center;
   }
 }

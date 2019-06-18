@@ -19,7 +19,7 @@ function FooterContent({ t }) {
     case 'ESPOO': {
       return (
         <Grid>
-          <Row>
+          <Row className="flex-container">
             <Col lg={3} md={3}>
               <Link className="brand-link" to="/">
                 <Logo />
@@ -34,8 +34,8 @@ function FooterContent({ t }) {
                 {feedbackLink}
               </p>
             </Col>
-            <Col lg={3} md={3}>
-              <p className="app-varaamo-version">{`v${version}`}</p>
+            <Col className="app-varaamo-version-wrapper" lg={3} md={3}>
+              <span className="app-varaamo-version">{`v${version}`}</span>
             </Col>
           </Row>
         </Grid>
@@ -45,7 +45,7 @@ function FooterContent({ t }) {
     case 'VANTAA': {
       return (
         <Grid>
-          <Row>
+          <Row className="flex-container">
             <Col lg={3} md={3}>
               <Link className="brand-link" to="/">
                 <Logo />
@@ -60,8 +60,8 @@ function FooterContent({ t }) {
                 {feedbackLink}
               </p>
             </Col>
-            <Col lg={3} md={3}>
-              <p className="app-varaamo-version">{`v${version}`}</p>
+            <Col className="app-varaamo-version-wrapper" lg={3} md={3}>
+              <span className="app-varaamo-version">{`v${version}`}</span>
             </Col>
           </Row>
         </Grid>
@@ -71,7 +71,7 @@ function FooterContent({ t }) {
     default: {
       return (
         <Grid>
-          <Row>
+          <Row className="flex-container">
             <Col lg={3} md={3}>
               <Link className="brand-link" to="/">
                 <Logo />
@@ -86,8 +86,8 @@ function FooterContent({ t }) {
                 {feedbackLink}
               </p>
             </Col>
-            <Col lg={3} md={3}>
-              <p className="app-varaamo-version">{`v${version}`}</p>
+            <Col className="app-varaamo-version-wrapper" lg={3} md={3}>
+              <span className="app-varaamo-version">{`v${version}`}</span>
             </Col>
           </Row>
         </Grid>
