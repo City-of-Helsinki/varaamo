@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'react-loader';
 import get from 'lodash/get';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 import injectT from '../../../../app/i18n/injectT';
 import client from '../../../common/api/client';
@@ -10,6 +10,9 @@ import * as searchUtils from '../utils';
 import PageWrapper from '../../../../app/pages/PageWrapper';
 import SearchFilters from '../filters/SearchFilters';
 import SearchPagination from '../pagination/SearchPagination';
+import SearchListResults from '../results/SearchListResults';
+import SearchMapResults from '../results/SearchMapResults';
+import SearchMapToggle from '../mapToggle/SearchMapToggle';
 
 const PAGE_SIZE = 20;
 
@@ -18,6 +21,7 @@ class SearchPage extends React.Component {
     t: PropTypes.func.isRequired,
     location: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
   };
 
   constructor(props) {
@@ -68,8 +72,13 @@ class SearchPage extends React.Component {
       });
   };
 
+  isMapActive = () => {
+    const { location, match } = this.props;
+    return location.pathname !== match.path;
+  };
+
   render() {
-    const { t, history } = this.props;
+    const { t, history, match } = this.props;
     const {
       isLoading,
       items,
@@ -83,24 +92,68 @@ class SearchPage extends React.Component {
           filters={filters}
           onChange={this.onFiltersChange}
         />
+        <SearchMapToggle
+          active={this.isMapActive() ? 'map' : 'list'}
+          onClick={(button) => {
+            if (button === 'list') {
+              history.push({
+                pathname: match.path,
+                search: location.search,
+              });
+            } else {
+              history.push({
+                pathname: `${match.path}/${button}`,
+                search: location.search,
+              });
+            }
+          }}
+          resultCount={totalCount}
+        />
         <PageWrapper className="app-SearchPage__wrapper" title={t('SearchPage.title')} transparent>
           <Loader loaded={!isLoading}>
             <div className="app-SearchPage__results">
-              <ul>
-                {items && items.map((item, i) => <li key={`item-${i}`}>{item.id}: {item.name.fi}</li>)}
-                {items && !items.length && <p>{t('SearchPage.emptyMessage')}</p>}
-              </ul>
+              <Switch>
+                <Route
+                  exact
+                  path={`${match.path}/map`}
+                  render={(props) => {
+                    return (
+                      <SearchMapResults
+                        {...props}
+                        isLoading={isLoading}
+                        resources={items}
+                      />
+                    );
+                  }}
+                />
+                <Route
+                  exact
+                  path={match.path}
+                  render={(props) => {
+                    return (
+                      <SearchListResults
+                        {...props}
+                        isLoading={isLoading}
+                        resources={items}
+                      />
+                    );
+                  }}
+                />
+                <Redirect to={match.path} />
+              </Switch>
             </div>
           </Loader>
-          <div className="app-SearchPage__pagination">
-            <SearchPagination
-              onChange={newPage => history.push({
-                search: searchUtils.getSearchFromFilters({ ...filters, page: newPage }),
-              })}
-              page={filters && filters.page ? Number(filters.page) : 1}
-              pages={totalCount / PAGE_SIZE}
-            />
-          </div>
+          {!this.isMapActive() && (
+            <div className="app-SearchPage__pagination">
+              <SearchPagination
+                onChange={newPage => history.push({
+                  search: searchUtils.getSearchFromFilters({ ...filters, page: newPage }),
+                })}
+                page={filters && filters.page ? Number(filters.page) : 1}
+                pages={totalCount / PAGE_SIZE}
+              />
+            </div>
+          )}
         </PageWrapper>
       </div>
     );

@@ -1,8 +1,7 @@
 import React from 'react';
-import Loader from 'react-loader';
 import PropTypes from 'prop-types';
 
-class SearchResults extends React.Component {
+class SearchMapResults extends React.Component {
   static propTypes = {
     resources: PropTypes.array,
     isLoading: PropTypes.bool,
@@ -11,11 +10,11 @@ class SearchResults extends React.Component {
   render() {
     const { isLoading, resources } = this.props;
     return (
-      <div className="app-SearchResults" id="search-results" ref={this.searchResultsComponent}>
-
+      <div className="app-SearchMapResults">
+        SearchMapResults
       </div>
     );
   }
 }
 
-export default SearchResults;
+export default SearchMapResults;

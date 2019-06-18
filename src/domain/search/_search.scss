@@ -1,4 +1,6 @@
 @import './page/searchPage';
 @import './filters/searchFilters';
-@import './results/searchResults';
+@import './results/searchListResults';
+@import './results/searchMapResults';
 @import './pagination/searchPagination';
+@import './mapToggle/searchMapToggle';
