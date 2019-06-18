@@ -71,6 +71,5 @@ export default {
     TYPE: 'type_name_lang',
     PREMISES: 'unit_name_lang',
     PEOPLE: 'people_capacity',
-    // TODO: sortby 'open now' should be implemented later after API support it
   }
 };

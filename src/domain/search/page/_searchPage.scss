@@ -9,10 +9,6 @@
     position: relative;
   }
 
-  &__sortControlRow {
-    margin-top: 10px;
-  }
-
   @media (max-width: $screen-xs-max) {
     /* fix for map */
     .app-ResourceCompactList {

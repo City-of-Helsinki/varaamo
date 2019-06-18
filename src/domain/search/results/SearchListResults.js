@@ -1,23 +1,81 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Loader from 'react-loader';
+import get from 'lodash/get';
+import omit from 'lodash/omit';
+import { withRouter } from 'react-router-dom';
+import Row from 'react-bootstrap/lib/Row';
+import Col from 'react-bootstrap/lib/Col';
+
+import constants from '../../../../app/constants/AppConstants';
+import SearchSort from '../sort/SearchSort';
+import SearchPagination from '../pagination/SearchPagination';
+import * as searchUtils from '../utils';
 
 class SearchListResults extends React.Component {
   static propTypes = {
     resources: PropTypes.array,
     isLoading: PropTypes.bool,
+    totalCount: PropTypes.number,
+    history: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+  };
+
+  onSortChange = (sort) => {
+    const { history, location } = this.props;
+    const filters = searchUtils.getFiltersFromUrl(location);
+
+    const newFilters = {
+      ...omit(filters, 'orderBy'),
+    };
+
+    if (sort) {
+      newFilters.orderBy = sort;
+    }
+
+    history.push({
+      search: searchUtils.getSearchFromFilters(newFilters),
+    });
   };
 
   render() {
-    const { isLoading, resources } = this.props;
+    const {
+      isLoading,
+      resources,
+      location,
+      history,
+      totalCount,
+    } = this.props;
+
+    const filters = searchUtils.getFiltersFromUrl(location);
+
     return (
       <div className="app-SearchListResults">
-        SearchListResults
-        <ul>
-          {resources && resources.map((item, i) => <li key={`item-${i}`}>{item.id}: {item.name.fi}</li>)}
-        </ul>
+        <div className="app-SearchListResults__sort">
+          <Row>
+            <Col md={4} mdOffset={8} sm={6}>
+              <SearchSort
+                onChange={sort => this.onSortChange(sort)}
+                value={get(filters, 'orderBy', '')}
+              />
+            </Col>
+          </Row>
+        </div>
+        <Loader loaded={!isLoading}>
+          <ul>
+            {resources && resources.map((item, i) => <li key={`item-${i}`}>{item.id}: {item.name.fi}</li>)}
+          </ul>
+        </Loader>
+        <SearchPagination
+          onChange={newPage => history.push({
+            search: searchUtils.getSearchFromFilters({ ...filters, page: newPage }),
+          })}
+          page={filters && filters.page ? Number(filters.page) : 1}
+          pages={totalCount / constants.SEARCH_PAGE_SIZE}
+        />
       </div>
     );
   }
 }
 
-export default SearchListResults;
+export default withRouter(SearchListResults);

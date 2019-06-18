@@ -1,20 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Loader from 'react-loader';
 import get from 'lodash/get';
-import { withRouter, Switch, Route, Redirect } from 'react-router-dom';
+import {
+  withRouter,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
 
+import constants from '../../../../app/constants/AppConstants';
 import injectT from '../../../../app/i18n/injectT';
 import client from '../../../common/api/client';
 import * as searchUtils from '../utils';
 import PageWrapper from '../../../../app/pages/PageWrapper';
 import SearchFilters from '../filters/SearchFilters';
-import SearchPagination from '../pagination/SearchPagination';
 import SearchListResults from '../results/SearchListResults';
 import SearchMapResults from '../results/SearchMapResults';
 import SearchMapToggle from '../mapToggle/SearchMapToggle';
-
-const PAGE_SIZE = 20;
 
 class SearchPage extends React.Component {
   static propTypes = {
@@ -62,7 +64,12 @@ class SearchPage extends React.Component {
       isLoading: true,
     });
 
-    client.get('resource', filters)
+    const params = {
+      ...filters,
+      page_size: constants.SEARCH_PAGE_SIZE,
+    };
+
+    client.get('resource', params)
       .then(({ data }) => {
         this.setState({
           isLoading: false,
@@ -110,50 +117,38 @@ class SearchPage extends React.Component {
           resultCount={totalCount}
         />
         <PageWrapper className="app-SearchPage__wrapper" title={t('SearchPage.title')} transparent>
-          <Loader loaded={!isLoading}>
-            <div className="app-SearchPage__results">
-              <Switch>
-                <Route
-                  exact
-                  path={`${match.path}/map`}
-                  render={(props) => {
-                    return (
-                      <SearchMapResults
-                        {...props}
-                        isLoading={isLoading}
-                        resources={items}
-                      />
-                    );
-                  }}
-                />
-                <Route
-                  exact
-                  path={match.path}
-                  render={(props) => {
-                    return (
-                      <SearchListResults
-                        {...props}
-                        isLoading={isLoading}
-                        resources={items}
-                      />
-                    );
-                  }}
-                />
-                <Redirect to={match.path} />
-              </Switch>
-            </div>
-          </Loader>
-          {!this.isMapActive() && (
-            <div className="app-SearchPage__pagination">
-              <SearchPagination
-                onChange={newPage => history.push({
-                  search: searchUtils.getSearchFromFilters({ ...filters, page: newPage }),
-                })}
-                page={filters && filters.page ? Number(filters.page) : 1}
-                pages={totalCount / PAGE_SIZE}
+          <div className="app-SearchPage__results">
+            <Switch>
+              <Route
+                exact
+                path={`${match.path}/map`}
+                render={(props) => {
+                  return (
+                    <SearchMapResults
+                      {...props}
+                      isLoading={isLoading}
+                      resources={items}
+                    />
+                  );
+                }}
               />
-            </div>
-          )}
+              <Route
+                exact
+                path={match.path}
+                render={(props) => {
+                  return (
+                    <SearchListResults
+                      {...props}
+                      isLoading={isLoading}
+                      resources={items}
+                      totalCount={totalCount}
+                    />
+                  );
+                }}
+              />
+              <Redirect to={match.path} />
+            </Switch>
+          </div>
         </PageWrapper>
       </div>
     );
