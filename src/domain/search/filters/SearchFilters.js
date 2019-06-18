@@ -19,9 +19,9 @@ import injectT from '../../../../app/i18n/injectT';
 import TextFilter from './filter/TextFilter';
 import DateFilter from './filter/DateFilter';
 import SelectFilter from './filter/SelectFilter';
+import ToggleFilter from './filter/ToggleFilter';
 import PositionControl from '../../../../app/pages/search/controls/PositionControl';
 import TimeRangeControl from '../../../../app/pages/search/controls/TimeRangeControl';
-import CheckboxControl from '../../../../app/pages/search/controls/CheckboxControl';
 import iconTimes from '../../../../app/pages/search/controls/images/times.svg';
 
 class SearchFilters extends React.Component {
@@ -225,13 +225,11 @@ class SearchFilters extends React.Component {
                   />
                 </Col>
                 <Col className="app-SearchFilters__control" md={4} sm={12}>
-                  <CheckboxControl
+                  <ToggleFilter
+                    checked={!!get(filters, 'freeOfCharge', false)}
                     id="charge"
                     label={t('SearchFilters.chargeLabel')}
-                    labelClassName="app-SearchControlsCheckbox__label"
-                    onConfirm={value => () => null}
-                    toggleClassName="app-SearchControlsCheckbox__toggle"
-                    value={!!filters.freeOfCharge}
+                    onChange={checked => this.onFilterChange('freeOfCharge', checked)}
                   />
                 </Col>
               </Row>

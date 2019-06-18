@@ -1,8 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { injectIntl, intlShape } from 'react-intl';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { createStructuredSelector } from 'reselect';
 import DayPicker from 'react-day-picker';
 import MomentLocaleUtils from 'react-day-picker/moment';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
@@ -11,13 +10,12 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import InputGroup from 'react-bootstrap/lib/InputGroup';
 import Overlay from 'react-bootstrap/lib/Overlay';
 
-import { currentLanguageSelector } from '../../../../../app/state/selectors/translationSelectors';
 import iconCalendar from './images/calendar.svg';
 
 class DateFilter extends React.Component {
   static propTypes = {
-    currentLanguage: PropTypes.string.isRequired, // TODO: Get this straight from redux.
     date: PropTypes.instanceOf(Date),
+    intl: intlShape.isRequired,
     onChange: PropTypes.func.isRequired,
     label: PropTypes.string.isRequired,
   };
@@ -42,7 +40,7 @@ class DateFilter extends React.Component {
 
   render() {
     const {
-      currentLanguage,
+      intl,
       label,
       date,
     } = this.props;
@@ -73,7 +71,7 @@ class DateFilter extends React.Component {
           <div className="app-DateFilter__datePicker">
             <DayPicker
               disabledDays={day => moment(day).isBefore(moment(), 'date')}
-              locale={currentLanguage}
+              locale={intl.locale}
               localeUtils={MomentLocaleUtils}
               onDayClick={newDate => this.onChange(newDate)}
               selectedDays={date}
@@ -87,8 +85,4 @@ class DateFilter extends React.Component {
   }
 }
 
-const selector = createStructuredSelector({
-  currentLanguage: currentLanguageSelector,
-});
-
-export default connect(selector)(DateFilter);
+export default injectIntl(DateFilter);
