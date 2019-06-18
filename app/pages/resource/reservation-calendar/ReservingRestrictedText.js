@@ -2,7 +2,7 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { injectT } from 'i18n';
+import injectT from '../../../i18n/injectT';
 
 function ReservingRestrictedText({ reservableBefore, reservableDaysInAdvance, t }) {
   const dateFormat = 'D.M.YYYY';

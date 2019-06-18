@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { closeReservationCommentModal } from 'actions/uiActions';
-import { commentReservation } from 'actions/reservationActions';
-import CommentForm from 'shared/comment-form';
-import { injectT } from 'i18n';
+import { closeReservationCommentModal } from '../../../actions/uiActions';
+import { commentReservation } from '../../../actions/reservationActions';
+import CommentForm from '../../comment-form/CommentForm';
+import injectT from '../../../i18n/injectT';
 import commentModalSelector from './commentModalSelector';
 import ModalWrapper from '../ModalWrapper';
 

@@ -22,7 +22,7 @@ module.exports = merge(common, {
   module: {
     rules: [
       {
-        test: /^(?!.*\.spec\.js$).*\.js$/,
+        test: /^(?!.*\.test\.js$).*\.js$/,
         include: [path.resolve(__dirname, '../app'), path.resolve(__dirname, '../src')],
         loader: 'babel-loader',
         options: {

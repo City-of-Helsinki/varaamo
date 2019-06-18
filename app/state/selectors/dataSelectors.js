@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { createTranslatedSelector } from 'state/selectors/translationSelectors';
+import { createTranslatedSelector } from './translationSelectors';
 
 const purposesSelector = createTranslatedSelector(state => state.data.purposes);
 const reservationsSelector = state => state.data.reservations;

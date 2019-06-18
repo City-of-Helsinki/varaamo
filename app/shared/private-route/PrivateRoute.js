@@ -4,8 +4,8 @@ import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { updateRoute } from 'actions/routeActions';
-import userIdSelector from 'state/selectors/userIdSelector';
+import { updateRoute } from '../../actions/routeActions';
+import userIdSelector from '../../state/selectors/userIdSelector';
 
 export class UnconnectedPrivateRoute extends Component {
   constructor(props) {

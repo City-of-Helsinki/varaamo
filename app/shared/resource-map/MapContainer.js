@@ -4,8 +4,8 @@ import React from 'react';
 import { Map, TileLayer, ZoomControl } from 'react-leaflet';
 import { connect } from 'react-redux';
 
-import { searchMapClick, selectUnit } from 'actions/searchActions';
-import { getCurrentCustomization } from 'utils/customizationUtils';
+import { searchMapClick, selectUnit } from '../../actions/searchActions';
+import { getCurrentCustomization } from '../../utils/customizationUtils';
 import selector from './mapSelector';
 import Marker from './Marker';
 import UserMarker from './UserMarker';

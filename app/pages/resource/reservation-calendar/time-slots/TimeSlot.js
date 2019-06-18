@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import moment from 'moment';
 
-import { injectT } from 'i18n';
-import { scrollTo } from 'utils/domUtils';
-import { padLeft } from 'utils/timeUtils';
+import injectT from '../../../../i18n/injectT';
+import { scrollTo } from '../../../../utils/domUtils';
+import { padLeft } from '../../../../utils/timeUtils';
 
 class TimeSlot extends PureComponent {
   static propTypes = {

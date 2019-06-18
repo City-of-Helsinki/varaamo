@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/lib/Col';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 
-import { injectT } from 'i18n';
+import injectT from '../../../i18n/injectT';
 
 MapToggle.propTypes = {
   mapVisible: PropTypes.bool.isRequired,

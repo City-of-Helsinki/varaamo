@@ -1,6 +1,3 @@
-import ActionTypes from 'constants/ActionTypes';
-import { DEFAULT_SLOT_SIZE } from 'constants/SlotConstants';
-
 import filter from 'lodash/filter';
 import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
@@ -8,17 +5,19 @@ import { createSelector, createStructuredSelector } from 'reselect';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 
+import ActionTypes from '../../../constants/ActionTypes';
+import { DEFAULT_SLOT_SIZE } from '../../../constants/SlotConstants';
 import {
   createIsStaffSelector,
   isAdminSelector,
   isLoggedInSelector,
-} from 'state/selectors/authSelectors';
-import { createResourceSelector } from 'state/selectors/dataSelectors';
-import dateSelector from 'state/selectors/dateSelector';
-import timeSelector from 'state/selectors/timeSelector';
-import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
-import { getOpeningHours, getOpenReservations } from 'utils/resourceUtils';
-import { getTimeSlots } from 'utils/timeUtils';
+} from '../../../state/selectors/authSelectors';
+import { createResourceSelector } from '../../../state/selectors/dataSelectors';
+import dateSelector from '../../../state/selectors/dateSelector';
+import timeSelector from '../../../state/selectors/timeSelector';
+import requestIsActiveSelectorFactory from '../../../state/selectors/factories/requestIsActiveSelectorFactory';
+import { getOpeningHours, getOpenReservations } from '../../../utils/resourceUtils';
+import { getTimeSlots } from '../../../utils/timeUtils';
 import utils from './utils';
 
 const moment = extendMoment(Moment);

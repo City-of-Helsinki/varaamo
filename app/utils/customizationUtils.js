@@ -1,4 +1,4 @@
-import constants from 'constants/AppConstants';
+import constants from '../constants/AppConstants';
 
 function getCurrentCustomization() {
   const host = window.location.host;

@@ -1,12 +1,11 @@
-import constants from 'constants/AppConstants';
-
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 
-import { injectT } from 'i18n';
-import { getSearchPageUrl } from 'utils/searchUtils';
+import constants from '../../../constants/AppConstants';
+import injectT from '../../../i18n/injectT';
+import { getSearchPageUrl } from '../../../utils/searchUtils';
 
 class SearchResultsPaging extends React.Component {
   static propTypes = {

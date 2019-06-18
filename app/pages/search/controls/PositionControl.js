@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { createSliderWithTooltip } from 'rc-slider';
 import Slider from 'rc-slider/lib/Slider';
 
-import { injectT } from 'i18n';
+import injectT from '../../../i18n/injectT';
 import CheckboxControl from './CheckboxControl';
 
 const TooltipSlider = createSliderWithTooltip(Slider);

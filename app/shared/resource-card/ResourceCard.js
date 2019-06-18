@@ -12,20 +12,20 @@ import iconTicket from 'hel-icons/dist/shapes/ticket.svg';
 import iconUser from 'hel-icons/dist/shapes/user-o.svg';
 import iconHeart from 'hel-icons/dist/shapes/heart-o.svg';
 
-import { injectT } from 'i18n';
-import iconHeartFilled from 'assets/icons/heart-filled.svg';
-import UnpublishedLabel from 'shared/label/Unpublished';
-import iconMap from 'assets/icons/map.svg';
-import BackgroundImage from 'shared/background-image';
-import { getMainImage } from 'utils/imageUtils';
-import { getHourlyPrice, getResourcePageUrlComponents } from 'utils/resourceUtils';
-import ResourceAvailability from './label';
-import ResourceCardInfoCell from './info';
+import injectT from '../../i18n/injectT';
+import iconHeartFilled from '../../assets/icons/heart-filled.svg';
+import UnpublishedLabel from '../label/unpublished/UnpublishedLabel';
+import iconMap from '../../assets/icons/map.svg';
+import BackgroundImage from '../background-image/BackgroundImage';
+import { getMainImage } from '../../utils/imageUtils';
+import { getHourlyPrice, getResourcePageUrlComponents } from '../../utils/resourceUtils';
+import ResourceAvailability from './resource-availability/ResourceAvailability';
+import ResourceCardInfoCell from './info-cell/ResourceCardInfoCell';
 import resourceCardSelector from './resourceCardSelector';
 import {
   favoriteResource,
   unfavoriteResource
-} from 'actions/resourceActions';
+} from '../../actions/resourceActions';
 
 class ResourceCard extends Component {
   handleSearchByType = () => {

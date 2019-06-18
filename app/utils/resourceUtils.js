@@ -1,12 +1,11 @@
-import constants from 'constants/AppConstants';
-
 import filter from 'lodash/filter';
 import find from 'lodash/find';
 import forEach from 'lodash/forEach';
 import moment from 'moment';
 import queryString from 'query-string';
 
-import { getCurrentReservation, getNextAvailableTime } from 'utils/reservationUtils';
+import constants from '../constants/AppConstants';
+import { getCurrentReservation, getNextAvailableTime } from './reservationUtils';
 
 function hasMaxReservations(resource) {
   let isMaxReservations = false;

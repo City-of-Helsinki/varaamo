@@ -1,17 +1,15 @@
-
-import ActionTypes from 'constants/ActionTypes';
-import FormTypes from 'constants/FormTypes';
-import ModalTypes from 'constants/ModalTypes';
-
 import { createSelector, createStructuredSelector } from 'reselect';
 import { formValueSelector } from 'redux-form';
 
-import recurringReservations from 'state/recurringReservations';
-import { createIsStaffSelector } from 'state/selectors/authSelectors';
-import { createResourceSelector } from 'state/selectors/dataSelectors';
-import selectedReservationsFromStateSelector from 'state/selectors/selectedReservationsSelector';
-import modalIsOpenSelectorFactory from 'state/selectors/factories/modalIsOpenSelectorFactory';
-import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
+import ActionTypes from '../../constants/ActionTypes';
+import FormTypes from '../../constants/FormTypes';
+import ModalTypes from '../../constants/ModalTypes';
+import recurringReservations from '../../state/recurringReservations';
+import { createIsStaffSelector } from '../../state/selectors/authSelectors';
+import { createResourceSelector } from '../../state/selectors/dataSelectors';
+import selectedReservationsFromStateSelector from '../../state/selectors/selectedReservationsSelector';
+import modalIsOpenSelectorFactory from '../../state/selectors/factories/modalIsOpenSelectorFactory';
+import requestIsActiveSelectorFactory from '../../state/selectors/factories/requestIsActiveSelectorFactory';
 
 const resourceIdSelector = (state, props) => props.params.id;
 const resourceSelector = createResourceSelector(resourceIdSelector);

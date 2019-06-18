@@ -43,7 +43,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.json'],
-    modules: ['node_modules', 'app'],
+    modules: ['node_modules'],
   },
   plugins: [
     new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en-gb|fi|sv/),

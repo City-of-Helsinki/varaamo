@@ -4,14 +4,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import iconHome from 'hel-icons/dist/shapes/home.svg';
 
-import iconCalendar from 'assets/icons/calendar.svg';
-import ReservationAccessCode from 'shared/reservation-access-code';
-import ReservationControls from 'shared/reservation-controls';
-import ReservationStateLabel from 'shared/reservation-state-label';
-import TimeRange from 'shared/time-range';
-import { injectT } from 'i18n';
-import { getMainImage } from 'utils/imageUtils';
-import { getResourcePageUrl } from 'utils/resourceUtils';
+import iconCalendar from '../../../assets/icons/calendar.svg';
+import ReservationAccessCode from '../../../shared/reservation-access-code/ReservationAccessCode';
+import ReservationControls from '../../../shared/reservation-controls/ReservationControlsContainer';
+import ReservationStateLabel from '../../../shared/reservation-state-label/ReservationStateLabel';
+import TimeRange from '../../../shared/time-range/TimeRange';
+import injectT from '../../../i18n/injectT';
+import { getMainImage } from '../../../utils/imageUtils';
+import { getResourcePageUrl } from '../../../utils/resourceUtils';
 
 class ReservationListItem extends Component {
   renderImage(image) {

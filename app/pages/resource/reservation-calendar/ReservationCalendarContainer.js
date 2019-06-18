@@ -1,5 +1,3 @@
-import constants from 'constants/AppConstants';
-
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -13,24 +11,25 @@ import last from 'lodash/last';
 import orderBy from 'lodash/orderBy';
 import debounce from 'lodash/debounce';
 
-import { addNotification } from 'actions/notificationsActions';
+import constants from '../../../constants/AppConstants';
+import { addNotification } from '../../../actions/notificationsActions';
 import {
   cancelReservationEdit,
   clearTimeSlots,
   openConfirmReservationModal,
   selectReservationSlot,
   toggleTimeSlot,
-} from 'actions/uiActions';
-import ReservationCancelModal from 'shared/modals/reservation-cancel';
-import ReservationInfoModal from 'shared/modals/reservation-info';
-import ReservationSuccessModal from 'shared/modals/reservation-success';
-import ReservationConfirmation from 'shared/reservation-confirmation';
-import recurringReservations from 'state/recurringReservations';
-import { injectT } from 'i18n';
-import { hasMaxReservations, reservingIsRestricted } from 'utils/resourceUtils';
+} from '../../../actions/uiActions';
+import ReservationCancelModal from '../../../shared/modals/reservation-cancel/ReservationCancelModalContainer';
+import ReservationInfoModal from '../../../shared/modals/reservation-info/ReservationInfoModalContainer';
+import ReservationSuccessModal from '../../../shared/modals/reservation-success/ReservationSuccessModalContainer';
+import ReservationConfirmation from '../../../shared/reservation-confirmation/ReservationConfirmationContainer';
+import recurringReservations from '../../../state/recurringReservations';
+import injectT from '../../../i18n/injectT';
+import { hasMaxReservations, reservingIsRestricted } from '../../../utils/resourceUtils';
 import reservationCalendarSelector from './reservationCalendarSelector';
 import ReservingRestrictedText from './ReservingRestrictedText';
-import TimeSlots from './time-slots';
+import TimeSlots from './time-slots/TimeSlots';
 import { getReservationPrice, getEditReservationUrl } from '../../../utils/reservationUtils';
 
 export class UnconnectedReservationCalendarContainer extends Component {

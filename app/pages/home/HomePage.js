@@ -9,9 +9,9 @@ import Link from 'react-router-dom/Link';
 import { faHotTub as iconSauna, faCalendarAlt as iconOrganizeEvents } from '@fortawesome/free-solid-svg-icons';
 
 // TODO: VAR-80 | VAR-81 Replace those icon with designed icon.
-import { fetchPurposes } from 'actions/purposeActions';
-import { injectT } from 'i18n';
-import PageWrapper from 'pages/PageWrapper';
+import { fetchPurposes } from '../../actions/purposeActions';
+import injectT from '../../i18n/injectT';
+import PageWrapper from '../PageWrapper';
 import HomeSearchBox from './HomeSearchBox';
 import homePageSelector from './homePageSelector';
 import iconManufacturing from './images/frontpage_build.svg';
@@ -19,7 +19,7 @@ import iconPhotoAndAudio from './images/frontpage_music.svg';
 import iconSports from './images/frontpage_sport.svg';
 import iconGuidance from './images/frontpage_guidance.svg';
 import iconMeetingsAndWorking from './images/frontpage_work.svg';
-import FAIcon from 'shared/fontawesome-icon';
+import FAIcon from '../../shared/fontawesome-icon/FontAwesomeIcon';
 
 const purposeIcons = {
   photoAndAudio: iconPhotoAndAudio,

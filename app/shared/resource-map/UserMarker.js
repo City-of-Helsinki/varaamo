@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Marker as LeafletMarker } from 'react-leaflet';
 
-import iconRetinaUrl from 'assets/map/usermarker-icon-2x.png';
-import iconUrl from 'assets/map/usermarker-icon.png';
+import iconRetinaUrl from '../../assets/map/usermarker-icon-2x.png';
+import iconUrl from '../../assets/map/usermarker-icon.png';
 
 UserMarker.propTypes = {
   latitude: PropTypes.number.isRequired,

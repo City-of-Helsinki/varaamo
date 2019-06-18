@@ -3,7 +3,7 @@ import React from 'react';
 import Toggle from 'react-toggle';
 import classNames from 'classnames';
 
-import { injectT } from 'i18n';
+import injectT from '../../../i18n/injectT';
 
 function CheckboxControl({
   id, label, labelClassName, onConfirm, toggleClassName, value

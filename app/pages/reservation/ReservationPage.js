@@ -9,15 +9,15 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 
-import { postReservation, putReservation } from 'actions/reservationActions';
-import { fetchResource } from 'actions/resourceActions';
+import { postReservation, putReservation } from '../../actions/reservationActions';
+import { fetchResource } from '../../actions/resourceActions';
 import {
   clearReservations,
   closeReservationSuccessModal,
   openResourceTermsModal,
-} from 'actions/uiActions';
-import PageWrapper from 'pages/PageWrapper';
-import { injectT } from 'i18n';
+} from '../../actions/uiActions';
+import PageWrapper from '../PageWrapper';
+import injectT from '../../i18n/injectT';
 import ReservationConfirmation from './reservation-confirmation/ReservationConfirmation';
 import ReservationInformation from './reservation-information/ReservationInformation';
 import ReservationPhases from './reservation-phases/ReservationPhases';

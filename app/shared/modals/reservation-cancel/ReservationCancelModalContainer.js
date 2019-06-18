@@ -6,10 +6,10 @@ import { FormattedHTMLMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { deleteReservation } from 'actions/reservationActions';
-import { closeReservationCancelModal } from 'actions/uiActions';
-import CompactReservationList from 'shared/compact-reservation-list';
-import { injectT } from 'i18n';
+import { deleteReservation } from '../../../actions/reservationActions';
+import { closeReservationCancelModal } from '../../../actions/uiActions';
+import CompactReservationList from '../../compact-reservation-list/CompactReservationList';
+import injectT from '../../../i18n/injectT';
 import reservationCancelModalSelector from './reservationCancelModalSelector';
 
 class UnconnectedReservationCancelModalContainer extends Component {

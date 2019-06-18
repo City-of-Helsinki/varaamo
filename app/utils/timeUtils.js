@@ -1,11 +1,10 @@
-import constants from 'constants/AppConstants';
-import { DEFAULT_SLOT_SIZE } from 'constants/SlotConstants';
-
 import forEach from 'lodash/forEach';
 import map from 'lodash/map';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 
+import constants from '../constants/AppConstants';
+import { DEFAULT_SLOT_SIZE } from '../constants/SlotConstants';
 
 const moment = extendMoment(Moment);
 

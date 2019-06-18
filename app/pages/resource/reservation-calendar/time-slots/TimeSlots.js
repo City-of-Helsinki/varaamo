@@ -1,5 +1,3 @@
-import constants from 'constants/AppConstants';
-
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Loader from 'react-loader';
@@ -9,8 +7,9 @@ import findIndex from 'lodash/findIndex';
 import minBy from 'lodash/minBy';
 import round from 'lodash/round';
 
-import { injectT } from 'i18n';
-import ReservationPopover from 'shared/reservation-popover';
+import constants from '../../../../constants/AppConstants';
+import injectT from '../../../../i18n/injectT';
+import ReservationPopover from '../../../../shared/reservation-popover/ReservationPopover';
 import TimeSlot from './TimeSlot';
 import TimeSlotPlaceholder from './TimeSlotPlaceholder';
 import utils from '../utils';

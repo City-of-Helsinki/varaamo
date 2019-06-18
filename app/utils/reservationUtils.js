@@ -1,5 +1,3 @@
-import constants from 'constants/AppConstants';
-
 import camelCase from 'lodash/camelCase';
 import clone from 'lodash/clone';
 import find from 'lodash/find';
@@ -10,7 +8,7 @@ import tail from 'lodash/tail';
 import moment from 'moment';
 
 import { getTimeDiff } from './timeUtils';
-
+import constants from '../constants/AppConstants';
 
 function combine(reservations) {
   if (!reservations || !reservations.length) {

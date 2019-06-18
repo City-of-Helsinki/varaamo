@@ -1,10 +1,9 @@
-import constants from 'constants/AppConstants';
-
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import Alert from 'react-bootstrap/lib/Alert';
 
-import { injectT } from 'i18n';
+import constants from '../../constants/AppConstants';
+import injectT from '../../i18n/injectT';
 
 function TestSiteMessage({ t }) {
   if (!constants.SHOW_TEST_SITE_MESSAGE) {

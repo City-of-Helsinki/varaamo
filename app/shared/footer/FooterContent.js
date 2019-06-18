@@ -7,10 +7,10 @@ import Row from 'react-bootstrap/lib/Row';
 import { Link } from 'react-router-dom';
 
 import { version } from '../../../package.json';
-import FeedbackLink from 'shared/feedback-link';
-import Logo from 'shared/logo';
-import { injectT } from 'i18n';
-import { getCurrentCustomization } from 'utils/customizationUtils';
+import FeedbackLink from '../feedback-link/FeedbackLink';
+import Logo from '../logo/Logo';
+import injectT from '../../i18n/injectT';
+import { getCurrentCustomization } from '../../utils/customizationUtils';
 
 function FooterContent({ t }) {
   const feedbackLink = <FeedbackLink>{t('Footer.feedbackLink')}</FeedbackLink>;
