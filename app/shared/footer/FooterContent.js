@@ -19,24 +19,28 @@ function FooterContent({ t }) {
     case 'ESPOO': {
       return (
         <Grid>
-          <Row className="flex-container">
-            <Col lg={3} md={3}>
-              <Link className="brand-link" to="/">
-                <Logo />
-                Varaamo
-              </Link>
-            </Col>
-            <Col lg={6} md={6}>
-              <p>
-                <FormattedHTMLMessage id="Footer.espooText" />
-              </p>
-              <p>
-                {feedbackLink}
-              </p>
-            </Col>
-            <Col className="app-varaamo-version-wrapper" lg={3} md={3}>
-              <span className="app-varaamo-version">{`v${version}`}</span>
-            </Col>
+          <Row>
+            <div className="flex-container">
+              <Col lg={3} md={3}>
+                <Link className="brand-link" to="/">
+                  <Logo />
+                  Varaamo
+                </Link>
+              </Col>
+              <Col lg={6} md={6}>
+                <p>
+                  <FormattedHTMLMessage id="Footer.espooText" />
+                </p>
+                <p>
+                  {feedbackLink}
+                </p>
+              </Col>
+              <Col lg={3} md={3}>
+                <div className="app-varaamo-version-wrapper">
+                  <span className="app-varaamo-version">{`v${version}`}</span>
+                </div>
+              </Col>
+            </div>
           </Row>
         </Grid>
       );
@@ -45,24 +49,28 @@ function FooterContent({ t }) {
     case 'VANTAA': {
       return (
         <Grid>
-          <Row className="flex-container">
-            <Col lg={3} md={3}>
-              <Link className="brand-link" to="/">
-                <Logo />
-                Varaamo
-              </Link>
-            </Col>
-            <Col lg={6} md={6}>
-              <p>
-                <FormattedHTMLMessage id="Footer.vantaaText" />
-              </p>
-              <p>
-                {feedbackLink}
-              </p>
-            </Col>
-            <Col className="app-varaamo-version-wrapper" lg={3} md={3}>
-              <span className="app-varaamo-version">{`v${version}`}</span>
-            </Col>
+          <Row>
+            <div className="flex-container">
+              <Col lg={3} md={3}>
+                <Link className="brand-link" to="/">
+                  <Logo />
+                  Varaamo
+                </Link>
+              </Col>
+              <Col lg={6} md={6}>
+                <p>
+                  <FormattedHTMLMessage id="Footer.vantaaText" />
+                </p>
+                <p>
+                  {feedbackLink}
+                </p>
+              </Col>
+              <Col lg={3} md={3}>
+                <div className="app-varaamo-version-wrapper">
+                  <span className="app-varaamo-version">{`v${version}`}</span>
+                </div>
+              </Col>
+            </div>
           </Row>
         </Grid>
       );
@@ -71,24 +79,28 @@ function FooterContent({ t }) {
     default: {
       return (
         <Grid>
-          <Row className="flex-container">
-            <Col lg={3} md={3}>
-              <Link className="brand-link" to="/">
-                <Logo />
-                Varaamo
-              </Link>
-            </Col>
-            <Col lg={6} md={6}>
-              <p>
-                <FormattedHTMLMessage id="Footer.helsinkiText" />
-              </p>
-              <p>
-                {feedbackLink}
-              </p>
-            </Col>
-            <Col className="app-varaamo-version-wrapper" lg={3} md={3}>
-              <span className="app-varaamo-version">{`v${version}`}</span>
-            </Col>
+          <Row>
+            <div className="flex-container">
+              <Col lg={3} md={3}>
+                <Link className="brand-link" to="/">
+                  <Logo />
+                  Varaamo
+                </Link>
+              </Col>
+              <Col lg={6} md={6}>
+                <p>
+                  <FormattedHTMLMessage id="Footer.helsinkiText" />
+                </p>
+                <p>
+                  {feedbackLink}
+                </p>
+              </Col>
+              <Col lg={3} md={3}>
+                <div className="app-varaamo-version-wrapper">
+                  <span className="app-varaamo-version">{`v${version}`}</span>
+                </div>
+              </Col>
+            </div>
           </Row>
         </Grid>
       );
