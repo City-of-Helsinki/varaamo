@@ -31,20 +31,26 @@ class SearchPage extends React.Component {
 
     this.state = {
       isLoading: false,
-      items: [],
+      isLoadingUnits: false,
+      isLoadingPurposes: false,
+      units: [],
+      purposes: [],
+      resources: [],
       totalCount: 0,
     };
   }
 
   componentDidMount() {
-    this.doSearch();
+    this.loadUnits();
+    this.loadPurposes();
+    this.loadResources();
   }
 
   componentDidUpdate(prevProps) {
     const { location } = this.props;
 
     if (prevProps.location !== location) {
-      this.doSearch();
+      this.loadResources();
     }
   }
 
@@ -56,7 +62,35 @@ class SearchPage extends React.Component {
     });
   };
 
-  doSearch = () => {
+  loadUnits = () => {
+    this.setState({
+      isLoadingUnits: true,
+    });
+
+    client.get('unit')
+      .then(({ data }) => {
+        this.setState({
+          isLoadingUnits: false,
+          units: get(data, 'results', []),
+        });
+      });
+  };
+
+  loadPurposes = () => {
+    this.setState({
+      isLoadingPurposes: true,
+    });
+
+    client.get('purpose')
+      .then(({ data }) => {
+        this.setState({
+          isLoadingPurposes: false,
+          purposes: get(data, 'results', []),
+        });
+      });
+  };
+
+  loadResources = () => {
     const { location } = this.props;
     const filters = searchUtils.getFiltersFromUrl(location);
 
@@ -73,7 +107,7 @@ class SearchPage extends React.Component {
       .then(({ data }) => {
         this.setState({
           isLoading: false,
-          items: get(data, 'results', []),
+          resources: get(data, 'results', []),
           totalCount: get(data, 'count', 0),
         });
       });
@@ -85,10 +119,19 @@ class SearchPage extends React.Component {
   };
 
   render() {
-    const { t, history, match } = this.props;
+    const {
+      t,
+      history,
+      match,
+    } = this.props;
+
     const {
       isLoading,
-      items,
+      isLoadingUnits,
+      isLoadingPurposes,
+      resources,
+      units,
+      purposes,
       totalCount,
     } = this.state;
     const filters = searchUtils.getFiltersFromUrl(location);
@@ -97,7 +140,11 @@ class SearchPage extends React.Component {
       <div className="app-SearchPage">
         <SearchFilters
           filters={filters}
+          isLoadingPurposes={isLoadingPurposes}
+          isLoadingUnits={isLoadingUnits}
           onChange={this.onFiltersChange}
+          purposes={purposes}
+          units={units}
         />
         <SearchMapToggle
           active={this.isMapActive() ? 'map' : 'list'}
@@ -127,7 +174,7 @@ class SearchPage extends React.Component {
                     <SearchMapResults
                       {...props}
                       isLoading={isLoading}
-                      resources={items}
+                      resources={resources}
                     />
                   );
                 }}
@@ -139,9 +186,10 @@ class SearchPage extends React.Component {
                   return (
                     <SearchListResults
                       {...props}
-                      isLoading={isLoading}
-                      resources={items}
+                      isLoading={isLoading || isLoadingUnits}
+                      resources={resources}
                       totalCount={totalCount}
+                      units={units}
                     />
                   );
                 }}

@@ -1,0 +1,159 @@
+$card-border-color: #d6d6d6;
+$image-items-margin: 5px;
+$resourceCardPadding: 15px;
+$cellWidth: 33.33%;
+$cellHeight: 50%;
+
+.app-resourceCard {
+  margin: 20px 0;
+  background-color: white;
+  display: flow-root;
+
+  @media (min-width: $screen-md-min) {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    height: $app-ResourceCard-height;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  &__image-link {
+    display: block;
+    @media (min-width: $screen-xs-min) {
+      height: $app-ResourceCard-height;
+      width: 100%;
+    }
+    @media (min-width: $screen-md-min) {
+      flex: 1 1;
+      min-width: $app-ResourceCard-height;
+      max-width: 200px;
+      height: 100%;
+    }
+    @media (max-width: $screen-md-min) {
+      height: $app-ResourceCard-height;
+      width: 100%;
+    }
+  }
+
+  .image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: $gray-lighter;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
+  }
+
+  &__content {
+    padding: $resourceCardPadding;
+    @media (min-width: $screen-md-min) {
+      flex: 1 2 40%;
+      overflow: hidden;
+    }
+  }
+
+  h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+    @media (max-width: $screen-xs-max) {
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+  }
+
+  &__unit-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-decoration: none;
+
+    span:first-child {
+      margin-right: 10px;
+    }
+
+    display: inline-flex;
+    align-items: center;
+
+    &-labels {
+      display: inline-flex;
+    }
+  }
+
+  .resource-availability {
+    color: $white;
+  }
+
+  .controls {
+    text-align: center;
+  }
+
+  &__description {
+    font-size: 1.4rem;
+    line-height: 2rem;
+    max-height: 2*3rem;
+    margin-top: 15px;
+    overflow: hidden;
+  }
+
+  &__info {
+    padding: $resourceCardPadding;
+    display: flex;
+    flex-wrap: wrap;
+
+    &-cell {
+      border: none;
+      background: transparent;
+      display: inline-flex;
+      flex-direction: column;
+      width: $cellWidth;
+      height: $cellHeight;
+      align-items: center;
+
+      &:hover,
+      &:focus {
+        outline: none;
+
+        &:active {
+          outline: none;
+        }
+
+        box-shadow: none;
+      }
+
+      &__icon {
+        width: $line-height-computed*1.2;
+      }
+
+      span {
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-align: center;
+        text-transform: capitalize;
+      }
+    }
+
+    @media (min-width: $screen-xs-min) {
+      display: inline-block;
+      width: 100%;
+    }
+    @media (min-width: $screen-md-min) {
+      flex: 1 2 30%;
+    }
+  }
+
+  .label-success {
+    background-color: $hel-tram;
+  }
+
+  .label-danger {
+    background-color: $hel-brick;
+  }
+
+  &.app-ResourceCard__stacked {
+    border: 2px solid $hel-silver;
+  }
+}

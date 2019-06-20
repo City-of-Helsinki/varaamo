@@ -4,6 +4,7 @@ import capitalize from 'lodash/capitalize';
 import sortBy from 'lodash/sortBy';
 
 import constants from '../../../app/constants/AppConstants';
+import * as urlUtils from '../../common/url/utils';
 
 // TODO: Change to use query-string module.
 export const getFiltersFromUrl = (location) => {
@@ -19,10 +20,8 @@ export const getFiltersFromUrl = (location) => {
   return filters;
 };
 
-// TODO: Change to use query-string module.
 export const getSearchFromFilters = (filters) => {
-  const query = new URLSearchParams(filters);
-  return query.toString();
+  return urlUtils.getSearch(filters);
 };
 
 export const getUnitOptions = (units, locale) => {
@@ -77,4 +76,14 @@ export const getMunicipalityOptions = () => {
       label: capitalize(municipalityStr),
     };
   });
+};
+
+/**
+ * Getter for search page url.
+ * Just give it the filters and it returns you the search page path.
+ * @param filters {object}
+ * @returns {string}
+ */
+export const getSearchPageLink = (filters) => {
+  return urlUtils.getLinkString('/new-search', getSearchFromFilters(filters));
 };

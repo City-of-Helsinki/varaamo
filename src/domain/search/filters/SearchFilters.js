@@ -14,7 +14,6 @@ import Grid from 'react-bootstrap/lib/Grid';
 
 import constants from '../../../../app/constants/AppConstants';
 import * as searchUtils from '../utils';
-import client from '../../../common/api/client';
 import injectT from '../../../../app/i18n/injectT';
 import TextFilter from './filter/TextFilter';
 import DateFilter from './filter/DateFilter';
@@ -28,6 +27,10 @@ class SearchFilters extends React.Component {
   static propTypes = {
     filters: PropTypes.object,
     onChange: PropTypes.func.isRequired,
+    isLoadingPurposes: PropTypes.bool,
+    isLoadingUnits: PropTypes.bool,
+    units: PropTypes.array.isRequired,
+    purposes: PropTypes.array.isRequired,
     t: PropTypes.func.isRequired,
     intl: intlShape.isRequired,
   };
@@ -37,34 +40,7 @@ class SearchFilters extends React.Component {
 
     this.state = {
       filters: props.filters,
-      isLoadingPurposes: false,
-      isLoadingUnits: false,
-      purposes: [],
-      units: [],
     };
-  }
-
-  componentDidMount() {
-    this.setState({
-      isLoadingPurposes: true,
-      isLoadingUnits: true,
-    });
-
-    client.get('purpose')
-      .then(({ data }) => {
-        this.setState({
-          isLoadingPurposes: false,
-          purposes: get(data, 'results', []),
-        });
-      });
-
-    client.get('unit')
-      .then(({ data }) => {
-        this.setState({
-          isLoadingUnits: false,
-          units: get(data, 'results', []),
-        });
-      });
   }
 
   componentDidUpdate(prevProps) {
@@ -118,13 +94,13 @@ class SearchFilters extends React.Component {
     const {
       t,
       intl,
-    } = this.props;
-    const {
-      filters,
       isLoadingPurposes,
       isLoadingUnits,
       purposes,
       units,
+    } = this.props;
+    const {
+      filters,
     } = this.state;
 
     const date = get(filters, 'date', moment().format(constants.DATE_FORMAT));

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'react-loader';
 import get from 'lodash/get';
+import find from 'lodash/find';
 import omit from 'lodash/omit';
 import { withRouter } from 'react-router-dom';
 import Row from 'react-bootstrap/lib/Row';
@@ -10,11 +11,13 @@ import Col from 'react-bootstrap/lib/Col';
 import constants from '../../../../app/constants/AppConstants';
 import SearchSort from '../sort/SearchSort';
 import SearchPagination from '../pagination/SearchPagination';
+import ResourceCard from '../../resource/card/ResourceCard';
 import * as searchUtils from '../utils';
 
 class SearchListResults extends React.Component {
   static propTypes = {
-    resources: PropTypes.array,
+    resources: PropTypes.array.isRequired,
+    units: PropTypes.array.isRequired,
     isLoading: PropTypes.bool,
     totalCount: PropTypes.number,
     history: PropTypes.object.isRequired,
@@ -42,6 +45,7 @@ class SearchListResults extends React.Component {
     const {
       isLoading,
       resources,
+      units,
       location,
       history,
       totalCount,
@@ -62,9 +66,16 @@ class SearchListResults extends React.Component {
           </Row>
         </div>
         <Loader loaded={!isLoading}>
-          <ul>
-            {resources && resources.map((item, i) => <li key={`item-${i}`}>{item.id}: {item.name.fi}</li>)}
-          </ul>
+          <div className="app-SearchListResults__results">
+            {resources && resources.map(resource => (
+              <ResourceCard
+                date={get(filters, 'date', null)}
+                key={`resourceCard-${resource.id}`}
+                resource={resource}
+                unit={find(units, unit => unit.id === resource.unit)}
+              />
+            ))}
+          </div>
         </Loader>
         <SearchPagination
           onChange={newPage => history.push({
