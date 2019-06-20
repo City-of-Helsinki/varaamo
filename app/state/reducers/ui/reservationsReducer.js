@@ -162,7 +162,7 @@ function reservationsReducer(state = initialState, action) {
       // startSlot === minPeriodSlot => make one of them as end timeslot
       // startSlot < minPeriodSlot => keep minPeriod as selected.
       minPeriodSlot = getEndTimeSlotWithMinPeriod(state.selected[0], minPeriod, slotSize);
-      const timeDiff = getTimeDiff(startSlot.begin, minPeriodSlot.begin);
+      const timeDiff = getTimeDiff(minPeriodSlot.begin, startSlot.begin);
 
       return state.merge({
         selected: [state.selected[0],

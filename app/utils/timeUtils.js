@@ -222,7 +222,7 @@ function getEndTimeSlotWithMinPeriod(startSlot, minPeriod, slotSize) {
  * @returns {int | float} timediff
  */
 function getTimeDiff(startTime, endTime, unit, isFloat = false) {
-  return moment(startTime).diff(moment(endTime), unit, isFloat);
+  return moment(endTime).diff(moment(startTime), unit, isFloat);
 }
 
 export {
