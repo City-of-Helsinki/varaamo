@@ -641,7 +641,6 @@ describe('Utils: timeUtils', () => {
       const startDate = '2019-05-09T05:30:00.000Z';
       const endDate = '2019-05-09T05:00:00.000Z';
 
-      // > 0 => startTime > endTime
       expect(getTimeDiff(startDate, endDate) > 0).toBeFalsy();
     });
 
