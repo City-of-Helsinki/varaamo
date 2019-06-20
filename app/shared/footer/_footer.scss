@@ -6,13 +6,6 @@ footer {
   text-align: center;
   font-size: 1.6rem;
 
-  .flex-container {
-    display: flex;
-    @media (max-width: $screen-xs-max) {
-      display: initial;
-    }
-  }
-
   .brand-link {
     display: block;
     color: #fff;
@@ -51,12 +44,14 @@ footer {
     flex-wrap: wrap;
     align-content: flex-end;
     justify-content: center;
-    height: 90%;
   }
 
   .app-varaamo-version {
     font-size: $font-size-small;
     color: $white;
     text-align: center;
+    @media (min-width: $screen-md-min) {
+      margin-top: 70px;
+    }
   }
 }
