@@ -672,8 +672,8 @@ describe('Utils: timeUtils', () => {
       const minPeriod = '01:00:00';
       const result = getEndTimeSlotWithMinPeriod(slot, minPeriod);
 
-      expect(getTimeDiff(result.begin, slot.begin, 'minutes')).toEqual(periodToMinute(minPeriod));
-      expect(getTimeDiff(result.end, slot.end, 'minutes')).toEqual(periodToMinute(minPeriod));
+      expect(getTimeDiff(slot.begin, result.begin, 'minutes')).toEqual(periodToMinute(minPeriod));
+      expect(getTimeDiff(slot.end, result.end, 'minutes')).toEqual(periodToMinute(minPeriod));
       expect(result.resource).toEqual(slot.resource);
     });
   });
