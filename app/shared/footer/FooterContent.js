@@ -6,6 +6,7 @@ import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import { Link } from 'react-router-dom';
 
+import { version } from '../../../package.json';
 import FeedbackLink from '../feedback-link/FeedbackLink';
 import Logo from '../logo/Logo';
 import injectT from '../../i18n/injectT';
@@ -19,19 +20,24 @@ function FooterContent({ t }) {
       return (
         <Grid>
           <Row>
-            <Col lg={3} md={3}>
+            <Col lg={3} md={3} xs={12}>
               <Link className="brand-link" to="/">
                 <Logo />
                 Varaamo
               </Link>
             </Col>
-            <Col lg={6} md={6}>
+            <Col lg={6} md={6} xs={12}>
               <p>
                 <FormattedHTMLMessage id="Footer.espooText" />
               </p>
               <p>
                 {feedbackLink}
               </p>
+            </Col>
+            <Col lg={3} md={3} xs={12}>
+              <div className="app-varaamo-version-wrapper">
+                <span className="app-varaamo-version">{`v${version}`}</span>
+              </div>
             </Col>
           </Row>
         </Grid>
@@ -42,19 +48,24 @@ function FooterContent({ t }) {
       return (
         <Grid>
           <Row>
-            <Col lg={3} md={3}>
+            <Col lg={3} md={3} xs={12}>
               <Link className="brand-link" to="/">
                 <Logo />
                 Varaamo
               </Link>
             </Col>
-            <Col lg={6} md={6}>
+            <Col lg={6} md={6} xs={12}>
               <p>
                 <FormattedHTMLMessage id="Footer.vantaaText" />
               </p>
               <p>
                 {feedbackLink}
               </p>
+            </Col>
+            <Col lg={3} md={3} xs={12}>
+              <div className="app-varaamo-version-wrapper">
+                <span className="app-varaamo-version">{`v${version}`}</span>
+              </div>
             </Col>
           </Row>
         </Grid>
@@ -65,19 +76,24 @@ function FooterContent({ t }) {
       return (
         <Grid>
           <Row>
-            <Col lg={3} md={3}>
+            <Col lg={3} md={3} xs={12}>
               <Link className="brand-link" to="/">
                 <Logo />
                 Varaamo
               </Link>
             </Col>
-            <Col lg={6} md={6}>
+            <Col lg={6} md={6} xs={12}>
               <p>
                 <FormattedHTMLMessage id="Footer.helsinkiText" />
               </p>
               <p>
                 {feedbackLink}
               </p>
+            </Col>
+            <Col lg={3} md={3} xs={12}>
+              <div className="app-varaamo-version-wrapper">
+                <span className="app-varaamo-version">{`v${version}`}</span>
+              </div>
             </Col>
           </Row>
         </Grid>
