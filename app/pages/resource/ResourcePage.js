@@ -10,6 +10,7 @@ import { bindActionCreators } from 'redux';
 import Col from 'react-bootstrap/lib/Col';
 import Panel from 'react-bootstrap/lib/Panel';
 import Lightbox from 'lightbox-react';
+import axios from 'axios';
 import 'lightbox-react/style.css';
 
 import { fetchResource } from '../../actions/resourceActions';
@@ -42,6 +43,13 @@ class UnconnectedResourcePage extends Component {
   componentDidMount() {
     this.props.actions.clearReservations();
     this.fetchResource();
+    axios.get('https://api.hel.fi/respa/v1/equipment/')
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   componentWillUpdate(nextProps) {
@@ -182,6 +190,21 @@ class UnconnectedResourcePage extends Component {
                       mainImageMobileVisibility: true,
                     })}
                   <ResourceInfo isLoggedIn={isLoggedIn} resource={resource} unit={unit} />
+
+                  <div className="equipment_wrapper">
+                    <div className="equipments">
+                      Equipment 1
+                    </div>
+                    <div className="equipments">
+                      Equipment 2
+                    </div>
+                    <div className="equipments">
+                      Equipment 3
+                    </div>
+                    <div className="equipments">
+                      Equipment 4
+                    </div>
+                  </div>
 
                   <Panel defaultExpanded header={t('ResourceInfo.reserveTitle')}>
                     {resource.externalReservationUrl && (
