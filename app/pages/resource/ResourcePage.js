@@ -8,6 +8,7 @@ import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Col from 'react-bootstrap/lib/Col';
+import Row from 'react-bootstrap/lib/Row';
 import Panel from 'react-bootstrap/lib/Panel';
 import Lightbox from 'lightbox-react';
 import axios from 'axios';
@@ -26,6 +27,7 @@ import ResourceHeader from './resource-header/ResourceHeader';
 import ResourceInfo from './resource-info/ResourceInfo';
 import ResourceMapInfo from './resource-map-info/ResourceMapInfo';
 import resourcePageSelector from './resourcePageSelector';
+import { mockEquipmentData } from './MockEquipment';
 
 class UnconnectedResourcePage extends Component {
   constructor(props) {
@@ -43,9 +45,9 @@ class UnconnectedResourcePage extends Component {
   componentDidMount() {
     this.props.actions.clearReservations();
     this.fetchResource();
-    axios.get('https://api.hel.fi/respa/v1/equipment/')
+    axios.get('https://api.hel.fi/respa/v1/resource/')
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.results);
       })
       .catch((error) => {
         console.log(error);
@@ -160,6 +162,10 @@ class UnconnectedResourcePage extends Component {
     const mainImage = mainImageIndex != null ? images[mainImageIndex] : null;
     const showBackButton = !!location.state && !!location.state.fromSearchResults;
 
+    const equipment = mockEquipmentData.results[0].equipment.map((item, i) => (
+      <Col key={i} lg={3} md={3} xs={6}>{item}</Col>
+    ));
+
     return (
       <div className="app-ResourcePage">
         <Loader loaded={!isEmpty(resource)}>
@@ -191,20 +197,10 @@ class UnconnectedResourcePage extends Component {
                     })}
                   <ResourceInfo isLoggedIn={isLoggedIn} resource={resource} unit={unit} />
 
-                  <div className="equipment_wrapper">
-                    <div className="equipments">
-                      Equipment 1
-                    </div>
-                    <div className="equipments">
-                      Equipment 2
-                    </div>
-                    <div className="equipments">
-                      Equipment 3
-                    </div>
-                    <div className="equipments">
-                      Equipment 4
-                    </div>
-                  </div>
+                  <Panel>
+                    <h4>Equipment</h4>
+                    <Row>{equipment}</Row>
+                  </Panel>
 
                   <Panel defaultExpanded header={t('ResourceInfo.reserveTitle')}>
                     {resource.externalReservationUrl && (
