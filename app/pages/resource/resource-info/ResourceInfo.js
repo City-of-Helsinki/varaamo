@@ -9,11 +9,16 @@ import injectT from '../../../i18n/injectT';
 import WrappedText from '../../../shared/wrapped-text/WrappedText';
 import { getServiceMapUrl } from '../../../utils/unitUtils';
 import ReservationInfo from '../reservation-info/ReservationInfo';
+import { mockEquipmentData } from '../MockEquipment';
 
 function ResourceInfo({
   isLoggedIn, resource, unit, t
 }) {
   const serviceMapUrl = getServiceMapUrl(unit);
+
+  const equipment = mockEquipmentData.results[0].equipment.map((item, i) => (
+    <Col key={i} lg={3} md={3} xs={6}>{item}</Col>
+  ));
 
   return (
     <Row>
@@ -48,6 +53,10 @@ function ResourceInfo({
               )}
             </Col>
           </Row>
+        </Panel>
+        <Panel>
+          <h4>Equipment</h4>
+          <Row>{equipment}</Row>
         </Panel>
       </section>
     </Row>

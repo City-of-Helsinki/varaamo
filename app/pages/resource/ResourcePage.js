@@ -27,7 +27,6 @@ import ResourceHeader from './resource-header/ResourceHeader';
 import ResourceInfo from './resource-info/ResourceInfo';
 import ResourceMapInfo from './resource-map-info/ResourceMapInfo';
 import resourcePageSelector from './resourcePageSelector';
-import { mockEquipmentData } from './MockEquipment';
 
 class UnconnectedResourcePage extends Component {
   constructor(props) {
@@ -162,9 +161,6 @@ class UnconnectedResourcePage extends Component {
     const mainImage = mainImageIndex != null ? images[mainImageIndex] : null;
     const showBackButton = !!location.state && !!location.state.fromSearchResults;
 
-    const equipment = mockEquipmentData.results[0].equipment.map((item, i) => (
-      <Col key={i} lg={3} md={3} xs={6}>{item}</Col>
-    ));
 
     return (
       <div className="app-ResourcePage">
@@ -196,11 +192,6 @@ class UnconnectedResourcePage extends Component {
                       mainImageMobileVisibility: true,
                     })}
                   <ResourceInfo isLoggedIn={isLoggedIn} resource={resource} unit={unit} />
-
-                  <Panel>
-                    <h4>Equipment</h4>
-                    <Row>{equipment}</Row>
-                  </Panel>
 
                   <Panel defaultExpanded header={t('ResourceInfo.reserveTitle')}>
                     {resource.externalReservationUrl && (
