@@ -9,16 +9,23 @@ import injectT from '../../../i18n/injectT';
 import WrappedText from '../../../shared/wrapped-text/WrappedText';
 import { getServiceMapUrl } from '../../../utils/unitUtils';
 import ReservationInfo from '../reservation-info/ReservationInfo';
-import { mockEquipmentData } from '../MockEquipment';
 
 function ResourceInfo({
-  isLoggedIn, resource, unit, t
+  isLoggedIn, resource, unit, t, currentEquipments
 }) {
   const serviceMapUrl = getServiceMapUrl(unit);
-
-  const equipment = mockEquipmentData.results[0].equipment.map((item, i) => (
-    <Col key={i} lg={3} md={3} xs={6}>{item}</Col>
-  ));
+  const userLocale = localStorage.getItem('userLocale');
+  const equipment = currentEquipments.map((item, i) => {
+    let itemName = '';
+    if (userLocale === 'en') {
+      itemName = item.name.en;
+    } else if (userLocale === 'se') {
+      itemName = item.name.sv;
+    } else {
+      itemName = item.name.fi;
+    }
+    return <Col key={i} lg={3} md={3} xs={6}>{itemName}</Col>;
+  });
 
   return (
     <Row>
@@ -68,6 +75,7 @@ ResourceInfo.propTypes = {
   resource: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
   unit: PropTypes.object.isRequired,
+  currentEquipments: PropTypes.array.isRequired
 };
 
 ResourceInfo = injectT(ResourceInfo); // eslint-disable-line

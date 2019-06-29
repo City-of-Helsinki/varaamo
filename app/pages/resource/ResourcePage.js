@@ -35,6 +35,7 @@ class UnconnectedResourcePage extends Component {
     this.state = {
       photoIndex: 0,
       isOpen: false,
+      currentEquipments: []
     };
 
     this.fetchResource = this.fetchResource.bind(this);
@@ -42,14 +43,16 @@ class UnconnectedResourcePage extends Component {
   }
 
   componentDidMount() {
+    const resourceId = this.props.match.params.id;
+
     this.props.actions.clearReservations();
     this.fetchResource();
-    axios.get('https://api.hel.fi/respa/v1/resource/')
+    axios.get('https://respa.koe.hel.ninja/v1/resource/')
       .then((response) => {
-        console.log(response.data.results);
-      })
-      .catch((error) => {
-        console.log(error);
+        const equipmentResponse = response.data.results.filter(each => each.id === resourceId);
+        this.setState({
+          currentEquipments: equipmentResponse.length > 0 ? equipmentResponse[0].equipment : []
+        });
       });
   }
 
@@ -191,7 +194,12 @@ class UnconnectedResourcePage extends Component {
                     && this.renderImage(mainImage, mainImageIndex, {
                       mainImageMobileVisibility: true,
                     })}
-                  <ResourceInfo isLoggedIn={isLoggedIn} resource={resource} unit={unit} />
+                  <ResourceInfo
+                    currentEquipments={this.state.currentEquipments}
+                    isLoggedIn={isLoggedIn}
+                    resource={resource}
+                    unit={unit}
+                  />
 
                   <Panel defaultExpanded header={t('ResourceInfo.reserveTitle')}>
                     {resource.externalReservationUrl && (
