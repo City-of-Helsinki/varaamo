@@ -70,16 +70,12 @@ function ResourceInfo({
   );
 }
 
-// TODO : Add isRequired in currentEquipments propTypes later when data updated
-// Currently, there are not these data in all resources and causes error
-// So, it is removed for now.
-
 ResourceInfo.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   resource: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
   unit: PropTypes.object.isRequired,
-  currentEquipments: PropTypes.array
+  currentEquipments: PropTypes.array,
 };
 
 ResourceInfo = injectT(ResourceInfo); // eslint-disable-line
