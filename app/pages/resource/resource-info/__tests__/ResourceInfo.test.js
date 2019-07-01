@@ -25,6 +25,15 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
       })
     ),
     unit: Immutable(Unit.build()),
+    currentEquipments: [
+      {
+        name: {
+          fi: 'Karaokelaitteisto',
+          en: 'Karaoke equipment',
+          sv: 'Karaoke-utrustning',
+        },
+      },
+    ],
   };
 
   function getWrapper(extraProps) {
@@ -45,7 +54,7 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
   test('renders panels with correct header text', () => {
     const panels = getWrapper().find(Panel);
 
-    expect(panels).toHaveLength(2);
+    expect(panels).toHaveLength(3);
     expect(panels.at(0).prop('header')).toBe('ResourceInfo.reservationTitle');
     expect(panels.at(1).prop('header')).toBe('ResourceInfo.additionalInfoTitle');
   });
