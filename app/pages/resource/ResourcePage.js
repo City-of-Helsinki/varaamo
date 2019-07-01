@@ -163,7 +163,6 @@ class UnconnectedResourcePage extends Component {
     const mainImage = mainImageIndex != null ? images[mainImageIndex] : null;
     const showBackButton = !!location.state && !!location.state.fromSearchResults;
 
-
     return (
       <div className="app-ResourcePage">
         <Loader loaded={!isEmpty(resource)}>
