@@ -1,36 +1,49 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import indexOf from 'lodash/indexOf';
 
+import ProgressSteps from '../../../shared/progress-steps/ProgressSteps';
 import injectT from '../../../i18n/injectT';
-import ReservationPhase from './ReservationPhase';
+import { hasProducts } from '../../../utils/resourceUtils';
 
 ReservationPhases.propTypes = {
   currentPhase: PropTypes.string.isRequired,
+  resource: PropTypes.object,
   isEditing: PropTypes.bool,
   t: PropTypes.func.isRequired,
 };
 
-function ReservationPhases({ currentPhase, isEditing, t }) {
-  const phases = ['information', 'confirmation'];
+const phases = {
+  information: 'ReservationPhase.informationTitle',
+  confirmation: 'ReservationPhase.confirmationTitle',
+  time: 'ReservationPhase.timeTitle',
+  payment: 'ReservationPhase.paymentTitle',
+};
+
+function ReservationPhases({
+  resource,
+  currentPhase,
+  isEditing,
+  t,
+}) {
+  const stepMessageIds = ['information', 'confirmation'];
+
   if (isEditing) {
-    phases.splice(0, 0, 'time');
+    stepMessageIds.splice(0, 0, 'time');
   }
-  const activeIndex = indexOf(phases, currentPhase);
+
+  if (hasProducts(resource)) {
+    stepMessageIds.splice(1, 0, 'payment');
+  }
+
+  const steps = stepMessageIds.map(id => t(phases[id]));
+  const current = t(phases[currentPhase]);
 
   return (
-    <div className="app-ReservationPage__phases row">
-      {phases.map((phase, index) => (
-        <ReservationPhase
-          cols={12 / phases.length}
-          index={index + 1}
-          isActive={phase === currentPhase}
-          isCompleted={index < activeIndex}
-          key={phase}
-          title={t(`ReservationPhase.${phase}Title`)}
-        />
-      ))}
-    </div>
+    <ProgressSteps
+      activeStep={current}
+      className="app-ReservationPage__phases"
+      steps={steps}
+    />
   );
 }
 

@@ -208,6 +208,7 @@
   "ReservationPhase.timeTitle": "Varauksen ajankohta",
   "ReservationPhase.informationTitle": "Varauksen lisätiedot",
   "ReservationPhase.confirmationTitle": "Valmis",
+  "ReservationPhase.paymentTitle": "Maksu",
   "ReservationPopover.selectionInfoHeader": "Valitse varauksen päättymisajankohta",
   "ReservationSuccessModal.emailHelpText": "sekä varausvahvistuksesta, joka on lähetetty sähköpostiosoitteeseen: <strong> {email}</strong>",
   "ReservationSuccessModal.failedReservationsHeader": "Seuraavien varausten tekeminen ei onnistunut:",

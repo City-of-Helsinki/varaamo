@@ -1,106 +1,59 @@
 import React from 'react';
 
-import { shallowWithIntl } from '../../../../utils/testUtils';
+import { mountWithIntl } from '../../../../utils/testUtils';
 import ReservationPhases from '../ReservationPhases';
-import ReservationPhase from '../ReservationPhase';
+import ProgressSteps from '../../../../shared/progress-steps/ProgressSteps';
+import Step from '../../../../shared/progress-steps/Step';
 
 describe('pages/reservation/reservation-phases/ReservationPhases', () => {
   const defaultProps = {
     currentPhase: 'information',
     isEditing: false,
+    resource: null,
   };
 
   function getWrapper(extraProps) {
-    return shallowWithIntl(<ReservationPhases {...defaultProps} {...extraProps} />);
+    return mountWithIntl(<ReservationPhases {...defaultProps} {...extraProps} />);
   }
 
-  describe('when currentPhase is information', () => {
-    test('renders two phases with correct props when isEditing false', () => {
-      const phases = getWrapper({
-        currentPhase: 'information',
-        isEditing: false,
-      }).find(ReservationPhase);
-
-      expect(phases).toHaveLength(2);
-      expect(phases.at(0).prop('cols')).toBe(6);
-      expect(phases.at(0).prop('index')).toBe(1);
-      expect(phases.at(0).prop('isActive')).toBe(true);
-      expect(phases.at(0).prop('isCompleted')).toBe(false);
-      expect(phases.at(0).prop('title')).toBe('ReservationPhase.informationTitle');
-      expect(phases.at(1).prop('cols')).toBe(6);
-      expect(phases.at(1).prop('index')).toBe(2);
-      expect(phases.at(1).prop('isActive')).toBe(false);
-      expect(phases.at(1).prop('isCompleted')).toBe(false);
-      expect(phases.at(1).prop('title')).toBe('ReservationPhase.confirmationTitle');
-    });
-
-    test('renders three phases with correct props when isEditing true', () => {
-      const phases = getWrapper({
-        currentPhase: 'information',
-        isEditing: true,
-      }).find(ReservationPhase);
-
-      expect(phases).toHaveLength(3);
-      expect(phases.at(0).prop('cols')).toBe(4);
-      expect(phases.at(0).prop('index')).toBe(1);
-      expect(phases.at(0).prop('isActive')).toBe(false);
-      expect(phases.at(0).prop('isCompleted')).toBe(true);
-      expect(phases.at(0).prop('title')).toBe('ReservationPhase.timeTitle');
-      expect(phases.at(1).prop('cols')).toBe(4);
-      expect(phases.at(1).prop('index')).toBe(2);
-      expect(phases.at(1).prop('isActive')).toBe(true);
-      expect(phases.at(1).prop('isCompleted')).toBe(false);
-      expect(phases.at(1).prop('title')).toBe('ReservationPhase.informationTitle');
-      expect(phases.at(2).prop('cols')).toBe(4);
-      expect(phases.at(2).prop('index')).toBe(3);
-      expect(phases.at(2).prop('isActive')).toBe(false);
-      expect(phases.at(2).prop('isCompleted')).toBe(false);
-      expect(phases.at(2).prop('title')).toBe('ReservationPhase.confirmationTitle');
-    });
+  test('uses ProgressSteps under the hood', () => {
+    const wrapper = getWrapper();
+    const progressStepsComponent = wrapper.find(ProgressSteps);
+    expect(progressStepsComponent).toHaveLength(1);
   });
 
-  describe('when currentPhase is confirmation', () => {
-    test('renders two phases with correct props when isEditing false', () => {
-      const phases = getWrapper({
-        currentPhase: 'confirmation',
-        isEditing: false,
-      }).find(ReservationPhase);
+  test('when not editing', () => {
+    const wrapper = getWrapper();
+    const steps = wrapper.find(Step);
+    expect(steps).toHaveLength(2);
+    expect(steps.at(0).prop('isActive')).toBe(true);
+    expect(steps.at(1).prop('isActive')).toBe(false);
+  });
 
-      expect(phases).toHaveLength(2);
-      expect(phases.at(0).prop('cols')).toBe(6);
-      expect(phases.at(0).prop('index')).toBe(1);
-      expect(phases.at(0).prop('isActive')).toBe(false);
-      expect(phases.at(0).prop('isCompleted')).toBe(true);
-      expect(phases.at(0).prop('title')).toBe('ReservationPhase.informationTitle');
-      expect(phases.at(1).prop('cols')).toBe(6);
-      expect(phases.at(1).prop('index')).toBe(2);
-      expect(phases.at(1).prop('isActive')).toBe(true);
-      expect(phases.at(1).prop('isCompleted')).toBe(false);
-      expect(phases.at(1).prop('title')).toBe('ReservationPhase.confirmationTitle');
+  test('renders three phases when editing', () => {
+    const wrapper = getWrapper({
+      currentPhase: 'information',
+      resource: null,
+      isEditing: true,
     });
+    const steps = wrapper.find(Step);
+    expect(steps).toHaveLength(3);
+    expect(steps.at(0).prop('isActive')).toBe(false);
+    expect(steps.at(1).prop('isActive')).toBe(true);
+    expect(steps.at(2).prop('isActive')).toBe(false);
+    expect(steps.at(0).prop('label')).toBe('ReservationPhase.timeTitle');
+  });
 
-    test('renders three phases with correct props when isEditing true', () => {
-      const phases = getWrapper({
-        currentPhase: 'confirmation',
-        isEditing: true,
-      }).find(ReservationPhase);
-
-      expect(phases).toHaveLength(3);
-      expect(phases.at(0).prop('cols')).toBe(4);
-      expect(phases.at(0).prop('index')).toBe(1);
-      expect(phases.at(0).prop('isActive')).toBe(false);
-      expect(phases.at(0).prop('isCompleted')).toBe(true);
-      expect(phases.at(0).prop('title')).toBe('ReservationPhase.timeTitle');
-      expect(phases.at(1).prop('cols')).toBe(4);
-      expect(phases.at(1).prop('index')).toBe(2);
-      expect(phases.at(1).prop('isActive')).toBe(false);
-      expect(phases.at(1).prop('isCompleted')).toBe(true);
-      expect(phases.at(1).prop('title')).toBe('ReservationPhase.informationTitle');
-      expect(phases.at(2).prop('cols')).toBe(4);
-      expect(phases.at(2).prop('index')).toBe(3);
-      expect(phases.at(2).prop('isActive')).toBe(true);
-      expect(phases.at(2).prop('isCompleted')).toBe(false);
-      expect(phases.at(2).prop('title')).toBe('ReservationPhase.confirmationTitle');
+  test('renders payment phase when resource has products', () => {
+    const wrapper = getWrapper({
+      currentPhase: 'information',
+      resource: {
+        products: [{}],
+      },
+      isEditing: false,
     });
+    const steps = wrapper.find(Step);
+    expect(steps).toHaveLength(3);
+    expect(steps.at(1).prop('label')).toBe('ReservationPhase.paymentTitle');
   });
 });

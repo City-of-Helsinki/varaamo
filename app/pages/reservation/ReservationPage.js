@@ -194,7 +194,11 @@ class UnconnectedReservationPage extends Component {
             <div className="app-ReservationPage__content">
               <h1>{title}</h1>
               <Loader loaded={!isEmpty(resource)}>
-                <ReservationPhases currentPhase={view} isEditing={isEditing || isEdited} />
+                <ReservationPhases
+                  currentPhase={view}
+                  isEditing={isEditing || isEdited}
+                  resource={resource}
+                />
                 {view === 'time' && isEditing && (
                   <ReservationTime
                     history={history}
