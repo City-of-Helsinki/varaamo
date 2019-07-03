@@ -13,6 +13,7 @@ import Lightbox from 'lightbox-react';
 import axios from 'axios';
 import 'lightbox-react/style.css';
 
+import { fetchEquipments } from '../../actions/equipmentsActions';
 import { fetchResource } from '../../actions/resourceActions';
 import { clearReservations, toggleResourceMap } from '../../actions/uiActions';
 import PageWrapper from '../PageWrapper';
@@ -37,7 +38,6 @@ class UnconnectedResourcePage extends Component {
       currentEquipments: []
     };
 
-    this.fetchResource = this.fetchResource.bind(this);
     this.handleBackButton = this.handleBackButton.bind(this);
   }
 
@@ -46,6 +46,7 @@ class UnconnectedResourcePage extends Component {
 
     this.props.actions.clearReservations();
     this.fetchResource();
+    this.props.actions.fetchEquipments();
     axios.get('https://respa.koe.hel.ninja/v1/resource/')
       .then((response) => {
         const equipmentResponse = response.data.results.filter(each => each.id === resourceId);
@@ -132,6 +133,7 @@ class UnconnectedResourcePage extends Component {
       .format();
 
     actions.fetchResource(id, { start, end });
+    // actions.fetchEquipments();
   }
 
   render() {
@@ -148,6 +150,8 @@ class UnconnectedResourcePage extends Component {
       unit,
       history,
     } = this.props;
+
+    console.log(actions);
     const { params } = match;
     const { isOpen, photoIndex } = this.state;
 
@@ -294,6 +298,7 @@ UnconnectedResourcePage = injectT(UnconnectedResourcePage); // eslint-disable-li
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
     clearReservations,
+    fetchEquipments,
     fetchResource,
     toggleResourceMap,
   };
