@@ -90,16 +90,16 @@ function getEditReservationUrl(reservation) {
  * @returns {string | null} Price or no price.
  */
 function getReservationPrice(begin, end, products) {
+  // TODO: Make this helper use the API for calculating the price
   if (!begin || !end || !products) {
     return null;
   }
-
   const currentProduct = products && products[0];
   const timeDiff = getTimeDiff(begin, end, 'hours', true);
   // TODO: Replace those getter with generic data when price
   // not only by hours and product is more than 1.
 
-  if (currentProduct.priceType === 'per_hour' && currentProduct.price) {
+  if (currentProduct && currentProduct.priceType === 'per_hour' && currentProduct.price) {
     return (timeDiff * currentProduct.price).toFixed(1);
     // Round result to 1 floating number
   }
