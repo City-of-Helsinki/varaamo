@@ -155,10 +155,14 @@ class ReservationInformation extends Component {
             </Row>
             <Row>
               <Col md={4}>
-                {t('ReservationPage.detailsTime')}
+                <span className="app-ReservationDetails__name">
+                  {t('ReservationPage.detailsTime')}
+                </span>
               </Col>
               <Col md={8}>
-                {`${beginText}–${endText} (${hours} h)`}
+                <span className="app-ReservationDetails__value">
+                  {`${beginText}–${endText} (${hours} h)`}
+                </span>
               </Col>
             </Row>
           </div>
