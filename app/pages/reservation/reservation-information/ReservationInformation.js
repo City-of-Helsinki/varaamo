@@ -137,27 +137,31 @@ class ReservationInformation extends Component {
           />
         </Col>
         <Col md={5} sm={12}>
-          <Well className="app-ReservationDetails">
-            <h3>{t('ReservationPage.detailsTitle')}</h3>
+          <div className="app-ReservationDetails">
+            <h2 className="app-ReservationPage__title">{t('ReservationPage.detailsTitle')}</h2>
             <Row>
-              <Col className="app-ReservationDetails__label" md={4}>
-                {t('common.resourceLabel')}
+              <Col md={4}>
+                <span className="app-ReservationDetails__name">
+                  {t('common.resourceLabel')}
+                </span>
               </Col>
-              <Col className="app-ReservationDetails__value" md={8}>
-                {resource.name}
-                <br />
-                {unit.name}
+              <Col md={8}>
+                <span className="app-ReservationDetails__value">
+                  {resource.name}
+                  <br />
+                  {unit.name}
+                </span>
               </Col>
             </Row>
             <Row>
-              <Col className="app-ReservationDetails__label" md={4}>
+              <Col md={4}>
                 {t('ReservationPage.detailsTime')}
               </Col>
-              <Col className="app-ReservationDetails__value" md={8}>
+              <Col md={8}>
                 {`${beginText}–${endText} (${hours} h)`}
               </Col>
             </Row>
-          </Well>
+          </div>
         </Col>
       </div>
     );

@@ -13,6 +13,7 @@ import ReduxFormField from '../../../shared/form-fields/ReduxFormField';
 import TermsField from '../../../shared/form-fields/TermsField';
 import injectT from '../../../i18n/injectT';
 import ReservationTermsModal from '../../../shared/modals/reservation-terms/ReservationTermsModal';
+import { hasProducts } from '../../../utils/resourceUtils';
 
 const validators = {
   reserverEmailAddress: (t, { reserverEmailAddress }) => {
@@ -105,14 +106,49 @@ class UnconnectedReservationInformationForm extends Component {
     );
   }
 
+  renderSaveButton() {
+    const {
+      isMakingReservations,
+      handleSubmit,
+      onConfirm,
+      t,
+    } = this.props;
+    return (
+      <Button
+        bsStyle="primary"
+        disabled={isMakingReservations}
+        onClick={handleSubmit(onConfirm)}
+        type="submit"
+      >
+        {isMakingReservations ? t('common.saving') : t('common.save')}
+      </Button>
+    );
+  }
+
+  renderPayButton() {
+    const {
+      isMakingReservations,
+      handleSubmit,
+      onConfirm,
+      t,
+    } = this.props;
+    return (
+      <Button
+        bsStyle="primary"
+        disabled={isMakingReservations}
+        onClick={handleSubmit(onConfirm)}
+        type="submit"
+      >
+        {t('common.pay')}
+      </Button>
+    );
+  }
+
   render() {
     const {
       isEditing,
-      isMakingReservations,
-      handleSubmit,
       onBack,
       onCancel,
-      onConfirm,
       requiredFields,
       resource,
       staffEventSelected,
@@ -128,7 +164,9 @@ class UnconnectedReservationInformationForm extends Component {
       <div>
         <Form className="reservation-form" horizontal>
           { includes(this.props.fields, 'reserverName') && (
-            <h3>{t('ReservationInformationForm.reserverInformationTitle')}</h3>
+            <h2 className="app-ReservationPage__title">
+              {t('ReservationInformationForm.reserverInformationTitle')}
+            </h2>
           )}
           { includes(this.props.fields, 'staffEvent') && (
             <Well>
@@ -188,7 +226,7 @@ class UnconnectedReservationInformationForm extends Component {
             )
           }
           {includes(this.props.fields, 'billingAddressStreet')
-            && <h3>{t('common.billingAddressLabel')}</h3>
+            && <h2 className="app-ReservationPage__title">{t('common.billingAddressLabel')}</h2>
           }
           {includes(this.props.fields, 'billingAddressStreet')
             && this.renderField(
@@ -214,7 +252,7 @@ class UnconnectedReservationInformationForm extends Component {
               { placeholder: t('common.addressCityLabel') }
             )
           }
-          <h3>{t('ReservationInformationForm.eventInformationTitle')}</h3>
+          <h2 className="app-ReservationPage__title">{t('ReservationInformationForm.eventInformationTitle')}</h2>
           {this.renderField(
             'eventSubject',
             'text',
@@ -247,9 +285,8 @@ class UnconnectedReservationInformationForm extends Component {
           {termsAndConditions
             && this.renderTermsField('termsAndConditions')
           }
-          <div className="form-controls">
+          <div>
             <Button
-              bsStyle="warning"
               onClick={onCancel}
             >
               {isEditing ? t('ReservationInformationForm.cancelEdit') : t('common.cancel')}
@@ -264,14 +301,10 @@ class UnconnectedReservationInformationForm extends Component {
               </Button>
               )
             }
-            <Button
-              bsStyle="primary"
-              disabled={isMakingReservations}
-              onClick={handleSubmit(onConfirm)}
-              type="submit"
-            >
-              {isMakingReservations ? t('common.saving') : t('common.save')}
-            </Button>
+            {hasProducts(resource)
+              ? this.renderPayButton()
+              : this.renderSaveButton()
+            }
           </div>
         </Form>
         <ReservationTermsModal resource={resource} />

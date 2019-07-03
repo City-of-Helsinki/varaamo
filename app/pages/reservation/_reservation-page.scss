@@ -3,9 +3,10 @@
 @import './reservation-phases/reservation-phases';
 @import './reservation-time/reservation-time';
 
-.app-ReservationPage {
-  .btn.btn-warning {
-    background-color: $yellow;
-    color: $black;
+.app-ReservationPage__title {
+  font-weight: $font-weight-regular;
+  font-size: 22px;
+  &--big {
+    font-size: 28px;
   }
 }

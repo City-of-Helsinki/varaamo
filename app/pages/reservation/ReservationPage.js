@@ -192,7 +192,9 @@ class UnconnectedReservationPage extends Component {
         <PageWrapper title={title} transparent>
           <div>
             <div className="app-ReservationPage__content">
-              <h1>{title}</h1>
+              <h1 className="app-ReservationPage__title app-ReservationPage__title--big">
+                {title}
+              </h1>
               <Loader loaded={!isEmpty(resource)}>
                 <ReservationPhases
                   currentPhase={view}
