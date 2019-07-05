@@ -23,6 +23,7 @@ import ReservationInformation from './reservation-information/ReservationInforma
 import ReservationPhases from './reservation-phases/ReservationPhases';
 import ReservationTime from './reservation-time/ReservationTime';
 import reservationPageSelector from './reservationPageSelector';
+import injectApiClient from '../../../src/common/api/injectApiClient';
 
 class UnconnectedReservationPage extends Component {
   constructor(props) {
@@ -268,6 +269,7 @@ UnconnectedReservationPage.propTypes = {
   history: PropTypes.object.isRequired,
 };
 UnconnectedReservationPage = injectT(UnconnectedReservationPage); // eslint-disable-line
+UnconnectedReservationPage = injectApiClient(UnconnectedReservationPage); // eslint-disable-line
 
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
