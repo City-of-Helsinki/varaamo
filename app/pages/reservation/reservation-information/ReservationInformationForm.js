@@ -9,8 +9,7 @@ import isEmail from 'validator/lib/isEmail';
 
 import constants from '../../../constants/AppConstants';
 import FormTypes from '../../../constants/FormTypes';
-import ReduxFormField from '../../../shared/form-fields/ReduxFormField';
-import TermsField from '../../../shared/form-fields/TermsField';
+import ReservationMetadataField from './ReservationMetadataField';
 import injectT from '../../../i18n/injectT';
 import ReservationTermsModal from '../../../shared/modals/reservation-terms/ReservationTermsModal';
 import { hasProducts } from '../../../utils/resourceUtils';
@@ -71,7 +70,7 @@ export function validate(values, { fields, requiredFields, t }) {
 }
 
 class UnconnectedReservationInformationForm extends Component {
-  renderField(name, type, label, controlProps = {}, help = null, info = null) {
+  renderField(name, type, label, help = null) {
     if (!includes(this.props.fields, name)) {
       return null;
     }
@@ -79,10 +78,8 @@ class UnconnectedReservationInformationForm extends Component {
 
     return (
       <Field
-        component={ReduxFormField}
-        controlProps={controlProps}
+        component={ReservationMetadataField}
         help={help}
-        info={info}
         label={`${label}${isRequired ? '*' : ''}`}
         name={name}
         type={type}
@@ -96,12 +93,13 @@ class UnconnectedReservationInformationForm extends Component {
     const labelLink = `${t('ReservationInformationForm.termsAndConditionsLink')}`;
     return (
       <Field
-        component={TermsField}
+        component={ReservationMetadataField}
         key={name}
         label={label}
         labelLink={labelLink}
         name={name}
         onClick={openResourceTermsModal}
+        type="terms"
       />
     );
   }
@@ -162,7 +160,10 @@ class UnconnectedReservationInformationForm extends Component {
 
     return (
       <div>
-        <Form className="reservation-form" horizontal>
+        <Form className="reservation-form" horizontal noValidate>
+          <p>
+            {t('ReservationForm.reservationFieldsAsteriskExplanation')}
+          </p>
           { includes(this.props.fields, 'reserverName') && (
             <h2 className="app-ReservationPage__title">
               {t('ReservationInformationForm.reserverInformationTitle')}
@@ -183,46 +184,39 @@ class UnconnectedReservationInformationForm extends Component {
             'reserverName',
             'text',
             t('common.reserverNameLabel'),
-            { placeholder: t('common.reserverNameLabel') }
           )}
           {this.renderField(
             'reserverId',
             'text',
             t('common.reserverIdLabel'),
-            { placeholder: t('common.reserverIdLabel') }
           )}
           {this.renderField(
             'reserverPhoneNumber',
             'text',
             t('common.reserverPhoneNumberLabel'),
-            { placeholder: t('common.reserverPhoneNumberLabel') }
           )}
           {this.renderField(
             'reserverEmailAddress',
             'email',
             t('common.reserverEmailAddressLabel'),
-            { placeholder: t('common.reserverEmailAddressLabel') }
           )}
           {includes(this.props.fields, 'reserverAddressStreet')
             && this.renderField(
               'reserverAddressStreet',
               'text',
               t('common.addressStreetLabel'),
-              { placeholder: t('common.addressStreetLabel') }
             )}
           {includes(this.props.fields, 'reserverAddressZip')
             && this.renderField(
               'reserverAddressZip',
               'text',
               t('common.addressZipLabel'),
-              { placeholder: t('common.addressZipLabel') }
             )}
           {includes(this.props.fields, 'reserverAddressCity')
             && this.renderField(
               'reserverAddressCity',
               'text',
               t('common.addressCityLabel'),
-              { placeholder: t('common.addressCityLabel') }
             )
           }
           {includes(this.props.fields, 'billingAddressStreet')
@@ -233,7 +227,6 @@ class UnconnectedReservationInformationForm extends Component {
               'billingAddressStreet',
               'text',
               t('common.addressStreetLabel'),
-              { placeholder: t('common.addressStreetLabel') }
             )
           }
           {includes(this.props.fields, 'billingAddressZip')
@@ -241,7 +234,6 @@ class UnconnectedReservationInformationForm extends Component {
               'billingAddressZip',
               'text',
               t('common.addressZipLabel'),
-              { placeholder: t('common.addressZipLabel') }
             )
           }
           {includes(this.props.fields, 'billingAddressCity')
@@ -249,7 +241,6 @@ class UnconnectedReservationInformationForm extends Component {
               'billingAddressCity',
               'text',
               t('common.addressCityLabel'),
-              { placeholder: t('common.addressCityLabel') }
             )
           }
           <h2 className="app-ReservationPage__title">{t('ReservationInformationForm.eventInformationTitle')}</h2>
@@ -258,7 +249,6 @@ class UnconnectedReservationInformationForm extends Component {
             'text',
             t('common.eventSubjectLabel'),
             {},
-            null,
             t('ReservationForm.eventSubjectInfo'),
           )}
           {this.renderField(
@@ -277,10 +267,7 @@ class UnconnectedReservationInformationForm extends Component {
             'comments',
             'textarea',
             t('common.commentsLabel'),
-            {
-              placeholder: t('common.commentsPlaceholder'),
-              rows: 5,
-            }
+            { rows: 5 }
           )}
           {termsAndConditions
             && this.renderTermsField('termsAndConditions')

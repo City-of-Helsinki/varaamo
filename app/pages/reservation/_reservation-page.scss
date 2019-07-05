@@ -10,3 +10,30 @@
     font-size: 28px;
   }
 }
+
+.app-ReservationPage__formfield {
+  margin-bottom: 20px;
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: $font-weight-regular;
+  }
+  input,
+  textarea {
+    border: 1px solid $medium-gray;
+    display: block;
+    font-weight: normal;
+    padding: 10px;
+    width: 100%;
+    &:focus {
+      border: 2px solid $blue;
+      padding: 9px;
+    }
+  }
+}
+
+.app-ReservationPage__error {
+  color: $red;
+  display: block;
+  font-size: 14px;
+}

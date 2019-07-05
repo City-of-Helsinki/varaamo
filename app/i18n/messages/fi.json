@@ -175,6 +175,7 @@
   "ReservationEditForm.cancelEdit": "Peruuta muokkaus",
   "ReservationEditForm.saveChanges": "Tallenna muutokset",
   "ReservationEditForm.startEdit": "Muokkaa tapahtumaa",
+  "ReservationForm.reservationFieldsAsteriskExplanation": "Täytä vielä seuraavat tiedot alustavaa varausta varten. Tähdellä (*) merkityt tiedot ovat pakollisia.",
   "ReservationForm.cancel": "Takaisin",
   "ReservationForm.emailError": "Syötä kunnollinen sähköpostiosoite",
   "ReservationForm.eventSubjectInfo": "Tilaisuuden nimen näkee ainoastaan henkilökunta. Antamalla tilaisuudelle nimen helpotat saapuvien vieraiden opastamista oikeaan tilaan. Muistathan ilmoittaa nimen myös tilaisuuteen saapuville.",
