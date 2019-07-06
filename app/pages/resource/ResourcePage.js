@@ -35,7 +35,7 @@ class UnconnectedResourcePage extends Component {
     this.state = {
       photoIndex: 0,
       isOpen: false,
-      currentEquipments: []
+      // currentEquipments: []
     };
 
     this.handleBackButton = this.handleBackButton.bind(this);
@@ -49,9 +49,10 @@ class UnconnectedResourcePage extends Component {
     this.props.actions.fetchEquipments();
     axios.get('https://respa.koe.hel.ninja/v1/resource/')
       .then((response) => {
+        console.log('response', response);
         const equipmentResponse = response.data.results.filter(each => each.id === resourceId);
         this.setState({
-          currentEquipments: equipmentResponse.length > 0 ? equipmentResponse[0].equipment : []
+          // currentEquipments: equipmentResponse.length > 0 ? equipmentResponse[0].equipment : []
         });
       });
   }
@@ -151,7 +152,6 @@ class UnconnectedResourcePage extends Component {
       history,
     } = this.props;
 
-    console.log(actions);
     const { params } = match;
     const { isOpen, photoIndex } = this.state;
 
@@ -197,7 +197,6 @@ class UnconnectedResourcePage extends Component {
                       mainImageMobileVisibility: true,
                     })}
                   <ResourceInfo
-                    currentEquipments={this.state.currentEquipments}
                     isLoggedIn={isLoggedIn}
                     resource={resource}
                     unit={unit}
