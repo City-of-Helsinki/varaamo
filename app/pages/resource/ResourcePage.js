@@ -49,7 +49,6 @@ class UnconnectedResourcePage extends Component {
     this.props.actions.fetchEquipments();
     axios.get('https://respa.koe.hel.ninja/v1/resource/')
       .then((response) => {
-        console.log('response', response);
         const equipmentResponse = response.data.results.filter(each => each.id === resourceId);
         this.setState({
           // currentEquipments: equipmentResponse.length > 0 ? equipmentResponse[0].equipment : []

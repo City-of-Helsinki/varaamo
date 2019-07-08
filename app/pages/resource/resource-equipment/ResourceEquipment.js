@@ -7,7 +7,6 @@ import Col from 'react-bootstrap/lib/Col';
 function ResourceEquipment({
   equipment = []
 }) {
-  console.log(equipment);
   const equipmentColumns = equipment.map(
     (item, i) => <Col key={i} lg={3} md={3} xs={6}>{item.name}</Col>
   );
