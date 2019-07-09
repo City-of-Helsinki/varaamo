@@ -4,15 +4,18 @@ import Panel from 'react-bootstrap/lib/Panel';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 
+import injectT from '../../../i18n/injectT';
+
 function ResourceEquipment({
-  equipment = []
+  equipment = [],
+  t,
 }) {
   const equipmentColumns = equipment.map(
     (item, i) => <Col key={i} lg={3} md={3} xs={6}>{item.name}</Col>
   );
   return (
     <Panel>
-      <h3>Equipment</h3>
+      <h3>{t('ResourceEquipment.headingText')}</h3>
       <Row>
         {equipmentColumns}
       </Row>
@@ -21,7 +24,8 @@ function ResourceEquipment({
 }
 
 ResourceEquipment.propTypes = {
-  equipment: PropTypes.array.isRequired
+  equipment: PropTypes.array.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
-export default ResourceEquipment;
+export default injectT(ResourceEquipment);
