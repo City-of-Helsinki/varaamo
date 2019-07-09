@@ -13,23 +13,8 @@ import Equipment from '../resource-equipment/ResourceEquipment';
 
 function ResourceInfo({
   isLoggedIn, resource, unit, t
-  // , currentEquipments
 }) {
   const serviceMapUrl = getServiceMapUrl(unit);
-
-  // const userLocale = localStorage.getItem('userLocale');
-  // const equipment = currentEquipments.map((item, i) => {
-  //   let itemName = '';
-  //   if (userLocale === 'en') {
-  //     itemName = item.name.en;
-  //   } else if (userLocale === 'se') {
-  //     itemName = item.name.sv;
-  //   } else {
-  //     itemName = item.name.fi;
-  //   }
-  //   return <Col key={i} lg={3} md={3} xs={6}>{itemName}</Col>;
-  // });
-
 
   return (
     <Row>
