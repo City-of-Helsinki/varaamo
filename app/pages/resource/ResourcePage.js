@@ -35,6 +35,7 @@ class UnconnectedResourcePage extends Component {
       isOpen: false,
     };
 
+    this.fetchResource = this.fetchResource.bind(this);
     this.handleBackButton = this.handleBackButton.bind(this);
   }
 
