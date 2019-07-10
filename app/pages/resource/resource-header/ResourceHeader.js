@@ -62,27 +62,31 @@ function ResourceHeader({
           <h1>{resource.name}</h1>
           <div className="app-ResourceHeader__info-wrapper">
             <div className="app-ResourceHeader__info">
-              <img alt={typeName} className="app-ResourceHeader__info-icon" src={iconHome} />
+              <img alt={t('ResourceHeader.purpose')} className="app-ResourceHeader__info-icon" src={iconHome} />
               <span className="app-ResourceHeader__info-label">{typeName}</span>
             </div>
             <div className="app-ResourceHeader__info">
               <img
-                alt={peopleCapacityText}
+                alt={t('ResourceHeader.capacity')}
                 className="app-ResourceHeader__info-icon"
                 src={iconUser}
               />
               <span className="app-ResourceHeader__info-label">{peopleCapacityText}</span>
             </div>
             <div className="app-ResourceHeader__info">
-              <img alt={maxPeriodText} className="app-ResourceHeader__info-icon" src={iconClock} />
+              <img alt={t('ResourceHeader.maxTime')} className="app-ResourceHeader__info-icon" src={iconClock} />
               <span className="app-ResourceHeader__info-label">{maxPeriodText}</span>
             </div>
             <div className="app-ResourceHeader__info">
-              <img alt={priceText} className="app-ResourceHeader__info-icon" src={iconTicket} />
+              <img alt={t('ResourceHeader.price')} className="app-ResourceHeader__info-icon" src={iconTicket} />
               <span className="app-ResourceHeader__info-label">{priceText}</span>
             </div>
             <div className="app-ResourceHeader__info" id="app-ResourceHeader__info--unit-name">
-              <img alt={unit.name} className="app-ResourceHeader__info-icon" src={iconMapMarker} />
+              <img
+                alt={distance ? t('ResourceHeader.distanceAndPremise') : t('ResourceHeader.premise')}
+                className="app-ResourceHeader__info-icon"
+                src={iconMapMarker}
+              />
               <span className="app-ResourceHeader__info-label">
                 {distance}
                 {distance && ', '}
@@ -92,13 +96,13 @@ function ResourceHeader({
             <div className="app-ResourceHeader__buttons">
               {!showMap && (
                 <Button className="app-ResourceHeader__map-button" onClick={onMapClick}>
-                  <img alt={t('ResourceHeader.mapButton')} src={iconMap} />
+                  <img alt="" src={iconMap} />
                   <span>{t('ResourceHeader.mapButton')}</span>
                 </Button>
               )}
               {showMap && (
                 <Button className="app-ResourceHeader__map-button" onClick={onMapClick}>
-                  <img alt={t('ResourceHeader.resourceButton')} src={iconMap} />
+                  <img alt="" src={iconMap} />
                   <span>{t('ResourceHeader.resourceButton')}</span>
                 </Button>
               )}

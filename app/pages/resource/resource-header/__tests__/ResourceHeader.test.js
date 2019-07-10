@@ -52,12 +52,78 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
       expect(h1.text()).toBe(resource.name);
     });
 
+    describe('Type info', () => {
+      test('renders type image with correct props', () => {
+        const infos = getWrapper().find('.app-ResourceHeader__info');
+        const images = infos.find('img');
+
+        expect(images).toHaveLength(5);
+
+        expect(images.at(0).prop('alt')).toBe('ResourceHeader.purpose');
+      });
+    });
+
+    describe('Capacity info', () => {
+      test('renders type image with correct props', () => {
+        const infos = getWrapper().find('.app-ResourceHeader__info');
+        const images = infos.find('img');
+
+        expect(images).toHaveLength(5);
+
+        expect(images.at(1).prop('alt')).toBe('ResourceHeader.capacity');
+      });
+    });
+
+    describe('MaxTime info', () => {
+      test('renders type image with correct props', () => {
+        const infos = getWrapper().find('.app-ResourceHeader__info');
+        const images = infos.find('img');
+
+        expect(images).toHaveLength(5);
+
+        expect(images.at(2).prop('alt')).toBe('ResourceHeader.maxTime');
+      });
+    });
+
+    describe('Price info', () => {
+      test('renders type image with correct props', () => {
+        const infos = getWrapper().find('.app-ResourceHeader__info');
+        const images = infos.find('img');
+
+        expect(images).toHaveLength(5);
+
+        expect(images.at(3).prop('alt')).toBe('ResourceHeader.price');
+      });
+    });
+
+
     describe('Unit info', () => {
       function createProps(resourceProps) {
         return {
           resource: Immutable(Resource.build(resourceProps)),
         };
       }
+
+      test('renders unit image with correct props when distance is used', () => {
+        const props = createProps({ distance: 11500 });
+
+        const infos = getWrapper(props).find('.app-ResourceHeader__info');
+        const images = infos.find('img');
+
+        expect(images).toHaveLength(5);
+
+        expect(images.at(4).prop('alt')).toBe('ResourceHeader.distanceAndPremise');
+      });
+
+      test('renders unit image with correct props when distance is not used', () => {
+        const infos = getWrapper().find('.app-ResourceHeader__info');
+        const images = infos.find('img');
+
+        expect(images).toHaveLength(5);
+
+        expect(images.at(4).prop('alt')).toBe('ResourceHeader.premise');
+      });
+
 
       test('renders unit name with distance', () => {
         const { name } = defaultProps.unit;
@@ -102,7 +168,7 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
       expect(toggleMapButton).toHaveLength(1);
       expect(toggleMapButton.prop('onClick')).toBe(defaultProps.onMapClick);
       expect(img).toHaveLength(1);
-      expect(img.prop('alt')).toBe('ResourceHeader.mapButton');
+      expect(img.prop('alt')).toBe('');
       expect(span).toHaveLength(1);
       expect(span.text()).toBe('ResourceHeader.mapButton');
     });
@@ -114,7 +180,7 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
 
       expect(toggleMapButton).toHaveLength(1);
       expect(toggleMapButton.prop('onClick')).toBe(defaultProps.onMapClick);
-      expect(img.prop('alt')).toBe('ResourceHeader.resourceButton');
+      expect(img.prop('alt')).toBe('');
       expect(span).toHaveLength(1);
       expect(span.text()).toBe('ResourceHeader.resourceButton');
     });
