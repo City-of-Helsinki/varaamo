@@ -229,6 +229,7 @@
   "ResourceAvailability.reserved": "Varattu koko päivän",
   "ResourceAvailability.reservingRestricted": "Ei varattavissa",
   "ResourceCard.peopleCapacity": "{people} henkilöä",
+  "ResourceEquipment.headingText": "Laitteita",
   "ResourceHeader.backButton": "Takaisin hakutuloksiin",
   "ResourceHeader.maxPeriodDays": "max {days}pv",
   "ResourceHeader.maxPeriodHours": "max {hours}h",
