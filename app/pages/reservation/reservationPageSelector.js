@@ -2,8 +2,11 @@ import { createSelector, createStructuredSelector } from 'reselect';
 import first from 'lodash/first';
 import isEmpty from 'lodash/isEmpty';
 import orderBy from 'lodash/orderBy';
+import get from 'lodash/get';
 import queryString from 'query-string';
 
+import ApiClient from '../../../src/common/api/client';
+import AppConstants from '../../constants/AppConstants';
 import ActionTypes from '../../constants/ActionTypes';
 import {
   createIsStaffSelector,
@@ -34,8 +37,13 @@ const unitSelector = createSelector(
   unitsSelector,
   (resource, units) => units[resource.unit] || {}
 );
+const apiClientSelector = (state) => {
+  const authToken = get(state, 'auth.token');
+  return new ApiClient(AppConstants.API_URL, authToken);
+};
 
 const reservationPageSelector = createStructuredSelector({
+  apiClient: apiClientSelector,
   date: dateSelector,
   isAdmin: isAdminSelector,
   isStaff: createIsStaffSelector(resourceSelector),

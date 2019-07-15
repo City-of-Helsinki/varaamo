@@ -7,6 +7,7 @@ import Well from 'react-bootstrap/lib/Well';
 import { Field, reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 
+import TermsField from '../../../shared/form-fields/TermsField';
 import constants from '../../../constants/AppConstants';
 import FormTypes from '../../../constants/FormTypes';
 import ReservationMetadataField from './ReservationMetadataField';
@@ -93,7 +94,7 @@ class UnconnectedReservationInformationForm extends Component {
     const labelLink = `${t('ReservationInformationForm.termsAndConditionsLink')}`;
     return (
       <Field
-        component={ReservationMetadataField}
+        component={TermsField}
         key={name}
         label={label}
         labelLink={labelLink}
