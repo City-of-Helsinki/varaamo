@@ -223,6 +223,34 @@ class UnconnectedReservationInformationForm extends Component {
           {includes(this.props.fields, 'billingAddressStreet')
             && <h2 className="app-ReservationPage__title">{t('common.billingAddressLabel')}</h2>
           }
+          {includes(this.props.fields, 'billingFirstName')
+            && this.renderField(
+              'billingFirstName',
+              'text',
+              t('common.billingFirstNameLabel'),
+            )
+          }
+          {includes(this.props.fields, 'billingLastName')
+            && this.renderField(
+              'billingLastName',
+              'text',
+              t('common.billingLastNameLabel'),
+            )
+          }
+          {includes(this.props.fields, 'billingPhoneNumber')
+            && this.renderField(
+              'billingPhoneNumber',
+              'tel',
+              t('common.billingPhoneNumberLabel'),
+            )
+          }
+          {includes(this.props.fields, 'billingEmailAddress')
+            && this.renderField(
+              'billingEmailAddress',
+              'email',
+              t('common.billingEmailAddressLabel'),
+            )
+          }
           {includes(this.props.fields, 'billingAddressStreet')
             && this.renderField(
               'billingAddressStreet',
