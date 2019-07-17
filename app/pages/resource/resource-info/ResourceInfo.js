@@ -9,6 +9,7 @@ import injectT from '../../../i18n/injectT';
 import WrappedText from '../../../shared/wrapped-text/WrappedText';
 import { getServiceMapUrl } from '../../../utils/unitUtils';
 import ReservationInfo from '../reservation-info/ReservationInfo';
+import Equipment from '../resource-equipment/ResourceEquipment';
 
 function ResourceInfo({
   isLoggedIn, resource, unit, t
@@ -49,6 +50,7 @@ function ResourceInfo({
             </Col>
           </Row>
         </Panel>
+        <Equipment equipment={resource.equipment} />
       </section>
     </Row>
   );

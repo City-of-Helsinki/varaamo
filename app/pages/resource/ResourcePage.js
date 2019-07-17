@@ -137,6 +137,7 @@ class UnconnectedResourcePage extends Component {
       unit,
       history,
     } = this.props;
+
     const { params } = match;
     const { isOpen, photoIndex } = this.state;
 
@@ -181,7 +182,11 @@ class UnconnectedResourcePage extends Component {
                     && this.renderImage(mainImage, mainImageIndex, {
                       mainImageMobileVisibility: true,
                     })}
-                  <ResourceInfo isLoggedIn={isLoggedIn} resource={resource} unit={unit} />
+                  <ResourceInfo
+                    isLoggedIn={isLoggedIn}
+                    resource={resource}
+                    unit={unit}
+                  />
 
                   <Panel defaultExpanded header={t('ResourceInfo.reserveTitle')}>
                     {resource.externalReservationUrl && (

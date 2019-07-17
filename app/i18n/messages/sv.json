@@ -234,6 +234,7 @@
   "ResourceAvailability.reserved": "Bokat hela dagen",
   "ResourceAvailability.reservingRestricted": "Kan inte bokas",
   "ResourceCard.peopleCapacity": "{people} personer",
+  "ResourceEquipment.headingText": "Apparater",
   "ResourceHeader.backButton": "Tillbaka till sökresultat",
   "ResourceHeader.maxPeriodDays": "max {days} dag",
   "ResourceHeader.maxPeriodHours": "max {hours}h",
