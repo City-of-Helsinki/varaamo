@@ -1,4 +1,20 @@
+import get from 'lodash/get';
+
 import constants from '../../../app/constants/AppConstants';
+import store from '../../store';
+
+let authToken;
+
+store.subscribe(() => {
+  const state = store.getState();
+  authToken = get(state, 'auth.token');
+});
+
+function getAuthorizationHeader() {
+  return authToken
+    ? { Authorization: `JWT ${authToken}` }
+    : {};
+}
 
 /**
  * Getter for API url.
@@ -16,5 +32,7 @@ export const getUrl = (endpoint, params = {}, trailingSlash = true) => {
  * Getter for default headers.
  * @returns {object}
  */
-// TODO: Add support for auth header.
-export const getHeaders = () => constants.REQUIRED_API_HEADERS;
+export const getHeaders = () => ({
+  ...constants.REQUIRED_API_HEADERS,
+  ...getAuthorizationHeader(),
+});
