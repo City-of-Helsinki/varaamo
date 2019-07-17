@@ -2,7 +2,14 @@ import axios from 'axios';
 import get from 'lodash/get';
 
 import constants from '../../../app/constants/AppConstants';
-import { getUrl, getHeaders } from './utils';
+import store from '../../store';
+
+let authToken;
+
+store.subscribe(() => {
+  const state = store.getState();
+  authToken = get(state, 'auth.token');
+});
 
 export class ApiClient {
   baseUrl;
@@ -10,6 +17,19 @@ export class ApiClient {
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
   }
+
+  getUrl = (endpoint) => {
+    // URLs in Django must have a trailing slash
+    const endsWithTrailingSlash = endpoint.substring(endpoint.length - 1) === '/';
+    return `${constants.API_URL}/${endpoint}${endsWithTrailingSlash ? '' : '/'}`;
+  };
+
+  getHeaders = () => ({
+    ...constants.REQUIRED_API_HEADERS,
+    ...(authToken
+      ? { Authorization: `JWT ${authToken}` }
+      : {}),
+  });
 
   request = async ({
     method,
@@ -22,9 +42,9 @@ export class ApiClient {
     return axios
       .request({
         method,
-        url: getUrl(endpoint),
+        url: this.getUrl(endpoint),
         headers: {
-          ...getHeaders(),
+          ...this.getHeaders(),
           ...headers,
         },
         [dataOrParams]: data,
