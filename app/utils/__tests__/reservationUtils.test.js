@@ -318,14 +318,10 @@ describe('Utils: reservationUtils', () => {
       priceType: 'per_hour'
     }];
 
-    test('return null if no product data', () => {
+    test('return Promise<null> if no product data', () => {
+      expect.assertions(1);
       const result = getReservationPrice(begin, end);
-      expect(result).toEqual(null);
-    });
-
-    test('return price multiply by hour, rounded by 1 digit after comma', () => {
-      const result = getReservationPrice(begin, end, products);
-      expect(result).toEqual('24.8');
+      return expect(result).resolves.toEqual(null);
     });
   });
 });
