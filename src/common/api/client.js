@@ -49,18 +49,14 @@ export class ApiClient {
         },
         [dataOrParams]: data,
       })
-      .then((response) => {
-        return {
-          data: get(response, 'data'),
-          error: null,
-        };
-      })
-      .catch((error) => {
-        return {
-          data: null,
-          error: get(error, 'response'),
-        };
-      });
+      .then(response => ({
+        data: get(response, 'data'),
+        error: null,
+      }))
+      .catch(error => ({
+        data: null,
+        error: get(error, 'response'),
+      }));
   };
 
   /**
@@ -70,14 +66,12 @@ export class ApiClient {
    * @param config
    * @returns {Promise}
    */
-  get = (endpoint, data = {}, config = {}) => {
-    return this.request({
-      method: 'GET',
-      endpoint,
-      data,
-      ...config,
-    });
-  };
+  get = (endpoint, data = {}, config = {}) => this.request({
+    method: 'GET',
+    endpoint,
+    data,
+    ...config,
+  });
 
   /**
    * Make a POST request into the API.
@@ -86,14 +80,12 @@ export class ApiClient {
    * @param config
    * @returns {Promise}
    */
-  post = (endpoint, data = {}, config = {}) => {
-    return this.request({
-      method: 'POST',
-      endpoint,
-      data,
-      ...config,
-    });
-  };
+  post = (endpoint, data = {}, config = {}) => this.request({
+    method: 'POST',
+    endpoint,
+    data,
+    ...config,
+  });
 
   /**
    * Make a DELETE request into the API.
@@ -102,14 +94,12 @@ export class ApiClient {
    * @param config
    * @returns {Promise}
    */
-  delete = (endpoint, data = {}, config = {}) => {
-    return this.request({
-      method: 'DELETE',
-      endpoint,
-      data,
-      ...config,
-    });
-  };
+  delete = (endpoint, data = {}, config = {}) => this.request({
+    method: 'DELETE',
+    endpoint,
+    data,
+    ...config,
+  });
 
   /**
    * Make a PUT request into the API.
@@ -118,14 +108,12 @@ export class ApiClient {
    * @param config
    * @returns {Promise}
    */
-  put = (endpoint, data = {}, config = {}) => {
-    return this.request({
-      method: 'PUT',
-      endpoint,
-      data,
-      ...config,
-    });
-  };
+  put = (endpoint, data = {}, config = {}) => this.request({
+    method: 'PUT',
+    endpoint,
+    data,
+    ...config,
+  });
 
   /**
    * Make a PATCH request into the API.
@@ -134,14 +122,12 @@ export class ApiClient {
    * @param config
    * @returns {Promise}
    */
-  patch = (endpoint, data = {}, config = {}) => {
-    return this.request({
-      method: 'PATCH',
-      endpoint,
-      data,
-      ...config,
-    });
-  };
+  patch = (endpoint, data = {}, config = {}) => this.request({
+    method: 'PATCH',
+    endpoint,
+    data,
+    ...config,
+  });
 }
 
 export default new ApiClient(constants.API_URL);
