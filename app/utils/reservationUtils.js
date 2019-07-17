@@ -95,7 +95,7 @@ function getReservationPrice(begin, end, products) {
   }
 
   const currentProduct = products && products[0];
-  const timeDiff = getTimeDiff(end, begin, 'hours', true);
+  const timeDiff = getTimeDiff(begin, end, 'hours', true);
   // TODO: Replace those getter with generic data when price
   // not only by hours and product is more than 1.
 

@@ -38,4 +38,18 @@ footer {
   a:hover {
     color: #eee;
   }
+
+  .app-varaamo-version-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .app-varaamo-version {
+    font-size: $font-size-small;
+    color: $white;
+    text-align: center;
+    @media (min-width: $screen-md-min) {
+      margin-top: 70px;
+    }
+  }
 }

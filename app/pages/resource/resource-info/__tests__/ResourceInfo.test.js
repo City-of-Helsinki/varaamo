@@ -25,6 +25,15 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
       })
     ),
     unit: Immutable(Unit.build()),
+    currentEquipments: [
+      {
+        name: {
+          fi: 'Karaokelaitteisto',
+          en: 'Karaoke equipment',
+          sv: 'Karaoke-utrustning',
+        },
+      },
+    ],
   };
 
   function getWrapper(extraProps) {

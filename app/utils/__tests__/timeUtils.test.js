@@ -623,7 +623,7 @@ describe('Utils: timeUtils', () => {
       const startDate = '2019-05-09T05:00:01.000Z';
       const endDate = '2019-05-09T05:00:00.000Z';
 
-      const expected = 1000;
+      const expected = -1000;
 
       expect(getTimeDiff(startDate, endDate)).toEqual(expected);
     });
@@ -632,7 +632,7 @@ describe('Utils: timeUtils', () => {
       const startDate = '2019-05-09T05:30:01.000Z';
       const endDate = '2019-05-09T05:00:00.000Z';
       const unit = 'minutes';
-      const expected = 30;
+      const expected = -30;
 
       expect(getTimeDiff(startDate, endDate, unit)).toEqual(expected);
     });
@@ -641,15 +641,22 @@ describe('Utils: timeUtils', () => {
       const startDate = '2019-05-09T05:30:00.000Z';
       const endDate = '2019-05-09T05:00:00.000Z';
 
-      // > 0 => startTime > endTime
-      expect(getTimeDiff(startDate, endDate) > 0).toBeTruthy();
+      expect(getTimeDiff(startDate, endDate) > 0).toBeFalsy();
     });
 
     test('can return float value instead of round number', () => {
       const startDate = '2019-05-09T05:42:00.000Z';
       const endDate = '2019-05-09T05:30:00.000Z';
       const result = parseFloat(getTimeDiff(startDate, endDate, 'hours', true));
-      expect(result).toEqual(0.2);
+      expect(result).toEqual(-0.2);
+    });
+
+    test('given startDate < endDate the difference should be positive', () => {
+      const startTime = '2019-06-20T12:30:00.000Z';
+      const endTime = '2019-06-20T12:45:00.000Z';
+      const unit = 'minutes';
+      const expected = 15;
+      expect(getTimeDiff(startTime, endTime, unit)).toEqual(expected);
     });
   });
 
@@ -664,8 +671,8 @@ describe('Utils: timeUtils', () => {
       const minPeriod = '01:00:00';
       const result = getEndTimeSlotWithMinPeriod(slot, minPeriod);
 
-      expect(getTimeDiff(result.begin, slot.begin, 'minutes')).toEqual(periodToMinute(minPeriod));
-      expect(getTimeDiff(result.end, slot.end, 'minutes')).toEqual(periodToMinute(minPeriod));
+      expect(getTimeDiff(slot.begin, result.begin, 'minutes')).toEqual(periodToMinute(minPeriod));
+      expect(getTimeDiff(slot.end, result.end, 'minutes')).toEqual(periodToMinute(minPeriod));
       expect(result.resource).toEqual(slot.resource);
     });
   });
