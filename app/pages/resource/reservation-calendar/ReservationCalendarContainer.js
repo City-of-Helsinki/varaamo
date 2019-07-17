@@ -8,6 +8,7 @@ import Row from 'react-bootstrap/lib/Row';
 import moment from 'moment';
 import first from 'lodash/first';
 import last from 'lodash/last';
+import get from 'lodash/get';
 import orderBy from 'lodash/orderBy';
 import debounce from 'lodash/debounce';
 
@@ -31,6 +32,7 @@ import reservationCalendarSelector from './reservationCalendarSelector';
 import ReservingRestrictedText from './ReservingRestrictedText';
 import TimeSlots from './time-slots/TimeSlots';
 import { getReservationPrice, getEditReservationUrl } from '../../../utils/reservationUtils';
+import apiClient from '../../../../src/common/api/client';
 
 export class UnconnectedReservationCalendarContainer extends Component {
   static propTypes = {
@@ -57,19 +59,32 @@ export class UnconnectedReservationCalendarContainer extends Component {
     timeSlots: PropTypes.array.isRequired,
   };
 
-  state= {
+  state = {
     reservationPrice: null,
   }
 
-  static getDerivedStateFromProps(props) {
-    const { resource, selected } = props;
-    let reservationPrice;
-
-    if (selected && resource && selected.length === 2) {
-      reservationPrice = getReservationPrice(selected[0].begin, selected[1].end, resource.products);
+  componentDidUpdate(prevProps) {
+    const {
+      resource: currentResource,
+      selected: currentSelected,
+    } = this.props;
+    const {
+      resource: prevResource,
+      selected: prevSelected,
+    } = prevProps;
+    if (currentResource !== prevResource || currentSelected !== prevSelected) {
+      this.calculateReservationPrice();
     }
-    return { reservationPrice };
   }
+
+  calculateReservationPrice = () => {
+    const { resource: { products }, selected } = this.props;
+    const begin = get(selected, '[0].begin');
+    const end = get(selected, '[1].end');
+    getReservationPrice(apiClient, begin, end, products)
+      .then(reservationPrice => this.setState({ reservationPrice }))
+      .catch(() => this.setState({ reservationPrice: '' }));
+  };
 
   getSelectedDateSlots = (timeSlots, selected) => {
     if (timeSlots && selected.length) {
