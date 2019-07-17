@@ -21,6 +21,7 @@ export class ApiClient {
 
     return axios
       .request({
+        method,
         url: getUrl(endpoint),
         headers: {
           ...getHeaders(),
