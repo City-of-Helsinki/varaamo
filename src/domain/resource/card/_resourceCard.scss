@@ -1,8 +1,8 @@
+@import './resourceCardInfoCell';
+
 $card-border-color: #d6d6d6;
 $image-items-margin: 5px;
 $resourceCardPadding: 15px;
-$cellWidth: 33.33%;
-$cellHeight: 50%;
 
 .app-resourceCard {
   margin: 20px 0;
@@ -104,42 +104,11 @@ $cellHeight: 50%;
     display: flex;
     flex-wrap: wrap;
 
-    &-cell {
-      border: none;
-      background: transparent;
-      display: inline-flex;
-      flex-direction: column;
-      width: $cellWidth;
-      height: $cellHeight;
-      align-items: center;
-
-      &:hover,
-      &:focus {
-        outline: none;
-
-        &:active {
-          outline: none;
-        }
-
-        box-shadow: none;
-      }
-
-      &__icon {
-        width: $line-height-computed*1.2;
-      }
-
-      span {
-        font-size: 1.2rem;
-        font-weight: bold;
-        text-align: center;
-        text-transform: capitalize;
-      }
-    }
-
     @media (min-width: $screen-xs-min) {
       display: inline-block;
       width: 100%;
     }
+
     @media (min-width: $screen-md-min) {
       flex: 1 2 30%;
     }

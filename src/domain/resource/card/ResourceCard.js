@@ -3,7 +3,11 @@ import { Link, withRouter } from 'react-router-dom';
 import { injectIntl, intlShape } from 'react-intl';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import get from 'lodash/get';
+import iconHome from 'hel-icons/dist/shapes/home.svg';
+import iconMapMarker from 'hel-icons/dist/shapes/map-marker.svg';
+import iconTicket from 'hel-icons/dist/shapes/ticket.svg';
+import iconUser from 'hel-icons/dist/shapes/user-o.svg';
+import iconHeart from 'hel-icons/dist/shapes/heart-o.svg';
 
 import injectT from '../../../../app/i18n/injectT';
 import * as dataUtils from '../../../common/data/utils';
@@ -14,10 +18,14 @@ import BackgroundImage from '../../../../app/shared/background-image/BackgroundI
 import { getMainImage } from '../../../../app/utils/imageUtils';
 import ResourceAvailability from '../../../../app/shared/resource-card/resource-availability/ResourceAvailability';
 import UnpublishedLabel from '../../../../app/shared/label/unpublished/UnpublishedLabel';
+import ResourceCardInfoCell from './ResourceCardInfoCell';
+import { getHourlyPrice } from "../../../../app/utils/resourceUtils";
+import iconMap from "../../../../app/assets/icons/map.svg";
+import iconHeartFilled from "../../../../app/assets/icons/heart-filled.svg";
 
 class ResourceCard extends React.Component {
   static propTypes = {
-    date: PropTypes.string,
+    date: PropTypes.string.isRequired,
     resource: PropTypes.object.isRequired,
     unit: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
@@ -81,6 +89,14 @@ class ResourceCard extends React.Component {
           <div className="app-resourceCard__description">
             {dataUtils.getLocalizedFieldValue(resource.description, intl.locale)}
           </div>
+        </div>
+        <div className="app-resourceCard__info">
+          <ResourceCardInfoCell
+            alt={dataUtils.getLocalizedFieldValue(resource.type.name, intl.locale)}
+            icon={iconHome}
+            onClick={() => null}
+            text={resource.type ? dataUtils.getLocalizedFieldValue(resource.type.name, intl.locale) : ''}
+          />
         </div>
       </div>
     );

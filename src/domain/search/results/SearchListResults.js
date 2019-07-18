@@ -7,6 +7,7 @@ import omit from 'lodash/omit';
 import { withRouter } from 'react-router-dom';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
+import moment from 'moment';
 
 import constants from '../../../../app/constants/AppConstants';
 import SearchSort from '../sort/SearchSort';
@@ -69,7 +70,7 @@ class SearchListResults extends React.Component {
           <div className="app-SearchListResults__results">
             {resources && resources.map(resource => (
               <ResourceCard
-                date={get(filters, 'date', null)}
+                date={get(filters, 'date', moment().format(constants.DATE_FORMAT))}
                 key={`resourceCard-${resource.id}`}
                 resource={resource}
                 unit={find(units, unit => unit.id === resource.unit)}
