@@ -12,6 +12,16 @@ import Overlay from 'react-bootstrap/lib/Overlay';
 
 import iconCalendar from './images/calendar.svg';
 
+const DatePickerWrapper = ({ children }) => (
+  <div className="app-DateFilter__datePicker">
+    {children}
+  </div>
+);
+
+DatePickerWrapper.propTypes = {
+  children: PropTypes.any,
+};
+
 class DateFilter extends React.Component {
   static propTypes = {
     date: PropTypes.instanceOf(Date),
@@ -68,7 +78,7 @@ class DateFilter extends React.Component {
           rootClose
           show={isOpen}
         >
-          <div className="app-DateFilter__datePicker">
+          <DatePickerWrapper>
             <DayPicker
               disabledDays={day => moment(day).isBefore(moment(), 'date')}
               locale={intl.locale}
@@ -78,7 +88,7 @@ class DateFilter extends React.Component {
               showOutsideDays
               showWeekNumbers
             />
-          </div>
+          </DatePickerWrapper>
         </Overlay>
       </div>
     );
