@@ -49,12 +49,10 @@ class ResourceCard extends Component {
   };
 
   handleLinkClick = () => {
-    const scrollTop = window.pageYOffset
-      || document.documentElement.scrollTop
-      || document.body.scrollTop;
+    window.scrollTo(0, 0);
     const { location, history } = this.props;
     const { pathname, search } = location;
-    history.replace({ pathname, search, state: { scrollTop } });
+    history.replace({ pathname, search });
   };
 
   renderDistance(distance) {
