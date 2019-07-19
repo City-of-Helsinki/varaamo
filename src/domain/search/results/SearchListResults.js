@@ -68,14 +68,22 @@ class SearchListResults extends React.Component {
         </div>
         <Loader loaded={!isLoading}>
           <div className="app-SearchListResults__results">
-            {resources && resources.map(resource => (
-              <ResourceCard
-                date={get(filters, 'date', moment().format(constants.DATE_FORMAT))}
-                key={`resourceCard-${resource.id}`}
-                resource={resource}
-                unit={find(units, unit => unit.id === resource.unit)}
-              />
-            ))}
+            {resources && resources.map((resource) => {
+              const unit = find(units, item => item.id === resource.unit);
+
+              if (unit) {
+                return (
+                  <ResourceCard
+                    date={get(filters, 'date', moment().format(constants.DATE_FORMAT))}
+                    key={`resourceCard-${resource.id}`}
+                    resource={resource}
+                    unit={unit}
+                  />
+                );
+              }
+
+              return null;
+            })}
           </div>
         </Loader>
         <SearchPagination

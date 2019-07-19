@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
+import flowRight from 'lodash/flowRight';
 import {
   withRouter,
   Switch,
@@ -33,6 +34,9 @@ class SearchPage extends React.Component {
       isLoading: false,
       isLoadingUnits: false,
       isLoadingPurposes: false,
+      isLoadingGeolocation: false,
+      isGeolocationEnabled: false,
+      coords: null,
       units: [],
       purposes: [],
       resources: [],
@@ -62,12 +66,44 @@ class SearchPage extends React.Component {
     });
   };
 
+  onGeolocationChange = (value) => {
+    if (value) {
+      const { coords } = this.state;
+
+      // We can just reload results with positional data if we already have the coordinates.
+      if (coords) {
+        this.setState({
+          isGeolocationEnabled: true,
+        }, () => this.loadResources());
+      } else { // If we don't have the coordinates we also need to fetch them.
+        this.setState({
+          isGeolocationEnabled: true,
+          isLoadingGeolocation: true,
+        });
+
+        navigator.geolocation.getCurrentPosition((position) => {
+          this.setState({
+            isLoadingGeolocation: false,
+            coords: position.coords,
+          });
+
+          this.loadResources();
+        });
+      }
+    } else {
+      this.setState({
+        isGeolocationEnabled: false,
+        isLoadingGeolocation: false,
+      }, () => this.loadResources());
+    }
+  };
+
   loadUnits = () => {
     this.setState({
       isLoadingUnits: true,
     });
 
-    client.get('unit')
+    client.get('unit', { page_size: 500, unit_has_resource: true })
       .then(({ data }) => {
         this.setState({
           isLoadingUnits: false,
@@ -81,7 +117,7 @@ class SearchPage extends React.Component {
       isLoadingPurposes: true,
     });
 
-    client.get('purpose')
+    client.get('purpose', { page_size: 500 })
       .then(({ data }) => {
         this.setState({
           isLoadingPurposes: false,
@@ -91,7 +127,15 @@ class SearchPage extends React.Component {
   };
 
   loadResources = () => {
-    const { location } = this.props;
+    const {
+      location,
+    } = this.props;
+
+    const {
+      isGeolocationEnabled,
+      isLoadingGeolocation,
+      coords,
+    } = this.state;
     const filters = searchUtils.getFiltersFromUrl(location);
 
     this.setState({
@@ -102,6 +146,12 @@ class SearchPage extends React.Component {
       ...filters,
       page_size: constants.SEARCH_PAGE_SIZE,
     };
+
+    // Only include positional params if user has toggled the position filter on.
+    if (isGeolocationEnabled && !isLoadingGeolocation && coords) {
+      params.lat = coords.latitude;
+      params.lon = coords.longitude;
+    }
 
     client.get('resource', params)
       .then(({ data }) => {
@@ -129,6 +179,8 @@ class SearchPage extends React.Component {
       isLoading,
       isLoadingUnits,
       isLoadingPurposes,
+      isLoadingGeolocation,
+      isGeolocationEnabled,
       resources,
       units,
       purposes,
@@ -140,9 +192,11 @@ class SearchPage extends React.Component {
       <div className="app-SearchPage">
         <SearchFilters
           filters={filters}
+          isGeolocationEnabled={isGeolocationEnabled}
           isLoadingPurposes={isLoadingPurposes}
           isLoadingUnits={isLoadingUnits}
           onChange={this.onFiltersChange}
+          onGeolocationToggle={() => this.onGeolocationChange(!isGeolocationEnabled)}
           purposes={purposes}
           units={units}
         />
@@ -186,7 +240,7 @@ class SearchPage extends React.Component {
                   return (
                     <SearchListResults
                       {...props}
-                      isLoading={isLoading || isLoadingUnits}
+                      isLoading={isLoading || isLoadingUnits || isLoadingGeolocation}
                       resources={resources}
                       totalCount={totalCount}
                       units={units}
@@ -203,4 +257,7 @@ class SearchPage extends React.Component {
   }
 }
 
-export default injectT(withRouter(SearchPage));
+export default flowRight([
+  injectT,
+  withRouter,
+])(SearchPage);

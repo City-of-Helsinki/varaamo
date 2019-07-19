@@ -99,7 +99,6 @@ class TimeRangeFilter extends React.Component {
       case 'checked':
         if (fieldValue) {
           const startDate = moment();
-          console.warn(startDate.toDate());
           if (startDate.minutes() >= 30) {
             startDate
               .add(1, 'hour')

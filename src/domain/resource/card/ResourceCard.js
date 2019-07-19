@@ -10,6 +10,7 @@ import iconUser from 'hel-icons/dist/shapes/user-o.svg';
 import iconHeart from 'hel-icons/dist/shapes/heart-o.svg';
 
 import injectT from '../../../../app/i18n/injectT';
+import iconMap from '../../../../app/assets/icons/map.svg';
 import * as dataUtils from '../../../common/data/utils';
 import * as urlUtils from '../../../common/url/utils';
 import * as searchUtils from '../../search/utils';
@@ -19,9 +20,7 @@ import { getMainImage } from '../../../../app/utils/imageUtils';
 import ResourceAvailability from '../../../../app/shared/resource-card/resource-availability/ResourceAvailability';
 import UnpublishedLabel from '../../../../app/shared/label/unpublished/UnpublishedLabel';
 import ResourceCardInfoCell from './ResourceCardInfoCell';
-import { getHourlyPrice } from "../../../../app/utils/resourceUtils";
-import iconMap from "../../../../app/assets/icons/map.svg";
-import iconHeartFilled from "../../../../app/assets/icons/heart-filled.svg";
+import { getHourlyPrice } from '../../../../app/utils/resourceUtils';
 
 class ResourceCard extends React.Component {
   static propTypes = {
@@ -57,7 +56,9 @@ class ResourceCard extends React.Component {
       resource,
       unit,
       intl,
+      t,
     } = this.props;
+    const locale = intl.locale;
 
     return (
       <div
@@ -76,7 +77,7 @@ class ResourceCard extends React.Component {
               role="button"
               tabIndex="-1"
             >
-              <span>{dataUtils.getLocalizedFieldValue(unit.name, intl.locale)}</span>
+              <span>{dataUtils.getLocalizedFieldValue(unit.name, locale)}</span>
             </a>
             <div className="app-resourceCard__unit-name-labels">
               <ResourceAvailability date={date} resource={resource} />
@@ -84,19 +85,41 @@ class ResourceCard extends React.Component {
             </div>
           </div>
           <Link onClick={this.handleLinkClick} to={this.getResourcePageLink()}>
-            <h4>{dataUtils.getLocalizedFieldValue(resource.name, intl.locale)}</h4>
+            <h4>{dataUtils.getLocalizedFieldValue(resource.name, locale)}</h4>
           </Link>
           <div className="app-resourceCard__description">
-            {dataUtils.getLocalizedFieldValue(resource.description, intl.locale)}
+            {dataUtils.getLocalizedFieldValue(resource.description, locale)}
           </div>
         </div>
         <div className="app-resourceCard__info">
+          {resource.type && (
+            <ResourceCardInfoCell
+              icon={iconHome}
+              onClick={() => null}
+              text={dataUtils.getLocalizedFieldValue(resource.type.name, locale)}
+            />
+          )}
           <ResourceCardInfoCell
-            alt={dataUtils.getLocalizedFieldValue(resource.type.name, intl.locale)}
-            icon={iconHome}
+            icon={iconUser}
             onClick={() => null}
-            text={resource.type ? dataUtils.getLocalizedFieldValue(resource.type.name, intl.locale) : ''}
+            text={resource.people_capacity ? t('ResourceCard.peopleCapacity', { people: resource.people_capacity }) : '-'}
           />
+          <ResourceCardInfoCell
+            icon={iconTicket}
+            onClick={() => null}
+            text={resourceUtils.getPrice(resource, t)}
+          />
+          <ResourceCardInfoCell
+            icon={iconMap}
+            text={resourceUtils.getUnitAddress(unit, locale)}
+          />
+          {resource.distance && (
+            <ResourceCardInfoCell
+              icon={iconMapMarker}
+              onClick={() => null}
+              text={resourceUtils.getResourceDistance(resource)}
+            />
+          )}
         </div>
       </div>
     );

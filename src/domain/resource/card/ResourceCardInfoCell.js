@@ -19,13 +19,15 @@ function ResourceCardInfoCell({
   onClick,
   text,
 }) {
+  const imgAlt = (alt || text) || '';
+
   return (
     <ResourceCardInfoCellWrapper
       className={classNames('app-resourceCardInfoCell', className)}
       onClick={onClick}
     >
       <img
-        alt={alt}
+        alt={imgAlt}
         className="app-resourceCardInfoCell__icon"
         src={icon}
       />

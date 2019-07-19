@@ -27,6 +27,8 @@ class SearchFilters extends React.Component {
   static propTypes = {
     filters: PropTypes.object,
     onChange: PropTypes.func.isRequired,
+    isGeolocationEnabled: PropTypes.bool,
+    onGeolocationToggle: PropTypes.func.isRequired,
     isLoadingPurposes: PropTypes.bool,
     isLoadingUnits: PropTypes.bool,
     units: PropTypes.array.isRequired,
@@ -94,10 +96,12 @@ class SearchFilters extends React.Component {
     const {
       t,
       intl,
+      isGeolocationEnabled,
       isLoadingPurposes,
       isLoadingUnits,
       purposes,
       units,
+      onGeolocationToggle,
     } = this.props;
     const {
       filters,
@@ -187,9 +191,9 @@ class SearchFilters extends React.Component {
               <Row>
                 <Col className="app-SearchFilters__control" md={4} sm={6}>
                   <PositionControl
-                    geolocated={Boolean(false)}
+                    geolocated={isGeolocationEnabled}
                     onConfirm={distance => () => null}
-                    onPositionSwitch={() => null}
+                    onPositionSwitch={() => onGeolocationToggle()}
                     value={parseInt(filters.distance, 10)}
                   />
                 </Col>
