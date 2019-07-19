@@ -1,6 +1,8 @@
 import first from 'lodash/first';
 import isEmpty from 'lodash/isEmpty';
 import last from 'lodash/last';
+import get from 'lodash/get';
+import has from 'lodash/has';
 import moment from 'moment';
 import React, { Component } from 'react';
 import Loader from 'react-loader';
@@ -23,6 +25,7 @@ import ReservationInformation from './reservation-information/ReservationInforma
 import ReservationPhases from './reservation-phases/ReservationPhases';
 import ReservationTime from './reservation-time/ReservationTime';
 import reservationPageSelector from './reservationPageSelector';
+import { hasProducts } from '../../utils/resourceUtils';
 
 class UnconnectedReservationPage extends Component {
   constructor(props) {
@@ -62,21 +65,26 @@ class UnconnectedReservationPage extends Component {
     }
   }
 
-  componentWillUpdate(nextProps) {
+  /* eslint-disable camelcase */
+  /* eslint-disable react/sort-comp */
+  UNSAFE_componentWillUpdate(nextProps) {
     const { reservationCreated: nextCreated, reservationEdited: nextEdited } = nextProps;
     const { reservationCreated, reservationEdited } = this.props;
     if (
       (!isEmpty(nextCreated) || !isEmpty(nextEdited))
       && (nextCreated !== reservationCreated || nextEdited !== reservationEdited)
     ) {
-      // TODO: fix this lint
-      // eslint-disable-next-line react/no-will-update-set-state
-      this.setState({
-        view: 'confirmation',
-      });
+      // Reservation created for resource with product/order: proceed to payment!
+      if (has(nextCreated, 'order.paymentUrl')) {
+        const paymentUrl = get(nextCreated, 'order.paymentUrl');
+        window.location = paymentUrl;
+        return;
+      }
       window.scrollTo(0, 0);
     }
   }
+  /* eslint-enable camelcase */
+  /* eslint-enable react/sort-comp */
 
   componentWillUnmount() {
     this.props.actions.clearReservations();
@@ -104,6 +112,12 @@ class UnconnectedReservationPage extends Component {
     window.scrollTo(0, 0);
   };
 
+  createPaymentReturnUrl = () => {
+    const { protocol, hostname } = window.location;
+    const port = window.location.port ? `:${window.location.port}` : '';
+    return `${protocol}//${hostname}${port}/reservation-payment-return`;
+  };
+
   handleReservation = (values = {}) => {
     const {
       actions, reservationToEdit, resource, selected
@@ -121,8 +135,23 @@ class UnconnectedReservationPage extends Component {
           end,
         });
       } else {
+        const isOrder = hasProducts(resource);
+        const order = isOrder
+          ? {
+            order: {
+              order_lines: [{
+                product: get(resource, 'products[0].id'),
+              }],
+              return_url: this.createPaymentReturnUrl(),
+            }
+          } : {};
+
+        const nextView = isOrder ? 'payment' : 'confirmation';
+        this.setState({ view: nextView });
+
         actions.postReservation({
           ...values,
+          ...order,
           begin,
           end,
           resource: resource.id,
@@ -230,6 +259,11 @@ class UnconnectedReservationPage extends Component {
                     unit={unit}
                   />
                 )}
+                {view === 'payment' && (
+                  <div className="text-center">
+                    <p>{t('ReservationPage.paymentText')}</p>
+                  </div>
+                )}
                 {view === 'confirmation' && (reservationCreated || reservationEdited) && (
                   <ReservationConfirmation
                     history={history}
@@ -261,6 +295,7 @@ UnconnectedReservationPage.propTypes = {
   reservationCreated: PropTypes.object,
   reservationEdited: PropTypes.object,
   resource: PropTypes.object.isRequired,
+  resourceId: PropTypes.string,
   selected: PropTypes.array.isRequired,
   t: PropTypes.func.isRequired,
   unit: PropTypes.object.isRequired,
