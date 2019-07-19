@@ -295,7 +295,6 @@ UnconnectedReservationPage.propTypes = {
   reservationCreated: PropTypes.object,
   reservationEdited: PropTypes.object,
   resource: PropTypes.object.isRequired,
-  resourceId: PropTypes.string,
   selected: PropTypes.array.isRequired,
   t: PropTypes.func.isRequired,
   unit: PropTypes.object.isRequired,
