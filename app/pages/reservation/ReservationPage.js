@@ -65,9 +65,7 @@ class UnconnectedReservationPage extends Component {
     }
   }
 
-  /* eslint-disable camelcase */
-  /* eslint-disable react/sort-comp */
-  UNSAFE_componentWillUpdate(nextProps) {
+  componentWillUpdate(nextProps) {
     const { reservationCreated: nextCreated, reservationEdited: nextEdited } = nextProps;
     const { reservationCreated, reservationEdited } = this.props;
     if (
@@ -80,11 +78,11 @@ class UnconnectedReservationPage extends Component {
         window.location = paymentUrl;
         return;
       }
+      // eslint-disable-next-line react/no-will-update-set-state
+      this.setState({ view: 'confirmation' });
       window.scrollTo(0, 0);
     }
   }
-  /* eslint-enable camelcase */
-  /* eslint-enable react/sort-comp */
 
   componentWillUnmount() {
     this.props.actions.clearReservations();
@@ -146,8 +144,9 @@ class UnconnectedReservationPage extends Component {
             }
           } : {};
 
-        const nextView = isOrder ? 'payment' : 'confirmation';
-        this.setState({ view: nextView });
+        if (isOrder) {
+          this.setState({ view: 'payment' });
+        }
 
         actions.postReservation({
           ...values,
