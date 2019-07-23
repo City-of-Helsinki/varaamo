@@ -6,9 +6,13 @@ import store from '../../store';
 
 let authToken;
 
-store.subscribe(() => {
+const getToken = () => {
   const state = store.getState();
-  authToken = get(state, 'auth.token');
+  return get(state, 'auth.token');
+};
+
+store.subscribe(() => {
+  authToken = getToken();
 });
 
 export class ApiClient {
@@ -16,6 +20,7 @@ export class ApiClient {
 
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
+    authToken = getToken();
   }
 
   getUrl = (endpoint) => {
