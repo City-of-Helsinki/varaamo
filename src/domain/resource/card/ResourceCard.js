@@ -1,8 +1,12 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { Link, withRouter } from 'react-router-dom';
 import { injectIntl, intlShape } from 'react-intl';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import flowRight from 'lodash/flowRight';
 import iconHome from 'hel-icons/dist/shapes/home.svg';
 import iconMapMarker from 'hel-icons/dist/shapes/map-marker.svg';
 import iconTicket from 'hel-icons/dist/shapes/ticket.svg';
@@ -11,6 +15,7 @@ import iconHeart from 'hel-icons/dist/shapes/heart-o.svg';
 
 import injectT from '../../../../app/i18n/injectT';
 import iconMap from '../../../../app/assets/icons/map.svg';
+import iconHeartFilled from '../../../../app/assets/icons/heart-filled.svg';
 import * as dataUtils from '../../../common/data/utils';
 import * as urlUtils from '../../../common/url/utils';
 import * as searchUtils from '../../search/utils';
@@ -20,7 +25,9 @@ import { getMainImage } from '../../../../app/utils/imageUtils';
 import ResourceAvailability from '../../../../app/shared/resource-card/resource-availability/ResourceAvailability';
 import UnpublishedLabel from '../../../../app/shared/label/unpublished/UnpublishedLabel';
 import ResourceCardInfoCell from './ResourceCardInfoCell';
-import { getHourlyPrice } from '../../../../app/utils/resourceUtils';
+import { favoriteResource, unfavoriteResource } from '../../../../app/actions/resourceActions';
+import { isLoggedInSelector } from '../../../../app/state/selectors/authSelectors';
+
 
 class ResourceCard extends React.Component {
   static propTypes = {
@@ -32,6 +39,8 @@ class ResourceCard extends React.Component {
     location: PropTypes.object,
     intl: intlShape.isRequired,
     isStacked: PropTypes.bool,
+    isLoggedIn: PropTypes.bool,
+    onFavoriteClick: PropTypes.func.isRequired,
   };
 
   getResourcePageLink = () => {
@@ -52,8 +61,10 @@ class ResourceCard extends React.Component {
   render() {
     const {
       date,
+      isLoggedIn,
       isStacked,
       resource,
+      onFavoriteClick,
       unit,
       intl,
       t,
@@ -120,10 +131,28 @@ class ResourceCard extends React.Component {
               text={resourceUtils.getResourceDistance(resource)}
             />
           )}
+          {isLoggedIn && (
+            <ResourceCardInfoCell
+              alt={dataUtils.getLocalizedFieldValue(resource.type.name, locale)}
+              icon={resource.is_favorite ? iconHeartFilled : iconHeart}
+              onClick={() => onFavoriteClick(resource)}
+            />
+          )}
         </div>
       </div>
     );
   }
 }
 
-export default injectIntl(injectT(withRouter(ResourceCard)));
+const UnconnectedResourceCard = injectT(ResourceCard);
+export { UnconnectedResourceCard };
+
+const selector = createStructuredSelector({
+  isLoggedIn: isLoggedInSelector,
+});
+
+export default flowRight([
+  injectIntl,
+  connect(selector),
+  withRouter,
+])(UnconnectedResourceCard);

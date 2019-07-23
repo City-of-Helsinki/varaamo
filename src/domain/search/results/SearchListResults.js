@@ -23,6 +23,7 @@ class SearchListResults extends React.Component {
     totalCount: PropTypes.number,
     history: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
+    onFavoriteClick: PropTypes.func.isRequired,
   };
 
   onSortChange = (sort) => {
@@ -50,6 +51,7 @@ class SearchListResults extends React.Component {
       location,
       history,
       totalCount,
+      onFavoriteClick,
     } = this.props;
 
     const filters = searchUtils.getFiltersFromUrl(location);
@@ -76,6 +78,7 @@ class SearchListResults extends React.Component {
                   <ResourceCard
                     date={get(filters, 'date', moment().format(constants.DATE_FORMAT))}
                     key={`resourceCard-${resource.id}`}
+                    onFavoriteClick={onFavoriteClick}
                     resource={resource}
                     unit={unit}
                   />

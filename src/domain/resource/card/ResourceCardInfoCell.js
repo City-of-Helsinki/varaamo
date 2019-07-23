@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 const ResourceCardInfoCellWrapper = ({ onClick, children, ...props }) => (
-  onClick ? <Button {...props}>{children}</Button> : <span {...props}>{children}</span>
+  onClick ? <Button onClick={onClick} {...props}>{children}</Button> : <span {...props}>{children}</span>
 );
 
 ResourceCardInfoCellWrapper.propTypes = {

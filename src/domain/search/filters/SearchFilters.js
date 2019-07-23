@@ -147,7 +147,10 @@ class SearchFilters extends React.Component {
                     isMulti
                     label={t('SearchFilters.municipalityLabel')}
                     onChange={(items) => {
-                      this.onFilterChange('municipality', items.map(item => item.value).join(','));
+                      this.onFilterChange(
+                        'municipality',
+                        items ? items.map(item => item.value).join(',') : null
+                      );
                     }}
                     options={searchUtils.getMunicipalityOptions()}
                     value={municipality.split(',')}
@@ -192,8 +195,15 @@ class SearchFilters extends React.Component {
                 <Col className="app-SearchFilters__control" md={4} sm={6}>
                   <PositionControl
                     geolocated={isGeolocationEnabled}
-                    onConfirm={distance => () => null}
-                    onPositionSwitch={() => onGeolocationToggle()}
+                    onConfirm={value => this.onFilterChange('distance', value)}
+                    onPositionSwitch={() => {
+                      console.warn(isGeolocationEnabled);
+                      if (isGeolocationEnabled) {
+                        this.onFilterChange('distance', null);
+                      }
+
+                      onGeolocationToggle();
+                    }}
                     value={parseInt(filters.distance, 10)}
                   />
                 </Col>

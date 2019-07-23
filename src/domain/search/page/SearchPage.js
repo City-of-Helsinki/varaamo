@@ -70,6 +70,10 @@ class SearchPage extends React.Component {
     if (value) {
       const { coords } = this.state;
 
+      if (!('geolocation' in navigator)) {
+        return;
+      }
+
       // We can just reload results with positional data if we already have the coordinates.
       if (coords) {
         this.setState({
@@ -88,6 +92,10 @@ class SearchPage extends React.Component {
           });
 
           this.loadResources();
+        }, () => {
+          this.setState({
+            isLoadingGeolocation: false,
+          });
         });
       }
     } else {
@@ -168,6 +176,32 @@ class SearchPage extends React.Component {
     return location.pathname !== match.path;
   };
 
+  onFavoriteClick = (resource) => {
+    const { resources } = this.state;
+    const updateIsFavorite = (isFavorite) => {
+      this.setState({
+        resources: resources.map((item) => {
+          return item.id !== resource.id ? item : {
+            ...item,
+            is_favorite: isFavorite,
+          };
+        }),
+      });
+    };
+
+    if (resource.is_favorite) {
+      client.post(`resource/${resource.id}/unfavorite`)
+        .then(() => {
+          updateIsFavorite(false);
+        });
+    } else {
+      client.post(`resource/${resource.id}/favorite`)
+        .then(() => {
+          updateIsFavorite(true);
+        });
+    }
+  };
+
   render() {
     const {
       t,
@@ -241,6 +275,7 @@ class SearchPage extends React.Component {
                     <SearchListResults
                       {...props}
                       isLoading={isLoading || isLoadingUnits || isLoadingGeolocation}
+                      onFavoriteClick={this.onFavoriteClick}
                       resources={resources}
                       totalCount={totalCount}
                       units={units}
