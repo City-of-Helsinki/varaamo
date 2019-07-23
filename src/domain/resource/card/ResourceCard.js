@@ -25,7 +25,6 @@ import { getMainImage } from '../../../../app/utils/imageUtils';
 import ResourceAvailability from '../../../../app/shared/resource-card/resource-availability/ResourceAvailability';
 import UnpublishedLabel from '../../../../app/shared/label/unpublished/UnpublishedLabel';
 import ResourceCardInfoCell from './ResourceCardInfoCell';
-import { favoriteResource, unfavoriteResource } from '../../../../app/actions/resourceActions';
 import { isLoggedInSelector } from '../../../../app/state/selectors/authSelectors';
 
 
@@ -41,6 +40,7 @@ class ResourceCard extends React.Component {
     isStacked: PropTypes.bool,
     isLoggedIn: PropTypes.bool,
     onFavoriteClick: PropTypes.func.isRequired,
+    onFilterClick: PropTypes.func.isRequired,
   };
 
   getResourcePageLink = () => {
@@ -65,11 +65,13 @@ class ResourceCard extends React.Component {
       isStacked,
       resource,
       onFavoriteClick,
+      onFilterClick,
       unit,
       intl,
       t,
     } = this.props;
     const locale = intl.locale;
+    const typeName = resource.type ? dataUtils.getLocalizedFieldValue(resource.type.name, locale) : '';
 
     return (
       <div
@@ -106,13 +108,13 @@ class ResourceCard extends React.Component {
           {resource.type && (
             <ResourceCardInfoCell
               icon={iconHome}
-              onClick={() => null}
-              text={dataUtils.getLocalizedFieldValue(resource.type.name, locale)}
+              onClick={() => onFilterClick('search', typeName)}
+              text={typeName}
             />
           )}
           <ResourceCardInfoCell
             icon={iconUser}
-            onClick={() => null}
+            onClick={() => onFilterClick('people', resource.people_capacity)}
             text={resource.people_capacity ? t('ResourceCard.peopleCapacity', { people: resource.people_capacity }) : '-'}
           />
           <ResourceCardInfoCell
@@ -133,7 +135,7 @@ class ResourceCard extends React.Component {
           )}
           {isLoggedIn && (
             <ResourceCardInfoCell
-              alt={dataUtils.getLocalizedFieldValue(resource.type.name, locale)}
+              alt={typeName}
               icon={resource.is_favorite ? iconHeartFilled : iconHeart}
               onClick={() => onFavoriteClick(resource)}
             />

@@ -2,11 +2,12 @@ import get from 'lodash/get';
 import range from 'lodash/range';
 import capitalize from 'lodash/capitalize';
 import sortBy from 'lodash/sortBy';
+import snakeCase from 'lodash/snakeCase';
+import forEach from 'lodash/forEach';
 
 import constants from '../../../app/constants/AppConstants';
 import * as urlUtils from '../../common/url/utils';
 
-// TODO: Change to use query-string module.
 export const getFiltersFromUrl = (location) => {
   const query = new URLSearchParams(location.search);
   const filters = {};
@@ -22,6 +23,15 @@ export const getFiltersFromUrl = (location) => {
 
 export const getSearchFromFilters = (filters) => {
   return urlUtils.getSearch(filters);
+};
+
+export const getApiParamsFromFilters = (filters) => {
+  const params = {};
+  forEach(filters, (value, key) => {
+    params[snakeCase(key)] = value;
+  });
+
+  return params;
 };
 
 export const getUnitOptions = (units, locale) => {

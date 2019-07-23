@@ -197,7 +197,6 @@ class SearchFilters extends React.Component {
                     geolocated={isGeolocationEnabled}
                     onConfirm={value => this.onFilterChange('distance', value)}
                     onPositionSwitch={() => {
-                      console.warn(isGeolocationEnabled);
                       if (isGeolocationEnabled) {
                         this.onFilterChange('distance', null);
                       }

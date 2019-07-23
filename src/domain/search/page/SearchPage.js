@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
+import snakeCase from 'lodash/snakeCase';
 import flowRight from 'lodash/flowRight';
 import {
   withRouter,
@@ -161,7 +162,7 @@ class SearchPage extends React.Component {
       params.lon = coords.longitude;
     }
 
-    client.get('resource', params)
+    client.get('resource', searchUtils.getApiParamsFromFilters(params))
       .then(({ data }) => {
         this.setState({
           isLoading: false,
@@ -276,6 +277,7 @@ class SearchPage extends React.Component {
                       {...props}
                       isLoading={isLoading || isLoadingUnits || isLoadingGeolocation}
                       onFavoriteClick={this.onFavoriteClick}
+                      onFiltersChange={this.onFiltersChange}
                       resources={resources}
                       totalCount={totalCount}
                       units={units}

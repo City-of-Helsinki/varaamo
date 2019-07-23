@@ -24,6 +24,7 @@ class SearchListResults extends React.Component {
     history: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
     onFavoriteClick: PropTypes.func.isRequired,
+    onFiltersChange: PropTypes.func.isRequired,
   };
 
   onSortChange = (sort) => {
@@ -41,6 +42,12 @@ class SearchListResults extends React.Component {
     history.push({
       search: searchUtils.getSearchFromFilters(newFilters),
     });
+  };
+
+  onFilterClick = (filterName, filterValue) => {
+    const { onFiltersChange } = this.props;
+
+    onFiltersChange({ [filterName]: filterValue });
   };
 
   render() {
@@ -63,7 +70,7 @@ class SearchListResults extends React.Component {
             <Col md={4} mdOffset={8} sm={6}>
               <SearchSort
                 onChange={sort => this.onSortChange(sort)}
-                value={get(filters, 'orderBy', '')}
+                value={get(filters, 'order_by', '')}
               />
             </Col>
           </Row>
@@ -79,6 +86,7 @@ class SearchListResults extends React.Component {
                     date={get(filters, 'date', moment().format(constants.DATE_FORMAT))}
                     key={`resourceCard-${resource.id}`}
                     onFavoriteClick={onFavoriteClick}
+                    onFilterClick={this.onFilterClick}
                     resource={resource}
                     unit={unit}
                   />
