@@ -9,7 +9,7 @@ const ResourceCardInfoCellWrapper = ({ onClick, children, ...props }) => (
 
 ResourceCardInfoCellWrapper.propTypes = {
   onClick: PropTypes.func,
-  children: PropTypes.element,
+  children: PropTypes.node,
 };
 
 function ResourceCardInfoCell({
