@@ -60,5 +60,24 @@ export const getPrice = (resource, t) => {
   if (price === 0) {
     return t('ResourceIcons.free');
   }
+
   return price ? `${price} €/h` : null;
+};
+
+export const isFree = (resource) => {
+  const minPricePerHour = resource.min_price_per_hour;
+  const maxPricePerHour = resource.max_price_per_hour;
+
+  if (!(minPricePerHour || maxPricePerHour)) {
+    return true;
+  }
+
+  if (minPricePerHour && maxPricePerHour && minPricePerHour !== maxPricePerHour) {
+    return false;
+  }
+
+  const priceString = maxPricePerHour || minPricePerHour;
+  const price = priceString !== 0 ? Number(priceString) : 0;
+
+  return price === 0;
 };

@@ -119,7 +119,7 @@ class ResourceCard extends React.Component {
           />
           <ResourceCardInfoCell
             icon={iconTicket}
-            onClick={() => null}
+            onClick={resourceUtils.isFree(resource) ? () => onFilterClick('freeOfCharge', true) : null}
             text={resourceUtils.getPrice(resource, t)}
           />
           <ResourceCardInfoCell
