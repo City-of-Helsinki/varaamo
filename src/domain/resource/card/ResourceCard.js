@@ -114,7 +114,7 @@ class ResourceCard extends React.Component {
           )}
           <ResourceCardInfoCell
             icon={iconUser}
-            onClick={() => onFilterClick('people', resource.people_capacity)}
+            onClick={resource.people_capacity ? () => onFilterClick('people', searchUtils.getClosestPeopleCapacityOption(resource.people_capacity)) : null}
             text={resource.people_capacity ? t('ResourceCard.peopleCapacity', { people: resource.people_capacity }) : '-'}
           />
           <ResourceCardInfoCell

@@ -66,6 +66,18 @@ export const getPeopleCapacityOptions = () => {
   ].map(number => ({ label: number, value: number }));
 };
 
+export const getClosestPeopleCapacityOption = (value) => {
+  return getPeopleCapacityOptions()
+    .map(option => option.value)
+    .reduce((previous, current) => {
+      if (Math.abs(current - value) < Math.abs(previous - value) && current - value < 1) {
+        return current;
+      }
+
+      return previous;
+    });
+};
+
 /**
  * Getter for municipality options.
  * @returns {{label: string, value: string}[]}
