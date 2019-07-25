@@ -1,8 +1,7 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { injectIntl, intlShape } from 'react-intl';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -35,7 +34,6 @@ class ResourceCard extends React.Component {
     unit: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
     history: PropTypes.object,
-    location: PropTypes.object,
     intl: intlShape.isRequired,
     isStacked: PropTypes.bool,
     isLoggedIn: PropTypes.bool,
@@ -156,5 +154,4 @@ const selector = createStructuredSelector({
 export default flowRight([
   injectIntl,
   connect(selector),
-  withRouter,
 ])(UnconnectedResourceCard);

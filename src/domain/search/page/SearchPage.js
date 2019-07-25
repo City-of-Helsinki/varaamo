@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
-import snakeCase from 'lodash/snakeCase';
 import flowRight from 'lodash/flowRight';
 import {
   withRouter,
@@ -9,6 +8,7 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
+import { Row, Col } from 'react-bootstrap';
 
 import constants from '../../../../app/constants/AppConstants';
 import injectT from '../../../../app/i18n/injectT';
@@ -221,7 +221,9 @@ class SearchPage extends React.Component {
       purposes,
       totalCount,
     } = this.state;
+
     const filters = searchUtils.getFiltersFromUrl(location);
+    const pageTitle = t('SearchPage.title');
 
     return (
       <div className="app-SearchPage">
@@ -252,27 +254,44 @@ class SearchPage extends React.Component {
           }}
           resultCount={totalCount}
         />
-        <PageWrapper className="app-SearchPage__wrapper" title={t('SearchPage.title')} transparent>
-          <div className="app-SearchPage__results">
-            <Switch>
-              <Route
-                exact
-                path={`${match.path}/map`}
-                render={(props) => {
-                  return (
-                    <SearchMapResults
-                      {...props}
-                      isLoading={isLoading}
-                      resources={resources}
-                    />
-                  );
-                }}
-              />
-              <Route
-                exact
-                path={match.path}
-                render={(props) => {
-                  return (
+
+        <div className="app-SearchPage__results">
+          <Switch>
+            <Route
+              exact
+              path={`${match.path}/map`}
+              render={(props) => {
+                return (
+                  <PageWrapper
+                    fluid
+                    title={pageTitle}
+                    transparent
+                  >
+                    <Row>
+                      <Col>
+                        <SearchMapResults
+                          {...props}
+                          isLoading={isLoading || isLoadingUnits || isLoadingGeolocation}
+                          onFavoriteClick={this.onFavoriteClick}
+                          onFiltersChange={this.onFiltersChange}
+                          resources={resources}
+                          units={units}
+                        />
+                      </Col>
+                    </Row>
+                  </PageWrapper>
+                );
+              }}
+            />
+            <Route
+              exact
+              path={match.path}
+              render={(props) => {
+                return (
+                  <PageWrapper
+                    title={pageTitle}
+                    transparent
+                  >
                     <SearchListResults
                       {...props}
                       isLoading={isLoading || isLoadingUnits || isLoadingGeolocation}
@@ -282,13 +301,13 @@ class SearchPage extends React.Component {
                       totalCount={totalCount}
                       units={units}
                     />
-                  );
-                }}
-              />
-              <Redirect to={match.path} />
-            </Switch>
-          </div>
-        </PageWrapper>
+                  </PageWrapper>
+                );
+              }}
+            />
+            <Redirect to={match.path} />
+          </Switch>
+        </div>
       </div>
     );
   }
