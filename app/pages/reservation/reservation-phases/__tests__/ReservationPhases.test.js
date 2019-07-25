@@ -2,8 +2,8 @@ import React from 'react';
 
 import { mountWithIntl } from '../../../../utils/testUtils';
 import ReservationPhases from '../ReservationPhases';
-import ProgressSteps from '../../../../shared/progress-steps/ProgressSteps';
-import Step from '../../../../shared/progress-steps/Step';
+import NumericalProgressSteps from '../../../../shared/progress-steps/NumericalProgressSteps';
+import NumericalStep from '../../../../shared/progress-steps/NumericalStep';
 
 describe('pages/reservation/reservation-phases/ReservationPhases', () => {
   const defaultProps = {
@@ -18,13 +18,13 @@ describe('pages/reservation/reservation-phases/ReservationPhases', () => {
 
   test('uses ProgressSteps under the hood', () => {
     const wrapper = getWrapper();
-    const progressStepsComponent = wrapper.find(ProgressSteps);
+    const progressStepsComponent = wrapper.find(NumericalProgressSteps);
     expect(progressStepsComponent).toHaveLength(1);
   });
 
   test('when not editing', () => {
     const wrapper = getWrapper();
-    const steps = wrapper.find(Step);
+    const steps = wrapper.find(NumericalStep);
     expect(steps).toHaveLength(2);
     expect(steps.at(0).prop('isActive')).toBe(true);
     expect(steps.at(1).prop('isActive')).toBe(false);
@@ -36,7 +36,7 @@ describe('pages/reservation/reservation-phases/ReservationPhases', () => {
       resource: null,
       isEditing: true,
     });
-    const steps = wrapper.find(Step);
+    const steps = wrapper.find(NumericalStep);
     expect(steps).toHaveLength(3);
     expect(steps.at(0).prop('isActive')).toBe(false);
     expect(steps.at(1).prop('isActive')).toBe(true);
@@ -52,7 +52,7 @@ describe('pages/reservation/reservation-phases/ReservationPhases', () => {
       },
       isEditing: false,
     });
-    const steps = wrapper.find(Step);
+    const steps = wrapper.find(NumericalStep);
     expect(steps).toHaveLength(3);
     expect(steps.at(1).prop('label')).toBe('ReservationPhase.paymentTitle');
   });

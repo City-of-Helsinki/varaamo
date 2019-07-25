@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import ProgressSteps from '../../../shared/progress-steps/ProgressSteps';
+import NumericalProgressSteps from '../../../shared/progress-steps/NumericalProgressSteps';
 import injectT from '../../../i18n/injectT';
 import { hasProducts } from '../../../utils/resourceUtils';
 
@@ -39,7 +39,7 @@ function ReservationPhases({
   const current = t(phases[currentPhase]);
 
   return (
-    <ProgressSteps
+    <NumericalProgressSteps
       activeStep={current}
       className="app-ReservationPage__phases"
       steps={steps}

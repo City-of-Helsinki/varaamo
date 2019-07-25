@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Step from './Step';
+import NumericalStep from './NumericalStep';
 
-const ProgressSteps = ({
+const NumericalProgressSteps = ({
   steps,
   activeStep = null,
   className = '',
@@ -14,7 +14,7 @@ const ProgressSteps = ({
         {
           index > 0 && <div className="progress-step-separator" />
         }
-        <Step
+        <NumericalStep
           isActive={stepName === activeStep}
           label={stepName}
           number={index + 1}
@@ -24,10 +24,10 @@ const ProgressSteps = ({
   </div>
 );
 
-ProgressSteps.propTypes = {
+NumericalProgressSteps.propTypes = {
   className: PropTypes.string,
   steps: PropTypes.arrayOf(PropTypes.string),
   activeStep: PropTypes.string,
 };
 
-export default ProgressSteps;
+export default NumericalProgressSteps;

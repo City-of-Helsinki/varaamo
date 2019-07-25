@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-const Step = ({
+const NumericalStep = ({
   label,
   number,
   isActive,
@@ -25,7 +25,7 @@ const Step = ({
   );
 };
 
-Step.propTypes = {
+NumericalStep.propTypes = {
   label: PropTypes.string,
   number: PropTypes.oneOfType([
     PropTypes.string,
@@ -34,4 +34,4 @@ Step.propTypes = {
   isActive: PropTypes.bool,
 };
 
-export default Step;
+export default NumericalStep;
