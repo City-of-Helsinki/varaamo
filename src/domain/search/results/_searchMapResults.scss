@@ -4,16 +4,8 @@ $map-height: 600px;
   &__map {
     height: $map-height;
     width: 100%;
-    pointer-events: none;
     position: relative;
     z-index: 1;
-  }
-
-  &__showMap {
-    .app-ResourceMap__map {
-      pointer-events: auto;
-      z-index: 0;
-    }
   }
 
   .leaflet-marker-icon {

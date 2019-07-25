@@ -7,18 +7,15 @@ import Loader from 'react-loader';
 
 import ResourceCardSlider from '../../resource/card/slider/ResourceCardSlider';
 import UnitMarker from '../../../common/map/UnitMarker';
+import UserMarker from '../../../common/map/UserMarker';
 import * as searchUtils from '../utils';
 import constants from '../../../../app/constants/AppConstants';
-import ResourceCard from "../../resource/card/ResourceCard";
 
-const defaultPosition = {
-  null: [60.18952, 24.99545],
-  ESPOO: [60.205490, 24.755899],
-  VANTAA: [60.29414, 25.14099],
-};
-const defaultZoom = 12;
-
-const groupResourcesByUnit = (units, resources) => {
+/**
+ * Groups the given resources by unit.
+ * @param resources
+ */
+const groupResourcesByUnit = (resources) => {
   const grouped = {};
 
   resources.forEach((resource) => {
@@ -36,6 +33,7 @@ const groupResourcesByUnit = (units, resources) => {
 
 class SearchMapResults extends React.Component {
   static propTypes = {
+    position: PropTypes.arrayOf(Number),
     units: PropTypes.array,
     resources: PropTypes.array,
     isLoading: PropTypes.bool,
@@ -65,12 +63,54 @@ class SearchMapResults extends React.Component {
     onFiltersChange({ [filterName]: filterValue });
   };
 
+  onMapClick = () => {
+    this.setState({
+      selectedUnit: null,
+      unitResources: null,
+    });
+  };
+
+  getMapBounds = () => {
+    const { units, resources } = this.props;
+    const unitIds = {};
+
+    resources.forEach((resource) => {
+      unitIds[resource.unit] = true;
+    });
+
+    let maxLatitude = null;
+    let minLatitude = null;
+    let maxLongitude = null;
+    let minLongitude = null;
+
+    units.forEach((unit) => {
+      if (unitIds[unit.id]) {
+        const coordinates = get(unit, 'location.coordinates');
+
+        maxLatitude = maxLatitude !== null ? Math.max(maxLatitude, coordinates[1]) : coordinates[1];
+        minLatitude = minLatitude !== null ? Math.min(minLatitude, coordinates[1]) : coordinates[1];
+        maxLongitude = maxLongitude !== null ? Math.max(maxLongitude, coordinates[0]) : coordinates[0];
+        minLongitude = minLongitude !== null ? Math.min(minLongitude, coordinates[0]) : coordinates[0];
+      }
+    });
+
+    if (!minLatitude || !minLongitude || !maxLatitude || !maxLongitude) {
+      return undefined;
+    }
+
+    return [
+      [minLatitude, minLongitude],
+      [maxLatitude, maxLongitude],
+    ];
+  };
+
   render() {
     const {
       isLoading,
       units,
       resources,
       onFavoriteClick,
+      position,
     } = this.props;
 
     const {
@@ -78,7 +118,7 @@ class SearchMapResults extends React.Component {
       unitResources,
     } = this.state;
 
-    const groupedResources = groupResourcesByUnit(units, resources);
+    const groupedResources = groupResourcesByUnit(resources);
     const filters = searchUtils.getFiltersFromUrl(location);
 
     return (
@@ -86,9 +126,11 @@ class SearchMapResults extends React.Component {
         <Loader loaded={!isLoading}>
           <React.Fragment>
             <Map
-              center={defaultPosition.null}
+              bounds={this.getMapBounds()}
+              boundsOptions={{ padding: [50, 50] }}
               className="app-SearchMapResults__map"
-              zoom={defaultZoom}
+              onClick={this.onMapClick}
+              scrollWheelZoom={false}
               zoomControl={false}
             >
               <TileLayer
@@ -103,6 +145,7 @@ class SearchMapResults extends React.Component {
 
                 return (
                   <UnitMarker
+                    isHighlighted={selectedUnit && selectedUnit.id === unit.id}
                     key={`unitMarker-${unit.id}`}
                     onClick={this.onUnitMarkerClick}
                     resources={groupedResources[unit.id]}
@@ -110,6 +153,7 @@ class SearchMapResults extends React.Component {
                   />
                 );
               })}
+              {position && <UserMarker position={position} />}
             </Map>
             {selectedUnit && (
               <ResourceCardSlider
