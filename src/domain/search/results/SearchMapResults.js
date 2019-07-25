@@ -71,7 +71,7 @@ class SearchMapResults extends React.Component {
   };
 
   getMapBounds = () => {
-    const { units, resources } = this.props;
+    const { units, resources, position } = this.props;
     const unitIds = {};
 
     resources.forEach((resource) => {
@@ -83,19 +83,26 @@ class SearchMapResults extends React.Component {
     let maxLongitude = null;
     let minLongitude = null;
 
+    const compareCoordinates = (coordinates) => {
+      maxLatitude = maxLatitude !== null ? Math.max(maxLatitude, coordinates[0]) : coordinates[0];
+      minLatitude = minLatitude !== null ? Math.min(minLatitude, coordinates[0]) : coordinates[0];
+      maxLongitude = maxLongitude !== null ? Math.max(maxLongitude, coordinates[1]) : coordinates[1];
+      minLongitude = minLongitude !== null ? Math.min(minLongitude, coordinates[1]) : coordinates[1];
+    };
+
     units.forEach((unit) => {
       if (unitIds[unit.id]) {
-        const coordinates = get(unit, 'location.coordinates');
-
-        maxLatitude = maxLatitude !== null ? Math.max(maxLatitude, coordinates[1]) : coordinates[1];
-        minLatitude = minLatitude !== null ? Math.min(minLatitude, coordinates[1]) : coordinates[1];
-        maxLongitude = maxLongitude !== null ? Math.max(maxLongitude, coordinates[0]) : coordinates[0];
-        minLongitude = minLongitude !== null ? Math.min(minLongitude, coordinates[0]) : coordinates[0];
+        const unitCoordinates = get(unit, 'location.coordinates');
+        compareCoordinates([unitCoordinates[1], unitCoordinates[0]]);
       }
     });
 
     if (!minLatitude || !minLongitude || !maxLatitude || !maxLongitude) {
       return undefined;
+    }
+
+    if (position) {
+      compareCoordinates(position);
     }
 
     return [

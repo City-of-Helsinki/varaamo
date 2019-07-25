@@ -220,6 +220,7 @@ class SearchPage extends React.Component {
       units,
       purposes,
       totalCount,
+      coords,
     } = this.state;
 
     const filters = searchUtils.getFiltersFromUrl(location);
@@ -274,7 +275,7 @@ class SearchPage extends React.Component {
                           isLoading={isLoading || isLoadingUnits || isLoadingGeolocation}
                           onFavoriteClick={this.onFavoriteClick}
                           onFiltersChange={this.onFiltersChange}
-                          position={[60.18952, 24.99545]} // Replace this with proper positional data.
+                          position={coords ? [coords.latitude, coords.longitude] : null} // Replace this with proper positional data.
                           resources={resources}
                           units={units}
                         />
