@@ -1,23 +1,104 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import map from 'lodash/map';
 import Moment from 'moment';
 import classNames from 'classnames';
 import { extendMoment } from 'moment-range';
 
-import constants from '../../../../../app/constants/AppConstants';
-import { calculateDuration, calculateEndTime } from '../../../../../app/utils/timeUtils';
 import ToggleFilter from './ToggleFilter';
 import SelectFilter from './SelectFilter';
 
 const moment = extendMoment(Moment);
 
+const getMomentFromTime = (time) => {
+  const timeParts = time.split(':');
+
+  return moment()
+    .hours(timeParts[0])
+    .minutes(timeParts[1]);
+};
+
 class TimeRangeFilter extends React.Component {
   static propTypes = {
-    date: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     value: PropTypes.string,
+  };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      ...this.splitValueString(props.value),
+    };
+  }
+
+  componentDidUpdate(prevProps) {
+    const { value } = this.props;
+
+    if (value !== prevProps.value) {
+      // eslint-disable-next-line
+      this.setState({
+        ...this.splitValueString(value),
+      });
+    }
+  }
+
+  splitValueString = (value) => {
+    const valueParts = value.split(',');
+
+    return {
+      startTime: valueParts[0] ? moment(valueParts[0]).format('HH:mm') : this.getDefaultValue('startTime'),
+      endTime: valueParts[1] ? moment(valueParts[1]).format('HH:mm') : this.getDefaultValue('endTime'),
+      duration: valueParts[2] ? Number(valueParts[2]) : this.getDefaultValue('duration'),
+    };
+  };
+
+  getDefaultValue = (fieldName) => {
+    switch (fieldName) {
+      case 'startTime':
+        const start = moment();
+
+        if (start.minutes() < 30) {
+          start.minutes(30);
+        } else {
+          start.add(1, 'hours');
+          start.minutes(0);
+        }
+
+        return start
+          .format('HH:mm');
+      case 'endTime':
+        return moment()
+          .hours(23)
+          .minutes(30)
+          .format('HH:mm');
+      case 'duration':
+        return 30;
+      default:
+        return '';
+    }
+  };
+
+  getValueString = () => {
+    const {
+      startTime,
+      endTime,
+      duration,
+    } = this.state;
+
+    const format = 'YYYY-MM-DD[T]HH:mmZ';
+
+    const startTimeParts = startTime.split(':');
+    const start = moment()
+      .hours(startTimeParts[0])
+      .minutes(startTimeParts[1]);
+
+    const endTimeParts = endTime.split(':');
+    const end = moment()
+      .hours(endTimeParts[0])
+      .minutes(endTimeParts[1]);
+
+    return `${start.format(format)},${end.format(format)},${duration}`;
   };
 
   /**
@@ -25,8 +106,24 @@ class TimeRangeFilter extends React.Component {
    * @returns {*}
    */
   getDurationOptions = () => {
-    const totalMinutes = 12 * 60;
-    return [];
+    const {
+      startTime,
+      endTime,
+    } = this.state;
+
+    const start = getMomentFromTime(startTime);
+    const end = getMomentFromTime(endTime);
+    const minutes = Math.min(end.diff(start, 'minutes'), 12 * 60);
+
+    const options = [];
+    for (let i = 30; i <= minutes; i += 30) {
+      options.push({
+        value: i,
+        label: `${i / 60} h`,
+      });
+    }
+
+    return options;
   };
 
   /**
@@ -52,11 +149,11 @@ class TimeRangeFilter extends React.Component {
    * @returns {Array}
    */
   getEndTimeOptions = () => {
-    /*
-    const { start } = this.props;
-    const startTime = moment(start, 'HH:mm').add(30, 'minutes');
+    const { startTime } = this.state;
+    const start = getMomentFromTime(startTime)
+      .add(30, 'minutes');
     const today = moment().format('Y-MM-DD');
-    const range = moment.range(`${today} ${startTime.format('HH:mm')}`, `${today} 23:30`);
+    const range = moment.range(`${today} ${start.format('HH:mm')}`, `${today} 23:30`);
 
     return Array.from(range.by('minutes', { step: 30 }))
       .map((value) => {
@@ -66,93 +163,115 @@ class TimeRangeFilter extends React.Component {
           value: time,
         };
       });
-      */
-
-    return [];
-  };
-
-  getTimeOptions = (start, end) => {
-    /*
-    const range = moment.range(start, end);
-    const options = map(
-      Array.from(range.by(constants.FILTER.timePeriodType, { step: constants.FILTER.timePeriod })),
-      (time) => {
-        const value = time.format(constants.FILTER.timeFormat);
-
-        return {
-          label: value,
-          value,
-        };
-      }
-    );
-
-    return options;
-     */
-
-    return [];
   };
 
   onChange = (fieldName, fieldValue) => {
-    const { date, onChange } = this.props;
+    const { onChange } = this.props;
 
     switch (fieldName) {
       case 'checked':
         if (fieldValue) {
-          const startDate = moment();
-          if (startDate.minutes() >= 30) {
-            startDate
-              .add(1, 'hour')
-              .minutes(0);
-          } else {
-            startDate.minutes(30);
-          }
-
-          onChange(`${startDate.format('HH:mm')},23:30`);
+          onChange(this.getValueString());
         } else {
           onChange('');
         }
         break;
       case 'startTime':
+        this.updateStartTime(fieldValue);
         break;
       case 'endTime':
+        this.updateEndTime(fieldValue);
         break;
       case 'duration':
+        this.setState({
+          duration: fieldValue,
+        }, () => onChange(this.getValueString()));
         break;
       default:
         break;
     }
   };
 
-  getValue = (fieldName) => {
-    const { value } = this.props;
+  /**
+   * Updates start time in state.
+   * @param value
+   */
+  updateStartTime = (value) => {
+    const { onChange } = this.props;
+    const {
+      endTime,
+      duration,
+    } = this.state;
 
-    switch (fieldName) {
-      case 'checked':
-        return Boolean(value);
-      case 'startTime':
-        return '';
-      case 'endTime':
-        return '';
-      case 'duration':
-        return '';
-      default:
-        return null;
-    }
+    const start = getMomentFromTime(value);
+    const end = getMomentFromTime(endTime);
+
+    // End time can't be earlier than 30 min after start time.
+    const updatedEndTime = end.diff(start, 'minutes') < 30
+      ? start.add(30, 'minutes').format('HH:mm')
+      : endTime;
+
+    // Duration can't be more than the difference of the start time and end time.
+    const updatedDuration = Math.min(
+      getMomentFromTime(updatedEndTime).diff(start, 'minutes'),
+      duration
+    );
+
+    this.setState({
+      startTime: value,
+      endTime: updatedEndTime,
+      duration: updatedDuration,
+    }, () => onChange(this.getValueString()));
+  };
+
+  /**
+   * Updates the end time in state.
+   * @param value
+   */
+  updateEndTime = (value) => {
+    const { onChange } = this.props;
+    const {
+      startTime,
+      duration,
+    } = this.state;
+
+    const start = getMomentFromTime(startTime);
+    const end = getMomentFromTime(value);
+
+    // Duration can't be more than the difference of the start time and end time.
+    const updatedDuration = Math.min(
+      end.diff(start, 'minutes'),
+      duration
+    );
+
+    this.setState({
+      endTime: value,
+      duration: updatedDuration,
+    }, () => onChange(this.getValueString()));
   };
 
   render() {
     const {
       label,
+      value,
     } = this.props;
+
+    const {
+      startTime,
+      endTime,
+      duration,
+    } = this.state;
+
+    const isChecked = !!value;
 
     return (
       <div
         className={classNames('app-TimeRangeFilter', {
-          'app-TimeRangeFilter--checked': this.getValue('checked'),
+          'app-TimeRangeFilter--checked': isChecked,
         })}
       >
         <ToggleFilter
-          checked={this.getValue('checked')}
+          checked={isChecked}
           id="timeRange-status"
           label={label}
           onChange={checked => this.onChange('checked', checked)}
@@ -165,7 +284,7 @@ class TimeRangeFilter extends React.Component {
             isSearchable={false}
             onChange={item => this.onChange('startTime', item.value)}
             options={this.getStartTimeOptions()}
-            value={this.getValue('startTime')}
+            value={startTime}
           />
           <div className="app-TimeRangeFilter__range-separator">-</div>
           <SelectFilter
@@ -176,7 +295,7 @@ class TimeRangeFilter extends React.Component {
             onChange={item => this.onChange('endTime', item.value)}
             options={this.getEndTimeOptions()}
             searchable={false}
-            value={this.getValue('endTime')}
+            value={endTime}
           />
           <SelectFilter
             className="app-TimeRangeFilter__range-duration"
@@ -185,7 +304,7 @@ class TimeRangeFilter extends React.Component {
             isSearchable={false}
             onChange={item => this.onChange('duration', item.value)}
             options={this.getDurationOptions()}
-            value={this.getValue('duration')}
+            value={duration}
           />
         </div>
       </div>

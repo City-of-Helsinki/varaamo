@@ -101,6 +101,8 @@
 
     "arrow-body-style": "off",
 
-    "quote-props": "off"
+    "quote-props": "off",
+
+    "no-case-declarations": "off"
   }
 }
