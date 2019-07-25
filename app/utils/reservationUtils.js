@@ -110,6 +110,17 @@ async function getReservationPrice(apiClient, begin, end, products) {
   }
 }
 
+function getReservationPricePerPeriod(resource) {
+  const price = get(resource, 'products[0].price');
+  const pricePeriod = get(resource, 'products[0].pricePeriod');
+  const duration = moment.duration(pricePeriod);
+  const hours = duration.asHours();
+  const period = hours >= 1
+    ? `${hours} h`
+    : `${duration.asMinutes()} min`;
+  return `${price}€ / ${period}`;
+}
+
 export {
   combine,
   isStaffEvent,
@@ -119,4 +130,5 @@ export {
   getNextAvailableTime,
   getNextReservation,
   getReservationPrice,
+  getReservationPricePerPeriod,
 };
