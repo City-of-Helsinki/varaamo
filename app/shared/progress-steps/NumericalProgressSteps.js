@@ -8,7 +8,7 @@ const NumericalProgressSteps = ({
   activeStep = null,
   className = '',
 }) => (
-  <div className={`progress-steps ${className}`}>
+  <div className={`progress-steps progress-steps-numerical ${className}`}>
     {steps.map((stepName, index) => (
       <React.Fragment key={stepName}>
         {

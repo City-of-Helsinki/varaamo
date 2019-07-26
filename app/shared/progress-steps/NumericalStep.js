@@ -9,13 +9,14 @@ const NumericalStep = ({
 }) => {
   const stepClasses = classNames(
     'progress-step',
+    'progress-step-numerical',
     {
-      'progress-step--active': isActive,
+      'progress-step-numerical--active': isActive,
     },
   );
   return (
     <div className={stepClasses}>
-      <div className="progress-step-number">
+      <div className="progress-step-indicator progress-step-indicator-number">
         {number}
       </div>
       <div className="progress-step-label">
