@@ -12,6 +12,7 @@ import injectT from '../../../i18n/injectT';
 import { isStaffEvent } from '../../../utils/reservationUtils';
 import { getTermsAndConditions } from '../../../utils/resourceUtils';
 import ReservationInformationForm from './ReservationInformationForm';
+import RecurringReservationControls from '../../../shared/recurring-reservation-controls/RecurringReservationControls';
 
 class ReservationInformation extends Component {
   static propTypes = {
@@ -122,6 +123,7 @@ class ReservationInformation extends Component {
       <div className="app-ReservationInformation">
         <Col md={7} sm={12}>
           {this.renderInfoTexts()}
+          <RecurringReservationControls />
           <ReservationInformationForm
             fields={this.getFormFields(termsAndConditions)}
             initialValues={this.getFormInitialValues()}

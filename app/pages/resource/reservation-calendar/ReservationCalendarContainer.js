@@ -144,6 +144,8 @@ export class UnconnectedReservationCalendarContainer extends Component {
       const { end } = last(orderedSelected);
       const reservation = Object.assign({}, first(orderedSelected), { end });
       const nextUrl = getEditReservationUrl(reservation);
+      const selectedRanged = { ...selected[0], end: selected[selected.length - 1].end };
+      this.props.actions.changeRecurringBaseTime(selectedRanged);
 
       history.push(nextUrl);
     }
