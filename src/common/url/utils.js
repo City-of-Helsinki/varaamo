@@ -13,7 +13,7 @@ export const getSearch = (search) => {
  * @param search {object}
  * @returns {string}
  */
-export const getLinkString = (path, search) => {
+export const getLinkString = (path, search = null) => {
   let searchString = '';
 
   if (search) {
