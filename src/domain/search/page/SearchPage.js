@@ -275,7 +275,7 @@ class SearchPage extends React.Component {
                           isLoading={isLoading || isLoadingUnits || isLoadingGeolocation}
                           onFavoriteClick={this.onFavoriteClick}
                           onFiltersChange={this.onFiltersChange}
-                          position={coords ? [coords.latitude, coords.longitude] : null} // Replace this with proper positional data.
+                          position={coords ? [coords.latitude, coords.longitude] : null}
                           resources={resources}
                           units={units}
                         />

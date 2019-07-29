@@ -27,7 +27,11 @@ const UnitMarker = ({
   return (
     <Marker
       icon={getIcon(resources.length, isHighlighted)}
-      onClick={() => onClick(unit, resources)}
+      onClick={() => {
+        if (onClick) {
+          onClick(unit, resources);
+        }
+      }}
       position={[coordinates[1], coordinates[0]]}
     />
   );
@@ -35,8 +39,8 @@ const UnitMarker = ({
 
 UnitMarker.propTypes = {
   unit: PropTypes.object.isRequired,
-  resources: PropTypes.array.isRequired,
-  onClick: PropTypes.func.isRequired,
+  resources: PropTypes.array,
+  onClick: PropTypes.func,
   isHighlighted: PropTypes.bool,
 };
 

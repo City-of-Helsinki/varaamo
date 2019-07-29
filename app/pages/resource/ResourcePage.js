@@ -17,7 +17,6 @@ import { clearReservations, toggleResourceMap } from '../../actions/uiActions';
 import PageWrapper from '../PageWrapper';
 import NotFoundPage from '../not-found/NotFoundPage';
 import ResourceCalendar from '../../shared/resource-calendar/ResourceCalendar';
-import ResourceMap from '../../shared/resource-map/MapContainer';
 import injectT from '../../i18n/injectT';
 import { getMaxPeriodText, getResourcePageUrl, getMinPeriodText } from '../../utils/resourceUtils';
 import ReservationCalendar from './reservation-calendar/ReservationCalendarContainer';
@@ -25,6 +24,7 @@ import ResourceHeader from './resource-header/ResourceHeader';
 import ResourceInfo from './resource-info/ResourceInfo';
 import ResourceMapInfo from './resource-map-info/ResourceMapInfo';
 import resourcePageSelector from './resourcePageSelector';
+import ResourceMap from '../../../src/domain/resource/map/ResourceMap';
 
 class UnconnectedResourcePage extends Component {
   constructor(props) {
@@ -166,22 +166,15 @@ class UnconnectedResourcePage extends Component {
             unit={unit}
           />
           {showMap && unit && <ResourceMapInfo unit={unit} />}
-          {showMap && (
-            <ResourceMap
-              location={location}
-              resourceIds={[resource.id]}
-              selectedUnitId={unit ? unit.id : null}
-              showMap={showMap}
-            />
-          )}
+          {showMap && (<ResourceMap resource={resource} unit={unit} />)}
           {!showMap && (
             <PageWrapper title={resource.name || ''} transparent>
               <div>
                 <Col className="app-ResourcePage__content" lg={8} md={8} xs={12}>
                   {mainImage
-                    && this.renderImage(mainImage, mainImageIndex, {
-                      mainImageMobileVisibility: true,
-                    })}
+                  && this.renderImage(mainImage, mainImageIndex, {
+                    mainImageMobileVisibility: true,
+                  })}
                   <ResourceInfo
                     isLoggedIn={isLoggedIn}
                     resource={resource}

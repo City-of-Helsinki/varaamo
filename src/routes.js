@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Redirect, Route as ReactRouterRoute } from 'react-router-dom';
+import { Switch, Redirect } from 'react-router-dom';
 
 import Route from '../app/shared/route/Route';
 import PrivateRoute from '../app/shared/private-route/PrivateRoute';
@@ -10,16 +10,14 @@ import HomePage from '../app/pages/home/HomePage';
 import NotFoundPage from '../app/pages/not-found/NotFoundPage';
 import ReservationPage from '../app/pages/reservation/ReservationPage';
 import ResourcePage from '../app/pages/resource/ResourcePage';
-import SearchPage from '../app/pages/search/SearchPage';
 import UserReservationsPage from '../app/pages/user-reservations/UserReservationsPage';
-import NewSearchPage from './domain/search/page/SearchPage';
+import SearchPage from './domain/search/page/SearchPage';
 
 export default () => (
   <AppContainer>
     <Switch>
       <Route component={HomePage} componentName="Home" exact path="/" />
       <Route component={SearchPage} componentName="Search" path="/search" />
-      <ReactRouterRoute component={NewSearchPage} path="/new-search" />
       <Route component={AboutPage} componentName="About" path="/about" />
       <Route component={ResourcePage} componentName="Resource" path="/resources/:id" />
 
