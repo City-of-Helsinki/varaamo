@@ -9,6 +9,7 @@ import AdminResourcesPage from '../app/pages/admin-resources/AdminResourcesPage'
 import HomePage from '../app/pages/home/HomePage';
 import NotFoundPage from '../app/pages/not-found/NotFoundPage';
 import ReservationPage from '../app/pages/reservation/ReservationPage';
+import ReservationPaymentReturnPage from '../app/pages/reservation/ReservationPaymentReturnPage';
 import ResourcePage from '../app/pages/resource/ResourcePage';
 import SearchPage from '../app/pages/search/SearchPage';
 import UserReservationsPage from '../app/pages/user-reservations/UserReservationsPage';
@@ -32,6 +33,7 @@ export default () => (
         path="/my-reservations"
       />
       <PrivateRoute component={ReservationPage} componentName="Reservation" path="/reservation" />
+      <PrivateRoute component={ReservationPaymentReturnPage} componentName="ReservationPaymentReturn" path="/reservation-payment-return" />
 
       <Redirect from="/home" to="/" />
       <Redirect from="/resources/:id/reservation" to="/resources/:id" />
