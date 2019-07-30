@@ -23,6 +23,7 @@ import ReservationInformation from './reservation-information/ReservationInforma
 import ReservationPhases from './reservation-phases/ReservationPhases';
 import ReservationTime from './reservation-time/ReservationTime';
 import reservationPageSelector from './reservationPageSelector';
+import recurringReservationsConnector from '../../state/recurringReservations';
 
 class UnconnectedReservationPage extends Component {
   constructor(props) {
@@ -164,6 +165,9 @@ class UnconnectedReservationPage extends Component {
       unit,
       user,
       history,
+      recurringReservations,
+      selectedReservations
+
     } = this.props;
     const { view } = this.state;
 
@@ -213,13 +217,17 @@ class UnconnectedReservationPage extends Component {
                     isAdmin={isAdmin}
                     isEditing={isEditing}
                     isMakingReservations={isMakingReservations}
+                    isPreliminaryReservation={resource.needManualConfirmation}
                     isStaff={isStaff}
                     onBack={this.handleBack}
                     onCancel={this.handleCancel}
                     onConfirm={this.handleReservation}
                     openResourceTermsModal={actions.openResourceTermsModal}
+                    recurringReservations={recurringReservations}
+                    removeReservation={actions.removeReservation}
                     reservation={reservationToEdit}
                     resource={resource}
+                    selectedReservations={selectedReservations}
                     selectedTime={selectedTime}
                     unit={unit}
                   />
@@ -260,6 +268,8 @@ UnconnectedReservationPage.propTypes = {
   unit: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
+  recurringReservations: PropTypes.array.isRequired,
+  selectedReservations: PropTypes.array.isRequired
 };
 UnconnectedReservationPage = injectT(UnconnectedReservationPage); // eslint-disable-line
 
@@ -271,6 +281,7 @@ function mapDispatchToProps(dispatch) {
     openResourceTermsModal,
     putReservation,
     postReservation,
+    removeReservation: recurringReservationsConnector.removeReservation,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

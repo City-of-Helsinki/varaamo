@@ -13,12 +13,17 @@ import { isStaffEvent } from '../../../utils/reservationUtils';
 import { getTermsAndConditions } from '../../../utils/resourceUtils';
 import ReservationInformationForm from './ReservationInformationForm';
 import RecurringReservationControls from '../../../shared/recurring-reservation-controls/RecurringReservationControls';
+import CompactReservationList from '../../../shared/compact-reservation-list/CompactReservationList';
 
 class ReservationInformation extends Component {
   static propTypes = {
     isAdmin: PropTypes.bool.isRequired,
     isEditing: PropTypes.bool.isRequired,
     isMakingReservations: PropTypes.bool.isRequired,
+    isPreliminaryReservation: PropTypes.bool.isRequired,
+    onRemoveReservation: PropTypes.func.isRequired,
+    recurringReservations: PropTypes.array.isRequired,
+    selectedReservations: PropTypes.array.isRequired,
     isStaff: PropTypes.bool.isRequired,
     onBack: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
@@ -101,6 +106,32 @@ class ReservationInformation extends Component {
     );
   }
 
+  renderReservationTimes = () => {
+    const {
+      isPreliminaryReservation,
+      onRemoveReservation,
+      recurringReservations,
+      selectedReservations,
+      t,
+    } = this.props;
+
+    const reservationsCount = selectedReservations.length + recurringReservations.length;
+    const introText = isPreliminaryReservation
+      ? t('ConfirmReservationModal.preliminaryReservationText', { reservationsCount })
+      : t('ConfirmReservationModal.regularReservationText', { reservationsCount });
+
+    return (
+      <div>
+        <p><strong>{introText}</strong></p>
+        <CompactReservationList
+          onRemoveClick={onRemoveReservation}
+          removableReservations={recurringReservations}
+          reservations={selectedReservations}
+        />
+      </div>
+    );
+  }
+
   render() {
     const {
       isEditing,
@@ -124,6 +155,8 @@ class ReservationInformation extends Component {
         <Col md={7} sm={12}>
           {this.renderInfoTexts()}
           <RecurringReservationControls />
+
+          {this.renderReservationTimes()}
           <ReservationInformationForm
             fields={this.getFormFields(termsAndConditions)}
             initialValues={this.getFormInitialValues()}
