@@ -19,8 +19,13 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
     onCancel: simple.stub(),
     onConfirm: simple.stub(),
     openResourceTermsModal: simple.stub(),
+    recurringReservations: [],
     reservation: Immutable(Reservation.build()),
     resource: Immutable(Resource.build()),
+    selectedReservations: Immutable([
+      Reservation.build(),
+      Reservation.build(),
+    ]),
     selectedTime: {
       begin: '2016-10-10T10:00:00+03:00',
       end: '2016-10-10T11:00:00+03:00',

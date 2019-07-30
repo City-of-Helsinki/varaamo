@@ -40,6 +40,7 @@ function getState(resources = [], units = [], user = defaultUser) {
         toShowEdited: [defaultReservation],
       },
     }),
+    recurringReservations: [],
   };
 }
 
