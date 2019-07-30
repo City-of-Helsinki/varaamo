@@ -24,32 +24,48 @@ class ReservationPaymentReturnPage extends Component {
     isLoading: true,
     reservation: null,
     resource: null,
+    unit: null,
   };
 
   componentDidMount() {
-    const reservationId = this.getQueryParam('reservation_id');
     const status = this.getQueryParam('payment_status');
     const isSuccess = status === 'success';
     if (isSuccess) {
-      const reservationUrl = `reservation/${reservationId}`;
-      apiClient.get(reservationUrl)
-        .then((response) => {
-          const reservation = response.data;
-          this.setState({ reservation });
-          return reservation;
-        })
-        .then((reservation) => {
-          const resourceUrl = `resource/${reservation.resource}`;
-          return apiClient.get(resourceUrl);
-        })
-        .then((response) => {
-          const resource = response.data;
-          this.setState({ resource, isLoading: false });
-        });
+      this.loadDataToState()
+        .then(() => this.setState({ isLoading: false }))
+        .catch(() => this.setState({ isLoading: false }));
     } else {
       this.setState({ isLoading: false });
     }
   }
+
+  loadDataToState = () => {
+    const reservationId = this.getQueryParam('reservation_id');
+    const reservationUrl = `reservation/${reservationId}`;
+    return apiClient.get(reservationUrl)
+      .then((response) => {
+        const reservation = response.data;
+        this.setState({ reservation });
+        return reservation;
+      })
+      .then((reservation) => {
+        const resourceUrl = `resource/${reservation.resource}`;
+        return apiClient.get(resourceUrl);
+      })
+      .then((response) => {
+        const resource = response.data;
+        this.setState({ resource });
+        return resource;
+      })
+      .then((resource) => {
+        const unitUrl = `unit/${resource.unit.id}`;
+        return apiClient.get(unitUrl);
+      })
+      .then((response) => {
+        const unit = response.data;
+        this.setState({ unit });
+      });
+  };
 
   getQueryParam = (paramName) => {
     const { location } = this.props;
@@ -60,7 +76,12 @@ class ReservationPaymentReturnPage extends Component {
 
   render() {
     const { t } = this.props;
-    const { reservation, resource, isLoading } = this.state;
+    const {
+      reservation,
+      resource,
+      unit,
+      isLoading,
+    } = this.state;
     const status = this.getQueryParam('payment_status');
     const title = t('ReservationPage.newReservationTitle');
     const steps = stepIds.map(msgId => t(msgId));
@@ -80,7 +101,7 @@ class ReservationPaymentReturnPage extends Component {
             />
             <Loader loaded={!isLoading}>
               {reservation && resource && (
-                <PaymentSuccess reservation={reservation} resource={resource} />
+                <PaymentSuccess reservation={reservation} resource={resource} unit={unit} />
               )}
               {status === 'failure' && <PaymentFailed />}
             </Loader>
