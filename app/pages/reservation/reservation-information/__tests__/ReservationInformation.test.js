@@ -2,6 +2,8 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
 
+import CompactReservationList from '../../../../shared/compact-reservation-list/CompactReservationList';
+import RecurringReservationControls from '../../../../shared/recurring-reservation-controls/RecurringReservationControls';
 import Reservation from '../../../../utils/fixtures/Reservation';
 import Resource from '../../../../utils/fixtures/Resource';
 import Unit from '../../../../utils/fixtures/Unit';
@@ -36,6 +38,16 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
   function getWrapper(extraProps) {
     return shallowWithIntl(<ReservationInformation {...defaultProps} {...extraProps} />);
   }
+
+  test('renders a RecurringReservationControls correctly', () => {
+    const recurringControl = getWrapper().find(RecurringReservationControls);
+    expect(recurringControl).toHaveLength(1);
+  });
+
+  test('renders a CompactReservationList correctly', () => {
+    const reservationList = getWrapper().find(CompactReservationList);
+    expect(reservationList).toHaveLength(1);
+  });
 
   test('renders info texts when needManualConfirmation is true', () => {
     const resource = Resource.build({
