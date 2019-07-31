@@ -1,4 +1,6 @@
-import { getResourcePageLink, getUnitAddress, getResourceDistance } from '../utils';
+import {
+  getResourcePageLink, getUnitAddress, getResourceDistance, getPrice
+} from '../utils';
 
 describe('domain resource utility function', () => {
   describe('getResourcePageLink', () => {
@@ -82,6 +84,46 @@ describe('domain resource utility function', () => {
       expect(distance).toEqual('2 km');
       const rounded = getResourceDistance({ distance: 100 });
       expect(rounded).toEqual('0.1 km');
+    });
+  });
+
+  describe('getPrice', () => {
+    const fakeT = foo => foo;
+    test('return free text if there is no price', () => {
+      const price = getPrice({}, fakeT);
+      expect(price).toContain('free');
+    });
+
+    test('return free text if price is 0', () => {
+      const price = getPrice({
+        min_price_per_hour: '0'
+      }, fakeT);
+
+      expect(price).toContain('free');
+    });
+
+    test('return price even if there is 1 price', () => {
+      const price = getPrice({
+        min_price_per_hour: '123'
+      }, fakeT);
+
+      expect(price).toContain('123');
+    });
+
+    test('return price range if both min and max price included', () => {
+      const price = getPrice({
+        min_price_per_hour: '123',
+        max_price_per_hour: '234'
+      }, fakeT);
+
+      expect(price).toEqual('123 - 234 €/h');
+    });
+
+    test('return null if price exist but not number', () => {
+      const price = getPrice({
+        min_price_per_hour: 'foo'
+      });
+      expect(price).toBeNull();
     });
   });
 });
