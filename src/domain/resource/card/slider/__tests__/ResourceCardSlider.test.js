@@ -7,7 +7,7 @@ import Resource from '../../../../../../app/utils/fixtures/Resource';
 import Unit from '../../../../../../app/utils/fixtures/Unit';
 
 
-describe('ResourceCardInfoCell', () => {
+describe('ResourceCardSlider', () => {
   test('renders correctly', () => {
     const props = {
       history: {},
