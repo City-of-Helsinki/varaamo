@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/lib/Button';
 
 import ResourceCard from '../ResourceCard';
 
-class ResourceCardSlider extends React.Component {
+class UnconnectedResourceCardSlider extends React.Component {
   static propTypes = {
     location: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
@@ -83,5 +83,5 @@ class ResourceCardSlider extends React.Component {
   }
 }
 
-export { ResourceCardSlider };
-export default withRouter(ResourceCardSlider);
+export { UnconnectedResourceCardSlider };
+export default withRouter(UnconnectedResourceCardSlider);

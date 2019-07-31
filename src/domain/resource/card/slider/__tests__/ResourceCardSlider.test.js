@@ -2,7 +2,7 @@ import React from 'react';
 import toJSON from 'enzyme-to-json';
 import { shallow } from 'enzyme';
 
-import { ResourceCardSlider } from '../ResourceCardSlider';
+import { UnconnectedResourceCardSlider } from '../ResourceCardSlider';
 import Resource from '../../../../../../app/utils/fixtures/Resource';
 import Unit from '../../../../../../app/utils/fixtures/Unit';
 
@@ -19,7 +19,7 @@ describe('ResourceCardSlider', () => {
       onFilterClick: jest.fn()
     };
     const wrapper = shallow(
-      <ResourceCardSlider {...props} />
+      <UnconnectedResourceCardSlider {...props} />
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();
