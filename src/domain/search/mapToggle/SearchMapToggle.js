@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
+import classNames from 'classnames';
 
 import injectT from '../../../../app/i18n/injectT';
 
@@ -42,7 +43,10 @@ function SearchMapToggle({
               {BUTTONS.map((button) => {
                 return (
                   <Button
-                    className={`app-SearchMapToggle__button-${button.key}`}
+                    className={classNames(
+                      'app-SearchMapToggle__button',
+                      `app-SearchMapToggle__button-${button.key}`
+                    )}
                     disabled={active === button.key}
                     key={button.key}
                     onClick={() => onClick(button.key)}
