@@ -83,4 +83,5 @@ class ResourceCardSlider extends React.Component {
   }
 }
 
+export { ResourceCardSlider };
 export default withRouter(ResourceCardSlider);
