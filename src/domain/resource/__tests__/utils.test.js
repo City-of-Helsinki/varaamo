@@ -32,7 +32,7 @@ describe('domain resource utility function', () => {
       street_address: {
         en: 'foo',
         fi: 'bar'
-      }
+      },
     };
     const mockLocale = 'en';
     test('get street address from unit by locale, contain no address zipcode or municiple if none', () => {
@@ -50,6 +50,16 @@ describe('domain resource utility function', () => {
       const address = getUnitAddress(unit, mockLocale);
 
       expect(address).toEqual(unit.street_address.en);
+    });
+
+    test('return address zip if exist', () => {
+      const address = getUnitAddress({ ...unit, address_zip: '1234' });
+      expect(address).toContain('1234');
+    });
+
+    test('return municipality if exist', () => {
+      const address = getUnitAddress({ ...unit, municipality: 'espoo' });
+      expect(address).toContain('espoo');
     });
   });
 
