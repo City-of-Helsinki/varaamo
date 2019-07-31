@@ -1,5 +1,5 @@
 import {
-  getResourcePageLink, getUnitAddress, getResourceDistance, getPrice
+  getResourcePageLink, getUnitAddress, getResourceDistance, getPrice, isFree
 } from '../utils';
 
 describe('domain resource utility function', () => {
@@ -124,6 +124,38 @@ describe('domain resource utility function', () => {
         min_price_per_hour: 'foo'
       });
       expect(price).toBeNull();
+    });
+  });
+
+  describe('isFree', () => {
+    test('return true if there is no price', () => {
+      const price = isFree({});
+      expect(price).toBeTruthy();
+    });
+
+    test('return true if price is 0', () => {
+      const price = isFree({
+        min_price_per_hour: '0'
+      });
+
+      expect(price).toBeTruthy();
+    });
+
+    test('return false even if there is 1 price', () => {
+      const price = isFree({
+        min_price_per_hour: '123'
+      });
+
+      expect(price).toBeFalsy();
+    });
+
+    test('return false if both min and max price included', () => {
+      const price = isFree({
+        min_price_per_hour: '123',
+        max_price_per_hour: '234'
+      });
+
+      expect(price).toBeFalsy();
     });
   });
 });
