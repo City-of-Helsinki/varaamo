@@ -40,7 +40,7 @@ export const getUnitAddress = (unit, locale) => {
  */
 export const getResourceDistance = (resource) => {
   const km = resource.distance / 1000;
-  return `${round(km, km < 10 ? 1 : null)} km`;
+  return km ? `${round(km, km < 10 ? 1 : null)} km` : '';
 };
 
 /**

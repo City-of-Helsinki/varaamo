@@ -1,4 +1,4 @@
-import { getResourcePageLink, getUnitAddress } from '../utils';
+import { getResourcePageLink, getUnitAddress, getResourceDistance } from '../utils';
 
 describe('domain resource utility function', () => {
   describe('getResourcePageLink', () => {
@@ -50,6 +50,28 @@ describe('domain resource utility function', () => {
       const address = getUnitAddress(unit, mockLocale);
 
       expect(address).toEqual(unit.street_address.en);
+    });
+  });
+
+  describe('getResourceDistance', () => {
+    const resource = {
+      distance: 2000
+    };
+    const distance = getResourceDistance(resource);
+
+    test('return distance to contain km in string', () => {
+      expect(distance).toContain('km');
+    });
+
+    test('return null string in case no distance', () => {
+      const emptyDistance = getResourceDistance({});
+      expect(emptyDistance).toBeDefined();
+    });
+
+    test('round result to 1 digit after comma', () => {
+      expect(distance).toEqual('2 km');
+      const rounded = getResourceDistance({ distance: 100 });
+      expect(rounded).toEqual('0.1 km');
     });
   });
 });
