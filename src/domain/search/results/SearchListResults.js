@@ -102,7 +102,7 @@ class SearchListResults extends React.Component {
             search: searchUtils.getSearchFromFilters({ ...filters, page: newPage }),
           })}
           page={filters && filters.page ? Number(filters.page) : 1}
-          pages={totalCount / constants.SEARCH_PAGE_SIZE}
+          pages={Math.round(totalCount / constants.SEARCH_PAGE_SIZE)}
         />
       </div>
     );

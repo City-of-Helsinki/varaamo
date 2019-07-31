@@ -20,7 +20,7 @@ class SearchPagination extends React.Component {
     for (let i = 0; i < pages; ++i) {
       buttons.push(
         <Button
-          className={classNames('app-SearchPagination__page', {
+          className={classNames('app-SearchPagination__page', `app-SearchPagination__page-${i + 1}`, {
             'app-SearchPagination__selected': i + 1 === page,
           })}
           key={`pageButton-${i}`}
@@ -47,7 +47,7 @@ class SearchPagination extends React.Component {
         <Button
           className="app-SearchPagination__prev"
           disabled={page === 1}
-          onClick={() => onChange(page - 1)}
+          onClick={() => onChange(Math.max(1, page - 1))}
         >
           {t('common.previous')}
         </Button>
@@ -55,7 +55,7 @@ class SearchPagination extends React.Component {
         <Button
           className="app-SearchPagination__next"
           disabled={page >= pages}
-          onClick={() => onChange(page + 1)}
+          onClick={() => onChange(Math.min(pages, page + 1))}
         >
           {t('common.next')}
         </Button>

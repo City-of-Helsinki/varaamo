@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchPagination renders correctly 1`] = `
+<div
+  className="app-SearchPagination"
+>
+  <Button
+    active={false}
+    block={false}
+    bsClass="btn"
+    bsStyle="default"
+    className="app-SearchPagination__prev"
+    disabled={true}
+    onClick={[Function]}
+  >
+    common.previous
+  </Button>
+  <Button
+    active={false}
+    block={false}
+    bsClass="btn"
+    bsStyle="default"
+    className="app-SearchPagination__page app-SearchPagination__page-1 app-SearchPagination__selected"
+    disabled={false}
+    key="pageButton-0"
+    onClick={[Function]}
+  >
+    1
+  </Button>
+  <Button
+    active={false}
+    block={false}
+    bsClass="btn"
+    bsStyle="default"
+    className="app-SearchPagination__page app-SearchPagination__page-2"
+    disabled={false}
+    key="pageButton-1"
+    onClick={[Function]}
+  >
+    2
+  </Button>
+  <Button
+    active={false}
+    block={false}
+    bsClass="btn"
+    bsStyle="default"
+    className="app-SearchPagination__page app-SearchPagination__page-3"
+    disabled={false}
+    key="pageButton-2"
+    onClick={[Function]}
+  >
+    3
+  </Button>
+  <Button
+    active={false}
+    block={false}
+    bsClass="btn"
+    bsStyle="default"
+    className="app-SearchPagination__page app-SearchPagination__page-4"
+    disabled={false}
+    key="pageButton-3"
+    onClick={[Function]}
+  >
+    4
+  </Button>
+  <Button
+    active={false}
+    block={false}
+    bsClass="btn"
+    bsStyle="default"
+    className="app-SearchPagination__page app-SearchPagination__page-5"
+    disabled={false}
+    key="pageButton-4"
+    onClick={[Function]}
+  >
+    5
+  </Button>
+  <Button
+    active={false}
+    block={false}
+    bsClass="btn"
+    bsStyle="default"
+    className="app-SearchPagination__page app-SearchPagination__page-6"
+    disabled={false}
+    key="pageButton-5"
+    onClick={[Function]}
+  >
+    6
+  </Button>
+  <Button
+    active={false}
+    block={false}
+    bsClass="btn"
+    bsStyle="default"
+    className="app-SearchPagination__page app-SearchPagination__page-7"
+    disabled={false}
+    key="pageButton-6"
+    onClick={[Function]}
+  >
+    7
+  </Button>
+  <Button
+    active={false}
+    block={false}
+    bsClass="btn"
+    bsStyle="default"
+    className="app-SearchPagination__page app-SearchPagination__page-8"
+    disabled={false}
+    key="pageButton-7"
+    onClick={[Function]}
+  >
+    8
+  </Button>
+  <Button
+    active={false}
+    block={false}
+    bsClass="btn"
+    bsStyle="default"
+    className="app-SearchPagination__page app-SearchPagination__page-9"
+    disabled={false}
+    key="pageButton-8"
+    onClick={[Function]}
+  >
+    9
+  </Button>
+  <Button
+    active={false}
+    block={false}
+    bsClass="btn"
+    bsStyle="default"
+    className="app-SearchPagination__page app-SearchPagination__page-10"
+    disabled={false}
+    key="pageButton-9"
+    onClick={[Function]}
+  >
+    10
+  </Button>
+  <Button
+    active={false}
+    block={false}
+    bsClass="btn"
+    bsStyle="default"
+    className="app-SearchPagination__next"
+    disabled={false}
+    onClick={[Function]}
+  >
+    common.next
+  </Button>
+</div>
+`;
