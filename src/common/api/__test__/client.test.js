@@ -35,6 +35,8 @@ describe('domain/common/api/client.js', () => {
 
   test('request', () => {
     const headers = { testHeader: 'foo' };
+    axios.request.mockResolvedValue({ data: [] });
+
     client.request({
       endpoint: 'endpoint',
       method: 'GET',
