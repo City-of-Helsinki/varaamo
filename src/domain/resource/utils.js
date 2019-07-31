@@ -21,10 +21,16 @@ export const getResourcePageLink = (resource, query) => {
  * @returns {string}
  */
 export const getUnitAddress = (unit, locale) => {
+  let postal;
   const streetAddress = dataUtils.getLocalizedFieldValue(unit.street_address, locale);
-  const postal = `${unit.address_zip ? `${unit.address_zip} ` : ''}${unit.municipality}`;
+  if (unit && unit.address_zip) {
+    postal = unit.address_zip;
+  }
+  if (unit && unit.municipality) {
+    postal = postal ? `${postal} ${unit.municipality}` : unit.municipality;
+  }
 
-  return `${streetAddress} ${postal}`;
+  return `${streetAddress}${postal ? ` ${postal}` : ''}`;
 };
 
 /**

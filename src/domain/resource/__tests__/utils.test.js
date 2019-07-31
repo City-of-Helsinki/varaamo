@@ -1,4 +1,4 @@
-import { getResourcePageLink } from '../utils';
+import { getResourcePageLink, getUnitAddress } from '../utils';
 
 describe('domain resource utility function', () => {
   describe('getResourcePageLink', () => {
@@ -24,6 +24,32 @@ describe('domain resource utility function', () => {
     test('can append more query to the link', () => {
       const link = getResourcePageLink(resource, 'foo=bar');
       expect(link).toContain('bar');
+    });
+  });
+
+  describe('getUnitAddress', () => {
+    const unit = {
+      street_address: {
+        en: 'foo',
+        fi: 'bar'
+      }
+    };
+    const mockLocale = 'en';
+    test('get street address from unit by locale, contain no address zipcode or municiple if none', () => {
+      const address = getUnitAddress(unit, mockLocale);
+
+      expect(address).toEqual(unit.street_address.en);
+    });
+
+    test('return empty string even when unit have no data', () => {
+      const address = getUnitAddress({}, mockLocale);
+      expect(address).toBeDefined();
+    });
+
+    test('get street address from unit by locale, ', () => {
+      const address = getUnitAddress(unit, mockLocale);
+
+      expect(address).toEqual(unit.street_address.en);
     });
   });
 });
