@@ -145,6 +145,7 @@ class SearchPage extends React.Component {
       isLoadingGeolocation,
       coords,
     } = this.state;
+
     const filters = searchUtils.getFiltersFromUrl(location);
 
     this.setState({

@@ -66,7 +66,7 @@ export const getPeopleCapacityOptions = () => {
   ].map(number => ({ label: number, value: number }));
 };
 
-export const getClosestPeopleCapacityOption = (value) => {
+export const getClosestPeopleCapacityValue = (value) => {
   return getPeopleCapacityOptions()
     .map(option => option.value)
     .reduce((previous, current) => {
@@ -107,5 +107,5 @@ export const getMunicipalityOptions = () => {
  * @returns {string}
  */
 export const getSearchPageLink = (filters) => {
-  return urlUtils.getLinkString('/new-search', getSearchFromFilters(filters));
+  return urlUtils.getLinkString('/search', getSearchFromFilters(filters));
 };

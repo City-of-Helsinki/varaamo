@@ -114,7 +114,7 @@ class ResourceCard extends React.Component {
             icon={iconUser}
             onClick={
               resource.people_capacity
-                ? () => onFilterClick('people', searchUtils.getClosestPeopleCapacityOption(resource.people_capacity))
+                ? () => onFilterClick('people', searchUtils.getClosestPeopleCapacityValue(resource.people_capacity))
                 : null
             }
             text={
