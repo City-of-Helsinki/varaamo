@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResourceMap renders correctly 1`] = `
+<div
+  className="app-ResourceMap"
+>
+  <Map
+    boundsOptions={
+      Object {
+        "padding": Array [
+          50,
+          50,
+        ],
+      }
+    }
+    center={
+      Array [
+        60.20843,
+        24.975634,
+      ]
+    }
+    className="app-ResourceMap__map"
+    scrollWheelZoom={false}
+    zoom={15}
+    zoomControl={false}
+  >
+    <ForwardRef(Leaflet(TileLayer))
+      attribution="© <a href=\\"http://osm.org/copyright\\">OpenStreetMap</a> contributors"
+      url="https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidmFyYWFtbyIsImEiOiJjamU2cWhmdTUwM2ZmMzFud2dvZzFqb2dnIn0.Mj6YrtV9RbJXiU82dqqwhw"
+    />
+    <ForwardRef(Leaflet(ZoomControl))
+      position="bottomright"
+    />
+    <UnitMarker
+      key="unitMarker-u-1"
+      resources={
+        Array [
+          Object {
+            "availableHours": Array [],
+            "equipment": Array [],
+            "id": "r-1",
+            "isFavorite": false,
+            "name": "Resource-1",
+            "needManualConfirmation": false,
+            "openingHours": Array [],
+            "products": Array [],
+            "public": true,
+            "requiredReservationExtraFields": Array [],
+            "reservable": true,
+            "reservableAfter": null,
+            "slotSize": "00:30:00",
+            "supportedReservationExtraFields": Array [],
+            "unit": "u-1",
+            "userPermissions": Object {
+              "canMakeReservations": true,
+              "isAdmin": false,
+            },
+          },
+        ]
+      }
+      unit={
+        Object {
+          "id": "u-1",
+          "location": Object {
+            "coordinates": Array [
+              24.975634,
+              60.20843,
+            ],
+          },
+          "name": "Unit-1",
+        }
+      }
+    />
+  </Map>
+</div>
+`;

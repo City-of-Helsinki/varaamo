@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResourceCardSlider renders correctly 1`] = `
+<div
+  className="app-ResourceCardSlider"
+>
+  <InjectIntl(Connect(InjectT(ResourceCard)))
+    date="30-07-2019"
+    history={Object {}}
+    isStacked={false}
+    location={Object {}}
+    onFavoriteClick={[MockFunction]}
+    onFilterClick={[MockFunction]}
+    resource={
+      Object {
+        "availableHours": Array [],
+        "equipment": Array [],
+        "id": "r-1",
+        "isFavorite": false,
+        "name": "Resource-1",
+        "needManualConfirmation": false,
+        "openingHours": Array [],
+        "products": Array [],
+        "public": true,
+        "requiredReservationExtraFields": Array [],
+        "reservable": true,
+        "reservableAfter": null,
+        "slotSize": "00:30:00",
+        "supportedReservationExtraFields": Array [],
+        "unit": "u-1",
+        "userPermissions": Object {
+          "canMakeReservations": true,
+          "isAdmin": false,
+        },
+      }
+    }
+    unit={
+      Object {
+        "id": "u-1",
+        "name": "Unit-1",
+      }
+    }
+  />
+</div>
+`;
