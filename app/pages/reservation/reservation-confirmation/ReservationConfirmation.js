@@ -80,11 +80,11 @@ class ReservationConfirmation extends Component {
               <FormattedHTMLMessage id="ReservationConfirmation.feedbackText" values={{ href }} />
             </p>
             <p className="app-ReservationConfirmation__button-wrapper">
-              <Button bsStyle="primary" className="app-ReservationConfirmation__button">
-                <Link to="/my-reservations">
+              <Link to="/my-reservations">
+                <Button bsStyle="primary" className="app-ReservationConfirmation__button">
                   {t('ReservationConfirmation.ownReservationButton')}
-                </Link>
-              </Button>
+                </Button>
+              </Link>
             </p>
           </Well>
         </Col>
