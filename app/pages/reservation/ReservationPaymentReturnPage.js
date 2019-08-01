@@ -22,14 +22,12 @@ const stepIds = [
 
 const loadReservation = id => apiClient.get(`reservation/${id}`).then(({ data }) => camelizeKeysDeep(data));
 const loadResource = id => apiClient.get(`resource/${id}`).then(({ data }) => camelizeKeysDeep(data));
-const loadUnit = id => apiClient.get(`unit/${id}`).then(({ data }) => camelizeKeysDeep(data));
 
 class ReservationPaymentReturnPage extends Component {
   state = {
     isLoading: true,
     reservation: null,
     resource: null,
-    unit: null,
   };
 
   componentDidMount() {
@@ -46,13 +44,11 @@ class ReservationPaymentReturnPage extends Component {
     const reservationId = this.getQueryParam('reservation_id');
     const reservationPromise = loadReservation(reservationId);
     const resourcePromise = reservationPromise.then(r => loadResource(r.resource));
-    const unitPromise = resourcePromise.then(r => loadUnit(r.unit.id));
-    Promise.all([reservationPromise, resourcePromise, unitPromise])
-      .then(([reservation, resource, unit]) => {
+    Promise.all([reservationPromise, resourcePromise])
+      .then(([reservation, resource]) => {
         this.setState({
           reservation,
           resource,
-          unit,
           isLoading: false,
         });
       })
@@ -71,7 +67,6 @@ class ReservationPaymentReturnPage extends Component {
     const {
       reservation,
       resource,
-      unit,
       isLoading,
     } = this.state;
     const status = this.getQueryParam('payment_status');
@@ -92,7 +87,7 @@ class ReservationPaymentReturnPage extends Component {
             />
             <Loader loaded={!isLoading}>
               {status === 'success' && (
-                <PaymentSuccess reservation={reservation} resource={resource} unit={unit} />
+                <PaymentSuccess reservation={reservation} resource={resource} />
               )}
               {status === 'failure' && <PaymentFailed />}
             </Loader>
