@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 
 import ResourceMap from '../ResourceMap';
 import Unit from '../../../../../app/utils/fixtures/Unit';
-import Resource from '../../../../../app/utils/fixtures/Resource';
+import resource from '../../../../common/data/fixtures/resource';
 
 
 describe('ResourceMap', () => {
@@ -18,7 +18,7 @@ describe('ResourceMap', () => {
           ]
         }
       }),
-      resource: Resource.build()
+      resource: resource.build()
     };
     const wrapper = shallow(
       <ResourceMap {...props} />

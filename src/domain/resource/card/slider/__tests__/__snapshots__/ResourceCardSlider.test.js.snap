@@ -13,22 +13,26 @@ exports[`ResourceCardSlider renders correctly 1`] = `
     onFilterClick={[MockFunction]}
     resource={
       Object {
-        "availableHours": Array [],
+        "available_hours": Array [],
         "equipment": Array [],
-        "id": "r-1",
-        "isFavorite": false,
-        "name": "Resource-1",
-        "needManualConfirmation": false,
-        "openingHours": Array [],
+        "id": 1,
+        "is_favorite": false,
+        "name": Object {
+          "en": "Resource (en) - 1",
+          "fi": "Resource (fi) - 1",
+          "sv": "Resource (sv) - 1",
+        },
+        "need_manual_confirmation": false,
+        "opening_hours": Array [],
         "products": Array [],
         "public": true,
-        "requiredReservationExtraFields": Array [],
+        "required_reservation_extra_fields": Array [],
         "reservable": true,
-        "reservableAfter": null,
-        "slotSize": "00:30:00",
-        "supportedReservationExtraFields": Array [],
-        "unit": "u-1",
-        "userPermissions": Object {
+        "reservable_after": null,
+        "slot_size": "00:30:00",
+        "supported_reservation_extra_fields": Array [],
+        "unit": 1,
+        "user_permissions": Object {
           "canMakeReservations": true,
           "isAdmin": false,
         },
@@ -36,8 +40,20 @@ exports[`ResourceCardSlider renders correctly 1`] = `
     }
     unit={
       Object {
-        "id": "u-1",
-        "name": "Unit-1",
+        "id": 1,
+        "location": Object {
+          "coordinates": Array [
+            25.01571,
+            60.249935,
+          ],
+          "type": "Point",
+        },
+        "name": Object {
+          "en": "Unit (en) - 1",
+          "fi": "Unit (fi) - 1",
+          "sv": "Unit (sv) - 1",
+        },
+        "opening_hours_today": Object {},
       }
     }
   />

@@ -299,6 +299,7 @@ exports[`SearchSort renders correctly 1`] = `
         "common.denied": "common.denied",
         "common.eventDescriptionLabel": "common.eventDescriptionLabel",
         "common.eventSubjectLabel": "common.eventSubjectLabel",
+        "common.next": "common.next",
         "common.numberOfParticipantsLabel": "common.numberOfParticipantsLabel",
         "common.ok": "common.ok",
         "common.optionsAllLabel": "common.optionsAllLabel",

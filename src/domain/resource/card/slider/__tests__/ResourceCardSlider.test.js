@@ -3,8 +3,8 @@ import toJSON from 'enzyme-to-json';
 import { shallow } from 'enzyme';
 
 import { UnconnectedResourceCardSlider } from '../ResourceCardSlider';
-import Resource from '../../../../../../app/utils/fixtures/Resource';
-import Unit from '../../../../../../app/utils/fixtures/Unit';
+import unit from '../../../../../common/data/fixtures/unit';
+import resource from '../../../../../common/data/fixtures/resource';
 
 
 describe('ResourceCardSlider', () => {
@@ -12,8 +12,8 @@ describe('ResourceCardSlider', () => {
     const props = {
       history: {},
       location: {},
-      resources: [Resource.build()],
-      unit: Unit.build(),
+      resources: [resource.build()],
+      unit: unit.build(),
       date: '30-07-2019',
       onFavoriteClick: jest.fn(),
       onFilterClick: jest.fn()

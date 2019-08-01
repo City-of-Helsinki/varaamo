@@ -3,8 +3,8 @@ import toJSON from 'enzyme-to-json';
 
 import { shallowWithIntl } from '../../../../../app/utils/testUtils';
 import { UnconnectedResourceCard } from '../ResourceCard';
-import Resource from '../../../../../app/utils/fixtures/Resource';
-import Unit from '../../../../../app/utils/fixtures/Unit';
+import unit from '../../../../common/data/fixtures/unit';
+import resource from '../../../../common/data/fixtures/resource';
 
 describe('ResourceCard', () => {
   test('renders correctly', () => {
@@ -13,8 +13,8 @@ describe('ResourceCard', () => {
       key: 'foo',
       onFavoriteClick: jest.fn(),
       onFilterClick: jest.fn(),
-      resource: Resource.build(),
-      unit: Unit.build()
+      resource: resource.build(),
+      unit: unit.build()
     };
     const wrapper = shallowWithIntl(
       <UnconnectedResourceCard {...props} />
@@ -23,3 +23,4 @@ describe('ResourceCard', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });
+resource;
