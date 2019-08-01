@@ -152,48 +152,54 @@ class ReservationInformation extends Component {
 
     return (
       <div className="app-ReservationInformation">
-        <Col md={7} sm={12}>
-          {this.renderInfoTexts()}
-          <RecurringReservationControls />
+        <Row>
+          <Col md={12} sm={12}>
+            {this.renderInfoTexts()}
+            <RecurringReservationControls />
 
-          {this.renderReservationTimes()}
-          <ReservationInformationForm
-            fields={this.getFormFields(termsAndConditions)}
-            initialValues={this.getFormInitialValues()}
-            isEditing={isEditing}
-            isMakingReservations={isMakingReservations}
-            onBack={onBack}
-            onCancel={onCancel}
-            onConfirm={this.onConfirm}
-            openResourceTermsModal={openResourceTermsModal}
-            requiredFields={this.getRequiredFormFields(resource, termsAndConditions)}
-            resource={resource}
-            termsAndConditions={termsAndConditions}
-          />
-        </Col>
-        <Col md={5} sm={12}>
-          <Well className="app-ReservationDetails">
-            <h3>{t('ReservationPage.detailsTitle')}</h3>
-            <Row>
-              <Col className="app-ReservationDetails__label" md={4}>
-                {t('common.resourceLabel')}
-              </Col>
-              <Col className="app-ReservationDetails__value" md={8}>
-                {resource.name}
-                <br />
-                {unit.name}
-              </Col>
-            </Row>
-            <Row>
-              <Col className="app-ReservationDetails__label" md={4}>
-                {t('ReservationPage.detailsTime')}
-              </Col>
-              <Col className="app-ReservationDetails__value" md={8}>
-                {`${beginText}–${endText} (${hours} h)`}
-              </Col>
-            </Row>
-          </Well>
-        </Col>
+            {this.renderReservationTimes()}
+          </Col>
+        </Row>
+        <Row>
+          <Col md={7} sm={12}>
+            <ReservationInformationForm
+              fields={this.getFormFields(termsAndConditions)}
+              initialValues={this.getFormInitialValues()}
+              isEditing={isEditing}
+              isMakingReservations={isMakingReservations}
+              onBack={onBack}
+              onCancel={onCancel}
+              onConfirm={this.onConfirm}
+              openResourceTermsModal={openResourceTermsModal}
+              requiredFields={this.getRequiredFormFields(resource, termsAndConditions)}
+              resource={resource}
+              termsAndConditions={termsAndConditions}
+            />
+          </Col>
+          <Col md={5} sm={12}>
+            <Well className="app-ReservationDetails">
+              <h3>{t('ReservationPage.detailsTitle')}</h3>
+              <Row>
+                <Col className="app-ReservationDetails__label" md={4}>
+                  {t('common.resourceLabel')}
+                </Col>
+                <Col className="app-ReservationDetails__value" md={8}>
+                  {resource.name}
+                  <br />
+                  {unit.name}
+                </Col>
+              </Row>
+              <Row>
+                <Col className="app-ReservationDetails__label" md={4}>
+                  {t('ReservationPage.detailsTime')}
+                </Col>
+                <Col className="app-ReservationDetails__value" md={8}>
+                  {`${beginText}–${endText} (${hours} h)`}
+                </Col>
+              </Row>
+            </Well>
+          </Col>
+        </Row>
       </div>
     );
   }
