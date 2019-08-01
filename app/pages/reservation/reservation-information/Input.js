@@ -10,7 +10,6 @@ function Input({
   meta: { error, touched },
   t,
   label,
-  ...otherProps
 }) {
   return (
     <div className="app-ReservationPage__formfield">

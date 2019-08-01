@@ -8,7 +8,6 @@ import tail from 'lodash/tail';
 import get from 'lodash/get';
 import moment from 'moment';
 
-import { getTimeDiff } from './timeUtils';
 import constants from '../constants/AppConstants';
 
 function combine(reservations) {
