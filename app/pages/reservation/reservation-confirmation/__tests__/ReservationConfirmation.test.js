@@ -13,12 +13,7 @@ import { shallowWithIntl } from '../../../../utils/testUtils';
 import ReservationConfirmation from '../ReservationConfirmation';
 
 describe('pages/reservation/reservation-confirmation/ReservationConfirmation', () => {
-  const history = {
-    replace: () => {},
-  };
-
   const defaultProps = {
-    history,
     isEdited: false,
     reservation: Immutable(Reservation.build({ user: User.build() })),
     resource: Immutable(Resource.build()),
@@ -95,10 +90,9 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
     expect(email.prop('values')).toEqual({ email: user.email });
   });
 
-  test('renders Button with correct props', () => {
+  test('renders Button', () => {
     const button = getWrapper().find(Button);
     expect(button).toHaveLength(1);
-    expect(typeof button.prop('onClick')).toBe('function');
   });
 
   test('renders reserverName', () => {
@@ -121,53 +115,5 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
     });
     const fields = getWrapper({ reservation }).find('.app-ReservationConfirmation__field');
     expect(fields).toHaveLength(14);
-  });
-
-  describe('Button onClick', () => {
-    let button;
-    let instance;
-
-    beforeAll(() => {
-      const wrapper = getWrapper();
-      button = wrapper.find(Button);
-      instance = wrapper.instance();
-      instance.handleReservationsButton = simple.mock();
-    });
-
-    afterEach(() => {
-      instance.handleReservationsButton.reset();
-    });
-
-    afterAll(() => {
-      simple.restore();
-    });
-
-    test('calls handleReservationsButton', () => {
-      expect(button).toHaveLength(1);
-      expect(typeof button.prop('onClick')).toBe('function');
-      button.prop('onClick')();
-      expect(instance.handleReservationsButton.callCount).toBe(1);
-    });
-  });
-
-  describe('handleReservationsButton', () => {
-    const expectedPath = '/my-reservations';
-    let instance;
-    let historyMock;
-
-    beforeAll(() => {
-      instance = getWrapper().instance();
-      historyMock = simple.mock(history, 'replace');
-      instance.handleReservationsButton();
-    });
-
-    afterAll(() => {
-      simple.restore();
-    });
-
-    test('calls browserHistory replace with correct path', () => {
-      expect(historyMock.callCount).toBe(1);
-      expect(historyMock.lastCall.args).toEqual([expectedPath]);
-    });
   });
 });

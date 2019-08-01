@@ -265,7 +265,6 @@ class UnconnectedReservationPage extends Component {
                 )}
                 {view === 'confirmation' && (reservationCreated || reservationEdited) && (
                   <ReservationConfirmation
-                    history={history}
                     isEdited={isEdited}
                     reservation={reservationCreated || reservationEdited}
                     resource={resource}

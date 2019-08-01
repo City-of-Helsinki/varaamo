@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/lib/Col';
 import Row from 'react-bootstrap/lib/Row';
 import Well from 'react-bootstrap/lib/Well';
 import iconHome from 'hel-icons/dist/shapes/home.svg';
+import { Link } from 'react-router-dom';
 
 import constants from '../../../constants/AppConstants';
 import injectT from '../../../i18n/injectT';
@@ -18,12 +19,7 @@ class ReservationConfirmation extends Component {
     resource: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired,
   };
-
-  handleReservationsButton() {
-    this.props.history.replace('/my-reservations');
-  }
 
   renderField(field, label, value) {
     return (
@@ -84,12 +80,10 @@ class ReservationConfirmation extends Component {
               <FormattedHTMLMessage id="ReservationConfirmation.feedbackText" values={{ href }} />
             </p>
             <p className="app-ReservationConfirmation__button-wrapper">
-              <Button
-                bsStyle="primary"
-                className="app-ReservationConfirmation__button"
-                onClick={() => this.handleReservationsButton()}
-              >
-                {t('ReservationConfirmation.ownReservationButton')}
+              <Button bsStyle="primary" className="app-ReservationConfirmation__button">
+                <Link to="/my-reservations">
+                  {t('ReservationConfirmation.ownReservationButton')}
+                </Link>
               </Button>
             </p>
           </Well>
