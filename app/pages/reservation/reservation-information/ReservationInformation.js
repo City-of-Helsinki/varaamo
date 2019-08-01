@@ -35,28 +35,19 @@ class ReservationInformation extends Component {
     reservationPrice: null,
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidMount() {
     if (!hasProducts(this.props.resource)) {
       return;
     }
-    const resourceChanged = prevProps.resource !== this.props.resource;
-    const selectedTimeChanged = prevProps.selectedTime !== this.props.selectedTime;
-    if (resourceChanged || selectedTimeChanged) {
-      const products = get(this.props.resource, 'products');
-      const {
-        begin,
-        end,
-      } = this.props.selectedTime;
+    const products = get(this.props.resource, 'products');
+    const {
+      begin,
+      end,
+    } = this.props.selectedTime;
 
-      getReservationPrice(apiClient, begin, end, products)
-        .then(price => this.setState({ reservationPrice: price }))
-        .catch(() => this.setState({ reservationPrice: null }));
-    }
-  }
-
-  // eslint-disable-next-line arrow-body-style
-  getReservationPricePerPeriod = () => {
-    return 'foo';
+    getReservationPrice(apiClient, begin, end, products)
+      .then(price => this.setState({ reservationPrice: price }))
+      .catch(() => this.setState({ reservationPrice: null }));
   }
 
   onConfirm = (values) => {
