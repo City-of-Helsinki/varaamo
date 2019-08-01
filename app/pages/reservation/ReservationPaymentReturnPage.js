@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import get from 'lodash/get';
+import { camelizeKeys as camelizeKeysDeep } from 'humps';
 import Loader from 'react-loader';
 
 import CheckedProgressSteps from '../../shared/progress-steps/CheckedProgressSteps';
@@ -19,6 +20,10 @@ const stepIds = [
   'ReservationPhase.confirmationTitle',
 ];
 
+const loadReservation = id => apiClient.get(`reservation/${id}`).then(({ data }) => camelizeKeysDeep(data));
+const loadResource = id => apiClient.get(`resource/${id}`).then(({ data }) => camelizeKeysDeep(data));
+const loadUnit = id => apiClient.get(`unit/${id}`).then(({ data }) => camelizeKeysDeep(data));
+
 class ReservationPaymentReturnPage extends Component {
   state = {
     isLoading: true,
@@ -31,40 +36,27 @@ class ReservationPaymentReturnPage extends Component {
     const status = this.getQueryParam('payment_status');
     const isSuccess = status === 'success';
     if (isSuccess) {
-      this.loadDataToState()
-        .then(() => this.setState({ isLoading: false }))
-        .catch(() => this.setState({ isLoading: false }));
+      this.loadData();
     } else {
       this.setState({ isLoading: false });
     }
   }
 
-  loadDataToState = () => {
+  loadData = () => {
     const reservationId = this.getQueryParam('reservation_id');
-    const reservationUrl = `reservation/${reservationId}`;
-    return apiClient.get(reservationUrl)
-      .then((response) => {
-        const reservation = response.data;
-        this.setState({ reservation });
-        return reservation;
+    const reservationPromise = loadReservation(reservationId);
+    const resourcePromise = reservationPromise.then(r => loadResource(r.resource));
+    const unitPromise = resourcePromise.then(r => loadUnit(r.unit.id));
+    Promise.all([reservationPromise, resourcePromise, unitPromise])
+      .then(([reservation, resource, unit]) => {
+        this.setState({
+          reservation,
+          resource,
+          unit,
+          isLoading: false,
+        });
       })
-      .then((reservation) => {
-        const resourceUrl = `resource/${reservation.resource}`;
-        return apiClient.get(resourceUrl);
-      })
-      .then((response) => {
-        const resource = response.data;
-        this.setState({ resource });
-        return resource;
-      })
-      .then((resource) => {
-        const unitUrl = `unit/${resource.unit.id}`;
-        return apiClient.get(unitUrl);
-      })
-      .then((response) => {
-        const unit = response.data;
-        this.setState({ unit });
-      });
+      .catch(() => this.setState({ isLoading: false }));
   };
 
   getQueryParam = (paramName) => {
@@ -86,7 +78,6 @@ class ReservationPaymentReturnPage extends Component {
     const title = t('ReservationPage.newReservationTitle');
     const steps = stepIds.map(msgId => t(msgId));
     const completedSteps = status === 'success' ? steps : [t('ReservationPhase.informationTitle')];
-
     return (
       <PageWrapper title={title} transparent>
         <div>
@@ -100,7 +91,7 @@ class ReservationPaymentReturnPage extends Component {
               steps={steps}
             />
             <Loader loaded={!isLoading}>
-              {reservation && resource && (
+              {status === 'success' && (
                 <PaymentSuccess reservation={reservation} resource={resource} unit={unit} />
               )}
               {status === 'failure' && <PaymentFailed />}
