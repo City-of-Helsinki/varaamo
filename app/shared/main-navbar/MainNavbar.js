@@ -66,6 +66,13 @@ class MainNavbar extends React.Component {
               </LinkContainer>
             )}
             {isLoggedIn && (
+              <LinkContainer to="/manage-reservations">
+                <NavItem eventKey="manage-reservations" onClick={() => this.collapseItem()}>
+                  {t('Navbar.manageReservations')}
+                </NavItem>
+              </LinkContainer>
+            )}
+            {isLoggedIn && (
               <LinkContainer to="/my-reservations">
                 <NavItem eventKey="my-reservations" onClick={() => this.collapseItem()}>
                   {t('Navbar.userResources')}
