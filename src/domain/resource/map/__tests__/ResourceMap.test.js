@@ -3,14 +3,14 @@ import toJSON from 'enzyme-to-json';
 import { shallow } from 'enzyme';
 
 import ResourceMap from '../ResourceMap';
-import Unit from '../../../../../app/utils/fixtures/Unit';
 import resource from '../../../../common/data/fixtures/resource';
+import unit from '../../../../common/data/fixtures/unit';
 
 
 describe('ResourceMap', () => {
   test('renders correctly', () => {
     const props = {
-      unit: Unit.build({
+      unit: unit.build({
         location: {
           coordinates: [
             24.975634,

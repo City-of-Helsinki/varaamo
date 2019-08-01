@@ -255,4 +255,6 @@ class SearchFilters extends React.Component {
   }
 }
 
-export default injectT(injectIntl(SearchFilters));
+const ISearchFilters = injectT(SearchFilters);
+export { ISearchFilters };
+export default injectIntl(ISearchFilters);
