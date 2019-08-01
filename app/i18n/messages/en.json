@@ -110,6 +110,7 @@
   "Navbar.language-swedish": "Swedish language",
   "Navbar.login": "Log in",
   "Navbar.logout": "Log out",
+  "Navbar.manageReservations": "Manage Reservations",
   "Navbar.search": "Search",
   "Navbar.userResources": "Your reservations",
   "NotFoundPage.checkAddress": "If you entered the address manually, please check it is written correctly.",

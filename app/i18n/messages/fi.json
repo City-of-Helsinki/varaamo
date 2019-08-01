@@ -110,6 +110,7 @@
   "Navbar.language-swedish": "Swedish language",
   "Navbar.login": "Kirjaudu sisään",
   "Navbar.logout": "Kirjaudu ulos",
+  "Navbar.manageReservations": " Hallitse Varauksia",
   "Navbar.search": "Haku",
   "Navbar.userResources": "Omat varaukset",
   "NotFoundPage.checkAddress": "Jos syötit sivun osoitteen käsin, tarkista että se on oikein.",
