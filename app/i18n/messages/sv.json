@@ -112,6 +112,7 @@
   "Navbar.language-swedish": "Svenska språket",
   "Navbar.login": "Logga in",
   "Navbar.logout": "Logga ut",
+  "Navbar.manageReservations": "Administrera Bokningar",
   "Navbar.search": "Sök",
   "Navbar.userResources": "Mina bokningar",
   "NotFoundPage.checkAddress": "Om du matade in webbadressen manuellt, kontrollera att den är korrekt.",
