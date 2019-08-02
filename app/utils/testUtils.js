@@ -227,6 +227,19 @@ function shallowWithIntl(node, context) {
   return shallow(nodeWithIntl, { context: { ...context, intl } }).shallow({ context });
 }
 
+function globalDateMock() {
+  const mockedDate = new Date(2017, 11, 10);
+  const originalDate = Date;
+
+  beforeAll(() => {
+    global.Date = jest.fn(() => mockedDate);
+  });
+
+  afterAll(() => {
+    global.Date.setDate = originalDate.setDate;
+  });
+}
+
 export {
   createApiTest,
   getDefaultRouterProps,
@@ -234,4 +247,5 @@ export {
   getState,
   makeButtonTests,
   shallowWithIntl,
+  globalDateMock
 };

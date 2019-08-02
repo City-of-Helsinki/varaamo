@@ -81,6 +81,7 @@ class DateFilter extends React.Component {
           <DatePickerWrapper>
             <DayPicker
               disabledDays={day => moment(day).isBefore(moment(), 'date')}
+              initialMonth={date}
               locale={intl.locale}
               localeUtils={MomentLocaleUtils}
               onDayClick={newDate => this.onChange(newDate)}

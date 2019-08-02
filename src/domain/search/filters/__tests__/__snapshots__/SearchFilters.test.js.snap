@@ -42,7 +42,7 @@ exports[`ResourceMap renders correctly 1`] = `
           sm={12}
         >
           <InjectIntl(DateFilter)
-            date={2019-08-01T13:43:31.422Z}
+            date={2017-12-09T22:00:00.000Z}
             label="SearchFilters.dateLabel"
             onChange={[Function]}
           />
@@ -267,7 +267,7 @@ exports[`ResourceMap renders correctly 1`] = `
             sm={6}
           >
             <TimeRangeFilter
-              date="2019-08-01"
+              date="2017-12-10"
               label="TimeRangeControl.timeRangeTitle"
               onChange={[Function]}
               value=""

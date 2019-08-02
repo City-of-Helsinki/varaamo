@@ -32,7 +32,7 @@ exports[`ResourceMap renders correctly 1`] = `
       position="bottomright"
     />
     <UnitMarker
-      key="unitMarker-u-1"
+      key="unitMarker-1"
       resources={
         Array [
           Object {
@@ -64,14 +64,19 @@ exports[`ResourceMap renders correctly 1`] = `
       }
       unit={
         Object {
-          "id": "u-1",
+          "id": 1,
           "location": Object {
             "coordinates": Array [
               24.975634,
               60.20843,
             ],
           },
-          "name": "Unit-1",
+          "name": Object {
+            "en": "Unit (en) - 1",
+            "fi": "Unit (fi) - 1",
+            "sv": "Unit (sv) - 1",
+          },
+          "opening_hours_today": Object {},
         }
       }
     />

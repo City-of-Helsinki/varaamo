@@ -27,7 +27,7 @@ exports[`DateFilter render normally 1`] = `
           src="test-file-stub"
         />
         <span>
-          02.08.2019
+          10.12.2017
         </span>
       </InputGroupAddon>
       <InputGroupAddon
@@ -48,6 +48,7 @@ exports[`DateFilter render normally 1`] = `
         "context": Object {},
         "onChange": [Function],
         "props": Object {
+          "date": 2017-12-09T22:00:00.000Z,
           "intl": Object {
             "defaultFormats": Object {},
             "defaultLocale": "en",
@@ -413,6 +414,7 @@ exports[`DateFilter render normally 1`] = `
               "useState": [Function],
             },
             "_element": <DateFilter
+              date={2017-12-09T22:00:00.000Z}
               intl={
                 Object {
                   "defaultFormats": Object {},
@@ -790,7 +792,7 @@ exports[`DateFilter render normally 1`] = `
                       src="test-file-stub"
                     />
                     <span>
-                      02.08.2019
+                      10.12.2017
                     </span>
                   </InputGroupAddon>
                   <InputGroupAddon
@@ -886,7 +888,7 @@ exports[`DateFilter render normally 1`] = `
                     disabledDays={[Function]}
                     enableOutsideDaysClick={true}
                     fixedWeeks={false}
-                    initialMonth={2019-08-02T07:53:54.667Z}
+                    initialMonth={2017-12-09T22:00:00.000Z}
                     labels={
                       Object {
                         "nextMonth": "Next Month",
@@ -952,6 +954,7 @@ exports[`DateFilter render normally 1`] = `
                     renderDay={[Function]}
                     renderWeek={[Function]}
                     reverseMonths={false}
+                    selectedDays={2017-12-09T22:00:00.000Z}
                     showOutsideDays={true}
                     showWeekDays={true}
                     showWeekNumbers={true}
@@ -1047,7 +1050,7 @@ exports[`DateFilter render normally 1`] = `
         disabledDays={[Function]}
         enableOutsideDaysClick={true}
         fixedWeeks={false}
-        initialMonth={2019-08-02T07:53:54.667Z}
+        initialMonth={2017-12-09T22:00:00.000Z}
         labels={
           Object {
             "nextMonth": "Next Month",
@@ -1113,6 +1116,7 @@ exports[`DateFilter render normally 1`] = `
         renderDay={[Function]}
         renderWeek={[Function]}
         reverseMonths={false}
+        selectedDays={2017-12-09T22:00:00.000Z}
         showOutsideDays={true}
         showWeekDays={true}
         showWeekNumbers={true}
