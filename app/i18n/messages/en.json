@@ -167,7 +167,7 @@
   "ReservationCancelModal.lead": "Are you certain that you wish to cancel the following reservation:",
   "ReservationCancelModal.takeIntoAccount": "Please note that the reservation must be cancelled, at the latest, <strong>5 days</strong> before the start of the reservation. You will be invoiced for unused reservations.",
   "ReservationConfirmation.feedbackText": "Thank you for using Varaamo! <a href='{href}'>Send feedback</a>.",
-  "ReservationConfirmation.reservationCreatedTitle": "Reservation saved",
+  "ReservationConfirmation.reservationCreatedTitle": "Reservation successful",
   "ReservationConfirmation.reservationEditedTitle": "Reservation updated",
   "ReservationConfirmation.resourceButton": "Back to premise",
   "ReservationConfirmation.ownReservationButton": "Back to your reservations",
