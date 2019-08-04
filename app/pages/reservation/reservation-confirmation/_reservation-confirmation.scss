@@ -18,16 +18,26 @@
   }
   &__icon {
     height: 20px;
-    margin-right: 6px;
+    margin-right: 7px;
   }
 
-  .reservation-date {
+  &__highlight {
+    background: darken($light-gray, 5%);
+    padding: 5px 0;
+    margin-bottom: 20px;
+  }
+
+  &__reservation-date {
     .reservation-date__content {
-      margin: 0;
+      margin: 20px auto;
     }
     h3 {
       font-size: 1.6rem;
-      text-align: left;
+      font-weight: normal;
     }
   }
+  &__resource-name {
+    margin-left: 111px;
+  }
+
 }

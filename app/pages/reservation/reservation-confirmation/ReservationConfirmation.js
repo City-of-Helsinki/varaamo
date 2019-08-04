@@ -23,15 +23,12 @@ class ReservationConfirmation extends Component {
 
   renderField(field, label, value) {
     return (
-      <Row
-        className="app-ReservationConfirmation__field"
-        key={`reservation-confirmation-field-${field}`}
-      >
-        <Col xs={6}>
-          <b>{label}</b>
+      <Row key={`reservation-confirmation-field-${field}`}>
+        <Col md={4} xs={6}>
+          <span className="app-ReservationDetails__name">{label}</span>
         </Col>
-        <Col className="app-ReservationConfirmation__field-value" xs={6}>
-          {value}
+        <Col md={8} xs={6}>
+          <span className="app-ReservationDetails__value">{value}</span>
         </Col>
       </Row>
     );
@@ -55,26 +52,28 @@ class ReservationConfirmation extends Component {
     return (
       <Row className="app-ReservationConfirmation">
         <Col md={6} xs={12}>
-          <Well>
-            <h2 className="app-ReservationPage__header">
+          <div className="app-ReservationDetails">
+            <h2 className="app-ReservationPage__title app-ReservationPage__title--big">
               {t(`ReservationConfirmation.reservation${isEdited ? 'Edited' : 'Created'}Title`)}
             </h2>
-            <ReservationDate beginDate={reservation.begin} endDate={reservation.end} />
-            <p className="app-ReservationConfirmation__resource-name">
-              <img
-                alt={resource.name}
-                className="app-ReservationConfirmation__icon"
-                src={iconHome}
-              />
-              <b>{resource.name}</b>
-            </p>
-            {!isEdited && (
-              <p>
-                <FormattedHTMLMessage
-                  id="ReservationConfirmation.confirmationText"
-                  values={{ email }}
+            <div className="app-ReservationConfirmation__highlight">
+              <ReservationDate beginDate={reservation.begin} className="app-ReservationConfirmation__reservation-date" endDate={reservation.end} />
+              <p className="app-ReservationConfirmation__resource-name">
+                <img
+                  alt={resource.name}
+                  className="app-ReservationConfirmation__icon"
+                  src={iconHome}
                 />
+                <span>{resource.name}</span>
               </p>
+            </div>
+            {!isEdited && (
+            <p>
+              <FormattedHTMLMessage
+                id="ReservationConfirmation.confirmationText"
+                values={{ email }}
+              />
+            </p>
             )}
             <p>
               <FormattedHTMLMessage id="ReservationConfirmation.feedbackText" values={{ href }} />
@@ -86,11 +85,11 @@ class ReservationConfirmation extends Component {
                 </Button>
               </Link>
             </p>
-          </Well>
+          </div>
         </Col>
         <Col md={6} xs={12}>
-          <Well>
-            <h2>{t('ReservationConfirmation.reservationDetailsTitle')}</h2>
+          <div className="app-ReservationDetails">
+            <h2 className="app-ReservationPage__title">{t('ReservationConfirmation.reservationDetailsTitle')}</h2>
             {reservation.reserverName
               && this.renderField(
                 'reserverName',
@@ -170,7 +169,7 @@ class ReservationConfirmation extends Component {
                 t('common.addressCityLabel'),
                 reservation.billingAddressCity
               )}
-          </Well>
+          </div>
         </Col>
       </Row>
     );
