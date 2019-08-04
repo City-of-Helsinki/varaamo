@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import iconClock from '../../assets/icons/clock-o.svg';
 
-function ReservationDate({ beginDate, endDate }) {
+function ReservationDate({ beginDate, endDate, className = '' }) {
   if (!beginDate || !endDate) {
     return <span />;
   }
@@ -18,7 +18,7 @@ function ReservationDate({ beginDate, endDate }) {
   const hours = reservationEnd.diff(reservationBegin, 'hours', true);
 
   return (
-    <div className="reservation-date">
+    <div className={`${className} reservation-date`}>
       <div className="reservation-date__content">
         <h5 className="reservation-date__month">{month}</h5>
         <h1>{day}</h1>
@@ -35,6 +35,7 @@ function ReservationDate({ beginDate, endDate }) {
 ReservationDate.propTypes = {
   beginDate: PropTypes.string,
   endDate: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default ReservationDate;
