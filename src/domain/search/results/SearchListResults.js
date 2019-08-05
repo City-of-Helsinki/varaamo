@@ -109,4 +109,8 @@ class SearchListResults extends React.Component {
   }
 }
 
+const UnconnectedSearchListResults = SearchListResults;
+
+export { UnconnectedSearchListResults };
+
 export default withRouter(SearchListResults);
