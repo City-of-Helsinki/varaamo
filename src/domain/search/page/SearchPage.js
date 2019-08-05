@@ -316,9 +316,9 @@ class SearchPage extends React.Component {
   }
 }
 
-const UnconnectedSearchPage = injectT(SearchPage);
+const UnWrappedSearchPage = injectT(SearchPage);
 
-export { UnconnectedSearchPage };
+export { UnWrappedSearchPage };
 export default flowRight([
   injectT,
   withRouter,

@@ -1,7 +1,7 @@
 import React from 'react';
 import toJSON from 'enzyme-to-json';
 
-import { UnconnectedSearchPage } from '../SearchPage';
+import { UnWrappedSearchPage } from '../SearchPage';
 import { shallowWithIntl } from '../../../../../app/utils/testUtils';
 
 describe('SearchPage', () => {
@@ -12,7 +12,7 @@ describe('SearchPage', () => {
       match: { path: 'foo' }
     };
     const wrapper = shallowWithIntl(
-      <UnconnectedSearchPage {...props} />
+      <UnWrappedSearchPage {...props} />
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();
