@@ -6,13 +6,13 @@ import PrivateRoute from '../app/shared/private-route/PrivateRoute';
 import AppContainer from '../app/pages/AppContainer';
 import AboutPage from '../app/pages/about/AboutPage';
 import AdminResourcesPage from '../app/pages/admin-resources/AdminResourcesPage';
-import ManageReservationsPage from '../app/pages/manage-reservations/ManageReservationsPage';
 import HomePage from '../app/pages/home/HomePage';
 import NotFoundPage from '../app/pages/not-found/NotFoundPage';
 import ReservationPage from '../app/pages/reservation/ReservationPage';
 import ResourcePage from '../app/pages/resource/ResourcePage';
 import UserReservationsPage from '../app/pages/user-reservations/UserReservationsPage';
 import SearchPage from './domain/search/page/SearchPage';
+import ManageReservationsPage from './domain/reservations/manage/ManageReservations';
 
 export default () => (
   <AppContainer>
