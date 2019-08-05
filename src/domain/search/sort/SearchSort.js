@@ -16,7 +16,7 @@ const SearchSort = ({
       <SelectFilter
         id="app-Sort"
         isSearchable={false}
-        label={t('SortBy.label')}
+        label={t('SearchSort.label')}
         onChange={item => onChange(item.value)}
         options={[
           { label: t('SearchSort.nameLabel'), value: `resource_name_${intl.locale}` },
