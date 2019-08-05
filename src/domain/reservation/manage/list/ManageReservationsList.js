@@ -1,8 +1,11 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import get from 'lodash/get';
 import { Table } from 'react-bootstrap';
+import { injectIntl, intlShape } from 'react-intl';
 
+import * as dataUtils from '../../../../common/data/utils';
 import injectT from '../../../../../app/i18n/injectT';
 
 const getDateAndTime = (reservation) => {
@@ -12,9 +15,16 @@ const getDateAndTime = (reservation) => {
   return `${begin.format('ddd d.M.Y HH:mm')} - ${end.format('HH:mm')}`;
 };
 
+const getResourceUnit = (resource, units) => {
+  // TODO: Get the correct resource unit when API supports adding resource objects to reservations endpoint.
+  return units[Math.round(Math.random() * units.length) - 1];
+};
+
 const ManageReservationsList = ({
+  intl,
   t,
   reservations = [],
+  units = [],
 }) => {
   return (
     <div className="app-ManageReservationsList">
@@ -34,17 +44,19 @@ const ManageReservationsList = ({
         </thead>
         <tbody>
           {reservations.map((reservation) => {
+            const unit = getResourceUnit(reservation.resource, units);
+
             return (
               <tr key={`reservation-${reservation.id}`}>
-                <td>{reservation.user.display_name}</td>
-                <td>{reservation.user.email}</td>
-                <td>{reservation.resource}</td>
-                <td></td>
+                <td>{get(reservation, 'user.display_name', '')}</td>
+                <td>{get(reservation, 'user.email', '')}</td>
+                <td>{get(reservation, 'resource')}</td>
+                <td>{dataUtils.getLocalizedFieldValue(unit.name, intl.locale)}</td>
                 <td>{getDateAndTime(reservation)}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td />
+                <td />
+                <td />
+                <td />
               </tr>
             );
           })}
@@ -57,6 +69,8 @@ const ManageReservationsList = ({
 ManageReservationsList.propTypes = {
   t: PropTypes.func.isRequired,
   reservations: PropTypes.array,
+  units: PropTypes.array,
+  intl: intlShape,
 };
 
-export default injectT(ManageReservationsList);
+export default injectT(injectIntl(ManageReservationsList));

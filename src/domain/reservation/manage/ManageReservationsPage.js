@@ -18,11 +18,14 @@ class ManageReservationsPage extends React.Component {
 
     this.state = {
       isLoading: false,
+      isLoadingUnits: false,
       reservations: [],
+      units: [],
     };
   }
 
   componentDidMount() {
+    this.loadUnits();
     this.loadReservations();
   }
 
@@ -40,6 +43,20 @@ class ManageReservationsPage extends React.Component {
       });
   };
 
+  loadUnits = () => {
+    this.setState({
+      isLoadingUnits: true,
+    });
+
+    client.get('unit', { page_size: 500, unit_has_resource: true })
+      .then(({ data }) => {
+        this.setState({
+          isLoadingUnits: false,
+          units: get(data, 'results', []),
+        });
+      });
+  };
+
   render() {
     const {
       t,
@@ -47,16 +64,19 @@ class ManageReservationsPage extends React.Component {
 
     const {
       isLoading,
+      isLoadingUnits,
       reservations,
+      units,
     } = this.state;
 
     return (
       <div className="app-ManageReservationsPage">
         <div className="app-ManageReservationsPage__list">
           <PageWrapper title={t('ManageReservationsPage.title')}>
-            <Loader loaded={!isLoading}>
+            <Loader loaded={!isLoading && !isLoadingUnits}>
               <ManageReservationsList
                 reservations={reservations}
+                units={units}
               />
             </Loader>
           </PageWrapper>

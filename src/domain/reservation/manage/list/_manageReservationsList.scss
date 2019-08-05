@@ -20,14 +20,14 @@
 
     > tbody {
       > tr > td {
-        padding: 8px 16px;
+        padding: 22px 16px;
         border-top: none;
         height: $row-height;
         border-bottom: $border;
         font-size: 14px;
         line-height: 18px;
         color: $color;
-        vertical-align: middle;
+        vertical-align: top;
       }
     }
   }
