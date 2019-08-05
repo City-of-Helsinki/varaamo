@@ -297,5 +297,14 @@
   "UserReservationsPage.preliminaryReservationsHeader": "Preliminary reservations",
   "UserReservationsPage.regularEmptyMessage": "No standard reservations",
   "UserReservationsPage.regularReservationsHeader": "Standard reservations",
-  "UserReservationsPage.title": "My reservations"
+  "UserReservationsPage.title": "My reservations",
+  "ManageReservationsPage.title": "Manage reservations",
+  "ManageReservationsList.nameHeader": "Name",
+  "ManageReservationsList.emailHeader": "Email",
+  "ManageReservationsList.resourceHeader": "Resource",
+  "ManageReservationsList.locationHeader": "Location",
+  "ManageReservationsList.dateAndTimeHeader": "Date and time",
+  "ManageReservationsList.statusHeader": "Status",
+  "ManageReservationsList.pinHeader": "PIN",
+  "ManageReservationsList.actionsHeader": "Select action"
 }

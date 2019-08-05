@@ -311,5 +311,15 @@
   "UserReservationsPage.preliminaryReservationsHeader": "Alustavat varaukset",
   "UserReservationsPage.regularEmptyMessage": "Ei tavallisia varauksia näytettäväksi.",
   "UserReservationsPage.regularReservationsHeader": "Tavalliset varaukset",
-  "UserReservationsPage.title": "Omat varaukset"
+  "UserReservationsPage.title": "Omat varaukset",
+  "ManageReservationsPage.title": "Hallitse varauksia",
+  "ManageReservationsList.nameHeader": "Nimi",
+  "ManageReservationsList.emailHeader": "Sähköposti",
+  "ManageReservationsList.resourceHeader": "Resurssi",
+  "ManageReservationsList.locationHeader": "Sijainti",
+  "ManageReservationsList.dateAndTimeHeader": "Milloin",
+  "ManageReservationsList.statusHeader": "Tila",
+  "ManageReservationsList.pinHeader": "PIN",
+  "ManageReservationsList.actionsHeader": "Valitse toiminta"
 }
+

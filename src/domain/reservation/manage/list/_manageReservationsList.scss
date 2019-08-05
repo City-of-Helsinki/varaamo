@@ -1,0 +1,34 @@
+.app-ManageReservationsList {
+  $header-background: #f1f1f1;
+  $color: #1a1a1a;
+  $border: 1px solid rgb(229, 229, 229);
+  $row-height: 64px;
+
+  &__table {
+    > thead {
+      background: $header-background;
+
+      > tr > th {
+        padding: 8px 16px;
+        height: $row-height;
+        font-size: 14px;
+        color: $color;
+        border-bottom: $border;
+        vertical-align: middle;
+      }
+    }
+
+    > tbody {
+      > tr > td {
+        padding: 8px 16px;
+        border-top: none;
+        height: $row-height;
+        border-bottom: $border;
+        font-size: 14px;
+        line-height: 18px;
+        color: $color;
+        vertical-align: middle;
+      }
+    }
+  }
+}
