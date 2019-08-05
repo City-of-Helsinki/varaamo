@@ -98,6 +98,7 @@ exports[`SearchSort renders correctly 1`] = `
         "Navbar.language-swedish": "Navbar.language-swedish",
         "Navbar.login": "Navbar.login",
         "Navbar.logout": "Navbar.logout",
+        "Navbar.manageReservations": "Navbar.manageReservations",
         "Navbar.search": "Navbar.search",
         "Navbar.userFavorites": "Navbar.userFavorites",
         "Navbar.userResources": "Navbar.userResources",
