@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchListResults renders correctly 1`] = `
+<div
+  className="app-SearchListResults"
+>
+  <div
+    className="app-SearchListResults__sort"
+  >
+    <Row
+      bsClass="row"
+      componentClass="div"
+    >
+      <Col
+        bsClass="col"
+        componentClass="div"
+        md={4}
+        mdOffset={8}
+        sm={6}
+      >
+        <InjectIntl(InjectT(SearchSort))
+          onChange={[Function]}
+          value=""
+        />
+      </Col>
+    </Row>
+  </div>
+  <Component
+    component="div"
+    loaded={true}
+    loadedClassName="loadedContent"
+    parentClassName="loader"
+  >
+    <div
+      className="app-SearchListResults__results"
+    >
+      <InjectIntl(Connect(InjectT(ResourceCard)))
+        date="2019-08-05"
+        key="resourceCard-1"
+        onFavoriteClick={[Function]}
+        onFilterClick={[Function]}
+        resource={
+          Object {
+            "available_hours": Array [],
+            "equipment": Array [],
+            "id": 1,
+            "is_favorite": false,
+            "name": Object {
+              "en": "Resource (en) - 1",
+              "fi": "Resource (fi) - 1",
+              "sv": "Resource (sv) - 1",
+            },
+            "need_manual_confirmation": false,
+            "opening_hours": Array [],
+            "products": Array [],
+            "public": true,
+            "required_reservation_extra_fields": Array [],
+            "reservable": true,
+            "reservable_after": null,
+            "slot_size": "00:30:00",
+            "supported_reservation_extra_fields": Array [],
+            "unit": 1,
+            "user_permissions": Object {
+              "canMakeReservations": true,
+              "isAdmin": false,
+            },
+          }
+        }
+        unit={
+          Object {
+            "id": 1,
+            "location": Object {
+              "coordinates": Array [
+                25.01571,
+                60.249935,
+              ],
+              "type": "Point",
+            },
+            "name": Object {
+              "en": "Unit (en) - 1",
+              "fi": "Unit (fi) - 1",
+              "sv": "Unit (sv) - 1",
+            },
+            "opening_hours_today": Object {},
+          }
+        }
+      />
+    </div>
+  </Component>
+  <InjectT(SearchPagination)
+    onChange={[Function]}
+    page={1}
+    pages={NaN}
+  />
+</div>
+`;

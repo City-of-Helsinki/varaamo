@@ -1,0 +1,113 @@
+@import './filter/dateFilter';
+@import './filter/selectFilter';
+@import './filter/textFilter';
+@import './filter/toggleFilter';
+@import './filter/timeRangeFilter';
+
+.tooltip_class {
+  z-index: 9999999;
+}
+
+.app-SearchFilters {
+  background-color: $copper;
+  position: relative;
+  z-index: 3;
+
+  &__content {
+    padding: 30px 0;
+  }
+
+  &__control {
+    padding-top: 15px;
+  }
+
+  &__buttons {
+    padding-top: 15px;
+  }
+
+  &__submit-button {
+    min-width: 120px;
+  }
+
+  &__reset-button {
+    img {
+      width: $line-height-computed;
+    }
+  }
+
+  .input-group-addon {
+    background-color: transparent;
+  }
+
+  .panel {
+    background-color: transparent;
+    box-shadow: none;
+    margin: 15px 0;
+
+    .panel-heading {
+      background-color: transparent;
+      padding-left: 0;
+      padding-right: 0;
+
+      .panel-title {
+        font-size: 16px;
+
+        a {
+          padding-left: 24px;
+          cursor: pointer;
+          position: relative;
+          text-decoration: underline;
+
+          &::before {
+            background-image: url('./images/angle-right.svg');
+            background-repeat: no-repeat;
+            background-size: $line-height-computed;
+            content: ' ';
+            display: inline-block;
+            left: 0;
+            top: -2px;
+            position: absolute;
+            height: $line-height-computed;
+            width: $line-height-computed;
+          }
+        }
+
+        a[aria-selected='true']::before {
+          background-image: url('./images/angle-down.svg');
+        }
+      }
+    }
+
+    .panel-body {
+      padding: 0;
+    }
+  }
+
+  .select:before {
+    background-color: $copper;
+  }
+
+  .form-group {
+    margin-bottom: 0;
+  }
+
+  .form-control {
+    color: $black;
+  }
+
+  .form-control[disabled] {
+    background-color: transparent;
+    border-color: $black;
+    color: $black;
+    cursor: default;
+    transition: all 0s ease 0s;
+  }
+
+  .glyphicon-triangle-bottom {
+    font-size: 10px;
+  }
+
+  .btn.btn-link {
+    color: $black;
+  }
+}

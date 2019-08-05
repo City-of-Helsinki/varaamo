@@ -1,0 +1,18 @@
+.app-ToggleFilter {
+  padding-top: 15px;
+
+  &__label {
+    font-weight: normal;
+  }
+
+  @media (max-width: $screen-md-max) {
+    &__toggle {
+      float: left;
+    }
+
+    &__label {
+      display: block;
+      padding-left: 60px;
+    }
+  }
+}

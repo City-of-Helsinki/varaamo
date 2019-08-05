@@ -60,10 +60,14 @@ class UnconnectedUserReservationsPage extends Component {
 
     return (
       <div className="app-UserReservationPage">
-        <PageWrapper className="app-UserReservationPage__wrapper" title={t('UserReservationsPage.title')} transparent={false}>
+        <PageWrapper
+          className="app-UserReservationPage__wrapper"
+          title={t('UserReservationsPage.title')}
+          transparent={false}
+        >
           <Loader loaded={resourcesLoaded}>
 
-            { !isAdmin && (
+            {!isAdmin && (
               <div>
                 <h1>{t('UserReservationsPage.title')}</h1>
                 <ReservationList
@@ -71,7 +75,7 @@ class UnconnectedUserReservationsPage extends Component {
                 />
               </div>
             )}
-            { isAdmin && (
+            {isAdmin && (
               <div>
                 <h1>{t('UserReservationsPage.title')}</h1>
                 <AdminReservationFilters

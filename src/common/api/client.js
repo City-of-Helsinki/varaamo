@@ -6,9 +6,13 @@ import store from '../../store';
 
 let authToken;
 
-store.subscribe(() => {
+const getToken = () => {
   const state = store.getState();
-  authToken = get(state, 'auth.token');
+  return get(state, 'auth.token');
+};
+
+store.subscribe(() => {
+  authToken = getToken();
 });
 
 export class ApiClient {
@@ -16,12 +20,13 @@ export class ApiClient {
 
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
+    authToken = getToken();
   }
 
   getUrl = (endpoint) => {
     // URLs in Django must have a trailing slash
     const endsWithTrailingSlash = endpoint.substring(endpoint.length - 1) === '/';
-    return `${constants.API_URL}/${endpoint}${endsWithTrailingSlash ? '' : '/'}`;
+    return `${this.baseUrl}/${endpoint}${endsWithTrailingSlash ? '' : '/'}`;
   };
 
   getHeaders = () => ({

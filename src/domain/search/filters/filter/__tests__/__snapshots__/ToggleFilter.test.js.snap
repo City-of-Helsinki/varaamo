@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ToggleFilter render normally 1`] = `
+<div
+  className="app-ToggleFilter"
+>
+  <Toggle
+    className="app-ToggleFilter__toggle"
+    icons={
+      Object {
+        "checked": <Unknown />,
+        "unchecked": <Unknown />,
+      }
+    }
+    id="foo"
+    onChange={[Function]}
+  />
+  <label
+    className="app-ToggleFilter__label"
+    htmlFor="foo"
+  >
+    bar
+  </label>
+</div>
+`;

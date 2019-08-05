@@ -31,6 +31,7 @@ module.exports = merge(common, {
         options: {
           configFile: path.resolve(__dirname, '../.eslintrc'),
           eslintPath: require.resolve('eslint'),
+          emitWarning: true,
         },
       },
       {

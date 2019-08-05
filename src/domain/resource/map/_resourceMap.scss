@@ -1,0 +1,23 @@
+$map-height: 600px;
+
+.app-ResourceMap {
+  &__map {
+    height: $map-height;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  .leaflet-marker-icon {
+    div {
+      color: $brand-primary;
+      text-align: right;
+      font-weight: bold;
+      line-height: 6px;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+}

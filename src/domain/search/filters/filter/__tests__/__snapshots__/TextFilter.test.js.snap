@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextFilter render normally 1`] = `
+<div
+  className="app-TextFilter"
+>
+  <FormGroup
+    bsClass="form-group"
+    controlId="textFilter-foo"
+  >
+    <FormControl
+      bsClass="form-control"
+      className="app-TextFilter__text-field"
+      componentClass="input"
+      onChange={[Function]}
+      onKeyPress={[Function]}
+      type="text"
+      value="bar"
+    />
+  </FormGroup>
+</div>
+`;
