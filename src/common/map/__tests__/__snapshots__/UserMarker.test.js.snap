@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserMarker renders correctly 1`] = `
+<ForwardRef(Leaflet(Marker))
+  icon={
+    NewClass {
+      "_initHooksCalled": true,
+      "options": Object {
+        "iconAnchor": Array [
+          12,
+          41,
+        ],
+        "iconRetinaUrl": "test-file-stub",
+        "iconSize": Array [
+          25,
+          41,
+        ],
+        "iconUrl": "test-file-stub",
+        "popupAnchor": Array [
+          1,
+          -34,
+        ],
+        "shadowSize": Array [
+          41,
+          41,
+        ],
+        "shadowUrl": "test-file-stub",
+        "tooltipAnchor": Array [
+          16,
+          -28,
+        ],
+      },
+    }
+  }
+  position={
+    Array [
+      60.20843,
+      24.975634,
+    ]
+  }
+/>
+`;

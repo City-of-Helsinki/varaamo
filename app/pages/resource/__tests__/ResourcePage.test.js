@@ -6,7 +6,6 @@ import Lightbox from 'lightbox-react';
 import NotFoundPage from '../../not-found/NotFoundPage';
 import PageWrapper from '../../PageWrapper';
 import ResourceCalendar from '../../../shared/resource-calendar/ResourceCalendar';
-import ResourceMap from '../../../shared/resource-map/MapContainer';
 import Resource from '../../../utils/fixtures/Resource';
 import Unit from '../../../utils/fixtures/Unit';
 import { getResourcePageUrl } from '../../../utils/resourceUtils';
@@ -148,16 +147,6 @@ describe('pages/resource/ResourcePage', () => {
         const resourceMapInfo = wrapper.find(ResourceMapInfo);
         expect(resourceMapInfo).toHaveLength(1);
         expect(resourceMapInfo.prop('unit')).toBe(defaultProps.unit);
-      });
-
-      test('renders a ResourceMap', () => {
-        const wrapper = getShowMapWrapper();
-        const resourceMap = wrapper.find(ResourceMap);
-        expect(resourceMap).toHaveLength(1);
-        expect(resourceMap.prop('location')).toBe(defaultProps.location);
-        expect(resourceMap.prop('resourceIds')).toEqual([defaultProps.resource.id]);
-        expect(resourceMap.prop('selectedUnitId')).toBe(defaultProps.unit.id);
-        expect(resourceMap.prop('showMap')).toBe(true);
       });
 
       test('does not render a ResourceInfo', () => {

@@ -21,7 +21,7 @@ export default {
     hidden: false,
   },
   REQUIRED_API_HEADERS: {
-    Accept: 'application/json',
+    'Accept': 'application/json',
     'Accept-Language': 'fi',
     'Content-Type': 'application/json',
   },
@@ -52,9 +52,7 @@ export default {
     freeOfCharge: '',
     date: '',
     distance: '',
-    duration: 0,
     municipality: [],
-    end: '',
     lat: '',
     lon: '',
     orderBy: '',
@@ -62,9 +60,8 @@ export default {
     people: '',
     purpose: '',
     search: '',
-    start: '',
     unit: '',
-    useTimeRange: false,
+    availableBetween: '',
   },
   TIME_FORMAT: 'H:mm',
   TIME_SLOT_DEFAULT_LENGTH: 30,
@@ -74,6 +71,5 @@ export default {
     TYPE: 'type_name_lang',
     PREMISES: 'unit_name_lang',
     PEOPLE: 'people_capacity',
-    // TODO: sortby 'open now' should be implemented later after API support it
   }
 };

@@ -1,0 +1,12 @@
+.app-SelectFilter {
+  display: flex;
+  flex: 1;
+  height: 100%;
+
+  .form-group {
+    margin: 0 !important;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+}

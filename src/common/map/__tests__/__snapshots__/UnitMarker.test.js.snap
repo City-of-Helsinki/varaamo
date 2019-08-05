@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UnitMarker renders correctly 1`] = `
+<ForwardRef(Leaflet(Marker))
+  icon={
+    NewClass {
+      "_initHooksCalled": true,
+      "options": Object {
+        "className": "marker-icon",
+        "html": "<div>1</div><img src=\\"test-file-stub\\" />",
+        "iconAnchor": Array [
+          12,
+          48,
+        ],
+        "iconSize": Array [
+          25,
+          48,
+        ],
+      },
+    }
+  }
+  onClick={[Function]}
+  position={
+    Array [
+      60.20843,
+      24.975634,
+    ]
+  }
+/>
+`;
+
+exports[`UnitMarker show number of resources when more than 1 resources 1`] = `
+<ForwardRef(Leaflet(Marker))
+  icon={
+    NewClass {
+      "_initHooksCalled": true,
+      "options": Object {
+        "className": "marker-icon",
+        "html": "<div>2</div><img src=\\"test-file-stub\\" />",
+        "iconAnchor": Array [
+          12,
+          48,
+        ],
+        "iconSize": Array [
+          25,
+          48,
+        ],
+      },
+    }
+  }
+  onClick={[Function]}
+  position={
+    Array [
+      60.20843,
+      24.975634,
+    ]
+  }
+/>
+`;

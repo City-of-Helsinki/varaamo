@@ -4,9 +4,13 @@ import React from 'react';
 import Grid from 'react-bootstrap/lib/Grid';
 import { Helmet } from 'react-helmet';
 
-function PageWrapper({
-  children, className, fluid = false, title, transparent = false
-}) {
+const PageWrapper = ({
+  children,
+  className,
+  fluid = false,
+  title,
+  transparent = false,
+}) => {
   return (
     <div className={classNames('app-PageWrapper', { 'app-PageWrapper__transparent': transparent })}>
       <Grid
@@ -22,7 +26,7 @@ function PageWrapper({
       </Grid>
     </div>
   );
-}
+};
 
 PageWrapper.propTypes = {
   children: PropTypes.node.isRequired,

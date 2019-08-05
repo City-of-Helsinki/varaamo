@@ -43,20 +43,20 @@ function Reservation({ onClick, ...reservation }) {
       </div>
       {reserverName && <div>{reserverName}</div>}
       {reservation.numberOfParticipants && (
-      <div>
-        <Glyphicon glyph="user" />
-        {' '}
-        {reservation.numberOfParticipants}
-      </div>
+        <div>
+          <Glyphicon glyph="user" />
+          {' '}
+          {reservation.numberOfParticipants}
+        </div>
       )}
       {reservation.accessCode && <div><ReservationAccessCode reservation={reservation} /></div>}
       {reservation.comments && <hr />}
       {reservation.comments && (
-      <div>
-        <Glyphicon glyph="comment" />
-        {' '}
-        {reservation.comments}
-      </div>
+        <div>
+          <Glyphicon glyph="comment" />
+          {' '}
+          {reservation.comments}
+        </div>
       )}
     </Popover>
   );
@@ -73,9 +73,19 @@ function Reservation({ onClick, ...reservation }) {
       >
         <span
           className={classNames('reservation',
-            { requested: reservation.state === 'requested' },
-            { disabled: reservation.state === 'confirmed' && !reservation.isOwn && !reservation.userPermissions.canModify },
-            { reserved: reservation.state === 'confirmed' && !reservation.isOwn && reservation.userPermissions.canModify })}
+            {
+              requested: reservation.state === 'requested',
+            },
+            {
+              disabled: reservation.state === 'confirmed'
+                && !reservation.isOwn
+                && !reservation.userPermissions.canModify,
+            },
+            {
+              reserved: reservation.state === 'confirmed'
+                && !reservation.isOwn
+                && reservation.userPermissions.canModify,
+            })}
           style={{ width }}
         >
           <span className="names">

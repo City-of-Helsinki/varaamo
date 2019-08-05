@@ -1,0 +1,71 @@
+.app-ResourceCardSlider {
+  $button-size: $line-height-computed;
+  $button-offset: 10px;
+  $button-offset-mobile: 2px;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin: 0 15px 15px 15px;
+  width: 100%;
+  max-width: $app-SearchPage-max-width;
+  z-index: 2;
+
+  @media (max-width: $screen-sm-max) {
+    width: calc(100% - 30px);
+  }
+
+  &_arrow {
+    position: absolute;
+    top: $app-ResourceCard-height / 2 - $button-size / 2;
+    width: $button-size;
+    height: $button-size;
+    border: none;
+    z-index: 1;
+
+    img {
+      color: $white;
+      width: $button-size - 4;
+    }
+
+    &-left {
+      left: $button-offset-mobile;
+      @include icon-angle-left($white);
+
+      @media (min-width: $screen-sm-min) {
+        left: $button-offset;
+      }
+    }
+
+    &-right {
+      right: $button-offset-mobile;
+      @include icon-angle-right($white);
+
+      @media (min-width: $screen-sm-min) {
+        right: $button-offset;
+      }
+    }
+  }
+
+  .app-resourceCard {
+    margin: 0;
+
+    @media (max-width: $screen-sm-max) {
+      &__image-link {
+        display: block;
+        height: 100px;
+        width: 100%;
+      }
+
+      &__content {
+        .app-resourceCard__description {
+          display: none;
+        }
+      }
+
+      &__info {
+        display: none;
+      }
+    }
+  }
+}

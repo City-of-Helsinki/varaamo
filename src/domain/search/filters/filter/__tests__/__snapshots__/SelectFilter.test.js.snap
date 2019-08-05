@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectFilter render normally 1`] = `
+<div
+  className="app-SelectFilter"
+>
+  <FormGroup
+    bsClass="form-group"
+    controlId="foo"
+  >
+    <StateManager
+      className="app-Select"
+      classNamePrefix="app-Select"
+      defaultInputValue=""
+      defaultMenuIsOpen={false}
+      defaultValue={null}
+      id="foo"
+      isClearable={true}
+      isSearchable={true}
+      noOptionsMessage={[Function]}
+      onChange={[Function]}
+      options={
+        Array [
+          Object {
+            "label": "bar",
+            "value": "foo",
+          },
+        ]
+      }
+      placeholder="common.select"
+    />
+  </FormGroup>
+</div>
+`;
