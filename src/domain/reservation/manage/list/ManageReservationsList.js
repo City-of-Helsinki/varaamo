@@ -74,4 +74,5 @@ ManageReservationsList.propTypes = {
   intl: intlShape,
 };
 
-export default injectT(injectIntl(ManageReservationsList));
+export const UnwrappedManageReservationsList = injectT(ManageReservationsList);
+export default injectIntl(UnwrappedManageReservationsList);
