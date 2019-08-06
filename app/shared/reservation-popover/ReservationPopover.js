@@ -56,7 +56,7 @@ ReservationPopover.propTypes = {
   begin: PropTypes.string.isRequired,
   end: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
-  products: PropTypes.array.isRequired,
+  products: PropTypes.array,
 };
 
 export default injectT(ReservationPopover);
