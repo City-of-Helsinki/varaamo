@@ -35,7 +35,7 @@ exports[`SearchListResults renders correctly 1`] = `
       className="app-SearchListResults__results"
     >
       <InjectIntl(Connect(InjectT(ResourceCard)))
-        date="2019-08-05"
+        date="2017-12-10"
         key="resourceCard-1"
         onFavoriteClick={[Function]}
         onFilterClick={[Function]}
