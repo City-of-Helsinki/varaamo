@@ -5,6 +5,8 @@
   $row-height: 64px;
 
   &__table {
+    margin-bottom: 10px;
+
     > thead {
       background: $header-background;
 
