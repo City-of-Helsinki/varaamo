@@ -40,6 +40,8 @@ describe('pages/reservation/ReservationPage', () => {
     reservationToEdit: null,
     reservationCreated: null,
     reservationEdited: null,
+    recurringReservations: [],
+    selectedReservations: [],
     resource,
     selected: [
       {
