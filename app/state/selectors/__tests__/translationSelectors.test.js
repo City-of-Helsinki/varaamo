@@ -17,12 +17,6 @@ describe('state/selectors/dataSelectors', () => {
       const state = getState({ intl: { locale } });
       expect(currentLanguageSelector(state)).toBe(locale);
     });
-
-    test('returns sv if locale is se', () => {
-      const locale = 'se';
-      const state = getState({ intl: { locale } });
-      expect(currentLanguageSelector(state)).toBe('sv');
-    });
   });
 
   describe('createTranslatedSelector', () => {

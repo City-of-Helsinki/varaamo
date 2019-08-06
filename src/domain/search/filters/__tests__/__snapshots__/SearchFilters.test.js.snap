@@ -1,0 +1,320 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResourceMap renders correctly 1`] = `
+<div
+  className="app-SearchFilters"
+>
+  <Grid
+    bsClass="container"
+    componentClass="div"
+    fluid={false}
+  >
+    <div
+      className="app-SearchFilters__content"
+    >
+      <h1>
+        SearchFilters.title
+      </h1>
+      <Row
+        bsClass="row"
+        componentClass="div"
+      >
+        <Col
+          bsClass="col"
+          className="app-SearchFilters__control"
+          componentClass="div"
+          md={6}
+          sm={12}
+        >
+          <TextFilter
+            id="searchField"
+            label="SearchFilters.searchLabel"
+            onChange={[Function]}
+            onSearch={[Function]}
+            value=""
+          />
+        </Col>
+        <Col
+          bsClass="col"
+          className="app-SearchFilters__control"
+          componentClass="div"
+          md={6}
+          sm={12}
+        >
+          <InjectIntl(DateFilter)
+            date={2017-12-09T22:00:00.000Z}
+            label="SearchFilters.dateLabel"
+            onChange={[Function]}
+          />
+        </Col>
+      </Row>
+      <Uncontrolled(Panel)
+        defaultExpanded={false}
+        header="SearchFilters.advancedSearch"
+      >
+        <Row
+          bsClass="row"
+          componentClass="div"
+        >
+          <Col
+            bsClass="col"
+            componentClass="div"
+            md={12}
+          >
+            <InjectT(SelectFilter)
+              id="municipality"
+              isMulti={true}
+              label="SearchFilters.municipalityLabel"
+              onChange={[Function]}
+              options={
+                Array [
+                  Object {
+                    "label": "Helsinki",
+                    "value": "helsinki",
+                  },
+                  Object {
+                    "label": "Espoo",
+                    "value": "espoo",
+                  },
+                  Object {
+                    "label": "Vantaa",
+                    "value": "vantaa",
+                  },
+                ]
+              }
+              value={
+                Array [
+                  "",
+                ]
+              }
+            />
+          </Col>
+        </Row>
+        <Row
+          bsClass="row"
+          componentClass="div"
+        >
+          <Col
+            bsClass="col"
+            className="app-SearchFilters__control"
+            componentClass="div"
+            md={4}
+            sm={12}
+          >
+            <InjectT(SelectFilter)
+              id="purpose"
+              label="SearchFilters.purposeLabel"
+              name="app-SearchFilters-purpose-select"
+              onChange={[Function]}
+              options={
+                Array [
+                  Object {
+                    "label": "Purpose (en) - 1",
+                    "value": 1,
+                  },
+                ]
+              }
+            />
+          </Col>
+          <Col
+            bsClass="col"
+            className="app-SearchFilters__control"
+            componentClass="div"
+            md={4}
+            sm={6}
+          >
+            <InjectT(SelectFilter)
+              id="unit"
+              label="SearchFilters.unitLabel"
+              name="app-SearchControls-unit-select"
+              onChange={[Function]}
+              options={
+                Array [
+                  Object {
+                    "label": "Unit (en) - 1",
+                    "value": 1,
+                  },
+                ]
+              }
+            />
+          </Col>
+          <Col
+            bsClass="col"
+            className="app-SearchFilters__control"
+            componentClass="div"
+            md={4}
+            sm={6}
+          >
+            <InjectT(SelectFilter)
+              id="people"
+              label="SearchFilters.peopleCapacityLabel"
+              name="app-SearchFilters-people-select"
+              onChange={[Function]}
+              options={
+                Array [
+                  Object {
+                    "label": 1,
+                    "value": 1,
+                  },
+                  Object {
+                    "label": 2,
+                    "value": 2,
+                  },
+                  Object {
+                    "label": 3,
+                    "value": 3,
+                  },
+                  Object {
+                    "label": 4,
+                    "value": 4,
+                  },
+                  Object {
+                    "label": 5,
+                    "value": 5,
+                  },
+                  Object {
+                    "label": 6,
+                    "value": 6,
+                  },
+                  Object {
+                    "label": 7,
+                    "value": 7,
+                  },
+                  Object {
+                    "label": 8,
+                    "value": 8,
+                  },
+                  Object {
+                    "label": 9,
+                    "value": 9,
+                  },
+                  Object {
+                    "label": 10,
+                    "value": 10,
+                  },
+                  Object {
+                    "label": 15,
+                    "value": 15,
+                  },
+                  Object {
+                    "label": 20,
+                    "value": 20,
+                  },
+                  Object {
+                    "label": 25,
+                    "value": 25,
+                  },
+                  Object {
+                    "label": 30,
+                    "value": 30,
+                  },
+                  Object {
+                    "label": 40,
+                    "value": 40,
+                  },
+                  Object {
+                    "label": 50,
+                    "value": 50,
+                  },
+                  Object {
+                    "label": 60,
+                    "value": 60,
+                  },
+                  Object {
+                    "label": 70,
+                    "value": 70,
+                  },
+                  Object {
+                    "label": 80,
+                    "value": 80,
+                  },
+                  Object {
+                    "label": 90,
+                    "value": 90,
+                  },
+                  Object {
+                    "label": 100,
+                    "value": 100,
+                  },
+                ]
+              }
+              value={NaN}
+            />
+          </Col>
+        </Row>
+        <Row
+          bsClass="row"
+          componentClass="div"
+        >
+          <Col
+            bsClass="col"
+            className="app-SearchFilters__control"
+            componentClass="div"
+            md={4}
+            sm={6}
+          >
+            <InjectT(PositionControl)
+              onConfirm={[Function]}
+              onPositionSwitch={[Function]}
+              value={NaN}
+            />
+          </Col>
+          <Col
+            bsClass="col"
+            className="app-SearchFilters__control"
+            componentClass="div"
+            md={4}
+            sm={6}
+          >
+            <TimeRangeFilter
+              date="2017-12-10"
+              label="TimeRangeControl.timeRangeTitle"
+              onChange={[Function]}
+              value=""
+            />
+          </Col>
+          <Col
+            bsClass="col"
+            className="app-SearchFilters__control"
+            componentClass="div"
+            md={4}
+            sm={12}
+          >
+            <ToggleFilter
+              checked={false}
+              id="charge"
+              label="SearchFilters.chargeLabel"
+              onChange={[Function]}
+            />
+          </Col>
+        </Row>
+      </Uncontrolled(Panel)>
+      <Row
+        bsClass="row"
+        className="app-SearchFilters__buttons"
+        componentClass="div"
+      >
+        <Col
+          bsClass="col"
+          componentClass="div"
+          sm={12}
+        >
+          <Button
+            active={false}
+            block={false}
+            bsClass="btn"
+            bsStyle="primary"
+            className="app-SearchFilters__submit-button"
+            disabled={false}
+            key="submit-button"
+            onClick={[Function]}
+            type="submit"
+          >
+            SearchFilters.searchButton
+          </Button>
+        </Col>
+      </Row>
+    </div>
+  </Grid>
+</div>
+`;

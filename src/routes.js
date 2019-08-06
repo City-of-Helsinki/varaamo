@@ -11,8 +11,9 @@ import NotFoundPage from '../app/pages/not-found/NotFoundPage';
 import ReservationPage from '../app/pages/reservation/ReservationPage';
 import ReservationPaymentReturnPage from '../app/pages/reservation/ReservationPaymentReturnPage';
 import ResourcePage from '../app/pages/resource/ResourcePage';
-import SearchPage from '../app/pages/search/SearchPage';
 import UserReservationsPage from '../app/pages/user-reservations/UserReservationsPage';
+import SearchPage from './domain/search/page/SearchPage';
+import ManageReservationsPage from './domain/reservation/manage/page/ManageReservationsPage';
 
 export default () => (
   <AppContainer>
@@ -26,6 +27,11 @@ export default () => (
         component={AdminResourcesPage}
         componentName="AdminResources"
         path="/admin-resources"
+      />
+      <PrivateRoute
+        component={ManageReservationsPage}
+        componentName="ManageReservations"
+        path="/manage-reservations"
       />
       <PrivateRoute
         component={UserReservationsPage}

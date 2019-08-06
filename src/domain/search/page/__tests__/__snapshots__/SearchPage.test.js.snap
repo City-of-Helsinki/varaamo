@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchPage renders correctly 1`] = `
+<div
+  className="app-SearchPage"
+>
+  <InjectIntl(InjectT(SearchFilters))
+    filters={Object {}}
+    isGeolocationEnabled={false}
+    isLoadingPurposes={false}
+    isLoadingUnits={false}
+    onChange={[Function]}
+    onGeolocationToggle={[Function]}
+    purposes={Array []}
+    units={Array []}
+  />
+  <InjectT(SearchMapToggle)
+    active="map"
+    onClick={[Function]}
+    resultCount={0}
+  />
+  <div
+    className="app-SearchPage__results"
+  >
+    <Switch>
+      <Route
+        exact={true}
+        path="foo/map"
+        render={[Function]}
+      />
+      <Route
+        exact={true}
+        path="foo"
+        render={[Function]}
+      />
+      <Redirect
+        push={false}
+        to="foo"
+      />
+    </Switch>
+  </div>
+</div>
+`;

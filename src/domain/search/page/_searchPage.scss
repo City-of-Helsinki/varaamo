@@ -1,0 +1,19 @@
+.app-SearchPage {
+  background-color: $silver;
+
+  &__overlay {
+    z-index: 5;
+  }
+
+  &__results {
+    position: relative;
+  }
+
+  @media (max-width: $screen-xs-max) {
+    /* fix for map */
+    .app-ResourceCompactList {
+      max-width: 90%;
+      font-size: 1.2em;
+    }
+  }
+}

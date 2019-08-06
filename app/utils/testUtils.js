@@ -232,6 +232,19 @@ function mountWithIntl(node, context) {
   return mount(nodeWithIntl, { context: { ...context, intl } });
 }
 
+function globalDateMock() {
+  const mockedDate = new Date(2017, 11, 10);
+  const originalDate = Date;
+
+  beforeAll(() => {
+    global.Date = jest.fn(() => mockedDate);
+  });
+
+  afterAll(() => {
+    global.Date.setDate = originalDate.setDate;
+  });
+}
+
 export {
   createApiTest,
   getDefaultRouterProps,
@@ -240,4 +253,5 @@ export {
   makeButtonTests,
   shallowWithIntl,
   mountWithIntl,
+  globalDateMock
 };

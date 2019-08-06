@@ -18,11 +18,6 @@ describe('shared/top-navbar/TopNavbarContainer', () => {
     }
 
     describe('currentLanguage', () => {
-      test('returns sv is current locale is se', () => {
-        const selected = selector(getState('se'));
-        expect(selected.currentLanguage).toBe('sv');
-      });
-
       test('returns the current locale', () => {
         const selected = selector(getState('en'));
         expect(selected.currentLanguage).toBe('en');

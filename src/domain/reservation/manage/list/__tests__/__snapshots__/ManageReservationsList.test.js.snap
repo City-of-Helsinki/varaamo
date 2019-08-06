@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ManageReservationsList renders correctly 1`] = `
+<div
+  className="app-ManageReservationsList"
+>
+  <Table
+    bordered={false}
+    bsClass="table"
+    className="app-ManageReservationsList__table"
+    condensed={false}
+    hover={false}
+    responsive={false}
+    striped={false}
+  >
+    <thead>
+      <tr>
+        <th>
+          ManageReservationsList.descriptionHeader
+        </th>
+        <th>
+          ManageReservationsList.nameHeader
+        </th>
+        <th>
+          ManageReservationsList.emailHeader
+        </th>
+        <th>
+          ManageReservationsList.resourceHeader
+        </th>
+        <th>
+          ManageReservationsList.locationHeader
+        </th>
+        <th>
+          ManageReservationsList.dateAndTimeHeader
+        </th>
+        <th />
+        <th>
+          ManageReservationsList.statusHeader
+        </th>
+        <th>
+          ManageReservationsList.pinHeader
+        </th>
+        <th>
+          ManageReservationsList.actionsHeader
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        key="reservation-1"
+      >
+        <td />
+        <td />
+        <td />
+        <td>
+          1
+        </td>
+        <td />
+        <td>
+          Invalid date - Invalid date
+        </td>
+        <td />
+        <td>
+          <InjectT(ManageReservationsStatus)
+            reservation={
+              Object {
+                "begin": "",
+                "comments": "",
+                "end": "",
+                "event_description": "",
+                "event_subject": "",
+                "has_catering_order": false,
+                "id": 1,
+                "its_own": false,
+                "resource": 1,
+                "staff_event": false,
+                "state": "requested",
+                "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
+                "user": Object {},
+              }
+            }
+          />
+        </td>
+        <td />
+        <td />
+      </tr>
+    </tbody>
+  </Table>
+</div>
+`;

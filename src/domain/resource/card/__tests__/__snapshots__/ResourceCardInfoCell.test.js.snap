@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResourceCardInfoCell renders correctly 1`] = `
+<span
+  className="app-resourceCardInfoCell"
+>
+  <img
+    alt=""
+    className="app-resourceCardInfoCell__icon"
+  />
+</span>
+`;

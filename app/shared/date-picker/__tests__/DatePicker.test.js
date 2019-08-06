@@ -41,7 +41,7 @@ describe('shared/date-picker/DatePicker', () => {
     });
 
     test('have locale prop passed from redux state', () => {
-      const mockLocale = 'se';
+      const mockLocale = 'sv';
       const dateField = getDateFieldWrapper({ currentLocale: mockLocale });
 
       expect(dateField.prop('dayPickerProps').locale).toEqual(mockLocale);

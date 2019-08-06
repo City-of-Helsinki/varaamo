@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchMapToggle renders correctly 1`] = `
+<div
+  className="app-SearchMapToggle"
+>
+  <Grid
+    bsClass="container"
+    componentClass="div"
+    fluid={false}
+  >
+    <Row
+      bsClass="row"
+      componentClass="div"
+    >
+      <Col
+        bsClass="col"
+        componentClass="div"
+        sm={6}
+      >
+        <div
+          className="app-SearchMapToggle__results-count"
+        >
+          MapToggle.resultsText
+        </div>
+      </Col>
+      <Col
+        bsClass="col"
+        componentClass="div"
+        sm={6}
+      >
+        <div
+          className="pull-right"
+        >
+          <Button
+            active={false}
+            block={false}
+            bsClass="btn"
+            bsStyle="default"
+            className="app-SearchMapToggle__button app-SearchMapToggle__button-list"
+            disabled={true}
+            key="list"
+            onClick={[Function]}
+          >
+            MapToggle.showList
+          </Button>
+          <Button
+            active={false}
+            block={false}
+            bsClass="btn"
+            bsStyle="default"
+            className="app-SearchMapToggle__button app-SearchMapToggle__button-map"
+            disabled={false}
+            key="map"
+            onClick={[Function]}
+          >
+            MapToggle.showMap
+          </Button>
+        </div>
+      </Col>
+    </Row>
+  </Grid>
+</div>
+`;

@@ -22,6 +22,7 @@
     "classnames": "2.2.5",
     "dotenv": "7.0.0",
     "dragscroll": "0.0.8",
+    "enzyme-to-json": "^3.3.5",
     "hash-file": "3.0.0",
     "hel-bootstrap-3": "1.0.0-beta.4",
     "hel-icons": "1.0.0-beta.2",
