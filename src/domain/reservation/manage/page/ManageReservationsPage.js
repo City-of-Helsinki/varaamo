@@ -8,7 +8,7 @@ import PageWrapper from '../../../../../app/pages/PageWrapper';
 import injectT from '../../../../../app/i18n/injectT';
 import client from '../../../../common/api/client';
 import ManageReservationsList from '../list/ManageReservationsList';
-import SearchPagination from '../../../search/pagination/SearchPagination';
+import Pagination from '../../../../common/pagination/Pagination';
 import * as searchUtils from '../../../search/utils';
 
 export const PAGE_SIZE = 8;
@@ -111,7 +111,7 @@ class ManageReservationsPage extends React.Component {
                 units={units}
               />
             </Loader>
-            <SearchPagination
+            <Pagination
               onChange={newPage => history.push({
                 search: searchUtils.getSearchFromFilters({ ...filters, page: newPage }),
               })}

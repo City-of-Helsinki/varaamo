@@ -1,13 +1,13 @@
 import toJSON from 'enzyme-to-json';
 import React from 'react';
 
-import SearchPagination from '../SearchPagination';
-import { shallowWithIntl } from '../../../../../app/utils/testUtils';
+import Pagination from '../Pagination';
+import { shallowWithIntl } from '../../../../app/utils/testUtils';
 
-describe('SearchPagination', () => {
+describe('Pagination', () => {
   test('renders correctly', () => {
     const wrapper = shallowWithIntl(
-      <SearchPagination
+      <Pagination
         onChange={() => null}
         page={1}
         pages={10}
@@ -20,7 +20,7 @@ describe('SearchPagination', () => {
   test('onChange', () => {
     const onChange = jest.fn();
     const wrapper = shallowWithIntl(
-      <SearchPagination
+      <Pagination
         onChange={onChange}
         page={2}
         pages={10}

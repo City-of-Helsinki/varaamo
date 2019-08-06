@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 
-import injectT from '../../../../app/i18n/injectT';
+import injectT from '../../../app/i18n/injectT';
 
-class SearchPagination extends React.Component {
+class Pagination extends React.Component {
   static propTypes = {
     pages: PropTypes.number.isRequired,
     page: PropTypes.number.isRequired,
@@ -64,4 +64,4 @@ class SearchPagination extends React.Component {
   }
 }
 
-export default injectT(SearchPagination);
+export default injectT(Pagination);
