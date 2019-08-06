@@ -4,10 +4,10 @@ import get from 'lodash/get';
 import uniq from 'lodash/uniq';
 import Loader from 'react-loader';
 
-import PageWrapper from '../../../../app/pages/PageWrapper';
-import injectT from '../../../../app/i18n/injectT';
-import client from '../../../common/api/client';
-import ManageReservationsList from './list/ManageReservationsList';
+import PageWrapper from '../../../../../app/pages/PageWrapper';
+import injectT from '../../../../../app/i18n/injectT';
+import client from '../../../../common/api/client';
+import ManageReservationsList from '../list/ManageReservationsList';
 
 class ManageReservationsPage extends React.Component {
   static propTypes = {
