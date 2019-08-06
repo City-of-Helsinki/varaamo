@@ -231,7 +231,7 @@
   "ResourceAvailability.reserved": "Reserved for the whole day",
   "ResourceAvailability.reservingRestricted": "Not available for reservation",
   "ResourceCard.peopleCapacity": "{people} people",
-  "ResourceEquipment.headingText": "Equipments",
+  "ResourceEquipment.headingText": "Equipment",
   "ResourceHeader.backButton": "Back to search results",
   "ResourceHeader.maxPeriodDays": "max {days} days",
   "ResourceHeader.maxPeriodHours": "max {hours} h",
