@@ -320,6 +320,10 @@
   "ManageReservationsList.dateAndTimeHeader": "Milloin",
   "ManageReservationsList.statusHeader": "Tila",
   "ManageReservationsList.pinHeader": "PIN",
-  "ManageReservationsList.actionsHeader": "Valitse toiminta"
+  "ManageReservationsList.actionsHeader": "Valitse toiminta",
+  "Reservation.stateLabelCancelled": "Peruttu",
+  "Reservation.stateLabelConfirmed": "Hyväksytty",
+  "Reservation.stateLabelDenied": "Evätty",
+  "Reservation.stateLabelRequested": "Anottu"
 }
 

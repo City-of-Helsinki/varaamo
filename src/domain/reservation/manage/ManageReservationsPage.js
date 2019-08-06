@@ -1,6 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
+import uniq from 'lodash/uniq';
 import Loader from 'react-loader';
 
 import PageWrapper from '../../../../app/pages/PageWrapper';
@@ -34,7 +35,7 @@ class ManageReservationsPage extends React.Component {
       isLoading: true,
     });
 
-    client.get('reservation', { page_size: 8 })
+    client.get('reservation', { page_size: 20 })
       .then(({ data }) => {
         this.setState({
           isLoading: false,

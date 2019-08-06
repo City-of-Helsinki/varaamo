@@ -7,6 +7,7 @@ import { injectIntl, intlShape } from 'react-intl';
 
 import * as dataUtils from '../../../../common/data/utils';
 import injectT from '../../../../../app/i18n/injectT';
+import ManageReservationsStatus from '../status/ManageReservationsStatus';
 
 const getDateAndTime = (reservation) => {
   const begin = moment(reservation.begin);
@@ -51,10 +52,10 @@ const ManageReservationsList = ({
                 <td>{get(reservation, 'user.display_name', '')}</td>
                 <td>{get(reservation, 'user.email', '')}</td>
                 <td>{get(reservation, 'resource')}</td>
-                <td>{dataUtils.getLocalizedFieldValue(unit.name, intl.locale)}</td>
+                <td>{dataUtils.getLocalizedFieldValue(get(unit, 'name'), intl.locale)}</td>
                 <td>{getDateAndTime(reservation)}</td>
                 <td />
-                <td />
+                <td><ManageReservationsStatus reservation={reservation} /></td>
                 <td />
                 <td />
               </tr>
