@@ -23,4 +23,3 @@ describe('ResourceCard', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });
-resource;
