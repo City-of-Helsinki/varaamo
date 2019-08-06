@@ -12,7 +12,7 @@ import ReservationPage from '../app/pages/reservation/ReservationPage';
 import ResourcePage from '../app/pages/resource/ResourcePage';
 import UserReservationsPage from '../app/pages/user-reservations/UserReservationsPage';
 import SearchPage from './domain/search/page/SearchPage';
-import ManageReservationsPage from './domain/reservations/manage/ManageReservations';
+import ManageReservationsPage from './domain/reservation/manage/page/ManageReservationsPage';
 
 export default () => (
   <AppContainer>

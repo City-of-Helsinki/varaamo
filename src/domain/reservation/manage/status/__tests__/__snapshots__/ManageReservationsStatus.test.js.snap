@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ManageReservationsStatus renders correctly 1`] = `
+<div
+  className="app-ManageReservationsStatus"
+>
+  <Label
+    bsClass="label"
+    bsStyle="warning"
+  >
+    Reservation.stateLabelRequested
+  </Label>
+</div>
+`;

@@ -306,5 +306,20 @@
   "UserReservationsPage.preliminaryReservationsHeader": "Alustavat varaukset",
   "UserReservationsPage.regularEmptyMessage": "Ei tavallisia varauksia näytettäväksi.",
   "UserReservationsPage.regularReservationsHeader": "Tavalliset varaukset",
-  "UserReservationsPage.title": "Omat varaukset"
+  "UserReservationsPage.title": "Omat varaukset",
+  "ManageReservationsPage.title": "Hallitse varauksia",
+  "ManageReservationsList.descriptionHeader": "Kuvaus",
+  "ManageReservationsList.nameHeader": "Nimi",
+  "ManageReservationsList.emailHeader": "Sähköposti",
+  "ManageReservationsList.resourceHeader": "Resurssi",
+  "ManageReservationsList.locationHeader": "Sijainti",
+  "ManageReservationsList.dateAndTimeHeader": "Milloin",
+  "ManageReservationsList.statusHeader": "Tila",
+  "ManageReservationsList.pinHeader": "PIN",
+  "ManageReservationsList.actionsHeader": "Valitse toiminta",
+  "Reservation.stateLabelCancelled": "Peruttu",
+  "Reservation.stateLabelConfirmed": "Hyväksytty",
+  "Reservation.stateLabelDenied": "Evätty",
+  "Reservation.stateLabelRequested": "Anottu"
 }
+

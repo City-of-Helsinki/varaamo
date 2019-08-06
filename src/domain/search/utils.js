@@ -8,12 +8,12 @@ import forEach from 'lodash/forEach';
 import constants from '../../../app/constants/AppConstants';
 import * as urlUtils from '../../common/url/utils';
 
-export const getFiltersFromUrl = (location) => {
+export const getFiltersFromUrl = (location, supportedFilters = constants.SUPPORTED_SEARCH_FILTERS) => {
   const query = new URLSearchParams(location.search);
   const filters = {};
 
   query.forEach((value, key) => {
-    if (constants.SUPPORTED_SEARCH_FILTERS[key] !== undefined) {
+    if (!supportedFilters || supportedFilters[key] !== undefined) {
       filters[key] = value;
     }
   });

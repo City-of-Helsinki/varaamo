@@ -298,5 +298,19 @@
   "UserReservationsPage.preliminaryReservationsHeader": "Preliminärbokningar",
   "UserReservationsPage.regularEmptyMessage": "Det finns inga vanliga bokningar att visa.",
   "UserReservationsPage.regularReservationsHeader": "Vanliga bokningar",
-  "UserReservationsPage.title": "Mina bokningar"
+  "UserReservationsPage.title": "Mina bokningar",
+  "ManageReservationsPage.title": "Hantera reservationer",
+  "ManageReservationsList.descriptionHeader": "Beskrivning",
+  "ManageReservationsList.nameHeader": "Namn",
+  "ManageReservationsList.emailHeader": "E-post",
+  "ManageReservationsList.resourceHeader": "Resurs",
+  "ManageReservationsList.locationHeader": "Plats",
+  "ManageReservationsList.dateAndTimeHeader": "När",
+  "ManageReservationsList.statusHeader": "Status",
+  "ManageReservationsList.pinHeader": "PIN",
+  "ManageReservationsList.actionsHeader": "Välj åtgärd",
+  "Reservation.stateLabelCancelled": "Avbokad",
+  "Reservation.stateLabelConfirmed": "Godkänd",
+  "Reservation.stateLabelDenied": "Nekad",
+  "Reservation.stateLabelRequested": "Begärda"
 }
