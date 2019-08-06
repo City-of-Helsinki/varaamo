@@ -125,4 +125,5 @@ class ManageReservationsPage extends React.Component {
   }
 }
 
-export default injectT(withRouter(ManageReservationsPage));
+export const UnwrappedManageReservationsPage = injectT(ManageReservationsPage);
+export default withRouter(UnwrappedManageReservationsPage);
