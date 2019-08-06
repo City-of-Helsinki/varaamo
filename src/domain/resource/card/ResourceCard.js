@@ -68,7 +68,7 @@ class ResourceCard extends React.Component {
       intl,
       t,
     } = this.props;
-    const locale = intl.locale;
+    const locale = intl.locale === 'se' ? 'sv' : intl.locale;
     const typeName = resource.type ? dataUtils.getLocalizedFieldValue(resource.type.name, locale) : '';
 
     return (
