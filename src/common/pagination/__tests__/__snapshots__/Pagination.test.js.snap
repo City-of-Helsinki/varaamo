@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SearchPagination renders correctly 1`] = `
+exports[`Pagination renders correctly 1`] = `
 <div
   className="app-SearchPagination"
 >
@@ -122,18 +122,6 @@ exports[`SearchPagination renders correctly 1`] = `
     onClick={[Function]}
   >
     9
-  </Button>
-  <Button
-    active={false}
-    block={false}
-    bsClass="btn"
-    bsStyle="default"
-    className="app-SearchPagination__page app-SearchPagination__page-10"
-    disabled={false}
-    key="pageButton-9"
-    onClick={[Function]}
-  >
-    10
   </Button>
   <Button
     active={false}
