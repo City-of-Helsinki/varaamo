@@ -1,17 +1,23 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
-import uniq from 'lodash/uniq';
 import Loader from 'react-loader';
+import { withRouter } from 'react-router-dom';
 
 import PageWrapper from '../../../../../app/pages/PageWrapper';
 import injectT from '../../../../../app/i18n/injectT';
 import client from '../../../../common/api/client';
 import ManageReservationsList from '../list/ManageReservationsList';
+import SearchPagination from '../../../search/pagination/SearchPagination';
+import * as searchUtils from '../../../search/utils';
+
+export const PAGE_SIZE = 8;
 
 class ManageReservationsPage extends React.Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
+    history: PropTypes.object,
+    location: PropTypes.object,
   };
 
   constructor(props) {
@@ -22,6 +28,7 @@ class ManageReservationsPage extends React.Component {
       isLoadingUnits: false,
       reservations: [],
       units: [],
+      totalCount: 0,
     };
   }
 
@@ -30,16 +37,35 @@ class ManageReservationsPage extends React.Component {
     this.loadReservations();
   }
 
+  componentDidUpdate(prevProps) {
+    const { location } = this.props;
+
+    if (prevProps.location !== location) {
+      this.loadReservations();
+    }
+  }
+
   loadReservations = () => {
+    const {
+      location,
+    } = this.props;
+
     this.setState({
       isLoading: true,
     });
 
-    client.get('reservation', { page_size: 20 })
+    const filters = searchUtils.getFiltersFromUrl(location, false);
+    const params = {
+      ...filters,
+      page_size: PAGE_SIZE,
+    };
+
+    client.get('reservation', params)
       .then(({ data }) => {
         this.setState({
           isLoading: false,
           reservations: get(data, 'results', []),
+          totalCount: get(data, 'count', 0),
         });
       });
   };
@@ -61,6 +87,8 @@ class ManageReservationsPage extends React.Component {
   render() {
     const {
       t,
+      history,
+      location,
     } = this.props;
 
     const {
@@ -68,7 +96,10 @@ class ManageReservationsPage extends React.Component {
       isLoadingUnits,
       reservations,
       units,
+      totalCount,
     } = this.state;
+
+    const filters = searchUtils.getFiltersFromUrl(location, false);
 
     return (
       <div className="app-ManageReservationsPage">
@@ -80,6 +111,13 @@ class ManageReservationsPage extends React.Component {
                 units={units}
               />
             </Loader>
+            <SearchPagination
+              onChange={newPage => history.push({
+                search: searchUtils.getSearchFromFilters({ ...filters, page: newPage }),
+              })}
+              page={filters && filters.page ? Number(filters.page) : 1}
+              pages={Math.round(totalCount / PAGE_SIZE)}
+            />
           </PageWrapper>
         </div>
       </div>
@@ -87,4 +125,4 @@ class ManageReservationsPage extends React.Component {
   }
 }
 
-export default injectT(ManageReservationsPage);
+export default injectT(withRouter(ManageReservationsPage));
