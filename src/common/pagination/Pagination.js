@@ -5,6 +5,8 @@ import Button from 'react-bootstrap/lib/Button';
 
 import injectT from '../../../app/i18n/injectT';
 
+const LINK_COUNT = 9;
+
 class Pagination extends React.Component {
   static propTypes = {
     pages: PropTypes.number.isRequired,
@@ -15,9 +17,21 @@ class Pagination extends React.Component {
 
   renderPages = () => {
     const { pages, page, onChange } = this.props;
-
     const buttons = [];
-    for (let i = 0; i < pages; ++i) {
+
+    const links = Math.floor(LINK_COUNT / 2);
+    let start = Math.max(page - links, 1);
+    let end = Math.min(page + links, pages);
+
+    if (end - start < LINK_COUNT - 1) {
+      if (start === 1 && end < pages) {
+        end = Math.min(start + (LINK_COUNT - 1), pages);
+      } else if (end === pages && start > 1) {
+        start = Math.max(end - (LINK_COUNT - 1), 1);
+      }
+    }
+
+    for (let i = start - 1; i < end; ++i) {
       buttons.push(
         <Button
           className={classNames('app-SearchPagination__page', `app-SearchPagination__page-${i + 1}`, {
@@ -51,7 +65,7 @@ class Pagination extends React.Component {
         >
           {t('common.previous')}
         </Button>
-        {this.renderPages()}
+        {!!pages && this.renderPages()}
         <Button
           className="app-SearchPagination__next"
           disabled={page >= pages}
