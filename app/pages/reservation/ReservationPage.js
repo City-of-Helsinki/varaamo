@@ -149,7 +149,7 @@ class UnconnectedReservationPage extends Component {
     }
   }
 
-  renderReservationTimes = () => {
+  renderRecurringReservations = () => {
     const {
       resource,
       actions,
@@ -164,14 +164,18 @@ class UnconnectedReservationPage extends Component {
       : t('ConfirmReservationModal.regularReservationText', { reservationsCount });
 
     return (
-      <div>
+      <>
+        {/* Recurring selection dropdown  */}
+        <RecurringReservationControls />
         <p><strong>{introText}</strong></p>
+
+        {/* Selected recurring info */}
         <CompactReservationList
           onRemoveClick={actions.removeReservation}
           removableReservations={recurringReservations}
           reservations={selectedReservations}
         />
-      </div>
+      </>
     );
   }
 
@@ -239,8 +243,7 @@ class UnconnectedReservationPage extends Component {
                 )}
                 {view === 'information' && selectedTime && (
                   <>
-                    <RecurringReservationControls />
-                    {this.renderReservationTimes()}
+                    {this.renderRecurringReservations()}
                     <ReservationInformation
                       isAdmin={isAdmin}
                       isEditing={isEditing}
