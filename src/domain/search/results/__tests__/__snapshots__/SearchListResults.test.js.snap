@@ -35,7 +35,7 @@ exports[`SearchListResults renders correctly 1`] = `
       className="app-SearchListResults__results"
     >
       <InjectIntl(Connect(InjectT(ResourceCard)))
-        date="2019-08-06"
+        date="2017-12-10"
         key="resourceCard-1"
         onFavoriteClick={[Function]}
         onFilterClick={[Function]}
@@ -87,7 +87,7 @@ exports[`SearchListResults renders correctly 1`] = `
       />
     </div>
   </Component>
-  <InjectT(Pagination)
+  <InjectT(SearchPagination)
     onChange={[Function]}
     page={1}
     pages={NaN}

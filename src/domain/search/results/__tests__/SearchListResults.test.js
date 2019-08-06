@@ -5,8 +5,10 @@ import { shallow } from 'enzyme';
 import { UnwrappedSearchListResults } from '../SearchListResults';
 import resource from '../../../../common/data/fixtures/resource';
 import unit from '../../../../common/data/fixtures/unit';
+import { globalDateMock } from '../../../../../app/utils/testUtils';
 
 describe('SearchListResults', () => {
+  globalDateMock();
   test('renders correctly', () => {
     const wrapper = shallow(
       <UnwrappedSearchListResults

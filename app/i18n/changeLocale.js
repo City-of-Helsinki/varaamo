@@ -12,14 +12,13 @@ const messages = {
   sv: svMessages,
 };
 
-function changeLocale(language) {
-  const locale = language === 'sv' ? 'se' : language;
+function changeLocale(locale) {
   savePersistLocale(locale);
-
   moment.locale(`varaamo-${locale}`);
+
   return updateIntl({
     locale,
-    messages: messages[language],
+    messages: messages[locale],
   });
 }
 
