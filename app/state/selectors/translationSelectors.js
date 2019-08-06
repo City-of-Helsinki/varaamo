@@ -8,7 +8,7 @@ import constants from '../../constants/AppConstants';
 
 function currentLanguageSelector(state) {
   const locale = state.intl ? state.intl.locale : constants.DEFAULT_LOCALE;
-  return locale === 'se' ? 'sv' : locale;
+  return locale;
 }
 
 function isTranslatable(prop) {
