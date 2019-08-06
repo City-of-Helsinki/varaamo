@@ -4,7 +4,6 @@ import { FormattedHTMLMessage } from 'react-intl';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 import Row from 'react-bootstrap/lib/Row';
-import Well from 'react-bootstrap/lib/Well';
 import iconHome from 'hel-icons/dist/shapes/home.svg';
 import { Link } from 'react-router-dom';
 
