@@ -313,6 +313,7 @@
   "UserReservationsPage.regularReservationsHeader": "Tavalliset varaukset",
   "UserReservationsPage.title": "Omat varaukset",
   "ManageReservationsPage.title": "Hallitse varauksia",
+  "ManageReservationsList.descriptionHeader": "Kuvaus",
   "ManageReservationsList.nameHeader": "Nimi",
   "ManageReservationsList.emailHeader": "Sähköposti",
   "ManageReservationsList.resourceHeader": "Resurssi",

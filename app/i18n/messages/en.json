@@ -299,6 +299,7 @@
   "UserReservationsPage.regularReservationsHeader": "Standard reservations",
   "UserReservationsPage.title": "My reservations",
   "ManageReservationsPage.title": "Manage reservations",
+  "ManageReservationsList.descriptionHeader": "Description",
   "ManageReservationsList.nameHeader": "Name",
   "ManageReservationsList.emailHeader": "Email",
   "ManageReservationsList.resourceHeader": "Resource",

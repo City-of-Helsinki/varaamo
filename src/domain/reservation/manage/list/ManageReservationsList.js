@@ -32,6 +32,7 @@ const ManageReservationsList = ({
       <Table className="app-ManageReservationsList__table">
         <thead>
           <tr>
+            <th>{t('ManageReservationsList.descriptionHeader')}</th>
             <th>{t('ManageReservationsList.nameHeader')}</th>
             <th>{t('ManageReservationsList.emailHeader')}</th>
             <th>{t('ManageReservationsList.resourceHeader')}</th>
@@ -49,6 +50,7 @@ const ManageReservationsList = ({
 
             return (
               <tr key={`reservation-${reservation.id}`}>
+                <td>{get(reservation, 'event_description', '')}</td>
                 <td>{get(reservation, 'user.display_name', '')}</td>
                 <td>{get(reservation, 'user.email', '')}</td>
                 <td>{get(reservation, 'resource')}</td>

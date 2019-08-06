@@ -300,6 +300,7 @@
   "UserReservationsPage.regularReservationsHeader": "Vanliga bokningar",
   "UserReservationsPage.title": "Mina bokningar",
   "ManageReservationsPage.title": "Hantera reservationer",
+  "ManageReservationsList.descriptionHeader": "Beskrivning",
   "ManageReservationsList.nameHeader": "Namn",
   "ManageReservationsList.emailHeader": "E-post",
   "ManageReservationsList.resourceHeader": "Resurs",
