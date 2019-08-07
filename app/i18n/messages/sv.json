@@ -222,6 +222,7 @@
   "ReservationPage.detailsTitle": "Bokningens uppgifter",
   "ReservationPage.editReservationTitle": "Ändra din bokning",
   "ReservationPage.newReservationTitle": "Ny bokning",
+  "ReservationPage.paymentText": "Far till betalning...",
   "ReservationPhase.timeTitle": "Bokningens tidpunkt",
   "ReservationPhase.informationTitle": "Bokningens detaljer",
   "ReservationPhase.confirmationTitle": "Färdig",

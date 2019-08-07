@@ -220,6 +220,7 @@
   "ReservationPage.detailsTitle": "Varauksen tiedot",
   "ReservationPage.editReservationTitle": "Muokkaa varausta",
   "ReservationPage.newReservationTitle": "Uusi varaus",
+  "ReservationPage.paymentText": "Siirrytään maksuun...",
   "ReservationPhase.timeTitle": "Varauksen ajankohta",
   "ReservationPhase.informationTitle": "Varauksen lisätiedot",
   "ReservationPhase.confirmationTitle": "Valmis",
