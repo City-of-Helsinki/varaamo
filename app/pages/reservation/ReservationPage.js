@@ -26,6 +26,9 @@ import ReservationPhases from './reservation-phases/ReservationPhases';
 import ReservationTime from './reservation-time/ReservationTime';
 import reservationPageSelector from './reservationPageSelector';
 import { hasProducts } from '../../utils/resourceUtils';
+import RecurringReservationControls from '../../shared/recurring-reservation-controls/RecurringReservationControls';
+import CompactReservationList from '../../shared/compact-reservation-list/CompactReservationList';
+import recurringReservationsConnector from '../../state/recurringReservations';
 
 class UnconnectedReservationPage extends Component {
   constructor(props) {
@@ -174,6 +177,36 @@ class UnconnectedReservationPage extends Component {
     }
   }
 
+  renderRecurringReservations = () => {
+    const {
+      resource,
+      actions,
+      recurringReservations,
+      selectedReservations,
+      t,
+    } = this.props;
+
+    const reservationsCount = selectedReservations.length + recurringReservations.length;
+    const introText = resource.needManualConfirmation
+      ? t('ConfirmReservationModal.preliminaryReservationText', { reservationsCount })
+      : t('ConfirmReservationModal.regularReservationText', { reservationsCount });
+
+    return (
+      <>
+        {/* Recurring selection dropdown  */}
+        <RecurringReservationControls />
+        <p><strong>{introText}</strong></p>
+
+        {/* Selected recurring info */}
+        <CompactReservationList
+          onRemoveClick={actions.removeReservation}
+          removableReservations={recurringReservations}
+          reservations={selectedReservations}
+        />
+      </>
+    );
+  }
+
   render() {
     const {
       actions,
@@ -243,20 +276,25 @@ class UnconnectedReservationPage extends Component {
                   />
                 )}
                 {view === 'information' && selectedTime && (
-                  <ReservationInformation
-                    isAdmin={isAdmin}
-                    isEditing={isEditing}
-                    isMakingReservations={isMakingReservations}
-                    isStaff={isStaff}
-                    onBack={this.handleBack}
-                    onCancel={this.handleCancel}
-                    onConfirm={this.handleReservation}
-                    openResourceTermsModal={actions.openResourceTermsModal}
-                    reservation={reservationToEdit}
-                    resource={resource}
-                    selectedTime={selectedTime}
-                    unit={unit}
-                  />
+                  <>
+                    {this.renderRecurringReservations()}
+                    <ReservationInformation
+                      isAdmin={isAdmin}
+                      isEditing={isEditing}
+                      isMakingReservations={isMakingReservations}
+                      isStaff={isStaff}
+                      onBack={this.handleBack}
+                      onCancel={this.handleCancel}
+                      onConfirm={this.handleReservation}
+                      openResourceTermsModal={actions.openResourceTermsModal}
+                      reservation={reservationToEdit}
+                      resource={resource}
+                      selectedTime={selectedTime}
+                      unit={unit}
+                    />
+
+                  </>
+
                 )}
                 {view === 'payment' && (
                   <div className="text-center">
@@ -298,6 +336,8 @@ UnconnectedReservationPage.propTypes = {
   unit: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
+  recurringReservations: PropTypes.array.isRequired,
+  selectedReservations: PropTypes.array.isRequired
 };
 UnconnectedReservationPage = injectT(UnconnectedReservationPage); // eslint-disable-line
 
@@ -309,6 +349,7 @@ function mapDispatchToProps(dispatch) {
     openResourceTermsModal,
     putReservation,
     postReservation,
+    removeReservation: recurringReservationsConnector.removeReservation,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

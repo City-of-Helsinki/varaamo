@@ -31,8 +31,8 @@ import { hasMaxReservations, reservingIsRestricted } from '../../../utils/resour
 import reservationCalendarSelector from './reservationCalendarSelector';
 import ReservingRestrictedText from './ReservingRestrictedText';
 import TimeSlots from './time-slots/TimeSlots';
-import { getReservationPrice, getEditReservationUrl } from '../../../utils/reservationUtils';
 import apiClient from '../../../../src/common/api/client';
+import { getReservationPrice, getEditReservationUrl, combine } from '../../../utils/reservationUtils';
 
 export class UnconnectedReservationCalendarContainer extends Component {
   static propTypes = {
@@ -160,6 +160,9 @@ export class UnconnectedReservationCalendarContainer extends Component {
       const reservation = Object.assign({}, first(orderedSelected), { end });
       const nextUrl = getEditReservationUrl(reservation);
 
+      const baseTime = combine(selected)[0];
+
+      actions.changeRecurringBaseTime(baseTime);
       history.push(nextUrl);
     }
   };

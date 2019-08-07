@@ -13,6 +13,8 @@ import {
 import { createResourceSelector, unitsSelector } from '../../state/selectors/dataSelectors';
 import dateSelector from '../../state/selectors/dateSelector';
 import requestIsActiveSelectorFactory from '../../state/selectors/factories/requestIsActiveSelectorFactory';
+import recurringReservations from '../../state/recurringReservations';
+import selectedReservationsSelector from '../../state/selectors/selectedReservationsSelector';
 
 const selectedSelector = state => orderBy(state.ui.reservations.selected, 'begin');
 const createdSelector = (state) => {
@@ -42,10 +44,12 @@ const reservationPageSelector = createStructuredSelector({
   isFetchingResource: requestIsActiveSelectorFactory(ActionTypes.API.RESOURCE_GET_REQUEST),
   isMakingReservations: requestIsActiveSelectorFactory(ActionTypes.API.RESERVATION_POST_REQUEST),
   selected: selectedSelector,
+  selectedReservations: selectedReservationsSelector,
   resourceId: resourceIdSelector,
   resource: resourceSelector,
   reservationToEdit: toEditSelector,
   reservationCreated: createdSelector,
+  recurringReservations: recurringReservations.selectReservations,
   reservationEdited: editedSelector,
   unit: unitSelector,
   user: currentUserSelector,

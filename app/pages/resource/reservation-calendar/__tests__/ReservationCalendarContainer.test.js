@@ -10,7 +10,10 @@ import ReservationConfirmation from '../../../../shared/reservation-confirmation
 import Resource from '../../../../utils/fixtures/Resource';
 import TimeSlot from '../../../../utils/fixtures/TimeSlot';
 import { shallowWithIntl } from '../../../../utils/testUtils';
-import { UnconnectedReservationCalendarContainer as ReservationCalendarContainer } from '../ReservationCalendarContainer';
+import {
+  UnconnectedReservationCalendarContainer
+  as ReservationCalendarContainer
+} from '../ReservationCalendarContainer';
 import ReservingRestrictedText from '../ReservingRestrictedText';
 import TimeSlots from '../time-slots/TimeSlots';
 
@@ -18,7 +21,7 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
   const actions = {
     addNotification: simple.stub(),
     cancelReservationEdit: simple.stub(),
-    changeRecurringBaseTime: () => null,
+    changeRecurringBaseTime: simple.stub(),
     clearReservations: simple.stub(),
     openConfirmReservationModal: simple.stub(),
     selectReservationSlot: simple.stub(),
@@ -348,6 +351,14 @@ describe('pages/resource/reservation-calendar/ReservationCalendarContainer', () 
       instance.handleReserveClick();
       expect(historyMock.callCount).toBe(1);
       expect(historyMock.lastCall.args).toEqual([expectedPath]);
+    });
+
+    test('change recurrring base time, to enable recurring control for reservation information', () => {
+      defaultProps.actions.changeRecurringBaseTime.reset();
+
+      const instance = getWrapper({ selected }).instance();
+      instance.handleReserveClick();
+      expect(defaultProps.actions.changeRecurringBaseTime.callCount).toBe(1);
     });
   });
 });
