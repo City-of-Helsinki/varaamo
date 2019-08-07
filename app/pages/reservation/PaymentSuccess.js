@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
 import flow from 'lodash/flow';
 import get from 'lodash/get';
+import isPlainObject from 'lodash/isPlainObject';
 
 import { currentUserSelector } from '../../state/selectors/authSelectors';
 import ReservationConfirmation from './reservation-confirmation/ReservationConfirmation';
@@ -12,7 +13,8 @@ const translateEntity = (entity, locale) => (
   Object
     .entries(entity)
     .reduce((acc, [key, value]) => {
-      acc[key] = get(value, locale, value);
+      const localizedValue = get(value, locale, value);
+      acc[key] = isPlainObject(localizedValue) ? null : localizedValue;
       return acc;
     }, {})
 );
