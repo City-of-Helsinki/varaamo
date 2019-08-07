@@ -60,6 +60,7 @@ class ManageReservationsPage extends React.Component {
     const params = {
       ...filters,
       page_size: PAGE_SIZE,
+      all: true,
     };
 
     client.get('reservation', params)
@@ -117,7 +118,7 @@ class ManageReservationsPage extends React.Component {
         <div className="app-ManageReservationsPage__filters">
           <Grid>
             <Row>
-              <Col>
+              <Col sm={12}>
                 <h1>{title}</h1>
               </Col>
             </Row>
@@ -130,7 +131,7 @@ class ManageReservationsPage extends React.Component {
         <div className="app-ManageReservationsPage__list">
           <PageWrapper title={title}>
             <Row>
-              <Col>
+              <Col sm={12}>
                 <Loader loaded={!isLoading && !isLoadingUnits}>
                   <ManageReservationsList
                     reservations={reservations}

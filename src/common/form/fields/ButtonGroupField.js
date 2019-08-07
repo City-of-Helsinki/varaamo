@@ -27,7 +27,8 @@ const ButtonGroupField = ({
           <ToggleButton
             className="app-ButtonGroupField__button"
             key={`${id}-button-${option.value}`}
-            value={option.value}>
+            value={option.value}
+          >
             {option.label}
           </ToggleButton>
         ))}
@@ -36,6 +37,14 @@ const ButtonGroupField = ({
   </div>
 );
 
+const OptionShape = PropTypes.shape({
+  value: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]).isRequired,
+  label: PropTypes.string.isRequired,
+});
+
 ButtonGroupField.propTypes = {
   id: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -43,15 +52,10 @@ ButtonGroupField.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
+    PropTypes.array,
   ]),
   type: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-    ]).isRequired,
-    label: PropTypes.string.isRequired,
-  })),
+  options: PropTypes.arrayOf(OptionShape),
 };
 
 export default ButtonGroupField;
