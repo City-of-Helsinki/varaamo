@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import get from 'lodash/get';
+// TODO: remove use of humps when refactoring
 import { camelizeKeys as camelizeKeysDeep } from 'humps';
 import Loader from 'react-loader';
 
