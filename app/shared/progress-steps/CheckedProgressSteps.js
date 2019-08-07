@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import includes from 'lodash/includes';
+import classNames from 'classnames';
 
 import CheckedStep from './CheckedStep';
 
@@ -9,8 +10,13 @@ function CheckedProgressSteps({
   completedSteps,
   className = '',
 }) {
+  const classes = classNames(
+    'progress-steps',
+    'progress-steps-checked',
+    className,
+  );
   return (
-    <div className={`progress-steps progress-steps-checked ${className}`}>
+    <div className={classes}>
       {steps.map((stepName, index) => (
         <React.Fragment key={stepName}>
           {
