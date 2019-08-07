@@ -2,14 +2,13 @@ import round from 'lodash/round';
 import filter from 'lodash/filter';
 import findIndex from 'lodash/findIndex';
 import get from 'lodash/get';
-import find from 'lodash/find';
+import forEach from 'lodash/forEach';
 import moment from 'moment';
 
 import * as urlUtils from '../../common/url/utils';
 import * as dataUtils from '../../common/data/utils';
 import * as reservationUtils from '../reservation/utils';
 import constants from '../../../app/constants/AppConstants';
-import forEach from "lodash/forEach";
 
 
 /**
@@ -179,8 +178,8 @@ export const getAvailabilityDataForWholeDay = (resource, date) => {
 
   const opensMoment = moment(openingHours.opens);
   const closesMoment = moment(openingHours.closes);
-  let total = closesMoment - opensMoment;
 
+  let total = closesMoment - opensMoment;
   forEach(reservations, (reservation) => {
     const resBeginMoment = moment(reservation.begin);
     if (!resBeginMoment.isSame(opensMoment, 'd')) {
