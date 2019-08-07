@@ -10,6 +10,9 @@ import { Link } from 'react-router-dom';
 import constants from '../../../constants/AppConstants';
 import injectT from '../../../i18n/injectT';
 import ReservationDate from '../../../shared/reservation-date/ReservationDate';
+import { hasProducts } from '../../../utils/resourceUtils';
+import { getReservationPrice, getReservationPricePerPeriod } from '../../../utils/reservationUtils';
+import apiClient from '../../../../src/common/api/client';
 
 class ReservationConfirmation extends Component {
   static propTypes = {
@@ -19,6 +22,18 @@ class ReservationConfirmation extends Component {
     t: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
   };
+
+  state = {
+    reservationPrice: null,
+  }
+
+  componentDidMount() {
+    const { reservation, resource } = this.props;
+    if (hasProducts(resource)) {
+      getReservationPrice(apiClient, reservation.begin, reservation.end, resource.products)
+        .then(reservationPrice => this.setState({ reservationPrice }));
+    }
+  }
 
   renderField(field, label, value) {
     return (
@@ -37,6 +52,7 @@ class ReservationConfirmation extends Component {
     const {
       isEdited, reservation, resource, t, user
     } = this.props;
+    const { reservationPrice } = this.state;
     const refUrl = window.location.href;
     const href = `${constants.FEEDBACK_URL}?ref=${refUrl}`;
     let email = '';
@@ -56,7 +72,11 @@ class ReservationConfirmation extends Component {
               {t(`ReservationConfirmation.reservation${isEdited ? 'Edited' : 'Created'}Title`)}
             </h2>
             <div className="app-ReservationConfirmation__highlight">
-              <ReservationDate beginDate={reservation.begin} className="app-ReservationConfirmation__reservation-date" endDate={reservation.end} />
+              <ReservationDate
+                beginDate={reservation.begin}
+                className="app-ReservationConfirmation__reservation-date"
+                endDate={reservation.end}
+              />
               <p className="app-ReservationConfirmation__resource-name">
                 <img
                   alt={resource.name}
@@ -89,6 +109,18 @@ class ReservationConfirmation extends Component {
         <Col md={6} xs={12}>
           <div className="app-ReservationDetails">
             <h2 className="app-ReservationPage__title">{t('ReservationConfirmation.reservationDetailsTitle')}</h2>
+            {reservationPrice
+              && this.renderField(
+                'pricePerPeriod',
+                t('common.priceLabel'),
+                getReservationPricePerPeriod(resource)
+              )}
+            {reservationPrice
+              && this.renderField(
+                'reservationPrice',
+                t('common.totalPriceLabel'),
+                reservationPrice
+              )}
             {reservation.reserverName
               && this.renderField(
                 'reserverName',
@@ -150,6 +182,30 @@ class ReservationConfirmation extends Component {
             {reservation.billingAddressStreet && (
               <Col xs={12}>{t('common.billingAddressLabel')}</Col>
             )}
+            {reservation.billingFirstName
+              && this.renderField(
+                'billingFirstName',
+                t('common.billingFirstNameLabel'),
+                reservation.billingFirstName
+              )}
+            {reservation.billingLastName
+              && this.renderField(
+                'billingLastName',
+                t('common.billingLastNameLabel'),
+                reservation.billingLastName
+              )}
+            {reservation.billingPhoneNumber
+              && this.renderField(
+                'billingPhoneNumber',
+                t('common.billingPhoneNumberLabel'),
+                reservation.billingPhoneNumber
+              )}
+            {reservation.billingEmailAddress
+              && this.renderField(
+                'billingEmailAddress',
+                t('common.billingEmailAddressLabel'),
+                reservation.billingEmailAddress
+              )}
             {reservation.billingAddressStreet
               && this.renderField(
                 'billingAddressStreet',
