@@ -1,7 +1,6 @@
 import React from 'react';
 import { FormattedHTMLMessage } from 'react-intl';
 import Immutable from 'seamless-immutable';
-import simple from 'simple-mock';
 import Button from 'react-bootstrap/lib/Button';
 import Row from 'react-bootstrap/lib/Row';
 
