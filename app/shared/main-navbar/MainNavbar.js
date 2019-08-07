@@ -65,13 +65,6 @@ class MainNavbar extends React.Component {
                 </NavItem>
               </LinkContainer>
             )}
-            {isLoggedIn && isAdmin && (
-              <LinkContainer to="/manage-reservations">
-                <NavItem eventKey="manage-reservations" onClick={() => this.collapseItem()}>
-                  {t('Navbar.manageReservations')}
-                </NavItem>
-              </LinkContainer>
-            )}
             {isLoggedIn && (
               <LinkContainer to="/my-reservations">
                 <NavItem eventKey="my-reservations" onClick={() => this.collapseItem()}>
@@ -82,6 +75,11 @@ class MainNavbar extends React.Component {
             {isAdmin
               && (
                 <Fragment>
+                  <LinkContainer to="/manage-reservations">
+                    <NavItem eventKey="manage-reservations" onClick={() => this.collapseItem()}>
+                      {t('Navbar.manageReservations')}
+                    </NavItem>
+                  </LinkContainer>
                   <NavItem eventKey="adminMaintenance" href="https://api.hel.fi/respa/ra/" target="_blank">
                     {t('Navbar.adminMaintenance')}
                     <FAIcon icon={faExternalLinkAlt} />

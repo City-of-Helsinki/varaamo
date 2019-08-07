@@ -11,7 +11,7 @@ import moment from 'moment';
 
 import constants from '../../../../app/constants/AppConstants';
 import SearchSort from '../sort/SearchSort';
-import SearchPagination from '../pagination/SearchPagination';
+import Pagination from '../../../common/pagination/Pagination';
 import ResourceCard from '../../resource/card/ResourceCard';
 import * as searchUtils from '../utils';
 
@@ -97,7 +97,7 @@ class SearchListResults extends React.Component {
             })}
           </div>
         </Loader>
-        <SearchPagination
+        <Pagination
           onChange={newPage => history.push({
             search: searchUtils.getSearchFromFilters({ ...filters, page: newPage }),
           })}
