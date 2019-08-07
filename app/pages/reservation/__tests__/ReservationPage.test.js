@@ -14,6 +14,8 @@ import ReservationInformation from '../reservation-information/ReservationInform
 import ReservationPhases from '../reservation-phases/ReservationPhases';
 import ReservationTime from '../reservation-time/ReservationTime';
 import { UnconnectedReservationPage as ReservationPage } from '../ReservationPage';
+import RecurringReservationControls from '../../../shared/recurring-reservation-controls/RecurringReservationControls';
+import CompactReservationList from '../../../shared/compact-reservation-list/CompactReservationList';
 
 describe('pages/reservation/ReservationPage', () => {
   const resource = Immutable(Resource.build());
@@ -40,6 +42,8 @@ describe('pages/reservation/ReservationPage', () => {
     reservationToEdit: null,
     reservationCreated: null,
     reservationEdited: null,
+    recurringReservations: [],
+    selectedReservations: [],
     resource,
     selected: [
       {
@@ -146,6 +150,18 @@ describe('pages/reservation/ReservationPage', () => {
         reservationToEdit: null,
       }).find(ReservationTime);
       expect(reservationTime).toHaveLength(0);
+    });
+  });
+
+  describe('RecurringReservation', () => {
+    test('render RecurringReservationControls component', () => {
+      const controls = getWrapper().find(RecurringReservationControls);
+      expect(controls).toHaveLength(1);
+    });
+
+    test('render CompactReservationList', () => {
+      const list = getWrapper().find(CompactReservationList);
+      expect(list).toHaveLength(1);
     });
   });
 
