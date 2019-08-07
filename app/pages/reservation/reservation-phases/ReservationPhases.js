@@ -25,14 +25,12 @@ function ReservationPhases({
   isEditing,
   t,
 }) {
-  const stepMessageIds = ['information', 'confirmation'];
+  let stepMessageIds = hasProducts(resource)
+    ? ['information', 'payment', 'confirmation']
+    : ['information', 'confirmation'];
 
   if (isEditing) {
-    stepMessageIds.splice(0, 0, 'time');
-  }
-
-  if (hasProducts(resource)) {
-    stepMessageIds.splice(1, 0, 'payment');
+    stepMessageIds = ['time', ...stepMessageIds];
   }
 
   const steps = stepMessageIds.map(id => t(phases[id]));
