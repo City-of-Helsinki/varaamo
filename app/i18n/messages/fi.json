@@ -317,6 +317,8 @@
   "ManageReservationsList.statusHeader": "Tila",
   "ManageReservationsList.pinHeader": "PIN",
   "ManageReservationsList.actionsHeader": "Valitse toiminta",
+  "ManageReservationsFilters.searchLabel": "Hae",
+  "ManageReservationsFilters.searchPlaceholder": "Hae",
   "Reservation.stateLabelCancelled": "Peruttu",
   "Reservation.stateLabelConfirmed": "Hyväksytty",
   "Reservation.stateLabelDenied": "Evätty",

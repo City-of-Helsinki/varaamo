@@ -308,6 +308,8 @@
   "ManageReservationsList.statusHeader": "Status",
   "ManageReservationsList.pinHeader": "PIN",
   "ManageReservationsList.actionsHeader": "Select action",
+  "ManageReservationsFilters.searchLabel": "Search",
+  "ManageReservationsFilters.searchPlaceholder": "Search",
   "Reservation.stateLabelCancelled": "Cancelled",
   "Reservation.stateLabelConfirmed": "Approved",
   "Reservation.stateLabelDenied": "Denied",
