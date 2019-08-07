@@ -223,6 +223,30 @@ class UnconnectedReservationInformationForm extends Component {
           {includes(this.props.fields, 'billingAddressStreet')
             && <h2 className="app-ReservationPage__title">{t('common.billingAddressLabel')}</h2>
           }
+          {includes(this.props.fields, 'billingAddressStreet')
+            && this.renderField(
+              'billingAddressStreet',
+              'text',
+              t('common.addressStreetLabel'),
+            )
+          }
+          {includes(this.props.fields, 'billingAddressZip')
+            && this.renderField(
+              'billingAddressZip',
+              'text',
+              t('common.addressZipLabel'),
+            )
+          }
+          {includes(this.props.fields, 'billingAddressCity')
+            && this.renderField(
+              'billingAddressCity',
+              'text',
+              t('common.addressCityLabel'),
+            )
+          }
+          {includes(this.props.fields, 'billingFirstName')
+            && <h2 className="app-ReservationPage__title">{t('common.paymentInformationLabel')}</h2>
+          }
           {includes(this.props.fields, 'billingFirstName')
             && this.renderField(
               'billingFirstName',
@@ -249,27 +273,6 @@ class UnconnectedReservationInformationForm extends Component {
               'billingEmailAddress',
               'email',
               t('common.billingEmailAddressLabel'),
-            )
-          }
-          {includes(this.props.fields, 'billingAddressStreet')
-            && this.renderField(
-              'billingAddressStreet',
-              'text',
-              t('common.addressStreetLabel'),
-            )
-          }
-          {includes(this.props.fields, 'billingAddressZip')
-            && this.renderField(
-              'billingAddressZip',
-              'text',
-              t('common.addressZipLabel'),
-            )
-          }
-          {includes(this.props.fields, 'billingAddressCity')
-            && this.renderField(
-              'billingAddressCity',
-              'text',
-              t('common.addressCityLabel'),
             )
           }
           <h2 className="app-ReservationPage__title">{t('ReservationInformationForm.eventInformationTitle')}</h2>
