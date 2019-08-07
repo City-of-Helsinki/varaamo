@@ -60,7 +60,7 @@ export class UnconnectedReservationCalendarContainer extends Component {
   };
 
   state = {
-    reservationPrice: null,
+    reservationPrice: '',
   }
 
   componentDidUpdate(prevProps) {
