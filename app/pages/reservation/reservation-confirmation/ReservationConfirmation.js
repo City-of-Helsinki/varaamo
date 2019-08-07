@@ -119,7 +119,7 @@ class ReservationConfirmation extends Component {
               && this.renderField(
                 'reservationPrice',
                 t('common.totalPriceLabel'),
-                reservationPrice
+                `${reservationPrice}€`
               )}
             {reservation.reserverName
               && this.renderField(
