@@ -25,10 +25,8 @@ function hasMaxReservations(resource) {
 function isOpenNow(resource) {
   const { closes, opens } = getOpeningHours(resource);
   const now = moment();
-  if (now >= moment(opens) && now <= moment(closes)) {
-    return true;
-  }
-  return false;
+
+  return now >= moment(opens) && now <= moment(closes);
 }
 
 function getAvailabilityDataForNow(resource = {}, date = null) {
