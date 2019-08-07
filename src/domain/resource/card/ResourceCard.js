@@ -21,7 +21,7 @@ import * as searchUtils from '../../search/utils';
 import * as resourceUtils from '../utils';
 import BackgroundImage from '../../../../app/shared/background-image/BackgroundImage';
 import { getMainImage } from '../../../../app/utils/imageUtils';
-import ResourceAvailability from '../../../../app/shared/resource-card/resource-availability/ResourceAvailability';
+import ResourceAvailability from '../availability/ResourceAvailability';
 import UnpublishedLabel from '../../../../app/shared/label/unpublished/UnpublishedLabel';
 import ResourceCardInfoCell from './ResourceCardInfoCell';
 import { isLoggedInSelector } from '../../../../app/state/selectors/authSelectors';
