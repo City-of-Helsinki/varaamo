@@ -37,7 +37,7 @@ class ReservationConfirmation extends Component {
 
   renderField(field, label, value) {
     return (
-      <Row key={`reservation-confirmation-field-${field}`}>
+      <Row className="app-ReservationConfirmation__field" key={`reservation-confirmation-field-${field}`}>
         <Col md={4} xs={6}>
           <span className="app-ReservationDetails__name">{label}</span>
         </Col>
@@ -68,7 +68,7 @@ class ReservationConfirmation extends Component {
       <Row className="app-ReservationConfirmation">
         <Col md={6} xs={12}>
           <div className="app-ReservationDetails">
-            <h2 className="app-ReservationPage__title app-ReservationPage__title--big">
+            <h2 className="app-ReservationPage__title app-ReservationPage__title--big app-ReservationPage__header">
               {t(`ReservationConfirmation.reservation${isEdited ? 'Edited' : 'Created'}Title`)}
             </h2>
             <div className="app-ReservationConfirmation__highlight">
