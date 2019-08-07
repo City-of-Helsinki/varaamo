@@ -1,0 +1,15 @@
+.app-ButtonGroupField {
+  &__label {
+    margin-bottom: 10px !important;
+  }
+
+  &__buttons {
+    display: block;
+    overflow: hidden;
+    margin: 0 -2px;
+  }
+
+  &__button {
+    margin: 0 2px !important;
+  }
+}

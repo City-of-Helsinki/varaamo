@@ -8,6 +8,7 @@ import { Row, Col, Grid } from 'react-bootstrap';
 import * as searchUtils from '../../../search/utils';
 import injectT from '../../../../../app/i18n/injectT';
 import TextField from '../../../../common/form/fields/TextField';
+import ButtonGroupField from '../../../../common/form/fields/ButtonGroupField';
 
 class ManageReservationsFilters extends React.Component {
   static propTypes = {
@@ -21,6 +22,8 @@ class ManageReservationsFilters extends React.Component {
       filters,
       onChange,
     } = this.props;
+
+    console.warn(filters, filterValue);
 
     const newFilters = {
       ...omit(filters, filterName),
@@ -44,6 +47,17 @@ class ManageReservationsFilters extends React.Component {
         <Grid>
           <Row>
             <Col>
+              <ButtonGroupField
+                id="stateField"
+                label={t('ManageReservationsFilters.statusLabel')}
+                onChange={value => this.onFilterChange('state', value)}
+                options={[
+                  { value: 'approved', label: 'Approved' },
+                  { value: 'cancelled', label: 'Cancelled' },
+                ]}
+                type="checkbox"
+                value={get(filters, 'state', null)}
+              />
               <TextField
                 id="searchField"
                 label={t('ManageReservationsFilters.searchLabel')}

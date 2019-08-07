@@ -310,6 +310,7 @@
   "ManageReservationsList.actionsHeader": "Select action",
   "ManageReservationsFilters.searchLabel": "Search",
   "ManageReservationsFilters.searchPlaceholder": "Search",
+  "ManageReservationsFilters.statusLabel": "Reservation status",
   "Reservation.stateLabelCancelled": "Cancelled",
   "Reservation.stateLabelConfirmed": "Approved",
   "Reservation.stateLabelDenied": "Denied",

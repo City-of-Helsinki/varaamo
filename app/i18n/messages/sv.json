@@ -311,6 +311,7 @@
   "ManageReservationsList.actionsHeader": "Välj åtgärd",
   "ManageReservationsFilters.searchLabel": "Sök",
   "ManageReservationsFilters.searchPlaceholder": "Sök",
+  "ManageReservationsFilters.statusLabel": "Bokningsstatus",
   "Reservation.stateLabelCancelled": "Avbokad",
   "Reservation.stateLabelConfirmed": "Godkänd",
   "Reservation.stateLabelDenied": "Nekad",

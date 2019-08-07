@@ -319,6 +319,7 @@
   "ManageReservationsList.actionsHeader": "Valitse toiminta",
   "ManageReservationsFilters.searchLabel": "Hae",
   "ManageReservationsFilters.searchPlaceholder": "Hae",
+  "ManageReservationsFilters.statusLabel": "Varauksen tila",
   "Reservation.stateLabelCancelled": "Peruttu",
   "Reservation.stateLabelConfirmed": "Hyväksytty",
   "Reservation.stateLabelDenied": "Evätty",

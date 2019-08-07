@@ -30,7 +30,7 @@ const TextField = ({
 TextField.propTypes = {
   id: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  onKeyPress: PropTypes.func.isRequired,
+  onKeyPress: PropTypes.func,
   label: PropTypes.string,
   placeholder: PropTypes.string,
   value: PropTypes.string.isRequired,
