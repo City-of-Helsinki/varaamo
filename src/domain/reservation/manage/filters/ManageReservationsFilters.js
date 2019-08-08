@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
+import isEmpty from 'lodash/isEmpty';
 import get from 'lodash/get';
 import { Row, Col, Grid } from 'react-bootstrap';
 
-import * as searchUtils from '../../../search/utils';
 import injectT from '../../../../../app/i18n/injectT';
 import TextField from '../../../../common/form/fields/TextField';
 import ButtonGroupField from '../../../../common/form/fields/ButtonGroupField';
-import capitalize from "lodash/capitalize";
 
 class ManageReservationsFilters extends React.Component {
   static propTypes = {
@@ -28,7 +26,7 @@ class ManageReservationsFilters extends React.Component {
       ...omit(filters, filterName),
     };
 
-    if (filterValue) {
+    if (filterValue && !isEmpty(filterValue)) {
       newFilters[filterName] = filterValue;
     }
 
