@@ -8,7 +8,7 @@ import IconClock from '../../../../../app/assets/icons/clock-o.svg';
 
 class ManageReservationPincode extends Component {
   renderPincodeField = () => {
-    const { resource, reservation } = this.props;
+    const { reservation } = this.props;
     if (isAccessCodeGenerated(reservation)) {
       return (
         <TooltipOverlay
@@ -18,7 +18,7 @@ class ManageReservationPincode extends Component {
         </TooltipOverlay>
       );
     }
-    if (isAccessCodePending(reservation, resource)) {
+    if (isAccessCodePending(reservation, reservation.resource)) {
       return (
         <TooltipOverlay
           content={<FormattedMessage id="ReservationAccessCode.pending" />}
@@ -41,7 +41,6 @@ class ManageReservationPincode extends Component {
 }
 
 ManageReservationPincode.propTypes = {
-  resource: PropTypes.object.isRequired,
   reservation: PropTypes.object.isRequired
 };
 

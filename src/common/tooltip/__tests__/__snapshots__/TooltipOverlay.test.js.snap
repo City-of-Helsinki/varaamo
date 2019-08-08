@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TooltipOverlay renders correctly 1`] = `
+<div
+  className="app-TooltipOverlay"
+>
+  <OverlayTrigger
+    defaultOverlayShown={false}
+    overlay={
+      <Tooltip
+        bsClass="tooltip"
+        id="tooltip-undefined"
+        placement="right"
+      >
+        <span>
+          bar
+        </span>
+      </Tooltip>
+    }
+    placement="top"
+    trigger={
+      Array [
+        "hover",
+        "focus",
+      ]
+    }
+  >
+    <span>
+      foo
+    </span>
+  </OverlayTrigger>
+</div>
+`;

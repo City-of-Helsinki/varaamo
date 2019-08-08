@@ -8,6 +8,7 @@ import { injectIntl, intlShape } from 'react-intl';
 import * as dataUtils from '../../../../common/data/utils';
 import injectT from '../../../../../app/i18n/injectT';
 import ManageReservationsStatus from '../status/ManageReservationsStatus';
+import ManageReservationPincode from '../pincode/ManageReservationPincode';
 
 const getDateAndTime = (reservation) => {
   const begin = moment(reservation.begin);
@@ -58,7 +59,7 @@ const ManageReservationsList = ({
                 <td>{getDateAndTime(reservation)}</td>
                 <td />
                 <td><ManageReservationsStatus reservation={reservation} /></td>
-                <td />
+                <td><ManageReservationPincode reservation={reservation} /></td>
                 <td />
               </tr>
             );
