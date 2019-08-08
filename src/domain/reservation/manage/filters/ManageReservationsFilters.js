@@ -3,11 +3,17 @@ import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 import isEmpty from 'lodash/isEmpty';
 import get from 'lodash/get';
-import { Row, Col, Grid } from 'react-bootstrap';
+import {
+  Button,
+  Row,
+  Col,
+  Grid,
+} from 'react-bootstrap';
 
 import injectT from '../../../../../app/i18n/injectT';
 import TextField from '../../../../common/form/fields/TextField';
 import ButtonGroupField from '../../../../common/form/fields/ButtonGroupField';
+import iconTimes from '../../../search/filters/images/times.svg';
 
 class ManageReservationsFilters extends React.Component {
   static propTypes = {
@@ -33,6 +39,17 @@ class ManageReservationsFilters extends React.Component {
     onChange(omit(newFilters, 'page'));
   };
 
+  onReset = () => {
+    const { onChange } = this.props;
+    onChange({});
+  };
+
+  hasFilters = () => {
+    const { filters } = this.props;
+
+    return !isEmpty(omit(filters, 'page'));
+  };
+
   getStatusOptions = () => {
     const { t } = this.props;
 
@@ -56,7 +73,7 @@ class ManageReservationsFilters extends React.Component {
       <div className="app-ManageReservationsFilters">
         <Grid>
           <Row>
-            <Col md={6}>
+            <Col md={8}>
               <ButtonGroupField
                 id="stateField"
                 label={t('ManageReservationsFilters.statusLabel')}
@@ -66,7 +83,7 @@ class ManageReservationsFilters extends React.Component {
                 value={state ? state.split(',') : null}
               />
             </Col>
-            <Col md={6}>
+            <Col md={4}>
               <TextField
                 id="searchField"
                 label={t('ManageReservationsFilters.searchLabel')}
@@ -74,6 +91,16 @@ class ManageReservationsFilters extends React.Component {
                 placeholder={t('ManageReservationsFilters.searchPlaceholder')}
                 value={get(filters, 'search', '')}
               />
+
+              {this.hasFilters() && (
+                <a
+                  className="app-ManageReservationsFilters__resetButton"
+                  onClick={() => this.onReset()}
+                >
+                  <img alt="" src={iconTimes} />
+                  {t('ManageReservationsFilters.resetButton')}
+                </a>
+              )}
             </Col>
           </Row>
         </Grid>

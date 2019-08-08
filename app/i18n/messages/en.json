@@ -311,6 +311,7 @@
   "ManageReservationsFilters.searchLabel": "Search",
   "ManageReservationsFilters.searchPlaceholder": "Search",
   "ManageReservationsFilters.statusLabel": "Reservation status",
+  "ManageReservationsFilters.resetButton": "Reset filters",
   "Reservation.stateLabelCancelled": "Cancelled",
   "Reservation.stateLabelConfirmed": "Approved",
   "Reservation.stateLabelDenied": "Denied",
