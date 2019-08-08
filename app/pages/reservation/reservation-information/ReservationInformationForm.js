@@ -22,12 +22,22 @@ const validators = {
     }
     return null;
   },
+  billingEmailAddress: (t, { billingEmailAddress }) => {
+    if (billingEmailAddress && !isEmail(billingEmailAddress)) {
+      return t('ReservationForm.emailError');
+    }
+    return null;
+  }
 };
 
 const maxLengths = {
   billingAddressCity: 100,
   billingAddressStreet: 100,
   billingAddressZip: 30,
+  billingEmailAddress: 100,
+  billingFirstName: 100,
+  billingLastName: 100,
+  billingPhoneNumber: 30,
   company: 100,
   numberOfParticipants: 100,
   reserverAddressCity: 100,
