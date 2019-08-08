@@ -1,23 +1,16 @@
 import get from 'lodash/get';
+import values from 'lodash/values';
 
 export const getLocalizedFieldValue = (field, locale) => {
   return get(field, locale, null);
 };
 
-export const getLocalizedFieldValueWithFallback = (field, locale, fallbackLocales = []) => {
+export const getLocalizedFieldValueWithFallback = (field, locale) => {
   const localeValue = getLocalizedFieldValue(field, locale);
 
   if (localeValue) {
     return localeValue;
   }
 
-  let fallbackValue = null;
-  fallbackLocales.find((fallbackLocale) => {
-    fallbackValue = getLocalizedFieldValue(field, fallbackLocale, null);
-
-    return fallbackValue;
-  });
-
-
-  return fallbackValue;
+  return values(field).find(fallback => !!fallback);
 };
