@@ -2,14 +2,14 @@ import React from 'react';
 import toJSON from 'enzyme-to-json';
 import { shallow } from 'enzyme';
 
-import ManageReservationPincode from '../ManageReservationPincode';
+import ManageReservationsPincode from '../ManageReservationsPincode';
 import reservation from '../../../../../common/data/fixtures/reservation';
 import resource from '../../../../../common/data/fixtures/resource';
 
-describe('ManageReservationPincode', () => {
+describe('ManageReservationsPincode', () => {
   function getWrapper(props) {
     return shallow(
-      <ManageReservationPincode {...props} />
+      <ManageReservationsPincode {...props} />
     );
   }
 

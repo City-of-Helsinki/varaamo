@@ -8,7 +8,8 @@ import { injectIntl, intlShape } from 'react-intl';
 import * as dataUtils from '../../../../common/data/utils';
 import injectT from '../../../../../app/i18n/injectT';
 import ManageReservationsStatus from '../status/ManageReservationsStatus';
-import ManageReservationPincode from '../pincode/ManageReservationPincode';
+import ManageReservationsPincode from '../pincode/ManageReservationsPincode';
+import ManageReservationsComment from '../comment/ManageReservationsComment';
 
 const getDateAndTime = (reservation) => {
   const begin = moment(reservation.begin);
@@ -40,8 +41,9 @@ const ManageReservationsList = ({
             <th>{t('ManageReservationsList.locationHeader')}</th>
             <th>{t('ManageReservationsList.dateAndTimeHeader')}</th>
             <th />
-            <th>{t('ManageReservationsList.statusHeader')}</th>
             <th>{t('ManageReservationsList.pinHeader')}</th>
+            <th />
+            <th>{t('ManageReservationsList.statusHeader')}</th>
             <th>{t('ManageReservationsList.actionsHeader')}</th>
           </tr>
         </thead>
@@ -58,8 +60,9 @@ const ManageReservationsList = ({
                 <td>{dataUtils.getLocalizedFieldValue(get(unit, 'name'), intl.locale)}</td>
                 <td>{getDateAndTime(reservation)}</td>
                 <td />
+                <td><ManageReservationsPincode reservation={reservation} /></td>
+                <td><ManageReservationsComment comments={reservation.comments} /></td>
                 <td><ManageReservationsStatus reservation={reservation} /></td>
-                <td><ManageReservationPincode reservation={reservation} /></td>
                 <td />
               </tr>
             );

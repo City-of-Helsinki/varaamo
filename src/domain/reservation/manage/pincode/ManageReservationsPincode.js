@@ -6,7 +6,7 @@ import { isAccessCodeGenerated, isAccessCodePending } from '../../../../../app/s
 import TooltipOverlay from '../../../../common/tooltip/TooltipOverlay';
 import iconClock from '../../../../../app/assets/icons/clock-o.svg';
 
-class ManageReservationPincode extends Component {
+class ManageReservationsPincode extends Component {
   renderPincodeField() {
     const { reservation } = this.props;
     if (isAccessCodeGenerated(reservation)) {
@@ -40,8 +40,8 @@ class ManageReservationPincode extends Component {
   }
 }
 
-ManageReservationPincode.propTypes = {
+ManageReservationsPincode.propTypes = {
   reservation: PropTypes.object.isRequired
 };
 
-export default ManageReservationPincode;
+export default ManageReservationsPincode;

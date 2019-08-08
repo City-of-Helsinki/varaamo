@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ManageReservationsComment renders correctly 1`] = `
+<TooltipOverlay
+  className="app-ManageReservationComments"
+  content={
+    <div
+      className="app-ManageReservationComments__tooltip"
+    >
+      <Uncontrolled(Panel)>
+        <PanelBody
+          bsClass="panel"
+          collapsible={false}
+        >
+          <PanelTitle
+            bsClass="panel"
+            componentClass="div"
+          >
+            <FormattedMessage
+              id="CommentForm.label"
+              values={Object {}}
+            />
+          </PanelTitle>
+          <p>
+            foo
+          </p>
+        </PanelBody>
+      </Uncontrolled(Panel)>
+    </div>
+  }
+>
+  <img
+    alt="manageReservationCommentIcon"
+    src="test-file-stub"
+  />
+</TooltipOverlay>
+`;
