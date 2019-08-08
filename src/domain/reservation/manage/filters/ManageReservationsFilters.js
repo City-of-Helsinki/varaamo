@@ -98,7 +98,7 @@ class ManageReservationsFilters extends React.Component {
                   <SelectField
                     id="unitField"
                     label={t('ManageReservationsFilters.unitLabel')}
-                    onChange={option => this.onFilterChange('unit', option.value)}
+                    onChange={item => this.onFilterChange('unit', item.value)}
                     options={units.map(unit => ({
                       value: unit.id,
                       label: dataUtils.getLocalizedFieldValue(unit.name, locale)

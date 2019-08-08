@@ -13,7 +13,7 @@ import ManageReservationsList from '../list/ManageReservationsList';
 import Pagination from '../../../../common/pagination/Pagination';
 import * as searchUtils from '../../../search/utils';
 
-export const PAGE_SIZE = 8;
+export const PAGE_SIZE = 50;
 
 class ManageReservationsPage extends React.Component {
   static propTypes = {
