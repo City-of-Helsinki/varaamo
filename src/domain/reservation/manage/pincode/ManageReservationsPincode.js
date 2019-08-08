@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import { Panel } from 'react-bootstrap';
 
 import { isAccessCodeGenerated, isAccessCodePending } from '../../../../../app/shared/reservation-access-code/helpers';
 import TooltipOverlay from '../../../../common/tooltip/TooltipOverlay';
@@ -12,7 +13,14 @@ class ManageReservationsPincode extends Component {
     if (isAccessCodeGenerated(reservation)) {
       return (
         <TooltipOverlay
-          content={<span>{reservation.accessCode}</span>}
+          content={(
+            <Panel>
+              <Panel.Body>
+                <Panel.Title><FormattedMessage id="common.accessCodeLabel" /></Panel.Title>
+                <p>{reservation.accessCode}</p>
+              </Panel.Body>
+            </Panel>
+          )}
         >
           <span>****</span>
         </TooltipOverlay>

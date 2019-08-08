@@ -35,10 +35,11 @@ exports[`ManageReservationsList renders correctly 1`] = `
         </th>
         <th />
         <th>
-          ManageReservationsList.statusHeader
-        </th>
-        <th>
           ManageReservationsList.pinHeader
+        </th>
+        <th />
+        <th>
+          ManageReservationsList.statusHeader
         </th>
         <th>
           ManageReservationsList.actionsHeader
@@ -61,7 +62,7 @@ exports[`ManageReservationsList renders correctly 1`] = `
         </td>
         <td />
         <td>
-          <InjectT(ManageReservationsStatus)
+          <ManageReservationsPincode
             reservation={
               Object {
                 "begin": "",
@@ -82,7 +83,12 @@ exports[`ManageReservationsList renders correctly 1`] = `
           />
         </td>
         <td>
-          <ManageReservationPincode
+          <ManageReservationComment
+            comments=""
+          />
+        </td>
+        <td>
+          <InjectT(ManageReservationsStatus)
             reservation={
               Object {
                 "begin": "",
