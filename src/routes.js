@@ -39,7 +39,11 @@ export default () => (
         path="/my-reservations"
       />
       <PrivateRoute component={ReservationPage} componentName="Reservation" path="/reservation" />
-      <PrivateRoute component={ReservationPaymentReturnPage} componentName="ReservationPaymentReturn" path="/reservation-payment-return" />
+      <PrivateRoute
+        component={ReservationPaymentReturnPage}
+        componentName="ReservationPaymentReturn"
+        path="/reservation-payment-return"
+      />
 
       <Redirect from="/home" to="/" />
       <Redirect from="/resources/:id/reservation" to="/resources/:id" />
