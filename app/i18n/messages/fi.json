@@ -320,6 +320,7 @@
   "ManageReservationsFilters.searchLabel": "Hae",
   "ManageReservationsFilters.searchPlaceholder": "Hae",
   "ManageReservationsFilters.statusLabel": "Varauksen tila",
+  "ManageReservationsFilters.unitLabel": "Toimipiste",
   "ManageReservationsFilters.resetButton": "Tyhjennä suodattimet",
   "Reservation.stateLabelCancelled": "Peruttu",
   "Reservation.stateLabelConfirmed": "Hyväksytty",

@@ -7,6 +7,10 @@ import Select from 'react-select';
 import injectT from '../../../../app/i18n/injectT';
 
 export const getOption = (value, options) => {
+  if (!value) {
+    return null;
+  }
+
   if (Array.isArray(value)) {
     return value.map(item => options.find(option => option.value === item));
   }

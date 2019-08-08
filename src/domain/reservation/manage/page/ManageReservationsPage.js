@@ -126,6 +126,7 @@ class ManageReservationsPage extends React.Component {
           <ManageReservationsFilters
             filters={filters}
             onChange={this.onFiltersChange}
+            units={units}
           />
         </div>
         <div className="app-ManageReservationsPage__list">

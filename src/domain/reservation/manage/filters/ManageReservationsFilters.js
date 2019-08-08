@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 import isEmpty from 'lodash/isEmpty';
 import get from 'lodash/get';
+import { injectIntl, intlShape } from 'react-intl';
 import {
-  Button,
   Row,
   Col,
   Grid,
@@ -13,13 +13,17 @@ import {
 import injectT from '../../../../../app/i18n/injectT';
 import TextField from '../../../../common/form/fields/TextField';
 import ButtonGroupField from '../../../../common/form/fields/ButtonGroupField';
+import SelectField from '../../../../common/form/fields/SelectField';
 import iconTimes from '../../../search/filters/images/times.svg';
+import * as dataUtils from '../../../../common/data/utils';
 
 class ManageReservationsFilters extends React.Component {
   static propTypes = {
     t: PropTypes.func,
     filters: PropTypes.object,
+    units: PropTypes.array,
     onChange: PropTypes.func.isRequired,
+    intl: intlShape,
   };
 
   onFilterChange = (filterName, filterValue) => {
@@ -65,23 +69,44 @@ class ManageReservationsFilters extends React.Component {
     const {
       t,
       filters,
+      units,
+      intl,
     } = this.props;
 
     const state = get(filters, 'state', null);
+    const locale = intl.locale;
 
     return (
       <div className="app-ManageReservationsFilters">
         <Grid>
           <Row>
             <Col md={8}>
-              <ButtonGroupField
-                id="stateField"
-                label={t('ManageReservationsFilters.statusLabel')}
-                onChange={value => this.onFilterChange('state', value)}
-                options={this.getStatusOptions()}
-                type="checkbox"
-                value={state ? state.split(',') : null}
-              />
+              <Row>
+                <Col md={12}>
+                  <ButtonGroupField
+                    id="stateField"
+                    label={t('ManageReservationsFilters.statusLabel')}
+                    onChange={value => this.onFilterChange('state', value)}
+                    options={this.getStatusOptions()}
+                    type="checkbox"
+                    value={state ? state.split(',') : null}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col md={12}>
+                  <SelectField
+                    id="unitField"
+                    label={t('ManageReservationsFilters.unitLabel')}
+                    onChange={option => this.onFilterChange('unit', option.value)}
+                    options={units.map(unit => ({
+                      value: unit.id,
+                      label: dataUtils.getLocalizedFieldValue(unit.name, locale)
+                    }))}
+                    value={get(filters, 'unit', null)}
+                  />
+                </Col>
+              </Row>
             </Col>
             <Col md={4}>
               <TextField
@@ -109,4 +134,4 @@ class ManageReservationsFilters extends React.Component {
   }
 }
 
-export default injectT(ManageReservationsFilters);
+export default injectT(injectIntl(ManageReservationsFilters));

@@ -312,6 +312,7 @@
   "ManageReservationsFilters.searchLabel": "Sök",
   "ManageReservationsFilters.searchPlaceholder": "Sök",
   "ManageReservationsFilters.statusLabel": "Bokningsstatus",
+  "ManageReservationsFilters.unitLabel": "Utrymmet",
   "ManageReservationsFilters.resetButton": "Tömma sökfilter",
   "Reservation.stateLabelCancelled": "Avbokad",
   "Reservation.stateLabelConfirmed": "Godkänd",
