@@ -4,10 +4,10 @@ import { FormattedMessage } from 'react-intl';
 
 import { isAccessCodeGenerated, isAccessCodePending } from '../../../../../app/shared/reservation-access-code/helpers';
 import TooltipOverlay from '../../../../common/tooltip/TooltipOverlay';
-import IconClock from '../../../../../app/assets/icons/clock-o.svg';
+import iconClock from '../../../../../app/assets/icons/clock-o.svg';
 
 class ManageReservationPincode extends Component {
-  renderPincodeField = () => {
+  renderPincodeField() {
     const { reservation } = this.props;
     if (isAccessCodeGenerated(reservation)) {
       return (
@@ -23,7 +23,7 @@ class ManageReservationPincode extends Component {
         <TooltipOverlay
           content={<FormattedMessage id="ReservationAccessCode.pending" />}
         >
-          <IconClock />
+          <img alt="reservationAccessCodePending" src={iconClock} />
         </TooltipOverlay>
       );
     }
