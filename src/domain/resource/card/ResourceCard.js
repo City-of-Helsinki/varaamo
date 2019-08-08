@@ -96,10 +96,10 @@ class ResourceCard extends React.Component {
             </div>
           </div>
           <Link onClick={this.handleLinkClick} to={this.getResourcePageLink()}>
-            <h4>{dataUtils.getLocalizedFieldValue(resource.name, locale)}</h4>
+            <h4>{dataUtils.getLocalizedFieldValueWithFallback(resource.name, locale, ['en', 'fi', 'sv'])}</h4>
           </Link>
           <div className="app-resourceCard__description">
-            {dataUtils.getLocalizedFieldValue(resource.description, locale)}
+            {dataUtils.getLocalizedFieldValueWithFallback(resource.description, locale, ['en', 'fi', 'sv'])}
           </div>
         </div>
         <div className="app-resourceCard__info">
