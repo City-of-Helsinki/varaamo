@@ -903,7 +903,7 @@ exports[`DateField renders correctly 1`] = `
                     }
                     enableOutsideDaysClick={true}
                     fixedWeeks={false}
-                    initialMonth={2019-08-09T11:33:41.638Z}
+                    initialMonth={2019-08-09T11:55:40.011Z}
                     labels={
                       Object {
                         "nextMonth": "Next Month",
@@ -969,7 +969,7 @@ exports[`DateField renders correctly 1`] = `
                     renderDay={[Function]}
                     renderWeek={[Function]}
                     reverseMonths={false}
-                    selectedDays={2019-08-09T11:33:41.638Z}
+                    selectedDays={2019-08-09T11:55:40.011Z}
                     showOutsideDays={true}
                     showWeekDays={true}
                     showWeekNumbers={true}
@@ -1064,7 +1064,7 @@ exports[`DateField renders correctly 1`] = `
         }
         enableOutsideDaysClick={true}
         fixedWeeks={false}
-        initialMonth={2019-08-09T11:33:41.638Z}
+        initialMonth={2019-08-09T11:55:40.011Z}
         labels={
           Object {
             "nextMonth": "Next Month",
@@ -1130,7 +1130,7 @@ exports[`DateField renders correctly 1`] = `
         renderDay={[Function]}
         renderWeek={[Function]}
         reverseMonths={false}
-        selectedDays={2019-08-09T11:33:41.638Z}
+        selectedDays={2019-08-09T11:55:40.011Z}
         showOutsideDays={true}
         showWeekDays={true}
         showWeekNumbers={true}
