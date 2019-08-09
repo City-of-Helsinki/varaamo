@@ -9,6 +9,7 @@ import {
   Row,
   Col,
   Grid,
+  Button,
 } from 'react-bootstrap';
 
 import injectT from '../../../../../app/i18n/injectT';
@@ -19,7 +20,6 @@ import SelectField from '../../../../common/form/fields/SelectField';
 import iconTimes from '../../../search/filters/images/times.svg';
 import * as dataUtils from '../../../../common/data/utils';
 import constants from '../../../../../app/constants/AppConstants';
-import Button from "react-bootstrap/lib/Button";
 
 class ManageReservationsFilters extends React.Component {
   static propTypes = {

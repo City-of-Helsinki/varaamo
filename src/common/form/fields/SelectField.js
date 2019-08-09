@@ -63,7 +63,6 @@ SelectField.propTypes = {
   id: PropTypes.string.isRequired,
   isClearable: PropTypes.bool,
   isSearchable: PropTypes.bool,
-  isLoading: PropTypes.bool,
   isMulti: PropTypes.bool,
   label: PropTypes.string,
   placeholder: PropTypes.string,
