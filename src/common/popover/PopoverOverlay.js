@@ -17,13 +17,10 @@ const PopoverOverlay = ({
           {content}
         </Popover>
       )}
-
       placement={placement || 'top'}
-
       trigger={trigger || ['hover', 'focus']}
     >
       {children}
-
     </OverlayTrigger>
   </div>
 

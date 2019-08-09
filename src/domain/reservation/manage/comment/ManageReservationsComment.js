@@ -7,21 +7,16 @@ import commentIcon from '../../../../../app/assets/icons/comment.svg';
 
 const ManageReservationsComment = ({ comments }) => (
   <div className="app-ManageReservationComments">
-
     {comments && (
-
     <PopoverOverlay
       content={<p>{comments}</p>}
       placement="top"
-
       title={<FormattedMessage id="CommentForm.label" />}
     >
       <img alt="manageReservationCommentIcon" src={commentIcon} />
-
     </PopoverOverlay>
     )}
   </div>
-
 );
 ManageReservationsComment.propTypes = {
   comments: PropTypes.string

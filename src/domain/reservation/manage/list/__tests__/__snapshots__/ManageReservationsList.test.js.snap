@@ -108,7 +108,9 @@ exports[`ManageReservationsList renders correctly 1`] = `
             }
           />
         </td>
-        <td />
+        <td>
+          <InjectT(ManageReservationsDropdown) />
+        </td>
       </tr>
     </tbody>
   </Table>
