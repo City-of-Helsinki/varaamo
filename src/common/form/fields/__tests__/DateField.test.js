@@ -5,15 +5,16 @@ import { shallowWithIntl, globalDateMock } from '../../../../../app/utils/testUt
 import DateField from '../DateField';
 
 describe('DateField', () => {
+  globalDateMock();
+
   test('renders correctly', () => {
     const props = {
       onChange: jest.fn(),
       label: 'foo',
       id: 'foo',
-      value: new Date(2019, 8, 9),
+      value: new Date(),
     };
 
-    globalDateMock();
     const wrapper = shallowWithIntl(
       <DateField {...props} />
     );

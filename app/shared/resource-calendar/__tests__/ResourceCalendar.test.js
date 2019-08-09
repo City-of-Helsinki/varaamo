@@ -74,7 +74,7 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
   test('renders correct props', () => {
     expect(dayWrapper.prop('disabledDays')).toBeDefined();
     expect(dayWrapper.prop('enableOutsideDays')).toBe(true);
-    expect(dayWrapper.prop('initialMonth')).toEqual(new Date(defaultProps.selectedDate));
+    expect(moment(dayWrapper.prop('initialMonth')).isSame(defaultProps.selectedDate, 'date')).toBe(true);
     expect(dayWrapper.prop('locale')).toBe('en');
     expect(dayWrapper.prop('localeUtils')).toBe(MomentLocaleUtils);
     expect(dayWrapper.prop('onDayClick')).toBe(wrapper.instance().handleDateChange);
@@ -223,8 +223,8 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
   });
 
   describe('weeks buttons', () => {
-    const prevWeekDate = (new Date(defaultProps.selectedDate)).getDate() - 7;
-    const nextWeekDate = (new Date(defaultProps.selectedDate)).getDate() + 7;
+    const prevWeekDate = moment(defaultProps.selectedDate).subtract(1, 'week').get('date');
+    const nextWeekDate = moment(defaultProps.selectedDate).add(1, 'week').get('date');
 
     let resourceCalWrapper;
     let instance;

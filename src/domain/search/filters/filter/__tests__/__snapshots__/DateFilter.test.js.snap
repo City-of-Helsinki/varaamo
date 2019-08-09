@@ -48,7 +48,7 @@ exports[`DateFilter render normally 1`] = `
         "context": Object {},
         "onChange": [Function],
         "props": Object {
-          "date": 2017-12-09T22:00:00.000Z,
+          "date": 2017-12-10T05:00:00.000Z,
           "intl": Object {
             "defaultFormats": Object {},
             "defaultLocale": "en",
@@ -428,7 +428,7 @@ exports[`DateFilter render normally 1`] = `
               "useState": [Function],
             },
             "_element": <DateFilter
-              date={2017-12-09T22:00:00.000Z}
+              date={2017-12-10T05:00:00.000Z}
               intl={
                 Object {
                   "defaultFormats": Object {},
@@ -916,7 +916,7 @@ exports[`DateFilter render normally 1`] = `
                     disabledDays={[Function]}
                     enableOutsideDaysClick={true}
                     fixedWeeks={false}
-                    initialMonth={2017-12-09T22:00:00.000Z}
+                    initialMonth={2017-12-10T12:00:00.000Z}
                     labels={
                       Object {
                         "nextMonth": "Next Month",
@@ -982,7 +982,7 @@ exports[`DateFilter render normally 1`] = `
                     renderDay={[Function]}
                     renderWeek={[Function]}
                     reverseMonths={false}
-                    selectedDays={2017-12-09T22:00:00.000Z}
+                    selectedDays={2017-12-10T12:00:00.000Z}
                     showOutsideDays={true}
                     showWeekDays={true}
                     showWeekNumbers={true}
@@ -1078,7 +1078,7 @@ exports[`DateFilter render normally 1`] = `
         disabledDays={[Function]}
         enableOutsideDaysClick={true}
         fixedWeeks={false}
-        initialMonth={2017-12-09T22:00:00.000Z}
+        initialMonth={2017-12-10T12:00:00.000Z}
         labels={
           Object {
             "nextMonth": "Next Month",
@@ -1144,7 +1144,7 @@ exports[`DateFilter render normally 1`] = `
         renderDay={[Function]}
         renderWeek={[Function]}
         reverseMonths={false}
-        selectedDays={2017-12-09T22:00:00.000Z}
+        selectedDays={2017-12-10T12:00:00.000Z}
         showOutsideDays={true}
         showWeekDays={true}
         showWeekNumbers={true}
