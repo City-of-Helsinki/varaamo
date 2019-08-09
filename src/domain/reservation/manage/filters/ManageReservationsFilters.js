@@ -165,4 +165,5 @@ class ManageReservationsFilters extends React.Component {
   }
 }
 
-export default injectT(injectIntl(ManageReservationsFilters));
+export const UnwrappedManageReservationsFilters = injectT(ManageReservationsFilters);
+export default injectIntl(UnwrappedManageReservationsFilters);
