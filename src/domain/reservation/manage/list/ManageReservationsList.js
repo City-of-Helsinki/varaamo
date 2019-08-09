@@ -16,7 +16,7 @@ const getDateAndTime = (reservation) => {
   const begin = moment(reservation.begin);
   const end = moment(reservation.end);
 
-  return `${begin.format('ddd d.M.Y HH:mm')} - ${end.format('HH:mm')}`;
+  return `${begin.format('ddd L HH:mm')} - ${end.format('HH:mm')}`;
 };
 
 const getResourceUnit = (resource, units) => {
