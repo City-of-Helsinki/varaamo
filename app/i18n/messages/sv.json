@@ -308,7 +308,13 @@
   "ManageReservationsList.dateAndTimeHeader": "När",
   "ManageReservationsList.statusHeader": "Status",
   "ManageReservationsList.pinHeader": "PIN",
+
   "ManageReservationsList.actionsHeader": "Välj åtgärd",
+  "ManageReservationsList.actionLabel.information":"Information",
+  "ManageReservationsList.actionLabel.approve":"Godkänn",
+  "ManageReservationsList.actionLabel.deny":"Förneka",
+  "ManageReservationsList.actionLabel.edit":"Redigera",
+  
   "ManageReservationsFilters.searchLabel": "Sök",
   "ManageReservationsFilters.searchPlaceholder": "Sök",
   "ManageReservationsFilters.statusLabel": "Bokningsstatus",
