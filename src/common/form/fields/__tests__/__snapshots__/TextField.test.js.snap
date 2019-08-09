@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ButtonGroupField renders correctly 1`] = `
+<div
+  className="app-TextField"
+>
+  <FormGroup
+    bsClass="form-group"
+    controlId="textField-foo"
+  >
+    <ControlLabel
+      bsClass="control-label"
+      className="app-TextField__label"
+      srOnly={false}
+    >
+      foo
+    </ControlLabel>
+    <FormControl
+      bsClass="form-control"
+      className="app-TextField__input"
+      componentClass="input"
+      onChange={[MockFunction]}
+      type="text"
+      value="foo"
+    />
+  </FormGroup>
+</div>
+`;
