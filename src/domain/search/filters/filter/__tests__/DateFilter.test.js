@@ -5,14 +5,15 @@ import DateFilter from '../DateFilter';
 import { shallowWithIntl, globalDateMock } from '../../../../../../app/utils/testUtils';
 
 describe('DateFilter', () => {
+  globalDateMock();
+
   test('render normally', () => {
     const props = {
       label: 'foo',
       onChange: jest.fn(),
-      date: new Date(2017, 11, 10)
+      date: new Date()
     };
 
-    globalDateMock();
     const wrapper = shallowWithIntl(
       <DateFilter {...props} />
     );

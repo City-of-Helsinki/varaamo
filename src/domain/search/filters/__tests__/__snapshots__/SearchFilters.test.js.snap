@@ -42,7 +42,7 @@ exports[`ResourceMap renders correctly 1`] = `
           sm={12}
         >
           <InjectIntl(DateFilter)
-            date={2017-12-10T07:00:00.000Z}
+            date={2017-12-10T00:00:00.000Z}
             label="SearchFilters.dateLabel"
             onChange={[Function]}
           />

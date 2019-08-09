@@ -406,7 +406,7 @@ exports[`DateField renders correctly 1`] = `
           },
           "label": "foo",
           "onChange": [MockFunction],
-          "value": 2017-12-10T09:00:00.000Z,
+          "value": 2017-12-10T02:00:00.000Z,
         },
         "refs": Object {},
         "state": Object {
@@ -789,7 +789,7 @@ exports[`DateField renders correctly 1`] = `
               }
               label="foo"
               onChange={[MockFunction]}
-              value={2017-12-10T09:00:00.000Z}
+              value={2017-12-10T02:00:00.000Z}
             />,
             "_firstWorkInProgressHook": null,
             "_forcedUpdate": false,
@@ -923,7 +923,7 @@ exports[`DateField renders correctly 1`] = `
                     }
                     enableOutsideDaysClick={true}
                     fixedWeeks={false}
-                    initialMonth={2017-12-10T09:00:00.000Z}
+                    initialMonth={2017-12-10T02:00:00.000Z}
                     labels={
                       Object {
                         "nextMonth": "Next Month",
@@ -989,7 +989,7 @@ exports[`DateField renders correctly 1`] = `
                     renderDay={[Function]}
                     renderWeek={[Function]}
                     reverseMonths={false}
-                    selectedDays={2017-12-10T09:00:00.000Z}
+                    selectedDays={2017-12-10T02:00:00.000Z}
                     showOutsideDays={true}
                     showWeekDays={true}
                     showWeekNumbers={true}
@@ -1084,7 +1084,7 @@ exports[`DateField renders correctly 1`] = `
         }
         enableOutsideDaysClick={true}
         fixedWeeks={false}
-        initialMonth={2017-12-10T09:00:00.000Z}
+        initialMonth={2017-12-10T02:00:00.000Z}
         labels={
           Object {
             "nextMonth": "Next Month",
@@ -1150,7 +1150,7 @@ exports[`DateField renders correctly 1`] = `
         renderDay={[Function]}
         renderWeek={[Function]}
         reverseMonths={false}
-        selectedDays={2017-12-10T09:00:00.000Z}
+        selectedDays={2017-12-10T02:00:00.000Z}
         showOutsideDays={true}
         showWeekDays={true}
         showWeekNumbers={true}
