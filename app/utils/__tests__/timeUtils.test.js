@@ -3,6 +3,7 @@ import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 
 import constants from '../../constants/AppConstants';
+import { globalDateMock } from '../testUtils';
 import { DEFAULT_SLOT_SIZE } from '../../constants/SlotConstants';
 import {
   addToDate,
@@ -20,7 +21,8 @@ import {
   padLeft,
   prettifyHours,
   periodToMinute,
-  getEndTimeSlotWithMinPeriod
+  getEndTimeSlotWithMinPeriod,
+  getDateWithTZ
 } from '../timeUtils';
 
 const moment = extendMoment(Moment);
@@ -684,6 +686,27 @@ describe('Utils: timeUtils', () => {
       const result = periodToMinute(period);
 
       expect(result).toEqual(60);
+    });
+  });
+
+  describe('getDateWithTZ', () => {
+    test('return an instance of Date if the supplied value is moment', () => {
+      expect(getDateWithTZ(moment())).toBeInstanceOf(Date);
+    });
+
+    test('return an instance of Date if the supplied value is a valid string date', () => {
+      expect(getDateWithTZ('2019-08-20')).toBeInstanceOf(Date);
+    });
+
+    test('return an instance of Date if the supplied value undefined', () => {
+      expect(getDateWithTZ(undefined)).toBeInstanceOf(Date);
+    });
+
+    test('factor in the time zone', () => {
+      const date = new Date();
+      const momentLA = moment(date).tz('America/Los_Angeles');
+
+      expect(getDateWithTZ(momentLA).getHours()).not.toBe(date.getHours());
     });
   });
 });
