@@ -10,6 +10,7 @@ import injectT from '../../../../../app/i18n/injectT';
 import ManageReservationsStatus from '../status/ManageReservationsStatus';
 import ManageReservationsPincode from '../pincode/ManageReservationsPincode';
 import ManageReservationsComment from '../comment/ManageReservationsComment';
+import ManageReservationsDropdown from '../action/ManageReservationsDropdown';
 
 const getDateAndTime = (reservation) => {
   const begin = moment(reservation.begin);
@@ -63,7 +64,7 @@ const ManageReservationsList = ({
                 <td><ManageReservationsPincode reservation={reservation} /></td>
                 <td><ManageReservationsComment comments={reservation.comments} /></td>
                 <td><ManageReservationsStatus reservation={reservation} /></td>
-                <td />
+                <td><ManageReservationsDropdown /></td>
               </tr>
             );
           })}
