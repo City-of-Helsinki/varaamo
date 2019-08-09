@@ -22,7 +22,7 @@ import {
   prettifyHours,
   periodToMinute,
   getEndTimeSlotWithMinPeriod,
-  getDateWithTZ
+  getDateWithinTZ
 } from '../timeUtils';
 
 const moment = extendMoment(Moment);
@@ -689,24 +689,25 @@ describe('Utils: timeUtils', () => {
     });
   });
 
-  describe('getDateWithTZ', () => {
+  describe('getDateWithinTZ', () => {
     test('return an instance of Date if the supplied value is moment', () => {
-      expect(getDateWithTZ(moment())).toBeInstanceOf(Date);
+      expect(getDateWithinTZ(moment())).toBeInstanceOf(Date);
     });
 
     test('return an instance of Date if the supplied value is a valid string date', () => {
-      expect(getDateWithTZ('2019-08-20')).toBeInstanceOf(Date);
+      expect(getDateWithinTZ('2019-08-20')).toBeInstanceOf(Date);
     });
 
     test('return an instance of Date if the supplied value undefined', () => {
-      expect(getDateWithTZ(undefined)).toBeInstanceOf(Date);
+      expect(getDateWithinTZ(undefined)).toBeInstanceOf(Date);
     });
 
     test('factor in the time zone', () => {
       const date = new Date();
       const momentLA = moment(date).tz('America/Los_Angeles');
 
-      expect(getDateWithTZ(momentLA).getHours()).not.toBe(date.getHours());
+      expect(getDateWithinTZ(momentLA).getDate()).toBe(date.getDate());
+      expect(getDateWithinTZ(momentLA).getHours()).not.toBe(date.getHours());
     });
   });
 });

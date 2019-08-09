@@ -226,13 +226,13 @@ function getTimeDiff(startTime, endTime, unit, isFloat = false) {
 }
 
 /**
- * getDateWithTZ
+ * getDateWithinTZ
  * Get Date object with the default time-zone factored in
  *
- * @param {Moment | string | undefined} value represents a specific date or undefined for the current moment
+ * @param {Moment | Date | string | undefined} value represents a specific date or undefined for the current moment
  * @returns {Date} date object correspondent to the supplied value
  */
-function getDateWithTZ(value) {
+function getDateWithinTZ(value) {
   const momentValue = moment(value);
   const y = momentValue.get('year');
   const m = momentValue.get('month');
@@ -262,5 +262,5 @@ export {
   periodToMinute,
   getEndTimeSlotWithMinPeriod,
   getTimeDiff,
-  getDateWithTZ
+  getDateWithinTZ
 };

@@ -14,7 +14,7 @@ import injectT from '../../i18n/injectT';
 import iconCalendar from '../../assets/icons/calendar.svg';
 import ResourceCalendarOverlay from './ResourceCalendarOverlay';
 import resourceCalendarSelector from './resourceCalendarSelector';
-import { getDateWithTZ } from '../../utils/timeUtils';
+import { getDateWithinTZ } from '../../utils/timeUtils';
 
 export class UnconnectedResourceCalendar extends Component {
   constructor(props) {
@@ -58,7 +58,7 @@ export class UnconnectedResourceCalendar extends Component {
       selectedDate,
       t,
     } = this.props;
-    const selectedDay = getDateWithTZ(selectedDate);
+    const selectedDay = getDateWithinTZ(selectedDate);
     const selectedDateText = moment(selectedDate).format('dddd D. MMMM YYYY');
     const modifiers = {
       available: (day) => {
@@ -84,7 +84,7 @@ export class UnconnectedResourceCalendar extends Component {
         <button
           className="app-ResourceCalendar__week-button app-ResourceCalendar__week-button--prev"
           onClick={() => this.handleDateChange(
-            getDateWithTZ(moment(selectedDay).subtract(1, 'w'))
+            getDateWithinTZ(moment(selectedDay).subtract(1, 'w'))
           )}
           type="button"
         />
@@ -111,7 +111,7 @@ export class UnconnectedResourceCalendar extends Component {
               <DayPicker
                 disabledDays={this.isDayDisabled}
                 enableOutsideDays
-                initialMonth={getDateWithTZ(selectedDate)}
+                initialMonth={getDateWithinTZ(selectedDate)}
                 locale={currentLanguage}
                 localeUtils={MomentLocaleUtils}
                 modifiers={modifiers}
@@ -130,7 +130,7 @@ export class UnconnectedResourceCalendar extends Component {
         <button
           className="app-ResourceCalendar__week-button app-ResourceCalendar__week-button--next"
           onClick={() => this.handleDateChange(
-            getDateWithTZ(moment(selectedDay).add(1, 'w'))
+            getDateWithinTZ(moment(selectedDay).add(1, 'w'))
           )}
           type="button"
         />

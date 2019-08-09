@@ -11,7 +11,7 @@ import { RSAA } from 'redux-api-middleware';
 
 import rootReducer from '../state/rootReducer';
 import enMessages from '../i18n/messages/en.json';
-import { getDateWithTZ } from './timeUtils';
+import { getDateWithinTZ } from './timeUtils';
 
 const testMessages = mapValues(enMessages, (value, key) => key);
 
@@ -229,7 +229,7 @@ function shallowWithIntl(node, context) {
 }
 
 function globalDateMock() {
-  const mockedDate = getDateWithTZ('2017-12-10');
+  const mockedDate = getDateWithinTZ('2017-12-10');
   const originalDate = Date;
 
   beforeAll(() => {

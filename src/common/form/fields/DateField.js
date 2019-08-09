@@ -10,7 +10,7 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import InputGroup from 'react-bootstrap/lib/InputGroup';
 import Overlay from 'react-bootstrap/lib/Overlay';
 
-import { getDateWithTZ } from '../../../../app/utils/timeUtils';
+import { getDateWithinTZ } from '../../../../app/utils/timeUtils';
 import iconCalendar from './images/calendar.svg';
 
 const DatePickerWrapper = ({ children }) => (
@@ -58,7 +58,7 @@ class DateFilter extends React.Component {
       value,
     } = this.props;
     const { isOpen } = this.state;
-    const date = getDateWithTZ(value);
+    const date = getDateWithinTZ(value);
 
     return (
       <div className="app-DateField">
