@@ -315,7 +315,7 @@
   "ManageReservationsFilters.unitLabel": "Utrymmet",
   "ManageReservationsFilters.startDateLabel": "Startdatum",
   "ManageReservationsFilters.endDateLabel": "Slutdatum",
-  "ManageReservationsFilters.startDatePlaceholder": "Start datum",
+  "ManageReservationsFilters.startDatePlaceholder": "Startdatum",
   "ManageReservationsFilters.endDatePlaceholder": "Slutdatum",
   "ManageReservationsFilters.resetButton": "Återställ sökfilter",
   "Reservation.stateLabelCancelled": "Avbokad",
