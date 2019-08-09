@@ -35,7 +35,7 @@ export function UnconnectedDatePicker({
       keepFocus={false}
       onDayChange={date => onChange(formatDate(date, defaultDateFormat))}
       parseDate={parseDate}
-      value={new Date(value)}
+      value={value}
       {...rest}
     />
   );

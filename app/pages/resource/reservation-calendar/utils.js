@@ -70,16 +70,16 @@ function isSlotSelectable(slot, selected, resource, lastSelectableFound, isAdmin
     const durationParts = resource.maxPeriod.split(':');
     // eslint-disable-next-line no-mixed-operators
     const maxPeriodMinutes = 60 * durationParts[0] + durationParts[1];
-    const maxEndDate = new Date(firstSelected.begin);
-    maxEndDate.setMinutes(maxEndDate.getMinutes() + maxPeriodMinutes);
-    if (new Date(slot.start) >= maxEndDate) {
+    const maxEndDate = moment(firstSelected.begin);
+    maxEndDate.minutes(maxEndDate.minutes() + maxPeriodMinutes);
+    if (moment(slot.start).isSameOrAfter(maxEndDate)) {
       return false;
     }
   }
-  const firstSelectedDate = new Date(firstSelected.begin);
-  const slotStartDate = new Date(slot.start);
+  const firstSelectedDate = moment(firstSelected.begin);
+  const slotStartDate = moment(slot.start);
   return (
-    firstSelectedDate <= slotStartDate && firstSelectedDate.getDate() === slotStartDate.getDate()
+    moment(firstSelectedDate).isSameOrBefore(slotStartDate) && moment(firstSelectedDate).isSame(slotStartDate, 'date')
   );
 }
 
@@ -105,13 +105,13 @@ function isHighlighted(slot, selected, hovered) {
     return false;
   }
   const firstSelected = getBeginOfSelection(selected);
-  const firstSelectedDate = new Date(firstSelected.begin);
-  const slotStartDate = new Date(slot.start);
-  const hoveredDate = new Date(hovered.start);
+  const firstSelectedDate = moment(firstSelected.begin);
+  const slotStartDate = moment(slot.start);
+  const hoveredDate = moment(hovered.start);
   return (
     slotStartDate > firstSelectedDate
     && slotStartDate < hoveredDate
-    && firstSelectedDate.getDate() === slotStartDate.getDate()
+    && firstSelectedDate.isSame(slotStartDate, 'date')
   );
 }
 /**

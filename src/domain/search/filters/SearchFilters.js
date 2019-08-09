@@ -128,7 +128,7 @@ class SearchFilters extends React.Component {
               </Col>
               <Col className="app-SearchFilters__control" md={6} sm={12}>
                 <DateFilter
-                  date={moment(get(filters, 'date', new Date())).toDate()}
+                  date={get(filters, 'date', new Date())}
                   label={t('SearchFilters.dateLabel')}
                   onChange={(newValue) => {
                     this.onFilterChange('date', moment(newValue).format(constants.DATE_FORMAT));

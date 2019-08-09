@@ -23,7 +23,7 @@ class ReservationPopover extends PureComponent {
       >
         <span>
           {moment(begin).format('HH:mm')}
-–
+          –
           {end && moment(end).format('HH:mm')}
         </span>
         {reservationPrice && (

@@ -5,7 +5,6 @@ import moment from 'moment';
 
 import injectT from '../../../../i18n/injectT';
 import { scrollTo } from '../../../../utils/domUtils';
-import { padLeft } from '../../../../utils/timeUtils';
 
 class TimeSlot extends PureComponent {
   static propTypes = {
@@ -38,7 +37,7 @@ class TimeSlot extends PureComponent {
     const {
       slot, resource, isDisabled, isSelectable, selected, isLoggedIn
     } = prop;
-    const isPast = new Date(slot.end) < new Date();
+    const isPast = moment().isAfter(slot.end);
     const isReservable = (resource.reservableAfter
       && moment(slot.start).isBefore(resource.reservableAfter));
     const disabled = isDisabled
@@ -80,7 +79,7 @@ class TimeSlot extends PureComponent {
   }
 
   getReservationInfoNotification(isLoggedIn, resource, slot, t) {
-    if (new Date(slot.end) < new Date() || slot.reserved) {
+    if (moment().isAfter(slot.end) || slot.reserved) {
       return null;
     }
 
@@ -154,8 +153,8 @@ class TimeSlot extends PureComponent {
 
     const reservation = slot.reservation;
     const isOwnReservation = reservation && reservation.isOwn;
-    const start = new Date(slot.start);
-    const startTime = `${padLeft(start.getHours())}:${padLeft(start.getMinutes())}`;
+    const start = moment(slot.start);
+    const startTime = start.format('HH:mm');
 
     return (
       <div

@@ -10,6 +10,7 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import InputGroup from 'react-bootstrap/lib/InputGroup';
 import Overlay from 'react-bootstrap/lib/Overlay';
 
+import { getDateWithTZ } from '../../../../../app/utils/timeUtils';
 import iconCalendar from './images/calendar.svg';
 
 const DatePickerWrapper = ({ children }) => (
@@ -55,6 +56,7 @@ class DateFilter extends React.Component {
       date,
     } = this.props;
     const { isOpen } = this.state;
+    const dateWithinTZ = getDateWithTZ(date);
 
     return (
       <div className="app-DateFilter">
@@ -63,7 +65,7 @@ class DateFilter extends React.Component {
           <InputGroup>
             <InputGroup.Addon className="app-DateFilter__title">
               <img alt="" className="app-DateFilter__icon" src={iconCalendar} />
-              <span>{moment(date).format('L')}</span>
+              <span>{moment(dateWithinTZ).format('L')}</span>
             </InputGroup.Addon>
             <InputGroup.Addon className="app-DateFilter__triangle">
               <Glyphicon glyph="triangle-bottom" />
@@ -81,11 +83,11 @@ class DateFilter extends React.Component {
           <DatePickerWrapper>
             <DayPicker
               disabledDays={day => moment(day).isBefore(moment(), 'date')}
-              initialMonth={date}
+              initialMonth={dateWithinTZ}
               locale={intl.locale}
               localeUtils={MomentLocaleUtils}
               onDayClick={newDate => this.onChange(newDate)}
-              selectedDays={date}
+              selectedDays={dateWithinTZ}
               showOutsideDays
               showWeekNumbers
             />

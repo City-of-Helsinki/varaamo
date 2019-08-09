@@ -1,11 +1,11 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
+import moment from 'moment';
 
 import Resource from '../../../../../utils/fixtures/Resource';
 import TimeSlotFixture from '../../../../../utils/fixtures/TimeSlot';
 import { shallowWithIntl } from '../../../../../utils/testUtils';
-import { padLeft } from '../../../../../utils/timeUtils';
 import TimeSlot from '../TimeSlot';
 
 describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
@@ -48,8 +48,8 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlot', () => {
   });
 
   test('renders slot start time as button text', () => {
-    const start = new Date(defaultProps.slot.start);
-    const expected = `${padLeft(start.getHours())}:${padLeft(start.getMinutes())}`;
+    const start = moment(defaultProps.slot.start);
+    const expected = start.format('HH:mm');
     expect(getWrapper().text()).toContain(expected);
   });
 

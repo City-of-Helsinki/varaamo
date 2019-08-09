@@ -20,6 +20,7 @@ import SelectField from '../../../../common/form/fields/SelectField';
 import iconTimes from '../../../search/filters/images/times.svg';
 import * as dataUtils from '../../../../common/data/utils';
 import constants from '../../../../../app/constants/AppConstants';
+import { getDateWithTZ } from '../../../../../app/utils/timeUtils';
 
 class ManageReservationsFilters extends React.Component {
   static propTypes = {
@@ -107,7 +108,7 @@ class ManageReservationsFilters extends React.Component {
                         this.onFilterChange('start', moment(value).format(constants.DATE_FORMAT));
                       }}
                       placeholder={t('ManageReservationsFilters.startDatePlaceholder')}
-                      value={startDate ? moment(startDate).toDate() : null}
+                      value={startDate ? getDateWithTZ(startDate) : null}
                     />
                     <div className="separator">-</div>
                     <DateField
@@ -117,7 +118,7 @@ class ManageReservationsFilters extends React.Component {
                         this.onFilterChange('end', moment(value).format(constants.DATE_FORMAT));
                       }}
                       placeholder={t('ManageReservationsFilters.endDatePlaceholder')}
-                      value={endDate ? moment(endDate).toDate() : null}
+                      value={endDate ? getDateWithTZ(endDate) : null}
                     />
                   </div>
                 </Col>
