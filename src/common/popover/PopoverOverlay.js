@@ -7,7 +7,6 @@ const PopoverOverlay = ({
   content, title, trigger, children, placement
 }) => (
   <div className="app-PopoverOverlay">
-
     <OverlayTrigger
       overlay={(
         <Popover
@@ -23,7 +22,6 @@ const PopoverOverlay = ({
       {children}
     </OverlayTrigger>
   </div>
-
 );
 PopoverOverlay.propTypes = {
   content: PropTypes.element,

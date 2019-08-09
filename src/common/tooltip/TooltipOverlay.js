@@ -13,7 +13,7 @@ const TooltipOverlay = ({
           <BTTooltip id={`tooltip-${placement}`}>
             {content}
           </BTTooltip>
-)}
+        )}
         placement={placement || 'top'}
         {...rest}
       >
