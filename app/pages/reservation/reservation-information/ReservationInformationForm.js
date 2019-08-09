@@ -156,6 +156,7 @@ class UnconnectedReservationInformationForm extends Component {
   render() {
     const {
       isEditing,
+      fields,
       onBack,
       onCancel,
       requiredFields,
@@ -175,12 +176,12 @@ class UnconnectedReservationInformationForm extends Component {
           <p>
             {t('ReservationForm.reservationFieldsAsteriskExplanation')}
           </p>
-          { includes(this.props.fields, 'reserverName') && (
+          { includes(fields, 'reserverName') && (
             <h2 className="app-ReservationPage__title">
               {t('ReservationInformationForm.reserverInformationTitle')}
             </h2>
           )}
-          { includes(this.props.fields, 'staffEvent') && (
+          { includes(fields, 'staffEvent') && (
             <Well>
               {this.renderField(
                 'staffEvent',
@@ -211,74 +212,74 @@ class UnconnectedReservationInformationForm extends Component {
             'email',
             t('common.reserverEmailAddressLabel'),
           )}
-          {includes(this.props.fields, 'reserverAddressStreet')
+          {includes(fields, 'reserverAddressStreet')
             && this.renderField(
               'reserverAddressStreet',
               'text',
               t('common.addressStreetLabel'),
             )}
-          {includes(this.props.fields, 'reserverAddressZip')
+          {includes(fields, 'reserverAddressZip')
             && this.renderField(
               'reserverAddressZip',
               'text',
               t('common.addressZipLabel'),
             )}
-          {includes(this.props.fields, 'reserverAddressCity')
+          {includes(fields, 'reserverAddressCity')
             && this.renderField(
               'reserverAddressCity',
               'text',
               t('common.addressCityLabel'),
             )
           }
-          {includes(this.props.fields, 'billingAddressStreet')
+          {includes(fields, 'billingAddressStreet')
             && <h2 className="app-ReservationPage__title">{t('common.billingAddressLabel')}</h2>
           }
-          {includes(this.props.fields, 'billingAddressStreet')
+          {includes(fields, 'billingAddressStreet')
             && this.renderField(
               'billingAddressStreet',
               'text',
               t('common.addressStreetLabel'),
             )
           }
-          {includes(this.props.fields, 'billingAddressZip')
+          {includes(fields, 'billingAddressZip')
             && this.renderField(
               'billingAddressZip',
               'text',
               t('common.addressZipLabel'),
             )
           }
-          {includes(this.props.fields, 'billingAddressCity')
+          {includes(fields, 'billingAddressCity')
             && this.renderField(
               'billingAddressCity',
               'text',
               t('common.addressCityLabel'),
             )
           }
-          {includes(this.props.fields, 'billingFirstName')
+          {includes(fields, 'billingFirstName')
             && <h2 className="app-ReservationPage__title">{t('common.paymentInformationLabel')}</h2>
           }
-          {includes(this.props.fields, 'billingFirstName')
+          {includes(fields, 'billingFirstName')
             && this.renderField(
               'billingFirstName',
               'text',
               t('common.billingFirstNameLabel'),
             )
           }
-          {includes(this.props.fields, 'billingLastName')
+          {includes(fields, 'billingLastName')
             && this.renderField(
               'billingLastName',
               'text',
               t('common.billingLastNameLabel'),
             )
           }
-          {includes(this.props.fields, 'billingPhoneNumber')
+          {includes(fields, 'billingPhoneNumber')
             && this.renderField(
               'billingPhoneNumber',
               'tel',
               t('common.billingPhoneNumberLabel'),
             )
           }
-          {includes(this.props.fields, 'billingEmailAddress')
+          {includes(fields, 'billingEmailAddress')
             && this.renderField(
               'billingEmailAddress',
               'email',
