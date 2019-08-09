@@ -316,7 +316,13 @@
   "ManageReservationsList.dateAndTimeHeader": "Milloin",
   "ManageReservationsList.statusHeader": "Tila",
   "ManageReservationsList.pinHeader": "PIN",
+  
   "ManageReservationsList.actionsHeader": "Valitse toiminta",
+  "ManageReservationsList.actionLabel.information":"Information",
+  "ManageReservationsList.actionLabel.approve":"Approve",
+  "ManageReservationsList.actionLabel.deny":"Deny",
+  "ManageReservationsList.actionLabel.edit":"Edit",
+  
   "Reservation.stateLabelCancelled": "Peruttu",
   "Reservation.stateLabelConfirmed": "Hyväksytty",
   "Reservation.stateLabelDenied": "Evätty",

@@ -308,7 +308,13 @@
   "ManageReservationsList.dateAndTimeHeader": "När",
   "ManageReservationsList.statusHeader": "Status",
   "ManageReservationsList.pinHeader": "PIN",
+
   "ManageReservationsList.actionsHeader": "Välj åtgärd",
+  "ManageReservationsList.actionLabel.information":"Information",
+  "ManageReservationsList.actionLabel.approve":"Approve",
+  "ManageReservationsList.actionLabel.deny":"Deny",
+  "ManageReservationsList.actionLabel.edit":"Edit",
+  
   "Reservation.stateLabelCancelled": "Avbokad",
   "Reservation.stateLabelConfirmed": "Godkänd",
   "Reservation.stateLabelDenied": "Nekad",
