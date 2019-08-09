@@ -13,6 +13,7 @@ import FormTypes from '../../../constants/FormTypes';
 import ReservationMetadataField from './ReservationMetadataField';
 import injectT from '../../../i18n/injectT';
 import ReservationTermsModal from '../../../shared/modals/reservation-terms/ReservationTermsModal';
+import PaymentTermsModal from '../../../shared/modals/payment-terms/PaymentTermsModal';
 import { hasProducts } from '../../../utils/resourceUtils';
 
 const validators = {
@@ -49,6 +50,17 @@ const maxLengths = {
   reserverPhoneNumber: 30,
 };
 
+function isTermsAndConditionsField(field) {
+  return field === 'termsAndConditions'
+    || field === 'paymentTermsAndConditions';
+}
+
+function getTermsAndConditionsError(field) {
+  return field === 'paymentTermsAndConditions'
+    ? 'ReservationForm.paymentTermsAndConditionsError'
+    : 'ReservationForm.termsAndConditionsError';
+}
+
 export function validate(values, { fields, requiredFields, t }) {
   const errors = {};
   const currentRequiredFields = values.staffEvent
@@ -70,8 +82,8 @@ export function validate(values, { fields, requiredFields, t }) {
     if (includes(currentRequiredFields, field)) {
       if (!values[field]) {
         errors[field] = (
-          field === 'termsAndConditions'
-            ? t('ReservationForm.termsAndConditionsError')
+          isTermsAndConditionsField(field)
+            ? t(getTermsAndConditionsError(field))
             : t('ReservationForm.requiredError')
         );
       }
@@ -81,6 +93,18 @@ export function validate(values, { fields, requiredFields, t }) {
 }
 
 class UnconnectedReservationInformationForm extends Component {
+  state = {
+    isPaymentTermsModalOpen: false,
+  }
+
+  closePaymentTermsModal = () => {
+    this.setState({ isPaymentTermsModalOpen: false });
+  }
+
+  openPaymentTermsModal = () => {
+    this.setState({ isPaymentTermsModalOpen: true });
+  }
+
   renderField(name, type, label, help = null) {
     if (!includes(this.props.fields, name)) {
       return null;
@@ -110,6 +134,21 @@ class UnconnectedReservationInformationForm extends Component {
         labelLink={labelLink}
         name={name}
         onClick={openResourceTermsModal}
+        type="terms"
+      />
+    );
+  }
+
+  renderPaymentTermsField = () => {
+    const { t } = this.props;
+    return (
+      <Field
+        component={TermsField}
+        key="paymentTermsAndConditions"
+        label={t('ReservationInformationForm.paymentTermsAndConditionsLabel')}
+        labelLink={t('ReservationInformationForm.paymentTermsAndConditionsLink')}
+        name="paymentTermsAndConditions"
+        onClick={this.openPaymentTermsModal}
         type="terms"
       />
     );
@@ -165,6 +204,9 @@ class UnconnectedReservationInformationForm extends Component {
       t,
       termsAndConditions,
     } = this.props;
+    const {
+      isPaymentTermsModalOpen,
+    } = this.state;
 
     this.requiredFields = staffEventSelected
       ? constants.REQUIRED_STAFF_EVENT_FIELDS
@@ -315,6 +357,9 @@ class UnconnectedReservationInformationForm extends Component {
           {termsAndConditions
             && this.renderTermsField('termsAndConditions')
           }
+          {includes(fields, 'paymentTermsAndConditions')
+            && this.renderPaymentTermsField()
+          }
           <div>
             <Button
               onClick={onCancel}
@@ -338,6 +383,10 @@ class UnconnectedReservationInformationForm extends Component {
           </div>
         </Form>
         <ReservationTermsModal resource={resource} />
+        <PaymentTermsModal
+          isOpen={isPaymentTermsModalOpen}
+          onDismiss={this.closePaymentTermsModal}
+        />
       </div>
     );
   }
