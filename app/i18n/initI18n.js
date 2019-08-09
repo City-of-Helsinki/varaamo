@@ -20,6 +20,8 @@ const messages = {
   sv: svMessages,
 };
 
+moment.tz.setDefault(constants.TIME_ZONE);
+
 moment.defineLocale('varaamo-en', {
   parentLocale: 'en-gb',
 });

@@ -9,7 +9,8 @@ require('isomorphic-fetch');
 
 configure({ adapter: new Adapter(), disableLifecycleMethods: true });
 
+moment.tz.setDefault('Europe/Helsinki');
 moment.locale('fi');
 
 // mock window, jsdom intergrated with Jest
-window.scrollTo = () => {};
+window.scrollTo = () => { };

@@ -71,5 +71,6 @@ export default {
     TYPE: 'type_name_lang',
     PREMISES: 'unit_name_lang',
     PEOPLE: 'people_capacity',
-  }
+  },
+  TIME_ZONE: SETTINGS.TIME_ZONE
 };
