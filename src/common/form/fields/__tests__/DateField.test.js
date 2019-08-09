@@ -1,7 +1,7 @@
 import React from 'react';
 import toJSON from 'enzyme-to-json';
 
-import { shallowWithIntl } from '../../../../../app/utils/testUtils';
+import { shallowWithIntl, globalDateMock } from '../../../../../app/utils/testUtils';
 import DateField from '../DateField';
 
 describe('DateField', () => {
@@ -12,6 +12,7 @@ describe('DateField', () => {
       id: 'foo',
     };
 
+    globalDateMock();
     const wrapper = shallowWithIntl(
       <DateField {...props} />
     );
