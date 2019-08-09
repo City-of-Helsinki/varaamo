@@ -1,29 +1,30 @@
 import React from 'react';
-import { Panel } from 'react-bootstrap';
 import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
 
+import PopoverOverlay from '../../../../common/popover/PopoverOverlay';
 import commentIcon from '../../../../../app/assets/icons/comment.svg';
-import TooltipOverlay from '../../../../common/tooltip/TooltipOverlay';
 
-export default function ManageReservationComment({ comments }) {
-  return (
-    comments && (
-    <TooltipOverlay
-      className="app-ManageReservationComments"
-      content={(
-        <div className="app-ManageReservationComments__tooltip">
-          <Panel>
-            <Panel.Body>
-              <Panel.Title><FormattedMessage id="CommentForm.label" /></Panel.Title>
-              <p>{comments}</p>
-            </Panel.Body>
-          </Panel>
-        </div>
-      )}
+const ManageReservationsComment = ({ comments }) => (
+  <div className="app-ManageReservationComments">
+
+    {comments && (
+
+    <PopoverOverlay
+      content={<p>{comments}</p>}
+      placement="top"
+
+      title={<FormattedMessage id="CommentForm.label" />}
     >
       <img alt="manageReservationCommentIcon" src={commentIcon} />
 
-    </TooltipOverlay>
-    )
-  );
-}
+    </PopoverOverlay>
+    )}
+  </div>
+
+);
+ManageReservationsComment.propTypes = {
+  comments: PropTypes.string
+};
+
+export default ManageReservationsComment;

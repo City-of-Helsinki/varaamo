@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { Panel } from 'react-bootstrap';
 
 import { isAccessCodeGenerated, isAccessCodePending } from '../../../../../app/shared/reservation-access-code/helpers';
 import TooltipOverlay from '../../../../common/tooltip/TooltipOverlay';
 import iconClock from '../../../../../app/assets/icons/clock-o.svg';
+import PopoverOverlay from '../../../../common/popover/PopoverOverlay';
 
 class ManageReservationsPincode extends Component {
   renderPincodeField() {
@@ -14,12 +14,7 @@ class ManageReservationsPincode extends Component {
       return (
         <TooltipOverlay
           content={(
-            <Panel>
-              <Panel.Body>
-                <Panel.Title><FormattedMessage id="common.accessCodeLabel" /></Panel.Title>
-                <p>{reservation.accessCode}</p>
-              </Panel.Body>
-            </Panel>
+            <p>{reservation.accessCode}</p>
           )}
         >
           <span>****</span>
@@ -28,11 +23,11 @@ class ManageReservationsPincode extends Component {
     }
     if (isAccessCodePending(reservation, reservation.resource)) {
       return (
-        <TooltipOverlay
+        <PopoverOverlay
           content={<FormattedMessage id="ReservationAccessCode.pending" />}
         >
           <img alt="reservationAccessCodePending" src={iconClock} />
-        </TooltipOverlay>
+        </PopoverOverlay>
       );
     }
 

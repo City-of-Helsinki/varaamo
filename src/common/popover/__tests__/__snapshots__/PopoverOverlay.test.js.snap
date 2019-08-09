@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PopoverOverlay renders correctly 1`] = `
+<div
+  className="app-PopoverOverlay"
+>
+  <OverlayTrigger
+    defaultOverlayShown={false}
+    overlay={
+      <Popover
+        bsClass="popover"
+        id="app-PopoverOverlay__popover"
+        placement="right"
+      />
+    }
+    placement="top"
+    trigger={
+      Array [
+        "hover",
+        "focus",
+      ]
+    }
+  />
+</div>
+`;
