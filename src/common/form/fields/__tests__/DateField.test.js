@@ -10,6 +10,7 @@ describe('DateField', () => {
       onChange: jest.fn(),
       label: 'foo',
       id: 'foo',
+      value: new Date(2019, 8, 9),
     };
 
     globalDateMock();
