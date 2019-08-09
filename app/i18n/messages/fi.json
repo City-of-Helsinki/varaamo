@@ -318,10 +318,10 @@
   "ManageReservationsList.pinHeader": "PIN",
   
   "ManageReservationsList.actionsHeader": "Valitse toiminta",
-  "ManageReservationsList.actionLabel.information":"Information",
-  "ManageReservationsList.actionLabel.approve":"Approve",
-  "ManageReservationsList.actionLabel.deny":"Deny",
-  "ManageReservationsList.actionLabel.edit":"Edit",
+  "ManageReservationsList.actionLabel.information":"Tiedot",
+  "ManageReservationsList.actionLabel.approve":"Hyväksy",
+  "ManageReservationsList.actionLabel.deny":"Hylkää",
+  "ManageReservationsList.actionLabel.edit":"Muokkaa",
   
   "ManageReservationsFilters.searchLabel": "Hae",
   "ManageReservationsFilters.searchPlaceholder": "Hae",

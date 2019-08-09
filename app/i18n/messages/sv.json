@@ -311,9 +311,9 @@
 
   "ManageReservationsList.actionsHeader": "Välj åtgärd",
   "ManageReservationsList.actionLabel.information":"Information",
-  "ManageReservationsList.actionLabel.approve":"Approve",
-  "ManageReservationsList.actionLabel.deny":"Deny",
-  "ManageReservationsList.actionLabel.edit":"Edit",
+  "ManageReservationsList.actionLabel.approve":"Godkänn",
+  "ManageReservationsList.actionLabel.deny":"Förneka",
+  "ManageReservationsList.actionLabel.edit":"Redigera",
   
   "ManageReservationsFilters.searchLabel": "Sök",
   "ManageReservationsFilters.searchPlaceholder": "Sök",
