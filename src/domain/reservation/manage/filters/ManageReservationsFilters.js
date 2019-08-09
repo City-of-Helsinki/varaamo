@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import omit from 'lodash/omit';
 import isEmpty from 'lodash/isEmpty';
 import get from 'lodash/get';
@@ -13,9 +14,12 @@ import {
 import injectT from '../../../../../app/i18n/injectT';
 import TextField from '../../../../common/form/fields/TextField';
 import ButtonGroupField from '../../../../common/form/fields/ButtonGroupField';
+import DateField from '../../../../common/form/fields/DateField';
 import SelectField from '../../../../common/form/fields/SelectField';
 import iconTimes from '../../../search/filters/images/times.svg';
 import * as dataUtils from '../../../../common/data/utils';
+import constants from '../../../../../app/constants/AppConstants';
+import Button from "react-bootstrap/lib/Button";
 
 class ManageReservationsFilters extends React.Component {
   static propTypes = {
@@ -74,15 +78,17 @@ class ManageReservationsFilters extends React.Component {
     } = this.props;
 
     const state = get(filters, 'state', null);
+    const startDate = get(filters, 'start', null);
+    const endDate = get(filters, 'end', null);
     const locale = intl.locale;
 
     return (
       <div className="app-ManageReservationsFilters">
         <Grid>
           <Row>
-            <Col md={8}>
+            <Col md={9}>
               <Row>
-                <Col md={12}>
+                <Col md={5}>
                   <ButtonGroupField
                     id="stateField"
                     label={t('ManageReservationsFilters.statusLabel')}
@@ -91,6 +97,29 @@ class ManageReservationsFilters extends React.Component {
                     type="checkbox"
                     value={state ? state.split(',') : null}
                   />
+                </Col>
+                <Col md={7}>
+                  <div className="app-ManageReservationsFilters__datePickers">
+                    <DateField
+                      id="startDateField"
+                      label={t('ManageReservationsFilters.startDateLabel')}
+                      onChange={(value) => {
+                        this.onFilterChange('start', moment(value).format(constants.DATE_FORMAT));
+                      }}
+                      placeholder={t('ManageReservationsFilters.startDatePlaceholder')}
+                      value={startDate ? moment(startDate).toDate() : null}
+                    />
+                    <div className="separator">-</div>
+                    <DateField
+                      id="EndDateField"
+                      label={t('ManageReservationsFilters.endDateLabel')}
+                      onChange={(value) => {
+                        this.onFilterChange('end', moment(value).format(constants.DATE_FORMAT));
+                      }}
+                      placeholder={t('ManageReservationsFilters.endDatePlaceholder')}
+                      value={endDate ? moment(endDate).toDate() : null}
+                    />
+                  </div>
                 </Col>
               </Row>
               <Row>
@@ -108,7 +137,7 @@ class ManageReservationsFilters extends React.Component {
                 </Col>
               </Row>
             </Col>
-            <Col md={4}>
+            <Col md={3}>
               <TextField
                 id="searchField"
                 label={t('ManageReservationsFilters.searchLabel')}
@@ -118,13 +147,15 @@ class ManageReservationsFilters extends React.Component {
               />
 
               {this.hasFilters() && (
-                <a
+                <Button
+                  bsStyle="link"
                   className="app-ManageReservationsFilters__resetButton"
+                  key="reset-button"
                   onClick={() => this.onReset()}
                 >
                   <img alt="" src={iconTimes} />
                   {t('ManageReservationsFilters.resetButton')}
-                </a>
+                </Button>
               )}
             </Col>
           </Row>

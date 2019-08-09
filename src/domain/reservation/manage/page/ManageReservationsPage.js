@@ -60,7 +60,6 @@ class ManageReservationsPage extends React.Component {
     const params = {
       ...filters,
       page_size: PAGE_SIZE,
-      all: true,
     };
 
     client.get('reservation', params)
