@@ -3,15 +3,17 @@ import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import Loader from 'react-loader';
 import { withRouter } from 'react-router-dom';
+import { Grid, Row, Col } from 'react-bootstrap';
 
 import PageWrapper from '../../../../../app/pages/PageWrapper';
 import injectT from '../../../../../app/i18n/injectT';
 import client from '../../../../common/api/client';
+import ManageReservationsFilters from '../filters/ManageReservationsFilters';
 import ManageReservationsList from '../list/ManageReservationsList';
 import Pagination from '../../../../common/pagination/Pagination';
 import * as searchUtils from '../../../search/utils';
 
-export const PAGE_SIZE = 8;
+export const PAGE_SIZE = 50;
 
 class ManageReservationsPage extends React.Component {
   static propTypes = {
@@ -84,6 +86,14 @@ class ManageReservationsPage extends React.Component {
       });
   };
 
+  onFiltersChange = (filters) => {
+    const { history } = this.props;
+
+    history.push({
+      search: searchUtils.getSearchFromFilters(filters),
+    });
+  };
+
   render() {
     const {
       t,
@@ -100,24 +110,43 @@ class ManageReservationsPage extends React.Component {
     } = this.state;
 
     const filters = searchUtils.getFiltersFromUrl(location, false);
+    const title = t('ManageReservationsPage.title');
 
     return (
       <div className="app-ManageReservationsPage">
+        <div className="app-ManageReservationsPage__filters">
+          <Grid>
+            <Row>
+              <Col sm={12}>
+                <h1>{title}</h1>
+              </Col>
+            </Row>
+          </Grid>
+          <ManageReservationsFilters
+            filters={filters}
+            onChange={this.onFiltersChange}
+            units={units}
+          />
+        </div>
         <div className="app-ManageReservationsPage__list">
-          <PageWrapper title={t('ManageReservationsPage.title')}>
-            <Loader loaded={!isLoading && !isLoadingUnits}>
-              <ManageReservationsList
-                reservations={reservations}
-                units={units}
-              />
-            </Loader>
-            <Pagination
-              onChange={newPage => history.push({
-                search: searchUtils.getSearchFromFilters({ ...filters, page: newPage }),
-              })}
-              page={filters && filters.page ? Number(filters.page) : 1}
-              pages={Math.round(totalCount / PAGE_SIZE)}
-            />
+          <PageWrapper title={title}>
+            <Row>
+              <Col sm={12}>
+                <Loader loaded={!isLoading && !isLoadingUnits}>
+                  <ManageReservationsList
+                    reservations={reservations}
+                    units={units}
+                  />
+                </Loader>
+                <Pagination
+                  onChange={newPage => history.push({
+                    search: searchUtils.getSearchFromFilters({ ...filters, page: newPage }),
+                  })}
+                  page={filters && filters.page ? Number(filters.page) : 1}
+                  pages={Math.round(totalCount / PAGE_SIZE)}
+                />
+              </Col>
+            </Row>
           </PageWrapper>
         </div>
       </div>

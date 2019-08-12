@@ -96,10 +96,10 @@ class ResourceCard extends React.Component {
             </div>
           </div>
           <Link onClick={this.handleLinkClick} to={this.getResourcePageLink()}>
-            <h4>{dataUtils.getLocalizedFieldValue(resource.name, locale)}</h4>
+            <h4>{dataUtils.getLocalizedFieldValue(resource.name, locale, true)}</h4>
           </Link>
           <div className="app-resourceCard__description">
-            {dataUtils.getLocalizedFieldValue(resource.description, locale)}
+            {dataUtils.getLocalizedFieldValue(resource.description, locale, true)}
           </div>
         </div>
         <div className="app-resourceCard__info">
