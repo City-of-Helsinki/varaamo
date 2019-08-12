@@ -1,7 +1,5 @@
 import { Factory } from 'rosie';
 
-import * as fixtureUtils from './utils';
-
 export default new Factory()
   .sequence('id')
   .attr('url', 'https://respa.koe.hel.ninja/v1/reservation/192388/')
