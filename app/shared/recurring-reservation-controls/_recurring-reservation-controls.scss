@@ -7,8 +7,12 @@
     overflow: hidden;
   }
   .date-picker input {
-    width: 294px;
+    width: 281px;
     padding: 5px;
     border: 1px solid #000000;
+
+    @media (max-width: $screen-xs-max) {
+      width: 100%;
+    }
   }
 }
