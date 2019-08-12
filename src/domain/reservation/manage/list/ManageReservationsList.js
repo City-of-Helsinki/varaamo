@@ -12,7 +12,7 @@ import ManageReservationsPincode from '../pincode/ManageReservationsPincode';
 import ManageReservationsComment from '../comment/ManageReservationsComment';
 import ManageReservationsDropdown from '../action/ManageReservationsDropdown';
 
-const getDateAndTime = (reservation) => {
+export const getDateAndTime = (reservation) => {
   const begin = moment(reservation.begin);
   const end = moment(reservation.end);
 
