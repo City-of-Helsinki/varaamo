@@ -35,10 +35,11 @@ exports[`ManageReservationsList renders correctly 1`] = `
         </th>
         <th />
         <th>
-          ManageReservationsList.statusHeader
-        </th>
-        <th>
           ManageReservationsList.pinHeader
+        </th>
+        <th />
+        <th>
+          ManageReservationsList.statusHeader
         </th>
         <th>
           ManageReservationsList.actionsHeader
@@ -61,6 +62,32 @@ exports[`ManageReservationsList renders correctly 1`] = `
         </td>
         <td />
         <td>
+          <ManageReservationsPincode
+            reservation={
+              Object {
+                "begin": "",
+                "comments": "",
+                "end": "",
+                "event_description": "",
+                "event_subject": "",
+                "has_catering_order": false,
+                "id": 1,
+                "its_own": false,
+                "resource": 1,
+                "staff_event": false,
+                "state": "requested",
+                "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
+                "user": Object {},
+              }
+            }
+          />
+        </td>
+        <td>
+          <ManageReservationsComment
+            comments=""
+          />
+        </td>
+        <td>
           <InjectT(ManageReservationsStatus)
             reservation={
               Object {
@@ -81,8 +108,9 @@ exports[`ManageReservationsList renders correctly 1`] = `
             }
           />
         </td>
-        <td />
-        <td />
+        <td>
+          <InjectT(ManageReservationsDropdown) />
+        </td>
       </tr>
     </tbody>
   </Table>

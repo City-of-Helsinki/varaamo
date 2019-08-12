@@ -5,27 +5,67 @@ exports[`ManageReservationsPage renders correctly 1`] = `
   className="app-ManageReservationsPage"
 >
   <div
+    className="app-ManageReservationsPage__filters"
+  >
+    <Grid
+      bsClass="container"
+      componentClass="div"
+      fluid={false}
+    >
+      <Row
+        bsClass="row"
+        componentClass="div"
+      >
+        <Col
+          bsClass="col"
+          componentClass="div"
+          sm={12}
+        >
+          <h1>
+            ManageReservationsPage.title
+          </h1>
+        </Col>
+      </Row>
+    </Grid>
+    <InjectIntl(InjectT(ManageReservationsFilters))
+      filters={Object {}}
+      onChange={[Function]}
+      units={Array []}
+    />
+  </div>
+  <div
     className="app-ManageReservationsPage__list"
   >
     <PageWrapper
       title="ManageReservationsPage.title"
     >
-      <Component
-        component="div"
-        loaded={true}
-        loadedClassName="loadedContent"
-        parentClassName="loader"
+      <Row
+        bsClass="row"
+        componentClass="div"
       >
-        <InjectIntl(InjectT(ManageReservationsList))
-          reservations={Array []}
-          units={Array []}
-        />
-      </Component>
-      <InjectT(Pagination)
-        onChange={[Function]}
-        page={1}
-        pages={0}
-      />
+        <Col
+          bsClass="col"
+          componentClass="div"
+          sm={12}
+        >
+          <Component
+            component="div"
+            loaded={true}
+            loadedClassName="loadedContent"
+            parentClassName="loader"
+          >
+            <InjectIntl(InjectT(ManageReservationsList))
+              reservations={Array []}
+              units={Array []}
+            />
+          </Component>
+          <InjectT(Pagination)
+            onChange={[Function]}
+            page={1}
+            pages={0}
+          />
+        </Col>
+      </Row>
     </PageWrapper>
   </div>
 </div>

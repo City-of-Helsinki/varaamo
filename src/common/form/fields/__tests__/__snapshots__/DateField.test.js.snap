@@ -1,38 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DateFilter render normally 1`] = `
+exports[`DateField renders correctly 1`] = `
 <div
-  className="app-DateFilter"
+  className="app-DateField"
 >
-  <ControlLabel
-    bsClass="control-label"
-    srOnly={false}
-  >
-    foo
-  </ControlLabel>
   <FormGroup
     bsClass="form-group"
     onClick={[Function]}
   >
+    <ControlLabel
+      bsClass="control-label"
+      className="app-DateField__label"
+      srOnly={false}
+    >
+      foo
+    </ControlLabel>
     <InputGroup
       bsClass="input-group"
     >
       <InputGroupAddon
         bsClass="input-group-addon"
-        className="app-DateFilter__title"
+        className="app-DateField__input"
       >
         <img
           alt=""
-          className="app-DateFilter__icon"
+          className="app-DateField__icon"
           src="test-file-stub"
         />
-        <span>
-          10.12.2017
+        <span
+          className="value"
+        >
+          09.09.2019
         </span>
       </InputGroupAddon>
       <InputGroupAddon
         bsClass="input-group-addon"
-        className="app-DateFilter__triangle"
+        className="app-DateField__triangle"
       >
         <Glyphicon
           bsClass="glyphicon"
@@ -48,7 +51,7 @@ exports[`DateFilter render normally 1`] = `
         "context": Object {},
         "onChange": [Function],
         "props": Object {
-          "date": 2017-12-09T22:00:00.000Z,
+          "id": "foo",
           "intl": Object {
             "defaultFormats": Object {},
             "defaultLocale": "en",
@@ -242,7 +245,6 @@ exports[`DateFilter render normally 1`] = `
               "ReservationForm.eventSubjectInfo": "ReservationForm.eventSubjectInfo",
               "ReservationForm.maxLengthError": "ReservationForm.maxLengthError",
               "ReservationForm.requiredError": "ReservationForm.requiredError",
-              "ReservationForm.reservationFieldsAsteriskExplanation": "ReservationForm.reservationFieldsAsteriskExplanation",
               "ReservationForm.staffEventHelp": "ReservationForm.staffEventHelp",
               "ReservationForm.staffEventLabel": "ReservationForm.staffEventLabel",
               "ReservationForm.termsAndConditionsError": "ReservationForm.termsAndConditionsError",
@@ -269,10 +271,8 @@ exports[`DateFilter render normally 1`] = `
               "ReservationPage.detailsTitle": "ReservationPage.detailsTitle",
               "ReservationPage.editReservationTitle": "ReservationPage.editReservationTitle",
               "ReservationPage.newReservationTitle": "ReservationPage.newReservationTitle",
-              "ReservationPage.paymentText": "ReservationPage.paymentText",
               "ReservationPhase.confirmationTitle": "ReservationPhase.confirmationTitle",
               "ReservationPhase.informationTitle": "ReservationPhase.informationTitle",
-              "ReservationPhase.paymentTitle": "ReservationPhase.paymentTitle",
               "ReservationPhase.timeTitle": "ReservationPhase.timeTitle",
               "ReservationPopover.selectionInfoHeader": "ReservationPopover.selectionInfoHeader",
               "ReservationSuccessModal.emailHelpText": "ReservationSuccessModal.emailHelpText",
@@ -369,10 +369,6 @@ exports[`DateFilter render normally 1`] = `
               "common.addressZipLabel": "common.addressZipLabel",
               "common.back": "common.back",
               "common.billingAddressLabel": "common.billingAddressLabel",
-              "common.billingEmailAddressLabel": "common.billingEmailAddressLabel",
-              "common.billingFirstNameLabel": "common.billingFirstNameLabel",
-              "common.billingLastNameLabel": "common.billingLastNameLabel",
-              "common.billingPhoneNumberLabel": "common.billingPhoneNumberLabel",
               "common.cancel": "common.cancel",
               "common.cancelled": "common.cancelled",
               "common.cancelling": "common.cancelling",
@@ -388,11 +384,7 @@ exports[`DateFilter render normally 1`] = `
               "common.numberOfParticipantsLabel": "common.numberOfParticipantsLabel",
               "common.ok": "common.ok",
               "common.optionsAllLabel": "common.optionsAllLabel",
-              "common.pay": "common.pay",
-              "common.paymentInformationLabel": "common.paymentInformationLabel",
               "common.previous": "common.previous",
-              "common.priceLabel": "common.priceLabel",
-              "common.priceWithVAT": "common.priceWithVAT",
               "common.requested": "common.requested",
               "common.reservationTimeLabel": "common.reservationTimeLabel",
               "common.reserverAddressLabel": "common.reserverAddressLabel",
@@ -404,12 +396,8 @@ exports[`DateFilter render normally 1`] = `
               "common.save": "common.save",
               "common.saving": "common.saving",
               "common.select": "common.select",
-              "common.totalPriceLabel": "common.totalPriceLabel",
               "common.userEmailLabel": "common.userEmailLabel",
               "common.userNameLabel": "common.userNameLabel",
-              "payment.link": "payment.link",
-              "payment.text": "payment.text",
-              "payment.title": "payment.title",
             },
             "now": [Function],
             "onError": [Function],
@@ -418,6 +406,7 @@ exports[`DateFilter render normally 1`] = `
           },
           "label": "foo",
           "onChange": [MockFunction],
+          "value": 2019-09-08T21:00:00.000Z,
         },
         "refs": Object {},
         "state": Object {
@@ -443,7 +432,7 @@ exports[`DateFilter render normally 1`] = `
               "useState": [Function],
             },
             "_element": <DateFilter
-              date={2017-12-09T22:00:00.000Z}
+              id="foo"
               intl={
                 Object {
                   "defaultFormats": Object {},
@@ -638,7 +627,6 @@ exports[`DateFilter render normally 1`] = `
                     "ReservationForm.eventSubjectInfo": "ReservationForm.eventSubjectInfo",
                     "ReservationForm.maxLengthError": "ReservationForm.maxLengthError",
                     "ReservationForm.requiredError": "ReservationForm.requiredError",
-                    "ReservationForm.reservationFieldsAsteriskExplanation": "ReservationForm.reservationFieldsAsteriskExplanation",
                     "ReservationForm.staffEventHelp": "ReservationForm.staffEventHelp",
                     "ReservationForm.staffEventLabel": "ReservationForm.staffEventLabel",
                     "ReservationForm.termsAndConditionsError": "ReservationForm.termsAndConditionsError",
@@ -665,10 +653,8 @@ exports[`DateFilter render normally 1`] = `
                     "ReservationPage.detailsTitle": "ReservationPage.detailsTitle",
                     "ReservationPage.editReservationTitle": "ReservationPage.editReservationTitle",
                     "ReservationPage.newReservationTitle": "ReservationPage.newReservationTitle",
-                    "ReservationPage.paymentText": "ReservationPage.paymentText",
                     "ReservationPhase.confirmationTitle": "ReservationPhase.confirmationTitle",
                     "ReservationPhase.informationTitle": "ReservationPhase.informationTitle",
-                    "ReservationPhase.paymentTitle": "ReservationPhase.paymentTitle",
                     "ReservationPhase.timeTitle": "ReservationPhase.timeTitle",
                     "ReservationPopover.selectionInfoHeader": "ReservationPopover.selectionInfoHeader",
                     "ReservationSuccessModal.emailHelpText": "ReservationSuccessModal.emailHelpText",
@@ -765,10 +751,6 @@ exports[`DateFilter render normally 1`] = `
                     "common.addressZipLabel": "common.addressZipLabel",
                     "common.back": "common.back",
                     "common.billingAddressLabel": "common.billingAddressLabel",
-                    "common.billingEmailAddressLabel": "common.billingEmailAddressLabel",
-                    "common.billingFirstNameLabel": "common.billingFirstNameLabel",
-                    "common.billingLastNameLabel": "common.billingLastNameLabel",
-                    "common.billingPhoneNumberLabel": "common.billingPhoneNumberLabel",
                     "common.cancel": "common.cancel",
                     "common.cancelled": "common.cancelled",
                     "common.cancelling": "common.cancelling",
@@ -784,11 +766,7 @@ exports[`DateFilter render normally 1`] = `
                     "common.numberOfParticipantsLabel": "common.numberOfParticipantsLabel",
                     "common.ok": "common.ok",
                     "common.optionsAllLabel": "common.optionsAllLabel",
-                    "common.pay": "common.pay",
-                    "common.paymentInformationLabel": "common.paymentInformationLabel",
                     "common.previous": "common.previous",
-                    "common.priceLabel": "common.priceLabel",
-                    "common.priceWithVAT": "common.priceWithVAT",
                     "common.requested": "common.requested",
                     "common.reservationTimeLabel": "common.reservationTimeLabel",
                     "common.reserverAddressLabel": "common.reserverAddressLabel",
@@ -800,12 +778,8 @@ exports[`DateFilter render normally 1`] = `
                     "common.save": "common.save",
                     "common.saving": "common.saving",
                     "common.select": "common.select",
-                    "common.totalPriceLabel": "common.totalPriceLabel",
                     "common.userEmailLabel": "common.userEmailLabel",
                     "common.userNameLabel": "common.userNameLabel",
-                    "payment.link": "payment.link",
-                    "payment.text": "payment.text",
-                    "payment.title": "payment.title",
                   },
                   "now": [Function],
                   "onError": [Function],
@@ -815,6 +789,7 @@ exports[`DateFilter render normally 1`] = `
               }
               label="foo"
               onChange={[MockFunction]}
+              value={2019-09-08T21:00:00.000Z}
             />,
             "_firstWorkInProgressHook": null,
             "_forcedUpdate": false,
@@ -825,37 +800,40 @@ exports[`DateFilter render normally 1`] = `
             "_previousComponentIdentity": null,
             "_renderPhaseUpdates": null,
             "_rendered": <div
-              className="app-DateFilter"
+              className="app-DateField"
             >
-              <ControlLabel
-                bsClass="control-label"
-                srOnly={false}
-              >
-                foo
-              </ControlLabel>
               <FormGroup
                 bsClass="form-group"
                 onClick={[Function]}
               >
+                <ControlLabel
+                  bsClass="control-label"
+                  className="app-DateField__label"
+                  srOnly={false}
+                >
+                  foo
+                </ControlLabel>
                 <InputGroup
                   bsClass="input-group"
                 >
                   <InputGroupAddon
                     bsClass="input-group-addon"
-                    className="app-DateFilter__title"
+                    className="app-DateField__input"
                   >
                     <img
                       alt=""
-                      className="app-DateFilter__icon"
+                      className="app-DateField__icon"
                       src="test-file-stub"
                     />
-                    <span>
-                      10.12.2017
+                    <span
+                      className="value"
+                    >
+                      09.09.2019
                     </span>
                   </InputGroupAddon>
                   <InputGroupAddon
                     bsClass="input-group-addon"
-                    className="app-DateFilter__triangle"
+                    className="app-DateField__triangle"
                   >
                     <Glyphicon
                       bsClass="glyphicon"
@@ -943,10 +921,9 @@ exports[`DateFilter render normally 1`] = `
                         "wrapper": "DayPicker-wrapper",
                       }
                     }
-                    disabledDays={[Function]}
                     enableOutsideDaysClick={true}
                     fixedWeeks={false}
-                    initialMonth={2017-12-09T22:00:00.000Z}
+                    initialMonth={2019-09-08T21:00:00.000Z}
                     labels={
                       Object {
                         "nextMonth": "Next Month",
@@ -1012,7 +989,7 @@ exports[`DateFilter render normally 1`] = `
                     renderDay={[Function]}
                     renderWeek={[Function]}
                     reverseMonths={false}
-                    selectedDays={2017-12-09T22:00:00.000Z}
+                    selectedDays={2019-09-08T21:00:00.000Z}
                     showOutsideDays={true}
                     showWeekDays={true}
                     showWeekNumbers={true}
@@ -1105,10 +1082,9 @@ exports[`DateFilter render normally 1`] = `
             "wrapper": "DayPicker-wrapper",
           }
         }
-        disabledDays={[Function]}
         enableOutsideDaysClick={true}
         fixedWeeks={false}
-        initialMonth={2017-12-09T22:00:00.000Z}
+        initialMonth={2019-09-08T21:00:00.000Z}
         labels={
           Object {
             "nextMonth": "Next Month",
@@ -1174,7 +1150,7 @@ exports[`DateFilter render normally 1`] = `
         renderDay={[Function]}
         renderWeek={[Function]}
         reverseMonths={false}
-        selectedDays={2017-12-09T22:00:00.000Z}
+        selectedDays={2019-09-08T21:00:00.000Z}
         showOutsideDays={true}
         showWeekDays={true}
         showWeekNumbers={true}

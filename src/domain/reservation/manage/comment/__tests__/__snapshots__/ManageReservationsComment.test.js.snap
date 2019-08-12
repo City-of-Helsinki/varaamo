@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ManageReservationsComment renders correctly 1`] = `
+<div
+  className="app-ManageReservationComments"
+>
+  <PopoverOverlay
+    content={
+      <p>
+        foo
+      </p>
+    }
+    placement="top"
+    title={
+      <FormattedMessage
+        id="CommentForm.label"
+        values={Object {}}
+      />
+    }
+  >
+    <img
+      alt="manageReservationCommentIcon"
+      src="test-file-stub"
+    />
+  </PopoverOverlay>
+</div>
+`;
