@@ -27,7 +27,7 @@ function RecurringReservationControls({
   return (
     <div className="recurring-reservation-controls">
       <Row>
-        <Col sm={3} xs={12}>
+        <Col md={3} xs={12}>
           <div className="recurring-reservation-frequency-control">
             <label htmlFor="recurrence-frequency-select">
               {t('RecurringReservationControls.frequencyLabel')}
@@ -45,7 +45,7 @@ function RecurringReservationControls({
           </div>
         </Col>
         {frequency !== '' && (
-          <Col sm={3} xs={12}>
+          <Col md={3} xs={12}>
             <FormGroup controlId="numberOfOccurrencesGroup">
               <ControlLabel>
                 {t('RecurringReservationControls.numberOfOccurrencesLabel')}
@@ -60,7 +60,7 @@ function RecurringReservationControls({
           </Col>
         )}
         {frequency !== '' && (
-          <Col sm={6} xs={12}>
+          <Col md={6} xs={12}>
             <FormGroup controlId="LastTimeGroup">
               <ControlLabel>{t('RecurringReservationControls.lastTimeLabel')}</ControlLabel>
               <DatePicker
