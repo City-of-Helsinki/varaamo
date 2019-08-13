@@ -10,6 +10,7 @@ import WrappedText from '../../../shared/wrapped-text/WrappedText';
 import { getServiceMapUrl } from '../../../utils/unitUtils';
 import ReservationInfo from '../reservation-info/ReservationInfo';
 import Equipment from '../resource-equipment/ResourceEquipment';
+import SpecificTerms from '../resource-specific-terms/ResourceSpecificTerms';
 
 function ResourceInfo({
   isLoggedIn, resource, unit, t
@@ -25,6 +26,7 @@ function ResourceInfo({
         <Panel defaultExpanded header={t('ResourceInfo.reservationTitle')}>
           <ReservationInfo isLoggedIn={isLoggedIn} resource={resource} />
         </Panel>
+        <SpecificTerms resource={resource} />
         <Panel defaultExpanded header={t('ResourceInfo.additionalInfoTitle')}>
           <Row>
             <Col className="app-ResourceInfo__address" xs={6}>
