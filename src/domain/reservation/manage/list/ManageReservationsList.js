@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import get from 'lodash/get';
@@ -64,8 +64,9 @@ const ManageReservationsList = ({
                 <td><ManageReservationsPincode reservation={reservation} /></td>
                 <td><ManageReservationsComment comments={reservation.comments} /></td>
                 <td><ManageReservationsStatus reservation={reservation} /></td>
-                <td><ManageReservationsDropdown /></td>
+                <td><ManageReservationsDropdown reservation={reservation} /></td>
               </tr>
+
             );
           })}
         </tbody>

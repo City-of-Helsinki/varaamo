@@ -1,0 +1,24 @@
+.app-ManageReservationsInfoModal {
+  .app-ManageReservationsStatus {
+    margin: 1em 0;
+    text-align: right;
+  }
+  &__information {
+    &__account {
+      background: $medium-gray;
+      padding: 0.5em 0;
+    }
+  }
+
+  &__field {
+    margin: 1em 0;
+
+    &__label {
+      font-weight: $font-weight-bold;
+      text-align: right;
+    }
+    &__value {
+      text-align: left;
+    }
+  }
+}
