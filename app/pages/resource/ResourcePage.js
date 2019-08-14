@@ -10,6 +10,7 @@ import { bindActionCreators } from 'redux';
 import Col from 'react-bootstrap/lib/Col';
 import Panel from 'react-bootstrap/lib/Panel';
 import Lightbox from 'lightbox-react';
+import { decamelizeKeys } from 'humps';
 import 'lightbox-react/style.css';
 
 import { fetchResource } from '../../actions/resourceActions';
@@ -25,6 +26,7 @@ import ResourceInfo from './resource-info/ResourceInfo';
 import ResourceMapInfo from './resource-map-info/ResourceMapInfo';
 import resourcePageSelector from './resourcePageSelector';
 import ResourceMap from '../../../src/domain/resource/map/ResourceMap';
+import ResourceReservationCalendar from '../../../src/domain/resource/reservationCalendar/ResourceReservationCalendar';
 
 class UnconnectedResourcePage extends Component {
   constructor(props) {
@@ -64,6 +66,8 @@ class UnconnectedResourcePage extends Component {
   };
 
   handleDateChange = (newDate) => {
+    console.warn(newDate);
+
     const { resource, history } = this.props;
     const day = newDate.toISOString().substring(0, 10);
     history.replace(getResourcePageUrl(resource, day));
@@ -214,6 +218,11 @@ class UnconnectedResourcePage extends Component {
                           onDateChange={this.handleDateChange}
                           resourceId={resource.id}
                           selectedDate={date}
+                        />
+                        <ResourceReservationCalendar
+                          date={date}
+                          onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())}
+                          resource={decamelizeKeys(resource)}
                         />
                         <ReservationCalendar
                           history={history}
