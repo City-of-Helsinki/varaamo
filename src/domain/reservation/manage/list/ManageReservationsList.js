@@ -29,6 +29,7 @@ const ManageReservationsList = ({
   t,
   reservations = [],
   units = [],
+  toggleModal
 }) => {
   return (
     <div className="app-ManageReservationsList">
@@ -64,7 +65,7 @@ const ManageReservationsList = ({
                 <td><ManageReservationsPincode reservation={reservation} /></td>
                 <td><ManageReservationsComment comments={reservation.comments} /></td>
                 <td><ManageReservationsStatus reservation={reservation} /></td>
-                <td><ManageReservationsDropdown reservation={reservation} /></td>
+                <td><ManageReservationsDropdown reservation={reservation} toggleModal={toggleModal} /></td>
               </tr>
 
             );
@@ -80,6 +81,7 @@ ManageReservationsList.propTypes = {
   reservations: PropTypes.array,
   units: PropTypes.array,
   intl: intlShape,
+  toggleModal: PropTypes.func
 };
 
 export const UnwrappedManageReservationsList = injectT(ManageReservationsList);

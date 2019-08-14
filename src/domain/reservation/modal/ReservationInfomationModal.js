@@ -5,26 +5,26 @@ import {
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
 
-import ManageReservationsStatus from '../status/ManageReservationsStatus';
-import injectT from '../../../../../app/i18n/injectT';
-import { getDateAndTime } from '../list/ManageReservationsList';
+import ManageReservationsStatus from '../manage/status/ManageReservationsStatus';
+import injectT from '../../../../app/i18n/injectT';
+import { getDateAndTime } from '../manage/list/ManageReservationsList';
 
-const ManageReservationsInfoModal = ({
+const ReservationInfomationModal = ({
   t, reservation, onHide, isOpen
 }) => {
   const renderField = (label, value) => {
     return (
-      <div className="app-ManageReservationsInfoModal__field">
+      <div className="app-ReservationInfomationModal__field">
         <Row>
-          <Col className="app-ManageReservationsInfoModal__field__label" xs={5}><span>{t(label)}</span></Col>
-          <Col className="app-ManageReservationsInfoModal__field__value" xs={7}><span>{value}</span></Col>
+          <Col className="app-ReservationInfomationModal__field__label" xs={5}><span>{t(label)}</span></Col>
+          <Col className="app-ReservationInfomationModal__field__value" xs={7}><span>{value}</span></Col>
         </Row>
       </div>
     );
   };
   return (
     <Modal
-      className="app-ManageReservationsInfoModal"
+      className="app-ReservationInfomationModal"
       onHide={onHide}
       show={isOpen}
     >
@@ -33,8 +33,8 @@ const ManageReservationsInfoModal = ({
       </Modal.Header>
       <Modal.Body>
         <ManageReservationsStatus reservation={reservation} />
-        <div className="app-ManageReservationsInfoModal__information">
-          <div className="app-ManageReservationsInfoModal__information__account">
+        <div className="app-ReservationInfomationModal__information">
+          <div className="app-ReservationInfomationModal__information__account">
             {renderField('common.userNameLabel', get(reservation, 'user.display_name', ''))}
             {renderField('common.userEmailLabel', get(reservation, 'user.email', ''))}
           </div>
@@ -68,11 +68,11 @@ const ManageReservationsInfoModal = ({
   );
 };
 
-ManageReservationsInfoModal.propTypes = {
+ReservationInfomationModal.propTypes = {
   t: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
   onHide: PropTypes.func,
   isOpen: PropTypes.bool
 };
 
-export default injectT(ManageReservationsInfoModal);
+export default injectT(ReservationInfomationModal);
