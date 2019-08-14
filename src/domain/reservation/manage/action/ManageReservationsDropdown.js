@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import injectT from '../../../../../app/i18n/injectT';
 
 const ManageReservationsDropdown = ({
-  t, toggleModal, reservation
+  t, onInfoClick, reservation
 }) => {
   return (
     <div className="app-ManageReservationDropdown">
@@ -13,7 +13,7 @@ const ManageReservationsDropdown = ({
         id="app-ManageReservationDropdown"
         title={t('ManageReservationsList.actionsHeader')}
       >
-        <MenuItem onClick={e => toggleModal(e, reservation)}>
+        <MenuItem onClick={e => onInfoClick(e, reservation)}>
           {t('ManageReservationsList.actionLabel.information')}
         </MenuItem>
         <MenuItem>{t('ManageReservationsList.actionLabel.approve')}</MenuItem>
@@ -26,7 +26,7 @@ const ManageReservationsDropdown = ({
 
 ManageReservationsDropdown.propTypes = {
   t: PropTypes.func,
-  toggleModal: PropTypes.func,
+  onInfoClick: PropTypes.func,
   reservation: PropTypes.object
 };
 export default injectT(ManageReservationsDropdown);

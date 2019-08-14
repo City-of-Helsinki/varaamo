@@ -50,7 +50,7 @@ class ManageReservationsPage extends React.Component {
     }
   }
 
-  toggleModal = (e, reservation) => {
+  onInfoClick = (e, reservation) => {
     this.setState(prevState => ({
       isModalOpen: !prevState.isModalOpen,
       selectedReservation: reservation
@@ -146,8 +146,8 @@ class ManageReservationsPage extends React.Component {
               <Col sm={12}>
                 <Loader loaded={!isLoading && !isLoadingUnits}>
                   <ManageReservationsList
+                    onInfoClick={this.onInfoClick}
                     reservations={reservations}
-                    toggleModal={this.toggleModal}
                     units={units}
                   />
                 </Loader>
@@ -166,7 +166,7 @@ class ManageReservationsPage extends React.Component {
         <div className="app-ManageReservationsPage__modal">
           <ReservationInfomationModal
             isOpen={isModalOpen}
-            onHide={this.toggleModal}
+            onHide={this.onInfoClick}
             reservation={selectedReservation}
           />
         </div>
