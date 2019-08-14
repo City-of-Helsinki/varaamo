@@ -12,6 +12,7 @@ import ManageReservationsFilters from '../filters/ManageReservationsFilters';
 import ManageReservationsList from '../list/ManageReservationsList';
 import Pagination from '../../../../common/pagination/Pagination';
 import * as searchUtils from '../../../search/utils';
+import ReservationInfomationModal from '../../modal/ReservationInfomationModal';
 
 export const PAGE_SIZE = 50;
 
@@ -31,6 +32,8 @@ class ManageReservationsPage extends React.Component {
       reservations: [],
       units: [],
       totalCount: 0,
+      isModalOpen: false,
+      selectedReservation: {}
     };
   }
 
@@ -45,6 +48,13 @@ class ManageReservationsPage extends React.Component {
     if (prevProps.location !== location) {
       this.loadReservations();
     }
+  }
+
+  onInfoClick = (e, reservation) => {
+    this.setState(prevState => ({
+      isModalOpen: !prevState.isModalOpen,
+      selectedReservation: reservation
+    }));
   }
 
   loadReservations = () => {
@@ -107,6 +117,8 @@ class ManageReservationsPage extends React.Component {
       reservations,
       units,
       totalCount,
+      isModalOpen,
+      selectedReservation
     } = this.state;
 
     const filters = searchUtils.getFiltersFromUrl(location, false);
@@ -134,6 +146,7 @@ class ManageReservationsPage extends React.Component {
               <Col sm={12}>
                 <Loader loaded={!isLoading && !isLoadingUnits}>
                   <ManageReservationsList
+                    onInfoClick={this.onInfoClick}
                     reservations={reservations}
                     units={units}
                   />
@@ -149,6 +162,15 @@ class ManageReservationsPage extends React.Component {
             </Row>
           </PageWrapper>
         </div>
+        {isModalOpen && (
+        <div className="app-ManageReservationsPage__modal">
+          <ReservationInfomationModal
+            isOpen={isModalOpen}
+            onHide={this.onInfoClick}
+            reservation={selectedReservation}
+          />
+        </div>
+        )}
       </div>
     );
   }

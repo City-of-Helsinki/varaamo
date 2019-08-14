@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import get from 'lodash/get';
@@ -12,7 +12,7 @@ import ManageReservationsPincode from '../pincode/ManageReservationsPincode';
 import ManageReservationsComment from '../comment/ManageReservationsComment';
 import ManageReservationsDropdown from '../action/ManageReservationsDropdown';
 
-const getDateAndTime = (reservation) => {
+export const getDateAndTime = (reservation) => {
   const begin = moment(reservation.begin);
   const end = moment(reservation.end);
 
@@ -29,6 +29,7 @@ const ManageReservationsList = ({
   t,
   reservations = [],
   units = [],
+  onInfoClick
 }) => {
   return (
     <div className="app-ManageReservationsList">
@@ -64,8 +65,9 @@ const ManageReservationsList = ({
                 <td><ManageReservationsPincode reservation={reservation} /></td>
                 <td><ManageReservationsComment comments={reservation.comments} /></td>
                 <td><ManageReservationsStatus reservation={reservation} /></td>
-                <td><ManageReservationsDropdown /></td>
+                <td><ManageReservationsDropdown onInfoClick={onInfoClick} reservation={reservation} /></td>
               </tr>
+
             );
           })}
         </tbody>
@@ -79,6 +81,7 @@ ManageReservationsList.propTypes = {
   reservations: PropTypes.array,
   units: PropTypes.array,
   intl: intlShape,
+  onInfoClick: PropTypes.func
 };
 
 export const UnwrappedManageReservationsList = injectT(ManageReservationsList);

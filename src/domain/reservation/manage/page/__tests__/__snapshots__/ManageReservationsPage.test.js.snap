@@ -55,6 +55,7 @@ exports[`ManageReservationsPage renders correctly 1`] = `
             parentClassName="loader"
           >
             <InjectIntl(InjectT(ManageReservationsList))
+              onInfoClick={[Function]}
               reservations={Array []}
               units={Array []}
             />
