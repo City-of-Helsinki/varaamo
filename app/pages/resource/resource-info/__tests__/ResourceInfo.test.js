@@ -67,15 +67,6 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
     expect(reservationInfo.prop('resource')).toEqual(defaultProps.resource);
   });
 
-  test('renders specific terms heading', () => {
-    const panels = getWrapper().find(Panel);
-    const heading = getWrapper().find('h3');
-
-    expect(panels).toHaveLength(3);
-    expect(heading).toHaveLength(1);
-    expect(heading.text()).toBe('ResourcePage.specificTerms');
-  });
-
   test('renders specific terms content', () => {
     const specificTermsRow = getWrapper().find(Row);
     expect(specificTermsRow).toHaveLength(3);
