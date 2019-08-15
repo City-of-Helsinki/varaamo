@@ -29,17 +29,24 @@ import ResourceMap from '../../../src/domain/resource/map/ResourceMap';
 import ResourceReservationCalendar from '../../../src/domain/resource/reservationCalendar/ResourceReservationCalendar';
 
 class UnconnectedResourcePage extends Component {
-  constructor(props) {
-    super(props);
+  static propTypes = {
+    actions: PropTypes.object.isRequired,
+    date: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    isFetchingResource: PropTypes.bool.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
+    location: PropTypes.object.isRequired,
+    resource: PropTypes.object.isRequired,
+    showMap: PropTypes.bool.isRequired,
+    t: PropTypes.func.isRequired,
+    unit: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+  };
 
-    this.state = {
-      photoIndex: 0,
-      isOpen: false,
-    };
-
-    this.fetchResource = this.fetchResource.bind(this);
-    this.handleBackButton = this.handleBackButton.bind(this);
-  }
+  state = {
+    photoIndex: 0,
+    isOpen: false,
+  };
 
   componentDidMount() {
     this.props.actions.clearReservations();
@@ -52,12 +59,12 @@ class UnconnectedResourcePage extends Component {
     }
   }
 
-  getImageThumbnailUrl(image) {
+  getImageThumbnailUrl = (image) => {
     const width = 700;
     const height = 420;
 
     return `${image.url}?dim=${width}x${height}`;
-  }
+  };
 
   isDayReservable = (day) => {
     const { resource: { reservableAfter } } = this.props;
@@ -71,20 +78,20 @@ class UnconnectedResourcePage extends Component {
     history.replace(getResourcePageUrl(resource, day));
   };
 
-  handleBackButton() {
+  handleBackButton = () => {
     this.props.history.goBack();
-  }
+  };
 
-  handleImageClick(photoIndex) {
+  handleImageClick = (photoIndex) => {
     this.setState(() => ({ isOpen: true, photoIndex }));
-  }
+  };
 
-  orderImages(images) {
+  orderImages = (images) => {
     return [].concat(
       images.filter(image => image.type === 'main'),
       images.filter(image => image.type !== 'main')
     );
-  }
+  };
 
   renderImage = (image, index, { mainImageMobileVisibility = false }) => {
     const isMainImage = image.type === 'main';
@@ -111,7 +118,7 @@ class UnconnectedResourcePage extends Component {
     );
   };
 
-  fetchResource(date = this.props.date) {
+  fetchResource = (date = this.props.date) => {
     const { actions, id } = this.props;
     const start = moment(date)
       .subtract(2, 'M')
@@ -123,7 +130,7 @@ class UnconnectedResourcePage extends Component {
       .format();
 
     actions.fetchResource(id, { start, end });
-  }
+  };
 
   render() {
     const {
@@ -256,19 +263,6 @@ class UnconnectedResourcePage extends Component {
   }
 }
 
-UnconnectedResourcePage.propTypes = {
-  actions: PropTypes.object.isRequired,
-  date: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  isFetchingResource: PropTypes.bool.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
-  location: PropTypes.object.isRequired,
-  resource: PropTypes.object.isRequired,
-  showMap: PropTypes.bool.isRequired,
-  t: PropTypes.func.isRequired,
-  unit: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
-};
 UnconnectedResourcePage = injectT(UnconnectedResourcePage); // eslint-disable-line
 
 function mapDispatchToProps(dispatch) {
