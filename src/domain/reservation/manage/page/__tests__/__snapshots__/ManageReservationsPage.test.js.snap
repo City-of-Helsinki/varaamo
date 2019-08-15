@@ -57,7 +57,6 @@ exports[`ManageReservationsPage renders correctly 1`] = `
             <InjectIntl(InjectT(ManageReservationsList))
               onInfoClick={[Function]}
               reservations={Array []}
-              units={Array []}
             />
           </Component>
           <InjectT(Pagination)

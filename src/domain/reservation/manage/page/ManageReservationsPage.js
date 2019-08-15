@@ -70,6 +70,7 @@ class ManageReservationsPage extends React.Component {
     const params = {
       ...filters,
       page_size: PAGE_SIZE,
+      include: 'resource_detail'
     };
 
     client.get('reservation', params)
@@ -120,7 +121,6 @@ class ManageReservationsPage extends React.Component {
       isModalOpen,
       selectedReservation
     } = this.state;
-
     const filters = searchUtils.getFiltersFromUrl(location, false);
     const title = t('ManageReservationsPage.title');
 
@@ -148,7 +148,6 @@ class ManageReservationsPage extends React.Component {
                   <ManageReservationsList
                     onInfoClick={this.onInfoClick}
                     reservations={reservations}
-                    units={units}
                   />
                 </Loader>
                 <Pagination

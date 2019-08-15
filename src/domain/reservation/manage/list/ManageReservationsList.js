@@ -19,16 +19,10 @@ export const getDateAndTime = (reservation) => {
   return `${begin.format('ddd L HH:mm')} - ${end.format('HH:mm')}`;
 };
 
-const getResourceUnit = (resource, units) => {
-  // TODO: Get the correct resource unit when API supports adding resource objects to reservations endpoint.
-  return units[Math.round(Math.random() * units.length) - 1];
-};
-
 const ManageReservationsList = ({
   intl,
   t,
   reservations = [],
-  units = [],
   onInfoClick
 }) => {
   return (
@@ -51,15 +45,13 @@ const ManageReservationsList = ({
         </thead>
         <tbody>
           {reservations.map((reservation) => {
-            const unit = getResourceUnit(reservation.resource, units);
-
             return (
               <tr key={`reservation-${reservation.id}`}>
                 <td>{get(reservation, 'event_description', '')}</td>
                 <td>{get(reservation, 'user.display_name', '')}</td>
                 <td>{get(reservation, 'user.email', '')}</td>
-                <td>{get(reservation, 'resource')}</td>
-                <td>{dataUtils.getLocalizedFieldValue(get(unit, 'name'), intl.locale)}</td>
+                <td>{dataUtils.getLocalizedFieldValue(get(reservation, 'resource.name'), intl.locale)}</td>
+                <td>{dataUtils.getLocalizedFieldValue(get(reservation, 'resource.unit.name'), intl.locale)}</td>
                 <td>{getDateAndTime(reservation)}</td>
                 <td />
                 <td><ManageReservationsPincode reservation={reservation} /></td>
@@ -79,7 +71,6 @@ const ManageReservationsList = ({
 ManageReservationsList.propTypes = {
   t: PropTypes.func.isRequired,
   reservations: PropTypes.array,
-  units: PropTypes.array,
   intl: intlShape,
   onInfoClick: PropTypes.func
 };
