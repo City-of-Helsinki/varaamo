@@ -53,9 +53,7 @@ exports[`ManageReservationsList renders correctly 1`] = `
         <td />
         <td />
         <td />
-        <td>
-          1
-        </td>
+        <td />
         <td />
         <td>
           Invalid date - Invalid date
