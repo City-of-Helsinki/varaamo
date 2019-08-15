@@ -2,6 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import uniqBy from 'lodash/uniqBy';
+import map from 'lodash/map';
 import Loader from 'react-loader';
 import { withRouter } from 'react-router-dom';
 import { Grid, Row, Col } from 'react-bootstrap';
@@ -78,7 +79,7 @@ class ManageReservationsPage extends React.Component {
           isLoading: false,
           reservations: get(data, 'results', []),
           totalCount: get(data, 'count', 0),
-          units: Array.isArray(data.results) && data.results.map(reservation => get(reservation, 'resource.unit', {}))
+          units: map(data.results, reservation => get(reservation, 'resource.unit', {}), [])
         });
       });
   };
