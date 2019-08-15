@@ -30,10 +30,10 @@ class ManageReservationsPage extends React.Component {
       isLoading: false,
       isLoadingUnits: false,
       reservations: [],
+      units: [],
       totalCount: 0,
       isModalOpen: false,
-      selectedReservation: {},
-      units: [],
+      selectedReservation: {}
     };
   }
 
@@ -78,7 +78,7 @@ class ManageReservationsPage extends React.Component {
         this.setState({
           isLoading: false,
           reservations: get(data, 'results', []),
-          totalCount: get(data, 'count', 0)
+          totalCount: get(data, 'count', 0),
         });
       });
   };
@@ -114,12 +114,12 @@ class ManageReservationsPage extends React.Component {
 
     const {
       isLoading,
+      isLoadingUnits,
       reservations,
+      units,
       totalCount,
       isModalOpen,
-      selectedReservation,
-      isLoadingUnits,
-      units
+      selectedReservation
     } = this.state;
     const filters = searchUtils.getFiltersFromUrl(location, false);
     const title = t('ManageReservationsPage.title');
