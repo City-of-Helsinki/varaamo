@@ -25,8 +25,7 @@ function ResourceInfo({
         <Panel defaultExpanded header={t('ResourceInfo.reservationTitle')}>
           <ReservationInfo isLoggedIn={isLoggedIn} resource={resource} />
         </Panel>
-        <Panel>
-          <h3>{t('ResourcePage.specificTerms')}</h3>
+        <Panel defaultExpanded header={t('ResourcePage.specificTerms')}>
           <Row>
             {resource.specificTerms}
           </Row>
