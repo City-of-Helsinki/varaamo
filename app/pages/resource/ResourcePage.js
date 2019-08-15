@@ -21,7 +21,6 @@ import NotFoundPage from '../not-found/NotFoundPage';
 import ResourceCalendar from '../../shared/resource-calendar/ResourceCalendar';
 import injectT from '../../i18n/injectT';
 import { getMaxPeriodText, getResourcePageUrl, getMinPeriodText } from '../../utils/resourceUtils';
-// import ReservationCalendar from './reservation-calendar/ReservationCalendarContainer';
 import ResourceHeader from './resource-header/ResourceHeader';
 import ResourceInfo from './resource-info/ResourceInfo';
 import ResourceMapInfo from './resource-map-info/ResourceMapInfo';
@@ -133,15 +132,12 @@ class UnconnectedResourcePage extends Component {
       isFetchingResource,
       isLoggedIn,
       location,
-      // match,
       resource,
       showMap,
       t,
       unit,
-      // history,
     } = this.props;
 
-    // const { params } = match;
     const { isOpen, photoIndex } = this.state;
 
     if (isEmpty(resource) && !isFetchingResource) {
@@ -223,11 +219,6 @@ class UnconnectedResourcePage extends Component {
                           onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())}
                           resource={decamelizeKeys(resource)}
                         />
-                        {/* <ReservationCalendar
-                          history={history}
-                          location={location}
-                          params={params}
-                        /> */}
                       </div>
                     )}
                   </Panel>
@@ -272,7 +263,6 @@ UnconnectedResourcePage.propTypes = {
   isFetchingResource: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
-  // match: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   showMap: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
