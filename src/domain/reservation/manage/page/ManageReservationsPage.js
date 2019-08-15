@@ -1,8 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
-import uniqBy from 'lodash/uniqBy';
-import map from 'lodash/map';
 import Loader from 'react-loader';
 import { withRouter } from 'react-router-dom';
 import { Grid, Row, Col } from 'react-bootstrap';
@@ -30,6 +28,7 @@ class ManageReservationsPage extends React.Component {
 
     this.state = {
       isLoading: false,
+      isLoadingUnits: false,
       reservations: [],
       totalCount: 0,
       isModalOpen: false,
@@ -39,6 +38,7 @@ class ManageReservationsPage extends React.Component {
   }
 
   componentDidMount() {
+    this.loadUnits();
     this.loadReservations();
   }
 
@@ -78,8 +78,21 @@ class ManageReservationsPage extends React.Component {
         this.setState({
           isLoading: false,
           reservations: get(data, 'results', []),
-          totalCount: get(data, 'count', 0),
-          units: map(data.results, reservation => get(reservation, 'resource.unit', {}), [])
+          totalCount: get(data, 'count', 0)
+        });
+      });
+  };
+
+  loadUnits = () => {
+    this.setState({
+      isLoadingUnits: true,
+    });
+
+    client.get('unit', { page_size: 500, unit_has_resource: true })
+      .then(({ data }) => {
+        this.setState({
+          isLoadingUnits: false,
+          units: get(data, 'results', []),
         });
       });
   };
@@ -105,6 +118,7 @@ class ManageReservationsPage extends React.Component {
       totalCount,
       isModalOpen,
       selectedReservation,
+      isLoadingUnits,
       units
     } = this.state;
     const filters = searchUtils.getFiltersFromUrl(location, false);
@@ -123,14 +137,14 @@ class ManageReservationsPage extends React.Component {
           <ManageReservationsFilters
             filters={filters}
             onChange={this.onFiltersChange}
-            units={uniqBy(units, 'id')}
+            units={units}
           />
         </div>
         <div className="app-ManageReservationsPage__list">
           <PageWrapper title={title}>
             <Row>
               <Col sm={12}>
-                <Loader loaded={!isLoading}>
+                <Loader loaded={!isLoading && !isLoadingUnits}>
                   <ManageReservationsList
                     onInfoClick={this.onInfoClick}
                     reservations={reservations}
