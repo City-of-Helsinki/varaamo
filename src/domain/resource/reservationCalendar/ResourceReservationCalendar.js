@@ -9,6 +9,7 @@ import svLocale from '@fullcalendar/core/locales/sv';
 import fiLocale from '@fullcalendar/core/locales/fi';
 import moment from 'moment';
 import get from 'lodash/get';
+import classNames from 'classnames';
 
 import constants from '../../../../app/constants/AppConstants';
 import * as resourceUtils from '../utils';
@@ -39,7 +40,14 @@ class ResourceReservationCalendar extends React.Component {
   getEvents = () => {
     const { resource } = this.props;
 
+    const getClassNames = (reservation) => {
+      return classNames('app-ResourceReservationCalendar__event', {
+        'app-ResourceReservationCalendar__event--reserved': !reservation.is_own,
+      });
+    };
+
     return get(resource, 'reservations', []).map(reservation => ({
+      classNames: [getClassNames(reservation)],
       id: reservation.id,
       start: moment(reservation.begin).toDate(),
       end: moment(reservation.end).toDate(),
@@ -68,6 +76,7 @@ class ResourceReservationCalendar extends React.Component {
         center: 'title',
         right: 'timeGridDay,timeGridWeek'
       },
+      height: 'auto',
       firstDay: 1,
       locale: intl.locale,
       locales: [enLocale, svLocale, fiLocale],
@@ -94,7 +103,7 @@ class ResourceReservationCalendar extends React.Component {
     const activeEnd = moment(info.view.activeEnd);
 
     if (momentDate.isBefore(activeStart, 'day') || momentDate.isAfter(activeEnd, 'day')) {
-      // onDateChange(activeStart.format(constants.DATE_FORMAT));
+      onDateChange(activeStart.format(constants.DATE_FORMAT));
     }
 
     const {
@@ -112,14 +121,12 @@ class ResourceReservationCalendar extends React.Component {
     const {
       date,
       resource,
-      intl,
     } = this.props;
 
     const {
       view,
     } = this.state;
 
-    console.warn('ResourceReservationCalendar - resource:', resource);
     return (
       <div className="app-ResourceReservationCalendar">
         <FullCalendar
@@ -131,7 +138,6 @@ class ResourceReservationCalendar extends React.Component {
           ref={this.calendarRef}
           slotLabelInterval={this.getSlotLabelInterval()}
           {...this.getCalendarOptions()}
-          height="auto"
           maxTime={resourceUtils.getFullCalendarMaxTime(resource, date, view)}
           minTime={resourceUtils.getFullCalendarMinTime(resource, date, view)}
         />

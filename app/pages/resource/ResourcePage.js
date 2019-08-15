@@ -13,6 +13,7 @@ import Lightbox from 'lightbox-react';
 import { decamelizeKeys } from 'humps';
 import 'lightbox-react/style.css';
 
+import constants from '../../constants/AppConstants';
 import { fetchResource } from '../../actions/resourceActions';
 import { clearReservations, toggleResourceMap } from '../../actions/uiActions';
 import PageWrapper from '../PageWrapper';
@@ -20,7 +21,7 @@ import NotFoundPage from '../not-found/NotFoundPage';
 import ResourceCalendar from '../../shared/resource-calendar/ResourceCalendar';
 import injectT from '../../i18n/injectT';
 import { getMaxPeriodText, getResourcePageUrl, getMinPeriodText } from '../../utils/resourceUtils';
-import ReservationCalendar from './reservation-calendar/ReservationCalendarContainer';
+// import ReservationCalendar from './reservation-calendar/ReservationCalendarContainer';
 import ResourceHeader from './resource-header/ResourceHeader';
 import ResourceInfo from './resource-info/ResourceInfo';
 import ResourceMapInfo from './resource-map-info/ResourceMapInfo';
@@ -66,10 +67,8 @@ class UnconnectedResourcePage extends Component {
   };
 
   handleDateChange = (newDate) => {
-    console.warn(newDate);
-
     const { resource, history } = this.props;
-    const day = newDate.toISOString().substring(0, 10);
+    const day = moment(newDate).format(constants.DATE_FORMAT);
     history.replace(getResourcePageUrl(resource, day));
   };
 
@@ -134,15 +133,15 @@ class UnconnectedResourcePage extends Component {
       isFetchingResource,
       isLoggedIn,
       location,
-      match,
+      // match,
       resource,
       showMap,
       t,
       unit,
-      history,
+      // history,
     } = this.props;
 
-    const { params } = match;
+    // const { params } = match;
     const { isOpen, photoIndex } = this.state;
 
     if (isEmpty(resource) && !isFetchingResource) {
@@ -224,11 +223,11 @@ class UnconnectedResourcePage extends Component {
                           onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())}
                           resource={decamelizeKeys(resource)}
                         />
-                        <ReservationCalendar
+                        {/* <ReservationCalendar
                           history={history}
                           location={location}
                           params={params}
-                        />
+                        /> */}
                       </div>
                     )}
                   </Panel>
@@ -273,7 +272,7 @@ UnconnectedResourcePage.propTypes = {
   isFetchingResource: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
+  // match: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   showMap: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
