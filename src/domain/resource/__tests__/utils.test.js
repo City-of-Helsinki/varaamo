@@ -38,7 +38,6 @@ const OPENING_HOURS = [
 ];
 
 describe('domain resource utility function', () => {
-
   describe('getResourcePageLink', () => {
     const resource = {
       id: 'foo'
