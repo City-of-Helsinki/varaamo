@@ -1,6 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
+import uniqBy from 'lodash/uniqBy';
 import Loader from 'react-loader';
 import { withRouter } from 'react-router-dom';
 import { Grid, Row, Col } from 'react-bootstrap';
@@ -28,17 +29,15 @@ class ManageReservationsPage extends React.Component {
 
     this.state = {
       isLoading: false,
-      isLoadingUnits: false,
       reservations: [],
-      units: [],
       totalCount: 0,
       isModalOpen: false,
-      selectedReservation: {}
+      selectedReservation: {},
+      units: [],
     };
   }
 
   componentDidMount() {
-    this.loadUnits();
     this.loadReservations();
   }
 
@@ -70,6 +69,7 @@ class ManageReservationsPage extends React.Component {
     const params = {
       ...filters,
       page_size: PAGE_SIZE,
+      include: 'resource_detail'
     };
 
     client.get('reservation', params)
@@ -78,20 +78,7 @@ class ManageReservationsPage extends React.Component {
           isLoading: false,
           reservations: get(data, 'results', []),
           totalCount: get(data, 'count', 0),
-        });
-      });
-  };
-
-  loadUnits = () => {
-    this.setState({
-      isLoadingUnits: true,
-    });
-
-    client.get('unit', { page_size: 500, unit_has_resource: true })
-      .then(({ data }) => {
-        this.setState({
-          isLoadingUnits: false,
-          units: get(data, 'results', []),
+          units: Array.isArray(data.results) && data.results.map(reservation => get(reservation, 'resource.unit', {}))
         });
       });
   };
@@ -113,14 +100,12 @@ class ManageReservationsPage extends React.Component {
 
     const {
       isLoading,
-      isLoadingUnits,
       reservations,
-      units,
       totalCount,
       isModalOpen,
-      selectedReservation
+      selectedReservation,
+      units
     } = this.state;
-
     const filters = searchUtils.getFiltersFromUrl(location, false);
     const title = t('ManageReservationsPage.title');
 
@@ -137,18 +122,17 @@ class ManageReservationsPage extends React.Component {
           <ManageReservationsFilters
             filters={filters}
             onChange={this.onFiltersChange}
-            units={units}
+            units={uniqBy(units, 'id')}
           />
         </div>
         <div className="app-ManageReservationsPage__list">
           <PageWrapper title={title}>
             <Row>
               <Col sm={12}>
-                <Loader loaded={!isLoading && !isLoadingUnits}>
+                <Loader loaded={!isLoading}>
                   <ManageReservationsList
                     onInfoClick={this.onInfoClick}
                     reservations={reservations}
-                    units={units}
                   />
                 </Loader>
                 <Pagination
