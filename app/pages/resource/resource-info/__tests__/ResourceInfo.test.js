@@ -1,5 +1,6 @@
 import React from 'react';
 import Panel from 'react-bootstrap/lib/Panel';
+import Row from 'react-bootstrap/lib/Row';
 import Immutable from 'seamless-immutable';
 
 import WrappedText from '../../../../shared/wrapped-text/WrappedText';
@@ -54,9 +55,9 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
   test('renders panels with correct header text', () => {
     const panels = getWrapper().find(Panel);
 
-    expect(panels).toHaveLength(2);
+    expect(panels).toHaveLength(3);
     expect(panels.at(0).prop('header')).toBe('ResourceInfo.reservationTitle');
-    expect(panels.at(1).prop('header')).toBe('ResourceInfo.additionalInfoTitle');
+    expect(panels.at(2).prop('header')).toBe('ResourceInfo.additionalInfoTitle');
   });
 
   test('renders ReservationInfo with correct props', () => {
@@ -64,6 +65,21 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
     expect(reservationInfo).toHaveLength(1);
     expect(reservationInfo.prop('isLoggedIn')).toBe(defaultProps.isLoggedIn);
     expect(reservationInfo.prop('resource')).toEqual(defaultProps.resource);
+  });
+
+  test('renders specific terms heading', () => {
+    const panels = getWrapper().find(Panel);
+    const heading = getWrapper().find('h3');
+
+    expect(panels).toHaveLength(3);
+    expect(heading).toHaveLength(1);
+    expect(heading.text()).toBe('ResourcePage.specificTerms');
+  });
+
+  test('renders specific terms content', () => {
+    const specificTermsRow = getWrapper().find(Row);
+    expect(specificTermsRow).toHaveLength(3);
+    expect(specificTermsRow.at(1).html()).toContain(defaultProps.resource.specificTerms);
   });
 
   test('renders the unit name and address', () => {
