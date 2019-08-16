@@ -357,6 +357,9 @@ class UnconnectedReservationInformationForm extends Component {
           {termsAndConditions
             && this.renderTermsField('termsAndConditions')
           }
+          {resource.specificTerms
+            && <p className="specificTermsContent">{resource.specificTerms}</p>
+          }
           {includes(fields, 'paymentTermsAndConditions')
             && this.renderPaymentTermsField()
           }
