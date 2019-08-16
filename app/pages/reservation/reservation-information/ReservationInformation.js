@@ -80,6 +80,10 @@ class ReservationInformation extends Component {
       formFields.push('termsAndConditions');
     }
 
+    if (hasProducts(resource)) {
+      formFields.push('paymentTermsAndConditions');
+    }
+
     return uniq(formFields);
   }
 
@@ -103,6 +107,10 @@ class ReservationInformation extends Component {
 
     if (termsAndConditions) {
       requiredFormFields.push('termsAndConditions');
+    }
+
+    if (hasProducts(resource)) {
+      requiredFormFields.push('paymentTermsAndConditions');
     }
 
     return requiredFormFields;

@@ -25,6 +25,11 @@ function ResourceInfo({
         <Panel defaultExpanded header={t('ResourceInfo.reservationTitle')}>
           <ReservationInfo isLoggedIn={isLoggedIn} resource={resource} />
         </Panel>
+        <Panel defaultExpanded header={t('ResourcePage.specificTerms')}>
+          <Row>
+            <Col xs={12}>{resource.specificTerms}</Col>
+          </Row>
+        </Panel>
         <Panel defaultExpanded header={t('ResourceInfo.additionalInfoTitle')}>
           <Row>
             <Col className="app-ResourceInfo__address" xs={6}>
