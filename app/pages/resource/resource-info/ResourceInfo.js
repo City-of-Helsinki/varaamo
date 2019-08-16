@@ -27,7 +27,7 @@ function ResourceInfo({
         </Panel>
         <Panel defaultExpanded header={t('ResourcePage.specificTerms')}>
           <Row>
-            {resource.specificTerms}
+            <Col xs={12}>{resource.specificTerms}</Col>
           </Row>
         </Panel>
         <Panel defaultExpanded header={t('ResourceInfo.additionalInfoTitle')}>
