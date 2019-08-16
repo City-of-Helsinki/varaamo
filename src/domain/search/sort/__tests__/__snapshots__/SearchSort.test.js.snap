@@ -367,6 +367,8 @@ exports[`SearchSort renders correctly 1`] = `
         "payment.link": "payment.link",
         "payment.text": "payment.text",
         "payment.title": "payment.title",
+        "paymentTerms.terms": "paymentTerms.terms",
+        "paymentTerms.title": "paymentTerms.title",
       },
       "now": [Function],
       "onError": [Function],
