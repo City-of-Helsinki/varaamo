@@ -314,9 +314,9 @@ class UnconnectedReservationInformationForm extends Component {
           {termsAndConditions
             && this.renderTermsField('termsAndConditions')
           }
-          <p>
-            {resource.specificTerms}
-          </p>
+          {resource.specificTerms
+            && <p className="specificTermsContent">{resource.specificTerms}</p>
+          }
           <div>
             <Button
               onClick={onCancel}
