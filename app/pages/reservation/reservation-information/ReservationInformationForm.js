@@ -328,7 +328,7 @@ class UnconnectedReservationInformationForm extends Component {
               t('common.billingEmailAddressLabel'),
             )
           }
-          <h2 className="app-renderTermsField">{t('ReservationInformationForm.eventInformationTitle')}</h2>
+          <h2 className="app-ReservationPage__title">{t('ReservationInformationForm.eventInformationTitle')}</h2>
           {this.renderField(
             'eventSubject',
             'text',
