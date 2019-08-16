@@ -53,9 +53,7 @@ exports[`ManageReservationsList renders correctly 1`] = `
         <td />
         <td />
         <td />
-        <td>
-          1
-        </td>
+        <td />
         <td />
         <td>
           Invalid date - Invalid date
@@ -109,7 +107,25 @@ exports[`ManageReservationsList renders correctly 1`] = `
           />
         </td>
         <td>
-          <InjectT(ManageReservationsDropdown) />
+          <InjectT(ManageReservationsDropdown)
+            reservation={
+              Object {
+                "begin": "",
+                "comments": "",
+                "end": "",
+                "event_description": "",
+                "event_subject": "",
+                "has_catering_order": false,
+                "id": 1,
+                "its_own": false,
+                "resource": 1,
+                "staff_event": false,
+                "state": "requested",
+                "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
+                "user": Object {},
+              }
+            }
+          />
         </td>
       </tr>
     </tbody>
