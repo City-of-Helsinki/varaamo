@@ -17,11 +17,11 @@ function PaymentTermsModal({
     >
       <Modal.Header>
         <Modal.Title>
-          TODO: Add modal title
+          {t('paymentTerms.title')}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        TODO: Add modal body
+        {t('paymentTerms.terms')}
       </Modal.Body>
     </Modal>
   );

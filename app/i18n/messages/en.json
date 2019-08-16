@@ -80,6 +80,8 @@
   "common.pay": "Pay",
   "common.userNameLabel": "Account name",
   "common.userEmailLabel": "Account email",
+  "paymentTerms.title": "Payment terms and conditions",
+  "paymentTerms.terms": "Payment terms and conditions",
   "SelectControl.noOptions": "No options",
   "ConfirmReservationModal.beforeText": "Original reservation time:",
   "ConfirmReservationModal.editTitle": "Changing reservation",

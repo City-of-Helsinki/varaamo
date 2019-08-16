@@ -80,6 +80,8 @@
   "common.pay": "Maksa",
   "common.userNameLabel": "Tilin nimi",
   "common.userEmailLabel": "Tilin sähköposti",
+  "paymentTerms.title": "Maksuehdot",
+  "paymentTerms.terms": "Maksuehdot",
   "SelectControl.noOptions": "Ei valintoja",
   "ConfirmReservationModal.beforeText": "Alkuperäinen varausaika:",
   "ConfirmReservationModal.editTitle": "Varauksen muuttaminen",

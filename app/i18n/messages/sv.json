@@ -80,6 +80,8 @@
   "common.pay": "Betala",
   "common.userNameLabel": "Konto namn",
   "common.userEmailLabel": "Konto e-post",
+  "paymentTerms.title": "Betalningsvillkor",
+  "paymentTerms.terms": "Betalningsvillkor",
   "SelectControl.noOptions": "Inga val",
   "ConfirmReservationModal.beforeText": "Ursprunglig bokningstid",
   "ConfirmReservationModal.editTitle": "Ändra bokningen",
