@@ -285,7 +285,7 @@ class UnconnectedReservationInformationForm extends Component {
               t('common.billingEmailAddressLabel'),
             )
           }
-          <h2 className="app-ReservationPage__title">{t('ReservationInformationForm.eventInformationTitle')}</h2>
+          <h2 className="app-renderTermsField">{t('ReservationInformationForm.eventInformationTitle')}</h2>
           {this.renderField(
             'eventSubject',
             'text',
@@ -314,6 +314,9 @@ class UnconnectedReservationInformationForm extends Component {
           {termsAndConditions
             && this.renderTermsField('termsAndConditions')
           }
+          <p>
+            {resource.specificTerms}
+          </p>
           <div>
             <Button
               onClick={onCancel}
