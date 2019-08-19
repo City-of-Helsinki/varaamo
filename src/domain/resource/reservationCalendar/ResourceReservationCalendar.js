@@ -43,10 +43,8 @@ class ResourceReservationCalendar extends React.Component {
   }
 
   getCalendarOptions = () => {
-    const {
-      intl,
-      resource,
-    } = this.props;
+    const { intl, resource } = this.props;
+    const slotSize = get(resource, 'slot_size', null);
 
     return {
       header: {
@@ -64,7 +62,7 @@ class ResourceReservationCalendar extends React.Component {
       nowIndicator: true,
       plugins: [timeGridPlugin, momentTimezonePlugin, interactionPlugin],
       selectable: true,
-      slotDuration: resource.slot_size,
+      slotDuration: slotSize,
       selectOverlap: false,
       selectConstraint: 'businessHours',
       slotLabelFormat: {
@@ -82,8 +80,9 @@ class ResourceReservationCalendar extends React.Component {
     const { selected } = this.state;
 
     const getClassNames = (reservation) => {
+      const isOwn = get(reservation, 'is_own', false);
       return classNames('app-ResourceReservationCalendar__event', {
-        'app-ResourceReservationCalendar__event--reserved': !reservation.is_own,
+        'app-ResourceReservationCalendar__event--reserved': !isOwn,
       });
     };
 
@@ -136,8 +135,9 @@ class ResourceReservationCalendar extends React.Component {
 
   getSlotLabelInterval = () => {
     const { resource } = this.props;
+    const slotSize = get(resource, 'slot_size', null);
 
-    if (resource.slot_size === '00:15:00') {
+    if (slotSize === '00:15:00') {
       return '00:30:00';
     }
 
