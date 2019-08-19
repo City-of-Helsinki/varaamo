@@ -58,6 +58,7 @@ class ResourceReservationCalendar extends React.Component {
       },
       height: 'auto',
       editable: true,
+      eventConstraints: 'businessHours',
       firstDay: 1,
       locale: intl.locale,
       locales: [enLocale, svLocale, fiLocale],
@@ -78,7 +79,7 @@ class ResourceReservationCalendar extends React.Component {
   };
 
   getEvents = () => {
-    const { resource } = this.props;
+    const { resource, date } = this.props;
     const { selected } = this.state;
 
     const getClassNames = (reservation) => {
@@ -87,6 +88,7 @@ class ResourceReservationCalendar extends React.Component {
       });
     };
 
+    // Add the resources reservations as normal FullCalendar events.
     const events = get(resource, 'reservations', []).map(reservation => ({
       classNames: [getClassNames(reservation)],
       editable: false,
@@ -95,9 +97,35 @@ class ResourceReservationCalendar extends React.Component {
       end: moment(reservation.end).toDate(),
     }));
 
+    // Add check resources reservation rules and disable days if needed.
+    const momentDate = moment(date)
+      .startOf('week');
+
+    for (let i = 0; i < 7; i++) {
+      if (!resourceUtils.isDateReservable(resource, momentDate.format(constants.DATE_FORMAT))) {
+        events.push({
+          allDay: true,
+          classNames: [
+            'app-ResourceReservationCalendar__backgroundEvent',
+            'app-ResourceReservationCalendar__restrictedDate',
+          ],
+          id: momentDate.format(constants.DATE_FORMAT),
+          start: momentDate.toDate(),
+          end: momentDate.toDate(),
+          rendering: 'background',
+        });
+      }
+
+      momentDate.add(1, 'day');
+    }
+
+    // Add the selected time range into calendar as an event.
     if (selected) {
       events.push({
-        classNames: ['app-ResourceReservationCalendar__event', 'app-ResourceReservationCalendar__newReservation'],
+        classNames: [
+          'app-ResourceReservationCalendar__event',
+          'app-ResourceReservationCalendar__newReservation',
+        ],
         editable: true,
         id: 'newReservation',
         ...selected,
@@ -125,7 +153,10 @@ class ResourceReservationCalendar extends React.Component {
 
     const momentDate = moment(date);
     const activeStart = moment(info.view.activeStart);
-    const activeEnd = moment(info.view.activeEnd);
+
+    // For some weird reason the activeEnd date is always last day of the day/week view + 1
+    // (e.g. for a week view it's always the next weeks monday);
+    const activeEnd = moment(info.view.activeEnd).subtract(1);
 
     if (momentDate.isBefore(activeStart, 'day') || momentDate.isAfter(activeEnd, 'day')) {
       onDateChange(activeStart.format(constants.DATE_FORMAT));
@@ -155,9 +186,21 @@ class ResourceReservationCalendar extends React.Component {
     calendarApi.unselect();
   };
 
+  onEventAllow = (dropInfo) => {
+    return this.onSelectAllow(dropInfo);
+  };
+
   onSelectAllow = (selectInfo) => {
+    const { resource } = this.props;
+
     const now = moment();
     const start = moment(selectInfo.start);
+    const end = moment(selectInfo.end);
+
+    if (!resourceUtils.isDateReservable(resource, start.format(constants.DATE_FORMAT))
+      || !resourceUtils.isDateReservable(resource, end.format(constants.DATE_FORMAT))) {
+      return false;
+    }
 
     // Prevent selecting times from past.
     return start.isAfter(now);
@@ -252,6 +295,7 @@ class ResourceReservationCalendar extends React.Component {
               businessHours={resourceUtils.getFullCalendarBusinessHours(resource, date)}
               datesRender={this.onDatesRender}
               defaultDate={date}
+              eventAllow={this.onEventAllow}
               eventDrop={this.onEventDrop}
               eventResize={this.onEventResize}
               events={this.getEvents()}

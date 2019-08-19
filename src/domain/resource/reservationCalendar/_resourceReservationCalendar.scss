@@ -9,6 +9,13 @@
     }
   }
 
+  &__backgroundEvent {
+  }
+
+  &__restrictedDate {
+    background-color: $gray-light !important;
+  }
+
   &__selectedDate {
     &__label {
     }

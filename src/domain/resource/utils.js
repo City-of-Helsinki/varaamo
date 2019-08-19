@@ -251,7 +251,34 @@ export const getFullCalendarMaxTime = (resource, date, view, buffer = 1) => {
   return defaultMax;
 };
 
-const reservingIsRestricted = (resource, date) => {
+/**
+ * isDateReservable();
+ * @param resource {object} A Resource object from the API.
+ * @param date {string} A date string that can be parsed as moment object.
+ * @returns {boolean}
+ */
+export const isDateReservable = (resource, date) => {
+  if (!resource || !date) {
+    return false;
+  }
+
+  const reservableAfter = get(resource, 'reservable_after', null);
+  const reservableBefore = get(resource, 'reservable_before', null);
+
+  const isAdmin = get(resource, 'user_permissions.is_admin', false);
+  const isBefore = reservableBefore && moment(date).isSameOrBefore(moment(reservableBefore), 'day');
+  const isAfter = reservableAfter && moment(date).isSameOrAfter(moment(reservableAfter), 'day');
+
+  return isAdmin || (isBefore && isAfter);
+};
+
+/**
+ * reservingIsRestricted();
+ * @param resource {object}
+ * @param date {string}
+ * @returns {boolean}
+ */
+export const reservingIsRestricted = (resource, date) => {
   if (!date) {
     return false;
   }
