@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Panel from 'react-bootstrap/lib/Panel';
 import Lightbox from 'lightbox-react';
@@ -27,6 +28,7 @@ import ResourceMapInfo from './resource-map-info/ResourceMapInfo';
 import resourcePageSelector from './resourcePageSelector';
 import ResourceMap from '../../../src/domain/resource/map/ResourceMap';
 import ResourceReservationCalendar from '../../../src/domain/resource/reservationCalendar/ResourceReservationCalendar';
+import ReservationCalendar from './reservation-calendar/ReservationCalendarContainer';
 
 class UnconnectedResourcePage extends Component {
   static propTypes = {
@@ -143,6 +145,8 @@ class UnconnectedResourcePage extends Component {
       showMap,
       t,
       unit,
+      match,
+      history,
     } = this.props;
 
     const { isOpen, photoIndex } = this.state;
@@ -175,65 +179,75 @@ class UnconnectedResourcePage extends Component {
           {showMap && (<ResourceMap resource={resource} unit={unit} />)}
           {!showMap && (
             <PageWrapper title={resource.name || ''} transparent>
-              <div>
-                <Col className="app-ResourcePage__content" lg={8} md={8} xs={12}>
-                  {mainImage
-                  && this.renderImage(mainImage, mainImageIndex, {
-                    mainImageMobileVisibility: true,
-                  })}
-                  <ResourceInfo
-                    isLoggedIn={isLoggedIn}
-                    resource={resource}
-                    unit={unit}
-                  />
+              <Row>
+                <Col lg={8} md={8} xs={12}>
+                  <div className="app-ResourcePage__content">
+                    {mainImage
+                    && this.renderImage(mainImage, mainImageIndex, {
+                      mainImageMobileVisibility: true,
+                    })}
+                    <ResourceInfo
+                      isLoggedIn={isLoggedIn}
+                      resource={resource}
+                      unit={unit}
+                    />
 
-                  <Panel defaultExpanded header={t('ResourceInfo.reserveTitle')}>
-                    {resource.externalReservationUrl && (
-                      <form action={resource.externalReservationUrl}>
-                        <input
-                          className="btn btn-primary"
-                          type="submit"
-                          value="Siirry ulkoiseen ajanvarauskalenteriin"
-                        />
-                      </form>
-                    )}
-                    {!resource.externalReservationUrl && (
-                      <div>
-                        {/* Show reservation max period text */}
-                        {resource.maxPeriod && (
-                          <div className="app-ResourcePage__content-max-period">
-                            {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
-                          </div>
-                        )}
+                    <Panel defaultExpanded header={t('ResourceInfo.reserveTitle')}>
+                      {resource.externalReservationUrl && (
+                        <form action={resource.externalReservationUrl}>
+                          <input
+                            className="btn btn-primary"
+                            type="submit"
+                            value="Siirry ulkoiseen ajanvarauskalenteriin"
+                          />
+                        </form>
+                      )}
+                      {!resource.externalReservationUrl && (
+                        <div>
+                          {/* Show reservation max period text */}
+                          {resource.maxPeriod && (
+                            <div className="app-ResourcePage__content-max-period">
+                              {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
+                            </div>
+                          )}
 
-                        {/* Show reservation max period text */}
-                        {resource.minPeriod
-                        && (
-                          <div className="app-ResourcePage__content-min-period">
-                            <p>{`${t('ReservationInfo.reservationMinLength')} ${minPeriodText}`}</p>
-                          </div>
-                        )
-                        }
+                          {/* Show reservation max period text */}
+                          {resource.minPeriod
+                          && (
+                            <div className="app-ResourcePage__content-min-period">
+                              <p>{`${t('ReservationInfo.reservationMinLength')} ${minPeriodText}`}</p>
+                            </div>
+                          )
+                          }
 
-                        <ResourceCalendar
-                          isDayReservable={this.isDayReservable}
-                          onDateChange={this.handleDateChange}
-                          resourceId={resource.id}
-                          selectedDate={date}
-                        />
-                        <ResourceReservationCalendar
-                          date={date}
-                          onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())}
-                          resource={decamelizeKeys(resource)}
-                        />
-                      </div>
-                    )}
-                  </Panel>
+                          <ResourceCalendar
+                            isDayReservable={this.isDayReservable}
+                            onDateChange={this.handleDateChange}
+                            resourceId={resource.id}
+                            selectedDate={date}
+                          />
+                          <ResourceReservationCalendar
+                            date={date}
+                            onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())}
+                            resource={decamelizeKeys(resource)}
+                          />
+                          <ReservationCalendar
+                            history={history}
+                            location={location}
+                            params={match.params}
+                          />
+                        </div>
+                      )}
+                    </Panel>
+                  </div>
                 </Col>
-                <Col className="app-ResourceInfo__images" lg={3} md={3} xs={12}>
-                  {images.map(this.renderImage)}
+                <Col lg={3} md={3} xs={12}>
+                  <div className="app-ResourceInfo__images">
+                    {images.map(this.renderImage)}
+                  </div>
                 </Col>
-              </div>
+              </Row>
+
             </PageWrapper>
           )}
         </Loader>
