@@ -188,15 +188,30 @@ class ResourceReservationCalendar extends React.Component {
   };
 
   onEventAllow = (dropInfo) => {
-    return this.onSelectAllow(dropInfo);
+    return this.isEventValid(dropInfo);
   };
 
   onSelectAllow = (selectInfo) => {
+    return this.isEventValid(selectInfo);
+  };
+
+  isEventValid = (eventInfo) => {
     const { resource } = this.props;
 
     const now = moment();
-    const start = moment(selectInfo.start);
-    const end = moment(selectInfo.end);
+    const start = moment(eventInfo.start);
+    const end = moment(eventInfo.end);
+
+    // Reservation cannot be longer than the resources max period if max period is set.
+    const maxPeriod = get(resource, 'max_period', null);
+    if (maxPeriod) {
+      const maxPeriodDuration = moment.duration(maxPeriod);
+      const maxDuration = maxPeriodDuration.hours() * 60 + maxPeriodDuration.minutes();
+
+      if (end.diff(start, 'minutes') > maxDuration) {
+        return false;
+      }
+    }
 
     if (!resourceUtils.isDateReservable(resource, start.format(constants.DATE_FORMAT))
       || !resourceUtils.isDateReservable(resource, end.format(constants.DATE_FORMAT))) {
@@ -209,6 +224,7 @@ class ResourceReservationCalendar extends React.Component {
 
   onEventDrop = (eventDropInfo) => {
     const { event } = eventDropInfo;
+
     this.setState({
       selected: {
         start: event.start,
@@ -219,6 +235,7 @@ class ResourceReservationCalendar extends React.Component {
 
   onEventResize = (eventResizeInfo) => {
     const { event } = eventResizeInfo;
+
     this.setState({
       selected: {
         start: event.start,
@@ -289,49 +306,42 @@ class ResourceReservationCalendar extends React.Component {
 
     return (
       <div className="app-ResourceReservationCalendar">
-        <Row>
-          <Col xs={12}>
-            <FullCalendar
-              allDaySlot={false}
-              businessHours={resourceUtils.getFullCalendarBusinessHours(resource, date)}
-              datesRender={this.onDatesRender}
-              defaultDate={date}
-              eventAllow={this.onEventAllow}
-              eventDrop={this.onEventDrop}
-              eventResize={this.onEventResize}
-              events={this.getEvents()}
-              ref={this.calendarRef}
-              select={this.onSelect}
-              selectAllow={this.onSelectAllow}
-              slotLabelInterval={this.getSlotLabelInterval()}
-              {...this.getCalendarOptions()}
-              maxTime={resourceUtils.getFullCalendarMaxTime(resource, date, view)}
-              minTime={resourceUtils.getFullCalendarMinTime(resource, date, view)}
-            />
-          </Col>
-        </Row>
+        <FullCalendar
+          allDaySlot={false}
+          businessHours={resourceUtils.getFullCalendarBusinessHours(resource, date)}
+          datesRender={this.onDatesRender}
+          defaultDate={date}
+          eventAllow={this.onEventAllow}
+          eventDrop={this.onEventDrop}
+          eventResize={this.onEventResize}
+          events={this.getEvents()}
+          ref={this.calendarRef}
+          select={this.onSelect}
+          selectAllow={this.onSelectAllow}
+          slotLabelInterval={this.getSlotLabelInterval()}
+          {...this.getCalendarOptions()}
+          maxTime={resourceUtils.getFullCalendarMaxTime(resource, date, view)}
+          minTime={resourceUtils.getFullCalendarMinTime(resource, date, view)}
+        />
+
         {selected && (
           <div className="app-ResourceReservationCalendar__selectedInfo">
-            <Row>
-              <Col xs={8}>
-                <strong className="app-ResourceReservationCalendar__selectedDateLabel">
-                  {t('ResourceReservationCalendar.selectedDateLabel')}
-                </strong>
-                {' '}
-                <span className="app-ResourceReservationCalendar__selectedDateValue">
-                  {this.getSelectedDateText()}
-                </span>
-              </Col>
-              <Col xs={4}>
-                <Button
-                  bsStyle="primary"
-                  className="app-ResourceReservationCalendar__reserveButton"
-                  onClick={() => this.onReserveButtonClick()}
-                >
-                  {t('ResourceReservationCalendar.reserveButton')}
-                </Button>
-              </Col>
-            </Row>
+            <div className="app-ResourceReservationCalendar__selectedDate">
+              <strong className="app-ResourceReservationCalendar__selectedDateLabel">
+                {t('ResourceReservationCalendar.selectedDateLabel')}
+              </strong>
+              {' '}
+              <span className="app-ResourceReservationCalendar__selectedDateValue">
+                {this.getSelectedDateText()}
+              </span>
+            </div>
+            <Button
+              bsStyle="primary"
+              className="app-ResourceReservationCalendar__reserveButton"
+              onClick={() => this.onReserveButtonClick()}
+            >
+              {t('ResourceReservationCalendar.reserveButton')}
+            </Button>
           </div>
         )}
       </div>

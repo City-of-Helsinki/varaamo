@@ -16,6 +16,21 @@
     background-color: $gray-light !important;
   }
 
+  &__selectedInfo {
+    margin: 20px 0;
+    display: flex;
+  }
+
+  &__selectedDate {
+    display: flex;
+    flex: 1;
+    align-items: center;
+  }
+
+  &__reserveButton {
+    font-size: 24px;
+  }
+
   &__selectedDate {
     &__label {
     }
