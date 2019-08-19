@@ -12,8 +12,6 @@ import moment from 'moment';
 import get from 'lodash/get';
 import classNames from 'classnames';
 import Button from 'react-bootstrap/lib/Button';
-import Col from 'react-bootstrap/lib/Col';
-import Row from 'react-bootstrap/lib/Row';
 
 import constants from '../../../../app/constants/AppConstants';
 import * as resourceUtils from '../utils';
