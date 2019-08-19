@@ -113,6 +113,144 @@ export const getOpeningHours = (resource, date = null) => {
   };
 };
 
+/**
+ * getOpeningHoursForWeek();
+ * @param resource
+ * @param date
+ * @returns {[]}
+ */
+export const getOpeningHoursForWeek = (resource, date = null) => {
+  let momentDate = moment(date)
+    .startOf('week');
+
+  const openingHours = [];
+  for (let i = 0; i < 7; i++) {
+    openingHours.push({
+      date: momentDate.format(constants.DATE_FORMAT),
+      ...getOpeningHours(resource, momentDate.format(constants.DATE_FORMAT)),
+    });
+    momentDate = momentDate.add(1, 'day');
+  }
+
+  return openingHours;
+};
+
+/**
+ * getFullCalendarBusinessHours();
+ * @param resource
+ * @param date
+ * @returns {[]}
+ */
+export const getFullCalendarBusinessHours = (resource, date = null) => {
+  const openingHours = getOpeningHoursForWeek(resource, date);
+  const businessHours = [];
+
+  openingHours.forEach((item) => {
+    if (item) {
+      const dayNumber = Number(moment(item.date).format('E'));
+      businessHours.push({
+        daysOfWeek: [dayNumber < 7 ? dayNumber : 0],
+        startTime: item.opens ? moment(item.opens).format('HH:mm') : '00:00',
+        endTime: item.closes ? moment(item.closes).format('HH:mm') : '00:00',
+      });
+    }
+  });
+
+  return businessHours;
+};
+
+/**
+ * getFullCalendarMinTime();
+ * @param resource {object}
+ * @param date {string}
+ * @param view {string}
+ * @param buffer {number} buffer in hours.
+ * @returns {string}
+ */
+export const getFullCalendarMinTime = (resource, date, view, buffer = 1) => {
+  const defaultMin = '07:00:00';
+  let openingHours = null;
+  switch (view) {
+    case 'timeGridDay':
+      openingHours = [getOpeningHours(resource, date)];
+      break;
+    case 'timeGridWeek':
+      openingHours = getOpeningHoursForWeek(resource, date);
+      break;
+    default:
+      openingHours = null;
+  }
+
+  if (!openingHours) {
+    return defaultMin;
+  }
+
+  let min;
+  openingHours.forEach((item) => {
+    if (item.opens) {
+      const opens = moment(item.opens);
+
+      if (!min || (opens.minutes() + opens.hours() * 60) < (min.minutes() + min.hours() * 60)) {
+        min = opens;
+      }
+    }
+  });
+
+  if (min) {
+    return min
+      .subtract(buffer, 'hour')
+      .format('HH:mm:ss');
+  }
+
+  return defaultMin;
+};
+
+/**
+ * getFullCalendarMaxTime();
+ * @param resource {object}
+ * @param date {string}
+ * @param view {string}
+ * @param buffer {number} buffer in hours.
+ * @returns {string}
+ */
+export const getFullCalendarMaxTime = (resource, date, view, buffer = 1) => {
+  const defaultMax = '17:00:00';
+  let openingHours = null;
+  switch (view) {
+    case 'timeGridDay':
+      openingHours = [getOpeningHours(resource, date)];
+      break;
+    case 'timeGridWeek':
+      openingHours = getOpeningHoursForWeek(resource, date);
+      break;
+    default:
+      openingHours = null;
+  }
+
+  if (!openingHours) {
+    return defaultMax;
+  }
+
+  let max;
+  openingHours.forEach((item) => {
+    if (item.closes) {
+      const closes = moment(item.closes);
+
+      if (!max || (closes.minutes() + closes.hours() * 60) > (max.minutes() + max.hours() * 60)) {
+        max = closes;
+      }
+    }
+  });
+
+  if (max) {
+    return max
+      .add(buffer, 'hour')
+      .format('HH:mm:ss');
+  }
+
+  return defaultMax;
+};
+
 const reservingIsRestricted = (resource, date) => {
   if (!date) {
     return false;

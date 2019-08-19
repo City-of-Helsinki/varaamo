@@ -10,8 +10,10 @@ import { bindActionCreators } from 'redux';
 import Col from 'react-bootstrap/lib/Col';
 import Panel from 'react-bootstrap/lib/Panel';
 import Lightbox from 'lightbox-react';
+import { decamelizeKeys } from 'humps';
 import 'lightbox-react/style.css';
 
+import constants from '../../constants/AppConstants';
 import { fetchResource } from '../../actions/resourceActions';
 import { clearReservations, toggleResourceMap } from '../../actions/uiActions';
 import PageWrapper from '../PageWrapper';
@@ -19,25 +21,32 @@ import NotFoundPage from '../not-found/NotFoundPage';
 import ResourceCalendar from '../../shared/resource-calendar/ResourceCalendar';
 import injectT from '../../i18n/injectT';
 import { getMaxPeriodText, getResourcePageUrl, getMinPeriodText } from '../../utils/resourceUtils';
-import ReservationCalendar from './reservation-calendar/ReservationCalendarContainer';
 import ResourceHeader from './resource-header/ResourceHeader';
 import ResourceInfo from './resource-info/ResourceInfo';
 import ResourceMapInfo from './resource-map-info/ResourceMapInfo';
 import resourcePageSelector from './resourcePageSelector';
 import ResourceMap from '../../../src/domain/resource/map/ResourceMap';
+import ResourceReservationCalendar from '../../../src/domain/resource/reservationCalendar/ResourceReservationCalendar';
 
 class UnconnectedResourcePage extends Component {
-  constructor(props) {
-    super(props);
+  static propTypes = {
+    actions: PropTypes.object.isRequired,
+    date: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    isFetchingResource: PropTypes.bool.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
+    location: PropTypes.object.isRequired,
+    resource: PropTypes.object.isRequired,
+    showMap: PropTypes.bool.isRequired,
+    t: PropTypes.func.isRequired,
+    unit: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+  };
 
-    this.state = {
-      photoIndex: 0,
-      isOpen: false,
-    };
-
-    this.fetchResource = this.fetchResource.bind(this);
-    this.handleBackButton = this.handleBackButton.bind(this);
-  }
+  state = {
+    photoIndex: 0,
+    isOpen: false,
+  };
 
   componentDidMount() {
     this.props.actions.clearReservations();
@@ -50,12 +59,12 @@ class UnconnectedResourcePage extends Component {
     }
   }
 
-  getImageThumbnailUrl(image) {
+  getImageThumbnailUrl = (image) => {
     const width = 700;
     const height = 420;
 
     return `${image.url}?dim=${width}x${height}`;
-  }
+  };
 
   isDayReservable = (day) => {
     const { resource: { reservableAfter } } = this.props;
@@ -65,24 +74,24 @@ class UnconnectedResourcePage extends Component {
 
   handleDateChange = (newDate) => {
     const { resource, history } = this.props;
-    const day = newDate.toISOString().substring(0, 10);
+    const day = moment(newDate).format(constants.DATE_FORMAT);
     history.replace(getResourcePageUrl(resource, day));
   };
 
-  handleBackButton() {
+  handleBackButton = () => {
     this.props.history.goBack();
-  }
+  };
 
-  handleImageClick(photoIndex) {
+  handleImageClick = (photoIndex) => {
     this.setState(() => ({ isOpen: true, photoIndex }));
-  }
+  };
 
-  orderImages(images) {
+  orderImages = (images) => {
     return [].concat(
       images.filter(image => image.type === 'main'),
       images.filter(image => image.type !== 'main')
     );
-  }
+  };
 
   renderImage = (image, index, { mainImageMobileVisibility = false }) => {
     const isMainImage = image.type === 'main';
@@ -109,7 +118,7 @@ class UnconnectedResourcePage extends Component {
     );
   };
 
-  fetchResource(date = this.props.date) {
+  fetchResource = (date = this.props.date) => {
     const { actions, id } = this.props;
     const start = moment(date)
       .subtract(2, 'M')
@@ -121,7 +130,7 @@ class UnconnectedResourcePage extends Component {
       .format();
 
     actions.fetchResource(id, { start, end });
-  }
+  };
 
   render() {
     const {
@@ -130,15 +139,12 @@ class UnconnectedResourcePage extends Component {
       isFetchingResource,
       isLoggedIn,
       location,
-      match,
       resource,
       showMap,
       t,
       unit,
-      history,
     } = this.props;
 
-    const { params } = match;
     const { isOpen, photoIndex } = this.state;
 
     if (isEmpty(resource) && !isFetchingResource) {
@@ -215,10 +221,10 @@ class UnconnectedResourcePage extends Component {
                           resourceId={resource.id}
                           selectedDate={date}
                         />
-                        <ReservationCalendar
-                          history={history}
-                          location={location}
-                          params={params}
+                        <ResourceReservationCalendar
+                          date={date}
+                          onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())}
+                          resource={decamelizeKeys(resource)}
                         />
                       </div>
                     )}
@@ -257,20 +263,6 @@ class UnconnectedResourcePage extends Component {
   }
 }
 
-UnconnectedResourcePage.propTypes = {
-  actions: PropTypes.object.isRequired,
-  date: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  isFetchingResource: PropTypes.bool.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
-  location: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
-  resource: PropTypes.object.isRequired,
-  showMap: PropTypes.bool.isRequired,
-  t: PropTypes.func.isRequired,
-  unit: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
-};
 UnconnectedResourcePage = injectT(UnconnectedResourcePage); // eslint-disable-line
 
 function mapDispatchToProps(dispatch) {
