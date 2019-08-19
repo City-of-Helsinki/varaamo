@@ -4,6 +4,8 @@ import get from 'lodash/get';
 import Loader from 'react-loader';
 import { withRouter } from 'react-router-dom';
 import { Grid, Row, Col } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import PageWrapper from '../../../../../app/pages/PageWrapper';
 import injectT from '../../../../../app/i18n/injectT';
@@ -13,6 +15,8 @@ import ManageReservationsList from '../list/ManageReservationsList';
 import Pagination from '../../../../common/pagination/Pagination';
 import * as searchUtils from '../../../search/utils';
 import ReservationInfomationModal from '../../modal/ReservationInfomationModal';
+import { selectReservationToEdit } from '../../../../../app/actions/uiActions';
+import { getEditReservationUrl } from '../../utils';
 
 export const PAGE_SIZE = 50;
 
@@ -21,6 +25,7 @@ class ManageReservationsPage extends React.Component {
     t: PropTypes.func.isRequired,
     history: PropTypes.object,
     location: PropTypes.object,
+    actions: PropTypes.object,
   };
 
   constructor(props) {
@@ -105,6 +110,15 @@ class ManageReservationsPage extends React.Component {
     });
   };
 
+  handleEditClick = (reservation) => {
+    const { history, actions } = this.props;
+
+    actions.editReservation({ reservation, slotSize: reservation.resource.slotSize });
+
+    const nextUrl = getEditReservationUrl(reservation);
+    history.push(nextUrl);
+  };
+
   render() {
     const {
       t,
@@ -146,6 +160,7 @@ class ManageReservationsPage extends React.Component {
               <Col sm={12}>
                 <Loader loaded={!isLoading && !isLoadingUnits}>
                   <ManageReservationsList
+                    handleEditClick={this.handleEditClick}
                     onInfoClick={this.onInfoClick}
                     reservations={reservations}
                   />
@@ -176,4 +191,13 @@ class ManageReservationsPage extends React.Component {
 }
 
 export const UnwrappedManageReservationsPage = injectT(ManageReservationsPage);
-export default withRouter(UnwrappedManageReservationsPage);
+
+const mapDispatchToProps = (dispatch) => {
+  const actionCreators = {
+    editReservation: selectReservationToEdit
+  };
+
+  return { actions: bindActionCreators(actionCreators, dispatch) };
+};
+
+export default connect(null, mapDispatchToProps)(withRouter(UnwrappedManageReservationsPage));

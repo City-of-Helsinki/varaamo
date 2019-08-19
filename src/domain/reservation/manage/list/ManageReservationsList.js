@@ -23,7 +23,8 @@ const ManageReservationsList = ({
   intl,
   t,
   reservations = [],
-  onInfoClick
+  onInfoClick,
+  handleEditClick
 }) => {
   return (
     <div className="app-ManageReservationsList">
@@ -57,7 +58,13 @@ const ManageReservationsList = ({
                 <td><ManageReservationsPincode reservation={reservation} /></td>
                 <td><ManageReservationsComment comments={reservation.comments} /></td>
                 <td><ManageReservationsStatus reservation={reservation} /></td>
-                <td><ManageReservationsDropdown onInfoClick={onInfoClick} reservation={reservation} /></td>
+                <td>
+                  <ManageReservationsDropdown
+                    onEditReservation={() => handleEditClick(reservation)}
+                    onInfoClick={onInfoClick}
+                    reservation={reservation}
+                  />
+                </td>
               </tr>
 
             );
@@ -72,7 +79,8 @@ ManageReservationsList.propTypes = {
   t: PropTypes.func.isRequired,
   reservations: PropTypes.array,
   intl: intlShape,
-  onInfoClick: PropTypes.func
+  onInfoClick: PropTypes.func,
+  handleEditClick: PropTypes.func,
 };
 
 export const UnwrappedManageReservationsList = injectT(ManageReservationsList);

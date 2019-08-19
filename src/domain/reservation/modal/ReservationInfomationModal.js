@@ -8,6 +8,7 @@ import get from 'lodash/get';
 import ManageReservationsStatus from '../manage/status/ManageReservationsStatus';
 import injectT from '../../../../app/i18n/injectT';
 import { getDateAndTime } from '../manage/list/ManageReservationsList';
+import { putReservation } from '../utils';
 
 const ReservationInfomationModal = ({
   t, reservation, onHide, isOpen
@@ -53,13 +54,17 @@ const ReservationInfomationModal = ({
         </Button>
 
         <Button
-          bsStyle="primary"
+          bsStyle="danger"
+          disabled={reservation.state !== 'requested'}
+          onClick={() => putReservation(reservation, { state: 'confirmed' })}
         >
           {t('ReservationInfoModal.denyButton')}
         </Button>
 
         <Button
-          bsStyle="primary"
+          bsStyle="success"
+          disabled={reservation.state !== 'requested'}
+          onClick={() => putReservation(reservation, { state: 'confirmed' })}
         >
           {t('ReservationInfoModal.confirmButton')}
         </Button>
