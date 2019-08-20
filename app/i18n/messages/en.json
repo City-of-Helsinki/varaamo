@@ -300,7 +300,7 @@
   "UserReservationsPage.regularReservationsHeader": "Standard reservations",
   "UserReservationsPage.title": "My reservations",
   "ManageReservationsPage.title": "Manage reservations",
-  "ManageReservationsList.descriptionHeader": "Description",
+  "ManageReservationsList.subjectHeader": "Subject",
   "ManageReservationsList.nameHeader": "Name",
   "ManageReservationsList.emailHeader": "Email",
   "ManageReservationsList.resourceHeader": "Resource",
