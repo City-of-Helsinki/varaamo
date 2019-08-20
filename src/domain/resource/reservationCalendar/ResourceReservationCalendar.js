@@ -60,7 +60,7 @@ class ResourceReservationCalendar extends React.Component {
       locales: [enLocale, svLocale, fiLocale],
       nowIndicator: true,
       plugins: [timeGridPlugin, momentTimezonePlugin, interactionPlugin],
-      // selectable: true,
+      selectable: true,
       selectOverlap: false,
       selectConstraint: 'businessHours',
       slotLabelFormat: {
@@ -127,6 +127,7 @@ class ResourceReservationCalendar extends React.Component {
           'app-ResourceReservationCalendar__newReservation',
         ],
         editable: true,
+        durationEditable: resourceUtils.isFullCalendarEventDurationEditable(resource, selected.start, selected.end),
         id: 'newReservation',
         ...selected,
       });
@@ -208,39 +209,7 @@ class ResourceReservationCalendar extends React.Component {
    */
   isEventValid = (start, end) => {
     const { resource } = this.props;
-
-    const now = moment();
-    const startMoment = moment(start);
-    const endMoment = moment(end);
-
-    // Reservation cannot be longer than the resources max period if max period is set.
-    const maxPeriod = get(resource, 'max_period', null);
-    if (maxPeriod) {
-      const maxPeriodDuration = moment.duration(maxPeriod);
-      const maxDuration = maxPeriodDuration.hours() * 60 + maxPeriodDuration.minutes();
-
-      if (endMoment.diff(startMoment, 'minutes') > maxDuration) {
-        return false;
-      }
-    }
-
-    if (!resourceUtils.isDateReservable(resource, startMoment.format(constants.DATE_FORMAT))
-      || !resourceUtils.isDateReservable(resource, endMoment.format(constants.DATE_FORMAT))) {
-      return false;
-    }
-
-    // Check if the given event times are inside opening hours.
-    const dateString = startMoment.format(constants.DATE_FORMAT);
-    const openingHours = resourceUtils.getOpeningHours(resource, dateString);
-    const opens = moment(openingHours.opens);
-    const closes = moment(openingHours.closes);
-
-    if (startMoment.isBefore(opens) || endMoment.isAfter(closes)) {
-      return false;
-    }
-
-    // Prevent selecting times from past.
-    return startMoment.isAfter(now);
+    return resourceUtils.isTimeRangeReservable(resource, start, end);
   };
 
   onEventDrop = (eventDropInfo) => {

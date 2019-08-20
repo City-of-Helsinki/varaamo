@@ -356,6 +356,72 @@ export const isDateReservable = (resource, date) => {
 };
 
 /**
+ * isTimeRangeReservable();
+ * @param resource {object} Resource object.
+ * @param start {Date|string} Either a Date object or date string that can be parsed as moment object.
+ * @param end {Date|string} Either a Date object or date string that can be parsed as moment object.
+ * @returns {boolean}
+ */
+export const isTimeRangeReservable = (resource, start, end) => {
+  const now = moment();
+  const startMoment = moment(start);
+  const endMoment = moment(end);
+
+  // Reservation cannot be shorter than the resources min period if min period is set.
+  const minPeriod = get(resource, 'min_period', null);
+  if (minPeriod) {
+    const minPeriodDuration = moment.duration(minPeriod);
+    const minDuration = minPeriodDuration.hours() * 60 + minPeriodDuration.minutes();
+
+    if (endMoment.diff(startMoment, 'minutes') < minDuration) {
+      return false;
+    }
+  }
+
+  // Reservation cannot be longer than the resources max period if max period is set.
+  const maxPeriod = get(resource, 'max_period', null);
+  if (maxPeriod) {
+    const maxPeriodDuration = moment.duration(maxPeriod);
+    const maxDuration = maxPeriodDuration.hours() * 60 + maxPeriodDuration.minutes();
+
+    if (endMoment.diff(startMoment, 'minutes') > maxDuration) {
+      return false;
+    }
+  }
+
+  if (!isDateReservable(resource, startMoment.format(constants.DATE_FORMAT))
+    || !isDateReservable(resource, endMoment.format(constants.DATE_FORMAT))) {
+    return false;
+  }
+
+  // Check if the given event times are inside opening hours.
+  const dateString = startMoment.format(constants.DATE_FORMAT);
+  const openingHours = getOpeningHours(resource, dateString);
+  const opens = moment(openingHours.opens);
+  const closes = moment(openingHours.closes);
+
+  if (startMoment.isBefore(opens) || endMoment.isAfter(closes)) {
+    return false;
+  }
+
+  // Prevent selecting times from past.
+  return startMoment.isAfter(now);
+};
+
+
+export const isFullCalendarEventDurationEditable = (resource, start, end) => {
+  const slotSize = get(resource, 'slot_size', null);
+  const minPeriod = get(resource, 'min_period', null);
+  const maxPeriod = get(resource, 'max_period', null);
+
+  if (!minPeriod || !maxPeriod) {
+    return true;
+  }
+
+  return !(slotSize === minPeriod && minPeriod === maxPeriod);
+};
+
+/**
  * reservingIsRestricted();
  * @param resource {object}
  * @param date {string} Date string that can be parsed as moment object.
@@ -471,21 +537,12 @@ export const getAvailabilityDataForWholeDay = (resource, date) => {
 };
 
 /**
- * getSlotSize();
- * @param resource {object} Resource object.
- * @returns {string|null}
- */
-export const getSlotSize = (resource) => {
-  return get(resource, 'slot_size', null);
-};
-
-/**
  * getSlotSizeInMinutes();
  * @param resource {object} Resource object.
  * @returns {number} Slot size in minutes.
  */
 export const getSlotSizeInMinutes = (resource) => {
-  const slotSize = getSlotSize(resource);
+  const slotSize = get(resource, 'slot_size', null);
 
   if (slotSize) {
     const slotSizeDuration = moment.duration(slotSize);
