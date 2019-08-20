@@ -26,11 +26,8 @@ describe('pages/resource/resource-equipment/ResourceEquipment', () => {
   }
   test('renders panel and equipment heading correctly', () => {
     const panels = getWrapper().find(Panel);
-    const heading = getWrapper().find('h3');
 
     expect(panels).toHaveLength(1);
-    expect(heading).toHaveLength(1);
-    expect(heading.text()).toBe('ResourceEquipment.headingText');
   });
 
   test('renders equipment content correctly', () => {
