@@ -19,43 +19,65 @@ function ResourceInfo({
   return (
     <Row>
       <section className="app-ResourceInfo">
-        <div className="app-ResourceInfo__description">
-          {resource.description && <WrappedText openLinksInNewTab text={resource.description} />}
-        </div>
-        <Panel defaultExpanded header={t('ResourceInfo.reservationTitle')}>
-          <ReservationInfo isLoggedIn={isLoggedIn} resource={resource} />
+        <Panel>
+          <Panel.Heading>
+            <Panel.Title componentClass="h3">{t('ResourceInfo.descriptionTitle')}</Panel.Title>
+          </Panel.Heading>
+          <Panel.Body>
+            <div className="app-ResourceInfo__description">
+              {resource.description && <WrappedText openLinksInNewTab text={resource.description} />}
+            </div>
+          </Panel.Body>
+        </Panel>
+        <Panel>
+          <Panel.Heading>
+            <Panel.Title componentClass="h3">{t('ResourceInfo.reservationTitle')}</Panel.Title>
+          </Panel.Heading>
+          <Panel.Body>
+            <ReservationInfo isLoggedIn={isLoggedIn} resource={resource} />
+          </Panel.Body>
         </Panel>
         {resource.specificTerms && (
-          <Panel defaultExpanded header={t('ResourcePage.specificTerms')}>
-            <Row>
-              <Col xs={12}>{resource.specificTerms}</Col>
-            </Row>
+          <Panel>
+            <Panel.Heading>
+              <Panel.Title componentClass="h3">{t('ResourcePage.specificTerms')}</Panel.Title>
+            </Panel.Heading>
+            <Panel.Body>
+              <Row>
+                <Col xs={12}>{resource.specificTerms}</Col>
+              </Row>
+            </Panel.Body>
           </Panel>
         )}
-        <Panel defaultExpanded header={t('ResourceInfo.additionalInfoTitle')}>
-          <Row>
-            <Col className="app-ResourceInfo__address" xs={6}>
-              {unit && unit.name && <span>{unit.name}</span>}
-              {unit && unit.streetAddress && <span>{unit.streetAddress}</span>}
-              {unit && <span>{`${unit.addressZip} ${upperFirst(unit.municipality)}`.trim()}</span>}
-            </Col>
-            <Col className="app-ResourceInfo__web" xs={6}>
-              {serviceMapUrl && (
-                <span className="app-ResourceInfo__servicemap">
-                  <a href={serviceMapUrl} rel="noopener noreferrer" target="_blank">
-                    {t('ResourceInfo.serviceMapLink')}
-                  </a>
-                </span>
-              )}
-              {unit && unit.wwwUrl && (
-                <span className="app-ResourceInfo__www">
-                  <a href={unit.wwwUrl} rel="noopener noreferrer" target="_blank">
-                    {unit.wwwUrl}
-                  </a>
-                </span>
-              )}
-            </Col>
-          </Row>
+        <Panel>
+          <Panel.Heading>
+            <Panel.Title componentClass="h3">{t('ResourceInfo.additionalInfoTitle')}</Panel.Title>
+          </Panel.Heading>
+          <Panel.Body>
+            <Row>
+              <Col className="app-ResourceInfo__address" xs={6}>
+                {unit && unit.name && <span>{unit.name}</span>}
+                {unit && unit.streetAddress && <span>{unit.streetAddress}</span>}
+                {unit && <span>{`${unit.addressZip} ${upperFirst(unit.municipality)}`.trim()}</span>}
+              </Col>
+              <Col className="app-ResourceInfo__web" xs={6}>
+                {serviceMapUrl && (
+                  <span className="app-ResourceInfo__servicemap">
+                    <a href={serviceMapUrl} rel="noopener noreferrer" target="_blank">
+                      {t('ResourceInfo.serviceMapLink')}
+                    </a>
+                  </span>
+                )}
+                {unit && unit.wwwUrl && (
+                  <span className="app-ResourceInfo__www">
+                    <a href={unit.wwwUrl} rel="noopener noreferrer" target="_blank">
+                      {unit.wwwUrl}
+                    </a>
+                  </span>
+                )}
+              </Col>
+            </Row>
+          </Panel.Body>
         </Panel>
         <Equipment equipment={resource.equipment} />
       </section>

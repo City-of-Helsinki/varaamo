@@ -187,47 +187,52 @@ class UnconnectedResourcePage extends Component {
                     unit={unit}
                   />
 
-                  <Panel defaultExpanded header={t('ResourceInfo.reserveTitle')}>
-                    {resource.externalReservationUrl && (
-                      <form action={resource.externalReservationUrl}>
-                        <input
-                          className="btn btn-primary"
-                          type="submit"
-                          value="Siirry ulkoiseen ajanvarauskalenteriin"
-                        />
-                      </form>
-                    )}
-                    {!resource.externalReservationUrl && (
-                      <div>
-                        {/* Show reservation max period text */}
-                        {resource.maxPeriod && (
-                          <div className="app-ResourcePage__content-max-period">
-                            {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
-                          </div>
-                        )}
+                  <Panel>
+                    <Panel.Heading>
+                      <Panel.Title componentClass="h3">{t('ResourceInfo.reserveTitle')}</Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body>
+                      {resource.externalReservationUrl && (
+                        <form action={resource.externalReservationUrl}>
+                          <input
+                            className="btn btn-primary"
+                            type="submit"
+                            value="Siirry ulkoiseen ajanvarauskalenteriin"
+                          />
+                        </form>
+                      )}
+                      {!resource.externalReservationUrl && (
+                        <div>
+                          {/* Show reservation max period text */}
+                          {resource.maxPeriod && (
+                            <div className="app-ResourcePage__content-max-period">
+                              {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
+                            </div>
+                          )}
 
-                        {/* Show reservation max period text */}
-                        {resource.minPeriod
-                        && (
-                          <div className="app-ResourcePage__content-min-period">
-                            <p>{`${t('ReservationInfo.reservationMinLength')} ${minPeriodText}`}</p>
-                          </div>
-                        )
-                        }
+                          {/* Show reservation max period text */}
+                          {resource.minPeriod
+                          && (
+                            <div className="app-ResourcePage__content-min-period">
+                              <p>{`${t('ReservationInfo.reservationMinLength')} ${minPeriodText}`}</p>
+                            </div>
+                          )
+                          }
 
-                        <ResourceCalendar
-                          isDayReservable={this.isDayReservable}
-                          onDateChange={this.handleDateChange}
-                          resourceId={resource.id}
-                          selectedDate={date}
-                        />
-                        <ResourceReservationCalendar
-                          date={date}
-                          onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())}
-                          resource={decamelizeKeys(resource)}
-                        />
-                      </div>
-                    )}
+                          <ResourceCalendar
+                            isDayReservable={this.isDayReservable}
+                            onDateChange={this.handleDateChange}
+                            resourceId={resource.id}
+                            selectedDate={date}
+                          />
+                          <ResourceReservationCalendar
+                            date={date}
+                            onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())}
+                            resource={decamelizeKeys(resource)}
+                          />
+                        </div>
+                      )}
+                    </Panel.Body>
                   </Panel>
                 </Col>
                 <Col className="app-ResourceInfo__images" lg={3} md={3} xs={12}>

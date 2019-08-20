@@ -15,10 +15,14 @@ function ResourceEquipment({
   );
   return (
     <Panel>
-      <h3>{t('ResourceEquipment.headingText')}</h3>
-      <Row>
-        {equipmentColumns}
-      </Row>
+      <Panel.Heading>
+        <Panel.Title componentClass="h3">{t('ResourceEquipment.headingText')}</Panel.Title>
+      </Panel.Heading>
+      <Panel.Body>
+        <Row>
+          {equipmentColumns}
+        </Row>
+      </Panel.Body>
     </Panel>
   );
 }
