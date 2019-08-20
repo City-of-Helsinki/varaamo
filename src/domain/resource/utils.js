@@ -1,6 +1,7 @@
 import round from 'lodash/round';
 import filter from 'lodash/filter';
 import findIndex from 'lodash/findIndex';
+import find from 'lodash/find';
 import get from 'lodash/get';
 import forEach from 'lodash/forEach';
 import moment from 'moment';
@@ -12,10 +13,10 @@ import constants from '../../../app/constants/AppConstants';
 
 
 /**
- * Getter for resource page link.
+ * getResourcePageLink();
  * Returns a resource page url with the given query params.
- * @param resource
- * @param query
+ * @param resource {object} Resource object.
+ * @param query {object}
  * @returns {string}
  */
 export const getResourcePageLink = (resource, query) => {
@@ -23,9 +24,9 @@ export const getResourcePageLink = (resource, query) => {
 };
 
 /**
- * Getter for formatted unit address string.
- * @param unit
- * @param locale
+ * getUnitAddress();
+ * @param unit {object} Unit object.
+ * @param locale {string} Language code (e.g. fi, en, sv).
  * @returns {string}
  */
 export const getUnitAddress = (unit, locale) => {
@@ -53,8 +54,8 @@ export const getResourceDistance = (resource) => {
 
 /**
  * Getter for price string used in resource cards.
- * @param resource
- * @param t
+ * @param resource {object} Resource object.
+ * @param t {function}
  * @returns {string|*}
  */
 export const getPrice = (resource, t) => {
@@ -78,6 +79,11 @@ export const getPrice = (resource, t) => {
   return price ? `${price} €/h` : null;
 };
 
+/**
+ * isFree();
+ * @param resource {object} Resource object.
+ * @returns {boolean}
+ */
 export const isFree = (resource) => {
   const minPricePerHour = resource.min_price_per_hour;
   const maxPricePerHour = resource.max_price_per_hour;
@@ -96,6 +102,12 @@ export const isFree = (resource) => {
   return price === 0;
 };
 
+/**
+ * getOpeningHours();
+ * @param resource {object} Resource object.
+ * @param date Date string that can be parsed as moment object.
+ * @returns {null|{opens: *, closes: *}}
+ */
 export const getOpeningHours = (resource, date = null) => {
   if (!resource) {
     return null;
@@ -116,7 +128,7 @@ export const getOpeningHours = (resource, date = null) => {
 /**
  * getOpeningHoursForWeek();
  * @param resource
- * @param date
+ * @param date Date string that can be parsed as moment object.
  * @returns {[]}
  */
 export const getOpeningHoursForWeek = (resource, date = null) => {
@@ -138,7 +150,7 @@ export const getOpeningHoursForWeek = (resource, date = null) => {
 /**
  * getFullCalendarBusinessHours();
  * @param resource
- * @param date
+ * @param date Date string that can be parsed as moment object.
  * @returns {[]}
  */
 export const getFullCalendarBusinessHours = (resource, date = null) => {
@@ -159,18 +171,32 @@ export const getFullCalendarBusinessHours = (resource, date = null) => {
   return businessHours;
 };
 
+
+/**
+ * getFullCalendarBusinessHoursForDate();
+ * @param resource Resource object.
+ * @param date Date string that can be parsed as moment object.
+ */
+export const getFullCalendarBusinessHoursForDate = (resource, date) => {
+  const businessHoursForWeek = getFullCalendarBusinessHours(resource, date);
+  let dayNumber = Number(moment(date).format('E'));
+  dayNumber = dayNumber < 7 ? dayNumber : 0;
+
+  return find(businessHoursForWeek, item => item.daysOfWeek[0] === dayNumber);
+};
+
 /**
  * getFullCalendarMinTime();
  * @param resource {object}
- * @param date {string}
- * @param view {string}
+ * @param date {string} Date string that can be parsed as moment object.
+ * @param viewType {string} Type of a FullCalendar View Object (https://fullcalendar.io/docs/view-object).
  * @param buffer {number} buffer in hours.
  * @returns {string}
  */
-export const getFullCalendarMinTime = (resource, date, view, buffer = 1) => {
+export const getFullCalendarMinTime = (resource, date, viewType, buffer = 1) => {
   const defaultMin = '07:00:00';
   let openingHours = null;
-  switch (view) {
+  switch (viewType) {
     case 'timeGridDay':
       openingHours = [getOpeningHours(resource, date)];
       break;
@@ -197,8 +223,16 @@ export const getFullCalendarMinTime = (resource, date, view, buffer = 1) => {
   });
 
   if (min) {
+    // Subtract the buffer from the min value.
+    min.subtract(buffer, 'hour');
+
+    // Make sure that the min value is an even hour.
+    if (min.minutes() > 0) {
+      min.minutes(0);
+      min.subtract(1, 'hour');
+    }
+
     return min
-      .subtract(buffer, 'hour')
       .format('HH:mm:ss');
   }
 
@@ -208,15 +242,15 @@ export const getFullCalendarMinTime = (resource, date, view, buffer = 1) => {
 /**
  * getFullCalendarMaxTime();
  * @param resource {object}
- * @param date {string}
- * @param view {string}
+ * @param date {string} Date string that can be parsed as moment object.
+ * @param viewType {string} Type of a FullCalendar View Object (https://fullcalendar.io/docs/view-object).
  * @param buffer {number} buffer in hours.
  * @returns {string}
  */
-export const getFullCalendarMaxTime = (resource, date, view, buffer = 1) => {
+export const getFullCalendarMaxTime = (resource, date, viewType, buffer = 1) => {
   const defaultMax = '17:00:00';
   let openingHours = null;
-  switch (view) {
+  switch (viewType) {
     case 'timeGridDay':
       openingHours = [getOpeningHours(resource, date)];
       break;
@@ -243,8 +277,16 @@ export const getFullCalendarMaxTime = (resource, date, view, buffer = 1) => {
   });
 
   if (max) {
+    // Add the buffer into the max value.
+    max.add(buffer, 'hour');
+
+    // Make sure that the max value is an even hour.
+    if (max.minutes() > 0) {
+      max.minutes(0);
+      max.add(1, 'hour');
+    }
+
     return max
-      .add(buffer, 'hour')
       .format('HH:mm:ss');
   }
 
@@ -252,9 +294,50 @@ export const getFullCalendarMaxTime = (resource, date, view, buffer = 1) => {
 };
 
 /**
+ * getFullCalendarSlotLabelInterval();
+ * @param resource {object} Resource object.
+ * @returns {string}
+ */
+export const getFullCalendarSlotLabelInterval = (resource) => {
+  const slotSize = get(resource, 'slot_size', null);
+
+  if (slotSize === '00:15:00') {
+    return '00:30:00';
+  }
+
+  return '01:00:00';
+};
+
+/**
+ * getFullCalendarSlotDuration();
+ * @param resource {object} Resource object.
+ * @param date {string} Date string that can be parsed as moment object.
+ * @param viewType {string} Type of a FullCalendar View Object (https://fullcalendar.io/docs/view-object).
+ * @returns {string}
+ */
+export const getFullCalendarSlotDuration = (resource, date, viewType) => {
+  const slotSize = get(resource, 'slot_size', null);
+  const slotSizeDuration = moment.duration(slotSize);
+  const durationMinutes = slotSizeDuration.hours() * 60 + slotSizeDuration.minutes();
+
+  let duration = '01:00:00';
+  if (durationMinutes < 30) {
+    duration = '00:15:00';
+  } else if (durationMinutes < 60) {
+    duration = '00:30:00';
+  }
+
+  // const businessHours = viewType === 'timeGridWeek'
+  //   ? getFullCalendarBusinessHours(resource, date)
+  //   : [getFullCalendarBusinessHoursForDate(resource, date)];
+
+  return duration;
+};
+
+/**
  * isDateReservable();
- * @param resource {object} A Resource object from the API.
- * @param date {string} A date string that can be parsed as moment object.
+ * @param resource {object} Resource object from the API.
+ * @param date {string} Date string that can be parsed as moment object.
  * @returns {boolean}
  */
 export const isDateReservable = (resource, date) => {
@@ -266,8 +349,8 @@ export const isDateReservable = (resource, date) => {
   const reservableBefore = get(resource, 'reservable_before', null);
 
   const isAdmin = get(resource, 'user_permissions.is_admin', false);
-  const isBefore = reservableBefore && moment(date).isSameOrBefore(moment(reservableBefore), 'day');
-  const isAfter = reservableAfter && moment(date).isSameOrAfter(moment(reservableAfter), 'day');
+  const isBefore = reservableBefore ? moment(date).isSameOrBefore(moment(reservableBefore), 'day') : true;
+  const isAfter = reservableAfter ? moment(date).isSameOrAfter(moment(reservableAfter), 'day') : true;
 
   return isAdmin || (isBefore && isAfter);
 };
@@ -275,7 +358,7 @@ export const isDateReservable = (resource, date) => {
 /**
  * reservingIsRestricted();
  * @param resource {object}
- * @param date {string}
+ * @param date {string} Date string that can be parsed as moment object.
  * @returns {boolean}
  */
 export const reservingIsRestricted = (resource, date) => {
@@ -289,12 +372,23 @@ export const reservingIsRestricted = (resource, date) => {
   return isLimited && !isAdmin;
 };
 
+/**
+ * getOpenReservations();
+ * @param resource {object} Resource object.
+ * @returns {Array}
+ */
 export const getOpenReservations = (resource) => {
   return filter(resource.reservations, (reservation) => {
     return reservation.state !== 'cancelled' && reservation.state !== 'denied';
   });
 };
 
+/**
+ * getAvailabilityDataForNow();
+ * @param resource {object} Resource object.
+ * @param date {string} Date string that can be parsed as moment object.
+ * @returns {object}
+ */
 export const getAvailabilityDataForNow = (resource, date) => {
   const openingHours = getOpeningHours(resource, date);
   const reservations = getOpenReservations(resource);
@@ -328,6 +422,12 @@ export const getAvailabilityDataForNow = (resource, date) => {
   return { status: 'available', bsStyle: 'success' };
 };
 
+/**
+ * getAvailabilityDataForWholeDay();
+ * @param resource {object} Resource object.
+ * @param date {string} Date string that can be parsed as moment object.
+ * @returns {object}
+ */
 export const getAvailabilityDataForWholeDay = (resource, date) => {
   const openingHours = getOpeningHours(resource, date);
 
@@ -368,4 +468,29 @@ export const getAvailabilityDataForWholeDay = (resource, date) => {
     bsStyle: 'success',
     values: { hours: rounded },
   };
+};
+
+/**
+ * getSlotSize();
+ * @param resource {object} Resource object.
+ * @returns {string|null}
+ */
+export const getSlotSize = (resource) => {
+  return get(resource, 'slot_size', null);
+};
+
+/**
+ * getSlotSizeInMinutes();
+ * @param resource {object} Resource object.
+ * @returns {number} Slot size in minutes.
+ */
+export const getSlotSizeInMinutes = (resource) => {
+  const slotSize = getSlotSize(resource);
+
+  if (slotSize) {
+    const slotSizeDuration = moment.duration(slotSize);
+    return slotSizeDuration.hours() * 60 + slotSizeDuration.minutes();
+  }
+
+  return 30;
 };

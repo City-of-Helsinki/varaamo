@@ -30,7 +30,7 @@ class ResourceReservationCalendar extends React.Component {
 
   state = {
     selected: null,
-    view: 'timeGridWeek',
+    viewType: 'timeGridWeek',
   };
 
   componentDidUpdate(prevProps) {
@@ -43,8 +43,7 @@ class ResourceReservationCalendar extends React.Component {
   }
 
   getCalendarOptions = () => {
-    const { intl, resource } = this.props;
-    const slotSize = get(resource, 'slot_size', null);
+    const { intl } = this.props;
 
     return {
       header: {
@@ -61,8 +60,7 @@ class ResourceReservationCalendar extends React.Component {
       locales: [enLocale, svLocale, fiLocale],
       nowIndicator: true,
       plugins: [timeGridPlugin, momentTimezonePlugin, interactionPlugin],
-      selectable: true,
-      slotDuration: slotSize,
+      // selectable: true,
       selectOverlap: false,
       selectConstraint: 'businessHours',
       slotLabelFormat: {
@@ -95,12 +93,16 @@ class ResourceReservationCalendar extends React.Component {
       end: moment(reservation.end).toDate(),
     }));
 
-    // Add check resources reservation rules and disable days if needed.
+    // Check resources reservation rules and disable days if needed.
+    const now = moment();
     const momentDate = moment(date)
       .startOf('week');
 
     for (let i = 0; i < 7; i++) {
-      if (!resourceUtils.isDateReservable(resource, momentDate.format(constants.DATE_FORMAT))) {
+      if (
+        momentDate.isBefore(now, 'date')
+        || !resourceUtils.isDateReservable(resource, momentDate.format(constants.DATE_FORMAT))
+      ) {
         events.push({
           allDay: true,
           classNames: [
@@ -133,17 +135,6 @@ class ResourceReservationCalendar extends React.Component {
     return events;
   };
 
-  getSlotLabelInterval = () => {
-    const { resource } = this.props;
-    const slotSize = get(resource, 'slot_size', null);
-
-    if (slotSize === '00:15:00') {
-      return '00:30:00';
-    }
-
-    return '01:00:00';
-  };
-
   onDatesRender = (info) => {
     const {
       date,
@@ -162,12 +153,28 @@ class ResourceReservationCalendar extends React.Component {
     }
 
     const {
-      view,
+      viewType,
     } = this.state;
 
-    if (view !== info.view.type) {
+    if (viewType !== info.view.type) {
       this.setState({
-        view: info.view.type,
+        viewType: info.view.type,
+      });
+    }
+  };
+
+  onDateClick = (dateClickInfo) => {
+    const { resource } = this.props;
+    const slotSize = resourceUtils.getSlotSizeInMinutes(resource);
+
+    const start = moment(dateClickInfo.date);
+    const end = start.clone().add(slotSize, 'minutes');
+
+    if (this.isEventValid(start.toDate(), end.toDate())) {
+      const calendarApi = this.calendarRef.current.getApi();
+      calendarApi.select({
+        start: start.toDate(),
+        end: end.toDate(),
       });
     }
   };
@@ -186,19 +193,25 @@ class ResourceReservationCalendar extends React.Component {
   };
 
   onEventAllow = (dropInfo) => {
-    return this.isEventValid(dropInfo);
+    return this.isEventValid(dropInfo.start, dropInfo.end);
   };
 
   onSelectAllow = (selectInfo) => {
-    return this.isEventValid(selectInfo);
+    return this.isEventValid(selectInfo.start, selectInfo.end);
   };
 
-  isEventValid = (eventInfo) => {
+  /**
+   * isEventValid();
+   * @param start {Date}
+   * @param end {Date}
+   * @returns {boolean}
+   */
+  isEventValid = (start, end) => {
     const { resource } = this.props;
 
     const now = moment();
-    const start = moment(eventInfo.start);
-    const end = moment(eventInfo.end);
+    const startMoment = moment(start);
+    const endMoment = moment(end);
 
     // Reservation cannot be longer than the resources max period if max period is set.
     const maxPeriod = get(resource, 'max_period', null);
@@ -206,18 +219,28 @@ class ResourceReservationCalendar extends React.Component {
       const maxPeriodDuration = moment.duration(maxPeriod);
       const maxDuration = maxPeriodDuration.hours() * 60 + maxPeriodDuration.minutes();
 
-      if (end.diff(start, 'minutes') > maxDuration) {
+      if (endMoment.diff(startMoment, 'minutes') > maxDuration) {
         return false;
       }
     }
 
-    if (!resourceUtils.isDateReservable(resource, start.format(constants.DATE_FORMAT))
-      || !resourceUtils.isDateReservable(resource, end.format(constants.DATE_FORMAT))) {
+    if (!resourceUtils.isDateReservable(resource, startMoment.format(constants.DATE_FORMAT))
+      || !resourceUtils.isDateReservable(resource, endMoment.format(constants.DATE_FORMAT))) {
+      return false;
+    }
+
+    // Check if the given event times are inside opening hours.
+    const dateString = startMoment.format(constants.DATE_FORMAT);
+    const openingHours = resourceUtils.getOpeningHours(resource, dateString);
+    const opens = moment(openingHours.opens);
+    const closes = moment(openingHours.closes);
+
+    if (startMoment.isBefore(opens) || endMoment.isAfter(closes)) {
       return false;
     }
 
     // Prevent selecting times from past.
-    return start.isAfter(now);
+    return startMoment.isAfter(now);
   };
 
   onEventDrop = (eventDropInfo) => {
@@ -298,15 +321,19 @@ class ResourceReservationCalendar extends React.Component {
     } = this.props;
 
     const {
-      view,
+      viewType,
       selected,
     } = this.state;
 
     return (
       <div className="app-ResourceReservationCalendar">
+        <p>Slot size: {resource.slot_size}</p>
+        <p>Min & max period: {resource.min_period} - {resource.max_period}</p>
+
         <FullCalendar
           allDaySlot={false}
           businessHours={resourceUtils.getFullCalendarBusinessHours(resource, date)}
+          dateClick={this.onDateClick}
           datesRender={this.onDatesRender}
           defaultDate={date}
           eventAllow={this.onEventAllow}
@@ -316,10 +343,11 @@ class ResourceReservationCalendar extends React.Component {
           ref={this.calendarRef}
           select={this.onSelect}
           selectAllow={this.onSelectAllow}
-          slotLabelInterval={this.getSlotLabelInterval()}
+          slotDuration={resourceUtils.getFullCalendarSlotDuration(resource, date, viewType)}
+          slotLabelInterval={resourceUtils.getFullCalendarSlotLabelInterval(resource)}
           {...this.getCalendarOptions()}
-          maxTime={resourceUtils.getFullCalendarMaxTime(resource, date, view)}
-          minTime={resourceUtils.getFullCalendarMinTime(resource, date, view)}
+          maxTime={resourceUtils.getFullCalendarMaxTime(resource, date, viewType)}
+          minTime={resourceUtils.getFullCalendarMinTime(resource, date, viewType)}
         />
 
         {selected && (
