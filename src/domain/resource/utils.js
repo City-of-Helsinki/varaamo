@@ -318,7 +318,32 @@ export const getFullCalendarSlotLabelInterval = (resource) => {
 export const getFullCalendarSlotDuration = (resource, date, viewType) => {
   const slotSize = get(resource, 'slot_size', null);
   const slotSizeDuration = moment.duration(slotSize);
-  const durationMinutes = slotSizeDuration.hours() * 60 + slotSizeDuration.minutes();
+  let durationMinutes = slotSizeDuration.hours() * 60 + slotSizeDuration.minutes();
+
+  const businessHours = viewType === 'timeGridWeek'
+    ? getFullCalendarBusinessHours(resource, date)
+    : [getFullCalendarBusinessHoursForDate(resource, date)];
+
+  // Make sure that slot duration is not bigger than business hour minutes.
+  // (e.g. it's not possible to reserve the last 30 minutes
+  // if slot size is 01:00:00 and business hours is 07:00 - 20:30).
+  let minutes = 60;
+  businessHours.forEach((item) => {
+    const startTimeMinutes = moment.duration(item.startTime).minutes();
+    const endTimeMinutes = moment.duration(item.endTime).minutes();
+
+    if (startTimeMinutes > 0) {
+      minutes = Math.min(minutes, startTimeMinutes);
+    }
+
+    if (endTimeMinutes > 0) {
+      minutes = Math.min(minutes, endTimeMinutes);
+    }
+  });
+
+  if (minutes < 60) {
+    durationMinutes = minutes;
+  }
 
   let duration = '01:00:00';
   if (durationMinutes < 30) {
@@ -326,10 +351,6 @@ export const getFullCalendarSlotDuration = (resource, date, viewType) => {
   } else if (durationMinutes < 60) {
     duration = '00:30:00';
   }
-
-  // const businessHours = viewType === 'timeGridWeek'
-  //   ? getFullCalendarBusinessHours(resource, date)
-  //   : [getFullCalendarBusinessHoursForDate(resource, date)];
 
   return duration;
 };

@@ -296,9 +296,6 @@ class ResourceReservationCalendar extends React.Component {
 
     return (
       <div className="app-ResourceReservationCalendar">
-        <p>Slot size: {resource.slot_size}</p>
-        <p>Min & max period: {resource.min_period} - {resource.max_period}</p>
-
         <FullCalendar
           allDaySlot={false}
           businessHours={resourceUtils.getFullCalendarBusinessHours(resource, date)}
@@ -318,7 +315,6 @@ class ResourceReservationCalendar extends React.Component {
           maxTime={resourceUtils.getFullCalendarMaxTime(resource, date, viewType)}
           minTime={resourceUtils.getFullCalendarMinTime(resource, date, viewType)}
         />
-
         {selected && (
           <div className="app-ResourceReservationCalendar__selectedInfo">
             <div className="app-ResourceReservationCalendar__selectedDate">
