@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ReservationInfomationModal renders correctly 1`] = `
+exports[`ReservationInformationModal renders correctly 1`] = `
 <Modal
   animation={true}
   autoFocus={true}
   backdrop={true}
   bsClass="modal"
-  className="app-ReservationInfomationModal"
+  className="app-ReservationInformationModal"
   dialogComponentClass={[Function]}
   enforceFocus={true}
   keyboard={true}
@@ -63,13 +63,13 @@ exports[`ReservationInfomationModal renders correctly 1`] = `
       }
     />
     <div
-      className="app-ReservationInfomationModal__information"
+      className="app-ReservationInformationModal__information"
     >
       <div
-        className="app-ReservationInfomationModal__information__account"
+        className="app-ReservationInformationModal__information__account"
       >
         <div
-          className="app-ReservationInfomationModal__field"
+          className="app-ReservationInformationModal__field"
         >
           <Row
             bsClass="row"
@@ -77,7 +77,7 @@ exports[`ReservationInfomationModal renders correctly 1`] = `
           >
             <Col
               bsClass="col"
-              className="app-ReservationInfomationModal__field__label"
+              className="app-ReservationInformationModal__field__label"
               componentClass="div"
               xs={5}
             >
@@ -87,7 +87,7 @@ exports[`ReservationInfomationModal renders correctly 1`] = `
             </Col>
             <Col
               bsClass="col"
-              className="app-ReservationInfomationModal__field__value"
+              className="app-ReservationInformationModal__field__value"
               componentClass="div"
               xs={7}
             >
@@ -96,7 +96,7 @@ exports[`ReservationInfomationModal renders correctly 1`] = `
           </Row>
         </div>
         <div
-          className="app-ReservationInfomationModal__field"
+          className="app-ReservationInformationModal__field"
         >
           <Row
             bsClass="row"
@@ -104,7 +104,7 @@ exports[`ReservationInfomationModal renders correctly 1`] = `
           >
             <Col
               bsClass="col"
-              className="app-ReservationInfomationModal__field__label"
+              className="app-ReservationInformationModal__field__label"
               componentClass="div"
               xs={5}
             >
@@ -114,7 +114,7 @@ exports[`ReservationInfomationModal renders correctly 1`] = `
             </Col>
             <Col
               bsClass="col"
-              className="app-ReservationInfomationModal__field__value"
+              className="app-ReservationInformationModal__field__value"
               componentClass="div"
               xs={7}
             >
@@ -124,7 +124,7 @@ exports[`ReservationInfomationModal renders correctly 1`] = `
         </div>
       </div>
       <div
-        className="app-ReservationInfomationModal__field"
+        className="app-ReservationInformationModal__field"
       >
         <Row
           bsClass="row"
@@ -132,7 +132,7 @@ exports[`ReservationInfomationModal renders correctly 1`] = `
         >
           <Col
             bsClass="col"
-            className="app-ReservationInfomationModal__field__label"
+            className="app-ReservationInformationModal__field__label"
             componentClass="div"
             xs={5}
           >
@@ -142,7 +142,7 @@ exports[`ReservationInfomationModal renders correctly 1`] = `
           </Col>
           <Col
             bsClass="col"
-            className="app-ReservationInfomationModal__field__value"
+            className="app-ReservationInformationModal__field__value"
             componentClass="div"
             xs={7}
           >
@@ -151,7 +151,7 @@ exports[`ReservationInfomationModal renders correctly 1`] = `
         </Row>
       </div>
       <div
-        className="app-ReservationInfomationModal__field"
+        className="app-ReservationInformationModal__field"
       >
         <Row
           bsClass="row"
@@ -159,7 +159,7 @@ exports[`ReservationInfomationModal renders correctly 1`] = `
         >
           <Col
             bsClass="col"
-            className="app-ReservationInfomationModal__field__label"
+            className="app-ReservationInformationModal__field__label"
             componentClass="div"
             xs={5}
           >
@@ -169,7 +169,7 @@ exports[`ReservationInfomationModal renders correctly 1`] = `
           </Col>
           <Col
             bsClass="col"
-            className="app-ReservationInfomationModal__field__value"
+            className="app-ReservationInformationModal__field__value"
             componentClass="div"
             xs={7}
           >
@@ -178,7 +178,7 @@ exports[`ReservationInfomationModal renders correctly 1`] = `
         </Row>
       </div>
       <div
-        className="app-ReservationInfomationModal__field"
+        className="app-ReservationInformationModal__field"
       >
         <Row
           bsClass="row"
@@ -186,7 +186,7 @@ exports[`ReservationInfomationModal renders correctly 1`] = `
         >
           <Col
             bsClass="col"
-            className="app-ReservationInfomationModal__field__label"
+            className="app-ReservationInformationModal__field__label"
             componentClass="div"
             xs={5}
           >
@@ -196,7 +196,7 @@ exports[`ReservationInfomationModal renders correctly 1`] = `
           </Col>
           <Col
             bsClass="col"
-            className="app-ReservationInfomationModal__field__value"
+            className="app-ReservationInformationModal__field__value"
             componentClass="div"
             xs={7}
           >
@@ -207,7 +207,7 @@ exports[`ReservationInfomationModal renders correctly 1`] = `
         </Row>
       </div>
       <div
-        className="app-ReservationInfomationModal__field"
+        className="app-ReservationInformationModal__field"
       >
         <Row
           bsClass="row"
@@ -215,7 +215,7 @@ exports[`ReservationInfomationModal renders correctly 1`] = `
         >
           <Col
             bsClass="col"
-            className="app-ReservationInfomationModal__field__label"
+            className="app-ReservationInformationModal__field__label"
             componentClass="div"
             xs={5}
           >
@@ -225,7 +225,7 @@ exports[`ReservationInfomationModal renders correctly 1`] = `
           </Col>
           <Col
             bsClass="col"
-            className="app-ReservationInfomationModal__field__value"
+            className="app-ReservationInformationModal__field__value"
             componentClass="div"
             xs={7}
           >
@@ -234,7 +234,7 @@ exports[`ReservationInfomationModal renders correctly 1`] = `
         </Row>
       </div>
       <div
-        className="app-ReservationInfomationModal__field"
+        className="app-ReservationInformationModal__field"
       >
         <Row
           bsClass="row"
@@ -242,7 +242,7 @@ exports[`ReservationInfomationModal renders correctly 1`] = `
         >
           <Col
             bsClass="col"
-            className="app-ReservationInfomationModal__field__label"
+            className="app-ReservationInformationModal__field__label"
             componentClass="div"
             xs={5}
           >
@@ -252,7 +252,7 @@ exports[`ReservationInfomationModal renders correctly 1`] = `
           </Col>
           <Col
             bsClass="col"
-            className="app-ReservationInfomationModal__field__value"
+            className="app-ReservationInformationModal__field__value"
             componentClass="div"
             xs={7}
           >
