@@ -59,9 +59,96 @@ exports[`ResourceReservationCalendar renders correctly 1`] = `
         },
       ]
     }
+    dateClick={[Function]}
     datesRender={[Function]}
     defaultDate="2019-08-15"
-    events={Array []}
+    editable={true}
+    eventAllow={[Function]}
+    eventConstraint="businessHours"
+    eventDrop={[Function]}
+    eventOverlap={false}
+    eventResize={[Function]}
+    events={
+      Array [
+        Object {
+          "allDay": true,
+          "classNames": Array [
+            "app-ResourceReservationCalendar__backgroundEvent",
+            "app-ResourceReservationCalendar__restrictedDate",
+          ],
+          "end": 2019-08-11T21:00:00.000Z,
+          "id": "2019-08-12",
+          "rendering": "background",
+          "start": 2019-08-11T21:00:00.000Z,
+        },
+        Object {
+          "allDay": true,
+          "classNames": Array [
+            "app-ResourceReservationCalendar__backgroundEvent",
+            "app-ResourceReservationCalendar__restrictedDate",
+          ],
+          "end": 2019-08-12T21:00:00.000Z,
+          "id": "2019-08-13",
+          "rendering": "background",
+          "start": 2019-08-12T21:00:00.000Z,
+        },
+        Object {
+          "allDay": true,
+          "classNames": Array [
+            "app-ResourceReservationCalendar__backgroundEvent",
+            "app-ResourceReservationCalendar__restrictedDate",
+          ],
+          "end": 2019-08-13T21:00:00.000Z,
+          "id": "2019-08-14",
+          "rendering": "background",
+          "start": 2019-08-13T21:00:00.000Z,
+        },
+        Object {
+          "allDay": true,
+          "classNames": Array [
+            "app-ResourceReservationCalendar__backgroundEvent",
+            "app-ResourceReservationCalendar__restrictedDate",
+          ],
+          "end": 2019-08-14T21:00:00.000Z,
+          "id": "2019-08-15",
+          "rendering": "background",
+          "start": 2019-08-14T21:00:00.000Z,
+        },
+        Object {
+          "allDay": true,
+          "classNames": Array [
+            "app-ResourceReservationCalendar__backgroundEvent",
+            "app-ResourceReservationCalendar__restrictedDate",
+          ],
+          "end": 2019-08-15T21:00:00.000Z,
+          "id": "2019-08-16",
+          "rendering": "background",
+          "start": 2019-08-15T21:00:00.000Z,
+        },
+        Object {
+          "allDay": true,
+          "classNames": Array [
+            "app-ResourceReservationCalendar__backgroundEvent",
+            "app-ResourceReservationCalendar__restrictedDate",
+          ],
+          "end": 2019-08-16T21:00:00.000Z,
+          "id": "2019-08-17",
+          "rendering": "background",
+          "start": 2019-08-16T21:00:00.000Z,
+        },
+        Object {
+          "allDay": true,
+          "classNames": Array [
+            "app-ResourceReservationCalendar__backgroundEvent",
+            "app-ResourceReservationCalendar__restrictedDate",
+          ],
+          "end": 2019-08-17T21:00:00.000Z,
+          "id": "2019-08-18",
+          "rendering": "background",
+          "start": 2019-08-17T21:00:00.000Z,
+        },
+      ]
+    }
     firstDay={1}
     header={
       Object {
@@ -205,8 +292,49 @@ exports[`ResourceReservationCalendar renders correctly 1`] = `
           "viewPropsTransformers": Array [],
           "views": Object {},
         },
+        Object {
+          "calendarInteractions": Array [
+            [Function],
+          ],
+          "cmdFormatter": undefined,
+          "componentInteractions": Array [
+            [Function],
+            [Function],
+            [Function],
+            [Function],
+          ],
+          "datePointTransforms": Array [],
+          "dateSelectionTransformers": Array [],
+          "dateSpanTransforms": Array [],
+          "defaultView": "",
+          "deps": Array [],
+          "elementDraggingImpl": [Function],
+          "eventDefMutationAppliers": Array [],
+          "eventDefParsers": Array [],
+          "eventDragMutationMassagers": Array [],
+          "eventDropTransformers": Array [],
+          "eventResizeJoinTransforms": Array [],
+          "eventSourceDefs": Array [],
+          "externalDefTransforms": Array [],
+          "id": "8",
+          "isDraggableTransformers": Array [],
+          "isPropsValid": null,
+          "namedTimeZonedImpl": undefined,
+          "optionChangeHandlers": Object {},
+          "recurringTypes": Array [],
+          "reducers": Array [],
+          "themeClasses": Object {},
+          "viewContainerModifiers": Array [],
+          "viewPropsTransformers": Array [],
+          "views": Object {},
+        },
       ]
     }
+    select={[Function]}
+    selectAllow={[Function]}
+    selectConstraint="businessHours"
+    selectOverlap={false}
+    selectable={true}
     slotDuration="00:30:00"
     slotLabelFormat={
       Object {
@@ -217,6 +345,7 @@ exports[`ResourceReservationCalendar renders correctly 1`] = `
       }
     }
     slotLabelInterval="01:00:00"
+    unselectAuto={false}
   />
 </div>
 `;

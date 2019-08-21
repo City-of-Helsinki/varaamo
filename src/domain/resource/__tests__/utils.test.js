@@ -1,3 +1,5 @@
+import { advanceTo, clear } from 'jest-date-mock';
+
 import * as resourceUtils from '../utils';
 import resourceFixture from '../../../common/data/fixtures/resource';
 
@@ -263,5 +265,132 @@ describe('domain resource utility function', () => {
 
     const minTimeWeek = resourceUtils.getFullCalendarMaxTime(resource, DATE, 'timeGridWeek', 2);
     expect(minTimeWeek).toBe('22:00:00');
+  });
+
+  test('getFullCalendarBusinessHoursForDate', () => {
+    const resource = resourceFixture.build({
+      opening_hours: OPENING_HOURS,
+    });
+
+    const businessHours = resourceUtils.getFullCalendarBusinessHoursForDate(resource, DATE);
+    expect(businessHours).toEqual({ daysOfWeek: [4], startTime: '08:00', endTime: '20:00' });
+  });
+
+  test('getFullCalendarSlotLabelInterval', () => {
+    const interval15min = resourceUtils
+      .getFullCalendarSlotLabelInterval(resourceFixture.build({ slot_size: '00:15:00' }));
+    const interval30min = resourceUtils
+      .getFullCalendarSlotLabelInterval(resourceFixture.build({ slot_size: '00:30:00' }));
+    const interval1h = resourceUtils
+      .getFullCalendarSlotLabelInterval(resourceFixture.build({ slot_size: '01:00:00' }));
+    const interval3h = resourceUtils
+      .getFullCalendarSlotLabelInterval(resourceFixture.build({ slot_size: '03:00:00' }));
+
+    expect(interval15min).toBe('00:30:00');
+    expect(interval30min).toBe('01:00:00');
+    expect(interval1h).toBe('01:00:00');
+    expect(interval3h).toBe('01:00:00');
+  });
+
+  test('getFullCalendarSlotDuration', () => {
+    const resource = resourceFixture.build({
+      opening_hours: OPENING_HOURS,
+      slot_size: '00:30:00',
+    });
+
+    const slotDuration = resourceUtils.getFullCalendarSlotDuration(resource, DATE, 'timeGridWeek');
+    expect(slotDuration).toBe('00:30:00');
+  });
+
+  test('isDateReservable', () => {
+    const resourceReservable = resourceFixture.build({
+      reservable_after: '2019-08-10T00:00:00Z',
+      reservable_before: '2019-09-21T00:00:00Z',
+      user_permissions: {
+        is_admin: false,
+      },
+    });
+
+    const resourceNotReservable = resourceFixture.build({
+      reservable_after: '2019-08-16T00:00:00Z',
+      reservable_before: '2019-09-21T00:00:00Z',
+      user_permissions: {
+        is_admin: false,
+      },
+    });
+
+    const resourceAdmin = resourceFixture.build({
+      reservable_after: '2019-08-16T00:00:00Z',
+      reservable_before: '2019-09-21T00:00:00Z',
+      user_permissions: {
+        is_admin: true,
+      },
+    });
+
+    expect(resourceUtils.isDateReservable(resourceReservable, DATE)).toBe(true);
+    expect(resourceUtils.isDateReservable(resourceNotReservable, DATE)).toBe(false);
+    expect(resourceUtils.isDateReservable(resourceAdmin, DATE)).toBe(true);
+  });
+
+  test('isTimeRangeReservable', () => {
+    const resource = resourceFixture.build({
+      min_period: '00:30:00',
+      max_period: '06:30:00',
+      reservable_after: '2019-08-10T00:00:00Z',
+      reservable_before: '2019-09-21T00:00:00Z',
+      opening_hours: OPENING_HOURS,
+      user_permissions: {
+        is_admin: false,
+      },
+    });
+
+    advanceTo(new Date(2019, 7, 15, 8, 0, 0));
+
+    expect(resourceUtils.isTimeRangeReservable(resource, `${DATE}T08:00:00Z`, `${DATE}T10:00:00Z`))
+      .toBe(true);
+    expect(resourceUtils.isTimeRangeReservable(resource, `${DATE}T08:00:00Z`, `${DATE}T16:00:00Z`))
+      .toBe(false);
+
+    clear();
+    Date.now();
+  });
+
+  test('isFullCalendarEventDurationEditable', () => {
+    const resourceDurationEditable = resourceFixture.build({
+      min_period: '00:30:00',
+      max_period: '06:30:00',
+      slot_size: '00:30:00',
+    });
+
+    const resourceDurationNotEditable = resourceFixture.build({
+      min_period: '03:00:00',
+      max_period: '03:00:00',
+      slot_size: '03:00:00',
+    });
+
+    expect(resourceUtils.isFullCalendarEventDurationEditable(resourceDurationEditable))
+      .toBe(true);
+    expect(resourceUtils.isFullCalendarEventDurationEditable(resourceDurationNotEditable))
+      .toBe(false);
+  });
+
+  test('getSlotSizeInMinutes', () => {
+    const resource = resourceFixture.build({
+      slot_size: '01:30:00',
+    });
+
+    expect(resourceUtils.getSlotSizeInMinutes(resource)).toBe(90);
+  });
+
+  test('getReservationPrice', () => {
+    const resource = resourceFixture.build({
+      products: [{
+        price_type: 'per_hour',
+        price: 20,
+      }],
+    });
+
+    const price = resourceUtils.getReservationPrice(`${DATE}T08:00:00Z`, `${DATE}T10:00:00Z`, resource);
+    expect(price).toBe(40);
   });
 });

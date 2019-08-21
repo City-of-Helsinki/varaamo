@@ -315,7 +315,7 @@
   "ManageReservationsList.actionLabel.approve":"Godkänn",
   "ManageReservationsList.actionLabel.deny":"Förneka",
   "ManageReservationsList.actionLabel.edit":"Redigera",
-  
+
   "ManageReservationsFilters.searchLabel": "Sök",
   "ManageReservationsFilters.searchPlaceholder": "Sök",
   "ManageReservationsFilters.statusLabel": "Bokningsstatus",
@@ -328,5 +328,9 @@
   "Reservation.stateLabelCancelled": "Avbokad",
   "Reservation.stateLabelConfirmed": "Godkänd",
   "Reservation.stateLabelDenied": "Nekad",
-  "Reservation.stateLabelRequested": "Begärda"
+  "Reservation.stateLabelRequested": "Begärda",
+  "ResourceReservationCalendar.reserveButton": "Boka",
+  "ResourceReservationCalendar.selectedDateLabel": "Utvald tidpunkt:",
+  "ResourceReservationCalendar.selectedDateValue": "{date} kl. {start} - kl. {end} ({duration})",
+  "ResourceReservationCalendar.selectedDateValueWithPrice": "{date} kl. {start} - kl. {end} ({duration}) for {price}€"
 }

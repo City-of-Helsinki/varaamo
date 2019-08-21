@@ -253,7 +253,7 @@
   "ResourcePage.reservationStatusHeader": "Varaustilanne",
   "ResourcePage.reserveHeader": "Varaa tila",
   "ResourcePage.showMap": "Näytä kartalla",
-  "ResourcePage.specificTerms": "Resurssikohtaiset ehdot",  
+  "ResourcePage.specificTerms": "Resurssikohtaiset ehdot",
   "ResourceTypeFilter.title": "Näytä",
   "SearchFilters.title": "Mitä haluat tehdä?",
   "SearchFilters.dateLabel": "Milloin?",
@@ -317,13 +317,13 @@
   "ManageReservationsList.dateAndTimeHeader": "Milloin",
   "ManageReservationsList.statusHeader": "Tila",
   "ManageReservationsList.pinHeader": "PIN",
-  
+
   "ManageReservationsList.actionsHeader": "Valitse toiminta",
   "ManageReservationsList.actionLabel.information":"Tiedot",
   "ManageReservationsList.actionLabel.approve":"Hyväksy",
   "ManageReservationsList.actionLabel.deny":"Hylkää",
   "ManageReservationsList.actionLabel.edit":"Muokkaa",
-  
+
   "ManageReservationsFilters.searchLabel": "Hae",
   "ManageReservationsFilters.searchPlaceholder": "Hae",
   "ManageReservationsFilters.statusLabel": "Varauksen tila",
@@ -336,6 +336,10 @@
   "Reservation.stateLabelCancelled": "Peruttu",
   "Reservation.stateLabelConfirmed": "Hyväksytty",
   "Reservation.stateLabelDenied": "Evätty",
-  "Reservation.stateLabelRequested": "Anottu"
+  "Reservation.stateLabelRequested": "Anottu",
+  "ResourceReservationCalendar.reserveButton": "Tee varaus",
+  "ResourceReservationCalendar.selectedDateLabel": "Valittu aika:",
+  "ResourceReservationCalendar.selectedDateValue": "{date} klo {start} - klo {end} ({duration})",
+  "ResourceReservationCalendar.selectedDateValueWithPrice": "{date} klo {start} - klo {end} ({duration}) yht {price}€"
 }
 
