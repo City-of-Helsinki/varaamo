@@ -572,3 +572,33 @@ export const getSlotSizeInMinutes = (resource) => {
 
   return 30;
 };
+
+/**
+ * getReservationPrice();
+ * @param start {Date|string} Either a Date object or date string that can be parsed as moment object.
+ * @param end {Date|string} Either a Date object or date string that can be parsed as moment object.
+ * @param resource {object} Resource object.
+ * @returns {number}
+ */
+export const getReservationPrice = (start, end, resource) => {
+  const products = get(resource, 'products', []);
+
+  if (!products.length) {
+    return 0;
+  }
+
+  const startMoment = moment(start);
+  const endMoment = moment(end);
+
+  const currentProduct = products[0];
+  const timeDiff = endMoment.diff(startMoment, 'hours', true);
+
+  // TODO: Replace those getter with generic data when price
+  // not only by hours and product is more than 1.
+
+  if (currentProduct.priceType === 'per_hour' && currentProduct.price) {
+    return timeDiff * currentProduct.price;
+  }
+
+  return 0;
+};

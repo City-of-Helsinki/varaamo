@@ -264,19 +264,27 @@ class ResourceReservationCalendar extends React.Component {
   };
 
   getSelectedDateText = () => {
-    const { t } = this.props;
+    const { t, resource } = this.props;
     const { selected } = this.state;
 
     if (selected) {
       const start = moment(selected.start);
       const end = moment(selected.end);
+      const price = resourceUtils.getReservationPrice(selected.start, selected.end, resource);
 
-      return t('ResourceReservationCalendar.selectedDateValue', {
+      const tVariables = {
         date: start.format('dd D.M.Y'),
         start: start.format('HH:mm'),
         end: end.format('HH:mm'),
         duration: this.getDurationText(),
-      });
+        price,
+      };
+
+      if (price) {
+        return t('ResourceReservationCalendar.selectedDateValueWithPrice', tVariables);
+      }
+
+      return t('ResourceReservationCalendar.selectedDateValue', tVariables);
     }
 
     return '';
