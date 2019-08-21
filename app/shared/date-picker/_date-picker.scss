@@ -16,7 +16,9 @@
   }
 
   input {
-    border: none;
+    width: 100%;
+    border: 1px solid $input-border;
+    padding: 5px;
   }
   
   .date-picker-overlay {
@@ -24,7 +26,8 @@
     position: absolute;
     z-index: 100;
     border: solid 2px $brand-primary;;
-    padding: 20px;
+    padding: 10px;
+    width: 100%;
   }
 
   .DayPicker {
