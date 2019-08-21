@@ -14,15 +14,17 @@ function ResourceEquipment({
     (item, i) => <Col key={i} lg={3} md={3} xs={6}>{item.name}</Col>
   );
   return (
-    <Panel>
+    <Panel defaultExpanded>
       <Panel.Heading>
-        <Panel.Title componentClass="h3">{t('ResourceEquipment.headingText')}</Panel.Title>
+        <Panel.Title componentClass="h3" toggle>{t('ResourceEquipment.headingText')}</Panel.Title>
       </Panel.Heading>
-      <Panel.Body>
-        <Row>
-          {equipmentColumns}
-        </Row>
-      </Panel.Body>
+      <Panel.Collapse>
+        <Panel.Body>
+          <Row>
+            {equipmentColumns}
+          </Row>
+        </Panel.Body>
+      </Panel.Collapse>
     </Panel>
   );
 }
