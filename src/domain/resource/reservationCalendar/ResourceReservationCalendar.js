@@ -148,7 +148,7 @@ class ResourceReservationCalendar extends React.Component {
 
     // For some weird reason the activeEnd date is always last day of the day/week view + 1
     // (e.g. for a week view it's always the next weeks monday);
-    const activeEnd = moment(info.view.activeEnd).subtract(1);
+    const activeEnd = moment(info.view.activeEnd).subtract(1, 'day');
 
     if (momentDate.isBefore(activeStart, 'day') || momentDate.isAfter(activeEnd, 'day')) {
       onDateChange(activeStart.format(constants.DATE_FORMAT));
@@ -341,7 +341,7 @@ class ResourceReservationCalendar extends React.Component {
             <Button
               bsStyle="primary"
               className="app-ResourceReservationCalendar__reserveButton"
-              onClick={() => this.onReserveButtonClick()}
+              onClick={this.onReserveButtonClick}
             >
               {t('ResourceReservationCalendar.reserveButton')}
             </Button>
