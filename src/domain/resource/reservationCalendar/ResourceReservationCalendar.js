@@ -352,4 +352,5 @@ class ResourceReservationCalendar extends React.Component {
   }
 }
 
-export default injectT(injectIntl(ResourceReservationCalendar));
+export const UnwrappedResourceReservationCalendar = injectT(ResourceReservationCalendar);
+export default injectIntl(UnwrappedResourceReservationCalendar);

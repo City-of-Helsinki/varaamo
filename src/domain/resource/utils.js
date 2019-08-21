@@ -429,8 +429,12 @@ export const isTimeRangeReservable = (resource, start, end) => {
   return startMoment.isAfter(now);
 };
 
-
-export const isFullCalendarEventDurationEditable = (resource, start, end) => {
+/**
+ * isFullCalendarEventDurationEditable();
+ * @param resource {object} Resource object.
+ * @returns {boolean}
+ */
+export const isFullCalendarEventDurationEditable = (resource) => {
   const slotSize = get(resource, 'slot_size', null);
   const minPeriod = get(resource, 'min_period', null);
   const maxPeriod = get(resource, 'max_period', null);
@@ -596,7 +600,7 @@ export const getReservationPrice = (start, end, resource) => {
   // TODO: Replace those getter with generic data when price
   // not only by hours and product is more than 1.
 
-  if (currentProduct.priceType === 'per_hour' && currentProduct.price) {
+  if (currentProduct.price_type === 'per_hour' && currentProduct.price) {
     return timeDiff * currentProduct.price;
   }
 
