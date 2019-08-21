@@ -25,6 +25,7 @@ class ResourceReservationCalendar extends React.Component {
     intl: intlShape,
     resource: PropTypes.object.isRequired,
     onDateChange: PropTypes.func.isRequired,
+    onReserve: PropTypes.func.isRequired,
     t: PropTypes.func.isRequired,
   };
 
@@ -235,7 +236,10 @@ class ResourceReservationCalendar extends React.Component {
   };
 
   onReserveButtonClick = () => {
+    const { resource, onReserve } = this.props;
+    const { selected } = this.state;
 
+    onReserve(selected, resource);
   };
 
   getDurationText = () => {

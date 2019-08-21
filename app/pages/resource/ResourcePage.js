@@ -28,7 +28,6 @@ import ResourceMapInfo from './resource-map-info/ResourceMapInfo';
 import resourcePageSelector from './resourcePageSelector';
 import ResourceMap from '../../../src/domain/resource/map/ResourceMap';
 import ResourceReservationCalendar from '../../../src/domain/resource/reservationCalendar/ResourceReservationCalendar';
-import ReservationCalendar from './reservation-calendar/ReservationCalendarContainer';
 
 class UnconnectedResourcePage extends Component {
   static propTypes = {
@@ -134,6 +133,11 @@ class UnconnectedResourcePage extends Component {
     actions.fetchResource(id, { start, end });
   };
 
+  // eslint-disable-next-line no-unused-vars
+  onReserve = (selected, resource) => {
+
+  };
+
   render() {
     const {
       actions,
@@ -145,8 +149,6 @@ class UnconnectedResourcePage extends Component {
       showMap,
       t,
       unit,
-      match,
-      history,
     } = this.props;
 
     const { isOpen, photoIndex } = this.state;
@@ -229,12 +231,8 @@ class UnconnectedResourcePage extends Component {
                           <ResourceReservationCalendar
                             date={date}
                             onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())}
+                            onReserve={this.onReserve}
                             resource={decamelizeKeys(resource)}
-                          />
-                          <ReservationCalendar
-                            history={history}
-                            location={location}
-                            params={match.params}
                           />
                         </div>
                       )}
