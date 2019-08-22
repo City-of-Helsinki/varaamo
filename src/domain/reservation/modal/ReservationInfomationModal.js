@@ -11,7 +11,7 @@ import { getDateAndTime } from '../manage/list/ManageReservationsList';
 import { putReservation } from '../utils';
 
 const ReservationInfomationModal = ({
-  t, reservation, onHide, isOpen
+  t, reservation, onHide, isOpen, onEditClick
 }) => {
   const renderField = (label, value) => {
     return (
@@ -45,10 +45,19 @@ const ReservationInfomationModal = ({
           {renderField('common.resourceLabel', get(reservation, 'resource.name.fi', ''))}
           {renderField('common.reserverPhoneNumberLabel', get(reservation, 'reserver_phone_number', ''))}
         </div>
+
+        <Button
+          bsStyle="primary"
+          className="app-ReservationInfomationModal__edit-reservation"
+          onClick={() => onEditClick(reservation)}
+        >
+          {t('ReservationEditForm.startEdit')}
+        </Button>
       </Modal.Body>
       <Modal.Footer>
         <Button
           bsStyle="primary"
+          onClick={() => onHide()}
         >
           {t('common.back')}
         </Button>
@@ -56,7 +65,7 @@ const ReservationInfomationModal = ({
         <Button
           bsStyle="danger"
           disabled={reservation.state !== 'requested'}
-          onClick={() => putReservation(reservation, { state: 'confirmed' })}
+          onClick={() => putReservation(reservation, { state: 'denied' })}
         >
           {t('ReservationInfoModal.denyButton')}
         </Button>
@@ -77,6 +86,7 @@ ReservationInfomationModal.propTypes = {
   t: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
   onHide: PropTypes.func,
+  onEditClick: PropTypes.func,
   isOpen: PropTypes.bool
 };
 

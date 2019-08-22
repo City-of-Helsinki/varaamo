@@ -24,7 +24,8 @@ const ManageReservationsList = ({
   t,
   reservations = [],
   onInfoClick,
-  handleEditClick
+  onEditClick,
+  onEditReservation
 }) => {
   return (
     <div className="app-ManageReservationsList">
@@ -46,6 +47,9 @@ const ManageReservationsList = ({
         </thead>
         <tbody>
           {reservations.map((reservation) => {
+            const normalizedReservation = Object.assign({}, reservation, { resource: reservation.resource.id });
+            // API only accept resource in reservation as string in request body
+
             return (
               <tr key={`reservation-${reservation.id}`}>
                 <td>{get(reservation, 'event_description', '')}</td>
@@ -60,9 +64,10 @@ const ManageReservationsList = ({
                 <td><ManageReservationsStatus reservation={reservation} /></td>
                 <td>
                   <ManageReservationsDropdown
-                    onEditReservation={() => handleEditClick(reservation)}
-                    onInfoClick={onInfoClick}
-                    reservation={reservation}
+                    onEditClick={() => onEditClick(reservation)}
+                    onEditReservation={onEditReservation}
+                    onInfoClick={() => onInfoClick(reservation)}
+                    reservation={normalizedReservation}
                   />
                 </td>
               </tr>
@@ -80,7 +85,8 @@ ManageReservationsList.propTypes = {
   reservations: PropTypes.array,
   intl: intlShape,
   onInfoClick: PropTypes.func,
-  handleEditClick: PropTypes.func,
+  onEditClick: PropTypes.func,
+  onEditReservation: PropTypes.func
 };
 
 export const UnwrappedManageReservationsList = injectT(ManageReservationsList);

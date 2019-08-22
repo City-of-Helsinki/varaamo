@@ -54,7 +54,7 @@ export const getCurrentReservation = (reservations) => {
  * @returns {Promise}
  */
 export const putReservation = (reservation, fields) => {
-  client.put('reservation', merge(reservation, fields));
+  return client.put(`reservation/${reservation.id}`, merge(reservation, fields), { include: 'resource_detail' });
 };
 
 /**

@@ -16,7 +16,7 @@ import Pagination from '../../../../common/pagination/Pagination';
 import * as searchUtils from '../../../search/utils';
 import ReservationInfomationModal from '../../modal/ReservationInfomationModal';
 import { selectReservationToEdit } from '../../../../../app/actions/uiActions';
-import { getEditReservationUrl } from '../../utils';
+import { getEditReservationUrl, putReservation } from '../../utils';
 
 export const PAGE_SIZE = 50;
 
@@ -55,13 +55,6 @@ class ManageReservationsPage extends React.Component {
     }
   }
 
-  onInfoClick = (e, reservation) => {
-    this.setState(prevState => ({
-      isModalOpen: !prevState.isModalOpen,
-      selectedReservation: reservation
-    }));
-  }
-
   loadReservations = () => {
     const {
       location,
@@ -75,7 +68,7 @@ class ManageReservationsPage extends React.Component {
     const params = {
       ...filters,
       page_size: PAGE_SIZE,
-      include: 'resource_detail'
+      include: 'resource_detail',
     };
 
     client.get('reservation', params)
@@ -110,14 +103,30 @@ class ManageReservationsPage extends React.Component {
     });
   };
 
-  handleEditClick = (reservation) => {
+  onEditClick = (reservation) => {
     const { history, actions } = this.props;
 
-    actions.editReservation({ reservation, slotSize: reservation.resource.slotSize });
+
+    const normalizedReservation = Object.assign({}, reservation, { resource: reservation.resource.id });
+    actions.editReservation({ reservation: normalizedReservation });
+    // TODO: Remove this after refactor timeSlot
 
     const nextUrl = getEditReservationUrl(reservation);
     history.push(nextUrl);
   };
+
+  onInfoClick = (reservation) => {
+    this.setState(prevState => ({
+      isModalOpen: !prevState.isModalOpen,
+      selectedReservation: reservation
+    }));
+  }
+
+  onEditReservation = (reservation, status) => {
+    putReservation(reservation, { state: status }).then(() => {
+      this.loadReservations();
+    });
+  }
 
   render() {
     const {
@@ -160,7 +169,8 @@ class ManageReservationsPage extends React.Component {
               <Col sm={12}>
                 <Loader loaded={!isLoading && !isLoadingUnits}>
                   <ManageReservationsList
-                    handleEditClick={this.handleEditClick}
+                    onEditClick={this.onEditClick}
+                    onEditReservation={this.onEditReservation}
                     onInfoClick={this.onInfoClick}
                     reservations={reservations}
                   />
@@ -180,6 +190,7 @@ class ManageReservationsPage extends React.Component {
         <div className="app-ManageReservationsPage__modal">
           <ReservationInfomationModal
             isOpen={isModalOpen}
+            onEditClick={this.onEditClick}
             onHide={this.onInfoClick}
             reservation={selectedReservation}
           />

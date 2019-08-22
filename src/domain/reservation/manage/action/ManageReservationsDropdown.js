@@ -3,10 +3,10 @@ import { DropdownButton, MenuItem } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import injectT from '../../../../../app/i18n/injectT';
-import { putReservation } from '../../../../../app/actions/reservationActions';
 
 const ManageReservationsDropdown = ({
   t, onInfoClick, reservation,
+  onEditClick,
   onEditReservation
 }) => {
   return (
@@ -15,7 +15,7 @@ const ManageReservationsDropdown = ({
         id="app-ManageReservationDropdown"
         title={t('ManageReservationsList.actionsHeader')}
       >
-        <MenuItem onClick={e => onInfoClick(e, reservation)}>
+        <MenuItem onClick={onInfoClick}>
           {t('ManageReservationsList.actionLabel.information')}
         </MenuItem>
 
@@ -23,19 +23,19 @@ const ManageReservationsDropdown = ({
         {reservation.state === 'requested' && (
         <>
           <MenuItem
-            onClick={() => putReservation(reservation, { state: 'confirmed' })}
+            onClick={() => onEditReservation(reservation, 'confirmed')}
           >
             {t('ManageReservationsList.actionLabel.approve')}
           </MenuItem>
           <MenuItem
-            onClick={() => putReservation(reservation, { state: 'denied' })}
+            onClick={() => onEditReservation(reservation, 'denied')}
           >
             {t('ManageReservationsList.actionLabel.deny')}
           </MenuItem>
         </>
         )}
         <MenuItem
-          onClick={onEditReservation}
+          onClick={onEditClick}
         >
           {t('ManageReservationsList.actionLabel.edit')}
 
@@ -49,6 +49,8 @@ ManageReservationsDropdown.propTypes = {
   t: PropTypes.func,
   onInfoClick: PropTypes.func,
   reservation: PropTypes.object,
-  onEditReservation: PropTypes.func,
+  onEditClick: PropTypes.func,
+  onEditReservation: PropTypes.func
 };
+
 export default injectT(ManageReservationsDropdown);
