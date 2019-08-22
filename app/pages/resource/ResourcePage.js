@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Panel from 'react-bootstrap/lib/Panel';
 import Lightbox from 'lightbox-react';
@@ -132,6 +133,11 @@ class UnconnectedResourcePage extends Component {
     actions.fetchResource(id, { start, end });
   };
 
+  // eslint-disable-next-line no-unused-vars
+  onReserve = (selected, resource) => {
+
+  };
+
   render() {
     const {
       actions,
@@ -175,72 +181,77 @@ class UnconnectedResourcePage extends Component {
           {showMap && (<ResourceMap resource={resource} unit={unit} />)}
           {!showMap && (
             <PageWrapper title={resource.name || ''} transparent>
-              <div>
-                <Col className="app-ResourcePage__content" lg={8} md={8} xs={12}>
-                  {mainImage
-                  && this.renderImage(mainImage, mainImageIndex, {
-                    mainImageMobileVisibility: true,
-                  })}
-                  <ResourceInfo
-                    isLoggedIn={isLoggedIn}
-                    resource={resource}
-                    unit={unit}
-                  />
+              <Row>
+                <Col lg={8} md={8} xs={12}>
+                  <div className="app-ResourcePage__content">
+                    {mainImage
+                    && this.renderImage(mainImage, mainImageIndex, {
+                      mainImageMobileVisibility: true,
+                    })}
+                    <ResourceInfo
+                      isLoggedIn={isLoggedIn}
+                      resource={resource}
+                      unit={unit}
+                    />
 
-                  <Panel defaultExpanded>
-                    <Panel.Heading>
-                      <Panel.Title componentClass="h3" toggle>{t('ResourceInfo.reserveTitle')}</Panel.Title>
-                    </Panel.Heading>
-                    <Panel.Collapse>
-                      <Panel.Body>
-                        {resource.externalReservationUrl && (
-                          <form action={resource.externalReservationUrl}>
-                            <input
-                              className="btn btn-primary"
-                              type="submit"
-                              value="Siirry ulkoiseen ajanvarauskalenteriin"
-                            />
-                          </form>
-                        )}
-                        {!resource.externalReservationUrl && (
-                          <div>
-                            {/* Show reservation max period text */}
-                            {resource.maxPeriod && (
-                              <div className="app-ResourcePage__content-max-period">
-                                {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
-                              </div>
-                            )}
+                    <Panel defaultExpanded>
+                      <Panel.Heading>
+                        <Panel.Title componentClass="h3" toggle>{t('ResourceInfo.reserveTitle')}</Panel.Title>
+                      </Panel.Heading>
+                      <Panel.Collapse>
+                        <Panel.Body>
+                          {resource.externalReservationUrl && (
+                            <form action={resource.externalReservationUrl}>
+                              <input
+                                className="btn btn-primary"
+                                type="submit"
+                                value="Siirry ulkoiseen ajanvarauskalenteriin"
+                              />
+                            </form>
+                          )}
+                          {!resource.externalReservationUrl && (
+                            <div>
+                              {/* Show reservation max period text */}
+                              {resource.maxPeriod && (
+                                <div className="app-ResourcePage__content-max-period">
+                                  {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
+                                </div>
+                              )}
 
-                            {/* Show reservation max period text */}
-                            {resource.minPeriod
-                            && (
-                              <div className="app-ResourcePage__content-min-period">
-                                <p>{`${t('ReservationInfo.reservationMinLength')} ${minPeriodText}`}</p>
-                              </div>
-                            )
-                            }
+                              {/* Show reservation max period text */}
+                              {resource.minPeriod
+                              && (
+                                <div className="app-ResourcePage__content-min-period">
+                                  <p>{`${t('ReservationInfo.reservationMinLength')} ${minPeriodText}`}</p>
+                                </div>
+                              )
+                              }
 
-                            <ResourceCalendar
-                              isDayReservable={this.isDayReservable}
-                              onDateChange={this.handleDateChange}
-                              resourceId={resource.id}
-                              selectedDate={date}
-                            />
-                            <ResourceReservationCalendar
-                              date={date}
-                              onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())}
-                              resource={decamelizeKeys(resource)}
-                            />
-                          </div>
-                        )}
-                      </Panel.Body>
-                    </Panel.Collapse>
-                  </Panel>
+                              <ResourceCalendar
+                                isDayReservable={this.isDayReservable}
+                                onDateChange={this.handleDateChange}
+                                resourceId={resource.id}
+                                selectedDate={date}
+                              />
+                              <ResourceReservationCalendar
+                                date={date}
+                                onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())}
+                                onReserve={this.onReserve}
+                                resource={decamelizeKeys(resource)}
+                              />
+                            </div>
+                          )}
+                        </Panel.Body>
+                      </Panel.Collapse>
+                    </Panel>
+                  </div>
                 </Col>
-                <Col className="app-ResourceInfo__images" lg={3} md={3} xs={12}>
-                  {images.map(this.renderImage)}
+                <Col lg={3} md={3} xs={12}>
+                  <div className="app-ResourceInfo__images">
+                    {images.map(this.renderImage)}
+                  </div>
                 </Col>
-              </div>
+              </Row>
             </PageWrapper>
           )}
         </Loader>

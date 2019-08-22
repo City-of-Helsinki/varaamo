@@ -21,19 +21,28 @@ function ResourceInfo({
       <section className="app-ResourceInfo">
         <Panel defaultExpanded>
           <Panel.Heading>
-            <Panel.Title componentClass="h3" toggle>{t('ResourceInfo.descriptionTitle')}</Panel.Title>
+            <Panel.Title componentClass="h3" toggle>
+              {t('ResourceInfo.descriptionTitle')}
+            </Panel.Title>
           </Panel.Heading>
           <Panel.Collapse>
             <Panel.Body>
               <div className="app-ResourceInfo__description">
-                {resource.description && <WrappedText openLinksInNewTab text={resource.description} />}
+                {resource.description && (
+                  <WrappedText
+                    openLinksInNewTab
+                    text={resource.description}
+                  />
+                )}
               </div>
             </Panel.Body>
           </Panel.Collapse>
         </Panel>
         <Panel defaultExpanded>
           <Panel.Heading>
-            <Panel.Title componentClass="h3" toggle>{t('ResourceInfo.reservationTitle')}</Panel.Title>
+            <Panel.Title componentClass="h3" toggle>
+              {t('ResourceInfo.reservationTitle')}
+            </Panel.Title>
           </Panel.Heading>
           <Panel.Collapse>
             <Panel.Body>
@@ -44,7 +53,9 @@ function ResourceInfo({
         {resource.specificTerms && (
           <Panel defaultExpanded>
             <Panel.Heading>
-              <Panel.Title componentClass="h3" toggle>{t('ResourcePage.specificTerms')}</Panel.Title>
+              <Panel.Title componentClass="h3" toggle>
+                {t('ResourcePage.specificTerms')}
+              </Panel.Title>
             </Panel.Heading>
             <Panel.Collapse>
               <Panel.Body>
@@ -57,27 +68,45 @@ function ResourceInfo({
         )}
         <Panel defaultExpanded>
           <Panel.Heading>
-            <Panel.Title componentClass="h3" toggle>{t('ResourceInfo.additionalInfoTitle')}</Panel.Title>
+            <Panel.Title componentClass="h3" toggle>
+              {t('ResourceInfo.additionalInfoTitle')}
+            </Panel.Title>
           </Panel.Heading>
           <Panel.Collapse>
             <Panel.Body>
               <Row>
                 <Col className="app-ResourceInfo__address" xs={6}>
                   {unit && unit.name && <span>{unit.name}</span>}
-                  {unit && unit.streetAddress && <span>{unit.streetAddress}</span>}
-                  {unit && <span>{`${unit.addressZip} ${upperFirst(unit.municipality)}`.trim()}</span>}
+                  {unit && unit.streetAddress && (
+                    <span>{unit.streetAddress}</span>
+                  )}
+                  {unit && (
+                    <span>
+                      {`${unit.addressZip} ${upperFirst(
+                        unit.municipality
+                      )}`.trim()}
+                    </span>
+                  )}
                 </Col>
                 <Col className="app-ResourceInfo__web" xs={6}>
                   {serviceMapUrl && (
                     <span className="app-ResourceInfo__servicemap">
-                      <a href={serviceMapUrl} rel="noopener noreferrer" target="_blank">
+                      <a
+                        href={serviceMapUrl}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
                         {t('ResourceInfo.serviceMapLink')}
                       </a>
                     </span>
                   )}
                   {unit && unit.wwwUrl && (
                     <span className="app-ResourceInfo__www">
-                      <a href={unit.wwwUrl} rel="noopener noreferrer" target="_blank">
+                      <a
+                        href={unit.wwwUrl}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
                         {unit.wwwUrl}
                       </a>
                     </span>

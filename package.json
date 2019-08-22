@@ -35,6 +35,7 @@
     "hel-icons": "1.0.0-beta.2",
     "humps": "2.0.1",
     "isomorphic-fetch": "2.2.1",
+    "jest-date-mock": "^1.0.7",
     "leaflet": "^1.4.0",
     "lightbox-react": "0.3.7",
     "location-origin": "1.1.4",

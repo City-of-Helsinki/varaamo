@@ -309,7 +309,7 @@
   "ManageReservationsList.dateAndTimeHeader": "Date and time",
   "ManageReservationsList.statusHeader": "Status",
   "ManageReservationsList.pinHeader": "PIN",
-  
+
   "ManageReservationsList.actionsHeader": "Select action",
   "ManageReservationsList.actionLabel.information":"Information",
   "ManageReservationsList.actionLabel.approve":"Approve",
@@ -328,5 +328,9 @@
   "Reservation.stateLabelCancelled": "Cancelled",
   "Reservation.stateLabelConfirmed": "Approved",
   "Reservation.stateLabelDenied": "Denied",
-  "Reservation.stateLabelRequested": "Requested"
+  "Reservation.stateLabelRequested": "Requested",
+  "ResourceReservationCalendar.reserveButton": "Reserve",
+  "ResourceReservationCalendar.selectedDateLabel": "Selected time:",
+  "ResourceReservationCalendar.selectedDateValue": "{date} at {start} - at {end} ({duration})",
+  "ResourceReservationCalendar.selectedDateValueWithPrice": "{date} at {start} - at {end} ({duration}) for {price}€"
 }
