@@ -8,6 +8,7 @@ import get from 'lodash/get';
 import ManageReservationsStatus from '../manage/status/ManageReservationsStatus';
 import injectT from '../../../../app/i18n/injectT';
 import { getDateAndTime } from '../manage/list/ManageReservationsList';
+import { RESERVATION_STATE } from '../../../constants/ReservationState';
 
 const ReservationInfomationModal = ({
   t, reservation, onHide, isOpen, onEditClick, onEditReservation
@@ -61,10 +62,10 @@ const ReservationInfomationModal = ({
           {t('common.back')}
         </Button>
 
-        {reservation.state !== 'cancelled' && (
+        {reservation.state !== RESERVATION_STATE.CANCELLED && (
           <Button
             bsStyle="default"
-            onClick={() => onEditReservation(reservation, 'cancelled')}
+            onClick={() => onEditReservation(reservation, RESERVATION_STATE.CANCELLED)}
           >
             {t('ReservationInfoModal.cancelButton')}
           </Button>
@@ -73,16 +74,16 @@ const ReservationInfomationModal = ({
 
         <Button
           bsStyle="danger"
-          disabled={reservation.state !== 'requested'}
-          onClick={() => onEditReservation(reservation, 'denied')}
+          disabled={reservation.state !== RESERVATION_STATE.REQUESTED}
+          onClick={() => onEditReservation(reservation, RESERVATION_STATE.DENIED)}
         >
           {t('ReservationInfoModal.denyButton')}
         </Button>
 
         <Button
           bsStyle="success"
-          disabled={reservation.state !== 'requested'}
-          onClick={() => onEditReservation(reservation, 'confirmed')}
+          disabled={reservation.state !== RESERVATION_STATE.REQUESTED}
+          onClick={() => onEditReservation(reservation, RESERVATION_STATE.CONFIRMED)}
         >
           {t('ReservationInfoModal.confirmButton')}
         </Button>

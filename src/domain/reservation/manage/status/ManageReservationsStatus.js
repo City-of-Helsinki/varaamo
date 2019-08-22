@@ -5,16 +5,17 @@ import capitalize from 'lodash/capitalize';
 import Label from 'react-bootstrap/lib/Label';
 
 import injectT from '../../../../../app/i18n/injectT';
+import { RESERVATION_STATE } from '../../../../constants/ReservationState';
 
 export const getLabelStyle = (status) => {
   switch (status) {
-    case 'cancelled':
+    case RESERVATION_STATE.CANCELLED:
       return 'default';
-    case 'confirmed':
+    case RESERVATION_STATE.CONFIRMED:
       return 'success';
-    case 'denied':
+    case RESERVATION_STATE.DENIED:
       return 'danger';
-    case 'requested':
+    case RESERVATION_STATE.REQUESTED:
       return 'warning';
     default:
       return '';

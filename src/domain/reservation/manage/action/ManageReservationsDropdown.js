@@ -3,6 +3,7 @@ import { DropdownButton, MenuItem } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import injectT from '../../../../../app/i18n/injectT';
+import { RESERVATION_STATE } from '../../../../constants/ReservationState';
 
 const ManageReservationsDropdown = ({
   t, onInfoClick, reservation,
@@ -20,25 +21,25 @@ const ManageReservationsDropdown = ({
         </MenuItem>
 
         {/* Only show/allow to change reservation state when its status is requested */}
-        {reservation.state === 'requested' && (
+        {reservation.state === RESERVATION_STATE.REQUESTED && (
         <>
           <MenuItem
-            onClick={() => onEditReservation(reservation, 'confirmed')}
+            onClick={() => onEditReservation(reservation, RESERVATION_STATE.CONFIRMED)}
           >
             {t('ManageReservationsList.actionLabel.approve')}
           </MenuItem>
           <MenuItem
-            onClick={() => onEditReservation(reservation, 'denied')}
+            onClick={() => onEditReservation(reservation, RESERVATION_STATE.DENIED)}
           >
             {t('ManageReservationsList.actionLabel.deny')}
           </MenuItem>
         </>
         )}
 
-        {reservation.state !== 'cancelled'
+        {reservation.state !== RESERVATION_STATE.CANCELLED
           && (
           <MenuItem
-            onClick={() => onEditReservation(reservation, 'cancelled')}
+            onClick={() => onEditReservation(reservation, RESERVATION_STATE.CANCELLED)}
           >
             {t('ManageReservationsList.actionLabel.cancel')}
           </MenuItem>
