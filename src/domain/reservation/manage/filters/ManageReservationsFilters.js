@@ -142,9 +142,9 @@ class ManageReservationsFilters extends React.Component {
               <TextField
                 id="searchField"
                 label={t('ManageReservationsFilters.searchLabel')}
-                onChange={event => this.onFilterChange('search', event.target.value)}
+                onChange={event => this.onFilterChange('reserver_info_search', event.target.value)}
                 placeholder={t('ManageReservationsFilters.searchPlaceholder')}
-                value={get(filters, 'search', '')}
+                value={get(filters, 'reserver_info_search', '')}
               />
 
               {this.hasFilters() && (

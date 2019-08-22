@@ -17,6 +17,7 @@ import * as searchUtils from '../../../search/utils';
 import ReservationInfomationModal from '../../modal/ReservationInfomationModal';
 import { selectReservationToEdit } from '../../../../../app/actions/uiActions';
 import { getEditReservationUrl, putReservation } from '../../utils';
+import { RESERVATION_STATE } from '../../../../constants/ReservationState';
 
 export const PAGE_SIZE = 50;
 
@@ -124,7 +125,7 @@ class ManageReservationsPage extends React.Component {
   }
 
   onEditReservation = (reservation, status) => {
-    if (status === 'cancelled') {
+    if (status === RESERVATION_STATE.CANCELLED) {
       client.delete(`reservation/${reservation.id}/`).then(() => this.loadReservations());
     } else {
       putReservation(reservation, { state: status }).then(() => {
