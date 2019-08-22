@@ -2,7 +2,7 @@ import React from 'react';
 import toJSON from 'enzyme-to-json';
 
 import { shallowWithIntl, globalDateMock } from '../../../../../app/utils/testUtils';
-import ResourceReservationCalendar from '../ResourceReservationCalendar';
+import { UnwrappedResourceReservationCalendar } from '../ResourceReservationCalendar';
 import resource from '../../../../common/data/fixtures/resource';
 
 describe('ResourceReservationCalendar', () => {
@@ -12,10 +12,11 @@ describe('ResourceReservationCalendar', () => {
       resource: resource.build(),
       date: '2019-08-15',
       onDateChange: jest.fn(),
+      onReserve: jest.fn(),
     };
 
     const wrapper = shallowWithIntl(
-      <ResourceReservationCalendar {...props} />
+      <UnwrappedResourceReservationCalendar {...props} />
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();
