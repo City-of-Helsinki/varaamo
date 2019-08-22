@@ -8,10 +8,9 @@ import get from 'lodash/get';
 import ManageReservationsStatus from '../manage/status/ManageReservationsStatus';
 import injectT from '../../../../app/i18n/injectT';
 import { getDateAndTime } from '../manage/list/ManageReservationsList';
-import { putReservation } from '../utils';
 
 const ReservationInfomationModal = ({
-  t, reservation, onHide, isOpen, onEditClick
+  t, reservation, onHide, isOpen, onEditClick, onEditReservation
 }) => {
   const renderField = (label, value) => {
     return (
@@ -62,10 +61,20 @@ const ReservationInfomationModal = ({
           {t('common.back')}
         </Button>
 
+        {reservation.state !== 'cancelled' && (
+          <Button
+            bsStyle="default"
+            onClick={() => onEditReservation(reservation, 'cancelled')}
+          >
+            {t('ReservationInfoModal.cancelButton')}
+          </Button>
+        )
+        }
+
         <Button
           bsStyle="danger"
           disabled={reservation.state !== 'requested'}
-          onClick={() => putReservation(reservation, { state: 'denied' })}
+          onClick={() => onEditReservation(reservation, 'denied')}
         >
           {t('ReservationInfoModal.denyButton')}
         </Button>
@@ -73,7 +82,7 @@ const ReservationInfomationModal = ({
         <Button
           bsStyle="success"
           disabled={reservation.state !== 'requested'}
-          onClick={() => putReservation(reservation, { state: 'confirmed' })}
+          onClick={() => onEditReservation(reservation, 'confirmed')}
         >
           {t('ReservationInfoModal.confirmButton')}
         </Button>
@@ -87,6 +96,7 @@ ReservationInfomationModal.propTypes = {
   reservation: PropTypes.object.isRequired,
   onHide: PropTypes.func,
   onEditClick: PropTypes.func,
+  onEditReservation: PropTypes.func,
   isOpen: PropTypes.bool
 };
 

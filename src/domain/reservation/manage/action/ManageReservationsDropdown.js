@@ -34,6 +34,17 @@ const ManageReservationsDropdown = ({
           </MenuItem>
         </>
         )}
+
+        {reservation.state !== 'cancelled'
+          && (
+          <MenuItem
+            onClick={() => onEditReservation(reservation, 'cancelled')}
+          >
+            {t('ManageReservationsList.actionLabel.cancel')}
+          </MenuItem>
+          )
+        }
+
         <MenuItem
           onClick={onEditClick}
         >

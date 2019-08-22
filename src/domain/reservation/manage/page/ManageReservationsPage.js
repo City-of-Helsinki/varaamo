@@ -69,6 +69,7 @@ class ManageReservationsPage extends React.Component {
       ...filters,
       page_size: PAGE_SIZE,
       include: 'resource_detail',
+      can_approve: true
     };
 
     client.get('reservation', params)
@@ -123,9 +124,13 @@ class ManageReservationsPage extends React.Component {
   }
 
   onEditReservation = (reservation, status) => {
-    putReservation(reservation, { state: status }).then(() => {
-      this.loadReservations();
-    });
+    if (status === 'cancelled') {
+      client.delete(`reservation/${reservation.id}/`).then(() => this.loadReservations());
+    } else {
+      putReservation(reservation, { state: status }).then(() => {
+        this.loadReservations();
+      });
+    }
   }
 
   render() {
@@ -191,6 +196,7 @@ class ManageReservationsPage extends React.Component {
           <ReservationInfomationModal
             isOpen={isModalOpen}
             onEditClick={this.onEditClick}
+            onEditReservation={this.onEditReservation}
             onHide={this.onInfoClick}
             reservation={selectedReservation}
           />
