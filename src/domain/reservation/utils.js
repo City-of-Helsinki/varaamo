@@ -56,6 +56,15 @@ export const getCurrentReservation = (reservations) => {
 export const putReservation = (reservation, fields) => {
   return client.put(`reservation/${reservation.id}`, merge(reservation, fields), { include: 'resource_detail' });
 };
+/**
+ * Delete/Cancel reservation
+ *
+ * @param {Object} reservation
+ * @returns {Promise}
+ */
+export const cancelReservation = (reservation) => {
+  return client.delete(`reservation/${reservation.id}`);
+};
 
 /**
  * Generate reservation edit URL from reservation data.
