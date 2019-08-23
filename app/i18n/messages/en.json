@@ -314,6 +314,7 @@
   "ManageReservationsList.actionLabel.approve":"Approve",
   "ManageReservationsList.actionLabel.deny":"Deny",
   "ManageReservationsList.actionLabel.edit":"Edit",
+  "ManageReservationsList.actionLabel.cancel":"Cancel",
 
   "ManageReservationsFilters.searchLabel": "Search",
   "ManageReservationsFilters.searchPlaceholder": "Search",

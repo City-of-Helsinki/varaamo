@@ -323,6 +323,8 @@
   "ManageReservationsList.actionLabel.approve":"Hyväksy",
   "ManageReservationsList.actionLabel.deny":"Hylkää",
   "ManageReservationsList.actionLabel.edit":"Muokkaa",
+  "ManageReservationsList.actionLabel.cancel":"Peru",
+
 
   "ManageReservationsFilters.searchLabel": "Hae",
   "ManageReservationsFilters.searchPlaceholder": "Hae",

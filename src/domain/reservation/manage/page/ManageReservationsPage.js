@@ -4,6 +4,8 @@ import get from 'lodash/get';
 import Loader from 'react-loader';
 import { withRouter } from 'react-router-dom';
 import { Grid, Row, Col } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import PageWrapper from '../../../../../app/pages/PageWrapper';
 import injectT from '../../../../../app/i18n/injectT';
@@ -13,6 +15,9 @@ import ManageReservationsList from '../list/ManageReservationsList';
 import Pagination from '../../../../common/pagination/Pagination';
 import * as searchUtils from '../../../search/utils';
 import ReservationInfomationModal from '../../modal/ReservationInfomationModal';
+import { selectReservationToEdit } from '../../../../../app/actions/uiActions';
+import { getEditReservationUrl, putReservation, cancelReservation } from '../../utils';
+import { RESERVATION_STATE } from '../../../../constants/ReservationState';
 
 export const PAGE_SIZE = 50;
 
@@ -21,6 +26,7 @@ class ManageReservationsPage extends React.Component {
     t: PropTypes.func.isRequired,
     history: PropTypes.object,
     location: PropTypes.object,
+    actions: PropTypes.object,
   };
 
   constructor(props) {
@@ -50,13 +56,6 @@ class ManageReservationsPage extends React.Component {
     }
   }
 
-  onInfoClick = (e, reservation) => {
-    this.setState(prevState => ({
-      isModalOpen: !prevState.isModalOpen,
-      selectedReservation: reservation
-    }));
-  }
-
   loadReservations = () => {
     const {
       location,
@@ -70,7 +69,8 @@ class ManageReservationsPage extends React.Component {
     const params = {
       ...filters,
       page_size: PAGE_SIZE,
-      include: 'resource_detail'
+      include: 'resource_detail',
+      can_approve: true
     };
 
     client.get('reservation', params)
@@ -104,6 +104,35 @@ class ManageReservationsPage extends React.Component {
       search: searchUtils.getSearchFromFilters(filters),
     });
   };
+
+  onEditClick = (reservation) => {
+    const { history, actions } = this.props;
+
+
+    const normalizedReservation = Object.assign({}, reservation, { resource: reservation.resource.id });
+    actions.editReservation({ reservation: normalizedReservation });
+    // TODO: Remove this after refactor timeSlot
+
+    const nextUrl = getEditReservationUrl(reservation);
+    history.push(nextUrl);
+  };
+
+  onInfoClick = (reservation) => {
+    this.setState(prevState => ({
+      isModalOpen: !prevState.isModalOpen,
+      selectedReservation: reservation
+    }));
+  }
+
+  onEditReservation = (reservation, status) => {
+    if (status === RESERVATION_STATE.CANCELLED) {
+      cancelReservation(reservation).then(() => this.loadReservations());
+    } else {
+      putReservation(reservation, { state: status }).then(() => {
+        this.loadReservations();
+      });
+    }
+  }
 
   render() {
     const {
@@ -146,6 +175,8 @@ class ManageReservationsPage extends React.Component {
               <Col sm={12}>
                 <Loader loaded={!isLoading && !isLoadingUnits}>
                   <ManageReservationsList
+                    onEditClick={this.onEditClick}
+                    onEditReservation={this.onEditReservation}
                     onInfoClick={this.onInfoClick}
                     reservations={reservations}
                   />
@@ -165,6 +196,8 @@ class ManageReservationsPage extends React.Component {
         <div className="app-ManageReservationsPage__modal">
           <ReservationInfomationModal
             isOpen={isModalOpen}
+            onEditClick={this.onEditClick}
+            onEditReservation={this.onEditReservation}
             onHide={this.onInfoClick}
             reservation={selectedReservation}
           />
@@ -176,4 +209,13 @@ class ManageReservationsPage extends React.Component {
 }
 
 export const UnwrappedManageReservationsPage = injectT(ManageReservationsPage);
-export default withRouter(UnwrappedManageReservationsPage);
+
+const mapDispatchToProps = (dispatch) => {
+  const actionCreators = {
+    editReservation: selectReservationToEdit
+  };
+
+  return { actions: bindActionCreators(actionCreators, dispatch) };
+};
+
+export default connect(null, mapDispatchToProps)(withRouter(UnwrappedManageReservationsPage));

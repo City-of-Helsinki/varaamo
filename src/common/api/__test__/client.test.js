@@ -118,4 +118,22 @@ describe('domain/common/api/client.js', () => {
     expect(client.request.mock.calls[0][0].data).toMatchObject(data);
     expect(client.request.mock.calls[0][0]).toMatchObject(config);
   });
+
+  test('body data will be trimmed all empty values', () => {
+    mockRequest();
+
+    const dataWithEmptyField = {
+      foo: 'bar',
+      testi: '',
+      bar: ''
+    };
+
+    const expectTrimmedData = {
+      foo: 'bar'
+    };
+
+    client.post('endpoint', dataWithEmptyField, config);
+
+    expect(client.request.mock.calls[0][0].data).toMatchObject(expectTrimmedData);
+  });
 });

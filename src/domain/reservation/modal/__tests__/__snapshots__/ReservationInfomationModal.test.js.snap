@@ -261,6 +261,20 @@ exports[`ReservationInformationModal renders correctly 1`] = `
         </Row>
       </div>
     </div>
+    <div
+      className="app-ReservationInfomationModal__edit-reservation-btn"
+    >
+      <Button
+        active={false}
+        block={false}
+        bsClass="btn"
+        bsStyle="primary"
+        disabled={false}
+        onClick={[Function]}
+      >
+        ReservationEditForm.startEdit
+      </Button>
+    </div>
   </ModalBody>
   <ModalFooter
     bsClass="modal-footer"
@@ -272,6 +286,7 @@ exports[`ReservationInformationModal renders correctly 1`] = `
       bsClass="btn"
       bsStyle="primary"
       disabled={false}
+      onClick={[MockFunction]}
     >
       common.back
     </Button>
@@ -279,8 +294,19 @@ exports[`ReservationInformationModal renders correctly 1`] = `
       active={false}
       block={false}
       bsClass="btn"
-      bsStyle="primary"
+      bsStyle="default"
       disabled={false}
+      onClick={[Function]}
+    >
+      ReservationInfoModal.cancelButton
+    </Button>
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="danger"
+      disabled={false}
+      onClick={[Function]}
     >
       ReservationInfoModal.denyButton
     </Button>
@@ -288,8 +314,9 @@ exports[`ReservationInformationModal renders correctly 1`] = `
       active={false}
       block={false}
       bsClass="btn"
-      bsStyle="primary"
+      bsStyle="success"
       disabled={false}
+      onClick={[Function]}
     >
       ReservationInfoModal.confirmButton
     </Button>
