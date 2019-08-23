@@ -135,17 +135,27 @@ class UnconnectedReservationPage extends Component {
   };
 
   fetchResource() {
-    const { actions, date, resource } = this.props;
+    const {
+      actions, date, resource, location
+    } = this.props;
+
+    const start = moment(date)
+      .subtract(2, 'M')
+      .startOf('month')
+      .format();
+    const end = moment(date)
+      .add(2, 'M')
+      .endOf('month')
+      .format();
+
+    const params = queryString.parse(location.search);
+
     if (!isEmpty(resource)) {
-      const start = moment(date)
-        .subtract(2, 'M')
-        .startOf('month')
-        .format();
-      const end = moment(date)
-        .add(2, 'M')
-        .endOf('month')
-        .format();
       actions.fetchResource(resource.id, { start, end });
+    } else if (params.resource) {
+      actions.fetchResource(params.resource, { start, end });
+      // Fetch resource by id if there are resource id exist in query but not in redux.
+      // TODO: Always invoke actually API call for fetching resource by ID, will fix later.
     }
   }
 

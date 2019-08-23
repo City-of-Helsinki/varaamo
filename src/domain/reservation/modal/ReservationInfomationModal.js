@@ -8,9 +8,10 @@ import get from 'lodash/get';
 import ManageReservationsStatus from '../manage/status/ManageReservationsStatus';
 import injectT from '../../../../app/i18n/injectT';
 import { getDateAndTime } from '../manage/list/ManageReservationsList';
+import { RESERVATION_STATE } from '../../../constants/ReservationState';
 
 const ReservationInfomationModal = ({
-  t, reservation, onHide, isOpen
+  t, reservation, onHide, isOpen, onEditClick, onEditReservation
 }) => {
   const renderField = (label, value) => {
     return (
@@ -44,22 +45,46 @@ const ReservationInfomationModal = ({
           {renderField('common.resourceLabel', get(reservation, 'resource.name.fi', ''))}
           {renderField('common.reserverPhoneNumberLabel', get(reservation, 'reserver_phone_number', ''))}
         </div>
+
+        <div className="app-ReservationInfomationModal__edit-reservation-btn">
+          <Button
+            bsStyle="primary"
+            onClick={() => onEditClick(reservation)}
+          >
+            {t('ReservationEditForm.startEdit')}
+          </Button>
+        </div>
       </Modal.Body>
       <Modal.Footer>
         <Button
           bsStyle="primary"
+          onClick={onHide}
         >
           {t('common.back')}
         </Button>
 
+        {reservation.state !== RESERVATION_STATE.CANCELLED && (
+          <Button
+            bsStyle="default"
+            onClick={() => onEditReservation(reservation, RESERVATION_STATE.CANCELLED)}
+          >
+            {t('ReservationInfoModal.cancelButton')}
+          </Button>
+        )
+        }
+
         <Button
-          bsStyle="primary"
+          bsStyle="danger"
+          disabled={reservation.state !== RESERVATION_STATE.REQUESTED}
+          onClick={() => onEditReservation(reservation, RESERVATION_STATE.DENIED)}
         >
           {t('ReservationInfoModal.denyButton')}
         </Button>
 
         <Button
-          bsStyle="primary"
+          bsStyle="success"
+          disabled={reservation.state !== RESERVATION_STATE.REQUESTED}
+          onClick={() => onEditReservation(reservation, RESERVATION_STATE.CONFIRMED)}
         >
           {t('ReservationInfoModal.confirmButton')}
         </Button>
@@ -72,6 +97,8 @@ ReservationInfomationModal.propTypes = {
   t: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
   onHide: PropTypes.func,
+  onEditClick: PropTypes.func,
+  onEditReservation: PropTypes.func,
   isOpen: PropTypes.bool
 };
 

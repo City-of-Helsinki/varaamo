@@ -16,12 +16,14 @@ import 'lightbox-react/style.css';
 
 import constants from '../../constants/AppConstants';
 import { fetchResource } from '../../actions/resourceActions';
-import { clearReservations, toggleResourceMap } from '../../actions/uiActions';
+import { clearReservations, toggleResourceMap, setSelectedTimeSlots } from '../../actions/uiActions';
+import recurringReservations from '../../state/recurringReservations';
 import PageWrapper from '../PageWrapper';
 import NotFoundPage from '../not-found/NotFoundPage';
 import ResourceCalendar from '../../shared/resource-calendar/ResourceCalendar';
 import injectT from '../../i18n/injectT';
 import { getMaxPeriodText, getResourcePageUrl, getMinPeriodText } from '../../utils/resourceUtils';
+import { getEditReservationUrl } from '../../utils/reservationUtils';
 import ResourceHeader from './resource-header/ResourceHeader';
 import ResourceInfo from './resource-info/ResourceInfo';
 import ResourceMapInfo from './resource-map-info/ResourceMapInfo';
@@ -133,9 +135,30 @@ class UnconnectedResourcePage extends Component {
     actions.fetchResource(id, { start, end });
   };
 
-  // eslint-disable-next-line no-unused-vars
-  onReserve = (selected, resource) => {
+  onReserve = (selected) => {
+    const { actions, resource, history } = this.props;
 
+    actions.setSelectedTimeSlots({
+      selected,
+      resource,
+    });
+
+    const startMoment = moment(selected.start);
+    const endMoment = moment(selected.end);
+    const slotDuration = moment.duration(resource.slotSize);
+    const slotInMinutes = slotDuration.hours() * 60 + slotDuration.minutes();
+
+    actions.changeRecurringBaseTime({
+      begin: startMoment.toISOString(),
+      end: startMoment.clone().add(slotInMinutes, 'minutes').toISOString(),
+      resource: resource.id,
+    });
+
+    history.push(getEditReservationUrl({
+      begin: startMoment.toISOString(),
+      end: endMoment.toISOString(),
+      resource: resource.id,
+    }));
   };
 
   render() {
@@ -292,6 +315,8 @@ function mapDispatchToProps(dispatch) {
     clearReservations,
     fetchResource,
     toggleResourceMap,
+    setSelectedTimeSlots,
+    changeRecurringBaseTime: recurringReservations.changeBaseTime,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
