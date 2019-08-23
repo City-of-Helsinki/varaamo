@@ -315,6 +315,8 @@
   "ManageReservationsList.actionLabel.approve":"Godkänn",
   "ManageReservationsList.actionLabel.deny":"Förneka",
   "ManageReservationsList.actionLabel.edit":"Redigera",
+  "ManageReservationsList.actionLabel.cancel":"Avbryt",
+
 
   "ManageReservationsFilters.searchLabel": "Sök",
   "ManageReservationsFilters.searchPlaceholder": "Sök",

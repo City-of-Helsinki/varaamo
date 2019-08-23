@@ -46,18 +46,19 @@ const ReservationInfomationModal = ({
           {renderField('common.reserverPhoneNumberLabel', get(reservation, 'reserver_phone_number', ''))}
         </div>
 
-        <Button
-          bsStyle="primary"
-          className="app-ReservationInfomationModal__edit-reservation"
-          onClick={() => onEditClick(reservation)}
-        >
-          {t('ReservationEditForm.startEdit')}
-        </Button>
+        <div className="app-ReservationInfomationModal__edit-reservation-btn">
+          <Button
+            bsStyle="primary"
+            onClick={() => onEditClick(reservation)}
+          >
+            {t('ReservationEditForm.startEdit')}
+          </Button>
+        </div>
       </Modal.Body>
       <Modal.Footer>
         <Button
           bsStyle="primary"
-          onClick={() => onHide()}
+          onClick={onHide}
         >
           {t('common.back')}
         </Button>

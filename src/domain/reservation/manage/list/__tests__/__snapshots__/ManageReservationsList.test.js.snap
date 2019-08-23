@@ -108,6 +108,8 @@ exports[`ManageReservationsList renders correctly 1`] = `
         </td>
         <td>
           <InjectT(ManageReservationsDropdown)
+            onEditClick={[Function]}
+            onInfoClick={[Function]}
             reservation={
               Object {
                 "begin": "",
@@ -118,7 +120,7 @@ exports[`ManageReservationsList renders correctly 1`] = `
                 "has_catering_order": false,
                 "id": 1,
                 "its_own": false,
-                "resource": 1,
+                "resource": undefined,
                 "staff_event": false,
                 "state": "requested",
                 "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
