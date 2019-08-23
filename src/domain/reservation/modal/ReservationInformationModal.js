@@ -12,7 +12,7 @@ import { getDateAndTime } from '../manage/list/ManageReservationsList';
 const ReservationInformationModal = ({
   t, reservation, onHide, isOpen, handleSaveComment
 }) => {
-  const [comment, setComment] = useState(get(reservation, 'comments', ''));
+  const [comment, setComment] = useState(get(reservation, 'comments') || '');
   const saveComment = () => handleSaveComment(comment);
 
   const renderField = (label, value) => {
@@ -47,26 +47,19 @@ const ReservationInformationModal = ({
           {renderField('common.resourceLabel', get(reservation, 'resource.name.fi', ''))}
           {renderField('common.reserverPhoneNumberLabel', get(reservation, 'reserver_phone_number', ''))}
         </div>
-        <ControlLabel>
-          {t('common.commentsLabel')}
-          :
-        </ControlLabel>
-        <form className="comments-form">
+        <div className="app-ReservationInformationModal__comments-section">
+          <ControlLabel>
+            {`${t('common.commentsLabel')}:`}
+          </ControlLabel>
           <FormControl
+            className="app-ReservationInformationModal__comments-field"
             componentClass="textarea"
-            // disabled
-            // eslint-disable-next-line no-return-assign
-            // inputRef={ref => this.commentsInput = ref}
-            onChange={(e) => {
-              console.log('setComment', e);
-              console.log('setComment', e.target.value);
-              setComment(e.target.value);
-            }}
+            onChange={e => setComment(e.target.value)}
             placeholder={t('common.commentsPlaceholder')}
             rows={5}
             value={comment}
           />
-          <div className="form-controls">
+          <div className="app-ReservationInformationModal__save-comment">
             <Button
               bsStyle="primary"
               // disabled={disabled}
@@ -75,34 +68,7 @@ const ReservationInformationModal = ({
               {t('ReservationInfoModal.saveComment')}
             </Button>
           </div>
-        </form>
-
-        {/* <form className="comments-form">
-                <FormGroup controlId="commentsTextarea">
-                  <ControlLabel>
-                    {t('common.commentsLabel')}
-:
-                  </ControlLabel>
-                  <FormControl
-                    componentClass="textarea"
-                    defaultValue={reservation.comments}
-                    disabled={disabled}
-                    // eslint-disable-next-line no-return-assign
-                    inputRef={ref => this.commentsInput = ref}
-                    placeholder={t('common.commentsPlaceholder')}
-                    rows={5}
-                  />
-                </FormGroup>
-                <div className="form-controls">
-                  <Button
-                    bsStyle="primary"
-                    disabled={disabled}
-                    onClick={this.handleSaveCommentsClick}
-                  >
-                    {isSaving ? t('common.saving') : t('ReservationInfoModal.saveComment')}
-                  </Button>
-                </div>
-              </form> */}
+        </div>
       </Modal.Body>
       <Modal.Footer>
         <Button

@@ -25,4 +25,20 @@
       text-align: left;
     }
   }
+
+  &__comments-section {
+    border-top: 1px solid #e5e5e5;
+    padding-top: 15px;
+  }
+
+  &__comments-field {
+    resize: vertical;
+  }
+
+  &__save-comment {
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
 }
