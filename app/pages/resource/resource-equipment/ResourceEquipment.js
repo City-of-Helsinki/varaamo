@@ -16,7 +16,9 @@ function ResourceEquipment({
   return (
     <Panel defaultExpanded>
       <Panel.Heading>
-        <Panel.Title componentClass="h3" toggle>{t('ResourceEquipment.headingText')}</Panel.Title>
+        <Panel.Toggle>
+          <Panel.Title componentClass="h3">{t('ResourceEquipment.headingText')}</Panel.Title>
+        </Panel.Toggle>
       </Panel.Heading>
       <Panel.Collapse>
         <Panel.Body>

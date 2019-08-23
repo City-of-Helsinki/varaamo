@@ -138,6 +138,19 @@ $content-padding: 10px;
     }
   }
 
+  h3 {
+    margin: 0;
+    font-size: 2.4rem;
+    color: #000000;
+    @media (max-width: $screen-xs-max) {
+      font-size: 2rem;
+    }
+  }
+
+  a {
+    text-decoration: none;
+  }
+
   @media (max-width: $resource-page-width) {
     margin-left: -15px;
     margin-right: -15px;

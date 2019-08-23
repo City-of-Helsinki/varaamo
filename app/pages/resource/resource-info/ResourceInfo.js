@@ -21,9 +21,11 @@ function ResourceInfo({
       <section className="app-ResourceInfo">
         <Panel defaultExpanded>
           <Panel.Heading>
-            <Panel.Title componentClass="h3" toggle>
-              {t('ResourceInfo.descriptionTitle')}
-            </Panel.Title>
+            <Panel.Toggle>
+              <Panel.Title componentClass="h3">
+                {t('ResourceInfo.descriptionTitle')}
+              </Panel.Title>
+            </Panel.Toggle>
           </Panel.Heading>
           <Panel.Collapse>
             <Panel.Body>
@@ -40,9 +42,11 @@ function ResourceInfo({
         </Panel>
         <Panel defaultExpanded>
           <Panel.Heading>
-            <Panel.Title componentClass="h3" toggle>
-              {t('ResourceInfo.reservationTitle')}
-            </Panel.Title>
+            <Panel.Toggle>
+              <Panel.Title componentClass="h3">
+                {t('ResourceInfo.reservationTitle')}
+              </Panel.Title>
+            </Panel.Toggle>
           </Panel.Heading>
           <Panel.Collapse>
             <Panel.Body>
@@ -53,9 +57,11 @@ function ResourceInfo({
         {resource.specificTerms && (
           <Panel defaultExpanded>
             <Panel.Heading>
-              <Panel.Title componentClass="h3" toggle>
-                {t('ResourcePage.specificTerms')}
-              </Panel.Title>
+              <Panel.Toggle>
+                <Panel.Title componentClass="h3">
+                  {t('ResourcePage.specificTerms')}
+                </Panel.Title>
+              </Panel.Toggle>
             </Panel.Heading>
             <Panel.Collapse>
               <Panel.Body>
@@ -68,9 +74,11 @@ function ResourceInfo({
         )}
         <Panel defaultExpanded>
           <Panel.Heading>
-            <Panel.Title componentClass="h3" toggle>
-              {t('ResourceInfo.additionalInfoTitle')}
-            </Panel.Title>
+            <Panel.Toggle>
+              <Panel.Title componentClass="h3">
+                {t('ResourceInfo.additionalInfoTitle')}
+              </Panel.Title>
+            </Panel.Toggle>
           </Panel.Heading>
           <Panel.Collapse>
             <Panel.Body>
