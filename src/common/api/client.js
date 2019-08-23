@@ -3,6 +3,7 @@ import get from 'lodash/get';
 
 import constants from '../../../app/constants/AppConstants';
 import store from '../../store';
+import { parseData } from '../data/utils';
 
 let authToken;
 
@@ -74,7 +75,7 @@ export class ApiClient {
   get = (endpoint, data = {}, config = {}) => this.request({
     method: 'GET',
     endpoint,
-    data,
+    data: parseData(data),
     ...config,
   });
 
@@ -88,7 +89,7 @@ export class ApiClient {
   post = (endpoint, data = {}, config = {}) => this.request({
     method: 'POST',
     endpoint,
-    data,
+    data: parseData(data),
     ...config,
   });
 
@@ -102,7 +103,7 @@ export class ApiClient {
   delete = (endpoint, data = {}, config = {}) => this.request({
     method: 'DELETE',
     endpoint,
-    data,
+    data: parseData(data),
     ...config,
   });
 
@@ -116,7 +117,7 @@ export class ApiClient {
   put = (endpoint, data = {}, config = {}) => this.request({
     method: 'PUT',
     endpoint,
-    data,
+    data: parseData(data),
     ...config,
   });
 
@@ -130,7 +131,7 @@ export class ApiClient {
   patch = (endpoint, data = {}, config = {}) => this.request({
     method: 'PATCH',
     endpoint,
-    data,
+    data: parseData(data),
     ...config,
   });
 }
