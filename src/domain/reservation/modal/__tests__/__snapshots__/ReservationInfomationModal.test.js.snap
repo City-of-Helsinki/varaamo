@@ -262,7 +262,7 @@ exports[`ReservationInformationModal renders correctly 1`] = `
       </div>
     </div>
     <div
-      className="app-ReservationInfomationModal__edit-reservation-btn"
+      className="app-ReservationInformationModal__edit-reservation-btn"
     >
       <Button
         active={false}
@@ -274,6 +274,39 @@ exports[`ReservationInformationModal renders correctly 1`] = `
       >
         ReservationEditForm.startEdit
       </Button>
+    </div>
+    <div
+      className="app-ReservationInformationModal__comments-section"
+    >
+      <ControlLabel
+        bsClass="control-label"
+        srOnly={false}
+      >
+        common.commentsLabel:
+      </ControlLabel>
+      <FormControl
+        bsClass="form-control"
+        className="app-ReservationInformationModal__comments-field"
+        componentClass="textarea"
+        onChange={[Function]}
+        placeholder="common.commentsPlaceholder"
+        rows={5}
+        value=""
+      />
+      <div
+        className="app-ReservationInformationModal__save-comment"
+      >
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsStyle="primary"
+          disabled={false}
+          onClick={[Function]}
+        >
+          ReservationInfoModal.saveComment
+        </Button>
+      </div>
     </div>
   </ModalBody>
   <ModalFooter
