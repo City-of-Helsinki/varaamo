@@ -134,7 +134,7 @@ class ManageReservationsPage extends React.Component {
     }
   }
 
-  handleSaveComment = reservation => (comments) => {
+  onSaveComment = (reservation, comments) => {
     return putReservation(reservation, { resource: reservation.resource.id, comments }).then(() => {
       this.loadReservations();
     });
@@ -201,11 +201,11 @@ class ManageReservationsPage extends React.Component {
         {isModalOpen && (
           <div className="app-ManageReservationsPage__modal">
             <ReservationInformationModal
-              handleSaveComment={this.handleSaveComment(selectedReservation)}
               isOpen={isModalOpen}
               onEditClick={this.onEditClick}
               onEditReservation={this.onEditReservation}
               onHide={this.onInfoClick}
+              onSaveComment={this.onSaveComment}
               reservation={selectedReservation}
             />
           </div>

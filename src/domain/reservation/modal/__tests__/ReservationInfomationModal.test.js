@@ -12,7 +12,7 @@ describe('ReservationInformationModal', () => {
     const props = {
       reservation: mockReservation,
       onHide: jest.fn(),
-      handleSaveComment: jest.fn(),
+      onSaveComment: jest.fn(),
       isOpen: true
     };
     const wrapper = shallowWithIntl(

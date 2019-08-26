@@ -11,10 +11,10 @@ import { getDateAndTime } from '../manage/list/ManageReservationsList';
 import { RESERVATION_STATE } from '../../../constants/ReservationState';
 
 const ReservationInformationModal = ({
-  t, reservation, onHide, isOpen, onEditClick, onEditReservation, handleSaveComment
+  t, reservation, onHide, isOpen, onEditClick, onEditReservation, onSaveComment
 }) => {
   const [comment, setComment] = useState(get(reservation, 'comments') || '');
-  const saveComment = () => handleSaveComment(comment);
+  const saveComment = () => onSaveComment(reservation, comment);
 
   const renderField = (label, value) => {
     return (
@@ -118,11 +118,11 @@ const ReservationInformationModal = ({
 
 ReservationInformationModal.propTypes = {
   t: PropTypes.func.isRequired,
-  handleSaveComment: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
   onHide: PropTypes.func,
   onEditClick: PropTypes.func,
   onEditReservation: PropTypes.func,
+  onSaveComment: PropTypes.func.isRequired,
   isOpen: PropTypes.bool
 };
 
