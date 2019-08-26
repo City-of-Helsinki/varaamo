@@ -27,8 +27,9 @@
   }
 
   &__comments-section {
+    margin-top: 1.5em;
     border-top: 1px solid #e5e5e5;
-    padding-top: 15px;
+    padding-top: 1em;
   }
 
   &__comments-field {
@@ -36,9 +37,7 @@
   }
 
   &__save-comment {
-    margin-top: 15px;
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
+    margin-top: 1em;
+    text-align: right;
   }
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
-// import pick from 'lodash/pick';
+import pick from 'lodash/pick';
 import Loader from 'react-loader';
 import { withRouter } from 'react-router-dom';
 import { Grid, Row, Col } from 'react-bootstrap';
@@ -15,11 +15,10 @@ import ManageReservationsFilters from '../filters/ManageReservationsFilters';
 import ManageReservationsList from '../list/ManageReservationsList';
 import Pagination from '../../../../common/pagination/Pagination';
 import * as searchUtils from '../../../search/utils';
-import ReservationInfomationModal from '../../modal/ReservationInfomationModal';
 import { selectReservationToEdit } from '../../../../../app/actions/uiActions';
 import { getEditReservationUrl, putReservation, cancelReservation } from '../../utils';
 import { RESERVATION_STATE } from '../../../../constants/ReservationState';
-// import ReservationInformationModal from '../../modal/ReservationInformationModal';
+import ReservationInformationModal from '../../modal/ReservationInformationModal';
 
 export const PAGE_SIZE = 50;
 
@@ -136,37 +135,11 @@ class ManageReservationsPage extends React.Component {
     }
   }
 
-  //   handleSaveComment = reservation => (comments) => {
-  //     const requiredValues = pick(reservation, [
-  //       'begin',
-  //       'end',
-  //       'event_description',
-  //       'reserver_id',
-  //       'reserver_email_address',
-  //       'reserver_name',
-  //       'reserver_phone_number',
-  //       'reserver_address_street',
-  //       'reserver_address_zip',
-  //       'reserver_address_city',
-  //       'resource'
-  //     ]);
-
-  //     return client.put(`reservation/${reservation.id}`, {
-  //       ...requiredValues, resource: requiredValues.resource.id, comments
-  //     })
-  //       .then(({ data }) => {
-  //         this.setState(({ reservations, selectedReservation }) => {
-  //           const updatedReservations = reservations.map(
-  //             res => (res.id === data.id ? { ...res, comments: data.comments } : res)
-  //           );
-  //           return {
-  //             reservations: updatedReservations,
-  //             selectedReservation: { ...selectedReservation, comments: data.comments }
-  //           };
-  //         });
-  //       });
-  //   };
-  // }
+  handleSaveComment = reservation => (comments) => {
+    return putReservation(reservation, { resource: reservation.resource.id, comments }).then(() => {
+      this.loadReservations();
+    });
+  };
 
   render() {
     const {
@@ -228,7 +201,8 @@ class ManageReservationsPage extends React.Component {
         </div>
         {isModalOpen && (
           <div className="app-ManageReservationsPage__modal">
-            <ReservationInfomationModal
+            <ReservationInformationModal
+              handleSaveComment={this.handleSaveComment(selectedReservation)}
               isOpen={isModalOpen}
               onEditClick={this.onEditClick}
               onEditReservation={this.onEditReservation}
