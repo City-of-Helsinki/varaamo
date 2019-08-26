@@ -14,10 +14,10 @@ import ManageReservationsFilters from '../filters/ManageReservationsFilters';
 import ManageReservationsList from '../list/ManageReservationsList';
 import Pagination from '../../../../common/pagination/Pagination';
 import * as searchUtils from '../../../search/utils';
-import ReservationInfomationModal from '../../modal/ReservationInfomationModal';
 import { selectReservationToEdit } from '../../../../../app/actions/uiActions';
 import { getEditReservationUrl, putReservation, cancelReservation } from '../../utils';
 import { RESERVATION_STATE } from '../../../../constants/ReservationState';
+import ReservationInformationModal from '../../modal/ReservationInformationModal';
 
 export const PAGE_SIZE = 50;
 
@@ -134,6 +134,12 @@ class ManageReservationsPage extends React.Component {
     }
   }
 
+  onSaveComment = (reservation, comments) => {
+    return putReservation(reservation, { resource: reservation.resource.id, comments }).then(() => {
+      this.loadReservations();
+    });
+  };
+
   render() {
     const {
       t,
@@ -193,15 +199,16 @@ class ManageReservationsPage extends React.Component {
           </PageWrapper>
         </div>
         {isModalOpen && (
-        <div className="app-ManageReservationsPage__modal">
-          <ReservationInfomationModal
-            isOpen={isModalOpen}
-            onEditClick={this.onEditClick}
-            onEditReservation={this.onEditReservation}
-            onHide={this.onInfoClick}
-            reservation={selectedReservation}
-          />
-        </div>
+          <div className="app-ManageReservationsPage__modal">
+            <ReservationInformationModal
+              isOpen={isModalOpen}
+              onEditClick={this.onEditClick}
+              onEditReservation={this.onEditReservation}
+              onHide={this.onInfoClick}
+              onSaveComment={this.onSaveComment}
+              reservation={selectedReservation}
+            />
+          </div>
         )}
       </div>
     );
