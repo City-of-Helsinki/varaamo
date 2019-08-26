@@ -216,8 +216,7 @@ class UnconnectedResourcePage extends Component {
                       resource={resource}
                       unit={unit}
                     />
-
-                    <Row>
+                    <div className="app-ResourcePage__reservation">
                       <Panel defaultExpanded>
                         <Panel.Heading>
                           <Panel.Toggle>
@@ -270,7 +269,7 @@ class UnconnectedResourcePage extends Component {
                           </Panel.Body>
                         </Panel.Collapse>
                       </Panel>
-                    </Row>
+                    </div>
                   </div>
                 </Col>
                 <Col lg={3} md={3} xs={12}>
