@@ -17,10 +17,6 @@
 
   input {
     width: 100%;
-
-    &:focus {
-      outline: none
-    }
   }
 
   .date-picker-overlay {
@@ -40,10 +36,6 @@
     max-width: 400px;
     margin: 0 auto;
     width: 100%;
-
-    &:focus {
-      outline: none;
-    }
   }
 
   .DayPicker-NavBar {
@@ -92,9 +84,6 @@
     border-radius: 0;
     font-size: 1.6rem;
 
-    &:focus {
-      outline: none;
-    }
     &--available:not(.DayPicker-Day--disabled) {
       background-color: $light-gray;
       &.DayPicker-Day--selected {
