@@ -1,3 +1,9 @@
+# 0.4.2
+  **HOTFIX**
+  ```
+  - Fix various styling issue for date-picker [#991](https://github.com/City-of-Helsinki/varaamo/pull/991)
+  ```
+
 # 0.4.1
   **HOTFIX**
   ```
