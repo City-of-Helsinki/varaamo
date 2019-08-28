@@ -67,6 +67,7 @@ exports[`ResourceReservationCalendar renders correctly 1`] = `
     eventConstraint="businessHours"
     eventDrop={[Function]}
     eventOverlap={false}
+    eventRender={[Function]}
     eventResize={[Function]}
     events={
       Array [

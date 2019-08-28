@@ -294,6 +294,16 @@ class ResourceReservationCalendar extends React.Component {
     return '';
   };
 
+  onEventRender = (info) => {
+    if (info.event.id === 'newReservation') {
+      const cancelBtn = document.createElement('span');
+      cancelBtn.append('\u00D7');
+      cancelBtn.classList.add('app-ResourceReservationCalendar__cancelEvent');
+      cancelBtn.addEventListener('click', () => this.setState({ selected: null }));
+      info.el.append(cancelBtn);
+    }
+  }
+
   render() {
     const {
       date,
@@ -316,6 +326,7 @@ class ResourceReservationCalendar extends React.Component {
           defaultDate={date}
           eventAllow={this.onEventAllow}
           eventDrop={this.onEventDrop}
+          eventRender={this.onEventRender}
           eventResize={this.onEventResize}
           events={this.getEvents()}
           ref={this.calendarRef}
