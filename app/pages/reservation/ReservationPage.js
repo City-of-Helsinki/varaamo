@@ -166,7 +166,6 @@ class UnconnectedReservationPage extends Component {
       recurringReservations,
       selectedReservations,
       t,
-      isAdmin,
     } = this.props;
 
     const reservationsCount = selectedReservations.length + recurringReservations.length;
