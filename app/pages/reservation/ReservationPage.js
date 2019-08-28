@@ -174,7 +174,7 @@ class UnconnectedReservationPage extends Component {
       ? t('ConfirmReservationModal.preliminaryReservationText', { reservationsCount })
       : t('ConfirmReservationModal.regularReservationText', { reservationsCount });
 
-    return (isAdmin && (
+    return (
       <>
         {/* Recurring selection dropdown  */}
         <RecurringReservationControls />
@@ -187,7 +187,7 @@ class UnconnectedReservationPage extends Component {
           reservations={selectedReservations}
         />
       </>
-    ));
+    );
   }
 
   render() {

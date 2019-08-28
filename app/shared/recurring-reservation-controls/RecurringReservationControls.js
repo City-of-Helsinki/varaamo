@@ -17,6 +17,7 @@ function RecurringReservationControls({
   changeNumberOfOccurrences,
   frequency,
   frequencyOptions,
+  isAdmin,
   isVisible,
   numberOfOccurrences,
   lastTime,
@@ -25,7 +26,8 @@ function RecurringReservationControls({
   if (!isVisible) {
     return <span />;
   }
-  return (
+
+  return (isAdmin && (
     <div className="recurring-reservation-controls">
       <Row>
         <Col md={3} xs={12}>
@@ -74,7 +76,7 @@ function RecurringReservationControls({
         )}
       </Row>
     </div>
-  );
+  ));
 }
 
 RecurringReservationControls.propTypes = {
@@ -83,6 +85,7 @@ RecurringReservationControls.propTypes = {
   changeNumberOfOccurrences: PropTypes.func.isRequired,
   frequency: PropTypes.string.isRequired,
   frequencyOptions: PropTypes.array.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
   isVisible: PropTypes.bool.isRequired,
   numberOfOccurrences: PropTypes.number.isRequired,
   lastTime: PropTypes.string,
