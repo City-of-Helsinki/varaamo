@@ -154,14 +154,24 @@ describe('pages/reservation/ReservationPage', () => {
   });
 
   describe('RecurringReservation', () => {
-    test('render RecurringReservationControls component', () => {
-      const controls = getWrapper().find(RecurringReservationControls);
+    test('render RecurringReservationControls component if user is admin', () => {
+      const controls = getWrapper({ isAdmin: true }).find(RecurringReservationControls);
       expect(controls).toHaveLength(1);
     });
 
-    test('render CompactReservationList', () => {
-      const list = getWrapper().find(CompactReservationList);
+    test('render CompactReservationList if user is admin', () => {
+      const list = getWrapper({ isAdmin: true }).find(CompactReservationList);
       expect(list).toHaveLength(1);
+    });
+
+    test('does not render RecurringReservationControls component if user is not admin', () => {
+      const controls = getWrapper({ isAdmin: false }).find(RecurringReservationControls);
+      expect(controls).toHaveLength(0);
+    });
+
+    test('does not render CompactReservationList if user is not admin', () => {
+      const list = getWrapper({ isAdmin: false }).find(CompactReservationList);
+      expect(list).toHaveLength(0);
     });
   });
 
