@@ -259,6 +259,7 @@ exports[`SearchSort renders correctly 1`] = `
         "ResourceHeader.resourceButton": "ResourceHeader.resourceButton",
         "ResourceIcons.free": "ResourceIcons.free",
         "ResourceInfo.additionalInfoTitle": "ResourceInfo.additionalInfoTitle",
+        "ResourceInfo.descriptionTitle": "ResourceInfo.descriptionTitle",
         "ResourceInfo.equipmentHeader": "ResourceInfo.equipmentHeader",
         "ResourceInfo.loginMessage": "ResourceInfo.loginMessage",
         "ResourceInfo.reservationTitle": "ResourceInfo.reservationTitle",
