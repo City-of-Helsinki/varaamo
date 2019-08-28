@@ -178,7 +178,7 @@ class UnconnectedReservationPage extends Component {
       <>
         {/* Recurring selection dropdown  */}
         <RecurringReservationControls isAdmin={isAdmin} />
-        <p><strong>{introText}</strong></p>
+        { isAdmin && <p><strong>{introText}</strong></p> }
 
         {/* Selected recurring info */}
         <CompactReservationList
