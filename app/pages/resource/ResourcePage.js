@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
-import Panel from 'react-bootstrap/lib/Panel';
 import Lightbox from 'lightbox-react';
 import { decamelizeKeys } from 'humps';
 import 'lightbox-react/style.css';
@@ -30,6 +29,7 @@ import ResourceMapInfo from './resource-map-info/ResourceMapInfo';
 import resourcePageSelector from './resourcePageSelector';
 import ResourceMap from '../../../src/domain/resource/map/ResourceMap';
 import ResourceReservationCalendar from '../../../src/domain/resource/reservationCalendar/ResourceReservationCalendar';
+import ResourcePanel from './resource-info/ResourcePanel';
 
 class UnconnectedResourcePage extends Component {
   static propTypes = {
@@ -217,8 +217,9 @@ class UnconnectedResourcePage extends Component {
                       unit={unit}
                     />
 
-                    <Panel defaultExpanded header={t('ResourceInfo.reserveTitle')}>
-                      {resource.externalReservationUrl && (
+                    <ResourcePanel header={t('ResourceInfo.reserveTitle')}>
+                      <>
+                        {resource.externalReservationUrl && (
                         <form action={resource.externalReservationUrl}>
                           <input
                             className="btn btn-primary"
@@ -226,8 +227,8 @@ class UnconnectedResourcePage extends Component {
                             value="Siirry ulkoiseen ajanvarauskalenteriin"
                           />
                         </form>
-                      )}
-                      {!resource.externalReservationUrl && (
+                        )}
+                        {!resource.externalReservationUrl && (
                         <div>
                           {/* Show reservation max period text */}
                           {resource.maxPeriod && (
@@ -258,8 +259,9 @@ class UnconnectedResourcePage extends Component {
                             resource={decamelizeKeys(resource)}
                           />
                         </div>
-                      )}
-                    </Panel>
+                        )}
+                      </>
+                    </ResourcePanel>
                   </div>
                 </Col>
                 <Col lg={3} md={3} xs={12}>

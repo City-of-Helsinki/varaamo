@@ -1,19 +1,16 @@
 import React from 'react';
-import Panel from 'react-bootstrap';
+import Panel from 'react-bootstrap/lib/Panel';
 import PropTypes from 'prop-types';
 
-import injectT from '../../../i18n/injectT';
 
 const ResourcePanel = ({
-  t, defaultExpanded = true, titleId, children
+  defaultExpanded = true, header, children
 }) => {
   return (
     <div className="app-ResourcePanel">
       <Panel defaultExpanded={defaultExpanded}>
         <Panel.Heading>
-          <Panel.Toggle>
-            <Panel.Title componentClass="h3">{t(titleId)}</Panel.Title>
-          </Panel.Toggle>
+          <Panel.Title componentClass="h3" toggle>{header}</Panel.Title>
         </Panel.Heading>
         <Panel.Collapse>
           <Panel.Body>
@@ -27,9 +24,8 @@ const ResourcePanel = ({
 
 ResourcePanel.propTypes = {
   defaultExpanded: PropTypes.bool,
-  titleId: PropTypes.string,
+  header: PropTypes.string,
   children: PropTypes.element,
-  t: PropTypes.func
 };
 
-export default injectT(ResourcePanel);
+export default ResourcePanel;

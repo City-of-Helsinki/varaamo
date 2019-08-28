@@ -2,7 +2,6 @@ import upperFirst from 'lodash/upperFirst';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Col from 'react-bootstrap/lib/Col';
-import Panel from 'react-bootstrap/lib/Panel';
 import Row from 'react-bootstrap/lib/Row';
 
 import injectT from '../../../i18n/injectT';
@@ -10,6 +9,7 @@ import WrappedText from '../../../shared/wrapped-text/WrappedText';
 import { getServiceMapUrl } from '../../../utils/unitUtils';
 import ReservationInfo from '../reservation-info/ReservationInfo';
 import Equipment from '../resource-equipment/ResourceEquipment';
+import ResourcePanel from './ResourcePanel';
 
 function ResourceInfo({
   isLoggedIn, resource, unit, t
@@ -21,17 +21,16 @@ function ResourceInfo({
       <div className="app-ResourceInfo__description">
         {resource.description && <WrappedText openLinksInNewTab text={resource.description} />}
       </div>
-      <Panel defaultExpanded header={t('ResourceInfo.reservationTitle')}>
+      <ResourcePanel header={t('ResourceInfo.reservationTitle')}>
         <ReservationInfo isLoggedIn={isLoggedIn} resource={resource} />
-      </Panel>
+      </ResourcePanel>
+
       {resource.specificTerms && (
-        <Panel defaultExpanded header={t('ResourcePage.specificTerms')}>
-          <Row>
-            <Col xs={12}>{resource.specificTerms}</Col>
-          </Row>
-        </Panel>
+        <ResourcePanel header={t('ResourcePage.specificTerms')}>
+          <p>{resource.specificTerms}</p>
+        </ResourcePanel>
       )}
-      <Panel defaultExpanded header={t('ResourceInfo.additionalInfoTitle')}>
+      <ResourcePanel header={t('ResourceInfo.additionalInfoTitle')}>
         <Row>
           <Col className="app-ResourceInfo__address" xs={6}>
             {unit && unit.name && <span>{unit.name}</span>}
@@ -55,7 +54,8 @@ function ResourceInfo({
             )}
           </Col>
         </Row>
-      </Panel>
+      </ResourcePanel>
+
       <Equipment equipment={resource.equipment} />
     </section>
   );
