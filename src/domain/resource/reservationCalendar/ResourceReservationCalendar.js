@@ -299,9 +299,8 @@ class ResourceReservationCalendar extends React.Component {
   onEventRender = (info) => {
     if (info.event.id === NEW_RESERVATION) {
       const cancelBtn = document.createElement('span');
-      cancelBtn.append('\u00D7');
       cancelBtn.classList.add('app-ResourceReservationCalendar__cancelEvent');
-      cancelBtn.addEventListener('click', () => this.setState({ selected: null }));
+      cancelBtn.addEventListener('click', () => this.setState({ selected: null }), { once: true });
       info.el.append(cancelBtn);
     }
   }
