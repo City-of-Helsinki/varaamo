@@ -2,6 +2,8 @@
   **HOTFIX**
   ```
   - Fix various styling issue for date-picker [#991](https://github.com/City-of-Helsinki/varaamo/pull/991)
+  - Add `isAdmin` check for RecurringReservationControl to normal user will not able to make recurring reservation. [#993](https://github.com/City-of-Helsinki/varaamo/pull/993/)
+
   ```
 
 # 0.4.1
