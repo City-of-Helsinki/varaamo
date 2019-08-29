@@ -19,18 +19,18 @@ class Html extends Component {
       _paq.push(['trackPageView']);
       _paq.push(['enableLinkTracking']);
       (function() {
-        var u="https://analytics.hel.ninja/piwik/";
-        _paq.push(['setTrackerUrl', u+'piwik.php']);
+        var u="https://analytics.hel.ninja/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
         _paq.push(['setSiteId', ${piwikSiteId}]);
         var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
         g.type='text/javascript';
         g.async=true;
         g.defer=true;
-        g.src=u+'piwik.js';
+        g.src=u+'matomo.js';
         s.parentNode.insertBefore(g,s);
       })();
     `;
-    const imgSrc = `//analytics.hel.ninja/piwik/piwik.php?idsite=${piwikSiteId}`;
+    const imgSrc = `//analytics.hel.ninja/matomo.php?idsite=${piwikSiteId}&amp;rec=1`;
     return (
       <div>
         <script dangerouslySetInnerHTML={{ __html: scriptString }} />
