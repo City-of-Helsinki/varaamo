@@ -166,7 +166,6 @@ class UnconnectedReservationPage extends Component {
       recurringReservations,
       selectedReservations,
       t,
-      isAdmin,
     } = this.props;
 
     const reservationsCount = selectedReservations.length + recurringReservations.length;
@@ -177,12 +176,11 @@ class UnconnectedReservationPage extends Component {
     return (
       <>
         {/* Recurring selection dropdown  */}
-        <RecurringReservationControls isAdmin={isAdmin} />
-        { isAdmin && <p><strong>{introText}</strong></p> }
+        <RecurringReservationControls />
+        { <p><strong>{introText}</strong></p> }
 
         {/* Selected recurring info */}
         <CompactReservationList
-          isAdmin={isAdmin}
           onRemoveClick={actions.removeReservation}
           removableReservations={recurringReservations}
           reservations={selectedReservations}
@@ -255,7 +253,7 @@ class UnconnectedReservationPage extends Component {
                 )}
                 {view === 'information' && selectedTime && (
                   <>
-                    {this.renderRecurringReservations()}
+                    {isAdmin && this.renderRecurringReservations()}
                     <ReservationInformation
                       isAdmin={isAdmin}
                       isEditing={isEditing}

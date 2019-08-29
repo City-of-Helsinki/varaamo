@@ -39,8 +39,6 @@ class CompactReservationList extends Component {
   }
 
   render() {
-    if (!this.props.isAdmin) return null;
-
     return (
       <ul className="compact-reservation-list">
         {this.props.reservations.map(this.renderFixedReservation)}
@@ -53,7 +51,6 @@ class CompactReservationList extends Component {
 }
 
 CompactReservationList.propTypes = {
-  isAdmin: PropTypes.bool.isRequired,
   onRemoveClick: PropTypes.func,
   removableReservations: PropTypes.array,
   reservations: PropTypes.array.isRequired,

@@ -23,11 +23,11 @@ function RecurringReservationControls({
   lastTime,
   t,
 }) {
-  if (!isVisible) {
+  if (!isVisible || !isAdmin) {
     return <span />;
   }
 
-  return (isAdmin && (
+  return (
     <div className="recurring-reservation-controls">
       <Row>
         <Col md={3} xs={12}>
@@ -76,7 +76,7 @@ function RecurringReservationControls({
         )}
       </Row>
     </div>
-  ));
+  );
 }
 
 RecurringReservationControls.propTypes = {
