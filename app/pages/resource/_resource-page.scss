@@ -20,6 +20,7 @@ $content-padding: 10px;
   h3 {
     margin: 0;
     font-size: 2.4rem;
+
     @media (max-width: $screen-xs-max) {
       font-size: 2rem;
     }
@@ -119,7 +120,7 @@ $content-padding: 10px;
           color: $black;
           padding-left: 24px;
           position: relative;
-          text-decoration: underline;
+          text-decoration: none;
 
           &::before {
             background-image: url('../search/controls/images/angle-right.svg');
