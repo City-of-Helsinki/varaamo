@@ -177,7 +177,7 @@ class UnconnectedReservationPage extends Component {
       <>
         {/* Recurring selection dropdown  */}
         <RecurringReservationControls />
-        <p><strong>{introText}</strong></p>
+        { <p><strong>{introText}</strong></p> }
 
         {/* Selected recurring info */}
         <CompactReservationList
@@ -253,7 +253,7 @@ class UnconnectedReservationPage extends Component {
                 )}
                 {view === 'information' && selectedTime && (
                   <>
-                    {this.renderRecurringReservations()}
+                    {isAdmin && this.renderRecurringReservations()}
                     <ReservationInformation
                       isAdmin={isAdmin}
                       isEditing={isEditing}
