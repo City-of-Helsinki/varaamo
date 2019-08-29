@@ -17,6 +17,15 @@ $content-padding: 10px;
     color: $blue;
   }
 
+  h3 {
+    margin: 0;
+    font-size: 2.4rem;
+
+    @media (max-width: $screen-xs-max) {
+      font-size: 2rem;
+    }
+  }
+
   &__content {
     padding: 30px 0;
     background-color: $white;
@@ -111,7 +120,7 @@ $content-padding: 10px;
           color: $black;
           padding-left: 24px;
           position: relative;
-          text-decoration: underline;
+          text-decoration: none;
 
           &::before {
             background-image: url('../search/controls/images/angle-right.svg');
@@ -119,16 +128,18 @@ $content-padding: 10px;
             background-size: $line-height-computed;
             content: ' ';
             display: inline-block;
+            vertical-align: -50%;
             left: 0;
-            top: -2px;
             position: absolute;
             height: $line-height-computed;
             width: $line-height-computed;
           }
         }
 
-        a[aria-selected="true"]::before {
-          background-image: url('../search/controls/images/angle-down.svg');
+        .collapsed {
+          &::before {
+            background-image: url('../search/controls/images/angle-down.svg');
+          }
         }
       }
     }

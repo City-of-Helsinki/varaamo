@@ -1,3 +1,9 @@
+# 0.5.0-pre
+  **FIXES**
+  ```
+  - Fix reservation information and header icon [#995](https://github.com/City-of-Helsinki/varaamo/pull/995)
+  ```
+
 # 0.4.2
   **HOTFIX**
   ```

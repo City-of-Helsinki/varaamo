@@ -1,5 +1,4 @@
 import React from 'react';
-import Panel from 'react-bootstrap/lib/Panel';
 import Immutable from 'seamless-immutable';
 
 import WrappedText from '../../../../shared/wrapped-text/WrappedText';
@@ -49,14 +48,6 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
     expect(wrappedText).toHaveLength(1);
     expect(wrappedText.prop('text')).toBe(expectedText);
     expect(wrappedText.prop('openLinksInNewTab')).toBe(true);
-  });
-
-  test('renders panels with correct header text', () => {
-    const panels = getWrapper().find(Panel);
-
-    expect(panels).toHaveLength(3);
-    expect(panels.at(0).prop('header')).toBe('ResourceInfo.reservationTitle');
-    expect(panels.at(2).prop('header')).toBe('ResourceInfo.additionalInfoTitle');
   });
 
   test('renders ReservationInfo with correct props', () => {

@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResourcePanel renders correctly 1`] = `
+<div
+  className="app-ResourcePanel"
+>
+  <Uncontrolled(Panel)
+    defaultExpanded={true}
+  >
+    <PanelHeading
+      bsClass="panel"
+      componentClass="div"
+    >
+      <PanelTitle
+        bsClass="panel"
+        componentClass="h3"
+        toggle={true}
+      >
+        foo
+      </PanelTitle>
+    </PanelHeading>
+    <PanelCollapse
+      bsClass="panel"
+    >
+      <PanelBody
+        bsClass="panel"
+        collapsible={false}
+      >
+        <p>
+          bar
+        </p>
+      </PanelBody>
+    </PanelCollapse>
+  </Uncontrolled(Panel)>
+</div>
+`;

@@ -1,13 +1,11 @@
 import React from 'react';
-import Panel from 'react-bootstrap/lib/Panel';
-import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
+import toJSON from 'enzyme-to-json';
 
 import { shallowWithIntl } from '../../../../utils/testUtils';
 import ResourceEquipment from '../ResourceEquipment';
 
-describe('pages/resource/resource-equipment/ResourceEquipment', () => {
-  const defaultProps = {
+test('pages/resource/resource-equipment/ResourceEquipment', () => {
+  const props = {
     equipment: [
       {
         name: 'Karaoke'
@@ -21,28 +19,10 @@ describe('pages/resource/resource-equipment/ResourceEquipment', () => {
     ],
   };
 
-  function getWrapper(props) {
-    return shallowWithIntl(<ResourceEquipment {...defaultProps} {...props} />);
-  }
-  test('renders panel and equipment heading correctly', () => {
-    const panels = getWrapper().find(Panel);
-    const heading = getWrapper().find('h3');
 
-    expect(panels).toHaveLength(1);
-    expect(heading).toHaveLength(1);
-    expect(heading.text()).toBe('ResourceEquipment.headingText');
-  });
+  const wrapper = shallowWithIntl(
+    <ResourceEquipment {...props} />
+  );
 
-  test('renders equipment content correctly', () => {
-    const equipmentRow = getWrapper().find(Row);
-    const equipmentCol = getWrapper().find(Col);
-    expect(equipmentRow).toHaveLength(1);
-    expect(equipmentCol).toHaveLength(3);
-  });
-
-  test('check component props and types correctly', () => {
-    expect(defaultProps).toHaveProperty('equipment');
-    expect(defaultProps.equipment).toHaveLength(3);
-    expect(defaultProps.equipment).toBeInstanceOf(Array);
-  });
+  expect(toJSON(wrapper)).toMatchSnapshot();
 });

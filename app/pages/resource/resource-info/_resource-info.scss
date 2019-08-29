@@ -53,14 +53,6 @@ $horizontal-margin: 20px;
     margin: $horizontal-margin;
   }
 
-  h3 {
-    margin: 0;
-    font-size: 2.4rem;
-    @media (max-width: $screen-xs-max) {
-      font-size: 2rem;
-    }
-  }
-
   &__address,
   &__web {
     span {
