@@ -9,7 +9,6 @@ import moment from 'moment';
 import first from 'lodash/first';
 import last from 'lodash/last';
 import orderBy from 'lodash/orderBy';
-import debounce from 'lodash/debounce';
 
 import constants from '../../../constants/AppConstants';
 import { addNotification } from '../../../actions/notificationsActions';
@@ -29,7 +28,6 @@ import injectT from '../../../i18n/injectT';
 import { hasMaxReservations, reservingIsRestricted } from '../../../utils/resourceUtils';
 import reservationCalendarSelector from './reservationCalendarSelector';
 import ReservingRestrictedText from './ReservingRestrictedText';
-import TimeSlots from './time-slots/TimeSlots';
 import { getReservationPrice, getEditReservationUrl, combine } from '../../../utils/reservationUtils';
 
 export class UnconnectedReservationCalendarContainer extends Component {
@@ -37,10 +35,6 @@ export class UnconnectedReservationCalendarContainer extends Component {
     actions: PropTypes.object.isRequired,
     date: PropTypes.string.isRequired,
     isAdmin: PropTypes.bool.isRequired,
-    isEditing: PropTypes.bool.isRequired,
-    isFetchingResource: PropTypes.bool.isRequired,
-    isLoggedIn: PropTypes.bool.isRequired,
-    isStaff: PropTypes.bool.isRequired,
     // eslint-disable-next-line react/no-unused-prop-types
     location: PropTypes.shape({
       search: PropTypes.string.isRequired,
@@ -53,7 +47,6 @@ export class UnconnectedReservationCalendarContainer extends Component {
     resource: PropTypes.object.isRequired,
     selected: PropTypes.array.isRequired,
     t: PropTypes.func.isRequired,
-    time: PropTypes.string,
     timeSlots: PropTypes.array.isRequired,
   };
 
@@ -154,18 +147,11 @@ export class UnconnectedReservationCalendarContainer extends Component {
 
   render() {
     const {
-      actions,
       date,
-      isAdmin,
-      isEditing,
-      isFetchingResource,
-      isLoggedIn,
-      isStaff,
       params,
       resource,
       selected,
       t,
-      time,
       timeSlots,
     } = this.props;
 
@@ -174,24 +160,6 @@ export class UnconnectedReservationCalendarContainer extends Component {
     const selectedDateSlots = this.getSelectedDateSlots(timeSlots, selected);
     return (
       <div className="reservation-calendar">
-        {showTimeSlots && (
-          <TimeSlots
-            addNotification={debounce(actions.addNotification, 100)}
-            // TODO: Im a h@ck, remove me
-            isAdmin={isAdmin}
-            isEditing={isEditing}
-            isFetching={isFetchingResource}
-            isLoggedIn={isLoggedIn}
-            isStaff={isStaff}
-            onClear={actions.clearTimeSlots}
-            onClick={actions.toggleTimeSlot}
-            resource={resource}
-            selected={selected}
-            selectedDate={date}
-            slots={timeSlots}
-            time={time}
-          />
-        )}
         {showTimeSlots && selected.length > 0 && (
           <Row className="reservation-calendar-reserve-info">
             <Col xs={8}>
