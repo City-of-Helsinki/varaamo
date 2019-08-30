@@ -17,6 +17,8 @@ import constants from '../../../../app/constants/AppConstants';
 import * as resourceUtils from '../utils';
 import injectT from '../../../../app/i18n/injectT';
 
+const NEW_RESERVATION = 'NEW_RESERVATION';
+
 class ResourceReservationCalendar extends React.Component {
   calendarRef = React.createRef();
 
@@ -129,7 +131,7 @@ class ResourceReservationCalendar extends React.Component {
         ],
         editable: true,
         durationEditable: resourceUtils.isFullCalendarEventDurationEditable(resource, selected.start, selected.end),
-        id: 'newReservation',
+        id: NEW_RESERVATION,
         ...selected,
       });
     }
@@ -294,6 +296,15 @@ class ResourceReservationCalendar extends React.Component {
     return '';
   };
 
+  onEventRender = (info) => {
+    if (info.event.id === NEW_RESERVATION) {
+      const cancelBtn = document.createElement('span');
+      cancelBtn.classList.add('app-ResourceReservationCalendar__cancelEvent');
+      cancelBtn.addEventListener('click', () => this.setState({ selected: null }), { once: true });
+      info.el.append(cancelBtn);
+    }
+  }
+
   render() {
     const {
       date,
@@ -316,6 +327,7 @@ class ResourceReservationCalendar extends React.Component {
           defaultDate={date}
           eventAllow={this.onEventAllow}
           eventDrop={this.onEventDrop}
+          eventRender={this.onEventRender}
           eventResize={this.onEventResize}
           events={this.getEvents()}
           ref={this.calendarRef}
