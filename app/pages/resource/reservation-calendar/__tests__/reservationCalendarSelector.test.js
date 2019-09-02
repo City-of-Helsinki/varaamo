@@ -1,9 +1,7 @@
 import Immutable from 'seamless-immutable';
-import simple from 'simple-mock';
 
 import { availableHours, openingHoursMonth } from '../../../../constants/ResourceConstants';
 import Resource from '../../../../utils/fixtures/Resource';
-import * as timeUtils from '../../../../utils/timeUtils';
 import reservationCalendarSelector from '../reservationCalendarSelector';
 
 function getState(resource) {
@@ -137,78 +135,5 @@ describe('pages/resource/reservation-calendar/reservationCalendarSelector', () =
     const selected = reservationCalendarSelector(state, props);
 
     expect(selected.time).toBeDefined();
-  });
-
-  describe('timeSlots', () => {
-    test('uses resource properties to calculate correct time slots', () => {
-      const mockSlots = ['slot-1', 'slot-2'];
-      const expectedMockSlots = [
-        mockSlots,
-        mockSlots,
-        mockSlots,
-        mockSlots,
-        mockSlots,
-        mockSlots,
-        mockSlots,
-        mockSlots,
-      ];
-      simple.mock(timeUtils, 'getTimeSlots').returnWith(mockSlots);
-
-      const state = getState(resource);
-      const props = getProps(resource.id);
-      const selected = reservationCalendarSelector(state, props);
-
-      expect(timeUtils.getTimeSlots.callCount).toBe(8);
-      const actualArgs = timeUtils.getTimeSlots.calls[5].args;
-      expect(actualArgs[0]).toBe('2015-10-10T12:00:00+03:00');
-      expect(actualArgs[1]).toBe('2015-10-10T18:00:00+03:00');
-      expect(actualArgs[2]).toBe(resource.slotSize);
-      expect(actualArgs[3]).toEqual(resource.reservations);
-      expect(selected.timeSlots).toEqual(expectedMockSlots);
-      simple.restore();
-    });
-
-    test('returns start day if resource is not open on that day', () => {
-      const expectedMockSlots = [
-        [],
-        [],
-        [],
-        [],
-        [],
-        [{ start: '2015-10-10' }],
-        [{ start: '2015-10-11' }],
-        [],
-      ];
-      simple.mock(timeUtils, 'getTimeSlots').returnWith([]);
-
-      const state = getState(resource);
-      const props = getProps(resource.id);
-      const selected = reservationCalendarSelector(state, props);
-
-      expect(timeUtils.getTimeSlots.callCount).toBe(8);
-      const actualArgs = timeUtils.getTimeSlots.calls[5].args;
-      expect(actualArgs[0]).toBe('2015-10-10T12:00:00+03:00');
-      expect(actualArgs[1]).toBe('2015-10-10T18:00:00+03:00');
-      expect(actualArgs[2]).toBe(resource.slotSize);
-      expect(actualArgs[3]).toEqual(resource.reservations);
-      expect(selected.timeSlots).toEqual(expectedMockSlots);
-      simple.restore();
-    });
-
-    test('returns timeSlots as an empty array when date not in resource', () => {
-      const state = getState(resource);
-      const props = getProps(resource.id, '2015-10-15');
-      const selected = reservationCalendarSelector(state, props);
-
-      expect(selected.timeSlots).toEqual([[], [], [], [], [], [], []]);
-    });
-
-    test('returns timeSlots as an empty array when resource is not found', () => {
-      const state = getState(resource);
-      const props = getProps('unfetched-resource-id');
-      const selected = reservationCalendarSelector(state, props);
-
-      expect(selected.timeSlots).toEqual([[]]);
-    });
   });
 });

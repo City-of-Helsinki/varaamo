@@ -1,10 +1,7 @@
 import { createAction } from 'redux-actions';
 import Immutable from 'seamless-immutable';
-import first from 'lodash/first';
-import last from 'lodash/last';
 
 import types from '../../../../constants/ActionTypes';
-import { DEFAULT_SLOT_SIZE } from '../../../../constants/SlotConstants';
 import {
   cancelReservationEdit,
   changeAdminReservationFilters,
@@ -18,7 +15,6 @@ import {
   selectReservationToShow,
 } from '../../../../actions/uiActions';
 import Reservation from '../../../../utils/fixtures/Reservation';
-import { getTimeSlots } from '../../../../utils/timeUtils';
 import reservationsReducer from '../reservationsReducer';
 
 describe('state/reducers/ui/reservationsReducer', () => {
@@ -378,36 +374,6 @@ describe('state/reducers/ui/reservationsReducer', () => {
         const expected = Immutable([reservations[1]]);
 
         expect(nextState.toEdit).toEqual(expected);
-      });
-
-      test('splits the given reservation to slots and add to selected', () => {
-        const begin = '2015-10-09T08:00:00+03:00';
-        const end = '2015-10-09T10:00:00+03:00';
-        const slotSize = DEFAULT_SLOT_SIZE;
-        const reservation = Reservation.build({ begin, end });
-        const initialState = Immutable({
-          selected: [],
-          toEdit: [],
-        });
-        const action = selectReservationToEdit({ reservation, slotSize });
-        const nextState = reservationsReducer(initialState, action);
-        const slots = getTimeSlots(reservation.begin, reservation.end, slotSize);
-        const firstSlot = first(slots);
-        const lastSlot = last(slots);
-        const expected = [
-          {
-            begin: firstSlot.start,
-            end: firstSlot.end,
-            resource: reservation.resource,
-          },
-          {
-            begin: lastSlot.start,
-            end: lastSlot.end,
-            resource: reservation.resource,
-          },
-        ];
-
-        expect(nextState.selected).toEqual(expected);
       });
     });
 

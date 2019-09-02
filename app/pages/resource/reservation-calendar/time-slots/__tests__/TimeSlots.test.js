@@ -63,37 +63,6 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
     expect(div).toHaveLength(1);
   });
 
-  describe('rendering individual time slots', () => {
-    function getTimeSlotsWrapper(props) {
-      return getWrapper(props).find(TimeSlotComponent);
-    }
-
-    test('renders a TimeSlot component for every time slot in props', () => {
-      expect(getTimeSlotsWrapper()).toHaveLength(2);
-    });
-
-    test('passes correct props to TimeSlots', () => {
-      const timeSlots = getTimeSlotsWrapper();
-      timeSlots.forEach((timeSlot, index) => {
-        expect(timeSlot.props().addNotification).toBe(defaultProps.addNotification);
-        expect(timeSlot.props().isAdmin).toBe(defaultProps.isAdmin);
-        expect(timeSlot.props().isEditing).toBe(defaultProps.isEditing);
-        expect(timeSlot.props().isLoggedIn).toBe(defaultProps.isLoggedIn);
-        expect(timeSlot.props().isUnderMinPeriod).toBe(defaultProps.isUnderMinPeriod);
-        expect(timeSlot.props().isStaff).toBe(defaultProps.isStaff);
-        expect(timeSlot.props().onClick).toBe(defaultProps.onClick);
-        expect(timeSlot.props().resource).toEqual(defaultProps.resource);
-        expect(timeSlot.props().slot).toEqual(defaultProps.slots[index][0]);
-      });
-    });
-
-    test('passes correct selected as a prop to TimeSlot', () => {
-      const timeSlots = getTimeSlotsWrapper();
-      expect(timeSlots.at(0).props().selected).toBe(true);
-      expect(timeSlots.at(1).props().selected).toBe(false);
-    });
-  });
-
   test(
     'renders reserved slot and slots after reserved as not selectable',
     () => {

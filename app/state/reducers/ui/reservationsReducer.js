@@ -1,10 +1,7 @@
-import first from 'lodash/first';
-import last from 'lodash/last';
 import Immutable from 'seamless-immutable';
 
 import types from '../../../constants/ActionTypes';
 import ModalTypes from '../../../constants/ModalTypes';
-import { getTimeSlots } from '../../../utils/timeUtils';
 
 const initialState = Immutable({
   adminReservationFilters: {
@@ -19,30 +16,6 @@ const initialState = Immutable({
   toShowEdited: [],
 });
 
-function selectReservationToEdit(state, action) {
-  const { slotSize, reservation } = action.payload;
-  const slots = getTimeSlots(reservation.begin, reservation.end, slotSize);
-  const firstSlot = first(slots);
-  const selected = [
-    {
-      begin: firstSlot.start,
-      end: firstSlot.end,
-      resource: reservation.resource,
-    },
-  ];
-  if (slots.length > 1) {
-    const lastSlot = last(slots);
-    selected.push({
-      begin: lastSlot.start,
-      end: lastSlot.end,
-      resource: reservation.resource,
-    });
-  }
-  return state.merge({
-    selected,
-    toEdit: [reservation],
-  });
-}
 
 function parseError(error) {
   if (error.response && error.response.non_field_errors && error.response.non_field_errors.length) {
