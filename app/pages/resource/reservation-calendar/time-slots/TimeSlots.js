@@ -10,17 +10,12 @@ import round from 'lodash/round';
 import constants from '../../../../constants/AppConstants';
 import injectT from '../../../../i18n/injectT';
 import ReservationPopover from '../../../../shared/reservation-popover/ReservationPopover';
-import TimeSlot from './TimeSlot';
 import TimeSlotPlaceholder from './TimeSlotPlaceholder';
 import utils from '../utils';
 
 class TimeSlots extends Component {
   static propTypes = {
-    addNotification: PropTypes.func.isRequired,
-    isAdmin: PropTypes.bool.isRequired,
-    isEditing: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,
-    isLoggedIn: PropTypes.bool.isRequired,
     onClear: PropTypes.func.isRequired,
     onClick: PropTypes.func.isRequired,
     resource: PropTypes.object.isRequired,
@@ -28,7 +23,6 @@ class TimeSlots extends Component {
     selectedDate: PropTypes.string.isRequired,
     slots: PropTypes.array.isRequired,
     t: PropTypes.func.isRequired,
-    time: PropTypes.string,
   };
 
   state = {
@@ -184,17 +178,11 @@ class TimeSlots extends Component {
     });
   };
 
-  renderTimeSlot = (slot, lastSelectableFound, isUnderMinPeriod) => {
+  renderTimeSlot = (slot) => {
     const {
-      addNotification,
-      isAdmin,
-      isEditing,
-      isLoggedIn,
-      onClick,
       resource,
       selected,
       t,
-      time,
     } = this.props;
     const { hoveredTimeSlot } = this.state;
     if (!slot.end) {
@@ -204,68 +192,24 @@ class TimeSlots extends Component {
         </h6>
       );
     }
-    const scrollTo = time && time === slot.start;
-    const isSelectable = utils.isSlotSelectable(
-      slot,
-      selected,
-      resource,
-      lastSelectableFound,
-      isAdmin
-    );
-    const isSelected = utils.isSlotSelected(slot, selected);
+
     const isHoveredSlotSelected = utils.isSlotSelected(hoveredTimeSlot, selected);
 
     const isFirstSelected = utils.isFirstSelected(slot, selected);
     const shouldShowReservationPopover = hoveredTimeSlot
     && isFirstSelected && !isHoveredSlotSelected;
 
-    const isHighlighted = utils.isHighlighted(slot, selected, hoveredTimeSlot);
     const resBegin = this.getReservationBegin();
     const resEnd = this.getReservationEnd();
 
-    let isMaxExceeded = false;
-
-    if (!isAdmin && resBegin && resource.maxPeriod) {
-      const resLengthInMins = moment(slot.end).diff(resBegin, 'minutes');
-      const maxPeriodInMins = moment.duration(resource.maxPeriod).asMinutes();
-      isMaxExceeded = resLengthInMins > maxPeriodInMins;
-    }
-
-    const timeSlot = (
-      <TimeSlot
-        addNotification={addNotification}
-        isAdmin={isAdmin}
-        isDisabled={isMaxExceeded}
-        isEditing={isEditing}
-        isHighlighted={isHighlighted}
-        isLoggedIn={isLoggedIn}
-        isSelectable={isSelectable}
-        isUnderMinPeriod={isUnderMinPeriod}
-        key={slot.start}
-        onClear={this.onClear}
-        onClick={onClick}
-        onMouseEnter={this.onMouseEnter}
-        onMouseLeave={this.onMouseLeave}
-        resource={resource}
-        scrollTo={scrollTo}
-        selected={isSelected}
-        showClear={isFirstSelected}
-        slot={slot}
-      />
-    );
-
-    return shouldShowReservationPopover ? (
+    return shouldShowReservationPopover && (
       <ReservationPopover
         begin={resBegin}
         end={resEnd}
         key="timeslots-reservation-popover"
         onCancel={this.onCancel}
         products={resource.products}
-      >
-        {timeSlot}
-      </ReservationPopover>
-    ) : (
-      timeSlot
+      />
     );
   };
 

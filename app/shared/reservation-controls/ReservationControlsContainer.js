@@ -54,11 +54,11 @@ export class UnconnectedReservationControlsContainer extends Component {
 
   handleEditClick() {
     const {
-      actions, reservation, resource, history
+      actions, reservation, history
     } = this.props;
     const nextUrl = getEditReservationUrl(reservation);
 
-    actions.selectReservationToEdit({ reservation, slotSize: resource.slotSize });
+    actions.selectReservationToEdit({ reservation });
     history.push(nextUrl);
   }
 
@@ -91,7 +91,6 @@ UnconnectedReservationControlsContainer.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
   isStaff: PropTypes.bool.isRequired,
   reservation: PropTypes.object.isRequired,
-  resource: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 };
 

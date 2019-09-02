@@ -8,7 +8,6 @@ import ReservationInfoModal from '../../../../shared/modals/reservation-info/Res
 import ReservationSuccessModal from '../../../../shared/modals/reservation-success/ReservationSuccessModalContainer';
 import ReservationConfirmation from '../../../../shared/reservation-confirmation/ReservationConfirmationContainer';
 import Resource from '../../../../utils/fixtures/Resource';
-import TimeSlot from '../../../../utils/fixtures/TimeSlot';
 import { shallowWithIntl } from '../../../../utils/testUtils';
 import {
   UnconnectedReservationCalendarContainer

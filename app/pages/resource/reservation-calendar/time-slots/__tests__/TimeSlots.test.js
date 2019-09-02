@@ -5,7 +5,6 @@ import simple from 'simple-mock';
 import Resource from '../../../../../utils/fixtures/Resource';
 import { shallowWithIntl } from '../../../../../utils/testUtils';
 import TimeSlots from '../TimeSlots';
-import TimeSlotComponent from '../TimeSlot';
 import TimeSlotPlaceholder from '../TimeSlotPlaceholder';
 
 describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
@@ -61,81 +60,6 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
   test('renders div.app-TimeSlots', () => {
     const div = getWrapper().find('div.app-TimeSlots');
     expect(div).toHaveLength(1);
-  });
-
-  test(
-    'renders reserved slot and slots after reserved as not selectable',
-    () => {
-      const slots = [
-        [
-          {
-            asISOString: '2016-10-10T10:00:00.000Z/2016-10-10T11:00:00.000Z',
-            asString: '10:00-11:00',
-            end: '2016-10-10T11:00:00.000Z',
-            index: 0,
-            reserved: false,
-            resource: 'some-resource-id',
-            start: '2016-10-10T10:00:00.000Z',
-          },
-          {
-            asISOString: '2016-10-10T11:00:00.000Z/2016-10-10T12:00:00.000Z',
-            asString: '11:00-12:00',
-            end: '2016-10-10T12:00:00.000Z',
-            index: 0,
-            reserved: true,
-            resource: 'some-resource-id',
-            start: '2016-10-10T11:00:00.000Z',
-          },
-        ],
-        [
-          {
-            asISOString: '2016-10-11T10:00:00.000Z/2016-10-11T11:00:00.000Z',
-            asString: '10:00-11:00',
-            end: '2016-10-11T11:00:00.000Z',
-            index: 0,
-            reserved: false,
-            resource: 'some-resource-id',
-            start: '2016-10-11T10:00:00.000Z',
-          },
-        ],
-      ];
-      const selected = [
-        {
-          begin: slots[0][0].start,
-          end: slots[0][0].end,
-          resource: slots[0][0].resource,
-        },
-      ];
-      const timeSlots = getWrapper({ selected, slots }).find(TimeSlotComponent);
-
-      expect(timeSlots).toHaveLength(3);
-      expect(timeSlots.at(0).props().isSelectable).toBe(true);
-      expect(timeSlots.at(1).props().isSelectable).toBe(false);
-      expect(timeSlots.at(2).props().isSelectable).toBe(false);
-    }
-  );
-
-  test('renders a closed message when resource is not open', () => {
-    const closedSlot = [[{ start: '2016-10-12T10:00:00.000Z' }]];
-    const props = {
-      slots: [...defaultProps.slots, ...closedSlot],
-    };
-    const wrapper = getWrapper(props);
-    const timeSlots = wrapper.find(TimeSlotComponent);
-    const closedMessage = wrapper.find('.app-TimeSlots--closed');
-
-    expect(timeSlots).toHaveLength(2);
-    expect(closedMessage).toHaveLength(1);
-  });
-
-  test('does not render empty slots', () => {
-    const emptySlot = [[]];
-    const props = {
-      slots: [...defaultProps.slots, ...emptySlot],
-    };
-    const timeSlots = getWrapper(props).find(TimeSlotComponent);
-
-    expect(timeSlots).toHaveLength(2);
   });
 
   test('renders a positional placeholder if the start times differ', () => {
@@ -290,37 +214,6 @@ describe('pages/resource/reservation-calendar/time-slots/TimeSlots', () => {
     test('returns an empty string if the there are no selected slots', () => {
       const instance = getWrapper({ selected: [] }).instance();
       expect(instance.getReservationEnd()).toBe('');
-    });
-  });
-
-  describe('isMaxExceeded', () => {
-    describe('is Admin', () => {
-      test('enables all TimeSlots even if maxPeriod is specified', () => {
-        const renderedTimeSlots = getWrapper({ isAdmin: true, maxPeriod: '00:60:00' })
-          .find(TimeSlotComponent);
-        expect(renderedTimeSlots.first().prop('isDisabled')).toBe(false);
-        expect(renderedTimeSlots.at(1).prop('isDisabled')).toBe(false);
-      });
-    });
-
-    describe('is not Admin', () => {
-      test('enables all TimeSlots if maxPeriod in not defined', () => {
-        const renderedTimeSlots = getWrapper().find(TimeSlotComponent);
-        expect(renderedTimeSlots.first().prop('isDisabled')).toBe(false);
-        expect(renderedTimeSlots.at(1).prop('isDisabled')).toBe(false);
-      });
-
-      test(
-        'disables TimeSlot when the reservation length is longer than maxPeriod',
-        () => {
-          const resourceMaxPeriod = Resource.build({ maxPeriod: '00:60:00' });
-          const renderedTimeSlots = getWrapper(
-            { resource: resourceMaxPeriod }
-          ).find(TimeSlotComponent);
-          expect(renderedTimeSlots.first().prop('isDisabled')).toBe(false);
-          expect(renderedTimeSlots.at(1).prop('isDisabled')).toBe(true);
-        }
-      );
     });
   });
 });

@@ -1,7 +1,6 @@
 import { openingHoursMonth } from '../../../../constants/ResourceConstants';
 import { DEFAULT_SLOT_SIZE } from '../../../../constants/SlotConstants';
 import Resource from '../../../../utils/fixtures/Resource';
-import TimeSlot from '../../../../utils/fixtures/TimeSlot';
 import utils from '../utils';
 
 describe('pages/resource/reservation-calendar/utils', () => {
@@ -111,13 +110,6 @@ describe('pages/resource/reservation-calendar/utils', () => {
       expect(actual).toBe(true);
     });
 
-    test('returns false if slot is reserved', () => {
-      const slotReserved = TimeSlot.build({ reserved: true });
-      const actual = utils.isSlotSelectable(slotReserved, selected, resource,
-        lastSelectableFound, isAdmin);
-      expect(actual).toBe(false);
-    });
-
     test('returns false if lastSelectableFound is true', () => {
       const actual = utils.isSlotSelectable(slot, selected, resource, true, isAdmin);
       expect(actual).toBe(false);
@@ -215,7 +207,7 @@ describe('pages/resource/reservation-calendar/utils', () => {
       expect(actual).toBe(false);
     });
 
-    test('returns false if minPeriod is defined but start time slot already selected (allow time slot to be selected if start time is already selected)', () => {
+    test('returns false if minPeriod is defined but start time slot already selected', () => {
       const actual = utils.isUnderMinPeriod(null, null, minPeriod);
       expect(actual).toBe(false);
     });

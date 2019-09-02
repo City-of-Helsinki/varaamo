@@ -107,23 +107,6 @@
     background-color: $blue-light;
   }
 
-  .app-TimeSlot {
-    &--disabled {
-      &:hover {
-        cursor: not-allowed;
-      }
-    }
-
-    &--own-reservation {
-      background-color: $blue;
-
-      &:hover {
-        cursor: not-allowed;
-        background-color: $blue;
-      }
-    }
-  }
-
   // Admin-resources-page
   // --------------------
 

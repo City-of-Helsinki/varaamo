@@ -91,7 +91,7 @@ function reservationsReducer(state = initialState, action) {
     }
 
     case types.UI.SELECT_RESERVATION_TO_EDIT: {
-      return selectReservationToEdit(state, action);
+      return state.merge({ toEdit: action.payload });
     }
 
     case types.UI.SELECT_RESERVATION_SLOT: {
