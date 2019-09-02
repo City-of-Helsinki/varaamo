@@ -17,7 +17,6 @@ import {
   clearTimeSlots,
   openConfirmReservationModal,
   selectReservationSlot,
-  toggleTimeSlot,
 } from '../../../actions/uiActions';
 import ReservationCancelModal from '../../../shared/modals/reservation-cancel/ReservationCancelModalContainer';
 import ReservationInfoModal from '../../../shared/modals/reservation-info/ReservationInfoModalContainer';
@@ -211,7 +210,6 @@ function mapDispatchToProps(dispatch) {
     changeRecurringBaseTime: recurringReservations.changeBaseTime,
     openConfirmReservationModal,
     selectReservationSlot,
-    toggleTimeSlot,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

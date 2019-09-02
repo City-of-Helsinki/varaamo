@@ -93,8 +93,6 @@ const startReservationEditInInfoModal = createAction(types.UI.START_RESERVATION_
 
 const setSelectedTimeSlots = createAction(types.UI.SET_SELECTED_TIME_SLOTS);
 
-const toggleTimeSlot = createAction(types.UI.TOGGLE_TIME_SLOT);
-
 const clearTimeSlots = createAction(types.UI.CLEAR_TIME_SLOTS);
 
 const toggleResourceMap = createAction(types.UI.TOGGLE_RESOURCE_SHOW_MAP);
@@ -131,7 +129,6 @@ export {
   showReservationInfoModal,
   startReservationEditInInfoModal,
   toggleResourceMap,
-  toggleTimeSlot,
   unselectAdminResourceType,
   setSelectedTimeSlots,
 };
