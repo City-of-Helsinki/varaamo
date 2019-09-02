@@ -1,7 +1,6 @@
 import first from 'lodash/first';
 import last from 'lodash/last';
 import Immutable from 'seamless-immutable';
-import moment from 'moment';
 
 import types from '../../../constants/ActionTypes';
 import ModalTypes from '../../../constants/ModalTypes';
@@ -128,31 +127,6 @@ function reservationsReducer(state = initialState, action) {
 
     case types.UI.SELECT_RESERVATION_TO_SHOW: {
       return state.merge({ toShow: [...state.toShow, action.payload] });
-    }
-
-    case types.UI.SET_SELECTED_TIME_SLOTS: {
-      const { resource, selected } = action.payload;
-
-      const startMoment = moment(selected.start);
-      const endMoment = moment(selected.end);
-      const slotDuration = moment.duration(resource.slotSize);
-      const slotInMinutes = slotDuration.hours() * 60 + slotDuration.minutes();
-
-      const startSlot = {
-        begin: startMoment.toISOString(),
-        end: startMoment.clone().add(slotInMinutes, 'minutes').toISOString(),
-        resource: resource.id,
-      };
-
-      const endSlot = {
-        begin: endMoment.clone().subtract(slotInMinutes, 'minutes').toISOString(),
-        end: endMoment.toISOString(),
-        resource: resource.id,
-      };
-
-      return state.merge({
-        selected: [startSlot, endSlot],
-      });
     }
 
     default: {

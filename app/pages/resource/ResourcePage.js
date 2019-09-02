@@ -15,7 +15,7 @@ import 'lightbox-react/style.css';
 
 import constants from '../../constants/AppConstants';
 import { fetchResource } from '../../actions/resourceActions';
-import { clearReservations, toggleResourceMap, setSelectedTimeSlots } from '../../actions/uiActions';
+import { clearReservations, toggleResourceMap } from '../../actions/uiActions';
 import recurringReservations from '../../state/recurringReservations';
 import PageWrapper from '../PageWrapper';
 import NotFoundPage from '../not-found/NotFoundPage';
@@ -137,11 +137,6 @@ class UnconnectedResourcePage extends Component {
 
   onReserve = (selected) => {
     const { actions, resource, history } = this.props;
-
-    actions.setSelectedTimeSlots({
-      selected,
-      resource,
-    });
 
     const startMoment = moment(selected.start);
     const endMoment = moment(selected.end);
@@ -307,7 +302,6 @@ function mapDispatchToProps(dispatch) {
     clearReservations,
     fetchResource,
     toggleResourceMap,
-    setSelectedTimeSlots,
     changeRecurringBaseTime: recurringReservations.changeBaseTime,
   };
 
