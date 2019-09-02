@@ -7,9 +7,9 @@ import Row from 'react-bootstrap/lib/Row';
 import Well from 'react-bootstrap/lib/Well';
 import moment from 'moment';
 import Loader from 'react-loader';
+import { decamelizeKeys } from 'humps';
 
 import injectT from '../../../i18n/injectT';
-import ReservationCalendar from '../../resource/reservation-calendar/ReservationCalendarContainer';
 import ResourceCalendar from '../../../shared/resource-calendar/ResourceCalendar';
 import ReservationPhases from '../reservation-phases/ReservationPhases';
 import { RESERVATION_PHASE } from '../constants';
@@ -17,6 +17,8 @@ import { getReservationDetail } from '../utils';
 import { getFiltersFromUrl, getSearchFromFilters } from '../../../../src/domain/search/utils';
 import { putReservation } from '../../../actions/reservationActions';
 import { cancelReservation } from '../../../../src/domain/reservation/utils';
+import ResourceReservationCalendar
+  from '../../../../src/domain/resource/reservationCalendar/ResourceReservationCalendar';
 
 class ReservationEdit extends Component {
   static propTypes = {
@@ -83,21 +85,17 @@ class ReservationEdit extends Component {
 
   render() {
     const {
-      location,
-      history,
-      match,
       t,
     } = this.props;
     const { reservation, isFetching } = this.state;
 
-    const { params } = match;
     const date = moment(reservation.begin).format('YYYY-MM-DD');
 
     return (
       <Loader loaded={!isFetching}>
         <div className="app-ReservationEdit">
           <Row>
-            <ReservationPhases phase={RESERVATION_PHASE.EDIT} />
+            <ReservationPhases phase={RESERVATION_PHASE.INFORMATION} />
           </Row>
 
           <Row>
@@ -108,10 +106,10 @@ class ReservationEdit extends Component {
                   resourceId={get(reservation, 'resource.id', null)}
                   selectedDate={date}
                 />
-                <ReservationCalendar
-                  history={history}
-                  location={location}
-                  params={{ ...params }}
+                <ResourceReservationCalendar
+                  date={date}
+                  onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())}
+                  resource={decamelizeKeys(reservation.resource)}
                 />
               </div>
             </Col>
