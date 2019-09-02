@@ -155,12 +155,6 @@ function reservationsReducer(state = initialState, action) {
       });
     }
 
-    case types.UI.CLEAR_TIME_SLOTS: {
-      return state.merge({
-        selected: [],
-      });
-    }
-
     default: {
       return state;
     }

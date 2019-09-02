@@ -14,7 +14,6 @@ import constants from '../../../constants/AppConstants';
 import { addNotification } from '../../../actions/notificationsActions';
 import {
   cancelReservationEdit,
-  clearTimeSlots,
   openConfirmReservationModal,
   selectReservationSlot,
 } from '../../../actions/uiActions';
@@ -206,7 +205,6 @@ function mapDispatchToProps(dispatch) {
   const actionCreators = {
     addNotification,
     cancelReservationEdit,
-    clearTimeSlots,
     changeRecurringBaseTime: recurringReservations.changeBaseTime,
     openConfirmReservationModal,
     selectReservationSlot,
