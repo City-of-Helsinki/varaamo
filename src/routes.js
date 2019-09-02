@@ -39,11 +39,11 @@ export default () => (
       />
 
       {/* Reservation routes  */}
-      <PrivateRoute
+      {/* <PrivateRoute
         component={ReservationNew}
         componentName="ReservationNew"
         path="/reservation/new"
-      />
+      /> */}
 
       <PrivateRoute
         component={ReservationEdit}
@@ -51,7 +51,7 @@ export default () => (
         path="/reservation/:reservationId/edit"
       />
 
-      <PrivateRoute
+      {/* <PrivateRoute
         component={ReservationConfirm}
         componentName="ReservationConfirm"
         path="/reservation/:reservationId/confirm"
@@ -61,7 +61,7 @@ export default () => (
         component={ReservationInfomationPage}
         componentName="ReservationInformationPage"
         path="/reservation/:reservationId/information"
-      />
+      /> */}
       {/* End of Reservation routes */}
 
       <Redirect from="/home" to="/" />

@@ -1,184 +1,139 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { FormattedHTMLMessage } from 'react-intl';
-import Button from 'react-bootstrap/lib/Button';
-import Col from 'react-bootstrap/lib/Col';
-import Row from 'react-bootstrap/lib/Row';
-import Well from 'react-bootstrap/lib/Well';
+import {
+  Col, Row, Well, Button
+} from 'react-bootstrap';
 import iconHome from 'hel-icons/dist/shapes/home.svg';
+import get from 'lodash/get';
+import camelCase from 'lodash/camelCase';
+import Loader from 'react-loader';
 
 import constants from '../../../constants/AppConstants';
 import injectT from '../../../i18n/injectT';
 import ReservationDate from '../../../shared/reservation-date/ReservationDate';
+import { reservationMetadataFields } from '../constants';
+import { getFiltersFromUrl } from '../../../../src/domain/search/utils';
+import { getReservationDetail } from '../utils';
 
 class ReservationConfirmation extends Component {
   static propTypes = {
-    isEdited: PropTypes.bool,
-    reservation: PropTypes.object.isRequired,
-    resource: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
   };
+
+  state = {
+    reservation: {},
+    isFetching: false
+  }
+
+  componentDidMount() {
+    this.setState({ isFetching: true });
+    this.fetchReservation();
+  }
+
+  fetchReservation = () => {
+    const { match: { params } } = this.props;
+    getReservationDetail(params.reservationId).then(({ data }) => {
+      this.setState({
+        reservation: data,
+        isFetching: false
+      });
+    });
+  }
 
   handleReservationsButton() {
     this.props.history.replace('/my-reservations');
   }
 
-  renderField(field, label, value) {
+  renderMetaDataFields() {
+    const { reservation } = this.state;
+    const { t } = this.props;
+
     return (
-      <Row
-        className="app-ReservationConfirmation__field"
-        key={`reservation-confirmation-field-${field}`}
-      >
-        <Col xs={6}>
-          <b>{label}</b>
-        </Col>
-        <Col className="app-ReservationConfirmation__field-value" xs={6}>
-          {value}
-        </Col>
-      </Row>
+      reservationMetadataFields.map((field) => {
+        const value = get(reservation, field);
+
+        return value ? (
+          <Row
+            className="app-ReservationConfirmation__field"
+            key={`reservation-confirmation-field-${field}`}
+          >
+            <Col xs={6}>
+              <b>{t(`${camelCase(field)}Label`)}</b>
+            </Col>
+            <Col className="app-ReservationConfirmation__field-value" xs={6}>
+              {value}
+            </Col>
+          </Row>
+        ) : '';
+      })
     );
   }
 
   render() {
     const {
-      isEdited, reservation, resource, t, user
+      t, location
     } = this.props;
-    const refUrl = window.location.href;
-    const href = `${constants.FEEDBACK_URL}?ref=${refUrl}`;
-    let email = '';
-    if (reservation.reserverEmailAddress) {
-      email = reservation.reserverEmailAddress;
-    } else if (reservation.user && reservation.user.email) {
-      email = reservation.user.email;
-    } else if (user.email) {
-      email = user.email;
-    }
+
+    const { reservation, isFetching } = this.state;
+
+    const isEdited = getFiltersFromUrl(location).isEdited;
+    const href = `${constants.FEEDBACK_URL}?ref=${location.pathname}`;
+    const resourceName = get(reservation, 'resource.name', '');
 
     return (
-      <Row className="app-ReservationConfirmation">
-        <Col md={6} xs={12}>
-          <Well>
-            <h2 className="app-ReservationPage__header">
-              {t(`ReservationConfirmation.reservation${isEdited ? 'Edited' : 'Created'}Title`)}
-            </h2>
-            <ReservationDate beginDate={reservation.begin} endDate={reservation.end} />
-            <p className="app-ReservationConfirmation__resource-name">
-              <img
-                alt={resource.name}
-                className="app-ReservationConfirmation__icon"
-                src={iconHome}
-              />
-              <b>{resource.name}</b>
-            </p>
-            {!isEdited && (
-              <p>
-                <FormattedHTMLMessage
-                  id="ReservationConfirmation.confirmationText"
-                  values={{ email }}
-                />
-              </p>
-            )}
-            <p>
-              <FormattedHTMLMessage id="ReservationConfirmation.feedbackText" values={{ href }} />
-            </p>
-            <p className="app-ReservationConfirmation__button-wrapper">
-              <Button
-                bsStyle="primary"
-                className="app-ReservationConfirmation__button"
-                onClick={() => this.handleReservationsButton()}
-              >
-                {t('ReservationConfirmation.ownReservationButton')}
-              </Button>
-            </p>
-          </Well>
-        </Col>
-        <Col md={6} xs={12}>
-          <Well>
-            <h2>{t('ReservationConfirmation.reservationDetailsTitle')}</h2>
-            {reservation.reserverName
-              && this.renderField(
-                'reserverName',
-                t('common.reserverNameLabel'),
-                reservation.reserverName
-              )}
-            {reservation.reserverId
-              && this.renderField('reserverId', t('common.reserverIdLabel'), reservation.reserverId)}
-            {reservation.reserverPhoneNumber
-              && this.renderField(
-                'reserverPhoneNumber',
-                t('common.reserverPhoneNumberLabel'),
-                reservation.reserverPhoneNumber
-              )}
-            {reservation.reserverEmailAddress
-              && this.renderField(
-                'reserverEmailAddress',
-                t('common.reserverEmailAddressLabel'),
-                reservation.reserverEmailAddress
-              )}
-            {reservation.eventSubject
-              && this.renderField(
-                'eventSubject',
-                t('common.eventSubjectLabel'),
-                reservation.eventSubject
-              )}
-            {reservation.eventDescription
-              && this.renderField(
-                'eventDescription',
-                t('common.eventDescriptionLabel'),
-                reservation.eventDescription
-              )}
-            {reservation.numberOfParticipants
-              && this.renderField(
-                'numberOfParticipants',
-                t('common.numberOfParticipantsLabel'),
-                reservation.numberOfParticipants
-              )}
-            {reservation.comments
-              && this.renderField('comments', t('common.commentsLabel'), reservation.comments)}
-            {reservation.reserverAddressStreet
-              && this.renderField(
-                'reserverAddressStreet',
-                t('common.addressStreetLabel'),
-                reservation.reserverAddressStreet
-              )}
-            {reservation.reserverAddressZip
-              && this.renderField(
-                'reserverAddressZip',
-                t('common.addressZipLabel'),
-                reservation.reserverAddressZip
-              )}
-            {reservation.reserverAddressCity
-              && this.renderField(
-                'reserverAddressCity',
-                t('common.addressCityLabel'),
-                reservation.reserverAddressCity
-              )}
-            {reservation.billingAddressStreet && (
-              <Col xs={12}>{t('common.billingAddressLabel')}</Col>
-            )}
-            {reservation.billingAddressStreet
-              && this.renderField(
-                'billingAddressStreet',
-                t('common.addressStreetLabel'),
-                reservation.billingAddressStreet
-              )}
-            {reservation.billingAddressZip
-              && this.renderField(
-                'billingAddressZip',
-                t('common.addressZipLabel'),
-                reservation.billingAddressZip
-              )}
-            {reservation.billingAddressCity
-              && this.renderField(
-                'billingAddressCity',
-                t('common.addressCityLabel'),
-                reservation.billingAddressCity
-              )}
-          </Well>
-        </Col>
-      </Row>
+      <div className="app-ReservationConfirmation">
+        <Loader loaded={!isFetching}>
+          <Row>
+            <Col md={6} xs={12}>
+              <Well>
+                <h2 className="app-ReservationPage__header">
+                  {t(`ReservationConfirmation.reservation${isEdited ? 'Edited' : 'Created'}Title`)}
+                </h2>
+                <ReservationDate beginDate={reservation.begin} endDate={reservation.end} />
+                <p className="app-ReservationConfirmation__resource-name">
+                  <img
+                    alt={resourceName}
+                    className="app-ReservationConfirmation__icon"
+                    src={iconHome}
+                  />
+                  <b>{resourceName}</b>
+                </p>
+                {!isEdited && (
+                <p>
+                  <FormattedHTMLMessage
+                    id="ReservationConfirmation.confirmationText"
+                    values={{ email: reservation.reserverEmail }}
+                  />
+                </p>
+                )}
+                <p>
+                  <FormattedHTMLMessage id="ReservationConfirmation.feedbackText" values={{ href }} />
+                </p>
+                <p className="app-ReservationConfirmation__button-wrapper">
+                  <Button
+                    bsStyle="primary"
+                    className="app-ReservationConfirmation__button"
+                    onClick={() => this.handleReservationsButton()}
+                  >
+                    {t('ReservationConfirmation.ownReservationButton')}
+                  </Button>
+                </p>
+              </Well>
+            </Col>
+            <Col md={6} xs={12}>
+              <Well>
+                <h2>{t('ReservationConfirmation.reservationDetailsTitle')}</h2>
+                {this.renderMetaDataFields()}
+              </Well>
+            </Col>
+          </Row>
+        </Loader>
+      </div>
+
     );
   }
 }

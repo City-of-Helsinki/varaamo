@@ -27,17 +27,18 @@ class ReservationEdit extends Component {
   };
 
   state = {
-    isFetching: false,
+    isFetching: true,
     reservation: {}
   }
 
   componentDidMount() {
     this.setState({ isFetching: true });
+    this.fetchReservation();
   }
 
   fetchReservation = () => {
     const { match: { params } } = this.props;
-    getReservationDetail(params.resourceId).then(({ data }) => {
+    getReservationDetail(params.reservationId).then(({ data }) => {
       this.setState({
         reservation: data,
         isFetching: false
@@ -59,11 +60,11 @@ class ReservationEdit extends Component {
    *
    * @memberof ReservationEdit
    */
-  handleEditReservation = (status) => {
+  handleEditReservation = () => {
     const { history } = this.props;
     const { reservation } = this.state;
 
-    putReservation(Object.assign({}, this.state.reservation, { resource: reservation.resource.id, state: status }))
+    putReservation(Object.assign({}, this.state.reservation, { resource: reservation.resource.id, state: 'requested' }))
       .then(() => history.replace(`/reservation/${reservation.id}/confirmation`));
   }
 
@@ -77,7 +78,7 @@ class ReservationEdit extends Component {
     const { reservation } = this.state;
 
     cancelReservation()
-      .then(() => history.replace(`/reservation/${reservation.id}/confirmation`));
+      .then(() => history.replace(`/reservation/${reservation.id}/confirmation?isEdited=true`));
   }
 
   render() {
@@ -136,10 +137,10 @@ class ReservationEdit extends Component {
 
           <Row>
             <div className="app-ReservationEdit__controls">
-              <Button bsStyle="warning" onClick={this.handleCancelReservation}>
+              <Button bsStyle="warning" onClick={() => this.handleCancelReservation()}>
                 {t('ReservationInformationForm.cancelEdit')}
               </Button>
-              <Button bsStyle="primary" onClick={this.handleEditReservation}>
+              <Button bsStyle="primary" onClick={() => this.handleEditReservation()}>
                 {t('common.continue')}
               </Button>
             </div>
