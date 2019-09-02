@@ -60,15 +60,6 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
     expect(form.prop('resource')).toBe(defaultProps.resource);
   });
 
-  test('renders correct reservation details and time', () => {
-    const details = getWrapper().find('.app-ReservationDetails__value');
-    expect(details).toHaveLength(2);
-    expect(details.at(0).props().children).toContain(defaultProps.resource.name);
-    expect(details.at(0).props().children).toContain(defaultProps.unit.name);
-    expect(details.at(1).props().children).toContain('10.10.2016');
-    expect(details.at(1).props().children).toContain('(1 h)');
-  });
-
   describe('onConfirm', () => {
     test('calls prop onConfirm with correct values', () => {
       const value = 'some value';

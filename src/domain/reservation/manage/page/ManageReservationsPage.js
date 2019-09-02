@@ -26,7 +26,6 @@ class ManageReservationsPage extends React.Component {
     t: PropTypes.func.isRequired,
     history: PropTypes.object,
     location: PropTypes.object,
-    actions: PropTypes.object,
   };
 
   constructor(props) {
@@ -106,12 +105,7 @@ class ManageReservationsPage extends React.Component {
   };
 
   onEditClick = (reservation) => {
-    const { history, actions } = this.props;
-
-
-    const normalizedReservation = Object.assign({}, reservation, { resource: reservation.resource.id });
-    actions.editReservation({ reservation: normalizedReservation });
-    // TODO: Remove this after refactor timeSlot
+    const { history } = this.props;
 
     const nextUrl = getEditReservationUrl(reservation);
     history.push(nextUrl);

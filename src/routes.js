@@ -8,11 +8,11 @@ import AboutPage from '../app/pages/about/AboutPage';
 import AdminResourcesPage from '../app/pages/admin-resources/AdminResourcesPage';
 import HomePage from '../app/pages/home/HomePage';
 import NotFoundPage from '../app/pages/not-found/NotFoundPage';
-import ReservationPage from '../app/pages/reservation/ReservationPage';
 import ResourcePage from '../app/pages/resource/ResourcePage';
 import UserReservationsPage from '../app/pages/user-reservations/UserReservationsPage';
 import SearchPage from './domain/search/page/SearchPage';
 import ManageReservationsPage from './domain/reservation/manage/page/ManageReservationsPage';
+import ReservationEdit from '../app/pages/reservation/reservation-edit/ReservationEdit';
 
 export default () => (
   <AppContainer>
@@ -37,7 +37,32 @@ export default () => (
         componentName="MyReservations"
         path="/my-reservations"
       />
-      <PrivateRoute component={ReservationPage} componentName="Reservation" path="/reservation" />
+
+      {/* Reservation routes  */}
+      <PrivateRoute
+        component={ReservationNew}
+        componentName="ReservationNew"
+        path="/reservation/new"
+      />
+
+      <PrivateRoute
+        component={ReservationEdit}
+        componentName="ReservationEdit"
+        path="/reservation/:reservationId/edit"
+      />
+
+      <PrivateRoute
+        component={ReservationConfirm}
+        componentName="ReservationConfirm"
+        path="/reservation/:reservationId/confirm"
+      />
+
+      <PrivateRoute
+        component={ReservationInfomationPage}
+        componentName="ReservationInformationPage"
+        path="/reservation/:reservationId/information"
+      />
+      {/* End of Reservation routes */}
 
       <Redirect from="/home" to="/" />
       <Redirect from="/resources/:id/reservation" to="/resources/:id" />

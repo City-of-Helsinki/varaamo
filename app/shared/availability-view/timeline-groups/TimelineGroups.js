@@ -34,7 +34,6 @@ export default class TimelineGroups extends React.Component {
   constructor(props) {
     super(props);
     this.element = null;
-    this.setElement = this.setElement.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
   }
 
@@ -58,7 +57,6 @@ export default class TimelineGroups extends React.Component {
       <div
         className="dragscroll timeline-groups"
         onScroll={this.handleScroll}
-        ref={this.setElement}
       >
         {this.props.groups.map(group => (
           <TimelineGroup

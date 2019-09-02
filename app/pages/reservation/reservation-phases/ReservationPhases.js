@@ -4,6 +4,7 @@ import indexOf from 'lodash/indexOf';
 
 import injectT from '../../../i18n/injectT';
 import ReservationPhase from './ReservationPhase';
+import { RESERVATION_PHASE } from '../constants';
 
 ReservationPhases.propTypes = {
   currentPhase: PropTypes.string.isRequired,
@@ -12,7 +13,7 @@ ReservationPhases.propTypes = {
 };
 
 function ReservationPhases({ currentPhase, isEditing, t }) {
-  const phases = ['information', 'confirmation'];
+  const phases = [RESERVATION_PHASE.INFORMATION, RESERVATION_PHASE.CONFIRMATION];
   if (isEditing) {
     phases.splice(0, 0, 'time');
   }

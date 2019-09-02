@@ -47,26 +47,6 @@ export const getCurrentReservation = (reservations) => {
 };
 
 /**
- * Edit existing reservation API helper
- * @param {Object} reservation Original reservation data
- * @param {Object} fields Edit fields object
- * @memberof ManageReservationsPage
- * @returns {Promise}
- */
-export const putReservation = (reservation, fields) => {
-  return client.put(`reservation/${reservation.id}`, merge(reservation, fields), { include: 'resource_detail' });
-};
-/**
- * Delete/Cancel reservation
- *
- * @param {Object} reservation
- * @returns {Promise}
- */
-export const cancelReservation = (reservation) => {
-  return client.delete(`reservation/${reservation.id}`);
-};
-
-/**
  * Generate reservation edit URL from reservation data.
  *
  * @param {*} reservation
@@ -81,4 +61,27 @@ export const getEditReservationUrl = (reservation) => {
   const endStr = moment(end).format('HH:mm');
 
   return `/reservation?begin=${beginStr}&date=${date}&end=${endStr}&id=${id || ''}&resource=${resource.id}`;
+};
+
+// HTTP helpers
+
+/**
+ * Edit existing reservation API helper
+ * @param {Object} reservation Original reservation data
+ * @param {Object} fields Edit fields object
+ * @memberof ManageReservationsPage
+ * @returns {Promise}
+ */
+export const putReservation = (reservation, fields) => {
+  return client.put(`reservation/${reservation.id}`, merge(reservation, fields));
+};
+
+/**
+ * Delete/Cancel reservation
+ *
+ * @param {Object} reservation
+ * @returns {Promise}
+ */
+export const cancelReservation = (reservation) => {
+  return client.delete(`reservation/${reservation.id}`);
 };
