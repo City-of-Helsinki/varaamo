@@ -1,5 +1,6 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
+import { Link } from 'react-router-dom';
 
 import InfoLabel from '../../../../../src/common/label/InfoLabel';
 import TimeRange from '../../../../shared/time-range/TimeRange';
@@ -43,11 +44,17 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
       expect(image.props().src).toBe(props.resource.images[0].url);
     });
 
-    test('contains a link to resources page', () => {
+    test('contains two links to resource page with correct props', () => {
       const expectedUrl = getResourcePageUrl(props.resource);
-      const resourceLink = component.find({ to: expectedUrl });
+      const links = component.find(Link);
 
-      expect(resourceLink.length > 0).toBe(true);
+      expect(links.length).toBe(2);
+      // image link
+      expect(links.at(0).prop('aria-hidden')).toBe('true');
+      expect(links.at(0).prop('tabIndex')).toBe('-1');
+      expect(links.at(0).prop('to')).toBe(expectedUrl);
+      // header/name link
+      expect(links.at(1).prop('to')).toBe(expectedUrl);
     });
 
     test('displays the name of the resource', () => {
