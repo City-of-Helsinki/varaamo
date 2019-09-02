@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import classNames from 'classnames';
 
 import injectT from '../../../../../i18n/injectT';
 import ReservationPopover from '../../../../reservation-popover/ReservationPopover';
-import utils from '../utils';
 
 export class UninjectedReservationSlot extends React.Component {
   static propTypes = {
@@ -86,34 +84,13 @@ export class UninjectedReservationSlot extends React.Component {
   }
 
   render() {
-    const isSelected = this.getIsSelected();
-    const slot = (
-      <button
-        className={classNames('reservation-slot', {
-          'reservation-slot-selected': isSelected,
-          'reservation-slot-selectable': this.props.isSelectable,
-        })}
-        onClick={this.handleClick}
-        onMouseEnter={this.handleMouseEnter}
-        onMouseLeave={this.handleMouseLeave}
-        style={{ width: utils.getTimeSlotWidth() }}
-        type="button"
-      >
-        <span className="a11y-text">Make reservation</span>
-      </button>
+    return (
+      <ReservationPopover
+        begin={this.props.selection.begin}
+        end={this.props.selection.end}
+        onCancel={this.props.onSelectionCancel}
+      />
     );
-    if (this.shouldShowPopover(isSelected)) {
-      return (
-        <ReservationPopover
-          begin={this.props.selection.begin}
-          end={this.props.selection.end}
-          onCancel={this.props.onSelectionCancel}
-        >
-          {slot}
-        </ReservationPopover>
-      );
-    }
-    return slot;
   }
 }
 

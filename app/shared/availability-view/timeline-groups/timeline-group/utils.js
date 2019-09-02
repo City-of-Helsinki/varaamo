@@ -1,14 +1,7 @@
 import some from 'lodash/some';
 import moment from 'moment';
 
-import { slotSize, slotWidth, slotMargin } from '../../../../constants/SlotConstants';
-
-function getTimeSlotWidth({ startTime, endTime } = {}) {
-  const diff = endTime ? endTime.diff(startTime, 'minutes') : slotSize;
-  const slots = Math.floor(diff / slotSize);
-
-  return (slotWidth * slots) - slotMargin;
-}
+import { slotSize } from '../../../../constants/SlotConstants';
 
 function getTimelineItems(date, reservations, resourceId) {
   const items = [];
@@ -97,5 +90,4 @@ function addSelectionData(selection, resource, items) {
 export default {
   addSelectionData,
   getTimelineItems,
-  getTimeSlotWidth,
 };

@@ -1,21 +1,10 @@
 import dragscroll from 'dragscroll';
 import throttle from 'lodash/throttle';
-import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import TimelineGroup from './timeline-group/TimelineGroup';
-import utils from './timeline-group/utils';
 
-function scrollToInitial(element) {
-  if (element) {
-    const initialScroll = utils.getTimeSlotWidth({
-      startTime: moment('2016-01-01T00:00:00'),
-      endTime: moment('2016-01-01T08:00:00'),
-    });
-    element.scrollLeft = initialScroll; // eslint-disable-line no-param-reassign
-  }
-}
 
 const scrollStickies = (function () { // eslint-disable-line func-names
   function scroll(scrollContainer) {
@@ -56,11 +45,6 @@ export default class TimelineGroups extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
-  }
-
-  setElement(element) {
-    this.element = element;
-    scrollToInitial(element);
   }
 
   handleScroll() {

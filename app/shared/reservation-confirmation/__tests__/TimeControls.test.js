@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme';
-import mockDate from 'mockdate';
 import moment from 'moment';
 import React from 'react';
 import simple from 'simple-mock';
@@ -21,7 +20,6 @@ describe('shared/reservation-confirmation/TimeControls', () => {
         value: '2017-01-01T11:30:00+02:00',
       },
     },
-    timeSlots: [],
   };
 
   function getWrapper(props) {
@@ -52,110 +50,6 @@ describe('shared/reservation-confirmation/TimeControls', () => {
       expect(endTimeControl.prop('onChange')).toBe(wrapper.instance().handleEndTimeChange);
       expect(endTimeControl.prop('options')).toEqual(wrapper.instance().getEndTimeOptions());
     });
-  });
-
-  describe('getBeginTimeOptions', () => {
-    test('returns start time of every free time slot as time options', () => {
-      mockDate.set('2016-01-01T06:30+02:00');
-      const timeSlots = [
-        { start: '2017-01-01T05:00+02:00', end: '2017-01-01T06:00+02:00', reserved: false },
-        { start: '2017-01-01T06:00+02:00', end: '2017-01-01T07:00+02:00', reserved: true },
-        { start: '2017-01-01T07:00+02:00', end: '2017-01-01T08:00+02:00', reserved: false },
-        { start: '2017-01-01T08:00+02:00', end: '2017-01-01T09:00+02:00', reserved: false },
-        { start: '2017-01-01T09:00+02:00', end: '2017-01-01T10:00+02:00', reserved: true },
-        { start: '2017-01-01T10:00+02:00', end: '2017-01-01T11:00+02:00', reserved: false },
-      ];
-      const wrapper = getWrapper({ timeSlots });
-      const options = wrapper.instance().getBeginTimeOptions();
-      const expected = [
-        { label: '05:00', value: '05:00' },
-        { label: '07:00', value: '07:00' },
-        { label: '08:00', value: '08:00' },
-        { label: '10:00', value: '10:00' },
-      ];
-      mockDate.reset();
-      expect(options).toEqual(expected);
-    });
-
-    test('does not return start times before the current time', () => {
-      mockDate.set('2017-01-01T07:25+02:00');
-
-      const timeSlots = [
-        { start: '2017-01-01T05:00+02:00', end: '2017-01-01T06:00+02:00', reserved: false },
-        { start: '2017-01-01T06:00+02:00', end: '2017-01-01T07:00+02:00', reserved: false },
-        { start: '2017-01-01T07:00+02:00', end: '2017-01-01T08:00+02:00', reserved: false },
-        { start: '2017-01-01T08:00+02:00', end: '2017-01-01T09:00+02:00', reserved: false },
-      ];
-      const wrapper = getWrapper({ timeSlots });
-      const options = wrapper.instance().getBeginTimeOptions();
-      const expected = [
-        { label: '07:00', value: '07:00' },
-        { label: '08:00', value: '08:00' },
-      ];
-      mockDate.reset();
-      expect(options).toEqual(expected);
-    });
-  });
-
-  describe('getEndTimeOptions', () => {
-    test(
-      'returns end time of every free time slot from begin to next unavailable slot',
-      () => {
-        const begin = {
-          input: {
-            onChange: () => null,
-            value: '2017-01-01T10:00:00+02:00',
-          },
-        };
-        const timeSlots = [
-          { end: '2017-01-01T05:00+02:00', reserved: false },
-          { end: '2017-01-01T06:00+02:00', reserved: true },
-          { end: '2017-01-01T07:00+02:00', reserved: false },
-          { end: '2017-01-01T08:00+02:00', reserved: false },
-          { end: '2017-01-01T09:00+02:00', reserved: true },
-          { end: '2017-01-01T10:00+02:00', reserved: false },
-          { end: '2017-01-01T11:00+02:00', reserved: false },
-          { end: '2017-01-01T12:00+02:00', reserved: false },
-          { end: '2017-01-01T13:00+02:00', reserved: true },
-          { end: '2017-01-01T14:00+02:00', reserved: false },
-        ];
-        const wrapper = getWrapper({ begin, timeSlots });
-        const options = wrapper.instance().getEndTimeOptions();
-        const expected = [
-          { label: '11:00 (1 h)', value: '11:00' },
-          { label: '12:00 (2 h)', value: '12:00' },
-        ];
-        expect(options).toEqual(expected);
-      }
-    );
-
-    test(
-      'returns time slots only within maxReservationPeriod if maxReservationPeriod given',
-      () => {
-        const begin = {
-          input: {
-            onChange: () => null,
-            value: '2017-01-01T04:00:00+02:00',
-          },
-        };
-        const maxReservationPeriod = '02:00:00';
-        const timeSlots = [
-          { end: '2017-01-01T05:00+02:00', reserved: false },
-          { end: '2017-01-01T06:00+02:00', reserved: false },
-          { end: '2017-01-01T07:00+02:00', reserved: false },
-          { end: '2017-01-01T08:00+02:00', reserved: false },
-          { end: '2017-01-01T09:00+02:00', reserved: false },
-          { end: '2017-01-01T10:00+02:00', reserved: false },
-        ];
-        const wrapper = getWrapper({ begin, maxReservationPeriod, timeSlots });
-        const options = wrapper.instance().getEndTimeOptions();
-        const expected = [
-          { label: '05:00 (1 h)', value: '05:00' },
-          { label: '06:00 (2 h)', value: '06:00' },
-        ];
-        expect(options).toEqual(expected);
-      }
-    );
   });
 
   describe('handleBeginTimeChange', () => {

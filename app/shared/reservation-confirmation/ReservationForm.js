@@ -94,7 +94,7 @@ class UnconnectedReservationForm extends Component {
 
   renderTimeControls = () => {
     const {
-      fields, maxReservationPeriod, t, timeSlots
+      fields, maxReservationPeriod, t
     } = this.props;
     if (!includes(fields, 'begin') || !includes(fields, 'end')) {
       return null;
@@ -110,7 +110,6 @@ class UnconnectedReservationForm extends Component {
             component={TimeControls}
             maxReservationPeriod={maxReservationPeriod}
             names={['begin', 'end']}
-            timeSlots={timeSlots}
           />
         </Col>
       </FormGroup>
@@ -287,7 +286,6 @@ UnconnectedReservationForm.propTypes = {
   staffEventSelected: PropTypes.bool,
   t: PropTypes.func.isRequired,
   termsAndConditions: PropTypes.string.isRequired,
-  timeSlots: PropTypes.array,
 };
 UnconnectedReservationForm = injectT(UnconnectedReservationForm);  // eslint-disable-line
 

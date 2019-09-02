@@ -34,7 +34,6 @@ class ConfirmReservationModal extends Component {
     showTimeControls: PropTypes.bool,
     staffEventSelected: PropTypes.bool,
     t: PropTypes.func.isRequired,
-    timeSlots: PropTypes.array,
   };
 
   onConfirm = (values) => {
@@ -188,7 +187,6 @@ class ConfirmReservationModal extends Component {
       showTimeControls,
       staffEventSelected,
       t,
-      timeSlots,
     } = this.props;
 
     const termsAndConditions = isAdmin ? '' : getTermsAndConditions(resource);
@@ -224,7 +222,6 @@ class ConfirmReservationModal extends Component {
             requiredFields={this.getRequiredFormFields(resource, termsAndConditions)}
             staffEventSelected={staffEventSelected}
             termsAndConditions={termsAndConditions}
-            timeSlots={timeSlots}
           />
         </Modal.Body>
       </Modal>

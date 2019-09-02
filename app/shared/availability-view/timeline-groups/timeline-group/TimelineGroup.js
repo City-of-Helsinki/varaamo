@@ -6,7 +6,6 @@ import Sticky from 'react-sticky-el';
 
 import { slotSize, slotWidth } from '../../../../constants/SlotConstants';
 import AvailabilityTimelineContainer from './availability-timeline/AvailabilityTimelineContainer';
-import utils from './utils';
 
 function getHourRanges(date) {
   const ranges = [];
@@ -103,7 +102,6 @@ export default class TimelineGroup extends React.Component {
                   'hour-end-selected': selection && range.endTime.isSame(selection.end),
                 })}
                 key={range.startTime.format('HH')}
-                style={{ width: utils.getTimeSlotWidth(range) }}
               >
                 {range.startTime.format('HH:mm')}
               </div>

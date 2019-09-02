@@ -31,7 +31,6 @@ export class UnconnectedReservationConfirmationContainer extends Component {
     showTimeControls: PropTypes.bool,
     selectedReservations: PropTypes.array.isRequired,
     staffEventSelected: PropTypes.bool,
-    timeSlots: PropTypes.array,
   };
 
   handleEdit = (values = {}) => {
@@ -72,7 +71,6 @@ export class UnconnectedReservationConfirmationContainer extends Component {
       selectedReservations,
       showTimeControls,
       staffEventSelected,
-      timeSlots,
     } = this.props;
 
     const isAdmin = resource.userPermissions.isAdmin;
@@ -96,7 +94,6 @@ export class UnconnectedReservationConfirmationContainer extends Component {
         show={confirmReservationModalIsOpen}
         showTimeControls={showTimeControls}
         staffEventSelected={staffEventSelected}
-        timeSlots={timeSlots}
       />
     );
   }

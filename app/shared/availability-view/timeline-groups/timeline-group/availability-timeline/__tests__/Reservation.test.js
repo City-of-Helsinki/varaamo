@@ -1,12 +1,10 @@
 import { shallow } from 'enzyme';
-import moment from 'moment';
 import React from 'react';
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 import Popover from 'react-bootstrap/lib/Popover';
 import simple from 'simple-mock';
 
 import Reservation from '../Reservation';
-import utils from '../../utils';
 
 function getOuterWrapper(props) {
   const defaults = {
@@ -108,19 +106,6 @@ describe('shared/availability-view/Reservation', () => {
       expect(element).toHaveLength(0);
     }
   );
-
-  test('has correct width', () => {
-    const times = {
-      end: '2016-01-01T20:00:00Z',
-      begin: '2016-01-01T10:00:00Z',
-    };
-    const expected = utils.getTimeSlotWidth({
-      startTime: moment(times.begin),
-      endTime: moment(times.end),
-    });
-    const actual = getWrapper(times).prop('style');
-    expect(actual).toEqual({ width: expected });
-  });
 
   test('renders eventSubject', () => {
     const eventSubject = 'Meeting GUQ';

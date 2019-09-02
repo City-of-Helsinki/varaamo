@@ -18,7 +18,6 @@ import {
   padLeft,
   prettifyHours,
   periodToMinute,
-  getEndTimeSlotWithMinPeriod
 } from '../timeUtils';
 
 const moment = extendMoment(Moment);
@@ -394,23 +393,6 @@ describe('Utils: timeUtils', () => {
       const unit = 'minutes';
       const expected = 15;
       expect(getTimeDiff(startTime, endTime, unit)).toEqual(expected);
-    });
-  });
-
-  describe('getEndTimeSlotWithMinPeriod', () => {
-    test('return end time slot with timediff equal minPeriod', () => {
-      const slot = {
-        begin: '2019-05-09T05:00:00.000Z',
-        end: '2019-05-09T05:30:00.000Z',
-        resource: 'abc'
-      };
-
-      const minPeriod = '01:00:00';
-      const result = getEndTimeSlotWithMinPeriod(slot, minPeriod);
-
-      expect(getTimeDiff(slot.begin, result.begin, 'minutes')).toEqual(periodToMinute(minPeriod));
-      expect(getTimeDiff(slot.end, result.end, 'minutes')).toEqual(periodToMinute(minPeriod));
-      expect(result.resource).toEqual(slot.resource);
     });
   });
 
