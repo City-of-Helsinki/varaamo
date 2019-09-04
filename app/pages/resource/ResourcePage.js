@@ -145,12 +145,10 @@ class UnconnectedResourcePage extends Component {
 
     const startMoment = moment(selected.start);
     const endMoment = moment(selected.end);
-    const slotDuration = moment.duration(resource.slotSize);
-    const slotInMinutes = slotDuration.hours() * 60 + slotDuration.minutes();
 
     actions.changeRecurringBaseTime({
       begin: startMoment.toISOString(),
-      end: startMoment.clone().add(slotInMinutes, 'minutes').toISOString(),
+      end: endMoment.toISOString(),
       resource: resource.id,
     });
 

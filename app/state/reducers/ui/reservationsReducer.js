@@ -136,23 +136,15 @@ function reservationsReducer(state = initialState, action) {
 
       const startMoment = moment(selected.start);
       const endMoment = moment(selected.end);
-      const slotDuration = moment.duration(resource.slotSize);
-      const slotInMinutes = slotDuration.hours() * 60 + slotDuration.minutes();
 
       const startSlot = {
         begin: startMoment.toISOString(),
-        end: startMoment.clone().add(slotInMinutes, 'minutes').toISOString(),
-        resource: resource.id,
-      };
-
-      const endSlot = {
-        begin: endMoment.clone().subtract(slotInMinutes, 'minutes').toISOString(),
         end: endMoment.toISOString(),
         resource: resource.id,
       };
 
       return state.merge({
-        selected: [startSlot, endSlot],
+        selected: [startSlot],
       });
     }
 
