@@ -1,4 +1,4 @@
-.app-ResourceReservationCalendar {
+.app-TimePickerCalendar {
   &__event {
     color: $white !important;
     border-radius: 0 !important;
@@ -7,9 +7,6 @@
       background-color: $red !important;
       border-color: $red !important;
     }
-  }
-
-  &__backgroundEvent {
   }
 
   &__restrictedDate {
@@ -44,15 +41,6 @@
     }
   }
 
-  &__selectedDate {
-    &__label {
-    }
-
-    &__value {
-
-    }
-  }
-
   &__newReservation {
     position: relative;
   }
@@ -62,7 +50,7 @@
     right: 0.25em;
     top: 0;
     z-index: 2;
-    
+
     &::after {
       display: inline;
       content: '\00D7';

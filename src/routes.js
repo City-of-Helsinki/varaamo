@@ -12,7 +12,8 @@ import ResourcePage from '../app/pages/resource/ResourcePage';
 import UserReservationsPage from '../app/pages/user-reservations/UserReservationsPage';
 import SearchPage from './domain/search/page/SearchPage';
 import ManageReservationsPage from './domain/reservation/manage/page/ManageReservationsPage';
-import ReservationEdit from '../app/pages/reservation/reservation-edit/ReservationEdit';
+import ReservationPage from '../app/pages/reservation/ReservationPage';
+import { RESERVATION_PHASE } from '../app/pages/reservation/constants';
 
 export default () => (
   <AppContainer>
@@ -38,7 +39,6 @@ export default () => (
         path="/my-reservations"
       />
 
-      {/* Reservation routes  */}
       {/* <PrivateRoute
         component={ReservationNew}
         componentName="ReservationNew"
@@ -46,23 +46,11 @@ export default () => (
       /> */}
 
       <PrivateRoute
-        component={ReservationEdit}
-        componentName="ReservationEdit"
-        path="/reservation/:reservationId/edit"
+        component={ReservationPage}
+        componentName="ReservationPage"
+        // eslint-disable-next-line max-len
+        path={`/reservation/:reservationId/:reservationPhase(${RESERVATION_PHASE.INFORMATION}|${RESERVATION_PHASE.CONFIRMATION}|${RESERVATION_PHASE.EDIT})`}
       />
-
-      {/* <PrivateRoute
-        component={ReservationConfirm}
-        componentName="ReservationConfirm"
-        path="/reservation/:reservationId/confirm"
-      />
-
-      <PrivateRoute
-        component={ReservationInfomationPage}
-        componentName="ReservationInformationPage"
-        path="/reservation/:reservationId/information"
-      /> */}
-      {/* End of Reservation routes */}
 
       <Redirect from="/home" to="/" />
       <Redirect from="/resources/:id/reservation" to="/resources/:id" />
