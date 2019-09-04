@@ -144,7 +144,7 @@ class ReservationInformation extends Component {
       reservationPrice,
     } = this.state;
 
-    const taxPercentage = get(resource, 'products[0].taxPercentage');
+    const taxPercentage = get(resource, 'products[0].price.taxPercentage');
 
     const termsAndConditions = getTermsAndConditions(resource);
     const beginText = moment(selectedTime.begin).format('D.M.YYYY HH:mm');
