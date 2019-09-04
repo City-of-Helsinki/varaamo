@@ -13,6 +13,8 @@ import ReservationPopover from '../../../../shared/reservation-popover/Reservati
 import TimeSlot from './TimeSlot';
 import TimeSlotPlaceholder from './TimeSlotPlaceholder';
 import utils from '../utils';
+import { getReservationPrice } from '../../../../utils/reservationUtils';
+import apiClient from '../../../../../src/common/api/client';
 
 class TimeSlots extends Component {
   static propTypes = {
@@ -33,6 +35,27 @@ class TimeSlots extends Component {
 
   state = {
     hoveredTimeSlot: null,
+    reservationPrice: '',
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    const { resource: currentResource } = this.props;
+    const { resource: prevResource } = prevProps;
+    const { hoveredTimeSlot: currentHoveredTimeSlot } = this.state;
+    const { hoveredTimeSlot: prevHoveredTimeSlot } = prevState;
+    if ((currentResource !== prevResource) || (currentHoveredTimeSlot !== prevHoveredTimeSlot)) {
+      this.calculateReservationPrice();
+    }
+  }
+
+
+  calculateReservationPrice = () => {
+    const { resource: { products } } = this.props;
+    const begin = this.getReservationBegin();
+    const end = this.getReservationEnd();
+    getReservationPrice(apiClient, begin, end, products)
+      .then(reservationPrice => this.setState({ reservationPrice }))
+      .catch(() => this.setState({ reservationPrice: '' }));
   };
 
   onClear = () => {
@@ -196,7 +219,7 @@ class TimeSlots extends Component {
       t,
       time,
     } = this.props;
-    const { hoveredTimeSlot } = this.state;
+    const { hoveredTimeSlot, reservationPrice } = this.state;
     if (!slot.end) {
       return (
         <h6 className="app-TimeSlots--closed" key={slot.start}>
@@ -260,7 +283,7 @@ class TimeSlots extends Component {
         end={resEnd}
         key="timeslots-reservation-popover"
         onCancel={this.onCancel}
-        products={resource.products}
+        reservationPrice={reservationPrice}
       >
         {timeSlot}
       </ReservationPopover>

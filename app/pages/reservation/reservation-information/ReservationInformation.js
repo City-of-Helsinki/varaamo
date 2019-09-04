@@ -1,17 +1,18 @@
 import pick from 'lodash/pick';
 import uniq from 'lodash/uniq';
 import camelCase from 'lodash/camelCase';
+import get from 'lodash/get';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Col from 'react-bootstrap/lib/Col';
 import Row from 'react-bootstrap/lib/Row';
-import Well from 'react-bootstrap/lib/Well';
 import moment from 'moment';
 
 import injectT from '../../../i18n/injectT';
-import { isStaffEvent } from '../../../utils/reservationUtils';
-import { getTermsAndConditions } from '../../../utils/resourceUtils';
+import { isStaffEvent, getReservationPrice, getReservationPricePerPeriod } from '../../../utils/reservationUtils';
+import { getTermsAndConditions, hasProducts } from '../../../utils/resourceUtils';
 import ReservationInformationForm from './ReservationInformationForm';
+import apiClient from '../../../../src/common/api/client';
 
 class ReservationInformation extends Component {
   static propTypes = {
@@ -29,6 +30,25 @@ class ReservationInformation extends Component {
     t: PropTypes.func.isRequired,
     unit: PropTypes.object.isRequired,
   };
+
+  state = {
+    reservationPrice: null,
+  }
+
+  componentDidMount() {
+    if (!hasProducts(this.props.resource)) {
+      return;
+    }
+    const products = get(this.props.resource, 'products');
+    const {
+      begin,
+      end,
+    } = this.props.selectedTime;
+
+    getReservationPrice(apiClient, begin, end, products)
+      .then(price => this.setState({ reservationPrice: price }))
+      .catch(() => this.setState({ reservationPrice: null }));
+  }
 
   onConfirm = (values) => {
     const { onConfirm } = this.props;
@@ -60,6 +80,10 @@ class ReservationInformation extends Component {
       formFields.push('termsAndConditions');
     }
 
+    if (hasProducts(resource)) {
+      formFields.push('paymentTermsAndConditions');
+    }
+
     return uniq(formFields);
   }
 
@@ -83,6 +107,10 @@ class ReservationInformation extends Component {
 
     if (termsAndConditions) {
       requiredFormFields.push('termsAndConditions');
+    }
+
+    if (hasProducts(resource)) {
+      requiredFormFields.push('paymentTermsAndConditions');
     }
 
     return requiredFormFields;
@@ -112,6 +140,11 @@ class ReservationInformation extends Component {
       t,
       unit,
     } = this.props;
+    const {
+      reservationPrice,
+    } = this.state;
+
+    const taxPercentage = get(resource, 'products[0].price.taxPercentage');
 
     const termsAndConditions = getTermsAndConditions(resource);
     const beginText = moment(selectedTime.begin).format('D.M.YYYY HH:mm');
@@ -137,27 +170,63 @@ class ReservationInformation extends Component {
           />
         </Col>
         <Col md={5} sm={12}>
-          <Well className="app-ReservationDetails">
-            <h3>{t('ReservationPage.detailsTitle')}</h3>
+          <div className="app-ReservationDetails">
+            <h2 className="app-ReservationPage__title">{t('ReservationPage.detailsTitle')}</h2>
             <Row>
-              <Col className="app-ReservationDetails__label" md={4}>
-                {t('common.resourceLabel')}
+              <Col md={4}>
+                <span className="app-ReservationDetails__name">
+                  {t('common.resourceLabel')}
+                </span>
               </Col>
-              <Col className="app-ReservationDetails__value" md={8}>
-                {resource.name}
-                <br />
-                {unit.name}
+              <Col md={8}>
+                <span className="app-ReservationDetails__value">
+                  {resource.name}
+                  <br />
+                  {unit.name}
+                </span>
               </Col>
             </Row>
+            {hasProducts(resource) && (
+              <Fragment>
+                <Row>
+                  <Col md={4}>
+                    <span className="app-ReservationDetails__name">
+                      {t('common.priceLabel')}
+                    </span>
+                  </Col>
+                  <Col md={8}>
+                    <span className="app-ReservationDetails__value">
+                      {getReservationPricePerPeriod(resource)}
+                    </span>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={4}>
+                    <span className="app-ReservationDetails__name">
+                      {t('common.totalPriceLabel')}
+                    </span>
+                  </Col>
+                  <Col md={8}>
+                    <span className="app-ReservationDetails__value">
+                      {t('common.priceWithVAT', { price: reservationPrice, vat: taxPercentage })}
+                    </span>
+                  </Col>
+                </Row>
+              </Fragment>
+            )}
             <Row>
-              <Col className="app-ReservationDetails__label" md={4}>
-                {t('ReservationPage.detailsTime')}
+              <Col md={4}>
+                <span className="app-ReservationDetails__name">
+                  {t('ReservationPage.detailsTime')}
+                </span>
               </Col>
-              <Col className="app-ReservationDetails__value" md={8}>
-                {`${beginText}–${endText} (${hours} h)`}
+              <Col md={8}>
+                <span className="app-ReservationDetails__value">
+                  {`${beginText}–${endText} (${hours} h)`}
+                </span>
               </Col>
             </Row>
-          </Well>
+          </div>
         </Col>
       </div>
     );

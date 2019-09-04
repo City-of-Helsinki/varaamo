@@ -1,4 +1,4 @@
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import forEach from 'lodash/forEach';
 import forIn from 'lodash/forIn';
 import get from 'lodash/get';
@@ -227,6 +227,11 @@ function shallowWithIntl(node, context) {
   return shallow(nodeWithIntl, { context: { ...context, intl } }).shallow({ context });
 }
 
+function mountWithIntl(node, context) {
+  const nodeWithIntl = React.cloneElement(node, { intl });
+  return mount(nodeWithIntl, { context: { ...context, intl } });
+}
+
 function globalDateMock() {
   const mockedDate = new Date(2017, 11, 10);
   const originalDate = Date;
@@ -247,5 +252,6 @@ export {
   getState,
   makeButtonTests,
   shallowWithIntl,
+  mountWithIntl,
   globalDateMock
 };

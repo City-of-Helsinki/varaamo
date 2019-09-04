@@ -122,7 +122,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
       onConfirm: simple.mock(),
       openResourceTermsModal: simple.mock(),
       requiredFields: [],
-      resource: Resource.build(),
+      resource: Resource.build({ specificTerms: 'some specific terms' }),
       termsAndConditions: '',
     };
 
@@ -209,6 +209,11 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
           const field = wrapper.find(Field).filter({ component: TermsField });
 
           expect(field.length).toBe(1);
+        });
+
+        test('renders specific terms content correctly', () => {
+          const wrapper = getWrapper().find('.specificTermsContent');
+          expect(wrapper.html()).toContain(defaultProps.resource.specificTerms);
         });
       });
 

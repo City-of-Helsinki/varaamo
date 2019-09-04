@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import moment from 'moment';
+import classNames from 'classnames';
 
 import iconClock from '../../assets/icons/clock-o.svg';
 
-function ReservationDate({ beginDate, endDate }) {
+function ReservationDate({ beginDate, endDate, className = '' }) {
   if (!beginDate || !endDate) {
     return <span />;
   }
@@ -16,9 +17,12 @@ function ReservationDate({ beginDate, endDate }) {
   const beginTime = reservationBegin.format('HH:mm');
   const endTime = reservationEnd.format('HH:mm');
   const hours = reservationEnd.diff(reservationBegin, 'hours', true);
-
+  const classes = classNames(
+    className,
+    'reservation-date',
+  );
   return (
-    <div className="reservation-date">
+    <div className={classes}>
       <div className="reservation-date__content">
         <h5 className="reservation-date__month">{month}</h5>
         <h1>{day}</h1>
@@ -35,6 +39,7 @@ function ReservationDate({ beginDate, endDate }) {
 ReservationDate.propTypes = {
   beginDate: PropTypes.string,
   endDate: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default ReservationDate;

@@ -1,29 +1,29 @@
 # 0.5.0-pre
-  **FIXES**
-  ```
-  - Fix reservation information and header icon [#995](https://github.com/City-of-Helsinki/varaamo/pull/995)
-  ```
+  **MAJOR CHANGES**
+  - Support for payments in Varaamo.
+
+  **HOTFIX**
+  - Fix resource information headlines and icon.
+
+  **CHANGELOG**
+  - [#995](https://github.com/City-of-Helsinki/varaamo/pull/995) Fix resource information headlines and icon.
+  - [#968](https://github.com/City-of-Helsinki/varaamo/pull/968) Support payments for Varaamo.
 
 # 0.4.2
   **HOTFIX**
-  ```
   - Fix various styling issue for date-picker [#991](https://github.com/City-of-Helsinki/varaamo/pull/991)
   - Add `isAdmin` check for RecurringReservationControl to normal user will not able to make recurring reservation. [#993](https://github.com/City-of-Helsinki/varaamo/pull/993/)
 
-  ```
 
 # 0.4.1
   **HOTFIX**
-  ```
   - Fix security warnings for dependencies: react-select, jest, postcss-loader, codecov, node-sass, eslint
-  ```
 
 # 0.4.0
   **MAJOR CHANGES**
-  ```
   - Add new purpose section for sauna and organize events. As well as mock placeholder icon.
   - Some technical improvements.
-  ```
+
   **CHANGELOG**
   - [#940](https://github.com/City-of-Helsinki/varaamo/pull/940) Upgrade fortawesome, add new temp purpose icon.
   - [#939](https://github.com/City-of-Helsinki/varaamo/pull/939) Rename all classnames imports to classNames
@@ -31,7 +31,6 @@
 
 # 0.3.0
   **MAJOR CHANGES**
-  ```
   - Add translation for date-picker, show date and month in currently selected language.
 
   - Set varaamo timezone to flexible base on user local timezone.
@@ -39,7 +38,6 @@
   - Add slotSize and minPeriod to reservation select, enable ability to reserve sauna slots with default amount of minPeriod. Time slot range equal with slotSize config from backend.
 
   - Show access-code pending text if the access-code is generated 24h before reservation starts.
-  ```
 
   **CHANGELOG**
 

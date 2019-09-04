@@ -596,12 +596,14 @@ export const getReservationPrice = (start, end, resource) => {
 
   const currentProduct = products[0];
   const timeDiff = endMoment.diff(startMoment, 'hours', true);
+  const duration = moment.duration(currentProduct.price.period).as('hours');
+  const amount = get(currentProduct, 'price.amount', 0);
 
   // TODO: Replace those getter with generic data when price
   // not only by hours and product is more than 1.
 
-  if (currentProduct.price_type === 'per_hour' && currentProduct.price) {
-    return timeDiff * currentProduct.price;
+  if (duration && amount && get(currentProduct, 'price.type', '') === 'per_period') {
+    return timeDiff * amount / duration;
   }
 
   return 0;
