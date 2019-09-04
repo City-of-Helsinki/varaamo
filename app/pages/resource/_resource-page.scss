@@ -123,7 +123,7 @@ $content-padding: 10px;
           text-decoration: none;
 
           &::before {
-            background-image: url('../search/controls/images/angle-right.svg');
+            background-image: url('../search/controls/images/angle-down.svg');
             background-repeat: no-repeat;
             background-size: $line-height-computed;
             content: ' ';
@@ -138,7 +138,7 @@ $content-padding: 10px;
 
         .collapsed {
           &::before {
-            background-image: url('../search/controls/images/angle-down.svg');
+            background-image: url('../search/controls/images/angle-right.svg');
           }
         }
       }
