@@ -1,3 +1,17 @@
+# 0.5.0-pre
+  **FIXES**
+  ```
+  - Fix reservation information and header icon [#995](https://github.com/City-of-Helsinki/varaamo/pull/995)
+  ```
+
+# 0.4.2
+  **HOTFIX**
+  ```
+  - Fix various styling issue for date-picker [#991](https://github.com/City-of-Helsinki/varaamo/pull/991)
+  - Add `isAdmin` check for RecurringReservationControl to normal user will not able to make recurring reservation. [#993](https://github.com/City-of-Helsinki/varaamo/pull/993/)
+
+  ```
+
 # 0.4.1
   **HOTFIX**
   ```

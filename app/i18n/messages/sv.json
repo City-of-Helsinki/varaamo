@@ -264,12 +264,13 @@
   "ResourceHeader.favoriteAddButton": "Spara som favorit",
   "ResourceHeader.favoriteRemoveButton": "Radera favorit",
   "ResourceIcons.free": "Avgiftsfri",
-  "ResourceInfo.additionalInfoTitle": "Utrymmets närmare uppgifter",
+  "ResourceInfo.additionalInfoTitle": "Mer information",
+  "ResourceInfo.descriptionTitle": "Beskrivning",
   "ResourceInfo.equipmentHeader": "Utrustning",
   "ResourceInfo.serviceMapLink": "Reseplanering i Servicekarta",
   "ResourceInfo.loginMessage": "För att kunna boka detta utrymme måste du <a href=”/login”>logga in</a>.",
   "ResourceInfo.reservationTitle": "Bokningsinformation",
-  "ResourceInfo.reserveTitle": "Boka utrymme",
+  "ResourceInfo.reserveTitle": "Boka",
   "ResourceInfoContainer.unpublishedLabel": "opublicerad",
   "ResourcePage.back": "Tillbaka till sökresultat",
   "ResourcePage.reservationStatusHeader": "Bokningsläget",
@@ -321,7 +322,7 @@
   "UserReservationsPage.regularReservationsHeader": "Vanliga bokningar",
   "UserReservationsPage.title": "Mina bokningar",
   "ManageReservationsPage.title": "Hantera reservationer",
-  "ManageReservationsList.descriptionHeader": "Beskrivning",
+  "ManageReservationsList.subjectHeader": "Ämne",
   "ManageReservationsList.nameHeader": "Namn",
   "ManageReservationsList.emailHeader": "E-post",
   "ManageReservationsList.resourceHeader": "Resurs",
@@ -335,7 +336,9 @@
   "ManageReservationsList.actionLabel.approve":"Godkänn",
   "ManageReservationsList.actionLabel.deny":"Förneka",
   "ManageReservationsList.actionLabel.edit":"Redigera",
-  
+  "ManageReservationsList.actionLabel.cancel":"Avbryt",
+
+
   "ManageReservationsFilters.searchLabel": "Sök",
   "ManageReservationsFilters.searchPlaceholder": "Sök",
   "ManageReservationsFilters.statusLabel": "Bokningsstatus",
@@ -348,5 +351,9 @@
   "Reservation.stateLabelCancelled": "Avbokad",
   "Reservation.stateLabelConfirmed": "Godkänd",
   "Reservation.stateLabelDenied": "Nekad",
-  "Reservation.stateLabelRequested": "Begärda"
+  "Reservation.stateLabelRequested": "Begärda",
+  "ResourceReservationCalendar.reserveButton": "Boka",
+  "ResourceReservationCalendar.selectedDateLabel": "Utvald tidpunkt:",
+  "ResourceReservationCalendar.selectedDateValue": "{date} kl. {start} - kl. {end} ({duration})",
+  "ResourceReservationCalendar.selectedDateValueWithPrice": "{date} kl. {start} - kl. {end} ({duration}) for {price}€"
 }

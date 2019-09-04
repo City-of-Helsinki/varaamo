@@ -17,18 +17,20 @@ function RecurringReservationControls({
   changeNumberOfOccurrences,
   frequency,
   frequencyOptions,
+  isAdmin,
   isVisible,
   numberOfOccurrences,
   lastTime,
   t,
 }) {
-  if (!isVisible) {
+  if (!isVisible || !isAdmin) {
     return <span />;
   }
+
   return (
     <div className="recurring-reservation-controls">
       <Row>
-        <Col sm={5} xs={12}>
+        <Col md={3} xs={12}>
           <div className="recurring-reservation-frequency-control">
             <label htmlFor="recurrence-frequency-select">
               {t('RecurringReservationControls.frequencyLabel')}
@@ -46,7 +48,7 @@ function RecurringReservationControls({
           </div>
         </Col>
         {frequency !== '' && (
-          <Col sm={3} xs={12}>
+          <Col md={3} xs={12}>
             <FormGroup controlId="numberOfOccurrencesGroup">
               <ControlLabel>
                 {t('RecurringReservationControls.numberOfOccurrencesLabel')}
@@ -61,7 +63,7 @@ function RecurringReservationControls({
           </Col>
         )}
         {frequency !== '' && (
-          <Col sm={4} xs={12}>
+          <Col md={6} xs={12}>
             <FormGroup controlId="LastTimeGroup">
               <ControlLabel>{t('RecurringReservationControls.lastTimeLabel')}</ControlLabel>
               <DatePicker
@@ -83,6 +85,7 @@ RecurringReservationControls.propTypes = {
   changeNumberOfOccurrences: PropTypes.func.isRequired,
   frequency: PropTypes.string.isRequired,
   frequencyOptions: PropTypes.array.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
   isVisible: PropTypes.bool.isRequired,
   numberOfOccurrences: PropTypes.number.isRequired,
   lastTime: PropTypes.string,

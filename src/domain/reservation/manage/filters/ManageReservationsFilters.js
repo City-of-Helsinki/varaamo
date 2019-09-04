@@ -20,6 +20,7 @@ import SelectField from '../../../../common/form/fields/SelectField';
 import iconTimes from '../../../search/filters/images/times.svg';
 import * as dataUtils from '../../../../common/data/utils';
 import constants from '../../../../../app/constants/AppConstants';
+import { RESERVATION_STATE } from '../../../../constants/ReservationState';
 
 class ManageReservationsFilters extends React.Component {
   static propTypes = {
@@ -62,10 +63,10 @@ class ManageReservationsFilters extends React.Component {
     const { t } = this.props;
 
     return [
-      { value: 'confirmed', label: t('Reservation.stateLabelConfirmed') },
-      { value: 'cancelled', label: t('Reservation.stateLabelCancelled') },
-      { value: 'denied', label: t('Reservation.stateLabelDenied') },
-      { value: 'requested', label: t('Reservation.stateLabelRequested') },
+      { value: RESERVATION_STATE.CONFIRMED, label: t('Reservation.stateLabelConfirmed') },
+      { value: RESERVATION_STATE.CANCELLED, label: t('Reservation.stateLabelCancelled') },
+      { value: RESERVATION_STATE.DENIED, label: t('Reservation.stateLabelDenied') },
+      { value: RESERVATION_STATE.REQUESTED, label: t('Reservation.stateLabelRequested') },
     ];
   };
 
@@ -141,9 +142,9 @@ class ManageReservationsFilters extends React.Component {
               <TextField
                 id="searchField"
                 label={t('ManageReservationsFilters.searchLabel')}
-                onChange={event => this.onFilterChange('search', event.target.value)}
+                onChange={event => this.onFilterChange('reserver_info_search', event.target.value)}
                 placeholder={t('ManageReservationsFilters.searchPlaceholder')}
-                value={get(filters, 'search', '')}
+                value={get(filters, 'reserver_info_search', '')}
               />
 
               {this.hasFilters() && (

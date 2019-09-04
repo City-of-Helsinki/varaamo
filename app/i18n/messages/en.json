@@ -262,11 +262,12 @@
   "ResourceHeader.favoriteAddButton": "Add favorite",
   "ResourceHeader.favoriteRemoveButton": "Remove favorite",
   "ResourceIcons.free": "Free of charge",
-  "ResourceInfo.additionalInfoTitle": "Premise additional information",
+  "ResourceInfo.additionalInfoTitle": "More info",
+  "ResourceInfo.descriptionTitle": "Description",
   "ResourceInfo.equipmentHeader": "Premise equipment",
   "ResourceInfo.serviceMapLink": "Search route on Service Map",
   "ResourceInfo.loginMessage": "You must <a href=”/login”>log in</a> to reserve these premises.",
-  "ResourceInfo.reservationTitle": "Reservation information",
+  "ResourceInfo.reservationTitle": "Reservation details",
   "ResourceInfo.reserveTitle": "Reserve",
   "ResourceInfoContainer.unpublishedLabel": "unpublished",
   "ResourcePage.back": "Back to search results",
@@ -320,7 +321,7 @@
   "UserReservationsPage.regularReservationsHeader": "Standard reservations",
   "UserReservationsPage.title": "My reservations",
   "ManageReservationsPage.title": "Manage reservations",
-  "ManageReservationsList.descriptionHeader": "Description",
+  "ManageReservationsList.subjectHeader": "Subject",
   "ManageReservationsList.nameHeader": "Name",
   "ManageReservationsList.emailHeader": "Email",
   "ManageReservationsList.resourceHeader": "Resource",
@@ -328,12 +329,13 @@
   "ManageReservationsList.dateAndTimeHeader": "Date and time",
   "ManageReservationsList.statusHeader": "Status",
   "ManageReservationsList.pinHeader": "PIN",
-  
+
   "ManageReservationsList.actionsHeader": "Select action",
   "ManageReservationsList.actionLabel.information":"Information",
   "ManageReservationsList.actionLabel.approve":"Approve",
   "ManageReservationsList.actionLabel.deny":"Deny",
   "ManageReservationsList.actionLabel.edit":"Edit",
+  "ManageReservationsList.actionLabel.cancel":"Cancel",
 
   "ManageReservationsFilters.searchLabel": "Search",
   "ManageReservationsFilters.searchPlaceholder": "Search",
@@ -347,5 +349,9 @@
   "Reservation.stateLabelCancelled": "Cancelled",
   "Reservation.stateLabelConfirmed": "Approved",
   "Reservation.stateLabelDenied": "Denied",
-  "Reservation.stateLabelRequested": "Requested"
+  "Reservation.stateLabelRequested": "Requested",
+  "ResourceReservationCalendar.reserveButton": "Reserve",
+  "ResourceReservationCalendar.selectedDateLabel": "Selected time:",
+  "ResourceReservationCalendar.selectedDateValue": "{date} at {start} - at {end} ({duration})",
+  "ResourceReservationCalendar.selectedDateValueWithPrice": "{date} at {start} - at {end} ({duration}) for {price}€"
 }

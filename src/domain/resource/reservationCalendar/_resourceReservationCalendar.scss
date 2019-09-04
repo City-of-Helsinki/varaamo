@@ -1,0 +1,75 @@
+.app-ResourceReservationCalendar {
+  &__event {
+    color: $white !important;
+    border-radius: 0 !important;
+
+    &--reserved {
+      background-color: $red !important;
+      border-color: $red !important;
+    }
+  }
+
+  &__backgroundEvent {
+  }
+
+  &__restrictedDate {
+    background-color: $gray-light !important;
+  }
+
+  &__selectedInfo {
+    margin: 20px 0;
+    display: flex;
+
+    @media (max-width: $screen-sm-max) {
+      display: block;
+    }
+  }
+
+  &__selectedDate {
+    display: flex;
+    flex: 1;
+    align-items: center;
+
+    @media (max-width: $screen-sm-max) {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+  }
+
+  &__reserveButton {
+    font-size: 24px;
+
+    @media (max-width: $screen-sm-max) {
+      width: 100%;
+    }
+  }
+
+  &__selectedDate {
+    &__label {
+    }
+
+    &__value {
+
+    }
+  }
+
+  &__newReservation {
+    position: relative;
+  }
+
+  &__cancelEvent {
+    position: absolute;
+    right: 0.25em;
+    top: 0;
+    z-index: 2;
+    
+    &::after {
+      display: inline;
+      content: '\00D7';
+      font-size: 1.25em;
+      font-weight: bold;
+      line-height: 0.75;
+    }
+  }
+}
+

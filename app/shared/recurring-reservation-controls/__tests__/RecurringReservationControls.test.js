@@ -5,7 +5,10 @@ import simple from 'simple-mock';
 import DatePicker from '../../date-picker/DatePicker';
 import { shallowWithIntl } from '../../../utils/testUtils';
 import SelectControl from '../../../pages/search/controls/SelectControl';
-import { UnconnectedRecurringReservationControls as RecurringReservationControls } from '../RecurringReservationControls';
+import {
+  UnconnectedRecurringReservationControls as
+  RecurringReservationControls
+} from '../RecurringReservationControls';
 
 function getWrapper(props) {
   const defaults = {
@@ -15,6 +18,7 @@ function getWrapper(props) {
     frequency: 'days',
     frequencyOptions: [{ label: '', value: '' }],
     isVisible: true,
+    isAdmin: true,
     lastTime: null,
     numberOfOccurrences: 1,
   };

@@ -6,4 +6,23 @@
     white-space: nowrap;
     overflow: hidden;
   }
+
+  .date-picker {
+    height: $input-height-base;
+    display: flex;
+    justify-items: center;
+    flex-direction: column;
+    border: none;
+
+    input {
+      border: 2px solid $black;
+      flex-grow: 1;
+      padding: 0 5px;
+    }
+  }
+
+  .date-picker-overlay {
+    border-top: none;
+    width: 100%;
+  }
 }

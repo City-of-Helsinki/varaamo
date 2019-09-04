@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pages/resource/resource-equipment/ResourceEquipment 1`] = `
+<ResourcePanel
+  header="ResourceEquipment.headingText"
+>
+  <Row
+    bsClass="row"
+    componentClass="div"
+  >
+    <Col
+      bsClass="col"
+      componentClass="div"
+      key="0"
+      lg={3}
+      md={3}
+      xs={6}
+    >
+      Karaoke
+    </Col>
+    <Col
+      bsClass="col"
+      componentClass="div"
+      key="1"
+      lg={3}
+      md={3}
+      xs={6}
+    >
+      Projector
+    </Col>
+    <Col
+      bsClass="col"
+      componentClass="div"
+      key="2"
+      lg={3}
+      md={3}
+      xs={6}
+    >
+      Printer
+    </Col>
+  </Row>
+</ResourcePanel>
+`;

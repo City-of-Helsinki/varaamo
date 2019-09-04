@@ -5,7 +5,6 @@ $resource-page-width: 700px;
 $margin-between-items: 10px;
 $content-padding: 10px;
 
-
 @import './reservation-calendar/reservation-calendar';
 @import './reservation-calendar/time-slots/time-slots';
 @import './resource-header/resource-header';
@@ -14,16 +13,23 @@ $content-padding: 10px;
 @import './resource-map-info/resource-map-info';
 
 .app-ResourcePage {
-
   a {
     color: $blue;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 2.4rem;
+
+    @media (max-width: $screen-xs-max) {
+      font-size: 2rem;
+    }
   }
 
   &__content {
     padding: 30px 0;
     background-color: $white;
-    box-sizing: content-box;
-    margin-bottom: 30px;
+    margin: 15px 0 30px;
   }
 
   .date-header {
@@ -49,10 +55,12 @@ $content-padding: 10px;
     flex-basis: ($resource-page-width/2);
     flex-grow: 1;
     margin-left: $margin-between-items;
+
     h3 {
       margin-top: 0;
     }
   }
+
   .app-ResourceCard {
     position: fixed;
     bottom: 15px;
@@ -102,33 +110,40 @@ $content-padding: 10px;
     border-top: 3px solid $silver;
     box-shadow: none;
     margin: 15px 0;
+
     .panel-heading {
       background-color: transparent;
       padding: 15px 0;
+
       .panel-title {
         a {
           color: $black;
           padding-left: 24px;
           position: relative;
-          text-decoration: underline;
+          text-decoration: none;
+
           &::before {
             background-image: url('../search/controls/images/angle-right.svg');
             background-repeat: no-repeat;
             background-size: $line-height-computed;
             content: ' ';
             display: inline-block;
+            vertical-align: -50%;
             left: 0;
-            top: -2px;
             position: absolute;
             height: $line-height-computed;
             width: $line-height-computed;
           }
         }
-        a[aria-selected="true"]::before {
-          background-image: url('../search/controls/images//angle-down.svg');
+
+        .collapsed {
+          &::before {
+            background-image: url('../search/controls/images/angle-down.svg');
+          }
         }
       }
     }
+
     .panel-body {
       padding: 0;
     }
@@ -139,50 +154,32 @@ $content-padding: 10px;
     margin-right: -15px;
   }
 
-  /* Full width page */
   @media (min-width: $screen-xs-max) {
-    /* Fix for resource page */
-      /* Padding for turquise area */
-      .app-ResourceHeader__content {
-         padding: 15px 15px 15px 15px;
-      }
-      /*smaller header*/
-      .h1, h1 {
-         font-size: 32px;
-      }
-      /*basetext fix*/
-      .row {
-         margin-left: 15px;
-         margin-right: 15px;
-         margin-top: 15px;
-      }
-      .app-ResourcePage__content {
-         padding: 0px;
-      }
+    .app-ResourceHeader__content {
+      padding: 15px 15px 15px 15px;
+    }
+
+    .h1, h1 {
+      font-size: 32px;
+    }
+
+    .app-ResourcePage__content {
+      padding: 0;
+    }
   }
   @media (max-width: $screen-xs-max) {
-      /* Footer must be below map or other content */
-      #footer {
-         position: relative;
-         z-index: -15;
-      }
-      /* Fix for resource page */
-      /* Padding for turquise area */
-      .app-ResourceHeader__content {
-         padding: 15px 15px 15px 15px;
-      }
-      /* smaller header */
-      .h1, h1 {
-         font-size: 24px;
-      }
-      /* basetext fix */
-      .row {
-         margin-left: 15px;
-         margin-right: 15px;
-         margin-top: 15px;
-      }
-      .app-ResourcePage__content {
-         padding: 0px;
-      }
-   }
+    #footer {
+      position: relative;
+      z-index: -15;
+    }
+    .app-ResourceHeader__content {
+      padding: 15px 15px 15px 15px;
+    }
+    .h1, h1 {
+      font-size: 24px;
+    }
+    .app-ResourcePage__content {
+      padding: 0;
+    }
+  }
 }

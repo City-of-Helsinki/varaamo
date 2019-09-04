@@ -262,18 +262,19 @@
   "ResourceHeader.favoriteAddButton": "Lisää suosikiksi",
   "ResourceHeader.favoriteRemoveButton": "Poista suosikeista",
   "ResourceIcons.free": "Maksuton",
-  "ResourceInfo.additionalInfoTitle": "Tilan lisätiedot",
+  "ResourceInfo.additionalInfoTitle": "Lisätietoja",
+  "ResourceInfo.descriptionTitle": "Kuvaus",
   "ResourceInfo.equipmentHeader": "Tilan varusteet",
   "ResourceInfo.serviceMapLink": "Katso reitti Palvelukartasta",
   "ResourceInfo.loginMessage": "Sinun täytyy <a href=\"/login\">kirjautua sisään</a>, jotta voit tehdä varauksen tähän tilaan.",
   "ResourceInfo.reservationTitle": "Varauksen tiedot",
-  "ResourceInfo.reserveTitle": "Varaa tila",
+  "ResourceInfo.reserveTitle": "Varaa",
   "ResourceInfoContainer.unpublishedLabel": "ei julkaistu",
   "ResourcePage.back": "Takaisin hakutuloksiin",
   "ResourcePage.reservationStatusHeader": "Varaustilanne",
   "ResourcePage.reserveHeader": "Varaa tila",
   "ResourcePage.showMap": "Näytä kartalla",
-  "ResourcePage.specificTerms": "Resurssikohtaiset ehdot",  
+  "ResourcePage.specificTerms": "Resurssikohtaiset ehdot",
   "ResourceTypeFilter.title": "Näytä",
   "SearchFilters.title": "Mitä haluat tehdä?",
   "SearchFilters.dateLabel": "Milloin?",
@@ -329,7 +330,7 @@
   "UserReservationsPage.regularReservationsHeader": "Tavalliset varaukset",
   "UserReservationsPage.title": "Omat varaukset",
   "ManageReservationsPage.title": "Hallitse varauksia",
-  "ManageReservationsList.descriptionHeader": "Kuvaus",
+  "ManageReservationsList.subjectHeader": "Aihe",
   "ManageReservationsList.nameHeader": "Nimi",
   "ManageReservationsList.emailHeader": "Sähköposti",
   "ManageReservationsList.resourceHeader": "Resurssi",
@@ -337,13 +338,15 @@
   "ManageReservationsList.dateAndTimeHeader": "Milloin",
   "ManageReservationsList.statusHeader": "Tila",
   "ManageReservationsList.pinHeader": "PIN",
-  
+
   "ManageReservationsList.actionsHeader": "Valitse toiminta",
   "ManageReservationsList.actionLabel.information":"Tiedot",
   "ManageReservationsList.actionLabel.approve":"Hyväksy",
   "ManageReservationsList.actionLabel.deny":"Hylkää",
   "ManageReservationsList.actionLabel.edit":"Muokkaa",
-  
+  "ManageReservationsList.actionLabel.cancel":"Peru",
+
+
   "ManageReservationsFilters.searchLabel": "Hae",
   "ManageReservationsFilters.searchPlaceholder": "Hae",
   "ManageReservationsFilters.statusLabel": "Varauksen tila",
@@ -356,6 +359,10 @@
   "Reservation.stateLabelCancelled": "Peruttu",
   "Reservation.stateLabelConfirmed": "Hyväksytty",
   "Reservation.stateLabelDenied": "Evätty",
-  "Reservation.stateLabelRequested": "Anottu"
+  "Reservation.stateLabelRequested": "Anottu",
+  "ResourceReservationCalendar.reserveButton": "Tee varaus",
+  "ResourceReservationCalendar.selectedDateLabel": "Valittu aika:",
+  "ResourceReservationCalendar.selectedDateValue": "{date} klo {start} - klo {end} ({duration})",
+  "ResourceReservationCalendar.selectedDateValueWithPrice": "{date} klo {start} - klo {end} ({duration}) yht {price}€"
 }
 

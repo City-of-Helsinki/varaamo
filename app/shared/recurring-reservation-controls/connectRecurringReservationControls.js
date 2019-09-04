@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
 
+import { isAdminSelector } from '../../state/selectors/authSelectors';
 import recurringReservations from '../../state/recurringReservations';
 
 function selectFrequencyOptions() {
@@ -20,6 +21,7 @@ const isVisibleSelector = createSelector(
 export const selector = createStructuredSelector({
   frequency: recurringReservations.selectFrequency,
   frequencyOptions: selectFrequencyOptions,
+  isAdmin: isAdminSelector,
   isVisible: isVisibleSelector,
   lastTime: recurringReservations.selectLastTime,
   numberOfOccurrences: recurringReservations.selectNumberOfOccurrences,
