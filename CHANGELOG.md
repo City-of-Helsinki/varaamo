@@ -1,9 +1,13 @@
 # 0.5.0-pre
-  **Added**
-  - Support for payments in Varaamo. in [#968](https://github.com/City-of-Helsinki/varaamo/pull/968)
+  **MAJOR CHANGES**
+  - Support for payments in Varaamo.
 
-  **Fixed**
-  - Fix reservation information and header icon [#995](https://github.com/City-of-Helsinki/varaamo/pull/995)
+  **HOTFIX**
+  - Fix resource information headlines and icon.
+
+  **CHANGELOG**
+  - [#995](https://github.com/City-of-Helsinki/varaamo/pull/995) Fix resource information headlines and icon.
+  - [#968](https://github.com/City-of-Helsinki/varaamo/pull/968) Support payments for Varaamo.
 
 # 0.4.2
   **HOTFIX**
