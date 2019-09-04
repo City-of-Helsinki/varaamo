@@ -5,9 +5,9 @@ import last from 'lodash/last';
 import some from 'lodash/some';
 import sortBy from 'lodash/sortBy';
 import tail from 'lodash/tail';
+import get from 'lodash/get';
 import moment from 'moment';
 
-import { getTimeDiff } from './timeUtils';
 import constants from '../constants/AppConstants';
 
 function combine(reservations) {
@@ -84,27 +84,40 @@ function getEditReservationUrl(reservation) {
 /**
  * Get reservation price from resource. Get time conver
  *
+ * @param {ApiClient} apiClient
  * @param {String} begin Begin timestamp in ISO string
  * @param {String} end End timestamp in ISO string
  * @param {Array} products Resource product data.
- * @returns {string | null} Price or no price.
+ * @returns {Promise<string|null} Price or no price.
  */
-function getReservationPrice(begin, end, products) {
-  if (!begin || !end || !products) {
+async function getReservationPrice(apiClient, begin, end, products) {
+  const productId = get(products, '[0].id');
+  if (!begin || !end || !productId) {
     return null;
   }
-
-  const currentProduct = products && products[0];
-  const timeDiff = getTimeDiff(begin, end, 'hours', true);
-  // TODO: Replace those getter with generic data when price
-  // not only by hours and product is more than 1.
-
-  if (currentProduct.priceType === 'per_hour' && currentProduct.price) {
-    return (timeDiff * currentProduct.price).toFixed(1);
-    // Round result to 1 floating number
+  try {
+    const payload = {
+      begin,
+      end,
+      order_lines: [{ product: productId }],
+    };
+    const result = await apiClient.post('order/check_price', payload);
+    const price = get(result, 'data.price');
+    return price;
+  } catch (e) {
+    return null;
   }
+}
 
-  return null;
+function getReservationPricePerPeriod(resource) {
+  const price = get(resource, 'products[0].price.amount');
+  const pricePeriod = get(resource, 'products[0].price.period');
+  const duration = moment.duration(pricePeriod);
+  const hours = duration.asHours();
+  const period = hours >= 1
+    ? `${hours} h`
+    : `${duration.asMinutes()} min`;
+  return `${price}€ / ${period}`;
 }
 
 export {
@@ -116,4 +129,5 @@ export {
   getNextAvailableTime,
   getNextReservation,
   getReservationPrice,
+  getReservationPricePerPeriod,
 };

@@ -3,9 +3,59 @@
 @import './reservation-phases/reservation-phases';
 @import './reservation-time/reservation-time';
 
-.app-ReservationPage {
-  .btn.btn-warning {
-    background-color: $yellow;
-    color: $black;
+.app-ReservationPage__title {
+  font-weight: $font-weight-regular;
+  font-size: 22px;
+  &--big {
+    font-size: 28px;
+  }
+}
+
+.app-ReservationPage__formfield {
+  margin-bottom: 20px;
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: $font-weight-regular;
+  }
+  input,
+  textarea {
+    border: 1px solid $medium-gray;
+    display: block;
+    font-weight: normal;
+    padding: 10px;
+    width: 100%;
+    &:focus {
+      border: 2px solid $blue;
+      padding: 9px;
+    }
+  }
+}
+
+.app-ReservationPage__error {
+  color: $red;
+  display: block;
+  font-size: 14px;
+}
+
+.app-ReservationFailedPage__contentbox {
+  background: $light-gray;
+  margin: 0 auto;
+  padding: 10px 30px 30px;
+  text-align: center;
+  @media (min-width: $screen-sm-min) {
+    max-width: 700px;
+  }
+}
+
+.app-ReservationFailedPage__link {
+  display: inline-block;
+  margin-top: 20px;
+}
+
+.app-ReservationFailedPage__progress-steps {
+  margin: 0 auto 30px;
+  @media (min-width: $screen-sm-min) {
+    max-width: 700px;
   }
 }

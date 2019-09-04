@@ -1,0 +1,23 @@
+
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <polygon id="path-1" points="21.4496947 0 12.9987788 8.45091592 4.54786285 0 0 4.55030531 8.45091592 13.0012212 0 21.4521372 4.54786285 26.0024425 12.9987788 17.553969 21.4496947 26.0024425 26 21.4521372 17.5490841 13.0012212 26 4.55030531"></polygon>
+    </defs>
+    <g id="Online-payment-flowchart" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="New-reservation-form-/-interrupted" transform="translate(-688.000000, -240.000000)">
+            <rect fill="#FFFFFF" x="0" y="0" width="1440" height="1267"></rect>
+            <g id="steps/-error" transform="translate(688.000000, 240.000000)">
+                <circle id="Oval" fill="#C4123E" cx="30" cy="30" r="30"></circle>
+                <g id="atoms/icons/close/48" transform="translate(6.000000, 6.000000)" stroke-width="1">
+                    <g id="Icon-color" transform="translate(11.000000, 11.000000)">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <use id="Mask" fill="#1A1A1A" xlink:href="#path-1"></use>
+                        <rect fill="#F1F1F1" mask="url(#mask-2)" x="-11" y="-11" width="48" height="48"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

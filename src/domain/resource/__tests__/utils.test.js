@@ -382,15 +382,53 @@ describe('domain resource utility function', () => {
     expect(resourceUtils.getSlotSizeInMinutes(resource)).toBe(90);
   });
 
-  test('getReservationPrice', () => {
-    const resource = resourceFixture.build({
-      products: [{
-        price_type: 'per_hour',
-        price: 20,
-      }],
+  describe('getReservationPrice', () => {
+    test('return the correct price when the period is one hour', () => {
+      const resource = resourceFixture.build({
+        products: [{
+          price: { amount: 20, type: 'per_period', period: '01:00:00' }
+
+        }],
+      });
+
+      const price = resourceUtils.getReservationPrice(`${DATE}T08:00:00Z`, `${DATE}T10:00:00Z`, resource);
+      expect(price).toBe(40);
     });
 
-    const price = resourceUtils.getReservationPrice(`${DATE}T08:00:00Z`, `${DATE}T10:00:00Z`, resource);
-    expect(price).toBe(40);
+    test('return the correct price when the supplied period is more than an hour', () => {
+      const resource = resourceFixture.build({
+        products: [{
+          price: { amount: 20, type: 'per_period', period: '02:00:00' }
+
+        }],
+      });
+
+      const price = resourceUtils.getReservationPrice(`${DATE}T08:00:00Z`, `${DATE}T10:00:00Z`, resource);
+      expect(price).toBe(20);
+    });
+
+    test('return the correct price when the supplied period is less than an hour', () => {
+      const resource = resourceFixture.build({
+        products: [{
+          price: { amount: 20, type: 'per_period', period: '00:30:00' }
+
+        }],
+      });
+
+      const price = resourceUtils.getReservationPrice(`${DATE}T08:00:00Z`, `${DATE}T10:00:00Z`, resource);
+      expect(price).toBe(80);
+    });
+
+    test('return 0 if the supplied period is 0', () => {
+      const resource = resourceFixture.build({
+        products: [{
+          price: { amount: 20, type: 'per_period', period: '00:00:00' }
+
+        }],
+      });
+
+      const price = resourceUtils.getReservationPrice(`${DATE}T08:00:00Z`, `${DATE}T10:00:00Z`, resource);
+      expect(price).toBe(0);
+    });
   });
 });

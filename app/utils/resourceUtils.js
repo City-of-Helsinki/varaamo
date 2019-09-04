@@ -1,6 +1,7 @@
 import filter from 'lodash/filter';
 import find from 'lodash/find';
 import forEach from 'lodash/forEach';
+import has from 'lodash/has';
 import moment from 'moment';
 import queryString from 'query-string';
 
@@ -208,6 +209,14 @@ function reservingIsRestricted(resource, date) {
   return Boolean(isLimited && !isAdmin);
 }
 
+function hasProducts(resource) {
+  return (
+    has(resource, 'products')
+    && Array.isArray(resource.products)
+    && resource.products.length >= 1
+  );
+}
+
 export {
   hasMaxReservations,
   isOpenNow,
@@ -222,5 +231,6 @@ export {
   getResourcePageUrlComponents,
   getTermsAndConditions,
   reservingIsRestricted,
-  getMinPeriodText
+  getMinPeriodText,
+  hasProducts,
 };

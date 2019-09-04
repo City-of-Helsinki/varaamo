@@ -7,12 +7,14 @@ import Well from 'react-bootstrap/lib/Well';
 import { Field, reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 
+import TermsField from '../../../shared/form-fields/TermsField';
 import constants from '../../../constants/AppConstants';
 import FormTypes from '../../../constants/FormTypes';
-import ReduxFormField from '../../../shared/form-fields/ReduxFormField';
-import TermsField from '../../../shared/form-fields/TermsField';
+import ReservationMetadataField from './ReservationMetadataField';
 import injectT from '../../../i18n/injectT';
 import ReservationTermsModal from '../../../shared/modals/reservation-terms/ReservationTermsModal';
+import PaymentTermsModal from '../../../shared/modals/payment-terms/PaymentTermsModal';
+import { hasProducts } from '../../../utils/resourceUtils';
 
 const validators = {
   reserverEmailAddress: (t, { reserverEmailAddress }) => {
@@ -21,12 +23,22 @@ const validators = {
     }
     return null;
   },
+  billingEmailAddress: (t, { billingEmailAddress }) => {
+    if (billingEmailAddress && !isEmail(billingEmailAddress)) {
+      return t('ReservationForm.emailError');
+    }
+    return null;
+  }
 };
 
 const maxLengths = {
   billingAddressCity: 100,
   billingAddressStreet: 100,
   billingAddressZip: 30,
+  billingEmailAddress: 100,
+  billingFirstName: 100,
+  billingLastName: 100,
+  billingPhoneNumber: 30,
   company: 100,
   numberOfParticipants: 100,
   reserverAddressCity: 100,
@@ -37,6 +49,17 @@ const maxLengths = {
   reserverName: 100,
   reserverPhoneNumber: 30,
 };
+
+function isTermsAndConditionsField(field) {
+  return field === 'termsAndConditions'
+    || field === 'paymentTermsAndConditions';
+}
+
+function getTermsAndConditionsError(field) {
+  return field === 'paymentTermsAndConditions'
+    ? 'ReservationForm.paymentTermsAndConditionsError'
+    : 'ReservationForm.termsAndConditionsError';
+}
 
 export function validate(values, { fields, requiredFields, t }) {
   const errors = {};
@@ -59,8 +82,8 @@ export function validate(values, { fields, requiredFields, t }) {
     if (includes(currentRequiredFields, field)) {
       if (!values[field]) {
         errors[field] = (
-          field === 'termsAndConditions'
-            ? t('ReservationForm.termsAndConditionsError')
+          isTermsAndConditionsField(field)
+            ? t(getTermsAndConditionsError(field))
             : t('ReservationForm.requiredError')
         );
       }
@@ -70,7 +93,19 @@ export function validate(values, { fields, requiredFields, t }) {
 }
 
 class UnconnectedReservationInformationForm extends Component {
-  renderField(name, type, label, controlProps = {}, help = null, info = null) {
+  state = {
+    isPaymentTermsModalOpen: false,
+  }
+
+  closePaymentTermsModal = () => {
+    this.setState({ isPaymentTermsModalOpen: false });
+  }
+
+  openPaymentTermsModal = () => {
+    this.setState({ isPaymentTermsModalOpen: true });
+  }
+
+  renderField(name, type, label, help = null) {
     if (!includes(this.props.fields, name)) {
       return null;
     }
@@ -78,10 +113,8 @@ class UnconnectedReservationInformationForm extends Component {
 
     return (
       <Field
-        component={ReduxFormField}
-        controlProps={controlProps}
+        component={ReservationMetadataField}
         help={help}
-        info={info}
         label={`${label}${isRequired ? '*' : ''}`}
         name={name}
         type={type}
@@ -101,24 +134,79 @@ class UnconnectedReservationInformationForm extends Component {
         labelLink={labelLink}
         name={name}
         onClick={openResourceTermsModal}
+        type="terms"
       />
+    );
+  }
+
+  renderPaymentTermsField = () => {
+    const { t } = this.props;
+    return (
+      <Field
+        component={TermsField}
+        key="paymentTermsAndConditions"
+        label={t('ReservationInformationForm.paymentTermsAndConditionsLabel')}
+        labelLink={t('ReservationInformationForm.paymentTermsAndConditionsLink')}
+        name="paymentTermsAndConditions"
+        onClick={this.openPaymentTermsModal}
+        type="terms"
+      />
+    );
+  }
+
+  renderSaveButton() {
+    const {
+      isMakingReservations,
+      handleSubmit,
+      onConfirm,
+      t,
+    } = this.props;
+    return (
+      <Button
+        bsStyle="primary"
+        disabled={isMakingReservations}
+        onClick={handleSubmit(onConfirm)}
+        type="submit"
+      >
+        {isMakingReservations ? t('common.saving') : t('common.save')}
+      </Button>
+    );
+  }
+
+  renderPayButton() {
+    const {
+      isMakingReservations,
+      handleSubmit,
+      onConfirm,
+      t,
+    } = this.props;
+    return (
+      <Button
+        bsStyle="primary"
+        disabled={isMakingReservations}
+        onClick={handleSubmit(onConfirm)}
+        type="submit"
+      >
+        {t('common.pay')}
+      </Button>
     );
   }
 
   render() {
     const {
       isEditing,
-      isMakingReservations,
-      handleSubmit,
+      fields,
       onBack,
       onCancel,
-      onConfirm,
       requiredFields,
       resource,
       staffEventSelected,
       t,
       termsAndConditions,
     } = this.props;
+    const {
+      isPaymentTermsModalOpen,
+    } = this.state;
 
     this.requiredFields = staffEventSelected
       ? constants.REQUIRED_STAFF_EVENT_FIELDS
@@ -126,11 +214,16 @@ class UnconnectedReservationInformationForm extends Component {
 
     return (
       <div>
-        <Form className="reservation-form" horizontal>
-          { includes(this.props.fields, 'reserverName') && (
-            <h3>{t('ReservationInformationForm.reserverInformationTitle')}</h3>
+        <Form className="reservation-form" horizontal noValidate>
+          <p>
+            {t('ReservationForm.reservationFieldsAsteriskExplanation')}
+          </p>
+          { includes(fields, 'reserverName') && (
+            <h2 className="app-ReservationPage__title">
+              {t('ReservationInformationForm.reserverInformationTitle')}
+            </h2>
           )}
-          { includes(this.props.fields, 'staffEvent') && (
+          { includes(fields, 'staffEvent') && (
             <Well>
               {this.renderField(
                 'staffEvent',
@@ -145,82 +238,102 @@ class UnconnectedReservationInformationForm extends Component {
             'reserverName',
             'text',
             t('common.reserverNameLabel'),
-            { placeholder: t('common.reserverNameLabel') }
           )}
           {this.renderField(
             'reserverId',
             'text',
             t('common.reserverIdLabel'),
-            { placeholder: t('common.reserverIdLabel') }
           )}
           {this.renderField(
             'reserverPhoneNumber',
             'text',
             t('common.reserverPhoneNumberLabel'),
-            { placeholder: t('common.reserverPhoneNumberLabel') }
           )}
           {this.renderField(
             'reserverEmailAddress',
             'email',
             t('common.reserverEmailAddressLabel'),
-            { placeholder: t('common.reserverEmailAddressLabel') }
           )}
-          {includes(this.props.fields, 'reserverAddressStreet')
+          {includes(fields, 'reserverAddressStreet')
             && this.renderField(
               'reserverAddressStreet',
               'text',
               t('common.addressStreetLabel'),
-              { placeholder: t('common.addressStreetLabel') }
             )}
-          {includes(this.props.fields, 'reserverAddressZip')
+          {includes(fields, 'reserverAddressZip')
             && this.renderField(
               'reserverAddressZip',
               'text',
               t('common.addressZipLabel'),
-              { placeholder: t('common.addressZipLabel') }
             )}
-          {includes(this.props.fields, 'reserverAddressCity')
+          {includes(fields, 'reserverAddressCity')
             && this.renderField(
               'reserverAddressCity',
               'text',
               t('common.addressCityLabel'),
-              { placeholder: t('common.addressCityLabel') }
             )
           }
-          {includes(this.props.fields, 'billingAddressStreet')
-            && <h3>{t('common.billingAddressLabel')}</h3>
+          {includes(fields, 'billingAddressStreet')
+            && <h2 className="app-ReservationPage__title">{t('common.billingAddressLabel')}</h2>
           }
-          {includes(this.props.fields, 'billingAddressStreet')
+          {includes(fields, 'billingAddressStreet')
             && this.renderField(
               'billingAddressStreet',
               'text',
               t('common.addressStreetLabel'),
-              { placeholder: t('common.addressStreetLabel') }
             )
           }
-          {includes(this.props.fields, 'billingAddressZip')
+          {includes(fields, 'billingAddressZip')
             && this.renderField(
               'billingAddressZip',
               'text',
               t('common.addressZipLabel'),
-              { placeholder: t('common.addressZipLabel') }
             )
           }
-          {includes(this.props.fields, 'billingAddressCity')
+          {includes(fields, 'billingAddressCity')
             && this.renderField(
               'billingAddressCity',
               'text',
               t('common.addressCityLabel'),
-              { placeholder: t('common.addressCityLabel') }
             )
           }
-          <h3>{t('ReservationInformationForm.eventInformationTitle')}</h3>
+          {includes(fields, 'billingFirstName')
+            && <h2 className="app-ReservationPage__title">{t('common.paymentInformationLabel')}</h2>
+          }
+          {includes(fields, 'billingFirstName')
+            && this.renderField(
+              'billingFirstName',
+              'text',
+              t('common.billingFirstNameLabel'),
+            )
+          }
+          {includes(fields, 'billingLastName')
+            && this.renderField(
+              'billingLastName',
+              'text',
+              t('common.billingLastNameLabel'),
+            )
+          }
+          {includes(fields, 'billingPhoneNumber')
+            && this.renderField(
+              'billingPhoneNumber',
+              'tel',
+              t('common.billingPhoneNumberLabel'),
+            )
+          }
+          {includes(fields, 'billingEmailAddress')
+            && this.renderField(
+              'billingEmailAddress',
+              'email',
+              t('common.billingEmailAddressLabel'),
+            )
+          }
+          <h2 className="app-ReservationPage__title">{t('ReservationInformationForm.eventInformationTitle')}</h2>
           {this.renderField(
             'eventSubject',
             'text',
             t('common.eventSubjectLabel'),
             {},
-            null,
             t('ReservationForm.eventSubjectInfo'),
           )}
           {this.renderField(
@@ -239,17 +352,19 @@ class UnconnectedReservationInformationForm extends Component {
             'comments',
             'textarea',
             t('common.commentsLabel'),
-            {
-              placeholder: t('common.commentsPlaceholder'),
-              rows: 5,
-            }
+            { rows: 5 }
           )}
           {termsAndConditions
             && this.renderTermsField('termsAndConditions')
           }
-          <div className="form-controls">
+          {resource.specificTerms
+            && <p className="specificTermsContent">{resource.specificTerms}</p>
+          }
+          {includes(fields, 'paymentTermsAndConditions')
+            && this.renderPaymentTermsField()
+          }
+          <div>
             <Button
-              bsStyle="warning"
               onClick={onCancel}
             >
               {isEditing ? t('ReservationInformationForm.cancelEdit') : t('common.cancel')}
@@ -264,17 +379,17 @@ class UnconnectedReservationInformationForm extends Component {
               </Button>
               )
             }
-            <Button
-              bsStyle="primary"
-              disabled={isMakingReservations}
-              onClick={handleSubmit(onConfirm)}
-              type="submit"
-            >
-              {isMakingReservations ? t('common.saving') : t('common.save')}
-            </Button>
+            {hasProducts(resource)
+              ? this.renderPayButton()
+              : this.renderSaveButton()
+            }
           </div>
         </Form>
         <ReservationTermsModal resource={resource} />
+        <PaymentTermsModal
+          isOpen={isPaymentTermsModalOpen}
+          onDismiss={this.closePaymentTermsModal}
+        />
       </div>
     );
   }
