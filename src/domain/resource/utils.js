@@ -600,8 +600,8 @@ export const getReservationPrice = (start, end, resource) => {
   // TODO: Replace those getter with generic data when price
   // not only by hours and product is more than 1.
 
-  if (currentProduct.price_type === 'per_hour' && currentProduct.price) {
-    return timeDiff * currentProduct.price;
+  if (get(currentProduct, 'price.type', '') === 'per_period' && get(currentProduct, 'price.amount', 0)) {
+    return timeDiff * currentProduct.price.amount;
   }
 
   return 0;
