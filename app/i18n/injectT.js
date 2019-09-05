@@ -17,7 +17,7 @@ function injectT(WrappedComponent) {
     }
 
     render() {
-      return <WrappedComponent {...this.props} t={this.t} />;
+      return <WrappedComponent {...this.props} locale={this.context.intl.locale} t={this.t} />;
     }
   }
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
+import { shallow } from 'enzyme';
 
 import Reservation from '../../../utils/fixtures/Reservation';
 import Resource from '../../../utils/fixtures/Resource';
-import { shallowWithIntl } from '../../../utils/testUtils';
 import ReservationAccessCode from '../ReservationAccessCode';
 
 describe('shared/reservation-access-code/ReservationAccessCode', () => {
@@ -16,19 +16,19 @@ describe('shared/reservation-access-code/ReservationAccessCode', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallowWithIntl(<ReservationAccessCode {...defaultProps} {...extraProps} />);
+    return shallow(<ReservationAccessCode {...defaultProps} {...extraProps} />);
   }
 
   test('renders GeneratedAccessCode when PIN is available', () => {
     const reservation = createReservation({ accessCode: '1232' });
     const wrapper = getWrapper({ reservation });
-    expect(wrapper.name()).toBe('GeneratedAccessCode');
+    expect(wrapper.name()).toContain('GeneratedAccessCode');
   });
 
   test('renders PendingAccessCode when PIN is pending', () => {
     const resource = createResource({ generateAccessCodes: false });
     const wrapper = getWrapper({ resource });
-    expect(wrapper.name()).toBe('PendingAccessCode');
+    expect(wrapper.name()).toContain('PendingAccessCode');
   });
 
   test('renders empty span when PIN is not available and it won\'t be generated either', () => {

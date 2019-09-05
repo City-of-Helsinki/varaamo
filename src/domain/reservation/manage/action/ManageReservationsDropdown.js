@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import injectT from '../../../../../app/i18n/injectT';
 import { RESERVATION_STATE } from '../../../../constants/ReservationState';
 
-const ManageReservationsDropdown = ({
+const UntranslatedManageReservationsDropdown = ({
   t, onInfoClick, reservation,
   onEditClick,
   onEditReservation
@@ -57,12 +57,13 @@ const ManageReservationsDropdown = ({
   );
 };
 
-ManageReservationsDropdown.propTypes = {
+UntranslatedManageReservationsDropdown.propTypes = {
   t: PropTypes.func,
   onInfoClick: PropTypes.func,
   reservation: PropTypes.object,
   onEditClick: PropTypes.func,
   onEditReservation: PropTypes.func
 };
+export { UntranslatedManageReservationsDropdown };
 
-export default injectT(ManageReservationsDropdown);
+export default injectT(UntranslatedManageReservationsDropdown);
