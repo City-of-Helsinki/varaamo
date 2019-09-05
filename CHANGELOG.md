@@ -1,6 +1,7 @@
 # 0.5.0-pre
   **MAJOR CHANGES**
   - Support for payments in Varaamo.
+  - Add reusable FullCalendar component.
 
   **HOTFIX**
   - Fix resource information headlines and icon.
@@ -8,6 +9,7 @@
   **CHANGELOG**
   - [#995](https://github.com/City-of-Helsinki/varaamo/pull/995) Fix resource information headlines and icon.
   - [#968](https://github.com/City-of-Helsinki/varaamo/pull/968) Support payments for Varaamo.
+  - [#999](https://github.com/City-of-Helsinki/varaamo/pull/968) Add reusable FullCalendar component. Used in resource page.
 
 # 0.4.2
   **HOTFIX**
