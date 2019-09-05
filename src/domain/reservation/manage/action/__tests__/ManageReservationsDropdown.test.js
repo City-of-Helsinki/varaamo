@@ -1,13 +1,14 @@
 import React from 'react';
 import toJSON from 'enzyme-to-json';
-import { shallow } from 'enzyme';
 
-import ManageReservationsDropdown from '../ManageReservationsDropdown';
+import { UntranslatedManageReservationsDropdown as ManageReservationsDropdown } from '../ManageReservationsDropdown';
+import { shallowWithIntl } from '../../../../../../app/utils/testUtils';
+import reservation from '../../../../../common/data/fixtures/reservation';
 
 describe('ManageReservationsDropdown', () => {
   test('renders correctly', () => {
-    const wrapper = shallow(
-      <ManageReservationsDropdown />
+    const wrapper = shallowWithIntl(
+      <ManageReservationsDropdown reservation={reservation.build()} t={() => 'foo'} />
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

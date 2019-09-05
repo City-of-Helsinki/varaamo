@@ -4,349 +4,37 @@ exports[`ResourceReservationCalendar renders correctly 1`] = `
 <div
   className="app-ResourceReservationCalendar"
 >
-  <FullCalendar
-    allDaySlot={false}
-    businessHours={
-      Array [
-        Object {
-          "daysOfWeek": Array [
-            1,
-          ],
-          "endTime": "00:00",
-          "startTime": "00:00",
-        },
-        Object {
-          "daysOfWeek": Array [
-            2,
-          ],
-          "endTime": "00:00",
-          "startTime": "00:00",
-        },
-        Object {
-          "daysOfWeek": Array [
-            3,
-          ],
-          "endTime": "00:00",
-          "startTime": "00:00",
-        },
-        Object {
-          "daysOfWeek": Array [
-            4,
-          ],
-          "endTime": "00:00",
-          "startTime": "00:00",
-        },
-        Object {
-          "daysOfWeek": Array [
-            5,
-          ],
-          "endTime": "00:00",
-          "startTime": "00:00",
-        },
-        Object {
-          "daysOfWeek": Array [
-            6,
-          ],
-          "endTime": "00:00",
-          "startTime": "00:00",
-        },
-        Object {
-          "daysOfWeek": Array [
-            0,
-          ],
-          "endTime": "00:00",
-          "startTime": "00:00",
-        },
-      ]
-    }
-    dateClick={[Function]}
-    datesRender={[Function]}
-    defaultDate="2019-08-15"
-    editable={true}
-    eventAllow={[Function]}
-    eventConstraint="businessHours"
-    eventDrop={[Function]}
-    eventOverlap={false}
-    eventRender={[Function]}
-    eventResize={[Function]}
-    events={
-      Array [
-        Object {
-          "allDay": true,
-          "classNames": Array [
-            "app-ResourceReservationCalendar__backgroundEvent",
-            "app-ResourceReservationCalendar__restrictedDate",
-          ],
-          "end": 2019-08-11T21:00:00.000Z,
-          "id": "2019-08-12",
-          "rendering": "background",
-          "start": 2019-08-11T21:00:00.000Z,
-        },
-        Object {
-          "allDay": true,
-          "classNames": Array [
-            "app-ResourceReservationCalendar__backgroundEvent",
-            "app-ResourceReservationCalendar__restrictedDate",
-          ],
-          "end": 2019-08-12T21:00:00.000Z,
-          "id": "2019-08-13",
-          "rendering": "background",
-          "start": 2019-08-12T21:00:00.000Z,
-        },
-        Object {
-          "allDay": true,
-          "classNames": Array [
-            "app-ResourceReservationCalendar__backgroundEvent",
-            "app-ResourceReservationCalendar__restrictedDate",
-          ],
-          "end": 2019-08-13T21:00:00.000Z,
-          "id": "2019-08-14",
-          "rendering": "background",
-          "start": 2019-08-13T21:00:00.000Z,
-        },
-        Object {
-          "allDay": true,
-          "classNames": Array [
-            "app-ResourceReservationCalendar__backgroundEvent",
-            "app-ResourceReservationCalendar__restrictedDate",
-          ],
-          "end": 2019-08-14T21:00:00.000Z,
-          "id": "2019-08-15",
-          "rendering": "background",
-          "start": 2019-08-14T21:00:00.000Z,
-        },
-        Object {
-          "allDay": true,
-          "classNames": Array [
-            "app-ResourceReservationCalendar__backgroundEvent",
-            "app-ResourceReservationCalendar__restrictedDate",
-          ],
-          "end": 2019-08-15T21:00:00.000Z,
-          "id": "2019-08-16",
-          "rendering": "background",
-          "start": 2019-08-15T21:00:00.000Z,
-        },
-        Object {
-          "allDay": true,
-          "classNames": Array [
-            "app-ResourceReservationCalendar__backgroundEvent",
-            "app-ResourceReservationCalendar__restrictedDate",
-          ],
-          "end": 2019-08-16T21:00:00.000Z,
-          "id": "2019-08-17",
-          "rendering": "background",
-          "start": 2019-08-16T21:00:00.000Z,
-        },
-        Object {
-          "allDay": true,
-          "classNames": Array [
-            "app-ResourceReservationCalendar__backgroundEvent",
-            "app-ResourceReservationCalendar__restrictedDate",
-          ],
-          "end": 2019-08-17T21:00:00.000Z,
-          "id": "2019-08-18",
-          "rendering": "background",
-          "start": 2019-08-17T21:00:00.000Z,
-        },
-      ]
-    }
-    firstDay={1}
-    header={
+  <InjectT(TimePickerCalendar)
+    date="2019-08-15"
+    onDateChange={[MockFunction]}
+    onTimeChange={[Function]}
+    resource={
       Object {
-        "center": "title",
-        "left": "prev,next today",
-        "right": "timeGridDay,timeGridWeek",
+        "available_hours": Array [],
+        "equipment": Array [],
+        "id": 1,
+        "is_favorite": false,
+        "name": Object {
+          "en": "Resource (en) - 1",
+          "fi": "Resource (fi) - 1",
+          "sv": "Resource (sv) - 1",
+        },
+        "need_manual_confirmation": false,
+        "opening_hours": Array [],
+        "products": Array [],
+        "public": true,
+        "required_reservation_extra_fields": Array [],
+        "reservable": true,
+        "reservable_after": null,
+        "slot_size": "00:30:00",
+        "supported_reservation_extra_fields": Array [],
+        "unit": 1,
+        "user_permissions": Object {
+          "canMakeReservations": true,
+          "isAdmin": false,
+        },
       }
     }
-    height="auto"
-    locale="en"
-    locales={
-      Array [
-        Object {
-          "code": "en-gb",
-          "week": Object {
-            "dow": 1,
-            "doy": 4,
-          },
-        },
-        Object {
-          "allDayText": "Heldag",
-          "buttonText": Object {
-            "day": "Dag",
-            "list": "Program",
-            "month": "Månad",
-            "next": "Nästa",
-            "prev": "Förra",
-            "today": "Idag",
-            "week": "Vecka",
-          },
-          "code": "sv",
-          "eventLimitText": "till",
-          "noEventsMessage": "Inga händelser att visa",
-          "week": Object {
-            "dow": 1,
-            "doy": 4,
-          },
-          "weekLabel": "v.",
-        },
-        Object {
-          "allDayText": "Koko päivä",
-          "buttonText": Object {
-            "day": "Päivä",
-            "list": "Tapahtumat",
-            "month": "Kuukausi",
-            "next": "Seuraava",
-            "prev": "Edellinen",
-            "today": "Tänään",
-            "week": "Viikko",
-          },
-          "code": "fi",
-          "eventLimitText": "lisää",
-          "noEventsMessage": "Ei näytettäviä tapahtumia",
-          "week": Object {
-            "dow": 1,
-            "doy": 4,
-          },
-          "weekLabel": "Vk",
-        },
-      ]
-    }
-    maxTime="17:00:00"
-    minTime="07:00:00"
-    nowIndicator={true}
-    plugins={
-      Array [
-        Object {
-          "calendarInteractions": Array [],
-          "cmdFormatter": undefined,
-          "componentInteractions": Array [],
-          "datePointTransforms": Array [],
-          "dateSelectionTransformers": Array [],
-          "dateSpanTransforms": Array [],
-          "defaultView": "timeGridWeek",
-          "deps": Array [],
-          "elementDraggingImpl": undefined,
-          "eventDefMutationAppliers": Array [],
-          "eventDefParsers": Array [],
-          "eventDragMutationMassagers": Array [],
-          "eventDropTransformers": Array [],
-          "eventResizeJoinTransforms": Array [],
-          "eventSourceDefs": Array [],
-          "externalDefTransforms": Array [],
-          "id": "6",
-          "isDraggableTransformers": Array [],
-          "isPropsValid": null,
-          "namedTimeZonedImpl": undefined,
-          "optionChangeHandlers": Object {},
-          "recurringTypes": Array [],
-          "reducers": Array [],
-          "themeClasses": Object {},
-          "viewContainerModifiers": Array [],
-          "viewPropsTransformers": Array [],
-          "views": Object {
-            "timeGrid": Object {
-              "allDaySlot": true,
-              "class": [Function],
-              "slotDuration": "00:30:00",
-              "slotEventOverlap": true,
-            },
-            "timeGridDay": Object {
-              "duration": Object {
-                "days": 1,
-              },
-              "type": "timeGrid",
-            },
-            "timeGridWeek": Object {
-              "duration": Object {
-                "weeks": 1,
-              },
-              "type": "timeGrid",
-            },
-          },
-        },
-        Object {
-          "calendarInteractions": Array [],
-          "cmdFormatter": undefined,
-          "componentInteractions": Array [],
-          "datePointTransforms": Array [],
-          "dateSelectionTransformers": Array [],
-          "dateSpanTransforms": Array [],
-          "defaultView": "",
-          "deps": Array [],
-          "elementDraggingImpl": undefined,
-          "eventDefMutationAppliers": Array [],
-          "eventDefParsers": Array [],
-          "eventDragMutationMassagers": Array [],
-          "eventDropTransformers": Array [],
-          "eventResizeJoinTransforms": Array [],
-          "eventSourceDefs": Array [],
-          "externalDefTransforms": Array [],
-          "id": "7",
-          "isDraggableTransformers": Array [],
-          "isPropsValid": null,
-          "namedTimeZonedImpl": [Function],
-          "optionChangeHandlers": Object {},
-          "recurringTypes": Array [],
-          "reducers": Array [],
-          "themeClasses": Object {},
-          "viewContainerModifiers": Array [],
-          "viewPropsTransformers": Array [],
-          "views": Object {},
-        },
-        Object {
-          "calendarInteractions": Array [
-            [Function],
-          ],
-          "cmdFormatter": undefined,
-          "componentInteractions": Array [
-            [Function],
-            [Function],
-            [Function],
-            [Function],
-          ],
-          "datePointTransforms": Array [],
-          "dateSelectionTransformers": Array [],
-          "dateSpanTransforms": Array [],
-          "defaultView": "",
-          "deps": Array [],
-          "elementDraggingImpl": [Function],
-          "eventDefMutationAppliers": Array [],
-          "eventDefParsers": Array [],
-          "eventDragMutationMassagers": Array [],
-          "eventDropTransformers": Array [],
-          "eventResizeJoinTransforms": Array [],
-          "eventSourceDefs": Array [],
-          "externalDefTransforms": Array [],
-          "id": "8",
-          "isDraggableTransformers": Array [],
-          "isPropsValid": null,
-          "namedTimeZonedImpl": undefined,
-          "optionChangeHandlers": Object {},
-          "recurringTypes": Array [],
-          "reducers": Array [],
-          "themeClasses": Object {},
-          "viewContainerModifiers": Array [],
-          "viewPropsTransformers": Array [],
-          "views": Object {},
-        },
-      ]
-    }
-    select={[Function]}
-    selectAllow={[Function]}
-    selectConstraint="businessHours"
-    selectOverlap={false}
-    selectable={true}
-    slotDuration="00:30:00"
-    slotLabelFormat={
-      Object {
-        "hour": "numeric",
-        "meridiem": "short",
-        "minute": "2-digit",
-        "omitZeroMinute": false,
-      }
-    }
-    slotLabelInterval="01:00:00"
-    unselectAuto={false}
   />
 </div>
 `;

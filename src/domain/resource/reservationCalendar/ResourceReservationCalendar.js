@@ -8,7 +8,7 @@ import injectT from '../../../../app/i18n/injectT';
 import TimePickerCalendar from '../../../common/calendar/TimePickerCalendar';
 import * as resourceUtils from '../utils';
 
-class ResourceReservationCalendar extends React.Component {
+class UntranslatedResourceReservationCalendar extends React.Component {
   calendarRef = React.createRef();
 
   static propTypes = {
@@ -129,4 +129,6 @@ class ResourceReservationCalendar extends React.Component {
   }
 }
 
-export default injectT(ResourceReservationCalendar);
+export { UntranslatedResourceReservationCalendar };
+
+export default injectT(UntranslatedResourceReservationCalendar);

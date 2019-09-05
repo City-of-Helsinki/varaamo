@@ -18,7 +18,7 @@ exports[`SearchListResults renders correctly 1`] = `
         mdOffset={8}
         sm={6}
       >
-        <InjectIntl(InjectT(SearchSort))
+        <InjectT(UntranslatedSearchSort)
           onChange={[Function]}
           value=""
         />
