@@ -48,7 +48,6 @@ class TimePickerCalendar extends Component {
 
   componentDidUpdate(prevProps) {
     const { date } = this.props;
-
     if (date !== prevProps.date) {
       const calendarApi = this.calendarRef.current.getApi();
       calendarApi.gotoDate(date);
@@ -332,7 +331,6 @@ class TimePickerCalendar extends Component {
           {...this.getCalendarOptions()}
           maxTime={resourceUtils.getFullCalendarMaxTime(resource, date, viewType)}
           minTime={resourceUtils.getFullCalendarMinTime(resource, date, viewType)}
-          {...this.props}
         />
       </div>
     );
