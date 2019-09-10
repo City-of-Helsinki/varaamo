@@ -10,6 +10,7 @@ import * as urlUtils from '../../common/url/utils';
 import * as dataUtils from '../../common/data/utils';
 import * as reservationUtils from '../reservation/utils';
 import constants from '../../../app/constants/AppConstants';
+import client from '../../common/api/client';
 
 
 /**
@@ -607,4 +608,17 @@ export const getReservationPrice = (start, end, resource) => {
   }
 
   return 0;
+};
+
+
+// HTTP Utils
+
+/**
+ * Get resource detail by resource id
+ *
+ * @param {Object} filters Filters
+ * @returns {Promise}
+ */
+export const getResourceById = (resourceId, params) => {
+  return client.get(`resource/${resourceId}`, params);
 };

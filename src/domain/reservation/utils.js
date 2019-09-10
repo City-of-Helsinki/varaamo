@@ -7,6 +7,7 @@ import last from 'lodash/last';
 import merge from 'lodash/merge';
 
 import client from '../../common/api/client';
+import { getLinkString } from '../../common/url/utils';
 
 export const combineReservations = (reservations) => {
   if (!reservations || !reservations.length) {
@@ -47,6 +48,19 @@ export const getCurrentReservation = (reservations) => {
 };
 
 /**
+ * Returns a reservation page url with the given query params.
+ * @param reservation {object} Reservation object.
+ * @param query {object}
+ * @returns {string}
+ */
+export const getReservationPageLink = (reservation, query) => {
+  return getLinkString(`/resources/${reservation.id}`, query);
+};
+
+
+// HTTP Utils
+
+/**
  * Edit existing reservation API helper
  * @param {Object} reservation Original reservation data
  * @param {Object} fields Edit fields object
@@ -67,18 +81,11 @@ export const cancelReservation = (reservation) => {
 };
 
 /**
- * Generate reservation edit URL from reservation data.
+ * Get reservation detail by reservation id
  *
- * @param {*} reservation
- * @returns {string} Reservation URL
+ * @param {Object} reservationId Filters
+ * @returns {Promise}
  */
-export const getEditReservationUrl = (reservation) => {
-  const {
-    begin, end, id, resource
-  } = reservation;
-  const date = moment(begin).format('YYYY-MM-DD');
-  const beginStr = moment(begin).format('HH:mm');
-  const endStr = moment(end).format('HH:mm');
-
-  return `/reservation?begin=${beginStr}&date=${date}&end=${endStr}&id=${id || ''}&resource=${resource.id}`;
+export const getReservationById = (reservationId) => {
+  return client.get(`reservation/${reservationId}`);
 };
