@@ -38,24 +38,32 @@
   font-size: 14px;
 }
 
-.app-ReservationFailedPage__contentbox {
-  background: $light-gray;
-  margin: 0 auto;
-  padding: 10px 30px 30px;
-  text-align: center;
-  @media (min-width: $screen-sm-min) {
-    max-width: 700px;
+.app-ReservationFailedPage {
+  &__contentbox {
+    background: $light-gray;
+    margin: 0 auto;
+    padding: 10px 30px 30px;
+    text-align: center;
+    
+    @media (min-width: $screen-sm-min) {
+      max-width: 700px;
+    }
   }
-}
 
-.app-ReservationFailedPage__link {
-  display: inline-block;
-  margin-top: 20px;
-}
+  &__link {
+    display: inline-block;
+    margin-top: 20px;
+    margin-right: 10px;
 
-.app-ReservationFailedPage__progress-steps {
-  margin: 0 auto 30px;
-  @media (min-width: $screen-sm-min) {
-    max-width: 700px;
+    &--last {
+      margin-right: 0;
+    }
+  }
+
+  &__progress-steps {
+    margin: 0 auto 30px;
+    @media (min-width: $screen-sm-min) {
+      max-width: 700px;
+    }
   }
 }
