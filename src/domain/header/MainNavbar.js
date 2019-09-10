@@ -7,9 +7,9 @@ import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 
-import FAIcon from '../fontawesome-icon/FontAwesomeIcon';
-import injectT from '../../i18n/injectT';
-import { getSearchPageUrl } from '../../utils/searchUtils';
+import FAIcon from '../../../app/shared/fontawesome-icon/FontAwesomeIcon';
+import injectT from '../../../app/i18n/injectT';
+import { getSearchPageUrl } from '../../../app/utils/searchUtils';
 
 class MainNavbar extends React.Component {
   constructor(props) {
