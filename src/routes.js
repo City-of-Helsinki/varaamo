@@ -8,12 +8,12 @@ import AboutPage from '../app/pages/about/AboutPage';
 import AdminResourcesPage from '../app/pages/admin-resources/AdminResourcesPage';
 import HomePage from '../app/pages/home/HomePage';
 import NotFoundPage from '../app/pages/not-found/NotFoundPage';
-import ReservationPage from '../app/pages/reservation/ReservationPage';
 import ReservationPaymentReturnPage from '../app/pages/reservation/ReservationPaymentReturnPage';
 import ResourcePage from '../app/pages/resource/ResourcePage';
 import UserReservationsPage from '../app/pages/user-reservations/UserReservationsPage';
 import SearchPage from './domain/search/page/SearchPage';
 import ManageReservationsPage from './domain/reservation/manage/page/ManageReservationsPage';
+import ReservationEditPage from './domain/reservation/edit/page/ReservationEditPage';
 
 export default () => (
   <AppContainer>
@@ -38,7 +38,11 @@ export default () => (
         componentName="MyReservations"
         path="/my-reservations"
       />
-      <PrivateRoute component={ReservationPage} componentName="Reservation" path="/reservation" />
+      <PrivateRoute
+        component={ReservationEditPage}
+        componentName="ReservationEditPage"
+        path="/reservation/:reservationId"
+      />
       <PrivateRoute
         component={ReservationPaymentReturnPage}
         componentName="ReservationPaymentReturn"

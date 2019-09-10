@@ -15,7 +15,7 @@ import ManageReservationsList from '../list/ManageReservationsList';
 import Pagination from '../../../../common/pagination/Pagination';
 import * as searchUtils from '../../../search/utils';
 import { selectReservationToEdit } from '../../../../../app/actions/uiActions';
-import { getEditReservationUrl, putReservation, cancelReservation } from '../../utils';
+import { getReservationPageLink, putReservation, cancelReservation } from '../../utils';
 import { RESERVATION_STATE } from '../../../../constants/ReservationState';
 import ReservationInformationModal from '../../modal/ReservationInformationModal';
 
@@ -111,9 +111,8 @@ class ManageReservationsPage extends React.Component {
 
     const normalizedReservation = Object.assign({}, reservation, { resource: reservation.resource.id });
     actions.editReservation({ reservation: normalizedReservation });
-    // TODO: Remove this after refactor timeSlot
 
-    const nextUrl = getEditReservationUrl(reservation);
+    const nextUrl = getReservationPageLink(reservation);
     history.push(nextUrl);
   };
 

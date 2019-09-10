@@ -9,11 +9,11 @@ import * as reservationUtils from '../../utils';
 import * as timeUtils from '../../../../common/time/utils';
 import * as resourceUtils from '../../../resource/utils';
 import PageWrapper from '../../../../../app/pages/PageWrapper';
-import ReservationPhases from '../../../../../app/pages/reservation/reservation-phases/ReservationPhases';
-import ReservationTime from '../../../../../app/pages/reservation/reservation-time/ReservationTime';
 import injectT from '../../../../../app/i18n/injectT';
+import ReservationPhases from '../phases/ReservationPhases';
+import ReservationTime from '../time/ReservationTime';
 
-class ReservationPage extends Component {
+class ReservationEditPage extends Component {
   state = {
     phase: RESERVATION_PHASE.TIME,
   };
@@ -95,6 +95,10 @@ class ReservationPage extends Component {
     try {
       response = await reservationUtils.getReservationById(params.reservationId);
 
+      this.setState({
+        reservation: response.data
+      });
+
       this.fetchResource(response.data.resource);
     } catch (error) {
       // TODO: handle error
@@ -103,21 +107,20 @@ class ReservationPage extends Component {
 
   render() {
     const {
-      actions,
       t,
     } = this.props;
     const {
       phase, resource, reservation
     } = this.state;
 
-    const pageTitle = t('ReservationPage.editReservationTitle');
+    const pageTitle = t('ReservationEditPage.editReservationTitle');
 
     return (
-      <div className="app-ReservationPage">
+      <div className="app-ReservationEditPage">
         <PageWrapper title={pageTitle} transparent>
           <Loader loaded={!isEmpty(reservation) && !isEmpty(resource)}>
-            <div className="app-ReservationPage__content">
-              <h1 className="app-ReservationPage__title app-ReservationPage__title--big">
+            <div className="app-ReservationEditPage__content">
+              <h1 className="app-ReservationEditPage__title app-ReservationEditPage__title--big">
                 {pageTitle}
               </h1>
               <ReservationPhases
@@ -125,7 +128,7 @@ class ReservationPage extends Component {
                 resource={resource}
               />
 
-              <div className="app-ReservationPage__phases">
+              <div className="app-ReservationEditPage__phases">
                 {phase === RESERVATION_PHASE.TIME && (
                 <ReservationTime
                   handleDateChange={this.handleDateChange}
@@ -136,7 +139,7 @@ class ReservationPage extends Component {
                 />
                 )}
 
-                {phase === RESERVATION_PHASE.INFORMATION && (
+                {/* {phase === RESERVATION_PHASE.INFORMATION && (
                 <ReservationInformation
                   onBack={this.handleBack}
                   onCancel={this.handleCancel}
@@ -150,7 +153,7 @@ class ReservationPage extends Component {
 
                 {phase === RESERVATION_PHASE.PAYMENT && (
                 <div className="text-center">
-                  <p>{t('ReservationPage.paymentText')}</p>
+                  <p>{t('ReservationEditPage.paymentText')}</p>
                 </div>
                 )}
 
@@ -158,7 +161,7 @@ class ReservationPage extends Component {
                 <ReservationConfirmation
                   resource={resource}
                 />
-                )}
+                )} */}
               </div>
             </div>
           </Loader>
@@ -168,12 +171,11 @@ class ReservationPage extends Component {
   }
 }
 
-ReservationPage.propTypes = {
-  actions: PropTypes.object.isRequired,
+ReservationEditPage.propTypes = {
   date: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired
 };
 
-export default injectT(ReservationPage);
+export default injectT(ReservationEditPage);
