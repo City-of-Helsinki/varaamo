@@ -4,10 +4,10 @@
 @import './favorite-button/favorite-button';
 @import './footer/footer';
 @import './form-fields/form-fields';
-@import './header/header';
+@import '../../src/domain/header/header';
 @import './info-popover/info-popover';
 @import './label/label';
-@import './main-navbar/main-navbar';
+@import '../../src/domain/header/main-navbar';
 @import './modals/modals';
 @import './notifications/notifications';
 @import './progress-steps/progress-steps';
@@ -22,5 +22,5 @@
 @import './resource-type-filter/resource-type-filter';
 
 @import './test-site-message/test-site-message';
-@import './top-navbar/top-navbar';
+@import '../../src/domain/header/top-navbar';
 @import './wrapped-text/wrapped-text';

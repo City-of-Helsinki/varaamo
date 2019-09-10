@@ -3,10 +3,10 @@ import Nav from 'react-bootstrap/lib/Nav';
 import { LinkContainer } from 'react-router-bootstrap';
 import NavItem from 'react-bootstrap/lib/NavItem';
 
-import { getSearchPageUrl } from '../../../utils/searchUtils';
-import { shallowWithIntl } from '../../../utils/testUtils';
+import { getSearchPageUrl } from '../../../../app/utils/searchUtils';
+import { shallowWithIntl } from '../../../../app/utils/testUtils';
 import MainNavbar from '../MainNavbar';
-import FAIcon from '../../fontawesome-icon/FontAwesomeIcon';
+import FAIcon from '../../../../app/shared/fontawesome-icon/FontAwesomeIcon';
 
 describe('shared/main-navbar/MainNavbar', () => {
   const pathname = 'somepath';
