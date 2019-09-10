@@ -1,0 +1,45 @@
+.app-phases {
+  align-items: baseline;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.app-phase {
+  align-items: center;
+  display: inline-flex;
+  flex-direction: column;
+  padding: 0 10px;
+
+  border-color: $medium-gray;
+  color: $medium-gray;
+
+  &--active {
+    border-color: $hel-copper;
+    color: $black;
+  }
+  &__indicator {
+    align-items: center;
+    display: inline-flex;
+    height: 50px;
+    justify-content: center;
+    width: 50px;
+    border-color: $hel-tram;
+    border-radius: 50%;
+    border-width: 2px;
+    border-style: solid;
+    font-size: 20px;
+  }
+
+  &__label {
+    color: $black;
+    display: inline-block;
+    text-align: center;
+  }
+
+  &__separator {
+    border-top: 2px solid $medium-gray;
+    display: inline-block;
+    width: 100%;
+  }
+}

@@ -1,6 +1,6 @@
 
 export const RESERVATION_PHASE = {
-  EDIT: 'edit',
+  TIME: 'time',
   CONFIRMATION: 'confirmation',
   INFORMATION: 'information',
   PAYMENT: 'payment'

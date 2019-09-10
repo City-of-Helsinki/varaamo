@@ -225,9 +225,6 @@
   "ReservationPage.detailsTitle": "Summary",
   "ReservationPage.editReservationTitle": "Edit reservation",
   "ReservationPage.newReservationTitle": "New reservation",
-  "ReservationPage.confirmationReservationTitle": "Reservation confirmation",
-  "ReservationPage.informationReservationTitle": "Reservation information",
-
   "ReservationPage.paymentText": "Moving to payment...",
   "ReservationPhase.timeTitle": "Reservation time",
   "ReservationPhase.informationTitle": "Reservation details",
