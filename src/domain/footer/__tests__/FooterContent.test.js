@@ -2,9 +2,9 @@ import React from 'react';
 // import { Link } from 'react-router';
 import simple from 'simple-mock';
 
-import FeedbackLink from '../../feedback-link/FeedbackLink';
-import * as customizationUtils from '../../../utils/customizationUtils';
-import { shallowWithIntl } from '../../../utils/testUtils';
+import FeedbackLink from '../../../../app/shared/feedback-link/FeedbackLink';
+import * as customizationUtils from '../../../../app/utils/customizationUtils';
+import { shallowWithIntl } from '../../../../app/utils/testUtils';
 import FooterContent from '../FooterContent';
 
 describe('shared/footer/FooterContent', () => {
