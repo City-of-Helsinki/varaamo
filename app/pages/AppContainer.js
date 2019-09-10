@@ -12,7 +12,7 @@ import { fetchUser } from '../actions/userActions';
 import { enableGeoposition } from '../actions/uiActions';
 import Favicon from '../shared/favicon/Favicon';
 import Footer from '../shared/footer/Footer';
-import Header from '../shared/header/Header';
+import Header from '../../src/domain/header/Header';
 import TestSiteMessage from '../shared/test-site-message/TestSiteMessage';
 import Notifications from '../shared/notifications/NotificationsContainer';
 import { getCustomizationClassName } from '../utils/customizationUtils';

@@ -2,7 +2,7 @@ import React from 'react';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 
-import { shallowWithIntl } from '../../../utils/testUtils';
+import { shallowWithIntl } from '../../../../app/utils/testUtils';
 import TopNavbar from '../TopNavbar';
 
 describe('shared/top-navbar/TopNavbar', () => {
