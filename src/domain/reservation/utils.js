@@ -109,7 +109,8 @@ export const canUserModifyReservation = (reservation) => {
  * @returns {Boolean} False by default
  */
 export const canUserCancelReservation = (reservation) => {
-  if (get(reservation, 'user_permissions.can_delete', false)) {
+  if (get(reservation, 'user_permissions.can_delete', false)
+      && reservation.state !== RESERVATION_STATE.CANCELLED) {
     return true;
   }
 
