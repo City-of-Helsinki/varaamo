@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`domain/footer/Footer When there is no customization in use renders correctly 1`] = `
+<footer>
+  <Grid
+    bsClass="container"
+    componentClass="div"
+    fluid={false}
+  >
+    <Row
+      bsClass="row"
+      componentClass="div"
+    >
+      <Col
+        bsClass="col"
+        componentClass="div"
+        lg={3}
+        md={3}
+        xs={12}
+      >
+        <Link
+          className="brand-link"
+          replace={false}
+          to="/"
+        >
+          <InjectT(Logo) />
+          Varaamo
+        </Link>
+      </Col>
+      <Col
+        bsClass="col"
+        componentClass="div"
+        lg={6}
+        md={6}
+        xs={12}
+      >
+        <p>
+          <FormattedHTMLMessage
+            id="Footer.helsinkiText"
+            values={Object {}}
+          />
+        </p>
+        <p>
+          <FeedbackLink>
+            Footer.feedbackLink
+          </FeedbackLink>
+        </p>
+      </Col>
+      <Col
+        bsClass="col"
+        componentClass="div"
+        lg={3}
+        md={3}
+        xs={12}
+      >
+        <div
+          className="app-varaamo-version-wrapper"
+        >
+          <span
+            className="app-varaamo-version"
+          >
+            v0.4.2
+          </span>
+        </div>
+      </Col>
+    </Row>
+  </Grid>
+</footer>
+`;
+
+exports[`domain/footer/Footer renders correctly 1`] = `
+<footer>
+  <Grid
+    bsClass="container"
+    componentClass="div"
+    fluid={false}
+  >
+    <Row
+      bsClass="row"
+      componentClass="div"
+    >
+      <Col
+        bsClass="col"
+        componentClass="div"
+        lg={3}
+        md={3}
+        xs={12}
+      >
+        <Link
+          className="brand-link"
+          replace={false}
+          to="/"
+        >
+          <InjectT(Logo) />
+          Varaamo
+        </Link>
+      </Col>
+      <Col
+        bsClass="col"
+        componentClass="div"
+        lg={6}
+        md={6}
+        xs={12}
+      >
+        <p>
+          <FormattedHTMLMessage
+            id="Footer.helsinkiText"
+            values={Object {}}
+          />
+        </p>
+        <p>
+          <FeedbackLink>
+            Footer.feedbackLink
+          </FeedbackLink>
+        </p>
+      </Col>
+      <Col
+        bsClass="col"
+        componentClass="div"
+        lg={3}
+        md={3}
+        xs={12}
+      >
+        <div
+          className="app-varaamo-version-wrapper"
+        >
+          <span
+            className="app-varaamo-version"
+          >
+            v0.4.2
+          </span>
+        </div>
+      </Col>
+    </Row>
+  </Grid>
+</footer>
+`;
