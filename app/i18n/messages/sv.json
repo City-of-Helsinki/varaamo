@@ -49,7 +49,7 @@
   "common.priceWithVAT": "{price}€ (inkl. moms {vat}%)",
   "payment.title": "Betalning avbruten",
   "payment.text": "Betalning avbruten.",
-  "payment.return": "Lämna tillbaka",
+  "payment.return": "Tillbaka",
   "payment.link": "Visa mina bokningar",
   "common.cancel": "Avbryt",
   "common.cancelled": "Avbokad",
