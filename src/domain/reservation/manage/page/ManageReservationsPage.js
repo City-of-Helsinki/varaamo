@@ -63,6 +63,8 @@ class ManageReservationsPage extends React.Component {
 
     this.setState({
       isLoading: true,
+      isModalOpen: false,
+      // Close modal when refetch
     });
 
     const filters = searchUtils.getFiltersFromUrl(location, false);

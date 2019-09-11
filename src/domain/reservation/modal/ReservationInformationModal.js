@@ -9,10 +9,14 @@ import ManageReservationsStatus from '../manage/status/ManageReservationsStatus'
 import injectT from '../../../../app/i18n/injectT';
 import { getDateAndTime } from '../manage/list/ManageReservationsList';
 import { RESERVATION_STATE } from '../../../constants/ReservationState';
+import * as reservationUtils from '../utils';
 
 const ReservationInformationModal = ({
   t, reservation, onHide, isOpen, onEditClick, onEditReservation, onSaveComment
 }) => {
+  const canUserModify = reservationUtils.canUserModifyReservation(reservation);
+  const canUserCancel = reservationUtils.canUserCancelReservation(reservation);
+
   const [comment, setComment] = useState(get(reservation, 'comments') || '');
   const saveComment = () => onSaveComment(reservation, comment);
 
@@ -63,7 +67,7 @@ const ReservationInformationModal = ({
           <FormControl
             className="app-ReservationInformationModal__comments-field"
             componentClass="textarea"
-            onChange={e => setComment(e.target.value)}
+            onChange={e => canUserModify && setComment(e.target.value)}
             placeholder={t('common.commentsPlaceholder')}
             rows={5}
             value={comment}
@@ -71,6 +75,7 @@ const ReservationInformationModal = ({
           <div className="app-ReservationInformationModal__save-comment">
             <Button
               bsStyle="primary"
+              disabled={!canUserModify}
               onClick={saveComment}
             >
               {t('ReservationInfoModal.saveComment')}
@@ -86,19 +91,17 @@ const ReservationInformationModal = ({
           {t('common.back')}
         </Button>
 
-        {reservation.state !== RESERVATION_STATE.CANCELLED && (
-          <Button
-            bsStyle="default"
-            onClick={() => onEditReservation(reservation, RESERVATION_STATE.CANCELLED)}
-          >
-            {t('ReservationInfoModal.cancelButton')}
-          </Button>
-        )
-        }
+        <Button
+          bsStyle="default"
+          disabled={!canUserCancel}
+          onClick={() => onEditReservation(reservation, RESERVATION_STATE.CANCELLED)}
+        >
+          {t('ReservationInfoModal.cancelButton')}
+        </Button>
 
         <Button
           bsStyle="danger"
-          disabled={reservation.state !== RESERVATION_STATE.REQUESTED}
+          disabled={!canUserModify}
           onClick={() => onEditReservation(reservation, RESERVATION_STATE.DENIED)}
         >
           {t('ReservationInfoModal.denyButton')}
@@ -106,7 +109,7 @@ const ReservationInformationModal = ({
 
         <Button
           bsStyle="success"
-          disabled={reservation.state !== RESERVATION_STATE.REQUESTED}
+          disabled={!canUserModify}
           onClick={() => onEditReservation(reservation, RESERVATION_STATE.CONFIRMED)}
         >
           {t('ReservationInfoModal.confirmButton')}
