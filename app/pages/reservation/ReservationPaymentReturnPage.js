@@ -31,13 +31,7 @@ class ReservationPaymentReturnPage extends Component {
   };
 
   componentDidMount() {
-    const status = this.getQueryParam('payment_status');
-    const isSuccess = status === 'success';
-    if (isSuccess) {
-      this.loadData();
-    } else {
-      this.setState({ isLoading: false });
-    }
+    this.loadData();
   }
 
   loadData = () => {
@@ -89,7 +83,7 @@ class ReservationPaymentReturnPage extends Component {
               {status === 'success' && (
                 <PaymentSuccess reservation={reservation} resource={resource} />
               )}
-              {status === 'failure' && <PaymentFailed />}
+              {status === 'failure' && <PaymentFailed resourceId={resource ? resource.id : ''} />}
             </Loader>
           </div>
         </div>

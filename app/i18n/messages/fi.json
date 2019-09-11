@@ -48,7 +48,8 @@
   "common.totalPriceLabel": "Hinta yhteensä",
   "common.priceWithVAT": "{price}€ (sis. alv. {vat}%)",
   "payment.title": "Maksu keskeytetty",
-  "payment.text": "Kokeile uudestaan 15 minuutin kuluttua",
+  "payment.text": "Maksu keskeytetty.",
+  "payment.return": "Palaa takaisin",
   "payment.link": "Palaa omiin varauksiin",
   "common.cancel": "Peru",
   "common.cancelled": "Peruttu",
@@ -338,15 +339,12 @@
   "ManageReservationsList.dateAndTimeHeader": "Milloin",
   "ManageReservationsList.statusHeader": "Tila",
   "ManageReservationsList.pinHeader": "PIN",
-
   "ManageReservationsList.actionsHeader": "Valitse toiminta",
-  "ManageReservationsList.actionLabel.information":"Tiedot",
-  "ManageReservationsList.actionLabel.approve":"Hyväksy",
-  "ManageReservationsList.actionLabel.deny":"Hylkää",
-  "ManageReservationsList.actionLabel.edit":"Muokkaa",
-  "ManageReservationsList.actionLabel.cancel":"Peru",
-
-
+  "ManageReservationsList.actionLabel.information": "Tiedot",
+  "ManageReservationsList.actionLabel.approve": "Hyväksy",
+  "ManageReservationsList.actionLabel.deny": "Hylkää",
+  "ManageReservationsList.actionLabel.edit": "Muokkaa",
+  "ManageReservationsList.actionLabel.cancel": "Peru",
   "ManageReservationsFilters.searchLabel": "Hae",
   "ManageReservationsFilters.searchPlaceholder": "Hae",
   "ManageReservationsFilters.statusLabel": "Varauksen tila",
@@ -365,4 +363,3 @@
   "ResourceReservationCalendar.selectedDateValue": "{date} klo {start} - klo {end} ({duration})",
   "ResourceReservationCalendar.selectedDateValueWithPrice": "{date} klo {start} - klo {end} ({duration}) yht {price}€"
 }
-
