@@ -88,7 +88,9 @@ export const getEditReservationUrl = (reservation) => {
 /**
  * Check if current user (logged in user) have
  * permission to modify selected reservation.
- * Reservation which in canceled or denied state can not be changed to something else.
+ *
+ * Reservation which in canceled state can not be changed to something else.
+ *
  * @param {Object} reservation
  * @returns {Boolean} False by default
  */
@@ -103,7 +105,9 @@ export const canUserModifyReservation = (reservation) => {
 
 /**
  * Check if current user (logged in user) have
- * permission to delete (cancel) selected reservation.
+ * permission to cancel (delete) selected reservation.
+ *
+ * Reservation which in canceled state can not be changed to something else.
  *
  * @param {Object} reservation
  * @returns {Boolean} False by default
