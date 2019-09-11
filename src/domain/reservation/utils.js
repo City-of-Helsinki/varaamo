@@ -5,6 +5,7 @@ import clone from 'lodash/clone';
 import tail from 'lodash/tail';
 import last from 'lodash/last';
 import merge from 'lodash/merge';
+import get from 'lodash/get';
 
 import client from '../../common/api/client';
 
@@ -82,3 +83,21 @@ export const getEditReservationUrl = (reservation) => {
 
   return `/reservation?begin=${beginStr}&date=${date}&end=${endStr}&id=${id || ''}&resource=${resource.id}`;
 };
+
+/**
+ * Check if current user (logged in user) have
+ * permission to modify selected reservation.
+ *
+ * @param {Object} reservation
+ * @returns {Boolean} False by default
+ */
+export const canUserModifyReservation = reservation => get(reservation, 'user_permissions.can_modify', false);
+
+/**
+ * Check if current user (logged in user) have
+ * permission to delete (cancel) selected reservation.
+ *
+ * @param {Object} reservation
+ * @returns {Boolean} False by default
+ */
+export const canUserDeleteReservation = reservation => get(reservation, 'user_permissions.can_delete', false);
