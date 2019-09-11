@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { FormattedHTMLMessage } from 'react-intl';
 import Col from 'react-bootstrap/lib/Col';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
@@ -14,17 +13,18 @@ import { getCurrentCustomization } from '../../../app/utils/customizationUtils';
 
 function Footer({ t }) {
   const feedbackLink = <FeedbackLink>{t('Footer.feedbackLink')}</FeedbackLink>;
-  const customization = {};
+
+  let cityNameId;
   switch (getCurrentCustomization()) {
     case 'ESPOO':
-      customization.FormattedHTMLMessageId = 'Footer.espooText';
+      cityNameId = 'Footer.espooText';
       break;
     case 'VANTAA':
-      customization.FormattedHTMLMessageId = 'Footer.vantaaText';
+      cityNameId = 'Footer.vantaaText';
       break;
     case 'HELSINKI':
     default:
-      customization.FormattedHTMLMessageId = 'Footer.helsinkiText';
+      cityNameId = 'Footer.helsinkiText';
   }
 
   return (
@@ -39,7 +39,7 @@ function Footer({ t }) {
           </Col>
           <Col lg={6} md={6} xs={12}>
             <p>
-              <FormattedHTMLMessage id={customization.FormattedHTMLMessageId} />
+              {t(cityNameId)}
             </p>
             <p>
               {feedbackLink}

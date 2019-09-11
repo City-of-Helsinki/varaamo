@@ -41,10 +41,6 @@ describe('domain/footer/Footer', () => {
       );
       expect(toJSON(wrapper)).toMatchSnapshot();
     });
-
-    it('renders texts for default (Helsinki)', () => {
-      expect(content.find({ id: 'Footer.helsinkiText' }).length).toBe(1);
-    });
   });
 
   describe('When Espoo customization is used', () => {
@@ -65,7 +61,7 @@ describe('domain/footer/Footer', () => {
     });
 
     it('renders texts for Espoo', () => {
-      expect(content.find({ id: 'Footer.espooText' }).length).toBe(1);
+      expect(content.find('p').first().children().text()).toBe('Footer.espooText');
     });
   });
 
@@ -84,6 +80,10 @@ describe('domain/footer/Footer', () => {
     test('contains feedback link', () => {
       const feedbackLink = content.find(FeedbackLink);
       expect(feedbackLink.length).toBe(1);
+    });
+
+    it('renders texts for Vantaa', () => {
+      expect(content.find('p').first().children().text()).toBe('Footer.vantaaText');
     });
   });
 });

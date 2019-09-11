@@ -35,10 +35,7 @@ exports[`domain/footer/Footer When there is no customization in use renders corr
         xs={12}
       >
         <p>
-          <FormattedHTMLMessage
-            id="Footer.helsinkiText"
-            values={Object {}}
-          />
+          Footer.helsinkiText
         </p>
         <p>
           <FeedbackLink>
@@ -103,10 +100,7 @@ exports[`domain/footer/Footer renders correctly 1`] = `
         xs={12}
       >
         <p>
-          <FormattedHTMLMessage
-            id="Footer.helsinkiText"
-            values={Object {}}
-          />
+          Footer.helsinkiText
         </p>
         <p>
           <FeedbackLink>
