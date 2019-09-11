@@ -8,6 +8,7 @@ import merge from 'lodash/merge';
 import get from 'lodash/get';
 
 import client from '../../common/api/client';
+import { RESERVATION_STATE } from '../../constants/ReservationState';
 
 export const combineReservations = (reservations) => {
   if (!reservations || !reservations.length) {
@@ -87,11 +88,18 @@ export const getEditReservationUrl = (reservation) => {
 /**
  * Check if current user (logged in user) have
  * permission to modify selected reservation.
- *
+ * Reservation which in canceled or denied state can not be changed to something else.
  * @param {Object} reservation
  * @returns {Boolean} False by default
  */
-export const canUserModifyReservation = reservation => get(reservation, 'user_permissions.can_modify', false);
+export const canUserModifyReservation = (reservation) => {
+  if (get(reservation, 'user_permissions.can_modify', false)
+      && reservation.state !== RESERVATION_STATE.CANCELLED) {
+    return true;
+  }
+
+  return false;
+};
 
 /**
  * Check if current user (logged in user) have
@@ -100,4 +108,10 @@ export const canUserModifyReservation = reservation => get(reservation, 'user_pe
  * @param {Object} reservation
  * @returns {Boolean} False by default
  */
-export const canUserDeleteReservation = reservation => get(reservation, 'user_permissions.can_delete', false);
+export const canUserCancelReservation = (reservation) => {
+  if (get(reservation, 'user_permissions.can_delete', false)) {
+    return true;
+  }
+
+  return false;
+};

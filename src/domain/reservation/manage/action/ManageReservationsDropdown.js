@@ -8,7 +8,9 @@ import { RESERVATION_STATE } from '../../../../constants/ReservationState';
 const UntranslatedManageReservationsDropdown = ({
   t, onInfoClick, reservation,
   onEditClick,
-  onEditReservation
+  onEditReservation,
+  userCanModify,
+  userCanDelete
 }) => {
   return (
     <div className="app-ManageReservationDropdown">
@@ -20,8 +22,7 @@ const UntranslatedManageReservationsDropdown = ({
           {t('ManageReservationsList.actionLabel.information')}
         </MenuItem>
 
-        {/* Only show/allow to change reservation state when its status is requested */}
-        {reservation.state === RESERVATION_STATE.REQUESTED && (
+        {userCanModify && (
         <>
           <MenuItem
             onClick={() => onEditReservation(reservation, RESERVATION_STATE.CONFIRMED)}
@@ -33,25 +34,22 @@ const UntranslatedManageReservationsDropdown = ({
           >
             {t('ManageReservationsList.actionLabel.deny')}
           </MenuItem>
+
+          <MenuItem
+            onClick={onEditClick}
+          >
+            {t('ManageReservationsList.actionLabel.edit')}
+          </MenuItem>
         </>
         )}
 
-        {reservation.state !== RESERVATION_STATE.CANCELLED
-          && (
+        {userCanDelete && (
           <MenuItem
             onClick={() => onEditReservation(reservation, RESERVATION_STATE.CANCELLED)}
           >
             {t('ManageReservationsList.actionLabel.cancel')}
           </MenuItem>
-          )
-        }
-
-        <MenuItem
-          onClick={onEditClick}
-        >
-          {t('ManageReservationsList.actionLabel.edit')}
-
-        </MenuItem>
+        )}
       </DropdownButton>
     </div>
   );
@@ -62,7 +60,9 @@ UntranslatedManageReservationsDropdown.propTypes = {
   onInfoClick: PropTypes.func,
   reservation: PropTypes.object,
   onEditClick: PropTypes.func,
-  onEditReservation: PropTypes.func
+  onEditReservation: PropTypes.func,
+  userCanDelete: PropTypes.bool,
+  userCanModify: PropTypes.bool,
 };
 export { UntranslatedManageReservationsDropdown };
 
