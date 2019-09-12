@@ -55,6 +55,7 @@ const ReservationInformationModal = ({
         <div className="app-ReservationInformationModal__edit-reservation-btn">
           <Button
             bsStyle="primary"
+            disabled={!canUserModify}
             onClick={() => onEditClick(reservation)}
           >
             {t('ReservationEditForm.startEdit')}
