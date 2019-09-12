@@ -76,6 +76,7 @@ exports[`ManageReservationsList renders correctly 1`] = `
                 "state": "requested",
                 "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
                 "user": Object {},
+                "user_permissions": null,
               }
             }
           />
@@ -102,6 +103,7 @@ exports[`ManageReservationsList renders correctly 1`] = `
                 "state": "requested",
                 "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
                 "user": Object {},
+                "user_permissions": null,
               }
             }
           />
@@ -125,8 +127,11 @@ exports[`ManageReservationsList renders correctly 1`] = `
                 "state": "requested",
                 "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
                 "user": Object {},
+                "user_permissions": null,
               }
             }
+            userCanCancel={false}
+            userCanModify={false}
           />
         </td>
       </tr>

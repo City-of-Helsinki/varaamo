@@ -63,14 +63,15 @@ class ManageReservationsPage extends React.Component {
 
     this.setState({
       isLoading: true,
+      isModalOpen: false,
+      // Close modal when refetch
     });
 
     const filters = searchUtils.getFiltersFromUrl(location, false);
     const params = {
       ...filters,
       page_size: PAGE_SIZE,
-      include: 'resource_detail',
-      can_approve: true
+      include: 'resource_detail'
     };
 
     client.get('reservation', params)

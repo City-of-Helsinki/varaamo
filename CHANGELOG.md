@@ -3,6 +3,10 @@
   - Support for payments in Varaamo.
   - Add reusable FullCalendar component.
 
+  **MINOR CHANGES**
+  - Replace failure message and add a return button for reservation payment.
+  - Fix manage reservation page only display `can_approve` reservation, now display *all* reservations. Add strict rules for staff to be able to edit/cancel specific reservation.
+
   **HOTFIX**
   - Fix resource information headlines and icon.
 
@@ -10,6 +14,8 @@
   - [#995](https://github.com/City-of-Helsinki/varaamo/pull/995) Fix resource information headlines and icon.
   - [#968](https://github.com/City-of-Helsinki/varaamo/pull/968) Support payments for Varaamo.
   - [#999](https://github.com/City-of-Helsinki/varaamo/pull/968) Add reusable FullCalendar component. Used in resource page.
+  - [#1002](https://github.com/City-of-Helsinki/varaamo/pull/1002) Replace failure message and add a return button.
+  - [#1004](https://github.com/City-of-Helsinki/varaamo/pull/1004) Staff cannot see normal reservations
 
 # 0.4.2
   **HOTFIX**

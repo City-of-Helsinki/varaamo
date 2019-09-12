@@ -13,4 +13,5 @@ export default new Factory()
   .attr('staff_event', false)
   .attr('state', 'requested')
   .attr('user', {})
+  .attr('user_permissions', null)
   .attr('comments', '');
