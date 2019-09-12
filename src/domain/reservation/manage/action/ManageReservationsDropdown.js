@@ -10,7 +10,7 @@ const UntranslatedManageReservationsDropdown = ({
   onEditClick,
   onEditReservation,
   userCanModify,
-  userCanDelete
+  userCanCancel
 }) => {
   return (
     <div className="app-ManageReservationDropdown">
@@ -43,7 +43,7 @@ const UntranslatedManageReservationsDropdown = ({
         </>
         )}
 
-        {userCanDelete && (
+        {userCanCancel && (
           <MenuItem
             onClick={() => onEditReservation(reservation, RESERVATION_STATE.CANCELLED)}
           >
@@ -61,7 +61,7 @@ UntranslatedManageReservationsDropdown.propTypes = {
   reservation: PropTypes.object,
   onEditClick: PropTypes.func,
   onEditReservation: PropTypes.func,
-  userCanDelete: PropTypes.bool,
+  userCanCancel: PropTypes.bool,
   userCanModify: PropTypes.bool,
 };
 export { UntranslatedManageReservationsDropdown };
