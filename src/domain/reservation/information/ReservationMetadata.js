@@ -18,7 +18,7 @@ const ReservationMetadata = ({ t, reservation, customField }) => {
           key={`reservation-metadata-field-${fieldName}`}
         >
           <Col xs={6}>
-            <b>{t(`${camelCase(fieldName)}Label`)}</b>
+            <b>{t(`common.${camelCase(fieldName)}Label`)}</b>
           </Col>
           <Col className="app-ReservationConfirmation__field-value" xs={6}>
             {value}

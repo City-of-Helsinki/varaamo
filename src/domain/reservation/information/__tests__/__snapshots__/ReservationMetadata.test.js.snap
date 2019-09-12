@@ -3,5 +3,30 @@
 exports[`ReservationMetadata render normally 1`] = `
 <div
   className="app-ReservationMetadata"
-/>
+>
+  <Row
+    bsClass="row"
+    className="app-ReservationMetadata__field"
+    componentClass="div"
+    key="reservation-metadata-field-reserver_name"
+  >
+    <Col
+      bsClass="col"
+      componentClass="div"
+      xs={6}
+    >
+      <b>
+        common.reserverNameLabel
+      </b>
+    </Col>
+    <Col
+      bsClass="col"
+      className="app-ReservationConfirmation__field-value"
+      componentClass="div"
+      xs={6}
+    >
+      foo
+    </Col>
+  </Row>
+</div>
 `;

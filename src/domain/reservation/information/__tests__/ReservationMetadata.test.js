@@ -6,6 +6,7 @@ import { shallowWithIntl } from '../../../../../app/utils/testUtils';
 import reservationCreator from '../../../../common/data/fixtures/reservation';
 
 describe('ReservationMetadata', () => {
+  reservationCreator.attr('reserver_name', 'foo');
   const reservation = reservationCreator.build();
 
   test('render normally', () => {
