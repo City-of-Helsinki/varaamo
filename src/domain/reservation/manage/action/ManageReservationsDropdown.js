@@ -14,16 +14,15 @@ const UntranslatedManageReservationsDropdown = ({
 }) => {
   return (
     <div className="app-ManageReservationDropdown">
-      <DropdownButton
-        id="app-ManageReservationDropdown"
-        title={t('ManageReservationsList.actionsHeader')}
-      >
-        <MenuItem onClick={onInfoClick}>
-          {t('ManageReservationsList.actionLabel.information')}
-        </MenuItem>
+      {userCanModify && (
+        <DropdownButton
+          id="app-ManageReservationDropdown"
+          title={t('ManageReservationsList.actionsHeader')}
+        >
+          <MenuItem onClick={onInfoClick}>
+            {t('ManageReservationsList.actionLabel.information')}
+          </MenuItem>
 
-        {userCanModify && (
-        <>
           <MenuItem
             onClick={() => onEditReservation(reservation, RESERVATION_STATE.CONFIRMED)}
           >
@@ -40,17 +39,16 @@ const UntranslatedManageReservationsDropdown = ({
           >
             {t('ManageReservationsList.actionLabel.edit')}
           </MenuItem>
-        </>
-        )}
 
-        {userCanCancel && (
-          <MenuItem
-            onClick={() => onEditReservation(reservation, RESERVATION_STATE.CANCELLED)}
-          >
-            {t('ManageReservationsList.actionLabel.cancel')}
-          </MenuItem>
-        )}
-      </DropdownButton>
+          {userCanCancel && (
+            <MenuItem
+              onClick={() => onEditReservation(reservation, RESERVATION_STATE.CANCELLED)}
+            >
+              {t('ManageReservationsList.actionLabel.cancel')}
+            </MenuItem>
+          )}
+        </DropdownButton>
+      )}
     </div>
   );
 };

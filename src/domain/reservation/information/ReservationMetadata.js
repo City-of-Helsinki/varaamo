@@ -8,9 +8,7 @@ import { RESERVATION_METADATA } from '../constants';
 import injectT from '../../../../app/i18n/injectT';
 
 const ReservationMetadata = ({ t, reservation, customField }) => {
-  const renderMetaDataField = (fieldName) => {
-    const value = get(reservation, fieldName, null);
-
+  const renderDefaultMetaDataField = (fieldName, value) => {
     return (
       value ? (
         <Row
@@ -30,7 +28,12 @@ const ReservationMetadata = ({ t, reservation, customField }) => {
 
   return (
     <div className="app-ReservationMetadata">
-      {RESERVATION_METADATA.map(metadataFieldName => (customField || renderMetaDataField(metadataFieldName)))}
+      {RESERVATION_METADATA.map((metadataFieldName) => {
+        const value = get(reservation, metadataFieldName, null);
+        const fieldGenerator = customField || renderDefaultMetaDataField;
+
+        return fieldGenerator(metadataFieldName, value);
+      })}
     </div>
   );
 };

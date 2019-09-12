@@ -16,6 +16,32 @@ exports[`ManageReservationsDropdown renders correctly 1`] = `
     >
       foo
     </MenuItem>
+    <MenuItem
+      bsClass="dropdown"
+      disabled={false}
+      divider={false}
+      header={false}
+      onClick={[Function]}
+    >
+      foo
+    </MenuItem>
+    <MenuItem
+      bsClass="dropdown"
+      disabled={false}
+      divider={false}
+      header={false}
+      onClick={[Function]}
+    >
+      foo
+    </MenuItem>
+    <MenuItem
+      bsClass="dropdown"
+      disabled={false}
+      divider={false}
+      header={false}
+    >
+      foo
+    </MenuItem>
   </DropdownButton>
 </div>
 `;

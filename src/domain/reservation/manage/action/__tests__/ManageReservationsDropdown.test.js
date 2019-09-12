@@ -8,7 +8,7 @@ import reservation from '../../../../../common/data/fixtures/reservation';
 describe('ManageReservationsDropdown', () => {
   test('renders correctly', () => {
     const wrapper = shallowWithIntl(
-      <ManageReservationsDropdown reservation={reservation.build()} t={() => 'foo'} />
+      <ManageReservationsDropdown reservation={reservation.build()} t={() => 'foo'} userCanModify />
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
