@@ -66,12 +66,12 @@
 
     - Add new selection field to sort filtered resources. Currently support to search by name, type, premise, people.
     - Temporarily only show warning messages in 3 languages for IE11 user.
-    - Ability to favourite resources straight on search view instead going to resource detail page.
+    - Ability to favorite resources straight on search view instead going to resource detail page.
 
   **CHANGELOG**
 
   - [#895](https://github.com/City-of-Helsinki/varaamo/pull/895) Add sort to sort filtered resources.
-  - [#904](https://github.com/City-of-Helsinki/varaamo/pull/904) Favourite Resource on search view.
+  - [#904](https://github.com/City-of-Helsinki/varaamo/pull/904) Favorite Resource on search view.
   - [#909](https://github.com/City-of-Helsinki/varaamo/pull/909) Show warning message for IE11 users.
 
 # 0.1.1

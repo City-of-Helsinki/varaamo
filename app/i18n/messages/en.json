@@ -347,7 +347,7 @@
   "ManageReservationsFilters.resetButton": "Reset filters",
 
   "ManageReservationsFilters.showOnly.title": "Show only",
-  "ManageReservationsFilters.showOnly.favouriteButtonLabel": "Favourite",
+  "ManageReservationsFilters.showOnly.favoriteButtonLabel": "Favorite",
 
   "Reservation.stateLabelCancelled": "Cancelled",
   "Reservation.stateLabelConfirmed": "Approved",

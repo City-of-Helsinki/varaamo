@@ -21,6 +21,7 @@ import iconTimes from '../../../search/filters/images/times.svg';
 import * as dataUtils from '../../../../common/data/utils';
 import constants from '../../../../../app/constants/AppConstants';
 import { RESERVATION_STATE } from '../../../../constants/ReservationState';
+import { RESERVATION_SHOWONLY_FILTERS } from '../../constants';
 
 class ManageReservationsFilters extends React.Component {
   static propTypes = {
@@ -74,7 +75,11 @@ class ManageReservationsFilters extends React.Component {
     const { t } = this.props;
 
     return [
-      { value: RESERVATION_STATE.CONFIRMED, label: t('Reservation.stateLabelConfirmed') },
+      {
+        value:
+        RESERVATION_SHOWONLY_FILTERS.FAVORITE,
+        label: t('ManageReservationsFilters.showOnly.favoriteButtonLabel')
+      },
     ];
   };
 
