@@ -32,7 +32,7 @@ const ReservationMetadata = ({ t, reservation, customField }) => {
         const value = get(reservation, metadataFieldName, null);
         const fieldGenerator = customField || renderDefaultMetaDataField;
 
-        return fieldGenerator(metadataFieldName, value);
+        return value && fieldGenerator(metadataFieldName, value);
       })}
     </div>
   );
