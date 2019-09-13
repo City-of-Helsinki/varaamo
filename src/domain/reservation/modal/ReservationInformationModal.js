@@ -20,21 +20,19 @@ const ReservationInformationModal = ({
 
   const renderField = (label, value) => {
     return (
-      value ? (
-        <div className="app-ReservationInformationModal__field">
-          <Row>
-            <Col className="app-ReservationInformationModal__field__label" xs={5}>
-              <span>{t(`common.${(camelCase(label))}Label`)}</span>
-            </Col>
+      <div className="app-ReservationInformationModal__field">
+        <Row>
+          <Col className="app-ReservationInformationModal__field__label" xs={5}>
+            <span>{t(`common.${(camelCase(label))}Label`)}</span>
+          </Col>
 
-            <Col className="app-ReservationInformationModal__field__value" xs={7}>
-              <span>
-                {value}
-              </span>
-            </Col>
-          </Row>
-        </div>
-      ) : ''
+          <Col className="app-ReservationInformationModal__field__value" xs={7}>
+            <span>
+              {value}
+            </span>
+          </Col>
+        </Row>
+      </div>
     );
   };
   return (

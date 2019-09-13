@@ -10,19 +10,17 @@ import injectT from '../../../../app/i18n/injectT';
 const ReservationMetadata = ({ t, reservation, customField }) => {
   const renderDefaultMetaDataField = (fieldName, value) => {
     return (
-      value ? (
-        <Row
-          className="app-ReservationMetadata__field"
-          key={`reservation-metadata-field-${fieldName}`}
-        >
-          <Col xs={6}>
-            <b>{t(`common.${camelCase(fieldName)}Label`)}</b>
-          </Col>
-          <Col className="app-ReservationConfirmation__field-value" xs={6}>
-            {value}
-          </Col>
-        </Row>
-      ) : ''
+      <Row
+        className="app-ReservationMetadata__field"
+        key={`reservation-metadata-field-${fieldName}`}
+      >
+        <Col xs={6}>
+          <b>{t(`common.${camelCase(fieldName)}Label`)}</b>
+        </Col>
+        <Col className="app-ReservationConfirmation__field-value" xs={6}>
+          {value}
+        </Col>
+      </Row>
     );
   };
 
