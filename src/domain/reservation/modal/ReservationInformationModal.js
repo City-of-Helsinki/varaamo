@@ -4,19 +4,17 @@ import {
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
+import camelCase from 'lodash/camelCase';
 
 import ManageReservationsStatus from '../manage/status/ManageReservationsStatus';
 import injectT from '../../../../app/i18n/injectT';
 import { getDateAndTime } from '../manage/list/ManageReservationsList';
 import { RESERVATION_STATE } from '../../../constants/ReservationState';
-import * as reservationUtils from '../utils';
+import ReservationMetadata from '../information/ReservationMetadata';
 
 const ReservationInformationModal = ({
   t, reservation, onHide, isOpen, onEditClick, onEditReservation, onSaveComment
 }) => {
-  const canUserModify = reservationUtils.canUserModifyReservation(reservation);
-  const canUserCancel = reservationUtils.canUserCancelReservation(reservation);
-
   const [comment, setComment] = useState(get(reservation, 'comments') || '');
   const saveComment = () => onSaveComment(reservation, comment);
 
@@ -24,8 +22,15 @@ const ReservationInformationModal = ({
     return (
       <div className="app-ReservationInformationModal__field">
         <Row>
-          <Col className="app-ReservationInformationModal__field__label" xs={5}><span>{t(label)}</span></Col>
-          <Col className="app-ReservationInformationModal__field__value" xs={7}><span>{value}</span></Col>
+          <Col className="app-ReservationInformationModal__field__label" xs={5}>
+            <span>{t(`common.${(camelCase(label))}Label`)}</span>
+          </Col>
+
+          <Col className="app-ReservationInformationModal__field__value" xs={7}>
+            <span>
+              {value}
+            </span>
+          </Col>
         </Row>
       </div>
     );
@@ -42,15 +47,21 @@ const ReservationInformationModal = ({
       <Modal.Body>
         <ManageReservationsStatus reservation={reservation} />
         <div className="app-ReservationInformationModal__information">
+
+          {/* Render default basic information fields */}
           <div className="app-ReservationInformationModal__information__account">
-            {renderField('common.userNameLabel', get(reservation, 'user.display_name', ''))}
-            {renderField('common.userEmailLabel', get(reservation, 'user.email', ''))}
+            {renderField('user_name', get(reservation, 'user.display_name', ''))}
+            {renderField('user_email', get(reservation, 'user.email', ''))}
           </div>
-          {renderField('common.reserverNameLabel', get(reservation, 'reserver_name', ''))}
-          {renderField('common.eventDescriptionLabel', get(reservation, 'event_description', ''))}
-          {renderField('common.reservationTimeLabel', getDateAndTime(reservation))}
-          {renderField('common.resourceLabel', get(reservation, 'resource.name.fi', ''))}
-          {renderField('common.reserverPhoneNumberLabel', get(reservation, 'reserver_phone_number', ''))}
+          {renderField('reservation_time', getDateAndTime(reservation))}
+          {renderField('resource', get(reservation, 'resource.name.fi', ''))}
+
+          {/* Render reservation metadata (extra) fields */}
+          <ReservationMetadata
+            customField={renderField}
+            reservation={reservation}
+          />
+
         </div>
         <div className="app-ReservationInformationModal__edit-reservation-btn">
           <Button
@@ -67,7 +78,7 @@ const ReservationInformationModal = ({
           <FormControl
             className="app-ReservationInformationModal__comments-field"
             componentClass="textarea"
-            onChange={e => canUserModify && setComment(e.target.value)}
+            onChange={e => setComment(e.target.value)}
             placeholder={t('common.commentsPlaceholder')}
             rows={5}
             value={comment}
@@ -75,7 +86,6 @@ const ReservationInformationModal = ({
           <div className="app-ReservationInformationModal__save-comment">
             <Button
               bsStyle="primary"
-              disabled={!canUserModify}
               onClick={saveComment}
             >
               {t('ReservationInfoModal.saveComment')}
@@ -93,7 +103,6 @@ const ReservationInformationModal = ({
 
         <Button
           bsStyle="default"
-          disabled={!canUserCancel}
           onClick={() => onEditReservation(reservation, RESERVATION_STATE.CANCELLED)}
         >
           {t('ReservationInfoModal.cancelButton')}
@@ -101,7 +110,6 @@ const ReservationInformationModal = ({
 
         <Button
           bsStyle="danger"
-          disabled={!canUserModify}
           onClick={() => onEditReservation(reservation, RESERVATION_STATE.DENIED)}
         >
           {t('ReservationInfoModal.denyButton')}
@@ -109,7 +117,6 @@ const ReservationInformationModal = ({
 
         <Button
           bsStyle="success"
-          disabled={!canUserModify}
           onClick={() => onEditReservation(reservation, RESERVATION_STATE.CONFIRMED)}
         >
           {t('ReservationInfoModal.confirmButton')}
