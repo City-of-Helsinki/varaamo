@@ -17,3 +17,7 @@ export const RESERVATION_METADATA = [
   'reserver_name',
   'reserver_phone_number'
 ];
+
+export const RESERVATION_SHOWONLY_FILTERS = {
+  FAVOURITE: 'favourite'
+};

@@ -345,6 +345,10 @@
   "ManageReservationsFilters.startDatePlaceholder": "Start date",
   "ManageReservationsFilters.endDatePlaceholder": "End date",
   "ManageReservationsFilters.resetButton": "Reset filters",
+
+  "ManageReservationsFilters.showOnly.title": "Show only",
+  "ManageReservationsFilters.showOnly.favouriteButtonLabel": "Favourite",
+
   "Reservation.stateLabelCancelled": "Cancelled",
   "Reservation.stateLabelConfirmed": "Approved",
   "Reservation.stateLabelDenied": "Denied",

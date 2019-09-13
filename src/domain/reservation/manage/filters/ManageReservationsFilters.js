@@ -70,6 +70,14 @@ class ManageReservationsFilters extends React.Component {
     ];
   };
 
+  getShowOnlyOptions = () => {
+    const { t } = this.props;
+
+    return [
+      { value: RESERVATION_STATE.CONFIRMED, label: t('Reservation.stateLabelConfirmed') },
+    ];
+  };
+
   render() {
     const {
       t,
@@ -124,7 +132,7 @@ class ManageReservationsFilters extends React.Component {
                 </Col>
               </Row>
               <Row>
-                <Col md={12}>
+                <Col md={3}>
                   <SelectField
                     id="unitField"
                     label={t('ManageReservationsFilters.unitLabel')}
@@ -134,6 +142,15 @@ class ManageReservationsFilters extends React.Component {
                       label: dataUtils.getLocalizedFieldValue(unit.name, locale)
                     }))}
                     value={get(filters, 'unit', null)}
+                  />
+                </Col>
+                <Col md={3}>
+                  <ButtonGroupField
+                    id="showOnlyField"
+                    label={t('ManageReservationsFilters.showOnly.title')}
+                    onChange={value => console.log(value)}
+                    options={this.getShowOnlyOptions()}
+                    type="checkbox"
                   />
                 </Col>
               </Row>
