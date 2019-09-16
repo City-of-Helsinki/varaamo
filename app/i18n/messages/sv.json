@@ -346,6 +346,11 @@
   "ManageReservationsFilters.startDatePlaceholder": "Startdatum",
   "ManageReservationsFilters.endDatePlaceholder": "Slutdatum",
   "ManageReservationsFilters.resetButton": "Återställ sökfilter",
+
+  "ManageReservationsFilters.showOnly.title": "Visa bara",
+  "ManageReservationsFilters.showOnly.favoriteButtonLabel": "Mina favoriter",
+  "ManageReservationsFilters.showOnly.canModifyButtonLabel": "Mina utrymmen",
+
   "Reservation.stateLabelCancelled": "Avbokad",
   "Reservation.stateLabelConfirmed": "Godkänd",
   "Reservation.stateLabelDenied": "Nekad",

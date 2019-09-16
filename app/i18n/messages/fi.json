@@ -354,6 +354,11 @@
   "ManageReservationsFilters.startDatePlaceholder": "Aloituspäivämäärä",
   "ManageReservationsFilters.endDatePlaceholder": "Lopetuspäivämäärä",
   "ManageReservationsFilters.resetButton": "Tyhjennä suodattimet",
+
+  "ManageReservationsFilters.showOnly.title": "Näytä vain",
+  "ManageReservationsFilters.showOnly.favoriteButtonLabel": "Suosikit",
+  "ManageReservationsFilters.showOnly.canModifyButtonLabel": "Toimipisteeni",
+
   "Reservation.stateLabelCancelled": "Peruttu",
   "Reservation.stateLabelConfirmed": "Hyväksytty",
   "Reservation.stateLabelDenied": "Evätty",
