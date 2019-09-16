@@ -5,7 +5,7 @@ export const RESERVATION_METADATA = [
   'billing_address_zip',
   'company',
   'event_description',
-  'event_description_guidance',
+  // 'event_description_guidance', <== This is legacy field, wont be used in further development of respa/varaamo
   'event_subject',
   'number_of_participants',
   'reservation_extra_questions',

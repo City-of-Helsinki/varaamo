@@ -65,7 +65,6 @@
   "common.continue": "Continue",
   "common.denied": "Denied",
   "common.eventDescriptionLabel": "Description of the event",
-  "common.eventDescriptionGuidanceLabel": "Guidance description of the event",
   "common.eventSubjectLabel": "Name of the event",
   "common.numberOfParticipantsLabel": "Number of participants",
   "common.ok": "OK",
