@@ -109,8 +109,9 @@ class UnconnectedReservationPage extends Component {
 
   handleReservation = (values = {}) => {
     const {
-      actions, reservationToEdit, resource, selected
+      actions, reservationToEdit, resource, selected, recurringReservations = []
     } = this.props;
+
     if (!isEmpty(selected)) {
       const { begin } = first(selected);
       const { end } = last(selected);
@@ -124,12 +125,14 @@ class UnconnectedReservationPage extends Component {
           end,
         });
       } else {
-        actions.postReservation({
+        const allReservations = [...recurringReservations, { begin, end }];
+
+        allReservations.forEach((reservation = {}) => actions.postReservation({
           ...values,
-          begin,
-          end,
+          begin: reservation.begin,
+          end: reservation.end,
           resource: resource.id,
-        });
+        }));
       }
     }
   };
