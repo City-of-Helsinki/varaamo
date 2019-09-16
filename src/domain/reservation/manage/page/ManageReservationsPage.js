@@ -16,9 +16,7 @@ import ManageReservationsList from '../list/ManageReservationsList';
 import Pagination from '../../../../common/pagination/Pagination';
 import * as searchUtils from '../../../search/utils';
 import { selectReservationToEdit } from '../../../../../app/actions/uiActions';
-import {
-  getEditReservationUrl, putReservation, cancelReservation, canUserModifyReservation
-} from '../../utils';
+import * as reservationUtils from '../../utils';
 import { RESERVATION_STATE } from '../../../../constants/ReservationState';
 import ReservationInformationModal from '../../modal/ReservationInformationModal';
 import { RESERVATION_SHOWONLY_FILTERS } from '../../constants';
@@ -128,7 +126,7 @@ class ManageReservationsPage extends React.Component {
     actions.editReservation({ reservation: normalizedReservation });
     // TODO: Remove this after refactor timeSlot
 
-    const nextUrl = getEditReservationUrl(reservation);
+    const nextUrl = reservationUtils.getEditReservationUrl(reservation);
     history.push(nextUrl);
   };
 
@@ -141,16 +139,16 @@ class ManageReservationsPage extends React.Component {
 
   onEditReservation = (reservation, status) => {
     if (status === RESERVATION_STATE.CANCELLED) {
-      cancelReservation(reservation).then(() => this.loadReservations());
+      reservationUtils.cancelReservation(reservation).then(() => this.loadReservations());
     } else {
-      putReservation(reservation, { state: status }).then(() => {
+      reservationUtils.putReservation(reservation, { state: status }).then(() => {
         this.loadReservations();
       });
     }
   }
 
   onSaveComment = (reservation, comments) => {
-    return putReservation(reservation, { resource: reservation.resource.id, comments }).then(() => {
+    return reservationUtils.putReservation(reservation, { resource: reservation.resource.id, comments }).then(() => {
       this.loadReservations();
     });
   };
@@ -169,7 +167,7 @@ class ManageReservationsPage extends React.Component {
     const favoriteResourceFilter = reservation => userFavoriteResources
       && userFavoriteResources.includes(reservation.resource.id);
 
-    const canModifyFilter = reservation => canUserModifyReservation(reservation);
+    const canModifyFilter = reservation => reservationUtils.canUserModifyReservation(reservation);
 
     // Both options selected
     if (filters.length > 1) {
