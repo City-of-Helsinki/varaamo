@@ -1,19 +1,22 @@
 import React from 'react';
 import toJSON from 'enzyme-to-json';
+import { shallow } from 'enzyme';
 
-import DateFilter from '../DateFilter';
-import { shallowWithIntl, globalDateMock } from '../../../../../../app/utils/testUtils';
+import { UntranslatedDateFilter as DateFilter } from '../DateFilter';
+import { globalDateMock } from '../../../../../../app/utils/testUtils';
 
 describe('DateFilter', () => {
   test('render normally', () => {
     const props = {
       label: 'foo',
+      locale: 'en',
       onChange: jest.fn(),
-      date: new Date(2017, 11, 10)
+      date: new Date(2017, 11, 10),
+      t: jest.fn()
     };
 
     globalDateMock();
-    const wrapper = shallowWithIntl(
+    const wrapper = shallow(
       <DateFilter {...props} />
     );
 
