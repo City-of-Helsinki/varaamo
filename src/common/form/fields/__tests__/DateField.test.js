@@ -3,7 +3,7 @@ import toJSON from 'enzyme-to-json';
 import { shallow } from 'enzyme';
 
 import { globalDateMock } from '../../../../../app/utils/testUtils';
-import { DateField } from '../DateField';
+import { UntranslatedDateField as DateField } from '../DateField';
 
 describe('DateField', () => {
   test('renders correctly', () => {

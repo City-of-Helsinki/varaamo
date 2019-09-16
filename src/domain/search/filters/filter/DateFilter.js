@@ -22,7 +22,7 @@ DatePickerWrapper.propTypes = {
   children: PropTypes.any,
 };
 
-class DateFilter extends React.Component {
+class UntranslatedDateFilter extends React.Component {
   static propTypes = {
     date: PropTypes.instanceOf(Date),
     locale: PropTypes.string.isRequired,
@@ -95,5 +95,5 @@ class DateFilter extends React.Component {
     );
   }
 }
-export { DateFilter };
-export default injectT(DateFilter);
+export { UntranslatedDateFilter };
+export default injectT(UntranslatedDateFilter);

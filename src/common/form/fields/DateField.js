@@ -22,7 +22,7 @@ DatePickerWrapper.propTypes = {
   children: PropTypes.any,
 };
 
-class DateField extends React.Component {
+class UntranslatedDateField extends React.Component {
   static propTypes = {
     value: PropTypes.instanceOf(Date),
     locale: PropTypes.string.isRequired,
@@ -101,5 +101,5 @@ class DateField extends React.Component {
   }
 }
 
-export { DateField };
-export default injectT(DateField);
+export { UntranslatedDateField };
+export default injectT(UntranslatedDateField);

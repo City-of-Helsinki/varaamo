@@ -63,7 +63,7 @@ exports[`ManageReservationsFilters renders correctly 1`] = `
             <div
               className="app-ManageReservationsFilters__datePickers"
             >
-              <InjectT(DateField)
+              <InjectT(UntranslatedDateField)
                 id="startDateField"
                 label="ManageReservationsFilters.startDateLabel"
                 onChange={[Function]}
@@ -75,7 +75,7 @@ exports[`ManageReservationsFilters renders correctly 1`] = `
               >
                 -
               </div>
-              <InjectT(DateField)
+              <InjectT(UntranslatedDateField)
                 id="EndDateField"
                 label="ManageReservationsFilters.endDateLabel"
                 onChange={[Function]}

@@ -47,7 +47,7 @@ exports[`DateField renders correctly 1`] = `
   <Overlay
     animation={false}
     container={
-      DateField {
+      UntranslatedDateField {
         "context": Object {},
         "onChange": [Function],
         "props": Object {
@@ -80,7 +80,7 @@ exports[`DateField renders correctly 1`] = `
               "useRef": [Function],
               "useState": [Function],
             },
-            "_element": <DateField
+            "_element": <UntranslatedDateField
               id="foo"
               label="foo"
               locale="en"

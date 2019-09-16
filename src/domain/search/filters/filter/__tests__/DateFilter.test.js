@@ -2,7 +2,7 @@ import React from 'react';
 import toJSON from 'enzyme-to-json';
 import { shallow } from 'enzyme';
 
-import { DateFilter } from '../DateFilter';
+import { UntranslatedDateFilter as DateFilter } from '../DateFilter';
 import { globalDateMock } from '../../../../../../app/utils/testUtils';
 
 describe('DateFilter', () => {
