@@ -19,5 +19,6 @@ export const RESERVATION_METADATA = [
 ];
 
 export const RESERVATION_SHOWONLY_FILTERS = {
-  FAVORITE: 'favorite'
+  FAVORITE: 'favorite',
+  CAN_MODIFY: 'can_modify'
 };

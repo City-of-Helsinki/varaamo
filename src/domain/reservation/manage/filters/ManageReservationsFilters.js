@@ -28,14 +28,15 @@ class ManageReservationsFilters extends React.Component {
     t: PropTypes.func,
     filters: PropTypes.object,
     units: PropTypes.array,
-    onChange: PropTypes.func.isRequired,
+    onSearchChange: PropTypes.func.isRequired,
+    onListFilterChange: PropTypes.func.isRequired,
     intl: intlShape,
   };
 
   onFilterChange = (filterName, filterValue) => {
     const {
       filters,
-      onChange,
+      onSearchChange,
     } = this.props;
 
     const newFilters = {
@@ -46,12 +47,12 @@ class ManageReservationsFilters extends React.Component {
       newFilters[filterName] = filterValue;
     }
 
-    onChange(omit(newFilters, 'page'));
+    onSearchChange(omit(newFilters, 'page'));
   };
 
   onReset = () => {
-    const { onChange } = this.props;
-    onChange({});
+    const { onSearchChange } = this.props;
+    onSearchChange({});
   };
 
   hasFilters = () => {
@@ -80,6 +81,11 @@ class ManageReservationsFilters extends React.Component {
         RESERVATION_SHOWONLY_FILTERS.FAVORITE,
         label: t('ManageReservationsFilters.showOnly.favoriteButtonLabel')
       },
+      {
+        value:
+        RESERVATION_SHOWONLY_FILTERS.CAN_MODIFY,
+        label: t('ManageReservationsFilters.showOnly.canModifyButtonLabel')
+      },
     ];
   };
 
@@ -89,6 +95,7 @@ class ManageReservationsFilters extends React.Component {
       filters,
       units,
       intl,
+      onListFilterChange
     } = this.props;
 
     const state = get(filters, 'state', null);
@@ -153,7 +160,7 @@ class ManageReservationsFilters extends React.Component {
                   <ButtonGroupField
                     id="showOnlyField"
                     label={t('ManageReservationsFilters.showOnly.title')}
-                    onChange={value => console.log(value)}
+                    onChange={value => onListFilterChange(value)}
                     options={this.getShowOnlyOptions()}
                     type="checkbox"
                   />

@@ -348,6 +348,7 @@
 
   "ManageReservationsFilters.showOnly.title": "Show only",
   "ManageReservationsFilters.showOnly.favoriteButtonLabel": "Favorite",
+  "ManageReservationsFilters.showOnly.canModifyButtonLabel": "Can modify",
 
   "Reservation.stateLabelCancelled": "Cancelled",
   "Reservation.stateLabelConfirmed": "Approved",
