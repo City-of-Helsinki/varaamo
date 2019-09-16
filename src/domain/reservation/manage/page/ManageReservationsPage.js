@@ -156,11 +156,11 @@ class ManageReservationsPage extends React.Component {
   };
 
   /**
- * Filter list of reservations based on selected SHOW_ONLY filters.
- * By default return all fetched reservations
- *
- * @memberof ManageReservationsPage
- */
+   * Filter list of reservations based on selected SHOW_ONLY filters.
+   * By default return all fetched reservations
+   *
+   * @memberof ManageReservationsPage
+  */
 
   getFilteredReservations = (filters) => {
     const { reservations } = this.state;
@@ -247,16 +247,16 @@ class ManageReservationsPage extends React.Component {
           </PageWrapper>
         </div>
         {isModalOpen && (
-        <div className="app-ManageReservationsPage__modal">
-          <ReservationInformationModal
-            isOpen={isModalOpen}
-            onEditClick={this.onEditClick}
-            onEditReservation={this.onEditReservation}
-            onHide={this.onInfoClick}
-            onSaveComment={this.onSaveComment}
-            reservation={selectedReservation}
-          />
-        </div>
+          <div className="app-ManageReservationsPage__modal">
+            <ReservationInformationModal
+              isOpen={isModalOpen}
+              onEditClick={this.onEditClick}
+              onEditReservation={this.onEditReservation}
+              onHide={this.onInfoClick}
+              onSaveComment={this.onSaveComment}
+              reservation={selectedReservation}
+            />
+          </div>
         )}
       </div>
     );

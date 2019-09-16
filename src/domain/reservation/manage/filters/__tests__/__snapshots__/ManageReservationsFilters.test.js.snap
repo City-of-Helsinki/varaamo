@@ -92,7 +92,7 @@ exports[`ManageReservationsFilters renders correctly 1`] = `
           <Col
             bsClass="col"
             componentClass="div"
-            md={12}
+            md={3}
           >
             <InjectT(SelectField)
               id="unitField"
@@ -107,6 +107,30 @@ exports[`ManageReservationsFilters renders correctly 1`] = `
                 ]
               }
               value={null}
+            />
+          </Col>
+          <Col
+            bsClass="col"
+            componentClass="div"
+            md={3}
+          >
+            <ButtonGroupField
+              id="showOnlyField"
+              label="ManageReservationsFilters.showOnly.title"
+              onChange={[Function]}
+              options={
+                Array [
+                  Object {
+                    "label": "ManageReservationsFilters.showOnly.favoriteButtonLabel",
+                    "value": "favorite",
+                  },
+                  Object {
+                    "label": "ManageReservationsFilters.showOnly.canModifyButtonLabel",
+                    "value": "can_modify",
+                  },
+                ]
+              }
+              type="checkbox"
             />
           </Col>
         </Row>
