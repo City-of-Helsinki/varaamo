@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
 import PageWrapper from '../../../../../app/pages/PageWrapper';
 import injectT from '../../../../../app/i18n/injectT';
@@ -15,9 +16,11 @@ import ManageReservationsList from '../list/ManageReservationsList';
 import Pagination from '../../../../common/pagination/Pagination';
 import * as searchUtils from '../../../search/utils';
 import { selectReservationToEdit } from '../../../../../app/actions/uiActions';
-import { getEditReservationUrl, putReservation, cancelReservation } from '../../utils';
+import * as reservationUtils from '../../utils';
 import { RESERVATION_STATE } from '../../../../constants/ReservationState';
 import ReservationInformationModal from '../../modal/ReservationInformationModal';
+import { RESERVATION_SHOWONLY_FILTERS } from '../../constants';
+import { userFavouriteResourcesSelector } from '../../../../../app/state/selectors/dataSelectors';
 
 export const PAGE_SIZE = 50;
 
@@ -27,6 +30,7 @@ class ManageReservationsPage extends React.Component {
     history: PropTypes.object,
     location: PropTypes.object,
     actions: PropTypes.object,
+    userFavoriteResources: PropTypes.array
   };
 
   constructor(props) {
@@ -39,7 +43,8 @@ class ManageReservationsPage extends React.Component {
       units: [],
       totalCount: 0,
       isModalOpen: false,
-      selectedReservation: {}
+      selectedReservation: {},
+      filteredReservations: []
     };
   }
 
@@ -79,6 +84,7 @@ class ManageReservationsPage extends React.Component {
         this.setState({
           isLoading: false,
           reservations: get(data, 'results', []),
+          filteredReservations: get(data, 'results', []),
           totalCount: get(data, 'count', 0),
         });
       });
@@ -98,13 +104,19 @@ class ManageReservationsPage extends React.Component {
       });
   };
 
-  onFiltersChange = (filters) => {
+  onSearchFiltersChange = (filters) => {
     const { history } = this.props;
 
     history.push({
       search: searchUtils.getSearchFromFilters(filters),
     });
   };
+
+  onListFilterChange = (filters) => {
+    this.setState({
+      filteredReservations: this.getFilteredReservations(filters)
+    });
+  }
 
   onEditClick = (reservation) => {
     const { history, actions } = this.props;
@@ -114,7 +126,7 @@ class ManageReservationsPage extends React.Component {
     actions.editReservation({ reservation: normalizedReservation });
     // TODO: Remove this after refactor timeSlot
 
-    const nextUrl = getEditReservationUrl(reservation);
+    const nextUrl = reservationUtils.getEditReservationUrl(reservation);
     history.push(nextUrl);
   };
 
@@ -127,19 +139,51 @@ class ManageReservationsPage extends React.Component {
 
   onEditReservation = (reservation, status) => {
     if (status === RESERVATION_STATE.CANCELLED) {
-      cancelReservation(reservation).then(() => this.loadReservations());
+      reservationUtils.cancelReservation(reservation).then(() => this.loadReservations());
     } else {
-      putReservation(reservation, { state: status }).then(() => {
+      reservationUtils.putReservation(reservation, { state: status }).then(() => {
         this.loadReservations();
       });
     }
   }
 
   onSaveComment = (reservation, comments) => {
-    return putReservation(reservation, { resource: reservation.resource.id, comments }).then(() => {
+    return reservationUtils.putReservation(reservation, { resource: reservation.resource.id, comments }).then(() => {
       this.loadReservations();
     });
   };
+
+  /**
+   * Filter list of reservations based on selected SHOW_ONLY filters.
+   * By default return all fetched reservations
+   *
+   * @memberof ManageReservationsPage
+  */
+
+  getFilteredReservations = (filters) => {
+    const { reservations } = this.state;
+    const { userFavoriteResources } = this.props;
+
+    const favoriteResourceFilter = reservation => userFavoriteResources
+      && userFavoriteResources.includes(reservation.resource.id);
+
+    const canModifyFilter = reservation => reservationUtils.canUserModifyReservation(reservation);
+
+    // Both options selected
+    if (filters.length > 1) {
+      return reservations.filter(reservation => canModifyFilter(reservation) && favoriteResourceFilter(reservation));
+    }
+
+    if (filters.includes(RESERVATION_SHOWONLY_FILTERS.FAVORITE)) {
+      return reservations.filter(favoriteResourceFilter);
+    }
+
+    if (filters.includes(RESERVATION_SHOWONLY_FILTERS.CAN_MODIFY)) {
+      return reservations.filter(canModifyFilter);
+    }
+
+    return reservations;
+  }
 
   render() {
     const {
@@ -151,7 +195,7 @@ class ManageReservationsPage extends React.Component {
     const {
       isLoading,
       isLoadingUnits,
-      reservations,
+      filteredReservations,
       units,
       totalCount,
       isModalOpen,
@@ -172,7 +216,8 @@ class ManageReservationsPage extends React.Component {
           </Grid>
           <ManageReservationsFilters
             filters={filters}
-            onChange={this.onFiltersChange}
+            onListFilterChange={this.onListFilterChange}
+            onSearchChange={this.onSearchFiltersChange}
             units={units}
           />
         </div>
@@ -185,7 +230,7 @@ class ManageReservationsPage extends React.Component {
                     onEditClick={this.onEditClick}
                     onEditReservation={this.onEditReservation}
                     onInfoClick={this.onInfoClick}
-                    reservations={reservations}
+                    reservations={filteredReservations}
                   />
                 </Loader>
                 <Pagination
@@ -218,6 +263,10 @@ class ManageReservationsPage extends React.Component {
 
 export const UnwrappedManageReservationsPage = injectT(ManageReservationsPage);
 
+const selector = createStructuredSelector({
+  userFavoriteResources: userFavouriteResourcesSelector
+});
+
 const mapDispatchToProps = (dispatch) => {
   const actionCreators = {
     editReservation: selectReservationToEdit
@@ -226,4 +275,4 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 };
 
-export default connect(null, mapDispatchToProps)(withRouter(UnwrappedManageReservationsPage));
+export default connect(selector, mapDispatchToProps)(withRouter(UnwrappedManageReservationsPage));

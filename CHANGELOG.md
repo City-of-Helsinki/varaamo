@@ -7,6 +7,7 @@
   - Replace failure message and add a return button for reservation payment.
   - Fix manage reservation page only display `can_approve` reservation, now display *all* reservations. Add strict rules for staff to be able to edit/cancel specific reservation.
   - Fix missing reservation metadata fields data in manage reservation view. Trim empty field row.
+  - Add `show_only` filter section to filter reservation list. Fix some minor styling issues as well as typos.
 
   **HOTFIX**
   - Fix resource information headlines and icon.
@@ -16,8 +17,9 @@
   - [#968](https://github.com/City-of-Helsinki/varaamo/pull/968) Support payments for Varaamo.
   - [#999](https://github.com/City-of-Helsinki/varaamo/pull/968) Add reusable FullCalendar component. Used in resource page.
   - [#1002](https://github.com/City-of-Helsinki/varaamo/pull/1002) Replace failure message and add a return button.
-  - [#1004](https://github.com/City-of-Helsinki/varaamo/pull/1004) Staff cannot see normal reservations
-  - [#1005](https://github.com/City-of-Helsinki/varaamo/pull/1005) Reservation information modal is missing metadata fields
+  - [#1004](https://github.com/City-of-Helsinki/varaamo/pull/1004) Staff cannot see normal reservations.
+  - [#1005](https://github.com/City-of-Helsinki/varaamo/pull/1005) Reservation information modal is missing metadata fields.
+  - [#1006](https://github.com/City-of-Helsinki/varaamo/pull/1006) Manage reservation filter buttons.
 
 # 0.4.2
   **HOTFIX**
@@ -66,12 +68,12 @@
 
     - Add new selection field to sort filtered resources. Currently support to search by name, type, premise, people.
     - Temporarily only show warning messages in 3 languages for IE11 user.
-    - Ability to favourite resources straight on search view instead going to resource detail page.
+    - Ability to favorite resources straight on search view instead going to resource detail page.
 
   **CHANGELOG**
 
   - [#895](https://github.com/City-of-Helsinki/varaamo/pull/895) Add sort to sort filtered resources.
-  - [#904](https://github.com/City-of-Helsinki/varaamo/pull/904) Favourite Resource on search view.
+  - [#904](https://github.com/City-of-Helsinki/varaamo/pull/904) Favorite Resource on search view.
   - [#909](https://github.com/City-of-Helsinki/varaamo/pull/909) Show warning message for IE11 users.
 
 # 0.1.1

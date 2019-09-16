@@ -21,20 +21,22 @@ import iconTimes from '../../../search/filters/images/times.svg';
 import * as dataUtils from '../../../../common/data/utils';
 import constants from '../../../../../app/constants/AppConstants';
 import { RESERVATION_STATE } from '../../../../constants/ReservationState';
+import { RESERVATION_SHOWONLY_FILTERS } from '../../constants';
 
 class ManageReservationsFilters extends React.Component {
   static propTypes = {
     t: PropTypes.func,
     filters: PropTypes.object,
     units: PropTypes.array,
-    onChange: PropTypes.func.isRequired,
+    onSearchChange: PropTypes.func.isRequired,
+    onListFilterChange: PropTypes.func.isRequired,
     intl: intlShape,
   };
 
   onFilterChange = (filterName, filterValue) => {
     const {
       filters,
-      onChange,
+      onSearchChange,
     } = this.props;
 
     const newFilters = {
@@ -45,12 +47,12 @@ class ManageReservationsFilters extends React.Component {
       newFilters[filterName] = filterValue;
     }
 
-    onChange(omit(newFilters, 'page'));
+    onSearchChange(omit(newFilters, 'page'));
   };
 
   onReset = () => {
-    const { onChange } = this.props;
-    onChange({});
+    const { onSearchChange } = this.props;
+    onSearchChange({});
   };
 
   hasFilters = () => {
@@ -70,12 +72,30 @@ class ManageReservationsFilters extends React.Component {
     ];
   };
 
+  getShowOnlyOptions = () => {
+    const { t } = this.props;
+
+    return [
+      {
+        value:
+        RESERVATION_SHOWONLY_FILTERS.FAVORITE,
+        label: t('ManageReservationsFilters.showOnly.favoriteButtonLabel')
+      },
+      {
+        value:
+        RESERVATION_SHOWONLY_FILTERS.CAN_MODIFY,
+        label: t('ManageReservationsFilters.showOnly.canModifyButtonLabel')
+      },
+    ];
+  };
+
   render() {
     const {
       t,
       filters,
       units,
       intl,
+      onListFilterChange
     } = this.props;
 
     const state = get(filters, 'state', null);
@@ -124,7 +144,7 @@ class ManageReservationsFilters extends React.Component {
                 </Col>
               </Row>
               <Row>
-                <Col md={12}>
+                <Col md={3}>
                   <SelectField
                     id="unitField"
                     label={t('ManageReservationsFilters.unitLabel')}
@@ -134,6 +154,15 @@ class ManageReservationsFilters extends React.Component {
                       label: dataUtils.getLocalizedFieldValue(unit.name, locale)
                     }))}
                     value={get(filters, 'unit', null)}
+                  />
+                </Col>
+                <Col md={3}>
+                  <ButtonGroupField
+                    id="showOnlyField"
+                    label={t('ManageReservationsFilters.showOnly.title')}
+                    onChange={value => onListFilterChange(value)}
+                    options={this.getShowOnlyOptions()}
+                    type="checkbox"
                   />
                 </Col>
               </Row>

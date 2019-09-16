@@ -29,7 +29,8 @@ exports[`ManageReservationsPage renders correctly 1`] = `
     </Grid>
     <InjectIntl(InjectT(ManageReservationsFilters))
       filters={Object {}}
-      onChange={[Function]}
+      onListFilterChange={[Function]}
+      onSearchChange={[Function]}
       units={Array []}
     />
   </div>
