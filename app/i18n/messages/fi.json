@@ -38,7 +38,12 @@
   "common.addressStreetLabel": "Katuosoite",
   "common.addressZipLabel": "Postinumero",
   "common.back": "Takaisin",
+
   "common.billingAddressLabel": "Laskutusosoite",
+  "common.billingAddressCityLabel": "Laskun kaupunki",
+  "common.billingAddressStreetLabel": "Laskun osoite",
+  "common.billingAddressZipLabel": "Laskun postinumero",
+
   "common.paymentInformationLabel": "Maksutiedot",
   "common.billingFirstNameLabel": "Etunimi",
   "common.billingLastNameLabel": "Sukunimi",

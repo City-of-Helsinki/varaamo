@@ -38,7 +38,12 @@
   "common.addressStreetLabel": "Gatuadress",
   "common.addressZipLabel": "Postnummer",
   "common.back": "Tillbaka",
+
   "common.billingAddressLabel": "Faktureringsadress",
+  "common.billingAddressCityLabel": "Faktureringsstad",
+  "common.billingAddressStreetLabel": "Faktureringsgatuadress",
+  "common.billingAddressZipLabel": "Faktureringspostnummer",
+
   "common.paymentInformationLabel": "Betalningsinformation",
   "common.billingFirstNameLabel": "Förnamn",
   "common.billingLastNameLabel": "Efternamn",
