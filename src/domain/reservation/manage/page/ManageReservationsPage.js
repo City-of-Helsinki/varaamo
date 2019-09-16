@@ -171,7 +171,7 @@ class ManageReservationsPage extends React.Component {
 
     // Both options selected
     if (filters.length > 1) {
-      return reservations.filter(favoriteResourceFilter && canModifyFilter);
+      return reservations.filter(reservation => canModifyFilter(reservation) && favoriteResourceFilter(reservation));
     }
 
     if (filters.includes(RESERVATION_SHOWONLY_FILTERS.FAVORITE)) {
