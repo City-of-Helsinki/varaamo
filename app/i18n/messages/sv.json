@@ -335,7 +335,7 @@
   "ManageReservationsList.nameHeader": "Namn",
   "ManageReservationsList.emailHeader": "E-post",
   "ManageReservationsList.resourceHeader": "Resurs",
-  "ManageReservationsList.locationHeader": "Plats",
+  "ManageReservationsList.premiseHeader": "Utrymmet",
   "ManageReservationsList.dateAndTimeHeader": "När",
   "ManageReservationsList.statusHeader": "Status",
   "ManageReservationsList.pinHeader": "PIN",

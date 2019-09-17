@@ -334,7 +334,7 @@
   "ManageReservationsList.nameHeader": "Name",
   "ManageReservationsList.emailHeader": "Email",
   "ManageReservationsList.resourceHeader": "Resource",
-  "ManageReservationsList.locationHeader": "Location",
+  "ManageReservationsList.premiseHeader": "Premise",
   "ManageReservationsList.dateAndTimeHeader": "Date and time",
   "ManageReservationsList.statusHeader": "Status",
   "ManageReservationsList.pinHeader": "PIN",

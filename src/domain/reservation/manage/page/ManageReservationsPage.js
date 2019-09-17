@@ -4,6 +4,7 @@ import get from 'lodash/get';
 import Loader from 'react-loader';
 import { withRouter } from 'react-router-dom';
 import { Grid, Row, Col } from 'react-bootstrap';
+import isEmpty from 'lodash/isEmpty';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
@@ -44,7 +45,7 @@ class ManageReservationsPage extends React.Component {
       totalCount: 0,
       isModalOpen: false,
       selectedReservation: {},
-      filteredReservations: []
+      showOnlyFilters: []
     };
   }
 
@@ -84,7 +85,6 @@ class ManageReservationsPage extends React.Component {
         this.setState({
           isLoading: false,
           reservations: get(data, 'results', []),
-          filteredReservations: get(data, 'results', []),
           totalCount: get(data, 'count', 0),
         });
       });
@@ -112,9 +112,9 @@ class ManageReservationsPage extends React.Component {
     });
   };
 
-  onListFilterChange = (filters) => {
+  onShowOnlyFiltersChange = (filters) => {
     this.setState({
-      filteredReservations: this.getFilteredReservations(filters)
+      showOnlyFilters: filters
     });
   }
 
@@ -169,6 +169,10 @@ class ManageReservationsPage extends React.Component {
 
     const canModifyFilter = reservation => reservationUtils.canUserModifyReservation(reservation);
 
+    if (isEmpty(filters) || !Array.isArray(filters)) {
+      return reservations;
+    }
+
     // Both options selected
     if (filters.length > 1) {
       return reservations.filter(reservation => canModifyFilter(reservation) && favoriteResourceFilter(reservation));
@@ -195,11 +199,11 @@ class ManageReservationsPage extends React.Component {
     const {
       isLoading,
       isLoadingUnits,
-      filteredReservations,
       units,
       totalCount,
       isModalOpen,
-      selectedReservation
+      selectedReservation,
+      showOnlyFilters
     } = this.state;
     const filters = searchUtils.getFiltersFromUrl(location, false);
     const title = t('ManageReservationsPage.title');
@@ -216,8 +220,9 @@ class ManageReservationsPage extends React.Component {
           </Grid>
           <ManageReservationsFilters
             filters={filters}
-            onListFilterChange={this.onListFilterChange}
             onSearchChange={this.onSearchFiltersChange}
+            onShowOnlyFiltersChange={this.onShowOnlyFiltersChange}
+            showOnlyFilters={showOnlyFilters}
             units={units}
           />
         </div>
@@ -230,7 +235,7 @@ class ManageReservationsPage extends React.Component {
                     onEditClick={this.onEditClick}
                     onEditReservation={this.onEditReservation}
                     onInfoClick={this.onInfoClick}
-                    reservations={filteredReservations}
+                    reservations={this.getFilteredReservations(showOnlyFilters)}
                   />
                 </Loader>
                 <Pagination

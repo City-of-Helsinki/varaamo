@@ -343,7 +343,7 @@
   "ManageReservationsList.nameHeader": "Nimi",
   "ManageReservationsList.emailHeader": "Sähköposti",
   "ManageReservationsList.resourceHeader": "Resurssi",
-  "ManageReservationsList.locationHeader": "Sijainti",
+  "ManageReservationsList.premiseHeader": "Toimipiste",
   "ManageReservationsList.dateAndTimeHeader": "Milloin",
   "ManageReservationsList.statusHeader": "Tila",
   "ManageReservationsList.pinHeader": "PIN",
