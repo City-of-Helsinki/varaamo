@@ -7,7 +7,7 @@
   - Replace failure message and add a return button for reservation payment.
   - Fix manage reservation page only display `can_approve` reservation, now display *all* reservations. Add strict rules for staff to be able to edit/cancel specific reservation.
   - Fix missing reservation metadata fields data in manage reservation view. Trim empty field row.
-  - Add `show_only` filter section to filter reservation list. Fix some minor styling issues as well as typos.
+  - Add `show_only` filter section to filter reservation list. This filter have `can_modify` as its default value.
 
   **HOTFIX**
   - Fix resource information headlines and icon.

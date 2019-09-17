@@ -31,7 +31,11 @@ exports[`ManageReservationsPage renders correctly 1`] = `
       filters={Object {}}
       onSearchChange={[Function]}
       onShowOnlyFiltersChange={[Function]}
-      showOnlyFilters={Array []}
+      showOnlyFilters={
+        Array [
+          "can_modify",
+        ]
+      }
       units={Array []}
     />
   </div>
