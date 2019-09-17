@@ -100,7 +100,8 @@ class ManageReservationsFilters extends React.Component {
       filters,
       units,
       intl,
-      onShowOnlyFiltersChange
+      onShowOnlyFiltersChange,
+      showOnlyFilters
     } = this.props;
 
     const state = get(filters, 'state', null);
@@ -176,6 +177,7 @@ class ManageReservationsFilters extends React.Component {
                 onChange={value => onShowOnlyFiltersChange(value)}
                 options={this.getShowOnlyOptions()}
                 type="checkbox"
+                value={showOnlyFilters}
               />
             </Col>
             <Col md={4}>
