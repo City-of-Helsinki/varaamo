@@ -144,7 +144,7 @@ class ManageReservationsFilters extends React.Component {
                 </Col>
               </Row>
               <Row>
-                <Col md={3}>
+                <Col md={5}>
                   <SelectField
                     id="unitField"
                     label={t('ManageReservationsFilters.unitLabel')}

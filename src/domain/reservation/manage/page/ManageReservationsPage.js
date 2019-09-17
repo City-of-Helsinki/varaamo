@@ -44,7 +44,7 @@ class ManageReservationsPage extends React.Component {
       totalCount: 0,
       isModalOpen: false,
       selectedReservation: {},
-      filteredReservations: []
+      showOnlyFilters: []
     };
   }
 
@@ -84,7 +84,6 @@ class ManageReservationsPage extends React.Component {
         this.setState({
           isLoading: false,
           reservations: get(data, 'results', []),
-          filteredReservations: get(data, 'results', []),
           totalCount: get(data, 'count', 0),
         });
       });
@@ -114,7 +113,7 @@ class ManageReservationsPage extends React.Component {
 
   onListFilterChange = (filters) => {
     this.setState({
-      filteredReservations: this.getFilteredReservations(filters)
+      showOnlyFilters: filters
     });
   }
 
@@ -195,11 +194,11 @@ class ManageReservationsPage extends React.Component {
     const {
       isLoading,
       isLoadingUnits,
-      filteredReservations,
       units,
       totalCount,
       isModalOpen,
-      selectedReservation
+      selectedReservation,
+      showOnlyFilters
     } = this.state;
     const filters = searchUtils.getFiltersFromUrl(location, false);
     const title = t('ManageReservationsPage.title');
@@ -230,7 +229,7 @@ class ManageReservationsPage extends React.Component {
                     onEditClick={this.onEditClick}
                     onEditReservation={this.onEditReservation}
                     onInfoClick={this.onInfoClick}
-                    reservations={filteredReservations}
+                    reservations={this.getFilteredReservations(showOnlyFilters)}
                   />
                 </Loader>
                 <Pagination

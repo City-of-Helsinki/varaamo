@@ -37,7 +37,7 @@ const ManageReservationsList = ({
             <th>{t('ManageReservationsList.nameHeader')}</th>
             <th>{t('ManageReservationsList.emailHeader')}</th>
             <th>{t('ManageReservationsList.resourceHeader')}</th>
-            <th>{t('ManageReservationsList.locationHeader')}</th>
+            <th>{t('ManageReservationsList.premiseHeader')}</th>
             <th>{t('ManageReservationsList.dateAndTimeHeader')}</th>
             <th />
             <th>{t('ManageReservationsList.pinHeader')}</th>
