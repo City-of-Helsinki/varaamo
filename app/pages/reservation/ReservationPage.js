@@ -17,6 +17,7 @@ import {
   clearReservations,
   closeReservationSuccessModal,
   openResourceTermsModal,
+  setSelectedTimeSlots,
 } from '../../actions/uiActions';
 import PageWrapper from '../PageWrapper';
 import injectT from '../../i18n/injectT';
@@ -205,7 +206,7 @@ class UnconnectedReservationPage extends Component {
       <>
         {/* Recurring selection dropdown  */}
         <RecurringReservationControls />
-        { <p><strong>{introText}</strong></p> }
+        {<p><strong>{introText}</strong></p>}
 
         {/* Selected recurring info */}
         <CompactReservationList
@@ -224,8 +225,6 @@ class UnconnectedReservationPage extends Component {
       isStaff,
       isFetchingResource,
       isMakingReservations,
-      location,
-      match,
       reservationCreated,
       reservationEdited,
       reservationToEdit,
@@ -256,7 +255,6 @@ class UnconnectedReservationPage extends Component {
     const title = t(
       `ReservationPage.${isEditing || isEdited ? 'editReservationTitle' : 'newReservationTitle'}`
     );
-    const params = queryString.parse(location.search);
 
     return (
       <div className="app-ReservationPage">
@@ -274,12 +272,10 @@ class UnconnectedReservationPage extends Component {
                 />
                 {view === 'time' && isEditing && (
                   <ReservationTime
+                    handleSelectReservation={actions.setSelectedTimeSlots}
                     history={history}
-                    location={location}
-                    match={match}
                     onCancel={this.handleCancel}
                     onConfirm={this.handleConfirmTime}
-                    params={params}
                     resource={resource}
                     selectedReservation={reservationToEdit}
                     unit={unit}
@@ -302,9 +298,7 @@ class UnconnectedReservationPage extends Component {
                       selectedTime={selectedTime}
                       unit={unit}
                     />
-
                   </>
-
                 )}
                 {view === 'payment' && (
                   <div className="text-center">
@@ -336,7 +330,6 @@ UnconnectedReservationPage.propTypes = {
   isFetchingResource: PropTypes.bool.isRequired,
   isMakingReservations: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
   reservationToEdit: PropTypes.object,
   reservationCreated: PropTypes.object,
   reservationEdited: PropTypes.object,
@@ -360,6 +353,7 @@ function mapDispatchToProps(dispatch) {
     putReservation,
     postReservation,
     removeReservation: recurringReservationsConnector.removeReservation,
+    setSelectedTimeSlots
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
