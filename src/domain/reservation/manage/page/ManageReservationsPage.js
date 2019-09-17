@@ -45,7 +45,7 @@ class ManageReservationsPage extends React.Component {
       totalCount: 0,
       isModalOpen: false,
       selectedReservation: {},
-      showOnlyFilters: []
+      showOnlyFilters: [RESERVATION_SHOWONLY_FILTERS.CAN_MODIFY]
     };
   }
 
