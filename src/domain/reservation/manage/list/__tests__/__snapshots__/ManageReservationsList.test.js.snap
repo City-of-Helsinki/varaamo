@@ -28,7 +28,7 @@ exports[`ManageReservationsList renders correctly 1`] = `
           ManageReservationsList.resourceHeader
         </th>
         <th>
-          ManageReservationsList.locationHeader
+          ManageReservationsList.premiseHeader
         </th>
         <th>
           ManageReservationsList.dateAndTimeHeader
