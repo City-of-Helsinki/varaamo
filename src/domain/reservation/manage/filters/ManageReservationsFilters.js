@@ -29,7 +29,8 @@ class ManageReservationsFilters extends React.Component {
     filters: PropTypes.object,
     units: PropTypes.array,
     onSearchChange: PropTypes.func.isRequired,
-    onListFilterChange: PropTypes.func.isRequired,
+    onShowOnlyFiltersChange: PropTypes.func.isRequired,
+    showOnlyFilters: PropTypes.array,
     intl: intlShape,
   };
 
@@ -51,14 +52,18 @@ class ManageReservationsFilters extends React.Component {
   };
 
   onReset = () => {
-    const { onSearchChange } = this.props;
+    const { onSearchChange, onShowOnlyFiltersChange } = this.props;
+
+    onShowOnlyFiltersChange();
+    // Reset show only filters by giving empty selection
+
     onSearchChange({});
   };
 
   hasFilters = () => {
-    const { filters } = this.props;
+    const { filters, showOnlyFilters } = this.props;
 
-    return !isEmpty(omit(filters, 'page'));
+    return !isEmpty(omit(filters, 'page')) || !isEmpty(showOnlyFilters);
   };
 
   getStatusOptions = () => {
@@ -95,7 +100,7 @@ class ManageReservationsFilters extends React.Component {
       filters,
       units,
       intl,
-      onListFilterChange
+      onShowOnlyFiltersChange
     } = this.props;
 
     const state = get(filters, 'state', null);
@@ -107,67 +112,40 @@ class ManageReservationsFilters extends React.Component {
       <div className="app-ManageReservationsFilters">
         <Grid>
           <Row>
-            <Col md={9}>
-              <Row>
-                <Col md={5}>
-                  <ButtonGroupField
-                    id="stateField"
-                    label={t('ManageReservationsFilters.statusLabel')}
-                    onChange={value => this.onFilterChange('state', value)}
-                    options={this.getStatusOptions()}
-                    type="checkbox"
-                    value={state ? state.split(',') : null}
-                  />
-                </Col>
-                <Col md={7}>
-                  <div className="app-ManageReservationsFilters__datePickers">
-                    <DateField
-                      id="startDateField"
-                      label={t('ManageReservationsFilters.startDateLabel')}
-                      onChange={(value) => {
-                        this.onFilterChange('start', moment(value).format(constants.DATE_FORMAT));
-                      }}
-                      placeholder={t('ManageReservationsFilters.startDatePlaceholder')}
-                      value={startDate ? moment(startDate).toDate() : null}
-                    />
-                    <div className="separator">-</div>
-                    <DateField
-                      id="EndDateField"
-                      label={t('ManageReservationsFilters.endDateLabel')}
-                      onChange={(value) => {
-                        this.onFilterChange('end', moment(value).format(constants.DATE_FORMAT));
-                      }}
-                      placeholder={t('ManageReservationsFilters.endDatePlaceholder')}
-                      value={endDate ? moment(endDate).toDate() : null}
-                    />
-                  </div>
-                </Col>
-              </Row>
-              <Row>
-                <Col md={5}>
-                  <SelectField
-                    id="unitField"
-                    label={t('ManageReservationsFilters.unitLabel')}
-                    onChange={item => this.onFilterChange('unit', item.value)}
-                    options={units.map(unit => ({
-                      value: unit.id,
-                      label: dataUtils.getLocalizedFieldValue(unit.name, locale)
-                    }))}
-                    value={get(filters, 'unit', null)}
-                  />
-                </Col>
-                <Col md={3}>
-                  <ButtonGroupField
-                    id="showOnlyField"
-                    label={t('ManageReservationsFilters.showOnly.title')}
-                    onChange={value => onListFilterChange(value)}
-                    options={this.getShowOnlyOptions()}
-                    type="checkbox"
-                  />
-                </Col>
-              </Row>
-            </Col>
             <Col md={3}>
+              <ButtonGroupField
+                id="stateField"
+                label={t('ManageReservationsFilters.statusLabel')}
+                onChange={value => this.onFilterChange('state', value)}
+                options={this.getStatusOptions()}
+                type="checkbox"
+                value={state ? state.split(',') : null}
+              />
+            </Col>
+            <Col md={5}>
+              <div className="app-ManageReservationsFilters__datePickers">
+                <DateField
+                  id="startDateField"
+                  label={t('ManageReservationsFilters.startDateLabel')}
+                  onChange={(value) => {
+                    this.onFilterChange('start', moment(value).format(constants.DATE_FORMAT));
+                  }}
+                  placeholder={t('ManageReservationsFilters.startDatePlaceholder')}
+                  value={startDate ? moment(startDate).toDate() : null}
+                />
+                <div className="separator">-</div>
+                <DateField
+                  id="EndDateField"
+                  label={t('ManageReservationsFilters.endDateLabel')}
+                  onChange={(value) => {
+                    this.onFilterChange('end', moment(value).format(constants.DATE_FORMAT));
+                  }}
+                  placeholder={t('ManageReservationsFilters.endDatePlaceholder')}
+                  value={endDate ? moment(endDate).toDate() : null}
+                />
+              </div>
+            </Col>
+            <Col md={4}>
               <TextField
                 id="searchField"
                 label={t('ManageReservationsFilters.searchLabel')}
@@ -175,7 +153,32 @@ class ManageReservationsFilters extends React.Component {
                 placeholder={t('ManageReservationsFilters.searchPlaceholder')}
                 value={get(filters, 'reserver_info_search', '')}
               />
+            </Col>
+          </Row>
 
+          <Row>
+            <Col md={3}>
+              <SelectField
+                id="unitField"
+                label={t('ManageReservationsFilters.unitLabel')}
+                onChange={item => this.onFilterChange('unit', item.value)}
+                options={units.map(unit => ({
+                  value: unit.id,
+                  label: dataUtils.getLocalizedFieldValue(unit.name, locale)
+                }))}
+                value={get(filters, 'unit', null)}
+              />
+            </Col>
+            <Col md={5}>
+              <ButtonGroupField
+                id="showOnlyField"
+                label={t('ManageReservationsFilters.showOnly.title')}
+                onChange={value => onShowOnlyFiltersChange(value)}
+                options={this.getShowOnlyOptions()}
+                type="checkbox"
+              />
+            </Col>
+            <Col md={4}>
               {this.hasFilters() && (
                 <Button
                   bsStyle="link"

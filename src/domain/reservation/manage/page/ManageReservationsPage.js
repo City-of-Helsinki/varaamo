@@ -4,6 +4,7 @@ import get from 'lodash/get';
 import Loader from 'react-loader';
 import { withRouter } from 'react-router-dom';
 import { Grid, Row, Col } from 'react-bootstrap';
+import isEmpty from 'lodash/isEmpty';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
@@ -111,7 +112,7 @@ class ManageReservationsPage extends React.Component {
     });
   };
 
-  onListFilterChange = (filters) => {
+  onShowOnlyFiltersChange = (filters) => {
     this.setState({
       showOnlyFilters: filters
     });
@@ -168,6 +169,10 @@ class ManageReservationsPage extends React.Component {
 
     const canModifyFilter = reservation => reservationUtils.canUserModifyReservation(reservation);
 
+    if (isEmpty(filters) || !Array.isArray(filters)) {
+      return reservations;
+    }
+
     // Both options selected
     if (filters.length > 1) {
       return reservations.filter(reservation => canModifyFilter(reservation) && favoriteResourceFilter(reservation));
@@ -215,8 +220,9 @@ class ManageReservationsPage extends React.Component {
           </Grid>
           <ManageReservationsFilters
             filters={filters}
-            onListFilterChange={this.onListFilterChange}
             onSearchChange={this.onSearchFiltersChange}
+            onShowOnlyFiltersChange={this.onShowOnlyFiltersChange}
+            showOnlyFilters={showOnlyFilters}
             units={units}
           />
         </div>
