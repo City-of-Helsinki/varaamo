@@ -2,7 +2,7 @@ import React from 'react';
 import simple from 'simple-mock';
 import moment from 'moment';
 
-import ReservationCalendar from '../../../resource/reservation-calendar/ReservationCalendarContainer';
+import TimePickerCalendar from '../../../../../src/common/calendar/TimePickerCalendar';
 import ResourceCalendar from '../../../../shared/resource-calendar/ResourceCalendar';
 import { shallowWithIntl } from '../../../../utils/testUtils';
 import Reservation from '../../../../utils/fixtures/Reservation';
@@ -12,15 +12,15 @@ import ReservationTime from '../ReservationTime';
 
 describe('pages/reservation/reservation-time/ReservationTime', () => {
   const history = {
-    replace: () => {},
+    replace: () => { },
   };
 
   const defaultProps = {
+    handleSelectReservation: jest.fn(),
     history,
     location: {},
     onCancel: simple.mock(),
     onConfirm: simple.mock(),
-    match: { params: {} },
     resource: Resource.build(),
     selectedReservation: Reservation.build(),
     unit: Unit.build(),
@@ -42,12 +42,9 @@ describe('pages/reservation/reservation-time/ReservationTime', () => {
   });
 
   test('renders ReservationCalendar', () => {
-    const location = { query: { q: 1 } };
-    const reservationCalendar = getWrapper({ location }).find(ReservationCalendar);
+    const timePickerCalendar = getWrapper({ location }).find(TimePickerCalendar);
 
-    expect(reservationCalendar).toHaveLength(1);
-    expect(reservationCalendar.prop('location')).toEqual(location);
-    expect(reservationCalendar.prop('params')).toEqual({ id: defaultProps.resource.id });
+    expect(timePickerCalendar).toHaveLength(1);
   });
 
   test('renders resource and unit names', () => {
