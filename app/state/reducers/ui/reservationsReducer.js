@@ -183,8 +183,7 @@ function reservationsReducer(state = initialState, action) {
       const timeDiff = getTimeDiff(minPeriodSlot.begin, startSlot.begin);
 
       return state.merge({
-        selected: [state.selected[0],
-        timeDiff > 0 ? startSlot : minPeriodSlot]
+        selected: [state.selected[0], timeDiff > 0 ? startSlot : minPeriodSlot]
       });
     }
 
