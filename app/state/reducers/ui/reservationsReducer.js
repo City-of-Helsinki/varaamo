@@ -132,27 +132,19 @@ function reservationsReducer(state = initialState, action) {
     }
 
     case types.UI.SET_SELECTED_TIME_SLOTS: {
-      const { resource, selected } = action.payload;
+      const { selected, resource } = action.payload;
 
       const startMoment = moment(selected.start);
       const endMoment = moment(selected.end);
-      const slotDuration = moment.duration(resource.slotSize);
-      const slotInMinutes = slotDuration.hours() * 60 + slotDuration.minutes();
 
-      const startSlot = {
+      const slot = {
         begin: startMoment.toISOString(),
-        end: startMoment.clone().add(slotInMinutes, 'minutes').toISOString(),
-        resource: resource.id,
-      };
-
-      const endSlot = {
-        begin: endMoment.clone().subtract(slotInMinutes, 'minutes').toISOString(),
         end: endMoment.toISOString(),
         resource: resource.id,
       };
 
       return state.merge({
-        selected: [startSlot, endSlot],
+        selected: [slot],
       });
     }
 
@@ -191,8 +183,7 @@ function reservationsReducer(state = initialState, action) {
       const timeDiff = getTimeDiff(minPeriodSlot.begin, startSlot.begin);
 
       return state.merge({
-        selected: [state.selected[0],
-          timeDiff > 0 ? startSlot : minPeriodSlot]
+        selected: [state.selected[0], timeDiff > 0 ? startSlot : minPeriodSlot]
       });
     }
 

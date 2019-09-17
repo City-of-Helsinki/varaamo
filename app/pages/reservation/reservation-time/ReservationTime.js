@@ -6,17 +6,19 @@ import Row from 'react-bootstrap/lib/Row';
 import Well from 'react-bootstrap/lib/Well';
 import isEmpty from 'lodash/isEmpty';
 import moment from 'moment';
+import { decamelizeKeys } from 'humps';
+import get from 'lodash/get';
+import filter from 'lodash/filter';
 
 import injectT from '../../../i18n/injectT';
-import ReservationCalendar from '../../resource/reservation-calendar/ReservationCalendarContainer';
 import ResourceCalendar from '../../../shared/resource-calendar/ResourceCalendar';
+import TimePickerCalendar from '../../../../src/common/calendar/TimePickerCalendar';
 
 class ReservationTime extends Component {
   static propTypes = {
-    location: PropTypes.object.isRequired,
+    handleSelectReservation: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
     onConfirm: PropTypes.func.isRequired,
-    match: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
     resource: PropTypes.object.isRequired,
     selectedReservation: PropTypes.object.isRequired,
@@ -32,18 +34,19 @@ class ReservationTime extends Component {
 
   render() {
     const {
-      location,
+      handleSelectReservation,
       onCancel,
       onConfirm,
-      history,
-      match,
       resource,
       selectedReservation,
       t,
       unit,
     } = this.props;
-    const { params } = match;
     const date = moment(selectedReservation.begin).format('YYYY-MM-DD');
+    const decamelizedResource = decamelizeKeys(resource);
+    const reservations = get(decamelizedResource, 'reservations', []);
+    const filteredReservations = filter(reservations, res => (selectedReservation && res.id !== selectedReservation.id));
+    const resourceToEdit = { ...decamelizedResource, reservations: filteredReservations };
 
     return (
       <div className="app-ReservationTime">
@@ -54,10 +57,12 @@ class ReservationTime extends Component {
               resourceId={resource.id}
               selectedDate={date}
             />
-            <ReservationCalendar
-              history={history}
-              location={location}
-              params={{ ...params, id: resource.id }}
+            <TimePickerCalendar
+              date={date}
+              defaultSelected={selectedReservation ? { start: moment(selectedReservation.begin).toDate(), end: moment(selectedReservation.end).toDate() } : null}
+              onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())}
+              onTimeChange={selected => handleSelectReservation({ selected, resource: resourceToEdit })}
+              resource={resourceToEdit}
             />
           </Col>
           <Col md={5} sm={12}>
