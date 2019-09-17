@@ -11,6 +11,7 @@ import ManageReservationsStatus from '../status/ManageReservationsStatus';
 import ManageReservationsPincode from '../pincode/ManageReservationsPincode';
 import ManageReservationsComment from '../comment/ManageReservationsComment';
 import ManageReservationsDropdown from '../action/ManageReservationsDropdown';
+import * as reservationUtils from '../../utils';
 
 export const getDateAndTime = (reservation) => {
   const begin = moment(reservation.begin);
@@ -36,7 +37,7 @@ const ManageReservationsList = ({
             <th>{t('ManageReservationsList.nameHeader')}</th>
             <th>{t('ManageReservationsList.emailHeader')}</th>
             <th>{t('ManageReservationsList.resourceHeader')}</th>
-            <th>{t('ManageReservationsList.locationHeader')}</th>
+            <th>{t('ManageReservationsList.premiseHeader')}</th>
             <th>{t('ManageReservationsList.dateAndTimeHeader')}</th>
             <th />
             <th>{t('ManageReservationsList.pinHeader')}</th>
@@ -68,6 +69,8 @@ const ManageReservationsList = ({
                     onEditReservation={onEditReservation}
                     onInfoClick={() => onInfoClick(reservation)}
                     reservation={normalizedReservation}
+                    userCanCancel={reservationUtils.canUserCancelReservation(reservation)}
+                    userCanModify={reservationUtils.canUserModifyReservation(reservation)}
                   />
                 </td>
               </tr>

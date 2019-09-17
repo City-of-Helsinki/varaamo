@@ -2,14 +2,15 @@
 @import './compact-reservation-list/compact-reservation-list';
 @import './date-picker/date-picker';
 @import './favorite-button/favorite-button';
-@import './footer/footer';
+@import '../../src/domain/footer/footer';
 @import './form-fields/form-fields';
-@import './header/header';
+@import '../../src/domain/header/header';
 @import './info-popover/info-popover';
 @import './label/label';
-@import './main-navbar/main-navbar';
+@import '../../src/domain/header/main-navbar';
 @import './modals/modals';
 @import './notifications/notifications';
+@import './progress-steps/progress-steps';
 @import './recurring-reservation-controls/recurring-reservation-controls';
 @import './reservation-confirmation/confirm-reservation-modal';
 @import './reservation-date/reservation-date';
@@ -21,5 +22,5 @@
 @import './resource-type-filter/resource-type-filter';
 
 @import './test-site-message/test-site-message';
-@import './top-navbar/top-navbar';
+@import '../../src/domain/header/top-navbar';
 @import './wrapped-text/wrapped-text';

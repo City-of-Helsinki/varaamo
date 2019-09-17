@@ -13,24 +13,7 @@ function getWrapper(props) {
     onCancel: simple.stub(),
     begin: '2016-01-01T10:00:00Z',
     end: '2016-01-01T12:00:00Z',
-    products: [
-      {
-        id: 'foo',
-        type: 'rent',
-        name: {
-          fi: 'testivuokra',
-          en: 'test rent'
-        },
-        description: {
-          fi: 'Testivuokran kuvaus.',
-          en: 'Test rent description.'
-        },
-        pretaxPrice: 10.00,
-        taxPercentage: 24.00,
-        price: 12.40,
-        priceType: 'per_hour'
-      }
-    ]
+    reservationPrice: '',
   };
   return shallowWithIntl(<ReservationPopover {...defaultProps} {...props} />);
 }
@@ -49,7 +32,10 @@ describe('shared/reservation-popover/ReservationPopover', () => {
   });
 
   test('renders length with price', () => {
-    const span = getInternalPopover().find('.reservation-popover__price');
+    const extraProps = {
+      reservationPrice: '24.8',
+    };
+    const span = getInternalPopover(extraProps).find('.reservation-popover__price');
     expect(span.text()).toBe('24.8€');
   });
 

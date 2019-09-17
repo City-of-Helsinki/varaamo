@@ -59,6 +59,7 @@ exports[`ReservationInformationModal renders correctly 1`] = `
           "state": "requested",
           "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
           "user": Object {},
+          "user_permissions": null,
         }
       }
     />
@@ -137,60 +138,6 @@ exports[`ReservationInformationModal renders correctly 1`] = `
             xs={5}
           >
             <span>
-              common.reserverNameLabel
-            </span>
-          </Col>
-          <Col
-            bsClass="col"
-            className="app-ReservationInformationModal__field__value"
-            componentClass="div"
-            xs={7}
-          >
-            <span />
-          </Col>
-        </Row>
-      </div>
-      <div
-        className="app-ReservationInformationModal__field"
-      >
-        <Row
-          bsClass="row"
-          componentClass="div"
-        >
-          <Col
-            bsClass="col"
-            className="app-ReservationInformationModal__field__label"
-            componentClass="div"
-            xs={5}
-          >
-            <span>
-              common.eventDescriptionLabel
-            </span>
-          </Col>
-          <Col
-            bsClass="col"
-            className="app-ReservationInformationModal__field__value"
-            componentClass="div"
-            xs={7}
-          >
-            <span />
-          </Col>
-        </Row>
-      </div>
-      <div
-        className="app-ReservationInformationModal__field"
-      >
-        <Row
-          bsClass="row"
-          componentClass="div"
-        >
-          <Col
-            bsClass="col"
-            className="app-ReservationInformationModal__field__label"
-            componentClass="div"
-            xs={5}
-          >
-            <span>
               common.reservationTimeLabel
             </span>
           </Col>
@@ -233,33 +180,27 @@ exports[`ReservationInformationModal renders correctly 1`] = `
           </Col>
         </Row>
       </div>
-      <div
-        className="app-ReservationInformationModal__field"
-      >
-        <Row
-          bsClass="row"
-          componentClass="div"
-        >
-          <Col
-            bsClass="col"
-            className="app-ReservationInformationModal__field__label"
-            componentClass="div"
-            xs={5}
-          >
-            <span>
-              common.reserverPhoneNumberLabel
-            </span>
-          </Col>
-          <Col
-            bsClass="col"
-            className="app-ReservationInformationModal__field__value"
-            componentClass="div"
-            xs={7}
-          >
-            <span />
-          </Col>
-        </Row>
-      </div>
+      <InjectT(ReservationMetadata)
+        customField={[Function]}
+        reservation={
+          Object {
+            "begin": "2019-08-14T14:00:00+03:00",
+            "comments": "",
+            "end": "2019-08-14T15:00:00+03:00",
+            "event_description": "",
+            "event_subject": "",
+            "has_catering_order": false,
+            "id": 1,
+            "its_own": false,
+            "resource": 1,
+            "staff_event": false,
+            "state": "requested",
+            "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
+            "user": Object {},
+            "user_permissions": null,
+          }
+        }
+      />
     </div>
     <div
       className="app-ReservationInformationModal__edit-reservation-btn"

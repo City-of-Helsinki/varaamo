@@ -1,5 +1,4 @@
 import React from 'react';
-import { injectIntl, intlShape } from 'react-intl';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import DayPicker from 'react-day-picker';
@@ -11,6 +10,7 @@ import InputGroup from 'react-bootstrap/lib/InputGroup';
 import Overlay from 'react-bootstrap/lib/Overlay';
 
 import iconCalendar from './images/calendar.svg';
+import injectT from '../../../../app/i18n/injectT';
 
 const DatePickerWrapper = ({ children }) => (
   <div className="app-DateField__datePicker">
@@ -22,10 +22,10 @@ DatePickerWrapper.propTypes = {
   children: PropTypes.any,
 };
 
-class DateFilter extends React.Component {
+class UntranslatedDateField extends React.Component {
   static propTypes = {
     value: PropTypes.instanceOf(Date),
-    intl: intlShape.isRequired,
+    locale: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     label: PropTypes.string,
     placeholder: PropTypes.string,
@@ -51,7 +51,7 @@ class DateFilter extends React.Component {
 
   render() {
     const {
-      intl,
+      locale,
       label,
       placeholder,
       value,
@@ -87,7 +87,7 @@ class DateFilter extends React.Component {
           <DatePickerWrapper>
             <DayPicker
               initialMonth={date}
-              locale={intl.locale}
+              locale={locale}
               localeUtils={MomentLocaleUtils}
               onDayClick={newDate => this.onChange(newDate)}
               selectedDays={date}
@@ -101,4 +101,5 @@ class DateFilter extends React.Component {
   }
 }
 
-export default injectIntl(DateFilter);
+export { UntranslatedDateField };
+export default injectT(UntranslatedDateField);

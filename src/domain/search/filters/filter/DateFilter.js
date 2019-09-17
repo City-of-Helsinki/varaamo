@@ -1,5 +1,4 @@
 import React from 'react';
-import { injectIntl, intlShape } from 'react-intl';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import DayPicker from 'react-day-picker';
@@ -10,6 +9,7 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import InputGroup from 'react-bootstrap/lib/InputGroup';
 import Overlay from 'react-bootstrap/lib/Overlay';
 
+import injectT from '../../../../../app/i18n/injectT';
 import iconCalendar from './images/calendar.svg';
 
 const DatePickerWrapper = ({ children }) => (
@@ -22,10 +22,10 @@ DatePickerWrapper.propTypes = {
   children: PropTypes.any,
 };
 
-class DateFilter extends React.Component {
+class UntranslatedDateFilter extends React.Component {
   static propTypes = {
     date: PropTypes.instanceOf(Date),
-    intl: intlShape.isRequired,
+    locale: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     label: PropTypes.string.isRequired,
   };
@@ -50,7 +50,7 @@ class DateFilter extends React.Component {
 
   render() {
     const {
-      intl,
+      locale,
       label,
       date,
     } = this.props;
@@ -82,7 +82,7 @@ class DateFilter extends React.Component {
             <DayPicker
               disabledDays={day => moment(day).isBefore(moment(), 'date')}
               initialMonth={date}
-              locale={intl.locale}
+              locale={locale}
               localeUtils={MomentLocaleUtils}
               onDayClick={newDate => this.onChange(newDate)}
               selectedDays={date}
@@ -95,5 +95,5 @@ class DateFilter extends React.Component {
     );
   }
 }
-
-export default injectIntl(DateFilter);
+export { UntranslatedDateFilter };
+export default injectT(UntranslatedDateFilter);

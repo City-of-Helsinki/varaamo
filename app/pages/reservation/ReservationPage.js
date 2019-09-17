@@ -1,6 +1,8 @@
 import first from 'lodash/first';
 import isEmpty from 'lodash/isEmpty';
 import last from 'lodash/last';
+import get from 'lodash/get';
+import has from 'lodash/has';
 import moment from 'moment';
 import React, { Component } from 'react';
 import Loader from 'react-loader';
@@ -23,6 +25,7 @@ import ReservationInformation from './reservation-information/ReservationInforma
 import ReservationPhases from './reservation-phases/ReservationPhases';
 import ReservationTime from './reservation-time/ReservationTime';
 import reservationPageSelector from './reservationPageSelector';
+import { hasProducts } from '../../utils/resourceUtils';
 import RecurringReservationControls from '../../shared/recurring-reservation-controls/RecurringReservationControls';
 import CompactReservationList from '../../shared/compact-reservation-list/CompactReservationList';
 import recurringReservationsConnector from '../../state/recurringReservations';
@@ -72,11 +75,14 @@ class UnconnectedReservationPage extends Component {
       (!isEmpty(nextCreated) || !isEmpty(nextEdited))
       && (nextCreated !== reservationCreated || nextEdited !== reservationEdited)
     ) {
-      // TODO: fix this lint
+      // Reservation created for resource with product/order: proceed to payment!
+      if (has(nextCreated, 'order.paymentUrl')) {
+        const paymentUrl = get(nextCreated, 'order.paymentUrl');
+        window.location = paymentUrl;
+        return;
+      }
       // eslint-disable-next-line react/no-will-update-set-state
-      this.setState({
-        view: 'confirmation',
-      });
+      this.setState({ view: 'confirmation' });
       window.scrollTo(0, 0);
     }
   }
@@ -107,6 +113,12 @@ class UnconnectedReservationPage extends Component {
     window.scrollTo(0, 0);
   };
 
+  createPaymentReturnUrl = () => {
+    const { protocol, hostname } = window.location;
+    const port = window.location.port ? `:${window.location.port}` : '';
+    return `${protocol}//${hostname}${port}/reservation-payment-return`;
+  };
+
   handleReservation = (values = {}) => {
     const {
       actions, reservationToEdit, resource, selected, recurringReservations = []
@@ -127,8 +139,23 @@ class UnconnectedReservationPage extends Component {
       } else {
         const allReservations = [...recurringReservations, { begin, end }];
 
+        const isOrder = hasProducts(resource);
+        const order = isOrder
+          ? {
+            order: {
+              order_lines: [{
+                product: get(resource, 'products[0].id'),
+              }],
+              return_url: this.createPaymentReturnUrl(),
+            }
+          } : {};
+
+        if (isOrder) {
+          this.setState({ view: 'payment' });
+        }
         allReservations.forEach((reservation = {}) => actions.postReservation({
           ...values,
+          ...order,
           begin: reservation.begin,
           end: reservation.end,
           resource: resource.id,
@@ -238,9 +265,15 @@ class UnconnectedReservationPage extends Component {
         <PageWrapper title={title} transparent>
           <div>
             <div className="app-ReservationPage__content">
-              <h1>{title}</h1>
+              <h1 className="app-ReservationPage__title app-ReservationPage__title--big">
+                {title}
+              </h1>
               <Loader loaded={!isEmpty(resource)}>
-                <ReservationPhases currentPhase={view} isEditing={isEditing || isEdited} />
+                <ReservationPhases
+                  currentPhase={view}
+                  isEditing={isEditing || isEdited}
+                  resource={resource}
+                />
                 {view === 'time' && isEditing && (
                   <ReservationTime
                     history={history}
@@ -275,9 +308,13 @@ class UnconnectedReservationPage extends Component {
                   </>
 
                 )}
+                {view === 'payment' && (
+                  <div className="text-center">
+                    <p>{t('ReservationPage.paymentText')}</p>
+                  </div>
+                )}
                 {view === 'confirmation' && (reservationCreated || reservationEdited) && (
                   <ReservationConfirmation
-                    history={history}
                     isEdited={isEdited}
                     reservation={reservationCreated || reservationEdited}
                     resource={resource}

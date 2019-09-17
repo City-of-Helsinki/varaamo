@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { injectIntl, intlShape } from 'react-intl';
 
 import injectT from '../../../../app/i18n/injectT';
 import SelectFilter from '../filters/filter/SelectFilter';
 
-const SearchSort = ({
+const UntranslatedSearchSort = ({
   t,
-  intl,
+  locale,
   onChange,
   value,
 }) => {
@@ -19,9 +18,9 @@ const SearchSort = ({
         label={t('SearchSort.label')}
         onChange={item => onChange(item.value)}
         options={[
-          { label: t('SearchSort.nameLabel'), value: `resource_name_${intl.locale}` },
-          { label: t('SearchSort.typeLabel'), value: `type_name_${intl.locale}` },
-          { label: t('SearchSort.premiseLabel'), value: `unit_name_${intl.locale}` },
+          { label: t('SearchSort.nameLabel'), value: `resource_name_${locale}` },
+          { label: t('SearchSort.typeLabel'), value: `type_name_${locale}` },
+          { label: t('SearchSort.premiseLabel'), value: `unit_name_${locale}` },
           { label: t('SearchSort.peopleLabel'), value: 'people_capacity' },
         ]}
         value={value}
@@ -30,11 +29,13 @@ const SearchSort = ({
   );
 };
 
-SearchSort.propTypes = {
+UntranslatedSearchSort.propTypes = {
   t: PropTypes.func.isRequired,
-  intl: intlShape.isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
+  locale: PropTypes.string
 };
 
-export default injectIntl(injectT(SearchSort));
+export { UntranslatedSearchSort };
+
+export default injectT(UntranslatedSearchSort);
