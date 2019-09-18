@@ -18,9 +18,14 @@ function ResourceInfo({
 
   return (
     <section className="app-ResourceInfo">
-      <div className="app-ResourceInfo__description">
-        {resource.description && <WrappedText openLinksInNewTab text={resource.description} />}
-      </div>
+      {resource.description && (
+        <ResourcePanel header={t('ResourceInfo.descriptionTitle')}>
+          <div className="app-ResourceInfo__description">
+            {resource.description && <WrappedText openLinksInNewTab text={resource.description} />}
+          </div>
+        </ResourcePanel>
+      )}
+
       <ResourcePanel header={t('ResourceInfo.reservationTitle')}>
         <ReservationInfo isLoggedIn={isLoggedIn} resource={resource} />
       </ResourcePanel>
@@ -56,7 +61,7 @@ function ResourceInfo({
         </Row>
       </ResourcePanel>
 
-      <Equipment equipment={resource.equipment} />
+      { resource.equipment.length > 0 && (<Equipment equipment={resource.equipment} />) }
     </section>
   );
 }
