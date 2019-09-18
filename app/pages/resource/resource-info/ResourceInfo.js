@@ -21,7 +21,7 @@ function ResourceInfo({
       {resource.description && (
         <ResourcePanel header={t('ResourceInfo.descriptionTitle')}>
           <div className="app-ResourceInfo__description">
-            {resource.description && <WrappedText openLinksInNewTab text={resource.description} />}
+            <WrappedText openLinksInNewTab text={resource.description} />
           </div>
         </ResourcePanel>
       )}
