@@ -61,7 +61,7 @@ function ResourceInfo({
         </Row>
       </ResourcePanel>
 
-      { resource.equipment.length > 0 && (<Equipment equipment={resource.equipment} />) }
+      { Array.isArray(resource.equipment) && resource.equipment.length > 0 && (<Equipment equipment={resource.equipment} />) }
     </section>
   );
 }
