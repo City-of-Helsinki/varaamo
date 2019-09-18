@@ -41,7 +41,7 @@ describe('pages/reservation/reservation-time/ReservationTime', () => {
     expect(resourceCalendar.prop('selectedDate')).toBe(date);
   });
 
-  test('renders ReservationCalendar', () => {
+  test('renders TimePickerCalendar', () => {
     const timePickerCalendar = getWrapper({ location }).find(TimePickerCalendar);
 
     expect(timePickerCalendar).toHaveLength(1);
