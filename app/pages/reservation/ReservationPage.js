@@ -154,7 +154,7 @@ class UnconnectedReservationPage extends Component {
         if (isOrder) {
           this.setState({ view: 'payment' });
         }
-        allReservations.forEach((reservation = {}) => actions.postReservation({
+        allReservations.forEach(reservation => actions.postReservation({
           ...values,
           ...order,
           begin: reservation.begin,
