@@ -1,26 +1,24 @@
 .notification-container {
   .notification {
     border-radius: 0;
+    box-shadow: 0 0 12px #000;
     color: $white;
     opacity: 1;
   }
   .notification-info {
     background-color: $brand-info;
-    box-shadow: 0 0 6px $brand-info;
     &::before {
       content: url(../../assets/icons/hds-info.svg);
     }
   }
   .notification-success {
     background-color: $brand-success;
-    box-shadow: 0 0 6px $brand-success;
     &::before {
       content: url(../../assets/icons/hds-success.svg);
     }
   }
   .notification-error {
     background-color: $brand-danger;
-    box-shadow: 0 0 6px $brand-danger;
     &::before {
       content: url(../../assets/icons/hds-warning.svg);
     }
