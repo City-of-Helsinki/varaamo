@@ -205,6 +205,7 @@
   "ReservationForm.cancel": "Tillbaka",
   "ReservationForm.emailError": "Mata in en giltig e-postadress",
   "ReservationForm.eventSubjectInfo": "Evenemangets namn är synbar enbart for personalen. Genom att ge evenemanget ett namn så kan vi lotsa besökarna till de rätta utrymmen. Kom ihåg att berätta evenemangets namn även till besökarna.",
+  "ReservationForm.specificTermsTitle": "Specifika villkor",
   "ReservationForm.maxLengthError": "Den maximala längden på fältet är {maxLength} tecken",
   "ReservationForm.requiredError": "Obligatorisk information",
   "ReservationForm.staffEventHelp": "Verkets egna evenemang godkänns automatiskt och de enda obligatoriska uppgifterna är namnet på personen som bokar utrymmet och beskrivningen av evenemanget.",

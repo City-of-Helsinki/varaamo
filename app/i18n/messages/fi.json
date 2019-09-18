@@ -203,6 +203,7 @@
   "ReservationForm.cancel": "Takaisin",
   "ReservationForm.emailError": "Syötä kunnollinen sähköpostiosoite",
   "ReservationForm.eventSubjectInfo": "Tilaisuuden nimen näkee ainoastaan henkilökunta. Antamalla tilaisuudelle nimen helpotat saapuvien vieraiden opastamista oikeaan tilaan. Muistathan ilmoittaa nimen myös tilaisuuteen saapuville.",
+  "ReservationForm.specificTermsTitle": "Resurssikohtaiset ehdot",
   "ReservationForm.maxLengthError": "Kentän maksimipituus on {maxLength} merkkiä",
   "ReservationForm.requiredError": "Pakollinen tieto",
   "ReservationForm.staffEventHelp": "Viraston oma tapahtuma hyväksytään automaattisesti ja ainoat pakolliset tiedot ovat varaajan nimi ja tilaisuuden kuvaus.",
