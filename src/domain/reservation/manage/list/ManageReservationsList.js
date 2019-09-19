@@ -19,7 +19,7 @@ export const getDateAndTime = (reservation) => {
   return `${begin.format('ddd L HH:mm')} - ${end.format('HH:mm')}`;
 };
 
-const fillEmptyCell = value => (value || <span className="app-ManageReservation__table__cell--empty">-</span>);
+const fillEmptyCell = value => (value || <span>-</span>);
 const ManageReservationsList = ({
   locale,
   t,
