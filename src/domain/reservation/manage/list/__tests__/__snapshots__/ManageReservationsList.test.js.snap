@@ -50,11 +50,21 @@ exports[`ManageReservationsList renders correctly 1`] = `
       <tr
         key="reservation-1"
       >
-        <td />
-        <td />
-        <td />
-        <td />
-        <td />
+        <td>
+          -
+        </td>
+        <td>
+          -
+        </td>
+        <td>
+          -
+        </td>
+        <td>
+          -
+        </td>
+        <td>
+          -
+        </td>
         <td>
           Invalid date - Invalid date
         </td>
