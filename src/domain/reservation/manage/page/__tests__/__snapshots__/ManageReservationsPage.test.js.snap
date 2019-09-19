@@ -60,7 +60,7 @@ exports[`ManageReservationsPage renders correctly 1`] = `
             loadedClassName="loadedContent"
             parentClassName="loader"
           >
-            <InjectIntl(InjectT(ManageReservationsList))
+            <InjectT(InjectT(ManageReservationsList))
               onEditClick={[Function]}
               onEditReservation={[Function]}
               onInfoClick={[Function]}
