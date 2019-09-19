@@ -77,8 +77,6 @@ const openReservationCommentModal = createAction(
   () => ModalTypes.RESERVATION_COMMENT
 );
 
-const selectReservationSlot = createAction(types.UI.SELECT_RESERVATION_SLOT);
-
 const selectReservationToCancel = createAction(types.UI.SELECT_RESERVATION_TO_CANCEL);
 
 const selectReservationToEdit = createAction(types.UI.SELECT_RESERVATION_TO_EDIT);
@@ -93,10 +91,6 @@ const startReservationEditInInfoModal = createAction(types.UI.START_RESERVATION_
 
 const setSelectedTimeSlots = createAction(types.UI.SET_SELECTED_TIME_SLOTS);
 
-const toggleTimeSlot = createAction(types.UI.TOGGLE_TIME_SLOT);
-
-const clearTimeSlots = createAction(types.UI.CLEAR_TIME_SLOTS);
-
 const toggleResourceMap = createAction(types.UI.TOGGLE_RESOURCE_SHOW_MAP);
 
 const unselectAdminResourceType = createAction(types.UI.UNSELECT_ADMIN_RESOURCE_TYPE);
@@ -104,7 +98,6 @@ const unselectAdminResourceType = createAction(types.UI.UNSELECT_ADMIN_RESOURCE_
 export {
   cancelReservationEdit,
   cancelReservationEditInInfoModal,
-  clearTimeSlots,
   changeAdminReservationFilters,
   changeAdminResourcesPageDate,
   changeSearchFilters,
@@ -126,12 +119,10 @@ export {
   openResourceTermsModal,
   selectReservationToCancel,
   selectReservationToEdit,
-  selectReservationSlot,
   selectReservationToShow,
   showReservationInfoModal,
   startReservationEditInInfoModal,
   toggleResourceMap,
-  toggleTimeSlot,
   unselectAdminResourceType,
   setSelectedTimeSlots,
 };

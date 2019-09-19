@@ -64,7 +64,6 @@ export default {
     availableBetween: '',
   },
   TIME_FORMAT: 'H:mm',
-  TIME_SLOT_DEFAULT_LENGTH: 30,
   TRACKING: SETTINGS.TRACKING,
   SORT_BY_OPTIONS: {
     NAME: 'resource_name_lang',

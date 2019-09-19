@@ -15,12 +15,9 @@ import {
   getEndTimeString,
   getStartTimeString,
   getTimeSlots,
-  getTimeDiff,
   isPastDate,
-  padLeft,
   prettifyHours,
-  periodToMinute,
-  getEndTimeSlotWithMinPeriod
+  periodToMinute
 } from '../timeUtils';
 
 const moment = extendMoment(Moment);
@@ -595,85 +592,6 @@ describe('Utils: timeUtils', () => {
       test('returns the number of hours rounded to half an hour', () => {
         expect(prettifyHours(hours)).toBe('2.5 h');
       });
-    });
-  });
-
-  describe('padLeft', () => {
-    describe('if number is less than 10', () => {
-      test('returns the number with 0 added to the left as a string', () => {
-        const number = 6;
-        const expected = `0${number}`;
-
-        expect(padLeft(number)).toBe(expected);
-      });
-    });
-
-    describe('if number is more than 10', () => {
-      const number = 16;
-      const expected = `${number}`;
-
-      test('returns the number as it is as a string', () => {
-        expect(padLeft(number)).toBe(expected);
-      });
-    });
-  });
-
-  describe('getTimeDiff', () => {
-    test('return timediff in number by default', () => {
-      const startDate = '2019-05-09T05:00:01.000Z';
-      const endDate = '2019-05-09T05:00:00.000Z';
-
-      const expected = -1000;
-
-      expect(getTimeDiff(startDate, endDate)).toEqual(expected);
-    });
-
-    test('return timediff in defined unit', () => {
-      const startDate = '2019-05-09T05:30:01.000Z';
-      const endDate = '2019-05-09T05:00:00.000Z';
-      const unit = 'minutes';
-      const expected = -30;
-
-      expect(getTimeDiff(startDate, endDate, unit)).toEqual(expected);
-    });
-
-    test('can be used to compare time', () => {
-      const startDate = '2019-05-09T05:30:00.000Z';
-      const endDate = '2019-05-09T05:00:00.000Z';
-
-      expect(getTimeDiff(startDate, endDate) > 0).toBeFalsy();
-    });
-
-    test('can return float value instead of round number', () => {
-      const startDate = '2019-05-09T05:42:00.000Z';
-      const endDate = '2019-05-09T05:30:00.000Z';
-      const result = parseFloat(getTimeDiff(startDate, endDate, 'hours', true));
-      expect(result).toEqual(-0.2);
-    });
-
-    test('given startDate < endDate the difference should be positive', () => {
-      const startTime = '2019-06-20T12:30:00.000Z';
-      const endTime = '2019-06-20T12:45:00.000Z';
-      const unit = 'minutes';
-      const expected = 15;
-      expect(getTimeDiff(startTime, endTime, unit)).toEqual(expected);
-    });
-  });
-
-  describe('getEndTimeSlotWithMinPeriod', () => {
-    test('return end time slot with timediff equal minPeriod', () => {
-      const slot = {
-        begin: '2019-05-09T05:00:00.000Z',
-        end: '2019-05-09T05:30:00.000Z',
-        resource: 'abc'
-      };
-
-      const minPeriod = '01:00:00';
-      const result = getEndTimeSlotWithMinPeriod(slot, minPeriod);
-
-      expect(getTimeDiff(slot.begin, result.begin, 'minutes')).toEqual(periodToMinute(minPeriod));
-      expect(getTimeDiff(slot.end, result.end, 'minutes')).toEqual(periodToMinute(minPeriod));
-      expect(result.resource).toEqual(slot.resource);
     });
   });
 

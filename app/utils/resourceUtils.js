@@ -23,13 +23,6 @@ function hasMaxReservations(resource) {
   return isMaxReservations;
 }
 
-function isOpenNow(resource) {
-  const { closes, opens } = getOpeningHours(resource);
-  const now = moment();
-
-  return now >= moment(opens) && now <= moment(closes);
-}
-
 function getAvailabilityDataForNow(resource = {}, date = null) {
   const { closes, opens } = getOpeningHours(resource, date);
   const reservations = getOpenReservations(resource);
@@ -219,7 +212,6 @@ function hasProducts(resource) {
 
 export {
   hasMaxReservations,
-  isOpenNow,
   getAvailabilityDataForNow,
   getAvailabilityDataForWholeDay,
   getHourlyPrice,
