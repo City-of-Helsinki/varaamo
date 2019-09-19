@@ -19,7 +19,6 @@ export const getDateAndTime = (reservation) => {
   return `${begin.format('ddd L HH:mm')} - ${end.format('HH:mm')}`;
 };
 
-const fillEmptyCell = value => (value || <span>-</span>);
 const ManageReservationsList = ({
   locale,
   t,
@@ -53,14 +52,14 @@ const ManageReservationsList = ({
 
             return (
               <tr key={`reservation-${reservation.id}`}>
-                <td>{fillEmptyCell(get(reservation, 'event_description'))}</td>
-                <td>{fillEmptyCell(get(reservation, 'user.display_name'))}</td>
-                <td>{fillEmptyCell(get(reservation, 'user.email'))}</td>
-                <td>{fillEmptyCell(dataUtils.getLocalizedFieldValue(get(reservation, 'resource.name'), locale))}</td>
+                <td>{get(reservation, 'event_description') || '-'}</td>
+                <td>{get(reservation, 'user.display_name') || '-'}</td>
+                <td>{get(reservation, 'user.email') || '-'}</td>
+                <td>{dataUtils.getLocalizedFieldValue(get(reservation, 'resource.name'), locale) || '-'}</td>
                 <td>
-                  {fillEmptyCell(dataUtils.getLocalizedFieldValue(
+                  {dataUtils.getLocalizedFieldValue(
                     get(reservation, 'resource.unit.name'), locale
-                  ))}
+                  ) || '-'}
                 </td>
                 <td>{getDateAndTime(reservation)}</td>
                 <td />

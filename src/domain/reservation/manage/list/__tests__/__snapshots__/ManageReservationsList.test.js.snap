@@ -51,39 +51,19 @@ exports[`ManageReservationsList renders correctly 1`] = `
         key="reservation-1"
       >
         <td>
-          <span
-            className="app-ManageReservation__table__cell--empty"
-          >
-            -
-          </span>
+          -
         </td>
         <td>
-          <span
-            className="app-ManageReservation__table__cell--empty"
-          >
-            -
-          </span>
+          -
         </td>
         <td>
-          <span
-            className="app-ManageReservation__table__cell--empty"
-          >
-            -
-          </span>
+          -
         </td>
         <td>
-          <span
-            className="app-ManageReservation__table__cell--empty"
-          >
-            -
-          </span>
+          -
         </td>
         <td>
-          <span
-            className="app-ManageReservation__table__cell--empty"
-          >
-            -
-          </span>
+          -
         </td>
         <td>
           Invalid date - Invalid date
