@@ -236,6 +236,7 @@ class UnconnectedReservationPage extends Component {
       unit,
       user,
       history,
+      failedReservations,
     } = this.props;
     const { view } = this.state;
 
@@ -309,6 +310,7 @@ class UnconnectedReservationPage extends Component {
                 )}
                 {view === 'confirmation' && (reservationCreated || reservationEdited) && (
                   <ReservationConfirmation
+                    failedReservations={failedReservations}
                     isEdited={isEdited}
                     reservation={reservationCreated || reservationEdited}
                     resource={resource}
@@ -337,6 +339,7 @@ UnconnectedReservationPage.propTypes = {
   reservationEdited: PropTypes.object,
   resource: PropTypes.object.isRequired,
   selected: PropTypes.array.isRequired,
+  failedReservations: PropTypes.array.isRequired,
   t: PropTypes.func.isRequired,
   unit: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
