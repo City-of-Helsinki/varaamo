@@ -178,9 +178,6 @@ function prettifyHours(hours, showMinutes = false) {
   return `${rounded} h`;
 }
 
-function padLeft(number) {
-  return number < 10 ? `0${number}` : String(number);
-}
 /**
  * Convert time period to minutes;
  *
@@ -189,40 +186,6 @@ function padLeft(number) {
  */
 function periodToMinute(period) {
   return moment.duration(period).asMinutes();
-}
-
-/**
- * Get end time slot with minPeriod time range.
- * For example: start slot at 2AM, minPeriod = 1h, expected result 3AM
- *
- * @param {object} startSlot
- * @param {string} slotSize
- * @param {string} minPeriod
- * @return {object} endSlot
- */
-function getEndTimeSlotWithMinPeriod(startSlot, minPeriod, slotSize) {
-  const minPeriodInMinutes = periodToMinute(minPeriod) - periodToMinute(slotSize);
-  // minPeriod always >= slotSize
-  // minus 1 timeSlot here so the timediff between start slot and end slot is equal with minPeriod.
-
-  return {
-    resource: startSlot.resource,
-    begin: moment(startSlot.begin).add(minPeriodInMinutes, 'minutes').toISOString(),
-    end: moment(startSlot.end).add(minPeriodInMinutes, 'minutes').toISOString()
-  };
-}
-
-/**
- * Get time different
- * This function can be use to compare time
- * @param {string} startTime ISO Time String
- * @param {string} endTime ISO Time String
- * @param {string} unit Define time unit
- * @param {boolean} isFloat Should result in float, default integer
- * @returns {int | float} timediff
- */
-function getTimeDiff(startTime, endTime, unit, isFloat = false) {
-  return moment(endTime).diff(moment(startTime), unit, isFloat);
 }
 
 export {
@@ -238,8 +201,5 @@ export {
   getTimeSlots,
   isPastDate,
   prettifyHours,
-  padLeft,
-  periodToMinute,
-  getEndTimeSlotWithMinPeriod,
-  getTimeDiff
+  periodToMinute
 };

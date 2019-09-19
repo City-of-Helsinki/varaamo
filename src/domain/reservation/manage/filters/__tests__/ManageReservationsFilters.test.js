@@ -10,8 +10,8 @@ describe('ManageReservationsFilters', () => {
     const props = {
       filters: {},
       units: [unit.build()],
-      onChange: () => {
-      },
+      onSearchChange: jest.fn(),
+      onShowOnlyFiltersChange: jest.fn(),
     };
     const wrapper = shallowWithIntl(
       <UnwrappedManageReservationsFilters {...props} />

@@ -6,7 +6,6 @@ import simple from 'simple-mock';
 import constants from '../../constants/AppConstants';
 import {
   hasMaxReservations,
-  isOpenNow,
   getAvailabilityDataForNow,
   getAvailabilityDataForWholeDay,
   getHumanizedPeriod,
@@ -76,94 +75,6 @@ describe('Utils: resourceUtils', () => {
 
       test('returns false', () => {
         expect(hasMaxReservations(resource)).toBe(false);
-      });
-    });
-  });
-  describe('isOpenNow', () => {
-    describe('if openingHours data is missing', () => {
-      const openingHours = {
-        opens: null,
-        closes: null,
-      };
-      const now = '2015-10-10T06:00:00+03:00';
-      const resource = { openingHours: [openingHours] };
-
-      beforeEach(() => {
-        MockDate.set(now);
-      });
-
-      afterEach(() => {
-        MockDate.reset();
-      });
-
-      test('returns false', () => {
-        expect(isOpenNow(resource)).toBe(false);
-      });
-    });
-
-    describe('if current time is before openingHours.opens', () => {
-      const openingHours = {
-        opens: '2015-10-10T12:00:00+03:00',
-        closes: '2015-10-10T18:00:00+03:00',
-        date: '2015-10-10',
-      };
-      const now = '2015-10-10T06:00:00+03:00';
-      const resource = { openingHours: [openingHours] };
-
-      beforeEach(() => {
-        MockDate.set(now);
-      });
-
-      afterEach(() => {
-        MockDate.reset();
-      });
-
-      test('returns false', () => {
-        expect(isOpenNow(resource)).toBe(false);
-      });
-    });
-
-    describe('if current time is between openingHours', () => {
-      const openingHours = {
-        opens: '2015-10-10T12:00:00+03:00',
-        closes: '2015-10-10T18:00:00+03:00',
-        date: '2015-10-10',
-      };
-      const now = '2015-10-10T14:00:00+03:00';
-      const resource = { openingHours: [openingHours] };
-
-      beforeEach(() => {
-        MockDate.set(now);
-      });
-
-      afterEach(() => {
-        MockDate.reset();
-      });
-
-      test('returns true', () => {
-        expect(isOpenNow(resource)).toBe(true);
-      });
-    });
-
-    describe('if current time is after openingHours.closes', () => {
-      const openingHours = {
-        opens: '2015-10-10T12:00:00+03:00',
-        closes: '2015-10-10T18:00:00+03:00',
-        date: '2015-10-10',
-      };
-      const now = '2015-10-10T23:00:00+03:00';
-      const resource = { openingHours: [openingHours] };
-
-      beforeEach(() => {
-        MockDate.set(now);
-      });
-
-      afterEach(() => {
-        MockDate.reset();
-      });
-
-      test('returns false', () => {
-        expect(isOpenNow(resource)).toBe(false);
       });
     });
   });
