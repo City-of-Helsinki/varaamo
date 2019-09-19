@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import get from 'lodash/get';
 import { Table } from 'react-bootstrap';
-import { injectIntl, intlShape } from 'react-intl';
 
 import * as dataUtils from '../../../../common/data/utils';
 import injectT from '../../../../../app/i18n/injectT';
@@ -20,8 +19,9 @@ export const getDateAndTime = (reservation) => {
   return `${begin.format('ddd L HH:mm')} - ${end.format('HH:mm')}`;
 };
 
+const fillEmptyCell = value => (value || <span className="app-ManageReservation__table__cell--empty">-</span>);
 const ManageReservationsList = ({
-  intl,
+  locale,
   t,
   reservations = [],
   onInfoClick,
@@ -53,11 +53,15 @@ const ManageReservationsList = ({
 
             return (
               <tr key={`reservation-${reservation.id}`}>
-                <td>{get(reservation, 'event_description', '')}</td>
-                <td>{get(reservation, 'user.display_name', '')}</td>
-                <td>{get(reservation, 'user.email', '')}</td>
-                <td>{dataUtils.getLocalizedFieldValue(get(reservation, 'resource.name'), intl.locale)}</td>
-                <td>{dataUtils.getLocalizedFieldValue(get(reservation, 'resource.unit.name'), intl.locale)}</td>
+                <td>{fillEmptyCell(get(reservation, 'event_description'))}</td>
+                <td>{fillEmptyCell(get(reservation, 'user.display_name'))}</td>
+                <td>{fillEmptyCell(get(reservation, 'user.email'))}</td>
+                <td>{fillEmptyCell(dataUtils.getLocalizedFieldValue(get(reservation, 'resource.name'), locale))}</td>
+                <td>
+                  {fillEmptyCell(dataUtils.getLocalizedFieldValue(
+                    get(reservation, 'resource.unit.name'), locale
+                  ))}
+                </td>
                 <td>{getDateAndTime(reservation)}</td>
                 <td />
                 <td><ManageReservationsPincode reservation={reservation} /></td>
@@ -86,11 +90,11 @@ const ManageReservationsList = ({
 ManageReservationsList.propTypes = {
   t: PropTypes.func.isRequired,
   reservations: PropTypes.array,
-  intl: intlShape,
   onInfoClick: PropTypes.func,
   onEditClick: PropTypes.func,
-  onEditReservation: PropTypes.func
+  onEditReservation: PropTypes.func,
+  locale: PropTypes.string.isRequired
 };
 
 export const UnwrappedManageReservationsList = injectT(ManageReservationsList);
-export default injectIntl(UnwrappedManageReservationsList);
+export default injectT(UnwrappedManageReservationsList);
