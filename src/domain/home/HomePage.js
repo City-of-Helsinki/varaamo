@@ -49,40 +49,43 @@ class HomePage extends Component {
     }
   }
 
-  normalizePurposes = (purposes) => {
-    return purposes.filter(purpose => !purpose.parent).sort();
-  }
-
   handleSearch = (value = '') => {
     this.props.history.push(`/search?search=${value}`);
   }
 
-  renderPurposeBanner = (purpose) => {
+  renderPurposeBanners = () => {
     const { t, locale } = this.props;
-    const image = purposeIcons[camelCase(purpose.id)];
-    const purposeName = purpose.name[locale] || '';
-    return (
-      <Col className="app-HomePageContent__banner" key={purpose.id} md={3} sm={6} xs={12}>
-        <Link className="app-HomePageContent__banner__linkWrapper" to={`/search?purpose=${purpose.id}`}>
-          <div className="app-HomePageContent__banner-icon">
-            {typeof image === 'string' ? <img alt={purposeName} src={image} />
-            // TODO: VAR-80 | VAR-81 Replace those icon with designed icon.
+    const { purposes } = this.state;
 
-              : <FAIcon icon={image} />}
-          </div>
+    const normalizedPurpose = purposes.filter(purpose => !purpose.parent).sort();
 
-          <h5>{purposeName}</h5>
-          <div className="app-HomePageContent__banner-action">
-            <Button
-              bsStyle="primary"
-              className="app-HomePageContent__button"
-            >
-              {t('HomePage.buttonText')}
-            </Button>
-          </div>
-        </Link>
-      </Col>
-    );
+    return normalizedPurpose.map((purpose) => {
+      const image = purposeIcons[camelCase(purpose.id)];
+      const purposeName = purpose.name[locale] || '';
+
+      return (
+        <Col className="app-HomePageContent__banner" key={purpose.id} md={3} sm={6} xs={12}>
+          <Link className="app-HomePageContent__banner__linkWrapper" to={`/search?purpose=${purpose.id}`}>
+            <div className="app-HomePageContent__banner-icon">
+              {typeof image === 'string' ? <img alt={purposeName} src={image} />
+              // TODO: VAR-80 | VAR-81 Replace those icon with designed icon.
+
+                : <FAIcon icon={image} />}
+            </div>
+
+            <h5>{purposeName}</h5>
+            <div className="app-HomePageContent__banner-action">
+              <Button
+                bsStyle="primary"
+                className="app-HomePageContent__button"
+              >
+                {t('HomePage.buttonText')}
+              </Button>
+            </div>
+          </Link>
+        </Col>
+      );
+    });
   }
 
   render() {
@@ -104,7 +107,7 @@ class HomePage extends Component {
             <Loader loaded={!isFetchingPurposes}>
               <div className="app-HomePageContent__banners">
                 <Row>
-                  {this.normalizePurposes(purposes).map(this.renderPurposeBanner)}
+                  {this.renderPurposeBanners()}
                 </Row>
               </div>
             </Loader>
