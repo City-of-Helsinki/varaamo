@@ -13,9 +13,11 @@ import ReservationDate from '../../../shared/reservation-date/ReservationDate';
 import { hasProducts } from '../../../utils/resourceUtils';
 import { getReservationPrice, getReservationPricePerPeriod } from '../../../utils/reservationUtils';
 import apiClient from '../../../../src/common/api/client';
+import CompactReservationList from '../../../shared/compact-reservation-list/CompactReservationList';
 
 class ReservationConfirmation extends Component {
   static propTypes = {
+    failedReservations: PropTypes.array.isRequired,
     isEdited: PropTypes.bool,
     reservation: PropTypes.object.isRequired,
     resource: PropTypes.object.isRequired,
@@ -50,7 +52,7 @@ class ReservationConfirmation extends Component {
 
   render() {
     const {
-      isEdited, reservation, resource, t, user
+      failedReservations, isEdited, reservation, resource, t, user
     } = this.props;
     const { reservationPrice } = this.state;
     const refUrl = window.location.href;
@@ -97,6 +99,22 @@ class ReservationConfirmation extends Component {
             <p>
               <FormattedHTMLMessage id="ReservationConfirmation.feedbackText" values={{ href }} />
             </p>
+
+            {Array.isArray(failedReservations) && Boolean(failedReservations.length)
+              && (
+                <div>
+                  <h5 className="app-ReservationConfirmation__error-msg-title">
+                    {t('ReservationSuccessModal.failedReservationsHeader')}
+                  </h5>
+                  <CompactReservationList
+                    className="failed-reservations-list"
+                    reservations={failedReservations}
+                    subtitle="failReason"
+                  />
+                </div>
+              )
+            }
+
             <p className="app-ReservationConfirmation__button-wrapper">
               <Link to="/my-reservations">
                 <Button bsStyle="primary" className="app-ReservationConfirmation__button">
