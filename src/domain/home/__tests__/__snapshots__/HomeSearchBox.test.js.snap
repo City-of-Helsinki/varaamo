@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pages/home/HomeSearchBox render normally 1`] = `
+<form
+  className="app-HomeSearchBox"
+  onSubmit={[Function]}
+>
+  <FormControl
+    bsClass="form-control"
+    className="app-HomeSearchBox__textfield"
+    componentClass="input"
+    onChange={[Function]}
+    placeholder="HomeSearchBox.searchPlaceholder"
+    type="text"
+  />
+  <Button
+    active={false}
+    block={false}
+    bsClass="btn"
+    bsStyle="primary"
+    className="app-HomeSearchBox__button"
+    disabled={false}
+    type="submit"
+  >
+    HomeSearchBox.buttonText
+  </Button>
+</form>
+`;

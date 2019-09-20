@@ -8,10 +8,6 @@ describe('state/reducers/api/shouldFetchReducer', () => {
   describe('initial state', () => {
     const initialState = shouldFetchReducer(undefined, {});
 
-    test('purposes is true', () => {
-      expect(initialState.purposes).toBe(true);
-    });
-
     test('resources is true', () => {
       expect(initialState.resources).toBe(true);
     });
@@ -22,18 +18,6 @@ describe('state/reducers/api/shouldFetchReducer', () => {
   });
 
   describe('handling actions', () => {
-    describe('API.PURPOSES_GET_SUCCESS', () => {
-      const fetchPurposesSuccess = createAction(types.API.PURPOSES_GET_SUCCESS);
-
-      test('sets purposes to false', () => {
-        const action = fetchPurposesSuccess();
-        const initialState = Immutable({ purposes: true });
-        const nextState = shouldFetchReducer(initialState, action);
-
-        expect(nextState.purposes).toBe(false);
-      });
-    });
-
     describe('API.RESOURCES_GET_SUCCESS', () => {
       const fetchResourcesSuccess = createAction(types.API.RESOURCES_GET_SUCCESS);
 

@@ -45,7 +45,9 @@ class ReservationTime extends Component {
     const date = moment(selectedReservation.begin).format('YYYY-MM-DD');
     const decamelizedResource = decamelizeKeys(resource);
     const reservations = get(decamelizedResource, 'reservations', []);
-    const filteredReservations = filter(reservations, res => (selectedReservation && res.id !== selectedReservation.id));
+    const filteredReservations = filter(
+      reservations, res => (selectedReservation && res.id !== selectedReservation.id)
+    );
     const resourceToEdit = { ...decamelizedResource, reservations: filteredReservations };
 
     return (
@@ -59,7 +61,11 @@ class ReservationTime extends Component {
             />
             <TimePickerCalendar
               date={date}
-              defaultSelected={selectedReservation ? { start: moment(selectedReservation.begin).toDate(), end: moment(selectedReservation.end).toDate() } : null}
+              defaultSelected={
+                selectedReservation ? {
+                  start: moment(selectedReservation.begin).toDate(),
+                  end: moment(selectedReservation.end).toDate()
+                } : null}
               onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())}
               onTimeChange={selected => handleSelectReservation({ selected, resource: resourceToEdit })}
               resource={resourceToEdit}

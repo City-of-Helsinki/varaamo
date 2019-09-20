@@ -1,32 +1,12 @@
 import { getState } from '../../../utils/testUtils';
 import {
   createResourceSelector,
-  purposesSelector,
   reservationsSelector,
   resourcesSelector,
   unitsSelector,
 } from '../dataSelectors';
 
 describe('state/selectors/dataSelectors', () => {
-  describe('purposesSelector', () => {
-    test('returns purposes translated in current language from the state', () => {
-      const locale = 'en';
-      const state = getState({
-        'data.purposes': {
-          1: { id: 1, name: { en: 'Meetings' } },
-          2: { id: 2, name: { en: 'Gaming' } },
-        },
-        intl: { locale },
-      });
-      const expected = {
-        1: { id: 1, name: 'Meetings' },
-        2: { id: 2, name: 'Gaming' },
-      };
-      const selected = purposesSelector(state);
-      expect(selected).toEqual(expected);
-    });
-  });
-
   describe('reservationsSelector', () => {
     test('returns reservations from the state', () => {
       const locale = 'en';

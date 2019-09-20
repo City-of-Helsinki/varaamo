@@ -1,10 +1,9 @@
 import React from 'react';
-import Button from 'react-bootstrap/lib/Button';
-import FormControl from 'react-bootstrap/lib/FormControl';
 import simple from 'simple-mock';
+import toJson from 'enzyme-to-json';
 
-import { shallowWithIntl } from '../../../utils/testUtils';
 import HomeSearchBox from '../HomeSearchBox';
+import { shallowWithIntl } from '../../../../app/utils/testUtils';
 
 function getWrapper(props) {
   const defaults = {
@@ -16,27 +15,11 @@ function getWrapper(props) {
 }
 
 describe('pages/home/HomeSearchBox', () => {
-  test('renders a form.app-HomeSearchBox', () => {
+  test('render normally', () => {
     const wrapper = getWrapper();
-    expect(wrapper.is('form.app-HomeSearchBox')).toBe(true);
-  });
 
-  test('renders FormControl with correct props', () => {
-    const value = 'some search query';
-    const wrapper = getWrapper({ value });
-    const formControl = wrapper.find(FormControl);
-    expect(formControl).toHaveLength(1);
-    expect(formControl.prop('onChange')).toBe(wrapper.instance().handleChange);
-    expect(formControl.prop('type')).toBe('text');
-    expect(formControl.prop('placeholder')).toBe('HomeSearchBox.searchPlaceholder');
+    expect(toJson(wrapper)).toMatchSnapshot();
   });
-
-  test('renders search button', () => {
-    const button = getWrapper().find(Button);
-    expect(button).toHaveLength(1);
-    expect(button.prop('children')).toBe('HomeSearchBox.buttonText');
-  });
-
   describe('handleSubmit', () => {
     test('calls props.onSearch', () => {
       const mockEvent = { preventDefault: () => null };
