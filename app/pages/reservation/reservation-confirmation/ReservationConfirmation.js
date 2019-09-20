@@ -100,7 +100,7 @@ class ReservationConfirmation extends Component {
               <FormattedHTMLMessage id="ReservationConfirmation.feedbackText" values={{ href }} />
             </p>
 
-            {Boolean(failedReservations.length)
+            {Array.isArray(failedReservations) && Boolean(failedReservations.length)
               && (
                 <div>
                   <h5 className="app-ReservationConfirmation__error-msg-title">
