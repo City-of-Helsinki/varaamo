@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import injectT from '../../i18n/injectT';
 import aikaLogoSrc from './images/aika-logo.png';
 import eakrLogoSrc from './images/eakr-logo.png';
 import euVipuvoimaaLogoSrc from './images/eu-vipuvoimaa-logo.png';
+import injectT from '../../../app/i18n/injectT';
 
 function AboutPartners({ t }) {
   return (
