@@ -100,14 +100,20 @@ class ReservationConfirmation extends Component {
               <FormattedHTMLMessage id="ReservationConfirmation.feedbackText" values={{ href }} />
             </p>
 
-            <h5 className="app-ReservationConfirmation__error-msg-title">
-              {t('ReservationSuccessModal.failedReservationsHeader')}
-            </h5>
-            <CompactReservationList
-              className="failed-reservations-list"
-              reservations={failedReservations}
-              subtitle="failReason"
-            />
+            {Boolean(failedReservations.length)
+              && (
+                <div>
+                  <h5 className="app-ReservationConfirmation__error-msg-title">
+                    {t('ReservationSuccessModal.failedReservationsHeader')}
+                  </h5>
+                  <CompactReservationList
+                    className="failed-reservations-list"
+                    reservations={failedReservations}
+                    subtitle="failReason"
+                  />
+                </div>
+              )
+            }
 
             <p className="app-ReservationConfirmation__button-wrapper">
               <Link to="/my-reservations">
