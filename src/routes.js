@@ -5,7 +5,6 @@ import Route from '../app/shared/route/Route';
 import PrivateRoute from '../app/shared/private-route/PrivateRoute';
 import AppContainer from '../app/pages/AppContainer';
 import AdminResourcesPage from '../app/pages/admin-resources/AdminResourcesPage';
-import HomePage from '../app/pages/home/HomePage';
 import NotFoundPage from '../app/pages/not-found/NotFoundPage';
 import ReservationPage from '../app/pages/reservation/ReservationPage';
 import ReservationPaymentReturnPage from '../app/pages/reservation/ReservationPaymentReturnPage';
@@ -14,6 +13,7 @@ import UserReservationsPage from '../app/pages/user-reservations/UserReservation
 import SearchPage from './domain/search/page/SearchPage';
 import AboutPage from './domain/about/AboutPage';
 import ManageReservationsPage from './domain/reservation/manage/page/ManageReservationsPage';
+import HomePage from './domain/home/HomePage';
 
 export default () => (
   <AppContainer>

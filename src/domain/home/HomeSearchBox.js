@@ -3,7 +3,7 @@ import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import FormControl from 'react-bootstrap/lib/FormControl';
 
-import injectT from '../../i18n/injectT';
+import injectT from '../../../app/i18n/injectT';
 
 class HomeSearchBox extends React.Component {
   static propTypes = {
@@ -11,11 +11,8 @@ class HomeSearchBox extends React.Component {
     t: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: '',
-    };
+  state = {
+    value: ''
   }
 
   handleChange = (event) => {

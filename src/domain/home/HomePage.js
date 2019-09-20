@@ -2,24 +2,21 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import Loader from 'react-loader';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import camelCase from 'lodash/camelCase';
 import Link from 'react-router-dom/Link';
 import { faHotTub as iconSauna, faCalendarAlt as iconOrganizeEvents } from '@fortawesome/free-solid-svg-icons';
-
 // TODO: VAR-80 | VAR-81 Replace those icon with designed icon.
-import { fetchPurposes } from '../../actions/purposeActions';
-import injectT from '../../i18n/injectT';
-import PageWrapper from '../PageWrapper';
+
 import HomeSearchBox from './HomeSearchBox';
-import homePageSelector from './homePageSelector';
 import iconManufacturing from './images/frontpage_build.svg';
 import iconPhotoAndAudio from './images/frontpage_music.svg';
 import iconSports from './images/frontpage_sport.svg';
 import iconGuidance from './images/frontpage_guidance.svg';
 import iconMeetingsAndWorking from './images/frontpage_work.svg';
-import FAIcon from '../../shared/fontawesome-icon/FontAwesomeIcon';
+import client from '../../common/api/client';
+import FAIcon from '../../../app/shared/fontawesome-icon/FontAwesomeIcon';
+import PageWrapper from '../../../app/pages/PageWrapper';
+import injectT from '../../../app/i18n/injectT';
 
 const purposeIcons = {
   photoAndAudio: iconPhotoAndAudio,
@@ -31,36 +28,50 @@ const purposeIcons = {
   sauna: iconSauna
 };
 
-class UnconnectedHomePage extends Component {
-  constructor(props) {
-    super(props);
-    this.handleSearch = this.handleSearch.bind(this);
-    this.renderPurposeBanner = this.renderPurposeBanner.bind(this);
+class HomePage extends Component {
+  state = {
+    isFetchingPurposes: false,
+    purposes: null
   }
 
   componentDidMount() {
-    this.props.actions.fetchPurposes();
+    this.fetchPurposes();
   }
 
-  handleSearch(value = '') {
+  fetchPurposes = async () => {
+    this.setState({ isFetchingPurposes: true });
+    try {
+      const response = await client.get('purpose');
+      this.setState({ isFetchingPurposes: false, purposes: response.data.results });
+    } catch (errors) {
+      this.setState({ isFetchingPurposes: false });
+      // TODO: HTTP error handler
+    }
+  }
+
+  normalizePurposes = (purposes) => {
+    return purposes.filter(purpose => !purpose.parent).sort();
+  }
+
+  handleSearch = (value = '') => {
     this.props.history.push(`/search?search=${value}`);
   }
 
-  renderPurposeBanner(purpose) {
-    const { t } = this.props;
-    const image = purposeIcons[camelCase(purpose.value)];
-
+  renderPurposeBanner = (purpose) => {
+    const { t, locale } = this.props;
+    const image = purposeIcons[camelCase(purpose.id)];
+    const purposeName = purpose.name[locale] || '';
     return (
-      <Col className="app-HomePageContent__banner" key={purpose.value} md={3} sm={6} xs={12}>
-        <Link className="app-HomePageContent__banner__linkWrapper" to={`/search?purpose=${purpose.value}`}>
+      <Col className="app-HomePageContent__banner" key={purpose.id} md={3} sm={6} xs={12}>
+        <Link className="app-HomePageContent__banner__linkWrapper" to={`/search?purpose=${purpose.id}`}>
           <div className="app-HomePageContent__banner-icon">
-            {typeof image === 'string' ? <img alt={purpose.label} src={image} />
+            {typeof image === 'string' ? <img alt={purposeName} src={image} />
             // TODO: VAR-80 | VAR-81 Replace those icon with designed icon.
 
               : <FAIcon icon={image} />}
           </div>
 
-          <h5>{purpose.label}</h5>
+          <h5>{purposeName}</h5>
           <div className="app-HomePageContent__banner-action">
             <Button
               bsStyle="primary"
@@ -75,7 +86,9 @@ class UnconnectedHomePage extends Component {
   }
 
   render() {
-    const { isFetchingPurposes, purposes, t } = this.props;
+    const { t } = this.props;
+    const { purposes, isFetchingPurposes } = this.state;
+
     return (
       <div className="app-HomePage">
         <div className="app-HomePage__content container">
@@ -87,36 +100,25 @@ class UnconnectedHomePage extends Component {
         <div className="app-HomePage__koro" />
         <PageWrapper className="app-HomePageContent" title={t('HomePage.title')}>
           <h4>{t('HomePage.bannersTitle')}</h4>
-          <Loader loaded={!isFetchingPurposes}>
-            <div className="app-HomePageContent__banners">
-              <Row>
-                {purposes.map(this.renderPurposeBanner)}
-              </Row>
-            </div>
-          </Loader>
+          {purposes && (
+            <Loader loaded={!isFetchingPurposes}>
+              <div className="app-HomePageContent__banners">
+                <Row>
+                  {this.normalizePurposes(purposes).map(this.renderPurposeBanner)}
+                </Row>
+              </div>
+            </Loader>
+          )}
         </PageWrapper>
       </div>
     );
   }
 }
 
-UnconnectedHomePage.propTypes = {
-  actions: PropTypes.object.isRequired,
-  isFetchingPurposes: PropTypes.bool.isRequired,
-  purposes: PropTypes.array.isRequired,
+HomePage.propTypes = {
   history: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
+  locale: PropTypes.string.isRequired
 };
 
-UnconnectedHomePage = injectT(UnconnectedHomePage); // eslint-disable-line
-
-function mapDispatchToProps(dispatch) {
-  const actionCreators = { fetchPurposes };
-  return { actions: bindActionCreators(actionCreators, dispatch) };
-}
-
-export { UnconnectedHomePage };
-export default connect(
-  homePageSelector,
-  mapDispatchToProps
-)(UnconnectedHomePage);
+export default injectT(HomePage);
