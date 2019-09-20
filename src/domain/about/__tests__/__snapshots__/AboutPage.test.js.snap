@@ -23,7 +23,10 @@ exports[`pages/about/AboutPage render normally 1`] = `
       AboutPageContent.defaultReservableParagraph
     </p>
     <p>
-      AboutPageContent.basedOnParagraph
+      <FormattedHTMLMessage
+        id="AboutPageContent.basedOnParagraph"
+        values={Object {}}
+      />
     </p>
     <p>
       AboutPageContent.developmentParagraph
@@ -42,7 +45,6 @@ exports[`pages/about/AboutPage render normally 1`] = `
     </h3>
     <p>
       AboutPageContent.customerRegisterParagraph
-       
       <a
         href="https://app.helmet-kirjasto.fi/varaamo/rekisteriseloste.php"
       >
