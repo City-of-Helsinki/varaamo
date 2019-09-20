@@ -37,6 +37,8 @@ const unitSelector = createSelector(
   (resource, units) => units[resource.unit] || {}
 );
 
+const failedReservationsSelector = state => orderBy(state.ui.reservations.failed, 'begin');
+
 const reservationPageSelector = createStructuredSelector({
   date: dateSelector,
   isAdmin: isAdminSelector,
@@ -53,6 +55,7 @@ const reservationPageSelector = createStructuredSelector({
   reservationEdited: editedSelector,
   unit: unitSelector,
   user: currentUserSelector,
+  failedReservations: failedReservationsSelector,
 });
 
 export default reservationPageSelector;
