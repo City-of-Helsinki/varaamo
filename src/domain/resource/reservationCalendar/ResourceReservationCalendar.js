@@ -2,12 +2,10 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import moment from 'moment';
 import isEmpty from 'lodash/isEmpty';
 
 import { addNotification as addNotificationAction } from '../../../../app/actions/notificationsActions';
-import { isLoggedInSelector } from '../../../../app/state/selectors/authSelectors';
 import injectT from '../../../../app/i18n/injectT';
 import TimePickerCalendar from '../../../common/calendar/TimePickerCalendar';
 import * as resourceUtils from '../utils';
@@ -148,12 +146,8 @@ class UntranslatedResourceReservationCalendar extends React.Component {
   }
 }
 
-const selector = createStructuredSelector({
-  isLoggedIn: isLoggedInSelector,
-});
-
 const actions = { addNotification: addNotificationAction };
 
 export { UntranslatedResourceReservationCalendar };
 
-export default connect(selector, actions)(injectT(UntranslatedResourceReservationCalendar));
+export default connect(null, actions)(injectT(UntranslatedResourceReservationCalendar));
