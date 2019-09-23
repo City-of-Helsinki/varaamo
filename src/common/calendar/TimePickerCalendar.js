@@ -15,6 +15,7 @@ import isEmpty from 'lodash/isEmpty';
 import * as resourceUtils from '../../domain/resource/utils';
 import constants from '../../../app/constants/AppConstants';
 import injectT from '../../../app/i18n/injectT';
+import { periodToMinute } from '../../../app/utils/timeUtils';
 
 const NEW_RESERVATION = 'NEW_RESERVATION';
 
@@ -79,6 +80,7 @@ class TimePickerCalendar extends Component {
       selectable: true,
       selectOverlap: false,
       selectConstraint: 'businessHours',
+      selectMirror: true,
       slotLabelFormat: {
         hour: 'numeric',
         minute: '2-digit',
@@ -228,9 +230,18 @@ class TimePickerCalendar extends Component {
   }
 
   onSelect = (selectionInfo) => {
+    const { resource } = this.props;
+
+    let selectionEnd = selectionInfo.end;
+
+    if (resource.min_period) {
+      const minPeriodInMinutes = periodToMinute(resource.min_period);
+
+      selectionEnd = moment(selectionEnd).add(minPeriodInMinutes, 'minutes').toDate();
+    }
     this.onChange({
       start: selectionInfo.start,
-      end: selectionInfo.end,
+      end: selectionEnd,
     });
 
     // Hide the FullCalendar selection widget/indicator.
@@ -313,6 +324,7 @@ class TimePickerCalendar extends Component {
     return (
       <div className="app-Calendar">
         <FullCalendar
+          {...this.getCalendarOptions()}
           allDaySlot={false}
           businessHours={resourceUtils.getFullCalendarBusinessHours(resource, date)}
           dateClick={this.onDateClick}
@@ -323,14 +335,13 @@ class TimePickerCalendar extends Component {
           eventRender={this.onEventRender}
           eventResize={this.onEventResize}
           events={this.getEvents()}
+          maxTime={resourceUtils.getFullCalendarMaxTime(resource, date, viewType)}
+          minTime={resourceUtils.getFullCalendarMinTime(resource, date, viewType)}
           ref={this.calendarRef}
           select={this.onSelect}
           selectAllow={this.onSelectAllow}
           slotDuration={resourceUtils.getFullCalendarSlotDuration(resource, date, viewType)}
           slotLabelInterval={resourceUtils.getFullCalendarSlotLabelInterval(resource)}
-          {...this.getCalendarOptions()}
-          maxTime={resourceUtils.getFullCalendarMaxTime(resource, date, viewType)}
-          minTime={resourceUtils.getFullCalendarMinTime(resource, date, viewType)}
         />
       </div>
     );
