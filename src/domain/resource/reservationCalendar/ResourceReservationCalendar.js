@@ -1,9 +1,13 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/lib/Button';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import moment from 'moment';
 import isEmpty from 'lodash/isEmpty';
 
+import { addNotification as addNotificationAction } from '../../../../app/actions/notificationsActions';
+import { isLoggedInSelector } from '../../../../app/state/selectors/authSelectors';
 import injectT from '../../../../app/i18n/injectT';
 import TimePickerCalendar from '../../../common/calendar/TimePickerCalendar';
 import * as resourceUtils from '../utils';
@@ -12,10 +16,12 @@ class UntranslatedResourceReservationCalendar extends React.Component {
   calendarRef = React.createRef();
 
   static propTypes = {
+    addNotification: PropTypes.func,
     date: PropTypes.string,
-    resource: PropTypes.object.isRequired,
+    isLoggedIn: PropTypes.bool,
     onDateChange: PropTypes.func.isRequired,
     onReserve: PropTypes.func.isRequired,
+    resource: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
   };
 
@@ -76,10 +82,24 @@ class UntranslatedResourceReservationCalendar extends React.Component {
   };
 
   onReserveButtonClick = () => {
-    const { resource, onReserve } = this.props;
+    const {
+      addNotification,
+      isLoggedIn,
+      onReserve,
+      resource,
+      t,
+    } = this.props;
     const { selected } = this.state;
 
-    onReserve(selected, resource);
+    if (isLoggedIn) {
+      onReserve(selected, resource);
+    } else {
+      addNotification({
+        message: t('Notifications.loginMessage'),
+        type: 'error',
+        timeOut: 5000
+      });
+    }
   }
 
   render() {
@@ -87,13 +107,12 @@ class UntranslatedResourceReservationCalendar extends React.Component {
       date,
       resource,
       t,
-      onDateChange
+      onDateChange,
     } = this.props;
 
     const {
       selected,
     } = this.state;
-
 
     return (
       <div className="app-ResourceReservationCalendar">
@@ -129,6 +148,12 @@ class UntranslatedResourceReservationCalendar extends React.Component {
   }
 }
 
+const selector = createStructuredSelector({
+  isLoggedIn: isLoggedInSelector,
+});
+
+const actions = { addNotification: addNotificationAction };
+
 export { UntranslatedResourceReservationCalendar };
 
-export default injectT(UntranslatedResourceReservationCalendar);
+export default connect(selector, actions)(injectT(UntranslatedResourceReservationCalendar));
