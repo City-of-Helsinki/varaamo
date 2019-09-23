@@ -252,6 +252,7 @@ class UnconnectedResourcePage extends Component {
                           />
                           <ResourceReservationCalendar
                             date={date}
+                            isLoggedIn={isLoggedIn}
                             onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())}
                             onReserve={this.onReserve}
                             resource={decamelizeKeys(resource)}
