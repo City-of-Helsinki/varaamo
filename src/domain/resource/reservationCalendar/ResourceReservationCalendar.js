@@ -1,11 +1,9 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/lib/Button';
-import { connect } from 'react-redux';
 import moment from 'moment';
 import isEmpty from 'lodash/isEmpty';
 
-import { addNotification as addNotificationAction } from '../../../../app/actions/notificationsActions';
 import injectT from '../../../../app/i18n/injectT';
 import TimePickerCalendar from '../../../common/calendar/TimePickerCalendar';
 import * as resourceUtils from '../utils';
@@ -14,7 +12,6 @@ class UntranslatedResourceReservationCalendar extends React.Component {
   calendarRef = React.createRef();
 
   static propTypes = {
-    addNotification: PropTypes.func,
     date: PropTypes.string,
     isLoggedIn: PropTypes.bool,
     onDateChange: PropTypes.func.isRequired,
@@ -81,28 +78,22 @@ class UntranslatedResourceReservationCalendar extends React.Component {
 
   onReserveButtonClick = () => {
     const {
-      addNotification,
-      isLoggedIn,
       onReserve,
       resource,
-      t,
     } = this.props;
     const { selected } = this.state;
+    onReserve(selected, resource);
+  }
 
-    if (isLoggedIn) {
-      onReserve(selected, resource);
-    } else {
-      addNotification({
-        message: t('Notifications.loginMessage'),
-        type: 'error',
-        timeOut: 5000
-      });
-    }
+  handleLoginClick() {
+    const next = encodeURIComponent(window.location.href);
+    window.location.assign(`${window.location.origin}/login?next=${next}`);
   }
 
   render() {
     const {
       date,
+      isLoggedIn,
       resource,
       t,
       onDateChange,
@@ -120,7 +111,21 @@ class UntranslatedResourceReservationCalendar extends React.Component {
           onTimeChange={selectedTime => this.setState({ selected: selectedTime })}
           resource={resource}
         />
-        {selected && (
+        {!isLoggedIn ? (
+          <div className="app-ResourceReservationCalendar__selectedInfo">
+            <div className="app-ResourceReservationCalendar__selectedDate">
+              {t('ReservationInfo.loginText')}
+            </div>
+            <Button
+              bsStyle="primary"
+              className="app-ResourceReservationCalendar__reserveButton"
+              onClick={this.handleLoginClick}
+            >
+              {t('Navbar.login')}
+            </Button>
+          </div>
+        ) : (
+          selected && (
           <div className="app-ResourceReservationCalendar__selectedInfo">
             <div className="app-ResourceReservationCalendar__selectedDate">
               <strong className="app-ResourceReservationCalendar__selectedDateLabel">
@@ -140,14 +145,13 @@ class UntranslatedResourceReservationCalendar extends React.Component {
               {t('ResourceReservationCalendar.reserveButton')}
             </Button>
           </div>
+          )
         )}
       </div>
     );
   }
 }
 
-const actions = { addNotification: addNotificationAction };
-
 export { UntranslatedResourceReservationCalendar };
 
-export default connect(null, actions)(injectT(UntranslatedResourceReservationCalendar));
+export default injectT(UntranslatedResourceReservationCalendar);

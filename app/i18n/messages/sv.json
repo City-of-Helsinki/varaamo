@@ -215,6 +215,7 @@
   "ReservationForm.termsAndConditionsHeader": "Utrymmets användningsregler",
   "ReservationForm.termsAndConditionsLabel": "Jag har läst och godkänner utrymmets användningsregler",
   "ReservationInfo.loginMessage": "För att kunna boka detta utrymme måste du <a href='/login?next={next}'>logga in</a>.",
+  "ReservationInfo.loginText": "För att kunna boka detta utrymme måste du logga in.",
   "ReservationInfo.maxNumberOfReservations": "Maximalt antal bokningar per användare:",
   "ReservationInfo.reservationMaxLength": "Bokningens maximala längd:",
   "ReservationInfo.reservationMinLength": "Minsta längd av bokningen:",
