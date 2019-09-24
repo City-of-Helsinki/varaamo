@@ -2,8 +2,8 @@ import Immutable from 'seamless-immutable';
 import { createAction } from 'redux-actions';
 
 import types from '../../../constants/ActionTypes';
-import constants from '../../../constants/AppConstants';
 import notificationsReducer from '../notificationsReducer';
+import { NOTIFICATION_DEFAULT } from '../../../../src/constants/NotificationConstant';
 
 describe('state/reducers/notificationReducer', () => {
   describe('initial state', () => {
@@ -53,7 +53,7 @@ describe('state/reducers/notificationReducer', () => {
         const nextAction = addNotification({});
         const nextState = notificationsReducer(actualNotifications, nextAction);
 
-        expect(nextState[1]).toMatchObject(constants.NOTIFICATION_DEFAULTS);
+        expect(nextState[1]).toMatchObject(NOTIFICATION_DEFAULT);
         expect(nextState[1].id).toEqual(2);
       });
     });
