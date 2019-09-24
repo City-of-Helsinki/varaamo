@@ -57,7 +57,17 @@ class TimePickerCalendar extends Component {
   }
 
   onChange = (selected) => {
-    this.setState({ selected });
+    const { resource } = this.props;
+
+    const minPeriodTimeRange = resourceUtils.getMinPeriodTimeRange(resource, selected.start, selected.end);
+
+    this.setState({
+      selected: {
+        start: selected.start,
+        end: minPeriodTimeRange ? minPeriodTimeRange.end : selected.end,
+      // Auto-select time slots to fulfill min_period condition from resource.
+      }
+    });
 
     this.props.onTimeChange(selected);
   }
@@ -188,20 +198,7 @@ class TimePickerCalendar extends Component {
   };
 
   onSelectAllow = (selectInfo) => {
-    const { resource, addNotification, t } = this.props;
-
-    const minPeriodTimeRange = resourceUtils.getMinPeriodTimeRange(resource, selectInfo.start, selectInfo.end);
-
-    const isAllow = this.isEventValid(
-      selectInfo.start, minPeriodTimeRange ? minPeriodTimeRange.end : selectInfo.end
-    );
-
-    if (!isAllow) {
-      // Display error notifications if selection is not allowed
-      addNotification(selectErrorNotification(t));
-    }
-
-    return isAllow;
+    return this.isEventValid(selectInfo.start, selectInfo.end);
   };
 
   /**
@@ -211,8 +208,16 @@ class TimePickerCalendar extends Component {
    * @returns {boolean}
    */
   isEventValid = (start, end) => {
-    const { resource } = this.props;
-    return resourceUtils.isTimeRangeReservable(resource, start, end);
+    const { resource, addNotification, t } = this.props;
+
+    const isValid = resourceUtils.isTimeRangeReservable(resource, start, end);
+
+    if (!isValid) {
+      // Display error notifications if selection is not valid
+      addNotification(selectErrorNotification(t));
+    }
+
+    return isValid;
   };
 
   onEventDrop = (eventDropInfo) => {
@@ -243,14 +248,9 @@ class TimePickerCalendar extends Component {
   }
 
   onSelect = (selectionInfo) => {
-    const { resource } = this.props;
-
-    const minPeriodTimeRange = resourceUtils.getMinPeriodTimeRange(resource, selectionInfo.start, selectionInfo.end);
-
     this.onChange({
       start: selectionInfo.start,
-      end: minPeriodTimeRange ? minPeriodTimeRange.end : selectionInfo.end,
-      // Auto-select time slots to fulfill min_period condition from resource.
+      end: selectionInfo.end
     });
 
     // Hide the FullCalendar selection widget/indicator.
