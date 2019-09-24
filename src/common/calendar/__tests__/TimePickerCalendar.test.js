@@ -11,6 +11,7 @@ describe('TimePickerCalendar', () => {
   const defaultProps = {
     resource: resource.build(),
     date: '2019-08-15',
+    isStaff: false,
     onDateChange: jest.fn(),
     onReserve: jest.fn(),
     onTimeChange: jest.fn(),
