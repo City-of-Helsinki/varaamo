@@ -36,5 +36,21 @@ exports[`ResourceReservationCalendar renders correctly 1`] = `
       }
     }
   />
+  <div
+    className="app-ResourceReservationCalendar__selectedInfo"
+  >
+    <div
+      className="app-ResourceReservationCalendar__selectedDate"
+    />
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="primary"
+      className="app-ResourceReservationCalendar__reserveButton"
+      disabled={false}
+      onClick={[Function]}
+    />
+  </div>
 </div>
 `;
