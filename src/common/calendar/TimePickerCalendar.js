@@ -59,17 +59,22 @@ class TimePickerCalendar extends Component {
   onChange = (selected) => {
     const { resource } = this.props;
 
-    const minPeriodTimeRange = resourceUtils.getMinPeriodTimeRange(resource, selected.start, selected.end);
-
-    this.setState({
-      selected: {
-        start: selected.start,
-        end: minPeriodTimeRange ? minPeriodTimeRange.end : selected.end,
+    const minPeriodEndTime = resourceUtils.getMinPeriodEndTime(resource, moment(selected.start), moment(selected.end));
+    const minPeriodSelected = {
+      start: selected.start,
+      end: minPeriodEndTime ? minPeriodEndTime.toDate() : selected.end,
       // Auto-select time slots to fulfill min_period condition from resource.
-      }
-    });
+    };
+
+    this.setState({ selected: minPeriodSelected });
 
     this.props.onTimeChange(selected);
+  }
+
+  onCancel = () => {
+    this.setState({
+      selected: null
+    });
   }
 
   getCalendarOptions = () => {
@@ -242,7 +247,7 @@ class TimePickerCalendar extends Component {
     if (info.event.id === NEW_RESERVATION) {
       const cancelBtn = document.createElement('span');
       cancelBtn.classList.add('app-TimePickerCalendar__cancelEvent');
-      cancelBtn.addEventListener('click', () => this.onChange(null), { once: true });
+      cancelBtn.addEventListener('click', () => this.onCancel(), { once: true });
       info.el.append(cancelBtn);
     }
   }
@@ -310,22 +315,6 @@ class TimePickerCalendar extends Component {
     return '';
   };
 
-  onDateClick = (dateClickInfo) => {
-    const { resource } = this.props;
-    const slotSize = resourceUtils.getSlotSizeInMinutes(resource);
-
-    const start = moment(dateClickInfo.date);
-    const end = start.clone().add(slotSize, 'minutes');
-
-    if (this.isEventValid(start.toDate(), end.toDate())) {
-      const calendarApi = this.calendarRef.current.getApi();
-      calendarApi.select({
-        start: start.toDate(),
-        end: end.toDate(),
-      });
-    }
-  };
-
   render() {
     const { resource, date } = this.props;
     const { viewType } = this.state;
@@ -336,7 +325,6 @@ class TimePickerCalendar extends Component {
           {...this.getCalendarOptions()}
           allDaySlot={false}
           businessHours={resourceUtils.getFullCalendarBusinessHours(resource, date)}
-          dateClick={this.onDateClick}
           datesRender={this.onDatesRender}
           defaultDate={date}
           eventAllow={this.onEventAllow}

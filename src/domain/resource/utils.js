@@ -12,6 +12,35 @@ import * as reservationUtils from '../reservation/utils';
 import constants from '../../../app/constants/AppConstants';
 import { periodToMinute } from '../../../app/utils/timeUtils';
 
+/**
+ * getMinPeriodTimeRange
+ * Populate the end time with resource min_period
+ * For example: start time 1pm, min_period: 1:00:00 ->
+ * end time should be 1pm + 1hour = 2pm
+ * Can be used as a condition check if selected time range is under min_period (if null)
+ *
+ * @param {Object} resource
+ * @param {Moment} start
+ * @param {Moment} end
+ * @returns {Moment || null} return new end date if time range < min_period given, otherwise return null
+ */
+
+export const getMinPeriodEndTime = (resource, start, end) => {
+  const minPeriod = get(resource, 'min_period', null);
+
+  if (minPeriod) {
+    const minPeriodInMinutes = periodToMinute(minPeriod);
+
+    const minPeriodEndDate = start.add(minPeriodInMinutes, 'minutes');
+
+    if (minPeriodEndDate > end) {
+      return minPeriodEndDate;
+    }
+  }
+
+  // Return original end if no minPeriod
+  return null;
+};
 
 /**
  * getResourcePageLink();
@@ -387,18 +416,17 @@ export const isDateReservable = (resource, date) => {
 export const isTimeRangeReservable = (resource, start, end) => {
   const now = moment();
   const startMoment = moment(start);
-  const endMoment = moment(end);
+  let endMoment = moment(end);
 
   // Reservation cannot be shorter than the resources min period if min period is set.
-  const minPeriod = get(resource, 'min_period', null);
-  if (minPeriod) {
-    const minPeriodDuration = moment.duration(minPeriod);
-    const minDuration = minPeriodDuration.hours() * 60 + minPeriodDuration.minutes();
+  const minPeriodEndDate = getMinPeriodEndTime(resource, startMoment, endMoment);
 
-    if (endMoment.diff(startMoment, 'minutes') < minDuration) {
-      return false;
-    }
+  if (minPeriodEndDate === null) {
+    return false;
   }
+
+
+  endMoment = minPeriodEndDate;
 
   // Reservation cannot be longer than the resources max period if max period is set.
   const maxPeriod = get(resource, 'max_period', null);
@@ -608,34 +636,4 @@ export const getReservationPrice = (start, end, resource) => {
   }
 
   return 0;
-};
-
-/**
- * getMinPeriodTimeRange
- * Populate the end time with resource min_period
- * For example: start time 1pm, min_period: 1:00:00 ->
- * end time should be bigger than min_period defined -> >=2pm
- *
- * @param {Object} resource
- * @param {Date} start
- * @param {Date} end
- * @returns {Object || null} New time range that range >= min_period given, otherwise return null
- */
-
-export const getMinPeriodTimeRange = (resource, start, end) => {
-  if (resource.min_period) {
-    const minPeriodInMinutes = periodToMinute(resource.min_period);
-
-    const populatedEndDate = moment(start).add(minPeriodInMinutes, 'minutes').toDate();
-
-    if (populatedEndDate > end) {
-      return {
-        start,
-        end: populatedEndDate
-      };
-    }
-  }
-
-  // Return null if no min_period, or populated end time is behind or equal with original end time
-  return null;
 };
