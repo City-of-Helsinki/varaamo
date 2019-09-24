@@ -13,6 +13,7 @@ import ReservationConfirmation from '../ReservationConfirmation';
 
 describe('pages/reservation/reservation-confirmation/ReservationConfirmation', () => {
   const defaultProps = {
+    failedReservations: [],
     isEdited: false,
     reservation: Immutable(Reservation.build({ user: User.build() })),
     resource: Immutable(Resource.build()),

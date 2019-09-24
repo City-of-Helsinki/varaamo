@@ -1,7 +1,7 @@
 import { createSelector, createStructuredSelector } from 'reselect';
 
 import ActionTypes from '../../constants/ActionTypes';
-import { isAdminSelector, isLoggedInSelector } from '../../state/selectors/authSelectors';
+import { createIsStaffSelector, isAdminSelector, isLoggedInSelector } from '../../state/selectors/authSelectors';
 import { createResourceSelector, unitsSelector } from '../../state/selectors/dataSelectors';
 import dateSelector from '../../state/selectors/dateSelector';
 import requestIsActiveSelectorFactory from '../../state/selectors/factories/requestIsActiveSelectorFactory';
@@ -21,6 +21,7 @@ const resourcePageSelector = createStructuredSelector({
   isAdmin: isAdminSelector,
   isFetchingResource: requestIsActiveSelectorFactory(ActionTypes.API.RESOURCE_GET_REQUEST),
   isLoggedIn: isLoggedInSelector,
+  isStaff: createIsStaffSelector(resourceSelector),
   resource: resourceSelector,
   showMap: showMapSelector,
   unit: unitSelector,

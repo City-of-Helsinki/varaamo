@@ -33,6 +33,7 @@ describe('pages/reservation/ReservationPage', () => {
       postReservation: simple.mock(),
     },
     date: '2016-10-10',
+    failedReservations: [],
     isAdmin: false,
     isStaff: false,
     isFetchingResource: false,

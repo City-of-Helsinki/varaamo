@@ -24,6 +24,7 @@ class TimePickerCalendar extends Component {
 
   static propTypes = {
     date: PropTypes.string,
+    isStaff: PropTypes.bool.isRequired,
     resource: PropTypes.object.isRequired,
     onDateChange: PropTypes.func.isRequired,
     t: PropTypes.func.isRequired,
@@ -107,7 +108,7 @@ class TimePickerCalendar extends Component {
   };
 
   getEvents = () => {
-    const { resource, date } = this.props;
+    const { date, isStaff, resource } = this.props;
     const { selected } = this.state;
 
     const getClassNames = (reservation) => {
@@ -161,7 +162,9 @@ class TimePickerCalendar extends Component {
           'app-TimePickerCalendar__newReservation',
         ],
         editable: true,
-        durationEditable: resourceUtils.isFullCalendarEventDurationEditable(resource, selected.start, selected.end),
+        durationEditable: resourceUtils.isFullCalendarEventDurationEditable(
+          resource, isStaff
+        ),
         id: NEW_RESERVATION,
         ...selected,
       });

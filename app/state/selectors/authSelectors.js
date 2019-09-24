@@ -11,6 +11,9 @@ const currentUserSelector = createSelector(
   (userId, users) => users[userId] || {}
 );
 
+/**
+ * Gotcha warning: Respa API uses isStaff flag for what Varaamo consider admin users.
+ */
 const isAdminSelector = createSelector(
   currentUserSelector,
   currentUser => Boolean(currentUser.isStaff)
@@ -36,6 +39,12 @@ const staffUnitsSelector = createSelector(
   }
 );
 
+/**
+ * Gotcha warning: Respa API uses isStaff boolean value for admin users.
+ *
+ * From Varaamo's point of view, a user is staff if they have permissions to
+ * approve reservations for a resource.
+ */
 function createIsStaffSelector(resourceSelector) {
   return createSelector(
     resourceSelector,
