@@ -20,6 +20,7 @@
   - [#1004](https://github.com/City-of-Helsinki/varaamo/pull/1004) Staff cannot see normal reservations.
   - [#1005](https://github.com/City-of-Helsinki/varaamo/pull/1005) Reservation information modal is missing metadata fields.
   - [#1006](https://github.com/City-of-Helsinki/varaamo/pull/1006) Manage reservation filter buttons.
+  - [#1028](https://github.com/City-of-Helsinki/varaamo/pull/1028) Always fetch reservations with start and end filters.
 
 # 0.4.2
   **HOTFIX**
