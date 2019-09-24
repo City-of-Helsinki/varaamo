@@ -49,6 +49,7 @@ describe('pages/resource/ResourcePage', () => {
     id: resource.id,
     isFetchingResource: false,
     isLoggedIn: true,
+    isStaff: false,
     location: { search: 'date' },
     match: { params: {} },
     resource: Immutable(resource),
