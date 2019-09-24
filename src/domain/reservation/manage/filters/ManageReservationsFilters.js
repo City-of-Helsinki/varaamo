@@ -40,6 +40,17 @@ class ManageReservationsFilters extends React.Component {
       onSearchChange,
     } = this.props;
 
+    // Ensure that end is not empty - rather one day after start. Otherwise
+    // we'll get an error from respa and no results.
+    if (filterName === 'start' && !filters.end) {
+      filters.end = moment(filterValue).add(1, 'd').format('YYYY-MM-DD');
+    }
+
+    // Ensure that start is not empty - rather one day before end.
+    if (filterName === 'end' && !filters.start) {
+      filters.start = moment(filterValue).subtract(1, 'd').format('YYYY-MM-DD');
+    }
+
     const newFilters = {
       ...omit(filters, filterName),
     };
