@@ -8,7 +8,8 @@
     }
   }
 
-  &__selectedDate {
+  &__selectedDate,
+  &__loginInfo {
     display: flex;
     flex: 1;
     align-items: center;
@@ -19,7 +20,8 @@
     }
   }
 
-  &__reserveButton {
+  &__reserveButton,
+  &__loginButton {
     font-size: 24px;
 
     @media (max-width: $screen-sm-max) {
