@@ -1,13 +1,11 @@
-import { NOTIFICATION_DEFAULT, NOTIFICATION_TYPE } from '../../constants/NotificationConstant';
-
-export const minPeriodErrorNotification = t => ({
-  ...NOTIFICATION_DEFAULT,
-  type: NOTIFICATION_TYPE.ERROR,
-  message: t('foo')
-});
+import { NOTIFICATION_ERROR } from '../../constants/NotificationConstant';
 
 export const selectErrorNotification = t => ({
-  ...NOTIFICATION_DEFAULT,
-  type: NOTIFICATION_TYPE.ERROR,
-  message: t('foo')
+  ...NOTIFICATION_ERROR,
+  message: t('Notifications.selectTimeToReserve.warning')
+});
+
+export const notLoggedInErrorNotification = t => ({
+  ...NOTIFICATION_ERROR,
+  message: t('Notifications.loginMessage')
 });

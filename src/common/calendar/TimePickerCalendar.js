@@ -15,7 +15,7 @@ import isEmpty from 'lodash/isEmpty';
 import * as resourceUtils from '../../domain/resource/utils';
 import constants from '../../../app/constants/AppConstants';
 import injectT from '../../../app/i18n/injectT';
-import { minPeriodErrorNotification, selectErrorNotification } from './constants';
+import { selectErrorNotification } from './constants';
 
 const NEW_RESERVATION = 'NEW_RESERVATION';
 
@@ -30,7 +30,7 @@ class TimePickerCalendar extends Component {
     onTimeChange: PropTypes.func.isRequired,
     locale: PropTypes.string.isRequired,
     defaultSelected: PropTypes.object,
-    showErrorNotification: PropTypes.func
+    addNotification: PropTypes.func
   };
 
   static getDerivedStateFromProps(props, prevState) {
@@ -189,7 +189,7 @@ class TimePickerCalendar extends Component {
   };
 
   onSelectAllow = (selectInfo) => {
-    const { resource, showErrorNotification, t } = this.props;
+    const { resource, addNotification, t } = this.props;
 
     const minPeriodTimeRange = resourceUtils.getMinPeriodTimeRange(resource, selectInfo.start, selectInfo.end);
 
@@ -199,7 +199,7 @@ class TimePickerCalendar extends Component {
 
     if (!isAllow) {
       // Display error notifications if selection is not allowed
-      showErrorNotification(minPeriodTimeRange ? minPeriodErrorNotification(t) : selectErrorNotification(t));
+      addNotification(selectErrorNotification(t));
     }
 
     return isAllow;
@@ -244,9 +244,14 @@ class TimePickerCalendar extends Component {
   }
 
   onSelect = (selectionInfo) => {
+    const { resource } = this.props;
+
+    const minPeriodTimeRange = resourceUtils.getMinPeriodTimeRange(resource, selectionInfo.start, selectionInfo.end);
+
     this.onChange({
       start: selectionInfo.start,
-      end: selectionInfo.end,
+      end: minPeriodTimeRange ? minPeriodTimeRange.end : selectionInfo.end,
+      // Auto-select time slots to furfill min_period condition from resource.
     });
 
     // Hide the FullCalendar selection widget/indicator.

@@ -9,6 +9,7 @@ import { addNotification as addNotificationAction } from '../../../../app/action
 import injectT from '../../../../app/i18n/injectT';
 import TimePickerCalendar from '../../../common/calendar/TimePickerCalendar';
 import * as resourceUtils from '../utils';
+import { notLoggedInErrorNotification } from '../../../common/calendar/constants';
 
 class UntranslatedResourceReservationCalendar extends React.Component {
   calendarRef = React.createRef();
@@ -92,11 +93,7 @@ class UntranslatedResourceReservationCalendar extends React.Component {
     if (isLoggedIn) {
       onReserve(selected, resource);
     } else {
-      addNotification({
-        message: t('Notifications.loginMessage'),
-        type: 'error',
-        timeOut: 5000
-      });
+      addNotification(notLoggedInErrorNotification(t));
     }
   }
 
@@ -106,6 +103,7 @@ class UntranslatedResourceReservationCalendar extends React.Component {
       resource,
       t,
       onDateChange,
+      addNotification
     } = this.props;
 
     const {
@@ -115,6 +113,7 @@ class UntranslatedResourceReservationCalendar extends React.Component {
     return (
       <div className="app-ResourceReservationCalendar">
         <TimePickerCalendar
+          addNotification={addNotification}
           date={date}
           onDateChange={onDateChange}
           onTimeChange={selectedTime => this.setState({ selected: selectedTime })}
