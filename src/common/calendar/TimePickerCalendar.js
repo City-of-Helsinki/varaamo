@@ -15,7 +15,7 @@ import isEmpty from 'lodash/isEmpty';
 import * as resourceUtils from '../../domain/resource/utils';
 import constants from '../../../app/constants/AppConstants';
 import injectT from '../../../app/i18n/injectT';
-import { periodToMinute } from '../../../app/utils/timeUtils';
+import { minPeriodErrorNotification, selectErrorNotification } from './constants';
 
 const NEW_RESERVATION = 'NEW_RESERVATION';
 
@@ -188,7 +188,19 @@ class TimePickerCalendar extends Component {
   };
 
   onSelectAllow = (selectInfo) => {
-    return this.isEventValid(selectInfo.start, selectInfo.end);
+    const { resource, showErrorNotification, t } = this.props;
+
+    const minPeriodTimeRange = resourceUtils.getMinPeriodTimeRange(resource, selectInfo.start, selectInfo.end);
+
+    const isAllow = this.isEventValid(
+      selectInfo.start, minPeriodTimeRange ? minPeriodTimeRange.end : selectInfo.end
+    );
+
+    if (!isAllow) {
+      // Display error notifications
+      showErrorNotification(minPeriodTimeRange ? minPeriodErrorNotification(t) : selectErrorNotification(t));
+    }
+    return isAllow;
   };
 
   /**
@@ -230,18 +242,9 @@ class TimePickerCalendar extends Component {
   }
 
   onSelect = (selectionInfo) => {
-    const { resource } = this.props;
-
-    let selectionEnd = selectionInfo.end;
-
-    if (resource.min_period) {
-      const minPeriodInMinutes = periodToMinute(resource.min_period);
-
-      selectionEnd = moment(selectionEnd).add(minPeriodInMinutes, 'minutes').toDate();
-    }
     this.onChange({
       start: selectionInfo.start,
-      end: selectionEnd,
+      end: selectionInfo.end,
     });
 
     // Hide the FullCalendar selection widget/indicator.

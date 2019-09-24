@@ -10,6 +10,7 @@ import * as urlUtils from '../../common/url/utils';
 import * as dataUtils from '../../common/data/utils';
 import * as reservationUtils from '../reservation/utils';
 import constants from '../../../app/constants/AppConstants';
+import { periodToMinute } from '../../../app/utils/timeUtils';
 
 
 /**
@@ -607,4 +608,34 @@ export const getReservationPrice = (start, end, resource) => {
   }
 
   return 0;
+};
+
+/**
+ * getMinPeriodTimeRange
+ * Populate the end time with resource min_period
+ * For example: start time 1pm, min_period: 1:00:00 ->
+ * end time should be bigger than min_period defined -> >=2pm
+ *
+ * @param {Object} resource
+ * @param {Date} start
+ * @param {Date} end
+ * @returns {Object || null} New time range that range >= min_period given, otherwise return null
+ */
+
+export const getMinPeriodTimeRange = (resource, start, end) => {
+  if (resource.min_period) {
+    const minPeriodInMinutes = periodToMinute(resource.min_period);
+
+    const populatedEndDate = moment(start).add(minPeriodInMinutes, 'minutes').toDate();
+
+    if (populatedEndDate > end) {
+      return {
+        start,
+        end: populatedEndDate
+      };
+    }
+  }
+
+  // Return null if no min_period, or populated end time is behind or equal with original end time
+  return null;
 };
