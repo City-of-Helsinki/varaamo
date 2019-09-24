@@ -86,7 +86,7 @@ class UntranslatedResourceReservationCalendar extends React.Component {
     onReserve(selected, resource);
   }
 
-  handleLoginClick() {
+  onLoginButtonClick = () => {
     const next = encodeURIComponent(window.location.href);
     window.location.assign(`${window.location.origin}/login?next=${next}`);
   }
@@ -116,19 +116,19 @@ class UntranslatedResourceReservationCalendar extends React.Component {
         />
         {!isLoggedIn ? (
           <div className="app-ResourceReservationCalendar__selectedInfo">
-            <div className="app-ResourceReservationCalendar__selectedDate">
+            <div className="app-ResourceReservationCalendar__loginInfo">
               {t('ReservationInfo.loginText')}
             </div>
             <Button
               bsStyle="primary"
-              className="app-ResourceReservationCalendar__reserveButton"
-              onClick={this.handleLoginClick}
+              className="app-ResourceReservationCalendar__loginButton"
+              onClick={this.onLoginButtonClick}
             >
               {t('Navbar.login')}
             </Button>
           </div>
         ) : (
-          selected && (
+          !isEmpty(selected) && (
           <div className="app-ResourceReservationCalendar__selectedInfo">
             <div className="app-ResourceReservationCalendar__selectedDate">
               <strong className="app-ResourceReservationCalendar__selectedDateLabel">
@@ -142,7 +142,6 @@ class UntranslatedResourceReservationCalendar extends React.Component {
             <Button
               bsStyle="primary"
               className="app-ResourceReservationCalendar__reserveButton"
-              disabled={isEmpty(selected)}
               onClick={this.onReserveButtonClick}
             >
               {t('ResourceReservationCalendar.reserveButton')}
