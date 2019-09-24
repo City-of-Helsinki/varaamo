@@ -350,6 +350,8 @@ describe('domain resource utility function', () => {
       .toBe(true);
     expect(resourceUtils.isTimeRangeReservable(resource, `${DATE}T08:00:00Z`, `${DATE}T16:00:00Z`))
       .toBe(false);
+    expect(resourceUtils.isTimeRangeReservable(resource, `${DATE}T08:00:00Z`, `${DATE}T16:00:00Z`, true))
+      .toBe(true);
 
     clear();
     Date.now();
@@ -372,6 +374,8 @@ describe('domain resource utility function', () => {
       .toBe(true);
     expect(resourceUtils.isFullCalendarEventDurationEditable(resourceDurationNotEditable))
       .toBe(false);
+    expect(resourceUtils.isFullCalendarEventDurationEditable(resourceDurationNotEditable, null, null, true))
+      .toBe(true);
   });
 
   test('getSlotSizeInMinutes', () => {
