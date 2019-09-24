@@ -381,9 +381,10 @@ export const isDateReservable = (resource, date) => {
  * @param resource {object} Resource object.
  * @param start {Date|string} Either a Date object or date string that can be parsed as moment object.
  * @param end {Date|string} Either a Date object or date string that can be parsed as moment object.
+ * @param isStaff {boolean} Staff users have permission to bypass maxPeriod check.
  * @returns {boolean}
  */
-export const isTimeRangeReservable = (resource, start, end) => {
+export const isTimeRangeReservable = (resource, start, end, isStaff = false) => {
   const now = moment();
   const startMoment = moment(start);
   const endMoment = moment(end);
@@ -401,7 +402,7 @@ export const isTimeRangeReservable = (resource, start, end) => {
 
   // Reservation cannot be longer than the resources max period if max period is set.
   const maxPeriod = get(resource, 'max_period', null);
-  if (maxPeriod) {
+  if (!isStaff && maxPeriod) {
     const maxPeriodDuration = moment.duration(maxPeriod);
     const maxDuration = maxPeriodDuration.hours() * 60 + maxPeriodDuration.minutes();
 
@@ -432,9 +433,14 @@ export const isTimeRangeReservable = (resource, start, end) => {
 /**
  * isFullCalendarEventDurationEditable();
  * @param resource {object} Resource object.
+ * @param isStaff {boolean} Staff users have permission to bypass maxPeriod check.
  * @returns {boolean}
  */
-export const isFullCalendarEventDurationEditable = (resource) => {
+export const isFullCalendarEventDurationEditable = (resource, isStaff = false) => {
+  if (isStaff) {
+    return true;
+  }
+
   const slotSize = get(resource, 'slot_size', null);
   const minPeriod = get(resource, 'min_period', null);
   const maxPeriod = get(resource, 'max_period', null);

@@ -14,6 +14,7 @@ class UntranslatedResourceReservationCalendar extends React.Component {
   static propTypes = {
     date: PropTypes.string,
     isLoggedIn: PropTypes.bool,
+    isStaff: PropTypes.bool,
     onDateChange: PropTypes.func.isRequired,
     onReserve: PropTypes.func.isRequired,
     resource: PropTypes.object.isRequired,
@@ -94,6 +95,7 @@ class UntranslatedResourceReservationCalendar extends React.Component {
     const {
       date,
       isLoggedIn,
+      isStaff,
       resource,
       t,
       onDateChange,
@@ -107,6 +109,7 @@ class UntranslatedResourceReservationCalendar extends React.Component {
       <div className="app-ResourceReservationCalendar">
         <TimePickerCalendar
           date={date}
+          isStaff={isStaff}
           onDateChange={onDateChange}
           onTimeChange={selectedTime => this.setState({ selected: selectedTime })}
           resource={resource}
