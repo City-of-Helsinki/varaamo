@@ -212,7 +212,7 @@
   "ReservationForm.paymentTermsAndConditionsError": "You must accept the payment terms and conditions",
   "ReservationForm.termsAndConditionsHeader": "User regulations of the premises",
   "ReservationForm.termsAndConditionsLabel": "I have read and accepted the user regulations of the premises",
-  "ReservationInfo.loginMessage": "You must <a href='/login?next={next}'>log in</a> to reserve these premises.",
+  "ReservationInfo.loginMessage": "You must <a href='/login?next={next}'>log in</a> to reserve this premise.",
   "ReservationInfo.maxNumberOfReservations": "Maximum number of reservations per user:",
   "ReservationInfo.reservationMaxLength": "Maximum duration of the reservation:",
   "ReservationInfo.reservationMinLength": "Minimum duration of the reservation:",
