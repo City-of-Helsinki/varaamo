@@ -81,7 +81,6 @@ class TimePickerCalendar extends Component {
       selectable: true,
       selectOverlap: false,
       selectConstraint: 'businessHours',
-      selectMirror: true,
       slotLabelFormat: {
         hour: 'numeric',
         minute: '2-digit',
@@ -251,7 +250,7 @@ class TimePickerCalendar extends Component {
     this.onChange({
       start: selectionInfo.start,
       end: minPeriodTimeRange ? minPeriodTimeRange.end : selectionInfo.end,
-      // Auto-select time slots to furfill min_period condition from resource.
+      // Auto-select time slots to fulfill min_period condition from resource.
     });
 
     // Hide the FullCalendar selection widget/indicator.

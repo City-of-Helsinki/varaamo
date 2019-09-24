@@ -447,7 +447,7 @@ describe('domain resource utility function', () => {
       expect(minPeriodTimeRange).toBeNull();
     });
 
-    test('should return null if end time argument already furfill the min_period', () => {
+    test('should return null if end time argument already fulfill the min_period', () => {
       const selectionLargerThanMinPeriod = { ...selection, end: new Date('2019-08-16T01:30:00Z') };
       const minPeriod = resourceUtils.getMinPeriodTimeRange(
         resourceWithMinPeriod, selectionLargerThanMinPeriod.start, selectionLargerThanMinPeriod.end
@@ -456,7 +456,7 @@ describe('domain resource utility function', () => {
       expect(minPeriod).toBeNull();
     });
 
-    test('should return new end time furfill min_period if selected end time is smaller than that', () => {
+    test('should return new end time fulfill min_period if selected end time is smaller than that', () => {
       const minPeriod = resourceUtils.getMinPeriodTimeRange(
         resourceWithMinPeriod, selection.start, selection.end
       );
