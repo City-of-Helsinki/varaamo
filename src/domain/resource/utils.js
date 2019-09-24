@@ -381,6 +381,7 @@ export const isDateReservable = (resource, date) => {
  * @param resource {object} Resource object.
  * @param start {Date|string} Either a Date object or date string that can be parsed as moment object.
  * @param end {Date|string} Either a Date object or date string that can be parsed as moment object.
+ * @param isStaff {boolean} Staff users have permission to bypass maxPeriod check.
  * @returns {boolean}
  */
 export const isTimeRangeReservable = (resource, start, end, isStaff = false) => {
@@ -432,6 +433,7 @@ export const isTimeRangeReservable = (resource, start, end, isStaff = false) => 
 /**
  * isFullCalendarEventDurationEditable();
  * @param resource {object} Resource object.
+ * @param isStaff {boolean} Staff users have permission to bypass maxPeriod check.
  * @returns {boolean}
  */
 export const isFullCalendarEventDurationEditable = (resource, isStaff = false) => {
