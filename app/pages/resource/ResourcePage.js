@@ -38,6 +38,7 @@ class UnconnectedResourcePage extends Component {
     id: PropTypes.string.isRequired,
     isFetchingResource: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
+    isStaff: PropTypes.bool.isRequired,
     location: PropTypes.object.isRequired,
     resource: PropTypes.object.isRequired,
     showMap: PropTypes.bool.isRequired,
@@ -165,6 +166,7 @@ class UnconnectedResourcePage extends Component {
       date,
       isFetchingResource,
       isLoggedIn,
+      isStaff,
       location,
       resource,
       showMap,
@@ -191,6 +193,7 @@ class UnconnectedResourcePage extends Component {
         <Loader loaded={!isEmpty(resource)}>
           <ResourceHeader
             isLoggedIn={isLoggedIn}
+            isStaff={isStaff}
             onBackClick={this.handleBackButton}
             onMapClick={actions.toggleResourceMap}
             resource={resource}
@@ -253,6 +256,7 @@ class UnconnectedResourcePage extends Component {
                           <ResourceReservationCalendar
                             date={date}
                             isLoggedIn={isLoggedIn}
+                            isStaff={isStaff}
                             onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())}
                             onReserve={this.onReserve}
                             resource={decamelizeKeys(resource)}
