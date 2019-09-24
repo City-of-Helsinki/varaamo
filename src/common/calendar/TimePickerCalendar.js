@@ -30,6 +30,7 @@ class TimePickerCalendar extends Component {
     onTimeChange: PropTypes.func.isRequired,
     locale: PropTypes.string.isRequired,
     defaultSelected: PropTypes.object,
+    showErrorNotification: PropTypes.func
   };
 
   static getDerivedStateFromProps(props, prevState) {
@@ -197,9 +198,10 @@ class TimePickerCalendar extends Component {
     );
 
     if (!isAllow) {
-      // Display error notifications
+      // Display error notifications if selection is not allowed
       showErrorNotification(minPeriodTimeRange ? minPeriodErrorNotification(t) : selectErrorNotification(t));
     }
+
     return isAllow;
   };
 
