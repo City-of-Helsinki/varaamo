@@ -374,7 +374,7 @@ describe('domain resource utility function', () => {
       .toBe(true);
     expect(resourceUtils.isFullCalendarEventDurationEditable(resourceDurationNotEditable))
       .toBe(false);
-    expect(resourceUtils.isFullCalendarEventDurationEditable(resourceDurationNotEditable, null, null, true))
+    expect(resourceUtils.isFullCalendarEventDurationEditable(resourceDurationNotEditable, true))
       .toBe(true);
   });
 

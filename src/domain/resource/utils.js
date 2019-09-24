@@ -434,7 +434,7 @@ export const isTimeRangeReservable = (resource, start, end, isStaff = false) => 
  * @param resource {object} Resource object.
  * @returns {boolean}
  */
-export const isFullCalendarEventDurationEditable = (resource, start, end, isStaff = false) => {
+export const isFullCalendarEventDurationEditable = (resource, isStaff = false) => {
   if (isStaff) {
     return true;
   }

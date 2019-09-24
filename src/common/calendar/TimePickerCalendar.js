@@ -146,7 +146,7 @@ class TimePickerCalendar extends Component {
         ],
         editable: true,
         durationEditable: resourceUtils.isFullCalendarEventDurationEditable(
-          resource, selected.start, selected.end, isStaff
+          resource, isStaff
         ),
         id: NEW_RESERVATION,
         ...selected,
