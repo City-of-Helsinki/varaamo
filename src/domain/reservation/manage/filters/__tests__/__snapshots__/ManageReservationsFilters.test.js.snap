@@ -67,6 +67,7 @@ exports[`ManageReservationsFilters renders correctly 1`] = `
             -
           </div>
           <InjectT(UntranslatedDateField)
+            end={true}
             id="EndDateField"
             label="ManageReservationsFilters.endDateLabel"
             onChange={[Function]}
