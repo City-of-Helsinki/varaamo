@@ -7,7 +7,6 @@ import isEmpty from 'lodash/isEmpty';
 import injectT from '../../../../app/i18n/injectT';
 import TimePickerCalendar from '../../../common/calendar/TimePickerCalendar';
 import * as resourceUtils from '../utils';
-import { notLoggedInErrorNotification } from '../../../common/calendar/constants';
 
 class UntranslatedResourceReservationCalendar extends React.Component {
   calendarRef = React.createRef();
@@ -19,6 +18,7 @@ class UntranslatedResourceReservationCalendar extends React.Component {
     onDateChange: PropTypes.func.isRequired,
     onReserve: PropTypes.func.isRequired,
     resource: PropTypes.object.isRequired,
+    addNotification: PropTypes.func,
     t: PropTypes.func.isRequired,
   };
 
@@ -101,6 +101,7 @@ class UntranslatedResourceReservationCalendar extends React.Component {
       resource,
       t,
       onDateChange,
+      addNotification
     } = this.props;
 
     const {

@@ -2,6 +2,7 @@ import round from 'lodash/round';
 import filter from 'lodash/filter';
 import findIndex from 'lodash/findIndex';
 import find from 'lodash/find';
+import isEmpty from 'lodash/isEmpty';
 import get from 'lodash/get';
 import forEach from 'lodash/forEach';
 import moment from 'moment';
@@ -406,6 +407,27 @@ export const isDateReservable = (resource, date) => {
   return isAdmin || (isBefore && isAfter);
 };
 
+const isBetweenReservedTimeRange = (events, start, end) => {
+  const overlapped = events.find((event) => {
+    // selection start is between event timerange
+    if (start > event.start && start < event.end) {
+      return true;
+    }
+    // selection end is between event timerange
+    if (end > event.start && end < event.end) {
+      return true;
+    }
+    // selected time inside of event timerange
+
+    if (end <= event.end && start >= event.start) {
+      return true;
+    }
+
+    return false;
+  });
+
+  return !!overlapped;
+};
 /**
  * isTimeRangeReservable();
  * @param resource {object} Resource object.
@@ -414,7 +436,7 @@ export const isDateReservable = (resource, date) => {
  * @param isStaff {boolean} Staff users have permission to bypass maxPeriod check.
  * @returns {boolean}
  */
-export const isTimeRangeReservable = (resource, start, end, isStaff = false) => {
+export const isTimeRangeReservable = (resource, start, end, isStaff = false, events) => {
   const now = moment();
   const startMoment = moment(start);
   let endMoment = moment(end);
@@ -426,8 +448,16 @@ export const isTimeRangeReservable = (resource, start, end, isStaff = false) => 
     return false;
   }
 
-
   endMoment = minPeriodEndDate;
+
+  // Check if current time slot is overlapped with reserved reservation
+  if (!isEmpty(events)) {
+    const isReserved = isBetweenReservedTimeRange(events, start, endMoment.toDate());
+
+    if (isReserved) {
+      return false;
+    }
+  }
 
   // Reservation cannot be longer than the resources max period if max period is set.
   const maxPeriod = get(resource, 'max_period', null);
@@ -458,6 +488,7 @@ export const isTimeRangeReservable = (resource, start, end, isStaff = false) => 
   // Prevent selecting times from past.
   return startMoment.isAfter(now);
 };
+
 
 /**
  * isFullCalendarEventDurationEditable();
