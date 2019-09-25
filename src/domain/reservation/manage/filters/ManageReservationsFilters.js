@@ -40,15 +40,12 @@ class ManageReservationsFilters extends React.Component {
       onSearchChange,
     } = this.props;
 
-    // Ensure that end is not empty - rather one day after start. Otherwise
-    // we'll get an error from respa and no results.
+    // Ensure that start and end are not empty. Otherwise we'll get an error from respa instead of search results.
     if (filterName === 'start' && !filters.end) {
-      filters.end = moment(filterValue).add(1, 'd').format('YYYY-MM-DD');
+      filters.end = filterValue;
     }
-
-    // Ensure that start is not empty - rather one day before end.
     if (filterName === 'end' && !filters.start) {
-      filters.start = moment(filterValue).subtract(1, 'd').format('YYYY-MM-DD');
+      filters.start = filterValue;
     }
 
     const newFilters = {
@@ -57,6 +54,15 @@ class ManageReservationsFilters extends React.Component {
 
     if (filterValue && !isEmpty(filterValue)) {
       newFilters[filterName] = filterValue;
+    }
+
+    // We want to search for events that happen until the end of the day.
+    if (newFilters.end) {
+      newFilters.end = moment(newFilters.end).add(1, 'd').toISOString();
+    }
+    // Let's query respa with full ISO dates to avoid weird bugs.
+    if (newFilters.start) {
+      newFilters.start = moment(newFilters.start).toISOString();
     }
 
     onSearchChange(omit(newFilters, 'page'));
@@ -147,6 +153,7 @@ class ManageReservationsFilters extends React.Component {
                 />
                 <div className="separator">-</div>
                 <DateField
+                  end
                   id="EndDateField"
                   label={t('ManageReservationsFilters.endDateLabel')}
                   onChange={(value) => {
