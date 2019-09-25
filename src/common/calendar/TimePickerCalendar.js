@@ -166,6 +166,12 @@ class TimePickerCalendar extends Component {
     }
   };
 
+  onEventResize = (eventResizeInfo) => {
+    const { event } = eventResizeInfo;
+
+    this.onSelect(event);
+  }
+
   getDurationText = () => {
     const { selected } = this.state;
     const start = moment(selected.start);
@@ -277,7 +283,9 @@ class TimePickerCalendar extends Component {
           businessHours={resourceUtils.getFullCalendarBusinessHours(resource, date)}
           datesRender={this.onDatesRender}
           defaultDate={date}
+          eventDrop={this.onEventResize}
           eventRender={this.onEventRender}
+          eventResize={this.onEventResize}
           events={this.getEvents()}
           maxTime={resourceUtils.getFullCalendarMaxTime(resource, date, viewType)}
           minTime={resourceUtils.getFullCalendarMinTime(resource, date, viewType)}
