@@ -31,12 +31,12 @@ class TimePickerCalendar extends Component {
     onTimeChange: PropTypes.func.isRequired,
     locale: PropTypes.string.isRequired,
     defaultSelected: PropTypes.object,
-    addNotification: PropTypes.func
+    addNotification: PropTypes.func.isRequired
   };
 
   state = {
     viewType: 'timeGridWeek',
-    selected: null
+    selected: this.props.defaultSelected
   };
 
   componentDidUpdate(prevProps) {
@@ -55,11 +55,12 @@ class TimePickerCalendar extends Component {
   }
 
   onCancel = () => {
+    const { defaultSelected } = this.props;
     const calendarApi = this.calendarRef.current.getApi();
     calendarApi.unselect();
     // Clear FullCalendar select tooltip
 
-    this.onChange();
+    this.onChange(defaultSelected);
   }
 
   getCalendarOptions = () => {
@@ -93,7 +94,7 @@ class TimePickerCalendar extends Component {
 
   getEvents = () => {
     const {
-      date, resource, defaultSelected, isStaff
+      date, resource, isStaff
     } = this.props;
     const { selected } = this.state;
 
@@ -140,9 +141,7 @@ class TimePickerCalendar extends Component {
       momentDate.add(1, 'day');
     }
 
-    const selectedTimeSlot = selected || defaultSelected;
-
-    if (selectedTimeSlot) {
+    if (selected) {
       events.push({
         classNames: [
           'app-TimePickerCalendar__event',
@@ -153,7 +152,7 @@ class TimePickerCalendar extends Component {
           resource, isStaff
         ),
         id: NEW_RESERVATION,
-        ...selectedTimeSlot,
+        ...selected,
       });
     }
 
