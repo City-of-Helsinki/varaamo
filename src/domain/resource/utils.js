@@ -18,12 +18,11 @@ import { periodToMinute } from '../../../app/utils/timeUtils';
  * Populate the end time with resource min_period
  * For example: start time 1pm, min_period: 1:00:00 ->
  * end time should be 1pm + 1hour = 2pm
- * Can be used as a condition check if selected time range is under min_period (if null)
  *
  * @param {Object} resource
- * @param {Moment} start
- * @param {Moment} end
- * @returns {Moment || null} return new end date if time range < min_period given, otherwise return null
+ * @param {Date} start
+ * @param {Date} end
+ * @returns {Date} return new end date if time range < min_period given, otherwise return original end
  */
 
 export const getMinPeriodEndTime = (resource, start, end) => {
@@ -32,15 +31,14 @@ export const getMinPeriodEndTime = (resource, start, end) => {
   if (minPeriod) {
     const minPeriodInMinutes = periodToMinute(minPeriod);
 
-    const minPeriodEndDate = start.add(minPeriodInMinutes, 'minutes');
-
+    const minPeriodEndDate = moment(start).add(minPeriodInMinutes, 'minutes').toDate();
     if (minPeriodEndDate > end) {
       return minPeriodEndDate;
     }
   }
 
   // Return original end if no minPeriod
-  return null;
+  return end;
 };
 
 /**
@@ -410,11 +408,11 @@ export const isDateReservable = (resource, date) => {
 const isBetweenReservedTimeRange = (events, start, end) => {
   const overlapped = events.find((event) => {
     // selection start is between event timerange
-    if (start > event.start && start < event.end) {
+    if (start >= event.start && start < event.end) {
       return true;
     }
     // selection end is between event timerange
-    if (end > event.start && end < event.end) {
+    if (end > event.start && end <= event.end) {
       return true;
     }
     // selected time inside of event timerange
@@ -439,16 +437,7 @@ const isBetweenReservedTimeRange = (events, start, end) => {
 export const isTimeRangeReservable = (resource, start, end, isStaff = false, events) => {
   const now = moment();
   const startMoment = moment(start);
-  let endMoment = moment(end);
-
-  // Reservation cannot be shorter than the resources min period if min period is set.
-  const minPeriodEndDate = getMinPeriodEndTime(resource, startMoment, endMoment);
-
-  if (minPeriodEndDate === null) {
-    return false;
-  }
-
-  endMoment = minPeriodEndDate;
+  const endMoment = moment(end);
 
   // Check if current time slot is overlapped with reserved reservation
   if (!isEmpty(events)) {

@@ -36,14 +36,8 @@ class TimePickerCalendar extends Component {
 
   state = {
     viewType: 'timeGridWeek',
-    events: []
+    selected: null
   };
-
-  componentDidMount() {
-    this.setState({
-      events: this.getEvents()
-    });
-  }
 
   componentDidUpdate(prevProps) {
     const { date } = this.props;
@@ -53,44 +47,19 @@ class TimePickerCalendar extends Component {
     }
   }
 
-  /**
-   * Return user selected event.
-   *
-   * @memberof TimePickerCalendar
-   */
-  getSelectedEvent = () => {
-    const calendarApi = this.calendarRef.current.getApi();
-    return calendarApi.getEventById(NEW_RESERVATION);
-  }
-
   onChange = (selected) => {
-    const { resource, isStaff } = this.props;
-    const calendarApi = this.calendarRef.current.getApi();
-
-    calendarApi.addEvent({
-      classNames: [
-        'app-TimePickerCalendar__event',
-        'app-TimePickerCalendar__newReservation',
-      ],
-      editable: true,
-      durationEditable: resourceUtils.isFullCalendarEventDurationEditable(
-        resource, isStaff
-      ),
-      id: NEW_RESERVATION,
-      ...selected,
-    });
-
     this.setState({ selected });
 
+    // Invoke select handler callback from props
     this.props.onTimeChange(selected);
   }
 
   onCancel = () => {
     const calendarApi = this.calendarRef.current.getApi();
-    const selectedEvent = calendarApi.getEventById(NEW_RESERVATION);
-    selectedEvent.remove();
+    calendarApi.unselect();
+    // Clear FullCalendar select tooltip
 
-    this.setState({ selected: null });
+    this.onChange();
   }
 
   getCalendarOptions = () => {
@@ -123,7 +92,10 @@ class TimePickerCalendar extends Component {
   };
 
   getEvents = () => {
-    const { date, resource } = this.props;
+    const {
+      date, resource, defaultSelected, isStaff
+    } = this.props;
+    const { selected } = this.state;
 
     const getClassNames = (reservation) => {
       const isOwn = get(reservation, 'is_own', false);
@@ -168,6 +140,23 @@ class TimePickerCalendar extends Component {
       momentDate.add(1, 'day');
     }
 
+    const selectedTimeSlot = selected || defaultSelected;
+
+    if (selectedTimeSlot) {
+      events.push({
+        classNames: [
+          'app-TimePickerCalendar__event',
+          'app-TimePickerCalendar__newReservation',
+        ],
+        editable: true,
+        durationEditable: resourceUtils.isFullCalendarEventDurationEditable(
+          resource, isStaff
+        ),
+        id: NEW_RESERVATION,
+        ...selectedTimeSlot,
+      });
+    }
+
     return events;
   };
 
@@ -179,8 +168,9 @@ class TimePickerCalendar extends Component {
    */
   isSelectionValid = (start, end) => {
     const { resource, isStaff } = this.props;
-    const { events } = this.state;
 
+    const calendarApi = this.calendarRef.current.getApi();
+    const events = calendarApi.getEvents();
     return resourceUtils.isTimeRangeReservable(resource, start, end, isStaff, events);
   };
 
@@ -197,19 +187,22 @@ class TimePickerCalendar extends Component {
   onSelect = (selectionInfo) => {
     const { addNotification, t, resource } = this.props;
 
-    const isSelectionValid = this.isSelectionValid(
+    this.onCancel();
+
+    const minPeriodEndTime = resourceUtils.getMinPeriodEndTime(
+      resource,
       selectionInfo.start, selectionInfo.end
     );
+    // Make sure selected time alway > min_period
 
-    if (isSelectionValid) {
-      const minPeriodEndTime = resourceUtils.getMinPeriodEndTime(
-        resource,
-        moment(selectionInfo.start), moment(selectionInfo.end)
-      );
+    const isValid = this.isSelectionValid(
+      selectionInfo.start, minPeriodEndTime
+    );
 
+    if (isValid) {
       this.onChange({
         start: selectionInfo.start,
-        end: minPeriodEndTime ? minPeriodEndTime.toDate() : selectionInfo.end
+        end: minPeriodEndTime
       });
     } else {
       // Display error notifications if selection is not valid
