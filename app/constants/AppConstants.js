@@ -64,6 +64,7 @@ export default {
     availableBetween: '',
   },
   TIME_FORMAT: 'H:mm',
+  TIME_ZONE: SETTINGS.TIME_ZONE,
   TRACKING: SETTINGS.TRACKING,
   SORT_BY_OPTIONS: {
     NAME: 'resource_name_lang',
