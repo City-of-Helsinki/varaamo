@@ -16,6 +16,7 @@ import * as resourceUtils from '../../domain/resource/utils';
 import constants from '../../../app/constants/AppConstants';
 import injectT from '../../../app/i18n/injectT';
 import { selectErrorNotification } from './constants';
+import { getDefaultSelectedTimeRange } from './utils';
 
 const NEW_RESERVATION = 'NEW_RESERVATION';
 
@@ -30,13 +31,13 @@ class TimePickerCalendar extends Component {
     t: PropTypes.func.isRequired,
     onTimeChange: PropTypes.func.isRequired,
     locale: PropTypes.string.isRequired,
-    defaultSelected: PropTypes.object,
-    addNotification: PropTypes.func.isRequired
+    addNotification: PropTypes.func.isRequired,
+    edittingReservation: PropTypes.object
   };
 
   state = {
     viewType: 'timeGridWeek',
-    selected: this.props.defaultSelected
+    selected: getDefaultSelectedTimeRange(this.props.edittingReservation)
   };
 
   componentDidUpdate(prevProps) {
@@ -55,12 +56,13 @@ class TimePickerCalendar extends Component {
   }
 
   onCancel = () => {
-    const { defaultSelected } = this.props;
     const calendarApi = this.calendarRef.current.getApi();
     calendarApi.unselect();
     // Clear FullCalendar select tooltip
 
-    this.onChange(defaultSelected);
+    // Revert to default timerange if cancel
+    const defaultSelectedTimeRange = getDefaultSelectedTimeRange(this.props.edittingReservation);
+    this.onChange(defaultSelectedTimeRange);
   }
 
   getCalendarOptions = () => {
@@ -94,52 +96,11 @@ class TimePickerCalendar extends Component {
 
   getEvents = () => {
     const {
-      date, resource, isStaff
+      resource, isStaff
     } = this.props;
     const { selected } = this.state;
 
-    const getClassNames = (reservation) => {
-      const isOwn = get(reservation, 'is_own', false);
-      return classNames('app-TimePickerCalendar__event', {
-        'app-TimePickerCalendar__event--reserved': !isOwn,
-      });
-    };
-    // Add the resources reservations as normal FullCalendar events.
-    const reservations = get(resource, 'reservations', []);
-
-    const events = isEmpty(reservations) ? [] : reservations.map(reservation => ({
-      classNames: [getClassNames(reservation)],
-      editable: false,
-      id: reservation.id,
-      start: moment(reservation.begin).toDate(),
-      end: moment(reservation.end).toDate(),
-    }));
-
-    // Check resources reservation rules and disable days if needed.
-    const now = moment();
-    const momentDate = moment(date)
-      .startOf('week');
-
-    for (let i = 0; i < 7; i++) {
-      if (
-        momentDate.isBefore(now, 'date')
-        || !resourceUtils.isDateReservable(resource, momentDate.format(constants.DATE_FORMAT))
-      ) {
-        events.push({
-          allDay: true,
-          classNames: [
-            'app-TimePickerCalendar__backgroundEvent',
-            'app-TimePickerCalendar__restrictedDate',
-          ],
-          id: momentDate.format(constants.DATE_FORMAT),
-          start: momentDate.toDate(),
-          end: momentDate.toDate(),
-          rendering: 'background',
-        });
-      }
-
-      momentDate.add(1, 'day');
-    }
+    const events = this.getReservedEvents();
 
     if (selected) {
       events.push({
@@ -155,7 +116,6 @@ class TimePickerCalendar extends Component {
         ...selected,
       });
     }
-
     return events;
   };
 
@@ -168,8 +128,7 @@ class TimePickerCalendar extends Component {
   isSelectionValid = (start, end) => {
     const { resource, isStaff } = this.props;
 
-    const calendarApi = this.calendarRef.current.getApi();
-    const events = calendarApi.getEvents();
+    const events = this.getReservedEvents();
     return resourceUtils.isTimeRangeReservable(resource, start, end, isStaff, events);
   };
 
@@ -185,8 +144,6 @@ class TimePickerCalendar extends Component {
 
   onSelect = (selectionInfo) => {
     const { addNotification, t, resource } = this.props;
-
-    this.onCancel();
 
     const minPeriodEndTime = resourceUtils.getMinPeriodEndTime(
       resource,
@@ -260,6 +217,53 @@ class TimePickerCalendar extends Component {
 
     return '';
   };
+
+  getReservedEvents = () => {
+    const { resource, date } = this.props;
+
+    const getClassNames = (reservation) => {
+      const isOwn = get(reservation, 'is_own', false);
+      return classNames('app-TimePickerCalendar__event', {
+        'app-TimePickerCalendar__event--reserved': !isOwn,
+      });
+    };
+    // Add the resources reservations as normal FullCalendar events.
+    const reservations = get(resource, 'reservations', []);
+    const events = isEmpty(reservations) ? [] : reservations.map(reservation => ({
+      classNames: [getClassNames(reservation)],
+      editable: false,
+      id: reservation.id,
+      start: moment(reservation.begin).toDate(),
+      end: moment(reservation.end).toDate(),
+    }));
+
+    // Check resources reservation rules and disable days if needed.
+    const now = moment();
+    const momentDate = moment(date)
+      .startOf('week');
+
+    for (let i = 0; i < 7; i++) {
+      if (
+        momentDate.isBefore(now, 'date')
+        || !resourceUtils.isDateReservable(resource, momentDate.format(constants.DATE_FORMAT))
+      ) {
+        events.push({
+          allDay: true,
+          classNames: [
+            'app-TimePickerCalendar__backgroundEvent',
+            'app-TimePickerCalendar__restrictedDate',
+          ],
+          id: momentDate.format(constants.DATE_FORMAT),
+          start: momentDate.toDate(),
+          end: momentDate.toDate(),
+          rendering: 'background',
+        });
+      }
+
+      momentDate.add(1, 'day');
+    }
+    return events;
+  }
 
   render() {
     const { resource, date } = this.props;
