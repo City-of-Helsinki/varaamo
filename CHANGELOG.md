@@ -2,6 +2,7 @@
   **MAJOR CHANGES**
   - Support for payments in Varaamo.
   - Add reusable FullCalendar component.
+  - Add option to configure time zone of calendar/resources. Defaults to `Europe/Helsinki`.
 
   **MINOR CHANGES**
   - Replace failure message and add a return button for reservation payment.
@@ -22,6 +23,7 @@
   - [#1005](https://github.com/City-of-Helsinki/varaamo/pull/1005) Reservation information modal is missing metadata fields.
   - [#1006](https://github.com/City-of-Helsinki/varaamo/pull/1006) Manage reservation filter buttons.
   - [#1027](https://github.com/City-of-Helsinki/varaamo/pull/1027) Improve resource page usability for anonymous users.
+  - [#1029](https://github.com/City-of-Helsinki/varaamo/pull/1029) Add option to configure time zone for resources.
 
 # 0.4.2
   **HOTFIX**
