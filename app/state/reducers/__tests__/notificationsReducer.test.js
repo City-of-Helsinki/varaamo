@@ -3,7 +3,7 @@ import { createAction } from 'redux-actions';
 
 import types from '../../../constants/ActionTypes';
 import notificationsReducer from '../notificationsReducer';
-import { NOTIFICATION_DEFAULT } from '../../../../src/constants/NotificationConstant';
+import { NOTIFICATION_DEFAULT } from '../../../../src/common/notification/constants';
 
 describe('state/reducers/notificationReducer', () => {
   describe('initial state', () => {

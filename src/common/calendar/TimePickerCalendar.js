@@ -15,8 +15,9 @@ import isEmpty from 'lodash/isEmpty';
 import * as resourceUtils from '../../domain/resource/utils';
 import constants from '../../../app/constants/AppConstants';
 import injectT from '../../../app/i18n/injectT';
-import { selectErrorNotification } from './constants';
 import { getDefaultSelectedTimeRange } from './utils';
+import { createNotification } from '../notification/utils';
+import { NOTIFICATION_TYPE } from '../notification/constants';
 
 const NEW_RESERVATION = 'NEW_RESERVATION';
 
@@ -31,7 +32,6 @@ class TimePickerCalendar extends Component {
     t: PropTypes.func.isRequired,
     onTimeChange: PropTypes.func.isRequired,
     locale: PropTypes.string.isRequired,
-    addNotification: PropTypes.func.isRequired,
     edittingReservation: PropTypes.object
   };
 
@@ -143,7 +143,7 @@ class TimePickerCalendar extends Component {
   }
 
   onSelect = (selectionInfo) => {
-    const { addNotification, t, resource } = this.props;
+    const { t, resource } = this.props;
 
     const minPeriodEndTime = resourceUtils.getMinPeriodEndTime(
       resource,
@@ -162,7 +162,7 @@ class TimePickerCalendar extends Component {
       });
     } else {
       // Display error notifications if selection is not valid
-      addNotification(selectErrorNotification(t));
+      createNotification(NOTIFICATION_TYPE.ERROR, t('Notifications.selectTimeToReserve.warning'));
     }
   };
 

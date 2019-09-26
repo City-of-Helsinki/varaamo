@@ -1,6 +1,9 @@
 
 export const NOTIFICATION_TYPE = {
-  ERROR: 'error'
+  ERROR: 'error',
+  INFO: 'info',
+  SUCCESS: 'success',
+  WARNING: 'warning'
 };
 
 export const NOTIFICATION_DEFAULT = {
@@ -9,8 +12,4 @@ export const NOTIFICATION_DEFAULT = {
   timeOut: 5000,
   hidden: false,
 };
-
-export const NOTIFICATION_ERROR = {
-  ...NOTIFICATION_DEFAULT,
-  type: NOTIFICATION_TYPE.ERROR
-};
+// Remove me when refactor notification

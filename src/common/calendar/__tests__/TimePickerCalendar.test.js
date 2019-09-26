@@ -16,7 +16,6 @@ describe('TimePickerCalendar', () => {
     onDateChange: jest.fn(),
     onReserve: jest.fn(),
     onTimeChange: jest.fn(),
-    addNotification: jest.fn(),
   };
 
   const selected = {

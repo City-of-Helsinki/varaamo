@@ -24,7 +24,6 @@ class ReservationTime extends Component {
     selectedReservation: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
     unit: PropTypes.object.isRequired,
-    addNotification: PropTypes.func.isRequired,
     isStaff: PropTypes.bool.isRequired
   };
 
@@ -43,7 +42,6 @@ class ReservationTime extends Component {
       selectedReservation,
       t,
       unit,
-      addNotification,
       isStaff
     } = this.props;
     const date = moment(selectedReservation.begin).format('YYYY-MM-DD');
@@ -64,7 +62,6 @@ class ReservationTime extends Component {
               selectedDate={date}
             />
             <TimePickerCalendar
-              addNotification={addNotification}
               date={date}
               edittingReservation={selectedReservation}
               isStaff={isStaff}

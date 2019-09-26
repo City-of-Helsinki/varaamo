@@ -1,7 +1,7 @@
 import Immutable from 'seamless-immutable';
 
 import types from '../../constants/ActionTypes';
-import { NOTIFICATION_DEFAULT } from '../../../src/constants/NotificationConstant';
+import { NOTIFICATION_DEFAULT } from '../../../src/common/notification/constants';
 
 const initialState = Immutable([]);
 

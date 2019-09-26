@@ -18,7 +18,6 @@ class UntranslatedResourceReservationCalendar extends React.Component {
     onDateChange: PropTypes.func.isRequired,
     onReserve: PropTypes.func.isRequired,
     resource: PropTypes.object.isRequired,
-    addNotification: PropTypes.func,
     t: PropTypes.func.isRequired,
   };
 
@@ -101,7 +100,6 @@ class UntranslatedResourceReservationCalendar extends React.Component {
       resource,
       t,
       onDateChange,
-      addNotification
     } = this.props;
 
     const {
@@ -111,7 +109,6 @@ class UntranslatedResourceReservationCalendar extends React.Component {
     return (
       <div className="app-ResourceReservationCalendar">
         <TimePickerCalendar
-          addNotification={addNotification}
           date={date}
           isStaff={isStaff}
           onDateChange={onDateChange}

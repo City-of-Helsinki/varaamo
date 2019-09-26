@@ -11,7 +11,6 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 
-import { addNotification } from '../../actions/notificationsActions';
 import { postReservation, putReservation } from '../../actions/reservationActions';
 import { fetchResource } from '../../actions/resourceActions';
 import {
@@ -276,7 +275,6 @@ class UnconnectedReservationPage extends Component {
                 />
                 {view === 'time' && isEditing && (
                   <ReservationTime
-                    addNotification={actions.addNotification}
                     handleSelectReservation={actions.setSelectedTimeSlots}
                     history={history}
                     isStaff={isStaff}
@@ -362,7 +360,6 @@ function mapDispatchToProps(dispatch) {
     postReservation,
     removeReservation: recurringReservationsConnector.removeReservation,
     setSelectedTimeSlots,
-    addNotification
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
