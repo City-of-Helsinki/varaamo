@@ -68,6 +68,7 @@ class TimePickerCalendar extends Component {
         center: 'title',
         right: 'timeGridDay,timeGridWeek'
       },
+      timeZone: SETTINGS.TIME_ZONE,
       height: 'auto',
       editable: true,
       eventConstraint: 'businessHours',
