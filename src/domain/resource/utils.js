@@ -14,7 +14,7 @@ import constants from '../../../app/constants/AppConstants';
 import { periodToMinute } from '../../../app/utils/timeUtils';
 
 /**
- * getMinPeriodTimeRange
+ * getMinPeriodEndTime
  * Populate the end time with resource min_period
  * For example: start time 1pm, min_period: 1:00:00 ->
  * end time should be 1pm + 1hour = 2pm
@@ -30,7 +30,6 @@ export const getMinPeriodEndTime = (resource, start, end) => {
 
   if (minPeriod) {
     const minPeriodInMinutes = periodToMinute(minPeriod);
-
     const minPeriodEndDate = moment(start).add(minPeriodInMinutes, 'minutes').toDate();
     if (minPeriodEndDate > end) {
       return minPeriodEndDate;
