@@ -19,7 +19,6 @@ import DateField from '../../../../common/form/fields/DateField';
 import SelectField from '../../../../common/form/fields/SelectField';
 import iconTimes from '../../../search/filters/images/times.svg';
 import * as dataUtils from '../../../../common/data/utils';
-import constants from '../../../../../app/constants/AppConstants';
 import { RESERVATION_STATE } from '../../../../constants/ReservationState';
 import { RESERVATION_SHOWONLY_FILTERS } from '../../constants';
 
