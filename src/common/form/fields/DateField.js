@@ -24,7 +24,6 @@ DatePickerWrapper.propTypes = {
 
 class UntranslatedDateField extends React.Component {
   static propTypes = {
-    end: PropTypes.bool,
     value: PropTypes.instanceOf(Date),
     locale: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
@@ -52,7 +51,6 @@ class UntranslatedDateField extends React.Component {
 
   render() {
     const {
-      end = false,
       locale,
       label,
       placeholder,
@@ -60,12 +58,6 @@ class UntranslatedDateField extends React.Component {
     } = this.props;
     const { isOpen } = this.state;
     const date = value || moment().toDate();
-    let valueOutput;
-
-    valueOutput = value ? moment(value).format('L') : null;
-    if (value && end) {
-      valueOutput = moment(value).subtract(1, 'd').format('L');
-    }
 
     return (
       <div className="app-DateField">
@@ -74,7 +66,7 @@ class UntranslatedDateField extends React.Component {
           <InputGroup>
             <InputGroup.Addon className="app-DateField__input">
               <img alt="" className="app-DateField__icon" src={iconCalendar} />
-              {value && <span className="value">{valueOutput}</span>}
+              {value && <span className="value">{moment(value).format('L')}</span>}
               {(!value && placeholder) && (
                 <span className="placeholder">{placeholder}</span>
               )}

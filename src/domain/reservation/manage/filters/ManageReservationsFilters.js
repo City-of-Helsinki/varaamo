@@ -34,19 +34,33 @@ class ManageReservationsFilters extends React.Component {
     intl: intlShape,
   };
 
+  dateFilterState = {
+    start: null,
+    end: null,
+  }
+
+  onDateFilterChange = (start, end) => {
+    const { onSearchChange } = this.props;
+    let startFilter = start;
+    let endFilter = end;
+
+    if (start && !end) {
+      endFilter = start;
+    }
+    if (end && !start) {
+      startFilter = end;
+    }
+
+    this.dateFilterState.start = moment(startFilter).startOf('day').toISOString();
+    this.dateFilterState.end = moment(endFilter).endOf('day').toISOString();
+    onSearchChange(omit(this.dateFilterState, 'page'));
+  }
+
   onFilterChange = (filterName, filterValue) => {
     const {
       filters,
       onSearchChange,
     } = this.props;
-
-    // Ensure that start and end are not empty. Otherwise we'll get an error from respa instead of search results.
-    if (filterName === 'start' && !filters.end) {
-      filters.end = filterValue;
-    }
-    if (filterName === 'end' && !filters.start) {
-      filters.start = filterValue;
-    }
 
     const newFilters = {
       ...omit(filters, filterName),
@@ -54,15 +68,6 @@ class ManageReservationsFilters extends React.Component {
 
     if (filterValue && !isEmpty(filterValue)) {
       newFilters[filterName] = filterValue;
-    }
-
-    // We want to search for events that happen until the end of the day.
-    if (newFilters.end) {
-      newFilters.end = moment(newFilters.end).add(1, 'd').toISOString();
-    }
-    // Let's query respa with full ISO dates to avoid weird bugs.
-    if (newFilters.start) {
-      newFilters.start = moment(newFilters.start).toISOString();
     }
 
     onSearchChange(omit(newFilters, 'page'));
@@ -145,19 +150,18 @@ class ManageReservationsFilters extends React.Component {
                 <DateField
                   id="startDateField"
                   label={t('ManageReservationsFilters.startDateLabel')}
-                  onChange={(value) => {
-                    this.onFilterChange('start', moment(value).format(constants.DATE_FORMAT));
+                  onChange={(startDateValue) => {
+                    this.onDateFilterChange(startDateValue, filters.end);
                   }}
                   placeholder={t('ManageReservationsFilters.startDatePlaceholder')}
                   value={startDate ? moment(startDate).toDate() : null}
                 />
                 <div className="separator">-</div>
                 <DateField
-                  end
                   id="EndDateField"
                   label={t('ManageReservationsFilters.endDateLabel')}
-                  onChange={(value) => {
-                    this.onFilterChange('end', moment(value).format(constants.DATE_FORMAT));
+                  onChange={(endDateValue) => {
+                    this.onDateFilterChange(filters.start, endDateValue);
                   }}
                   placeholder={t('ManageReservationsFilters.endDatePlaceholder')}
                   value={endDate ? moment(endDate).toDate() : null}
