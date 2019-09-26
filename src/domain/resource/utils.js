@@ -403,9 +403,16 @@ export const isDateReservable = (resource, date) => {
 
   return isAdmin || (isBefore && isAfter);
 };
-
+/**
+ * Check if selected time range
+ * overlapped with timerange from reserved reservations. (from resource data)
+ * @param {Array} events
+ * @param {Date} start
+ * @param {Date} end
+ * @returns {boolean} Is current selected timerange overlap with reserved events.
+ */
 const isBetweenReservedTimeRange = (events, start, end) => {
-  const overlapped = events.find((event) => {
+  return events.some((event) => {
     // selection start is between event timerange
     if (start >= event.start && start < event.end) {
       return true;
@@ -422,8 +429,6 @@ const isBetweenReservedTimeRange = (events, start, end) => {
 
     return false;
   });
-
-  return !!overlapped;
 };
 /**
  * isTimeRangeReservable();
