@@ -15,6 +15,9 @@ import isEmpty from 'lodash/isEmpty';
 import * as resourceUtils from '../../domain/resource/utils';
 import constants from '../../../app/constants/AppConstants';
 import injectT from '../../../app/i18n/injectT';
+import { getDefaultSelectedTimeRange } from './utils';
+import { createNotification } from '../notification/utils';
+import { NOTIFICATION_TYPE } from '../notification/constants';
 
 const NEW_RESERVATION = 'NEW_RESERVATION';
 
@@ -29,22 +32,12 @@ class TimePickerCalendar extends Component {
     t: PropTypes.func.isRequired,
     onTimeChange: PropTypes.func.isRequired,
     locale: PropTypes.string.isRequired,
-    defaultSelected: PropTypes.object,
+    edittingReservation: PropTypes.object
   };
 
-  static getDerivedStateFromProps(props, prevState) {
-    if (isEmpty(prevState.selected) && props.defaultSelected) {
-      return {
-        selected: props.defaultSelected
-      };
-    }
-
-    return null;
-  }
-
   state = {
-    selected: null,
     viewType: 'timeGridWeek',
+    selected: getDefaultSelectedTimeRange(this.props.edittingReservation)
   };
 
   componentDidUpdate(prevProps) {
@@ -58,7 +51,18 @@ class TimePickerCalendar extends Component {
   onChange = (selected) => {
     this.setState({ selected });
 
+    // Invoke select handler callback from props
     this.props.onTimeChange(selected);
+  }
+
+  onCancel = () => {
+    const calendarApi = this.calendarRef.current.getApi();
+    calendarApi.unselect();
+    // Clear FullCalendar select tooltip
+
+    // Revert to default timerange if cancel
+    const defaultSelectedTimeRange = getDefaultSelectedTimeRange(this.props.edittingReservation);
+    this.onChange(defaultSelectedTimeRange);
   }
 
   getCalendarOptions = () => {
@@ -92,53 +96,13 @@ class TimePickerCalendar extends Component {
   };
 
   getEvents = () => {
-    const { date, isStaff, resource } = this.props;
+    const {
+      resource, isStaff
+    } = this.props;
     const { selected } = this.state;
 
-    const getClassNames = (reservation) => {
-      const isOwn = get(reservation, 'is_own', false);
-      return classNames('app-TimePickerCalendar__event', {
-        'app-TimePickerCalendar__event--reserved': !isOwn,
-      });
-    };
-    // Add the resources reservations as normal FullCalendar events.
-    const reservations = get(resource, 'reservations', []);
+    const events = this.getReservedEvents();
 
-    const events = isEmpty(reservations) ? [] : reservations.map(reservation => ({
-      classNames: [getClassNames(reservation)],
-      editable: false,
-      id: reservation.id,
-      start: moment(reservation.begin).toDate(),
-      end: moment(reservation.end).toDate(),
-    }));
-
-    // Check resources reservation rules and disable days if needed.
-    const now = moment();
-    const momentDate = moment(date)
-      .startOf('week');
-
-    for (let i = 0; i < 7; i++) {
-      if (
-        momentDate.isBefore(now, 'date')
-        || !resourceUtils.isDateReservable(resource, momentDate.format(constants.DATE_FORMAT))
-      ) {
-        events.push({
-          allDay: true,
-          classNames: [
-            'app-TimePickerCalendar__backgroundEvent',
-            'app-TimePickerCalendar__restrictedDate',
-          ],
-          id: momentDate.format(constants.DATE_FORMAT),
-          start: momentDate.toDate(),
-          end: momentDate.toDate(),
-          rendering: 'background',
-        });
-      }
-
-      momentDate.add(1, 'day');
-    }
-
-    // Add the selected time range into calendar as an event.
     if (selected) {
       events.push({
         classNames: [
@@ -153,94 +117,61 @@ class TimePickerCalendar extends Component {
         ...selected,
       });
     }
-
     return events;
   };
 
-  onDatesRender = (info) => {
-    const {
-      date,
-      onDateChange,
-    } = this.props;
-
-    const momentDate = moment(date);
-    const activeStart = moment(info.view.activeStart);
-
-    // For some weird reason the activeEnd date is always last day of the day/week view + 1
-    // (e.g. for a week view it's always the next weeks monday);
-    const activeEnd = moment(info.view.activeEnd).subtract(1, 'day');
-
-    if (momentDate.isBefore(activeStart, 'day') || momentDate.isAfter(activeEnd, 'day')) {
-      onDateChange(activeStart.format(constants.DATE_FORMAT));
-    }
-
-    const {
-      viewType,
-    } = this.state;
-
-    if (viewType !== info.view.type) {
-      this.setState({
-        viewType: info.view.type,
-      });
-    }
-  };
-
-  onEventAllow = (dropInfo) => {
-    return this.isEventValid(dropInfo.start, dropInfo.end);
-  };
-
-  onSelectAllow = (selectInfo) => {
-    return this.isEventValid(selectInfo.start, selectInfo.end);
-  };
-
   /**
-   * isEventValid();
+   * isSelectionValid();
    * @param start {Date}
    * @param end {Date}
    * @returns {boolean}
    */
-  isEventValid = (start, end) => {
-    const { isStaff, resource } = this.props;
-    return resourceUtils.isTimeRangeReservable(resource, start, end, isStaff);
-  };
+  isSelectionValid = (start, end) => {
+    const { resource, isStaff } = this.props;
 
-  onEventDrop = (eventDropInfo) => {
-    const { event } = eventDropInfo;
-
-    this.onChange({
-      start: event.start,
-      end: event.end,
-    });
-  };
-
-  onEventResize = (eventResizeInfo) => {
-    const { event } = eventResizeInfo;
-
-    this.onChange({
-      start: event.start,
-      end: event.end,
-    });
+    const events = this.getReservedEvents();
+    return resourceUtils.isTimeRangeReservable(resource, start, end, isStaff, events);
   };
 
   onEventRender = (info) => {
+    // add cancel button for new selected event
     if (info.event.id === NEW_RESERVATION) {
       const cancelBtn = document.createElement('span');
       cancelBtn.classList.add('app-TimePickerCalendar__cancelEvent');
-      cancelBtn.addEventListener('click', () => this.onChange(null), { once: true });
+      cancelBtn.addEventListener('click', () => this.onCancel(), { once: true });
       info.el.append(cancelBtn);
     }
   }
 
   onSelect = (selectionInfo) => {
-    this.onChange({
-      start: selectionInfo.start,
-      end: selectionInfo.end,
-    });
+    const { t, resource } = this.props;
 
-    // Hide the FullCalendar selection widget/indicator.
-    const calendarApi = this.calendarRef.current.getApi();
-    calendarApi.unselect();
+    const minPeriodEndTime = resourceUtils.getMinPeriodEndTime(
+      resource,
+      selectionInfo.start, selectionInfo.end
+    );
+    // Make sure selected time alway > min_period
+
+    const isValid = this.isSelectionValid(
+      selectionInfo.start, minPeriodEndTime
+    );
+
+    if (isValid) {
+      this.onChange({
+        start: selectionInfo.start,
+        end: minPeriodEndTime
+      });
+    } else {
+      // Display error notifications if selection is not valid
+      createNotification(NOTIFICATION_TYPE.ERROR, t('Notifications.selectTimeToReserve.warning'));
+    }
   };
+
+  onEventResize = (eventResizeInfo) => {
+    const { event } = eventResizeInfo;
+
+    this.onSelect(event);
+  }
 
   getDurationText = () => {
     const { selected } = this.state;
@@ -294,21 +225,52 @@ class TimePickerCalendar extends Component {
     return '';
   };
 
-  onDateClick = (dateClickInfo) => {
-    const { resource } = this.props;
-    const slotSize = resourceUtils.getSlotSizeInMinutes(resource);
+  getReservedEvents = () => {
+    const { resource, date } = this.props;
 
-    const start = moment(dateClickInfo.date);
-    const end = start.clone().add(slotSize, 'minutes');
-
-    if (this.isEventValid(start.toDate(), end.toDate())) {
-      const calendarApi = this.calendarRef.current.getApi();
-      calendarApi.select({
-        start: start.toDate(),
-        end: end.toDate(),
+    const getClassNames = (reservation) => {
+      const isOwn = get(reservation, 'is_own', false);
+      return classNames('app-TimePickerCalendar__event', {
+        'app-TimePickerCalendar__event--reserved': !isOwn,
       });
+    };
+    // Add the resources reservations as normal FullCalendar events.
+    const reservations = get(resource, 'reservations', []);
+    const events = isEmpty(reservations) ? [] : reservations.map(reservation => ({
+      classNames: [getClassNames(reservation)],
+      editable: false,
+      id: reservation.id,
+      start: moment(reservation.begin).toDate(),
+      end: moment(reservation.end).toDate(),
+    }));
+
+    // Check resources reservation rules and disable days if needed.
+    const now = moment();
+    const momentDate = moment(date)
+      .startOf('week');
+
+    for (let i = 0; i < 7; i++) {
+      if (
+        momentDate.isBefore(now, 'date')
+        || !resourceUtils.isDateReservable(resource, momentDate.format(constants.DATE_FORMAT))
+      ) {
+        events.push({
+          allDay: true,
+          classNames: [
+            'app-TimePickerCalendar__backgroundEvent',
+            'app-TimePickerCalendar__restrictedDate',
+          ],
+          id: momentDate.format(constants.DATE_FORMAT),
+          start: momentDate.toDate(),
+          end: momentDate.toDate(),
+          rendering: 'background',
+        });
+      }
+
+      momentDate.add(1, 'day');
     }
-  };
+    return events;
+  }
 
   render() {
     const { resource, date } = this.props;
@@ -317,24 +279,21 @@ class TimePickerCalendar extends Component {
     return (
       <div className="app-Calendar">
         <FullCalendar
+          {...this.getCalendarOptions()}
           allDaySlot={false}
           businessHours={resourceUtils.getFullCalendarBusinessHours(resource, date)}
-          dateClick={this.onDateClick}
           datesRender={this.onDatesRender}
           defaultDate={date}
-          eventAllow={this.onEventAllow}
-          eventDrop={this.onEventDrop}
+          eventDrop={this.onEventResize}
           eventRender={this.onEventRender}
           eventResize={this.onEventResize}
           events={this.getEvents()}
-          ref={this.calendarRef}
-          select={this.onSelect}
-          selectAllow={this.onSelectAllow}
-          slotDuration={resourceUtils.getFullCalendarSlotDuration(resource, date, viewType)}
-          slotLabelInterval={resourceUtils.getFullCalendarSlotLabelInterval(resource)}
-          {...this.getCalendarOptions()}
           maxTime={resourceUtils.getFullCalendarMaxTime(resource, date, viewType)}
           minTime={resourceUtils.getFullCalendarMinTime(resource, date, viewType)}
+          ref={this.calendarRef}
+          select={this.onSelect}
+          slotDuration={resourceUtils.getFullCalendarSlotDuration(resource, date, viewType)}
+          slotLabelInterval={resourceUtils.getFullCalendarSlotLabelInterval(resource)}
         />
       </div>
     );

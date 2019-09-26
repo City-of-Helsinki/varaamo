@@ -14,12 +14,6 @@ export default {
     timePeriod: 30,
     timePeriodType: 'minutes',
   },
-  NOTIFICATION_DEFAULTS: {
-    message: '',
-    type: 'info',
-    timeOut: 5000,
-    hidden: false,
-  },
   REQUIRED_API_HEADERS: {
     'Accept': 'application/json',
     'Accept-Language': 'fi',

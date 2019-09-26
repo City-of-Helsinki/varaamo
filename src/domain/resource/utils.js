@@ -2,6 +2,7 @@ import round from 'lodash/round';
 import filter from 'lodash/filter';
 import findIndex from 'lodash/findIndex';
 import find from 'lodash/find';
+import isEmpty from 'lodash/isEmpty';
 import get from 'lodash/get';
 import forEach from 'lodash/forEach';
 import moment from 'moment';
@@ -10,7 +11,34 @@ import * as urlUtils from '../../common/url/utils';
 import * as dataUtils from '../../common/data/utils';
 import * as reservationUtils from '../reservation/utils';
 import constants from '../../../app/constants/AppConstants';
+import { periodToMinute } from '../../../app/utils/timeUtils';
 
+/**
+ * getMinPeriodEndTime
+ * Populate the end time with resource min_period
+ * For example: start time 1pm, min_period: 1:00:00 ->
+ * end time should be 1pm + 1hour = 2pm
+ *
+ * @param {Object} resource
+ * @param {Date} start
+ * @param {Date} end
+ * @returns {Date} return new end date if time range < min_period given, otherwise return original end
+ */
+
+export const getMinPeriodEndTime = (resource, start, end) => {
+  const minPeriod = get(resource, 'min_period', null);
+
+  if (minPeriod) {
+    const minPeriodInMinutes = periodToMinute(minPeriod);
+    const minPeriodEndDate = moment(start).add(minPeriodInMinutes, 'minutes').toDate();
+    if (minPeriodEndDate > end) {
+      return minPeriodEndDate;
+    }
+  }
+
+  // Return original end if no minPeriod
+  return end;
+};
 
 /**
  * getResourcePageLink();
@@ -375,7 +403,33 @@ export const isDateReservable = (resource, date) => {
 
   return isAdmin || (isBefore && isAfter);
 };
+/**
+ * Check if selected time range
+ * overlapped with timerange from reserved reservations. (from resource data)
+ * @param {Array} events
+ * @param {Date} start
+ * @param {Date} end
+ * @returns {boolean} Is current selected timerange overlap with reserved events.
+ */
+const isBetweenReservedTimeRange = (events, start, end) => {
+  return events.some((event) => {
+    // selection start is between event timerange
+    if (start >= event.start && start < event.end) {
+      return true;
+    }
+    // selection end is between event timerange
+    if (end > event.start && end <= event.end) {
+      return true;
+    }
+    // selected time inside of event timerange
 
+    if (end <= event.end && start >= event.start) {
+      return true;
+    }
+
+    return false;
+  });
+};
 /**
  * isTimeRangeReservable();
  * @param resource {object} Resource object.
@@ -384,18 +438,16 @@ export const isDateReservable = (resource, date) => {
  * @param isStaff {boolean} Staff users have permission to bypass maxPeriod check.
  * @returns {boolean}
  */
-export const isTimeRangeReservable = (resource, start, end, isStaff = false) => {
+export const isTimeRangeReservable = (resource, start, end, isStaff = false, events) => {
   const now = moment();
   const startMoment = moment(start);
   const endMoment = moment(end);
 
-  // Reservation cannot be shorter than the resources min period if min period is set.
-  const minPeriod = get(resource, 'min_period', null);
-  if (minPeriod) {
-    const minPeriodDuration = moment.duration(minPeriod);
-    const minDuration = minPeriodDuration.hours() * 60 + minPeriodDuration.minutes();
+  // Check if current time slot is overlapped with reserved reservation
+  if (!isEmpty(events)) {
+    const isReserved = isBetweenReservedTimeRange(events, start, endMoment.toDate());
 
-    if (endMoment.diff(startMoment, 'minutes') < minDuration) {
+    if (isReserved) {
       return false;
     }
   }
@@ -429,6 +481,7 @@ export const isTimeRangeReservable = (resource, start, end, isStaff = false) => 
   // Prevent selecting times from past.
   return startMoment.isAfter(now);
 };
+
 
 /**
  * isFullCalendarEventDurationEditable();

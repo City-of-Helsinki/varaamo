@@ -435,4 +435,37 @@ describe('domain resource utility function', () => {
       expect(price).toBe(0);
     });
   });
+
+  describe('getMinPeriodEndTime', () => {
+    const resource = resourceFixture.build();
+    const resourceWithMinPeriod = resourceFixture.build({ min_period: '01:00:00' });
+
+    const selection = {
+      start: new Date('2019-08-16T00:00:00Z'),
+      end: new Date('2019-08-16T00:30:00Z'),
+    };
+
+    test('should return default end if resource does not have min_period defined', () => {
+      const minPeriodTimeRange = resourceUtils.getMinPeriodEndTime(resource, selection.start, selection.end);
+
+      expect(minPeriodTimeRange).toEqual(selection.end);
+    });
+
+    test('should return default end if end time argument already fulfill the min_period', () => {
+      const selectionLargerThanMinPeriod = { ...selection, end: new Date('2019-08-16T01:30:00Z') };
+      const minPeriod = resourceUtils.getMinPeriodEndTime(
+        resourceWithMinPeriod, selectionLargerThanMinPeriod.start, selectionLargerThanMinPeriod.end
+      );
+
+      expect(minPeriod).toEqual(selectionLargerThanMinPeriod.end);
+    });
+
+    test('should return new end time fulfill min_period if selected end time is smaller than that', () => {
+      const minPeriod = resourceUtils.getMinPeriodEndTime(
+        resourceWithMinPeriod, selection.start, selection.end
+      );
+
+      expect(minPeriod).toEqual(new Date('2019-08-16T01:00:00Z'));
+    });
+  });
 });

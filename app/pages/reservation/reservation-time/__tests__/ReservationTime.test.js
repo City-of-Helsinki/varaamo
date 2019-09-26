@@ -19,6 +19,7 @@ describe('pages/reservation/reservation-time/ReservationTime', () => {
     handleSelectReservation: jest.fn(),
     history,
     location: {},
+    isStaff: false,
     onCancel: simple.mock(),
     onConfirm: simple.mock(),
     resource: Resource.build(),

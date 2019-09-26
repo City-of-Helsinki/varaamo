@@ -277,6 +277,7 @@ class UnconnectedReservationPage extends Component {
                   <ReservationTime
                     handleSelectReservation={actions.setSelectedTimeSlots}
                     history={history}
+                    isStaff={isStaff}
                     onCancel={this.handleCancel}
                     onConfirm={this.handleConfirmTime}
                     resource={resource}
@@ -358,7 +359,7 @@ function mapDispatchToProps(dispatch) {
     putReservation,
     postReservation,
     removeReservation: recurringReservationsConnector.removeReservation,
-    setSelectedTimeSlots
+    setSelectedTimeSlots,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
