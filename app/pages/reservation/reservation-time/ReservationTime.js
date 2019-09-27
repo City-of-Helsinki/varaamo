@@ -24,6 +24,7 @@ class ReservationTime extends Component {
     selectedReservation: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
     unit: PropTypes.object.isRequired,
+    isStaff: PropTypes.bool.isRequired
   };
 
   handleDateChange = (newDate) => {
@@ -41,6 +42,7 @@ class ReservationTime extends Component {
       selectedReservation,
       t,
       unit,
+      isStaff
     } = this.props;
     const date = moment(selectedReservation.begin).format('YYYY-MM-DD');
     const decamelizedResource = decamelizeKeys(resource);
@@ -61,11 +63,8 @@ class ReservationTime extends Component {
             />
             <TimePickerCalendar
               date={date}
-              defaultSelected={
-                selectedReservation ? {
-                  start: moment(selectedReservation.begin).toDate(),
-                  end: moment(selectedReservation.end).toDate()
-                } : null}
+              edittingReservation={selectedReservation}
+              isStaff={isStaff}
               onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())}
               onTimeChange={selected => handleSelectReservation({ selected, resource: resourceToEdit })}
               resource={resourceToEdit}

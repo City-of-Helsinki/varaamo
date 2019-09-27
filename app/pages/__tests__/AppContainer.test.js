@@ -73,10 +73,6 @@ describe('pages/AppContainer', () => {
       expect(getWrapper().find(Header)).toHaveLength(1);
     });
 
-    test('renders Notifications', () => {
-      expect(getWrapper().find(Notifications)).toHaveLength(1);
-    });
-
     test('renders props.children', () => {
       const children = wrapper.find('#child-div');
       expect(children).toHaveLength(1);

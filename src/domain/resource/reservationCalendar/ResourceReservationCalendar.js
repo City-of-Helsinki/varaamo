@@ -83,6 +83,7 @@ class UntranslatedResourceReservationCalendar extends React.Component {
       resource,
     } = this.props;
     const { selected } = this.state;
+
     onReserve(selected, resource);
   }
 

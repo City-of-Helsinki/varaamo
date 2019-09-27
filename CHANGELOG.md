@@ -10,6 +10,7 @@
   - Fix missing reservation metadata fields data in manage reservation view. Trim empty field row.
   - Add `show_only` filter section to filter reservation list. This filter have `can_modify` as its default value.
   - Anonymous users now see a log in button below the calendar on the resource page helping them understand that they need to log in to continue.
+  - Fix FullCalendar not auto-select minPeriod time slot when user select. Various fixes related to edit reservation calendar, drag and drop and select error handler.
 
   **HOTFIX**
   - Fix resource information headlines and icon.
@@ -22,6 +23,7 @@
   - [#1004](https://github.com/City-of-Helsinki/varaamo/pull/1004) Staff cannot see normal reservations.
   - [#1005](https://github.com/City-of-Helsinki/varaamo/pull/1005) Reservation information modal is missing metadata fields.
   - [#1006](https://github.com/City-of-Helsinki/varaamo/pull/1006) Manage reservation filter buttons.
+  - [#1026](https://github.com/City-of-Helsinki/varaamo/pull/1026) Add support for minPeriod auto-select
   - [#1027](https://github.com/City-of-Helsinki/varaamo/pull/1027) Improve resource page usability for anonymous users.
   - [#1028](https://github.com/City-of-Helsinki/varaamo/pull/1028) Always fetch reservations with start and end filters.
   - [#1029](https://github.com/City-of-Helsinki/varaamo/pull/1029) Add option to configure time zone for resources.
