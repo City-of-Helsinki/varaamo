@@ -19,7 +19,6 @@ import DateField from '../../../../common/form/fields/DateField';
 import SelectField from '../../../../common/form/fields/SelectField';
 import iconTimes from '../../../search/filters/images/times.svg';
 import * as dataUtils from '../../../../common/data/utils';
-import constants from '../../../../../app/constants/AppConstants';
 import { RESERVATION_STATE } from '../../../../constants/ReservationState';
 import { RESERVATION_SHOWONLY_FILTERS } from '../../constants';
 
@@ -33,6 +32,34 @@ class ManageReservationsFilters extends React.Component {
     showOnlyFilters: PropTypes.array,
     intl: intlShape,
   };
+
+  onDateFilterChange = (start, end) => {
+    const { onSearchChange, filters } = this.props;
+    let startFilter = start;
+    let endFilter = end;
+
+    if (start && !end) {
+      endFilter = startFilter;
+    }
+    if (end && !start) {
+      startFilter = endFilter;
+    }
+
+    startFilter = moment(startFilter);
+    endFilter = moment(endFilter);
+
+    // If user searches with end before start, add 1 day.
+    if (startFilter.diff(endFilter) > 0) {
+      endFilter = startFilter.add(1, 'days');
+    }
+
+    startFilter = startFilter.startOf('day').toISOString();
+    endFilter = endFilter.endOf('day').toISOString();
+
+    const newFilters = Object.assign({}, filters, { start: startFilter, end: endFilter });
+
+    onSearchChange(omit(newFilters, 'page'));
+  }
 
   onFilterChange = (filterName, filterValue) => {
     const {
@@ -128,8 +155,8 @@ class ManageReservationsFilters extends React.Component {
                 <DateField
                   id="startDateField"
                   label={t('ManageReservationsFilters.startDateLabel')}
-                  onChange={(value) => {
-                    this.onFilterChange('start', moment(value).format(constants.DATE_FORMAT));
+                  onChange={(startDateValue) => {
+                    this.onDateFilterChange(startDateValue, endDate);
                   }}
                   placeholder={t('ManageReservationsFilters.startDatePlaceholder')}
                   value={startDate ? moment(startDate).toDate() : null}
@@ -138,8 +165,8 @@ class ManageReservationsFilters extends React.Component {
                 <DateField
                   id="EndDateField"
                   label={t('ManageReservationsFilters.endDateLabel')}
-                  onChange={(value) => {
-                    this.onFilterChange('end', moment(value).format(constants.DATE_FORMAT));
+                  onChange={(endDateValue) => {
+                    this.onDateFilterChange(startDate, endDateValue);
                   }}
                   placeholder={t('ManageReservationsFilters.endDatePlaceholder')}
                   value={endDate ? moment(endDate).toDate() : null}
