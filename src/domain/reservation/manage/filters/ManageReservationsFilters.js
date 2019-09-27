@@ -40,14 +40,21 @@ class ManageReservationsFilters extends React.Component {
 
   onDateFilterChange = (start, end) => {
     const { onSearchChange } = this.props;
-    let startFilter = start;
-    let endFilter = end;
+    let startFilter = moment(start);
+    let endFilter = moment(end);
 
     if (start && !end) {
-      endFilter = start;
+      endFilter = startFilter;
     }
     if (end && !start) {
-      startFilter = end;
+      startFilter = endFilter;
+    }
+
+    // If user searches with end before start, we reverse filters to be hopefully helpful.
+    if (startFilter > endFilter) {
+      const temp = startFilter;
+      startFilter = endFilter;
+      endFilter = temp;
     }
 
     this.dateFilterState.start = moment(startFilter).startOf('day').toISOString();
