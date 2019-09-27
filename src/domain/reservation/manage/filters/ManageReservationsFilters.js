@@ -33,15 +33,10 @@ class ManageReservationsFilters extends React.Component {
     intl: intlShape,
   };
 
-  dateFilterState = {
-    start: null,
-    end: null,
-  }
-
   onDateFilterChange = (start, end) => {
-    const { onSearchChange } = this.props;
-    let startFilter = moment(start);
-    let endFilter = moment(end);
+    const { onSearchChange, filters } = this.props;
+    let startFilter = start;
+    let endFilter = end;
 
     if (start && !end) {
       endFilter = startFilter;
@@ -50,16 +45,20 @@ class ManageReservationsFilters extends React.Component {
       startFilter = endFilter;
     }
 
-    // If user searches with end before start, we reverse filters to be hopefully helpful.
-    if (startFilter > endFilter) {
-      const temp = startFilter;
-      startFilter = endFilter;
-      endFilter = temp;
+    startFilter = moment(startFilter);
+    endFilter = moment(endFilter);
+
+    // If user searches with end before start, add 1 day.
+    if (startFilter.diff(endFilter) > 0) {
+      endFilter = startFilter.add(1, 'days');
     }
 
-    this.dateFilterState.start = moment(startFilter).startOf('day').toISOString();
-    this.dateFilterState.end = moment(endFilter).endOf('day').toISOString();
-    onSearchChange(omit(this.dateFilterState, 'page'));
+    startFilter = startFilter.startOf('day').toISOString();
+    endFilter = endFilter.endOf('day').toISOString();
+
+    const newFilters = Object.assign({}, filters, { start: startFilter, end: endFilter });
+
+    onSearchChange(omit(newFilters, 'page'));
   }
 
   onFilterChange = (filterName, filterValue) => {
@@ -157,7 +156,7 @@ class ManageReservationsFilters extends React.Component {
                   id="startDateField"
                   label={t('ManageReservationsFilters.startDateLabel')}
                   onChange={(startDateValue) => {
-                    this.onDateFilterChange(startDateValue, filters.end);
+                    this.onDateFilterChange(startDateValue, endDate);
                   }}
                   placeholder={t('ManageReservationsFilters.startDatePlaceholder')}
                   value={startDate ? moment(startDate).toDate() : null}
@@ -167,7 +166,7 @@ class ManageReservationsFilters extends React.Component {
                   id="EndDateField"
                   label={t('ManageReservationsFilters.endDateLabel')}
                   onChange={(endDateValue) => {
-                    this.onDateFilterChange(filters.start, endDateValue);
+                    this.onDateFilterChange(startDate, endDateValue);
                   }}
                   placeholder={t('ManageReservationsFilters.endDatePlaceholder')}
                   value={endDate ? moment(endDate).toDate() : null}

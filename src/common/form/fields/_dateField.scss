@@ -46,10 +46,14 @@
     position: absolute;
     left: 0;
     top: 100% !important;
-    z-index: 2;
+    z-index: 3; // above bootstrap button
     margin-top: -2px;
     padding: 20px;
     min-width: 100%;
+
+    .DayPicker {
+      width: 100%;
+    }
   }
 
   .form-group {
