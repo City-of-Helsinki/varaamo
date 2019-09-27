@@ -190,8 +190,8 @@ export const getFullCalendarBusinessHours = (resource, date = null) => {
       const dayNumber = Number(moment(item.date).format('E'));
       businessHours.push({
         daysOfWeek: [dayNumber < 7 ? dayNumber : 0],
-        startTime: item.opens ? moment(item.opens).format('HH:mm') : '00:00',
-        endTime: item.closes ? moment(item.closes).format('HH:mm') : '00:00',
+        startTime: item.opens ? moment(item.opens).tz('Europe/Helsinki').format('HH:mm') : '00:00',
+        endTime: item.closes ? moment(item.closes).tz('Europe/Helsinki').format('HH:mm') : '00:00',
       });
     }
   });
@@ -260,7 +260,7 @@ export const getFullCalendarMinTime = (resource, date, viewType, buffer = 1) => 
       min.subtract(1, 'hour');
     }
 
-    return min
+    return min.tz('Europe/Helsinki')
       .format('HH:mm:ss');
   }
 
