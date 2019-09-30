@@ -56,10 +56,6 @@ class TimePickerCalendar extends Component {
   }
 
   onCancel = () => {
-    const calendarApi = this.calendarRef.current.getApi();
-    calendarApi.unselect();
-    // Clear FullCalendar select tooltip
-
     // Revert to default timerange if cancel
     const defaultSelectedTimeRange = getDefaultSelectedTimeRange(this.props.edittingReservation);
     this.onChange(defaultSelectedTimeRange);
@@ -110,8 +106,8 @@ class TimePickerCalendar extends Component {
           'app-TimePickerCalendar__newReservation',
         ],
         editable: true,
-        durationEditable: resourceUtils.isFullCalendarEventDurationEditable(
-          resource, isStaff
+        durationEditable: !resourceUtils.isTimeRangeOverMaxPeriod(
+          resource, selected.start, selected.end, isStaff
         ),
         id: NEW_RESERVATION,
         ...selected,
@@ -126,11 +122,11 @@ class TimePickerCalendar extends Component {
    * @param end {Date}
    * @returns {boolean}
    */
-  isSelectionValid = (start, end) => {
+  isSelectionValid = (selection) => {
     const { resource, isStaff } = this.props;
 
     const events = this.getReservedEvents();
-    return resourceUtils.isTimeRangeReservable(resource, start, end, isStaff, events);
+    return resourceUtils.isTimeRangeReservable(resource, selection.start, selection.end, isStaff, events);
   };
 
   onEventRender = (info) => {
@@ -146,31 +142,74 @@ class TimePickerCalendar extends Component {
   onSelect = (selectionInfo) => {
     const { t, resource } = this.props;
 
-    const minPeriodEndTime = resourceUtils.getMinPeriodEndTime(
+    const calendarApi = this.calendarRef.current.getApi();
+    calendarApi.unselect();
+    // Clear FullCalendar select tooltip
+
+    const minPeriodTimeRange = resourceUtils.getMinPeriodTimeRange(
       resource,
       selectionInfo.start, selectionInfo.end
     );
-    // Make sure selected time alway > min_period
-
-    const isValid = this.isSelectionValid(
-      selectionInfo.start, minPeriodEndTime
-    );
+    // Make sure selected time alway > min_period, no extra check for min_period is needed after this
+    const isValid = this.isSelectionValid(minPeriodTimeRange);
 
     if (isValid) {
-      this.onChange({
-        start: selectionInfo.start,
-        end: minPeriodEndTime
-      });
+      this.onChange(minPeriodTimeRange);
     } else {
       // Display error notifications if selection is not valid
       createNotification(NOTIFICATION_TYPE.ERROR, t('Notifications.selectTimeToReserve.warning'));
     }
   };
 
-  onEventResize = (eventResizeInfo) => {
-    const { event } = eventResizeInfo;
+  // Check if event resize allowed
+  onEventResize = (selectionInfo) => {
+    const { event } = selectionInfo;
+    const { resource, isStaff } = this.props;
 
-    this.onSelect(event);
+    let selected = {
+      start: event.start,
+      end: event.end
+    };
+
+    const isUnderMinPeriod = resourceUtils.isTimeRangeUnderMinPeriod(
+      resource, event.start, event.end, isStaff
+    );
+
+    const isOverMaxPeriod = resourceUtils.isTimeRangeOverMaxPeriod(
+      resource, event.start, event.end, isStaff
+    );
+
+    if (isUnderMinPeriod) {
+      createNotification(NOTIFICATION_TYPE.ERROR, 'Reservation must be bigger than min period, which is 1.5h');
+
+      selectionInfo.revert();
+      selected = this.state.selected;
+    }
+
+    if (isOverMaxPeriod) {
+      createNotification(NOTIFICATION_TYPE.ERROR, 'Reservation must be smaller than max period, which is 4h');
+
+      selectionInfo.revert();
+      selected = resourceUtils.getMaxPeriodTimeRange(resource, event.start, event.end);
+    }
+
+    this.onChange(selected);
+  }
+
+  /**
+   * When select time range, resized time range must >= min_period and <= max_period
+   *
+   * @memberof TimePickerCalendar
+   */
+  onSelectAllow = (selectionInfo) => {
+    const { resource, isStaff } = this.props;
+
+    const isUnderMaxPeriod = !resourceUtils.isTimeRangeOverMaxPeriod(
+      resource, selectionInfo.start, selectionInfo.end, isStaff
+    );
+    // min_period is not checked here because onSelect handler will add min_period anyway if missing.
+
+    return isUnderMaxPeriod;
   }
 
   getDurationText = () => {
@@ -292,6 +331,7 @@ class TimePickerCalendar extends Component {
           minTime={resourceUtils.getFullCalendarMinTime(resource, date, viewType)}
           ref={this.calendarRef}
           select={this.onSelect}
+          selectAllow={this.onSelectAllow}
           slotDuration={resourceUtils.getFullCalendarSlotDuration(resource, date, viewType)}
           slotLabelInterval={resourceUtils.getFullCalendarSlotLabelInterval(resource)}
         />
