@@ -482,7 +482,6 @@ export const isTimeRangeReservable = (resource, start, end, isStaff = false, eve
   return startMoment.isAfter(now);
 };
 
-
 /**
  * isFullCalendarEventDurationEditable();
  * @param resource {object} Resource object.

@@ -12,7 +12,7 @@ const currentUserSelector = createSelector(
 );
 
 /**
- * Gotcha warning: Respa API uses isStaff flag for what Varaamo consider admin users.
+ * Check if the user is staff and can see the private route.
  */
 const isAdminSelector = createSelector(
   currentUserSelector,
@@ -23,6 +23,13 @@ function isLoggedInSelector(state) {
   return Boolean(state.auth.userId && state.auth.token);
 }
 
+/**
+ * TODO: Find out if this is needed any more, and if isn't: Remove.
+ * With our current knowledge, people are given admin permissions for
+ * resources through: https://respa.koe.hel.ninja/admin/resources/unitauthorization
+ *
+ * New staff users won't ever get any "can approve reservation" flags for any units.
+ */
 const staffUnitsSelector = createSelector(
   currentUserSelector,
   (currentUser) => {
@@ -40,16 +47,13 @@ const staffUnitsSelector = createSelector(
 );
 
 /**
- * Gotcha warning: Respa API uses isStaff boolean value for admin users.
- *
- * From Varaamo's point of view, a user is staff if they have permissions to
- * approve reservations for a resource.
+ * Check if a user has admin permission for a unit.
+ * TODO: Find a better name for this.
  */
 function createIsStaffSelector(resourceSelector) {
   return createSelector(
     resourceSelector,
-    staffUnitsSelector,
-    (resource, staffUnits) => includes(staffUnits, resource.unit)
+    resource => Boolean(resource && resource.userPermissions && resource.userPermissions.isAdmin)
   );
 }
 
