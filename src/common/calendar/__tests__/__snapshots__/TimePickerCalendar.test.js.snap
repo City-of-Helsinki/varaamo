@@ -250,6 +250,7 @@ exports[`TimePickerCalendar FullCalendar render normally 1`] = `
     }
     select={[Function]}
     selectConstraint="businessHours"
+    selectMirror={true}
     selectOverlap={false}
     selectable={true}
     slotDuration="00:30:00"

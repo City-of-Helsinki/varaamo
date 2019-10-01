@@ -367,5 +367,8 @@
   "ResourceReservationCalendar.reserveButton": "Reserve",
   "ResourceReservationCalendar.selectedDateLabel": "Selected time:",
   "ResourceReservationCalendar.selectedDateValue": "{date} at {start} - at {end} ({duration})",
-  "ResourceReservationCalendar.selectedDateValueWithPrice": "{date} at {start} - at {end} ({duration}) for {price}€"
+  "ResourceReservationCalendar.selectedDateValueWithPrice": "{date} at {start} - at {end} ({duration}) for {price}€",
+
+  "TimePickerCalendar.info.minPeriodText": "Reservation must be at least {duration}h long",
+  "TimePickerCalendar.info.maxPeriodText": "Reservation must be shorter than {duration}h"
 }
