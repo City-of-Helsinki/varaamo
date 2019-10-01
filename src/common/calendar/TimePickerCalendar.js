@@ -49,10 +49,10 @@ class TimePickerCalendar extends Component {
   }
 
   isSelectionValid = (selection) => {
-    const { resource, isStaff } = this.props;
+    const { resource } = this.props;
 
     const events = this.getReservedEvents();
-    return resourceUtils.isTimeRangeReservable(resource, selection.start, selection.end, isStaff, events);
+    return resourceUtils.isTimeRangeReservable(resource, selection.start, selection.end, events);
   };
 
   onChange = (selected) => {
