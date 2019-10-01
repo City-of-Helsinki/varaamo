@@ -48,6 +48,13 @@ class TimePickerCalendar extends Component {
     }
   }
 
+  isSelectionValid = (selection) => {
+    const { resource, isStaff } = this.props;
+
+    const events = this.getReservedEvents();
+    return resourceUtils.isTimeRangeReservable(resource, selection.start, selection.end, isStaff, events);
+  };
+
   onChange = (selected) => {
     this.setState({ selected });
 
@@ -61,74 +68,6 @@ class TimePickerCalendar extends Component {
     this.onChange(defaultSelectedTimeRange);
   }
 
-  getCalendarOptions = () => {
-    return {
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'timeGridDay,timeGridWeek'
-      },
-      timeZone: SETTINGS.TIME_ZONE,
-      height: 'auto',
-      editable: true,
-      eventConstraint: 'businessHours',
-      eventOverlap: false,
-      firstDay: 1,
-      locale: this.props.locale,
-      locales: [enLocale, svLocale, fiLocale],
-      nowIndicator: true,
-      plugins: [timeGridPlugin, momentTimezonePlugin, interactionPlugin],
-      selectable: true,
-      selectOverlap: false,
-      selectConstraint: 'businessHours',
-      slotLabelFormat: {
-        hour: 'numeric',
-        minute: '2-digit',
-        omitZeroMinute: false,
-        meridiem: 'short'
-      },
-      unselectAuto: false,
-    };
-  };
-
-  getEvents = () => {
-    const {
-      resource, isStaff
-    } = this.props;
-    const { selected } = this.state;
-
-    const events = this.getReservedEvents();
-
-    if (selected) {
-      events.push({
-        classNames: [
-          'app-TimePickerCalendar__event',
-          'app-TimePickerCalendar__newReservation',
-        ],
-        editable: true,
-        durationEditable: !resourceUtils.isTimeRangeOverMaxPeriod(
-          resource, selected.start, selected.end, isStaff
-        ),
-        id: NEW_RESERVATION,
-        ...selected,
-      });
-    }
-    return events;
-  };
-
-  /**
-   * isSelectionValid();
-   * @param start {Date}
-   * @param end {Date}
-   * @returns {boolean}
-   */
-  isSelectionValid = (selection) => {
-    const { resource, isStaff } = this.props;
-
-    const events = this.getReservedEvents();
-    return resourceUtils.isTimeRangeReservable(resource, selection.start, selection.end, isStaff, events);
-  };
-
   onEventRender = (info) => {
     // add cancel button for new selected event
     if (info.event.id === NEW_RESERVATION) {
@@ -140,21 +79,19 @@ class TimePickerCalendar extends Component {
   }
 
   onSelect = (selectionInfo) => {
-    const { t, resource } = this.props;
+    const { t } = this.props;
 
     const calendarApi = this.calendarRef.current.getApi();
     calendarApi.unselect();
     // Clear FullCalendar select tooltip
 
-    const minPeriodTimeRange = resourceUtils.getMinPeriodTimeRange(
-      resource,
-      selectionInfo.start, selectionInfo.end
-    );
-    // Make sure selected time alway > min_period, no extra check for min_period is needed after this
-    const isValid = this.isSelectionValid(minPeriodTimeRange);
+    const selectable = this.getSelectableTimeRange(selectionInfo);
+    // Make sure selected time alway furfill period check.
+
+    const isValid = this.isSelectionValid(selectable);
 
     if (isValid) {
-      this.onChange(minPeriodTimeRange);
+      this.onChange(selectable);
     } else {
       // Display error notifications if selection is not valid
       createNotification(NOTIFICATION_TYPE.ERROR, t('Notifications.selectTimeToReserve.warning'));
@@ -164,52 +101,68 @@ class TimePickerCalendar extends Component {
   // Check if event resize allowed
   onEventResize = (selectionInfo) => {
     const { event } = selectionInfo;
-    const { resource, isStaff } = this.props;
+    const selectable = this.getSelectableTimeRange(event, selectionInfo);
 
-    let selected = {
-      start: event.start,
-      end: event.end
-    };
 
-    const isUnderMinPeriod = resourceUtils.isTimeRangeUnderMinPeriod(
-      resource, event.start, event.end, isStaff
-    );
-
-    const isOverMaxPeriod = resourceUtils.isTimeRangeOverMaxPeriod(
-      resource, event.start, event.end, isStaff
-    );
-
-    if (isUnderMinPeriod) {
-      createNotification(NOTIFICATION_TYPE.ERROR, 'Reservation must be bigger than min period, which is 1.5h');
-
-      selectionInfo.revert();
-      selected = this.state.selected;
-    }
-
-    if (isOverMaxPeriod) {
-      createNotification(NOTIFICATION_TYPE.ERROR, 'Reservation must be smaller than max period, which is 4h');
-
-      selectionInfo.revert();
-      selected = resourceUtils.getMaxPeriodTimeRange(resource, event.start, event.end);
-    }
-
-    this.onChange(selected);
+    this.onChange(selectable);
   }
 
   /**
-   * When select time range, resized time range must >= min_period and <= max_period
+   * To ensure the selected time range will always between min and max period
+   * Return a selectable timerange if input timerange is somehow not between min and max period
+   * Display info text to user about those changes.
    *
-   * @memberof TimePickerCalendar
+   * @return  {Object}  Normalized selected time range
    */
-  onSelectAllow = (selectionInfo) => {
-    const { resource, isStaff } = this.props;
+  getSelectableTimeRange = (selected, eventCallback) => {
+    const { resource, isStaff, t } = this.props;
 
-    const isUnderMaxPeriod = !resourceUtils.isTimeRangeOverMaxPeriod(
-      resource, selectionInfo.start, selectionInfo.end, isStaff
+    let selectable = {
+      start: selected.start,
+      end: selected.end
+    };
+
+    const isUnderMinPeriod = resourceUtils.isTimeRangeUnderMinPeriod(
+      resource, selectable.start, selectable.end, isStaff
     );
-    // min_period is not checked here because onSelect handler will add min_period anyway if missing.
 
-    return isUnderMaxPeriod;
+    const isOverMaxPeriod = resourceUtils.isTimeRangeOverMaxPeriod(
+      resource, selectable.start, selectable.end, isStaff
+    );
+
+    if (isUnderMinPeriod) {
+      const minPeriod = get(resource, 'min_period', null);
+      const minPeriodDuration = moment.duration(minPeriod).asHours();
+
+      if (eventCallback) {
+        createNotification(
+          NOTIFICATION_TYPE.INFO, t('TimePickerCalendar.info.minPeriodText', { duration: minPeriodDuration })
+        );
+        eventCallback.revert();
+      }
+
+      selectable = resourceUtils.getMinPeriodTimeRange(resource, selected.start, selected.end);
+      // Make sure selected time will always bigger than min period
+    }
+
+    if (isOverMaxPeriod) {
+      const maxPeriod = get(resource, 'max_period', null);
+      const maxPeriodDuration = moment.duration(maxPeriod).asHours();
+
+      createNotification(
+        NOTIFICATION_TYPE.INFO, t('TimePickerCalendar.info.maxPeriodText', { duration: maxPeriodDuration })
+      );
+
+      if (eventCallback) eventCallback.revert();
+
+      selectable = resourceUtils.getMaxPeriodTimeRange(
+        resource, selectable.start, selectable.end, isStaff
+      );
+      // Make sure selected time will always smaller than max period
+    }
+
+
+    return selectable;
   }
 
   getDurationText = () => {
@@ -310,6 +263,61 @@ class TimePickerCalendar extends Component {
     }
     return events;
   }
+
+  getCalendarOptions = () => {
+    return {
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'timeGridDay,timeGridWeek'
+      },
+      timeZone: SETTINGS.TIME_ZONE,
+      height: 'auto',
+      editable: true,
+      eventConstraint: 'businessHours',
+      eventOverlap: false,
+      firstDay: 1,
+      locale: this.props.locale,
+      locales: [enLocale, svLocale, fiLocale],
+      nowIndicator: true,
+      plugins: [timeGridPlugin, momentTimezonePlugin, interactionPlugin],
+      selectable: true,
+      selectOverlap: false,
+      selectConstraint: 'businessHours',
+      slotLabelFormat: {
+        hour: 'numeric',
+        minute: '2-digit',
+        omitZeroMinute: false,
+        meridiem: 'short'
+      },
+      unselectAuto: false,
+    };
+  };
+
+  getEvents = () => {
+    const {
+      resource, isStaff
+    } = this.props;
+    const { selected } = this.state;
+
+    const events = this.getReservedEvents();
+
+    if (selected) {
+      events.push({
+        classNames: [
+          'app-TimePickerCalendar__event',
+          'app-TimePickerCalendar__newReservation',
+        ],
+        editable: true,
+        durationEditable: !resourceUtils.isTimeRangeOverMaxPeriod(
+          resource, selected.start, selected.end, isStaff
+        ),
+        id: NEW_RESERVATION,
+        ...selected,
+      });
+    }
+    return events;
+  };
 
   render() {
     const { resource, date } = this.props;

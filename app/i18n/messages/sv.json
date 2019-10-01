@@ -368,5 +368,8 @@
   "ResourceReservationCalendar.reserveButton": "Boka",
   "ResourceReservationCalendar.selectedDateLabel": "Utvald tidpunkt:",
   "ResourceReservationCalendar.selectedDateValue": "{date} kl. {start} - kl. {end} ({duration})",
-  "ResourceReservationCalendar.selectedDateValueWithPrice": "{date} kl. {start} - kl. {end} ({duration}) for {price}€"
+  "ResourceReservationCalendar.selectedDateValueWithPrice": "{date} kl. {start} - kl. {end} ({duration}) for {price}€",
+
+  "TimePickerCalendar.info.minPeriodText": "Bokningen måste vara minst {duration} timmar lång.",
+  "TimePickerCalendar.info.maxPeriodText": "Bokningen får vara högst {duration} timmar lång."
 }
