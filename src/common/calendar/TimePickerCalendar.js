@@ -15,7 +15,7 @@ import isEmpty from 'lodash/isEmpty';
 import * as resourceUtils from '../../domain/resource/utils';
 import constants from '../../../app/constants/AppConstants';
 import injectT from '../../../app/i18n/injectT';
-import { getDefaultSelectedTimeRange } from './utils';
+import * as calendarUtils from './utils';
 import { createNotification } from '../notification/utils';
 import { NOTIFICATION_TYPE } from '../notification/constants';
 
@@ -37,7 +37,7 @@ class TimePickerCalendar extends Component {
 
   state = {
     viewType: 'timeGridWeek',
-    selected: getDefaultSelectedTimeRange(this.props.edittingReservation)
+    selected: calendarUtils.getDefaultSelectedTimeRange(this.props.edittingReservation)
   };
 
   componentDidUpdate(prevProps) {
@@ -64,7 +64,7 @@ class TimePickerCalendar extends Component {
 
   onCancel = () => {
     // Revert to default timerange if cancel
-    const defaultSelectedTimeRange = getDefaultSelectedTimeRange(this.props.edittingReservation);
+    const defaultSelectedTimeRange = calendarUtils.getDefaultSelectedTimeRange(this.props.edittingReservation);
     this.onChange(defaultSelectedTimeRange);
   }
 
@@ -122,11 +122,11 @@ class TimePickerCalendar extends Component {
       end: selected.end
     };
 
-    const isUnderMinPeriod = resourceUtils.isTimeRangeUnderMinPeriod(
+    const isUnderMinPeriod = calendarUtils.isTimeRangeUnderMinPeriod(
       resource, selectable.start, selectable.end, isStaff
     );
 
-    const isOverMaxPeriod = resourceUtils.isTimeRangeOverMaxPeriod(
+    const isOverMaxPeriod = calendarUtils.isTimeRangeOverMaxPeriod(
       resource, selectable.start, selectable.end, isStaff
     );
 
@@ -138,7 +138,7 @@ class TimePickerCalendar extends Component {
         NOTIFICATION_TYPE.INFO, t('TimePickerCalendar.info.minPeriodText', { duration: minPeriodDuration })
       );
 
-      selectable = resourceUtils.getMinPeriodTimeRange(resource, selected.start, selected.end);
+      selectable = calendarUtils.getMinPeriodTimeRange(resource, selected.start, selected.end);
       // Make sure selected time will always bigger than min period
     }
 
@@ -150,7 +150,7 @@ class TimePickerCalendar extends Component {
         NOTIFICATION_TYPE.INFO, t('TimePickerCalendar.info.maxPeriodText', { duration: maxPeriodDuration })
       );
 
-      selectable = resourceUtils.getMaxPeriodTimeRange(
+      selectable = calendarUtils.getMaxPeriodTimeRange(
         resource, selectable.start, selectable.end, isStaff
       );
       // Make sure selected time will always smaller than max period
@@ -305,7 +305,7 @@ class TimePickerCalendar extends Component {
           'app-TimePickerCalendar__newReservation',
         ],
         editable: true,
-        durationEditable: !resourceUtils.isTimeRangeOverMaxPeriod(
+        durationEditable: !calendarUtils.isTimeRangeOverMaxPeriod(
           resource, selected.start, selected.end, isStaff
         ),
         id: NEW_RESERVATION,
