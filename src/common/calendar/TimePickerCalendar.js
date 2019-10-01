@@ -114,7 +114,7 @@ class TimePickerCalendar extends Component {
    *
    * @return  {Object}  Normalized selected time range
    */
-  getSelectableTimeRange = (selected, eventCallback) => {
+  getSelectableTimeRange = (selected) => {
     const { resource, isStaff, t } = this.props;
 
     let selectable = {
@@ -134,12 +134,9 @@ class TimePickerCalendar extends Component {
       const minPeriod = get(resource, 'min_period', null);
       const minPeriodDuration = moment.duration(minPeriod).asHours();
 
-      if (eventCallback) {
-        createNotification(
-          NOTIFICATION_TYPE.INFO, t('TimePickerCalendar.info.minPeriodText', { duration: minPeriodDuration })
-        );
-        eventCallback.revert();
-      }
+      createNotification(
+        NOTIFICATION_TYPE.INFO, t('TimePickerCalendar.info.minPeriodText', { duration: minPeriodDuration })
+      );
 
       selectable = resourceUtils.getMinPeriodTimeRange(resource, selected.start, selected.end);
       // Make sure selected time will always bigger than min period
@@ -152,8 +149,6 @@ class TimePickerCalendar extends Component {
       createNotification(
         NOTIFICATION_TYPE.INFO, t('TimePickerCalendar.info.maxPeriodText', { duration: maxPeriodDuration })
       );
-
-      if (eventCallback) eventCallback.revert();
 
       selectable = resourceUtils.getMaxPeriodTimeRange(
         resource, selectable.start, selectable.end, isStaff
@@ -284,6 +279,7 @@ class TimePickerCalendar extends Component {
       selectable: true,
       selectOverlap: false,
       selectConstraint: 'businessHours',
+      selectMirror: true,
       slotLabelFormat: {
         hour: 'numeric',
         minute: '2-digit',
