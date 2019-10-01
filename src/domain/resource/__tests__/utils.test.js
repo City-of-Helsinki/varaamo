@@ -334,8 +334,6 @@ describe('domain resource utility function', () => {
 
   test('isTimeRangeReservable', () => {
     const resource = resourceFixture.build({
-      min_period: '00:30:00',
-      max_period: '06:30:00',
       reservable_after: '2019-08-10T00:00:00Z',
       reservable_before: '2019-09-21T00:00:00Z',
       opening_hours: OPENING_HOURS,
@@ -348,34 +346,12 @@ describe('domain resource utility function', () => {
 
     expect(resourceUtils.isTimeRangeReservable(resource, `${DATE}T08:00:00Z`, `${DATE}T10:00:00Z`))
       .toBe(true);
-    expect(resourceUtils.isTimeRangeReservable(resource, `${DATE}T08:00:00Z`, `${DATE}T16:00:00Z`))
-      .toBe(false);
+
     expect(resourceUtils.isTimeRangeReservable(resource, `${DATE}T08:00:00Z`, `${DATE}T16:00:00Z`, true))
       .toBe(true);
 
     clear();
     Date.now();
-  });
-
-  test('isFullCalendarEventDurationEditable', () => {
-    const resourceDurationEditable = resourceFixture.build({
-      min_period: '00:30:00',
-      max_period: '06:30:00',
-      slot_size: '00:30:00',
-    });
-
-    const resourceDurationNotEditable = resourceFixture.build({
-      min_period: '03:00:00',
-      max_period: '03:00:00',
-      slot_size: '03:00:00',
-    });
-
-    expect(resourceUtils.isFullCalendarEventDurationEditable(resourceDurationEditable))
-      .toBe(true);
-    expect(resourceUtils.isFullCalendarEventDurationEditable(resourceDurationNotEditable))
-      .toBe(false);
-    expect(resourceUtils.isFullCalendarEventDurationEditable(resourceDurationNotEditable, true))
-      .toBe(true);
   });
 
   test('getSlotSizeInMinutes', () => {

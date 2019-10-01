@@ -139,10 +139,10 @@ export const getMinPeriodTimeRange = (resource, start, end) => {
  * @returns {Date} return new end date if time range < min_period given, otherwise return original end
  */
 
-export const getMaxPeriodTimeRange = (resource, start, end) => {
+export const getMaxPeriodTimeRange = (resource, start, end, isStaff) => {
   const maxPeriod = get(resource, 'max_period', null);
 
-  if (!maxPeriod) {
+  if (!maxPeriod || isStaff) {
     return {
       start, end
     };

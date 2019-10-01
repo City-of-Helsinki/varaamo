@@ -67,6 +67,14 @@ describe('TimePickerCalendar utils ', () => {
 
       expect(maxPeriod).toEqual(selectionMaxPeriodExpect);
     });
+
+    test('should return default even when its bigger than max_period when user is staff', () => {
+      const maxPeriod = calendarUtils.getMaxPeriodTimeRange(
+        resourceWithMaxPeriod, selection.start, new Date('2019-08-16T04:30:00Z'), true
+      );
+
+      expect(maxPeriod.end).toEqual(new Date('2019-08-16T04:30:00Z'));
+    });
   });
 
   describe('isTimeRangeUnderMinPeriod', () => {
@@ -114,6 +122,14 @@ describe('TimePickerCalendar utils ', () => {
       );
 
       expect(isOver).toBeTruthy();
+    });
+
+    test('should return false if end time > max_period, user is staff', () => {
+      const isOver = calendarUtils.isTimeRangeOverMaxPeriod(
+        resourceWithMaxPeriod, selection.start, new Date('2019-08-16T04:30:00Z'), true
+      );
+
+      expect(isOver).toBeFalsy();
     });
   });
 });
