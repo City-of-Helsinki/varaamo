@@ -103,7 +103,6 @@ class TimePickerCalendar extends Component {
     const { event } = selectionInfo;
     const selectable = this.getSelectableTimeRange(event, selectionInfo);
 
-
     this.onChange(selectable);
   }
 
@@ -114,7 +113,7 @@ class TimePickerCalendar extends Component {
    *
    * @return  {Object}  Normalized selected time range
    */
-  getSelectableTimeRange = (selected) => {
+  getSelectableTimeRange = (selected, eventCallback) => {
     const { resource, isStaff, t } = this.props;
 
     let selectable = {
@@ -123,7 +122,7 @@ class TimePickerCalendar extends Component {
     };
 
     const isUnderMinPeriod = calendarUtils.isTimeRangeUnderMinPeriod(
-      resource, selectable.start, selectable.end, isStaff
+      resource, selectable.start, selectable.end
     );
 
     const isOverMaxPeriod = calendarUtils.isTimeRangeOverMaxPeriod(
@@ -133,6 +132,10 @@ class TimePickerCalendar extends Component {
     if (isUnderMinPeriod) {
       const minPeriod = get(resource, 'min_period', null);
       const minPeriodDuration = moment.duration(minPeriod).asHours();
+
+      if (eventCallback) {
+        eventCallback.revert();
+      }
 
       createNotification(
         NOTIFICATION_TYPE.INFO, t('TimePickerCalendar.info.minPeriodText', { duration: minPeriodDuration })
@@ -146,6 +149,10 @@ class TimePickerCalendar extends Component {
       const maxPeriod = get(resource, 'max_period', null);
       const maxPeriodDuration = moment.duration(maxPeriod).asHours();
 
+      if (eventCallback) {
+        eventCallback.revert();
+      }
+
       createNotification(
         NOTIFICATION_TYPE.INFO, t('TimePickerCalendar.info.maxPeriodText', { duration: maxPeriodDuration })
       );
@@ -155,7 +162,6 @@ class TimePickerCalendar extends Component {
       );
       // Make sure selected time will always smaller than max period
     }
-
 
     return selectable;
   }
