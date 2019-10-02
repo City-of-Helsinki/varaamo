@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { get } from 'lodash';
 
 const userIdSelector = state => state.auth.userId;
 const usersSelector = state => state.data.users;
@@ -28,7 +29,7 @@ function isLoggedInSelector(state) {
 function createIsStaffSelector(resourceSelector) {
   return createSelector(
     resourceSelector,
-    resource => Boolean(resource && resource.userPermissions && resource.userPermissions.isAdmin)
+    resource => Boolean(get(resource, 'userPermissions.isAdmin', false))
   );
 }
 
