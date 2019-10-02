@@ -45,13 +45,6 @@ class TimePickerCalendar extends Component {
     }
   };
 
-  componentDidMount() {
-    const { viewType } = this.state;
-
-    const calendarApi = this.calendarRef.current.getApi();
-    calendarApi.changeView(viewType);
-  }
-
   componentDidUpdate(prevProps, prevState) {
     const { date } = this.props;
     const { viewType } = this.state;
@@ -327,7 +320,7 @@ class TimePickerCalendar extends Component {
       },
       unselectAuto: false,
       longPressDelay: '1',
-      // Almost immediatelly invoke click without delay
+      // Almost invoke click event on mobile immediatelly without any delay
     };
   };
 
