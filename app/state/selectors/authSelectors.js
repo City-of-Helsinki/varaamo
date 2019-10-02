@@ -1,5 +1,3 @@
-import forIn from 'lodash/forIn';
-import includes from 'lodash/includes';
 import { createSelector } from 'reselect';
 
 const userIdSelector = state => state.auth.userId;
