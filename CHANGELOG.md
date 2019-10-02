@@ -1,9 +1,13 @@
 # 0.5.0-pre
   **MAJOR CHANGES**
   - Support for payments in Varaamo.
-  - Add reusable FullCalendar component.
   - Add option to configure time zone of calendar/resources. Defaults to `Europe/Helsinki`.
   - Permission checking has been changed: We are now using unit authorizations instead of unit object permissions from respa admin.
+
+  - Add reusable FullCalendar component.
+  - Fix FullCalendar not auto-select `min_period` time slot when user select. Various fixes related to edit reservation calendar, drag and drop and select error handler.
+  - Fix missing `max_period` check when user select / resize calendar reservation. Show notification and revert to `max_period` if user select bigger amount of time slot than the limit. Various improvement for calendar is included as well.
+  - Add custom mobile view and stylings in calendar.
 
   **MINOR CHANGES**
   - Replace failure message and add a return button for reservation payment.
@@ -11,7 +15,6 @@
   - Fix missing reservation metadata fields data in manage reservation view. Trim empty field row.
   - Add `show_only` filter section to filter reservation list. This filter have `can_modify` as its default value.
   - Anonymous users now see a log in button below the calendar on the resource page helping them understand that they need to log in to continue.
-  - Fix FullCalendar not auto-select minPeriod time slot when user select. Various fixes related to edit reservation calendar, drag and drop and select error handler.
   - Errors from respa backend are not swallowed in our ApiClient anymore.
 
   **HOTFIX**
@@ -30,7 +33,9 @@
   - [#1028](https://github.com/City-of-Helsinki/varaamo/pull/1028) Always fetch reservations with start and end filters.
   - [#1029](https://github.com/City-of-Helsinki/varaamo/pull/1029) Add option to configure time zone for resources.
   - [#1033](https://github.com/City-of-Helsinki/varaamo/pull/1033) Show errors to staff members if editing of reservations fail.
-  - [#1031](https://github.com/City-of-Helsinki/varaamo/pull/1031) Use resource's userPermissions.isAdmin flag to check if user isStaff
+  - [#1031](https://github.com/City-of-Helsinki/varaamo/pull/1031) Use resource's userPermissions.isAdmin flag to check if user isStaff.
+  - [#1032](https://github.com/City-of-Helsinki/varaamo/pull/1032) Better max period handling for FullCalendar.
+  - [#1035](https://github.com/City-of-Helsinki/varaamo/pull/1035) Daily / weekly view for mobile.
 
 # 0.4.2
   **HOTFIX**
