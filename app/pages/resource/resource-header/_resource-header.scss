@@ -37,8 +37,15 @@
     button:not(:first-child) {
       margin-left: 15px;
     }
-    @media (min-width: $screen-md-min) {
+    @media (max-width: $screen-xs-max) {
+      button:not(:first-child) {
+        margin-left: 0;
+        margin-top: 15px;
+      }
 
+      .btn {
+        width: 100%;
+      }
     }
   }
   &__map-button {

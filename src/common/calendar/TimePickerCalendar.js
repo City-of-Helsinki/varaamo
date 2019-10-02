@@ -37,7 +37,12 @@ class TimePickerCalendar extends Component {
 
   state = {
     viewType: 'timeGridWeek',
-    selected: calendarUtils.getDefaultSelectedTimeRange(this.props.edittingReservation)
+    selected: calendarUtils.getDefaultSelectedTimeRange(this.props.edittingReservation),
+    header: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'timeGridDay,timeGridWeek'
+    }
   };
 
   componentDidMount() {
@@ -120,16 +125,22 @@ class TimePickerCalendar extends Component {
   }
 
   onDatesRender = (info) => {
-    const { viewType } = this.state;
+    const { viewType, header } = this.state;
     let view = info.view.type;
+    let headerConfig = header;
 
     if (window.innerWidth < 768) {
-      // Force to render day view on mobile view
+      // mobile view config
       view = 'timeGridDay';
+      headerConfig = {
+        left: 'today, prev',
+        center: 'title',
+        right: 'next,timeGridDay,timeGridWeek'
+      };
     }
 
     if (viewType !== view) {
-      this.setState({ viewType: view });
+      this.setState({ viewType: view, header: headerConfig });
     }
   }
 
@@ -294,11 +305,6 @@ class TimePickerCalendar extends Component {
 
   getCalendarOptions = () => {
     return {
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'timeGridDay,timeGridWeek'
-      },
       timeZone: SETTINGS.TIME_ZONE,
       height: 'auto',
       editable: true,
@@ -352,7 +358,7 @@ class TimePickerCalendar extends Component {
 
   render() {
     const { resource, date } = this.props;
-    const { viewType } = this.state;
+    const { viewType, header } = this.state;
 
     return (
       <div className="app-Calendar">
@@ -366,6 +372,7 @@ class TimePickerCalendar extends Component {
           eventRender={this.onEventRender}
           eventResize={this.onEventResize}
           events={this.getEvents()}
+          header={header}
           maxTime={resourceUtils.getFullCalendarMaxTime(resource, date, viewType)}
           minTime={resourceUtils.getFullCalendarMinTime(resource, date, viewType)}
           onDatesRender={this.onDatesRender}
