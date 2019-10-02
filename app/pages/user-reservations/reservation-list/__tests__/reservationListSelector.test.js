@@ -24,10 +24,6 @@ describe('pages/user-reservations/reservation-list/reservationListSelector', () 
     expect(getSelected().resources).toBeDefined();
   });
 
-  test('returns staffUnits', () => {
-    expect(getSelected().staffUnits).toBeDefined();
-  });
-
   test('returns units from the state', () => {
     expect(getSelected().units).toBeDefined();
   });

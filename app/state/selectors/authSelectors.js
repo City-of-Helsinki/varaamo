@@ -24,29 +24,6 @@ function isLoggedInSelector(state) {
 }
 
 /**
- * TODO: Find out if this is needed any more, and if isn't: Remove.
- * With our current knowledge, people are given admin permissions for
- * resources through: https://respa.koe.hel.ninja/admin/resources/unitauthorization
- *
- * New staff users won't ever get any "can approve reservation" flags for any units.
- */
-const staffUnitsSelector = createSelector(
-  currentUserSelector,
-  (currentUser) => {
-    if (!currentUser.staffPerms || !currentUser.staffPerms.unit) {
-      return [];
-    }
-    const units = [];
-    forIn(currentUser.staffPerms.unit, (value, key) => {
-      if (includes(value, 'can_approve_reservation')) {
-        units.push(key);
-      }
-    });
-    return units;
-  }
-);
-
-/**
  * Check if a user has admin permission for a unit.
  * TODO: Find a better name for this.
  */
@@ -62,5 +39,4 @@ export {
   currentUserSelector,
   isAdminSelector,
   isLoggedInSelector,
-  staffUnitsSelector,
 };

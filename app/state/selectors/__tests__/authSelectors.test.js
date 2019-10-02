@@ -4,7 +4,6 @@ import {
   currentUserSelector,
   isAdminSelector,
   isLoggedInSelector,
-  staffUnitsSelector,
 } from '../authSelectors';
 
 describe('state/selectors/authSelectors', () => {
@@ -82,78 +81,5 @@ describe('state/selectors/authSelectors', () => {
     test('returns true if both token and userId are defined', () => {
       expect(getSelected({ token: 'mock-token', userId: 'u-1' })).toBe(true);
     });
-  });
-
-  describe('staffUnitsSelector', () => {
-    function getSelected(user) {
-      const state = {
-        auth: {
-          userId: user.id,
-          token: 'mock-token',
-        },
-        data: {
-          users: { [user.id]: user },
-        },
-      };
-      return staffUnitsSelector(state);
-    }
-
-    test(
-      'returns unit ids where user has can_approve_reservation permission',
-      () => {
-        const user = User.build({
-          staffPerms: {
-            unit: {
-              'unit-1': ['can_approve_reservation'],
-              'unit-2': ['can_approve_reservation'],
-            },
-          },
-        });
-        const selected = getSelected(user);
-        const expected = ['unit-1', 'unit-2'];
-
-        expect(selected).toEqual(expected);
-      }
-    );
-
-    test(
-      'does not return unit ids where user does not have can_approve_reservation permission',
-      () => {
-        const user = User.build({
-          staffPerms: {
-            unit: {
-              'unit-1': ['can_approve_something_else'],
-              'unit-2': ['can_approve_reservation'],
-              'unit-3': [],
-            },
-          },
-        });
-        const selected = getSelected(user);
-        const expected = ['unit-2'];
-
-        expect(selected).toEqual(expected);
-      }
-    );
-
-    test('returns an empty array if user has no staff permissions', () => {
-      const user = User.build();
-      const selected = getSelected(user);
-
-      expect(selected).toEqual([]);
-    });
-
-    test(
-      'returns an empty array if user has no staff permissions for units',
-      () => {
-        const user = User.build({
-          staffPerms: {
-            unit: {},
-          },
-        });
-        const selected = getSelected(user);
-
-        expect(selected).toEqual([]);
-      }
-    );
   });
 });
