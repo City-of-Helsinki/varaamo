@@ -12,8 +12,10 @@ import { createStructuredSelector } from 'reselect';
 import PageWrapper from '../../../../../app/pages/PageWrapper';
 import injectT from '../../../../../app/i18n/injectT';
 import client from '../../../../common/api/client';
+import { createNotification } from '../../../../common/notification/utils';
 import ManageReservationsFilters from '../filters/ManageReservationsFilters';
 import ManageReservationsList from '../list/ManageReservationsList';
+import { NOTIFICATION_TYPE } from '../../../../common/notification/constants';
 import Pagination from '../../../../common/pagination/Pagination';
 import * as searchUtils from '../../../search/utils';
 import { selectReservationToEdit } from '../../../../../app/actions/uiActions';
@@ -137,20 +139,28 @@ class ManageReservationsPage extends React.Component {
     }));
   }
 
-  onEditReservation = (reservation, status) => {
-    if (status === RESERVATION_STATE.CANCELLED) {
-      reservationUtils.cancelReservation(reservation).then(() => this.loadReservations());
-    } else {
-      reservationUtils.putReservation(reservation, { state: status }).then(() => {
-        this.loadReservations();
-      });
+  onEditReservation = async (reservation, status) => {
+    try {
+      if (status === RESERVATION_STATE.CANCELLED) {
+        await reservationUtils.cancelReservation(reservation);
+      } else {
+        await reservationUtils.putReservation(reservation, { state: status });
+      }
+      this.loadReservations();
+    } catch (error) {
+      // We show the error message from respa to staff because it helps with support and debugging.
+      createNotification(NOTIFICATION_TYPE.ERROR, error.data.detail);
     }
   }
 
-  onSaveComment = (reservation, comments) => {
-    return reservationUtils.putReservation(reservation, { resource: reservation.resource.id, comments }).then(() => {
+  onSaveComment = async (reservation, comments) => {
+    try {
+      await reservationUtils.putReservation(reservation, { resource: reservation.resource.id, comments });
       this.loadReservations();
-    });
+    } catch (error) {
+      // We show the error message from respa to staff because it helps with support and debugging.
+      createNotification(NOTIFICATION_TYPE.ERROR, error.data.detail);
+    }
   };
 
   /**

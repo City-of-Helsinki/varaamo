@@ -334,8 +334,6 @@ describe('domain resource utility function', () => {
 
   test('isTimeRangeReservable', () => {
     const resource = resourceFixture.build({
-      min_period: '00:30:00',
-      max_period: '06:30:00',
       reservable_after: '2019-08-10T00:00:00Z',
       reservable_before: '2019-09-21T00:00:00Z',
       opening_hours: OPENING_HOURS,
@@ -348,34 +346,12 @@ describe('domain resource utility function', () => {
 
     expect(resourceUtils.isTimeRangeReservable(resource, `${DATE}T08:00:00Z`, `${DATE}T10:00:00Z`))
       .toBe(true);
-    expect(resourceUtils.isTimeRangeReservable(resource, `${DATE}T08:00:00Z`, `${DATE}T16:00:00Z`))
-      .toBe(false);
+
     expect(resourceUtils.isTimeRangeReservable(resource, `${DATE}T08:00:00Z`, `${DATE}T16:00:00Z`, true))
       .toBe(true);
 
     clear();
     Date.now();
-  });
-
-  test('isFullCalendarEventDurationEditable', () => {
-    const resourceDurationEditable = resourceFixture.build({
-      min_period: '00:30:00',
-      max_period: '06:30:00',
-      slot_size: '00:30:00',
-    });
-
-    const resourceDurationNotEditable = resourceFixture.build({
-      min_period: '03:00:00',
-      max_period: '03:00:00',
-      slot_size: '03:00:00',
-    });
-
-    expect(resourceUtils.isFullCalendarEventDurationEditable(resourceDurationEditable))
-      .toBe(true);
-    expect(resourceUtils.isFullCalendarEventDurationEditable(resourceDurationNotEditable))
-      .toBe(false);
-    expect(resourceUtils.isFullCalendarEventDurationEditable(resourceDurationNotEditable, true))
-      .toBe(true);
   });
 
   test('getSlotSizeInMinutes', () => {
@@ -433,39 +409,6 @@ describe('domain resource utility function', () => {
 
       const price = resourceUtils.getReservationPrice(`${DATE}T08:00:00Z`, `${DATE}T10:00:00Z`, resource);
       expect(price).toBe(0);
-    });
-  });
-
-  describe('getMinPeriodEndTime', () => {
-    const resource = resourceFixture.build();
-    const resourceWithMinPeriod = resourceFixture.build({ min_period: '01:00:00' });
-
-    const selection = {
-      start: new Date('2019-08-16T00:00:00Z'),
-      end: new Date('2019-08-16T00:30:00Z'),
-    };
-
-    test('should return default end if resource does not have min_period defined', () => {
-      const minPeriodTimeRange = resourceUtils.getMinPeriodEndTime(resource, selection.start, selection.end);
-
-      expect(minPeriodTimeRange).toEqual(selection.end);
-    });
-
-    test('should return default end if end time argument already fulfill the min_period', () => {
-      const selectionLargerThanMinPeriod = { ...selection, end: new Date('2019-08-16T01:30:00Z') };
-      const minPeriod = resourceUtils.getMinPeriodEndTime(
-        resourceWithMinPeriod, selectionLargerThanMinPeriod.start, selectionLargerThanMinPeriod.end
-      );
-
-      expect(minPeriod).toEqual(selectionLargerThanMinPeriod.end);
-    });
-
-    test('should return new end time fulfill min_period if selected end time is smaller than that', () => {
-      const minPeriod = resourceUtils.getMinPeriodEndTime(
-        resourceWithMinPeriod, selection.start, selection.end
-      );
-
-      expect(minPeriod).toEqual(new Date('2019-08-16T01:00:00Z'));
     });
   });
 });

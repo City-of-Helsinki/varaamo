@@ -376,5 +376,8 @@
   "ResourceReservationCalendar.reserveButton": "Tee varaus",
   "ResourceReservationCalendar.selectedDateLabel": "Valittu aika:",
   "ResourceReservationCalendar.selectedDateValue": "{date} klo {start} - klo {end} ({duration})",
-  "ResourceReservationCalendar.selectedDateValueWithPrice": "{date} klo {start} - klo {end} ({duration}) yht {price}€"
+  "ResourceReservationCalendar.selectedDateValueWithPrice": "{date} klo {start} - klo {end} ({duration}) yht {price}€",
+
+  "TimePickerCalendar.info.minPeriodText": "Varauksen on kestettävä vähintään {duration} tuntia.",
+  "TimePickerCalendar.info.maxPeriodText": "Varaus saa kestää enimmillään {duration} tuntia."
 }

@@ -11,34 +11,6 @@ import * as urlUtils from '../../common/url/utils';
 import * as dataUtils from '../../common/data/utils';
 import * as reservationUtils from '../reservation/utils';
 import constants from '../../../app/constants/AppConstants';
-import { periodToMinute } from '../../../app/utils/timeUtils';
-
-/**
- * getMinPeriodEndTime
- * Populate the end time with resource min_period
- * For example: start time 1pm, min_period: 1:00:00 ->
- * end time should be 1pm + 1hour = 2pm
- *
- * @param {Object} resource
- * @param {Date} start
- * @param {Date} end
- * @returns {Date} return new end date if time range < min_period given, otherwise return original end
- */
-
-export const getMinPeriodEndTime = (resource, start, end) => {
-  const minPeriod = get(resource, 'min_period', null);
-
-  if (minPeriod) {
-    const minPeriodInMinutes = periodToMinute(minPeriod);
-    const minPeriodEndDate = moment(start).add(minPeriodInMinutes, 'minutes').toDate();
-    if (minPeriodEndDate > end) {
-      return minPeriodEndDate;
-    }
-  }
-
-  // Return original end if no minPeriod
-  return end;
-};
 
 /**
  * getResourcePageLink();
@@ -403,6 +375,7 @@ export const isDateReservable = (resource, date) => {
 
   return isAdmin || (isBefore && isAfter);
 };
+
 /**
  * Check if selected time range
  * overlapped with timerange from reserved reservations. (from resource data)
@@ -436,9 +409,10 @@ const isBetweenReservedTimeRange = (events, start, end) => {
  * @param start {Date|string} Either a Date object or date string that can be parsed as moment object.
  * @param end {Date|string} Either a Date object or date string that can be parsed as moment object.
  * @param isStaff {boolean} Staff users have permission to bypass maxPeriod check.
+ * @param events {Array} Reserved reservations from resource data.
  * @returns {boolean}
  */
-export const isTimeRangeReservable = (resource, start, end, isStaff = false, events) => {
+export const isTimeRangeReservable = (resource, start, end, events) => {
   const now = moment();
   const startMoment = moment(start);
   const endMoment = moment(end);
@@ -448,17 +422,6 @@ export const isTimeRangeReservable = (resource, start, end, isStaff = false, eve
     const isReserved = isBetweenReservedTimeRange(events, start, endMoment.toDate());
 
     if (isReserved) {
-      return false;
-    }
-  }
-
-  // Reservation cannot be longer than the resources max period if max period is set.
-  const maxPeriod = get(resource, 'max_period', null);
-  if (!isStaff && maxPeriod) {
-    const maxPeriodDuration = moment.duration(maxPeriod);
-    const maxDuration = maxPeriodDuration.hours() * 60 + maxPeriodDuration.minutes();
-
-    if (endMoment.diff(startMoment, 'minutes') > maxDuration) {
       return false;
     }
   }
@@ -480,28 +443,6 @@ export const isTimeRangeReservable = (resource, start, end, isStaff = false, eve
 
   // Prevent selecting times from past.
   return startMoment.isAfter(now);
-};
-
-/**
- * isFullCalendarEventDurationEditable();
- * @param resource {object} Resource object.
- * @param isStaff {boolean} Staff users have permission to bypass maxPeriod check.
- * @returns {boolean}
- */
-export const isFullCalendarEventDurationEditable = (resource, isStaff = false) => {
-  if (isStaff) {
-    return true;
-  }
-
-  const slotSize = get(resource, 'slot_size', null);
-  const minPeriod = get(resource, 'min_period', null);
-  const maxPeriod = get(resource, 'max_period', null);
-
-  if (!minPeriod || !maxPeriod) {
-    return true;
-  }
-
-  return !(slotSize === minPeriod && minPeriod === maxPeriod);
 };
 
 /**
