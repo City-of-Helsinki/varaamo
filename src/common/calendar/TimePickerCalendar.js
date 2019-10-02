@@ -40,11 +40,24 @@ class TimePickerCalendar extends Component {
     selected: calendarUtils.getDefaultSelectedTimeRange(this.props.edittingReservation)
   };
 
-  componentDidUpdate(prevProps) {
+  componentDidMount() {
+    const { viewType } = this.state;
+
+    const calendarApi = this.calendarRef.current.getApi();
+    calendarApi.changeView(viewType);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
     const { date } = this.props;
+    const { viewType } = this.state;
+
+    const calendarApi = this.calendarRef.current.getApi();
+
     if (date !== prevProps.date) {
-      const calendarApi = this.calendarRef.current.getApi();
       calendarApi.gotoDate(date);
+    }
+    if (viewType !== prevState.viewType) {
+      calendarApi.changeView(viewType);
     }
   }
 
@@ -104,6 +117,20 @@ class TimePickerCalendar extends Component {
     const selectable = this.getSelectableTimeRange(event, selectionInfo);
 
     this.onChange(selectable);
+  }
+
+  onDatesRender = (info) => {
+    const { viewType } = this.state;
+    let view = info.view.type;
+
+    if (window.innerWidth < 768) {
+      // Force to render day view on mobile view
+      view = 'timeGridDay';
+    }
+
+    if (viewType !== view) {
+      this.setState({ viewType: view });
+    }
   }
 
   /**
@@ -293,6 +320,8 @@ class TimePickerCalendar extends Component {
         meridiem: 'short'
       },
       unselectAuto: false,
+      longPressDelay: '1',
+      // Almost immediatelly invoke click without delay
     };
   };
 
@@ -339,6 +368,7 @@ class TimePickerCalendar extends Component {
           events={this.getEvents()}
           maxTime={resourceUtils.getFullCalendarMaxTime(resource, date, viewType)}
           minTime={resourceUtils.getFullCalendarMinTime(resource, date, viewType)}
+          onDatesRender={this.onDatesRender}
           ref={this.calendarRef}
           select={this.onSelect}
           selectAllow={this.onSelectAllow}
