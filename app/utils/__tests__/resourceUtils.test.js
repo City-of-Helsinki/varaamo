@@ -1,21 +1,18 @@
 import MockDate from 'mockdate';
 import moment from 'moment';
 import queryString from 'query-string';
-import simple from 'simple-mock';
 
 import constants from '../../constants/AppConstants';
 import {
   getAvailabilityDataForNow,
   getAvailabilityDataForWholeDay,
   getHumanizedPeriod,
-  getMaxPeriodText,
   getOpeningHours,
   getOpenReservations,
   getResourcePageUrl,
   getTermsAndConditions,
   reservingIsRestricted,
   getResourcePageUrlComponents,
-  getMinPeriodText
 } from '../resourceUtils';
 
 describe('Utils: resourceUtils', () => {
@@ -457,54 +454,6 @@ describe('Utils: resourceUtils', () => {
       const periodString = getHumanizedPeriod(period);
 
       expect(periodString).toBe('4 h');
-    });
-  });
-
-  describe('getMaxPeriodText', () => {
-    test('returns max period as days', () => {
-      const t = simple.stub().returnWith('days');
-      const resource = { maxPeriod: '24:00:00' };
-      const result = getMaxPeriodText(t, resource);
-
-      expect(t.callCount).toBe(1);
-      expect(t.lastCall.args[0]).toEqual('ResourceHeader.maxPeriodDays');
-      expect(t.lastCall.args[1]).toEqual({ days: 1 });
-      expect(result).toBe('days');
-    });
-
-    test('returns max period as hours', () => {
-      const t = simple.stub().returnWith('hours');
-      const resource = { maxPeriod: '02:00:00' };
-      const result = getMaxPeriodText(t, resource);
-
-      expect(t.callCount).toBe(1);
-      expect(t.lastCall.args[0]).toEqual('ResourceHeader.maxPeriodHours');
-      expect(t.lastCall.args[1]).toEqual({ hours: 2 });
-      expect(result).toBe('hours');
-    });
-  });
-
-  describe('getMinPeriodText', () => {
-    test('returns min period as days', () => {
-      const t = simple.stub().returnWith('days');
-      const resource = { minPeriod: '24:00:00' };
-      const result = getMinPeriodText(t, resource);
-
-      expect(t.callCount).toBe(1);
-      expect(t.lastCall.args[0]).toEqual('ResourceHeader.minPeriodDays');
-      expect(t.lastCall.args[1]).toEqual({ days: 1 });
-      expect(result).toBe('days');
-    });
-
-    test('returns min period as hours', () => {
-      const t = simple.stub().returnWith('hours');
-      const resource = { minPeriod: '02:00:00' };
-      const result = getMinPeriodText(t, resource);
-
-      expect(t.callCount).toBe(1);
-      expect(t.lastCall.args[0]).toEqual('ResourceHeader.minPeriodHours');
-      expect(t.lastCall.args[1]).toEqual({ hours: 2 });
-      expect(result).toBe('hours');
     });
   });
 

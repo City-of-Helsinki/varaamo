@@ -611,3 +611,33 @@ export const getReservationPrice = (start, end, resource) => {
 
   return 0;
 };
+
+/**
+ * Get a translated string that informs user what the min reservation time is.
+ * @param t {function}
+ * @param resource {object} Resource object.
+ * @returns {string|*}
+ */
+export const getMaxPeriodText = (t, { maxPeriod }) => {
+  const hours = moment.duration(maxPeriod).asHours();
+  const days = parseInt(moment.duration(maxPeriod).asDays(), 10);
+  if (days > 0) {
+    return t('ResourceHeader.maxPeriodDays', { days });
+  }
+  return t('ResourceHeader.maxPeriodHours', { hours });
+};
+
+/**
+ * Get a translated string that informs user what the max reservation time is.
+ * @param t {function}
+ * @param resource {object} Resource object.
+ * @returns {string|*}
+ */
+export const getMinPeriodText = (t, { minPeriod }) => {
+  const hours = moment.duration(minPeriod).asHours();
+  const days = parseInt(moment.duration(minPeriod).asDays(), 10);
+  if (days > 0) {
+    return t('ResourceHeader.minPeriodDays', { days });
+  }
+  return t('ResourceHeader.minPeriodHours', { hours });
+};

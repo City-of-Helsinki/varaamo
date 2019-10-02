@@ -1,4 +1,5 @@
 import { advanceTo, clear } from 'jest-date-mock';
+import simple from 'simple-mock';
 
 import * as resourceUtils from '../utils';
 import resourceFixture from '../../../common/data/fixtures/resource';
@@ -409,6 +410,53 @@ describe('domain resource utility function', () => {
 
       const price = resourceUtils.getReservationPrice(`${DATE}T08:00:00Z`, `${DATE}T10:00:00Z`, resource);
       expect(price).toBe(0);
+    });
+  });
+  describe('getMaxPeriodText', () => {
+    test('returns max period as days', () => {
+      const t = simple.stub().returnWith('days');
+      const resource = { maxPeriod: '24:00:00' };
+      const result = resourceUtils.getMaxPeriodText(t, resource);
+
+      expect(t.callCount).toBe(1);
+      expect(t.lastCall.args[0]).toEqual('ResourceHeader.maxPeriodDays');
+      expect(t.lastCall.args[1]).toEqual({ days: 1 });
+      expect(result).toBe('days');
+    });
+
+    test('returns max period as hours', () => {
+      const t = simple.stub().returnWith('hours');
+      const resource = { maxPeriod: '02:00:00' };
+      const result = resourceUtils.getMaxPeriodText(t, resource);
+
+      expect(t.callCount).toBe(1);
+      expect(t.lastCall.args[0]).toEqual('ResourceHeader.maxPeriodHours');
+      expect(t.lastCall.args[1]).toEqual({ hours: 2 });
+      expect(result).toBe('hours');
+    });
+  });
+
+  describe('getMinPeriodText', () => {
+    test('returns min period as days', () => {
+      const t = simple.stub().returnWith('days');
+      const resource = { minPeriod: '24:00:00' };
+      const result = resourceUtils.getMinPeriodText(t, resource);
+
+      expect(t.callCount).toBe(1);
+      expect(t.lastCall.args[0]).toEqual('ResourceHeader.minPeriodDays');
+      expect(t.lastCall.args[1]).toEqual({ days: 1 });
+      expect(result).toBe('days');
+    });
+
+    test('returns min period as hours', () => {
+      const t = simple.stub().returnWith('hours');
+      const resource = { minPeriod: '02:00:00' };
+      const result = resourceUtils.getMinPeriodText(t, resource);
+
+      expect(t.callCount).toBe(1);
+      expect(t.lastCall.args[0]).toEqual('ResourceHeader.minPeriodHours');
+      expect(t.lastCall.args[1]).toEqual({ hours: 2 });
+      expect(result).toBe('hours');
     });
   });
 });
