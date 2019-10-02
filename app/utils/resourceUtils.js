@@ -8,21 +8,6 @@ import queryString from 'query-string';
 import constants from '../constants/AppConstants';
 import { getCurrentReservation, getNextAvailableTime } from './reservationUtils';
 
-function hasMaxReservations(resource) {
-  let isMaxReservations = false;
-  if (resource.maxReservationsPerUser && resource.reservations) {
-    const ownReservations = filter(resource.reservations, { isOwn: true });
-    let reservationCounter = 0;
-    forEach(ownReservations, (reservation) => {
-      if (moment(reservation.end).isAfter(moment())) {
-        reservationCounter += 1;
-      }
-    });
-    isMaxReservations = reservationCounter >= resource.maxReservationsPerUser;
-  }
-  return isMaxReservations;
-}
-
 function getAvailabilityDataForNow(resource = {}, date = null) {
   const { closes, opens } = getOpeningHours(resource, date);
   const reservations = getOpenReservations(resource);
@@ -211,7 +196,6 @@ function hasProducts(resource) {
 }
 
 export {
-  hasMaxReservations,
   getAvailabilityDataForNow,
   getAvailabilityDataForWholeDay,
   getHourlyPrice,

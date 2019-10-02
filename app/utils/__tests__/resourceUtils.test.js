@@ -5,7 +5,6 @@ import simple from 'simple-mock';
 
 import constants from '../../constants/AppConstants';
 import {
-  hasMaxReservations,
   getAvailabilityDataForNow,
   getAvailabilityDataForWholeDay,
   getHumanizedPeriod,
@@ -20,65 +19,6 @@ import {
 } from '../resourceUtils';
 
 describe('Utils: resourceUtils', () => {
-  describe('hasMaxReservations', () => {
-    const maxReservationsPerUser = 1;
-    const now = '2015-10-10T06:00:00+03:00';
-    describe('if has more own open reservations than maxReservationsPerUser', () => {
-      const reservations = [
-        {
-          end: '2015-10-10T07:00:00+03:00',
-          isOwn: true,
-        },
-        {
-          end: '2015-10-10T08:00:00+03:00',
-          isOwn: false,
-        },
-      ];
-      const resource = {
-        maxReservationsPerUser,
-        reservations,
-      };
-      beforeEach(() => {
-        MockDate.set(now);
-      });
-
-      afterEach(() => {
-        MockDate.reset();
-      });
-
-      test('returns true', () => {
-        expect(hasMaxReservations(resource)).toBe(true);
-      });
-    });
-    describe('if has more own passed reservations than maxReservationsPerUser', () => {
-      const reservations = [
-        {
-          end: '2015-10-10T05:00:00+03:00',
-          isOwn: true,
-        },
-        {
-          end: '2015-10-10T08:00:00+03:00',
-          isOwn: false,
-        },
-      ];
-      const resource = {
-        maxReservationsPerUser,
-        reservations,
-      };
-      beforeEach(() => {
-        MockDate.set(now);
-      });
-
-      afterEach(() => {
-        MockDate.reset();
-      });
-
-      test('returns false', () => {
-        expect(hasMaxReservations(resource)).toBe(false);
-      });
-    });
-  });
-
   describe('getAvailabilityDataForNow', () => {
     function getResource(openingHours = {}, reservations = []) {
       return { openingHours: [openingHours], reservations };
