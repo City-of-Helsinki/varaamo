@@ -7,6 +7,13 @@ import { parseData } from '../data/utils';
 
 let authToken;
 
+// Response interceptor to be able to handle errors.
+axios.interceptors.response.use((response) => {
+  return response;
+}, (error) => {
+  return Promise.reject(error.response);
+});
+
 const getToken = () => {
   const state = store.getState();
   return get(state, 'auth.token');
@@ -58,10 +65,6 @@ export class ApiClient {
       .then(response => ({
         data: get(response, 'data'),
         error: null,
-      }))
-      .catch(error => ({
-        data: null,
-        error: get(error, 'response'),
       }));
   };
 
