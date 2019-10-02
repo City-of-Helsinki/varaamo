@@ -2,7 +2,7 @@
 
 exports[`TimePickerCalendar FullCalendar render normally 1`] = `
 <div
-  className="app-Calendar"
+  className="app-TimePickerCalendar"
 >
   <FullCalendar
     allDaySlot={false}

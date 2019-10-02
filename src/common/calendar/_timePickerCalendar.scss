@@ -31,86 +31,88 @@
       line-height: 0.75;
     }
   }
-}
 
-
-@media (max-width: $screen-xs-max) {
-  .fc-time-grid .fc-slats td {
-    height: 5em !important;
-  }
-
-  .fc-view-container {
-    overflow: scroll;
-
-    .fc-timeGridWeek-view {
-      width: 700px;
-    }
-  }
-
-  .fc-header-toolbar {
-    display: flex;
-
-    .fc-left,
-    .fc-right {
-      width: 30%
+  @media (max-width: $screen-xs-max) {
+    .fc-time-grid .fc-slats td {
+      height: 5em !important;
     }
 
+    .fc-view-container {
+      overflow: scroll;
 
-    .fc-button {
-      border: none;
-      border-radius: 0;
-      padding: 0.2em 0.3em;
-      background: $hel-coat;
-      font-weight: $font-weight-bold;
-
-      &:disabled {
-        border: 1px solid $black;
-        color: $black;
-        background: $white !important;
-      }
-
-      &.fc-timeGridDay-button,
-      &.fc-timeGridWeek-button {
-        &.fc-button-active {
-          display: none;
-        }
+      .fc-timeGridWeek-view {
+        width: 700px;
       }
     }
 
-    .fc-prev-button,
-    .fc-next-button {
-      margin: 0 !important;
-      background: $white;
-      padding: 0;
-    }
-
-    .fc-icon {
-      color: $black;
-    }
-
-    .fc-left {
+    .fc-header-toolbar {
       display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-    }
 
-    .fc-right {
-      .fc-button-group {
-        .fc-button {
-          flex-grow: 0;
+      .fc-left,
+      .fc-right {
+        width: 30%
+      }
+
+
+      .fc-button {
+        border: none;
+        border-radius: 0;
+        padding: 0.2em 0.3em;
+        background: $hel-coat;
+        font-weight: $font-weight-bold;
+
+        &:disabled {
+          border: 1px solid $black;
+          color: $black;
+          background: $white !important;
         }
 
+        &.fc-timeGridDay-button,
+        &.fc-timeGridWeek-button {
+          &.fc-button-active {
+            display: none;
+          }
+        }
+      }
+
+      .fc-prev-button,
+      .fc-next-button {
+        margin: 0 !important;
+        background: $white;
+        padding: 0;
+      }
+
+      .fc-icon {
+        color: $black;
+      }
+
+      .fc-left {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
       }
-    }
 
-    .fc-center {
-      text-align: center;
-      h2 {
-        font-size: 1em;
+      .fc-right {
+        .fc-button-group {
+          .fc-button {
+            flex-grow: 0;
+          }
+
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+        }
+      }
+
+      .fc-center {
+        text-align: center;
+        h2 {
+          font-size: 1em;
+        }
       }
     }
   }
+
 }
+
+

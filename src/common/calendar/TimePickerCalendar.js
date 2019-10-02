@@ -126,7 +126,7 @@ class TimePickerCalendar extends Component {
       // mobile view config
       view = 'timeGridDay';
       headerConfig = {
-        left: 'today, prev',
+        left: 'today,prev',
         center: 'title',
         right: 'next,timeGridDay,timeGridWeek'
       };
@@ -354,7 +354,7 @@ class TimePickerCalendar extends Component {
     const { viewType, header } = this.state;
 
     return (
-      <div className="app-Calendar">
+      <div className="app-TimePickerCalendar">
         <FullCalendar
           {...this.getCalendarOptions()}
           allDaySlot={false}
