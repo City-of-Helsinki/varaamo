@@ -168,7 +168,8 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
     });
 
     test(
-      'returns staffEvent true when is editing and reservation supportedReservationExtraFields are empty but not requiredReservationExtraFields',
+      'returns staffEvent true \
+       when is editing and reservation supportedReservationExtraFields are empty but not requiredReservationExtraFields',
       () => {
         const reservation2 = Reservation.build();
         const expected = { staffEvent: true };

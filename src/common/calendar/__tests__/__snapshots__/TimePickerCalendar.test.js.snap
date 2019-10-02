@@ -59,6 +59,7 @@ exports[`TimePickerCalendar FullCalendar render normally 1`] = `
         },
       ]
     }
+    datesRender={[Function]}
     defaultDate="2019-08-15"
     editable={true}
     eventConstraint="businessHours"
@@ -128,9 +129,11 @@ exports[`TimePickerCalendar FullCalendar render normally 1`] = `
         },
       ]
     }
+    longPressDelay="1"
     maxTime="17:00:00"
     minTime="07:00:00"
     nowIndicator={true}
+    onDatesRender={[Function]}
     plugins={
       Array [
         Object {
