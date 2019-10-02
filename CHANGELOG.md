@@ -3,6 +3,7 @@
   - Support for payments in Varaamo.
   - Add reusable FullCalendar component.
   - Add option to configure time zone of calendar/resources. Defaults to `Europe/Helsinki`.
+  - Permission checking has been changed: We are now using unit authorizations instead of unit object permissions from respa admin.
 
   **MINOR CHANGES**
   - Replace failure message and add a return button for reservation payment.
@@ -29,6 +30,7 @@
   - [#1028](https://github.com/City-of-Helsinki/varaamo/pull/1028) Always fetch reservations with start and end filters.
   - [#1029](https://github.com/City-of-Helsinki/varaamo/pull/1029) Add option to configure time zone for resources.
   - [#1033](https://github.com/City-of-Helsinki/varaamo/pull/1033) Show errors to staff members if editing of reservations fail.
+  - [#1031](https://github.com/City-of-Helsinki/varaamo/pull/1031) Use resource's userPermissions.isAdmin flag to check if user isStaff
 
 # 0.4.2
   **HOTFIX**
