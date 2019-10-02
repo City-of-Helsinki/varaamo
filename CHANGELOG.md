@@ -11,6 +11,7 @@
   - Add `show_only` filter section to filter reservation list. This filter have `can_modify` as its default value.
   - Anonymous users now see a log in button below the calendar on the resource page helping them understand that they need to log in to continue.
   - Fix FullCalendar not auto-select minPeriod time slot when user select. Various fixes related to edit reservation calendar, drag and drop and select error handler.
+  - Errors from respa backend are not swallowed in our ApiClient anymore.
 
   **HOTFIX**
   - Fix resource information headlines and icon.
@@ -27,6 +28,7 @@
   - [#1027](https://github.com/City-of-Helsinki/varaamo/pull/1027) Improve resource page usability for anonymous users.
   - [#1028](https://github.com/City-of-Helsinki/varaamo/pull/1028) Always fetch reservations with start and end filters.
   - [#1029](https://github.com/City-of-Helsinki/varaamo/pull/1029) Add option to configure time zone for resources.
+  - [#1033](https://github.com/City-of-Helsinki/varaamo/pull/1033) Show errors to staff members if editing of reservations fail.
 
 # 0.4.2
   **HOTFIX**
