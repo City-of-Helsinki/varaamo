@@ -1,0 +1,56 @@
+.progress-steps {
+  align-items: baseline;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  .progress-step {
+    align-items: center;
+    display: inline-flex;
+    flex-direction: column;
+    padding: 0 10px;
+  }
+  .progress-step-indicator {
+    align-items: center;
+    display: inline-flex;
+    height: 50px;
+    justify-content: center;
+    width: 50px;
+  }
+  .progress-step-label {
+    color: $black;
+    display: inline-block;
+    text-align: center;
+  }
+  .progress-step-separator {
+    border-top: 2px solid $medium-gray;
+    display: inline-block;
+    width: 100%;
+  }
+}
+
+.progress-steps-numerical {
+  .progress-step-numerical {
+    border-color: $medium-gray;
+    color: $medium-gray;
+    &--active {
+      border-color: $hel-copper;
+      color: $black;
+      .progress-step-indicator-number {
+        border-color: $hel-tram;
+      }
+    }
+  }
+  .progress-step-indicator-number {
+    border-radius: 50%;
+    border-width: 2px;
+    border-style: solid;
+    font-size: 20px;
+  }
+}
+
+.progress-steps-checked {
+  padding-bottom: 20px;
+  .progress-step-checked {
+    transform: translateY(20px);
+  }
+}

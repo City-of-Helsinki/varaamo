@@ -1,25 +1,20 @@
 @import './availability-view/availability-view';
-@import './comment-button/comment-button';
-@import './comment-form/comment-form';
 @import './compact-reservation-list/compact-reservation-list';
-@import './date-header/date-header';
 @import './date-picker/date-picker';
 @import './favorite-button/favorite-button';
-@import './footer/footer';
+@import '../../src/domain/footer/footer';
 @import './form-fields/form-fields';
-@import './header/header';
+@import '../../src/domain/header/header';
 @import './info-popover/info-popover';
-@import './resource-map/map';
 @import './label/label';
-@import './main-navbar/main-navbar';
-@import './mini-modal/mini-modal';
+@import '../../src/domain/header/main-navbar';
 @import './modals/modals';
 @import './notifications/notifications';
+@import './progress-steps/progress-steps';
 @import './recurring-reservation-controls/recurring-reservation-controls';
 @import './reservation-confirmation/confirm-reservation-modal';
 @import './reservation-date/reservation-date';
 @import './reservation-popover/reservation-popover';
-@import './resource-icons/resource-icons';
 @import './resource-calendar/resource-calendar';
 @import './resource-compact-list/resource-compact-list';
 @import './resource-list/resource-list';
@@ -27,5 +22,5 @@
 @import './resource-type-filter/resource-type-filter';
 
 @import './test-site-message/test-site-message';
-@import './top-navbar/top-navbar';
+@import '../../src/domain/header/top-navbar';
 @import './wrapped-text/wrapped-text';

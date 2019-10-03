@@ -4,17 +4,17 @@ import Loader from 'react-loader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { fetchReservations } from 'actions/reservationActions';
-import { fetchResources } from 'actions/resourceActions';
-import { changeAdminReservationFilters } from 'actions/uiActions';
-import { fetchUnits } from 'actions/unitActions';
-import ReservationInfoModal from 'shared/modals/reservation-info';
-import PageWrapper from 'pages/PageWrapper';
-import ReservationCancelModal from 'shared/modals/reservation-cancel';
-import { injectT } from 'i18n';
+import { fetchReservations } from '../../actions/reservationActions';
+import { fetchResources } from '../../actions/resourceActions';
+import { changeAdminReservationFilters } from '../../actions/uiActions';
+import { fetchUnits } from '../../actions/unitActions';
+import ReservationInfoModal from '../../shared/modals/reservation-info/ReservationInfoModalContainer';
+import PageWrapper from '../PageWrapper';
+import ReservationCancelModal from '../../shared/modals/reservation-cancel/ReservationCancelModalContainer';
+import injectT from '../../i18n/injectT';
 import userReservationsPageSelector from './userReservationsPageSelector';
 import AdminReservationFilters from './reservation-filters/AdminReservationFilters';
-import ReservationList from './reservation-list';
+import ReservationList from './reservation-list/ReservationListContainer';
 
 class UnconnectedUserReservationsPage extends Component {
   constructor(props) {
@@ -60,10 +60,14 @@ class UnconnectedUserReservationsPage extends Component {
 
     return (
       <div className="app-UserReservationPage">
-        <PageWrapper className="app-UserReservationPage__wrapper" title={t('UserReservationsPage.title')} transparent={false}>
+        <PageWrapper
+          className="app-UserReservationPage__wrapper"
+          title={t('UserReservationsPage.title')}
+          transparent={false}
+        >
           <Loader loaded={resourcesLoaded}>
 
-            { !isAdmin && (
+            {!isAdmin && (
               <div>
                 <h1>{t('UserReservationsPage.title')}</h1>
                 <ReservationList
@@ -71,7 +75,7 @@ class UnconnectedUserReservationsPage extends Component {
                 />
               </div>
             )}
-            { isAdmin && (
+            {isAdmin && (
               <div>
                 <h1>{t('UserReservationsPage.title')}</h1>
                 <AdminReservationFilters

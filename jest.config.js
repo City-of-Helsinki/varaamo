@@ -11,7 +11,7 @@ module.exports = {
   clearMocks: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  collectCoverageFrom: ['app/**/*.{js,jsx,mjs}', '"!app/index.js"'],
+  collectCoverageFrom: ['app/**/*.{js,jsx,mjs}', '"!app/index.js"', 'src/**/*.{js,jsx,mjs}'],
 
   // The directory where Jest should output its coverage files
   coverageDirectory: 'coverage',
@@ -26,7 +26,7 @@ module.exports = {
   },
 
   // Same with webpack module resolver
-  moduleDirectories: ['node_modules', 'app'],
+  moduleDirectories: ['node_modules', 'app', 'src'],
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
   setupFiles: ['<rootDir>/config/jest/setupJest.js'],
@@ -35,7 +35,7 @@ module.exports = {
   testEnvironment: 'jsdom',
 
   // The glob patterns Jest uses to detect test files
-  testMatch: ['**/?(*.)+(spec).js?(x)'],
+  testMatch: ['**/?(*.)+(test).js?(x)'],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   testPathIgnorePatterns: ['\\\\node_modules\\\\'],

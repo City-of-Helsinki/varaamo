@@ -1,10 +1,9 @@
-import types from 'constants/ActionTypes';
-import ModalTypes from 'constants/ModalTypes';
-
 import without from 'lodash/without';
 import includes from 'lodash/includes';
 import Immutable from 'seamless-immutable';
 
+import types from '../../../constants/ActionTypes';
+import ModalTypes from '../../../constants/ModalTypes';
 
 const initialState = Immutable({
   open: [],

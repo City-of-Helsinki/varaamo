@@ -1,0 +1,148 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ManageReservationsFilters renders correctly 1`] = `
+<div
+  className="app-ManageReservationsFilters"
+>
+  <Grid
+    bsClass="container"
+    componentClass="div"
+    fluid={false}
+  >
+    <Row
+      bsClass="row"
+      componentClass="div"
+    >
+      <Col
+        bsClass="col"
+        componentClass="div"
+        md={3}
+      >
+        <ButtonGroupField
+          id="stateField"
+          label="ManageReservationsFilters.statusLabel"
+          onChange={[Function]}
+          options={
+            Array [
+              Object {
+                "label": "Reservation.stateLabelConfirmed",
+                "value": "confirmed",
+              },
+              Object {
+                "label": "Reservation.stateLabelCancelled",
+                "value": "cancelled",
+              },
+              Object {
+                "label": "Reservation.stateLabelDenied",
+                "value": "denied",
+              },
+              Object {
+                "label": "Reservation.stateLabelRequested",
+                "value": "requested",
+              },
+            ]
+          }
+          type="checkbox"
+          value={null}
+        />
+      </Col>
+      <Col
+        bsClass="col"
+        componentClass="div"
+        md={5}
+      >
+        <div
+          className="app-ManageReservationsFilters__datePickers"
+        >
+          <InjectT(UntranslatedDateField)
+            id="startDateField"
+            label="ManageReservationsFilters.startDateLabel"
+            onChange={[Function]}
+            placeholder="ManageReservationsFilters.startDatePlaceholder"
+            value={null}
+          />
+          <div
+            className="separator"
+          >
+            -
+          </div>
+          <InjectT(UntranslatedDateField)
+            id="EndDateField"
+            label="ManageReservationsFilters.endDateLabel"
+            onChange={[Function]}
+            placeholder="ManageReservationsFilters.endDatePlaceholder"
+            value={null}
+          />
+        </div>
+      </Col>
+      <Col
+        bsClass="col"
+        componentClass="div"
+        md={4}
+      >
+        <TextField
+          id="searchField"
+          label="ManageReservationsFilters.searchLabel"
+          onChange={[Function]}
+          placeholder="ManageReservationsFilters.searchPlaceholder"
+          value=""
+        />
+      </Col>
+    </Row>
+    <Row
+      bsClass="row"
+      componentClass="div"
+    >
+      <Col
+        bsClass="col"
+        componentClass="div"
+        md={3}
+      >
+        <InjectT(SelectField)
+          id="unitField"
+          label="ManageReservationsFilters.unitLabel"
+          onChange={[Function]}
+          options={
+            Array [
+              Object {
+                "label": "Unit (en) - 1",
+                "value": 1,
+              },
+            ]
+          }
+          value={null}
+        />
+      </Col>
+      <Col
+        bsClass="col"
+        componentClass="div"
+        md={5}
+      >
+        <ButtonGroupField
+          id="showOnlyField"
+          label="ManageReservationsFilters.showOnly.title"
+          onChange={[Function]}
+          options={
+            Array [
+              Object {
+                "label": "ManageReservationsFilters.showOnly.favoriteButtonLabel",
+                "value": "favorite",
+              },
+              Object {
+                "label": "ManageReservationsFilters.showOnly.canModifyButtonLabel",
+                "value": "can_modify",
+              },
+            ]
+          }
+          type="checkbox"
+        />
+      </Col>
+      <Col
+        bsClass="col"
+        componentClass="div"
+        md={4}
+      />
+    </Row>
+  </Grid>
+</div>
+`;

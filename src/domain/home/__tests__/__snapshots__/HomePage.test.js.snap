@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pages/home/HomePage render Purpose banners render normally 1`] = `
+<div
+  className="app-HomePage"
+>
+  <div
+    className="app-HomePage__content container"
+  >
+    <h1>
+      Varaamo –
+    </h1>
+    <h1>
+      HomePage.contentTitle
+    </h1>
+    <h5>
+      HomePage.contentSubTitle
+    </h5>
+    <InjectT(HomeSearchBox)
+      onSearch={[Function]}
+    />
+  </div>
+  <div
+    className="app-HomePage__koro"
+  />
+  <PageWrapper
+    className="app-HomePageContent"
+    title="HomePage.title"
+  >
+    <h4>
+      HomePage.bannersTitle
+    </h4>
+  </PageWrapper>
+</div>
+`;

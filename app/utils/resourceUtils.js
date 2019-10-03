@@ -1,12 +1,12 @@
-import constants from 'constants/AppConstants';
-
 import filter from 'lodash/filter';
 import find from 'lodash/find';
 import forEach from 'lodash/forEach';
+import has from 'lodash/has';
 import moment from 'moment';
 import queryString from 'query-string';
 
-import { getCurrentReservation, getNextAvailableTime } from 'utils/reservationUtils';
+import constants from '../constants/AppConstants';
+import { getCurrentReservation, getNextAvailableTime } from './reservationUtils';
 
 function hasMaxReservations(resource) {
   let isMaxReservations = false;
@@ -21,15 +21,6 @@ function hasMaxReservations(resource) {
     isMaxReservations = reservationCounter >= resource.maxReservationsPerUser;
   }
   return isMaxReservations;
-}
-
-function isOpenNow(resource) {
-  const { closes, opens } = getOpeningHours(resource);
-  const now = moment();
-  if (now >= moment(opens) && now <= moment(closes)) {
-    return true;
-  }
-  return false;
 }
 
 function getAvailabilityDataForNow(resource = {}, date = null) {
@@ -211,9 +202,16 @@ function reservingIsRestricted(resource, date) {
   return Boolean(isLimited && !isAdmin);
 }
 
+function hasProducts(resource) {
+  return (
+    has(resource, 'products')
+    && Array.isArray(resource.products)
+    && resource.products.length >= 1
+  );
+}
+
 export {
   hasMaxReservations,
-  isOpenNow,
   getAvailabilityDataForNow,
   getAvailabilityDataForWholeDay,
   getHourlyPrice,
@@ -225,5 +223,6 @@ export {
   getResourcePageUrlComponents,
   getTermsAndConditions,
   reservingIsRestricted,
-  getMinPeriodText
+  getMinPeriodText,
+  hasProducts,
 };

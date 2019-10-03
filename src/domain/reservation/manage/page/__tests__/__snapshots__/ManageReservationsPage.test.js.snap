@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ManageReservationsPage renders correctly 1`] = `
+<div
+  className="app-ManageReservationsPage"
+>
+  <div
+    className="app-ManageReservationsPage__filters"
+  >
+    <Grid
+      bsClass="container"
+      componentClass="div"
+      fluid={false}
+    >
+      <Row
+        bsClass="row"
+        componentClass="div"
+      >
+        <Col
+          bsClass="col"
+          componentClass="div"
+          sm={12}
+        >
+          <h1>
+            ManageReservationsPage.title
+          </h1>
+        </Col>
+      </Row>
+    </Grid>
+    <InjectIntl(InjectT(ManageReservationsFilters))
+      filters={Object {}}
+      onSearchChange={[Function]}
+      onShowOnlyFiltersChange={[Function]}
+      showOnlyFilters={
+        Array [
+          "can_modify",
+        ]
+      }
+      units={Array []}
+    />
+  </div>
+  <div
+    className="app-ManageReservationsPage__list"
+  >
+    <PageWrapper
+      title="ManageReservationsPage.title"
+    >
+      <Row
+        bsClass="row"
+        componentClass="div"
+      >
+        <Col
+          bsClass="col"
+          componentClass="div"
+          sm={12}
+        >
+          <Component
+            component="div"
+            loaded={true}
+            loadedClassName="loadedContent"
+            parentClassName="loader"
+          >
+            <InjectT(InjectT(ManageReservationsList))
+              onEditClick={[Function]}
+              onEditReservation={[Function]}
+              onInfoClick={[Function]}
+              reservations={Array []}
+            />
+          </Component>
+          <InjectT(Pagination)
+            onChange={[Function]}
+            page={1}
+            pages={0}
+          />
+        </Col>
+      </Row>
+    </PageWrapper>
+  </div>
+</div>
+`;

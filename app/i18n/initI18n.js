@@ -2,26 +2,24 @@ import 'moment/locale/en-gb';
 import 'moment/locale/fi';
 import 'moment/locale/sv';
 import 'moment-timezone/builds/moment-timezone-with-data-10-year-range';
-
-import constants from 'constants/AppConstants';
-
 import moment from 'moment';
 import { addLocaleData } from 'react-intl';
 import en from 'react-intl/locale-data/en';
 import fi from 'react-intl/locale-data/fi';
-import se from 'react-intl/locale-data/se';
+import sv from 'react-intl/locale-data/sv';
 
-import { loadPersistedLocale } from 'store/middleware/persistState';
-import enMessages from 'i18n/messages/en.json';
-import fiMessages from 'i18n/messages/fi.json';
-import svMessages from 'i18n/messages/sv.json';
-
+import constants from '../constants/AppConstants';
+import { loadPersistedLocale } from '../store/middleware/persistState';
+import enMessages from './messages/en.json';
+import fiMessages from './messages/fi.json';
+import svMessages from './messages/sv.json';
 
 const messages = {
   en: enMessages,
   fi: fiMessages,
-  se: svMessages,
+  sv: svMessages,
 };
+moment.tz.setDefault(SETTINGS.TIME_ZONE);
 
 moment.defineLocale('varaamo-en', {
   parentLocale: 'en-gb',
@@ -35,11 +33,11 @@ moment.defineLocale('varaamo-fi', {
   },
 });
 
-moment.defineLocale('varaamo-se', {
+moment.defineLocale('varaamo-sv', {
   parentLocale: 'sv',
 });
 
-addLocaleData([...en, ...fi, ...se]);
+addLocaleData([...en, ...fi, ...sv]);
 
 function initI18n() {
   const persistedData = loadPersistedLocale();

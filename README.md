@@ -70,6 +70,7 @@ By default the running app can be found at `localhost:3000`.
     TARGET_APP
     API_URL
     CUSTOM_MUNICIPALITY_OPTIONS
+    TIME_ZONE
     ```
 
     Environment's variable guideline:
@@ -82,6 +83,8 @@ By default the running app can be found at `localhost:3000`.
 
       Without this config, default to use 3 central cities Helsinki, Espoo, Vantaa as options.
 
+    - `TIME_ZONE`:
+      The time zone of your resources. Bookings and calendars will be shown with this time zone no matter what the end users' browser is configured for. Defaults to Europe/Helsinki.
 
 3. Then, start the development server:
 
@@ -202,7 +205,7 @@ All setting was included under .vscode directory.
 - On Jest test:
     [Guideline](https://jestjs.io/docs/en/troubleshooting#debugging-in-vs-code). Setting was under `Vscode Jest debugger` name.
 
-    - Put breakpoint in test file `(*.spec.js)`
+    - Put breakpoint in test file `(*.test.js)`
 
     - Run command:
 

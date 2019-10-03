@@ -1,21 +1,20 @@
-import FormTypes from 'constants/FormTypes';
-
 import { connect } from 'react-redux';
 import { reset as resetForm } from 'redux-form';
 
+import FormTypes from '../../../constants/FormTypes';
 import {
   commentReservation,
   confirmPreliminaryReservation,
   denyPreliminaryReservation,
   putReservation,
-} from 'actions/reservationActions';
+} from '../../../actions/reservationActions';
 import {
   cancelReservationEditInInfoModal,
   hideReservationInfoModal,
   openReservationCancelModal,
   selectReservationToCancel,
   startReservationEditInInfoModal,
-} from 'actions/uiActions';
+} from '../../../actions/uiActions';
 import ReservationInfoModal from './ReservationInfoModal';
 import reservationInfoModalSelector from './reservationInfoModalSelector';
 

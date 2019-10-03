@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { injectT } from 'i18n';
+import injectT from '../../i18n/injectT';
 
 const PendingAccessCode = ({ t }) => (
   <span className="pending-access-code">

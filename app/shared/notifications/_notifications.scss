@@ -1,13 +1,26 @@
 .notification-container {
+  .notification {
+    border-radius: 0;
+    box-shadow: 0 0 12px #000;
+    color: $white;
+    opacity: 1;
+  }
   .notification-info {
     background-color: $brand-info;
+    &::before {
+      content: url(../../assets/icons/hds-info.svg);
+    }
   }
-
   .notification-success {
     background-color: $brand-success;
+    &::before {
+      content: url(../../assets/icons/hds-success.svg);
+    }
   }
-
   .notification-error {
     background-color: $brand-danger;
+    &::before {
+      content: url(../../assets/icons/hds-warning.svg);
+    }
   }
 }

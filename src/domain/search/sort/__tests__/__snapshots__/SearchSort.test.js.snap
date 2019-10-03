@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchSort renders correctly 1`] = `
+<div
+  className="app-SearchSort"
+>
+  <InjectT(SelectFilter)
+    id="app-Sort"
+    isSearchable={false}
+    onChange={[Function]}
+    options={
+      Array [
+        Object {
+          "label": undefined,
+          "value": "resource_name_en",
+        },
+        Object {
+          "label": undefined,
+          "value": "type_name_en",
+        },
+        Object {
+          "label": undefined,
+          "value": "unit_name_en",
+        },
+        Object {
+          "label": undefined,
+          "value": "people_capacity",
+        },
+      ]
+    }
+  />
+</div>
+`;

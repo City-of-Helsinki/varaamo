@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResourceReservationCalendar renders correctly 1`] = `
+<div
+  className="app-ResourceReservationCalendar"
+>
+  <InjectT(TimePickerCalendar)
+    date="2019-08-15"
+    onDateChange={[MockFunction]}
+    onTimeChange={[Function]}
+    resource={
+      Object {
+        "available_hours": Array [],
+        "equipment": Array [],
+        "id": 1,
+        "is_favorite": false,
+        "name": Object {
+          "en": "Resource (en) - 1",
+          "fi": "Resource (fi) - 1",
+          "sv": "Resource (sv) - 1",
+        },
+        "need_manual_confirmation": false,
+        "opening_hours": Array [],
+        "products": Array [],
+        "public": true,
+        "required_reservation_extra_fields": Array [],
+        "reservable": true,
+        "reservable_after": null,
+        "slot_size": "00:30:00",
+        "supported_reservation_extra_fields": Array [],
+        "unit": 1,
+        "user_permissions": Object {
+          "canMakeReservations": true,
+          "isAdmin": false,
+        },
+      }
+    }
+  />
+  <div
+    className="app-ResourceReservationCalendar__selectedInfo"
+  >
+    <div
+      className="app-ResourceReservationCalendar__loginInfo"
+    />
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="primary"
+      className="app-ResourceReservationCalendar__loginButton"
+      disabled={false}
+      onClick={[Function]}
+    />
+  </div>
+</div>
+`;

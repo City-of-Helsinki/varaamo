@@ -1,15 +1,14 @@
-import types from 'constants/ActionTypes';
-
 import { RSAA } from 'redux-api-middleware';
 
-import schemas from 'store/middleware/Schemas';
+import types from '../constants/ActionTypes';
+import schemas from '../store/middleware/Schemas';
 import {
   buildAPIUrl,
   getErrorTypeDescriptor,
   getHeadersCreator,
   getRequestTypeDescriptor,
   getSuccessTypeDescriptor,
-} from 'utils/apiUtils';
+} from '../utils/apiUtils';
 
 function fetchFavoritedResources(timeAsMoment, source) {
   const params = {
@@ -40,7 +39,6 @@ function fetchResource(id, params = {}) {
 
 function fetchResources(params = {}, source) {
   const fetchParams = Object.assign({}, params, { pageSize: 500 });
-
   return {
     [RSAA]: {
       types: [

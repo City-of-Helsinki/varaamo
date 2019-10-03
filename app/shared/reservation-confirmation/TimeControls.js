@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 
-import SelectControl from 'pages/search/controls/SelectControl';
+import SelectControl from '../../pages/search/controls/SelectControl';
 
 const moment = extendMoment(Moment);
 

@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectField renders correctly 1`] = `
+<div
+  className="app-SelectField"
+>
+  <FormGroup
+    bsClass="form-group"
+    controlId="foo"
+  >
+    <ControlLabel
+      bsClass="control-label"
+      srOnly={false}
+    >
+      foo
+    </ControlLabel>
+    <StateManager
+      className="app-Select"
+      classNamePrefix="app-Select"
+      defaultInputValue=""
+      defaultMenuIsOpen={false}
+      defaultValue={null}
+      id="foo"
+      noOptionsMessage={[Function]}
+      onChange={[Function]}
+      options={
+        Array [
+          Object {
+            "label": "Foo",
+            "value": "foo",
+          },
+          Object {
+            "label": "Bar",
+            "value": "bar",
+          },
+        ]
+      }
+      placeholder="common.select"
+      value={
+        Object {
+          "label": "Foo",
+          "value": "foo",
+        }
+      }
+    />
+  </FormGroup>
+</div>
+`;

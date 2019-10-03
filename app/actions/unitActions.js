@@ -1,15 +1,14 @@
-import types from 'constants/ActionTypes';
-
 import { RSAA } from 'redux-api-middleware';
 
-import schemas from 'store/middleware/Schemas';
+import types from '../constants/ActionTypes';
+import schemas from '../store/middleware/Schemas';
 import {
   buildAPIUrl,
   getErrorTypeDescriptor,
   getHeadersCreator,
   getRequestTypeDescriptor,
   getSuccessTypeDescriptor,
-} from 'utils/apiUtils';
+} from '../utils/apiUtils';
 
 function fetchUnits() {
   const fetchParams = { pageSize: 500, unit_has_resource: true };

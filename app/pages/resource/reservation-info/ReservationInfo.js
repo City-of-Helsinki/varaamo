@@ -4,11 +4,11 @@ import { FormattedHTMLMessage } from 'react-intl';
 import moment from 'moment';
 import iconUser from 'hel-icons/dist/shapes/user-o.svg';
 
-import iconCalendar from 'assets/icons/calendar.svg';
-import iconClock from 'assets/icons/clock-o.svg';
-import WrappedText from 'shared/wrapped-text';
-import { getMaxPeriodText } from 'utils/resourceUtils';
-import { injectT } from 'i18n';
+import iconCalendar from '../../../assets/icons/calendar.svg';
+import iconClock from '../../../assets/icons/clock-o.svg';
+import WrappedText from '../../../shared/wrapped-text/WrappedText';
+import { getMaxPeriodText } from '../../../utils/resourceUtils';
+import injectT from '../../../i18n/injectT';
 
 function renderLoginText(isLoggedIn, resource) {
   if (isLoggedIn || !resource.reservable) {

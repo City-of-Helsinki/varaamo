@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ManageReservationsDropdown renders correctly 1`] = `
+<div
+  className="app-ManageReservationDropdown"
+>
+  <DropdownButton
+    id="app-ManageReservationDropdown"
+    title="foo"
+  >
+    <MenuItem
+      bsClass="dropdown"
+      disabled={false}
+      divider={false}
+      header={false}
+    >
+      foo
+    </MenuItem>
+    <MenuItem
+      bsClass="dropdown"
+      disabled={false}
+      divider={false}
+      header={false}
+      onClick={[Function]}
+    >
+      foo
+    </MenuItem>
+    <MenuItem
+      bsClass="dropdown"
+      disabled={false}
+      divider={false}
+      header={false}
+      onClick={[Function]}
+    >
+      foo
+    </MenuItem>
+    <MenuItem
+      bsClass="dropdown"
+      disabled={false}
+      divider={false}
+      header={false}
+    >
+      foo
+    </MenuItem>
+  </DropdownButton>
+</div>
+`;

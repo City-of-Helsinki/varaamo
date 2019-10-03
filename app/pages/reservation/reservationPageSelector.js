@@ -1,19 +1,20 @@
-import ActionTypes from 'constants/ActionTypes';
-
 import { createSelector, createStructuredSelector } from 'reselect';
 import first from 'lodash/first';
 import isEmpty from 'lodash/isEmpty';
 import orderBy from 'lodash/orderBy';
 import queryString from 'query-string';
 
+import ActionTypes from '../../constants/ActionTypes';
 import {
   createIsStaffSelector,
   currentUserSelector,
   isAdminSelector,
-} from 'state/selectors/authSelectors';
-import { createResourceSelector, unitsSelector } from 'state/selectors/dataSelectors';
-import dateSelector from 'state/selectors/dateSelector';
-import requestIsActiveSelectorFactory from 'state/selectors/factories/requestIsActiveSelectorFactory';
+} from '../../state/selectors/authSelectors';
+import { createResourceSelector, unitsSelector } from '../../state/selectors/dataSelectors';
+import dateSelector from '../../state/selectors/dateSelector';
+import requestIsActiveSelectorFactory from '../../state/selectors/factories/requestIsActiveSelectorFactory';
+import recurringReservations from '../../state/recurringReservations';
+import selectedReservationsSelector from '../../state/selectors/selectedReservationsSelector';
 
 const selectedSelector = state => orderBy(state.ui.reservations.selected, 'begin');
 const createdSelector = (state) => {
@@ -36,6 +37,8 @@ const unitSelector = createSelector(
   (resource, units) => units[resource.unit] || {}
 );
 
+const failedReservationsSelector = state => orderBy(state.ui.reservations.failed, 'begin');
+
 const reservationPageSelector = createStructuredSelector({
   date: dateSelector,
   isAdmin: isAdminSelector,
@@ -43,13 +46,16 @@ const reservationPageSelector = createStructuredSelector({
   isFetchingResource: requestIsActiveSelectorFactory(ActionTypes.API.RESOURCE_GET_REQUEST),
   isMakingReservations: requestIsActiveSelectorFactory(ActionTypes.API.RESERVATION_POST_REQUEST),
   selected: selectedSelector,
+  selectedReservations: selectedReservationsSelector,
   resourceId: resourceIdSelector,
   resource: resourceSelector,
   reservationToEdit: toEditSelector,
   reservationCreated: createdSelector,
+  recurringReservations: recurringReservations.selectReservations,
   reservationEdited: editedSelector,
   unit: unitSelector,
   user: currentUserSelector,
+  failedReservations: failedReservationsSelector,
 });
 
 export default reservationPageSelector;

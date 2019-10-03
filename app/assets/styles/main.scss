@@ -10,16 +10,20 @@
 @import '~react-notifications/lib/notifications.css';
 @import '~react-toggle/style.css';
 
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+@import '~@fullcalendar/timegrid/main.css';
+
 @import './layout';
 @import './mixins';
 
 @import '../../pages/pages';
 @import '../../shared/shared';
+@import '../../../src/domain/domain';
+@import '../../../src/common/common';
 
 @import './elements';
 @import './loader';
 @import './modals';
 @import './react-select';
 @import './react-toggle';
-
-@import './customization/espoo/customization';

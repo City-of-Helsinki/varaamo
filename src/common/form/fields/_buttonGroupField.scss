@@ -1,0 +1,19 @@
+.app-ButtonGroupField {
+  &__buttons {
+    display: block;
+    overflow: hidden;
+    margin: 0 -2px;
+  }
+
+  &__button {
+    margin: 0 5px 5px 0 !important;
+    font-size: 14px;
+    font-weight: 500;
+
+    &.active,
+    &:hover {
+      background-color: #000000 !important;
+      color: #dedfe1 !important;
+    }
+  }
+}

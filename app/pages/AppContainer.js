@@ -7,15 +7,15 @@ import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { withRouter } from 'react-router-dom';
+import { NotificationContainer } from 'react-notifications';
 
-import { fetchUser } from 'actions/userActions';
-import { enableGeoposition } from 'actions/uiActions';
-import Favicon from 'shared/favicon';
-import Footer from 'shared/footer';
-import Header from 'shared/header';
-import TestSiteMessage from 'shared/test-site-message';
-import Notifications from 'shared/notifications';
-import { getCustomizationClassName } from 'utils/customizationUtils';
+import { fetchUser } from '../actions/userActions';
+import { enableGeoposition } from '../actions/uiActions';
+import Favicon from '../shared/favicon/Favicon';
+import Footer from '../../src/domain/footer/Footer';
+import Header from '../../src/domain/header/Header';
+import TestSiteMessage from '../shared/test-site-message/TestSiteMessage';
+import { getCustomizationClassName } from '../utils/customizationUtils';
 
 const userIdSelector = state => state.auth.userId;
 
@@ -65,7 +65,7 @@ export class UnconnectedAppContainer extends Component {
         </Header>
         <div className="app-content">
           <Grid>
-            <Notifications />
+            <NotificationContainer />
           </Grid>
           {this.props.children}
         </div>

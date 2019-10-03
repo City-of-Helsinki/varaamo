@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pages/about/AboutPage render normally 1`] = `
+<PageWrapper
+  className="about-page"
+  title="AboutPage.title"
+>
+  <div
+    className="app-aboutPage"
+  >
+    <h1>
+      AboutPageContent.defaultHeader
+    </h1>
+    <p
+      className="app-aboutPage__lead"
+    >
+      AboutPageContent.defaultLead
+    </p>
+    <p>
+      AboutPageContent.pilotParagraph
+    </p>
+    <p>
+      AboutPageContent.defaultReservableParagraph
+    </p>
+    <p>
+      <FormattedHTMLMessage
+        id="AboutPageContent.basedOnParagraph"
+        values={Object {}}
+      />
+    </p>
+    <p>
+      AboutPageContent.developmentParagraph
+    </p>
+    <p>
+      AboutPageContent.goalParagraph
+    </p>
+    <p>
+      AboutPageContent.feedbackParagraph
+      <FeedbackLink>
+        AboutPageContent.feedbackLink
+      </FeedbackLink>
+    </p>
+    <h3>
+      AboutPageContent.customerRegisterHeader
+    </h3>
+    <p>
+      AboutPageContent.customerRegisterParagraph
+      <a
+        href="https://app.helmet-kirjasto.fi/varaamo/rekisteriseloste.php"
+      >
+        AboutPageContent.customerRegisterLink
+      </a>
+    </p>
+    <br />
+  </div>
+</PageWrapper>
+`;

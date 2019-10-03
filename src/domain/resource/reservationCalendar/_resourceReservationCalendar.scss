@@ -1,0 +1,33 @@
+.app-ResourceReservationCalendar {
+  &__selectedInfo {
+    margin: 20px 0;
+    display: flex;
+
+    @media (max-width: $screen-sm-max) {
+      display: block;
+    }
+  }
+
+  &__selectedDate,
+  &__loginInfo {
+    display: flex;
+    flex: 1;
+    align-items: center;
+
+    @media (max-width: $screen-sm-max) {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+  }
+
+  &__reserveButton,
+  &__loginButton {
+    font-size: 24px;
+
+    @media (max-width: $screen-sm-max) {
+      width: 100%;
+    }
+  }
+
+}
+

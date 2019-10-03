@@ -1,15 +1,13 @@
-import constants from 'constants/AppConstants';
-
 import isArray from 'lodash/isArray';
 import isObject from 'lodash/isObject';
 import mapValues from 'lodash/mapValues';
 import some from 'lodash/some';
 import { createSelector } from 'reselect';
 
+import constants from '../../constants/AppConstants';
 
 function currentLanguageSelector(state) {
-  const locale = state.intl ? state.intl.locale : constants.DEFAULT_LOCALE;
-  return locale === 'se' ? 'sv' : locale;
+  return state.intl ? state.intl.locale : constants.DEFAULT_LOCALE;
 }
 
 function isTranslatable(prop) {

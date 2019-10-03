@@ -1,0 +1,299 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReservationInformationModal renders correctly 1`] = `
+<Modal
+  animation={true}
+  autoFocus={true}
+  backdrop={true}
+  bsClass="modal"
+  className="app-ReservationInformationModal"
+  dialogComponentClass={[Function]}
+  enforceFocus={true}
+  keyboard={true}
+  manager={
+    ModalManager {
+      "add": [Function],
+      "containers": Array [],
+      "data": Array [],
+      "handleContainerOverflow": true,
+      "hideSiblingNodes": true,
+      "isTopModal": [Function],
+      "modals": Array [],
+      "remove": [Function],
+    }
+  }
+  onHide={[MockFunction]}
+  renderBackdrop={[Function]}
+  restoreFocus={true}
+  show={true}
+>
+  <ModalHeader
+    bsClass="modal-header"
+    closeButton={true}
+    closeLabel="Close"
+  >
+    <ModalTitle
+      bsClass="modal-title"
+      componentClass="h4"
+    >
+      ReservationInfoModal.title
+    </ModalTitle>
+  </ModalHeader>
+  <ModalBody
+    bsClass="modal-body"
+    componentClass="div"
+  >
+    <InjectT(ManageReservationsStatus)
+      reservation={
+        Object {
+          "begin": "2019-08-14T14:00:00+03:00",
+          "comments": "",
+          "end": "2019-08-14T15:00:00+03:00",
+          "event_description": "",
+          "event_subject": "",
+          "has_catering_order": false,
+          "id": 1,
+          "its_own": false,
+          "resource": 1,
+          "staff_event": false,
+          "state": "requested",
+          "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
+          "user": Object {},
+          "user_permissions": null,
+        }
+      }
+    />
+    <div
+      className="app-ReservationInformationModal__information"
+    >
+      <div
+        className="app-ReservationInformationModal__information__account"
+      >
+        <div
+          className="app-ReservationInformationModal__field"
+        >
+          <Row
+            bsClass="row"
+            componentClass="div"
+          >
+            <Col
+              bsClass="col"
+              className="app-ReservationInformationModal__field__label"
+              componentClass="div"
+              xs={5}
+            >
+              <span>
+                common.userNameLabel
+              </span>
+            </Col>
+            <Col
+              bsClass="col"
+              className="app-ReservationInformationModal__field__value"
+              componentClass="div"
+              xs={7}
+            >
+              <span />
+            </Col>
+          </Row>
+        </div>
+        <div
+          className="app-ReservationInformationModal__field"
+        >
+          <Row
+            bsClass="row"
+            componentClass="div"
+          >
+            <Col
+              bsClass="col"
+              className="app-ReservationInformationModal__field__label"
+              componentClass="div"
+              xs={5}
+            >
+              <span>
+                common.userEmailLabel
+              </span>
+            </Col>
+            <Col
+              bsClass="col"
+              className="app-ReservationInformationModal__field__value"
+              componentClass="div"
+              xs={7}
+            >
+              <span />
+            </Col>
+          </Row>
+        </div>
+      </div>
+      <div
+        className="app-ReservationInformationModal__field"
+      >
+        <Row
+          bsClass="row"
+          componentClass="div"
+        >
+          <Col
+            bsClass="col"
+            className="app-ReservationInformationModal__field__label"
+            componentClass="div"
+            xs={5}
+          >
+            <span>
+              common.reservationTimeLabel
+            </span>
+          </Col>
+          <Col
+            bsClass="col"
+            className="app-ReservationInformationModal__field__value"
+            componentClass="div"
+            xs={7}
+          >
+            <span>
+              ke 14.08.2019 14:00 - 15:00
+            </span>
+          </Col>
+        </Row>
+      </div>
+      <div
+        className="app-ReservationInformationModal__field"
+      >
+        <Row
+          bsClass="row"
+          componentClass="div"
+        >
+          <Col
+            bsClass="col"
+            className="app-ReservationInformationModal__field__label"
+            componentClass="div"
+            xs={5}
+          >
+            <span>
+              common.resourceLabel
+            </span>
+          </Col>
+          <Col
+            bsClass="col"
+            className="app-ReservationInformationModal__field__value"
+            componentClass="div"
+            xs={7}
+          >
+            <span />
+          </Col>
+        </Row>
+      </div>
+      <InjectT(ReservationMetadata)
+        customField={[Function]}
+        reservation={
+          Object {
+            "begin": "2019-08-14T14:00:00+03:00",
+            "comments": "",
+            "end": "2019-08-14T15:00:00+03:00",
+            "event_description": "",
+            "event_subject": "",
+            "has_catering_order": false,
+            "id": 1,
+            "its_own": false,
+            "resource": 1,
+            "staff_event": false,
+            "state": "requested",
+            "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
+            "user": Object {},
+            "user_permissions": null,
+          }
+        }
+      />
+    </div>
+    <div
+      className="app-ReservationInformationModal__edit-reservation-btn"
+    >
+      <Button
+        active={false}
+        block={false}
+        bsClass="btn"
+        bsStyle="primary"
+        disabled={false}
+        onClick={[Function]}
+      >
+        ReservationEditForm.startEdit
+      </Button>
+    </div>
+    <div
+      className="app-ReservationInformationModal__comments-section"
+    >
+      <ControlLabel
+        bsClass="control-label"
+        srOnly={false}
+      >
+        common.commentsLabel:
+      </ControlLabel>
+      <FormControl
+        bsClass="form-control"
+        className="app-ReservationInformationModal__comments-field"
+        componentClass="textarea"
+        onChange={[Function]}
+        placeholder="common.commentsPlaceholder"
+        rows={5}
+        value=""
+      />
+      <div
+        className="app-ReservationInformationModal__save-comment"
+      >
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsStyle="primary"
+          disabled={false}
+          onClick={[Function]}
+        >
+          ReservationInfoModal.saveComment
+        </Button>
+      </div>
+    </div>
+  </ModalBody>
+  <ModalFooter
+    bsClass="modal-footer"
+    componentClass="div"
+  >
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="primary"
+      disabled={false}
+      onClick={[MockFunction]}
+    >
+      common.back
+    </Button>
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="default"
+      disabled={false}
+      onClick={[Function]}
+    >
+      ReservationInfoModal.cancelButton
+    </Button>
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="danger"
+      disabled={false}
+      onClick={[Function]}
+    >
+      ReservationInfoModal.denyButton
+    </Button>
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="success"
+      disabled={false}
+      onClick={[Function]}
+    >
+      ReservationInfoModal.confirmButton
+    </Button>
+  </ModalFooter>
+</Modal>
+`;

@@ -22,7 +22,7 @@ module.exports = merge(common, {
   module: {
     rules: [
       {
-        test: /^(?!.*\.spec\.js$).*\.js$/,
+        test: /^(?!.*\.test\.js$).*\.js$/,
         include: [path.resolve(__dirname, '../app'), path.resolve(__dirname, '../src')],
         loader: 'babel-loader',
         options: {
@@ -58,6 +58,7 @@ module.exports = merge(common, {
         SHOW_TEST_SITE_MESSAGE: Boolean(process.env.SHOW_TEST_SITE_MESSAGE),
         TRACKING: Boolean(process.env.PIWIK_SITE_ID),
         CUSTOM_MUNICIPALITY_OPTIONS: process.env.CUSTOM_MUNICIPALITY_OPTIONS,
+        TIME_ZONE: JSON.stringify(process.env.TIME_ZONE || 'Europe/Helsinki'),
       },
     }),
     new MiniCssExtractPlugin({

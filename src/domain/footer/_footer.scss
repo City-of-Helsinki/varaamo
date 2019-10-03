@@ -1,0 +1,55 @@
+footer {
+  background-color: $brand-primary;
+  color: #fff;
+  z-index: $max-map-z-index + 1;
+  margin-top: 40px;
+  text-align: center;
+  font-size: 1.6rem;
+
+  .brand-link {
+    display: block;
+    color: #fff;
+    font-size: 2.5rem;
+    line-height: 50px;
+    font-weight: bold;
+    text-decoration: none;
+
+    img {
+      display: block;
+      margin: 0 auto;
+      vertical-align: top;
+      height: 50px;
+    }
+  }
+
+  .feedback-link {
+    color: #ccc;
+  }
+
+  .about-link {
+    color: #fff;
+    font-weight: bold;
+  }
+
+  a {
+    color: #fff;
+  }
+
+  a:hover {
+    color: #eee;
+  }
+
+  .app-varaamo-version-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .app-varaamo-version {
+    font-size: $font-size-small;
+    color: $white;
+    text-align: center;
+    @media (min-width: $screen-md-min) {
+      margin-top: 70px;
+    }
+  }
+}
