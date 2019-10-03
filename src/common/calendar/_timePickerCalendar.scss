@@ -86,13 +86,7 @@
         color: $black;
       }
 
-      .fc-left {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-      }
-
-      .fc-right {
+      .fc-right, .fc-left {
         .fc-button-group {
           .fc-button {
             flex-grow: 0;
