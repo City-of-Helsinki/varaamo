@@ -149,7 +149,7 @@ class ManageReservationsPage extends React.Component {
       this.loadReservations();
     } catch (error) {
       // We show the error message from respa to staff because it helps with support and debugging.
-      createNotification(NOTIFICATION_TYPE.ERROR, error.data.detail);
+      createNotification(NOTIFICATION_TYPE.ERROR, error.message);
     }
   }
 
@@ -159,7 +159,7 @@ class ManageReservationsPage extends React.Component {
       this.loadReservations();
     } catch (error) {
       // We show the error message from respa to staff because it helps with support and debugging.
-      createNotification(NOTIFICATION_TYPE.ERROR, error.data.detail);
+      createNotification(NOTIFICATION_TYPE.ERROR, error.message);
     }
   };
 
