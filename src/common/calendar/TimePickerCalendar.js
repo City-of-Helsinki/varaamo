@@ -314,6 +314,7 @@ class TimePickerCalendar extends Component {
       selectOverlap: false,
       selectConstraint: 'businessHours',
       selectMirror: true,
+      dragScroll: true,
       slotLabelFormat: {
         hour: 'numeric',
         minute: '2-digit',
@@ -321,7 +322,7 @@ class TimePickerCalendar extends Component {
         meridiem: 'short'
       },
       unselectAuto: false,
-      longPressDelay: '1',
+      longPressDelay: '500',
       // Almost invoke click event on mobile immediatelly without any delay
     };
   };
