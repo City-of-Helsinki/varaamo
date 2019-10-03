@@ -16,6 +16,7 @@
   - Add `show_only` filter section to filter reservation list. This filter have `can_modify` as its default value.
   - Anonymous users now see a log in button below the calendar on the resource page helping them understand that they need to log in to continue.
   - Errors from respa backend are not swallowed in our ApiClient anymore.
+  - Allow user to select time slot which is already happening.
 
   **HOTFIX**
   - Fix resource information headlines and icon.
@@ -36,6 +37,7 @@
   - [#1031](https://github.com/City-of-Helsinki/varaamo/pull/1031) Use resource's userPermissions.isAdmin flag to check if user isStaff.
   - [#1032](https://github.com/City-of-Helsinki/varaamo/pull/1032) Better max period handling for FullCalendar.
   - [#1035](https://github.com/City-of-Helsinki/varaamo/pull/1035) Daily / weekly view for mobile.
+  - [#1036](https://github.com/City-of-Helsinki/varaamo/pull/1036) Allow to select timeslot which is already happening.
 
 # 0.4.2
   **HOTFIX**

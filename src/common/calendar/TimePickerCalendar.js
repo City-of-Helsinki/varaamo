@@ -166,11 +166,10 @@ class TimePickerCalendar extends Component {
 
       if (eventCallback) {
         eventCallback.revert();
+        createNotification(
+          NOTIFICATION_TYPE.INFO, t('TimePickerCalendar.info.minPeriodText', { duration: minPeriodDuration })
+        );
       }
-
-      createNotification(
-        NOTIFICATION_TYPE.INFO, t('TimePickerCalendar.info.minPeriodText', { duration: minPeriodDuration })
-      );
 
       selectable = calendarUtils.getMinPeriodTimeRange(resource, selected.start, selected.end);
       // Make sure selected time will always bigger than min period
