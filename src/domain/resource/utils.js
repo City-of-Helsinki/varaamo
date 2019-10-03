@@ -616,6 +616,7 @@ export const getReservationPrice = (start, end, resource) => {
  * Get a translated string that informs user what the min reservation time is.
  * @param t {function}
  * @param resource {object} Resource object.
+ * @param short {bool} Use short format.
  * @returns {string|*}
  */
 export const getMaxPeriodText = (t, { maxPeriod }) => {

@@ -83,12 +83,37 @@ class TimePickerCalendar extends Component {
   }
 
   onEventRender = (info) => {
-    // add cancel button for new selected event
+    let maxPeriod;
+    let duration;
+
     if (info.event.id === NEW_RESERVATION) {
+      // Add cancel button for new selected event.
       const cancelBtn = document.createElement('span');
       cancelBtn.classList.add('app-TimePickerCalendar__cancelEvent');
       cancelBtn.addEventListener('click', () => this.onCancel(), { once: true });
       info.el.append(cancelBtn);
+
+      maxPeriod = get(info.event.extendedProps, 'maxPeriod', null);
+      duration = get(info.event.extendedProps, 'duration', null);
+    } else if (info.event.id === '') {
+      // While event is being resized, before user is finished dragging.
+      maxPeriod = this.getMaxLengthText(info.event);
+      // FullCalendar gives us same start and en time, we can use min time:
+      duration = this.getDurationText(this.getSelectableTimeRange(info.event));
+    }
+
+    if (duration) {
+      const eventDuration = document.createElement('span');
+      eventDuration.textContent = duration;
+      eventDuration.classList.add('app-TimePickerCalendar__eventDuration');
+      info.el.append(eventDuration);
+    }
+
+    if (maxPeriod) {
+      const eventMaxLength = document.createElement('span');
+      eventMaxLength.classList.add('app-TimePickerCalendar__eventDuration--max');
+      eventMaxLength.textContent = ` (${maxPeriod})`;
+      info.el.append(eventMaxLength);
     }
   }
 
@@ -199,8 +224,7 @@ class TimePickerCalendar extends Component {
     return selectable;
   }
 
-  getDurationText = () => {
-    const { selected } = this.state;
+  getDurationText = (selected) => {
     const start = moment(selected.start);
     const end = moment(selected.end);
     const duration = moment.duration(end.diff(start));
@@ -224,9 +248,16 @@ class TimePickerCalendar extends Component {
     return text;
   };
 
-  getSelectedDateText = () => {
+  getMaxLengthText = () => {
     const { t, resource } = this.props;
-    const { selected } = this.state;
+    const maxPeriod = resource.max_period;
+    return resourceUtils.getMaxPeriodText(t, { maxPeriod });
+  }
+
+  // TODO: Find out if this is used, if not: Delete.
+  // There is a duplicate in src/domain/resource/reservationCalendar/ResourceReservationCalendar.js
+  getSelectedDateText = (selected) => {
+    const { t, resource } = this.props;
 
     if (selected) {
       const start = moment(selected.start);
@@ -237,7 +268,7 @@ class TimePickerCalendar extends Component {
         date: start.format('dd D.M.Y'),
         start: start.format('HH:mm'),
         end: end.format('HH:mm'),
-        duration: this.getDurationText(),
+        duration: this.getDurationText(selected),
         price,
       };
 
@@ -327,6 +358,14 @@ class TimePickerCalendar extends Component {
     };
   };
 
+  onSelectAllow = (selectedInfo) => {
+    const calendarApi = this.calendarRef.current.getApi();
+    const duration = this.getDurationText(selectedInfo);
+    // calendarApi.extendedProps.duration = duration;
+
+    return true;
+  }
+
   getEvents = () => {
     const {
       resource, isStaff
@@ -342,6 +381,10 @@ class TimePickerCalendar extends Component {
           'app-TimePickerCalendar__newReservation',
         ],
         editable: true,
+        extendedProps: {
+          maxPeriod: this.getMaxLengthText(),
+          duration: this.getDurationText(selected),
+        },
         durationEditable: !calendarUtils.isTimeRangeOverMaxPeriod(
           resource, selected.start, selected.end, isStaff
         ),

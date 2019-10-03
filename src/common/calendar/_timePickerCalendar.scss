@@ -9,6 +9,13 @@
     }
   }
 
+  &__eventDuration {
+    overflow: hidden;
+    &--max {
+      color: inherit;
+    }
+  }
+
   &__restrictedDate {
     background-color: $gray-light !important;
   }
