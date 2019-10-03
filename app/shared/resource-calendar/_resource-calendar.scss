@@ -27,6 +27,10 @@
     &--next {
       @include icon-angle-right($black);
     }
+
+    @media (max-width: $screen-xs-max) {
+      display: none;
+    }
   }
 
   .app-ResourceCalendar__wrapper {
