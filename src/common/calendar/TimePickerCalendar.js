@@ -37,14 +37,25 @@ class TimePickerCalendar extends Component {
 
   state = {
     viewType: 'timeGridWeek',
-    selected: calendarUtils.getDefaultSelectedTimeRange(this.props.edittingReservation)
+    selected: calendarUtils.getDefaultSelectedTimeRange(this.props.edittingReservation),
+    header: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'timeGridDay,timeGridWeek'
+    }
   };
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     const { date } = this.props;
+    const { viewType } = this.state;
+
+    const calendarApi = this.calendarRef.current.getApi();
+
     if (date !== prevProps.date) {
-      const calendarApi = this.calendarRef.current.getApi();
       calendarApi.gotoDate(date);
+    }
+    if (viewType !== prevState.viewType) {
+      calendarApi.changeView(viewType);
     }
   }
 
@@ -104,6 +115,26 @@ class TimePickerCalendar extends Component {
     const selectable = this.getSelectableTimeRange(event, selectionInfo);
 
     this.onChange(selectable);
+  }
+
+  onDatesRender = (info) => {
+    const { viewType, header } = this.state;
+    let view = info.view.type;
+    let headerConfig = header;
+
+    if (window.innerWidth < 768) {
+      // mobile view config
+      view = 'timeGridDay';
+      headerConfig = {
+        left: 'today,prev',
+        center: 'title',
+        right: 'next,timeGridDay,timeGridWeek'
+      };
+    }
+
+    if (viewType !== view) {
+      this.setState({ viewType: view, header: headerConfig });
+    }
   }
 
   /**
@@ -267,11 +298,6 @@ class TimePickerCalendar extends Component {
 
   getCalendarOptions = () => {
     return {
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'timeGridDay,timeGridWeek'
-      },
       timeZone: SETTINGS.TIME_ZONE,
       height: 'auto',
       editable: true,
@@ -293,6 +319,8 @@ class TimePickerCalendar extends Component {
         meridiem: 'short'
       },
       unselectAuto: false,
+      longPressDelay: '1',
+      // Almost invoke click event on mobile immediatelly without any delay
     };
   };
 
@@ -323,10 +351,10 @@ class TimePickerCalendar extends Component {
 
   render() {
     const { resource, date } = this.props;
-    const { viewType } = this.state;
+    const { viewType, header } = this.state;
 
     return (
-      <div className="app-Calendar">
+      <div className="app-TimePickerCalendar">
         <FullCalendar
           {...this.getCalendarOptions()}
           allDaySlot={false}
@@ -337,8 +365,10 @@ class TimePickerCalendar extends Component {
           eventRender={this.onEventRender}
           eventResize={this.onEventResize}
           events={this.getEvents()}
+          header={header}
           maxTime={resourceUtils.getFullCalendarMaxTime(resource, date, viewType)}
           minTime={resourceUtils.getFullCalendarMinTime(resource, date, viewType)}
+          onDatesRender={this.onDatesRender}
           ref={this.calendarRef}
           select={this.onSelect}
           selectAllow={this.onSelectAllow}

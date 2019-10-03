@@ -147,11 +147,6 @@ $content-padding: 10px;
     }
   }
 
-  @media (max-width: $resource-page-width) {
-    margin-left: -15px;
-    margin-right: -15px;
-  }
-
   @media (min-width: $screen-xs-max) {
     .app-ResourceHeader__content {
       padding: 15px 15px 15px 15px;

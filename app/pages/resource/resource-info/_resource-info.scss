@@ -55,6 +55,8 @@ $horizontal-margin: 20px;
 
   &__address,
   &__web {
+    overflow: scroll;
+
     span {
       display: block;
     }
