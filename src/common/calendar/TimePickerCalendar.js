@@ -21,6 +21,9 @@ import { NOTIFICATION_TYPE } from '../notification/constants';
 
 const NEW_RESERVATION = 'NEW_RESERVATION';
 
+moment.tz.setDefault(SETTINGS.TIME_ZONE);
+// Re-apply moment-timezone default timezone, cause FullCalendar import have override the import
+
 class TimePickerCalendar extends Component {
   calendarRef = React.createRef();
 

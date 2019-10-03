@@ -20,6 +20,7 @@
 
   **HOTFIX**
   - Fix resource information headlines and icon.
+  - Fix default timezone being overrided and disappear from moment object by fullcalendar moment-timezone plugin.
 
   **CHANGELOG**
   - [#995](https://github.com/City-of-Helsinki/varaamo/pull/995) Fix resource information headlines and icon.
@@ -37,8 +38,8 @@
   - [#1031](https://github.com/City-of-Helsinki/varaamo/pull/1031) Use resource's userPermissions.isAdmin flag to check if user isStaff.
   - [#1032](https://github.com/City-of-Helsinki/varaamo/pull/1032) Better max period handling for FullCalendar.
   - [#1035](https://github.com/City-of-Helsinki/varaamo/pull/1035) Daily / weekly view for mobile.
-  - [#1036](https://github.com/City-of-Helsinki/varaamo/pull/1036) Allow to select timeslot which is already happening.
-
+  - [#1037](https://github.com/City-of-Helsinki/varaamo/pull/1037) Allow to select timeslot which is already happening.
+  - [#1039](https://github.com/City-of-Helsinki/varaamo/pull/1039) Fix moment-timezone default timezone
 # 0.4.2
   **HOTFIX**
   - Fix various styling issue for date-picker [#991](https://github.com/City-of-Helsinki/varaamo/pull/991)
