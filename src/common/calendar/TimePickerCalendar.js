@@ -341,7 +341,6 @@ class TimePickerCalendar extends Component {
           minTime={resourceUtils.getFullCalendarMinTime(resource, date, viewType)}
           ref={this.calendarRef}
           select={this.onSelect}
-          selectAllow={this.onSelectAllow}
           slotDuration={resourceUtils.getFullCalendarSlotDuration(resource, date, viewType)}
           slotLabelInterval={resourceUtils.getFullCalendarSlotLabelInterval(resource)}
         />

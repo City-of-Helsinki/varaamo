@@ -103,6 +103,22 @@ export const isFree = (resource) => {
 };
 
 /**
+ * getSlotSizeInMinutes();
+ * @param resource {object} Resource object.
+ * @returns {number} Slot size in minutes.
+ */
+export const getSlotSizeInMinutes = (resource) => {
+  const slotSize = get(resource, 'slot_size', null);
+
+  if (slotSize) {
+    const slotSizeDuration = moment.duration(slotSize);
+    return slotSizeDuration.hours() * 60 + slotSizeDuration.minutes();
+  }
+
+  return 30;
+};
+
+/**
  * getOpeningHours();
  * @param resource {object} Resource object.
  * @param date Date string that can be parsed as moment object.
@@ -441,8 +457,12 @@ export const isTimeRangeReservable = (resource, start, end, events) => {
     return false;
   }
 
+  const slotSize = getSlotSizeInMinutes(resource);
+  const oneTimeSlotBeforeNow = now.subtract(slotSize, 'minutes');
+
   // Prevent selecting times from past.
-  return startMoment.isAfter(now);
+  // But allow user to select timeslot which is happening.
+  return startMoment.isAfter(oneTimeSlotBeforeNow);
 };
 
 /**
@@ -558,22 +578,6 @@ export const getAvailabilityDataForWholeDay = (resource, date) => {
     bsStyle: 'success',
     values: { hours: rounded },
   };
-};
-
-/**
- * getSlotSizeInMinutes();
- * @param resource {object} Resource object.
- * @returns {number} Slot size in minutes.
- */
-export const getSlotSizeInMinutes = (resource) => {
-  const slotSize = get(resource, 'slot_size', null);
-
-  if (slotSize) {
-    const slotSizeDuration = moment.duration(slotSize);
-    return slotSizeDuration.hours() * 60 + slotSizeDuration.minutes();
-  }
-
-  return 30;
 };
 
 /**
