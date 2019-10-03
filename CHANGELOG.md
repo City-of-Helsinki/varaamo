@@ -1,9 +1,10 @@
-# 0.5.0-pre
+# 0.6.0
   **MAJOR CHANGES**
   - Support for payments in Varaamo.
   - Add option to configure time zone of calendar/resources. Defaults to `Europe/Helsinki`.
   - Permission checking has been changed: We are now using unit authorizations instead of unit object permissions from respa admin.
 
+  ***CALENDAR***
   - Add reusable FullCalendar component.
   - Fix FullCalendar not auto-select `min_period` time slot when user select. Various fixes related to edit reservation calendar, drag and drop and select error handler.
   - Fix missing `max_period` check when user select / resize calendar reservation. Show notification and revert to `max_period` if user select bigger amount of time slot than the limit. Various improvement for calendar is included as well.
@@ -30,7 +31,7 @@
   - [#1004](https://github.com/City-of-Helsinki/varaamo/pull/1004) Staff cannot see normal reservations.
   - [#1005](https://github.com/City-of-Helsinki/varaamo/pull/1005) Reservation information modal is missing metadata fields.
   - [#1006](https://github.com/City-of-Helsinki/varaamo/pull/1006) Manage reservation filter buttons.
-  - [#1026](https://github.com/City-of-Helsinki/varaamo/pull/1026) Add support for minPeriod auto-select
+  - [#1026](https://github.com/City-of-Helsinki/varaamo/pull/1026) Add support for minPeriod auto-select.
   - [#1027](https://github.com/City-of-Helsinki/varaamo/pull/1027) Improve resource page usability for anonymous users.
   - [#1028](https://github.com/City-of-Helsinki/varaamo/pull/1028) Always fetch reservations with start and end filters.
   - [#1029](https://github.com/City-of-Helsinki/varaamo/pull/1029) Add option to configure time zone for resources.
@@ -39,7 +40,8 @@
   - [#1032](https://github.com/City-of-Helsinki/varaamo/pull/1032) Better max period handling for FullCalendar.
   - [#1035](https://github.com/City-of-Helsinki/varaamo/pull/1035) Daily / weekly view for mobile.
   - [#1037](https://github.com/City-of-Helsinki/varaamo/pull/1037) Allow to select timeslot which is already happening.
-  - [#1039](https://github.com/City-of-Helsinki/varaamo/pull/1039) Fix moment-timezone default timezone
+  - [#1039](https://github.com/City-of-Helsinki/varaamo/pull/1039) Fix moment-timezone default timezone.
+
 # 0.4.2
   **HOTFIX**
   - Fix various styling issue for date-picker [#991](https://github.com/City-of-Helsinki/varaamo/pull/991)
