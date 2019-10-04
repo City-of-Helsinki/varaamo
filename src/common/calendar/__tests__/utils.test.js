@@ -134,16 +134,21 @@ describe('TimePickerCalendar utils ', () => {
       expect(isOver).toBeFalsy();
     });
   });
+
   describe('getDurationText', () => {
     test('should return correct length in minutes', () => {
       const durationText = calendarUtils.getDurationText(selection);
+
       expect(durationText).toEqual('30min');
     });
+
     test('should return correct length in hours', () => {
       selection.end = new Date(moment(selection.start).add(1, 'hours').toISOString());
       const durationText = calendarUtils.getDurationText(selection);
+
       expect(durationText).toEqual('1h');
     });
+
     test('should return correct length in days hours minutes', () => {
       selection.end = new Date(moment(selection.start)
         .add(2, 'days')
@@ -152,11 +157,14 @@ describe('TimePickerCalendar utils ', () => {
         .add(33, 'seconds')
         .toISOString());
       const durationText = calendarUtils.getDurationText(selection);
+
       expect(durationText).toEqual('2d3h4min');
     });
+
     test('should return empty string if start and end are equal', () => {
       selection.end = selection.start;
       const durationText = calendarUtils.getDurationText(selection);
+
       expect(durationText).toEqual('');
     });
   });
