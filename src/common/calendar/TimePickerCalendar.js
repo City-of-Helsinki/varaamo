@@ -99,7 +99,7 @@ class TimePickerCalendar extends Component {
       // While event is being resized, before user is finished dragging.
       maxPeriod = this.getMaxLengthText(info.event);
       // FullCalendar gives us same start and en time, we can use min time:
-      duration = this.getDurationText(this.getSelectableTimeRange(info.event));
+      duration = calendarUtils.getDurationText(this.getSelectableTimeRange(info.event));
     }
 
     if (duration) {
@@ -224,30 +224,6 @@ class TimePickerCalendar extends Component {
     return selectable;
   }
 
-  getDurationText = (selected) => {
-    const start = moment(selected.start);
-    const end = moment(selected.end);
-    const duration = moment.duration(end.diff(start));
-    const days = duration.days();
-    const hours = duration.hours();
-    const minutes = duration.minutes();
-
-    let text = '';
-    if (days) {
-      text = `${days}d`;
-    }
-
-    if (hours) {
-      text += `${hours}h`;
-    }
-
-    if (minutes) {
-      text += `${minutes}min`;
-    }
-
-    return text;
-  };
-
   getMaxLengthText = () => {
     const { t, resource } = this.props;
     const maxPeriod = resource.max_period;
@@ -347,7 +323,7 @@ class TimePickerCalendar extends Component {
         editable: true,
         extendedProps: {
           maxPeriod: this.getMaxLengthText(),
-          duration: this.getDurationText(selected),
+          duration: calendarUtils.getDurationText(selected),
         },
         durationEditable: !calendarUtils.isTimeRangeOverMaxPeriod(
           resource, selected.start, selected.end, isStaff

@@ -163,3 +163,33 @@ export const getMaxPeriodTimeRange = (resource, start, end, isStaff) => {
     end
   };
 };
+
+/**
+ * Get text string of reservation duration.
+ *
+ * @param {Object} Calendar event.
+ * @returns {String} Length of selected event.
+ */
+export const getDurationText = (selected) => {
+  const start = moment(selected.start);
+  const end = moment(selected.end);
+  const duration = moment.duration(end.diff(start));
+  const days = duration.days();
+  const hours = duration.hours();
+  const minutes = duration.minutes();
+
+  let text = '';
+  if (days) {
+    text = `${days}d`;
+  }
+
+  if (hours) {
+    text += `${hours}h`;
+  }
+
+  if (minutes) {
+    text += `${minutes}min`;
+  }
+
+  return text;
+};
