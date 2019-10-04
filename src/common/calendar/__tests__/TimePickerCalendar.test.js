@@ -34,33 +34,23 @@ describe('TimePickerCalendar', () => {
     });
   });
 
-  describe('edittingReservation', () => {
+  describe('editingReservation', () => {
     const defaultSelected = {
       begin: '2019-09-05T10:30:00+03:00',
       end: '2019-09-05T12:00:00+03:00'
     };
 
-    const edittingReservation = reservation.build(defaultSelected);
+    const editingReservation = reservation.build(defaultSelected);
 
-    const wrapper = getWrapper({ edittingReservation });
+    const wrapper = getWrapper({ editingReservation });
 
-    test('will have selected state intitialize from edittingReservation props', () => {
-      expect(wrapper.state('selected')).toEqual(selected);
-    });
-
-    test('will populate new reservation event with timeslot selected from edittingReservation', () => {
-      const events = wrapper.instance().getEvents();
+    test('will populate new reservation event with timeslot selected from editingReservation', () => {
+      const instance = wrapper.instance();
+      const events = instance.getEvents();
       expect(events[0].classNames[1]).toContain('newReservation');
     });
 
-    test('will render edittingReservation slot when cancel current selected slot', () => {
-      wrapper.setState({
-        selected: {
-          start: '2019-09-05T13:30:00+03:00',
-          end: '2019-09-05T14:00:00+03:00'
-        }
-      });
-
+    test('will render editingReservation slot when cancel current selected slot', () => {
       // select random time range
       const instance = wrapper.instance();
 
@@ -77,9 +67,6 @@ describe('TimePickerCalendar', () => {
 
       // Mock on clicking cancel button
       instance.onCancel();
-
-      // Return data match default from reservation
-      expect(wrapper.state('selected')).toEqual(selected);
     });
   });
 });
