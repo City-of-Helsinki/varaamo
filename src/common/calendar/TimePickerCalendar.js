@@ -254,34 +254,6 @@ class TimePickerCalendar extends Component {
     return resourceUtils.getMaxPeriodText(t, { maxPeriod });
   }
 
-  // TODO: Find out if this is used, if not: Delete.
-  // There is a duplicate in src/domain/resource/reservationCalendar/ResourceReservationCalendar.js
-  getSelectedDateText = (selected) => {
-    const { t, resource } = this.props;
-
-    if (selected) {
-      const start = moment(selected.start);
-      const end = moment(selected.end);
-      const price = resourceUtils.getReservationPrice(selected.start, selected.end, resource);
-
-      const tVariables = {
-        date: start.format('dd D.M.Y'),
-        start: start.format('HH:mm'),
-        end: end.format('HH:mm'),
-        duration: this.getDurationText(selected),
-        price,
-      };
-
-      if (price) {
-        return t('TimePickerCalendar.selectedDateValueWithPrice', tVariables);
-      }
-
-      return t('TimePickerCalendar.selectedDateValue', tVariables);
-    }
-
-    return '';
-  };
-
   getReservedEvents = () => {
     const { resource, date } = this.props;
 
@@ -357,14 +329,6 @@ class TimePickerCalendar extends Component {
       // Almost invoke click event on mobile immediatelly without any delay
     };
   };
-
-  onSelectAllow = (selectedInfo) => {
-    const calendarApi = this.calendarRef.current.getApi();
-    const duration = this.getDurationText(selectedInfo);
-    // calendarApi.extendedProps.duration = duration;
-
-    return true;
-  }
 
   getEvents = () => {
     const {
