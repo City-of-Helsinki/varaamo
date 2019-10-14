@@ -5,7 +5,11 @@ exports[`SearchPage renders correctly 1`] = `
   className="app-SearchPage"
 >
   <InjectIntl(InjectT(SearchFilters))
-    filters={Object {}}
+    filters={
+      Object {
+        "date": "2019-10-14",
+      }
+    }
     isGeolocationEnabled={false}
     isLoadingPurposes={false}
     isLoadingUnits={false}

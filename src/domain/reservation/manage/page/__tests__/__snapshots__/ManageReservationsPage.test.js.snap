@@ -28,7 +28,11 @@ exports[`ManageReservationsPage renders correctly 1`] = `
       </Row>
     </Grid>
     <InjectIntl(InjectT(ManageReservationsFilters))
-      filters={Object {}}
+      filters={
+        Object {
+          "date": "2019-10-14",
+        }
+      }
       onSearchChange={[Function]}
       onShowOnlyFiltersChange={[Function]}
       showOnlyFilters={
