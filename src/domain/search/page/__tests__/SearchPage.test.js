@@ -2,15 +2,18 @@ import React from 'react';
 import toJSON from 'enzyme-to-json';
 
 import { UnWrappedSearchPage } from '../SearchPage';
-import { shallowWithIntl } from '../../../../../app/utils/testUtils';
+import { shallowWithIntl, globalDateMock } from '../../../../../app/utils/testUtils';
 
 describe('SearchPage', () => {
+  globalDateMock();
+
   test('renders correctly', () => {
     const props = {
       location: {},
       history: {},
-      match: { path: 'foo' }
+      match: { path: 'foo' },
     };
+
     const wrapper = shallowWithIntl(
       <UnWrappedSearchPage {...props} />
     );
