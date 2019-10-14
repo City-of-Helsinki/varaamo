@@ -1,9 +1,11 @@
 # 0.6.1
   **HOTFIX**
   - Resource fetchAll come with empty reservations data, affect resource availability status was determined wrong, which confuse user and display wrong status.
+  - Reduce search `PAGE_SIZE` to 30 instead of 500, time range for 1 week display of reservations to 1 week instead of 4 month long as earlier default.
 
   **CHANGELOG**
   - [#1044](https://github.com/City-of-Helsinki/varaamo/pull/1044) Populate resource fetching with default time range as 1 month.
+  - [#1046](https://github.com/City-of-Helsinki/varaamo/pull/1046) Reduce Varaamo request size.
 
 # 0.6.0
   **MAJOR CHANGES**

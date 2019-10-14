@@ -113,7 +113,7 @@ class SearchPage extends React.Component {
       isLoadingUnits: true,
     });
 
-    client.get('unit', { page_size: 500, unit_has_resource: true })
+    client.get('unit', { page_size: constants.SEARCH_PAGE_SIZE, unit_has_resource: true })
       .then(({ data }) => {
         this.setState({
           isLoadingUnits: false,
@@ -127,7 +127,7 @@ class SearchPage extends React.Component {
       isLoadingPurposes: true,
     });
 
-    client.get('purpose', { page_size: 500 })
+    client.get('purpose', { page_size: constants.SEARCH_PAGE_SIZE })
       .then(({ data }) => {
         this.setState({
           isLoadingPurposes: false,
@@ -154,14 +154,12 @@ class SearchPage extends React.Component {
     });
 
     const start = moment(filters.date)
-      .subtract(2, 'M')
-      .startOf('month')
-      .format();
+      .startOf('week')
+      .toISOString();
     const end = moment(filters.date)
-      .add(2, 'M')
-      .endOf('month')
-      .format();
-    // Fetch resource reservations time range 1 month from filter date.
+      .endOf('week')
+      .toISOString();
+    // Fetch resource reservations time range 1 week from filter date.
 
     const params = {
       ...filters,
