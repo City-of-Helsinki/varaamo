@@ -30,7 +30,7 @@ exports[`ManageReservationsPage renders correctly 1`] = `
     <InjectIntl(InjectT(ManageReservationsFilters))
       filters={
         Object {
-          "date": "2019-10-14",
+          "date": "2017-12-10",
         }
       }
       onSearchChange={[Function]}

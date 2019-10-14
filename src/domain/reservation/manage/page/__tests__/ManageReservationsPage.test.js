@@ -1,7 +1,7 @@
 import React from 'react';
 import toJSON from 'enzyme-to-json';
 
-import { shallowWithIntl } from '../../../../../../app/utils/testUtils';
+import { shallowWithIntl, globalDateMock } from '../../../../../../app/utils/testUtils';
 import { UnwrappedManageReservationsPage } from '../ManageReservationsPage';
 import resourceCreator from '../../../../../common/data/fixtures/resource';
 import reservationCreator from '../../../../../common/data/fixtures/reservation';
@@ -9,6 +9,8 @@ import { RESERVATION_SHOWONLY_FILTERS } from '../../../constants';
 import { RESERVATION_STATE } from '../../../../../constants/ReservationState';
 
 describe('ManageReservationsPage', () => {
+  globalDateMock();
+
   const defaultProps = {
     location: { search: '' }
   };
