@@ -7,7 +7,7 @@ exports[`SearchPage renders correctly 1`] = `
   <InjectIntl(InjectT(SearchFilters))
     filters={
       Object {
-        "date": "2019-10-14",
+        "date": "2017-12-10",
       }
     }
     isGeolocationEnabled={false}
