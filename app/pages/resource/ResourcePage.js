@@ -125,13 +125,13 @@ class UnconnectedResourcePage extends Component {
   fetchResource = (date = this.props.date) => {
     const { actions, id } = this.props;
     const start = moment(date)
-      .subtract(2, 'M')
+      .subtract(1, 'M')
       .startOf('month')
-      .format();
+      .toISOString();
     const end = moment(date)
-      .add(2, 'M')
+      .add(1, 'M')
       .endOf('month')
-      .format();
+      .toISOString();
 
     actions.fetchResource(id, { start, end });
   };
