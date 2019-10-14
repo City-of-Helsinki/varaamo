@@ -21,9 +21,11 @@ axios.interceptors.response.use((response) => {
   } else if (error.request) {
     // The request was made but no response was received.
     // `error.request` is an instance of XMLHttpRequest in the browser.
+    // eslint-disable-next-line no-console
     console.error(error.request);
   } else {
     // Something happened in setting up the request that triggered an Error.
+    // eslint-disable-next-line no-console
     console.error(error.message);
   }
   return Promise.reject(error);

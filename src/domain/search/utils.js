@@ -4,13 +4,19 @@ import capitalize from 'lodash/capitalize';
 import sortBy from 'lodash/sortBy';
 import snakeCase from 'lodash/snakeCase';
 import forEach from 'lodash/forEach';
+import moment from 'moment';
 
 import constants from '../../../app/constants/AppConstants';
 import * as urlUtils from '../../common/url/utils';
 
 export const getFiltersFromUrl = (location, supportedFilters = constants.SUPPORTED_SEARCH_FILTERS) => {
   const query = new URLSearchParams(location.search);
-  const filters = {};
+  const defaultDate = moment().format(constants.DATE_FORMAT);
+
+  // Give default date to populate start/end time as default when fetching resources,
+  // Otherwise, reservations property under resource data will be empty.
+
+  const filters = { date: defaultDate };
 
   query.forEach((value, key) => {
     if (!supportedFilters || supportedFilters[key] !== undefined) {

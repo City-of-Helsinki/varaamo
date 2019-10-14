@@ -9,6 +9,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
+import moment from 'moment';
 
 import constants from '../../../../app/constants/AppConstants';
 import injectT from '../../../../app/i18n/injectT';
@@ -152,9 +153,21 @@ class SearchPage extends React.Component {
       isLoading: true,
     });
 
+    const start = moment(filters.date)
+      .subtract(2, 'M')
+      .startOf('month')
+      .format();
+    const end = moment(filters.date)
+      .add(2, 'M')
+      .endOf('month')
+      .format();
+    // Fetch resource reservations time range 1 month from filter date.
+
     const params = {
       ...filters,
       page_size: constants.SEARCH_PAGE_SIZE,
+      start,
+      end
     };
 
     // Only include positional params if user has toggled the position filter on.

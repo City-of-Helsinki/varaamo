@@ -3,12 +3,13 @@ import constants from '../../../../app/constants/AppConstants';
 
 describe('src/domain/search/utils.js', () => {
   // eslint-disable-next-line max-len
-  const expectedSearch = 'municipality=helsinki%2Cvantaa%2Cespoo&search=Foo&purpose=events&availableBetween=2019-07-31T14%3A30%2B03%3A00%2C2019-07-31T23%3A30%2B03%3A00%2C30';
+  const expectedSearch = 'municipality=helsinki%2Cvantaa%2Cespoo&search=Foo&purpose=events&availableBetween=2019-07-31T14%3A30%2B03%3A00%2C2019-07-31T23%3A30%2B03%3A00%2C30&date=2019-07-31';
   const expectedFilters = {
     municipality: 'helsinki,vantaa,espoo',
     search: 'Foo',
     purpose: 'events',
     availableBetween: '2019-07-31T14:30+03:00,2019-07-31T23:30+03:00,30',
+    date: '2019-07-31',
   };
 
   test('getFiltersFromUrl', () => {
