@@ -73,7 +73,7 @@ exports[`TimePickerCalendar FullCalendar render normally 1`] = `
     header={
       Object {
         "center": "title",
-        "left": "prev,next today",
+        "left": "today",
         "right": "timeGridDay,timeGridWeek",
       }
     }
