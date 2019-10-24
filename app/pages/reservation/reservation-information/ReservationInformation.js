@@ -12,6 +12,7 @@ import injectT from '../../../i18n/injectT';
 import { isStaffEvent, getReservationPrice, getReservationPricePerPeriod } from '../../../utils/reservationUtils';
 import { getTermsAndConditions, hasProducts } from '../../../utils/resourceUtils';
 import ReservationInformationForm from './ReservationInformationForm';
+import InternalReservationForm from './InternalReservationForm';
 import apiClient from '../../../../src/common/api/client';
 
 class ReservationInformation extends Component {
@@ -170,7 +171,9 @@ class ReservationInformation extends Component {
             <span>{comment}</span>
           </Col>
           <Col md={12}>
-            <textarea></textarea>
+            <InternalReservationForm
+              foo="bar"
+            />
           </Col>
         </Row>
       </div>
