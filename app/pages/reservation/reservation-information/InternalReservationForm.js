@@ -10,8 +10,22 @@ import { connect } from 'react-redux';
 import injectT from '../../../i18n/injectT';
 import FormTypes from '../../../constants/FormTypes';
 
-export function validate() {
+const maxLengths = {
+  internalReservationComments: 1
+};
+
+export function validate(values) {
+  console.log('--- validate values', values);
   const errors = {};
+  if (!values.internalReservation) {
+    errors.internalReservation = 'Required';
+  }
+  if (values.internalReservationComments) {
+    if (values.internalReservationComments.length > maxLengths.internalReservationComments) {
+      errors.internalReservationComments = `Max length ${maxLengths.internalReservationComments}`;
+    }
+  }
+  console.log('--- validate errors', errors);
   return errors;
 }
 
@@ -38,6 +52,7 @@ class UnconnectedInternalReservationForm extends Component {
   }
 
   render() {
+    console.log('--- render this.props', this.props);
     const { t } = this.props;
     /**
      * TODO Add FI/SV/EN translations!
