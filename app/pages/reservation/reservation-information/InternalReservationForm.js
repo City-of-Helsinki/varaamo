@@ -4,6 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import Form from 'react-bootstrap/lib/Form';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
+import PropTypes from 'prop-types';
 
 import injectT from '../../../i18n/injectT';
 import FormTypes from '../../../constants/FormTypes';
@@ -19,8 +20,10 @@ class UnconnectedInternalReservationForm extends Component {
   }
 
   render() {
+    const { t } = this.props;
     /**
      * TODO Add FI/SV/EN translations!
+     * {t('foo.bar.biz')}
      */
     const premiseStaffOnly = 'Premise staff only';
     const internalReservation = 'Internal reservation';
@@ -86,7 +89,9 @@ class UnconnectedInternalReservationForm extends Component {
   }
 }
 
-UnconnectedInternalReservationForm.propTypes = {};
+UnconnectedInternalReservationForm.propTypes = {
+  t: PropTypes.func.isRequired,
+};
 UnconnectedInternalReservationForm = injectT(UnconnectedInternalReservationForm);  // eslint-disable-line
 
 export { UnconnectedInternalReservationForm };

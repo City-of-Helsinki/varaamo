@@ -140,7 +140,6 @@ class ReservationInformation extends Component {
       selectedTime,
       t,
       unit,
-      isAdmin,
       isStaff
     } = this.props;
     const {
