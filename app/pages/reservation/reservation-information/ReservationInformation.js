@@ -129,57 +129,6 @@ class ReservationInformation extends Component {
     );
   }
 
-  renderInternalReservations = () => {
-    /**
-     * TODO Add FI/SV/EN translations!
-     * */
-    const premiseStaffOnly = 'Premise staff only';
-    const internalReservation = 'Internal reservation';
-    const internalReservationDescription = 'The Department\'s own event. Uncheck this box to make an external reservation on behalf of the user.';
-    const markAsClosed = 'Mark as closed';
-    const markAsClosedDescription = 'Check if you are closing the resource by reserving.';
-    const comment = 'Comment';
-    return (
-      <div className="app-ReservationDetails">
-        <h2 className="app-ReservationPage__title">{premiseStaffOnly}</h2>
-        <Row>
-          <Col md={1}>
-            <input type="checkbox" />
-          </Col>
-          <Col md={11}>
-            <span className="app-ReservationDetails__value">
-              {internalReservation}
-              <br />
-              {internalReservationDescription}
-            </span>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={1}>
-            <input type="checkbox" />
-          </Col>
-          <Col md={11}>
-            <span className="app-ReservationDetails__value">
-              {markAsClosed}
-              <br />
-              {markAsClosedDescription}
-            </span>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={12}>
-            <span>{comment}</span>
-          </Col>
-          <Col md={12}>
-            <InternalReservationForm
-              foo="bar"
-            />
-          </Col>
-        </Row>
-      </div>
-    );
-  }
-
   render() {
     const {
       isEditing,
@@ -215,7 +164,7 @@ class ReservationInformation extends Component {
              * isAdminSelector returns actually isStaff
              * and createIsStaffSelector returns isAdmin
              */
-            isStaff ? this.renderInternalReservations() : ''
+            isStaff ? <InternalReservationForm foo="bar" /> : ''
           }
           {this.renderInfoTexts()}
           <ReservationInformationForm
