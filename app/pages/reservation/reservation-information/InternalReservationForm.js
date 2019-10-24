@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import injectT from '../../../i18n/injectT';
-import { reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import FormTypes from '../../../constants/FormTypes';
 
 export function validate() {
@@ -15,10 +15,10 @@ class UnconnectedInternalReservationForm extends Component {
       foo
     } = this.props;
     return (
-      <input
-        defaultValue=""
-        name={foo}
-        type="input"
+      <Field
+        component="input"
+        name="inputName"
+        type="text"
       />
     );
   }
@@ -31,6 +31,5 @@ UnconnectedInternalReservationForm = injectT(UnconnectedInternalReservationForm)
 
 export { UnconnectedInternalReservationForm };
 export default injectT(reduxForm({
-  form: FormTypes.RESERVATION,
-  validate,
+  form: FormTypes.RESERVATION
 })(UnconnectedInternalReservationForm));
