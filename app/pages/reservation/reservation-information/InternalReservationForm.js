@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import Form from 'react-bootstrap/lib/Form';
@@ -14,10 +14,11 @@ export function validate() {
 }
 
 class UnconnectedInternalReservationForm extends Component {
+  state = {
+    internalReservationDefaultChecked: true
+  }
+
   render() {
-    const {
-      foo
-    } = this.props;
     /**
      * TODO Add FI/SV/EN translations!
      */
@@ -33,38 +34,50 @@ class UnconnectedInternalReservationForm extends Component {
           <h2 className="app-ReservationPage__title">{premiseStaffOnly}</h2>
           <Row>
             <Col md={1}>
-              <input type="checkbox" />
+              <Field
+                checked={this.state.internalReservationDefaultChecked}
+                component="input"
+                name="internalReservation"
+                onChange={() => this.setState(prevState => ({ internalReservationDefaultChecked: !prevState.internalReservationDefaultChecked }))}
+                type="checkbox"
+              />
             </Col>
             <Col md={11}>
-            <span className="app-ReservationDetails__value">
-              {internalReservation}
-              <br />
-              {internalReservationDescription}
-            </span>
+              <span className="app-ReservationDetails__value">
+                {internalReservation}
+                <br />
+                {internalReservationDescription}
+              </span>
             </Col>
           </Row>
           <Row>
             <Col md={1}>
-              <input type="checkbox" />
+              <Field
+                component="input"
+                name="markAsClosed"
+                type="checkbox"
+              />
             </Col>
             <Col md={11}>
-            <span className="app-ReservationDetails__value">
-              {markAsClosed}
-              <br />
-              {markAsClosedDescription}
-            </span>
+              <span className="app-ReservationDetails__value">
+                {markAsClosed}
+                <br />
+                {markAsClosedDescription}
+              </span>
             </Col>
           </Row>
           <Row>
             <Col md={12}>
-              <span>{comment}</span>
-            </Col>
-            <Col md={12}>
-              <Field
-                component="input"
-                name="inputName"
-                type="text"
-              />
+              <div className="app-ReservationPage__formfield">
+                <label>
+                  {comment}
+                  <Field
+                    component="textarea"
+                    name="internalReservationComments"
+                    rows={5}
+                  />
+                </label>
+              </div>
             </Col>
           </Row>
         </Form>
@@ -73,12 +86,11 @@ class UnconnectedInternalReservationForm extends Component {
   }
 }
 
-UnconnectedInternalReservationForm.propTypes = {
-  foo: PropTypes.string.isRequired,
-};
+UnconnectedInternalReservationForm.propTypes = {};
 UnconnectedInternalReservationForm = injectT(UnconnectedInternalReservationForm);  // eslint-disable-line
 
 export { UnconnectedInternalReservationForm };
 export default injectT(reduxForm({
-  form: FormTypes.RESERVATION
+  form: FormTypes.RESERVATION,
+  validate
 })(UnconnectedInternalReservationForm));

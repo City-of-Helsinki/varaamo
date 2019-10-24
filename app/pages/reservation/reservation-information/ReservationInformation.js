@@ -164,7 +164,7 @@ class ReservationInformation extends Component {
              * isAdminSelector returns actually isStaff
              * and createIsStaffSelector returns isAdmin
              */
-            isStaff ? <InternalReservationForm foo="bar" /> : ''
+            isStaff ? <InternalReservationForm /> : ''
           }
           {this.renderInfoTexts()}
           <ReservationInformationForm
