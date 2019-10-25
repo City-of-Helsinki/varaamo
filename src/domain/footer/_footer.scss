@@ -1,3 +1,5 @@
+@import '../../../app/assets/styles/mixins/media-queries';
+
 footer {
   background-color: $brand-primary;
   color: #fff;
@@ -6,6 +8,14 @@ footer {
   text-align: center;
   font-size: 1.6rem;
   padding: 80px 0;
+  @include smMax {
+    padding: 10px 0;
+  }
+  &:after {
+    content: '';
+  }
+  .container {
+  }
   .brand-link {
     display: block;
     color: #fff;

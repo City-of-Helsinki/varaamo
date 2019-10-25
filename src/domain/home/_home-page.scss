@@ -1,3 +1,5 @@
+@import '../../../app/assets/styles/mixins/media-queries';
+
 $purposeCellHeight: 300px;
 
 .app-HomePage {
@@ -40,6 +42,9 @@ $purposeCellHeight: 300px;
       width: 100%;
       // border-radius: 30px;
       padding: 0 180px;
+      @include smMax {
+        padding: 0 10px;
+      }
       .searchBoxContent {
         position: relative;
       }
@@ -121,6 +126,9 @@ $purposeCellHeight: 300px;
       .purposeContainer {
         display: grid;
         grid-template-columns: repeat(3, 300px);
+        @include smMax {
+          grid-template-columns: repeat(1, 300px);
+        }
         grid-column-gap: 50px;
         grid-row-gap: 50px;
         &.hovering {
@@ -144,6 +152,9 @@ $purposeCellHeight: 300px;
       &:before {
         content: '';
         width: 60px;
+        @include smMax {
+          width: 20px;
+        }
         height: 2px;
         background-color: #000;
         margin-right: 10px;
