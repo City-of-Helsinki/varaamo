@@ -10,25 +10,6 @@ import { connect } from 'react-redux';
 import injectT from '../../../i18n/injectT';
 import FormTypes from '../../../constants/FormTypes';
 
-const maxLengths = {
-  internalReservationComments: 1
-};
-
-export function validate(values) {
-  console.log('--- validate values', values);
-  const errors = {};
-  if (!values.internalReservation) {
-    errors.internalReservation = 'Required';
-  }
-  if (values.internalReservationComments) {
-    if (values.internalReservationComments.length > maxLengths.internalReservationComments) {
-      errors.internalReservationComments = `Max length ${maxLengths.internalReservationComments}`;
-    }
-  }
-  console.log('--- validate errors', errors);
-  return errors;
-}
-
 class UnconnectedInternalReservationForm extends Component {
   state = {
     internalReservationDefaultChecked: true
@@ -52,9 +33,12 @@ class UnconnectedInternalReservationForm extends Component {
   }
 
   render() {
-    console.log('--- render this.props', this.props);
     const { t } = this.props;
     /**
+     * This form error handling is done in
+     * <root>/varaamo/app/pages/reservation/reservation-information/ReservationInformationForm.js
+     * See: Handling <InternalReservationForm /> errors
+     *
      * TODO Add FI/SV/EN translations!
      * {t('foo.bar.biz')}
      */
@@ -135,6 +119,5 @@ UnconnectedInternalReservationForm = injectT(UnconnectedInternalReservationForm)
 
 export { UnconnectedInternalReservationForm };
 export default injectT(reduxForm({
-  form: FormTypes.RESERVATION,
-  validate
+  form: FormTypes.RESERVATION
 })(UnconnectedInternalReservationForm));

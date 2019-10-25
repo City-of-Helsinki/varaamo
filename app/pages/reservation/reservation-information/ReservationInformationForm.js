@@ -32,6 +32,9 @@ const validators = {
 };
 
 const maxLengths = {
+  /**
+   * Handling <ReservationInformationForm /> errors
+   */
   billingAddressCity: 100,
   billingAddressStreet: 100,
   billingAddressZip: 30,
@@ -48,6 +51,10 @@ const maxLengths = {
   reserverId: 30,
   reserverName: 100,
   reserverPhoneNumber: 30,
+  /**
+   * Handling <InternalReservationForm /> errors
+   */
+  internalReservationComments: 1500
 };
 
 function isTermsAndConditionsField(field) {
@@ -63,6 +70,9 @@ function getTermsAndConditionsError(field) {
 
 export function validate(values, { fields, requiredFields, t }) {
   const errors = {};
+  /**
+   * Handling <ReservationInformationForm /> errors
+   */
   const currentRequiredFields = values.staffEvent
     ? constants.REQUIRED_STAFF_EVENT_FIELDS
     : requiredFields;
@@ -89,6 +99,17 @@ export function validate(values, { fields, requiredFields, t }) {
       }
     }
   });
+  /**
+   * Handling <InternalReservationForm /> errors
+   */
+  if (!values.internalReservation) {
+    errors.internalReservation = 'Required';
+  }
+  if (values.internalReservationComments) {
+    if (values.internalReservationComments.length > maxLengths.internalReservationComments) {
+      errors.internalReservationComments = `Max length ${maxLengths.internalReservationComments}`;
+    }
+  }
   return errors;
 }
 
@@ -203,6 +224,7 @@ class UnconnectedReservationInformationForm extends Component {
       staffEventSelected,
       t,
       termsAndConditions,
+      valid
     } = this.props;
     const {
       isPaymentTermsModalOpen,
@@ -357,6 +379,12 @@ class UnconnectedReservationInformationForm extends Component {
           {termsAndConditions
             && this.renderTermsField('termsAndConditions')
           }
+          {
+            /**
+             * TODO
+             */
+            termsAndConditions && valid ? '' : <pre>DEBUG: NOT VALID!!!</pre>
+          }
           {resource.specificTerms && (
             <div>
               <h2 className="app-ReservationPage__title">{t('ReservationForm.specificTermsTitle')}</h2>
@@ -412,6 +440,7 @@ UnconnectedReservationInformationForm.propTypes = {
   staffEventSelected: PropTypes.bool,
   t: PropTypes.func.isRequired,
   termsAndConditions: PropTypes.string.isRequired,
+  valid: PropTypes.bool.isRequired
 };
 UnconnectedReservationInformationForm = injectT(UnconnectedReservationInformationForm);  // eslint-disable-line
 
