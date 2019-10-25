@@ -113,11 +113,15 @@ class MainNavbar extends React.Component {
   }
 }
 
+MainNavbar.defaultProps = {
+  isFixed: false,
+};
+
 MainNavbar.propTypes = {
   activeLink: PropTypes.string.isRequired,
   clearSearchResults: PropTypes.func.isRequired,
   isAdmin: PropTypes.bool.isRequired,
-  isFixed: PropTypes.bool.isRequired,
+  isFixed: PropTypes.bool,
   isLoggedIn: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
 };
