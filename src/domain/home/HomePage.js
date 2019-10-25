@@ -4,34 +4,40 @@ import { Button, Col, Row } from 'react-bootstrap';
 import Loader from 'react-loader';
 import camelCase from 'lodash/camelCase';
 import Link from 'react-router-dom/Link';
-import { faHotTub as iconSauna, faCalendarAlt as iconOrganizeEvents } from '@fortawesome/free-solid-svg-icons';
-// TODO: VAR-80 | VAR-81 Replace those icon with designed icon.
+import { Icon } from 'react-icons-kit';
+import {
+  basic_hammer as Hammer,
+  music_recordplayer as Player,
+  basic_magnifier as Guidance,
+  basic_elaboration_calendar_search as Calendar,
+  basic_laptop as MeetingAndWorking,
+} from 'react-icons-kit/linea';
+import {
+  futbolO as Sport,
+  bathtub as Sauna,
+} from 'react-icons-kit/fa/';
 
 import HomeSearchBox from './HomeSearchBox';
-import iconManufacturing from './images/frontpage_build.svg';
-import iconPhotoAndAudio from './images/frontpage_music.svg';
-import iconSports from './images/frontpage_sport.svg';
-import iconGuidance from './images/frontpage_guidance.svg';
-import iconMeetingsAndWorking from './images/frontpage_work.svg';
 import client from '../../common/api/client';
-import FAIcon from '../../../app/shared/fontawesome-icon/FontAwesomeIcon';
 import PageWrapper from '../../../app/pages/PageWrapper';
 import injectT from '../../../app/i18n/injectT';
 
 const purposeIcons = {
-  photoAndAudio: iconPhotoAndAudio,
-  sports: iconSports,
-  guidance: iconGuidance,
-  manufacturing: iconManufacturing,
-  meetingsAndWorking: iconMeetingsAndWorking,
-  events: iconOrganizeEvents,
-  sauna: iconSauna
+  photoAndAudio: Player,
+  sports: Sport,
+  guidance: Guidance,
+  manufacturing: Hammer,
+  meetingsAndWorking: MeetingAndWorking,
+  events: Calendar,
+  sauna: Sauna
 };
 
 class HomePage extends Component {
   state = {
     isFetchingPurposes: false,
-    purposes: null
+    purposes: null,
+    isHovered: {},
+    hovering: false,
   }
 
   componentDidMount() {
@@ -53,6 +59,22 @@ class HomePage extends Component {
     this.props.history.push(`/search?search=${value}`);
   }
 
+  handleHover(purpose) {
+    this.setState({
+      isHovered: {
+        [purpose]: true
+      },
+      hovering: true,
+    });
+  }
+
+  handleMouseOut() {
+    this.setState({
+      isHovered: {},
+      hovering: false,
+    });
+  }
+
   renderPurposeBanners = () => {
     const { t, locale } = this.props;
     const { purposes } = this.state;
@@ -62,28 +84,31 @@ class HomePage extends Component {
     return normalizedPurpose.map((purpose) => {
       const image = purposeIcons[camelCase(purpose.id)];
       const purposeName = purpose.name[locale] || '';
-
       return (
-        <Col className="app-HomePageContent__banner" key={purpose.id} md={3} sm={6} xs={12}>
-          <Link className="app-HomePageContent__banner__linkWrapper" to={`/search?purpose=${purpose.id}`}>
+        <>
+          <Link
+            className={`app-HomePageContent__banner__linkWrapper ${this.state.isHovered[purpose.id] ? 'hovered' : 'unhovered'}`}
+            onMouseEnter={() => this.handleHover(purpose.id)}
+            onMouseLeave={() => this.handleMouseOut(purpose.id)}
+            to={`/search?purpose=${purpose.id}`}
+          >
             <div className="app-HomePageContent__banner-icon">
-              {typeof image === 'string' ? <img alt={purposeName} src={image} />
-              // TODO: VAR-80 | VAR-81 Replace those icon with designed icon.
-
-                : <FAIcon icon={image} />}
+              <div
+                className={camelCase(purpose.id) === 'sauna' ? 'strokeFix' : ''}
+              >
+                <div
+                  style={{
+                    color: `${this.state.isHovered[purpose.id] ? '#0171C6' : '#000'}`
+                  }}
+                >
+                  <Icon icon={image} size="3em" />
+                </div>
+              </div>
             </div>
 
             <h5>{purposeName}</h5>
-            <div className="app-HomePageContent__banner-action">
-              <Button
-                bsStyle="primary"
-                className="app-HomePageContent__button"
-              >
-                {t('HomePage.buttonText')}
-              </Button>
-            </div>
           </Link>
-        </Col>
+        </>
       );
     });
   }
@@ -95,20 +120,22 @@ class HomePage extends Component {
     return (
       <div className="app-HomePage">
         <div className="app-HomePage__content container">
-          <h1>Varaamo –</h1>
-          <h1>{t('HomePage.contentTitle')}</h1>
-          <h5>{t('HomePage.contentSubTitle')}</h5>
-          <HomeSearchBox onSearch={this.handleSearch} />
+          <div className="searchBoxContent">
+            <h1>Varaamo</h1>
+            <h1>{t('HomePage.contentTitle')}</h1>
+            <h5>{t('HomePage.contentSubTitle')}</h5>
+            <HomeSearchBox onSearch={this.handleSearch} />
+          </div>
         </div>
         <div className="app-HomePage__koro" />
         <PageWrapper className="app-HomePageContent" title={t('HomePage.title')}>
           <h4>{t('HomePage.bannersTitle')}</h4>
           {purposes && (
             <Loader loaded={!isFetchingPurposes}>
-              <div className="app-HomePageContent__banners">
-                <Row>
+              <div className="app-HomePageContent __banners">
+                <div className={`purposeContainer ${this.state.hovering ? 'hovering' : ''}`}>
                   {this.renderPurposeBanners()}
-                </Row>
+                </div>
               </div>
             </Loader>
           )}

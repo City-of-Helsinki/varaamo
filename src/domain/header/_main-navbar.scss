@@ -3,6 +3,21 @@ $externalIconMarginLeft: 5px;
 .app-MainNavbar {
   background-color: $theme-primary-dark;
   margin-bottom: 0;
+  .helsinki-logo {
+    width: 130px;
+    transform: scale(1);
+    transition: all .4s ease;
+    &.hidden {
+      transform: scale(0);
+      transition: all .4s ease;
+    }
+    .brand-logo {
+      @include helsinki-logo($white);
+      position: absolute;
+      width: 120px;
+      height: 30px;
+    }
+  }
   .navbar-nav li,
   .navbar-nav > .active {
     a {

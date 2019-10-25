@@ -1,8 +1,7 @@
-$purposeCellHeight: 350px;
+$purposeCellHeight: 300px;
 
 .app-HomePage {
   background-color: $white;
-  background-image: url("./images/etusivu_tausta.jpg");
   background-position: top;
   background-repeat: no-repeat;
   background-size: contain;
@@ -12,23 +11,77 @@ $purposeCellHeight: 350px;
   }
 
   &__content {
+    &:before {
+      content: '';
+      background-image: url("./images/etusivu_tausta.jpg");
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      opacity: .5;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    position: relative;
+    overflow: hidden;
     color: $white;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding: 30px 0;
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+    height: 60vh;
+    &.container {
+      display: flex;
+      // margin-top: 50px;
+      flex-direction: column;
+      justify-content: center;
+      background: #0181c6;
+      width: 100%;
+      // border-radius: 30px;
+      padding: 0 180px;
+      .searchBoxContent {
+        position: relative;
+      }
+    }
     h1 {
+      &:first-of-type {
+        &:before {
+          content: '';
+          height: 2px;
+          width: 60px;
+          background-color: #fff;
+          margin-right: 10px;
+        }
+      }
+      display: flex;
+      align-items: center;
       margin: 2px 0;
     }
   }
 
   .app-HomeSearchBox {
     margin: 60px 0;
+    display: flex;
+    justify-content: center;
+    .searchboxWrapper {
+      background-color: #fff;
+      max-width: 600px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      flex: 1;
+    }
     &__textfield {
+      &:before {
+        content: '';
+      }
       background-color: $white;
-      border-width: 2px;
       display: inline-block;
       padding: 6px;
       max-width: 500px;
+      border: 0;
+      outline: 0;
+      margin-left: 10px;
 
       @media (max-width: $screen-md-min) {
         max-width: 300px;
@@ -48,8 +101,33 @@ $purposeCellHeight: 350px;
   }
 
   .app-HomePageContent {
-    padding-bottom: 30px;
+    padding: 80px 0;
     text-align: center;
+    &.__banners {
+      display: flex;
+      justify-content: center;
+      padding: 60px 0;
+      .purposeContainer {
+        display: grid;
+        grid-template-columns: repeat(3, 300px);
+        grid-column-gap: 50px;
+        grid-row-gap: 50px;
+        &.hovering {
+          .unhovered {
+            opacity: .5;
+            transition: all .4s ease;
+            filter: blur(1px);
+          }
+        }
+        .strokeFix {
+          svg {
+            fill: none;
+            stroke: #000;
+            stroke-width: 50px;
+          }
+        }
+      }
+    }
 
     h4 {
       margin-top: 0;
@@ -58,8 +136,6 @@ $purposeCellHeight: 350px;
     &__banner {
       padding-top: 15px;
       padding-bottom: 15px;
-      display: flex;
-      height: $purposeCellHeight;
 
       &-icon {
         height: 30%;
@@ -73,10 +149,21 @@ $purposeCellHeight: 350px;
         flex-direction: column;
         flex: 1;
         justify-content: space-around;
-        background-color: $hel-copper;
-        height: 100%;
+        background-color: #fff;
+        width: 300px;
+        height: 200px;
         position: relative;
         text-decoration: none;
+        box-shadow: 0 0 10px 0px rgba(0,0,0,.1);
+        transition: all .4s ease;
+        align-items: flex-start;
+        padding: 30px;
+        &.hovered {
+          transform: translateY(-1px);
+          transform: scale(1.05);
+          box-shadow: 0 30px 90px 0 rgba(31,36,48,.1);
+          transition: all .4s ease;
+        }
 
         &:hover, &:active, &:focus {
           color: $black;

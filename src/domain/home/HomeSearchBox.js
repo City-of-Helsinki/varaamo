@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import FormControl from 'react-bootstrap/lib/FormControl';
+import { Icon } from 'react-icons-kit';
+import { basic_magnifier as Search } from 'react-icons-kit/linea';
 
 import injectT from '../../../app/i18n/injectT';
 
@@ -29,19 +31,27 @@ class HomeSearchBox extends React.Component {
     const { t } = this.props;
     return (
       <form className="app-HomeSearchBox" onSubmit={this.handleSubmit}>
-        <FormControl
-          className="app-HomeSearchBox__textfield"
-          onChange={this.handleChange}
-          placeholder={t('HomeSearchBox.searchPlaceholder')}
-          type="text"
-        />
-        <Button
-          bsStyle="primary"
-          className="app-HomeSearchBox__button"
-          type="submit"
+        <div
+          className="searchboxWrapper"
+          style={{
+            color: '#000000'
+          }}
         >
-          {t('HomeSearchBox.buttonText')}
-        </Button>
+          <Icon icon={Search} size="2em" />
+          <FormControl
+            className="app-HomeSearchBox__textfield"
+            onChange={this.handleChange}
+            placeholder={t('HomeSearchBox.searchPlaceholder')}
+            type="text"
+          />
+          <Button
+            bsStyle="primary"
+            className="app-HomeSearchBox__button"
+            type="submit"
+          >
+            {t('HomeSearchBox.buttonText')}
+          </Button>
+        </div>
       </form>
     );
   }

@@ -29,9 +29,13 @@ class MainNavbar extends React.Component {
 
   render() {
     const {
-      activeLink, clearSearchResults, isAdmin, isLoggedIn, t
+      activeLink,
+      clearSearchResults,
+      isAdmin,
+      isLoggedIn,
+      t,
+      isFixed,
     } = this.props;
-
     return (
       <Navbar
         className="app-MainNavbar"
@@ -41,6 +45,11 @@ class MainNavbar extends React.Component {
       >
         <Navbar.Header>
           <Navbar.Toggle />
+          <Navbar.Brand>
+            <Link className={`helsinki-logo ${isFixed ? '' : 'hidden'}`} to="/">
+              <span className="brand-logo" />
+            </Link>
+          </Navbar.Brand>
           <Navbar.Brand>
             <Link to="/">Varaamo</Link>
           </Navbar.Brand>
@@ -108,6 +117,7 @@ MainNavbar.propTypes = {
   activeLink: PropTypes.string.isRequired,
   clearSearchResults: PropTypes.func.isRequired,
   isAdmin: PropTypes.bool.isRequired,
+  isFixed: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
 };
