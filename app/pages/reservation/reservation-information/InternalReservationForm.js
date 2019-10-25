@@ -10,6 +10,14 @@ import { connect } from 'react-redux';
 import injectT from '../../../i18n/injectT';
 import FormTypes from '../../../constants/FormTypes';
 
+export const maxLengths = {
+  internalReservationComments: 1500
+};
+
+function mapStateToProps(state) {
+  return { stateForm: state.form };
+}
+
 class UnconnectedInternalReservationForm extends Component {
   state = {
     internalReservationDefaultChecked: true
@@ -33,12 +41,18 @@ class UnconnectedInternalReservationForm extends Component {
   }
 
   render() {
-    const { t } = this.props;
+    const {
+      t,
+      stateForm
+    } = this.props;
+    let internalReservationCommentsLength = 0;
+    if (
+      stateForm
+      && stateForm.RESERVATION
+      && stateForm.RESERVATION.values
+      && stateForm.RESERVATION.values.internalReservationComments
+    ) internalReservationCommentsLength = stateForm.RESERVATION.values.internalReservationComments.length;
     /**
-     * This form error handling is done in
-     * <root>/varaamo/app/pages/reservation/reservation-information/ReservationInformationForm.js
-     * See: Handling <InternalReservationForm /> errors
-     *
      * TODO Add FI/SV/EN translations!
      * {t('foo.bar.biz')}
      */
@@ -96,10 +110,19 @@ class UnconnectedInternalReservationForm extends Component {
                   {comment}
                   <Field
                     component="textarea"
+                    maxLength={maxLengths.internalReservationComments}
                     name="internalReservationComments"
                     rows={5}
                   />
                 </label>
+                {
+                  internalReservationCommentsLength >= maxLengths.internalReservationComments
+                  && (
+                  <span className="app-ReservationPage__error">
+                    {t('ReservationForm.maxLengthError', { maxLength: maxLengths.internalReservationComments })}
+                  </span>
+                  )
+                }
               </div>
             </Col>
           </Row>
@@ -109,15 +132,18 @@ class UnconnectedInternalReservationForm extends Component {
   }
 }
 
-connect()(UnconnectedInternalReservationForm);
-
 UnconnectedInternalReservationForm.propTypes = {
   t: PropTypes.func.isRequired,
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  maxLengths: PropTypes.object.isRequired,
+  stateForm: PropTypes.object.isRequired
 };
+
 UnconnectedInternalReservationForm = injectT(UnconnectedInternalReservationForm);  // eslint-disable-line
 
 export { UnconnectedInternalReservationForm };
+
 export default injectT(reduxForm({
-  form: FormTypes.RESERVATION
-})(UnconnectedInternalReservationForm));
+  form: FormTypes.RESERVATION,
+  maxLengths
+})(connect(mapStateToProps)(UnconnectedInternalReservationForm)));
