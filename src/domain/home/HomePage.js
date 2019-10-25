@@ -129,7 +129,7 @@ class HomePage extends Component {
         </div>
         <div className="app-HomePage__koro" />
         <PageWrapper className="app-HomePageContent" title={t('HomePage.title')}>
-          <h4>{t('HomePage.bannersTitle')}</h4>
+          <h2>{t('HomePage.bannersTitle')}</h2>
           {purposes && (
             <Loader loaded={!isFetchingPurposes}>
               <div className="app-HomePageContent __banners">
