@@ -91,6 +91,16 @@ $purposeCellHeight: 300px;
       display: inline-block;
       margin-left: 12px;
       text-transform: uppercase;
+      background: transparent;
+      color: #000;
+      transition: all .4s ease;
+      width: 100px;
+      &:hover {
+        cursor: pointer;
+        background-color: #000;
+        color: #fff;
+        width: 120px;
+      }
     }
   }
 
