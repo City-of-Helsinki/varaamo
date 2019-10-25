@@ -5,24 +5,138 @@ exports[`pages/home/HomeSearchBox render normally 1`] = `
   className="app-HomeSearchBox"
   onSubmit={[Function]}
 >
-  <FormControl
-    bsClass="form-control"
-    className="app-HomeSearchBox__textfield"
-    componentClass="input"
-    onChange={[Function]}
-    placeholder="HomeSearchBox.searchPlaceholder"
-    type="text"
-  />
-  <Button
-    active={false}
-    block={false}
-    bsClass="btn"
-    bsStyle="primary"
-    className="app-HomeSearchBox__button"
-    disabled={false}
-    type="submit"
+  <div
+    className="searchboxWrapper"
+    style={
+      Object {
+        "color": "#000000",
+      }
+    }
   >
-    HomeSearchBox.buttonText
-  </Button>
+    <Icon
+      fill="currentColor"
+      icon={
+        Object {
+          "children": Array [
+            Object {
+              "attribs": Object {},
+              "children": Array [
+                Object {
+                  "attribs": Object {
+                    "cx": "21",
+                    "cy": "21",
+                    "fill": "none",
+                    "r": "20",
+                    "stroke": "#000000",
+                    "stroke-miterlimit": "10",
+                    "stroke-width": "2",
+                  },
+                  "children": Array [
+                    Object {
+                      "attribs": Object {
+                        "cx": "21",
+                        "cy": "21",
+                        "fill": "none",
+                        "r": "20",
+                        "stroke": "#000000",
+                        "stroke-miterlimit": "10",
+                        "stroke-width": "2",
+                      },
+                      "children": Array [],
+                      "name": "circle",
+                    },
+                  ],
+                  "name": "circle",
+                },
+                Object {
+                  "attribs": Object {
+                    "fill": "none",
+                    "stroke": "#000000",
+                    "stroke-miterlimit": "10",
+                    "stroke-width": "2",
+                    "x1": "35",
+                    "x2": "41",
+                    "y1": "35",
+                    "y2": "41",
+                  },
+                  "children": Array [
+                    Object {
+                      "attribs": Object {
+                        "fill": "none",
+                        "stroke": "#000000",
+                        "stroke-miterlimit": "10",
+                        "stroke-width": "2",
+                        "x1": "35",
+                        "x2": "41",
+                        "y1": "35",
+                        "y2": "41",
+                      },
+                      "children": Array [],
+                      "name": "line",
+                    },
+                  ],
+                  "name": "line",
+                },
+                Object {
+                  "attribs": Object {
+                    "fill": "none",
+                    "height": "26.87",
+                    "stroke": "#000000",
+                    "stroke-miterlimit": "10",
+                    "stroke-width": "2",
+                    "transform": "matrix(-0.7071 0.7071 -0.7071 -0.7071 121.9178 50.5)",
+                    "width": "8.485",
+                    "x": "46.257",
+                    "y": "37.065",
+                  },
+                  "children": Array [
+                    Object {
+                      "attribs": Object {
+                        "fill": "none",
+                        "height": "26.87",
+                        "stroke": "#000000",
+                        "stroke-miterlimit": "10",
+                        "stroke-width": "2",
+                        "transform": "matrix(-0.7071 0.7071 -0.7071 -0.7071 121.9178 50.5)",
+                        "width": "8.485",
+                        "x": "46.257",
+                        "y": "37.065",
+                      },
+                      "children": Array [],
+                      "name": "rect",
+                    },
+                  ],
+                  "name": "rect",
+                },
+              ],
+              "name": "g",
+            },
+          ],
+          "viewBox": "0 0 64 64",
+        }
+      }
+      size="2em"
+      tag="i"
+    />
+    <FormControl
+      bsClass="form-control"
+      className="app-HomeSearchBox__textfield"
+      componentClass="input"
+      onChange={[Function]}
+      placeholder="HomeSearchBox.searchPlaceholder"
+      type="text"
+    />
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="primary"
+      className="app-HomeSearchBox__button"
+      disabled={false}
+      type="submit"
+    >
+      HomeSearchBox.buttonText
+    </Button>
+  </div>
 </form>
 `;

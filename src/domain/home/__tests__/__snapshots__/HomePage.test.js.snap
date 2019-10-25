@@ -7,18 +7,22 @@ exports[`pages/home/HomePage render Purpose banners render normally 1`] = `
   <div
     className="app-HomePage__content container"
   >
-    <h1>
-      Varaamo –
-    </h1>
-    <h1>
-      HomePage.contentTitle
-    </h1>
-    <h5>
-      HomePage.contentSubTitle
-    </h5>
-    <InjectT(HomeSearchBox)
-      onSearch={[Function]}
-    />
+    <div
+      className="searchBoxContent"
+    >
+      <h1>
+        Varaamo
+      </h1>
+      <h1>
+        HomePage.contentTitle
+      </h1>
+      <h5>
+        HomePage.contentSubTitle
+      </h5>
+      <InjectT(HomeSearchBox)
+        onSearch={[Function]}
+      />
+    </div>
   </div>
   <div
     className="app-HomePage__koro"
@@ -27,9 +31,9 @@ exports[`pages/home/HomePage render Purpose banners render normally 1`] = `
     className="app-HomePageContent"
     title="HomePage.title"
   >
-    <h4>
+    <h2>
       HomePage.bannersTitle
-    </h4>
+    </h2>
   </PageWrapper>
 </div>
 `;
