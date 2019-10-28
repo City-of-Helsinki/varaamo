@@ -202,8 +202,7 @@ class UnconnectedReservationInformationForm extends Component {
       resource,
       staffEventSelected,
       t,
-      termsAndConditions,
-      valid
+      termsAndConditions
     } = this.props;
     const {
       isPaymentTermsModalOpen,
@@ -412,8 +411,7 @@ UnconnectedReservationInformationForm.propTypes = {
   resource: PropTypes.object.isRequired,
   staffEventSelected: PropTypes.bool,
   t: PropTypes.func.isRequired,
-  termsAndConditions: PropTypes.string.isRequired,
-  valid: PropTypes.bool.isRequired
+  termsAndConditions: PropTypes.string.isRequired
 };
 UnconnectedReservationInformationForm = injectT(UnconnectedReservationInformationForm);  // eslint-disable-line
 
