@@ -61,6 +61,7 @@ class UnconnectedInternalReservationForm extends Component {
               <Field
                 checked={this.state.internalReservationDefaultChecked}
                 component="input"
+                id="internalReservationChecked"
                 name="internalReservation"
                 onChange={() => this.setState(
                   prevState => ({ internalReservationDefaultChecked: !prevState.internalReservationDefaultChecked })
@@ -123,9 +124,8 @@ class UnconnectedInternalReservationForm extends Component {
 
 UnconnectedInternalReservationForm.propTypes = {
   t: PropTypes.func.isRequired,
-  dispatch: PropTypes.func.isRequired,
-  maxLengths: PropTypes.object.isRequired,
-  stateForm: PropTypes.object.isRequired
+  dispatch: PropTypes.any,
+  stateForm: PropTypes.any
 };
 
 UnconnectedInternalReservationForm = injectT(UnconnectedInternalReservationForm);  // eslint-disable-line

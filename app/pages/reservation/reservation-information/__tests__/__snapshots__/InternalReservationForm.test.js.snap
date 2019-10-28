@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pages/reservation/reservation-information/InternalReservationForm rendering renders correctly 1`] = `
+<div
+  className="app-ReservationDetails"
+>
+  <Form
+    bsClass="form"
+    className="reservation-form"
+    componentClass="form"
+    horizontal={true}
+    inline={false}
+    noValidate={true}
+  >
+    <h2
+      className="app-ReservationPage__title"
+    >
+      ReservationForm.premiseStaffOnly
+    </h2>
+    <Row
+      bsClass="row"
+      componentClass="div"
+    >
+      <Col
+        bsClass="col"
+        componentClass="div"
+        md={1}
+      >
+        <Field
+          checked={true}
+          component="input"
+          id="internalReservationChecked"
+          name="internalReservation"
+          onChange={[Function]}
+          type="checkbox"
+        />
+      </Col>
+      <Col
+        bsClass="col"
+        componentClass="div"
+        md={11}
+      >
+        <span
+          className="app-ReservationDetails__value"
+        >
+          ReservationForm.internalReservation
+          <br />
+          ReservationForm.internalReservationDescription
+        </span>
+      </Col>
+    </Row>
+    <Row
+      bsClass="row"
+      componentClass="div"
+    >
+      <Col
+        bsClass="col"
+        componentClass="div"
+        md={1}
+      >
+        <Field
+          component="input"
+          name="markAsClosed"
+          type="checkbox"
+        />
+      </Col>
+      <Col
+        bsClass="col"
+        componentClass="div"
+        md={11}
+      >
+        <span
+          className="app-ReservationDetails__value"
+        >
+          ReservationForm.markAsClosed
+          <br />
+          ReservationForm.markAsClosedDescription
+        </span>
+      </Col>
+    </Row>
+    <Row
+      bsClass="row"
+      componentClass="div"
+    >
+      <Col
+        bsClass="col"
+        componentClass="div"
+        md={12}
+      >
+        <div
+          className="app-ReservationPage__formfield"
+        >
+          <label>
+            common.comments
+            <Field
+              component="textarea"
+              maxLength={1500}
+              name="internalReservationComments"
+              rows={5}
+            />
+          </label>
+        </div>
+      </Col>
+    </Row>
+  </Form>
+</div>
+`;
