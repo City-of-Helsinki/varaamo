@@ -197,6 +197,7 @@ class UnconnectedReservationPage extends Component {
       recurringReservations,
       selectedReservations,
       t,
+      isStaff,
     } = this.props;
 
     const reservationsCount = selectedReservations.length + recurringReservations.length;
@@ -205,18 +206,21 @@ class UnconnectedReservationPage extends Component {
       : t('ConfirmReservationModal.regularReservationText', { reservationsCount });
 
     return (
-      <>
-        {/* Recurring selection dropdown  */}
-        <RecurringReservationControls />
-        {<p><strong>{introText}</strong></p>}
+      isStaff
+        ? (
+          <>
+            {/* Recurring selection dropdown  */}
+            <RecurringReservationControls />
+            {<p><strong>{introText}</strong></p>}
 
-        {/* Selected recurring info */}
-        <CompactReservationList
-          onRemoveClick={actions.removeReservation}
-          removableReservations={recurringReservations}
-          reservations={selectedReservations}
-        />
-      </>
+            {/* Selected recurring info */}
+            <CompactReservationList
+              onRemoveClick={actions.removeReservation}
+              removableReservations={recurringReservations}
+              reservations={selectedReservations}
+            />
+          </>
+        ) : ''
     );
   }
 
