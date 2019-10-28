@@ -52,21 +52,10 @@ class UnconnectedInternalReservationForm extends Component {
       && stateForm.RESERVATION.values
       && stateForm.RESERVATION.values.internalReservationComments
     ) internalReservationCommentsLength = stateForm.RESERVATION.values.internalReservationComments.length;
-    /**
-     * TODO Add FI/SV/EN translations!
-     * {t('foo.bar.biz')}
-     */
-    const premiseStaffOnly = 'Premise staff only';
-    const internalReservation = 'Internal reservation';
-    const internalReservationDescription = `The Department's own event. 
-    Uncheck this box to make an external reservation on behalf of the user.`;
-    const markAsClosed = 'Mark as closed';
-    const markAsClosedDescription = 'Check if you are closing the resource by reserving.';
-    const comment = 'Comment';
     return (
       <div className="app-ReservationDetails">
         <Form className="reservation-form" horizontal noValidate>
-          <h2 className="app-ReservationPage__title">{premiseStaffOnly}</h2>
+          <h2 className="app-ReservationPage__title">{t('ReservationForm.premiseStaffOnly')}</h2>
           <Row>
             <Col md={1}>
               <Field
@@ -81,9 +70,9 @@ class UnconnectedInternalReservationForm extends Component {
             </Col>
             <Col md={11}>
               <span className="app-ReservationDetails__value">
-                {internalReservation}
+                {t('ReservationForm.internalReservation')}
                 <br />
-                {internalReservationDescription}
+                {t('ReservationForm.internalReservationDescription')}
               </span>
             </Col>
           </Row>
@@ -97,9 +86,9 @@ class UnconnectedInternalReservationForm extends Component {
             </Col>
             <Col md={11}>
               <span className="app-ReservationDetails__value">
-                {markAsClosed}
+                {t('ReservationForm.markAsClosed')}
                 <br />
-                {markAsClosedDescription}
+                {t('ReservationForm.markAsClosedDescription')}
               </span>
             </Col>
           </Row>
@@ -107,7 +96,7 @@ class UnconnectedInternalReservationForm extends Component {
             <Col md={12}>
               <div className="app-ReservationPage__formfield">
                 <label>
-                  {comment}
+                  {t('common.comments')}
                   <Field
                     component="textarea"
                     maxLength={maxLengths.internalReservationComments}
