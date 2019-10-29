@@ -20,7 +20,8 @@ function mapStateToProps(state) {
 
 class UnconnectedInternalReservationForm extends Component {
   state = {
-    internalReservationDefaultChecked: true
+    internalReservationDefaultChecked: true,
+    markAsClosedDefaultChecked: false
   }
 
   componentDidMount() {
@@ -58,16 +59,19 @@ class UnconnectedInternalReservationForm extends Component {
           <h2 className="app-ReservationPage__title">{t('ReservationForm.premiseStaffOnly')}</h2>
           <Row>
             <Col md={1}>
-              <Field
-                checked={this.state.internalReservationDefaultChecked}
-                component="input"
-                id="internalReservationChecked"
-                name="internalReservation"
-                onChange={() => this.setState(
-                  prevState => ({ internalReservationDefaultChecked: !prevState.internalReservationDefaultChecked })
-                )}
-                type="checkbox"
-              />
+              <label className="custom-checkbox-container">
+                <Field
+                  checked={this.state.internalReservationDefaultChecked}
+                  component="input"
+                  id="internalReservationChecked"
+                  name="internalReservation"
+                  onChange={() => this.setState(
+                    prevState => ({ internalReservationDefaultChecked: !prevState.internalReservationDefaultChecked })
+                  )}
+                  type="checkbox"
+                />
+                <span className="custom-checkmark" />
+              </label>
             </Col>
             <Col md={11}>
               <span className="app-ReservationDetails__value">
@@ -79,11 +83,18 @@ class UnconnectedInternalReservationForm extends Component {
           </Row>
           <Row>
             <Col md={1}>
-              <Field
-                component="input"
-                name="markAsClosed"
-                type="checkbox"
-              />
+              <label className="custom-checkbox-container">
+                <Field
+                  checked={this.state.markAsClosedDefaultChecked}
+                  component="input"
+                  name="markAsClosed"
+                  onChange={() => this.setState(
+                    prevState => ({ markAsClosedDefaultChecked: !prevState.markAsClosedDefaultChecked })
+                  )}
+                  type="checkbox"
+                />
+                <span className="custom-checkmark" />
+              </label>
             </Col>
             <Col md={11}>
               <span className="app-ReservationDetails__value">

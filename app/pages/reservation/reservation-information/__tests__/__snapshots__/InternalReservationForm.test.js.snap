@@ -26,14 +26,21 @@ exports[`pages/reservation/reservation-information/InternalReservationForm rende
         componentClass="div"
         md={1}
       >
-        <Field
-          checked={true}
-          component="input"
-          id="internalReservationChecked"
-          name="internalReservation"
-          onChange={[Function]}
-          type="checkbox"
-        />
+        <label
+          className="custom-checkbox-container"
+        >
+          <Field
+            checked={true}
+            component="input"
+            id="internalReservationChecked"
+            name="internalReservation"
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <span
+            className="custom-checkmark"
+          />
+        </label>
       </Col>
       <Col
         bsClass="col"
@@ -58,11 +65,20 @@ exports[`pages/reservation/reservation-information/InternalReservationForm rende
         componentClass="div"
         md={1}
       >
-        <Field
-          component="input"
-          name="markAsClosed"
-          type="checkbox"
-        />
+        <label
+          className="custom-checkbox-container"
+        >
+          <Field
+            checked={false}
+            component="input"
+            name="markAsClosed"
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <span
+            className="custom-checkmark"
+          />
+        </label>
       </Col>
       <Col
         bsClass="col"
