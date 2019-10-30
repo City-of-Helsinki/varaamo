@@ -111,7 +111,7 @@ exports[`pages/reservation/reservation-information/InternalReservationForm rende
             <Field
               component="textarea"
               maxLength={1500}
-              name="internalReservationComments"
+              name="comments"
               rows={5}
             />
           </label>
