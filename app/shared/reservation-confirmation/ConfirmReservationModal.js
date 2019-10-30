@@ -13,7 +13,6 @@ import RecurringReservationControls from '../recurring-reservation-controls/Recu
 import injectT from '../../i18n/injectT';
 import { isStaffEvent } from '../../utils/reservationUtils';
 import { getTermsAndConditions } from '../../utils/resourceUtils';
-import ReservationForm from './ReservationForm';
 import ReservationInformation from '../../pages/reservation/reservation-information/ReservationInformation';
 
 class ConfirmReservationModal extends Component {
@@ -190,7 +189,8 @@ class ConfirmReservationModal extends Component {
       staffEventSelected,
       t,
       timeSlots,
-      isStaff
+      isStaff,
+      selectedReservations
     } = this.props;
 
     const termsAndConditions = isAdmin ? '' : getTermsAndConditions(resource);
@@ -215,37 +215,18 @@ class ConfirmReservationModal extends Component {
           {isEditing && this.renderEditingTexts()}
           {!showTimeControls && this.renderReservationTimes()}
           {this.renderInfoTexts()}
-          <pre>REMOVE THIS? ---&gt;</pre>
-          <ReservationForm
-            fields={this.getFormFields(termsAndConditions)}
-            initialValues={this.getFormInitialValues()}
-            isEditing={isEditing}
-            isMakingReservations={isMakingReservations} // ok
-            maxReservationPeriod={maxReservationPeriod}
-            onCancel={this.handleCancel} // ok
-            onConfirm={this.onConfirm} // ok
-            requiredFields={this.getRequiredFormFields(resource, termsAndConditions)}
-            staffEventSelected={staffEventSelected}
-            termsAndConditions={termsAndConditions}
-            timeSlots={timeSlots}
-          />
-          <pre>&lt;-- REMOVE THIS?</pre>
           <ReservationInformation
             isAdmin={isAdmin}
             isEditing={isEditing}
-            isMakingReservations={isMakingReservations} // ok
+            isMakingReservations={isMakingReservations}
             isStaff={isStaff}
-            onBack={this.handleCancel} // ok
-            onCancel={this.handleCancel} // ok
-            onConfirm={this.onConfirm} // ok
-            // openResourceTermsModal={actions.openResourceTermsModal}
+            onBack={this.handleCancel}
+            onCancel={this.handleCancel}
+            onConfirm={this.onConfirm}
             openResourceTermsModal={() => {}}
-            // reservation={reservationToEdit}
             reservation={{}}
             resource={resource}
-            // selectedTime={selectedTime}
-            selectedTime={{}}
-            // unit={unit}
+            selectedTime={selectedReservations[0]}
             unit={{}}
           />
         </Modal.Body>
