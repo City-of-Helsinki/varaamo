@@ -106,8 +106,10 @@ class ReservationInformation extends Component {
       field => camelCase(field)
     )];
 
+    const { isAdmin } = this.props;
+
     if (termsAndConditions) {
-      requiredFormFields.push('termsAndConditions');
+      if (!isAdmin) requiredFormFields.push('termsAndConditions');
     }
 
     if (hasProducts(resource)) {
