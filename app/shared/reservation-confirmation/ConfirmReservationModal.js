@@ -14,6 +14,7 @@ import injectT from '../../i18n/injectT';
 import { isStaffEvent } from '../../utils/reservationUtils';
 import { getTermsAndConditions } from '../../utils/resourceUtils';
 import ReservationForm from './ReservationForm';
+import ReservationInformation from '../../pages/reservation/reservation-information/ReservationInformation';
 
 class ConfirmReservationModal extends Component {
   static propTypes = {
@@ -189,6 +190,7 @@ class ConfirmReservationModal extends Component {
       staffEventSelected,
       t,
       timeSlots,
+      isStaff
     } = this.props;
 
     const termsAndConditions = isAdmin ? '' : getTermsAndConditions(resource);
@@ -213,18 +215,38 @@ class ConfirmReservationModal extends Component {
           {isEditing && this.renderEditingTexts()}
           {!showTimeControls && this.renderReservationTimes()}
           {this.renderInfoTexts()}
+          <pre>REMOVE THIS? ---&gt;</pre>
           <ReservationForm
             fields={this.getFormFields(termsAndConditions)}
             initialValues={this.getFormInitialValues()}
             isEditing={isEditing}
-            isMakingReservations={isMakingReservations}
+            isMakingReservations={isMakingReservations} // ok
             maxReservationPeriod={maxReservationPeriod}
-            onCancel={this.handleCancel}
-            onConfirm={this.onConfirm}
+            onCancel={this.handleCancel} // ok
+            onConfirm={this.onConfirm} // ok
             requiredFields={this.getRequiredFormFields(resource, termsAndConditions)}
             staffEventSelected={staffEventSelected}
             termsAndConditions={termsAndConditions}
             timeSlots={timeSlots}
+          />
+          <pre>&lt;-- REMOVE THIS?</pre>
+          <ReservationInformation
+            isAdmin={isAdmin}
+            isEditing={isEditing}
+            isMakingReservations={isMakingReservations} // ok
+            isStaff={isStaff}
+            onBack={this.handleCancel} // ok
+            onCancel={this.handleCancel} // ok
+            onConfirm={this.onConfirm} // ok
+            // openResourceTermsModal={actions.openResourceTermsModal}
+            openResourceTermsModal={() => {}}
+            // reservation={reservationToEdit}
+            reservation={{}}
+            resource={resource}
+            // selectedTime={selectedTime}
+            selectedTime={{}}
+            // unit={unit}
+            unit={{}}
           />
         </Modal.Body>
       </Modal>

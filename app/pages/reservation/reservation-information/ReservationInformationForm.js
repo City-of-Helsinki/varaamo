@@ -348,12 +348,6 @@ class UnconnectedReservationInformationForm extends Component {
             t('common.numberOfParticipantsLabel'),
             { min: '0' }
           )}
-          {this.renderField(
-            'comments',
-            'textarea',
-            t('common.commentsLabel'),
-            { rows: 5 }
-          )}
           {termsAndConditions
             && this.renderTermsField('termsAndConditions')
           }

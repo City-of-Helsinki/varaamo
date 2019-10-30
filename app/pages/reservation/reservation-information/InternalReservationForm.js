@@ -112,7 +112,7 @@ class UnconnectedInternalReservationForm extends Component {
                   <Field
                     component="textarea"
                     maxLength={maxLengths.internalReservationComments}
-                    name="internalReservationComments"
+                    name="comments"
                     rows={5}
                   />
                 </label>
