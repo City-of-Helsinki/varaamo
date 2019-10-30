@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
-import Well from 'react-bootstrap/lib/Well';
 import { Field, reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 
@@ -222,17 +221,6 @@ class UnconnectedReservationInformationForm extends Component {
             <h2 className="app-ReservationPage__title">
               {t('ReservationInformationForm.reserverInformationTitle')}
             </h2>
-          )}
-          { includes(fields, 'staffEvent') && (
-            <Well>
-              {this.renderField(
-                'staffEvent',
-                'checkbox',
-                t('ReservationForm.staffEventLabel'),
-                {},
-                t('ReservationForm.staffEventHelp'),
-              )}
-            </Well>
           )}
           {this.renderField(
             'reserverName',

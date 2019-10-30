@@ -124,7 +124,6 @@ class ReservationInformation extends Component {
     return (
       <div className="app-ReservationInformation__info-texts">
         <p>{t('ConfirmReservationModal.priceInfo')}</p>
-        <p>{t('ConfirmReservationModal.formInfo')}</p>
       </div>
     );
   }
