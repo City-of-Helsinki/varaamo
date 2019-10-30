@@ -12,7 +12,6 @@ import CompactReservationList from '../compact-reservation-list/CompactReservati
 import RecurringReservationControls from '../recurring-reservation-controls/RecurringReservationControls';
 import injectT from '../../i18n/injectT';
 import { isStaffEvent } from '../../utils/reservationUtils';
-import { getTermsAndConditions } from '../../utils/resourceUtils';
 import ReservationInformation from '../../pages/reservation/reservation-information/ReservationInformation';
 
 class ConfirmReservationModal extends Component {
@@ -32,9 +31,7 @@ class ConfirmReservationModal extends Component {
     selectedReservations: PropTypes.array.isRequired,
     show: PropTypes.bool.isRequired,
     showTimeControls: PropTypes.bool,
-    staffEventSelected: PropTypes.bool,
-    t: PropTypes.func.isRequired,
-    timeSlots: PropTypes.array,
+    t: PropTypes.func.isRequired
   };
 
   onConfirm = (values) => {
@@ -186,15 +183,10 @@ class ConfirmReservationModal extends Component {
       resource,
       show,
       showTimeControls,
-      staffEventSelected,
       t,
-      timeSlots,
       isStaff,
       selectedReservations
     } = this.props;
-
-    const termsAndConditions = isAdmin ? '' : getTermsAndConditions(resource);
-    const maxReservationPeriod = isAdmin ? null : resource.maxPeriod;
 
     return (
       <Modal
