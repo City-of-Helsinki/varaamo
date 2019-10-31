@@ -12,7 +12,7 @@ import injectT from '../../../i18n/injectT';
 import FormTypes from '../../../constants/FormTypes';
 
 export const maxLengths = {
-  comments: 1500
+  comments: 3
 };
 
 function mapStateToProps(state) {
@@ -20,17 +20,12 @@ function mapStateToProps(state) {
 }
 
 class UnconnectedInternalReservationForm extends Component {
-  state = {
-    internalReservationDefaultChecked: true,
-    markAsClosedDefaultChecked: false,
-  }
-
   render() {
     const {
       t,
       stateForm
     } = this.props;
-    const internalReservationComments = get(stateForm, 'RESERVATION.values.comments');
+    const internalReservationComments = get(stateForm, 'INTERNAL_RESERVATION.values.comments');
     const internalReservationCommentsLength = internalReservationComments ? internalReservationComments.length : 0;
     return (
       <div className="app-ReservationDetails">
@@ -40,13 +35,9 @@ class UnconnectedInternalReservationForm extends Component {
             <Col md={1}>
               <label className="app-InternalReservationForm__checkbox">
                 <Field
-                  checked={this.state.internalReservationDefaultChecked}
                   component="input"
                   id="internalReservationChecked"
                   name="internalReservation"
-                  onChange={() => this.setState(
-                    prevState => ({ internalReservationDefaultChecked: !prevState.internalReservationDefaultChecked })
-                  )}
                   type="checkbox"
                 />
                 <span className="custom-checkmark" />
@@ -64,12 +55,8 @@ class UnconnectedInternalReservationForm extends Component {
             <Col md={1}>
               <label className="app-InternalReservationForm__checkbox">
                 <Field
-                  checked={this.state.markAsClosedDefaultChecked}
                   component="input"
                   name="markAsClosed"
-                  onChange={() => this.setState(
-                    prevState => ({ markAsClosedDefaultChecked: !prevState.markAsClosedDefaultChecked })
-                  )}
                   type="checkbox"
                 />
                 <span className="custom-checkmark" />
@@ -118,11 +105,10 @@ UnconnectedInternalReservationForm.propTypes = {
   stateForm: PropTypes.any
 };
 
-UnconnectedInternalReservationForm = injectT(UnconnectedInternalReservationForm);  // eslint-disable-line
-
 export { UnconnectedInternalReservationForm };
 
 export default injectT(reduxForm({
-  form: FormTypes.RESERVATION,
+  form: FormTypes.INTERNAL_RESERVATION,
+  initialValues: { internalReservation: true },
   maxLengths
 })(connect(mapStateToProps)(UnconnectedInternalReservationForm)));
