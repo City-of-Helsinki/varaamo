@@ -14,6 +14,7 @@ import injectT from '../../../i18n/injectT';
 import ReservationTermsModal from '../../../shared/modals/reservation-terms/ReservationTermsModal';
 import PaymentTermsModal from '../../../shared/modals/payment-terms/PaymentTermsModal';
 import { hasProducts } from '../../../utils/resourceUtils';
+import InternalReservationForm from './InternalReservationForm';
 
 const validators = {
   reserverEmailAddress: (t, { reserverEmailAddress }) => {
@@ -47,6 +48,7 @@ const maxLengths = {
   reserverId: 30,
   reserverName: 100,
   reserverPhoneNumber: 30,
+  comments: 1500
 };
 
 function isTermsAndConditionsField(field) {
@@ -201,7 +203,10 @@ class UnconnectedReservationInformationForm extends Component {
       resource,
       staffEventSelected,
       t,
-      termsAndConditions
+      termsAndConditions,
+      renderInfoTexts,
+      isStaff,
+      valid,
     } = this.props;
     const {
       isPaymentTermsModalOpen,
@@ -213,7 +218,22 @@ class UnconnectedReservationInformationForm extends Component {
 
     return (
       <div>
-        <Form className="reservation-form" horizontal noValidate>
+        <Form className="reservation-form" horizontal noValidate style={{ paddingTop: 0 }}>
+          {
+            /**
+             * Naming is a bit misleading in this case.
+             * See: <root>/varaamo/app/state/selectors/authSelectors.js
+             * isAdminSelector returns actually isStaff
+             * and createIsStaffSelector returns isAdmin
+             */
+            isStaff && (
+            <InternalReservationForm
+              commentsMaxLengths={maxLengths.comments}
+              valid={valid}
+            />
+            )
+          }
+          {renderInfoTexts()}
           <p>
             {t('ReservationForm.reservationFieldsAsteriskExplanation')}
           </p>
@@ -393,12 +413,16 @@ UnconnectedReservationInformationForm.propTypes = {
   resource: PropTypes.object.isRequired,
   staffEventSelected: PropTypes.bool,
   t: PropTypes.func.isRequired,
-  termsAndConditions: PropTypes.string.isRequired
+  termsAndConditions: PropTypes.string.isRequired,
+  renderInfoTexts: PropTypes.func.isRequired,
+  isStaff: PropTypes.bool.isRequired,
+  valid: PropTypes.bool.isRequired,
 };
 UnconnectedReservationInformationForm = injectT(UnconnectedReservationInformationForm);  // eslint-disable-line
 
 export { UnconnectedReservationInformationForm };
 export default injectT(reduxForm({
   form: FormTypes.RESERVATION,
-  validate,
+  initialValues: { internalReservation: true },
+  validate
 })(UnconnectedReservationInformationForm));

@@ -12,7 +12,6 @@ import injectT from '../../../i18n/injectT';
 import { isStaffEvent, getReservationPrice, getReservationPricePerPeriod } from '../../../utils/reservationUtils';
 import { getTermsAndConditions, hasProducts } from '../../../utils/resourceUtils';
 import ReservationInformationForm from './ReservationInformationForm';
-import InternalReservationForm from './InternalReservationForm';
 import apiClient from '../../../../src/common/api/client';
 
 class ReservationInformation extends Component {
@@ -29,7 +28,7 @@ class ReservationInformation extends Component {
     resource: PropTypes.object.isRequired,
     selectedTime: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
-    unit: PropTypes.object.isRequired,
+    unit: PropTypes.object.isRequired
   };
 
   state = {
@@ -157,25 +156,17 @@ class ReservationInformation extends Component {
     return (
       <div className="app-ReservationInformation">
         <Col md={7} sm={12}>
-          {
-            /**
-             * Naming is a bit misleading in this case.
-             * See: <root>/varaamo/app/state/selectors/authSelectors.js
-             * isAdminSelector returns actually isStaff
-             * and createIsStaffSelector returns isAdmin
-             */
-            isStaff ? <InternalReservationForm /> : ''
-          }
-          {this.renderInfoTexts()}
           <ReservationInformationForm
             fields={this.getFormFields(termsAndConditions)}
             initialValues={this.getFormInitialValues()}
             isEditing={isEditing}
             isMakingReservations={isMakingReservations}
+            isStaff={isStaff}
             onBack={onBack}
             onCancel={onCancel}
             onConfirm={this.onConfirm}
             openResourceTermsModal={openResourceTermsModal}
+            renderInfoTexts={this.renderInfoTexts}
             requiredFields={this.getRequiredFormFields(resource, termsAndConditions)}
             resource={resource}
             termsAndConditions={termsAndConditions}
