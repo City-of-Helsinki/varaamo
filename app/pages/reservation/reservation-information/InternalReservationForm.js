@@ -12,7 +12,7 @@ import injectT from '../../../i18n/injectT';
 import FormTypes from '../../../constants/FormTypes';
 
 export const maxLengths = {
-  comments: 3
+  comments: 1500
 };
 
 function mapStateToProps(state) {
