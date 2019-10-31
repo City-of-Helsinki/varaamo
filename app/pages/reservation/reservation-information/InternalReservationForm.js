@@ -101,7 +101,6 @@ class UnconnectedInternalReservationForm extends Component {
 
 UnconnectedInternalReservationForm.propTypes = {
   t: PropTypes.func.isRequired,
-  dispatch: PropTypes.any,
   stateForm: PropTypes.any
 };
 
