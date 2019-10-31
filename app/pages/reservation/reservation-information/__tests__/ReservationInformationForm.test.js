@@ -124,6 +124,9 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
       requiredFields: [],
       resource: Resource.build({ specificTerms: 'some specific terms' }),
       termsAndConditions: '',
+      renderInfoTexts: simple.mock(),
+      isStaff: true,
+      valid: true,
     };
 
     function getWrapper(extraProps) {
