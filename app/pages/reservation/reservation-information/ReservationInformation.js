@@ -166,7 +166,6 @@ class ReservationInformation extends Component {
             onCancel={onCancel}
             onConfirm={this.onConfirm}
             openResourceTermsModal={openResourceTermsModal}
-            renderInfoTexts={this.renderInfoTexts}
             requiredFields={this.getRequiredFormFields(resource, termsAndConditions)}
             resource={resource}
             termsAndConditions={termsAndConditions}

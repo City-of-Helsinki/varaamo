@@ -193,6 +193,17 @@ class UnconnectedReservationInformationForm extends Component {
     );
   }
 
+  renderInfoTexts = () => {
+    const { resource, t } = this.props;
+    if (!resource.needManualConfirmation) return null;
+
+    return (
+      <div className="app-ReservationInformation__info-texts">
+        <p>{t('ConfirmReservationModal.priceInfo')}</p>
+      </div>
+    );
+  }
+
   render() {
     const {
       isEditing,
@@ -204,7 +215,6 @@ class UnconnectedReservationInformationForm extends Component {
       staffEventSelected,
       t,
       termsAndConditions,
-      renderInfoTexts,
       isStaff,
       valid,
     } = this.props;
@@ -233,7 +243,7 @@ class UnconnectedReservationInformationForm extends Component {
             />
             )
           }
-          {renderInfoTexts()}
+          {this.renderInfoTexts()}
           <p>
             {t('ReservationForm.reservationFieldsAsteriskExplanation')}
           </p>
@@ -414,7 +424,6 @@ UnconnectedReservationInformationForm.propTypes = {
   staffEventSelected: PropTypes.bool,
   t: PropTypes.func.isRequired,
   termsAndConditions: PropTypes.string.isRequired,
-  renderInfoTexts: PropTypes.func.isRequired,
   isStaff: PropTypes.bool.isRequired,
   valid: PropTypes.bool.isRequired,
 };
