@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import injectT from '../../../i18n/injectT';
 import FormTypes from '../../../constants/FormTypes';
 
+
 export const maxLengths = {
   internalReservationComments: 1500
 };
@@ -59,7 +60,7 @@ class UnconnectedInternalReservationForm extends Component {
           <h2 className="app-ReservationPage__title">{t('ReservationForm.premiseStaffOnly')}</h2>
           <Row>
             <Col md={1}>
-              <label className="custom-checkbox-container">
+              <label className="app-InternalReservationForm__checkbox">
                 <Field
                   checked={this.state.internalReservationDefaultChecked}
                   component="input"
@@ -83,7 +84,7 @@ class UnconnectedInternalReservationForm extends Component {
           </Row>
           <Row>
             <Col md={1}>
-              <label className="custom-checkbox-container">
+              <label className="app-InternalReservationForm__checkbox">
                 <Field
                   checked={this.state.markAsClosedDefaultChecked}
                   component="input"

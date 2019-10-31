@@ -27,7 +27,7 @@ exports[`pages/reservation/reservation-information/InternalReservationForm rende
         md={1}
       >
         <label
-          className="custom-checkbox-container"
+          className="app-InternalReservationForm__checkbox"
         >
           <Field
             checked={true}
@@ -66,7 +66,7 @@ exports[`pages/reservation/reservation-information/InternalReservationForm rende
         md={1}
       >
         <label
-          className="custom-checkbox-container"
+          className="app-InternalReservationForm__checkbox"
         >
           <Field
             checked={false}
