@@ -6,13 +6,13 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import get from 'lodash/get';
 
 import injectT from '../../../i18n/injectT';
 import FormTypes from '../../../constants/FormTypes';
 
-
 export const maxLengths = {
-  internalReservationComments: 1500
+  comments: 1500
 };
 
 function mapStateToProps(state) {
@@ -22,24 +22,7 @@ function mapStateToProps(state) {
 class UnconnectedInternalReservationForm extends Component {
   state = {
     internalReservationDefaultChecked: true,
-    markAsClosedDefaultChecked: false
-  }
-
-  componentDidMount() {
-    this.props.dispatch(this.internalReservationFormInitialValue());
-  }
-
-  internalReservationFormInitialValue() {
-    return {
-      type: '@@redux-form/CHANGE',
-      meta: {
-        form: 'RESERVATION',
-        field: 'internalReservation',
-        touch: false,
-        persistentSubmitErrors: false
-      },
-      payload: this.state.internalReservationDefaultChecked
-    };
+    markAsClosedDefaultChecked: false,
   }
 
   render() {
@@ -47,13 +30,8 @@ class UnconnectedInternalReservationForm extends Component {
       t,
       stateForm
     } = this.props;
-    let internalReservationCommentsLength = 0;
-    if (
-      stateForm
-      && stateForm.RESERVATION
-      && stateForm.RESERVATION.values
-      && stateForm.RESERVATION.values.internalReservationComments
-    ) internalReservationCommentsLength = stateForm.RESERVATION.values.internalReservationComments.length;
+    const internalReservationComments = get(stateForm, 'RESERVATION.values.comments');
+    const internalReservationCommentsLength = internalReservationComments ? internalReservationComments.length : 0;
     return (
       <div className="app-ReservationDetails">
         <Form className="reservation-form" horizontal noValidate>
@@ -112,16 +90,16 @@ class UnconnectedInternalReservationForm extends Component {
                   {t('common.comments')}
                   <Field
                     component="textarea"
-                    maxLength={maxLengths.internalReservationComments}
+                    maxLength={maxLengths.comments}
                     name="comments"
                     rows={5}
                   />
                 </label>
                 {
-                  internalReservationCommentsLength >= maxLengths.internalReservationComments
+                  internalReservationCommentsLength >= maxLengths.comments
                   && (
                   <span className="app-ReservationPage__error">
-                    {t('ReservationForm.maxLengthError', { maxLength: maxLengths.internalReservationComments })}
+                    {t('ReservationForm.maxLengthError', { maxLength: maxLengths.comments })}
                   </span>
                   )
                 }
