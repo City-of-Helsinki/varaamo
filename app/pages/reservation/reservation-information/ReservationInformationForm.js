@@ -14,7 +14,7 @@ import injectT from '../../../i18n/injectT';
 import ReservationTermsModal from '../../../shared/modals/reservation-terms/ReservationTermsModal';
 import PaymentTermsModal from '../../../shared/modals/payment-terms/PaymentTermsModal';
 import { hasProducts } from '../../../utils/resourceUtils';
-import InternalReservationForm from './InternalReservationForm';
+import InternalReservationFields from './InternalReservationFields';
 
 const validators = {
   reserverEmailAddress: (t, { reserverEmailAddress }) => {
@@ -237,7 +237,7 @@ class UnconnectedReservationInformationForm extends Component {
              * and createIsStaffSelector returns isAdmin
              */
             isStaff && (
-            <InternalReservationForm
+            <InternalReservationFields
               commentsMaxLengths={maxLengths.comments}
               valid={valid}
             />

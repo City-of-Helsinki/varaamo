@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import injectT from '../../../i18n/injectT';
 import FormTypes from '../../../constants/FormTypes';
 
-class UnconnectedInternalReservationForm extends Component {
+class InternalReservationFields extends Component {
   render() {
     const {
       t,
@@ -81,7 +81,7 @@ class UnconnectedInternalReservationForm extends Component {
   }
 }
 
-UnconnectedInternalReservationForm.propTypes = {
+InternalReservationFields.propTypes = {
   t: PropTypes.func.isRequired,
   commentsMaxLengths: PropTypes.number.isRequired,
   valid: PropTypes.bool.isRequired
@@ -90,4 +90,4 @@ UnconnectedInternalReservationForm.propTypes = {
 export default injectT(reduxForm({
   form: FormTypes.RESERVATION,
   initialValues: { internalReservation: true }
-})(UnconnectedInternalReservationForm));
+})(InternalReservationFields));
