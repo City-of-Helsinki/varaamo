@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import Row from 'react-bootstrap/lib/Row';
@@ -20,15 +19,13 @@ class UnconnectedInternalReservationForm extends Component {
         <h2 className="app-ReservationPage__title">{t('ReservationForm.premiseStaffOnly')}</h2>
         <Row>
           <Col md={1}>
-            <label className="app-InternalReservationForm__checkbox">
-              <Field
-                component="input"
-                id="internalReservationChecked"
-                name="internalReservation"
-                type="checkbox"
-              />
-              <span className="custom-checkmark" />
-            </label>
+            <Field
+              component="input"
+              id="internalReservationChecked"
+              label="internalReservation"
+              name="internalReservation"
+              type="checkbox"
+            />
           </Col>
           <Col md={11}>
             <span className="app-ReservationDetails__value">
@@ -40,14 +37,12 @@ class UnconnectedInternalReservationForm extends Component {
         </Row>
         <Row>
           <Col md={1}>
-            <label className="app-InternalReservationForm__checkbox">
-              <Field
-                component="input"
-                name="markAsClosed"
-                type="checkbox"
-              />
-              <span className="custom-checkmark" />
-            </label>
+            <Field
+              component="input"
+              label="markAsClosed"
+              name="markAsClosed"
+              type="checkbox"
+            />
           </Col>
           <Col md={11}>
             <span className="app-ReservationDetails__value">
@@ -60,15 +55,16 @@ class UnconnectedInternalReservationForm extends Component {
         <Row>
           <Col md={12}>
             <div className="app-ReservationPage__formfield">
-              <label>
+              <span>
                 {t('common.comments')}
-                <Field
-                  component="textarea"
-                  maxLength={commentsMaxLengths}
-                  name="comments"
-                  rows={5}
-                />
-              </label>
+              </span>
+              <Field
+                component="textarea"
+                label="comments"
+                maxLength={commentsMaxLengths}
+                name="comments"
+                rows={5}
+              />
               {
                 !valid
                 && (
