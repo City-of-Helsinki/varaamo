@@ -42,7 +42,7 @@ class TimePickerCalendar extends Component {
     viewType: 'timeGridWeek',
     selected: calendarUtils.getDefaultSelectedTimeRange(this.props.edittingReservation),
     header: {
-      left: 'prev,next today',
+      left: 'today',
       center: 'title',
       right: 'timeGridDay,timeGridWeek'
     }

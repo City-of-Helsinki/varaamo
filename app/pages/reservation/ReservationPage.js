@@ -171,14 +171,13 @@ class UnconnectedReservationPage extends Component {
     } = this.props;
 
     const start = moment(date)
-      .subtract(2, 'M')
+      .subtract(1, 'M')
       .startOf('month')
-      .format();
+      .toISOString();
     const end = moment(date)
-      .add(2, 'M')
+      .add(1, 'M')
       .endOf('month')
-      .format();
-
+      .toISOString();
     const params = queryString.parse(location.search);
 
     if (!isEmpty(resource)) {
