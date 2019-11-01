@@ -228,7 +228,7 @@ class UnconnectedReservationInformationForm extends Component {
 
     return (
       <div>
-        <Form className="reservation-form" horizontal noValidate style={{ paddingTop: 0 }}>
+        <Form className="reservation-form reservation-form-top-bottom" horizontal noValidate>
           {
             /**
              * Naming is a bit misleading in this case.
