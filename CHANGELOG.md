@@ -1,3 +1,7 @@
+# 0.7.0-pre
+  **CHANGELOG**
+  - [#1052](https://github.com/City-of-Helsinki/varaamo/pull/1052) Add internal field for staff in ReservationForm.
+
 # 0.6.1
   **HOTFIX**
   - Resource fetchAll come with empty reservations data, affect resource availability status was determined wrong, which confuse user and display wrong status.
