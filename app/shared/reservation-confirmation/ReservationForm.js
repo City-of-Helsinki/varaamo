@@ -158,24 +158,9 @@ class UnconnectedReservationForm extends Component {
             t('ReservationForm.eventSubjectInfo'),
           )}
           {this.renderField(
-            'reserverName',
-            'text',
-            t('common.reserverNameLabel')
-          )}
-          {this.renderField(
             'reserverId',
             'text',
             t('common.reserverIdLabel')
-          )}
-          {this.renderField(
-            'reserverPhoneNumber',
-            'text',
-            t('common.reserverPhoneNumberLabel')
-          )}
-          {this.renderField(
-            'reserverEmailAddress',
-            'email',
-            t('common.reserverEmailAddressLabel')
           )}
           {this.renderField(
             'eventDescription',

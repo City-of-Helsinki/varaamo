@@ -12,8 +12,7 @@ import CompactReservationList from '../compact-reservation-list/CompactReservati
 import RecurringReservationControls from '../recurring-reservation-controls/RecurringReservationControls';
 import injectT from '../../i18n/injectT';
 import { isStaffEvent } from '../../utils/reservationUtils';
-import { getTermsAndConditions } from '../../utils/resourceUtils';
-import ReservationForm from './ReservationForm';
+import ReservationInformation from '../../pages/reservation/reservation-information/ReservationInformation';
 
 class ConfirmReservationModal extends Component {
   static propTypes = {
@@ -32,9 +31,7 @@ class ConfirmReservationModal extends Component {
     selectedReservations: PropTypes.array.isRequired,
     show: PropTypes.bool.isRequired,
     showTimeControls: PropTypes.bool,
-    staffEventSelected: PropTypes.bool,
-    t: PropTypes.func.isRequired,
-    timeSlots: PropTypes.array,
+    t: PropTypes.func.isRequired
   };
 
   onConfirm = (values) => {
@@ -186,13 +183,10 @@ class ConfirmReservationModal extends Component {
       resource,
       show,
       showTimeControls,
-      staffEventSelected,
       t,
-      timeSlots,
+      isStaff,
+      selectedReservations
     } = this.props;
-
-    const termsAndConditions = isAdmin ? '' : getTermsAndConditions(resource);
-    const maxReservationPeriod = isAdmin ? null : resource.maxPeriod;
 
     return (
       <Modal
@@ -213,18 +207,19 @@ class ConfirmReservationModal extends Component {
           {isEditing && this.renderEditingTexts()}
           {!showTimeControls && this.renderReservationTimes()}
           {this.renderInfoTexts()}
-          <ReservationForm
-            fields={this.getFormFields(termsAndConditions)}
-            initialValues={this.getFormInitialValues()}
+          <ReservationInformation
+            isAdmin={isAdmin}
             isEditing={isEditing}
             isMakingReservations={isMakingReservations}
-            maxReservationPeriod={maxReservationPeriod}
+            isStaff={isStaff}
+            onBack={this.handleCancel}
             onCancel={this.handleCancel}
             onConfirm={this.onConfirm}
-            requiredFields={this.getRequiredFormFields(resource, termsAndConditions)}
-            staffEventSelected={staffEventSelected}
-            termsAndConditions={termsAndConditions}
-            timeSlots={timeSlots}
+            openResourceTermsModal={() => {}}
+            reservation={{}}
+            resource={resource}
+            selectedTime={selectedReservations[0]}
+            unit={{}}
           />
         </Modal.Body>
       </Modal>

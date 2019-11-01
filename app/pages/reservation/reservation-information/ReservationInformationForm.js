@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
-import Well from 'react-bootstrap/lib/Well';
 import { Field, reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 
@@ -15,6 +14,7 @@ import injectT from '../../../i18n/injectT';
 import ReservationTermsModal from '../../../shared/modals/reservation-terms/ReservationTermsModal';
 import PaymentTermsModal from '../../../shared/modals/payment-terms/PaymentTermsModal';
 import { hasProducts } from '../../../utils/resourceUtils';
+import InternalReservationFields from './InternalReservationFields';
 
 const validators = {
   reserverEmailAddress: (t, { reserverEmailAddress }) => {
@@ -48,6 +48,7 @@ const maxLengths = {
   reserverId: 30,
   reserverName: 100,
   reserverPhoneNumber: 30,
+  comments: 1500
 };
 
 function isTermsAndConditionsField(field) {
@@ -192,6 +193,17 @@ class UnconnectedReservationInformationForm extends Component {
     );
   }
 
+  renderInfoTexts = () => {
+    const { resource, t } = this.props;
+    if (!resource.needManualConfirmation) return null;
+
+    return (
+      <div className="app-ReservationInformation__info-texts">
+        <p>{t('ConfirmReservationModal.priceInfo')}</p>
+      </div>
+    );
+  }
+
   render() {
     const {
       isEditing,
@@ -203,6 +215,8 @@ class UnconnectedReservationInformationForm extends Component {
       staffEventSelected,
       t,
       termsAndConditions,
+      isStaff,
+      valid,
     } = this.props;
     const {
       isPaymentTermsModalOpen,
@@ -214,7 +228,22 @@ class UnconnectedReservationInformationForm extends Component {
 
     return (
       <div>
-        <Form className="reservation-form" horizontal noValidate>
+        <Form className="reservation-form reservation-form-top-bottom" horizontal noValidate>
+          {
+            /**
+             * Naming is a bit misleading in this case.
+             * See: <root>/varaamo/app/state/selectors/authSelectors.js
+             * isAdminSelector returns actually isStaff
+             * and createIsStaffSelector returns isAdmin
+             */
+            isStaff && (
+            <InternalReservationFields
+              commentsMaxLengths={maxLengths.comments}
+              valid={valid}
+            />
+            )
+          }
+          {this.renderInfoTexts()}
           <p>
             {t('ReservationForm.reservationFieldsAsteriskExplanation')}
           </p>
@@ -222,17 +251,6 @@ class UnconnectedReservationInformationForm extends Component {
             <h2 className="app-ReservationPage__title">
               {t('ReservationInformationForm.reserverInformationTitle')}
             </h2>
-          )}
-          { includes(fields, 'staffEvent') && (
-            <Well>
-              {this.renderField(
-                'staffEvent',
-                'checkbox',
-                t('ReservationForm.staffEventLabel'),
-                {},
-                t('ReservationForm.staffEventHelp'),
-              )}
-            </Well>
           )}
           {this.renderField(
             'reserverName',
@@ -348,12 +366,6 @@ class UnconnectedReservationInformationForm extends Component {
             t('common.numberOfParticipantsLabel'),
             { min: '0' }
           )}
-          {this.renderField(
-            'comments',
-            'textarea',
-            t('common.commentsLabel'),
-            { rows: 5 }
-          )}
           {termsAndConditions
             && this.renderTermsField('termsAndConditions')
           }
@@ -412,11 +424,14 @@ UnconnectedReservationInformationForm.propTypes = {
   staffEventSelected: PropTypes.bool,
   t: PropTypes.func.isRequired,
   termsAndConditions: PropTypes.string.isRequired,
+  isStaff: PropTypes.bool.isRequired,
+  valid: PropTypes.bool.isRequired,
 };
 UnconnectedReservationInformationForm = injectT(UnconnectedReservationInformationForm);  // eslint-disable-line
 
 export { UnconnectedReservationInformationForm };
 export default injectT(reduxForm({
   form: FormTypes.RESERVATION,
-  validate,
+  initialValues: { internalReservation: true },
+  validate
 })(UnconnectedReservationInformationForm));

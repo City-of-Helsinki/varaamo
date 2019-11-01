@@ -124,11 +124,31 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
       requiredFields: [],
       resource: Resource.build({ specificTerms: 'some specific terms' }),
       termsAndConditions: '',
+      renderInfoTexts: simple.mock(),
+      isStaff: true,
+      valid: true,
     };
 
     function getWrapper(extraProps) {
       return shallowWithIntl(<ReservationInformationForm {...defaultProps} {...extraProps} />);
     }
+
+    test('renders info texts when needManualConfirmation is true', () => {
+      const resource = Resource.build({
+        needManualConfirmation: true,
+      });
+      const infoTexts = getWrapper({ resource }).find('.app-ReservationInformation__info-texts');
+      expect(infoTexts).toHaveLength(1);
+      expect(infoTexts.text()).toContain('ConfirmReservationModal.priceInfo');
+    });
+
+    test('does not render info texts when needManualConfirmation is false', () => {
+      const resource = Resource.build({
+        needManualConfirmation: false,
+      });
+      const infoTexts = getWrapper({ resource }).find('.app-ReservationInformation__info-texts');
+      expect(infoTexts).toHaveLength(0);
+    });
 
     test('renders a Form component', () => {
       const form = getWrapper().find(Form);

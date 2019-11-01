@@ -85,10 +85,6 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
         expect(getModalBodyWrapper).toHaveLength(1);
       });
 
-      test('renders ReservationForm', () => {
-        expect(getModalBodyWrapper().find(ReservationForm)).toHaveLength(1);
-      });
-
       describe('when making a preliminary reservation', () => {
         const props = {
           isPreliminaryReservation: true,
@@ -146,71 +142,6 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
         test('does not render RecurringReservationControls', () => {
           expect(getModalBodyWrapper(props).find(RecurringReservationControls)).toHaveLength(0);
         });
-      });
-    });
-  });
-
-  describe('ReservationForm fields', () => {
-    function getFormFields(props) {
-      return getWrapper(props).find(ReservationForm).props().fields;
-    }
-
-    test('contain resource.supportedReservationExtraFields', () => {
-      const supportedReservationExtraFields = ['firstField', 'secondField'];
-      const resource = Resource.build({ supportedReservationExtraFields });
-      forEach(supportedReservationExtraFields, (field) => {
-        expect(getFormFields({ resource })).toEqual(expect.arrayContaining([field]));
-      });
-    });
-
-    describe('comments', () => {
-      test('is included if user is an admin', () => {
-        expect(getFormFields({ isAdmin: true })).toEqual(expect.arrayContaining(['comments']));
-      });
-
-      test('is not included if user is not an admin', () => {
-        expect(getFormFields({ isAdmin: false })).toEqual(expect.not.arrayContaining(['comments']));
-      });
-    });
-
-    describe('staffEvent', () => {
-      test('is not included if resource does not need manual confirmation', () => {
-        const props = {
-          isStaff: true,
-          resource: Resource.build({ needManualConfirmation: false }),
-        };
-        expect(getFormFields(props)).toEqual(expect.not.arrayContaining(['staffEvent']));
-      });
-
-      test('is not included if user is not staff', () => {
-        const props = {
-          isStaff: false,
-          resource: Resource.build({ needManualConfirmation: true }),
-        };
-        expect(getFormFields(props)).toEqual(expect.not.arrayContaining(['staffEvent']));
-      });
-
-      test(
-        'is included if user is staff and resource need manual confirmation',
-        () => {
-          const props = {
-            isStaff: true,
-            resource: Resource.build({ needManualConfirmation: true }),
-          };
-          expect(getFormFields(props)).toEqual(expect.arrayContaining(['staffEvent']));
-        }
-      );
-    });
-
-    describe('termsAndConditions', () => {
-      test('is included if resource contains terms', () => {
-        const resource = Resource.build({ genericTerms: 'Some terms' });
-        expect(getFormFields({ resource })).toEqual(expect.arrayContaining(['termsAndConditions']));
-      });
-
-      test('is not included if resource does not contain any terms', () => {
-        const resource = Resource.build({ genericTerms: null });
-        expect(getFormFields({ resource })).toEqual(expect.not.arrayContaining(['termsAndConditions']));
       });
     });
   });
