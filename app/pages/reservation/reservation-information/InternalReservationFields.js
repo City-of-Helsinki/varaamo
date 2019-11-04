@@ -23,7 +23,7 @@ class InternalReservationFields extends Component {
               component="input"
               id="internalReservationChecked"
               label="internalReservation"
-              name="internalReservation"
+              name="staffEvent"
               type="checkbox"
             />
           </Col>
@@ -40,7 +40,7 @@ class InternalReservationFields extends Component {
             <Field
               component="input"
               label="markAsClosed"
-              name="markAsClosed"
+              name="type"
               type="checkbox"
             />
           </Col>
@@ -89,5 +89,5 @@ InternalReservationFields.propTypes = {
 
 export default injectT(reduxForm({
   form: FormTypes.RESERVATION,
-  initialValues: { internalReservation: true }
+  initialValues: { staffEvent: true }
 })(InternalReservationFields));
