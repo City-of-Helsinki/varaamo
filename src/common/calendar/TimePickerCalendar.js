@@ -42,7 +42,7 @@ class TimePickerCalendar extends Component {
     viewType: 'timeGridWeek',
     selected: calendarUtils.getDefaultSelectedTimeRange(this.props.edittingReservation),
     header: {
-      left: 'today',
+      left: 'prev,next,today',
       center: 'title',
       right: 'timeGridDay,timeGridWeek'
     }
@@ -125,16 +125,19 @@ class TimePickerCalendar extends Component {
     let view = info.view.type;
     let headerConfig = header;
 
+    // 768
     if (window.innerWidth < 768) {
       // mobile view config
       view = 'timeGridDay';
       headerConfig = {
-        left: 'today,prev',
+        left: 'prev,next,today',
         center: 'title',
-        right: 'next,timeGridDay,timeGridWeek'
+        right: 'timeGridDay,timeGridWeek'
       };
     }
 
+    console.log("view", view);
+    console.log("viewType", viewType);
     if (viewType !== view) {
       this.setState({ viewType: view, header: headerConfig });
     }
@@ -351,6 +354,8 @@ class TimePickerCalendar extends Component {
     }
     return events;
   };
+
+
 
   render() {
     const { resource, date } = this.props;

@@ -48,31 +48,27 @@
     .fc-header-toolbar {
       display: flex;
 
-      .fc-left,
-      .fc-right {
+      .fc-left {
         width: 30%
       }
 
 
-      .fc-button {
-        border: none;
+      .fc-today-button {
+        border: 1px solid #000000;
         border-radius: 0;
         padding: 0.2em 0.3em;
-        background: $hel-coat;
+        background: $white;
         font-weight: $font-weight-bold;
+        color: #000000;
 
         &:disabled {
-          border: 1px solid $black;
-          color: $black;
-          background: $white !important;
+          border:none;
+          background: $hel-coat;
+          font-weight: $font-weight-bold;
+          color: $white;
+          opacity: 1;
         }
 
-        &.fc-timeGridDay-button,
-        &.fc-timeGridWeek-button {
-          &.fc-button-active {
-            display: none;
-          }
-        }
       }
 
       .fc-prev-button,
@@ -80,13 +76,14 @@
         margin: 0 !important;
         background: $white;
         padding: 0;
+        border: none;
       }
 
       .fc-icon {
         color: $black;
       }
 
-      .fc-right, .fc-left {
+     .fc-left {
         .fc-button-group {
           .fc-button {
             flex-grow: 0;
@@ -98,6 +95,19 @@
         }
       }
 
+      .fc-timeGridWeek-button,
+      .fc-timeGridDay-button {
+        border: 1px solid #000000;
+        border-radius: 0;
+        padding: 0.3em 0.3em;
+        background: $white;
+        color: #000000;
+
+        &.fc-button-active {
+          background: #000000;
+        }
+      }
+
       .fc-center {
         text-align: center;
         h2 {
@@ -106,6 +116,66 @@
       }
     }
   }
+
+
+  @media (min-width: $screen-xs-max) {
+    .fc-header-toolbar {
+
+      .fc-left {
+        width: 30%;
+        .fc-button-group {
+          .fc-button {
+            flex-grow: 0;
+          }
+
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+        }
+      }
+
+      .fc-today-button {
+        border: 1px solid #000000;
+        border-radius: 0;
+        padding: 0.2em 0.3em;
+        color: #000000;
+        background: $white;
+        font-weight: $font-weight-bold;
+
+
+        &:disabled {
+          border:none;
+          background: $hel-coat;
+          font-weight: $font-weight-bold;
+          color: $white;
+          opacity: 1;
+        }
+      }
+
+      .fc-prev-button,
+      .fc-next-button {
+        margin: 0 !important;
+        background: $white;
+        color: #000000;
+        border:0;
+      }
+
+      .fc-timeGridWeek-button,
+      .fc-timeGridDay-button {
+        border: 1px solid #000000;
+        border-radius: 0;
+        padding: 0.3em 0.3em;
+        background: $white;
+        color: #000000;
+
+        &.fc-button-active {
+          background: #000000;
+        }
+      }
+    }
+  }
+
+
 
 }
 
