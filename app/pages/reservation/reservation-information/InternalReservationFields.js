@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import PropTypes from 'prop-types';
 
+import { RESERVATION_TYPE } from '../../../../src/domain/reservation/constants';
 import injectT from '../../../i18n/injectT';
 import FormTypes from '../../../constants/FormTypes';
 
@@ -39,10 +40,10 @@ class InternalReservationFields extends Component {
           <Col md={1}>
             <Field
               component="input"
-              format={v => v === 'blocked'}
+              format={value => value === RESERVATION_TYPE.BLOCKED}
               label="markAsClosed"
               name="type"
-              normalize={v => (v ? 'blocked' : 'false')} // 'false' is interpreted 'normal'
+              normalize={value => (value ? RESERVATION_TYPE.BLOCKED : RESERVATION_TYPE.NORMAL)}
               type="checkbox"
             />
           </Col>

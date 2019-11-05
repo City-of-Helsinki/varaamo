@@ -22,3 +22,8 @@ export const RESERVATION_SHOWONLY_FILTERS = {
   FAVORITE: 'favorite',
   CAN_MODIFY: 'can_modify'
 };
+
+export const RESERVATION_TYPE = {
+  NORMAL: 'normal',
+  BLOCKED: 'blocked'
+};
