@@ -92,5 +92,5 @@ InternalReservationFields.propTypes = {
 
 export default injectT(reduxForm({
   form: FormTypes.RESERVATION,
-  initialValues: { staffEvent: true }
+  initialValues: { staffEvent: true, type: RESERVATION_TYPE.NORMAL }
 })(InternalReservationFields));
