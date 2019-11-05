@@ -39,8 +39,10 @@ class InternalReservationFields extends Component {
           <Col md={1}>
             <Field
               component="input"
+              format={v => v === 'blocked'}
               label="markAsClosed"
               name="type"
+              normalize={v => (v ? 'blocked' : 'false')} // 'false' is interpreted 'normal'
               type="checkbox"
             />
           </Col>

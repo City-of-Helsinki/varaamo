@@ -47,13 +47,6 @@ export class UnconnectedReservationConfirmationContainer extends Component {
       actions, recurringReservations, resource, selectedReservations
     } = this.props;
 
-    const newValues = { ...values };
-    if (newValues.type === true) {
-      newValues.type = 'blocked';
-    } else {
-      newValues.type = 'normal';
-    }
-
     const orderedReservations = orderBy(selectedReservations, 'begin');
     const selectedReservation = Object.assign({}, first(orderedReservations));
     selectedReservation.end = last(orderedReservations).end;
@@ -62,7 +55,7 @@ export class UnconnectedReservationConfirmationContainer extends Component {
     [...mergedReservations, ...recurringReservations].forEach((reservation) => {
       actions.postReservation({
         ...reservation,
-        ...newValues,
+        ...values,
         resource: resource.id,
       });
     });

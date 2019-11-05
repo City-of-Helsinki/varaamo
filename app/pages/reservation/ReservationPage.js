@@ -125,13 +125,6 @@ class UnconnectedReservationPage extends Component {
       actions, reservationToEdit, resource, selected, recurringReservations = []
     } = this.props;
 
-    const newValues = { ...values };
-    if (newValues.type === true) {
-      newValues.type = 'blocked';
-    } else {
-      newValues.type = 'normal';
-    }
-
     if (!isEmpty(selected)) {
       const { begin } = first(selected);
       const { end } = last(selected);
@@ -140,7 +133,7 @@ class UnconnectedReservationPage extends Component {
         const reservation = Object.assign({}, reservationToEdit);
         actions.putReservation({
           ...reservation,
-          ...newValues,
+          ...values,
           begin,
           end,
         });
@@ -162,7 +155,7 @@ class UnconnectedReservationPage extends Component {
           this.setState({ view: 'payment' });
         }
         allReservations.forEach(reservation => actions.postReservation({
-          ...newValues,
+          ...values,
           ...order,
           begin: reservation.begin,
           end: reservation.end,
