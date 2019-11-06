@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import PropTypes from 'prop-types';
 
+import { RESERVATION_TYPE } from '../../../../src/domain/reservation/constants';
 import injectT from '../../../i18n/injectT';
 import FormTypes from '../../../constants/FormTypes';
 
@@ -23,7 +24,7 @@ class InternalReservationFields extends Component {
               component="input"
               id="internalReservationChecked"
               label="internalReservation"
-              name="internalReservation"
+              name="staffEvent"
               type="checkbox"
             />
           </Col>
@@ -39,8 +40,10 @@ class InternalReservationFields extends Component {
           <Col md={1}>
             <Field
               component="input"
+              format={value => value === RESERVATION_TYPE.BLOCKED}
               label="markAsClosed"
-              name="markAsClosed"
+              name="type"
+              normalize={value => (value ? RESERVATION_TYPE.BLOCKED : RESERVATION_TYPE.NORMAL)}
               type="checkbox"
             />
           </Col>
@@ -89,5 +92,5 @@ InternalReservationFields.propTypes = {
 
 export default injectT(reduxForm({
   form: FormTypes.RESERVATION,
-  initialValues: { internalReservation: true }
+  initialValues: { staffEvent: true, type: RESERVATION_TYPE.NORMAL }
 })(InternalReservationFields));

@@ -1,6 +1,7 @@
 # 0.7.0-pre
   **CHANGELOG**
   - [#1052](https://github.com/City-of-Helsinki/varaamo/pull/1052) Add internal field for staff in ReservationForm.
+  - [#1058](https://github.com/City-of-Helsinki/varaamo/pull/1058) Renamed internal fields for staff in ReservationForm.
 
 # 0.6.1
   **HOTFIX**
