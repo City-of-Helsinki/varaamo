@@ -110,6 +110,15 @@
       }
     }
   }
+
+  @media (max-width: $screen-xs-min) {
+    .fc-header-toolbar {
+      .fc-next-button,
+      .fc-prev-button {
+        width: 3rem
+      }
+    }
+  }
 }
 
 
