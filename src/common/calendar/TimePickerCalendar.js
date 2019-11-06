@@ -354,7 +354,6 @@ class TimePickerCalendar extends Component {
   };
 
 
-
   render() {
     const { resource, date } = this.props;
     const { viewType, header } = this.state;
