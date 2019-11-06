@@ -65,22 +65,20 @@ exports[`DateField renders correctly 1`] = `
           "_callbacks": Array [],
           "_renderer": ReactShallowRenderer {
             "_context": Object {},
+            "_currentlyRenderingComponent": null,
             "_didScheduleRenderPhaseUpdate": false,
             "_dispatcher": Object {
               "readContext": [Function],
               "useCallback": [Function],
               "useContext": [Function],
               "useDebugValue": [Function],
-              "useDeferredValue": [Function],
               "useEffect": [Function],
               "useImperativeHandle": [Function],
               "useLayoutEffect": [Function],
               "useMemo": [Function],
               "useReducer": [Function],
               "useRef": [Function],
-              "useResponder": [Function],
               "useState": [Function],
-              "useTransition": [Function],
             },
             "_element": <UntranslatedDateField
               id="foo"
@@ -95,6 +93,7 @@ exports[`DateField renders correctly 1`] = `
             "_isReRender": false,
             "_newState": null,
             "_numberOfReRenders": 0,
+            "_previousComponentIdentity": null,
             "_renderPhaseUpdates": null,
             "_rendered": <div
               className="app-DateField"
