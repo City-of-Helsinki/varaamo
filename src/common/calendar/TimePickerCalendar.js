@@ -136,8 +136,6 @@ class TimePickerCalendar extends Component {
       };
     }
 
-    console.log("view", view);
-    console.log("viewType", viewType);
     if (viewType !== view) {
       this.setState({ viewType: view, header: headerConfig });
     }
