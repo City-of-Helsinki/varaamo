@@ -47,10 +47,10 @@
     }
 
     .fc-today-button {
-      border: 1px solid #000000;
+      border: 1px solid $black;
       border-radius: 0;
-      padding: 0.2em 0.3em;
-      color: #000000;
+      padding: 0.2rem 0.3rem;
+      color: $black;
       background: $white;
       font-weight: $font-weight-bold;
 
@@ -68,20 +68,20 @@
     .fc-next-button {
       margin: 0 !important;
       background: $white;
-      color: #000000;
+      color: $black;
       border:0;
     }
 
     .fc-timeGridWeek-button,
     .fc-timeGridDay-button {
-      border: 1px solid #000000;
+      border: 1px solid $black;
       border-radius: 0;
-      padding: 0.3em 0.3em;
+      padding: 0.3rem 0.3rem;
       background: $white;
-      color: #000000;
+      color: $black;
 
       &.fc-button-active {
-        background: #000000;
+        background: $black;
       }
     }
   }
@@ -105,7 +105,7 @@
       .fc-center {
         text-align: center;
         h2 {
-          font-size: 1em;
+          font-size: 1.2rem;
         }
       }
     }
