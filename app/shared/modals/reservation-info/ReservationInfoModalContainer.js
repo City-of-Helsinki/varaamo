@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import { reset as resetForm } from 'redux-form';
 
+import { createNotification } from '../../../../src/common/notification/utils';
+import { NOTIFICATION_TYPE } from '../../../../src/common/notification/constants';
 import FormTypes from '../../../constants/FormTypes';
 import {
   commentReservation,
@@ -48,7 +50,19 @@ export function mergeProps(stateProps, dispatchProps) {
     onDenyClick: () => dispatchProps.denyPreliminaryReservation(reservation),
     onEditFormSubmit: dispatchProps.putReservation,
     onSaveCommentsClick: (comments) => {
-      dispatchProps.commentReservation(reservation, resource, comments);
+      dispatchProps.commentReservation(reservation, resource, comments)
+        .then((value) => {
+          console.log('onSaveCommentsClick.then(value)', value);
+          createNotification(NOTIFICATION_TYPE.SUCCESS, 'Message...', 'Success');
+        })
+        .catch((error) => {
+          console.log('onSaveCommentsClick.error(error)', error);
+          createNotification(NOTIFICATION_TYPE.ERROR, 'Message...', 'Error');
+        })
+        .finally(() => {
+          console.log('onSaveCommentsClick.finally');
+          createNotification(NOTIFICATION_TYPE.INFO, 'Message...', 'Info');
+        });
     },
     onStartEditClick: dispatchProps.startReservationEditInInfoModal,
   };
