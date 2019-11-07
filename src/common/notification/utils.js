@@ -1,7 +1,6 @@
 import { NotificationManager } from 'react-notifications';
 
 import { NOTIFICATION_TYPE } from './constants';
-
 /**
  * createNotification()
  * Creating notification popups
