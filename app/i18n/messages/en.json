@@ -282,6 +282,7 @@
   "ResourceInfo.descriptionTitle": "Description",
   "ResourceInfo.equipmentHeader": "Premise equipment",
   "ResourceInfo.serviceMapLink": "Search route on Service Map",
+  "ResourceInfo.serviceWebLink": "Website",
   "ResourceInfo.loginMessage": "You must <a href=”/login”>log in</a> to reserve these premises.",
   "ResourceInfo.reservationTitle": "Reservation details",
   "ResourceInfo.reserveTitle": "Reserve",
