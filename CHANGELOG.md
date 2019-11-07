@@ -2,7 +2,7 @@
   **CHANGELOG**
   - [#1052](https://github.com/City-of-Helsinki/varaamo/pull/1052) Add internal field for staff in ReservationForm.
   - [#1058](https://github.com/City-of-Helsinki/varaamo/pull/1058) Renamed internal fields for staff in ReservationForm.
-
+  - [#1059](https://github.com/City-of-Helsinki/varaamo/pull/1059) Removed DatePicker arrows, styled fullCalendar buttons.
 # 0.6.1
   **HOTFIX**
   - Resource fetchAll come with empty reservations data, affect resource availability status was determined wrong, which confuse user and display wrong status.
