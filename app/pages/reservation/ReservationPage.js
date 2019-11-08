@@ -240,6 +240,7 @@ class UnconnectedReservationPage extends Component {
       user,
       history,
       failedReservations,
+      date
     } = this.props;
     const { view } = this.state;
 
@@ -278,6 +279,7 @@ class UnconnectedReservationPage extends Component {
                 />
                 {view === 'time' && isEditing && (
                   <ReservationTime
+                    date={date}
                     handleSelectReservation={actions.setSelectedTimeSlots}
                     history={history}
                     isStaff={isStaff}

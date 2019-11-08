@@ -82,13 +82,6 @@ export class UnconnectedResourceCalendar extends Component {
 
     return (
       <div className="app-ResourceCalendar">
-        <button
-          className="app-ResourceCalendar__week-button app-ResourceCalendar__week-button--prev"
-          onClick={() => this.handleDateChange(
-            moment(selectedDay).subtract(1, 'w').toDate()
-          )}
-          type="button"
-        />
         <div className="app-ResourceCalendar__wrapper" ref={this.setCalendarWrapper}>
           <FormGroup onClick={this.showOverlay}>
             <InputGroup>
@@ -128,13 +121,6 @@ export class UnconnectedResourceCalendar extends Component {
             </ResourceCalendarOverlay>
           </Overlay>
         </div>
-        <button
-          className="app-ResourceCalendar__week-button app-ResourceCalendar__week-button--next"
-          onClick={() => this.handleDateChange(
-            moment(selectedDay).add(1, 'w').toDate()
-          )}
-          type="button"
-        />
       </div>
     );
   }
