@@ -282,6 +282,7 @@
   "ResourceInfo.descriptionTitle": "Kuvaus",
   "ResourceInfo.equipmentHeader": "Tilan varusteet",
   "ResourceInfo.serviceMapLink": "Katso reitti Palvelukartasta",
+  "ResourceInfo.serviceWebLink": "Verkkosivu",
   "ResourceInfo.loginMessage": "Sinun täytyy <a href=\"/login\">kirjautua sisään</a>, jotta voit tehdä varauksen tähän tilaan.",
   "ResourceInfo.reservationTitle": "Varauksen tiedot",
   "ResourceInfo.reserveTitle": "Varaa",
