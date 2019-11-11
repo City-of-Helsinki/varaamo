@@ -42,7 +42,7 @@ class TimePickerCalendar extends Component {
     viewType: 'timeGridWeek',
     selected: calendarUtils.getDefaultSelectedTimeRange(this.props.edittingReservation),
     header: {
-      left: 'prev,next,today',
+      left: 'myPrev,myNext,myToday',
       center: 'title',
       right: 'timeGridDay,timeGridWeek'
     }
@@ -130,12 +130,11 @@ class TimePickerCalendar extends Component {
       // mobile view config
       view = 'timeGridDay';
       headerConfig = {
-        left: 'prev,next,today',
+        left: 'myPrev,myNext,myToday',
         center: 'title',
         right: 'timeGridDay,timeGridWeek'
       };
     }
-
     if (viewType !== view) {
       this.setState({ viewType: view, header: headerConfig });
     }
@@ -293,7 +292,6 @@ class TimePickerCalendar extends Component {
           rendering: 'background',
         });
       }
-
       momentDate.add(1, 'day');
     }
     return events;
@@ -335,7 +333,6 @@ class TimePickerCalendar extends Component {
     const { selected } = this.state;
 
     const events = this.getReservedEvents();
-
     if (selected) {
       events.push({
         classNames: [
@@ -353,17 +350,35 @@ class TimePickerCalendar extends Component {
     return events;
   };
 
-
   render() {
-    const { resource, date } = this.props;
+    const {
+      date,
+      onDateChange,
+      resource,
+      t
+    } = this.props;
     const { viewType, header } = this.state;
-
+    const addValue = viewType === 'timeGridWeek' ? 'w' : 'd';
     return (
       <div className="app-TimePickerCalendar">
         <FullCalendar
           {...this.getCalendarOptions()}
           allDaySlot={false}
           businessHours={resourceUtils.getFullCalendarBusinessHours(resource, date)}
+          customButtons={{
+            myPrev: {
+              text: ' ',
+              click: () => onDateChange(moment(date).subtract(1, addValue).toDate())
+            },
+            myNext: {
+              text: ' ',
+              click: () => onDateChange(moment(date).add(1, addValue).toDate())
+            },
+            myToday: {
+              text: t('TimePickerCalendar.info.today'),
+              click: () => onDateChange(this.calendarRef.current.calendar.view.initialNowDate)
+            }
+          }}
           datesRender={this.onDatesRender}
           defaultDate={date}
           eventDrop={this.onEventResize}
