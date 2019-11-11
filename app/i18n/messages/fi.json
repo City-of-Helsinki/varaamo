@@ -384,5 +384,6 @@
   "ResourceReservationCalendar.selectedDateValueWithPrice": "{date} klo {start} - klo {end} ({duration}) yht {price}€",
 
   "TimePickerCalendar.info.minPeriodText": "Varauksen on kestettävä vähintään {duration} tuntia.",
-  "TimePickerCalendar.info.maxPeriodText": "Varaus saa kestää enimmillään {duration} tuntia."
+  "TimePickerCalendar.info.maxPeriodText": "Varaus saa kestää enimmillään {duration} tuntia.",
+  "TimePickerCalendar.info.today": "Tänään"
 }
