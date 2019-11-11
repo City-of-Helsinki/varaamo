@@ -59,6 +59,22 @@ exports[`TimePickerCalendar FullCalendar render normally 1`] = `
         },
       ]
     }
+    customButtons={
+      Object {
+        "myNext": Object {
+          "click": [Function],
+          "text": " ",
+        },
+        "myPrev": Object {
+          "click": [Function],
+          "text": " ",
+        },
+        "myToday": Object {
+          "click": [Function],
+          "text": "TimePickerCalendar.info.today",
+        },
+      }
+    }
     datesRender={[Function]}
     defaultDate="2019-08-15"
     dragScroll={true}
@@ -73,7 +89,7 @@ exports[`TimePickerCalendar FullCalendar render normally 1`] = `
     header={
       Object {
         "center": "title",
-        "left": "prev,next,today",
+        "left": "myPrev,myNext,myToday",
         "right": "timeGridDay,timeGridWeek",
       }
     }
