@@ -17,7 +17,15 @@ axios.interceptors.response.use((response) => {
     // TODO: Create a way to translate these messages.
     const nonFieldError = get(error, 'response.data.non_field_errors', '');
     const permissionError = get(error, 'data.detail', '');
-    throw new Error(`${nonFieldError} ${permissionError}`);
+    const state = get(error, 'response.data.state', '')[0];
+    if (nonFieldError && permissionError) {
+      throw new Error(`${nonFieldError} ${permissionError}`);
+    } else if (state) {
+      throw new Error(`${state}`);
+    } else {
+      // eslint-disable-next-line no-console
+      console.error(error.request);
+    }
   } else if (error.request) {
     // The request was made but no response was received.
     // `error.request` is an instance of XMLHttpRequest in the browser.
