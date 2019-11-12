@@ -5,6 +5,7 @@
   - [#1059](https://github.com/City-of-Helsinki/varaamo/pull/1059) Removed DatePicker arrows, styled fullCalendar buttons.
   - [#1060](https://github.com/City-of-Helsinki/varaamo/pull/1060) Removed unnecessary scrollbars and replaced URL with word.
   - [#1061](https://github.com/City-of-Helsinki/varaamo/pull/1061) FullCalendar arrows change date and is better connected to DatePicker.
+  - [#1062](https://github.com/City-of-Helsinki/varaamo/pull/1062) Old notifications are reverted back to app folder.
   
 # 0.6.1
   **HOTFIX**

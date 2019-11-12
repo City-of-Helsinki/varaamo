@@ -24,7 +24,7 @@ axios.interceptors.response.use((response) => {
       throw new Error(`${state}`);
     } else {
       // eslint-disable-next-line no-console
-      console.error(error.request);
+      console.error(error.response);
     }
   } else if (error.request) {
     // The request was made but no response was received.
