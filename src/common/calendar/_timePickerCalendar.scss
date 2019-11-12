@@ -1,9 +1,10 @@
 .app-TimePickerCalendar {
   &__event {
-    color: $white !important;
+    color: $hel-coat;
     border-radius: 0 !important;
 
     &--reserved {
+      color: $white !important;
       background-color: $red !important;
       border-color: $red !important;
     }
@@ -20,7 +21,7 @@
   &__cancelEvent {
     position: absolute;
     right: 0.25em;
-    top: 0;
+    bottom: 0;
     z-index: 2;
 
     &::after {
@@ -31,6 +32,21 @@
       line-height: 0.75;
     }
   }
+
+  .fc-event {
+    font-size: 1.75rem;
+    font-weight: bold;
+    background-color: #bddbf0;
+    border: 1px solid $hel-coat;
+
+  }
+
+  .fc-event.fc-selected:after {
+    opacity: 0.35;
+    background-color: $hel-coat;
+  }
+
+
 
   .fc-header-toolbar {
     .fc-left {
