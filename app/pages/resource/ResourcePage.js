@@ -13,6 +13,7 @@ import Lightbox from 'lightbox-react';
 import { decamelizeKeys } from 'humps';
 import 'lightbox-react/style.css';
 
+import { addNotification } from '../../actions/notificationsActions';
 import constants from '../../constants/AppConstants';
 import { fetchResource } from '../../actions/resourceActions';
 import { clearReservations, toggleResourceMap, setSelectedTimeSlots } from '../../actions/uiActions';
@@ -256,6 +257,7 @@ class UnconnectedResourcePage extends Component {
                             selectedDate={date}
                           />
                           <ResourceReservationCalendar
+                            addNotification={actions.addNotification}
                             date={date}
                             isLoggedIn={isLoggedIn}
                             isStaff={isStaff}
@@ -314,6 +316,7 @@ function mapDispatchToProps(dispatch) {
     toggleResourceMap,
     setSelectedTimeSlots,
     changeRecurringBaseTime: recurringReservations.changeBaseTime,
+    addNotification
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

@@ -16,6 +16,7 @@ import Footer from '../../src/domain/footer/Footer';
 import Header from '../../src/domain/header/Header';
 import TestSiteMessage from '../shared/test-site-message/TestSiteMessage';
 import { getCustomizationClassName } from '../utils/customizationUtils';
+import Notifications from '../shared/notifications/NotificationsContainer';
 
 const userIdSelector = state => state.auth.userId;
 
@@ -65,6 +66,7 @@ export class UnconnectedAppContainer extends Component {
         </Header>
         <div className="app-content">
           <Grid>
+            <Notifications />
             <NotificationContainer />
           </Grid>
           {this.props.children}
