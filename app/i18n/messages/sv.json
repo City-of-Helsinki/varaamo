@@ -377,5 +377,6 @@
   "ResourceReservationCalendar.selectedDateValueWithPrice": "{date} kl. {start} - kl. {end} ({duration}) for {price}€",
 
   "TimePickerCalendar.info.minPeriodText": "Bokningen måste vara minst {duration} timmar lång.",
-  "TimePickerCalendar.info.maxPeriodText": "Bokningen får vara högst {duration} timmar lång."
+  "TimePickerCalendar.info.maxPeriodText": "Bokningen får vara högst {duration} timmar lång.",
+  "TimePickerCalendar.info.today": "Idag"
 }

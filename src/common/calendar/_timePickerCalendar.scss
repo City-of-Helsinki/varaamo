@@ -46,7 +46,7 @@
       }
     }
 
-    .fc-today-button {
+    .fc-myToday-button {
       border: 1px solid $black;
       border-radius: 0;
       padding: 0.2rem 0.3rem;
@@ -64,8 +64,9 @@
       }
     }
 
-    .fc-prev-button,
-    .fc-next-button {
+    .fc-myPrev-button,
+    .fc-myNext-button {
+      font-size: 2.5rem;
       margin: 0 !important;
       background: $white;
       color: $black;
@@ -82,7 +83,16 @@
 
       &.fc-button-active {
         background: $black;
+        color: $white
       }
+    }
+
+    .fc-myNext-button {
+      @include icon-angle-right($black);
+    }
+
+    .fc-myPrev-button {
+      @include icon-angle-left($black);
     }
   }
 
