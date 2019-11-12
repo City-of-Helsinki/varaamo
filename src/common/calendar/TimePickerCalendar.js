@@ -84,13 +84,25 @@ class TimePickerCalendar extends Component {
 
   onEventRender = (info) => {
     // add cancel button for new selected event
+    let duration;
+
     if (info.event.id === NEW_RESERVATION) {
       const cancelBtn = document.createElement('span');
       cancelBtn.classList.add('app-TimePickerCalendar__cancelEvent');
       cancelBtn.addEventListener('click', () => this.onCancel(), { once: true });
       info.el.append(cancelBtn);
+      duration = this.getDurationText(info.event);
+    } else if (info.event.id === '') {
+      duration = this.getDurationText(info.event);
     }
-  }
+
+    if (duration) {
+      const eventDuration = document.createElement('span');
+      eventDuration.textContent = duration;
+      eventDuration.classList.add('app-TimePickerCalendar__maxDuration');
+      info.el.append(eventDuration);
+    }
+  };
 
   onSelect = (selectionInfo) => {
     const { t } = this.props;
@@ -199,29 +211,21 @@ class TimePickerCalendar extends Component {
     return selectable;
   }
 
-  getDurationText = () => {
-    const { selected } = this.state;
+  getDurationText = (selected) => {
+    const { resource } = this.props;
     const start = moment(selected.start);
     const end = moment(selected.end);
     const duration = moment.duration(end.diff(start));
-    const days = duration.days();
-    const hours = duration.hours();
-    const minutes = duration.minutes();
 
-    let text = '';
-    if (days) {
-      text = `${days}d`;
+    let maxDurationText = '';
+
+    if (resource.max_period) {
+      const maxDuration = get(resource, 'max_period', null);
+      const maxDurationSeconds = moment.duration(maxDuration).asSeconds();
+      maxDurationText = `(${maxDurationSeconds / 3600}h max)`;
     }
 
-    if (hours) {
-      text += `${hours}h`;
-    }
-
-    if (minutes) {
-      text += `${minutes}min`;
-    }
-
-    return text;
+    return `${duration / 3600000}h ${maxDurationText}`;
   };
 
   getSelectedDateText = () => {
