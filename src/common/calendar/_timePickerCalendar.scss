@@ -1,6 +1,6 @@
 .app-TimePickerCalendar {
   &__event {
-    color: $hel-coat;
+    color: $hel-coat !important;
     border-radius: 0 !important;
 
     &--reserved {
@@ -40,8 +40,8 @@
   .fc-event {
     font-size: 1.75rem;
     font-weight: bold;
-    background-color: #bddbf0;
-    border: 1px solid $hel-coat;
+    background-color: #bddbf0 !important;
+    border: 1px solid $hel-coat !important;
 
   }
 
@@ -50,10 +50,26 @@
     background-color: $hel-coat;
   }
 
-  .fc-time-grid {
-    .fc-slats {
-      td {
-        height: 3em;
+
+  .fc-time-grid-event.fc-selected {
+    .fc-resizer {
+      width: 12px;
+      height: 12px;
+      bottom: -7px;
+      left: 49%;
+      z-index: 50 !important;
+      border-radius: 50%;
+
+      &::before {
+        width: 80px;
+        height: 80px;
+        top: 0;
+        left: 0;
+        margin-left: -40px;
+      }
+
+      &::after {
+        color: #FFF !important;
       }
     }
   }

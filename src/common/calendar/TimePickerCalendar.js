@@ -338,10 +338,12 @@ class TimePickerCalendar extends Component {
 
     const events = this.getReservedEvents();
     if (selected) {
+      const webEventSelected = window.innerWidth > 768 ? 'fc-selected' : '';
       events.push({
         classNames: [
           'app-TimePickerCalendar__event',
           'app-TimePickerCalendar__newReservation',
+          webEventSelected
         ],
         editable: true,
         durationEditable: !calendarUtils.isTimeRangeOverMaxPeriod(
