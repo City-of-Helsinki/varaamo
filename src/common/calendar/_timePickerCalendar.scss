@@ -50,6 +50,13 @@
     background-color: $hel-coat;
   }
 
+  .fc-time-grid {
+    .fc-slats {
+      td {
+        height: 3em;
+      }
+    }
+  }
 
 
   .fc-header-toolbar {
@@ -69,7 +76,7 @@
     .fc-myToday-button {
       border: 1px solid $black;
       border-radius: 0;
-      padding: 0.2rem 0.3rem;
+      padding: 0.5rem 0.5rem;
       color: $black;
       background: $white;
       font-weight: $font-weight-bold;
@@ -97,13 +104,21 @@
     .fc-timeGridDay-button {
       border: 1px solid $black;
       border-radius: 0;
-      padding: 0.3rem 0.3rem;
+      padding: 0.5rem 0.5rem;
       background: $white;
       color: $black;
 
       &.fc-button-active {
         background: $black;
         color: $white
+      }
+    }
+
+    .fc-time-grid {
+      .fc-slats {
+        .fc-widget-content {
+          height: 3em;
+        }
       }
     }
 
