@@ -220,6 +220,7 @@
   "ReservationInfo.loginMessage": "Sinun täytyy <a href='/login?next={next}'>kirjautua sisään</a>, jotta voit tehdä varauksen tähän tilaan.",
   "ReservationInfo.loginText": "Sinun täytyy kirjautua sisään, jotta voit tehdä varauksen tähän tilaan.",
   "ReservationInfo.maxNumberOfReservations": "Maksimimäärä varauksia per käyttäjä:",
+  "ReservationInfo.selectionStartDirections": "Kosketa näyttöä pitkään tehdäksesi valinnan.",
   "ReservationInfo.selectionEditDirections": "Paina valintaasi uudelleen muuttaaksesi varauksen pituutta",
   "ReservationInfo.reservationMaxLength": "Varauksen maksimipituus:",
   "ReservationInfo.reservationMinLength": "Varauksen vähimmäispituus:",
