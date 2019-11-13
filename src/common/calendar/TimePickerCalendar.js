@@ -106,7 +106,6 @@ class TimePickerCalendar extends Component {
 
   onSelect = (selectionInfo) => {
     const { t } = this.props;
-
     const calendarApi = this.calendarRef.current.getApi();
     calendarApi.unselect();
     // Clear FullCalendar select tooltip
@@ -128,7 +127,6 @@ class TimePickerCalendar extends Component {
   onEventResize = (selectionInfo) => {
     const { event } = selectionInfo;
     const selectable = this.getSelectableTimeRange(event, selectionInfo);
-
     this.onChange(selectable);
   }
 
@@ -325,7 +323,9 @@ class TimePickerCalendar extends Component {
         meridiem: 'short'
       },
       unselectAuto: false,
-      longPressDelay: '500',
+      longPressDelay: 250,
+      eventLongPressDelay: 20,
+      selectLongPressDelay: 200,
       // Almost invoke click event on mobile immediatelly without any delay
     };
   };
