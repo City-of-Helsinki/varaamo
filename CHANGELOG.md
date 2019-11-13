@@ -8,7 +8,7 @@
   - [#1062](https://github.com/City-of-Helsinki/varaamo/pull/1062) Old notifications are reverted back to app folder.
   - [#1063](https://github.com/City-of-Helsinki/varaamo/pull/1063) Increased timepicker z-index value.
   - [#1064](https://github.com/City-of-Helsinki/varaamo/pull/1064) Replaced ? with & in Feedback URL. 
-  
+  - [#1065](https://github.com/City-of-Helsinki/varaamo/pull/1065) Replaced some frontpage icons.
 # 0.6.1
   **HOTFIX**
   - Resource fetchAll come with empty reservations data, affect resource availability status was determined wrong, which confuse user and display wrong status.
