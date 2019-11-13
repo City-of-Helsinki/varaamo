@@ -4,8 +4,6 @@ import { Button, Col, Row } from 'react-bootstrap';
 import Loader from 'react-loader';
 import camelCase from 'lodash/camelCase';
 import Link from 'react-router-dom/Link';
-import { faHotTub as iconSauna, faCalendarAlt as iconOrganizeEvents } from '@fortawesome/free-solid-svg-icons';
-// TODO: VAR-80 | VAR-81 Replace those icon with designed icon.
 
 import HomeSearchBox from './HomeSearchBox';
 import iconManufacturing from './images/frontpage_build.svg';
@@ -13,6 +11,8 @@ import iconPhotoAndAudio from './images/frontpage_music.svg';
 import iconSports from './images/frontpage_sport.svg';
 import iconGuidance from './images/frontpage_guidance.svg';
 import iconMeetingsAndWorking from './images/frontpage_work.svg';
+import iconOrganizeEvents from './images/frontpage_event.svg';
+import iconSauna from './images/frontpage_sauna.svg';
 import client from '../../common/api/client';
 import FAIcon from '../../../app/shared/fontawesome-icon/FontAwesomeIcon';
 import PageWrapper from '../../../app/pages/PageWrapper';
