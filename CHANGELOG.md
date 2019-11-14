@@ -5,6 +5,9 @@
   - Reverted old notifications.
   - Updated front page icons.
   - Overall minor UI layout changes / fixes.
+  - Fixed edit reservation page
+  - Fixed staff reservation management approve/deny buttons
+  - Fixed staff permissions in resource page, my premise
 
   **CHANGELOG**
   - [#1052](https://github.com/City-of-Helsinki/varaamo/pull/1052) Add internal field for staff in ReservationForm.
