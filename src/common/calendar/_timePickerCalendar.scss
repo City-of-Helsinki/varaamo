@@ -40,9 +40,8 @@
   .fc-event {
     font-size: 1.75rem;
     font-weight: bold;
-    background-color: #bddbf0 !important;
-    border: 1px solid $hel-coat !important;
-
+    background-color: #bddbf0;
+    border: 1px solid $hel-coat;
   }
 
   .fc-event.fc-selected:after {
