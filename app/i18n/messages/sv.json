@@ -221,6 +221,8 @@
   "ReservationForm.markAsClosedDescription": "Markera kryssrutan om du stänger resursen genom att reservera.",
   "ReservationInfo.loginMessage": "För att kunna boka detta utrymme måste du <a href='/login?next={next}'>logga in</a>.",
   "ReservationInfo.loginText": "För att kunna boka detta utrymme måste du logga in.",
+  "ReservationInfo.selectionStartDirections": "Tryck och håll på skärmen för att välja.",
+  "ReservationInfo.selectionEditDirections": "Tryck på ditt val igen för att ändra dess längd",
   "ReservationInfo.maxNumberOfReservations": "Maximalt antal bokningar per användare:",
   "ReservationInfo.reservationMaxLength": "Bokningens maximala längd:",
   "ReservationInfo.reservationMinLength": "Minsta längd av bokningen:",

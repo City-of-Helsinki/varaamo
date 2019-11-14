@@ -234,6 +234,18 @@ class UnconnectedResourcePage extends Component {
                         )}
                         {!resource.externalReservationUrl && (
                         <div>
+                          {window.innerWidth < 768 && (
+                            <React.Fragment>
+                              <div className="app-ResourcePage__content-selection-directions">
+                                {t('ReservationInfo.selectionStartDirections')}
+                              </div>
+                              <div className="app-ResourcePage__content-selection-directions">
+                                {t('ReservationInfo.selectionEditDirections')}
+                              </div>
+                            </React.Fragment>
+                          )
+                          }
+
                           {/* Show reservation max period text */}
                           {resource.maxPeriod && (
                             <div className="app-ResourcePage__content-max-period">

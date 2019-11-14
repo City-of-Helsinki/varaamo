@@ -1,9 +1,10 @@
 .app-TimePickerCalendar {
   &__event {
-    color: $white !important;
+    color: $hel-coat !important;
     border-radius: 0 !important;
 
     &--reserved {
+      color: $white !important;
       background-color: $red !important;
       border-color: $red !important;
     }
@@ -20,7 +21,7 @@
   &__cancelEvent {
     position: absolute;
     right: 0.25em;
-    top: 0;
+    bottom: 0;
     z-index: 2;
 
     &::after {
@@ -31,6 +32,47 @@
       line-height: 0.75;
     }
   }
+
+  &__maxDuration {
+    font-size: 1.25rem;
+  }
+
+  .fc-event {
+    font-size: 1.75rem;
+    font-weight: bold;
+    background-color: #bddbf0;
+    border: 1px solid $hel-coat;
+  }
+
+  .fc-event.fc-selected:after {
+    opacity: 0.35;
+    background-color: $hel-coat;
+  }
+
+
+  .fc-time-grid-event.fc-selected {
+    .fc-resizer {
+      width: 12px;
+      height: 12px;
+      bottom: -7px;
+      left: 49%;
+      z-index: 50 !important;
+      border-radius: 50%;
+
+      &::before {
+        width: 80px;
+        height: 80px;
+        top: 0;
+        left: 0;
+        margin-left: -40px;
+      }
+
+      &::after {
+        color: #FFF !important;
+      }
+    }
+  }
+
 
   .fc-header-toolbar {
     .fc-left {
@@ -49,7 +91,7 @@
     .fc-myToday-button {
       border: 1px solid $black;
       border-radius: 0;
-      padding: 0.2rem 0.3rem;
+      padding: 0.5rem 0.5rem;
       color: $black;
       background: $white;
       font-weight: $font-weight-bold;
@@ -77,7 +119,7 @@
     .fc-timeGridDay-button {
       border: 1px solid $black;
       border-radius: 0;
-      padding: 0.3rem 0.3rem;
+      padding: 0.5rem 0.5rem;
       background: $white;
       color: $black;
 
@@ -86,6 +128,7 @@
         color: $white
       }
     }
+
 
     .fc-myNext-button {
       @include icon-angle-right($black);

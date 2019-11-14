@@ -220,6 +220,8 @@
   "ReservationInfo.loginMessage": "You must <a href='/login?next={next}'>log in</a> to reserve this premise.",
   "ReservationInfo.loginText": "You must log in to reserve this premise.",
   "ReservationInfo.maxNumberOfReservations": "Maximum number of reservations per user:",
+  "ReservationInfo.selectionStartDirections": "Touch and hold the screen to make a selection",
+  "ReservationInfo.selectionEditDirections": "Press selected period again to resize",
   "ReservationInfo.reservationMaxLength": "Maximum duration of the reservation:",
   "ReservationInfo.reservationMinLength": "Minimum duration of the reservation:",
   "ReservationInfo.reservationEarliestDays": "Reservation at the earliest in {time}",

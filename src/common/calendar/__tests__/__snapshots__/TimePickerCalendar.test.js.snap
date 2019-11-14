@@ -81,6 +81,7 @@ exports[`TimePickerCalendar FullCalendar render normally 1`] = `
     editable={true}
     eventConstraint="businessHours"
     eventDrop={[Function]}
+    eventLongPressDelay={20}
     eventOverlap={false}
     eventRender={[Function]}
     eventResize={[Function]}
@@ -146,7 +147,7 @@ exports[`TimePickerCalendar FullCalendar render normally 1`] = `
         },
       ]
     }
-    longPressDelay="500"
+    longPressDelay={250}
     maxTime="17:00:00"
     minTime="07:00:00"
     nowIndicator={true}
@@ -270,6 +271,7 @@ exports[`TimePickerCalendar FullCalendar render normally 1`] = `
     }
     select={[Function]}
     selectConstraint="businessHours"
+    selectLongPressDelay={200}
     selectMirror={true}
     selectOverlap={false}
     selectable={true}
