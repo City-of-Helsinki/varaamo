@@ -1,4 +1,11 @@
-# 0.7.0-pre
+# 0.7.0
+  **MINOR CHANGES**
+  - Added event close and staff event checkboxes for staff in reservation form / resource page
+  - FullCalendar mobile version usability improvements.
+  - Reverted old notifications.
+  - Updated front page icons.
+  - Overall minor UI layout changes / fixes.
+
   **CHANGELOG**
   - [#1052](https://github.com/City-of-Helsinki/varaamo/pull/1052) Add internal field for staff in ReservationForm.
   - [#1058](https://github.com/City-of-Helsinki/varaamo/pull/1058) Renamed internal fields for staff in ReservationForm.
