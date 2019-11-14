@@ -5,6 +5,11 @@
   - [#1059](https://github.com/City-of-Helsinki/varaamo/pull/1059) Removed DatePicker arrows, styled fullCalendar buttons.
   - [#1060](https://github.com/City-of-Helsinki/varaamo/pull/1060) Removed unnecessary scrollbars and replaced URL with word.
   - [#1061](https://github.com/City-of-Helsinki/varaamo/pull/1061) FullCalendar arrows change date and is better connected to DatePicker.
+  - [#1062](https://github.com/City-of-Helsinki/varaamo/pull/1062) Old notifications are reverted back to app folder.
+  - [#1063](https://github.com/City-of-Helsinki/varaamo/pull/1063) Increased timepicker z-index value.
+  - [#1064](https://github.com/City-of-Helsinki/varaamo/pull/1064) Replaced ? with & in Feedback URL. 
+  - [#1065](https://github.com/City-of-Helsinki/varaamo/pull/1065) Replaced some frontpage icons.
+  - [#1066](https://github.com/City-of-Helsinki/varaamo/pull/1066) Minor change in ReservationInformationModal reservation data structure.
   
 # 0.6.1
   **HOTFIX**

@@ -24,6 +24,7 @@ class ReservationTime extends Component {
     selectedReservation: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
     unit: PropTypes.object.isRequired,
+    addNotification: PropTypes.func.isRequired,
     isStaff: PropTypes.bool.isRequired,
     date: PropTypes.string.isRequired
   };
@@ -44,6 +45,7 @@ class ReservationTime extends Component {
       t,
       unit,
       isStaff,
+      addNotification,
       date
     } = this.props;
 
@@ -67,6 +69,7 @@ class ReservationTime extends Component {
               selectedDate={shownDate}
             />
             <TimePickerCalendar
+              addNotification={addNotification}
               date={shownDate}
               edittingReservation={selectedReservation}
               isStaff={isStaff}

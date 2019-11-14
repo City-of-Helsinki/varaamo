@@ -17,6 +17,7 @@ const ReservationInformationModal = ({
 }) => {
   const [comment, setComment] = useState(get(reservation, 'comments') || '');
   const saveComment = () => onSaveComment(reservation, comment);
+  const normalizedReservation = Object.assign({}, reservation, { resource: reservation.resource.id });
 
   const renderField = (label, value) => {
     return (
@@ -110,14 +111,14 @@ const ReservationInformationModal = ({
 
         <Button
           bsStyle="danger"
-          onClick={() => onEditReservation(reservation, RESERVATION_STATE.DENIED)}
+          onClick={() => onEditReservation(normalizedReservation, RESERVATION_STATE.DENIED)}
         >
           {t('ReservationInfoModal.denyButton')}
         </Button>
 
         <Button
           bsStyle="success"
-          onClick={() => onEditReservation(reservation, RESERVATION_STATE.CONFIRMED)}
+          onClick={() => onEditReservation(normalizedReservation, RESERVATION_STATE.CONFIRMED)}
         >
           {t('ReservationInfoModal.confirmButton')}
         </Button>

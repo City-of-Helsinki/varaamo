@@ -46,7 +46,7 @@
     position: absolute;
     left: 0;
     top: 100% !important;
-    z-index: 3; // above bootstrap button
+    z-index: 99; // above bootstrap button
     margin-top: -2px;
     padding: 20px;
     min-width: 100%;
