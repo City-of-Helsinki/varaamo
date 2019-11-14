@@ -28,7 +28,7 @@ class ReservationInformation extends Component {
     resource: PropTypes.object.isRequired,
     selectedTime: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
-    unit: PropTypes.object.isRequired,
+    unit: PropTypes.object.isRequired
   };
 
   state = {
@@ -105,8 +105,10 @@ class ReservationInformation extends Component {
       field => camelCase(field)
     )];
 
+    const { isAdmin } = this.props;
+
     if (termsAndConditions) {
-      requiredFormFields.push('termsAndConditions');
+      if (!isAdmin) requiredFormFields.push('termsAndConditions');
     }
 
     if (hasProducts(resource)) {
@@ -123,7 +125,6 @@ class ReservationInformation extends Component {
     return (
       <div className="app-ReservationInformation__info-texts">
         <p>{t('ConfirmReservationModal.priceInfo')}</p>
-        <p>{t('ConfirmReservationModal.formInfo')}</p>
       </div>
     );
   }
@@ -139,6 +140,7 @@ class ReservationInformation extends Component {
       selectedTime,
       t,
       unit,
+      isStaff
     } = this.props;
     const {
       reservationPrice,
@@ -154,12 +156,12 @@ class ReservationInformation extends Component {
     return (
       <div className="app-ReservationInformation">
         <Col md={7} sm={12}>
-          {this.renderInfoTexts()}
           <ReservationInformationForm
             fields={this.getFormFields(termsAndConditions)}
             initialValues={this.getFormInitialValues()}
             isEditing={isEditing}
             isMakingReservations={isMakingReservations}
+            isStaff={isStaff}
             onBack={onBack}
             onCancel={onCancel}
             onConfirm={this.onConfirm}

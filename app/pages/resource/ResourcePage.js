@@ -13,6 +13,7 @@ import Lightbox from 'lightbox-react';
 import { decamelizeKeys } from 'humps';
 import 'lightbox-react/style.css';
 
+import { addNotification } from '../../actions/notificationsActions';
 import constants from '../../constants/AppConstants';
 import { fetchResource } from '../../actions/resourceActions';
 import { clearReservations, toggleResourceMap, setSelectedTimeSlots } from '../../actions/uiActions';
@@ -71,8 +72,10 @@ class UnconnectedResourcePage extends Component {
   };
 
   isDayReservable = (day) => {
-    const { resource: { reservableAfter } } = this.props;
-    const beforeDate = reservableAfter || moment();
+    const { resource: { reservableAfter, reservableBefore } } = this.props;
+    const beforeDate = reservableAfter || moment().subtract(1, 'day');
+    const lastDate = reservableBefore ? moment(reservableBefore).add(1, 'day') : null;
+    if (lastDate) return !moment(day).isBetween(beforeDate, lastDate, 'day');
     return moment(day).isBefore(beforeDate, 'day');
   };
 
@@ -231,6 +234,18 @@ class UnconnectedResourcePage extends Component {
                         )}
                         {!resource.externalReservationUrl && (
                         <div>
+                          {window.innerWidth < 768 && (
+                            <React.Fragment>
+                              <div className="app-ResourcePage__content-selection-directions">
+                                {t('ReservationInfo.selectionStartDirections')}
+                              </div>
+                              <div className="app-ResourcePage__content-selection-directions">
+                                {t('ReservationInfo.selectionEditDirections')}
+                              </div>
+                            </React.Fragment>
+                          )
+                          }
+
                           {/* Show reservation max period text */}
                           {resource.maxPeriod && (
                             <div className="app-ResourcePage__content-max-period">
@@ -254,6 +269,7 @@ class UnconnectedResourcePage extends Component {
                             selectedDate={date}
                           />
                           <ResourceReservationCalendar
+                            addNotification={actions.addNotification}
                             date={date}
                             isLoggedIn={isLoggedIn}
                             isStaff={isStaff}
@@ -312,6 +328,7 @@ function mapDispatchToProps(dispatch) {
     toggleResourceMap,
     setSelectedTimeSlots,
     changeRecurringBaseTime: recurringReservations.changeBaseTime,
+    addNotification
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

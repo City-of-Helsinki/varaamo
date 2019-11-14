@@ -1,9 +1,10 @@
 .app-TimePickerCalendar {
   &__event {
-    color: $white !important;
+    color: $hel-coat !important;
     border-radius: 0 !important;
 
     &--reserved {
+      color: $white !important;
       background-color: $red !important;
       border-color: $red !important;
     }
@@ -20,7 +21,7 @@
   &__cancelEvent {
     position: absolute;
     right: 0.25em;
-    top: 0;
+    bottom: 0;
     z-index: 2;
 
     &::after {
@@ -31,6 +32,114 @@
       line-height: 0.75;
     }
   }
+
+  &__maxDuration {
+    font-size: 1.25rem;
+  }
+
+  .fc-event {
+    font-size: 1.75rem;
+    font-weight: bold;
+    background-color: #bddbf0;
+    border: 1px solid $hel-coat;
+  }
+
+  .fc-event.fc-selected:after {
+    opacity: 0.35;
+    background-color: $hel-coat;
+  }
+
+
+  .fc-time-grid-event.fc-selected {
+    .fc-resizer {
+      width: 12px;
+      height: 12px;
+      bottom: -7px;
+      left: 49%;
+      z-index: 50 !important;
+      border-radius: 50%;
+
+      &::before {
+        width: 80px;
+        height: 80px;
+        top: 0;
+        left: 0;
+        margin-left: -40px;
+      }
+
+      &::after {
+        color: #FFF !important;
+      }
+    }
+  }
+
+
+  .fc-header-toolbar {
+    .fc-left {
+      width: 30%;
+      .fc-button-group {
+        .fc-button {
+          flex-grow: 0;
+        }
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    .fc-myToday-button {
+      border: 1px solid $black;
+      border-radius: 0;
+      padding: 0.5rem 0.5rem;
+      color: $black;
+      background: $white;
+      font-weight: $font-weight-bold;
+
+
+      &:disabled {
+        border:none;
+        background: $hel-coat;
+        font-weight: $font-weight-bold;
+        color: $white;
+        opacity: 1;
+      }
+    }
+
+    .fc-myPrev-button,
+    .fc-myNext-button {
+      font-size: 2.5rem;
+      margin: 0 !important;
+      background: $white;
+      color: $black;
+      border:0;
+    }
+
+    .fc-timeGridWeek-button,
+    .fc-timeGridDay-button {
+      border: 1px solid $black;
+      border-radius: 0;
+      padding: 0.5rem 0.5rem;
+      background: $white;
+      color: $black;
+
+      &.fc-button-active {
+        background: $black;
+        color: $white
+      }
+    }
+
+
+    .fc-myNext-button {
+      @include icon-angle-right($black);
+    }
+
+    .fc-myPrev-button {
+      @include icon-angle-left($black);
+    }
+  }
+
+
 
   @media (max-width: $screen-xs-max) {
     .fc-time-grid .fc-slats td {
@@ -46,67 +155,25 @@
     }
 
     .fc-header-toolbar {
-      display: flex;
-
-      .fc-left,
-      .fc-right {
-        width: 30%
-      }
-
-
-      .fc-button {
-        border: none;
-        border-radius: 0;
-        padding: 0.2em 0.3em;
-        background: $hel-coat;
-        font-weight: $font-weight-bold;
-
-        &:disabled {
-          border: 1px solid $black;
-          color: $black;
-          background: $white !important;
-        }
-
-        &.fc-timeGridDay-button,
-        &.fc-timeGridWeek-button {
-          &.fc-button-active {
-            display: none;
-          }
-        }
-      }
-
-      .fc-prev-button,
-      .fc-next-button {
-        margin: 0 !important;
-        background: $white;
-        padding: 0;
-      }
-
-      .fc-icon {
-        color: $black;
-      }
-
-      .fc-right, .fc-left {
-        .fc-button-group {
-          .fc-button {
-            flex-grow: 0;
-          }
-
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-        }
-      }
-
       .fc-center {
         text-align: center;
         h2 {
-          font-size: 1em;
+          font-size: 1.2rem;
         }
       }
     }
   }
 
+  @media (max-width: $screen-xs-min) {
+    .fc-header-toolbar {
+      .fc-next-button,
+      .fc-prev-button {
+        width: 3rem
+      }
+    }
+  }
 }
+
+
 
 

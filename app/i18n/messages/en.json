@@ -212,9 +212,16 @@
   "ReservationForm.paymentTermsAndConditionsError": "You must accept the payment terms and conditions",
   "ReservationForm.termsAndConditionsHeader": "User regulations of the premises",
   "ReservationForm.termsAndConditionsLabel": "I have read and accepted the user regulations of the premises",
+  "ReservationForm.premiseStaffOnly": "Staff",
+  "ReservationForm.internalReservation": "Internal reservation.",
+  "ReservationForm.internalReservationDescription": "The Department's own event. Uncheck this box to make an external reservation on behalf of the user.",
+  "ReservationForm.markAsClosed": "Mark as closed.",
+  "ReservationForm.markAsClosedDescription": "Check if you are closing the resource by reserving.",
   "ReservationInfo.loginMessage": "You must <a href='/login?next={next}'>log in</a> to reserve this premise.",
   "ReservationInfo.loginText": "You must log in to reserve this premise.",
   "ReservationInfo.maxNumberOfReservations": "Maximum number of reservations per user:",
+  "ReservationInfo.selectionStartDirections": "Touch and hold the screen to make a selection",
+  "ReservationInfo.selectionEditDirections": "Press selected period again to resize",
   "ReservationInfo.reservationMaxLength": "Maximum duration of the reservation:",
   "ReservationInfo.reservationMinLength": "Minimum duration of the reservation:",
   "ReservationInfo.reservationEarliestDays": "Reservation at the earliest in {time}",
@@ -277,6 +284,7 @@
   "ResourceInfo.descriptionTitle": "Description",
   "ResourceInfo.equipmentHeader": "Premise equipment",
   "ResourceInfo.serviceMapLink": "Search route on Service Map",
+  "ResourceInfo.serviceWebLink": "Website",
   "ResourceInfo.loginMessage": "You must <a href=”/login”>log in</a> to reserve these premises.",
   "ResourceInfo.reservationTitle": "Reservation details",
   "ResourceInfo.reserveTitle": "Reserve",
@@ -370,5 +378,6 @@
   "ResourceReservationCalendar.selectedDateValueWithPrice": "{date} at {start} - at {end} ({duration}) for {price}€",
 
   "TimePickerCalendar.info.minPeriodText": "Reservation must be at least {duration}h long",
-  "TimePickerCalendar.info.maxPeriodText": "Reservation must be shorter than {duration}h"
+  "TimePickerCalendar.info.maxPeriodText": "Reservation must be shorter than {duration}h",
+  "TimePickerCalendar.info.today": "Today"
 }

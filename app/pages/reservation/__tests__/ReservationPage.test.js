@@ -156,21 +156,25 @@ describe('pages/reservation/ReservationPage', () => {
 
   describe('RecurringReservation', () => {
     test('render RecurringReservationControls component if user is admin', () => {
+      defaultProps.isStaff = true; // RecurringReservation visibility is based on isStaff value!
       const controls = getWrapper({ isAdmin: true }).find(RecurringReservationControls);
       expect(controls).toHaveLength(1);
     });
 
     test('render CompactReservationList if user is admin', () => {
+      defaultProps.isStaff = true; // RecurringReservation visibility is based on isStaff value!
       const list = getWrapper({ isAdmin: true }).find(CompactReservationList);
       expect(list).toHaveLength(1);
     });
 
     test('does not render RecurringReservationControls component if user is not admin', () => {
+      defaultProps.isStaff = false; // RecurringReservation visibility is based on isStaff value!
       const controls = getWrapper({ isAdmin: false }).find(RecurringReservationControls);
       expect(controls).toHaveLength(0);
     });
 
     test('does not render CompactReservationList if user is not admin', () => {
+      defaultProps.isStaff = false; // RecurringReservation visibility is based on isStaff value!
       const list = getWrapper({ isAdmin: false }).find(CompactReservationList);
       expect(list).toHaveLength(0);
     });

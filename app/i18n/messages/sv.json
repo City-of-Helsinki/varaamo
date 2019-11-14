@@ -214,8 +214,15 @@
   "ReservationForm.paymentTermsAndConditionsError": "För att kunna boka utrymmet måste du måste godkänna betalningsvillkoren",
   "ReservationForm.termsAndConditionsHeader": "Utrymmets användningsregler",
   "ReservationForm.termsAndConditionsLabel": "Jag har läst och godkänner utrymmets användningsregler",
+  "ReservationForm.premiseStaffOnly": "Personal",
+  "ReservationForm.internalReservation": "Intern reservation",
+  "ReservationForm.internalReservationDescription": "Avdelnings egna evenemang. Avmarkera kryssrutan för att göra en extern reservation på användarens vägnar.",
+  "ReservationForm.markAsClosed": "Markera som stängd",
+  "ReservationForm.markAsClosedDescription": "Markera kryssrutan om du stänger resursen genom att reservera.",
   "ReservationInfo.loginMessage": "För att kunna boka detta utrymme måste du <a href='/login?next={next}'>logga in</a>.",
   "ReservationInfo.loginText": "För att kunna boka detta utrymme måste du logga in.",
+  "ReservationInfo.selectionStartDirections": "Tryck och håll på skärmen för att välja.",
+  "ReservationInfo.selectionEditDirections": "Tryck på ditt val igen för att ändra dess längd",
   "ReservationInfo.maxNumberOfReservations": "Maximalt antal bokningar per användare:",
   "ReservationInfo.reservationMaxLength": "Bokningens maximala längd:",
   "ReservationInfo.reservationMinLength": "Minsta längd av bokningen:",
@@ -279,6 +286,7 @@
   "ResourceInfo.descriptionTitle": "Beskrivning",
   "ResourceInfo.equipmentHeader": "Utrustning",
   "ResourceInfo.serviceMapLink": "Reseplanering i Servicekarta",
+  "ResourceInfo.serviceWebLink": "Hemsida",
   "ResourceInfo.loginMessage": "För att kunna boka detta utrymme måste du <a href=”/login”>logga in</a>.",
   "ResourceInfo.reservationTitle": "Bokningsinformation",
   "ResourceInfo.reserveTitle": "Boka",
@@ -371,5 +379,6 @@
   "ResourceReservationCalendar.selectedDateValueWithPrice": "{date} kl. {start} - kl. {end} ({duration}) for {price}€",
 
   "TimePickerCalendar.info.minPeriodText": "Bokningen måste vara minst {duration} timmar lång.",
-  "TimePickerCalendar.info.maxPeriodText": "Bokningen får vara högst {duration} timmar lång."
+  "TimePickerCalendar.info.maxPeriodText": "Bokningen får vara högst {duration} timmar lång.",
+  "TimePickerCalendar.info.today": "Idag"
 }

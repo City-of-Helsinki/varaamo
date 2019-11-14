@@ -11,6 +11,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 
+import { addNotification } from '../../actions/notificationsActions';
 import { postReservation, putReservation } from '../../actions/reservationActions';
 import { fetchResource } from '../../actions/resourceActions';
 import {
@@ -196,6 +197,7 @@ class UnconnectedReservationPage extends Component {
       recurringReservations,
       selectedReservations,
       t,
+      isStaff,
     } = this.props;
 
     const reservationsCount = selectedReservations.length + recurringReservations.length;
@@ -204,18 +206,21 @@ class UnconnectedReservationPage extends Component {
       : t('ConfirmReservationModal.regularReservationText', { reservationsCount });
 
     return (
-      <>
-        {/* Recurring selection dropdown  */}
-        <RecurringReservationControls />
-        {<p><strong>{introText}</strong></p>}
+      isStaff
+        ? (
+          <>
+            {/* Recurring selection dropdown  */}
+            <RecurringReservationControls />
+            {<p><strong>{introText}</strong></p>}
 
-        {/* Selected recurring info */}
-        <CompactReservationList
-          onRemoveClick={actions.removeReservation}
-          removableReservations={recurringReservations}
-          reservations={selectedReservations}
-        />
-      </>
+            {/* Selected recurring info */}
+            <CompactReservationList
+              onRemoveClick={actions.removeReservation}
+              removableReservations={recurringReservations}
+              reservations={selectedReservations}
+            />
+          </>
+        ) : ''
     );
   }
 
@@ -236,6 +241,7 @@ class UnconnectedReservationPage extends Component {
       user,
       history,
       failedReservations,
+      date
     } = this.props;
     const { view } = this.state;
 
@@ -274,6 +280,8 @@ class UnconnectedReservationPage extends Component {
                 />
                 {view === 'time' && isEditing && (
                   <ReservationTime
+                    addNotification={actions.addNotification}
+                    date={date}
                     handleSelectReservation={actions.setSelectedTimeSlots}
                     history={history}
                     isStaff={isStaff}
@@ -359,6 +367,7 @@ function mapDispatchToProps(dispatch) {
     postReservation,
     removeReservation: recurringReservationsConnector.removeReservation,
     setSelectedTimeSlots,
+    addNotification
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

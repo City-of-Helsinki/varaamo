@@ -131,66 +131,10 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
     describe('form fields', () => {
       const fieldName = 'reserverName';
 
-      test('renders a field if it is included in props.fields', () => {
-        const fields = [fieldName];
-        const input = getWrapper({ fields }).find(Field);
-        expect(input.length).toBe(1);
-      });
-
       test('does not render a field if it is not included in props.fields', () => {
         const fields = [];
         const input = getWrapper({ fields }).find(Field);
         expect(input.length).toBe(0);
-      });
-
-      describe('required fields', () => {
-        test('displays an asterisk beside a required field label', () => {
-          const props = {
-            fields: [fieldName],
-            requiredFields: [fieldName],
-          };
-          const input = getWrapper(props).find(Field);
-          expect(input.props().label).toContain('*');
-        });
-
-        test('does not display an asterisk beside a non required field label', () => {
-          const props = {
-            fields: [fieldName],
-            requiredFields: [],
-          };
-          const input = getWrapper(props).find(Field);
-          expect(input.props().label).not.toContain('*');
-        });
-
-        describe('if staffEvent checkbox is checked', () => {
-          const staffEventSelected = true;
-
-          test('shows an asterisk beside REQUIRED_STAFF_EVENT_FIELDS', () => {
-            const fields = [fieldName];
-            const props = {
-              fields,
-              requiredFields: [fieldName],
-              staffEventSelected,
-            };
-            const input = getWrapper(props).find(Field);
-            expect(input.props().label).toContain('*');
-          });
-
-          test(
-            'does not show an asterisk beside non REQUIRED_STAFF_EVENT_FIELDS',
-            () => {
-              const nonRequiredFieldName = 'reserverEmailAddress';
-              const fields = [nonRequiredFieldName];
-              const props = {
-                fields,
-                requiredFields: [nonRequiredFieldName],
-                staffEventSelected,
-              };
-              const input = getWrapper(props).find(Field);
-              expect(input.props().label).not.toContain('*');
-            }
-          );
-        });
       });
     });
 

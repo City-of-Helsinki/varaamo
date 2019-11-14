@@ -19,12 +19,14 @@ describe('pages/reservation/reservation-time/ReservationTime', () => {
     handleSelectReservation: jest.fn(),
     history,
     location: {},
+    addNotification: jest.fn(),
     isStaff: false,
     onCancel: simple.mock(),
     onConfirm: simple.mock(),
     resource: Resource.build(),
     selectedReservation: Reservation.build(),
     unit: Unit.build(),
+    date: ''
   };
 
   function getWrapper(extraProps) {
@@ -35,7 +37,9 @@ describe('pages/reservation/reservation-time/ReservationTime', () => {
     const wrapper = getWrapper();
     const instance = wrapper.instance();
     const resourceCalendar = wrapper.find(ResourceCalendar);
-    const date = moment(defaultProps.selectedReservation.begin).format('YYYY-MM-DD');
+    const date = moment(defaultProps.selectedReservation.begin).isSame(defaultProps.date, 'day')
+      ? moment(defaultProps.selectedReservation.begin).format('YYYY-MM-DD')
+      : moment(defaultProps.date).format('YYYY-MM-DD');
 
     expect(resourceCalendar).toHaveLength(1);
     expect(resourceCalendar.prop('onDateChange')).toBe(instance.handleDateChange);

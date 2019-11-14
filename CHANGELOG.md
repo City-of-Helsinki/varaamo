@@ -1,3 +1,27 @@
+# 0.7.0
+  **MINOR CHANGES**
+  - Added event close and staff event checkboxes for staff in reservation form / resource page
+  - FullCalendar mobile version usability improvements.
+  - Reverted old notifications.
+  - Updated front page icons.
+  - Overall minor UI layout changes / fixes.
+  - Fixed edit reservation page
+  - Fixed staff reservation management approve/deny buttons
+  - Fixed staff permissions in resource page, my premise
+
+  **CHANGELOG**
+  - [#1052](https://github.com/City-of-Helsinki/varaamo/pull/1052) Add internal field for staff in ReservationForm.
+  - [#1058](https://github.com/City-of-Helsinki/varaamo/pull/1058) Renamed internal fields for staff in ReservationForm.
+  - [#1059](https://github.com/City-of-Helsinki/varaamo/pull/1059) Removed DatePicker arrows, styled fullCalendar buttons.
+  - [#1060](https://github.com/City-of-Helsinki/varaamo/pull/1060) Removed unnecessary scrollbars and replaced URL with word.
+  - [#1061](https://github.com/City-of-Helsinki/varaamo/pull/1061) FullCalendar arrows change date and is better connected to DatePicker.
+  - [#1062](https://github.com/City-of-Helsinki/varaamo/pull/1062) Old notifications are reverted back to app folder.
+  - [#1063](https://github.com/City-of-Helsinki/varaamo/pull/1063) Increased timepicker z-index value.
+  - [#1064](https://github.com/City-of-Helsinki/varaamo/pull/1064) Replaced ? with & in Feedback URL. 
+  - [#1065](https://github.com/City-of-Helsinki/varaamo/pull/1065) Replaced some frontpage icons.
+  - [#1066](https://github.com/City-of-Helsinki/varaamo/pull/1066) Minor change in ReservationInformationModal reservation data structure.
+  - [#1067](https://github.com/City-of-Helsinki/varaamo/pull/1067) FullCalendar mobile improvements and styling changes.
+  
 # 0.6.1
   **HOTFIX**
   - Resource fetchAll come with empty reservations data, affect resource availability status was determined wrong, which confuse user and display wrong status.

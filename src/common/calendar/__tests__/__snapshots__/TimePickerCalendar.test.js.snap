@@ -59,12 +59,29 @@ exports[`TimePickerCalendar FullCalendar render normally 1`] = `
         },
       ]
     }
+    customButtons={
+      Object {
+        "myNext": Object {
+          "click": [Function],
+          "text": " ",
+        },
+        "myPrev": Object {
+          "click": [Function],
+          "text": " ",
+        },
+        "myToday": Object {
+          "click": [Function],
+          "text": "TimePickerCalendar.info.today",
+        },
+      }
+    }
     datesRender={[Function]}
     defaultDate="2019-08-15"
     dragScroll={true}
     editable={true}
     eventConstraint="businessHours"
     eventDrop={[Function]}
+    eventLongPressDelay={20}
     eventOverlap={false}
     eventRender={[Function]}
     eventResize={[Function]}
@@ -73,7 +90,7 @@ exports[`TimePickerCalendar FullCalendar render normally 1`] = `
     header={
       Object {
         "center": "title",
-        "left": "today",
+        "left": "myPrev,myNext,myToday",
         "right": "timeGridDay,timeGridWeek",
       }
     }
@@ -130,7 +147,7 @@ exports[`TimePickerCalendar FullCalendar render normally 1`] = `
         },
       ]
     }
-    longPressDelay="500"
+    longPressDelay={250}
     maxTime="17:00:00"
     minTime="07:00:00"
     nowIndicator={true}
@@ -254,6 +271,7 @@ exports[`TimePickerCalendar FullCalendar render normally 1`] = `
     }
     select={[Function]}
     selectConstraint="businessHours"
+    selectLongPressDelay={200}
     selectMirror={true}
     selectOverlap={false}
     selectable={true}
