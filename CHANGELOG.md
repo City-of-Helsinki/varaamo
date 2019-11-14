@@ -10,6 +10,7 @@
   - [#1064](https://github.com/City-of-Helsinki/varaamo/pull/1064) Replaced ? with & in Feedback URL. 
   - [#1065](https://github.com/City-of-Helsinki/varaamo/pull/1065) Replaced some frontpage icons.
   - [#1066](https://github.com/City-of-Helsinki/varaamo/pull/1066) Minor change in ReservationInformationModal reservation data structure.
+  - [#1067](https://github.com/City-of-Helsinki/varaamo/pull/1067) FullCalendar mobile improvements and styling changes.
   
 # 0.6.1
   **HOTFIX**
