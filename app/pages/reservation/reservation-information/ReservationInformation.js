@@ -117,6 +117,9 @@ class ReservationInformation extends Component {
 
     if (hasProducts(resource)) {
       requiredFormFields.push('paymentTermsAndConditions');
+      requiredFormFields.push('billingFirstName');
+      requiredFormFields.push('billingLastName');
+      requiredFormFields.push('billingEmailAddress');
     }
 
     return requiredFormFields;
