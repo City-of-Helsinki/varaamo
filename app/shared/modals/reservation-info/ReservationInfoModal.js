@@ -10,8 +10,10 @@ import Modal from 'react-bootstrap/lib/Modal';
 import injectT from '../../../i18n/injectT';
 import ReservationCancelModal from '../reservation-cancel/ReservationCancelModalContainer';
 import ReservationStateLabel from '../../reservation-state-label/ReservationStateLabel';
+import InfoLabel from '../../../../src/common/label/InfoLabel';
 import { isStaffEvent } from '../../../utils/reservationUtils';
 import ReservationEditForm from './ReservationEditForm';
+import { hasProducts } from '../../../utils/resourceUtils';
 
 class ReservationInfoModal extends Component {
   constructor(props) {
@@ -21,6 +23,21 @@ class ReservationInfoModal extends Component {
     this.handleEditFormSubmit = this.handleEditFormSubmit.bind(this);
     this.handleSaveCommentsClick = this.handleSaveCommentsClick.bind(this);
   }
+
+  getPaymentLabelData = (reservation) => {
+    switch (reservation.state) {
+      case 'confirmed':
+        return { labelStyle: 'success', labelText: 'payment.success' };
+      case 'waiting':
+        return { labelStyle: 'warning', labelText: 'payment.processing' };
+      case 'rejected':
+        return { labelStyle: 'danger', labelText: 'payment.failed' };
+      case 'cancelled':
+        return { labelStyle: 'danger', labelText: 'payment.cancelled' };
+      default:
+        return { labelStyle: '', labelText: '' };
+    }
+  };
 
   handleEditFormSubmit(values) {
     const { onEditFormSubmit, reservation, resource } = this.props;
@@ -58,6 +75,8 @@ class ReservationInfoModal extends Component {
       || (reservation.state === 'requested' && !isAdmin)
     );
 
+    const { labelStyle, labelText } = this.getPaymentLabelData(reservation);
+
     return (
       <Modal
         className="reservation-info-modal"
@@ -73,6 +92,9 @@ class ReservationInfoModal extends Component {
             && (
             <div>
               <ReservationStateLabel reservation={reservation} />
+              {hasProducts(resource) && labelStyle && labelText && (
+                <InfoLabel labelStyle={labelStyle} labelText={t(labelText)} />
+              )}
               <ReservationEditForm
                 enableReinitialize
                 initialValues={reservation}
