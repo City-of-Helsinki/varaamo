@@ -104,7 +104,7 @@ function Reservation({ onClick, products, ...reservation }) {
           <span className="names">
             <span className="event-subject">{reservation.eventSubject}</span>
             <span className="reserver-name">{reserverName}</span>
-            {price && !reservation.staffEvent(
+            {price && !reservation.staffEvent && (
               <span className="price-tag">{`${price} €` || ''}</span>
             )}
           </span>
