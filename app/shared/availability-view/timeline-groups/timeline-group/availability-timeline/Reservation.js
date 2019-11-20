@@ -6,6 +6,7 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 import Popover from 'react-bootstrap/lib/Popover';
 
+import { getReservationPrice } from '../../../../../../src/domain/resource/utils';
 import ReservationAccessCode from '../../../../reservation-access-code/ReservationAccessCode';
 import utils from '../utils';
 
@@ -23,6 +24,7 @@ Reservation.propTypes = {
   numberOfParticipants: PropTypes.number,
   onClick: PropTypes.func,
   reserverName: PropTypes.string,
+  products: PropTypes.array,
   state: PropTypes.string,
   user: PropTypes.shape({
     displayName: PropTypes.string,
@@ -30,11 +32,13 @@ Reservation.propTypes = {
   }),
 };
 
-function Reservation({ onClick, ...reservation }) {
+function Reservation({ onClick, products, ...reservation }) {
   const startTime = moment(reservation.begin);
   const endTime = moment(reservation.end);
   const width = utils.getTimeSlotWidth({ startTime, endTime });
   const reserverName = getReserverName(reservation.reserverName, reservation.user);
+  const price = getReservationPrice(reservation.begin, reservation.end, { products });
+
   const popover = (
     <Popover className="reservation-info-popover" id={`popover-${reservation.id}`} title={reservation.eventSubject}>
       <div>
@@ -60,6 +64,7 @@ function Reservation({ onClick, ...reservation }) {
       )}
     </Popover>
   );
+
   return (
     <button
       className={classNames('reservation-link', { 'with-comments': reservation.comments })}
@@ -85,12 +90,23 @@ function Reservation({ onClick, ...reservation }) {
               reserved: reservation.state === 'confirmed'
                 && !reservation.isOwn
                 && reservation.userPermissions.canModify,
+            },
+            {
+              waiting: reservation.state === 'waiting'
+            },
+            {
+              paid: reservation.state === 'confirmed'
+                && !reservation.staffEvent
+                && price
             })}
           style={{ width }}
         >
           <span className="names">
             <span className="event-subject">{reservation.eventSubject}</span>
             <span className="reserver-name">{reserverName}</span>
+            {price && (
+              <span className="price-tag">{`${price} €` || ''}</span>
+            )}
           </span>
         </span>
       </OverlayTrigger>
