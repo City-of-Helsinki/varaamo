@@ -7,9 +7,9 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Modal from 'react-bootstrap/lib/Modal';
 
+import constants from '../../../constants/AppConstants';
 import injectT from '../../../i18n/injectT';
 import ReservationCancelModal from '../reservation-cancel/ReservationCancelModalContainer';
-import ReservationStateLabel from '../../reservation-state-label/ReservationStateLabel';
 import InfoLabel from '../../../../src/common/label/InfoLabel';
 import { isStaffEvent } from '../../../utils/reservationUtils';
 import ReservationEditForm from './ReservationEditForm';
@@ -75,8 +75,9 @@ class ReservationInfoModal extends Component {
       || (reservation.state === 'requested' && !isAdmin)
     );
 
-    const { labelStyle, labelText } = this.getPaymentLabelData(reservation);
 
+    const { labelStyle, labelText } = this.getPaymentLabelData(reservation);
+    const stateLabel = constants.RESERVATION_STATE_LABELS[reservation.state];
     return (
       <Modal
         className="reservation-info-modal"
@@ -91,10 +92,18 @@ class ReservationInfoModal extends Component {
           {!isEmpty(reservation)
             && (
             <div>
-              <ReservationStateLabel reservation={reservation} />
-              {hasProducts(resource) && labelStyle && labelText && (
-                <InfoLabel labelStyle={labelStyle} labelText={t(labelText)} />
-              )}
+              <div className="reservation-labels-wrapper">
+                {hasProducts(resource)
+                  && labelStyle
+                  && labelText
+                  && !reservation.staffEvent && (
+                    <InfoLabel labelStyle={labelStyle} labelText={t(labelText)} />
+                )}
+                {reservation.needManualConfirmation
+                  && reservation.state !== 'cancelled' && (
+                    <InfoLabel labelStyle={stateLabel.labelBsStyle} labelText={t(stateLabel.labelTextId)} />
+                )}
+              </div>
               <ReservationEditForm
                 enableReinitialize
                 initialValues={reservation}
