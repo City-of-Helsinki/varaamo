@@ -92,7 +92,7 @@ function Reservation({ onClick, products, ...reservation }) {
                 && reservation.userPermissions.canModify,
             },
             {
-              waiting: reservation.state === 'waiting'
+              waiting: reservation.state === 'waiting_for_payment'
             },
             {
               paid: reservation.state === 'confirmed'
@@ -102,7 +102,7 @@ function Reservation({ onClick, products, ...reservation }) {
           style={{ width }}
         >
           <span className="names">
-            <span className="event-subject">{reservation.eventSubject}</span>
+            {reservation.eventSubject && <span className="event-subject">{reservation.eventSubject}</span>}
             <span className="reserver-name">{reserverName}</span>
             {price && !reservation.staffEvent && (
               <span className="price-tag">{`${price} €` || ''}</span>
