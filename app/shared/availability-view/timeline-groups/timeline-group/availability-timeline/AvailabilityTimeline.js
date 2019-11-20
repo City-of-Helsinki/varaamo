@@ -85,11 +85,10 @@ export function selector() {
   return createSelector(
     resourceSelector,
     resource => ({
-      resourceData: resource,
       products: resource.products ? resource.products : []
     })
   );
 }
-
+export { UnconnectedAvailabilityTimeline };
 const AvailabilityTimeline = connect(selector)(UnconnectedAvailabilityTimeline);
 export default AvailabilityTimeline;

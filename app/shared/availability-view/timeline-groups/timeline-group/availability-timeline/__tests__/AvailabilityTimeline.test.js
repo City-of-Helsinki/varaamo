@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import moment from 'moment';
 import React from 'react';
 
-import AvailabilityTimeline from '../AvailabilityTimeline';
+import { UnconnectedAvailabilityTimeline as AvailabilityTimeline } from '../AvailabilityTimeline';
 import Reservation from '../Reservation';
 import ReservationSlot from '../ReservationSlot';
 
