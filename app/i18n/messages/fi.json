@@ -196,6 +196,7 @@
   "ReservationControls.deny": "Hylkää",
   "ReservationControls.edit": "Muokkaa",
   "ReservationControls.info": "Tiedot",
+  "ReservationEditForm.priceWithTax": "{price}€ (sis. ALV {tax}%)",
   "ReservationEditForm.cancelEdit": "Peruuta muokkaus",
   "ReservationEditForm.saveChanges": "Tallenna muutokset",
   "ReservationEditForm.startEdit": "Muokkaa tapahtumaa",

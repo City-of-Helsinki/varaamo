@@ -198,6 +198,7 @@
   "ReservationControls.deny": "Avvisa",
   "ReservationControls.edit": "Redigera",
   "ReservationControls.info": "Uppgifter",
+  "ReservationEditForm.priceWithTax": "{price}€ (inkl moms {tax}%)",
   "ReservationEditForm.cancelEdit": "Avbryta",
   "ReservationEditForm.saveChanges": "Spara ändringar",
   "ReservationEditForm.startEdit": "Ändra bokningstiden",

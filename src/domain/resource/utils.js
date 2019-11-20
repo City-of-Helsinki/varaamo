@@ -611,3 +611,26 @@ export const getReservationPrice = (start, end, resource) => {
 
   return 0;
 };
+
+
+/**
+ *  getTaxPercentage();
+ *  @param resource {object} Resource object.
+ *  returns {string}
+ * */
+export const getTaxPercentage = (resource) => {
+  const products = get(resource, 'products', []);
+
+  if (!products.length) {
+    return '';
+  }
+
+  const currentProduct = products[0];
+  const taxPercentage = get(currentProduct, 'price.taxPercentage', '');
+
+  if (taxPercentage) {
+    return taxPercentage.replace('.00', '');
+  }
+
+  return '';
+};
