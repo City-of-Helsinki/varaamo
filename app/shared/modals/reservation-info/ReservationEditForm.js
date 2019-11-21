@@ -160,7 +160,9 @@ class UnconnectedReservationEditForm extends Component {
         {this.renderEditableInfoRow('numberOfParticipants', 'number')}
         {this.renderReservationTime()}
         {this.renderInfoRow(t('common.resourceLabel'), resource.name)}
-        {price > 0 && this.renderInfoRow(t('common.priceLabel'), t('ReservationEditForm.priceWithTax', tVariables))}
+        {!reservation.staffEvent
+          && price > 0
+          && this.renderInfoRow(t('common.priceLabel'), t('ReservationEditForm.priceWithTax', tVariables))}
 
         {isStaff && this.renderStaticInfoRow('reserverId')}
         {this.renderStaticInfoRow('reserverPhoneNumber')}
