@@ -82,6 +82,10 @@ class ReservationInformation extends Component {
 
     if (hasProducts(resource)) {
       formFields.push('paymentTermsAndConditions');
+      formFields.push('billingFirstName');
+      formFields.push('billingLastName');
+      formFields.push('billingPhoneNumber');
+      formFields.push('billingEmailAddress');
     }
 
     return uniq(formFields);
@@ -113,6 +117,11 @@ class ReservationInformation extends Component {
 
     if (hasProducts(resource)) {
       requiredFormFields.push('paymentTermsAndConditions');
+      if (!isAdmin) {
+        requiredFormFields.push('billingFirstName');
+        requiredFormFields.push('billingLastName');
+        requiredFormFields.push('billingEmailAddress');
+      }
     }
 
     return requiredFormFields;
