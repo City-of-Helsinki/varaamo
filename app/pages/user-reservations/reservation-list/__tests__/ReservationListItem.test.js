@@ -1,7 +1,7 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
-import ReservationStateLabel from '../../../../shared/reservation-state-label/ReservationStateLabel';
+import InfoLabel from '../../../../../src/common/label/InfoLabel';
 import TimeRange from '../../../../shared/time-range/TimeRange';
 import Image from '../../../../utils/fixtures/Image';
 import Reservation from '../../../../utils/fixtures/Reservation';
@@ -69,9 +69,9 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
       expect(timeRange.prop('end')).toBe(props.reservation.end);
     });
 
-    test('renders ReservationStateLabel component', () => {
-      const reservationStateLabel = component.find(ReservationStateLabel);
-      expect(reservationStateLabel.length).toBe(1);
+    test('renders InfoLabel component', () => {
+      const infoLabel = component.find(InfoLabel);
+      expect(infoLabel.length).toBe(1);
     });
 
     test('renders ReservationControls component', () => {
