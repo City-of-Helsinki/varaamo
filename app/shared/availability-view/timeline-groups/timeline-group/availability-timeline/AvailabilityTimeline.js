@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
 
 import Reservation from './Reservation';
 import ReservationSlot from './ReservationSlot';
+import { resourcesSelector } from '../../../../../state/selectors/dataSelectors';
 
-export default class AvailabilityTimeline extends React.Component {
+class UnconnectedAvailabilityTimeline extends React.Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
     items: PropTypes.arrayOf(
@@ -19,6 +22,7 @@ export default class AvailabilityTimeline extends React.Component {
     onReservationSlotMouseEnter: PropTypes.func,
     onReservationSlotMouseLeave: PropTypes.func,
     onSelectionCancel: PropTypes.func,
+    products: PropTypes.array,
     selection: PropTypes.object,
   };
 
@@ -35,6 +39,7 @@ export default class AvailabilityTimeline extends React.Component {
       onSelectionCancel,
       onReservationSlotMouseEnter,
       onReservationSlotMouseLeave,
+      products,
       selection,
     } = this.props;
     return (
@@ -59,6 +64,7 @@ export default class AvailabilityTimeline extends React.Component {
               {...item.data}
               key={item.key}
               onClick={onReservationClick}
+              products={products}
             />
           );
         })}
@@ -66,3 +72,23 @@ export default class AvailabilityTimeline extends React.Component {
     );
   }
 }
+
+export function selector() {
+  function idSelector(state, props) {
+    return props.id;
+  }
+  const resourceSelector = createSelector(
+    resourcesSelector,
+    idSelector,
+    (resources, id) => resources[id]
+  );
+  return createSelector(
+    resourceSelector,
+    resource => ({
+      products: resource.products ? resource.products : []
+    })
+  );
+}
+export { UnconnectedAvailabilityTimeline };
+const AvailabilityTimeline = connect(selector)(UnconnectedAvailabilityTimeline);
+export default AvailabilityTimeline;

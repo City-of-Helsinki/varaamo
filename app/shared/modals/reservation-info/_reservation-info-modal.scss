@@ -5,6 +5,12 @@
     }
   }
 
+  .reservation-labels-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+  }
+
   .reservation-state-label-container {
     text-align: right;
     font-size: 2.4rem;

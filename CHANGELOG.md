@@ -1,3 +1,7 @@
+# 0.8.0-pre
+  - [#1070](https://github.com/City-of-Helsinki/varaamo/pull/1070) Add first name last name email phone number to payment form
+  - [#1071](https://github.com/City-of-Helsinki/varaamo/pull/1071) Edited My premise event styles and added payment status labels for ReservationInfoModal
+
 # 0.7.0
   **MINOR CHANGES**
   - Added event close and staff event checkboxes for staff in reservation form / resource page

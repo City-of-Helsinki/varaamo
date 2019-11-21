@@ -7,11 +7,13 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Modal from 'react-bootstrap/lib/Modal';
 
+import constants from '../../../constants/AppConstants';
 import injectT from '../../../i18n/injectT';
 import ReservationCancelModal from '../reservation-cancel/ReservationCancelModalContainer';
-import ReservationStateLabel from '../../reservation-state-label/ReservationStateLabel';
+import InfoLabel from '../../../../src/common/label/InfoLabel';
 import { isStaffEvent } from '../../../utils/reservationUtils';
 import ReservationEditForm from './ReservationEditForm';
+import { hasProducts } from '../../../utils/resourceUtils';
 
 class ReservationInfoModal extends Component {
   constructor(props) {
@@ -58,6 +60,8 @@ class ReservationInfoModal extends Component {
       || (reservation.state === 'requested' && !isAdmin)
     );
 
+    const paymentLabel = constants.RESERVATION_PAYMENT_LABELS[reservation.state];
+    const stateLabel = constants.RESERVATION_STATE_LABELS[reservation.state];
     return (
       <Modal
         className="reservation-info-modal"
@@ -72,7 +76,17 @@ class ReservationInfoModal extends Component {
           {!isEmpty(reservation)
             && (
             <div>
-              <ReservationStateLabel reservation={reservation} />
+              <div className="reservation-labels-wrapper">
+                {hasProducts(resource)
+                  && paymentLabel
+                  && !reservation.staffEvent && (
+                    <InfoLabel labelStyle={paymentLabel.labelBsStyle} labelText={t(paymentLabel.labelTextId)} />
+                )}
+                {reservation.needManualConfirmation
+                  && reservation.state !== 'cancelled' && (
+                    <InfoLabel labelStyle={stateLabel.labelBsStyle} labelText={t(stateLabel.labelTextId)} />
+                )}
+              </div>
               <ReservationEditForm
                 enableReinitialize
                 initialValues={reservation}
