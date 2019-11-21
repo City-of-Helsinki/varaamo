@@ -24,21 +24,6 @@ class ReservationInfoModal extends Component {
     this.handleSaveCommentsClick = this.handleSaveCommentsClick.bind(this);
   }
 
-  getPaymentLabelData = (reservation) => {
-    switch (reservation.state) {
-      case 'confirmed':
-        return { labelStyle: 'success', labelText: 'payment.success' };
-      case 'waiting':
-        return { labelStyle: 'warning', labelText: 'payment.processing' };
-      case 'rejected':
-        return { labelStyle: 'danger', labelText: 'payment.failed' };
-      case 'cancelled':
-        return { labelStyle: 'danger', labelText: 'payment.cancelled' };
-      default:
-        return { labelStyle: '', labelText: '' };
-    }
-  };
-
   handleEditFormSubmit(values) {
     const { onEditFormSubmit, reservation, resource } = this.props;
     const staffEvent = isStaffEvent(reservation, resource);
@@ -75,8 +60,7 @@ class ReservationInfoModal extends Component {
       || (reservation.state === 'requested' && !isAdmin)
     );
 
-
-    const { labelStyle, labelText } = this.getPaymentLabelData(reservation);
+    const paymentLabel = constants.RESERVATION_PAYMENT_LABELS[reservation.state];
     const stateLabel = constants.RESERVATION_STATE_LABELS[reservation.state];
     return (
       <Modal
@@ -94,10 +78,9 @@ class ReservationInfoModal extends Component {
             <div>
               <div className="reservation-labels-wrapper">
                 {hasProducts(resource)
-                  && labelStyle
-                  && labelText
+                  && paymentLabel
                   && !reservation.staffEvent && (
-                    <InfoLabel labelStyle={labelStyle} labelText={t(labelText)} />
+                    <InfoLabel labelStyle={paymentLabel.labelBsStyle} labelText={t(paymentLabel.labelTextId)} />
                 )}
                 {reservation.needManualConfirmation
                   && reservation.state !== 'cancelled' && (
