@@ -6,6 +6,7 @@ import { isAdminSelector } from '../../../state/selectors/authSelectors';
 import { createResourceSelector } from '../../../state/selectors/dataSelectors';
 import modalIsOpenSelectorFactory from '../../../state/selectors/factories/modalIsOpenSelectorFactory';
 import requestIsActiveSelectorFactory from '../../../state/selectors/factories/requestIsActiveSelectorFactory';
+import { hasProducts } from '../../../utils/resourceUtils';
 
 function reservationSelector(state) {
   return state.ui.reservations.toCancel[0] || {};
@@ -18,9 +19,12 @@ const resourceIdSelector = createSelector(
 
 const cancelAllowedSelector = createSelector(
   isAdminSelector,
+  createResourceSelector(resourceIdSelector),
   reservationSelector,
-  (isAdmin, reservation) => (
-    isAdmin || !reservation.needManualConfirmation || reservation.state !== 'confirmed'
+  (isAdmin, resource, reservation) => (
+    isAdmin
+    || (!reservation.needManualConfirmation && !hasProducts(resource))
+    || (reservation.state !== 'confirmed' && !hasProducts(resource))
   )
 );
 
