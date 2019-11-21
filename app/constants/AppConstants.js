@@ -38,6 +38,24 @@ export default {
       labelTextId: 'common.requested',
     },
   },
+  RESERVATION_PAYMENT_LABELS: {
+    confirmed: {
+      labelBsStyle: 'success',
+      labelTextId: 'payment.success'
+    },
+    waiting: {
+      labelBsStyle: 'warning',
+      labelTextId: 'payment.processing'
+    },
+    rejected: {
+      labelBsStyle: 'danger',
+      labelTextId: 'payment.failed'
+    },
+    cancelled: {
+      labelBsStyle: 'danger',
+      labelTextId: 'payment.cancelled'
+    },
+  },
   SEARCH_PAGE_SIZE: 30,
   DEFAULT_MUNICIPALITY_OPTIONS: ['Helsinki', 'Espoo', 'Vantaa'],
   SHOW_TEST_SITE_MESSAGE: SETTINGS.SHOW_TEST_SITE_MESSAGE,
