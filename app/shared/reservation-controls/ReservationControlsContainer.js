@@ -69,7 +69,12 @@ export class UnconnectedReservationControlsContainer extends Component {
   }
 
   render() {
-    const { isAdmin, isStaff, reservation } = this.props;
+    const {
+      isAdmin,
+      isStaff,
+      reservation,
+      resource
+    } = this.props;
 
     return (
       <ReservationControls
@@ -81,6 +86,7 @@ export class UnconnectedReservationControlsContainer extends Component {
         onEditClick={this.handleEditClick}
         onInfoClick={this.handleInfoClick}
         reservation={reservation}
+        resource={resource}
       />
     );
   }
