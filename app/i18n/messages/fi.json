@@ -242,6 +242,8 @@
   "ReservationInformationForm.termsAndConditionsLink": "tilan käyttösäännöt",
   "ReservationInformationForm.paymentTermsAndConditionsLabel": "Olen lukenut ja hyväksynyt",
   "ReservationInformationForm.paymentTermsAndConditionsLink": "maksuehdot",
+  "ReservationInformationForm.refundPolicyTitle": "Rahojen palautus",
+  "ReservationInformationForm.refundPolicyText": "palaukset tapahtuu taloushallinnon kautta. Ilmoita xxx@hel.fi asiakkaan nimi, sähköposti ja tilan nimi sekä pvm ja aika. Voit perua asiakkaan varauksen saatuasi vastauksen onnistuneesta palautuksesta. Henkilökunnan omat varaukset ovat maksuttomia.",
   "ReservationListContainer.emptyMessage": "Sinulla ei vielä ole yhtään varausta.",
   "ReservationListItem.accessCodeText": "Tilan PIN-koodi:",
   "ReservationPage.detailsTime": "Ajankohta",
