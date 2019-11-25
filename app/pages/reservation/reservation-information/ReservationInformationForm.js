@@ -394,7 +394,7 @@ class UnconnectedReservationInformationForm extends Component {
               </Button>
               )
             }
-            {hasProducts(resource)
+            {hasProducts(resource) && !isStaff
               ? this.renderPayButton()
               : this.renderSaveButton()
             }
