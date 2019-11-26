@@ -18,12 +18,18 @@ class UnconnectedReservationCancelModalContainer extends Component {
   constructor(props) {
     super(props);
     this.handleCancel = this.handleCancel.bind(this);
+    this.handleCheckbox = this.handleCheckbox.bind(this);
+    this.state = { checkboxDisabled: true };
   }
 
   handleCancel() {
     const { actions, reservation } = this.props;
     actions.deleteReservation(reservation);
     actions.closeReservationCancelModal();
+  }
+
+  handleCheckbox() {
+    this.setState(prevState => ({ checkboxDisabled: !prevState.checkboxDisabled }));
   }
 
   renderCheckBox(notice, onConfirm, toggleClassName, value) {
@@ -82,7 +88,7 @@ class UnconnectedReservationCancelModalContainer extends Component {
               }
               {reservation.resource && !reservation.staffEvent && this.renderCheckBox(
                 t('ReservationInformationForm.refundCheckBox'),
-                () => { console.log('--- TOGGLE ---'); },
+                this.handleCheckbox,
                 'toggleClassName',
                 false
               )}
@@ -113,7 +119,7 @@ class UnconnectedReservationCancelModalContainer extends Component {
           {cancelAllowed && (
             <Button
               bsStyle="danger"
-              disabled={isCancellingReservations}
+              disabled={isCancellingReservations || this.state.checkboxDisabled}
               onClick={this.handleCancel}
             >
               {isCancellingReservations
