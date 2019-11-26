@@ -57,7 +57,10 @@ class UnconnectedReservationCancelModalContainer extends Component {
 
     return (
       <Modal
-        onHide={actions.closeReservationCancelModal}
+        onHide={() => {
+          actions.closeReservationCancelModal();
+          this.setState({ checkboxDisabled: true });
+        }}
         show={show}
       >
         <Modal.Header closeButton>
@@ -103,7 +106,10 @@ class UnconnectedReservationCancelModalContainer extends Component {
         <Modal.Footer>
           <Button
             bsStyle="default"
-            onClick={actions.closeReservationCancelModal}
+            onClick={() => {
+              actions.closeReservationCancelModal();
+              this.setState({ checkboxDisabled: true });
+            }}
           >
             {cancelAllowed
               ? t('ReservationCancelModal.cancelAllowedCancel')
