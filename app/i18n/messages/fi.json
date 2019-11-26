@@ -44,6 +44,8 @@
   "common.billingAddressZipLabel": "Laskun postinumero",
   "common.companyLabel": "Yritys",
   "common.paymentInformationLabel": "Maksutiedot",
+  "common.paymentNameLabel": "Maksajan nimi",
+  "common.paymentEmailLabel": "Maksajan sähköposti",
   "common.billingFirstNameLabel": "Etunimi",
   "common.billingLastNameLabel": "Sukunimi",
   "common.billingPhoneNumberLabel": "Puhelin",

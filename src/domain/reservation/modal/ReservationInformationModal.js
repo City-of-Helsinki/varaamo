@@ -36,6 +36,7 @@ const ReservationInformationModal = ({
       </div>
     );
   };
+
   return (
     <Modal
       className="app-ReservationInformationModal"
@@ -54,6 +55,8 @@ const ReservationInformationModal = ({
             {renderField('user_name', get(reservation, 'user.display_name', ''))}
             {renderField('user_email', get(reservation, 'user.email', ''))}
           </div>
+          {renderField('payment_name', 'Antti aatami')}
+          {renderField('payment_email', 'antti@aatami.fi')}
           {renderField('reservation_time', getDateAndTime(reservation))}
           {renderField('resource', get(reservation, 'resource.name.fi', ''))}
 

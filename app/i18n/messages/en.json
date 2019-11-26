@@ -44,6 +44,8 @@
   "common.billingAddressZipLabel": "Billing address zipcode",
   "common.companyLabel": "Company",
   "common.paymentInformationLabel": "Payment information",
+  "common.paymentNameLabel": "Payer name",
+  "common.paymentEmailLabel": "Payer email",
   "common.billingFirstNameLabel": "First name",
   "common.billingLastNameLabel": "Last name",
   "common.billingPhoneNumberLabel": "Phone",

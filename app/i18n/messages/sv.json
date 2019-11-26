@@ -44,6 +44,8 @@
   "common.billingAddressZipLabel": "Faktureringspostnummer",
   "common.companyLabel": "Företag",
   "common.paymentInformationLabel": "Betalningsinformation",
+  "common.paymentNameLabel": "Betalarens namn",
+  "common.paymentEmailLabel": "Betala e-post",
   "common.billingFirstNameLabel": "Förnamn",
   "common.billingLastNameLabel": "Efternamn",
   "common.billingPhoneNumberLabel": "Telefon",
