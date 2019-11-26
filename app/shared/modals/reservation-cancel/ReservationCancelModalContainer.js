@@ -80,7 +80,7 @@ class UnconnectedReservationCancelModalContainer extends Component {
                 />
                 )
               }
-              {reservation.resource && reservation.staffEvent && this.renderCheckBox(
+              {reservation.resource && !reservation.staffEvent && this.renderCheckBox(
                 t('ReservationInformationForm.refundCheckBox'),
                 () => { console.log('--- TOGGLE ---'); },
                 'toggleClassName',
