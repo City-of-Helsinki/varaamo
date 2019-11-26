@@ -10,8 +10,8 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Well from 'react-bootstrap/lib/Well';
 import { Field, Fields, reduxForm } from 'redux-form';
+import Toggle from 'react-toggle';
 
-// eslint-disable-next-line import/named
 import { getReservationPrice, getTaxPercentage } from '../../../../src/domain/resource/utils';
 import FormTypes from '../../../constants/FormTypes';
 import ReduxFormField from '../../form-fields/ReduxFormField';
@@ -62,6 +62,25 @@ class UnconnectedReservationEditForm extends Component {
           <FormControl.Static>{value}</FormControl.Static>
         </Col>
       </FormGroup>
+    );
+  }
+
+  renderCheckBox(id, label, labelClassName, onConfirm, toggleClassName, value) {
+    const toggleClassNames = classNames('app-CheckboxControl__toggle', toggleClassName);
+    const labelClassNames = classNames('app-CheckboxControl__label', labelClassName);
+
+    return (
+      <div className="app-CheckboxControl">
+        <Toggle
+          className={toggleClassNames}
+          defaultChecked={value}
+          id={id}
+          onChange={e => onConfirm(e.target.checked)}
+        />
+        <label className={labelClassNames} htmlFor={id}>
+          {label}
+        </label>
+      </div>
     );
   }
 
@@ -167,6 +186,16 @@ class UnconnectedReservationEditForm extends Component {
         {!reservation.staffEvent
           && price > 0
           && this.renderInfoRow(t('ReservationInformationForm.refundPolicyTitle'), t('ReservationInformationForm.refundPolicyText'))}
+        {reservation.staffEvent
+          && price > 0
+          && this.renderCheckBox(
+            'id',
+            'label',
+            'label',
+            () => { console.log('--- TOGGLE ---'); },
+            'toggleClassName',
+            false
+          )}
         {isStaff && this.renderStaticInfoRow('reserverId')}
         {this.renderStaticInfoRow('reserverPhoneNumber')}
         {this.renderStaticInfoRow('reserverEmailAddress')}
