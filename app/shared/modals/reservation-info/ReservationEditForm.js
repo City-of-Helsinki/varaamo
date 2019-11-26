@@ -10,7 +10,6 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Well from 'react-bootstrap/lib/Well';
 import { Field, Fields, reduxForm } from 'redux-form';
-import Toggle from 'react-toggle';
 
 import { getReservationPrice, getTaxPercentage } from '../../../../src/domain/resource/utils';
 import FormTypes from '../../../constants/FormTypes';
@@ -60,26 +59,6 @@ class UnconnectedReservationEditForm extends Component {
         </Col>
         <Col sm={9}>
           <FormControl.Static>{value}</FormControl.Static>
-        </Col>
-      </FormGroup>
-    );
-  }
-
-  renderCheckBox(label, onConfirm, toggleClassName, value) {
-    const toggleClassNames = classNames('app-CheckboxControl__toggle', toggleClassName);
-
-    return (
-      <FormGroup>
-        <Col sm={3}>
-          <ControlLabel>{label}</ControlLabel>
-        </Col>
-        <Col sm={9}>
-          <Toggle
-            className={toggleClassNames}
-            defaultChecked={value}
-            id="checkbox"
-            onChange={e => onConfirm(e.target.checked)}
-          />
         </Col>
       </FormGroup>
     );
@@ -187,14 +166,6 @@ class UnconnectedReservationEditForm extends Component {
         {!reservation.staffEvent
           && price > 0
           && this.renderInfoRow(t('ReservationInformationForm.refundPolicyTitle'), t('ReservationInformationForm.refundPolicyText'))}
-        {reservation.staffEvent
-          && price > 0
-          && this.renderCheckBox(
-            t('ReservationInformationForm.refundCheckBox'),
-            () => { console.log('--- TOGGLE ---'); },
-            'toggleClassName',
-            false
-          )}
         {isStaff && this.renderStaticInfoRow('reserverId')}
         {this.renderStaticInfoRow('reserverPhoneNumber')}
         {this.renderStaticInfoRow('reserverEmailAddress')}

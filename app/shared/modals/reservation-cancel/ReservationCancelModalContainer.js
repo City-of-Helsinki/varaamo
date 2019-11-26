@@ -5,6 +5,8 @@ import Modal from 'react-bootstrap/lib/Modal';
 import { FormattedHTMLMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Toggle from 'react-toggle';
+import classNames from 'classnames';
 
 import { deleteReservation } from '../../../actions/reservationActions';
 import { closeReservationCancelModal } from '../../../actions/uiActions';
@@ -22,6 +24,22 @@ class UnconnectedReservationCancelModalContainer extends Component {
     const { actions, reservation } = this.props;
     actions.deleteReservation(reservation);
     actions.closeReservationCancelModal();
+  }
+
+  renderCheckBox(notice, onConfirm, toggleClassName, value) {
+    const toggleClassNames = classNames('app-CheckboxControl__toggle', toggleClassName);
+
+    return (
+      <div>
+        <p><strong>{notice}</strong></p>
+        <Toggle
+          className={toggleClassNames}
+          defaultChecked={value}
+          id="checkbox"
+          onChange={e => onConfirm(e.target.checked)}
+        />
+      </div>
+    );
   }
 
   render() {
@@ -62,6 +80,12 @@ class UnconnectedReservationCancelModalContainer extends Component {
                 />
                 )
               }
+              {reservation.resource && reservation.staffEvent && this.renderCheckBox(
+                t('ReservationInformationForm.refundCheckBox'),
+                () => { console.log('--- TOGGLE ---'); },
+                'toggleClassName',
+                false
+              )}
             </div>
             )
           }
