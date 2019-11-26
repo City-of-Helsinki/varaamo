@@ -246,6 +246,7 @@
   "ReservationInformationForm.paymentTermsAndConditionsLink": "betalningsvillkoren",
   "ReservationInformationForm.refundPolicyTitle": "Återbetalningspolicy",
   "ReservationInformationForm.refundPolicyText": "Återbetalning sker via TALPA. Skicka e-post till xxx@hel.fi och inkludera kundnamn, e-post, resursnamn, datum och tid. Du kan avbryta kundreservation efter att du fått bekräftelsemail från TALPA. Interna reservationer av personalen är gratis.",
+  "ReservationInformationForm.refundCheckBox": "Jag har läst återbetalningsinstruktioner.",
   "ReservationListContainer.emptyMessage": "Du har ännu inte några bokningar.",
   "ReservationListItem.accessCodeText": "Utrymmets PIN-kod:",
   "ReservationPage.detailsTime": "Tidpunkt",

@@ -65,22 +65,23 @@ class UnconnectedReservationEditForm extends Component {
     );
   }
 
-  renderCheckBox(id, label, labelClassName, onConfirm, toggleClassName, value) {
+  renderCheckBox(label, onConfirm, toggleClassName, value) {
     const toggleClassNames = classNames('app-CheckboxControl__toggle', toggleClassName);
-    const labelClassNames = classNames('app-CheckboxControl__label', labelClassName);
 
     return (
-      <div className="app-CheckboxControl">
-        <Toggle
-          className={toggleClassNames}
-          defaultChecked={value}
-          id={id}
-          onChange={e => onConfirm(e.target.checked)}
-        />
-        <label className={labelClassNames} htmlFor={id}>
-          {label}
-        </label>
-      </div>
+      <FormGroup>
+        <Col sm={3}>
+          <ControlLabel>{label}</ControlLabel>
+        </Col>
+        <Col sm={9}>
+          <Toggle
+            className={toggleClassNames}
+            defaultChecked={value}
+            id="checkbox"
+            onChange={e => onConfirm(e.target.checked)}
+          />
+        </Col>
+      </FormGroup>
     );
   }
 
@@ -189,9 +190,7 @@ class UnconnectedReservationEditForm extends Component {
         {reservation.staffEvent
           && price > 0
           && this.renderCheckBox(
-            'id',
-            'label',
-            'label',
+            t('ReservationInformationForm.refundCheckBox'),
             () => { console.log('--- TOGGLE ---'); },
             'toggleClassName',
             false
