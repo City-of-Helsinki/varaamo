@@ -39,7 +39,6 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
     expect(form.prop('isMakingReservations')).toBe(defaultProps.isMakingReservations);
     expect(form.prop('onBack')).toBe(defaultProps.onBack);
     expect(form.prop('onCancel')).toBe(defaultProps.onCancel);
-    expect(form.prop('openResourceTermsModal')).toBe(defaultProps.openResourceTermsModal);
     expect(form.prop('resource')).toBe(defaultProps.resource);
   });
 
