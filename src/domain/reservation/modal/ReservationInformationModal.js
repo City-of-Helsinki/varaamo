@@ -109,7 +109,6 @@ const ReservationInformationModal = ({
           onClick={() => {
             // onEditReservation(reservation, RESERVATION_STATE.CANCELLED)
             toggleReservationCancelModal(!isReservationCancelModalOpen);
-            console.log('--- cancel', isReservationCancelModalOpen);
           }}
         >
           {t('ReservationInfoModal.cancelButton')}
@@ -130,7 +129,7 @@ const ReservationInformationModal = ({
         </Button>
       </Modal.Footer>
       <ReservationCancelModal
-        show={isReservationCancelModalOpen}
+        showOuter={isReservationCancelModalOpen}
       />
     </Modal>
   );
