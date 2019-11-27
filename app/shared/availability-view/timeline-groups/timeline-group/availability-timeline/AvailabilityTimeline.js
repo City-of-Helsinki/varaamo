@@ -24,6 +24,7 @@ class UnconnectedAvailabilityTimeline extends React.Component {
     onSelectionCancel: PropTypes.func,
     products: PropTypes.array,
     selection: PropTypes.object,
+    slotSize: PropTypes.string
   };
 
   shouldComponentUpdate(nextProps) {
@@ -41,14 +42,16 @@ class UnconnectedAvailabilityTimeline extends React.Component {
       onReservationSlotMouseLeave,
       products,
       selection,
+      slotSize
     } = this.props;
     return (
       <div className="availability-timeline">
-        {this.props.items.map((item) => {
+        {this.props.items.map((item, index) => {
           if (item.type === 'reservation-slot') {
             return (
               <ReservationSlot
                 {...item.data}
+                itemIndex={index}
                 key={item.key}
                 onClick={onReservationSlotClick}
                 onMouseEnter={onReservationSlotMouseEnter}
@@ -56,6 +59,7 @@ class UnconnectedAvailabilityTimeline extends React.Component {
                 onSelectionCancel={onSelectionCancel}
                 resourceId={this.props.id}
                 selection={selection}
+                slotSize={slotSize}
               />
             );
           }
@@ -85,7 +89,8 @@ export function selector() {
   return createSelector(
     resourceSelector,
     resource => ({
-      products: resource.products ? resource.products : []
+      products: resource.products ? resource.products : [],
+      slotSize: resource.slotSize
     })
   );
 }

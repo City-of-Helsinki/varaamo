@@ -2,6 +2,7 @@
   - [#1070](https://github.com/City-of-Helsinki/varaamo/pull/1070) Add first name last name email phone number to payment form
   - [#1071](https://github.com/City-of-Helsinki/varaamo/pull/1071) Edited My premise event styles and added payment status labels for ReservationInfoModal
   - [#1072](https://github.com/City-of-Helsinki/varaamo/pull/1072) Added Payment state labels & total price for User reservations list. Disabled edit button for end user if reservation is billable.
+  - [#1073](https://github.com/City-of-Helsinki/varaamo/pull/1073) My premises now gets slotSize from resource.
 
 # 0.7.0
   **MINOR CHANGES**
