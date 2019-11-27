@@ -5,18 +5,21 @@ import Modal from 'react-bootstrap/lib/Modal';
 import injectT from '../../../../app/i18n/injectT';
 
 const ReservationCancelModal = ({
-  showOuter
+  toggleShow, parentCallback
 }) => {
-  const [show, setShow] = useState(showOuter);
-  const handleClose = () => setShow(false);
+  const [show, setShow] = useState(toggleShow);
+  const handleClose = () => {
+    setShow(() => false);
+    parentCallback(false);
+  };
 
   useEffect(() => {
-    setShow(showOuter);
-  }, [showOuter]);
+    setShow(toggleShow);
+  }, [toggleShow]);
 
-  console.log('showOuter', showOuter);
-  console.log('show', show);
-  console.log('----------');
+  console.log('--------------------------');
+  console.log(`[parent] toggleShow: ${toggleShow}`);
+  console.log(`[child]        show: ${show}`);
 
   return (
     <Modal
@@ -39,7 +42,8 @@ const ReservationCancelModal = ({
 };
 
 ReservationCancelModal.propTypes = {
-  showOuter: PropTypes.bool.isRequired,
+  toggleShow: PropTypes.bool.isRequired,
+  parentCallback: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
 };
 
