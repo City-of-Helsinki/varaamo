@@ -40,9 +40,24 @@ describe('pages/admin-resources/adminResourcesPageSelector', () => {
   });
 
   test('returns an array of resource ids ordered by translated name', () => {
-    const resource1 = { id: 1, name: { fi: 'Tatooine' }, type: { name: 'school' } };
-    const resource2 = { id: 2, name: { fi: 'Dantooine' }, type: { name: 'library' } };
-    const resource3 = { id: 3, name: { fi: 'Alderaan' }, type: { name: 'printer' } };
+    const resource1 = {
+      id: 1,
+      name: { fi: 'Tatooine' },
+      type: { name: 'school' },
+      unitName: 'Tatooine'
+    };
+    const resource2 = {
+      id: 2,
+      name: { fi: 'Dantooine' },
+      type: { name: 'library' },
+      unitName: 'Dantooine'
+    };
+    const resource3 = {
+      id: 3,
+      name: { fi: 'Alderaan' },
+      type: { name: 'printer' },
+      unitName: 'Alderaan'
+    };
     const extraState = {
       'data.resources': {
         [resource1.id]: resource1,
