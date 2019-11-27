@@ -23,7 +23,6 @@ class ReservationInformation extends Component {
     onBack: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
     onConfirm: PropTypes.func.isRequired,
-    openResourceTermsModal: PropTypes.func.isRequired,
     reservation: PropTypes.object,
     resource: PropTypes.object.isRequired,
     selectedTime: PropTypes.object.isRequired,
@@ -144,7 +143,6 @@ class ReservationInformation extends Component {
       isMakingReservations,
       onBack,
       onCancel,
-      openResourceTermsModal,
       resource,
       selectedTime,
       t,
@@ -174,7 +172,6 @@ class ReservationInformation extends Component {
             onBack={onBack}
             onCancel={onCancel}
             onConfirm={this.onConfirm}
-            openResourceTermsModal={openResourceTermsModal}
             requiredFields={this.getRequiredFormFields(resource, termsAndConditions)}
             resource={resource}
             termsAndConditions={termsAndConditions}

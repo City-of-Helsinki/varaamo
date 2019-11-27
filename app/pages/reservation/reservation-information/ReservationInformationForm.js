@@ -11,9 +11,8 @@ import constants from '../../../constants/AppConstants';
 import FormTypes from '../../../constants/FormTypes';
 import ReservationMetadataField from './ReservationMetadataField';
 import injectT from '../../../i18n/injectT';
-import ReservationTermsModal from '../../../shared/modals/reservation-terms/ReservationTermsModal';
-import PaymentTermsModal from '../../../shared/modals/payment-terms/PaymentTermsModal';
 import { hasProducts } from '../../../utils/resourceUtils';
+import WrappedText from '../../../shared/wrapped-text/WrappedText';
 import InternalReservationFields from './InternalReservationFields';
 
 const validators = {
@@ -94,18 +93,6 @@ export function validate(values, { fields, requiredFields, t }) {
 }
 
 class UnconnectedReservationInformationForm extends Component {
-  state = {
-    isPaymentTermsModalOpen: false,
-  }
-
-  closePaymentTermsModal = () => {
-    this.setState({ isPaymentTermsModalOpen: false });
-  }
-
-  openPaymentTermsModal = () => {
-    this.setState({ isPaymentTermsModalOpen: true });
-  }
-
   renderField(name, type, label, help = null) {
     if (!includes(this.props.fields, name)) {
       return null;
@@ -124,17 +111,15 @@ class UnconnectedReservationInformationForm extends Component {
   }
 
   renderTermsField(name) {
-    const { openResourceTermsModal, t } = this.props;
-    const label = t('ReservationInformationForm.termsAndConditionsLabel');
-    const labelLink = `${t('ReservationInformationForm.termsAndConditionsLink')}`;
+    const { t } = this.props;
+    // eslint-disable-next-line max-len
+    const label = `${t('ReservationInformationForm.termsAndConditionsLabel')} ${t('ReservationInformationForm.termsAndConditionsLink')}`;
     return (
       <Field
         component={TermsField}
         key={name}
         label={label}
-        labelLink={labelLink}
         name={name}
-        onClick={openResourceTermsModal}
         type="terms"
       />
     );
@@ -142,14 +127,14 @@ class UnconnectedReservationInformationForm extends Component {
 
   renderPaymentTermsField = () => {
     const { t } = this.props;
+    // eslint-disable-next-line max-len
+    const label = `${t('ReservationInformationForm.paymentTermsAndConditionsLabel')} ${t('ReservationInformationForm.paymentTermsAndConditionsLink')}`;
     return (
       <Field
         component={TermsField}
         key="paymentTermsAndConditions"
-        label={t('ReservationInformationForm.paymentTermsAndConditionsLabel')}
-        labelLink={t('ReservationInformationForm.paymentTermsAndConditionsLink')}
+        label={label}
         name="paymentTermsAndConditions"
-        onClick={this.openPaymentTermsModal}
         type="terms"
       />
     );
@@ -218,9 +203,6 @@ class UnconnectedReservationInformationForm extends Component {
       isStaff,
       valid,
     } = this.props;
-    const {
-      isPaymentTermsModalOpen,
-    } = this.state;
 
     this.requiredFields = staffEventSelected
       ? constants.REQUIRED_STAFF_EVENT_FIELDS
@@ -367,7 +349,15 @@ class UnconnectedReservationInformationForm extends Component {
             { min: '0' }
           )}
           {termsAndConditions
-            && this.renderTermsField('termsAndConditions')
+          && (
+          <React.Fragment>
+            <h2 className="app-ReservationPage__title">{t('ReservationTermsModal.resourceTermsTitle')}</h2>
+            <div className="terms-box">
+              <WrappedText text={resource.genericTerms} />
+            </div>
+            {this.renderTermsField('termsAndConditions')}
+          </React.Fragment>
+          )
           }
           {resource.specificTerms && (
             <div>
@@ -376,7 +366,15 @@ class UnconnectedReservationInformationForm extends Component {
             </div>
           )}
           {includes(fields, 'paymentTermsAndConditions')
-            && this.renderPaymentTermsField()
+            && (
+            <React.Fragment>
+              <h2 className="app-ReservationPage__title">{t('paymentTerms.title')}</h2>
+              <div className="terms-box">
+                {t('paymentTerms.terms')}
+              </div>
+              {this.renderPaymentTermsField()}
+            </React.Fragment>
+            )
           }
           <div>
             <Button
@@ -400,11 +398,6 @@ class UnconnectedReservationInformationForm extends Component {
             }
           </div>
         </Form>
-        <ReservationTermsModal resource={resource} />
-        <PaymentTermsModal
-          isOpen={isPaymentTermsModalOpen}
-          onDismiss={this.closePaymentTermsModal}
-        />
       </div>
     );
   }
@@ -418,7 +411,6 @@ UnconnectedReservationInformationForm.propTypes = {
   onBack: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
-  openResourceTermsModal: PropTypes.func.isRequired,
   requiredFields: PropTypes.array.isRequired,
   resource: PropTypes.object.isRequired,
   staffEventSelected: PropTypes.bool,

@@ -6,7 +6,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
 function TermsField({
-  input, label, labelLink, meta, onClick
+  input, label, meta
 }) {
   const showError = meta.error && meta.touched;
   return (
@@ -18,11 +18,6 @@ function TermsField({
       <Col sm={9}>
         <RBCheckbox {...input}>
           {label}
-          {' '}
-          <HelpBlock className="terms-checkbox-field-link" onClick={onClick}>
-            {labelLink}
-          </HelpBlock>
-
           *
           {showError && <HelpBlock>{meta.error}</HelpBlock>}
         </RBCheckbox>
@@ -34,9 +29,7 @@ function TermsField({
 TermsField.propTypes = {
   input: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired,
-  labelLink: PropTypes.string.isRequired,
   meta: PropTypes.object.isRequired,
-  onClick: PropTypes.func.isRequired,
 };
 
 export default TermsField;
