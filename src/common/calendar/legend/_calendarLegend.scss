@@ -1,6 +1,10 @@
 .app-CalendarLegend {
   margin-top: 10px;
   text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 
   .color-box {
     width: 30px;
