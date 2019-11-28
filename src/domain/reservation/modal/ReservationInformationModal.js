@@ -21,8 +21,8 @@ const ReservationInformationModal = ({
   const saveComment = () => onSaveComment(reservation, comment);
   const normalizedReservation = Object.assign({}, reservation, { resource: reservation.resource.id });
 
-  const parentCallback = (childData) => {
-    toggleReservationCancelModal(childData);
+  const parentToggle = (bool) => {
+    toggleReservationCancelModal(bool);
   };
 
   const renderField = (label, value) => {
@@ -133,7 +133,9 @@ const ReservationInformationModal = ({
         </Button>
       </Modal.Footer>
       <ReservationCancelModal
-        parentCallback={parentCallback}
+        onEditReservation={onEditReservation}
+        parentToggle={parentToggle}
+        reservation={reservation}
         toggleShow={isReservationCancelModalOpen}
       />
     </Modal>
