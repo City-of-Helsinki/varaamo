@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Modal from 'react-bootstrap/lib/Modal';
 import { connect } from 'react-redux';
 import Toggle from 'react-toggle';
+import Button from 'react-bootstrap/lib/Button';
 
 import injectT from '../../../../app/i18n/injectT';
 import CompactReservationList from '../../../../app/shared/compact-reservation-list/CompactReservationList';
@@ -60,7 +61,9 @@ const ReservationCancelModal = ({
       show={show}
     >
       <Modal.Header closeButton>
-        <Modal.Title>{t('ReservationCancelModal.cancelAllowedTitle')}</Modal.Title>
+        <Modal.Title>
+          {t('ReservationCancelModal.cancelAllowedTitle')}
+        </Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -78,14 +81,26 @@ const ReservationCancelModal = ({
             reservation.resource
             && renderCheckBox(
               t('ReservationInformationForm.refundCheckBox'),
-              () => console.log('--- FOO ---')
+              () => console.log('checkbox')
             )
           }
         </div>
       </Modal.Body>
 
       <Modal.Footer>
-        Modal footer
+        <Button
+          bsStyle="default"
+          onClick={() => console.log('cancelAllowedCancel')}
+        >
+          {t('ReservationCancelModal.cancelAllowedCancel')}
+        </Button>
+        <Button
+          bsStyle="danger"
+          disabled
+          onClick={() => console.log('cancelAllowedConfirm')}
+        >
+          {t('ReservationCancelModal.cancelAllowedConfirm')}
+        </Button>
       </Modal.Footer>
     </Modal>
   );
