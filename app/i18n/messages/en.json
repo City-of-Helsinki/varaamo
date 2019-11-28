@@ -386,7 +386,7 @@
   "TimePickerCalendar.info.maxPeriodText": "Reservation must be shorter than {duration}h",
   "TimePickerCalendar.info.today": "Today",
 
-  "CalendarLegend.closed": "Closed",
+  "CalendarLegend.closed": "Unavailable",
   "CalendarLegend.selection": "Selected",
   "CalendarLegend.taken": "Taken",
   "CalendarLegend.available": "Available"
