@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CalendarLegend Legend render normally 1`] = `
+<div
+  className="app-CalendarLegend"
+>
+  <Col
+    bsClass="col"
+    componentClass="div"
+    md={3}
+  >
+    <div
+      className="color-box color-box__closed"
+    />
+    <p>
+      CalendarLegend.closed
+    </p>
+  </Col>
+  <Col
+    bsClass="col"
+    componentClass="div"
+    md={3}
+  >
+    <div
+      className="color-box color-box__selection"
+    />
+    <p>
+      CalendarLegend.selection
+    </p>
+  </Col>
+  <Col
+    bsClass="col"
+    componentClass="div"
+    md={3}
+  >
+    <div
+      className="color-box color-box__taken"
+    />
+    <p>
+      CalendarLegend.taken
+    </p>
+  </Col>
+  <Col
+    bsClass="col"
+    componentClass="div"
+    md={3}
+  >
+    <div
+      className="color-box color-box__available"
+    >
+      <span
+        className="dash"
+      />
+    </div>
+    <p>
+      CalendarLegend.available
+    </p>
+  </Col>
+</div>
+`;
