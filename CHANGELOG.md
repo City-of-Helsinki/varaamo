@@ -3,6 +3,9 @@
   - [#1071](https://github.com/City-of-Helsinki/varaamo/pull/1071) Edited My premise event styles and added payment status labels for ReservationInfoModal
   - [#1072](https://github.com/City-of-Helsinki/varaamo/pull/1072) Added Payment state labels & total price for User reservations list. Disabled edit button for end user if reservation is billable.
   - [#1073](https://github.com/City-of-Helsinki/varaamo/pull/1073) My premises now gets slotSize from resource.
+  - [#1074](https://github.com/City-of-Helsinki/varaamo/pull/1074) Changed payment and resource terms of service to text boxes.
+  - [#1075](https://github.com/City-of-Helsinki/varaamo/pull/1075) Added premise name text and sorted resources based on that (in My premises page).
+  - [#1076](https://github.com/City-of-Helsinki/varaamo/pull/1076) Added little colored boxes with texts to explain calendar event colors.
 
 # 0.7.0
   **MINOR CHANGES**

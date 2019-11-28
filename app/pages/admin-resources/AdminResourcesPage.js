@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchFavoritedResources } from '../../actions/resourceActions';
+import { fetchUnits } from '../../actions/unitActions';
 import {
   changeAdminResourcesPageDate,
   selectAdminResourceType,
@@ -32,6 +33,7 @@ class UnconnectedAdminResourcesPage extends Component {
   componentDidMount() {
     const interval = 10 * 60 * 1000;
     this.fetchResources();
+    this.props.actions.fetchUnits();
     this.updateResourcesTimer = window.setInterval(this.fetchResources, interval);
   }
 
@@ -127,6 +129,7 @@ function mapDispatchToProps(dispatch) {
     changeAdminResourcesPageDate,
     changeRecurringBaseTime: recurringReservations.changeBaseTime,
     fetchFavoritedResources,
+    fetchUnits,
     selectAdminResourceType,
     openConfirmReservationModal,
     unselectAdminResourceType,

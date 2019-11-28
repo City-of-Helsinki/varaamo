@@ -388,5 +388,10 @@
 
   "TimePickerCalendar.info.minPeriodText": "Bokningen måste vara minst {duration} timmar lång.",
   "TimePickerCalendar.info.maxPeriodText": "Bokningen får vara högst {duration} timmar lång.",
-  "TimePickerCalendar.info.today": "Idag"
+  "TimePickerCalendar.info.today": "Idag",
+
+  "CalendarLegend.closed": "Stängd",
+  "CalendarLegend.selection": "Vald",
+  "CalendarLegend.taken": "Tagen",
+  "CalendarLegend.available": "Tillgängligt"
 }

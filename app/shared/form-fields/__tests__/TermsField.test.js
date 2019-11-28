@@ -4,7 +4,6 @@ import Col from 'react-bootstrap/lib/Col';
 import RBCheckbox from 'react-bootstrap/lib/Checkbox';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
-import simple from 'simple-mock';
 
 import TermsField from '../TermsField';
 
@@ -65,38 +64,17 @@ describe('shared/form-fields/TermsField', () => {
     });
   });
 
-  describe('HelpBlock component with link', () => {
-    test('is rendered', () => {
-      const link = getWrapper().find('.terms-checkbox-field-link');
-      expect(link.length).toBe(1);
-    });
-
-    test('displays the help text given in props', () => {
-      const link = getWrapper().find('.terms-checkbox-field-link');
-      expect(link.props().children).toBe(defaultProps.labelLink);
-    });
-
-    test('onClick calls prop onClick', () => {
-      const onClick = simple.mock();
-      const link = getWrapper({ onClick }).find('.terms-checkbox-field-link');
-      expect(link.length).toBe(1);
-      expect(link.prop('onClick')).toBeDefined();
-      link.prop('onClick')();
-      expect(onClick.callCount).toBe(1);
-    });
-  });
-
   describe('HelpBlock component', () => {
     describe('if error', () => {
       const meta = { error: 'some error', touched: true };
       test('is rendered', () => {
         const helpBlock = getWrapper({ meta }).find(HelpBlock);
-        expect(helpBlock.length).toBe(2);
+        expect(helpBlock.length).toBe(1);
       });
 
       test('displays the error text given in props', () => {
         const helpBlock = getWrapper({ meta }).find(HelpBlock);
-        expect(helpBlock.at(1).props().children).toBe(meta.error);
+        expect(helpBlock.at(0).props().children).toBe(meta.error);
       });
     });
 
@@ -104,7 +82,7 @@ describe('shared/form-fields/TermsField', () => {
       const meta = {};
       test('is not rendered', () => {
         const helpBlock = getWrapper({ meta }).find(HelpBlock);
-        expect(helpBlock.length).toBe(1);
+        expect(helpBlock.length).toBe(0);
       });
     });
   });

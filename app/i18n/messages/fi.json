@@ -396,5 +396,10 @@
 
   "TimePickerCalendar.info.minPeriodText": "Varauksen on kestettävä vähintään {duration} tuntia.",
   "TimePickerCalendar.info.maxPeriodText": "Varaus saa kestää enimmillään {duration} tuntia.",
-  "TimePickerCalendar.info.today": "Tänään"
+  "TimePickerCalendar.info.today": "Tänään",
+
+  "CalendarLegend.closed": "Suljettu",
+  "CalendarLegend.selection": "Varauksesi",
+  "CalendarLegend.taken": "Varattu",
+  "CalendarLegend.available": "Varattavissa"
 }

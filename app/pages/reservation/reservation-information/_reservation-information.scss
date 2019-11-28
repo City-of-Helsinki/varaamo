@@ -21,4 +21,13 @@
 
 .reservation-form-top-bottom {
   padding-top: 0 !important;
+
+  .terms-box {
+    border: 1px solid #abb2bd;
+    width: 100%;
+    height: 300px;
+    padding: 10px 20px;
+    overflow: auto;
+    margin-bottom: 5px;
+  }
 }
