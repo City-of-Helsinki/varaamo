@@ -110,10 +110,7 @@ const ReservationInformationModal = ({
 
         <Button
           bsStyle="default"
-          onClick={() => {
-            // onEditReservation(reservation, RESERVATION_STATE.CANCELLED)
-            toggleReservationCancelModal(!isReservationCancelModalOpen);
-          }}
+          onClick={() => toggleReservationCancelModal(!isReservationCancelModalOpen)}
         >
           {t('ReservationInfoModal.cancelButton')}
         </Button>

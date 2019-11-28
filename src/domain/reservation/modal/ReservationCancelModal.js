@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/lib/Button';
 
 import injectT from '../../../../app/i18n/injectT';
 import CompactReservationList from '../../../../app/shared/compact-reservation-list/CompactReservationList';
+import { RESERVATION_STATE } from '../../../constants/ReservationState';
 
 const mapStateToProps = (state) => {
   return {
@@ -57,7 +58,7 @@ const ReservationCancelModal = ({
   };
 
   const handleCancel = () => {
-    // implement handleCancel
+    onEditReservation(reservation, RESERVATION_STATE.CANCELLED);
   };
 
   return (
