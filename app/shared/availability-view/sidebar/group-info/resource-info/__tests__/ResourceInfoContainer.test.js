@@ -16,6 +16,7 @@ function getState() {
           isFavorite: false,
           peopleCapacity: 9,
           public: true,
+          unitName: ''
         },
       },
     },
@@ -32,6 +33,7 @@ describe('shared/availability-view/ResourceInfoContainer', () => {
       name: 'Resource name',
       peopleCapacity: 19,
       public: true,
+      unitName: ''
     };
     return shallowWithIntl(<ResourceInfo {...defaults} {...props} />);
   }
@@ -82,6 +84,7 @@ describe('shared/availability-view/ResourceInfoContainer', () => {
         name: 'Resource Name',
         peopleCapacity: 9,
         public: true,
+        unitName: ''
       });
     });
   });
