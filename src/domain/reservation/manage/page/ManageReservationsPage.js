@@ -143,7 +143,6 @@ class ManageReservationsPage extends React.Component {
 
   // The same function is passed to ManageReservationsList, ReservationInformationModal AND ReservationCancelModal!!!
   onEditReservation = async (reservation, status, openReservationCancelModal = false) => {
-    console.log('>>> onEditReservation openReservationCancelModal', openReservationCancelModal);
     try {
       if (status === RESERVATION_STATE.CANCELLED) {
         if (openReservationCancelModal) {
@@ -156,8 +155,9 @@ class ManageReservationsPage extends React.Component {
           });
         } else {
           // We are calling ReservationCancelModal via ReservationInformationModal.
-          // await reservationUtils.cancelReservation(reservation);
-          await setTimeout(() => { console.log('--- Timeout ---'); }, 1);
+          await reservationUtils.cancelReservation(reservation);
+          // We need to close the ReservationCancelModal.
+          this.parentToggle(false);
         }
       } else {
         await reservationUtils.putReservation(reservation, { state: status });
